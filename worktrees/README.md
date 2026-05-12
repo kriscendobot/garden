@@ -34,16 +34,14 @@ prs:                                 # optional, list any PRs the work spans
 
 ## Maintenance
 
-The journal index is the authoritative cross-machine record. Each worktree also has a per-worktree `.garden/worktree.toml` for fast in-worktree reads (the occupying agent updates its own heartbeat there); the toml is a cache and the journal entry is the source of truth.
+The journal index entry is the *single* authoritative state file for a worktree. There is no per-worktree TOML cache; agents read and write the journal entry directly via `skills/journal-sync/SKILL.md`. Concurrent edits from different machines merge cleanly because each worktree has its own file.
 
 Lifecycle:
 
-- **Create.** When a fork worktree is added (per `WORKTREES.md` § Adding a fork worktree), the dispatcher writes both the per-worktree toml *and* a new `worktrees/<host>/<name>.md` here, then commits and pushes the journal entry per `skills/journal-sync/SKILL.md`.
-- **Heartbeat.** The occupying agent bumps `last_heartbeat` and `status` in both files on each tick. The journal write goes through journal-sync; multiple heartbeat-only updates in a row that bring no other change can be batched (one push per N ticks) to avoid noise, but the per-worktree toml update is always immediate.
-- **PR binding.** When the work in a worktree first opens or attaches to a PR (in any repo), append the `prs:` entry. PRs across multiple repos for one worktree are recorded as separate `prs:` list entries.
-- **Collect.** When a worktree becomes collectable per `WORKTREES.md`, set `status: collected` (do not delete the file). The journal index keeps the historical record; the per-worktree toml goes away with the worktree.
-
-A `status: collected` entry is intentionally retained: future cycles often need to find "what worktree did we use for the X handoff" without scanning git history. Collected entries are read-only thereafter.
+- **Create.** When a fork worktree is added (per `WORKTREES.md` § Adding a fork worktree), the dispatcher writes a new `worktrees/<host>/<name>.md` here and pushes it.
+- **Heartbeat.** The occupying agent bumps `last_heartbeat` and (if changed) `status` on each tick that produces a journal-worthy event. Pure-heartbeat ticks that bring nothing else may be skipped; the cross-machine reaper interprets a missing heartbeat against the configured idle threshold (default 1 hour) as collectable, so heartbeats need only fire often enough to stay under that threshold.
+- **PR binding.** When the work in a worktree first opens or attaches to a PR (in any repo), append the `prs:` entry. PRs across multiple repos for one worktree are recorded as separate `prs:` list items.
+- **Collect.** When a worktree becomes collectable per `WORKTREES.md`, set `status: collected` (do not delete the file). The journal index keeps the historical record so future cycles can answer "which worktree did we use for the X handoff" without scanning git history. Collected entries are read-only thereafter.
 
 ## Current entries
 
