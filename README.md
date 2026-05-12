@@ -36,17 +36,27 @@ The maintainer (or the liaison after maintainer confirmation) may pre-stage `ide
 
 (none)
 
+### Pending kriskowal reviews
+
+PRs across all visible repos where `kriskowal` is currently a requested reviewer. The [review-queue](../roles/review-queue/AGENT.md) role on the `main` branch rewrites the body of this section between the delimiters below whenever its daemon reports an ADD or REMOVE. Order is the three-tier rule documented in `roles/review-queue/AGENT.md` § Priority and ordering: (1) ball-back-in-your-court (kriskowal's prior `CHANGES_REQUESTED` followed by a push), (2) explicit re-request, (3) fresh request newest first, with draft PRs grouped at the bottom within each tier. The maintainer reviews the PR on GitHub; the next review-queue cycle picks up the resolution and removes the line.
+
+<!-- BEGIN pending-kriskowal-reviews -->
+(none)
+<!-- END pending-kriskowal-reviews -->
+
+
 ## Ongoing work
 
 ### Active worktrees
 
 Full index at [`worktrees/README.md`](worktrees/README.md). Currently active or reserved:
 
-(no active or reserved worktrees right now; one `idle` integration scratch worktree exists, see the index for details)
+- `endolinbot`: 4 active standing monitors (`watch-endo`, `watch-endo-but-for-bots`, `watch-agoric-sdk`, `watch-cosgov`) on `endojs/endo`, `endojs/endo-but-for-bots`, `agoric/agoric-sdk`, `dcfoundation/cosmos-proposal-builder` respectively.
+- `kmkmbp2021`: 1 idle integration scratch worktree (`integrate--liaison--20260512-194515`), see the index.
 
 ### Open monitors
 
-(none running yet)
+`endolinbot` runs 5 long-lived poll daemons via the steward's standing-monitors discipline (see `roles/steward/AGENT.md` § Standing monitors on the `main` branch). Cadences: `endo` 60s, `endo-but-for-bots` 30s, `agoric-sdk` 60s, `cosgov` 60s, `review-queue` 120s. PIDs and logs in `/tmp/garden-monitor-*.{pid,log,err}` and `/tmp/garden-review-queue.{pid,log,err}`.
 
 ### Recent activity
 

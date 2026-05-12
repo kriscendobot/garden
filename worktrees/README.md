@@ -50,3 +50,7 @@ Lifecycle:
 | Host | Worktree | Repo | Branch | Role | Status |
 |------|----------|------|--------|------|--------|
 | kmkmbp2021 | [integrate--liaison--20260512-194515](./kmkmbp2021/integrate--liaison--20260512-194515.md) | endojs/endo-but-for-bots | garden | liaison | idle |
+| endolinbot | [watch-endo--monitor--20260512-233305](./endolinbot/watch-endo--monitor--20260512-233305.md) | endojs/endo | master | monitor | active |
+| endolinbot | [watch-endo-but-for-bots--monitor--20260512-233307](./endolinbot/watch-endo-but-for-bots--monitor--20260512-233307.md) | endojs/endo-but-for-bots | llm | monitor | active |
+| endolinbot | [watch-agoric-sdk--monitor--20260512-233309](./endolinbot/watch-agoric-sdk--monitor--20260512-233309.md) | agoric/agoric-sdk | master | monitor | active |
+| endolinbot | [watch-cosgov--monitor--20260512-233310](./endolinbot/watch-cosgov--monitor--20260512-233310.md) | dcfoundation/cosmos-proposal-builder | main | monitor | active |
