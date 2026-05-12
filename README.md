@@ -12,7 +12,9 @@ The schema for journal entries and the writing procedure live in `roles/COMMON.m
 
 ## Bulletin board
 
-Items here need a human maintainer's attention. Newest at top within each section. **Clear an item by editing this file (delete the line or mark it `[handled <YYYY-MM-DD>]`) and pushing the change back.** Agents post here; the maintainer clears.
+Items here need a human maintainer's attention. Newest at top within each section. **Agents own the bulletin entirely: they post when something needs maintainer attention and they clear the item once they detect the underlying condition is resolved.** The maintainer never edits this section. Read it, then act in the natural place (review the PR on GitHub, comment on the issue, fix the deployment); the next steward cycle picks up the change and clears the bulletin item.
+
+If a posted item lingers because its resolution is hard to detect automatically, that itself is worth flagging in the next agent's report or as a self-improvement update to the relevant skill.
 
 ### Awaits maintainer review
 
@@ -52,6 +54,6 @@ For the flat chronological view, run `git log` on this branch or browse [`entrie
 
 ## Maintenance
 
-- **Bulletin items** may be posted by any agent via `skills/journal-sync/SKILL.md` (on the `main` branch). The maintainer clears handled items.
+- **Bulletin items**: posted *and cleared* by agents via `skills/journal-sync/SKILL.md` (on the `main` branch). The steward typically clears items during its per-cycle close, by re-checking each item's underlying condition (was the PR reviewed? was the decision made? was the staged authorization forwarded?) and dropping items whose condition is resolved. The maintainer never edits the bulletin.
 - **Ongoing work** sections are kept current by the steward (during its per-cycle close) and by the liaison (when it does worktree-manager work). Subagents do not update these sections directly; they post `message` entries to `entries/` that the orchestrator promotes here when warranted.
 - **Schemas** for entries and for worktree index files live in `roles/COMMON.md` (on the `main` branch) and in [`worktrees/README.md`](worktrees/README.md) respectively.
