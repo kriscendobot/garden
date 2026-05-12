@@ -6,7 +6,7 @@ author: liaison
 
 # Garden journal
 
-This is the orphan `journal` branch of `kriskowal/garden`. The garden's transcript and message bus lives here: append-only entries under [`entries/`](entries/), the cross-machine worktree index under [`worktrees/`](worktrees/), and this file is the maintainer dashboard.
+This is the orphan `journal` branch of `kriskowal/garden`. The garden's transcript and message bus lives here: append-only entries under [`entries/`](entries/), the cross-machine worktree index under [`worktrees/`](worktrees/), the terminated-agent archive under [`agents/`](agents/), and this file is the maintainer dashboard.
 
 The schema for journal entries and the writing procedure live in `roles/COMMON.md` § The journal on the `main` branch.
 
