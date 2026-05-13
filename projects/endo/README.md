@@ -24,6 +24,17 @@ Operational details for switching between the two (separate `gh` hosts, separate
 - Default branch: `master`
 - Standing monitor on this host: `worktrees/endojs-endo/watch-endo--monitor--20260512-233305/`; daemon cadence 60s.
 
+## Authority structure
+
+Default authority for technical and project-scope decisions on this repo rests with kriskowal as maintainer. One named exception:
+
+- **erights** (Mark S. Miller) is a senior contributor whose authority meets or exceeds kriskowal's on a defined set of topics: `pass-style`, `ses`, `hardened-JS`, `marshal`, `eventual-send`, `captp`, `patterns`, the OCapN-family protocol, and capability-security generally. These are the subsystems and concepts erights designed or co-authored; his review or substantive comment on a PR that touches any of them carries kriskowal-equivalent (or greater) weight on the *technical question*. A `CHANGES_REQUESTED` or substantive `COMMENTED` review from erights on a topic-matching PR routes the same way a maintainer review would: the garden treats it as a directive on the technical merits and the fixer addresses it. (Authorization to *act* on erights' review still flows through the kriskowal authorization chain in `roles/COMMON.md` § External-repo etiquette; senior-contributor weight changes how the garden reads the review's technical content, not who gets to push.)
+- Outside those topics, on garden-internal infrastructure, or on scope unrelated to the listed subsystems, erights' input is senior-contributor input rather than maintainer-equivalent. The garden surfaces it loudly to the maintainer but does not auto-route to a fixer.
+
+The practical rule: on a topic-matching PR, erights' review is read as technically authoritative; on anything else, it is high-signal input the maintainer adjudicates.
+
+The pattern is reusable. Future per-project READMEs may name their own non-default-authority actors and topic-scopes; the section's shape (named actor, topic list, practical rule for in-scope vs. out-of-scope input) is intended to carry over. See `roles/COMMON.md` § Authority structure of upstream projects for the cross-project framing.
+
 ## Per-topic detail
 
 (None yet. The [scholar](../../../roles/scholar/AGENT.md) on the `main` branch grows topic files from project-tagged journal entries; per the [context-library](../../../skills/context-library/SKILL.md) skill on the `main` branch, new topics get their own sibling file rather than expanding this README.)
