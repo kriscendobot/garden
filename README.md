@@ -243,7 +243,7 @@ If a posted item lingers because its resolution is hard to detect automatically,
 ### Scheduled engagements
 
 - **2026-05-17** — weekly `major-general` enumeration sweep for direct-dependency major-version upgrades on `endojs/endo-but-for-bots`. Source: prior-garden `process/major-generalship.md`, mirrored at [`entries/2026/05/13/000100Z-message-steward-d95cb2.md`](entries/2026/05/13/000100Z-message-steward-d95cb2.md). The role is not active in this garden's library yet; if today is on or past the date and the role has not landed, surface the engagement to the liaison rather than dispatching.
-- **2026-05-20** — refresh the #205 CI latency report on `endojs/endo-but-for-bots` (steward). Prior report at [`entries/2026/05/13/004753Z-message-steward-1f0703.md`](entries/2026/05/13/004753Z-message-steward-1f0703.md). The maintainer asked for periodic refreshes to track #121's effect.
+- **2026-05-20** — refresh the #205 CI latency report on `endojs/endo-but-for-bots` (steward). Prior report at [`entries/2026/05/13/004753Z-message-steward-1f0703.md`](entries/2026/05/13/004753Z-message-steward-1f0703.md). The maintainer asked for periodic refreshes to track #121's effect. Now also serving as the post-merge evaluation for **#121 (turborepo CI)**, which merged 2026-05-13 at `b21f63b`; comparing the pre-merge baseline against the first week post-merge will inform whether the same changes should land on the main `endojs/endo` repo (per kriskowal #121#issuecomment, 2026-05-13T21:50:Z).
 
 
 ## Ongoing work
