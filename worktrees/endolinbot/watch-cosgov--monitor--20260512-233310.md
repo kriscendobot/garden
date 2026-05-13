@@ -7,7 +7,7 @@ branch: main
 role: monitor
 status: active
 created_at: 2026-05-12T23:33:10Z
-last_heartbeat: 2026-05-12T23:33:29Z
+last_heartbeat: 2026-05-13T02:30:47Z
 task: "Monitor dcfoundation/cosmos-proposal-builder (aka cosgov) events feed; per-project reactions in skills/monitor-cosgov/SKILL.md"
 prs: []
 ---
