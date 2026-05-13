@@ -1,14 +1,14 @@
 ---
 created: 2026-05-12
 updated: 2026-05-13
-author: liaison
+author: liaison, gardener
 ---
 
 # Garden journal
 
-This is the orphan `journal` branch of `kriskowal/garden`. The garden's transcript and message bus lives here: append-only entries under [`entries/`](entries/), the cross-machine worktree index under [`worktrees/`](worktrees/), the terminated-agent archive under [`agents/`](agents/), and this file is the maintainer dashboard.
+This is the orphan `journal` branch of `kriskowal/garden`. The garden's transcript and message bus lives here: append-only entries under [`entries/`](entries/), the cross-machine worktree index under [`worktrees/`](worktrees/), the per-project context tree under [`projects/`](projects/), the terminated-agent archive under [`agents/`](agents/), and this file is the maintainer dashboard.
 
-The schema for journal entries and the writing procedure live in `roles/COMMON.md` § The journal on the `main` branch.
+The schema for journal entries and the writing procedure live in `roles/COMMON.md` § The journal on the `main` branch. The "how this section is maintained" prose for each bulletin section below lives in the relevant role file (the journalist for *Pending kriskowal reviews* and *PR backlog*, the steward for the rest); this dashboard carries headings + items + delimiter comments only.
 
 ## Bulletin board
 
@@ -16,77 +16,7 @@ Items here need a human maintainer's attention. Newest at top within each sectio
 
 If a posted item lingers because its resolution is hard to detect automatically, that itself is worth flagging in the next agent's report or as a self-improvement update to the relevant skill.
 
-### Awaits maintainer review
-
-(none)
-
-### PR backlog
-
-Items waiting on a per-PR role dispatch (not on maintainer action). The steward picks up rows here when an appropriate role becomes available and the dispatch's per-action authorizations are staged. Rows clear when the underlying PR transitions out of the waiting state (merge, close, review-state change). Sources: [`entries/2026/05/13/004800Z-message-steward-f78473.md`](entries/2026/05/13/004800Z-message-steward-f78473.md) (the freshness check) and [`entries/2026/05/13/005956Z-message-steward-aa32fc.md`](entries/2026/05/13/005956Z-message-steward-aa32fc.md) (the port request).
-
-<!-- BEGIN pr-backlog -->
-#### Milestone 1: Remote Access and Coding Capabilities
-
-- [endojs/endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134): feat(docker,daemon): docker self-hosting, foreground daemon, CIDR gate, static files (re-opened from #47 under the bot) (waiting on: fixer; CHANGES_REQUESTED, blocker #199 has landed)
-
-#### Milestone 3: Weblets and Integrations
-
-- [endojs/endo-but-for-bots#128](https://github.com/endojs/endo-but-for-bots/pull/128): feat(cli): assorted CLI additions, workers, zip checkin/out, read-text, write-text (re-opened from #38 under the bot) (waiting on: fixer + exo-zip/exo-unzip merge (#160); CHANGES_REQUESTED; depends on #160)
-
-#### Milestone 4: UX Polish and Agent Tooling
-
-- [endojs/endo-but-for-bots#125](https://github.com/endojs/endo-but-for-bots/pull/125): feat(daemon): add editMessage and messageHistory (re-opened from #23 under the bot) (waiting on: fixer; MERGEABLE + CHANGES_REQUESTED)
-- [endojs/endo-but-for-bots#151](https://github.com/endojs/endo-but-for-bots/pull/151): feat(cli): endo workers verb (extracted from #128, implements designs/workers-panel.md) (waiting on: fixer; CHANGES_REQUESTED)
-
-#### Unclassified: endojs/endo-but-for-bots
-
-- [endojs/endo-but-for-bots#147](https://github.com/endojs/endo-but-for-bots/pull/147): feat(lal): add OpenRouter provider and share OpenAI Chat shape (waiting on: 0xpatrickdev's approval; APPROVED by kriskowal who deferred)
-- [endojs/endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160): feat(exo-zip,exo-unzip): split into write-side + read-side per kriskowal naming (closes #154) (waiting on: kriskowal to pick a name pair; CHANGES_REQUESTED)
-- [endojs/endo-but-for-bots#165](https://github.com/endojs/endo-but-for-bots/pull/165): design(cli,daemon): scheduled-send via reactor + schedule (PR #145 design revision) (waiting on: weaver, then fixer, then maintainer re-review; CONFLICTING + CHANGES_REQUESTED)
-- [endojs/endo-but-for-bots#169](https://github.com/endojs/endo-but-for-bots/pull/169): design: pass-style promise (non-thenable; closes #168) (waiting on: weaver, then kriskowal to confirm Option A vs B; CONFLICTING + PENDING)
-- [endojs/endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170): feat(pass-style,marshal,eventual-send,captp): pass-style promise + HandledPromise.settle (per #169) (waiting on: kriskowal pick on #169 + kumavis follow-up; PENDING)
-- [endojs/endo-but-for-bots#174](https://github.com/endojs/endo-but-for-bots/pull/174): test: repro empty-{} rendering of Error reasons in disconnect trap (#171) (waiting on: kriskowal review; PENDING)
-- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178): refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting on: fixer; CHANGES_REQUESTED)
-- [endojs/endo-but-for-bots#179](https://github.com/endojs/endo-but-for-bots/pull/179): feat(daemon,chat): record host commands in chat transcript via commands-as-messages (re-opened from #45 under the bot) (waiting on: fixer; CHANGES_REQUESTED)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182): test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting on: kriskowal review; PENDING)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186): feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting on: fixer; CHANGES_REQUESTED)
-- [endojs/endo-but-for-bots#203](https://github.com/endojs/endo-but-for-bots/issues/203) (issue): chat: integrate daemon editMessage / messageHistory in inbox and channel UIs (waiting on: designer)
-- [endojs/endo-but-for-bots#205](https://github.com/endojs/endo-but-for-bots/issues/205) (issue): CI Latency Telemetry (waiting on: scout, or steward + comment authorization to land the prior baseline report)
-<!-- END pr-backlog -->
-
-### Awaits maintainer decision
-
-- **Land the #205 CI-latency baseline report on the issue.** The steward computed it ([`entries/2026/05/13/004753Z-message-steward-1f0703.md`](entries/2026/05/13/004753Z-message-steward-1f0703.md)) but cannot post to endojs/endo-but-for-bots#205 without authorization. Either copy the report body verbatim to the issue, or pre-stage a bot-comment authorization (see *Pre-staged authorizations*).
-- **Two endo-but-for-bots workflows are at 100% failure** across the last ~3 weeks of master runs: `Deploy TypeDoc site with GitHub Pages` (11/11) and `Release` (11/11). All failures are sub-2-minute (likely auth/config). Separate from the CI latency question on #205. See same entry above.
-
-### Surplus authority discovered
-
-The steward writes here when it finds itself able to do something its authority bounds forbid. See `roles/steward/AGENT.md` § Authority enforcement on the `main` branch.
-
-(none)
-
-### Pre-staged authorizations
-
-The maintainer (or the liaison after maintainer confirmation) may pre-stage `identity_switch_authorized` for boatman handoffs and per-action cross-repo authorizations for any role. The steward forwards staged authorizations into the relevant dispatch prompt; entries here are cleared after the gated dispatch happens. See `roles/COMMON.md` § External-repo etiquette on the `main` branch.
-
-- **`kriscendobot` write access to `endojs/ocapn-test-suite`.** The maintainer granted the bot push access to the endojs fork of the OCapN test suite, with two constraints attached: the work starts from a specific upstream commit on `ocapn/ocapn-test-suite`, and no PR is to be opened against the OCapN-org upstream. The bot's pre-grant analysis on PR #109 referenced the pin in two comments, so the hash is recorded inline here to spare future agents the re-derivation.
-  - Identity: `kriscendobot`.
-  - Action: push branches and commits to `endojs/ocapn-test-suite`.
-  - Baseline (Constraint A): start from `74db78f08a40efba1e2b975d809374ff0e7acf60` on `ocapn/ocapn-test-suite`. Origin of the pin: kriscendobot's investigation comments on PR #109 ([issuecomment-4427618615](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4427618615) and [issuecomment-4427633977](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4427633977)) anchor every "current state of the Python suite" claim on that commit (verified: it is `Merge pull request #35 ... pluralize-gc-ops`, dated 2026-02-25). The maintainer's grant comment ("Be sure to use the hash pinned from here as a baseline") refers back to those anchors. PR #109's own `baseRefOid` (`c2fc02eb8bf674389a8445ce785ff5eff36ed5aa`) and `headRefOid` (`4ffb3d84e50c35f330d90e7e600040944e789a3c`) are on `endojs/endo-but-for-bots` and are not the baseline; they are noted here only to rule them out.
-  - No-upstream (Constraint B): do **not** open a PR against `ocapn/ocapn-test-suite`. Work stays on `endojs/ocapn-test-suite` only.
-  - Source: [endojs/endo-but-for-bots#109#issuecomment-4436075344](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4436075344) (kriskowal, 2026-05-13T00:54:05Z); steward write-up at [`entries/2026/05/13/012400Z-result-steward-da0309.md`](entries/2026/05/13/012400Z-result-steward-da0309.md).
-  - Clearing: the row stays until a future dispatch picks up the authorization and pushes the agreed branch. The dispatching liaison clears it at that future time.
-
-### Scheduled engagements
-
-Date-keyed work the steward should dispatch on or after the listed date. Each cycle's close should check this section; when today >= the date, dispatch the named role and clear the row when the engagement is fulfilled (the source-of-truth doc is then expected to carry forward the next date, if any). New rows enter when a role's source doc records a scheduled engagement.
-
-- **2026-05-17** — weekly `major-general` enumeration sweep for direct-dependency major-version upgrades on `endojs/endo-but-for-bots`. Source: prior-garden `process/major-generalship.md`, mirrored at [`entries/2026/05/13/000100Z-message-steward-d95cb2.md`](entries/2026/05/13/000100Z-message-steward-d95cb2.md). The role is not active in this garden's library yet; if today is on or past the date and the role has not landed, surface the engagement to the liaison rather than dispatching.
-- **2026-05-20** — refresh the #205 CI latency report on `endojs/endo-but-for-bots` (steward). Prior report at [`entries/2026/05/13/004753Z-message-steward-1f0703.md`](entries/2026/05/13/004753Z-message-steward-1f0703.md). The maintainer asked for periodic refreshes to track #121's effect.
-
 ### Pending kriskowal reviews
-
-PRs across all visible repos where `kriskowal` is currently a requested reviewer. The [review-queue](../roles/review-queue/AGENT.md) role on the `main` branch rewrites the body of this section between the delimiters below whenever its daemon reports an ADD or REMOVE. Order is the three-tier rule documented in `roles/review-queue/AGENT.md` § Priority and ordering: (1) ball-back-in-your-court (kriskowal's prior `CHANGES_REQUESTED` followed by a push), (2) explicit re-request, (3) fresh request newest first, with draft PRs grouped at the bottom within each tier. The maintainer reviews the PR on GitHub; the next review-queue cycle picks up the resolution and removes the line.
 
 <!-- BEGIN pending-kriskowal-reviews -->
 #### Milestone 1: Remote Access and Coding Capabilities
@@ -251,6 +181,67 @@ PRs across all visible repos where `kriskowal` is currently a requested reviewer
 - [uber-archive/idl#89](https://github.com/uber-archive/idl/pull/89): Prevent fetch calls on IDL files (by @peats-bond, updated 7y ago)
 - [uber-archive/idl#90](https://github.com/uber-archive/idl/pull/90): Fix various lint errors (by @peats-bond, updated 8y ago)
 <!-- END pending-kriskowal-reviews -->
+
+### PR backlog
+
+<!-- BEGIN pr-backlog -->
+#### Milestone 1: Remote Access and Coding Capabilities
+
+- [endojs/endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134): feat(docker,daemon): docker self-hosting, foreground daemon, CIDR gate, static files (re-opened from #47 under the bot) (waiting on: fixer; CHANGES_REQUESTED, blocker #199 has landed)
+
+#### Milestone 3: Weblets and Integrations
+
+- [endojs/endo-but-for-bots#128](https://github.com/endojs/endo-but-for-bots/pull/128): feat(cli): assorted CLI additions, workers, zip checkin/out, read-text, write-text (re-opened from #38 under the bot) (waiting on: fixer + exo-zip/exo-unzip merge (#160); CHANGES_REQUESTED; depends on #160)
+
+#### Milestone 4: UX Polish and Agent Tooling
+
+- [endojs/endo-but-for-bots#125](https://github.com/endojs/endo-but-for-bots/pull/125): feat(daemon): add editMessage and messageHistory (re-opened from #23 under the bot) (waiting on: fixer; MERGEABLE + CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#151](https://github.com/endojs/endo-but-for-bots/pull/151): feat(cli): endo workers verb (extracted from #128, implements designs/workers-panel.md) (waiting on: fixer; CHANGES_REQUESTED)
+
+#### Unclassified: endojs/endo-but-for-bots
+
+- [endojs/endo-but-for-bots#147](https://github.com/endojs/endo-but-for-bots/pull/147): feat(lal): add OpenRouter provider and share OpenAI Chat shape (waiting on: 0xpatrickdev's approval; APPROVED by kriskowal who deferred)
+- [endojs/endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160): feat(exo-zip,exo-unzip): split into write-side + read-side per kriskowal naming (closes #154) (waiting on: kriskowal to pick a name pair; CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#165](https://github.com/endojs/endo-but-for-bots/pull/165): design(cli,daemon): scheduled-send via reactor + schedule (PR #145 design revision) (waiting on: weaver, then fixer, then maintainer re-review; CONFLICTING + CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#169](https://github.com/endojs/endo-but-for-bots/pull/169): design: pass-style promise (non-thenable; closes #168) (waiting on: weaver, then kriskowal to confirm Option A vs B; CONFLICTING + PENDING)
+- [endojs/endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170): feat(pass-style,marshal,eventual-send,captp): pass-style promise + HandledPromise.settle (per #169) (waiting on: kriskowal pick on #169 + kumavis follow-up; PENDING)
+- [endojs/endo-but-for-bots#174](https://github.com/endojs/endo-but-for-bots/pull/174): test: repro empty-{} rendering of Error reasons in disconnect trap (#171) (waiting on: kriskowal review; PENDING)
+- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178): refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting on: fixer; CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#179](https://github.com/endojs/endo-but-for-bots/pull/179): feat(daemon,chat): record host commands in chat transcript via commands-as-messages (re-opened from #45 under the bot) (waiting on: fixer; CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182): test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting on: kriskowal review; PENDING)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186): feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting on: fixer; CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#203](https://github.com/endojs/endo-but-for-bots/issues/203) (issue): chat: integrate daemon editMessage / messageHistory in inbox and channel UIs (waiting on: designer)
+- [endojs/endo-but-for-bots#205](https://github.com/endojs/endo-but-for-bots/issues/205) (issue): CI Latency Telemetry (waiting on: scout, or steward + comment authorization to land the prior baseline report)
+<!-- END pr-backlog -->
+
+### Awaits maintainer review
+
+(none)
+
+### Awaits maintainer decision
+
+- **Land the #205 CI-latency baseline report on the issue.** The steward computed it ([`entries/2026/05/13/004753Z-message-steward-1f0703.md`](entries/2026/05/13/004753Z-message-steward-1f0703.md)) but cannot post to endojs/endo-but-for-bots#205 without authorization. Either copy the report body verbatim to the issue, or pre-stage a bot-comment authorization (see *Pre-staged authorizations*).
+- **Two endo-but-for-bots workflows are at 100% failure** across the last ~3 weeks of master runs: `Deploy TypeDoc site with GitHub Pages` (11/11) and `Release` (11/11). All failures are sub-2-minute (likely auth/config). Separate from the CI latency question on #205. See same entry above.
+- **Scholar cadence + start signal.** The `scholar` role (autonomous index-grower for `journal/projects/`) is landed but waits on the maintainer to (a) choose the cadence (default is idle mode, 1800s to 3600s per `skills/autonomous-loop-pacing/SKILL.md`; maintainer-tunable in `roles/scholar/AGENT.md` § Cadence) and (b) signal "start" so the first cycle fires. See `roles/scholar/AGENT.md` on the `main` branch for the contract; the seeded `journal/projects/<slug>/README.md` files (the scholar's initial input set) are in place. The row clears when the first scholar cycle's `result` entry lands.
+
+### Pre-staged authorizations
+
+- **`kriscendobot` write access to `endojs/ocapn-test-suite`.** The maintainer granted the bot push access to the endojs fork of the OCapN test suite, with two constraints attached: the work starts from a specific upstream commit on `ocapn/ocapn-test-suite`, and no PR is to be opened against the OCapN-org upstream. The bot's pre-grant analysis on PR #109 referenced the pin in two comments, so the hash is recorded inline here to spare future agents the re-derivation.
+  - Identity: `kriscendobot`.
+  - Action: push branches and commits to `endojs/ocapn-test-suite`.
+  - Baseline (Constraint A): start from `74db78f08a40efba1e2b975d809374ff0e7acf60` on `ocapn/ocapn-test-suite`. Origin of the pin: kriscendobot's investigation comments on PR #109 ([issuecomment-4427618615](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4427618615) and [issuecomment-4427633977](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4427633977)) anchor every "current state of the Python suite" claim on that commit (verified: it is `Merge pull request #35 ... pluralize-gc-ops`, dated 2026-02-25). The maintainer's grant comment ("Be sure to use the hash pinned from here as a baseline") refers back to those anchors. PR #109's own `baseRefOid` (`c2fc02eb8bf674389a8445ce785ff5eff36ed5aa`) and `headRefOid` (`4ffb3d84e50c35f330d90e7e600040944e789a3c`) are on `endojs/endo-but-for-bots` and are not the baseline; they are noted here only to rule them out.
+  - No-upstream (Constraint B): do **not** open a PR against `ocapn/ocapn-test-suite`. Work stays on `endojs/ocapn-test-suite` only.
+  - Source: [endojs/endo-but-for-bots#109#issuecomment-4436075344](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4436075344) (kriskowal, 2026-05-13T00:54:05Z); steward write-up at [`entries/2026/05/13/012400Z-result-steward-da0309.md`](entries/2026/05/13/012400Z-result-steward-da0309.md).
+  - Clearing: the row stays until a future dispatch picks up the authorization and pushes the agreed branch. The dispatching liaison clears it at that future time.
+
+### Surplus authority discovered
+
+(none)
+
+### Scheduled engagements
+
+- **2026-05-17** — weekly `major-general` enumeration sweep for direct-dependency major-version upgrades on `endojs/endo-but-for-bots`. Source: prior-garden `process/major-generalship.md`, mirrored at [`entries/2026/05/13/000100Z-message-steward-d95cb2.md`](entries/2026/05/13/000100Z-message-steward-d95cb2.md). The role is not active in this garden's library yet; if today is on or past the date and the role has not landed, surface the engagement to the liaison rather than dispatching.
+- **2026-05-20** — refresh the #205 CI latency report on `endojs/endo-but-for-bots` (steward). Prior report at [`entries/2026/05/13/004753Z-message-steward-1f0703.md`](entries/2026/05/13/004753Z-message-steward-1f0703.md). The maintainer asked for periodic refreshes to track #121's effect.
 
 
 ## Ongoing work
