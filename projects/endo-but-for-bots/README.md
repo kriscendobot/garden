@@ -14,6 +14,17 @@ The endo fork the garden actively develops. Upstream is [endojs/endo-but-for-bot
 
 Same shape as endo: `kriscendobot` for routine work on forks, `kriskowal` for upstream landings. Most work in this repo happens on `kriscendobot/endo-but-for-bots` (the bot's fork); landings on `endojs/endo-but-for-bots` use the kriskowal identity per the boatman flow (which here is rare, since the garden owns the upstream `llm` branch and frequently pushes directly with `kriskowal`).
 
+## Standing authorizations
+
+The maintainer's framing on 2026-05-13: "you are generally authorized to post freely on endo-but-for-bots. It is yours." Effect on the per-action authorization model in [`roles/COMMON.md`](../../../roles/COMMON.md) § External-repo etiquette on the `main` branch:
+
+- The garden's roles may **post comments, reviews, review-comments, reactjis, and cross-references** on `endojs/endo-but-for-bots` issues and PRs **without per-action authorization in the dispatch prompt**, for this repository only. This is a repo-scoped relaxation, not a global one; every other repository still requires the per-action authorization the etiquette section describes.
+- The relaxation covers commenting; it does not cover **destructive** actions (force-pushes to protected branches, branch deletions, repository-setting changes), which still require explicit per-action authorization.
+- The relaxation applies to every role the garden dispatches against this repo: fixer, weaver, shepherd, conductor, scout, builder, designer, assayer, juror, saboteur, journalist, monitor, etc.
+- Subagents dispatched against this repo should still **journal** any comment they post (a `tick` or `result` entry with `prs:` and the comment URL), so the garden's transcript carries the outward-facing artifacts.
+
+Other repos remain under the default rule (per-action authorization in the dispatch prompt). The ocapn project's much stricter rules (`../ocapn/README.md`) are unaffected.
+
 ## Upstream
 
 - Repo: <https://github.com/endojs/endo-but-for-bots>
