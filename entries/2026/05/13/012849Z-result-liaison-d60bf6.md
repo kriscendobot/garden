@@ -79,8 +79,8 @@ One commit on `main` (`8418896`):
 
 ## Phase 3: PR backlog bulletin section
 
-One commit on `journal` (`367f9c7`, rebased onto `6443798` after
-remote drift, now at the journal's tip):
+One commit on `journal` (`6443798` after the rebase onto the remote
+tip, originally authored as `367f9c7`):
 
 - `journal/README.md`: new `### PR backlog` section between
   `Awaits maintainer review` and `Awaits maintainer decision`.
