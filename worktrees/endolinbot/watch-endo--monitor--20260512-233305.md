@@ -7,7 +7,7 @@ branch: master
 role: monitor
 status: active
 created_at: 2026-05-12T23:33:05Z
-last_heartbeat: 2026-05-12T23:33:29Z
+last_heartbeat: 2026-05-13T02:30:03Z
 task: "Monitor endojs/endo events feed; per-project reactions in skills/monitor-endo/SKILL.md"
 prs: []
 ---
