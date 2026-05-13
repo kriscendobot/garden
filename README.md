@@ -16,6 +16,12 @@ Items here need a human maintainer's attention. Newest at top within each sectio
 
 If a posted item lingers because its resolution is hard to detect automatically, that itself is worth flagging in the next agent's report or as a self-improvement update to the relevant skill.
 
+### Recent engagements ready for review
+
+<!-- BEGIN recent-engagements -->
+(no recent engagements rendered yet; the journalist's next dispatch fills this in)
+<!-- END recent-engagements -->
+
 ### Pending kriskowal reviews
 
 <!-- BEGIN pending-kriskowal-reviews -->
@@ -220,10 +226,10 @@ If a posted item lingers because its resolution is hard to detect automatically,
 
 ### Awaits maintainer decision
 
-- **Two endo-but-for-bots workflows are at 100% failure** across the last ~3 weeks of master runs: `Deploy TypeDoc site with GitHub Pages` (11/11) and `Release` (11/11). All failures are sub-2-minute (likely auth/config). Separate from the CI latency question on #205. See same entry above.
-- **Scholar cadence + start signal.** The `scholar` role (autonomous index-grower for `journal/projects/`) is landed but waits on the maintainer to (a) choose the cadence (default is idle mode, 1800s to 3600s per `skills/autonomous-loop-pacing/SKILL.md`; maintainer-tunable in `roles/scholar/AGENT.md` § Cadence) and (b) signal "start" so the first cycle fires. See `roles/scholar/AGENT.md` on the `main` branch for the contract; the seeded `journal/projects/<slug>/README.md` files (the scholar's initial input set) are in place. The row clears when the first scholar cycle's `result` entry lands.
-- **Timekeeper kick-off.** The `timekeeper` role (autonomous scheduled-event dispatcher) and the `scheduling` skill are landed, along with the first seed event (the daily 00:00 America/Los_Angeles progress summary at [`schedule/garden/20260513T070000Z--5a93f9.md`](schedule/garden/20260513T070000Z--5a93f9.md)) and the [`periodicals/`](periodicals/) destination tree. The timekeeper waits on the maintainer to signal "start" so its first cycle fires. Cadence is event-driven (the next scheduled event's trigger time drives the wakeup) per `roles/timekeeper/AGENT.md` § Cadence; no fixed interval is needed up front. Successor to the gardener dispatch at [`entries/2026/05/13/053822Z-dispatch-liaison-02e8c4.md`](entries/2026/05/13/053822Z-dispatch-liaison-02e8c4.md). The row clears when the first timekeeper cycle's `result` entry lands.
-- **PR-creation flow reworked; first builder/assayer/jury/cleaner dispatches will land when the maintainer next asks for work on a specific PR.** New roles (`builder`, `assayer`, `juror`, `saboteur`, `cleaner`) and the `pr-creation-flow` skill are landed on `main`; draft discipline (builder opens draft, cleaner un-drafts), the juror plus saboteur jury panel, and the jury-fixer loop are documented. Self-clearing on the first such dispatch.
+- Two `endojs/endo-but-for-bots` workflows at 100% failure on master: `Deploy TypeDoc site with GitHub Pages` and `Release`; awaits triage. See [`entries/2026/05/13/004800Z-message-steward-f78473.md`](entries/2026/05/13/004800Z-message-steward-f78473.md).
+- `scholar` role landed; awaits cadence pick and start signal. See [`entries/2026/05/13/053511Z-result-gardener-fd8a0a.md`](entries/2026/05/13/053511Z-result-gardener-fd8a0a.md).
+- `timekeeper` role landed; awaits start signal. See [`entries/2026/05/13/054736Z-result-gardener-559c18.md`](entries/2026/05/13/054736Z-result-gardener-559c18.md).
+- PR-creation flow reworked (`builder`/`assayer`/`juror`/`saboteur`/`cleaner` + `pr-creation-flow` skill landed); self-clears on first such dispatch. See [`entries/2026/05/13/211535Z-result-gardener-efb74a.md`](entries/2026/05/13/211535Z-result-gardener-efb74a.md).
 
 ### Pre-staged authorizations
 
@@ -243,8 +249,8 @@ If a posted item lingers because its resolution is hard to detect automatically,
 
 ### Scheduled engagements
 
-- **2026-05-17** — weekly `major-general` enumeration sweep for direct-dependency major-version upgrades on `endojs/endo-but-for-bots`. Source: prior-garden `process/major-generalship.md`, mirrored at [`entries/2026/05/13/000100Z-message-steward-d95cb2.md`](entries/2026/05/13/000100Z-message-steward-d95cb2.md). The role is not active in this garden's library yet; if today is on or past the date and the role has not landed, surface the engagement to the liaison rather than dispatching.
-- **2026-05-20** — refresh the #205 CI latency report on `endojs/endo-but-for-bots` (steward). Prior report at [`entries/2026/05/13/004753Z-message-steward-1f0703.md`](entries/2026/05/13/004753Z-message-steward-1f0703.md). The maintainer asked for periodic refreshes to track #121's effect. Now also serving as the post-merge evaluation for **#121 (turborepo CI)**, which merged 2026-05-13 at `b21f63b`; comparing the pre-merge baseline against the first week post-merge will inform whether the same changes should land on the main `endojs/endo` repo (per kriskowal #121#issuecomment, 2026-05-13T21:50:Z).
+- 2026-05-17: weekly `major-general` major-version sweep on `endojs/endo-but-for-bots`. See [`entries/2026/05/13/000100Z-message-steward-d95cb2.md`](entries/2026/05/13/000100Z-message-steward-d95cb2.md).
+- 2026-05-20: refresh #205 CI latency report (steward); also serves as #121 post-merge evaluation. See [`entries/2026/05/13/004753Z-message-steward-1f0703.md`](entries/2026/05/13/004753Z-message-steward-1f0703.md).
 
 
 ## Ongoing work
