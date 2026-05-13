@@ -36,6 +36,12 @@ The maintainer (or the liaison after maintainer confirmation) may pre-stage `ide
 
 (none)
 
+### Scheduled engagements
+
+Date-keyed work the steward should dispatch on or after the listed date. Each cycle's close should check this section; when today >= the date, dispatch the named role and clear the row when the engagement is fulfilled (the source-of-truth doc is then expected to carry forward the next date, if any). New rows enter when a role's source doc records a scheduled engagement.
+
+- **2026-05-17** — weekly `major-general` enumeration sweep for direct-dependency major-version upgrades on `endojs/endo-but-for-bots`. Source: prior-garden `process/major-generalship.md`, mirrored at [`entries/2026/05/13/000100Z-message-steward-d95cb2.md`](entries/2026/05/13/000100Z-message-steward-d95cb2.md). The role is not active in this garden's library yet; if today is on or past the date and the role has not landed, surface the engagement to the liaison rather than dispatching.
+
 ### Pending kriskowal reviews
 
 PRs across all visible repos where `kriskowal` is currently a requested reviewer. The [review-queue](../roles/review-queue/AGENT.md) role on the `main` branch rewrites the body of this section between the delimiters below whenever its daemon reports an ADD or REMOVE. Order is the three-tier rule documented in `roles/review-queue/AGENT.md` § Priority and ordering: (1) ball-back-in-your-court (kriskowal's prior `CHANGES_REQUESTED` followed by a push), (2) explicit re-request, (3) fresh request newest first, with draft PRs grouped at the bottom within each tier. The maintainer reviews the PR on GitHub; the next review-queue cycle picks up the resolution and removes the line.
