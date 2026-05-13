@@ -7,7 +7,7 @@ branch: master
 role: monitor
 status: active
 created_at: 2026-05-12T23:33:09Z
-last_heartbeat: 2026-05-12T23:33:29Z
+last_heartbeat: 2026-05-13T02:32:29Z
 task: "Monitor agoric/agoric-sdk events feed; per-project reactions in skills/monitor-agoric-sdk/SKILL.md"
 prs: []
 ---
