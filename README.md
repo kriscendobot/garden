@@ -250,12 +250,12 @@ If a posted item lingers because its resolution is hard to detect automatically,
 
 Full index at [`worktrees/README.md`](worktrees/README.md). Currently active or reserved:
 
-- `endolinbot`: 5 active standing monitors (`watch-endo`, `watch-endo-but-for-bots`, `watch-agoric-sdk`, `watch-cosgov`, `watch-garden`) on `endojs/endo`, `endojs/endo-but-for-bots`, `agoric/agoric-sdk`, `dcfoundation/cosmos-proposal-builder`, `kriskowal/garden` respectively.
+- `endolinbot`: 1 active standing monitor (`watch-endo-but-for-bots`) on `endojs/endo-but-for-bots`. The other four standing monitors (`watch-endo`, `watch-agoric-sdk`, `watch-cosgov`, `watch-garden`) were collected on 2026-05-13 per the monitoring safety constraint in `CLAUDE.md` § Monitoring safety constraint; their index entries are kept for the record and the filesystem worktrees survive on disk in case the constraint reverses.
 - `kmkmbp2021`: 1 idle integration scratch worktree (`integrate--liaison--20260512-194515`), see the index.
 
 ### Open monitors
 
-`endolinbot` runs 6 long-lived poll daemons via the steward's standing-monitors discipline (see `roles/steward/AGENT.md` § Standing monitors on the `main` branch). Cadences: `endo` 60s, `endo-but-for-bots` 30s, `agoric-sdk` 60s, `cosgov` 60s, `garden` 60s (dispatches a `liaison` subagent on `NEW` lines, not a `monitor`; see `skills/monitor-garden/SKILL.md`), `review-queue` 120s. PIDs and logs in `/tmp/garden-monitor-*.{pid,log,err}` and `/tmp/garden-review-queue.{pid,log,err}`.
+`endolinbot` runs 2 long-lived poll daemons via the steward's standing-monitors discipline (see `roles/steward/AGENT.md` § Standing monitors on the `main` branch). Cadences: `endo-but-for-bots` 30s, `review-queue` 120s. PIDs and logs in `/tmp/garden-monitor-*.{pid,log,err}` and `/tmp/garden-review-queue.{pid,log,err}`. The active set is constrained by the monitoring safety rule; re-enabling another monitor requires explicit maintainer authorization recorded in a journal `message` entry.
 
 ### Recent activity
 
