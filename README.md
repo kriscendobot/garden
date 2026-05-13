@@ -20,6 +20,30 @@ If a posted item lingers because its resolution is hard to detect automatically,
 
 (none)
 
+### PR backlog
+
+Items waiting on a per-PR role dispatch (not on maintainer action). The steward picks up rows here when an appropriate role becomes available and the dispatch's per-action authorizations are staged. Rows clear when the underlying PR transitions out of the waiting state (merge, close, review-state change). Sources: [`entries/2026/05/13/004800Z-message-steward-f78473.md`](entries/2026/05/13/004800Z-message-steward-f78473.md) (the freshness check) and [`entries/2026/05/13/005956Z-message-steward-aa32fc.md`](entries/2026/05/13/005956Z-message-steward-aa32fc.md) (the port request).
+
+<!-- BEGIN pr-backlog -->
+- [endojs/endo-but-for-bots#121](https://github.com/endojs/endo-but-for-bots/pull/121): feat(ci): adopt turborepo for affected-set test runs (closes #116) (waiting on: weaver, then shepherd; CONFLICTING + APPROVED)
+- [endojs/endo-but-for-bots#125](https://github.com/endojs/endo-but-for-bots/pull/125): feat(daemon): add editMessage and messageHistory (re-opened from #23 under the bot) (waiting on: weaver, then fixer; CONFLICTING + CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#128](https://github.com/endojs/endo-but-for-bots/pull/128): feat(cli): assorted CLI additions, workers, zip checkin/out, read-text, write-text (re-opened from #38 under the bot) (waiting on: fixer; CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134): feat(docker,daemon): docker self-hosting, foreground daemon, CIDR gate, static files (re-opened from #47 under the bot) (waiting on: fixer; CHANGES_REQUESTED, blocker #199 has landed)
+- [endojs/endo-but-for-bots#147](https://github.com/endojs/endo-but-for-bots/pull/147): feat(lal): add OpenRouter provider and share OpenAI Chat shape (waiting on: 0xpatrickdev's approval; APPROVED by kriskowal who deferred)
+- [endojs/endo-but-for-bots#151](https://github.com/endojs/endo-but-for-bots/pull/151): feat(cli): endo workers verb (extracted from #128, implements designs/workers-panel.md) (waiting on: fixer; CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#160](https://github.com/endojs/endo-but-for-bots/pull/160): feat(exo-zip,exo-unzip): split into write-side + read-side per kriskowal naming (closes #154) (waiting on: kriskowal to pick a name pair; CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#165](https://github.com/endojs/endo-but-for-bots/pull/165): design(cli,daemon): scheduled-send via reactor + schedule (PR #145 design revision) (waiting on: weaver, then fixer, then maintainer re-review; CONFLICTING + CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#169](https://github.com/endojs/endo-but-for-bots/pull/169): design: pass-style promise (non-thenable; closes #168) (waiting on: weaver, then kriskowal to confirm Option A vs B; CONFLICTING + PENDING)
+- [endojs/endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/pull/170): feat(pass-style,marshal,eventual-send,captp): pass-style promise + HandledPromise.settle (per #169) (waiting on: kriskowal pick on #169 + kumavis follow-up; PENDING)
+- [endojs/endo-but-for-bots#174](https://github.com/endojs/endo-but-for-bots/pull/174): test: repro empty-{} rendering of Error reasons in disconnect trap (#171) (waiting on: kriskowal review; PENDING)
+- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178): refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting on: fixer; CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#179](https://github.com/endojs/endo-but-for-bots/pull/179): feat(daemon,chat): record host commands in chat transcript via commands-as-messages (re-opened from #45 under the bot) (waiting on: fixer; CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182): test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting on: kriskowal review; PENDING)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186): feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting on: fixer; CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#203](https://github.com/endojs/endo-but-for-bots/issues/203) (issue): chat: integrate daemon editMessage / messageHistory in inbox and channel UIs (waiting on: designer)
+- [endojs/endo-but-for-bots#205](https://github.com/endojs/endo-but-for-bots/issues/205) (issue): CI Latency Telemetry (waiting on: scout, or steward + comment authorization to land the prior baseline report)
+<!-- END pr-backlog -->
+
 ### Awaits maintainer decision
 
 - **Land the #205 CI-latency baseline report on the issue.** The steward computed it ([`entries/2026/05/13/004753Z-message-steward-1f0703.md`](entries/2026/05/13/004753Z-message-steward-1f0703.md)) but cannot post to endojs/endo-but-for-bots#205 without authorization. Either copy the report body verbatim to the issue, or pre-stage a bot-comment authorization (see *Pre-staged authorizations*).
