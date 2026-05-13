@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-12
+updated: 2026-05-13
 author: liaison
 ---
 
@@ -59,7 +59,13 @@ The steward writes here when it finds itself able to do something its authority 
 
 The maintainer (or the liaison after maintainer confirmation) may pre-stage `identity_switch_authorized` for boatman handoffs and per-action cross-repo authorizations for any role. The steward forwards staged authorizations into the relevant dispatch prompt; entries here are cleared after the gated dispatch happens. See `roles/COMMON.md` § External-repo etiquette on the `main` branch.
 
-- **`kriscendobot` write access to `endojs/ocapn-test-suite`.** Source: [endojs/endo-but-for-bots#109#issuecomment-4436075344](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4436075344) (kriskowal, 2026-05-13T00:54:05Z). Constraints: use the hash pinned from PR #109 as the baseline; do **not** open a PR upstream against the OCapN-org repo. Detail at [`entries/2026/05/13/012400Z-result-steward-da0309.md`](entries/2026/05/13/012400Z-result-steward-da0309.md). Steward forwards this into any dispatch that touches `endojs/ocapn-test-suite`; do not clear until the substantive `#109` work has either used the grant or been wound up.
+- **`kriscendobot` write access to `endojs/ocapn-test-suite`.** The maintainer granted the bot push access to the endojs fork of the OCapN test suite, with two constraints attached: the work starts from a specific upstream commit on `ocapn/ocapn-test-suite`, and no PR is to be opened against the OCapN-org upstream. The bot's pre-grant analysis on PR #109 referenced the pin in two comments, so the hash is recorded inline here to spare future agents the re-derivation.
+  - Identity: `kriscendobot`.
+  - Action: push branches and commits to `endojs/ocapn-test-suite`.
+  - Baseline (Constraint A): start from `74db78f08a40efba1e2b975d809374ff0e7acf60` on `ocapn/ocapn-test-suite`. Origin of the pin: kriscendobot's investigation comments on PR #109 ([issuecomment-4427618615](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4427618615) and [issuecomment-4427633977](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4427633977)) anchor every "current state of the Python suite" claim on that commit (verified: it is `Merge pull request #35 ... pluralize-gc-ops`, dated 2026-02-25). The maintainer's grant comment ("Be sure to use the hash pinned from here as a baseline") refers back to those anchors. PR #109's own `baseRefOid` (`c2fc02eb8bf674389a8445ce785ff5eff36ed5aa`) and `headRefOid` (`4ffb3d84e50c35f330d90e7e600040944e789a3c`) are on `endojs/endo-but-for-bots` and are not the baseline; they are noted here only to rule them out.
+  - No-upstream (Constraint B): do **not** open a PR against `ocapn/ocapn-test-suite`. Work stays on `endojs/ocapn-test-suite` only.
+  - Source: [endojs/endo-but-for-bots#109#issuecomment-4436075344](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4436075344) (kriskowal, 2026-05-13T00:54:05Z); steward write-up at [`entries/2026/05/13/012400Z-result-steward-da0309.md`](entries/2026/05/13/012400Z-result-steward-da0309.md).
+  - Clearing: the row stays until a future dispatch picks up the authorization and pushes the agreed branch. The dispatching liaison clears it at that future time.
 
 ### Scheduled engagements
 
