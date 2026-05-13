@@ -36,7 +36,7 @@ The steward writes here when it finds itself able to do something its authority 
 
 The maintainer (or the liaison after maintainer confirmation) may pre-stage `identity_switch_authorized` for boatman handoffs and per-action cross-repo authorizations for any role. The steward forwards staged authorizations into the relevant dispatch prompt; entries here are cleared after the gated dispatch happens. See `roles/COMMON.md` § External-repo etiquette on the `main` branch.
 
-(none)
+- **`kriscendobot` write access to `endojs/ocapn-test-suite`.** Source: [endojs/endo-but-for-bots#109#issuecomment-4436075344](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4436075344) (kriskowal, 2026-05-13T00:54:05Z). Constraints: use the hash pinned from PR #109 as the baseline; do **not** open a PR upstream against the OCapN-org repo. Detail at [`entries/2026/05/13/012400Z-result-steward-da0309.md`](entries/2026/05/13/012400Z-result-steward-da0309.md). Steward forwards this into any dispatch that touches `endojs/ocapn-test-suite`; do not clear until the substantive `#109` work has either used the grant or been wound up.
 
 ### Scheduled engagements
 
