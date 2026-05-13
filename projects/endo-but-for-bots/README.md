@@ -33,12 +33,23 @@ Other repos remain under the default rule (per-action authorization in the dispa
 
 ## Authority structure
 
-Default authority for technical and project-scope decisions on this repo rests with kriskowal as maintainer. One named exception, identical in shape to the [endo project's authority structure](../endo/README.md#authority-structure):
+The repo has two kinds of non-default authority. **Maintainer authority** is repo-wide and topic-agnostic: a maintainer's review or directive on any PR routes the same regardless of subsystem. **Senior-contributor authority** is topic-scoped: a senior contributor's review on a topic-matching PR carries maintainer-equivalent (or greater) weight on the technical question within that topic set, and reverts to high-signal input outside it. Both are recorded here; the per-project monitor skill (`garden/skills/monitor-endo-but-for-bots/SKILL.md`) consumes both and routes accordingly.
 
-- **erights** (Mark S. Miller) is a senior contributor whose authority meets or exceeds kriskowal's on a defined set of topics: `pass-style`, `ses`, `hardened-JS`, `marshal`, `eventual-send`, `captp`, `patterns`, the OCapN-family protocol, and capability-security generally. These are the subsystems and concepts erights designed or co-authored; his review or substantive comment on a PR that touches any of them carries kriskowal-equivalent (or greater) weight on the *technical question*. A `CHANGES_REQUESTED` or substantive `COMMENTED` review from erights on a topic-matching PR routes the same way a kriskowal review would: the garden treats it as a directive on the technical merits and the fixer addresses it. (Authorization to *act* still flows through the kriskowal authorization chain in `roles/COMMON.md` § External-repo etiquette on the `main` branch; senior-contributor weight changes how the garden reads the technical content, not who can push.)
+### Maintainers
+
+- **kriskowal** is the default-authority maintainer for the repo.
+- **jcorbin** is a maintainer on this repo, recognized 2026-05-13 per kriskowal's directive at [endojs/endo-but-for-bots#148](https://github.com/endojs/endo-but-for-bots/pull/148) ("Josh is a maintainer on endo-but-for-bots"). His review or comment carries maintainer-equivalent weight across the whole repo, with no topic scope: a `CHANGES_REQUESTED` or substantive `COMMENTED` review from jcorbin on any PR routes the same way a kriskowal review would (fixer dispatch on `CHANGES_REQUESTED`, clear-the-row on `APPROVED`, etc.). The recognition is repo-scoped to `endojs/endo-but-for-bots` and does not extend to `endojs/endo` absent further confirmation; the parallel [endo project README](../endo/README.md#authority-structure) is unchanged.
+
+### Senior contributors
+
+Identical in shape to the [endo project's authority structure](../endo/README.md#authority-structure):
+
+- **erights** (Mark S. Miller) is a senior contributor whose authority meets or exceeds the maintainers' on a defined set of topics: `pass-style`, `ses`, `hardened-JS`, `marshal`, `eventual-send`, `captp`, `patterns`, the OCapN-family protocol, and capability-security generally. These are the subsystems and concepts erights designed or co-authored; his review or substantive comment on a PR that touches any of them carries maintainer-equivalent (or greater) weight on the *technical question*. A `CHANGES_REQUESTED` or substantive `COMMENTED` review from erights on a topic-matching PR routes the same way a maintainer review would: the garden treats it as a directive on the technical merits and the fixer addresses it. (Authorization to *act* still flows through the maintainer authorization chain in `roles/COMMON.md` § External-repo etiquette on the `main` branch; senior-contributor weight changes how the garden reads the technical content, not who can push.)
 - Outside those topics, on garden-internal infrastructure (CI, the bulletin's `endo-but-for-bots`-specific machinery, the `garden` sibling branch), or on scope unrelated to the listed subsystems, erights' input is senior-contributor input rather than maintainer-equivalent. Surface it loudly; do not auto-route to a fixer.
 
-The practical rule: on a topic-matching PR, erights' review is read as technically authoritative; on anything else, it is high-signal input the maintainer adjudicates.
+### Practical rule
+
+A review or directive from a recognized maintainer (kriskowal or jcorbin) routes as a maintainer signal on every PR, every topic. A review from erights on a topic-matching PR is read as technically authoritative; on anything else, it is high-signal input the maintainers adjudicate. Reviews from anyone else are journal-only by default.
 
 The pattern is reusable. See `roles/COMMON.md` § Authority structure of upstream projects on the `main` branch for the cross-project framing.
 
