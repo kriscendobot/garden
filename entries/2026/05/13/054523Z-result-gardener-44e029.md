@@ -21,8 +21,8 @@ Pushed as one batch: `e8f4dd1..acae41d` on `main`.
 
 ## Journal commits, separate pushes
 
-- `<D>` — worktrees: collect endo, agoric-sdk, cosgov, garden standing-monitor index entries (safety). Flips each of the four `journal/worktrees/endolinbot/watch-{endo,agoric-sdk,cosgov,garden}--monitor--*.md` files from `status: active` to `status: collected`, adds `collected_at: 2026-05-13T05:38:22Z` to the frontmatter, appends a body note citing the safety constraint and the re-arm procedure. Updates `journal/worktrees/README.md` § Current entries to match. The filesystem worktrees on disk at `/home/kris/worktrees/{endojs-endo, agoric-agoric-sdk, dcfoundation-cosmos-proposal-builder, kriskowal-garden}/...` were intentionally **not** removed; polling state under `.garden-monitor/` is preserved in case the constraint reverses.
-- `<E>` — bulletin: shrink active worktrees / open monitors to the single-monitor active set. Updates `journal/README.md` § *Active worktrees* and § *Open monitors* to reflect the now-shorter active set and adds a one-sentence pointer to the safety constraint.
+- `2a558b8` — worktrees: collect endo, agoric-sdk, cosgov, garden standing-monitor index entries (safety). Flips each of the four `journal/worktrees/endolinbot/watch-{endo,agoric-sdk,cosgov,garden}--monitor--*.md` files from `status: active` to `status: collected`, adds `collected_at: 2026-05-13T05:38:22Z` to the frontmatter, appends a body note citing the safety constraint and the re-arm procedure. Updates `journal/worktrees/README.md` § Current entries to match. The filesystem worktrees on disk at `/home/kris/worktrees/{endojs-endo, agoric-agoric-sdk, dcfoundation-cosmos-proposal-builder, kriskowal-garden}/...` were intentionally **not** removed; polling state under `.garden-monitor/` is preserved in case the constraint reverses.
+- `bb96a75` — bulletin: shrink active worktrees / open monitors to the single-monitor active set. Updates `journal/README.md` § *Active worktrees* and § *Open monitors* to reflect the now-shorter active set and adds a one-sentence pointer to the safety constraint.
 
 ## Safety note shape
 
