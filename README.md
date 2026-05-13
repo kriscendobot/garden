@@ -187,7 +187,7 @@ If a posted item lingers because its resolution is hard to detect automatically,
 <!-- BEGIN pr-backlog -->
 #### Milestone 1: Remote Access and Coding Capabilities
 
-- [endojs/endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134): feat(docker,daemon): docker self-hosting, foreground daemon, CIDR gate, static files (re-opened from #47 under the bot) (waiting on: fixer; CHANGES_REQUESTED, blocker #199 has landed)
+- [endojs/endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134): feat(docker,daemon): docker self-hosting, foreground daemon, CIDR gate, static files (re-opened from #47 under the bot) (waiting on: Endo Gateway concept maturation (per kriskowal 2026-05-13); DRAFT + CHANGES_REQUESTED)
 
 #### Milestone 3: Weblets and Integrations
 
