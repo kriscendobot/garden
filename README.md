@@ -31,7 +31,7 @@ Items waiting on a per-PR role dispatch (not on maintainer action). The steward 
 
 #### Milestone 3: Weblets and Integrations
 
-- [endojs/endo-but-for-bots#128](https://github.com/endojs/endo-but-for-bots/pull/128): feat(cli): assorted CLI additions, workers, zip checkin/out, read-text, write-text (re-opened from #38 under the bot) (waiting on: fixer; CHANGES_REQUESTED)
+- [endojs/endo-but-for-bots#128](https://github.com/endojs/endo-but-for-bots/pull/128): feat(cli): assorted CLI additions, workers, zip checkin/out, read-text, write-text (re-opened from #38 under the bot) (waiting on: fixer + exo-zip/exo-unzip merge (#160); CHANGES_REQUESTED; depends on #160)
 
 #### Milestone 4: UX Polish and Agent Tooling
 
