@@ -22,7 +22,9 @@ If a posted item lingers because its resolution is hard to detect automatically,
 
 ### Awaits maintainer decision
 
-(none)
+- **Land the #205 CI-latency baseline report on the issue.** The steward computed it ([`entries/2026/05/13/004753Z-message-steward-1f0703.md`](entries/2026/05/13/004753Z-message-steward-1f0703.md)) but cannot post to endojs/endo-but-for-bots#205 without authorization. Either copy the report body verbatim to the issue, or pre-stage a bot-comment authorization (see *Pre-staged authorizations*).
+- **Two endo-but-for-bots workflows are at 100% failure** across the last ~3 weeks of master runs: `Deploy TypeDoc site with GitHub Pages` (11/11) and `Release` (11/11). All failures are sub-2-minute (likely auth/config). Separate from the CI latency question on #205. See same entry above.
+- **Decide whether to port the per-PR roles** (`fixer`, `weaver`, `shepherd`, `conductor`, `designer`, `juror`, `scout`, plus optionally `director`/`marshal`) from `references/endo-but-for-bots/`. Sixteen endo-but-for-bots PRs in the prior steward's hand-off are still open and waiting on one of these roles; nothing else can move them. Detail in [`entries/2026/05/13/004800Z-message-steward-f78473.md`](entries/2026/05/13/004800Z-message-steward-f78473.md).
 
 ### Surplus authority discovered
 
@@ -41,6 +43,7 @@ The maintainer (or the liaison after maintainer confirmation) may pre-stage `ide
 Date-keyed work the steward should dispatch on or after the listed date. Each cycle's close should check this section; when today >= the date, dispatch the named role and clear the row when the engagement is fulfilled (the source-of-truth doc is then expected to carry forward the next date, if any). New rows enter when a role's source doc records a scheduled engagement.
 
 - **2026-05-17** — weekly `major-general` enumeration sweep for direct-dependency major-version upgrades on `endojs/endo-but-for-bots`. Source: prior-garden `process/major-generalship.md`, mirrored at [`entries/2026/05/13/000100Z-message-steward-d95cb2.md`](entries/2026/05/13/000100Z-message-steward-d95cb2.md). The role is not active in this garden's library yet; if today is on or past the date and the role has not landed, surface the engagement to the liaison rather than dispatching.
+- **2026-05-20** — refresh the #205 CI latency report on `endojs/endo-but-for-bots` (steward). Prior report at [`entries/2026/05/13/004753Z-message-steward-1f0703.md`](entries/2026/05/13/004753Z-message-steward-1f0703.md). The maintainer asked for periodic refreshes to track #121's effect.
 
 ### Pending kriskowal reviews
 
