@@ -259,12 +259,12 @@ PRs across all visible repos where `kriskowal` is currently a requested reviewer
 
 Full index at [`worktrees/README.md`](worktrees/README.md). Currently active or reserved:
 
-- `endolinbot`: 4 active standing monitors (`watch-endo`, `watch-endo-but-for-bots`, `watch-agoric-sdk`, `watch-cosgov`) on `endojs/endo`, `endojs/endo-but-for-bots`, `agoric/agoric-sdk`, `dcfoundation/cosmos-proposal-builder` respectively.
+- `endolinbot`: 5 active standing monitors (`watch-endo`, `watch-endo-but-for-bots`, `watch-agoric-sdk`, `watch-cosgov`, `watch-garden`) on `endojs/endo`, `endojs/endo-but-for-bots`, `agoric/agoric-sdk`, `dcfoundation/cosmos-proposal-builder`, `kriskowal/garden` respectively.
 - `kmkmbp2021`: 1 idle integration scratch worktree (`integrate--liaison--20260512-194515`), see the index.
 
 ### Open monitors
 
-`endolinbot` runs 5 long-lived poll daemons via the steward's standing-monitors discipline (see `roles/steward/AGENT.md` § Standing monitors on the `main` branch). Cadences: `endo` 60s, `endo-but-for-bots` 30s, `agoric-sdk` 60s, `cosgov` 60s, `review-queue` 120s. PIDs and logs in `/tmp/garden-monitor-*.{pid,log,err}` and `/tmp/garden-review-queue.{pid,log,err}`.
+`endolinbot` runs 6 long-lived poll daemons via the steward's standing-monitors discipline (see `roles/steward/AGENT.md` § Standing monitors on the `main` branch). Cadences: `endo` 60s, `endo-but-for-bots` 30s, `agoric-sdk` 60s, `cosgov` 60s, `garden` 60s (dispatches a `liaison` subagent on `NEW` lines, not a `monitor`; see `skills/monitor-garden/SKILL.md`), `review-queue` 120s. PIDs and logs in `/tmp/garden-monitor-*.{pid,log,err}` and `/tmp/garden-review-queue.{pid,log,err}`.
 
 ### Recent activity
 
