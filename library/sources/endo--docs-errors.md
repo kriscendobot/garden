@@ -1,7 +1,7 @@
 ---
 source: docs/errors.md
 source_repo: endojs/endo
-source_commit: 052b0487e380b0d241de6b30f4b1c9a08b9226db
+source_commit: fe81477bf88b00775bf135ce6cb3a7123a296e3e
 source_date: 2025-09-25
 source_authors: [Kris Kowal]
 ingested: 2026-05-13
@@ -28,6 +28,6 @@ notes: Single commit in git log; content references issues from ~2020 and reads 
 ## Provenance
 
 - File last modified 2025-09-25 by Kris Kowal. Single commit in `git log`; content reads older than its date.
-- Captured at endo `052b0487`.
+- Captured at endo `fe81477b`.
 
-Source: [docs/errors.md](https://github.com/endojs/endo/blob/052b0487e380b0d241de6b30f4b1c9a08b9226db/docs/errors.md).
+Source: [docs/errors.md](https://github.com/endojs/endo/blob/fe81477bf88b00775bf135ce6cb3a7123a296e3e/docs/errors.md).

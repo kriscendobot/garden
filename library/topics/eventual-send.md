@@ -7,6 +7,7 @@
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
 | [endo--docs-errors--hiding-revealing-async-diagnostic](../sections/endo--docs-errors--hiding-revealing-async-diagnostic.md) | endo docs/errors.md | Plans to instrument `E()` and `E.when` to build deep-stack causality chains. |
+| [endo--docs-lockdown--unhandled-rejection-trapping](../sections/endo--docs-lockdown--unhandled-rejection-trapping.md) | endo docs/lockdown.md | The `unhandledRejectionTrapping` lockdown option chooses how finalized unhandled rejections are surfaced. |
 
 ## See also
 

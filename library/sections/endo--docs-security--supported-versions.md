@@ -2,7 +2,7 @@
 title: Supported Versions
 source: docs/security.md
 source_repo: endojs/endo
-source_commit: 052b0487e380b0d241de6b30f4b1c9a08b9226db
+source_commit: fe81477bf88b00775bf135ce6cb3a7123a296e3e
 source_date: 2025-09-25
 source_authors: [Kris Kowal]
 ingested: 2026-05-13
@@ -17,4 +17,4 @@ status: current
 
 The SES package and associated Endo packages are still undergoing development and security review, and all users are encouraged to use the latest version available. Security fixes will be made for the most recent branch only.
 
-Source: [docs/security.md](https://github.com/endojs/endo/blob/052b0487e380b0d241de6b30f4b1c9a08b9226db/docs/security.md) at commit `052b0487`.
+Source: [docs/security.md](https://github.com/endojs/endo/blob/fe81477bf88b00775bf135ce6cb3a7123a296e3e/docs/security.md) at commit `fe81477b`.

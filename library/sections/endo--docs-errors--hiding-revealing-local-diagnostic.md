@@ -2,7 +2,7 @@
 title: Hiding and Revealing Local Diagnostic Information
 source: docs/errors.md
 source_repo: endojs/endo
-source_commit: 052b0487e380b0d241de6b30f4b1c9a08b9226db
+source_commit: fe81477bf88b00775bf135ce6cb3a7123a296e3e
 source_date: 2025-09-25
 source_authors: [Kris Kowal]
 ingested: 2026-05-13
@@ -33,4 +33,4 @@ SES considers both `assert` and `console` to be powerful objects, appearing init
 
 For security and determinism, we normally reason from the *in-band frame of reference* where the console logging output does not exist, is not an effect, and `console` operations are write-only. Within this frame of reference, the `assert` and `console` powers are not very powerful. They are almost as safe as the permitted, powerless, shared primordials, which is why we're willing to recommend this endowment pattern be habitual.
 
-Source: [docs/errors.md](https://github.com/endojs/endo/blob/052b0487e380b0d241de6b30f4b1c9a08b9226db/docs/errors.md) at commit `052b0487`.
+Source: [docs/errors.md](https://github.com/endojs/endo/blob/fe81477bf88b00775bf135ce6cb3a7123a296e3e/docs/errors.md) at commit `fe81477b`.

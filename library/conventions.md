@@ -30,7 +30,7 @@ topics/<topic-slug>.md
 title: <section heading text>
 source: <repo-relative path>          # e.g., AGENTS.md, docs/lockdown.md
 source_repo: endojs/endo
-source_commit: <full sha>             # the sha the section was digested from
+source_commit: <full sha>             # the FILE-SPECIFIC commit: `git --git-dir=worktrees/<owner>-<repo>.git log -1 --format=%H <branch> -- <path>` on the upstream bare clone at ingest time. NOT the repo's HEAD. The scholar's idempotency check (`roles/scholar/AGENT.md` § Per-cycle procedure step 4) compares this to the upstream's current file-specific commit; matching means the section file set is already current and no re-ingest is needed. Recording the repo's HEAD here breaks the idempotency check because every cycle would see a mismatch.
 source_date: <YYYY-MM-DD>             # last-modified date of the source FILE
 source_authors: [<name>, ...]         # primary authors of the source file (git log)
 ingested: <YYYY-MM-DD>                # date this section file was created
@@ -59,7 +59,7 @@ Source: [<repo-relative path>](https://github.com/endojs/endo/blob/<sha>/<path>)
 ---
 source: <repo-relative path>
 source_repo: endojs/endo
-source_commit: <full sha>
+source_commit: <full sha>             # file-specific commit per the section schema above
 source_date: <YYYY-MM-DD>
 source_authors: [<name>, ...]
 ingested: <YYYY-MM-DD>

@@ -1,7 +1,7 @@
 ---
 source: docs/security.md
 source_repo: endojs/endo
-source_commit: 052b0487e380b0d241de6b30f4b1c9a08b9226db
+source_commit: fe81477bf88b00775bf135ce6cb3a7123a296e3e
 source_date: 2025-09-25
 source_authors: [Kris Kowal]
 ingested: 2026-05-13
@@ -24,6 +24,6 @@ notes: Only one commit in git log (2025-09-25); content likely predates a docs r
 ## Provenance
 
 - File last modified 2025-09-25 by Kris Kowal. Single commit in `git log`; pre-rename history not visible.
-- Captured at endo `052b0487`.
+- Captured at endo `fe81477b`.
 
-Source: [docs/security.md](https://github.com/endojs/endo/blob/052b0487e380b0d241de6b30f4b1c9a08b9226db/docs/security.md).
+Source: [docs/security.md](https://github.com/endojs/endo/blob/fe81477bf88b00775bf135ce6cb3a7123a296e3e/docs/security.md).

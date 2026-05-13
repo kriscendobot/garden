@@ -14,11 +14,11 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 1 |
 | [testing](testing.md) | How to run and write tests in endo. | 1 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 3 |
-| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 7 |
-| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 5 |
+| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 13 |
+| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 20 |
 | [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 1 |
-| [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 2 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 1 |
+| [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 3 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 2 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 1 |
 | [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 1 |
 

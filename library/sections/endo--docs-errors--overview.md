@@ -2,7 +2,7 @@
 title: Logging Errors (overview)
 source: docs/errors.md
 source_repo: endojs/endo
-source_commit: 052b0487e380b0d241de6b30f4b1c9a08b9226db
+source_commit: fe81477bf88b00775bf135ce6cb3a7123a296e3e
 source_date: 2025-09-25
 source_authors: [Kris Kowal]
 ingested: 2026-05-13
@@ -36,4 +36,4 @@ the `@endo/eventual-send` package will use annotations to show where previous `E
 
 * In the scope of the Agoric software ecosystem, this architecture will allow us to eventually introduce a more powerful distributed causal `console` that can meaningfully capture stack traces for a distributed debugger, based on the design of [Causeway](https://github.com/Agoric/agoric-sdk/issues/1318#issuecomment-662127549).
 
-Source: [docs/errors.md](https://github.com/endojs/endo/blob/052b0487e380b0d241de6b30f4b1c9a08b9226db/docs/errors.md) at commit `052b0487`.
+Source: [docs/errors.md](https://github.com/endojs/endo/blob/fe81477bf88b00775bf135ce6cb3a7123a296e3e/docs/errors.md) at commit `fe81477b`.

@@ -13,6 +13,12 @@
 | [endo--docs-errors--hiding-revealing-distributed-diagnostic](../sections/endo--docs-errors--hiding-revealing-distributed-diagnostic.md) | endo docs/errors.md | Plans for distributed log correlation via comm-side identifiers (not implemented). |
 | [endo--docs-errors--hiding-revealing-async-diagnostic](../sections/endo--docs-errors--hiding-revealing-async-diagnostic.md) | endo docs/errors.md | Plans for `E()` and `E.when` instrumentation building deep-stack chains (not implemented). |
 | [endo--docs-errors--unreal-logging](../sections/endo--docs-errors--unreal-logging.md) | endo docs/errors.md | Speculative no-real-logging model that lifts memory and channel concerns. |
+| [endo--docs-lockdown--console-taming](../sections/endo--docs-lockdown--console-taming.md) | endo docs/lockdown.md | The `consoleTaming` lockdown option configures whether the global console is replaced by the causal console. |
+| [endo--docs-lockdown--error-taming](../sections/endo--docs-lockdown--error-taming.md) | endo docs/lockdown.md | The `errorTaming` lockdown option hides Error.stack from in-band code by default. |
+| [endo--docs-lockdown--error-trapping](../sections/endo--docs-lockdown--error-trapping.md) | endo docs/lockdown.md | The `errorTrapping` lockdown option chooses how uncaught exceptions are handled. |
+| [endo--docs-lockdown--reporting](../sections/endo--docs-lockdown--reporting.md) | endo docs/lockdown.md | The `reporting` lockdown option chooses where SES's own warnings go. |
+| [endo--docs-lockdown--unhandled-rejection-trapping](../sections/endo--docs-lockdown--unhandled-rejection-trapping.md) | endo docs/lockdown.md | The `unhandledRejectionTrapping` lockdown option chooses how finalized unhandled rejections are reported. |
+| [endo--docs-lockdown--stack-filtering](../sections/endo--docs-lockdown--stack-filtering.md) | endo docs/lockdown.md | The `stackFiltering` lockdown option chooses signal-to-noise for stack traces. |
 
 ## See also
 

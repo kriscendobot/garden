@@ -2,7 +2,7 @@
 title: Configuration variations
 source: docs/errors.md
 source_repo: endojs/endo
-source_commit: 052b0487e380b0d241de6b30f4b1c9a08b9226db
+source_commit: fe81477bf88b00775bf135ce6cb3a7123a296e3e
 source_date: 2025-09-25
 source_authors: [Kris Kowal]
 ingested: 2026-05-13
@@ -34,4 +34,4 @@ This system must behave well in a variety of configurations:
 
 Of these configurations, we are primarily concerned with the post-lockdown, default-safe-taming options, created compartment, recommended endowment pattern. This one must have strong simple security and determinism properties. Variations must differ in understandable ways.
 
-Source: [docs/errors.md](https://github.com/endojs/endo/blob/052b0487e380b0d241de6b30f4b1c9a08b9226db/docs/errors.md) at commit `052b0487`.
+Source: [docs/errors.md](https://github.com/endojs/endo/blob/fe81477bf88b00775bf135ce6cb3a7123a296e3e/docs/errors.md) at commit `fe81477b`.

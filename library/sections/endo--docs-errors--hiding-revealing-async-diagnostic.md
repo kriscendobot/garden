@@ -2,7 +2,7 @@
 title: Hiding and Revealing Asynchronous Diagnostic Information
 source: docs/errors.md
 source_repo: endojs/endo
-source_commit: 052b0487e380b0d241de6b30f4b1c9a08b9226db
+source_commit: fe81477bf88b00775bf135ce6cb3a7123a296e3e
 source_date: 2025-09-25
 source_authors: [Kris Kowal]
 ingested: 2026-05-13
@@ -31,4 +31,4 @@ Ideally, the diagnostic information produced by such instrumentation should be s
 
 (However, this pattern of use will accumulate deep annotation trees, too deep to keep in memory. Instead we would need to bound the number of annotations we remember, which would require a different data structure.)
 
-Source: [docs/errors.md](https://github.com/endojs/endo/blob/052b0487e380b0d241de6b30f4b1c9a08b9226db/docs/errors.md) at commit `052b0487`.
+Source: [docs/errors.md](https://github.com/endojs/endo/blob/fe81477bf88b00775bf135ce6cb3a7123a296e3e/docs/errors.md) at commit `fe81477b`.

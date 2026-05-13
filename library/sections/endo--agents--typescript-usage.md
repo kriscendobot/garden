@@ -2,7 +2,7 @@
 title: TypeScript usage
 source: AGENTS.md
 source_repo: endojs/endo
-source_commit: 052b0487e380b0d241de6b30f4b1c9a08b9226db
+source_commit: 6ea51ece638e2c842a12ec23164c21cbc24f3cbe
 source_date: 2026-03-21
 source_authors: [Turadg Aleahmad]
 ingested: 2026-05-13
@@ -67,4 +67,4 @@ Use `/** @import */` JSDoc comments to import types without runtime module loadi
 /** @import { Pattern, MatcherNamespace } from './types.js' */
 ```
 
-Source: [AGENTS.md](https://github.com/endojs/endo/blob/052b0487e380b0d241de6b30f4b1c9a08b9226db/AGENTS.md) at commit `052b0487`.
+Source: [AGENTS.md](https://github.com/endojs/endo/blob/6ea51ece638e2c842a12ec23164c21cbc24f3cbe/AGENTS.md) at commit `6ea51ece`.

@@ -11,6 +11,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [AGENTS.md](endo--agents.md) | endojs/endo | 2026-03-21 | Turadg Aleahmad | 6 | current |
 | [docs/security.md](endo--docs-security.md) | endojs/endo | 2025-09-25 | Kris Kowal | 3 | current |
 | [docs/errors.md](endo--docs-errors.md) | endojs/endo | 2025-09-25 | Kris Kowal | 7 | current |
+| [docs/lockdown.md](endo--docs-lockdown.md) | endojs/endo | 2025-09-25 | Kris Kowal | 15 | current |
 
 ## Backlog (not yet ingested)
 
@@ -18,7 +19,7 @@ Roughly grouped by priority. The full file inventory was captured during the pil
 
 **Top-level (1 remaining):** `README.md`, `CONTRIBUTING.md`. (`AGENTS.md` and `SECURITY.md` are done; `SECURITY.md` content overlaps `docs/security.md` and may need a contradiction check.)
 
-**`docs/` (6 remaining):** `bugs.md`, `get-started.md`, `guide.md`, `lockdown.md`, `message-passing.md`, `reference.md`. `docs/lockdown.md` is the largest (1220 lines, 16 sections) and the highest-yield single document.
+**`docs/` (5 remaining):** `bugs.md`, `get-started.md`, `guide.md`, `message-passing.md`, `reference.md`. (`lockdown.md` was ingested 2026-05-13 as the first scholar-cycle library task.)
 
 **Package READMEs (47):** one per package under `packages/`. Many will be 1- to 3-section files; flagship READMEs (`ses`, `eventual-send`, `marshal`, `pass-style`, `patterns`, `exo`, `daemon`, `compartment-mapper`) will be larger.
 

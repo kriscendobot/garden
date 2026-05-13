@@ -2,7 +2,7 @@
 title: Hiding and Revealing Distributed Diagnostic Information
 source: docs/errors.md
 source_repo: endojs/endo
-source_commit: 052b0487e380b0d241de6b30f4b1c9a08b9226db
+source_commit: fe81477bf88b00775bf135ce6cb3a7123a296e3e
 source_date: 2025-09-25
 source_authors: [Kris Kowal]
 ingested: 2026-05-13
@@ -26,4 +26,4 @@ If Bob's computation then causes that error to be logged, its local stack trace 
 
 However, the above description violates one of our constraints: The automatic logging of a sent error to Alice's log is noisy, especially if neither that error nor its remote copy would ever otherwise be logged. Ideally, this would instead be handled by that [other kind of logging system](https://github.com/Agoric/agoric-sdk/issues/1318) that produces symbolic output to be post-processed into useful diagnostic information. However, this particular special case is uniquely urgent and might not wait for us to build that other kind of logging system. As one possible mechanism, the comm system could maintain a bounded in-memory table of sent errors. If Bob's request arrive while the identified error is still in Alice's table, and Alice wishes to reveal this info to Bob, Alice can log it then.
 
-Source: [docs/errors.md](https://github.com/endojs/endo/blob/052b0487e380b0d241de6b30f4b1c9a08b9226db/docs/errors.md) at commit `052b0487`.
+Source: [docs/errors.md](https://github.com/endojs/endo/blob/fe81477bf88b00775bf135ce6cb3a7123a296e3e/docs/errors.md) at commit `fe81477b`.
