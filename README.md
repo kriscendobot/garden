@@ -227,6 +227,8 @@ If a posted item lingers because its resolution is hard to detect automatically,
 
 ### Pre-staged authorizations
 
+- **`endojs/endo-but-for-bots` is the garden's own repo (broad comment authorization).** The maintainer's framing on 2026-05-13: "you are generally authorized to post freely on endo-but-for-bots. It is yours." Every role the garden dispatches against this repository may post comments, reviews, review-comments, reactjis, and cross-references on its issues and PRs without per-action authorization in the dispatch prompt. Repo-scoped relaxation only; every other repository remains under the default per-action rule in `roles/COMMON.md` § External-repo etiquette. Destructive actions (force-pushes to protected branches, branch deletions, repository-setting changes) remain per-action. Detail recorded in [`projects/endo-but-for-bots/README.md`](projects/endo-but-for-bots/README.md) § Standing authorizations. Clearing: this row stays as a standing reminder; not self-clearing.
+
 - **`kriscendobot` write access to `endojs/ocapn-test-suite`.** The maintainer granted the bot push access to the endojs fork of the OCapN test suite, with two constraints attached: the work starts from a specific upstream commit on `ocapn/ocapn-test-suite`, and no PR is to be opened against the OCapN-org upstream. The bot's pre-grant analysis on PR #109 referenced the pin in two comments, so the hash is recorded inline here to spare future agents the re-derivation.
   - Identity: `kriscendobot`.
   - Action: push branches and commits to `endojs/ocapn-test-suite`.
