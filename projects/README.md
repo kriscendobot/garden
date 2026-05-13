@@ -13,8 +13,7 @@ The structure follows the [context-library](../../skills/context-library/SKILL.m
 | [agoric-sdk](agoric-sdk/README.md) | [agoric/agoric-sdk](https://github.com/agoric/agoric-sdk) | Agoric SDK. Passive standing watch (no active engagement yet); routine activity, when it begins, will happen on the `kriscendobot` fork. |
 | [cosgov](cosgov/README.md) | [dcfoundation/cosmos-proposal-builder](https://github.com/dcfoundation/cosmos-proposal-builder) | DC Foundation's cosmos-proposal-builder. Observation-only standing watch with a contributor allowlist; routine activity is driven by the maintainer directly. |
 | [garden](garden/README.md) | [kriskowal/garden](https://github.com/kriskowal/garden) | The garden itself. This is the meta library of roles, skills, and the journal you are reading. Driven by the maintainer and the in-session liaison. |
-
-The maintainer is adding a sixth project (`ocapn`) in a follow-up dispatch with its own engagement rules; this index will gain a row when that lands.
+| [ocapn](ocapn/README.md) | (the upstream OCapN protocol repository) | Reference-only fork at `kriscendobot/ocapn`. **Unusually strict engagement rules**: no comments, no cross-references, oblique references in outward-facing artifacts only. Read the project README before acting. |
 
 ---
 
