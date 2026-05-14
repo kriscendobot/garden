@@ -355,4 +355,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-rpn--{problem-and-status-quo, retention-path-model, host-method-api-and-best-path, cli-string-notation, integration-and-phased-implementation, alternatives-and-decisions}
 
-## Total: 400 sections from 89 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs hardened-url-shim (cycle 43)
+
+- endo-but-for-bots--llm-designs-hurl--{problem-and-hazards, integration-shared-vs-start, permits-table, iterator-prototype-sampling, lockdown-sequencing-and-degradation, comparison-tests-decisions}
+
+## Total: 406 sections from 90 source documents (through 2026-05-14).

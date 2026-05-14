@@ -9,14 +9,14 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | Topic | Abstract | Sections |
 |-------|----------|----------|
 | [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 23 |
-| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 47 |
+| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 48 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 12 |
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 40 |
 | [testing](testing.md) | How to run and write tests in endo. | 11 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 9 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 18 |
-| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 78 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 85 |
+| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 84 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 87 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 22 |
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 47 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 40 |

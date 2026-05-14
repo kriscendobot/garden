@@ -97,6 +97,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [designs/trust-on-first-bind.md](endo-but-for-bots--llm-designs-trust-on-first-bind.md) | endojs/endo-but-for-bots (llm) | 2026-05-10 | Kriscendo Bot | 6 | current (TOFU for capability policy bindings; state machine + 4 decision modes + audit trail) |
 | [designs/README.md](endo-but-for-bots--llm-designs-readme.md) | endojs/endo-but-for-bots (llm) | 2026-05-09 | Kris Kowal | 5 | current (design-corpus master index; 7 milestones, calibration round, gantt; library captures shape not the 100+-row table) |
 | [designs/retention-path-notation.md](endo-but-for-bots--llm-designs-retention-path-notation.md) | endojs/endo-but-for-bots (llm) | 2026-05-10 | Kriscendo Bot | 6 | current (daemon GC retention paths: typed model + bulk host method + CLI string notation + best-path selection) |
+| [designs/hardened-url-shim.md](endo-but-for-bots--llm-designs-hardened-url-shim.md) | endojs/endo-but-for-bots (llm) | 2026-05-06 | Kriscendo Bot | 6 | current (URL + URLSearchParams as vetted SES shim; %URL%/%SharedURL% Date-style split; hidden iterator-prototype sampling; XS degrades) |
 
 ## Backlog (not yet ingested)
 
