@@ -66,6 +66,11 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [docs/node-version.md](agoric-sdk--docs-node-version.md) | agoric/agoric-sdk | 2025-08-21 | Turadg Aleahmad | 2 | current |
 | [docs/typescript.md](agoric-sdk--docs-typescript.md) | agoric/agoric-sdk | 2026-02-04 | Turadg Aleahmad | 7 | current (overlaps endo--agents--typescript-usage) |
 | [docs/env.md](agoric-sdk--docs-env.md) | agoric/agoric-sdk | 2026-03-31 | Mark S. Miller | 2 | current (cross-references TRACK_TURNS and LOCKDOWN_* from endo) |
+| [AGENTS.md](agoric-sdk--agents.md) | agoric/agoric-sdk | 2026-03-23 | Turadg Aleahmad | 8 | current (soft-flag overlap with endo--agents) |
+| [CONTRIBUTING.md](agoric-sdk--contributing.md) | agoric/agoric-sdk | 2026-02-27 | Turadg Aleahmad | 4 | current |
+| [SECURITY.md](agoric-sdk--security.md) | agoric/agoric-sdk | 2024-01-09 | Raphael Salas | 2 | current (same Agoric HackerOne process as endo--docs-security) |
+| [README.md](agoric-sdk--readme.md) | agoric/agoric-sdk | 2026-03-25 | Michael FIG | 7 | current |
+| [packages/README.md](agoric-sdk--packages-readme.md) | agoric/agoric-sdk | 2023-08-04 | Turadg Aleahmad | 1 | current |
 
 ## Backlog (not yet ingested)
 

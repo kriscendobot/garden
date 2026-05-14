@@ -18,6 +18,16 @@
 | [endo--contributing--creating-a-new-package](../sections/endo--contributing--creating-a-new-package.md) | endo CONTRIBUTING.md | Procedure for adding a new package, with style guides. |
 | [endo--contributing--rebuilding-ses](../sections/endo--contributing--rebuilding-ses.md) | endo CONTRIBUTING.md | How to rebuild the SES shim from source. |
 | [endo--contributing--using-changesets](../sections/endo--contributing--using-changesets.md) | endo CONTRIBUTING.md | The changeset workflow: adding, editing, deciding need, release. |
+| [agoric-sdk--agents--project-structure-and-module-organization](../sections/agoric-sdk--agents--project-structure-and-module-organization.md) | agoric-sdk AGENTS.md | Yarn-workspaces + Lerna-Lite monorepo over packages/* and golang/*. |
+| [agoric-sdk--agents--commit-and-pull-request-guidelines](../sections/agoric-sdk--agents--commit-and-pull-request-guidelines.md) | agoric-sdk AGENTS.md | Conventional Commits and PR norms; force/bypass integration labels. |
+| [agoric-sdk--contributing--overview-platforms-and-toolchain](../sections/agoric-sdk--contributing--overview-platforms-and-toolchain.md) | agoric-sdk CONTRIBUTING.md | Platforms, toolchain prerequisites, four-command sanity check. |
+| [agoric-sdk--contributing--tools-contract](../sections/agoric-sdk--contributing--tools-contract.md) | agoric-sdk CONTRIBUTING.md | scripts/src/tools/test directional rules; src/** must not import **/tools/**. |
+| [agoric-sdk--contributing--landing-pull-requests](../sections/agoric-sdk--contributing--landing-pull-requests.md) | agoric-sdk CONTRIBUTING.md | Conventional Commits; per-commit CI rule; Squash and merge default. |
+| [agoric-sdk--contributing--integration-tests](../sections/agoric-sdk--contributing--integration-tests.md) | agoric-sdk CONTRIBUTING.md | Force/bypass integration labels; merge-queue interaction. |
+| [agoric-sdk--readme--overview](../sections/agoric-sdk--readme--overview.md) | agoric-sdk README.md | Frame: agoric-sdk upper-layers + endo lower-layers; dapp builders use docs.agoric.com. |
+| [agoric-sdk--readme--development-standards](../sections/agoric-sdk--readme--development-standards.md) | agoric-sdk README.md | Branch hygiene, issue-numbered branch names, changelogs/ entries, MAINTAINERS.md for releases. |
+| [agoric-sdk--security--supported-versions](../sections/agoric-sdk--security--supported-versions.md) | agoric-sdk SECURITY.md | master + latest `agoric-upgrade-*` are the supported security-update set. |
+| [agoric-sdk--packages-readme--adding-a-new-package](../sections/agoric-sdk--packages-readme--adding-a-new-package.md) | agoric-sdk packages/README.md | Procedure for adding a new agoric-sdk package: dir, package.json, lockfile, CI matrix. |
 
 ## See also
 

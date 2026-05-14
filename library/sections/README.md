@@ -294,4 +294,12 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - agoric-sdk--docs-env--{overview, all-vars}
 
-## Total: 282 sections from 58 source documents (through 2026-05-14).
+### From agoric-sdk root files (cycle 31)
+
+- agoric-sdk--agents--{overview, project-structure-and-module-organization, build-test-and-development-commands, coding-style-and-naming-conventions, testing-guidelines, async-flow-model-notes, a3p-container-and-proposal-build-notes, commit-and-pull-request-guidelines}
+- agoric-sdk--contributing--{overview-platforms-and-toolchain, tools-contract, landing-pull-requests, integration-tests}
+- agoric-sdk--security--{supported-versions, coordinated-vulnerability-disclosure}
+- agoric-sdk--readme--{overview, prerequisites, build, test, run-the-larger-demo, edit-loop, development-standards}
+- agoric-sdk--packages-readme--adding-a-new-package
+
+## Total: 304 sections from 63 source documents (through 2026-05-14).

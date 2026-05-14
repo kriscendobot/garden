@@ -24,6 +24,7 @@
 | [endo--docs-message-passing--design-patterns-and-best-practices](../sections/endo--docs-message-passing--design-patterns-and-best-practices.md) | endo docs/message-passing.md | Idioms for capability-bearing code: revocation, state ownership, attenuation. |
 | [endo--docs-guide--what-is-hardenedjs-ses-endo](../sections/endo--docs-guide--what-is-hardenedjs-ses-endo.md) | endo docs/guide.md | Definitions including the ocap discipline that HardenedJS realizes. |
 | [endo--docs-guide--hardenedjs-story](../sections/endo--docs-guide--hardenedjs-story.md) | endo docs/guide.md | History from E and Joe-E to MetaMask: how ocap reached JS production. |
+| [agoric-sdk--agents--coding-style-and-naming-conventions](../sections/agoric-sdk--agents--coding-style-and-naming-conventions.md) | agoric-sdk AGENTS.md | Ambient-authority discipline: keep process.env/console/fs/network in entrypoints; pass capabilities into modules. |
 
 ## See also
 

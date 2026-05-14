@@ -13,6 +13,14 @@
 | [endo--agents--testing](../sections/endo--agents--testing.md) | endo AGENTS.md | `yarn test`, `yarn lint:types`, `yarn lint`; run lint before commit. |
 | [endo--agents--commit-conventions](../sections/endo--agents--commit-conventions.md) | endo AGENTS.md | Conventional commits with package scope; `!` for breaking. |
 | [endo--docs-errors--overview](../sections/endo--docs-errors--overview.md) | endo docs/errors.md | Agent-relevant framing of the SES error/assert/console system. |
+| [agoric-sdk--agents--overview](../sections/agoric-sdk--agents--overview.md) | agoric-sdk AGENTS.md | Frame for the agents.md-standard agoric-sdk rules. |
+| [agoric-sdk--agents--project-structure-and-module-organization](../sections/agoric-sdk--agents--project-structure-and-module-organization.md) | agoric-sdk AGENTS.md | Yarn-workspaces + Lerna-Lite monorepo over packages/* and golang/*. |
+| [agoric-sdk--agents--build-test-and-development-commands](../sections/agoric-sdk--agents--build-test-and-development-commands.md) | agoric-sdk AGENTS.md | Command inventory: corepack + yarn install/build/test/lint, typecheck, dprint, prepack/postpack workflow. |
+| [agoric-sdk--agents--coding-style-and-naming-conventions](../sections/agoric-sdk--agents--coding-style-and-naming-conventions.md) | agoric-sdk AGENTS.md | ESM, dprint, `@agoric/*` vs `@aglocal/*`, performance.now vs Date.now, ambient-authority discipline. |
+| [agoric-sdk--agents--testing-guidelines](../sections/agoric-sdk--agents--testing-guidelines.md) | agoric-sdk AGENTS.md | AVA; per-package vs whole-repo; c8 coverage. |
+| [agoric-sdk--agents--async-flow-model-notes](../sections/agoric-sdk--agents--async-flow-model-notes.md) | agoric-sdk AGENTS.md | Durable-lifecycle replay model; await-reordering footgun for `*.flows.*` modules. |
+| [agoric-sdk--agents--a3p-container-and-proposal-build-notes](../sections/agoric-sdk--agents--a3p-container-and-proposal-build-notes.md) | agoric-sdk AGENTS.md | A3P Docker container build pattern for proposals. |
+| [agoric-sdk--agents--commit-and-pull-request-guidelines](../sections/agoric-sdk--agents--commit-and-pull-request-guidelines.md) | agoric-sdk AGENTS.md | Conventional Commits; issue-number branch prefix; force/bypass integration labels. |
 
 ## See also
 

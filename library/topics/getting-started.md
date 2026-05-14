@@ -15,6 +15,12 @@
 | [endo--docs-reference--using-ses-with-your-code](../sections/endo--docs-reference--using-ses-with-your-code.md) | endo docs/reference.md | Reference-shaped onboarding for adding SES to a JS project. |
 | [endo--docs-message-passing--next-steps](../sections/endo--docs-message-passing--next-steps.md) | endo docs/message-passing.md | Pointers to deeper material after the message-passing tutorial. |
 | [endo--docs-guide--using-hardenedjs-with-your-code](../sections/endo--docs-guide--using-hardenedjs-with-your-code.md) | endo docs/guide.md | Guide-shaped onboarding for HardenedJS. |
+| [endo--readme--overview](../sections/endo--readme--overview.md) | endo README.md | Top-level Endo onboarding frame. |
+| [agoric-sdk--docs-node-version--overview](../sections/agoric-sdk--docs-node-version--overview.md) | agoric-sdk docs/node-version.md | agoric-sdk's Node version policy. |
+| [agoric-sdk--contributing--overview-platforms-and-toolchain](../sections/agoric-sdk--contributing--overview-platforms-and-toolchain.md) | agoric-sdk CONTRIBUTING.md | Platform support and toolchain prerequisites. |
+| [agoric-sdk--readme--overview](../sections/agoric-sdk--readme--overview.md) | agoric-sdk README.md | Frame: agoric-sdk + endo split; dapp builders go to docs.agoric.com. |
+| [agoric-sdk--readme--prerequisites](../sections/agoric-sdk--readme--prerequisites.md) | agoric-sdk README.md | Git/Go/Node/Yarn/compiler version ranges; Apple-Silicon dep-from-source. |
+| [agoric-sdk--readme--run-the-larger-demo](../sections/agoric-sdk--readme--run-the-larger-demo.md) | agoric-sdk README.md | TL;DR `agoric init/install/start` sequence. |
 
 ## See also
 
