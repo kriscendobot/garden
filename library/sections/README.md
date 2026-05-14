@@ -374,4 +374,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--designs-dp--{frame-and-position-in-design-space, waterken-and-e-as-endpoints, formula-graph-and-cohort-destruction, acyclic-formula-graph-and-revocation, coordinated-retention-and-four-tables, system-fit-and-not-orthogonal, six-aspects-of-sharing-and-related-work}
 
-## Total: 435 sections from 96 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs daemon-256-bit-identifiers (cycle 48)
+
+- endo-but-for-bots--llm-designs-d256--{problem-and-original-state, identifier-migration-and-crypto-powers, per-agent-keypairs, formula-types-and-security}
+
+## Total: 439 sections from 97 source documents (through 2026-05-14).
