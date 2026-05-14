@@ -65,6 +65,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [docs/commit-hygiene.md](agoric-sdk--docs-commit-hygiene.md) | agoric/agoric-sdk | 2026-02-27 | Turadg Aleahmad | 5 | current |
 | [docs/node-version.md](agoric-sdk--docs-node-version.md) | agoric/agoric-sdk | 2025-08-21 | Turadg Aleahmad | 2 | current |
 | [docs/typescript.md](agoric-sdk--docs-typescript.md) | agoric/agoric-sdk | 2026-02-04 | Turadg Aleahmad | 7 | current (overlaps endo--agents--typescript-usage) |
+| [docs/env.md](agoric-sdk--docs-env.md) | agoric/agoric-sdk | 2026-03-31 | Mark S. Miller | 2 | current (cross-references TRACK_TURNS and LOCKDOWN_* from endo) |
 
 ## Backlog (not yet ingested)
 

@@ -1,0 +1,346 @@
+---
+title: Environment Variables (alphabetical reference)
+source: docs/env.md
+source_repo: agoric/agoric-sdk
+source_commit: 8051bed260133080a0d46339aefcc9baba5c1d34
+source_date: 2026-03-31
+source_authors: [Mark S. Miller]
+ingested: 2026-05-14
+ingested_by: scholar
+project: agoric-sdk
+topics: [tooling, repository-governance, errors]
+status: current
+---
+
+> Abstract: All 25 agoric-sdk environment variables, alphabetical. The H2 anchors are preserved inline so an agent grepping for a specific var (e.g., TRACK_TURNS, DEBUG, SLOGFILE, AGORIC_NET) finds it directly. TRACK_TURNS is one of the variables already cross-referenced from endo--docs-errors--overview's note about deep-stack tracking; LOCKDOWN_* maps to the env-fallthrough pattern in endo--docs-lockdown--overview. Variables include networking config (AGORIC_NET, CHAIN_BOOTSTRAP_VAT_CONFIG), debugging (DEBUG, ENDO_DELIVERY_BREAKPOINTS, ENDO_SEND_BREAKPOINTS, TRACK_TURNS), build-and-runtime tuning (CXXFLAGS, FAKE_CURRENCIES, LOCKDOWN_*, ONLY_WELL_FORMED_STRINGS_PASSABLE, SWINGSET_WORKER_TYPE), observability (OTEL_EXPORTER_PROMETHEUS_PORT, SLOGFILE, SLOGSENDER, SLOGSENDER_AGENT, SLOGSENDER_AGENT_*, SLOGSENDER_FAIL_ON_ERROR), ag-solo (SOLO_*), and chain (END_BLOCK_SPIN_MS).
+
+## AGORIC_NET
+
+Affects: CLIs (`agoric` etc.), ymax-planner, other uses of `@agoric/client-utils`
+
+Purpose: specify the chain/endpoint for outbound queries and transactions
+
+Description: if nonempty, its contents must use one of the following formats:
+  - "$subdomain": a subdomain of agoric.net that is expected to respond to an
+    HTTP request for `/network-config` (e.g., "local" or "main" or a network
+    listed at https://all.agoric.net/ ) with a JSON MinimalNetworkConfig object
+    containing at least the following properties:
+      * `chainName`: a Cosmos Chain ID (cf.
+         https://evm.cosmos.network/docs/next/documentation/concepts/chain-id
+         and https://github.com/cosmos/chain-registry )
+      * `rpcAddrs`: an array of endpoints that are expected to respond to
+        cosmos-sdk RPC requests
+  - "$subdomain,$chainId": a single-word subdomain of rpc.agoric.net that is
+    expected to respond to cosmos-sdk RPC requests, and a Cosmos Chain ID to
+    associate with it
+  - "$fqdn,$chainId": a fully-qualified domain name that is expected to respond
+    to cosmos-sdk RPC requests, and a Cosmos Chain ID to associate with it
+
+The default is usually `'local'`, which uses RPC endpoint http://0.0.0.0:26657
+and chain ID "agoriclocal".
+
+Lifetime: probably forever
+
+## CHAIN_BOOTSTRAP_VAT_CONFIG
+
+Affects: `ag-chain-cosmos`, `ag-solo`
+
+Purpose: to set the specifier for the chain/sim-chain's `vatconfig.json`
+
+Description: defaults to `@agoric/vm-config/decentral-core-config.json`
+
+Lifetime: until we don't want to allow user control of the chain's vat config
+
+## CXXFLAGS
+
+Affects: yarn, agoric install
+
+Purpose: add compilation flags to Node.js C++ addons
+
+Description: defaults to `-std=c++14` if not set (empty string doesn't default)
+
+Lifetime: probably forever (until all supported Node versions work with
+`CXXFLAGS=''`)
+
+## DEBUG
+
+Affects: agoric (CLI), ag-chain-cosmos, ag-solo
+
+Purpose: to change the meaning of `console.log` and other console methods
+
+Description: uses `anylogger` to change whether the following methods are active
+for a given context, in order of increasing severity:
+
+1. `console.debug`
+2. `console.log`
+3. `console.info`
+4. `console.warn`
+5. `console.error`
+
+If `$DEBUG` is unset or non-empty, then default (`console.log` and above) logging is enabled.  (`console.debug` logging is disabled.)
+
+If `$DEBUG` is set to an empty string, then quiet (`console.info` and above) logging is enabled.
+(`console.log` and `console.debug` logging is disabled.)
+
+Otherwise, set to a comma-separated list of strings.
+
+If one of those strings is
+- `agoric:${level}`, then don't print `agoric-sdk` console messages below `${level}`.
+- `agoric:none`, then silence all `agoric-sdk` console messages.
+- `agoric` (an alias for `agoric:debug`) print all `agoric-sdk` console messages.
+- `track-turns`, then log errors at the top of the event-loop that may otherwise be unreported. See also the TRACK_TURNS environment variable below.
+- `label-instances`, then log exo instances with a unique label per instance. HAZARD This causes an information leak in the messages of thrown errors, which are available even to code without access to the console. Use with care.
+
+For each of those strings beginning with a prefix recognized as indicating what
+console messages to enable, pass it to `makeConsole`. For example:
+
+- `DEBUG=SwingSet:ls` enable all console messages for liveslots, regardless of vat.
+- `DEBUG=SwingSet:ls:v13` enable for liveslots in vat 13.
+- `DEBUG=SwingSet:vat` enable for user code, regardless of vat.
+- `DEBUG=SwingSet:vat,SwingSet:ls` enable for liveslots and user code, all vats
+
+## ENDO_DELIVERY_BREAKPOINTS
+
+The value of this option should be a JSON string identifying for which
+eventual-send message deliveries should a JS `debugger;` statement be executed.
+The format of the JSON string is
+```json
+{
+  <class-like>: {
+    <method-like>: <countdown>,
+    <method-like>: <countdown>,
+    ...
+  },
+  <class-like>: {
+    <method-like>: <countdown>
+    ...
+  },
+  ...
+}
+```
+Where
+- `<class-like>` is either `"*"` or an alleged string tag of the receiving
+   remotable (exo or far) object
+- `<method-like>` is either `"*"` or a method name. There is not yet a syntax for symbols to name symbol-named methods, but there may eventually be.
+- `<countdown>` is either `"*"` or a non-negative integer saying how many occurrences to ignore before breakpointing.
+
+When the program is run under a debugger, it will breakpoint when the JS
+`debugger;` statement is executed. When run normally without a debugger, the
+`debugger;` statement will have no effect. The `debugger;` statement
+is executed *before* the method is entered.
+
+See https://github.com/endojs/endo/blob/master/packages/pass-style/test/_prepare-breakpoints.js for an example.
+
+## ENDO_SEND_BREAKPOINTS
+
+The value of this option is a JSON string identifying for which eventual sends
+should a JS `debugger;` statement be executed. The format is the same as
+shown for `ENDO_DELIVERY_BREAKPOINTS` above, but the breakpoint happens
+when and where the message is sent, rather than when and where it is delivered.
+
+## END_BLOCK_SPIN_MS
+
+Affects: cosmic-swingset
+
+Purpose: simulating load to explore scalability of the Cosmos SDK.
+
+Description: Number of milliseconds to busy-wait during every block's
+end-of-block processing for `ag-chain-cosmos` and the sim-chain.
+
+Lifetime: until we have a more consistent load testing regimen
+
+## FAKE_CURRENCIES
+
+Affects: cosmic-swingset
+
+Purpose: allow the creation of pretend tokens
+
+Description: When nonempty, create pretend prepopulated tokens like "moola" and
+"simoleans".
+
+Lifetime: until chain is mature enough not to need any pretend tokens
+
+## LOCKDOWN_*
+
+For the environment variables beginning with `LOCKDOWN_` , see [`lockdown` Options](https://github.com/endojs/endo/blob/master/packages/ses/docs/lockdown.md).
+
+## ONLY_WELL_FORMED_STRINGS_PASSABLE
+
+As part of the OCapN standards process, we have agreed that only so-called
+"well formed" unicode strings should be considered `Passable`. However, we are
+not yet confident about the performance impact of enforcing this ban, so it
+is `"disabled"` by default for now. To turn it on, set this option to `"enabled"`.
+See https://github.com/endojs/endo/blob/master/packages/pass-style/NEWS.md#v130-2024-03-19 for more explanation.
+
+## OTEL_EXPORTER_PROMETHEUS_PORT
+
+Affects: cosmic-swingset
+
+Purpose: enabling Prometheus metrics exports
+
+Description: When set, metrics will be exposed in the [Prometheus text-based
+format](https://prometheus.io/docs/instrumenting/exposition_formats/#text-based-format)
+via HTTP on this port (or the default port 9464 when the value is not a number)
+for the host specified by `OTEL_EXPORTER_PROMETHEUS_HOST` (or default host
+0.0.0.0) at default path "/metrics". See also
+[README-telemetry.md](../packages/cosmic-swingset/README-telemetry.md#agoric-vm-swingset-metrics).
+
+Lifetime: until we decide not to support Prometheus for metrics export
+
+## SLOGFILE
+
+Affects: cosmic-swingset
+
+Purpose: record an on-chain Swingset LOG file
+
+Description: when nonempty, use the value as an absolute path to which SwingSet
+debug logs should be written.
+
+Lifetime: ?
+
+## SLOGSENDER
+
+Affects: cosmic-swingset
+
+Purpose: intercept the SwingSet LOG file in realtime
+
+Description: when nonempty, use the value as a list of module specifiers
+separated by commas `,`.  `@agoric/telemetry/src/make-slog-sender.js` export
+`makeSlogSender` loads each module via dynamic `import` and calls its exported
+`makeSlogSender` function to construct a slogSender that will be called with
+each new slog entry (fanning such objects out to each module). Prefixing a
+module specifier with `-` causes it to be excluded, and can be used to suppress
+otherwise automatic use of modules for e.g. writing slogfiles and exporting
+Prometheus metrics.
+
+The default is `'@agoric/telemetry/src/flight-recorder.js'`, which writes to an
+mmap'ed circular buffer.
+
+## SLOGSENDER_AGENT
+
+Affects: cosmic-swingset
+
+Purpose: selects the agent type used to handle the SwingSet LOG
+
+Description: if empty or `'self'` slog senders are loaded in the same process
+and thread as the SwingSet kernel. If `'process'`, slog senders are loaded in a
+sub-process which receives all SLOG events over an IPC connection.
+
+The default is `'self'`.
+
+## SLOGSENDER_AGENT_*
+
+A `SLOGSENDER_AGENT_` prefix may be used to set variables in the environment of
+slog sender modules. The name prefix is stripped, allowing slog senders to see a
+different value for e.g.
+[`OTEL_EXPORTER_PROMETHEUS_PORT`](#otel_exporter_prometheus_port).
+
+## SLOGSENDER_FAIL_ON_ERROR
+
+Affects: cosmic-swingset
+
+Purpose: causes failures of the slogSender to be fatal
+
+Description: if set (to a non empty value), a failure of the slogSender flush
+operation will result in a rejection instead of mere logging. Can be used to
+validate during tests that complex slog senders like the otel converter do not
+have any unexpected errors.
+
+The default is `undefined`.
+
+## SOLO_BRIDGE_TARGET
+
+Affects: solo
+
+This enables a proxy so that the solo bridge interface (/wallet-bridge.html) is backed by the smart wallet (/wallet/bridge.html). Dapps designed for the solo bridge can enable this until they connect to the smart wallet directly.
+
+```sh
+BRIDGE_TARGET=http://localhost:3001 make BASE_PORT=8002 scenario3-run
+```
+
+Lifetime: smart wallet transition period
+
+## SOLO_MAX_DEBUG_LENGTH
+
+Affects: solo
+
+Purpose: reduce the size of each individual `console.debug` output
+
+Description: defaults to no limit, set to a decimal byte count to reduce the
+output
+
+Lifetime: Until CI no longer balks on long output, or our source bundles aren't delivered via messages to the sim-chain
+
+## SOLO_MNEMONIC
+
+Affects: solo init
+
+Seed phrase for HD key derivation.
+
+## SOLO_OTEL_EXPORTER_PROMETHEUS_PORT
+
+Affects: solo
+
+Same as [`OTEL_EXPORTER_PROMETHEUS_PORT`](#otel_exporter_prometheus_port), but
+for solo instead of chain.
+
+Lifetime: ?
+
+## SOLO_SLOGFILE
+
+Affects: solo
+
+Same as [`SLOGFILE`](#slogfile), but for solo instead of chain.
+
+Lifetime: ?
+
+## SOLO_SLOGSENDER
+
+Affects: solo
+
+Same as [`SLOGSENDER`](#slogsender), but for solo instead of chain.
+
+Lifetime: ?
+
+## SOLO_*
+
+A `SOLO` prefix may be used to set variables used only by solo processes. The
+name prefix is stripped, allowing such variables to be set in a shell
+environment without affecting cosmic-swingset.
+
+## SWINGSET_WORKER_TYPE
+
+Affects: solo, unit tests
+
+Purpose: select the default Worker type (default `local`)
+
+Description: The SwingSet kernel launches each vat into a "worker" of a
+particular type. The `local` workers run in the same Node.js process as the
+kernel (which facilitates debugging). The `xsnap` workers run in a child
+process under the XS engine (which provides metering and heap snapshots, as
+well as more consistent GC behavior). `xs-worker` is an alias for `xsnap`.
+
+Applications and unit tests may specify which type of worker they use for all
+vats in their `config.defaultManagerType` record, especially if they need a
+specific type for some reason. If they do not specify it there, the environment
+variable will supply a default. The full hierarchy of controls are:
+
+* config.vats.NAME.creationOptions.managerType (highest priority, but
+                                                only for static vats)
+* config.defaultManagerType (applies to both static and dynamic vats)
+* env.SWINGSET_WORKER_TYPE
+* use a 'local' worker (lowest priority)
+
+The environment variable exists so CI commands (e.g. 'yarn test:xs') can run a
+batch of unit tests under a different worker, without editing all their config
+records individually. `config.defaultManagerType` has a higher priority so that
+tests which require a specific worker (e.g. which exercise XS heap snapshots,
+or metering) can override the env var, so they won't break under `yarn
+test:xs`.
+
+## TRACK_TURNS
+
+Log the deep causality stack behind logged errors if possible. See also the
+`DEBUG` setting `DEBUG=track-turns` above.
+
+Source: [docs/env.md](https://github.com/agoric/agoric-sdk/blob/8051bed260133080a0d46339aefcc9baba5c1d34/docs/env.md) at commit `8051bed2`.

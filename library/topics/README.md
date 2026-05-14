@@ -9,12 +9,12 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | Topic | Abstract | Sections |
 |-------|----------|----------|
 | [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 7 |
-| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 21 |
+| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 23 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 11 |
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 25 |
 | [testing](testing.md) | How to run and write tests in endo. | 6 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 7 |
-| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 17 |
+| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 18 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 76 |
 | [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 39 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 19 |
@@ -27,7 +27,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 4 |
 | [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 18 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 11 |
-| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 26 |
+| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 28 |
 | [bundles](bundles.md) | Module bundling, Compartment module loading, bundle-source / compartment-mapper family. | 24 |
 | [spec-to-implementation](spec-to-implementation.md) | Cross-cutting concordance: OCapN spec sections ↔ Endo realizations. | (meta) |
 

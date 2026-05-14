@@ -290,4 +290,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - agoric-sdk--docs-node-version--{overview, updating}
 - agoric-sdk--docs-typescript--{overview, best-practices, ts-modules, dts-modules, entrypoint, build, api-docs}
 
-## Total: 280 sections from 57 source documents (through 2026-05-14).
+### From agoric-sdk `docs/env.md` (cycle 29)
+
+- agoric-sdk--docs-env--{overview, all-vars}
+
+## Total: 282 sections from 58 source documents (through 2026-05-14).
