@@ -28,6 +28,7 @@
 | [endo--docs-lockdown--harden-taming](../sections/endo--docs-lockdown--harden-taming.md) | endo docs/lockdown.md | Make `harden()` a no-op for performance in trusted environments. |
 | [endo--docs-get-started--first-steps-hardened-js](../sections/endo--docs-get-started--first-steps-hardened-js.md) | endo docs/get-started.md | Tutorial first encounter with lockdown, harden, Compartment. |
 | [endo--docs-get-started--confining-node-applications](../sections/endo--docs-get-started--confining-node-applications.md) | endo docs/get-started.md | Walk-through of confining a Node app inside a Compartment. |
+| [endo--pkg-marshal-readme--frozen-objects-only](../sections/endo--pkg-marshal-readme--frozen-objects-only.md) | endo packages/marshal/README.md | Marshal requires harden()ed values; depends on the hardened-JS substrate. |
 
 ## See also
 

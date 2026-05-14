@@ -15,13 +15,15 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [testing](testing.md) | How to run and write tests in endo. | 1 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 4 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 13 |
-| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 22 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 4 |
+| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 23 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 5 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 5 |
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 3 |
-| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 2 |
+| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 4 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 1 |
-| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 1 |
+| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 8 |
+| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 7 |
+| [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 1 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 6 |
 | [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 1 |
 
@@ -31,7 +33,6 @@ The taxonomy in `conventions.md` lists additional topics expected to fill in as 
 
 - `patterns`: shape matching, kind kinds.
 - `bundles`: bundle-source, compartment-mapper, import-bundle, module-source.
-- `daemon`: endo daemon, capability bank, process model.
 - `streams`: stream, stream-node, async iteration.
 
 These will appear when the next ingestion batches (the flagship package READMEs queued in the inbox) create sections that file under them.

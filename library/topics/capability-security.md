@@ -10,6 +10,7 @@
 | [endo--docs-get-started--confining-node-applications](../sections/endo--docs-get-started--confining-node-applications.md) | endo docs/get-started.md | Tutorial walk-through of confining via explicit endowments. |
 | [endo--docs-get-started--distributed-programming](../sections/endo--docs-get-started--distributed-programming.md) | endo docs/get-started.md | Capability-bearing remotables introduction. |
 | [endo--docs-get-started--use-cases](../sections/endo--docs-get-started--use-cases.md) | endo docs/get-started.md | Motivating use cases for capability confinement. |
+| [endo--pkg-marshal-readme--pass-by-presence-vs-copy](../sections/endo--pkg-marshal-readme--pass-by-presence-vs-copy.md) | endo packages/marshal/README.md | Distinguishing data values (pass-by-copy) from capability references (pass-by-presence). |
 
 ## See also
 

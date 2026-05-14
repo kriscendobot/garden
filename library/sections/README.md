@@ -62,4 +62,18 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--docs-get-started--use-cases](endo--docs-get-started--use-cases.md)
 - [endo--docs-get-started--resources-next-steps](endo--docs-get-started--resources-next-steps.md)
 
-## Total: 38 sections from 6 source documents (through /loop tick 2, 2026-05-14).
+### From endo `packages/daemon/README.md`
+
+- [endo--pkg-daemon-readme--overview](endo--pkg-daemon-readme--overview.md)
+
+### From endo `packages/marshal/README.md`
+
+- [endo--pkg-marshal-readme--overview](endo--pkg-marshal-readme--overview.md)
+- [endo--pkg-marshal-readme--usage](endo--pkg-marshal-readme--usage.md)
+- [endo--pkg-marshal-readme--frozen-objects-only](endo--pkg-marshal-readme--frozen-objects-only.md)
+- [endo--pkg-marshal-readme--beyond-json](endo--pkg-marshal-readme--beyond-json.md)
+- [endo--pkg-marshal-readme--pass-by-presence-vs-copy](endo--pkg-marshal-readme--pass-by-presence-vs-copy.md)
+- [endo--pkg-marshal-readme--convert-val-slot](endo--pkg-marshal-readme--convert-val-slot.md)
+- [endo--pkg-marshal-readme--alternative-to-json](endo--pkg-marshal-readme--alternative-to-json.md)
+
+## Total: 46 sections from 8 source documents (through /loop tick 3, 2026-05-14).

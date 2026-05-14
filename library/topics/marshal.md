@@ -7,6 +7,13 @@
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
 | [endo--docs-errors--hiding-revealing-distributed-diagnostic](../sections/endo--docs-errors--hiding-revealing-distributed-diagnostic.md) | endo docs/errors.md | Errors serialize by copy; comm system can attach identifiers. |
+| [endo--pkg-marshal-readme--overview](../sections/endo--pkg-marshal-readme--overview.md) | endo packages/marshal/README.md | The marshal package: pass-style serialization + smallcaps wire format. |
+| [endo--pkg-marshal-readme--usage](../sections/endo--pkg-marshal-readme--usage.md) | endo packages/marshal/README.md | makeMarshal API: toCapData and fromCapData. |
+| [endo--pkg-marshal-readme--frozen-objects-only](../sections/endo--pkg-marshal-readme--frozen-objects-only.md) | endo packages/marshal/README.md | Marshal requires harden()ed values. |
+| [endo--pkg-marshal-readme--beyond-json](../sections/endo--pkg-marshal-readme--beyond-json.md) | endo packages/marshal/README.md | Smallcaps wire format extensions beyond JSON. |
+| [endo--pkg-marshal-readme--pass-by-presence-vs-copy](../sections/endo--pkg-marshal-readme--pass-by-presence-vs-copy.md) | endo packages/marshal/README.md | Pass-by-copy (data) vs pass-by-presence (capability proxy). |
+| [endo--pkg-marshal-readme--convert-val-slot](../sections/endo--pkg-marshal-readme--convert-val-slot.md) | endo packages/marshal/README.md | The slot-to-capability bridge callbacks. |
+| [endo--pkg-marshal-readme--alternative-to-json](../sections/endo--pkg-marshal-readme--alternative-to-json.md) | endo packages/marshal/README.md | Marshal as a direct JSON replacement for arbitrary frozen values. |
 
 ## See also
 

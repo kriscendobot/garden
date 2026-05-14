@@ -14,6 +14,8 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [docs/lockdown.md](endo--docs-lockdown.md) | endojs/endo | 2025-09-25 | Kris Kowal | 15 | current |
 | [docs/bugs.md](endo--docs-bugs.md) | endojs/endo | 2025-09-25 | Kris Kowal | 1 | current |
 | [docs/get-started.md](endo--docs-get-started.md) | endojs/endo | 2025-12-04 | Kris Kowal | 6 | current |
+| [packages/daemon/README.md](endo--pkg-daemon-readme.md) | endojs/endo | 2022-12-08 | Kris Kowal | 1 | current |
+| [packages/marshal/README.md](endo--pkg-marshal-readme.md) | endojs/endo | 2024-02-05 | Richard Gibson + Kris Kowal | 7 | current |
 
 ## Backlog (not yet ingested)
 
@@ -23,7 +25,7 @@ Roughly grouped by priority. The full file inventory was captured during the pil
 
 **`docs/` (3 remaining):** `guide.md`, `message-passing.md`, `reference.md`. (`bugs.md` and `get-started.md` ingested on the /loop ticks of 2026-05-14; `lockdown.md` was ingested 2026-05-13 as the first scholar-cycle library task.)
 
-**Package READMEs (47):** one per package under `packages/`. Many will be 1- to 3-section files; flagship READMEs (`ses`, `eventual-send`, `marshal`, `pass-style`, `patterns`, `exo`, `daemon`, `compartment-mapper`) will be larger.
+**Package READMEs (45 remaining):** of the 47 packages under `packages/`, 2 are now ingested (`daemon`, `marshal`). Flagship READMEs queued in the inbox for subsequent cycles: `ses`, `eventual-send`, `pass-style`, `patterns`, `exo`. Other packages remain in the unprimed backlog.
 
 **Package `docs/` and `doc/` (13):**
 - `packages/exo/docs/`: `exo-taxonomy.md`, `types.md`.
