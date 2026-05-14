@@ -86,14 +86,25 @@ appears to have dropped the event: the branch ref was updated remotely
 empty nudge commit at `6adf08040` was pushed at 12:51Z and the PR sync
 caught up immediately; new CI runs on the nudge head are pending.
 
-Final branch head: `6adf08040` (empty `chore: nudge GitHub PR sync ...`
-sitting on top of the five substantive commits). The next steward cycle
-will see the new HEAD and read CI off it. If the lint job stays red on
-that head, the targeted disable was insufficient and the follow-up should
-either (a) lower `number.minimumDigits` to 4 globally (the substantive
-juror's should-fix #2, which would also pin intentional `1_000` separators
-that the original autofix stripped), or (b) reproduce the CI-only trigger
-to identify whether a separate plugin is mutating the literal AST.
+Final branch head: `81889aad8` (a force-pushed reword of the
+zero-diff nudge commit that turned into a real comment-rewording of the
+targeted disable, since GitHub treats an empty commit's push as no-op
+and does not create a GitHub-Actions check-suite). The PR's tracked head
+synced to `81889aad8` immediately after the force-push at 12:55Z. After
+that, the only check-suites created on the new head are renovate and
+claude (both `queued`); no `github-actions` check-suite exists. CI has
+not retriggered on the new head as of 13:08Z (>13 min). This may be a
+GitHub Actions delay or rate-limit; either way it is no longer the
+fixer's lane. The next steward cycle will read CI off the branch's
+actual head when GitHub eventually triggers it, or the maintainer can
+re-run via the UI.
+
+If the lint job stays red on that head, the targeted disable was
+insufficient and the follow-up should either (a) lower
+`number.minimumDigits` to 4 globally (the substantive juror's should-fix
+#2, which would also pin intentional `1_000` separators that the
+original autofix stripped), or (b) reproduce the CI-only trigger to
+identify whether a separate plugin is mutating the literal AST.
 
 ## The `_util.js:1000` mystery (for the next reader)
 
