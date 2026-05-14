@@ -19,6 +19,7 @@
 | [endo--pkg-exo-readme--virtual-durable-exos](../sections/endo--pkg-exo-readme--virtual-durable-exos.md) | endo packages/exo/README.md | Virtual / durable exos: state in heap-managed or restart-surviving store. |
 | [endo--pkg-exo-readme--integration-with-endo](../sections/endo--pkg-exo-readme--integration-with-endo.md) | endo packages/exo/README.md | How exo relates to patterns, pass-style, marshal, eventual-send, captp. |
 | [endo--pkg-exo-readme--see-also](../sections/endo--pkg-exo-readme--see-also.md) | endo packages/exo/README.md | Pointers to packages/exo/docs/: exo-taxonomy and types. |
+| [endo--pkg-patterns-readme--interface-guards](../sections/endo--pkg-patterns-readme--interface-guards.md) | endo packages/patterns/README.md | Interface guards as used by Exo: methodsGuard structure and integration. |
 
 ## See also
 

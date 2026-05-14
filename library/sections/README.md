@@ -104,4 +104,17 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--pkg-exo-readme--integration-with-endo](endo--pkg-exo-readme--integration-with-endo.md)
 - [endo--pkg-exo-readme--see-also](endo--pkg-exo-readme--see-also.md)
 
-## Total: 68 sections from 10 source documents (through /loop tick 5, 2026-05-14).
+### From endo `packages/patterns/README.md`
+
+- [endo--pkg-patterns-readme--overview](endo--pkg-patterns-readme--overview.md)
+- [endo--pkg-patterns-readme--quick-start](endo--pkg-patterns-readme--quick-start.md)
+- [endo--pkg-patterns-readme--m-namespace](endo--pkg-patterns-readme--m-namespace.md)
+- [endo--pkg-patterns-readme--pattern-matching](endo--pkg-patterns-readme--pattern-matching.md)
+- [endo--pkg-patterns-readme--copy-collections](endo--pkg-patterns-readme--copy-collections.md)
+- [endo--pkg-patterns-readme--interface-guards](endo--pkg-patterns-readme--interface-guards.md)
+- [endo--pkg-patterns-readme--key-comparison](endo--pkg-patterns-readme--key-comparison.md)
+- [endo--pkg-patterns-readme--key-pattern-passable-hierarchy](endo--pkg-patterns-readme--key-pattern-passable-hierarchy.md)
+- [endo--pkg-patterns-readme--integration-with-endo](endo--pkg-patterns-readme--integration-with-endo.md)
+- [endo--pkg-patterns-readme--deep-dives](endo--pkg-patterns-readme--deep-dives.md)
+
+## Total: 78 sections from 11 source documents (through /loop tick 6, 2026-05-14).

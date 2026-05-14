@@ -24,6 +24,8 @@
 | [endo--pkg-pass-style-readme--type-guards](../sections/endo--pkg-pass-style-readme--type-guards.md) | endo packages/pass-style/README.md | TypeScript type guards: passable, pure-data variants. |
 | [endo--pkg-pass-style-readme--integration-with-endo](../sections/endo--pkg-pass-style-readme--integration-with-endo.md) | endo packages/pass-style/README.md | How pass-style relates to other Endo packages. |
 | [endo--pkg-pass-style-readme--deep-dives](../sections/endo--pkg-pass-style-readme--deep-dives.md) | endo packages/pass-style/README.md | Pointers to deeper doc/ subdirectory: copyArray-guarantees, copyRecord-guarantees, etc. |
+| [endo--pkg-patterns-readme--copy-collections](../sections/endo--pkg-patterns-readme--copy-collections.md) | endo packages/patterns/README.md | CopySet, CopyBag, CopyMap are taggeds built atop pass-style primitives. |
+| [endo--pkg-patterns-readme--key-pattern-passable-hierarchy](../sections/endo--pkg-patterns-readme--key-pattern-passable-hierarchy.md) | endo packages/patterns/README.md | The Key/Pattern/Passable inclusion hierarchy. |
 
 ## See also
 
