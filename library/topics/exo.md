@@ -7,6 +7,7 @@
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
 | [endo--agents--exo-this-context](../sections/endo--agents--exo-this-context.md) | endo AGENTS.md | `this.self` vs `this.facets`; never mix `self` and `facets` in one `ThisType<>`. |
+| [endo--pkg-pass-style-readme--far](../sections/endo--pkg-pass-style-readme--far.md) | endo packages/pass-style/README.md | Far(): a lighter-weight way to construct a remotable than the full Exo apparatus. |
 
 ## See also
 

@@ -76,4 +76,18 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--pkg-marshal-readme--convert-val-slot](endo--pkg-marshal-readme--convert-val-slot.md)
 - [endo--pkg-marshal-readme--alternative-to-json](endo--pkg-marshal-readme--alternative-to-json.md)
 
-## Total: 46 sections from 8 source documents (through /loop tick 3, 2026-05-14).
+### From endo `packages/pass-style/README.md`
+
+- [endo--pkg-pass-style-readme--overview](endo--pkg-pass-style-readme--overview.md)
+- [endo--pkg-pass-style-readme--pass-styles](endo--pkg-pass-style-readme--pass-styles.md)
+- [endo--pkg-pass-style-readme--passstyleof](endo--pkg-pass-style-readme--passstyleof.md)
+- [endo--pkg-pass-style-readme--ispassable](endo--pkg-pass-style-readme--ispassable.md)
+- [endo--pkg-pass-style-readme--far](endo--pkg-pass-style-readme--far.md)
+- [endo--pkg-pass-style-readme--maketagged](endo--pkg-pass-style-readme--maketagged.md)
+- [endo--pkg-pass-style-readme--passable-values](endo--pkg-pass-style-readme--passable-values.md)
+- [endo--pkg-pass-style-readme--pass-by-copy-vs-presence](endo--pkg-pass-style-readme--pass-by-copy-vs-presence.md)
+- [endo--pkg-pass-style-readme--type-guards](endo--pkg-pass-style-readme--type-guards.md)
+- [endo--pkg-pass-style-readme--integration-with-endo](endo--pkg-pass-style-readme--integration-with-endo.md)
+- [endo--pkg-pass-style-readme--deep-dives](endo--pkg-pass-style-readme--deep-dives.md)
+
+## Total: 57 sections from 9 source documents (through /loop tick 4, 2026-05-14).
