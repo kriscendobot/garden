@@ -29,6 +29,15 @@
 | [endo--docs-get-started--first-steps-hardened-js](../sections/endo--docs-get-started--first-steps-hardened-js.md) | endo docs/get-started.md | Tutorial first encounter with lockdown, harden, Compartment. |
 | [endo--docs-get-started--confining-node-applications](../sections/endo--docs-get-started--confining-node-applications.md) | endo docs/get-started.md | Walk-through of confining a Node app inside a Compartment. |
 | [endo--pkg-marshal-readme--frozen-objects-only](../sections/endo--pkg-marshal-readme--frozen-objects-only.md) | endo packages/marshal/README.md | Marshal requires harden()ed values; depends on the hardened-JS substrate. |
+| [endo--docs-reference--overview](../sections/endo--docs-reference--overview.md) | endo docs/reference.md | Programmer's reference frame for SES + Endo. |
+| [endo--docs-reference--using-ses-with-your-code](../sections/endo--docs-reference--using-ses-with-your-code.md) | endo docs/reference.md | How to add SES to a JS project: install, call lockdown, pitfalls. |
+| [endo--docs-reference--removed-by-hardened-js](../sections/endo--docs-reference--removed-by-hardened-js.md) | endo docs/reference.md | Summary of JS globals SES removes/restricts. |
+| [endo--docs-reference--added-changed-by-hardened-js](../sections/endo--docs-reference--added-changed-by-hardened-js.md) | endo docs/reference.md | Summary of what SES adds: Compartment, causal console, assert. |
+| [endo--docs-reference--lockdown-api](../sections/endo--docs-reference--lockdown-api.md) | endo docs/reference.md | lockdown(options) API signature and idempotency. |
+| [endo--docs-reference--repair-intrinsics-api](../sections/endo--docs-reference--repair-intrinsics-api.md) | endo docs/reference.md | repairIntrinsics(options) API: first phase of lockdown. |
+| [endo--docs-reference--harden-intrinsics-api](../sections/endo--docs-reference--harden-intrinsics-api.md) | endo docs/reference.md | hardenIntrinsics() API: second phase of lockdown. |
+| [endo--docs-reference--lockdown-and-harden](../sections/endo--docs-reference--lockdown-and-harden.md) | endo docs/reference.md | How the two main SES verbs relate. |
+| [endo--docs-reference--lockdown-options-summary](../sections/endo--docs-reference--lockdown-options-summary.md) | endo docs/reference.md | Summary of lockdown options; overlaps with docs/lockdown.md per-option detail. |
 
 ## See also
 

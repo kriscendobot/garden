@@ -117,4 +117,16 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--pkg-patterns-readme--integration-with-endo](endo--pkg-patterns-readme--integration-with-endo.md)
 - [endo--pkg-patterns-readme--deep-dives](endo--pkg-patterns-readme--deep-dives.md)
 
-## Total: 78 sections from 11 source documents (through /loop tick 6, 2026-05-14).
+### From endo `docs/reference.md`
+
+- [endo--docs-reference--overview](endo--docs-reference--overview.md)
+- [endo--docs-reference--using-ses-with-your-code](endo--docs-reference--using-ses-with-your-code.md)
+- [endo--docs-reference--removed-by-hardened-js](endo--docs-reference--removed-by-hardened-js.md)
+- [endo--docs-reference--added-changed-by-hardened-js](endo--docs-reference--added-changed-by-hardened-js.md)
+- [endo--docs-reference--lockdown-api](endo--docs-reference--lockdown-api.md)
+- [endo--docs-reference--repair-intrinsics-api](endo--docs-reference--repair-intrinsics-api.md)
+- [endo--docs-reference--harden-intrinsics-api](endo--docs-reference--harden-intrinsics-api.md)
+- [endo--docs-reference--lockdown-and-harden](endo--docs-reference--lockdown-and-harden.md)
+- [endo--docs-reference--lockdown-options-summary](endo--docs-reference--lockdown-options-summary.md)
+
+## Total: 87 sections from 12 source documents (through /loop tick 7, 2026-05-14).

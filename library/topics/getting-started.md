@@ -12,6 +12,7 @@
 | [endo--docs-get-started--distributed-programming](../sections/endo--docs-get-started--distributed-programming.md) | endo docs/get-started.md | Eventual-send, CapTP, OCapN, daemon model. |
 | [endo--docs-get-started--use-cases](../sections/endo--docs-get-started--use-cases.md) | endo docs/get-started.md | Motivating examples: AI agents, supply-chain, plugins, smart contracts, dev tools. |
 | [endo--docs-get-started--resources-next-steps](../sections/endo--docs-get-started--resources-next-steps.md) | endo docs/get-started.md | Pointers to the docs/ tree, key package READMEs, SES spec, talks, issue filing. |
+| [endo--docs-reference--using-ses-with-your-code](../sections/endo--docs-reference--using-ses-with-your-code.md) | endo docs/reference.md | Reference-shaped onboarding for adding SES to a JS project. |
 
 ## See also
 

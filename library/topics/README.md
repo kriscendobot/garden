@@ -15,7 +15,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [testing](testing.md) | How to run and write tests in endo. | 1 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 4 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 13 |
-| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 23 |
+| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 32 |
 | [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 9 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 5 |
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 4 |
@@ -25,7 +25,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 20 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 2 |
 | [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 12 |
-| [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 6 |
+| [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 7 |
 | [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 1 |
 
 ## Seed-but-not-yet-populated topics
