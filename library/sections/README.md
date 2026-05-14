@@ -351,4 +351,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-readme--{overview, summary-shape-and-counts, milestones-overview, calibration-and-estimation-methodology, timeline-and-strategic-items}
 
-## Total: 394 sections from 88 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs retention-path-notation (cycle 42)
+
+- endo-but-for-bots--llm-designs-rpn--{problem-and-status-quo, retention-path-model, host-method-api-and-best-path, cli-string-notation, integration-and-phased-implementation, alternatives-and-decisions}
+
+## Total: 400 sections from 89 source documents (through 2026-05-14).

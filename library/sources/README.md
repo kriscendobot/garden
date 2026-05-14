@@ -96,6 +96,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [designs/ocapn-noise-network.md](endo-but-for-bots--llm-designs-ocapn-noise-network.md) | endojs/endo-but-for-bots (llm) | 2026-02-28 | Kris Kowal | 5 | current (OCapN-Noise as a proper network; transports + Noise XX handshake replaces op:start-session) |
 | [designs/trust-on-first-bind.md](endo-but-for-bots--llm-designs-trust-on-first-bind.md) | endojs/endo-but-for-bots (llm) | 2026-05-10 | Kriscendo Bot | 6 | current (TOFU for capability policy bindings; state machine + 4 decision modes + audit trail) |
 | [designs/README.md](endo-but-for-bots--llm-designs-readme.md) | endojs/endo-but-for-bots (llm) | 2026-05-09 | Kris Kowal | 5 | current (design-corpus master index; 7 milestones, calibration round, gantt; library captures shape not the 100+-row table) |
+| [designs/retention-path-notation.md](endo-but-for-bots--llm-designs-retention-path-notation.md) | endojs/endo-but-for-bots (llm) | 2026-05-10 | Kriscendo Bot | 6 | current (daemon GC retention paths: typed model + bulk host method + CLI string notation + best-path selection) |
 
 ## Backlog (not yet ingested)
 
