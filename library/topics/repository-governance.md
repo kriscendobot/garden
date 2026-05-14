@@ -11,6 +11,7 @@
 | [endo--agents--commit-conventions](../sections/endo--agents--commit-conventions.md) | endo AGENTS.md | Conventional commits with package scope. |
 | [endo--docs-security--overview](../sections/endo--docs-security--overview.md) | endo docs/security.md | Top-level frame for endo's security policy. |
 | [endo--docs-security--supported-versions](../sections/endo--docs-security--supported-versions.md) | endo docs/security.md | Latest-branch-only security-fix policy. |
+| [endo--docs-get-started--resources-next-steps](../sections/endo--docs-get-started--resources-next-steps.md) | endo docs/get-started.md | Pointers to docs/, key READMEs, SES spec, talks, issue filing. |
 
 ## See also
 

@@ -53,4 +53,13 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - [endo--docs-bugs--overview](endo--docs-bugs--overview.md)
 
-## Total: 32 sections from 5 source documents (pilot + first scholar cycle + first /loop tick, through 2026-05-14).
+### From endo `docs/get-started.md`
+
+- [endo--docs-get-started--installing](endo--docs-get-started--installing.md)
+- [endo--docs-get-started--first-steps-hardened-js](endo--docs-get-started--first-steps-hardened-js.md)
+- [endo--docs-get-started--confining-node-applications](endo--docs-get-started--confining-node-applications.md)
+- [endo--docs-get-started--distributed-programming](endo--docs-get-started--distributed-programming.md)
+- [endo--docs-get-started--use-cases](endo--docs-get-started--use-cases.md)
+- [endo--docs-get-started--resources-next-steps](endo--docs-get-started--resources-next-steps.md)
+
+## Total: 38 sections from 6 source documents (through /loop tick 2, 2026-05-14).

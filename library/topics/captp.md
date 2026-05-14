@@ -7,6 +7,7 @@
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
 | [endo--docs-errors--hiding-revealing-distributed-diagnostic](../sections/endo--docs-errors--hiding-revealing-distributed-diagnostic.md) | endo docs/errors.md | Plans for cross-machine error correlation via comm-side identifiers (not implemented). |
+| [endo--docs-get-started--distributed-programming](../sections/endo--docs-get-started--distributed-programming.md) | endo docs/get-started.md | Tutorial introduction to the CapTP / OCapN transport family. |
 
 ## See also
 

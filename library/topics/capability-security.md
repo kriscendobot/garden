@@ -7,6 +7,9 @@
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
 | [endo--docs-errors--hiding-revealing-local-diagnostic](../sections/endo--docs-errors--hiding-revealing-local-diagnostic.md) | endo docs/errors.md | The in-band / out-of-band frame is itself an ocap distinction: console is meta-level and powerful. |
+| [endo--docs-get-started--confining-node-applications](../sections/endo--docs-get-started--confining-node-applications.md) | endo docs/get-started.md | Tutorial walk-through of confining via explicit endowments. |
+| [endo--docs-get-started--distributed-programming](../sections/endo--docs-get-started--distributed-programming.md) | endo docs/get-started.md | Capability-bearing remotables introduction. |
+| [endo--docs-get-started--use-cases](../sections/endo--docs-get-started--use-cases.md) | endo docs/get-started.md | Motivating use cases for capability confinement. |
 
 ## See also
 

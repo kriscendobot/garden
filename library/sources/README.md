@@ -13,6 +13,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [docs/errors.md](endo--docs-errors.md) | endojs/endo | 2025-09-25 | Kris Kowal | 7 | current |
 | [docs/lockdown.md](endo--docs-lockdown.md) | endojs/endo | 2025-09-25 | Kris Kowal | 15 | current |
 | [docs/bugs.md](endo--docs-bugs.md) | endojs/endo | 2025-09-25 | Kris Kowal | 1 | current |
+| [docs/get-started.md](endo--docs-get-started.md) | endojs/endo | 2025-12-04 | Kris Kowal | 6 | current |
 
 ## Backlog (not yet ingested)
 
@@ -20,7 +21,7 @@ Roughly grouped by priority. The full file inventory was captured during the pil
 
 **Top-level (1 remaining):** `README.md`, `CONTRIBUTING.md`. (`AGENTS.md` and `SECURITY.md` are done; `SECURITY.md` content overlaps `docs/security.md` and may need a contradiction check.)
 
-**`docs/` (5 remaining):** `bugs.md`, `get-started.md`, `guide.md`, `message-passing.md`, `reference.md`. (`lockdown.md` was ingested 2026-05-13 as the first scholar-cycle library task.)
+**`docs/` (3 remaining):** `guide.md`, `message-passing.md`, `reference.md`. (`bugs.md` and `get-started.md` ingested on the /loop ticks of 2026-05-14; `lockdown.md` was ingested 2026-05-13 as the first scholar-cycle library task.)
 
 **Package READMEs (47):** one per package under `packages/`. Many will be 1- to 3-section files; flagship READMEs (`ses`, `eventual-send`, `marshal`, `pass-style`, `patterns`, `exo`, `daemon`, `compartment-mapper`) will be larger.
 

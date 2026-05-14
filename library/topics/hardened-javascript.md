@@ -26,6 +26,8 @@
 | [endo--docs-lockdown--domain-taming](../sections/endo--docs-lockdown--domain-taming.md) | endo docs/lockdown.md | Node's deprecated `domain` module: safe (remove) or unsafe (preserve). |
 | [endo--docs-lockdown--legacy-regenerator-runtime-taming](../sections/endo--docs-lockdown--legacy-regenerator-runtime-taming.md) | endo docs/lockdown.md | regenerator-runtime (Babel transpiler output) taming. |
 | [endo--docs-lockdown--harden-taming](../sections/endo--docs-lockdown--harden-taming.md) | endo docs/lockdown.md | Make `harden()` a no-op for performance in trusted environments. |
+| [endo--docs-get-started--first-steps-hardened-js](../sections/endo--docs-get-started--first-steps-hardened-js.md) | endo docs/get-started.md | Tutorial first encounter with lockdown, harden, Compartment. |
+| [endo--docs-get-started--confining-node-applications](../sections/endo--docs-get-started--confining-node-applications.md) | endo docs/get-started.md | Walk-through of confining a Node app inside a Compartment. |
 
 ## See also
 

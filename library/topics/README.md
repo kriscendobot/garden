@@ -9,29 +9,29 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | Topic | Abstract | Sections |
 |-------|----------|----------|
 | [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 7 |
-| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 5 |
+| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 6 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 2 |
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 1 |
 | [testing](testing.md) | How to run and write tests in endo. | 1 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 4 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 13 |
-| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 20 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 1 |
-| [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 3 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 2 |
-| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 1 |
+| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 22 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 4 |
+| [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 5 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 3 |
+| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 2 |
+| [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 1 |
 | [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 1 |
+| [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 6 |
+| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 1 |
 
 ## Seed-but-not-yet-populated topics
 
-The taxonomy in `conventions.md` lists topics expected to fill in as more of the endo corpus is ingested. They are not yet present here because the pilot batch (`AGENTS.md`, `docs/security.md`, `docs/errors.md`) did not exercise them:
+The taxonomy in `conventions.md` lists additional topics expected to fill in as more of the endo corpus is ingested:
 
-- `ocapn`: OCapN protocol family (netstring, noise, codecs).
 - `patterns`: shape matching, kind kinds.
 - `bundles`: bundle-source, compartment-mapper, import-bundle, module-source.
 - `daemon`: endo daemon, capability bank, process model.
 - `streams`: stream, stream-node, async iteration.
-- `tooling`: where, zip, lp32, base64, hex, cjs-module-analyzer, eslint-plugin.
-- `getting-started`: tutorials, install, first-steps.
 
-These will appear when the next ingestion batch (likely the package READMEs and `/docs/get-started.md`) creates sections that file under them.
+These will appear when the next ingestion batches (the flagship package READMEs queued in the inbox) create sections that file under them.

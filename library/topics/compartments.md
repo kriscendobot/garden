@@ -9,6 +9,8 @@
 | [endo--docs-errors--configuration-variations](../sections/endo--docs-errors--configuration-variations.md) | endo docs/errors.md | Created compartments share one safe `Error` and `assert`; each has its own filtering console in a tree. |
 | [endo--docs-errors--hiding-revealing-local-diagnostic](../sections/endo--docs-errors--hiding-revealing-local-diagnostic.md) | endo docs/errors.md | Console-tree filtering uses the compartment tree as its topic axis. |
 | [endo--docs-lockdown--eval-taming](../sections/endo--docs-lockdown--eval-taming.md) | endo docs/lockdown.md | The `evalTaming` lockdown option controls eval and Function in the start compartment. |
+| [endo--docs-get-started--first-steps-hardened-js](../sections/endo--docs-get-started--first-steps-hardened-js.md) | endo docs/get-started.md | Tutorial use of Compartment to isolate guest code with explicit endowments. |
+| [endo--docs-get-started--confining-node-applications](../sections/endo--docs-get-started--confining-node-applications.md) | endo docs/get-started.md | Confining a Node.js app inside a Compartment. |
 
 ## See also
 
