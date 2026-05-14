@@ -11,6 +11,7 @@ Designs authored by garden designer dispatches but not yet committed to `endojs/
 
 - [exo-import.md](./exo-import.md) — plug-and-play import mechanism using compartment-mapper primitives, Go-style version resolution, snapshot-strict. Authored by designer (dispatch `e3b1aa`, 2026-05-14). Sibling: exo-npm-registry. Open questions surfaced in [`entries/2026/05/14/051353Z-result-designer-e3b1aa.md`](../../../entries/2026/05/14/) and on the bulletin's *Awaits maintainer decision*.
 - [exo-npm-registry.md](./exo-npm-registry.md) — daemon-side capability that captures, indexes, and vends readable-trees for `(npm name, version)` couples; the lookup interface that `exo-import` consumes. Authored by designer (dispatch `e3b1aa`, 2026-05-14). Sibling: exo-import.
+- [ses-import-attributes.md](./ses-import-attributes.md) — propagate JavaScript's import-attributes (`with { type: 'json' }` clause) through normalization → memo-key extension → SES `importHook` signature → source-type multiplex in ModuleSource. JSON in v1; CSS/Wasm deferred. Authored by designer (dispatch `96bd08`, 2026-05-14, priority: medium).
 
 ## Lifecycle
 
