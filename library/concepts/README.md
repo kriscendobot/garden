@@ -35,6 +35,7 @@ Bootstrapped from the daemon design cluster and the structural principles in `co
 - [revocation-by-withdrawal](revocation-by-withdrawal.md) — the fourth revocation mechanism.
 - [sentinel-with-rationale](sentinel-with-rationale.md) — the pattern: deliberately-unreachable value + why-it-cannot-collide.
 - [shape-not-content](shape-not-content.md) — capture upstream meta-table shape, not its rows.
+- [syrup-record-positionality](syrup-record-positionality.md) — Syrup record field names are positional bindings, not on-the-wire; renames are wire-compatible.
 - [six-aspects-of-sharing](six-aspects-of-sharing.md) — Karp/Stiegler/Close 6/7 taxonomy.
 - [throwaway-instance-prototype-walk](throwaway-instance-prototype-walk.md) — SES taming for return-value prototypes.
 

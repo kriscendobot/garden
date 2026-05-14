@@ -152,6 +152,26 @@ throwaway-instance-prototype-walk | throwaway-instance-prototype-walk
 timely revocation through local reachability | revocation-by-withdrawal
 Tyler Close | six-aspects-of-sharing
 typed-shape-in typed-shape-out | producer-typed-shape-consumer-rendering
+formula store JSON vs SQLite | formula-graph
+retention table SQLite | formula-graph
+`makeNetstringReader` | (see section: endo--pkg-netstring-readme--overview)
+`makeNetstringWriter` | (see section: endo--pkg-netstring-readme--overview)
+`makeOcapnRecordCodecFromDefinition` | syrup-record-positionality
+ocapn-peer record | syrup-record-positionality
+OcapnLocation field rename | syrup-record-positionality
+positional bindings not on the wire | syrup-record-positionality
+record field rename wire-compat | syrup-record-positionality
+Syrup field names on the wire | syrup-record-positionality
+Syrup record positionality | syrup-record-positionality
+transport vs network field rename | syrup-record-positionality
+base64 native fallthrough | (see source: endo-but-for-bots--llm-designs-base64-native-fallthrough)
+`encodeBase64` | (see source: endo-but-for-bots--llm-designs-base64-native-fallthrough)
+`decodeBase64` | (see source: endo-but-for-bots--llm-designs-base64-native-fallthrough)
+`ENDO_BASE64_FORCE` | (see source: endo-but-for-bots--llm-designs-base64-native-fallthrough)
+`Uint8Array.fromBase64` | (see source: endo-but-for-bots--llm-designs-base64-native-fallthrough)
+`Uint8Array.prototype.toBase64` | (see source: endo-but-for-bots--llm-designs-base64-native-fallthrough)
+ponyfill-shim pattern | (see source: endo-but-for-bots--llm-designs-base64-native-fallthrough)
+TC39 Uint8Array to/from base64 | (see source: endo-but-for-bots--llm-designs-base64-native-fallthrough)
 `%URLSearchParamsIteratorPrototype%` | throwaway-instance-prototype-walk
 upstream meta-tables | shape-not-content
 why it cannot collide | sentinel-with-rationale

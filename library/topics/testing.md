@@ -17,6 +17,7 @@
 | [endo--pkg-ses-ava-readme--compatibility](../sections/endo--pkg-ses-ava-readme--compatibility.md) | endo packages/ses-ava/README.md | Compatibility notes: which ava features work as-is under SES, which need adaptation, and which are unsupported. |
 | [endo--pkg-ses-ava-readme--overview](../sections/endo--pkg-ses-ava-readme--overview.md) | endo packages/ses-ava/README.md | @endo/ses-ava is an ava-compatible test framework wrapper that runs tests under a SES-locked-down environment. |
 | [endo--pkg-ses-ava-readme--supporting-multiple-configurations](../sections/endo--pkg-ses-ava-readme--supporting-multiple-configurations.md) | endo packages/ses-ava/README.md | How a single test file can exercise multiple SES configurations (different lockdown option combinations). |
+| [endo-but-for-bots--llm-designs-b64nf--error-semantics-and-test-strategy](../sections/endo-but-for-bots--llm-designs-b64nf--error-semantics-and-test-strategy.md) | endo-but-for-bots designs/base64-native-fallthrough.md | Test-only `ENDO_BASE64_FORCE` env-var gate (`native`/`polyfill`/unset); test files split into polyfill-message-regex and native-error-type assertions; CI matrix runs both paths on every supported Node version. |
 
 ## See also
 

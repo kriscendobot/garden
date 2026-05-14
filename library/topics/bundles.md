@@ -34,6 +34,7 @@
 | [endo--pkg-module-source-readme--source-maps](../sections/endo--pkg-module-source-readme--source-maps.md) | endo packages/module-source/README.md | ModuleSource carries source-map data alongside the source text so Compartments can produce useful stack traces against the original source. |
 | [endo--pkg-module-source-readme--xs-variant](../sections/endo--pkg-module-source-readme--xs-variant.md) | endo packages/module-source/README.md | A variant of ModuleSource for the XS JS engine (used by Agoric for embedded contexts). |
 | [endo--pkg-ses-readme--usage-modules](../sections/endo--pkg-ses-readme--usage-modules.md) | endo packages/ses/README.md | Module-loading details for Compartments: Modules subsection covers the module map and how Compartments resolve imports; Module Descriptors (source vs namespace), Redirects, moduleMapHook, importNowHook are the lookup hooks; Virtual Module Source explains how non-JS modules can be wired in; Compiled modules covers precompilation; Transforms covers source-rewriting hooks. |
+| [endo-but-for-bots--llm-designs-b64nf--decisions-rollout-and-known-gaps](../sections/endo-but-for-bots--llm-designs-b64nf--decisions-rollout-and-known-gaps.md) | endo-but-for-bots designs/base64-native-fallthrough.md | `endoZipBase64` envelopes (bundle-source → import-bundle round trip) are the dominant megabyte-scale workload that gets the biggest absolute speed-up from the native base64 dispatch. |
 
 ## See also
 

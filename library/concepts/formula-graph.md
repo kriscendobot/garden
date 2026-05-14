@@ -18,6 +18,27 @@ needed for the durable layer. Formulas persist *construction, not
 content*: each formula records how to arrive at the live reference and
 how to construct its dependencies, not a snapshot of state.
 
+## Storage substrate — two distinct layers
+
+The daemon's formula-related state lives in **two structurally
+different on-disk stores**, and they are not interchangeable.
+Confusing them is a common library-reader mistake (the round-2 A/B
+test's Q7 surfaced one such confusion):
+
+| Store | Substrate | What lives there |
+|---|---|---|
+| Formula store | **JSON files** at `<statePath>/formulas/<head(2)>/<tail(62)>.json` | One file per formula. The formula record itself — its type, dependencies, content. Written via `DaemonicPersistencePowers.writeFormula`. |
+| Content-addressed blob store | Files at `<statePath>/store-sha256/<hash>` | Bytes of `readable-blob` / `readable-tree` formula content, addressed by SHA-256. |
+| Pet-name binding store | Small files in per-agent pet-name directories | Each pet name → formula id; one tiny file per pet name. |
+| **Retention table** | **SQLite** at `daemon-database.js:87` | `retention(guest_public_key, retained_formula_number)` — cross-peer retention edges only. Shadows the in-memory `formulaGraph.retentionEdges` map. |
+
+The formula store, the blob store, and the pet-name directory are
+**JSON / file-per-entity**. Only the retention table uses SQLite,
+and it is **only the cross-peer retention edges** — not the
+formulas, not the pet names, not policy state. Capability policies
+(allowlists, TOFB bindings, etc.) are persisted as ordinary
+formulas in the JSON formula store, not in a separate SQLite table.
+
 ## Sections that touch this concept
 
 | Section | One-line summary |
