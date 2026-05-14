@@ -12,12 +12,16 @@ Authored by: liaison (bootstrap, 2026-05-13).
 library/
   README.md         (this file)
   conventions.md    ingestion conventions: frontmatter schema, naming, staleness policy
+  keywords.md       grep-friendly index from a domain term/phrase to a concept-id
   sources/          one index file per ingested source document
     README.md       master index of source documents
     <slug>.md       section list + metadata for one source doc
   topics/           one page per concept; lists section files relevant to the topic
     README.md       taxonomy index (all topics with one-line abstracts)
     <slug>.md       per-topic page
+  concepts/         one short page per lookup-unit concept
+    README.md       seed inventory + how-to
+    <id>.md         per-concept page: definition + section table + see-also
   sections/         one file per ingested section
     README.md       flat index of all section files (sorted by source-slug)
     <source>--<section>.md
@@ -25,14 +29,13 @@ library/
 
 ## How to find something
 
-An agent reaching the library:
+Three indexing axes, picked by what you have in hand:
 
-1. Reads this README's abstract; if the query is library-shaped, descend.
-2. Goes to `topics/README.md` and matches the query against the topic abstracts.
-3. Follows the matching topic page, which lists section files with one-line abstracts.
-4. Reads matching section files.
+- **Specific term in mind** (a code symbol, a proper name, a domain phrase) — use the `garden/skills/library-lookup/SKILL.md` skill. It grep-resolves the term in `keywords.md`, walks to the right `concepts/<id>.md`, opens the relevant section files, and *indexes on the fly* so the next reader's search succeeds where yours did not.
+- **Broad subject** (capability-security, daemon, hardened-javascript) — start at `topics/README.md`, scan the topic abstracts, follow the matching topic page.
+- **Provenance** ("what did upstream doc X say") — start at `sources/README.md`.
 
-The hierarchy is two-deep by design (top-level → topic → section). The source-doc index (`sources/`) is the alternative entry point for "what did the upstream doc named X say" queries.
+All three axes converge on the same section files; the index is the difference.
 
 ## How to ingest
 
@@ -45,7 +48,9 @@ Read [`conventions.md`](conventions.md) before adding section files. The convent
 
 ## Indexes
 
-- [Topics](topics/README.md): concept-keyed taxonomy.
+- [Keywords](keywords.md): grep-friendly map from a term to a concept-id.
+- [Concepts](concepts/README.md): per-concept lookup pages with section tables.
+- [Topics](topics/README.md): broad-subject taxonomy.
 - [Sources](sources/README.md): source-document-keyed inventory.
 - [Sections](sections/README.md): flat index of every ingested section.
 

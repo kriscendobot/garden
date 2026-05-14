@@ -239,3 +239,67 @@ If the SHA differs from the recorded `source_commit`, treat as a normal idempote
 | PR force-push (rebases, edits) | Re-ingest from new HEAD; bump `source_commit`; sections may need rewriting if the design changed materially. |
 | PR merges to default branch | Rewrite `source_branch:` to the default branch; refresh `source_commit:` to the merged commit; drop `source_pr_state:` (or set to `merged`); update `notes:` to remove the unmerged-PR caveat. |
 | PR closes without merging | Mark `status:` of the source and all its sections **stale**; leave the section files in place (journal is append-only); add a `notes:` line explaining the close. Deletion requires explicit maintainer authorization in a journal `message` entry. |
+
+## Concepts and the keyword index
+
+A third indexing axis exists next to `sources/` (by provenance) and `topics/` (by broad subject taxonomy): the **keyword index** (`keywords.md`) and the **concept directory** (`concepts/<id>.md`). The keyword index is a grep-friendly map from a domain term or phrase (a code symbol, a proper name, a domain phrase) to a concept-id; each concept page is a short lookup target containing a one-paragraph definition + a table of section files that touch the concept (with one-line summaries) + a `See also` list of adjacent concepts.
+
+Use this axis when the agent has a *specific term* in mind but does not know which source document or which broad topic owns it. Topics partition by subject; sources partition by provenance; concepts partition by the unit a reader is actually looking up.
+
+### Concept page shape
+
+Frontmatter (YAML):
+
+```yaml
+---
+id: <concept-id>                    # kebab-case slug, stable across rename
+aliases: [keyword1, keyword2, ...]  # all the keywords that resolve here
+topics: [topic1, topic2, ...]       # topic pages this concept files under
+---
+```
+
+Body (Markdown, kept short — a concept page is a lookup target, not a primer):
+
+```markdown
+# <concept-id>
+
+One-paragraph definition / framing.
+
+## Sections that touch this concept
+
+| Section | One-line summary |
+|---|---|
+| [path/to/section](../sections/...) | summary |
+
+## See also
+
+- [[other-concept-id]] — relationship.
+```
+
+The `See also` block is allowed (and encouraged) to point at concept-ids that *contradict* or *abandon* the same concept under a different framing. See `crdt-in-formula-persistence` for a worked example: that page covers both where CRDT *shape* is used and where a bidirectional CRDT was *rejected*.
+
+### Keyword index shape
+
+`keywords.md` is a single file, one entry per line:
+
+```
+<keyword or phrase> | <concept-id>
+```
+
+Multiple keywords may resolve to the same concept-id (synonyms cluster). Code-symbol keywords are written in backticks (`` `LOCAL_NODE` ``, `` `EndoGateway.followRetentionSet` ``); prose keywords are plain (`destruction by cohort`, `Karp Stiegler Close`). Letter case is preserved when meaningful. Both kinds live in the same file so a maintainer can scan synonym clusters easily.
+
+The index is meant to be **grepped, not read by eye**. Use the [`library-lookup`](../../../skills/library-lookup/SKILL.md) skill rather than reading `keywords.md` linearly.
+
+### Indexing on the fly
+
+The librarian's job is not just to find information but to ensure that the *next* search for the same information either succeeds where it did not before, or succeeds faster than it did before. Every lookup is therefore both a *find* operation and an *index-improvement* operation. The `library-lookup` skill is the operational form of this discipline.
+
+Three corresponding maintenance actions, performed by the caller of the skill at the point of lookup (not deferred to a future scholar cycle):
+
+1. **Add the shortcut.** If the lookup reached the right concept page only via flat-grep across `sections/` (the keyword index did not have the term the caller used), add the term to `keywords.md` pointing at the concept-id the search converged on.
+2. **Prune the distraction.** If a section came up in flat-grep but was the wrong answer for this query, record a one-line *disambiguation* on the right concept page so the next reader does not waste time on the false positive. The line goes in a `## Common confusions` block below `See also`.
+3. **Draft the missing concept.** If no concept page existed for the term and the caller has enough context to write one, draft the page and add the keyword. Drafts get `status: draft` in frontmatter; a follow-up missive to scholar (one per cycle, not one per page) requests review and topic-page integration.
+
+Permission: any role that uses the `library-lookup` skill may write these inline maintenance updates. Major restructuring (new topics, source-index changes, concept merges) remains scholar's province.
+
+The skill's responsibility is to make this discipline trivial — its procedure section names when to perform each of the three actions, and the skill packages the writeback so the caller does not have to remember the file paths.
