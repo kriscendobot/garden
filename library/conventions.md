@@ -96,6 +96,18 @@ The journal is append-only. We do not edit prior section files in place when the
 
 Source documents whose content is contradicted by a newer source (e.g., a `designs/<slug>.md` superseding an older `docs/<topic>.md`) are flagged at the source-index level (`status: superseded`) with `notes:` pointing at the successor.
 
+### Soft-flag for cross-source overlap (not contradiction)
+
+When two sources address the same material at different abstraction levels (reference-shaped summary vs background-shaped detail vs tutorial-shaped walkthrough), keep both with `status: current` and use the `notes:` field to cross-reference. This is **not** a contradiction; the shapes serve different reader needs. Reserve `status: conflicted` for actual semantic disagreements about the same concept at the same level.
+
+Examples of soft-flag cross-source overlap surfaced during the 2026-05-13–14 ingestions:
+
+- `docs/lockdown.md`'s 14 per-option H2 sections (canonical detail) versus `docs/reference.md`'s `lockdown-options-summary` (reference summary) versus `docs/guide.md`'s `what-lockdown-does-removes-adds` (guide-shape).
+- The 4 separate per-API-verb sections in `docs/reference.md` versus the single consolidated `api-overview` in `docs/guide.md`.
+- `packages/ses/README.md`'s `ecosystem-compatibility` versus `docs/guide.md`'s `library-compatibility`.
+
+The pattern of soft-flagging rather than hard-flagging emerged after the docs/reference.md cycle (cycle 8) and was used uniformly through cycle 12 (docs/guide.md). See `entries/2026/05/14/051241Z-message-scholar-1f9a9e.md` for the consolidation review naming the overlap clusters; a maintainer-driven cleanup pass could consolidate further if desired.
+
 ## What goes in the library vs. the project tree
 
 - **Library (`journal/library/`)**: reusable conceptual material, API documentation, security policies, design rationale, agent-facing technical notes. Cross-cutting; one section may apply to multiple projects.
