@@ -19,6 +19,40 @@ plain. Letter case in keywords is preserved when meaningful (e.g.
 
 `@keypair` | per-agent-keypair
 `'0'.repeat(64)` | local-node-sentinel
+Aifred | delegates-and-epithets
+AI assistant disclosure | delegates-and-epithets
+anti-impersonation | delegates-and-epithets
+anti-impersonation invariant | delegates-and-epithets
+assistant to Alice | delegates-and-epithets
+caretaker | caretaker-pattern
+caretaker pattern | caretaker-pattern
+connector identity guarantee | pass-invariant-handle-equality
+control facet vs action facet | caretaker-pattern
+delegate | delegates-and-epithets
+delegates | delegates-and-epithets
+delegates and epithets | delegates-and-epithets
+delegate/epithet model | delegates-and-epithets
+Delegates and Epithets | delegates-and-epithets
+epithet | delegates-and-epithets
+epithets | delegates-and-epithets
+epithet chain | delegates-and-epithets
+epithet stripping | delegates-and-epithets
+facet split | caretaker-pattern
+`handleFor` | pass-invariant-handle-equality
+Handle equality | pass-invariant-handle-equality
+Handle vs HandleControl | caretaker-pattern
+`HandleControl` | caretaker-pattern
+`HandleInterface` | delegates-and-epithets
+identity / action facet split | caretaker-pattern
+Jarvis | delegates-and-epithets
+majordomo of Aifred | delegates-and-epithets
+obligatory verifiable deniable | delegates-and-epithets
+pass-invariant equality of Handles | pass-invariant-handle-equality
+pass-invariant Handle equality | pass-invariant-handle-equality
+principal | delegates-and-epithets
+service connector | delegates-and-epithets
+verification protocol | delegates-and-epithets
+verifiable deniable claims | delegates-and-epithets
 `0.0.0.0 of Ed25519` | local-node-sentinel
 6/7 aspects | six-aspects-of-sharing
 acyclic formula graph | formula-graph

@@ -16,15 +16,18 @@ This index is a third axis next to [`sources/`](../sources/README.md) (by proven
 
 ## Seed inventory (bootstrap, 2026-05-14)
 
-Bootstrapped this cycle from the daemon design cluster and the structural principles in `conventions.md`:
+Bootstrapped from the daemon design cluster and the structural principles in `conventions.md`. Extended cycle 50 with `delegates-and-epithets`, `caretaker-pattern`, and `pass-invariant-handle-equality` from the `daemon-capability-persona` ingest:
 
+- [caretaker-pattern](caretaker-pattern.md) — split one capability into action and control facets.
 - [cohort-destruction](cohort-destruction.md) — partition response: destroy the dependent live-reference subgraph, rebuild from formulas on demand.
 - [crdt-in-formula-persistence](crdt-in-formula-persistence.md) — where CRDT shape is used; where a bidirectional CRDT was rejected.
 - [dehydrate-hydrate](dehydrate-hydrate.md) — stable formula keys vs. ephemeral connection hints.
+- [delegates-and-epithets](delegates-and-epithets.md) — agent identity that carries verifiable + deniable claims about its relationship to a principal.
 - [formula-graph](formula-graph.md) — the daemon's durable substrate; acyclic + locally refcounted.
 - [formula-persistence-thesis](formula-persistence-thesis.md) — the design's core thesis (endojs/endo#3121 draft).
 - [four-tables-coordinated-retention](four-tables-coordinated-retention.md) — cross-peer retention data model.
 - [local-node-sentinel](local-node-sentinel.md) — `LOCAL_NODE = '0'.repeat(64)`; the `0.0.0.0`-of-Ed25519.
+- [pass-invariant-handle-equality](pass-invariant-handle-equality.md) — connector guarantee: same backing identity → same formula identifier.
 - [per-agent-keypair](per-agent-keypair.md) — `@keypair`, `KeypairFormula`, agent identity as a formula.
 - [producer-typed-shape-consumer-rendering](producer-typed-shape-consumer-rendering.md) — daemon-wide convention: typed values from producers, rendering from consumers.
 - [retention-accumulator](retention-accumulator.md) — microtask-coalesced retention-delta batching primitive.

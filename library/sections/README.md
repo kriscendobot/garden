@@ -382,4 +382,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-dani--{status-and-overlap-with-dlt, per-agent-networks-and-nets, network-registration, per-agent-connection-hints-and-null-local-node}
 
-## Total: 443 sections from 98 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs daemon-capability-persona (cycle 50)
+
+- endo-but-for-bots--llm-designs-dcp--{handle-agent-foundation-and-the-gap, delegates-and-epithets, recursive-chains-and-enforcement, verification-and-handle-extensions, ai-delegates-connectors-and-anti-impersonation}
+
+## Total: 448 sections from 99 source documents (through 2026-05-14).
