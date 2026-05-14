@@ -302,4 +302,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - agoric-sdk--readme--{overview, prerequisites, build, test, run-the-larger-demo, edit-loop, development-standards}
 - agoric-sdk--packages-readme--adding-a-new-package
 
-## Total: 304 sections from 63 source documents (through 2026-05-14).
+### From OCapN Implementation Guide (cycle 32)
+
+- ocapn--implementation-guide--{overview, stage-0-foundation, stage-1-deliver-only, stage-2-promises, stage-3-import-export-gc, stage-4-promise-pipelining, stage-5-question-answer-gc, stage-6-handoffs, appendix-vats}
+
+## Total: 313 sections from 64 source documents (through 2026-05-14).

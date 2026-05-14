@@ -16,12 +16,12 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 9 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 18 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 76 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 41 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 42 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 19 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 36 |
-| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 26 |
-| [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 51 |
-| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 27 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 38 |
+| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 35 |
+| [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 60 |
+| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 28 |
 | [streams](streams.md) | Async-iterator-based stream abstraction; transport substrate. | 5 |
 | [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 40 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 4 |

@@ -19,6 +19,17 @@
 | [ocapn--draft-specifications-model--error](../sections/ocapn--draft-specifications-model--error.md) | upstream protocol Model.md | Error value ↔ pass-style error + distributed-error correlation plans. |
 | [ocapn--draft-specifications-model--pass-invariant](../sections/ocapn--draft-specifications-model--pass-invariant.md) | upstream protocol Model.md | Round-trip stability: Pass Type Invariant + Pass Invariant Equality. |
 | [ocapn--draft-specifications-model--json-invariants](../sections/ocapn--draft-specifications-model--json-invariants.md) | upstream protocol Model.md | Relation of model to JSON; smallcaps extends this. |
+| [ocapn--implementation-guide--overview](../sections/ocapn--implementation-guide--overview.md) | upstream protocol Implementation Guide | Frame for the implementation walk-through: CapTP / Netlayers / Locators. |
+| [ocapn--implementation-guide--stage-0-foundation](../sections/ocapn--implementation-guide--stage-0-foundation.md) | upstream protocol Implementation Guide | Connect, op:start-session, op:abort, basic netlayer (Tor Onion example). |
+| [ocapn--implementation-guide--stage-1-deliver-only](../sections/ocapn--implementation-guide--stage-1-deliver-only.md) | upstream protocol Implementation Guide | Sturdyrefs, import/export descriptors, bootstrap-object/fetch, deliver-only op:deliver. |
+| [ocapn--implementation-guide--stage-2-promises](../sections/ocapn--implementation-guide--stage-2-promises.md) | upstream protocol Implementation Guide | Vow + resolver, op:deliver with replies, op:listen, desc:import-promise, fulfill/break. |
+| [ocapn--implementation-guide--stage-3-import-export-gc](../sections/ocapn--implementation-guide--stage-3-import-export-gc.md) | upstream protocol Implementation Guide | op:gc-exports with wire-delta to prevent races against in-flight references. |
+| [ocapn--implementation-guide--stage-4-promise-pipelining](../sections/ocapn--implementation-guide--stage-4-promise-pipelining.md) | upstream protocol Implementation Guide | desc:answer + answer-pos pipelining; coalesce op:listen into resolve-me-desc optimization. |
+| [ocapn--implementation-guide--stage-5-question-answer-gc](../sections/ocapn--implementation-guide--stage-5-question-answer-gc.md) | upstream protocol Implementation Guide | op:gc-answers — simpler than gc-exports because only the questioner uses the question. |
+| [ocapn--implementation-guide--stage-6-handoffs](../sections/ocapn--implementation-guide--stage-6-handoffs.md) | upstream protocol Implementation Guide | Three-party handoffs: gifter / receiver / exporter certificate exchange. |
+| [ocapn--implementation-guide--appendix-vats](../sections/ocapn--implementation-guide--appendix-vats.md) | upstream protocol Implementation Guide | Vats as the canonical (but optional) communicating-event-loop substrate. |
+
+> Note: this topic page is incomplete (60 sections claim `ocapn` but ~30 are listed here as of 2026-05-14). Pending a dedicated topic-page refresh cycle.
 
 ## See also
 

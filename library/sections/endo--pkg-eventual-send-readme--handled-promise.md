@@ -9,6 +9,7 @@ ingested: 2026-05-14
 ingested_by: scholar
 topics: [eventual-send]
 status: current
+notes: HandledPromise is CapTP's plug-in point for promise references; the marshal counterpart is convertValToSlot / convertSlotToVal (endo--pkg-marshal-readme--convert-val-slot). A CapTP implementation co-installs both when bridging marshal + eventual-send to a wire protocol.
 ---
 
 > Abstract: The underlying primitive: a HandledPromise is a promise with a handler that decides how E()/E.get()/E.sendOnly() are dispatched. The eventual-send shim implements HandledPromise; CapTP and other transports plug their own handler implementations in to make E() work across the wire.

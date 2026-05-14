@@ -18,6 +18,16 @@
 | [endo--pkg-captp-readme--usage](../sections/endo--pkg-captp-readme--usage.md) | endo packages/captp/README.md | makeCapTP API: {dispatch, getBootstrap, abort}. |
 | [endo--pkg-captp-readme--loopback](../sections/endo--pkg-captp-readme--loopback.md) | endo packages/captp/README.md | In-process CapTP loopback pair for testing and vat isolation. |
 | [endo--pkg-captp-readme--trapcaps](../sections/endo--pkg-captp-readme--trapcaps.md) | endo packages/captp/README.md | TrapCaps: synchronous trapping mechanism for debugging. |
+| [ocapn--implementation-guide--stage-0-foundation](../sections/ocapn--implementation-guide--stage-0-foundation.md) | upstream protocol Implementation Guide | Connection bootstrap, op:start-session, op:abort, crossed-hellos mitigation. |
+| [ocapn--implementation-guide--stage-1-deliver-only](../sections/ocapn--implementation-guide--stage-1-deliver-only.md) | upstream protocol Implementation Guide | op:deliver, import/export descriptors, bootstrap object at position 0. |
+| [ocapn--implementation-guide--stage-2-promises](../sections/ocapn--implementation-guide--stage-2-promises.md) | upstream protocol Implementation Guide | op:deliver with replies, op:listen, vow + resolver, desc:import-promise. |
+| [ocapn--implementation-guide--stage-3-import-export-gc](../sections/ocapn--implementation-guide--stage-3-import-export-gc.md) | upstream protocol Implementation Guide | op:gc-exports + wire-delta for race-safe distributed reference counting. |
+| [ocapn--implementation-guide--stage-4-promise-pipelining](../sections/ocapn--implementation-guide--stage-4-promise-pipelining.md) | upstream protocol Implementation Guide | desc:answer + answer-pos pipelining. |
+| [ocapn--implementation-guide--stage-5-question-answer-gc](../sections/ocapn--implementation-guide--stage-5-question-answer-gc.md) | upstream protocol Implementation Guide | op:gc-answers. |
+| [ocapn--implementation-guide--stage-6-handoffs](../sections/ocapn--implementation-guide--stage-6-handoffs.md) | upstream protocol Implementation Guide | desc:handoff-give + desc:handoff-receive certificates; replay protection. |
+| [ocapn--implementation-guide--appendix-vats](../sections/ocapn--implementation-guide--appendix-vats.md) | upstream protocol Implementation Guide | Vat substrate beneath CapTP delivery. |
+
+> Note: this topic page is incomplete (35 sections claim `captp` but ~12 are listed here as of 2026-05-14). Pending a dedicated topic-page refresh cycle.
 
 ## See also
 

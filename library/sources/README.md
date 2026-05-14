@@ -71,6 +71,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [SECURITY.md](agoric-sdk--security.md) | agoric/agoric-sdk | 2024-01-09 | Raphael Salas | 2 | current (same Agoric HackerOne process as endo--docs-security) |
 | [README.md](agoric-sdk--readme.md) | agoric/agoric-sdk | 2026-03-25 | Michael FIG | 7 | current |
 | [packages/README.md](agoric-sdk--packages-readme.md) | agoric/agoric-sdk | 2023-08-04 | Turadg Aleahmad | 1 | current |
+| [implementation-guide/Implementation Guide.md](ocapn--implementation-guide.md) | kriscendobot/ocapn | 2026-03-12 | Jessica Tallon | 9 | current (canonical implementation walk-through complements the draft-specifications) |
 
 ## Backlog (not yet ingested)
 

@@ -9,6 +9,7 @@ ingested: 2026-05-14
 ingested_by: scholar
 topics: [marshal, pass-style, captp]
 status: current
+notes: convertValToSlot / convertSlotToVal is where CapTP plugs marshal into a particular transport. CapTP's HandledPromise infrastructure (endo--pkg-eventual-send-readme--handled-promise) is the corresponding plug-in for promise references; both hooks are co-installed when a CapTP implementation bridges marshal + eventual-send to a wire protocol.
 ---
 
 > Abstract: Application-supplied callbacks that bridge marshal's slot-index abstraction to the application's notion of capability identity. convertValToSlot takes a remotable and returns a unique slot identifier (typically a string from a sender-side table). convertSlotToVal takes a slot identifier and returns a remotable (typically by constructing a proxy on the receiver side). CapTP plugs its own implementations in to make sender-side and receiver-side identity consistent across the wire.
