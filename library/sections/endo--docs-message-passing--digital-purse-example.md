@@ -9,6 +9,7 @@ ingested: 2026-05-14
 ingested_by: scholar
 topics: [exo, capability-security, eventual-send, marshal]
 status: current
+notes: This is the canonical end-to-end worked example for the Endo message-passing model. Each component drawn from a separate package — readers wanting to follow up should see endo--pkg-exo-readme--overview (the class API used for the purse), endo--pkg-patterns-readme--overview (the method-guard language), endo--pkg-marshal-readme--overview (the pass-style serialization that lets the purse cross a boundary), and endo--pkg-eventual-send-readme--overview (the E() invocation pattern).
 ---
 
 > Abstract: Worked example: a digital purse with deposit, withdraw, getBalance methods. Demonstrates pass-style (the purse is a remotable), patterns (method guards on amounts), defensive-receive (multi-facet attenuation between mint and holder), and eventual-send (E() calls across boundary). The canonical end-to-end example for the Endo message-passing model.

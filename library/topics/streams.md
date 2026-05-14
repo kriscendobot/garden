@@ -6,11 +6,11 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
-| [endo--pkg-stream-readme--overview](../sections/endo--pkg-stream-readme--overview.md) | endo packages/stream/README.md | @endo/stream: pull-based async-iterator stream abstraction for SES code. |
-| [endo--pkg-stream-readme--writing-reading](../sections/endo--pkg-stream-readme--writing-reading.md) | endo packages/stream/README.md | The next/return/throw protocol + back-pressure semantics. |
-| [endo--pkg-stream-readme--combinators](../sections/endo--pkg-stream-readme--combinators.md) | endo packages/stream/README.md | map/pipe/pump/prime combinators for stream pipelines. |
-| [endo--pkg-stream-readme--hardening](../sections/endo--pkg-stream-readme--hardening.md) | endo packages/stream/README.md | How streams interact with SES; what can/cannot be harden()'d. |
-| [endo--pkg-stream-node-readme--overview](../sections/endo--pkg-stream-node-readme--overview.md) | endo packages/stream-node/README.md | Node.js transport bindings (tiny pointer). |
+| [endo--pkg-stream-node-readme--overview](../sections/endo--pkg-stream-node-readme--overview.md) | endo packages/stream-node/README.md | Node.js-specific transport bindings for @endo/stream. |
+| [endo--pkg-stream-readme--combinators](../sections/endo--pkg-stream-readme--combinators.md) | endo packages/stream/README.md | Four stream combinators consolidated: map (transform each value), pipe (connect input to output), pump (push values through), prime (initialize a stream with a value). |
+| [endo--pkg-stream-readme--hardening](../sections/endo--pkg-stream-readme--hardening.md) | endo packages/stream/README.md | How @endo/stream interacts with SES: streams are themselves harden()'d, and the combinators preserve hardening across transforms. |
+| [endo--pkg-stream-readme--overview](../sections/endo--pkg-stream-readme--overview.md) | endo packages/stream/README.md | @endo/stream defines an async-iterator-based stream abstraction with deliberate hardening properties. |
+| [endo--pkg-stream-readme--writing-reading](../sections/endo--pkg-stream-readme--writing-reading.md) | endo packages/stream/README.md | How to create a stream from a writable side and how to consume it from a readable side. |
 
 ## See also
 

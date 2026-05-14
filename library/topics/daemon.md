@@ -6,8 +6,10 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
-| [endo--pkg-daemon-readme--overview](../sections/endo--pkg-daemon-readme--overview.md) | endo packages/daemon/README.md | Per-user persistent host for HardenedJS workers; CapTP-over-netstring; user-agent bootstrap. |
-| [endo--pkg-exo-readme--virtual-durable-exos](../sections/endo--pkg-exo-readme--virtual-durable-exos.md) | endo packages/exo/README.md | Virtual and durable exos for daemon-persisted state across restarts. |
+| [endo--pkg-daemon-readme--overview](../sections/endo--pkg-daemon-readme--overview.md) | endo packages/daemon/README.md | The Endo daemon is a persistent host for hardened-JavaScript worker processes, owned per-user and reached over a Unix domain socket or named pipe. |
+| [endo--pkg-exo-docs-exo-taxonomy--heap-virtual-durable](../sections/endo--pkg-exo-docs-exo-taxonomy--heap-virtual-durable.md) | endo packages/exo/docs/exo-taxonomy.md | The second axis. |
+| [endo--pkg-exo-docs-exo-taxonomy--make-vs-prepare](../sections/endo--pkg-exo-docs-exo-taxonomy--make-vs-prepare.md) | endo packages/exo/docs/exo-taxonomy.md | The third axis (durable-variant only). |
+| [endo--pkg-exo-readme--virtual-durable-exos](../sections/endo--pkg-exo-readme--virtual-durable-exos.md) | endo packages/exo/README.md | Exos can be virtual (state lives in a heap-managed store, not as a JS heap object) or durable (state survives across vat or daemon restarts). |
 
 ## See also
 
