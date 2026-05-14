@@ -331,4 +331,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - agoric-sdk--pkg-casting-readme--{overview, follower-options, behind-the-scenes, status}
 - agoric-sdk--pkg-inter-protocol-readme--{overview, persistence, debts, reading-data-off-chain, demo}
 
-## Total: 357 sections from 80 source documents (through 2026-05-14).
+### From agoric-sdk governance package (cycle 38)
+
+- agoric-sdk--pkg-governance-readme--{overview, electorate, contract-governor, scenarios, future-extensions, reading-data-off-chain}
+
+## Total: 363 sections from 81 source documents (through 2026-05-14).

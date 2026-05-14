@@ -7,6 +7,7 @@
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
 | [agoric-sdk--pkg-cache-readme--cache-client](../sections/agoric-sdk--pkg-cache-readme--cache-client.md) | agoric-sdk packages/cache/README.md | The client API surface. |
+| [agoric-sdk--pkg-governance-readme--contract-governor](../sections/agoric-sdk--pkg-governance-readme--contract-governor.md) | agoric-sdk packages/governance/README.md | ContractGovernor makes a contract's governance legible. |
 | [endo--docs-message-passing--common-pitfalls](../sections/endo--docs-message-passing--common-pitfalls.md) | endo docs/message-passing.md | Bugs that recur in code written against this model: forgetting to harden(), passing a non-passable, confusing E() with .then(), pattern mismatches in method guards, identity assumptions that break across the wire. |
 | [endo--docs-message-passing--defensive-receive-protected-objects](../sections/endo--docs-message-passing--defensive-receive-protected-objects.md) | endo docs/message-passing.md | The longest section. |
 | [endo--docs-message-passing--design-patterns-and-best-practices](../sections/endo--docs-message-passing--design-patterns-and-best-practices.md) | endo docs/message-passing.md | Idioms and anti-patterns: when to use Far() vs full Exo, when to attenuate vs share, how to handle revocation, how to manage state ownership across multi-facet kits. |

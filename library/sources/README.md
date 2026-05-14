@@ -88,6 +88,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [packages/cache/README.md](agoric-sdk--pkg-cache-readme.md) | agoric/agoric-sdk | 2022-08-10 | Unknown | 3 | current (Coordinator interface + transactional updates) |
 | [packages/casting/README.md](agoric-sdk--pkg-casting-readme.md) | agoric/agoric-sdk | 2024-09-10 | Unknown | 4 | current (off-chain follower of ocap broadcasts) |
 | [packages/inter-protocol/README.md](agoric-sdk--pkg-inter-protocol-readme.md) | agoric/agoric-sdk | 2024-06-11 | Unknown | 5 | current (IST stable-coin protocol: VaultFactory/VaultManager/Vault) |
+| [packages/governance/README.md](agoric-sdk--pkg-governance-readme.md) | agoric/agoric-sdk | 2023-04-20 | Turadg Aleahmad | 6 | current (Electorates + VoteCounters + ElectionManagers; ContractGovernor + ParamManager + Governed Contracts) |
 
 ## Backlog (not yet ingested)
 
