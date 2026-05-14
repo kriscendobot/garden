@@ -208,4 +208,22 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [ocapn--draft-specifications-model--pass-invariant](ocapn--draft-specifications-model--pass-invariant.md)
 - [ocapn--draft-specifications-model--json-invariants](ocapn--draft-specifications-model--json-invariants.md)
 
-## Total: 162 sections from 25 source documents (first OCapN spec doc ingested, 2026-05-14).
+### From upstream protocol's `draft-specifications/Notation.md`
+
+- [ocapn--draft-specifications-notation--overview](ocapn--draft-specifications-notation--overview.md)
+- [ocapn--draft-specifications-notation--notation-of-notation](ocapn--draft-specifications-notation--notation-of-notation.md)
+- [ocapn--draft-specifications-notation--value-and-atoms](ocapn--draft-specifications-notation--value-and-atoms.md)
+- [ocapn--draft-specifications-notation--containers](ocapn--draft-specifications-notation--containers.md)
+
+### From endo `README.md`
+
+- [endo--readme--overview](endo--readme--overview.md)
+- [endo--readme--core-concepts](endo--readme--core-concepts.md)
+- [endo--readme--ruminations-on-name](endo--readme--ruminations-on-name.md)
+
+### From endo `packages/lockdown/README.md` and `packages/exo/docs/types.md`
+
+- [endo--pkg-lockdown-readme--overview](endo--pkg-lockdown-readme--overview.md)
+- [endo--pkg-exo-docs-types--overview](endo--pkg-exo-docs-types--overview.md)
+
+## Total: 171 sections from 29 source documents (through 2026-05-14).

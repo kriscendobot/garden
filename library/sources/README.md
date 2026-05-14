@@ -33,12 +33,16 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [packages/exo/docs/exo-taxonomy.md](endo--pkg-exo-docs-exo-taxonomy.md) | endojs/endo | 2023-01-27 | Mark S. Miller | 5 | current |
 | [CONTRIBUTING.md](endo--contributing.md) | endojs/endo | 2026-01-08 | Kris Kowal | 6 | current |
 | [draft-specifications/Model.md](ocapn--draft-specifications-model.md) | kriscendobot/ocapn | 2025-06-23 | Mark S. Miller | 11 | current (data-model overlap with pass-style/marshal flagged in per-section notes) |
+| [draft-specifications/Notation.md](ocapn--draft-specifications-notation.md) | kriscendobot/ocapn | 2025-06-19 | Mark S. Miller | 4 | current (Record/Tagged terminology mismatch flagged) |
+| [README.md](endo--readme.md) | endojs/endo | 2025-12-19 | Kris Kowal | 3 | current |
+| [packages/lockdown/README.md](endo--pkg-lockdown-readme.md) | endojs/endo | 2022-12-08 | Kris Kowal | 1 | current |
+| [packages/exo/docs/types.md](endo--pkg-exo-docs-types.md) | endojs/endo | 2024-11-04 | Kris Kowal | 1 | current |
 
 ## Backlog (not yet ingested)
 
 Roughly grouped by priority. The full file inventory was captured during the pilot survey; the lists below are summaries, not authoritative manifests.
 
-**Top-level (1 remaining):** `README.md`. (`AGENTS.md`, `CONTRIBUTING.md`, and `SECURITY.md` are done; `SECURITY.md` content overlaps `docs/security.md` and may need a contradiction check.)
+**Top-level (0 remaining):** all 4 top-level documents ingested (AGENTS.md, CONTRIBUTING.md, README.md, SECURITY.md). SECURITY.md content overlaps `docs/security.md` and may need a contradiction check.
 
 **`docs/` (0 remaining):** all 8 `docs/*.md` files ingested. `bugs.md`, `get-started.md`, `reference.md`, `message-passing.md`, and `guide.md` ingested on the /loop ticks of 2026-05-14; `lockdown.md` was ingested 2026-05-13 as the first scholar-cycle library task; `security.md` and `errors.md` from the original pilot.
 
