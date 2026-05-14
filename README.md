@@ -215,9 +215,7 @@ author: liaison, gardener
 ### Awaits maintainer decision
 
 - Two `endojs/endo-but-for-bots` workflows at 100% failure on master: `Deploy TypeDoc site with GitHub Pages` and `Release`; awaits triage. See [`entries/2026/05/13/004800Z-message-steward-f78473.md`](entries/2026/05/13/004800Z-message-steward-f78473.md).
-- `scholar` role landed; awaits cadence pick and start signal. See [`entries/2026/05/13/053511Z-result-gardener-fd8a0a.md`](entries/2026/05/13/053511Z-result-gardener-fd8a0a.md).
 - `timekeeper` role landed; awaits start signal. See [`entries/2026/05/13/054736Z-result-gardener-559c18.md`](entries/2026/05/13/054736Z-result-gardener-559c18.md).
-- PR-creation flow reworked (`builder`/`assayer`/`juror`/`saboteur`/`cleaner` + `pr-creation-flow` skill landed); self-clears on first such dispatch. See [`entries/2026/05/13/211535Z-result-gardener-efb74a.md`](entries/2026/05/13/211535Z-result-gardener-efb74a.md).
 - After PRs #109 (`syrup-frame`) and #111 (CBOR codec) land, dispatch a builder/fixer to update `designs/syrups.md` and `designs/cbors.md` on `endo-but-for-bots@llm` to reflect what actually shipped (including the new package names). Clears on the design-update PRs landing.
 
 ### Pre-staged authorizations
