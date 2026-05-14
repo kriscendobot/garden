@@ -11,32 +11,58 @@ refs:
 
 # Result: shepherd opens no-changes PR on llm to diagnose CI failure
 
-## Pre-flight observation (relevant)
-
-`ci.yml` triggers on `push: branches: [master]` and `pull_request` only. Pushes to other branches (including `llm`) do NOT dispatch the lint / build / test matrix; only `browser-test.yml` runs on every push (and its recent runs on `llm` are all green). This explains why `gh api .../commits/llm/check-suites` shows `github-actions: success` while the maintainer reports CI is failing: the maintainer is reading PR-level CI on PRs that target `llm`, not the no-PR push history. A fresh PR against `llm` is in fact the right way to surface the failure.
-
 ## PR
 
 - URL: https://github.com/endojs/endo-but-for-bots/pull/245
 - Base: `llm`. Head: `ci/poke-llm-3ddcfe` at `cfd7231e2` (empty commit atop `e56e9940d`).
 - State: draft. Title: `ci: empty-commit poke to reproduce llm CI failure`.
 
-## CI conclusion
+## CI conclusion on PR #245
 
-Dispatched within ~15s of PR open:
+Both PR checks reached terminal state:
 
-- `browser-tests`: pending → (watching)
-- `build`: pending → (watching)
+- `browser-tests`: SUCCESS in 2m42s.
+- `build` (workflow: `Test project mutual dependency versions`): SUCCESS in 23s.
 
-CI is still propagating at write time. The liaison will pick up convergence from the PR; if I can update before the session ends I will append below.
+**The `CI` workflow (`ci.yml`) did NOT dispatch on this PR.** That is the diagnostic finding, and it explains why an empty-commit poke is the wrong probe for the maintainer's reported failure.
 
-## Diagnosis (preliminary)
+## Why ci.yml did not run
 
-Until the build/lint job actually fails, I cannot confirm the `SECURITY.md` mismatch hypothesis. Context that makes it plausible: PR #228 (`ci: enforce uniform SECURITY.md across packages`, merged into master at `243e23283`) landed a CI check that asserts every package's `SECURITY.md` is byte-identical to the master copy. The `llm` branch was forked or last-rebased before #228 landed and has not pulled in the master copy; if any package's `SECURITY.md` drifted (or a new package was added on `llm` without a `SECURITY.md`), the new uniformity check will fire on every PR against `llm`. Will confirm once the `build` job reports its failure line.
+`.github/workflows/ci.yml` has:
 
-## Note on hard rules
+```yaml
+on:
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - 'docs/**'
+```
 
-- No source changes. PR remains in draft. No comment posted on the PR.
-- No fixer dispatch initiated. Reporting back to liaison for routing.
+GitHub's `paths-ignore` semantics: the workflow runs only if at least one changed file is **not** in the ignore set. An empty commit changes zero files, so nothing matches "not in the ignore set", and the workflow is skipped. The sister `ci-docs.yml` uses the mirror `paths: ['**/*.md', 'docs/**']` and also requires at least one changed file matching the listed set, so it also skips on a zero-file commit. The empty-commit poke cannot trigger ci.yml.
+
+## Confirmation of the maintainer's hypothesis (out-of-band)
+
+Even though the PR could not surface the failure, I ran `scripts/check-security-md.sh` locally against the `llm` head (`e56e9940d`). Output:
+
+```
+packages/harden-test: missing SECURITY.md
+packages/hex-test: missing SECURITY.md
+```
+
+This is wired into ci.yml's `lint` job as the step `Check SECURITY.md uniformity` (`ci.yml:67-68`, after `yarn lint` and before `yarn docs`). Any PR against `llm` that changes a non-doc file will trip this step on lint.
+
+The cause is the maintainer's hypothesis, with specifics:
+
+- PR #228 (`ci: enforce uniform SECURITY.md across packages`, merged to master at `243e23283`) introduced the script and wired it into the `lint` job.
+- PR #210 (`harden-test`, merged into `llm` at `e56e9940d`) and PR #211 (`hex-test`, merged into `llm` at `68246ad92`) added new packages without a `SECURITY.md`. Both packages are "Cut N of #206 design" devDep-cycle breakers and probably forgot the boilerplate file.
+- The fix is two files: `packages/harden-test/SECURITY.md` and `packages/hex-test/SECURITY.md`, each a byte-identical copy of the canonical `packages/<other>/SECURITY.md`.
+
+The fix is mechanical and ~2 files, so within shepherd's repair scope, but the dispatch explicitly says do not auto-fix and do not un-draft. Reporting back to liaison for routing (a fixer dispatch, or pass to the maintainer).
+
+## PR #245 disposition
+
+- Remains in draft.
+- No comment posted.
+- The PR demonstrates that the empty-commit-poke pattern does not reproduce ci.yml failures on this repo. Liaison may want to close it as superseded by the out-of-band diagnosis above, or hold it as a record of the path-ignore gap.
 
 Self-improvement: nothing this time.
