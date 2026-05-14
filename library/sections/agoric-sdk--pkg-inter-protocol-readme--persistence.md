@@ -7,7 +7,7 @@ source_date: 2024-06-11
 source_authors: [Unknown]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [capability-security]
+topics: [capability-security, persistence]
 status: current
 notes: One-line stub. The "(Endo?)" parenthetical signals lineage uncertainty between Agoric and Endo for the Collections API. Cross-cuts with agoric-sdk--pkg-vat-data-readme--* (the zone/persistence story).
 ---

@@ -8,7 +8,7 @@ source_date: 2026-05-10
 source_authors: [Kriscendo Bot]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [capability-security, exo]
+topics: [capability-security, exo, persistence]
 status: current
 notes: The revokeBinding vs unpin distinction is load-bearing: revokeBinding records active refusal that survives a re-prompt (the holder said "never"); unpin says "I was wrong, ask me again." Pin revocation does NOT abort in-flight requests that have already passed the policy check — that's intentional permissiveness; if the holder needs hard abort, they revoke the whole cap via the existing `control.revoke()`.
 ---

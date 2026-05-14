@@ -7,7 +7,7 @@ source_date: 2024-09-26
 source_authors: [Michael FIG]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [capability-security]
+topics: [capability-security, persistence, async-flow]
 status: current
 notes: A guest async-function activation in async-flow is internally an exoClass instance; the lifecycle here is the exoClass-instance lifecycle adapted to durable replay. The "eager waker" option is a configurable tradeoff between revival cost and time-of-first-use cost. The Failed state's "fix via next upgrade" semantic is the key correctness story for forward-compatibility of upgrades that may previously have misbehaved.
 ---

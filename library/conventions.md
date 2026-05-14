@@ -171,3 +171,19 @@ After a baseline is built, cycles routinely produce overlap reviews (see `entrie
 5. Topic-section counts on `topics/README.md` stay the same (the corpus still includes the superseded file).
 
 Soft-flagging (keep both, cross-reference via `notes:`) remains the **default** when the overlap serves different reader audiences (reference vs guide vs tutorial — see Cluster D in the cycle-30 review). Hard-supersede only when the overlap is at the same shape and the canonical strictly dominates.
+
+## Structural principles from cycles 41-43
+
+Three patterns emerged during the cycle-39-to-43 endo-but-for-bots design ingest. They are general enough to apply to any future ingestion of similar material.
+
+### Shape, not content, for upstream meta-tables
+
+When an upstream document's value is a meta-index of other items (every-design-status table, every-package-state table, every-tenant list) whose rows change at upstream's cadence rather than the library's, **capture the table's shape — column structure, taxonomy, current row count, query-upstream pointer — but do not transcribe the rows**. The library would otherwise become a stale mirror that diverges silently. Example: `endo-but-for-bots--llm-designs-readme--summary-shape-and-counts` (cycle 41) captures the design-summary table's shape without its 100+ rows.
+
+### Consumers own rendering; producers own typed shape
+
+When a system produces typed structured values that multiple consumers render differently (CLI string vs chat markup vs JSON), **the producer owns the typed shape; each consumer owns its rendering**. A producer-side string-rendering method saves canonical-form effort at one consumer but forces other consumers to re-parse those strings to recover segment boundaries they could read straight from the typed value. The typed shape is the backbone that keeps two renderings from drifting. Example: `endo-but-for-bots--llm-designs-rpn--alternatives-and-decisions` (cycle 42) rejects daemon-side `describeRetentionPaths` for this reason — daemon returns typed `RetentionPath`, CLI owns string notation, chat UI owns markup.
+
+### Hidden-intrinsic sampling via throwaway-instance-prototype-walk
+
+When taming a host-provided built-in whose methods return objects with their own prototype chain (iterators, callables, etc.), the return-value prototype is reachable only by **constructing a throwaway instance and walking `Object.getPrototypeOf` from a method return**. SES's permits graph won't visit those prototypes unless explicitly seeded. Sample during the intrinsics-collection pass, add to the permits graph under a synthetic name (e.g., `%URLSearchParamsIteratorPrototype%`), list permitted properties, harden along with the rest of the intrinsics. SES already does this for `%IteratorPrototype%` and `%ArrayIteratorPrototype%`; new tamed built-ins join the list. Example: `endo-but-for-bots--llm-designs-hurl--iterator-prototype-sampling` (cycle 43).

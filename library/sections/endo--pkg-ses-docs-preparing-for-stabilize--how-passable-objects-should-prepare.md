@@ -7,7 +7,7 @@ source_date: 2025-01-18
 source_authors: [Mark S. Miller]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [hardened-javascript, pass-style]
+topics: [hardened-javascript, pass-style, persistence]
 status: current
 ---
 

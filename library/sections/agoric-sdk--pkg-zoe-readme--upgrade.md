@@ -7,7 +7,7 @@ source_date: 2024-07-03
 source_authors: [Mark S. Miller]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [exo, bundles, capability-security]
+topics: [exo, bundles, capability-security, persistence]
 status: current
 notes: The upgrade-contract flow is structurally similar to SwingSet's vat-upgrade flow (per the doc's link to `packages/SwingSet/docs/vat-upgrade.md`). The single-crank rule for `prepare` in later incarnations is a SwingSet-kernel correctness invariant: it allows the kernel to deliver queued inbound messages safely without having to distinguish "needed for upgrade" from "new work". Cross-cuts with bundles (the new source code is identified by a bundleID), exo (the contract uses prepareExo / prepareExoClass for its remotables), and the "null upgrade" pattern (re-use the same bundle to clear accumulated state) is a legitimate use.
 ---

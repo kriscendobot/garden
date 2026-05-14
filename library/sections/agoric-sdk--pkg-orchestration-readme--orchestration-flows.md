@@ -7,7 +7,7 @@ source_date: 2024-07-18
 source_authors: [Unknown]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [capability-security, agent-conventions]
+topics: [capability-security, agent-conventions, async-flow]
 status: current
 notes: The "no E() in flows" constraint is a key restriction — flows are synchronous from the orchestration runtime's perspective, even though their continuation may span many vat-incarnations. This parallels async-flow's closed-function rule but is even stricter. Cross-cuts with agoric-sdk--pkg-async-flow-readme--overview (same closed-fn discipline) and with agoric-sdk--agents--coding-style-and-naming-conventions (which names @agoric/eslint-config).
 ---

@@ -7,7 +7,7 @@ source_date: 2023-01-29
 source_authors: [Unknown]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [exo, capability-security]
+topics: [exo, capability-security, persistence]
 status: current
 notes: The turn / crank vocabulary is canonical across SwingSet, vat-data, and async-flow. The "all kinds in first crank" invariant is the upgrade-safety story: if restoration depended on external deliveries prompting a second crank, the vat would need to either accept arbitrary external messages or enter a partial-availability state, both of which break upgrade rollback.
 ---

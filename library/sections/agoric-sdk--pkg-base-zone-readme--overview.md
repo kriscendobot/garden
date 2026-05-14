@@ -7,7 +7,7 @@ source_date: 2024-01-27
 source_authors: [Unknown]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [exo, capability-security]
+topics: [exo, capability-security, persistence]
 status: current
 notes: The "use @agoric/zone instead unless you're writing a backing store" guidance is the practical takeaway. The migration-to-endo announcement (heap/virtual/durable zone abstraction moving to `@endo/zone`) signals that this package is a transient surface; agents working on persistence-discipline code should expect imports to migrate.
 ---

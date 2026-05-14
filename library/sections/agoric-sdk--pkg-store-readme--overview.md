@@ -7,7 +7,7 @@ source_date: 2024-01-27
 source_authors: [Unknown]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [exo, capability-security]
+topics: [exo, capability-security, persistence]
 status: current
 notes: The `init` vs `set` distinction is the API-level expression of the "make intent visible to the type system" principle. The functional-API claim (`Store.get` can be passed standalone) only applies to the Store methods, not JavaScript Map. `makeScalarWeakMapStore` is the WeakMap-shaped variant. Header carries `# TODO REWRITE` — incomplete documentation.
 ---

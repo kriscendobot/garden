@@ -25,6 +25,8 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [streams](streams.md) | Async-iterator-based stream abstraction; transport substrate. | 13 |
 | [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 41 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 10 |
+| [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 18 |
+| [async-flow](async-flow.md) | The `@agoric/async-flow` durable-replay async-function infrastructure; closed-function discipline. | 5 |
 | [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 21 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 18 |
 | [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 57 |

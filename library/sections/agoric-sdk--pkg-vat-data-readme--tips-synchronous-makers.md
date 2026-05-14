@@ -7,7 +7,7 @@ source_date: 2023-01-29
 source_authors: [Unknown]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [exo, capability-security]
+topics: [exo, capability-security, persistence]
 status: current
 notes: This tip is a practical gotcha: any incoming message after vat-incarnation startup may target an exo from the previous incarnation, so the kind's behavior must be ready synchronously. Converting an async maker to sync is the rabbit-hole this section warns about. Same constraint surfaces in zoe's Upgrade Crank section and SwingSet's vat-upgrade docs.
 ---

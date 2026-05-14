@@ -7,7 +7,7 @@ source_date: 2024-05-19
 source_authors: [Mark S. Miller]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [capability-security]
+topics: [capability-security, persistence, async-flow]
 status: current
 notes: The exception is principled — `console` is write-only and similar to debugger observation, neither of which counts as a capability effect. The error-name-only comparison rule is a similar concession: only `error.name` is semantically meaningful, everything else (message, stack) is diagnostic and may legitimately differ between replays.
 ---

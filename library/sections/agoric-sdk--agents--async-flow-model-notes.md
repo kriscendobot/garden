@@ -7,7 +7,7 @@ source_date: 2026-03-23
 source_authors: [Turadg Aleahmad]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [agent-conventions]
+topics: [agent-conventions, persistence, async-flow]
 status: current
 notes: This section names a durable-lifecycle replay model with strong constraints that agent-authored edits to `*.flows.*` modules must respect. The 'adding await reorders later effects' point is the kind of operational footgun any code-edit role should know before touching async-flow modules.
 ---

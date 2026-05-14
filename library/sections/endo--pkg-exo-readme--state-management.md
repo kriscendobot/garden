@@ -7,7 +7,7 @@ source_date: 2026-01-04
 source_authors: [Kris Kowal]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [exo]
+topics: [exo, persistence]
 status: current
 ---
 

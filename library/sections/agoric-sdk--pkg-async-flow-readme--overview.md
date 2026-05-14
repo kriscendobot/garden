@@ -7,7 +7,7 @@ source_date: 2024-05-19
 source_authors: [Mark S. Miller]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [capability-security, agent-conventions]
+topics: [capability-security, agent-conventions, persistence, async-flow]
 status: current
 notes: The "closed function" requirement is the central capability-discipline rule that makes durable replay safe — any direct access to lexically captured mutable state would re-execute under replay outside the isolation mechanism and reintroduce bugs. This is the same discipline the agoric-sdk AGENTS.md "Coding Style & Naming Conventions" section names as ambient-authority confinement.
 ---

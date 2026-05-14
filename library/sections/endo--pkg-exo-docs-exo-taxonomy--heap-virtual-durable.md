@@ -7,7 +7,7 @@ source_date: 2023-01-27
 source_authors: [Mark S. Miller]
 ingested: 2026-05-14
 ingested_by: scholar
-topics: [exo, daemon]
+topics: [exo, daemon, persistence]
 status: current
 ---
 
