@@ -57,6 +57,11 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [packages/errors/README.md](endo--pkg-errors-readme.md) | endojs/endo | 2025-12-04 | Kris Kowal | 1 | current |
 | [packages/ocapn/README.md](endo--pkg-ocapn-readme.md) | endojs/endo | 2026-01-08 | Kris Kowal | 6 | current |
 | [packages/ocapn-noise/README.md](endo--pkg-ocapn-noise-readme.md) | endojs/endo | 2025-12-31 | Kris Kowal | 2 | current |
+| [packages/eslint-plugin/README.md](endo--pkg-eslint-plugin-readme.md) | endojs/endo | 2025-12-04 | Kris Kowal | 4 | current |
+| [packages/import-bundle/README.md](endo--pkg-import-bundle-readme.md) | endojs/endo | 2025-03-06 | Kris Kowal | 4 | current |
+| [packages/module-source/README.md](endo--pkg-module-source-readme.md) | endojs/endo | 2024-05-08 | Kris Kowal | 4 | current |
+| [packages/evasive-transform/README.md](endo--pkg-evasive-transform-readme.md) | endojs/endo | 2026-02-25 | Zbyszek Tenerowicz | 3 | current |
+| [packages/trampoline/README.md](endo--pkg-trampoline-readme.md) | endojs/endo | 2024-04-30 | Christopher Hiller | 5 | current |
 
 ## Backlog (not yet ingested)
 

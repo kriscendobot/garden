@@ -276,4 +276,12 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - endo--pkg-ocapn-readme--{overview-frame, overview, status, syrup-encoding, architecture, related-and-license}
 - endo--pkg-ocapn-noise-readme--{overview, usage}
 
-## Total: 246 sections from 49 source documents (through 2026-05-14).
+### From 5 more endo packages (cycle 26)
+
+- endo--pkg-eslint-plugin-readme--{overview, installation, usage, supported-rules}
+- endo--pkg-import-bundle-readme--{overview, module-formats, options, source-maps}
+- endo--pkg-module-source-readme--{overview, source-maps, xs-variant, bug-disclosure}
+- endo--pkg-evasive-transform-readme--{overview, usage, license}
+- endo--pkg-trampoline-readme--{overview, example-usage, what-is-this, install, license-and-disclaimer}
+
+## Total: 266 sections from 54 source documents (through 2026-05-14).
