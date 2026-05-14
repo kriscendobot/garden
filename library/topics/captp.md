@@ -6,6 +6,9 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [endo-but-for-bots--llm-designs-ntsep--design-conceptual-model](../sections/endo-but-for-bots--llm-designs-ntsep--design-conceptual-model.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | The new conceptual model is a four-layer hierarchy: **OCapN Core** → **Network** (e.g., |
+| [endo-but-for-bots--llm-designs-ntsep--problem-statement](../sections/endo-but-for-bots--llm-designs-ntsep--problem-statement.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | OCapN today conflates "network" with "transport". |
+| [endo-but-for-bots--llm-designs-ntsep--refactoring-steps](../sections/endo-but-for-bots--llm-designs-ntsep--refactoring-steps.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | Four refactoring steps. |
 | [endo--docs-errors--hiding-revealing-distributed-diagnostic](../sections/endo--docs-errors--hiding-revealing-distributed-diagnostic.md) | endo docs/errors.md | Plans (not implemented) for distributed error diagnostics across mutually suspicious platforms. |
 | [endo--docs-get-started--distributed-programming](../sections/endo--docs-get-started--distributed-programming.md) | endo docs/get-started.md | Distributed programming concepts via Endo: eventual-send (E() / E.when), capability-bearing remotables, the OCapN family of transport protocols (CapTP, marshal, netstring), and the daemon model. |
 | [endo--docs-message-passing--eventual-send-async-messaging](../sections/endo--docs-message-passing--eventual-send-async-messaging.md) | endo docs/message-passing.md | How to use E() and E.when in practice: messaging local or remote objects uniformly, the turn model, error propagation through promises, pipelining for round-trip elimination. |

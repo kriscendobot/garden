@@ -335,4 +335,11 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - agoric-sdk--pkg-governance-readme--{overview, electorate, contract-governor, scenarios, future-extensions, reading-data-off-chain}
 
-## Total: 363 sections from 81 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs first batch (cycle 39)
+
+- endo-but-for-bots--llm-designs-claude--{metadata-table, status-values, document-structure, progress-tracking}
+- endo-but-for-bots--llm-designs-syrups--overview
+- endo-but-for-bots--llm-designs-ntsep--{problem-statement, design-conceptual-model, refactoring-steps, compatibility-and-upgrade}
+- endo-but-for-bots--llm-designs-cbors--{overview-and-naming, design-scope-and-api, wire-format, reader-writer-behavior, relationship-and-design-decisions}
+
+## Total: 378 sections from 85 source documents (through 2026-05-14).

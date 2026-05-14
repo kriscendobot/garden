@@ -22,6 +22,10 @@
 | [endo--agents--repository-structure](../sections/endo--agents--repository-structure.md) | endo AGENTS.md | The endo repository is a Yarn-workspace monorepo with packages under `packages/`. |
 | [endo--agents--testing](../sections/endo--agents--testing.md) | endo AGENTS.md | Endo's three test commands are `yarn test` (ava, runtime), `yarn lint:types` (tsd, type tests in `test/types.test-d.ts`), and `yarn lint` (runs both `lint:types` and `lint:eslint`). |
 | [endo--agents--typescript-usage](../sections/endo--agents--typescript-usage.md) | endo AGENTS.md | Endo's TypeScript rules accommodate `.js` development (this repo) and `.ts` consumers (e.g., |
+| [endo-but-for-bots--llm-designs-claude--document-structure](../sections/endo-but-for-bots--llm-designs-claude--document-structure.md) | endo-but-for-bots designs/CLAUDE.md | After the metadata table, design docs follow a 7-section template. |
+| [endo-but-for-bots--llm-designs-claude--metadata-table](../sections/endo-but-for-bots--llm-designs-claude--metadata-table.md) | endo-but-for-bots designs/CLAUDE.md | Every design doc opens with a level-1 heading (the title) followed by a 2-column metadata table. |
+| [endo-but-for-bots--llm-designs-claude--progress-tracking](../sections/endo-but-for-bots--llm-designs-claude--progress-tracking.md) | endo-but-for-bots designs/CLAUDE.md | Progress is tracked at two levels. |
+| [endo-but-for-bots--llm-designs-claude--status-values](../sections/endo-but-for-bots--llm-designs-claude--status-values.md) | endo-but-for-bots designs/CLAUDE.md | The 8-value status taxonomy for the metadata table. |
 | [endo--docs-errors--overview](../sections/endo--docs-errors--overview.md) | endo docs/errors.md | Summary of how SES handles error-related diagnostic information: an `assert` global adds hidden-from-callers annotations, the global `Error` is tamed to hide stacks, and the global `console` (the "causal console") reveals annotations and stacks back to the real console. |
 
 ## See also

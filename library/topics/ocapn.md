@@ -6,6 +6,11 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [endo-but-for-bots--llm-designs-ntsep--compatibility-and-upgrade](../sections/endo-but-for-bots--llm-designs-ntsep--compatibility-and-upgrade.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | Four consideration sections. |
+| [endo-but-for-bots--llm-designs-ntsep--design-conceptual-model](../sections/endo-but-for-bots--llm-designs-ntsep--design-conceptual-model.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | The new conceptual model is a four-layer hierarchy: **OCapN Core** → **Network** (e.g., |
+| [endo-but-for-bots--llm-designs-ntsep--problem-statement](../sections/endo-but-for-bots--llm-designs-ntsep--problem-statement.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | OCapN today conflates "network" with "transport". |
+| [endo-but-for-bots--llm-designs-ntsep--refactoring-steps](../sections/endo-but-for-bots--llm-designs-ntsep--refactoring-steps.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | Four refactoring steps. |
+| [endo-but-for-bots--llm-designs-syrups--overview](../sections/endo-but-for-bots--llm-designs-syrups--overview.md) | endo-but-for-bots designs/syrups.md | This design records a correction. |
 | [endo--docs-get-started--distributed-programming](../sections/endo--docs-get-started--distributed-programming.md) | endo docs/get-started.md | Distributed programming concepts via Endo: eventual-send (E() / E.when), capability-bearing remotables, the OCapN family of transport protocols (CapTP, marshal, netstring), and the daemon model. |
 | [endo--pkg-captp-readme--overview](../sections/endo--pkg-captp-readme--overview.md) | endo packages/captp/README.md | The @endo/captp package: a JavaScript implementation of the CapTP (Capability Transport Protocol). |
 | [endo--pkg-netstring-readme--overview](../sections/endo--pkg-netstring-readme--overview.md) | endo packages/netstring/README.md | Netstring is a simple length-prefixed framing format: <decimal-length>:<byte-sequence>,. |

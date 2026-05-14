@@ -89,6 +89,10 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [packages/casting/README.md](agoric-sdk--pkg-casting-readme.md) | agoric/agoric-sdk | 2024-09-10 | Unknown | 4 | current (off-chain follower of ocap broadcasts) |
 | [packages/inter-protocol/README.md](agoric-sdk--pkg-inter-protocol-readme.md) | agoric/agoric-sdk | 2024-06-11 | Unknown | 5 | current (IST stable-coin protocol: VaultFactory/VaultManager/Vault) |
 | [packages/governance/README.md](agoric-sdk--pkg-governance-readme.md) | agoric/agoric-sdk | 2023-04-20 | Turadg Aleahmad | 6 | current (Electorates + VoteCounters + ElectionManagers; ContractGovernor + ParamManager + Governed Contracts) |
+| [designs/CLAUDE.md](endo-but-for-bots--llm-designs-claude.md) | endojs/endo-but-for-bots (llm) | 2026-03-13 | Kris Kowal | 4 | current (design-doc agent conventions; metadata table, status taxonomy, 7-section template, progress tracking) |
+| [designs/syrups.md](endo-but-for-bots--llm-designs-syrups.md) | endojs/endo-but-for-bots (llm) | 2026-05-06 | Kris Kowal | 1 | current (deprecation/consolidation note; consolidated with @endo/syrup-frame) |
+| [designs/ocapn-network-transport-separation.md](endo-but-for-bots--llm-designs-ocapn-network-transport-separation.md) | endojs/endo-but-for-bots (llm) | 2026-02-28 | Kris Kowal | 4 | current (OCapN refactor: network/transport separation, OcapnNetwork interface returns Session not Connection) |
+| [designs/cbors.md](endo-but-for-bots--llm-designs-cbors.md) | endojs/endo-but-for-bots (llm) | 2026-05-05 | Kriscendo Bot | 5 | current (CBOR byte-string framing; sibling of @endo/netstring and @endo/syrups) |
 
 ## Backlog (not yet ingested)
 
