@@ -43,6 +43,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [packages/ses-ava/README.md](endo--pkg-ses-ava-readme.md) | endojs/endo | 2025-10-29 | Richard Gibson | 3 | current |
 | [packages/memoize/docs/memoize.md](endo--pkg-memoize-docs-memoize.md) | endojs/endo | 2026-01-27 | Mark S. Miller | 7 | current |
 | [README.md](ocapn--readme.md) | kriscendobot/ocapn | 2025-07-10 | Jessica Tallon | 5 | current |
+| [draft-specifications/CapTP Specification.md](ocapn--draft-specifications-captp.md) | kriscendobot/ocapn | 2026-03-12 | Jessica Tallon | 10 | current (largest source; ops and descs consolidated) |
 
 ## Backlog (not yet ingested)
 

@@ -253,4 +253,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - endo--pkg-memoize-docs-memoize--{overview, base-semantics, defensiveness, unobservable-memoization, preserving-isolation, eval-twin, caution}
 - ocapn--readme--{overview-and-what-is-this, what-do-i-get, history, plan, funding}
 
-## Total: 198 sections from 35 source documents (through 2026-05-14).
+### From upstream protocol's `draft-specifications/CapTP Specification.md`
+
+- ocapn--draft-specifications-captp--{overview, captp-overview, promises, cryptography, third-party-handoffs, bootstrap-object, operations, descriptors, history, funding}
+
+## Total: 208 sections from 36 source documents (OCapN spec ingestion complete, 2026-05-14).
