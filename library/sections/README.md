@@ -359,4 +359,10 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-hurl--{problem-and-hazards, integration-shared-vs-start, permits-table, iterator-prototype-sampling, lockdown-sequencing-and-degradation, comparison-tests-decisions}
 
-## Total: 406 sections from 90 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs daemon triad (cycle 45)
+
+- endo-but-for-bots--llm-designs-daemon-content-store-gc--{problem-and-scope, current-state-and-refcount-problem, design-and-api-extension}
+- endo-but-for-bots--llm-designs-drp--{problem-and-overlapping-designs, notation-and-edge-labels, daemon-surface-and-subscription, cli-and-chat-ui, phases-and-decisions}
+- endo-but-for-bots--llm-designs-gbta--{problem-and-auth-model, design-remote-mode-and-rate-limiting, security-and-design-decisions}
+
+## Total: 417 sections from 93 source documents (through 2026-05-14).

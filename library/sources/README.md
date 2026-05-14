@@ -98,6 +98,9 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [designs/README.md](endo-but-for-bots--llm-designs-readme.md) | endojs/endo-but-for-bots (llm) | 2026-05-09 | Kris Kowal | 5 | current (design-corpus master index; 7 milestones, calibration round, gantt; library captures shape not the 100+-row table) |
 | [designs/retention-path-notation.md](endo-but-for-bots--llm-designs-retention-path-notation.md) | endojs/endo-but-for-bots (llm) | 2026-05-10 | Kriscendo Bot | 6 | current (daemon GC retention paths: typed model + bulk host method + CLI string notation + best-path selection) |
 | [designs/hardened-url-shim.md](endo-but-for-bots--llm-designs-hardened-url-shim.md) | endojs/endo-but-for-bots (llm) | 2026-05-06 | Kriscendo Bot | 6 | current (URL + URLSearchParams as vetted SES shim; %URL%/%SharedURL% Date-style split; hidden iterator-prototype sampling; XS degrades) |
+| [designs/daemon-content-store-gc.md](endo-but-for-bots--llm-designs-daemon-content-store-gc.md) | endojs/endo-but-for-bots (llm) | 2026-03-21 | Kris Kowal | 3 | current (Complete; sweep-time refcount for content-addressed blobs + scratch-mount directory cleanup) |
+| [designs/daemon-retention-paths.md](endo-but-for-bots--llm-designs-daemon-retention-paths.md) | endojs/endo-but-for-bots (llm) | 2026-05-01 | Kris Kowal | 5 | current (per-target sibling of retention-path-notation; followRetentionPaths subscription + chat UI paths panel + disincarnate/reincarnate) |
+| [designs/gateway-bearer-token-auth.md](endo-but-for-bots--llm-designs-gateway-bearer-token-auth.md) | endojs/endo-but-for-bots (llm) | 2026-03-07 | Kris Kowal | 3 | current (Implemented; agent ID as bearer token via CapTP; URL fragment; per-IP rate limiting; explicit ENDO_GATEWAY=remote opt-in) |
 
 ## Backlog (not yet ingested)
 
