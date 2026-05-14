@@ -226,4 +226,25 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--pkg-lockdown-readme--overview](endo--pkg-lockdown-readme--overview.md)
 - [endo--pkg-exo-docs-types--overview](endo--pkg-exo-docs-types--overview.md)
 
-## Total: 171 sections from 29 source documents (through 2026-05-14).
+### From upstream protocol's `draft-specifications/Locators.md`
+
+- [ocapn--draft-specifications-locators--overview](ocapn--draft-specifications-locators--overview.md)
+- [ocapn--draft-specifications-locators--additional-documents](ocapn--draft-specifications-locators--additional-documents.md)
+- [ocapn--draft-specifications-locators--peer-locator](ocapn--draft-specifications-locators--peer-locator.md)
+- [ocapn--draft-specifications-locators--sturdyref-locator](ocapn--draft-specifications-locators--sturdyref-locator.md)
+- [ocapn--draft-specifications-locators--funding](ocapn--draft-specifications-locators--funding.md)
+
+### From upstream protocol's `draft-specifications/Netlayers.md`
+
+- [ocapn--draft-specifications-netlayers--overview](ocapn--draft-specifications-netlayers--overview.md)
+- [ocapn--draft-specifications-netlayers--introduction](ocapn--draft-specifications-netlayers--introduction.md)
+- [ocapn--draft-specifications-netlayers--tor-onion-netlayer](ocapn--draft-specifications-netlayers--tor-onion-netlayer.md)
+- [ocapn--draft-specifications-netlayers--funding](ocapn--draft-specifications-netlayers--funding.md)
+
+### From endo `packages/ses/docs/preparing-for-stabilize.md`
+
+- [endo--pkg-ses-docs-preparing-for-stabilize--overview](endo--pkg-ses-docs-preparing-for-stabilize--overview.md)
+- [endo--pkg-ses-docs-preparing-for-stabilize--how-proxy-code-should-prepare](endo--pkg-ses-docs-preparing-for-stabilize--how-proxy-code-should-prepare.md)
+- [endo--pkg-ses-docs-preparing-for-stabilize--how-passable-objects-should-prepare](endo--pkg-ses-docs-preparing-for-stabilize--how-passable-objects-should-prepare.md)
+
+## Total: 183 sections from 32 source documents (through 2026-05-14).
