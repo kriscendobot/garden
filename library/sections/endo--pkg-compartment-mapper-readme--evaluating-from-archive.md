@@ -1,0 +1,286 @@
+---
+title: Evaluating an application from an archive
+source: packages/compartment-mapper/README.md
+source_repo: endojs/endo
+source_commit: ee87476e0efcf8f6e412eec93eba5f3853ead6f3
+source_date: 2024-12-15
+source_authors: [Kris Kowal]
+ingested: 2026-05-14
+ingested_by: scholar
+topics: [bundles, compartments]
+status: current
+---
+
+> Abstract: Reverse flow: take an archive, instantiate it into Compartments, run the entry point. The longest sub-section in the README; covers the archive layout, the loading procedure, error-handling around malformed archives, and the integrity-verification options.
+
+## Evaluating an application from an archive
+
+Use `importArchive` to run an application from an archive.
+Note the similarity to `importLocation`.
+
+```js
+import fs from "fs";
+import { fileURLToPath } from "url";
+import { importArchive } from "@endo/compartment-mapper";
+
+// ...
+
+const read = async location => fs.promises.readFile(fileURLToPath(location));
+
+const { namespace: moduleExports } = await importArchive(
+  read,
+  archiveLocation,
+  {
+    globals: { console },
+    modules: { fs },
+  },
+);
+```
+
+The `importArchive` function internally composes `loadArchive` and
+`parseArchive`.
+Use `loadArchive` to defer execution or run multiple times with varying
+globals or modules in the same process.
+Use `parseArchive` to construct a runner from the bytes of an archive.
+`loadArchive` and `parseArchive` return an Application object with an
+`import({ globals?, modules? })` method.
+
+`loadArchive` and `parseArchive` do not run the archived application,
+so they can be used to safely check its hash.
+
+# Script bundles
+
+From `@endo/compartment-mapper/script.js`, the `makeScript` function is similar
+to `makeArchive` but generates a string of JavaScript suitable for `eval` or
+embedding in a web page with a `<script>`.
+Endo uses this "bundle" format to bootstrap an environment up to the point it
+can call `importArchive`, so bundles are at least suitable for creating a
+script that subsumes `ses`, `@endo/compartment-mapper/import-archive.js`, and
+other parts of Endo, but is not as feature-complete as `importArchive`.
+
+```js
+import url from "url";
+import fs from "fs";
+import { makeScript } from "@endo/compartment-mapper/script.js";
+import { makeReadPowers } from "@endo/compartment-mapper/node-powers.js";
+const readPowers = makeReadPowers({ fs, url });
+const options = {}; // if any
+const script = await makeScript(readPowers, moduleSpecifier, options);
+```
+
+The script is suitable for evaluating as a script in a web environment.
+The script is in UTF-8 format and uses non-ASCII characters, so may require
+headers or tags to specify the encoding.
+
+```html
+<meta charset="utf-8">
+<script src="script.js"></script>
+```
+
+Evaluation of `script` returns the emulated exports namespace of the entry
+module.
+
+```js
+const script = await makeScript(readPowers, moduleSpecifier, options);
+
+// This one weird trick evaluates your script in global scope instead of
+// lexical scope.
+const globalEval = eval;
+const moduleExports = globalEval(script);
+```
+
+Scripts can include ESM, CJS, and JSON modules, but no other module languages
+like bytes or text.
+
+> [!WARNING]
+> Scripts do not support [live
+> bindings](https://developer.mozilla.org/en-US/docs/Glossary/Binding), dynamic
+> `import`, or `import.meta`.
+> Scripts do not isolate modules to a compartment.
+
+`makeScript` accepts all the options of `makeArchive` and:
+
+- `sourceUrlPrefix` (string, default `""`):
+  Specifies a prefix to occur on each module's `sourceURL` comment, as injected
+  at runtime.
+  Should generally end with `/` if non-empty.
+  This can improve stack traces.
+- `format` (`"cjs"` or `undefined`, default `undefined`):
+  By default, `makeBundle` generates a bundle that can be evaluated in any
+  context.
+  By specifying `"cjs"`, the bundle can assume there is a host CommonJS
+  `require` function available for resolving modules that exit the bundle.
+  The default is `require` on `globalThis`.
+  The `require` function can be overridden with a curried runtime option.
+- `useEvaluate` (boolean, default `false`):
+  Disabled by default, for bundles that may be embedded on a web page with a
+  `no-unsafe-eval` Content Security Policy.
+  Enable for any environment that can use `eval` or other suitable evaluator
+  (like a Hardened JavaScript `Compartment`).
+
+  By default and when `useEvaluate` is explicitly `false`, the text of a module
+  includes an array of module evaluator functions.
+
+  > [!WARNING]
+  > Example is illustrative and neither a compatibility guarantee nor even
+  > precise.
+
+  ```js
+  (modules => options => {
+    /* ...linker runtime... */
+    for (const module of modules) {
+      module(/* linking convention */);
+    }
+  )([
+  // 1. bundle ./dependency.js
+  function () { /* ... */ },
+  // 2. bundle ./dependent.js
+  function () { /* ... */ },
+  ])(/* runtime options */)
+  ```
+
+  Each of these functions is generated by [Endo's emulation of a JavaScript
+  `ModuleSource`
+  constructor](https://github.com/endojs/endo/blob/master/packages/module-source/DESIGN.md),
+  which we use elsewhere in the Compartment Mapper to emulate Compartment
+  module systems at runtime, as in the Compartment Mapper's own `importArchive`.
+
+  With `useEvaluate`, the script instead embeds the text for each module as a
+  string, along with a package-relative source URL, and uses an `eval` function
+  to produce the corresponding `function`.
+
+  ```js
+  (modules => options => {
+    /* ...linker runtime... */
+    for (const [module, sourceURL] of modules) {
+      evalWithSourceURL(module, sourceURL)(/* linking convention */);
+    }
+  )([
+  // 1. bundle ./dependency.js
+  ["(function () { /* ... */ })", "bundle/dependency.js"],
+  // 2. bundle ./dependent.js
+  ["(function () { /* ... */ })", "bundle/dependent.js"],
+  ])(/* runtime options */)
+  ```
+
+  With `useEvaluate`, the bundle will instead capture a string for
+  each module function and use an indirect `eval` to revive them.
+  This can make the file locations and line numbers in stack traces more
+  useful.
+
+From `@endo/compartment-mapper/script-lite.js`, the `makeScriptFromMap` takes
+a compartment map, like that generated by `mapNodeModules` in
+`@endo/compartment-mapper/node-modules.js` instead of the entry module's
+location.
+The `-lite.js` modules, in general, do not entrain a specific compartment
+mapper.
+
+# Functor bundles
+
+From `@endo/compartment-mapper/functor.js`, the `makeFunctor` function is similar
+to `makeScript` but generates a string of JavaScript suitable for `eval` but *not*
+suitable for embedding as a script. But, the completion value of the script
+is a function that accepts runtime options and returns the entry module's emulated
+module exports namespace, adding a level of indirection.
+
+In this example, we use a Hardened JavaScript `Compartment` to confine the
+execution of the functor and its modules.
+
+```js
+const functorScript = await makeFunctor(readPowers, moduleSpecifier, options);
+const compartment = new Compartment();
+const moduleExports = compartment.evaluate(functorScript)({
+  require,
+  evaluate: compartment.evaluate,
+  sourceUrlPrefix: 'file:///Users/you/project/',
+});
+```
+
+The functor runtime options include:
+
+- `evaluate`: for functors made with `useEvaluate`,
+  specifies a function to use to evaluate each module.
+  The default evaluator is indirect `eval`.
+- `require`: for functors made with `format` of `"cjs"`, provides the behavior
+  for `require` calls that exit the bundle to the host environment.
+  Defaults to the `require` in lexical scope.
+- `sourceUrlPrefix`: specifies a prefix to occur on each module's `sourceURL` comment,
+  as injected at runtime.
+  Overrides the `sourceUrlPrefix` provided to `makeFunctor`, if any.
+
+From `@endo/compartment-mapper/functor-lite.js`, the `makeFunctorFromMap` takes
+a compartment map, like that generated by `mapNodeModules` in
+`@endo/compartment-mapper/node-modules.js` instead of the entry module's
+location.
+The `-lite.js` modules, in general, do not entrain a specific compartment
+mapper.
+
+# Package Descriptors
+
+The compartment mapper uses [Compartments], one for each Node.js package your
+application needs.
+The compartment mapper generates a compartment graph from Node.js packaged
+module descriptors: the `package.json` files of the application and all its
+dependencies.
+Consequently, an application must have a `package.json`.
+
+Each package has its own descriptor, `package.json`.
+Some standard properties of the descriptor are relevant and used by a
+compartment map.
+
+* `name`
+* `type`
+* `main`
+* `exports`
+* `browser`
+* `dependencies`
+* `files`
+
+The compartment map will contain one compartment for each `package.json`
+necessary to build the application.
+Like Node.js, the compartment mapper trusts the package manager to arrange the
+packages such that a satisfactory version of every package's dependencies rests
+in a parent directory, under `node_modules`.
+
+The `main`, `browser`, and `exports` properties determine the modules each
+package exports to other compartments.
+
+The `exports` property describes [package entry points] and can be influenced
+by build _conditions_.
+Currently, the only conditions supported by the compartment mapper are
+`import`, `browser`, and `endo`.
+The `imports` condition indicates that the module map should use ESM modules
+over CommonJS modules or other variants, and `endo`.
+The `browser` condition also draws in the `browser` property from
+`package.json` instead of `main`.
+The `endo` condition only indicates that this tool is in use.
+
+If no `exports` apply to the root of the compartment namespace (`"."`),
+the `main` property serves as a default.
+
+> [!NOTE]
+> TODO: A future version may also respect the `imports` property.
+
+> [!NOTE]
+> TODO: A future version may also respect wildcard patterns in `exports` and
+> `imports`.
+
+The `files` property indicates all of the files in the package that
+should be vended out to applications.
+The file set implicitly includes all `**.js`, `**.mjs`, and `**.cjs` files.
+The file set implicitly excludes anything under `node_modules`.
+
+With the compartment mapper, just as in Node.js, a module specifier that has no
+extension may refer either to the file with the `js` extension, or if that file
+does not exist, to the `index.js` file in the directory with the same name.
+
+> [!NOTE]
+> TODO: The compartment mapper does not yet do anything with the `files` globs
+> but a future version of the compartment mapper will collect these in archives.
+> The compartment mapper should eventually provide the means for any
+> compartment to access its own files using an attenuated `fs` module or
+> `fetch` global, in conjunction with usable values for `import.meta.url` in
+> ECMAScript modules or `__dirname` and `__filename` in CommonJS modules.
+
+
+Source: [packages/compartment-mapper/README.md](https://github.com/endojs/endo/blob/ee87476e0efcf8f6e412eec93eba5f3853ead6f3/packages/compartment-mapper/README.md) at commit `ee87476e`.

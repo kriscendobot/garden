@@ -257,4 +257,10 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - ocapn--draft-specifications-captp--{overview, captp-overview, promises, cryptography, third-party-handoffs, bootstrap-object, operations, descriptors, history, funding}
 
-## Total: 208 sections from 36 source documents (OCapN spec ingestion complete, 2026-05-14).
+### From endo `packages/compartment-mapper/README.md`, `packages/bundle-source/README.md`, `packages/ses/docs/secure-coding-guide.md`
+
+- endo--pkg-compartment-mapper-readme--{overview, evaluating-from-filesystem, writing-archive, evaluating-from-archive, language-extensions}
+- endo--pkg-bundle-source-readme--{overview, conditions, comment-elision, typescript-type-erasure, source-maps, module-format, endoscript-module-format}
+- endo--pkg-ses-docs-secure-coding-guide--{overview, basic-non-ses-example, basic-ses-example, more-patterns}
+
+## Total: 224 sections from 39 source documents (through 2026-05-14).
