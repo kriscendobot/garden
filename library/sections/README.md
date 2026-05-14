@@ -158,4 +158,16 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--pkg-ses-readme--bug-disclosure](endo--pkg-ses-readme--bug-disclosure.md)
 - [endo--pkg-ses-readme--ecosystem-compatibility](endo--pkg-ses-readme--ecosystem-compatibility.md)
 
-## Total: 110 sections from 14 source documents (through /loop tick 9, 2026-05-14).
+### From endo `docs/message-passing.md`
+
+- [endo--docs-message-passing--introduction](endo--docs-message-passing--introduction.md)
+- [endo--docs-message-passing--foundation-what-can-be-passed](endo--docs-message-passing--foundation-what-can-be-passed.md)
+- [endo--docs-message-passing--validation-describing-what-you-accept](endo--docs-message-passing--validation-describing-what-you-accept.md)
+- [endo--docs-message-passing--defensive-receive-protected-objects](endo--docs-message-passing--defensive-receive-protected-objects.md)
+- [endo--docs-message-passing--eventual-send-async-messaging](endo--docs-message-passing--eventual-send-async-messaging.md)
+- [endo--docs-message-passing--digital-purse-example](endo--docs-message-passing--digital-purse-example.md)
+- [endo--docs-message-passing--design-patterns-and-best-practices](endo--docs-message-passing--design-patterns-and-best-practices.md)
+- [endo--docs-message-passing--common-pitfalls](endo--docs-message-passing--common-pitfalls.md)
+- [endo--docs-message-passing--next-steps](endo--docs-message-passing--next-steps.md)
+
+## Total: 119 sections from 15 source documents (through /loop tick 10, 2026-05-14).

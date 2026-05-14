@@ -24,6 +24,11 @@
 | [endo--pkg-eventual-send-readme--use-in-tests](../sections/endo--pkg-eventual-send-readme--use-in-tests.md) | endo packages/eventual-send/README.md | Testing patterns for eventually-sent code. |
 | [endo--pkg-eventual-send-readme--integration-with-endo](../sections/endo--pkg-eventual-send-readme--integration-with-endo.md) | endo packages/eventual-send/README.md | Cross-cutting map: marshal, captp, exo, patterns. |
 | [endo--pkg-eventual-send-readme--background-and-see-also](../sections/endo--pkg-eventual-send-readme--background-and-see-also.md) | endo packages/eventual-send/README.md | TC39 proposal background; pointers to sister packages. |
+| [endo--docs-message-passing--introduction](../sections/endo--docs-message-passing--introduction.md) | endo docs/message-passing.md | Framing for the Endo message-passing model. |
+| [endo--docs-message-passing--eventual-send-async-messaging](../sections/endo--docs-message-passing--eventual-send-async-messaging.md) | endo docs/message-passing.md | E() and E.when in practice, with the turn model and pipelining. |
+| [endo--docs-message-passing--digital-purse-example](../sections/endo--docs-message-passing--digital-purse-example.md) | endo docs/message-passing.md | Worked example using E() across boundaries. |
+| [endo--docs-message-passing--common-pitfalls](../sections/endo--docs-message-passing--common-pitfalls.md) | endo docs/message-passing.md | Common bugs in async-messaging code and their fixes. |
+| [endo--docs-message-passing--next-steps](../sections/endo--docs-message-passing--next-steps.md) | endo docs/message-passing.md | Pointers to deeper per-package material. |
 
 ## See also
 

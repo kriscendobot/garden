@@ -21,6 +21,9 @@
 | [endo--pkg-exo-readme--see-also](../sections/endo--pkg-exo-readme--see-also.md) | endo packages/exo/README.md | Pointers to packages/exo/docs/: exo-taxonomy and types. |
 | [endo--pkg-patterns-readme--interface-guards](../sections/endo--pkg-patterns-readme--interface-guards.md) | endo packages/patterns/README.md | Interface guards as used by Exo: methodsGuard structure and integration. |
 | [endo--pkg-eventual-send-readme--integration-with-exo](../sections/endo--pkg-eventual-send-readme--integration-with-exo.md) | endo packages/eventual-send/README.md | E() composing with Exo: standard call form, M.callWhen for arg shapes on resolved values. |
+| [endo--docs-message-passing--defensive-receive-protected-objects](../sections/endo--docs-message-passing--defensive-receive-protected-objects.md) | endo docs/message-passing.md | Building defensive receivers with Exo + multi-facet kits. |
+| [endo--docs-message-passing--digital-purse-example](../sections/endo--docs-message-passing--digital-purse-example.md) | endo docs/message-passing.md | Digital purse: an Exo class with mint/holder multi-facet attenuation. |
+| [endo--docs-message-passing--design-patterns-and-best-practices](../sections/endo--docs-message-passing--design-patterns-and-best-practices.md) | endo docs/message-passing.md | When to use Far() vs full Exo; multi-facet patterns. |
 
 ## See also
 

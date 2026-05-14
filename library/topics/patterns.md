@@ -18,6 +18,10 @@
 | [endo--pkg-patterns-readme--key-pattern-passable-hierarchy](../sections/endo--pkg-patterns-readme--key-pattern-passable-hierarchy.md) | endo packages/patterns/README.md | The Key < Pattern < Passable inclusion hierarchy. |
 | [endo--pkg-patterns-readme--integration-with-endo](../sections/endo--pkg-patterns-readme--integration-with-endo.md) | endo packages/patterns/README.md | How patterns relates to pass-style, marshal, exo, captp. |
 | [endo--pkg-patterns-readme--deep-dives](../sections/endo--pkg-patterns-readme--deep-dives.md) | endo packages/patterns/README.md | Pointer to packages/patterns/docs/marshal-vs-patterns-level.md. |
+| [endo--docs-message-passing--validation-describing-what-you-accept](../sections/endo--docs-message-passing--validation-describing-what-you-accept.md) | endo docs/message-passing.md | Tutorial use of M.* matchers for receiver validation. |
+| [endo--docs-message-passing--defensive-receive-protected-objects](../sections/endo--docs-message-passing--defensive-receive-protected-objects.md) | endo docs/message-passing.md | Method guards in defensive-receive patterns. |
+| [endo--docs-message-passing--design-patterns-and-best-practices](../sections/endo--docs-message-passing--design-patterns-and-best-practices.md) | endo docs/message-passing.md | Idioms for using pattern guards in capability-bearing code. |
+| [endo--docs-message-passing--common-pitfalls](../sections/endo--docs-message-passing--common-pitfalls.md) | endo docs/message-passing.md | Pattern-mismatch bugs in method guards. |
 
 ## See also
 

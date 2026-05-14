@@ -11,21 +11,21 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 7 |
 | [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 6 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 2 |
-| [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 15 |
+| [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 18 |
 | [testing](testing.md) | How to run and write tests in endo. | 2 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 6 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 15 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 41 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 12 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 16 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 8 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 18 |
-| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 7 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 23 |
+| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 8 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 1 |
-| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 8 |
-| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 20 |
+| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 13 |
+| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 21 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 2 |
-| [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 12 |
-| [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 7 |
+| [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 16 |
+| [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 8 |
 | [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 3 |
 | [bundles](bundles.md) | Module bundling, Compartment module loading, bundle-source / compartment-mapper family. | 1 |
 

@@ -26,6 +26,7 @@
 | [endo--pkg-pass-style-readme--deep-dives](../sections/endo--pkg-pass-style-readme--deep-dives.md) | endo packages/pass-style/README.md | Pointers to deeper doc/ subdirectory: copyArray-guarantees, copyRecord-guarantees, etc. |
 | [endo--pkg-patterns-readme--copy-collections](../sections/endo--pkg-patterns-readme--copy-collections.md) | endo packages/patterns/README.md | CopySet, CopyBag, CopyMap are taggeds built atop pass-style primitives. |
 | [endo--pkg-patterns-readme--key-pattern-passable-hierarchy](../sections/endo--pkg-patterns-readme--key-pattern-passable-hierarchy.md) | endo packages/patterns/README.md | The Key/Pattern/Passable inclusion hierarchy. |
+| [endo--docs-message-passing--foundation-what-can-be-passed](../sections/endo--docs-message-passing--foundation-what-can-be-passed.md) | endo docs/message-passing.md | Tutorial-paced coverage of the pass-style classification. |
 
 ## See also
 

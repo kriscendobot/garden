@@ -14,6 +14,11 @@
 | [endo--pkg-marshal-readme--pass-by-presence-vs-copy](../sections/endo--pkg-marshal-readme--pass-by-presence-vs-copy.md) | endo packages/marshal/README.md | Pass-by-copy (data) vs pass-by-presence (capability proxy). |
 | [endo--pkg-marshal-readme--convert-val-slot](../sections/endo--pkg-marshal-readme--convert-val-slot.md) | endo packages/marshal/README.md | The slot-to-capability bridge callbacks. |
 | [endo--pkg-marshal-readme--alternative-to-json](../sections/endo--pkg-marshal-readme--alternative-to-json.md) | endo packages/marshal/README.md | Marshal as a direct JSON replacement for arbitrary frozen values. |
+| [endo--docs-message-passing--introduction](../sections/endo--docs-message-passing--introduction.md) | endo docs/message-passing.md | Message-passing framing: marshal as the pass-style layer. |
+| [endo--docs-message-passing--foundation-what-can-be-passed](../sections/endo--docs-message-passing--foundation-what-can-be-passed.md) | endo docs/message-passing.md | What types of values cross a message boundary; pass-style classification. |
+| [endo--docs-message-passing--validation-describing-what-you-accept](../sections/endo--docs-message-passing--validation-describing-what-you-accept.md) | endo docs/message-passing.md | Patterns layer between marshal's transport and application logic. |
+| [endo--docs-message-passing--digital-purse-example](../sections/endo--docs-message-passing--digital-purse-example.md) | endo docs/message-passing.md | Worked example where marshal serializes passable values across vat boundary. |
+| [endo--docs-message-passing--common-pitfalls](../sections/endo--docs-message-passing--common-pitfalls.md) | endo docs/message-passing.md | Forgetting to harden(), passing non-passable values, and other recurring bugs. |
 
 ## See also
 

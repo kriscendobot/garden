@@ -18,6 +18,10 @@
 | [endo--pkg-eventual-send-readme--why-eventual-send](../sections/endo--pkg-eventual-send-readme--why-eventual-send.md) | endo packages/eventual-send/README.md | Why E() over .then: uniform local/remote API for capability-bearing objects. |
 | [endo--pkg-ses-readme--usage-core](../sections/endo--pkg-ses-readme--usage-core.md) | endo packages/ses/README.md | Core verbs (lockdown, harden, Compartment) underpinning capability discipline. |
 | [endo--pkg-ses-readme--security-claims-and-caveats](../sections/endo--pkg-ses-readme--security-claims-and-caveats.md) | endo packages/ses/README.md | Endowment protection and trusted compute base analysis. |
+| [endo--docs-message-passing--introduction](../sections/endo--docs-message-passing--introduction.md) | endo docs/message-passing.md | Framing for capability-bearing message exchange. |
+| [endo--docs-message-passing--defensive-receive-protected-objects](../sections/endo--docs-message-passing--defensive-receive-protected-objects.md) | endo docs/message-passing.md | Building receiving objects that protect themselves: Exo, kits, attenuation. |
+| [endo--docs-message-passing--digital-purse-example](../sections/endo--docs-message-passing--digital-purse-example.md) | endo docs/message-passing.md | Worked example of capability-discipline in action. |
+| [endo--docs-message-passing--design-patterns-and-best-practices](../sections/endo--docs-message-passing--design-patterns-and-best-practices.md) | endo docs/message-passing.md | Idioms for capability-bearing code: revocation, state ownership, attenuation. |
 
 ## See also
 
