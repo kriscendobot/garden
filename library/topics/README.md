@@ -28,6 +28,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 10 |
 | [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 8 |
 | [bundles](bundles.md) | Module bundling, Compartment module loading, bundle-source / compartment-mapper family. | 1 |
+| [spec-to-implementation](spec-to-implementation.md) | Cross-cutting concordance: OCapN spec sections ↔ Endo realizations. | (meta) |
 
 ## Seed-but-not-yet-populated topics
 
