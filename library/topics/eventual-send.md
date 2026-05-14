@@ -9,6 +9,7 @@
 | [endo--docs-errors--hiding-revealing-async-diagnostic](../sections/endo--docs-errors--hiding-revealing-async-diagnostic.md) | endo docs/errors.md | Plans to instrument `E()` and `E.when` to build deep-stack causality chains. |
 | [endo--docs-lockdown--unhandled-rejection-trapping](../sections/endo--docs-lockdown--unhandled-rejection-trapping.md) | endo docs/lockdown.md | The `unhandledRejectionTrapping` lockdown option chooses how finalized unhandled rejections are surfaced. |
 | [endo--docs-get-started--distributed-programming](../sections/endo--docs-get-started--distributed-programming.md) | endo docs/get-started.md | Tutorial introduction to E() and E.when for distributed programming. |
+| [endo--pkg-exo-readme--async-methods-callwhen](../sections/endo--pkg-exo-readme--async-methods-callwhen.md) | endo packages/exo/README.md | M.callWhen() for async methods that declare arg shapes on resolved promise values. |
 
 ## See also
 

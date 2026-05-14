@@ -7,6 +7,7 @@
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
 | [endo--pkg-daemon-readme--overview](../sections/endo--pkg-daemon-readme--overview.md) | endo packages/daemon/README.md | Per-user persistent host for HardenedJS workers; CapTP-over-netstring; user-agent bootstrap. |
+| [endo--pkg-exo-readme--virtual-durable-exos](../sections/endo--pkg-exo-readme--virtual-durable-exos.md) | endo packages/exo/README.md | Virtual and durable exos for daemon-persisted state across restarts. |
 
 ## See also
 

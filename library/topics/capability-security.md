@@ -13,6 +13,8 @@
 | [endo--pkg-marshal-readme--pass-by-presence-vs-copy](../sections/endo--pkg-marshal-readme--pass-by-presence-vs-copy.md) | endo packages/marshal/README.md | Distinguishing data values (pass-by-copy) from capability references (pass-by-presence). |
 | [endo--pkg-pass-style-readme--far](../sections/endo--pkg-pass-style-readme--far.md) | endo packages/pass-style/README.md | Far(iface, methods): the recommended way to construct a capability-bearing remotable. |
 | [endo--pkg-pass-style-readme--pass-by-copy-vs-presence](../sections/endo--pkg-pass-style-readme--pass-by-copy-vs-presence.md) | endo packages/pass-style/README.md | The pass-by-copy vs pass-by-presence distinction with capability identity. |
+| [endo--pkg-exo-readme--why-exo](../sections/endo--pkg-exo-readme--why-exo.md) | endo packages/exo/README.md | Exo motivation: declarative guards and explicit state for capability discipline. |
+| [endo--pkg-exo-readme--defineexoclasskit-multiple-facets](../sections/endo--pkg-exo-readme--defineexoclasskit-multiple-facets.md) | endo packages/exo/README.md | Multi-facet exos: the canonical attenuator pattern. |
 
 ## See also
 

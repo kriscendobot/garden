@@ -8,6 +8,17 @@
 |---------|--------|-------------------|
 | [endo--agents--exo-this-context](../sections/endo--agents--exo-this-context.md) | endo AGENTS.md | `this.self` vs `this.facets`; never mix `self` and `facets` in one `ThisType<>`. |
 | [endo--pkg-pass-style-readme--far](../sections/endo--pkg-pass-style-readme--far.md) | endo packages/pass-style/README.md | Far(): a lighter-weight way to construct a remotable than the full Exo apparatus. |
+| [endo--pkg-exo-readme--overview](../sections/endo--pkg-exo-readme--overview.md) | endo packages/exo/README.md | The exo package frame: three forms (makeExo, defineExoClass, defineExoClassKit). |
+| [endo--pkg-exo-readme--why-exo](../sections/endo--pkg-exo-readme--why-exo.md) | endo packages/exo/README.md | Why exo over Far+closures: declarative guards, explicit state, multi-facet attenuators. |
+| [endo--pkg-exo-readme--makeexo-single-instance](../sections/endo--pkg-exo-readme--makeexo-single-instance.md) | endo packages/exo/README.md | makeExo: single instance, no per-instance state. |
+| [endo--pkg-exo-readme--defineexoclass-multiple-instances](../sections/endo--pkg-exo-readme--defineexoclass-multiple-instances.md) | endo packages/exo/README.md | defineExoClass: maker for many instances with state from init(). |
+| [endo--pkg-exo-readme--defineexoclasskit-multiple-facets](../sections/endo--pkg-exo-readme--defineexoclasskit-multiple-facets.md) | endo packages/exo/README.md | defineExoClassKit: cohort of facets sharing one state; the attenuator pattern. |
+| [endo--pkg-exo-readme--async-methods-callwhen](../sections/endo--pkg-exo-readme--async-methods-callwhen.md) | endo packages/exo/README.md | M.callWhen() converts async method declarations to declare arg shapes on resolved values. |
+| [endo--pkg-exo-readme--state-management](../sections/endo--pkg-exo-readme--state-management.md) | endo packages/exo/README.md | State semantics across the three forms. |
+| [endo--pkg-exo-readme--introspection-interface-guard](../sections/endo--pkg-exo-readme--introspection-interface-guard.md) | endo packages/exo/README.md | GET_INTERFACE_GUARD introspection of the methodsGuard pattern. |
+| [endo--pkg-exo-readme--virtual-durable-exos](../sections/endo--pkg-exo-readme--virtual-durable-exos.md) | endo packages/exo/README.md | Virtual / durable exos: state in heap-managed or restart-surviving store. |
+| [endo--pkg-exo-readme--integration-with-endo](../sections/endo--pkg-exo-readme--integration-with-endo.md) | endo packages/exo/README.md | How exo relates to patterns, pass-style, marshal, eventual-send, captp. |
+| [endo--pkg-exo-readme--see-also](../sections/endo--pkg-exo-readme--see-also.md) | endo packages/exo/README.md | Pointers to packages/exo/docs/: exo-taxonomy and types. |
 
 ## See also
 

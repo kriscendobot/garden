@@ -90,4 +90,18 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--pkg-pass-style-readme--integration-with-endo](endo--pkg-pass-style-readme--integration-with-endo.md)
 - [endo--pkg-pass-style-readme--deep-dives](endo--pkg-pass-style-readme--deep-dives.md)
 
-## Total: 57 sections from 9 source documents (through /loop tick 4, 2026-05-14).
+### From endo `packages/exo/README.md`
+
+- [endo--pkg-exo-readme--overview](endo--pkg-exo-readme--overview.md)
+- [endo--pkg-exo-readme--why-exo](endo--pkg-exo-readme--why-exo.md)
+- [endo--pkg-exo-readme--makeexo-single-instance](endo--pkg-exo-readme--makeexo-single-instance.md)
+- [endo--pkg-exo-readme--defineexoclass-multiple-instances](endo--pkg-exo-readme--defineexoclass-multiple-instances.md)
+- [endo--pkg-exo-readme--defineexoclasskit-multiple-facets](endo--pkg-exo-readme--defineexoclasskit-multiple-facets.md)
+- [endo--pkg-exo-readme--async-methods-callwhen](endo--pkg-exo-readme--async-methods-callwhen.md)
+- [endo--pkg-exo-readme--state-management](endo--pkg-exo-readme--state-management.md)
+- [endo--pkg-exo-readme--introspection-interface-guard](endo--pkg-exo-readme--introspection-interface-guard.md)
+- [endo--pkg-exo-readme--virtual-durable-exos](endo--pkg-exo-readme--virtual-durable-exos.md)
+- [endo--pkg-exo-readme--integration-with-endo](endo--pkg-exo-readme--integration-with-endo.md)
+- [endo--pkg-exo-readme--see-also](endo--pkg-exo-readme--see-also.md)
+
+## Total: 68 sections from 10 source documents (through /loop tick 5, 2026-05-14).
