@@ -6,6 +6,8 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [agoric-sdk--pkg-swingset-readme--promise-pipelining](../sections/agoric-sdk--pkg-swingset-readme--promise-pipelining.md) | agoric-sdk packages/SwingSet/README.md | The Promise returned by an eventual-send can be used as a target itself — `E(E(bob).foo()).bar()` queues `bar` to deliver to whatever `foo` returns. |
+| [agoric-sdk--pkg-swingset-readme--sending-messages-with-presences](../sections/agoric-sdk--pkg-swingset-readme--sending-messages-with-presences.md) | agoric-sdk packages/SwingSet/README.md | Each Remotable that arrives in inbound-message data is represented locally as a **Presence** — a special empty object representing a non-local Remotable. |
 | [endo--docs-errors--hiding-revealing-async-diagnostic](../sections/endo--docs-errors--hiding-revealing-async-diagnostic.md) | endo docs/errors.md | Plans (not implemented) for "deep asynchronous stacks." |
 | [endo--docs-get-started--distributed-programming](../sections/endo--docs-get-started--distributed-programming.md) | endo docs/get-started.md | Distributed programming concepts via Endo: eventual-send (E() / E.when), capability-bearing remotables, the OCapN family of transport protocols (CapTP, marshal, netstring), and the daemon model. |
 | [endo--docs-lockdown--unhandled-rejection-trapping](../sections/endo--docs-lockdown--unhandled-rejection-trapping.md) | endo docs/lockdown.md | Controls handling of finalized unhandled promise rejections. |

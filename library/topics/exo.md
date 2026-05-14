@@ -6,6 +6,11 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [agoric-sdk--pkg-ertp-readme--overview](../sections/agoric-sdk--pkg-ertp-readme--overview.md) | agoric-sdk packages/ERTP/README.md | ERTP is Agoric's digital-asset standard — a uniform JavaScript-level way of transferring tokens and other digital assets. |
+| [agoric-sdk--pkg-smart-wallet-readme--overview](../sections/agoric-sdk--pkg-smart-wallet-readme--overview.md) | agoric-sdk packages/smart-wallet/README.md | A one-line frame — `walletFactory` is the contract that provisions and manages smart wallets. |
+| [agoric-sdk--pkg-swingset-readme--vat-sources-and-liveslots](../sections/agoric-sdk--pkg-swingset-readme--vat-sources-and-liveslots.md) | agoric-sdk packages/SwingSet/README.md | Each Vat source file (`vat-foo.js` / `vat-bar.js`) is the starting point of a bundling process that converts the Vat's source tree into a single string (so it can be evaluated in a SES realm). |
+| [agoric-sdk--pkg-zoe-readme--overview](../sections/agoric-sdk--pkg-zoe-readme--overview.md) | agoric-sdk packages/zoe/README.md | One-line frame — Zoe is agoric-sdk's smart-contract framework. |
+| [agoric-sdk--pkg-zoe-readme--upgrade](../sections/agoric-sdk--pkg-zoe-readme--upgrade.md) | agoric-sdk packages/zoe/README.md | A contract instance can be upgraded to a new source-code bundle via `E(instanceAdminFacet).upgradeContract(newBundleID)`. |
 | [endo--agents--exo-this-context](../sections/endo--agents--exo-this-context.md) | endo AGENTS.md | Exo methods receive a `this` context whose shape depends on the API: `makeExo` and `defineExoClass` expose `this.self`; `defineExoClassKit` exposes `this.facets` instead (no single self in a multi-facet kit). |
 | [endo--docs-message-passing--defensive-receive-protected-objects](../sections/endo--docs-message-passing--defensive-receive-protected-objects.md) | endo docs/message-passing.md | The longest section. |
 | [endo--docs-message-passing--design-patterns-and-best-practices](../sections/endo--docs-message-passing--design-patterns-and-best-practices.md) | endo docs/message-passing.md | Idioms and anti-patterns: when to use Far() vs full Exo, when to attenuate vs share, how to handle revocation, how to manage state ownership across multi-facet kits. |

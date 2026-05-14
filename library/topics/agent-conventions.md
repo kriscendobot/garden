@@ -6,21 +6,22 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
-| [endo--agents--overview](../sections/endo--agents--overview.md) | endo AGENTS.md | Frame for the rest of the AGENTS.md sub-rules. |
-| [endo--agents--repository-structure](../sections/endo--agents--repository-structure.md) | endo AGENTS.md | Yarn workspaces monorepo; packages/; ava + tsd; eslint per-package. |
-| [endo--agents--typescript-usage](../sections/endo--agents--typescript-usage.md) | endo AGENTS.md | Six sub-rules for TS in a `.js`-runtime + `.ts`-consumer repo. |
-| [endo--agents--exo-this-context](../sections/endo--agents--exo-this-context.md) | endo AGENTS.md | Single-facet vs multi-facet `this` shapes for Exo methods. |
-| [endo--agents--testing](../sections/endo--agents--testing.md) | endo AGENTS.md | `yarn test`, `yarn lint:types`, `yarn lint`; run lint before commit. |
-| [endo--agents--commit-conventions](../sections/endo--agents--commit-conventions.md) | endo AGENTS.md | Conventional commits with package scope; `!` for breaking. |
-| [endo--docs-errors--overview](../sections/endo--docs-errors--overview.md) | endo docs/errors.md | Agent-relevant framing of the SES error/assert/console system. |
-| [agoric-sdk--agents--overview](../sections/agoric-sdk--agents--overview.md) | agoric-sdk AGENTS.md | Frame for the agents.md-standard agoric-sdk rules. |
-| [agoric-sdk--agents--project-structure-and-module-organization](../sections/agoric-sdk--agents--project-structure-and-module-organization.md) | agoric-sdk AGENTS.md | Yarn-workspaces + Lerna-Lite monorepo over packages/* and golang/*. |
-| [agoric-sdk--agents--build-test-and-development-commands](../sections/agoric-sdk--agents--build-test-and-development-commands.md) | agoric-sdk AGENTS.md | Command inventory: corepack + yarn install/build/test/lint, typecheck, dprint, prepack/postpack workflow. |
-| [agoric-sdk--agents--coding-style-and-naming-conventions](../sections/agoric-sdk--agents--coding-style-and-naming-conventions.md) | agoric-sdk AGENTS.md | ESM, dprint, `@agoric/*` vs `@aglocal/*`, performance.now vs Date.now, ambient-authority discipline. |
-| [agoric-sdk--agents--testing-guidelines](../sections/agoric-sdk--agents--testing-guidelines.md) | agoric-sdk AGENTS.md | AVA; per-package vs whole-repo; c8 coverage. |
-| [agoric-sdk--agents--async-flow-model-notes](../sections/agoric-sdk--agents--async-flow-model-notes.md) | agoric-sdk AGENTS.md | Durable-lifecycle replay model; await-reordering footgun for `*.flows.*` modules. |
-| [agoric-sdk--agents--a3p-container-and-proposal-build-notes](../sections/agoric-sdk--agents--a3p-container-and-proposal-build-notes.md) | agoric-sdk AGENTS.md | A3P Docker container build pattern for proposals. |
-| [agoric-sdk--agents--commit-and-pull-request-guidelines](../sections/agoric-sdk--agents--commit-and-pull-request-guidelines.md) | agoric-sdk AGENTS.md | Conventional Commits; issue-number branch prefix; force/bypass integration labels. |
+| [agoric-sdk--agents--a3p-container-and-proposal-build-notes](../sections/agoric-sdk--agents--a3p-container-and-proposal-build-notes.md) | agoric-sdk AGENTS.md | A3P tests run inside a Docker container built from an agoric-sdk checkout (full repo filesystem, not just published npm packages). |
+| [agoric-sdk--agents--async-flow-model-notes](../sections/agoric-sdk--agents--async-flow-model-notes.md) | agoric-sdk AGENTS.md | agoric-sdk's async-flow model runs each invocation as an activation with durable lifecycle states: `Running`, `Sleeping`, `Replaying`, `Failed`, `Done`. |
+| [agoric-sdk--agents--build-test-and-development-commands](../sections/agoric-sdk--agents--build-test-and-development-commands.md) | agoric-sdk AGENTS.md | The canonical command inventory for agoric-sdk work: `corepack enable && yarn install` to bootstrap, `yarn build` for kernel bundles, `yarn test` for AVA across all packages, `yarn lint` / `yarn lint-fix`, `yarn run -T tsc --noEmit --incremental` for fast per-package typecheck (plus a `--watch --preserveWatchOutput` mode the agent can monitor), `yarn typecheck-quick` for whole-repo (4-7s), `yarn format` (dprint), `yarn hooks:install` for git hooks, `./ |
+| [agoric-sdk--agents--coding-style-and-naming-conventions](../sections/agoric-sdk--agents--coding-style-and-naming-conventions.md) | agoric-sdk AGENTS.md | ESM-by-default JS+TS targeting Node ^20.9 or ^22.11. |
+| [agoric-sdk--agents--commit-and-pull-request-guidelines](../sections/agoric-sdk--agents--commit-and-pull-request-guidelines.md) | agoric-sdk AGENTS.md | agoric-sdk PR rules: Conventional Commits in titles and per-commit messages. |
+| [agoric-sdk--agents--overview](../sections/agoric-sdk--agents--overview.md) | agoric-sdk AGENTS.md | A one-line frame — the document follows the [agents.md](https://agents.md/) standard and lists agent-facing repository guidelines for agoric-sdk. |
+| [agoric-sdk--agents--project-structure-and-module-organization](../sections/agoric-sdk--agents--project-structure-and-module-organization.md) | agoric-sdk AGENTS.md | agoric-sdk is a Yarn-workspaces + Lerna-Lite monorepo. |
+| [agoric-sdk--agents--testing-guidelines](../sections/agoric-sdk--agents--testing-guidelines.md) | agoric-sdk AGENTS.md | agoric-sdk's testing framework is AVA. |
+| [agoric-sdk--pkg-async-flow-readme--overview](../sections/agoric-sdk--pkg-async-flow-readme--overview.md) | agoric-sdk packages/async-flow/README.md | The core `asyncFlow(zone, name, asyncFn)` API. |
+| [endo--agents--commit-conventions](../sections/endo--agents--commit-conventions.md) | endo AGENTS.md | Endo uses conventional commits with a package scope: `feat(pkg):`, `fix(pkg):`, `refactor(pkg):`, `chore:`, `test(pkg):`. |
+| [endo--agents--exo-this-context](../sections/endo--agents--exo-this-context.md) | endo AGENTS.md | Exo methods receive a `this` context whose shape depends on the API: `makeExo` and `defineExoClass` expose `this.self`; `defineExoClassKit` exposes `this.facets` instead (no single self in a multi-facet kit). |
+| [endo--agents--overview](../sections/endo--agents--overview.md) | endo AGENTS.md | One-line frame for the endo repository's AGENTS.md file: conventions and constraints for AI agents working in this repository. |
+| [endo--agents--repository-structure](../sections/endo--agents--repository-structure.md) | endo AGENTS.md | The endo repository is a Yarn-workspace monorepo with packages under `packages/`. |
+| [endo--agents--testing](../sections/endo--agents--testing.md) | endo AGENTS.md | Endo's three test commands are `yarn test` (ava, runtime), `yarn lint:types` (tsd, type tests in `test/types.test-d.ts`), and `yarn lint` (runs both `lint:types` and `lint:eslint`). |
+| [endo--agents--typescript-usage](../sections/endo--agents--typescript-usage.md) | endo AGENTS.md | Endo's TypeScript rules accommodate `.js` development (this repo) and `.ts` consumers (e.g., |
+| [endo--docs-errors--overview](../sections/endo--docs-errors--overview.md) | endo docs/errors.md | Summary of how SES handles error-related diagnostic information: an `assert` global adds hidden-from-callers annotations, the global `Error` is tamed to hide stacks, and the global `console` (the "causal console") reveals annotations and stacks back to the real console. |
 
 ## See also
 

@@ -6,6 +6,10 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [agoric-sdk--pkg-swingset-readme--overview](../sections/agoric-sdk--pkg-swingset-readme--overview.md) | agoric-sdk packages/SwingSet/README.md | Frame. |
+| [agoric-sdk--pkg-swingset-readme--vat-cli-and-basedirs](../sections/agoric-sdk--pkg-swingset-readme--vat-cli-and-basedirs.md) | agoric-sdk packages/SwingSet/README.md | The in-package `vat` CLI. |
+| [agoric-sdk--pkg-swingset-readme--vat-sources-and-liveslots](../sections/agoric-sdk--pkg-swingset-readme--vat-sources-and-liveslots.md) | agoric-sdk packages/SwingSet/README.md | Each Vat source file (`vat-foo.js` / `vat-bar.js`) is the starting point of a bundling process that converts the Vat's source tree into a single string (so it can be evaluated in a SES realm). |
+| [agoric-sdk--pkg-zoe-readme--upgrade](../sections/agoric-sdk--pkg-zoe-readme--upgrade.md) | agoric-sdk packages/zoe/README.md | A contract instance can be upgraded to a new source-code bundle via `E(instanceAdminFacet).upgradeContract(newBundleID)`. |
 | [agoric-sdk--readme--build](../sections/agoric-sdk--readme--build.md) | agoric-sdk README.md | The standard build sequence: `corepack enable && yarn install && yarn build`. |
 | [endo--pkg-bundle-source-readme--comment-elision](../sections/endo--pkg-bundle-source-readme--comment-elision.md) | endo packages/bundle-source/README.md | How bundle-source removes JS comments from bundled sources. |
 | [endo--pkg-bundle-source-readme--conditions](../sections/endo--pkg-bundle-source-readme--conditions.md) | endo packages/bundle-source/README.md | Package.json export conditions: how bundle-source resolves which file to bundle for a given package based on conditions (default, node, browser, import, require, etc.) |

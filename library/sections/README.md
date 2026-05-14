@@ -306,4 +306,13 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - ocapn--implementation-guide--{overview, stage-0-foundation, stage-1-deliver-only, stage-2-promises, stage-3-import-export-gc, stage-4-promise-pipelining, stage-5-question-answer-gc, stage-6-handoffs, appendix-vats}
 
-## Total: 313 sections from 64 source documents (through 2026-05-14).
+### From agoric-sdk primary-code packages (cycle 35)
+
+- agoric-sdk--pkg-ertp-readme--overview
+- agoric-sdk--pkg-swingset-readme--{overview, vat-cli-and-basedirs, vat-sources-and-liveslots, sending-messages-with-presences, promise-pipelining, presence-identity-comparison}
+- agoric-sdk--pkg-zoe-readme--{overview, what-is-zoe, reading-data-off-chain, upgrade}
+- agoric-sdk--pkg-smart-wallet-readme--{overview, usage, design, notifiers}
+- agoric-sdk--pkg-async-flow-readme--{overview, loopholes-for-purely-diagnostic-information}
+- agoric-sdk--pkg-async-flow-docs-async-flow-states--overview
+
+## Total: 331 sections from 70 source documents (through 2026-05-14).

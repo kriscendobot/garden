@@ -72,6 +72,12 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [README.md](agoric-sdk--readme.md) | agoric/agoric-sdk | 2026-03-25 | Michael FIG | 7 | current |
 | [packages/README.md](agoric-sdk--packages-readme.md) | agoric/agoric-sdk | 2023-08-04 | Turadg Aleahmad | 1 | current |
 | [implementation-guide/Implementation Guide.md](ocapn--implementation-guide.md) | kriscendobot/ocapn | 2026-03-12 | Jessica Tallon | 9 | current (canonical implementation walk-through complements the draft-specifications) |
+| [packages/ERTP/README.md](agoric-sdk--pkg-ertp-readme.md) | agoric/agoric-sdk | 2023-01-27 | Mark S. Miller | 1 | current (small pointer-shaped README; primary content external) |
+| [packages/SwingSet/README.md](agoric-sdk--pkg-swingset-readme.md) | agoric/agoric-sdk | 2025-10-25 | Richard Gibson | 6 | current |
+| [packages/zoe/README.md](agoric-sdk--pkg-zoe-readme.md) | agoric/agoric-sdk | 2024-07-03 | Mark S. Miller | 4 | current |
+| [packages/smart-wallet/README.md](agoric-sdk--pkg-smart-wallet-readme.md) | agoric/agoric-sdk | 2022-09-13 | Turadg Aleahmad | 4 | current (older; carries open `???` questions in Usage section) |
+| [packages/async-flow/README.md](agoric-sdk--pkg-async-flow-readme.md) | agoric/agoric-sdk | 2024-05-19 | Mark S. Miller | 2 | current (may migrate to @endo/async-flow per header note) |
+| [packages/async-flow/docs/async-flow-states.md](agoric-sdk--pkg-async-flow-docs-async-flow-states.md) | agoric/agoric-sdk | 2024-09-26 | Michael FIG | 1 | current (companion to async-flow README; the canonical activation-state-machine doc) |
 
 ## Backlog (not yet ingested)
 
