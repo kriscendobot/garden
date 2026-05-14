@@ -365,4 +365,9 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - endo-but-for-bots--llm-designs-drp--{problem-and-overlapping-designs, notation-and-edge-labels, daemon-surface-and-subscription, cli-and-chat-ui, phases-and-decisions}
 - endo-but-for-bots--llm-designs-gbta--{problem-and-auth-model, design-remote-mode-and-rate-limiting, security-and-design-decisions}
 
-## Total: 417 sections from 93 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs daemon-cross-peer-gc + daemon-locator-terminology (cycle 46)
+
+- endo-but-for-bots--llm-designs-dcpg--{status-and-why-crdt-abandoned, retention-set-model, wire-and-batching, event-sources-and-subscription, persistence-and-graph, crash-reconnect-and-revocation}
+- endo-but-for-bots--llm-designs-dlt--{terminology-rename, locator-format-evolution, method-additions, local-node-sentinel, dehydration-and-hydration}
+
+## Total: 428 sections from 95 source documents (through 2026-05-14).

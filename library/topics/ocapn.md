@@ -6,6 +6,7 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [endo-but-for-bots--llm-designs-dlt--locator-format-evolution](../sections/endo-but-for-bots--llm-designs-dlt--locator-format-evolution.md) | endo-but-for-bots designs/daemon-locator-terminology.md | **New locator URL format**: `endo://{peerKey}/{formulaAddress}@{hint1}@{hint2}?type=...`; formula address moves from `?id=` query onto the path; hints inline with `@` separators; `parseLocator` format-aware so old `?id=` locators still parse. |
 | [endo-but-for-bots--llm-designs-ntsep--compatibility-and-upgrade](../sections/endo-but-for-bots--llm-designs-ntsep--compatibility-and-upgrade.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | Four consideration sections. |
 | [endo-but-for-bots--llm-designs-ntsep--design-conceptual-model](../sections/endo-but-for-bots--llm-designs-ntsep--design-conceptual-model.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | The new conceptual model is a four-layer hierarchy: **OCapN Core** → **Network** (e.g., |
 | [endo-but-for-bots--llm-designs-ntsep--problem-statement](../sections/endo-but-for-bots--llm-designs-ntsep--problem-statement.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | OCapN today conflates "network" with "transport". |

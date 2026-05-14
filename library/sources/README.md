@@ -101,6 +101,8 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [designs/daemon-content-store-gc.md](endo-but-for-bots--llm-designs-daemon-content-store-gc.md) | endojs/endo-but-for-bots (llm) | 2026-03-21 | Kris Kowal | 3 | current (Complete; sweep-time refcount for content-addressed blobs + scratch-mount directory cleanup) |
 | [designs/daemon-retention-paths.md](endo-but-for-bots--llm-designs-daemon-retention-paths.md) | endojs/endo-but-for-bots (llm) | 2026-05-01 | Kris Kowal | 5 | current (per-target sibling of retention-path-notation; followRetentionPaths subscription + chat UI paths panel + disincarnate/reincarnate) |
 | [designs/gateway-bearer-token-auth.md](endo-but-for-bots--llm-designs-gateway-bearer-token-auth.md) | endojs/endo-but-for-bots (llm) | 2026-03-07 | Kris Kowal | 3 | current (Implemented; agent ID as bearer token via CapTP; URL fragment; per-IP rate limiting; explicit ENDO_GATEWAY=remote opt-in) |
+| [designs/daemon-cross-peer-gc.md](endo-but-for-bots--llm-designs-daemon-cross-peer-gc.md) | endojs/endo-but-for-bots (llm) | 2026-04-29 | Kris Kowal | 6 | current (cross-peer GC protocol; one-way retention set per peer per direction; retention-accumulator microtask coalescing; replaces abandoned bidirectional CRDT) |
+| [designs/daemon-locator-terminology.md](endo-but-for-bots--llm-designs-daemon-locator-terminology.md) | endojs/endo-but-for-bots (llm) | 2026-03-17 | Kris Kowal | 5 | current (non-breaking rename Peer Key / Formula Address / Formula Key; new locator URL with inline `@`-hints; LOCAL_NODE sentinel; dehydrate/hydrate split) |
 
 ## Backlog (not yet ingested)
 
