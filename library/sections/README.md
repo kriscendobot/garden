@@ -284,4 +284,10 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - endo--pkg-evasive-transform-readme--{overview, usage, license}
 - endo--pkg-trampoline-readme--{overview, example-usage, what-is-this, install, license-and-disclaimer}
 
-## Total: 266 sections from 54 source documents (through 2026-05-14).
+### From agoric-sdk docs (cycle 28 — first non-endo sources)
+
+- agoric-sdk--docs-commit-hygiene--{overview, before-committing, package-specific, why-matter, automated-checks}
+- agoric-sdk--docs-node-version--{overview, updating}
+- agoric-sdk--docs-typescript--{overview, best-practices, ts-modules, dts-modules, entrypoint, build, api-docs}
+
+## Total: 280 sections from 57 source documents (through 2026-05-14).

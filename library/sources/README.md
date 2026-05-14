@@ -62,6 +62,9 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [packages/module-source/README.md](endo--pkg-module-source-readme.md) | endojs/endo | 2024-05-08 | Kris Kowal | 4 | current |
 | [packages/evasive-transform/README.md](endo--pkg-evasive-transform-readme.md) | endojs/endo | 2026-02-25 | Zbyszek Tenerowicz | 3 | current |
 | [packages/trampoline/README.md](endo--pkg-trampoline-readme.md) | endojs/endo | 2024-04-30 | Christopher Hiller | 5 | current |
+| [docs/commit-hygiene.md](agoric-sdk--docs-commit-hygiene.md) | agoric/agoric-sdk | 2026-02-27 | Turadg Aleahmad | 5 | current |
+| [docs/node-version.md](agoric-sdk--docs-node-version.md) | agoric/agoric-sdk | 2025-08-21 | Turadg Aleahmad | 2 | current |
+| [docs/typescript.md](agoric-sdk--docs-typescript.md) | agoric/agoric-sdk | 2026-02-04 | Turadg Aleahmad | 7 | current (overlaps endo--agents--typescript-usage) |
 
 ## Backlog (not yet ingested)
 
