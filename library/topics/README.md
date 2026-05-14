@@ -11,15 +11,15 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 7 |
 | [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 6 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 2 |
-| [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 14 |
-| [testing](testing.md) | How to run and write tests in endo. | 1 |
+| [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 15 |
+| [testing](testing.md) | How to run and write tests in endo. | 2 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 4 |
-| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 13 |
+| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 14 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 32 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 9 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 10 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 5 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 4 |
-| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 4 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 18 |
+| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 7 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 1 |
 | [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 8 |
 | [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 20 |

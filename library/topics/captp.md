@@ -10,6 +10,9 @@
 | [endo--docs-get-started--distributed-programming](../sections/endo--docs-get-started--distributed-programming.md) | endo docs/get-started.md | Tutorial introduction to the CapTP / OCapN transport family. |
 | [endo--pkg-daemon-readme--overview](../sections/endo--pkg-daemon-readme--overview.md) | endo packages/daemon/README.md | The Endo daemon speaks CapTP over netstring envelopes. |
 | [endo--pkg-marshal-readme--convert-val-slot](../sections/endo--pkg-marshal-readme--convert-val-slot.md) | endo packages/marshal/README.md | CapTP plugs in its own convertValToSlot/convertSlotToVal for capability identity across the wire. |
+| [endo--pkg-eventual-send-readme--e-method-call](../sections/endo--pkg-eventual-send-readme--e-method-call.md) | endo packages/eventual-send/README.md | E(target).method as the primary cross-boundary call. |
+| [endo--pkg-eventual-send-readme--e-get-and-sendonly](../sections/endo--pkg-eventual-send-readme--e-get-and-sendonly.md) | endo packages/eventual-send/README.md | E.get / E.sendOnly across the wire. |
+| [endo--pkg-eventual-send-readme--promise-pipelining](../sections/endo--pkg-eventual-send-readme--promise-pipelining.md) | endo packages/eventual-send/README.md | Cross-boundary E() pipelining for round-trip elimination. |
 
 ## See also
 

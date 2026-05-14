@@ -7,6 +7,7 @@
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
 | [endo--agents--testing](../sections/endo--agents--testing.md) | endo AGENTS.md | `yarn test` (ava), `yarn lint:types` (tsd), `yarn lint` (both); pre-commit. |
+| [endo--pkg-eventual-send-readme--use-in-tests](../sections/endo--pkg-eventual-send-readme--use-in-tests.md) | endo packages/eventual-send/README.md | Testing patterns for code that uses E()/E.when. |
 
 ## See also
 

@@ -129,4 +129,21 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--docs-reference--lockdown-and-harden](endo--docs-reference--lockdown-and-harden.md)
 - [endo--docs-reference--lockdown-options-summary](endo--docs-reference--lockdown-options-summary.md)
 
-## Total: 87 sections from 12 source documents (through /loop tick 7, 2026-05-14).
+### From endo `packages/eventual-send/README.md`
+
+- [endo--pkg-eventual-send-readme--overview](endo--pkg-eventual-send-readme--overview.md)
+- [endo--pkg-eventual-send-readme--shim](endo--pkg-eventual-send-readme--shim.md)
+- [endo--pkg-eventual-send-readme--importing](endo--pkg-eventual-send-readme--importing.md)
+- [endo--pkg-eventual-send-readme--e-method-call](endo--pkg-eventual-send-readme--e-method-call.md)
+- [endo--pkg-eventual-send-readme--e-get-and-sendonly](endo--pkg-eventual-send-readme--e-get-and-sendonly.md)
+- [endo--pkg-eventual-send-readme--e-when](endo--pkg-eventual-send-readme--e-when.md)
+- [endo--pkg-eventual-send-readme--e-resolve](endo--pkg-eventual-send-readme--e-resolve.md)
+- [endo--pkg-eventual-send-readme--promise-pipelining](endo--pkg-eventual-send-readme--promise-pipelining.md)
+- [endo--pkg-eventual-send-readme--why-eventual-send](endo--pkg-eventual-send-readme--why-eventual-send.md)
+- [endo--pkg-eventual-send-readme--integration-with-exo](endo--pkg-eventual-send-readme--integration-with-exo.md)
+- [endo--pkg-eventual-send-readme--handled-promise](endo--pkg-eventual-send-readme--handled-promise.md)
+- [endo--pkg-eventual-send-readme--use-in-tests](endo--pkg-eventual-send-readme--use-in-tests.md)
+- [endo--pkg-eventual-send-readme--integration-with-endo](endo--pkg-eventual-send-readme--integration-with-endo.md)
+- [endo--pkg-eventual-send-readme--background-and-see-also](endo--pkg-eventual-send-readme--background-and-see-also.md)
+
+## Total: 101 sections from 13 source documents (through /loop tick 8, 2026-05-14).

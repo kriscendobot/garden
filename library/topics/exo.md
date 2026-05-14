@@ -20,6 +20,7 @@
 | [endo--pkg-exo-readme--integration-with-endo](../sections/endo--pkg-exo-readme--integration-with-endo.md) | endo packages/exo/README.md | How exo relates to patterns, pass-style, marshal, eventual-send, captp. |
 | [endo--pkg-exo-readme--see-also](../sections/endo--pkg-exo-readme--see-also.md) | endo packages/exo/README.md | Pointers to packages/exo/docs/: exo-taxonomy and types. |
 | [endo--pkg-patterns-readme--interface-guards](../sections/endo--pkg-patterns-readme--interface-guards.md) | endo packages/patterns/README.md | Interface guards as used by Exo: methodsGuard structure and integration. |
+| [endo--pkg-eventual-send-readme--integration-with-exo](../sections/endo--pkg-eventual-send-readme--integration-with-exo.md) | endo packages/eventual-send/README.md | E() composing with Exo: standard call form, M.callWhen for arg shapes on resolved values. |
 
 ## See also
 

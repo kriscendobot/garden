@@ -19,6 +19,7 @@
 | [endo--docs-lockdown--reporting](../sections/endo--docs-lockdown--reporting.md) | endo docs/lockdown.md | The `reporting` lockdown option chooses where SES's own warnings go. |
 | [endo--docs-lockdown--unhandled-rejection-trapping](../sections/endo--docs-lockdown--unhandled-rejection-trapping.md) | endo docs/lockdown.md | The `unhandledRejectionTrapping` lockdown option chooses how finalized unhandled rejections are reported. |
 | [endo--docs-lockdown--stack-filtering](../sections/endo--docs-lockdown--stack-filtering.md) | endo docs/lockdown.md | The `stackFiltering` lockdown option chooses signal-to-noise for stack traces. |
+| [endo--pkg-eventual-send-readme--e-when](../sections/endo--pkg-eventual-send-readme--e-when.md) | endo packages/eventual-send/README.md | E.when: safe SES-compatible analog of .then for promise resolution. |
 
 ## See also
 

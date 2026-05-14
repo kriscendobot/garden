@@ -15,6 +15,7 @@
 | [endo--pkg-pass-style-readme--pass-by-copy-vs-presence](../sections/endo--pkg-pass-style-readme--pass-by-copy-vs-presence.md) | endo packages/pass-style/README.md | The pass-by-copy vs pass-by-presence distinction with capability identity. |
 | [endo--pkg-exo-readme--why-exo](../sections/endo--pkg-exo-readme--why-exo.md) | endo packages/exo/README.md | Exo motivation: declarative guards and explicit state for capability discipline. |
 | [endo--pkg-exo-readme--defineexoclasskit-multiple-facets](../sections/endo--pkg-exo-readme--defineexoclasskit-multiple-facets.md) | endo packages/exo/README.md | Multi-facet exos: the canonical attenuator pattern. |
+| [endo--pkg-eventual-send-readme--why-eventual-send](../sections/endo--pkg-eventual-send-readme--why-eventual-send.md) | endo packages/eventual-send/README.md | Why E() over .then: uniform local/remote API for capability-bearing objects. |
 
 ## See also
 
