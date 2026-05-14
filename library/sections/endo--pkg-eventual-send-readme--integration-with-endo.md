@@ -9,6 +9,7 @@ ingested: 2026-05-14
 ingested_by: scholar
 topics: [eventual-send]
 status: current
+notes: This section catalogs the Endo packages eventual-send composes with at the marshal/captp/exo/patterns level. The narrower endo--pkg-eventual-send-readme--integration-with-exo zooms into the Exo-class composition specifically; read this one for the broad cross-cutting map, then that one for the Exo-call details.
 ---
 
 > Abstract: Cross-cutting map: marshal serializes promises by reference; captp transports E() calls over the wire; exo provides the class API for remotable targets; patterns provides M.callWhen() for async method guards. eventual-send is the application-facing surface that all of these compose under.
