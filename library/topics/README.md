@@ -14,15 +14,15 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 23 |
 | [testing](testing.md) | How to run and write tests in endo. | 3 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 6 |
-| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 15 |
+| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 16 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 52 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 20 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 22 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 10 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 24 |
-| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 12 |
-| [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 2 |
-| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 15 |
-| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 28 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 25 |
+| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 14 |
+| [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 13 |
+| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 25 |
+| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 37 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 4 |
 | [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 18 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 9 |

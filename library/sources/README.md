@@ -32,6 +32,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [packages/patterns/docs/marshal-vs-patterns-level.md](endo--pkg-patterns-docs-marshal-vs-patterns-level.md) | endojs/endo | 2025-05-02 | Mark S. Miller | 3 | current |
 | [packages/exo/docs/exo-taxonomy.md](endo--pkg-exo-docs-exo-taxonomy.md) | endojs/endo | 2023-01-27 | Mark S. Miller | 5 | current |
 | [CONTRIBUTING.md](endo--contributing.md) | endojs/endo | 2026-01-08 | Kris Kowal | 6 | current |
+| [draft-specifications/Model.md](ocapn--draft-specifications-model.md) | kriscendobot/ocapn | 2025-06-23 | Mark S. Miller | 11 | current (data-model overlap with pass-style/marshal flagged in per-section notes) |
 
 ## Backlog (not yet ingested)
 

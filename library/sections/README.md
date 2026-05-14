@@ -194,4 +194,18 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--pkg-exo-docs-exo-taxonomy--overview](endo--pkg-exo-docs-exo-taxonomy--overview.md), [make-vs-define](endo--pkg-exo-docs-exo-taxonomy--make-vs-define.md), [heap-virtual-durable](endo--pkg-exo-docs-exo-taxonomy--heap-virtual-durable.md), [make-vs-prepare](endo--pkg-exo-docs-exo-taxonomy--make-vs-prepare.md), [package-organization](endo--pkg-exo-docs-exo-taxonomy--package-organization.md)
 - [endo--contributing--overview](endo--contributing--overview.md), [initial-setup](endo--contributing--initial-setup.md), [validation](endo--contributing--validation.md), [creating-a-new-package](endo--contributing--creating-a-new-package.md), [rebuilding-ses](endo--contributing--rebuilding-ses.md), [using-changesets](endo--contributing--using-changesets.md)
 
-## Total: 151 sections from 24 source documents (through /loop tick 13, 2026-05-14). New ingest includes 4 sections by Mark S. Miller (erights) on Exo taxonomy and pass-style/patterns level distinctions.
+### From upstream protocol's `draft-specifications/Model.md` (held at kriscendobot/ocapn)
+
+- [ocapn--draft-specifications-model--overview](ocapn--draft-specifications-model--overview.md)
+- [ocapn--draft-specifications-model--value-and-atom-frame](ocapn--draft-specifications-model--value-and-atom-frame.md)
+- [ocapn--draft-specifications-model--atom-types](ocapn--draft-specifications-model--atom-types.md)
+- [ocapn--draft-specifications-model--container-list](ocapn--draft-specifications-model--container-list.md)
+- [ocapn--draft-specifications-model--container-struct](ocapn--draft-specifications-model--container-struct.md)
+- [ocapn--draft-specifications-model--container-tagged](ocapn--draft-specifications-model--container-tagged.md)
+- [ocapn--draft-specifications-model--reference-target](ocapn--draft-specifications-model--reference-target.md)
+- [ocapn--draft-specifications-model--reference-promise](ocapn--draft-specifications-model--reference-promise.md)
+- [ocapn--draft-specifications-model--error](ocapn--draft-specifications-model--error.md)
+- [ocapn--draft-specifications-model--pass-invariant](ocapn--draft-specifications-model--pass-invariant.md)
+- [ocapn--draft-specifications-model--json-invariants](ocapn--draft-specifications-model--json-invariants.md)
+
+## Total: 162 sections from 25 source documents (first OCapN spec doc ingested, 2026-05-14).
