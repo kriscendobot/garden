@@ -9,6 +9,7 @@
 | [endo--docs-security--overview](../sections/endo--docs-security--overview.md) | endo docs/security.md | Frame for the policy. |
 | [endo--docs-security--supported-versions](../sections/endo--docs-security--supported-versions.md) | endo docs/security.md | Latest branch only; users encouraged to upgrade. |
 | [endo--docs-security--coordinated-vulnerability-disclosure](../sections/endo--docs-security--coordinated-vulnerability-disclosure.md) | endo docs/security.md | Reporting channels, acknowledgement and validation timelines, attribution. |
+| [endo--docs-bugs--overview](../sections/endo--docs-bugs--overview.md) | endo docs/bugs.md | Pointer: security bugs via coordinated disclosure; non-security via Agoric Issues page. |
 
 ## See also
 

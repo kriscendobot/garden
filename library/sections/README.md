@@ -49,4 +49,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--docs-lockdown--legacy-regenerator-runtime-taming](endo--docs-lockdown--legacy-regenerator-runtime-taming.md)
 - [endo--docs-lockdown--harden-taming](endo--docs-lockdown--harden-taming.md)
 
-## Total: 31 sections from 4 source documents (pilot batch + first scholar cycle, 2026-05-13).
+### From endo `docs/bugs.md`
+
+- [endo--docs-bugs--overview](endo--docs-bugs--overview.md)
+
+## Total: 32 sections from 5 source documents (pilot + first scholar cycle + first /loop tick, through 2026-05-14).

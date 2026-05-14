@@ -12,6 +12,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [docs/security.md](endo--docs-security.md) | endojs/endo | 2025-09-25 | Kris Kowal | 3 | current |
 | [docs/errors.md](endo--docs-errors.md) | endojs/endo | 2025-09-25 | Kris Kowal | 7 | current |
 | [docs/lockdown.md](endo--docs-lockdown.md) | endojs/endo | 2025-09-25 | Kris Kowal | 15 | current |
+| [docs/bugs.md](endo--docs-bugs.md) | endojs/endo | 2025-09-25 | Kris Kowal | 1 | current |
 
 ## Backlog (not yet ingested)
 

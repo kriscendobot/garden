@@ -13,7 +13,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 2 |
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 1 |
 | [testing](testing.md) | How to run and write tests in endo. | 1 |
-| [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 3 |
+| [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 4 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 13 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 20 |
 | [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 1 |
