@@ -27,6 +27,13 @@
 | [endo--pkg-patterns-readme--copy-collections](../sections/endo--pkg-patterns-readme--copy-collections.md) | endo packages/patterns/README.md | CopySet, CopyBag, CopyMap are taggeds built atop pass-style primitives. |
 | [endo--pkg-patterns-readme--key-pattern-passable-hierarchy](../sections/endo--pkg-patterns-readme--key-pattern-passable-hierarchy.md) | endo packages/patterns/README.md | The Key/Pattern/Passable inclusion hierarchy. |
 | [endo--docs-message-passing--foundation-what-can-be-passed](../sections/endo--docs-message-passing--foundation-what-can-be-passed.md) | endo docs/message-passing.md | Tutorial-paced coverage of the pass-style classification. |
+| [endo--pkg-marshal-docs-smallcaps-cheatsheet--overview](../sections/endo--pkg-marshal-docs-smallcaps-cheatsheet--overview.md) | endo packages/marshal/docs/smallcaps-cheatsheet.md | Quick-reference card for smallcaps encodings. |
+| [endo--pkg-pass-style-doc-copyarray-guarantees--overview](../sections/endo--pkg-pass-style-doc-copyarray-guarantees--overview.md) | endo packages/pass-style/doc/copyArray-guarantees.md | copyArray invariants: dense, frozen, no-extra-props. |
+| [endo--pkg-pass-style-doc-copyrecord-guarantees--overview](../sections/endo--pkg-pass-style-doc-copyrecord-guarantees--overview.md) | endo packages/pass-style/doc/copyRecord-guarantees.md | copyRecord invariants: own-props-only, string-keyed, frozen. |
+| [endo--pkg-pass-style-doc-enumerating-properties--overview](../sections/endo--pkg-pass-style-doc-enumerating-properties--overview.md) | endo packages/pass-style/doc/enumerating-properties.md | Property enumeration semantics in pass-style. |
+| [endo--pkg-patterns-docs-marshal-vs-patterns-level--overview](../sections/endo--pkg-patterns-docs-marshal-vs-patterns-level--overview.md) | endo packages/patterns/docs/marshal-vs-patterns-level.md | Two-level type system: pass-style (transport) vs kindOf (shape). |
+| [endo--pkg-patterns-docs-marshal-vs-patterns-level--ocapn-vs-passstyleof-vs-typeof](../sections/endo--pkg-patterns-docs-marshal-vs-patterns-level--ocapn-vs-passstyleof-vs-typeof.md) | endo packages/patterns/docs/marshal-vs-patterns-level.md | Three abstraction levels: typeof / passStyleOf / OCapN kinds. |
+| [endo--pkg-patterns-docs-marshal-vs-patterns-level--kindof-vs-passstyleof](../sections/endo--pkg-patterns-docs-marshal-vs-patterns-level--kindof-vs-passstyleof.md) | endo packages/patterns/docs/marshal-vs-patterns-level.md | kindOf adds finer classification on top of passStyleOf. |
 
 ## See also
 

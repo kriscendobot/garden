@@ -24,16 +24,26 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [packages/ses/README.md](endo--pkg-ses-readme.md) | endojs/endo | 2025-09-25 | Kris Kowal | 9 | current |
 | [docs/message-passing.md](endo--docs-message-passing.md) | endojs/endo | 2026-01-04 | Kris Kowal | 9 | current |
 | [docs/guide.md](endo--docs-guide.md) | endojs/endo | 2025-09-25 | Kris Kowal | 10 | current (multi-source overlaps) |
+| [packages/captp/README.md](endo--pkg-captp-readme.md) | endojs/endo | 2022-01-13 | Kris Kowal | 4 | current |
+| [packages/marshal/docs/smallcaps-cheatsheet.md](endo--pkg-marshal-docs-smallcaps-cheatsheet.md) | endojs/endo | 2026-02-02 | Mark S. Miller | 1 | current |
+| [packages/pass-style/doc/copyArray-guarantees.md](endo--pkg-pass-style-doc-copyarray-guarantees.md) | endojs/endo | 2023-11-30 | Kris Kowal | 1 | current |
+| [packages/pass-style/doc/copyRecord-guarantees.md](endo--pkg-pass-style-doc-copyrecord-guarantees.md) | endojs/endo | 2023-11-30 | Kris Kowal | 1 | current |
+| [packages/pass-style/doc/enumerating-properties.md](endo--pkg-pass-style-doc-enumerating-properties.md) | endojs/endo | 2023-11-30 | Kris Kowal | 1 | current |
+| [packages/patterns/docs/marshal-vs-patterns-level.md](endo--pkg-patterns-docs-marshal-vs-patterns-level.md) | endojs/endo | 2025-05-02 | Mark S. Miller | 3 | current |
+| [packages/exo/docs/exo-taxonomy.md](endo--pkg-exo-docs-exo-taxonomy.md) | endojs/endo | 2023-01-27 | Mark S. Miller | 5 | current |
+| [CONTRIBUTING.md](endo--contributing.md) | endojs/endo | 2026-01-08 | Kris Kowal | 6 | current |
 
 ## Backlog (not yet ingested)
 
 Roughly grouped by priority. The full file inventory was captured during the pilot survey; the lists below are summaries, not authoritative manifests.
 
-**Top-level (1 remaining):** `README.md`, `CONTRIBUTING.md`. (`AGENTS.md` and `SECURITY.md` are done; `SECURITY.md` content overlaps `docs/security.md` and may need a contradiction check.)
+**Top-level (1 remaining):** `README.md`. (`AGENTS.md`, `CONTRIBUTING.md`, and `SECURITY.md` are done; `SECURITY.md` content overlaps `docs/security.md` and may need a contradiction check.)
 
 **`docs/` (0 remaining):** all 8 `docs/*.md` files ingested. `bugs.md`, `get-started.md`, `reference.md`, `message-passing.md`, and `guide.md` ingested on the /loop ticks of 2026-05-14; `lockdown.md` was ingested 2026-05-13 as the first scholar-cycle library task; `security.md` and `errors.md` from the original pilot.
 
-**Package READMEs (40 remaining):** of the 47 packages under `packages/`, 7 are now ingested (`daemon`, `marshal`, `pass-style`, `exo`, `patterns`, `eventual-send`, `ses`). The primed-batch package READMEs are exhausted; other packages remain in the unprimed backlog.
+**Package READMEs (39 remaining):** of the 47 packages under `packages/`, 8 are now ingested (`daemon`, `marshal`, `pass-style`, `exo`, `patterns`, `eventual-send`, `ses`, `captp`). 39 small-utility packages remain in the backlog.
+
+**Package `docs/` and `doc/` (8 remaining):** ingested so far: `marshal/docs/smallcaps-cheatsheet.md`, `pass-style/doc/{copyArray,copyRecord,enumerating-properties}-guarantees.md`, `patterns/docs/marshal-vs-patterns-level.md`, `exo/docs/exo-taxonomy.md`. Remaining: `exo/docs/types.md`, `memoize/docs/memoize.md`, `ses/docs/{draft-standalone-spec,guide,preparing-for-stabilize,secure-coding-guide,ses-0.7}.md`.
 
 **Package `docs/` and `doc/` (13):**
 - `packages/exo/docs/`: `exo-taxonomy.md`, `types.md`.

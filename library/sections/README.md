@@ -183,4 +183,15 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--docs-guide--html-comments](endo--docs-guide--html-comments.md)
 - [endo--docs-guide--direct-vs-indirect-eval](endo--docs-guide--direct-vs-indirect-eval.md)
 
-## Total: 129 sections from 16 source documents (priming batch fully drained, through /loop tick 11, 2026-05-14).
+### From endo `packages/captp/README.md`, `marshal/docs/`, `pass-style/doc/`, `patterns/docs/`, `exo/docs/`, and `CONTRIBUTING.md`
+
+- [endo--pkg-captp-readme--overview](endo--pkg-captp-readme--overview.md), [usage](endo--pkg-captp-readme--usage.md), [loopback](endo--pkg-captp-readme--loopback.md), [trapcaps](endo--pkg-captp-readme--trapcaps.md)
+- [endo--pkg-marshal-docs-smallcaps-cheatsheet--overview](endo--pkg-marshal-docs-smallcaps-cheatsheet--overview.md)
+- [endo--pkg-pass-style-doc-copyarray-guarantees--overview](endo--pkg-pass-style-doc-copyarray-guarantees--overview.md)
+- [endo--pkg-pass-style-doc-copyrecord-guarantees--overview](endo--pkg-pass-style-doc-copyrecord-guarantees--overview.md)
+- [endo--pkg-pass-style-doc-enumerating-properties--overview](endo--pkg-pass-style-doc-enumerating-properties--overview.md)
+- [endo--pkg-patterns-docs-marshal-vs-patterns-level--overview](endo--pkg-patterns-docs-marshal-vs-patterns-level--overview.md), [ocapn-vs-passstyleof-vs-typeof](endo--pkg-patterns-docs-marshal-vs-patterns-level--ocapn-vs-passstyleof-vs-typeof.md), [kindof-vs-passstyleof](endo--pkg-patterns-docs-marshal-vs-patterns-level--kindof-vs-passstyleof.md)
+- [endo--pkg-exo-docs-exo-taxonomy--overview](endo--pkg-exo-docs-exo-taxonomy--overview.md), [make-vs-define](endo--pkg-exo-docs-exo-taxonomy--make-vs-define.md), [heap-virtual-durable](endo--pkg-exo-docs-exo-taxonomy--heap-virtual-durable.md), [make-vs-prepare](endo--pkg-exo-docs-exo-taxonomy--make-vs-prepare.md), [package-organization](endo--pkg-exo-docs-exo-taxonomy--package-organization.md)
+- [endo--contributing--overview](endo--contributing--overview.md), [initial-setup](endo--contributing--initial-setup.md), [validation](endo--contributing--validation.md), [creating-a-new-package](endo--contributing--creating-a-new-package.md), [rebuilding-ses](endo--contributing--rebuilding-ses.md), [using-changesets](endo--contributing--using-changesets.md)
+
+## Total: 151 sections from 24 source documents (through /loop tick 13, 2026-05-14). New ingest includes 4 sections by Mark S. Miller (erights) on Exo taxonomy and pass-style/patterns level distinctions.

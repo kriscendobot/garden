@@ -24,6 +24,11 @@
 | [endo--docs-message-passing--defensive-receive-protected-objects](../sections/endo--docs-message-passing--defensive-receive-protected-objects.md) | endo docs/message-passing.md | Building defensive receivers with Exo + multi-facet kits. |
 | [endo--docs-message-passing--digital-purse-example](../sections/endo--docs-message-passing--digital-purse-example.md) | endo docs/message-passing.md | Digital purse: an Exo class with mint/holder multi-facet attenuation. |
 | [endo--docs-message-passing--design-patterns-and-best-practices](../sections/endo--docs-message-passing--design-patterns-and-best-practices.md) | endo docs/message-passing.md | When to use Far() vs full Exo; multi-facet patterns. |
+| [endo--pkg-exo-docs-exo-taxonomy--overview](../sections/endo--pkg-exo-docs-exo-taxonomy--overview.md) | endo packages/exo/docs/exo-taxonomy.md | Mark Miller's taxonomy of the Exo-making functions across three axes. |
+| [endo--pkg-exo-docs-exo-taxonomy--make-vs-define](../sections/endo--pkg-exo-docs-exo-taxonomy--make-vs-define.md) | endo packages/exo/docs/exo-taxonomy.md | makeExo vs defineExoClass vs defineExoClassKit. |
+| [endo--pkg-exo-docs-exo-taxonomy--heap-virtual-durable](../sections/endo--pkg-exo-docs-exo-taxonomy--heap-virtual-durable.md) | endo packages/exo/docs/exo-taxonomy.md | Heap vs virtual vs durable state stores; class cardinality. |
+| [endo--pkg-exo-docs-exo-taxonomy--make-vs-prepare](../sections/endo--pkg-exo-docs-exo-taxonomy--make-vs-prepare.md) | endo packages/exo/docs/exo-taxonomy.md | The durable-variant make-vs-prepare distinction for surviving restarts. |
+| [endo--pkg-exo-docs-exo-taxonomy--package-organization](../sections/endo--pkg-exo-docs-exo-taxonomy--package-organization.md) | endo packages/exo/docs/exo-taxonomy.md | Where the Exo-making functions live across packages. |
 
 ## See also
 

@@ -14,6 +14,10 @@
 | [endo--pkg-eventual-send-readme--e-get-and-sendonly](../sections/endo--pkg-eventual-send-readme--e-get-and-sendonly.md) | endo packages/eventual-send/README.md | E.get / E.sendOnly across the wire. |
 | [endo--pkg-eventual-send-readme--promise-pipelining](../sections/endo--pkg-eventual-send-readme--promise-pipelining.md) | endo packages/eventual-send/README.md | Cross-boundary E() pipelining for round-trip elimination. |
 | [endo--docs-message-passing--eventual-send-async-messaging](../sections/endo--docs-message-passing--eventual-send-async-messaging.md) | endo docs/message-passing.md | E() across CapTP boundaries: turn model, error propagation, pipelining. |
+| [endo--pkg-captp-readme--overview](../sections/endo--pkg-captp-readme--overview.md) | endo packages/captp/README.md | The @endo/captp package: JS implementation of CapTP. |
+| [endo--pkg-captp-readme--usage](../sections/endo--pkg-captp-readme--usage.md) | endo packages/captp/README.md | makeCapTP API: {dispatch, getBootstrap, abort}. |
+| [endo--pkg-captp-readme--loopback](../sections/endo--pkg-captp-readme--loopback.md) | endo packages/captp/README.md | In-process CapTP loopback pair for testing and vat isolation. |
+| [endo--pkg-captp-readme--trapcaps](../sections/endo--pkg-captp-readme--trapcaps.md) | endo packages/captp/README.md | TrapCaps: synchronous trapping mechanism for debugging. |
 
 ## See also
 

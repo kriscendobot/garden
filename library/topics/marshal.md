@@ -19,6 +19,8 @@
 | [endo--docs-message-passing--validation-describing-what-you-accept](../sections/endo--docs-message-passing--validation-describing-what-you-accept.md) | endo docs/message-passing.md | Patterns layer between marshal's transport and application logic. |
 | [endo--docs-message-passing--digital-purse-example](../sections/endo--docs-message-passing--digital-purse-example.md) | endo docs/message-passing.md | Worked example where marshal serializes passable values across vat boundary. |
 | [endo--docs-message-passing--common-pitfalls](../sections/endo--docs-message-passing--common-pitfalls.md) | endo docs/message-passing.md | Forgetting to harden(), passing non-passable values, and other recurring bugs. |
+| [endo--pkg-marshal-docs-smallcaps-cheatsheet--overview](../sections/endo--pkg-marshal-docs-smallcaps-cheatsheet--overview.md) | endo packages/marshal/docs/smallcaps-cheatsheet.md | Quick-reference card for smallcaps wire encodings. |
+| [endo--pkg-patterns-docs-marshal-vs-patterns-level--overview](../sections/endo--pkg-patterns-docs-marshal-vs-patterns-level--overview.md) | endo packages/patterns/docs/marshal-vs-patterns-level.md | Marshal-level vs patterns-level type discipline. |
 
 ## See also
 

@@ -22,6 +22,8 @@
 | [endo--docs-message-passing--defensive-receive-protected-objects](../sections/endo--docs-message-passing--defensive-receive-protected-objects.md) | endo docs/message-passing.md | Method guards in defensive-receive patterns. |
 | [endo--docs-message-passing--design-patterns-and-best-practices](../sections/endo--docs-message-passing--design-patterns-and-best-practices.md) | endo docs/message-passing.md | Idioms for using pattern guards in capability-bearing code. |
 | [endo--docs-message-passing--common-pitfalls](../sections/endo--docs-message-passing--common-pitfalls.md) | endo docs/message-passing.md | Pattern-mismatch bugs in method guards. |
+| [endo--pkg-patterns-docs-marshal-vs-patterns-level--overview](../sections/endo--pkg-patterns-docs-marshal-vs-patterns-level--overview.md) | endo packages/patterns/docs/marshal-vs-patterns-level.md | The patterns-level kindOf abstraction layer. |
+| [endo--pkg-patterns-docs-marshal-vs-patterns-level--kindof-vs-passstyleof](../sections/endo--pkg-patterns-docs-marshal-vs-patterns-level--kindof-vs-passstyleof.md) | endo packages/patterns/docs/marshal-vs-patterns-level.md | Patterns' kindOf classification atop pass-style. |
 
 ## See also
 
