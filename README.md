@@ -195,10 +195,6 @@ If a posted item lingers because its resolution is hard to detect automatically,
 
 - [endojs/endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/pull/134): feat(docker,daemon): docker self-hosting, foreground daemon, CIDR gate, static files (re-opened from #47 under the bot) (waiting on: Endo Gateway concept maturation (per kriskowal 2026-05-13); DRAFT + CHANGES_REQUESTED)
 
-#### Milestone 3: Weblets and Integrations
-
-- [endojs/endo-but-for-bots#128](https://github.com/endojs/endo-but-for-bots/pull/128): feat(cli): assorted CLI additions, workers, zip checkin/out, read-text, write-text (re-opened from #38 under the bot) (waiting on: fixer + exo-zip/exo-unzip merge (#160); CHANGES_REQUESTED; depends on #160)
-
 #### Milestone 4: UX Polish and Agent Tooling
 
 - [endojs/endo-but-for-bots#125](https://github.com/endojs/endo-but-for-bots/pull/125): feat(daemon): add editMessage and messageHistory (re-opened from #23 under the bot) (waiting on: fixer; MERGEABLE + CHANGES_REQUESTED)
