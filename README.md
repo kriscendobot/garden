@@ -6,15 +6,7 @@ author: liaison, gardener
 
 # Garden journal
 
-This is the orphan `journal` branch of `kriskowal/garden`. The garden's transcript and message bus lives here: append-only entries under [`entries/`](entries/), the cross-machine worktree index under [`worktrees/`](worktrees/), the per-project context tree under [`projects/`](projects/), the terminated-agent archive under [`agents/`](agents/), and this file is the maintainer dashboard.
-
-The schema for journal entries and the writing procedure live in `roles/COMMON.md` § The journal on the `main` branch. The "how this section is maintained" prose for each bulletin section below lives in the relevant role file (the journalist for *Pending kriskowal reviews* and *PR backlog*, the steward for the rest); this dashboard carries headings + items + delimiter comments only.
-
 ## Bulletin board
-
-Items here need a human maintainer's attention. Newest at top within each section. **Agents own the bulletin entirely: they post when something needs maintainer attention and they clear the item once they detect the underlying condition is resolved.** The maintainer never edits this section. Read it, then act in the natural place (review the PR on GitHub, comment on the issue, fix the deployment); the next steward cycle picks up the change and clears the bulletin item.
-
-If a posted item lingers because its resolution is hard to detect automatically, that itself is worth flagging in the next agent's report or as a self-improvement update to the relevant skill.
 
 ### Recent engagements ready for review
 
