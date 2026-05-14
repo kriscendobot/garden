@@ -370,4 +370,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - endo-but-for-bots--llm-designs-dcpg--{status-and-why-crdt-abandoned, retention-set-model, wire-and-batching, event-sources-and-subscription, persistence-and-graph, crash-reconnect-and-revocation}
 - endo-but-for-bots--llm-designs-dlt--{terminology-rename, locator-format-evolution, method-additions, local-node-sentinel, dehydration-and-hydration}
 
-## Total: 428 sections from 95 source documents (through 2026-05-14).
+### From endojs/endo PR #3121 designs/daemon-persistence (cycle 47, **unmerged draft**)
+
+- endo--designs-dp--{frame-and-position-in-design-space, waterken-and-e-as-endpoints, formula-graph-and-cohort-destruction, acyclic-formula-graph-and-revocation, coordinated-retention-and-four-tables, system-fit-and-not-orthogonal, six-aspects-of-sharing-and-related-work}
+
+## Total: 435 sections from 96 source documents (through 2026-05-14).

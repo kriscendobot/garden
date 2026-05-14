@@ -9,6 +9,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | Source | Repo | Last-modified | Primary author | Sections | Status |
 |--------|------|---------------|----------------|----------|--------|
 | [AGENTS.md](endo--agents.md) | endojs/endo | 2026-03-21 | Turadg Aleahmad | 6 | current |
+| [designs/daemon-persistence.md](endo--designs-daemon-persistence.md) | endojs/endo (PR #3121 draft, branch `kriskowal-doc-formula-persistence`) | 2026-03-08 | Kris Kowal | 7 | current (**unmerged draft PR**; thesis document for Formula Persistence — petname graph as persistence root; destruction by cohort + reconstruction on demand; revocation by withdrawal of constructor; four-tables coordinated retention) |
 | [docs/security.md](endo--docs-security.md) | endojs/endo | 2025-09-25 | Kris Kowal | 3 | current |
 | [docs/errors.md](endo--docs-errors.md) | endojs/endo | 2025-09-25 | Kris Kowal | 7 | current |
 | [docs/lockdown.md](endo--docs-lockdown.md) | endojs/endo | 2025-09-25 | Kris Kowal | 15 | current |

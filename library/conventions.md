@@ -187,3 +187,55 @@ When a system produces typed structured values that multiple consumers render di
 ### Hidden-intrinsic sampling via throwaway-instance-prototype-walk
 
 When taming a host-provided built-in whose methods return objects with their own prototype chain (iterators, callables, etc.), the return-value prototype is reachable only by **constructing a throwaway instance and walking `Object.getPrototypeOf` from a method return**. SES's permits graph won't visit those prototypes unless explicitly seeded. Sample during the intrinsics-collection pass, add to the permits graph under a synthetic name (e.g., `%URLSearchParamsIteratorPrototype%`), list permitted properties, harden along with the rest of the intrinsics. SES already does this for `%IteratorPrototype%` and `%ArrayIteratorPrototype%`; new tamed built-ins join the list. Example: `endo-but-for-bots--llm-designs-hurl--iterator-prototype-sampling` (cycle 43).
+
+## Sources from unmerged PRs
+
+Most library sources are drawn from a repository's default branch — the idempotency check (`git --git-dir=worktrees/<owner>-<repo>.git log -1 --format=%H <default-branch> -- <path>`) is meaningful only because the default branch is the canonical state. Occasionally a canonical-quality design document exists only on a PR branch that has not yet merged. The library may absorb such material with care; this section names the discipline. (First worked example: `endo--designs-daemon-persistence` from endojs/endo#3121, ingested cycle 47.)
+
+### When it is appropriate
+
+Ingest from an unmerged PR when the PR is the **canonical source-of-truth** for a design that has not landed because implementation work is in flight (the design and the implementation are co-evolving and the design is stable enough to teach from). Do not ingest speculative PRs that may be discarded, or PRs whose author has signalled the design is provisional.
+
+### How to record provenance
+
+The source-index file gains two extra frontmatter fields and an explicit `notes:` flag. Use `status: current` + `source_pr_state: draft|open|…`; do **not** invent a new `status:` value (e.g. `draft`) — taxonomy proliferation makes the library harder to query. The combination of fields is sufficient.
+
+```yaml
+source_repo: <owner/name>
+source_branch: <PR branch name>
+source_commit: <PR head SHA, full>
+source_pr: <owner/name>#<number>
+source_pr_state: draft | open | …
+status: current
+notes: |
+  Sourced from an **unmerged draft PR**. Re-check freshness against
+  PR head <SHA>. On force-push to the branch → re-ingest from new
+  HEAD. On merge → rewrite source_branch to the default branch and
+  refresh source_commit. On close-without-merge → mark this source
+  and all `<slug>--*` sections **stale**.
+```
+
+Section files filed under this source inherit the same `source_pr` / `source_pr_state` fields.
+
+### Slug convention
+
+Use the same `<repo>--<area>-<file-slug>--<section>` form as for default-branch sources. **Do not** embed the PR number or branch name in the slug; the slug should remain stable across the PR's merge → default-branch transition so that section identities (and inbound cross-references) survive the merge. Branch information lives in frontmatter, not the slug.
+
+### How to keep the source fresh
+
+Each scholar cycle that touches a topic this source files under must re-check the PR head:
+
+```sh
+git --git-dir=worktrees/<owner>-<repo>.git fetch origin pull/<N>/head:refs/pull/<N>/head
+git --git-dir=worktrees/<owner>-<repo>.git log -1 --format=%H refs/pull/<N>/head -- <path>
+```
+
+If the SHA differs from the recorded `source_commit`, treat as a normal idempotency mismatch and re-ingest.
+
+### Lifecycle of an absorbed PR source
+
+| Upstream event | Library response |
+|---|---|
+| PR force-push (rebases, edits) | Re-ingest from new HEAD; bump `source_commit`; sections may need rewriting if the design changed materially. |
+| PR merges to default branch | Rewrite `source_branch:` to the default branch; refresh `source_commit:` to the merged commit; drop `source_pr_state:` (or set to `merged`); update `notes:` to remove the unmerged-PR caveat. |
+| PR closes without merging | Mark `status:` of the source and all its sections **stale**; leave the section files in place (journal is append-only); add a `notes:` line explaining the close. Deletion requires explicit maintainer authorization in a journal `message` entry. |
