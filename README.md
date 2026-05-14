@@ -207,6 +207,12 @@ author: liaison, gardener
 
 - **Two endo design drafts (sibling pair) — `exo-import` + `exo-npm-registry`.** Authored by designer dispatch `e3b1aa` (2026-05-14). Preserved in the journal so the dispatch root could be torn down: [`projects/endo/drafts/exo-import.md`](projects/endo/drafts/exo-import.md) (~15 KB; plug-and-play import using compartment-mapper primitives, Go-style version resolution, snapshot-strict, content-addressed cache) and [`projects/endo/drafts/exo-npm-registry.md`](projects/endo/drafts/exo-npm-registry.md) (~11 KB; daemon-side capture-and-vend for `(name, version) → readable-tree`). Both carry 11 combined *Open questions* the designer surfaced rather than picking; full list in the designer's result entry and reproduced verbatim in [`entries/2026/05/14/051353Z-result-designer-e3b1aa.md`](entries/2026/05/14/). Next step: maintainer triage of the open questions → builder dispatch lands the agreed shape on a fork branch of `endojs/endo`. Clears on builder dispatch.
 
+### Unstarted designs
+
+<!-- BEGIN unstarted-designs -->
+(rendering deferred to the steward's design-to-PR pipeline once the gardener `7d4081` lands; until then, the bulletin shows the placeholder)
+<!-- END unstarted-designs -->
+
 ### Awaits maintainer decision
 
 - Two `endojs/endo-but-for-bots` workflows at 100% failure on master: `Deploy TypeDoc site with GitHub Pages` and `Release`; awaits triage. See [`entries/2026/05/13/004800Z-message-steward-f78473.md`](entries/2026/05/13/004800Z-message-steward-f78473.md).
