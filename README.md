@@ -234,10 +234,6 @@ author: liaison, gardener
   - Source: [endojs/endo-but-for-bots#109#issuecomment-4436075344](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4436075344) (kriskowal, 2026-05-13T00:54:05Z); steward write-up at [`entries/2026/05/13/012400Z-result-steward-da0309.md`](entries/2026/05/13/012400Z-result-steward-da0309.md).
   - Clearing: the row stays until a future dispatch picks up the authorization and pushes the agreed branch. The dispatching liaison clears it at that future time.
 
-### Surplus authority discovered
-
-(none)
-
 ### Scheduled engagements
 
 - 2026-05-17: weekly `major-general` major-version sweep on `endojs/endo-but-for-bots`. See [`entries/2026/05/13/000100Z-message-steward-d95cb2.md`](entries/2026/05/13/000100Z-message-steward-d95cb2.md).
