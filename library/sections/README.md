@@ -247,4 +247,10 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--pkg-ses-docs-preparing-for-stabilize--how-proxy-code-should-prepare](endo--pkg-ses-docs-preparing-for-stabilize--how-proxy-code-should-prepare.md)
 - [endo--pkg-ses-docs-preparing-for-stabilize--how-passable-objects-should-prepare](endo--pkg-ses-docs-preparing-for-stabilize--how-passable-objects-should-prepare.md)
 
-## Total: 183 sections from 32 source documents (through 2026-05-14).
+### From endo `packages/ses-ava/README.md`, `packages/memoize/docs/memoize.md`, and OCapN `README.md`
+
+- endo--pkg-ses-ava-readme--{overview, supporting-multiple-configurations, compatibility}
+- endo--pkg-memoize-docs-memoize--{overview, base-semantics, defensiveness, unobservable-memoization, preserving-isolation, eval-twin, caution}
+- ocapn--readme--{overview-and-what-is-this, what-do-i-get, history, plan, funding}
+
+## Total: 198 sections from 35 source documents (through 2026-05-14).

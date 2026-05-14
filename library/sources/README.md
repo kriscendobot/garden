@@ -40,6 +40,9 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [draft-specifications/Locators.md](ocapn--draft-specifications-locators.md) | kriscendobot/ocapn | 2025-12-03 | Jessica Tallon | 5 | current (draft; sturdyref overlaps durable-Exo) |
 | [draft-specifications/Netlayers.md](ocapn--draft-specifications-netlayers.md) | kriscendobot/ocapn | 2024-10-01 | Jessica Tallon | 4 | current (draft; overlaps endo netstring/noise/stream) |
 | [packages/ses/docs/preparing-for-stabilize.md](endo--pkg-ses-docs-preparing-for-stabilize.md) | endojs/endo | 2025-01-18 | Mark S. Miller | 3 | current |
+| [packages/ses-ava/README.md](endo--pkg-ses-ava-readme.md) | endojs/endo | 2025-10-29 | Richard Gibson | 3 | current |
+| [packages/memoize/docs/memoize.md](endo--pkg-memoize-docs-memoize.md) | endojs/endo | 2026-01-27 | Mark S. Miller | 7 | current |
+| [README.md](ocapn--readme.md) | kriscendobot/ocapn | 2025-07-10 | Jessica Tallon | 5 | current |
 
 ## Backlog (not yet ingested)
 
