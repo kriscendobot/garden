@@ -210,7 +210,7 @@ author: liaison, gardener
 
 ### Awaits maintainer review
 
-(none)
+- **Two endo design drafts (sibling pair) — `exo-import` + `exo-npm-registry`.** Authored by designer dispatch `e3b1aa` (2026-05-14). Preserved in the journal so the dispatch root could be torn down: [`projects/endo/drafts/exo-import.md`](projects/endo/drafts/exo-import.md) (~15 KB; plug-and-play import using compartment-mapper primitives, Go-style version resolution, snapshot-strict, content-addressed cache) and [`projects/endo/drafts/exo-npm-registry.md`](projects/endo/drafts/exo-npm-registry.md) (~11 KB; daemon-side capture-and-vend for `(name, version) → readable-tree`). Both carry 11 combined *Open questions* the designer surfaced rather than picking; full list in the designer's result entry and reproduced verbatim in [`entries/2026/05/14/051353Z-result-designer-e3b1aa.md`](entries/2026/05/14/). Next step: maintainer triage of the open questions → builder dispatch lands the agreed shape on a fork branch of `endojs/endo`. Clears on builder dispatch.
 
 ### Awaits maintainer decision
 
@@ -219,7 +219,6 @@ author: liaison, gardener
 - `timekeeper` role landed; awaits start signal. See [`entries/2026/05/13/054736Z-result-gardener-559c18.md`](entries/2026/05/13/054736Z-result-gardener-559c18.md).
 - PR-creation flow reworked (`builder`/`assayer`/`juror`/`saboteur`/`cleaner` + `pr-creation-flow` skill landed); self-clears on first such dispatch. See [`entries/2026/05/13/211535Z-result-gardener-efb74a.md`](entries/2026/05/13/211535Z-result-gardener-efb74a.md).
 - After PRs #109 (`syrup-frame`) and #111 (CBOR codec) land, dispatch a builder/fixer to update `designs/syrups.md` and `designs/cbors.md` on `endo-but-for-bots@llm` to reflect what actually shipped (including the new package names). Clears on the design-update PRs landing.
-- Designer drafted two design documents on `endojs/endo@master` (uncommitted, in dispatch worktree to preserve them for review): `designs/exo-import.md` and `designs/exo-npm-registry.md`. Open questions list lives in the designer's [result entry](entries/2026/05/14/) (push completed 2026-05-14 ~05:14Z). Maintainer reviews the drafts in-place at `dispatches/designer--exo-import-and-exo-npm-registry--20260514-050642--e3b1aa/project/designs/`; the liaison preserves the worktree until the maintainer triages the open questions. Clears when the maintainer signals "land them" (designer commits + opens PR) or "redesign" (designer re-dispatched).
 
 ### Pre-staged authorizations
 

@@ -35,6 +35,10 @@ The practical rule: on a topic-matching PR, erights' review is read as technical
 
 The pattern is reusable. Future per-project READMEs may name their own non-default-authority actors and topic-scopes; the section's shape (named actor, topic list, practical rule for in-scope vs. out-of-scope input) is intended to carry over. See `roles/COMMON.md` § Authority structure of upstream projects for the cross-project framing.
 
+## Drafts awaiting maintainer triage
+
+- [`drafts/exo-import.md`](drafts/exo-import.md) and [`drafts/exo-npm-registry.md`](drafts/exo-npm-registry.md) — sibling designs authored by designer dispatch `e3b1aa` (2026-05-14); not yet committed to `endojs/endo`. See [`drafts/README.md`](drafts/README.md) for lifecycle.
+
 ## Per-topic detail
 
 (None yet. The [scholar](../../../roles/scholar/AGENT.md) on the `main` branch grows topic files from project-tagged journal entries; per the [context-library](../../../skills/context-library/SKILL.md) skill on the `main` branch, new topics get their own sibling file rather than expanding this README.)
