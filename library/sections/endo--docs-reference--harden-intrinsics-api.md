@@ -8,7 +8,10 @@ source_authors: [Kris Kowal]
 ingested: 2026-05-14
 ingested_by: scholar
 topics: [hardened-javascript]
-status: current
+status: superseded
+superseded_by: endo--docs-guide--api-overview
+superseded_on: 2026-05-14
+superseded_reason: Cluster B consolidation (per the cycle-15 review and the cycle-30 maintainer-discretion mandate). The guide's api-overview consolidates all four API verbs with more context; this short standalone reference adds no information beyond the consolidated view.
 ---
 
 > Abstract: Signature and semantics of hardenIntrinsics(): the second phase of lockdown(), which transitively freezes built-in objects after repair. Calling it twice is a no-op. Useful in the delayed-freeze scenarios where repairIntrinsics() is called separately.

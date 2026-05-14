@@ -33,10 +33,6 @@
 | [endo--docs-reference--using-ses-with-your-code](../sections/endo--docs-reference--using-ses-with-your-code.md) | endo docs/reference.md | How to add SES to a JS project: install, call lockdown, pitfalls. |
 | [endo--docs-reference--removed-by-hardened-js](../sections/endo--docs-reference--removed-by-hardened-js.md) | endo docs/reference.md | Summary of JS globals SES removes/restricts. |
 | [endo--docs-reference--added-changed-by-hardened-js](../sections/endo--docs-reference--added-changed-by-hardened-js.md) | endo docs/reference.md | Summary of what SES adds: Compartment, causal console, assert. |
-| [endo--docs-reference--lockdown-api](../sections/endo--docs-reference--lockdown-api.md) | endo docs/reference.md | lockdown(options) API signature and idempotency. |
-| [endo--docs-reference--repair-intrinsics-api](../sections/endo--docs-reference--repair-intrinsics-api.md) | endo docs/reference.md | repairIntrinsics(options) API: first phase of lockdown. |
-| [endo--docs-reference--harden-intrinsics-api](../sections/endo--docs-reference--harden-intrinsics-api.md) | endo docs/reference.md | hardenIntrinsics() API: second phase of lockdown. |
-| [endo--docs-reference--lockdown-and-harden](../sections/endo--docs-reference--lockdown-and-harden.md) | endo docs/reference.md | How the two main SES verbs relate. |
 | [endo--docs-reference--lockdown-options-summary](../sections/endo--docs-reference--lockdown-options-summary.md) | endo docs/reference.md | Summary of lockdown options; overlaps with docs/lockdown.md per-option detail. |
 | [endo--pkg-ses-readme--overview](../sections/endo--pkg-ses-readme--overview.md) | endo packages/ses/README.md | The flagship @endo/ses overview: SES shim, lockdown/harden/Compartment verbs. |
 | [endo--pkg-ses-readme--install](../sections/endo--pkg-ses-readme--install.md) | endo packages/ses/README.md | Install via npm/yarn; shim auto-loads on import. |
@@ -53,10 +49,21 @@
 | [endo--docs-guide--using-hardenedjs-with-vetted-shims](../sections/endo--docs-guide--using-hardenedjs-with-vetted-shims.md) | endo docs/guide.md | Vetted-shim pattern for constrained environments. |
 | [endo--docs-guide--what-lockdown-does-removes-adds](../sections/endo--docs-guide--what-lockdown-does-removes-adds.md) | endo docs/guide.md | Guide-shaped account of lockdown's modifications (overlaps reference). |
 | [endo--docs-guide--realms-and-compartments](../sections/endo--docs-guide--realms-and-compartments.md) | endo docs/guide.md | Realms and Compartments as related isolation primitives. |
-| [endo--docs-guide--api-overview](../sections/endo--docs-guide--api-overview.md) | endo docs/guide.md | Guide-shaped overview of lockdown/repair/harden API verbs (overlaps reference). |
+| [endo--docs-guide--api-overview](../sections/endo--docs-guide--api-overview.md) | endo docs/guide.md | **Canonical** for lockdown / repairIntrinsics / hardenIntrinsics / harden API verbs (consolidates the per-verb reference sections). |
 | [endo--docs-guide--library-compatibility](../sections/endo--docs-guide--library-compatibility.md) | endo docs/guide.md | Library compatibility under SES (overlaps pkg-ses-readme--ecosystem-compatibility). |
 | [endo--docs-guide--html-comments](../sections/endo--docs-guide--html-comments.md) | endo docs/guide.md | HTML comments in JS source and SES taming. |
 | [endo--docs-guide--direct-vs-indirect-eval](../sections/endo--docs-guide--direct-vs-indirect-eval.md) | endo docs/guide.md | Direct vs indirect eval semantics under SES. |
+
+## Superseded sections
+
+These section files remain on disk for the historical record (the journal is append-only). Readers should consult their canonical replacement instead.
+
+| Superseded section | Canonical replacement | Reason |
+|--------------------|----------------------|--------|
+| [endo--docs-reference--lockdown-api](../sections/endo--docs-reference--lockdown-api.md) | [endo--docs-guide--api-overview](../sections/endo--docs-guide--api-overview.md) | Cluster B consolidation 2026-05-14 |
+| [endo--docs-reference--repair-intrinsics-api](../sections/endo--docs-reference--repair-intrinsics-api.md) | [endo--docs-guide--api-overview](../sections/endo--docs-guide--api-overview.md) | Cluster B consolidation 2026-05-14 |
+| [endo--docs-reference--harden-intrinsics-api](../sections/endo--docs-reference--harden-intrinsics-api.md) | [endo--docs-guide--api-overview](../sections/endo--docs-guide--api-overview.md) | Cluster B consolidation 2026-05-14 |
+| [endo--docs-reference--lockdown-and-harden](../sections/endo--docs-reference--lockdown-and-harden.md) | [endo--docs-guide--api-overview](../sections/endo--docs-guide--api-overview.md) | Cluster B consolidation 2026-05-14 |
 
 ## See also
 

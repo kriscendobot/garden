@@ -9,6 +9,7 @@ ingested: 2026-05-14
 ingested_by: scholar
 topics: [pass-style, marshal, capability-security, exo]
 status: current
+notes: Far() and makeExo() are alternative ways to construct a remotable. Far() is the minimal-overhead path (no methodsGuard, no interface enforcement); makeExo() adds patterns-language argument typing and the exo lifecycle. See endo--pkg-exo-readme--makeexo-single-instance for the heavier-weight path.
 ---
 
 > Abstract: Constructs a remotable: a passable object that crosses marshal boundaries as a capability reference. Takes an interface name (for error messages and debugging) and a record of methods. Frozen by construction; the recommended way to create a capability-bearing object that does not need the full Exo apparatus.

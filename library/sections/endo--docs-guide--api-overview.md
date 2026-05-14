@@ -9,7 +9,7 @@ ingested: 2026-05-14
 ingested_by: scholar
 topics: [hardened-javascript]
 status: current
-notes: Overlaps with endo--docs-reference--lockdown-api, endo--docs-reference--repair-intrinsics-api, endo--docs-reference--harden-intrinsics-api, endo--docs-reference--lockdown-and-harden. Consolidated here for guide-style reading; kept as one section.
+notes: Canonical for the four main API verbs (lockdown, repairIntrinsics, hardenIntrinsics, harden). As of cycle 30 supersedes endo--docs-reference--lockdown-api, endo--docs-reference--repair-intrinsics-api, endo--docs-reference--harden-intrinsics-api, endo--docs-reference--lockdown-and-harden. For exhaustive per-option detail on lockdown() see endo--docs-lockdown--*.
 ---
 
 > Abstract: Consolidated coverage of the four main API verbs: lockdown() one-time setup, the lower-level repairIntrinsics() + hardenIntrinsics() pair that lockdown() composes, and harden() for per-value transitive freezing. Includes a short section on how lockdown() and harden() relate. Overlaps with docs/reference.md's separate API sections; this version is guide-shaped with more context.

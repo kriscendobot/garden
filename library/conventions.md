@@ -150,3 +150,24 @@ The seed taxonomy below is a starting partition. Add new topics as the corpus re
 6. Update `topics/README.md` with any new topic abstracts.
 7. Update `sources/README.md` with the new source row.
 8. Update `sections/README.md` (or rely on directory listing if it grows beyond pragmatic).
+
+## Sectioning shapes by source type
+
+Default: one section per H2 (with H3 descent only when an H2 wraps several substantially-different H3 topics).
+
+Exceptions that have proven useful as the corpus grew:
+
+- **Alphabetical or otherwise non-thematic reference documents** (env-var catalogs, error-code lists, glossaries): aggressively consolidate into 1–3 sections that preserve the source's H2 anchors inline for grep-based lookup, rather than mirroring N entries as N sections. Per-entry splits bloat the section index without aiding agent navigation. (Pattern from cycle 29's agoric-sdk/docs/env.md.)
+- **Single-screen reference docs**: consider a single `overview` section if the H2s do not partition naturally into distinct concepts.
+
+## Consolidation as a cycle output
+
+After a baseline is built, cycles routinely produce overlap reviews (see `entries/2026/05/14/051241Z-message-scholar-1f9a9e.md` for the first such review and `entries/2026/05/14/053037Z-message-liaison-7c4e02.md` for the maintainer's 2026-05-14 discretion mandate). When the scholar identifies a cluster of soft-flagged sections that overlap at the same abstraction level:
+
+1. Pick one section as the canonical (the one with the most context, the cleanest framing, or the broadest reader audience).
+2. Flip the others' `status:` to `superseded` and add `superseded_by:`, `superseded_on:`, `superseded_reason:` fields. Do **not** delete the section file; the journal is append-only.
+3. Update the canonical's `notes:` to name the now-superseded sections it consolidates.
+4. In every topic page that lists these sections, move the superseded rows out of the main *Sections* table into a *Superseded sections* subsection that points to the canonical.
+5. Topic-section counts on `topics/README.md` stay the same (the corpus still includes the superseded file).
+
+Soft-flagging (keep both, cross-reference via `notes:`) remains the **default** when the overlap serves different reader audiences (reference vs guide vs tutorial — see Cluster D in the cycle-30 review). Hard-supersede only when the overlap is at the same shape and the canonical strictly dominates.

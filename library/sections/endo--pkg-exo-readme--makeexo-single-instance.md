@@ -9,6 +9,7 @@ ingested: 2026-05-14
 ingested_by: scholar
 topics: [exo]
 status: current
+notes: makeExo() and Far() are alternative ways to construct a remotable. makeExo() adds patterns-language argument typing and the exo lifecycle; Far() is the minimal-overhead path. See endo--pkg-pass-style-readme--far for the lighter-weight path; use it when no methodsGuard or per-instance state is needed.
 ---
 
 > Abstract: makeExo(tag, methodsGuard, methods) constructs a single remotable. The tag names the interface for marshal; methodsGuard is a patterns-language type for incoming arguments; methods is the implementation record. No init() callback; this.self is the exo, this.state is always empty {}. Use when one instance suffices and no per-instance state is needed.

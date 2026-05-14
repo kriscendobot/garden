@@ -8,7 +8,10 @@ source_authors: [Kris Kowal]
 ingested: 2026-05-14
 ingested_by: scholar
 topics: [hardened-javascript]
-status: current
+status: superseded
+superseded_by: endo--docs-guide--api-overview
+superseded_on: 2026-05-14
+superseded_reason: Cluster B consolidation (per the cycle-15 review and the cycle-30 maintainer-discretion mandate). The guide's api-overview consolidates all four API verbs with more context; this short standalone reference adds no information beyond the consolidated view. For exhaustive option-level detail consult endo--docs-lockdown--*.
 ---
 
 > Abstract: Signature and brief semantics of lockdown(): idempotent (subsequent calls are no-ops), accepts an options object whose fields and defaults are documented in docs/lockdown.md. Calling lockdown() turns the start compartment into a SES-shape realm; cannot be undone. Distinct from repairIntrinsics()/hardenIntrinsics() (the lower-level building blocks).

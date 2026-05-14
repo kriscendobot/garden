@@ -8,7 +8,10 @@ source_authors: [Kris Kowal]
 ingested: 2026-05-14
 ingested_by: scholar
 topics: [hardened-javascript]
-status: current
+status: superseded
+superseded_by: endo--docs-guide--api-overview
+superseded_on: 2026-05-14
+superseded_reason: Cluster B consolidation (per the cycle-15 review and the cycle-30 maintainer-discretion mandate). The guide's api-overview consolidates all four API verbs with more context; this short standalone reference adds no information beyond the consolidated view.
 ---
 
 > Abstract: Signature and semantics of repairIntrinsics(): the first phase of lockdown(), which patches built-in objects to remove non-SES-conforming behaviors but does not freeze them. Used directly when an application wants to delay freezing (install monkey-patches between repair and harden) while still wanting SES-style built-in behavior.
