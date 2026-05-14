@@ -14,19 +14,20 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 25 |
 | [testing](testing.md) | How to run and write tests in endo. | 6 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 6 |
-| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 16 |
-| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 72 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 38 |
+| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 17 |
+| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 76 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 39 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 16 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 27 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 31 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 26 |
-| [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 41 |
-| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 26 |
-| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 39 |
+| [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 51 |
+| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 27 |
+| [streams](streams.md) | Async-iterator-based stream abstraction; transport substrate. | 5 |
+| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 40 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 4 |
 | [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 18 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 10 |
-| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 13 |
+| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 16 |
 | [bundles](bundles.md) | Module bundling, Compartment module loading, bundle-source / compartment-mapper family. | 13 |
 | [spec-to-implementation](spec-to-implementation.md) | Cross-cutting concordance: OCapN spec sections ↔ Endo realizations. | (meta) |
 
@@ -34,6 +35,6 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 
 The taxonomy in `conventions.md` lists additional topics expected to fill in as more of the endo corpus is ingested:
 
-- `streams`: stream, stream-node, async iteration.
+(no remaining seed-but-empty topics — streams is now populated by the stream + stream-node ingestion)
 
 These will appear when the next ingestion batches (the flagship package READMEs queued in the inbox) create sections that file under them.

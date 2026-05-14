@@ -263,4 +263,17 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - endo--pkg-bundle-source-readme--{overview, conditions, comment-elision, typescript-type-erasure, source-maps, module-format, endoscript-module-format}
 - endo--pkg-ses-docs-secure-coding-guide--{overview, basic-non-ses-example, basic-ses-example, more-patterns}
 
-## Total: 224 sections from 39 source documents (through 2026-05-14).
+### From 10 endo utility packages (cycle 24)
+
+- endo--pkg-promise-kit-readme--{overview, usage, api, links-and-license}
+- endo--pkg-stream-readme--{overview, writing-reading, combinators, hardening}
+- endo--pkg-stream-node-readme--overview
+- endo--pkg-netstring-readme--overview
+- endo--pkg-init-readme--overview
+- endo--pkg-far-readme--overview
+- endo--pkg-harden-readme--overview
+- endo--pkg-errors-readme--overview
+- endo--pkg-ocapn-readme--{overview-frame, overview, status, syrup-encoding, architecture, related-and-license}
+- endo--pkg-ocapn-noise-readme--{overview, usage}
+
+## Total: 246 sections from 49 source documents (through 2026-05-14).

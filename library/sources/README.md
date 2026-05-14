@@ -47,6 +47,16 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [packages/compartment-mapper/README.md](endo--pkg-compartment-mapper-readme.md) | endojs/endo | 2024-12-15 | Kris Kowal | 5 | current |
 | [packages/bundle-source/README.md](endo--pkg-bundle-source-readme.md) | endojs/endo | 2025-08-02 | Richard Gibson | 7 | current |
 | [packages/ses/docs/secure-coding-guide.md](endo--pkg-ses-docs-secure-coding-guide.md) | endojs/endo | 2023-08-26 | Mark S. Miller | 4 | current |
+| [packages/promise-kit/README.md](endo--pkg-promise-kit-readme.md) | endojs/endo | 2024-06-20 | Mudassir Shabbir | 4 | current |
+| [packages/stream/README.md](endo--pkg-stream-readme.md) | endojs/endo | 2022-01-21 | Kris Kowal | 4 | current |
+| [packages/stream-node/README.md](endo--pkg-stream-node-readme.md) | endojs/endo | 2021-12-23 | Kris Kowal | 1 | current |
+| [packages/netstring/README.md](endo--pkg-netstring-readme.md) | endojs/endo | 2021-04-26 | Kris Kowal | 1 | current |
+| [packages/init/README.md](endo--pkg-init-readme.md) | endojs/endo | 2025-12-04 | Kris Kowal | 1 | current |
+| [packages/far/README.md](endo--pkg-far-readme.md) | endojs/endo | 2023-01-28 | Ivan Leichtling | 1 | current |
+| [packages/harden/README.md](endo--pkg-harden-readme.md) | endojs/endo | 2025-10-10 | Kris Kowal | 1 | current |
+| [packages/errors/README.md](endo--pkg-errors-readme.md) | endojs/endo | 2025-12-04 | Kris Kowal | 1 | current |
+| [packages/ocapn/README.md](endo--pkg-ocapn-readme.md) | endojs/endo | 2026-01-08 | Kris Kowal | 6 | current |
+| [packages/ocapn-noise/README.md](endo--pkg-ocapn-noise-readme.md) | endojs/endo | 2025-12-31 | Kris Kowal | 2 | current |
 
 ## Backlog (not yet ingested)
 
