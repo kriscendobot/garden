@@ -315,4 +315,13 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - agoric-sdk--pkg-async-flow-readme--{overview, loopholes-for-purely-diagnostic-information}
 - agoric-sdk--pkg-async-flow-docs-async-flow-states--overview
 
-## Total: 331 sections from 70 source documents (through 2026-05-14).
+### From agoric-sdk cross-cutting infrastructure packages (cycle 36)
+
+- agoric-sdk--pkg-vat-data-readme--{overview, tips-synchronous-makers}
+- agoric-sdk--pkg-swingset-liveslots-readme--overview (stale stub)
+- agoric-sdk--pkg-store-readme--overview
+- agoric-sdk--pkg-base-zone-readme--overview
+- agoric-sdk--pkg-notifier-readme--{publishkit-and-related-types, distributed-asynchronous-iteration, type-differences, example, distributed-operation, summary}
+- agoric-sdk--pkg-internal-readme--overview
+
+## Total: 343 sections from 76 source documents (through 2026-05-14).

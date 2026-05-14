@@ -6,6 +6,7 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [agoric-sdk--pkg-notifier-readme--distributed-operation](../sections/agoric-sdk--pkg-notifier-readme--distributed-operation.md) | agoric-sdk packages/notifier/README.md | PublishKits / NotifierKits / SubscriptionKits all multicast with good distributed-systems properties: one producer, any number of consumers; **producer not vulnerable to consumers** (no consumer can break the kit or block the producer); **consumers not vulnerable to each other** (no consumer can hang or starve another). |
 | [endo--docs-message-passing--foundation-what-can-be-passed](../sections/endo--docs-message-passing--foundation-what-can-be-passed.md) | endo docs/message-passing.md | Establishes the pass-style classification at a tutorial level: what types of values cross a message boundary, the pass-by-copy vs pass-by-presence distinction, and how marshal serializes each kind. |
 | [endo--pkg-far-readme--overview](../sections/endo--pkg-far-readme--overview.md) | endo packages/far/README.md | @endo/far is a small package re-exporting Far() and related primitives from @endo/pass-style for convenience. |
 | [endo--pkg-marshal-docs-smallcaps-cheatsheet--overview](../sections/endo--pkg-marshal-docs-smallcaps-cheatsheet--overview.md) | endo packages/marshal/docs/smallcaps-cheatsheet.md | Quick-reference for the smallcaps wire format. |

@@ -78,6 +78,12 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [packages/smart-wallet/README.md](agoric-sdk--pkg-smart-wallet-readme.md) | agoric/agoric-sdk | 2022-09-13 | Turadg Aleahmad | 4 | current (older; carries open `???` questions in Usage section) |
 | [packages/async-flow/README.md](agoric-sdk--pkg-async-flow-readme.md) | agoric/agoric-sdk | 2024-05-19 | Mark S. Miller | 2 | current (may migrate to @endo/async-flow per header note) |
 | [packages/async-flow/docs/async-flow-states.md](agoric-sdk--pkg-async-flow-docs-async-flow-states.md) | agoric/agoric-sdk | 2024-09-26 | Michael FIG | 1 | current (companion to async-flow README; the canonical activation-state-machine doc) |
+| [packages/vat-data/README.md](agoric-sdk--pkg-vat-data-readme.md) | agoric/agoric-sdk | 2023-01-29 | Unknown | 2 | current (in-vat persistence + Exo prep) |
+| [packages/swingset-liveslots/README.md](agoric-sdk--pkg-swingset-liveslots-readme.md) | agoric/agoric-sdk | 2023-11-28 | Unknown | 1 | stale (1-line stub; real content in SwingSet README + package docs/) |
+| [packages/store/README.md](agoric-sdk--pkg-store-readme.md) | agoric/agoric-sdk | 2024-01-27 | Unknown | 1 | current (TODO REWRITE marker; pending migration to @endo/store) |
+| [packages/base-zone/README.md](agoric-sdk--pkg-base-zone-readme.md) | agoric/agoric-sdk | 2024-01-27 | Unknown | 1 | current (pending migration to @endo/zone) |
+| [packages/notifier/README.md](agoric-sdk--pkg-notifier-readme.md) | agoric/agoric-sdk | 2024-10-31 | Unknown | 6 | current (PublishKit/NotifierKit/SubscriptionKit) |
+| [packages/internal/README.md](agoric-sdk--pkg-internal-readme.md) | agoric/agoric-sdk | 2025-09-16 | Unknown | 1 | current (perpetual-0.y.z policy) |
 
 ## Backlog (not yet ingested)
 
