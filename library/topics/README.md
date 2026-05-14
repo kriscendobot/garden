@@ -8,8 +8,8 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 
 | Topic | Abstract | Sections |
 |-------|----------|----------|
-| [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 21 |
-| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 42 |
+| [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 23 |
+| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 47 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 12 |
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 39 |
 | [testing](testing.md) | How to run and write tests in endo. | 11 |

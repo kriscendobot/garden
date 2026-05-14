@@ -26,6 +26,8 @@
 | [endo-but-for-bots--llm-designs-claude--metadata-table](../sections/endo-but-for-bots--llm-designs-claude--metadata-table.md) | endo-but-for-bots designs/CLAUDE.md | Every design doc opens with a level-1 heading (the title) followed by a 2-column metadata table. |
 | [endo-but-for-bots--llm-designs-claude--progress-tracking](../sections/endo-but-for-bots--llm-designs-claude--progress-tracking.md) | endo-but-for-bots designs/CLAUDE.md | Progress is tracked at two levels. |
 | [endo-but-for-bots--llm-designs-claude--status-values](../sections/endo-but-for-bots--llm-designs-claude--status-values.md) | endo-but-for-bots designs/CLAUDE.md | The 8-value status taxonomy for the metadata table. |
+| [endo-but-for-bots--llm-designs-readme--overview](../sections/endo-but-for-bots--llm-designs-readme--overview.md) | endo-but-for-bots designs/README.md | The frame for the design corpus. |
+| [endo-but-for-bots--llm-designs-readme--summary-shape-and-counts](../sections/endo-but-for-bots--llm-designs-readme--summary-shape-and-counts.md) | endo-but-for-bots designs/README.md | The Summary section is a 100+-row table with columns `Design | Created | Updated | Status` — one row per design in the corpus. |
 | [endo--docs-errors--overview](../sections/endo--docs-errors--overview.md) | endo docs/errors.md | Summary of how SES handles error-related diagnostic information: an `assert` global adds hidden-from-callers annotations, the global `Error` is tamed to hide stacks, and the global `console` (the "causal console") reveals annotations and stacks back to the real console. |
 
 ## See also

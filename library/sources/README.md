@@ -95,6 +95,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [designs/cbors.md](endo-but-for-bots--llm-designs-cbors.md) | endojs/endo-but-for-bots (llm) | 2026-05-05 | Kriscendo Bot | 5 | current (CBOR byte-string framing; sibling of @endo/netstring and @endo/syrups) |
 | [designs/ocapn-noise-network.md](endo-but-for-bots--llm-designs-ocapn-noise-network.md) | endojs/endo-but-for-bots (llm) | 2026-02-28 | Kris Kowal | 5 | current (OCapN-Noise as a proper network; transports + Noise XX handshake replaces op:start-session) |
 | [designs/trust-on-first-bind.md](endo-but-for-bots--llm-designs-trust-on-first-bind.md) | endojs/endo-but-for-bots (llm) | 2026-05-10 | Kriscendo Bot | 6 | current (TOFU for capability policy bindings; state machine + 4 decision modes + audit trail) |
+| [designs/README.md](endo-but-for-bots--llm-designs-readme.md) | endojs/endo-but-for-bots (llm) | 2026-05-09 | Kris Kowal | 5 | current (design-corpus master index; 7 milestones, calibration round, gantt; library captures shape not the 100+-row table) |
 
 ## Backlog (not yet ingested)
 

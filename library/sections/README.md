@@ -347,4 +347,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - endo-but-for-bots--llm-designs-ocapn-noise-network--{overview-and-identifier, transport-plugins-and-hints, concrete-transports-and-network-impl, session-establishment, package-structure-and-security}
 - endo-but-for-bots--llm-designs-trust-on-first-bind--{problem-and-state-machine, decision-modes-and-who-decides, policy-storage-and-revocation, audit-trail-and-failure-modes, composition-with-httpcontroller, alternatives-and-future-work}
 
-## Total: 389 sections from 87 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs README (cycle 41)
+
+- endo-but-for-bots--llm-designs-readme--{overview, summary-shape-and-counts, milestones-overview, calibration-and-estimation-methodology, timeline-and-strategic-items}
+
+## Total: 394 sections from 88 source documents (through 2026-05-14).
