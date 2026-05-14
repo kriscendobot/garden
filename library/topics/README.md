@@ -15,9 +15,9 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [testing](testing.md) | How to run and write tests in endo. | 11 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 9 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 18 |
-| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 84 |
+| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 87 |
 | [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 117 |
-| [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 22 |
+| [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 25 |
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 49 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 42 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 74 |
@@ -29,7 +29,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [async-flow](async-flow.md) | The `@agoric/async-flow` durable-replay async-function infrastructure; closed-function discipline. | 7 |
 | [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 29 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 18 |
-| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 59 |
+| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 60 |
 | [bundles](bundles.md) | Module bundling, Compartment module loading, bundle-source / compartment-mapper family. | 28 |
 | [spec-to-implementation](spec-to-implementation.md) | Cross-cutting concordance: OCapN spec sections ↔ Endo realizations. | (meta) |
 

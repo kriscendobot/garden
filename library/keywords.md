@@ -49,7 +49,21 @@ majordomo of Aifred | delegates-and-epithets
 obligatory verifiable deniable | delegates-and-epithets
 pass-invariant equality of Handles | pass-invariant-handle-equality
 pass-invariant Handle equality | pass-invariant-handle-equality
+permits buckets | permits-buckets
+permits.js buckets | permits-buckets
+powered vs powerless intrinsics | permits-buckets
+prefer Uint8Array over Buffer | permits-buckets
 principal | delegates-and-epithets
+SES permits buckets | permits-buckets
+`sharedGlobalPropertyNames` | permits-buckets
+start compartment vs shared compartment | permits-buckets
+`TextDecoder` | permits-buckets
+`TextEncoder` | permits-buckets
+text codecs shim | permits-buckets
+universal vs shared vs initial | permits-buckets
+`universalPropertyNames` | permits-buckets
+`initialGlobalPropertyNames` | permits-buckets
+vetted shim | permits-buckets
 service connector | delegates-and-epithets
 verification protocol | delegates-and-epithets
 verifiable deniable claims | delegates-and-epithets

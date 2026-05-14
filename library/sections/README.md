@@ -386,4 +386,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-dcp--{handle-agent-foundation-and-the-gap, delegates-and-epithets, recursive-chains-and-enforcement, verification-and-handle-extensions, ai-delegates-connectors-and-anti-impersonation}
 
-## Total: 448 sections from 99 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs hardened-text-codecs-shim (cycle 51)
+
+- endo-but-for-bots--llm-designs-htcs--{problem-and-permits, sampling-degradation-and-lockdown, phases-tests-and-design-decisions}
+
+## Total: 451 sections from 100 source documents (through 2026-05-14).

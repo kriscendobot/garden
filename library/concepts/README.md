@@ -29,6 +29,7 @@ Bootstrapped from the daemon design cluster and the structural principles in `co
 - [local-node-sentinel](local-node-sentinel.md) — `LOCAL_NODE = '0'.repeat(64)`; the `0.0.0.0`-of-Ed25519.
 - [pass-invariant-handle-equality](pass-invariant-handle-equality.md) — connector guarantee: same backing identity → same formula identifier.
 - [per-agent-keypair](per-agent-keypair.md) — `@keypair`, `KeypairFormula`, agent identity as a formula.
+- [permits-buckets](permits-buckets.md) — SES's three-bucket framework for vetted-shim placement: `universal` / `initial` / `shared` global property names.
 - [producer-typed-shape-consumer-rendering](producer-typed-shape-consumer-rendering.md) — daemon-wide convention: typed values from producers, rendering from consumers.
 - [retention-accumulator](retention-accumulator.md) — microtask-coalesced retention-delta batching primitive.
 - [revocation-by-withdrawal](revocation-by-withdrawal.md) — the fourth revocation mechanism.
