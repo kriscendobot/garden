@@ -75,13 +75,25 @@ These were in the panel verdict's *Should-fix* or *Out-of-scope* sections, not a
 
 ## CI rollup at close
 
-Pre-push: `lint` red on `08d55650e` (the saboteur's must-fix #2). Pushed five
-follow-up commits. Mid-investigation, after the first push (`e04c5d068`),
-re-ran CI and observed `lint` job from one workflow turned green (1m0s),
-but the `lint` job from the other workflow run held the same `_util.js:145:53`
-error. The targeted disable in `ea90c1277` was pushed at 2026-05-14T12:14Z;
-CI re-running on that head at write time. Update due in the next steward
-cycle.
+Pre-push: `lint` red on `08d55650e` (the saboteur's must-fix #2). Pushed
+five follow-up commits. After the first push at `e04c5d068` (commits A–D),
+the `lint` job from the docs-only workflow turned green (1m0s); the `lint`
+job from the main CI workflow held the same `_util.js:145:53` error. Pushed
+the targeted disable at `ea90c1277` at 12:17Z, but GitHub's PR-sync webhook
+appears to have dropped the event: the branch ref was updated remotely
+(`ls-remote` shows `ea90c1277`), but the PR's tracked head stayed at
+`e04c5d068` for >30 minutes and no new workflow runs were triggered. An
+empty nudge commit at `6adf08040` was pushed at 12:51Z and the PR sync
+caught up immediately; new CI runs on the nudge head are pending.
+
+Final branch head: `6adf08040` (empty `chore: nudge GitHub PR sync ...`
+sitting on top of the five substantive commits). The next steward cycle
+will see the new HEAD and read CI off it. If the lint job stays red on
+that head, the targeted disable was insufficient and the follow-up should
+either (a) lower `number.minimumDigits` to 4 globally (the substantive
+juror's should-fix #2, which would also pin intentional `1_000` separators
+that the original autofix stripped), or (b) reproduce the CI-only trigger
+to identify whether a separate plugin is mutating the literal AST.
 
 ## The `_util.js:1000` mystery (for the next reader)
 
