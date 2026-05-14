@@ -324,4 +324,11 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - agoric-sdk--pkg-notifier-readme--{publishkit-and-related-types, distributed-asynchronous-iteration, type-differences, example, distributed-operation, summary}
 - agoric-sdk--pkg-internal-readme--overview
 
-## Total: 343 sections from 76 source documents (through 2026-05-14).
+### From agoric-sdk domain-bridge packages (cycle 37)
+
+- agoric-sdk--pkg-orchestration-readme--{overview, orchestration-flows}
+- agoric-sdk--pkg-cache-readme--{overview-and-demo, cache-client, cache-coordinator}
+- agoric-sdk--pkg-casting-readme--{overview, follower-options, behind-the-scenes, status}
+- agoric-sdk--pkg-inter-protocol-readme--{overview, persistence, debts, reading-data-off-chain, demo}
+
+## Total: 357 sections from 80 source documents (through 2026-05-14).

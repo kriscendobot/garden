@@ -84,6 +84,10 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | [packages/base-zone/README.md](agoric-sdk--pkg-base-zone-readme.md) | agoric/agoric-sdk | 2024-01-27 | Unknown | 1 | current (pending migration to @endo/zone) |
 | [packages/notifier/README.md](agoric-sdk--pkg-notifier-readme.md) | agoric/agoric-sdk | 2024-10-31 | Unknown | 6 | current (PublishKit/NotifierKit/SubscriptionKit) |
 | [packages/internal/README.md](agoric-sdk--pkg-internal-readme.md) | agoric/agoric-sdk | 2025-09-16 | Unknown | 1 | current (perpetual-0.y.z policy) |
+| [packages/orchestration/README.md](agoric-sdk--pkg-orchestration-readme.md) | agoric/agoric-sdk | 2024-07-18 | Unknown | 2 | current (cross-chain orchestration flow constraints) |
+| [packages/cache/README.md](agoric-sdk--pkg-cache-readme.md) | agoric/agoric-sdk | 2022-08-10 | Unknown | 3 | current (Coordinator interface + transactional updates) |
+| [packages/casting/README.md](agoric-sdk--pkg-casting-readme.md) | agoric/agoric-sdk | 2024-09-10 | Unknown | 4 | current (off-chain follower of ocap broadcasts) |
+| [packages/inter-protocol/README.md](agoric-sdk--pkg-inter-protocol-readme.md) | agoric/agoric-sdk | 2024-06-11 | Unknown | 5 | current (IST stable-coin protocol: VaultFactory/VaultManager/Vault) |
 
 ## Backlog (not yet ingested)
 

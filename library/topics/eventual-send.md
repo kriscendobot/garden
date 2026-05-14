@@ -6,6 +6,7 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [agoric-sdk--pkg-casting-readme--overview](../sections/agoric-sdk--pkg-casting-readme--overview.md) | agoric-sdk packages/casting/README.md | `@agoric/casting` follows ocap broadcasts flexibly. |
 | [agoric-sdk--pkg-notifier-readme--distributed-asynchronous-iteration](../sections/agoric-sdk--pkg-notifier-readme--distributed-asynchronous-iteration.md) | agoric-sdk packages/notifier/README.md | Formal semantics. |
 | [agoric-sdk--pkg-notifier-readme--distributed-operation](../sections/agoric-sdk--pkg-notifier-readme--distributed-operation.md) | agoric-sdk packages/notifier/README.md | PublishKits / NotifierKits / SubscriptionKits all multicast with good distributed-systems properties: one producer, any number of consumers; **producer not vulnerable to consumers** (no consumer can break the kit or block the producer); **consumers not vulnerable to each other** (no consumer can hang or starve another). |
 | [agoric-sdk--pkg-notifier-readme--example](../sections/agoric-sdk--pkg-notifier-readme--example.md) | agoric-sdk packages/notifier/README.md | Walked example using `makeSubscriptionKit()` with three published values ('a', 'b', then `finish('done')`). |

@@ -8,26 +8,26 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 
 | Topic | Abstract | Sections |
 |-------|----------|----------|
-| [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 16 |
-| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 35 |
+| [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 17 |
+| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 36 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 12 |
-| [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 35 |
+| [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 36 |
 | [testing](testing.md) | How to run and write tests in endo. | 11 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 9 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 18 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 77 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 63 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 69 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 22 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 46 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 47 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 35 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 60 |
-| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 44 |
+| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 45 |
 | [streams](streams.md) | Async-iterator-based stream abstraction; transport substrate. | 5 |
-| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 40 |
+| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 41 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 4 |
-| [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 19 |
-| [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 16 |
-| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 44 |
+| [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 20 |
+| [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 18 |
+| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 53 |
 | [bundles](bundles.md) | Module bundling, Compartment module loading, bundle-source / compartment-mapper family. | 28 |
 | [spec-to-implementation](spec-to-implementation.md) | Cross-cutting concordance: OCapN spec sections ↔ Endo realizations. | (meta) |
 

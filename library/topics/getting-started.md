@@ -8,6 +8,8 @@
 |---------|--------|-------------------|
 | [agoric-sdk--contributing--overview-platforms-and-toolchain](../sections/agoric-sdk--contributing--overview-platforms-and-toolchain.md) | agoric-sdk CONTRIBUTING.md | Frame and toolchain prerequisites. |
 | [agoric-sdk--docs-node-version--overview](../sections/agoric-sdk--docs-node-version--overview.md) | agoric-sdk docs/node-version.md | Agoric-sdk's supported Node.js version. |
+| [agoric-sdk--pkg-inter-protocol-readme--demo](../sections/agoric-sdk--pkg-inter-protocol-readme--demo.md) | agoric-sdk packages/inter-protocol/README.md | The demo procedure spans three terminals. |
+| [agoric-sdk--pkg-orchestration-readme--overview](../sections/agoric-sdk--pkg-orchestration-readme--overview.md) | agoric-sdk packages/orchestration/README.md | One-line frame plus a pointer at `src/examples`. |
 | [agoric-sdk--pkg-zoe-readme--what-is-zoe](../sections/agoric-sdk--pkg-zoe-readme--what-is-zoe.md) | agoric-sdk packages/zoe/README.md | Zoe is a framework for building smart contracts (auctions, swaps, decentralized exchanges, …). |
 | [agoric-sdk--readme--overview](../sections/agoric-sdk--readme--overview.md) | agoric-sdk README.md | The Agoric Platform SDK repo contains most of the packages making up the upper layers of the Agoric platform. |
 | [agoric-sdk--readme--prerequisites](../sections/agoric-sdk--readme--prerequisites.md) | agoric-sdk README.md | agoric-sdk's toolchain prerequisites: Git, Go ^1.24.1, Node.js ^20.9 or ^22.11 (latest LTS recommended via nvm), Yarn (any version — `.yarnrc` pins the checked-in `.yarn/releases/` version), gcc ≥10 / clang ≥10 / another compiler with `__has_builtin()`. |

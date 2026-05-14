@@ -6,6 +6,7 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [agoric-sdk--pkg-casting-readme--follower-options](../sections/agoric-sdk--pkg-casting-readme--follower-options.md) | agoric-sdk packages/casting/README.md | `makeFollower(leader, key, followerOpts)` accepts a bag of options. |
 | [agoric-sdk--pkg-swingset-readme--presence-identity-comparison](../sections/agoric-sdk--pkg-swingset-readme--presence-identity-comparison.md) | agoric-sdk packages/SwingSet/README.md | **Presences preserve identity** as they cross Vat boundaries, with one important asymmetric case. |
 | [endo--docs-errors--hiding-revealing-distributed-diagnostic](../sections/endo--docs-errors--hiding-revealing-distributed-diagnostic.md) | endo docs/errors.md | Plans (not implemented) for distributed error diagnostics across mutually suspicious platforms. |
 | [endo--docs-message-passing--common-pitfalls](../sections/endo--docs-message-passing--common-pitfalls.md) | endo docs/message-passing.md | Bugs that recur in code written against this model: forgetting to harden(), passing a non-passable, confusing E() with .then(), pattern mismatches in method guards, identity assumptions that break across the wire. |
