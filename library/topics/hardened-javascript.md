@@ -38,6 +38,15 @@
 | [endo--docs-reference--harden-intrinsics-api](../sections/endo--docs-reference--harden-intrinsics-api.md) | endo docs/reference.md | hardenIntrinsics() API: second phase of lockdown. |
 | [endo--docs-reference--lockdown-and-harden](../sections/endo--docs-reference--lockdown-and-harden.md) | endo docs/reference.md | How the two main SES verbs relate. |
 | [endo--docs-reference--lockdown-options-summary](../sections/endo--docs-reference--lockdown-options-summary.md) | endo docs/reference.md | Summary of lockdown options; overlaps with docs/lockdown.md per-option detail. |
+| [endo--pkg-ses-readme--overview](../sections/endo--pkg-ses-readme--overview.md) | endo packages/ses/README.md | The flagship @endo/ses overview: SES shim, lockdown/harden/Compartment verbs. |
+| [endo--pkg-ses-readme--install](../sections/endo--pkg-ses-readme--install.md) | endo packages/ses/README.md | Install via npm/yarn; shim auto-loads on import. |
+| [endo--pkg-ses-readme--usage-core](../sections/endo--pkg-ses-readme--usage-core.md) | endo packages/ses/README.md | Lockdown, Harden, Compartment usage consolidated. |
+| [endo--pkg-ses-readme--usage-modules](../sections/endo--pkg-ses-readme--usage-modules.md) | endo packages/ses/README.md | Compartment module loading: descriptors, hooks, virtual sources, transforms. |
+| [endo--pkg-ses-readme--usage-error-handling](../sections/endo--pkg-ses-readme--usage-error-handling.md) | endo packages/ses/README.md | Causal-console error logging and module-loading error policies. |
+| [endo--pkg-ses-readme--security-claims-and-caveats](../sections/endo--pkg-ses-readme--security-claims-and-caveats.md) | endo packages/ses/README.md | Security analysis: isolation tiers, endowment protection, caveats, TCB. |
+| [endo--pkg-ses-readme--audits](../sections/endo--pkg-ses-readme--audits.md) | endo packages/ses/README.md | Inventory of security audits SES has undergone. |
+| [endo--pkg-ses-readme--bug-disclosure](../sections/endo--pkg-ses-readme--bug-disclosure.md) | endo packages/ses/README.md | Pointer to coordinated-disclosure protocol. |
+| [endo--pkg-ses-readme--ecosystem-compatibility](../sections/endo--pkg-ses-readme--ecosystem-compatibility.md) | endo packages/ses/README.md | What works and what does not when SES is applied to common JS libraries. |
 
 ## See also
 

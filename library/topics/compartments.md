@@ -11,6 +11,9 @@
 | [endo--docs-lockdown--eval-taming](../sections/endo--docs-lockdown--eval-taming.md) | endo docs/lockdown.md | The `evalTaming` lockdown option controls eval and Function in the start compartment. |
 | [endo--docs-get-started--first-steps-hardened-js](../sections/endo--docs-get-started--first-steps-hardened-js.md) | endo docs/get-started.md | Tutorial use of Compartment to isolate guest code with explicit endowments. |
 | [endo--docs-get-started--confining-node-applications](../sections/endo--docs-get-started--confining-node-applications.md) | endo docs/get-started.md | Confining a Node.js app inside a Compartment. |
+| [endo--pkg-ses-readme--usage-core](../sections/endo--pkg-ses-readme--usage-core.md) | endo packages/ses/README.md | Compartment as one of the SES core verbs alongside lockdown and harden. |
+| [endo--pkg-ses-readme--usage-modules](../sections/endo--pkg-ses-readme--usage-modules.md) | endo packages/ses/README.md | Compartment module loading internals. |
+| [endo--pkg-ses-readme--security-claims-and-caveats](../sections/endo--pkg-ses-readme--security-claims-and-caveats.md) | endo packages/ses/README.md | Compartment isolation tiers and security caveats. |
 
 ## See also
 

@@ -16,6 +16,8 @@
 | [endo--pkg-exo-readme--why-exo](../sections/endo--pkg-exo-readme--why-exo.md) | endo packages/exo/README.md | Exo motivation: declarative guards and explicit state for capability discipline. |
 | [endo--pkg-exo-readme--defineexoclasskit-multiple-facets](../sections/endo--pkg-exo-readme--defineexoclasskit-multiple-facets.md) | endo packages/exo/README.md | Multi-facet exos: the canonical attenuator pattern. |
 | [endo--pkg-eventual-send-readme--why-eventual-send](../sections/endo--pkg-eventual-send-readme--why-eventual-send.md) | endo packages/eventual-send/README.md | Why E() over .then: uniform local/remote API for capability-bearing objects. |
+| [endo--pkg-ses-readme--usage-core](../sections/endo--pkg-ses-readme--usage-core.md) | endo packages/ses/README.md | Core verbs (lockdown, harden, Compartment) underpinning capability discipline. |
+| [endo--pkg-ses-readme--security-claims-and-caveats](../sections/endo--pkg-ses-readme--security-claims-and-caveats.md) | endo packages/ses/README.md | Endowment protection and trusted compute base analysis. |
 
 ## See also
 

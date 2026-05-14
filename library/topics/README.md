@@ -13,11 +13,11 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 2 |
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 15 |
 | [testing](testing.md) | How to run and write tests in endo. | 2 |
-| [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 4 |
-| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 14 |
-| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 32 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 10 |
-| [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 5 |
+| [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 6 |
+| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 15 |
+| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 41 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 12 |
+| [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 8 |
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 18 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 7 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 1 |
@@ -26,13 +26,13 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 2 |
 | [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 12 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 7 |
-| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 1 |
+| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 3 |
+| [bundles](bundles.md) | Module bundling, Compartment module loading, bundle-source / compartment-mapper family. | 1 |
 
 ## Seed-but-not-yet-populated topics
 
 The taxonomy in `conventions.md` lists additional topics expected to fill in as more of the endo corpus is ingested:
 
-- `bundles`: bundle-source, compartment-mapper, import-bundle, module-source.
 - `streams`: stream, stream-node, async iteration.
 
 These will appear when the next ingestion batches (the flagship package READMEs queued in the inbox) create sections that file under them.

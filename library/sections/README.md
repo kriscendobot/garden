@@ -146,4 +146,16 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--pkg-eventual-send-readme--integration-with-endo](endo--pkg-eventual-send-readme--integration-with-endo.md)
 - [endo--pkg-eventual-send-readme--background-and-see-also](endo--pkg-eventual-send-readme--background-and-see-also.md)
 
-## Total: 101 sections from 13 source documents (through /loop tick 8, 2026-05-14).
+### From endo `packages/ses/README.md`
+
+- [endo--pkg-ses-readme--overview](endo--pkg-ses-readme--overview.md)
+- [endo--pkg-ses-readme--install](endo--pkg-ses-readme--install.md)
+- [endo--pkg-ses-readme--usage-core](endo--pkg-ses-readme--usage-core.md)
+- [endo--pkg-ses-readme--usage-modules](endo--pkg-ses-readme--usage-modules.md)
+- [endo--pkg-ses-readme--usage-error-handling](endo--pkg-ses-readme--usage-error-handling.md)
+- [endo--pkg-ses-readme--security-claims-and-caveats](endo--pkg-ses-readme--security-claims-and-caveats.md)
+- [endo--pkg-ses-readme--audits](endo--pkg-ses-readme--audits.md)
+- [endo--pkg-ses-readme--bug-disclosure](endo--pkg-ses-readme--bug-disclosure.md)
+- [endo--pkg-ses-readme--ecosystem-compatibility](endo--pkg-ses-readme--ecosystem-compatibility.md)
+
+## Total: 110 sections from 14 source documents (through /loop tick 9, 2026-05-14).
