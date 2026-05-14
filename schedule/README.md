@@ -19,6 +19,7 @@ Layout and event-file shape live in the [scheduling skill](../../<garden-root>/s
 ### garden
 
 - [`garden/20260513T070000Z--5a93f9.md`](garden/20260513T070000Z--5a93f9.md): daily midnight Pacific progress summary. Trigger `2026-05-13T07:00:00Z` (00:00 PDT). Recurrence `daily-at-00:00-America/Los_Angeles`. Dispatch `journalist` / `daily-progress-summary`. Output `journal/periodicals/<YYYY>/<MM>/<DD>.md`.
+- [`garden/20260514T010000Z--72f1f4.md`](garden/20260514T010000Z--72f1f4.md): hourly scholar library cycle. Trigger `2026-05-14T01:00:00Z`. Recurrence `hourly-at-00-UTC`. Dispatch `scholar` / `library-cycle`. Drains the `to: scholar` inbox; ingests up to the cycle's section budget (3 to 5 source documents or ~25 section writes); writes under `journal/library/`. Indefinite.
 
 ## Fired events
 
