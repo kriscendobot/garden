@@ -342,4 +342,9 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - endo-but-for-bots--llm-designs-ntsep--{problem-statement, design-conceptual-model, refactoring-steps, compatibility-and-upgrade}
 - endo-but-for-bots--llm-designs-cbors--{overview-and-naming, design-scope-and-api, wire-format, reader-writer-behavior, relationship-and-design-decisions}
 
-## Total: 378 sections from 85 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs second batch (cycle 40)
+
+- endo-but-for-bots--llm-designs-ocapn-noise-network--{overview-and-identifier, transport-plugins-and-hints, concrete-transports-and-network-impl, session-establishment, package-structure-and-security}
+- endo-but-for-bots--llm-designs-trust-on-first-bind--{problem-and-state-machine, decision-modes-and-who-decides, policy-storage-and-revocation, audit-trail-and-failure-modes, composition-with-httpcontroller, alternatives-and-future-work}
+
+## Total: 389 sections from 87 source documents (through 2026-05-14).
