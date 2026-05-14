@@ -9,6 +9,8 @@
 | [endo--docs-get-started--installing](../sections/endo--docs-get-started--installing.md) | endo docs/get-started.md | Node.js + npm/yarn install prerequisites. |
 | [endo--pkg-ses-readme--install](../sections/endo--pkg-ses-readme--install.md) | endo packages/ses/README.md | npm/yarn install of @endo/ses; shim auto-loads on import. |
 | [endo--pkg-ses-readme--ecosystem-compatibility](../sections/endo--pkg-ses-readme--ecosystem-compatibility.md) | endo packages/ses/README.md | Ecosystem compatibility: what works under SES and known-incompatible patterns. |
+| [endo--docs-guide--using-hardenedjs-with-vetted-shims](../sections/endo--docs-guide--using-hardenedjs-with-vetted-shims.md) | endo docs/guide.md | Vetted-shim pattern for environments where the SES shim cannot run directly. |
+| [endo--docs-guide--library-compatibility](../sections/endo--docs-guide--library-compatibility.md) | endo docs/guide.md | Library compat from the guide doc perspective. |
 
 ## See also
 

@@ -22,6 +22,8 @@
 | [endo--docs-message-passing--defensive-receive-protected-objects](../sections/endo--docs-message-passing--defensive-receive-protected-objects.md) | endo docs/message-passing.md | Building receiving objects that protect themselves: Exo, kits, attenuation. |
 | [endo--docs-message-passing--digital-purse-example](../sections/endo--docs-message-passing--digital-purse-example.md) | endo docs/message-passing.md | Worked example of capability-discipline in action. |
 | [endo--docs-message-passing--design-patterns-and-best-practices](../sections/endo--docs-message-passing--design-patterns-and-best-practices.md) | endo docs/message-passing.md | Idioms for capability-bearing code: revocation, state ownership, attenuation. |
+| [endo--docs-guide--what-is-hardenedjs-ses-endo](../sections/endo--docs-guide--what-is-hardenedjs-ses-endo.md) | endo docs/guide.md | Definitions including the ocap discipline that HardenedJS realizes. |
+| [endo--docs-guide--hardenedjs-story](../sections/endo--docs-guide--hardenedjs-story.md) | endo docs/guide.md | History from E and Joe-E to MetaMask: how ocap reached JS production. |
 
 ## See also
 

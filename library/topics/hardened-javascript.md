@@ -47,6 +47,16 @@
 | [endo--pkg-ses-readme--audits](../sections/endo--pkg-ses-readme--audits.md) | endo packages/ses/README.md | Inventory of security audits SES has undergone. |
 | [endo--pkg-ses-readme--bug-disclosure](../sections/endo--pkg-ses-readme--bug-disclosure.md) | endo packages/ses/README.md | Pointer to coordinated-disclosure protocol. |
 | [endo--pkg-ses-readme--ecosystem-compatibility](../sections/endo--pkg-ses-readme--ecosystem-compatibility.md) | endo packages/ses/README.md | What works and what does not when SES is applied to common JS libraries. |
+| [endo--docs-guide--what-is-hardenedjs-ses-endo](../sections/endo--docs-guide--what-is-hardenedjs-ses-endo.md) | endo docs/guide.md | Definitions: HardenedJS, SES, Endo. |
+| [endo--docs-guide--hardenedjs-story](../sections/endo--docs-guide--hardenedjs-story.md) | endo docs/guide.md | Historical narrative for HardenedJS from E and Joe-E to MetaMask. |
+| [endo--docs-guide--using-hardenedjs-with-your-code](../sections/endo--docs-guide--using-hardenedjs-with-your-code.md) | endo docs/guide.md | Guide-shaped onboarding (overlaps reference / get-started). |
+| [endo--docs-guide--using-hardenedjs-with-vetted-shims](../sections/endo--docs-guide--using-hardenedjs-with-vetted-shims.md) | endo docs/guide.md | Vetted-shim pattern for constrained environments. |
+| [endo--docs-guide--what-lockdown-does-removes-adds](../sections/endo--docs-guide--what-lockdown-does-removes-adds.md) | endo docs/guide.md | Guide-shaped account of lockdown's modifications (overlaps reference). |
+| [endo--docs-guide--realms-and-compartments](../sections/endo--docs-guide--realms-and-compartments.md) | endo docs/guide.md | Realms and Compartments as related isolation primitives. |
+| [endo--docs-guide--api-overview](../sections/endo--docs-guide--api-overview.md) | endo docs/guide.md | Guide-shaped overview of lockdown/repair/harden API verbs (overlaps reference). |
+| [endo--docs-guide--library-compatibility](../sections/endo--docs-guide--library-compatibility.md) | endo docs/guide.md | Library compatibility under SES (overlaps pkg-ses-readme--ecosystem-compatibility). |
+| [endo--docs-guide--html-comments](../sections/endo--docs-guide--html-comments.md) | endo docs/guide.md | HTML comments in JS source and SES taming. |
+| [endo--docs-guide--direct-vs-indirect-eval](../sections/endo--docs-guide--direct-vs-indirect-eval.md) | endo docs/guide.md | Direct vs indirect eval semantics under SES. |
 
 ## See also
 

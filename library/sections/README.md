@@ -170,4 +170,17 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - [endo--docs-message-passing--common-pitfalls](endo--docs-message-passing--common-pitfalls.md)
 - [endo--docs-message-passing--next-steps](endo--docs-message-passing--next-steps.md)
 
-## Total: 119 sections from 15 source documents (through /loop tick 10, 2026-05-14).
+### From endo `docs/guide.md`
+
+- [endo--docs-guide--what-is-hardenedjs-ses-endo](endo--docs-guide--what-is-hardenedjs-ses-endo.md)
+- [endo--docs-guide--hardenedjs-story](endo--docs-guide--hardenedjs-story.md)
+- [endo--docs-guide--using-hardenedjs-with-your-code](endo--docs-guide--using-hardenedjs-with-your-code.md)
+- [endo--docs-guide--using-hardenedjs-with-vetted-shims](endo--docs-guide--using-hardenedjs-with-vetted-shims.md)
+- [endo--docs-guide--what-lockdown-does-removes-adds](endo--docs-guide--what-lockdown-does-removes-adds.md)
+- [endo--docs-guide--realms-and-compartments](endo--docs-guide--realms-and-compartments.md)
+- [endo--docs-guide--api-overview](endo--docs-guide--api-overview.md)
+- [endo--docs-guide--library-compatibility](endo--docs-guide--library-compatibility.md)
+- [endo--docs-guide--html-comments](endo--docs-guide--html-comments.md)
+- [endo--docs-guide--direct-vs-indirect-eval](endo--docs-guide--direct-vs-indirect-eval.md)
+
+## Total: 129 sections from 16 source documents (priming batch fully drained, through /loop tick 11, 2026-05-14).

@@ -14,6 +14,8 @@
 | [endo--pkg-ses-readme--usage-core](../sections/endo--pkg-ses-readme--usage-core.md) | endo packages/ses/README.md | Compartment as one of the SES core verbs alongside lockdown and harden. |
 | [endo--pkg-ses-readme--usage-modules](../sections/endo--pkg-ses-readme--usage-modules.md) | endo packages/ses/README.md | Compartment module loading internals. |
 | [endo--pkg-ses-readme--security-claims-and-caveats](../sections/endo--pkg-ses-readme--security-claims-and-caveats.md) | endo packages/ses/README.md | Compartment isolation tiers and security caveats. |
+| [endo--docs-guide--realms-and-compartments](../sections/endo--docs-guide--realms-and-compartments.md) | endo docs/guide.md | Realms (browser/runtime concept) and Compartments (SES isolation primitive) as related abstractions. |
+| [endo--docs-guide--direct-vs-indirect-eval](../sections/endo--docs-guide--direct-vs-indirect-eval.md) | endo docs/guide.md | Direct vs indirect eval semantics inside Compartments. |
 
 ## See also
 
