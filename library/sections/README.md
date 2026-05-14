@@ -378,4 +378,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-d256--{problem-and-original-state, identifier-migration-and-crypto-powers, per-agent-keypairs, formula-types-and-security}
 
-## Total: 439 sections from 97 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs daemon-agent-network-identity (cycle 49)
+
+- endo-but-for-bots--llm-designs-dani--{status-and-overlap-with-dlt, per-agent-networks-and-nets, network-registration, per-agent-connection-hints-and-null-local-node}
+
+## Total: 443 sections from 98 source documents (through 2026-05-14).

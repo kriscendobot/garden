@@ -6,6 +6,7 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [endo-but-for-bots--llm-designs-dani--network-registration](../sections/endo-but-for-bots--llm-designs-dani--network-registration.md) | endo-but-for-bots designs/daemon-agent-network-identity.md | **`EndoNetwork.registerAgentKey(publicKey, agentId)` / `unregisterAgentKey`** — additive interface so networks know which agent an inbound connection targets; daemon root keypair always registered. Depends on the four-layer OCapN hierarchy from ntsep. |
 | [endo-but-for-bots--llm-designs-dlt--locator-format-evolution](../sections/endo-but-for-bots--llm-designs-dlt--locator-format-evolution.md) | endo-but-for-bots designs/daemon-locator-terminology.md | **New locator URL format**: `endo://{peerKey}/{formulaAddress}@{hint1}@{hint2}?type=...`; formula address moves from `?id=` query onto the path; hints inline with `@` separators; `parseLocator` format-aware so old `?id=` locators still parse. |
 | [endo-but-for-bots--llm-designs-ntsep--compatibility-and-upgrade](../sections/endo-but-for-bots--llm-designs-ntsep--compatibility-and-upgrade.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | Four consideration sections. |
 | [endo-but-for-bots--llm-designs-ntsep--design-conceptual-model](../sections/endo-but-for-bots--llm-designs-ntsep--design-conceptual-model.md) | endo-but-for-bots designs/ocapn-network-transport-separation.md | The new conceptual model is a four-layer hierarchy: **OCapN Core** → **Network** (e.g., |
