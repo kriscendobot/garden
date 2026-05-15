@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-chacha12-75-append--20260515-
 repo: endojs/endo
 branch: kriskowal-random-chacha20
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-15T03:19:08Z
-last_heartbeat: 2026-05-15T03:19:23Z
+last_heartbeat: 2026-05-15T03:23:18Z
 task: "Fast-forward append of two new bot commits onto endojs/endo#3232 from endojs/endo-but-for-bots#75"
 prs:
   - repo: endojs/endo-but-for-bots
