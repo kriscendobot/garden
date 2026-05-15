@@ -140,5 +140,5 @@ table is preserved, with status replacing absence.
 
 ## See also
 
-- [[space]] — concept page collecting all sections that touch the space concept; the authoritative numbering scheme + corrected keyboard mapping.
-- [[endo-but-for-bots--llm-designs-chat-spaces-home--indelible-space-zero-and-numbering]] — **the keyboard handler shown above (`Cmd+1..9` → `sortedSpaces[num - 1]`) is out of date**. The corrected mapping per `chat-spaces-home` is **Cmd+N → position N** for N = 0..9, Home at position 0 and user spaces at 1..9. The handler must be updated to align.
+- [[space]] — concept page collecting all sections that touch the space concept.
+- [[endo-but-for-bots--llm-designs-chat-spaces-home--indelible-space-zero-and-numbering]] — refines the home space (Space 0). The chat-spaces-home design's *Numbering Scheme* table shows `Cmd+0 = Home` and `Cmd+1..9 = user spaces`, but that is **aspirational** — the current source `packages/chat/spaces-gutter.js` (verified cycle 58) implements the handler shown above: `Cmd+1..9 → allSpaces[num - 1]` where `allSpaces = [homeSpaceConfig, ...userSpaces]` and there is no `Cmd+0`. The handler shown in *this* section is the **current source-of-truth**. Aligning the design table to source, or building `Cmd+0` to align source to design, is open work; see cycle-58 result for the investigation and PR proposal.

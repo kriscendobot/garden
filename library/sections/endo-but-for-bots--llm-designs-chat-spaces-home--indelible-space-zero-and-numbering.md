@@ -8,7 +8,7 @@ source_date: 2026-03-02
 source_authors: [Kris Kowal]
 topics: [chat-ui, agent-conventions]
 status: current
-notes: **Status: Complete** upstream. Sibling of [[endo-but-for-bots--llm-designs-chat-spaces-gutter--motivation-and-architecture]]; this design *corrects* the gutter design's keyboard-shortcut numbering — the gutter design said "Home space is always first (Cmd+1)" but this design moves home to `spaces/0` / **Cmd+0** with user spaces at `spaces/1..9` / **Cmd+1..9**.
+notes: **Status: Complete** upstream. Sibling refinement of [[endo-but-for-bots--llm-designs-chat-spaces-gutter--motivation-and-architecture]] covering the *configurable home space*. The *config-key* numbering (`spaces/0` for home, `spaces/1..9` for user spaces) IS implemented in source. The *keyboard-shortcut* numbering shown in this section's table (`Cmd+0` for home) is **aspirational** — the current source implements `Cmd+1` = home, `Cmd+2..9` = first 8 user spaces, with no `Cmd+0`. The design's table and the source are out of step on this one point. See the section body for the resolution + cycle-58 result for the upstream PR proposal.
 ---
 
 The spaces gutter has a *home space* — Space 0, bound to the root
@@ -22,7 +22,7 @@ existence)**.
 
 | Invariant | What it means |
 |---|---|
-| **Always first** | Position 0 in the gutter, keyboard shortcut Cmd+0 |
+| **Always first** | Position 0 in the gutter (in source, keyboard `Cmd+1`; the design's table claims `Cmd+0`, but that is aspirational — see *Numbering scheme* below) |
 | **Always named "Home"** | Name is enforced on save regardless of stored config |
 | **Always bound to root agent** | `profilePath` is always `[]` |
 | **Cannot be deleted** | The Delete menu item is hidden for Home (see the sibling section on context-menu scope) |
@@ -64,7 +64,9 @@ the *belt-and-suspenders* discipline: even if external code wrote
 an unhardened or malformed entry at `['spaces', '0']`, the chat
 client's view of home is always consistent.
 
-## Numbering scheme (and the correction to chat-spaces-gutter)
+## Numbering scheme — design intent vs. current source
+
+The design records this table:
 
 ```
 | Config key | Badge | Shortcut | Role |
@@ -76,21 +78,43 @@ client's view of home is always consistent.
 | spaces/9   | 9     | Cmd+9    | Ninth user space |
 ```
 
-**This is the authoritative numbering**. The earlier
+**The config-key column matches source**: the home space is stored
+at `['spaces', '0']` (verified at `packages/chat/spaces-gutter.js`
+line ~297), and user spaces use the keys above it.
+
+**The Shortcut column does not match source.** The current keyboard
+handler at `packages/chat/spaces-gutter.js` lines ~907-921 reads:
+
+```js
+if (Number.isNaN(num) || num < 1 || num > 9) return;
+// 1-indexed: Cmd+1=home, Cmd+2=first user space, etc.
+const allSpaces = [homeSpaceConfig, ...getSpacesArray()];
+const index = num - 1;
+```
+
+So the source implements: `Cmd+1` = home, `Cmd+2` = first user
+space, …, `Cmd+9` = eighth user space. There is **no `Cmd+0`**.
+The Shortcut column in the table above is **aspirational** — the
+design's target state, not the implemented state.
+
+The mismatch is internal to chat-spaces-home: its `spaces/N`
+storage scheme is implemented, but its corresponding `Cmd+N`
+keyboard scheme is not. Two ways to resolve:
+
+1. **Update the design** to match source (change the Shortcut
+   column to show `Cmd+1` = home, `Cmd+2..9` = first 8 user spaces),
+   acknowledging the mismatch between config-key index and shortcut
+   number for home.
+2. **Update the source** to implement `Cmd+0` = home and shift user-
+   space shortcuts to `Cmd+1..9`, aligning source to the design's
+   target.
+
+The investigation and PR-proposal live in cycle-58's result entry.
+The library shows the *current source-of-truth* in the
 [[endo-but-for-bots--llm-designs-chat-spaces-gutter--interactions-keyboard-and-future]]
-keyboard-handler was written before this design landed — it
-dispatched `Cmd+1..9` to positions 0..8 in the sorted-spaces array.
-With the home space at position 0, the corrected mapping is:
+section's keyboard handler.
 
-- **Cmd+0** → position 0 (Home).
-- **Cmd+1..9** → positions 1..9 (user spaces).
-
-User-visible keyboard shortcuts and the badges displayed on each
-space match the `spaces/N` config-key index exactly; the
-chat-spaces-gutter handler must be updated to align.
-
-This is the **first cluster-internal correction** the chat-spaces
-sub-cluster surfaces. The chat-spaces-gutter source-index notes
-should be updated with a forward-pointer to the corrected
-numbering; for now the disambiguation lives here, on the
-authoritative side.
+This is the **first instance** of the scholar's expanded
+*notice-investigate-propose* discipline (per the maintainer's
+2026-05-15 directive). Future inter-source contradictions get
+investigated against source the same way.

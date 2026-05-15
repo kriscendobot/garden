@@ -44,18 +44,26 @@ remains consistent (the *belt-and-suspenders* discipline).
 
 ## Numbering and keyboard shortcuts
 
-Config keys, badges, and shortcuts are aligned 1:1:
+There are **two** numbering schemes, currently out of step:
 
-| Config key | Badge | Shortcut | Role |
-|---|---|---|---|
-| `spaces/0` | `0` | Cmd+0 | Home — indelible |
-| `spaces/1` | `1` | Cmd+1 | First user space |
-| ... | ... | ... | ... |
-| `spaces/9` | `9` | Cmd+9 | Ninth user space |
+| | Config key (storage) | Keyboard shortcut |
+|---|---|---|
+| Home space | `spaces/0` ✓ source | `Cmd+1` ✓ source — but `Cmd+0` per the chat-spaces-home design's target |
+| First user space | `spaces/1` ✓ source | `Cmd+2` ✓ source — but `Cmd+1` per the design's target |
+| ... | ... | ... |
+| Eighth user space | `spaces/8` ✓ source | `Cmd+9` ✓ source — design's target is `Cmd+8`; `Cmd+9` would be the ninth |
 
-This is the authoritative numbering as of `chat-spaces-home`; the
-earlier `chat-spaces-gutter` keyboard handler (which dispatched
-`Cmd+1..9` to positions 0..8) is out of date and should be aligned.
+The **config-key column** (where each space's JSON is stored under
+`['spaces', N]`) matches both designs and the source. The **shortcut
+column** is where source and design disagree — chat-spaces-home's
+*Numbering Scheme* table lists `Cmd+N → spaces/N` but the source
+implements `Cmd+(N+1) → spaces/N` (with no `Cmd+0`). The
+chat-spaces-gutter handler shows the source behavior; the
+chat-spaces-home table shows the target.
+
+The mismatch is the first instance of the scholar's expanded
+*notice-investigate-propose* discipline (cycle 58, 2026-05-15);
+see that cycle's result entry for the upstream PR proposal.
 
 ## Sections that touch this concept
 
@@ -76,7 +84,8 @@ earlier `chat-spaces-gutter` keyboard handler (which dispatched
 
 ## Common confusions
 
-- *"Home is space 1"* — only in the earlier chat-spaces-gutter description; the corrected numbering is **home = space 0 = Cmd+0**.
+- *"Home is `Cmd+0` because chat-spaces-home says so"* — the design says so but the source does not (yet). Current source: `Cmd+1` = home, `Cmd+2..9` = user spaces. The design's Numbering Scheme table is aspirational.
+- *"chat-spaces-home corrects chat-spaces-gutter on numbering"* — earlier framing in this concept page's history; it is actually closer to the inverse: chat-spaces-gutter's keyboard handler matches source; chat-spaces-home's *Numbering Scheme* table proposes a change that has not landed.
 - *"Spaces are stored in the daemon"* — partially. Storage is in the host's pet-store (which the daemon manages), but the *concept of a space* is purely client-side; no daemon code knows what a space is. The pet-store sees a `spaces` directory of JSON value formulas like any other directory.
 
 ## Provenance note
