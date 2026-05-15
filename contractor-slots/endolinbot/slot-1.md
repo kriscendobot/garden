@@ -3,23 +3,23 @@ slot: 1
 status: in-flight
 design_path: null
 pr_number: 251
-current_stage: cleaner
-in_flight_dispatch: aa99d2
-last_update: 2026-05-15T03:55:00Z
+current_stage: judge
+in_flight_dispatch: 05fb12
+last_update: 2026-05-15T04:27:00Z
 started_at: 2026-05-15T03:55:00Z
 host: endolinbot
 ---
 
-Slot 1 refilled by adopting stale draft PR #251
-(`feat(eslint-plugin): support destructuring in harden-exports`, mirror
-of endojs/endo#2404 + gibson042 feedback). 5.2h stale, MERGEABLE CLEAN,
-26/26 CI green, no panel verdict yet, 2 files touched. Source PR (not
-a design — `design_path` left null because this PR mirrors an upstream
-non-design change).
+Cleaner `aa99d2` returned at 04:25Z with 7 new coverage tests + 1 commit
+(head `8626e5d78`). CI 24/27 green; 3 macos-15 jobs queued ~25 min due
+to org-wide runner backlog (documented pre-existing infra; cleaner
+cross-referenced across multiple branches). Coverage went 84.72→87.50%
+stmts, 73.80→82.22% branches.
 
-Next-stage-owed per `skills/pr-creation-flow/SKILL.md` § The next-stage-owed
-heuristic step 7: cleaner (substantive source PR, not tiny-PR variant).
-Estate-wide cleaner cap: free (slot 3's prior cleaner completed at 03:18Z,
-slot 3 now empty).
+Cleaner noted: lines 108-131 are dead AST branches added per
+gibson042's review comment; the cleaner deliberately preserved them.
 
-Dispatch root: `dispatches/cleaner--aa99d2`.
+Next-stage-owed: judge (code panel; source PR). Estate-wide cleaner
+cap is now free — slot 2 can also dispatch cleaner in parallel.
+
+Dispatch root: `dispatches/judge--05fb12`.
