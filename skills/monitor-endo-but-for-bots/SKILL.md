@@ -1,12 +1,14 @@
 ---
 created: 2026-05-12
-updated: 2026-05-13
+updated: 2026-05-15
 author: gardener, liaison, monitor
 ---
 
 # Skill: monitor-endo-but-for-bots
 
 Per-event-class reaction rules for the [monitor](../../roles/monitor/AGENT.md) when dispatched against `endojs/endo-but-for-bots`. The base role and its polling discipline live in `roles/monitor/AGENT.md` and `skills/github-activity-poll/SKILL.md`; this skill is consulted on each `NEW`-line wake to decide whether and how to react.
+
+This skill handles **event-level** surveillance (who acted, when, on what). Its sibling [`skills/at-mention-surveillance/SKILL.md`](../at-mention-surveillance/SKILL.md) handles **content-level** surveillance (what the comment body said, specifically scanning for `@kriscendobot` and `@kriskowal` routing intent). The two compose; rules below that mention "the comment body" describe an event-level decision (e.g. "does the body match an authorization-grant pattern?") and do not subsume the content-level @-mention scan, which runs as the steward's third parent-context Monitor per `roles/steward/AGENT.md` § Parent-context Monitor invariants.
 
 ## Recognized maintainers
 

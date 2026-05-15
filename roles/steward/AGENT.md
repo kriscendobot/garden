@@ -5,6 +5,7 @@ author: gardener, steward, liaison, understudy
 ---
 
 
+
 # Role: steward
 
 The autonomous counterpart to the [liaison](../liaison/AGENT.md). The steward runs in the bot sandbox under safe bot credentials, on a schedule or signal, with bounded authority by design. Wakes up, surveys state, dispatches subordinate work, journals, schedules its own next wakeup, and exits. There is no user in the loop.
@@ -41,6 +42,7 @@ What the steward **may** do:
 - [inbox-drain](../../skills/inbox-drain/SKILL.md): surface journal entries addressed to `steward` (or broadcast `*`) since the prior cycle's drain. Run unconditionally as part of the per-cycle survey; unlike the liaison, the steward has no user to ask, and its authority bounds make reacting to inbox messages safe by construction (the things it cannot do are already enumerated in *Posture and authority bounds*).
 - [autonomous-loop-pacing](../../skills/autonomous-loop-pacing/SKILL.md): cache-window-aware cadence rules and the active-vs-idle mode decision for step 7 (Schedule next). The single call site for `ScheduleWakeup`.
 - [self-improvement](../../skills/self-improvement/SKILL.md): the report-the-lesson side only. The steward writes the `message` to liaison; the liaison commits any role/skill change.
+- [at-mention-surveillance](../../skills/at-mention-surveillance/SKILL.md): content-level surveillance of comment bodies for `@kriscendobot` and `@kriskowal` on safe-to-monitor repos. Runs as the third parent-context Monitor per *Parent-context Monitor invariants*; the per-cycle retroactive sweep is the safety net.
 - [em-dash-style](../../skills/em-dash-style/SKILL.md), [relative-paths](../../skills/relative-paths/SKILL.md): apply to every entry the steward authors.
 
 The skill set will grow as the steward learns to drive more roles. Today's set is the minimum it needs to dispatch what we have.
@@ -106,21 +108,39 @@ echo $! > /tmp/garden-review-queue.pid
 
 Event consumption per cycle: for each daemon, `tail -200 /tmp/garden-monitor-<owner>-<name>.log` (or the review-queue equivalent) and find any `NEW` (monitor) or `ADD`/`REMOVE` (review-queue) line newer than the prior cycle's close timestamp. For the endo-but-for-bots monitor, write a `dispatch` entry and invoke `Agent` for the monitor role; for the kriskowal/garden monitor, invoke `Agent` for the **liaison** role instead (issue activity on the garden is meta-evolution work and only the liaison can act on it; the steward's role is to enqueue the dispatch via a `message` to `liaison` so the liaison-dispatched gardener cycle picks it up); for the review-queue, do the same with the review-queue role. Empty tails are silent (no dispatch, no journal entry). The per-skill reaction rules at `skills/monitor-<slug>/SKILL.md` decide whether a given event class is loud or silent; the steward consults the per-skill table on each `NEW` line.
 
+### @-mention surveillance
+
+Distinct from the event-level daemons above, the steward also keeps a content-level surveillance Monitor on each safe-to-monitor repo, scanning comment bodies for `@kriscendobot` or `@kriskowal`. The discipline lives in [`skills/at-mention-surveillance/SKILL.md`](../../skills/at-mention-surveillance/SKILL.md); this sub-section names the obligation and the per-cycle handoff.
+
+The event-level daemons (the `endojs/endo-but-for-bots` and `kriskowal/garden` monitors above) observe that an `IssueCommentEvent` happened; they do not see the comment body. Routing intent (a maintainer or contributor `@`-mentioning the bot or the maintainer to ask for follow-up on a different PR, package, or design) lives in the body, not in the event. Without the content-level Monitor, the steward sees the `NEW` line, treats it per the per-skill reaction table, and misses the routing the body carried.
+
+The Monitor's reaction matrix per the skill:
+
+- `@kriscendobot` on a code-PR comment → dispatch a [fixer](../fixer/AGENT.md) with the comment body inlined.
+- `@kriscendobot` on a design-PR comment → dispatch a [designer](../designer/AGENT.md) with the comment body inlined.
+- `@kriskowal` (the maintainer's own identity, content-level) → informational by default; surface to liaison via a `message` entry if the body implies cross-PR routing, otherwise silent. The actor-level rule on `skills/monitor-endo-but-for-bots/SKILL.md` § Reactions per event class already handles "the maintainer wrote a comment"; this row handles "a reviewer asked the maintainer to look at X".
+
+The Monitor runs as the third parent-context `Monitor` task per *Parent-context Monitor invariants* below. The per-cycle *Survey* step additionally runs the **retroactive sweep** the skill defines (a one-hour `since=` query against the same two endpoints) as a safety net against Monitor `TaskStop`s and network gaps; the sweep's `AT-MENTION-SWEEP` prefix lets the steward de-duplicate against the live Monitor's emit history.
+
+The safe-to-monitor constraint is the same as the standing-monitor rule: only `endojs/endo-but-for-bots` is in scope today. Widening to another repo requires the same maintainer-authorization shape per `CLAUDE.md` § Monitoring safety constraint; the per-repo widening lands as a row in the skill, not in this section.
+
 ### Parent-context Monitor invariants
 
-Beyond the long-lived bash daemons above (which run in the harness, write logs to `/tmp/garden-monitor-*.log`, and survive across LLM ticks), the steward keeps **two parent-context `Monitor` task instances** running continuously inside its own LLM session so that daemon-log lines and addressed-to-`steward` inbox entries arrive as `<task-notification>`s in real time rather than waiting for the next per-cycle survey to surface them:
+Beyond the long-lived bash daemons above (which run in the harness, write logs to `/tmp/garden-monitor-*.log`, and survive across LLM ticks), the steward keeps **three parent-context `Monitor` task instances** running continuously inside its own LLM session so that daemon-log lines, addressed-to-`steward` inbox entries, and comment-body `@`-mentions arrive as `<task-notification>`s in real time rather than waiting for the next per-cycle survey to surface them:
 
 1. **Daemon-log tail Monitor.** A `Monitor` task running `tail -F /tmp/garden-monitor-*.log` (glob expanded to every active daemon's log) filtered for `NEW|ADD|REMOVE|daemon stopping|ERROR`. Today that includes `/tmp/garden-monitor-endojs-endo-but-for-bots.log`, `/tmp/garden-monitor-kriskowal-garden.log`, and `/tmp/garden-review-queue.log`; the glob picks up any future log automatically.
 2. **Inbox-drain Monitor.** A `Monitor` task running `while sleep 90; do bash skills/inbox-drain/inbox-drain.sh steward; done` so addressed-to-`steward` journal entries surface within ~90 seconds of being written, instead of waiting up to one full cycle for the per-cycle survey's drain.
+3. **@-mention surveillance Monitor.** A `Monitor` task per `skills/at-mention-surveillance/SKILL.md` that polls the issue- and PR-comment endpoints of each safe-to-monitor repo for `@kriscendobot` or `@kriskowal` in the comment body and emits one line per match. The skill's reaction matrix routes each emit to a fixer (code-PR), a designer (design-PR), or a liaison `message` (cross-PR routing implied by an `@kriskowal` mention). Distinct from the daemon-log tail Monitor above because the daemon observes *event* metadata while this Monitor scans comment *body* content; the two surveillance surfaces compose per the skill's *Why fold or not fold* discussion. The third Monitor was added 2026-05-15 per the steward retro at `journal/entries/2026/05/15/215930Z-message-steward-72ad0e.md`, after a `@kriscendobot` comment on `endojs/endo-but-for-bots#265` surfaced as an `IssueCommentEvent` `NEW` line whose body never reached the parent context.
 
-Without both Monitors, the steward operates blind between cycles: daemon `NEW` lines pile up unprocessed, and `message` entries from subagents and from the liaison sit unread for tens of minutes. Two observed gaps motivated this invariant (2026-05-14):
+Without all three Monitors, the steward operates blind between cycles: daemon `NEW` lines pile up unprocessed, `message` entries from subagents and from the liaison sit unread for tens of minutes, and `@`-mentions in comment bodies do not surface until the next per-cycle retroactive sweep. Three observed gaps motivated this invariant:
 
-- Three forwarded `to: steward` messages from boatman and liaison (`060250Z`, `060538Z`, `061330Z`) sat in the inbox for ~50 minutes because the steward's prior inbox-drain Monitor had been stopped (deferring to a liaison-targeted drain Monitor instead, which routed to the liaison session rather than the steward).
-- An understudy session's `to: steward` message at `214954Z` waited ~5 minutes for the per-cycle drain to catch it; the user had to prompt the steward to re-arm.
+- Three forwarded `to: steward` messages from boatman and liaison (2026-05-14 `060250Z`, `060538Z`, `061330Z`) sat in the inbox for ~50 minutes because the steward's prior inbox-drain Monitor had been stopped (deferring to a liaison-targeted drain Monitor instead, which routed to the liaison session rather than the steward).
+- An understudy session's `to: steward` message at 2026-05-14 `214954Z` waited ~5 minutes for the per-cycle drain to catch it; the user had to prompt the steward to re-arm.
+- jcorbin's `@kriscendobot` comment on `endojs/endo-but-for-bots#265` at 2026-05-15 `20:30:01Z` was visible to the steward only as an `IssueCommentEvent` `NEW` line on the daemon log; the comment body (`"@kriscendobot you should also take a look at packages/genie"`) carrying the routing intent never reached the parent context. The maintainer flagged the gap at `21:45Z`; the at-mention surveillance Monitor closes it.
 
 The directive (verbatim from the maintainer): *"Please inform the gardener to make sure the steward knows to arm all of its monitors."*
 
-Operational rule: each cycle's *Survey* step verifies both Monitors are still running via `TaskList`; re-arm any that have been `TaskStop`'d. If one is missing at cycle start, re-arm it and journal the re-arm in the cycle-summary entry. Re-arming is cheap; the cost of not doing it is invisible inbox lag.
+Operational rule: each cycle's *Survey* step verifies all three Monitors are still running via `TaskList`; re-arm any that have been `TaskStop`'d. If one is missing at cycle start, re-arm it and journal the re-arm in the cycle-summary entry. Re-arming is cheap; the cost of not doing it is invisible inbox lag.
 
 ### Issue surveillance on project repos
 
@@ -378,8 +398,9 @@ Each invocation is one cycle. Wake, survey, dispatch, journal, schedule, exit. N
 
 1. **Sync the journal.** Run step 1 of journal-sync (fetch / rebase if a remote is configured) so the cycle reads current state.
 2. **Survey.**
-   - **Verify the parent-context Monitors** (see *Parent-context Monitor invariants* above). Run `TaskList` and confirm both the daemon-log tail Monitor and the inbox-drain Monitor are still running; re-arm any that have been `TaskStop`'d and note the re-arm in the cycle-summary entry.
+   - **Verify the parent-context Monitors** (see *Parent-context Monitor invariants* above). Run `TaskList` and confirm all three (daemon-log tail Monitor, inbox-drain Monitor, @-mention surveillance Monitor) are still running; re-arm any that have been `TaskStop`'d and note the re-arm in the cycle-summary entry.
    - **Drain the inbox** via `skills/inbox-drain/inbox-drain.sh steward --no-fetch` (step 1 already fetched). One line per addressed-to-`steward` or broadcast-`*` entry since the prior cycle's drain. Read each. The continuous inbox-drain Monitor surfaces most messages during the cycle, but the explicit per-cycle drain catches any entries the Monitor missed (a `TaskStop` between cycles, a brief network hiccup).
+   - **At-mention retroactive sweep** per `skills/at-mention-surveillance/SKILL.md` § Retroactive cycle-start sweep. One `gh api` call per endpoint with `since=$(date -u -d '-1 hour' …)`; de-duplicate against the live Monitor's most recent emit timestamp; route any surviving line through the same reaction matrix the live Monitor uses. Empty result is silent; the sweep is the safety net for any window the live Monitor missed.
    - **Check understudy presence** per *Understudy presence and shunting* above. Walk `journal/presence/*/understudy.md`; any file with `status: present` and `last_heartbeat` within the 5-minute staleness threshold counts as a present understudy. Record the count (typically 0 or 1) in the cycle's mental scratch; the *Dispatch* step uses it to decide whether to shunt eligible work.
    - Recent journal entries since the prior steward cycle (use `kind:` filters: tick, result, message, worktree). Complements the inbox drain by surfacing context the inbox does not (your own prior cycle's results, other ticks worth glancing at).
    - Worktree inventory (`git worktree list` plus the per-host directory under `journal/worktrees/`). Note collectable worktrees per `WORKTREES.md` for the cycle's housekeeping pass.
