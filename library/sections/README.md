@@ -414,4 +414,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-command-bar--{command-bar-states-and-modeline, value-modal-and-states, field-types-and-autocomplete-mechanics, command-categories-and-known-gaps}
 
-## Total: 470 sections from 106 source documents (through 2026-05-15).
+### From endo-but-for-bots/llm/designs chat-spaces-inbox (cycle 60)
+
+- endo-but-for-bots--llm-designs-chat-spaces-inbox--{mode-flow-and-power-resolution, badges-message-context-and-future}
+
+## Total: 472 sections from 107 source documents (through 2026-05-15).
