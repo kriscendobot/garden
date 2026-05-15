@@ -398,4 +398,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-invariants--{overview-and-six-invariants, principles}
 
-## Total: 457 sections from 102 source documents (through 2026-05-15).
+### From endo-but-for-bots/llm/designs chat-components (cycle 55)
+
+- endo-but-for-bots--llm-designs-chat-components--{file-structure-and-component-map, inventory-and-messages, profile-system-and-error-handling, css-variables-and-security}
+
+## Total: 461 sections from 103 source documents (through 2026-05-15).

@@ -8,8 +8,8 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 
 | Topic | Abstract | Sections |
 |-------|----------|----------|
-| [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 32 |
-| [chat-ui](chat-ui.md) | Familiar Chat — the web-based keyboard-first UI for the Endo daemon; UI invariants, principles, and component designs. | 2 |
+| [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 34 |
+| [chat-ui](chat-ui.md) | Familiar Chat — the web-based keyboard-first UI for the Endo daemon; UI invariants, principles, and component designs. | 6 |
 | [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 48 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 12 |
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 40 |
@@ -17,7 +17,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 9 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 18 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 90 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 117 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 118 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 25 |
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 49 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 42 |
