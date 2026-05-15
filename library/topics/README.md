@@ -17,10 +17,10 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 9 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 18 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 90 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 118 |
-| [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 6 |
-| [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 25 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 49 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 119 |
+| [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies, eventual-send / vat / promise-pipelining lineage. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 10 |
+| [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 26 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 52 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 42 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 74 |
 | [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 49 |
@@ -29,7 +29,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 50 |
 | [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 29 |
 | [async-flow](async-flow.md) | The `@agoric/async-flow` durable-replay async-function infrastructure; closed-function discipline. | 7 |
-| [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 37 |
+| [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 38 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 18 |
 | [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 64 |
 | [bundles](bundles.md) | Module bundling, Compartment module loading, bundle-source / compartment-mapper family. | 29 |

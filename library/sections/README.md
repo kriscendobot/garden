@@ -435,4 +435,9 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-markdown-render--{motivation-and-gap-analysis, delimiter-realignment-and-flanking-rules, package-extraction-and-typed-ast, render-mode-toggle-and-phased-rollout}
 
-## Total: 490 sections from 112 source documents (through 2026-05-15).
+### From Mark S. Miller papers: Concurrency Among Strangers (cycle 65, **partial — 4 of 7 sections**)
+
+- papers--miller-tribble-shapiro-concurrency-among-strangers-2005--{abstract-and-introduction, why-not-shared-state-concurrency, vat-and-event-loop-model, defensive-correctness-and-pola}
+- Deferred (to next paper cycle): promise-pipelining, partial-failure-and-when-catch, history-and-related-work.
+
+## Total: 494 sections from 113 source documents (through 2026-05-15).

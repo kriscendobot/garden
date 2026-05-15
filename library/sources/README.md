@@ -9,6 +9,7 @@ The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The
 | Source | Authors | Year | Venue | Sections | Status |
 |--------|---------|------|-------|----------|--------|
 | [Capability Myths Demolished](papers--miller-capability-myths-demolished-2003.md) | Miller, Yee, Shapiro | 2003 | JHU SRL TR SRL2003-02 | 6 | current (PDF SHA-256 `b6a3e04e60d7`; refutes Equivalence, Confinement, Irrevocability Myths; defines four models + seven properties; canonical citation for object-capability model and the caretaker / forwarder-revoker pattern) |
+| [Concurrency Among Strangers](papers--miller-tribble-shapiro-concurrency-among-strangers-2005.md) | Miller, Tribble, Shapiro | 2005 | TGC 2005, Springer LNCS 3705 | 4 of 7 | **partial** (PDF SHA-256 `4ff0c5bd07e1`; canonical eventual-send + vat paper; sections 1-4 ingested cycle 65; sections 5-7 — promise-pipelining, partial-failure-and-when-catch, history-and-related-work — deferred to next paper cycle after a content-filter block aborted the subagent's report after the 4th section) |
 
 ## Ingested
 
