@@ -210,7 +210,27 @@ author: liaison, gardener
 ### Unstarted designs
 
 <!-- BEGIN unstarted-designs -->
-(rendering deferred to the steward's design-to-PR pipeline once the gardener `7d4081` lands; until then, the bulletin shows the placeholder)
+Inventory as of 2026-05-15T01:30Z: **84 uncovered designs** on `endojs/endo-but-for-bots@llm` (out of 117 candidates total). Top 15 newest-first by last-modified-on-llm.
+
+| Last-modified (UTC) | Design | Slug | One-line summary |
+|---|---|---|---|
+| 2026-05-12 | [`designs/retention-path-notation.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/retention-path-notation.md) | `retention-path-notation` | Typed `RetentionPath` + bulk `listRetentionPaths(targetIds)` host method (PR #151 reviewer gap). Status: Proposed. Design landed via #181. |
+| 2026-05-12 | [`designs/endo-gateway.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/endo-gateway.md) | `endo-gateway` | Split per-user Daemon and system-service Gateway (one host port, virtual-host OCapN to many users). Status: Proposed. Design landed via #199. |
+| 2026-05-10 | [`designs/trust-on-first-bind.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/trust-on-first-bind.md) | `trust-on-first-bind` | TOFU-style pattern for capability policy bindings (HTTP allowlists, Browser exo, Shell, Mount). Status: Reference. Design landed via #164. |
+| 2026-05-08 | [`designs/hardened-url-shim.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/hardened-url-shim.md) | `hardened-url-shim` | Vetted shim taming `URL` / `URLSearchParams` (iterator-prototype leak, `createObjectURL` ambient authority). Status: Not Started. Design landed via #84. |
+| 2026-05-08 | [`designs/hardened-text-codecs-shim.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/hardened-text-codecs-shim.md) | `hardened-text-codecs-shim` | Vetted shim adding hardened `TextEncoder` / `TextDecoder` to `universalPropertyNames`. Status: Not Started. |
+| 2026-05-07 | [`designs/filesystem-watchers.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/filesystem-watchers.md) | `filesystem-watchers` | Add `followNameChanges` / `followLocatorNameChanges` to `EndoMount` (parity with `EndoDirectory`). Status: Not Started. Design landed via #115. |
+| 2026-05-07 | [`designs/familiar-unified-weblet-server.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/familiar-unified-weblet-server.md) | `familiar-unified-weblet-server` | Unified weblet server (Host-header virtual hosting on gateway port; Familiar via `localhttp://`, chat weblets per-port). Status: In Progress (partially implemented; under revision). |
+| 2026-05-06 | [`designs/chat-slot-slash-commands.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/chat-slot-slash-commands.md) | `chat-slot-slash-commands` | Slot-local `/`-prefixed slash commands fill request slots without minting pet names. Status: Proposed. Design landed via #103. |
+| 2026-05-06 | [`designs/chat-edit-message-ui.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/chat-edit-message-ui.md) | `chat-edit-message-ui` | Chat UI entry points (keybinding, hover button, slash command) to call `editMessage` from the local-user profile. Status: Not Started. Design landed via #88. |
+| 2026-05-02 | [`designs/worker-rust-xs.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/worker-rust-xs.md) | `worker-rust-xs` | Replace Node.js worker with Rust + XS engine (native `Compartment`, no Node.js dependency). Status: Not Started. |
+| 2026-05-02 | [`designs/endor-run-expanded.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/endor-run-expanded.md) | `endor-run-expanded` | `endor run` accepts archives, directories, and entry points (Phases 1-2 landed; Phases 3-5 owed). Status: In Progress. |
+| 2026-05-02 | [`designs/endor-npm-registry-proxy.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/endor-npm-registry-proxy.md) | `endor-npm-registry-proxy` | CAS + SQLite registry-table backing `endor run entry.js` (Phases 1+3 landed; Phase 2 HTTP client owed). Status: In Progress. |
+| 2026-05-02 | [`designs/daemon-xs-worker-snapshot.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/daemon-xs-worker-snapshot.md) | `daemon-xs-worker-snapshot` | XS heap snapshot/restore for worker suspend/resume (idle agents, checkpoints, fast spawn). Status: In Progress. |
+| 2026-05-02 | [`designs/daemon-xs-worker-metering.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/daemon-xs-worker-metering.md) | `daemon-xs-worker-metering` | XS worker measurement / quota / rate-limiting (seven-phase implementation). Status: **Complete** (informational — needs tracking-PR cross-ref if any work remains). |
+| 2026-05-02 | [`designs/daemon-xs-worker-debugger.md`](https://github.com/endojs/endo-but-for-bots/blob/llm/designs/daemon-xs-worker-debugger.md) | `daemon-xs-worker-debugger` | Activate XS xsbug debugger in Rust build; hot-attach via worker bus envelopes; expose `Debugger` exo. Status: In Progress. |
+
+Source of truth: `endojs/endo-but-for-bots@llm`. Coverage rule: a design is *covered* by an open-or-merged feat/fix/chore/mirror/test/refactor/ci/docs PR whose title, body, or `headRefName` references the canonical design path; merged design-landing PRs (head `design/<slug>*`) and closed-not-merged PRs do **not** cover. Inventory regenerated each cycle per [`skills/design-to-pr-pipeline/SKILL.md`](../skills/design-to-pr-pipeline/SKILL.md).
 <!-- END unstarted-designs -->
 
 ### Awaits maintainer decision
