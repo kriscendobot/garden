@@ -3,17 +3,17 @@ slot: 1
 status: in-flight
 design_path: designs/endopen-comparative-analysis.md
 pr_number: 266
-current_stage: fixer
-in_flight_dispatch: 02ad10
-last_update: 2026-05-15T05:52:00Z
+current_stage: judge
+in_flight_dispatch: fc6fce
+last_update: 2026-05-15T06:14:00Z
 started_at: 2026-05-15T05:36:00Z
 host: endolinbot
 ---
 
-Judge `46449e` returned at 05:51Z. 1 must-fix (project markdown-style
-sweep: 80-100 col wrap, sentence-per-line on ~60 prose lines) + 8
-should-fix (incl. formula-type-count fix from 33→30, panel-conflation
-correction, ACP-method-list cleanup, vocabulary recasts). No kriskowal
-inline comments.
+Fixer `02ad10` returned at 06:13Z with all 1 must-fix + 8 should-fix
+addressed in 1 commit (head `8a4dc743e`). Top-level summary posted.
+CI doesn't fire on draft (same as #264).
 
-Dispatch root: `dispatches/fixer--02ad10`.
+Stale-prep: worktree at `7424956fd`. Judge fetches FETCH_HEAD.
+
+Dispatch root: `dispatches/judge--fc6fce`.
