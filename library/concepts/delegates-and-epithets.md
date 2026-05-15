@@ -34,3 +34,4 @@ stripping is structurally impossible.
 - [[revocation-by-withdrawal]] — a revoked Handle breaks the chain at that link cleanly.
 - [[per-agent-keypair]] — the cryptographic substrate epithets reference.
 - [[pass-invariant-handle-equality]] — the connector guarantee that lets agents detect that two pet names point to the same person.
+- [[object-capability]] — the model whose Property D (No Ambient Authority) makes the delegate/principal relationship articulable; the *unconfusable deputy* argument in Miller-Yee-Shapiro 2003 is the upstream root of "delegates carry context with their authority."

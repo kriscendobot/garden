@@ -30,8 +30,10 @@ consistent.
 | Section | One-line summary |
 |---|---|
 | [dcp/ai-delegates-connectors-and-anti-impersonation](../sections/endo-but-for-bots--llm-designs-dcp--ai-delegates-connectors-and-anti-impersonation.md) | The connector guarantee + the `handleFor` example; cross-service identity (bob-on-slack ≡ bob-on-email) as a host-asserted directory grouping. |
+| [papers/capmyths/equivalence-myth](../sections/papers--miller-capability-myths-demolished-2003--equivalence-myth.md) | Property A (No Designation Without Authority) is the upstream formal name for what Endo enforces by making a Handle's *formula identifier* both designator and authority — a Handle that designates the same backing identity carries the same authority. |
 
 ## See also
 
 - [[delegates-and-epithets]] — connectors that vend Handles for external identities use this guarantee.
 - [[formula-graph]] — the substrate that makes formula-identifier equality stable across sessions.
+- [[object-capability]] — Property A is the formal property name in the Miller-Yee-Shapiro vocabulary; this discipline is Endo's enforcement of it at the Handle layer.

@@ -27,6 +27,7 @@ Bootstrapped from the daemon design cluster and the structural principles in `co
 - [formula-persistence-thesis](formula-persistence-thesis.md) — the design's core thesis (endojs/endo#3121 draft).
 - [four-tables-coordinated-retention](four-tables-coordinated-retention.md) — cross-peer retention data model.
 - [local-node-sentinel](local-node-sentinel.md) — `LOCAL_NODE = '0'.repeat(64)`; the `0.0.0.0`-of-Ed25519.
+- [object-capability](object-capability.md) — the "true" capability model per Miller-Yee-Shapiro 2003: Model 4 holding all seven security properties (A–G).
 - [pass-invariant-handle-equality](pass-invariant-handle-equality.md) — connector guarantee: same backing identity → same formula identifier.
 - [per-agent-keypair](per-agent-keypair.md) — `@keypair`, `KeypairFormula`, agent identity as a formula.
 - [permits-buckets](permits-buckets.md) — SES's three-bucket framework for vetted-shim placement: `universal` / `initial` / `shared` global property names.

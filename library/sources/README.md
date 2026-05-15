@@ -4,6 +4,12 @@ Per-source-document inventory. Each row points to a `<source-slug>.md` file that
 
 The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The rest of the endo corpus (~70 substantive markdown files: top-level, `docs/`, per-package READMEs, per-package `docs/` and `doc/` directories) is queued for future ingestion batches; the index will grow as those are filed.
 
+## External papers
+
+| Source | Authors | Year | Venue | Sections | Status |
+|--------|---------|------|-------|----------|--------|
+| [Capability Myths Demolished](papers--miller-capability-myths-demolished-2003.md) | Miller, Yee, Shapiro | 2003 | JHU SRL TR SRL2003-02 | 6 | current (PDF SHA-256 `b6a3e04e60d7`; refutes Equivalence, Confinement, Irrevocability Myths; defines four models + seven properties; canonical citation for object-capability model and the caretaker / forwarder-revoker pattern) |
+
 ## Ingested
 
 | Source | Repo | Last-modified | Primary author | Sections | Status |

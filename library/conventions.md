@@ -240,6 +240,96 @@ If the SHA differs from the recorded `source_commit`, treat as a normal idempote
 | PR merges to default branch | Rewrite `source_branch:` to the default branch; refresh `source_commit:` to the merged commit; drop `source_pr_state:` (or set to `merged`); update `notes:` to remove the unmerged-PR caveat. |
 | PR closes without merging | Mark `status:` of the source and all its sections **stale**; leave the section files in place (journal is append-only); add a `notes:` line explaining the close. Deletion requires explicit maintainer authorization in a journal `message` entry. |
 
+## Sources from external papers
+
+Starting 2026-05-15, the library absorbs external published papers alongside its repo-derived sources. The first such ingest is Miller-Yee-Shapiro's 2003 *Capability Myths Demolished* (`papers--miller-capability-myths-demolished-2003`). This section documents the schema, the slug convention, and the idempotency anchor that papers use, which differ from the repo sources because papers have no `git log` history to read.
+
+### Slug pattern
+
+```
+papers--<lastname-first>-<short-title-dashed>-<year>
+```
+
+The `papers--` prefix mirrors the existing `<owner>--` slug discipline for repo sources, and groups all external papers in `library/sources/` listings. Use the *first listed author's* last name. For multi-author papers with co-equal billing (Karp/Stiegler/Close-style), use the first listed author. Examples:
+
+- `papers--miller-capability-myths-demolished-2003`
+- `papers--miller-concurrency-among-strangers-2005` (queued)
+- `papers--stiegler-trademarks-2005` (queued; Stiegler first author)
+
+### Source-file frontmatter (paper schema)
+
+Repo sources use `source_repo` / `source_path` / `source_commit`. Papers use:
+
+```yaml
+---
+source_kind: paper                       # the discriminant: paper vs repo
+source_authors: [Author One, Author Two] # full names, first listed first
+source_title: <paper title>
+source_year: <four-digit year>
+source_venue: <conference / journal / tech-report series>
+source_url: <canonical URL>              # one canonical URL even if you fetched from a mirror
+source_pdf_sha256: <full 64-char SHA-256># idempotency anchor — replaces source_commit
+source_pdf_pages: <integer>              # optional but useful for budget planning
+source_mirror_url: <URL>                 # optional; the URL actually used when canonical was unreachable
+ingested: <YYYY-MM-DD>
+ingested_by: <role>
+section_count: <integer>
+status: current
+---
+```
+
+`source_kind` discriminates schema variants. Repo sources are `source_kind: repo` (implicit if absent for backward compatibility); paper sources are `source_kind: paper`. The discriminant lets future schema additions (`source_kind: chat-cluster`, `source_kind: standards-doc`) stay backward-compatible without breaking the existing source-file shape.
+
+### Section-file frontmatter (paper schema)
+
+Section files filed under a paper inherit the paper schema with one extra field: `source` is the human-readable paper title, not a repo-relative path. The section frontmatter:
+
+```yaml
+---
+title: <section heading>
+source: <paper title>                    # e.g., "Capability Myths Demolished (SRL2003-02)"
+source_kind: paper
+source_authors: [Author One, Author Two]
+source_year: <year>
+source_venue: <venue>
+source_url: <URL>
+source_pdf_sha256: <full sha256>
+ingested: <YYYY-MM-DD>
+ingested_by: <role>
+topics: [<topic-slug>, ...]
+status: current
+---
+```
+
+### Idempotency anchor
+
+`source_pdf_sha256` replaces `source_commit` as the anchor for the idempotency check. Papers are static (the bytes do not change once published), so the check is degenerate: if the source file already exists with the same SHA, no re-ingest is needed. If a paper is re-published with revisions (rare; usually a new venue with a new SHA), the new ingest gets its own source slug (`papers--miller-foo-2003` vs `papers--miller-foo-revised-2005`) rather than overwriting, since the older argument is itself worth indexing.
+
+### Translation-block convention
+
+E-vat-language papers use idiom that diverges from Endo's surface (send vs E(), vat vs compartment, sealer vs brand, etc.). Each section file authored under a paper source includes a brief `## Translation` table where the idiom differs, mapping paper-side terms to Endo equivalents. The table is *not* an exhaustive glossary; it covers the terms the section actually uses. Recurring translations (the universal E-to-Endo table) live in the paper-corpus inbox message (`entries/2026/05/15/053206Z-message-liaison-9b4330.md`) and may be lifted into this conventions file once a few papers are in.
+
+### PDF acquisition guidance
+
+Mark Miller's authoritative site (`erights.org`) is intermittently down. Prefer in order:
+
+1. The original venue's PDF (Springer LNCS, ACM Digital Library, IEEE) when accessible.
+2. Author / collaborator faculty pages (e.g., Jonathan Shapiro's JHU SRL page, Bill Tulloh's, Tyler Close's).
+3. CiteSeerX cached copies.
+4. Google Scholar's cached-PDF link.
+5. `papers.agoric.com` (Agoric's mirror of Mark's papers — reachable as of 2026-05-15 from the bot sandbox).
+6. arXiv (later SES / verification work only; not the 2003 papers).
+
+Compute the SHA-256 of the bytes you actually ingested, regardless of which source you fetched from. The SHA pins the bytes; the canonical URL stays a fixed pointer for the source-file frontmatter.
+
+### Reading PDFs
+
+The Read tool accepts `pages: "<range>"`. Maximum 20 pages per call. For ~15-20 page papers, one call suffices. For a 250-page thesis (Miller PhD 2006), plan multi-cycle ingest — one chapter or one cohesive argument cluster per cycle, not the whole document at once.
+
+### Per-cycle pacing
+
+Papers are denser than design docs. The recommended pacing is **one paper per cycle** (4-6 sections plus the source-file + topic + concept-page + keyword writes), not 3-5 like for repo sources. Continue chat-cluster / repo ingest in parallel cycles; a reasonable cadence is to alternate paper-cycle, chat-cycle, paper-cycle until either backlog drains.
+
 ## Concepts and the keyword index
 
 A third indexing axis exists next to `sources/` (by provenance) and `topics/` (by broad subject taxonomy): the **keyword index** (`keywords.md`) and the **concept directory** (`concepts/<id>.md`). The keyword index is a grep-friendly map from a domain term or phrase (a code symbol, a proper name, a domain phrase) to a concept-id; each concept page is a short lookup target containing a one-paragraph definition + a table of section files that touch the concept (with one-line summaries) + a `See also` list of adjacent concepts.

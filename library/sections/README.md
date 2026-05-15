@@ -427,4 +427,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - endo-but-for-bots--llm-designs-chat-color-schemes--{motivation-and-current-state, dark-mode-palette-and-rationale, implementation-and-monaco-bridge}
 - endo-but-for-bots--llm-designs-chat-high-contrast-mode--{scheme-extension-and-css-structure, scheme-picker-integration-and-followups}
 
-## Total: 480 sections from 110 source documents (through 2026-05-15).
+### From Mark S. Miller papers: Capability Myths Demolished (cycle 63 — **first external paper ingest**)
+
+- papers--miller-capability-myths-demolished-2003--{abstract-and-introduction, equivalence-myth, confinement-myth, irrevocability-myth, four-models-and-seven-properties, advantages-pola-confused-deputy}
+
+## Total: 486 sections from 111 source documents (through 2026-05-15).

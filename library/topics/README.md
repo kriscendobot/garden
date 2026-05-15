@@ -18,6 +18,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 18 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 90 |
 | [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 118 |
+| [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 6 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 25 |
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 49 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 42 |

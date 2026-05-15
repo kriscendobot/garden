@@ -262,3 +262,80 @@ SpaceConfig fragmentation | space
 `proposedName` | space
 `ownedPersona` | space
 `lastChannelPetName` | space
+
+## Capability theory (Miller-Yee-Shapiro 2003)
+
+object capability | object-capability
+object-capability | object-capability
+object-capability model | object-capability
+ocap | object-capability
+OCAP | object-capability
+pure capability | object-capability
+true capability model | object-capability
+Model 4 | object-capability
+Model 3 | object-capability
+Model 2 | object-capability
+Model 1 | object-capability
+capabilities as keys | (see section: papers--miller-capability-myths-demolished-2003--four-models-and-seven-properties)
+capabilities as rows | (see section: papers--miller-capability-myths-demolished-2003--equivalence-myth)
+capabilities-as-keys | (see section: papers--miller-capability-myths-demolished-2003--four-models-and-seven-properties)
+capabilities-as-rows | (see section: papers--miller-capability-myths-demolished-2003--equivalence-myth)
+ACLs as columns | (see section: papers--miller-capability-myths-demolished-2003--equivalence-myth)
+ACL system | (see section: papers--miller-capability-myths-demolished-2003--equivalence-myth)
+access control list | (see section: papers--miller-capability-myths-demolished-2003--equivalence-myth)
+access matrix | (see section: papers--miller-capability-myths-demolished-2003--equivalence-myth)
+Lampson access matrix | (see section: papers--miller-capability-myths-demolished-2003--equivalence-myth)
+Equivalence Myth | (see section: papers--miller-capability-myths-demolished-2003--equivalence-myth)
+Confinement Myth | (see section: papers--miller-capability-myths-demolished-2003--confinement-myth)
+Irrevocability Myth | (see section: papers--miller-capability-myths-demolished-2003--irrevocability-myth)
+Delegation Myth | (see section: papers--miller-capability-myths-demolished-2003--four-models-and-seven-properties)
+No Designation Without Authority | object-capability
+Property A | object-capability
+Dynamic Subject Creation | object-capability
+Property B | object-capability
+Subject-Aggregated Authority Management | object-capability
+Property C | object-capability
+No Ambient Authority | object-capability
+Property D | object-capability
+Composability of Authorities | object-capability
+Property E | object-capability
+Access-Controlled Delegation Channels | object-capability
+Property F | object-capability
+Dynamic Resource Creation | object-capability
+Property G | object-capability
+ambient authority | object-capability
+no ambient authority | object-capability
+principle of least privilege | (see section: papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy)
+principle of least authority | (see section: papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy)
+POLA | (see section: papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy)
+least privilege | (see section: papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy)
+confused deputy | (see section: papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy)
+confused deputy problem | (see section: papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy)
+unconfusable deputy | (see section: papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy)
+chain of designation | (see section: papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy)
+forwarder revoker | caretaker-pattern
+forwarder/revoker | caretaker-pattern
+forwarding facet | caretaker-pattern
+revoking facet | caretaker-pattern
+facet | caretaker-pattern
+Redell 1974 | caretaker-pattern
+KeyKOS | (see section: papers--miller-capability-myths-demolished-2003--four-models-and-seven-properties)
+EROS | (see section: papers--miller-capability-myths-demolished-2003--four-models-and-seven-properties)
+KeyKOS factories | (see section: papers--miller-capability-myths-demolished-2003--confinement-myth)
+Boebert | (see section: papers--miller-capability-myths-demolished-2003--confinement-myth)
+*-Property | (see section: papers--miller-capability-myths-demolished-2003--confinement-myth)
+star property | (see section: papers--miller-capability-myths-demolished-2003--confinement-myth)
+Simple Security Property | (see section: papers--miller-capability-myths-demolished-2003--confinement-myth)
+POSIX capabilities | (see section: papers--miller-capability-myths-demolished-2003--four-models-and-seven-properties)
+SPKI | (see section: papers--miller-capability-myths-demolished-2003--four-models-and-seven-properties)
+password capability | (see section: papers--miller-capability-myths-demolished-2003--confinement-myth)
+Amoeba | (see section: papers--miller-capability-myths-demolished-2003--confinement-myth)
+Saltzer Schroeder | (see section: papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy)
+Saltzer & Schroeder | (see section: papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy)
+Hardy confused deputy | (see section: papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy)
+Capability Myths Demolished | (see source: papers--miller-capability-myths-demolished-2003)
+Miller Yee Shapiro | (see source: papers--miller-capability-myths-demolished-2003)
+Mark Miller | (see source: papers--miller-capability-myths-demolished-2003)
+Ka-Ping Yee | (see source: papers--miller-capability-myths-demolished-2003)
+Jonathan Shapiro | (see source: papers--miller-capability-myths-demolished-2003)
+SRL2003-02 | (see source: papers--miller-capability-myths-demolished-2003)

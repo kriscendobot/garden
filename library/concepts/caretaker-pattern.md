@@ -28,6 +28,8 @@ loses its effect.
 
 | Section | One-line summary |
 |---|---|
+| [papers/capmyths/irrevocability-myth](../sections/papers--miller-capability-myths-demolished-2003--irrevocability-myth.md) | **Origin citation.** The forwarder/revoker construction is the caretaker pattern's upstream form; first described by Redell 1974; the paper formalizes it and traces the lineage through KeyKOS / EROS. *Forwarding facet* and *revoking facet* — the paper's coinages — are the source of Endo's *facet* vocabulary. |
+| [papers/capmyths/four-models-and-seven-properties](../sections/papers--miller-capability-myths-demolished-2003--four-models-and-seven-properties.md) | Property E (Composability of Authorities) is what the pattern needs to work. |
 | [dcp/verification-and-handle-extensions](../sections/endo-but-for-bots--llm-designs-dcp--verification-and-handle-extensions.md) | Handle / HandleControl as the canonical Endo example: delegate gets Handle (receive + verify-as-policy-allows), principal gets HandleControl (set policy, revoke). |
 | [dcp/ai-delegates-connectors-and-anti-impersonation](../sections/endo-but-for-bots--llm-designs-dcp--ai-delegates-connectors-and-anti-impersonation.md) | The identity / action facet split for connectors: delegate has the action facet (send messages), connector / daemon has the control facet (credentials, profile editing). |
 | [dp/acyclic-formula-graph-and-revocation](../sections/endo--designs-dp--acyclic-formula-graph-and-revocation.md) | Names the caretaker as one of three pre-existing revocation mechanisms (alongside revocation lists and expiry) — the comparison table that *contrasts* caretakers with revocation-by-withdrawal lives here. |
@@ -37,3 +39,4 @@ loses its effect.
 
 - [[delegates-and-epithets]] — the model that uses the caretaker pattern to give the principal verification-policy control without the delegate's cooperation.
 - [[revocation-by-withdrawal]] — caretakers contrast with revocation-by-withdrawal: caretakers must remain alive to enforce; withdrawal-of-constructor does not.
+- [[object-capability]] — the model whose Property E (Composability) makes the caretaker pattern even possible.
