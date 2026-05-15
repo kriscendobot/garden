@@ -30,6 +30,7 @@ Bootstrapped from the daemon design cluster and the structural principles in `co
 - [object-capability](object-capability.md) — the "true" capability model per Miller-Yee-Shapiro 2003: Model 4 holding all seven security properties (A–G).
 - [pass-invariant-handle-equality](pass-invariant-handle-equality.md) — connector guarantee: same backing identity → same formula identifier.
 - [per-agent-keypair](per-agent-keypair.md) — `@keypair`, `KeypairFormula`, agent identity as a formula.
+- [promise-pipelining](promise-pipelining.md) — `E(E(x).foo()).bar()` over the wire collapses to one round-trip; emerges from `applyMethod`'s reduction into `get` + `applyFunction` plus CapTP's answer-slot reference (added cycle 66 by the handled-promise.js longform-comment ingest).
 - [permits-buckets](permits-buckets.md) — SES's three-bucket framework for vetted-shim placement: `universal` / `initial` / `shared` global property names.
 - [producer-typed-shape-consumer-rendering](producer-typed-shape-consumer-rendering.md) — daemon-wide convention: typed values from producers, rendering from consumers.
 - [retention-accumulator](retention-accumulator.md) — microtask-coalesced retention-delta batching primitive.

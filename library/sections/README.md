@@ -440,4 +440,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 - papers--miller-tribble-shapiro-concurrency-among-strangers-2005--{abstract-and-introduction, why-not-shared-state-concurrency, vat-and-event-loop-model, defensive-correctness-and-pola}
 - Deferred (to next paper cycle): promise-pipelining, partial-failure-and-when-catch, history-and-related-work.
 
-## Total: 494 sections from 113 source documents (through 2026-05-15).
+### From endo packages/eventual-send/src/handled-promise.js longform comments (cycle 66, **first comment-fragment ingest**)
+
+- endo--packages-eventual-send-src-handled-promise-js--{forwarding-forest-union-find, safe-vs-passable-promise, operation-reduction-and-sendonly}
+
+## Total: 497 sections from 114 source documents (through 2026-05-15).

@@ -26,6 +26,7 @@ The Endo daemon is a Model 4 system. The library's `capability-security` topic c
 | [papers/capmyths/advantages-pola-confused-deputy](../sections/papers--miller-capability-myths-demolished-2003--advantages-pola-confused-deputy.md) | The closing terminology argument: "the 'true' capability model is the object-capability model." |
 | [endo--readme--core-concepts](../sections/endo--readme--core-concepts.md) | Endo-side definition of capability + object + reference (the practitioner's vocabulary). |
 | [endo--docs-security--overview](../sections/endo--docs-security--overview.md) | Endo's framing of capability discipline at the security-doc level. |
+| [endo--packages-eventual-send-src-handled-promise-js--safe-vs-passable-promise](../sections/endo--packages-eventual-send-src-handled-promise-js--safe-vs-passable-promise.md) | Boundary enforcement at the eventual-send shim: an untrusted promise `p` could attack the shim via `p.then`; the `isSafePromise` predicate guards. The residual reentrancy gap (the predicate itself reads `p`'s properties) is a JS-standard limitation Endo cannot close locally — a worked example of where the object-capability model meets the limits of the host language. |
 
 ## See also
 

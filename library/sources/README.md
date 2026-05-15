@@ -4,6 +4,14 @@ Per-source-document inventory. Each row points to a `<source-slug>.md` file that
 
 The pilot batch (2026-05-13) covers three endo top-level / docs-level files. The rest of the endo corpus (~70 substantive markdown files: top-level, `docs/`, per-package READMEs, per-package `docs/` and `doc/` directories) is queued for future ingestion batches; the index will grow as those are filed.
 
+## External code-comment fragments
+
+Longform comments distilled from upstream source files. Each row captures the `source_kind: comment-fragment` schema introduced 2026-05-15 by `entries/2026/05/15/205458Z-message-liaison-0460cf.md`: a specific line range in a specific file, anchored to a path-specific commit sha for idempotency, with a `comment_subject` that names the cohesive argument cluster the comment makes. Sections sit under the source file the same way they do for repo and paper sources.
+
+| Source | Repo | File | Line range | Subject | Sections | Status |
+|--------|------|------|------------|---------|----------|--------|
+| [handled-promise.js handler protocol](endo--packages-eventual-send-src-handled-promise-js--handler-protocol.md) | endojs/endo | packages/eventual-send/src/handled-promise.js | 44-389 | Handler protocol for HandledPromise: forwarding-graph as union-find forest with path-splitting, safe vs passable promises, SendOnly / applyMethod reductions | 3 | current (file-commit `ec42cb7b`; first comment-fragment ingest, cycle 66) |
+
 ## External papers
 
 | Source | Authors | Year | Venue | Sections | Status |

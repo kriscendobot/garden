@@ -330,6 +330,94 @@ The Read tool accepts `pages: "<range>"`. Maximum 20 pages per call. For ~15-20 
 
 Papers are denser than design docs. The recommended pacing is **one paper per cycle** (4-6 sections plus the source-file + topic + concept-page + keyword writes), not 3-5 like for repo sources. Continue chat-cluster / repo ingest in parallel cycles; a reasonable cadence is to alternate paper-cycle, chat-cycle, paper-cycle until either backlog drains.
 
+## Sources from longform comments
+
+Starting 2026-05-15, the library absorbs longform in-code comments out of repository source files as a third source kind alongside repo documents and external papers. The first such ingest is `packages/eventual-send/src/handled-promise.js`'s comment cluster covering the forwarding-forest, isSafePromise, and `dispatchToHandler` reductions. This section documents the schema, the slug convention, and the idempotency anchor that comment fragments use, which differ from repo doc-file sources because the relevant material is one comment block (or a small cluster) inside a larger source file rather than the whole file.
+
+### What counts as a longform comment
+
+- A JSDoc block (`/** ... */`) that goes substantially beyond type annotations: multiple paragraphs of prose, not just `@param`/`@returns` lines. Rule of thumb: ≥25 lines of comment with ≥3 paragraphs of prose, or ≥40 lines total.
+- A bare-block comment (`/* ... */`) of similar length explaining a non-obvious mechanism, an invariant, or a design decision.
+- Runs of `// ...` lines ≥8 consecutive lines explaining one cohesive idea.
+- A file-level header comment that spans ≥20 lines of prose explaining the file's reason-for-existing.
+
+Skip pure type-annotation JSDoc, copyright headers, and trivial `// XXX fixme` notes; those carry no library value.
+
+### Slug pattern
+
+```
+<owner>--<path-dashed-no-extension>--<subject-dashed>
+```
+
+The `<path-dashed-no-extension>` is the full repo-relative path with `/` flattened to `-` and the file extension dropped. The `<subject-dashed>` is a short kebab-case description of the cohesive argument the comment makes. Avoid line numbers in the slug; line numbers shift, subjects do not. Examples:
+
+- `endo--packages-eventual-send-src-handled-promise-js--handler-protocol` (source-file slug for the comment cluster as a whole).
+- `endo--packages-eventual-send-src-handled-promise-js--forwarding-forest-union-find` (one section under that source, for the forwarding-graph argument).
+- `endo--packages-marshal-src-encodetosmallcaps-js--smallcaps-rationale` (queued as a likely second pick).
+
+The new slug convention diverges from the older `endo--pkg-<short>-...` shortening that existed for repo doc-file sources (e.g., `endo--pkg-eventual-send-readme`). The comment-fragment corpus uses the full path-dashed form per the inbox message `entries/2026/05/15/205458Z-message-liaison-0460cf.md`; new repo doc-file ingests are not retroactively renamed.
+
+### Source-file frontmatter (comment-fragment schema)
+
+Repo doc-file sources use `source_repo` / `source_path` / `source_commit`. Comment-fragment sources extend that schema with a line range and a subject line:
+
+```yaml
+---
+source_kind: comment-fragment           # the discriminant: comment-fragment vs repo vs paper
+source_repo: endojs/endo
+source_path: packages/eventual-send/src/handled-promise.js
+source_line_range: "44-389"             # the range *as of the recorded source_commit*; document this is a snapshot, not a live cursor
+source_commit: <full sha>               # file-path-specific sha: `git --git-dir=worktrees/<owner>-<repo>.git log -1 --format=%H master -- <path>`
+comment_subject: <one-line description of the cohesive argument cluster the comment makes>
+source_authors: [<name>, ...]           # primary authors of the source FILE (git log over the file)
+ingested: <YYYY-MM-DD>
+ingested_by: <role>
+section_count: <integer>
+status: current
+---
+```
+
+### Section-file frontmatter (comment-fragment schema)
+
+Sections under a comment-fragment source inherit the schema and add their own `source_line_range` for the *specific* lines the section covers (which is often a sub-range of the source-file's range):
+
+```yaml
+---
+title: <section heading>
+source: <repo-relative source path>
+source_kind: comment-fragment
+source_repo: endojs/endo
+source_path: <repo-relative source path>
+source_line_range: "67-111"             # the lines covered by THIS section
+source_commit: <full sha>
+comment_subject: <one-line description>
+ingested: <YYYY-MM-DD>
+ingested_by: <role>
+topics: [<topic-slug>, ...]
+status: current
+---
+```
+
+### Idempotency anchor
+
+`source_commit` (file-path-specific sha, identical to repo doc-file ingests) is the anchor. The freshness check on later cycles compares the recorded `source_commit` to the current `git --git-dir=worktrees/<owner>-<repo>.git log -1 --format=%H master -- <path>`. If they differ, the scholar must verify the comment still exists in roughly the same shape: line ranges may have shifted, but the comment subject should still match. If the comment was rewritten substantively, re-ingest as new section files with `supersedes:` pointing at the prior section. If it was just moved, update `source_line_range` (this is the second permitted in-place edit on a section file, alongside the `status` flip).
+
+### Section granularity
+
+A single longform comment often deserves multiple section files: each cohesive argument cluster (a "subject" in the comment) is its own section. The source file's *Sections* table lists them the same way papers and repo doc-files do. Section count per comment-fragment source is typically 2-4; large comment clusters (e.g., a long file-header explaining a multi-stage algorithm) can yield more.
+
+### Translation block convention
+
+Comment-fragment sections occasionally include a brief `## Translation` table when the comment's idiom diverges from a reader's likely vocabulary (e.g., the shim-author's "operation reduction" vs the handler-implementer's "method call"). The convention is the same as the paper-source translation block: not exhaustive, just the terms the section actually uses.
+
+### Per-cycle pacing
+
+Comment fragments are denser per byte than design docs but typically shorter per *source* than papers. The recommended pacing is **one source file per cycle** (yielding 2-4 sections), not the 3-5 of repo doc-file ingest or the 1 of paper ingest. The three-lane round-robin (chat-cluster → external papers → comment fragments → chat-cluster → ...) accommodates this density: each cycle picks from the next lane.
+
+### Notice/investigate/propose discipline
+
+If a longform comment makes a claim the surrounding code does not honor (drift between comment and code), the scholar should *notice* during ingest, investigate against the rest of the codebase, and if a real divergence is found draft a boatman missive proposing whichever direction is right (update the comment to match the code, or update the code to match the comment). Comment-vs-code drift is one of the highest-payoff upstream-contribution classes for this corpus, since the maintainer values comment accuracy.
+
 ## Concepts and the keyword index
 
 A third indexing axis exists next to `sources/` (by provenance) and `topics/` (by broad subject taxonomy): the **keyword index** (`keywords.md`) and the **concept directory** (`concepts/<id>.md`). The keyword index is a grep-friendly map from a domain term or phrase (a code symbol, a proper name, a domain phrase) to a concept-id; each concept page is a short lookup target containing a one-paragraph definition + a table of section files that touch the concept (with one-line summaries) + a `See also` list of adjacent concepts.
