@@ -42,17 +42,18 @@ A landing that grows past one screen probably wants to split (e.g. `designer-pro
 
 ## Current inventory (seed, 2026-05-15)
 
-- [designer-protocol](designer-protocol.md) — protocol engineering: OCapN, CapTP, daemon retention/persistence wire formats, formula identifiers. *(proof-of-concept; awaiting gardener-side role-multiplexing for the rest of the specialist designer roles.)*
+The three densest-coverage specialist designer landings exist as seeds; the gardener-side role-multiplexing is queued separately (see the cycle's missive at `entries/2026/05/15/005759Z-message-liaison-c7c53c.md`):
 
-## Pending: specialist designer roles
+- [designer-protocol](designer-protocol.md) — protocol engineering: OCapN, CapTP, daemon retention/persistence wire formats, formula identifiers.
+- [designer-security](designer-security.md) — capability-security and policy engineering: revocation discipline, allowlist mechanisms, threat models, identity claims. Citing the densest topic in the library (`capability-security`, 117 sections).
+- [designer-exo-captp-api](designer-exo-captp-api.md) — Exo class design, interface guards, CapTP API surface. Citing the mature topics `exo`, `eventual-send`, `captp`, `marshal`, `pass-style`.
 
-The maintainer proposed (2026-05-15) multiplexing the generic `designer` role into specialist sub-roles, each with its own landing:
+## Pending: thinner-coverage specialists
 
-- `designer-frontend` (web UI engineering)
-- `designer-security` (capability-security policy + threat modelling)
-- `designer-exo-captp-api` (Exo/CapTP API surface design)
-- `designer-protocol` (OCapN / CapTP / daemon wire formats — **landed this cycle**)
-- `designer-language` (language and DSL design)
-- `designer-ux` (color, accessibility, interaction)
+The maintainer's proposal (2026-05-15) included three more specialists whose library coverage is currently thin; their landings will be seeded as ingestion fills out the relevant topics:
+
+- `designer-frontend` (web UI engineering) — will draw from the chat-ui topic (currently 2 sections, ~20 chat designs in backlog).
+- `designer-language` (language and DSL design) — will draw from `hardened-javascript`, `compartments`, `pass-style`, and the SES shim cluster.
+- `designer-ux` (color theory, accessibility, interaction) — will draw from the chat-ui topic and chat-related designs as they ingest. Color theory / accessibility material is essentially absent from the library today.
 
 The role-multiplexing on the gardener side is queued as a separate missive; landings will follow as the specialist roles are defined.
