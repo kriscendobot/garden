@@ -205,7 +205,7 @@ author: liaison, gardener
 
 PRs synced + green on `endo-but-for-bots`'s master-base; ready for the maintainer to ferry upstream from another session (kriskowal-identity push required, not available from `endolinbot`).
 
-- **[#244](https://github.com/endojs/endo-but-for-bots/pull/244) — `chore(eslint-plugin): require underscore-delimited groups in numeric literals`** (master-base mirror of #243). Rebased on `endo-upstream/master`, lint reflow applied. Head `746beaf4`. **CI 28/28 SUCCESS.** Per fixer [`023204Z-result-fixer-67022f.md`](entries/2026/05/15/023204Z-result-fixer-67022f.md).
+- **[#244](https://github.com/endojs/endo-but-for-bots/pull/244) — `chore(eslint-plugin): require underscore-delimited groups in numeric literals`** (master-base mirror of #243, now synced with upstream [#3263](https://github.com/endojs/endo/pull/3263)). Reverse-ferry from upstream completed; bot-side reset to upstream's commit boundaries. Head `b583f9259`. CI converging. Per fixer [`024619Z-result-fixer-e72e0c.md`](entries/2026/05/15/024619Z-result-fixer-e72e0c.md). (Earlier green-state at `746beaf4` was the pre-reverse-ferry head; the maintainer's upstream edits are now absorbed.)
 - **#75, #109, #253** — pre-ferry pushes landed; CI still converging. Rows promoted into this section as they reach fully-green.
 
 ### Awaits maintainer review
