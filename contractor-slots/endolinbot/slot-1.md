@@ -3,20 +3,28 @@ slot: 1
 status: in-flight
 design_path: designs/familiar-run-apps-vfs.md
 pr_number: 241
-current_stage: judge
-in_flight_dispatch: 60d499
-last_update: 2026-05-15T02:11:00Z
+current_stage: fixer
+in_flight_dispatch: b8e551
+last_update: 2026-05-15T02:21:00Z
 started_at: 2026-05-15T02:11:00Z
 host: endolinbot
 ---
 
-Adopted PR #241 (design familiar-run-apps-vfs.md) on first contractor cycle.
-The PR is design-only on `llm`, has no panel verdict yet, CI is green (4/4),
-and no maintainer review has landed. Next-stage-owed is judge (design panel)
-per `skills/pr-creation-flow/SKILL.md` § The next-stage-owed heuristic step 7
-(design-only variant: skip cleaner and dispatch judge directly).
+Slot 1 advancing from judge to fixer. Judge `60d499` returned at 02:18Z
+with a design-panel verdict of `--comment` (self-authored fallback) and
+three in-scope must-fix items plus fifteen should-fix items. PR remains
+draft; un-draft authority withheld pending a terminating panel round.
 
-The judge picks the five-seat design panel per `roles/judge/AGENT.md`
-§ Panel-kind discrimination since every changed path is under `designs/`.
+Must-fix items (full body on PR #241 as review `PRR_kwDORRE4FM7__WW7`):
 
-Dispatch root: `dispatches/judge--60d499`.
+1. `## Purpose` paragraph 1 restructure (split 165-word run-on; move
+   sub-case detail into `## Case 1`).
+2. Introduce load-bearing terms (`endor`, `XS worker`, `cap-std`,
+   `formula`, `Lal caplet`) in Glossary / Vocabulary before first use.
+3. Resolve no-lockfile-determinism contradiction.
+
+Next-stage-owed: fixer to address the must-fix and should-fix items in
+one revision pass. After the fixer's commits land, a re-convened design
+panel verifies; on a terminating round the judge runs `gh pr ready 241`.
+
+Dispatch root: `dispatches/fixer--b8e551`.
