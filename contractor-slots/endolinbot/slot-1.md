@@ -1,18 +1,14 @@
 ---
 slot: 1
-status: in-flight
+status: empty
 design_path: null
-pr_number: 244
-current_stage: judge
-in_flight_dispatch: a16488
-last_update: 2026-05-15T20:00:00Z
-started_at: 2026-05-15T19:35:00Z
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-15T20:05:30Z
+started_at: null
 host: endolinbot
 ---
 
-Cleaner `94fd71` returned at 19:58Z with one coverage test commit
-(head `0739b4f8c`). `internal.js` now 100% covered. 28/28 CI green.
-
-Next-stage-owed: judge code panel (source-touching PR).
-
-Dispatch root: `dispatches/judge--a16488`.
+Slot 1 reset to empty after PR #244 un-drafted at 20:05Z. Terminal
+state archived to `history/2026-05-15-slot1-pr244.md`. Awaits refill.
