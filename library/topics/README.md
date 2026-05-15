@@ -8,8 +8,8 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 
 | Topic | Abstract | Sections |
 |-------|----------|----------|
-| [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 44 |
-| [chat-ui](chat-ui.md) | Familiar Chat — the web-based keyboard-first UI for the Endo daemon; UI invariants, principles, and component designs. | 20 |
+| [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 46 |
+| [chat-ui](chat-ui.md) | Familiar Chat — the web-based keyboard-first UI for the Endo daemon; UI invariants, principles, and component designs. | 25 |
 | [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 48 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 12 |
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 40 |
@@ -28,7 +28,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 50 |
 | [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 29 |
 | [async-flow](async-flow.md) | The `@agoric/async-flow` durable-replay async-function infrastructure; closed-function discipline. | 7 |
-| [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 32 |
+| [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 37 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 18 |
 | [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 64 |
 | [bundles](bundles.md) | Module bundling, Compartment module loading, bundle-source / compartment-mapper family. | 29 |

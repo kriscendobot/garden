@@ -422,4 +422,9 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-per-space-color-scheme--{scheme-values-and-css-application, scheme-picker-component, spaceconfig-extension-persistence-and-monaco}
 
-## Total: 475 sections from 108 source documents (through 2026-05-15).
+### From endo-but-for-bots/llm/designs chat-color-schemes + chat-high-contrast-mode (cycle 62)
+
+- endo-but-for-bots--llm-designs-chat-color-schemes--{motivation-and-current-state, dark-mode-palette-and-rationale, implementation-and-monaco-bridge}
+- endo-but-for-bots--llm-designs-chat-high-contrast-mode--{scheme-extension-and-css-structure, scheme-picker-integration-and-followups}
+
+## Total: 480 sections from 110 source documents (through 2026-05-15).

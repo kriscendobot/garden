@@ -228,3 +228,37 @@ TC39 Uint8Array to/from base64 | (see source: endo-but-for-bots--llm-designs-bas
 `%URLSearchParamsIteratorPrototype%` | throwaway-instance-prototype-walk
 upstream meta-tables | shape-not-content
 why it cannot collide | sentinel-with-rationale
+`ColorScheme` (typedef) | space
+high-contrast mode | space
+high-contrast-light | space
+high-contrast-dark | space
+`prefers-color-scheme` | space
+`prefers-contrast: more` | space
+`data-scheme` (attribute) | space
+`SCHEME_COLORS` | (see source: endo-but-for-bots--llm-designs-chat-high-contrast-mode)
+`validateSpaceConfig` | space
+`applyScheme` | space
+`HOME_SPACE_DEFAULTS` | space
+scheme picker | space
+`scheme-picker.js` | space
+endojs.org brand palette | (see source: endo-but-for-bots--llm-designs-chat-color-schemes)
+dual-selector CSS pattern | space
+brand-derived palette | (see source: endo-but-for-bots--llm-designs-chat-color-schemes)
+shadows-to-borders substitution | (see source: endo-but-for-bots--llm-designs-chat-high-contrast-mode)
+substitution of channel | (see source: endo-but-for-bots--llm-designs-chat-high-contrast-mode)
+combined media query | (see source: endo-but-for-bots--llm-designs-chat-high-contrast-mode)
+mechanical-refactor-then-feature | (see source: endo-but-for-bots--llm-designs-chat-color-schemes)
+scheme-aware tokens with intentional exceptions | (see source: endo-but-for-bots--llm-designs-chat-color-schemes)
+factor-out-the-orthogonal-axis | (see source: endo-but-for-bots--llm-designs-chat-high-contrast-mode)
+ship-with-acknowledged-gaps | (see source: endo-but-for-bots--llm-designs-chat-high-contrast-mode)
+Monaco iframe theme bridge | (see source: endo-but-for-bots--llm-designs-chat-color-schemes)
+`set-theme` postMessage | (see source: endo-but-for-bots--llm-designs-chat-color-schemes)
+SpaceConfig fragmentation | space
+`channelPetName` | space
+`viewMode` | space
+`channelOrder` | space
+`bookmarks` (SpaceConfig field) | space
+`whylipSystemPrompt` | space
+`proposedName` | space
+`ownedPersona` | space
+`lastChannelPetName` | space
