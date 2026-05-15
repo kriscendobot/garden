@@ -3,32 +3,28 @@ slot: 3
 status: in-flight
 design_path: designs/hardened-text-codecs-shim.md
 pr_number: 259
-current_stage: cleaner
-in_flight_dispatch: 06e7fc
-last_update: 2026-05-15T02:53:00Z
+current_stage: fixer
+in_flight_dispatch: ea1194
+last_update: 2026-05-15T03:21:00Z
 started_at: 2026-05-15T02:42:00Z
 host: endolinbot
 ---
 
-Builder `03b9cc` returned at 02:51Z with draft PR #259
-(`feat: hardened TextEncoder/TextDecoder shim`, base master, head `fc2aa8d3c`).
-14 new tests, regression evidence verified (stash-permits → 7 fail → restore
-→ 12 green), full `packages/ses` suite 515/515 (2 pre-existing unrelated
-known failures). Changeset `.changeset/hardened-text-codecs.md` (ses: minor).
+Cleaner `06e7fc` returned at 03:18Z. Coverage added 4 tests (18 total),
+full SES suite 519 passes (2 known pre-existing failures, 2 skipped).
+New head `6e5b50d98`.
 
-Phase 3 (downstream `Buffer.from` / `.toString('utf...')` audit) deferred per
-the design body and named in the PR's *Out of scope* section.
+**Real CI failure surfaced**: `browser-tests` (Chromium Playwright canary)
+errors with `TypeError: Cannot delete property 'arguments' of function
+TextEncoder() { [native code] }` from `packages/ses/src/cauterize-property.js`'s
+`delete obj[prop]`. The failure reproduces on the prior builder head too,
+so it is introduced by the PR's permits-table change (not infra red).
 
-Next-stage-owed per `skills/pr-creation-flow/SKILL.md` § The next-stage-owed
-heuristic step 7: cleaner (substantive source PR; not a tiny-PR variant).
-Estate-wide cleaner cap check: no other cleaner in flight (slot 2 is mid-fixer).
-OK to dispatch.
+Cleaner explicitly recommended a fixer-before-judge dispatch. Per
+`skills/pr-creation-flow/SKILL.md` § Cleaner placement: "watch CI converge
+to green ... or only documented pre-existing infra red". The Chromium
+failure is neither, so the chain pauses here.
 
-Procedure note: `dispatch-prepare.sh` could not find the brand-new
-`feat/hardened-text-codecs-shim` branch in the bare clone until I manually
-fetched it as `refs/heads/...:refs/heads/...`. This is a second
-dispatch-prep gap (the first was the stale-head pattern); a future liaison
-turn that lands either gap-fix in `dispatch-prepare.sh` will eliminate the
-manual workaround from the contractor's flow.
-
-Dispatch root: `dispatches/cleaner--06e7fc`.
+Dispatch root: `dispatches/fixer--ea1194`. Brief: extend
+`cauterizeProperty`'s tolerate-undeletable escape hatch to handle Chromium's
+native function `arguments` own property.
