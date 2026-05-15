@@ -3,23 +3,25 @@ slot: 1
 status: in-flight
 design_path: designs/ocapn-noise-session-reconnect.md
 pr_number: 252
-current_stage: weaver
-in_flight_dispatch: 924a59
-last_update: 2026-05-15T03:19:00Z
+current_stage: fixer
+in_flight_dispatch: c26ee2
+last_update: 2026-05-15T03:44:00Z
 started_at: 2026-05-15T03:10:00Z
 host: endolinbot
 ---
 
-Judge `30e396` returned at 03:16Z with the initial design-panel verdict
-on #252. Verdict: `--comment` (self-authored fallback). 1 must-fix
-cluster (§4 Resumption handshake combining 3 sub-issues), 9 should-fix,
-5 out-of-scope.
+Weaver `924a59` returned at 03:23Z with a successful rebase onto
+`llm@ddbc8ad7e` (new head `d58a075be`). PR MERGEABLE.
 
-Critical: judge noted PR is CONFLICTING against llm. Per
-`skills/pr-creation-flow/SKILL.md` § The next-stage-owed heuristic step 1,
-weaver is owed before the fixer.
+Advancing to fixer for the 1 must-fix cluster + 9 should-fix items from
+the design panel verdict (judge `30e396` at 03:16Z).
 
-Dispatched weaver `924a59` to rebase first. Next cycle dispatches fixer
-on the rebased head with the must-fix and should-fix items inline.
+Must-fix cluster (§4 Resumption handshake):
+- AEAD-inconsistent "cleartext but MAC'd" phrasing.
+- Procedural-text vs Mermaid-diagram mismatch on `RESUME-ACK`.
+- Duplicated nonce-advance formula.
 
-Dispatch root: `dispatches/weaver--924a59`.
+Stale-prep applies: worktree at `5cadc3b42`, current head `d58a075be`.
+Fixer fetches FETCH_HEAD first.
+
+Dispatch root: `dispatches/fixer--c26ee2`.
