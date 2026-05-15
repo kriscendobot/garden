@@ -402,4 +402,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-components--{file-structure-and-component-map, inventory-and-messages, profile-system-and-error-handling, css-variables-and-security}
 
-## Total: 461 sections from 103 source documents (through 2026-05-15).
+### From endo-but-for-bots/llm/designs chat-spaces-gutter (cycle 56)
+
+- endo-but-for-bots--llm-designs-chat-spaces-gutter--{motivation-and-architecture, space-model-and-persistence, interactions-keyboard-and-future}
+
+## Total: 464 sections from 104 source documents (through 2026-05-15).

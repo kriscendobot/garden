@@ -56,6 +56,16 @@ path chip | token-chip
 removable chip | token-chip
 token autocomplete | token-chip
 slash command | (see source: endo-but-for-bots--llm-designs-chat-invariants)
+chat spaces gutter | (see source: endo-but-for-bots--llm-designs-chat-spaces-gutter)
+space (chat) | (see source: endo-but-for-bots--llm-designs-chat-spaces-gutter)
+spaces gutter | (see source: endo-but-for-bots--llm-designs-chat-spaces-gutter)
+`SpaceConfig` | (see section: endo-but-for-bots--llm-designs-chat-spaces-gutter--space-model-and-persistence)
+`createSpacesGutter` | (see section: endo-but-for-bots--llm-designs-chat-spaces-gutter--interactions-keyboard-and-future)
+client-side convention over a complete daemon API | (see section: endo-but-for-bots--llm-designs-chat-spaces-gutter--motivation-and-architecture)
+typed namespace over untyped pet-store | (see section: endo-but-for-bots--llm-designs-chat-spaces-gutter--space-model-and-persistence)
+Cmd+1..9 | (see section: endo-but-for-bots--llm-designs-chat-spaces-gutter--interactions-keyboard-and-future)
+multi-agent context switching | (see source: endo-but-for-bots--llm-designs-chat-spaces-gutter)
+profilePath | (see section: endo-but-for-bots--llm-designs-chat-spaces-gutter--space-model-and-persistence)
 control facet vs action facet | caretaker-pattern
 delegate | delegates-and-epithets
 delegates | delegates-and-epithets
