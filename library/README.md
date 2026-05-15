@@ -22,6 +22,9 @@ library/
   concepts/         one short page per lookup-unit concept
     README.md       seed inventory + how-to
     <id>.md         per-concept page: definition + section table + see-also
+  roles/            one landing page per specialist role
+    README.md       landing-page discipline + current inventory
+    <role>.md       per-role landing: curated topics/concepts/sources/conventions for that specialist
   sections/         one file per ingested section
     README.md       flat index of all section files (sorted by source-slug)
     <source>--<section>.md
@@ -29,13 +32,14 @@ library/
 
 ## How to find something
 
-Three indexing axes, picked by what you have in hand:
+Four indexing axes, picked by what you have in hand:
 
 - **Specific term in mind** (a code symbol, a proper name, a domain phrase) — use the `garden/skills/library-lookup/SKILL.md` skill. It grep-resolves the term in `keywords.md`, walks to the right `concepts/<id>.md`, opens the relevant section files, and *indexes on the fly* so the next reader's search succeeds where yours did not.
 - **Broad subject** (capability-security, daemon, hardened-javascript) — start at `topics/README.md`, scan the topic abstracts, follow the matching topic page.
 - **Provenance** ("what did upstream doc X say") — start at `sources/README.md`.
+- **A specialist role you're dispatched as** (designer-protocol, designer-security, builder, etc.) — start at `roles/<your-role>.md` for a curated landing of the topics, concepts, sources, and conventions most relevant to your discipline.
 
-All three axes converge on the same section files; the index is the difference.
+All four axes converge on the same section files; the index is the difference. The first three are *content-organized* (by topic / source / term); the fourth is *reader-organized* (by who's reading).
 
 ## How to ingest
 
@@ -51,6 +55,7 @@ Read [`conventions.md`](conventions.md) before adding section files. The convent
 - [Keywords](keywords.md): grep-friendly map from a term to a concept-id.
 - [Concepts](concepts/README.md): per-concept lookup pages with section tables.
 - [Topics](topics/README.md): broad-subject taxonomy.
+- [Roles](roles/README.md): per-specialist-role landing pages, reader-organized.
 - [Sources](sources/README.md): source-document-keyed inventory.
 - [Sections](sections/README.md): flat index of every ingested section.
 
