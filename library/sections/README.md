@@ -431,4 +431,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - papers--miller-capability-myths-demolished-2003--{abstract-and-introduction, equivalence-myth, confinement-myth, irrevocability-myth, four-models-and-seven-properties, advantages-pola-confused-deputy}
 
-## Total: 486 sections from 111 source documents (through 2026-05-15).
+### From endo-but-for-bots/llm/designs chat-markdown-render (cycle 64)
+
+- endo-but-for-bots--llm-designs-chat-markdown-render--{motivation-and-gap-analysis, delimiter-realignment-and-flanking-rules, package-extraction-and-typed-ast, render-mode-toggle-and-phased-rollout}
+
+## Total: 490 sections from 112 source documents (through 2026-05-15).
