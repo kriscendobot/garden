@@ -206,7 +206,8 @@ author: liaison, gardener
 PRs synced + green on `endo-but-for-bots`'s master-base; ready for the maintainer to ferry upstream from another session (kriskowal-identity push required, not available from `endolinbot`).
 
 - **[#244](https://github.com/endojs/endo-but-for-bots/pull/244) — `chore(eslint-plugin): require underscore-delimited groups in numeric literals`** (master-base mirror of #243, now synced with upstream [#3263](https://github.com/endojs/endo/pull/3263)). Reverse-ferry from upstream completed; bot-side reset to upstream's commit boundaries. Head `b583f9259`. CI converging. Per fixer [`024619Z-result-fixer-e72e0c.md`](entries/2026/05/15/024619Z-result-fixer-e72e0c.md). (Earlier green-state at `746beaf4` was the pre-reverse-ferry head; the maintainer's upstream edits are now absorbed.)
-- **#75, #109, #253** — pre-ferry pushes landed; CI still converging. Rows promoted into this section as they reach fully-green.
+- **[#109](https://github.com/endojs/endo-but-for-bots/pull/109) — `feat(syrup-frame): syrup-frame package and opt-in framing for OCapN TCP-for-testing`**. Rebase on upstream master was a no-op (already atop `0ec70c6dd`); yarn.lock regenerated and amended into the third commit preserving the three-commit shape. Head `cfa440f2c`. **CI 28/28 SUCCESS** including `test-ocapn-guile-interop`. Per fixer [`024654Z-result-fixer-a80ce6.md`](entries/2026/05/15/024654Z-result-fixer-a80ce6.md). Note: a concurrent boatman dispatch from the maintainer's side is already in flight per the fixer's observation.
+- **#75, #253** — pre-ferry pushes landed; CI still converging. Rows promoted into this section as they reach fully-green.
 
 ### Awaits maintainer review
 
