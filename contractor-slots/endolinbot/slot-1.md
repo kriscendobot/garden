@@ -1,14 +1,19 @@
 ---
 slot: 1
-status: empty
-design_path: null
-pr_number: null
-current_stage: null
-in_flight_dispatch: null
-last_update: 2026-05-15T05:34:30Z
-started_at: null
+status: in-flight
+design_path: designs/endopen-comparative-analysis.md
+pr_number: 266
+current_stage: judge
+in_flight_dispatch: 46449e
+last_update: 2026-05-15T05:36:00Z
+started_at: 2026-05-15T05:36:00Z
 host: endolinbot
 ---
 
-Slot 1 reset to empty after PR #265 un-drafted at 05:34Z. Terminal
-state archived to `history/2026-05-15-slot1-pr265.md`. Awaits refill.
+Slot 1 refilled with fresh draft PR #266 (`design: opencode comparative
+analysis + gap-closing raft (endopen)`). Sibling design to just-shipped
+#265 (pi-harness comparative analysis). Design-only on `llm`.
+
+Dispatch judge for the 5-seat design panel.
+
+Dispatch root: `dispatches/judge--46449e` (head ~`7424956fd`).
