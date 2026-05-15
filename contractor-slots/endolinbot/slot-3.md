@@ -3,28 +3,24 @@ slot: 3
 status: in-flight
 design_path: designs/hardened-text-codecs-shim.md
 pr_number: 259
-current_stage: fixer
-in_flight_dispatch: ea1194
-last_update: 2026-05-15T03:21:00Z
+current_stage: judge
+in_flight_dispatch: 3fcacf
+last_update: 2026-05-15T03:55:00Z
 started_at: 2026-05-15T02:42:00Z
 host: endolinbot
 ---
 
-Cleaner `06e7fc` returned at 03:18Z. Coverage added 4 tests (18 total),
-full SES suite 519 passes (2 known pre-existing failures, 2 skipped).
-New head `6e5b50d98`.
+Fixer `ea1194` returned at 03:33Z with the Chromium browser-tests fix
+(`cauterizeProperty` extended to handle non-configurable `arguments` /
+`caller` on native function intrinsics). New head `b2a3657fc`. 26/26
+CI green, including `browser-tests`.
 
-**Real CI failure surfaced**: `browser-tests` (Chromium Playwright canary)
-errors with `TypeError: Cannot delete property 'arguments' of function
-TextEncoder() { [native code] }` from `packages/ses/src/cauterize-property.js`'s
-`delete obj[prop]`. The failure reproduces on the prior builder head too,
-so it is introduced by the PR's permits-table change (not infra red).
+Slot 3 advances to **judge** for the initial code panel (this is a
+source-touching PR; the cleaner already ran). Code panel discrimination:
+PR's file list includes source code (`packages/ses/src/permits.js`,
+`packages/ses/src/cauterize-property.js`) plus tests + changeset.
+Twelve-seat panel applies, plus `@copilot` request alongside.
 
-Cleaner explicitly recommended a fixer-before-judge dispatch. Per
-`skills/pr-creation-flow/SKILL.md` § Cleaner placement: "watch CI converge
-to green ... or only documented pre-existing infra red". The Chromium
-failure is neither, so the chain pauses here.
+Stale-prep applies: worktree at `fc2aa8d3c`, judge fetches FETCH_HEAD.
 
-Dispatch root: `dispatches/fixer--ea1194`. Brief: extend
-`cauterizeProperty`'s tolerate-undeletable escape hatch to handle Chromium's
-native function `arguments` own property.
+Dispatch root: `dispatches/judge--3fcacf`.
