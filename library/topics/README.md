@@ -18,9 +18,9 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 18 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 90 |
 | [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 120 |
-| [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies, eventual-send / vat / promise-pipelining lineage. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 10 |
+| [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies, eventual-send / vat / promise-pipelining lineage. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 12 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 26 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 55 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 56 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 43 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 74 |
 | [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 50 |

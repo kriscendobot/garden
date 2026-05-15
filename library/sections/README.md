@@ -435,13 +435,14 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-markdown-render--{motivation-and-gap-analysis, delimiter-realignment-and-flanking-rules, package-extraction-and-typed-ast, render-mode-toggle-and-phased-rollout}
 
-### From Mark S. Miller papers: Concurrency Among Strangers (cycle 65, **partial — 4 of 7 sections**)
+### From Mark S. Miller papers: Concurrency Among Strangers (cycles 65 + 67; 6 of 7 sections)
 
-- papers--miller-tribble-shapiro-concurrency-among-strangers-2005--{abstract-and-introduction, why-not-shared-state-concurrency, vat-and-event-loop-model, defensive-correctness-and-pola}
-- Deferred (to next paper cycle): promise-pipelining, partial-failure-and-when-catch, history-and-related-work.
+- Cycle 65 (4 sections): papers--miller-tribble-shapiro-concurrency-among-strangers-2005--{abstract-and-introduction, why-not-shared-state-concurrency, vat-and-event-loop-model, defensive-correctness-and-pola}
+- Cycle 67 (2 sections): papers--miller-tribble-shapiro-concurrency-among-strangers-2005--{promise-pipelining, history-and-related-work}
+- Still deferred: papers--miller-tribble-shapiro-concurrency-among-strangers-2005--partial-failure-and-when-catch — two consecutive content-filter blocks (cycles 65 and 67) on subagent dispatches synthesizing the §9 redirector / when-catch / Three-Vat composition vocabulary. Recommended mitigation: dispatch a narrowly-scoped subagent with no summary-report turn, or have the orchestrator draft directly from the PDF.
 
 ### From endo packages/eventual-send/src/handled-promise.js longform comments (cycle 66, **first comment-fragment ingest**)
 
 - endo--packages-eventual-send-src-handled-promise-js--{forwarding-forest-union-find, safe-vs-passable-promise, operation-reduction-and-sendonly}
 
-## Total: 497 sections from 114 source documents (through 2026-05-15).
+## Total: 499 sections from 114 source documents (through 2026-05-15).
