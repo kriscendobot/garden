@@ -27,6 +27,17 @@ assistant to Alice | delegates-and-epithets
 caretaker | caretaker-pattern
 caretaker pattern | caretaker-pattern
 connector identity guarantee | pass-invariant-handle-equality
+chat invariants | (see source: endo-but-for-bots--llm-designs-chat-invariants)
+chat principles | (see source: endo-but-for-bots--llm-designs-chat-invariants)
+Familiar Chat | (see source: endo-but-for-bots--llm-designs-chat-invariants)
+keyboard-manual parity | (see section: endo-but-for-bots--llm-designs-chat-invariants--overview-and-six-invariants)
+modeline completeness | (see section: endo-but-for-bots--llm-designs-chat-invariants--overview-and-six-invariants)
+progressive disclosure | (see section: endo-but-for-bots--llm-designs-chat-invariants--principles)
+escape consistency | (see section: endo-but-for-bots--llm-designs-chat-invariants--overview-and-six-invariants)
+autocomplete list navigation | (see section: endo-but-for-bots--llm-designs-chat-invariants--overview-and-six-invariants)
+platform-appropriate modifier keys | (see section: endo-but-for-bots--llm-designs-chat-invariants--principles)
+token chip | (see section: endo-but-for-bots--llm-designs-chat-invariants--principles)
+slash command | (see source: endo-but-for-bots--llm-designs-chat-invariants)
 control facet vs action facet | caretaker-pattern
 delegate | delegates-and-epithets
 delegates | delegates-and-epithets

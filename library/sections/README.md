@@ -394,4 +394,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-b64nf--{problem-and-detection-strategy, module-layout-and-option-mapping, error-semantics-and-test-strategy, decisions-rollout-and-known-gaps}
 
-## Total: 455 sections from 101 source documents (through 2026-05-14).
+### From endo-but-for-bots/llm/designs chat-invariants (cycle 54)
+
+- endo-but-for-bots--llm-designs-chat-invariants--{overview-and-six-invariants, principles}
+
+## Total: 457 sections from 102 source documents (through 2026-05-15).
