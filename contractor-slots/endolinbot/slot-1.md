@@ -1,20 +1,14 @@
 ---
 slot: 1
-status: in-flight
-design_path: designs/ocapn-noise-session-reconnect.md
-pr_number: 252
-current_stage: judge
-in_flight_dispatch: daa330
-last_update: 2026-05-15T03:55:00Z
-started_at: 2026-05-15T03:10:00Z
+status: empty
+design_path: null
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-15T03:43:30Z
+started_at: null
 host: endolinbot
 ---
 
-Fixer `c26ee2` returned at 03:38Z with 10 commits addressing the
-1 must-fix cluster (§4 Resumption handshake, 3 sub-issues collapsed)
-and all 9 should-fix items. CI 4/4 green on `94ad5162a`. Top-level
-summary posted (no inline comments existed for thread replies).
-
-Stale-prep applies; judge fetches FETCH_HEAD to align to `94ad5162a`.
-
-Dispatch root: `dispatches/judge--daa330`.
+Slot 1 reset to empty after PR #252 un-drafted at 03:43Z. Terminal
+state archived to `history/2026-05-15-slot1-pr252.md`. Awaits refill.
