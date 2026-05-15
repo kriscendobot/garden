@@ -24,9 +24,12 @@ plaintext on disk, protected by filesystem permissions.
 | [d256/identifier-migration-and-crypto-powers](../sections/endo-but-for-bots--llm-designs-d256--identifier-migration-and-crypto-powers.md) | The narrow `CryptoPowers` interface (`makeSha256`, `randomHex256`, `generateEd25519Keypair`); separated-power discipline. |
 | [dani/per-agent-networks-and-nets](../sections/endo-but-for-bots--llm-designs-dani--per-agent-networks-and-nets.md) | The `NETS` companion: per-agent network identity (who-can-reach-me) pairs with per-agent keypair (cryptographic identity). |
 | [dani/network-registration](../sections/endo-but-for-bots--llm-designs-dani--network-registration.md) | `EndoNetwork.registerAgentKey(publicKey, agentId)` — installed networks must know agent public keys to route inbound connections. |
+| [dcp/handle-agent-foundation-and-the-gap](../sections/endo-but-for-bots--llm-designs-dcp--handle-agent-foundation-and-the-gap.md) | The `handle` formula type links back to its owning agent (`{type: 'handle', agent: agentId}`); the Handle / Agent / keypair triangle is the prerequisite for the delegate model. |
+| [dcp/verification-and-handle-extensions](../sections/endo-but-for-bots--llm-designs-dcp--verification-and-handle-extensions.md) | Cross-OCapN verification requires the verifier to reach the principal's Handle — explicitly interacts with the per-agent keypair work as a follow-on. |
 
 ## See also
 
 - [[local-node-sentinel]] — internal storage uses `LOCAL_NODE` instead of any specific agent's key; externalization stamps the agent key on outbound locators.
 - [[formula-graph]] — keypair formulas are just one of the 26 formula types in the graph.
 - [[revocation-by-withdrawal]] — revoking an agent's identity is revoking its keypair formula.
+- [[delegates-and-epithets]] — the principal/delegate identity model builds on per-agent keypairs as the cryptographic substrate.

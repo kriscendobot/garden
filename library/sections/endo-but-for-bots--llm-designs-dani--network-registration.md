@@ -91,3 +91,9 @@ It is also blocked on
 [[endo-but-for-bots--llm-designs-dani--per-agent-networks-and-nets]]
 because the *agents to register keys for* are discovered via the
 agent's NETS membership, not via a daemon-wide registry.
+
+## See also
+
+- [[per-agent-keypair]] — the cryptographic substrate this registration interface routes against.
+- [[delegates-and-epithets]] — agents that need network registration are precisely the agents that may carry epithets and present verifiable identity claims.
+- [[caretaker-pattern]] — `registerAgentKey` is *additive* on the `EndoNetwork` interface; networks without multi-key support ignore the calls — the same backward-compatible-extension shape as `dlt`'s method-additions discipline.

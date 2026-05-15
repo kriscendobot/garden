@@ -165,3 +165,10 @@ relies on this: each agent's `@keypair` public key is what its
 *externalized* locators use to stamp the peer-key field, while
 internal storage uses `LOCAL_NODE` regardless of which agent created
 the formula.
+
+## See also
+
+- [[per-agent-keypair]] — concept page collecting all sections that touch this idea.
+- [[delegates-and-epithets]] — the principal/delegate identity model built on per-agent keypairs.
+- [[revocation-by-withdrawal]] — revoking an agent is revoking its `keypair` formula.
+- [[formula-graph]] — keypair formulas are one of the 26 formula types.

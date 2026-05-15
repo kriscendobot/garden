@@ -89,3 +89,9 @@ recurs across the daemon — see also the formula-key/peer-key split in
 [[endo-but-for-bots--llm-designs-dlt--terminology-rename]] and the
 peer-mirror/local-set asymmetry in
 [[endo-but-for-bots--llm-designs-dcpg--retention-set-model]].
+
+## See also
+
+- [[local-node-sentinel]] — concept page collecting all sections that touch this sentinel + its `0.0.0.0`-of-Ed25519 framing.
+- [[sentinel-with-rationale]] — the broader pattern this is the canonical instance of.
+- [[per-agent-keypair]] — the `@keypair`-per-agent design that creates the multiplicity LOCAL_NODE resolves.

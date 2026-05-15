@@ -46,4 +46,8 @@ notes: The "structural refactoring, no security properties change" claim is the 
 - Daemon's `loopback-network` formula and peer connection logic will need to adapt to the new registration API.
 - Any external consumers of `@endo/ocapn` will need to update their netlayer registrations.
 
+## See also
+
+- [[syrup-record-positionality]] — important nuance on the design's "Syrup wire-format field-name change" claim. JS field names in `makeOcapnRecordCodecFromDefinition` are *positional bindings*, not on-the-wire. Renaming `transport` → `network` is therefore source-only and wire-compatible *provided* field order, value type, and consumer call sites are updated in lockstep. Cross-implementation coordination may still be warranted, but on grounds of API hygiene (matching the OCapN spec's vocabulary) rather than wire compat per se.
+
 Source: [designs/ocapn-network-transport-separation.md](https://github.com/endojs/endo-but-for-bots/blob/0ee0cbb3c7639985c971c30c2fb6f32e1944d55b/designs/ocapn-network-transport-separation.md) at commit `0ee0cbb3` on branch `llm`.

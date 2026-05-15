@@ -30,6 +30,8 @@ loses its effect.
 |---|---|
 | [dcp/verification-and-handle-extensions](../sections/endo-but-for-bots--llm-designs-dcp--verification-and-handle-extensions.md) | Handle / HandleControl as the canonical Endo example: delegate gets Handle (receive + verify-as-policy-allows), principal gets HandleControl (set policy, revoke). |
 | [dcp/ai-delegates-connectors-and-anti-impersonation](../sections/endo-but-for-bots--llm-designs-dcp--ai-delegates-connectors-and-anti-impersonation.md) | The identity / action facet split for connectors: delegate has the action facet (send messages), connector / daemon has the control facet (credentials, profile editing). |
+| [dp/acyclic-formula-graph-and-revocation](../sections/endo--designs-dp--acyclic-formula-graph-and-revocation.md) | Names the caretaker as one of three pre-existing revocation mechanisms (alongside revocation lists and expiry) — the comparison table that *contrasts* caretakers with revocation-by-withdrawal lives here. |
+| [dp/six-aspects-of-sharing-and-related-work](../sections/endo--designs-dp--six-aspects-of-sharing-and-related-work.md) | Same caretaker-as-existing-mechanism framing in the Karp/Stiegler/Close revocable-aspect treatment. |
 
 ## See also
 

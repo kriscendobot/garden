@@ -47,6 +47,9 @@ formulas in the JSON formula store, not in a separate SQLite table.
 | [dp/acyclic-formula-graph-and-revocation](../sections/endo--designs-dp--acyclic-formula-graph-and-revocation.md) | Acyclic + locally reference-counted properties; permitted cycles among co-formula groups; the formula graph as the *floor* from which heap-bloat is recovered. |
 | [dcpg/persistence-and-graph](../sections/endo-but-for-bots--llm-designs-dcpg--persistence-and-graph.md) | `formulaGraph.retentionEdges` map + the SQLite shadow + the three-clause local GC reachability test (the third clause is the peer-set). |
 | [d256/formula-types-and-security](../sections/endo-but-for-bots--llm-designs-d256--formula-types-and-security.md) | The 26 formula types that populate the graph: `directory`, `endo`, `eval`, `guest`, `handle`, `host`, `invitation`, `keypair`, etc. |
+| [d256/identifier-migration-and-crypto-powers](../sections/endo-but-for-bots--llm-designs-d256--identifier-migration-and-crypto-powers.md) | Storage path format `<statePath>/formulas/<head(2)>/<tail(62)>.json` — the on-disk shape of the JSON formula store, sharded by leading hex chars. |
+| [d256/per-agent-keypairs](../sections/endo-but-for-bots--llm-designs-d256--per-agent-keypairs.md) | Keypair lifecycle follows formula lifecycle (deleting the formula deletes the keys) — no new persistence layer needed; agent identities are formulas in this graph. |
+| [dlt/dehydration-and-hydration](../sections/endo-but-for-bots--llm-designs-dlt--dehydration-and-hydration.md) | Pet stores hold formula keys (formula-graph identifiers), not locators; ephemeral hints live separately. The boundary at which the graph's identifiers leave/enter the daemon's address space. |
 
 ## See also
 
