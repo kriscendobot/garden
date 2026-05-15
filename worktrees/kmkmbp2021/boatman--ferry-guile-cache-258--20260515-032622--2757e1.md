@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-guile-cache-258--20260515-032
 repo: endojs/endo
 branch: master
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-15T03:26:22Z
-last_heartbeat: 2026-05-15T03:26:31Z
+last_heartbeat: 2026-05-15T03:31:33Z
 task: "First-time ferry of endojs/endo-but-for-bots#258 (Guix store cache; iteration III on top of merged iteration II) to a new DRAFT PR on endojs/endo"
 prs:
   - repo: endojs/endo-but-for-bots
@@ -15,11 +15,13 @@ prs:
     role: source
     title: "ci(ocapn-guile-interop): cache the Guix runtime store across runs (iteration III)"
   - repo: endojs/endo
-    pr: null
+    pr: 3264
     role: target
-    title: null
+    title: "ci(ocapn-guile-interop): cache the Guix runtime store across runs"
 ---
 
-Per-dispatch worktree triple for the first-time ferry of #258 (iteration III on top of merged iteration II = #3262). Liaison defaulted to DRAFT upstream (no user ask either way; matches the iteration-II ferry pattern).
+Per-dispatch worktree triple for the first-time ferry of #258 (iteration III on top of merged iteration II = #3262). Liaison defaulted to DRAFT upstream.
 
-Identity authorization staged per the standing pattern (`identity_switch_authorized: true`). Only one new commit on the bot side (`5b38857d`); cherry-pick on top of current `origin/master`.
+Outcome: upstream PR `endojs/endo#3264` opened as DRAFT on branch `kriskowal-ocapn-guile-interop-cache-store` at head `9f1ac2ddc`. Single commit, `Kris Kowal <kris@cixar.com>`. Full reports at `../../entries/2026/05/15/033302Z-result-liaison-2757e1.md` and `../../entries/2026/05/15/033133Z-result-boatman-8651d3.md`.
+
+Torn down via `skills/dispatch-worktree/dispatch-teardown.sh`.
