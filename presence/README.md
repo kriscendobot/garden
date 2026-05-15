@@ -46,5 +46,6 @@ The staleness threshold is the consumer's standing rule, not a per-session knob.
 ## Per-role tenants
 
 - **understudy**: `presence/<host>/understudy.md`. The steward reads this file each cycle; see `roles/understudy/AGENT.md` § Presence file and `roles/steward/AGENT.md` § Understudy presence and shunting.
+- **general-contractor**: `presence/<host>/general-contractor.md`. No autonomous consumer as of authoring date; the file is the maintainer's signal (and any liaison session asking "is a contractor running on this host") that the four-day contractor adoption is live. See `roles/general-contractor/AGENT.md` § Presence file for the producer-side discipline.
 
 Other roles may join the index as their presence becomes consumer-relevant. New tenants add a row here and document the producer-side and consumer-side rules on the respective role files.
