@@ -1,14 +1,18 @@
 ---
 slot: 1
-status: empty
+status: in-flight
 design_path: null
-pr_number: null
-current_stage: null
-in_flight_dispatch: null
-last_update: 2026-05-15T20:15:30Z
-started_at: null
+pr_number: 254
+current_stage: judge
+in_flight_dispatch: 3bfec6
+last_update: 2026-05-15T22:05:00Z
+started_at: 2026-05-15T22:05:00Z
 host: endolinbot
 ---
 
-Slot 1 reset to empty after PR #250 un-drafted at 20:15Z. Terminal
-state archived to `history/2026-05-15-slot1-pr250.md`. Awaits refill.
+Slot 1 refilled with stale draft PR #254 (`design(cli): tracking PR for
+designs/cli-store-verb-text-modes.md`). Tiny PR: 1 file
+(`packages/cli/README.md`). MERGEABLE, 4/4 CI green. Direct judge
+dispatch (code panel — README isn't a design path; tiny-PR variant).
+
+Dispatch root: `dispatches/judge--3bfec6` (head ~`658e63835`).
