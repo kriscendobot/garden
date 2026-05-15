@@ -6,7 +6,7 @@ source_branch: llm
 source_commit: 1d1a0bc78f0ed1b7cbabdbb4551c795276af21fe
 source_date: 2026-05-06
 source_authors: [Kris Kowal, Kriscendo Bot]
-topics: [chat-ui, patterns]
+topics: [chat-ui]
 status: current
 notes: |
   Four decisions the design names explicitly. Decision 4 (the chip

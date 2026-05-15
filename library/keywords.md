@@ -438,3 +438,32 @@ round-trip elimination | promise-pipelining
 answer slot | promise-pipelining
 `<desc:answer>` | promise-pipelining
 pipelined message send | promise-pipelining
+
+## Chat edit-message UI (chat-edit-message-ui, cycle 68)
+
+`editMessage` | (see source: endo-but-for-bots--llm-designs-chat-edit-message-ui)
+`messageHistory` | (see source: endo-but-for-bots--llm-designs-chat-edit-message-ui)
+edit message | (see source: endo-but-for-bots--llm-designs-chat-edit-message-ui)
+edit affordance | (see source: endo-but-for-bots--llm-designs-chat-edit-message-ui)
+chat edit | (see source: endo-but-for-bots--llm-designs-chat-edit-message-ui)
+/edit | (see source: endo-but-for-bots--llm-designs-chat-edit-message-ui)
+`/edit` | (see source: endo-but-for-bots--llm-designs-chat-edit-message-ui)
+edit slash command | (see source: endo-but-for-bots--llm-designs-chat-edit-message-ui)
+e shortcut | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--problem-and-authority)
+hover pencil | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--problem-and-authority)
+pencil button | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--problem-and-authority)
+sender-only edit authority | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--problem-and-authority)
+revision panel | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--in-flight-and-revision-history)
+revision history | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--in-flight-and-revision-history)
+edited caption | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--in-flight-and-revision-history)
+edited timestamp | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--in-flight-and-revision-history)
+edit in flight | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--in-flight-and-revision-history)
+racing edits | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--in-flight-and-revision-history)
+last edit wins | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--in-flight-and-revision-history)
+saving affordance | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--in-flight-and-revision-history)
+chip carries locator | token-chip
+locator-bearing chip | token-chip
+chat parity gap | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--design-decisions)
+proposed name | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--design-decisions)
+indefinite edit window | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--design-decisions)
+pre-populate from model | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--design-decisions)

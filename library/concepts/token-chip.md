@@ -41,6 +41,8 @@ receiving side.
 | [chat-components/file-structure-and-component-map](../sections/endo-but-for-bots--llm-designs-chat-components--file-structure-and-component-map.md) | `token-autocomplete.js` + `petname-path-autocomplete.js` + `petname-paths-autocomplete.js` form the autocomplete-component family that produces chips. |
 | [chat-markdown-render/package-extraction-and-typed-ast](../sections/endo-but-for-bots--llm-designs-chat-markdown-render--package-extraction-and-typed-ast.md) | The Private-Use-Area placeholder character (``) marks a chip slot in the source text *before* the parser runs. `@endo/markmdown` classifies the rune as regular non-whitespace non-punctuation so the chip mechanism composes with the parser; `@endo/chat` post-processes the rendered DOM to swap placeholders for `md-chip-slot` spans. |
 | [chat-markdown-render/delimiter-realignment-and-flanking-rules](../sections/endo-but-for-bots--llm-designs-chat-markdown-render--delimiter-realignment-and-flanking-rules.md) | The placeholder-as-regular-character classification means `**@alice**` bolds a chip without breaking the flanking rules; users can use any emphasis around chips. |
+| [chat-edit-message-ui/design-decisions](../sections/endo-but-for-bots--llm-designs-chat-edit-message-ui--design-decisions.md) | Decision 4 extends the chip's *identity is the chip, not the name* rule to edit-mode: when an embedded token in the original body refers to a pet name since renamed or removed, the edit form renders the chip carrying the underlying locator/identifier, not the stale pet name. An edit operation that re-rendered chips from pet names alone would silently rewrite the *capability* the message references. |
+| [chat-edit-message-ui/problem-and-authority](../sections/endo-but-for-bots--llm-designs-chat-edit-message-ui--problem-and-authority.md) | The edit form's body field reuses `send-form.js`; embedded `@petName` tokens work exactly as in a fresh send, producing chips through the existing autocomplete mechanism. The pre-populated body carries chips for any embedded references the original message carried. |
 
 ## See also
 
@@ -59,7 +61,11 @@ receiving side.
 
 Concept added cycle 55.5 at maintainer request, after token-chip
 appeared as a distinct affordance in two chat sources (chat-invariants
-and chat-components). Subsequent chat-design ingests are likely to
-extend the concept — particularly `chat-edit-message-ui.md` (chip
-behaviors in editable messages) and `chat-spaces-gutter.md` (whether
-the spaces gutter uses chip-like affordances or a different surface).
+and chat-components). Cycle 68 (chat-edit-message-ui) extended the
+concept's *identity is the chip, not the name* rule to the edit-mode
+form: when a pet name has drifted (renamed or removed) since the
+message was sent, the chip carries the underlying locator and not
+the stale name, so the capability survives the edit. The same source's
+sibling section (problem-and-authority) confirms that the edit form
+reuses `send-form.js`'s autocomplete, so chips compose with edit-mode
+exactly as in fresh-send mode.

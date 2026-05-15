@@ -445,4 +445,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-eventual-send-src-handled-promise-js--{forwarding-forest-union-find, safe-vs-passable-promise, operation-reduction-and-sendonly}
 
-## Total: 499 sections from 114 source documents (through 2026-05-15).
+### From endo-but-for-bots/llm/designs chat-edit-message-ui (cycle 68)
+
+- endo-but-for-bots--llm-designs-chat-edit-message-ui--{problem-and-authority, in-flight-and-revision-history, design-decisions, open-questions}
+
+## Total: 503 sections from 115 source documents (through 2026-05-15).
