@@ -3,28 +3,24 @@ slot: 1
 status: in-flight
 design_path: designs/familiar-run-apps-vfs.md
 pr_number: 241
-current_stage: fixer
-in_flight_dispatch: b8e551
-last_update: 2026-05-15T02:21:00Z
+current_stage: judge
+in_flight_dispatch: 14e5ac
+last_update: 2026-05-15T02:38:00Z
 started_at: 2026-05-15T02:11:00Z
 host: endolinbot
 ---
 
-Slot 1 advancing from judge to fixer. Judge `60d499` returned at 02:18Z
-with a design-panel verdict of `--comment` (self-authored fallback) and
-three in-scope must-fix items plus fifteen should-fix items. PR remains
-draft; un-draft authority withheld pending a terminating panel round.
+Fixer `b8e551` returned at 02:36Z with all 3 must-fix and all 15 should-fix
+items addressed across 9 commits (new head `2d187d912`); CI 4/4 green
+(browser-tests, build, lint, test). Out-of-scope 6 deferred per the panel's
+classification.
 
-Must-fix items (full body on PR #241 as review `PRR_kwDORRE4FM7__WW7`):
+Next-stage-owed per `skills/pr-creation-flow/SKILL.md` § Jury-fixer loop:
+judge re-dispatch to verify the fixer's address-pass against the new head.
+If the verification round terminates with no in-scope must-fix, the judge
+un-drafts (`gh pr ready 241`).
 
-1. `## Purpose` paragraph 1 restructure (split 165-word run-on; move
-   sub-case detail into `## Case 1`).
-2. Introduce load-bearing terms (`endor`, `XS worker`, `cap-std`,
-   `formula`, `Lal caplet`) in Glossary / Vocabulary before first use.
-3. Resolve no-lockfile-determinism contradiction.
+Stale-prep applies again: dispatch worktree is at `973053849`, not the
+current PR head `2d187d912`. The judge fetches and checks out FETCH_HEAD first.
 
-Next-stage-owed: fixer to address the must-fix and should-fix items in
-one revision pass. After the fixer's commits land, a re-convened design
-panel verifies; on a terminating round the judge runs `gh pr ready 241`.
-
-Dispatch root: `dispatches/fixer--b8e551`.
+Dispatch root: `dispatches/judge--14e5ac`.
