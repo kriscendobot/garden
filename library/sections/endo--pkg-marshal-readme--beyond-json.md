@@ -36,4 +36,9 @@ console.log(m2.toCapData(NaN));
 ```
 
 
+## See also
+
+- [`endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme`](endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme.md) — the implementation-side rationale for the prefix scheme this README section introduces; why the reserved-character range is contiguous and what the byte-savings vs capdata are quantitatively.
+- [[smallcaps-encoding]] — the concept page for the wire format.
+
 Source: [packages/marshal/README.md](https://github.com/endojs/endo/blob/70bcca3d4ba93e92221a9188f583126ca84e4e4d/packages/marshal/README.md) at commit `70bcca3d`.

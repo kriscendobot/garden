@@ -467,3 +467,49 @@ chat parity gap | (see section: endo-but-for-bots--llm-designs-chat-edit-message
 proposed name | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--design-decisions)
 indefinite edit window | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--design-decisions)
 pre-populate from model | (see section: endo-but-for-bots--llm-designs-chat-edit-message-ui--design-decisions)
+
+## Smallcaps encoding (encodeToSmallcaps.js, cycle 69)
+
+smallcaps | smallcaps-encoding
+Smallcaps | smallcaps-encoding
+smallcaps encoding | smallcaps-encoding
+Smallcaps Encoding | smallcaps-encoding
+smallcaps wire format | smallcaps-encoding
+smallcaps prefix scheme | smallcaps-encoding
+smallcaps special characters | smallcaps-encoding
+smallcaps cheatsheet | smallcaps-encoding
+`encodeToSmallcaps` | smallcaps-encoding
+`decodeFromSmallcaps` | smallcaps-encoding
+`makeEncodeToSmallcaps` | smallcaps-encoding
+`makeDecodeFromSmallcaps` | smallcaps-encoding
+`startsSpecial` | (see section: endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme)
+BANG to DASH range | smallcaps-encoding
+reserved characters | smallcaps-encoding
+sigil character | smallcaps-encoding
+capdata | smallcaps-encoding
+`@qclass` | smallcaps-encoding
+qclass | smallcaps-encoding
+manifest constant | smallcaps-encoding
+`#undefined` | smallcaps-encoding
+`#NaN` | smallcaps-encoding
+`#Infinity` | smallcaps-encoding
+`#-Infinity` | smallcaps-encoding
+`#tag` | smallcaps-encoding
+`#error` | smallcaps-encoding
+Hilbert hotel | (see section: endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme)
+Hilbert hotel string escape | (see section: endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme)
+canonical encoding | (see section: endo--packages-marshal-src-encodetosmallcaps-js--canonical-encoding-invariants)
+canonical smallcaps encoding | (see section: endo--packages-marshal-src-encodetosmallcaps-js--canonical-encoding-invariants)
+copyRecord key sort | (see section: endo--packages-marshal-src-encodetosmallcaps-js--canonical-encoding-invariants)
+canonical-JSON | (see section: endo--packages-marshal-src-encodetosmallcaps-js--canonical-encoding-invariants)
+JCS canonical JSON | (see section: endo--packages-marshal-src-encodetosmallcaps-js--canonical-encoding-invariants)
+error-encoding root special case | (see section: endo--packages-marshal-src-encodetosmallcaps-js--error-encoding-root-special-case)
+`isErrorLike` | (see section: endo--packages-marshal-src-encodetosmallcaps-js--error-encoding-root-special-case)
+`encodeErrorToSmallcaps` | (see section: endo--packages-marshal-src-encodetosmallcaps-js--error-encoding-root-special-case)
+diagnostic-information priority | (see section: endo--packages-marshal-src-encodetosmallcaps-js--error-encoding-root-special-case)
+pass-by-copy | (see source: endo--pkg-marshal-readme)
+pass-by-presence | (see source: endo--pkg-marshal-readme)
+jsonable | (see section: endo--pkg-marshal-readme--alternative-to-json)
+JSON-representable | smallcaps-encoding
+SmallcapsEncoding | smallcaps-encoding
+tagged record | (see section: endo--pkg-pass-style-readme--maketagged)

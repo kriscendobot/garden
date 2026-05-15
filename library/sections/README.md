@@ -449,4 +449,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-edit-message-ui--{problem-and-authority, in-flight-and-revision-history, design-decisions, open-questions}
 
-## Total: 503 sections from 115 source documents (through 2026-05-15).
+### From endo packages/marshal/src/encodeToSmallcaps.js longform comments (cycle 69, **second comment-fragment ingest**)
+
+- endo--packages-marshal-src-encodetosmallcaps-js--{special-character-prefix-scheme, canonical-encoding-invariants, error-encoding-root-special-case}
+
+## Total: 506 sections from 116 source documents (through 2026-05-15).

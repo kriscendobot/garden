@@ -24,6 +24,7 @@
 | [endo--pkg-eventual-send-readme--e-when](../sections/endo--pkg-eventual-send-readme--e-when.md) | endo packages/eventual-send/README.md | The eventual-send analog of .then: schedules onFulfilled/onRejected callbacks against a promise or local value, but does so in a future turn. |
 | [endo--pkg-ses-readme--usage-error-handling](../sections/endo--pkg-ses-readme--usage-error-handling.md) | endo packages/ses/README.md | Two error-handling sub-sections under Usage: Logging Errors describes how the tamed causal console interacts with thrown errors; Controlling Module-Loading Errors covers Compartment-level error policies for failed module resolution. |
 | [ocapn--draft-specifications-model--error](../sections/ocapn--draft-specifications-model--error.md) | upstream protocol draft-specifications/Model.md | OCapN Error: an error value sent by copy. |
+| [endo--packages-marshal-src-encodetosmallcaps-js--error-encoding-root-special-case](../sections/endo--packages-marshal-src-encodetosmallcaps-js--error-encoding-root-special-case.md) | endo packages/marshal/src/encodeToSmallcaps.js (longform comment) | Why smallcaps pulls error-like values out of the recursion at the root: the diagnostic-information-over-validation prioritization rule that lets the encoder report whatever an error carries even when the input error is not a valid Passable. |
 
 ## See also
 

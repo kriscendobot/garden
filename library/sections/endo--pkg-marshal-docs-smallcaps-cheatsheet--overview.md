@@ -53,4 +53,11 @@ If a value `v` round-trips through `JSON.parse(JSON.stringify(v))` and contains 
 
 In other words, for these simple values, ***you can ignore the differences between smallcaps and JSON***.
 
+## See also
+
+- [`endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme`](endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme.md) — the rationale for the contiguous reserved-character range `!`-`-` that this cheatsheet's table records as fixed sigil assignments; covers why the range is contiguous (sort-order preservation through the Hilbert hotel) and which characters are reserved-but-unassigned.
+- [`endo--packages-marshal-src-encodetosmallcaps-js--canonical-encoding-invariants`](endo--packages-marshal-src-encodetosmallcaps-js--canonical-encoding-invariants.md) — the rationale for the *keys sorted* note on the copyRecord row; why semantically-equal passables must produce byte-equal smallcaps.
+- [`endo--packages-marshal-src-encodetosmallcaps-js--error-encoding-root-special-case`](endo--packages-marshal-src-encodetosmallcaps-js--error-encoding-root-special-case.md) — why error encoding has a special root-level path; the cheatsheet's error row hides this asymmetry.
+- [[smallcaps-encoding]] — the concept page for the wire format.
+
 Source: [packages/marshal/docs/smallcaps-cheatsheet.md](https://github.com/endojs/endo/blob/b024b06c7b80/packages/marshal/docs/smallcaps-cheatsheet.md) at commit `b024b06c`.

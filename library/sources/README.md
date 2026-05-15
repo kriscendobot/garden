@@ -11,6 +11,7 @@ Longform comments distilled from upstream source files. Each row captures the `s
 | Source | Repo | File | Line range | Subject | Sections | Status |
 |--------|------|------|------------|---------|----------|--------|
 | [handled-promise.js handler protocol](endo--packages-eventual-send-src-handled-promise-js--handler-protocol.md) | endojs/endo | packages/eventual-send/src/handled-promise.js | 44-389 | Handler protocol for HandledPromise: forwarding-graph as union-find forest with path-splitting, safe vs passable promises, SendOnly / applyMethod reductions | 3 | current (file-commit `ec42cb7b`; first comment-fragment ingest, cycle 66) |
+| [encodeToSmallcaps.js smallcaps wire-format rationale](endo--packages-marshal-src-encodetosmallcaps-js.md) | endojs/endo | packages/marshal/src/encodeToSmallcaps.js | 34-293 | Smallcaps wire-format rationale: the reserved special-character prefix scheme (BANG-to-DASH range), the canonical-encoding invariants (copyRecord key sorting, canonical-JSON TODO), and the diagnostic-priority error-encoding root special case | 3 | current (file-commit `e56bf00f`; second comment-fragment ingest, cycle 69) |
 
 ## External papers
 

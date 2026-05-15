@@ -40,6 +40,7 @@ Bootstrapped from the daemon design cluster and the structural principles in `co
 - [space](space.md) — Familiar Chat's bookmark into the daemon's capability graph; `SpaceConfig` shape, home (Space 0) vs user spaces, Cmd+N keyboard mapping.
 - [syrup-record-positionality](syrup-record-positionality.md) — Syrup record field names are positional bindings, not on-the-wire; renames are wire-compatible.
 - [six-aspects-of-sharing](six-aspects-of-sharing.md) — Karp/Stiegler/Close 6/7 taxonomy.
+- [smallcaps-encoding](smallcaps-encoding.md) — Marshal's JSON-representable wire format: contiguous reserved-character range (`!`-`-`), seven assigned sigils (`!` escape, `+`/`-` bigint, `#` manifest constant + tag-prop, `%` symbol, `$` remotable, `&` promise), canonical encoding via copyRecord key sort, diagnostic-priority error-encoding root special case; supersedes capdata's `@qclass` (added cycle 69 by the encodeToSmallcaps.js longform-comment ingest).
 - [throwaway-instance-prototype-walk](throwaway-instance-prototype-walk.md) — SES taming for return-value prototypes.
 - [token-chip](token-chip.md) — Familiar Chat's visual representation of a pet-name reference: styled `@`-prefix chip backed by a formula identifier; clickable, removable, autocompleted.
 

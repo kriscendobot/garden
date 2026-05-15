@@ -47,6 +47,8 @@
 | [ocapn--draft-specifications-model--pass-invariant](../sections/ocapn--draft-specifications-model--pass-invariant.md) | upstream protocol draft-specifications/Model.md | OCapN Pass Invariant: the round-trip-stability requirement for the wire format. |
 | [ocapn--draft-specifications-model--value-and-atom-frame](../sections/ocapn--draft-specifications-model--value-and-atom-frame.md) | upstream protocol draft-specifications/Model.md | The Value top-level definition and Atom sub-category framing. |
 | [ocapn--draft-specifications-notation--value-and-atoms](../sections/ocapn--draft-specifications-notation--value-and-atoms.md) | upstream protocol draft-specifications/Notation.md | How the spec writes each Value type. |
+| [endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme](../sections/endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme.md) | endo packages/marshal/src/encodeToSmallcaps.js (longform comment) | The contiguous reserved-character range (`!`-`-`, ASCII 33-45) and the seven assigned sigils that turn JSON strings into tagged values; each non-JSON-native pass style maps to one of the sigils. |
+| [endo--packages-marshal-src-encodetosmallcaps-js--canonical-encoding-invariants](../sections/endo--packages-marshal-src-encodetosmallcaps-js--canonical-encoding-invariants.md) | endo packages/marshal/src/encodeToSmallcaps.js (longform comment) | How smallcaps achieves canonical encoding: copyRecord property-name sort plus encoder-source-order object literals; depends on `copyRecord-guarantees` (string-keyed-only + frozen) being upstream-true. |
 
 ## See also
 
