@@ -236,7 +236,7 @@ The understudy reads the message, dispatches whichever subordinate role the clas
 
 ## Vocabulary: the gamut
 
-*The gamut* is shorthand for the PR-creation-flow chain end to end: builder → cleaner (or skipped on a tiny-PR or design-only variant) → judge (dispatches the twelve-seat code panel or the five-seat design panel per PR shape) → fixer-loop (the judge re-dispatches the same panel after each fixer round) → judge un-drafts. The procedure lives in `skills/pr-creation-flow/SKILL.md`; the vocabulary is the maintainer's framing for "the chain, from wherever it currently sits, until it terminates."
+*The gamut* is shorthand for the PR-creation-flow chain end to end: builder → cleaner (or skipped on a tiny-PR or design-only variant) → judge (dispatches the twelve-seat code panel or the seven-seat design panel per PR shape) → fixer-loop (the judge re-dispatches the same panel after each fixer round) → judge un-drafts. The procedure lives in `skills/pr-creation-flow/SKILL.md`; the vocabulary is the maintainer's framing for "the chain, from wherever it currently sits, until it terminates."
 
 The steward's per-cycle PR-creation-flow scan **is** the gamut in autonomous form: for each garden-authored draft PR on a monitored repo, the scan reads the next-stage-owed via `skills/pr-creation-flow/SKILL.md` § The next-stage-owed heuristic and dispatches that stage; subsequent cycles dispatch the subsequent stages. Running the gamut on the open set is the default per-cycle action whenever draft PRs exist.
 
