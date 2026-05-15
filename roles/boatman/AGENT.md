@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-14
+updated: 2026-05-15
 author: gardener, liaison
 ---
 
@@ -13,9 +13,8 @@ Assumes you have already read `roles/COMMON.md`.
 ## Skills
 
 - [journal-sync](../../skills/journal-sync/SKILL.md): read and append to the journal safely. Every handoff is journaled.
+- [pr-handoff](../../skills/pr-handoff/SKILL.md): the rebase-and-rewrite-and-push procedure. Three shapes (first-time ferry, re-ferry with recompute, fast-forward append), attribution rewrite, trailer-strip, body-edit, branch naming, scope boundary, no-op handling. The canonical playbook for the git-level mechanics of a ferry.
 - [pr-formation](../../skills/pr-formation/SKILL.md): the upstream PR's title and body. Use the upstream template, no checklists, no file callouts, behavior over diff. The handoff is the boatman's one chance to present the work cleanly; the description discipline lives here.
-
-The actual rebase-and-rewrite-and-push procedure is **not yet a skill**. The first boatman to complete a handoff cleanly should treat their working procedure as a structural lesson per the self-improvement instruction in `roles/COMMON.md`: write a `message` entry to `liaison` proposing `skills/pr-handoff/SKILL.md`, and let the liaison authorize creation rather than inventing it mid-engagement.
 
 ## Dispatch inputs
 
