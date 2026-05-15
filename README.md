@@ -11,6 +11,7 @@ author: liaison, gardener
 ### Recent engagements ready for review
 
 <!-- BEGIN recent-engagements -->
+- Builder opened draft [endojs/endo-but-for-bots#261](https://github.com/endojs/endo-but-for-bots/pull/261) — Cut 1 of #206 devDep-cycle factoring (new `@endo/ses-test` package, 11 edges eliminated → zero non-trivial SCCs) — PR · 2026-05-15T03:30:20Z · [`entries/2026/05/15/033020Z-result-builder-d330ff.md`](entries/2026/05/15/033020Z-result-builder-d330ff.md)
 - Builder opened draft [endojs/endo-but-for-bots#249](https://github.com/endojs/endo-but-for-bots/pull/249) — `design(ses,module-source): top-level-await proposal` (391 lines, leads with seventeen-row test262 fixture table) — PR · 2026-05-14T19:58:10Z · [`entries/2026/05/14/195810Z-result-builder-46ee5a.md`](entries/2026/05/14/195810Z-result-builder-46ee5a.md)
 - Builder opened draft [endojs/endo-but-for-bots#248](https://github.com/endojs/endo-but-for-bots/pull/248) — `design(ses,module-source): import-attributes proposal` (411 lines; JSON modules v1, CSS/Wasm deferred) — PR · 2026-05-14T19:57:41Z · [`entries/2026/05/14/195741Z-result-builder-8c11f7.md`](entries/2026/05/14/195741Z-result-builder-8c11f7.md)
 - Builder opened draft [endojs/endo-but-for-bots#247](https://github.com/endojs/endo-but-for-bots/pull/247) — Cut 5 of #206 devDep-cycle factoring (new `@endo/eventual-send-test` package) — PR · 2026-05-14T19:50:02Z · [`entries/2026/05/14/195002Z-result-builder-90af84.md`](entries/2026/05/14/195002Z-result-builder-90af84.md)
