@@ -38,5 +38,6 @@ Bootstrapped from the daemon design cluster and the structural principles in `co
 - [syrup-record-positionality](syrup-record-positionality.md) — Syrup record field names are positional bindings, not on-the-wire; renames are wire-compatible.
 - [six-aspects-of-sharing](six-aspects-of-sharing.md) — Karp/Stiegler/Close 6/7 taxonomy.
 - [throwaway-instance-prototype-walk](throwaway-instance-prototype-walk.md) — SES taming for return-value prototypes.
+- [token-chip](token-chip.md) — Familiar Chat's visual representation of a pet-name reference: styled `@`-prefix chip backed by a formula identifier; clickable, removable, autocompleted.
 
 This index grows as agents using the [`library-lookup`](../../../skills/library-lookup/SKILL.md) skill encounter terms that lead them down circuitous routes — see that skill's *Indexing on the fly* section.

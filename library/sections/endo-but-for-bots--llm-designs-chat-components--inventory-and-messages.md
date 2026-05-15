@@ -79,3 +79,7 @@ underlying formula key. Clicking inspects; dragging (where
 supported per [[endo-but-for-bots--llm-designs-chat-invariants--overview-and-six-invariants]]'s
 keyboard-manual parity invariant) initiates a multi-recipient or
 multi-value flow.
+
+## See also
+
+- [[token-chip]] — concept page collecting chip behaviors across the chat sources; covers identity, removability, multi-chip composition, and the rendering-side vs. typed-shape distinction.

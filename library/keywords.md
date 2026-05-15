@@ -47,7 +47,14 @@ progressive disclosure | (see section: endo-but-for-bots--llm-designs-chat-invar
 escape consistency | (see section: endo-but-for-bots--llm-designs-chat-invariants--overview-and-six-invariants)
 autocomplete list navigation | (see section: endo-but-for-bots--llm-designs-chat-invariants--overview-and-six-invariants)
 platform-appropriate modifier keys | (see section: endo-but-for-bots--llm-designs-chat-invariants--principles)
-token chip | (see section: endo-but-for-bots--llm-designs-chat-invariants--principles)
+token chip | token-chip
+token chips | token-chip
+`@`-prefix chip | token-chip
+pet-name chip | token-chip
+named-value chip | token-chip
+path chip | token-chip
+removable chip | token-chip
+token autocomplete | token-chip
 slash command | (see source: endo-but-for-bots--llm-designs-chat-invariants)
 control facet vs action facet | caretaker-pattern
 delegate | delegates-and-epithets
