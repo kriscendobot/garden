@@ -418,4 +418,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-spaces-inbox--{mode-flow-and-power-resolution, badges-message-context-and-future}
 
-## Total: 472 sections from 107 source documents (through 2026-05-15).
+### From endo-but-for-bots/llm/designs chat-per-space-color-scheme (cycle 61)
+
+- endo-but-for-bots--llm-designs-chat-per-space-color-scheme--{scheme-values-and-css-application, scheme-picker-component, spaceconfig-extension-persistence-and-monaco}
+
+## Total: 475 sections from 108 source documents (through 2026-05-15).
