@@ -137,3 +137,8 @@ the design document is treated as a *living* record where shipped
 items are not deleted but visibly closed. This matches the
 shape-not-content principle in reverse — the *shape* of the roadmap
 table is preserved, with status replacing absence.
+
+## See also
+
+- [[space]] — concept page collecting all sections that touch the space concept; the authoritative numbering scheme + corrected keyboard mapping.
+- [[endo-but-for-bots--llm-designs-chat-spaces-home--indelible-space-zero-and-numbering]] — **the keyboard handler shown above (`Cmd+1..9` → `sortedSpaces[num - 1]`) is out of date**. The corrected mapping per `chat-spaces-home` is **Cmd+N → position N** for N = 0..9, Home at position 0 and user spaces at 1..9. The handler must be updated to align.

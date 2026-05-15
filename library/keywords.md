@@ -56,10 +56,24 @@ path chip | token-chip
 removable chip | token-chip
 token autocomplete | token-chip
 slash command | (see source: endo-but-for-bots--llm-designs-chat-invariants)
-chat spaces gutter | (see source: endo-but-for-bots--llm-designs-chat-spaces-gutter)
-space (chat) | (see source: endo-but-for-bots--llm-designs-chat-spaces-gutter)
-spaces gutter | (see source: endo-but-for-bots--llm-designs-chat-spaces-gutter)
-`SpaceConfig` | (see section: endo-but-for-bots--llm-designs-chat-spaces-gutter--space-model-and-persistence)
+chat spaces gutter | space
+space (chat) | space
+spaces gutter | space
+`SpaceConfig` | space
+spaces | space
+home space | space
+Space 0 | space
+indelible space | space
+user space | space
+Cmd+0 | space
+configurable home space | space
+chat-spaces-home | (see source: endo-but-for-bots--llm-designs-chat-spaces-home)
+`data-menu-scope` | (see section: endo-but-for-bots--llm-designs-chat-spaces-home--context-menu-scope-modal-reuse-and-shared-affordances)
+`HOME_SPACE_DEFAULTS` | (see section: endo-but-for-bots--llm-designs-chat-spaces-home--indelible-space-zero-and-numbering)
+`showName` parameter | (see section: endo-but-for-bots--llm-designs-chat-spaces-home--context-menu-scope-modal-reuse-and-shared-affordances)
+icon-selector extraction | (see section: endo-but-for-bots--llm-designs-chat-spaces-home--context-menu-scope-modal-reuse-and-shared-affordances)
+merge-on-load normalize-on-save | (see section: endo-but-for-bots--llm-designs-chat-spaces-home--indelible-space-zero-and-numbering)
+belt-and-suspenders discipline | (see section: endo-but-for-bots--llm-designs-chat-spaces-home--indelible-space-zero-and-numbering)
 `createSpacesGutter` | (see section: endo-but-for-bots--llm-designs-chat-spaces-gutter--interactions-keyboard-and-future)
 client-side convention over a complete daemon API | (see section: endo-but-for-bots--llm-designs-chat-spaces-gutter--motivation-and-architecture)
 typed namespace over untyped pet-store | (see section: endo-but-for-bots--llm-designs-chat-spaces-gutter--space-model-and-persistence)

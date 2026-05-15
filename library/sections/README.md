@@ -406,4 +406,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-spaces-gutter--{motivation-and-architecture, space-model-and-persistence, interactions-keyboard-and-future}
 
-## Total: 464 sections from 104 source documents (through 2026-05-15).
+### From endo-but-for-bots/llm/designs chat-spaces-home (cycle 57)
+
+- endo-but-for-bots--llm-designs-chat-spaces-home--{indelible-space-zero-and-numbering, context-menu-scope-modal-reuse-and-shared-affordances}
+
+## Total: 466 sections from 105 source documents (through 2026-05-15).
