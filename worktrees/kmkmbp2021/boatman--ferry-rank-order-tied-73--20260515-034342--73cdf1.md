@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-rank-order-tied-73--20260515-
 repo: endojs/endo
 branch: master
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-15T03:43:42Z
-last_heartbeat: 2026-05-15T03:43:52Z
+last_heartbeat: 2026-05-15T03:48:33Z
 task: "First-time ferry of endojs/endo-but-for-bots#73 (compareRankRemotablesTied salvaged from endojs/endo#2871) to a new non-draft PR on endojs/endo with two-author attribution preserved (erights + kriskowal)"
 prs:
   - repo: endojs/endo-but-for-bots
@@ -15,9 +15,9 @@ prs:
     role: source
     title: "refactor(marshal): compareRankRemotablesTied for rank-cover ops"
   - repo: endojs/endo
-    pr: null
+    pr: 3265
     role: target
-    title: null
+    title: "refactor(marshal): compareRankRemotablesTied for rank-cover ops"
 ---
 
 Per-dispatch worktree triple for the first-time ferry of #73. **Multi-author** ferry (the first this session): commit 1 by Mark S. Miller (erights, the original author of the substance, who APPROVED the source-side mirror at 03:38Z 5 min before this dispatch), commit 2 by Kris Kowal (kriskowal@kriskowal.com, the follow-up). Both attributions preserved — no `--reset-author`.
