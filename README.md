@@ -201,6 +201,13 @@ author: liaison, gardener
 - [endojs/endo-but-for-bots#205](https://github.com/endojs/endo-but-for-bots/issues/205) (issue): CI Latency Telemetry (waiting on: scout, or steward + comment authorization to land the prior baseline report)
 <!-- END pr-backlog -->
 
+### Awaits maintainer ferry
+
+PRs synced + green on `endo-but-for-bots`'s master-base; ready for the maintainer to ferry upstream from another session (kriskowal-identity push required, not available from `endolinbot`).
+
+- **[#244](https://github.com/endojs/endo-but-for-bots/pull/244) — `chore(eslint-plugin): require underscore-delimited groups in numeric literals`** (master-base mirror of #243). Rebased on `endo-upstream/master`, lint reflow applied. Head `746beaf4`. **CI 28/28 SUCCESS.** Per fixer [`023204Z-result-fixer-67022f.md`](entries/2026/05/15/023204Z-result-fixer-67022f.md).
+- **#75, #109, #253** — pre-ferry pushes landed; CI still converging. Rows promoted into this section as they reach fully-green.
+
 ### Awaits maintainer review
 
 - **[endojs/endo-but-for-bots#226](https://github.com/endojs/endo-but-for-bots/pull/226) — `feat(eslint-plugin): migrate to eslint-plugin-import-x`.** turadg's feedback on the upstream mirror ([endojs/endo#3255](https://github.com/endojs/endo/pull/3255) comment `3229246963`) recommended aliasing `eslint-plugin-import-x` to `eslint-plugin-import` rather than the suppression edits the original PR carried. Fixer (dispatch `63f3ef`) checked the PR and found turadg's aliasing already applied (npm-alias in the dev catalog, force-pushed 2026-05-12); the remaining work surfaced 11 lint errors that import-x@4's stricter resolver caught (where the prior resolver silently failed). Two follow-up commits landed: `f38d828b7` (devDeps allowlist for `*.test-d.ts`, declare `tsd` in `packages/exo/package.json`, three intentional re-export disables) and `5ea8d7e72` (yarn.lock). Local `yarn lint`: 0 errors. CI in flight at fixer-end-time. Summary comment posted: [#226 issuecomment-4448213020](https://github.com/endojs/endo-but-for-bots/pull/226#issuecomment-4448213020). See [`entries/2026/05/14/062906Z-result-fixer-63f3ef.md`](entries/2026/05/14/062906Z-result-fixer-63f3ef.md). Clears on kriskowal review or maintainer redirect.
