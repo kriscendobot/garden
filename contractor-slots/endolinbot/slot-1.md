@@ -1,16 +1,14 @@
 ---
 slot: 1
-status: in-flight
-design_path: designs/endor-npm-registry-proxy.md
-pr_number: 276
-current_stage: judge
-in_flight_dispatch: f753a1
-last_update: 2026-05-17T22:59:00Z
-started_at: 2026-05-17T21:59:00Z
+status: empty
+design_path: null
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-17T23:07:00Z
+started_at: null
 host: endolinbot
 ---
 
-Prior judge `31257c` hit transient API rate limit before completing.
-Re-dispatching judge.
-
-Dispatch root: `dispatches/judge--f753a1`.
+Slot 1 reset to empty after PR #276 un-drafted at 23:06Z. Archived to
+`history/2026-05-17-slot1-pr276.md`. Awaits refill.
