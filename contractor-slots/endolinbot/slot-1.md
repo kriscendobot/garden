@@ -1,16 +1,14 @@
 ---
 slot: 1
-status: in-flight
+status: empty
 design_path: null
-pr_number: 256
-current_stage: judge
-in_flight_dispatch: 12b630
-last_update: 2026-05-17T20:44:00Z
-started_at: 2026-05-17T20:30:00Z
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-17T20:50:00Z
+started_at: null
 host: endolinbot
 ---
 
-Fixer returned (head moved per prettier wrap commit `c36b42494`).
-Lint converged green. Dispatching 12-seat code panel.
-
-Dispatch root: `dispatches/judge--slot1-code-panel-pr256--20260517-204358--12b630`.
+Slot 1 reset to empty after PR #256 un-drafted at 20:49Z. Archived to
+`history/2026-05-17-slot1-pr256.md`. Awaits refill.
