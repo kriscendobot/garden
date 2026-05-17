@@ -1,16 +1,14 @@
 ---
 slot: 1
-status: in-flight
+status: empty
 design_path: null
-pr_number: 253
-current_stage: judge
-in_flight_dispatch: d47ba1
-last_update: 2026-05-17T21:08:00Z
-started_at: 2026-05-17T20:58:00Z
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-17T21:14:00Z
+started_at: null
 host: endolinbot
 ---
 
-Fixer returned (truncated output but PR head moved to `ff24933797`,
-lint passing among 11/28 green, 0 failed, 17 pending). Dispatching judge.
-
-Dispatch root: `dispatches/judge--slot1-code-panel-pr253--20260517-210751--d47ba1`.
+Slot 1 reset to empty after PR #253 un-drafted at 21:13Z. Archived to
+`history/2026-05-17-slot1-pr253.md`. Awaits refill.
