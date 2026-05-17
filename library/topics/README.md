@@ -18,16 +18,16 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 19 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 90 |
 | [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 120 |
-| [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies, eventual-send / vat / promise-pipelining lineage. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 12 |
+| [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies, eventual-send / vat / promise-pipelining / partial-failure / when-catch lineage. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 13 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 26 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 56 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 57 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 43 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 74 |
 | [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 53 |
 | [streams](streams.md) | Async-iterator-based stream abstraction; transport substrate. | 13 |
 | [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 43 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 50 |
-| [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 30 |
+| [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 31 |
 | [async-flow](async-flow.md) | The `@agoric/async-flow` durable-replay async-function infrastructure; closed-function discipline. | 7 |
 | [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 38 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 18 |

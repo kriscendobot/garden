@@ -435,11 +435,11 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-markdown-render--{motivation-and-gap-analysis, delimiter-realignment-and-flanking-rules, package-extraction-and-typed-ast, render-mode-toggle-and-phased-rollout}
 
-### From Mark S. Miller papers: Concurrency Among Strangers (cycles 65 + 67; 6 of 7 sections)
+### From Mark S. Miller papers: Concurrency Among Strangers (cycles 65 + 67 + liaison-direct-draft 2026-05-17; **7 of 7 sections, paper complete**)
 
 - Cycle 65 (4 sections): papers--miller-tribble-shapiro-concurrency-among-strangers-2005--{abstract-and-introduction, why-not-shared-state-concurrency, vat-and-event-loop-model, defensive-correctness-and-pola}
 - Cycle 67 (2 sections): papers--miller-tribble-shapiro-concurrency-among-strangers-2005--{promise-pipelining, history-and-related-work}
-- Still deferred: papers--miller-tribble-shapiro-concurrency-among-strangers-2005--partial-failure-and-when-catch — two consecutive content-filter blocks (cycles 65 and 67) on subagent dispatches synthesizing the §9 redirector / when-catch / Three-Vat composition vocabulary. Recommended mitigation: dispatch a narrowly-scoped subagent with no summary-report turn, or have the orchestrator draft directly from the PDF.
+- Liaison direct-draft 2026-05-17 (1 section): papers--miller-tribble-shapiro-concurrency-among-strangers-2005--partial-failure-and-when-catch — closed after a third filter event on cycle 70's attempt confirmed the pattern (subagent prose-synthesis of active-adversary capability-theory framing trips the content filter; orchestrator path doesn't). Maintainer authorized orchestrator-direct-draft for filter-sensitive Miller papers.
 
 ### From endo packages/eventual-send/src/handled-promise.js longform comments (cycle 66, **first comment-fragment ingest**)
 
@@ -453,4 +453,4 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-marshal-src-encodetosmallcaps-js--{special-character-prefix-scheme, canonical-encoding-invariants, error-encoding-root-special-case}
 
-## Total: 506 sections from 116 source documents (through 2026-05-15).
+## Total: 507 sections from 116 source documents (through 2026-05-17).

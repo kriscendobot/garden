@@ -18,7 +18,7 @@ Longform comments distilled from upstream source files. Each row captures the `s
 | Source | Authors | Year | Venue | Sections | Status |
 |--------|---------|------|-------|----------|--------|
 | [Capability Myths Demolished](papers--miller-capability-myths-demolished-2003.md) | Miller, Yee, Shapiro | 2003 | JHU SRL TR SRL2003-02 | 6 | current (PDF SHA-256 `b6a3e04e60d7`; refutes Equivalence, Confinement, Irrevocability Myths; defines four models + seven properties; canonical citation for object-capability model and the caretaker / forwarder-revoker pattern) |
-| [Concurrency Among Strangers](papers--miller-tribble-shapiro-concurrency-among-strangers-2005.md) | Miller, Tribble, Shapiro | 2005 | TGC 2005, Springer LNCS 3705 | 6 of 7 | mostly-current (PDF SHA-256 `4ff0c5bd07e1`; canonical eventual-send + vat paper; cycle 65 wrote sections 1-4; cycle 67 wrote sections 5 and 7 — promise-pipelining + history-and-related-work; section 6 partial-failure-and-when-catch remains **deferred after two content-filter blocks** on subagent dispatches summarizing the §9 redirector / when-catch / Three-Vat composition vocabulary — recommended mitigation noted on the source file) |
+| [Concurrency Among Strangers](papers--miller-tribble-shapiro-concurrency-among-strangers-2005.md) | Miller, Tribble, Shapiro | 2005 | TGC 2005, Springer LNCS 3705 | 7 | current (PDF SHA-256 `4ff0c5bd07e1`; canonical eventual-send + vat paper; cycle 65 wrote sections 1-4; cycle 67 wrote sections 5 and 7; section 6 partial-failure-and-when-catch drafted by liaison 2026-05-17 after three subagent filter blocks on capability-paper synthesis; paper is now fully ingested) |
 
 ## Ingested
 

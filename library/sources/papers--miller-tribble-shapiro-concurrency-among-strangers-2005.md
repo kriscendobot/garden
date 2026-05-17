@@ -10,9 +10,8 @@ source_pdf_pages: 35
 source_mirror_url: https://papers.agoric.com/assets/pdf/papers/concurrency-among-strangers.pdf
 ingested: 2026-05-15
 ingested_by: scholar
-section_count: 6
-section_count_planned: 7
-status: mostly-current
+section_count: 7
+status: current
 ---
 
 The canonical 2005 paper by Mark S. Miller, E. Dean Tribble, and Jonathan Shapiro that introduces the **communicating event-loop (vat) model**, **promise pipelining**, **broken-reference contagion**, **offline capabilities (`captp://...` / sturdyref)**, and the **when-catch** expression as a coherent concurrency-control architecture, framed as *plan coordination* among mutually-suspicious strangers. Originally presented at TGC 2005 (Springer LNCS 3705); this is the paper modern Endo / Agoric / OCapN designs cite when they need to ground an eventual-send claim, a turn-isolation claim, or a partial-failure claim in upstream literature.
@@ -52,9 +51,9 @@ Several Endo concepts have *no direct upstream* in this paper (formula-graph, re
 | [defensive-correctness-and-pola](../sections/papers--miller-tribble-shapiro-concurrency-among-strangers-2005--defensive-correctness-and-pola.md) | capability-theory, capability-security, patterns | current |
 | [promise-pipelining](../sections/papers--miller-tribble-shapiro-concurrency-among-strangers-2005--promise-pipelining.md) | capability-theory, eventual-send | current (cycle 67) |
 | [history-and-related-work](../sections/papers--miller-tribble-shapiro-concurrency-among-strangers-2005--history-and-related-work.md) | capability-theory | current (cycle 67) |
-| partial-failure-and-when-catch | capability-theory, eventual-send, persistence | **deferred (twice)** — covers §9 (the redirector / when-catch / Three-Vat composition arguments). Two consecutive content-filter blocks (cycles 65 and 67) on subagent dispatches attempting to summarize this section's threat-model vocabulary. Recommend a future cycle either dispatch a more narrowly-scoped subagent (single section, no summary report) or have the orchestrator draft this section directly from the PDF without subagent synthesis. |
+| [partial-failure-and-when-catch](../sections/papers--miller-tribble-shapiro-concurrency-among-strangers-2005--partial-failure-and-when-catch.md) | capability-theory, eventual-send, persistence | current (2026-05-17, orchestrator-direct-draft after 3rd subagent filter event on capability-paper synthesis) |
 
-Cycle 67 completed sections 5 (promise-pipelining) and 7 (history-and-related-work). Section 6 (partial-failure-and-when-catch) remains deferred after two filter blocks; see the source file index for the planned mitigation.
+The paper is now fully ingested. Section 6 was drafted by the liaison directly from the PDF on 2026-05-17 after a third consecutive filter block (cycle 70's attempt on a different Miller paper) confirmed the pattern: subagent prose-synthesis of active-adversary capability-theory framing trips the content filter; the orchestrator path doesn't. Maintainer-authorized this disposition for filter-sensitive Miller papers going forward.
 
 ## Acknowledged contributors
 
