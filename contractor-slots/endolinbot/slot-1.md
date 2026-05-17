@@ -2,20 +2,21 @@
 slot: 1
 status: in-flight
 design_path: null
-pr_number: 239
-current_stage: fixer
-in_flight_dispatch: ac03bd
-last_update: 2026-05-17T21:28:00Z
-started_at: 2026-05-17T21:28:00Z
+pr_number: 257
+current_stage: judge
+in_flight_dispatch: df84b2
+last_update: 2026-05-17T21:39:00Z
+started_at: 2026-05-17T21:39:00Z
 host: endolinbot
 ---
 
-Slot 1 adopted very stale draft PR #239 (mirror endo#1967, 85+h stale,
-master base, 8 test failures across Node×OS matrix). The test is for
-bundled dependency name collision — likely failing because the upstream
-fix (endo#1967) hasn't landed on master yet, or the test setup needs
-adjustment.
+Slot 1 adopted stale draft PR #257 (`chore: merge actual/master into
+llm (2026-05-15)`, 68h stale, llm base, 50 files of upstream churn).
 
-Dispatched fixer to investigate.
+This is a routine merge marker — no novel code, just upstream master
+merged into llm. Tiny-PR-variant direct-to-judge per pr-creation-flow.
 
-Dispatch root: `dispatches/fixer--slot1-investigate-pr239--20260517-212801--ac03bd`.
+The judge verifies the merge looks routine (no surprising additions)
+and un-drafts.
+
+Dispatch root: `dispatches/judge--slot1-merge-marker-pr257--20260517-213906--df84b2`.
