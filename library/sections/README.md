@@ -453,4 +453,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-marshal-src-encodetosmallcaps-js--{special-character-prefix-scheme, canonical-encoding-invariants, error-encoding-root-special-case}
 
-## Total: 507 sections from 116 source documents (through 2026-05-17).
+### From Mark S. Miller papers: The Structure of Authority (liaison orchestrator-direct-draft 2026-05-17, **third Miller-paper ingest**)
+
+- papers--miller-tulloh-shapiro-structure-of-authority-2004--{excess-authority-and-designation, fractal-structure-of-authority, multiplicative-pola-and-security-as-modularity}
+
+## Total: 510 sections from 117 source documents (through 2026-05-17).
