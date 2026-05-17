@@ -3,19 +3,17 @@ slot: 1
 status: in-flight
 design_path: null
 pr_number: 238
-current_stage: fixer
-in_flight_dispatch: 75c503
-last_update: 2026-05-17T19:46:00Z
+current_stage: judge
+in_flight_dispatch: 3bd7a0
+last_update: 2026-05-17T20:25:00Z
 started_at: 2026-05-17T19:46:00Z
 host: endolinbot
 ---
 
-Slot 1 adopted stale draft PR #238 (`feat(rps-demo): Endo daemon plugin
-demonstration as a distributed game (from endojs/playground#14)`, llm
-base, 84.8h stale). 23/23 CI green, 13 files. Two reviews on file:
-kriskowal CHANGES_REQUESTED and dckc COMMENTED.
+Fixer `75c503` returned. PR head moved to `8c2d0810`. CI 3/25 green
+0 failed / 22 pending (propagating). Fixer landed mermaid-over-ASCII
+rule + 2 notes in bulletin per commit `970bb14`.
 
-Dispatched fixer to address both. The fixer fetches review bodies +
-inline comments for each.
+Dispatching judge to run 12-seat code panel.
 
-Dispatch root: `dispatches/fixer--75c503`.
+Dispatch root: `dispatches/judge--3bd7a0`.
