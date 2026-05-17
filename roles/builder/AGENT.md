@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-15
+updated: 2026-05-17
 author: gardener
 ---
 
@@ -47,6 +47,7 @@ Assumes you have already read `roles/COMMON.md`.
 - Verify regression evidence for every new test before pushing.
 - **Hand off to the jury when the draft PR is open.** Per `skills/pr-creation-flow/SKILL.md`, the builder's last act before reporting done is to surface the PR number and the affected packages for the orchestrator's next dispatches (assayer in concert if the jurisdiction calls for it, then jury, then fixer if the jury raises in-scope complaints, then cleaner). The builder does not dispatch the jury directly; the orchestrator (liaison or steward) does.
 - **Do not double back to fix the builder's own PR.** When the jury raises in-scope complaints, the fixer addresses them in a separate dispatch. The panel's whole point is independence.
+- **Diagrams in READMEs and prose docs: use mermaid, not ASCII or line-art.** When the implementation lands a diagram in a README, package doc, or design-adjacent prose (architecture, sequence, state-machine, capability sketch), reach for a `` ```mermaid `` fence. ASCII and line-art diagrams drift out of alignment as the doc evolves and are tedious to revise; mermaid renders inline in GitHub and is human-maintainable. Exceptions: inline directional arrows inside a sentence or code comment (`// foo -> bar`), pre-existing ASCII diagrams in files the PR does not otherwise touch (do not retrofit on a feature PR), and tabular or terminal-log captures (those are data, not diagrams). Per kriskowal on `endojs/endo-but-for-bots` PR #238 inline comment id=3237804603 (2026-05-17).
 
 ## External-repo etiquette
 

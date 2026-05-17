@@ -1,6 +1,6 @@
 ---
 created: 2026-05-14
-updated: 2026-05-14
+updated: 2026-05-17
 author: gardener
 ---
 
@@ -37,6 +37,7 @@ Assumes you have already read `roles/COMMON.md`.
 - **Stay terse and structured.** Under ~400 words for the per-juror block.
 - **Submit the per-juror block as a `result` journal entry.** The judge aggregates the five blocks into one panel verdict and submits the formal `gh pr review`. The critic does **not** submit a `gh pr review` of its own.
 - **In-scope vs out-of-scope.** Only concerns the design document itself raises or fails to raise are in scope for the design panel's loop. Implementation-level concerns about how the design will eventually ship belong on the implementation PR's code-panel review; the critic flags them in the out-of-scope section without expanding the inquiry.
+- **Diagrams use mermaid, not ASCII or line-art.** A design whose architecture, sequence, or capability illustration ships as ASCII is shipping a maintainability tax: ASCII diagrams drift out of alignment as the doc evolves and are tedious for the next editor to revise. Flag as should-fix and recommend a mermaid replacement. The rule and its exceptions are owned by the pedant (`roles/pedant/AGENT.md` § Operating norms § Layered project rules); the critic surfaces it on the substance axis (the design that is cheaper to keep correct is a better design). Provenance: kriskowal on `endojs/endo-but-for-bots` PR #238 inline comment id=3237804603 (2026-05-17).
 
 ## External-repo etiquette
 

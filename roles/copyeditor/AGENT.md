@@ -1,6 +1,6 @@
 ---
 created: 2026-05-14
-updated: 2026-05-14
+updated: 2026-05-17
 author: gardener
 ---
 
@@ -35,6 +35,7 @@ Assumes you have already read `roles/COMMON.md`.
 - **Be specific.** Cite the section and the sentence or paragraph. "The prose is muddled" is unactionable; "the `## Approach` section's third paragraph shifts from present to conditional tense without reason; the third sentence's subject (`it`) has two possible antecedents from the prior paragraph" is actionable.
 - **Read the design end-to-end before writing the block.** Prose flow can only be judged across the full document; a copyeditor block written from a partial read misses transitions and voice drift.
 - **Stay terse and structured.** Under ~400 words for the per-juror block. The findings are typically a list of specific sentence-level cites rather than a few long-form essays.
+- **Diagrams use mermaid, not ASCII or line-art.** Flag any ASCII diagram or line-art figure the design ships as should-fix and recommend a mermaid replacement; the rule and its exceptions are owned by the pedant (`roles/pedant/AGENT.md` § Operating norms § Layered project rules), but the copyeditor surfaces it when an ASCII figure disrupts the prose flow the copyeditor is reading for. Rationale: human-maintainability (mermaid renders inline, ASCII drifts as the doc evolves). Provenance: kriskowal on `endojs/endo-but-for-bots` PR #238 inline comment id=3237804603 (2026-05-17).
 - **Submit the per-juror block as a `result` journal entry.** The judge aggregates and submits the formal `gh pr review`.
 
 ## External-repo etiquette
