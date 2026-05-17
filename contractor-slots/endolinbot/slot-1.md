@@ -4,13 +4,13 @@ status: in-flight
 design_path: designs/endor-npm-registry-proxy.md
 pr_number: 276
 current_stage: judge
-in_flight_dispatch: 31257c
-last_update: 2026-05-17T22:58:00Z
+in_flight_dispatch: f753a1
+last_update: 2026-05-17T22:59:00Z
 started_at: 2026-05-17T21:59:00Z
 host: endolinbot
 ---
 
-Cleaner returned (22 tests; head `21885686d`; all 23 CI checks pass).
-Dispatching 12-seat code panel.
+Prior judge `31257c` hit transient API rate limit before completing.
+Re-dispatching judge.
 
-Dispatch root: `dispatches/judge--slot1-code-panel-pr276--20260517-225746--31257c`.
+Dispatch root: `dispatches/judge--f753a1`.
