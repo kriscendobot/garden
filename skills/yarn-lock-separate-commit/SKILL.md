@@ -1,7 +1,7 @@
 ---
 created: 2026-05-13
-updated: 2026-05-13
-author: liaison
+updated: 2026-05-17
+author: liaison, gardener
 ---
 
 # Skill: yarn-lock-separate-commit
@@ -38,3 +38,14 @@ When force-pushing a rebased branch, the order of the two commits matters: put t
 ## Notes from the field
 
 - _2026-05-13_: adopted from the reference. Session example from PR 71 lives in the journal, not here.
+- _2026-05-17_: a PR carrying `chore: Update yarn.lock` typically conflicts on the lockfile when rebased onto a moved base (any other PR that touched dependencies has landed in the interim). The workflow that resolved it cleanly: skip the old lockfile commit during rebase, apply any review-feedback fixes on top, then regenerate the lockfile against the new base as its own commit. Source: PR #238 fixer, `journal/entries/2026/05/17/200805Z-message-fixer-3e9fd0.md`.
+
+  ```sh
+  git rebase origin/<base>
+  # conflict on yarn.lock
+  git rebase --skip                     # drop the old lockfile commit
+  # apply review-feedback fixes on top
+  npx corepack yarn install             # regenerate lockfile against new base
+  git add yarn.lock
+  git commit -m "chore: Update yarn.lock"
+  ```

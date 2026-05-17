@@ -1,7 +1,7 @@
 ---
 created: 2026-05-13
-updated: 2026-05-13
-author: liaison
+updated: 2026-05-17
+author: liaison, gardener
 ---
 
 # Skill: review-feedback-followup-commits
@@ -16,7 +16,7 @@ Inline review comments, top-level review feedback, or maintainer "please address
 
 ## Core rules
 
-- **Add a follow-up commit on top; do not amend.** Amending forces the reviewer to recompute the diff between the prior PR state and the current one. A follow-up makes the new-since-last-review diff trivial. Amend only the just-rebased tip when nobody else has pushed since.
+- **Add a follow-up commit on top; do not amend.** Amending forces the reviewer to recompute the diff between the prior PR state and the current one. A follow-up makes the new-since-last-review diff trivial. Amend only the just-rebased tip when nobody else has pushed since, or when a maintainer review explicitly asks for an author-only or message-only amend that does not change the tree.
 - **One concern per commit.** Conventional-commit message, parenthesized PR number. A reviewer who agrees with three points and disagrees with the fourth can request the fourth be dropped without unwinding the others. Examples: `fix(ci): restore line accidentally regressed in rebase (#NNN)`, `refactor(pkg): clarify mock transport's pair-of-pipes (#NNN)`.
 - **Rebase before applying fix-ups.** See [rebase-before-followup](../rebase-before-followup/SKILL.md). Even an apparently no-op rebase matters.
 - **Lockfile changes ship in their own commit** per [yarn-lock-separate-commit](../yarn-lock-separate-commit/SKILL.md).
@@ -34,3 +34,4 @@ Each line below is a trigger. If the pattern matches, the cited reference (or a 
 ## Notes from the field
 
 - _2026-05-13_: adopted from the reference. The per-pattern skill files (`package-rename-cascade`, `ses-intrinsic-naming`) were not ported here; their lore is in the reference and can come over if a future engagement needs them as active library.
+- _2026-05-17_: the "do not amend" rule's tree-changing target was clarified after a PR #238 review item asked the fixer to reset the feat commit's author header to the upstream playground PR's original author. An author-only amend is byte-identical to reviewers, was the maintainer's explicit ask, and falls outside the rule's actual hazard (forcing a re-diff). The core bullet now names this carve-out alongside the just-rebased-tip carve-out. Source: PR #238 fixer, `journal/entries/2026/05/17/200805Z-message-fixer-3e9fd0.md`.
