@@ -1,14 +1,15 @@
 ---
 slot: 2
-status: empty
-design_path: null
+status: in-flight
+design_path: designs/chat-edit-message-ui.md
 pr_number: null
-current_stage: null
-in_flight_dispatch: null
-last_update: 2026-05-15T05:25:30Z
-started_at: null
+current_stage: builder
+in_flight_dispatch: ab96fc
+last_update: 2026-05-18T04:30:00Z
+started_at: 2026-05-18T04:30:00Z
 host: endolinbot
 ---
 
-Slot 2 reset to empty after PR #263 un-drafted at 05:25Z. Terminal
-state archived to `history/2026-05-15-slot2-pr263.md`. Awaits refill.
+Slot 2 picks up chat-edit-message-ui. Chat UI work on llm base.
+
+Dispatch root: `dispatches/builder--ab96fc`.
