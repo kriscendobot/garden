@@ -1,16 +1,14 @@
 ---
 slot: 1
-status: in-flight
-design_path: designs/endor-run-expanded.md
-pr_number: 278
-current_stage: judge
-in_flight_dispatch: 6b063f
-last_update: 2026-05-18T01:55:00Z
-started_at: 2026-05-18T00:51:00Z
+status: empty
+design_path: null
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-18T02:05:00Z
+started_at: null
 host: endolinbot
 ---
 
-Re-dispatching judge after prior dispatch `b1b0fd` hit transient API
-rate limit at start.
-
-Dispatch root: `dispatches/judge--6b063f`.
+Slot 1 reset to empty after PR #278 un-drafted at 02:04Z. Archived to
+`history/2026-05-18-slot1-pr278.md`. Awaits refill.
