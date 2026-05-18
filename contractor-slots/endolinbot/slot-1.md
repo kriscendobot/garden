@@ -2,17 +2,16 @@
 slot: 1
 status: in-flight
 design_path: designs/endor-run-expanded.md
-pr_number: null
-current_stage: builder
-in_flight_dispatch: 3b9287
-last_update: 2026-05-18T04:00:00Z
+pr_number: 282
+current_stage: cleaner
+in_flight_dispatch: 0b1748
+last_update: 2026-05-18T04:52:00Z
 started_at: 2026-05-18T04:00:00Z
 host: endolinbot
 ---
 
-Slot 1 picks up endor-run-expanded Phase 5 (dependency walk + XS-hosted
-compartment mapper). Builds on Phase 4 (just shipped #279).
+Builder shipped PR #282 (endor-run-expanded Phase 5 dependency walk,
+Option A Rust-native mapper, stacked on Phase 4 #279, 35 new tests,
++3681/-47 across 7 files). Now in cleaner stage.
 
-Implementation base: llm.
-
-Dispatch root: `dispatches/builder--3b9287`.
+Dispatch root: `dispatches/cleaner--0b1748`.
