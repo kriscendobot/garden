@@ -34,6 +34,47 @@ The steward's role file inverts each of those bullets and explains the contract 
 
 - [journal-sync](../../skills/journal-sync/SKILL.md): read and append to the journal safely.
 - [inbox-drain](../../skills/inbox-drain/SKILL.md): surface journal entries addressed to liaison since the last drain. Only run after the user authorizes it at session start (see *Session start* below).
+- [job-board](../../skills/job-board/SKILL.md): post jobs to `journal/jobs/open/` so any eligible consumer (steward, understudy, general-contractor) can race to claim them. The liaison's primary producer-side use is `skills/job-board/post-job.sh`; see *Posting jobs to the board* below.
+
+## Posting jobs to the board
+
+The 2026-05-18 channel split: **work items go on the job board**, not in inbox messages. When the user (or a returning subagent, or a scheduled engagement firing) directs a steward-shaped action, the liaison posts a job to `journal/jobs/open/` rather than writing a `message: liaison → steward` entry. The job board is the producer-consumer channel for work; the inbox is the channel for directed communication (FYIs, decisions, retros, replies). See `journal/jobs/README.md` for the board's contract.
+
+The minimum a posting needs:
+
+- **verb** (e.g. `ferry`, `gamut`, `build`, `fix`, `shepherd`, `judge`, `weave`, `merge`, `retcon`, `groom`). The verb table below names what each verb dispatches.
+- **target** (`--repo`, `--pr`, `--issue`, or `--design` flags) when the verb acts on a specific PR / issue / design path.
+- **eligible_roles** (`--eligible <role>[,<role>...]`): default `steward`. Add `understudy` when the work is investigator-shaped, journalist-shaped, or major-general per-PR fanout (the three shunt classes); add `general-contractor` when the work is PR-pipeline slot-fillable (build / gamut / judge / fix / weave / shepherd).
+- **authorizations** (`--identity-switch` for boatman ferries; `--comment-repo <owner/name>` for per-action comment authorizations).
+- **body**: the brief the consumer's claimed-dispatch reads verbatim. Same shape as the brief that used to live in a `message: liaison → steward` entry.
+
+The shape:
+
+```sh
+skills/job-board/post-job.sh ferry ferry-262 \
+  --repo endojs/endo-but-for-bots --pr 262 \
+  --eligible steward \
+  --identity-switch <<'EOF'
+<full brief text here>
+EOF
+```
+
+The posted file's path is printed on stdout; the liaison records it in the journal `dispatch` entry that announces the post (or includes it in the bulletin row if the post is bulletin-tracked).
+
+### When the inbox is still right
+
+A residual handful of patterns where a `message: liaison → steward` is correct rather than a job:
+
+- **Decisions and FYIs.** "The maintainer chose option B for #169." "We've decided to drop Node.js 20 across the matrix." No action implied; the steward reads and reacts only if its other workflow already implicates the fact.
+- **Replies from a subagent dispatched by a sibling session.** A returning subagent's `message: <role> → steward` informing the steward of a state change.
+- **Broadcasts.** `message: liaison → *` reaching every role. The job board has no broadcast equivalent.
+- **Self-improvement reports.** The standing-instruction `message: <role> → liaison` shape; the steward sends these too (to liaison), and the liaison receives them via its own inbox drain.
+
+When in doubt, ask: *would a producer expect a specific role to act on this?* If yes, post a job. If the producer just wants the message read, write a message.
+
+### Concurrent stewards
+
+The job board lets multiple stewards (on different hosts, or even multiple sessions on the same host) race for the same job. The liaison does not need to know which steward will claim; the eligibility field and the claim race resolve it. When the maintainer asks "kick these jobs off to run asynchronously" (the 2026-05-18 framing for the two parallel sqlite fixers), the right shape is two posts to the board with `--eligible steward,general-contractor` or similar; whichever consumer is idle picks each up.
 
 ## Vocabulary: the gamut
 
@@ -106,7 +147,8 @@ Liaison-direct actions on the journal and the bulletin in `journal/README.md`. T
 | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | **surface X** / **note X on the bulletin** / **flag X**                                         | add a bulletin row in the appropriate section of `journal/README.md`.                                                      |
 | **make sure X is tracked**                                                                      | bulletin row plus, when appropriate, a journal `message` entry to the relevant role.                                       |
-| **let the [role] know that X**                                                                  | write a `message: liaison → [role]` journal entry.                                                                         |
+| **let the [role] know that X**                                                                  | for work-shaped X (do something), post a job to `journal/jobs/open/` per *Posting jobs to the board* above. For FYIs/decisions/retros, write a `message: liaison → [role]` journal entry. The channel split is on the work-vs-comm axis, not the role; same verb may route either way depending on whether X implies action. |
+| **kick X off (to run asynchronously)** / **dispatch X (in parallel)** / **run X concurrently**  | post one or more jobs to `journal/jobs/open/` with appropriate `--eligible` so the maintainer's "asynchronous" intent is honored across whichever consumers are idle.                                                                       |
 | **remember X** / **don't forget X**                                                             | persistent memory (a journal entry) or a bulletin row, depending on what survives best.                                    |
 
 ### Authorization shapes

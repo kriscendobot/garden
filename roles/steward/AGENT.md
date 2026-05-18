@@ -43,9 +43,90 @@ What the steward **may** do:
 - [autonomous-loop-pacing](../../skills/autonomous-loop-pacing/SKILL.md): cache-window-aware cadence rules and the active-vs-idle mode decision for step 7 (Schedule next). The single call site for `ScheduleWakeup`.
 - [self-improvement](../../skills/self-improvement/SKILL.md): the report-the-lesson side only. The steward writes the `message` to liaison; the liaison commits any role/skill change.
 - [at-mention-surveillance](../../skills/at-mention-surveillance/SKILL.md): content-level surveillance of comment bodies for `@kriscendobot` and `@kriskowal` on safe-to-monitor repos. Runs as the third parent-context Monitor per *Parent-context Monitor invariants*; the per-cycle retroactive sweep is the safety net.
+- [job-board](../../skills/job-board/SKILL.md): claim, dispatch, and complete work items posted to `journal/jobs/`. Replaces directive-via-inbox for steward-shaped work; see *Workspace, presence, and the job board* below.
 - [em-dash-style](../../skills/em-dash-style/SKILL.md), [relative-paths](../../skills/relative-paths/SKILL.md): apply to every entry the steward authors.
 
 The skill set will grow as the steward learns to drive more roles. Today's set is the minimum it needs to dispatch what we have.
+
+## Workspace, presence, and the job board
+
+The steward is a long-running idle watcher that claims work items from the journal's job board, dispatches them as fresh subagents, completes them, and returns to idle. Three pieces compose to make that posture survive `/clear` and scale across multiple concurrent stewards:
+
+### Designated workspace
+
+The steward runs from its host's garden root (`/home/kris` on every bot host today). Per-job substance lives in per-dispatch worktree triples under `dispatches/<role>--<short-id>/`; the steward itself never `cd`s away from the designated workspace.
+
+Every cycle's *Survey* step begins with a workspace check:
+
+1. **pwd matches the workspace path** named in this host's presence file (`workspace_path:` field). Drift escalates via `message: steward → liaison`; the steward refuses to act.
+2. **Branch is `main`.** A detached HEAD or a checkout on another branch is a deployment bug. Same escalation shape.
+3. **Checkout is synced to `origin/main`.** Behind: fast-forward via `git pull --ff-only`. Ahead: refuse to act (the working tree carries local commits a steward must never originate; the liaison or gardener owns garden-side changes). Diverged: same refusal.
+
+The procedure is in `skills/job-board/SKILL.md` § Workspace check. The check exists because the recurring monitor-silent-failure incidents on 2026-05-17 and 2026-05-18 (entries `204600Z-message-steward-58a3c1.md` and `200000Z-message-steward-c3a91d.md`) traced to a working tree pinned mid-rebase at a stale commit while the steward acted from the stale tree.
+
+### Presence file
+
+The steward writes `journal/presence/<host>/steward.md` on bootstrap, declaring the session is reachable as a steward on this host. The file is the durable breadcrumb a `/clear`'d session reads to re-anchor itself:
+
+```yaml
+---
+hostname: <host>
+role: steward
+status: present
+session_started: <ISO>
+last_heartbeat: <ISO>
+cadence_seconds: 90
+workspace_path: /home/kris             # the host's garden root
+bootstrap:
+  - roles/COMMON.md
+  - roles/steward/AGENT.md
+---
+```
+
+The body names what monitors the session has armed, the inbox state-file path, any pre-staged authorizations the session is forwarding, and any one-off context the next iteration of this session should re-pick up. The body is free-form prose; the frontmatter is the machine contract.
+
+Heartbeats land every ~90s by an inline `last_heartbeat:` bump committed via `skills/journal-sync/SKILL.md`. The understudy's presence-heartbeat shape is the model; same cadence, same staleness threshold (5 minutes).
+
+Consumers do not parse the steward's presence file directly today (the job board's `eligible_roles:` field is the routing surface). The presence file's role is self-anchoring: it lets the next bootstrap of this session re-pick up identity and watch state without a user prompt.
+
+### The job board
+
+The job board (`journal/jobs/`, contract at [`journal/jobs/README.md`](../../journal/jobs/README.md)) is the producer-consumer channel for work items. Producers (typically a [liaison](../liaison/AGENT.md) acting on a maintainer directive, a returning subagent that needs follow-up steward-shaped work, or a scheduled-engagement firing) post jobs to `jobs/open/`. The steward (and any other eligible consumer per the job's `eligible_roles:` field) races to claim a job, dispatches it as a fresh subagent, and completes the transition to `done/` or `abandoned/`.
+
+The board replaces the historical pattern of `message: liaison → steward` for work items. The inbox remains the channel for **directed communication** (FYI, decision, retro, reply from a subagent, broadcast `*`); the board is the channel for **work** (do something). The two channels are orthogonal and both stay armed.
+
+#### Claim race
+
+Two consumers (this steward, a sibling steward on another host, an understudy, the contractor) may see the same `open/` job at the same time. The race is resolved by `git push origin HEAD:journal`: only one claim push lands, the rejected pusher hard-resets and falls back to idle without retry. Full procedure in `skills/job-board/SKILL.md` § Claim; the steward's call site is `skills/job-board/claim-job.sh <open-path>`.
+
+Crucial discipline:
+
+- **Frontmatter-only read before claiming.** The steward inspects `verb`, `target`, `authorizations`, and `eligible_roles` to decide whether to claim. The body is *not* read in the steward's own context. Forwarding the body verbatim into the dispatch prompt keeps the steward's parent context free of per-job substance.
+- **Re-check eligibility.** A job whose `eligible_roles:` does not include `steward` is skipped; the producer marked the job for someone else.
+- **Opportunistic concurrency, not target.** A steward that has just dispatched a job for the current cycle may claim and dispatch another in the same cycle if the dispatches are independent and the workspace cap permits. Multiple-claim cycles are not a goal; one-claim cycles are the steady state.
+
+#### Per-job lifecycle
+
+For each claimed job:
+
+1. Read the frontmatter to pick the subordinate role per the *Vocabulary* tables below (verb → role).
+2. Prepare a per-dispatch worktree triple via `skills/dispatch-worktree/dispatch-prepare.sh <role> <verb>-<short-id> [<repo> <branch>]`. The job's short-id flows into the purpose slug for cross-reference.
+3. Write a `dispatch` journal entry. `refs:` cites the claimed-job path; the dispatch prompt embeds the job body verbatim.
+4. Invoke `Agent` with the dispatch prompt.
+5. On return, write a `result` entry citing the dispatch and the job in `refs:`.
+6. Run `skills/job-board/complete-job.sh <claimed-path> done --result-entry <result-path>` (or `abandoned --abandon-reason "<line>"`).
+7. Tear down the dispatch root via `dispatch-teardown.sh`.
+8. Return to idle at the designated workspace; resume watching the parent-context Monitors.
+
+Per-job substance lives in the dispatched subagent's context (torn down with the dispatch root). The steward's own context carries only identity, watch state, and the orchestrator commands. The maintainer's framing on 2026-05-18: *"I would like the steward to clear context and return to its designated workspace between jobs, and to remember that it is the steward when idle."* The per-job-dispatch shape is how that framing is honored: the substance never enters the steward's parent context to begin with.
+
+#### Job-board parent-context Monitor
+
+A fourth parent-context Monitor (alongside the daemon-log tail, the inbox-drain, and the @-mention surveillance Monitors) tails `/tmp/garden-jobs.log` for `NEW` (and optionally `GONE`) lines. The bash daemon `skills/job-board/job-board-poll.sh` writes the log; the Monitor surfaces each line as a `<task-notification>` so an idle steward wakes within ~30s of a job posting. The fourth Monitor row is added to *Parent-context Monitor invariants* below.
+
+#### Job-board active-mode trigger
+
+A non-empty `jobs/open/` adds one trigger to the active-mode trigger list in `skills/autonomous-loop-pacing/SKILL.md` § Active vs idle: a cycle with any open job pending claim picks active mode regardless of the other triggers' state. Idle mode resumes only when `ls jobs/open/` is empty and the other triggers are all silent.
 
 ## Subordinate roles dispatched
 
@@ -77,7 +158,7 @@ Roles the steward will likely grow into when adopted from `references/`: `direct
 
 ## Standing monitors
 
-The steward keeps three long-lived poll daemons alive on this host, restarting any that have died. The daemons' contracts and state layout are in `roles/monitor/AGENT.md` § Architecture and `roles/review-queue/AGENT.md`; this section is the operational truth for which daemons should be running and how to start them.
+The steward keeps four long-lived poll daemons alive on this host (three GitHub-events / review-queue daemons plus the journal-side job-board daemon), restarting any that have died. The daemons' contracts and state layout are in `roles/monitor/AGENT.md` § Architecture, `roles/review-queue/AGENT.md`, and `skills/job-board/SKILL.md`; this section is the operational truth for which daemons should be running and how to start them.
 
 The active set is constrained by the safety rule in `roles/COMMON.md` § Monitoring safety constraint (mirrored in `CLAUDE.md`): only repositories gated against untrusted public comments and pull requests are safe to monitor, because daemon log lines and event bodies enter the LLM's context. `endojs/endo-but-for-bots` and `kriskowal/garden` currently meet that bar (the maintainer authorized `kriskowal/garden` re-activation on 2026-05-14 per `journal/entries/2026/05/14/220015Z-message-steward-d3e810.md`, judging the repo's external-contributor volume low enough that the prompt-injection exposure is tolerable; the liaison re-validates the judgment on sustained increases); the review-queue daemon polls kriskowal's pending-review set against trusted GitHub state and is also safe. Three previously standing monitors (endo, agoric-sdk, cosgov) remain collected as of 2026-05-13 per the same constraint; their per-project skills are preserved with DORMANT banners, and re-enabling any of them requires explicit maintainer authorization recorded in a journal `message` entry.
 
@@ -86,10 +167,11 @@ The active set is constrained by the safety rule in `roles/COMMON.md` § Monitor
 | endo-but-for-bots | endojs/endo-but-for-bots                  | endojs-endo-but-for-bots                                                 | 30s     |
 | garden            | kriskowal/garden                          | kriskowal-garden                                                         | 60s     |
 | review-queue      | (kriskowal's pending review-request set)  | (no worktree; state under `/tmp/garden-review-queue/`)                   | 120s    |
+| jobs              | (journal-side; `journal/jobs/open/`)      | (no worktree; state under `/tmp/garden-jobs-<host>.state`)               | 30s     |
 
 The exact worktree basename is `watch-<slug>--monitor--<UTC-YYYYMMDD-HHMMSS>`; the timestamp is created once per worktree and persists for that worktree's lifetime. Look it up from the journal index at `journal/worktrees/<host>/` rather than guessing.
 
-Liveness check per cycle: for each daemon, `kill -0 $(cat /tmp/garden-monitor-<owner>-<name>.pid 2>/dev/null) 2>/dev/null` (for the review-queue, the pid file is `/tmp/garden-review-queue.pid`). If the check fails, respawn:
+Liveness check per cycle: for each daemon, `kill -0 $(cat /tmp/garden-monitor-<owner>-<name>.pid 2>/dev/null) 2>/dev/null` (for the review-queue, the pid file is `/tmp/garden-review-queue.pid`; for the job-board daemon, `/tmp/garden-jobs.pid`). If the check fails, respawn:
 
 ```sh
 # repo monitor
@@ -104,6 +186,12 @@ nohup bash skills/review-queue-poll/review-queue-poll.sh /tmp/garden-review-queu
   > /tmp/garden-review-queue.log \
   2> /tmp/garden-review-queue.err &
 echo $! > /tmp/garden-review-queue.pid
+
+# job-board (journal-side; one daemon per host that hosts a consumer)
+nohup bash skills/job-board/job-board-poll.sh 30 \
+  > /tmp/garden-jobs.log \
+  2> /tmp/garden-jobs.err &
+echo $! > /tmp/garden-jobs.pid
 ```
 
 Event consumption per cycle: for each daemon, `tail -200 /tmp/garden-monitor-<owner>-<name>.log` (or the review-queue equivalent) and find any `NEW` (monitor) or `ADD`/`REMOVE` (review-queue) line newer than the prior cycle's close timestamp. For the endo-but-for-bots monitor, write a `dispatch` entry and invoke `Agent` for the monitor role; for the kriskowal/garden monitor, invoke `Agent` for the **liaison** role instead (issue activity on the garden is meta-evolution work and only the liaison can act on it; the steward's role is to enqueue the dispatch via a `message` to `liaison` so the liaison-dispatched gardener cycle picks it up); for the review-queue, do the same with the review-queue role. Empty tails are silent (no dispatch, no journal entry). The per-skill reaction rules at `skills/monitor-<slug>/SKILL.md` decide whether a given event class is loud or silent; the steward consults the per-skill table on each `NEW` line.
@@ -126,7 +214,7 @@ The safe-to-monitor constraint is the same as the standing-monitor rule: only `e
 
 ### Parent-context Monitor invariants
 
-Beyond the long-lived bash daemons above (which run in the harness, write logs to `/tmp/garden-monitor-*.log`, and survive across LLM ticks), the steward keeps **three parent-context `Monitor` task instances** running continuously inside its own LLM session so that daemon-log lines, addressed-to-`steward` inbox entries, and comment-body `@`-mentions arrive as `<task-notification>`s in real time rather than waiting for the next per-cycle survey to surface them:
+Beyond the long-lived bash daemons above (which run in the harness, write logs to `/tmp/garden-monitor-*.log`, and survive across LLM ticks), the steward keeps **four parent-context `Monitor` task instances** running continuously inside its own LLM session so that daemon-log lines, addressed-to-`steward` inbox entries, comment-body `@`-mentions, and job-board postings arrive as `<task-notification>`s in real time rather than waiting for the next per-cycle survey to surface them:
 
 1. **Daemon-log tail Monitor.** A `Monitor` task running `tail -F /tmp/garden-monitor-*.log` (glob expanded to every active daemon's log) filtered for `NEW|ADD|REMOVE|daemon stopping|ERROR`. Today that includes `/tmp/garden-monitor-endojs-endo-but-for-bots.log`, `/tmp/garden-monitor-kriskowal-garden.log`, and `/tmp/garden-review-queue.log`; the glob picks up any future log automatically.
 2. **Inbox-drain Monitor.** A `Monitor` task running a path-fallback wrapper around `inbox-drain.sh` so addressed-to-`steward` journal entries surface within ~90 seconds of being written, instead of waiting up to one full cycle for the per-cycle survey's drain. The path-fallback shape is mandatory (see *Path-fallback discipline for wrapped skill scripts* below); the canonical wrapper is:
@@ -139,8 +227,9 @@ Beyond the long-lived bash daemons above (which run in the harness, write logs t
    done
    ```
 3. **@-mention surveillance Monitor.** A `Monitor` task per `skills/at-mention-surveillance/SKILL.md` that polls the issue- and PR-comment endpoints of each safe-to-monitor repo for `@kriscendobot` or `@kriskowal` in the comment body and emits one line per match. The skill's reaction matrix routes each emit to a fixer (code-PR), a designer (design-PR), or a liaison `message` (cross-PR routing implied by an `@kriskowal` mention). Distinct from the daemon-log tail Monitor above because the daemon observes *event* metadata while this Monitor scans comment *body* content; the two surveillance surfaces compose per the skill's *Why fold or not fold* discussion. The third Monitor was added 2026-05-15 per the steward retro at `journal/entries/2026/05/15/215930Z-message-steward-72ad0e.md`, after a `@kriscendobot` comment on `endojs/endo-but-for-bots#265` surfaced as an `IssueCommentEvent` `NEW` line whose body never reached the parent context.
+4. **Job-board tail Monitor.** A `Monitor` task running `tail -F /tmp/garden-jobs.log` filtered for `^[^ ]* NEW` so each new posting in `journal/jobs/open/` surfaces as a notification within the bash daemon's cadence (default 30s). The bash daemon is `skills/job-board/job-board-poll.sh`; its liveness check is alongside the three standing-monitor daemons in *Standing monitors* above. When a `NEW` line arrives, the steward attempts `skills/job-board/claim-job.sh <path>`; `lost-race` is the expected outcome on contention and is silent. The fourth Monitor was added 2026-05-18 alongside the job-board mechanism per the maintainer's 2026-05-18 framing on concurrent stewards.
 
-Without all three Monitors, the steward operates blind between cycles: daemon `NEW` lines pile up unprocessed, `message` entries from subagents and from the liaison sit unread for tens of minutes, and `@`-mentions in comment bodies do not surface until the next per-cycle retroactive sweep. Three observed gaps motivated this invariant:
+Without all four Monitors, the steward operates blind between cycles: daemon `NEW` lines pile up unprocessed, `message` entries from subagents and from the liaison sit unread for tens of minutes, `@`-mentions in comment bodies do not surface until the next per-cycle retroactive sweep, and job-board postings sit on the board without a claimant until the next per-cycle scan. Four observed gaps motivated this invariant (the first three predate the fourth Monitor; the job-board Monitor preempts a fourth class of gap that the prior single-steward shape could not have surfaced because the channel did not exist):
 
 - Three forwarded `to: steward` messages from boatman and liaison (2026-05-14 `060250Z`, `060538Z`, `061330Z`) sat in the inbox for ~50 minutes because the steward's prior inbox-drain Monitor had been stopped (deferring to a liaison-targeted drain Monitor instead, which routed to the liaison session rather than the steward).
 - An understudy session's `to: steward` message at 2026-05-14 `214954Z` waited ~5 minutes for the per-cycle drain to catch it; the user had to prompt the steward to re-arm.
@@ -148,7 +237,7 @@ Without all three Monitors, the steward operates blind between cycles: daemon `N
 
 The directive (verbatim from the maintainer): *"Please inform the gardener to make sure the steward knows to arm all of its monitors."*
 
-Operational rule: each cycle's *Survey* step verifies all three Monitors are still running via `TaskList`; re-arm any that have been `TaskStop`'d. If one is missing at cycle start, re-arm it and journal the re-arm in the cycle-summary entry. Re-arming is cheap; the cost of not doing it is invisible inbox lag.
+Operational rule: each cycle's *Survey* step verifies all four Monitors are still running via `TaskList`; re-arm any that have been `TaskStop`'d. If one is missing at cycle start, re-arm it and journal the re-arm in the cycle-summary entry. Re-arming is cheap; the cost of not doing it is invisible inbox or job-board lag.
 
 ### Path-fallback discipline for wrapped skill scripts
 
@@ -298,9 +387,11 @@ What the gamut does **not** mean:
 
 ## Vocabulary
 
-The maintainer speaks to the liaison in shorthand; some of that shorthand reaches the steward through inbox `message` entries (typically `message: liaison → steward`). The table below names the verbs and verb-phrases the steward recognizes and what each one dispatches. *The gamut* (above) is the compound chain idiom for the full PR-creation-flow; this section covers the rest of the subset that survives the liaison-to-steward handoff. Bulletin-edit phrases, authorization-grant phrases, and the user-facing "let the [role] know" idiom are liaison-only and do not appear in steward inbox messages; if they do, route them back to the liaison via a `message` entry rather than acting.
+The maintainer speaks to the liaison in shorthand; some of that shorthand reaches the steward through the job board (the `verb:` field of each claimed job) and, for residual non-work directives, through inbox `message` entries (typically `message: liaison → steward`). The table below names the verbs and verb-phrases the steward recognizes and what each one dispatches. *The gamut* (above) is the compound chain idiom for the full PR-creation-flow; this section covers the rest of the subset that survives the liaison-to-steward handoff. Bulletin-edit phrases, authorization-grant phrases, and the user-facing "let the [role] know" idiom are liaison-only and do not appear in steward jobs or inbox messages; if they do, route them back to the liaison via a `message` entry rather than acting.
 
 The full table lives on `roles/liaison/AGENT.md` § Vocabulary; this section is the autonomous subset.
+
+The 2026-05-18 channel split: **work items arrive as jobs**, **directed communication arrives as inbox messages**. The verb table below applies uniformly to either channel; the steward's reaction is the same. A residual handful of compatibility patterns where the liaison may still send a `message: liaison → steward` for a steward-shaped action are noted on the liaison's role file; the steward treats both shapes the same way, but new producer-side patterns prefer the board.
 
 ### Direct-dispatch verbs
 
@@ -426,17 +517,20 @@ Each invocation is one cycle. Wake, survey, dispatch, journal, schedule, exit. N
 
 1. **Sync the journal.** Run step 1 of journal-sync (fetch / rebase if a remote is configured) so the cycle reads current state.
 2. **Survey.**
-   - **Verify the parent-context Monitors** (see *Parent-context Monitor invariants* above). Run `TaskList` and confirm all three (daemon-log tail Monitor, inbox-drain Monitor, @-mention surveillance Monitor) are still running; re-arm any that have been `TaskStop`'d and note the re-arm in the cycle-summary entry.
-   - **Drain the inbox** via `skills/inbox-drain/inbox-drain.sh steward --no-fetch` (step 1 already fetched). One line per addressed-to-`steward` or broadcast-`*` entry since the prior cycle's drain. Read each. The continuous inbox-drain Monitor surfaces most messages during the cycle, but the explicit per-cycle drain catches any entries the Monitor missed (a `TaskStop` between cycles, a brief network hiccup).
+   - **Workspace check** per *Workspace, presence, and the job board* above. Verify pwd matches the host's `workspace_path:`, branch is `main`, and the garden checkout is synced to `origin/main` (fast-forward if behind, refuse to act if ahead or diverged). On refusal, write `message: steward → liaison` describing the drift and exit the cycle; do not dispatch anything from a drifted workspace.
+   - **Verify the parent-context Monitors** (see *Parent-context Monitor invariants* above). Run `TaskList` and confirm all four (daemon-log tail Monitor, inbox-drain Monitor, @-mention surveillance Monitor, job-board tail Monitor) are still running; re-arm any that have been `TaskStop`'d and note the re-arm in the cycle-summary entry.
+   - **Bump the presence heartbeat.** Update `last_heartbeat:` on `journal/presence/<host>/steward.md` to now; commit via journal-sync. If the file does not exist (first cycle after `/clear`), write it from scratch with `status: present`, fresh `session_started`, the workspace path, and the bootstrap order.
+   - **Drain the inbox** via `skills/inbox-drain/inbox-drain.sh steward --no-fetch` (step 1 already fetched). One line per addressed-to-`steward` or broadcast-`*` entry since the prior cycle's drain. Read each. The continuous inbox-drain Monitor surfaces most messages during the cycle, but the explicit per-cycle drain catches any entries the Monitor missed (a `TaskStop` between cycles, a brief network hiccup). Per the *Workspace, presence, and the job board* section, the inbox now carries directed communication (FYIs, decisions, retros, replies from subagents) but not work items; work items arrive via the job board.
+   - **Scan the job board** per *Workspace, presence, and the job board* above. List `journal/jobs/open/` and identify any job whose `eligible_roles:` includes `steward`. The live job-board tail Monitor surfaces postings between cycles; the explicit per-cycle scan is the safety net. For each claimable job, attempt `skills/job-board/claim-job.sh <path>`; `lost-race` is the expected outcome on contention and continues the loop.
    - **At-mention retroactive sweep** per `skills/at-mention-surveillance/SKILL.md` § Retroactive cycle-start sweep. One `gh api` call per endpoint with `since=$(date -u -d '-1 hour' …)`; de-duplicate against the live Monitor's most recent emit timestamp; route any surviving line through the same reaction matrix the live Monitor uses. Empty result is silent; the sweep is the safety net for any window the live Monitor missed.
    - **Check understudy presence** per *Understudy presence and shunting* above. Walk `journal/presence/*/understudy.md`; any file with `status: present` and `last_heartbeat` within the 5-minute staleness threshold counts as a present understudy. Record the count (typically 0 or 1) in the cycle's mental scratch; the *Dispatch* step uses it to decide whether to shunt eligible work.
    - Recent journal entries since the prior steward cycle (use `kind:` filters: tick, result, message, worktree). Complements the inbox drain by surfacing context the inbox does not (your own prior cycle's results, other ticks worth glancing at).
    - Worktree inventory (`git worktree list` plus the per-host directory under `journal/worktrees/`). Note collectable worktrees per `WORKTREES.md` for the cycle's housekeeping pass.
-3. **Dispatch.** Run the *Standing monitors* liveness check above and respawn any dead daemons. Then scan each daemon's log tail since the prior cycle's close; for the endo-but-for-bots monitor with `NEW` lines, prepare a per-dispatch worktree triple, write a `dispatch` entry, and invoke the `monitor` role's `Agent`; for the kriskowal/garden monitor with `NEW` lines, do the same but invoke the `liaison` role (see *Standing monitors* above and `skills/monitor-garden/SKILL.md` § Dispatch role asymmetry); for the review-queue with `ADD`/`REMOVE` lines, invoke the `review-queue` role. Forward any pre-authorized boatman handoff that arrived as a `message` from `liaison`. Then run the **PR-creation-flow scan** described above for every active monitored repo (today, `endojs/endo-but-for-bots`); dispatch the next-owed stage for each garden-authored draft PR. Then run the **Design-to-PR pipeline** inventory described above; if the cap is free and an uncovered design exists, dispatch a builder with purpose slug `draft-initial-pr-<design-slug>`. Finally, if the *Survey* step found a present understudy, walk this cycle's eligible-to-shunt work (investigator dispatches, journalist dispatches, major-general per-PR fanout) per *Understudy presence and shunting* above and write `message: steward → understudy` shunts in place of direct dispatches for those classes; the time-coupled and authorization-bearing classes still dispatch directly regardless of understudy presence. Each `Agent` invocation runs in its own per-dispatch worktree triple created by `skills/dispatch-worktree/dispatch-prepare.sh <role> <purpose> [<owner>/<repo> <branch>]` and torn down on return by `skills/dispatch-worktree/dispatch-teardown.sh "$DISPATCH_ROOT"`. Monitor and review-queue dispatches typically omit the `[<owner>/<repo> <branch>]` arguments because their work is journal-and-API-only; boatman, PR-flow stage, and design-to-PR pipeline dispatches always include them. Dispatches are independent and may run in parallel; their dispatch roots do not interfere.
+3. **Dispatch.** Run the *Standing monitors* liveness check above (including the job-board poll daemon on `skills/job-board/job-board-poll.sh`) and respawn any dead daemons. Then scan each daemon's log tail since the prior cycle's close; for the endo-but-for-bots monitor with `NEW` lines, prepare a per-dispatch worktree triple, write a `dispatch` entry, and invoke the `monitor` role's `Agent`; for the kriskowal/garden monitor with `NEW` lines, do the same but invoke the `liaison` role (see *Standing monitors* above and `skills/monitor-garden/SKILL.md` § Dispatch role asymmetry); for the review-queue with `ADD`/`REMOVE` lines, invoke the `review-queue` role. For each job claimed during *Survey* (the new job-board path), dispatch per the *Workspace, presence, and the job board* § Per-job lifecycle: pick the subordinate role from the job's `verb`, prepare the worktree triple, invoke `Agent` with the job body verbatim as the dispatch prompt, write the `result` entry, and run `complete-job.sh` to transition the claim to `done/` or `abandoned/`. Forward any pre-authorized boatman handoff that arrived as a job-board claim (a job with `authorizations.identity_switch: true` from the liaison; the steward still forwards, never originates). Then run the **PR-creation-flow scan** described above for every active monitored repo (today, `endojs/endo-but-for-bots`); dispatch the next-owed stage for each garden-authored draft PR. Then run the **Design-to-PR pipeline** inventory described above; if the cap is free and an uncovered design exists, dispatch a builder with purpose slug `draft-initial-pr-<design-slug>`. Finally, if the *Survey* step found a present understudy, walk this cycle's eligible-to-shunt work (investigator dispatches, journalist dispatches, major-general per-PR fanout) per *Understudy presence and shunting* above and write `message: steward → understudy` shunts in place of direct dispatches for those classes; the time-coupled and authorization-bearing classes still dispatch directly regardless of understudy presence. Each `Agent` invocation runs in its own per-dispatch worktree triple created by `skills/dispatch-worktree/dispatch-prepare.sh <role> <purpose> [<owner>/<repo> <branch>]` and torn down on return by `skills/dispatch-worktree/dispatch-teardown.sh "$DISPATCH_ROOT"`. Monitor and review-queue dispatches typically omit the `[<owner>/<repo> <branch>]` arguments because their work is journal-and-API-only; boatman, PR-flow stage, design-to-PR pipeline, and job-board-claimed dispatches always include them. Dispatches are independent and may run in parallel; their dispatch roots do not interfere.
 4. **Aggregate.** When subagents return, write a `result` entry per dispatch.
 5. **Housekeep.** Collect any worktree the survey flagged as collectable. Update heartbeats on worktrees the steward itself is using. Refresh the *Ongoing work* section of `journal/README.md` so it reflects current worktree status. Maintain the bulletin board: promote attention-worthy results into the relevant section (PRs ready for review, decisions needed), and clear existing items whose underlying condition is now resolved (the PR has a maintainer review, the decision was made in upstream comments, the staged authorization was forwarded into a dispatch, the surplus-authority condition was fixed). The maintainer never edits the bulletin; they act in the upstream system and the next cycle picks up the change. For any long-living subagent that completed or was interrupted this cycle, write a termination report per `skills/agent-termination/SKILL.md` and archive its transcript when feasible.
 6. **Self-improvement.** Scan the cycle for lessons; write any that generalize as `message` entries to `liaison`. Do not edit roles or skills.
-7. **Schedule next.** Set the next wakeup per `skills/autonomous-loop-pacing/SKILL.md`: pick active mode (≤ 1800s) when any active-mode trigger fires (in-flight dispatch, propagating CI, recent maintainer touch, re-review pending, non-empty merge queue, unread `NEW`/`ADD`/`REMOVE` daemon-log lines, or an open *Awaits maintainer decision* bulletin item), idle mode (1800s to 3600s) otherwise; never pick 300s. Always schedule a next fire unless explicitly told to stop; a cycle with no dispatches is not a stop signal. The single call site for `ScheduleWakeup` is here.
+7. **Schedule next.** Set the next wakeup per `skills/autonomous-loop-pacing/SKILL.md`: pick active mode (≤ 1800s) when any active-mode trigger fires (in-flight dispatch, propagating CI, recent maintainer touch, re-review pending, non-empty merge queue, unread `NEW`/`ADD`/`REMOVE` daemon-log lines, **any open job in `journal/jobs/open/` eligible for `steward`**, or an open *Awaits maintainer decision* bulletin item), idle mode (1800s to 3600s) otherwise; never pick 300s. Always schedule a next fire unless explicitly told to stop; a cycle with no dispatches is not a stop signal. The single call site for `ScheduleWakeup` is here.
 8. **Exit.** End the cycle. Cycles do not carry context across; the journal is the only memory.
 
 ## Authority enforcement

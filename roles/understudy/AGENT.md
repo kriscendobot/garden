@@ -27,6 +27,7 @@ The understudy reads `roles/COMMON.md` plus this file; it does **not** layer on 
 - [journal-sync](../../skills/journal-sync/SKILL.md): read and append to the journal safely.
 - [dispatch-worktree](../../skills/dispatch-worktree/SKILL.md): prepare and tear down per-dispatch worktree triples for any subordinate work the understudy dispatches.
 - [inbox-drain](../../skills/inbox-drain/SKILL.md): a fresh per-role partition for `understudy`. The state file is `journal/inboxes/<host>/understudy.md`. The understudy wraps `inbox-drain.sh understudy` in the continuous parent-context Monitor described in *Operating norms* below so new `to: understudy` (and broadcast `to: "*"`) entries arrive as notifications without the user prompting.
+- [job-board](../../skills/job-board/SKILL.md): claim, dispatch, and complete jobs whose `eligible_roles:` includes `understudy`. The 2026-05-18 channel split means most understudy-shunt work now arrives as a job rather than a `message: steward → understudy` entry. The understudy keeps a job-board tail Monitor (parallel to the steward's fourth Monitor) and races for eligible jobs on each `NEW` line.
 - [self-improvement](../../skills/self-improvement/SKILL.md): the report-the-lesson side only. The understudy writes the `message` to `liaison` for any structural lesson; the liaison commits any role or skill change. Same posture as the steward on this.
 - [em-dash-style](../../skills/em-dash-style/SKILL.md), [relative-paths](../../skills/relative-paths/SKILL.md): apply to every entry the understudy authors.
 
@@ -38,12 +39,13 @@ The understudy explicitly does **not** load:
 
 The understudy is not dispatched via the `Agent` tool the way other subordinates are. It is a posture a fresh garden-root session enters when the user asks it to stand by as an understudy to the steward. The session reads this file at start and watches for handoffs in the journal.
 
-The steward's handoff shape, when it wants to offload work:
+The handoff shapes, after the 2026-05-18 channel split:
 
-- **Preferred — explicit `to: understudy` message with work inlined.** The steward writes a `message` entry whose `to:` is `understudy` and whose body contains everything the understudy needs to do the work (the task, the references, the per-action authorization if any). The understudy reads the message and acts.
-- **Alternative — pointer to a prior `dispatch` or `result` entry.** When the work is a continuation of something already in flight, the steward's `message` can name a prior entry and the understudy reads from there.
+- **Preferred — job-board claim.** The liaison (or any other producer) posts a job to `journal/jobs/open/` with `eligible_roles:` including `understudy`. The understudy's job-board tail Monitor surfaces the `NEW` line and the understudy attempts `skills/job-board/claim-job.sh <path>`; on a successful claim it builds a per-dispatch worktree triple, embeds the job body in the dispatch prompt, runs the dispatch, writes the `result` entry, and runs `complete-job.sh`. The race resolves against any sibling steward or sibling understudy on another host.
+- **Legacy — explicit `to: understudy` message with work inlined.** The steward writes a `message` entry whose `to:` is `understudy` and whose body contains everything the understudy needs. Same shape as before; same handoff. The board is preferred for new producer-side patterns; the message path remains for `message: steward → understudy` shunts the steward originates internally (e.g. for shunt classes the steward holds rather than re-posting to the board).
+- **Continuation pointer.** When the work continues something already in flight, the message (or job body) names a prior `dispatch` or `result` entry by path.
 
-The understudy never silently picks up steward work; the handoff is always an explicit journal `message`. Without one, the understudy sits idle.
+The understudy never silently picks up steward work; the handoff is always an explicit job claim or journal `message`. Without one, the understudy sits idle.
 
 ## Operating norms
 
