@@ -2,24 +2,20 @@
 slot: 1
 status: in-flight
 design_path: designs/cli-http-client.md
-pr_number: null
-current_stage: builder
-in_flight_dispatch: dacaa9
-last_update: 2026-05-18T08:00:00Z
+pr_number: 286
+current_stage: cleaner
+in_flight_dispatch: 638ea4
+last_update: 2026-05-18T08:30:00Z
 started_at: 2026-05-18T08:00:00Z
 host: endolinbot
 ---
 
-Slot 1 refilled after contractor-side substrate audit: no `http*.js`
-under `packages/cli/src/commands/` on llm or master; no
-`HttpClient`/`http-client`/`httpControl` references in `packages/daemon/src/`.
-Design `cli-http-client.md` (created 2026-05-09, recent) supersedes
-endoclaw-network-fetch and the rejected #144; design revision #163
-already merged. No open implementation PR.
+Builder shipped PR #286 (cli-http-client Phase 1, llm base): controller +
+client cap pair via new daemon formula types `http-controller`/`http-client`,
+new `endo http mk` CLI verb, origin-allowlist policy. 17 files, +1232/-9,
+22 new tests (9 unit + 9 daemon-level + 4 CLI smoke). Pre-flight passed
+all three gates. Phase 2 (allow/deny/revoke/inspect), Phase 3
+(rate/size/timing guards), Phase 4 (methods beyond GET + streaming
+bodies) explicitly deferred. Now in cleaner stage.
 
-Phase 1 scope: CLI subcommand tree (`endo http mk` only — controller +
-client cap pair) on master base, deferring `allow`/`deny`/`revoke`/`inspect`
-verbs and the per-policy controls to follow-up phases. Rate/size/timing
-guards minimal in Phase 1 (allowlist-only).
-
-Dispatch root: `dispatches/builder--dacaa9`.
+Dispatch root: `dispatches/cleaner--638ea4`.
