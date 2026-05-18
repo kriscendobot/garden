@@ -59,7 +59,7 @@ The output of step 1 is two dispatch roots, each with `garden/`, `journal/`, and
 
 ### Step 2: Dispatch one replay subagent in each environment
 
-The two subagents run the same brief: implement the design end-to-end, from inception through opening the PR to taking it out of draft for the first user review. The flow they execute is [`skills/pr-creation-flow/SKILL.md`](../pr-creation-flow/SKILL.md) in full, which (as of the 2026-05-14 redesign) is: builder opens the draft, assayer pushes tests (in concert), cleaner pushes coverage, judge dispatches the twelve-seat jury panel concurrently and aggregates the verdict, fixer loop runs, judge un-drafts. Historical-arm replays at refs older than 2026-05-14 run the prior flow shapes (originally builder + assayer + juror-plus-saboteur panel + fixer + cleaner-un-drafts; later same-day, builder + assayer + cleaner + six-seat judge-dispatched panel + fixer-loop + judge-un-drafts); the evaluator's comparison surfaces the flow-shape differences as part of the meta-evolution signal.
+The two subagents run the same brief: implement the design end-to-end, from inception through opening the PR to taking it out of draft for the first user review. The flow they execute is [`skills/pr-creation-flow/SKILL.md`](../pr-creation-flow/SKILL.md) in full, which (current as of 2026-05-18) is: builder opens the draft, assayer pushes tests (in concert), cleaner pushes coverage, judge dispatches the seventeen-seat jury panel concurrently and aggregates the verdict, fixer loop runs, judge un-drafts. Historical-arm replays at refs older than 2026-05-18 run the prior flow shapes (originally builder + assayer + juror-plus-saboteur panel + fixer + cleaner-un-drafts; 2026-05-14, builder + assayer + cleaner + six-seat then twelve-seat judge-dispatched panel + fixer-loop + judge-un-drafts; 2026-05-15, the same flow with a sixteen-seat code panel after four maintainer-modeled additions); the evaluator's comparison surfaces the flow-shape differences as part of the meta-evolution signal.
 
 Practical shape:
 
@@ -190,7 +190,7 @@ While the two replay PRs are out of draft and the evaluator has not yet closed t
 
 ### Cost
 
-Each arm runs a full pr-creation-flow: one builder, one assayer, the cleaner, the judge (which dispatches the twelve-seat panel concurrently internally), the fixer loop (variable count), and the judge's un-draft. That is one outer dispatch chain of about six stages plus twelve juror dispatches per panel round; the total subagent count for a single A/B pair is around 30 to 50 depending on the fixer-loop iteration count. **Run this skill sparingly**: the framing is "a sanity check after a substantive meta-evolution", not a per-PR procedure.
+Each arm runs a full pr-creation-flow: one builder, one assayer, the cleaner, the judge (which dispatches the seventeen-seat code panel concurrently internally), the fixer loop (variable count), and the judge's un-draft. That is one outer dispatch chain of about six stages plus seventeen juror dispatches per panel round; the total subagent count for a single A/B pair is around 40 to 60 depending on the fixer-loop iteration count. **Run this skill sparingly**: the framing is "a sanity check after a substantive meta-evolution", not a per-PR procedure.
 
 ### Design selection bias
 

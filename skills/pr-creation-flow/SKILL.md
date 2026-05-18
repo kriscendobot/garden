@@ -47,7 +47,7 @@ cleaner (coverage pass; dead-code; same branch)
    v
 judge (foreperson; picks panel by PR shape; dispatches the panel)
    |
-   |  judge runs the code panel (sixteen seats, concurrent) + gh pr edit --add-reviewer @copilot
+   |  judge runs the code panel (seventeen seats, concurrent) + gh pr edit --add-reviewer @copilot
    |  OR the design panel (seven seats, concurrent; no @copilot) on a design-only PR
    v
 panel verdict (judge aggregates, submits formal gh pr review)
@@ -118,13 +118,13 @@ If the PR is `CONFLICTING` against its base when the cleaner arrives, the cleane
 
 ## Jury composition
 
-There are **two default panels**: the code panel (sixteen seats, for source-touching PRs) and the design panel (seven seats, for design-only PRs). The judge picks one per round based on the PR's file list per `roles/judge/AGENT.md` § Panel-kind discrimination.
+There are **two default panels**: the code panel (seventeen seats, for source-touching PRs) and the design panel (seven seats, for design-only PRs). The judge picks one per round based on the PR's file list per `roles/judge/AGENT.md` § Panel-kind discrimination.
 
 **Panel-kind rule.** A PR is **design-only** when every changed path is under `<project>/designs/` (or the project's equivalent design directory) and no path is under `src/`, `test/`, `tests/`, or `packages/<name>/src/`. Otherwise the PR is source-touching, and the code panel applies. Mixed PRs (source plus design document) get the code panel; the design content rides as supplementary context in the code panel's report rather than as its own pass.
 
 ### Code panel (default for source-touching PRs)
 
-Sixteen seats, dispatched by the judge as one panel round. The 2026-05-14 redesign halved each of the prior six seats' responsibilities into two more-focused successor seats so the panel hits each inquiry area twice with one primary per area; the 2026-05-15 expansion added four maintainer-modeled seats (ocap purity, spec rigor, wire integrity, engine realism) whose lenses were distilled from the empirical PR-feedback patterns of senior reviewers across `endojs/endo` and `Agoric/agoric-sdk`.
+Seventeen seats, dispatched by the judge as one panel round. The 2026-05-14 redesign halved each of the prior six seats' responsibilities into two more-focused successor seats so the panel hits each inquiry area twice with one primary per area; the 2026-05-15 expansion added four maintainer-modeled seats (ocap purity, spec rigor, wire integrity, engine realism) whose lenses were distilled from the empirical PR-feedback patterns of senior reviewers across `endojs/endo` and `Agoric/agoric-sdk`; the 2026-05-18 expansion added a fifth maintainer-modeled seat (`integrator`, empirical source: `@kriskowal`) for integration-coherence reading.
 
 - [assessor](../../roles/assessor/AGENT.md): correctness logic, control flow, error handling. Secondary: invariant claims overlap with the breaker.
 - [typist](../../roles/typist/AGENT.md): type accuracy (TS, JSDoc types, narrowings). Secondary: public-API signature correctness overlap with the curator.
@@ -142,8 +142,9 @@ Sixteen seats, dispatched by the judge as one panel round. The 2026-05-14 redesi
 - [spec-keeper](../../roles/spec-keeper/AGENT.md): ECMA-262 / WebIDL / TC39-proposal rigor, engine variance, primordial preservation, forward-compat with proposals, brittle-test resistance, less-coupling. Secondary: regression-evidence on engine-variance tests overlap with the prover. Empirical source: `@gibson042`.
 - [wire-watcher](../../roles/wire-watcher/AGENT.md): security-protocol correctness on the wire (check-before-trust ordering, in-band-marker trust-bypass, parser divergence, identifier discipline, protocol state-machine invariants, failure-mode test catalog). Secondary: capability-on-trust-boundary overlap with the locksmith and warden. Empirical source: `@warner`.
 - [engine-realist](../../roles/engine-realist/AGENT.md): V8 / XS realism, vat-lifecycle phase, allocation and GC budget, ephemeral vs virtual vs durable storage, engine-version compat, work-deferral. Secondary: regression-evidence on engine-semantic tests overlap with the prover. Empirical source: `@mhofman`.
+- [integrator](../../roles/integrator/AGENT.md): integration coherence with the project's existing structure (merge-commit readability, concept-namespace coherence, rename-completeness sweep, convention probe, forward-compose probe, test-pins-constant, public-surface-in-tests, type-level discouragement, cycle-obviation, diagram maintainability, commit grouping, master-base mirror, minimum cleavage). Secondary: diff-hygiene overlap with the packager and docs-prose overlap with the archivist on the integration slice. Empirical source: `@kriskowal`.
 
-Plus one fire-and-forget shell call alongside the sixteen dispatches (not a separate `Agent` invocation):
+Plus one fire-and-forget shell call alongside the seventeen dispatches (not a separate `Agent` invocation):
 
 ```sh
 gh pr edit <N> -R <owner>/<repo> --add-reviewer @copilot
@@ -163,7 +164,7 @@ Seven seats, dispatched by the judge as one panel round. The panel reviews a des
 
 The design panel does **not** add `@copilot`: the design surface is prose rather than code, and Copilot's code-review heuristics do not apply.
 
-### Why sixteen seats (code panel)
+### Why seventeen seats (code panel)
 
 Maintainer's framing (2026-05-14): each seat should carry **half** of what the prior six-seat version did, so the panel can be deeper in each inquiry area without diluting any seat's focus. The earlier framing remains true ("each kind of review is conducted more than once, but a wide variety of concerns are evaluated"); the 2026-05-14 directive narrows the per-seat lens by splitting each prior seat into two successor seats with disjoint primary surfaces and one deliberate overlap each.
 
@@ -183,7 +184,27 @@ The 2026-05-15 expansion added four maintainer-modeled seats whose lenses were d
 - **wire-watcher** (empirical source: `@warner`). Security-protocol correctness on the wire: check-before-trust ordering when loading bytes, in-band-marker trust-bypass attacks, parser-divergence hazards, identifier-format discipline, protocol state-machine invariants under failure, failure-mode test catalog. Distinct from `locksmith` and `warden` (capability flow and SES boundary): the wire-watcher's lens is the identifier or hash that gates the capability the others audit.
 - **engine-realist** (empirical source: `@mhofman`). V8 / XS realism and vat-lifecycle awareness: engine-variance test coverage, resilience against capability override, vat-phase-appropriate work, allocation and GC budget, ephemeral vs virtual vs durable storage choice, engine-version compat, work-deferral preference. Distinct from `prover` (regression evidence generally): the engine-realist's frame is the runtime a future caller will be on.
 
-Smaller panels (3 to 6 seats) remain valid for tiny PRs when the orchestrator names a reduced composition in the dispatch brief; the reference's 16-perspective panel is now the default rather than an override.
+The 2026-05-18 expansion added a fifth maintainer-modeled seat, whose lens was distilled from the maintainer's own pull-request review pattern across the same two repos. The seat slug names the lens; the empirical source is recorded in the role file:
+
+- **integrator** (empirical source: `@kriskowal`). Integration coherence with the project's existing structure: merge-commit readability of the PR title and description, concept-namespace coherence with names the project already uses, rename-completeness sweep across every region the old name appears, convention probe before introducing a new file or pattern, forward-compose probe asking whether sibling packages will extend the pattern cleanly, tests that pin constants by direct assertion rather than narrating with comments, public-surface use in tests where the internal reach is not justified, type-level discouragement over runtime guards, cycle-obviation tracking on the package dependency graph, diagram maintainability (mermaid over ASCII), commit grouping for the merge-commit reader, master-base mirror PRs when the change is also wanted on the default branch, and minimum cleavage when splitting packages or breaking cycles. Distinct from `migrator` (downstream-caller compatibility): the migrator reads from inside the change outward to callers; the integrator reads from outside the change inward to the project's existing structure and the future reader.
+
+Smaller panels (3 to 6 seats) remain valid for tiny PRs when the orchestrator names a reduced composition in the dispatch brief; the reference's 17-perspective panel is now the default rather than an override.
+
+### Sites that name the panel size
+
+When a future expansion or contraction changes either panel's seat count, sweep these sites in one commit so the library does not drift (the 2026-05-15 +4 expansion and the 2026-05-18 +1 expansion each missed several of them on first landing, and a gardener sweep had to catch up):
+
+- `CLAUDE.md` § Current inventory: jury-seat-role count, the two per-panel seat lists, and the historical narrative paragraph.
+- `README.md` § (top-level pipeline paragraph): the seat-count and the inline seat list.
+- `roles/judge/AGENT.md`: opening paragraph, *Panel-kind discrimination* heading and prose, the per-panel seat list, the aggregation word-count range in *Operating norms*, the *In-band fallback* count, and the 2026-05-14-framing paragraph after the seat list.
+- `roles/liaison/AGENT.md` § Vocabulary: the gamut and the *PR-creation-flow chaining* norm.
+- `roles/steward/AGENT.md` § Bounded dispatch authority: the judge line in the dispatch table and the *Vocabulary: the gamut* section.
+- `roles/saboteur/AGENT.md` § Operating norms: the "alongside the other N seats" line and the "N-seat panel returns one block each" line. (Saboteur is the canonical site because of how the reference's saboteur came in; other seats do not name the panel count.)
+- `skills/pr-creation-flow/SKILL.md` (this file): the *Code panel* heading, the seat list, *Why N seats (code panel)* heading, *Sites that name the panel size* (this list), and the Notes-from-the-field entry naming the expansion.
+- `skills/panel-review/SKILL.md`: header paragraph, *Panel composition* section, *Aggregation* should-fix bullet, and the *Posting the review* aggregation word-count range.
+- `skills/garden-ab-evaluation/SKILL.md`: *Step 2* flow description and the *Cost* paragraph.
+
+Historical narrative ("after the 2026-05-14 twelve-seat redesign moved X to seat Y") in `roles/<seat>/AGENT.md:13` and in any `Notes from the field` entry dated _2026-05-14_ or _2026-05-15_ or _2026-05-18_ describes what happened on that date and **stays as written**; only current-state references update.
 
 ### Why seven seats for the design panel
 
@@ -293,3 +314,4 @@ The orchestrator decides whether to dispatch concurrently (multiple PRs' next st
 - _2026-05-14_ (later same day): design panel landed. The maintainer's framing: "Designs should be reviewed by a critic, a skeptic, a copy editor, a Chicago Manual style guide enthusiast, and a naive reader who only understands short sentences with clear logical progress." The judge gained panel-kind discrimination per `roles/judge/AGENT.md` § Panel-kind discrimination: design-only PRs (paths only under `<project>/designs/`) get the five-seat design panel; everything else gets the existing twelve-seat code panel. The design-only flow skips both the assayer and the cleaner and dispatches the judge directly after the builder. This supersedes the same-day, earlier "design-only PRs skip the flow chain" stance: design-only PRs now run through the chain with the design panel rather than being skipped entirely. The first design-panel rounds will run against PR #249 (SES top-level-await design) and the SES import-attributes design PR once its builder lands; the steward's per-cycle scan picks them up.
 - _2026-05-15_: design panel grew from five seats to seven. Two new seats joined: the `decomplector` (Rich-Hickey-lens reader: simple-vs-easy, complecting / decomplecting, value-oriented / place-oriented, essential / accidental complexity, minimum viable abstraction; mirror seat to the code panel's `breaker` across the design / code boundary) and the `ergonomist` (interface-ergonomics reader on the proposed API or UI surface: coherence, discoverability, least-surprise, parameter order, return shape, error visibility, layout, accessibility, user path, affordance). The seat-count was the load-bearing decision; the procedural shape (concurrent dispatch, one aggregated verdict, jury-fixer loop, no `@copilot`) is unchanged. The decomplector seat's name (verb `decomplect` rather than the eponym `hickey`) was a deliberate choice to keep the seat list non-eponymous; future role-authors weigh that precedent before naming a seat after a person.
 - _2026-05-15_ (parallel dispatch, same day): code panel expanded from twelve to sixteen seats with four maintainer-modeled additions. The maintainer's directive: model reviewer seats on the empirical PR-feedback patterns of senior contributors (`@erights`, `@gibson042`, `@warner`, `@mhofman`), with slug names that protect the innocent (the seat names the lens, not the reviewer; the reviewer is recorded as the empirical source in the role file). The four seats: `purist` (ocap purity and conceptual integrity, from erights), `spec-keeper` (ECMA-262 / WebIDL / TC39 rigor and engine variance, from gibson042), `wire-watcher` (security-protocol correctness on the wire, from warner), `engine-realist` (V8 / XS realism and vat-lifecycle awareness, from mhofman). All four joined the code panel; none are primarily design-panel-only (the design surface is one prose artifact; these lenses each target code- or wire-shaped material the design surface does not carry). Panel concurrency unchanged at sixteen seats; the judge's aggregation upper bound widens accordingly. The two 2026-05-15 expansions (design panel +2, code panel +4) were authored in parallel-dispatched gardener sessions; this skill landed both expansions sequentially as the gardener dispatches returned.
+- _2026-05-18_: code panel expanded from sixteen to seventeen seats with the maintainer's own lens added as a fifth maintainer-modeled seat. The `integrator` (empirical source: `@kriskowal`) reads each PR for integration coherence with the project's existing structure: merge-commit readability of the title and description, concept-namespace coherence with names the project already uses, rename-completeness sweep, convention probe before introducing a new pattern, forward-compose probe asking whether sibling packages will extend the pattern cleanly, tests that pin constants by direct assertion rather than narrating with comments, public-surface use in tests, type-level discouragement over runtime guards, cycle-obviation tracking, diagram maintainability (mermaid over ASCII), commit grouping for the merge-commit reader, master-base mirror PRs, and minimum cleavage when splitting packages. The lens was distilled from the maintainer's pull-request review pattern across `endojs/endo` and `endojs/endo-but-for-bots`; the recurring directives (rename sweep "lingering remnants of the term", "Please refresh the title and description consistent with standing instructions", "Why can we not simply import [E] from the public surface in tests?", "verifying that the magic number is indeed === [value], rather than relying on the veracity of a comment", "we use mermaid diagrams and eschew ASCII") are the empirical signal. Panel concurrency unchanged; the judge's aggregation upper bound widens by ~6%.

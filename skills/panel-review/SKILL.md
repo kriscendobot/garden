@@ -6,9 +6,9 @@ author: gardener
 
 # Skill: panel-review
 
-Adopted from `references/endo-but-for-bots/skills/panel-review-12-perspectives.md` and shaped for this garden's two-panel jury (twelve-seat code panel for source-touching PRs, seven-seat design panel for design-only PRs).
+Adopted from `references/endo-but-for-bots/skills/panel-review-12-perspectives.md` and shaped for this garden's two-panel jury (seventeen-seat code panel for source-touching PRs, seven-seat design panel for design-only PRs).
 
-The aggregation discipline and submission contract for jury reviews. The defaults in `skills/pr-creation-flow/SKILL.md` § Jury composition are the **code panel** (twelve seats: assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker) for source-touching PRs and the **design panel** (seven seats: critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice) for design-only PRs; both are dispatched by the [judge](../../roles/judge/AGENT.md), which picks the panel kind per `roles/judge/AGENT.md` § Panel-kind discrimination. This skill describes how each panel's findings combine into one verdict and how the judge submits that verdict.
+The aggregation discipline and submission contract for jury reviews. The defaults in `skills/pr-creation-flow/SKILL.md` § Jury composition are the **code panel** (seventeen seats: assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator) for source-touching PRs and the **design panel** (seven seats: critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice) for design-only PRs; both are dispatched by the [judge](../../roles/judge/AGENT.md), which picks the panel kind per `roles/judge/AGENT.md` § Panel-kind discrimination. This skill describes how each panel's findings combine into one verdict and how the judge submits that verdict.
 
 ## When to use
 
@@ -17,7 +17,7 @@ The aggregation discipline and submission contract for jury reviews. The default
 
 ## Panel composition
 
-- **Default for source-touching PRs (code panel): twelve seats** (assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker), dispatched concurrently as a single panel round by the judge. See `skills/pr-creation-flow/SKILL.md` § Jury composition for the seat list, the halved-responsibilities rationale, and the concurrent-dispatch default.
+- **Default for source-touching PRs (code panel): seventeen seats** (assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator), dispatched concurrently as a single panel round by the judge. See `skills/pr-creation-flow/SKILL.md` § Jury composition for the seat list, the halved-responsibilities rationale, the four 2026-05-15 maintainer-modeled additions, the 2026-05-18 addition of the `integrator` seat, and the concurrent-dispatch default.
 - **Default for design-only PRs (design panel): seven seats** (critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice), dispatched concurrently as a single panel round by the judge. See `skills/pr-creation-flow/SKILL.md` § Jury composition for the seat list and the design-panel rationale. The judge discriminates between panels by the PR's file list per `roles/judge/AGENT.md` § Panel-kind discrimination.
 - **Smaller panels** (3 to 6 seats from either default) are valid when the orchestrator names a reduced composition in the dispatch brief for a tiny PR. The aggregation discipline below applies unchanged.
 - **Custom compositions** are valid when a maintainer's directive names them. The judge dispatches each named seat and aggregates them all. Cross-panel compositions are permitted (e.g., add the novice to a code-panel round when the PR's JSDoc revision warrants a new-reader's eye).
@@ -45,7 +45,7 @@ Each block under ~400 words. "Comment-only" is for taste; anything that warrants
 The judge groups findings into:
 
 - **Must fix before merge** (any "request-changes" with concrete code / test / doc impact). Drives the jury-fixer loop per `skills/pr-creation-flow/SKILL.md`.
-- **Should fix in this PR** (taste or clarity items raised independently by at least two seats; on the twelve-seat default panel the deliberate inquiry-area overlap means routine duplicate flagging is expected and is the signal "promote to should-fix").
+- **Should fix in this PR** (taste or clarity items raised independently by at least two seats; on the seventeen-seat code panel the deliberate inquiry-area overlap means routine duplicate flagging is expected and is the signal "promote to should-fix").
 - **Out of scope / follow-up** (useful but not blocking this PR's loop).
 
 Dedupe overlapping findings. Where panel members disagree, present both views and pick the side most consistent with the project's `CLAUDE.md` (or `AGENTS.md`); make the disagreement explicit so the orchestrator can act.
@@ -68,7 +68,7 @@ gh pr review <N> -R <repo> --comment --body-file /tmp/panel.md
 gh pr review <N> -R <repo> --approve --body-file /tmp/panel.md
 ```
 
-The judge submits the formal review. The body is the same aggregated report (typically 1200 to 2000 words for the twelve-seat code-panel default, 900 to 1400 words for the seven-seat design-panel default; smaller panels run shorter still). Cite findings by perspective grouped where members agreed; do not list individual agent names.
+The judge submits the formal review. The body is the same aggregated report (typically 1700 to 2750 words for the seventeen-seat code-panel default, 900 to 1400 words for the seven-seat design-panel default; smaller panels run shorter still). Cite findings by perspective grouped where members agreed; do not list individual agent names.
 
 ## Pitfalls
 
