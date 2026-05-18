@@ -8,7 +8,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 
 | Topic | Abstract | Sections |
 |-------|----------|----------|
-| [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project. | 46 |
+| [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project; agent-security threat-class definitions. | 49 |
 | [chat-ui](chat-ui.md) | Familiar Chat — the web-based keyboard-first UI for the Endo daemon; UI invariants, principles, and component designs. | 33 |
 | [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 48 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 12 |
@@ -17,8 +17,8 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 9 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 19 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 90 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric. | 122 |
-| [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies, eventual-send / vat / promise-pipelining / partial-failure / when-catch lineage, structure-of-authority + multiplicative-attack-surface arguments. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 16 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric; agent-runtime applications of capability discipline. | 125 |
+| [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies, eventual-send / vat / promise-pipelining / partial-failure / when-catch lineage, structure-of-authority + multiplicative-attack-surface arguments; sleeper-channel taxonomy + provenance-gate soundness theorem. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 17 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 26 |
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 57 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 43 |

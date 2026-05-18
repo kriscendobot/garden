@@ -457,4 +457,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - papers--miller-tulloh-shapiro-structure-of-authority-2004--{excess-authority-and-designation, fractal-structure-of-authority, multiplicative-pola-and-security-as-modularity}
 
-## Total: 510 sections from 117 source documents (through 2026-05-17).
+### Sleeper Channels and Provenance Gates (liaison orchestrator-direct-draft 2026-05-17, **first non-Miller external paper; agent-security threat-class definition**)
+
+- papers--maloyan-namiot-sleeper-channels-2026--{sleeper-channel-taxonomy-and-running-scenario, provenance-gate-d2-and-soundness-theorem, executable-policy-and-measurement-plan}
+
+## Total: 513 sections from 118 source documents (through 2026-05-17).
