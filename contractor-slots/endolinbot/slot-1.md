@@ -2,19 +2,18 @@
 slot: 1
 status: in-flight
 design_path: designs/endor-run-expanded.md
-pr_number: null
-current_stage: builder
-in_flight_dispatch: 8ca10c
-last_update: 2026-05-18T00:51:00Z
+pr_number: 278
+current_stage: cleaner
+in_flight_dispatch: 1e5897
+last_update: 2026-05-18T01:21:00Z
 started_at: 2026-05-18T00:51:00Z
 host: endolinbot
 ---
 
-Slot 1 picks up endor-run-expanded Phase 3 (directory input). Phases
-1-2 already shipped (`rust/endo/src/cas_archive.rs`); Phase 3 implements
-"endor run /path/to/dir" which ingests a directory into CAS rather than
-a ZIP archive.
+Builder shipped draft PR #278 (Phase 3 directory input + latent
+non-determinism fix). 7 tests, regression evidence verified, 13/25
+CI green (12 pending, no failures). Head `06d6ad9cf`.
 
-Implementation base: llm (rust/endo lives only on llm).
+Dispatching cleaner.
 
-Dispatch root: `dispatches/builder--8ca10c`.
+Dispatch root: `dispatches/cleaner--1e5897`.
