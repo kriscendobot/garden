@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-15
+updated: 2026-05-18
 author: gardener, steward, liaison, understudy
 ---
 
@@ -129,7 +129,15 @@ The safe-to-monitor constraint is the same as the standing-monitor rule: only `e
 Beyond the long-lived bash daemons above (which run in the harness, write logs to `/tmp/garden-monitor-*.log`, and survive across LLM ticks), the steward keeps **three parent-context `Monitor` task instances** running continuously inside its own LLM session so that daemon-log lines, addressed-to-`steward` inbox entries, and comment-body `@`-mentions arrive as `<task-notification>`s in real time rather than waiting for the next per-cycle survey to surface them:
 
 1. **Daemon-log tail Monitor.** A `Monitor` task running `tail -F /tmp/garden-monitor-*.log` (glob expanded to every active daemon's log) filtered for `NEW|ADD|REMOVE|daemon stopping|ERROR`. Today that includes `/tmp/garden-monitor-endojs-endo-but-for-bots.log`, `/tmp/garden-monitor-kriskowal-garden.log`, and `/tmp/garden-review-queue.log`; the glob picks up any future log automatically.
-2. **Inbox-drain Monitor.** A `Monitor` task running `while sleep 90; do bash skills/inbox-drain/inbox-drain.sh steward; done` so addressed-to-`steward` journal entries surface within ~90 seconds of being written, instead of waiting up to one full cycle for the per-cycle survey's drain.
+2. **Inbox-drain Monitor.** A `Monitor` task running a path-fallback wrapper around `inbox-drain.sh` so addressed-to-`steward` journal entries surface within ~90 seconds of being written, instead of waiting up to one full cycle for the per-cycle survey's drain. The path-fallback shape is mandatory (see *Path-fallback discipline for wrapped skill scripts* below); the canonical wrapper is:
+
+   ```sh
+   while sleep 90; do
+     P=/home/kris/skills/inbox-drain/inbox-drain.sh
+     [ ! -x "$P" ] && P=/home/kris/scripts/inbox-drain.sh
+     [ -x "$P" ] && bash "$P" steward 2>/dev/null
+   done
+   ```
 3. **@-mention surveillance Monitor.** A `Monitor` task per `skills/at-mention-surveillance/SKILL.md` that polls the issue- and PR-comment endpoints of each safe-to-monitor repo for `@kriscendobot` or `@kriskowal` in the comment body and emits one line per match. The skill's reaction matrix routes each emit to a fixer (code-PR), a designer (design-PR), or a liaison `message` (cross-PR routing implied by an `@kriskowal` mention). Distinct from the daemon-log tail Monitor above because the daemon observes *event* metadata while this Monitor scans comment *body* content; the two surveillance surfaces compose per the skill's *Why fold or not fold* discussion. The third Monitor was added 2026-05-15 per the steward retro at `journal/entries/2026/05/15/215930Z-message-steward-72ad0e.md`, after a `@kriscendobot` comment on `endojs/endo-but-for-bots#265` surfaced as an `IssueCommentEvent` `NEW` line whose body never reached the parent context.
 
 Without all three Monitors, the steward operates blind between cycles: daemon `NEW` lines pile up unprocessed, `message` entries from subagents and from the liaison sit unread for tens of minutes, and `@`-mentions in comment bodies do not surface until the next per-cycle retroactive sweep. Three observed gaps motivated this invariant:
@@ -141,6 +149,26 @@ Without all three Monitors, the steward operates blind between cycles: daemon `N
 The directive (verbatim from the maintainer): *"Please inform the gardener to make sure the steward knows to arm all of its monitors."*
 
 Operational rule: each cycle's *Survey* step verifies all three Monitors are still running via `TaskList`; re-arm any that have been `TaskStop`'d. If one is missing at cycle start, re-arm it and journal the re-arm in the cycle-summary entry. Re-arming is cheap; the cost of not doing it is invisible inbox lag.
+
+### Path-fallback discipline for wrapped skill scripts
+
+Any parent-context Monitor whose command invokes a skill script by absolute filesystem path (the inbox-drain Monitor is the canonical case) **must** wrap the invocation in a path-fallback shape that tries the canonical skill path first and falls back to the legacy `scripts/` path, never silent-failing when neither exists. The canonical pattern (reused verbatim by the inbox-drain Monitor above and any future skill-script Monitor) is:
+
+```sh
+while sleep <cadence>; do
+  P=<garden-root>/skills/<skill>/<script>.sh
+  [ ! -x "$P" ] && P=<garden-root>/scripts/<script>.sh
+  [ -x "$P" ] && bash "$P" <args> 2>/dev/null
+done
+```
+
+Why both paths. The garden's host working tree can sit at a historical commit (a long-running interactive rebase pinning HEAD detached at a pre-move commit; a `git stash` exploration; a bisect range) where the canonical `skills/<name>/<script>.sh` location does not exist because the move had not happened yet. A Monitor armed with a single hardcoded path silently retries against a missing file every cycle, and the wrapping `while sleep` swallows the `bash: ... No such file or directory` error so the parent context sees only silence. The fallback path catches the pre-move tree state; the canonical path catches every modern tree state; whichever exists wins. The wrapper survives further rebase shifts in either direction at the cost of a small `test -x` per cycle.
+
+Why silent rather than loud on the dual-miss. If neither path exists, the script is gone from this host's tree entirely (a deeper layout change the gardener has not yet adapted to). The Monitor's freshness check per `skills/monitor-arming/SKILL.md` § Out-of-band freshness check still surfaces the silence within one cycle's `since=` sweep, which is the right place for "the underlying script is gone" to escalate, not a per-tick stderr line that would noise the parent context.
+
+The arming agent (typically the steward; on a re-arm, also the liaison or gardener) confirms each new path-fallback Monitor by re-running the cycle's *Survey* step after the arm and checking that the wrapper produced at least one drained line within two Monitor cadences. A wrapper that silently fails both paths is not armed, regardless of what the parent session thinks.
+
+Provenance. The discipline was distilled after two same-pattern outages within 48 hours on `endolinbot`: see `entries/2026/05/17/204600Z-message-steward-58a3c1.md` (first incident, ~2-day silent failure while the rebase-mid working tree reverted the move from `scripts/` to `skills/inbox-drain/`) and `entries/2026/05/18/200000Z-message-steward-c3a91d.md` (second incident the next day, when the rebase progressed past the move commit and the re-armed Monitor's hardcoded `scripts/` fallback became the stale path). The path-fallback shape closes both directions at once.
 
 ### Issue surveillance on project repos
 

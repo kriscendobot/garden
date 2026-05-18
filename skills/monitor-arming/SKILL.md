@@ -1,7 +1,7 @@
 ---
 created: 2026-05-13
-updated: 2026-05-13
-author: liaison
+updated: 2026-05-18
+author: liaison, gardener
 ---
 
 # Skill: monitor-arming
@@ -28,6 +28,8 @@ The orchestrator's per-cycle survey compares each daemon's last-emitted-line tim
 
 This is the cheapest pattern (one comparison per cycle plus, on suspicion, one REST call), it catches the broadest class of failure (any emit-path bug, any silent drop), and it would have caught the motivating incident in 2 to 5 minutes. Roles that arm long-lived Monitors should include a freshness check in their per-cycle survey by default.
 
+**Companion check for wrapped skill-script Monitors.** When the wrapped layer is a skill script invoked by absolute filesystem path (the steward's inbox-drain Monitor is the canonical case), the freshness check must also confirm the script exists at the canonical `skills/<name>/<script>.sh` path. Silence on a wrapped-skill-script Monitor has two distinct causes: the underlying daemon stopped emitting (the standard case above) or the script file moved out from under the Monitor's hardcoded path (a working-tree refactor, a rebase-mid state, a stash). The path-fallback shape on `roles/steward/AGENT.md` § Path-fallback discipline for wrapped skill scripts closes the second cause structurally; this freshness-check companion catches the residual case where both paths in the fallback have gone missing.
+
 ### Active heartbeat
 
 The daemon emits a periodic heartbeat line that the Monitor's filter matches; the Monitor wakes the parent session on a missing-heartbeat schedule. More state (the daemon needs a heartbeat emitter, the Monitor's filter must accept heartbeat lines without treating them as work), but it guarantees a wake on any failure that stops emission. Probably overkill for the current standing monitors, where the freshness check above suffices. Worth reaching for when the underlying source has long natural quiet periods and the freshness check cannot reliably distinguish "daemon is broken" from "nothing is happening upstream".
@@ -37,3 +39,4 @@ The daemon emits a periodic heartbeat line that the Monitor's filter matches; th
 (Terse and dated. Append; do not rewrite history.)
 
 - _2026-05-13_: the standing-monitors discipline's `monitor-poll.sh` bug (Push-event id range pushes `last_event_id` past every subsequent comment) silently dropped events for ~2 hours before the maintainer hand-delivered the missed comment URL. The Monitor was healthy and the filter was correct; the daemon stopped emitting the matching lines. This is the canonical motivating example for the out-of-band freshness check.
+- _2026-05-18_: two same-pattern inbox-drain Monitor outages within 48 hours on `endolinbot` precipitated the path-fallback discipline on `roles/steward/AGENT.md` and the companion-check paragraph in the *Out-of-band freshness check* section above. See `journal/entries/2026/05/17/204600Z-message-steward-58a3c1.md` and `journal/entries/2026/05/18/200000Z-message-steward-c3a91d.md`. Both incidents traced to a stuck interactive rebase on the host pinning the working tree at a commit whose layout differed from the Monitor's hardcoded skill-script path; the fallback shape covers both directions of the move.
