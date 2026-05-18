@@ -1,20 +1,17 @@
 ---
 slot: 1
-status: in-flight
-design_path: designs/lal-transcript-memory-management.md
-pr_number: 289
-current_stage: judge
-in_flight_dispatch: 314e90
-last_update: 2026-05-18T15:10:00Z
-started_at: 2026-05-18T14:35:00Z
+status: empty
+design_path: null
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-18T15:13:00Z
+started_at: null
 host: endolinbot
 ---
 
-Cleaner shipped real bug fix on PR #289: walkParents had no cycle
-detection (A→B→A would infinite-loop on corrupt entries). Added
-seen-set guard, extended WalkResult with 'cycle-detected' discriminant.
-4 adversarial tests added; daemon suite 19 pass / 1 skip. CI 25/25
-green on cleaner head `df0ae9721`. Source-touching JS; code panel of
-16 seats.
+Empty after PR #289 un-drafted. **Nine PRs un-drafted this engagement**:
+#281, #282, #283, #280, #284, #286, #287, #288, #289.
 
-Dispatch root: `dispatches/judge--314e90`.
+The substrate-audit-then-dispatch pattern has now produced 5 un-drafted
+PRs in a row (#284, #286, #287, #288, #289), all on llm base.
