@@ -4,18 +4,16 @@ status: in-flight
 design_path: designs/cli-http-client.md
 pr_number: 286
 current_stage: weaver
-in_flight_dispatch: 22744b
-last_update: 2026-05-18T09:21:00Z
+in_flight_dispatch: 2b6444
+last_update: 2026-05-18T09:45:00Z
 started_at: 2026-05-18T08:00:00Z
 host: endolinbot
 ---
 
-Shepherd diagnosed CI gap: PR #286 is `mergeable: CONFLICTING` /
-`mergeStateStatus: DIRTY` against llm. GitHub doesn't create the
-synthetic merge ref for conflicting PRs, so `pull_request` workflows
-never dispatch — that's why 0 CI runs. The conflict is on
-`designs/README.md` (an llm-side update after the builder branched);
-daemon source files auto-merge cleanly. Same shape as PR #284's
-weaver stage. Dispatching weaver to rebase onto current llm.
+First weaver dispatch (22744b) terminated early without rebasing or
+pushing — PR head still `0359d1accb`, mergeStateStatus still DIRTY.
+Same bail-out failure mode as the first judge dispatch on PR #284 hit.
+Re-dispatch with explicit "do not bail; finish the rebase + force-push
++ result entry" instructions.
 
-Dispatch root: `dispatches/weaver--22744b`.
+Dispatch root: `dispatches/weaver--2b6444`.
