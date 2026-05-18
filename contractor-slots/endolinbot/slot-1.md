@@ -1,28 +1,28 @@
 ---
 slot: 1
 status: in-flight
-design_path: designs/formula-inspector.md
+design_path: designs/lal-transcript-memory-management.md
 pr_number: null
 current_stage: builder
-in_flight_dispatch: cc02aa
-last_update: 2026-05-18T14:30:00Z
-started_at: 2026-05-18T14:30:00Z
+in_flight_dispatch: 96b1b3
+last_update: 2026-05-18T14:35:00Z
+started_at: 2026-05-18T14:35:00Z
 host: endolinbot
 ---
 
-Slot 1 refilled with `formula-inspector` Phase 1 after contractor-side
-substrate audit:
-- No `FormulaInspector`/`inspectFormula`/`formulaInspector` references
-  on llm.
-- No `packages/cli/src/commands/inspect*.js` on llm.
-- Existing `InspectorHub.lookup` API already shipped — that's the
-  substrate the new CLI verb wraps.
-- The retention-path sub-feature mentioned in this design is the just-
-  shipped PR #284, so deliberately deferred.
+Slot 1 tenth pick after PR #129 surfaced as duplicate of the
+formula-inspector slug pre-flight (builder lesson recorded: slug
+checks should include literal verb names not just design slugs).
 
-Scope: `endo inspect <name>` CLI verb that prints formula JSON via
-existing InspectorHub.lookup. Defer Chat UI panel, edit functionality,
-and retention-path facility (latter shipped in #284) to follow-up phases.
-Base: llm.
+New pick: `lal-transcript-memory-management`. Substrate audit:
+- `packages/lal/` exists with agent.js, types, etc.
+- Predecessor design `lal-reply-chain-transcripts` already shipped
+  TranscriptNode infrastructure.
+- PR #123 is the fix for the predecessor design (broken transcript
+  chains) — distinct from this design's durable persistence shape.
 
-Dispatch root: `dispatches/builder--cc02aa`.
+Scope: durable persistence of transcript tree so dismissed messages
+still allow agent to walk the chain to root. Builder pre-flight is
+the source of truth. Base: llm.
+
+Dispatch root: `dispatches/builder--96b1b3`.
