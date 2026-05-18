@@ -54,6 +54,17 @@ A review or directive from a recognized maintainer (kriskowal or jcorbin) routes
 
 The pattern is reusable. See `roles/COMMON.md` § Authority structure of upstream projects on the `main` branch for the cross-project framing.
 
+## Rust crate bring-up
+
+First-time bring-up of the `rust/endo/` crate in a freshly-prepared per-dispatch project worktree needs two priming steps that the long-lived clone does not:
+
+1. **Initialize the moddable submodule.** `git submodule update --init --recursive c/moddable`. The submodule is uninitialized in a fresh worktree even when initialized in the bare clone.
+2. **Stub the xsnap JS bundle inputs.** Touch (or `git checkout`) `rust/endo/xsnap/src/{ses_boot,worker_bootstrap,daemon_bootstrap}.js`. The `include_str!` macros in `rust/endo/xsnap/src/lib.rs` make these compile-time dependencies; the real bundles come from `packages/daemon/scripts/bundle-*.mjs` which `cargo test --lib` does not run.
+
+The README at `rust/endo/README.md` covers both steps, but the missing-stub error message ("couldn't read `rust/endo/xsnap/src/ses_boot.js`") sends a first-time reader chasing the bundle generation in `packages/daemon` instead of the README. Surfacing this here so the next builder/cleaner finds it.
+
+Source: cleaner result `e31b72` on 2026-05-18 (one-engagement evidence per [`../../entries/2026/05/18/051155Z-message-cleaner-e31b72.md`](../../entries/2026/05/18/051155Z-message-cleaner-e31b72.md)).
+
 ## Per-topic detail
 
 (None yet; the scholar grows this set.)
