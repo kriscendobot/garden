@@ -3,13 +3,14 @@ slot: 1
 status: in-flight
 design_path: designs/endor-run-expanded.md
 pr_number: 279
-current_stage: fixer
-in_flight_dispatch: 0eecb2
-last_update: 2026-05-18T03:32:00Z
+current_stage: judge
+in_flight_dispatch: 66dc0a
+last_update: 2026-05-18T03:48:00Z
 started_at: 2026-05-18T02:05:30Z
 host: endolinbot
 ---
 
-Judge returned 4 must-fix + 5 should-fix on #279. Dispatching fixer.
+Fixer addressed all 4 must-fix + 4 should-fix (head `13ee82881`).
+Dispatching judge for verification round.
 
-Dispatch root: `dispatches/fixer--0eecb2`.
+Dispatch root: `dispatches/judge--66dc0a`.
