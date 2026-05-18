@@ -45,7 +45,12 @@ The staleness threshold is the consumer's standing rule, not a per-session knob.
 
 ## Per-role tenants
 
+- **steward**: `presence/<host>/steward.md`. Written by the steward itself on bootstrap (typically after a session-clear); declares the host has an idle steward watching the job board and the inbox. The steward's own consumer-side rule is in `roles/steward/AGENT.md` § Workspace, presence, and the job board: the presence file carries the designated workspace path (`workspace_path:`) and the bootstrap order, so a `/clear`'d session can re-anchor itself by reading the file before re-arming its Monitors. Producers on the job board do not consume presence files directly — the job board's `eligible_roles:` field is the routing surface — but the *count* of present stewards across hosts is informative when the maintainer wants to know whether posting a new job has any consumer at all.
 - **understudy**: `presence/<host>/understudy.md`. The steward reads this file each cycle; see `roles/understudy/AGENT.md` § Presence file and `roles/steward/AGENT.md` § Understudy presence and shunting.
 - **general-contractor**: `presence/<host>/general-contractor.md`. No autonomous consumer as of authoring date; the file is the maintainer's signal (and any liaison session asking "is a contractor running on this host") that the four-day contractor adoption is live. See `roles/general-contractor/AGENT.md` § Presence file for the producer-side discipline.
 
 Other roles may join the index as their presence becomes consumer-relevant. New tenants add a row here and document the producer-side and consumer-side rules on the respective role files.
+
+## Workspace path
+
+The presence-file frontmatter carries an optional `workspace_path:` field naming the absolute filesystem path the role's idle session expects to be standing in. The field is required for roles whose AGENT.md names a designated workspace (today: `steward`, on the host's garden root) and optional otherwise. Consumers that act on `workspace_path:` walk back to the file's own host (`hostname:` field) and read the path; the workspace check is the role's own per-cycle responsibility, not the producer's.
