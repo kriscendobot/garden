@@ -1,7 +1,7 @@
 ---
 created: 2026-05-13
-updated: 2026-05-13
-author: liaison
+updated: 2026-05-18
+author: liaison, gardener
 ---
 
 # Skill: pre-pr-checklist
@@ -55,3 +55,4 @@ If the change adds or updates a dependency, commit `yarn.lock` in its own commit
 ## Notes from the field
 
 - _2026-05-13_: adopted from the reference. Project-specific lore (Yarn 4 specifics, the `@endo/internal` ESLint config, daemon test timeouts) was kept light. Subsume into a project-specific journal entry tagged with the project slug if a particular project's checklist drifts from the generic form.
+- _2026-05-18_ (endo-but-for-bots, `packages/daemon`): when `packages/daemon/src/help.md` changes, run `node packages/daemon/scripts/generate-help-text-data.mjs` and then `yarn run prettier --write packages/daemon/src/help-text-data.js`. The generator emits unformatted output, so the unformatted diff is misleadingly large (a builder saw +147 / -245 vs. the real +21 / -2 content delta and nearly reverted thinking the change had broken something). Provenance: `entries/2026/05/18/081740Z-message-builder-dacaa9.md`.
