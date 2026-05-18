@@ -3,16 +3,14 @@ slot: 1
 status: in-flight
 design_path: designs/endor-run-expanded.md
 pr_number: 279
-current_stage: cleaner
-in_flight_dispatch: 56f089
-last_update: 2026-05-18T02:38:00Z
+current_stage: judge
+in_flight_dispatch: 23513f
+last_update: 2026-05-18T03:09:00Z
 started_at: 2026-05-18T02:05:30Z
 host: endolinbot
 ---
 
-Builder shipped draft PR #279 (Phase 4 entry-point input, llm base,
-head `abaa5632d`, 8 tests, 9/20 CI complete green so far).
+Cleaner returned (14 tests, 25/25 CI green, head `4f5ad6718`).
+Dispatching judge.
 
-Dispatching cleaner.
-
-Dispatch root: `dispatches/cleaner--56f089`.
+Dispatch root: `dispatches/judge--23513f`.
