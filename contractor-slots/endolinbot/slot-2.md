@@ -1,20 +1,24 @@
 ---
 slot: 2
 status: in-flight
-design_path: designs/cli-store-verb-text-modes.md
-pr_number: 283
+design_path: null
+pr_number: 280
 current_stage: judge
-in_flight_dispatch: a627bb
-last_update: 2026-05-18T05:43:00Z
-started_at: 2026-05-18T04:38:00Z
+in_flight_dispatch: 25d24c
+last_update: 2026-05-18T05:51:00Z
+started_at: 2026-05-18T05:51:00Z
 host: endolinbot
 ---
 
-Cleaner shipped two adversarial regression tests (`--tree --literal` and
-`--blob --show` rejection guards) on PR #283; relocated the `--blob --show`
-guard to fire before the daemon connection. 35 cli tests pass (33 builder +
-2 cleaner). CI 25/25 green, mergeStateStatus CLEAN on cleaner head
-`78f73eddc`. Source-touching PR; judge dispatches the code panel of
-sixteen seats.
+Slot 2 adopted stuck PR #280 (chore(ci): drop Node.js 18 and 20 from
+test matrix) after PR #283 un-drafted. Steward shipped this via builder
+(#1ecc43) + fixer (#190fbc); fixer round at 04:25Z addressed maintainer
+feedback (cherry-picked endojs/endo#3084 commit `010cc15fe` to also drop
+Node 18 per kriskowal review). CI 21/21 green on head `d652c2221`,
+mergeable CLEAN, 0 reviews. Next-stage-owed: judge.
 
-Dispatch root: `dispatches/judge--a627bb`.
+This is a chore PR (no design); adopted because the contractor's
+deliverable is "un-drafted PRs in the maintainer's review queue" and
+this one is one judge round away from terminus.
+
+Dispatch root: `dispatches/judge--25d24c`.
