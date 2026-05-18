@@ -1,15 +1,19 @@
 ---
 slot: 1
-status: empty
-design_path: null
+status: in-flight
+design_path: designs/chat-view-edit-commands.md
 pr_number: null
-current_stage: null
-in_flight_dispatch: null
-last_update: 2026-05-18T05:40:00Z
-started_at: null
+current_stage: builder
+in_flight_dispatch: 9e20d2
+last_update: 2026-05-18T06:22:00Z
+started_at: 2026-05-18T06:22:00Z
 host: endolinbot
 ---
 
-Empty after PR #282 un-drafted. Refill deferred to next cycle (slot 3's
-initial-PR-drafting builder holds the estate-wide one-builder cap until
-it returns).
+Slot 1 refilled now that slot 3 freed the one-initial-PR-drafting-builder
+cap. Pick: `chat-view-edit-commands` Phase 1 — implement the `/view`
+command (read-only blob viewer). Defer `/edit` (Monaco editor) to a
+follow-up phase. Chat package is on master but features generally land
+on llm first; builder will pre-flight base selection.
+
+Dispatch root: `dispatches/builder--9e20d2`.
