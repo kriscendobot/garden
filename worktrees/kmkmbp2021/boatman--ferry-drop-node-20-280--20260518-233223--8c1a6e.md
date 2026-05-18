@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-drop-node-20-280--20260518-23
 repo: endojs/endo
 branch: ta/node-matrix
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-18T23:32:23Z
-last_heartbeat: 2026-05-18T23:32:37Z
+last_heartbeat: 2026-05-18T23:42:46Z
 task: "First-time stacked-on-#3084 ferry: endojs/endo-but-for-bots#280 (Node 20 portion) opens as a new non-draft PR on endojs/endo with base ta/node-matrix"
 prs:
   - repo: endojs/endo-but-for-bots
@@ -15,9 +15,9 @@ prs:
     role: source
     title: "chore(ci): drop Node.js 18 and 20 from the test matrix"
   - repo: endojs/endo
-    pr: null
+    pr: 3268
     role: target
-    title: null
+    title: "chore(ci): drop Node.js 20 from the test matrix"
   - repo: endojs/endo
     pr: 3084
     role: merge-base
