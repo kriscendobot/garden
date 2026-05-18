@@ -2,15 +2,15 @@
 slot: 3
 status: in-flight
 design_path: designs/daemon-xs-worker-snapshot.md
-pr_number: null
-current_stage: builder
-in_flight_dispatch: 3c9c80
-last_update: 2026-05-18T04:30:00Z
+pr_number: 281
+current_stage: cleaner
+in_flight_dispatch: e31b72
+last_update: 2026-05-18T04:48:00Z
 started_at: 2026-05-18T04:30:00Z
 host: endolinbot
 ---
 
-Slot 3 picks up daemon-xs-worker-snapshot Phase 1 (or first concrete
-piece if not formally phased). Rust+XS work on llm base.
+Builder shipped PR #281 (xs-worker-snapshot CAS GC roots, llm base,
+head `b2d28b3d8`, 6 new tests, CI propagating).
 
-Dispatch root: `dispatches/builder--3c9c80`.
+Dispatch root: `dispatches/cleaner--e31b72`.
