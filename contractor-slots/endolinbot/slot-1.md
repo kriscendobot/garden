@@ -1,19 +1,19 @@
 ---
 slot: 1
-status: in-flight
-design_path: designs/chat-view-edit-commands.md
+status: empty
+design_path: null
 pr_number: null
-current_stage: builder
-in_flight_dispatch: 9e20d2
-last_update: 2026-05-18T06:22:00Z
-started_at: 2026-05-18T06:22:00Z
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-18T06:30:00Z
+started_at: null
 host: endolinbot
 ---
 
-Slot 1 refilled now that slot 3 freed the one-initial-PR-drafting-builder
-cap. Pick: `chat-view-edit-commands` Phase 1 — implement the `/view`
-command (read-only blob viewer). Defer `/edit` (Monaco editor) to a
-follow-up phase. Chat package is on master but features generally land
-on llm first; builder will pre-flight base selection.
+Empty after fifth "design already shipped" impasse this engagement
+(chat-view-edit-commands Phase 1 — implementation landed direct-to-llm
+8 weeks ago, design Status field never updated). Slot 1 refill paused
+pending a design-status sweep or maintainer guidance on which Not
+Started designs are actually un-shipped.
 
-Dispatch root: `dispatches/builder--9e20d2`.
+See escalation message at entries/.../063012Z-message-general-contractor-statussync.md.
