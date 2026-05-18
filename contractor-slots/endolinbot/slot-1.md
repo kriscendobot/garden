@@ -3,15 +3,18 @@ slot: 1
 status: in-flight
 design_path: designs/endor-run-expanded.md
 pr_number: 282
-current_stage: cleaner
-in_flight_dispatch: 0b1748
-last_update: 2026-05-18T04:52:00Z
+current_stage: judge
+in_flight_dispatch: a3dbe9
+last_update: 2026-05-18T05:45:00Z
 started_at: 2026-05-18T04:00:00Z
 host: endolinbot
 ---
 
-Builder shipped PR #282 (endor-run-expanded Phase 5 dependency walk,
-Option A Rust-native mapper, stacked on Phase 4 #279, 35 new tests,
-+3681/-47 across 7 files). Now in cleaner stage.
+Cleaner shipped fmt fix + 3 adversarial regression tests on PR #282
+(132 lib tests pass, +3 from sweep). CI green on cleaner head `0696e94ed`
+across 25 required checks. Cleaner flagged one non-blocking drift item
+in the design's Phase 5 test-count text. Source-touching PR; judge
+dispatches the code panel of sixteen seats with the design-drift note
+forwarded as additional context.
 
-Dispatch root: `dispatches/cleaner--0b1748`.
+Dispatch root: `dispatches/judge--a3dbe9`.
