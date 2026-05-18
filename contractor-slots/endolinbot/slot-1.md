@@ -2,18 +2,17 @@
 slot: 1
 status: in-flight
 design_path: designs/endor-run-expanded.md
-pr_number: null
-current_stage: builder
-in_flight_dispatch: 2d463b
-last_update: 2026-05-18T02:05:30Z
+pr_number: 279
+current_stage: cleaner
+in_flight_dispatch: 56f089
+last_update: 2026-05-18T02:38:00Z
 started_at: 2026-05-18T02:05:30Z
 host: endolinbot
 ---
 
-Slot 1 picks up endor-run-expanded Phase 4 (compartment mapper
-integration with entry-point input). Builds on Phase 3 (just shipped
-via #278).
+Builder shipped draft PR #279 (Phase 4 entry-point input, llm base,
+head `abaa5632d`, 8 tests, 9/20 CI complete green so far).
 
-Implementation base: llm.
+Dispatching cleaner.
 
-Dispatch root: `dispatches/builder--2d463b`.
+Dispatch root: `dispatches/cleaner--56f089`.
