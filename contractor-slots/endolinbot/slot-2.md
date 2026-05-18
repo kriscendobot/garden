@@ -3,16 +3,18 @@ slot: 2
 status: in-flight
 design_path: designs/cli-store-verb-text-modes.md
 pr_number: 283
-current_stage: cleaner
-in_flight_dispatch: bb09ed
-last_update: 2026-05-18T05:01:00Z
+current_stage: judge
+in_flight_dispatch: a627bb
+last_update: 2026-05-18T05:43:00Z
 started_at: 2026-05-18T04:38:00Z
 host: endolinbot
 ---
 
-Builder shipped PR #283 (unified store/cat axis scheme + new write/read
-verbs for mount paths, 19 new tests, +1090/-85 across 10 files). Breaking
-flag-scheme change on `endo store` but `@endo/cli` is private and the
-in-tree call site was updated. Now in cleaner stage.
+Cleaner shipped two adversarial regression tests (`--tree --literal` and
+`--blob --show` rejection guards) on PR #283; relocated the `--blob --show`
+guard to fire before the daemon connection. 35 cli tests pass (33 builder +
+2 cleaner). CI 25/25 green, mergeStateStatus CLEAN on cleaner head
+`78f73eddc`. Source-touching PR; judge dispatches the code panel of
+sixteen seats.
 
-Dispatch root: `dispatches/cleaner--bb09ed`.
+Dispatch root: `dispatches/judge--a627bb`.
