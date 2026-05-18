@@ -3,23 +3,19 @@ slot: 1
 status: in-flight
 design_path: designs/cli-http-client.md
 pr_number: 286
-current_stage: shepherd
-in_flight_dispatch: 9d2f88
-last_update: 2026-05-18T09:18:00Z
+current_stage: weaver
+in_flight_dispatch: 22744b
+last_update: 2026-05-18T09:21:00Z
 started_at: 2026-05-18T08:00:00Z
 host: endolinbot
 ---
 
-Cleaner shipped GET-class enforcement fix + 4 adversarial regression
-tests on PR #286. Found a real security drift: builder's `request()`
-accepted any HTTP method (POST/PUT/DELETE) despite the design's "Phase 1
-GET-class only" promise — fixed with method gate in `c440be5d5`. 26
-PR-relevant tests pass; full daemon suite 560 pass.
+Shepherd diagnosed CI gap: PR #286 is `mergeable: CONFLICTING` /
+`mergeStateStatus: DIRTY` against llm. GitHub doesn't create the
+synthetic merge ref for conflicting PRs, so `pull_request` workflows
+never dispatch — that's why 0 CI runs. The conflict is on
+`designs/README.md` (an llm-side update after the builder branched);
+daemon source files auto-merge cleanly. Same shape as PR #284's
+weaver stage. Dispatching weaver to rebase onto current llm.
 
-But: **0 CI checks have run** on PR #286 since open. Cleaner verified
-via gh api that the builder's commit and cleaner's commits never
-triggered any workflow run, while other recent draft PRs on llm base
-do enqueue CI normally. Dispatching shepherd to diagnose and re-trigger
-before the judge stage.
-
-Dispatch root: `dispatches/shepherd--9d2f88`.
+Dispatch root: `dispatches/weaver--22744b`.
