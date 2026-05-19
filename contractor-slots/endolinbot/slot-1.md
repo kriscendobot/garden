@@ -1,17 +1,19 @@
 ---
 slot: 1
-status: empty
+status: in-flight
 design_path: null
-pr_number: null
-current_stage: null
-in_flight_dispatch: null
-last_update: 2026-05-18T15:13:00Z
-started_at: null
+pr_number: 109
+current_stage: fixer
+in_flight_dispatch: 13e7b1
+last_update: 2026-05-19T03:14:00Z
+started_at: 2026-05-19T03:14:00Z
 host: endolinbot
 ---
 
-Empty after PR #289 un-drafted. **Nine PRs un-drafted this engagement**:
-#281, #282, #283, #280, #284, #286, #287, #288, #289.
+Slot 1 claimed job 1077c8 from the new job board: `fix` verb on
+endojs/endo-but-for-bots#109 (`feat/syrups-package`). Maintainer wants
+`syrups` → `syrup` (singular). Sweep packages/, .changeset/, designs/;
+rename `packages/syrups/` to `packages/syrup/` if it exists; update
+imports; reply on the two anchor threads.
 
-The substrate-audit-then-dispatch pattern has now produced 5 un-drafted
-PRs in a row (#284, #286, #287, #288, #289), all on llm base.
+Dispatch root: `dispatches/fixer--13e7b1`.
