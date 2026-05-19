@@ -1,6 +1,6 @@
 # Job board
 
-The job board is the garden's distributed work queue. Producers (typically a [liaison](../../<garden-root>/roles/liaison/AGENT.md), a returning subagent, or a scheduled-engagement firing) post a job into `open/`; consumers ([steward](../../<garden-root>/roles/steward/AGENT.md), [understudy](../../<garden-root>/roles/understudy/AGENT.md), [general-contractor](../../<garden-root>/roles/general-contractor/AGENT.md)) race to claim it by moving it into `claimed/`, do the work in a per-job dispatch, and move it on to `done/` or `abandoned/` when the dispatch returns.
+The job board is the garden's distributed work queue. Producers (typically a [liaison](../../<garden-root>/roles/liaison/AGENT.md), a returning subagent, or a scheduled-engagement firing) post a job into `open/`; consumers ([steward](../../<garden-root>/roles/steward/AGENT.md), [general-contractor](../../<garden-root>/roles/general-contractor/AGENT.md)) race to claim it by moving it into `claimed/`, do the work in a per-job dispatch, and move it on to `done/` or `abandoned/` when the dispatch returns.
 
 The board lives on the journal branch alongside the entries, inboxes, presence files, and worktree indices. Its lifecycle is the journal's lifecycle: append-and-commit, push, fetch, retry. The git push is the serialization point that resolves claim races between concurrent consumers across hosts and within the same host.
 
@@ -19,7 +19,7 @@ jobs/abandoned/<UTC>--<host>--<role>--<sid>--<short-id>--<slug>.md
 - `<short-id>` is six hex characters, set at post time and preserved across moves. The job's identity for the whole lifecycle.
 - `<slug>` is a short kebab-case description (one or two words). Survives the moves.
 - `<host>` is `hostname -s` of the claiming consumer.
-- `<role>` is the claimant's role (`steward`, `understudy`, `general-contractor`). Eligible producers are not consumers; eligible consumers may not all dispatch the same verbs (see *Eligibility*).
+- `<role>` is the claimant's role (`steward`, `general-contractor`). Eligible producers are not consumers; eligible consumers may not all dispatch the same verbs (see *Eligibility*).
 - `<sid>` is the first four hex chars of the claiming session's id (the same one `dispatch-prepare.sh` would use for a short-id). Distinguishes two same-role sessions on the same host racing for separate jobs.
 
 A job's identity (`<short-id>`) is set once at post time and never changes. The filename grows on each transition; the short-id lets a future reader follow the job across the four directories with a single `find jobs/ -name '*<short-id>*'`.
@@ -46,7 +46,6 @@ priority: normal                           # normal | urgent
 deadline: <UTC or null>                    # if the job becomes stale after this
 eligible_roles:                            # which consumer roles may claim
   - steward
-  - understudy
 preconditions: []                          # human-readable; informational only
 refs:                                      # journal entries the brief depends on
   - entries/<...>.md
@@ -74,7 +73,6 @@ The body is the same brief shape that used to live in a `message: <role> → ste
 The producer's `eligible_roles:` list names which consumer roles may claim the job. Today's defaults:
 
 - `steward` is eligible for every verb the steward's role file lists in its *Vocabulary* tables (`ferry`, `shepherd`, `judge`, `build`, `fix`, `weave`, `gamut`, `retcon`, `merge`, etc.).
-- `understudy` is eligible for the three classes named on `roles/steward/AGENT.md` § Classes of work that shunt: investigator dispatches, journalist dispatches, and major-general per-PR fanout. Anything outside that set is steward-only.
 - `general-contractor` is eligible for slot-fillable PR-pipeline verbs (`build`, `gamut`, `judge`, `fix`, `weave`, `shepherd`). The contractor's three-slot cap applies after claiming; jobs beyond the cap sit on the board until a slot frees.
 
 A producer that does not know which roles are eligible defaults to `[steward]` only. The liaison's `skills/job-board/post-job.sh` helper sets the default; producers may override per job.
@@ -117,7 +115,7 @@ The daemon survives across LLM ticks; state is the prior `ls` output written to 
 | Path                                                                                          | Owner                                                                  | What it carries                                                  |
 | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `journal/jobs/open/`                                                                          | producers (any role with `skills/job-board/post-job.sh`)               | available jobs                                                   |
-| `journal/jobs/claimed/`                                                                       | consumers (steward / understudy / general-contractor)                  | jobs in flight                                                   |
+| `journal/jobs/claimed/`                                                                       | consumers (steward / general-contractor)                  | jobs in flight                                                   |
 | `journal/jobs/done/` and `journal/jobs/abandoned/`                                            | consumers                                                              | terminal states; append-only archive                             |
 | `<garden-root>/skills/job-board/SKILL.md`                                                     | gardener                                                               | procedural detail                                                |
 | `<garden-root>/skills/job-board/{post-job,claim-job,job-board-poll}.sh`                       | gardener                                                               | the helper scripts                                               |

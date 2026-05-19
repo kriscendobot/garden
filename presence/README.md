@@ -1,6 +1,6 @@
 # Presence index
 
-The presence directory carries one file per long-running session whose presence the steward (or another agent) must detect. Today only the understudy uses it, but the shape is general: any reachable session that another role needs to detect can write a file here.
+The presence directory carries one file per long-running session whose presence the steward (or another agent) must detect. Today the steward and general-contractor use it; the shape is general: any reachable session that another role needs to detect can write a file here.
 
 ## Path
 
@@ -35,7 +35,7 @@ The optional prose body is free-form. Consumers do not parse it; it is for human
 
 ## Consumer discipline
 
-A consumer (e.g. the steward, when deciding whether to shunt eligible work to a present understudy) reads every file in `presence/<host>/` whose role matches the one it cares about. For each file:
+A consumer (e.g. a fresh steward bootstrap reading its own presence file to recover the workspace path) reads every file in `presence/<host>/` whose role matches the one it cares about. For each file:
 
 1. If `status` is not `present`, the session is not reachable.
 2. If `status` is `present` but `last_heartbeat` is older than the consumer's staleness threshold (default 3x the session's `cadence_seconds`, capped at 5 minutes), the session is treated as absent (probably uncleanly ended).
@@ -46,7 +46,6 @@ The staleness threshold is the consumer's standing rule, not a per-session knob.
 ## Per-role tenants
 
 - **steward**: `presence/<host>/steward.md`. Written by the steward itself on bootstrap (typically after a session-clear); declares the host has an idle steward watching the job board and the inbox. The steward's own consumer-side rule is in `roles/steward/AGENT.md` § Workspace, presence, and the job board: the presence file carries the designated workspace path (`workspace_path:`) and the bootstrap order, so a `/clear`'d session can re-anchor itself by reading the file before re-arming its Monitors. Producers on the job board do not consume presence files directly — the job board's `eligible_roles:` field is the routing surface — but the *count* of present stewards across hosts is informative when the maintainer wants to know whether posting a new job has any consumer at all.
-- **understudy**: `presence/<host>/understudy.md`. The steward reads this file each cycle; see `roles/understudy/AGENT.md` § Presence file and `roles/steward/AGENT.md` § Understudy presence and shunting.
 - **general-contractor**: `presence/<host>/general-contractor.md`. No autonomous consumer as of authoring date; the file is the maintainer's signal (and any liaison session asking "is a contractor running on this host") that the four-day contractor adoption is live. See `roles/general-contractor/AGENT.md` § Presence file for the producer-side discipline.
 
 Other roles may join the index as their presence becomes consumer-relevant. New tenants add a row here and document the producer-side and consumer-side rules on the respective role files.
