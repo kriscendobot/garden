@@ -46,3 +46,8 @@ Standing on `kriscendobot/agoric-sdk`: judge submits one formal `gh pr review`. 
 
 If APPROVE / COMMENT with no in-scope must-fix items: the loop terminates. Final judge dispatch un-drafts (separate job; liaison posts).
 If must-fix items: post a follow-up `fix` job for #3 with the must-fix list inlined.
+
+# Completion stamp
+completed_at: 2026-05-19T00:15:48Z
+outcome: abandoned
+abandon_reason: post-cleaner CI re-check on head af25210c0 surfaces same fixer-stage migration fallout as PR #4 (lint-rest yarn constraints + 2 XS downstream failures); recommend reposting as verb=fix; see entries/2026/05/19/001452Z-result-steward-fbc919.md
