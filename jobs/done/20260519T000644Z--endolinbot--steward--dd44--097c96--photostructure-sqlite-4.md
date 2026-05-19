@@ -52,3 +52,8 @@ This is the companion of `node-sqlite-3` (job posted just prior). The two PRs ar
 Each gamut stage produces its own result entry; the final report on completion names the un-drafted state (or any blocker).
 
 Self-improvement: surface anything new in the dispatch's `result` entry.
+
+# Completion stamp
+completed_at: 2026-05-19T00:08:10Z
+outcome: done
+result_entry: entries/2026/05/19/000632Z-result-cleaner-263054.md
