@@ -25,6 +25,9 @@ claimed_by_role: general-contractor
 claimed_by_host: endolinbot
 claimed_by_session: 11ad
 claimed_at: 2026-05-19T03:14:00Z
+completed_at: 2026-05-19T03:24:11Z
+outcome: done
+result_entry: entries/2026/05/19/032256Z-result-fixer-037980.md
 ---
 
 # Fix: address `syrups` → `syrup` (singular) on endojs/endo-but-for-bots#109
