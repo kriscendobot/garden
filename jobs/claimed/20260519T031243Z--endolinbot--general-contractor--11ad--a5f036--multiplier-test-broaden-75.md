@@ -22,6 +22,10 @@ refs:
   - https://github.com/endojs/endo/pull/3232#discussion_r3245953732
   - https://github.com/endojs/endo/pull/3232#discussion_r3263397803
 preconditions: []
+claimed_by_role: general-contractor
+claimed_by_host: endolinbot
+claimed_by_session: 11ad
+claimed_at: 2026-05-19T03:14:30Z
 ---
 
 # Fix: carry upstream feedback back to mirror endojs/endo-but-for-bots#75
