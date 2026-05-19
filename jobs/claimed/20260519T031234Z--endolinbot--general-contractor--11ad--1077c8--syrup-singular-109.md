@@ -21,6 +21,10 @@ eligible_roles:
 refs:
   - https://github.com/endojs/endo-but-for-bots/pull/109
 preconditions: []
+claimed_by_role: general-contractor
+claimed_by_host: endolinbot
+claimed_by_session: 11ad
+claimed_at: 2026-05-19T03:14:00Z
 ---
 
 # Fix: address `syrups` → `syrup` (singular) on endojs/endo-but-for-bots#109
