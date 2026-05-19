@@ -371,6 +371,36 @@ Self-improvement: nothing this time.
 
 The understudy reads the message, dispatches whichever subordinate role the class implies (investigator / journalist / builder for the major-general's per-cluster fanout), and writes the resulting `result` entry referencing this shunt message. The steward learns the shunted work is complete by the `result` showing up in its inbox-drain (the understudy's `result` entries are unaddressed by default; the steward picks them up via the recent-journal scan in the next cycle's *Survey* step).
 
+## Parked followup revisit
+
+The per-cycle sub-step that closes the loop on the judge's `follow-up` disposition. The judge appends panel findings it deferred to `journal/projects/<slug>/followups/<repo-with-dash>--<N>.md` with `status: parked`; this sub-step is how those parked entries get revisited automatically when the underlying PR (or its upstream mirror) merges.
+
+The full contract for the ledger file (path, frontmatter schema, producer rules for the judge) lives on [`skills/panel-review/SKILL.md`](../../skills/panel-review/SKILL.md) § Follow-up ledger. This section is the consumer-side discipline.
+
+### Per-cycle procedure
+
+1. **Walk the ledger.** `find journal/projects -path '*/followups/*.md' -type f`. For each file, read the frontmatter; act on `status: parked` only.
+2. **Poll the PR.** Run `gh pr view <pr_number> -R <pr_repo> --json state,mergedAt,closedAt`. Three outcomes:
+   - `state: MERGED` (mergedAt non-null): merged-bot-side. Trigger actioning.
+   - `state: CLOSED` and `mergedAt: null`: closed without merging. Set `status: dropped` with `dropped_reason: PR closed without merge`; the parked items are no longer load-bearing and the PR will not produce a merge event.
+   - `state: OPEN`: still in flight. Move on; check again next cycle.
+3. **Poll the upstream mirror if set.** When `upstream_mirror_pr:` is populated on the ledger, run `gh pr view <upstream_mirror_pr> -R <upstream_mirror_repo> --json state,mergedAt`. The same three outcomes apply. Either the bot-side or the upstream merge triggers actioning; whichever happens first wins.
+4. **Action the ledger.** When a merge triggers actioning, post an `action-followups` job to the board with the ledger's items inlined and `eligible_roles: [steward, liaison]`. The job's verb is `action-followups`; its target is the PR (the merged one; the consumer reads the ledger to see the full context). The body is the items list with each item's `Recommended action:` line preserved.
+5. **Update the ledger.** Set `status: actioned`, `actioned_at: <now>`, `merge_event: <merge-ISO>`, `actioned_via: jobs/open/<posted-path>` on the same journal commit. The path becomes a `jobs/done/...` path after the consumer completes the job; the steward updates `actioned_via:` on the next cycle that detects the completion.
+
+### Rate limits
+
+The poll-per-parked-ledger is one `gh pr view` per parked entry per cycle. With a typical parked-entry count of fewer than a dozen across the active project set, this is well within the 5000/hour GitHub API budget. If the parked-entry count grows beyond ~50, the sub-step adopts a per-entry cadence (poll each entry no more than once per 4 cycles, weighted by how recently the PR's `updatedAt` moved); the threshold and the cadence land as a *Notes from the field* note when they become load-bearing.
+
+### Dropping stale parked entries
+
+A ledger entry whose PR has been `state: OPEN` for more than 30 days without commits or panel rounds (no `last_appended_at:` bump in that window either) is a candidate for `status: dropped` with a `dropped_reason: stale-PR`. The steward does not drop on its own initiative; instead, it writes a `message: steward → liaison` proposing the drop and lets the liaison decide. Stale parking is the rare case; explicit-decision drops keep the ledger from silently losing work.
+
+### Composition
+
+- **With the bulletin.** The followup ledger is agent-facing; the bulletin (`journal/README.md`) is maintainer-facing. A merged PR's bulletin row clears on merge (existing bulletin discipline); the followup actioning is a parallel surface the maintainer does not see in the bulletin. A future row in *Awaits maintainer decision* may be appropriate when the action-followups job carries items that need maintainer-level disposition (an issue file on an upstream repo, a design-doc amendment requiring policy input).
+- **With the merged-PR feedback watch.** The gardener's weekly read of merged PRs (`skills/merged-pr-feedback-watch/SKILL.md`) is the *maintainer-feedback* surface: what kriskowal said after merge. The followup ledger is the *panel-internal* surface: what the panel said before merge that the judge did not address in the PR. Both feed self-improvement, in different directions; neither subsumes the other.
+
 ## Vocabulary: the gamut
 
 *The gamut* is shorthand for the PR-creation-flow chain end to end: builder → cleaner (or skipped on a tiny-PR or design-only variant) → judge (dispatches the seventeen-seat code panel or the seven-seat design panel per PR shape) → fixer-loop (the judge re-dispatches the same panel after each fixer round) → judge un-drafts. The procedure lives in `skills/pr-creation-flow/SKILL.md`; the vocabulary is the maintainer's framing for "the chain, from wherever it currently sits, until it terminates."
@@ -522,6 +552,7 @@ Each invocation is one cycle. Wake, survey, dispatch, journal, schedule, exit. N
    - **Bump the presence heartbeat.** Update `last_heartbeat:` on `journal/presence/<host>/steward.md` to now; commit via journal-sync. If the file does not exist (first cycle after `/clear`), write it from scratch with `status: present`, fresh `session_started`, the workspace path, and the bootstrap order.
    - **Drain the inbox** via `skills/inbox-drain/inbox-drain.sh steward --no-fetch` (step 1 already fetched). One line per addressed-to-`steward` or broadcast-`*` entry since the prior cycle's drain. Read each. The continuous inbox-drain Monitor surfaces most messages during the cycle, but the explicit per-cycle drain catches any entries the Monitor missed (a `TaskStop` between cycles, a brief network hiccup). Per the *Workspace, presence, and the job board* section, the inbox now carries directed communication (FYIs, decisions, retros, replies from subagents) but not work items; work items arrive via the job board.
    - **Scan the job board** per *Workspace, presence, and the job board* above. List `journal/jobs/open/` and identify any job whose `eligible_roles:` includes `steward`. The live job-board tail Monitor surfaces postings between cycles; the explicit per-cycle scan is the safety net. For each claimable job, attempt `skills/job-board/claim-job.sh <path>`; `lost-race` is the expected outcome on contention and continues the loop.
+   - **Revisit parked followups** per *Parked followup revisit* below. Walk `journal/projects/*/followups/*.md`; for each entry with `status: parked`, poll the PR's merge state (and the upstream mirror's, when set). On merge, post an `action-followups` job to the board with the ledger's items inlined, and update the ledger's `status: actioned` (plus `actioned_at`, `merge_event`, `actioned_via`). Empty walk is silent.
    - **At-mention retroactive sweep** per `skills/at-mention-surveillance/SKILL.md` § Retroactive cycle-start sweep. One `gh api` call per endpoint with `since=$(date -u -d '-1 hour' …)`; de-duplicate against the live Monitor's most recent emit timestamp; route any surviving line through the same reaction matrix the live Monitor uses. Empty result is silent; the sweep is the safety net for any window the live Monitor missed.
    - **Check understudy presence** per *Understudy presence and shunting* above. Walk `journal/presence/*/understudy.md`; any file with `status: present` and `last_heartbeat` within the 5-minute staleness threshold counts as a present understudy. Record the count (typically 0 or 1) in the cycle's mental scratch; the *Dispatch* step uses it to decide whether to shunt eligible work.
    - Recent journal entries since the prior steward cycle (use `kind:` filters: tick, result, message, worktree). Complements the inbox drain by surfacing context the inbox does not (your own prior cycle's results, other ticks worth glancing at).

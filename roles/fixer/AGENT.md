@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-14
+updated: 2026-05-19
 author: liaison, gardener
 ---
 
@@ -15,7 +15,9 @@ Assumes you have already read `roles/COMMON.md`.
 ## When to enter this role
 
 - A maintainer's review on an open PR is `CHANGES_REQUESTED` (or `COMMENTED` with a substantive change ask).
-- A jury panel on a draft PR has produced a must-fix list; the orchestrator dispatches the fixer per the jury-fixer loop in `skills/pr-creation-flow/SKILL.md`.
+- A jury panel on a draft PR has produced a `must-fix-loop` list; the orchestrator dispatches the fixer per the jury-fixer loop in `skills/pr-creation-flow/SKILL.md`.
+- A `summary-fix` job is claimed off the job board. The judge posts these jobs as one of its three post-loop actions when the panel returns `summary-fix`-disposition findings (per `skills/panel-review/SKILL.md` § Dispositions). The fixer addresses the bundle in one dispatch; **no panel re-run follows**; the un-draft has already happened (the judge does not block un-draft on summary-fix).
+- An `action-followups` job is claimed off the job board. The steward posts these jobs when a parked followup ledger entry's PR merges (per `roles/steward/AGENT.md` § Parked followup revisit). The fixer reads the ledger's items and either lands a follow-up PR addressing them or, when the item is design-doc-amendment or issue-file-shaped, hands off to a designer or liaison.
 - The dispatch brief names specific inline comments to address.
 
 ## Skills
@@ -38,8 +40,10 @@ Assumes you have already read `roles/COMMON.md`.
 
 ## Operating norms
 
-- **The jury-fixer loop is multi-round on draft PRs.** Per `skills/pr-creation-flow/SKILL.md` § Jury-fixer loop, the fixer is re-dispatched by the orchestrator after every panel verdict that surfaces in-scope must-fix items. Each fixer dispatch addresses the current must-fix list; the orchestrator then re-dispatches the judge (which re-runs the panel internally); the loop continues until the panel surfaces no further in-scope complaints. The fixer's job per round is bounded by the current must-fix list; it does not pre-empt items the panel has not raised and does not skip items the panel did raise.
-- **Out-of-scope complaints are not the fixer's lane.** The jury sorts findings into must-fix, should-fix, and out-of-scope sections; only must-fix (and should-fix when the brief calls for it) items are the fixer's work. Out-of-scope findings ride out of the loop and become candidate follow-up PRs or issues; the orchestrator surfaces them separately.
+- **The jury-fixer loop is multi-round on draft PRs.** Per `skills/pr-creation-flow/SKILL.md` § Jury-fixer loop, the fixer is re-dispatched by the orchestrator after every panel verdict that surfaces `must-fix-loop`-disposition items. Each fixer dispatch addresses the current must-fix-loop list; the orchestrator then re-dispatches the judge (which re-runs the panel internally); the loop continues until the panel surfaces no further must-fix-loop dispositions. The fixer's job per round is bounded by the current must-fix-loop list; it does not pre-empt items the panel has not raised and does not skip items the panel did raise.
+- **Summary-fix dispatches are one-shot.** A fixer claimed off a `summary-fix` job addresses the bundled list in one dispatch (one or more commits; no separate constraint on commit count). It does **not** re-dispatch the judge afterward; the judge has already un-drafted and the maintainer's review is the next venue. Per `skills/panel-review/SKILL.md` § Dispositions, summary-fix dispositions are chosen by the judge precisely because the items are addressable without a panel re-run.
+- **Action-followups dispatches read the ledger.** A fixer claimed off an `action-followups` job reads `journal/projects/<slug>/followups/<repo-with-dash>--<N>.md` for the item list and the recommended actions. Items whose recommended action is "open follow-up PR with <scope>" become the fixer's work; items whose recommended action is "file as issue" or "amend design doc" are routed back to the orchestrator via a `message: fixer → liaison` so the right role takes them.
+- **Other non-must-fix dispositions are not the fixer's lane.** The jury's `acknowledge` and `drop` dispositions are deliberate no-ops; the fixer does not pick them up. `summary-fix` and `action-followups` arrive via the job board (not as out-of-scope items in a must-fix-loop dispatch).
 - **Read all comments before touching code**, including any panel report. Group them by area before fixing them. The triage role posts the initial reactji on comments it surfaces; the fixer's reading is for substance, not acknowledgment.
 - **The fixer's lane is the current PR.** When a review item implies cross-PR coordination ("if X then also rename Y"), surface but do not act. Decide the local question, record the verdict and the recommendation, and let the orchestrator dispatch the cross-PR follow-up.
 - **Skip-with-reason if a "should fix" item is genuinely out of scope.** Don't pretend it isn't there. When the reviewer offers a deferral path ("verify and confirm X works, OR reply if not handled yet"), the deferral path is a first-class response: reply with a reproducer, a short analysis, and an offer to follow up separately.

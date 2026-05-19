@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-14
+updated: 2026-05-19
 author: gardener
 ---
 
@@ -42,33 +42,142 @@ Each block under ~400 words. "Comment-only" is for taste; anything that warrants
 
 ## Aggregation
 
-The judge groups findings into:
+The judge groups findings into three buckets, then assigns one **disposition** to each finding (the disposition layer was added 2026-05-19; see *Dispositions* below).
 
-- **Must fix before merge** (any "request-changes" with concrete code / test / doc impact). Drives the jury-fixer loop per `skills/pr-creation-flow/SKILL.md`.
-- **Should fix in this PR** (taste or clarity items raised independently by at least two seats; on the seventeen-seat code panel the deliberate inquiry-area overlap means routine duplicate flagging is expected and is the signal "promote to should-fix").
-- **Out of scope / follow-up** (useful but not blocking this PR's loop).
+The three buckets:
+
+- **Must fix before merge** (any "request-changes" with concrete code / test / doc impact). The default disposition for items in this bucket is `must-fix-loop`; they drive the jury-fixer loop per `skills/pr-creation-flow/SKILL.md`.
+- **Should fix in this PR** (taste or clarity items raised independently by at least two seats; on the seventeen-seat code panel the deliberate inquiry-area overlap means routine duplicate flagging is expected and is the signal "promote to should-fix"). Default disposition: `summary-fix`.
+- **Out of scope / follow-up** (useful but not blocking this PR's loop). Default disposition: `follow-up`.
 
 Dedupe overlapping findings. Where panel members disagree, present both views and pick the side most consistent with the project's `CLAUDE.md` (or `AGENTS.md`); make the disagreement explicit so the orchestrator can act.
 
-## In-scope vs out-of-scope
+The bucket is the rubric's input; the disposition is the output. The judge keeps the bucket structure (it is what jurors return) and adds a per-finding disposition column the rubric below picks.
 
-The jury-fixer loop iterates only on **must-fix and should-fix items in scope for the PR's change**. Out-of-scope complaints (adjacent refactors, package-wide hygiene, follow-up issues) live in the "Out of scope / follow-up" section and do not block the loop. The orchestrator surfaces them as separate issues or follow-up PRs after the jury declares the loop done.
+## Dispositions
 
-See `skills/pr-creation-flow/SKILL.md` § Jury-fixer loop for the loop's exit condition.
+Every aggregated finding ends with one of five dispositions. The judge assigns the disposition at aggregation time per the rubric below. The disposition is recorded in the aggregated review body next to each finding so the maintainer can see at review time how the panel is responding to it:
+
+| Disposition       | What it means                                                                                                | Where the work lives                                                       |
+| ----------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| **must-fix-loop** | Blocks un-draft. Standard jury-fixer loop iterates until the panel returns no must-fix-loop items.            | The fixer-loop machinery in `skills/pr-creation-flow/SKILL.md`.            |
+| **summary-fix**   | Small, addressable without a panel re-run. The judge posts one `summary-fix` job to the job board bundling all summary-fix items for this round. One fixer dispatch addresses the bundle; no panel re-run; the un-draft is not blocked. | A `summary-fix` job in `journal/jobs/open/` (see `skills/job-board/SKILL.md`). |
+| **follow-up**     | Useful but out of scope for this PR. The judge appends the item to `journal/projects/<slug>/followups/<repo>--<N>.md` with `status: parked`. The steward's per-cycle survey polls each parked ledger entry's PR (and its upstream mirror when set) for merge state and posts an `action-followups` job when any has merged. The follow-up is automatically revisited at merge time. | The followup ledger (see *Follow-up ledger* below).                       |
+| **acknowledge**   | Real observation, no work warranted. The disposition itself is the response; the aggregated body records the reasoning ("noted; family-consistency choice is deliberate, see #146"). The maintainer reading the review sees the seat's finding and the judge's rationale. | The aggregated review body only. No further action.                       |
+| **drop**          | Deliberate no-op on second read (the finding was wrong, or the panel disagreement resolved in favor of the PR's current shape). The judge's `result` entry carries a one-line rationale per dropped finding so the audit trail does not silently lose the panel work. | The judge's `result` journal entry.                                       |
+
+### Disposition rubric
+
+The judge classifies at aggregation by applying this rubric in order:
+
+1. **Bucket-driven default.** Use the bucket's default disposition (must-fix-loop / summary-fix / follow-up) as the starting point.
+2. **Demote on weak signal.** A bucket-default `summary-fix` whose underlying finding is single-seat, comment-only, and lacks a concrete actionable change demotes to `acknowledge`. Same for a single-seat `follow-up` whose value is informational.
+3. **Demote on contradiction.** Any finding the panel itself disagrees on, where the side opposing the change has the stronger rationale per the project's conventions, demotes to `drop` with a one-line rationale.
+4. **Promote on second-read error.** A `must-fix-loop` finding that fails a 30-second sanity check (e.g., the panel's "shadow" hallucination per *Pitfalls* below) demotes to `drop`.
+5. **Bundle scoping for summary-fix.** Group all `summary-fix` items for this round into one job-board post. The fixer that claims it addresses the bundle in one dispatch; there is no per-item job overhead.
+6. **Per-PR scoping for follow-up.** Append all `follow-up` items for this PR (across all rounds, if multiple panel rounds happen) to the same followup ledger file. The ledger is keyed by `(repo, pr_number)`, not by round.
+
+The rubric's failure mode is fewest `acknowledge` and `drop` dispositions, not most: an unjudged finding always falls back to its bucket default. Aggressive demotion to `acknowledge` would silently consume panel work the same way today's un-action-on-clean does; the rubric is conservative.
+
+### In-scope vs out-of-scope (legacy framing)
+
+The pre-disposition framing (in-scope drives the loop; out-of-scope sits in the report) is now subsumed by the disposition layer:
+
+- `must-fix-loop` is the load-bearing "in-scope" disposition. The jury-fixer loop iterates only on items with this disposition.
+- `summary-fix` is "in-scope but defer one round": the work lands but does not block.
+- `follow-up`, `acknowledge`, and `drop` are the dispositions for items previously categorized as out-of-scope or non-blocking.
+
+See `skills/pr-creation-flow/SKILL.md` § Jury-fixer loop for the loop's exit condition; the rule reduces to "no `must-fix-loop` items remain after the panel round".
+
+## Follow-up ledger
+
+The producer-side discipline for the `follow-up` disposition. The ledger is a journal file per (project, repo, PR) that accumulates findings the judge deferred for the steward to revisit at merge time.
+
+### Path
+
+```
+journal/projects/<slug>/followups/<repo-with-dash>--<pr-number>.md
+```
+
+Examples: `journal/projects/endo-but-for-bots/followups/endo-but-for-bots--289.md`, `journal/projects/agoric-sdk/followups/kriscendobot-agoric-sdk--3.md`. The `<repo-with-dash>` form replaces `/` with `-` so the filename is single-segment.
+
+The slug is the project slug per `roles/COMMON.md` § Project context (`endo-but-for-bots`, `agoric-sdk`, `garden`, etc.). The `<repo-with-dash>` is the actual repository the PR lives on, which may differ from the project slug when the PR is on a fork (e.g., `kriscendobot-agoric-sdk` for a PR on the bot's fork of `agoric-sdk`).
+
+### Frontmatter schema
+
+```yaml
+---
+project: <slug>
+pr_repo: <owner/name>
+pr_number: <int>
+upstream_mirror_repo: <owner/name>   # optional; the boatman's ferried-upstream PR
+upstream_mirror_pr: <int>            # optional; populated by the boatman when known
+created_at: <ISO>                    # set at first append
+last_appended_at: <ISO>              # bumped on each judge round that appends
+status: parked | actioned | dropped
+actioned_at: <ISO>                   # set when the steward posts the action job
+actioned_via: jobs/done/<...>.md     # the job that processed the ledger (when status=actioned)
+merge_event: <ISO>                   # the merge timestamp that triggered actioning
+---
+
+# Follow-ups for <repo>#<N>
+
+## Items
+
+- [ ] <finding text>  
+  **Source juror(s)**: <seat>[, <seat>...]  
+  **Round**: <N>  
+  **Recommended action**: <what to do when the ledger actions; e.g. "file as issue on <repo>", "open follow-up PR with <scope>", "amend design doc <path>">
+
+(one bullet per finding)
+```
+
+The body is the running list of items. The status field moves through parked → actioned (or dropped) as the steward's per-cycle survey processes the ledger.
+
+### Producer rules (judge)
+
+- The judge writes or appends to the ledger as part of the post-aggregation work, **before** un-drafting. The append is one journal commit per panel round; multiple rounds on the same PR all append to the same ledger file.
+- If the file does not exist, the judge creates it with `status: parked` and `created_at: <now>`. The `last_appended_at:` field gets bumped on each subsequent append.
+- The judge does not populate `upstream_mirror_*` fields itself; those land later when a boatman ferries the PR and the boatman's `result` entry knows the upstream PR number. A separate scout-style sweep keeps the mirror fields current per the steward's merge-watch sub-step.
+
+### Consumer rules (steward)
+
+- The steward's per-cycle survey scans `journal/projects/*/followups/*.md` for `status: parked` entries (per `roles/steward/AGENT.md` § Parked followup revisit).
+- For each parked entry, poll the PR's merge state via `gh pr view <pr_number> -R <pr_repo> --json state,mergedAt`. If `mergedAt` is non-null, the PR merged.
+- If `upstream_mirror_pr` is set, also poll the upstream mirror. Either merge triggers actioning.
+- When actioning, the steward posts an `action-followups` job to `journal/jobs/open/` with the ledger's items inlined as the brief and `eligible_roles: [steward, liaison]`. The job's body is the same shape the ledger carries; the consumer that claims dispatches the appropriate role (builder for items warranting a follow-up PR; liaison for items warranting an issue file or a design-doc amendment).
+- After the action job is posted, the steward updates the ledger's `status: actioned`, `actioned_at: <now>`, `merge_event: <merge-ISO>`, `actioned_via: jobs/open/<path>`. The path becomes a `jobs/done/...` path after the consumer completes the job; the steward updates the ledger on the matching completion event.
+
+### Why merge is the trigger
+
+A follow-up filed pre-merge is premature: the maintainer may close the PR, reshape it, or address the item directly. Filing on merge is precisely when the follow-up becomes load-bearing — the PR landed and the deferred items are now real debt rather than possible debt. The maintainer's framing on 2026-05-19: *"Use the journal, but arrange for the follow-up to be revisited automatically by the steward when the PR is merged or its mirror is merged upstream."*
 
 ## Posting the review
 
 **Submit as a formal review, not a plain comment.** A plain `gh pr comment` does not flip `reviewDecision`, so the orchestrator's dispatch matrix never sees the verdict and the jury-fixer loop never advances.
 
 ```sh
+# Any must-fix-loop disposition present → request-changes (loop continues):
 gh pr review <N> -R <repo> --request-changes --body-file /tmp/panel.md
-# OR if must-fix is empty but should-fix has items:
+# Any summary-fix, follow-up, or acknowledge disposition but no must-fix-loop:
 gh pr review <N> -R <repo> --comment --body-file /tmp/panel.md
-# OR if the panel net-approves with no findings (rare for a fresh PR):
+# All findings are drop or the panel net-approves with no findings:
 gh pr review <N> -R <repo> --approve --body-file /tmp/panel.md
 ```
 
-The judge submits the formal review. The body is the same aggregated report (typically 1700 to 2750 words for the seventeen-seat code-panel default, 900 to 1400 words for the seven-seat design-panel default; smaller panels run shorter still). Cite findings by perspective grouped where members agreed; do not list individual agent names.
+The submission verdict is keyed off the dispositions, not the raw buckets: any `must-fix-loop` disposition forces `--request-changes`; otherwise `--comment` is the default if any disposition above `drop` is present; `--approve` lands only on a fully clean or fully dropped panel.
+
+The judge submits the formal review. The body is the same aggregated report (typically 1700 to 2750 words for the seventeen-seat code-panel default, 900 to 1400 words for the seven-seat design-panel default; smaller panels run shorter still). Cite findings by perspective grouped where members agreed; do not list individual agent names. Each finding line carries its disposition in a leading tag so the maintainer can scan the body for what is being deferred:
+
+```
+- **[must-fix-loop]** `packages/foo/src/bar.js:42` — `harden(x)` missing on the returned object.
+- **[summary-fix]** `packages/foo/src/bar.js:18` — JSDoc parameter type drift (`string` should be `string | undefined`).
+- **[follow-up]** Adjacent refactor opportunity in `packages/baz/src/quux.js`; not in this PR's scope but worth picking up after merge.
+- **[acknowledge]** Naming choice `frob` vs `frobnicate` was flagged by stylist; family-consistency choice is deliberate per `designs/naming.md`.
+- **[drop]** Variable-shadowing claim on line 31 is a panel hallucination; the names are in different lexical scopes.
+```
+
+The summary-fix job is posted **after** the review submission and **before** un-drafting; the followup ledger is appended on the same beat. The un-draft is the last step of the round.
 
 ## Pitfalls
 
@@ -80,6 +189,7 @@ The judge submits the formal review. The body is the same aggregated report (typ
 
 ## Notes from the field
 
+- _2026-05-19_: disposition layer added per the maintainer's framing that the judge "is not responding to all of the aggregate feedback of the jury". Pre-change behavior: the judge un-drafted as soon as must-fix was empty, leaving should-fix and out-of-scope items in the public review body where they were, in practice, ignored. The 2026-05-15 PR #75 panel run (`entries/2026/05/15/051017Z-result-judge-199aa7.md`, "Gamut complete: 0 must-fix items, all 12 seats comment-only") is the worked example of feedback going nowhere. Post-change behavior: every non-must-fix finding gets one of four explicit dispositions (summary-fix / follow-up / acknowledge / drop); summary-fix lands as a job-board post; follow-up lands in the per-PR ledger and is revisited on merge by the steward. Settled decisions in this round: judge classifies at aggregation (not jurors); summary-fix does not block un-draft; follow-up lives in the journal with the steward as merge-watcher.
 - _2026-05-13_: adopted from the reference and reshaped for the 2-member default panel (juror plus saboteur). The reference's 12-perspective form was preserved as a larger-panel option.
 - _2026-05-14_: redesign. The default panel grew from 2 seats to 6 named seats (assessor, stylist, archivist, curator, locksmith, saboteur), the judge role was introduced as the panel's foreperson (it aggregates and submits, but is not itself a reviewer), and per-juror block submission migrated from "the juror is the panel-side editor" to "each seat returns a block, the judge aggregates". The orchestrator names a different composition in the dispatch brief when the default does not fit.
 - _2026-05-14_ (same day, later): twelve-seat default. The maintainer's directive was to halve each seat's responsibilities so the panel could be deeper in each inquiry area. Each of the six prior seats split into two successor seats; concurrent dispatch became the explicit default at twelve. The aggregation discipline (must-fix / should-fix / out-of-scope grouping, dedupe of overlapping findings) is unchanged.

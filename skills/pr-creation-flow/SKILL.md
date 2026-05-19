@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-15
+updated: 2026-05-19
 author: gardener
 ---
 
@@ -226,14 +226,14 @@ Copilot is added only when the judge dispatches the **code panel**. Design-panel
 
 ## Jury-fixer loop
 
-After the judge submits the panel's verdict:
+After the judge submits the panel's verdict (with per-finding disposition tags per `skills/panel-review/SKILL.md` § Dispositions):
 
-1. **If the verdict has must-fix items**: the orchestrator dispatches a fixer with the must-fix list inline as the brief. The fixer addresses each item (or replies on threads citing why an item is verified-no-change or deferred), pushes follow-up commits, and reports done.
-2. **The orchestrator re-dispatches the judge** with the fixer's `result` cited. The judge re-dispatches the same panel (or an equivalent one), briefed with the prior verdict plus the fixer's response so each juror verifies the prior must-fix items are addressed and surfaces any *new* in-scope finding the fix introduced.
-3. **Loop until the panel surfaces no further in-scope complaints.** In-scope means a problem the PR's change introduced or directly touched. Out-of-scope complaints (adjacent refactors, package-wide hygiene) go in the "Out of scope / follow-up" section of the panel report and become candidate follow-up PRs or issues; they do not block the loop.
-4. **When the judge declares the loop done** (an `--approve` verdict or a `--comment` verdict with no must-fix or should-fix items in scope), the judge runs `gh pr ready <N>` to un-draft.
+1. **If the verdict has any `must-fix-loop` disposition**: the orchestrator dispatches a fixer with the must-fix-loop list inline as the brief. The fixer addresses each item (or replies on threads citing why an item is verified-no-change or deferred), pushes follow-up commits, and reports done.
+2. **The orchestrator re-dispatches the judge** with the fixer's `result` cited. The judge re-dispatches the same panel (or an equivalent one), briefed with the prior verdict plus the fixer's response so each juror verifies the prior must-fix-loop items are addressed and surfaces any *new* in-scope finding the fix introduced. The judge re-classifies each new finding into one of the five dispositions per the rubric in `skills/panel-review/SKILL.md` § Disposition rubric.
+3. **Loop until the panel surfaces no further `must-fix-loop`-disposition items.** `summary-fix`, `follow-up`, `acknowledge`, and `drop` dispositions do **not** block the loop. The judge does not promote them to `must-fix-loop` to keep the loop spinning; each disposition has its own productive response (the post-loop actions in `roles/judge/AGENT.md` § Operating norms).
+4. **When the judge declares the loop done** (an `--approve` verdict or a `--comment` verdict with no `must-fix-loop` dispositions): the judge runs the three post-loop actions (submit the disposition-tagged review, post the `summary-fix` job to the board if any summary-fix dispositions were assigned, append the followup ledger if any follow-up dispositions were assigned) and then `gh pr ready <N>`.
 
-Loop-exit discipline: the panel cannot block the loop on out-of-scope findings. If a juror keeps surfacing the same out-of-scope concern across rounds, the judge promotes the concern to a separate issue and clears it from the loop.
+Loop-exit discipline: the panel cannot block the loop on non-`must-fix-loop` findings. If a juror keeps surfacing the same finding across rounds with the same disposition, the judge demotes it to `acknowledge` or `drop` with rationale; the loop does not iterate on it forever.
 
 ## Maintainer entry point
 
