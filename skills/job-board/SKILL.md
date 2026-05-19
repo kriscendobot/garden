@@ -214,7 +214,7 @@ The daemon is wired by the consumer's bootstrap, parallel to the existing standi
 
 ## Consumer-side wiring
 
-The idle consumer (steward / understudy / general-contractor) keeps the parent-context Monitor tailing `/tmp/garden-jobs.log`. On a `NEW` line:
+The idle consumer (steward / general-contractor) keeps the parent-context Monitor tailing `/tmp/garden-jobs.log`. On a `NEW` line:
 
 1. Run `claim-job.sh <path>`.
 2. On `lost-race` (or any other failure), move on; the daemon's next `NEW` line is the next attempt.
@@ -270,7 +270,7 @@ The check catches the failure modes the 2026-05-17 stuck-rebase incident produce
 - **Editing the body in the `open/` file**. A consumer that reads the body verbatim into its own context (rather than forwarding it as the dispatch prompt unchanged) pollutes its context with per-job substance. The discipline is to *forward without reading*: the consumer's `claim-job.sh` returns a path; the consumer passes that path through `dispatch-prepare.sh` into the subagent's prompt; the subagent reads the body. The consumer reads only the frontmatter (verb, target, authorizations) to pick the subordinate role and forward authorizations.
 - **Re-posting an abandoned job from a stale memory of its short-id**. The board does not auto-recycle. If a previously-abandoned job needs another try, a producer posts a *new* job with a fresh short-id and a `refs:` entry to the abandoned one. Recycling the same short-id would defeat the dedup.
 - **Two consumers on the same host with the same role**. The `<sid>` in the claim path distinguishes them. They race for the same `open/` files; the `<sid>` lets a later reader (or the consumers themselves) tell their respective in-flight claims apart.
-- **Producer eligibility off-the-shelf**. The default eligible-roles is `[steward]`. Producers wanting wider eligibility (e.g. an understudy claim) set `--eligible steward,understudy` explicitly; this is mostly a liaison job, since the liaison knows the maintainer's intent on who should pick up the work.
+- **Producer eligibility off-the-shelf**. The default eligible-roles is `[steward]`. Producers wanting wider eligibility (e.g. an in-flight contractor session) set `--eligible steward,general-contractor` explicitly; this is mostly a liaison job, since the liaison knows the maintainer's intent on who should pick up the work.
 
 ## Notes from the field
 

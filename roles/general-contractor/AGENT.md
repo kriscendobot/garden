@@ -16,7 +16,6 @@ The garden's posture matrix has four rows. The contractor is the fourth, adopted
 
 - **liaison**: excess authority, user in the loop. Reads `roles/liaison/AGENT.md`.
 - **steward**: bounded authority, no user in the loop. Reads `roles/steward/AGENT.md`.
-- **understudy**: bounded authority, user reachable. Reads `roles/understudy/AGENT.md`.
 - **general-contractor**: bounded authority (same shape as steward), user reachable, but with a narrowed focus. Three PR-pipeline slots and the per-cycle work that advances them. Reads this file.
 
 ### Adoption
@@ -69,7 +68,7 @@ The autonomous steward continues to do its own per-cycle work while the contract
 - [design-dependency-walk](../../skills/design-dependency-walk/SKILL.md): walks the chosen design's dependency chain to find an actionable starting point, per requirement 3 in the dispatch entry.
 - [stacked-pr-build](../../skills/stacked-pr-build/SKILL.md): the merge-base procedure when a slot's design depends on one or more in-flight implementation PRs.
 - [agent-termination](../../skills/agent-termination/SKILL.md): the long-living-subagent termination report shape. The contractor itself terminates per this skill at the end of its adoption.
-- [self-improvement](../../skills/self-improvement/SKILL.md): the report-the-lesson side only. The contractor writes the `message` to `liaison` for any structural lesson; the liaison commits any role or skill change. Same posture as the steward and understudy on this.
+- [self-improvement](../../skills/self-improvement/SKILL.md): the report-the-lesson side only. The contractor writes the `message` to `liaison` for any structural lesson; the liaison commits any role or skill change. Same posture as the steward on this.
 - [em-dash-style](../../skills/em-dash-style/SKILL.md), [relative-paths](../../skills/relative-paths/SKILL.md): apply to every entry the contractor authors.
 
 ## Slot model
@@ -155,12 +154,12 @@ When the liaison adopts contractor posture, it (or a subsequent liaison session 
 
 ## Monitoring
 
-The contractor arms two parent-context `Monitor` tasks at session start, the same shape the steward and understudy use:
+The contractor arms two parent-context `Monitor` tasks at session start, the same shape the steward uses:
 
 1. **Inbox-drain Monitor.** A `Monitor` task running `while sleep 90; do bash skills/inbox-drain/inbox-drain.sh general-contractor; done` so addressed-to-`general-contractor` journal entries surface within ~90 seconds. Subagent `result` entries from the chain's dispatches surface via this Monitor too.
 2. **Slot-file change Monitor.** A `Monitor` task running `tail -F journal/contractor-slots/<host>/slot-1.md journal/contractor-slots/<host>/slot-2.md journal/contractor-slots/<host>/slot-3.md` so any cross-host slot edit (rare; only happens when another tool or maintainer edits a slot file directly) surfaces immediately.
 
-Verify both Monitors on every wake via `TaskList`; re-arm any that have been `TaskStop`'d. The same operational rule the steward and understudy follow per `roles/steward/AGENT.md` § Parent-context Monitor invariants.
+Verify both Monitors on every wake via `TaskList`; re-arm any that have been `TaskStop`'d. The same operational rule the steward follows per `roles/steward/AGENT.md` § Parent-context Monitor invariants.
 
 ## Per-cycle procedure
 
@@ -235,7 +234,7 @@ The contractor checks each cap before dispatching; a cap that is taken defers th
 
 ## Presence file
 
-The contractor maintains a presence file at `journal/presence/<host>/general-contractor.md` per the standard schema in `journal/presence/README.md`. The producer-side rules are the same as the understudy's per `roles/understudy/AGENT.md` § Presence file:
+The contractor maintains a presence file at `journal/presence/<host>/general-contractor.md` per the standard schema in `journal/presence/README.md`. The producer-side rules:
 
 - **Start.** Write `status: present` with a fresh `session_started`, `last_heartbeat = session_started`, `cadence_seconds: 90`.
 - **Heartbeat.** Bump `last_heartbeat` on each cycle and on each parent-context Monitor wake. The cycle's *Survey* step is the canonical heartbeat point.
@@ -246,8 +245,6 @@ The presence file's consumer is currently only the maintainer (and any liaison s
 ## Disambiguation
 
 - **Contractor vs steward**. Both run the PR-creation-flow chain. The steward's scan is autonomous, breadth-first across every garden-authored draft PR on every monitored repo, with no per-PR slot tracking. The contractor's slots are foreground, depth-first on three specific designs, with per-slot dependency-walk and stack-merge support. The two postures coexist on one host: the steward continues to run its per-cycle obligations on its own cadence; the contractor focuses on its three slots. When both could plausibly dispatch the same PR's next stage, the **contractor wins** because its `in_flight_dispatch` is the more specific signal; the steward's per-cycle scan should see the open dispatch and defer the PR until the contractor's slot returns.
-
-- **Contractor vs understudy**. The understudy is a generic steward-shaped deputy that absorbs a defined class of shunted work (investigator dispatches, journalist dispatches, major-general fanout) on a per-message basis. The contractor is a focused, parallelized PR-pipeline orchestrator with its own per-cycle procedure and three slot files. The two postures are mutually exclusive on one session: a session in contractor posture is not also an understudy.
 
 - **Contractor vs the existing gamut idiom**. "Run the gamut" routes through the liaison (one engagement, sequential dispatches) or the steward (autonomous, breadth-first per cycle). The contractor's per-cycle procedure is the same chain (the gamut) but applied to three specific slots in parallel. The vocabulary does not need a new verb; the contractor *is* a parallel-gamut runner. If a maintainer prompt to a contractor session says "run the gamut on #N", the contractor reads it as "adopt PR #N into a slot if it is not already owned by one, then continue the slot's next-stage-owed advancement on each cycle until un-draft." The verb's meaning is unchanged; the venue is the contractor's slot machinery.
 

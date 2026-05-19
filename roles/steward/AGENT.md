@@ -1,7 +1,7 @@
 ---
 created: 2026-05-12
 updated: 2026-05-18
-author: gardener, steward, liaison, understudy
+author: gardener, steward, liaison
 ---
 
 
@@ -85,7 +85,7 @@ bootstrap:
 
 The body names what monitors the session has armed, the inbox state-file path, any pre-staged authorizations the session is forwarding, and any one-off context the next iteration of this session should re-pick up. The body is free-form prose; the frontmatter is the machine contract.
 
-Heartbeats land every ~90s by an inline `last_heartbeat:` bump committed via `skills/journal-sync/SKILL.md`. The understudy's presence-heartbeat shape is the model; same cadence, same staleness threshold (5 minutes).
+Heartbeats land every ~90s by an inline `last_heartbeat:` bump committed via `skills/journal-sync/SKILL.md`. The general-contractor's presence-heartbeat shape is the model; same cadence, same staleness threshold (5 minutes).
 
 Consumers do not parse the steward's presence file directly today (the job board's `eligible_roles:` field is the routing surface). The presence file's role is self-anchoring: it lets the next bootstrap of this session re-pick up identity and watch state without a user prompt.
 
@@ -97,7 +97,7 @@ The board replaces the historical pattern of `message: liaison → steward` for 
 
 #### Claim race
 
-Two consumers (this steward, a sibling steward on another host, an understudy, the contractor) may see the same `open/` job at the same time. The race is resolved by `git push origin HEAD:journal`: only one claim push lands, the rejected pusher hard-resets and falls back to idle without retry. Full procedure in `skills/job-board/SKILL.md` § Claim; the steward's call site is `skills/job-board/claim-job.sh <open-path>`.
+Two consumers (this steward, a sibling steward on another host, the contractor) may see the same `open/` job at the same time. The race is resolved by `git push origin HEAD:journal`: only one claim push lands, the rejected pusher hard-resets and falls back to idle without retry. Full procedure in `skills/job-board/SKILL.md` § Claim; the steward's call site is `skills/job-board/claim-job.sh <open-path>`.
 
 Crucial discipline:
 
@@ -232,7 +232,7 @@ Beyond the long-lived bash daemons above (which run in the harness, write logs t
 Without all four Monitors, the steward operates blind between cycles: daemon `NEW` lines pile up unprocessed, `message` entries from subagents and from the liaison sit unread for tens of minutes, `@`-mentions in comment bodies do not surface until the next per-cycle retroactive sweep, and job-board postings sit on the board without a claimant until the next per-cycle scan. Four observed gaps motivated this invariant (the first three predate the fourth Monitor; the job-board Monitor preempts a fourth class of gap that the prior single-steward shape could not have surfaced because the channel did not exist):
 
 - Three forwarded `to: steward` messages from boatman and liaison (2026-05-14 `060250Z`, `060538Z`, `061330Z`) sat in the inbox for ~50 minutes because the steward's prior inbox-drain Monitor had been stopped (deferring to a liaison-targeted drain Monitor instead, which routed to the liaison session rather than the steward).
-- An understudy session's `to: steward` message at 2026-05-14 `214954Z` waited ~5 minutes for the per-cycle drain to catch it; the user had to prompt the steward to re-arm.
+- A handoff `to: steward` message at 2026-05-14 `214954Z` waited ~5 minutes for the per-cycle drain to catch it; the user had to prompt the steward to re-arm.
 - jcorbin's `@kriscendobot` comment on `endojs/endo-but-for-bots#265` at 2026-05-15 `20:30:01Z` was visible to the steward only as an `IssueCommentEvent` `NEW` line on the daemon log; the comment body (`"@kriscendobot you should also take a look at packages/genie"`) carrying the routing intent never reached the parent context. The maintainer flagged the gap at `21:45Z`; the at-mention surveillance Monitor closes it.
 
 The directive (verbatim from the maintainer): *"Please inform the gardener to make sure the steward knows to arm all of its monitors."*
@@ -294,82 +294,6 @@ The six steps:
 ### Notes from the field
 
 - _2026-05-15_: this sub-section was added by gardener dispatch `9c8c4a` per three precipitating message entries: `entries/2026/05/14/225200Z-message-steward-7e3a91.md` (initial broadcast for `test-ocapn-guile-interop`), `entries/2026/05/15/003930Z-message-steward-95e217.md` (retirement on PR #255 merge), and `entries/2026/05/15/010640Z-message-steward-c4d8e9.md` (missed-step retro: #109, #253, #250, #243 had stale pre-retirement FAILUREs and the steward had to re-run them manually after the maintainer flagged the gap). The cumulative lesson: the retirement message is a transaction, not a forward-looking signal; step 5c re-runs are part of it.
-
-## Understudy presence and shunting
-
-The [understudy](../understudy/AGENT.md) is the steward's bounded-authority peer with a user reachable on the other end. When an understudy session is present, the steward proactively shunts a defined class of work to it via `message: steward → understudy` entries on each cycle. The understudy holds the same authority bounds as the steward, so anything inside those bounds is in scope for shunting; the user-reachability is the lever that makes some classes of work flow better through the understudy than through the steward sandbox.
-
-### Presence detection
-
-The steward decides whether an understudy is present by reading **two complementary signals**, both of which the understudy maintains per `roles/understudy/AGENT.md` § Presence file:
-
-1. **Presence file** at `journal/presence/<host>/understudy.md`. The understudy writes this on session start with `status: present` and bumps `last_heartbeat` every ~90 seconds while its continuous inbox-drain Monitor is alive. The frontmatter schema is documented on the understudy's role file.
-2. **Start / stop `message` entries** from `understudy → steward`. The session-start message (the c124ea pattern) declares the session is standing by; a session-end message declares clean shutdown.
-
-The steward's per-cycle presence check (run during the cycle's *Survey* step, immediately after the inbox drain):
-
-```sh
-# Iterate every host that has a presence file, including remote hosts whose
-# understudy is reachable through the shared journal even when the steward
-# itself runs on a different host.
-for f in journal/presence/*/understudy.md; do
-  test -f "$f" || continue
-  status=$(awk '/^status:/ { print $2; exit }' "$f")
-  heartbeat=$(awk '/^last_heartbeat:/ { print $2; exit }' "$f")
-  [ "$status" = "present" ] || continue
-  # Stale-after threshold: 5 minutes. Caps the false-positive on an
-  # uncleanly-ended session whose status: present was never updated to
-  # ended.
-  age_seconds=$(( $(date -u +%s) - $(date -u -d "$heartbeat" +%s) ))
-  [ "$age_seconds" -lt 300 ] || continue
-  # This host's understudy is present; shunt eligible work to it.
-done
-```
-
-The 5-minute staleness threshold is roughly 3 times the understudy's Monitor cadence (90s), giving room for one missed tick and a journal-sync delay before the steward treats the session as absent. The presence file's `cadence_seconds` field is informational; the staleness threshold is the steward's standing rule, not a per-session knob.
-
-When **no** host has a present understudy, the steward keeps every class of work below itself and does not block or queue anything. The shunting discipline is an opportunistic optimization, not a precondition.
-
-### Classes of work that shunt
-
-When at least one understudy is present, the steward shunts the following classes of work via `message: steward → understudy` rather than dispatching them directly. The choice is bounded to three classes the user has framed as understudy-shaped:
-
-1. **Investigator dispatches.** A maintainer-flagged behavioral mystery (CI failure with no obvious root cause, runtime regression, hypothesis-driven audit) is investigation-shaped and resumable, and the user-reachable posture lets the understudy ask the user when a hypothesis branches in ways that exceed the bounds. The shunt message names the issue or PR, summarizes the symptom, and points at the relevant per-project skill if any.
-2. **Journalist dispatches.** Bulletin-maintenance fanout (the *Pending kriskowal reviews* and *PR backlog* sections; routine housekeeping on the bulletin body when the review queue or the `endo-but-for-bots@llm:designs/` reference moves) is ledger work that tolerates a handoff, and benefits from user-reachability when a bulletin row's clearing condition is ambiguous. The shunt message names the section, the trigger that prompted the refresh, and any references the journalist's brief expects.
-3. **Major-general's per-PR fanout.** When a [major-general](../major-general/AGENT.md) survey returns with a batched dispatch order across N Dependabot PRs (typical: 20+ PRs partitioned into 4 to 8 clusters), the understudy drives the per-cluster dispatches sequentially while the steward continues its own per-cycle obligations. The shunt message points at the major-general's `result` entry, names the cluster order, and forwards any per-action authorizations the original directive carried.
-
-Classes that **stay with the steward** even when an understudy is present, because they are time-coupled to the steward's per-cycle infrastructure or to authorizations the steward alone forwards:
-
-- The standing-monitor liveness checks and daemon-log scans.
-- The PR-creation-flow scan and its concurrency caps.
-- The design-to-PR pipeline inventory.
-- Direct fixer / weaver / shepherd / conductor dispatches against active PRs (the per-PR cadence is too tight to round-trip through the understudy's handoff loop).
-- Boatman dispatches (`identity_switch_authorized: true` requires the steward to be the forwarder; the understudy is not an authorization sink).
-
-The shunt is opportunistic and best-effort: a `message: steward → understudy` that the understudy never picks up (because its session ended between the steward's check and the understudy's next Monitor wake) is not a stuck dispatch. The work simply falls back to the steward on the next cycle once the staleness threshold passes and the presence check returns no present sessions. The steward does not retry the shunt or escalate; it just resumes ownership.
-
-### Shunt message shape
-
-```markdown
----
-ts: <UTC>
-kind: message
-role: steward
-to: understudy
-project: <slug or omitted>
-refs:
-  - entries/<YYYY>/<MM>/<DD>/<originating-result-or-directive>.md
----
-
-# Shunt <class>: <one-line task>
-
-<one or two paragraphs naming the task, the references the understudy
-needs, and any per-action authorizations forwarded.>
-
-Self-improvement: nothing this time.
-```
-
-The understudy reads the message, dispatches whichever subordinate role the class implies (investigator / journalist / builder for the major-general's per-cluster fanout), and writes the resulting `result` entry referencing this shunt message. The steward learns the shunted work is complete by the `result` showing up in its inbox-drain (the understudy's `result` entries are unaddressed by default; the steward picks them up via the recent-journal scan in the next cycle's *Survey* step).
 
 ## Parked followup revisit
 
@@ -554,10 +478,9 @@ Each invocation is one cycle. Wake, survey, dispatch, journal, schedule, exit. N
    - **Scan the job board** per *Workspace, presence, and the job board* above. List `journal/jobs/open/` and identify any job whose `eligible_roles:` includes `steward`. The live job-board tail Monitor surfaces postings between cycles; the explicit per-cycle scan is the safety net. For each claimable job, attempt `skills/job-board/claim-job.sh <path>`; `lost-race` is the expected outcome on contention and continues the loop.
    - **Revisit parked followups** per *Parked followup revisit* below. Walk `journal/projects/*/followups/*.md`; for each entry with `status: parked`, poll the PR's merge state (and the upstream mirror's, when set). On merge, post an `action-followups` job to the board with the ledger's items inlined, and update the ledger's `status: actioned` (plus `actioned_at`, `merge_event`, `actioned_via`). Empty walk is silent.
    - **At-mention retroactive sweep** per `skills/at-mention-surveillance/SKILL.md` § Retroactive cycle-start sweep. One `gh api` call per endpoint with `since=$(date -u -d '-1 hour' …)`; de-duplicate against the live Monitor's most recent emit timestamp; route any surviving line through the same reaction matrix the live Monitor uses. Empty result is silent; the sweep is the safety net for any window the live Monitor missed.
-   - **Check understudy presence** per *Understudy presence and shunting* above. Walk `journal/presence/*/understudy.md`; any file with `status: present` and `last_heartbeat` within the 5-minute staleness threshold counts as a present understudy. Record the count (typically 0 or 1) in the cycle's mental scratch; the *Dispatch* step uses it to decide whether to shunt eligible work.
    - Recent journal entries since the prior steward cycle (use `kind:` filters: tick, result, message, worktree). Complements the inbox drain by surfacing context the inbox does not (your own prior cycle's results, other ticks worth glancing at).
    - Worktree inventory (`git worktree list` plus the per-host directory under `journal/worktrees/`). Note collectable worktrees per `WORKTREES.md` for the cycle's housekeeping pass.
-3. **Dispatch.** Run the *Standing monitors* liveness check above (including the job-board poll daemon on `skills/job-board/job-board-poll.sh`) and respawn any dead daemons. Then scan each daemon's log tail since the prior cycle's close; for the endo-but-for-bots monitor with `NEW` lines, prepare a per-dispatch worktree triple, write a `dispatch` entry, and invoke the `monitor` role's `Agent`; for the kriskowal/garden monitor with `NEW` lines, do the same but invoke the `liaison` role (see *Standing monitors* above and `skills/monitor-garden/SKILL.md` § Dispatch role asymmetry); for the review-queue with `ADD`/`REMOVE` lines, invoke the `review-queue` role. For each job claimed during *Survey* (the new job-board path), dispatch per the *Workspace, presence, and the job board* § Per-job lifecycle: pick the subordinate role from the job's `verb`, prepare the worktree triple, invoke `Agent` with the job body verbatim as the dispatch prompt, write the `result` entry, and run `complete-job.sh` to transition the claim to `done/` or `abandoned/`. Forward any pre-authorized boatman handoff that arrived as a job-board claim (a job with `authorizations.identity_switch: true` from the liaison; the steward still forwards, never originates). Then run the **PR-creation-flow scan** described above for every active monitored repo (today, `endojs/endo-but-for-bots`); dispatch the next-owed stage for each garden-authored draft PR. Then run the **Design-to-PR pipeline** inventory described above; if the cap is free and an uncovered design exists, dispatch a builder with purpose slug `draft-initial-pr-<design-slug>`. Finally, if the *Survey* step found a present understudy, walk this cycle's eligible-to-shunt work (investigator dispatches, journalist dispatches, major-general per-PR fanout) per *Understudy presence and shunting* above and write `message: steward → understudy` shunts in place of direct dispatches for those classes; the time-coupled and authorization-bearing classes still dispatch directly regardless of understudy presence. Each `Agent` invocation runs in its own per-dispatch worktree triple created by `skills/dispatch-worktree/dispatch-prepare.sh <role> <purpose> [<owner>/<repo> <branch>]` and torn down on return by `skills/dispatch-worktree/dispatch-teardown.sh "$DISPATCH_ROOT"`. Monitor and review-queue dispatches typically omit the `[<owner>/<repo> <branch>]` arguments because their work is journal-and-API-only; boatman, PR-flow stage, design-to-PR pipeline, and job-board-claimed dispatches always include them. Dispatches are independent and may run in parallel; their dispatch roots do not interfere.
+3. **Dispatch.** Run the *Standing monitors* liveness check above (including the job-board poll daemon on `skills/job-board/job-board-poll.sh`) and respawn any dead daemons. Then scan each daemon's log tail since the prior cycle's close; for the endo-but-for-bots monitor with `NEW` lines, prepare a per-dispatch worktree triple, write a `dispatch` entry, and invoke the `monitor` role's `Agent`; for the kriskowal/garden monitor with `NEW` lines, do the same but invoke the `liaison` role (see *Standing monitors* above and `skills/monitor-garden/SKILL.md` § Dispatch role asymmetry); for the review-queue with `ADD`/`REMOVE` lines, invoke the `review-queue` role. For each job claimed during *Survey* (the new job-board path), dispatch per the *Workspace, presence, and the job board* § Per-job lifecycle: pick the subordinate role from the job's `verb`, prepare the worktree triple, invoke `Agent` with the job body verbatim as the dispatch prompt, write the `result` entry, and run `complete-job.sh` to transition the claim to `done/` or `abandoned/`. Forward any pre-authorized boatman handoff that arrived as a job-board claim (a job with `authorizations.identity_switch: true` from the liaison; the steward still forwards, never originates). Then run the **PR-creation-flow scan** described above for every active monitored repo (today, `endojs/endo-but-for-bots`); dispatch the next-owed stage for each garden-authored draft PR. Then run the **Design-to-PR pipeline** inventory described above; if the cap is free and an uncovered design exists, dispatch a builder with purpose slug `draft-initial-pr-<design-slug>`. Each `Agent` invocation runs in its own per-dispatch worktree triple created by `skills/dispatch-worktree/dispatch-prepare.sh <role> <purpose> [<owner>/<repo> <branch>]` and torn down on return by `skills/dispatch-worktree/dispatch-teardown.sh "$DISPATCH_ROOT"`. Monitor and review-queue dispatches typically omit the `[<owner>/<repo> <branch>]` arguments because their work is journal-and-API-only; boatman, PR-flow stage, design-to-PR pipeline, and job-board-claimed dispatches always include them. Dispatches are independent and may run in parallel; their dispatch roots do not interfere. Concurrent stewards on sibling hosts share work load via the job board's claim-race; a steward does not need to know whether another steward is active to operate correctly.
 4. **Aggregate.** When subagents return, write a `result` entry per dispatch.
 5. **Housekeep.** Collect any worktree the survey flagged as collectable. Update heartbeats on worktrees the steward itself is using. Refresh the *Ongoing work* section of `journal/README.md` so it reflects current worktree status. Maintain the bulletin board: promote attention-worthy results into the relevant section (PRs ready for review, decisions needed), and clear existing items whose underlying condition is now resolved (the PR has a maintainer review, the decision was made in upstream comments, the staged authorization was forwarded into a dispatch, the surplus-authority condition was fixed). The maintainer never edits the bulletin; they act in the upstream system and the next cycle picks up the change. For any long-living subagent that completed or was interrupted this cycle, write a termination report per `skills/agent-termination/SKILL.md` and archive its transcript when feasible.
 6. **Self-improvement.** Scan the cycle for lessons; write any that generalize as `message` entries to `liaison`. Do not edit roles or skills.
@@ -605,4 +528,4 @@ The `refs:` entry points at the prior cycle's `result` (the head of the streak, 
 
 ## Notes from the field
 
-- _2026-05-14_: the *Understudy presence and shunting* section was added by gardener dispatch `12fdbf` per the amendments at `entries/2026/05/14/225012Z-message-understudy-c89e16.md`. The precipitating observation: the prior gardener bundle (`entries/2026/05/14/222100Z-result-gardener-7d4081.md`) carved the understudy role but left the steward's per-cycle procedure unchanged, so a present understudy had no consumer-side discipline naming what the steward would shunt or how it would detect presence. The first-heads-up entry that motivated the carving is `entries/2026/05/14/214954Z-message-understudy-c124ea.md`.
+- _2026-05-19_: the *Understudy presence and shunting* section was removed when the understudy role was retired. The maintainer's framing: *"The understudy is a failed experiment. We can obviate it by having multiple stewards and the job board."* Concurrent stewards racing for jobs subsume the work-distribution concern the understudy was carved to address; the job-board claim race resolves contention without a dedicated peer-role posture. The historical sub-section was added by gardener dispatch `12fdbf` on 2026-05-14 per messages at `entries/2026/05/14/214954Z-message-understudy-c124ea.md` and `225012Z-message-understudy-c89e16.md`; the carving and retirement both live in journal history but no longer drive the role file.
