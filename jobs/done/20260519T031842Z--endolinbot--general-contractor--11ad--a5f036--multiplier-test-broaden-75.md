@@ -26,6 +26,9 @@ claimed_by_role: general-contractor
 claimed_by_host: endolinbot
 claimed_by_session: 11ad
 claimed_at: 2026-05-19T03:14:30Z
+result_entry: entries/2026/05/19/031739Z-result-fixer-f86dd6.md
+completed_at: 2026-05-19T03:18:42Z
+outcome: done
 ---
 
 # Fix: carry upstream feedback back to mirror endojs/endo-but-for-bots#75
