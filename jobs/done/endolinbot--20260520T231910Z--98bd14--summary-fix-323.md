@@ -61,3 +61,9 @@ The five `follow-up`-disposition items from the same panel are recorded in `jour
 - Panel review (this PR comment): `https://github.com/endojs/endo-but-for-bots/pull/323#pullrequestreview-4332862580`
 - Originating dispatch: `dispatches/judge--657b97/`
 - Result entry (to be written): `journal/entries/2026/05/20/...-result-judge-...md`
+
+completed_at: 2026-05-20T23:38:23Z
+completed_by_role: steward
+completed_by_host: endolinbot
+completion: done
+result_commits: 72317da5a,fe0ee312c,eb601b205
