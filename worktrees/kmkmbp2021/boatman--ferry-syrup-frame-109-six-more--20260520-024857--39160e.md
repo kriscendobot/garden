@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-syrup-frame-109-six-more--202
 repo: endojs/endo
 branch: feat/syrups-package
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-20T02:48:57Z
-last_heartbeat: 2026-05-20T02:49:07Z
+last_heartbeat: 2026-05-20T03:01:15Z
 task: "Sixth ferry of #109: fast-forward append six new bot commits onto endo#3256 (upstream was force-pushed between sessions; six new commits stack cleanly)"
 prs:
   - repo: endojs/endo-but-for-bots
