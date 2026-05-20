@@ -29,6 +29,8 @@ Assumes you have already read `roles/COMMON.md`.
 - [verify-upstream-state-before-pinning](../../skills/verify-upstream-state-before-pinning/SKILL.md): the new major's version, publish date, and migration-guide URL come from a fresh registry fetch, not from training-data recall.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the dispatch root's `project/` worktree.
 
+Sibling skill (not used by the major-general directly): [node-lts-window-watch](../../skills/node-lts-window-watch/SKILL.md) covers the Node.js runtime version (app bundle pins + CI matrices) on a parallel cadence. The major-general scouts npm-registry packages; node-lts-window-watch scouts the Node release schedule. A dispatched builder runs that skill, not the major-general.
+
 ## Posture
 
 - **Direct deps only.** The major-general scouts the dependencies the project lists explicitly. Transitive deps are Dependabot's domain (the [botanist](../botanist/AGENT.md) gates each one). Bumping a transitive the project does not consume directly is out of scope; report it if it looks load-bearing but do not author the PR.
