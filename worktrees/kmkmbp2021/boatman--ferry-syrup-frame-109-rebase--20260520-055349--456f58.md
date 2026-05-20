@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-syrup-frame-109-rebase--20260
 repo: endojs/endo
 branch: feat/syrups-package
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-20T05:53:49Z
-last_heartbeat: 2026-05-20T05:54:02Z
+last_heartbeat: 2026-05-20T05:58:43Z
 task: "Recompute-from-master re-ferry of #109: source rebased & squashed from 9 to 4 commits; force-push (with lease) onto endo#3256 replacing the prior 9-commit shape"
 prs:
   - repo: endojs/endo-but-for-bots
