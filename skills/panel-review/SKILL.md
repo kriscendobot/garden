@@ -1,14 +1,14 @@
 ---
 created: 2026-05-13
-updated: 2026-05-19
+updated: 2026-05-20
 author: gardener
 ---
 
 # Skill: panel-review
 
-Adopted from `references/endo-but-for-bots/skills/panel-review-12-perspectives.md` and shaped for this garden's two-panel jury (seventeen-seat code panel for source-touching PRs, seven-seat design panel for design-only PRs).
+Adopted from `references/endo-but-for-bots/skills/panel-review-12-perspectives.md` and shaped for this garden's two-panel jury (twenty-three-seat code panel for source-touching PRs, seven-seat design panel for design-only PRs).
 
-The aggregation discipline and submission contract for jury reviews. The defaults in `skills/pr-creation-flow/SKILL.md` § Jury composition are the **code panel** (seventeen seats: assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator) for source-touching PRs and the **design panel** (seven seats: critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice) for design-only PRs; both are dispatched by the [judge](../../roles/judge/AGENT.md), which picks the panel kind per `roles/judge/AGENT.md` § Panel-kind discrimination. This skill describes how each panel's findings combine into one verdict and how the judge submits that verdict.
+The aggregation discipline and submission contract for jury reviews. The defaults in `skills/pr-creation-flow/SKILL.md` § Jury composition are the **code panel** (twenty-three seats: assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator, benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway) for source-touching PRs and the **design panel** (seven seats: critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice) for design-only PRs; both are dispatched by the [judge](../../roles/judge/AGENT.md), which picks the panel kind per `roles/judge/AGENT.md` § Panel-kind discrimination. This skill describes how each panel's findings combine into one verdict and how the judge submits that verdict.
 
 ## When to use
 
@@ -17,7 +17,7 @@ The aggregation discipline and submission contract for jury reviews. The default
 
 ## Panel composition
 
-- **Default for source-touching PRs (code panel): seventeen seats** (assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator), dispatched concurrently as a single panel round by the judge. See `skills/pr-creation-flow/SKILL.md` § Jury composition for the seat list, the halved-responsibilities rationale, the four 2026-05-15 maintainer-modeled additions, the 2026-05-18 addition of the `integrator` seat, and the concurrent-dispatch default.
+- **Default for source-touching PRs (code panel): twenty-three seats** (assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator, benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway), dispatched concurrently as a single panel round by the judge. See `skills/pr-creation-flow/SKILL.md` § Jury composition for the seat list, the halved-responsibilities rationale, the four 2026-05-15 maintainer-modeled additions, the 2026-05-18 addition of the `integrator` seat, and the 2026-05-20 addition of the six PR-#75-derived narrow seats.
 - **Default for design-only PRs (design panel): seven seats** (critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice), dispatched concurrently as a single panel round by the judge. See `skills/pr-creation-flow/SKILL.md` § Jury composition for the seat list and the design-panel rationale. The judge discriminates between panels by the PR's file list per `roles/judge/AGENT.md` § Panel-kind discrimination.
 - **Smaller panels** (3 to 6 seats from either default) are valid when the orchestrator names a reduced composition in the dispatch brief for a tiny PR. The aggregation discipline below applies unchanged.
 - **Custom compositions** are valid when a maintainer's directive names them. The judge dispatches each named seat and aggregates them all. Cross-panel compositions are permitted (e.g., add the novice to a code-panel round when the PR's JSDoc revision warrants a new-reader's eye).
@@ -32,13 +32,15 @@ Each panel member returns:
 **Verdict:** approve / request-changes / comment-only
 
 **Findings:**
-- (concrete actionable, file:line where applicable)
+- (concrete actionable, file:line where applicable) [rule: <path>] OR [proposed-rule: <one-sentence proposal>]
 
 **Notes (out of scope but worth flagging):**
-- ...
+- ... [rule: <path>] OR [proposed-rule: ...]
 ```
 
 Each block under ~400 words. "Comment-only" is for taste; anything that warrants a code change is "request-changes".
+
+Per the *Cite-or-propose discipline* below, every finding carries either a `[rule: <path>]` citation to the standing rule it enforces, or a `[proposed-rule: ...]` tag with a one-sentence proposal when the rule is novel. The judge drops findings that carry neither at aggregation.
 
 ## Aggregation
 
@@ -65,6 +67,22 @@ Every aggregated finding ends with one of five dispositions. The judge assigns t
 | **follow-up**     | Useful but out of scope for this PR. The judge appends the item to `journal/projects/<slug>/followups/<repo>--<N>.md` with `status: parked`. The steward's per-cycle survey polls each parked ledger entry's PR (and its upstream mirror when set) for merge state and posts an `action-followups` job when any has merged. The follow-up is automatically revisited at merge time. | The followup ledger (see *Follow-up ledger* below).                       |
 | **acknowledge**   | Real observation, no work warranted. The disposition itself is the response; the aggregated body records the reasoning ("noted; family-consistency choice is deliberate, see #146"). The maintainer reading the review sees the seat's finding and the judge's rationale. | The aggregated review body only. No further action.                       |
 | **drop**          | Deliberate no-op on second read (the finding was wrong, or the panel disagreement resolved in favor of the PR's current shape). The judge's `result` entry carries a one-line rationale per dropped finding so the audit trail does not silently lose the panel work. | The judge's `result` journal entry.                                       |
+
+### Cite-or-propose discipline
+
+The 2026-05-20 framing addresses a load-bearing observation from PR #75: many of the maintainer's recurring complaints map to rules already documented in the garden's `skills/`, `roles/`, or the worktree-side CLAUDE.md, but the panel doesn't reliably read those rules and tag findings against them. The fix is structural: **every finding either cites a standing rule or proposes one**.
+
+Each per-juror block tags every concrete finding with one of:
+
+- **`[rule: <path>]`** — the standing rule the finding enforces, named by the file path that documents it. Examples: `[rule: skills/rename-discipline/SKILL.md]`, `[rule: skills/em-dash-style/SKILL.md]`, `[rule: worktrees/endojs-endo-but-for-bots/.../CLAUDE.md § Prettier]`. The judge's aggregation preserves the citation; the formal review body carries the citation alongside the finding so the maintainer can see at review time which standing rule the panel is enforcing.
+
+- **`[proposed-rule]`** — the finding is novel; no standing rule exists today. The juror's block briefly proposes the rule (one sentence). The judge's post-loop actions grow a fourth action: write a `message: panel → gardener` entry inlining each `[proposed-rule]` finding's text and proposal. The gardener encodes accepted proposals into the relevant role / skill / CLAUDE.md on a subsequent dispatch; until then, the finding is recorded against `[proposed-rule]` and may still be addressed in the PR per its disposition.
+
+A finding that carries **neither** citation is **dropped** at aggregation with the rationale "no rule cited and no proposed-rule note; the finding cannot be acted on systematically". The drop is the rubric's pressure on jurors to actually consult the standing instructions; the discipline aligns the panel's lens with the documented rule set rather than each juror's personal taste.
+
+The cite-or-propose tag is **independent of the disposition tag**. A finding can be `[rule: skills/rename-discipline]` and `must-fix-loop`, or `[proposed-rule]` and `summary-fix`, or `[rule: ...]` and `acknowledge`. The two tags answer different questions: the rule citation answers "where does this come from"; the disposition answers "what do we do with it".
+
+The 2026-05-20 framing for jurors: each seat's brief at dispatch time inlines the relevant standing-rule sections (per-seat skill file's *Notes from the field*, the worktree-side CLAUDE.md sections that touch the seat's surface). The juror reads those rules before producing findings; every finding then traces to a rule or a proposed rule.
 
 ### Disposition rubric
 
@@ -167,17 +185,18 @@ gh pr review <N> -R <repo> --approve --body-file /tmp/panel.md
 
 The submission verdict is keyed off the dispositions, not the raw buckets: any `must-fix-loop` disposition forces `--request-changes`; otherwise `--comment` is the default if any disposition above `drop` is present; `--approve` lands only on a fully clean or fully dropped panel.
 
-The judge submits the formal review. The body is the same aggregated report (typically 1700 to 2750 words for the seventeen-seat code-panel default, 900 to 1400 words for the seven-seat design-panel default; smaller panels run shorter still). Cite findings by perspective grouped where members agreed; do not list individual agent names. Each finding line carries its disposition in a leading tag so the maintainer can scan the body for what is being deferred:
+The judge submits the formal review. The body is the same aggregated report (typically 2300 to 3600 words for the twenty-three-seat code-panel default, 900 to 1400 words for the seven-seat design-panel default; smaller panels run shorter still). Cite findings by perspective grouped where members agreed; do not list individual agent names. Each finding line carries its disposition in a leading tag plus the rule citation (or proposed-rule note) so the maintainer can scan the body for what is being deferred and which rule the panel is enforcing:
 
 ```
-- **[must-fix-loop]** `packages/foo/src/bar.js:42` — `harden(x)` missing on the returned object.
-- **[summary-fix]** `packages/foo/src/bar.js:18` — JSDoc parameter type drift (`string` should be `string | undefined`).
-- **[follow-up]** Adjacent refactor opportunity in `packages/baz/src/quux.js`; not in this PR's scope but worth picking up after merge.
-- **[acknowledge]** Naming choice `frob` vs `frobnicate` was flagged by stylist; family-consistency choice is deliberate per `designs/naming.md`.
-- **[drop]** Variable-shadowing claim on line 31 is a panel hallucination; the names are in different lexical scopes.
+- **[must-fix-loop]** `packages/foo/src/bar.js:42` — `harden(x)` missing on the returned object. [rule: worktrees/.../CLAUDE.md § harden-on-exports]
+- **[summary-fix]** `packages/foo/src/bar.js:18` — JSDoc parameter type drift (`string` should be `string | undefined`). [rule: skills/pre-push-gates/probes/no-inline-import-jsdoc.sh]
+- **[follow-up]** Adjacent refactor opportunity in `packages/baz/src/quux.js`; not in this PR's scope but worth picking up after merge. [rule: skills/changeset-discipline/SKILL.md § scope-by-package]
+- **[acknowledge]** Naming choice `frob` vs `frobnicate` was flagged by stylist; family-consistency choice is deliberate per `designs/naming.md`. [rule: skills/rename-discipline/SKILL.md]
+- **[drop]** Variable-shadowing claim on line 31 is a panel hallucination; the names are in different lexical scopes. [rule: skills/panel-review/SKILL.md § Pitfalls (shadow false-positives)]
+- **[summary-fix]** `packages/random/README.md`: section "About this document" pads with no reader benefit. [proposed-rule: README boilerplate sections beneath the reader's needs should be omitted]
 ```
 
-The summary-fix job is posted **after** the review submission and **before** un-drafting; the followup ledger is appended on the same beat. The un-draft is the last step of the round.
+The summary-fix job is posted **after** the review submission and **before** un-drafting; the followup ledger is appended on the same beat; the proposed-rule message to the gardener is written on the same beat (per *Cite-or-propose discipline*). The un-draft is the last step of the round.
 
 ## Pitfalls
 
@@ -189,6 +208,7 @@ The summary-fix job is posted **after** the review submission and **before** un-
 
 ## Notes from the field
 
+- _2026-05-20_: cite-or-propose discipline added; six new narrow code-panel seats land (benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway); code panel grows from seventeen seats to twenty-three. The 2026-05-20 framing (the maintainer's): *"PR #75 is an example of a change that required many rounds of feedback from maintainers and continues to churn. We may need deterministic heuristics and post-build / post-fix hooks to automate recurring feedback, permanent jurors for very narrowly scoped feedback. Many feedback items are in the standing instructions. A larger panel with more focused responsibilities may help."* The four-layer response: pre-push gates (deterministic; `skills/pre-push-gates/SKILL.md`); cite-or-propose discipline (force panel to consult standing rules); six narrow seats (focused responsibilities); proposed-rule routing to the gardener. PR #75's 71 inline comments + 14 top-level comments across 16 reviews were the empirical catalog.
 - _2026-05-19_: disposition layer added per the maintainer's framing that the judge "is not responding to all of the aggregate feedback of the jury". Pre-change behavior: the judge un-drafted as soon as must-fix was empty, leaving should-fix and out-of-scope items in the public review body where they were, in practice, ignored. The 2026-05-15 PR #75 panel run (`entries/2026/05/15/051017Z-result-judge-199aa7.md`, "Gamut complete: 0 must-fix items, all 12 seats comment-only") is the worked example of feedback going nowhere. Post-change behavior: every non-must-fix finding gets one of four explicit dispositions (summary-fix / follow-up / acknowledge / drop); summary-fix lands as a job-board post; follow-up lands in the per-PR ledger and is revisited on merge by the steward. Settled decisions in this round: judge classifies at aggregation (not jurors); summary-fix does not block un-draft; follow-up lives in the journal with the steward as merge-watcher.
 - _2026-05-13_: adopted from the reference and reshaped for the 2-member default panel (juror plus saboteur). The reference's 12-perspective form was preserved as a larger-panel option.
 - _2026-05-14_: redesign. The default panel grew from 2 seats to 6 named seats (assessor, stylist, archivist, curator, locksmith, saboteur), the judge role was introduced as the panel's foreperson (it aggregates and submits, but is not itself a reviewer), and per-juror block submission migrated from "the juror is the panel-side editor" to "each seat returns a block, the judge aggregates". The orchestrator names a different composition in the dispatch brief when the default does not fit.

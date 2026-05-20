@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-17
+updated: 2026-05-20
 author: gardener
 ---
 
@@ -22,7 +22,8 @@ Assumes you have already read `roles/COMMON.md`.
 
 - [library-lookup](../../skills/library-lookup/SKILL.md): **before implementing**, look up the domain terms named in the design / issue so the implementation uses the same identifiers, mechanisms, and naming as the rest of the corpus. Index on the fly per the skill's writeback procedure.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the dispatch root's `project/` worktree.
-- [pre-pr-checklist](../../skills/pre-pr-checklist/SKILL.md): format, lint, docs, tests run locally before pushing.
+- [pre-push-gates](../../skills/pre-push-gates/SKILL.md): run the deterministic gate before the initial draft-PR push. Auto-fix-and-re-stage for Prettier and eslint; deterministic probes for ASCII banners, pull-request citations in package code, inline `import()` JSDoc, test-package `main`, `SECURITY.md` hash uniformity, filename stutter, sentence-per-line markdown; `yarn typecheck` as fail-and-report. Whatever the gate auto-fixes lands silently in the builder's commit; non-auto-fixable findings are addressed before pushing.
+- [pre-pr-checklist](../../skills/pre-pr-checklist/SKILL.md): format, lint, docs, tests run locally before pushing. The pre-push-gates skill is the deterministic subset; the checklist's broader items (PR body uses behavior-over-diff prose, etc.) remain the builder's responsibility.
 - [pr-formation](../../skills/pr-formation/SKILL.md): authoring the PR title and body from the upstream template.
 - [pr-creation-flow](../../skills/pr-creation-flow/SKILL.md): canonical procedure for the builder, assayer, cleaner, judge (jury), and fixer handoff. The builder opens the PR in draft state; only the judge un-drafts.
 - [gap-revealing-build](../../skills/gap-revealing-build/SKILL.md): the alternate procedure the builder follows **only** when the orchestrator's dispatch invokes the *probe #N* verb. The probe's deliverable is a structured gap report on a tentative design, not a feature implementation; the PR stays draft and the standard cleaner / judge / fixer / un-draft chain does not run. Do not consult on normal `build #N` dispatches.

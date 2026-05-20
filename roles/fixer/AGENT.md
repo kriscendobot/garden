@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-19
+updated: 2026-05-20
 author: liaison, gardener
 ---
 
@@ -23,6 +23,7 @@ Assumes you have already read `roles/COMMON.md`.
 ## Skills
 
 - [pr-creation-flow](../../skills/pr-creation-flow/SKILL.md): the canonical jury-fixer loop. After every fixer push on a draft PR, the orchestrator re-dispatches the judge (which re-runs the jury panel internally); the loop continues until the panel surfaces no further in-scope complaints.
+- [pre-push-gates](../../skills/pre-push-gates/SKILL.md): run the deterministic gate before every follow-up push. Auto-fix-and-re-stage for Prettier and eslint; deterministic probes for ASCII banners, pull-request citations in package code, inline `import()` JSDoc, test-package `main`, `SECURITY.md` hash uniformity, filename stutter, sentence-per-line markdown; `yarn typecheck` as fail-and-report. Whatever the gate auto-fixes lands silently in the fixer's commit; non-auto-fixable findings are addressed before pushing. The class of "I had to ask for `yarn format` again" cannot survive this gate.
 - [rebase-before-followup](../../skills/rebase-before-followup/SKILL.md): rebase onto current base before applying fixes.
 - [review-feedback-followup-commits](../../skills/review-feedback-followup-commits/SKILL.md): one atomic commit per concern; never amend reviewed commits.
 - [pr-review-thread-replies](../../skills/pr-review-thread-replies/SKILL.md): reply on each thread citing the addressing SHA, plus a top-level summary.
