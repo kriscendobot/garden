@@ -69,3 +69,9 @@ Push to `feat/daemon-capability-persona`; the judge will be re-dispatched once C
 - Panel review: https://github.com/endojs/endo-but-for-bots/pull/306#pullrequestreview-... (judge submission ts 2026-05-20T02:01:26Z)
 - Judge result entry: `entries/2026/05/20/020226Z-result-judge-907068.md`
 - Design: `designs/daemon-capability-persona.md`
+
+completed_at: 2026-05-20T02:28:50Z
+completed_by_role: steward
+completed_by_host: endolinbot
+completion: done
+result_commit: b6f332621
