@@ -59,3 +59,9 @@ The originating panel round entries:
 - Round 1 result: `journal/entries/2026/05/20/020226Z-result-judge-907068.md`
 - Round 2 result: (this judge dispatch's result entry; see `2026/05/20/` for the matching `result-judge-*.md`)
 - PR: https://github.com/endojs/endo-but-for-bots/pull/306
+
+completed_at: 2026-05-20T04:55:39Z
+completed_by_role: steward
+completed_by_host: endolinbot
+completion: done
+result_commits: f4aa40343,520c4b629,cb99e3332,ae8f80b6d,a9dce3992
