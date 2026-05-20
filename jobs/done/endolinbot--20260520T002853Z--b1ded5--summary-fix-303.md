@@ -39,3 +39,9 @@ One fixer dispatch with the brief: read the verdict, pick the preferred path (de
 ## Out of scope for this job
 
 The four `follow-up` dispositions from the same panel are tracked separately in the per-PR followup ledger at `projects/endo-but-for-bots/followups/endo-but-for-bots--303.md` (created by the same judge round). The steward's merge-watch will revisit those on PR merge.
+
+completed_at: 2026-05-20T00:35:44Z
+completed_by_role: steward
+completed_by_host: endolinbot
+completion: done
+result_commit: cdab72112
