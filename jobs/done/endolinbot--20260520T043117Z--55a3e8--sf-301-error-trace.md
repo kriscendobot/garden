@@ -64,3 +64,9 @@ After CI converges green, the fixer optionally posts a top-level summary comment
 - Panel review: https://github.com/endojs/endo-but-for-bots/pull/301#pullrequestreview submission at 2026-05-20T04:29:45Z (judge's `gh pr review --comment` from this round)
 - Cleaner result: `entries/2026/05/20/040700Z-result-cleaner-a509cb.md`
 - Design doc the PR implements: `docs/error-tracing-design.md`
+
+completed_at: 2026-05-20T04:53:42Z
+completed_by_role: steward
+completed_by_host: endolinbot
+completion: done
+result_commits: 29eddc179,97801b2cd,bbe8f2821,f0109e20d,7be08f41b
