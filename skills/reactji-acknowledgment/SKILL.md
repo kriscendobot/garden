@@ -1,7 +1,7 @@
 ---
 created: 2026-05-13
-updated: 2026-05-14
-author: liaison
+updated: 2026-05-20
+author: liaison, gardener
 ---
 
 # Skill: reactji-acknowledgment
@@ -70,3 +70,5 @@ A reactji says "I saw this." It does not say "I am addressing this" or "I am ign
 ## Notes from the field
 
 - _2026-05-13_: adopted from the reference. The reference embedded references to other gardens' role files (`~/garden/roles/{steward,director,liaison}.md`); those were dropped because the corresponding roles in this garden may dispatch reactjis differently. The discipline (triage role posts, worker inherits) holds across gardens.
+
+- _2026-05-20_: **Cadence-overrun is the dominant failure mode, not skill ignorance.** A 2026-05-19T23:46Z to 23:56Z burst of four `@kriscendobot` directives on `endojs/endo-but-for-bots` PRs (#301, #303, #305, #307) reached the steward via the at-mention-surveillance Monitor; the steward jumped straight to dispatch on three in parallel and routed the fourth to liaison, but acked none with the `eyes` reactji until the maintainer flagged two as "may have missed." Reactji was backfilled. The triage-role-posts-first rule in *When to use* above is correct in principle; the gap is the sequencing at the dispatch site. The per-surface sequencing now lives at [`skills/at-mention-surveillance/SKILL.md`](../at-mention-surveillance/SKILL.md) § Ack on pickup, before dispatch (for the at-mention-derived dispatch surface; other surfaces that gain a similar burst-triggered dispatch pattern should mirror the rule). Pattern to watch: any surveillance Monitor whose emit-line directly triggers a dispatch is at risk of the same cadence-overrun unless the dispatch site explicitly orders reactji-before-`Agent`.

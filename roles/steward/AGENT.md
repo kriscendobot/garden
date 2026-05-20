@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-18
+updated: 2026-05-20
 author: gardener, steward, liaison
 ---
 
@@ -209,6 +209,8 @@ The Monitor's reaction matrix per the skill:
 - `@kriskowal` (the maintainer's own identity, content-level) → informational by default; surface to liaison via a `message` entry if the body implies cross-PR routing, otherwise silent. The actor-level rule on `skills/monitor-endo-but-for-bots/SKILL.md` § Reactions per event class already handles "the maintainer wrote a comment"; this row handles "a reviewer asked the maintainer to look at X".
 
 The Monitor runs as the third parent-context `Monitor` task per *Parent-context Monitor invariants* below. The per-cycle *Survey* step additionally runs the **retroactive sweep** the skill defines (a one-hour `since=` query against the same two endpoints) as a safety net against Monitor `TaskStop`s and network gaps; the sweep's `AT-MENTION-SWEEP` prefix lets the steward de-duplicate against the live Monitor's emit history.
+
+Sequencing on every matrix-triggered dispatch: post the `eyes` (👀) reactji on the source comment **before** writing the `dispatch` entry and invoking `Agent`, per [`skills/at-mention-surveillance/SKILL.md`](../../skills/at-mention-surveillance/SKILL.md) § Ack on pickup, before dispatch. On a burst of N same-engagement directives, all N reactjis post serially before any of the N dispatches starts. The reactji is the maintainer's "received" signal; inverting the order looks like silence to the human even when the steward is acting.
 
 The safe-to-monitor constraint is the same as the standing-monitor rule: only `endojs/endo-but-for-bots` is in scope today. Widening to another repo requires the same maintainer-authorization shape per `CLAUDE.md` § Monitoring safety constraint; the per-repo widening lands as a row in the skill, not in this section.
 
