@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-eslint-import-x-agoric-1--202
 repo: Agoric/agoric-sdk
 branch: feat/migrate-eslint-plugin-import-x
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-20T02:33:30Z
-last_heartbeat: 2026-05-20T02:33:33Z
+last_heartbeat: 2026-05-20T02:44:15Z
 task: "First-ever agoric-sdk ferry: re-ferry kriscendobot/agoric-sdk#1 (alias-not-migrate reshape) over Agoric/agoric-sdk#12659 with title+body rewrite"
 prs:
   - repo: kriscendobot/agoric-sdk
