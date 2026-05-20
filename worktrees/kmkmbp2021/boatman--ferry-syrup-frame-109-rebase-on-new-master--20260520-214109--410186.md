@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-syrup-frame-109-rebase-on-new
 repo: endojs/endo
 branch: feat/syrups-package
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-20T21:41:09Z
-last_heartbeat: 2026-05-20T21:41:18Z
+last_heartbeat: 2026-05-20T21:46:19Z
 task: "Eighth ferry of #109: source SHA unchanged, but upstream master has advanced 11 commits; recompute-from-new-master onto ec3dcbc0 and force-push (with lease)"
 prs:
   - repo: endojs/endo-but-for-bots
