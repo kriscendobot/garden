@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-module-source-74-retry--20260
 repo: endojs/endo
 branch: kriskowal-module-source-1596
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-20T05:17:08Z
-last_heartbeat: 2026-05-20T05:17:17Z
+last_heartbeat: 2026-05-20T05:21:30Z
 task: "Retry fast-forward append on endojs/endo#3241 after user force-updated branch mid-flight; new upstream tip dac52928"
 prs:
   - repo: endojs/endo-but-for-bots
