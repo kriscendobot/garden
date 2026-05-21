@@ -8,7 +8,7 @@ author: gardener
 
 Adopted from `references/endo-but-for-bots/skills/panel-review-12-perspectives.md` and shaped for this garden's two-panel jury (twenty-six-seat code panel for source-touching PRs, seven-seat design panel for design-only PRs).
 
-The aggregation discipline and submission contract for jury reviews. The defaults in `skills/pr-creation-flow/SKILL.md` § Jury composition are the **code panel** (twenty-six seats: assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator, benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway, corner-prober, fast-checker, releaser) for source-touching PRs and the **design panel** (seven seats: critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice) for design-only PRs; both are dispatched by the [judge](../../roles/judge/AGENT.md), which picks the panel kind per `roles/judge/AGENT.md` § Panel-kind discrimination. This skill describes how each panel's findings combine into one verdict and how the judge submits that verdict.
+The aggregation discipline and submission contract for jury reviews. The defaults in `skills/pr-creation-flow/SKILL.md` § Jury composition are the **code panel** (twenty-six seats: assessor, typist, stylist, packager, archivist, prover, curator, migrator, locksmith, warden, saboteur, breaker, purist, spec-keeper, wire-watcher, engine-realist, integrator, benchmarker, changeset-auditor, surfacer, scribe, pruner, gateway, corner-prober, fast-checker, releaser) for source-touching PRs and the **design panel** (seven seats: critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice) for design-only PRs; both are dispatched by the three-judge family ([solicitor](../../roles/solicitor/AGENT.md) on design-only PRs; [barrister](../../roles/barrister/AGENT.md) on the first source-PR round; [justice](../../roles/justice/AGENT.md) on re-runs); the orchestrator picks which judge to dispatch per `roles/judge/AGENT.md` § Panel-kind discrimination. This skill describes how each panel's findings combine into one verdict and how the dispatched judge submits that verdict.
 
 ## When to use
 
@@ -197,6 +197,32 @@ The judge submits the formal review. The body is the same aggregated report (typ
 ```
 
 The summary-fix job is posted **after** the review submission and **before** un-drafting; the followup ledger is appended on the same beat; the proposed-rule message to the gardener is written on the same beat (per *Cite-or-propose discipline*). The un-draft is the last step of the round.
+
+## Concurrent dispatch and in-band fallback
+
+The judge role (in any of its three specializations — `solicitor`, `barrister`, `justice`) prepares one dispatch-root worktree per juror seat and invokes `Agent` once per seat. Concurrent fan-out is the default at every panel size (twenty-six seats for the code panel, seven for the design panel); sequential dispatch is valid only when the orchestrator explicitly requests it (e.g., when one seat's findings should inform another's). After every juror returns, the judge runs `dispatch-teardown.sh` on each dispatch root.
+
+For code-panel rounds (`barrister` and `justice`), one fire-and-forget shell call fires alongside the juror dispatches:
+
+```sh
+gh pr edit <N> -R <owner>/<repo> --add-reviewer @copilot
+```
+
+The call is idempotent on re-rounds. The design panel (`solicitor`) does not fire `@copilot`: the design surface is prose, not code, and Copilot's code-review heuristics do not apply.
+
+### In-band fallback
+
+Some Claude Code harnesses do not surface the `Agent` (or `Task`) tool to a subagent. The judge tolerates the absence by running the panel in-band against the per-seat role files, at the cost of the panel-bias-isolation property the role names explicitly ("a foreperson who also reviews biases the aggregation toward its own findings"). Treat in-band mode as a compensated fallback, not as a posture choice.
+
+Procedure per dispatch:
+
+1. **Top-of-dispatch tool-availability check.** Make one cheap probe, either a `ToolSearch` for "Agent" / "task spawn" / "subagent dispatch", or one trial `Agent` invocation against a no-op task. Absence (the query returns nothing and no `Agent` tool is in scope) triggers in-band mode for the rest of the dispatch. The check is one call, not a retry loop; if the answer is ambiguous, fall to in-band.
+2. **In-band mode: each seat is a single block, written one at a time.** Read the seat's role file in `<dispatch-root>/garden/roles/jurors/<seat>/AGENT.md`, write that seat's per-juror block against the **primary surface only** the role file names, and call out the secondary-overlap slice deliberately ("breaker note: this is also archivist's secondary surface; flagging here so aggregation can dedupe"). Move to the next seat only after the current block is complete. The discipline replaces the bias isolation a separate subagent would have given: each block is bounded by its own role file before the next block is read.
+3. **Aggregation runs after all seats land, not concurrently with any of them.** Do not start the must-fix / should-fix / out-of-scope partition while seats are still being written; the partition's job is dedupe across the whole panel, and partial-panel dedupe biases the survivors. This applies to both panel sizes (twenty-six seats for the code panel, seven for the design panel).
+4. **One formal `gh pr review`** per *Posting the review* above, exactly as in the multi-seat-dispatch case. The submission contract does not change with the mode.
+5. **The `result` entry names the mode and the panel kind** ("Panel execution: multi-seat-dispatch" or "Panel execution: in-band-fallback"; "Panel kind: code-panel" or "Panel kind: design-panel") so the audit trail records which discipline was active and which seat list ran. These are two extra lines; future maintainers (and the gardener's merged-PR feedback watch) can grep for either.
+
+The mode is per-dispatch, not per-judge. A subsequent judge dispatch with the `Agent` tool in scope runs the multi-seat default; one with the tool absent runs in-band. The orchestrator does not need to know which mode the judge will use.
 
 ## Pitfalls
 
