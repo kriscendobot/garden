@@ -6,13 +6,13 @@ author: gardener
 
 # Skill: pr-creation-flow
 
-The canonical procedure that ties the per-PR roles together: which role opens the PR, which roles touch it before the maintainer ever sees it, and which role decides it is ready for the maintainer's review queue. Read by every role the flow touches ([builder](../../roles/builder/AGENT.md), [assayer](../../roles/assayer/AGENT.md), [cleaner](../../roles/cleaner/AGENT.md), [judge](../../roles/judge/AGENT.md), the code-panel seats ([assessor](../../roles/jurors/assessor/AGENT.md), [typist](../../roles/jurors/typist/AGENT.md), [stylist](../../roles/jurors/stylist/AGENT.md), [packager](../../roles/jurors/packager/AGENT.md), [archivist](../../roles/jurors/archivist/AGENT.md), [prover](../../roles/jurors/prover/AGENT.md), [curator](../../roles/jurors/curator/AGENT.md), [migrator](../../roles/jurors/migrator/AGENT.md), [locksmith](../../roles/jurors/locksmith/AGENT.md), [warden](../../roles/jurors/warden/AGENT.md), [saboteur](../../roles/jurors/saboteur/AGENT.md), [breaker](../../roles/jurors/breaker/AGENT.md), [purist](../../roles/jurors/purist/AGENT.md), [spec-keeper](../../roles/jurors/spec-keeper/AGENT.md), [wire-watcher](../../roles/jurors/wire-watcher/AGENT.md), [engine-realist](../../roles/jurors/engine-realist/AGENT.md)), the design-panel seats ([critic](../../roles/jurors/critic/AGENT.md), [skeptic](../../roles/jurors/skeptic/AGENT.md), [copyeditor](../../roles/jurors/copyeditor/AGENT.md), [pedant](../../roles/jurors/pedant/AGENT.md), [novice](../../roles/jurors/novice/AGENT.md)), and [fixer](../../roles/fixer/AGENT.md)) and by the orchestrators ([liaison](../../roles/liaison/AGENT.md), [steward](../../roles/steward/AGENT.md)) that dispatch them.
+The canonical procedure that ties the per-PR roles together: which role opens the PR, which roles touch it before the maintainer ever sees it, and which role decides it is ready for the maintainer's review queue. Read by every role the flow touches: [builder](../../roles/builder/AGENT.md), [assayer](../../roles/assayer/AGENT.md), [cleaner](../../roles/cleaner/AGENT.md), the three judges ([solicitor](../../roles/solicitor/AGENT.md) for designer work, [barrister](../../roles/barrister/AGENT.md) for builder-work first rounds, [justice](../../roles/justice/AGENT.md) for fixer-work re-runs), the [appellate](../../roles/appellate/AGENT.md), the jury seats under [`roles/jurors/`](../../roles/jurors/) (see `roles/<judge>/AGENT.md` § The code panel or § The design panel for the seat list), and [fixer](../../roles/fixer/AGENT.md); also by the orchestrators ([liaison](../../roles/liaison/AGENT.md), [steward](../../roles/steward/AGENT.md)) that dispatch them.
 
 The skill is the orchestration map. Per-role detail (how to write a test, how to address a review thread, how to delete dead code) lives in the role files and the role-specific skills.
 
 ## Vocabulary: "the gamut"
 
-The flow as a whole has a maintainer-supplied synonym: **the gamut**. "Run the gamut" on a PR means resume the chain from wherever it currently sits and chase it until the judge un-drafts; "run the gamut on #N" names a specific PR; "run the gamut" without a PR specifier names the open set of garden-authored draft PRs. The procedure does not change; this section is only the vocabulary the orchestrators use when reading user prompts and inbox messages.
+The flow as a whole has a maintainer-supplied synonym: **the gamut**. "Run the gamut" on a PR means resume the chain from wherever it currently sits and chase it until the terminating judge un-drafts; "run the gamut on #N" names a specific PR; "run the gamut" without a PR specifier names the open set of garden-authored draft PRs. The procedure does not change; this section is only the vocabulary the orchestrators use when reading user prompts and inbox messages.
 
 - The **liaison** runs the gamut in one engagement (multiple sequential dispatches, one liaison turn) when a user prompt names it; see `roles/liaison/AGENT.md` § Vocabulary: the gamut.
 - The **steward**'s per-cycle PR-creation-flow scan **is** the gamut in autonomous form, dispatching the next-owed stage for each draft PR per cycle; an inbox `message: liaison → steward` saying "run the gamut on #N" rate-limits the per-cycle scan onto that PR until it un-drafts. See `roles/steward/AGENT.md` § Vocabulary: the gamut.
@@ -27,7 +27,7 @@ Both orchestrators read the next-stage-owed via *The next-stage-owed heuristic* 
 
 ## Draft discipline
 
-**The builder opens every PR in draft state**: `gh pr create --draft` (or the API equivalent with `draft: true`). The draft flag is the load-bearing signal that the bot-side chain has not yet finished. **The judge is the only role that moves the PR out of draft** (`gh pr ready <N>`), and only when the jury-fixer loop terminates with no in-scope must-fix.
+**The builder opens every PR in draft state**: `gh pr create --draft` (or the API equivalent with `draft: true`). The draft flag is the load-bearing signal that the bot-side chain has not yet finished. **A judge (solicitor / barrister / justice) is the only role that moves the PR out of draft** (`gh pr ready <N>`), and only when the jury-fixer loop terminates with no `must-fix-loop` items and the appellate (when dispatched) has finished.
 
 Why draft state rather than labels: draft state is enforced by GitHub itself (reviewers cannot be auto-requested on a draft, the PR is visually distinct, the merge button is disabled). Labels are advisory text the bot writes and the bot reads; nothing outside the bot acts on them. The flow uses draft vs ready-for-review as the load-bearing state, with labels (if used at all) as advisory annotation.
 
@@ -45,30 +45,34 @@ cleaner (coverage pass; dead-code; same branch)
    |
    |  cleaner pushes coverage commits, watches CI converge
    v
-judge (foreperson; picks panel by PR shape; dispatches the panel)
+barrister (judge for builder-work; first code-panel round)
    |
-   |  judge runs the code panel (twenty-six seats, concurrent) + gh pr edit --add-reviewer @copilot
-   |  OR the design panel (seven seats, concurrent; no @copilot) on a design-only PR
+   |  barrister runs the code panel (twenty-six seats, concurrent) + gh pr edit --add-reviewer @copilot
    v
-panel verdict (judge aggregates, submits formal gh pr review)
+panel verdict (barrister aggregates, submits formal gh pr review)
    |
-   |  if must-fix items, the orchestrator dispatches a fixer
+   |  if must-fix-loop items, the orchestrator dispatches a fixer
    v
 fixer --pushes follow-up commits
    |
    v
-judge re-dispatches the same panel against the fixer's head
+justice (judge for fixer-work; re-runs the code panel against the fixer's head)
    |
-   |  loop until the panel surfaces no further in-scope must-fix
+   |  loop until the panel surfaces no further must-fix-loop items
+   |  (each re-run is a justice dispatch; the barrister's surface is single-round)
    v
-gh pr ready <N>  (judge un-drafts; PR enters maintainer's review queue)
+appellate (verdict-appeal; proposes promotions of follow-up/acknowledge to summary-fix
+            if small + in-context + loss-track-risky; orchestrator accepts or rejects)
+   |
+   v
+gh pr ready <N>  (the terminating judge un-drafts; PR enters maintainer's review queue)
 ```
 
 Variants:
 
 - **Cleaner-skipped tiny-PR variant.** When the PR is pure documentation, lockfile-only churn, a one-file format sweep, or a single bug-fix line whose test fixture is already in the diff, the cleaner has no coverage surface to expand. The orchestrator skips the cleaner and **dispatches the judge directly after the builder**. There is no procedural no-op cleaner stage; the cleaner is skipped, not run-as-a-no-op. The judge still runs the panel and un-drafts at the end of the loop.
-- **Design-only-PR variant.** When the PR is **design-only** (file additions only under `<project>/designs/` or the project's equivalent design directory, no source changes, no test changes), the flow is **builder → judge (design panel) → fixer loop → un-draft**. The assayer is skipped (no test surface to author against), and the cleaner is skipped (no coverage surface, no source dead code). The orchestrator dispatches the judge directly after the builder; the judge picks the design panel per `roles/judge/AGENT.md` § Panel-kind discrimination and runs the seven-seat design panel (critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice). The fixer loop and un-draft step are unchanged from the default flow; the fixer's commits on a design-only PR are revisions to the design document itself. The base of a design-only PR is the project's bot-fork roadmap branch rather than the implementation base; see *Designs versus implementations* below for the base-split rule.
-- **No must-fix on first panel round.** The fixer step is skipped. The judge declares the loop done after the first panel verdict and un-drafts immediately.
+- **Design-only-PR variant.** When the PR is **design-only** (file additions only under `<project>/designs/` or the project's equivalent design directory, no source changes, no test changes), the flow is **builder → solicitor (design panel) → fixer loop → un-draft**. The assayer is skipped (no test surface to author against), and the cleaner is skipped (no coverage surface, no source dead code). The orchestrator dispatches the [solicitor](../../roles/solicitor/AGENT.md) directly after the builder; the solicitor runs the seven-seat design panel (critic, skeptic, decomplector, ergonomist, copyeditor, pedant, novice). On non-terminating rounds the orchestrator dispatches a fixer and then re-dispatches the solicitor (designer-work stays with the solicitor across rounds; it does not transition to the justice because the fixer's edits to a design document are still design content). The fixer loop and un-draft step are otherwise unchanged. The base of a design-only PR is the project's bot-fork roadmap branch rather than the implementation base; see *Designs versus implementations* below for the base-split rule.
+- **No must-fix on first panel round.** The fixer step is skipped. The barrister (or solicitor on design-only PRs) declares the loop done after the first panel verdict; the orchestrator may dispatch the [appellate](../../roles/appellate/AGENT.md) before un-draft; then `gh pr ready <N>`.
 - **Pre-merge fix-up rounds (after maintainer review).** The maintainer's `CHANGES_REQUESTED` triggers the standard fixer loop (fixer to CI-green to re-request maintainer); neither the cleaner nor the judge re-runs by default. The PR stays out of draft; the maintainer's review queue is the venue. A maintainer who explicitly asks for a fresh cleaner or judge pass overrides this default.
 
 ## Designs versus implementations
@@ -234,7 +238,7 @@ The design panel is what gets dispatched when the steward's per-cycle scan picks
 
 The judge dispatches all seats **concurrently by default**, on both panel sizes. Sequential `Agent` invocations would compound wall-clock cost beyond what the chain can absorb. The judge sends the panel out in parallel, waits for all results to land, then aggregates. Sequential dispatch remains valid when the orchestrator explicitly requests it (e.g., for a panel where one seat's findings should inform another's), but is not the working default at either panel size. The deliverable shape is the same either way: one aggregated panel verdict, one formal `gh pr review` submission from the judge.
 
-When the harness does not surface an `Agent` (or `Task`) tool to the judge subagent, the judge falls back to the in-band procedure named in `roles/judge/AGENT.md` § In-band fallback: each seat's block is written one at a time against the per-seat role file's primary surface, aggregation runs after all seats land, and one formal `gh pr review` is still submitted. The `result` entry names the panel-execution mode and the panel kind (`code-panel` or `design-panel`) for audit.
+When the harness does not surface an `Agent` (or `Task`) tool to the judge subagent (solicitor / barrister / justice), the judge falls back to the in-band procedure named in `skills/panel-review/SKILL.md` § In-band fallback: each seat's block is written one at a time against the per-seat role file's primary surface, aggregation runs after all seats land, and one formal `gh pr review` is still submitted. The `result` entry names the panel-execution mode and the panel kind (`code-panel` or `design-panel`) for audit.
 
 ### Copilot as a thirteenth reviewer (code panel only)
 
@@ -244,14 +248,25 @@ Copilot is added only when the judge dispatches the **code panel**. Design-panel
 
 ## Jury-fixer loop
 
-After the judge submits the panel's verdict (with per-finding disposition tags per `skills/panel-review/SKILL.md` § Dispositions):
+After the dispatched judge submits the panel's verdict (with per-finding disposition tags per `skills/panel-review/SKILL.md` § Dispositions):
 
 1. **If the verdict has any `must-fix-loop` disposition**: the orchestrator dispatches a fixer with the must-fix-loop list inline as the brief. The fixer addresses each item (or replies on threads citing why an item is verified-no-change or deferred), pushes follow-up commits, and reports done.
-2. **The orchestrator re-dispatches the judge** with the fixer's `result` cited. The judge re-dispatches the same panel (or an equivalent one), briefed with the prior verdict plus the fixer's response so each juror verifies the prior must-fix-loop items are addressed and surfaces any *new* in-scope finding the fix introduced. The judge re-classifies each new finding into one of the five dispositions per the rubric in `skills/panel-review/SKILL.md` § Disposition rubric.
-3. **Loop until the panel surfaces no further `must-fix-loop`-disposition items.** `summary-fix`, `follow-up`, `acknowledge`, and `drop` dispositions do **not** block the loop. The judge does not promote them to `must-fix-loop` to keep the loop spinning; each disposition has its own productive response (the post-loop actions in `roles/judge/AGENT.md` § Operating norms).
-4. **When the judge declares the loop done** (an `--approve` verdict or a `--comment` verdict with no `must-fix-loop` dispositions): the judge runs the three post-loop actions (submit the disposition-tagged review, post the `summary-fix` job to the board if any summary-fix dispositions were assigned, append the followup ledger if any follow-up dispositions were assigned) and then `gh pr ready <N>`.
+2. **The orchestrator dispatches the next judge** with the fixer's `result` cited. For source-touching PRs (code panel), the next judge is the [justice](../../roles/justice/AGENT.md) (re-run specialization). For design-only PRs (design panel), the same [solicitor](../../roles/solicitor/AGENT.md) re-runs. The dispatched judge re-runs the panel against the fixer's head, briefed with the prior verdict plus the fixer's response so each juror verifies the prior must-fix-loop items are addressed and surfaces any *new* in-scope finding the fix introduced. The judge re-classifies each new finding into one of the five dispositions per the rubric in `skills/panel-review/SKILL.md` § Disposition rubric.
+3. **Loop until the panel surfaces no further `must-fix-loop`-disposition items.** `summary-fix`, `follow-up`, `acknowledge`, and `drop` dispositions do **not** block the loop. The judge does not promote them to `must-fix-loop` to keep the loop spinning; each disposition has its own productive response (the post-loop actions on each judge's role file).
+4. **When the judge declares the loop done** (an `--approve` verdict or a `--comment` verdict with no `must-fix-loop` dispositions): the judge runs the post-loop actions (submit the disposition-tagged review; post the `summary-fix` job to the board if any summary-fix dispositions; append the followup ledger if any follow-up dispositions; write the gardener proposed-rule message if any `[proposed-rule]` tags).
+5. **Optional: appellate dispatch.** Per [`roles/appellate/AGENT.md`](../../roles/appellate/AGENT.md), the orchestrator may dispatch the appellate between the judge's post-loop actions and the un-draft to challenge `follow-up` and `acknowledge` deferrals on small-and-in-context items. The appellate proposes which deferred items should be promoted to `summary-fix`; the orchestrator accepts or rejects. Accepted promotions amend the `summary-fix` job and remove items from the followup ledger before un-draft. Default policy is to dispatch the appellate on every terminating round; skip when the deferral set is empty or the PR is tiny.
+6. **Un-draft.** The terminating judge runs `gh pr ready <N>` as the last step.
 
-Loop-exit discipline: the panel cannot block the loop on non-`must-fix-loop` findings. If a juror keeps surfacing the same finding across rounds with the same disposition, the judge demotes it to `acknowledge` or `drop` with rationale; the loop does not iterate on it forever.
+Loop-exit discipline: the panel cannot block the loop on non-`must-fix-loop` findings. If a juror keeps surfacing the same finding across rounds with the same disposition, the justice (on code-panel rounds) or the solicitor (on design-panel rounds) demotes it to `acknowledge` or `drop` with rationale; the loop does not iterate on it forever.
+
+Which judge for which round, by stage:
+
+| Round                                                       | Source PR (code panel)                                | Design-only PR (design panel)                         |
+| ----------------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| First round (post-cleaner, post-builder on tiny variant)    | [barrister](../../roles/barrister/AGENT.md)           | [solicitor](../../roles/solicitor/AGENT.md)           |
+| Re-run rounds (after fixer push)                            | [justice](../../roles/justice/AGENT.md)               | [solicitor](../../roles/solicitor/AGENT.md) (same)    |
+| Terminating round (no `must-fix-loop` items remain)         | whichever judge ran the terminating panel             | the solicitor                                         |
+| Verdict appeal (before un-draft on terminating round)       | [appellate](../../roles/appellate/AGENT.md), if policy fires | [appellate](../../roles/appellate/AGENT.md), if policy fires |
 
 ## Maintainer entry point
 
@@ -300,7 +315,7 @@ Reading order, top to bottom; the first match is the stage owed:
 4. **Panel verdict has must-fix items, and the fixer has not yet pushed addressing commits since?** Fixer is owed.
 5. **Fixer pushed since the last panel verdict, and the judge has not re-dispatched the panel since the fixer's HEAD?** Judge re-dispatch is owed.
 6. **Cleaner pushed and CI is green (or only documented pre-existing infra red), and no panel verdict yet?** Judge is owed. (On the cleaner-skipped tiny-PR variant or the design-only-PR variant, the orchestrator dispatches the judge directly when no cleaner is owed and no panel verdict exists; see the qualifiers in step 7.)
-7. **Builder's PR is open and no cleaner push exists yet?** Cleaner is owed (default). On the tiny-PR variant (pure docs, lockfile-only, one-file format sweep, single-line bug fix with test fixture already in the diff), skip the cleaner and dispatch the judge instead. On the design-only-PR variant (every changed path under `<project>/designs/`, no source or test changes), skip both the assayer and the cleaner and dispatch the judge directly; the judge will pick the design panel per `roles/judge/AGENT.md` § Panel-kind discrimination. The orchestrator decides which variant applies by inspecting the diff.
+7. **Builder's PR is open and no cleaner push exists yet?** Cleaner is owed (default). On the tiny-PR variant (pure docs, lockfile-only, one-file format sweep, single-line bug fix with test fixture already in the diff), skip the cleaner and dispatch the **barrister** instead. On the design-only-PR variant (every changed path under `<project>/designs/`, no source or test changes), skip both the assayer and the cleaner and dispatch the **solicitor** directly. The orchestrator decides which variant (and therefore which judge) applies by inspecting the diff.
 
 A *panel verdict* is a `kriscendobot`-authored formal `gh pr review` (state `CHANGES_REQUESTED`, `COMMENTED`, or `APPROVED`) whose body matches the panel-review shape (in-scope / out-of-scope sections, must-fix / should-fix verdicts). A plain `gh pr comment` is not a panel verdict and does not advance the flow; the judge's role file requires the formal-review submission. The verdict shape is the same for both panel kinds; the body's seat list and word count vary.
 
