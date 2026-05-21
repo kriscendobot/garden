@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-default-chaining-332--2026052
 repo: endojs/endo
 branch: kriskowal-embrace-default-chaining
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-21T12:15:00Z
-last_heartbeat: 2026-05-21T12:15:00Z
+last_heartbeat: 2026-05-21T12:18:35Z
 task: "Re-ferry endo-but-for-bots#332 over endojs/endo#2901: recompute-from-master force-push-with-lease; 2 commits (substance + changesets) replace upstream's single approved commit"
 prs:
   - repo: endojs/endo-but-for-bots
