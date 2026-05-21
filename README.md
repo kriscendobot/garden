@@ -228,6 +228,7 @@ author: liaison, gardener
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186): feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting on: fixer; CHANGES_REQUESTED)
 - [endojs/endo-but-for-bots#203](https://github.com/endojs/endo-but-for-bots/issues/203) (issue): chat: integrate daemon editMessage / messageHistory in inbox and channel UIs (waiting on: designer)
 - [endojs/endo-but-for-bots#205](https://github.com/endojs/endo-but-for-bots/issues/205) (issue): CI Latency Telemetry (waiting on: scout, or steward + comment authorization to land the prior baseline report)
+- [endojs/endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284): feat(daemon,cli): retention-paths Phase 1 (host API + endo paths CLI) — **flagged close-review by kriskowal 2026-05-21** (waiting on: weaver → cleaner → judge → fixer-loop → un-draft, then kriskowal close review; CONFLICTING + DRAFT)
 <!-- END pr-backlog -->
 
 ### Awaits maintainer ferry
