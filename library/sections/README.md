@@ -461,4 +461,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - papers--maloyan-namiot-sleeper-channels-2026--{sleeper-channel-taxonomy-and-running-scenario, provenance-gate-d2-and-soundness-theorem, executable-policy-and-measurement-plan}
 
-## Total: 513 sections from 118 source documents (through 2026-05-17).
+### From Mark S. Miller papers: Paradigm Regained (liaison orchestrator-direct-draft 2026-05-21, **fourth Miller-paper ingest; completes the 2003-2005 Miller cluster**)
+
+- papers--miller-shapiro-paradigm-regained-2003--{permission-vs-authority-and-cp-versus-cat, object-capability-model-and-redells-caretaker, access-abstraction-and-confinement, arena-terms-of-entry-and-mutually-suspicious-composition}
+
+## Total: 517 sections from 119 source documents (through 2026-05-21).
