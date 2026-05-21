@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-random-chacha12-75-rebase--20
 repo: endojs/endo
 branch: kriskowal-random-chacha20
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-21T06:24:00Z
-last_heartbeat: 2026-05-21T06:24:00Z
+last_heartbeat: 2026-05-21T06:29:44Z
 task: "Re-ferry #75 over endojs/endo#3232: source rebased to 11 fresh commits on current master; recompute-from-master force-push (with lease) to fix the CONFLICTING upstream"
 prs:
   - repo: endojs/endo-but-for-bots
