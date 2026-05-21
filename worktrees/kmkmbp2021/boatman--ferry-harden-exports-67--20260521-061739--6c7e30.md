@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-harden-exports-67--20260521-0
 repo: endojs/endo
 branch: master
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-21T06:17:39Z
-last_heartbeat: 2026-05-21T06:17:20Z
+last_heartbeat: 2026-05-21T06:23:21Z
 task: "First-time ferry of endojs/endo-but-for-bots#67 (eslint-plugin harden-exports fix, closes endo#2390): squash 2 source commits to 1, open non-draft on endojs/endo"
 prs:
   - repo: endojs/endo-but-for-bots
@@ -15,9 +15,9 @@ prs:
     role: source
     title: "fix(eslint-plugin): harden-exports handles destructuring patterns (#2390)"
   - repo: endojs/endo
-    pr: null
+    pr: 3274
     role: target
-    title: null
+    title: "fix(eslint-plugin): harden-exports handles destructuring patterns (#2390)"
 ---
 
 Per-dispatch worktree triple. First-time ferry of #67 (closes upstream issue #2390). 2 source commits already authored as kriskowal@kriskowal.com (no rewrite); squash to 1. Master tip `bf951df3` includes the just-merged #3256 syrup-frame PR.
