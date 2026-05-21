@@ -513,3 +513,75 @@ jsonable | (see section: endo--pkg-marshal-readme--alternative-to-json)
 JSON-representable | smallcaps-encoding
 SmallcapsEncoding | smallcaps-encoding
 tagged record | (see section: endo--pkg-pass-style-readme--maketagged)
+
+# Concept-page additions, 2026-05-21 (Miller-cluster concept-page batch)
+POLA | principle-of-least-authority
+principle of least authority | principle-of-least-authority
+principle of least privilege | principle-of-least-authority
+least privilege | principle-of-least-authority
+least authority | principle-of-least-authority
+least-authority | principle-of-least-authority
+Saltzer-Schroeder least privilege | principle-of-least-authority
+need to do | principle-of-least-authority
+need-to-do basis | principle-of-least-authority
+authority-driven design | principle-of-least-authority
+permission-vs-authority | (see section: papers--miller-shapiro-paradigm-regained-2003--permission-vs-authority-and-cp-versus-cat)
+de facto access | (see section: papers--miller-shapiro-paradigm-regained-2003--permission-vs-authority-and-cp-versus-cat)
+de jure access | (see section: papers--miller-shapiro-paradigm-regained-2003--permission-vs-authority-and-cp-versus-cat)
+arrangement-only bound | (see section: papers--miller-shapiro-paradigm-regained-2003--permission-vs-authority-and-cp-versus-cat)
+partially behavioral bound | (see section: papers--miller-shapiro-paradigm-regained-2003--permission-vs-authority-and-cp-versus-cat)
+cp foo.txt bar.txt | (see section: papers--miller-shapiro-paradigm-regained-2003--permission-vs-authority-and-cp-versus-cat)
+cat < foo.txt > bar.txt | (see section: papers--miller-shapiro-paradigm-regained-2003--permission-vs-authority-and-cp-versus-cat)
+designation determines authority | (see section: papers--miller-shapiro-paradigm-regained-2003--permission-vs-authority-and-cp-versus-cat)
+four ways to acquire references | four-ways-to-acquire-references
+Introduction (capability mechanism) | four-ways-to-acquire-references
+Parenthood (capability mechanism) | four-ways-to-acquire-references
+Endowment (capability mechanism) | four-ways-to-acquire-references
+Initial Conditions (capability mechanism) | four-ways-to-acquire-references
+only connectivity begets connectivity | four-ways-to-acquire-references
+ways B can come to know about C | four-ways-to-acquire-references
+reference graph is the access graph | four-ways-to-acquire-references
+security as extreme modularity | security-as-extreme-modularity
+Table 1 (Structure of Authority) | security-as-extreme-modularity
+abstraction as protection | security-as-extreme-modularity
+modularity gives access control for free | security-as-extreme-modularity
+the lost paradigm | security-as-extreme-modularity
+nested POLA | security-as-extreme-modularity
+multiplicative attack-surface reduction | security-as-extreme-modularity
+spawning tree (nested TCBs) | security-as-extreme-modularity
+forbid mutable static state | security-as-extreme-modularity
+no global name spaces | security-as-extreme-modularity
+say what you mean / mean only what you say | security-as-extreme-modularity
+patterns of safe cooperation | security-as-extreme-modularity
+Redell's Caretaker | caretaker-pattern
+caretakerMaker | caretaker-pattern
+carol2Rvkr | caretaker-pattern
+filtering facet | caretaker-pattern
+factory + factoryMaker | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+FactoryStamp | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+Cassie + Max | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+trademark guard | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+controlled subject | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+uncontrolled subject | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+non-discretionary capabilities | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+Boebert 1984 | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+*-property | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+star-property | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+data diode | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+diodeWriter | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+diodeReader | (see section: papers--miller-shapiro-paradigm-regained-2003--access-abstraction-and-confinement)
+arena | (see section: papers--miller-shapiro-paradigm-regained-2003--arena-terms-of-entry-and-mutually-suspicious-composition)
+terms of entry | (see section: papers--miller-shapiro-paradigm-regained-2003--arena-terms-of-entry-and-mutually-suspicious-composition)
+meta-linguistic abstraction | (see section: papers--miller-shapiro-paradigm-regained-2003--arena-terms-of-entry-and-mutually-suspicious-composition)
+virtual machine within a virtual machine | (see section: papers--miller-shapiro-paradigm-regained-2003--arena-terms-of-entry-and-mutually-suspicious-composition)
+mutually suspicious composition | (see section: papers--miller-shapiro-paradigm-regained-2003--arena-terms-of-entry-and-mutually-suspicious-composition)
+diverse policies over the same graph | (see section: papers--miller-shapiro-paradigm-regained-2003--arena-terms-of-entry-and-mutually-suspicious-composition)
+failures of conservatism | (see section: papers--miller-shapiro-paradigm-regained-2003--arena-terms-of-entry-and-mutually-suspicious-composition)
+the lost paradigm restored | (see section: papers--miller-shapiro-paradigm-regained-2003--arena-terms-of-entry-and-mutually-suspicious-composition)
+more cooperation with less vulnerability | (see section: papers--miller-shapiro-paradigm-regained-2003--arena-terms-of-entry-and-mutually-suspicious-composition)
+pointMaker | (see section: papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker)
+loader.load | (see section: papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker)
+Dennis and van Horn 1966 | (see section: papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker)
+DVH | (see section: papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker)
+Karger-Herbert 1984 | (see section: papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker)
+Chander-Dean-Mitchell | (see section: papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker)

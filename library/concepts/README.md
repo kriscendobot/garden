@@ -26,15 +26,18 @@ Bootstrapped from the daemon design cluster and the structural principles in `co
 - [formula-graph](formula-graph.md) — the daemon's durable substrate; acyclic + locally refcounted.
 - [formula-persistence-thesis](formula-persistence-thesis.md) — the design's core thesis (endojs/endo#3121 draft).
 - [four-tables-coordinated-retention](four-tables-coordinated-retention.md) — cross-peer retention data model.
+- [four-ways-to-acquire-references](four-ways-to-acquire-references.md) — the canonical enumeration (Introduction / Parenthood / Endowment / Initial Conditions) of how an object can come to hold a reference to another; *only connectivity begets connectivity* (added 2026-05-21 by the Miller-cluster concept-page batch; SoA §3.4 + Paradigm Regained §4.2 + CAS §9.2).
 - [local-node-sentinel](local-node-sentinel.md) — `LOCAL_NODE = '0'.repeat(64)`; the `0.0.0.0`-of-Ed25519.
 - [object-capability](object-capability.md) — the "true" capability model per Miller-Yee-Shapiro 2003: Model 4 holding all seven security properties (A–G).
 - [pass-invariant-handle-equality](pass-invariant-handle-equality.md) — connector guarantee: same backing identity → same formula identifier.
 - [per-agent-keypair](per-agent-keypair.md) — `@keypair`, `KeypairFormula`, agent identity as a formula.
+- [principle-of-least-authority](principle-of-least-authority.md) — POLA: every subject holds the minimum *authority* (not just permission) needed to fulfill its responsibilities. The strict reading of information hiding; least-authority not least-permission per Paradigm Regained §2 (added 2026-05-21; four canonical citations across the Miller 2003-2005 cluster).
 - [promise-pipelining](promise-pipelining.md) — `E(E(x).foo()).bar()` over the wire collapses to one round-trip; emerges from `applyMethod`'s reduction into `get` + `applyFunction` plus CapTP's answer-slot reference (added cycle 66 by the handled-promise.js longform-comment ingest).
 - [permits-buckets](permits-buckets.md) — SES's three-bucket framework for vetted-shim placement: `universal` / `initial` / `shared` global property names.
 - [producer-typed-shape-consumer-rendering](producer-typed-shape-consumer-rendering.md) — daemon-wide convention: typed values from producers, rendering from consumers.
 - [retention-accumulator](retention-accumulator.md) — microtask-coalesced retention-delta batching primitive.
 - [revocation-by-withdrawal](revocation-by-withdrawal.md) — the fourth revocation mechanism.
+- [security-as-extreme-modularity](security-as-extreme-modularity.md) — every capability-discipline practice is the strict reading of a software-engineering practice; Table 1's ten-row mapping; nested POLA multiplies attack-surface reduction (added 2026-05-21; Paradigm Regained §4.5 + SoA Table 1 + CAS §6).
 - [sentinel-with-rationale](sentinel-with-rationale.md) — the pattern: deliberately-unreachable value + why-it-cannot-collide.
 - [shape-not-content](shape-not-content.md) — capture upstream meta-table shape, not its rows.
 - [space](space.md) — Familiar Chat's bookmark into the daemon's capability graph; `SpaceConfig` shape, home (Space 0) vs user spaces, Cmd+N keyboard mapping.
