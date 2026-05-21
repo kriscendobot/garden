@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-star-export-cycle-336--202605
 repo: endojs/endo
 branch: master
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-21T17:43:09Z
-last_heartbeat: 2026-05-21T17:43:21Z
+last_heartbeat: 2026-05-21T17:49:25Z
 task: "First-time ferry of endojs/endo-but-for-bots#336 (fix(ses): cyclic star export with renaming reexport; fixes endo#59): squash 3 source commits to 1, open as DRAFT on endojs/endo"
 prs:
   - repo: endojs/endo-but-for-bots
@@ -15,9 +15,9 @@ prs:
     role: source
     title: "fix(ses): cyclic star export with renaming reexport (issue #59)"
   - repo: endojs/endo
-    pr: null
+    pr: 3276
     role: target
-    title: null
+    title: "fix(ses): cyclic star export with renaming reexport (issue #59)"
 ---
 
 Per-dispatch worktree triple. 3 source commits squash to 1; open as DRAFT on endojs/endo (source is draft, CHANGES_REQUESTED-addressed; mirror that posture upstream).
