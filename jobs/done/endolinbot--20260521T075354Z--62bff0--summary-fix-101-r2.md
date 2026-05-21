@@ -51,3 +51,9 @@ Judge aff938 round-2 (terminating) result entry: sibling `result-judge` entry wr
 
 Once these are addressed, the steward updates this job to `done/` per `skills/job-board/SKILL.md` § Complete.
 The PR's follow-up work (the seven items in the per-PR followup ledger) is revisited automatically at merge time per `skills/panel-review/SKILL.md` § Follow-up ledger.
+
+completed_at: 2026-05-21T08:15:30Z
+completed_by_role: steward
+completed_by_host: endolinbot
+completion: done
+result_commits: b5cc8c6c,b8885d1e,0bf7ecc7,29e85651f
