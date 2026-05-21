@@ -49,3 +49,9 @@ The judge's panel round on PR #57 (`feat(marshal,pass-style): admit immutable Ar
 - Item 4 (autosquash) is a force-push; the fixer should `--force-with-lease`.
 - After the push, re-request review on the PR per `roles/COMMON.md` § External-repo etiquette.
 - No panel re-run after; items are summary-fix by classification.
+
+completed_at: 2026-05-21T07:13:35Z
+completed_by_role: steward
+completed_by_host: endolinbot
+completion: done
+result_commits: edb0c7615,693b343f7,59bb8bc21
