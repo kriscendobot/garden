@@ -31,3 +31,9 @@ Bundled summary-fix items from the panel:
 Source juror(s): packager, changeset-auditor. Round 1. Recommended action: one fixer dispatch to add `@endo/captp: patch` and `@endo/compartment-mapper: patch` changesets.
 
 Authorizations: the fixer pushes to `mirror/2901-default-chaining` on `endojs/endo-but-for-bots`. No upstream-repo comments or reviews.
+
+completed_at: 2026-05-21T06:06:41Z
+completed_by_role: steward
+completed_by_host: endolinbot
+completion: done
+result_commit: 3dd654128
