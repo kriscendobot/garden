@@ -42,29 +42,29 @@ The two panels share the same dispatch shape (concurrent `Agent` invocations per
 
 Twenty-three seats per round (the judge dispatches each as its own `Agent` invocation):
 
-- [assessor](../assessor/AGENT.md): correctness logic, control flow, error handling.
-- [typist](../typist/AGENT.md): type accuracy (TS, JSDoc types, narrowings).
-- [stylist](../stylist/AGENT.md): naming and identifier choice.
-- [packager](../packager/AGENT.md): diff hygiene, commit splitting, changeset content.
-- [archivist](../archivist/AGENT.md): docs and comment / JSDoc prose accuracy.
-- [prover](../prover/AGENT.md): regression evidence (test load-bearingness).
-- [curator](../curator/AGENT.md): public API surface, exported identifier shape.
-- [migrator](../migrator/AGENT.md): backwards compatibility, peer-dep cascade, bump-level.
-- [locksmith](../locksmith/AGENT.md): capability flow and attenuation.
-- [warden](../warden/AGENT.md): SES / hardened-JS boundary, harden discipline, unguarded globals.
-- [saboteur](../saboteur/AGENT.md): adversarial inputs (boundary, type confusion, reentrancy, timing).
-- [breaker](../breaker/AGENT.md): invariant attacks against claimed contracts.
-- [purist](../purist/AGENT.md): ocap purity and conceptual integrity (passability, frozen-property hygiene, side-channel closure, family consistency, minimum viable abstraction).
-- [spec-keeper](../spec-keeper/AGENT.md): ECMA-262 / WebIDL / TC39-proposal rigor and engine variance.
-- [wire-watcher](../wire-watcher/AGENT.md): security-protocol correctness on the wire (check-before-trust, in-band-marker bypass, parser divergence, identifier discipline, protocol state-machine invariants).
-- [engine-realist](../engine-realist/AGENT.md): V8 / XS realism and vat-lifecycle awareness (engine variance, allocation and GC budget, ephemeral vs virtual vs durable storage, work-deferral).
-- [integrator](../integrator/AGENT.md): integration coherence with the project's existing structure (merge-commit readability, concept-namespace coherence, rename-completeness sweep, convention probe, forward-compose probe, test-pins-constant, public-surface-in-tests, type-level discouragement, cycle-obviation, diagram maintainability, commit grouping, master-base mirror, minimum cleavage).
-- [benchmarker](../benchmarker/AGENT.md): benchmark-closure on every optimization claim (every thread proposing an optimization is closed with a posted measurement or an explicit "not pursuing" rationale).
-- [changeset-auditor](../changeset-auditor/AGENT.md): changeset-vs-diff coherence (front-matter package set, bump level, body identifier coherence, sentence-per-line, no process commentary).
-- [surfacer](../surfacer/AGENT.md): public-surface coherence (package.json exports, index.js thunk, published types, README's claimed-public surface all agree).
-- [scribe](../scribe/AGENT.md): knowledge-capture closure (every maintainer ask to "note this in standing orders" produces an actual edit or a proposed-rule message to the gardener).
-- [pruner](../pruner/AGENT.md): documentation padding (boilerplate sections, padding-for-padding's-sake, sections beneath the reader's needs).
-- [gateway](../gateway/AGENT.md): repo-root-config justification (any change to repo-root config carries explicit scope-justification; per-package alternatives considered when relaxation would suffice locally).
+- [assessor](../jurors/assessor/AGENT.md): correctness logic, control flow, error handling.
+- [typist](../jurors/typist/AGENT.md): type accuracy (TS, JSDoc types, narrowings).
+- [stylist](../jurors/stylist/AGENT.md): naming and identifier choice.
+- [packager](../jurors/packager/AGENT.md): diff hygiene, commit splitting, changeset content.
+- [archivist](../jurors/archivist/AGENT.md): docs and comment / JSDoc prose accuracy.
+- [prover](../jurors/prover/AGENT.md): regression evidence (test load-bearingness).
+- [curator](../jurors/curator/AGENT.md): public API surface, exported identifier shape.
+- [migrator](../jurors/migrator/AGENT.md): backwards compatibility, peer-dep cascade, bump-level.
+- [locksmith](../jurors/locksmith/AGENT.md): capability flow and attenuation.
+- [warden](../jurors/warden/AGENT.md): SES / hardened-JS boundary, harden discipline, unguarded globals.
+- [saboteur](../jurors/saboteur/AGENT.md): adversarial inputs (boundary, type confusion, reentrancy, timing).
+- [breaker](../jurors/breaker/AGENT.md): invariant attacks against claimed contracts.
+- [purist](../jurors/purist/AGENT.md): ocap purity and conceptual integrity (passability, frozen-property hygiene, side-channel closure, family consistency, minimum viable abstraction).
+- [spec-keeper](../jurors/spec-keeper/AGENT.md): ECMA-262 / WebIDL / TC39-proposal rigor and engine variance.
+- [wire-watcher](../jurors/wire-watcher/AGENT.md): security-protocol correctness on the wire (check-before-trust, in-band-marker bypass, parser divergence, identifier discipline, protocol state-machine invariants).
+- [engine-realist](../jurors/engine-realist/AGENT.md): V8 / XS realism and vat-lifecycle awareness (engine variance, allocation and GC budget, ephemeral vs virtual vs durable storage, work-deferral).
+- [integrator](../jurors/integrator/AGENT.md): integration coherence with the project's existing structure (merge-commit readability, concept-namespace coherence, rename-completeness sweep, convention probe, forward-compose probe, test-pins-constant, public-surface-in-tests, type-level discouragement, cycle-obviation, diagram maintainability, commit grouping, master-base mirror, minimum cleavage).
+- [benchmarker](../jurors/benchmarker/AGENT.md): benchmark-closure on every optimization claim (every thread proposing an optimization is closed with a posted measurement or an explicit "not pursuing" rationale).
+- [changeset-auditor](../jurors/changeset-auditor/AGENT.md): changeset-vs-diff coherence (front-matter package set, bump level, body identifier coherence, sentence-per-line, no process commentary).
+- [surfacer](../jurors/surfacer/AGENT.md): public-surface coherence (package.json exports, index.js thunk, published types, README's claimed-public surface all agree).
+- [scribe](../jurors/scribe/AGENT.md): knowledge-capture closure (every maintainer ask to "note this in standing orders" produces an actual edit or a proposed-rule message to the gardener).
+- [pruner](../jurors/pruner/AGENT.md): documentation padding (boilerplate sections, padding-for-padding's-sake, sections beneath the reader's needs).
+- [gateway](../jurors/gateway/AGENT.md): repo-root-config justification (any change to repo-root config carries explicit scope-justification; per-package alternatives considered when relaxation would suffice locally).
 
 Plus one fire-and-forget shell call alongside the seventeen dispatches (not a separate `Agent` invocation):
 
@@ -78,13 +78,13 @@ The maintainer's framing for the 2026-05-14 twelve-seat redesign: each prior sea
 
 Seven seats per round (the judge dispatches each as its own `Agent` invocation):
 
-- [critic](../critic/AGENT.md): substantive critique of the proposed approach.
-- [skeptic](../skeptic/AGENT.md): adversarial premise attacks (assumptions, spec reading, workflow framing, test-catalog completeness).
-- [decomplector](../decomplector/AGENT.md): Rich-Hickey-lens reading (simple-vs-easy, complecting / decomplecting, value-vs-place, essential vs accidental complexity, minimum viable abstraction).
-- [ergonomist](../ergonomist/AGENT.md): interface ergonomics on the proposed API or UI surface (coherence, discoverability, least-surprise, parameter order, return shape, error visibility, layout, accessibility, user path, affordance).
-- [copyeditor](../copyeditor/AGENT.md): prose mechanics (grammar, sentence structure, paragraph flow, voice consistency, jargon introduction).
-- [pedant](../pedant/AGENT.md): formal style (Chicago Manual conventions plus the garden's own style rules).
-- [novice](../novice/AGENT.md): top-down clarity, read as a naive reader new to the project.
+- [critic](../jurors/critic/AGENT.md): substantive critique of the proposed approach.
+- [skeptic](../jurors/skeptic/AGENT.md): adversarial premise attacks (assumptions, spec reading, workflow framing, test-catalog completeness).
+- [decomplector](../jurors/decomplector/AGENT.md): Rich-Hickey-lens reading (simple-vs-easy, complecting / decomplecting, value-vs-place, essential vs accidental complexity, minimum viable abstraction).
+- [ergonomist](../jurors/ergonomist/AGENT.md): interface ergonomics on the proposed API or UI surface (coherence, discoverability, least-surprise, parameter order, return shape, error visibility, layout, accessibility, user path, affordance).
+- [copyeditor](../jurors/copyeditor/AGENT.md): prose mechanics (grammar, sentence structure, paragraph flow, voice consistency, jargon introduction).
+- [pedant](../jurors/pedant/AGENT.md): formal style (Chicago Manual conventions plus the garden's own style rules).
+- [novice](../jurors/novice/AGENT.md): top-down clarity, read as a naive reader new to the project.
 
 The design panel does **not** add `@copilot`: the design surface is prose rather than code and Copilot's value-add (code-review heuristics) does not apply. The design panel's reviewers are exhaustive at seven seats.
 
