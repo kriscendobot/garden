@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-moduleloc-naming-334--2026052
 repo: endojs/endo
 branch: kriskowal-naming-module-location-specifier
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-21T12:08:50Z
-last_heartbeat: 2026-05-21T12:09:03Z
+last_heartbeat: 2026-05-21T12:12:59Z
 task: "Re-ferry endo-but-for-bots#334 over endojs/endo#2887: recompute-from-master force-push-with-lease; 2 commits replace upstream's single approved commit"
 prs:
   - repo: endojs/endo-but-for-bots
