@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-namespace-mutation-79--202605
 repo: endojs/endo
 branch: kriskowal-namespace-mutation
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-21T06:26:47Z
-last_heartbeat: 2026-05-21T06:26:47Z
+last_heartbeat: 2026-05-21T06:30:31Z
 task: "Re-ferry #79 over endojs/endo#3231 (namespace mutation parity test): squash 3 commits to 1, force-push-with-lease"
 prs:
   - repo: endojs/endo-but-for-bots
