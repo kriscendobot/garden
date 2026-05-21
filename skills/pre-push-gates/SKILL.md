@@ -68,7 +68,7 @@ Probes shipped with the garden today:
 
 | Probe                         | What it checks                                                                                                    | Provenance                              |
 | ----------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| `no-ascii-banners`            | No box-drawing chars (U+2500–U+257F) or `+--+` / `|...|` boxes in changed `.md` or `.js` files.                   | PR #238 inline `r3237804603`; PR #75 `r3267751127`. Mermaid-over-ASCII rule on `roles/pedant/AGENT.md`. |
+| `no-ascii-banners`            | No box-drawing chars (U+2500–U+257F) or `+--+` / `|...|` boxes in changed `.md` or `.js` files.                   | PR #238 inline `r3237804603`; PR #75 `r3267751127`. Mermaid-over-ASCII rule on `roles/jurors/pedant/AGENT.md`. |
 | `no-pull-citations`           | No `pull/<n>` URLs or `#<n>` references in changed paths under `packages/**/*.{js,md}`.                            | PR #75 `r3267735686`.                   |
 | `no-inline-import-jsdoc`      | No `/** @type {import('...').X} */` inline form in changed `.js` / `.ts` files. Require `@import` instead.         | PR #75 `r3223741240`; per-repo CLAUDE.md "we prefer `@import` jsdoc". |
 | `test-package-no-main`        | A package under `packages/*-test/` or whose only files are under `test/` has no `main`, `module`, or `exports` in its `package.json`. | PR #75 `r3223667088`.                   |

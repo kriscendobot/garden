@@ -21,7 +21,7 @@ Assumes you have already read `roles/COMMON.md`.
 - [regression-evidence](../../skills/regression-evidence/SKILL.md): every new test must fail when its target code path is broken. This is the canonical discipline for the assayer's deliverable.
 - [pr-creation-flow](../../skills/pr-creation-flow/SKILL.md): canonical procedure; the assayer's placement relative to the builder lives here.
 - [pre-pr-checklist](../../skills/pre-pr-checklist/SKILL.md): format, lint, docs, tests run locally before pushing.
-- [adversarial-tests](../../skills/adversarial-tests/SKILL.md): consulted when the change's invariants are claimed but not yet attacked; the assayer may pull a single invariant test from the list when it is load-bearing for *this PR's contract*. The full sweep is the [saboteur](../saboteur/AGENT.md)'s job.
+- [adversarial-tests](../../skills/adversarial-tests/SKILL.md): consulted when the change's invariants are claimed but not yet attacked; the assayer may pull a single invariant test from the list when it is load-bearing for *this PR's contract*. The full sweep is the [saboteur](../jurors/saboteur/AGENT.md)'s job.
 - [yarn-lock-separate-commit](../../skills/yarn-lock-separate-commit/SKILL.md): any lockfile churn from a new test dependency ships separately.
 - [em-dash-style](../../skills/em-dash-style/SKILL.md), [relative-paths](../../skills/relative-paths/SKILL.md): apply to commit messages, test names, and any prose the assayer authors.
 - [self-improvement](../../skills/self-improvement/SKILL.md): the final task of every engagement.

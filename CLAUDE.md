@@ -14,6 +14,7 @@ The garden is a library of agent **roles** and **skills** for working across man
 ## Layout
 
 - `roles/<role>/AGENT.md`: operating brief for one role. Lists which skills the role uses and any role-specific norms. Kept short.
+- `roles/jurors/<seat>/AGENT.md`: operating brief for one jury seat. The judge is the sole dispatcher of the jurors per `roles/judge/AGENT.md` § Panel-kind discrimination; the orchestrator (liaison or steward) never dispatches a juror directly. Jurors live in a subdirectory so the top-level `roles/` index reads as the set of orchestrator-dispatchable roles.
 - `roles/COMMON.md`: standing instructions every dispatched subagent reads first.
 - `skills/<skill>/SKILL.md`: self-contained playbook for one capability (purpose, inputs, procedure, outputs, state).
 - `journal/`: a git worktree of this repo on the orphan branch `journal`. Holds the garden's transcript and acts as the **two-channel message bus** between agents: a per-role inbox (`journal/inboxes/<host>/<role>.md`; drained via `skills/inbox-drain/SKILL.md`) for directed communication, and a **job board** (`journal/jobs/`; contract at [`journal/jobs/README.md`](journal/jobs/README.md); skill at [`skills/job-board/SKILL.md`](skills/job-board/SKILL.md)) for work items that any eligible consumer can race to claim via git push as the serialization point. See [WORKTREES.md](WORKTREES.md) for the worktree shapes.
@@ -47,7 +48,7 @@ The dispatch prompt itself should:
 2. Name `DISPATCH_ROOT` (absolute, under `<garden-root>/dispatches/...`).
 3. Name the upstream repo (`owner/name`) when applicable.
 4. State the task in one or two sentences.
-5. Tell the subagent to read `garden/roles/COMMON.md` and then `garden/roles/<role>/AGENT.md` first, and to load skills only on demand.
+5. Tell the subagent to read `garden/roles/COMMON.md` and then `garden/roles/<role>/AGENT.md` (or `garden/roles/jurors/<seat>/AGENT.md` for a jury seat) first, and to load skills only on demand.
 
 Roles never inline skill bodies; they reference them by path. Skills are read just-in-time. The orchestrator rarely reads a skill body; it trusts the role to know which playbook to consult.
 
@@ -65,8 +66,9 @@ Your dispatch root contains a worktree triple:
 Your cwd is project/ if a project worktree exists, otherwise the dispatch root itself.
 
 Read these in order, then act:
-  1. garden/roles/COMMON.md       (standing instructions)
-  2. garden/roles/<role>/AGENT.md (your role)
+  1. garden/roles/COMMON.md                                            (standing instructions)
+  2. garden/roles/<role>/AGENT.md, or
+     garden/roles/jurors/<seat>/AGENT.md for a jury seat                (your role)
   3. skills referenced by your role, only as you need them.
 
 Commit and push in detached-HEAD style: `git push origin HEAD:<branch>`.
