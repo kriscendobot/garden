@@ -1,15 +1,15 @@
 ---
 slot: 3
-status: empty
+status: in-flight
 design_path: null
-pr_number: null
-current_stage: null
-in_flight_dispatch: null
-last_update: 2026-05-18T07:35:00Z
-started_at: null
+pr_number: 290
+current_stage: fixer
+in_flight_dispatch: eb50c1
+last_update: 2026-05-22T21:23:00Z
+started_at: 2026-05-22T21:21:00Z
 host: endolinbot
 ---
 
-Empty after PR #284 un-drafted. All three slots empty; refill paused
-pending design-status sweep guidance (escalation 062941Z-message-...).
-Builder cap is fully free; the binding constraint is the design queue.
+Adopted stuck draft PR #290 (refactor(lal): adopt genie's pi-based harness + memory internals). Created 2026-05-20T05:21Z; 2.5 days idle; reviewDecision=CHANGES_REQUESTED.
+
+Branch `feat/lal-pi-harness`, base `llm`. Dispatch `fixer--eb50c1` addresses review feedback.
