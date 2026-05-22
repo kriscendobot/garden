@@ -1,13 +1,13 @@
 ---
 slot: 2
-status: empty
+status: in-flight
 design_path: null
-pr_number: null
-current_stage: null
-in_flight_dispatch: null
-last_update: 2026-05-22T23:41:00Z
-started_at: null
+pr_number: 358
+current_stage: solicitor
+in_flight_dispatch: 07b99e
+last_update: 2026-05-22T23:42:00Z
+started_at: 2026-05-22T23:42:00Z
 host: endolinbot
 ---
 
-Empty after PR #239 parked as evaluation-only mirror; archived.
+Adopted stuck draft PR #358 (design(daemon): importLocation from EndoMount with npm-registry-proxy + Go-like MVS). Design-only PR. MERGEABLE no review.
