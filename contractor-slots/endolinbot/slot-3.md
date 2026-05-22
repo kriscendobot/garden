@@ -1,13 +1,13 @@
 ---
 slot: 3
-status: in-flight
+status: empty
 design_path: null
-pr_number: 311
-current_stage: appellate
-in_flight_dispatch: baa56a
-last_update: 2026-05-22T23:07:00Z
-started_at: 2026-05-22T22:25:00Z
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-22T23:10:00Z
+started_at: null
 host: endolinbot
 ---
 
-PR #311. Justice-7c4a8b clean (0 must-fix, all 6 round-1 items closed). Appellate-baa56a final review; un-draft after.
+Empty after PR #311 un-drafted; archived to history/2026-05-22-slot3-pr311.md.
