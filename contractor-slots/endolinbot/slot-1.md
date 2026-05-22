@@ -1,13 +1,15 @@
 ---
 slot: 1
-status: empty
+status: in-flight
 design_path: null
-pr_number: null
-current_stage: null
-in_flight_dispatch: null
-last_update: 2026-05-22T22:54:00Z
-started_at: null
+pr_number: 319
+current_stage: cleaner
+in_flight_dispatch: 30d571
+last_update: 2026-05-22T22:56:00Z
+started_at: 2026-05-22T22:56:00Z
 host: endolinbot
 ---
 
-Empty after PR #320 un-drafted; archived to history/2026-05-22-slot1-pr320.md.
+Adopted stuck draft PR #319 (feat(familiar): cross-platform icon projection automation + CI verify, G7 of #231). MERGEABLE no review.
+
+Branch `feat/familiar-icon-projection-automation`, base `llm`.
