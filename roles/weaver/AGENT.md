@@ -29,6 +29,7 @@ See [conflict-resolution](../../skills/conflict-resolution/SKILL.md) for the pro
 
 - [conflict-resolution](../../skills/conflict-resolution/SKILL.md): the no-`--ours`/`--theirs` discipline.
 - [rebase-before-followup](../../skills/rebase-before-followup/SKILL.md): the canonical PR-branch rebase pattern.
+- [frozen-base-branch](../../skills/frozen-base-branch/SKILL.md): every fork-side PR uses a frozen base named `<base>-<short-sha>`. When the weaver rebases, it creates a **new** frozen base at upstream's current tip, rebases the head onto it, force-pushes the head, and updates the PR's `base` field. **Both refs move together.** Other open PRs are not affected because each carries its own frozen base. Upstream PRs (post-boatman ferry) use upstream's natural branch and follow the pre-existing rebase pattern unchanged.
 - [cherry-pick-followup](../../skills/cherry-pick-followup/SKILL.md): when only a subset of commits should move.
 - [rename-discipline](../../skills/rename-discipline/SKILL.md): a rebase that requires reconciling identifier renames on both sides should not invent fresh renames as part of the conflict resolution.
 - [yarn-lock-separate-commit](../../skills/yarn-lock-separate-commit/SKILL.md): lockfile conflicts get the regenerate-and-recommit treatment.
@@ -51,6 +52,7 @@ See [conflict-resolution](../../skills/conflict-resolution/SKILL.md) for the pro
 6. **After the rebase finishes**, sanity-check: `git log --oneline <remote>/<base>..HEAD` should be the original commits on the new base; `git diff --stat <remote>/<base>..HEAD` should be the same files you originally touched plus your conflict resolutions.
 7. **Run the affected packages' tests** before pushing. Rebases pass git's tree-merge but can leave runtime inconsistencies (a function renamed on the base whose call sites your branch added).
 8. **Push** with `--force-with-lease`, never plain `--force`.
+9. **On a fork-side PR**: create the new frozen-base branch (`<base>-<new-sha>`) at upstream's current tip, push to the fork, then update the PR's base via `gh pr edit <N> --base <base>-<new-sha>`. Per `skills/frozen-base-branch/SKILL.md` § Rebase. The old `<base>-<old-sha>` branch stays until PR close (the conductor sweeps it).
 
 ## Operating norms
 
