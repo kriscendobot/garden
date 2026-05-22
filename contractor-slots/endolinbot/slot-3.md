@@ -1,13 +1,13 @@
 ---
 slot: 3
-status: in-flight
+status: empty
 design_path: null
-pr_number: 317
-current_stage: solicitor
-in_flight_dispatch: ab4dc8
-last_update: 2026-05-22T23:32:00Z
-started_at: 2026-05-22T23:19:00Z
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-22T23:38:00Z
+started_at: null
 host: endolinbot
 ---
 
-PR #317. Fixer-670447 landed 96dfe7a0f. Solicitor-ab4dc8 re-runs design panel.
+Empty after PR #317 un-drafted; archived to history/2026-05-22-slot3-pr317.md.

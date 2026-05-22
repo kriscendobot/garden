@@ -1,13 +1,13 @@
 ---
 slot: 2
-status: empty
+status: in-flight
 design_path: null
-pr_number: null
-current_stage: null
-in_flight_dispatch: null
-last_update: 2026-05-22T23:34:00Z
-started_at: null
+pr_number: 239
+current_stage: cleaner
+in_flight_dispatch: ffd126
+last_update: 2026-05-22T23:37:00Z
+started_at: 2026-05-22T23:37:00Z
 host: endolinbot
 ---
 
-Empty after PR #337 un-drafted; archived.
+Adopted stuck draft PR #239 (mirror endo#1967). Branch `mirror/endo-1967`.
