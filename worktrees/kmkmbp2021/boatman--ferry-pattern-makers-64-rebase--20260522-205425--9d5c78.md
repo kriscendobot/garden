@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-pattern-makers-64-rebase--202
 repo: endojs/endo
 branch: kriskowal-harden-exports-pattern-makers-2632
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-22T20:54:25Z
-last_heartbeat: 2026-05-22T20:54:38Z
+last_heartbeat: 2026-05-22T20:58:17Z
 task: "Re-ferry #64 over endojs/endo#3277: source rebased (new SHAs same content); upstream CONFLICTING with master; recompute-from-master force-push-with-lease, 3->1 squash"
 prs:
   - repo: endojs/endo-but-for-bots
