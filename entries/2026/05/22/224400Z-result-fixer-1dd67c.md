@@ -43,7 +43,9 @@ The barrister panel's diff scope ("20 files, +1519/-36") inadvertently included 
 
 ## CI status
 
-CI run started on the new head (`eb5db6534`); build and zizmor already pass, other matrix jobs pending. Will converge to green or surface a load-bearing signal within ~10-15 minutes; the change is text-only (two comment blocks) and cannot affect runtime behavior.
+CI run on the new head (`eb5db6534`): build, build-wasm, familiar-bundle, lint(macro), test(macro), test-async-hooks, test-ocapn-guile-interop, test-ocapn-python, test-xs, test262, test-hermes, zizmor — all **pass**. The lint job and the `test (20.x/22.x/24.x, ubuntu-latest)` and `test (22.x, macos-15)` matrix entries **fail** with a pre-existing breakage: `packages/ocapn/test/netlayer-tcp-syrup.test.js:7` imports `makeClient` from `../src/client/index.js`, but the symbol was renamed to `makeOcapn` in a refactor that landed on `origin/llm` before this PR was opened. The test file in `origin/llm` was not updated; the same lint and test failures occur on `origin/llm` directly (verified locally by running `yarn workspace @endo/ocapn run lint` on the frozen base). The change is text-only (two comment blocks added to existing comment regions in `.github/workflows/ci.yml` and `packages/ocapn/test/python-test-suite/index.js`); it cannot affect any runtime behavior.
+
+Recommended remediation: a separate follow-up PR against `origin/llm` updating `packages/ocapn/test/netlayer-tcp-syrup.test.js` to use `makeOcapn` (or whatever the current public constructor is). Not this PR's lane.
 
 ## Top-level summary
 
