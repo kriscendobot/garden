@@ -3,13 +3,13 @@ slot: 3
 status: in-flight
 design_path: null
 pr_number: 318
-current_stage: barrister
-in_flight_dispatch: 0417a2
-last_update: 2026-05-22T22:12:00Z
+current_stage: appellate
+in_flight_dispatch: da46e9
+last_update: 2026-05-22T22:20:00Z
 started_at: 2026-05-22T22:08:00Z
 host: endolinbot
 ---
 
-PR #318 (ci(familiar): per-platform build pipeline, G1 of #229). Cleaner-7e6a11 skipped (workflow-only PR; no coverage surface). 28/3 SUCCESS+FAILURE — 3 Make jobs fail (G1's gap-reveal purpose; missing step:package call). Barrister-0417a2 runs first code panel; will decide if Make-failures are acknowledge (design-intentional) or must-fix-loop (CI red unmergeable).
+PR #318. Barrister-0417a2 terminated 0 must-fix, 2 summary-fix (posted to board), 2 follow-up, 5 acknowledge. Make-jobs failure parked as acknowledge per G1 gap-reveal purpose. Appellate-da46e9 reviews remaining dispositions; contractor un-drafts after.
 
 Branch `feat/familiar-ci-build-pipeline`, base `llm`.
