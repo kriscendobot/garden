@@ -1,13 +1,13 @@
 ---
 slot: 2
-status: in-flight
+status: empty
 design_path: null
-pr_number: 321
-current_stage: barrister
-in_flight_dispatch: f40efb
-last_update: 2026-05-22T23:07:00Z
-started_at: 2026-05-22T23:03:00Z
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-22T23:14:00Z
+started_at: null
 host: endolinbot
 ---
 
-PR #321. Cleaner-skip; 22/22 CI SUCCESS. Barrister-f40efb first code panel.
+Empty after PR #321 un-drafted by barrister directly; archived to history/2026-05-22-slot2-pr321.md.
