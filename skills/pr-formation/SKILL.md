@@ -46,6 +46,10 @@ The reader is a maintainer deciding whether the change is the right shape. They 
 3. **What the maintainer should attend to** when reviewing. The riskiest invariant, the place a backward-incompatibility lurks, the assumption the diff makes. One short paragraph.
 4. **What is intentionally out of scope.** A negative scope statement saves a review round when the diff stops short of an adjacent fix the reviewer would otherwise ask about.
 
+### Branch naming (head and base)
+
+Head branch name is project-specific and agent-controlled (`feat/<topic>`, `fix/<issue>-<topic>`, etc.; follow whatever convention the upstream project uses). The base branch is **not** the moving upstream branch on fork-side PRs; the builder creates a frozen-base branch named `<base>-<7-char-short-sha>` (e.g., `master-abc1234`, `llm-def5678`) snapshotting upstream at PR-open time and uses that as the PR's base. Full procedure on [`skills/frozen-base-branch/SKILL.md`](../frozen-base-branch/SKILL.md). Upstream PRs after ferry use upstream's natural branch as base (the frozen-base convention does not propagate to upstream).
+
 ### Title
 
 The title carries the same discipline at miniature scale. Conventional-commit prefix per the project's convention (`feat(<slug>):`, `fix(<slug>):`, `design(<slug>):`, etc.). The rest is the same one-sentence summary the body's first sentence elaborates. Do not put PR numbers, file paths, or methodology in the title.

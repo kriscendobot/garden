@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-21
+updated: 2026-05-22
 author: gardener
 ---
 
@@ -24,6 +24,12 @@ Both orchestrators read the next-stage-owed via *The next-stage-owed heuristic* 
 - The orchestrator dispatches a builder against an issue or design. The flow starts here.
 - A maintainer asks for a fresh PR. The flow is the same.
 - A cold PR opened by someone else gets a jury panel after the fact. The flow's cleaner and judge stages still apply; only the builder stage is skipped.
+
+## Frozen base branches (fork-side)
+
+Every PR the garden opens on a fork uses a **frozen base branch** named `<base>-<short-sha>` (e.g., `master-abc1234`, `llm-def5678`) — a snapshot of the upstream branch pushed to the fork at PR-open time. The PR's `base` field points at the snapshot, not at the moving upstream branch. The discipline isolates concurrent PRs from each other's rebases: every PR sees its own frozen surface; rebasing PR-A does not shift PR-B's diff.
+
+The convention applies to fork-side PRs only; upstream PRs (after [boatman](../../roles/boatman/AGENT.md) ferry) use upstream's natural branch. The full procedure — create at PR open, rebase (move both base and head), sweep on PR close, stacked-PR-per-PR isolation — lives in [`skills/frozen-base-branch/SKILL.md`](../frozen-base-branch/SKILL.md). The builder creates the frozen base; the weaver moves it on rebase; the conductor (or close-handler) sweeps on PR close.
 
 ## Draft discipline
 

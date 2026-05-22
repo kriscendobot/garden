@@ -26,6 +26,7 @@ The orchestrator (typically the steward) dispatches the conductor when the merge
 - [review-feedback-followup-commits](../../skills/review-feedback-followup-commits/SKILL.md): the fixer-during / conductor-tidies-before contrast.
 - [ci-status-summary](../../skills/ci-status-summary/SKILL.md): the step-4 status check.
 - [process-documents](../../skills/process-documents/SKILL.md): when the conductor edits a process document or a dispatch-state file, the edit ships in isolation.
+- [frozen-base-branch](../../skills/frozen-base-branch/SKILL.md): after merging a fork-side PR, sweep every `<base>-<sha>` branch the PR used as base (read from the PR's `base_ref_changed` event history). Delete each branch in the fork if no other open PR uses it as base. The discipline bounds frozen-base branch proliferation to live PRs.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the dispatch root's `project/` worktree.
 - [em-dash-style](../../skills/em-dash-style/SKILL.md), [relative-paths](../../skills/relative-paths/SKILL.md).
 
