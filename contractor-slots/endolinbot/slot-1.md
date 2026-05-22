@@ -1,13 +1,13 @@
 ---
 slot: 1
-status: empty
+status: in-flight
 design_path: null
-pr_number: null
-current_stage: null
-in_flight_dispatch: null
-last_update: 2026-05-22T23:55:00Z
-started_at: null
+pr_number: 359
+current_stage: weaver
+in_flight_dispatch: 6b3500
+last_update: 2026-05-22T23:56:00Z
+started_at: 2026-05-22T23:56:00Z
 host: endolinbot
 ---
 
-Empty after PR #322 un-drafted by solicitor round 2; archived.
+Adopted stuck draft PR #359 (design(endoclaw): pinchtab plugin). CONFLICTING. Weaver-6b3500 rebases past llm.
