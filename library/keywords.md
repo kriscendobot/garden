@@ -585,3 +585,11 @@ Dennis and van Horn 1966 | (see section: papers--miller-shapiro-paradigm-regaine
 DVH | (see section: papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker)
 Karger-Herbert 1984 | (see section: papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker)
 Chander-Dean-Mitchell | (see section: papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker)
+pinchtab | pinchtab
+PinchTab | pinchtab
+PINCHTAB_TOKEN | pinchtab
+pinchtab server | pinchtab
+pinchtab bridge | pinchtab
+accessibility tree with stable refs | pinchtab
+`e0`, `e1` (PinchTab refs) | pinchtab
+Browser capability backend | pinchtab
