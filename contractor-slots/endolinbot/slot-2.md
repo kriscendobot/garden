@@ -1,13 +1,15 @@
 ---
 slot: 2
-status: empty
+status: in-flight
 design_path: null
-pr_number: null
-current_stage: null
-in_flight_dispatch: null
-last_update: 2026-05-22T23:14:00Z
-started_at: null
+pr_number: 337
+current_stage: cleaner
+in_flight_dispatch: d38b8f
+last_update: 2026-05-22T23:15:00Z
+started_at: 2026-05-22T23:15:00Z
 host: endolinbot
 ---
 
-Empty after PR #321 un-drafted by barrister directly; archived to history/2026-05-22-slot2-pr321.md.
+Adopted stuck draft PR #337 (feat(daemon,cli): Endo Gateway scaffolding slice 1). Advancing also unblocks parked PR #134.
+
+Branch `feat/endo-gateway`, base `llm`.
