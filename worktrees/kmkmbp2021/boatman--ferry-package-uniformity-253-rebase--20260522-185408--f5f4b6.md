@@ -5,9 +5,9 @@ path: /Users/kris/garden/dispatches/boatman--ferry-package-uniformity-253-rebase
 repo: endojs/endo
 branch: chore/security-md-uniformity
 role: boatman
-status: active
+status: collected
 created_at: 2026-05-22T18:54:08Z
-last_heartbeat: 2026-05-22T18:54:32Z
+last_heartbeat: 2026-05-22T19:00:33Z
 task: "Re-ferry #253 over endojs/endo#3258: 6 source commits rebased on fresh master; recompute-from-master force-push-with-lease to resolve the CONFLICTING upstream"
 prs:
   - repo: endojs/endo-but-for-bots
