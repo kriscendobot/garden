@@ -1,13 +1,13 @@
 ---
 slot: 1
-status: in-flight
+status: empty
 design_path: null
-pr_number: 322
-current_stage: solicitor
-in_flight_dispatch: 3967f3
-last_update: 2026-05-22T23:48:00Z
-started_at: 2026-05-22T23:28:00Z
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-22T23:55:00Z
+started_at: null
 host: endolinbot
 ---
 
-PR #322. Fixer-173961 landed efe14f625; solicitor-3967f3 re-runs panel.
+Empty after PR #322 un-drafted by solicitor round 2; archived.
