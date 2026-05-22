@@ -3,13 +3,11 @@ slot: 3
 status: in-flight
 design_path: null
 pr_number: 311
-current_stage: justice
-in_flight_dispatch: 7c4a8b
-last_update: 2026-05-22T22:59:00Z
+current_stage: appellate
+in_flight_dispatch: baa56a
+last_update: 2026-05-22T23:07:00Z
 started_at: 2026-05-22T22:25:00Z
 host: endolinbot
 ---
 
-PR #311. Fixer-b2b45b landed 4 commits (59ae26f9a→712918f28). Justice-7c4a8b re-panels.
-
-Branch `fix/module-source-define-property`, base `master-455ce47`.
+PR #311. Justice-7c4a8b clean (0 must-fix, all 6 round-1 items closed). Appellate-baa56a final review; un-draft after.
