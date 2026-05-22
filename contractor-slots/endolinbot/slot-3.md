@@ -1,13 +1,13 @@
 ---
 slot: 3
-status: in-flight
+status: empty
 design_path: null
-pr_number: 330
-current_stage: barrister
-in_flight_dispatch: 054e97
-last_update: 2026-05-22T23:15:00Z
-started_at: 2026-05-22T23:11:00Z
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-22T23:18:00Z
+started_at: null
 host: endolinbot
 ---
 
-PR #330. Cleaner-39cf02 skip; 23/23 SUCCESS. Barrister-054e97 first code panel.
+Empty after PR #330 un-drafted by barrister directly; archived to history/2026-05-22-slot3-pr330.md.
