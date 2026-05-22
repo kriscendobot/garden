@@ -45,6 +45,7 @@ No `@copilot` fire (design panel does not add Copilot; the design surface is pro
 
 ## Operating norms
 
+- **Consult `skills/panel-hints/` at top-of-dispatch.** Run `bash garden/skills/panel-hints/panel-hints.sh --base <project-base>` inside the project worktree before fanning out the panel. On a design-only PR the script returns `Panel-kind: design-panel` and the wholesale seven-seat list (no signal-triggered fan-out applies to the design panel today). The solicitor still runs the script for the audit trail; the `result` entry quotes the output. The script may evolve to recommend cross-panel cross-firing in the future; the consultation step is the same regardless.
 - **Dispatch all seven seats concurrently** per `skills/panel-review/SKILL.md` § Concurrent dispatch and in-band fallback. One dispatch-root triple per seat; tear down on each juror's return.
 - **Aggregate per the disposition rubric.** Each finding gets one of `must-fix-loop`, `summary-fix`, `follow-up`, `acknowledge`, or `drop`; each finding cites a standing rule or proposes one (`[rule: ...]` or `[proposed-rule: ...]`). Findings with neither are dropped at aggregation. Aggregated body 900 to 1400 words typical.
 - **Submit one formal `gh pr review`.** `--request-changes` when any `must-fix-loop` is present; `--comment` otherwise (or on the self-review fallback shape); `--approve` only on a fully clean or fully dropped panel.
