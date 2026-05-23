@@ -5,13 +5,13 @@ pr_number: 359
 upstream_mirror_repo: null
 upstream_mirror_pr: null
 created_at: 2026-05-23T00:10:00Z
-last_appended_at: 2026-05-23T00:10:00Z
+last_appended_at: 2026-05-23T00:25:55Z
 status: parked
 ---
 
 # Follow-ups for endojs/endo-but-for-bots#359
 
-Created from the design-panel verdict (seven seats, in-band fallback) on the design-only PR landing `endoclaw-pinchtab` and `endoclaw-browser-interfaces`. The PR is two design docs plus a README sync; the panel surfaced five `must-fix-loop` items, twenty `summary-fix` items, three `follow-up` items, and two `acknowledge` items. The three follow-ups below revisit at this PR's merge or its upstream mirror's merge.
+Created from the design-panel verdict (seven seats, in-band fallback) on the design-only PR landing `endoclaw-pinchtab` and `endoclaw-browser-interfaces`. The PR is two design docs plus a README sync; round 1 surfaced five `must-fix-loop` items, twenty `summary-fix` items, three `follow-up` items, and two `acknowledge` items. Round 2 (post-fixer-30209b at head `24e5fdfc9`) terminated with 0 must-fix-loop, 21 summary-fix (1 new round-2 added), 3 follow-up (no new round-2), 4 acknowledge, 5 drop (round-1 must-fix items second-read verified). The three follow-ups below revisit at this PR's merge or its upstream mirror's merge.
 
 ## Items
 
