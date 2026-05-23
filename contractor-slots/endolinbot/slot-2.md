@@ -1,13 +1,13 @@
 ---
 slot: 2
-status: in-flight
+status: empty
 design_path: null
-pr_number: 360
-current_stage: solicitor
-in_flight_dispatch: 8a7bfc
-last_update: 2026-05-23T00:32:00Z
-started_at: 2026-05-23T00:09:00Z
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-23T00:37:00Z
+started_at: null
 host: endolinbot
 ---
 
-PR #360. Fixer-350a1d landed 83e2a8031. Solicitor-8a7bfc round 2.
+Empty after PR #360 un-drafted; archived. Slot-2 quiesces — remaining drafts out of contractor scope.
