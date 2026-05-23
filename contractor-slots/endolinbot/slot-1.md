@@ -1,13 +1,13 @@
 ---
 slot: 1
-status: in-flight
+status: empty
 design_path: null
-pr_number: 343
-current_stage: solicitor
-in_flight_dispatch: 7d6218
-last_update: 2026-05-23T00:44:00Z
-started_at: 2026-05-23T00:34:00Z
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-23T00:47:00Z
+started_at: null
 host: endolinbot
 ---
 
-PR #343. Fixer-be9ad0 landed 7 commits (6fe0f04→ba4c812) addressing CHANGES_REQUESTED. Solicitor-7d6218 runs panel.
+Empty after PR #343 un-drafted; archived. All contractor-scope candidates exhausted (#357 APPROVED→conductor; #262 probe stays draft; #239+#134 parked). All 3 slots now quiesce pending new draft PRs or maintainer guidance.
