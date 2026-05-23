@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-20
+updated: 2026-05-23
 author: gardener, steward, liaison
 ---
 
@@ -149,7 +149,7 @@ Active roles the steward can dispatch as of 2026-05-13:
 - [groom](../groom/AGENT.md): dispatched when a maintainer roadmap-edit directive surfaces (e.g. an issue comment proposing a milestone change); the steward forwards the per-action authorization. The groom edits the project's `designs/README.md` (or equivalent) and pushes to the roadmap branch.
 - [investigator](../investigator/AGENT.md): dispatched when a maintainer-flagged behavioral mystery surfaces (a CI failure with no obvious root cause, a runtime regression, a request for hypothesis-driven investigation on SES / hardened-JS / Endo daemon / etc.); the steward forwards the per-action authorization. The investigator's deliverable is a journal `result` (and, for large audits, a topic file under `journal/projects/<slug>/`); concrete fixes hand off to a later builder or fixer dispatch.
 - [weaver](../weaver/AGENT.md): dispatched against an open PR whose `mergeable_state` is `CONFLICTING` (or whose base has moved enough that a rebase is necessary before any other role can act). One rebase per dispatch; the weaver does not also fix substance.
-- [shepherd](../shepherd/AGENT.md): dispatched after a fixer (or builder) push, to drive CI to green before the next maintainer ping. Also dispatched when an explicit "are PRs green?" question arises. **Not** dispatched for pure CI-watch tasks; for those the steward arms a parent-context Monitor instead.
+- [shepherd](../shepherd/AGENT.md): dispatched after a fixer (or builder) push, to drive CI to green before the next maintainer ping. Also dispatched when an explicit "are PRs green?" question arises. **Not** dispatched for pure CI-watch tasks; for those the steward arms a parent-context Monitor instead. When a shepherd escalates rather than greens CI, its `result` carries a `next: <role>` classification per `roles/shepherd/AGENT.md` § Escalation classification; the steward chains on that verdict per *Auto-pickup chains* below rather than re-asking the maintainer.
 - [conductor](../conductor/AGENT.md): dispatched when the merge queue (APPROVED + CI-green PRs) is non-empty and no conductor is in flight. Concurrency cap: one conductor across the estate.
 - [designer](../designer/AGENT.md): dispatched when a maintainer comment or scheduled engagement calls for a new design document, when the dispatch carries per-action authorization to open the resulting PR (if any). Most designer dispatches produce a file in the project worktree; PR opening is a separate authorization the steward forwards from a liaison `message`.
 - [journalist](../journalist/AGENT.md): dispatched to maintain the bulletin's review-list sections (*Pending kriskowal reviews* and *PR backlog*). Default cadence: once per cycle when the review-queue daemon log carries any `ADD` or `REMOVE` line since the prior cycle's close (after the review-queue's own `tick` has landed), and on each cycle's housekeeping pass when the review queue is unchanged but the `endo-but-for-bots@llm:designs/` reference or the *PR backlog* row set has moved. The dispatch is journal-only and needs no per-action authorization.
@@ -301,6 +301,33 @@ The six steps:
 ### Notes from the field
 
 - _2026-05-15_: this sub-section was added by gardener dispatch `9c8c4a` per three precipitating message entries: `entries/2026/05/14/225200Z-message-steward-7e3a91.md` (initial broadcast for `test-ocapn-guile-interop`), `entries/2026/05/15/003930Z-message-steward-95e217.md` (retirement on PR #255 merge), and `entries/2026/05/15/010640Z-message-steward-c4d8e9.md` (missed-step retro: #109, #253, #250, #243 had stale pre-retirement FAILUREs and the steward had to re-run them manually after the maintainer flagged the gap). The cumulative lesson: the retirement message is a transaction, not a forward-looking signal; step 5c re-runs are part of it.
+
+## Auto-pickup chains
+
+When a subordinate role's `result` already carries the maintainer's authority to chain to the next role, the steward dispatches that next role without re-asking. The chain rule exists because the alternative (stop, write `message: steward → liaison`, wait for re-authorization) re-introduces the very hand-off seam the subordinate's escalation classification was designed to close. The maintainer's standing framing: a directive like "Shepherd" authorizes not just the shepherd dispatch but the natural continuation if the shepherd can only progress by handing off.
+
+The chain is bounded: it covers exactly the one-role hop from the escalating subordinate to the role it named. The downstream role's own next-stage decisions (un-draft, judge re-runs, conductor merge) continue to flow through the normal protocols documented elsewhere in this file.
+
+### Shepherd → fixer
+
+When a shepherd `result` carries `next: fixer` (per `roles/shepherd/AGENT.md` § Escalation classification: name the next role), the steward immediately prepares a fixer dispatch worktree triple and dispatches without writing a `message: steward → liaison` and without waiting for explicit re-authorization. The shepherd's verdict is the authorization signal; it is downstream of the maintainer's original "Shepherd" directive.
+
+Inputs the steward passes through into the fixer's dispatch prompt:
+
+- The PR number and head SHA from the shepherd's `result`.
+- The failure inventory the shepherd produced: failing job names, file paths, line numbers, and any root-cause hypothesis.
+- The shepherd's `result` entry path, so the fixer can read the full diagnosis without re-grepping.
+- The same per-action authorizations the shepherd carried (push to the PR branch, re-request review after CI is green) plus any the fixer specifically needs that were already staged on the bulletin.
+
+The chain stops at fixer. The fixer's own success/failure determines its next stage through the normal PR-creation-flow scan: a fixer push on a draft PR re-triggers the appropriate judge on the next cycle, a fixer push on an open PR with a `CHANGES_REQUESTED` review feeds the re-request-review step, and so on. The auto-chain does **not** authorize the steward to also dispatch a conductor, an un-draft, or any further downstream role; those continue to require their own per-action authorizations or panel verdicts.
+
+The chain does **not** apply when the shepherd's `result` carries `next: designer`, `next: liaison`, or any classification that names a role above the fixer's surgical-fix scope. In those cases the shepherd has surfaced a deeper-than-fixer problem (public-API rewrite, missing design, workspace structure change, unauthorized scope expansion); the steward records the escalation, posts it to the bulletin's *Awaits maintainer decision* section, and does not auto-dispatch. The classification's job is precisely to discriminate between "fixer can handle this" and "this needs a human-level decision," and the steward respects that discrimination.
+
+When the steward dispatches a fixer via this chain, the dispatch entry's `trigger:` field cites the shepherd's `result` path and the `next: fixer` verdict so the chain is traceable. A brief PR comment (when the staged authorization permits it) noting "shepherd reported real failures; dispatching fixer per standing rule" is preferable to a maintainer ping; the chain's visibility lives in the journal and the dispatch's own work product.
+
+### Notes from the field
+
+- _2026-05-23_: this sub-section was added by gardener dispatch `fa60a7` per kriskowal directive 2026-05-23T07:07:53Z on PR #345. Precipitating cause: on 2026-05-22T22:46Z the shepherd-2abcf7 dispatch on PR #355 returned with six real failures recommending fixer dispatch, and the steward treated the recommendation as a hand-off requiring kriskowal authorization rather than as the authorization itself. The maintainer's correction ("Dispatch fixer." 2026-05-23T03:44Z; then the standing-rule directive on #345) made it explicit that the shepherd's "needs fixer" verdict is the authorization signal, not a request for one. The shepherd-side counterpart landed in the same engagement on `roles/shepherd/AGENT.md` § Escalation classification: name the next role.
 
 ## Parked followup revisit
 
