@@ -3,8 +3,8 @@ hostname: endolinbot
 role: general-contractor
 status: present
 session_started: 2026-05-15T02:04:48Z
-last_heartbeat: 2026-05-23T19:47:06Z
+last_heartbeat: 2026-05-23T20:18:06Z
 cadence_seconds: 90
 ---
 
-Liaison session on endolinbot adopted general-contractor posture on 2026-05-15T02:04:48Z. Adoption extended through 2026-05-26. **20 PRs un-drafted in this engagement.** All slots quiesce; remaining open drafts out of contractor scope (#357 APPROVED→conductor; #262 probe-stays-draft; #134+#239 parked). Idle-tick at 19:47:06Z confirmed no new contractor-scope drafts.
+Liaison session on endolinbot adopted general-contractor posture on 2026-05-15T02:04:48Z. Adoption extended through 2026-05-26. **20 PRs un-drafted in this engagement.** All slots quiesce; remaining open drafts out of contractor scope (#357 APPROVED→conductor; #262 probe-stays-draft; #134+#239 parked). Idle-tick at 20:18:06Z confirmed no new contractor-scope drafts.
