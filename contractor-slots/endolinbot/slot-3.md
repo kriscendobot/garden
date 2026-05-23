@@ -1,13 +1,13 @@
 ---
 slot: 3
-status: in-flight
+status: empty
 design_path: null
-pr_number: 356
-current_stage: solicitor
-in_flight_dispatch: a03324
-last_update: 2026-05-23T00:30:00Z
-started_at: 2026-05-22T23:56:00Z
+pr_number: null
+current_stage: null
+in_flight_dispatch: null
+last_update: 2026-05-23T00:36:00Z
+started_at: null
 host: endolinbot
 ---
 
-PR #356. Fixer-cb859a landed 30d13d963. Solicitor-a03324 round 2.
+Empty after PR #356 un-drafted; archived. Remaining draft PRs are out of contractor scope (#357 APPROVED→conductor; #262 probe stays draft; #239+#134 parked). Slot-3 quiesces pending new PR creation or maintainer guidance.
