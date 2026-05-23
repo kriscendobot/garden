@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-15
+updated: 2026-05-23
 author: liaison, gardener
 ---
 
@@ -43,6 +43,17 @@ Stop and surface to the dispatcher rather than fix:
 - `--no-verify`, `continue-on-error`, or any other "make the check pass without addressing it" shortcut.
 - Changes that would touch more than ~5 files or rewrite logic spanning multiple modules. Beyond that scope, hand off to a fixer.
 
+## Escalation classification: name the next role
+
+When a shepherd dispatch ends in escalation rather than green CI, the `result` entry and the report back to the orchestrator **must** classify the escalation so the orchestrator can chain the next role without re-asking the maintainer. Use one of these phrasings explicitly in both the journal `result` body and the orchestrator-facing report:
+
+- **`next: fixer`**: failures are real (not flakes), root cause is within the PR's own diff, and the repair fits the fixer's surgical-fix scope (≤ ~5 files, no public-API or topology changes). Include the failure inventory: failing job names, file paths, line numbers, and any root-cause hypothesis the shepherd's diagnosis produced. The steward's auto-pickup chain (see `roles/steward/AGENT.md` § Auto-pickup chains) reads this verdict as the authorization to dispatch the fixer without re-asking the maintainer; the shepherd's "needs fixer" verdict is itself downstream of the maintainer's original "Shepherd" directive.
+- **`next: weaver`**: the PR's `mergeable_state == CONFLICTING`, so workflows are not dispatching on new pushes. Per *Conflicting PRs block CI dispatch* above, this is a weaver task. Cite the diagnosis (`gh api .../pulls/<N> --jq '{mergeable, mergeable_state}'`) in the report.
+- **`next: designer`** or **`next: liaison`**: a deeper-than-fixer problem surfaced (public-API rewrite, missing design, workspace structure change, unauthorized scope expansion). Name what the shepherd saw and why it sits above the fixer's scope. The steward does **not** auto-dispatch in this case; the orchestrator surfaces the escalation to the maintainer normally.
+- **`next: none`**: the failures were operational flakes covered by a steward broadcast, or have already cleared on a re-run. Cite the broadcast message path or the run URL.
+
+The classification is not a guess about who *might* fix the issue; it is a directive that names the role to dispatch. A report that escalates without one of these classifications forces the orchestrator to re-derive the classification from prose, which is exactly the seam the auto-pickup chain exists to close. When in doubt, prefer `next: fixer` for in-scope failures and `next: liaison` for anything that needs a human decision; do not omit the classification.
+
 ## Watch-only dispatches are wrong dispatches
 
 A persistent Monitor armed inside a sub-agent dispatch is scoped to that agent's lifetime; when the dispatch ends, the Monitor is reaped. A shepherd dispatch whose brief is "wait for CI to converge on `<sha>` and report" with no expected substantive repair has no way to actually wait. Report the actual state ("CI propagating; next steward cycle will verify convergence") rather than "monitor armed". The orchestrator should arm a Monitor in the parent context and skip the shepherd dispatch entirely when the brief is purely a CI watch. Reserve shepherd dispatches for cases where there is substantive work: pushing a fix, diagnosing a red, posting a green-run-URL after a push the shepherd itself made.
@@ -64,4 +75,5 @@ Posting a green-run URL on the PR after a shepherd push (or any other comment) r
 - CI is green on the head SHA, OR a hard escalation point has been surfaced with a clear hand-off.
 - Each fix-up commit is atomic, one concern per commit.
 - A `result` journal entry summarises which failures were addressed, how, and the green-run URL when applicable.
+- On escalation, the `result` entry and the orchestrator-facing report both carry an explicit `next: <role>` classification per *Escalation classification: name the next role* above. The steward's auto-pickup chain depends on this verdict to chain the next role without re-asking the maintainer.
 - One-line `Self-improvement: ...`.
