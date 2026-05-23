@@ -2,12 +2,12 @@
 slot: 1
 status: in-flight
 design_path: null
-pr_number: 359
-current_stage: solicitor
-in_flight_dispatch: c16ff3
-last_update: 2026-05-23T00:22:00Z
-started_at: 2026-05-22T23:56:00Z
+pr_number: 343
+current_stage: weaver
+in_flight_dispatch: d36d03
+last_update: 2026-05-23T00:34:00Z
+started_at: 2026-05-23T00:34:00Z
 host: endolinbot
 ---
 
-PR #359. Fixer-30209b landed 24e5fdfc9. Solicitor-c16ff3 round 2.
+Adopted stuck draft PR #343 (design(gateway): overarching @endo/gateway package). CONFLICTING + CHANGES_REQUESTED. Weaver-d36d03 rebases past llm first.
