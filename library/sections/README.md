@@ -485,4 +485,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-marshal-src-marshal-js--{error-diagnostic-priority, slot-typing-security-hazard, dual-format-body-discriminator}
 
-## Total: 536 sections from 124 source documents (through 2026-05-29).
+### From Mark S. Miller papers: Markets and Computation (cycle 75, liaison orchestrator-direct-draft 2026-05-28, **sixth Miller-coauthored paper; oldest paper in the library (1988); historical seed of the Agoric project**)
+
+- papers--miller-drexler-markets-and-computation-1988--{agoric-vision-and-foundations, business-agents-and-resource-strategies, agoric-in-the-large-and-absence-of-agoric-systems}
+
+## Total: 539 sections from 125 source documents (through 2026-05-29).
