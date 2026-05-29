@@ -1258,3 +1258,126 @@ comparator memoization | rank-order-preserving-encoding
 `comparatorMirrorImages` | rank-order-preserving-encoding
 first-seen ordering of remotables | rank-order-preserving-encoding
 `nameForPassableSymbol` | rank-order-preserving-encoding
+
+## Reasoning about Risk and Trust (Drossopoulou-Noble-Miller-Murray 2015, cycle 85)
+
+`obeys` | object-capability
+o obeys Spec | object-capability
+obeys predicate | object-capability
+hypothetical trust | object-capability
+hypothetical trust predicate | object-capability
+trust as hypothesis | object-capability
+trust as a hypothetical | object-capability
+first-class trust predicate | object-capability
+runtime trust bit | object-capability
+trust bit | object-capability
+`MayAccess` | four-ways-to-acquire-references
+MayAccess | four-ways-to-acquire-references
+`MayAccess(o, p)` | four-ways-to-acquire-references
+transitive points-to closure | four-ways-to-acquire-references
+points-to closure | four-ways-to-acquire-references
+abstract reachability closure | four-ways-to-acquire-references
+`MayAffect` | principle-of-least-authority
+MayAffect | principle-of-least-authority
+`MayAffect(o, p)` | principle-of-least-authority
+mutation closure | principle-of-least-authority
+mutation reach | principle-of-least-authority
+only connectivity begets connectivity | object-capability
+only-connectivity-begets-connectivity | object-capability
+connectivity begets connectivity | object-capability
+risk bound | principle-of-least-authority
+risk bounds | principle-of-least-authority
+open world specification | object-capability
+open-world specification | object-capability
+closed world assumption | object-capability
+closed-world assumption | object-capability
+open world | object-capability
+open-world | object-capability
+ValidPurse | mint-purse-money
+`ValidPurse` | mint-purse-money
+ValidPurse specification | mint-purse-money
+`Pol_deposit_1` | mint-purse-money
+`Pol_deposit_2` | mint-purse-money
+`Pol_sprout` | mint-purse-money
+`Pol_can_trade_constant` | mint-purse-money
+`Pol_protect_balance` | mint-purse-money
+purse sprouting | mint-purse-money
+sprout | mint-purse-money
+`sprout` | mint-purse-money
+sprouted purse | mint-purse-money
+sprouted malicious purse | mint-purse-money
+sprouted-malicious-purse attack | mint-purse-money
+ValidEscrow | smart-contract
+`ValidEscrow` | smart-contract
+four-case ValidEscrow | smart-contract
+four-case spec | smart-contract
+four-case specification | smart-contract
+case analysis on participant trust | smart-contract
+participant purses | smart-contract
+PPrs | smart-contract
+GoodPrs | smart-contract
+OthrPrs | smart-contract
+BadPPrs | smart-contract
+matching pairs of untrustworthy purses | smart-contract
+jointly conspiring untrustworthy | smart-contract
+return value does not communicate trustworthiness | smart-contract
+deal_version1 | smart-contract
+`deal_version1` | smart-contract
+deal_version2 | smart-contract
+`deal_version2` | smart-contract
+escrow exchange | smart-contract
+escrow purse | smart-contract
+escrow purses | smart-contract
+escrowMoney | smart-contract
+sellerMoney | smart-contract
+buyerMoney | smart-contract
+mutual trust by reciprocal deposits | smart-contract
+reciprocal zero-amount deposit | smart-contract
+zero-amount deposit handshake | smart-contract
+biconditional on obeys | smart-contract
+mutual-trust handshake | smart-contract
+two-way trusted transfer | smart-contract
+CanTrade | brand-and-trademark
+`CanTrade` | brand-and-trademark
+`CanTrade(prs1, prs2)` | brand-and-trademark
+CanTrade abstract predicate | brand-and-trademark
+CanTrade reflexive | brand-and-trademark
+Focal | object-capability
+`Focal` | object-capability
+Featherweight Object Capability Language | object-capability
+Chainmail | object-capability
+`Chainmail` | object-capability
+Chainmail specification language | object-capability
+named policy | object-capability
+named policies | object-capability
+specification policies | object-capability
+invariant policy | object-capability
+any_code policy | object-capability
+`any_code` | object-capability
+Hoare four-tuple | object-capability
+Hoare four-tuples | object-capability
+four-tuple Hoare logic | object-capability
+during-execution invariant | object-capability
+intermediate state invariant | object-capability
+code-agnostic inference rule | object-capability
+code-agnostic rules | object-capability
+code agnostic rules | object-capability
+`METH-CALL-2` | object-capability
+METH-CALL-2 | object-capability
+`FRAME-METHCALL` | principle-of-least-authority
+FRAME-METHCALL | principle-of-least-authority
+POLA framing rule | principle-of-least-authority
+POLA framing | principle-of-least-authority
+`CODE-INVAR-1` | object-capability
+CODE-INVAR-1 | object-capability
+`CODE-INVAR-2` | object-capability
+CODE-INVAR-2 | object-capability
+trust preserved across execution | object-capability
+linking operator | vat-and-compartment
+module linking | vat-and-compartment
+`M * M'` | vat-and-compartment
+Arising configurations | object-capability
+Reach function | object-capability
+Drossopoulou-Noble-Miller-Murray | object-capability
+Drossopoulou et al | object-capability
+defensive consistency formal | object-capability

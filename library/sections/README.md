@@ -509,4 +509,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-marshal-src-rankorder-js--{same-value-zero-and-numeric-rank-semantics, pass-style-rank-derivation-and-rank-covers, inner-comparator-per-pass-style-rules, sort-by-rank-undefined-quirk-and-passstyleprefixes-invariant, full-order-comparator-kit-observable-mutable-state}
 
-## Total: 561 sections from 130 source documents (through 2026-05-29).
+### From Mark S. Miller papers: Reasoning about Risk and Trust in an Open World (cycle 85, liaison orchestrator-direct-draft 2026-05-29, **eighth Miller-coauthored paper; library's first formal Hoare-style verification paper; the formal specification methodology behind the §2.6 *return value does not communicate trustworthiness* lesson**)
+
+- papers--drossopoulou-reasoning-about-risk-and-trust-2015--{trust-as-hypothetical-and-risk-via-may-access-may-affect, escrow-failure-and-four-case-valid-escrow-spec, hoare-four-tuples-and-code-agnostic-rules}
+
+## Total: 564 sections from 131 source documents (through 2026-05-29).
