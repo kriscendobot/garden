@@ -497,4 +497,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-marshal-src-encodepassable-js--{number-encoding-binary64-bit-complement, bigint-encoding-elias-delta-with-sign-aware-alphabets, compact-format-string-escapes, dual-array-encodings-and-double-decode-verify, error-special-case-and-passstyle-prefix-table}
 
-## Total: 548 sections from 127 source documents (through 2026-05-29).
+### From Mark S. Miller papers: Distributed Electronic Rights in JavaScript (cycle 82, liaison orchestrator-direct-draft 2026-05-30, **seventh Miller-coauthored paper; the JavaScript bridge between E-language lineage and contemporary @endo/Agoric stack**)
+
+- papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--{dr-ses-architecture-and-q-promises, rights-as-property-and-money-as-right, escrow-exchange-and-contract-host}
+
+## Total: 551 sections from 128 source documents (through 2026-05-30).
