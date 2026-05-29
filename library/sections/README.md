@@ -465,4 +465,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - papers--miller-shapiro-paradigm-regained-2003--{permission-vs-authority-and-cp-versus-cat, object-capability-model-and-redells-caretaker, access-abstraction-and-confinement, arena-terms-of-entry-and-mutually-suspicious-composition}
 
-## Total: 517 sections from 119 source documents (through 2026-05-21).
+### From endo-but-for-bots/llm/designs chat-view-edit-commands (cycle 70)
+
+- endo-but-for-bots--llm-designs-chat-view-edit-commands--{problem-and-blob-access-gap, commands-viewer-editor-and-panel-layout, markdown-synchronized-render-panel, loading-blob-content-and-focus-mode, phases-dependencies-and-design-decisions}
+
+## Total: 522 sections from 120 source documents (through 2026-05-28).

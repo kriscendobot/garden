@@ -30,6 +30,7 @@ one consumer's convenience.
 | [rpn/alternatives-and-decisions](../sections/endo-but-for-bots--llm-designs-rpn--alternatives-and-decisions.md) | The worked example: rejects daemon-side `describeRetentionPaths` because it would force CLI and Chat UI to re-parse strings to recover segment boundaries. |
 | [dlt/dehydration-and-hydration](../sections/endo-but-for-bots--llm-designs-dlt--dehydration-and-hydration.md) | The locator/formula-key boundary follows the same discipline: formula key is the typed shape; the URL locator is the rendered form. |
 | [chat-markdown-render/package-extraction-and-typed-ast](../sections/endo-but-for-bots--llm-designs-chat-markdown-render--package-extraction-and-typed-ast.md) | Applied at the parser boundary: `@endo/markmdown` owns the typed AST; `@endo/chat` and any future consumer (markdown preview, agent-output renderer) own their rendering. The chip-slot post-process is a consumer concern the parser does not know about. |
+| [chat-view-edit-commands/markdown-synchronized-render-panel](../sections/endo-but-for-bots--llm-designs-chat-view-edit-commands--markdown-synchronized-render-panel.md) | The editor's live HTML preview is a third consumer of the `@endo/markmdown` typed AST alongside the chat-message envelope and the standalone Markdown viewer. The parser does not learn about the editor's synchronized-scroll quirks; all three consumers render the same AST through their own renderers. |
 
 The principle is codified in [`conventions.md`](../conventions.md) §
 *Structural principles from cycles 41-43*.
