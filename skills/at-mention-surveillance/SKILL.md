@@ -1,6 +1,6 @@
 ---
 created: 2026-05-15
-updated: 2026-05-20
+updated: 2026-05-29
 author: gardener
 ---
 
@@ -118,6 +118,18 @@ Reactji posting is one extra `gh api` call per dispatch (~200ms). On a burst of 
 
 The reactji **is** the per-action authorization to act on the comment: a `@kriscendobot` mention from the maintainer (or from a senior contributor on a topic-matching PR; see `journal/projects/endo-but-for-bots/README.md` § Authority structure) implicitly authorizes the reactji and the consequent dispatch. No separate per-action authorization is needed for the reactji on a comment whose body carried the routing intent that triggered the matrix.
 
+### Per-repo overrides
+
+The default authorization model above (maintainer-or-topic-scoped-senior implies the reactji and dispatch; unrecognized authors fall in a gap) is overridden per-repo where the project README declares a wider authority structure.
+
+| Repo                          | Override                                                                                                                                  |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `endojs/endo-but-for-bots`    | Every commenter is treated as maintainer-equivalent. The "unrecognized author" gap row does not apply; the matrix's `@kriscendobot` rows fire normally regardless of author identity. The reactji-as-authorization rule applies symmetrically across every commenter. See [`../../../journal/projects/endo-but-for-bots/README.md`](../../../journal/projects/endo-but-for-bots/README.md) § Authority structure for the canonical statement and the precipitating directive (2026-05-29). |
+
+The override is grounded in the project's GitHub permission gate: only users with maintainer access can comment, review, or open PRs. The matrix can safely treat the comment-author as authorizing because the gate has already done so upstream.
+
+Other safe-to-monitor repos remain under the default rule (the *Ack on pickup* sub-section above): the reactji and consequent dispatch require maintainer-or-topic-scoped-senior authorship. The override is the exception, not the new default; widening it to another repo requires the same maintainer authorization shape the monitoring safety constraint demands per `CLAUDE.md` § Monitoring safety constraint, recorded in a journal `message` entry and reflected in the relevant project README's § Authority structure first.
+
 ### Why fold or not fold with `@kriskowal`-routing
 
 The `@kriskowal` row above stays separate from the per-project skill's `IssueCommentEvent` row by design:
@@ -158,3 +170,5 @@ where `<surface>` is one of `issue-comment`, `pr-review-comment`, `pr-review-bod
 - 2026-05-15 — Initial skill landed by gardener dispatch `b3ed73` in response to the steward retro at `journal/entries/2026/05/15/215930Z-message-steward-72ad0e.md`. The precipitating miss was jcorbin's `@kriscendobot` comment on `endojs/endo-but-for-bots#265` at 20:30:01Z, surfaced as an IssueCommentEvent `NEW` line at 20:30:08Z but with the comment body never reaching the parent context; the maintainer flagged the gap at 21:45Z. The user's framing at 21:45Z is the maintainer authorization for this skill per `CLAUDE.md` § Monitoring safety constraint. The matrix's three rows match the steward retro's three reaction shapes verbatim, with the PR-review-body widening adopted per the retro's companion observation.
 
 - _2026-05-20_: *Ack-on-pickup-before-dispatch* sub-section added by gardener dispatch `7a90a5` after an engagement at 2026-05-19T23:46Z to 23:56Z surfaced four `@kriscendobot` directives on `endojs/endo-but-for-bots` PRs #301, #303, #305, #307 in a tight burst. The steward dispatched three in parallel (#301 weaver, #303 cleaner, #305 cleaner) and routed #307 to the liaison via a `message: steward → liaison`, but acked none of the four with the `eyes` reactji until the maintainer flagged two as "may have missed." Reactji was backfilled, but the discipline gap was that the matrix's *Steward action* column named the dispatch without naming the reactji that precedes it. Hypothesis: cadence-overrun (burst arrivals cause jump-to-dispatch before reacting), not skill ignorance; the `reactji-acknowledgment` skill already prescribes "react at the moment the activity is noticed" but the sequencing was implicit at the at-mention-derived-dispatch site. The fix makes the sequencing explicit at the surface where the burst arrived. Precipitating entries: `journal/entries/2026/05/20/000105Z-dispatch-steward-{05b004,3c22d7,876d93}.md` (the three parallel dispatches) and `journal/entries/2026/05/20/000240Z-message-steward-307fb.md` (the #307 routing).
+
+- _2026-05-29_: *Per-repo overrides* sub-section added in response to the steward's matrix-gap observation at `journal/entries/2026/05/29/015400Z-message-steward-b8c2d3.md` § Self-improvement signal for the gardener. The precipitating case was kumavis's `@kriscendobot review this pr` comment on `endojs/endo-but-for-bots#328`; the matrix's *Ack on pickup* sub-section narrowed authorization to "maintainer-or-topic-scoped-senior," which left non-named commenters in a gap. The maintainer's 2026-05-29 directive widens authority on `endojs/endo-but-for-bots` to every commenter (the repo's permission gate already restricts who can comment), and the per-repo override row lands here so the matrix's `@kriscendobot` rows fire normally for any commenter on that repo. The named non-exhaustive list (kriskowal, kumavis, erights, danfinlay, 0xpatrick, jcorbin) lives on the project README. The steward's prior kumavis-#328 routing decision is overridden by the new rule; the next steward cycle picks the comment up under the wider authorization.
