@@ -553,4 +553,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-rename-dismiss-to-clear--{rename-decision-record}
 
-## Total: 591 sections from 141 source documents (through 2026-05-29).
+### From endo packages/ses/src/error/console.js longform comments (cycle 96, **tenth comment-fragment ingest; Mark S. Miller-authored SES causal-console core; completes the SES causal-console rendering pipeline trilogy with cycle 90 track-turns.js and cycle 93 tame-v8-error-constructor.js**)
+
+- endo--packages-ses-src-error-console-js--{no-special-privilege-prelude-and-console-method-permit-lists, logging-console-causal-console-and-error-info-rendering, causal-console-from-logger-and-filter-console}
+
+## Total: 594 sections from 142 source documents (through 2026-05-29).

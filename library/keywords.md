@@ -2198,3 +2198,71 @@ clear inbox conventional term | chat-ui
 post-implementation retrospective | chat-ui
 rename decision record | chat-ui
 merge commit 31df9e3cf | chat-ui
+
+## packages/ses/src/error/console.js (cycle 96, tenth comment-fragment ingest)
+
+console.js SES | object-capability
+causal-console | object-capability
+SES causal console | object-capability
+makeCausalConsole | object-capability
+makeLoggingConsoleKit | object-capability
+loggingConsole | object-capability
+takeLog | object-capability
+pumpLogToConsole | object-capability
+delayed application buffer | object-capability
+capture then replay | object-capability
+no-special-privilege axiom | object-capability
+do not reference free variable console | object-capability
+internalDebugConsole | object-capability
+consoleLevelMethods | object-capability
+consoleOtherMethods | object-capability
+consoleMethodPermits | object-capability
+consoleOmittedProperties | object-capability
+false-entries-in-SES-permits | object-capability
+console permit list | object-capability
+nine level methods | object-capability
+ten other methods | object-capability
+Whatwg console spec | object-capability
+Chrome devtools console api | object-capability
+debug log info warn error | object-capability
+trace dirxml group groupCollapsed | object-capability
+assert timeLog clear dir | object-capability
+profile profileEnd timeStamp | object-capability
+ErrorInfo NOTE MESSAGE CAUSE ERRORS | object-capability
+ERROR_NOTE | object-capability
+ERROR_MESSAGE | object-capability
+error cause property | object-capability
+AggregateError errors | object-capability
+extractErrorArgs | object-capability
+tag instead of toString | object-capability
+errorTag tag-string | object-capability
+errorsLogged WeakSet | object-capability
+logError function | object-capability
+logErrorInfo | object-capability
+logSubErrors | object-capability
+nested error grouping | object-capability
+makeNoteCallback | object-capability
+annotation arrived after error logged | object-capability
+most-informative-message rule | object-capability
+messageLogArgs | object-capability
+takeMessageLogArgs | object-capability
+takeNoteLogArgsArray | object-capability
+getStackString console call | object-capability
+loggedErrorHandler | object-capability
+tagError | object-capability
+defineCausalConsoleFromLogger | object-capability
+AVA t.log adapter | object-capability
+single-function logger | object-capability
+VirtualConsole | object-capability
+indentAfterAllSeps | object-capability
+horrible kludge TODO | object-capability
+indent stack management | object-capability
+group groupEnd indent | object-capability
+filterConsole | object-capability
+canLog severity gating | object-capability
+severity-gated filter | object-capability
+LogSeverity | object-capability
+defineName arrow function name | object-capability
+three-wrapper composability | object-capability
+logging causal filter composition | object-capability
+TODO do something with optional topic string | object-capability
