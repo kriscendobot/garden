@@ -521,4 +521,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-pass-style-src-error-js--{pass-style-defense-across-host-configurations, v8-stack-accessor-undeniable-channel-and-repair, error-validation-security-vs-diagnostic-tension}
 
-## Total: 570 sections from 133 source documents (through 2026-05-29).
+### From external papers: ACLs don't (Tyler Close ~2009, cycle 88, **first non-Miller paper in the capability-theory cluster; first Tyler Close paper; the access-matrix-terminology formalization of the Confused Deputy attack with CSRF + clickjacking + click-fraud as worked Web examples and the web-key fix**)
+
+- papers--close-acls-dont-2009--{compilation-scenario-and-the-confused-deputy-attack, three-failures-of-acls-and-capability-application-caveat, web-attacks-csrf-clickjacking-clickfraud-and-the-web-key-fix}
+
+## Total: 573 sections from 134 source documents (through 2026-05-29).

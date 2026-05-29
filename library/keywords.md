@@ -1561,3 +1561,89 @@ hazards we think we understand | object-capability
 diagnostic priority over validity bug | object-capability
 fail loud on unexpected accessor | object-capability
 captureStackTrace forward-compatibility | object-capability
+
+## ACLs Don't (Tyler Close ~2009, cycle 88)
+
+ACLs don't | object-capability
+ACLs Don't | object-capability
+ACL model | object-capability
+ACL critique | object-capability
+access matrix | object-capability
+access matrix model | object-capability
+1971 Protection paper | object-capability
+Lampson Protection | object-capability
+column-stored access matrix | object-capability
+row-stored access matrix | object-capability
+ACL checking | object-capability
+capability transfer | four-ways-to-acquire-references
+construction-time access check | object-capability
+receipt-time access check | object-capability
+Confused Deputy | object-capability
+Confused Deputy attack | object-capability
+deputy software agent | object-capability
+Vendor User Compiler | object-capability
+compilation scenario | object-capability
+log.txt overwrite attack | object-capability
+A_R,c,p entry | object-capability
+access matrix entry notation | object-capability
+file descriptors not filenames | object-capability
+capabilities by reference everywhere | object-capability
+crucial step Confused Deputy | object-capability
+object identifier through intermediate | object-capability
+RBAC IBAC ABAC | object-capability
+role-based access control | object-capability
+attribute-based access control | object-capability
+identity-based access control | object-capability
+setuid | object-capability
+stack introspection | object-capability
+single authorization chain per operation | object-capability
+multi-argument authorization | object-capability
+delaying-the-access-check | object-capability
+Speaks-for paper | object-capability
+client authentication misleading | object-capability
+who said this | object-capability
+who relayed vs who intended | object-capability
+accountability assignment | object-capability
+deputy held accountable | object-capability
+Horton capability protocol | object-capability
+Horton protocol | object-capability
+capability-application caveat | object-capability
+re-implementing ACL on capabilities | object-capability
+string name to capability mapping | object-capability
+CSRF | object-capability
+Cross-Site Request Forgery | object-capability
+cross-site request forgery | object-capability
+clickjacking | object-capability
+click fraud | object-capability
+unguessable token | object-capability
+unguessable URL | object-capability
+web-key | object-capability
+web key | object-capability
+web-key paper | object-capability
+mashing with permission | object-capability
+no infrastructure change | object-capability
+URL namespace migration | object-capability
+capability-Web migration | object-capability
+Same Origin Policy | object-capability
+SOP integrity boundary | object-capability
+Table 3 mapping | object-capability
+HTTP cookie principal | object-capability
+opening then writing pattern | object-capability
+IFRAME clickjacking | object-capability
+transparent IFRAME | object-capability
+click on a private page | object-capability
+Norm Hardy 1988 | object-capability
+Hardy 1988 Confused Deputy | object-capability
+SIGOPS 1988 | object-capability
+Shiflett CSRF | object-capability
+Hansen Grossman clickjacking | object-capability
+Speaks-for Lampson | object-capability
+Tyler Close | object-capability
+HP Labs Palo Alto | object-capability
+ACL doesn't authorize correctly | object-capability
+ACL doesn't authenticate reliably | object-capability
+ACL doesn't assign accountability correctly | object-capability
+contradictory access decisions | object-capability
+not benignly differ | object-capability
+multi-party scenario | object-capability
+more than two principals | object-capability
