@@ -1130,3 +1130,53 @@ two's-complement-by-sign | rank-order-preserving-encoding
 ten's complement | rank-order-preserving-encoding
 unary length-of-length prefix | rank-order-preserving-encoding
 Elias delta variant | rank-order-preserving-encoding
+slot slash command | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+slot input slash mode | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+slash mode | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+slashCompose | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+chipRetained | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+`/js` slot | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+`/json` slot | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+`/locator` slot | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+`/ref` slot | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+inline capability provisioning | captp-bounded-transient-pin
+throwaway capability | captp-bounded-transient-pin
+slot filler without pet name | captp-bounded-transient-pin
+transient pin | captp-bounded-transient-pin
+transient-pin | captp-bounded-transient-pin
+`pinTransient` | captp-bounded-transient-pin
+pinTransient | captp-bounded-transient-pin
+`unpinTransient` | captp-bounded-transient-pin
+unpinTransient | captp-bounded-transient-pin
+`transientRoots` | captp-bounded-transient-pin
+transientRoots | captp-bounded-transient-pin
+`makeRetainedValue` | captp-bounded-transient-pin
+makeRetainedValue | captp-bounded-transient-pin
+RetainedValueSpec | captp-bounded-transient-pin
+retained value | captp-bounded-transient-pin
+release exo | captp-bounded-transient-pin
+release capability | captp-bounded-transient-pin
+release Exo | captp-bounded-transient-pin
+captp-bounded transient pin | captp-bounded-transient-pin
+captp partition handler | captp-bounded-transient-pin
+captp partition signal | captp-bounded-transient-pin
+partition-triggered release | captp-bounded-transient-pin
+disk before graph | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--daemon-changes-makeretainedvalue-and-captp-bounded-pin)
+disk-before-graph | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--daemon-changes-makeretainedvalue-and-captp-bounded-pin)
+real locator over opaque ephemeral identifier | captp-bounded-transient-pin
+ephemeral identifier | captp-bounded-transient-pin
+slot input component | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+`slot-input.js` | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+`createSlotInput` | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+SlotInputAPI | (see source: endo-but-for-bots--llm-designs-chat-slot-slash-commands)
+petname drop-down | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--chat-ui-slot-input-component-and-submission)
+command drop-down | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--chat-ui-slot-input-component-and-submission)
+two-stage drop-down | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--chat-ui-slot-input-component-and-submission)
+slot picker | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--chat-ui-slot-input-component-and-submission)
+formula ID submission | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--chat-ui-slot-input-component-and-submission)
+formula identifier as endow binding | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--chat-ui-slot-input-component-and-submission)
+`endowmentFormulaIdsOrPaths` | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--chat-ui-slot-input-component-and-submission)
+`formulateMarshalValue` | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--chat-ui-slot-input-component-and-submission)
+formulateMarshalValue | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--chat-ui-slot-input-component-and-submission)
+slot as the unit of transient retention | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--security-phases-decisions-and-known-gaps)
+transient pin over deferred formulation | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--security-phases-decisions-and-known-gaps)

@@ -34,3 +34,4 @@ must remain alive), revocation lists (which must propagate), or expiry
 - [[four-tables-coordinated-retention]] — coordinated retention is what *survives* withdrawal across peers (the local user's withdrawal is authoritative).
 - [[caretaker-pattern]] — caretakers contrast with withdrawal-of-constructor: caretakers must remain alive to enforce; withdrawal does not.
 - [[delegates-and-epithets]] — the dcp/Handle-revocation chain break is the worked example linked above.
+- [[captp-bounded-transient-pin]] — a *temporary* counterpart to withdrawal: the pin delays collection without altering the formula graph; the captp partition signal releases it intrinsically. Together with withdrawal-by-constructor, these are the two lifecycle-management mechanisms the daemon offers to non-formula-owning callers.

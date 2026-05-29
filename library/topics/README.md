@@ -9,7 +9,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | Topic | Abstract | Sections |
 |-------|----------|----------|
 | [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project; agent-security threat-class definitions; business-agent + reputation-system foundations. | 51 |
-| [chat-ui](chat-ui.md) | Familiar Chat — the web-based keyboard-first UI for the Endo daemon; UI invariants, principles, and component designs. | 43 |
+| [chat-ui](chat-ui.md) | Familiar Chat — the web-based keyboard-first UI for the Endo daemon; UI invariants, principles, and component designs. | 47 |
 | [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 48 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 12 |
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 40 |
@@ -17,17 +17,17 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 9 |
 | [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 21 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 91 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric; agent-runtime applications of capability discipline. | 143 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric; agent-runtime applications of capability discipline. | 144 |
 | [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies, eventual-send / vat / promise-pipelining / partial-failure / when-catch lineage, structure-of-authority + multiplicative-attack-surface arguments; sleeper-channel taxonomy + provenance-gate soundness theorem; permission-vs-authority + abstraction-as-protection + arena framework; Granovetter Operator + capability-based money + subjective aggregation + rights taxonomy + smart contracts; agoric-systems vision + competence-vs-performance modularity + marketplace-of-mind. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 25 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 26 |
-| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 58 |
-| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 47 |
+| [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 62 |
+| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 48 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 75 |
 | [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format; encodePassable rank-order-preserving format. | 64 |
 | [streams](streams.md) | Async-iterator-based stream abstraction; transport substrate. | 13 |
 | [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 47 |
-| [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 50 |
-| [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 33 |
+| [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 55 |
+| [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 34 |
 | [async-flow](async-flow.md) | The `@agoric/async-flow` durable-replay async-function infrastructure; closed-function discipline. | 7 |
 | [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 51 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 18 |

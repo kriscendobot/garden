@@ -56,3 +56,4 @@ formulas in the JSON formula store, not in a separate SQLite table.
 - [[formula-persistence-thesis]] — the surrounding design.
 - [[cohort-destruction]] — what happens when partition interrupts a live reference subgraph backed by this graph.
 - [[per-agent-keypair]] — agent identities are just one more formula in the graph.
+- [[captp-bounded-transient-pin]] — the in-memory `transientRoots` companion to the on-disk formula store; a captp peer holds a formula alive without granting persistence, bounded by the connection's partition signal.

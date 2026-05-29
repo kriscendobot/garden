@@ -501,4 +501,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--{dr-ses-architecture-and-q-promises, rights-as-property-and-money-as-right, escrow-exchange-and-contract-host}
 
-## Total: 551 sections from 128 source documents (through 2026-05-30).
+### From endo-but-for-bots/llm/designs chat-slot-slash-commands (cycle 83, **fifteenth chat-cluster source; inline capability provisioning via slash commands inside form slots; `makeRetainedValue` + captp-bounded transient pin**)
+
+- endo-but-for-bots--llm-designs-chat-slot-slash-commands--{problem-and-slash-mode-syntax, slot-state-machine-and-handler-protocol, daemon-changes-makeretainedvalue-and-captp-bounded-pin, chat-ui-slot-input-component-and-submission, security-phases-decisions-and-known-gaps}
+
+## Total: 556 sections from 129 source documents (through 2026-05-30).
