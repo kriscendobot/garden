@@ -1381,3 +1381,72 @@ Reach function | object-capability
 Drossopoulou-Noble-Miller-Murray | object-capability
 Drossopoulou et al | object-capability
 defensive consistency formal | object-capability
+
+## Chat Playwright Build-and-Load Smoke (chat-playwright-smoke, cycle 86)
+
+chat-playwright-smoke | chat-ui
+chat playwright smoke | chat-ui
+chat bundle smoke | chat-ui
+playwright smoke | chat-ui
+browser-tests workflow | chat-ui
+browser-tests job | chat-ui
+canary spec | chat-ui
+`canary.spec.js` | chat-ui
+Vite production bundle | chat-ui
+production bundle smoke | chat-ui
+`packages/chat/dist/` | chat-ui
+chat dist | chat-ui
+`vite build` chat | chat-ui
+SES lockdown smoke | chat-ui
+SES bundle regression | chat-ui
+Gateway not configured heading | chat-ui
+Gateway not configured | chat-ui
+deterministic fallback heading | chat-ui
+fragment-less navigation | chat-ui
+daemon-free smoke | chat-ui
+daemon-free Playwright test | chat-ui
+fixture-free Playwright test | chat-ui
+`pageerror` | chat-ui
+pageerror handler | chat-ui
+`requestfailed` | chat-ui
+requestfailed handler | chat-ui
+silent bundle regression | chat-ui
+bundle parse failure | chat-ui
+top-level import failure | chat-ui
+asset path mismatch | chat-ui
+lockdown-time error | chat-ui
+chat-test-coverage | chat-ui
+chat test coverage | chat-ui
+chat e2e suite | chat-ui
+yarn dev vs production bundle | chat-ui
+dev-server bundle divergence | chat-ui
+`browser-test/server.js` | chat-ui
+extend browser-test/server.js | chat-ui
+mount /chat/ prefix | chat-ui
+static-file route | chat-ui
+second Playwright webServer | chat-ui
+`webServer` config | chat-ui
+http-server dependency | chat-ui
+`http-server` | chat-ui
+`browser-test/tests/chat.spec.js` | chat-ui
+chat.spec.js | chat-ui
+injection-revert verification | chat-ui
+injection-revert pattern | chat-ui
+test-the-test discipline | chat-ui
+falsifiable in the right direction | chat-ui
+out-of-scope enumeration | chat-ui
+negative spec | chat-ui
+console-error strictness | chat-ui
+failed-request strictness | chat-ui
+browser engine scope | chat-ui
+chromium-next | chat-ui
+chrome-dev project | chat-ui
+screenshot artifact | chat-ui
+`page.screenshot` | chat-ui
+playwright-report artifact | chat-ui
+maintainer call open question | chat-ui
+deliberate regression | chat-ui
+deliberate-regression test | chat-ui
+zero-cost CI step | chat-ui
+zero new dependencies | chat-ui
+dependency-minimal CI | chat-ui

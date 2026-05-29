@@ -513,4 +513,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - papers--drossopoulou-reasoning-about-risk-and-trust-2015--{trust-as-hypothetical-and-risk-via-may-access-may-affect, escrow-failure-and-four-case-valid-escrow-spec, hoare-four-tuples-and-code-agnostic-rules}
 
-## Total: 564 sections from 131 source documents (through 2026-05-29).
+### From endo-but-for-bots/designs chat-playwright-smoke (cycle 86, **sixteenth chat-cluster source; a narrow CI guard against silent Vite production-bundle regressions in the @endo/chat package; complementary to the broader chat-test-coverage e2e suite**)
+
+- endo-but-for-bots--llm-designs-chat-playwright-smoke--{problem-framing-and-relationship-to-chat-test-coverage, build-serve-and-playwright-fixture, test-plan-and-open-questions}
+
+## Total: 567 sections from 132 source documents (through 2026-05-29).
