@@ -537,4 +537,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - papers--taly-automated-analysis-of-security-critical-javascript-apis-2011--{api-confinement-problem-and-ses-light-language-design, static-analysis-procedure-and-soundness-theorem, applications-adsafe-vulnerability-sealer-unsealer-and-mint}
 
-## Total: 582 sections from 137 source documents (through 2026-05-29).
+### From endo-but-for-bots/designs chat-test-coverage (cycle 92, **nineteenth chat-cluster source; the test-coverage portion of `packages/chat/DESIGN.md`; ingested as 2 sections to honestly reflect the bounded source material; 283 total tests across unit/component/E2E**)
+
+- endo-but-for-bots--llm-designs-chat-test-coverage--{test-organization-and-untestable-behaviors, e2e-test-coverage-and-module-count-summary}
+
+## Total: 584 sections from 138 source documents (through 2026-05-29).

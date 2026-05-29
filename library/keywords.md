@@ -1916,3 +1916,64 @@ language-based sandbox | object-capability
 iframe alternative | object-capability
 write-only log API | object-capability
 critical log array | object-capability
+
+## Chat Test Coverage (chat-test-coverage, cycle 92)
+
+chat-test-coverage | chat-ui
+chat test coverage | chat-ui
+chat test suite | chat-ui
+packages/chat/test | chat-ui
+happy-dom | chat-ui
+jsdom alternative | chat-ui
+mock-powers | chat-ui
+makeMockPowers | chat-ui
+Far remotable mock | chat-ui
+mock daemon powers | chat-ui
+DOM globals before import | chat-ui
+dom-setup.js | chat-ui
+keyboard-events.js | chat-ui
+test/helpers/ | chat-ui
+test/unit/ | chat-ui
+test/component/ | chat-ui
+test/e2e/ | chat-ui
+command-registry tests | chat-ui
+command-executor tests | chat-ui
+message-parse tests | chat-ui
+ref-iterator tests | chat-ui
+time-formatters tests | chat-ui
+markdown-render tests | chat-ui
+value-render tests | chat-ui
+send-form tests | chat-ui
+petname-path-autocomplete tests | chat-ui
+inline-command-form tests | chat-ui
+monaco-wrapper tests | chat-ui
+form-request-inbox tests | chat-ui
+spaces-gutter-home tests | chat-ui
+untestable behaviors | chat-ui
+Selection API limitations | chat-ui
+contenteditable cursor | chat-ui
+Monaco iframe | chat-ui
+cross-window postMessage | chat-ui
+WebSocket connection mock | chat-ui
+token-autocomplete.spec.ts | chat-ui
+monaco-editor.spec.ts | chat-ui
+Playwright spec ts | chat-ui
+.spec.ts vs .test.js | chat-ui
+protocol documentation as tests | chat-ui
+skipped tests as docs | chat-ui
+postMessage protocol | chat-ui
+test count by module | chat-ui
+283 total tests | chat-ui
+244 unit and component | chat-ui
+39 E2E tests | chat-ui
+Complete partial protocol-documentation | chat-ui
+coverage-honesty | chat-ui
+coverage table annotations | chat-ui
+cost-tier hierarchy testing | chat-ui
+6.3 to 1 fast slow ratio | chat-ui
+extracted from packages/chat/DESIGN.md | chat-ui
+PR 93 dismiss-all to clear | chat-ui
+chat-reply-chain-visualization deprecated | chat-ui
+chat-focus-message supersedes | chat-ui
+origin/llm chat designs | chat-ui
+chat-lane verification branch families | chat-ui
