@@ -1180,3 +1180,81 @@ formula identifier as endow binding | (see section: endo-but-for-bots--llm-desig
 formulateMarshalValue | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--chat-ui-slot-input-component-and-submission)
 slot as the unit of transient retention | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--security-phases-decisions-and-known-gaps)
 transient pin over deferred formulation | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--security-phases-decisions-and-known-gaps)
+
+## rankOrder.js in-memory rank-order regime (cycle 84)
+
+`rankOrder.js` | rank-order-preserving-encoding
+rankOrder.js | rank-order-preserving-encoding
+`sameValueZero` | rank-order-preserving-encoding
+sameValueZero | rank-order-preserving-encoding
+SameValueZero | rank-order-preserving-encoding
+`compareNumerics` | rank-order-preserving-encoding
+compareNumerics | rank-order-preserving-encoding
+`compareByCodePoints` | rank-order-preserving-encoding
+compareByCodePoints | rank-order-preserving-encoding
+`trivialComparator` | rank-order-preserving-encoding
+trivialComparator | rank-order-preserving-encoding
+`ENDO_RANK_STRINGS` | rank-order-preserving-encoding
+ENDO_RANK_STRINGS | rank-order-preserving-encoding
+`utf16-code-unit-order` | rank-order-preserving-encoding
+`unicode-code-point-order` | rank-order-preserving-encoding
+`error-if-order-choice-matters` | rank-order-preserving-encoding
+utf16-code-unit-order | rank-order-preserving-encoding
+unicode-code-point-order | rank-order-preserving-encoding
+`passStyleRanks` | rank-order-preserving-encoding
+passStyleRanks | rank-order-preserving-encoding
+`getPassStyleCover` | rank-order-preserving-encoding
+getPassStyleCover | rank-order-preserving-encoding
+`RankCover` | rank-order-preserving-encoding
+RankCover | rank-order-preserving-encoding
+rank cover overestimate | rank-order-preserving-encoding
+cover may be an overestimate | rank-order-preserving-encoding
+`getIndexCover` | rank-order-preserving-encoding
+getIndexCover | rank-order-preserving-encoding
+`FullRankCover` | rank-order-preserving-encoding
+`coveredEntries` | rank-order-preserving-encoding
+`unionRankCovers` | rank-order-preserving-encoding
+`intersectRankCovers` | rank-order-preserving-encoding
+`makeComparatorKit` | rank-order-preserving-encoding
+makeComparatorKit | rank-order-preserving-encoding
+`compareRank` | rank-order-preserving-encoding
+compareRank | rank-order-preserving-encoding
+`compareAntiRank` | rank-order-preserving-encoding
+compareAntiRank | rank-order-preserving-encoding
+`antiComparator` | rank-order-preserving-encoding
+antiComparator | rank-order-preserving-encoding
+`comparatorMirrorImage` | rank-order-preserving-encoding
+comparatorMirrorImage | rank-order-preserving-encoding
+`RankComparatorKit` | rank-order-preserving-encoding
+RankComparatorKit | rank-order-preserving-encoding
+`FullComparatorKit` | rank-order-preserving-encoding
+FullComparatorKit | rank-order-preserving-encoding
+`makeFullOrderComparatorKit` | rank-order-preserving-encoding
+makeFullOrderComparatorKit | rank-order-preserving-encoding
+full order comparator | rank-order-preserving-encoding
+full-order comparator | rank-order-preserving-encoding
+observable mutable state comparator | rank-order-preserving-encoding
+covert channel comparator | rank-order-preserving-encoding
+`sortByRank` | rank-order-preserving-encoding
+sortByRank | rank-order-preserving-encoding
+`isRankSorted` | rank-order-preserving-encoding
+isRankSorted | rank-order-preserving-encoding
+`assertRankSorted` | rank-order-preserving-encoding
+assertRankSorted | rank-order-preserving-encoding
+`rankSearch` | rank-order-preserving-encoding
+rankSearch | rank-order-preserving-encoding
+Array.prototype.sort undefined quirk | rank-order-preserving-encoding
+undefined at end of sort | rank-order-preserving-encoding
+reverse comparator undefined fixup | rank-order-preserving-encoding
+shortlex | rank-order-preserving-encoding
+shortlex comparison | rank-order-preserving-encoding
+subset ranks earlier | rank-order-preserving-encoding
+prefix ranks earlier | rank-order-preserving-encoding
+inverse sorted property names | rank-order-preserving-encoding
+NaN compareRemotables default | rank-order-preserving-encoding
+deep-tied remotables | rank-order-preserving-encoding
+`memoOfSorted` | rank-order-preserving-encoding
+comparator memoization | rank-order-preserving-encoding
+`comparatorMirrorImages` | rank-order-preserving-encoding
+first-seen ordering of remotables | rank-order-preserving-encoding
+`nameForPassableSymbol` | rank-order-preserving-encoding

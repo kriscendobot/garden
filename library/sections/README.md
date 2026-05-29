@@ -505,4 +505,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-slot-slash-commands--{problem-and-slash-mode-syntax, slot-state-machine-and-handler-protocol, daemon-changes-makeretainedvalue-and-captp-bounded-pin, chat-ui-slot-input-component-and-submission, security-phases-decisions-and-known-gaps}
 
-## Total: 556 sections from 129 source documents (through 2026-05-30).
+### From endo packages/marshal/src/rankOrder.js longform comments (cycle 84, **sixth comment-fragment ingest; sister to encodePassable.js as the in-memory comparator and sort regime for the same rank order; consumes the canonical `passStylePrefixes` table**)
+
+- endo--packages-marshal-src-rankorder-js--{same-value-zero-and-numeric-rank-semantics, pass-style-rank-derivation-and-rank-covers, inner-comparator-per-pass-style-rules, sort-by-rank-undefined-quirk-and-passstyleprefixes-invariant, full-order-comparator-kit-observable-mutable-state}
+
+## Total: 561 sections from 130 source documents (through 2026-05-29).
