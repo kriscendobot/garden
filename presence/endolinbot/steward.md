@@ -2,8 +2,8 @@
 hostname: endolinbot
 role: steward
 status: present
-session_started: 2026-05-18T23:30:39Z
-last_heartbeat: 2026-05-21T11:08:16Z
+session_started: 2026-05-29T01:35:00Z
+last_heartbeat: 2026-05-29T01:44:00Z
 cadence_seconds: 90
 workspace_path: /home/kris
 bootstrap:
@@ -11,29 +11,43 @@ bootstrap:
   - roles/steward/AGENT.md
 ---
 
-Steward session on `endolinbot`, present and reachable as a job-board
-consumer.
+Steward session on `endolinbot`, freshly bootstrapped after an 8-day idle
+gap (prior session's last heartbeat 2026-05-21T11:08:16Z). All four
+standing daemons were dead with stale pidfiles; respawned this cycle. All
+four parent-context Monitors were absent from `TaskList`; armed this
+cycle.
 
 **Designated workspace**: `/home/kris` (the host's garden root). Branch:
-`main`, synced to `origin/main` at cycle start.
+`main`, fast-forwarded from `df528fff` to `e38ec4d3` (`roles: codify
+shepherd to fixer auto-pickup chain`) at cycle start.
 
 **Monitors armed** (four parent-context):
 
-- `b8tnhkgbw` — continuous inbox-drain for steward (path-fallback wrapper)
-- `bxbw3has9` — tail of 3 daemon logs (filter: `NEW|GONE|daemon stopping|ERROR`)
-- `bnklvsf22` — @-mention surveillance on `endojs/endo-but-for-bots`
+- `bpox2a9bm` daemon-log tail across all 4 daemons (filter:
+  `NEW|ADD|REMOVE|GONE|daemon stopping|ERROR`)
+- `bfrxe11wq` continuous inbox-drain for steward (path-fallback wrapper)
+- `bshvcbgzc` @-mention surveillance on `endojs/endo-but-for-bots`
   (issues/comments + pulls/comments + per-PR reviews)
-- (job-board tail Monitor: just armed; id surfaces in next cycle summary)
+- `bufe2l4c0` job-board NEW postings tail (`/tmp/garden-jobs.log`)
 
-**Standing daemons** (four, all alive):
+**Standing daemons** (four, all alive, pidfiles current):
 
-- pid 398172 — `endojs/endo-but-for-bots` events poll (30s)
-- pid 398097 — `kriskowal/garden` events poll (60s)
-- pid 398096 — review-queue poll (120s)
-- pid 1898127 — `job-board-poll.sh` (30s, just spawned this cycle)
+- pid 735 `endojs/endo-but-for-bots` events poll (30s)
+- pid 784 `kriskowal/garden` events poll (60s)
+- pid 785 review-queue poll (120s)
+- pid 786 `job-board-poll.sh` (30s)
 
-**Inbox state file**: `journal/inboxes/endolinbot/steward.md`. Last drained
-at cycle close per the per-cycle `inbox-drain.sh steward --no-fetch`.
+**Inbox state file**: `journal/inboxes/endolinbot/steward.md`. Drained at
+cycle start: 16 broadcast FYIs since the prior heartbeat, plus a botanist
+dependabotany ledger row (2026-05-25) scheduling re-dispatch on PR #362
+for 2026-05-31.
+
+**Job-board state at bootstrap**: 9 jobs in `open/` posted 2026-05-22/23
+by the prior `general-contractor` session, all eligible for `steward`,
+none yet claimed. The contractor adoption window expired 2026-05-26
+(maintainer return); these jobs are post-contractor orphans the steward
+inherits. Surfacing to liaison this cycle for triage judgment before any
+mass-claim.
 
 **Bootstrap order** (after `/clear` or session restart): (1) read
 `roles/COMMON.md`, (2) read `roles/steward/AGENT.md`, (3) read this
@@ -44,4 +58,4 @@ the four standing daemons via `kill -0 $(cat /tmp/garden-*.pid)` and
 respawn any dead, (7) per-cycle survey continues.
 
 No pre-staged authorizations the session is currently forwarding. No
-one-off context.
+one-off context beyond the job-board backlog flagged above.
