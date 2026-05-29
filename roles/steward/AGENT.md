@@ -359,28 +359,6 @@ A ledger entry whose PR has been `state: OPEN` for more than 30 days without com
 - **With the bulletin.** The followup ledger is agent-facing; the bulletin (`journal/README.md`) is maintainer-facing. A merged PR's bulletin row clears on merge (existing bulletin discipline); the followup actioning is a parallel surface the maintainer does not see in the bulletin. A future row in *Awaits maintainer decision* may be appropriate when the action-followups job carries items that need maintainer-level disposition (an issue file on an upstream repo, a design-doc amendment requiring policy input).
 - **With the merged-PR feedback watch.** The gardener's weekly read of merged PRs (`skills/merged-pr-feedback-watch/SKILL.md`) is the *maintainer-feedback* surface: what kriskowal said after merge. The followup ledger is the *panel-internal* surface: what the panel said before merge that the judge did not address in the PR. Both feed self-improvement, in different directions; neither subsumes the other.
 
-## Mirror cross-link postings
-
-The boatman ferries garden-side PRs upstream; per `roles/boatman/AGENT.md` § Operating norms (two-way mirror cross-link), every ferry produces a single tagged cross-link comment on each side. The garden-side comment the boatman posts directly under the bot identity; the upstream-side comment routes through the steward because primary-upstream comments may not be posted under the kriskowal identity.
-
-At end-of-ferry, the boatman writes a `message: boatman → steward` containing:
-- The upstream PR URL.
-- The garden PR URL.
-- The head SHA on the upstream branch.
-- The canonical comment body to post (`Mirror of <garden-PR-URL> (head <short-SHA>).`).
-- The prior comment id on the upstream PR if known (on re-ferries).
-
-The steward's per-cycle survey drains the inbox (existing step). On each `message: boatman → steward` of this shape, the steward:
-
-1. Grep the upstream PR for an existing tagged comment: `gh api repos/<owner>/<name>/issues/<N>/comments --jq '.[] | select(.user.login == "kriscendobot" and (.body | startswith("Mirror of ")))'`.
-2. If found, PATCH it with the new body: `gh api -X PATCH /repos/<owner>/<name>/issues/comments/<id> -f body="<new body>"`.
-3. If not found, create a new one: `gh api -X POST /repos/<owner>/<name>/issues/<N>/comments -f body="<new body>"`.
-4. Record the comment id in a journal `result` entry citing the originating boatman `message`; the boatman's own `result` entry already names the garden-side comment id.
-
-The shape is mechanical; the steward does not interpret the message body, just acts on the fields. Each cycle handles every queued boatman-to-steward message; an empty inbox is silent.
-
-The full procedure including the back-fill case (existing ferries whose upstream side never got the cross-link) lives in `skills/mirror-cross-link-backfill/SKILL.md`; the per-cycle handling above is the steady-state.
-
 ## Vocabulary: the gamut
 
 *The gamut* is shorthand for the PR-creation-flow chain end to end: builder → cleaner (or skipped on a tiny-PR or design-only variant) → solicitor / barrister (the right judge for the first panel round per PR shape) → fixer-loop (justice re-runs the code panel after each fixer round; solicitor re-runs the design panel) → appellate (optional verdict-appeal) → terminating judge un-drafts. The procedure lives in `skills/pr-creation-flow/SKILL.md`; the vocabulary is the maintainer's framing for "the chain, from wherever it currently sits, until it terminates."
