@@ -1,6 +1,6 @@
 ---
 created: 2026-05-15
-updated: 2026-05-22
+updated: 2026-05-29
 author: gardener
 ---
 
@@ -256,11 +256,11 @@ Run these in order before announcing the ferry done. The checklist is the execut
    - Shape 2 (recompute): force-push landed; approval state recorded in result entry.
    - Shape 3 (fast-forward): `merge-base --is-ancestor` succeeded pre-push; remote response showed `<old>..<new>` with no `+`; `APPROVED` review state still present post-push.
 7. **CI status.** `gh pr checks <n> -R <upstream>` recorded in the result entry (pending / passing / failing). The boatman does not wait for CI to finish before reporting; the shepherd handles CI-driven follow-up.
-8. **Two-way mirror cross-link.** Both sides carry exactly one tagged cross-link comment in the canonical shape `Mirror of <other-PR-URL> (head <short-SHA>).`
-   - **Garden-side**: boatman posts (or PATCHes the existing one on a re-ferry) under the authenticated identity on the garden repo. Find the existing one via `gh api repos/<owner>/<name>/issues/<N>/comments --jq '.[] | select(.user.login == "kriscendobot" and (.body | startswith("Mirror of ")))'`; if found, edit in place (`gh api -X PATCH /repos/.../issues/comments/<id> -f body=...`); else create.
-   - **Upstream-side**: boatman writes a `message: boatman → steward` entry naming the upstream PR, the garden PR URL, the head SHA, and the canonical comment body. The steward (under `kriscendobot`) posts (or PATCHes) on its next cycle per the same grep-and-edit-or-create discipline. Primary-repo comments route through the steward; the boatman never posts on a primary upstream under the kriskowal identity.
+8. **Garden-side cross-link comment.** The garden-side PR carries exactly one tagged cross-link comment in the canonical shape `Mirror of <upstream-PR-URL> (head <short-SHA>).` The boatman posts (or PATCHes the existing one on a re-ferry) under the authenticated identity on the garden repo. Find the existing one via `gh api repos/<owner>/<name>/issues/<N>/comments --jq '.[] | select(.user.login == "kriscendobot" and (.body | startswith("Mirror of ")))'`; if found, edit in place (`gh api -X PATCH /repos/.../issues/comments/<id> -f body=...`); else create.
 
-   The `Mirror of ` tag is the load-bearing prefix; the back-fill (`skills/mirror-cross-link-backfill/SKILL.md`) and the re-ferry edit-in-place both grep on it.
+   The `Mirror of ` tag is the load-bearing prefix; the re-ferry edit-in-place greps on it.
+
+   **No symmetric upstream-side comment.** Per the 2026-05-29 maintainer directive on behalf of the upstream maintainers, the garden does not post mirror cross-link comments on upstream PRs. The prior two-way procedure (boatman writes `message: boatman → steward`; steward posts under `kriscendobot` on next cycle) is retired, as is the back-fill skill that supported it. See `roles/boatman/AGENT.md` § Operating norms (Garden-side cross-link comment via tagged one-liner) for the canonical statement.
 
 ## Notes from the field
 
