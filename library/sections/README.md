@@ -469,4 +469,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-view-edit-commands--{problem-and-blob-access-gap, commands-viewer-editor-and-panel-layout, markdown-synchronized-render-panel, loading-blob-content-and-focus-mode, phases-dependencies-and-design-decisions}
 
-## Total: 522 sections from 120 source documents (through 2026-05-28).
+### From endo packages/pass-style/src/passStyleOf.js longform comments (cycle 71, **third comment-fragment ingest**)
+
+- endo--packages-pass-style-src-passstyleof-js--{passstylememo-as-mutable-static-state, liveslots-endowment-and-gc-determinism, coercion-to-passable-and-throwable}
+
+## Total: 525 sections from 121 source documents (through 2026-05-28).

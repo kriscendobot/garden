@@ -90,5 +90,6 @@ The phrase *unconfusable deputy* does not appear directly in Endo's vocabulary, 
 - [[caretaker-pattern]] — the action/control facet split is one route to passing minimum-necessary authority to a delegate.
 - [[delegates-and-epithets]] — agent-identity instance of the chain-of-designation argument.
 - [[revocation-by-withdrawal]] — the dual of dynamic resource creation: dynamic resource destruction.
+- [[security-as-extreme-modularity]] — Structure of Authority 2004's Table 1 systematizes this section's two-advantages framing: each advantage (POLA, confused-deputy avoidance) is a software-engineering practice that capability discipline raises to a security property. The 2003 paper's sketch becomes the 2004 paper's ten-row enumeration. The recorded `passStyleOf.js` breach of the "forbid mutable static state" row is a worked production-code example of what Table 1 disciplines look like in practice.
 
 Source: [SRL2003-02.pdf](https://srl.cs.jhu.edu/pubs/SRL2003-02.pdf) pages 11-13; SHA-256 `b6a3e04e60d7`.

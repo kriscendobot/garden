@@ -104,6 +104,12 @@ These section files remain on disk for the historical record (the journal is app
 | [endo--docs-reference--harden-intrinsics-api](../sections/endo--docs-reference--harden-intrinsics-api.md) | [endo--docs-guide--api-overview](../sections/endo--docs-guide--api-overview.md) | Cluster B consolidation 2026-05-14 |
 | [endo--docs-reference--lockdown-and-harden](../sections/endo--docs-reference--lockdown-and-harden.md) | [endo--docs-guide--api-overview](../sections/endo--docs-guide--api-overview.md) | Cluster B consolidation 2026-05-14 |
 
+## Additional sections
+
+| Section | Source | One-line abstract |
+|---------|--------|-------------------|
+| [endo--packages-pass-style-src-passstyleof-js--passstylememo-as-mutable-static-state](../sections/endo--packages-pass-style-src-passstyleof-js--passstylememo-as-mutable-static-state.md) | endo packages/pass-style/src/passStyleOf.js (longform comment) | A worked example of a deliberate breach of capability discipline's "forbid mutable static state" row in Endo code: the realm-lifetime `passStyleMemo` is necessary for performance, but lockdown's frozen-intrinsics substrate is exactly what makes the breach visible and reviewable; the in-code comment surfaces the proxy-observability TODO. |
+
 ## See also
 
 - [`compartments`](compartments.md): how SES isolates guest code.
