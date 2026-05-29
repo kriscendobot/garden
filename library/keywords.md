@@ -997,3 +997,33 @@ Better Business Bureau (computational) | positive-vs-negative-reputation
 Underwriters Laboratories analogy | positive-vs-negative-reputation
 Axelrod iterated prisoner's dilemma | positive-vs-negative-reputation
 iterated relationship | positive-vs-negative-reputation
+
+# Cycle-79 decomposition batch four (2026-05-30) — visionary cluster (2 concept pages; decomposition campaign closure)
+marketplace of mind | marketplace-of-mind
+marketplace-of-mind | marketplace-of-mind
+intelligence as emergent property | marketplace-of-mind
+intelligence separated from individuality | marketplace-of-mind
+multi-agent societal AI | marketplace-of-mind
+agoric AI | marketplace-of-mind
+Stefik knowledge medium | marketplace-of-mind
+knowledge medium | marketplace-of-mind
+knowledge-as-service vs knowledge-as-representation | marketplace-of-mind
+knowledge-engineering bottleneck | marketplace-of-mind
+opaque box | opaque-box
+opaque-box | opaque-box
+hardware encapsulation | opaque-box
+tamper-responding box | opaque-box
+tamper-evident hardware | opaque-box
+secure enclave | opaque-box
+Intel SGX | opaque-box
+AMD SEV | opaque-box
+ARM TrustZone | opaque-box
+Apple Secure Enclave | opaque-box
+AWS Nitro Enclave | opaque-box
+Microsoft Pluton | opaque-box
+trusted execution environment | opaque-box
+TEE | opaque-box
+hardware-attested companion channel | opaque-box
+Confidential Computing Consortium | opaque-box
+TPM 2.0 | opaque-box
+confidential computing | opaque-box
