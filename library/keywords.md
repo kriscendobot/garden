@@ -1647,3 +1647,105 @@ contradictory access decisions | object-capability
 not benignly differ | object-capability
 multi-party scenario | object-capability
 more than two principals | object-capability
+
+## Chat Voice Command Parser (chat-voice-command-parser, cycle 89)
+
+voice command parser | chat-ui
+voice transcript parser | chat-ui
+chat voice | chat-ui
+Web Speech API | chat-ui
+SpeechRecognition | chat-ui
+`SpeechRecognition` | chat-ui
+voice-input.js | chat-ui
+`voice-input.js` | chat-ui
+microphone button | chat-ui
+asynchronous parse monad | chat-ui
+async parse monad state machine | chat-ui
+ParseState | chat-ui
+ParseStep | chat-ui
+ParseFn | chat-ui
+parse-monad | chat-ui
+voice effects | chat-ui
+inert passable effects | chat-ui
+enter-mode effect | chat-ui
+commit-token effect | chat-ui
+set-field effect | chat-ui
+open-command-menu effect | chat-ui
+pick-command effect | chat-ui
+submit effect | chat-ui
+cancel effect | chat-ui
+append-text effect | chat-ui
+wake word | chat-ui
+wake-word table | chat-ui
+per-mode wake-word | chat-ui
+voiceHints | chat-ui
+modeline voice line | chat-ui
+voice modeline | chat-ui
+literal quote escape | chat-ui
+quote prefix | chat-ui
+`quote` escape | chat-ui
+quote unquote | chat-ui
+framing pause | chat-ui
+framing-pause submit | chat-ui
+framed pause cue | chat-ui
+silence threshold | chat-ui
+endpointing parameter | chat-ui
+600 ms silence | chat-ui
+send now wake word | chat-ui
+push-to-talk | chat-ui
+push to talk | chat-ui
+mic release submit | chat-ui
+buffer and rollback | chat-ui
+interim result retraction | chat-ui
+roll back on retraction | chat-ui
+effect inverse | chat-ui
+inverse of commit-token | chat-ui
+rollback at word boundary | chat-ui
+end event flushes parser | chat-ui
+flush on end | chat-ui
+command-registry vocabulary | chat-ui
+registry-driven vocabulary | chat-ui
+vocabulary as data | chat-ui
+new command gets voice automatically | chat-ui
+field-name as wake word | chat-ui
+nine-mode inventory | chat-ui
+Empty Send Mode | chat-ui
+Token Autocomplete Visible | chat-ui
+Token Only | chat-ui
+Token plus Message Text | chat-ui
+Text Only mode | chat-ui
+Command Selecting mode | chat-ui
+Inline Command Form mode | chat-ui
+Eval Command Inline | chat-ui
+Value Modal mode | chat-ui
+Google Assistant okay disambiguation | chat-ui
+Apple Dictation press period | chat-ui
+voice-assistant prior art | chat-ui
+five interaction patterns | chat-ui
+one-line message pattern | chat-ui
+immediate command pattern | chat-ui
+inline command form fill pattern | chat-ui
+cancel mid-command pattern | chat-ui
+edit-a-value cancel-and-restart | chat-ui
+no invented edit gestures | chat-ui
+dual mechanism disambiguation | chat-ui
+wake-word vs prose collision | chat-ui
+escape and enter | chat-ui
+why two mechanisms not one | chat-ui
+modal toggle context switch | chat-ui
+confidence threshold not enough | chat-ui
+pure parser test | chat-ui
+stub SpeechRecognition test | chat-ui
+feature flag voice migration | chat-ui
+4-phase implementation | chat-ui
+parser scaffold phase | chat-ui
+effect dispatcher phase | chat-ui
+modeline voice line phase | chat-ui
+voice-input.js migration phase | chat-ui
+canonical command-menu wake word | chat-ui
+inline vs deferred pet-name lookup | chat-ui
+modeline aural cue | chat-ui
+session isolation vs resume | chat-ui
+literal-escape word alternative | chat-ui
+framing-pause threshold tunability | chat-ui
+non-voice long-press submit | chat-ui

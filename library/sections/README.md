@@ -525,4 +525,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - papers--close-acls-dont-2009--{compilation-scenario-and-the-confused-deputy-attack, three-failures-of-acls-and-capability-application-caveat, web-attacks-csrf-clickjacking-clickfraud-and-the-web-key-fix}
 
-## Total: 573 sections from 134 source documents (through 2026-05-29).
+### From endo-but-for-bots/designs chat-voice-command-parser (cycle 89, **eighteenth chat-cluster source; async parse-monad state machine for the voice channel driving the same nine modes the keyboard already drives; dual-mechanism Escape + Enter wake-word-vs-prose disambiguation**)
+
+- endo-but-for-bots--llm-designs-chat-voice-command-parser--{problem-scope-mode-inventory-and-parser-shape, interaction-patterns-and-asynchrony, design-decisions-test-plan-and-open-questions}
+
+## Total: 576 sections from 135 source documents (through 2026-05-29).
