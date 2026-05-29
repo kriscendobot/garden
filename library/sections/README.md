@@ -489,4 +489,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - papers--miller-drexler-markets-and-computation-1988--{agoric-vision-and-foundations, business-agents-and-resource-strategies, agoric-in-the-large-and-absence-of-agoric-systems}
 
-## Total: 539 sections from 125 source documents (through 2026-05-29).
+### From endo-but-for-bots/llm/designs chat-pending-commands (cycle 80, **chat-cluster lane resumed after the decomposition campaign**)
+
+- endo-but-for-bots--llm-designs-chat-pending-commands--{motivation-and-problems, pending-region-and-card-states, unlocking-and-concurrent-commands, relationship-to-commands-as-messages}
+
+## Total: 543 sections from 126 source documents (through 2026-05-29).
