@@ -545,4 +545,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-ses-src-error-tame-v8-error-constructor-js--{call-site-permit-list-and-filename-censors, callsite-path-shortening-patterns, tame-v8-error-constructor-and-system-vs-user-preparefns}
 
-## Total: 587 sections from 139 source documents (through 2026-05-29).
+### From external papers: OCPL (Swasey-Garg-Dreyer 2017, cycle 94, **third formal-foundation paper in the capability-theory cluster after cycle 85 Drossopoulou and cycle 91 Taly; first MPI-SWS-authored paper; first Iris-Coq-mechanized formal-verification paper; identifies Stiegler 2006 as *How Emily tamed the Caml* HPL-2006-116**)
+
+- papers--swasey-garg-dreyer-ocpl-2017--{hla-language-program-logic-and-robust-safety, three-ocps-verified-dynamic-sealing-caretaker-membrane, related-work-iris-foundation-and-future-firefox-membrane}
+
+## Total: 590 sections from 140 source documents (through 2026-05-29).

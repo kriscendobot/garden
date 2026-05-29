@@ -2068,3 +2068,105 @@ TODO move not just to v8 | object-capability
 TODO user configure FILENAME_CENSORS via lockdown | object-capability
 TODO user configure CALLSITE_PATTERNS via lockdown | object-capability
 Richard Gibson tame-v8 | object-capability
+
+## OCPL — Robust and Compositional Verification of Object Capability Patterns (Swasey-Garg-Dreyer OOPSLA 2017, cycle 94)
+
+OCPL | object-capability
+OCPL Logic for OCPs | object-capability
+Swasey Garg Dreyer | object-capability
+MPI-SWS | object-capability
+Saarland Informatics Campus | object-capability
+robust safety | object-capability
+RobustSafety theorem | object-capability
+AdequacySafety | object-capability
+low-integrity value | object-capability
+low value | object-capability
+lowval | object-capability
+high-integrity location | object-capability
+low-integrity location | object-capability
+high vs low location | object-capability
+lowloc | object-capability
+HLA language | object-capability
+Higher-order with Locations and Assertions | object-capability
+goodness bit | object-capability
+goodness bit Fail | object-capability
+assert expression HLA | object-capability
+assume expression HLA | object-capability
+progressive Hoare triple | object-capability
+non-progressive Hoare triple | object-capability
+lift Psi | object-capability
+lift Ψ predicate transformer | object-capability
+LiftRec LiftLoc LiftLit LiftUnit LiftPair LiftInl LiftInr | object-capability
+LiftApp | object-capability
+Iris separation logic | object-capability
+Iris concurrent separation logic | object-capability
+Iris higher-order ghost state | object-capability
+Iris step-indexed Kripke | object-capability
+Iris proof mode | object-capability
+Coq mechanization Iris | object-capability
+plv.mpi-sws.org/iris | object-capability
+guarded recursive predicates | object-capability
+later modality | object-capability
+RustBelt project | object-capability
+Krebbers Iris | object-capability
+Jung Iris 2015 | object-capability
+readonly motivating example | object-capability
+readonly wrapper | object-capability
+usetwo example | object-capability
+adversarial context AdvCtx | object-capability
+verified code vs untrusted code | object-capability
+Abadi 1999 secrecy by typing | object-capability
+Bengtson 2011 RCF F7 | object-capability
+Gordon Jeffrey 2001 | object-capability
+Devriese 2016 | object-capability
+Devriese effect parametricity | object-capability
+Kripke logical relations | object-capability
+dynamic sealing OCPL | object-capability
+makeseal | object-capability
+seal unseal pair | object-capability
+sealer-unsealer Morris 1973 | object-capability
+intervals worked client | object-capability
+makeint imin imax isum | object-capability
+isseal isunseal issealed | object-capability
+SealSpec UnsealSpec | object-capability
+SealedInv SealedAgree | object-capability
+UnsealAnySpec | object-capability
+SealedLow | object-capability
+representation invariant φ | object-capability
+caretaker OCPL | object-capability
+API caretaker | object-capability
+location caretaker | object-capability
+makecaretaker | object-capability
+enabled disabled caretaker | object-capability
+wrap enable disable | object-capability
+temporary-invariant-break | object-capability
+membrane OCPL | object-capability
+MembraneSpec | object-capability
+ismon predicate | object-capability
+recursive instantiation | object-capability
+public membrane | object-capability
+Caja language invariants membrane | object-capability
+shadow location | object-capability
+makepub pubref pubwrap pubunwrap | object-capability
+shadowread shadowwrite | object-capability
+ismembrane | object-capability
+isprivloc isprivval | object-capability
+backward-compatible library invariant | object-capability
+Sumii Pierce 2004 bisimulation sealing | object-capability
+Van Cutsem Miller 2013 trustworthy proxies | object-capability
+Trustworthy Proxies ECOOP 2013 | object-capability
+Spiessens Van Roy | object-capability
+Spiessens 2007 patterns of safe collaboration | object-capability
+Murray 2010 OCP patterns | object-capability
+Clarke 1998 owners-as-dominators | object-capability
+ownership types | object-capability
+Banerjee Naumann state-based ownership | object-capability
+Patrignani join calculus | object-capability
+Stiegler Miller 2006 How Emily tamed the Caml | object-capability
+HPL-2006-116 | object-capability
+Joe-E Mettler 2010 | object-capability
+Firefox same-origin policy membrane | object-capability
+Mozilla Script Security | object-capability
+Barth 2011 Web Origin RFC 6454 | object-capability
+OOPSLA 2017 | object-capability
+RustBelt grant 683289 | object-capability
