@@ -19,6 +19,8 @@ Smallcaps is marshal's JSON-representable wire format for passables: every small
 | [beyond JSON](../sections/endo--pkg-marshal-readme--beyond-json.md) | The marshal README's framing of smallcaps as the wire format that extends JSON for capability transport, with a side-by-side capdata comparison. |
 | [alternative to JSON](../sections/endo--pkg-marshal-readme--alternative-to-json.md) | Smallcaps as a direct JSON replacement when capability values are not in play. |
 | [ocapn json-invariants](../sections/ocapn--draft-specifications-model--json-invariants.md) | The upstream protocol's specification of how Model values relate to JSON; smallcaps is the JS realization of that invariant. |
+| [endo--packages-marshal-src-marshal-js--dual-format-body-discriminator](../sections/endo--packages-marshal-src-marshal-js--dual-format-body-discriminator.md) | How `makeMarshal` lets capdata and smallcaps coexist on the same wire via a `#` first-byte JSON-illegal sentinel; capdata remains the default `serializeBodyFormat` for backward compatibility ("ontogeny does recapitulate phylogeny"). The constructor-level mechanism that makes the migration to smallcaps tractable. |
+| [endo--packages-marshal-src-marshal-js--slot-typing-security-hazard](../sections/endo--packages-marshal-src-marshal-js--slot-typing-security-hazard.md) | Smallcaps' `$` (remotable) and `&` (promise) sigils partially mitigate the wire-level slot-kind ambiguity, but the kind information doesn't reach the application's `convertSlotToVal` callback, so smallcaps does not fully close the hazard. The TODO on `decodeSlotCommon` remains open in the smallcaps path as well. |
 
 ## See also
 

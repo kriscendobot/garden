@@ -481,4 +481,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-focus-message--{motivation-entry-and-exit, navigation-and-shortcut-keys, indentation-algorithm-and-chain-lines, visual-design-and-data-model, prefill-mechanism-and-key-files}
 
-## Total: 533 sections from 123 source documents (through 2026-05-29).
+### From endo packages/marshal/src/marshal.js longform comments (cycle 74, **fourth comment-fragment ingest**)
+
+- endo--packages-marshal-src-marshal-js--{error-diagnostic-priority, slot-typing-security-hazard, dual-format-body-discriminator}
+
+## Total: 536 sections from 124 source documents (through 2026-05-29).

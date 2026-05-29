@@ -80,6 +80,7 @@
 | [ocapn--readme--overview-and-what-is-this](../sections/ocapn--readme--overview-and-what-is-this.md) | upstream protocol README.md | Top-level introduction to the upstream protocol suite: what it is (a network-protocol family for distributed capability-secure communication), the components (Model, Notation, Locators, Netlayers, CapTP), and what implementations exist. |
 | [ocapn--readme--plan](../sections/ocapn--readme--plan.md) | upstream protocol README.md | Roadmap section: planned spec maturation milestones, anticipated implementations, areas where the spec is still evolving (locators and netlayers were both draft as of the cycle 18 ingestion). |
 | [ocapn--readme--what-do-i-get](../sections/ocapn--readme--what-do-i-get.md) | upstream protocol README.md | Motivation section: the properties using the protocol gets you (capability-secure messaging across mutually-suspicious peers, language-agnostic interop, the network-of-vats programming model). |
+| [endo--packages-marshal-src-marshal-js--dual-format-body-discriminator](../sections/endo--packages-marshal-src-marshal-js--dual-format-body-discriminator.md) | endo packages/marshal/src/marshal.js (longform comment) | The JS-realization detail: how marshal lets capdata and smallcaps coexist on the same wire via a `#`-prefix sentinel, why the default still favors capdata for backward compatibility, and how migration proceeds (decoders first, encoders opt-in). The same principle would apply to any future OCapN-family wire-format transition. |
 
 ## See also
 

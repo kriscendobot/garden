@@ -15,15 +15,15 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 40 |
 | [testing](testing.md) | How to run and write tests in endo. | 12 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 9 |
-| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 20 |
+| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 21 |
 | [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 91 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric; agent-runtime applications of capability discipline. | 135 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric; agent-runtime applications of capability discipline. | 137 |
 | [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies, eventual-send / vat / promise-pipelining / partial-failure / when-catch lineage, structure-of-authority + multiplicative-attack-surface arguments; sleeper-channel taxonomy + provenance-gate soundness theorem; permission-vs-authority + abstraction-as-protection + arena framework; Granovetter Operator + capability-based money + subjective aggregation + rights taxonomy + smart contracts. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 23 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 26 |
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 57 |
-| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 44 |
-| [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 74 |
-| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 56 |
+| [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 46 |
+| [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 75 |
+| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format. | 59 |
 | [streams](streams.md) | Async-iterator-based stream abstraction; transport substrate. | 13 |
 | [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 46 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 50 |
