@@ -477,4 +477,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--{granovetter-six-perspectives-and-object-capability-model, mint-purse-money-and-six-security-properties, pluribus-rights-taxonomy-and-covered-call-option}
 
-## Total: 528 sections from 122 source documents (through 2026-05-28).
+### From endo-but-for-bots/llm/designs chat-focus-message (cycle 73, **supersedes the earlier chat-reply-chain-visualization MOI layout**)
+
+- endo-but-for-bots--llm-designs-chat-focus-message--{motivation-entry-and-exit, navigation-and-shortcut-keys, indentation-algorithm-and-chain-lines, visual-design-and-data-model, prefill-mechanism-and-key-files}
+
+## Total: 533 sections from 123 source documents (through 2026-05-29).
