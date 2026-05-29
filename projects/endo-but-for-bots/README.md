@@ -34,23 +34,33 @@ Other repos remain under the default rule (per-action authorization in the dispa
 
 ## Authority structure
 
-The repo has two kinds of non-default authority. **Maintainer authority** is repo-wide and topic-agnostic: a maintainer's review or directive on any PR routes the same regardless of subsystem. **Senior-contributor authority** is topic-scoped: a senior contributor's review on a topic-matching PR carries maintainer-equivalent (or greater) weight on the technical question within that topic set, and reverts to high-signal input outside it. Both are recorded here; the per-project monitor skill (`garden/skills/monitor-endo-but-for-bots/SKILL.md`) consumes both and routes accordingly.
+Per the maintainer's directive on 2026-05-29: the repository's GitHub permissions are guarded so only users with maintainer access can comment, review, or open pull requests. Every commenter on `endojs/endo-but-for-bots` is therefore effectively a maintainer, of equal authority on every subsystem and every topic. There is no topic-scoping that excludes any commenter from any subsystem on this repo.
 
-### Maintainers
+### The general rule
 
-- **kriskowal** is the default-authority maintainer for the repo.
-- **jcorbin** is a maintainer on this repo, recognized 2026-05-13 per kriskowal's directive at [endojs/endo-but-for-bots#148](https://github.com/endojs/endo-but-for-bots/pull/148) ("Josh is a maintainer on endo-but-for-bots"). His review or comment carries maintainer-equivalent weight across the whole repo, with no topic scope: a `CHANGES_REQUESTED` or substantive `COMMENTED` review from jcorbin on any PR routes the same way a kriskowal review would (fixer dispatch on `CHANGES_REQUESTED`, clear-the-row on `APPROVED`, etc.). The recognition is repo-scoped to `endojs/endo-but-for-bots` and does not extend to `endojs/endo` absent further confirmation; the parallel [endo project README](../endo/README.md#authority-structure) is unchanged.
+Every author of a comment, review, review-comment, or pull request on `endojs/endo-but-for-bots` is treated as maintainer-equivalent. A `CHANGES_REQUESTED` or substantive `COMMENTED` review from any commenter routes the same way a `kriskowal` review would (fixer dispatch on `CHANGES_REQUESTED`, clear-the-row on `APPROVED`, etc.). A `@kriscendobot` mention in a comment body from any commenter authorizes the reactji-ack and the consequent dispatch named in `garden/skills/at-mention-surveillance/SKILL.md` § Reaction matrix. The repository's permission gate is the gate; the garden does not impose a second gate inside it.
 
-### Senior contributors
+### Non-exhaustive named list
 
-Identical in shape to the [endo project's authority structure](../endo/README.md#authority-structure):
+The maintainer specifically named these users we must not ignore:
 
-- **erights** (Mark S. Miller) is a senior contributor whose authority meets or exceeds the maintainers' on a defined set of topics: `pass-style`, `ses`, `hardened-JS`, `marshal`, `eventual-send`, `captp`, `patterns`, the OCapN-family protocol, and capability-security generally. These are the subsystems and concepts erights designed or co-authored; his review or substantive comment on a PR that touches any of them carries maintainer-equivalent (or greater) weight on the *technical question*. A `CHANGES_REQUESTED` or substantive `COMMENTED` review from erights on a topic-matching PR routes the same way a maintainer review would: the garden treats it as a directive on the technical merits and the fixer addresses it. (Authorization to *act* still flows through the maintainer authorization chain in `roles/COMMON.md` § External-repo etiquette on the `main` branch; senior-contributor weight changes how the garden reads the technical content, not who can push.)
-- Outside those topics, on garden-internal infrastructure (CI, the bulletin's `endo-but-for-bots`-specific machinery, the `garden` sibling branch), or on scope unrelated to the listed subsystems, erights' input is senior-contributor input rather than maintainer-equivalent. Surface it loudly; do not auto-route to a fixer.
+- **kriskowal**
+- **kumavis**
+- **erights** (Mark S. Miller)
+- **danfinlay**
+- **0xpatrick**
 
-### Practical rule
+Plus **jcorbin**, recognized 2026-05-13 per kriskowal's directive at [endojs/endo-but-for-bots#148](https://github.com/endojs/endo-but-for-bots/pull/148) ("Josh is a maintainer on endo-but-for-bots").
 
-A review or directive from a recognized maintainer (kriskowal or jcorbin) routes as a maintainer signal on every PR, every topic. A review from erights on a topic-matching PR is read as technically authoritative; on anything else, it is high-signal input the maintainers adjudicate. Reviews from anyone else are journal-only by default.
+The list is examples-of, not the closed set. Any user who can comment on this repo is, by virtue of the permission gate, in scope of the general rule above.
+
+### Routing consequence
+
+`@kriscendobot` (or otherwise-directed) instructions from any commenter on this repo route through the normal dispatch chain (fixer, judge, designer, etc.), not journal-only. The previous "Reviews from anyone else are journal-only by default" clause is retired for this repo; the steward's prior journal-only routing of kumavis's review-request comment on [#328](https://github.com/endojs/endo-but-for-bots/pull/328) (per [`../../entries/2026/05/29/015400Z-message-steward-b8c2d3.md`](../../entries/2026/05/29/015400Z-message-steward-b8c2d3.md)) is now overridden by this rule; the next steward cycle picks the comment up under the new routing.
+
+### erights cross-repo note
+
+The elevation of every commenter to maintainer-equivalent authority is **repo-scoped to `endojs/endo-but-for-bots` only**. The topic-scoped erights treatment on `endojs/endo` (per [`../endo/README.md`](../endo/README.md) § Authority structure) is **unchanged**: erights' authority on that repo remains scoped to `pass-style`, `ses`, `hardened-JS`, `marshal`, `eventual-send`, `captp`, `patterns`, the OCapN-family protocol, and capability-security generally, and reverts to high-signal input outside those topics.
 
 The pattern is reusable. See `roles/COMMON.md` § Authority structure of upstream projects on the `main` branch for the cross-project framing.
 
