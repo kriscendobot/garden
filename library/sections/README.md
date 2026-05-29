@@ -473,4 +473,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-pass-style-src-passstyleof-js--{passstylememo-as-mutable-static-state, liveslots-endowment-and-gc-determinism, coercion-to-passable-and-throwable}
 
-## Total: 525 sections from 121 source documents (through 2026-05-28).
+### From Mark S. Miller papers: Capability-Based Financial Instruments (cycle 72, liaison orchestrator-direct-draft 2026-05-28, **fifth Miller-coauthored paper**)
+
+- papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--{granovetter-six-perspectives-and-object-capability-model, mint-purse-money-and-six-security-properties, pluribus-rights-taxonomy-and-covered-call-option}
+
+## Total: 528 sections from 122 source documents (through 2026-05-28).
