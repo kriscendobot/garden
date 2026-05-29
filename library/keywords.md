@@ -1977,3 +1977,94 @@ chat-reply-chain-visualization deprecated | chat-ui
 chat-focus-message supersedes | chat-ui
 origin/llm chat designs | chat-ui
 chat-lane verification branch families | chat-ui
+
+## packages/ses/src/error/tame-v8-error-constructor.js (cycle 93, ninth comment-fragment ingest)
+
+tame-v8-error-constructor | object-capability
+tameV8ErrorConstructor | object-capability
+tame V8 error constructor | object-capability
+SES stack-trace taming | object-capability
+V8 stack-trace API | object-capability
+v8.dev/docs/stack-trace-api | object-capability
+Error.prepareStackTrace | object-capability
+prepareStackTrace hook | object-capability
+Error.captureStackTrace | object-capability
+captureStackTrace shim | object-capability
+structured stack trace | object-capability
+structuredStackTrace SST | object-capability
+CallSite method permit list | object-capability
+safeV8CallSiteMethodNames | object-capability
+safeV8CallSiteFacet | object-capability
+safeV8SST | object-capability
+getThis suppressed | object-capability
+getFunction suppressed | object-capability
+isPromiseAll suppressed | object-capability
+getPromiseIndex suppressed | object-capability
+getTypeName | object-capability
+getFunctionName | object-capability
+getMethodName | object-capability
+getFileName | object-capability
+getLineNumber getColumnNumber | object-capability
+getEvalOrigin | object-capability
+isToplevel isEval isNative | object-capability
+isConstructor isAsync | object-capability
+getPosition | object-capability
+getScriptNameOrSourceURL | object-capability
+filename censor | object-capability
+FILENAME_CENSORS | object-capability
+node_modules censor | object-capability
+node:internal censor | object-capability
+SES assert.js censor | object-capability
+eventual-send censor | object-capability
+ses-ava censor | object-capability
+filterFileName | object-capability
+ridiculously expensive callsite attenuation | object-capability
+TODO ridiculously expensive | object-capability
+CALLSITE_ELLIPSIS_PATTERN | object-capability
+CALLSITE_PACKAGES_PATTERN | object-capability
+CALLSITE_FILE_2SLASH_PATTERN | object-capability
+shortenCallSiteString | object-capability
+path shortening regex | object-capability
+lerna monorepo convention | object-capability
+file:// vs file:/// VS Code | object-capability
+VS Code clickable file URL | object-capability
+agoric-sdk #2326 thread | object-capability
+agoric-sdk issuecomment-773020389 | object-capability
+system prepareFn | object-capability
+user prepareFn | object-capability
+input prepareFn | object-capability
+systemPrepareFnSet WeakSet | object-capability
+systemPrepareFnFor | object-capability
+WeakSet branding prepareFn | object-capability
+double-wrap prevention | object-capability
+stackInfos WeakMap | object-capability
+ParsedStackInfo | object-capability
+StructuredStackInfo | object-capability
+lazy stringification cache | object-capability
+errorTaming safe | object-capability
+errorTaming unsafe | object-capability
+errorTaming unsafe-debug | object-capability
+stackFiltering concise | object-capability
+stackFiltering omit-frames | object-capability
+stackFiltering shorten-paths | object-capability
+omitFrames boolean | object-capability
+shortenPaths boolean | object-capability
+__HIDE_ function name censor | object-capability
+__HIDE_ prefix concise stacks | object-capability
+getStackString TC39 shim | object-capability
+proposal-error-stacks | object-capability
+TC39 Error Stacks | object-capability
+start-compartment-only capability | object-capability
+stackStringFromSST | object-capability
+callSiteFilter | object-capability
+callSiteStringifier | object-capability
+defaultPrepareFn | object-capability
+prepareStackTrace accessor pair | object-capability
+prepareStackTrace setter wrap | object-capability
+void error.stack force populate | object-capability
+exported only for unit test | object-capability
+seems to suppress builtins anonymous | object-capability
+TODO move not just to v8 | object-capability
+TODO user configure FILENAME_CENSORS via lockdown | object-capability
+TODO user configure CALLSITE_PATTERNS via lockdown | object-capability
+Richard Gibson tame-v8 | object-capability

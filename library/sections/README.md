@@ -541,4 +541,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-test-coverage--{test-organization-and-untestable-behaviors, e2e-test-coverage-and-module-count-summary}
 
-## Total: 584 sections from 138 source documents (through 2026-05-29).
+### From endo packages/ses/src/error/tame-v8-error-constructor.js longform comments (cycle 93, **ninth comment-fragment ingest; SES-side V8-specific taming for Error.prepareStackTrace + structured-stack-trace API; pairs structurally with cycle-87's pass-style/src/error.js V8-stack-accessor work**)
+
+- endo--packages-ses-src-error-tame-v8-error-constructor-js--{call-site-permit-list-and-filename-censors, callsite-path-shortening-patterns, tame-v8-error-constructor-and-system-vs-user-preparefns}
+
+## Total: 587 sections from 139 source documents (through 2026-05-29).
