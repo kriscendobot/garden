@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-20
+updated: 2026-05-29
 author: liaison, gardener
 ---
 
@@ -51,7 +51,7 @@ Assumes you have already read `roles/COMMON.md`.
 - **"Verified, no change needed" is a first-class outcome** alongside fix / defer / surface. When a reviewer says "make it so" for an invariant the code already satisfies, the right reply cites the file paths and line numbers (or test names) that prove it. Do not push an empty commit; the reply is the artifact.
 - **A `CHANGES_REQUESTED` review that asks for both code AND a body rewrite is two deliverables.** Land the code fix (citable SHA), then `gh pr edit <N> --body-file <path>`, then post the top-level summary citing both. Re-requesting review having only pushed the code leaves the body-rewrite ask unaddressed.
 - **Re-request review after a substantive fix** (whether the review state was `CHANGES_REQUESTED` or `COMMENTED`). Do not re-request on a deferral-path reply (the reviewer already authorized the deferral). Do not fall back to requesting the bot's own identity if the reviewer is the PR author; post an `@<login>` mention in the top-level summary instead.
-- **After fix-up commits land, drive CI to green BEFORE re-requesting maintainer review.** A red-CI PR in the maintainer's review queue forces the maintainer to decide whether the red is "yours" or "mine" before reviewing substance. Inline CI fixes (rerun a known flake, push a tiny CI-only fix-up) are fine; if the fix is substantive enough to warrant another agent, dispatch a [shepherd](../shepherd/AGENT.md). Only after CI is green: `gh api repos/<o>/<r>/pulls/<N>/requested_reviewers -f reviewers[]=<login>`.
+- **After fix-up commits land, drive CI to green BEFORE re-requesting maintainer review.** A red-CI PR in the maintainer's review queue forces the maintainer to decide whether the red is "yours" or "mine" before reviewing substance. Inline CI fixes (rerun a known flake, push a tiny CI-only fix-up) are fine; if the fix is substantive enough to warrant another agent, dispatch a [shepherd](../shepherd/AGENT.md). Only after CI is green, re-request via the JSON-body shape: `echo '{"reviewers":["<login>"]}' | gh api repos/<o>/<r>/pulls/<N>/requested_reviewers --input -`. The naive `-f reviewers[]=<login>` and `-f reviewers='["<login>"]'` shapes both return HTTP 422 (`gh api` does not coerce repeated `-f` keys into a JSON array, and the `-f` value side is parsed as a plain string, not JSON); `--input -` with the body assembled as JSON is the working form.
 - **When the failing CI signal IS the PR** (a new smoke / lint / coverage check, with the unrelated matrix passing), do not silence the signal. Either the smoke is buggy (fix the smoke) or it caught a real regression (widen the smoke's diagnostic surface and surface the root cause as a top-level PR comment). Do not fix the system from inside the smoke PR.
 
 ## External-repo etiquette
