@@ -905,3 +905,57 @@ heap + thread + pending-delivery queue | vat-and-compartment
 unit of sequentiality | vat-and-compartment
 turn boundary | vat-and-compartment
 computational firm | vat-and-compartment
+
+# Cycle-77 decomposition batch two (2026-05-29) — three more concept pages
+MintMaker | mint-purse-money
+mint | mint-purse-money
+purse | mint-purse-money
+sealed decr | mint-purse-money
+capability-based money | mint-purse-money
+six security properties | mint-purse-money
+six security properties (mint-purse) | mint-purse-money
+Alice pays Bob $10 | mint-purse-money
+Agoric ERTP ancestor | mint-purse-money
+ERTP issuer-kit ancestor | mint-purse-money
+makeIssuerKit | mint-purse-money
+issuer-kit | mint-purse-money
+mint-purse-money | mint-purse-money
+brand | brand-and-trademark
+brands | brand-and-trademark
+trademark | brand-and-trademark
+trademarks | brand-and-trademark
+sealer/unsealer | brand-and-trademark
+sealer-unsealer pair | brand-and-trademark
+sealer | brand-and-trademark
+unsealer | brand-and-trademark
+BrandMaker | brand-and-trademark
+BrandMaker pair | brand-and-trademark
+FactoryStamp | brand-and-trademark
+factoryStamp | brand-and-trademark
+interface guards | brand-and-trademark
+rights amplification primitive | brand-and-trademark
+rights amplification | brand-and-trademark
+envelope and can-opener | brand-and-trademark
+can and can-opener | brand-and-trademark
+can-opener analogy | brand-and-trademark
+@endo/marshal brand | brand-and-trademark
+Endo brand | brand-and-trademark
+makeBrand | brand-and-trademark
+types-by-fiat | brand-and-trademark
+smart contract | smart-contract
+smart contracts | smart-contract
+Szabo smart contract | smart-contract
+Nick Szabo | smart-contract
+Szabo 1996 | smart-contract
+computational contract | smart-contract
+self-enforcing computational contract | smart-contract
+self-enforcing computational embodiment of a contract | smart-contract
+CoveredCallOption | smart-contract
+covered call option | smart-contract
+CoveredCallOptionMaker | smart-contract
+Zoe contract | smart-contract
+Agoric Zoe | smart-contract
+Agoric contract | smart-contract
+TitleCompanyMaker | smart-contract
+escrowedStock | smart-contract
+escrowedMoney | smart-contract
