@@ -517,4 +517,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-playwright-smoke--{problem-framing-and-relationship-to-chat-test-coverage, build-serve-and-playwright-fixture, test-plan-and-open-questions}
 
-## Total: 567 sections from 132 source documents (through 2026-05-29).
+### From endo packages/pass-style/src/error.js longform comments (cycle 87, **seventh comment-fragment ingest; pass-style's error-validation surface with three substantial rationale clusters: host-configuration defense + V8 undeniable capability channel + security-vs-diagnostic-preservation tension**)
+
+- endo--packages-pass-style-src-error-js--{pass-style-defense-across-host-configurations, v8-stack-accessor-undeniable-channel-and-repair, error-validation-security-vs-diagnostic-tension}
+
+## Total: 570 sections from 133 source documents (through 2026-05-29).

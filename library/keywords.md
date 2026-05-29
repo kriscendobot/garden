@@ -1450,3 +1450,114 @@ deliberate-regression test | chat-ui
 zero-cost CI step | chat-ui
 zero new dependencies | chat-ui
 dependency-minimal CI | chat-ui
+
+## packages/pass-style/src/error.js (cycle 87, seventh comment-fragment ingest)
+
+`makeTypeError` | object-capability
+makeTypeError | object-capability
+belt and suspenders | object-capability
+belt-and-suspenders | object-capability
+suspenders on our overalls | object-capability
+realm intrinsic TypeError | object-capability
+realm intrinsic by language syntax | object-capability
+syntax-constructed exception | object-capability
+`null.null` trick | object-capability
+null.null syntax trick | object-capability
+Start Compartment | vat-and-compartment
+start compartment | vat-and-compartment
+primary realm | vat-and-compartment
+guest compartment | vat-and-compartment
+gratuitously frozen globalThis | vat-and-compartment
+gratuitiously frozen | vat-and-compartment
+multi-guest shared compartment | vat-and-compartment
+unfrozen globalThis | vat-and-compartment
+incoherent compartment | vat-and-compartment
+no mutual safety | vat-and-compartment
+SES initializes first | object-capability
+prior code is benign | object-capability
+boot-order assumption | object-capability
+pre-SES attacker | object-capability
+host configuration regimes | object-capability
+`makeRepairError` | object-capability
+makeRepairError | object-capability
+repairError | object-capability
+`repairError` | object-capability
+V8 own stack accessor | object-capability
+V8 stack accessor | object-capability
+undeniable channel | object-capability
+undeniable capability channel | object-capability
+stack internal slot | object-capability
+arbitrary capabilities through stack | object-capability
+same-realm getter equality | object-capability
+same-realm-getter-equality repair | object-capability
+`feralStackGetter` | object-capability
+feralStackGetter | object-capability
+Hermes stack accessor | object-capability
+captureStackTrace proposal | object-capability
+`Error.captureStackTrace` | object-capability
+proposal-error-capturestacktrace | object-capability
+FF/SpiderMonkey stack | object-capability
+Moddable/XS stack | object-capability
+error stack proposal | object-capability
+hardenTaming unsafe | object-capability
+`hardenTaming: "unsafe"` | object-capability
+unsafe hardenTaming | object-capability
+hardenIsNoop | object-capability
+`hardenIsNoop` | object-capability
+fake harden | object-capability
+non-actually-freezing harden | object-capability
+calls getter during harden | object-capability
+PASS_STYLE_UNEXPECTED_ERROR_OWN_STACK_ACCESSOR | object-capability
+`PASS_STYLE_UNEXPECTED_ERROR_OWN_STACK_ACCESSOR` | object-capability
+SES_UNEXPECTED_ERROR_OWN_STACK_ACCESSOR | object-capability
+SES error-code document | object-capability
+isErrorLike | pass-invariant-handle-equality
+`isErrorLike` | pass-invariant-handle-equality
+assertError | pass-invariant-handle-equality
+confirmErrorLike | pass-invariant-handle-equality
+`confirmErrorLike` | pass-invariant-handle-equality
+confirmRecursivelyPassableError | pass-invariant-handle-equality
+`confirmRecursivelyPassableError` | pass-invariant-handle-equality
+confirmRecursivelyPassableErrorPropertyDesc | pass-invariant-handle-equality
+ErrorHelper | pass-invariant-handle-equality
+`ErrorHelper` | pass-invariant-handle-equality
+passable error | pass-invariant-handle-equality
+malformed error | pass-invariant-handle-equality
+passable by itself | pass-invariant-handle-equality
+passable as part of a structure | pass-invariant-handle-equality
+two-tier passability | pass-invariant-handle-equality
+diagnostic preservation | pass-invariant-handle-equality
+diagnostic-vs-security tension | pass-invariant-handle-equality
+security-vs-diagnostic-preservation | pass-invariant-handle-equality
+validity complaints as notes | pass-invariant-handle-equality
+notes on the error | pass-invariant-handle-equality
+attach notes to malformed error | pass-invariant-handle-equality
+four-property allowlist | pass-invariant-handle-equality
+error own property allowlist | pass-invariant-handle-equality
+error message stack cause errors | pass-invariant-handle-equality
+own data property | pass-invariant-handle-equality
+extra unpassed property | pass-invariant-handle-equality
+error constructor registry | object-capability
+errorConstructors map | object-capability
+`errorConstructors` | object-capability
+getErrorConstructor | object-capability
+`getErrorConstructor` | object-capability
+AggregateError construction non-uniformity | object-capability
+AggregateError errors iterable | object-capability
+non-uniformity disclaimer | object-capability
+makeError encapsulates | object-capability
+SES whitelist coordination | object-capability
+maintenance hazard | object-capability
+SES whilelist | object-capability
+passStyleOf side effect | object-capability
+passStyleOf side-effect | object-capability
+side effect during passStyleOf | object-capability
+alters object as side effect | object-capability
+deliberately accepted defensive-consistency violation | object-capability
+deliberate controlled risk | object-capability
+acknowledge the hazard then bound it | object-capability
+NOTE calls getter during harden | object-capability
+hazards we think we understand | object-capability
+diagnostic priority over validity bug | object-capability
+fail loud on unexpected accessor | object-capability
+captureStackTrace forward-compatibility | object-capability

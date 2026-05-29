@@ -15,9 +15,9 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 40 |
 | [testing](testing.md) | How to run and write tests in endo. | 15 |
 | [security-disclosure](security-disclosure.md) | Vulnerability reporting channels and timelines. | 9 |
-| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 21 |
-| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 91 |
-| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric; agent-runtime applications of capability discipline. | 147 |
+| [errors](errors.md) | SES's tamed `Error` + `assert` + causal `console` system. | 24 |
+| [hardened-javascript](hardened-javascript.md) | SES substrate: frozen intrinsics, lockdown, taming. | 94 |
+| [capability-security](capability-security.md) | Object-capability discipline as practiced in Endo / Agoric; agent-runtime applications of capability discipline. | 150 |
 | [capability-theory](capability-theory.md) | Theoretical foundations of object-capability security: four models, seven properties, POLA, confused deputies, eventual-send / vat / promise-pipelining / partial-failure / when-catch lineage, structure-of-authority + multiplicative-attack-surface arguments; sleeper-channel taxonomy + provenance-gate soundness theorem; permission-vs-authority + abstraction-as-protection + arena framework; Granovetter Operator + capability-based money + subjective aggregation + rights taxonomy + smart contracts; agoric-systems vision + competence-vs-performance modularity + marketplace-of-mind; **`obeys` + `MayAccess` + `MayAffect` as hypothetical trust + risk predicates, `Focal` + `Chainmail` formal model, Hoare four-tuple logic with code-agnostic inference rules**. Distinct from `capability-security` (which catalogs Endo/Agoric *practice*); this topic catalogs the *papers* arguing for and naming the discipline. | 28 |
 | [compartments](compartments.md) | SES compartments: isolated guest-code subtrees in a realm. | 26 |
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 62 |
@@ -25,7 +25,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 75 |
 | [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format; encodePassable rank-order-preserving format; rankOrder in-memory comparator. | 69 |
 | [streams](streams.md) | Async-iterator-based stream abstraction; transport substrate. | 13 |
-| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 52 |
+| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 55 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 55 |
 | [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 34 |
 | [async-flow](async-flow.md) | The `@agoric/async-flow` durable-replay async-function infrastructure; closed-function discipline. | 7 |
