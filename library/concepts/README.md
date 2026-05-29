@@ -18,6 +18,7 @@ This index is a third axis next to [`sources/`](../sources/README.md) (by proven
 
 Bootstrapped from the daemon design cluster and the structural principles in `conventions.md`. Extended cycle 50 with `delegates-and-epithets`, `caretaker-pattern`, and `pass-invariant-handle-equality` from the `daemon-capability-persona` ingest:
 
+- [agoric-system](agoric-system.md) — a software system using market mechanisms based on capability-security foundations for encapsulation and communication of information, access, and resources; Miller-Drexler 1988 coinage from *agora*; the entire Agoric project's mission anchor (added 2026-05-29 by the cycle-76 decomposition batch; six citations across the Miller 1988-2005 cluster).
 - [caretaker-pattern](caretaker-pattern.md) — split one capability into action and control facets.
 - [cohort-destruction](cohort-destruction.md) — partition response: destroy the dependent live-reference subgraph, rebuild from formulas on demand.
 - [crdt-in-formula-persistence](crdt-in-formula-persistence.md) — where CRDT shape is used; where a bidirectional CRDT was rejected.
@@ -27,6 +28,7 @@ Bootstrapped from the daemon design cluster and the structural principles in `co
 - [formula-persistence-thesis](formula-persistence-thesis.md) — the design's core thesis (endojs/endo#3121 draft).
 - [four-tables-coordinated-retention](four-tables-coordinated-retention.md) — cross-peer retention data model.
 - [four-ways-to-acquire-references](four-ways-to-acquire-references.md) — the canonical enumeration (Introduction / Parenthood / Endowment / Initial Conditions) of how an object can come to hold a reference to another; *only connectivity begets connectivity* (added 2026-05-21 by the Miller-cluster concept-page batch; SoA §3.4 + Paradigm Regained §4.2 + CAS §9.2).
+- [granovetter-operator](granovetter-operator.md) — the three-object reference-passing primitive (Alice sends `bob.foo(carol)`); the *Introduction* mechanism with the constraint that it's the only way Bob gains access to Carol when both pre-exist; six independent disciplines find structural meaning in the same step (added 2026-05-29; canonical naming in *Capability-Based Financial Instruments* 2000 §1.2).
 - [local-node-sentinel](local-node-sentinel.md) — `LOCAL_NODE = '0'.repeat(64)`; the `0.0.0.0`-of-Ed25519.
 - [object-capability](object-capability.md) — the "true" capability model per Miller-Yee-Shapiro 2003: Model 4 holding all seven security properties (A–G).
 - [pass-invariant-handle-equality](pass-invariant-handle-equality.md) — connector guarantee: same backing identity → same formula identifier.
@@ -39,6 +41,7 @@ Bootstrapped from the daemon design cluster and the structural principles in `co
 - [revocation-by-withdrawal](revocation-by-withdrawal.md) — the fourth revocation mechanism.
 - [security-as-extreme-modularity](security-as-extreme-modularity.md) — every capability-discipline practice is the strict reading of a software-engineering practice; Table 1's ten-row mapping; nested POLA multiplies attack-surface reduction (added 2026-05-21; Paradigm Regained §4.5 + SoA Table 1 + CAS §6).
 - [sentinel-with-rationale](sentinel-with-rationale.md) — the pattern: deliberately-unreachable value + why-it-cannot-collide.
+- [subjective-aggregation](subjective-aggregation.md) — "only trust makes distinctions"; each participant subjectively aggregates objects into composites for trust analysis; mistrust of a vat is equivalent to ignorance of internal structure, so capability analysis can reason as if only suspicious of objects (added 2026-05-29; Capability-Based Financial Instruments 2000 §4.3 + CAS 2005 vat-as-TCB).
 - [shape-not-content](shape-not-content.md) — capture upstream meta-table shape, not its rows.
 - [space](space.md) — Familiar Chat's bookmark into the daemon's capability graph; `SpaceConfig` shape, home (Space 0) vs user spaces, Cmd+N keyboard mapping.
 - [syrup-record-positionality](syrup-record-positionality.md) — Syrup record field names are positional bindings, not on-the-wire; renames are wire-compatible.
@@ -46,5 +49,6 @@ Bootstrapped from the daemon design cluster and the structural principles in `co
 - [smallcaps-encoding](smallcaps-encoding.md) — Marshal's JSON-representable wire format: contiguous reserved-character range (`!`-`-`), seven assigned sigils (`!` escape, `+`/`-` bigint, `#` manifest constant + tag-prop, `%` symbol, `$` remotable, `&` promise), canonical encoding via copyRecord key sort, diagnostic-priority error-encoding root special case; supersedes capdata's `@qclass` (added cycle 69 by the encodeToSmallcaps.js longform-comment ingest).
 - [throwaway-instance-prototype-walk](throwaway-instance-prototype-walk.md) — SES taming for return-value prototypes.
 - [token-chip](token-chip.md) — Familiar Chat's visual representation of a pet-name reference: styled `@`-prefix chip backed by a formula identifier; clickable, removable, autocompleted.
+- [vat-and-compartment](vat-and-compartment.md) — two terms for one primitive at different abstraction layers: vat (heap + thread + pending-delivery queue; unit of persistence, migration, partial failure, resource control, DoS-defense) and compartment (the SES / Hardened JavaScript realm-isolation enactment); the cross-pillar translation between the 2005 E-language vat model and Endo's bundle + compartment hierarchy (added 2026-05-29; CAS 2005 §3 + Capability-Based Financial Instruments 2000 §4.1).
 
 This index grows as agents using the [`library-lookup`](../../../skills/library-lookup/SKILL.md) skill encounter terms that lead them down circuitous routes — see that skill's *Indexing on the fly* section.

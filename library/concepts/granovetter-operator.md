@@ -1,0 +1,37 @@
+---
+id: granovetter-operator
+aliases: ["Granovetter Operator", "Granovetter Diagram", "Granovetter step", "three-object reference-passing primitive", "bob.foo(carol)", "b.foo(c)", "introduction by message passing", "Mark Granovetter"]
+topics: [capability-theory, capability-security, patterns]
+---
+
+# granovetter-operator
+
+The **three-object reference-passing primitive** named after sociologist Mark Granovetter's 1973 diagrams of how interpersonal-knowledge topology evolves when people introduce people they know to each other. The operation: Alice holds references to Bob and Carol; Alice sends Bob a message `bob.foo(carol)` containing a copy of her reference to Carol; from this single step, Bob now holds a reference to Carol. The operator is the *named* form of "send a message with a reference as argument" — what Smalltalk calls "message send", C++ calls "virtual member function call", and Endo / Hardened JavaScript calls `E(bob).foo(carol)`. The 2000 *Capability-Based Financial Instruments* paper introduces the term as a bridging abstraction: the *same diagrammatic step* supports six independent disciplines simultaneously (Object Computation, Capability Security, Cryptographic Protocol, Public Key Infrastructure, Game-Rule, Financial Bearer Instrument), making it the canonical "Rosetta stone" for capability theory across communities.
+
+The Granovetter Operator is the *Introduction* mechanism in the 2004 *Structure of Authority* four-way enumeration of reference-acquisition (Introduction / Parenthood / Endowment / Initial Conditions). In capability-security framing, the constraint is added that the message send is the **only way** Bob can come to know about Carol when Bob and Carol already exist and Bob doesn't already know about Carol — three conditions: (1) some third party (Alice) already knows about Carol; (2) the same third party knows about Bob; (3) the third party voluntarily decides to share. Subject to this constraint, the operator gives the object-capability model its formal teeth: *only connectivity begets connectivity*.
+
+## Sections that touch this concept
+
+| Section | One-line summary |
+|---|---|
+| [papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--granovetter-six-perspectives-and-object-capability-model](../sections/papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--granovetter-six-perspectives-and-object-capability-model.md) | **Canonical naming and six-perspectives framing.** The §1.2 1988 paper coins the Granovetter Operator term and develops the six-perspectives reading. §3 develops only-connectivity-begets-connectivity as the capability-security reading. |
+| [papers--miller-tulloh-shapiro-structure-of-authority-2004--fractal-structure-of-authority](../sections/papers--miller-tulloh-shapiro-structure-of-authority-2004--fractal-structure-of-authority.md) | §3.4: the Granovetter Operator is the **Introduction mechanism** in the four-way enumeration. The 2004 paper makes the structural-completeness claim — *only* four mechanisms exist; Introduction is one. |
+| [papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker](../sections/papers--miller-shapiro-paradigm-regained-2003--object-capability-model-and-redells-caretaker.md) | §4: the formal object-capability model formalizes the operator via the loader primitive `loader.load(code, [...index ⇒ reference...])`. The operator is the dynamic counterpart of static endowment. |
+| [papers--miller-drexler-markets-and-computation-1988--agoric-vision-and-foundations](../sections/papers--miller-drexler-markets-and-computation-1988--agoric-vision-and-foundations.md) | §1.2 + §4.1: the 1988 ancestor, framing the operator as "encapsulation and communication of access". This 1988 paper is the structural ancestor; the 2000 paper gives it the Granovetter name. |
+| [papers--miller-capability-myths-demolished-2003--four-models-and-seven-properties](../sections/papers--miller-capability-myths-demolished-2003--four-models-and-seven-properties.md) | The seven security properties (A-G) include Property A (No Designation Without Authority) and Property D (No Ambient Authority) — both rest on the constraint that *only* the Granovetter step (or its three sibling mechanisms) can grant new access. |
+
+## See also
+
+- [[four-ways-to-acquire-references]] — the umbrella concept that names all four reference-acquisition mechanisms. The Granovetter Operator IS the *Introduction* mechanism in that enumeration; the four-ways concept page is the parent.
+- [[object-capability]] — the substrate that makes the Granovetter Operator structurally load-bearing. In ACL models the operator exists but doesn't carry authority; in object-capability models it does.
+- [[caretaker-pattern]] — the most-cited use of the operator: Alice does NOT send `bob.foo(carol)` directly; instead she sends `bob.foo(carol2)` where `carol2` is a Caretaker she constructed. The pattern attenuates the authority transferred via the operator.
+- [[principle-of-least-authority]] — POLA is the discipline of choosing *which* Granovetter steps to take and *what* authority to transfer in each. Every `bob.foo(carol)` is a POLA decision.
+- [[agoric-system]] — the broader framing that places the Granovetter Operator in the context of market-based computational systems.
+
+## Common confusions
+
+- **"The Granovetter Operator is a new primitive."** No — it is the *named instance* of "send a message with a reference as argument." Every object-oriented language already supports the operation; the 2000 paper names it to make the *capability-security implications* of the operation discussable. The naming is the contribution; the operation is universal.
+- **"Six perspectives means six different mechanisms."** No — *same mechanism, six interpretations*. The Alice-sends-Bob-`foo(carol)` step is one event; the six perspectives are six independent disciplines that each find structural meaning in that one event. Object computation, capability security, cryptographic protocol, PKI, game rules, and financial bearer instruments are *all* simultaneously true descriptions of the same step.
+- **"The operator requires Alice to designate Carol by name."** No — Alice designates Carol by *capability reference*, not by name string. The §1.1 *Capability-Based Financial Instruments* 2000 paper is explicit: "Bob does not know or care what name A's code uses to refer to C; B simply receives a parameter that is C." This is the cat-style (vs cp-style) discipline at the in-language level.
+- **"The constraint that this is the only way is artificial."** The constraint *is* the entire claim of capability security. The 2003 *Paradigm Regained* §4 paper makes this explicit: object-capability discipline = object model + prohibitions on forged references, mutable global state, and direct private-state access. The constraint is what makes the operator structurally load-bearing rather than incidental.
+- **"Mark Granovetter is a computer scientist."** No — Mark Granovetter is a sociologist whose 1973 paper *The Strength of Weak Ties* originally developed these diagrams to illustrate human social-network topology evolution. The 2000 paper credits him explicitly and notes the diagram is "a powerful notation for understanding the relations between computational objects in a network." The naming is an inter-disciplinary tribute.

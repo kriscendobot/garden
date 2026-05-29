@@ -838,3 +838,70 @@ wire-level type-tagged slots | (see section: endo--packages-marshal-src-marshal-
 `makeDecodeSlotFromSmallcaps` | (see section: endo--packages-marshal-src-marshal-js--slot-typing-security-hazard)
 `makeDecodeFromCapData` | (see section: endo--packages-marshal-src-marshal-js--slot-typing-security-hazard)
 `makeDecodeFromSmallcaps` | (see section: endo--packages-marshal-src-marshal-js--dual-format-body-discriminator)
+
+# Cycle-76 decomposition batch (2026-05-29) — four new concept pages
+Granovetter Operator | granovetter-operator
+Granovetter Diagram | granovetter-operator
+Granovetter step | granovetter-operator
+Mark Granovetter | granovetter-operator
+three-object reference-passing | granovetter-operator
+bob.foo(carol) | granovetter-operator
+b.foo(c) | granovetter-operator
+introduction by message passing | granovetter-operator
+six perspectives (Granovetter) | granovetter-operator
+the strength of weak ties | granovetter-operator
+agoric system | agoric-system
+agoric open system | agoric-system
+agoric approach | agoric-system
+agoric systems | agoric-system
+agora (computational) | agoric-system
+agora-style computation | agoric-system
+market-based computation | agoric-system
+computational market | agoric-system
+Agoric (the company) | agoric-system
+Agoric mission | agoric-system
+Miller-Drexler 1988 | agoric-system
+The Ecology of Computation | agoric-system
+Huberman 1988 | agoric-system
+encapsulation as property right | agoric-system
+encapsulation of resources | agoric-system
+charge-per-use | agoric-system
+opaque box | agoric-system
+marketplace of mind | agoric-system
+the scandal of idle time | agoric-system
+business agent | agoric-system
+spontaneous order | agoric-system
+competence vs performance modularity | agoric-system
+post-facto simulation | agoric-system
+Pareto-preferred compiler | agoric-system
+subjective aggregation | subjective-aggregation
+only trust makes distinctions | subjective-aggregation
+mistrust is ignorance | subjective-aggregation
+mistrust = ignorance of internal structure | subjective-aggregation
+vat as TCB | subjective-aggregation
+vat as Trusted Computing Base | subjective-aggregation
+per-bundle trust model | subjective-aggregation
+inter-vat mutual suspicion | subjective-aggregation
+inter-object mutual suspicion | subjective-aggregation
+reason as if only suspicious of objects | subjective-aggregation
+economy of suspicion | subjective-aggregation
+fully paranoid actor | subjective-aggregation
+monolithic conspiracy assumption | subjective-aggregation
+vat | vat-and-compartment
+vat model | vat-and-compartment
+compartment | vat-and-compartment
+HardenedJS compartment | vat-and-compartment
+SES compartment | vat-and-compartment
+Endo compartment | vat-and-compartment
+vat-compartment translation | vat-and-compartment
+vat as unit of persistence | vat-and-compartment
+vat as unit of migration | vat-and-compartment
+vat as unit of partial failure | vat-and-compartment
+vat as unit of resource control | vat-and-compartment
+vat as unit of DoS-defense | vat-and-compartment
+vat incarnation | vat-and-compartment
+Joule tank | vat-and-compartment
+heap + thread + pending-delivery queue | vat-and-compartment
+unit of sequentiality | vat-and-compartment
+turn boundary | vat-and-compartment
+computational firm | vat-and-compartment
