@@ -2170,3 +2170,31 @@ Mozilla Script Security | object-capability
 Barth 2011 Web Origin RFC 6454 | object-capability
 OOPSLA 2017 | object-capability
 RustBelt grant 683289 | object-capability
+
+## chat-rename-dismiss-to-clear (cycle 95)
+
+dismiss-all to clear | chat-ui
+clear command | chat-ui
+dismiss-all alias | chat-ui
+deprecation period alias | chat-ui
+hidden CLI alias | chat-ui
+PR 93 chat | chat-ui
+endo clear | chat-ui
+endo dismiss-all | chat-ui
+.command alias | chat-ui
+clear-command.test.js | chat-ui
+internal vs external naming | chat-ui
+dismissAll daemon power | chat-ui
+chat-vs-CLI alias asymmetry | chat-ui
+minimal deprecation surface | chat-ui
+roadmap calibration git-blame | chat-ui
+65-calendar-day window | chat-ui
+three implementation bursts | chat-ui
+verbose unfamiliar name | chat-ui
+tab-completion prefix collision | chat-ui
+shortest-common-prefix advancement | chat-ui
+dismiss vs dismiss-all collision | chat-ui
+clear inbox conventional term | chat-ui
+post-implementation retrospective | chat-ui
+rename decision record | chat-ui
+merge commit 31df9e3cf | chat-ui

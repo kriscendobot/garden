@@ -54,6 +54,7 @@
 | [endo--pkg-eslint-plugin-readme--overview](../sections/endo--pkg-eslint-plugin-readme--overview.md) | endo packages/eslint-plugin/README.md | Endo-specific eslint rules. |
 | [endo--pkg-eslint-plugin-readme--supported-rules](../sections/endo--pkg-eslint-plugin-readme--supported-rules.md) | endo packages/eslint-plugin/README.md | Inventory of rules the plugin exports, each with a brief description of what it enforces. |
 | [endo--pkg-eslint-plugin-readme--usage](../sections/endo--pkg-eslint-plugin-readme--usage.md) | endo packages/eslint-plugin/README.md | How to enable the rules in your eslint config: extends, plugins, and rule-level configuration patterns. |
+| [endo-but-for-bots--llm-designs-chat-rename-dismiss-to-clear--rename-decision-record](../sections/endo-but-for-bots--llm-designs-chat-rename-dismiss-to-clear--rename-decision-record.md) | endo-but-for-bots designs/chat-rename-dismiss-to-clear.md | The deprecation-period-alias pattern + chat-vs-CLI alias asymmetry + internal-vs-external naming separation, applied to PR #93's rename of `dismiss-all` → `clear`. The *minimal-deprecation-surface* discipline: add alias surface only when there are existing users to migrate. The *roadmap calibration via git-blame* introspection — 65-calendar-day window with three implementation bursts is a reusable cycle-time baseline. |
 
 ## See also
 

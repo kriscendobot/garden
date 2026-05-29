@@ -9,8 +9,8 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | Topic | Abstract | Sections |
 |-------|----------|----------|
 | [agent-conventions](agent-conventions.md) | Repository-specific instructions written for AI agents working in a project; agent-security threat-class definitions; business-agent + reputation-system foundations. | 51 |
-| [chat-ui](chat-ui.md) | Familiar Chat — the web-based keyboard-first UI for the Endo daemon; UI invariants, principles, and component designs. | 55 |
-| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 48 |
+| [chat-ui](chat-ui.md) | Familiar Chat — the web-based keyboard-first UI for the Endo daemon; UI invariants, principles, and component designs. | 56 |
+| [repository-governance](repository-governance.md) | Contribution rules, security policy, commit conventions, repository structure. | 49 |
 | [typescript-conventions](typescript-conventions.md) | TypeScript rules in a `.js`-runtime + `.ts`-consumer repository. | 12 |
 | [exo](exo.md) | The Exo class API: `makeExo`, `defineExoClass`, `defineExoClassKit`. | 40 |
 | [testing](testing.md) | How to run and write tests in endo. | 18 |

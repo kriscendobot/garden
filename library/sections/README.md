@@ -549,4 +549,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - papers--swasey-garg-dreyer-ocpl-2017--{hla-language-program-logic-and-robust-safety, three-ocps-verified-dynamic-sealing-caretaker-membrane, related-work-iris-foundation-and-future-firefox-membrane}
 
-## Total: 590 sections from 140 source documents (through 2026-05-29).
+### From endo-but-for-bots/designs chat-rename-dismiss-to-clear (cycle 95, **twentieth chat-cluster source; single-section PR-merge decision record + post-implementation retrospective; second single-section ingest in the chat cluster**)
+
+- endo-but-for-bots--llm-designs-chat-rename-dismiss-to-clear--{rename-decision-record}
+
+## Total: 591 sections from 141 source documents (through 2026-05-29).
