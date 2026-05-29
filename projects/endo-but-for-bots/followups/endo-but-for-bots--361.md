@@ -4,7 +4,10 @@ pr_repo: endojs/endo-but-for-bots
 pr_number: 361
 created_at: 2026-05-23T06:33:43Z
 last_appended_at: 2026-05-23T06:33:43Z
-status: parked
+status: actioned
+actioned_at: 2026-05-29T01:47:43Z
+merge_event: 2026-05-25T19:41:18Z
+actioned_via: jobs/open/20260529T014743Z--88f3bc--action-followups-361.md
 ---
 
 # Follow-ups for endojs/endo-but-for-bots#361
