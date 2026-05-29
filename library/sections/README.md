@@ -529,4 +529,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-voice-command-parser--{problem-scope-mode-inventory-and-parser-shape, interaction-patterns-and-asynchrony, design-decisions-test-plan-and-open-questions}
 
-## Total: 576 sections from 135 source documents (through 2026-05-29).
+### From endo packages/eventual-send/src/track-turns.js longform comments (cycle 90, **eighth comment-fragment ingest; the causal-console instrument's three argument clusters: module-level disclaimers + closure-hoisting / bidirectional-error-annotation + sending-event-causes-receiving-events causal model from the trackTurns JSDoc**)
+
+- endo--packages-eventual-send-src-track-turns-js--{module-disclaimers-and-env-option-gates, closure-hoisting-and-bidirectional-error-annotation, sending-event-causes-receiving-events-causal-model}
+
+## Total: 579 sections from 136 source documents (through 2026-05-29).

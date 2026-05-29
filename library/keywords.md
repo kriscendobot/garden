@@ -1749,3 +1749,79 @@ session isolation vs resume | chat-ui
 literal-escape word alternative | chat-ui
 framing-pause threshold tunability | chat-ui
 non-voice long-press submit | chat-ui
+
+## packages/eventual-send/src/track-turns.js (cycle 90, eighth comment-fragment ingest)
+
+track-turns | object-capability
+track-turns.js | object-capability
+trackTurns | object-capability
+`trackTurns` | object-capability
+TurnStarterFn | object-capability
+`TurnStarterFn` | object-capability
+TurnStartFn | object-capability
+causal console | object-capability
+causal annotation | object-capability
+assert.note | object-capability
+`assert.note` | object-capability
+annotateError | object-capability
+sending event | object-capability
+receiving event | object-capability
+sending event causes receiving events | object-capability
+event causality DAG | object-capability
+turn number | object-capability
+event-within-turn counter | object-capability
+hiddenPriorError | object-capability
+hiddenCurrentTurn | object-capability
+hiddenCurrentEvent | object-capability
+hidden- prefix | object-capability
+meta-level privilege | object-capability
+meta-level-privilege framing | object-capability
+deliberate global mutable state | object-capability
+no observably mutable state | object-capability
+diagnostic-only mutable state | object-capability
+cyclic dependency disclaimer | object-capability
+not in scope before lockdown | object-capability
+agoric-sdk 9515 | object-capability
+TRACK_TURNS env option | object-capability
+`TRACK_TURNS=enabled` | object-capability
+TRACK_TURNS=enabled | object-capability
+TRACK_TURNS disabled by default | object-capability
+DEBUG=track-turns | object-capability
+DEBUG track-turns verbose | object-capability
+environmentOptionsListHas | object-capability
+getEnvironmentOption | object-capability
+inert-fallback guard | object-capability
+inert when disabled | object-capability
+returns funcs unchanged | object-capability
+zero-impact-when-disabled | object-capability
+closure hoisting | object-capability
+closures retain too much | object-capability
+HandledPromise retention | object-capability
+HandledPromise argument retention | object-capability
+hoist out of trackTurns | object-capability
+wrapFunction | object-capability
+`wrapFunction` | object-capability
+addRejectionNote | object-capability
+`addRejectionNote` | object-capability
+bidirectional error annotation | object-capability
+sync throw via try catch | object-capability
+async rejection via Promise.catch | object-capability
+must capture this now | object-capability
+must-capture-this-now timing rule | object-capability
+detailsNote eager capture | object-capability
+detailsNote string | object-capability
+THROWN to top of event loop | object-capability
+REJECTED at top of event loop | object-capability
+top of event loop | object-capability
+microturn top | object-capability
+microturn top callback | object-capability
+this-free TurnStarterFn | object-capability
+this-sensitive function | object-capability
+bottom of stack to start a new turn | object-capability
+finally clear hiddenPriorError | object-capability
+inter-turn hygiene | object-capability
+do not leak state across turn boundaries | object-capability
+Caused by chain | object-capability
+sendingError | object-capability
+Event: T.E format | object-capability
+Mark S. Miller track-turns | object-capability
