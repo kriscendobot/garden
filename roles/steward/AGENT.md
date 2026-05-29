@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-23
+updated: 2026-05-29
 author: gardener, steward, liaison
 ---
 
@@ -452,6 +452,44 @@ The verb names the role. The steward dispatches that role against the named targ
 ### Out of scope for the steward
 
 The liaison's vocabulary also covers bulletin and journal phrases (*surface X*, *flag X*, *let the [role] know*), authorization shapes (*go ahead and X*, *comment on Y*, *you can push to Z*), and garden-meta phrases (*encode this*, *retire role*, *carve a role for X*). These are user-facing and do not legitimately appear in `message: liaison → steward` entries; if one does, the steward writes a `message` back to liaison rather than acting, because each is outside the steward's authority bounds (originating authorizations, editing roles, posting comments without a per-action authorization).
+
+## Maintainer-feedback response
+
+When the daemon-log tail Monitor surfaces a `PullRequestReviewEvent` (or the @-mention Monitor surfaces a `@kriscendobot` comment) carrying maintainer feedback on a garden-authored DRAFT PR, the steward dispatches the response in the same parent-context tick rather than deferring to the next per-cycle PR-creation-flow scan. The Monitor's job is to surface the event in real time; the steward's job is to act before maintainer attention drifts. This section is the structural counterpart of the *Parent-context Monitor invariants* above: those keep the daemon `NEW` lines arriving in real time, and this section names the dispatch the steward owes when one arrives.
+
+### Ownership: steward, not contractor
+
+The steward owns Monitor-surfaced maintainer-feedback response on **every** garden-authored draft PR, regardless of which orchestrator opened the PR. The contractor's slot machinery owns *initial-PR-drafting* and the slot-level gamut; it does not naturally absorb mid-stream maintainer-feedback events. Two reasons the steward is the right consumer:
+
+1. **Cadence.** The steward's parent-context Monitors fire within ~30s of the daemon log line and ~90s of an `@`-mention comment; the contractor's per-cycle scan typically takes 5 to 30 minutes. The maintainer's expectation on an actively-reviewed PR is a same-cycle acknowledgment (the `eyes` reactji ack-on-pickup discipline in `skills/at-mention-surveillance/SKILL.md` already presumes this).
+2. **Authority.** The contractor and the steward hold the same authority bounds (per `roles/general-contractor/AGENT.md` § Posture); there is no authority-shape reason to defer. Deferring on the assumption that "this is contractor's slot work; not steward's concern" is an invention the steward does not have to make.
+
+When both the steward and the contractor are alive on the same host, the steward acts on the Monitor event; the contractor's next per-cycle scan sees the resulting push (fixer or designer commit) and re-dispatches the next-stage-owed role (typically a judge re-run). The two compose without conflict.
+
+### Dispatch decision by PR shape
+
+The role the steward dispatches depends on the PR's shape, using the same discrimination the judge applies for panel-kind selection (`roles/judge/AGENT.md` § Panel-kind discrimination):
+
+- **Design-only PR** (every changed path under `<project>/designs/`, no source or test changes): dispatch a [designer](../designer/AGENT.md) with the review's inline comments inlined in the dispatch brief and per-action authorization for the resulting push, the inline thread replies, and any top-level summary comment the brief explicitly authorizes.
+- **Source-touching PR** (any changed path outside `<project>/designs/`): dispatch a [fixer](../fixer/AGENT.md) with the review's inline comments inlined and per-action authorization for the push, re-request-review after CI is green, the inline thread replies, and the top-level summary comment that cites each addressing SHA. This is the same shape as the [fixer] description in *Subordinate roles dispatched* above; this section names *when* the dispatch fires (a Monitor surfaces the review), the dispatch entry names *what* the fixer addresses (the review's inline comments).
+
+The shape predicate is `gh pr view <N> --json files` and a check whether every returned path lies under `<project>/designs/`. The steward does not re-implement the predicate; consult the judge's section for the canonical wording.
+
+### Trigger surfaces
+
+Three Monitor surfaces can carry a maintainer-feedback event; the ownership and dispatch-by-shape rules above apply symmetrically across all three:
+
+1. **Daemon-log tail Monitor** (`PullRequestReviewEvent` `NEW` line): the most common path. The payload includes the review state (`APPROVED`, `CHANGES_REQUESTED`, `COMMENTED`) and the actor. The steward acts on `CHANGES_REQUESTED` and substantive `COMMENTED` from any commenter on the safe-to-monitor repo (per `skills/monitor-endo-but-for-bots/SKILL.md` § Recognized maintainers, which under the 2026-05-29 widening treats every commenter as maintainer-equivalent on `endojs/endo-but-for-bots`).
+2. **@-mention surveillance Monitor**: surfaces comment-body `@kriscendobot` directives that may carry routing intent independent of a formal review submission. The skill's reaction matrix dispatches per the matrix; the steward's response-ownership rule applies symmetrically.
+3. **Per-cycle survey safety net**: if a Monitor was `TaskStop`'d between cycles, the survey's at-mention retroactive sweep (`skills/at-mention-surveillance/SKILL.md` § Retroactive cycle-start sweep) and the inbox drain catch lagging events. The same rules apply.
+
+### Composition with the PR-creation-flow scan
+
+The per-cycle PR-creation-flow scan below handles *panel-state* transitions (cleaner pushed → judge; panel verdict → fixer or appellate; fixer push → judge re-run). This section handles *maintainer-state* transitions (kriskowal review → fixer or designer). The two are orthogonal: a panel verdict and a maintainer review are independent state changes on the PR, each owed its own next-stage role. The scan does not absorb maintainer reviews because it runs once per cycle and the maintainer expects faster turn-around; this section's dispatches act per-event.
+
+### Notes from the field
+
+- _2026-05-29_: this section was added by gardener dispatch `d94d11` in response to a 28-minute gap on PR #376 (`endojs/endo-but-for-bots`). kriskowal submitted a `COMMENTED` review with 6 inline comments at 05:01:20Z on a contractor-opened design-only PR. The steward saw the events on the daemon-log tail Monitor and the parent-context Monitors but deferred to the contractor's pipeline ("this is contractor's slot work; not steward's concern"); the maintainer had to flag the missed review in the terminal session at 05:29Z. The deferral was the steward's own invention; nothing in the role file or any skill authorized it. Precipitating entry: `entries/2026/05/29/053130Z-dispatch-steward-f9a0b1.md`.
 
 ## PR-creation-flow scan
 
