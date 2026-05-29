@@ -493,4 +493,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-pending-commands--{motivation-and-problems, pending-region-and-card-states, unlocking-and-concurrent-commands, relationship-to-commands-as-messages}
 
-## Total: 543 sections from 126 source documents (through 2026-05-29).
+### From endo packages/marshal/src/encodePassable.js longform comments (cycle 81, **fifth comment-fragment ingest; complements encodeToSmallcaps.js as the rank-order-preserving sibling**)
+
+- endo--packages-marshal-src-encodepassable-js--{number-encoding-binary64-bit-complement, bigint-encoding-elias-delta-with-sign-aware-alphabets, compact-format-string-escapes, dual-array-encodings-and-double-decode-verify, error-special-case-and-passstyle-prefix-table}
+
+## Total: 548 sections from 127 source documents (through 2026-05-29).

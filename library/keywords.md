@@ -1047,3 +1047,86 @@ hardware-attested companion channel | opaque-box
 Confidential Computing Consortium | opaque-box
 TPM 2.0 | opaque-box
 confidential computing | opaque-box
+
+## encodePassable.js rank-order-preserving encoder (cycle 81)
+
+`encodePassable` | rank-order-preserving-encoding
+encodePassable | rank-order-preserving-encoding
+`makePassableKit` | rank-order-preserving-encoding
+makePassableKit | rank-order-preserving-encoding
+rank-order encoding | rank-order-preserving-encoding
+rank order encoding | rank-order-preserving-encoding
+rank-order preserving encoding | rank-order-preserving-encoding
+sort-preserving encoding | rank-order-preserving-encoding
+lexicographic order matches numeric order | rank-order-preserving-encoding
+lexicographic byte order matches sort order | rank-order-preserving-encoding
+compactOrdered | rank-order-preserving-encoding
+legacyOrdered | rank-order-preserving-encoding
+compactOrdered format | rank-order-preserving-encoding
+legacyOrdered format | rank-order-preserving-encoding
+`rankOrder` | rank-order-preserving-encoding
+rankOrder | rank-order-preserving-encoding
+rank-order | rank-order-preserving-encoding
+`passStylePrefixes` | rank-order-preserving-encoding
+passStylePrefixes | rank-order-preserving-encoding
+ordinal-mapping prefix | rank-order-preserving-encoding
+remotable-to-ordinal mapping | rank-order-preserving-encoding
+bit-complement for sort order | rank-order-preserving-encoding
+Elias delta encoding | rank-order-preserving-encoding
+Elias-delta encoding | rank-order-preserving-encoding
+sign-aware alphabets | rank-order-preserving-encoding
+ten's complement digit encoding | rank-order-preserving-encoding
+sign-aware unary alphabet | rank-order-preserving-encoding
+`encodeBinary64` | rank-order-preserving-encoding
+encodeBinary64 | rank-order-preserving-encoding
+`encodeBigInt` | rank-order-preserving-encoding
+encodeBigInt | rank-order-preserving-encoding
+`stringEscapes` | rank-order-preserving-encoding
+stringEscapes | rank-order-preserving-encoding
+`encodeCompactArray` | rank-order-preserving-encoding
+encodeCompactArray | rank-order-preserving-encoding
+`encodeLegacyArray` | rank-order-preserving-encoding
+encodeLegacyArray | rank-order-preserving-encoding
+`decodeCompactArray` | rank-order-preserving-encoding
+`decodeLegacyArray` | rank-order-preserving-encoding
+`verifyEncoding` | rank-order-preserving-encoding
+verifyEncoding | rank-order-preserving-encoding
+double-decode embeddability check | rank-order-preserving-encoding
+embeddability verify | rank-order-preserving-encoding
+embeddable encoding | rank-order-preserving-encoding
+liberal decode | rank-order-preserving-encoding
+`liberalDecode` | rank-order-preserving-encoding
+liberalDecoders | rank-order-preserving-encoding
+`canonicalNaN` | rank-order-preserving-encoding
+canonical NaN constant | rank-order-preserving-encoding
+WebIDL canonical NaN | rank-order-preserving-encoding
+lockdown-independent NaN canonicalization | rank-order-preserving-encoding
+BigUint64Array DataView aliasing | rank-order-preserving-encoding
+C union trick | rank-order-preserving-encoding
+JavaScript C union | rank-order-preserving-encoding
+`isEncodedRemotable` | rank-order-preserving-encoding
+isEncodedRemotable | rank-order-preserving-encoding
+`getSuffix` | rank-order-preserving-encoding
+`zeroPad` | rank-order-preserving-encoding
+`recordNames` | rank-order-preserving-encoding
+`recordValues` | rank-order-preserving-encoding
+BANG escape prefix encodePassable | rank-order-preserving-encoding
+C0 control character escape | rank-order-preserving-encoding
+`rC0` | rank-order-preserving-encoding
+~ format discriminator | rank-order-preserving-encoding
+v2 encoding marshal | rank-order-preserving-encoding
+encodePassable v2 | rank-order-preserving-encoding
+keyed-store key encoding | rank-order-preserving-encoding
+CopyMap key encoding | rank-order-preserving-encoding
+CopySet key encoding | rank-order-preserving-encoding
+CopyBag key encoding | rank-order-preserving-encoding
+slow substring XS | rank-order-preserving-encoding
+XS substring performance | rank-order-preserving-encoding
+PR #1260 marshal | rank-order-preserving-encoding
+endojs/endo#1260 | rank-order-preserving-encoding
+endojs/endo#1984 | rank-order-preserving-encoding
+sign-aware bit complement | rank-order-preserving-encoding
+two's-complement-by-sign | rank-order-preserving-encoding
+ten's complement | rank-order-preserving-encoding
+unary length-of-length prefix | rank-order-preserving-encoding
+Elias delta variant | rank-order-preserving-encoding

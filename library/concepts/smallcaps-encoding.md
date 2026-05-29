@@ -25,6 +25,7 @@ Smallcaps is marshal's JSON-representable wire format for passables: every small
 ## See also
 
 - [[pass-invariant-handle-equality]] — the broader pass-invariant equality discipline that round-tripped values preserve identity; smallcaps' canonicity is one of the bytes-level mechanisms.
+- [[rank-order-preserving-encoding]] — `encodePassable`, the sister encoder in the same package. Smallcaps targets JSON-shape round-trip; encodePassable targets rank-order-preserving database keys. Both encoders share the diagnostic-priority error-special-case at the encoding root; their other moves diverge.
 - [[syrup-record-positionality]] — a sibling-format design decision in OCapN's Syrup encoding (record field names are positional bindings, not on the wire); smallcaps takes a different path (property names *are* on the wire, in sorted order, escaped through Hilbert hotel when they collide with sigils).
 - [[shape-not-content]] — the discipline of capturing shape rather than rows; smallcaps' wire format is a shape-typed encoding (the first byte of every string answers "what kind is this").
 
