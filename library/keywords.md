@@ -959,3 +959,41 @@ Agoric contract | smart-contract
 TitleCompanyMaker | smart-contract
 escrowedStock | smart-contract
 escrowedMoney | smart-contract
+
+# Cycle-78 decomposition batch three (2026-05-30) — agoric-machinery cluster (3 concept pages)
+competence vs performance modularity | competence-vs-performance-modularity
+competence-vs-performance modularity | competence-vs-performance-modularity
+competence modularity | competence-vs-performance-modularity
+performance modularity | competence-vs-performance-modularity
+safety and liveness | competence-vs-performance-modularity
+what programs can do vs how efficiently they do it | competence-vs-performance-modularity
+object-orientation modularizes competence | competence-vs-performance-modularity
+markets modularize performance | competence-vs-performance-modularity
+business agent | business-agent
+business agents | business-agent
+data-type agent | business-agent
+lookup-table agent | business-agent
+manager agent | business-agent
+agent-selection agent | business-agent
+performance-domain delegate | business-agent
+subcontractor vs agent | business-agent
+specialized resource-allocation agent | business-agent
+compilation speculator | business-agent
+Pareto-preferred compiler | business-agent
+positive vs negative reputation | positive-vs-negative-reputation
+positive reputation | positive-vs-negative-reputation
+positive reputation system | positive-vs-negative-reputation
+negative reputation | positive-vs-negative-reputation
+negative reputation system | positive-vs-negative-reputation
+reputation system | positive-vs-negative-reputation
+reputation service | positive-vs-negative-reputation
+pseudonyms and reputation | positive-vs-negative-reputation
+cheap pseudonyms vulnerability | positive-vs-negative-reputation
+cash bond performance guarantee | positive-vs-negative-reputation
+cash bond pattern | positive-vs-negative-reputation
+performance guarantee bond | positive-vs-negative-reputation
+crypto staking (1988 ancestor) | positive-vs-negative-reputation
+Better Business Bureau (computational) | positive-vs-negative-reputation
+Underwriters Laboratories analogy | positive-vs-negative-reputation
+Axelrod iterated prisoner's dilemma | positive-vs-negative-reputation
+iterated relationship | positive-vs-negative-reputation
