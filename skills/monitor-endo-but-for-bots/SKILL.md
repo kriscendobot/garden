@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-15
+updated: 2026-05-29
 author: gardener, liaison, monitor
 ---
 
@@ -12,7 +12,11 @@ This skill handles **event-level** surveillance (who acted, when, on what). Its 
 
 ## Recognized maintainers
 
-The maintainer set on this repo is `kriskowal` and `jcorbin`. A review or comment from either routes the same way: maintainer-equivalent authority on every PR in this repo, no topic scope. Wherever a rule row below names `kriskowal`, read it as "any recognized maintainer" and substitute either login. Recognition of `jcorbin` was added 2026-05-13 per kriskowal's directive at `endojs/endo-but-for-bots#148` ("Josh is a maintainer on endo-but-for-bots"); the recognition is repo-scoped and does not extend to `endojs/endo` absent explicit maintainer confirmation. Maintainer authority is distinct from senior-contributor authority (see the *Senior contributors* subsection below): maintainers carry repo-wide authority across every topic, while senior contributors carry topic-scoped authority that meets or exceeds maintainer weight on the technical question within their topic set.
+Per the 2026-05-29 maintainer directive recorded in [`journal/projects/endo-but-for-bots/README.md`](../../../journal/projects/endo-but-for-bots/README.md) § Authority structure on the `journal` branch: the repository's GitHub permission gate restricts commenting, reviewing, and PR-opening to users with maintainer access, so every commenter on this repo is treated as maintainer-equivalent, on every PR and every topic. Wherever a rule row below names `kriskowal`, read it as "any commenter on this repo": substitute any login that appears as the actor on a `PullRequestReviewEvent`, `PullRequestReviewCommentEvent`, or `IssueCommentEvent`.
+
+The non-exhaustive named list (the project README maintains the canonical version) currently includes **kriskowal**, **jcorbin**, **kumavis**, **erights**, **danfinlay**, and **0xpatrick**. The list is examples-of, not the closed set; the permission gate is the gate.
+
+The 2026-05-29 widening supersedes the prior `kriskowal`/`jcorbin`-only recognition baseline. It is repo-scoped to `endojs/endo-but-for-bots` and does not extend to `endojs/endo` absent further confirmation; the parallel `skills/monitor-endo/SKILL.md` is unchanged.
 
 ## Project
 
@@ -42,19 +46,18 @@ Each row records the agreed action and a brief rationale. Where two actions are 
 
 - `PullRequestEvent/synchronize` — **quiet**. The matching `PushEvent` already handled it; recording it twice is duplicate.
 
-- `PullRequestReviewEvent/created|submitted` — **loud** with `state` (`APPROVED`, `CHANGES_REQUESTED`, `COMMENTED`) and actor. The steward routes (where "recognized maintainer" = `kriskowal` or `jcorbin` per the *Recognized maintainers* section above):
-    - recognized maintainer + `CHANGES_REQUESTED` => fixer (per `roles/COMMON.md` § fixer);
-    - recognized maintainer + `COMMENTED` with non-trivial body => fixer with the per-action authorization the maintainer pre-stages (otherwise journal-only);
-    - recognized maintainer + `APPROVED` => clear the bulletin row;
-    - other reviewers => journal only, no role dispatch (subject to the *Senior contributors* subsection below for topic-matching senior-contributor events).
+- `PullRequestReviewEvent/created|submitted` — **loud** with `state` (`APPROVED`, `CHANGES_REQUESTED`, `COMMENTED`) and actor. Per the 2026-05-29 widening (see *Recognized maintainers* above), every reviewer on this repo routes as maintainer-equivalent:
+    - any reviewer + `CHANGES_REQUESTED` => fixer (per `roles/COMMON.md` § fixer);
+    - any reviewer + `COMMENTED` with non-trivial body => fixer with the per-action authorization implied by the comment body (the matrix in `skills/at-mention-surveillance/SKILL.md` § Per-repo overrides governs the @-mention case);
+    - any reviewer + `APPROVED` => clear the bulletin row.
 
 - `PullRequestReviewEvent/edited|dismissed` — **quiet**. Edits to a prior review are typically maintainer-side polishing; dismissals are rare and the steward will see the next review-state transition.
 
 - `PullRequestReviewCommentEvent/created` — **quiet**. The parent `PullRequestReviewEvent` (when the review is submitted with the comments) carries the routing signal. Standalone inline comments without a containing review are rare on this repo and the steward picks them up via the review-queue daemon's *Pending kriskowal reviews* bulletin section anyway.
 
-- `IssueCommentEvent/created` — **conditionally loud**.
-    - On an open PR: journal a `tick` if the actor is a recognized maintainer (`kriskowal` or `jcorbin`) and the comment body matches one of the authorization-grant patterns (currently: identity switches, write-access grants, "do not open a PR upstream" constraints, maintainer `/<command>` directives that route to a role). The [endojs/endo-but-for-bots#109#issuecomment-4436075344](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4436075344) grant is the prototype. Surface to the bulletin's *Pre-staged authorizations* section per the steward's existing pattern.
-    - On an open PR by any other actor, or by a recognized maintainer without the authorization-grant shape: **quiet**. Maintainer comments are GitHub-notification-covered; others' comments rarely drive role dispatch (subject to the *Senior contributors* subsection below for topic-matching senior-contributor comments).
+- `IssueCommentEvent/created` — **conditionally loud**. Per the 2026-05-29 widening, every commenter on this repo is treated as maintainer-equivalent for the rules below.
+    - On an open PR: journal a `tick` if the comment body matches one of the authorization-grant patterns (currently: identity switches, write-access grants, "do not open a PR upstream" constraints, maintainer `/<command>` directives that route to a role). The [endojs/endo-but-for-bots#109#issuecomment-4436075344](https://github.com/endojs/endo-but-for-bots/pull/109#issuecomment-4436075344) grant is the prototype. Surface to the bulletin's *Pre-staged authorizations* section per the steward's existing pattern.
+    - On an open PR without the authorization-grant shape: **quiet by default at the event level**. The comment's body is still picked up by `skills/at-mention-surveillance/SKILL.md` for `@kriscendobot` and `@kriskowal` content-level routing, which under the per-repo override fires the matrix's `@kriscendobot` rows regardless of author. Event-level "quiet" here means "do not add a bulletin row from the event alone"; the content-level surveillance is the dispatch trigger.
     - On a closed PR or an issue: **quiet** unless the issue number matches a row in the bulletin's *PR backlog* or *Awaits maintainer decision*, in which case a one-line `tick`.
 
 - `IssuesEvent/opened` — **loud**. New issues may need a role dispatch (a designer for a design issue, a scout for a benchmark, a fixer for a bug repro request). The steward decides; the monitor's job is to make sure the steward sees it.
@@ -71,23 +74,11 @@ Each row records the agreed action and a brief rationale. Where two actions are 
 
 - Other event classes — surface as a `message` to `liaison` with the raw type and a one-line context; do not silently drop.
 
-### Senior contributors (erights et al.)
+### Cross-repo erights note
 
-The endo-but-for-bots project README's *Authority structure* section (`journal/projects/endo-but-for-bots/README.md` § Authority structure on the `journal` branch) names erights as a senior contributor whose authority meets or exceeds kriskowal's on a defined topic set. The monitor surfaces accordingly:
+Under the 2026-05-29 widening (see *Recognized maintainers* above), erights events on `endojs/endo-but-for-bots` route as any commenter's: maintainer-equivalent regardless of topic. No topic-match heuristic applies on this repo.
 
-- A `PullRequestReviewEvent`, `PullRequestReviewCommentEvent`, or `IssueCommentEvent` from `erights` (login matches the GitHub account, verified by `gh pr view` if ambiguous) on a **topic-matching PR** is **loud** and routes a `message` to `liaison`. Do not auto-dispatch a fixer; that remains a kriskowal-directive privilege per `roles/COMMON.md` § External-repo etiquette.
-- On a PR that is **not** topic-matching, an erights event downgrades to the row that would otherwise apply (typically quiet for review events from non-maintainer reviewers; see the `PullRequestReviewEvent` row above).
-- The rule defers to the project README's *Authority structure* section for the canonical topic list and the practical-rule framing; do not duplicate the list here.
-
-**Topic-match heuristic (keyword-first with file-path fallback):**
-
-1. **Keyword check (cheap, daemon-payload-friendly).** On wake, look at the PR title (for `PullRequestEvent`-derived rows the daemon line carries it; otherwise `gh pr view <N> --json title,labels`). The PR is topic-matching if the title or any label contains any of: `pass-style`, `ses`, `hardened`, `harden`, `marshal`, `pattern`, `eventual-send`, `captp`, `ocapn`, `capability`. Case-insensitive substring match.
-2. **File-path fallback (if keyword check is inconclusive).** Run `gh pr view <N> --json files --jq '.files[].path'`. The PR is topic-matching if any path is under `packages/{pass-style,ses,marshal,patterns,eventual-send,captp,hex}/`.
-3. **Result.** Topic-matching if either step matches; otherwise not.
-
-The keyword step works from the daemon-line payload alone; the file-path step covers PRs whose title is generic (a refactor, a typo fix) but whose diff touches a topic package. If a real event reveals the heuristic is wrong, capture the fix in the *Notes from the field* row below.
-
-This rule supersedes the prior baseline where non-maintainer reviews were silent regardless of reviewer. The 2026-05-13 baseline that silently swallowed an erights `PullRequestReviewEvent/updated#69` (recorded in `journal/entries/2026/05/13/062434Z-result-steward-0a91d5.md` on the `journal` branch) is the precipitating example. Per the dispatch that landed this rule, prior swallowed events are not re-processed; the rule takes effect for future events.
+The topic-scoped erights treatment is **unchanged on `endojs/endo`**, where the sibling skill `skills/monitor-endo/SKILL.md` consults [`journal/projects/endo/README.md`](../../../journal/projects/endo/README.md) § Authority structure for the canonical topic list (`pass-style`, `ses`, `hardened-JS`, `marshal`, `eventual-send`, `captp`, `patterns`, the OCapN-family protocol, capability-security) and the topic-match heuristic that consumes it. Do not assume the widening on this repo extends there.
 
 ## Notes from the field
 
@@ -95,3 +86,5 @@ This rule supersedes the prior baseline where non-maintainer reviews were silent
 
 - 2026-05-13 — Initial reaction rules landed from the monitor's first proposal (`journal/entries/2026/05/13/023053Z-message-monitor-b8bb4a.md`), following a backfill tick that surfaced seven event classes against an all-`(unset)` skill. The framing turns on the repo being the active bot-evolution surface: the maintainer already sees GitHub notifications, so the monitor's job is to detect events that change which role the steward should dispatch next, not to mirror review activity into the bulletin. PR review state routes to fixer / clear-backlog / fixer-with-authorization per kriskowal's `CHANGES_REQUESTED` / `APPROVED` / `COMMENTED`. `IssueCommentEvent` from kriskowal with an authorization-grant shape (identity switches, write-access grants, no-PR-upstream constraints) surfaces to *Pre-staged authorizations*; the endo-but-for-bots#109 grant is the prototype, and the pattern waits for more examples before factoring out into its own skill.
 - 2026-05-13 — `jcorbin` added to the recognized-maintainer set per kriskowal's directive at `endojs/endo-but-for-bots#148` ("Josh is a maintainer on endo-but-for-bots"). The `PullRequestReviewEvent` and `IssueCommentEvent` rule rows now resolve "recognized maintainer" as either `kriskowal` or `jcorbin` rather than `kriskowal` alone. Recognition is repo-scoped; the parallel `skills/monitor-endo/SKILL.md` was deliberately not changed, because the maintainer's directive named endo-but-for-bots specifically and no journal evidence places `jcorbin` as a maintainer on `endojs/endo`. The distinction between maintainer authority (repo-wide, every topic) and senior-contributor authority (topic-scoped; erights on the listed subsystems) is preserved: jcorbin's recognition is the former, not the latter.
+
+- _2026-05-29_: Recognized-maintainer set widened to every commenter on this repo, per kriskowal's 2026-05-29 directive. The repository's GitHub permission gate already restricts commenting, reviewing, and PR-opening to users with maintainer access, so the monitor's prior `kriskowal`/`jcorbin`-only matching was a redundant inner gate. The `PullRequestReviewEvent` and `IssueCommentEvent` rows now read "any reviewer" / "every commenter," and the prior *Senior contributors* subsection with its topic-match heuristic is retired for this repo (collapsed into a cross-repo erights note that points at `skills/monitor-endo/SKILL.md`). Precipitating case: kumavis's `@kriscendobot review this pr` on [endojs/endo-but-for-bots#328](https://github.com/endojs/endo-but-for-bots/pull/328) (steward message `b8c2d3` at `journal/entries/2026/05/29/015400Z-message-steward-b8c2d3.md`). The named non-exhaustive list (kriskowal, jcorbin, kumavis, erights, danfinlay, 0xpatrick) lives on the project README; this skill cites the README rather than carrying its own copy. Repo-scoped to `endojs/endo-but-for-bots`; `skills/monitor-endo/SKILL.md` is unchanged.
