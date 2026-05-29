@@ -1825,3 +1825,94 @@ Caused by chain | object-capability
 sendingError | object-capability
 Event: T.E format | object-capability
 Mark S. Miller track-turns | object-capability
+
+## Automated Analysis of Security-Critical JavaScript APIs (Taly et al 2011, cycle 91)
+
+SES_light | object-capability
+SES light | object-capability
+ENCAP | object-capability
+ENCAP tool | object-capability
+API confinement | object-capability
+API confinement problem | object-capability
+overt confinement problem | object-capability
+API+Sandbox | object-capability
+API plus Sandbox | object-capability
+trusted API service | object-capability
+API as reference monitor | object-capability
+transitively immutable built-in objects | object-capability
+deeply immutable global object | object-capability
+variable-restricted eval | object-capability
+ECMA TC39 | object-capability
+ECMA-262 | object-capability
+ES5S | object-capability
+ES5 strict | object-capability
+strict mode JavaScript | object-capability
+lexical scoping property | object-capability
+safe closure-based encapsulation | object-capability
+no ambient access to global object | object-capability
+arguments.caller leak | object-capability
+.callee .caller forbidden | object-capability
+this coercion to global | object-capability
+delete on variable name | object-capability
+prototype on scope object | object-capability
+with statement forbidden | object-capability
+Confinement Property | object-capability
+PtsTo Reach | object-capability
+labeled semantics | object-capability
+allocation site label | object-capability
+alpha-renaming bisimilarity | object-capability
+Theorem 1 renaming preserves bisimilarity | object-capability
+flow-insensitive context-insensitive | object-capability
+Datalog points-to | object-capability
+bddbddb | object-capability
+inclusion-based points-to | object-capability
+Soundness Theorem 2 | object-capability
+soundness over approximation | object-capability
+Yahoo ADSafe | object-capability
+ADSafe vulnerability | object-capability
+ADSafe lib method | object-capability
+ADSafe go method | object-capability
+triple underscore property | object-capability
+___ property hiding | object-capability
+$Safe annotation | object-capability
+$Num annotation | object-capability
+$All annotation | object-capability
+JSLint filter | object-capability
+Sealer Unsealer | object-capability
+Sealer-Unsealer pair | object-capability
+Morris 1973 sealer | object-capability
+Mint function verified | object-capability
+conservation of currency | object-capability
+Nat function natural number | object-capability
+brand seal unseal | object-capability
+Ankur Taly | object-capability
+Ulfar Erlingsson | object-capability
+John Mitchell Stanford | object-capability
+Jasvir Nagra | object-capability
+IEEE S&P 2011 | object-capability
+Google Caja | object-capability
+Facebook FBJS | object-capability
+Crockford ADSafe | object-capability
+Featherweight Java analogue | object-capability
+A-normal form | object-capability
+Maffeis Mitchell Taly 2008 | object-capability
+LambdaJS Guha Krishnamurthi | object-capability
+points-to map | object-capability
+PtsTo_D over approximation | object-capability
+Cons consequence closure | object-capability
+Herbrand semantics Datalog | object-capability
+object-sensitive analysis | object-capability
+CFA2 context-free | object-capability
+Gatekeeper Guarnieri Livshits | object-capability
+VEX browser extension | object-capability
+Pixy SQL injection | object-capability
+Staged Information Flow | object-capability
+Whaley Datalog | object-capability
+Robust Composition reference | object-capability
+api un store push attack | object-capability
+priv.push override attack | object-capability
+trusted code reference monitor | object-capability
+language-based sandbox | object-capability
+iframe alternative | object-capability
+write-only log API | object-capability
+critical log array | object-capability

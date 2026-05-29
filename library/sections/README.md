@@ -533,4 +533,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-eventual-send-src-track-turns-js--{module-disclaimers-and-env-option-gates, closure-hoisting-and-bidirectional-error-annotation, sending-event-causes-receiving-events-causal-model}
 
-## Total: 579 sections from 136 source documents (through 2026-05-29).
+### From Mark S. Miller papers: Automated Analysis of Security-Critical JavaScript APIs (cycle 91, liaison orchestrator-direct-draft 2026-05-29, **ninth Miller-coauthored paper; first Stanford-authored paper; first IEEE S&P paper; first formal-static-analysis paper distinct from the formal Hoare-logic paper of cycle 85**)
+
+- papers--taly-automated-analysis-of-security-critical-javascript-apis-2011--{api-confinement-problem-and-ses-light-language-design, static-analysis-procedure-and-soundness-theorem, applications-adsafe-vulnerability-sealer-unsealer-and-mint}
+
+## Total: 582 sections from 137 source documents (through 2026-05-29).
