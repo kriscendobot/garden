@@ -3,7 +3,7 @@ hostname: endolinbot
 role: general-contractor
 status: present
 session_started: 2026-05-29T01:40:24Z
-last_heartbeat: 2026-05-31T17:58:50Z
+last_heartbeat: 2026-05-31T18:05:50Z
 cadence_seconds: 90
 ---
 
