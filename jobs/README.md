@@ -9,11 +9,18 @@ The full procedure (post / claim / complete / abandon) is in [`<garden-root>/ski
 ## Layout
 
 ```
-jobs/open/<UTC>--<short-id>--<slug>.md          # available; any eligible role may claim
+jobs/open/<UTC>--<short-id>--<slug>.md          # flat board; any eligible role may claim
 jobs/claimed/<UTC>--<host>--<role>--<sid>--<short-id>--<slug>.md
 jobs/done/<UTC>--<host>--<role>--<sid>--<short-id>--<slug>.md
 jobs/abandoned/<UTC>--<host>--<role>--<sid>--<short-id>--<slug>.md
+
+jobs/<role>/open/<UTC>--<short-id>--<slug>.md   # per-role board; only that role's workers claim
+jobs/<role>/claimed/...                         # same per-bin structure under each role
+jobs/<role>/done/...
+jobs/<role>/abandoned/...
 ```
+
+The flat board (`jobs/{open,claimed,done,abandoned}/`) is the original design; the per-role boards (`jobs/<role>/{open,claimed,done,abandoned}/`) are the layout `designs/driver.md` § Role-specific job boards adds for the script-orchestrated driver model. Both coexist during the migration. Initial per-role boards: `cleaner`, `judge`, `fixer`, `weaver`, `shepherd`, `conductor`; each has its own README. The judge board is the shared queue for the three judge-flavored roles (`solicitor`, `barrister`, `justice`).
 
 - `<UTC>` is compact `YYYYMMDDTHHMMSSZ`, generated at the transition that moves the file into the directory (so the `open/` timestamp is post time; the `claimed/` timestamp is claim time; etc.).
 - `<short-id>` is six hex characters, set at post time and preserved across moves. The job's identity for the whole lifecycle.
