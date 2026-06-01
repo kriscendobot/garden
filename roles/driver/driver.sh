@@ -69,7 +69,7 @@ cleanup_transcript() {
   # Hash the transcript into the journal so it survives the temp-dir
   # cleanup that any harness might do, even on a clean exit. The blob is
   # unreferenced; git gc will collect it after the journal's grace window.
-  if [ -s "$TRANSCRIPT" ] && [ -d "$GARDEN_JOURNAL/.git" -o -f "$GARDEN_JOURNAL/.git" ]; then
+  if [ -s "$TRANSCRIPT" ] && { [ -d "$GARDEN_JOURNAL/.git" ] || [ -f "$GARDEN_JOURNAL/.git" ]; }; then
     git -C "$GARDEN_JOURNAL" hash-object -w --stdin < "$TRANSCRIPT" >/dev/null 2>&1 || true
   fi
   if [ "$TRANSCRIPT_KEPT" = 0 ] && [ -f "$TRANSCRIPT" ]; then
