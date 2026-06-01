@@ -1,7 +1,8 @@
 # design(driver): script-orchestrated PR-creation flow
 
 | Created | 2026-05-29 |
-| Author  | gardener   |
+| Updated | 2026-06-01 |
+| Author  | gardener, fixer |
 | Status  | Proposed   |
 
 ## Summary
@@ -98,7 +99,7 @@ Each role-specific board uses the same claim-via-push race the current board use
 
 ### Drivers
 
-A driver is a bash process bound to one garden-authored PR. It is launched by the **driver supervisor** (a host-wide service or a `liaison`-driven dispatch) when a new garden-authored DRAFT PR is detected, and it exits when its PR is merged, closed without merging, or abandoned.
+A driver is a bash process bound to one garden-authored PR (or to a generic job-board worker role; see *Multi-job-kind drivers* below). It is invoked manually by the maintainer via `roles/driver/driver.sh <lane>` (per Q9 disposition), where `<lane>` is the driver's lane number. The driver exits when its PR is merged, closed without merging, or abandoned, when it traps an unexpected error (and reports to the gardener inbox per *Error reporting* above), or when the maintainer signals it.
 
 The driver's responsibilities:
 
@@ -216,6 +217,111 @@ When the driver (or a worker script) reaches a step it cannot resolve determinis
 
 The capture-by-SHA pattern means identical failure logs produce identical SHAs. Recurring operational flakes (the test-xs esvu download issue that hit PRs #79, #357, #375, #377 today) would all hash to the same blob. The script can short-circuit on a known-SHA: if the failure SHA matches a previously-classified failure, apply the known disposition without re-invoking the LLM.
 
+### Error reporting to the gardener inbox
+
+The general pattern for *any* unexpected error in a driver or worker shell script is to send a message to the gardener's inbox. The inbox is the journal-side mailbox at `journal/inboxes/<host>/gardener.md`; the gardener role drains it via the `inbox-drain` skill on its next dispatch.
+
+Each numbered driver gets its own mailbox so the gardener can attribute failures to a specific lane without forensic ordering across an aggregated stream. The lane number comes from the driver's invocation argument (see *Driver supervisor*, Q9 disposition below): driver one writes to `journal/inboxes/<host>/gardener.md` with a section header that names the lane and includes the captured transcript SHA. The mailbox itself is shared with other gardener-routed messages; the per-lane discrimination is by message header and transcript reference rather than by separate files.
+
+The error-reporting flow:
+
+1. The driver's outer shell traps unexpected exits (`trap '...' ERR EXIT` with discrimination on `$?`).
+2. The trap writes the failure transcript (the `-x` subshell capture, see *Driver supervisor*) to the journal as a blob via `git hash-object -w --stdin`.
+3. The trap appends a message section to `journal/inboxes/<host>/gardener.md`, naming the driver lane, the PR (if any), the state, the capture SHA, and a one-paragraph context.
+4. The driver exits non-zero. Restart policy is the supervisor's concern (Q9 disposition: manual restart, since drivers are manually launched).
+
+This pattern is uniform across the driver, worker scripts (`builder.sh`, `cleaner.sh`, etc.), and the repo-activity watcher described next. Anything that is not the LLM-judgement substate inherits the same error fan-out.
+
+### Coalesced repo-activity watcher
+
+Today's standing-monitor daemons (one per repository) are independent processes writing to `/tmp/garden-monitor-*.log`. The driver design coalesces these into a **single repo-activity watcher process** per host whose responsibility is to deterministically append messages to the relevant inboxes in the journal.
+
+Subscription model:
+
+1. Each driver, on launch, advertises which PRs it is subscribed to by writing a subscription file at `journal/drivers/<host>/<lane>.subscriptions` (or equivalently a stanza in its state file). The file enumerates `repo:pr` pairs.
+2. The watcher reads the union of all subscriptions on each polling tick. The union determines its fanout: which PRs to poll, and which inboxes (per-driver) to deliver events to.
+3. When the watcher detects a new event (CI status change, review submission, push, comment), it deterministically classifies the event and appends a message to the subscribed driver's per-PR event log at `journal/events/<repo>--<pr>.log` (the driver's tail source per the existing design).
+4. Events with no subscribed driver (e.g., a brand-new garden-authored DRAFT PR with no driver yet) go to a default inbox the supervisor watches, so it can launch a driver on demand.
+
+The coalesced watcher also owns:
+
+- **Deterministic reactji posting** (see next subsection). The watcher is the single agent that posts `:eyes:` on a new comment to acknowledge surveillance; previously this was an agent-task and was unreliable.
+- **Per-event message routing**: a `@kriscendobot` mention routes to the subscribed driver's inbox; an assigned-issue event routes to the steward's job-board posting hook; an issue body mention routes elsewhere.
+
+The watcher subsumes the role of the existing per-repo poll daemons but with a single process whose subscription set is the union of active driver subscriptions. The benefit is one polling rate budget across the host, one place to land event-format changes, and a deterministic single source of truth for "this event was seen at SHA X at time T."
+
+### Deterministic reactji posting
+
+Posting reactji on PR comments today is a soft-real-time responsibility that falls to whichever agent picks up an event next. It is unreliable: the `:eyes:` reactji that acknowledges "the garden has seen this comment" can be delayed by minutes if no agent is scheduled.
+
+Under the driver design, the **coalesced repo-activity watcher** owns reactji posting deterministically:
+
+- New comment detected → `:eyes:` reactji posted immediately as part of the watcher's per-event handler, before routing the message to a driver inbox.
+- The watcher records the reaction SHA (the comment id and reactji id) in `journal/events/<repo>--<pr>.log` so downstream agents do not double-post.
+- Acknowledgment reactji (`:+1:`, `:rocket:`) on resolved review comments remain the driver's or fixer's responsibility, gated by the specific action that resolves the comment.
+
+The benefit is the eyes reactji becomes a near-instantaneous deterministic signal to the maintainer that the garden has registered the comment. The watcher is the single place that posts; race conditions between agents are eliminated by construction.
+
+### Deterministic worktree lifecycle
+
+Today the worktree triple (`garden/`, `journal/`, `project/`) is created by `skills/dispatch-worktree/dispatch-prepare.sh` immediately before an `Agent` invocation and torn down by `skills/dispatch-worktree/dispatch-teardown.sh` when the subagent returns. The orchestrator runs both scripts inside its LLM context.
+
+Under the driver design, worktree setup and teardown are deterministic and **driver-run**: the driver (or the worker script the driver dispatches into) calls the prepare and teardown scripts directly as part of its bash flow, not as an Agent-side step inside an LLM context. This:
+
+- Removes the worktree lifecycle from the LLM's responsibility surface, eliminating a class of "the agent forgot to teardown" failures.
+- Lets the driver create per-stage worktrees (a fresh `project/` per state-machine transition that needs one) without paying a per-stage LLM-tick cost.
+- Aligns the worktree's existence with the deterministic step that produced it, making leaks visible: a worktree that survives a non-failing transition is a deterministic bug, not an LLM oversight.
+
+The prepare and teardown scripts themselves are unchanged; only their caller changes.
+
+### Driver-run pre-CI validation
+
+Before pushing changes to a PR branch (whether the initial DRAFT open or a fixer follow-up), the driver runs a deterministic validation gauntlet locally:
+
+1. `yarn format` (auto-fix in place; if anything is dirty after, the driver stages and commits the format changes as part of the same push).
+2. **Tests relevant to the changes**: a targeted run against the touched packages (e.g., `yarn workspace @endo/<pkg> test`) for fast feedback.
+3. `yarn build:types:check` (typecheck the whole monorepo).
+4. `yarn lint` (full lint pass).
+5. **Full test run** across all packages.
+6. **Docs generation** (`yarn docs` or equivalent).
+
+Only after all six steps pass does the driver push to the PR branch. CI then runs the same set; the driver's local pass is a precondition that catches the bulk of avoidable red-CI handoffs.
+
+When a step fails, the driver either:
+
+- Auto-fixes and re-runs (for `yarn format`).
+- Captures the failure log via `git hash-object`, escalates to claude with the prompt-on-failure pattern, applies the response, and re-runs.
+- After two unsuccessful escalations, parks the driver, reports to the gardener inbox, and exits.
+
+The class of "I had to ask for `yarn format` again" cannot survive this gate. The class of "tests failed in CI but never locally" reduces to a CI-only environmental shape, which is a much narrower problem.
+
+### Multi-job-kind drivers
+
+A driver picks up *many kinds of job*, not just per-PR PR-creation work. The categories the design recognizes:
+
+1. **PR-creation flow** (the original motivating shape): one driver per active garden-authored DRAFT PR, lifetime equal to the PR's, running the state machine documented above.
+2. **Observed-error response**: a driver can be assigned a captured-error mailbox to triage and act on. The trigger is a gardener-inbox entry with a transcript SHA; the driver investigates the transcript, classifies the failure, and either lands a fix-PR, files an issue, or escalates back to the maintainer.
+3. **Issue response**: a driver can pick up a job to respond to an issue (read, classify, draft a reply or a fix-PR, post).
+4. **Build request**: a driver can pick up a job to satisfy a request to build (analogous to the existing builder dispatch but driver-mediated).
+5. **Design request**: a driver can pick up a job to satisfy a request to design (analogous to the existing designer dispatch).
+6. **Retcon / rebase request**: a driver can pick up a fixer-retcon or weaver-rebase job from the job board.
+
+The job-kind dispatch is the driver's outer loop after its primary subscribed PR (if any) reaches a steady state. The driver polls the role-specific job boards for any job it is eligible to claim, claims one, runs the appropriate workflow, then returns to subscribed-PR work. When the driver has no subscribed PR (a generic worker driver), the entire body is job-board-driven.
+
+Classification of *which role's workflow to run* is by **inference**: the LLM reads the job's brief (the job-board entry's body) and selects the role. Where a deterministic predicate is feasible (the job kind is named explicitly in the job file's frontmatter, the PR's labels are unambiguous), the script short-circuits. Where it is not, the LLM classifies and the script records the classification SHA so identical briefs reuse the verdict.
+
+### Role-specific driver workflows
+
+The driver does not run *one* workflow; it runs the workflow appropriate to the job kind it claimed. Each workflow is a state machine fragment with its own predicates:
+
+- **PR-creation workflow** (the canonical state machine above): initial → design → build → clean → panel → verdict → fixer/justice/appellate → un-draft → await-maintainer → changes-requested or approved+green → merged.
+- **Issue-response workflow**: triage → classify (bug / feature / question / noise) → either draft-and-post-reply (for question / noise) or open-fix-PR (for bug / feature, which re-enters the PR-creation workflow on the new PR).
+- **Build-request workflow**: read the request → check feasibility → if feasible, run builder.sh and enter PR-creation workflow on the new DRAFT; if not, reply with the blocker.
+- **Design-request workflow**: read the request → check existing designs for conflicts → run designer.sh to draft the design document → open the design-only DRAFT PR (which re-enters PR-creation workflow with the solicitor / design-panel branch).
+- **Retcon / rebase workflow**: read the target PR → run fixer.sh (retcon) or weaver.sh (rebase) → push → re-enter PR-creation workflow at the post-push state.
+
+Each workflow's predicates live in `skills/driver-<workflow>-state-machine/SKILL.md` (one per workflow). The skills are tiny; their job is to enumerate the states and the transition predicates. The driver's outer body reads the workflow's skill on entry to the workflow and consults it on each transition.
+
 ### Prompt continuity
 
 Every prompt the driver or a worker emits names:
@@ -232,50 +338,101 @@ This means the LLM does not need to re-read `CLAUDE.md`, `roles/COMMON.md`, or t
 
 ### New artifacts
 
-- `roles/driver/AGENT.md`: the driver's contract as a *script* rather than a *subagent operating brief*. Documents the state machine, the worker-pool relationship, the event sources, and the escalation pattern. The role is dispatchable in the sense that the supervisor launches drivers, but each driver is a bash process not an LLM session.
-- `skills/driver-state-machine/SKILL.md`: the formal state diagram and transition predicates. Names which transitions are deterministic and which escalate to the LLM.
+- `roles/driver/driver.sh`: the manually-invoked driver entry point. Takes a lane number as its first argument (per Q9 disposition); wraps its inner body in a `-x` subshell that captures a transcript; traps `ERR` and `EXIT` to fan unexpected failures out to the gardener inbox with the transcript SHA.
+- `roles/driver/AGENT.md`: the driver's contract as a *script* rather than a *subagent operating brief*. Documents the state machine, the worker-pool relationship, the event sources, and the escalation pattern. Names the manual-invocation convention; documents the per-lane file naming.
+- `skills/driver-state-machine/SKILL.md`: the formal state diagram and transition predicates for the PR-creation workflow. Names which transitions are deterministic and which escalate to the LLM.
+- `skills/driver-<workflow>-state-machine/SKILL.md`: one per non-PR-creation workflow (issue-response, build-request, design-request, retcon / rebase). Each is a tiny state machine; the driver consults the right one based on the job kind it claimed.
 - `skills/prompt-on-failure-capture/SKILL.md`: the `git hash-object` / `git cat-file blob` capture pattern, prompt template shape, claude invocation, and known-SHA short-circuit.
 - `skills/role-job-board/SKILL.md`: the role-specific job board contract. Extends the existing `skills/job-board/SKILL.md` with the per-role subdirectories.
+- `skills/coalesced-repo-activity-watcher/SKILL.md`: the single repo-activity watcher process that reads the union of driver subscriptions, polls events, fans them to per-driver inboxes, and owns deterministic reactji posting. Replaces the per-repo standing-monitor daemons after observed equivalence (per migration plan Phase 5).
+- `skills/gardener-inbox-error-reporting/SKILL.md`: the uniform pattern for trapping unexpected errors in any driver / worker shell script, capturing the transcript via `git hash-object`, and appending a message to `journal/inboxes/<host>/gardener.md` with the lane discrimination header.
+- `skills/driver-pre-ci-validation/SKILL.md`: the deterministic six-step gauntlet (`yarn format`, targeted tests, `yarn build:types:check`, `yarn lint`, full tests, docs generation) the driver runs before pushing changes.
 - A `skills/$ROLE/$ROLE.sh` companion script for each role with a deterministic-enough body. Initially: `builder.sh`, `cleaner.sh`, `fixer.sh`, `weaver.sh`. The judges (`barrister`, `justice`, `solicitor`, `appellate`) and the conductor may have thinner scripts and more LLM body.
 
 ### Modified artifacts
 
-- `roles/steward/AGENT.md` § PR-creation-flow scan: marked for retirement after driver migration completes. The scan exists because the chain breaks at role-seams; drivers subsume the seam-bridging. Phase-3 of the migration retires the scan.
-- `roles/steward/AGENT.md` § Maintainer-feedback response (landed today): the trigger surfaces remain valid, but the action becomes "post a job to the appropriate role-specific board" rather than "Agent-dispatch a fixer or designer."
-- `roles/general-contractor/AGENT.md`: re-scoped or retired. The contractor's slot machinery was per-cycle scan + dispatch; under drivers, foreground maintainer-facing visibility is the only remaining function. The design proposes retirement and absorption into the liaison.
+- `roles/steward/AGENT.md` § PR-creation-flow scan: **preserved through the migration** (per kriskowal disposition, 2026-06-01). The scan remains authoritative until drivers demonstrate ≥95% PR-creation-workflow reliability and the maintainer signs off on retirement. Phase 5 of the migration is the earliest point this section is retired.
+- `roles/steward/AGENT.md` § Maintainer-feedback response: preserved unchanged through the migration. Once drivers are reliable, the action surface may shift to "post a job to the appropriate role-specific board" rather than "Agent-dispatch a fixer or designer," but the trigger surface is unchanged.
+- `roles/general-contractor/AGENT.md`: **preserved through the migration**. The contractor's slot machinery (per-cycle scan + dispatch + foreground visibility) remains the foreground PR-pipeline orchestrator until drivers prove reliable. Re-scoping or absorption into the liaison is deferred to a post-Phase-4 maintainer decision.
+- `roles/monitor/AGENT.md` and the per-project monitor skills (`monitor-endo`, `monitor-endo-but-for-bots`, etc.): preserved through the migration. The coalesced repo-activity watcher runs alongside them in a verification mode. Per-project monitor retirement is per-project and gated on observed equivalence (Phase 5).
 - The existing `shepherd` role: unchanged in scope. The driver may invoke a shepherd worker for a CI-recovery substate when the state machine reaches `[await-ci-recovery]`.
 - `skills/job-board/SKILL.md`: generalized to support per-role boards.
-- `CLAUDE.md` § Current inventory: updated to add the driver role, the new skills, and the role-companion scripts.
+- `CLAUDE.md` § Current inventory: updated to add the driver role, the new skills, and the role-companion scripts. The existing roles remain listed unchanged through the migration.
 
 ### Migration plan
 
-- **Phase 1: design + scaffolding** (this PR plus follow-ups). Lands `roles/driver/AGENT.md`, `skills/driver-state-machine/SKILL.md`, `skills/prompt-on-failure-capture/SKILL.md`, and the role-specific job board pattern. No live drivers yet.
-- **Phase 2: one shape end-to-end.** Implement the driver for design-only PRs (the simplest state subset: solicitor only, no cleaner, no fixer-loop typically). Shake out on `endojs/endo-but-for-bots`. Steward continues to handle source-touching PRs.
-- **Phase 3: source-touching support.** Implement the cleaner / barrister / fixer / justice / appellate substates. Drivers claim all garden-authored DRAFT PRs on the chosen repo. Steward's PR-creation-flow scan becomes a fallback (only acts on PRs without an active driver).
-- **Phase 4: retire the scan.** Once drivers handle ≥95% of PR-flow advancement reliably, retire `roles/steward/AGENT.md` § PR-creation-flow scan. Steward becomes monitor-and-meta only (issue surveillance, maintainer-feedback routing to driver supervisor, bulletin housekeeping).
-- **Phase 5: cross-repo rollout.** Extend to other monitored repos (`endojs/endo`, `agoric/agoric-sdk`) as their gating allows.
+This workflow is **experimental** (kriskowal disposition, 2026-06-01). Existing systems (the steward's per-cycle PR-creation-flow scan, the general-contractor, the standing-monitor daemons, the agent-dispatched workflow) are **preserved** throughout the migration. Drivers run alongside, not instead of, the existing systems; the existing systems remain authoritative until drivers prove reliable. Drivers are **dispatched manually** through the migration period; no automatic supervisor activation. The migration's retirement of any existing system is gated on observed driver reliability (≥95% of PR-flow advancement handled correctly without manual intervention) and the maintainer's explicit go-ahead.
+
+- **Phase 1: design + scaffolding** (this PR plus follow-ups). Lands `roles/driver/AGENT.md`, `skills/driver-state-machine/SKILL.md`, `skills/prompt-on-failure-capture/SKILL.md`, the coalesced repo-activity watcher skeleton, and the role-specific job board pattern. No live drivers yet. Existing steward / contractor / monitor remain authoritative.
+- **Phase 2: one shape end-to-end, manual launch.** Implement the driver for design-only PRs (the simplest state subset: solicitor only, no cleaner, no fixer-loop typically). Shake out on `endojs/endo-but-for-bots`. Drivers launched manually per PR via `roles/driver/driver.sh <lane>` (Q9 disposition); steward continues to handle source-touching PRs and serves as a fallback for any design-only PR whose driver is not manually launched. Existing standing monitors remain authoritative; the coalesced watcher runs alongside in a verification mode that compares its events to the monitors' events.
+- **Phase 3: source-touching support, manual launch.** Implement the cleaner / barrister / fixer / justice / appellate substates. Drivers launched manually per PR. Steward's PR-creation-flow scan remains authoritative; drivers run alongside as a verification mode. The coalesced watcher remains alongside the monitors.
+- **Phase 4: reliability evaluation.** Compare driver behavior to steward / contractor / monitor behavior on the same PRs over a representative window. Reliability is measured per workflow shape (PR-creation, issue-response, build-request, design-request, retcon / rebase) against an explicit checklist. Phase 5 is gated on ≥95% per-workflow reliability and explicit maintainer sign-off.
+- **Phase 5: retire scans selectively, maintain manual dispatch.** Per kriskowal disposition (2026-06-01), the existing scan-based systems are kept and dispatched through the drivers manually until the driver system is reliable. Retirement is per-system: the steward's PR-creation-flow scan retires first (after ≥95% reliability is shown for PR-creation workflow), then the contractor's slot machinery (after the same threshold for its workflows), then the per-repo standing monitors (after the coalesced watcher proves equivalent on its safe-to-monitor set). Each retirement is a separate maintainer decision.
+- **Phase 6: cross-repo rollout.** Extend to other monitored repos (`endojs/endo`, `agoric/agoric-sdk`) as their gating allows.
+
+The bulletin tracks each phase's status. The migration is reversible: if a phase reveals a structural problem, the existing system absorbs the work load without per-PR coordination because it never stopped being authoritative.
 
 ## Open questions
 
+Several of the original open questions were resolved by kriskowal's PR-3 review on 2026-06-01. Each resolved question carries a `**Disposition:**` sub-block with the verbatim choice. Questions that remain open are explicitly labeled.
+
 1. **Worker pool sizing.** One driver per active PR; what's the cap on concurrent drivers per host? One worker per role today (analogous to the host's single-cleaner cap); when do we need more?
+
+   **Disposition (kriskowal, 2026-06-01):** "I will manually scale the pool of concurrent drivers." No automatic supervisor-managed cap. The maintainer launches additional driver lanes by hand when more concurrency is wanted; the driver script accepts a lane number as its argument (see Q3 and Q9).
 
 2. **Failure modes for the LLM.** What if claude is rate-limited or unavailable when the driver escalates? Options: park the driver in `awaits-llm` state with a retry timer; surface to maintainer via the bulletin; fall back to the steward's old `Agent`-dispatched subagent shape as a degraded mode.
 
-3. **Observability.** How does the maintainer see driver state? The proposal includes `journal/drivers/<repo>--<pr>.md` per-PR state files; a bulletin section summarizing active drivers; the existing journal-side `result` and `tick` entries from each worker invocation.
+   **Disposition (kriskowal, 2026-06-01):** "Exponential backoff with full jitter." The driver parks in `awaits-llm` and the retry timer uses exponential backoff with full jitter (per the AWS Architecture Blog formulation: `delay = random_between(0, min(cap, base * 2^attempt))`). On persistent unavailability the driver eventually surfaces to the gardener inbox (per *Error reporting* above) so the maintainer can intervene; the existing steward / contractor remain available as a manually-dispatched degraded mode because they are preserved through the migration.
+
+3. **Observability and per-lane discrimination.** How does the maintainer see driver state? The proposal includes `journal/drivers/<repo>--<pr>.md` per-PR state files; a bulletin section summarizing active drivers; the existing journal-side `result` and `tick` entries from each worker invocation.
+
+   **Disposition (kriskowal, 2026-06-01):** "I will manually scale the driver pool. Each driver should be given a lane number when invoking the shell script." The driver's first positional argument is its lane number (e.g. `roles/driver/driver.sh 1` for driver one). The lane number is carried into:
+
+   - The driver's state file path: `journal/drivers/<host>/<lane>.md`.
+   - Subscription advertisement: `journal/drivers/<host>/<lane>.subscriptions`.
+   - Gardener-inbox messages (per *Error reporting* above), which name the lane in the message header.
+   - Worker dispatch entries the driver writes, so per-lane filtering by `grep '^lane: <n>'` works.
+
+   Bulletin observability and the per-PR state files remain as proposed.
 
 4. **Credentials and identity.** Workers run continuously as the bot identity. The existing host-pinned identity (`kriscendobot` on `kmkmbp2021`, `endolinbot` here) is preserved. Boatman is the special case as today; the boatman worker remains the only one authorized to switch identity.
 
+   **Disposition (kriskowal, 2026-06-01):** "Nothing to change here." The existing identity discipline is preserved unchanged.
+
 5. **Tooling boundaries.** The driver invokes `gh`, `git`, `yarn`, etc. directly. Today some operations live inside subagent contexts (the cleaner reads test output via `Bash`). The driver runs them in the parent. Sandboxing? Resource limits? The host's existing pinning of `user.name` / `user.email` per worktree is one example of the same discipline.
+
+   **Status:** Open. No disposition in the 2026-06-01 review pass.
 
 6. **State machine determinism.** Some transitions today are LLM-classified: a maintainer's `COMMENTED` body needs reading to decide if it's substantive feedback (fixer dispatch) or chatter (no-op). The script needs either a deterministic fallback (always escalate to LLM with `<COMMENTED body>` capture) or a strict predicate (length-and-keyword filter). The design assumes escalate-on-ambiguous; the threshold is open.
 
-7. **Relationship to standing monitors.** Existing standing-monitor daemons (per-repo bash poll daemons writing to `/tmp/garden-monitor-*.log`) remain. The driver subscribes to events from a per-PR fanout that the existing daemons feed. The `at-mention surveillance Monitor` becomes a router (forwards `@kriscendobot` mentions to the relevant PR's driver) rather than a parent-context Monitor in the orchestrator's session.
+   **Disposition (kriskowal, 2026-06-01):** "Fine." The escalate-on-ambiguous default stands. The driver captures the body, hashes it, and prompts claude to classify; identical bodies (identical SHA) reuse the prior classification without re-invoking the LLM.
 
-8. **Liaison and steward retention.** Both roles persist as meta-layer postures. The liaison remains the user-in-the-loop surface; the steward remains for cross-PR coordination, housekeeping, and the per-cycle survey of inbox and job board for items not driver-bound (boatman dispatches, gardener dispatches, scholar work, etc.). The steward's PR-creation-flow scan is the part that retires; the role itself does not.
+7. **Relationship to standing monitors and the coalesced watcher.** Existing standing-monitor daemons (per-repo bash poll daemons writing to `/tmp/garden-monitor-*.log`) and the proposed coalesced repo-activity watcher (see *Coalesced repo-activity watcher* above).
 
-9. **Driver supervisor.** Is the supervisor a bash daemon (analogous to `job-board-poll.sh`), a systemd unit, or a liaison-invoked process? The proposal assumes a bash daemon to match existing patterns, but the supervisor is a distinct conceptual layer worth deciding deliberately.
+   **Disposition (kriskowal, 2026-06-01):** "This new workflow is experimental and existing systems should be preserved." The coalesced watcher runs alongside the existing standing-monitor daemons through the migration; the existing monitors remain authoritative until the watcher proves equivalent on the safe-to-monitor set. Retirement of the per-repo monitors is per-system and gated on the maintainer's decision after observed reliability (per the migration plan's Phase 5).
+
+8. **Liaison and steward retention through the migration.** Both roles persist as meta-layer postures. The liaison remains the user-in-the-loop surface; the steward remains for cross-PR coordination, housekeeping, and the per-cycle survey of inbox and job board for items not driver-bound (boatman dispatches, gardener dispatches, scholar work, etc.).
+
+   **Disposition (kriskowal, 2026-06-01):** "We will keep these for now and dispatch through the drivers manually until that system is reliable." Both roles are preserved; the steward's PR-creation-flow scan and the contractor's slot machinery remain authoritative through Phase 4. Drivers are dispatched manually during the migration. Per-system retirement is selective and gated on observed driver reliability (per migration plan).
+
+9. **Driver supervisor.** Is the supervisor a bash daemon (analogous to `job-board-poll.sh`), a systemd unit, or a liaison-invoked process?
+
+   **Disposition (kriskowal, 2026-06-01):** "I am going to invoke the driver manually, like `roles/driver/driver.sh 1` for driver one. It should be bot supervised in the sense that it will trap all errors and report them to the gardener, with a transcript of the failure. This may require subshelling with `-x` so that there's an artifact to submit to the gardener."
+
+   The driver is a manually-invoked script (`roles/driver/driver.sh <lane>`), not a supervisor-launched daemon. There is no separate supervisor process; the maintainer is the supervisor at launch time. Bot-side supervision is *error supervision*: the driver script:
+
+   - Wraps its inner body in a subshell run with `-x` (`( set -x; <body> ) 2>"$transcript"` or equivalent), so every command and its arguments land in a transcript file.
+   - Traps `ERR` and `EXIT` with discrimination on `$?`. On unexpected exit, the trap:
+     - Captures the transcript via `git -C journal hash-object -w --stdin < "$transcript"`.
+     - Appends a section to `journal/inboxes/<host>/gardener.md` naming the lane, the PR (if any), the state, the transcript SHA, and a one-paragraph context (per *Error reporting* above).
+     - Exits non-zero so the maintainer's shell sees the failure.
+   - On clean exit (the PR reaches a terminal state or the driver is signalled), the transcript is preserved as a journal blob but no gardener message is appended.
+
+   The transcript SHA gives the gardener a deterministic artifact to inspect via `git -C journal cat-file blob <sha>`. Recurring failure shapes (identical transcript prefixes) hash to identical SHAs, so the gardener's triage can short-circuit on a known SHA.
 
 10. **Capture blob lifecycle.** The `git hash-object` blobs are unreferenced and subject to `git gc` after the journal's grace period (default 14 days). For failures we want to keep (recurring operational flakes), the `refs/captures/<role>/<pr>/<short-id>` anchor preserves them. The promotion criterion is open: every capture? Failures the LLM classifies as recurring? Maintainer-flagged?
+
+    **Status:** Open. No disposition in the 2026-06-01 review pass.
 
 ## Non-goals
 
