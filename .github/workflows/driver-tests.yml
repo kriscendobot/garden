@@ -1,0 +1,31 @@
+name: driver-tests
+
+on:
+  push:
+    branches:
+      - design/driver
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  driver-tests:
+    name: driver-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure local git identity
+        # The driver tests build a mock journal that runs `git init` and
+        # commits. GitHub Actions runners do not have a default identity.
+        run: |
+          git config --global user.name "ci-bot"
+          git config --global user.email "ci-bot@example.invalid"
+
+      - name: Run driver script tests
+        run: bash tests/driver/run.sh
+
+      - name: Run cleaner skeleton self-test
+        run: bash skills/cleaner/test-cleaner.sh

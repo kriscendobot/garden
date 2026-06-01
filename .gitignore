@@ -10,3 +10,11 @@
 # token under .ssh/ and .config/gh/ — lands here. Never committed.
 # Pattern matches every top-level dotfile/dir except ./.gitignore itself.
 /.[!.]*
+
+# Carve back the few top-level dotfile paths we do want tracked. Add
+# more here when a new tracked dotfile path is introduced. The
+# .github/ directory holds CI workflows that GitHub reads from the
+# repo root.
+!/.gitignore
+!/.github/
+!/.github/**

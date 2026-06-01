@@ -367,6 +367,130 @@ escalate_to_claude() {
   return 1
 }
 
+# --- per-tick capture + self-improvement -------------------------------
+
+# capture_and_self_improve <tick-capture-path> <tick-rc>
+#
+# Hash the per-tick capture into the journal's object database so the
+# transcript survives as a blob, then invoke an agent (claude) with the
+# capture SHA and append the agent's analysis to a per-lane
+# improvements file at $GARDEN_JOURNAL/drivers/<host>/<lane>.improvements.md.
+#
+# The agent invocation runs in the background so the next tick is not
+# blocked. The agent reads the transcript on demand via
+# `git -C <journal> cat-file blob <sha>`; the prompt stays small.
+#
+# Test harness can stub the agent invocation via SELF_IMPROVE_CLAUDE_STUB
+# (path to a script that takes the SHA as its sole positional argument and
+# emits the analysis on stdout); when unset, we exec `claude -p <prompt>`
+# from PATH (the mock harness PATH-stubs `claude`).
+#
+# Failures here are silent: self-improvement is best-effort and must not
+# crash the driver. Each branch ORs with `:` so a bad git, missing claude,
+# or unwritable improvements file leaves the loop unaffected.
+capture_and_self_improve() {
+  local tick_capture=$1
+  local tick_rc=$2
+
+  # Bail if the capture is empty or the journal is not a git repo.
+  if [ ! -s "$tick_capture" ]; then
+    return 0
+  fi
+  if [ ! -d "$GARDEN_JOURNAL/.git" ] && [ ! -f "$GARDEN_JOURNAL/.git" ]; then
+    return 0
+  fi
+
+  # Hash the capture into the journal's object DB. The blob is
+  # unreferenced; git gc will collect it after the grace window unless
+  # an agent or operator anchors it with refs/captures/...
+  local capture_sha
+  capture_sha=$(git -C "$GARDEN_JOURNAL" hash-object -w --stdin < "$tick_capture" 2>/dev/null) || return 0
+  if [ -z "$capture_sha" ]; then
+    return 0
+  fi
+
+  local improvements_dir="$GARDEN_JOURNAL/drivers/$GARDEN_HOST"
+  local improvements_file="$improvements_dir/$LANE.improvements.md"
+  mkdir -p "$improvements_dir"
+
+  # Initialize the improvements file on first run with frontmatter so it
+  # is grep-able by host/lane and the gardener can pick it up.
+  if [ ! -f "$improvements_file" ]; then
+    cat > "$improvements_file" <<EOF
+---
+host: $GARDEN_HOST
+lane: $LANE
+kind: driver-self-improvement-log
+---
+
+# driver lane $LANE self-improvement log
+
+Per-tick agent analysis of driver loop iterations. Each section names
+the tick's transcript SHA (inspect via \`git -C journal cat-file blob <sha>\`)
+and the agent's suggestions for self-improvement.
+
+EOF
+  fi
+
+  local iso state
+  iso=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+  state=$(read_state 2>/dev/null) || state=unknown
+
+  # Build the agent prompt. The four-slot brief mirrors the prompt-on-
+  # failure-capture pattern: PR id, workflow, state, capture SHA.
+  local prompt
+  prompt="Driver loop iteration transcript SHA: $capture_sha
+PR: ${DRIVER_PR:-(none)}
+Workflow: ${DRIVER_WORKFLOW:-unknown}
+State: $state
+Tick exit code: $tick_rc
+
+Please analyze the transcript and suggest any self-improvements for
+the driver's behavior in this state. Read the transcript on demand via:
+  git -C $GARDEN_JOURNAL cat-file blob $capture_sha
+"
+
+  # Invoke the agent. Run in the background so the next tick is not
+  # blocked. The agent's response is appended atomically once it
+  # completes; concurrent appends across overlapping ticks are vanishingly
+  # rare in practice but a flock would close that race if it mattered.
+  _self_improve_invoke_async "$capture_sha" "$state" "$tick_rc" "$iso" "$prompt" "$improvements_file" &
+  # We deliberately do not `wait`; the background analyzer survives the
+  # tick's return and writes its section when it finishes. In oneshot
+  # mode the test harness joins via the SELF_IMPROVE_SYNC flag below.
+  if [ "${SELF_IMPROVE_SYNC:-0}" = 1 ]; then
+    wait
+  fi
+  return 0
+}
+
+_self_improve_invoke_async() {
+  local capture_sha=$1
+  local state=$2
+  local tick_rc=$3
+  local iso=$4
+  local prompt=$5
+  local improvements_file=$6
+
+  local response
+  if [ -n "${SELF_IMPROVE_CLAUDE_STUB:-}" ]; then
+    response=$("$SELF_IMPROVE_CLAUDE_STUB" "$capture_sha" 2>/dev/null) || response="(stub returned non-zero)"
+  elif command -v claude >/dev/null 2>&1; then
+    response=$(printf '%s' "$prompt" | claude -p 2>/dev/null) || response="(claude invocation failed)"
+  else
+    response="(no agent available: claude not on PATH and no stub configured)"
+  fi
+
+  {
+    printf '\n## tick at %s -- state=%s rc=%s sha=%s\n\n' \
+      "$iso" "$state" "$tick_rc" "$capture_sha"
+    printf 'PR: %s\n' "${DRIVER_PR:-(none)}"
+    printf 'Workflow: %s\n\n' "${DRIVER_WORKFLOW:-unknown}"
+    printf '### agent analysis\n\n'
+    printf '%s\n' "$response"
+  } >> "$improvements_file" 2>/dev/null || true
+}
+
 # --- main loop ----------------------------------------------------------
 
 run_once() {
@@ -455,13 +579,29 @@ main() {
   fi
 
   # Outer loop. The -x transcript capture happens inside the loop body so
-  # the transcript reflects the most recent tick's commands.
+  # the transcript reflects the most recent tick's commands. Each tick's
+  # own stdout+stderr also lands in a per-tick capture file whose SHA is
+  # fed to an agent for self-improvement analysis (see capture_and_self_improve).
   while true; do
     # Each tick runs in a subshell with -x so the transcript captures
     # commands and arguments. The outer driver only re-reads its state
-    # file between ticks.
-    ( set -x; run_once ) >> "$TRANSCRIPT" 2>&1
+    # file between ticks. We capture the tick's combined stdout+stderr to
+    # a per-tick file first, then append it to the rolling transcript so
+    # the trap path still has the full history if anything goes wrong.
+    local tick_capture
+    tick_capture=$(mktemp "$TRANSCRIPT_DIR/driver-lane${LANE}-tick-XXXXXX.log")
+    ( set -x; run_once ) > "$tick_capture" 2>&1
     local rc=$?
+    cat "$tick_capture" >> "$TRANSCRIPT"
+    # Capture-and-self-improve happens after the state transition. The
+    # agent invocation runs in the background so it does not block the
+    # next tick; rc decisions below proceed without waiting. The
+    # per-tick capture's content has already been hashed into the
+    # journal object DB by the call below, so the tempfile is safe to
+    # remove once the call returns (the background analyzer carries
+    # only the SHA, not the path).
+    capture_and_self_improve "$tick_capture" "$rc"
+    rm -f "$tick_capture"
     case "$rc" in
       0) ;;             # continue the loop
       2) DRIVER_EXPECTED_EXIT=1; break;;   # terminal state reached
