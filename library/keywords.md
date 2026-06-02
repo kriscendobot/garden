@@ -2925,3 +2925,52 @@ no zero entries multi-set invariant | patterns
 positive count discipline | patterns
 fullOrder antiComparator key-first lexicographic | patterns
 bag entry tuple shape validation | patterns
+Form message type | daemon
+FormField name label example pattern | daemon
+fields-as-ordered-array-vs-record | daemon
+separates semantic key from display text | daemon
+fire-and-forget form() returns immediately | daemon
+multi-submission via value replies | daemon
+form() polling for value replies | daemon
+submit messageNumber values | daemon
+mustMatch daemon-side enforcement | daemon
+patterns are a contract not a hint | daemon
+default M.string() when no pattern | daemon
+formulateMarshalValue values record | daemon
+makeForm envelope + messageId | daemon
+form() guest-facing method | daemon
+getForm retrieval | daemon
+endo form CLI command | daemon
+endo submit CLI command | daemon
+--field fieldName:label colon-on-first | daemon
+/form modal form builder | daemon
+inline form rendering with labels | daemon
+field.example || field.name placeholder fallback | daemon
+five named Gaps for form-request | daemon
+no forwarding or sharing | daemon
+FormulaNumber vs FormulaIdentifier forward-safety | daemon
+limited pattern vocabulary Chat UI | daemon
+CLI values are strings only | daemon
+no reusable form templates | daemon
+agent-level abstraction for reuse | daemon
+ten numbered Design Decisions | daemon
+pattern → widget mapping table | daemon
+M.string M.number M.boolean M.scalar M.remotable M.promise widgets | daemon
+pet-name path selector capability reference | daemon
+pattern-introspection M.gte M.lte HTML min max | daemon
+extensible-by-pattern widget mapping | daemon
+unrecognized patterns fall back text input | daemon
+simplified internals no PROMISE RESOLVER RESULT edges | daemon
+makeForm no promise resolver pair | daemon
+DESCRIPTION + FROM/TO/DATE/TYPE/MESSAGE edges only | daemon
+daemon-rich CLI-simple trade-off | daemon
+values support capability references | daemon
+which worker should I use form-value | daemon
+structured-question-with-named-fields | daemon
+LLM agent configuration scenario | daemon
+multi-field input scenario | daemon
+correlation across multiple messages fragile | daemon
+single-response-promise vs multi-submission-value | daemon
+reply-chain history submissions | daemon
+form definition vs value submission | daemon
+sender and receiver both see input fields | daemon

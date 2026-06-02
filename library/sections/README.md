@@ -629,4 +629,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-patterns-src-keys-copybag-js--{bag-entry-validation-with-per-entry-shape-and-positive-count}
 
-## Total: 616 sections from 160 source documents (through 2026-06-02).
+### From endo-but-for-bots/designs daemon-form-request (cycle 116, **the foundational structured-data-entry primitive that cycles 101+103+107 frequently named; fields-as-ordered-array + multi-submission via value replies + daemon-enforced patterns via mustMatch; cycle 116 papers-lane pivot to daemon-design-lane**)
+
+- endo-but-for-bots--llm-designs-daemon-form-request--{form-message-type-and-implementation, gaps-and-design-decisions}
+
+## Total: 618 sections from 161 source documents (through 2026-06-02).
