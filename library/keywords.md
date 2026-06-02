@@ -3320,3 +3320,30 @@ three code-sharing callouts visible | patterns
 abstraction debt acknowledged in three places | patterns
 coordinated-update commit e56bf00f | patterns
 Keys substrate seven cycle-ingested files | patterns
+endopi-stdio-rpc-bridge stdio JSONL | agent-conventions
+endo agent rpc invocation surface | agent-conventions
+stdio and WebSocket two transports to same daemon agent | agent-conventions
+transports interleave through same transcript | agent-conventions
+transport-agnostic-agent discipline | agent-conventions
+capability boundaries independent of how invoked | agent-conventions
+LF-delimited JSON records | agent-conventions
+do not split on backslash r U+2028 U+2029 | agent-conventions
+Node readline is non-compliant strict split | agent-conventions
+six commands prompt steer abort list_models set_model get_status | agent-conventions
+six events message_start message_update message_end | agent-conventions
+tool_execution_start tool_execution_end agent_end | agent-conventions
+embedding-host gets the same events invariant | agent-conventions
+endor-bus-tui horizon | agent-conventions
+stdio bridge becomes thin front-end for the bus | agent-conventions
+deprecation-in-place lifecycle pattern | agent-conventions
+phased implementation multiplexing channel ID per record | agent-conventions
+spawn-implies-authorization | agent-conventions
+you can spawn the process so you are authorized | agent-conventions
+ssh-tunneled-stdio gateway-bearer-token-auth fallback | agent-conventions
+MCP server compatibility declined at protocol level | agent-conventions
+guest plugin translates for MCP | agent-conventions
+process-management features out of scope | agent-conventions
+no PTY no resize no bg | agent-conventions
+Pi-byte-compatible framing with endo-namespaced extensions | agent-conventions
+adopt existing standard with endo-prefix discipline | agent-conventions
+three transports same identity stdio WebSocket future bus | agent-conventions

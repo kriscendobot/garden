@@ -669,4 +669,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-patterns-src-keys-merge-bag-operators-js--{five-bag-operations-with-multiplicity-arithmetic-and-three-code-sharing-callouts}
 
-## Total: 629 sections from 170 source documents (through 2026-06-02).
+### From endo-but-for-bots designs/endopi-stdio-rpc-bridge.md (cycle 126, **sixth endopi-* design ingest + twenty-fourth-comment-style design ingest; closes the §Operating modes gap from cycle 121's family keystone — Pi's RPC mode is the part Endo does not have; *stdio and WebSocket are two transports to the same underlying daemon agent that interleave through the same transcript*; §endor-bus-tui horizon — deprecation-in-place lifecycle pattern; cycle 126 papers-lane block 20+ pivot to designs lane; endopi-* family now 6/9 ingested**)
+
+- endo-but-for-bots--llm-designs-endopi-stdio-rpc-bridge--{stdio-jsonl-rpc-as-short-term-bridge-before-endor-bus-tui}
+
+## Total: 630 sections from 171 source documents (through 2026-06-02).
