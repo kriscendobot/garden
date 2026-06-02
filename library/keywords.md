@@ -2646,3 +2646,37 @@ ses/error-codes documentation | object-capability
 process.exit exitCode-or-minus-one | object-capability
 fail-loud-not-degrade missing process.exit | object-capability
 extensible record return shape | object-capability
+Claw Claude-Code-like AI agent | daemon
+Dir Shell Git capability shapes | daemon
+agent tool registry | daemon
+readFile writeFile listDir glob stat | daemon
+Shell exec execInteractive | daemon
+allowedCommands allowlist | daemon
+node npm npx yarn python pip make cargo go grep find sed awk curl | daemon
+filteredEnv no secrets | daemon
+array-based execution no shell expansion | daemon
+prevent shell injection | daemon
+Git status diff log add commit checkout branch | daemon
+Git split by authority | capability-security
+local Git excludes push pull | capability-security
+git config excluded prevent hook setting | capability-security
+git hook excluded prevent persistence attack | capability-security
+raw git command execution forbidden | capability-security
+one-capability-one-authority-domain invariant | capability-security
+endo grant pet-name capability granting | daemon
+makeDir makeShell makeGit programmatic grants | daemon
+capability-driven dynamic tool registration | daemon
+try lookup catch skip pattern | daemon
+same agent code works with or without coding capabilities | daemon
+form-based capability provisioning | daemon
+manager-worker capability flow | daemon
+phased approach Filesystem Shell Git Integration | daemon
+filesystem first lowest risk | daemon
+Revision note refining sketch | daemon
+refined-but-not-deprecated lifecycle | daemon
+daemon-mount-capabilities successor | daemon
+daemon-git-capability successor | daemon
+daemon-git-remotes successor | daemon
+GitRemote bounded capability | daemon
+mount-scoped descriptor | daemon
+EndoMount derivation | daemon

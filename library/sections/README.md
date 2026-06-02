@@ -593,4 +593,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-ses-src-error-tame-console-js--{integration-wiring-and-platform-error-traps}
 
-## Total: 607 sections from 151 source documents (through 2026-06-02).
+### From endo-but-for-bots/designs daemon-agent-tools (cycle 107, **concrete-tool-shapes for Claw-like AI agents; Dir/Shell/Git capabilities + dynamic tool registration; Revision-note pattern naming three successor designs; completes the daemon AI-agent-capability layer triangle with cycles 101+103+105; cycle 107 pivoted from chat-lane (exhausted) to daemon-design-lane**)
+
+- endo-but-for-bots--llm-designs-daemon-agent-tools--{dir-shell-git-capabilities-and-dynamic-tool-registration}
+
+## Total: 608 sections from 152 source documents (through 2026-06-02).
