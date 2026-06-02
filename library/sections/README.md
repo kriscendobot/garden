@@ -685,4 +685,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-endopi-extension-package-manifest--{one-package-json-keyword-one-install-command-multiple-resource-kinds-with-per-kind-confinement}
 
-## Total: 633 sections from 174 source documents (through 2026-06-02).
+### From endo packages/eventual-send/src/message-breakpoints.js longform comments (cycle 130, **twenty-fourth comment-fragment ingest; runtime-configurable breakpoint tester for E()-mediated eventual-send dispatch; three-axis match grammar + external↔internal transpose; the §async-call-debugging-pain-point this file solves; Mark Miller-authored 2024-01-13 (predates the @endo/harden migration); cycle 130 nominal comments-lane**)
+
+- endo--packages-eventual-send-src-message-breakpoints-js--{three-axis-match-grammar-with-external-internal-transpose-and-countdown-semantics}
+
+## Total: 634 sections from 175 source documents (through 2026-06-02).

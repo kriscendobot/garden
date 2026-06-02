@@ -3439,3 +3439,30 @@ endo-package keyword npm convention | agent-conventions
 forever-v1 manifest discipline | agent-conventions
 endopi family unifier consumes four prior designs | agent-conventions
 the right move cited solution from keystone | agent-conventions
+makeMessageBreakpointTester factory | eventual-send
+MatchStringTag MatchMethodName MatchCountdown | eventual-send
+three-axis match grammar with wildcard | eventual-send
+external internal representation transpose | eventual-send
+tag method countdown vs method tag countdown | eventual-send
+human-organized vs lookup-organized | eventual-send
+simplifyTag strip Alleged DebugName prefix | eventual-send
+one-level-strip only outer one removed | eventual-send
+Just use simple tag X rather than Y | eventual-send
+canonical-tag enforcement at setBreakpoints | eventual-send
+countdown semantics star always zero always positive decrement | eventual-send
+shouldBreakpoint method-or-wildcard tag-or-wildcard fallback | eventual-send
+in-place decrement on internal table | eventual-send
+getBreakpoints-returns-original-not-mutated | eventual-send
+default-argument-to-stored-breakpoints reset countdowns | eventual-send
+env-option-yields-undefined-when-unset | eventual-send
+zero-cost-when-unset property | eventual-send
+TODO enable function breakpointing | eventual-send
+__proto__ null on internal records | eventual-send
+@ts-expect-error confused by __proto__ | eventual-send
+async-call-debugging-pain-point | eventual-send
+break on third call to send on object tagged wallet | eventual-send
+debugger eventual-send call site delivers later than receiver | eventual-send
+predates the @endo/harden migration | eventual-send
+freeze without harden | eventual-send
+getEnvironmentOption caller-supplied optionName | eventual-send
+isJSONRecord predicate | eventual-send
