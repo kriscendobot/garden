@@ -1,6 +1,6 @@
 ---
 created: 2026-05-15
-updated: 2026-05-29
+updated: 2026-06-02
 author: gardener
 ---
 
@@ -23,6 +23,7 @@ Not for: master-merge conflict resolution (weaver), title-only updates on an exi
 - `gh auth status` shows `kriskowal` as the active identity on this host. Without kriskowal credentials, stop and message liaison; the bot identity must not push to a primary upstream repo. The boatman's `roles/boatman/AGENT.md` § Operating norms documents this precondition; this skill assumes it has been verified.
 - The dispatch prompt carries `identity_switch_authorized: true`.
 - The dispatch names the source PR (`<fork-owner>/<repo>#<n>` and source branch), the upstream repo (`<owner>/<repo>` and target branch), and the human author identity (`Kris Kowal <kris@cixar.com>` by convention).
+- The local `origin/master` tracking ref is verified against the live remote before any shape that detaches at it (Shapes 1, 2) or at the upstream branch tip (Shape 3) recomputes. After `git fetch origin`, confirm `git rev-parse origin/master` equals `git ls-remote origin master`; if they disagree, the bare clone's `remote.origin.fetch` refspec is missing or narrow, so force the correct ref with `git fetch origin +refs/heads/master:refs/remotes/origin/master` before detaching. Otherwise the recompute lands on a stale tip.
 
 ## Three procedure shapes
 
@@ -266,3 +267,4 @@ Run these in order before announcing the ferry done. The checklist is the execut
 
 - _2026-05-15_: skill landed after nine ferries in 2026-05-14 evening through 2026-05-15 04:50Z exercised all three shapes and both attribution cases. Distilled from `journal/entries/2026/05/15/045644Z-message-liaison-73cdf1.md` and the per-ferry result entries it references. The fast-forward-append shape was independently proposed by the boatman in `journal/entries/2026/05/15/025038Z-message-boatman-8b5ee5.md`; the skill is consistent with that proposal and adds the other two shapes plus the multi-author case.
 - _2026-05-15_: the precipitating bug for the trailer-strip discipline being standing-rather-than-conditional was the #73 ferry, where the dispatch prompt's "preliminary inspection shows clean commit bodies" framing was wrong because the inspector eyeballed only the first 20 lines of each body. The boatman's standing `interpret-trailers --parse` caught a `Co-Authored-By: Claude` trailer further down. Standing discipline means "every ferry, every commit, always", not "when the prompt suggests it might be needed".
+- _2026-06-02_: the precipitating case for the verify-tracking-ref precondition was the #387 re-ferry (endo-but-for-bots#387 -> endo#3294). `worktrees/endojs-endo.git`'s `origin/master` sat stale at `c49fb048b` across four ferries because the bare clone's `remote.origin.fetch` was empty, so plain `git fetch origin` only advanced FETCH_HEAD. `git ls-remote` showed the live tip was `3c5753b67`; forcing `git fetch origin +refs/heads/master:refs/remotes/origin/master` corrected the ref and the recompute landed on current master. The root cause is fixed at bare-clone creation in `../../WORKTREES.md` § Adding a fork worktree; this precondition is the defense in depth for clones made before that step existed.

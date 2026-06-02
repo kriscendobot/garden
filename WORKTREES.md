@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-14
+updated: 2026-06-02
 author: liaison, gardener
 ---
 
@@ -43,6 +43,14 @@ Run from the garden root:
 # Clone bare once per fork:
 git clone --bare https://github.com/<owner>/<repo>.git \
   worktrees/<owner>-<repo>.git
+
+# Once per bare clone: set the fetch refspec. A bare clone has no
+# `remote.origin.fetch` refspec by default, so `git fetch origin` updates only
+# FETCH_HEAD and leaves the `origin/*` remote-tracking refs frozen at clone
+# time. A later dispatch that detaches at `origin/master` would then recompute
+# onto a stale tip.
+git -C worktrees/<owner>-<repo>.git config remote.origin.fetch \
+  '+refs/heads/*:refs/remotes/origin/*'
 
 # Once per bare clone: tell git to ignore our metadata directory in every
 # worktree created from it. The per-worktree `.git` is a *file* (worktree
