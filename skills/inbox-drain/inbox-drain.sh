@@ -55,20 +55,15 @@ fi
 
 CUR_HEAD="$(git -C "$JRN" rev-parse HEAD)"
 
-# Step 2: read last_drained_commit from state file.
-LAST=""
-if [ -f "$STATE_FILE" ]; then
-  LAST="$(awk -F': *' '/^last_drained_commit:/ {print $2; exit}' "$STATE_FILE" | tr -d ' ')"
-fi
-
-# First run: initialize state at current HEAD, output nothing.
-if [ -z "$LAST" ]; then
+# Write the state file at $1 (commit SHA). Atomic via tmp+mv.
+write_state_file() {
+  local commit="$1"
   cat > "$STATE_FILE.tmp" <<EOF
 ---
 host: $HOST
 role: $ROLE
 last_drained_at: $(date -u +%Y-%m-%dT%H:%M:%SZ)
-last_drained_commit: $CUR_HEAD
+last_drained_commit: $commit
 ---
 
 # $ROLE inbox state on $HOST
@@ -78,6 +73,58 @@ Updated by \`skills/inbox-drain/inbox-drain.sh\` after each drain. Use
 the next call will scan, or just rerun the script.
 EOF
   mv "$STATE_FILE.tmp" "$STATE_FILE"
+}
+
+# Commit the just-written state file and push to origin/journal with the
+# standard journal-sync retry-on-rejection pattern. Skips if the file has
+# no diff vs HEAD (e.g., another concurrent drain already pushed the same
+# state). Errors are non-fatal: a failed push leaves the local file
+# in place for the next call to retry.
+#
+# Without this, the state file sits as a dirty working-tree change that
+# the next `git -C journal reset --hard origin/journal` (run by the
+# job-board-poll daemon every 30s, by `skills/job-board/post-job.sh`,
+# and by `claim-job.sh`) wipes back to the prior state. The script's
+# next invocation then re-emits every message between LAST and HEAD all
+# over again. See journal entry 2026-06-02 inbox-drain debugging for the
+# precipitating evidence.
+commit_push_state_file() {
+  git -C "$JRN" diff --quiet -- "inboxes/$HOST/$ROLE.md" 2>/dev/null && return 0
+  local i
+  for i in 1 2 3 4 5; do
+    git -C "$JRN" add "inboxes/$HOST/$ROLE.md" 2>/dev/null && \
+    git -C "$JRN" commit --quiet -m "inbox-drain: $ROLE on $HOST" 2>/dev/null && break
+    sleep 0.2
+  done
+  for i in 1 2 3 4 5; do
+    git -C "$JRN" push --quiet origin HEAD:journal 2>/dev/null && return 0
+    git -C "$JRN" fetch --quiet origin journal 2>/dev/null
+    git -C "$JRN" rebase --quiet origin/journal 2>/dev/null || { git -C "$JRN" rebase --abort 2>/dev/null; return 1; }
+    sleep $((i * i))
+  done
+  return 1
+}
+
+# Step 2: read last_drained_commit from state file.
+LAST=""
+if [ -f "$STATE_FILE" ]; then
+  LAST="$(awk -F': *' '/^last_drained_commit:/ {print $2; exit}' "$STATE_FILE" | tr -d ' ')"
+fi
+
+# First run: initialize state at current HEAD, output nothing, commit so other
+# sessions / hosts inherit the bootstrap value.
+if [ -z "$LAST" ]; then
+  write_state_file "$CUR_HEAD"
+  commit_push_state_file
+  exit 0
+fi
+
+# No-op cycle: HEAD has not advanced since the last drain. Do not rewrite the
+# state file (which would only update last_drained_at) and do not commit. This
+# keeps the journal free of one-state-file-commit-per-drain noise on quiet
+# cycles. Two role drains a minute on three hosts would otherwise produce
+# ~8000 inbox-drain commits per day with no signal.
+if [ "$LAST" = "$CUR_HEAD" ]; then
   exit 0
 fi
 
@@ -85,10 +132,11 @@ fi
 # `git diff --diff-filter=A --name-only` is fast and shows only added paths.
 ADDED="$(git -C "$JRN" diff --diff-filter=A --name-only "$LAST..HEAD" -- entries/ 2>/dev/null || true)"
 
+EMITTED=0
 if [ -n "$ADDED" ]; then
   # For each added entry, parse `to:` and `ts:` from frontmatter.
-  # Output chronologically (sort by ts).
-  while IFS= read -r path; do
+  # Output chronologically (sort by ts). Count emitted lines.
+  OUT="$(while IFS= read -r path; do
     [ -z "$path" ] && continue
     full="$JRN/$path"
     [ -f "$full" ] || continue
@@ -97,22 +145,25 @@ if [ -n "$ADDED" ]; then
     if [ "$TO" = "$ROLE" ] || [ "$TO" = "*" ]; then
       printf "%s %s %s\n" "$TS" "$TO" "$path"
     fi
-  done <<< "$ADDED" | sort
+  done <<< "$ADDED" | sort)"
+  if [ -n "$OUT" ]; then
+    printf '%s\n' "$OUT"
+    EMITTED=1
+  fi
 fi
 
-# Step 4: update state file atomically.
-cat > "$STATE_FILE.tmp" <<EOF
----
-host: $HOST
-role: $ROLE
-last_drained_at: $(date -u +%Y-%m-%dT%H:%M:%SZ)
-last_drained_commit: $CUR_HEAD
----
-
-# $ROLE inbox state on $HOST
-
-Updated by \`skills/inbox-drain/inbox-drain.sh\` after each drain. Use
-\`git -C journal log <last_drained_commit>..HEAD\` to see the same range
-the next call will scan, or just rerun the script.
-EOF
-mv "$STATE_FILE.tmp" "$STATE_FILE"
+# Step 4: update + commit + push the state file only when we actually emitted
+# something to drain. If HEAD advanced for non-addressed-entry reasons (other
+# roles' messages, inbox-drain state commits from other roles, journal
+# housekeeping), do not touch the state file. Otherwise this script's own
+# commits would race with itself: each run advances HEAD, the next run sees
+# LAST != CUR_HEAD, the state file gets rewritten + committed even with no
+# new addressed entries, and the loop never quiesces.
+#
+# Leaving LAST behind on a no-drain advance is safe: the next run's
+# `LAST..HEAD` range stays cheap (it's a path-filtered diff), and the next
+# addressed entry surfaces correctly because the range still covers it.
+if [ "$EMITTED" -eq 1 ]; then
+  write_state_file "$CUR_HEAD"
+  commit_push_state_file
+fi
