@@ -2974,3 +2974,30 @@ single-response-promise vs multi-submission-value | daemon
 reply-chain history submissions | daemon
 form definition vs value submission | daemon
 sender and receiver both see input fields | daemon
+Pi-compatible JSONL transcript format | daemon
+endoclaw Persistence and Memory directive | daemon
+openclaw localgpt JSONL adoption | daemon
+on-disk projection of in-memory tree | daemon
+five entry types header message compaction branchSummary custom | daemon
+custom entries with endo:* discriminator | daemon
+extension-namespaced entries via custom role | daemon
+$ENDO_STATE/sessions/<guest-id>/<timestamp>_<session-id>.jsonl | daemon
+mode 0600 owner-private | daemon
+O_APPEND atomicity | daemon
+partial-line recovery truncate to last newline | daemon
+loadFromJsonl path helper | daemon
+claw uses these as a form of memory | daemon
+endo session list show CLI verbs | daemon
+off-the-shelf JSONL tooling jq fx | daemon
+transparent-persistence-not-opaque-database | daemon
+compaction entry firstKeptEntryId pointer | daemon
+full history stays in file compaction is reversible | daemon
+$ENDO_STATE vs $HOME/.pi/agent/sessions open question | daemon
+UUIDv7 vs 256-bit formula ID open question | daemon
+store both with endo:messageId field | daemon
+Pi-mono session-format.md citation | daemon
+adopt-existing-standard-with-extension-namespace | daemon
+cite-Pi-reference-implementation discipline | daemon
+endopi family arc adopt-Pi-format | daemon
+agent reads own transcripts long-term memory | daemon
+inspectable append-only JSONL | daemon

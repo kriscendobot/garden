@@ -633,4 +633,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-form-request--{form-message-type-and-implementation, gaps-and-design-decisions}
 
-## Total: 618 sections from 161 source documents (through 2026-06-02).
+### From endo-but-for-bots/designs endopi-jsonl-transcript-format (cycle 117, **second endopi-* design ingest after cycle 112; Pi-compatible JSONL with extension-namespaced custom entries for Endo; transparent-persistence + two-reader pattern + agent-uses-own-transcripts-as-memory; cycle 117 pivoted from chat-lane to endopi-design-lane**)
+
+- endo-but-for-bots--llm-designs-endopi-jsonl-transcript-format--{pi-compatible-jsonl-with-custom-entries-for-endo-extensions}
+
+## Total: 619 sections from 162 source documents (through 2026-06-02).
