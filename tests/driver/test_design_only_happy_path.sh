@@ -61,7 +61,7 @@ chmod +x "$stub_un_draft_file"
 export UN_DRAFT_STUB="$stub_un_draft_file"
 
 run_driver() {
-  bash "$MOCK_GARDEN_ROOT/roles/driver/driver.sh" 1
+  bash "$MOCK_GARDEN_ROOT/scripts/driver/driver.sh" 1
 }
 
 read_state_field() {

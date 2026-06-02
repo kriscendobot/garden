@@ -61,7 +61,7 @@ bootstrap.
 EOF
 
 set +e
-bash "$MOCK_GARDEN_ROOT/roles/driver/driver.sh" 1 >/dev/null 2>&1
+bash "$MOCK_GARDEN_ROOT/scripts/driver/driver.sh" 1 >/dev/null 2>&1
 rc=$?
 set -e
 

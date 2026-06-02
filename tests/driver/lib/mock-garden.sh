@@ -27,20 +27,12 @@ mock_garden_setup() {
 
   mkdir -p "$MOCK_GARDEN_ROOT" "$MOCK_STUBS" "$MOCK_BIN" "$MOCK_LOGS"
 
-  # 1. Copy roles/driver/ and the skills the driver invokes into the
+  # 1. Copy scripts/driver/ and the skills the driver invokes into the
   #    mock garden. We do not copy the entire real garden; that would
   #    drag in the journal as a git submodule. The mock harness needs
   #    only the artifacts the driver references at runtime.
-  cp -r "$REAL_GARDEN_ROOT/roles/driver" "$MOCK_GARDEN_ROOT/" 2>/dev/null || \
-    cp -r "$REAL_GARDEN_ROOT/roles/driver" "$MOCK_GARDEN_ROOT/roles-driver-tmp"
-  # The mkdir+cp pattern handles the case where roles/driver did not
-  # yet exist (first-run); the test fails fast if so. We unify here:
-  mkdir -p "$MOCK_GARDEN_ROOT/roles"
-  if [ -d "$MOCK_GARDEN_ROOT/roles-driver-tmp" ]; then
-    mv "$MOCK_GARDEN_ROOT/roles-driver-tmp" "$MOCK_GARDEN_ROOT/roles/driver"
-  elif [ -d "$MOCK_GARDEN_ROOT/driver" ]; then
-    mv "$MOCK_GARDEN_ROOT/driver" "$MOCK_GARDEN_ROOT/roles/driver"
-  fi
+  mkdir -p "$MOCK_GARDEN_ROOT/scripts"
+  cp -r "$REAL_GARDEN_ROOT/scripts/driver" "$MOCK_GARDEN_ROOT/scripts/"
 
   # Copy the skills the driver invokes.
   mkdir -p "$MOCK_GARDEN_ROOT/skills"
@@ -127,7 +119,7 @@ mock_garden_clear_pr_json() {
 mock_garden_run_driver() {
   local lane=$1
   shift
-  bash "$MOCK_GARDEN_ROOT/roles/driver/driver.sh" "$lane" "$@"
+  bash "$MOCK_GARDEN_ROOT/scripts/driver/driver.sh" "$lane" "$@"
 }
 
 mock_garden_teardown() {

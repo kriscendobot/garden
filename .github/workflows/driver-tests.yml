@@ -42,15 +42,22 @@ jobs:
           git config --global user.name "ci-bot"
           git config --global user.email "ci-bot@example.invalid"
 
-      - name: shellcheck (driver + cleaner + per-test scripts)
-        # Lint the in-PR bash artifacts. Scope is the driver, the cleaner
+      - name: shellcheck (driver + daemons + watcher stub + cleaner + per-test scripts)
+        # Lint the in-PR bash artifacts. Scope is the driver, the daemon
+        # management wrappers, the stub feed watcher, the cleaner
         # skeleton, the gardener-inbox error reporter, and the driver
         # tests harness. Pre-existing scripts outside this scope have
         # known issues unrelated to this PR; widening the lint surface
         # is a separate effort.
         run: |
           shellcheck -S warning \
-            roles/driver/driver.sh \
+            scripts/driver/driver.sh \
+            scripts/daemons/start.sh \
+            scripts/daemons/stop.sh \
+            scripts/daemons/status.sh \
+            scripts/daemons/logs.sh \
+            scripts/daemons/config.sh.example \
+            scripts/watcher/endo-but-for-bots/watcher.sh \
             skills/cleaner/cleaner.sh \
             skills/cleaner/test-cleaner.sh \
             skills/gardener-inbox-error-reporting/report-error.sh \
@@ -61,8 +68,8 @@ jobs:
             tests/driver/test_loop_capture_and_self_improve.sh \
             tests/driver/test_trap_fires_on_error.sh
 
-      - name: bash -n (syntax check, all role and skill main scripts)
-        # Syntactic check on every shell script under roles/ and skills/.
+      - name: bash -n (syntax check, all scripts/ and skill main scripts)
+        # Syntactic check on every shell script under scripts/ and skills/.
         # `bash -n` is purely lexical so it is safe to run on the broader
         # set, unlike shellcheck which surfaces warnings the surrounding
         # scripts have not addressed yet.
@@ -74,7 +81,7 @@ jobs:
               echo "::error file=$f::bash -n failed"
               fail=1
             fi
-          done < <(find roles skills -mindepth 2 -maxdepth 3 -type f -name '*.sh' | sort)
+          done < <(find scripts skills -mindepth 2 -maxdepth 4 -type f -name '*.sh' | sort)
           if [ "$fail" -ne 0 ]; then
             exit 1
           fi
