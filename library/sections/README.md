@@ -681,4 +681,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-endopi-provider-registry-and-oauth--{registry-shape-and-subscription-oauth-with-lal-vs-genie-consolidation-question}
 
-## Total: 632 sections from 173 source documents (through 2026-06-02).
+### From endo-but-for-bots designs/endopi-extension-package-manifest.md (cycle 129, **eighth endopi-* design ingest + twenty-sixth-comment-style design ingest; the *endopi-* family unifier* — consumes four prior endopi-* designs through its `endo` manifest key (guests / skills / prompts / providers); cycle 121's family keystone §Extensibility named this design as the *right move* — *one package.json keyword, one install command, multiple resource kinds, with per-kind confinement*; §per-kind-confinement table the §Security posture's distinctive contribution over Pi; cycle 129 chat-lane exhaustion pivot to designs lane; endopi-* family now 8/9 ingested**)
+
+- endo-but-for-bots--llm-designs-endopi-extension-package-manifest--{one-package-json-keyword-one-install-command-multiple-resource-kinds-with-per-kind-confinement}
+
+## Total: 633 sections from 174 source documents (through 2026-06-02).

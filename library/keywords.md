@@ -3412,3 +3412,30 @@ don't-adopt-Pi's-weaker-storage | agent-conventions
 secrets boundary is different | agent-conventions
 partially-satisfied lifecycle pattern repeated | agent-conventions
 Vercel AI Gateway Cloudflare AI Gateway out of scope | agent-conventions
+endopi-extension-package-manifest family unifier | agent-conventions
+one package.json keyword one install command | agent-conventions
+multiple resource kinds with per-kind confinement | agent-conventions
+endo manifest key in package.json | agent-conventions
+guests skills prompts providers four resource directories | agent-conventions
+auto-discovery-defaults convention over configuration | agent-conventions
+forward-compatibility no v2 manifest | agent-conventions
+unknown keys ignored | agent-conventions
+endo install npm git local path | agent-conventions
+endo install --project project-local | agent-conventions
+per-kind-confinement table | agent-conventions
+Package authors do not get to ask for new capabilities silently | agent-conventions
+skills are markdown files instruct only | agent-conventions
+power is to instruct not to do anything directly | agent-conventions
+prompts are pure text no capability surface | agent-conventions
+providers run confined daemon-gated network | agent-conventions
+safer than endo install is today | agent-conventions
+expanding the surface without expanding the attack surface | agent-conventions
+endo list packages endo remove | agent-conventions
+endo config enable disable mirroring pi config | agent-conventions
+endo install pinning and updates | agent-conventions
+centralized registry declined | agent-conventions
+no-moderation-surface discipline | agent-conventions
+endo-package keyword npm convention | agent-conventions
+forever-v1 manifest discipline | agent-conventions
+endopi family unifier consumes four prior designs | agent-conventions
+the right move cited solution from keystone | agent-conventions
