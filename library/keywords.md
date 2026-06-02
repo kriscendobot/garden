@@ -3224,3 +3224,35 @@ multi-edit batched in one call | agent-conventions
 edit vs multi-edit single tool both shapes | agent-conventions
 edit-by-replacement primitive coding agent default | agent-conventions
 File.edit returns applied diff conflicts | agent-conventions
+merge-set-operators set algebra | patterns
+windowResort element variant | patterns
+merge xelements yelements triple stream | patterns
+T xCount yCount bigint triples | patterns
+For sets these counts are always 0 or 1 | patterns
+generalizes nicely for bags | patterns
+iterIsSuperset boolean early-exit fold | patterns
+iterIsDisjoint boolean early-exit fold | patterns
+iterCompare Pareto two-flag NaN short-circuit | patterns
+iterUnion push each fold | patterns
+iterDisjointUnion assert no common push | patterns
+iterIntersection filter both present | patterns
+iterDisjointSubtract assert x present filter y absent | patterns
+mergeify lifts iterOp to elementsOp | patterns
+rawSetify for predicates | patterns
+setify for constructors re-tags | patterns
+makeSetOfElements preserves canonical copySet form | patterns
+three-layer factory chain iterOp elementsOp setOp | patterns
+TODO share more code with keycollection-operators | patterns
+raw JS array iterator does not harden IteratorResult | patterns
+unfrozen value does not escape this file | patterns
+correctness by closed scope confidence | patterns
+13 exported set operations 7 elementsOps + 6 setOps | patterns
+elementsIsSuperset elementsIsDisjoint elementsCompare | patterns
+elementsUnion elementsDisjointUnion elementsIntersection elementsDisjointSubtract | patterns
+setIsSuperset setIsDisjoint setUnion setDisjointUnion setIntersection setDisjointSubtract | patterns
+asymmetry compareKeys setCompare uses makeCompareCollection not iterCompare | patterns
+same algebra in two places | patterns
+abstraction debt marker | patterns
+merge-bag-operators sister file | patterns
+right element was not in left | patterns
+Sets must not have common elements | patterns

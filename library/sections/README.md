@@ -657,4 +657,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-endopi-edit-tool--{llm-friendly-edit-by-replacement-with-unique-match-and-line-ending-preservation}
 
-## Total: 626 sections from 167 source documents (through 2026-06-02).
+### From endo packages/patterns/src/keys/merge-set-operators.js longform comments (cycle 123, **twenty-first comment-fragment ingest; the *set-algebra layer* sitting on top of cycle 120's keycollection-operators.js — `// TODO share more code` connector comment makes the abstraction debt explicit; seven iterOp folds + mergeify/setify adapter pyramids producing 13 exports; pairs the Keys-substrate cluster to six ingests (102 + 104 + 110 + 115 + 120 + 123) covering the substrate's complete operational surface; cycle 123 nominal comments-lane; papers-lane has been blocked for 17+ consecutive cycles**)
+
+- endo--packages-patterns-src-keys-merge-set-operators-js--{seven-set-operations-derived-from-one-merge-iterator-with-mergeify-and-setify-adapters}
+
+## Total: 627 sections from 168 source documents (through 2026-06-02).
