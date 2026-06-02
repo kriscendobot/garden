@@ -2717,3 +2717,39 @@ objectMap per-facet WeakMaps | exo
 callWhen transformation static typing caveat | exo
 short-circuit assert Fail template-tag | exo
 factory grants public and private references | exo
+Familiar Electron Shell | daemon
+native desktop application packaging Endo | daemon
+non-developer users installable | daemon
+daemon outlives the Familiar | daemon
+detached: true daemon.unref | daemon
+matches CLI endo start behavior | daemon
+just-another-client of persistent daemon | daemon
+localhttp:// custom protocol | daemon
+intercept-before-DNS pattern | daemon
+per-weblet unique origin | daemon
+without requiring DNS resolution of *.localhost | daemon
+Host header proxy to daemon | daemon
+browser security isolation per weblet | daemon
+separate cookie jars localStorage | daemon
+WebSocket proxy fallback | daemon
+Electron protocol.handle does not support WebSocket upgrade | daemon
+MessagePort bridge | daemon
+play well with existing daemons five-scenario table | daemon
+E(bootstrap).ping() alive and compatible | daemon
+two-layer compatibility socket plus protocol | daemon
+nine shipped modules file-level enumeration | daemon
+electron-main.js daemon-manager protocol-handler | daemon
+exfiltration-defense navigation-guard | daemon
+Design deviations honest departures | daemon
+src not resources Electron Forge URL fragment | daemon
+familiar-gateway-migration dependency | daemon
+familiar-unified-weblet-server dependency | daemon
+familiar-daemon-bundling dependency | daemon
+Purge destructive confirmation dialog | daemon
+electron-updater auto-update | daemon
+daemon-side migration progress indicator | daemon
+200MB Electron distribution | daemon
+Chromium Node.js bundled | daemon
+preload.js minimal IPC bridge | daemon
+privileged scheme protection | daemon
+expand audience via packaging | daemon

@@ -601,4 +601,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-exo-src-exo-makers-js--{defineExoClass-defineExoClassKit-and-makeExo-factory-trio}
 
-## Total: 609 sections from 153 source documents (through 2026-06-02).
+### From endo-but-for-bots/designs familiar-electron-shell (cycle 109, **first familiar-* design ingest in the library; native desktop application packaging the Endo stack for non-developer users; daemon-outlives-the-Familiar + localhttp:// custom protocol + five-scenario play-well-with-existing-daemons; cycle 109 pivoted from chat-lane (exhausted) to familiar-design-lane**)
+
+- endo-but-for-bots--llm-designs-familiar-electron-shell--{electron-shell-with-daemon-outlives-app-and-localhttp-protocol}
+
+## Total: 610 sections from 154 source documents (through 2026-06-02).
