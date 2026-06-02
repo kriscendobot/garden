@@ -1,8 +1,8 @@
 ---
 host: endolinbot
 role: liaison
-last_drained_at: 2026-05-29T02:38:26Z
-last_drained_commit: 52a86326d36022c3d05f7ffd7312ed25d5e0346a
+last_drained_at: 2026-06-02T23:13:00Z
+last_drained_commit: 4dd7c23184fcece894dc94288b872ba371c8f653
 ---
 
 # liaison inbox state on endolinbot
