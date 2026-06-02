@@ -37,12 +37,13 @@ The subagent does not commit role or skill changes itself; structural lessons go
 
 ## Style
 
-Two prose-style rules apply to every document you author or edit in the garden, including journal entry bodies. Both are skills:
+Three prose-style rules apply to every document you author or edit in the garden, including journal entry bodies. All are skills:
 
 - `garden/skills/em-dash-style/SKILL.md`: avoid em-dashes in prose; rewrite as period, parentheses, or colon.
 - `garden/skills/relative-paths/SKILL.md`: paths within one document tree are relative; absolute paths are reserved for the cross-tree case (a document instructing an agent in another tree, as this file does for subagents reading it from a dispatch-root copy of `garden/`).
+- `garden/skills/no-latin-shorthand/SKILL.md`: avoid Latin shorthand (`cf.`, `i.e.`, `e.g.`, `etc.`, `et al.`, `vs.`, `viz.`, `ad hoc`) in bot-authored prose; use the English equivalent.
 
-Vendored content under `references/<source>/` is exempt from both rules: references are read-only snapshots.
+Vendored content under `references/<source>/` is exempt from all three: references are read-only snapshots.
 
 ## Document frontmatter
 
