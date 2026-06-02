@@ -605,4 +605,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-familiar-electron-shell--{electron-shell-with-daemon-outlives-app-and-localhttp-protocol}
 
-## Total: 610 sections from 154 source documents (through 2026-06-02).
+### From endo packages/patterns/src/keys/copySet.js longform comments (cycle 110, **seventeenth comment-fragment ingest; Kris Kowal-authored copySet element-validation + factory surface; sibling that cycle 102's checkKey.js imports `confirmElements` + `makeSetOfElements` from; cycle 110 papers-lane pivot to comments-lane (seventh consecutive papers-lane block)**)
+
+- endo--packages-patterns-src-keys-copyset-js--{element-validation-and-canonical-internal-form}
+
+## Total: 611 sections from 155 source documents (through 2026-06-02).

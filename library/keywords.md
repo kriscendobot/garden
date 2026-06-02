@@ -2753,3 +2753,26 @@ Chromium Node.js bundled | daemon
 preload.js minimal IPC bridge | daemon
 privileged scheme protection | daemon
 expand audience via packaging | daemon
+copySet element-validation surface | patterns
+confirmNoDuplicates fullCompare reject | patterns
+fullOrder antiComparator built fresh per call | patterns
+this fullOrder contains history dependent state does not survive | patterns
+sort-then-adjacent-duplicate-scan algorithm | patterns
+&&= once tooling ready TODO | patterns
+memoize no-duplicate finding independent of fullOrder | patterns
+assertNoDuplicates public throw-form | patterns
+three-layer confirmElements | patterns
+The keys of a copySet or copyMap must be a copyArray | patterns
+The keys of a copySet or copyMap must be sorted in reverse rank order | patterns
+isRankSorted compareAntiRank | patterns
+reverse-rank-sorted invariant for copySet | patterns
+coerceToElements iterable to array | patterns
+makeSetOfElements makeTagged copySet | patterns
+canonical copySet internal form | patterns
+tagged copySet rank-sorted no-duplicates copyArray | patterns
+one-validation-serves-multiple-consumers | patterns
+hideAndHardenFunction assertElements | patterns
+short-circuit reject template-tag | patterns
+ties cluster for downstream scan-based algorithms | patterns
+deferred optimization TODO with trigger | patterns
+honest known perf limit with named mitigation | patterns
