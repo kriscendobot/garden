@@ -2,13 +2,13 @@
 # driver.sh -- the manually-invoked driver entry point.
 #
 # Usage:
-#   roles/driver/driver.sh <lane>
+#   scripts/driver/driver.sh <lane>
 #
 # <lane> is a small integer chosen by the maintainer. Two drivers on the
 # same host must use different lane numbers.
 #
 # Environment overrides (honored by both the script and the test harness):
-#   GARDEN_ROOT          default: script-location-relative parent
+#   GARDEN_ROOT          default: script-location-relative grandparent
 #   GARDEN_JOURNAL       default: $GARDEN_ROOT/journal
 #   GARDEN_HOST          default: $(hostname -s)
 #   DRIVER_WORKFLOW      default: inferred from DRIVER_PR or claimed job
@@ -20,8 +20,9 @@
 # transcript. An ERR trap fans unexpected failures out to the gardener
 # inbox via skills/gardener-inbox-error-reporting/report-error.sh.
 #
-# See roles/driver/AGENT.md for the role contract.
-# See skills/driver-state-machine/SKILL.md for the PR-creation workflow.
+# See scripts/driver/README.md for the human-facing overview.
+# See skills/driver-pr-creation-state-machine/SKILL.md for the PR-creation
+# workflow's full state diagram.
 # See skills/driver-design-only-pr-workflow/SKILL.md for the design-only
 # workflow used in Phase 2.
 
