@@ -1,7 +1,7 @@
 ---
 created: 2026-05-12
-updated: 2026-05-12
-author: liaison
+updated: 2026-06-02
+author: liaison, gardener
 ---
 
 # Skill: inbox-drain
@@ -84,7 +84,7 @@ The script does not distinguish urgency or priority; it shows everything in chro
 
 ## Pitfalls
 
-- **State file commit churn.** Every drain writes the state file, which means a journal commit per drain. With a monitor running every 90 seconds, that is ~40 commits per hour just for inbox-state bookkeeping. Acceptable for now (the journal accommodates churn), but worth revisiting if it becomes noisy. One mitigation: only commit the state file when the drain found new messages, not on every empty tick.
+- **State file commit churn.** Mitigated 2026-06-02: the script only writes and commits the state file when a drain actually emits an addressed entry. Quiet ticks (`LAST == CUR_HEAD`) exit early without touching the state file; non-quiet ticks that find no addressed entries (HEAD advanced for other roles' messages or for the script's own state-file commits) leave `LAST` behind without rewrite. A continuous Monitor at 90s cadence produces zero state-file commits during periods with no addressed entries; one commit per drained entry-burst otherwise. The earlier "every drain commits" claim no longer applies. The skip-on-quiet branches are also what prevents the script from triggering itself: each state-file commit advances HEAD, and without the EMITTED guard the next run would see `LAST != CUR_HEAD` and rewrite + commit again indefinitely.
 - **First-run initialization.** The first call on a host outputs nothing (initializes at HEAD). If a maintainer wants to backfill historical messages, they can edit the state file's `last_drained_commit` to an earlier SHA and rerun.
 - **Rebased history.** If the journal branch is rebased (rewriting `last_drained_commit` out of history), the next drain may dump or skip messages. The journal is append-only by convention, so this should not happen, but it is worth knowing.
 - **Two roles on the same host both draining.** Each role has its own state file, so no interference. But two simultaneously-running liaison sessions on the same host share one `liaison.md` state file. Idempotent enough; see *Concurrency* above.
