@@ -677,4 +677,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-patterns-src-patterns-getGuardPayloads-js--{legacy-guard-tolerance-and-payload-extraction-at-three-granularities-with-method-key-introspection}
 
-## Total: 631 sections from 172 source documents (through 2026-06-02).
+### From endo-but-for-bots designs/endopi-provider-registry-and-oauth.md (cycle 128, **seventh endopi-* design ingest + twenty-fifth-comment-style design ingest; closes the §Multi-provider LLM API gap from cycle 121's family keystone — *subscription auth is pi's highest-leverage feature for end users*; same *partially-satisfied* lifecycle pattern as cycle 124 (Genie ships pi-ai's full registry); §headline-has-moved discipline; §account-level-vs-workspace-level distinction names the §broader-blast-radius warning; cycle 128 papers-lane block 22+ pivot to designs lane; endopi-* family now 7/9 ingested**)
+
+- endo-but-for-bots--llm-designs-endopi-provider-registry-and-oauth--{registry-shape-and-subscription-oauth-with-lal-vs-genie-consolidation-question}
+
+## Total: 632 sections from 173 source documents (through 2026-06-02).

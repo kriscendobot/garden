@@ -3381,3 +3381,34 @@ tests-co-located-with-consumer not implementation | patterns
 test-legacy-guard-tolerance.js in @endo/exo | patterns
 exo defendPrototype + guard-payload-adapter pair | patterns
 end-of-life marker explicit deletion plan | patterns
+endopi-provider-registry-and-oauth | agent-conventions
+subscription auth highest-leverage user-facing capability | agent-conventions
+ProviderInterface M.interface declaration | agent-conventions
+apiStyle openai anthropic google bedrock custom | agent-conventions
+authShape apiKey oauth vertex none | agent-conventions
+listModels complete stream provider methods | agent-conventions
+authorization-code-with-PKCE OAuth flow | agent-conventions
+dual-redirect-URI Familiar pane vs 127.0.0.1 | agent-conventions
+encrypted-at-rest credential discipline | agent-conventions
+encryption key derived from host passphrase or hardware key | agent-conventions
+account-level vs workspace-level distinction | agent-conventions
+subscription tokens equivalent to logging in on the web | agent-conventions
+broader-blast-radius warning | agent-conventions
+UI confirmation step on first use | agent-conventions
+headline-has-moved discipline | agent-conventions
+30+ providers framing is no longer the headline | agent-conventions
+Lal vs Genie consolidation three options | agent-conventions
+deferred to maintainer | agent-conventions
+@endo/lal vs @endo/lal-ai package placement | agent-conventions
+@endo/ai shared package option | agent-conventions
+six-axis scope-satisfaction enumeration | agent-conventions
+genuinely missing OAuth Claude ChatGPT Plus Copilot | agent-conventions
+cross-provider handoff mid-session slash model | agent-conventions
+image input on user messages | agent-conventions
+pi-ai api-registry.ts oauth.ts providers directory | agent-conventions
+30+ provider modules directory citation | agent-conventions
+buildOllamaModel ollama as openai-completions | agent-conventions
+don't-adopt-Pi's-weaker-storage | agent-conventions
+secrets boundary is different | agent-conventions
+partially-satisfied lifecycle pattern repeated | agent-conventions
+Vercel AI Gateway Cloudflare AI Gateway out of scope | agent-conventions
