@@ -2508,3 +2508,32 @@ ScalarKey atom or remotable | patterns
 copyRecord all values must be keys | patterns
 copyArray all elements must be keys | patterns
 copyMap keys are keys values are keys layered | patterns
+value message type | daemon
+ValueMessage required replyTo | daemon
+valueId FormulaIdentifier | daemon
+reply-only invariant | daemon
+single value per message | daemon
+sendValue messageNumber petNameOrPath resultName | daemon
+recipient inferred from parent | daemon
+security-by-topology | daemon
+auto-retain mechanism | daemon
+resultName hint not guarantee | daemon
+zero-ceremony value delivery | daemon
+VALUE edge primary payload | daemon
+seven-edge message hub directory | daemon
+FROM TO DATE TYPE MESSAGE REPLY VALUE edges | daemon
+fire-and-forget value already exists | daemon
+no promise resolver infrastructure | daemon
+package empty template workaround | daemon
+adopt ceremony gap | daemon
+LLM agent tool results | daemon
+core loop of agentic interaction | daemon
+human sends task agent replies with result | daemon
+foundational reply-primitive | daemon
+value-as-reply pattern | daemon
+14-row Files Modified surface | daemon
+design-doc-as-implementation-tracker shape | daemon
+endo send-value CLI command | daemon
+send-value command-registry | daemon
+one result per task | daemon
+envelope-vs-out-of-band carriage open question | daemon

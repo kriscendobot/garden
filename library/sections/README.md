@@ -577,4 +577,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-patterns-src-keys-checkKey-js--{keys-foundation-confirm-is-assert-trio-and-recursion, copyset-copybag-copymap-extensions-and-special-case-algorithms}
 
-## Total: 603 sections from 147 source documents (through 2026-06-02).
+### From endo-but-for-bots/designs daemon-value-message (cycle 103, **foundational reply-primitive design that cycle 101's daemon-commands-as-messages reuses; cycle 103 pivoted from chat-lane (exhausted) to daemon-design-lane**)
+
+- endo-but-for-bots--llm-designs-daemon-value-message--{value-message-type-and-reply-only-design}
+
+## Total: 604 sections from 148 source documents (through 2026-06-02).
