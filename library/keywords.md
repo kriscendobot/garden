@@ -3044,3 +3044,48 @@ objectMap per-facet defendPrototype | exo
 amortize compilation cost across calls | exo
 exo construction + defense surface | exo
 user-call-tree defineExoClass to defendSyncMethod | exo
+the daemon is the capability bus | daemon
+daemon-as-message-router | daemon
+language-agnostic message router | daemon
+CBOR envelope four-tuple | daemon
+handle verb payload nonce | daemon
+fd 3/4 pipe layout | daemon
+CBOR-framed envelopes | daemon
+symmetric handle rewriting | daemon
+handle field denotes local-side identity of peer | daemon
+no sender field needed | daemon
+CapTP-over-envelope encapsulation | daemon
+deliver verb payload | daemon
+transparent to the CapTP layer | daemon
+bus-daemon-node.js manager entry | daemon
+bus-daemon-node-powers.js makeWorker no longer forks | daemon
+bus-worker-node.js worker entry | daemon
+bus-daemon-rust-xs.js XS manager bootstrap | daemon
+bus-worker-xs.js XS worker bootstrap | daemon
+endor manager -e xs | daemon
+endor binary subcommand dispatch | daemon
+unified endor binary daemon manager worker | daemon
+spawn verb spawn-tree daemon-controls-process-config | daemon
+init ready envelope handshake | daemon
+manager-requests-worker-creation-via-envelope | daemon
+workers are children of the daemon not of the manager | daemon
+handle topology daemon-0 manager-1 workers-2-plus | daemon
+spawn-tree deadlock prevention canBlock | daemon
+sync calls only child to ancestor | daemon
+nonce-0 fire-and-forget vs nonce-gt-0 request-response | daemon
+inherited from endo-engo prototype | daemon
+incremental syscall migration unbounded | daemon
+syscall log verb worker stderr | daemon
+fs.read fs.write net.listen crypto.random candidates | daemon
+new envelope verbs for syscall migration | daemon
+workers can be fully OS-confined | daemon
+sandbox-exec namespaces seccomp | daemon
+handles unforgeable within envelope protocol | daemon
+two-layer ocap discipline stacked | daemon
+envelope-level + CapTP-level ocap | daemon
+daemon runs no JavaScript | daemon
+manager is the privileged child | daemon
+manager runs the formula graph and pet-name store | daemon
+bus prefix denotes protocol participation not role | daemon
+rolling back is trivial -node modules remain | daemon
+ENDO_BIN switch between legacy and bus daemon | daemon

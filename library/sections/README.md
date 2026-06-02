@@ -641,4 +641,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-exo-src-exo-tools-js--{method-defense-with-raw-guards-and-async-await-handling, defendPrototype-and-defendPrototypeKit-with-interface-guard-validation}
 
-## Total: 621 sections from 163 source documents (through 2026-06-02).
+### From endo-but-for-bots designs/daemon-capability-bus.md (cycle 119, **twentieth-comment-style design ingest; daemon-as-message-router worldview shift; symmetric handle-rewriting + CapTP-over-envelope encapsulation + spawn-tree deadlock prevention + unbounded syscall-migration arc; pairs structurally with cycle 105's daemon-capability-bank (capabilities-as-shared-resources at the application layer ↔ capabilities-addressed-by-handle at the transport layer); cycle 119 chat-lane exhaustion pivot to designs lane; papers-lane has been blocked for 13+ consecutive cycles**)
+
+- endo-but-for-bots--llm-designs-daemon-capability-bus--{daemon-as-message-router-with-envelope-protocol-and-handle-rewriting}
+
+## Total: 622 sections from 164 source documents (through 2026-06-02).

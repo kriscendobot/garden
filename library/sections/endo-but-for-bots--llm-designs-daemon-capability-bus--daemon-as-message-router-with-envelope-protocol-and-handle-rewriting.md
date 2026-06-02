@@ -1,7 +1,7 @@
 ---
 section: daemon-as-message-router-with-envelope-protocol-and-handle-rewriting
 source: endo-but-for-bots--llm-designs-daemon-capability-bus
-topics: [daemon, ocap]
+topics: [daemon, capability-security]
 status: current
 ---
 
