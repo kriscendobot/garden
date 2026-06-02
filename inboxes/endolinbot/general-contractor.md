@@ -1,8 +1,8 @@
 ---
 host: endolinbot
 role: general-contractor
-last_drained_at: 2026-06-02T20:29:03Z
-last_drained_commit: 19c19441c57f04641d7de4e45a0c4a69a0145268
+last_drained_at: 2026-06-02T20:59:44Z
+last_drained_commit: 81fc0821d7be96ce5d8769a9f3a1dbbf370e2747
 ---
 
 # general-contractor inbox state on endolinbot
