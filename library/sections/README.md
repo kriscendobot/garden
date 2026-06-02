@@ -613,4 +613,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-familiar-gateway-migration--{gateway-moved-from-chat-vite-plugin-into-daemon}
 
-## Total: 612 sections from 156 source documents (through 2026-06-02).
+### From endo-but-for-bots/designs endopi-skills-markdown-format (cycle 112, **first endopi-* design ingest in the library; agentskills.io cross-harness on-disk skill format adoption; progressive-disclosure context-budget pattern; authoring-surface-vs-granting-surface split; cycle 112 pivoted from papers-lane (eighth consecutive block) to endopi-design-lane**)
+
+- endo-but-for-bots--llm-designs-endopi-skills-markdown-format--{agentskills-io-on-disk-skill-shape-with-progressive-disclosure}
+
+## Total: 613 sections from 157 source documents (through 2026-06-02).

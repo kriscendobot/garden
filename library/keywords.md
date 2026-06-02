@@ -2801,3 +2801,37 @@ honest-retention discipline | daemon
 named-upgrade-path-with-detected-fallback | daemon
 pre-migration daemon detection | daemon
 localhost-only IPv4 ::1 restriction | daemon
+endopi family of designs | daemon
+agentskills.io specification | daemon
+cross-harness skill format Pi Claude Code Codex | daemon
+SKILL.md frontmatter | daemon
+name max 64 chars lowercase | daemon
+description max 1024 chars | daemon
+allowed-tools experimental | daemon
+disable-model-invocation flag | daemon
+license compatibility frontmatter fields | daemon
+my-skill directory with scripts references assets | daemon
+progressive disclosure descriptor in system prompt | daemon
+read full SKILL.md on demand | daemon
+discoverSkills paths walker | daemon
+~/.pi/agent/skills | daemon
+~/.claude/skills | daemon
+~/.codex/skills | daemon
+.agents/skills walk-up from cwd | daemon
+.pi/skills | daemon
+adopt-the-existing-standard rather than fragment | daemon
+de-facto cross-harness standard | daemon
+lenient-validation warn but accept | daemon
+foreign skills load discipline | daemon
+authoring-surface-vs-granting-surface split | daemon
+endoclaw-skill-registry daemon-side complement | daemon
+guest module bridges filesystem to EndoDirectory | daemon
+/skill:my-skill slash command forced load | daemon
+user-override for LLM skill selection | daemon
+allowed-tools as structural capability grant open question | daemon
+Endo answer more rigorous than Pi | daemon
+cite-the-reference-implementation discipline | daemon
+filesystem-as-canonical-name | daemon
+bounded-context-via-on-demand-load | daemon
+be-the-most-inclusive-harness posture | daemon
+Pi mono badlogic coding-agent citation | daemon
