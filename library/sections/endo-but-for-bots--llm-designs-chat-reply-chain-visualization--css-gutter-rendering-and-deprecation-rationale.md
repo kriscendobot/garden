@@ -7,7 +7,7 @@ source_commit: HEAD (origin/llm, fetched 2026-06-01)
 source_date: 2026-02-28
 source_authors: [Kris Kowal (prompted)]
 source_lines: "202-502 (Line Drawing + Vertical Alignment + Interactive Selection + Performance + Accessibility + Visual Design + Implementation Phases + Alternatives Considered + Files + Decisions Made + Out of Scope)"
-topics: [chat-ui, ui-design, css]
+topics: [chat-ui]
 status: deprecated
 notes: |
   The rendering + lifecycle surface of the deprecated chat-reply-

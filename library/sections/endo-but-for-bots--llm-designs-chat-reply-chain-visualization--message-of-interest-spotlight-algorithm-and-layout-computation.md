@@ -7,7 +7,7 @@ source_commit: HEAD (origin/llm, fetched 2026-06-01)
 source_date: 2026-02-28
 source_authors: [Kris Kowal (prompted)]
 source_lines: "1-200 (Motivation + Data Model + Message-of-Interest Algorithm + Indentation)"
-topics: [chat-ui, ui-design, layout]
+topics: [chat-ui]
 status: deprecated
 notes: |
   The MOI spotlight algorithm of the *deprecated* chat-reply-chain-

@@ -2344,3 +2344,63 @@ one-letter mnemonic exports | object-capability
 obviate polymorphic dispatch | object-capability
 honest-debugger-affordance breakpoint comment | object-capability
 particularly fruitful place to put a breakpoint | object-capability
+message-of-interest MOI spotlight model | chat-ui
+spotlight model one MOI at a time | chat-ui
+MOI never indented at left edge | chat-ui
+MOI selection IS the alignment decision | chat-ui
+scroll-pinned auto-promote new-message | chat-ui
+click to change MOI | chat-ui
+ephemeral MOI resets on reload | chat-ui
+MOI parent flush-left on spine | chat-ui
+chronologically last reply terminus | chat-ui
+earlier replies as branches indent 1 | chat-ui
+intermediate messages between MOI and last-reply | chat-ui
+computeLayout messages moiId | chat-ui
+Map id indent lines layout output | chat-ui
+single indent level invariant | chat-ui
+two-zone layout vocabulary spine and aside | chat-ui
+vertical-alignment-as-emergent property | chat-ui
+focus-as-alignment-decision idiom | chat-ui
+gutter-local line rendering | chat-ui
+CSS pseudo-element gutter lines | chat-ui
+::before vertical ::after horizontal | chat-ui
+data-line continue end branch attribute | chat-ui
+reply-line-color CSS custom property | chat-ui
+indent-width 2ex font-relative | chat-ui
+2px stroke muted grey | chat-ui
+#9ca3af Tailwind gray-400 | chat-ui
+#6b7280 Tailwind gray-500 | chat-ui
+CSS-over-SVG simpler-when-segments-are-gutter-local | chat-ui
+SVG-rejection three-criterion test animation gradient cross-virtualization | chat-ui
+simple right-angle junction no ornament | chat-ui
+off-screen-messages render lines regardless | chat-ui
+visually-hidden in reply to previous message | chat-ui
+visually-hidden audibly-present a11y pattern | chat-ui
+virtualization debounce caching performance triad | chat-ui
+requestAnimationFrame line recalc | chat-ui
+13-row Decisions Made table | chat-ui
+knob-by-knob rationale record | chat-ui
+flat list with thread indicators alternative | chat-ui
+separate thread view alternative | chat-ui
+GitHub-style collapsed threads alternative | chat-ui
+Slack-style thread panel alternative | chat-ui
+moi-layout.js pure layout algorithm | chat-ui
+reply-lines.css pseudo-element gutter rendering | chat-ui
+inbox-component.js MOI state tracking | chat-ui
+Phase 1 MOI state management | chat-ui
+Phase 2 layout computation | chat-ui
+Phase 3 indentation rendering | chat-ui
+Phase 4 line drawing | chat-ui
+Phase 5 click interaction | chat-ui
+Phase 6 polish unfinished | chat-ui
+Phases 1-5 checked done | chat-ui
+Deprecated see chat-focus-message | chat-ui
+deprecated-but-preserved design-doc pattern | chat-ui
+implemented-then-superseded lifecycle | chat-ui
+Out-of-Scope keyboard navigation deferred | chat-ui
+design-doc-as-implementation-tracker | chat-ui
+design-doc-as-rationale-history | chat-ui
+follow-along mode scroll-pinned | chat-ui
+focus is the layout decision | chat-ui
+user-selection-as-layout-input | chat-ui
+defer-to-incumbent-mechanism scroll pinning | chat-ui

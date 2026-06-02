@@ -561,4 +561,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-ses-src-error-assert-js--{declassifiers-quote-bare-and-redacted-vs-unredacted-details, logArgs-makeError-sanitizeError-tagError-and-loggedErrorHandler, makeAssert-and-the-assert-function-family}
 
-## Total: 597 sections from 143 source documents (through 2026-06-01).
+### From endo-but-for-bots/designs chat-reply-chain-visualization (cycle 99, **twenty-first chat-cluster source; canonical *deprecated-but-preserved* design-doc pattern; MOI spotlight model + CSS-gutter rendering; Phases 1-5 ✅ implemented then superseded by chat-focus-message**)
+
+- endo-but-for-bots--llm-designs-chat-reply-chain-visualization--{message-of-interest-spotlight-algorithm-and-layout-computation, css-gutter-rendering-and-deprecation-rationale}
+
+## Total: 599 sections from 144 source documents (through 2026-06-01).
