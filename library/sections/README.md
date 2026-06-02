@@ -625,4 +625,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-familiar-unified-weblet-server--{single-port-virtual-host-routing-with-key-revision}
 
-## Total: 615 sections from 159 source documents (through 2026-06-02).
+### From endo packages/patterns/src/keys/copyBag.js longform comments (cycle 115, **eighteenth comment-fragment ingest; sister to cycle 110's copySet.js (same author Kris Kowal, same commit `e56bf00f`); bag-analog with two bag-specific validation additions (per-entry shape + positive count) and the key-significance-over-value comment; cycle 115 pivoted from chat-lane to comments-lane for variety**)
+
+- endo--packages-patterns-src-keys-copybag-js--{bag-entry-validation-with-per-entry-shape-and-positive-count}
+
+## Total: 616 sections from 160 source documents (through 2026-06-02).

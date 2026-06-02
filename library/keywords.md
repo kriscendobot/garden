@@ -2903,3 +2903,25 @@ N-weblets-N-ports to N-weblets-1-port | daemon
 two-environment-different-mechanisms discipline | daemon
 honest-design-correction-inline | daemon
 deeper-problem identification points to dependency | daemon
+copyBag entry validation | patterns
+confirmNoDuplicateKeys bag entries | patterns
+key-significance-over-value | patterns
+fullOrder lexicographic-key-first composite-key sort | patterns
+five-layer confirmBagEntries | patterns
+per-entry-shape 2-element copyArray bigint count | patterns
+per-entry-positive-count count >= 1n | patterns
+absent keys mean count-zero | patterns
+bigint count arbitrary-large multiplicity | patterns
+assertBagEntries hideAndHardenFunction | patterns
+coerceToBagEntries iterable to array | patterns
+makeBagOfEntries makeTagged copyBag | patterns
+canonical copyBag internal form | patterns
+tagged copyBag [key,count] 2-tuples | patterns
+bag-analog of set validation | patterns
+sister-file design discipline | patterns
+one-discipline-shared-across-implementations | patterns
+additive-validation-layers richer-payload-more-layers | patterns
+no zero entries multi-set invariant | patterns
+positive count discipline | patterns
+fullOrder antiComparator key-first lexicographic | patterns
+bag entry tuple shape validation | patterns
