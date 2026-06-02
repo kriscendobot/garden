@@ -645,4 +645,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-capability-bus--{daemon-as-message-router-with-envelope-protocol-and-handle-rewriting}
 
-## Total: 622 sections from 164 source documents (through 2026-06-02).
+### From endo packages/patterns/src/keys/keycollection-operators.js longform comments (cycle 120, **twentieth comment-fragment ingest; the *Pareto-partial-order machinery* that powers CopySet/CopyBag/CopyMap comparison — cycle 104's compareKeys.js dispatch table delegates each per-style row to this file's `makeCompareCollection`; sister to cycles 102 + 104 + 110 + 115; completes the Keys substrate's comparison surface; cycle 120 nominal comments-lane; papers-lane has been blocked for 14+ consecutive cycles**)
+
+- endo--packages-patterns-src-keys-keycollection-operators-js--{pareto-pair-entries-merging-with-anti-rank-tie-breaking-for-collection-comparison}
+
+## Total: 623 sections from 165 source documents (through 2026-06-02).

@@ -3089,3 +3089,40 @@ manager runs the formula graph and pet-name store | daemon
 bus prefix denotes protocol participation not role | daemon
 rolling back is trivial -node modules remain | daemon
 ENDO_BIN switch between legacy and bus daemon | daemon
+keycollection-operators patterns infrastructure | patterns
+generateFullSortedEntries refine rank-sorted | patterns
+generateCollectionPairEntries sorted-merge-join | patterns
+makeCompareCollection factory | patterns
+Pareto partial-order over collections | patterns
+absentValue caller-supplied default | patterns
+key absent in c1 means valueA equals absentValue | patterns
+key absent in c2 means valueB equals absentValue | patterns
+absent keys mean count zero for CopyBag | patterns
+absent keys mean false for CopySet | patterns
+compareAntiRank reverse rank order | patterns
+makeFullOrderComparatorKit antiComparator | patterns
+history-dependent comparator scoped to active invocation | patterns
+fresh fullOrder per call | patterns
+two-flag Pareto leftIsBigger rightIsBigger | patterns
+early-exit if leftIsBigger and rightIsBigger return NaN | patterns
+NaN-passthrough value-level incomparability | patterns
+nonEntry destructure with default | patterns
+single-result done key value buffer pre-advance | patterns
+sorted-merge-join lockstep iteration | patterns
+strict total-order lift from rank preorder | patterns
+duplicate-key check via Math.sign-or-Fail | patterns
+sortByRank with fullCompare tie-breaking | patterns
+private helper to export chain | patterns
+virtual-collection generalization future | patterns
+generateEntries IterableIterator replacement | patterns
+worked CopyBag Pareto example | patterns
+multiplicity-wise less than or equal | patterns
+defaulting absent keys to a count of zero | patterns
+Boolean lattice absentValue false | patterns
+per-key value comparator | patterns
+makeCompareCollection consumed by compareKeys | patterns
+keycollection operators sister to compareKeys | patterns
+KeyCollection getEntries returns rank-sorted array | patterns
+@endo/marshal makeFullOrderComparatorKit antiComparator | marshal
+call-local-scoping covert-channel mitigation | marshal
+fullOrder does not survive the call | marshal
