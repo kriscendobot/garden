@@ -11,7 +11,7 @@ A design-only PR touches only paths under `<project>/designs/` (typically
 `designs/<slug>.md` plus minor README updates); it has no source-touching
 CI to wait on, no cleaner pass, and no fixer-loop. The state machine is
 the strict subset of
-[`skills/driver-state-machine/SKILL.md`](../driver-state-machine/SKILL.md)
+[`skills/driver-pr-creation-state-machine/SKILL.md`](../driver-pr-creation-state-machine/SKILL.md)
 that the design-only branch needs.
 
 This is the simplest workflow shape and the natural Phase-2 target per
