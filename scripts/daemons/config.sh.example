@@ -1,0 +1,23 @@
+#!/bin/bash
+# config.sh.example -- host-local configuration template for the
+# garden's driver lanes and per-feed watchers.
+#
+# Copy this file to scripts/daemons/config.sh and edit. The actual
+# config.sh is gitignored; this .example is the template every host
+# starts from.
+#
+# scripts/daemons/start.sh sources this file to know which lanes and
+# which feeds to enable.
+
+# Driver lanes. Each lane number becomes a systemd instance:
+#   garden-driver@<n>.service
+# Two drivers on the same host must use different lane numbers.
+# shellcheck disable=SC2034  # consumed by scripts/daemons/{start,stop,status}.sh after sourcing
+GARDEN_DRIVER_LANES=(1 2)
+
+# Per-feed watcher daemons. Each feed slug must match a directory
+# under scripts/watcher/<feed>/ that contains a watcher.sh.
+# The instance unit is:
+#   garden-watcher@<feed>.service
+# shellcheck disable=SC2034  # consumed by scripts/daemons/{start,stop,status}.sh after sourcing
+GARDEN_WATCHER_FEEDS=(endo-but-for-bots)
