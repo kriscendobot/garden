@@ -637,4 +637,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-endopi-jsonl-transcript-format--{pi-compatible-jsonl-with-custom-entries-for-endo-extensions}
 
-## Total: 619 sections from 162 source documents (through 2026-06-02).
+### From endo packages/exo/src/exo-tools.js longform comments (cycle 118, **nineteenth comment-fragment ingest; sister to cycle 108's exo-makers.js — exo-tools provides the defendPrototype/defendPrototypeKit that exo-makers imports; method-defense + prototype-building layers; TOCTTOU-aware async + raw-guard pass-through + symmetric listDifference validation; cycle 118 papers-lane pivot to comments-lane**)
+
+- endo--packages-exo-src-exo-tools-js--{method-defense-with-raw-guards-and-async-await-handling, defendPrototype-and-defendPrototypeKit-with-interface-guard-validation}
+
+## Total: 621 sections from 163 source documents (through 2026-06-02).

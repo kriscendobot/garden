@@ -3001,3 +3001,46 @@ cite-Pi-reference-implementation discipline | daemon
 endopi family arc adopt-Pi-format | daemon
 agent reads own transcripts long-term memory | daemon
 inspectable append-only JSONL | daemon
+RawMethodGuard no-validation sentinel | exo
+REDACTED_RAW_ARG sentinel for pass-through | exo
+PassableMethodGuard minimum-validation | exo
+defendSyncArgs raw-guard redaction | exo
+buildMatchConfig one-time-slow per-call-fast | exo
+M.splitArray paramsPattern | exo
+M.raw() pass-through guard | exo
+defendSyncMethod concise-method-syntax-via-destructure | exo
+this-preserving wrapper | exo
+desync transformer await-arg-guards | exo
+isAwaitArgGuard isRawGuard | exo
+Rest args may not be awaited | exo
+defendAsyncMethod Promise.all awaitList | exo
+TOCTTOU-aware context lookup | exo
+Get the context after all waiting | exo
+revocation by removing context entry | exo
+chained .catch not onRejected | exo
+mustMatch throws in onFulfilled | exo
+toThrowable passable error coercion | exo
+defendMethod callKind sync vs async | exo
+bindMethod name length defineProperties | exo
+Method X called without this object | exo
+may only be applied to a valid instance | exo
+defendPrototype tag contextProvider behaviorMethods | exo
+constructor-filter for class.prototype | exo
+shiftedMethod for non-thisful style | exo
+this becomes context for thisful methods | exo
+symmetric listDifference validation | exo
+methods X not implemented by tag | exo
+methods X not guarded by interfaceName | exo
+sloppy true alias for defaultGuards passable | exo
+defaultGuards undefined vs passable vs raw | exo
+symbolMethodGuards via getCopyMapEntries | exo
+GET_INTERFACE_GUARD auto-installation | exo
+runtime-introspection method for interface guard | exo
+Far(tag, prototype) final wrap | exo
+defendPrototypeKit multi-facet | exo
+A multi-facet object must have multiple facets | exo
+4-way listDifference facet/interface/context | exo
+objectMap per-facet defendPrototype | exo
+amortize compilation cost across calls | exo
+exo construction + defense surface | exo
+user-call-tree defineExoClass to defendSyncMethod | exo
