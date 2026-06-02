@@ -3256,3 +3256,37 @@ abstraction debt marker | patterns
 merge-bag-operators sister file | patterns
 right element was not in left | patterns
 Sets must not have common elements | patterns
+endopi-iterative-compaction proposed partially satisfied | agent-conventions
+Genie ships observer reflector compaction substrate | agent-conventions
+observer subagent token-threshold 30k plus idle-timer | agent-conventions
+reflector subagent 40k-token plus daily heartbeat | agent-conventions
+prunes stale low-priority entries merges related observations | agent-conventions
+projection layer remaining work | agent-conventions
+keepRecentTokens reserveTokens knobs | agent-conventions
+find cut point walk backwards accumulating tokens | agent-conventions
+generate summary structured prompt | agent-conventions
+Goals Decisions Files touched Open threads Code patterns | agent-conventions
+pass prior summary as iterative context | agent-conventions
+append compaction entry to JSONL firstKeptEntryId | agent-conventions
+reload in-memory transcript with summary | agent-conventions
+one summary not N summaries | agent-conventions
+structured-summary-format as iteration substrate | agent-conventions
+cumulative file-operations record across compactions | agent-conventions
+observes Dir File capabilities the agent invokes | agent-conventions
+capability-traffic as tracking substrate | agent-conventions
+compaction is lossy | agent-conventions
+in-memory window prunes JSONL preserves | agent-conventions
+operator or agent can recover detail by re-reading JSONL | agent-conventions
+contextTokens contextWindow reserveTokens trigger | agent-conventions
+slash compact instructions manual compaction | agent-conventions
+optional instructions focus the summary | agent-conventions
+preserve the bug-hunt thread drop the API exploration | agent-conventions
+compaction.enabled compaction.reserveTokens | agent-conventions
+compaction.keepRecentTokens compaction.customInstructions | agent-conventions
+branch summarization on tree navigation out of scope | agent-conventions
+multi-agent context sharing across compactions out of scope | agent-conventions
+honest-design-correction partially-satisfied | agent-conventions
+anticipated-algorithm-vs-shipped-substrate mismatch | agent-conventions
+two-axis trigger discipline token-threshold plus idle | agent-conventions
+substrate now exists role shifts from specify to harmonise | agent-conventions
+lal-transcript-memory-management problem statement | agent-conventions

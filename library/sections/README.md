@@ -661,4 +661,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-patterns-src-keys-merge-set-operators-js--{seven-set-operations-derived-from-one-merge-iterator-with-mergeify-and-setify-adapters}
 
-## Total: 627 sections from 168 source documents (through 2026-06-02).
+### From endo-but-for-bots designs/endopi-iterative-compaction.md (cycle 124, **fifth endopi-* design ingest + twenty-third-comment-style design ingest; closes the §Compaction gap from cycle 121's family keystone with the *partially satisfied* lifecycle pattern — Pi's compaction.ts algorithm imported as the algorithmic specification of Genie's already-shipped observer + reflector substrate; §Iterative property *one summary, not N* + §File tracking via capability-traffic-as-tracking-substrate + §Compaction is lossy (in-memory window vs JSONL on-disk record); cycle 124 papers-lane block 18+ pivot to designs lane; endopi-* family now 5/8 ingested**)
+
+- endo-but-for-bots--llm-designs-endopi-iterative-compaction--{token-threshold-trigger-with-iterative-summary-and-cumulative-file-tracking}
+
+## Total: 628 sections from 169 source documents (through 2026-06-02).
