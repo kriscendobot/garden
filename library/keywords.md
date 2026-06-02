@@ -3347,3 +3347,37 @@ no PTY no resize no bg | agent-conventions
 Pi-byte-compatible framing with endo-namespaced extensions | agent-conventions
 adopt existing standard with endo-prefix discipline | agent-conventions
 three transports same identity stdio WebSocket future bus | agent-conventions
+getGuardPayloads legacy-guard-tolerance | patterns
+get*GuardPayload adapters normalize | patterns
+pre-1712 klass discriminator record shape | patterns
+post-1712 payload envelope shape | patterns
+PR #1712 worldview shift | patterns
+getAwaitArgGuardPayload getMethodGuardPayload getInterfaceGuardPayload | patterns
+three-granularity adapter chain | patterns
+match-current-or-legacy destructure recursively-adapt-children harden re-validate | patterns
+LegacyAwaitArgGuardShape LegacyMethodGuardShape LegacyInterfaceGuardShape | patterns
+LegacySyncMethodGuardShape LegacyAsyncMethodGuardShape | patterns
+LegacyArgGuardShape LegacyArgGuardListShape | patterns
+exploitable-bug warning AwaitArgGuard | patterns
+shape-collision-only-matters-where-overlap-exists | patterns
+record matching legacy shape is also valid parameter pattern | patterns
+no current context where methodGuard and copyRecord both meaningful | patterns
+TODO manually maintain correspondence | patterns
+nine TODO markers tag abstraction debt | patterns
+legacy shapes frozen current shapes evolve | patterns
+no LegacyRawGuardShape | patterns
+raw guards postdate PR #1712 introduced in PR #1831 | patterns
+adaptLegacyArgGuard adaptMethodGuard | patterns
+reconstruct via public builder chain M.call optional rest returns | patterns
+mustMatch internal-consistency-post-check | patterns
+internalMethodGuardAdaptor internalInterfaceGuardAdaptor | patterns
+Hoare-logic-style postcondition-on-adapter | patterns
+getInterfaceMethodKeys union string-named symbol-named | patterns
+getCopyMapKeys emptyCopyMap sentinel | patterns
+getNamedMethodGuards interface-guard inheritance via spread | patterns
+M.interface I2 spread getNamedMethodGuards I1 doMore | patterns
+symbol-named method guards deprecated | patterns
+tests-co-located-with-consumer not implementation | patterns
+test-legacy-guard-tolerance.js in @endo/exo | patterns
+exo defendPrototype + guard-payload-adapter pair | patterns
+end-of-life marker explicit deletion plan | patterns

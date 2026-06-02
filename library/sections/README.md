@@ -673,4 +673,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-endopi-stdio-rpc-bridge--{stdio-jsonl-rpc-as-short-term-bridge-before-endor-bus-tui}
 
-## Total: 630 sections from 171 source documents (through 2026-06-02).
+### From endo packages/patterns/src/patterns/getGuardPayloads.js longform comments (cycle 127, **twenty-third comment-fragment ingest; @endo/patterns counterpart to cycle 118's exo-tools.js (this file is what cycle 118's defendPrototype imports `getInterfaceGuardPayload` from); legacy-guard-tolerance adapter layer solving one problem at three granularities (AwaitArg → Method → Interface); the §exploitable-bug warning vs §why-this-isn't-exploitable distinction; §no-LegacyRawGuardShape because raw guards postdate PR #1712; cycle 127 chat-lane exhaustion pivot to comments-lane; papers-lane has been blocked for 21+ consecutive cycles**)
+
+- endo--packages-patterns-src-patterns-getGuardPayloads-js--{legacy-guard-tolerance-and-payload-extraction-at-three-granularities-with-method-key-introspection}
+
+## Total: 631 sections from 172 source documents (through 2026-06-02).
