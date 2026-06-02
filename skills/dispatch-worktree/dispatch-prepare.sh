@@ -100,6 +100,9 @@ if [ "$#" -ge 4 ]; then
   if [ ! -d "$BARE" ]; then
     echo "dispatch-prepare: bare clone not found at $BARE" >&2
     echo "                  clone first via: git clone --bare https://github.com/${REPO}.git $BARE" >&2
+    echo "                  then set the fetch refspec (a bare clone has none, so" >&2
+    echo "                  git fetch would leave origin/* tracking refs frozen):" >&2
+    echo "                  git -C $BARE config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'" >&2
     # roll back partial state
     git -C "$GARDEN_ROOT" worktree remove --force "$ROOT/garden"  >/dev/null 2>&1 || true
     git -C "$GARDEN_ROOT" worktree remove --force "$ROOT/journal" >/dev/null 2>&1 || true
