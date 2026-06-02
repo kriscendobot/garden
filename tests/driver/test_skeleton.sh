@@ -30,7 +30,7 @@ echo "=== test_skeleton ==="
 mock_garden_setup
 
 set +e
-output=$(bash "$MOCK_GARDEN_ROOT/roles/driver/driver.sh" 2>&1)
+output=$(bash "$MOCK_GARDEN_ROOT/scripts/driver/driver.sh" 2>&1)
 rc=$?
 set -e
 run_assert mock_garden_assert_eq "no-lane rc is 64" 64 "$rc"
@@ -38,7 +38,7 @@ run_assert mock_garden_assert_contains "no-lane stderr mentions usage" "usage:" 
 
 # --- 2. usage error: non-integer lane ------------------------------------
 set +e
-output=$(bash "$MOCK_GARDEN_ROOT/roles/driver/driver.sh" notalane 2>&1)
+output=$(bash "$MOCK_GARDEN_ROOT/scripts/driver/driver.sh" notalane 2>&1)
 rc=$?
 set -e
 run_assert mock_garden_assert_eq "non-integer lane rc is 64" 64 "$rc"
@@ -62,7 +62,7 @@ chmod +x "$POST_JOB_STUB"
 
 # Run oneshot. Without DRIVER_PR set, the driver will try to post a
 # build-design-only job to advance from initial.
-DRIVER_ONESHOT=1 bash "$MOCK_GARDEN_ROOT/roles/driver/driver.sh" 1 >/dev/null 2>&1
+DRIVER_ONESHOT=1 bash "$MOCK_GARDEN_ROOT/scripts/driver/driver.sh" 1 >/dev/null 2>&1
 rc=$?
 
 state_file="$MOCK_GARDEN_JOURNAL/drivers/mock-host/1.md"

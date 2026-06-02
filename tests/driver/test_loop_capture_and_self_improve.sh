@@ -67,7 +67,7 @@ export SELF_IMPROVE_CLAUDE_STUB="$stub_self_improve"
 
 # --- run the driver -------------------------------------------------------
 set +e
-bash "$MOCK_GARDEN_ROOT/roles/driver/driver.sh" 1 >/dev/null 2>&1
+bash "$MOCK_GARDEN_ROOT/scripts/driver/driver.sh" 1 >/dev/null 2>&1
 rc=$?
 set -e
 
@@ -124,7 +124,7 @@ section_count_before=$(grep -c '^## tick at' "$improvements_file" 2>/dev/null ||
 
 mock_garden_set_pr_json '{"state":"OPEN","isDraft":true,"reviews":[]}'
 set +e
-bash "$MOCK_GARDEN_ROOT/roles/driver/driver.sh" 1 >/dev/null 2>&1
+bash "$MOCK_GARDEN_ROOT/scripts/driver/driver.sh" 1 >/dev/null 2>&1
 rc2=$?
 set -e
 
@@ -161,7 +161,7 @@ mock_garden_set_pr_json '{"state":"OPEN","isDraft":true,"reviews":[]}'
 : > "$MOCK_LOGS/claude.log"
 
 set +e
-bash "$MOCK_GARDEN_ROOT/roles/driver/driver.sh" 1 >/dev/null 2>&1
+bash "$MOCK_GARDEN_ROOT/scripts/driver/driver.sh" 1 >/dev/null 2>&1
 rc3=$?
 set -e
 
