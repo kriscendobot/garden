@@ -585,4 +585,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-patterns-src-keys-compareKeys-js--{passstyle-dispatched-key-comparison-with-pareto-partial-order}
 
-## Total: 605 sections from 149 source documents (through 2026-06-02).
+### From endo-but-for-bots/designs daemon-capability-bank (cycle 105, **meta-design for nine-design Capability Bank family; six Design Principles including the canonical ocap-vs-ACL *capabilities-are-objects-not-configurations* distinction; cycle 105 pivoted from chat-lane (exhausted) to daemon-design-lane**)
+
+- endo-but-for-bots--llm-designs-daemon-capability-bank--{family-of-designs-and-six-design-principles}
+
+## Total: 606 sections from 150 source documents (through 2026-06-02).

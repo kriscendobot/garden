@@ -2564,3 +2564,45 @@ keyLT keyLTE keyEQ keyGTE keyGT | patterns
 all-five-false-when-incommensurate | patterns
 boolean predicate wrappers around partial-order | patterns
 -0 and 0 in same equivalence class | patterns
+Daemon Capability Bank meta-design | daemon
+family of nine sibling designs | daemon
+OWASP Top 10 for Agentic Applications | capability-security
+ASI01 Agent Goal Hijack | capability-security
+ASI02 Tool Misuse and Exploitation | capability-security
+ASI03 Identity and Privilege Abuse | capability-security
+ASI05 Unexpected Code Execution | capability-security
+ASI06 Memory and Context Poisoning | capability-security
+ASI08 Cascading Failures | capability-security
+ASI09 Human-Agent Trust Exploitation | capability-security
+ASI10 Rogue Agents | capability-security
+dangerous ambient authority | capability-security
+AIShellJack 84% attack success | capability-security
+IDEsaster 100% vulnerable AI IDEs | capability-security
+Liu et al arXiv 2509.22040 | capability-security
+prompt-injection-to-tool-abuse | capability-security
+Capabilities are objects not configurations | capability-security
+ocap-vs-ACL canonical distinction | capability-security
+guest cannot name resource outside scope | capability-security
+recursive attenuation via sub-capabilities | capability-security
+narrower-power-via-narrower-capability | capability-security
+caretaker separation guest vs host facet | capability-security
+defense-in-depth deny patterns optional | capability-security
+denylists as secondary safety net | capability-security
+structural confinement vs behavioral confinement | capability-security
+LLM discoverability help() | capability-security
+M.interface guards maximally-specific shapes | capability-security
+named fields literal enumerations descriptive tags | capability-security
+existing Endo patterns directory capability | capability-security
+LAL agent dynamic capability discovery | daemon
+namespaced tool registration | daemon
+fs.readText git.status namespace prefix | daemon
+9-category capability bank table | daemon
+filesystem process network git env credentials userio timer persona | daemon
+composition layer named role profiles | daemon
+read-only developer CI runner data analyst | daemon
+OWASP coverage matrix threat-by-defending-capability | capability-security
+interface guards reject structurally invalid calls | capability-security
+maker pattern restricts creation to HOST | capability-security
+host writes Handle formula chain enforcement | capability-security
+no-default-authority discipline | capability-security
+evidence-based threat framing | capability-security
