@@ -573,4 +573,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-commands-as-messages--{commands-as-self-addressed-messages-design}
 
-## Total: 601 sections from 146 source documents (through 2026-06-02).
+### From endo packages/patterns/src/keys/checkKey.js longform comments (cycle 102, **thirteenth comment-fragment ingest; Turadg Aleahmad-authored @endo/patterns Keys + Collections validation surface; Confirm/Is/Assert trio pattern + CopySet/CopyBag/CopyMap uniform application; cycle 102 papers-lane pivot to comments-lane**)
+
+- endo--packages-patterns-src-keys-checkKey-js--{keys-foundation-confirm-is-assert-trio-and-recursion, copyset-copybag-copymap-extensions-and-special-case-algorithms}
+
+## Total: 603 sections from 147 source documents (through 2026-06-02).

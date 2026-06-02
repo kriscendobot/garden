@@ -2468,3 +2468,43 @@ new-design-deprecates-predecessor lifecycle | daemon
 one-design-solves-two-problems cross-cutting payoff | daemon
 minimal-mechanism-maximal-semantics discipline | daemon
 type-aware conditional lift in mail.js | daemon
+Confirm Is Assert trio pattern | patterns
+one internal predicate three external entry points | patterns
+Rejector callable-or-false dual mode | patterns
+reject && reject template-literal short-circuit | patterns
+hideAndHardenFunction discipline | patterns
+function name leak prevention | patterns
+keyMemo WeakSet | patterns
+don't memoize negatives discipline | patterns
+positives-only memoization | patterns
+isAtom early return atoms cannot inhabit WeakSet | patterns
+confirmKey confirmKeyInternal recursion | patterns
+recursion-on-passStyle dispatch | patterns
+unexpected passStyle throws | patterns
+expected-vs-unexpected-state trichotomy | patterns
+copySetMemo copyBagMemo copyMapMemo | patterns
+confirmCopySet confirmCopyBag confirmCopyMap | patterns
+five-layer copyMap structural validation | patterns
+only-keys-and-values invariant | patterns
+ownKeys rest.length === 0 strict-record | patterns
+makeCopyBagFromElements sort-then-adjacent-counting | patterns
+history-dependent state does not survive | patterns
+fullOrder antiComparator | patterns
+makeFullOrderComparatorKit | patterns
+BigInt(j - i) multiplicity count | patterns
+makeCopyMap reverse-rank-sort | patterns
+compareAntiRank | patterns
+copyMap cover issue TODO | patterns
+patternMatchers.js cover issue cross-reference | patterns
+getCopyMapEntries Far iterable | patterns
+getCopyMapEntryArray eager hardened | patterns
+offer-both-shapes dual API | patterns
+copyMapKeySet internal-form shortcut | patterns
+shared-internal-form tag-rewrite | patterns
+makeTagged copySet payload | patterns
+layered-invariant check most-specific-diagnostic-first | patterns
+break-import-cycle by relocation | patterns
+ScalarKey atom or remotable | patterns
+copyRecord all values must be keys | patterns
+copyArray all elements must be keys | patterns
+copyMap keys are keys values are keys layered | patterns
