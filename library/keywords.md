@@ -2606,3 +2606,43 @@ maker pattern restricts creation to HOST | capability-security
 host writes Handle formula chain enforcement | capability-security
 no-default-authority discipline | capability-security
 evidence-based threat framing | capability-security
+tameConsole factory lockdown entry point | object-capability
+SES integration top-level wiring | object-capability
+don't-import-Error invariant | object-capability
+TypeError minimizes feral Error exposure | object-capability
+commons.js TypeError captured-and-tamed | object-capability
+failFast short-circuit failure helper | object-capability
+wrapLogger frozen-apply-binding | object-capability
+three-tier originalConsole fallback | object-capability
+globalThis.console derivation | object-capability
+globalThis.print eshost SpiderMonkey | object-capability
+five-method-log-stub | object-capability
+log-only console upgrade | object-capability
+warn error alias for log | object-capability
+defineProperty alias method | object-capability
+consoleTaming safe vs unsafe | object-capability
+errorTrapping platform exit abort report none | object-capability
+unhandledRejectionTrapping report none | object-capability
+optGetStackString override | object-capability
+spread-extended handler | object-capability
+avoid Parcel overweaning gaze | object-capability
+globalThis.process not bare process | object-capability
+globalThis.window not bare window | object-capability
+Parcel sloppy-mode shim | object-capability
+SES strict-mode invariant bundle | object-capability
+escape bundler scanner lexical form | object-capability
+@endo/no-polymorphic-call ESLint rule | object-capability
+platform-API polymorphic-call opt-out | object-capability
+process.on uncaughtException | object-capability
+process.on unhandledRejection rejectionHandled exit | object-capability
+window.addEventListener error | object-capability
+addEventListener unhandledrejection rejectionhandled beforeunload | object-capability
+event.preventDefault take-over-platform-reporting | object-capability
+about:blank browser exit equivalent | object-capability
+SES_UNCAUGHT_EXCEPTION error code prefix | object-capability
+SES_UNHANDLED_REJECTION error code prefix | object-capability
+named-error-prefix URL-to-doc discipline | object-capability
+ses/error-codes documentation | object-capability
+process.exit exitCode-or-minus-one | object-capability
+fail-loud-not-degrade missing process.exit | object-capability
+extensible record return shape | object-capability

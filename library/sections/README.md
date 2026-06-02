@@ -589,4 +589,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-capability-bank--{family-of-designs-and-six-design-principles}
 
-## Total: 606 sections from 150 source documents (through 2026-06-02).
+### From endo packages/ses/src/error/tame-console.js longform comments (cycle 106, **fifteenth comment-fragment ingest; Mark S. Miller-authored SES integration/wiring file that composes the cycle-96/98/100 substrates into one tameConsole(...) factory; completes the SES causal-console substrate (cycles 90+93+96+98+100+106); cycle 106 papers-lane pivot to comments-lane**)
+
+- endo--packages-ses-src-error-tame-console-js--{integration-wiring-and-platform-error-traps}
+
+## Total: 607 sections from 151 source documents (through 2026-06-02).
