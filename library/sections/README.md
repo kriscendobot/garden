@@ -565,4 +565,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-chat-reply-chain-visualization--{message-of-interest-spotlight-algorithm-and-layout-computation, css-gutter-rendering-and-deprecation-rationale}
 
-## Total: 599 sections from 144 source documents (through 2026-06-01).
+### From endo packages/ses/src/error/unhandled-rejection.js longform comments (cycle 100, **twelfth comment-fragment ingest; Mathieu Hofman-authored SES rejection-tracking; complements the causal-console substrate by handling the asynchronous-rejection-detection path; cycle 100 pivoted from papers-lane to comments-lane after two consecutive papers-lane blocks**)
+
+- endo--packages-ses-src-error-unhandled-rejection-js--{browser-limitations-and-finalization-registry-rejection-tracking}
+
+## Total: 600 sections from 145 source documents (through 2026-06-02).

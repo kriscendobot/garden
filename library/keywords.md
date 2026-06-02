@@ -2404,3 +2404,32 @@ follow-along mode scroll-pinned | chat-ui
 focus is the layout decision | chat-ui
 user-selection-as-layout-input | chat-ui
 defer-to-incumbent-mechanism scroll pinning | chat-ui
+unhandled rejection tracking | object-capability
+browser-prevent-access unhandledrejection event | object-capability
+serve from http or https workaround | object-capability
+makeRejectionHandlers reportReason factory | object-capability
+fail-loud-not-degrade discipline | object-capability
+FinalizationRegistry GC-driven detection | object-capability
+unhandled-and-no-longer-reachable condition | object-capability
+idToReason Map strong record | object-capability
+promiseToReasonId WeakMap weak back-reference | object-capability
+finalizeDroppedPromise GC callback | object-capability
+unhandledRejectionHandler three-write commit | object-capability
+rejectionHandledHandler cancel after the fact | object-capability
+processTerminationHandler at-exit flush | object-capability
+empty-pool-cancel-checking idiom | object-capability
+cancelChecking thunk | object-capability
+no-work-no-timer discipline | object-capability
+defensive-fallback no-op on undefined | object-capability
+mapDelete no-op on missing key | object-capability
+lastReasonId monotonic counter | object-capability
+finalizationRegistryRegister unregister token | object-capability
+promise-itself-as-unregister-token | object-capability
+mapEntries iterator safe with delete-current | object-capability
+spec-defined Map iteration with mutation | object-capability
+platform-limitation-attribution discipline | object-capability
+division-of-responsibility JSDoc comment | object-capability
+synchronous-throw vs asynchronous-rejection paths | object-capability
+full SES error-observation surface | object-capability
+agent cluster termination flush | object-capability
+beforeExit unhandled rejection report | object-capability
