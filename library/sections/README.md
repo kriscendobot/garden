@@ -609,4 +609,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-patterns-src-keys-copyset-js--{element-validation-and-canonical-internal-form}
 
-## Total: 611 sections from 155 source documents (through 2026-06-02).
+### From endo-but-for-bots/designs familiar-gateway-migration (cycle 111, **first of cycle 109's three named dependencies; the gateway-from-Chat-into-daemon migration; daemon-must-own-cross-cutting-service rationale + attack-surface-reduction-with-named-metric + protocol-preservation-across-migration; cycle 111 pivoted from chat-lane (exhausted) continuing the familiar-design-lane pattern**)
+
+- endo-but-for-bots--llm-designs-familiar-gateway-migration--{gateway-moved-from-chat-vite-plugin-into-daemon}
+
+## Total: 612 sections from 156 source documents (through 2026-06-02).

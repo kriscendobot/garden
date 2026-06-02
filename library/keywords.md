@@ -2776,3 +2776,28 @@ short-circuit reject template-tag | patterns
 ties cluster for downstream scan-based algorithms | patterns
 deferred optimization TODO with trigger | patterns
 honest known perf limit with named mitigation | patterns
+familiar gateway migration | daemon
+gateway moved from Chat to daemon | daemon
+gateway-server.js retained as Vite standalone | daemon
+@apps formula web-server-node guest | daemon
+ENDO_ADDR default 127.0.0.1:8920 | daemon
+dual-purpose HTTP plus WebSocket listener | daemon
+WebSocket at / for CapTP | daemon
+HTTP for weblet virtual hosts | daemon
+E(gatewayBootstrap).fetch(token) capability handshake | daemon
+formula-identifier-derived unguessable token | daemon
+self-connect-via-internal-CapTP | daemon
+endoBootstrap.gateway() method reused | daemon
+endo gateway CLI print URL | daemon
+endo start --gateway-port CLI option | daemon
+daemon-must-own-cross-cutting-service | daemon
+cross-cutting-service-belongs-in-shared-substrate | daemon
+attack-surface-reduction with named metric | daemon
+one fewer process with Unix socket access | daemon
+consolidation-as-security-improvement | daemon
+protocol-preservation-across-migration | daemon
+WebSocket protocol unchanged existing clients work | daemon
+honest-retention discipline | daemon
+named-upgrade-path-with-detected-fallback | daemon
+pre-migration daemon detection | daemon
+localhost-only IPv4 ::1 restriction | daemon
