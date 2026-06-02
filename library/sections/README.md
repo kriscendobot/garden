@@ -581,4 +581,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-value-message--{value-message-type-and-reply-only-design}
 
-## Total: 604 sections from 148 source documents (through 2026-06-02).
+### From endo packages/patterns/src/keys/compareKeys.js longform comments (cycle 104, **fourteenth comment-fragment ingest; sister file to cycle 102's checkKey.js — Turadg Aleahmad, same package; checkKey defines keys, compareKeys compares them; cycle 104 pivoted from papers-lane to comments-lane after three consecutive papers-lane blocks**)
+
+- endo--packages-patterns-src-keys-compareKeys-js--{passstyle-dispatched-key-comparison-with-pareto-partial-order}
+
+## Total: 605 sections from 149 source documents (through 2026-06-02).

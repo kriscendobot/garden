@@ -2537,3 +2537,30 @@ endo send-value CLI command | daemon
 send-value command-registry | daemon
 one result per task | daemon
 envelope-vs-out-of-band carriage open question | daemon
+partial-order vs total-order distinction | patterns
+keys form a partial order | patterns
+NaN as incommensurate signal | patterns
+setCompare bagCompare makeCompareCollection | patterns
+keycollection-operators | patterns
+CopySet subset semantics | patterns
+CopyBag multi-set semantics | patterns
+ABSENT Symbol private sentinel | patterns
+Symbol vs Symbol.for global registry | patterns
+not passable JS-level sentinel | patterns
+endo PR 1737 review thread | patterns
+copyMap comparison undecided semantics | patterns
+compareKeys passStyle dispatch | patterns
+NaN === NaN compares as 0 in key semantics | patterns
+NaN vs non-NaN returns NaN | patterns
+remotable identity-only key comparison | patterns
+non-identical remotables incommensurate | patterns
+copyArray lexicographic prefix-shorter-is-smaller | patterns
+copyRecord Pareto partial order | patterns
+same property set required for comparison | patterns
+mixed-direction returns NaN | patterns
+key-order-is-a-refinement-of-rank-order | patterns
+five-comparator predicate suite | patterns
+keyLT keyLTE keyEQ keyGTE keyGT | patterns
+all-five-false-when-incommensurate | patterns
+boolean predicate wrappers around partial-order | patterns
+-0 and 0 in same equivalence class | patterns
