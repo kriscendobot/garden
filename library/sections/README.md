@@ -653,4 +653,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-endopi--{comparative-pi-mapping-with-eight-spinout-gaps-and-architectural-contrasts, genie-pi-inside-endo-and-the-four-architectural-contrasts}
 
-## Total: 625 sections from 166 source documents (through 2026-06-02).
+### From endo-but-for-bots designs/endopi-edit-tool.md (cycle 122, **third endopi-* design ingest + twenty-second-comment-style design ingest; closes the §Built-in tool core gap surfaced by cycle 121's family keystone; adopts Pi's edit-by-replacement tool as a method on the File capability with unique-match + line-ending preservation + structured diff; the §File-mutation queueing observation — *Endo's eventual-send semantics already serialize per capability if all writes go through one exo*; cycle 122 chat-lane exhaustion pivot continued in designs lane**)
+
+- endo-but-for-bots--llm-designs-endopi-edit-tool--{llm-friendly-edit-by-replacement-with-unique-match-and-line-ending-preservation}
+
+## Total: 626 sections from 167 source documents (through 2026-06-02).

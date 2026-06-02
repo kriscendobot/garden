@@ -3196,3 +3196,31 @@ adopting Pi developer-velocity moves | agent-conventions
 without giving up Endo multi-agent-system shape | agent-conventions
 Pi source-file citations 33 file-level | agent-conventions
 review-driven incremental refinement bot revision | agent-conventions
+endopi-edit-tool edit by replacement | agent-conventions
+oldText newText pair | agent-conventions
+M.arrayOf M.splitRecord oldText newText | agent-conventions
+edit method on File capability not Dir | agent-conventions
+Dir.lookup name to File then File.edit edits | agent-conventions
+unique-match required else error | agent-conventions
+agent must add disambiguating context | agent-conventions
+no overlap between edits in one call | agent-conventions
+applyEditsToNormalizedContent | agent-conventions
+computeEditsDiff | agent-conventions
+detectLineEnding restoreLineEndings | agent-conventions
+normalize to LF for matching | agent-conventions
+restore original line endings on write | agent-conventions
+BOM preserved if present | agent-conventions
+structured diff in tool result | agent-conventions
+Chat UI renders diff inline LLM sees as confirmation | agent-conventions
+file-mutation-queue.ts unnecessary in Endo | agent-conventions
+eventual-send semantics already serialize per capability | agent-conventions
+single-await-per-method discipline TOCTTOU | agent-conventions
+regex multiplies the prompt-injection surface | agent-conventions
+follow Pi to reduce migration friction | agent-conventions
+reuse-don't-import-Pi-TS-verbatim | agent-conventions
+algorithm migrates code is re-implemented | agent-conventions
+contract not heuristic discipline | agent-conventions
+multi-edit batched in one call | agent-conventions
+edit vs multi-edit single tool both shapes | agent-conventions
+edit-by-replacement primitive coding agent default | agent-conventions
+File.edit returns applied diff conflicts | agent-conventions
