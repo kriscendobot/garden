@@ -617,4 +617,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-endopi-skills-markdown-format--{agentskills-io-on-disk-skill-shape-with-progressive-disclosure}
 
-## Total: 613 sections from 157 source documents (through 2026-06-02).
+### From endo-but-for-bots/designs familiar-daemon-bundling (cycle 113, **second of cycle 109's three named dependencies; self-contained daemon artifact for Electron packaging; two-option-with-preferred-choice + three-challenges-with-three-mitigations + worker-resolve-relative-to-bundle-location; cycle 113 pivoted from chat-lane (exhausted) continuing the familiar-design-lane pattern**)
+
+- endo-but-for-bots--llm-designs-familiar-daemon-bundling--{single-file-bundle-with-worker-entry-and-platform-node}
+
+## Total: 614 sections from 158 source documents (through 2026-06-02).

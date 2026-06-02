@@ -2835,3 +2835,38 @@ filesystem-as-canonical-name | daemon
 bounded-context-via-on-demand-load | daemon
 be-the-most-inclusive-harness posture | daemon
 Pi mono badlogic coding-agent citation | daemon
+familiar daemon bundling | daemon
+self-contained Electron daemon artifact | daemon
+Option A single-file esbuild bundle | daemon
+Option B packaged directory | daemon
+two-option-exploration-with-preferred-choice | daemon
+dynamic import for workers weblets guest code | daemon
+SES lockdown global side effect | daemon
+ocapn-noise.wasm co-location | daemon
+three-challenges-with-three-mitigations | daemon
+worker-resolve-relative-to-bundle-location | daemon
+new URL endo-worker.cjs import.meta.url pathname | daemon
+sibling-artifact via import.meta-url | daemon
+endo-daemon.cjs endo-worker.cjs ses-shim.cjs | daemon
+ocapn-noise.wasm node-platform-arch | daemon
+five-file dist build artifacts | daemon
+self-contained-from-resources launch | daemon
+familiar-resources directory | daemon
+50MB total size target | daemon
+Node.js 40MB daemon 10MB | daemon
+platform-specific Node.js binary matrix | daemon
+macOS arm64 x86_64 Linux Windows | daemon
+trusted Node.js source checksum verification | daemon
+supply-chain attack mitigation | daemon
+packaging-doesn't-change-product invariant | daemon
+It's the same code just packaged differently | daemon
+interchangeable bundled vs development daemon | daemon
+~/.local/state/endo state directory shared | daemon
+play well with existing daemons compatibility | daemon
+foundational-dependency-with-no-upstream | daemon
+None can proceed independently | daemon
+pinned bundled Node.js version per Familiar release | daemon
+tree-shaking bundle size reduction | daemon
+yarn bundle build script | daemon
+packages/familiar-build vs packages/daemon placement | daemon
+Familiar dependency triangle 2 of 3 complete | daemon
