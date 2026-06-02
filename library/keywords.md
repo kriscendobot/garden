@@ -2680,3 +2680,40 @@ daemon-git-remotes successor | daemon
 GitRemote bounded capability | daemon
 mount-scoped descriptor | daemon
 EndoMount derivation | daemon
+defineExoClass factory | exo
+defineExoClassKit factory | exo
+makeExo singleton convenience | exo
+exo construction surface | exo
+makeSelf private helper | exo
+LABEL_INSTANCES debug knob | exo
+DEBUG=label-instances env-option | exo
+per-instance Symbol.toStringTag Tag#3 | exo
+emptyRecord initEmpty zero-state convenience | exo
+WeakMap self context bookkeeping | exo
+defendPrototype guarded prototype | exo
+defendPrototypeKit per-facet prototype | exo
+callback-options hooks pattern | exo
+finish receiveAmplifier receiveInstanceTester | exo
+host receives privileged capability via callback | exo
+state-sealed-not-frozen invariant | exo
+Be careful not to freeze the state record | exo
+seal init args | exo
+values mutable shape fixed | exo
+context state self frozen wrapper | exo
+contextMap.set self context | exo
+class-vs-kit symmetry | exo
+per-facet contextMapKit WeakMaps | exo
+makeInstanceKit constructs all facets atomically | exo
+context two-phase construction facets null then set | exo
+amplify exoFacet walking contextMaps | exo
+facet-to-siblings amplification | exo
+privileged caretaker mechanism | exo
+isInstance optional facetName | exo
+reject facetName for non-kit class | exo
+Only facets of an exo class kit can be amplified | exo
+initEmpty zero-state stateless singleton | exo
+makeExo defineExoClass plus immediate-invoke | exo
+objectMap per-facet WeakMaps | exo
+callWhen transformation static typing caveat | exo
+short-circuit assert Fail template-tag | exo
+factory grants public and private references | exo

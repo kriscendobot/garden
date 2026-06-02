@@ -597,4 +597,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-agent-tools--{dir-shell-git-capabilities-and-dynamic-tool-registration}
 
-## Total: 608 sections from 152 source documents (through 2026-06-02).
+### From endo packages/exo/src/exo-makers.js longform comments (cycle 108, **sixteenth comment-fragment ingest; Kris Kowal-authored Exo construction surface — defineExoClass / defineExoClassKit / makeExo factory trio; callback-options hooks pattern + state-sealed-not-frozen discipline + class-vs-kit symmetry with amplification; cycle 108 papers-lane pivot to comments-lane (sixth consecutive papers-lane block)**)
+
+- endo--packages-exo-src-exo-makers-js--{defineExoClass-defineExoClassKit-and-makeExo-factory-trio}
+
+## Total: 609 sections from 153 source documents (through 2026-06-02).
