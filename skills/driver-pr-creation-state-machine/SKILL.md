@@ -1,17 +1,23 @@
 ---
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-02
 author: builder
 ---
 
-# Skill: driver-state-machine
+# Skill: driver-pr-creation-state-machine
 
 The PR-creation workflow's states and transition predicates. The driver
-loads this skill on entry to a PR-creation-bound subscription. Each
-state is a predicate the driver evaluates against live GitHub state plus
-its per-lane state file; each transition is either a deterministic
-action (run in-process) or a job-board post (delegated to a
-role-specific worker).
+loads this skill on entry to a PR-creation-bound subscription (or when
+it claims a job whose `kind:` is `pr-creation`). Each state is a
+predicate the driver evaluates against live GitHub state plus its
+per-lane state file; each transition is either a deterministic action
+(run in-process) or a job-board post (delegated to a role-specific
+worker).
+
+This file was renamed from `skills/driver-state-machine/SKILL.md` on
+2026-06-02 to fit the per-workflow naming convention introduced by the
+[scripts/ layout pivot](../../designs/driver.md) (every workflow lives
+at `skills/driver-<kind>-state-machine/SKILL.md`).
 
 For the smaller design-only PR variant (Phase 2 of the migration), see
 the sibling skill at

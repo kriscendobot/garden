@@ -15,7 +15,7 @@ Phase 3 lands the real coverage-driven-testing body inside this script; phase 1 
 
 ## When to use
 
-- The driver posts a `clean` job (per `skills/driver-state-machine/SKILL.md` § `clean` state).
+- The driver posts a `clean` job (per `skills/driver-pr-creation-state-machine/SKILL.md` § `clean` state).
 - A worker daemon polling either the flat board (`jobs/open/` with `eligible_roles:` containing `cleaner`) or the per-role board (`jobs/cleaner/open/`) claims the job and invokes this script with the claimed path.
 - The script does the work (phase 1: no-op stub; phase 3: coverage-driven-testing pass) and moves the job to `done/` or `abandoned/`.
 
