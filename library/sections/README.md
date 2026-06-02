@@ -557,4 +557,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-ses-src-error-console-js--{no-special-privilege-prelude-and-console-method-permit-lists, logging-console-causal-console-and-error-info-rendering, causal-console-from-logger-and-filter-console}
 
-## Total: 594 sections from 142 source documents (through 2026-05-29).
+### From endo packages/ses/src/error/assert.js longform comments (cycle 98, **eleventh comment-fragment ingest; Richard Gibson-authored SES assert substrate that exports the `loggedErrorHandler` cycle 96 imports; completes the SES causal-console substrate**)
+
+- endo--packages-ses-src-error-assert-js--{declassifiers-quote-bare-and-redacted-vs-unredacted-details, logArgs-makeError-sanitizeError-tagError-and-loggedErrorHandler, makeAssert-and-the-assert-function-family}
+
+## Total: 597 sections from 143 source documents (through 2026-06-01).

@@ -2266,3 +2266,81 @@ defineName arrow function name | object-capability
 three-wrapper composability | object-capability
 logging causal filter composition | object-capability
 TODO do something with optional topic string | object-capability
+top-level mutable state observable to loggedErrorHandler | object-capability
+honest mutable-state admission in file header | object-capability
+declassifiers WeakMap | object-capability
+quote bestEffortStringify wrapper | object-capability
+bare canBeBare regex safe-prose gate | object-capability
+canBeBare /^[\w:-]( ?[\w:-])*$/ | object-capability
+DetailsToken hiddenDetailsMap | object-capability
+DetailsTokenProto toString | object-capability
+redactedDetails X template tag | object-capability
+unredactedDetails errorTaming unsafe | object-capability
+getMessageString redacted type-tag | object-capability
+type-tag substitution (a TypeError) | object-capability
+type-tag substitution (an Object) | object-capability
+getLogArgs unquoting space-trimming | object-capability
+console-substitution adjacent-space trim | object-capability
+hiddenMessageLogArgs WeakMap | object-capability
+errorTagNum global counter | object-capability
+errorTags WeakMap | object-capability
+Error#3 cross-reference tag | object-capability
+resetErrorTagNum test reproducibility | object-capability
+sanitizeError host-added own-property strip | object-capability
+sanitizeError dropped properties annotation | object-capability
+V8 stack getter to data property | object-capability
+fileName lineNumber columnNumber host leak | object-capability
+moved-not-lost diagnostic preservation | object-capability
+makeError factory | object-capability
+AggregateError errors special-casing | object-capability
+opts.cause Error cause forwarding | object-capability
+errorName option for tagError | object-capability
+sanitize option default true | object-capability
+hiddenNoteCallbacks WeakMap | object-capability
+note streaming-annotation mode | object-capability
+note queued-annotation mode | object-capability
+addNoteLogArgs takeAllNoteLogArgs queue | object-capability
+defaultGetStackString unprivileged fallback | object-capability
+globalThis.getStackString privileged | object-capability
+de facto error.stack property | object-capability
+frozen capability-bundle loggedErrorHandler | object-capability
+takeMessageLogArgs destructive read | object-capability
+getMessageLogArgs non-destructive read | object-capability
+take-vs-get nomenclature | object-capability
+narrow-gate to module-internal state | object-capability
+makeAssert factory | object-capability
+optRaise raise-before-throw hook | object-capability
+unredacted flag errorTaming select | object-capability
+fail makeError raise throw | object-capability
+Fail template-tag one-line-throwing | object-capability
+||-fail short-circuit idiom | object-capability
+cond || Fail`got ${value}` prose idiom | object-capability
+assert condition short-circuit | object-capability
+assert.equal Object.is is | object-capability
+RangeError default for assert.equal | object-capability
+is same as value-equality semantics | object-capability
+NaN === NaN false but Object.is true | object-capability
++0 === -0 true but Object.is false | object-capability
+assert.typeof TypeError default | object-capability
+an() article-agreement helper | object-capability
+a string vs an object | object-capability
+typeWithDeterminer phrase | object-capability
+recursive-assertion idiom typeof typename string | object-capability
+assert.string convenience | object-capability
+assertionFunctions equal typeof string fail | object-capability
+assertionUtilities makeError note details Fail quote bare | object-capability
+deprecated bag error makeError | object-capability
+assign(assert, ...) augment-then-freeze | object-capability
+new-canonical-over-deprecated spread order | object-capability
+finishedAssert freeze | object-capability
+module-level assert = makeAssert() | object-capability
+X redactedDetails re-export | object-capability
+q quote re-export | object-capability
+b bare re-export | object-capability
+annotateError note re-export | object-capability
+assertEqual assert.equal direct binding | object-capability
+makeError direct re-export | object-capability
+one-letter mnemonic exports | object-capability
+obviate polymorphic dispatch | object-capability
+honest-debugger-affordance breakpoint comment | object-capability
+particularly fruitful place to put a breakpoint | object-capability
