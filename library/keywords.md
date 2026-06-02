@@ -3290,3 +3290,33 @@ anticipated-algorithm-vs-shipped-substrate mismatch | agent-conventions
 two-axis trigger discipline token-threshold plus idle | agent-conventions
 substrate now exists role shifts from specify to harmonise | agent-conventions
 lal-transcript-memory-management problem statement | agent-conventions
+merge-bag-operators bag algebra | patterns
+bagWindowResort entry variant | patterns
+assertNoDuplicateKeys bag key uniqueness | patterns
+six let buffer variables for merge | patterns
+real multiplicities not hardcoded 0n 1n | patterns
+bagIterIsSuperbag count comparison | patterns
+xc less than yc not superbag | patterns
+bagIterIsDisjoint identical to set | patterns
+bagIterUnion sum counts xc plus yc | patterns
+bagIterIntersection min xc yc | patterns
+bagIterDisjointSubtract mc equals xc minus yc | patterns
+mc greater equal 1n filter preserves invariant | patterns
+Boolean lattice vs multiplicity lattice | patterns
+bag algebra subsumes set algebra | patterns
+set algebra is bag with counts clipped to 0 or 1 | patterns
+generalization is free callout | patterns
+the code is identical callout | patterns
+Based on merge-set-operators but altered for bag | patterns
+TODO share more code with that file and keycollection | patterns
+bagify makeBagOfEntries re-tag | patterns
+preserves canonical copyBag internal form | patterns
+no bagDisjointUnion bag union already sums counts | patterns
+no bagIterCompare bag-compare via makeCompareCollection | patterns
+five exports vs cycle 123 six | patterns
+two algebras one merge-iterator | patterns
+multiplicity arithmetic | patterns
+three code-sharing callouts visible | patterns
+abstraction debt acknowledged in three places | patterns
+coordinated-update commit e56bf00f | patterns
+Keys substrate seven cycle-ingested files | patterns

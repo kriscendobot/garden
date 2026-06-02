@@ -665,4 +665,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-endopi-iterative-compaction--{token-threshold-trigger-with-iterative-summary-and-cumulative-file-tracking}
 
-## Total: 628 sections from 169 source documents (through 2026-06-02).
+### From endo packages/patterns/src/keys/merge-bag-operators.js longform comments (cycle 125, **twenty-second comment-fragment ingest; bag sister to cycle 123's merge-set-operators.js; same author + same commit; three explicit code-sharing callouts mark the abstraction debt; the same merge-iterator + adapter pyramids support two different algebras (Boolean lattice for sets vs multiplicity lattice for bags); pairs the Keys-substrate cluster to seven ingests (102 + 104 + 110 + 115 + 120 + 123 + 125) covering both set and bag dimensions; cycle 125 nominal comments-lane; papers-lane has been blocked for 19+ consecutive cycles**)
+
+- endo--packages-patterns-src-keys-merge-bag-operators-js--{five-bag-operations-with-multiplicity-arithmetic-and-three-code-sharing-callouts}
+
+## Total: 629 sections from 170 source documents (through 2026-06-02).
