@@ -3126,3 +3126,73 @@ KeyCollection getEntries returns rank-sorted array | patterns
 @endo/marshal makeFullOrderComparatorKit antiComparator | marshal
 call-local-scoping covert-channel mitigation | marshal
 fullOrder does not survive the call | marshal
+EndoPi comparative analysis Pi agent harness | agent-conventions
+badlogic pi-mono canonical reference | agent-conventions
+Mario Zechner pi harness 49.5k stars MIT | agent-conventions
+endoclaw companion reference assistant shape | agent-conventions
+Pi frames Endo coding-agent shape | agent-conventions
+ambient authority plus ergonomics | agent-conventions
+least authority plus auditable structure | agent-conventions
+the bet of Endo agents acting for users | agent-conventions
+users who cannot evaluate the agent source code | agent-conventions
+edit-by-replacement oldText newText | agent-conventions
+unique-match normalized line endings | agent-conventions
+structured diff preview | agent-conventions
+JSONL session tree id parentId | agent-conventions
+slash tree slash fork slash clone | agent-conventions
+unified provider registry pi-ai | agent-conventions
+30 plus providers auto-discovered models | agent-conventions
+subscription auth Claude Pro ChatGPT Plus Copilot | agent-conventions
+cross-provider session handoff | agent-conventions
+TS modules full system access | agent-conventions
+plug-in vs guest extension shape | agent-conventions
+pi.registerTool pi.registerCommand pi.registerShortcut | agent-conventions
+hot-reload slash reload | agent-conventions
+pi-package keyword in package.json | agent-conventions
+SKILL.md frontmatter progressive disclosure | agent-conventions
+agentskills.io specification | agent-conventions
+context files AGENTS.md CLAUDE.md walking parents | agent-conventions
+SYSTEM.md append vs replace | agent-conventions
+RPC over stdio LF-delimited JSONL | agent-conventions
+endor-bus-tui subsumes RPC | agent-conventions
+keepRecentTokens reserveTokens compaction knobs | agent-conventions
+slash compact slash branch summarization | agent-conventions
+pi-share-hf Hugging Face publishing | agent-conventions
+slash export to HTML slash share gist | agent-conventions
+packages genie Pi inside Endo | agent-conventions
+@mariozechner pi-agent-core pi-ai runtime deps | agent-conventions
+makePiAgent runAgentRound boundary translation | agent-conventions
+buildOllamaModel masquerade as openai-completions | agent-conventions
+http 127.0.0.1 11434 v1 ollama bypass | agent-conventions
+ToolSpec to AgentTool boundary conversion | agent-conventions
+toAgentTool genie tool conversion | agent-conventions
+tool-gate.js per-tool argument gating | agent-conventions
+tool execution is gated on expected pairs | agent-conventions
+not capability-confined by SES grants | agent-conventions
+packages sandbox confinement layer | agent-conventions
+podman primary driver bwrap also present | agent-conventions
+macOS Windows sandbox drivers anticipated | agent-conventions
+endo-posix-sandbox Phase 1.5 | agent-conventions
+9p filesystem server alternative | agent-conventions
+vfs-endo backend vs 9p server trade-off | agent-conventions
+SOUL.md HEARTBEAT.md Claw workspace | agent-conventions
+observations.md reflections.md profile.md | agent-conventions
+observer subagent token threshold idle timer | agent-conventions
+reflector subagent long-term consolidation | agent-conventions
+heartbeat subagent autonomous task executor | agent-conventions
+HEARTBEAT.md pending tasks tick log | agent-conventions
+makeIntervalScheduler cron-style periodic prompts | agent-conventions
+buildSystemPrompt flexible library of prompt parts | agent-conventions
+skillsPrompt option on buildSystemPrompt | agent-conventions
+pi-agent vs pi-coding-agent vs pi-ai package split | agent-conventions
+Genie closer to pi-agent than pi-coding-agent | agent-conventions
+embedding-shaped SDK not cli-shaped | agent-conventions
+fill-the-Pi-gap-from-the-Endo-side adaptor | agent-conventions
+event-translation at boundary embedding pattern | agent-conventions
+many guests many spaces many capabilities | agent-conventions
+human is one of N participants | agent-conventions
+Endo bot fleet eventual self-organization | agent-conventions
+adopting Pi developer-velocity moves | agent-conventions
+without giving up Endo multi-agent-system shape | agent-conventions
+Pi source-file citations 33 file-level | agent-conventions
+review-driven incremental refinement bot revision | agent-conventions

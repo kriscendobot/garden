@@ -649,4 +649,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-patterns-src-keys-keycollection-operators-js--{pareto-pair-entries-merging-with-anti-rank-tie-breaking-for-collection-comparison}
 
-## Total: 623 sections from 165 source documents (through 2026-06-02).
+### From endo-but-for-bots designs/endopi.md (cycle 121, **twenty-first-comment-style design ingest; the *family keystone* the prior two endopi-* ingests (cycle 112 + cycle 117) named as their Parent; comparative-analysis design mapping Pi (*badlogic/pi-mono*, ~49.5k stars, MIT) onto Endo's surface; two cohesion-honest sections covering the *Lal/Fae* path (re-implement Pi's shape in Endo's idioms) and the *Genie* path (embed Pi inside Endo directly); cycle 121 papers-lane pivot to designs lane; papers-lane has been blocked for 15+ consecutive cycles**)
+
+- endo-but-for-bots--llm-designs-endopi--{comparative-pi-mapping-with-eight-spinout-gaps-and-architectural-contrasts, genie-pi-inside-endo-and-the-four-architectural-contrasts}
+
+## Total: 625 sections from 166 source documents (through 2026-06-02).
