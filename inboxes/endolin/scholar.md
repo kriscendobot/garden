@@ -1,8 +1,8 @@
 ---
 host: endolin
 role: scholar
-last_drained_at: 2026-06-02T07:00:00Z
-last_drained_commit: 6c2a637f
+last_drained_at: 2026-06-02T07:30:00Z
+last_drained_commit: bb7988ca
 ---
 
 # scholar inbox state on endolin

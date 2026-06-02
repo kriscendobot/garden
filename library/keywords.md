@@ -2870,3 +2870,36 @@ tree-shaking bundle size reduction | daemon
 yarn bundle build script | daemon
 packages/familiar-build vs packages/daemon placement | daemon
 Familiar dependency triangle 2 of 3 complete | daemon
+familiar unified weblet server | daemon
+Familiar dependency triangle complete | daemon
+Key design revision 2026-04-17 | daemon
+two-mode split Familiar vs Chat | daemon
+Electron protocol-handler intercepts | daemon
+browsers cannot intercept scheme | daemon
+hierarchical multiplexing problem | daemon
+user persona agent weblet routing | daemon
+session confidentiality 127.0.0.1 trust breaks | daemon
+ocapn-network-transport-separation dependency | daemon
+ocapn-noise-network dependency | daemon
+Implemented Not implemented status enumeration | daemon
+Previous status note honest correction | daemon
+prospective status section discipline | daemon
+file does not exist on origin/llm | daemon
+single HTTP server replaces servePortHttp | daemon
+webletHandlers Map hostname to respond connect | daemon
+virtual host routing | daemon
+<weblet-id>.localhost | daemon
+webletId.slice(0,32) hash-prefix truncation | daemon
+RFC 6761 *.localhost browser resolution | daemon
+no DNS configuration needed | daemon
+weblet location URL format change | daemon
+http://<weblet-id>.localhost:<gateway-port>/ | daemon
+fall through to gateway WebSocket | daemon
+backward compatibility standalone mode | daemon
+makeWeblet signature port to server-registrar | daemon
+unguessable 128-char-hex weblet identifier | daemon
+browser SOP cookie isolation per subdomain | daemon
+N-weblets-N-ports to N-weblets-1-port | daemon
+two-environment-different-mechanisms discipline | daemon
+honest-design-correction-inline | daemon
+deeper-problem identification points to dependency | daemon

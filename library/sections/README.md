@@ -621,4 +621,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-familiar-daemon-bundling--{single-file-bundle-with-worker-entry-and-platform-node}
 
-## Total: 614 sections from 158 source documents (through 2026-06-02).
+### From endo-but-for-bots/designs familiar-unified-weblet-server (cycle 114, **third and final of cycle 109's three named dependencies — Familiar dependency triangle complete; Key design revision 2026-04-17 with two-mode split (Familiar vs Chat); deeper problem identifies hierarchical multiplexing + session confidentiality pointing to OCapN-Noise; previous-status correction discipline; cycle 114 pivoted from papers-lane (tenth consecutive block) to familiar-design-lane**)
+
+- endo-but-for-bots--llm-designs-familiar-unified-weblet-server--{single-port-virtual-host-routing-with-key-revision}
+
+## Total: 615 sections from 159 source documents (through 2026-06-02).
