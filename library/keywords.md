@@ -2433,3 +2433,38 @@ synchronous-throw vs asynchronous-rejection paths | object-capability
 full SES error-observation surface | object-capability
 agent cluster termination flush | object-capability
 beforeExit unhandled rejection report | object-capability
+commands as self-addressed messages | daemon
+asymmetric transcript missing-half-of-conversation | daemon
+followMessages records inbound only | daemon
+from === to self-send corner case | daemon
+mail.js self-delivery suppression | daemon
+type-aware self-delivery lift | daemon
+command message type | daemon
+commandName args promiseId resolverId | daemon
+result as replyTo reply | daemon
+durable command formula | daemon
+durable reply formula | daemon
+session reconstruction from message log | daemon
+evaluate subsumes eval-proposal pair | daemon
+eval-proposal-proposer eval-proposal-reviewer collapse | daemon
+8-operation table dismiss adopt resolve reject evaluate request send grant | daemon
+agent tool audit trail | daemon
+capability-confined agent observability | daemon
+readFile exec as commands | daemon
+daemon-capability-bank built-in observability | daemon
+chat-pending-commands UI-only predecessor | daemon
+chat-pending-commands subsumed | daemon
+pending command spinner settled checkmark | daemon
+reply-fold into command card | daemon
+daemon-form-request reply pattern | daemon
+daemon-value-message reply mechanism reuse | daemon
+2x message volume cost | daemon
+no markdown body no embedded references | daemon
+durable-log enables undo replay | daemon
+design-dependency graph six designs | daemon
+unified transcript no separate pending region | daemon
+agent-visible history via followMessages | daemon
+new-design-deprecates-predecessor lifecycle | daemon
+one-design-solves-two-problems cross-cutting payoff | daemon
+minimal-mechanism-maximal-semantics discipline | daemon
+type-aware conditional lift in mail.js | daemon

@@ -569,4 +569,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-ses-src-error-unhandled-rejection-js--{browser-limitations-and-finalization-registry-rejection-tracking}
 
-## Total: 600 sections from 145 source documents (through 2026-06-02).
+### From endo-but-for-bots/designs daemon-commands-as-messages (cycle 101, **first non-chat endo-but-for-bots design ingest in this rotation; chat-cluster fully ingested as of cycle 99 so the rotation extends into the broader designs corpus**)
+
+- endo-but-for-bots--llm-designs-daemon-commands-as-messages--{commands-as-self-addressed-messages-design}
+
+## Total: 601 sections from 146 source documents (through 2026-06-02).
