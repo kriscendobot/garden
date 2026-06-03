@@ -805,4 +805,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-debug-worker-restart--{compose-suspend-and-debug-aware-resume-via-debug-flag-with-paused-at-XS-login-break}
 
-## Total: 663 sections from 204 source documents (through 2026-06-03).
+### From endo packages/marshal/src/marshal-stringify.js longform comments (cycle 160 — **milestone tick** — **thirty-ninth comment-fragment ingest**; **sixth @endo/marshal source file ingested** (cluster: 74 + 69 + 81 + 84-85 + 144 + 160); the JSON-equivalent for pure-data Passable surface; 69 lines; **single most structurally interesting move**: §badArray-Proxy-traps-on-slot-access — parse passes a proxy that pretends to be empty array but throws on any property access other than `length`; §loud-failure-when-input-violates-contract; §three-layered-defense (encode-converter / decode-converter / badArray-trap); §freeze-but-not-harden-the-target (third file in §triple-stabilize-citation cluster after cycles 146 + 154); §verbatim-comment-shared-across-derived-files pattern; §every-mention-cites-the-rationale discipline; §capdata-not-smallcaps with §TODO-pin; §errorTagging-off; §throw-is-noop-since-Fail-throws §linter-noise-as-documentation; §same-substrate-three-API-faces (marshal / dot-membrane / stringify from one makeMarshal factory); same coordinated-update commit `e56bf00f` as 18-file cluster (cycles 108/110/115/118/123/125/132/134/136/138/140/144/148/150/152/154/158/160); cycle 160 was nominally chat-lane; papers-lane blocked 54+ consecutive cycles; **cycle 160 milestone tick — 25 cycles of design+comment alternation since daemon-observability-pair landed at 145+147**)
+
+- endo--packages-marshal-src-marshal-stringify-js--{JSON-equivalent-for-Passable-pure-data-via-badArray-Proxy-that-traps-on-slot-access}
+
+## Total: 664 sections from 205 source documents (through 2026-06-03).

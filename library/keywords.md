@@ -4533,3 +4533,36 @@ five Design Decisions coherent-shape | daemon
 phased-with-tests pattern | daemon
 thin-layer-on-thick-substrate | daemon
 runtime-introspection-duo with cycles 145+147 | daemon
+marshal-stringify.js JSON-equivalent | marshal
+pure-data Passable serialization | marshal
+stringify parse symmetric to JSON | marshal
+pure-data-version-of-marshal | marshal
+badArray-Proxy-traps-on-slot-access | marshal
+loud-failure-when-input-violates-contract | marshal
+badArrayHandler get throws | marshal
+length-returns-zero-everything-else-throws | marshal
+refuse-converter-as-explicit-config | marshal
+three-layered-defense | marshal
+each-layer-has-its-own-error-message | marshal
+freeze-but-not-harden-the-target | marshal
+stabilize-discipline | marshal
+verbatim-comment-shared-across-derived-files | marshal
+triple-stabilize-citation in this file | marshal
+stringify-discards-the-empty-slots-array | marshal
+symmetric-API-via-asymmetric-bodies | marshal
+parse-passes-freeze-with-badArray-slots | marshal
+every-mention-cites-the-rationale | marshal
+capdata-not-smallcaps | marshal
+legacy-format-pinned-with-TODO | marshal
+upgrade-blocked-on-test-rewrite | marshal
+honest-TODO-not-silent-pin | marshal
+errorTagging-off configuration | marshal
+round-trip-identity not logically-equivalent-with-new-tag | marshal
+throw-is-noop-since-Fail-throws | marshal
+linter-noise-as-documentation | marshal
+same-substrate-three-API-faces | marshal
+three-faces-of-marshal full membrane stringify | marshal
+sixth @endo/marshal source file ingested | marshal
+cycle 160 milestone tick | marshal
+25 cycles of design+comment alternation | marshal
+18-file coordinated-update cluster | marshal
