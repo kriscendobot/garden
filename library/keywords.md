@@ -4244,3 +4244,51 @@ this-as-PromiseConstructor subclassable | eventual-send
 named-function-via-object-destructure | eventual-send
 method-syntax-non-constructable | eventual-send
 first promise-kit source file ingested | eventual-send
+ci-no-npm-lifecycle supply-chain defense | tooling
+GitHub Actions runner attack surface | tooling
+malicious postinstall in transitive dependency | tooling
+lifecycle scripts run before source audit | tooling
+event-stream ua-parser-js node-ipc XZ typosquatting | tooling
+preinstall postinstall install prepare prepack postpack | tooling
+three-concerns supply-chain reproducibility correctness | tooling
+multiple-independent-justifications discipline | tooling
+existing-posture-at-rest audit | tooling
+enableScripts false yarnrc.yml | tooling
+@lavamoat/preinstall-always-fail | tooling
+@lavamoat/allow-scripts | tooling
+@ipshipyard/node-datachannel better-sqlite3 native addons | tooling
+dependenciesMeta built | tooling
+pin-the-posture-don't-invent-it framing | tooling
+light-migration property | tooling
+three-layer-auditable defense | tooling
+Config Allowlist Named-step layers | tooling
+each-layer-can-fail-without-catastrophic-loss | tooling
+defense-in-depth-against-three-different-mistakes | tooling
+belt-and-suspenders env mechanism | tooling
+YARN_ENABLE_SCRIPTS=false | tooling
+npm_config_ignore_scripts=true | tooling
+reviewer-visible-defense | tooling
+explicit-named-step-not-implicit-side-effect | tooling
+observability-through-explicitness | tooling
+yarn install --immutable | tooling
+lockfile-immutability-as-supply-chain-defense | tooling
+yarn allow-scripts run named step | tooling
+narrow-allowlist-for-legitimate-exceptions | tooling
+named-list-not-pattern-match | tooling
+enumerate-every-workflow discipline | tooling
+every-build-already-explicit observation | tooling
+workspace-prepack scripts handling | tooling
+don't-rename-don't-touch-existing-mechanisms-just-control-call-sites | tooling
+control-the-call-not-the-callee | tooling
+two-layer enforcement | tooling
+check-no-ci-lifecycle.mjs repo-level lint | tooling
+check-action-pins parallel CI job | tooling
+canary-package-fails-loud | tooling
+five Design Decisions for CI security | tooling
+16-day calendar window | tooling
+design-burst-then-queue-wait | tooling
+calendar-time-vs-active-time distinction | tooling
+batch-of-seven-proposals same day | tooling
+self-contained-by-construction | tooling
+PR 126 ddbc8ad7e | tooling
+master-base mirror PR 250 | tooling
