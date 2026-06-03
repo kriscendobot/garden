@@ -4907,3 +4907,50 @@ small-doc-doesn't-mean-shallow-ingest | daemon, tooling
 six-step-flow is the spine | daemon, tooling
 contributor flow for adding platform-specific feature | daemon, tooling, getting-started
 59+ consecutive papers-lane blocks | daemon, tooling, getting-started
+daemon-mount design In Progress Phases 1-3 + 5 shipped | daemon, capability-security, patterns
+live-mutable-filesystem-as-capability | daemon, capability-security
+AI-coding-agent-as-motivating-use-case | daemon, capability-security
+mount formula scratch-mount formula | daemon, capability-security
+two-formula-type-split | daemon, capability-security, patterns
+lifecycle-asymmetry-vs-implementation-symmetry | daemon, patterns
+ReadableTree-compatible-reads has list lookup | daemon, patterns
+mutation suite write remove move makeDirectory | daemon, capability-security
+snapshot bridge-to-immutable readable-tree | daemon, capability-security
+mount-snapshot round-trip | daemon, capability-security
+realpath-at-operation-time-confinement | daemon, capability-security
+TOCTOU mitigation operation-time check | daemon, capability-security
+operation-time-verification | daemon, capability-security
+read-soft-write-hard discipline | daemon, capability-security
+hidden-not-rejected for reads | daemon, capability-security
+escaping symlinks silently excluded | daemon, capability-security
+readOnly on the exo no new formula | daemon, capability-security
+sub-mount via host creates new formula | daemon, capability-security
+exo-vs-host axis creates-formula | daemon, patterns
+deferred-task atomicity GC race prevention | daemon, capability-security
+transient exos from lookup | daemon, patterns
+formula-store hygiene don't pollute | daemon, patterns
+weak-value-map GC cycle 156 | daemon, patterns
+..-is-clamped-not-rejected POSIX-ergonomic | daemon, patterns
+path-validation segment rules slash backslash null | daemon
+path-based-not-inode-based limitation | daemon, capability-security
+POSIX *at family openat renameat fstatat mkdirat | daemon, capability-security
+future-hardening-target | daemon, capability-security
+honest-limitation-disclosure | daemon, capability-security
+scratch-mount survives cancellation | daemon, capability-security, persistence
+intentional-deletion-requires-removing-all-pet-name-references | daemon, capability-security
+single-mistake-cannot-destroy-state | daemon, capability-security
+eight Design Decisions enumerated | daemon, capability-security, patterns
+phased implementation 6 phases | daemon
+twenty integration tests confinement symlink | daemon
+five design dependencies | daemon
+platform-fs daemon-capability-filesystem daemon-checkin-checkout daemon-agent-tools daemon-content-store-gc | daemon
+speculative-vision-realized-as-concrete-subset | daemon, patterns
+concrete-mergeable-slice | daemon, patterns
+daemon-capability-filesystem wider vision | daemon
+synthesis-target two-formula-type-split applicable | daemon, patterns
+our-design we are the substrate | daemon
+endo-but-for-bots-design genre | daemon
+designs-lane after 5-cycle comments-lane streak | daemon
+breaks ocap-kernel-mini-series streak | daemon
+direct-prerequisite-design for filesystem-watchers | daemon
+60+ consecutive papers-lane blocks | daemon, capability-security, patterns
