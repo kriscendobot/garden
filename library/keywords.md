@@ -5054,3 +5054,60 @@ Tier-1 borrowing reuse-familiar-discipline | daemon, tooling
 Tier-1 borrowing don't-bake-metadata-in-yet | daemon
 Tier-1 borrowing decomposition-of-bundled-verbs | daemon, tooling, capability-security
 62+ consecutive papers-lane blocks | daemon, tooling, capability-security
+@endo/captp atomics.js SharedArrayBuffer Trap transport | captp, patterns, tooling
+SharedArrayBuffer-as-synchronous-RPC-transport | captp, tooling
+Atomics wait notify blocking RPC | captp, tooling
+three-buffer-split-in-one-SharedArrayBuffer | captp, patterns
+lenbuf BigUint64Array statusbuf Int32Array databuf Uint8Array | captp, patterns
+TRANSFER_OVERHEAD_LENGTH BigUint64Array Int32Array bytes per element | captp
+MIN_DATA_BUFFER_LENGTH 1 pathological minimum | captp, patterns
+MIN_TRANSFER_BUFFER_LENGTH | captp
+STATUS_WAITING STATUS_FLAG_DONE STATUS_FLAG_REJECT | captp
+bit-flags-not-enum-when-states-are-orthogonal | captp, patterns
+why-Int32Array-for-status MDN citation | captp, tooling
+standard-API-constraint-acknowledged-in-comment | captp, tooling
+32-bit-atomic-integer canonical-wake-target | captp
+async-generator-as-trapHost | captp, patterns
+async-generator-as-resumable-state-machine | captp, patterns
+yield-as-resume-point | patterns
+JS-language-feature-as-control-flow-primitive | patterns
+iterator-protocol-as-bidirectional-channel | captp, patterns
+host yields chunks via Atomics.notify | captp
+guest controls iteration via it.next return throw | captp
+chunked-transfer-by-buffer-size | captp, patterns
+allocate-once-zero-copy-chunk subarray | captp, patterns
+special-case-done-on-first-try | captp, patterns
+allocation-elision-for-common-case | patterns
+optimization-by-shape-recognition | patterns
+cleanup-via-iterator-protocol it.throw | captp, patterns
+TODO use error type captp noisy logging | captp
+honest-limitation-with-named-future-improvement | captp, patterns
+test-the-boundary-not-just-the-happy-path | patterns
+pathological-test-case-anchors-the-design | patterns
+three-buffer-write-order discipline data length status notify | captp, patterns
+status-write-plus-notify-is-commit-point | captp, patterns
+JSON-encoding-not-marshal-direct | captp
+encode-to-JSON-then-UTF-8-bytes | captp
+two-step-encoding JSON UTF-8 | captp
+layering-discipline marshal upstream | captp
+synchronous-RPC-as-meta-capability | captp, tooling
+rare-and-valuable-primitive | captp, tooling
+this-enables-Trap-in-cycle-154 | captp
+this-enables-XS-debugger-style-stepping cycle 159 | captp
+pair-with-cycle-154-trap.js | captp
+trap.js abstract interface atomics.js concrete implementation | captp
+abstract-then-concrete pattern | patterns
+small-file-but-load-bearing-knowledge sibling | captp, tooling
+Atomics.notify buf 0 +Infinity wake all waiters | captp
+Atomics.wait buf 0 STATUS_WAITING blocking | captp
+TextEncoder TextDecoder UTF-8 | captp
+thirteenth file in e56bf00f coordinated-update cluster | captp
+e56bf00f cluster cycles 108 110 115 118 123 125 132 134 138 140 144 167 169 | captp
+Tier-1 borrowing three-buffer-split | captp, patterns
+Tier-1 borrowing Atomics-wait-notify-for-blocking-RPC | captp, patterns
+Tier-1 borrowing async-generator-as-resumable-state-machine | patterns
+Tier-1 borrowing bit-flags-not-enum | patterns
+Tier-1 borrowing allocation-elision-for-common-case | patterns
+Tier-1 borrowing cleanup-via-iterator-protocol | captp, patterns
+Tier-1 borrowing pathological-test-case-anchors-the-design | patterns
+63+ consecutive papers-lane blocks | captp, patterns, tooling
