@@ -5111,3 +5111,70 @@ Tier-1 borrowing allocation-elision-for-common-case | patterns
 Tier-1 borrowing cleanup-via-iterator-protocol | captp, patterns
 Tier-1 borrowing pathological-test-case-anchors-the-design | patterns
 63+ consecutive papers-lane blocks | captp, patterns, tooling
+daemon-capability-filesystem reference vision | daemon, capability-security, patterns
+speculative-vision-document | daemon, patterns
+reference-status-after-narrower-subset-shipped | daemon
+reference-design-as-genre | daemon, patterns
+encodes-design-space-exploration | daemon, patterns
+seeds-future-concrete-designs | daemon, patterns
+per-idea-factoring migration-path | daemon, patterns
+first Endo-internal Reference design ingested | daemon
+14-day-design-phase reference-transition 2026-03-21 | daemon
+three-layer-architecture Guest VFS-Namespace Backends | daemon, patterns
+single-interface-multiple-backings | daemon, patterns
+four-backend-types Physical Git-Tree Memory CAS | daemon, patterns
+guest cannot tell which backend serves which path | daemon, capability-security
+chroot-jail-shape | daemon, capability-security
+Bazel-style-selective-dependency-mounting | daemon, capability-security
+absence-is-structural-not-policy | daemon, capability-security
+undeclared-dependencies-are-absent-not-denied | daemon, capability-security
+no-amount-of-clever-prompting-can-construct-authority-it-doesn't-have | daemon, capability-security
+materialization-bridge-VFS-to-OS-sandbox | daemon, capability-security
+two-staged-confinement | daemon, capability-security
+syncBack validates changes within scope | daemon
+single-dimension-attenuation-via-method-chaining | daemon, capability-security, patterns
+readOnly subDir composable | daemon, capability-security, patterns
+composable-by-chaining | patterns
+replaces attenuate(opts) with composable chainable calls | patterns
+attenuation-is-irreversible | capability-security
+caretaker-facet-separation DirControl FileControl | daemon, capability-security
+canonical-ocap-caretaker-pattern Miller-1973 | capability-security
+setWritable revoke without guest cooperation | daemon, capability-security
+defense-in-depth-deny-patterns | daemon, capability-security
+primary structural confinement secondary deny patterns | daemon, capability-security
+**/.ssh/** **/.aws/** **/.env** **/*.pem credentials | daemon, capability-security
+backend-level not Dir-exo-level cannot-be-circumvented | daemon, capability-security
+configurable-by-host | daemon
+non-physical-backends-don't-need-deny-patterns | daemon, capability-security
+LLM-discoverability-via-help-plus-interface-guards | daemon, patterns
+help-as-LLM-onboarding | daemon
+two-channels-for-machine-and-human-understanding | patterns
+path-segment-validation-multi-layer | daemon, capability-security
+enforced-even-for-in-memory-backends | daemon, capability-security
+subDir-resolves-eagerly avoid TOCTOU | daemon, capability-security
+Endo-already-has-this-pattern map | daemon, patterns
+six-named-relationships pet-name-directory VFS-sketch FilePowers OS-sandbox-plugin EndoDirectory | daemon
+map-to-existing-substrate-not-parallel-abstractions | daemon, patterns
+seven-Open-Questions honest-deferral | daemon
+threat-model-with-citations | daemon, capability-security
+arxiv:2509.22040 Your AI My Shell Liu et al | daemon, capability-security
+IDEsaster report Marzouk December 2025 | daemon, capability-security
+84%-success-rate-against-unprotected-editors | daemon, capability-security
+defense-driven-by-evidence-not-theoretical | daemon, capability-security
+reference-document-as-roadmap-source | daemon, patterns
+Git-tree-backend future-concrete-design candidate | daemon
+Memory-backend future-concrete-design candidate | daemon
+CAS-backend future-concrete-design candidate | daemon
+VFS-namespace-compositor future-concrete-design candidate | daemon
+Materialization-bridge future-concrete-design candidate | daemon
+the-wider-vision daemon-mount concrete-mergeable-slice | daemon
+backend-isolation FilePowers trusted computing base | daemon, capability-security
+Tier-1 borrowing three-layer-architecture | daemon, patterns
+Tier-1 borrowing single-interface-multiple-backings | daemon, patterns
+Tier-1 borrowing Bazel-style-selective-dependency-mounting | daemon, capability-security
+Tier-1 borrowing absence-is-structural-not-policy | daemon, capability-security
+Tier-1 borrowing materialization-bridges-VFS-to-OS-sandbox | daemon, capability-security
+Tier-1 borrowing caretaker-facet-separation | daemon, capability-security
+Tier-1 borrowing defense-in-depth-deny-patterns-as-secondary | daemon, capability-security
+Tier-1 borrowing help-plus-interface-guards-for-LLM-discoverability | daemon, patterns
+64+ consecutive papers-lane blocks | daemon, capability-security, patterns
