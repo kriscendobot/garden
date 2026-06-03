@@ -5351,3 +5351,51 @@ action-pin updater | (see section: endo--contributing--initial-setup)
 `--check-pins` | (see section: endo--contributing--initial-setup)
 `--min-age-days` | (see section: endo--contributing--initial-setup)
 floating-tag drift | (see entry: 2026/06/03/230728Z-message-shepherd-dfe4c4)
+@endo/gateway design overarching | daemon, tooling, capability-security
+gateway-package researcher-tracked-gap-1 addressed | daemon, tooling
+one-factory-many-configurations | daemon, tooling, patterns
+ten-feature-decomposition-of-one-package | daemon, tooling
+five-deployment-shapes | daemon, tooling
+configuration-gates-features | daemon, tooling
+WebletFormula typedef contentRoot mimeTypes ssrHandler virtualHosts | daemon, tooling
+@apps NameHub virtual hosting | daemon, tooling
+fetchContentTree daemon-side exo | daemon, tooling
+content-tree-resolution-five-step | daemon, tooling
+path-suffix-to-flat-entries-map-walk | daemon, tooling
+/ocapn-cbor-np WebSocket subprotocol | daemon, tooling
+path-name-encodes-codec-and-network | daemon, tooling
+ocapn protocol family cbor codec np Noise Protocol | daemon, tooling
+frame-relay-without-decryption | daemon, capability-security
+Noise-handshake intended-responder-prefix | daemon, capability-security
+end-to-end-encryption-survives-relay | daemon, capability-security
+external-TLS-via-reverse-proxy | daemon, tooling
+X-Forwarded-trust-via-CIDR-allowlist | daemon, capability-security
+trust-boundary-is-TCP-peer-not-header-contents | daemon, capability-security
+formula-identifier-as-bearer-token-reuse | daemon, capability-security
+resource-ledger-in-gateway-not-daemon | daemon, tooling
+gateway-is-the-layer-where-traffic-accrues | daemon, tooling
+UDS-bootstrap-as-administrator-channel | daemon, capability-security
+admin-authority-is-not-on-the-network-surface | daemon, capability-security
+proof-of-possession registration | daemon, capability-security
+GatewayBootstrap GatewayAdmin AppsNameHub RelayRegistration ResourceLedger | daemon
+ENDO_HTTP_ADDR 0.0.0.0:3469 default | daemon, tooling
+eight-Design-Decisions seven-Open-Questions | daemon
+eighteen-named-dependencies | daemon
+the-junction-design daemon Familiar OCapN stacks meet | daemon
+supersedes-vs-deprecates | daemon
+three-design-lifecycle-statuses Deprecated Supersedes Revision-note-refined | daemon
+strategic-vs-tactical-phase-numbering | daemon, tooling
+four-strategic-phases vs eleven-plus-tactical-PRs | daemon
+researcher-tracked-gaps-1-2-3-4 partially addressed by single ingest | daemon, tooling
+a-single-ingest-can-address-multiple-related-gaps | daemon, tooling
+subsystem-package vs leaf-utility-package | daemon, tooling, patterns
+sibling-extract-pattern @endo/bytes cycle 172 | daemon, tooling, patterns
+Tier-1 borrowing one-factory-many-configurations | daemon, tooling
+Tier-1 borrowing ten-feature-decomposition-of-one-package | daemon, tooling
+Tier-1 borrowing path-name-encodes-codec-and-network | daemon, tooling
+Tier-1 borrowing frame-relay-without-decryption | daemon, capability-security
+Tier-1 borrowing external-TLS-via-reverse-proxy | daemon, tooling
+Tier-1 borrowing X-Forwarded-trust-via-CIDR-allowlist | daemon, capability-security
+Tier-1 borrowing supersedes-keeps-prior-as-citable-reference | daemon
+Tier-1 borrowing strategic-vs-tactical-phase-numbering | daemon, tooling
+68+ consecutive papers-lane blocks | daemon, tooling, capability-security
