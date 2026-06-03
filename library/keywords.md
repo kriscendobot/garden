@@ -4321,3 +4321,50 @@ first captp source file ingested | captp
 SharedArrayBuffer Atomics.wait substrate | captp
 synchronous-CapTP via Atomics | captp
 captp cluster six source files | captp
+daemon-rename-to-manager rename design | daemon
+Daemon Manager rename | daemon
+MignonicPowers WorkerPowers rename | daemon
+mignonic small dainty subordinate | daemon
+ManagerMode ENDO_MANAGER_NODE | daemon
+Rust-already-calls-it-manager precedent | daemon
+JS-not-the-daemon observation | daemon
+asymmetric-vocabulary-across-boundary | daemon
+namer procedure roles/namer.md | daemon
+Laws 0 1 2 naming discipline | daemon
+antonym dual pair coherence | daemon
+verdict-line per candidate | daemon
+methodology-not-just-decision | daemon
+namer-procedure-applied-with-citations | daemon
+pair-coherence-matters | daemon
+Daemon Worker fractured Manager Worker symmetric | daemon
+forbidden-synonym argument | daemon
+two-names-for-one-thing-is-the-forbidden-synonym | daemon
+existing-name-wins-the-tie tiebreaker | daemon
+opaque-metaphor-to-non-native-readers | daemon
+prompt-author's-spelling-correction | daemon
+verify-the-prompt-before-acting | daemon
+coinage-was-defensive-no-longer-needed | daemon
+Daemonic collapses to Manager | daemon
+what-stays section negative space | daemon
+scope-boundary-explicit | daemon
+user-facing-prose-untouched | daemon
+three-phased rename Phase 1 2 3 | daemon
+minimum-disruptive-PR-boundary | daemon
+phase-1-safest-review-rationale | daemon
+big-churn-but-easy-review | daemon
+git-mv-preserves-blame | daemon
+exhaustive-mechanical-inventory | daemon
+grep-recipe-as-source-of-truth | daemon
+wire-protocol-coordination-window | daemon
+coordinated-rename-because-coordinated-deployment | daemon
+atomic-rename-when-deployment-is-atomic | daemon
+no-deprecated-alias-kept | daemon
+search-confirms-rename-is-outright-cut | daemon
+evidence-based-deprecation-decision | daemon
+absence-of-consumers-means-no-deprecation | daemon
+package-name-stays | daemon
+inside-vs-outside-the-name-boundary | daemon
+nested-naming-scopes | daemon
+don't-retroactively-edit-older-designs | daemon
+sweep-only-new-prose | daemon
+don't-rewrite-history norm | daemon
