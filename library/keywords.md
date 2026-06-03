@@ -5004,3 +5004,53 @@ Tier-1 borrowing ENDO_SOCK-override | tooling, daemon
 XDG_RUNTIME_DIR canonical-tmpfs-cleared-on-reboot systemd | tooling, daemon
 PID-files-after-reboot-are-misleading | tooling, daemon
 61+ consecutive papers-lane blocks | tooling, daemon, getting-started
+endo checkin checkout commands ci co | daemon, tooling
+complete-bidirectional-bridge local FS formula store | daemon, tooling
+single-substrate-four-modes directory zip checkin checkout | daemon, tooling
+same-formula-tree-from-two-input-sources | daemon, tooling
+zip-is-just-serialization | daemon, tooling
+CLI-side-formulation-not-daemon-side | daemon, tooling, capability-security
+checkout-entirely-CLI-side zero new daemon methods | daemon, tooling
+readable-tree-stores-formula-IDs-not-content-hashes | daemon, tooling
+identity-vs-content distinction | daemon
+formula-graph-for-GC needs identity edges | daemon
+zip-mode-reuses-tree-formulation | daemon, tooling
+no-metadata-preservation content-only-not-filesystem-replica | daemon, tooling
+permissions timestamps ownership not captured | daemon, tooling
+future-extension-as-sidecar-formula | daemon
+symlinks-skipped-with-warning readable-tree | daemon, tooling
+different-substrate-different-policy mount checkin | daemon, capability-security
+.endoignore not new flag reuse-familiar-discipline | daemon, tooling
+gitignore syntax | daemon, tooling
+don't-grant-daemon-ambient-FS-access | daemon, capability-security
+capability-security-at-architectural-axis | daemon, capability-security
+push-the-FS-side-to-the-component-that-already-has-FS-authority | daemon, capability-security
+operation-time discipline vs architectural-time discipline | daemon, capability-security
+type-discrimination-via-locator | daemon, tooling
+locator-encodes-formula-type ?type=readable-tree | daemon, tooling
+locators-encode-type-information-too | daemon, tooling
+relationship-to-mkweblet zip extraction | daemon, tooling
+zip-extraction-extracted-from-mkweblet | daemon, tooling
+mkweblet-now-accepts-readable-tree-directly | daemon, tooling
+decomposition-of-bundled-verbs refactor-discipline | daemon, tooling, capability-security
+roadmap-calibration-via-git-blame | daemon
+62 days three discrete bursts long unattended gaps | daemon
+documentation-tracks-reality | daemon
+five-phase-implementation all complete S-sized | daemon
+each-phase-can-ship-independently no flag day | daemon
+bidirectional-bridge-pattern two symmetric commands | daemon, tooling
+pair-design daemon-mount daemon-checkin-checkout | daemon
+mount.snapshot-produces-readable-tree | daemon
+round-trip mount snapshot checkout local directory | daemon
+live-mutable vs point-in-time-snapshot-and-restore | daemon
+empty-directories-are-valid-formulas | daemon
+maximum-depth CLI-side guard 64 levels | daemon, tooling
+content-deduplication store-sha256 automatic | daemon
+Tier-1 borrowing single-substrate-four-modes | daemon, tooling
+Tier-1 borrowing CLI-side-formulation | daemon, tooling, capability-security
+Tier-1 borrowing bidirectional-bridge-pattern | daemon, tooling
+Tier-1 borrowing locator-encodes-formula-type | daemon, tooling
+Tier-1 borrowing reuse-familiar-discipline | daemon, tooling
+Tier-1 borrowing don't-bake-metadata-in-yet | daemon
+Tier-1 borrowing decomposition-of-bundled-verbs | daemon, tooling, capability-security
+62+ consecutive papers-lane blocks | daemon, tooling, capability-security
