@@ -721,4 +721,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-pass-style-src-safe-promise-js--{safe-promise-definition-with-toStringTag-tolerance-and-node-async-hooks-explicit-allowlist}
 
-## Total: 642 sections from 183 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/daemon-docker-selfhost.md (cycle 139, **thirty-first-comment-style design ingest; fourth daemon-* design after endopi-* family closure; Docker image + external TLS via reverse proxy + reuse of Familiar bundle pipeline; §design-as-deferral pattern; cycle 139 papers-lane block 33+ pivot to designs lane**)
+
+- endo-but-for-bots--llm-designs-daemon-docker-selfhost--{docker-image-with-external-TLS-and-reuse-of-Familiar-bundle-pipeline}
+
+## Total: 643 sections from 184 source documents (through 2026-06-03).

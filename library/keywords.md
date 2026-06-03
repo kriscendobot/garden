@@ -3712,3 +3712,35 @@ rejector-as-callback pattern | pass-style
 isXxx vs assertXxx rejector wrap | pass-style
 safe-promises not themselves a pass-style | pass-style
 pre-condition for safe pass-by-reference | pass-style
+daemon-docker-selfhost always-on server | daemon
+Docker image Node 22-slim base | daemon
+pre-built bundles in container | daemon
+VOLUME /data/endo state persistence | daemon
+EXPOSE 8920 gateway port | daemon
+bind 0.0.0.0 vs local 127.0.0.1 | daemon
+ENDO_STATE ENDO_ADDR ENDO_GATEWAY_REMOTE env vars | daemon
+docker-entrypoint.sh lazy-init exec daemon | daemon
+external TLS via reverse proxy | daemon
+Caddy nginx Traefik cloud load balancer | daemon
+avoids bundling certificate management | daemon
+Let's Encrypt OCSP stapling out of scope | daemon
+design-as-deferral pattern | daemon
+each-layer-handles-its-concern | daemon
+Docker Compose two-services-one-volume | daemon
+caddy reverse proxy depends_on endo | daemon
+restart unless-stopped policy | daemon
+state subdir keys subdir worker subdir | daemon
+single-volume-three-subdirectories | daemon
+bundled-agents optional via env paths | daemon
+parity-with-Familiar | daemon
+Chat UI URL anchor agent id | daemon
+URL-anchor-not-query-string for auth | daemon
+fragments not sent to server | daemon
+token never appears in server logs | daemon
+reuse-Familiar-bundle-script | daemon
+no separate build system | daemon
+parity between desktop and server deployments | daemon
+minimal-daemon-side-change | daemon
+add --addr flag and ENDO_GATEWAY_REMOTE | daemon
+codification-as-Design-Decisions | daemon
+deployment-shape Familiar Docker | daemon
