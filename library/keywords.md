@@ -5230,3 +5230,61 @@ Tier-1 borrowing prime-captures-first-returned-promise | streams, patterns
 Tier-1 borrowing E.when-not-await | streams, captp
 Tier-1 borrowing harden-everything-individually | patterns
 65+ consecutive papers-lane blocks | streams, patterns, captp
+@endo/bytes design new utility package | tooling, patterns, pass-style
+endo-bytes Uint8Array helpers cross-platform | tooling, patterns
+maximal-power-minimal-area discipline | tooling, patterns
+ship-the-smallest-API-that-retires-the-existing-duplicates | tooling, patterns
+add-helpers-when-a-real-consumer-asks | tooling, patterns
+audit-first-design-second | tooling, patterns
+three-platform-constraint Node XS SES | tooling, pass-style
+Buffer is Node-only Uint8Array is cross-platform | tooling, pass-style
+five-existing-duplicates audit | tooling, patterns
+three-concrete-costs of duplication | tooling, patterns
+each-new-caller-invents-another-copy | tooling, patterns
+subtle-drift-between-copies | tooling, patterns
+Buffer-ports-still-landing | tooling
+four-helpers-MVP concatBytes bytesEqual bytesFromText bytesToText | tooling, pass-style
+helper-rationale-table-with-existing-duplicates-counts | tooling, patterns
+six-helpers-explicitly-deferred | tooling, patterns
+document-what's-not-included-and-why | tooling, patterns
+negative-space-is-load-bearing | tooling, patterns
+no-barrel-module-per-helper-surface | tooling, patterns
+tree-shaking-friendliness | tooling, patterns
+per-helper-surface-area-easy-to-audit | tooling, patterns
+qualified-export-names | tooling, patterns
+file-name-doesn't-stutter export-name-carries-qualifier | tooling, patterns
+kebab-case-file-names-for-multi-word | tooling
+single-word-files-keep-plain-form | tooling
+module-scoped-TextEncoder-and-TextDecoder | tooling, pass-style
+capture-at-module-load no-per-call-allocation | tooling
+captured-before-lockdown-can't-be-defeated | tooling, pass-style
+no-input-validation-beyond-primitives | tooling, patterns
+leaf-utility-stays-leaf | tooling, patterns
+don't-add-pass-style-dependency to leaf utility | tooling, patterns
+eight-Decisions recorded from PR review | tooling, patterns
+Open-Questions-resolved-during-implementation | tooling, patterns
+first-release-at-1.0.0 no-0.x-purgatory | tooling, patterns
+API-stable-from-day-one | tooling, patterns
+major changeset bump from 0.x baseline | tooling
+four-phase migration package + sibling duplicates + TextEncoder | tooling
+decoupled-rollout package-first call-sites-later | tooling, patterns
+defer-to-sibling-packages | tooling, patterns
+each-package-has-one-concern | tooling, patterns
+don't-build-a-mega-package | tooling, patterns
+sourced-from-PR-inline-review-comment lifecycle | tooling, patterns
+PR-122-comment-3205507716 source | tooling
+fourth-lifecycle-instance cycles 149 157 161 172 | tooling, patterns
+family-of-small-focused-leaf-utility-packages | tooling, patterns
+sibling-utility-package | tooling, patterns
+@endo/where cycle 167 @endo/stream cycle 171 sibling | tooling, patterns
+@endo/base64 @endo/hex sibling-precedent | tooling
+synthesis-target eight-step-pattern monorepo deduplication | tooling, patterns
+eight-step-pattern audit + maximal-power-minimal-area + per-helper-surface + qualified-export-names + module-scoped + no-peer-deps + start-at-1.0.0 + resolve-OQ-during-implementation | tooling, patterns
+Tier-1 borrowing maximal-power-minimal-area | tooling, patterns
+Tier-1 borrowing no-barrel-module-per-helper-surface | tooling, patterns
+Tier-1 borrowing qualified-export-names | tooling, patterns
+Tier-1 borrowing module-scoped-TextEncoder-TextDecoder | tooling, pass-style
+Tier-1 borrowing first-release-at-1.0.0 | tooling, patterns
+Tier-1 borrowing Open-Questions-resolved-during-implementation | tooling, patterns
+Tier-1 borrowing sourced-from-PR-inline-review-comment-lifecycle | tooling, patterns
+66+ consecutive papers-lane blocks | tooling, patterns, pass-style
