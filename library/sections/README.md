@@ -693,4 +693,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-endopi-prompt-templates--{mustache-placeholder-editor-expansion-not-agent-invocation-with-shared-discovery-walker}
 
-## Total: 635 sections from 176 source documents (through 2026-06-02).
+### From endo packages/eventual-send/src/local.js longform comments (cycle 132, **twenty-fifth comment-fragment ingest; local-delivery primitive layer; direct consumer of cycle 130's makeMessageBreakpointTester; the §placement-at-the-actual-delivery-point solves cycle 130's async-call-debugging-pain-point; same e56bf00f coordinated-update commit as cycles 108/110/115/118/123/125; cycle 132 nominal comments-lane**)
+
+- endo--packages-eventual-send-src-local-js--{three-local-delivery-primitives-with-debugger-breakpoint-integration-and-getMethodNames-introspection}
+
+## Total: 636 sections from 177 source documents (through 2026-06-03).

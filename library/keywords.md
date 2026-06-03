@@ -3491,3 +3491,31 @@ no variable types beyond strings | agent-conventions
 plain string substitution Pi convention | agent-conventions
 one-walker-many-resource-kinds substrate-reuse | agent-conventions
 prompts directory consumer for cycle 129 unifier | agent-conventions
+localApplyFunction localApplyMethod localGet | eventual-send
+three local-delivery primitives | eventual-send
+HandledPromise local dispatch | eventual-send
+ENDO_DELIVERY_BREAKPOINTS env option | eventual-send
+onDelivery makeMessageBreakpointTester consumer | eventual-send
+STEP INTO APPLY inline comment | eventual-send
+placement-at-the-actual-delivery-point | eventual-send
+debugger pauses at receiver dispatch not call site | eventual-send
+base-case-bottom-out-to-apply-functions | eventual-send
+getMethodNames prototype walk | eventual-send
+Set to deduplicate across prototype layers | eventual-send
+test val name rather than layer name | eventual-send
+respect subclass override of inherited method | eventual-send
+stop at Object.prototype | eventual-send
+don't leak Object.prototype methods | eventual-send
+primitive early exit isPrimitive | eventual-send
+compareStringified prioritize symbols earlier than strings | eventual-send
+target has no method has X Y Z | eventual-send
+error message shows available method names | eventual-send
+isPrimitive duplication TODO | eventual-send
+cyclic-dependency-between-packages | eventual-send
+acknowledged-cost-of-layering | eventual-send
+freeze not harden at top level | eventual-send
+evaluation-ordering-constraint before SES lockdown | eventual-send
+ntypeof null is its own type | eventual-send
+typeof null is object JavaScript bug fix | eventual-send
+cannot invoke target as a function | eventual-send
+cannot deliver methodName to target | eventual-send
