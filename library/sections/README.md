@@ -769,4 +769,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-pass-style-src-typeGuards-js--{four-predicate-assertion-pairs-and-Atom-as-passable-leaf-subset-with-Not-even-Passable-two-level-rejection}
 
-## Total: 654 sections from 195 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/app-sharing-milestone.md (cycle 151, **thirty-seventh-comment-style design ingest**; 256-line *Proposed* milestone *coordination document* by Aaron *(prompted)* — **second Aaron-authored design** after cycle 143's familiar-app-ui-hosting; **single most structurally interesting move**: §milestone-not-bucket discipline — *it is a cut, not a new bucket of unrelated work*; pulls forward slices from M1-M3 + adds three new designs for connective tissue; §end-to-end-make-a-thing-send-it-run-it product narrative; §three-pillars (installer / deep-link / runnable+shareable apps); §verified-current-state methodology — §audit-before-spec; §Pillar-1-adopts-familiar-release.md governance move *defer to existing plan, do not restate* with §two-designs-must-not-define-the-same-thing-twice invariant; §macOS-arm64-first MVR; §reconcile-don't-duplicate posture for parallel-angle work; §four-phase plan with §exit-criterion-per-phase; §genuinely-net-new-vs-substrate distinction; §coordination-doc-as-graph-edge role; §Aaron-authored-pair touching Pillar 3; cycle 151 papers-lane block 45+ pivot to designs-lane)
+
+- endo-but-for-bots--llm-designs-app-sharing-milestone--{three-pillar-cut-with-verified-current-state-methodology-and-adopt-existing-plan-discipline}
+
+## Total: 655 sections from 196 source documents (through 2026-06-03).

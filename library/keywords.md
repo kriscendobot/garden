@@ -4159,3 +4159,62 @@ bottom of @endo dependency stack | pass-style
 ninth pass-style file in cluster | pass-style
 Mark S. Miller authored 2025-09-15 | pass-style
 cycle 150 milestone tick | pass-style
+app-sharing milestone three pillars | daemon
+milestone-not-bucket discipline | daemon
+end-to-end make a thing send it run it | daemon
+distribute chat app downloadable | daemon
+connect to peers deep-link URL | daemon
+endo:// deep link scheme | daemon
+make and share runnable apps | daemon
+cloneable apps remote-reference vs independent copy | daemon
+three-pillars distributable peer-deep-link runnable-apps | daemon
+verified-current-state methodology | daemon
+audit-before-spec discipline | daemon
+file-path-and-PR-citation density | daemon
+live map of codebase and tracker | daemon
+Pillar-1-adopts-familiar-release.md | daemon
+adopt-existing-plan-don't-compete-with-it | daemon
+two-designs-must-not-define-the-same-thing-twice | daemon
+named-deferral move | daemon
+macOS-arm64-first MVR scope | daemon
+maintainer-platform-first ordering | daemon
+G1-G16 sixteen gaps catalog | daemon
+swarm-of-G-item-PRs | daemon
+familiar-release.md PR 231 | daemon
+host.invite host.accept locator | daemon
+localhttp template for endo:// scheme | daemon
+template-for-the-missing-piece | daemon
+similar-shape-as-precedent | daemon
+make-from-tree formula | daemon
+endo-fs FsBackend seam | daemon
+readable-tree readable-blob formulas | daemon
+endo checkin endo checkout | daemon
+app handle bundling source exec UI | daemon
+cross-daemon clone | daemon
+streamed tree-archive durable backing | daemon
+familiar-deep-link-invitations | daemon
+endo-app-sharing | daemon
+familiar-unified-weblet-server | daemon
+familiar-chat-weblet-hosting | daemon
+daemon-weblet-application | daemon
+reconcile-don't-duplicate posture | daemon
+parallel-substrate-acknowledgment | daemon
+familiar-run-apps-vfs PR 241 | daemon
+exo-zip exo-unzip PR 160 | daemon
+exo-stream PR 330 | daemon
+daemon git-tree archive PR 367 | daemon
+four-phase plan P0 P1 P2 P3 | daemon
+exit-criterion-per-phase | daemon
+user-flow-as-completion-gate | daemon
+P3-honors-cloneable-policy | daemon
+transport-handles-integrity | daemon
+OCapN-Noise provides integrity | daemon
+one-paragraph-Exit-Criterion | daemon
+genuinely-net-new-vs-substrate distinction | daemon
+minimize-new-work-maximize-leverage | daemon
+raw-doc-URLs-not-durable caveat | daemon
+two-anchor-policy PR durable | daemon
+coordination-doc-as-graph-edge role | daemon
+milestone-as-clustering-event | daemon
+Aaron-authored-pair Pillar 3 | daemon
+three distinct attribution shapes | daemon
