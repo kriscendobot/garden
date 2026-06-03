@@ -3927,3 +3927,49 @@ thin-API-thick-UI principle | daemon
 Not-Started-design-as-roadmap | daemon
 existing-API-leverage observation | daemon
 Maybe-prefix-on-tests discipline | daemon
+E.js eventual-send user-facing surface | eventual-send
+makeE HandledPromise factory | eventual-send
+E(x).method() E(x)() E.get(x) E.resolve(x) E.sendOnly(x).method() E.when() | eventual-send
+makeEProxyHandler makeESendOnlyProxyHandler makeEGetProxyHandler | eventual-send
+baseFreezableProxyHandler four meta-traps return false | eventual-send
+set isExtensible setPrototypeOf deleteProperty | eventual-send
+return-false-not-throw preserves strict-mode invariants | eventual-send
+this-receiver-check via concise-method-syntax | eventual-send
+Unexpected receiver for method of E | eventual-send
+prevents method-detach attacks | eventual-send
+concise-method-syntax-not-arrow | eventual-send
+avoid-function-syntax non-constructable | eventual-send
+computed-property-key-preserves-name | eventual-send
+ts-expect-error microsoft TypeScript 50319 | eventual-send
+funcTarget objTarget freeze but not harden | eventual-send
+freeze-not-harden discipline | eventual-send
+preparing-for-stabilize.md reference | eventual-send
+stabilize discipline | eventual-send
+proxy target remains trapping | eventual-send
+should not be shared outside this module | eventual-send
+V8 Proxy short-circuits bypass meta-traps | eventual-send
+onSend ENDO_SEND_BREAKPOINTS | eventual-send
+shouldBreakpoint recipient propertyKey | eventual-send
+placement-at-the-call-site vs at-delivery | eventual-send
+LOOK UP THE STACK comment-as-debugger-instruction | eventual-send
+zero-cost-when-unset short-circuit | eventual-send
+SendOnly fire-and-forget returns undefined | eventual-send
+applyMethodSendOnly applyFunctionSendOnly | eventual-send
+throw-not-reject-in-SendOnly synchronous | eventual-send
+or-Fail short-circuit | eventual-send
+makeE callable-with-methods discipline | eventual-send
+harden assign fn methods | eventual-send
+five-surface api E.get E.resolve E.sendOnly E.when | eventual-send
+E.when wraps trackTurns | eventual-send
+has-trap-pretends-everything-exists | eventual-send
+pretend everything exists | eventual-send
+unknown-shape-of-remote | eventual-send
+FarRef DataOnly ERef EReturn EResult | eventual-send
+EAwaitedResult ECallableReturn ECallable EMethods EGetters | eventual-send
+ESendOnlyCallable ESendOnlyMethods ESendOnlyCallableOrMethods ECallableOrMethods | eventual-send
+FilteredKeys PickCallable RemoteFunctions LocalRecord | eventual-send
+EPromiseKit EOnly | eventual-send
+0 extends (1 & T) any-detector idiom | eventual-send
+propagate any cleanly avoid distributive collapse | eventual-send
+TypeScript 61838 generic callable return types | eventual-send
+Turadg Aleahmad commit c88bc8311 | eventual-send

@@ -749,4 +749,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-formula-inspector--{pop-the-bonnet-on-pet-named-capabilities-with-edit-toggle-and-retention-path-reveal}
 
-## Total: 649 sections from 190 source documents (through 2026-06-03).
+### From endo packages/eventual-send/src/E.js longform comments (cycle 146, **thirty-second comment-fragment ingest**; the user-facing surface of @endo/eventual-send; three-proxy-handler trio with §baseFreezableProxyHandler base; §this-receiver-check via concise-method-syntax prevents method-detach attacks; §funcTarget + §objTarget freeze-but-not-harden discipline so the proxy remains trapping (per packages/ses/docs/preparing-for-stabilize.md); §message-breakpoint integration with cycle 130's tester; §placement-at-the-call-site vs cycle 132's at-delivery; §callable-with-methods `harden(assign(fn, methods))` shape; §JSDoc-typedefs section with §`0 extends (1 & T)` any-detector idiom; Turadg Aleahmad last-touched 2026-04-07; cycle 146 papers-lane block 40+ pivot to comments-lane)
+
+- endo--packages-eventual-send-src-E-js--{E-proxy-handler-trio-with-this-receiver-check-and-freezable-not-hardened-proxy-targets}
+
+## Total: 650 sections from 191 source documents (through 2026-06-03).
