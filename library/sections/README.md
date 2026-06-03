@@ -757,4 +757,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-workers-panel--{event-loop-latency-sparkline-with-tenant-listing-retention-paths-and-correlated-log-view}
 
-## Total: 651 sections from 192 source documents (through 2026-06-03).
+### From endo packages/pass-style/src/symbol.js longform comments (cycle 148, **thirty-third comment-fragment ingest**; the passable-symbol surface for @endo/pass-style; §Hilbert-Hotel encoding *named explicitly in the file's JSDoc* — two encoding spaces (well-known + registered) disjoint because well-known names don't start with `@@` (host-platform invariant asserted at module load); §two-kinds-of-passable-symbols (registered + well-known); §three-case-decoder + §three-case-parser mirror; §forward-compatibility-via-throw on decode (future well-known encodings throw rather than silently `Symbol.for`); §hideAndHardenFunction only on assertion; foundational across @endo/pass-style stack — cycle 71 dispatches symbols here, cycles 69 + 81 use the encoder, cycle 134's `@@toStringTag` allowance depends on this; **eighth pass-style file** (cycles 71 + 87 + 134 + 136 + 138 + 140 + 142 + 148); same coordinated-update commit `e56bf00f` as cycles 108 + 110 + 115 + 118 + 123 + 125 + 132 + 134 + 136 + 138 + 140 + 144 + 148; cycle 148 was nominally chat-lane (exhausted at 20/20); papers-lane blocked 42+ consecutive cycles)
+
+- endo--packages-pass-style-src-symbol-js--{passable-symbols-Hilbert-Hotel-encoding-with-forward-compatibility-via-throw}
+
+## Total: 652 sections from 193 source documents (through 2026-06-03).

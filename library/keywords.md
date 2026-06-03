@@ -4031,3 +4031,38 @@ types.d.ts worker formula type | daemon
 Kris Kowal prompted | daemon
 workers panel sister to formula-inspector | daemon
 daemon observability pair | daemon
+passable symbols Hilbert-Hotel encoding | pass-style
+Hilbert Hotel encoding technique | pass-style
+well known symbols registered symbols | pass-style
+Symbol.for Symbol.keyFor | pass-style
+wellKnownSymbolNames Map | pass-style
+ownKeys(Symbol) at module load | pass-style
+identity-keyed Map for symbol singletons | pass-style
+@@ prefix convention | pass-style
+@@iterator @@toStringTag well-known wire form | pass-style
+@@@@ double prefix for shifted registered | pass-style
+nameForPassableSymbol three-case decoder | pass-style
+passableSymbolForName three-case parser | pass-style
+isPassableSymbol predicate | pass-style
+assertPassableSymbol throws | pass-style
+unpassableSymbolForName Symbol(name) escape hatch | pass-style
+AtAtPrefixPattern regex frozen constant | pass-style
+forward-compatibility-via-throw discipline | pass-style
+future well-known symbol throws on decode | pass-style
+Reserved for well known symbol error | pass-style
+throw-rather-than-lose-identity | pass-style
+break equality across realm upgrades | pass-style
+fail-at-load-not-at-use precondition | pass-style
+host-platform invariant gate | pass-style
+no well-known symbol name starts with @@ | pass-style
+two encoding spaces disjoint | pass-style
+two-kinds-of-passable-symbols | pass-style
+anonymous Symbol(description) excluded | pass-style
+hideAndHardenFunction only on assertion | pass-style
+hide-only-assertion-functions discipline | pass-style
+symbol-passability-as-pass-style-leaf | pass-style
+identity-vs-description-as-substrate | pass-style
+well-known symbol identity is its role | pass-style
+registered symbol identity is registry string | pass-style
+anonymous symbol identity is allocation moment | pass-style
+Kris Kowal coordinated-update commit e56bf00f | pass-style
