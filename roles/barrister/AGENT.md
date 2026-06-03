@@ -1,6 +1,6 @@
 ---
 created: 2026-05-21
-updated: 2026-05-21
+updated: 2026-06-03
 author: gardener
 ---
 
@@ -48,6 +48,7 @@ gh pr edit <N> -R <owner>/<repo> --add-reviewer @copilot
 
 ## Operating norms
 
+- **Pre-dispatch state check.** Run `gh pr view <N> -R <owner>/<repo> --json state,isDraft,mergedAt` at top-of-dispatch; short-circuit to a `no-op` `result` when `state != "OPEN"` or `isDraft == false` per `skills/panel-review/SKILL.md` § Pre-dispatch state check. The probe runs **before** the `panel-hints` consultation below: no juror is dispatched and no `panel-hints` invocation fires on a PR that was closed or un-drafted between the orchestrator's dispatch decision and the barrister's first read.
 - **Consult `skills/panel-hints/` at top-of-dispatch.** Run `bash garden/skills/panel-hints/panel-hints.sh --base <project-base>` inside the project worktree before fanning out the panel. The script returns five sections: always-on core (9 seats), always-fire (2 seats), path-triggered (0-9 seats), content-triggered (0-7 seats), and cross-panel (0-2 design seats firing on substantial markdown). The barrister dispatches the recommended set as the default. The script's bias is toward firing — suppression requires every probe to skip — and the barrister's bias matches: when in doubt, add a seat the script suppressed rather than removing one it fired. The `result` entry records the script's output verbatim plus any barrister-side overrides (additions or subtractions) so the audit trail captures the full panel composition.
 - **Briefing the panel: this is the first round.** The barrister's dispatch prompt to each juror names the PR, the project, and the seat's primary surface. Unlike the [justice](../justice/AGENT.md), the barrister has **no prior verdict to cite** in the brief; each juror approaches the PR fresh.
 - **Dispatch the recommended seats concurrently** per `skills/panel-review/SKILL.md` § Concurrent dispatch and in-band fallback. Typical first-round dispatch is 12-22 seats (always-on + always-fire + the script-fired tail); a multi-package PR touching root configs lands closer to the 26-seat full panel; a single-file PR may land closer to 14-15.

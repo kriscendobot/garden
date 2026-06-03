@@ -1,6 +1,6 @@
 ---
 created: 2026-05-21
-updated: 2026-05-21
+updated: 2026-06-03
 author: gardener
 ---
 
@@ -45,6 +45,7 @@ No `@copilot` fire (design panel does not add Copilot; the design surface is pro
 
 ## Operating norms
 
+- **Pre-dispatch state check.** Run `gh pr view <N> -R <owner>/<repo> --json state,isDraft,mergedAt` at top-of-dispatch; short-circuit to a `no-op` `result` when `state != "OPEN"` or `isDraft == false` per `skills/panel-review/SKILL.md` § Pre-dispatch state check. The probe runs **before** the `panel-hints` consultation below: no juror is dispatched and no `panel-hints` invocation fires on a PR that was closed or un-drafted between the orchestrator's dispatch decision and the solicitor's first read.
 - **Consult `skills/panel-hints/` at top-of-dispatch.** Run `bash garden/skills/panel-hints/panel-hints.sh --base <project-base>` inside the project worktree before fanning out the panel. On a design-only PR the script returns `Panel-kind: design-panel` and the wholesale seven-seat list (no signal-triggered fan-out applies to the design panel today). The solicitor still runs the script for the audit trail; the `result` entry quotes the output. The script may evolve to recommend cross-panel cross-firing in the future; the consultation step is the same regardless.
 - **Dispatch all seven seats concurrently** per `skills/panel-review/SKILL.md` § Concurrent dispatch and in-band fallback. One dispatch-root triple per seat; tear down on each juror's return.
 - **Aggregate per the disposition rubric.** Each finding gets one of `must-fix-loop`, `summary-fix`, `follow-up`, `acknowledge`, or `drop`; each finding cites a standing rule or proposes one (`[rule: ...]` or `[proposed-rule: ...]`). Findings with neither are dropped at aggregation. Aggregated body 900 to 1400 words typical.

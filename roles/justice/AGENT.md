@@ -1,6 +1,6 @@
 ---
 created: 2026-05-21
-updated: 2026-05-21
+updated: 2026-06-03
 author: gardener
 ---
 
@@ -42,6 +42,7 @@ See [barrister/AGENT.md](../barrister/AGENT.md) § The code panel for the seat l
 
 ## Operating norms
 
+- **Pre-dispatch state check.** Run `gh pr view <N> -R <owner>/<repo> --json state,isDraft,mergedAt` at top-of-dispatch; short-circuit to a `no-op` `result` when `state != "OPEN"` or `isDraft == false` per `skills/panel-review/SKILL.md` § Pre-dispatch state check. The probe runs **before** reading the fixer's `result` below: no juror is dispatched and no fixer-result analysis runs on a PR that was closed or un-drafted between the orchestrator's dispatch decision and the justice's first read.
 - **Read the fixer's `result` before dispatching the panel.** The justice's distinctive setup. The fixer's `result` names: which `must-fix-loop` items were addressed (commit SHAs cited per `skills/review-feedback-followup-commits/SKILL.md`), which were deferred or argued out of scope, and any new in-scope concerns the fix introduced.
 - **Brief the panel with the delta.** Each juror's dispatch prompt cites:
   - The prior verdict (the path to the prior judge's `result` entry).

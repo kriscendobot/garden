@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-21
+updated: 2026-06-03
 author: gardener
 ---
 
@@ -197,6 +197,23 @@ The judge submits the formal review. The body is the same aggregated report (typ
 ```
 
 The summary-fix job is posted **after** the review submission and **before** un-drafting; the followup ledger is appended on the same beat; the proposed-rule message to the gardener is written on the same beat (per *Cite-or-propose discipline*). The un-draft is the last step of the round.
+
+## Pre-dispatch state check
+
+Every judge dispatch (`solicitor`, `barrister`, `justice`) runs a top-of-dispatch precondition probe before any `panel-hints` invocation or juror fan-out:
+
+```sh
+gh pr view <N> -R <owner>/<repo> --json state,isDraft,mergedAt
+```
+
+Short-circuit to a `no-op` `result` when any of:
+
+- `state != "OPEN"` (the PR is `CLOSED` or `MERGED`).
+- `isDraft == false` (the PR has been un-drafted already; the chain's terminal step has run, and a panel pass here would be a discipline violation by re-reviewing a post-draft PR). The exception is the maintainer-requested standalone-review variant where the dispatch brief explicitly names a stale post-draft PR.
+
+The short-circuit's `result` entry uses verdict `no-op (closed-before-panel)` or `no-op (already-un-drafted)`, with the disposition counts all zero. No juror is dispatched, no `gh pr review` is submitted, no `@copilot` re-request fires. The PR-state-changed-between-dispatch-and-pickup case (most often a liaison `gh pr close` 20 to 60 seconds before the dispatched judge wakes; on a parallelized contractor or a steward per-cycle scan the window widens) thus costs one `gh` call rather than twenty-six juror dispatches plus the same number of worktree triples.
+
+Precipitating evidence: barrister dispatch `22271c` against `endojs/endo-but-for-bots#421` at 2026-06-03T23:41:31Z, 27 seconds after the liaison's `gh pr close` on the same PR at 23:41:04Z. The barrister read the PR state at top-of-dispatch and short-circuited cleanly; the rule is now standing per `journal/entries/2026/06/03/234132Z-message-barrister-f3ef40.md`.
 
 ## Concurrent dispatch and in-band fallback
 
