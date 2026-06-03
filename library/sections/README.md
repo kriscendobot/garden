@@ -713,4 +713,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-pass-style-src-make-far-js--{Remotable-Far-and-ToFarFunction-with-Alleged-prefix-source-and-mutate-harden-check-twice-discipline}
 
-## Total: 640 sections from 181 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/daemon-message-streaming.md (cycle 137, **thirtieth-comment-style design ingest + first non-Kris-Kowal daemon design ingest** (Joshua T Corbin / jcorbin with *(evoked)* attribution); **single most structurally interesting move**: the §cross-peer-streams-ride-CapTP observation — *the stream events travel over the existing CapTP channel as method calls on the stream formula's far reference. No new transport primitive is needed*; cycle 137 papers-lane block 31+ pivot to designs lane; third daemon-* design after endopi-* closure)
+
+- endo-but-for-bots--llm-designs-daemon-message-streaming--{streamReply-and-streamSend-with-stream-formula-and-CapTP-rides-method-calls}
+
+## Total: 641 sections from 182 source documents (through 2026-06-03).

@@ -3653,3 +3653,32 @@ works-even-if-func-is-already-frozen | pass-style
 better-Far-when-you-can | pass-style
 arrow function wrap forwards calls to func | pass-style
 pass-style remotable surface complete cycles 71 87 134 136 | pass-style
+daemon-message-streaming progressive text delivery | daemon
+streamReply streamSend StreamWriter StreamReader | daemon
+append setPhase end abort StreamEvent | daemon
+stream formula promise-kit-backed async iterator | daemon
+streamId optional message envelope field | daemon
+opt-in-via-extension-field | daemon
+immediate-envelope-late-content shape | daemon
+Genie LLM-token streaming use case | daemon
+Thinking Calling tool X final buffered workaround | daemon
+choppy UX from multi-message workaround | daemon
+thinking tool-call responding phases | daemon
+cross-peer streams ride CapTP method calls | daemon
+no new transport primitive needed | daemon
+re-use-existing-substrate discipline | daemon
+CapTP promise pipelining handles streaming | daemon
+CapTP method dispatch is already a streaming transport | daemon
+in-memory during streaming buffer authoritative | daemon
+durable on end concatenated text persisted | daemon
+partial text plus abort reason on abort | daemon
+static-message-eventually invariant | daemon
+fallback-to-static-strings UI | daemon
+honest-deferral on four open questions | daemon
+chunk granularity 50ms debounce | daemon
+back-pressure promise vs fire-and-forget | daemon
+multiple parallel streams per message | daemon
+stream cancellation by recipient | daemon
+Joshua T Corbin jcorbin (evoked) attribution | daemon
+PR #287 daemon-message-streaming Phase 1 | daemon
+first non-Kris-Kowal daemon design | daemon
