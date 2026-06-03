@@ -1,6 +1,6 @@
 ---
 created: 2026-05-15
-updated: 2026-05-15
+updated: 2026-06-03
 author: gardener
 ---
 
@@ -43,7 +43,7 @@ What the contractor **may** do, within those bounds:
 - Read the journal and any garden file.
 - Write `dispatch`, `tick`, `result`, `worktree`, and `message` journal entries.
 - Maintain the slot files at `journal/contractor-slots/<host>/slot-<N>.md`.
-- Dispatch any of the steward's chain subordinates (`builder`, `assayer`, `cleaner`, `judge`, `fixer`, `weaver`, `shepherd`) plus the `groom` and `designer` when a slot's design-walk turns one up.
+- Dispatch any of the steward's chain subordinates (`builder`, `assayer`, `cleaner`, `judge`, `fixer`, `weaver`, `shepherd`) plus the `groom`, `designer`, and `researcher` when a slot's design-walk or chain step turns one up. The `researcher` precedes every `designer` and `builder` dispatch the contractor issues; see *Researcher precedence on designer and builder dispatches* below.
 - Schedule its own next wakeup via `ScheduleWakeup`.
 
 The contractor does **not** dispatch:
@@ -160,6 +160,22 @@ The contractor arms two parent-context `Monitor` tasks at session start, the sam
 2. **Slot-file change Monitor.** A `Monitor` task running `tail -F journal/contractor-slots/<host>/slot-1.md journal/contractor-slots/<host>/slot-2.md journal/contractor-slots/<host>/slot-3.md` so any cross-host slot edit (rare; only happens when another tool or maintainer edits a slot file directly) surfaces immediately.
 
 Verify both Monitors on every wake via `TaskList`; re-arm any that have been `TaskStop`'d. The same operational rule the steward follows per `roles/steward/AGENT.md` § Parent-context Monitor invariants.
+
+## Researcher precedence on designer and builder dispatches
+
+Every [designer](../designer/AGENT.md) and [builder](../builder/AGENT.md) dispatch the contractor issues is preceded by a [researcher](../researcher/AGENT.md) dispatch by default. The contractor composes the proposed downstream prompt, dispatches the researcher with that prompt as input, waits for the researcher's `result` entry, extracts the fenced `## Library and project references` section from the result body, inlines it into the dispatch prompt (before the *Acceptance* and *Report* sections), and only then dispatches the actual designer or builder.
+
+The precedence applies in two contractor surfaces:
+
+- **Initial-PR-drafting builder dispatch** when a slot refills to `start-here` or `start-with-dep` and the contractor dispatches a builder to open the slot's first PR. The researcher runs against the proposed builder prompt before the builder is invoked.
+- **Per-stage builder dispatches within an open slot PR**: when the next-stage-owed heuristic dispatches a builder mid-chain, the researcher runs first if the dispatch carries a substantive prompt (e.g. a fresh design-derived implementation step). Pure chain-continuation dispatches where the prompt is *"continue the chain on this PR"* may skip the researcher and record the skip in the dispatch entry per the rule below.
+- **Designer dispatches** when a slot's design-walk surfaces a missing design that warrants drafting before the implementation can proceed. The researcher runs first.
+
+The precedence does **not** apply to fixer, weaver, cleaner, judge, shepherd, or panel-juror dispatches. These read PR state and journal entries directly and do not benefit from a curated brief.
+
+Skipping the researcher is allowed only when the contractor records why in the downstream dispatch's `dispatch` entry. The legitimate skips are (a) the proposed prompt is itself the researcher's refined output from a prior dispatch, and (b) the downstream role is an immediate chain continuation whose prior step already inlined a researcher refinement. Every other skip is queued for the gardener.
+
+The researcher dispatch is short (one to three minutes wall time; see `roles/researcher/AGENT.md` § Operating norms). The contractor does not poll or batch researcher dispatches; one researcher per downstream dispatch, sequentially per slot stage.
 
 ## Per-cycle procedure
 

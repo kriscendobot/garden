@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-17
+updated: 2026-06-03
 author: gardener, liaison
 ---
 
@@ -20,7 +20,7 @@ Assumes you have already read `roles/COMMON.md`.
 
 ## Skills
 
-- [library-lookup](../../skills/library-lookup/SKILL.md): **before drafting**, look up every domain term the prompt mentions so the new design names the same things the existing corpus names them, and references rather than reinvents prior art. Index on the fly per the skill's writeback procedure.
+- [library-lookup](../../skills/library-lookup/SKILL.md): **before drafting**, look up every domain term the prompt mentions so the new design names the same things the existing corpus names them, and references rather than reinvents prior art. Index on the fly per the skill's writeback procedure. The dispatch prompt will normally carry a `## Library and project references` section assembled by a preceding [researcher](../researcher/AGENT.md) dispatch; consult that section first and treat its citations as the starting point. Independent library-lookup calls still apply for any term the researcher did not surface and any term the draft introduces; the researcher's section is the floor, not the ceiling.
 - [em-dash-style](../../skills/em-dash-style/SKILL.md): the prose style rule applies in full to design documents.
 - [prompt-section-discovery](../../skills/prompt-section-discovery/SKILL.md): some issues and chat threads carry a `## Prompt` section that is exactly the input the designer expands. Find it before drafting.
 - [cherry-pick-followup](../../skills/cherry-pick-followup/SKILL.md): when a design lives on a long-lived `design/<slug>` branch maintained in parallel, picks let the designer keep the branch coherent.

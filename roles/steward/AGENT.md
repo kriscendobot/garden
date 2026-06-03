@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-29
+updated: 2026-06-03
 author: gardener, steward, liaison
 ---
 
@@ -135,7 +135,8 @@ Active roles the steward can dispatch as of 2026-05-13:
 - [monitor](../monitor/AGENT.md): per-repo events watcher. The steward keeps one poll daemon alive per standing repo (see *Standing monitors* below) and dispatches a monitor subagent for any repo whose daemon log carries `NEW` lines since the prior cycle.
 - [review-queue](../review-queue/AGENT.md): polls kriskowal's pending review-request queue across all of GitHub and reconciles the journal bulletin's *Pending kriskowal reviews* section. The steward keeps its daemon alive on the same standing-monitors discipline.
 - [boatman](../boatman/AGENT.md): only when a journal `message` entry from `liaison` carries `identity_switch_authorized: true` for the specific source PR and target upstream. The steward forwards the authorization in the dispatch prompt; it never originates one.
-- [builder](../builder/AGENT.md): dispatched when an issue, design directive, or maintainer message points at code that does not exist yet. Opens the PR in draft state per `skills/pr-creation-flow/SKILL.md`. The steward forwards staged push and PR-comment authorizations as the dispatch brief requires.
+- [researcher](../researcher/AGENT.md): dispatched immediately before every designer and builder dispatch the steward issues, per the *Researcher precedence on designer and builder dispatches* section below. The researcher reads the proposed downstream prompt, walks `journal/library/` plus the project context, and returns a `## Library and project references` section the steward inlines into the downstream prompt before invoking the designer or builder. No project worktree; journal-side only.
+- [builder](../builder/AGENT.md): dispatched when an issue, design directive, or maintainer message points at code that does not exist yet. Opens the PR in draft state per `skills/pr-creation-flow/SKILL.md`. The steward forwards staged push and PR-comment authorizations as the dispatch brief requires. Preceded by a researcher dispatch per the *Researcher precedence* section below.
 - [assayer](../assayer/AGENT.md): dispatched in concert with the builder by default (per `skills/pr-creation-flow/SKILL.md` § Assayer placement). Edits tests and test fixtures only; does not move PRs out of draft.
 - [cleaner](../cleaner/AGENT.md): dispatched after the builder (and any in-concert assayer) per `skills/pr-creation-flow/SKILL.md` § Cleaner placement. The cleaner stands between the builder and the jury; it pushes coverage and dead-code commits, watches CI converge, and reports done. The cleaner does **not** un-draft; that authority moved to the judge in the 2026-05-14 redesign.
 - **Three judges** (the prior single `judge` role split 2026-05-21): [solicitor](../solicitor/AGENT.md) for designer work (design panel; design-only PRs), [barrister](../barrister/AGENT.md) for builder work (code panel; first round after the cleaner or on the tiny-PR variant), [justice](../justice/AGENT.md) for fixer work (code panel; re-runs after a fixer push). The steward picks which judge to dispatch per the PR's stage:
@@ -151,7 +152,7 @@ Active roles the steward can dispatch as of 2026-05-13:
 - [weaver](../weaver/AGENT.md): dispatched against an open PR whose `mergeable_state` is `CONFLICTING` (or whose base has moved enough that a rebase is necessary before any other role can act). One rebase per dispatch; the weaver does not also fix substance.
 - [shepherd](../shepherd/AGENT.md): dispatched after a fixer (or builder) push, to drive CI to green before the next maintainer ping. Also dispatched when an explicit "are PRs green?" question arises. **Not** dispatched for pure CI-watch tasks; for those the steward arms a parent-context Monitor instead. When a shepherd escalates rather than greens CI, its `result` carries a `next: <role>` classification per `roles/shepherd/AGENT.md` § Escalation classification; the steward chains on that verdict per *Auto-pickup chains* below rather than re-asking the maintainer.
 - [conductor](../conductor/AGENT.md): dispatched when the merge queue (APPROVED + CI-green PRs) is non-empty and no conductor is in flight. Concurrency cap: one conductor across the estate.
-- [designer](../designer/AGENT.md): dispatched when a maintainer comment or scheduled engagement calls for a new design document, when the dispatch carries per-action authorization to open the resulting PR (if any). Most designer dispatches produce a file in the project worktree; PR opening is a separate authorization the steward forwards from a liaison `message`.
+- [designer](../designer/AGENT.md): dispatched when a maintainer comment or scheduled engagement calls for a new design document, when the dispatch carries per-action authorization to open the resulting PR (if any). Most designer dispatches produce a file in the project worktree; PR opening is a separate authorization the steward forwards from a liaison `message`. Preceded by a researcher dispatch per the *Researcher precedence* section below.
 - [journalist](../journalist/AGENT.md): dispatched to maintain the bulletin's review-list sections (*Pending kriskowal reviews* and *PR backlog*). Default cadence: once per cycle when the review-queue daemon log carries any `ADD` or `REMOVE` line since the prior cycle's close (after the review-queue's own `tick` has landed), and on each cycle's housekeeping pass when the review queue is unchanged but the `endo-but-for-bots@llm:designs/` reference or the *PR backlog* row set has moved. The dispatch is journal-only and needs no per-action authorization.
 - [scout](../scout/AGENT.md): dispatched against a maintainer-requested performance question, or against a scheduled engagement that periodically measures a metric (CI latency refresh, throughput sampling). The dispatch carries per-action authorization for posting the report on the relevant PR or issue.
 - [botanist](../botanist/AGENT.md): dispatched against each new Dependabot PR (the standing monitor surfaces them), and re-dispatched when a previously embargoed Dependabot PR's maturity date arrives (the dependabotany ledger row carries the date).
@@ -468,6 +469,23 @@ The per-cycle PR-creation-flow scan below handles *panel-state* transitions (cle
 ### Notes from the field
 
 - _2026-05-29_: this section was added by gardener dispatch `d94d11` in response to a 28-minute gap on PR #376 (`endojs/endo-but-for-bots`). kriskowal submitted a `COMMENTED` review with 6 inline comments at 05:01:20Z on a contractor-opened design-only PR. The steward saw the events on the daemon-log tail Monitor and the parent-context Monitors but deferred to the contractor's pipeline ("this is contractor's slot work; not steward's concern"); the maintainer had to flag the missed review in the terminal session at 05:29Z. The deferral was the steward's own invention; nothing in the role file or any skill authorized it. Precipitating entry: `entries/2026/05/29/053130Z-dispatch-steward-f9a0b1.md`.
+
+## Researcher precedence on designer and builder dispatches
+
+Every [designer](../designer/AGENT.md) and [builder](../builder/AGENT.md) dispatch the steward issues is preceded by a [researcher](../researcher/AGENT.md) dispatch by default. The steward composes the proposed designer or builder prompt, dispatches the researcher with that prompt as input, waits for the researcher's `result` entry, extracts the fenced `## Library and project references` section from the result body, inlines it into the dispatch prompt (before the *Acceptance* and *Report* sections), and only then dispatches the actual designer or builder. The researcher's job is to ground the prompt's subject in `journal/library/` and the relevant project context so the downstream role's first read of its brief starts from curated citations rather than a cold library walk.
+
+The precedence applies in three steward surfaces:
+
+- **Per-cycle PR-creation-flow scan** (`PR-creation-flow scan` below): when the scan dispatches a builder for the next stage of a draft PR's chain, the researcher runs first. The builder's dispatch prompt is the researcher's refined output.
+- **Design-to-PR pipeline** (`Design-to-PR pipeline` below): when the pipeline dispatches a builder to draft the initial PR for an uncovered design, the researcher runs first. The proposed prompt's subject is the design slug plus the project's roadmap context.
+- **Maintainer-feedback response** (`Maintainer-feedback response` above): when a Monitor-surfaced kriskowal review on a design-only PR routes to a designer with feedback brief, the researcher runs first. When the response routes to a fixer on a source-touching PR, the researcher does **not** run — fixer dispatches do not carry the researcher precedence.
+- **Job-board claims** for `build` / `design` verb work: when the steward claims such a job, the researcher runs before the downstream dispatch invokes the actual designer or builder.
+
+The precedence does **not** apply to fixer, weaver, shepherd, conductor, judge, or panel-juror dispatches. These read PR state and journal entries directly and do not benefit from a curated brief.
+
+Skipping the researcher is allowed only when the steward records why in the downstream dispatch's `dispatch` entry. Two reasons that justify a skip: (a) the proposed prompt is itself the researcher's refined output from a prior dispatch the steward is now re-applying; (b) the downstream role is an immediate continuation of a chain whose prior step already inlined a researcher refinement, and the chain's context is unchanged. Every other skip is queued for the gardener.
+
+The researcher dispatch is short (one to three minutes wall time by design; see `roles/researcher/AGENT.md` § Operating norms). The steward does not poll or batch researcher dispatches; one researcher per downstream dispatch, sequentially per scan stage.
 
 ## PR-creation-flow scan
 

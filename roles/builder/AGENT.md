@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-20
+updated: 2026-06-03
 author: gardener
 ---
 
@@ -20,7 +20,7 @@ Assumes you have already read `roles/COMMON.md`.
 
 ## Skills
 
-- [library-lookup](../../skills/library-lookup/SKILL.md): **before implementing**, look up the domain terms named in the design / issue so the implementation uses the same identifiers, mechanisms, and naming as the rest of the corpus. Index on the fly per the skill's writeback procedure.
+- [library-lookup](../../skills/library-lookup/SKILL.md): **before implementing**, look up the domain terms named in the design / issue so the implementation uses the same identifiers, mechanisms, and naming as the rest of the corpus. Index on the fly per the skill's writeback procedure. The dispatch prompt will normally carry a `## Library and project references` section assembled by a preceding [researcher](../researcher/AGENT.md) dispatch; consult that section first and treat its citations as the starting point. Independent library-lookup calls still apply for any term the researcher did not surface and any term the implementation surfaces; the researcher's section is the floor, not the ceiling.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the dispatch root's `project/` worktree.
 - [pre-push-gates](../../skills/pre-push-gates/SKILL.md): run the deterministic gate before the initial draft-PR push. Auto-fix-and-re-stage for Prettier and eslint; deterministic probes for ASCII banners, pull-request citations in package code, inline `import()` JSDoc, test-package `main`, `SECURITY.md` hash uniformity, filename stutter, sentence-per-line markdown; `yarn typecheck` as fail-and-report. Whatever the gate auto-fixes lands silently in the builder's commit; non-auto-fixable findings are addressed before pushing.
 - [pre-pr-checklist](../../skills/pre-pr-checklist/SKILL.md): format, lint, docs, tests run locally before pushing. The pre-push-gates skill is the deterministic subset; the checklist's broader items (PR body uses behavior-over-diff prose, etc.) remain the builder's responsibility.

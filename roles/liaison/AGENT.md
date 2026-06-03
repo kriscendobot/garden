@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-15
+updated: 2026-06-03
 author: gardener, liaison
 ---
 
@@ -75,6 +75,23 @@ When in doubt, ask: *would a producer expect a specific role to act on this?* If
 ### Concurrent stewards
 
 The job board lets multiple stewards (on different hosts, or even multiple sessions on the same host) race for the same job. The liaison does not need to know which steward will claim; the eligibility field and the claim race resolve it. When the maintainer asks "kick these jobs off to run asynchronously" (the 2026-05-18 framing for the two parallel sqlite fixers), the right shape is two posts to the board with `--eligible steward,general-contractor` or similar; whichever consumer is idle picks each up.
+
+## Researcher precedence on designer and builder dispatches
+
+Every [designer](../designer/AGENT.md) and [builder](../builder/AGENT.md) dispatch is preceded by a [researcher](../researcher/AGENT.md) dispatch by default. The orchestrator composes the proposed designer or builder prompt, dispatches the researcher with that prompt as input, waits for the researcher's `result` entry, extracts the fenced `## Library and project references` section from the result body, inlines it into the dispatch prompt (typically before the *Acceptance* and *Report* sections), and then dispatches the actual designer or builder. The researcher's job is to ground the prompt's subject in the existing corpus (`journal/library/` plus the project's own context); the downstream role's first read of its brief then starts from the curated citations rather than from a cold library walk.
+
+The precedence applies to:
+
+- Direct designer dispatches under *design X* / *propose X* / *spec X* (see the verb table below).
+- Direct builder dispatches under *build #N* / *build a PR for X* and the *probe #N* variant.
+- Builder dispatches from the design-to-PR pipeline (`skills/design-to-pr-pipeline/SKILL.md`).
+- Designer and builder dispatches claimed from the job board (`journal/jobs/`); the claiming orchestrator runs the researcher before invoking the downstream role.
+
+The precedence does **not** apply to fixer, weaver, shepherd, conductor, judge, or panel-juror dispatches. Those read PR state and journal entries directly and do not benefit from a curated brief.
+
+Skipping the researcher is allowed only when the orchestrator records why in the downstream dispatch's `dispatch` entry. Two reasons that justify a skip: (a) the proposed prompt is itself the researcher's refined output from a prior dispatch the orchestrator is now re-applying; (b) the downstream role is an immediate continuation of a chain whose prior step already inlined a researcher refinement, and the chain's context is unchanged. Every other skip is a procedural shortcut and is queued for the gardener.
+
+The researcher dispatch itself is short (one to three minutes wall time by design; see `roles/researcher/AGENT.md` § Operating norms). The orchestrator does not poll or batch researcher dispatches; one researcher per downstream dispatch, sequentially.
 
 ## Vocabulary: the gamut
 
