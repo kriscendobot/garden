@@ -3805,3 +3805,31 @@ five Design Decisions codify choices | daemon
 supersedes JS-side daemon-content-store-gc | daemon
 integrates with daemon-xs-worker-snapshot | daemon
 extends daemon-endor-architecture | daemon
+PASS_STYLE typed as string literal | pass-style
+Symbol passStyle as nameable string type | pass-style
+TS4023 TS9006 unique symbol declaration emit | pass-style
+unique symbol nameable only via declaring module | pass-style
+JS computed property keys accept any value | pass-style
+typedArrayPrototype getter extraction at module load | pass-style
+%TypedArray%.prototype @@toStringTag getter | pass-style
+brand-check-via-getter | pass-style
+isTypedArray duplicates make-hardener.js | pass-style
+don't-depend-on-ses discipline | pass-style
+isPrimitive adhoc set of type tests | pass-style
+safer but slower on XS Object val box | pass-style
+Beware not safe in the face of possible evolution | pass-style
+isObject deprecated use not isPrimitive | pass-style
+hasOwnPropertyOf deprecated use Object.hasOwn | pass-style
+assertChecker deprecated use Fail rejector | pass-style
+carry-forward-with-deprecation | pass-style
+confirmOwnDataDescriptor four-condition check | pass-style
+desc-or-undefined return shape both predicate and lookup | pass-style
+makeConfirmTagRecord factory | pass-style
+parameterize the proto-check only | pass-style
+confirmTagRecord Object.prototype | pass-style
+confirmFunctionTagRecord Function.prototype with subclass | pass-style
+two-variants object-vs-function tag-record | pass-style
+hideAndHardenFunction on predicates | pass-style
+predicates-are-assertion-adjacent | pass-style
+helper-root position imported by all pass-style files | pass-style
+Turadg Aleahmad commit c05c9a88 | pass-style

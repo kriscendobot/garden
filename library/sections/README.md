@@ -733,4 +733,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-cas-management--{content-address-store-as-supervisor-owned-subsystem-with-typed-content-retain-release-and-background-mark-sweep-gc}
 
-## Total: 645 sections from 186 source documents (through 2026-06-03).
+### From endo packages/pass-style/src/passStyle-helpers.js longform comments (cycle 142, **thirtieth comment-fragment ingest; the foundational helpers file imported by every other pass-style file; §PASS_STYLE typed as string literal hack workaround for TS4023/9006; §confirmTagRecord factory with two specialized variants; §isPrimitive's §safer-but-slower-on-XS trade-off; cycle 142 chat-lane exhaustion pivot to comments-lane**)
+
+- endo--packages-pass-style-src-passStyle-helpers-js--{PASS_STYLE-symbol-typed-as-string-literal-and-confirmTagRecord-factory-for-object-vs-function-tag-records}
+
+## Total: 646 sections from 187 source documents (through 2026-06-03).
