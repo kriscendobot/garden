@@ -4954,3 +4954,53 @@ designs-lane after 5-cycle comments-lane streak | daemon
 breaks ocap-kernel-mini-series streak | daemon
 direct-prerequisite-design for filesystem-watchers | daemon
 60+ consecutive papers-lane blocks | daemon, capability-security, patterns
+@endo/where index.js path resolution | tooling, daemon, getting-started
+canonical-path-resolution-surface | tooling, daemon, getting-started
+where-Endo-finds-its-files-per-platform | tooling, daemon, getting-started
+four-state-domains durable ephemeral sock cache | tooling, daemon
+whereEndoState durable | tooling, daemon
+whereEndoEphemeralState ephemeral PID | tooling, daemon
+whereEndoSock UNIX socket Windows named pipe | tooling, daemon
+whereEndoCache re-creatable | tooling
+XDG-precedence-with-platform-fallback-chain | tooling, daemon
+XDG_STATE_HOME XDG_CACHE_HOME XDG_RUNTIME_DIR | tooling, daemon
+cache-vs-state-split-honors-XDG-canon | tooling, daemon
+the-OS-cleans-up-after-us reboot | tooling, daemon
+whereHomeWindows internal helper | tooling
+four-env-var-fallback-chain Windows-historical-accretion | tooling
+LOCALAPPDATA APPDATA USERPROFILE HOMEDRIVE HOMEPATH | tooling
+roaming AppData TODO future content-addressable state merge | tooling
+per-platform naming conventions POSIX macOS Windows | tooling, daemon
+when-in-Rome platform aesthetic | tooling
+lowercase-with-dot-prefix POSIX | tooling
+CapitalE-with-space macOS | tooling
+CapitalE-backslash Windows | tooling
+~/.local/state/endo Linux | tooling, daemon
+~/Library/Application Support/Endo macOS | tooling, daemon
+%LOCALAPPDATA%\\Endo Windows | tooling, daemon
+UNIX-socket-vs-Windows-named-pipe asymmetry | tooling, daemon
+Named pipes have a special place in Windows and in our ashen hearts | tooling, daemon
+wry-acknowledgment-of-Windows-IPC-quirks | tooling, daemon
+named pipe namespace prefix reserved | tooling, daemon
+ENDO_SOCK override discipline | tooling, daemon
+last-resort-user-override | tooling, daemon
+protocol-suffix-in-socket-names captp0 default | tooling, daemon
+reserves-pattern-for-future-protocols additive-API | tooling, daemon
+five-functions-form-coherent-surface | tooling
+uniform 3-arg signature platform env info | tooling
+two-strategies-for-the-same-problem | tooling, getting-started
+platform-specific packages vs platform-specific functions | tooling
+re-creatable-cache-permits-purge-without-losing-state | tooling
+weak-collections-permit-collection | tooling
+same-discipline-different-scope heap-vs-filesystem | tooling
+reading-this-file-tells-you-Endo's-deployment-shape | tooling, daemon, getting-started
+LOC-doesn't-reflect-the-load-bearing-knowledge | tooling
+small-file-but-load-bearing-knowledge | tooling
+slot machine library reuse @endo/where synthesis target | tooling, daemon
+Tier-1 borrowing four-state-domains | tooling, daemon
+Tier-1 borrowing XDG-precedence-with-platform-fallback-chain | tooling, daemon
+Tier-1 borrowing protocol-suffix-in-socket-names | tooling, daemon
+Tier-1 borrowing ENDO_SOCK-override | tooling, daemon
+XDG_RUNTIME_DIR canonical-tmpfs-cleared-on-reboot systemd | tooling, daemon
+PID-files-after-reboot-are-misleading | tooling, daemon
+61+ consecutive papers-lane blocks | tooling, daemon, getting-started
