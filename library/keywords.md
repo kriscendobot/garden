@@ -3621,3 +3621,35 @@ locator.js formula-identifier.js formula-type.js | daemon
 directory.js host.js guest.js mail.js | daemon
 locator-design cluster cycles 49 51 60 135 | daemon
 nine-method taxonomy four families | daemon
+Remotable Far ToFarFunction make-far | pass-style
+GET_METHOD_NAMES __getMethodNames__ | pass-style
+modeled on GET_INTERFACE_GUARD from exo | pass-style
+makeRemotableProto inherits from original prototype | pass-style
+strict-original-prototype invariant | pass-style
+object remotables inherit from objectPrototype | pass-style
+Far functions inherit from Function.prototype | pass-style
+mutate-harden-check-twice | pass-style
+fail-fast via fresh object dry run | pass-style
+dry-run-then-commit pattern | pass-style
+caller's remotable doesn't get mutated mid-failure | pass-style
+isFrozen comparison-against-fresh | pass-style
+isFrozen always returns true under unsafe hardenTaming | pass-style
+pattern-for-detecting-environment-quirks | pass-style
+COMMITTED keep the interface for future reference | pass-style
+Alleged colon farName prefix | pass-style
+Far prepends Alleged colon | pass-style
+allegation-not-attestation | pass-style
+Alice can tell Bob about Carol misrepresent iface | pass-style
+SwingSet Comms Vat not yet support iface attestation | pass-style
+prefix-produces / prefix-requires / prefix-strips triad | pass-style
+getMethodNamesMethod thisful for far-object inheritance | pass-style
+getMethodNamesDescriptor enumerable false | pass-style
+configurable false writable false unalterable | pass-style
+Far adds GET_METHOD_NAMES only for object remotables | pass-style
+Far functions excluded call-behavior only | pass-style
+Far mutates the input But it is surprising | pass-style
+ToFarFunction wrap-only-when-needed | pass-style
+works-even-if-func-is-already-frozen | pass-style
+better-Far-when-you-can | pass-style
+arrow function wrap forwards calls to func | pass-style
+pass-style remotable surface complete cycles 71 87 134 136 | pass-style

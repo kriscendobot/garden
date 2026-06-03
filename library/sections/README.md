@@ -709,4 +709,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-locator-reference--{endo-locator-url-format-with-externalize-internalize-duality-and-LOCAL_NODE-sentinel}
 
-## Total: 639 sections from 180 source documents (through 2026-06-03).
+### From endo packages/pass-style/src/make-far.js longform comments (cycle 136, **twenty-seventh comment-fragment ingest; constructor layer for remotables — direct companion to cycle 134's remotable.js validator; §three-piece prefix-handling discipline (produce in this file, require in 134, strip in 130); §mutate-harden-check-twice fail-fast pattern; §Allegation-not-attestation discipline; completes the pass-style remotable surface (cycles 71 + 87 + 134 + 136); cycle 136 chat-lane exhaustion pivot to comments-lane**)
+
+- endo--packages-pass-style-src-make-far-js--{Remotable-Far-and-ToFarFunction-with-Alleged-prefix-source-and-mutate-harden-check-twice-discipline}
+
+## Total: 640 sections from 181 source documents (through 2026-06-03).
