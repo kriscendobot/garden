@@ -1,0 +1,163 @@
+# Dockerfile.driver — driver container for the garden's lane-based
+# drivers and per-feed watchers.
+#
+# Runs systemd as PID 1 so the units in scripts/systemd/ can manage
+# the driver lanes the same way they would on a Linux host outside
+# the container. Adapted for Docker per the standard containerized-
+# systemd recipe (privileged, writable cgroup mount, tmpfs at /run
+# and /tmp, STOPSIGNAL SIGRTMIN+3).
+#
+# Identity: this container runs as user `kris` (uid 1000) and uses
+# whatever ssh / gh credentials are present in the bind-mounted
+# /home/kris. The `driver` launcher script enforces that those
+# credentials are kriscendobot's, and that they cannot reach
+# kriskowal/garden — see driver --help and the comments at the top of
+# driver for the credentials constraint.
+
+FROM ubuntu:24.04
+
+ARG NODE_MAJOR=22
+ARG GO_VERSION=1.23.6
+ARG DOTFILES_REPO=https://github.com/kriskowal/dotfiles.git
+ARG VUNDLE_REPO=https://github.com/VundleVim/Vundle.vim.git
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# systemd + dbus + base packages.
+# systemd-sysv ships sysv-init compatibility symlinks (/sbin/init →
+# systemd). dbus is required for systemctl. The other packages mirror
+# the garden Dockerfile so the same dev tooling is available.
+RUN apt-get update && apt-get install -y \
+    systemd \
+    systemd-sysv \
+    dbus \
+    dbus-user-session \
+    libpam-systemd \
+    build-essential \
+    curl \
+    git \
+    vim \
+    zsh \
+    tmux \
+    tig \
+    less \
+    openssh-client \
+    ca-certificates \
+    gnupg \
+    unzip \
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-venv \
+    cmake \
+    fzf \
+    ripgrep \
+    fasd \
+    locales \
+    sudo \
+    && rm -rf /var/lib/apt/lists/*
+
+# Locale
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+
+# Node.js via NodeSource
+RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_MAJOR}.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+# Go toolchain
+RUN curl -fsSL https://go.dev/dl/go${GO_VERSION}.linux-$(dpkg --print-architecture).tar.gz \
+    | tar -C /usr/local -xz
+ENV PATH="/usr/local/go/bin:${PATH}"
+
+# Go language tooling (same set as garden) under /opt so the bind
+# mount can't mask it.
+RUN mkdir -p /opt/go-tools/bin \
+    && export GOPATH=/tmp/gopath GOBIN=/opt/go-tools/bin \
+    && go install golang.org/x/tools/gopls@latest \
+    && go install golang.org/x/tools/cmd/goimports@latest \
+    && go install github.com/go-delve/delve/cmd/dlv@latest \
+    && go install golang.org/x/lint/golint@latest \
+    && go install honnef.co/go/tools/cmd/staticcheck@latest \
+    && go install github.com/kisielk/errcheck@latest \
+    && rm -rf /tmp/gopath /root/.cache/go-build
+ENV PATH="/opt/go-tools/bin:${PATH}"
+
+# GitHub CLI
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+        | gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+        > /etc/apt/sources.list.d/github-cli.list \
+    && apt-get update \
+    && apt-get install -y gh \
+    && rm -rf /var/lib/apt/lists/*
+
+# Claude Code CLI
+RUN npm install -g @anthropic-ai/claude-code
+
+# Create kris user with uid 1000 to match the host user.
+RUN userdel -r ubuntu 2>/dev/null || true \
+    && useradd -m -s /bin/bash -u 1000 -G sudo kris \
+    && echo 'kris ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Dotfiles in /opt so the bind mount can't mask them.
+RUN git clone "${DOTFILES_REPO}" /opt/dotfiles \
+    && chown -R kris:kris /opt/dotfiles
+
+# Vundle + plugins, same shape as garden.
+USER kris
+RUN git clone "${VUNDLE_REPO}" /opt/dotfiles/vim/bundle/Vundle.vim \
+    && ln -sfn /opt/dotfiles/vim    /home/kris/.vim \
+    && ln -sfn /opt/dotfiles/.vimrc /home/kris/.vimrc \
+    && vim -E -u /opt/dotfiles/.vimrc -i NONE \
+         -c 'set nomore' \
+         -c 'PluginInstall' \
+         -c 'qa!' \
+       ; true
+USER root
+
+# Login-shell PATH.
+RUN printf '%s\n' \
+    'export PATH="$HOME/bin:$HOME/go/bin:/opt/go-tools/bin:/usr/local/go/bin:$PATH"' \
+    > /etc/profile.d/driver.sh
+
+ENV PATH="/home/kris/bin:/home/kris/go/bin:${PATH}"
+
+# Mask systemd units that don't make sense in a container.
+# These would otherwise fail noisily on boot.
+RUN systemctl mask \
+        systemd-resolved.service \
+        systemd-networkd.service \
+        systemd-udev-trigger.service \
+        systemd-tmpfiles-setup-dev.service \
+        sys-kernel-debug.mount \
+        sys-kernel-tracing.mount \
+        getty.target \
+        getty-static.service \
+    || true
+
+# Enable lingering for user kris so systemd starts a user@1000.service
+# at boot; this lets the user-mode units under
+# /home/kris/.config/systemd/user/ come up automatically. The bot's
+# scripts/systemd/garden-{driver,watcher}@.service files are
+# user-mode templates per their design; lingering is what makes them
+# tractable from a container without a logged-in session.
+RUN mkdir -p /var/lib/systemd/linger && touch /var/lib/systemd/linger/kris
+
+# Entrypoint links dotfiles + symlinks the bind-mounted systemd units
+# into /home/kris/.config/systemd/user/ before exec'ing systemd.
+COPY entrypoint-driver.sh /usr/local/bin/driver-entrypoint
+RUN chmod +x /usr/local/bin/driver-entrypoint
+
+# systemd's clean-shutdown signal.
+STOPSIGNAL SIGRTMIN+3
+
+# Entrypoint runs as root (systemd's domain); the unit files run as
+# user kris via their own User= directives or via the user@1000
+# manager.
+WORKDIR /home/kris
+
+ENTRYPOINT ["/usr/local/bin/driver-entrypoint"]
+CMD ["/lib/systemd/systemd"]
