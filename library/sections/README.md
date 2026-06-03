@@ -793,4 +793,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-captp-src-finalize-js--{weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability}
 
-## Total: 660 sections from 201 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/exo-zip-package.md (cycle 157, **fortieth-comment-style design ingest**; 429-line *Proposed* design *sourced from PR #128 inline review comment* — §design-as-formalized-review-comment lifecycle; new `@endo/exo-zip` package exposing in-memory ZIP as `ReadableTree` exo over CapTP; §load-bearing-context (PR #128's tempdir-then-walk anti-pattern); §three-costs frame; **single most structurally interesting move**: §asymmetric-by-design read/write API — §don't-invent-WritableTree-just-for-symmetry; §write-side-no-WritableTree-interface observation; §inline-is-fine-until-multiple-uses maintainer guidance; §eight Design Decisions + §three Resolved Questions; §captured-resolution-trail; §lazy-materialisation; §hostile-input-rejection-at-construction; §reuse-platform-interface-not-daemon-interface; §Uint8Array-not-stream (defer until seekable-stream exists); §separate-package-not-sibling-export with §don't-pollute-a-clean-package; §reshape-blocker-for-PR-128; cluster: cycle 151's app-sharing-milestone Pillar 3 cites this; cycle 157 papers-lane block 51+ pivot to designs-lane)
+
+- endo-but-for-bots--llm-designs-exo-zip-package--{in-memory-zip-as-exo-readable-tree-with-asymmetric-by-design-read-API-and-resolved-questions-trail}
+
+## Total: 661 sections from 202 source documents (through 2026-06-03).

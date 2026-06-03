@@ -4402,3 +4402,55 @@ Far-as-the-protective-wrapper | captp
 RemotableBrand-typing | captp
 second @endo/captp source file ingested | captp
 papers-lane blocked 50 cycles milestone | captp
+exo-zip-package design | exo
+makeExoZip in-memory ZIP | exo
+@endo/exo-zip new package | exo
+ReadableTree exo over CapTP | exo
+PR #128 inline review comment | exo
+design-as-formalized-review-comment | exo
+inline-comment-becomes-traceable-design | exo
+extractZipToTemp anti-pattern | exo
+three-costs tmpdir doubled-IO conflated-concerns | exo
+enumerate-the-costs methodology | exo
+show-the-collapse before-after pattern | exo
+asymmetric-by-design read/write API | exo
+asymmetry-is-real-and-load-bearing | exo
+write-side-no-WritableTree-interface | exo
+don't-invent-WritableTree-just-for-symmetry | exo
+inline-is-fine-until-multiple-uses | exo
+wait-for-second-consumer-before-extracting-a-helper | exo
+authority-trail review citation | exo
+eight Design Decisions three Resolved Questions | exo
+resolved-questions-not-open-questions | exo
+captured-resolution-trail | exo
+three-step-design-lifecycle | exo
+pure-ECMAScript-no-Node-builtins | exo
+portability-as-constraint | exo
+lazy-materialisation discipline | exo
+grouping-pass-produces-child-factories | exo
+amortize-allocation-over-lookups | exo
+hostile-input-rejection-at-construction | exo
+fail-fast-at-construction | exo
+security-check-at-the-entry-point | exo
+reuse-platform-interface-not-daemon-interface | exo
+ReadableTreeInterface vs EndoReadableTree | exo
+minimal-interface-conformance-keeps-dependencies-narrow | exo
+which-side-of-CapTP-determines-the-interface | exo
+single-chunk-streamBase64 acceptable | exo
+no-API-change-needed-for-future-chunking | exo
+forward-compatible-by-iterator-shape | exo
+Uint8Array-not-stream input | exo
+defer-streaming-zip-until-seekable-stream-exists | exo
+seekable-stream concept | exo
+three-constraint-combination | exo
+future-compatibility-via-overload | exo
+separate-package-not-sibling-export | exo
+package-cleanliness-as-design-constraint | exo
+don't-pollute-a-clean-package | exo
+Uint8Array-not-Buffer | exo
+reshape-blocker-for-PR-128 | exo
+design-documents-its-downstream-impact | exo
+three-phase-implementation S-sized-phases | exo
+ZipReader central directory | exo
+ReadableBlobInterface streamBase64 text json | exo
+PR 160 exo-zip exo-unzip | exo
