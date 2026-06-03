@@ -5178,3 +5178,55 @@ Tier-1 borrowing caretaker-facet-separation | daemon, capability-security
 Tier-1 borrowing defense-in-depth-deny-patterns-as-secondary | daemon, capability-security
 Tier-1 borrowing help-plus-interface-guards-for-LLM-discoverability | daemon, patterns
 64+ consecutive papers-lane blocks | daemon, capability-security, patterns
+@endo/stream index.js canonical async-stream substrate | streams, patterns, captp
+Endo-async-stream-substrate | streams, patterns
+makeQueue makeStream makePipe pump prime mapReader mapWriter | streams, patterns
+symmetric-stream-interface | streams, patterns
+Reader and Writer differ only by convention | streams
+sends-data-and-receives-undefined Writer | streams
+receives-data-and-sends-undefined Reader | streams
+compatible-with-AsyncIterator-and-Generator-but-stricter | streams
+every-method-and-argument-required | streams
+three-method-symmetry next return throw | streams, patterns
+functional-async-queue promise-chain cons-cells | patterns
+producer-makes-cons-cell consumer-walks-chain | patterns
+promise-as-pointer | patterns
+no-bounded-buffer producer-never-blocks | patterns
+acks-and-data paired queues | streams, captp
+cross-wired-pair-of-queues | streams, captp
+back-pressure-via-acks | streams, captp
+makePipe two-queues-cross-wired three-line implementation | streams, captp
+pump tick-tock-mutual-recursion | streams, patterns
+behold-mutual-recursion literal comment | streams
+E.when-not-await remote-eventual-send-values | streams, captp
+prime captures first-returned-promise | streams, patterns
+async-generator-priming-asymmetry | patterns
+the-first-.next(value)-is-actually-the-second-value | patterns
+mapReader async-generator transform | streams, patterns
+mapWriter method-wrapping transform | streams, patterns
+two-different-shapes-for-same-pattern | patterns
+the-direction-of-iteration-matters-for-implementation-shape | patterns
+harden-everything-individually | streams, patterns
+defensive-harden-discipline | patterns
+harden-the-factory-not-just-the-result | patterns
+shallow-freeze typed-arrays-are-not-freezable | streams
+throw-puts-rejected-promise | streams
+done-flag-on-return | streams
+stream-substrate-ecosystem | streams, captp
+vocabulary-drift-where-substrate-is-shared | streams, captp
+ocap-kernel channel stream @endo/stream Stream @endo/captp connection | streams, captp
+three-different-vocabularies-for-shared-substrate | streams, captp
+promise-kit-foundation makePromiseKit | streams
+cycle-152-memo-race racing-with-cleanup sibling | streams
+sequencing-with-back-pressure | streams
+small-file-but-foundational | streams
+the-substrate-files-are-often-the-shortest | streams
+fourteenth file in e56bf00f coordinated-update cluster | streams, captp
+Tier-1 borrowing symmetric-stream-interface | streams, patterns
+Tier-1 borrowing makePipe-from-two-cross-wired-queues | streams, patterns
+Tier-1 borrowing functional-async-queue | patterns
+Tier-1 borrowing back-pressure-via-acks | streams, captp
+Tier-1 borrowing prime-captures-first-returned-promise | streams, patterns
+Tier-1 borrowing E.when-not-await | streams, captp
+Tier-1 borrowing harden-everything-individually | patterns
+65+ consecutive papers-lane blocks | streams, patterns, captp
