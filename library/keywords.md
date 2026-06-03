@@ -3519,3 +3519,33 @@ ntypeof null is its own type | eventual-send
 typeof null is object JavaScript bug fix | eventual-send
 cannot invoke target as a function | eventual-send
 cannot deliver methodName to target | eventual-send
+daemon-guest-eval-simplification PR #92 | agent-conventions
+Guests can eval without permission | agent-conventions
+eval-proposal handshake removed | agent-conventions
+three configurations of eval authority | agent-conventions
+No eval Mark Miller advisory-only model | agent-conventions
+reasoning about capability composition is tractable | agent-conventions
+Eval with approval reflexive approval no safety | agent-conventions
+users approve reflexively gaining neither security nor productivity | agent-conventions
+Eval with authority ocap is the safety boundary | agent-conventions
+ocap discipline is the safety boundary not message approval | agent-conventions
+evaluate is a tool of tools | agent-conventions
+one capability subsumes special-purpose tools | agent-conventions
+withholding eval forces building bespoke tools | agent-conventions
+mail.evaluate mail.grantEvaluate mail.counterEvaluate removed | agent-conventions
+EvalProposalReviewer EvalProposalProposer message types removed | agent-conventions
+host.grantEvaluate host.counterEvaluate removed | agent-conventions
+Responder exo preserved contrary to design assumption | agent-conventions
+resolverId persisted fields | agent-conventions
+formulateEval directly with endowments in guest pet store | agent-conventions
+structurally identical to host path | agent-conventions
+regression test posts no message to host or guest mailbox | agent-conventions
+future re-introduction of proposal-style send fails fast | agent-conventions
+attenuation-via-proxy-not-via-default | agent-conventions
+default is authority attenuation is opt-in | agent-conventions
+capability discipline mechanism choice is policy | agent-conventions
+agent that can only reach Dir for project cannot read ssh | agent-conventions
+guest evaluate executes code directly | agent-conventions
+worker constraint @main pet name | agent-conventions
+honest-design-correction applied to removal | agent-conventions
+design retrospective with Status correction | agent-conventions

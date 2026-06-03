@@ -697,4 +697,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-eventual-send-src-local-js--{three-local-delivery-primitives-with-debugger-breakpoint-integration-and-getMethodNames-introspection}
 
-## Total: 636 sections from 177 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/daemon-guest-eval-simplification.md (cycle 133, **first daemon-* design ingest after endopi-* family closure + twenty-eighth-comment-style design ingest; design retrospective on the eval-proposal handshake removal (PR #92); thesis: *Ocap discipline is the safety boundary, not message approval*; cycle 133 pivoted from papers-lane (27+ consecutive blocks) to designs-lane**)
+
+- endo-but-for-bots--llm-designs-daemon-guest-eval-simplification--{three-configurations-of-eval-authority-with-ocap-as-safety-boundary-not-message-approval}
+
+## Total: 637 sections from 178 source documents (through 2026-06-03).
