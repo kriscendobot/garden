@@ -4066,3 +4066,68 @@ well-known symbol identity is its role | pass-style
 registered symbol identity is registry string | pass-style
 anonymous symbol identity is allocation moment | pass-style
 Kris Kowal coordinated-update commit e56bf00f | pass-style
+unhandled rejection display CapTP disconnect | daemon
+CTP_DISCONNECT.reason carrying Error encodes as empty curly | captp
+JSON.stringify drops non-enumerable Error properties | errors
+name message stack non-enumerable | errors
+defaultOnReject prints empty braces | captp
+socket has been ended race vs assert.fail | daemon
+two-coordinated-changes discipline | captp
+either part alone insufficient | captp
+sender side preserves Error structure no good without receiver fix | captp
+smarter receiver display has nothing to display without wire structure | captp
+@@error sentinel | captp
+@@error: true marker | captp
+sentinel-not-duck-typing | captp
+messageToBytes narrow guard | captp
+CTP_DISCONNECT cold path vs CTP_CALL hot path | captp
+narrow-guard-keeps-out-of-hot-path | captp
+three-property-extraction name message stack | errors
+renderRejection helper | captp
+four-case-fallback ladder | captp
+real Error reconstructed name colon message backslash-n stack | errors
+@@error sentinel reconstructed | errors
+passable isPassable passableAsJustin | marshal
+non-passable parens type prefix | errors
+passableAsJustin not JSON.stringify | errors
+project-standard rendering for diagnostic display | errors
+CLAUDE.md Diagnostic Discipline rule | errors
+use-marshal-for-display-not-wire | errors
+marshal-for-display one-way read-only | marshal
+error-path-cannot-depend-on-error-path | captp
+diagnostic paths must not depend on substrate they diagnose | captp
+disconnect path runs when connection state is unreliable | captp
+marshal tables may have been GC'd | captp
+c-list may be partially torn down | captp
+disconnect may be happening because marshal itself failed | captp
+extraction-is-intentionally-syntactic | captp
+no method dispatch no proxy traps no table lookups no exo invocation | captp
+cannot fail mid-disconnect | captp
+narrow-guard-not-tree-walk | errors
+JSON replacer over-applies tree-walks | errors
+two-different-error-encodings-must-coexist | captp
+@@error plain shape vs marshal errorIdNum | errors
+you-cant-fix-it-on-receiver-because-bytes-are-lost | captp
+information-theoretic constraint forces two-coordinated structure | captp
+peer-compatibility-during-rollout | captp
+Justin language needs parser on receiver | errors
+wire-incompatible with non-upgraded peers | captp
+strictly-additive design | captp
+progressive-rollout-without-flag-day | captp
+helper-lives-next-to-encoder | captp
+wire-and-display-as-conjugate-sides | captp
+future-portability gesture to @endo/captp | captp
+defaultOnReject has same bug for captp consumers | captp
+three-day-active-development calibration | captp
+roadmap-calibration-via-git-blame | captp
+PR #187 squash-merge a588f0b80 | captp
+parallel non-bot 74a56009a | captp
+migration-without-caller-change | captp
+strictly-additive-on-receiver-side | captp
+three-open-questions honest-deferral | captp
+@@error vs marshal errorIdNum question | errors
+lift renderRejection to @endo/captp question | captp
+plain shape vs CapData blob question | captp
+issue 171 PR 174 repro test | captp
+formatRejectionReason in daemon.js | captp
+Kris Kowal prompted designer dispatch | captp

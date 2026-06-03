@@ -761,4 +761,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-pass-style-src-symbol-js--{passable-symbols-Hilbert-Hotel-encoding-with-forward-compatibility-via-throw}
 
-## Total: 652 sections from 193 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/unhandled-rejection-display.md (cycle 149, **thirty-sixth-comment-style design ingest**; 323-line *Complete* status design shipped 2026-05-11 via PR #187; three-day active development; §load-bearing-symptom: CapTP `CTP_DISCONNECT.reason` carrying Error encodes as `{}` because Error properties are non-enumerable; **single most structurally interesting move**: §two-coordinated-changes discipline — one piece of work spans two code sites (sender + receiver) that must agree on `@@error` sentinel; §sender-side narrow `messageToBytes` guard; §receiver-side `renderRejection` §four-case-fallback; §`@@`-prefix-convention from cycle 148; §four-rejected-alternatives with the **cycle's most generalizable insight**: §error-path-cannot-depend-on-error-path — *diagnostic paths must not depend on the substrate they diagnose*; §extraction-is-intentionally-syntactic; §you-can't-fix-it-on-receiver-because-bytes-are-lost; §three-day-active-development calibration via git-blame; §migration-without-caller-change; cycle 149 papers-lane block 43+ pivot to designs-lane)
+
+- endo-but-for-bots--llm-designs-unhandled-rejection-display--{two-coordinated-changes-with-error-shape-sentinel-and-four-case-rendering-fallback}
+
+## Total: 653 sections from 194 source documents (through 2026-06-03).
