@@ -1,6 +1,7 @@
 # Garden working trees managed outside main.
 # These are separate git worktrees / bare clones; do not track them from main.
 /journal/
+/journal.git/
 /worktrees/
 /dispatches/
 

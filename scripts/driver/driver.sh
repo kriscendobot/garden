@@ -52,12 +52,23 @@ DRIVER_PR=${DRIVER_PR:-}
 DRIVER_TICK_SECONDS=${DRIVER_TICK_SECONDS:-30}
 DRIVER_ONESHOT=${DRIVER_ONESHOT:-0}
 
+# Snapshot whether the lane was bound externally via env at startup. An
+# env-bound lane drives one PR to terminal and exits (legacy bring-up
+# shape); a claim-bound lane (no DRIVER_PR at startup) claims jobs from
+# journal/jobs/open/ and resumes the loop after each terminal so systemd
+# keeps the unit alive across many jobs.
+DRIVER_PR_FROM_ENV=$DRIVER_PR
+DRIVER_WORKFLOW_FROM_ENV=$DRIVER_WORKFLOW
+
 test -d "$GARDEN_ROOT" || { echo "driver: GARDEN_ROOT not a directory: $GARDEN_ROOT" >&2; exit 1; }
 test -d "$GARDEN_JOURNAL" || { echo "driver: GARDEN_JOURNAL not a directory: $GARDEN_JOURNAL" >&2; exit 1; }
 
 STATE_DIR="$GARDEN_JOURNAL/drivers/$GARDEN_HOST"
 STATE_FILE="$STATE_DIR/$LANE.md"
 SUBSCRIPTIONS_FILE="$STATE_DIR/$LANE.subscriptions"
+# Tracks which jobs/claimed/...md path this lane is currently working,
+# so a daemon restart can resume the same claim instead of stranding it.
+CLAIMED_JOB_FILE="$STATE_DIR/$LANE.claimed-job"
 mkdir -p "$STATE_DIR"
 
 # --- transcript and trap setup -----------------------------------------
@@ -340,7 +351,9 @@ EOF
       ${DRIVER_PR:+--pr "${DRIVER_PR##*#}"} \
       --eligible "$role" \
       < /tmp/driver-job-body.$$
+  local rc=$?
   rm -f /tmp/driver-job-body.$$
+  return "$rc"
 }
 
 escalate_to_claude() {
@@ -492,10 +505,116 @@ _self_improve_invoke_async() {
   } >> "$improvements_file" 2>/dev/null || true
 }
 
+# --- job-board claim handling -------------------------------------------
+
+read_claimed_job() {
+  [ -f "$CLAIMED_JOB_FILE" ] || return 0
+  cat "$CLAIMED_JOB_FILE"
+}
+
+write_claimed_job() {
+  printf '%s\n' "$1" > "$CLAIMED_JOB_FILE"
+}
+
+clear_claimed_job() {
+  rm -f "$CLAIMED_JOB_FILE"
+}
+
+# Parse a claimed job's frontmatter and populate DRIVER_WORKFLOW and
+# DRIVER_PR. The post-job.sh schema emits `verb:` at the top level and
+# `target.repo` / `target.pr` indented under `target:`.
+parse_claimed_job_into_env() {
+  local path=$1
+  local verb repo pr
+  verb=$(sed -n 's/^verb: //p' "$path" | head -1)
+  repo=$(sed -n 's/^  repo: //p' "$path" | head -1)
+  pr=$(sed -n 's/^  pr: //p' "$path" | head -1)
+  DRIVER_WORKFLOW=$verb
+  if [ -n "$repo" ] && [ "$repo" != "null" ] && [ -n "$pr" ] && [ "$pr" != "null" ]; then
+    DRIVER_PR="${repo}#${pr}"
+  else
+    DRIVER_PR=""
+  fi
+}
+
+# Race to claim one open job. Echoes the claimed path on success;
+# returns 1 if the inbox is empty or every visible job was lost to
+# another claimant.
+try_claim_one() {
+  local open_dir="$GARDEN_JOURNAL/jobs/open"
+  [ -d "$open_dir" ] || return 1
+  local f rel claimed
+  for f in "$open_dir"/*.md; do
+    [ -f "$f" ] || continue
+    rel="jobs/open/$(basename "$f")"
+    claimed=$(GARDEN_ROLE=driver "$GARDEN_ROOT/skills/job-board/claim-job.sh" "$rel" 2>/dev/null) || continue
+    [ "$claimed" = "lost-race" ] && continue
+    [ -n "$claimed" ] || continue
+    printf '%s\n' "$claimed"
+    return 0
+  done
+  return 1
+}
+
+# Returns 0 when this lane has a claimed job (existing or newly claimed)
+# and DRIVER_PR/DRIVER_WORKFLOW are populated from its frontmatter.
+# Returns 1 when no job is available — the caller should idle this tick.
+ensure_claimed_job() {
+  local recorded
+  recorded=$(read_claimed_job)
+  if [ -n "$recorded" ] && [ -f "$GARDEN_JOURNAL/$recorded" ]; then
+    parse_claimed_job_into_env "$GARDEN_JOURNAL/$recorded"
+    return 0
+  fi
+  # Stale or absent — try to claim a new one.
+  local newly
+  newly=$(try_claim_one) || return 1
+  write_claimed_job "$newly"
+  parse_claimed_job_into_env "$GARDEN_JOURNAL/$newly"
+  # Reset state file for the new job. The workflow runs from `initial`.
+  write_state "initial" "null" "claimed $newly"
+  return 0
+}
+
+# Move the current claimed job to done/ via complete-job.sh, then clear
+# the per-lane claim and workflow bindings so the next tick claims again.
+release_claimed_job_done() {
+  local recorded
+  recorded=$(read_claimed_job)
+  if [ -n "$recorded" ] && [ -x "$GARDEN_ROOT/skills/job-board/complete-job.sh" ]; then
+    "$GARDEN_ROOT/skills/job-board/complete-job.sh" "$recorded" done >/dev/null 2>&1 || true
+  fi
+  clear_claimed_job
+  DRIVER_PR=""
+  DRIVER_WORKFLOW=""
+}
+
 # --- main loop ----------------------------------------------------------
 
 run_once() {
   local state next_directive
+
+  # Claim-bound lanes (no DRIVER_PR at startup) acquire their PR and
+  # workflow from the job board on each tick. Env-bound lanes skip the
+  # board entirely and drive the single PR they were launched with.
+  if [ -z "$DRIVER_PR_FROM_ENV" ]; then
+    if ! ensure_claimed_job; then
+      # Inbox is empty. Surface the wait in the state file so external
+      # observers see the lane is idle, then return so the outer loop
+      # sleeps until the next tick.
+      DRIVER_WORKFLOW=idle
+      write_state "idle" "null" "no open jobs; polling inbox"
+      return 0
+    fi
+    # Refresh the per-lane subscription advertisement to match the
+    # currently-claimed PR.
+    if [ -n "$DRIVER_PR" ]; then
+      printf '%s\n' "$DRIVER_PR" > "$SUBSCRIPTIONS_FILE"
+    else
+      : > "$SUBSCRIPTIONS_FILE"
+    fi
+  fi
+
   state=$(read_state)
 
   case "$DRIVER_WORKFLOW" in
@@ -553,8 +672,14 @@ run_once() {
     terminal:*)
       local final=${next_directive#terminal:}
       write_state "$final" "null" "driver lane $LANE reached terminal state $final"
-      DRIVER_EXPECTED_EXIT=1
-      return 2  # signal terminal to outer loop
+      if [ -n "$DRIVER_PR_FROM_ENV" ]; then
+        # Env-bound: drove the one PR we were launched with; exit cleanly.
+        DRIVER_EXPECTED_EXIT=1
+        return 2
+      fi
+      # Claim-bound: release this job and keep ticking so the next tick
+      # claims the next one. The outer loop stays alive.
+      release_claimed_job_done
       ;;
     *)
       echo "driver: workflow returned malformed directive: $next_directive" >&2
@@ -565,18 +690,31 @@ run_once() {
 }
 
 main() {
-  select_workflow
+  # Env-bound lanes resolve their workflow once at startup. Claim-bound
+  # lanes leave DRIVER_WORKFLOW unset and let ensure_claimed_job pick it
+  # up per-job from each claimed frontmatter.
+  if [ -n "$DRIVER_PR_FROM_ENV" ]; then
+    select_workflow
+  fi
 
-  # Initialize subscription advertisement.
+  # Initialize subscription advertisement. Claim-bound lanes refresh
+  # this each tick after ensure_claimed_job populates DRIVER_PR.
   if [ -n "$DRIVER_PR" ]; then
     echo "$DRIVER_PR" > "$SUBSCRIPTIONS_FILE"
   else
     : > "$SUBSCRIPTIONS_FILE"
   fi
 
-  # Initialize state file if missing.
+  # Initialize state file if missing. Claim-bound lanes start "idle"
+  # until a job is claimed; env-bound lanes start at the workflow's
+  # initial state.
   if [ ! -f "$STATE_FILE" ]; then
-    write_state "initial" "null" "driver lane $LANE bootstrap"
+    if [ -n "$DRIVER_PR_FROM_ENV" ]; then
+      write_state "initial" "null" "driver lane $LANE bootstrap"
+    else
+      DRIVER_WORKFLOW=idle
+      write_state "idle" "null" "driver lane $LANE bootstrap; awaiting claim"
+    fi
   fi
 
   # Outer loop. The -x transcript capture happens inside the loop body so
