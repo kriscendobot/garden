@@ -3549,3 +3549,41 @@ guest evaluate executes code directly | agent-conventions
 worker constraint @main pet name | agent-conventions
 honest-design-correction applied to removal | agent-conventions
 design retrospective with Status correction | agent-conventions
+canBeMethod function-not-passable | pass-style
+PASS_STYLE in func means already a remotable | pass-style
+methods cannot be Far functions | pass-style
+canBeMethodName string symbol number | pass-style
+TODO HAZARD cannot check func is hardened | pass-style
+prototype chain may mutate after PASS_STYLE check | pass-style
+getRemotableMethodNames alias for getMethodNames | pass-style
+abstraction-anticipating-restriction | pass-style
+layering-stepwise discipline | pass-style
+confirmIface Remotable Alleged DebugName prefix | pass-style
+prefix-required-when-producing | pass-style
+prefix-stripped-when-matching | pass-style
+iface must be pure PureData | pass-style
+confirmRemotableProtoOf recursive proto walk | pass-style
+tag record PASS_STYLE remotable plus toStringTag | pass-style
+Remotables must be explicitly declared | pass-style
+never direct inheritance from Object.prototype | pass-style
+remotables can inherit from other remotables | pass-style
+confirmedRemotables WeakSet cache | pass-style
+cache-positive-not-negative discipline | pass-style
+we don't remember rejections | pass-style
+possible to correct with harden | pass-style
+getInterfaceOf overloaded TypeScript type | pass-style
+PassStyled any T narrowed-T recovery | pass-style
+RemotableHelper confirmCanBeValid | pass-style
+two-distinct-shapes object vs function | pass-style
+Far functions cannot be methods and cannot have methods | pass-style
+object remotables bag of methods plus toStringTag | pass-style
+function remotables single callable plus metadata | pass-style
+.name .length optional @@toStringTag | pass-style
+restKeys.length === 0 exactly these three properties | pass-style
+PASS_STYLE cannot be shadowed | pass-style
+A pass-by-remote cannot shadow PASS_STYLE | pass-style
+no accessors only data properties | pass-style
+no non-method properties on object remotable | pass-style
+every always-true short-circuit | pass-style
+remotables are leaves in pass-style tree | pass-style
+hideAndHardenFunction assertIface | pass-style

@@ -701,4 +701,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-guest-eval-simplification--{three-configurations-of-eval-authority-with-ocap-as-safety-boundary-not-message-approval}
 
-## Total: 637 sections from 178 source documents (through 2026-06-03).
+### From endo packages/pass-style/src/remotable.js longform comments (cycle 134, **twenty-sixth comment-fragment ingest; the what-counts-as-a-remotable predicate layer; §two-distinct-shapes discipline — object remotables vs function remotables (mutually exclusive); §confirmRemotableProtoOf recursive proto walk to tag record; §confirmedRemotables WeakSet cache with §cache-positive-not-negative discipline; connects cycle 71 dispatch + cycle 132 getMethodNames + cycle 130 prefix conventions; cycle 134 chat-lane exhaustion pivot to comments-lane**)
+
+- endo--packages-pass-style-src-remotable-js--{what-a-remotable-is-with-tag-record-inheritance-and-distinct-object-vs-function-remotable-shapes}
+
+## Total: 638 sections from 179 source documents (through 2026-06-03).
