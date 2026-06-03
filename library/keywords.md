@@ -3744,3 +3744,28 @@ minimal-daemon-side-change | daemon
 add --addr flag and ENDO_GATEWAY_REMOTE | daemon
 codification-as-Design-Decisions | daemon
 deployment-shape Familiar Docker | daemon
+deeplyFulfilled deep Promise.all for Passables | pass-style
+DeeplyAwaited recursive type | pass-style
+Simplify Callable DeeplyAwaitedObject types | pass-style
+copied from @agoric/internal utils.js | pass-style
+canonical-home-yet-to-be-resolved | pass-style
+three failure modes reject never-settle not-Passable | pass-style
+non-hardened-promise tolerance at top level | pass-style
+isPromise checked before passStyleOf | pass-style
+exemption-is-top-level-only | pass-style
+unwrap promise to settlement dispense with promise | pass-style
+seven-case switch on passStyle | pass-style
+copyRecord recurse fromEntries harden | pass-style
+copyArray recurse Promise.all harden | pass-style
+byteArray pass through unchanged | pass-style
+tagged recurse makeTagged tag payload | pass-style
+remotable pass through leaf | pass-style
+error pass through leaf | pass-style
+promise E.when await and recurse | pass-style
+key-status-deferred-to-patterns | pass-style
+layering-discipline pass-style doesn't know Keys | pass-style
+use-E.when-not-await for HandledPromise compat | pass-style
+@ts-expect-error not assignable to DeeplyAwaited | pass-style
+TypeScript-limitation acknowledged endo issue 1257 | pass-style
+bridge between pass-style and eventual-send | pass-style
+resolve embedded promises for fully-Passable marshal | pass-style

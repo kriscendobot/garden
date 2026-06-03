@@ -725,4 +725,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-docker-selfhost--{docker-image-with-external-TLS-and-reuse-of-Familiar-bundle-pipeline}
 
-## Total: 643 sections from 184 source documents (through 2026-06-03).
+### From endo packages/pass-style/src/deeplyFulfilled.js longform comments (cycle 140, **twenty-ninth comment-fragment ingest; deep Promise.all for Passables; §non-hardened-promise tolerance at top level; §seven-case switch on passStyle; §bridge between pass-style and eventual-send; cycle 140 chat-lane exhaustion pivot to comments-lane**)
+
+- endo--packages-pass-style-src-deeplyFulfilled-js--{deep-promise-all-for-passables-with-non-hardened-promise-tolerance-at-top-level}
+
+## Total: 644 sections from 185 source documents (through 2026-06-03).
