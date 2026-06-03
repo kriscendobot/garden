@@ -5337,3 +5337,17 @@ Tier-1 borrowing symmetric-release-of-paired-references | patterns, async-flow
 Tier-1 borrowing undefined-vs-null-meaningful-distinction | patterns
 fifteenth file in e56bf00f coordinated-update cluster | patterns, async-flow
 67+ consecutive papers-lane blocks | patterns, async-flow
+zizmor | (see section: endo--contributing--initial-setup)
+zizmor pedantic | (see section: endo--contributing--initial-setup)
+zizmor mismatched version comment | (see section: endo--contributing--initial-setup)
+action's hash pin has mismatched or missing version comment | (see section: endo--contributing--initial-setup)
+action hash pin | (see section: endo--contributing--initial-setup)
+GitHub Action pin | (see section: endo--contributing--initial-setup)
+`uses:` SHA pin | (see section: endo--contributing--initial-setup)
+`# v1` version comment | (see section: endo--contributing--initial-setup)
+`update-action-pins.mjs` | (see section: endo--contributing--initial-setup)
+`update-action-pins-major.yml` workflow | (see section: endo--contributing--initial-setup)
+action-pin updater | (see section: endo--contributing--initial-setup)
+`--check-pins` | (see section: endo--contributing--initial-setup)
+`--min-age-days` | (see section: endo--contributing--initial-setup)
+floating-tag drift | (see entry: 2026/06/03/230728Z-message-shepherd-dfe4c4)
