@@ -449,6 +449,7 @@ The prepare and teardown scripts themselves are unchanged; only their caller cha
 
 Before pushing changes to a PR branch (whether the initial DRAFT open or a fixer follow-up), the driver runs a deterministic validation gauntlet locally:
 
+0. **`scripts/checks/run-all.sh`** (the pre-dispatch grep gates). Each gate under `scripts/checks/<gate-name>/` is a recursive grep that exits non-zero only when a known historical mistake is present, paired with a focused `claude -p` prompt the runner dispatches on a hit. The runner short-circuits before any heavyweight step burns time, and a gate that fires gets a small, focused agent context instead of the parent's. Per `skills/pre-dispatch-grep-gate/SKILL.md` for the contract; per `scripts/checks/README.md` for the installed set.
 1. `yarn format` (auto-fix in place; if anything is dirty after, the driver stages and commits the format changes as part of the same push).
 2. **Tests relevant to the changes**: a targeted run against the touched packages (e.g., `yarn workspace @endo/<pkg> test`) for fast feedback.
 3. `yarn build:types:check` (typecheck the whole monorepo).
@@ -456,7 +457,7 @@ Before pushing changes to a PR branch (whether the initial DRAFT open or a fixer
 5. **Full test run** across all packages.
 6. **Docs generation** (`yarn docs` or equivalent).
 
-Only after all six steps pass does the driver push to the PR branch. CI then runs the same set; the driver's local pass is a precondition that catches the bulk of avoidable red-CI handoffs.
+Only after all seven steps pass does the driver push to the PR branch. CI then runs the same set; the driver's local pass is a precondition that catches the bulk of avoidable red-CI handoffs.
 
 When a step fails, the driver either:
 
