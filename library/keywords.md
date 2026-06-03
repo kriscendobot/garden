@@ -4671,3 +4671,52 @@ ocap-kernel HEAD a3eff0efb 2026-05-28 | daemon
 user-directed manual ingest | daemon
 between cycles 161 162 | daemon
 does not consume autonomous lane-rotation slot | daemon
+Ken protocol HPL-2010-155 Kelly Karp Stiegler Close Cho | daemon, captp, persistence
+seven Ken properties exactly-once delivery output validity transactional turns | daemon, captp, persistence
+consistent frontier local recovery sender-based message logging deferred transmission | daemon, captp, persistence
+output-valid rollback recovery | daemon, captp, persistence
+canonical-protocol-citation | daemon, captp, persistence
+named-protocol-as-acceptance-criterion | daemon, captp, persistence
+completion-claim-against-named-protocol | daemon, captp, persistence
+twelve-row self-assessment table | daemon, captp, persistence
+each-property-points-at-a-named-implementation-artifact | daemon, captp, persistence
+issue-numbers-anchor-the-claims | daemon, captp, persistence
+verifiable-provenance-not-just-assertion | daemon, captp, persistence
+crank buffering Issue #786 | daemon, captp, persistence
+enqueueSend enqueueNotify resolvePromises immediate=false | daemon, captp, persistence
+flushCrankBuffer | daemon, captp, persistence
+default-safe-default-deferred | daemon, captp, persistence
+run-queue-as-the-commit-fence | daemon, captp, persistence
+RemoteHandle remotePending | daemon, captp, persistence
+don't-conflate-the-two-persistence-purposes | daemon, captp, persistence
+same-table-two-invariants | daemon, captp, persistence
+output validity at-least-once retransmit | daemon, captp, persistence
+SQLite savepoint as checkpoint mechanism | daemon, captp, persistence
+kernel-store savepoint wrap | daemon, captp, persistence
+receive-side savepoint-wrapped processing Issue #808 | daemon, captp, persistence
+savepoint-with-named-rollback-on-throw | daemon, captp, persistence
+deterministic-savepoint-name | daemon, captp, persistence
+receive_${remoteId}_${seq} | daemon, captp, persistence
+revert-in-memory-state-too-not-just-the-database | daemon, captp, persistence
+highestReceivedSeq | daemon, captp, persistence
+duplicate-detection-via-seq-comparison | daemon, captp, persistence
+guard-on-seq-comparison-not-Set-lookup | daemon, captp, persistence
+high-water-mark-discipline | daemon, captp, persistence
+FIFO-via-TCP-not-receive-side-reordering | daemon, captp, persistence
+borrow-FIFO-from-the-transport | daemon, captp, persistence
+libp2p streams in-order delivery | daemon, captp, persistence
+don't-reinvent-the-FIFO | daemon, captp, persistence
+post-crash-out-of-order-handled-by-dedup | daemon, captp, persistence
+all-Ken-protocol-properties-are-now-implemented | daemon, captp, persistence
+confident-completion-claim posture | daemon, captp, persistence
+Ken-turn-model code block | daemon, captp, persistence
+atomic-checkpoint-before-transmit | daemon, captp, persistence
+checkpoint-includes-output-queue | daemon, captp, persistence
+Done-table-tracks-processed-to-completion | daemon, captp, persistence
+gap-revealing-comparison cycles 119 137 149 100 156 141 | daemon, captp, persistence
+synthesis-target adopt-vocabulary-not-implementation | daemon, captp, persistence
+Stiegler-name observation Mark Stiegler five Ken authors | daemon, captp, persistence
+HPL-2006-116 OCPL Stiegler 2006 cycle 94 | daemon, captp, persistence
+Waterken Java implementation | daemon, captp, persistence
+Ken project U Michigan Tom Kelly | daemon, captp, persistence
+queued-doc-1 from cycle 161 overview | daemon, captp, persistence
