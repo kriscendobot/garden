@@ -3833,3 +3833,34 @@ hideAndHardenFunction on predicates | pass-style
 predicates-are-assertion-adjacent | pass-style
 helper-root position imported by all pass-style files | pass-style
 Turadg Aleahmad commit c05c9a88 | pass-style
+familiar-app-ui-hosting partial sandbox | agent-conventions
+Aaron prompted third attribution shape | agent-conventions
+thin app-UI layer over weblet substrate | agent-conventions
+UI manifest entry assets sandbox bridge | agent-conventions
+readable-tree of static files | agent-conventions
+sandbox tier isolated connected trusted | agent-conventions
+isolated tier connect-src none no CapTP | agent-conventions
+connected tier default CapTP only to own exo | agent-conventions
+trusted tier author-declared origins surfaced at install | agent-conventions
+tiers-widen-reach-never-relax-origin-isolation | agent-conventions
+per-app unique origin invariant | agent-conventions
+object-src none form-action self baseline | agent-conventions
+UI bound to specific app exo not ambient authority | agent-conventions
+exo-binding-rule CapTP bootstrap to instance | agent-conventions
+run.powers from app handle | agent-conventions
+two share-modes referenced cloned | agent-conventions
+reference-vs-clone determines which exo | agent-conventions
+referenced UI bridges to author's running exo | agent-conventions
+cloned UI bridges to recipient's local exo | agent-conventions
+ambient-authority-prevention at UI layer | agent-conventions
+capabilities-not-configurations applied at UI layer | agent-conventions
+MessagePort preferred no network surface | agent-conventions
+WebSocket fallback for external browser | agent-conventions
+chrome/guest barrier hard requirement | agent-conventions
+host-chrome-not-guest-chrome | agent-conventions
+close button pane title outside iframe | agent-conventions
+app authors potentially untrusted third parties | agent-conventions
+three-phase implementation manifest connected isolated trusted external | agent-conventions
+user-surface trusted origins at install | agent-conventions
+six dependencies weblet-server chat-weblet daemon-weblet localhttp endo-app-sharing milestone | agent-conventions
+most-recent design ingested 2026-06-01 | agent-conventions

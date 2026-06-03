@@ -737,4 +737,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-pass-style-src-passStyle-helpers-js--{PASS_STYLE-symbol-typed-as-string-literal-and-confirmTagRecord-factory-for-object-vs-function-tag-records}
 
-## Total: 646 sections from 187 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/familiar-app-ui-hosting.md (cycle 143, **thirty-third-comment-style design ingest + second non-Kris-Kowal design ingest** (Aaron-authored; third distinct attribution shape); the most recent design ingested (created 2026-06-01); thin app-UI layer over existing weblet substrate; §three sandbox tiers with §exo-binding-rule; capabilities-not-configurations applied at the UI layer; cycle 143 papers-lane block 37+ pivot to designs lane)
+
+- endo-but-for-bots--llm-designs-familiar-app-ui-hosting--{app-UI-manifest-with-three-sandbox-tiers-and-exo-binding-rule}
+
+## Total: 647 sections from 188 source documents (through 2026-06-03).
