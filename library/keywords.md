@@ -4862,3 +4862,48 @@ every-scenario-is-end-to-end-runnable | daemon, capability-security
 errors-shown-as-exact-strings | daemon, capability-security
 Bewlay locator path-like address Endo | daemon, capability-security, persistence
 58+ consecutive papers-lane blocks | daemon, capability-security, persistence
+queued-doc-4 from cycle 161 overview | daemon, tooling, getting-started
+contributor-onboarding-document | daemon, tooling, getting-started
+distinctively-not-about-the-system about-the-development-workflow | daemon, tooling, getting-started
+doc-as-contract-with-future-contributors | daemon, tooling, getting-started
+two-audience-surface user-docs vs contributor-docs | daemon, tooling, getting-started
+two-platforms-Node-and-browser canonical | daemon, tooling
+kernel-browser-runtime kernel-test extension nodejs packages | daemon, tooling
+core-packages-contain-both-abstraction-and-platform-impls | daemon, tooling
+runtime-packages-orchestrate-by-choosing | daemon, tooling
+single-source-of-truth-for-the-abstraction | daemon, tooling
+platform-obvious-vs-platform-implicit-exports | daemon, tooling
+naming-convention-tells-platform | daemon, tooling
+mechanism-named-when-platform-is-implied | daemon, tooling
+WASM implies browser | daemon, tooling
+reader-literacy-prerequisite | daemon, tooling
+discipline-by-disclosure | daemon, tooling
+mermaid-diagram-of-package-relationships | daemon, tooling
+six-step-development-guideline | daemon, tooling, getting-started
+Package Creation Platform-Agnostic Implementation Platform-Specific Implementation Package Configuration Platform Integration End-to-End Testing | daemon, tooling, getting-started
+steps-are-ordered-with-explicit-dependency | daemon, tooling, getting-started
+abstraction-first-then-platforms-then-integration-then-tests | daemon, tooling, getting-started
+two-directory-structure-choices simple complex | daemon, tooling
+my-package/src/<platform>/ | daemon, tooling
+my-package/src/<feature>/<platform>/ | daemon, tooling
+convention-with-justified-flexibility | daemon, tooling
+directory-structure-becomes-export-paths | daemon, tooling
+no-mismatch-between-filesystem-and-package-graph | daemon, tooling
+reduce-cognitive-overhead-by-removing-renames | daemon, tooling
+integration-points-named-explicitly | daemon, tooling
+vat-worker.ts make-kernel.ts Node integration | daemon, tooling
+kernel-worker.ts iframe.ts browser integration | daemon, tooling
+don't-leave-the-contributor-guessing | daemon, tooling
+per-platform-e2e-package | daemon, tooling
+amortize-platform-setup | daemon, tooling
+extension package browser e2e tests | daemon, tooling
+kernel-test package Node e2e tests | daemon, tooling
+named-core-vs-runtime-layering Tier-1 borrowing | daemon, tooling
+six-step-development-flow Tier-1 borrowing | daemon, tooling
+canonical-per-platform-test-package Tier-1 borrowing | daemon, tooling
+name-the-integration-file Tier-1 borrowing | daemon, tooling
+surface-the-choice-don't-hide-it | daemon, tooling
+small-doc-doesn't-mean-shallow-ingest | daemon, tooling
+six-step-flow is the spine | daemon, tooling
+contributor flow for adding platform-specific feature | daemon, tooling, getting-started
+59+ consecutive papers-lane blocks | daemon, tooling, getting-started
