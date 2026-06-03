@@ -3973,3 +3973,61 @@ EPromiseKit EOnly | eventual-send
 propagate any cleanly avoid distributive collapse | eventual-send
 TypeScript 61838 generic callable return types | eventual-send
 Turadg Aleahmad commit c88bc8311 | eventual-send
+workers panel observability tool | daemon
+workers are opaque | daemon
+which worker processes running | daemon
+what capabilities tenanted in each worker | daemon
+resource consumption logs metrics correlation | daemon
+five-feature panel sparkline tenants retention logs correlated | daemon
+event-loop-latency sparkline | daemon
+setTimeout(0) probe scheduling delay | daemon
+single most informative metric for single-threaded JS worker | daemon
+green<10ms yellow<100ms red>100ms thresholds | daemon
+threshold-as-product-discipline | daemon
+1-second default probe interval | daemon
+60 samples per minute | daemon
+configurable probe interval | daemon
+followMetrics async iterator | daemon
+timestamp eventLoopLatencyMs | daemon
+iterator-not-event-bus shape | daemon
+tenant capabilities reverse lookup | daemon
+worker field eval make-bundle make-unconfined | daemon
+existing-GC-graph-as-tenant-source | daemon
+listWorkerTenants petName formulaType | daemon
+reuse graph.js for retention path | daemon
+union-find and reachability analysis | daemon
+retentionPath name formulaType array | daemon
+why-is-this-worker-alive question | daemon
+trace from worker back to GC roots | daemon
+PINS directory agent pet stores | daemon
+followWorkerLog filtered async iterator | daemon
+per-worker log filtering | daemon
+existing-infrastructure-needs-surfacing | daemon
+correlated view shared X-axis time | daemon
+top-lane sparkline bottom-lane log entries | daemon
+click-spike-to-find-log affordance | daemon
+flame-graph-without-the-flame idiom | daemon
+discrete-events-as-markers-on-continuous-axis | daemon
+endo workers list command | tooling
+endo worker name logs metrics tenants | tooling
+subcommand-flag-shape | tooling
+three-affected-packages partition | daemon
+thin-API-thick-UI principle | daemon
+sparkline fixed-size ring buffer 60 samples | chat-ui
+observability-without-unbounded-state | daemon
+incremental-update-not-recompute retention cache | daemon
+pre-compute-the-reverse-edge tenant index | daemon
+host-level only observability | daemon
+inspection-not-control invariant | daemon
+observability-vs-guest-isolation tension | daemon
+host-as-debugger guest-as-debuggee asymmetry | daemon
+graceful-degradation upgrade discipline | daemon
+process-behavior-changes-not-schema | daemon
+no data instead of sparkline | chat-ui
+log entries without worker tags filtered out | daemon
+worker.js main probe entry point | daemon
+graph.js union-find for GC | daemon
+types.d.ts worker formula type | daemon
+Kris Kowal prompted | daemon
+workers panel sister to formula-inspector | daemon
+daemon observability pair | daemon

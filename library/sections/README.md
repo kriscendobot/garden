@@ -753,4 +753,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-eventual-send-src-E-js--{E-proxy-handler-trio-with-this-receiver-check-and-freezable-not-hardened-proxy-targets}
 
-## Total: 650 sections from 191 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/workers-panel.md (cycle 147, **thirty-fifth-comment-style design ingest**; **the observability sister to cycle 145's formula-inspector** — same author + creation date + status + three-affected-packages partition + §thin-API-thick-UI principle; the *daemon observability pair* (static formula-graph + dynamic worker-state); 158-line *Not Started* design adds a Workers panel to the chat UI alongside Inbox and Inventory; §load-bearing-observation: *workers are opaque*; §five-feature panel; §event-loop-latency-via-setTimeout(0) probe with §three-color thresholds; §correlated-view via §shared-X-axis-time = *flame-graph-without-the-flame* idiom; §reuse-graph.js for retention path; §three-affected-packages partition identical to cycle 145; §inspection-not-control invariant; §graceful-degradation upgrade discipline; cycle 147 papers-lane block 41+ pivot to designs lane)
+
+- endo-but-for-bots--llm-designs-workers-panel--{event-loop-latency-sparkline-with-tenant-listing-retention-paths-and-correlated-log-view}
+
+## Total: 651 sections from 192 source documents (through 2026-06-03).
