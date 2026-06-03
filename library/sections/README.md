@@ -741,4 +741,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-familiar-app-ui-hosting--{app-UI-manifest-with-three-sandbox-tiers-and-exo-binding-rule}
 
-## Total: 647 sections from 188 source documents (through 2026-06-03).
+### From endo packages/marshal/src/dot-membrane.js longform comments (cycle 144, **thirty-first comment-fragment ingest; the full membrane via marshal — §dot-membrane-via-marshal idiom; §revocation via undefining the mineToYours WeakMap; §the crown jewel of @endo/marshal — marshal's serialization paired with itself becomes a full membrane with revocation; cycle 144 chat-lane exhaustion pivot to comments-lane**)
+
+- endo--packages-marshal-src-dot-membrane-js--{membrane-via-marshal-with-mirror-converters-and-revocation-by-undefining-the-mineToYours-WeakMap}
+
+## Total: 648 sections from 189 source documents (through 2026-06-03).

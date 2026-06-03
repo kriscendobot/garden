@@ -3864,3 +3864,33 @@ three-phase implementation manifest connected isolated trusted external | agent-
 user-surface trusted origins at install | agent-conventions
 six dependencies weblet-server chat-weblet daemon-weblet localhttp endo-app-sharing milestone | agent-conventions
 most-recent design ingested 2026-06-01 | agent-conventions
+dot-membrane via marshal | marshal
+makeDotMembraneKit target proxy revoke | marshal
+mirror converter recursive setup | marshal
+mineToYours WeakMap | marshal
+yoursToMine destructured-under-mirror-side-names | marshal
+convertMineToYours convertYoursToMine | marshal
+myUnserialize yourUnserialize | marshal
+pass passBack symmetric pair | marshal
+serialize-and-then-unserialize-in-the-other-direction | marshal
+every-mirror-name-is-the-other-direction | marshal
+revocation by undefining the WeakMap | marshal
+ReferenceError Revoked reasonString | marshal
+two-step-revocation propagates to mirror | marshal
+optInnerRevoke mirror revoke | marshal
+mineIf vs mine GC-friendliness | marshal
+correct error behavior may not enable mine to be gc'ed | marshal
+two-level metaReason error handling | marshal
+three-level fallback chain for promise crossing | marshal
+Far functions have no static methods assumption | marshal
+NOTE revisit if we change our minds | marshal
+temporal-dead-zone hack | marshal
+arrow-function-captures-the-binding-not-the-value | marshal
+convertSlotToVal wraps convertYoursToMine | marshal
+makeConverter mirror converter factory | marshal
+crown jewel of @endo/marshal | marshal
+membrane from serialization paired with itself | marshal
+unforgeable revocable proxy primitive | marshal
+ocap substrate composes into revocable proxy | marshal
+revocable membrane capability primitive | marshal
+Turadg Aleahmad commit ec42cb7b | marshal
