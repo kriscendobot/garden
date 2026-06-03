@@ -4368,3 +4368,37 @@ nested-naming-scopes | daemon
 don't-retroactively-edit-older-designs | daemon
 sweep-only-new-prose | daemon
 don't-rewrite-history norm | daemon
+finalize.js Weak-Value-Map | captp
+makeFinalizingMap finalizer opts | captp
+WeakRef FinalizationRegistry | captp
+weak-on-values-not-on-keys | captp
+multi-map-coordinated-removal | captp
+gc-as-side-channel warning | captp
+dangerous capability must be closely held | captp
+timing-independent-side-channel | captp
+blockchain-replay hazard | captp
+nondeterminism-breaks-consensus | captp
+validators differ from each other | captp
+gc-as-consensus-blocker | captp
+primitive-exists-but-must-not-be-used-in-some-contexts | captp
+two-mode design weakValues opt-in | captp
+graceful-fallback-via-fakeFinalizingMap | captp
+honest-tagging-when-degraded | captp
+dangerous-mode-not-default | captp
+unified-finalize-path gc delete set | captp
+unregister-immediately-suppresses-finalization | captp
+honest-acknowledgment-of-spec-uncertainty | captp
+JS-standards-WeakRef-end-of-turn-stability | captp
+method-by-method derefing classification | captp
+has-must-deref-or-it-lies | captp
+getSize-may-lie | captp
+atomicity-within-a-turn-via-deref | captp
+replace-finalizes-old | captp
+!isPrimitive ref assert | captp
+clearWithoutFinalizing-exempt | captp
+teardown-bypass | captp
+TODO-with-issue-link endo#1514 | captp
+Far-as-the-protective-wrapper | captp
+RemotableBrand-typing | captp
+second @endo/captp source file ingested | captp
+papers-lane blocked 50 cycles milestone | captp

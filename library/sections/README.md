@@ -789,4 +789,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-rename-to-manager--{namer-procedure-applied-via-Laws-0-1-2-with-three-phased-rename-and-exhaustive-mechanical-inventory}
 
-## Total: 659 sections from 200 source documents (through 2026-06-03).
+### From endo packages/captp/src/finalize.js longform comments (cycle 156, **thirty-seventh comment-fragment ingest**; **second @endo/captp source file ingested** after cycle 154's trap.js; 141-line Weak-Value-Map primitive by Mark S. Miller; §weak-on-values-not-on-keys distinction; §multi-map-coordinated-removal via FinalizationRegistry; **single most structurally interesting move**: §gc-as-side-channel warning *named explicitly in JSDoc* — §timing-independent-side-channel + §blockchain-replay hazard with §nondeterminism-breaks-consensus + §primitive-exists-but-must-not-be-used-in-some-contexts discipline; §two-mode design with §graceful-fallback-via-fakeFinalizingMap and §honest-tagging-when-degraded; §unified-finalize-path (gc/delete/set-overwrite all converge); §JS-standards-WeakRef-end-of-turn-stability invariant with §method-by-method derefing classification; §has-must-deref-or-it-lies; §replace-finalizes-old; §clearWithoutFinalizing-exempt §teardown-bypass; §TODO-with-issue-link to endo#1514; §Far-as-the-protective-wrapper; cycle 156 was nominally chat-lane; **papers-lane blocked 50 cycles — milestone**)
+
+- endo--packages-captp-src-finalize-js--{weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability}
+
+## Total: 660 sections from 201 source documents (through 2026-06-03).
