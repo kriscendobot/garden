@@ -4131,3 +4131,31 @@ plain shape vs CapData blob question | captp
 issue 171 PR 174 repro test | captp
 formatRejectionReason in daemon.js | captp
 Kris Kowal prompted designer dispatch | captp
+typeGuards.js user-facing type-guard surface | pass-style
+isCopyArray isByteArray isRecord isRemotable | pass-style
+assertCopyArray assertByteArray assertRecord assertRemotable | pass-style
+isAtom assertAtom predicates | pass-style
+Atom passable-leaf subset | pass-style
+eight AtomStyle cases | pass-style
+undefined null boolean number bigint string byteArray symbol | pass-style
+atoms without composition or identity | pass-style
+marshal-table-free Atom property | pass-style
+all-predicates-and-assertions-hide-name | pass-style
+hideAndHardenFunction on every export | pass-style
+departure from hide-only-assertions pattern | pass-style
+user-facing-thin-wrapper rationale | pass-style
+wrapper-identity-irrelevant in stack traces | pass-style
+confirmAtom private with Rejector | pass-style
+two-level-rejection discipline | pass-style
+Not even Passable error prefix | pass-style
+A passStyle cannot be an atom error | pass-style
+two-different-error-prefixes-discriminate-cause | pass-style
+Alleged array record byteArray remotable default name | pass-style
+default-name-for-anonymous-throw | pass-style
+no-memo-for-Atom cheap check | pass-style
+thin-wrappers-over-passStyleOf | pass-style
+minimal-dependency-surface | pass-style
+bottom of @endo dependency stack | pass-style
+ninth pass-style file in cluster | pass-style
+Mark S. Miller authored 2025-09-15 | pass-style
+cycle 150 milestone tick | pass-style

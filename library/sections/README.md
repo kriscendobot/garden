@@ -765,4 +765,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-unhandled-rejection-display--{two-coordinated-changes-with-error-shape-sentinel-and-four-case-rendering-fallback}
 
-## Total: 653 sections from 194 source documents (through 2026-06-03).
+### From endo packages/pass-style/src/typeGuards.js longform comments (cycle 150 — **milestone tick** — **thirty-fourth comment-fragment ingest**; the user-facing type-guard surface for @endo/pass-style; §four predicate-assertion pairs (`isCopyArray` / `isByteArray` / `isRecord` / `isRemotable`) + `isAtom` / `assertAtom`; **single most structurally interesting move**: §all-predicates-and-assertions-hide-name discipline — *every* export gets `hideAndHardenFunction`, **departing** from the cycle 134 / 138 / 142 / 148 hide-only-assertions pattern; §Atom concept as §passable-leaf subset (eight AtomStyle cases: undefined / null / boolean / number / bigint / string / byteArray / symbol); §marshal-table-free property; §`confirmAtom` private with §two-level-rejection (*Not even Passable* vs *cannot be an atom*); §`Alleged X` default-name discipline; §thin-wrappers-over-passStyleOf; §minimal-dependency-surface (imports only passStyleOf + error/harden); **ninth pass-style file** (cycles 71 + 87 + 134 + 136 + 138 + 140 + 142 + 148 + 150); Mark S. Miller authored; cycle 150 was nominally chat-lane (exhausted at 20/20); papers-lane blocked 44+ consecutive cycles)
+
+- endo--packages-pass-style-src-typeGuards-js--{four-predicate-assertion-pairs-and-Atom-as-passable-leaf-subset-with-Not-even-Passable-two-level-rejection}
+
+## Total: 654 sections from 195 source documents (through 2026-06-03).
