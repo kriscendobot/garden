@@ -4720,3 +4720,77 @@ HPL-2006-116 OCPL Stiegler 2006 cycle 94 | daemon, captp, persistence
 Waterken Java implementation | daemon, captp, persistence
 Ken project U Michigan Tom Kelly | daemon, captp, persistence
 queued-doc-1 from cycle 161 overview | daemon, captp, persistence
+queued-doc-2 from cycle 161 overview | daemon, captp, capability-security
+authoritative-vocabulary-surface | daemon, captp, capability-security
+runnable-glossary-not-frozen-prose | daemon, captp, capability-security
+each-entry-links-to-a-source-file | daemon, captp, capability-security
+every-term-is-a-pointer-to-code | daemon, captp, capability-security
+verifiable-provenance-not-just-glossary | daemon, captp, capability-security
+naming-convention-as-organizing-principle | daemon, captp, capability-security
+glossary.md two-axis structure Concepts Abbreviations | daemon, captp, capability-security
+kref kernel-globally-unique generated-on-first-crossing | daemon, captp
+vref vat-locally-unique either-side-can-generate | daemon, captp
+rref channel-scope does-not-survive-the-channel | daemon, captp
+eref vref rref union polymorphic-over-locality | daemon, captp
+location-transparency-at-the-type-level | daemon, captp
+scoped-lifetime channels ephemeral-namespaces | daemon, captp
+clist bidirectional channel-runtime mapping per-channel | daemon, captp
+trade-off-named four-layer scoping vs one-layer formula-identifier | daemon, captp
+vocabulary-drift-where-substrate-is-shared | daemon, captp
+channel stream connection vocabulary | daemon, captp
+exo prescriptive Do not use Far from endo/far | daemon, capability-security
+forbid-direct-Far canonical-doc promotion | daemon, capability-security
+wrap-not-bypass discipline | daemon, capability-security
+makeDefaultExo only blessed remotable constructor | daemon, capability-security
+wrap-gives-a-bottleneck-for-audit | daemon, capability-security
+endowment callable-but-attenuated | daemon, capability-security
+security-as-attenuation-not-removal | daemon, capability-security
+preserve-shape-mutate-semantics | daemon, capability-security
+per-vat-timer-queues attenuation | daemon, capability-security
+monotonically-clamped Date.now() attenuation | daemon, capability-security
+timer-as-side-channel clock-as-side-channel | daemon, capability-security
+determinism-by-clamping | daemon, capability-security
+compartments-expose-nothing-by-default | daemon, capability-security
+explicit-globals-via-VatConfig | daemon, capability-security
+capability-shape-discipline-applied-to-host-endowments | daemon, capability-security
+three-independent-GC-systems kernel liveslots JavaScript | daemon, capability-security
+don't-conflate-GC-domains | daemon, capability-security
+gc-side-channel-surface-is-three-domains-wide | daemon, capability-security
+determinism-requires-explicit-coordination | daemon, capability-security
+six-delivery-types message notify | daemon
+dropExports retireExports retireImports bringOutYourDead | daemon
+bringOutYourDead Monty-Python-named-syscall SwingSet folklore | daemon
+bootstrap-called-exactly-once | daemon
+bootstrap-is-not-resuscitation | daemon
+idempotence-by-construction-not-by-code | daemon
+named-lifecycle-events synthesis target | daemon
+crank-can-be-aborted-and-rolled-back | daemon
+crank-as-transactional-unit | daemon
+decider as authorization target | daemon
+decider-reverts-on-rollback | daemon
+authorization-snapshot-restored-on-abort | daemon
+rollback-must-cover-non-database-state-too | daemon
+kernel-promise-not-JS-promise | daemon
+two-promise-systems-with-translation-layer | daemon
+liveslots-as-the-promise-bridge | daemon
+kernel-promise-survives-vat-restarts | daemon
+kernel-services-cannot-return-Exos | daemon
+architectural-asymmetry-between-vat-and-service | daemon
+system-subcluster privilege-by-subcluster-declaration | daemon, capability-security
+identity-survives-restart | daemon
+systemOnly services privilege boundary | daemon, capability-security
+tier-1 vocabulary borrowing candidates | daemon, captp, capability-security
+tier-1-borrowing-would-add-clarity-not-collision | daemon, captp, capability-security
+adopt-vocabulary-not-implementation | daemon, captp, capability-security
+vocabulary-borrowing-without-code-borrowing | daemon, captp, capability-security
+citation-discipline-when-borrowing | daemon, captp, capability-security
+cite-the-origin in design body or commit message | daemon, captp, capability-security
+centralized-glossary-as-artifact-shape | daemon, captp, capability-security
+ocap-kernel-mini-series cycles 161 162 163 | daemon, captp, capability-security
+baggage durable KV per vat resuscitation | daemon
+liveslots JS-to-durable boundary | daemon
+syscall vat-to-kernel call | daemon
+delivery kernel-to-vat call | daemon
+subcluster ClusterConfig | daemon
+kernel-service in-kernel-context method | daemon
+57+ consecutive papers-lane blocks | daemon, captp, capability-security
