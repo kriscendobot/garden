@@ -797,4 +797,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-exo-zip-package--{in-memory-zip-as-exo-readable-tree-with-asymmetric-by-design-read-API-and-resolved-questions-trail}
 
-## Total: 661 sections from 202 source documents (through 2026-06-03).
+### From endo packages/captp/src/loopback.js longform comments (cycle 158, **thirty-eighth comment-fragment ingest**; **third @endo/captp source file ingested** after cycles 154 + 156; 117-line in-process CapTP test fixture by Kris Kowal; **single most structurally interesting move**: §two-CapTP-instances-cross-wired architecture with §forward-reference-via-arrow + §closure-captures-binding-not-value + §eslint-as-design-discipline; §single-bootstrap-shared-by-both-sides + §getRef-also-deletes + §nonce-as-handshake-key; §makeRefMaker §two-callers-one-pattern-via-closure; §uses-finalize.js-Weak-Value-Map (cycle 156) in §plain-Map-via-fakeFinalizingMap default branch — §test-utility-doesn't-want-gc-nondeterminism (concrete application of cycle 156's §gc-as-side-channel warning); §synchronous-trap-bridge via `trapGuest` with cycle 154's nearTrapImpl + §sync-trap-by-crossing-the-boundary-immediately + §use-the-far-side's-marshal-functions; §isException-tagged-tuple-result; §marshal-side-tracks-object-ownership; §test-utility-composes-substrate; §distributed-protocol-test-fixture-as-genre; same coordinated-update commit `e56bf00f` as cycles 108/110/115/118/123/125/132/134/136/138/140/144/148/150/152/154/158 (17-file cluster); cycle 158 papers-lane block 52+ pivot to comments-lane)
+
+- endo--packages-captp-src-loopback-js--{two-CapTP-instances-cross-wired-with-shared-bootstrap-and-synchronous-trap-bridge}
+
+## Total: 662 sections from 203 source documents (through 2026-06-03).

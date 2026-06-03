@@ -4454,3 +4454,38 @@ three-phase-implementation S-sized-phases | exo
 ZipReader central directory | exo
 ReadableBlobInterface streamBase64 text json | exo
 PR 160 exo-zip exo-unzip | exo
+loopback.js makeLoopback async-isolated channel | captp
+in-process CapTP test fixture | captp
+two-CapTP-instances-cross-wired | captp
+forward-reference-via-arrow | captp
+closure-captures-binding-not-value | captp
+eslint-as-design-discipline | captp
+eslint-disable-no-use-before-define | captp
+single-bootstrap-shared-by-both-sides | captp
+Far refGetter getRef nonce | captp
+getRef-also-deletes use-once-then-remove | captp
+nonce-as-handshake-key | captp
+makeRefMaker closure factory | captp
+two-callers-one-pattern-via-closure | captp
+makeFar makeNear async | captp
+uniform-async-shape | captp
+harden-the-value-before-set | captp
+uses-finalize.js-Weak-Value-Map | captp
+plain-Map-via-fakeFinalizingMap branch | captp
+test-utility-doesn't-want-gc-nondeterminism | captp
+synchronous-trap-bridge via trapGuest | captp
+sync-trap-by-crossing-the-boundary-immediately | captp
+use-the-far-side's-marshal-functions | captp
+trap-bypasses-the-async-protocol | captp
+isException-tagged-tuple-result | captp
+tagged-tuple-because-no-Promise-rejection-channel | captp
+slotBody-hardcoded canonical-marshal-string | captp
+@qclass slot index 0 | captp
+which-side's-marshal-tables-do-we-use | captp
+marshal-side-tracks-object-ownership | captp
+re-export-E-from-captp convenience | captp
+single-entry-point-for-test-fixtures | captp
+test-utility-composes-substrate | captp
+distributed-protocol-test-fixture-as-genre | captp
+third @endo/captp source file ingested | captp
+17-file coordinated-update cluster | captp
