@@ -705,4 +705,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-pass-style-src-remotable-js--{what-a-remotable-is-with-tag-record-inheritance-and-distinct-object-vs-function-remotable-shapes}
 
-## Total: 638 sections from 179 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/daemon-locator-reference.md (cycle 135, **twenty-ninth-comment-style design ingest; second daemon-* design after endopi-* closure; canonical reference for Endo locator URL format; §externalize↔internalize duality with LOCAL_NODE sentinel as the §safe-by-impossibility-in-the-domain pattern; pairs with cycles 49 + 51 + 60 to complete the locator topology; cycle 135 papers-lane block 29+ pivot to designs lane**)
+
+- endo-but-for-bots--llm-designs-daemon-locator-reference--{endo-locator-url-format-with-externalize-internalize-duality-and-LOCAL_NODE-sentinel}
+
+## Total: 639 sections from 180 source documents (through 2026-06-03).

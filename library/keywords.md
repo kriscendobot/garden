@@ -3587,3 +3587,37 @@ no non-method properties on object remotable | pass-style
 every always-true short-circuit | pass-style
 remotables are leaves in pass-style tree | pass-style
 hideAndHardenFunction assertIface | pass-style
+endo locator URL format | daemon
+endo:// scheme nodeNumber id type | daemon
+nodeNumber 64-char hex Ed25519 public key | daemon
+formulaNumber 64-char hex SHA-256 content address | daemon
+formulaType host guest handle worker directory remote | daemon
+at query parameter connection hints | daemon
+ephemeral transport addresses | daemon
+invitation locator from parameter | daemon
+formula identifier number colon node | daemon
+internal vs external locator distinction | daemon
+LOCAL_NODE sentinel zero repeat 64 | daemon
+all-zeros never valid Ed25519 public key | daemon
+safe-by-impossibility-in-the-domain | daemon
+externalizeId LOCAL_NODE to agent key | daemon
+internalizeLocator agent key to LOCAL_NODE | daemon
+localKeys set isLocalKey predicate | daemon
+round-trip invariant internalId | daemon
+parseLocator strict validation | daemon
+reject unknown parameters | daemon
+invitation locators bypass parseLocator | daemon
+identify locate lookup three resolution targets | daemon
+reverseIdentify reverseLocate reverseLookup | daemon
+list listIdentifiers listLocators | daemon
+write writeLocator | daemon
+writeLocator canonical write through exos | daemon
+define-once-destructure-up discipline | daemon
+followNameChanges followLocatorNameChanges | daemon
+addressing-is-not-identity | daemon
+hints not stored with formula looked up fresh | daemon
+addPeerInfo forwarding | daemon
+locator.js formula-identifier.js formula-type.js | daemon
+directory.js host.js guest.js mail.js | daemon
+locator-design cluster cycles 49 51 60 135 | daemon
+nine-method taxonomy four families | daemon
