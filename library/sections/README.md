@@ -773,4 +773,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-app-sharing-milestone--{three-pillar-cut-with-verified-current-state-methodology-and-adopt-existing-plan-discipline}
 
-## Total: 655 sections from 196 source documents (through 2026-06-03).
+### From endo packages/promise-kit/src/memo-race.js longform comments (cycle 152, **thirty-fifth comment-fragment ingest**; **first @endo/promise-kit source file ingested**; the memory-safe Promise.race primitive authored by Brian Kim (public-domain Unlicense, 2017); §load-bearing-bug §native-Promise.race-memory-leak — never-settling inputs' then-handlers pin the race-result; **single most structurally interesting move**: §WeakMap-shared-deferred-sets architecture with §one-then-per-value-lifetime invariant + §amortize-one-then-across-many-races + §broadcast-pattern-via-shared-set; §markSettled §atomic-transition with §state-machine-with-frozen-terminal-state; §primitive-fake-settled-record idiom; §finally-cleanup the memory-leak fix removes deferred from every still-pending input's Set; §cachedValues defends §iterable-might-not-be-rerunnable; §`this`-as-PromiseConstructor §subclassable-design; §named-function-via-object-destructure idiom for §method-syntax-non-constructable; §TODO acknowledges duplicated `isPrimitive` with §layering-constraints-block-DRY observation; same coordinated-update commit `e56bf00f` as cycles 108 + 110 + 115 + 118 + 123 + 125 + 132 + 134 + 136 + 138 + 140 + 144 + 148 + 150 + 152; cycle 152 was nominally chat-lane (exhausted at 20/20); papers-lane blocked 46+ consecutive cycles)
+
+- endo--packages-promise-kit-src-memo-race-js--{memoRace-with-WeakMap-deferred-sets-and-finally-cleanup-vs-native-Promise.race-memory-leak}
+
+## Total: 656 sections from 197 source documents (through 2026-06-03).

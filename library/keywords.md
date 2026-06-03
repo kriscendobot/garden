@@ -4218,3 +4218,29 @@ coordination-doc-as-graph-edge role | daemon
 milestone-as-clustering-event | daemon
 Aaron-authored-pair Pillar 3 | daemon
 three distinct attribution shapes | daemon
+memo-race memoRace memory-safe Promise.race | eventual-send
+native Promise.race memory leak | eventual-send
+never-settling inputs pin race result | eventual-send
+Brian Kim 2017 nodejs node 17469 | eventual-send
+public-domain Unlicense | eventual-send
+knownPromises WeakMap | eventual-send
+PromiseMemoRecord settled deferreds | eventual-send
+WeakMap-shared-deferred-sets architecture | eventual-send
+one-then-per-value-lifetime invariant | eventual-send
+shared-record-across-races | eventual-send
+amortize-one-then-across-many-races | eventual-send
+broadcast-pattern-via-shared-set | eventual-send
+markSettled atomic-transition | eventual-send
+state-machine-with-frozen-terminal-state | eventual-send
+idempotent markSettled | eventual-send
+primitive-fake-settled-record | eventual-send
+isPrimitive duplicated layering-constraints | eventual-send
+layering-constraints-block-DRY | eventual-send
+finally-as-cleanup-hook | eventual-send
+deferred removed from pending Set | eventual-send
+result no longer pinned after cleanup | eventual-send
+cachedValues defends iterable-might-not-be-rerunnable | eventual-send
+this-as-PromiseConstructor subclassable | eventual-send
+named-function-via-object-destructure | eventual-send
+method-syntax-non-constructable | eventual-send
+first promise-kit source file ingested | eventual-send
