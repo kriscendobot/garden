@@ -5288,3 +5288,52 @@ Tier-1 borrowing first-release-at-1.0.0 | tooling, patterns
 Tier-1 borrowing Open-Questions-resolved-during-implementation | tooling, patterns
 Tier-1 borrowing sourced-from-PR-inline-review-comment-lifecycle | tooling, patterns
 66+ consecutive papers-lane blocks | tooling, patterns, pass-style
+@endo/promise-kit promise-executor-kit.js | patterns, async-flow
+makeReleasingExecutorKit | patterns, async-flow
+reference-release-on-settle | patterns, async-flow
+three-state-internal-reference-lifecycle | patterns, async-flow
+undefined function null states | patterns
+undefined-vs-null-meaningful-distinction | patterns
+falsy-check distinguishes state 1 from states 0+2 | patterns
+executor-is-single-use assert-on-double-invocation | patterns
+resolve/reject-are-fire-once | patterns, async-flow
+symmetric-release of paired references | patterns, async-flow
+once-settled-neither-can-fire | patterns, async-flow
+captured-state-as-mutable-let | patterns
+three-distinct-states-distinguishable-by-JS-value-shape | patterns
+symmetric-release-on-first-firing | patterns, async-flow
+why-not-just-WeakRef timing-guarantees | patterns, async-flow
+immediate-release-by-explicit-assignment | patterns, async-flow
+release-when-GC-runs WeakRef | patterns
+explicit-release-on-known-event | patterns, async-flow
+weak-when-no-strong-reference | patterns
+two-different-promises-about-GC | patterns, async-flow
+decomposed-for-composition | patterns
+executor-half only no promise | patterns, async-flow
+caller-passes-executor-to-Promise-constructor | patterns, async-flow
+any-promise-constructor HandledPromise future variants | patterns, async-flow
+naming-discipline-releasing-as-qualifier | patterns
+if-your-function-does-cleanup-name-the-cleanup-in-the-function-name | patterns
+action-verb-or-adjective-in-function-name @endo discipline | patterns
+defendPrototype trackTurns safe-promise sibling | patterns
+reference-release-on-settle micro-pattern | patterns, async-flow
+applicable to watchdog-timers one-shot-event-emitters | patterns
+single-use-cleanup-handlers | patterns
+assert-without-condition-is-just-Fail | patterns
+genuine-invariant-check not user-facing-error | patterns
+two-functions-named-resolve-and-reject vs one-with-mode-arg | patterns
+intentional-readability over DRY | patterns
+sibling-to-cycle-152-memo-race racing-with-cleanup | patterns, async-flow
+used-by-cycle-171-stream-substrate | patterns, async-flow
+makePromiseKit per cons-cell | patterns, async-flow
+the-stream-queue-is-GC-friendly-because-this-file-releases-references | patterns, async-flow
+cycle-156-finalize-WeakValueMap sibling | patterns
+two-functions-symmetric-in-shape | patterns
+slot machine promise-callbacks need this hygiene | patterns
+Tier-1 borrowing three-state-internal-reference-lifecycle | patterns, async-flow
+Tier-1 borrowing reference-release-on-settle | patterns, async-flow
+Tier-1 borrowing releasing-as-qualifier-in-function-name | patterns
+Tier-1 borrowing symmetric-release-of-paired-references | patterns, async-flow
+Tier-1 borrowing undefined-vs-null-meaningful-distinction | patterns
+fifteenth file in e56bf00f coordinated-update cluster | patterns, async-flow
+67+ consecutive papers-lane blocks | patterns, async-flow
