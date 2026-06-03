@@ -3769,3 +3769,39 @@ use-E.when-not-await for HandledPromise compat | pass-style
 TypeScript-limitation acknowledged endo issue 1257 | pass-style
 bridge between pass-style and eventual-send | pass-style
 resolve embedded promises for fully-Passable marshal | pass-style
+daemon-cas-management Content Address Store | daemon
+Endor Content Address Store Management | daemon
+content-addressable storage typed content | daemon
+ContentStore Rust struct | daemon
+supervisor-owned vs worker-owned CAS | daemon
+shared resource accessed by all workers | daemon
+GC requires handle-liveness knowledge | daemon
+background thread GC routing loop | daemon
+verbs-are-the-same-interface | daemon
+embedded systems worker-role future alternative | daemon
+four content types blob snapshot tree archive | daemon
+sha256hex meta sidecar JSON | daemon
+sidecar-not-database SQLite alternative | daemon
+type field is advisory self-describing content | daemon
+flat-entries-map tree representation | daemon
+structural sharing between archives | daemon
+stable hash via flat paths not nested | daemon
+cas-store cas-fetch cas-has envelope verbs | daemon
+cas-retain cas-release fire-and-forget | daemon
+cas-store-tree recursive store | daemon
+cas-gc control verb | daemon
+streaming-variants cas-store-stream cas-content-stream | daemon
+mark/sweep GC algorithm | daemon
+reference-counting not tracing GC | daemon
+hybrid ref-counting plus JS-manager-roots | daemon
+new stores safe during GC refs zero | daemon
+eventual-consistency-of-GC | daemon
+off-thread GC std::thread spawn_blocking | daemon
+RwLock HashMap in-memory ref count cache | daemon
+flushed to .meta atomic write-rename | daemon
+auto-retain hashes for suspended workers | daemon
+endor gc CLI subcommand | daemon
+five Design Decisions codify choices | daemon
+supersedes JS-side daemon-content-store-gc | daemon
+integrates with daemon-xs-worker-snapshot | daemon
+extends daemon-endor-architecture | daemon

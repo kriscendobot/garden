@@ -729,4 +729,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-pass-style-src-deeplyFulfilled-js--{deep-promise-all-for-passables-with-non-hardened-promise-tolerance-at-top-level}
 
-## Total: 644 sections from 185 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/daemon-cas-management.md (cycle 141, **thirty-second-comment-style design ingest; fifth daemon-* design after endopi-* closure; makes the daemon's CAS a first-class subsystem of endor with typed content + retain/release + off-thread mark/sweep GC; §supervisor-owned-vs-worker-owned decision as the design's load-bearing architectural choice; cycle 141 papers-lane block 35+ pivot to designs lane**)
+
+- endo-but-for-bots--llm-designs-daemon-cas-management--{content-address-store-as-supervisor-owned-subsystem-with-typed-content-retain-release-and-background-mark-sweep-gc}
+
+## Total: 645 sections from 186 source documents (through 2026-06-03).
