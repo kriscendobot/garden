@@ -813,4 +813,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-filesystem-watchers--{EndoMount-followNameChanges-with-FilePowers-watchDirectory-and-stat-reconciled-rename-events}
 
-## Total: 665 sections from 206 source documents (through 2026-06-03).
+### From MetaMask/ocap-kernel monorepo overview (user-directed manual ingest 2026-06-03; **first ingest of §sibling-implementation genre** — fourth source genre alongside @endo source files / endo-but-for-bots designs / external papers; 30 packages + 6 docs + README + AGENTS.md surveyed; **§Ken-protocol-substrate** centerpiece — `docs/ken-protocol-assessment.md` tabulates implementation against HPL-2010-155 seven properties; §named-protocol-as-acceptance-criterion discipline; §crank-buffering atomic-output-or-rollback directly cross-comparable with cycles 100 / 119 / 137 / 149; §canonical-vocabulary survey of 22 terms with §kref-vref-rref-eref four-layer name-space as most distinctive divergence from Endo; §AGENTS.md observations including §forbid-direct-Far in favor of makeDefaultExo wrapper; §public-private-namespace-split @metamask/ vs @ocap/; §queued-for-future-cycles ingestion plan; §reference-not-substrate stance; HEAD `a3eff0efb` 2026-05-28)
+
+- metamask-ocap-kernel--overview--{monorepo-survey-with-SwingSet-derived-kernel-vat-architecture-and-Ken-protocol-substrate}
+
+## Total: 666 sections from 207 source documents (through 2026-06-03).

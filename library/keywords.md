@@ -4610,3 +4610,64 @@ parity-as-design-axiom | daemon
 minimized-to-what-the-new-substrate-strictly-requires | daemon
 three-design-sources-lifecycle | daemon
 Issue 110 source | daemon
+MetaMask ocap-kernel monorepo | daemon
+ocap-kernel reference shelf entry | daemon
+sibling-implementation-comparison genre | daemon
+reference-for-future-work | daemon
+reference-not-substrate stance | daemon
+Chip Morningstar agentmask service discovery | daemon
+SwingSet-derived kernel-vat architecture | daemon
+30 packages 6 docs monorepo | daemon
+Ken protocol HPL-2010-155 | daemon
+Output-Valid Rollback-Recovery | daemon
+Kelly Karp Stiegler Close Cho | daemon
+exactly-once delivery FIFO | daemon
+output validity transactional turns | daemon
+consistent frontier local recovery | daemon
+sender-based message logging | daemon
+deferred transmission cumulative ACK | daemon
+named-protocol-as-acceptance-criterion | daemon
+self-assessment-against-named-protocol | daemon
+crank-buffering atomic-output-or-rollback | daemon
+CrankBuffer enqueueSend enqueueNotify | daemon
+database savepoint transactional crank | daemon
+kref vref rref eref four-layer name-space | daemon
+canonical-vocabulary survey | daemon
+kernel manager vats distributed objects | daemon
+vat unit of compute | daemon
+baggage persistent key-value storage | daemon
+bootstrap vat root object | daemon
+exo makeDefaultExo @metamask/kernel-utils/exo | daemon
+forbid-direct-Far in favor of makeDefaultExo wrapper | daemon
+endowment capability | daemon
+kernel service registerKernelServiceObject | daemon
+VatSupervisor VatHandle | daemon
+KernelQueue KernelRouter KernelServiceManager | daemon
+SubclusterManager system subcluster | daemon
+clist capability list bidirectional mapping | daemon
+channel BaseDuplexStream | daemon
+stream remote async iterator @endo/stream lineage | daemon
+subcluster ClusterConfig | daemon
+run queue crank one item per | daemon
+ocap-kernel garbage collection mutually independent | daemon
+revocation revoke kref | daemon
+@metamask/superstruct runtime type checking | daemon
+type-not-interface TypeScript discipline | daemon
+never-enum string literal unions | daemon
+public-private-namespace-split @metamask/ @ocap/ | daemon
+queued-for-future-cycles ingestion plan | daemon
+ken-protocol-assessment.md doc | daemon
+kernel-guide.md doc | daemon
+identity-backup-recovery BIP39 mnemonic | daemon
+platform-specific.md Node browser split | daemon
+kernel-store SQLite WASM | daemon
+streams package SES-compatible | daemon
+remote-iterables Remotable iterable objects | daemon
+llm-bridge Unix-socket IOChannel | daemon
+service-matcher service-discovery-types | daemon
+kernel-test kernel-test-local | daemon
+omnium-gatherum miscellaneous collection | daemon
+ocap-kernel HEAD a3eff0efb 2026-05-28 | daemon
+user-directed manual ingest | daemon
+between cycles 161 162 | daemon
+does not consume autonomous lane-rotation slot | daemon
