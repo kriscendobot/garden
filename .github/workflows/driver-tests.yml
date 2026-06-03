@@ -42,11 +42,12 @@ jobs:
           git config --global user.name "ci-bot"
           git config --global user.email "ci-bot@example.invalid"
 
-      - name: shellcheck (driver + daemons + watcher stub + cleaner + per-test scripts)
+      - name: shellcheck (driver + daemons + watcher stub + cleaner + checks + per-test scripts)
         # Lint the in-PR bash artifacts. Scope is the driver, the daemon
         # management wrappers, the stub feed watcher, the cleaner
-        # skeleton, the gardener-inbox error reporter, and the driver
-        # tests harness. Pre-existing scripts outside this scope have
+        # skeleton, the gardener-inbox error reporter, the pre-dispatch
+        # grep-gate runner and gates, and the driver / checks test
+        # harnesses. Pre-existing scripts outside this scope have
         # known issues unrelated to this PR; widening the lint surface
         # is a separate effort.
         run: |
@@ -58,6 +59,9 @@ jobs:
             scripts/daemons/logs.sh \
             scripts/daemons/config.sh.example \
             scripts/watcher/endo-but-for-bots/watcher.sh \
+            scripts/checks/run-all.sh \
+            scripts/checks/bench-engines-rename/check.sh \
+            scripts/checks/double-space-sentence-separator/check.sh \
             skills/cleaner/cleaner.sh \
             skills/cleaner/test-cleaner.sh \
             skills/gardener-inbox-error-reporting/report-error.sh \
@@ -66,7 +70,11 @@ jobs:
             tests/driver/test_skeleton.sh \
             tests/driver/test_design_only_happy_path.sh \
             tests/driver/test_loop_capture_and_self_improve.sh \
-            tests/driver/test_trap_fires_on_error.sh
+            tests/driver/test_trap_fires_on_error.sh \
+            tests/checks/run.sh \
+            tests/checks/test_bench_engines_rename.sh \
+            tests/checks/test_double_space_sentence_separator.sh \
+            tests/checks/test_run_all.sh
 
       - name: bash -n (syntax check, all scripts/ and skill main scripts)
         # Syntactic check on every shell script under scripts/ and skills/.
@@ -88,6 +96,9 @@ jobs:
 
       - name: Run driver script tests
         run: bash tests/driver/run.sh
+
+      - name: Run pre-dispatch grep-gate tests
+        run: bash tests/checks/run.sh
 
       - name: Run cleaner skeleton self-test
         run: bash skills/cleaner/test-cleaner.sh
