@@ -4794,3 +4794,71 @@ delivery kernel-to-vat call | daemon
 subcluster ClusterConfig | daemon
 kernel-service in-kernel-context method | daemon
 57+ consecutive papers-lane blocks | daemon, captp, capability-security
+queued-doc-3 from cycle 161 overview | daemon, capability-security, persistence
+human-portable-cryptographic-identity-surface | daemon, capability-security, persistence
+BIP39 mnemonic phrase identity backup recovery | daemon, capability-security, persistence
+identity-from-seed-not-from-storage | daemon, capability-security, persistence
+portability-equals-determinism-of-derivation | daemon, capability-security, persistence
+identity-recovery-equals-seed-recovery | daemon, capability-security, persistence
+identity-is-a-derivation-chain-not-a-stored-blob | daemon, capability-security, persistence
+identity-flows-through-the-stack | daemon, capability-security, persistence
+PBKDF2-HMAC-SHA512 2048 iterations empty passphrase | daemon, capability-security
+standard BIP39 test vector compatibility | daemon, capability-security
+twelve-or-twenty-four-words 12 15 18 21 24 | daemon, capability-security
+human-readable-entropy-encoding | daemon, capability-security
+write-down-on-paper backup mechanism | daemon, capability-security
+five-supported-lengths 128 160 192 224 256 bits | daemon, capability-security
+Ed25519 keypair generation from seed | daemon, capability-security
+libp2p peer-id multihash | daemon, capability-security
+generateMnemonic isValidMnemonic mnemonicToSeed | daemon, capability-security
+generateKeyPairFromSeed peerIdFromPrivateKey | daemon, capability-security
+Kernel.make options mnemonic resetStorage | daemon, capability-security, persistence
+initRemoteComms relays mnemonic | daemon, capability-security
+mnemonicToSeed-is-irreversible one-way derivation | daemon, capability-security
+store-the-mnemonic-not-the-seed | daemon, capability-security
+opt-in-recoverability pre-commit-design | daemon, capability-security, persistence
+random-seeds-cannot-be-mnemonicized-after-the-fact | daemon, capability-security, persistence
+generate-mnemonic-first pattern recommended | daemon, capability-security
+four-scenario decomposition scenario-as-named-flow | daemon, capability-security
+scenario-1 create recoverable identity | daemon, capability-security
+scenario-2 random identity no backup | daemon, capability-security
+scenario-3 recover on new device | daemon, capability-security
+scenario-4 verify before migration | daemon, capability-security
+dry-run-derive-without-init | daemon, capability-security
+verify-before-recovery pattern | daemon, capability-security
+compare-with-known-good-identity | daemon, capability-security
+don't-trust-user-input-blindly | daemon, capability-security
+the-utility-functions-are-pieces-not-just-private-implementation | daemon, capability-security
+existing-identity-conflict-guard | daemon, capability-security, persistence
+refuse-to-overwrite-existing-identity | daemon, capability-security, persistence
+explicit-opt-in-via-resetStorage | daemon, capability-security, persistence
+single-mistake-cannot-overwrite-identity | daemon, capability-security, persistence
+error-message-is-actionable | daemon, capability-security
+two-step-explicit-confirmation | daemon, capability-security
+two-API-locations-with-explicit-precedence-rule | daemon, capability-security
+last-write-wins precedence | daemon, capability-security
+avoid-silent-disagreement | daemon, capability-security
+six-security-best-practices generate-first never-log clear-from-memory secure-input verify store-securely | daemon, capability-security
+principle-of-least-authority-applied-to-secrets-too | daemon, capability-security
+each-is-a-named-rule-not-vague-suggestion | daemon, capability-security
+minimize-memory-residency | daemon, capability-security
+don't-touch-the-clipboard avoid clipboard-readers | daemon, capability-security
+digital-backup-as-attack-surface | daemon, capability-security
+don't-invent-your-own-crypto | daemon, capability-security
+use-standard-test-vectors | daemon, capability-security
+interoperability-as-design-axiom | daemon, capability-security
+key-reuse-hazard mnemonic shared with wallet | daemon, capability-security
+two-factor-secret passphrase-as-deniable | daemon, capability-security
+peer-id-from-seed Tier-1 vocabulary borrowing | daemon, capability-security, persistence
+mnemonic-as-portable-backup Tier-1 vocabulary borrowing | daemon, capability-security, persistence
+resetStorage-conflict-guard Tier-1 vocabulary borrowing | daemon, capability-security, persistence
+verify-before-recovery Tier-1 vocabulary borrowing | daemon, capability-security, persistence
+opt-in-recoverability Tier-2 vocabulary borrowing | daemon, capability-security, persistence
+dry-run-derive-step Tier-2 vocabulary borrowing | daemon, capability-security, persistence
+user-portable-daemon-identity synthesis target | daemon, capability-security, persistence
+reference-with-runnable-examples doc genre | daemon, capability-security
+every-API-method-has-a-code-example | daemon, capability-security
+every-scenario-is-end-to-end-runnable | daemon, capability-security
+errors-shown-as-exact-strings | daemon, capability-security
+Bewlay locator path-like address Endo | daemon, capability-security, persistence
+58+ consecutive papers-lane blocks | daemon, capability-security, persistence
