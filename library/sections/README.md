@@ -781,4 +781,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-ci-no-npm-lifecycle--{three-layer-auditable-lifecycle-script-defense-with-belt-and-suspenders-env-and-CI-lint}
 
-## Total: 657 sections from 198 source documents (through 2026-06-03).
+### From endo packages/captp/src/trap.js longform comments (cycle 154, **thirty-sixth comment-fragment ingest**; **first @endo/captp source file ingested**; 105-line synchronous-CapTP proxy surface; *Lifted mostly from `@endo/eventual-send/src/E.js`* (cycle 146); §sibling-via-lifting relationship; §shared-shape-different-semantics — synchronous-blocking vs eventual-send; §three-method-TrapImpl (applyFunction / applyMethod / get); §narrowed-API-for-narrower-semantics (no promise-related methods); **single most structurally interesting move**: §no-`this`-receiver-check via §arrow-function-is-already-detach-safe property; §baseFreezableProxyHandler + §funcTarget + §objTarget all identical to E.js with §verbatim-comment-shared-across-derived-files pattern; §code-reuse-via-duplication-not-via-shared-import preserves package independence; §nearTrapImpl default with §local-fast-path-via-trivial-impl; §makeTrap §callable-with-methods; §has-trap with §honest-TODO about wire transferrability; same coordinated-update commit `e56bf00f` as cycles 108/110/115/118/123/125/132/134/136/138/140/144/148/150/152/154 (16-file cluster); cycle 154 was nominally chat-lane (exhausted at 20/20); papers-lane blocked 48+ consecutive cycles)
+
+- endo--packages-captp-src-trap-js--{Trap-synchronous-CapTP-proxy-lifted-from-E.js-with-three-method-TrapImpl-and-no-this-receiver-check}
+
+## Total: 658 sections from 199 source documents (through 2026-06-03).

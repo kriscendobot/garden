@@ -4292,3 +4292,32 @@ batch-of-seven-proposals same day | tooling
 self-contained-by-construction | tooling
 PR 126 ddbc8ad7e | tooling
 master-base mirror PR 250 | tooling
+trap.js Trap synchronous CapTP proxy | captp
+Lifted mostly from @endo/eventual-send/src/E.js | captp
+sibling-via-lifting relationship | captp
+shared-shape-different-semantics | captp
+synchronous-blocking vs eventual-send | captp
+three-method TrapImpl applyFunction applyMethod get | captp
+nearTrapImpl default local fast-path | captp
+TrapProxyHandler arrow function | captp
+narrowed-API-for-narrower-semantics | captp
+no-this-receiver-check | captp
+arrow-function-is-already-detach-safe | captp
+baseFreezableProxyHandler identical to E.js | captp
+funcTarget objTarget freeze-not-harden | captp
+verbatim-comment-shared-across-derived-files | captp
+code-reuse-via-duplication-not-via-shared-import | captp
+preserves package independence | captp
+local-fast-path-via-trivial-impl | captp
+minimal-trampoline form | captp
+makeTrap factory callable-with-methods | captp
+Trap function plus .get property | captp
+simpler-shape-because-fewer-methods | captp
+has-trap with honest TODO | captp
+has property not yet transferrable over captp | captp
+honest-acknowledgment-of-API-gap | captp
+cite-the-missing-feature naming | captp
+first captp source file ingested | captp
+SharedArrayBuffer Atomics.wait substrate | captp
+synchronous-CapTP via Atomics | captp
+captp cluster six source files | captp
