@@ -11,8 +11,10 @@
 #   GATE_REPO_ROOT  the directory to scan (default: $PWD).
 #
 # Output: prints matching lines to stderr. Exits 0 if clean, 1 if any
-# match is found. Excludes the gate's own files (this directory) so
-# the documentation that names the antipattern does not trigger.
+# match is found. Excludes the gate's own files plus the infrastructure
+# that names the antipattern by example (the runner index, the
+# corresponding test suite). Anything else carrying the string is a
+# genuine offender.
 
 set -uo pipefail
 
@@ -21,16 +23,24 @@ test -d "$REPO_ROOT" || { echo "bench-engines-rename: REPO_ROOT not a directory:
 
 cd "$REPO_ROOT" || { echo "bench-engines-rename: cd failed: $REPO_ROOT" >&2; exit 2; }
 
-# Use git grep when inside a repo (faster, respects .gitignore); fall
-# back to a recursive grep when not. Both surface filename:line:text.
-exclude_self=":!scripts/checks/bench-engines-rename/"
+# Infrastructure that legitimately names the antipattern. Adding to
+# this list is a judgment call: the legitimate-mention files are the
+# gate's own subdirectory, the runner index that lists installed gates,
+# and the smoke-test file. Anywhere else, the string is an offender.
+EXCLUDE_PATHS=(
+  ":!scripts/checks/bench-engines-rename/"
+  ":!scripts/checks/README.md"
+  ":!tests/checks/test_bench_engines_rename.sh"
+)
 
 if git rev-parse --git-dir >/dev/null 2>&1; then
-  hits=$(git grep -nF '.bench-engines' -- "$exclude_self" 2>/dev/null || true)
+  hits=$(git grep -nF '.bench-engines' -- "${EXCLUDE_PATHS[@]}" 2>/dev/null || true)
 else
   hits=$(grep -RnF --exclude-dir=.git \
     --exclude-dir=node_modules \
     --exclude-dir=scripts/checks/bench-engines-rename \
+    --exclude="README.md" \
+    --exclude="test_bench_engines_rename.sh" \
     '.bench-engines' . 2>/dev/null || true)
 fi
 
