@@ -3894,3 +3894,36 @@ unforgeable revocable proxy primitive | marshal
 ocap substrate composes into revocable proxy | marshal
 revocable membrane capability primitive | marshal
 Turadg Aleahmad commit ec42cb7b | marshal
+formula inspector pop the bonnet | daemon
+26 formula types | daemon
+pet-name-hides-the-formula | daemon
+rendered value vs richer formula structure | daemon
+InspectorHub.lookup petName | daemon
+makePetStoreInspector daemon.js 3210-3319 | daemon
+formula type-specific metadata | daemon
+eval lookup guest make-bundle make-unconfined peer | daemon
+endowments source worker hub path NODE ADDRESSES | daemon
+formula-references-as-clickable-links | daemon
+formula-graph-as-hypertext | daemon
+navigation-via-formula-identifiers | daemon
+walk the formula graph node by node | daemon
+edit-toggle-with-revise-API | daemon
+read-only-default-edit-toggle-opt-in | daemon
+E(agent).revise petName patch | daemon
+revised-formula-identifier return | daemon
+validation-on-revise discipline | daemon
+worker field must reference valid worker formula | daemon
+retention-path-reveal facility | daemon
+every retention path in the formula graph | daemon
+why-retention-paths-matter | daemon
+removing last retention path GCs the formula | daemon
+endo inspect name CLI command | daemon
+two-surfaces-one-API discipline | daemon
+host-level authority for revise | daemon
+audit-trail-on-revise | daemon
+inspection-vs-editing-security-asymmetry | daemon
+three-affected-packages partition | daemon
+thin-API-thick-UI principle | daemon
+Not-Started-design-as-roadmap | daemon
+existing-API-leverage observation | daemon
+Maybe-prefix-on-tests discipline | daemon

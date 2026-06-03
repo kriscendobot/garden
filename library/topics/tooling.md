@@ -70,6 +70,7 @@
 | [endo--pkg-ses-readme--install](../sections/endo--pkg-ses-readme--install.md) | endo packages/ses/README.md | Install via npm/yarn: npm install @endo/ses or yarn add @endo/ses. |
 | [endo--pkg-stream-node-readme--overview](../sections/endo--pkg-stream-node-readme--overview.md) | endo packages/stream-node/README.md | Node.js-specific transport bindings for @endo/stream. |
 | [endo--pkg-trampoline-readme--install](../sections/endo--pkg-trampoline-readme--install.md) | endo packages/trampoline/README.md | npm install @endo/trampoline. |
+| [endo-but-for-bots--llm-designs-formula-inspector--pop-the-bonnet-on-pet-named-capabilities-with-edit-toggle-and-retention-path-reveal](../sections/endo-but-for-bots--llm-designs-formula-inspector--pop-the-bonnet-on-pet-named-capabilities-with-edit-toggle-and-retention-path-reveal.md) | endo-but-for-bots designs/formula-inspector.md (Not Started) | **The "pop-the-bonnet" debug-tool design** — formula inspector panel + `endo inspect <name>` CLI command surface the daemon's 26-formula-type structure to the user. §Two-surfaces-one-API discipline (UI panel + CLI command both backed by existing `InspectorHub.lookup(petName)` API). §Edit-toggle-with-revise-API: §read-only-default + opt-in edit-toggle; new daemon method `E(agent).revise(petName, patch)`. §Retention-path-reveal facility (cycle 49's retention-path-notation visualized). §Three-affected-packages partition (daemon + chat + cli) with §thin-API-thick-UI principle. |
 
 ## See also
 

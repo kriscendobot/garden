@@ -745,4 +745,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-marshal-src-dot-membrane-js--{membrane-via-marshal-with-mirror-converters-and-revocation-by-undefining-the-mineToYours-WeakMap}
 
-## Total: 648 sections from 189 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/formula-inspector.md (cycle 145, **thirty-fourth-comment-style design ingest**; cycle 145 pivot after duplicate-skip of `gateway-bearer-token-auth.md` per source-slug duplicate-check discipline (was ingested 2026-05-14 with 3 sections under `endo-but-for-bots--llm-designs-gbta--*`); 110-line *Not Started* design surfaces the daemon's 26-formula-type structure via a chat-UI inspector panel + `endo inspect <name>` CLI mirror; §load-bearing-metaphor *popping the bonnet*; §edit-toggle-with-revise-API discipline; §retention-path-reveal facility ties to cycle 49's retention-path-notation cluster; §three-affected-packages partition with §thin-API-thick-UI principle; cycle 145 papers-lane block 39+ pivot to designs lane)
+
+- endo-but-for-bots--llm-designs-formula-inspector--{pop-the-bonnet-on-pet-named-capabilities-with-edit-toggle-and-retention-path-reveal}
+
+## Total: 649 sections from 190 source documents (through 2026-06-03).
