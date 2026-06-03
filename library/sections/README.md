@@ -717,4 +717,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo-but-for-bots--llm-designs-daemon-message-streaming--{streamReply-and-streamSend-with-stream-formula-and-CapTP-rides-method-calls}
 
-## Total: 641 sections from 182 source documents (through 2026-06-03).
+### From endo packages/pass-style/src/safe-promise.js longform comments (cycle 138, **twenty-eighth comment-fragment ingest; defines what a safe promise is for Hardened JS; four-conjunction check (isFrozen + isPromise + Promise.prototype-direct-inheritance + own-keys-clean); §Node-async_hooks-explicit-allowlist with §cite-Node-source-verbatim-in-comment discipline; §Reentrancy-via-test-itself meta-hazard; cycle 138 chat-lane exhaustion pivot to comments-lane**)
+
+- endo--packages-pass-style-src-safe-promise-js--{safe-promise-definition-with-toStringTag-tolerance-and-node-async-hooks-explicit-allowlist}
+
+## Total: 642 sections from 183 source documents (through 2026-06-03).

@@ -3682,3 +3682,33 @@ stream cancellation by recipient | daemon
 Joshua T Corbin jcorbin (evoked) attribution | daemon
 PR #287 daemon-message-streaming Phase 1 | daemon
 first non-Kris-Kowal daemon design | daemon
+safe-promise definition Hardened JS | pass-style
+isSafePromise assertSafePromise | pass-style
+confirmSafePromise four-conjunction check | pass-style
+safety-via-no-reentrancy-during-then | pass-style
+reentrancy attack via then override | pass-style
+isFrozen frozen-promise invariant | pass-style
+isPromise from @endo/promise-kit realm-independent | pass-style
+Promise.prototype direct inheritance | pass-style
+strict-prototype-check rules out subclasses | pass-style
+confirmPromiseOwnKeys allowlist | pass-style
+@@toStringTag tolerance only symbol own property | pass-style
+toStringTag must be data property not accessor | pass-style
+toStringTag value must be string | pass-style
+toStringTag must not be enumerable | pass-style
+Node async_hooks explicit allowlist | pass-style
+cite-Node-source-verbatim-in-comment | pass-style
+host source code part of safety surface | pass-style
+destroyTracking trackPromise registerDestroyHook | pass-style
+async_id_symbol asyncId number | pass-style
+destroyedSymbol destroyed false | pass-style
+three Node async_hooks shapes allowed | pass-style
+reentrancy-via-test-itself meta-hazard | pass-style
+agoric-sdk issue 9 safe promise testing | pass-style
+honest-limitation discipline JSDoc admits gap | pass-style
+hideAndHardenFunction vs harden | pass-style
+assertion function name hidden from stack trace | pass-style
+rejector-as-callback pattern | pass-style
+isXxx vs assertXxx rejector wrap | pass-style
+safe-promises not themselves a pass-style | pass-style
+pre-condition for safe pass-by-reference | pass-style
