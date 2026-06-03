@@ -113,10 +113,21 @@ require_driver_home() {
         echo "not touch)." >&2
         exit 1
     fi
-    if [[ "$(cd "$DRIVER_HOME" && pwd)" == "$SCRIPT_DIR" ]]; then
-        echo "DRIVER_HOME resolves to the garden root: $SCRIPT_DIR" >&2
-        echo "This is not allowed: the kriscendobot identity must not have" >&2
-        echo "filesystem access to the garden or journal git worktrees." >&2
+    # The dangerous case is DRIVER_HOME pointing at the active garden
+    # operating root, whose distinctive markers are the live orchestrator
+    # state directories dispatches/ and worktrees/ (per-dispatch worktrees
+    # and bare fork clones the steward and liaison populate). The driver
+    # has its own local journal/ (a standalone git repo that a separate
+    # endolinbot sync process later moves upstream), so journal/ alone
+    # is not a danger marker.
+    local driver_home_resolved
+    driver_home_resolved="$(cd "$DRIVER_HOME" && pwd)"
+    if [[ -d "$driver_home_resolved/dispatches" \
+       || -d "$driver_home_resolved/worktrees" ]]; then
+        echo "DRIVER_HOME appears to be the active garden operating root:" >&2
+        echo "  $driver_home_resolved" >&2
+        echo "It contains dispatches/ or worktrees/ — orchestrator-only state" >&2
+        echo "the kriscendobot identity must not have filesystem access to." >&2
         echo "Point DRIVER_HOME at a separate host directory." >&2
         exit 1
     fi
@@ -153,10 +164,29 @@ cmd_up() {
             "${api_key_args[@]}" \
             "$IMAGE_NAME" >/dev/null
         echo "Started container '$CONTAINER_NAME' (bind mount: $DRIVER_HOME)."
+        wait_for_user_bus
     elif [[ "$(docker container inspect -f '{{.State.Running}}' "$CONTAINER_NAME")" != "true" ]]; then
         docker start "$CONTAINER_NAME" >/dev/null
         echo "Started existing container '$CONTAINER_NAME'."
+        wait_for_user_bus
     fi
+}
+
+# Block until kris's per-user systemd bus is reachable, so that
+# subsequent `systemctl --user` calls (in cmd_daemons and friends)
+# don't race the container's boot. systemd needs to bring up
+# user@1000.service after the container starts, which takes a few
+# seconds on a cold boot.
+wait_for_user_bus() {
+    local deadline=$((SECONDS + 30))
+    while (( SECONDS < deadline )); do
+        if docker exec "$CONTAINER_NAME" test -S /run/user/1000/bus 2>/dev/null; then
+            return 0
+        fi
+        sleep 1
+    done
+    echo "warning: user@1000 bus did not appear within 30s; daemon commands may fail" >&2
+    return 1
 }
 
 cmd_enter() {
@@ -192,7 +222,14 @@ cmd_logs() {
 cmd_daemons() {
     local script=$1
     cmd_up
-    docker exec -u kris "$CONTAINER_NAME" "/home/kris/scripts/daemons/${script}.sh"
+    # The daemon scripts use `systemctl --user`, which needs the
+    # XDG_RUNTIME_DIR and DBUS_SESSION_BUS_ADDRESS env vars to find
+    # the per-user systemd manager's bus. `docker exec -u kris`
+    # (without a login shell) does not set these.
+    docker exec -u kris \
+        -e XDG_RUNTIME_DIR=/run/user/1000 \
+        -e DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
+        "$CONTAINER_NAME" "/home/kris/scripts/daemons/${script}.sh"
 }
 
 if [[ $# -eq 0 ]]; then

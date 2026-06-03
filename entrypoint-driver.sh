@@ -83,9 +83,14 @@ chown -h kris:kris \
     "$HOME_DIR/.config/git/config" \
     2>/dev/null || true
 
-# Ensure the systemd user-unit symlinks are owned by kris too.
+# Ensure the systemd user-unit symlinks AND the enclosing directories
+# are owned by kris. systemctl --user enable creates a
+# default.target.wants/ subdirectory under SYSTEMD_USER_DIR; the parent
+# .config/systemd tree must be writable by kris or `enable` fails with
+# "Access denied" and the units run only as long as the current
+# container does (no auto-start on container restart).
 if [[ -d "$SYSTEMD_USER_DIR" ]]; then
-    chown -h kris:kris "$SYSTEMD_USER_DIR"/*.service 2>/dev/null || true
+    chown -R kris:kris "$HOME_DIR/.config/systemd" 2>/dev/null || true
 fi
 
 # --- exec PID 1 -------------------------------------------------------
