@@ -1,6 +1,6 @@
 ---
 created: 2026-06-02
-updated: 2026-06-02
+updated: 2026-06-03
 author: gardener
 ---
 
@@ -22,7 +22,7 @@ If the claim is already covered by an existing parity test in the same package, 
 
 A parity test is a pair, plus the shared fixture and assertions module they both use:
 
-1. **Shared fixture**, a directory under `packages/<pkg>/test/fixtures-<name>/node_modules/app/`. Real on-disk modules a real loader can resolve, not inline source. The fixture is the single source of truth for the topology under test; both sides of the parity pair load it.
+1. **Shared fixture**, a directory under `packages/<pkg>/test/fixtures-<name>/node_modules/app/`. Real on-disk modules a real loader can resolve, not inline source. The fixture is the single source of truth for the topology under test; both sides of the parity pair load it. The fixture's `package.json` carries a `preinstall` script that aborts installation (`"preinstall": "echo DO NOT INSTALL TEST FIXTURES; exit -1"`) so a stray workspace `yarn install` cannot accidentally hoist the fixture into the monorepo's node_modules tree.
 
 2. **Shared assertions module**, `packages/<pkg>/test/_<name>-assertions.js`. Exports a function `assert<Name>(t, namespace)` (or similar shape) that takes an Ava test context and the loaded namespace and runs the expectations. Imported by both tests, so the expected values live in exactly one place.
 
@@ -109,13 +109,18 @@ If the topology is small enough that the parity test would only assert one value
 
 ## Reference implementations
 
-In `endojs/endo-but-for-bots:llm` (and ferried to `endojs/endo:master`):
+In `endojs/endo-but-for-bots:llm` (and ferried to `endojs/endo:master`), four parity pairs landed during the endojs/endo#59 work:
 
-- **Convergence shape**:
+- **Convergence shape (populated live binding)**:
   - `packages/compartment-mapper/test/cycle-rename.test.js`
   - `packages/compartment-mapper/test/cycle-rename-node-parity.test.js`
   - `packages/compartment-mapper/test/_cycle-rename-assertions.js`
   - `packages/compartment-mapper/test/fixtures-cycle-rename/`
+- **Convergence shape (unused live binding)**:
+  - `packages/compartment-mapper/test/cycle-rename-unused.test.js`
+  - `packages/compartment-mapper/test/cycle-rename-unused-node-parity.test.js`
+  - `packages/compartment-mapper/test/_cycle-rename-unused-assertions.js`
+  - `packages/compartment-mapper/test/fixtures-cycle-rename-unused/`
 - **Convergence shape (CommonJS reexporter)**:
   - `packages/compartment-mapper/test/cycle-cjs-reexporter.test.js`
   - `packages/compartment-mapper/test/cycle-cjs-reexporter-node-parity.test.js`
@@ -125,8 +130,9 @@ In `endojs/endo-but-for-bots:llm` (and ferried to `endojs/endo:master`):
   - `packages/compartment-mapper/test/cycle-esm-in-cjs.test.js`
   - `packages/compartment-mapper/test/cycle-esm-in-cjs-node-parity.test.js`
   - `packages/compartment-mapper/test/fixtures-cycle-esm-in-cjs/`
+  - No shared assertion module: the two sides verify opposite outcomes on the same fixture, so the expected-values-in-one-place property does not apply.
 
-The cycle-esm-in-cjs divergence pair shows the `spawnSync` + `stderr` regex shape; the other two show the in-process `import()` + shared assertions shape.
+The cycle-esm-in-cjs divergence pair shows the `spawnSync` + `stderr` regex shape; the other three show the in-process `import()` + shared assertions shape.
 
 ## Composition with neighbouring testing skills
 
@@ -144,3 +150,5 @@ The cycle-esm-in-cjs divergence pair shows the `spawnSync` + `stderr` regex shap
 ## Notes from the field
 
 - _2026-06-02_: skill landed by gardener after `skills/node-parity-test/SKILL.md` was requested by kriskowal via `journal/entries/2026/06/02/044500Z-message-gardener-0f7ad5.md`. Precipitating evidence: review on `endojs/endo-but-for-bots#379` (`pullrequestreview-4406498236`, inline `r3338685696`) asking that parity claims be substantiated with parity tests rather than left as narrative. The four-artifact convention codified here predates the request (the `cycle-rename` pair on the same PR is the prototype); the skill names it explicitly so future builder, fixer, and justice dispatches have a citable norm.
+
+- _2026-06-03_: fixer audit on PR #379 (head `f1a7dfb60`) confirmed the convention end-to-end and added a fourth parity pair (`cycle-rename-unused`) for the unused-live-binding shape, alongside the cycle-rename, cycle-cjs-reexporter convergence pairs and the cycle-esm-in-cjs divergence pair. The fixer's `message: fixer → gardener` (`journal/entries/2026/06/03/055906Z-message-fixer-40ac9b.md`) reinforces the convention against a second-pass audit and is the precipitating evidence for the *Reference implementations* expansion to four entries here. Also added: the fixture-`package.json` `preinstall` script that aborts installation so a stray workspace `yarn install` cannot accidentally hoist the fixture into the monorepo's node_modules tree (detail surfaced by the audit and now folded into the *four-artifact layout* section).
