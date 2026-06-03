@@ -689,4 +689,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-eventual-send-src-message-breakpoints-js--{three-axis-match-grammar-with-external-internal-transpose-and-countdown-semantics}
 
-## Total: 634 sections from 175 source documents (through 2026-06-02).
+### From endo-but-for-bots designs/endopi-prompt-templates.md (cycle 131, **ninth and FINAL endopi-* design ingest + twenty-seventh-comment-style design ingest; endopi-* family is now 9/9 COMPLETE across 19 cycles (112 → 131); §editor-expansion-not-agent-invocation distinction; template-is-text-not-trigger discipline; the smallest endopi-* design (104 lines); cycle 131 papers-lane block 25+ pivot to designs lane**)
+
+- endo-but-for-bots--llm-designs-endopi-prompt-templates--{mustache-placeholder-editor-expansion-not-agent-invocation-with-shared-discovery-walker}
+
+## Total: 635 sections from 176 source documents (through 2026-06-02).

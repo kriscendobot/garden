@@ -3466,3 +3466,28 @@ predates the @endo/harden migration | eventual-send
 freeze without harden | eventual-send
 getEnvironmentOption caller-supplied optionName | eventual-send
 isJSONRecord predicate | eventual-send
+endopi-prompt-templates Mustache placeholders | agent-conventions
+template is editor expansion not agent invocation | agent-conventions
+template-is-text-not-trigger discipline | agent-conventions
+slash templatename autocomplete expansion | agent-conventions
+agent loop does not run until user presses Enter | agent-conventions
+double-brace variable interpolation | agent-conventions
+form-field prompts for missing variables | agent-conventions
+bash-style positional arguments inline | agent-conventions
+two-modes-for-one-knob | agent-conventions
+shared-discovery-walker with skills | agent-conventions
+parallel-paths-with-cross-harness-aliasing | agent-conventions
+.pi/ for Pi .agents/ for cross-harness | agent-conventions
+walk up from cwd for project override | agent-conventions
+template body can reference a skill | agent-conventions
+natural composition via text not API | agent-conventions
+slash skill colon name in user message | agent-conventions
+endopi family 9 of 9 complete | agent-conventions
+endopi family arc closure 19 cycles | agent-conventions
+smallest endopi design 104 lines | agent-conventions
+follow Pi for simplicity discipline | agent-conventions
+no autonomous execution endoclaw proactive-messages territory | agent-conventions
+no variable types beyond strings | agent-conventions
+plain string substitution Pi convention | agent-conventions
+one-walker-many-resource-kinds substrate-reuse | agent-conventions
+prompts directory consumer for cycle 129 unifier | agent-conventions
