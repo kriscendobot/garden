@@ -4489,3 +4489,47 @@ test-utility-composes-substrate | captp
 distributed-protocol-test-fixture-as-genre | captp
 third @endo/captp source file ingested | captp
 17-file coordinated-update cluster | captp
+daemon-debug-worker-restart design | daemon
+debugWorker pet name | daemon
+restart worker from snapshot with debugger active | daemon
+too-late-by-the-time-debugger-attaches | daemon
+hot-attach vs cold-attach debugger | daemon
+XS engine paused before any code | daemon
+breakpoints set before any code runs | daemon
+three-invariants | daemon
+enumerate-the-invariants pattern | daemon
+user-facing-one-method | daemon
+XS <login> break | daemon
+pause-by-default-explicit-resume | daemon
+compose-existing-not-invent-new | daemon
+don't-invent-restart-as-a-concept | daemon
+preserve-identity-across-snapshot | daemon
+two-approaches-considered | daemon
+debug-flag-plus-normal-resume | daemon
+minimize-protocol-additions | daemon
+flag-set-before-action-not-action-with-flag | daemon
+fire-and-forget-control-verb nonce 0 | daemon
+debug_flags HashSet Handle | daemon
+take_debug_flag atomic remove | daemon
+one-shot-flag-not-persistent | daemon
+opt-in-per-resume | daemon
+six-step JS manager implementation | daemon
+inbox-as-resume-trigger | daemon
+opportunistic-shortcut | daemon
+debug-ping no-op message | daemon
+XS-debug-loop-fires-at-machine-creation | daemon
+earliest-possible-break | daemon
+metering-survives-debug-restart | daemon
+debug-doesn't-grant-unlimited-computation | daemon
+existing-mechanism-handles-escape-hatch | daemon
+meterSetQuota hard_limit 0 | daemon
+escape-hatch-exists-elsewhere | daemon
+CapTP-connections-broken acceptance | daemon
+accept-the-cost-because-developer-tool | daemon
+don't-build-the-proxy-layer-for-now | daemon
+user's-perspective-not-implementation-detail | daemon
+debugWorker not restartWorkerInDebugMode | daemon
+five Design Decisions coherent-shape | daemon
+phased-with-tests pattern | daemon
+thin-layer-on-thick-substrate | daemon
+runtime-introspection-duo with cycles 145+147 | daemon

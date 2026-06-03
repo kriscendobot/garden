@@ -801,4 +801,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-captp-src-loopback-js--{two-CapTP-instances-cross-wired-with-shared-bootstrap-and-synchronous-trap-bridge}
 
-## Total: 662 sections from 203 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/daemon-debug-worker-restart.md (cycle 159, **forty-first-comment-style design ingest**; 386-line *Not Started* compose-existing-not-invent-new design; adds one method `E(host).debugWorker('@main')` without any new supervisor primitive; §load-bearing-gap (existing debugger hot-attaches to running worker — §too-late-by-the-time-debugger-attaches); §three-invariants; **single most structurally interesting move**: §compose-existing-not-invent-new (Design Decision 1) — mechanism = suspend (existing) + debug-flag (one new verb) + resume (existing path + one branch); §don't-invent-restart-as-a-concept; §preserve-identity-across-snapshot; §two-approaches-considered with §chosen-debug-flag-plus-normal-resume; §minimize-protocol-additions; §flag-set-before-action-not-action-with-flag; §take-atomic-removal with §one-shot-flag-not-persistent; §<login>-break is before any bytecode — §XS-debug-loop-fires-at-machine-creation + §earliest-possible-break; §metering-survives-debug-restart with §debug-doesn't-grant-unlimited-computation; §existing-mechanism-handles-escape-hatch; §CapTP-connections-broken acceptance — §accept-the-cost-because-developer-tool; §five Design Decisions form §coherent-shape; §thin-layer-on-thick-substrate; §runtime-introspection-duo with cycle 145's formula-inspector + cycle 147's workers-panel; cycle 159 papers-lane block 53+ pivot to designs-lane)
+
+- endo-but-for-bots--llm-designs-daemon-debug-worker-restart--{compose-suspend-and-debug-aware-resume-via-debug-flag-with-paused-at-XS-login-break}
+
+## Total: 663 sections from 204 source documents (through 2026-06-03).
