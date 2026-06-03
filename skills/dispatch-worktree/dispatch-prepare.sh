@@ -109,6 +109,19 @@ if [ "$#" -ge 4 ]; then
     rmdir "$ROOT" 2>/dev/null || rm -rf "$ROOT"
     exit 1
   fi
+  # Resolve the target branch into the bare clone's refs/heads/ before the
+  # worktree add. Since the `+refs/heads/*:refs/remotes/origin/*` fetch
+  # refspec (set per WORKTREES.md § Adding a fork worktree) routes every
+  # post-clone branch into refs/remotes/origin/* rather than refs/heads/,
+  # a bare branch name like `ci/cache-playwright-browsers` would not
+  # resolve against a remote-tracking-only ref and `worktree add --detach
+  # <path> <BRANCH>` would fail. Fetching the branch explicitly into
+  # refs/heads/ makes the bare name resolve; the `+` forces an update if
+  # the local head already exists (original-clone branches like `master`).
+  # If the branch exists on neither side the fetch is a no-op and the
+  # worktree add below surfaces the clear "invalid reference" error.
+  git --git-dir="$BARE" fetch --quiet origin \
+    "+refs/heads/${BRANCH}:refs/heads/${BRANCH}" 2>/dev/null || true
   git --git-dir="$BARE" worktree add --detach "$ROOT/project" "$BRANCH" >/dev/null
   git -C "$ROOT/project" config user.name  "$bot_name"
   git -C "$ROOT/project" config user.email "$bot_email"

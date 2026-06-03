@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-06-02
+updated: 2026-06-03
 author: liaison, gardener
 ---
 
@@ -51,6 +51,14 @@ git clone --bare https://github.com/<owner>/<repo>.git \
 # onto a stale tip.
 git -C worktrees/<owner>-<repo>.git config remote.origin.fetch \
   '+refs/heads/*:refs/remotes/origin/*'
+# Consequence to understand: with this refspec, `git fetch origin` routes every
+# branch created AFTER the clone into `refs/remotes/origin/*`, not
+# `refs/heads/*`. Only branches present at clone time (notably `master`) keep a
+# `refs/heads/` head. A bare branch name therefore does not resolve for a
+# post-clone branch. `dispatch-prepare.sh` accounts for this: before
+# `worktree add --detach <path> <branch>` it fetches the target branch
+# explicitly into `refs/heads/<branch>` (`+refs/heads/<branch>:refs/heads/<branch>`)
+# so the bare name resolves whether the branch is original-clone or post-clone.
 
 # Once per bare clone: tell git to ignore our metadata directory in every
 # worktree created from it. The per-worktree `.git` is a *file* (worktree
@@ -160,7 +168,7 @@ DISPATCH_ROOT=$(skills/dispatch-worktree/dispatch-prepare.sh <role> <purpose> [<
 skills/dispatch-worktree/dispatch-teardown.sh "$DISPATCH_ROOT"
 ```
 
-The scripts and their procedural detail live in `skills/dispatch-worktree/` (see [skills/dispatch-worktree/SKILL.md](skills/dispatch-worktree/SKILL.md) for inputs, outputs, contract guarantees, identity pinning, and pitfalls). In summary: `dispatch-prepare.sh` creates the directory, runs `git worktree add --detach` for garden and journal, and (if a project repo and branch are named) for the project. It also pins the bot identity (read from `<garden-root>/.git/config`'s local `user.name` and `user.email`) into each sub-worktree's local config, so a subagent's commits cannot drift to the parent shell's global identity. It prints the dispatch root path on stdout. `dispatch-teardown.sh` runs `git worktree remove --force` for each sub-worktree, then removes the dispatch root directory. It is idempotent: missing pieces are tolerated.
+The scripts and their procedural detail live in `skills/dispatch-worktree/` (see [skills/dispatch-worktree/SKILL.md](skills/dispatch-worktree/SKILL.md) for inputs, outputs, contract guarantees, identity pinning, and pitfalls). In summary: `dispatch-prepare.sh` creates the directory, runs `git worktree add --detach` for garden and journal, and (if a project repo and branch are named) for the project. For the project worktree it first fetches the target branch into the bare clone's `refs/heads/<branch>`, so the bare branch name resolves even though the `+refs/heads/*:refs/remotes/origin/*` fetch refspec (see *Adding a fork worktree* above) routes post-clone branches into `refs/remotes/origin/*` rather than `refs/heads/*`. It also pins the bot identity (read from `<garden-root>/.git/config`'s local `user.name` and `user.email`) into each sub-worktree's local config, so a subagent's commits cannot drift to the parent shell's global identity. It prints the dispatch root path on stdout. `dispatch-teardown.sh` runs `git worktree remove --force` for each sub-worktree, then removes the dispatch root directory. It is idempotent: missing pieces are tolerated.
 
 ### Standing exceptions
 
