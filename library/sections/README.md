@@ -809,4 +809,8 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-marshal-src-marshal-stringify-js--{JSON-equivalent-for-Passable-pure-data-via-badArray-Proxy-that-traps-on-slot-access}
 
-## Total: 664 sections from 205 source documents (through 2026-06-03).
+### From endo-but-for-bots designs/filesystem-watchers.md (cycle 161, **forty-second-comment-style design ingest**; 486-line *Not Started* §parity-fix design by Kris Kowal *(prompted)* sourced from Issue #110; §design-from-sourced-issue lifecycle; §load-bearing-two-fold-problem (§surface-parity + §mechanism-parity); **single most structurally interesting move**: §stat-reconciled-rename-events — fs.watch direction-agnostic 'rename' events reconciled via stat; §in-memory-set-as-truth; §editor-save-dance-coalescing via 50ms debounce; §FilePowers-extension-not-reach-into-Node (§minimal-platform-seam); §MountNameChange-vs-PetStoreNameChange asymmetry (echo of cycle 157); §try-finally-is-load-bearing with §iterator-return-as-cleanup-trigger; §confinement-flows-through-unchanged; §four-alternatives-considered with §three-of-four-deferred and §punt-platform-bindings-to-rust-port; §captured-resolution-trail; §five-Design-Decisions §coherent-discipline; §eight-test-plan with §test-by-absence-of-events idiom; §parity-as-design-axiom; cycle 161 papers-lane block 55+ pivot to designs-lane)
+
+- endo-but-for-bots--llm-designs-filesystem-watchers--{EndoMount-followNameChanges-with-FilePowers-watchDirectory-and-stat-reconciled-rename-events}
+
+## Total: 665 sections from 206 source documents (through 2026-06-03).

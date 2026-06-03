@@ -4566,3 +4566,47 @@ sixth @endo/marshal source file ingested | marshal
 cycle 160 milestone tick | marshal
 25 cycles of design+comment alternation | marshal
 18-file coordinated-update cluster | marshal
+filesystem-watchers EndoMount followNameChanges | daemon
+EndoDirectory vs EndoMount parity gap | daemon
+surface-parity mechanism-parity | daemon
+fs.watch rename events | daemon
+stat-reconciled-rename-events | daemon
+direction-agnostic OS notification | daemon
+in-memory-set-as-truth pattern | daemon
+editor-save-dance-coalescing | daemon
+50ms debounce | daemon
+bookkeeping-over-in-memory-entry-set-not-timer-per-event | daemon
+FilePowers.watchDirectory primitive | daemon
+FilePowers-extension-not-reach-into-Node | daemon
+minimal-platform-seam discipline | daemon
+platform-agnostic-body | daemon
+polling-fallback-inside-FilePowers | daemon
+MountNameChange vs PetStoreNameChange | daemon
+interface-asymmetry-tracks-ownership-asymmetry | daemon
+discriminant-stable-additional-fields-vary | daemon
+subscription-bound-to-path-not-name | daemon
+matches-EndoDirectory-semantics | daemon
+try-finally-is-load-bearing | daemon
+iterator-return-as-cleanup-trigger | daemon
+async-generator-finally-is-the-cleanup-hook | daemon
+remote-cleanup-via-CapTP-propagates-to-finally | daemon
+confinement-flows-through-unchanged | daemon
+silent-drop-not-error | daemon
+four-alternatives-considered polling chokidar inotify watchFile | daemon
+three-of-four-deferred | daemon
+defer-with-named-trigger | daemon
+50KB-dependency-for-thin-daemon | daemon
+punt-platform-bindings-to-rust-port | daemon
+wait-for-the-natural-home | daemon
+captured-resolution-trail filesystem-watchers | daemon
+parity-first-then-extend | daemon
+test-by-absence-of-events | daemon
+absence-test-via-bounded-timeout | daemon
+external-mount-parity test | daemon
+sibling-design-already-dispatched | daemon
+NameHub-interface-unification open question | daemon
+runtime-cleanup-pairs-with-GC | daemon
+parity-as-design-axiom | daemon
+minimized-to-what-the-new-substrate-strictly-requires | daemon
+three-design-sources-lifecycle | daemon
+Issue 110 source | daemon
