@@ -1,6 +1,6 @@
 ---
 created: 2026-05-20
-updated: 2026-05-20
+updated: 2026-06-04
 author: gardener
 ---
 
@@ -75,6 +75,7 @@ Probes shipped with the garden today:
 | `security-md-hash-uniform`    | Every `packages/*/SECURITY.md` has the same SHA-256 hash.                                                          | PR #75 `r3223750050` ("dispatch a builder to create a CI rule"). |
 | `filename-no-stutter`         | No file at `packages/<P>/.../<P>-foo.<ext>` (filename basename does not start with or contain `_<P>_`).            | PR #75 `r3223811705`.                   |
 | `sentence-per-line-md`        | Markdown files in changed paths use sentence-per-line shape (no multi-sentence physical lines outside of code blocks). | PR #75 `r3270500584` + CONTRIBUTING.md style guide. |
+| `no-non-ascii-in-source`      | No non-ASCII characters in newly-added lines of `packages/<pkg>/src/` and `packages/<pkg>/lib/` `.js` / `.ts` / `.mjs` / `.cjs` files. Test paths and fixtures excluded by path. Per-file opt-out via a `/* ascii-exempt */` marker on a line within the first 5. | PR #417 inline `r3353301111` (kriskowal 2026-06-04: "Avoid non-ASCII. This is in the guide. Dispatch a gardener to revise the driver to have deterministic automation to keep source generally in the ASCII range."). |
 
 Each probe is small (typically 5 to 30 lines of shell or awk). A new probe is one new script in `probes/`; the driver picks it up by glob.
 
@@ -145,3 +146,5 @@ The driver does not need to know about the new probe; it walks `probes/*.sh` at 
 (Append; terse and dated.)
 
 - _2026-05-20_: initial bootstrap. The seven probes ship with the skill; provenance traces to PR #75 (six items) and PR #238 (the mermaid rule). The next several PRs through the gamut will exercise the gate; expect new probes to land for patterns the maintainer surfaces that the seven do not catch.
+
+- _2026-06-04_: added `no-non-ascii-in-source` probe per the maintainer's inline review on `endojs/endo-but-for-bots#417` (comment `r3353301111`): *"Avoid non-ASCII. This is in the guide. Dispatch a gardener to revise the driver to have deterministic automation to keep source generally in the ASCII range."* The fixer that addressed the four `§` (U+00A7) instances in `packages/ses/src/permits.js` forwarded the gardener-level ask via `journal/entries/2026/06/04/044044Z-message-fixer-bb2325.md`. The probe is the deterministic gate: future builder, fixer, and weaver pushes that introduce a non-ASCII character in `packages/<pkg>/src/` or `lib/` source fail at the gate. The per-file `/* ascii-exempt */` marker opts out a file that legitimately carries non-ASCII (rare under src/lib; the path glob already excludes the typical UTF-8-round-trip test paths).
