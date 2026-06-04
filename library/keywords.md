@@ -5570,3 +5570,30 @@ implicit-state-machine length-at-offset-0 | streams, patterns
 small-files-with-large-knowledge-density eighth-member | patterns
 73+ consecutive papers-lane blocks | streams, patterns
 designs-chat-alternation maintained 14 cycles | patterns
+@endo/hex ponyfill hex encode decode | hardened-javascript, tooling
+canonical-leaf-package-skeleton | hardened-javascript, patterns
+sibling-package-cloned-file-for-file from base64 | patterns
+design-after-implementation-as-ratification-discipline | patterns
+ratification-by-design | patterns
+deliberate-omission-not-oversight atob btoa shim | patterns
+native-fallthrough-detection-bound-once-at-module-load | hardened-javascript, patterns
+TC39 Uint8Array.prototype.toHex Uint8Array.fromHex | hardened-javascript
+belt-and-suspenders-discipline SES lockdown | hardened-javascript, patterns
+lowercase-default-with-uppercase-fallback-to-JS-path | patterns
+error-rewrapping-at-the-native-boundary | hardened-javascript, patterns
+stable-error-contract | patterns
+audit-drives-scope mechanical-review | patterns
+three-way-classification-of-sites migration boundary non-byte-array | patterns
+test-files-included-in-audit | patterns
+portability-by-removing-Node-specific-imports | patterns
+boundary-sites-explicitly-named-and-defended | patterns
+don't-pessimize-the-boundary | patterns
+transitional-alias-pattern zero-flaky-window | patterns
+add-if-a-consumer-asks YAGNI-with-extension-point | patterns
+lockstep-sibling-design-discipline | patterns
+honest-roadmap-calibration design-phase-after-implementation-phase | patterns
+belt-and-suspenders-for-input-but-not-for-output | patterns
+sibling-extract-pattern leaf-utility-package subsystem-package | patterns
+canonical-Design-Decisions-format | patterns
+fourteenth consecutive designs-chat alternation cycles 166-180 | patterns
+74+ consecutive papers-lane blocks | patterns
