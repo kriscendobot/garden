@@ -5489,3 +5489,35 @@ Tier-1 borrowing suspend-resume-via-CAS-streaming | daemon
 Tier-1 borrowing unified-runner-four-mode-table | daemon
 Tier-1 borrowing five-embedded-JS-bundles-via-include_str | daemon, tooling
 70+ consecutive papers-lane blocks | daemon, tooling, hardened-javascript
+@endo/netstring reader.js canonical netstring decoder | streams, patterns, captp
+netstring format length colon data comma | streams, captp
+self-delimiting binary protocol | streams, patterns
+two-state-iterator state-machine | streams, patterns
+waiting-for-length-prefix waiting-for-data | streams
+state-encoded-as-lengthBuffer-null-or-not | patterns
+zero-copy-fast-path subarray-instead-of-allocate | patterns
+allocate-on-multi-chunk one-allocation-per-message | patterns
+three-character-cases digit COLON anything-else | streams
+pre-computed-byte-constants COLON COMMA ZERO NINE | streams
+sanity-caps-defense-in-depth maxMessageLength maxPrefixLength | streams, patterns
+comma-separator-validation sanity-check-length-was-honest | streams
+dangling-message-detection at EOF | streams, patterns
+four-pieces-of-context-per-error what actual-bytes offset name | patterns
+async-generator-yields-as-it-decodes | streams, patterns
+stream-in-stream-out | streams
+back-pressure-via-await-of-next | streams
+legacy-export-as-alias migration discipline | patterns
+the-canonical-decoder netstring-protocol-family | streams, captp
+Rust-supervisor-re-implements-byte-for-byte cycle 176 | streams, captp
+Mathieu Hofman authored | streams
+two-Hofman-authored-files ingested | streams
+seventh-member small-files-with-large-knowledge-density | streams, patterns
+small-files-with-large-knowledge-density 165 167 169 171 173 175 177 | streams, patterns
+sixteenth file e56bf00f coordinated-update cluster | streams, captp
+Tier-1 borrowing two-state-iterator-state-machine | patterns
+Tier-1 borrowing zero-copy-fast-path | patterns
+Tier-1 borrowing allocate-on-multi-chunk | patterns
+Tier-1 borrowing sanity-caps-defense-in-depth | patterns
+Tier-1 borrowing four-pieces-of-context-per-error | patterns
+Tier-1 borrowing dangling-message-detection-at-EOF | patterns
+71+ consecutive papers-lane blocks | streams, patterns, captp
