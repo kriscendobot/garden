@@ -5708,3 +5708,29 @@ avoid-crediting-idle-time-during-suspension | daemon, patterns
 ready_time-as-single-wake-up-rather-than-polling | daemon, patterns
 eighteenth consecutive designs-chat alternation cycles 166-184 | patterns
 78+ consecutive papers-lane blocks | patterns
+@endo/check-bundle hash verification | bundles, capability-security
+powered-and-powerless-symmetric-pair | capability-security, patterns
+ocap-discipline-via-explicit-power-injection | capability-security, patterns
+three-public-function-progression powered-ness-axis | patterns
+frozen-bundle-assertion Object.isFrozen | bundles, hardened-javascript
+accessor-attacks getter property defense | bundles, capability-security
+three-class-property-rejection no-getters no-non-strings | bundles, patterns
+record-of-strings-only bundle shape | bundles
+three-moduleFormat-cases endoZipBase64 getExport nestedEvaluate | bundles
+not-necessarily-consistent across toolchain versions | bundles, patterns
+parseArchive hash-of-hashes via compartment-mapper | bundles
+parseLocatedJson wraps SyntaxError with file location | hardened-javascript, patterns
+await-null-at-function-start async-rejection discipline | hardened-javascript, patterns
+module-scoped-TextDecoder captured at module-load | hardened-javascript, patterns
+gap-between-design-and-implementation | patterns
+designs-are-guides-not-contracts | patterns
+verify-against-source-not-design | patterns
+boundary-site-migration-despite-design-prediction | patterns
+checkBundle checkBundleBytes checkBundleFile | bundles
+endoZipBase64 endoZipBase64Sha512 sha512 verification | bundles
+@ts-check reference types ses TypeScript view | hardened-javascript
+hash-of-hashes verification via compartment-mapper | bundles
+canonical-powered-powerless-pair-pattern | capability-security, patterns
+eleventh-member small-files-with-large-knowledge-density | patterns
+nineteenth consecutive designs-chat alternation cycles 166-185 | patterns
+79+ consecutive papers-lane blocks | patterns
