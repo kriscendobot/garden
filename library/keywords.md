@@ -5760,3 +5760,29 @@ dependencyTypes traversal restriction | tooling
 literal-path-subpath-exports two-named-benefits | hardened-javascript
 twentieth consecutive designs-chat alternation cycles 166-186 | patterns
 80+ consecutive papers-lane blocks | patterns
+shim-and-prepare-endo-cluster | eventual-send, hardened-javascript
+two-shim-strategies-side-by-side | hardened-javascript, patterns
+conditional-install respect-prior-correctness | patterns
+unconditional-replacement of broken builtin | patterns
+asymmetric-shim-discipline | hardened-javascript, patterns
+BestPipelinablePromise globalThis.HandledPromise or Promise | eventual-send
+pick-the-better-Promise-at-module-load | eventual-send, patterns
+makePromiseKit three-step executor wrap harden | eventual-send
+racePromises explicit-API paired with builtin replacement | eventual-send
+considered-and-rejected releasing-executor alternative | patterns
+isPromise Promise.resolve(x)===x realm-agnostic detection | eventual-send, patterns
+postponedHandler interlockP shared await point | eventual-send, patterns
+six-handler-traps converging on one promise | eventual-send
+@ts-expect-error 2454 named issue number | hardened-javascript, patterns
+don't-suppress-blindly-name-the-runtime-invariant | patterns
+prepare-endo three-purpose lockdown env ava-wrap | testing, getting-started
+default-export-masking-via-thin-re-import | patterns
+comment-block-is-the-value | patterns
+canonical-thin-barrel public-API-surface | patterns
+AVA config require array default-export expectations | testing
+TRACK_TURNS debug list track-turns | testing
+SCC-member-cluster eventual-send promise-kit ses-ava | repository-governance
+five-cycle-dependency-cluster | patterns
+twelfth-member small-files-with-large-knowledge-density | patterns
+twenty-first consecutive designs-chat alternation cycles 166-187 | patterns
+81+ consecutive papers-lane blocks | patterns
