@@ -5623,3 +5623,31 @@ reading-source-after-design-that-clones-it | patterns
 ninth-member small-files-with-large-knowledge-density | patterns
 75+ consecutive papers-lane blocks | patterns
 designs-chat-alternation maintained 15 cycles 166-181 | patterns
+daemon-xs-worker-debugger XS interactive debugger | daemon, hardened-javascript
+six-layer-XML-pass-through-architecture | daemon, patterns
+break-on-uncaught-via-firstJump-walk-before-fxJump | daemon, patterns
+exploit-the-pre-jump-window-as-the-decision-point | patterns
+zero-cost-if-the-answer-is-don't-break | patterns
+xsbug-protocol XML SAX parser | daemon
+mxDebug compile-time flag | daemon
+always-compiled-dormant-by-default | daemon, patterns
+hot-attach-via-debug-attach-envelope | daemon, patterns
+XML-pass-through Rust as opaque byte ferry | daemon, patterns
+fxConnect fxDisconnect fxIsConnected fxReceive fxSend platform hooks | daemon
+thread-local-buffers with mutex __thread C11 | daemon, patterns
+DebugSession SAX parser Jessie-compatible JS | daemon, hardened-javascript
+Debugger exo CapTP-remotable | daemon, capability-security
+followBreaks async iterator subscription | daemon, patterns
+fxDebugThrow before fxJump | daemon
+breakOnUncaughtExceptionsFlag | daemon
+txJump linked list firstJump walk | daemon
+uncaughtExceptions pseudo-breakpoint path | daemon
+finally-without-catch as accepted-false-negative-for-v1 | daemon, patterns
+three-option-architectural-decision-table | patterns
+six-layer-strict-stratification | patterns
+forward-compatible-protocol-extension | patterns
+xs-worker-capability-trio snapshot debugger metering | daemon
+no-`endo debug`-CLI CapTP-attachment-is-the-API | daemon, capability-security
+sibling-design-pair worker capability extensions | daemon, patterns
+sixteenth consecutive designs-chat alternation cycles 166-182 | patterns
+76+ consecutive papers-lane blocks | patterns
