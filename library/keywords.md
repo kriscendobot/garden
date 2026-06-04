@@ -5734,3 +5734,29 @@ canonical-powered-powerless-pair-pattern | capability-security, patterns
 eleventh-member small-files-with-large-knowledge-density | patterns
 nineteenth consecutive designs-chat alternation cycles 166-185 | patterns
 79+ consecutive papers-lane blocks | patterns
+break-dev-dependency-cycles synthetic test packages | repository-governance, tooling
+sink-only-synthetic-test-packages | repository-governance, patterns
+sink-only-is-the-load-bearing-constraint | patterns
+package-downstream-of-SCC-cannot-extend-SCC | patterns
+the-cycle-is-all-in-devDependencies | repository-governance, patterns
+Tarjan-SCC-survey workspace dependency graph | tooling
+illusion-of-an-option rejection language | patterns
+fix-that-looks-like-cycle-break-but-only-renames-edge | patterns
+Option-B-naming-convention subsystem-test alphabetical-adjacency | repository-governance, patterns
+@endo/stream-types-test existing precedent | repository-governance
+package-namespaced-test-conditions test-endo-foo | repository-governance, hardened-javascript
+internal-only-test-surfaces via subpath exports | hardened-javascript
+which-realm-owns-this-channel | patterns
+duplication-preferred-over-indirection-that-creates-cycles | patterns
+"I'm fine with duplication where necessary to avoid a utils package" | patterns
+audit-as-cycle-break-precondition | patterns
+review-iteration-archived-in-design | patterns
+cuts-can-land-independently | repository-governance, patterns
+recommended-order-smallest-to-largest by diff size | patterns
+three-cited-costs-of-the-cycle cosmetic-noise silent-by-default cache-hash | repository-governance
+@endo/ses-test @endo/hex-test @endo/harden-test @endo/eventual-send-test | repository-governance
+turbo affected-set dependsOn ^build | tooling
+dependencyTypes traversal restriction | tooling
+literal-path-subpath-exports two-named-benefits | hardened-javascript
+twentieth consecutive designs-chat alternation cycles 166-186 | patterns
+80+ consecutive papers-lane blocks | patterns
