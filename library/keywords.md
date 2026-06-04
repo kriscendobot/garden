@@ -5814,3 +5814,31 @@ seven-distinct-design-lifecycle-statuses Complete InProgress Proposed Active Ref
 ping 9.7x eval_warm 17.9x storeValue_lookup 26.6x | daemon
 twenty-second consecutive designs-chat alternation cycles 166-188 | patterns
 82+ consecutive papers-lane blocks | patterns
+marshal-justin passableAsJustin diagnostic substrate | marshal
+CLAUDE.md cites passableAsJustin not JSON.stringify | marshal, hardened-javascript
+two-pass-decoder-with-mirror-control-flow | marshal, patterns
+prepare validates recur renders | patterns
+indenter-trait two-implementations makeYes makeNo | marshal, patterns
+SGML-comment-injection-defense | marshal, patterns
+badPair-detector regex angular-bracket | marshal, patterns
+accidental-formation-of-html-like-comment | patterns
+badArray-proxy rejecting-all-slot-positions | marshal
+__proto__-bracket-escape | marshal, patterns
+JSON vs JS prototype-set syntax | marshal
+nestedRender try/finally-with-mutable-binding | marshal, patterns
+qp template tag quasi-quoted Justin | marshal
+qp-vs-q-template-tag-pair lazy redact vs eager unredact | marshal, errors
+three-layer-defense for no-slot path | marshal, patterns
+freeze-but-not-harden proxy target | hardened-javascript, patterns
+throw is noop since Fail throws linter-workaround | patterns
+TODO-in-comment names known-blockers | patterns
+honest-uncertainty in source comment | patterns
+eleven-qclass-cases decoder | marshal
+three-fail-fast-error-cases unimplemented features | marshal
+passableAsJustin four-step-flow | marshal
+slot-numbering-not-identity-preserving s0 s1 s2 | marshal
+Hilbert-Hotel round-trip preserved | marshal, pass-style
+canonical-passable-rendering-pair | marshal
+thirteenth-member small-files-with-large-knowledge-density | patterns
+twenty-third consecutive designs-chat alternation cycles 166-189 | patterns
+83+ consecutive papers-lane blocks | patterns
