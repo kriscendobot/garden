@@ -5521,3 +5521,31 @@ Tier-1 borrowing sanity-caps-defense-in-depth | patterns
 Tier-1 borrowing four-pieces-of-context-per-error | patterns
 Tier-1 borrowing dangling-message-detection-at-EOF | patterns
 71+ consecutive papers-lane blocks | streams, patterns, captp
+daemon-xs-worker-snapshot suspend resume | daemon, persistence
+snapshot-as-internal-implementation-detail | daemon, patterns
+snapshot-not-user-visible-formula | daemon, persistence
+suspend-only-when-idle | daemon, patterns
+avoids-CapTP-reconnection-problem-entirely | daemon
+transparent-resume-on-message | daemon, persistence
+streaming-snapshot-to-CAS-not-in-memory | daemon, persistence
+CAS-storage-with-ephemeral-GC-roots | daemon, persistence
+callback-table-is-append-only | daemon, patterns
+fxWriteSnapshot fxReadSnapshot XS heap snapshot | daemon
+XS snapshot captures heaps chunks stack key name symbol tables | daemon
+XS snapshot does NOT capture host function pointers context platform state debug | daemon
+three-axes-of-snapshot-incompatibility XS version architecture callback table | daemon
+signature-string-identifies-callback-table-version | daemon
+two-state-machine Live Suspended | daemon, patterns
+suspend suspended suspend-error restore four control verbs | daemon
+all-payloads-UTF-8-text | daemon
+big-data-through-filesystem small-coordination-through-envelopes | daemon, patterns
+two-init-paths init restore one-entry-point | daemon, patterns
+SHA-256-computed-on-the-fly streaming | daemon, persistence
+atomic-rename-after-write | daemon, persistence
+stable-indices-across-suspend-resume | daemon, patterns
+phased-implementation Phase 1 Complete Phase 2 In Progress Phase 3 Future | daemon
+revised-scope-discussion design-evolution | daemon, patterns
+honest-design-evolution-record | daemon, patterns
+sibling-design-pair feature-spec and substrate | daemon
+cycle 162 Ken atomic-checkpoint at worker layer | daemon
+72+ consecutive papers-lane blocks | daemon, persistence, patterns
