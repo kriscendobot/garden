@@ -45,7 +45,6 @@ esac
 SCRIPT_PATH=$(cd "$(dirname "$0")" && pwd)
 DEFAULT_GARDEN_ROOT=$(cd "$SCRIPT_PATH/../.." && pwd)
 GARDEN_ROOT=${GARDEN_ROOT:-$DEFAULT_GARDEN_ROOT}
-GARDEN_JOURNAL=${GARDEN_JOURNAL:-$GARDEN_ROOT/journal}
 GARDEN_HOST=${GARDEN_HOST:-$(hostname -s)}
 DRIVER_WORKFLOW=${DRIVER_WORKFLOW:-}
 DRIVER_PR=${DRIVER_PR:-}
@@ -60,7 +59,43 @@ DRIVER_ONESHOT=${DRIVER_ONESHOT:-0}
 DRIVER_PR_FROM_ENV=$DRIVER_PR
 DRIVER_WORKFLOW_FROM_ENV=$DRIVER_WORKFLOW
 
+# Per-lane journal worktree. The primary journal at GARDEN_ROOT/journal
+# holds the shared .git database. Each lane operates in its own
+# detached worktree under journal-worktrees/<lane>/ so concurrent
+# claim/complete/reset/rebase operations across lanes do not share an
+# index — each lane has its own .git/worktrees/<lane>/{HEAD,index},
+# and bash's filesystem-level race surface shrinks to just the shared
+# objects database, which git already serializes via the loose-object
+# write protocol.
+PRIMARY_JOURNAL="$GARDEN_ROOT/journal"
+GARDEN_JOURNAL=${GARDEN_JOURNAL:-$GARDEN_ROOT/journal-worktrees/$LANE}
+
 test -d "$GARDEN_ROOT" || { echo "driver: GARDEN_ROOT not a directory: $GARDEN_ROOT" >&2; exit 1; }
+
+# Self-heal the per-lane worktree on first start (or after the host
+# operator removes it).  Created detached at origin/journal so the
+# lane begins from upstream's view; the bot identity propagates from
+# the primary worktree's local git config.
+ensure_lane_worktree() {
+  if [ -d "$GARDEN_JOURNAL/.git" ] || [ -f "$GARDEN_JOURNAL/.git" ]; then
+    return 0
+  fi
+  if [ ! -d "$PRIMARY_JOURNAL/.git" ]; then
+    echo "driver: PRIMARY_JOURNAL not a git repository: $PRIMARY_JOURNAL" >&2
+    echo "driver: clone kriskowal/garden:journal there before starting lanes" >&2
+    return 1
+  fi
+  git -C "$PRIMARY_JOURNAL" fetch --quiet origin journal 2>/dev/null || true
+  mkdir -p "$(dirname "$GARDEN_JOURNAL")"
+  git -C "$PRIMARY_JOURNAL" worktree add --detach "$GARDEN_JOURNAL" origin/journal >/dev/null
+  local n e
+  n=$(git -C "$PRIMARY_JOURNAL" config --get user.name 2>/dev/null || echo "")
+  e=$(git -C "$PRIMARY_JOURNAL" config --get user.email 2>/dev/null || echo "")
+  [ -n "$n" ] && git -C "$GARDEN_JOURNAL" config user.name "$n"
+  [ -n "$e" ] && git -C "$GARDEN_JOURNAL" config user.email "$e"
+}
+
+ensure_lane_worktree || exit 1
 test -d "$GARDEN_JOURNAL" || { echo "driver: GARDEN_JOURNAL not a directory: $GARDEN_JOURNAL" >&2; exit 1; }
 
 STATE_DIR="$GARDEN_JOURNAL/drivers/$GARDEN_HOST"
@@ -315,6 +350,47 @@ dispatch_design_only_pr_workflow() {
   esac
 }
 
+# Run-the-gamut workflow.  Drives a code PR through the full
+# PR-creation-flow chain (builder → cleaner → barrister → fixer-loop →
+# appellate → un-draft).  Phase 2 implements only the entry and the
+# terminal predicates; the in-flight body delegates substantive next-
+# stage advancement to claude via escalate_to_claude, which lands a
+# gardener-inbox message naming the PR and the lane.  The driver still
+# polls the PR each tick and reaches terminal when GitHub reports the
+# PR as MERGED or CLOSED.
+dispatch_gamut_workflow() {
+  local state=$1
+  local pr_json
+  pr_json=$(get_pr_json)
+  case "$state" in
+    initial)
+      # Acknowledge the claim by escalating once, then transition to
+      # the long-polling in-flight state.  The escalation lands one
+      # gardener-inbox message naming the PR; subsequent ticks do not
+      # re-escalate unless the PR's state changes unexpectedly.
+      escalate_to_claude "gamut-bootstrap:${DRIVER_PR:-unknown}" >/dev/null 2>&1 || true
+      echo "advance:in-flight:null"
+      ;;
+    in-flight)
+      # Terminal predicates: GitHub reports MERGED or CLOSED.  Anything
+      # else is "still in motion"; wait until the next tick.
+      local pr_state
+      pr_state=$(printf '%s' "$pr_json" | sed -n 's/.*"state":"\([^"]*\)".*/\1/p' | head -1)
+      case "$pr_state" in
+        MERGED) echo "terminal:merged" ;;
+        CLOSED) echo "terminal:closed" ;;
+        *) echo "wait" ;;
+      esac
+      ;;
+    merged|closed)
+      echo "terminal:$state"
+      ;;
+    *)
+      echo "escalate:unknown-state-$state"
+      ;;
+  esac
+}
+
 # --- deterministic-step helpers ----------------------------------------
 
 run_un_draft() {
@@ -537,15 +613,48 @@ parse_claimed_job_into_env() {
   fi
 }
 
+# Workflows this driver knows how to dispatch. Jobs whose `verb:` is
+# outside this set are skipped at claim time and left for some other
+# eligible consumer (the steward, a future driver build) to claim. Add
+# verbs here as new dispatch_<verb>_workflow functions land.
+driver_handles_verb() {
+  case "$1" in
+    design-only-pr|gamut|pr-creation) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+# Returns 0 if the job's `eligible_roles:` list names `driver`. The
+# eligibility list is a top-level YAML field whose entries are indented
+# `  - <role>` lines; the producer asserts which consumer roles are
+# allowed to claim the job. A driver lane skips jobs that do not name
+# it.
+job_eligible_for_driver() {
+  awk '
+    /^[^[:space:]]/ { in_list=0 }
+    /^eligible_roles:/ { in_list=1; next }
+    in_list && /^  - / { sub(/^  - /, ""); roles[NR] = $0 }
+    END {
+      for (k in roles) if (roles[k] == "driver") { found=1; break }
+      exit (found ? 0 : 1)
+    }
+  ' "$1"
+}
+
 # Race to claim one open job. Echoes the claimed path on success;
 # returns 1 if the inbox is empty or every visible job was lost to
-# another claimant.
+# another claimant. Filters out jobs whose `verb:` the driver does
+# not implement or whose `eligible_roles:` does not include `driver`,
+# so a lane only attempts claims it can actually drive.
 try_claim_one() {
   local open_dir="$GARDEN_JOURNAL/jobs/open"
   [ -d "$open_dir" ] || return 1
-  local f rel claimed
+  local f rel claimed verb
   for f in "$open_dir"/*.md; do
     [ -f "$f" ] || continue
+    job_eligible_for_driver "$f" || continue
+    verb=$(sed -n 's/^verb: //p' "$f" | head -1)
+    driver_handles_verb "$verb" || continue
     rel="jobs/open/$(basename "$f")"
     claimed=$(GARDEN_ROLE=driver "$GARDEN_ROOT/skills/job-board/claim-job.sh" "$rel" 2>/dev/null) || continue
     [ "$claimed" = "lost-race" ] && continue
@@ -597,6 +706,10 @@ run_once() {
   # Claim-bound lanes (no DRIVER_PR at startup) acquire their PR and
   # workflow from the job board on each tick. Env-bound lanes skip the
   # board entirely and drive the single PR they were launched with.
+  # The journal is a shared clone of kriskowal/garden:journal; each
+  # claim/complete via skills/job-board/{claim,complete}-job.sh fetches
+  # from origin before touching the inbox, so no separate sync step is
+  # needed here.
   if [ -z "$DRIVER_PR_FROM_ENV" ]; then
     if ! ensure_claimed_job; then
       # Inbox is empty. Surface the wait in the state file so external
@@ -621,11 +734,10 @@ run_once() {
     design-only-pr)
       next_directive=$(dispatch_design_only_pr_workflow "$state")
       ;;
-    pr-creation)
-      # Phase 2 stub: the PR-creation workflow lands in a sibling PR.
-      echo "driver: workflow pr-creation not yet implemented in Phase 2" >&2
-      escalate_to_claude "workflow-not-implemented:pr-creation" || true
-      next_directive="wait"
+    gamut|pr-creation)
+      # The two verbs share the same minimal Phase 2 state machine: a
+      # one-shot escalation at claim and a poll-until-terminal body.
+      next_directive=$(dispatch_gamut_workflow "$state")
       ;;
     *)
       echo "driver: unknown workflow: $DRIVER_WORKFLOW" >&2
@@ -692,7 +804,9 @@ run_once() {
 main() {
   # Env-bound lanes resolve their workflow once at startup. Claim-bound
   # lanes leave DRIVER_WORKFLOW unset and let ensure_claimed_job pick it
-  # up per-job from each claimed frontmatter.
+  # up per-job from each claimed frontmatter; the inbox sync happens
+  # naturally inside the claim/complete scripts (each fetches origin
+  # before touching the journal).
   if [ -n "$DRIVER_PR_FROM_ENV" ]; then
     select_workflow
   fi
