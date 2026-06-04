@@ -5651,3 +5651,32 @@ no-`endo debug`-CLI CapTP-attachment-is-the-API | daemon, capability-security
 sibling-design-pair worker capability extensions | daemon, patterns
 sixteenth consecutive designs-chat alternation cycles 166-182 | patterns
 76+ consecutive papers-lane blocks | patterns
+@endo/init canonical bootstrap entry taxonomy | hardened-javascript, getting-started
+@endo/lockdown wrapped lockdown sniffs LOCKDOWN_OPTIONS | hardened-javascript
+two-phase-init pre commit | hardened-javascript, patterns
+tolerance-ladder via separate entry-point files | hardened-javascript, patterns
+index debug legacy unsafe-fast entry-point ladder | hardened-javascript
+sniff-LOCKDOWN_OPTIONS-as-pragmatic-escape-hatch | hardened-javascript, patterns
+LOCKDOWN_OPTIONS global variable then environment variable | hardened-javascript
+Initialization is often awkward design anchor | patterns
+init-module-violates-normal-ocap-discipline | patterns, hardened-javascript
+honest-confession-in-prose-comment | patterns
+NOTE-TO-REVIEWERS-pattern two-polarities | patterns
+commented-out-means-accident-in-debug-file | patterns
+not-commented-out-means-accident-in-production-file | patterns
+mechanical-review grep-friendly | patterns
+domainTaming-unsafe-always-injected | hardened-javascript
+named-hole-with-named-mitigation | patterns, hardened-javascript
+resigned-to-leave-this-hole-open | patterns
+post-lockdown-explicit-hardening | hardened-javascript
+per-platform-availability-comments on harden calls | hardened-javascript, patterns
+TextEncoder TextDecoder URL Base64 platform matrix | hardened-javascript
+shim-assembly-order-as-load-bearing | hardened-javascript, patterns
+canonical-Agoric-shim-stack lockdown base64 promise-kit eventual-send | hardened-javascript
+DEPRECATED-with-redirect-comment | patterns
+console-warn-on-discipline-violation | patterns
+re-export-then-invoke discipline | patterns
+import-as-side-effect-only vs import-the-function-without-running-it | patterns
+seventeenth consecutive designs-chat alternation cycles 166-183 | patterns
+77+ consecutive papers-lane blocks | patterns
+tenth-member small-files-with-large-knowledge-density | patterns
