@@ -5680,3 +5680,31 @@ import-as-side-effect-only vs import-the-function-without-running-it | patterns
 seventeenth consecutive designs-chat alternation cycles 166-183 | patterns
 77+ consecutive papers-lane blocks | patterns
 tenth-member small-files-with-large-knowledge-density | patterns
+daemon-xs-worker-metering computrons computation steps | daemon
+admission-control-eliminates-embargo | daemon, patterns
+budget-as-pre-payment-not-post-payment | daemon, patterns
+three-mode-meter Measurement Quota Rate-limited | daemon, patterns
+named-modes-as-discriminated-union | patterns
+hard-limit-as-termination-not-pause | daemon
+XS_TOO_MUCH_COMPUTATION_EXIT meterIndex fxBeginMetering | daemon
+lazy-rate-limit-refill compute-on-demand | daemon, patterns
+ready_time as tokio scheduling hint | daemon
+burst-ceiling-prevents-budget-hoarding | daemon, patterns
+structural-bound-not-runtime-decision | patterns
+meter-config-once-not-per-crank | daemon, patterns
+custom-fxAbort longjmp recoverable abort | daemon
+fxRunPromiseJobsMetered setjmp guard | daemon
+CRANK_LIMIT thread-local | daemon, patterns
+meter-query meter-reset meter-set-quota meter-set-rate meter-refill meter-config meter-report | daemon
+xs-worker-capability-trio snapshot debugger metering | daemon, patterns
+exploit-a-pre-condition-to-eliminate-a-mechanism | patterns
+three-mechanisms-eliminated by admission control invariant | patterns
+design-evolution-record-in-prompt-section | patterns
+key-insight-section names the realization explicitly | patterns
+re-creation-from-snapshot makes hard-limit-termination acceptable | daemon
+SuspendedWorker meter field round-trips through suspend resume | daemon
+restore_meter last_refill recomputed to now on resume | daemon
+avoid-crediting-idle-time-during-suspension | daemon, patterns
+ready_time-as-single-wake-up-rather-than-polling | daemon, patterns
+eighteenth consecutive designs-chat alternation cycles 166-184 | patterns
+78+ consecutive papers-lane blocks | patterns
