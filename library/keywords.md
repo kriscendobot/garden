@@ -5399,3 +5399,41 @@ Tier-1 borrowing X-Forwarded-trust-via-CIDR-allowlist | daemon, capability-secur
 Tier-1 borrowing supersedes-keeps-prior-as-citable-reference | daemon
 Tier-1 borrowing strategic-vs-tactical-phase-numbering | daemon, tooling
 68+ consecutive papers-lane blocks | daemon, tooling, capability-security
+@endo/harden make-selector.js | hardened-javascript, patterns, tooling
+race-to-install-harden-at-well-known-slot | hardened-javascript, patterns
+Object[Symbol.for('harden')] slot | hardened-javascript
+three-tier-lookup-with-fallthrough | patterns
+Object[@harden] new convention | hardened-javascript
+globalThis.harden HardenedJS legacy convention | hardened-javascript
+fresh makeHardener pin | hardened-javascript
+pin-on-first-install non-configurable non-writable | hardened-javascript, patterns
+defineProperty configurable false writable false | hardened-javascript
+Symbol.for-as-coordination-slot | patterns
+registered-symbols-cross-realm-boundaries | patterns
+forward-compat-via-pin vs backward-compat-via-non-installation | hardened-javascript
+honest-warning HardenedJS lockdown succeeds | hardened-javascript
+type-check-the-existing-implementation | patterns
+fail-loud-on-corruption with helpful diagnostic | patterns
+@endo/harden expected callable | hardened-javascript
+lazy-IIFE-closure defer-to-first-use | patterns
+race-window-handled | patterns
+Object.freeze on wrapper two-levels-of-defensiveness | hardened-javascript, patterns
+race-semantics multiple loaders share same harden | hardened-javascript
+no-double-install | hardened-javascript, patterns
+all-loaders-share-same-instance | hardened-javascript, patterns
+legacy-bridge-via-fallback | patterns
+accept-both-conventions during migration | patterns
+e56bf00f-coordinated-update-cluster anchor | hardened-javascript
+fifteen-plus-files migrated @endo/harden adoption | hardened-javascript
+sixth-member small-files-with-large-knowledge-density | tooling, patterns
+small-files-with-large-knowledge-density family | tooling, patterns
+69 lines @endo/harden make-selector | hardened-javascript
+Mark S. Miller fifth file ingested | hardened-javascript
+Tier-1 borrowing race-to-install-at-well-known-slot | patterns
+Tier-1 borrowing three-tier-lookup-with-fallthrough | patterns
+Tier-1 borrowing pin-on-first-install | patterns
+Tier-1 borrowing defer-to-first-use | patterns
+Tier-1 borrowing Symbol.for-as-coordination-slot | patterns
+Tier-1 borrowing type-check-the-existing-implementation | patterns
+Tier-1 borrowing fail-loud-on-corruption-with-helpful-diagnostic | patterns
+69+ consecutive papers-lane blocks | hardened-javascript, patterns, tooling
