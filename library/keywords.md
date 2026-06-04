@@ -5597,3 +5597,29 @@ sibling-extract-pattern leaf-utility-package subsystem-package | patterns
 canonical-Design-Decisions-format | patterns
 fourteenth consecutive designs-chat alternation cycles 166-180 | patterns
 74+ consecutive papers-lane blocks | patterns
+@endo/base64 canonical leaf-package skeleton source | hardened-javascript, tooling
+three-tier-dispatch native TC39 legacy XS pure JS | hardened-javascript, patterns
+Reflect.apply captured at module load defensive binding | hardened-javascript, patterns
+captured-Reflect.apply survives Function.prototype.call tampering | hardened-javascript, patterns
+IIFE returns chosen impl bound to const at module load | patterns
+nativeFromBase64Options lastChunkHandling strict alphabet base64 | hardened-javascript
+strict-options-pinning-via-frozen-bag | hardened-javascript, patterns
+native-error-fallback-via-polyfill-rerun | hardened-javascript, patterns
+polyfill-as-error-oracle | patterns
+use-polyfill-as-error-oracle | patterns
+safety-net propagate native error if polyfill doesn't throw | patterns
+adaptDecoder for legacy XS ArrayBuffer return | hardened-javascript, patterns
+bit-register-quantum-accumulator | patterns
+three-class-padding-switch | patterns
+internal-bad-quantum sanity-throw | patterns
+padding-acceptance-permissive-per-RFC-4648-§3.5 | patterns
+don't-over-validate-by-default-with-RFC-citation | patterns
+three-class-decode-errors invalid-char missing-padding trailing-garbage | hardened-javascript
+Object.freeze-not-harden for pre-lockdown shim safety | hardened-javascript, patterns
+pre-lockdown-shim-discipline | hardened-javascript, patterns
+monodu etymology alpha beta mono duo | hardened-javascript
+code-comment-as-vocabulary-instruction | patterns
+reading-source-after-design-that-clones-it | patterns
+ninth-member small-files-with-large-knowledge-density | patterns
+75+ consecutive papers-lane blocks | patterns
+designs-chat-alternation maintained 15 cycles 166-181 | patterns
