@@ -490,6 +490,8 @@ A driver picks up *many kinds of job* on a single generic inbox; the job's `kind
 5. **`design-request`**: satisfy a request to design (analogous to the existing designer dispatch). The job's body carries the design brief.
 6. **`retcon-rebase`**: a fixer-retcon or weaver-rebase job. The job's `pr:` field names the PR.
 7. **`ci-recovery`**: a CI-to-green job; the driver runs the shepherd workflow.
+8. **`gardener-task`**: a meta-evolution request (encode a rule, retire a role, audit cited paths, fold a panel's `[proposed-rule]` note into a skill). The job's body names the directive verbatim plus any precipitating evidence the producer cited. The gardener lane runs the workflow at `skills/driver-gardener-workflow/SKILL.md`. Only gardener lanes claim from `journal/jobs/gardener/open/`.
+9. **`librarian-task`**: a library-ingest, library-audit, or library-shortcut request. The job's body names the source document and the requested action (ingest a new source page, prune distractions on a concept page, grow a keyword shortcut). The librarian lane runs the workflow at `skills/driver-librarian-workflow/SKILL.md`. Only librarian lanes claim from `journal/jobs/librarian/open/`.
 
 Classification of *which workflow to run* is by **frontmatter `kind:` lookup first**, by inference second. When the frontmatter names a kind, the script short-circuits the LLM. When it does not (a free-form job the maintainer posted), the driver invokes claude to classify the job's body into one of the kinds; the classification SHA is recorded so identical briefs reuse the verdict (per Q6 disposition: escalate-on-ambiguous, cache by SHA).
 
@@ -502,8 +504,46 @@ The driver does not run *one* workflow; it runs the workflow appropriate to the 
 - **Build-request workflow**: read the request → check feasibility → if feasible, run the builder subagent and post a `pr-creation` job for the new DRAFT; if not, reply with the blocker.
 - **Design-request workflow**: read the request → check existing designs for conflicts → run the designer subagent to draft the design document → open the design-only DRAFT PR (posting a `pr-creation` job with the solicitor / design-panel branch).
 - **Retcon / rebase workflow**: read the target PR → run the fixer subagent (retcon) or weaver subagent (rebase) → push → post a follow-up `pr-creation` job at the post-push state.
+- **Gardener workflow**: idle → on tick, drain `journal/inboxes/<host>/gardener.md` and scan `journal/jobs/gardener/open/` → if either yields work, classify (panel `[proposed-rule]` to encode; library gap to grow; role-file scrub; inventory drift to repair; routine meta-edit) → invoke the gardener subagent against the engagement brief → write a `result` entry and commit any role / skill / top-level edits → idle. The workflow lives at `skills/driver-gardener-workflow/SKILL.md`.
+- **Librarian workflow**: idle → on tick, drain `journal/inboxes/<host>/librarian.md` and scan `journal/jobs/librarian/open/` → classify (ingest a new source; prune a concept page; grow a keyword shortcut; index on the fly) → invoke the librarian subagent → write a `result` entry and commit library edits → idle. The workflow lives at `skills/driver-librarian-workflow/SKILL.md`.
 
 Each workflow's predicates live in `skills/driver-<kind>-state-machine/SKILL.md` (one per workflow kind). The skills are tiny; their job is to enumerate the states and the transition predicates. The driver's outer body reads the workflow's skill on entry and consults it on each transition. These skills are agent context (they hydrate the LLM substep) and stay under `skills/`; the executable that consults them is under `scripts/driver/`.
+
+### Role-prefixed lanes
+
+The lane identifier generalizes from a positive integer to `<role>-<N>`. The role prefix is the canonical handle for *which* role-specific inbox and job board the lane subscribes to; the trailing index distinguishes multiple lanes for the same role on one host. Existing PR-work lanes (`1`, `2`, `3`) are aliased to `builder-1`, `builder-2`, `builder-3` for backward compatibility during the transition, then renamed to the canonical form once all consumers (the journal indexer, the daemons-script, the watchers) understand the new shape.
+
+The role prefix is the discriminator for three resources:
+
+1. **Role-specific job board**: a lane named `<role>-<N>` claims from `journal/jobs/<role>/open/` rather than from the generic `journal/jobs/open/`. The role boards are first-class siblings of the generic board; the generic board is retained for liaison-staged work that does not target a specific role's pool.
+2. **Role-specific inbox**: a lane named `<role>-<N>` drains `journal/inboxes/<host>/<role>.md` via `skills/inbox-drain/inbox-drain.sh <role>`. The inbox is the lane's message channel from other lanes, from the maintainer, and from the steward's coordination dispatches. The inbox drain runs alongside the job-board poll on each tick.
+3. **Per-lane state file**: the existing `journal/drivers/<host>/<lane>.md` shape is unchanged in path; the schema gains a `role:` field (parsed from the lane prefix) and a `cadence_seconds:` field (per-lane adjustable pace; default per the role's typical workload but editable on the file). A `paused: true` field skips the lane's tick body without exiting the loop, so a maintainer can quiesce a lane without killing the systemd service.
+
+Adjustable per-lane cadence: the `cadence_seconds:` field in the state file. The driver reads it at the top of each loop iteration; an edit to the file lands on the next tick. Default values per role:
+
+| Role         | Default cadence | Why                                                                                                       |
+| ------------ | --------------- | --------------------------------------------------------------------------------------------------------- |
+| `builder`    | 30s             | PR-work lanes need to react to watcher events promptly; the existing `DRIVER_TICK_SECONDS` default.       |
+| `fixer`      | 30s             | same shape as `builder`.                                                                                  |
+| `weaver`     | 30s             | same shape.                                                                                               |
+| `librarian`  | 300s            | library walks are slow-changing; a 5-minute cadence is generous and the librarian's inbox is the wake.    |
+| `gardener`   | 180s            | the gardener's wake is dominated by inbox messages; 3 minutes keeps token cost low without missing asks.  |
+
+The defaults are not load-bearing; editing the state file overrides them. A maintainer who wants the gardener-1 lane to respond faster during a focused engagement bumps the cadence down; the next tick respects it.
+
+#### Lane caps
+
+The gardener role has a per-host cap of **one** lane: there is only one canonical gardener observer per host, and concurrent gardener lanes would race on the same `journal/inboxes/<host>/gardener.md` state and on garden-meta file edits in `roles/` and `skills/`. The cap is enforced by the daemons-script's lane registry; an attempt to launch `gardener-2` is refused with a clear error.
+
+The librarian role's cap is **two** initially (one primary plus one for parallel library walks during catch-up); the cap can grow as the library's ingest rate justifies it. The daemons-script's lane registry encodes the cap; growing it is a config edit, not a code edit.
+
+PR-work roles (`builder`, `fixer`, `weaver`) have **no** hard cap; the host's CPU and the driver-design's general concurrency rules govern (the cleaner-cap-1 across the estate continues to apply for the cleaner stage specifically).
+
+#### One-off interactive variants
+
+The maintainer's interactive `claude` sessions in the garden root continue to enter the `gardener` and `librarian` roles as before. The autonomous lanes do not replace the interactive form; they coexist. The interactive session reads the role file at session start; the autonomous lane reads it at lane-launch time. Both forms write to the same journal, the same role files (subject to authority bounds), and the same library; the difference is just *who initiates the work*: the interactive session is driven by the maintainer's prompt; the autonomous lane is driven by an inbox message or a job-board posting.
+
+When both an interactive gardener and a `gardener-1` lane are active on the same host, they coordinate via the inbox: the gardener-1 lane's `inbox-drain` may surface the same messages the interactive session is also processing. The discipline is the same as for any concurrent reader: the first to push a `result` entry to `origin/journal` claims the work; the second sees the result and stands down. The `paused: true` field on the lane's state file is the maintainer's clean handoff: pause the autonomous lane while the interactive engagement runs, then resume.
 
 ### Prompt continuity
 

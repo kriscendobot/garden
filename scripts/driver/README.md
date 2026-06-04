@@ -1,7 +1,7 @@
 ---
 created: 2026-06-02
-updated: 2026-06-02
-author: builder
+updated: 2026-06-04
+author: builder, gardener
 ---
 
 # scripts/driver
@@ -28,20 +28,40 @@ job board fit together.
 scripts/driver/driver.sh <lane>
 ```
 
-`<lane>` is a small positive integer chosen by the maintainer. Two
-drivers on the same host must use different lane numbers. The lane
-number discriminates:
+`<lane>` is either a bare positive integer (legacy PR-work lane,
+treated as `builder-<n>` for backward compatibility) or `<role>-<N>`
+(role-prefixed lane per `designs/driver.md` § Role-prefixed lanes;
+recommended). Two drivers on the same host must use different lane
+identifiers. The lane identifier discriminates:
 
 - the per-lane state file at
-  `journal/drivers/<host>/<lane>.md`;
+  `journal/drivers/<host>/<lane>.md` (carries `role:`,
+  `cadence_seconds:`, and `paused:` fields in addition to the PR-
+  state fields documented in `journal/drivers/README.md`);
 - the per-lane subscription advertisement at
   `journal/drivers/<host>/<lane>.subscriptions`;
 - the per-lane self-improvement log at
   `journal/drivers/<host>/<lane>.improvements.md`;
+- the role-specific job board the lane scans
+  (`journal/jobs/<role>/open/`);
+- the role-specific inbox the lane drains
+  (`journal/inboxes/<host>/<role>.md` via
+  `skills/inbox-drain/inbox-drain.sh <role>`);
+- the workflow skill the driver loads
+  (`skills/driver-<role>-workflow/SKILL.md` for non-PR lanes;
+  `skills/driver-<kind>-state-machine/SKILL.md` for PR-work lanes
+  per the job's `kind:` field);
 - gardener-inbox messages on unexpected failure (each message names
   the lane in its section header);
 - journal entries the driver writes (so per-lane filtering by
-  `grep '^lane: <n>'` works).
+  `grep '^lane: <lane>'` works).
+
+Lane caps enforced by `scripts/daemons/start.sh`:
+- `gardener-N`: at most 1 lane per host. Attempting to launch
+  `gardener-2` is refused.
+- `librarian-N`: at most 2 lanes per host initially. Editable in the
+  daemons-script's lane registry.
+- `builder-N`, `fixer-N`, `weaver-N`: no hard cap; host CPU governs.
 
 The script behaves identically whether launched by hand or by
 systemd; only the supervisor changes.
