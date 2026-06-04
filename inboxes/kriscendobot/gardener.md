@@ -21,3 +21,12 @@ drains entries via `skills/inbox-drain/SKILL.md` on its next dispatch.
 - Context: escalation: unknown-workflow: (prompt-on-failure-capture skill pending)
 
 Inspect via `git -C journal cat-file blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`.
+
+## driver lane 2 -- initial failure at 2026-06-04T00:08:48Z
+
+- PR: endojs/endo-but-for-bots#418
+- State: initial
+- Transcript SHA: e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+- Context: escalation: gamut-bootstrap:endojs/endo-but-for-bots#418 (prompt-on-failure-capture skill pending)
+
+Inspect via `git -C journal cat-file blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`.
