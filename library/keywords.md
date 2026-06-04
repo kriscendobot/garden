@@ -5842,3 +5842,38 @@ canonical-passable-rendering-pair | marshal
 thirteenth-member small-files-with-large-knowledge-density | patterns
 twenty-third consecutive designs-chat alternation cycles 166-189 | patterns
 83+ consecutive papers-lane blocks | patterns
+endo-posix-sandbox slice of POSIX-like system | daemon, capability-security
+cap-not-string-mounts | capability-security, patterns
+three-rule-security-boundary-clarity | capability-security, patterns
+plugin-does-not-receive-daemon's-host-paths-power | capability-security, patterns
+misconfig-is-error-not-relaxation | patterns
+confused-deputy-named-explicitly | capability-security, patterns
+pluggable-backend-driver-with-capability-blind-drivers | daemon, patterns
+SandboxFactory SandboxHandle ProcessHandle MountHandle | daemon, capability-security
+bwrap podman lima containerization wsl five drivers | daemon
+six-position-network-confinement-ladder | daemon
+private-network RFC-1918-blocklist CGNAT link-local IPv6-ULA host-loopback | daemon
+PATH-synthesis-from-rootfs-shape | daemon
+host-bind mount minimal oci four rootfs modes | daemon
+five-forbidden-PATH-prefixes home Users root tmp var-tmp run-user | daemon
+anti-shadowing-rule caller-mounts-after-rootfs-derived | daemon, patterns
+caller-supplied-env.PATH-always-wins over synthesis | daemon, patterns
+living-phase-list-records-its-own-renumbering | patterns
+Phase 5 intentionally absent folded into Phase 4 | patterns
+supersedes-record-pattern with three-improvements | patterns
+source-mirror-to-PLAN with named-update-protocol | patterns
+two-documents-with-named-authoritative-source | patterns
+update-protocol-named-explicitly avoiding two-documents-drift | patterns
+four-handle-capability-surface lifecycle-decomposition | capability-security, patterns
+GC-pinning-and-disposal-protocol SIGTERM-grace-SIGKILL | daemon, patterns
+five-cross-phase-invariants test-discipline | patterns
+plugin-explicitly-refuses-power-it-could-have | capability-security, patterns
+six-non-goals-explicitly-named | patterns
+non-goals-discipline as scope-clarification-via-negation | patterns
+additional-defense-not-primary-boundary | capability-security
+genie-integration-as-workspace-not-tool-surface | daemon
+GENIE_WORKSPACE slice-internal path | daemon
+kernel-feature-probing uid_map max_user_namespaces | daemon
+podman-image-PATH-injection podman-create | daemon
+twenty-fourth consecutive designs-chat alternation cycles 166-190 | patterns
+84+ consecutive papers-lane blocks | patterns
