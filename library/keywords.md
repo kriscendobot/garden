@@ -5437,3 +5437,55 @@ Tier-1 borrowing Symbol.for-as-coordination-slot | patterns
 Tier-1 borrowing type-check-the-existing-implementation | patterns
 Tier-1 borrowing fail-loud-on-corruption-with-helpful-diagnostic | patterns
 69+ consecutive papers-lane blocks | hardened-javascript, patterns, tooling
+endor Rust supervisor architecture | daemon, tooling, hardened-javascript
+endor binary multi-tool subcommands | daemon, tooling
+endo crate xsnap crate two-crate-decomposition | daemon
+three-worker-platforms separate shared node | daemon, tooling
+byte-identical-CBOR-envelopes across transports | daemon, tooling
+supervisor-is-transport-agnostic | daemon, tooling
+graceful-downgrade shared to separate | daemon
+manager-must-be-co-resident hard requirement | daemon
+the-daemon-binary-is-self-contained | daemon
+pool-of-machine-runner-threads | daemon
+ENDO_MACHINE_THREADS default CPU count | daemon
+cooperative-not-preemptive scheduling | daemon
+machines-yield-at-envelope-boundaries | daemon
+XS Machine !Send !Sync pinned to OS thread | daemon
+blocking-call-authorization-via-parent-tree | daemon
+deadlock-prevention-by-structure | daemon
+parent-can-call-child-synchronously child-cannot-block-parent | daemon
+suspend-resume-via-CAS-streaming | daemon
+the-full-snapshot-never-resides-in-memory | daemon
+SHA-256-as-content-address streaming | daemon
+atomic-rename-after-write CAS | daemon
+unified-runner-four-mode-table | daemon
+Bundle Archive program Transport Some None | daemon
+endor implements Ken protocol properties implicitly | daemon
+CESU-8 surrogate-pair encoding XS | daemon
+fast-path no 4-byte UTF-8 | daemon
+six-host-power-modules fs crypto modules process sqlite debug | daemon, tooling
+cap-std capability-safe filesystem | daemon
+five-embedded-JS-bundles include_str! | daemon, tooling
+polyfills host_aliases ses_boot worker_bootstrap daemon_bootstrap | daemon
+renames-from-kind-to-platform | daemon
+kind locked node platform separate shared node | daemon
+defaultWorkerKind defaultPlatform | daemon
+workerKind workerPlatform | daemon
+path-resolution-mirrors-@endo/where | daemon, tooling
+ENDO_STATE_PATH ENDO_SOCK_PATH ENDO_EPHEMERAL_STATE_PATH ENDO_CACHE_PATH | daemon, tooling
+PipeTransport ChannelTransport | daemon
+fd 3 fd 4 pipes child process | daemon
+std::sync::mpsc channel transport | daemon
+sibling-design cycle 141 daemon-cas-management | daemon
+status-Active design lifecycle | daemon
+seven-distinct-design-lifecycle-statuses Complete Active Proposed Reference Not-Started Implemented In-Progress | daemon
+Tier-1 borrowing three-worker-platforms | daemon, tooling
+Tier-1 borrowing supervisor-is-transport-agnostic | daemon, tooling
+Tier-1 borrowing graceful-downgrade | daemon
+Tier-1 borrowing manager-must-be-co-resident | daemon
+Tier-1 borrowing pool-of-machine-runner-threads | daemon
+Tier-1 borrowing blocking-call-authorization-via-parent-tree | daemon
+Tier-1 borrowing suspend-resume-via-CAS-streaming | daemon
+Tier-1 borrowing unified-runner-four-mode-table | daemon
+Tier-1 borrowing five-embedded-JS-bundles-via-include_str | daemon, tooling
+70+ consecutive papers-lane blocks | daemon, tooling, hardened-javascript
