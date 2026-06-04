@@ -2,6 +2,111 @@
 
 A library of agent **roles** and **skills** for working across many forks of GitHub repositories, plus a **journal** that records what the garden has done.
 
+## A walkthrough for a new maintainer
+
+The garden is built around a small number of maintainer touch points: you describe what you want, review what the bot produces, and approve when it's right. Between each touch point the garden runs a chain of dispatched agents automatically. The five steps below cover the canonical flow from "I have an idea" through "the implementation merged upstream." Each section names what you do, what prompt to use, and what the garden does between your interactions.
+
+The walkthrough assumes you are working against `endojs/endo-but-for-bots` (the garden's primary project). Other projects have similar shapes; the per-project README under `journal/projects/<slug>/` calls out the differences.
+
+### 0. Open a session in the garden root
+
+Start a `claude` session with the garden root (this directory) as the working directory. The session enters the **liaison** posture by default — the user-in-the-loop orchestrator. Anything you type is the liaison's input.
+
+```
+$ cd ~/garden
+$ claude
+```
+
+The liaison reads recent journal activity at session start so it knows the state of any in-flight PRs, the steward's most recent cycle, and the bulletin board. You do not need to brief the liaison on what has happened recently; it surfaces what is relevant.
+
+### 1. Prompt the first design
+
+You describe the idea you want a design for. Keep it short — one or two sentences naming the feature, the project area, and any constraints you already have in mind.
+
+```
+Please design a way for the daemon to serve weblet content from CAS.
+```
+
+What happens between your prompt and the design PR landing in your review queue:
+
+1. The liaison composes the proposed designer dispatch prompt from your sentence, naming the project and the design slug it picks.
+2. The liaison dispatches a **researcher** first (per the standing precedence rule). The researcher walks `journal/library/` and the project's existing designs and returns a `## Library and project references` section listing concept pages, source pages, and adjacent designs the designer should consult. The liaison inlines that section into the designer dispatch prompt before the next step. The researcher takes about one to three minutes.
+3. The liaison dispatches a **designer**. The designer reads the curated references first, drafts a self-contained design document at `designs/<slug>.md` on the project's roadmap branch (today `llm` on `endojs/endo-but-for-bots`), and opens the design as a DRAFT pull request.
+4. A **solicitor** (the design-panel judge) dispatches a seven-seat panel against the draft. The panel reviews and the solicitor aggregates findings into a formal PR review.
+5. If the panel raises in-scope concerns, the fixer-on-design loop runs until the panel is clean. The **appellate** considers whether any deferred items should be promoted before un-drafting. The solicitor un-drafts the PR.
+6. The bulletin row for the new design PR appears on the journal's [`README.md`](https://github.com/kriskowal/garden/blob/journal/README.md), in the *Pending kriskowal reviews* section. You will see the PR in your GitHub review queue.
+
+You do not need to babysit the chain. Subsequent steps are triggered by the steward's per-cycle scan or the standing monitors; you can close your `claude` session and pick up later.
+
+### 2. Provide design review
+
+You review the design on GitHub. The pull request is on `endojs/endo-but-for-bots` (or whichever project the design targets); review on the GitHub web interface or via the `gh` CLI. Three review shapes are recognized:
+
+- **Inline comments + COMMENTED review** with substantive asks. Phrases like *"please rename"*, *"I would like…"*, *"this should be"* are read as actionable.
+- **CHANGES_REQUESTED review**. The standard "fix these things before I approve" shape.
+- **Inline discussion** without a formal review submission. The garden surfaces these too; they read as "consider this" rather than "address before approval."
+
+What happens between your review and the revised PR being ready for re-review:
+
+1. A standing daemon polls the repo and surfaces your review as a `PullRequestReviewEvent` to the steward's Monitor within ~30 seconds.
+2. The steward dispatches a **designer** with your inline comments inlined in the dispatch brief (per the *Maintainer-feedback response* discipline). The designer is the same role that drafted the design originally; the feedback shape is the same role applied to addressing comments.
+3. The designer addresses each inline comment, posts threaded replies citing the addressing commit SHAs, updates the design document, and re-requests review.
+4. The PR re-appears in your review queue with the new commits and the threaded replies.
+
+You can loop on this as many times as the design needs. The steward owns this dispatch regardless of who originally opened the PR; you do not need to re-ask.
+
+### 3. Approve the design
+
+You click **Approve** on the GitHub PR.
+
+What happens between your approval and the implementation PR landing in your review queue:
+
+1. The steward's standing daemon surfaces the `APPROVED` state. The steward inspects CI; if green (or the only red is a known operational flake the steward has classified), it dispatches a **conductor**.
+2. The conductor merges the PR onto the project's roadmap branch (today `llm` on `endojs/endo-but-for-bots`). The design is now part of the project's roadmap, queued for implementation.
+3. The **design-poller** systemd service (per [`skills/design-poller/SKILL.md`](./skills/design-poller/SKILL.md)) walks the roadmap branch on a cadence, classifies the new design as *ready to build* via the eligibility filter, and posts a `build` job to the role-specific job board. (Today the steward's per-cycle design-to-PR-pipeline scan does this work; the poller is the deterministic-infrastructure replacement landing now.)
+4. A **builder** dispatch is composed against the design. As with the designer, a **researcher** dispatch runs first and the references are inlined.
+5. The builder drafts the implementation on a separate PR against the project's implementation branch (today `master` on the bot fork). The PR opens DRAFT.
+6. The PR enters the source-touching chain: **cleaner** runs first (coverage pass, dead-code deletion, formatting), then **barrister** (the first-round code panel; twenty-six juror seats). Findings the panel marks as `must-fix-loop` go to a **fixer**; the fixer addresses, the **justice** re-runs the panel, the loop continues until the panel is clean. The **appellate** considers promotions; the panel's terminating judge un-drafts.
+7. The implementation PR appears in your review queue.
+
+The split between the design PR (on `llm`) and the implementation PR (on `master`, for the bot fork) is deliberate: the design records the agreed approach; the implementation lands the code. The two are reviewed and merged separately.
+
+### 4. Provide implementation review
+
+You review the implementation on GitHub, same shape as the design review. Inline comments, CHANGES_REQUESTED, or discussion all work.
+
+What happens between your review and the revised implementation being ready for re-review:
+
+1. The steward's Monitor surfaces your review.
+2. The steward dispatches a **fixer** with your inline comments inlined (the source-touching analog of step 2's designer-with-feedback). The fixer is the canonical surgical-fix role: it addresses each comment, replies on the inline threads, and re-requests review.
+3. If the fix's effect on CI is non-trivial, the steward dispatches a **shepherd** alongside the fixer to drive CI back to green. Known operational flakes are classified and re-run automatically; deeper issues escalate via the shepherd → fixer auto-chain.
+4. The PR re-appears in your review queue.
+
+As with design review, you can loop as many times as the implementation needs.
+
+### 5. Approve implementation
+
+You click **Approve** on the GitHub PR.
+
+What happens between your approval and the work being merged (and, for forks, ferried upstream):
+
+1. The steward sees `APPROVED` plus green CI and dispatches a **conductor**.
+2. The conductor merges the PR onto the project's implementation branch. The work is now part of the project's bot-fork history.
+3. For projects with an upstream you want to land on (e.g. `endojs/endo`), you say *"ferry #N"* or *"carry #N upstream"* in a `claude` session. This dispatches a **boatman** which switches identity to your primary (the garden's `kriskowal` identity), reshapes the commits per the upstream's convention, and force-pushes onto the upstream PR branch under your name. The upstream PR opens (or updates) with the work attributed to you. *Ferry* is the maintainer's preferred verb; see [`roles/boatman/AGENT.md`](./roles/boatman/AGENT.md) for the full procedure.
+4. For projects without a separate upstream (e.g. the garden itself), the merge to the bot-fork branch is the terminal state.
+
+You can pause at any point. The chain resumes wherever you left off the next time the steward's cycle fires or the next event from a standing monitor surfaces.
+
+### Where to push back when the automation is wrong
+
+The walkthrough above is the happy path. When the automation does the wrong thing, three escalations work:
+
+- **Pause a specific lane.** Set `paused: true` on `journal/drivers/<host>/<lane>.md` to quiesce an autonomous lane (a future driver-pool feature; today the equivalent is to TaskStop the steward's session). The autonomous work stops; the bulletin still tracks what is pending.
+- **Override a dispatch.** Tell the liaison in your session: *"don't dispatch X"*, *"close #N"*, *"that classification is wrong, please redo as Y."* The liaison is the user-in-the-loop surface and applies your direction immediately.
+- **Encode the lesson.** When a misclassification or a wrong dispatch is a pattern, ask the liaison to dispatch a **gardener** to encode the rule. The gardener writes the lesson into the relevant role file, skill file, or top-level doc; future dispatches read the updated context and avoid the pattern.
+
+The `claude` session in the garden root is the liaison; the autonomous bot work is the steward and (in time) the driver lanes. They share the journal but the user-in-the-loop surface stays with the liaison.
+
 ## The journal
 
 The journal lives on the orphan `journal` branch of this repo. It is the garden's transcript and message bus, append-only and machine-readable.
