@@ -5786,3 +5786,31 @@ five-cycle-dependency-cluster | patterns
 twelfth-member small-files-with-large-knowledge-density | patterns
 twenty-first consecutive designs-chat alternation cycles 166-187 | patterns
 81+ consecutive papers-lane blocks | patterns
+daemon-rust-xs-performance benchmark investigation | daemon, tooling
+three-variant-benchmark-as-bottleneck-triangulation | daemon, patterns
+Node.js Rust+XS Rust+Node benchmark variants | daemon
+fxHasPendingJobs check-and-reset latch | daemon
+latch-not-counter read-once-consume-once | patterns
+two-wrong-fixes-considered-and-rejected | patterns
+1ms sleep pump loop performance penalty | daemon
+three-phase-drain-loop | daemon, patterns
+fxRunPromiseJobs loop until quiescence | daemon
+subtle-final-check sendRawFrame queued jobs without envelopes | daemon, patterns
+blocking-recv-deadlock | daemon
+zero-sleep zero-polling correct-and-fast | daemon, patterns
+off-by-one frame.sub(2+i) should be frame.sub(1+i) | daemon
+XS-stack-frame-layout 64-bit LE 32-bytes-per-slot | daemon
+mxArgv mxArgc mxThis macros | daemon
+systematic-misreading fixed across 6 files | patterns
+XS-block-scoping-with-eval+try/catch | daemon
+inline-at-usage-site workaround | daemon, patterns
+XS-engine-quirks-taxonomy | daemon, patterns
+benchmark-numbers-cited-from-three-angles | patterns
+4-remaining-optimization-opportunities | daemon
+working-copy-inventory navigation-aid | patterns
+designs-as-archives-of-in-progress-work | patterns
+Active-status as living-investigation | patterns
+seven-distinct-design-lifecycle-statuses Complete InProgress Proposed Active Reference Implemented NotStarted | patterns
+ping 9.7x eval_warm 17.9x storeValue_lookup 26.6x | daemon
+twenty-second consecutive designs-chat alternation cycles 166-188 | patterns
+82+ consecutive papers-lane blocks | patterns
