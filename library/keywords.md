@@ -5549,3 +5549,24 @@ honest-design-evolution-record | daemon, patterns
 sibling-design-pair feature-spec and substrate | daemon
 cycle 162 Ken atomic-checkpoint at worker layer | daemon
 72+ consecutive papers-lane blocks | daemon, persistence, patterns
+lp32 length-prefix-framing host-byte-order | streams, captp
+WebExtension Native Messaging stdio IPC | streams
+host-byte-order-as-deliberate-IPC-marker | streams, patterns
+DataView default-big-endian quirk | streams
+runtime-endianness-probe Uint16Array trick | streams, patterns
+single-growing-buffer doubling-capacity | streams, patterns
+copyWithin in-place buffer shift | streams, patterns
+Must allocate to support concurrent reads | streams, captp
+slice-not-subarray correctness for concurrent reads | streams, patterns
+1MB-default matches WebExtension spec | streams
+symmetric-maxMessageLength-enforcement reader writer | streams, patterns
+DOS-protection symmetric reader-writer | streams
+per-message-allocation on write side | streams, patterns
+single-shared-host-endian-constant avoids mismatch | streams, patterns
+symmetric-asyncIterator-self-return type-compatibility | streams, patterns
+dangling-message-error with offset diagnostic | streams
+sibling-encoding-pair lp32 netstring | streams, patterns
+implicit-state-machine length-at-offset-0 | streams, patterns
+small-files-with-large-knowledge-density eighth-member | patterns
+73+ consecutive papers-lane blocks | streams, patterns
+designs-chat-alternation maintained 14 cycles | patterns
