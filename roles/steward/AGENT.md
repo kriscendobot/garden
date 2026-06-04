@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-06-03
+updated: 2026-06-04
 author: gardener, steward, liaison
 ---
 
@@ -85,7 +85,7 @@ bootstrap:
 
 The body names what monitors the session has armed, the inbox state-file path, any pre-staged authorizations the session is forwarding, and any one-off context the next iteration of this session should re-pick up. The body is free-form prose; the frontmatter is the machine contract.
 
-Heartbeats land every ~90s by an inline `last_heartbeat:` bump committed via `skills/journal-sync/SKILL.md`. The general-contractor's presence-heartbeat shape is the model; same cadence, same staleness threshold (5 minutes).
+Heartbeats land every ~90s by an inline `last_heartbeat:` bump committed via `skills/journal-sync/SKILL.md`. The same cadence and 5-minute staleness threshold apply to the driver lanes' lane-state heartbeats.
 
 Consumers do not parse the steward's presence file directly today (the job board's `eligible_roles:` field is the routing surface). The presence file's role is self-anchoring: it lets the next bootstrap of this session re-pick up identity and watch state without a user prompt.
 
@@ -97,7 +97,7 @@ The board replaces the historical pattern of `message: liaison → steward` for 
 
 #### Claim race
 
-Two consumers (this steward, a sibling steward on another host, the contractor) may see the same `open/` job at the same time. The race is resolved by `git push origin HEAD:journal`: only one claim push lands, the rejected pusher hard-resets and falls back to idle without retry. Full procedure in `skills/job-board/SKILL.md` § Claim; the steward's call site is `skills/job-board/claim-job.sh <open-path>`.
+Two consumers (this steward, a sibling steward on another host, a driver lane subscribed to the same role-specific board) may see the same `open/` job at the same time. The race is resolved by `git push origin HEAD:journal`: only one claim push lands, the rejected pusher hard-resets and falls back to idle without retry. Full procedure in `skills/job-board/SKILL.md` § Claim; the steward's call site is `skills/job-board/claim-job.sh <open-path>`.
 
 Crucial discipline:
 
@@ -436,14 +436,11 @@ The liaison's vocabulary also covers bulletin and journal phrases (*surface X*, 
 
 When the daemon-log tail Monitor surfaces a `PullRequestReviewEvent` (or the @-mention Monitor surfaces a `@kriscendobot` comment) carrying maintainer feedback on a garden-authored DRAFT PR, the steward dispatches the response in the same parent-context tick rather than deferring to the next per-cycle PR-creation-flow scan. The Monitor's job is to surface the event in real time; the steward's job is to act before maintainer attention drifts. This section is the structural counterpart of the *Parent-context Monitor invariants* above: those keep the daemon `NEW` lines arriving in real time, and this section names the dispatch the steward owes when one arrives.
 
-### Ownership: steward, not contractor
+### Ownership: steward (Monitor-surfaced), driver lanes (chain advancement)
 
-The steward owns Monitor-surfaced maintainer-feedback response on **every** garden-authored draft PR, regardless of which orchestrator opened the PR. The contractor's slot machinery owns *initial-PR-drafting* and the slot-level gamut; it does not naturally absorb mid-stream maintainer-feedback events. Two reasons the steward is the right consumer:
+The steward owns Monitor-surfaced maintainer-feedback response on **every** garden-authored draft PR. The driver lanes (per `designs/driver.md`) own chain advancement on PRs they have claimed via a role-specific job board; they consume the resulting push (fixer or designer commit) and re-dispatch the next-stage-owed role through their own state machine. The two compose without conflict: the steward acts on the Monitor event because its parent-context Monitors fire within ~30s of the daemon log line and ~90s of an `@`-mention comment, which is faster than any per-cycle scan; the driver picks up the resulting push on its next state-machine tick and runs the chain forward.
 
-1. **Cadence.** The steward's parent-context Monitors fire within ~30s of the daemon log line and ~90s of an `@`-mention comment; the contractor's per-cycle scan typically takes 5 to 30 minutes. The maintainer's expectation on an actively-reviewed PR is a same-cycle acknowledgment (the `eyes` reactji ack-on-pickup discipline in `skills/at-mention-surveillance/SKILL.md` already presumes this).
-2. **Authority.** The contractor and the steward hold the same authority bounds (per `roles/general-contractor/AGENT.md` § Posture); there is no authority-shape reason to defer. Deferring on the assumption that "this is contractor's slot work; not steward's concern" is an invention the steward does not have to make.
-
-When both the steward and the contractor are alive on the same host, the steward acts on the Monitor event; the contractor's next per-cycle scan sees the resulting push (fixer or designer commit) and re-dispatches the next-stage-owed role (typically a judge re-run). The two compose without conflict.
+The historical `general-contractor` posture used to own *initial-PR-drafting* via slot machinery and would have competed for ownership of maintainer-feedback events. The contractor was retired on 2026-06-03 per the maintainer's directive ("I have dismantled the contractor. The role has not been working and I would like to reconstruct it on the driver."); the slot-machinery role is reconstructed as the deterministic `garden-design-poller` systemd service (per `skills/design-poller/SKILL.md`) plus the driver lanes. There is no longer a parallel orchestrator competing for the maintainer-feedback surface; the steward owns it unambiguously.
 
 ### Dispatch decision by PR shape
 
@@ -469,6 +466,8 @@ The per-cycle PR-creation-flow scan below handles *panel-state* transitions (cle
 ### Notes from the field
 
 - _2026-05-29_: this section was added by gardener dispatch `d94d11` in response to a 28-minute gap on PR #376 (`endojs/endo-but-for-bots`). kriskowal submitted a `COMMENTED` review with 6 inline comments at 05:01:20Z on a contractor-opened design-only PR. The steward saw the events on the daemon-log tail Monitor and the parent-context Monitors but deferred to the contractor's pipeline ("this is contractor's slot work; not steward's concern"); the maintainer had to flag the missed review in the terminal session at 05:29Z. The deferral was the steward's own invention; nothing in the role file or any skill authorized it. Precipitating entry: `entries/2026/05/29/053130Z-dispatch-steward-f9a0b1.md`.
+
+- _2026-06-04_: the contractor-vs-steward ownership question is moot after the 2026-06-03 retirement of the `general-contractor` posture. The *Ownership: steward, not contractor* subsection rewrote as *Ownership: steward (Monitor-surfaced), driver lanes (chain advancement)*: the steward still owns Monitor-surfaced maintainer-feedback dispatch, and driver lanes own chain advancement on claimed PRs; the two compose without competing because the surfaces are orthogonal.
 
 ## Researcher precedence on designer and builder dispatches
 

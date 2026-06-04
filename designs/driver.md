@@ -1,9 +1,21 @@
 # design(driver): script-orchestrated PR-creation flow
 
 | Created | 2026-05-29 |
-| Updated | 2026-06-02 |
+| Updated | 2026-06-04 |
 | Author  | gardener, fixer, designer |
 | Status  | Proposed   |
+
+## Update — 2026-06-03 contractor retirement
+
+The `general-contractor` posture this design originally proposed to *preserve through the migration* (per the Migration plan and several § Architecture references below) was **retired** on 2026-06-03 per the maintainer's directive: *"I have dismantled the contractor. The role has not been working and I would like to reconstruct it on the driver. That is, that there will be a new, deterministic systemd service in the driver container that will poll the llm branch for new designs that are ready to be built and then post a job for a driver."*
+
+What changes about this design:
+
+- The contractor-side "preserved through migration" bullets are no longer accurate. Phase 5's planned per-system retirement does not need to wait on the contractor; that retirement already happened.
+- The slot-machinery + design-queue-walk function the contractor used to do is reconstructed as the **`garden-design-poller` systemd service** (a single instance per driver container, not templated; see `skills/design-poller/SKILL.md` for the contract and `scripts/systemd/garden-design-poller.service` for the unit). The poller walks the project's roadmap branch (today `endojs/endo-but-for-bots:llm`) on a cadence, filters for designs that are *ready to be built* (per `skills/design-queue-drift-check/SKILL.md`'s eligibility filter), and posts a `build` job to the role-specific board for a driver lane to claim.
+- The `roles/general-contractor/AGENT.md` file was deleted as part of the retirement. References below to that role file are historical; do not chase the link.
+
+The rest of the design stands. The driver lane architecture, the state machine, the worker pool, the prompt-on-failure capture pattern, the gardener-inbox error reporting, the watcher subscription model, the deterministic reactji and worktree disciplines, and the driver-run pre-CI validation are all unchanged. The design-poller is one additional deterministic infrastructure component that fills the seam the contractor's retirement opened.
 
 ## Summary
 

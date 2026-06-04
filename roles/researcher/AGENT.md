@@ -1,6 +1,6 @@
 ---
 created: 2026-06-03
-updated: 2026-06-03
+updated: 2026-06-04
 author: gardener
 ---
 
@@ -12,7 +12,7 @@ Assumes you have already read `roles/COMMON.md`.
 
 ## When to enter this role
 
-- The orchestrator (liaison, steward, or general-contractor) has composed a proposed dispatch prompt for a [designer](../designer/AGENT.md) or [builder](../builder/AGENT.md) and is about to dispatch it. The researcher runs first and returns a refinement; the orchestrator inlines the refinement and then dispatches the actual designer or builder. The researcher precedes every designer and builder dispatch by default; orchestrators that skip the researcher do so deliberately and record why in the downstream dispatch's `dispatch` entry.
+- The orchestrator (liaison or steward) has composed a proposed dispatch prompt for a [designer](../designer/AGENT.md) or [builder](../builder/AGENT.md) and is about to dispatch it. The researcher runs first and returns a refinement; the orchestrator inlines the refinement and then dispatches the actual designer or builder. The researcher precedes every designer and builder dispatch by default; orchestrators that skip the researcher do so deliberately and record why in the downstream dispatch's `dispatch` entry. Driver-lane builds that claim `journal/jobs/builder/open/` jobs run the researcher precedence at job-claim time before invoking the builder; see `designs/driver.md` for the lane integration.
 - Not for: fixer, weaver, shepherd, conductor, judge, panel-juror dispatches. These read PR state and journal entries directly rather than from a curated brief; the researcher is scoped to designer and builder for now.
 
 ## Dispatch inputs
@@ -88,4 +88,6 @@ The researcher does not interact with any external repository. It reads journal 
 
 ## Notes from the field
 
-- _2026-06-03_: role landed in response to the maintainer directive "I would like to explicitly inject library research as an explicit role and step that precedes designer and builder in our workflows. The researcher would refine the prompt for the designer or builder by adding links to relevant documents in the library." The orchestrator-side integration (the precedes-designer/builder rule in `roles/liaison/AGENT.md` § Posture, `roles/steward/AGENT.md` § Subordinate roles dispatched, and `roles/general-contractor/AGENT.md` § Subordinate roles dispatched) landed in the same engagement so dispatched subagents immediately follow the new workflow. The downstream-role note in `roles/designer/AGENT.md` § Skills and `roles/builder/AGENT.md` § Skills points each of them at the now-standard `## Library and project references` section in their dispatch prompts.
+- _2026-06-03_: role landed in response to the maintainer directive "I would like to explicitly inject library research as an explicit role and step that precedes designer and builder in our workflows. The researcher would refine the prompt for the designer or builder by adding links to relevant documents in the library." The orchestrator-side integration (the precedes-designer/builder rule in `roles/liaison/AGENT.md` § Posture and `roles/steward/AGENT.md` § Subordinate roles dispatched) landed in the same engagement so dispatched subagents immediately follow the new workflow. The downstream-role note in `roles/designer/AGENT.md` § Skills and `roles/builder/AGENT.md` § Skills points each of them at the now-standard `## Library and project references` section in their dispatch prompts.
+
+- _2026-06-04_: the `general-contractor` orchestrator was retired on 2026-06-03 per the maintainer's directive. The contractor-side precedence integration originally landed in the same engagement as this role is correspondingly retired; the equivalent integration for the new driver lanes (which claim role-specific job-board work) lands in `designs/driver.md` and the lane scripts as that work matures. The two orchestrators that still own designer/builder dispatch are the liaison and the steward.
