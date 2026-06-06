@@ -6335,3 +6335,19 @@ extension-point-survives-removal-of-its-content (specials reused in cycle 208 af
 three-different-shapes-for-recording-rejected-alternatives (cycle 198 interleaved / cycle 200 collected / cycle 208 three-option-analysis) | patterns
 forty-second consecutive designs-chat alternation cycles 166-208 | patterns
 library-reaches-713-sections at cycle 208 | patterns
+Shortlex-ordering (Wikipedia-cited formal name) | references
+three-tier-comparison (length / cumulative-length / lexicographic UTF-16) | patterns
+multi-tier-comparison-with-named-reasons + early-return-per-tier | patterns
+undefined-compares-greater-than-anything-else | patterns
+multiple-mermaid-diagrams-with-worked-examples-each-demonstrating-one-tier | patterns
+honest-Note-about-surprising-defaults (UTF-16 code unit order may be surprising) | patterns
+sanity-check-with-c8-ignore-comment | patterns
+JSDoc-callback-typedef-with-generic-T (CompareFn<T> reused for both exports) | patterns
+building-block-and-derived-form (stringCompare + pathCompare) | patterns
+name-the-canonical-consumer in README | patterns
+algorithm-numbered-steps-in-JSDoc | patterns
+shortlex-discipline-at-two-levels-of-the-stack (cycle 200 retention-path + cycle 209 path-compare) | patterns
+three-different-visualization-conventions for design-explanation (mermaid / ASCII-architecture / ASCII-visual-layout) | patterns
+small-files-with-large-knowledge-density twenty-third-member cycle 209 | patterns
+forty-third consecutive designs-chat alternation cycles 166-209 | patterns
+library-reaches-714-sections at cycle 209 | patterns
