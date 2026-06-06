@@ -5997,3 +5997,29 @@ Supersedes-field-in-metadata explicit-prior-relationship | patterns
 cycle-192-lesson-learned applied via metadata field | patterns
 twenty-eighth consecutive designs-chat alternation cycles 166-194 | patterns
 88+ consecutive papers-lane blocks | patterns
+@endo/cli utility cluster six tight helpers | tooling
+designs-are-guides-not-contracts confirmed-twice | patterns
+verify-against-source not verify-against-design | patterns
+two-of-two-audit-boundary-sites migrated | patterns
+parsePetNamePath dot-delimited path parsing | tooling
+empty-segment-rejection in dot-delimited paths | patterns
+parseOptional-variant-pattern undefined-passthrough | patterns
+@-mention-format/parse-pair | tooling
+@-escape-via-backslash | tooling, patterns
+@-mention-regex 128-char-max | tooling
+five-properties-of-the-regex | patterns
+example-comments-in-source-not-tests | patterns
+parseBigint strict-regex non-negative integer | tooling, patterns
+randomHex16 promise-wrap-Node-callback-API | tooling
+128-bit-output 16-bytes 32-hex-chars | tooling
+async-readline-prompt trim-and-toLowerCase | tooling
+single-shot-cleanup rl.close in callback | tooling
+one-purpose-per-file no-internal-dependencies | patterns
+implicitly-tested-by-the-CLI-itself | patterns
+audit-table-row-23 check-bundle migrated | patterns
+audit-table-row-32 cli-random migrated | patterns
+greppable-check beats reading-audit | patterns
+mechanical-grep-and-replace-pass audit-didn't-anticipate | patterns
+twenty-ninth consecutive designs-chat alternation cycles 166-195 | patterns
+89+ consecutive papers-lane blocks | patterns
+library-reaches-700-sections at cycle 195 | patterns
