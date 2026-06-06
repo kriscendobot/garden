@@ -6242,3 +6242,29 @@ three-different-purposes-for-Reference-status (inventory / pre-emptive-supersede
 convergence-on-content-addressed-storage in the endor family (cycles 178/202/204) | patterns
 thirty-eighth consecutive designs-chat alternation cycles 166-204 | patterns
 library-reaches-709-sections at cycle 204 | patterns
+SES-censorship-evasion (named design purpose) | patterns
+six-evasion-strategies toolkit (evadeStrings + evadeTemplates + evadeRegexpLiteral + evadeMethod + evadeDecrementGreater + evadeComment/elideComment) | patterns
+three-problematic-sequences (import\s*\( + <!-- + -->) | references
+comment-defanging-with-three-patterns + end-of-comment-marker-defense (*/ → *X/) | patterns
+HTML-comment-in-code-edge-case (x-->y → (0,x--)>y) via SequenceExpression-wrap | patterns
+meaning-preserving-lexical-sequence-breaker | patterns
+adoptStartFrom-with-zero-width-end | patterns
+JSON-roundtrip-to-sever-references (deep-clone for serializable data) | patterns
+try/catch-purely-opportunistic | patterns
+sync-and-async-API-pair with trivial-async-wrapper | patterns
+three-overloads-with-JSDoc-narrowing based on option-presence | patterns
+Babel-traverse-default-import-workaround (babelTraverse.default || babelTraverse) | patterns
+customVisitor escape-hatch (library extensibility without forking) | patterns
+comment-preservation-via-magic-prefix (! prefix industry-convention) | patterns
+four-JSDoc-tags (@preserve / @copyright / @license / @cc_on) | references
+elideComment-vs-evadeComment two-mode (defang vs strip with column-stability) | patterns
+coerces-all-comments-to-CommentBlock | patterns
+honest-deferred-work-named-with-PR-discussion-citation | patterns
+inline-typedef-deprecation-marker as zero-friction-deprecation-signal | patterns
+one-purpose-per-file with named-inter-file-dependencies (layered module pattern) | patterns
+homoglyphs-for-@kriskowal source-comment-affectionate-joke | references
+nine-cycles-now-addressing-SES-related-defenses-or-accommodations across nine axes | patterns
+SES-defense-family in the library | patterns
+small-files-with-large-knowledge-density twenty-first-member cycle 205 | patterns
+thirty-ninth consecutive designs-chat alternation cycles 166-205 | patterns
+library-reaches-710-sections at cycle 205 | patterns
