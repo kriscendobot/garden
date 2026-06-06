@@ -6169,3 +6169,25 @@ six+-named-Caveats as honest-enumeration-of-limitations | patterns
 small-files-with-large-knowledge-density nineteenth-member cycle 201 | patterns
 thirty-fifth consecutive designs-chat alternation cycles 166-201 | patterns
 library-reaches-706-sections at cycle 201 | patterns
+three-input-forms-converging-on-one-runtime-path | patterns
+input-form-detection-by-magic-bytes-not-flags (PK\x03\x04 ZIP magic) | patterns
+three-option-implementation-with-rejected-option-named | patterns
+shell-out-to-Node rejected ("defeats the purpose") | patterns
+self-contained-binary-as-design-axiom | patterns
+reuse-battle-tested-code-via-running-it-inside-the-target-engine | patterns
+XS-hosted-mapper reusing battle-tested @endo/compartment-mapper | references
+two-phase-flow (map-in-XS-then-execute-in-fresh-XS) | patterns
+two-machines-of-the-same-engine for two-different-capability-scopes | patterns
+lazy-module-loading-from-CAS-by-hash-on-demand | patterns
+root-hash-printed-to-stderr-for-re-run | patterns
+standalone-mode-when-no-daemon | patterns
+backward-compatibility-via-flag with named use case (--no-cas) | patterns
+Status-section-with-completed-phases-and-code-paths-named | patterns
+five-Implementation-Phases each with named test cases per phase | patterns
+three-dependencies-with-named-relationship-types (Requires / Enables / Extends) | patterns
+CAS-as-universal-backing-store (Design Decision 1) | patterns
+honest-cost-disclosure with form-factor-context | patterns
+expensive-ingestion-with-cheap-retrieval (the-hash-becomes-the-handle) | patterns
+thirty-sixth consecutive designs-chat alternation cycles 166-202 | patterns
+library-reaches-707-sections at cycle 202 | patterns
+the-CLI-layer-counterpart-to-the-endor-worker-architecture-cluster (cycle 202) | references
