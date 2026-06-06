@@ -6191,3 +6191,28 @@ expensive-ingestion-with-cheap-retrieval (the-hash-becomes-the-handle) | pattern
 thirty-sixth consecutive designs-chat alternation cycles 166-202 | patterns
 library-reaches-707-sections at cycle 202 | patterns
 the-CLI-layer-counterpart-to-the-endor-worker-architecture-cluster (cycle 202) | references
+bounded-size-cache-with-WeakMap-compatible-interface | patterns
+makeMap-option-as-key-strategy (weak vs strong via WeakMap or Map) | patterns
+try-as-factory-fall-back-to-constructor | patterns
+doubly-linked-ring-with-sentinel-head | patterns
+sentinel-head-that-throws-on-direct-access | patterns
+touch-moves-to-first; LRU-evicts-last | patterns
+LRU-or-better-eviction (CLOCK / SIEVE as named alternatives) | patterns
+each-cell-holds-a-SingleEntryMap with three-strategy-cascade for reset | patterns
+UNKNOWN_KEY local-symbol sentinel | patterns
+"delete" is a keyword idiom (object-literal-then-destructure-with-rename) | patterns
+deepCopyJsonable + freezingReviver (one-pass deep-clone-with-freeze) | patterns
+metrics-via-defensive-clone-on-read | patterns
+TODO-comments-with-citations (Ben-Haim/Tom-Tov streaming histograms) | patterns
+WeakCacheMap-vs-CacheMap toStringTag discrimination | patterns
+cells-not-frozen-because-closely-encapsulated | patterns
+capacity-bounded-strict with implicit-upper-bound-named in error | patterns
+don't-establish-entry-until-prior-steps-succeed | patterns
+seven-freezes (each method + implementation + kit + factory) | patterns
+kit-pattern with named-object-properties | patterns
+WeakMap-instances-must-be-replaced-when-key-unknown (information-theoretic limit) | references
+four-different-sentinel-shapes in @endo (local-symbol / registered-symbol / pumpkin / WeakMap) | patterns
+small-files-with-large-knowledge-density twentieth-member cycle 203 | patterns
+implementation-flexibility-via-bounded-quality-promise | patterns
+thirty-seventh consecutive designs-chat alternation cycles 166-203 | patterns
+library-reaches-708-sections at cycle 203 | patterns
