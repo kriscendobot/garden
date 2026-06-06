@@ -5877,3 +5877,32 @@ kernel-feature-probing uid_map max_user_namespaces | daemon
 podman-image-PATH-injection podman-create | daemon
 twenty-fourth consecutive designs-chat alternation cycles 166-190 | patterns
 84+ consecutive papers-lane blocks | patterns
+@endo/zip store-only zip substrate | bundles, tooling
+WeakMap-private-fields-with-bound-get | hardened-javascript, patterns
+module-load-capture-of-primitive-method | hardened-javascript, patterns
+asymmetric-defense-based-on-construction-invariant | patterns
+pre-pasted-pako-crc32-with-attribution-comment | patterns
+audit-trail-in-source for borrowed code | patterns
+three-element-attribution-comment source license URL | patterns
+IE10-defense-comment-for-historical-ghost | patterns
+don't-silently-remove-defenses-for-dead-platforms | patterns
+historical-ghost-defense-with-named-rationale | patterns
+STORE-only-zip implicit-non-goal | bundles
+scope-limitation-named-in-tiny-file | patterns
+u-helper ASCII-to-Uint8Array | bundles, patterns
+six-canonical-zip-signatures PK\x03\x04 | bundles
+LOCAL_FILE_HEADER CENTRAL_FILE_HEADER ZIP64 | bundles
+five-state-BufferReader bytes data length index offset | bundles, patterns
+offset+index-pair sub-window-without-copying | bundles, patterns
+doubling-capacity-with-DataView-rebuild | patterns
+assertNatNumber Number.isSafeInteger | patterns
+DOS-date-time-six-bit-fields | bundles
+Ralph-Brown-Interrupt-List @see URL | bundles
+year-offset-1980 seconds-at-2-second-precision | bundles
+isEncrypted bit-flag detection | bundles
+MAX_VALUE_16BITS MAX_VALUE_32BITS ZIP64 awareness | bundles
+read-tolerant-write-strict Postel's law | patterns
+benchmarked-decision-named-in-comment | patterns
+fourteenth-member small-files-with-large-knowledge-density | patterns
+twenty-fifth consecutive designs-chat alternation cycles 166-191 | patterns
+85+ consecutive papers-lane blocks | patterns
