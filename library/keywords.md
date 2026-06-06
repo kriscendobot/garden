@@ -6428,3 +6428,24 @@ three-cycles-relying-on-SES-Compartment-substrate (cycles 200/205/212) | referen
 forty-sixth consecutive designs-chat alternation cycles 166-212 | patterns
 library-reaches-717-sections at cycle 212 | patterns
 small-files-with-large-knowledge-density twenty-fourth-member cycle 211 | patterns
+Node-stream-adapters (Buffer-to-Uint8Array + hardened-Stream) | patterns
+readableObjectMode-and-readableEncoding-guards with named-error-messages | patterns
+Buffer-to-Uint8Array-zero-copy-conversion via new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.length) | patterns
+Stream-must-have-return-and-throw (stricter than AsyncIterator) | references
+iterator.return-preserved-via-assert | patterns
+input.destroy(error)-on-throw (propagates Stream error to Node Reader) | patterns
+Promise.race-with-finalIteration in writer.next | patterns
+three-Node-event-handlers (error / finish / close) | references
+honest-comment-about-defensive-redundancy ("watching close is redundant but makes us feel safer") | patterns
+cleanup-after-first-fire (writer.off all + writer.on('error', sink)) | patterns
+sink-for-Node-14-unhandled-error-race-defense (named Node version compat hack) | patterns
+three-different-runtime-version-or-environment-compat-hacks (cycle 199 Apps-Script + cycle 205 Babel-traverse + cycle 213 Node-14) | references
+back-pressure-via-await-on-write | patterns
+writer.write-callback-and-drain-coordination | patterns
+pre-hardened-nonFinalIterationResult-constant (no per-call allocation) | patterns
+Fail-on-write-after-finalized | patterns
+hybrid-async-iterator-plus-generator as named Writer shape | patterns
+two-different-uses-of-Promise.race for multiple-completion-sources (cycle 204 weblet-next + cycle 213 stream-node) | references
+small-files-with-large-knowledge-density twenty-fifth-member cycle 213 | patterns
+forty-seventh consecutive designs-chat alternation cycles 166-213 | patterns
+library-reaches-718-sections at cycle 213 | patterns
