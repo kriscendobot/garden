@@ -6061,3 +6061,33 @@ Eval-Twins-as-the-shim-coordination-mechanism (first-to-load-wins-and-installs) 
 small-files-with-large-knowledge-density seventeenth-member cycle 197 | patterns
 thirty-first consecutive designs-chat alternation cycles 166-197 | patterns
 library-reaches-702-sections at cycle 197 | patterns
+three-revision-pivots-visible-in-Prompt-section | patterns
+the-data-is-already-there-just-locked discovery | patterns
+non-throwing-matcher-mirroring-`matches`-shape | patterns
+opt-in-submodule-with-cost-asymmetry | patterns
+submodule-not-sibling-package (avoids drift-vs-stable-internal-surface tension) | patterns
+rich-not-configurable rendering convention | patterns
+Rust-compiler-error-analogy cited prior art | references
+all-alternatives-reported-no-closest-alternative-heuristic | patterns
+two-consumer-postures (library users + AI agents) | patterns
+AI-agents-cannot-walk-the-specimen-interactively | patterns
+default-favors-the-tighter-budget-consumer (AI-agent token economy) | patterns
+compact-default + expanded-opt-in | patterns
+pipe-separated-columns `path | found | expected | reason` not JSON-Lines | patterns
+ASCII not unicode for terminal/log/CI compatibility | patterns
+tracing-recursion-reuses-helpers-in-place (one source of matcher truth) | patterns
+seven-trace-step-kinds discriminated-union | patterns
+each-Design-Decision-names-the-alternative-it-rejected | patterns
+nine-Design-Decisions canonical format | patterns
+single-PR-scope-despite-three-revision-rounds (each round was simplification) | patterns
+explicit-no-predecessors-row in Dependencies table | patterns
+negative-space-as-record | patterns
+single-Open-Question-discipline as design-maturity-signal | patterns
+the-gap-is-render-not-record | patterns
+drift-elimination-by-co-location | patterns
+each-review-round-was-a-simplification | patterns
+discovery-driven-redesign (build a renderer that reads what already exists) | patterns
+applyLabelingError SES annotateError chain unreachable to programmatic readers | references
+thirty-second consecutive designs-chat alternation cycles 166-198 | patterns
+honest-design-evolution-record family ninth-member cycle 198 | patterns
+library-reaches-703-sections at cycle 198 | patterns
