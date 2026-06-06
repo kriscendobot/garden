@@ -6375,3 +6375,29 @@ decision-revised-during-implementation (cycle 210 new shape for the family) | pa
 two-rhetorical-shapes-in-one-document (three-option-analysis in body + Alternatives-Considered at end) | patterns
 forty-fourth consecutive designs-chat alternation cycles 166-210 | patterns
 library-reaches-715-sections at cycle 210 | patterns
+ten-utility-files with one-purpose-per-file | patterns
+tree-shaking-friendly architecture via deep-imports (no index.js) | patterns
+each-file-named-after-its-main-export | patterns
+four-named-inclusion-criteria for utility packages (low-level / highly-reusable / sufficiently-general / explainable-without-much-external-knowledge) | patterns
+applyLabelingError as substrate for cycle 198 patterns-diagnostic-feedback | references
+throwLabeled companion (`${label}: ${innerErr.message}` + `X\`Caused by ${innerErr}\``) | references
+sync-and-async-error-relabeling-in-one-function | patterns
+fast-path-then-slow-path-for-diagnostic-quality | patterns
+fromUniqueEntries-defends-against-user-data-property-name-injection | patterns
+deprecation-tags-with-forwarding-comment-to-replacement-pattern | patterns
+SameValueZero-comparison-noted-explicitly | patterns
+hardening-analog-of-built-in-iterators | patterns
+self-iterable-via-Symbol.iterator-returns-self | patterns
+@ts-expect-error-with-rationale-comment | patterns
+four-shape-toolkit-value-vs-descriptor-times-map-vs-extend | patterns
+five-named-edge-cases-per-utility (objectMap doc-comments as runtime-spec) | patterns
+JSDoc-typed-cast for built-ins with loose default types | patterns
+three-canonical-uncurry-shapes in @endo (bind.bind(bind.call) / Reflect.apply-form / Function.prototype.call.bind) | references
+hideAndHardenFunction-for-wrappers + harden-for-leaf-utilities semantic distinction | patterns
+honest-cross-package-TypeScript-edges-with-explanatory-comments | patterns
+generic-named-package-with-named-membership-rules | patterns
+three-utility-cluster-shapes (cycle 195 cli/src + cycle 199 trio + cycle 211 common) | references
+cycle-198-and-cycle-211-pair completes design-and-substrate picture | patterns
+forty-fifth consecutive designs-chat alternation cycles 166-211 | patterns
+library-reaches-716-sections at cycle 211 | patterns
+small-files-with-large-knowledge-density twenty-fourth-member cycle 211 | patterns
