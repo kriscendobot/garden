@@ -6119,3 +6119,26 @@ small-files-with-large-knowledge-density eighteenth-member cycle 199 | patterns
 the-Eval-Twin-Problem is load-bearing across the @endo substrate | patterns
 thirty-third consecutive designs-chat alternation cycles 166-199 | patterns
 library-reaches-704-sections at cycle 199 | patterns
+engine-level-confinement-via-XS-native-Compartment-vs-SES-shim-source-rewriting | patterns
+host-compartment-vs-guest-compartment-split-with-cap-std-backed-powers | patterns
+three-numbered-problems-each-with-named-defense | patterns
+ASCII-architecture-diagram-with-three-process-boxes | patterns
+cap-std-as-the-capability-substrate at syscall level | patterns
+in-process-host-functions-not-IPC | patterns
+worker-process-not-supervisor-process | patterns
+heterogeneous-workers-via-byte-identical-envelope-layer | patterns
+pre-compiled-bytecode-for-Endo-modules | patterns
+L/M/S-effort-sizing-per-phase | patterns
+Known-Gaps-instead-of-Open-Questions (checkbox-task-list format) | patterns
+SharedArrayBuffer-deferred-with-named-condition | patterns
+Prompt-section-preserves-discard-prior-design-narrative | patterns
+foundational-design-with-Known-Gaps-that-spawn-sibling-designs | patterns
+engine-speed-matters-less-than-confinement-correctness | patterns
+the-XS-worker-family (cycles 176/178/182/184/188 build on cycle 200's worker-rust-xs) | references
+the-supplant-pattern (worker-rust-xs Not Started → daemon-endor-architecture Active) | patterns
+grep-by-source-page-existence-not-section-file-pattern (library protocol) | patterns
+short-slug-section-files (rpn--, hurl--) don't share substring with full-design-name | patterns
+two-pivots-this-cycle (retention-path-notation + hardened-url-shim already ingested) | patterns
+cycle-200-milestone | patterns
+thirty-fourth consecutive designs-chat alternation cycles 166-200 | patterns
+library-reaches-705-sections at cycle 200 | patterns
