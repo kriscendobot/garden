@@ -5967,3 +5967,33 @@ swingset dynamic vats canonical consumer | compartments
 first-pivot-this-session loopback-already-ingested-cycle-158 | patterns
 twenty-seventh consecutive designs-chat alternation cycles 166-193 | patterns
 87+ consecutive papers-lane blocks | patterns
+daemon-endo-rust-sqlite SQLite host functions for XS | daemon, persistence
+passable-by-construction-discipline | daemon, capability-security
+five-SQLite-types five-canonical-passable-JS-types | persistence
+INTEGER-always-bigint avoids precision loss | persistence
+BLOB-as-Uint8Array-not-sentinel | persistence
+$bigint $bytes FFI tags confined to internal plumbing | persistence
+strictest-default-removes-a-mode-flag | patterns
+re-prepare-instead-of-caching-Statement | persistence, patterns
+self-referential-borrow workaround | patterns
+store-the-recipe-not-the-instance | patterns
+STMT_MAP DB_MAP handle maps | persistence
+explicit-lock-ordering-discipline | patterns
+nine-host-functions CRUD surface | persistence
+sqliteOpen sqliteClose sqliteExec sqlitePrepare sqliteStmtRun sqliteStmtGet sqliteStmtAll sqliteStmtColumns sqliteStmtFinalize | persistence
+three-pragma-bundle WAL foreign_keys busy_timeout | persistence
+WAL-mode-by-default concurrent reads daemon + GC scan | persistence
+two-step-cleanup-with-retain-cascade | patterns
+explicit-finalize-instead-of-GC XS host handles | persistence
+transactions-via-exec lean-API-discipline | persistence, patterns
+rusqlite bundled feature self-contained-binary | persistence
+~2MB binary ~30s first build honest-cost-disclosure | patterns
+synchronous-JS-API matches node:sqlite DatabaseSync | persistence
+nine-Design-Decisions canonical format | patterns
+six-implementation-phases all Complete | patterns
+Phase-1-validates-toolchain-before-source | patterns
+Phase-N-integration-test-with-key-correctness-property | patterns
+Supersedes-field-in-metadata explicit-prior-relationship | patterns
+cycle-192-lesson-learned applied via metadata field | patterns
+twenty-eighth consecutive designs-chat alternation cycles 166-194 | patterns
+88+ consecutive papers-lane blocks | patterns
