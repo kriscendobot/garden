@@ -6400,4 +6400,31 @@ three-utility-cluster-shapes (cycle 195 cli/src + cycle 199 trio + cycle 211 com
 cycle-198-and-cycle-211-pair completes design-and-substrate picture | patterns
 forty-fifth consecutive designs-chat alternation cycles 166-211 | patterns
 library-reaches-716-sections at cycle 211 | patterns
+Type-3-chat-system (Type 1 chat / Type 2 forum / Type 3 outliner) | references
+immutability-at-protocol-level (every action as typed reply) | patterns
+seven-built-in-reply-types (Reply / Edit / Deletion / Move / Pro / Con / Supporting-Evidence) | references
+user-defined-reply-types-as-string-tags-no-protocol-changes-needed | patterns
+extension-via-string-tag-without-protocol-change | patterns
+last-write-wins-with-edit-queue-as-resolution-mechanism | patterns
+private-reply-trees-as-capability-grant | patterns
+layered-confidentiality (private subtrees within private subtrees) | patterns
+recursive-mutation-of-typed-replies (deletion-of-deletions) | patterns
+queue-walk-by-renderer | patterns
+z-index-as-temporal-order-encoding (avatar lineage) | patterns
+playback-with-viewer-history-aware-display | patterns
+viewer-side-administration-with-retroactive-blocking | patterns
+block-propagation-creates-personalized-unique-view per viewer | patterns
+custom-attenuation-code in SES-Compartment | references
+reference-scoping-no-upward-traversal (file-system principle "you can give the bag and know that nothing but what's in the bag is getting handed over") | patterns
+unified-Agent-interface-for-humans-and-bots | patterns
+@mention-as-wake-up-command | patterns
+explicit-mentions-important in multi-user real-time collaboration | references
+Roam-on-Endo-Petdaemon (replaces Automerge CRDTs with object-capability message-passing) | references
+what-it-gains-vs-loses-with-pragmatic-substitute trade-off | patterns
+named-keyboard-shortcut in design doc (Meta+J) | patterns
+eight-Open-Questions as design-maturity-signal (mid-stage) | patterns
+three-cycles-sharing-no-upward-traversal-discipline (cycles 161/166/212) | references
+three-cycles-relying-on-SES-Compartment-substrate (cycles 200/205/212) | references
+forty-sixth consecutive designs-chat alternation cycles 166-212 | patterns
+library-reaches-717-sections at cycle 212 | patterns
 small-files-with-large-knowledge-density twenty-fourth-member cycle 211 | patterns
