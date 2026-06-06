@@ -5938,3 +5938,32 @@ what-changed-in-the-pivot Rust-instead-of-Go | patterns
 web-future-architecture-pair dashes-for-worker-entries | patterns
 twenty-sixth consecutive designs-chat alternation cycles 166-192 | patterns
 86+ consecutive papers-lane blocks | patterns
+inescapable-Compartment-wrapper-pattern | compartments, hardened-javascript
+wrapInescapableCompartment three-named-requirements | compartments
+dual-signature-compatibility via __options__ sigil | compartments, patterns
+positional vs options-bag migration | patterns
+three-detection-branches zero new old | patterns
+two-double-binding-asserts modules-and-globals | patterns
+new.target===undefined throw constructor-only-discipline | hardened-javascript, patterns
+Reflect.construct subclass-forwarding | hardened-javascript, patterns
+propagate-the-wrapper-via-globalThis-Compartment-reassignment | compartments, patterns
+prototype-aliasing for instanceof-preserving | hardened-javascript, patterns
+SECURITY-NOTE-prefix greppable security-disclosure-comments | patterns
+non-SES-leak c.prototype.constructor untamed | compartments
+"Kris says" attribution-in-source | patterns
+"hard-to-fix-until-rewrite" honest-deferral | patterns
+Reflect.ownKeys full-key-enumeration symbols non-enumerable | hardened-javascript, patterns
+TC39 Compartments YouTube discussion URL-attribution | patterns
+four-named-deviations from longer-term-agreement | patterns
+writable-true configurable-true enumerable-false globalThis-properties | hardened-javascript
+inescapable-defense-via-reinstall-per-Compartment-not-pin | compartments, patterns
+co-located-design-doc-pattern package-level | patterns
+NewCompartment-as-local-name Compartment-as-function-name | hardened-javascript, patterns
+preserve-.name-via-function-name lint-friendly-shadowing | patterns
+named-TODO-with-shape-of-future-fix-sketched | patterns
+imposed-transforms-must-appear-at-the-end | compartments, patterns
+order-matters-for-non-override | patterns
+swingset dynamic vats canonical consumer | compartments
+first-pivot-this-session loopback-already-ingested-cycle-158 | patterns
+twenty-seventh consecutive designs-chat alternation cycles 166-193 | patterns
+87+ consecutive papers-lane blocks | patterns
