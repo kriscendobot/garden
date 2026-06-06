@@ -6351,3 +6351,27 @@ three-different-visualization-conventions for design-explanation (mermaid / ASCI
 small-files-with-large-knowledge-density twenty-third-member cycle 209 | patterns
 forty-third consecutive designs-chat alternation cycles 166-209 | patterns
 library-reaches-714-sections at cycle 209 | patterns
+three-layer-lifecycle (Setup-script / Manager-agent / Worker-loops) | patterns
+ASCII-diagram-of-fan-out-pattern | patterns
+Architectural-Constraint-named-in-section-header | patterns
+Guest-cannot-create-guests (provideGuest is on EndoHost not EndoGuest) | references
+introducedNames-@agent-as-consent-boundary | patterns
+form-submission-as-consent-mechanism (existing-user-action-as-consent) | patterns
+inbox-as-durable-config-store | patterns
+followMessages-replays-all-historical-messages-on-restart | references
+provideGuest-is-idempotent | references
+no-explicit-config-persistence-needed (when operations idempotent + substrate supports replay) | patterns
+per-worker-provider (different workers can use different LLM models) | patterns
+manager-worker-split discipline with three-named-benefits | patterns
+shared-form-fields between Lal and Fae | references
+four-form-fields (name / host / model / authToken) | references
+three-Alternatives-Considered each rejected with named reason | patterns
+design-decision-revised-during-implementation (Phase 3 honest-design-evolution) | patterns
+four-Phases-all-Complete (sibling design pair completion) | patterns
+complementary-to-cycle-208-familiar-bundled-agents (sibling-pair-completion) | patterns
+the-pair-is-the-feature (cycle 208 delivery + cycle 210 configuration) | patterns
+fourteenth-honest-design-evolution-record family member with new shape | patterns
+decision-revised-during-implementation (cycle 210 new shape for the family) | patterns
+two-rhetorical-shapes-in-one-document (three-option-analysis in body + Alternatives-Considered at end) | patterns
+forty-fourth consecutive designs-chat alternation cycles 166-210 | patterns
+library-reaches-715-sections at cycle 210 | patterns
