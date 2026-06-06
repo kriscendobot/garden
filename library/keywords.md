@@ -6216,3 +6216,29 @@ small-files-with-large-knowledge-density twentieth-member cycle 203 | patterns
 implementation-flexibility-via-bounded-quality-promise | patterns
 thirty-seventh consecutive designs-chat alternation cycles 166-203 | patterns
 library-reaches-708-sections at cycle 203 | patterns
+removed-feature-preservation-document genre (design-as-archaeology) | patterns
+Removed-Files table with named-role-per-file | patterns
+distinguishing-extension-point-from-extension-content | patterns
+Architecture-Overview-with-N-layers | patterns
+uniform-Detailed-Component-Descriptions-template (Entry / Handler / Arguments / Flow / Code-snippets) | patterns
+Patterns-Worth-Preserving section with reusable-shape per pattern | patterns
+the-`specials`-extension-point | references
+CapTP-over-WebSocket via map-writer/map-reader composition | references
+hostname-based-dispatch with handler-pair-per-hostname + cleanup-on-cancellation | patterns
+access-token-derivation-from-formula-ID (first-32-chars) | patterns
+deterministic-unforgeable-token-without-additional-state | patterns
+per-key-next-allowed-timestamp-with-lazy-sweeping (minimal rate-limiter) | patterns
+Promise.race-between-transport-close-and-CapTP-close | patterns
+connection-lifecycle-tracking with await-all-on-cancellation | patterns
+collectPropsAndBind-for-browser-endowment-collection | patterns
+Note-on-the-Next-Rendition (forward-looking-shape-without-commitment) | patterns
+@webs-as-directory-of-pet-named-web-applications | references
+readable-tree-as-content-addressed-static-content | references
+Prompt-section-preserves-removal-instruction | patterns
+honest-self-critique-in-design-archaeology | patterns
+twelfth-honest-design-evolution-record-member (deleted-code's-shape-preserved) | patterns
+three-different-shapes-of-unrealized-design (never-shipped / discarded-mid-design / shipped-then-removed) | patterns
+three-different-purposes-for-Reference-status (inventory / pre-emptive-supersedes / post-removal-archaeology) | patterns
+convergence-on-content-addressed-storage in the endor family (cycles 178/202/204) | patterns
+thirty-eighth consecutive designs-chat alternation cycles 166-204 | patterns
+library-reaches-709-sections at cycle 204 | patterns
