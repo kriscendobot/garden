@@ -6040,3 +6040,24 @@ markdown-reference-style-for-external-link-attribution | patterns
 Available-vs-Complete subtle-distinction | patterns
 thirtieth consecutive designs-chat alternation cycles 166-196 | patterns
 library-reaches-701-sections at cycle 196 | patterns
+three-layer-dispatch-chain-as-imperfect-ponyfill | patterns
+Eval Twin Problem (endojs/endo#1583) | capability-theory
+Eval-Twin-defense-via-registered-symbol | patterns
+PanicEndowmentSymbol modeled on PassStyleOfEndowmentSymbol | patterns
+infinite-regress-defense via thisFn !== globalThis.fn | patterns
+throw-rather-than-infinite-loop with reasoned justification | patterns
+ponyfill-vs-shim distinction with two-stage-rollout-discipline | patterns
+two-identity-checks with named-tradeoffs (forgeable+twin-safe vs non-forgeable+twin-vulnerable) | patterns
+prepare-commit-transactional-pattern with panic-as-mid-commit-escape | patterns
+default-erroneous-exit + no-ambient-normal-exit asymmetry | capability-security
+"no-further-loss-in-security" historical-note rationale | patterns
+two-thirds-prose-one-third-code comment density | patterns
+caveat-emptor-at-the-end of README | patterns
+TC39 "Don't Remember Panicking" proposal | references
+freeze-but-not-harden preparing-for-stabilize-doc | patterns
+cross-package-composition optional upgrade path | patterns
+roadmap-in-the-README with what-blocks-them | patterns
+Eval-Twins-as-the-shim-coordination-mechanism (first-to-load-wins-and-installs) | patterns
+small-files-with-large-knowledge-density seventeenth-member cycle 197 | patterns
+thirty-first consecutive designs-chat alternation cycles 166-197 | patterns
+library-reaches-702-sections at cycle 197 | patterns
