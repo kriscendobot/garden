@@ -6142,3 +6142,30 @@ two-pivots-this-cycle (retention-path-notation + hardened-url-shim already inges
 cycle-200-milestone | patterns
 thirty-fourth consecutive designs-chat alternation cycles 166-200 | patterns
 library-reaches-705-sections at cycle 200 | patterns
+Ponyfill+Shim-full-version (sibling to cycle 197 panic's ponyfill-only) | patterns
+Purposeful-Violation-section-in-README | patterns
+concordance-sniff-defense via Symbol.toStringTag | patterns
+WeakMap-as-emulated-private-field-AND-brand-check | patterns
+three-different-ways-to-emulate-private-state in JavaScript across @endo | patterns
+method-binding-pre-defineProperty (avoid post-hoc prototype lookups) | patterns
+intermediate-prototype-inheriting-from-host-prototype | patterns
+five-throw-methods + six-getter-overrides on intermediate-prototype | patterns
+slice-stays-mutable-vs-sliceToImmutable | patterns
+brand-check-via-`getBuffer(this)`-on-every-accessor | patterns
+three-tier-fallback (transfer → structuredClone → undefined) | patterns
+three-platform-degradation (Hermes / Node ≤16 / some JavaScriptCore) | patterns
+zero-length-slice-as-genuine-ArrayBuffer-enforcement | patterns
+capture-before-scuttled (pre-lockdown discipline) | patterns
+belt-and-suspenders-freeze on must-not-escape factory | patterns
+modern-shim-practice-frowns-on-conditional-installation | patterns
+shim-still-runs-after-native-implementation (deliberate-policy-with-named-future-cleanup-step) | patterns
+warning-not-error-when-overwriting | patterns
+two-named-motivations-from-orthogonal-domains | patterns
+ROM-vs-RAM Moddable XS rationale | references
+by-copy network protocol rationale (Endo pass-style + marshal) | references
+plain-JavaScript-not-Hardened-JavaScript-disclaimer | patterns
+encapsulated-genuine-ArrayBuffer-with-exclusive-access | patterns
+six+-named-Caveats as honest-enumeration-of-limitations | patterns
+small-files-with-large-knowledge-density nineteenth-member cycle 201 | patterns
+thirty-fifth consecutive designs-chat alternation cycles 166-201 | patterns
+library-reaches-706-sections at cycle 201 | patterns
