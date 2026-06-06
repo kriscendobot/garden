@@ -6317,3 +6317,21 @@ SES-defense-family ten cycles (175/183/197/199/200x2/201/203/205/207) | patterns
 small-files-with-large-knowledge-density twenty-second-member cycle 207 | patterns
 forty-first consecutive designs-chat alternation cycles 166-207 | patterns
 library-reaches-712-sections at cycle 207 | patterns
+The-Powers-Problem with three-option-analysis | patterns
+three-options-enumerated each with named-drawbacks-and-benefits | patterns
+resolution-with-named-reasons-for-acceptability | patterns
+self-provisioning-from-@endo-powers-to-guest-powers | patterns
+brief-bootstrap-window-with-full-authority-acceptable with three-named-mitigating-factors | patterns
+Current-Architecture-section-before-Design-section | patterns
+Dependency-Analysis-table-with-named-conclusion | patterns
+SES-Compatibility-section-with-CLAUDE.md-quoted-constraint | patterns
+environment-variable-gating for dev-vs-packaged asymmetry | patterns
+auto-incarnation-mirroring-@apps-pattern | patterns
+idempotent-provisioning (provideGuest returns existing) | patterns
+First-Run-Experience-section as explicit user journey | patterns
+Interaction-with-sibling-design-section + explicit-composition-narrative | patterns
+Files-Modified-table with named change per file | patterns
+extension-point-survives-removal-of-its-content (specials reused in cycle 208 after cycle 204 weblet removal) | patterns
+three-different-shapes-for-recording-rejected-alternatives (cycle 198 interleaved / cycle 200 collected / cycle 208 three-option-analysis) | patterns
+forty-second consecutive designs-chat alternation cycles 166-208 | patterns
+library-reaches-713-sections at cycle 208 | patterns
