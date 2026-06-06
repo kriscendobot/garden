@@ -6268,3 +6268,28 @@ SES-defense-family in the library | patterns
 small-files-with-large-knowledge-density twenty-first-member cycle 205 | patterns
 thirty-ninth consecutive designs-chat alternation cycles 166-205 | patterns
 library-reaches-710-sections at cycle 205 | patterns
+one-button-two-functions (UI density when affordance and status are conceptually related) | patterns
+five-state-color-coding (Live/Settled/Pending/Not-incarnated/Cancelled) | patterns
+confirm-on-cancel via two-click-3-second-timeout (lightweight alternative to modal) | patterns
+deletion-and-cancellation-distinct (naming-operation vs lifecycle-operation) | patterns
+pin-as-GC-anchor (pinned capabilities survive pet name deletion via PINS directory) | patterns
+disabled-but-still-shown for uncancellable-substrate-capabilities | patterns
+coalesced-watcher-protocol (canonical solution to N+1 subscription problem) | patterns
+client-mutates-watched-set + server-filters-transitions | patterns
+three-method-API (watch + unwatch + watchAll batch) | patterns
+E.sendOnly fire-and-forget for state-update-without-round-trip-latency | patterns
+watch(id)-immediately-publishes-current-status (initial-value-on-subscribe) | patterns
+watcher-scoped-to-agent's-own-pet-store (capability discipline) | patterns
+single-watcher-per-component-tree with automatic-GC-on-unmount | patterns
+four-lifecycle-hooks (provide / cancel / settle / initial-on-watch) | patterns
+single-CapTP-async-iterator carries all transitions | patterns
+N+1 subscription problem named-explicitly | references
+ASCII-art-as-design-prose for UI mockup | patterns
+additive-API + reuse-existing-mechanism | patterns
+Upgrade-Considerations-section with named concerns | patterns
+design-consolidation-recorded-in-Prompt-section | patterns
+honest-design-evolution-record family thirteenth-member (consolidation shape) | patterns
+collapse-many-API-instances-into-one principle (sibling to cycle 198) | patterns
+centennial-milestone for papers-lane-block (cycle 206) | patterns
+fortieth consecutive designs-chat alternation cycles 166-206 | patterns
+library-reaches-711-sections at cycle 206 | patterns
