@@ -6,7 +6,10 @@ upstream_mirror_repo: endojs/endo
 upstream_mirror_pr: 2901
 created_at: 2026-05-21T05:59:00Z
 last_appended_at: 2026-05-21T05:59:00Z
-status: parked
+status: actioned
+actioned_at: 2026-06-06T03:54:04Z
+merge_event: 2026-05-22T00:56:48Z
+actioned_via: jobs/open/20260606T035404Z--3f5455--endo-but-for-bots-332-bundle-lite-coverage.md
 ---
 
 # Follow-ups for endojs/endo-but-for-bots#332

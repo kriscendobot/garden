@@ -6,7 +6,10 @@ upstream_mirror_repo: endojs/endo
 upstream_mirror_pr: 2887
 created_at: 2026-05-21T06:54:00Z
 last_appended_at: 2026-05-21T06:54:00Z
-status: parked
+status: actioned
+actioned_at: 2026-06-06T03:54:17Z
+merge_event: 2026-05-21T17:42:55Z
+actioned_via: jobs/open/20260606T035417Z--391a65--endo-but-for-bots-334-docs-mirror-title.md
 ---
 
 # Follow-ups for endojs/endo-but-for-bots#334
