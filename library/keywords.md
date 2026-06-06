@@ -5906,3 +5906,35 @@ benchmarked-decision-named-in-comment | patterns
 fourteenth-member small-files-with-large-knowledge-density | patterns
 twenty-fifth consecutive designs-chat alternation cycles 166-191 | patterns
 85+ consecutive papers-lane blocks | patterns
+daemon-engo-supervisor Go supervisor unrealized predecessor | daemon
+unrealized-predecessor-of-cycle-176 | patterns
+implicit-supersedes neither design records relationship | patterns
+when-pivoting-architectures-write-an-explicit-Supersedes-record lesson | patterns
+three-architecture-diagrams current target future | patterns
+visualize-the-transition each stage complete and runnable | patterns
+-platform.js + -platform-powers.js naming convention | daemon, patterns
+four-file-quadruple-per-platform daemon daemon-powers worker worker-powers | daemon
+near-copies-with-channel-adapted migration-path | patterns
+progressive-syscall-migration with named priority order | daemon, patterns
+fs-first net-second crypto-third most-impactful-first | daemon
+Phase 4 unbounded migration | patterns
+incrementalism-as-the-key-constraint | patterns
+rollback-trivial preserve existing alongside new | patterns
+two-implementations-coexist | patterns
+five-phase-incremental-implementation with Validation-per-phase | patterns
+process-tree-inspection-via-ps test discipline | patterns
+handle-rewriting sender field implicit in asymmetry | daemon, patterns
+spawn-tree-deadlock-prevention canBlock check | daemon, patterns
+sync-from-child-to-ancestor-or-control-plane | daemon, patterns
+async-messages-always-permitted | daemon, patterns
+CBOR-with-4-byte-big-endian-length-prefix | daemon
+big-endian-for-cross-language-IPC | daemon, patterns
+fxamacker/cbor/v2 Go library | daemon
+cbor-x @ipld/dag-cbor Node.js libraries | daemon
+out-of-scope-but-architecture-supports-it | patterns
+unix-socket-at-the-same-path supervisor transparent to client | daemon, patterns
+substantial-DNA-inherited-by-endor | daemon
+what-changed-in-the-pivot Rust-instead-of-Go | patterns
+web-future-architecture-pair dashes-for-worker-entries | patterns
+twenty-sixth consecutive designs-chat alternation cycles 166-192 | patterns
+86+ consecutive papers-lane blocks | patterns
