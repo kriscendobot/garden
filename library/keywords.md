@@ -6293,3 +6293,27 @@ collapse-many-API-instances-into-one principle (sibling to cycle 198) | patterns
 centennial-milestone for papers-lane-block (cycle 206) | patterns
 fortieth consecutive designs-chat alternation cycles 166-206 | patterns
 library-reaches-711-sections at cycle 206 | patterns
+pre-SES-prelude-with-cheap-good-enough-imitations | patterns
+named-end-prelude-marker (`// end prelude`) | patterns
+cannot-depend-on-SES-discipline (for packages that load earlier than SES) | patterns
+two-banner-comment-bookends for prelude section | patterns
+Reflect.apply-form-of-uncurryThis (readable alternative to bind.bind.bind.call) | patterns
+two-different-uncurryThis-shapes in @endo (Reflect.apply vs bind.bind(bind.call)) | references
+locally-imitated-Fail-template-tag | patterns
+makeEnvironmentCaptor factory with entangled-pair return | patterns
+defensive-clone-on-read (fresh frozen snapshot on every call) | patterns
+three-tier-API (scalar / list / predicate) with single-source-of-truth | patterns
+string-only-restriction-for-data-not-authority (named security invariant) | patterns
+exhaustive-allowed-strings-list-with-default-prepended-in-error | patterns
+default-binding-for-simple-case + factory-for-advanced-case (two-tier-API-shape) | patterns
+dropNames-parameter to opt out of name-tracking | patterns
+README-opens-with-conceptual-frame (naming the design space) | patterns
+three-namespace-parameterization-frame (global / import / host hooks) | references
+worked-example-of-canonical-consumer-pattern (SES Lockdown environment-variable diagnostic warning) | patterns
+compat-note-with-issue-citation (Agoric/agoric-sdk#8096 for DEBUG colon-split) | references
+test-migration-note (tests moved to @endo/ses-ava to break cycles) | patterns
+localThis-aliased-globalThis with named eslint-disable | patterns
+SES-defense-family ten cycles (175/183/197/199/200x2/201/203/205/207) | patterns
+small-files-with-large-knowledge-density twenty-second-member cycle 207 | patterns
+forty-first consecutive designs-chat alternation cycles 166-207 | patterns
+library-reaches-712-sections at cycle 207 | patterns
