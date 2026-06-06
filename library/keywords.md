@@ -6091,3 +6091,31 @@ applyLabelingError SES annotateError chain unreachable to programmatic readers |
 thirty-second consecutive designs-chat alternation cycles 166-198 | patterns
 honest-design-evolution-record family ninth-member cycle 198 | patterns
 library-reaches-703-sections at cycle 198 | patterns
+classic-uncurry-this-via-bind.bind(bind.call) | patterns
+capture-the-prototype-not-the-instance | patterns
+sync/async-two-color-sharing-via-generator-trampoline | patterns
+generator-throw-send-error-into-generator | patterns
+eslint-discipline-aware-exceptions-with-file-local-comment | patterns
+encapsulated-pumpkin-sentinel (harden({}) must not escape module) | patterns
+one-sentinel-three-purposes | patterns
+four-tier-safety-hierarchy (Base / Defensiveness / Unobservable / Preserves-Isolation / Not-Communications-Channel) | patterns
+contingent-safety-framing | patterns
+throws-not-memoized + rejected-promises-***are***-memoized | patterns
+determinism-with-fresh-identity-allowance | patterns
+passStyleOf as cited canonical memoize-user | references
+Apps-Script-bigint-literal-workaround | patterns
+explicit-narrowing ("not in general trying for compat but...") | patterns
+freeze-as-harden-substitute pending PR #3008 | patterns
+named-equivalence-rationale (freeze == harden on unadorned arrow functions) | patterns
+two-different-error-types (TypeError wrong-kind vs RangeError right-kind-wrong-value) | patterns
+coerce-to-bigint-on-success | patterns
+safely-representable-IEEE-754-integer-discipline | patterns
+skippable-detail-tag as explicit-named-skip-marker | patterns
+comment-block-duplicated-verbatim above sibling exports | patterns
+harden-the-factory-and-the-products | patterns
+minimal-dependency-discipline (the marshal aspiration) | patterns
+three-different-approaches-to-the-same-harden-discipline | patterns
+small-files-with-large-knowledge-density eighteenth-member cycle 199 | patterns
+the-Eval-Twin-Problem is load-bearing across the @endo substrate | patterns
+thirty-third consecutive designs-chat alternation cycles 166-199 | patterns
+library-reaches-704-sections at cycle 199 | patterns
