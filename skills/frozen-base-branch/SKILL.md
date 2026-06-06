@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-05-22
+updated: 2026-06-06
 author: gardener
 ---
 
@@ -106,6 +106,23 @@ The discipline: every rebase produces a new frozen-base branch; the PR's `base` 
 
 When the rebase produces conflicts, the weaver follows `skills/conflict-resolution/SKILL.md` as today. The conflict resolution happens against the new frozen base, not against the moving upstream tip.
 
+## Unfreeze before merge (conductor)
+
+**Mandatory before any `gh pr merge` invocation.** A PR whose base is a frozen-base snapshot must have its base restored to the live trunk (`llm`, `main`, or `master`) before the merge lands. Otherwise the merge commit anchors on the snapshot branch and the live trunk does not absorb the PR's content. See `roles/conductor/AGENT.md` § Loop step 2 for the canonical procedure; the gist:
+
+```sh
+SNAPSHOT_BASE=$(gh pr view <N> -R <owner>/<repo> --json baseRefName --jq .baseRefName)
+if [[ "$SNAPSHOT_BASE" =~ ^(llm|main|master)-[0-9a-f]{4,40}$ ]]; then
+  LIVE_BASE=${SNAPSHOT_BASE%-*}
+  gh pr edit <N> -R <owner>/<repo> --base "$LIVE_BASE"
+  # then rebase the head onto the now-live base per the conductor's loop step 2
+fi
+```
+
+After the unfreeze, the conductor's normal rebase-then-merge sequence runs against the live tip. Conflicts that exceed the conductor's surgical scope stall with `needs weaver: frozen-base unfreeze conflicts`.
+
+The frozen-base pattern is for *isolating PR review from concurrent trunk drift*. Merging onto a frozen snapshot is a discipline violation; the snapshot is for the review phase only.
+
 ## Sweep on PR close (conductor or close-handler)
 
 On PR merge or close, the orchestrator sweeps the frozen-base branches the PR used:
@@ -200,3 +217,5 @@ If a collision arises across forks (different work, same SHA), the bot's fork on
 (Append; terse and dated.)
 
 - _2026-05-22_: initial bootstrap. The convention lands across all four touched skills (`pr-creation-flow`, `pr-formation`, `stacked-pr-build`, `pr-handoff`) and four touched roles (`builder`, `weaver`, `conductor`, `boatman`) on 2026-05-22. The first PR opened under the new convention is the test of the convention; expect a *Notes from the field* row tracking the first month's adoption signal (collisions, branch-proliferation pressure, CI-workflow surprises).
+
+- _2026-06-06_: added the *Unfreeze before merge* section per the maintainer's directive on `endojs/endo-but-for-bots#418` (comment `issuecomment-4639318795`, 2026-06-06T14:57Z): the conductor must unfreeze a snapshot base to the live trunk (`llm`, `main`, or `master`) before invoking `gh pr merge`, otherwise the merge lands on the snapshot branch and the live trunk does not absorb the PR's content. The precipitating PR (#418) merged onto `llm-2bd9e0c` instead of `llm`; the snapshot branch is now divergent from the trunk. The conductor's role-file step 2 carries the procedural details; this skill's new section is the lifecycle anchor (frozen base for review-time isolation; live base for merge time).

@@ -1,7 +1,7 @@
 ---
 created: 2026-05-13
-updated: 2026-05-13
-author: liaison
+updated: 2026-06-06
+author: liaison, gardener
 ---
 
 # Role: conductor
@@ -35,7 +35,17 @@ The orchestrator (typically the steward) dispatches the conductor when the merge
 For each PR at the head of the queue:
 
 1. **Fetch and survey.** `git fetch <remote> <base> <head>`; compute behind / ahead / conflict per `skills/rebase-hygiene-audit/SKILL.md`.
-2. **Rebase onto current base.** Conflicts: stall with reason `rebase conflict` and move on. Conflicts you do attempt follow `skills/conflict-resolution/SKILL.md`; no `--ours` / `--theirs`.
+2. **Unfreeze the base if it is a frozen-base snapshot, then rebase.** Read the PR's `baseRefName` via `gh pr view <N> --json baseRefName --jq .baseRefName`. If it matches the frozen-base-branch pattern `^(llm|main|master)-[0-9a-f]{4,40}$`, the PR is sitting on a snapshot, not the live trunk: merging the PR as-is would land on the snapshot branch and leave the live trunk without the PR's content. Restore the live base before rebasing:
+
+   ```sh
+   SNAPSHOT_BASE=$(gh pr view <N> -R <owner>/<repo> --json baseRefName --jq .baseRefName)
+   LIVE_BASE=${SNAPSHOT_BASE%-*}     # llm-2bd9e0c → llm; master-c49fb04 → master
+   gh pr edit <N> -R <owner>/<repo> --base "$LIVE_BASE"
+   ```
+
+   Then rebase onto the now-live base. Conflicts: stall with reason `rebase conflict` and move on. Conflicts you do attempt follow `skills/conflict-resolution/SKILL.md`; no `--ours` / `--theirs`. If the unfreeze rebase requires more than the conductor's surgical scope (multi-package conflict, a semantic merge of intervening trunk work), stall with reason `needs weaver: frozen-base unfreeze conflicts`; the next steward cycle dispatches a weaver.
+
+   If the PR's base is already a live trunk (`llm`, `main`, `master` without a `-<sha>` suffix), skip the unfreeze step and rebase directly per the same conflict discipline.
 3. **Tidy the commit history.** Absorb fixer follow-up commits into the originals they amend so the merge cluster reads as a coherent change set:
    - **Interactive rebase with `fixup`** (`git rebase -i <base>`): change `pick` to `fixup` for each follow-up addressing review on an earlier commit, reorder under the target.
    - **Branch reset and re-stage** (`git reset <base>`) when fixups are tangled enough that starting over is cleaner.
@@ -83,5 +93,10 @@ Pushing a tidied force-with-lease and issuing `gh pr merge` are upstream mutatio
 ## Definition of done
 
 - Every PR in the dispatched queue is either merged (state=MERGED), enqueued for auto-merge (state=OPEN with autoMergeRequest), or stalled with a recorded reason.
+- Every merged PR's `baseRefName` at merge time was the live trunk (`llm`, `main`, or `master`), never a frozen snapshot. Snapshots-as-base are unfrozen at step 2; merging onto a snapshot is a discipline violation.
 - The dispatch-state note (or a journal `message` to the steward) lists the run's outcomes plus any unblocked-downstream PRs.
 - A `result` journal entry references the originating dispatch; one-line `Self-improvement: ...`.
+
+## Notes from the field
+
+- _2026-06-06_: step 2 grew the *unfreeze the base if it is a frozen-base snapshot* clause per the maintainer's directive on `endojs/endo-but-for-bots#418` (comment `issuecomment-4639318795`, 2026-06-06T14:57Z): *"Recall that your PR base is not the true base. These changes need to be merged into the `llm` branch. ... A PR base should ultimately be rebased to the true base: `llm` or `master`, before merging."* The precipitating merge: PR #418 landed on `llm-2bd9e0c` (a frozen snapshot of `llm` at SHA `2bd9e0c`) rather than on `llm` itself; the snapshot branch absorbed the merge while the live trunk did not. The steward forwarded the gardener-side directive via `journal/entries/2026/06/06/152410Z-message-steward-conductor.md`. The frozen-base-branch pattern (per [`skills/frozen-base-branch/SKILL.md`](../../skills/frozen-base-branch/SKILL.md)) correctly isolates concurrent PRs from each other's rebases during the review phase; the conductor's job at merge time is to complete the lifecycle by unfreezing back to the live trunk before merging.
