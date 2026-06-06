@@ -6023,3 +6023,20 @@ mechanical-grep-and-replace-pass audit-didn't-anticipate | patterns
 twenty-ninth consecutive designs-chat alternation cycles 166-195 | patterns
 89+ consecutive papers-lane blocks | patterns
 library-reaches-700-sections at cycle 195 | patterns
+parity-comparison-as-design-document-genre | patterns
+thirteen-feature-categories with status-matrix | patterns
+five-status-tags (Complete / Available / Designed / Not designed / Not planned) | patterns
+honest-architectural-difference-named-at-design's-opening | patterns
+ambient-vs-object-capability architectural axis | capability-security
+gap-priority-classification (High / Medium / Low) | patterns
+three-named-attacks paired with three-structural-defenses | capability-security
+symmetric-attack/defense-enumeration | capability-security
+seven-Endo-specific-advantages with one-line-explanation | patterns
+inline-co-author-quote-blocks for editorial-disagreement-preserved | patterns
+three-rename-history (OpenClaw / ClawdBot / Moltbot) in parenthetical-aside | patterns
+Reference-status-with-Related-Designs-hub-and-spoke-navigation | patterns
+explicit-scope-refusal-at-table-level (Not planned tag) | patterns
+markdown-reference-style-for-external-link-attribution | patterns
+Available-vs-Complete subtle-distinction | patterns
+thirtieth consecutive designs-chat alternation cycles 166-196 | patterns
+library-reaches-701-sections at cycle 196 | patterns
