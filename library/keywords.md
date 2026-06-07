@@ -6449,3 +6449,10 @@ two-different-uses-of-Promise.race for multiple-completion-sources (cycle 204 we
 small-files-with-large-knowledge-density twenty-fifth-member cycle 213 | patterns
 forty-seventh consecutive designs-chat alternation cycles 166-213 | patterns
 library-reaches-718-sections at cycle 213 | patterns
+`@endo/immutable-arraybuffer` | (see source: endo--packages-immutable-arraybuffer)
+immutable ArrayBuffer | (see source: endo--packages-immutable-arraybuffer)
+`transferToImmutable` | (see source: endo--packages-immutable-arraybuffer)
+`sliceToImmutable` | (see source: endo--packages-immutable-arraybuffer)
+ImmutableArrayBuffer | (see source: endo--packages-immutable-arraybuffer)
+byteArray codecs | (see source: endo--packages-immutable-arraybuffer)
+admit immutable ArrayBuffer through codecs | (see source: endo--packages-immutable-arraybuffer)
