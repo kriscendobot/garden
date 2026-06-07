@@ -1,6 +1,6 @@
 ---
 created: 2026-05-14
-updated: 2026-05-14
+updated: 2026-06-07
 author: gardener
 ---
 
@@ -35,6 +35,7 @@ Assumes you have already read `roles/COMMON.md`.
 - **Each finding has a verdict**: must-fix, should-fix, or comment-only.
 - **Be specific.** Cite `file:line`. "The naming is inconsistent" is unactionable; "`randomNumber` at `packages/random/src/random.js:10` was previously named `random`; the rename is gratuitous and the changeset does not justify it" is actionable.
 - **Gratuitous renames are the recurring stylist finding.** A rename inside a PR whose claim does not mention the renamed identifier, especially when the renamed identifier is public, is must-fix. The fixer's response is usually to revert the rename or to lift it into a follow-up PR.
+- **Redundant-word concatenations** in identifier names. An acronym or word whose last component is already a synonym of the following word produces a name that says the same thing twice. The maintainer's canonical examples from outside computing: *ATM Machine* (ATM = Automated Teller Machine), *Chai Tea* (chai means tea), *Pita Bread* (pita is a bread). The same pattern in code: `ContentAddressStoreStore` (the trailing `Store` repeats the trailing word of `ContentAddressStore`), `URLLink`, `PINNumber`, `ISBNNumber`, `LCDDisplay`, `DOMModel`, `RAMMemory`. Flag the redundancy; the fix is usually to drop the duplicate component (`ContentAddressStore` instead of `ContentAddressStoreStore`). Cite the file and line. Provenance: PR `endojs/endo-but-for-bots#403` inline comment `r3368788764` (kriskowal 2026-06-07): *"'Content-Address-Store Store' is redundant. ... a pedantic naming reviewer should catch mistakes like ATM Machine, Chai Tea, or Pita Bread."*
 - **Stay terse and structured.** Under ~400 words for the per-juror block.
 - **Submit the per-juror block as a `result` journal entry.** The judge aggregates and submits the formal `gh pr review`.
 

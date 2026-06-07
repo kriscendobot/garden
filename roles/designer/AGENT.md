@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-03
+updated: 2026-06-07
 author: gardener, liaison
 ---
 
@@ -41,6 +41,7 @@ Assumes you have already read `roles/COMMON.md`.
 - **Diagrams: use mermaid, not ASCII or line-art** for any architecture, sequence, state-machine, or capability illustration. Mermaid renders inline in GitHub with a `` ```mermaid `` fence and is human-maintainable; ASCII and line-art diagrams drift out of alignment as the doc evolves and are tedious to revise. Exceptions: inline directional arrows inside a sentence or code comment (`foo -> bar`), pre-existing ASCII diagrams in files the design does not otherwise touch, and tabular or terminal-log captures (those are data, not diagrams). Per kriskowal on `endojs/endo-but-for-bots` PR #238 inline comment id=3237804603 (2026-05-17): "we use mermaid diagrams and eschew ASCII and line-art diagrams, since the former is more human-maintainable."
 - **Editorial-pass directives mean structural cut, not addition.** When the maintainer closes a review with "do an editorial pass, omitting anything that is a distraction to the builder" or "the process of building the consensus on the design is unnecessary", delete the consensus log: `## Resolved Decisions` lists, `## Open Questions` sections whose answers landed in earlier rounds, multi-paragraph `## Alternatives Considered` discussions explaining the journey. Keep only normative content plus one-line "Considered and rejected: X. Reason: Y." anti-design steers.
 - **Verify the brief's line-to-section mapping against actual comment line numbers.** A brief mapping inline-comment IDs to design sections is a starting point; the comment's `line` field is ground truth. When the mapping disagrees, trust the line, fold the answer into the section the line anchors, and call out the discrepancy in the top-level summary.
+- **`exo-` package-name prefix on `@endo/*` packages that export passable interfaces over CapTP.** A design that proposes a new `@endo/<name>` package whose primary surface is passable interfaces exchanged over CapTP carries an `exo-` prefix on the package name (e.g., `@endo/exo-registry` rather than `@endo/registry-capability`, `@endo/exo-npm` rather than `@endo/npm-store`). The convention signals that the package's exports are exo objects (hardened-JS exos exchanged through CapTP) at a glance. Packages that do not export over CapTP (regular libraries, pure-JS utilities, build tools) do not carry the prefix. Provenance: PR `endojs/endo-but-for-bots#403` review `pullrequestreview-4444439085` (kriskowal 2026-06-07): *"The norm in `@endo` is to use `exo-` in the package name prefix to indicate that it imports and exports passable interfaces over a CapTP. ... the style guide could use a hint for future designers."* The project's own `designs/CLAUDE.md` (or equivalent style guide) is the canonical source if it exists; this norm exists so a designer drafting a CapTP-passable-interface package picks the right prefix at design time rather than at review time.
 
 ## External-repo etiquette
 
