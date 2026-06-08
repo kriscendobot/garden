@@ -7002,6 +7002,40 @@ three-cycles-of-code-file-clusters-with-shared-template (cycles 199 + 211 + 227)
 three-different-shared-disciplines + three-different-purposes-for-the-cluster-shape | patterns
 sixty-first consecutive designs-chat alternation cycles 166-227 | patterns
 library-reaches-733-sections at cycle 227 (chat-lane @endo/pass-style helpers cluster) | patterns
+daemon-os-sandbox-plugin | (see source: endo-but-for-bots--llm-designs-daemon-os-sandbox-plugin)
+Status-Superseded-by-named-successor (new design-evolution-record shape) | patterns
+retained-as-a-historical-proposal | patterns
+Roadmap-calibration-via-git-blame (cite commit hashes with dates and message summaries) | patterns
+use-git-blame-as-roadmap-archaeology | patterns
+the-richest-historical-record-yet in 2026-06 cluster | patterns
+explicit-statement-of-deprecation (No further implementation phase is planned against this document) | patterns
+LLM-discoverability section with two-mechanisms (comprehensive help() + maximally specific interface guards) | patterns
+comprehensive-help()-text-narrative for LLM reader | patterns
+maximally-specific-interface-guards (M.splitRecord + M.or + M.literal) | patterns
+LLM-as-the-target-reader for API design | patterns
+M.splitRecord-for-LLM-discoverable-shapes (distinguish required from optional fields) | patterns
+the-API-must-be-self-documenting-to-the-LLM | patterns
+capability-flow-as-ASCII-tree with nested-indentation showing creation hierarchy | patterns
+fourth-cycle-with-ASCII-illustration in 2026-06 (cycles 214/218/220/228) | references
+two-platform-backends (macOS SBPL + Linux bwrap+seccomp) | patterns
+named-endowment-to-rule-mapping-table per backend | patterns
+the-mapping-IS-the-implementation-contract | patterns
+Apple-deprecation-acknowledgment with named-future-replacement-APIs (Endpoint Security + FUSE) | patterns
+honest-acknowledgment-of-platform-deprecation | patterns
+per-rule-network-filtering-limitation as honest disclosure | patterns
+three-named-future-paths-to-fix-the-limitation (nftables + Landlock + container runtime) | patterns
+the-initial-Linux-implementation-falls-back-to-all-or-nothing-and-logs-a-warning | patterns
+three-named-future-stronger-isolation-mechanisms (Landlock + container runtimes + Lightweight VMs) | patterns
+Test-Plan-with-Maybe-subsection (not-required-but-suggested tests) | patterns
+four-different-shapes-for-naming-non-essential-future-work (Research-needed + Open-Questions-(None-remaining) + Maybe) | references
+two-cycles-with-the-five-section-Considerations-template (cycles 218 + 228) | references
+Profile-generation-is-security-critical (name the injection risk + canonicalization requirement) | patterns
+the-plugin-itself-is-unconfined with named mitigation (only host holds SandboxMaker) | patterns
+twenty-fourth-honest-design-evolution-record family member | references
+nine-different-shapes-of-design-evolution-record in 2026-06 cluster (cycles 214 + 216 + 218 + 220 + 222 + 224 + 226 + 227 + 228) | references
+seven-cycles-on-confinement-substrates (cycles 196 + 200 + 212 + 218 + 220 + 226 + 228) spanning capability-framing-to-OS-syscall-level | references
+sixty-second consecutive designs-chat alternation cycles 166-228 | patterns
+library-reaches-734-sections at cycle 228 (designs-lane daemon-os-sandbox-plugin) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
