@@ -7265,6 +7265,37 @@ four-cycles-with-Prompt-section-captured (198 + 224 + 230 + 236) | patterns
 first-cycle-with-a-Follow-on-prompt-section | patterns
 seventieth consecutive designs-chat alternation cycles 166-236 | patterns
 library-reaches-742-sections at cycle 236 (designs-lane daemon-make-archive) | patterns
+shortlex-order (length → cumulative-character-count → lexicographic) | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+the-doc-comment-IS-the-algorithm-specification with five-numbered-steps | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+three-tiers-of-tie-breaking | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+the-tie-breaker-ordering-IS-the-design | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+undefined-sorts-greater-than-anything-else (canonical comparator decision) | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+undefined-is-in-the-type-not-out-of-band (`CompareFn<string[]|undefined>`) | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+sanity-check-with-`/* c8 ignore next 5 */` for unreachable defense-in-depth | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+first-explicit-observation of c8-ignore-with-explanation as borrowable pattern | patterns
+JSON.stringify-aliased-as-q at file top for terse error messages | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+first-explicit-observation of `const { stringify: q } = JSON` as borrowable pattern | patterns
+the-comment-names-the-edge-case-explicitly (one-string-being-a-prefix-of-the-other) | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+defense-by-construction-via-step-ordering | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+two-CompareFn-instances (the-larger-uses-the-smaller) | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+CompareFn-template-type as JSDoc @callback typedef parameterized by T | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+type-precision via `CompareFn<string>` vs `CompareFn<string[]|undefined>` | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+UTF-16-code-unit-comparison-via-JavaScript-`<`-operator | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+nested-ternary-with-eslint-disable as named-exception | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+sixteen-tests for 84-line-file (test-to-source ratio ~0.8) | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+test-titles-name-the-property-not-the-mechanism | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+test-the-tie-breaker-by-constructing-the-tie via `despite` clauses | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+test-undefined-cases-symmetrically (three cases) | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+test-empty-arrays-as-degenerate-case | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+test-uses-t.true-for-sign-not-t.is-for-value (when spec says "negative" not "-1") | (see section: endo--packages-path-compare-src-index--shortlex-ordering-with-five-named-steps-and-doc-comment-IS-the-specification-and-undefined-greater-than-anything-and-sanity-check-with-c8-ignore)
+three-cycle-progression for pathCompare (referenced 209 + used-as-edge-weight 235 + directly-ingested 237) | patterns
+when-a-library-references-X-then-uses-X-then-ingests-X (natural-deepening-pattern) | patterns
+second-direct-ingest from `@endo/compartment-mapper` neighborhood (cycles 235 + 237) | patterns
+thirty-sixth-member of small-files-with-large-knowledge-density family | patterns
+first-explicit-observation of "shortlex" as named-ordering in library | patterns
+README-mermaid-graphs as named-illustration-mechanism (four mermaid graphs) | patterns
+seventy-first consecutive designs-chat alternation cycles 166-237 | patterns
+library-reaches-743-sections at cycle 237 (chat-lane @endo/path-compare/src/index) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
