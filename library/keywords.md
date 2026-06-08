@@ -7126,6 +7126,38 @@ the-encode-decode-pair (cycle 229 marshal-justin decode + cycle 231 encodeToCapD
 thirty-third-member of small-files-with-large-knowledge-density family | patterns
 sixty-fifth consecutive designs-chat alternation cycles 166-231 | patterns
 library-reaches-737-sections at cycle 231 (chat-lane @endo/marshal/encodeToCapData) | patterns
+endoclaw-channel-bridges | (see source: endo-but-for-bots--llm-designs-endoclaw-channel-bridges)
+ninth-member-of-the-endoclaw-cluster | references
+nine-design-cluster for the-endoclaw-feature (parent 196 + 222 skill-registry + 226 six-children + 232) | references
+named-third-party-foundation (Vercel chat SDK) as design discipline | patterns
+when-a-design-doesn't-invent-a-bridge-SDK it-builds-on-an-existing-one | patterns
+seven-platform-adapters-table with per-platform-feature-list-revealing-asymmetries | patterns
+the-asymmetry-table-IS-the-feature-comparison-tool | patterns
+three-feature-buckets observable (Mentions + Reactions + Cards) | patterns
+unified-event-model + thread-abstraction + JSX-card-components as cross-platform-pillars | patterns
+four-layer-architecture-ASCII-diagram (Platform ↕ SDK ↕ Bridge ↕ Agent) | patterns
+sixth-cycle-with-ASCII-illustration in 2026-06 (cycles 214 + 218 + 220 + 228 + 230 + 232) | references
+five-step-bridge-plugin-flow | patterns
+five-named-message-mappings Endo→platform with fallback-to-text-prompt | patterns
+form-bridging via JSX with design-the-rich-representation-and-name-the-text-fallback | patterns
+the-design-rejects-lowest-common-denominator + also-rejects-platform-specific-implementations + the-JSX-abstraction-IS-the-compromise | patterns
+Bridge-is-a-confined-guest (SES-locked worker + no-ambient-X) | patterns
+One-bridge-per-agent-per-account (One-instance-per-narrow-scope prevents authority-concentration) | patterns
+Platform-credentials-are-capabilities (bridge never sees raw bot token; revocation via OAuthControl.revoke) | patterns
+State-is-Endo-native (reject SDK's state adapter; use formula store) | patterns
+when-the-SDK-offers-a-state-adapter-but-the-host-has-its-own-storage use-the-host's-storage-not-the-SDK's | patterns
+four-cycles-on-no-new-abstractions discipline (cycles 211 + 214 + 222 + 232) | references
+SES-Compatibility section with honest-acknowledgment-of-untested + three-named-fallback-paths | patterns
+unconfined-plugin-fallback as last-resort with reduced-confinement-in-exchange-for-ecosystem-access | patterns
+three-cycles-with-graceful-degradation-of-confinement (cycles 226 + 228 + 232) | references
+version-pinning in Depends-On (chat v4.x) | patterns
+OR-between-alternative-paths in Depends-On (network-fetch OR oauth) | patterns
+twenty-sixth-honest-design-evolution-record family member | references
+eleven-different-shapes-of-design-evolution-record in 2026-06 cluster (cycles 214 + 216 + 218 + 220 + 222 + 224 + 226 + 227 + 228 + 230 + 232) | references
+later-member-of-an-established-cluster-template | patterns
+when-a-cluster-establishes-a-template later-members-follow-it-without-explanation | patterns
+sixty-sixth consecutive designs-chat alternation cycles 166-232 | patterns
+library-reaches-738-sections at cycle 232 (designs-lane endoclaw-channel-bridges) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
