@@ -6566,3 +6566,18 @@ TC39-proposal-arraybuffer-base64-Stage-4 (Uint8Array.toHex / Uint8Array.fromHex)
 twenty-sixth-member of small-files-with-large-knowledge-density family | patterns
 forty-ninth consecutive designs-chat alternation cycles 166-215 | patterns
 library-reaches-721-sections at cycle 215 (chat-lane @endo/hex) | patterns
+`move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
+move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
+mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
+mutation suite (write/remove/move/makeDirectory) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
+POSIX rename atomicity | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
+POSIX `*at` family (openat/renameat/fstatat/mkdirat) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
+atomic rename | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
+atomic-rename-after-write CAS | (see section: endo-but-for-bots--llm-designs-daemon-cas-management--content-address-store-as-supervisor-owned-subsystem-with-typed-content-retain-release-and-background-mark-sweep-gc)
+out-of-band transfer | (see section: endo-but-for-bots--llm-designs-daemon-value-message--value-message-type-and-reply-only-design)
+data-plane capabilities | (see section: endo-but-for-bots--llm-designs-ocapn-network-transport-separation--design-conceptual-model)
+transfer-mechanism negotiation | (no concept page yet; topic-typical: capability lattice, sealer/unsealer, CAS-internal moves)
+grant matching equality | brand-and-trademark
+CAS-internal move (refcount swap, no byte copy) | (see section: endo-but-for-bots--llm-designs-daemon-content-store-gc--design-and-api-extension)
+streaming CAS variants (cas-store-stream / cas-content-stream) | (see section: endo-but-for-bots--llm-designs-daemon-cas-management--content-address-store-as-supervisor-owned-subsystem-with-typed-content-retain-release-and-background-mark-sweep-gc)
+cap-not-string mounts | (see section: endo-but-for-bots--llm-designs-endo-posix-sandbox--cap-not-string-mounts-with-three-rule-security-boundary-and-pluggable-driver-interface)
