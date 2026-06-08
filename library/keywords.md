@@ -7036,6 +7036,37 @@ nine-different-shapes-of-design-evolution-record in 2026-06 cluster (cycles 214 
 seven-cycles-on-confinement-substrates (cycles 196 + 200 + 212 + 218 + 220 + 226 + 228) spanning capability-framing-to-OS-syscall-level | references
 sixty-second consecutive designs-chat alternation cycles 166-228 | patterns
 library-reaches-734-sections at cycle 228 (designs-lane daemon-os-sandbox-plugin) | patterns
+@endo/marshal/marshal-justin.js | (see source: endo--packages-marshal-src-marshal-justin)
+Justin-as-JavaScript-subset (output IS valid source code) | patterns
+pick-a-syntactic-subset-of-the-host-language for evaluatable rendering | patterns
+dual-indenter-strategies (makeYesIndenter + makeNoIndenter) with five-method-shared-Indenter-interface | patterns
+two-implementations-of-the-same-interface-with-different-strategies + the-caller-picks-via-named-boolean | patterns
+badPairPattern regex encoding six-named-token-pair-cases | patterns
+the-`<!`-and-`->`-cases-prevent-the-accidental-formation-of-an-html-like-comment | patterns
+regex-encoding-token-pairs-that-must-be-separated + honest-comment-admitting-uncertainty | patterns
+two-pass-recursion (prepare validates + decode emits) with documented co-maintenance-constraint | patterns
+when-two-passes-must-visit-the-same-tree-in-the-same-order document-the-co-maintenance-constraint-in-the-source | patterns
+QCLASS-discrimination switch with eleven-named-cases + default-throws | patterns
+the-Hilbert-Hotel-encoding for records containing the special @qclass key | patterns
+two-different-instances-of-the-Hilbert-Hotel-naming (cycles 148 + 229) | references
+nested-render-with-indenter-swap via closure-captures-mutable-state + try-finally-restore | patterns
+when-an-inner-rendering-needs-a-different-strategy-than-the-outer-rendering swap-the-state-and-restore-it-in-finally | patterns
+`[__proto__]:`-bracket-notation-to-preserve-JSON-meaning | patterns
+three-cases-for-property-keys (__proto__ + identifier-pattern + JSON.stringify) | patterns
+`qp`-template-literal-tag (quasi-quotes Justin) | patterns
+the-error-message-becomes-a-snippet-that-the-reader-can-paste-into-a-REPL | patterns
+qp-eager-vs-q-lazy with honest-disclosure-of-layering-constraint | patterns
+three-cycles-on-honest-acknowledgment-of-architectural-asymmetry (cycles 220 + 224 + 229) | references
+three-named-not-yet-implemented-cases acknowledged with Fail (error cause + AggregateError + error errors) | patterns
+refuse-to-silently-produce-wrong-output | patterns
+co-maintain-doc-comment-and-test-module instruction | patterns
+two-cycles-on-tests-as-the-documentation-pattern (cycles 217 + 229) | references
+four-output-shapes for slot-rendering (slot-bound vs iface-defined) | patterns
+the-passableAsJustin pipeline of three stages (toCapData → JSON.parse → decodeToJustin) | patterns
+the-marshal-package-now-substantially-ingested across six cycles (69 + 74 + 81 + 84 + 158 + 229) | references
+thirty-second-member of small-files-with-large-knowledge-density family | patterns
+sixty-third consecutive designs-chat alternation cycles 166-229 | patterns
+library-reaches-735-sections at cycle 229 (chat-lane @endo/marshal/marshal-justin) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
