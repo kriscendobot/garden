@@ -6491,3 +6491,45 @@ Ollama remote variant | (see section: endo-but-for-bots--llm-designs-endopi-prov
 Open Router authShape extension | (see section: endo-but-for-bots--llm-designs-endopi-provider-registry-and-oauth--registry-shape-and-subscription-oauth-with-lal-vs-genie-consolidation-question)
 posix sandbox via `@fs` + `@main` coupling | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 replace not extend lal-fae form provisioning | (see section: endo-but-for-bots--llm-designs-lal-fae-form-provisioning--three-named-problems-and-three-layer-lifecycle-and-three-option-analysis-for-guest-cannot-create-guests-and-inbox-as-durable-config-store)
+linked-chain-of-transcript-nodes-with-shared-prefix-stored-once | patterns
+branching-is-free (two replies to same parent create new nodes pointing to same parent) | patterns
+two-phase-node-lifecycle (Phase 1 inbound + Phase 2 own-outbound-alias) | patterns
+honest-design-evolution-visible-in-the-prose (self-correcting prose like "This is getting complex. Let's simplify:") | patterns
+ASCII-tree-diagram of branching | patterns
+assembly-via-walk-from-leaf-to-root | patterns
+pet-store-as-source-of-truth-with-in-memory-cache | patterns
+lazy-load-on-cache-miss | patterns
+depth-as-text-prefix [depth:N] (no daemon schema changes) | patterns
+text-prefix-as-out-of-band-metadata when schema changes are expensive | patterns
+no-daemon-changes-required (leverages existing API) | patterns
+Phase-N-extracted-to-separate-design when phase is substantive | patterns
+Decisions-Made-vs-Tentative-Decisions two-table-shape | patterns
+three-completed-Lal/Fae-cluster-designs (cycle 208 delivery + cycle 210 configuration + cycle 214 transcript memory) | references
+five-different-uses-of-Alternatives-Considered-or-equivalent (cycle 198/200/208/210/214) | references
+fifteenth-honest-design-evolution-record family member (design-evolution-visible-in-the-prose) | patterns
+forty-eighth consecutive designs-chat alternation cycles 166-214 | patterns
+library-reaches-719-sections at cycle 214 (lal-reply-chain-transcripts) | patterns
+assets-should-outlive-execution-paths (Ymax architectural axiom) | references
+EIP-1167-minimal-proxy with deterministic-address-derivation-from-multiple-identities | patterns
+race-tolerant-idempotent-provisioning via deterministic-address-as-coordination-primitive | patterns
+three-state-router-authorization-state-machine (Unknown / Vetted / Authorized) | patterns
+two-factor-mechanism with different-authority-per-transition | patterns
+compromise-of-single-router-does-not-authorize-new-control-path | patterns
+honest-disclosure-of-residual-trust-boundaries | patterns
+self-dispatch-pattern with msg.sender==address(this) | patterns
+two-benefits-of-self-dispatch (error-isolation-via-event + block-explorer-readability) | patterns
+calldata-rewrite-replacing-routing-field-with-authenticated-source | patterns
+resolvers-as-bounded-fact-reporters (one bit not arbitrary state) | patterns
+finality-checks-before-settlement | patterns
+decoupled-command-and-result-transports | patterns
+CREATE2-vs-CREATE3-distinction (permissionless for no-per-chain-init-data; permissioned for per-chain-init-data) | references
+compromise-of-deployment-key-doesn't-alter-deployed-contract-behavior | patterns
+OperationResult-event-common-format with txId-for-event-reporting + target-address-for-sender-authentication | patterns
+routed-instruction-lifecycle with seven-named-steps | patterns
+the-factory-IS-the-mediator (Remote Accounts statically defer to factory) | patterns
+atomic-authorization-of-existing-accounts-to-new-router | patterns
+independent-audit-section-with-named-findings + fix-status-per-finding | patterns
+Permit2-as-intent with factory-principal-check | references
+first-Agoric-Labs-design-ingested into the library | patterns
+the-discipline-of-good-architecture-design-transcends-specific-substrate-technologies | patterns
+library-reaches-720-sections at cycle 214 (Ymax side-ingest) | patterns
