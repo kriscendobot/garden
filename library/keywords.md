@@ -7583,6 +7583,28 @@ three-cycles-with-explicit-defense-against-irreversible-action (238 + 246 + 248)
 four-cycles-with-explicit-deferral-of-a-named-future-feature (238 + 240 + 242 + 248) | patterns
 eighty-second consecutive designs-chat alternation cycles 166-248 | patterns
 library-reaches-754-sections at cycle 248 (designs-lane inventory-drag-and-drop) | patterns
+`export {};`-typedef-only-file-pattern | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+three-method-TrapImpl distinct from six-method-handler-protocol (sync vs async axis) | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+`applyMethod`-as-atomic-lookup-of-method-and-apply (security by construction) | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+TrapCompletion-as-discriminator-payload-tuple `[isRejected, CapData]` | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+the-non-thenable-constraint-as-explicit-sync-guarantee | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+`keyof InterfaceName`-as-defense-by-construction (against string-union drift) | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+out-of-band-communications-as-named-sync-over-async-mechanism | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+AsyncIterator-as-async-side-of-sync-over-async-bridge | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+`Required<Iterator<void, void, any>>` (completeness + all three iterator type params named) | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+Iterator-with-`void, void, any`-as-pure-control-flow-coordination | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+`AsyncIterator<...> | undefined`-as-optional-return | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+branded-string-typedef-for-domain-specific-meaning (CapTPSlot = string) | (see section: endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async)
+two-cycles-with-protocol-artifact-as-named-file-shape (239 with-named-constant-export + 249 without-runtime-export) | patterns
+two-cycles-with-`Required<>`-wrapper-as-completeness-of-implementation discipline (241 + 249) | patterns
+two-cycles-with-explicit-undefined-as-no-value-or-no-feature signal (239 + 249) | patterns
+two-cycles-with-deferred-or-sync-bridge-patterns (241 + 249) | patterns
+two-cycles-with-explicit-defense-against-method-detach-as-named-discipline (146 + 249) | patterns
+fifth-direct-ingest from @endo/captp/src (atomics + finalize + loopback + trap + types) | patterns
+forty-first-member of small-files-with-large-knowledge-density family | patterns
+five-cycles-with-small-files-that-each-isolate-one-named-decision (239 + 241 + 243 + 247 + 249) | patterns
+eighty-third consecutive designs-chat alternation cycles 166-249 | patterns
+library-reaches-755-sections at cycle 249 (chat-lane @endo/captp/src/types) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
