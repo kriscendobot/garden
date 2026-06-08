@@ -7357,6 +7357,41 @@ third-direct-ingest from @endo/exo src (after exo-makers cycle 79 + exo-tools cy
 thirty-seventh-member of small-files-with-large-knowledge-density family | patterns
 seventy-third consecutive designs-chat alternation cycles 166-239 | patterns
 library-reaches-745-sections at cycle 239 (chat-lane @endo/exo/src/get-interface) | patterns
+Reshape-blocker-for-PR (new relationship type distinct from Supersedes or Dependencies) | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+the-third-axis-was-introduced-without-naming | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+three-orthogonal-axes-mixed-in-existing-verbs (source-sink + representation + where-it-lives) | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+verb-count-as-named-cost | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+survey-table-of-existing-verbs as baseline with per-axis columns | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+mutual-exclusion-of-flag-groups names the axes | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+same-flag-for-read-and-write (symmetry by verb pair not by flag prefix) | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+no-encoding-flag-the-daemon-does-not-negotiate-codecs | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+blobs-are-bytes (load-bearing maxim attributed to PR review) | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+no-content-type-on-blobs (three named locations for out-of-band metadata) | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+two-different-API-shapes-for-two-different-substrates (formula-creation vs mount-mutation) | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+state-dependent-dispatch-anti-pattern (verb effect depends on implicit state cannot be scripted defensively) | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+internal-consistency-test-as-design-discipline | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+two-viable-name-choices-with-Pro/Con-per-choice | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+reserved-future-siblings (with explicit non-prejudgment of sibling shape) | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+PR-stacking-discipline-named-explicitly | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+three-named-things-per-deferral (feature + trigger + cost) | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+Decisions-section-quotes-the-maintainer-review-verbatim | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+Subsumes-old-verb-annotations-in-canonical-form-examples | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+rejection-tests-explicitly-listed-in-test-plan | (see section: endo-but-for-bots--llm-designs-cli-store-verb-text-modes--unified-axis-scheme-replaces-multiplied-verbs-and-reshape-blocker-for-PR-and-blobs-are-bytes-and-three-orthogonal-axes-and-same-flag-for-read-and-write)
+thirtieth-honest-design-evolution-record family member | patterns
+fourteenth-different-shape-of-design-evolution-record in 2026-06 cluster | patterns
+seven-cycles-on-no-new-abstractions discipline (211 + 214 + 222 + 232 + 236 + 238 + 240) | patterns
+five-cycles-with-Dependencies-table-with-Relationship-column (224 + 230 + 236 + 238 + 240) | patterns
+sixth-Prompt-section-instance (198 + 224 + 230 + 236 + 238 + 240) | patterns
+three-cycles-with-PR-discussion-link-as-named-provenance (238 + 239 + 240) | patterns
+two-cycles-with-PR-driven-redesign-shapes (238 CHANGES_REQUESTED + 240 inline-review-comment) | patterns
+two-cycles-with-Alternatives-Considered-section-with-named-fates (238 + 240) | patterns
+two-cycles-with-Decisions-section-that-quote-the-maintainer-review-verbatim (238 + 240) | patterns
+two-cycles-with-explicit-future-reservation in 2026-06 cluster (238 + 240) | patterns
+three-cycles-with-numbered-Design-Decisions (230 had 5 + 236 had 9 + 240 has 3) | patterns
+two-cycles-with-Test-plan-named-in-the-design-doc (238 + 240) | patterns
+twelve-design-cluster for endoclaw + cli-http + cli-store | patterns
+seventy-fourth consecutive designs-chat alternation cycles 166-240 | patterns
+library-reaches-746-sections at cycle 240 (designs-lane cli-store-verb-text-modes) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
