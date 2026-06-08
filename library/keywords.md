@@ -6936,6 +6936,37 @@ two-different-design-choices-for-two-different-shapes (class for value-types-wit
 fifty-ninth consecutive designs-chat alternation cycles 166-225 | patterns
 thirty-first-member of small-files-with-large-knowledge-density family | patterns
 library-reaches-731-sections at cycle 225 (chat-lane @endo/init/node-async_hooks) | patterns
+endoclaw-six-design-cluster (network-fetch + notifications + proactive-messages + webhooks + voice + browser) | (see source: endo-but-for-bots--llm-designs-endoclaw-six-design-cluster)
+cluster-ingest-as-one-section pattern | patterns
+the-shared-six-section-template (Frontmatter + Summary + Capability Shape + How It Works + Endo Idiom + Depends On) | patterns
+Parent-frontmatter-field-in-all-cluster-members | patterns
+two-facet-control-pair canonical shape (Capability + CapabilityControl) | patterns
+three-uniform-control-facet-methods (setLimit-style + revoke + help) | patterns
+the-uniform-baseline-API | patterns
+every-capability-pair-has-revoke-and-help | patterns
+two-facets-with-two-different-holders (capability to agent; control to host) | patterns
+structural-confinement-checked-inside-exo-at-only-call-site | patterns
+the-confinement-is-checked-inside-the-exo-before-the-operation | patterns
+two-different-confinement-philosophies (cycle 220 defense-in-depth vs cycle 226 structural-at-only-call-site) | references
+no-ambient-X enumeration (no ambient DNS / no ambient socket / no cookie-credential leakage) | patterns
+designs-name-their-composability-partners | patterns
+four-cycles-on-no-new-abstractions discipline (cycles 211 + 214 + 222 + 226) | references
+four-cycles-on-the-host-grants-capabilities-application-doesn't-take-them discipline (cycles 208 + 218 + 222 + 226) | references
+design-pattern-not-a-new-capability (composition recipe shape) | patterns
+UI-feature-not-a-capability (uniformity IS the design) | patterns
+three-different-non-capability-design-shapes in the cluster | patterns
+three-options-A-B-C with pros-cons-per-option | patterns
+when-an-implementation-has-multiple-viable-paths name-the-options + pros-cons-per-option | patterns
+help()-method-on-every-interface as uniform introspection | patterns
+the-agent-can-ask-its-capabilities-what-they-do-by-calling-help | patterns
+the-cluster-as-design-language (six conventions for future siblings) | patterns
+future-designs-in-the-same-cluster-can-elide-the-template + inherit-the-conventions-from-the-cluster-Idiom | patterns
+twenty-second-honest-design-evolution-record family member | references
+seven-different-shapes-of-design-evolution-record in 2026-06 cluster (cycles 214 + 216 + 218 + 220 + 222 + 224 + 226) | references
+eight-design-cluster for the-endoclaw-feature (cycle 196 parent + cycle 222 skill-registry + cycle 226's six children) | references
+two-different-cluster-ingest-types (cluster-of-code-files cycles 199/211 + cluster-of-design-documents cycle 226) | references
+sixtieth consecutive designs-chat alternation cycles 166-226 | patterns
+library-reaches-732-sections at cycle 226 (designs-lane endoclaw-six-design-cluster) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
