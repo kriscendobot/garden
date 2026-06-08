@@ -6628,6 +6628,38 @@ four-different-runtime-version-or-environment-compat-hacks (cycles 199 / 205 / 2
 twenty-seventh-member of small-files-with-large-knowledge-density family | patterns
 fifty-first consecutive designs-chat alternation cycles 166-217 | patterns
 library-reaches-723-sections at cycle 217 (chat-lane @endo/errors) | patterns
+familiar-chat-weblet-hosting | (see source: endo-but-for-bots--llm-designs-familiar-chat-weblet-hosting)
+two-part-status (Done-Elsewhere + Remaining-Here) | patterns
+the-shape-of-the-Status-section-tracks-the-relationship-with-the-predecessor | patterns
+ASCII-mockup-of-UI | patterns
+iframe-sandbox-attribute-as-confinement | patterns
+browser-iframe-as-the-confinement-substrate | patterns
+three-named-sandbox-permissions (allow-scripts + allow-same-origin + allow-forms) | patterns
+four-cycles-using-different-substrates-for-confinement (cycles 196/200/212/218) | references
+four-step-weblet-install (create-guest → endow → install → register) | patterns
+guest-as-the-unit-of-application-installation (the application IS the guest) | patterns
+power-levels-as-selectable-options with NONE-as-safe-default | patterns
+@host-explicitly-labeled-development/trusted-only | patterns
+two-CapTP-transports (WebSocket universal + MessagePort Familiar-specific stretch goal) | patterns
+named-trade-off-axes (universality vs performance) | patterns
+primary-transport-and-stretch-goal-transport | patterns
+the-stretch-goal-is-environment-specific-and-more-performant | patterns
+three-chat-commands (/install + /open + /close) | patterns
+every-UI-action-also-has-a-command | patterns
+three-surfaces-for-the-same-action (UI-button + command + keyboard-shortcut) | patterns
+atomicity-as-design-driver (two-steps-that-must-succeed-or-fail-together) | patterns
+Affected-Packages-section with named-reason-per-package | patterns
+three-named-dependencies-with-named-reason-per-dependency | patterns
+five-section-considerations (Security + Scaling + Test Plan + Compatibility + Upgrade) | patterns
+each-Considerations-section-names-a-different-concern | patterns
+Upgrade-Considerations-distinct-from-Compatibility-Considerations | patterns
+compatibility-names-what-keeps-working vs upgrade-names-what-the-user-needs-to-do | patterns
+when-a-new-design-creates-a-new-shape-for-old-data name-the-migration-path-explicitly | patterns
+eighteenth-honest-design-evolution-record family member | references
+two-design-documents-with-asymmetric-implementation-progress (sibling-Ready + this-Not-Started) | patterns
+six-completed-Familiar-cluster-designs (cycles 174 + 176 + 182 + 184 + 208 + 218) | references
+fifty-second consecutive designs-chat alternation cycles 166-218 | patterns
+library-reaches-724-sections at cycle 218 (designs-lane familiar-chat-weblet-hosting) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
