@@ -7447,6 +7447,23 @@ two-different-postures-on-naming (240 namer-dispatch + 242 names-in-prompt) | pa
 two-different-shapes-of-platform-bridge-discipline (188 monkey-patch + 242 elevator-module) | patterns
 seventy-sixth consecutive designs-chat alternation cycles 166-242 | patterns
 library-reaches-748-sections at cycle 242 (designs-lane platform-fs) | patterns
+endianness-detection-via-typed-array-aliasing (Uint8Array + Uint16Array over same buffer) | (see section: endo--packages-lp32-src-host-endian-js--endianness-detection-via-typed-array-aliasing-and-module-load-evaluation-and-name-shifts-from-function-to-state)
+the-test-buffer-is-the-minimum-unit-that-distinguishes-the-orderings (two bytes [1, 0]) | (see section: endo--packages-lp32-src-host-endian-js--endianness-detection-via-typed-array-aliasing-and-module-load-evaluation-and-name-shifts-from-function-to-state)
+the-bytes-have-a-distinguishing-bit-and-don't-care-padding | (see section: endo--packages-lp32-src-host-endian-js--endianness-detection-via-typed-array-aliasing-and-module-load-evaluation-and-name-shifts-from-function-to-state)
+module-load-evaluation-memoizes-the-result | (see section: endo--packages-lp32-src-host-endian-js--endianness-detection-via-typed-array-aliasing-and-module-load-evaluation-and-name-shifts-from-function-to-state)
+the-name-shifts-from-predicate-to-state-when-the-function-result-is-cached | (see section: endo--packages-lp32-src-host-endian-js--endianness-detection-via-typed-array-aliasing-and-module-load-evaluation-and-name-shifts-from-function-to-state)
+the-named-form-over-the-IIFE-form (name IS the documentation) | (see section: endo--packages-lp32-src-host-endian-js--endianness-detection-via-typed-array-aliasing-and-module-load-evaluation-and-name-shifts-from-function-to-state)
+isolate-the-named-decision-in-its-own-file | (see section: endo--packages-lp32-src-host-endian-js--endianness-detection-via-typed-array-aliasing-and-module-load-evaluation-and-name-shifts-from-function-to-state)
+the-constant-IS-the-API (no function call to retrieve the fact) | (see section: endo--packages-lp32-src-host-endian-js--endianness-detection-via-typed-array-aliasing-and-module-load-evaluation-and-name-shifts-from-function-to-state)
+performance-by-construction (detection runs once; cached result on every call) | (see section: endo--packages-lp32-src-host-endian-js--endianness-detection-via-typed-array-aliasing-and-module-load-evaluation-and-name-shifts-from-function-to-state)
+nine-lines-as-a-complete-platform-detection-artifact | (see section: endo--packages-lp32-src-host-endian-js--endianness-detection-via-typed-array-aliasing-and-module-load-evaluation-and-name-shifts-from-function-to-state)
+smallest-file-ingested-so-far (nine lines at cycle 243) | patterns
+three-cycles-with-small-files-that-each-isolate-one-named-decision (239 + 241 + 243) | patterns
+two-cycles-with-names-given-to-functions-that-didn't-need-them-syntactically (241 + 243) | patterns
+first-direct-ingest from @endo/lp32/src | patterns
+thirty-ninth-member of small-files-with-large-knowledge-density family | patterns
+seventy-seventh consecutive designs-chat alternation cycles 166-243 | patterns
+library-reaches-749-sections at cycle 243 (chat-lane @endo/lp32/src/host-endian) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
