@@ -6694,6 +6694,51 @@ eighth-and-final-piece of SES error-channel infrastructure | patterns
 twenty-eighth-member of small-files-with-large-knowledge-density family | patterns
 fifty-third consecutive designs-chat alternation cycles 166-219 | patterns
 library-reaches-725-sections at cycle 219 (chat-lane @endo/ses-ava) | patterns
+familiar-localhttp-protocol | (see source: endo-but-for-bots--llm-designs-familiar-localhttp-protocol)
+six-layer-defense-in-depth | patterns
+each-layer-named-and-numbered-with-its-confinement-purpose | patterns
+defense-in-depth-with-named-attack-per-layer | patterns
+the-multi-layer-synthesis (cycle 220 as the multi-layer-confinement-stack) | patterns
+five-cycles-on-confinement (cycles 196 + 200 + 212 + 218 + 220) | references
+three-state-status (Partially-implemented + Not-yet + Design-deviations) | patterns
+design-deviations-section (design tracks its own divergence from implementation) | patterns
+nineteenth-honest-design-evolution-record family member | references
+threat-modeling-as-design-driver (numbered attacks vs goals) | patterns
+each-privilege-named-with-purpose (when API takes options bag of booleans) | patterns
+two-different-trust-zones-with-two-different-CSPs | patterns
+pull-out-the-load-bearing-lines + name-the-reason-for-each | patterns
+MessagePort-bridge | patterns
+why-WebSocket-doesn't-work-from-localhttp (two-named-reasons) | patterns
+when-the-obvious-solution-doesn't-work name-both-reasons-it-doesn't-work | patterns
+the-second-reason-is-the-deeper-architectural-constraint | patterns
+zero-copy-via-transfer-list (`[buffer]` moves ownership not copies) | patterns
+two-different-zero-copy-patterns in library (cycles 213 + 220) | references
+ASCII-mermaid-style-flow-diagram | patterns
+three-cycles-with-ASCII-illustration in 2026-06 (cycles 214/218/220) | references
+allowedProtocols-set with dev-mode-exemption | patterns
+invalid-DoH-as-DNS-poisoning | patterns
+intentionally-misconfigure-a-platform-API-to-deny-a-capability | patterns
+correctness-argument-naming-each-traffic-pattern-that-still-works | patterns
+belt-and-suspenders-flags (three Chromium command-line flags as redundant DNS defense) | patterns
+each-flag-has-a-named-purpose | patterns
+host-resolver-rules MAP * ~NOTFOUND EXCLUDE 127.0.0.1 | (see source: endo-but-for-bots--llm-designs-familiar-localhttp-protocol)
+WebRTC-ICE-candidate-exfiltration (ufrag-field encoding STUN/TURN bypassing CSP) | patterns
+name-the-out-of-band-channel-that-bypasses-your-primary-defense | patterns
+runtime-verification with canary-DNS-resolution | patterns
+the-test-that-it-fails-IS-the-verification | patterns
+non-blocking-yellow-banner (informed but not blocked) | patterns
+detected-via-platform-API (window.familiar; no banner in Vite dev mode) | patterns
+the-warning-banner-only-appears-when-the-defense-was-supposed-to-be-active | patterns
+Research-needed-section as honest-acknowledgment-of-incomplete-verification | patterns
+Open-Questions-(None-remaining) as completeness-signal | patterns
+two-different-sections-for-two-different-classes-of-uncertainty (Research-needed = verification + Open-Questions = decision) | patterns
+implementation-status-per-package (design doubles as progress-tracker) | patterns
+seven-Familiar-cluster-designs (cycles 174 + 176 + 182 + 184 + 208 + 218 + 220) | references
+three-different-status-values in one cluster (shipped + Not Started + Partially implemented) | patterns
+the-parent-with-ready-infrastructure (cycle 220 is parent referenced by cycle 218's two-part-status) | patterns
+four-different-shapes-of-design-evolution-record in 2026-06 cluster (cycles 214 + 216 + 218 + 220) | references
+fifty-fourth consecutive designs-chat alternation cycles 166-220 | patterns
+library-reaches-726-sections at cycle 220 (designs-lane familiar-localhttp-protocol) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
