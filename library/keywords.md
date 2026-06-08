@@ -6865,6 +6865,45 @@ sixth-cycle-using-freeze-not-harden-with-named-correctness-argument family (cycl
 fifty-seventh consecutive designs-chat alternation cycles 166-223 | patterns
 thirtieth-member of small-files-with-large-knowledge-density family | patterns
 library-reaches-729-sections at cycle 223 (chat-lane @endo/module-source) | patterns
+daemon-web-gateway | (see source: endo-but-for-bots--llm-designs-daemon-web-gateway)
+single-HTTP+WebSocket-server multiplexing four roles on one port | patterns
+single-server-four-roles architecture | patterns
+one-port-multiplexing-multiple-protocols-with-named-roles | patterns
+GatewayBootstrap as narrow-interface (single-method fetch(agentId)) | patterns
+narrow-interface at entry point (a-one-method-interface-is-easy-to-audit) | patterns
+bearer-token-as-formula-ID (256-bit formula identifier doubles as auth token) | patterns
+the-formula-ID-IS-the-bearer-token | patterns
+the-identifier-IS-the-capability discipline (five cycles: 200 + 210 + 211 + 220 + 224) | references
+when-an-opaque-identifier-is-already-256-bit-uniformly-random it-can-serve-as-its-own-bearer-token | patterns
+per-IP-rate-limiter with three-named-properties (failed-penalty + successful-no-impact + stale-removed-after-10s) | patterns
+rate-limiter-with-explicit-rules-named-for-each-traffic-class | patterns
+two-modes-of-weblet-hosting (designated-port for browsers + virtual-host for Familiar) | patterns
+the-same-content-served-two-different-ways for two-different-client-capabilities | patterns
+Caveat-emptor-disclosure (honest-disclosure-of-named-trade-off in less-safe mode) | patterns
+three-different-shapes-for-honest-disclosure-of-a-known-trade-off (cycles 218 + 220 + 224) | references
+three-mode-address-filtering (Localhost-only default + Remote + CIDR-allowlist) with safe-default | patterns
+unsafe-mode-logs-a-named-warning (Remote mode logs TLS warning) | patterns
+IPv4-mapped-IPv6-normalization as prerequisite for allowlist matching | patterns
+virtual-host-dispatch-for-both-HTTP-and-WebSocket (the Host header IS the shared discriminator) | patterns
+the-default-handler-vs-the-registered-weblet-handler-distinction | patterns
+two-framings-for-the-same-CapTP-protocol (WebSocket-binary-frame + netstring) | patterns
+isolate-the-framing-from-the-payload (when the same protocol runs over two transports) | patterns
+makeMessageCapTP shared across both paths | (see source: endo-but-for-bots--llm-designs-daemon-web-gateway)
+makeWeblet registration API with mode-dependent getLocation | patterns
+Dependencies-table-with-Relationship-column (vs bullet-list-with-named-reason) | patterns
+four-different-shapes-for-naming-design-dependencies in 2026-06 cluster | references
+the-Prompt-section captures the original solicitation | patterns
+two-cycles-with-Prompt-section-captured (cycles 198 + 224) | references
+Status-Complete-with-explicit-Design-deviations-None-significant | patterns
+the-empty-deviation-marker-is-load-bearing | patterns
+three-different-empty-marker-shapes in library (cycles 220 + 222 + 224) | references
+two-different-classes-of-completeness-signaled-with-different-empty-markers | patterns
+twenty-first-honest-design-evolution-record family member | references
+six-different-shapes-of-design-evolution-record in 2026-06 cluster (cycles 214 + 216 + 218 + 220 + 222 + 224) | references
+eight-Familiar-cluster-designs in library (cycles 174 + 176 + 182 + 184 + 208 + 218 + 220 + 224) | references
+four-different-status-values in one cluster (shipped + Not Started + Partially implemented + Complete) | patterns
+fifty-eighth consecutive designs-chat alternation cycles 166-224 | patterns
+library-reaches-730-sections at cycle 224 (designs-lane daemon-web-gateway) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
