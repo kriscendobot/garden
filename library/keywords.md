@@ -6739,6 +6739,51 @@ the-parent-with-ready-infrastructure (cycle 220 is parent referenced by cycle 21
 four-different-shapes-of-design-evolution-record in 2026-06 cluster (cycles 214 + 216 + 218 + 220) | references
 fifty-fourth consecutive designs-chat alternation cycles 166-220 | patterns
 library-reaches-726-sections at cycle 220 (designs-lane familiar-localhttp-protocol) | patterns
+`@endo/bundle-source` | (see source: endo--packages-bundle-source)
+`bundleSource(startFilename, options, powers)` | (see source: endo--packages-bundle-source)
+`bundleZipBase64` / `bundleScript` | (see source: endo--packages-bundle-source)
+`makeBundlingKit` | (see source: endo--packages-bundle-source)
+`makeReadPowers({ fs, url, crypto })` | (see source: endo--packages-bundle-source)
+`endoZipBase64` (default module format) | (see source: endo--packages-bundle-source)
+`endoZipBase64Sha512` (integrity hash) | (see source: endo--packages-bundle-source)
+`sourceMapJobs` Set | (see source: endo--packages-bundle-source)
+`DEFAULT_MODULE_FORMAT` / `SUPPORTED_FORMATS` | (see source: endo--packages-bundle-source)
+four-named-output-module-formats (endoZipBase64 + getExport + nestedEvaluate + endoScript) | references
+default-format-named-as-a-constant + SUPPORTED_FORMATS-as-allow-list | patterns
+distinguish-not-supported-from-not-implemented-with-different-error-messages | patterns
+format-dispatch-with-lazy-loading via dynamic-import-per-format | patterns
+pay-only-for-what-you-use principle | patterns
+shared-options-shape-across-multiple-public-entry-points | patterns
+mutual-exclusion-rejected-at-validation-gate | patterns
+when-two-options-are-mutually-exclusive reject-at-validation-gate-with-error-naming-both | patterns
+readPowers-pattern via @endo/compartment-mapper | patterns
+spread-default-powers-then-spread-granted-powers | patterns
+later-spread-wins-on-collision (canonical override pattern) | patterns
+read-powers-as-a-bundled-capability-shape | patterns
+caller-can-override-individual-powers | patterns
+SHA-512-content-addressed-source-map-cache | patterns
+two-parallel-directory-structures (content-cache + location-tracker) | patterns
+the-tracker-IS-the-mutation-point + the-cache-IS-the-immutable-store | patterns
+two-letter-prefix-sharding (avoid one-giant-directory) | patterns
+directory-sharding-needs-an-empty-directory-cleanup-step | patterns
+empty-directory-cleanup-step (rmdir if empty after deletion) | patterns
+tolerate-ENOENT-on-first-write (don't conflate with other errors) | patterns
+two-parser-defaults with named-aliases-encode-semantics | patterns
+transformingParserForLanguage vs transparentParserForLanguage | (see source: endo--packages-bundle-source)
+two-third-party-transform-libraries-bundled-into-default-pipeline | patterns
+evadeCensor + tsBlankSpace integration | (see source: endo--packages-bundle-source)
+async-fan-out-with-Set-tracking | patterns
+the-fire-and-collect-async-pattern (don't await individually) | patterns
+discriminator-tag-content-integrity-hash output shape | patterns
+three-flavor language detection (workspace + workspace-commonjs + workspace-module) | patterns
+the-extension-to-language-mapping-depends-on-the-package-type | patterns
+thin-dispatch-layer-over-heavy-machinery | patterns
+two-different-packages-as-thin-dispatch-layers-over-heavier-substrate (cycles 217 + 221) | references
+when-a-package-needs-a-friendly-public-surface-over-heavy-machinery the-package-is-a-thin-dispatch-layer | patterns
+two-different-Set-data-structure-uses (cycle 132 deduplication + cycle 221 fan-out-tracking) | references
+twenty-ninth-member of small-files-with-large-knowledge-density family | patterns
+fifty-fifth consecutive designs-chat alternation cycles 166-221 | patterns
+library-reaches-727-sections at cycle 221 (chat-lane @endo/bundle-source) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
