@@ -6904,6 +6904,38 @@ eight-Familiar-cluster-designs in library (cycles 174 + 176 + 182 + 184 + 208 + 
 four-different-status-values in one cluster (shipped + Not Started + Partially implemented + Complete) | patterns
 fifty-eighth consecutive designs-chat alternation cycles 166-224 | patterns
 library-reaches-730-sections at cycle 224 (designs-lane daemon-web-gateway) | patterns
+`@endo/init/node-async_hooks` | (see source: endo--packages-init-node-async_hooks)
+three-named-symbol-slots (async_id_symbol + trigger_async_id_symbol + destroyed) | patterns
+two-strategies-for-async-hooks-symbol-discovery (findAsyncSymbolsFromAsyncResource cheap + findAsyncSymbolsFromPromiseCreateHook complete) | patterns
+cost-coverage-trade-off + named-option-to-pick | patterns
+the-never-resolving-promise-as-trigger (`new Promise(() => {})`) | patterns
+observe-construction-without-settlement | patterns
+the-reset-hook-enable-then-disable-trick | patterns
+enable-then-disable-trick-when-side-effect-is-the-purpose | patterns
+named-Node-v14.16.2-version-specific-workaround | references
+sixth-member-of-runtime-version-or-environment-compat-hacks-and-disclosures family (cycles 199 + 205 + 213 + 217 + 223 + 225) | references
+the-destroy-hook-only-needs-to-exist-to-trigger-Node-installing-the-destroyed-symbol | patterns
+when-the-platform's-behavior-depends-on-whether-you-passed-a-callback pass-the-empty-callback-to-trigger-the-behavior | patterns
+the-property-descriptor-factory with disallowGet-variant | patterns
+the-writable-flag-can-encode-Node-version-quirks-not-just-mutation-policy | patterns
+setAsyncSymbol three-case-logic (unknown + first-time + subsequent) | patterns
+the-symbol-registration-function-distinguishes-unknown-from-first-time-from-duplicate | patterns
+WeakMap-fallback-for-frozen-promises | patterns
+Reflect.defineProperty-returns-false-on-failure (not-throws) | patterns
+when-an-operation-might-fail-silently-via-return-false check-the-return-and-fall-back-without-throwing | patterns
+belt-and-suspenders-primary-path-and-fallback | patterns
+named-sentinel-return-value-for-named-platform-condition (-2 for this-version-doesn't-need-the-shim) | patterns
+two-named-out-of-scope-cases with named-policy | patterns
+debug-prints-left-as-commented-comments | patterns
+process._rawDebug-bypasses-SES-tamed-console | patterns
+three-different-shapes-for-debug-instrumentation-in-production-code (cycle 90 `__HIDE_`-prefix + cycle 130 env-option-gated + cycle 225 commented-out) | references
+pre-lockdown-installation-of-properties-that-lockdown-would-block | patterns
+pre-lockdown-installation-of-runtime-discovered-symbols (sibling to cycle 219) | patterns
+module-pattern (closure state + exported setup function) vs class-pattern | patterns
+two-different-design-choices-for-two-different-shapes (class for value-types-with-instances; module for singleton-with-internal-state) | patterns
+fifty-ninth consecutive designs-chat alternation cycles 166-225 | patterns
+thirty-first-member of small-files-with-large-knowledge-density family | patterns
+library-reaches-731-sections at cycle 225 (chat-lane @endo/init/node-async_hooks) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
