@@ -7184,6 +7184,30 @@ the-file-must-run-before-AsyncLocalStorage-is-instantiated (pre-instantiation di
 thirty-fourth-member of small-files-with-large-knowledge-density family | patterns
 sixty-seventh consecutive designs-chat alternation cycles 166-233 | patterns
 library-reaches-739-sections at cycle 233 (chat-lane @endo/init/node-async-local-storage-patch) | patterns
+endoclaw-oauth | (see source: endo-but-for-bots--llm-designs-endoclaw-oauth)
+tenth-member-of-the-endoclaw-cluster | references
+ten-design-cluster for the-endoclaw-feature (196 + 222 + 226's-six + 232 + 234) | references
+the-agent-never-sees-the-token (canonical ocap pattern) | patterns
+authority-to-use-not-authority-to-delegate-outside-the-capability-graph | patterns
+a-structural-invariant-of-the-interface-not-a-runtime-check | patterns
+the-credential-only-flows-through-the-call-not-through-a-getter | patterns
+two-different-capability-shapes-for-credential-handling (cycle 224 bearer-token-as-formula-ID vs cycle 234 hides-token-entirely) | references
+two-layer-confinement (baseUrl scope + path allowlist within scope) | patterns
+subdomain-vs-path-distinction (the domain is not the confinement boundary; the path is) | patterns
+read-only-mode boolean toggle restricts to GET/HEAD | patterns
+two-cycles-with-the-setReadOnly-mode-toggle (cycles 226 + 234) | references
+six-step-OAuth-flow with step-5-as-five-substep-internal-flow (prepend + validate + check + inject + make) | patterns
+token-refresh-handled-transparently-by-default + explicit-control-via-control-facet-method | patterns
+two-layered-revocation (local authoritative + remote optional best-effort) | patterns
+the-optionally-acknowledges-that-provider-side-revocation-might-fail | patterns
+a-higher-level-capability-is-a-wrapper-around-a-lower-level-capability | patterns
+the-authenticated-decorator on top of HttpClient substrate | patterns
+enumerate-concrete-use-cases-and-then-generalize | patterns
+the-OR-between-named-library-and-minimal-implementation in Depends-On | patterns
+twenty-seventh-honest-design-evolution-record family member | references
+the-design-evolution-record-grows-not-just-by-new-shapes-but-also-by-more-instances-of-existing-shapes | patterns
+sixty-eighth consecutive designs-chat alternation cycles 166-234 | patterns
+library-reaches-740-sections at cycle 234 (designs-lane endoclaw-oauth) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
