@@ -7464,6 +7464,40 @@ first-direct-ingest from @endo/lp32/src | patterns
 thirty-ninth-member of small-files-with-large-knowledge-density family | patterns
 seventy-seventh consecutive designs-chat alternation cycles 166-243 | patterns
 library-reaches-749-sections at cycle 243 (chat-lane @endo/lp32/src/host-endian) | patterns
+two-Author-fields-with-named-roles (prompted + evolving) | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+Status-section's-three-named-subsections (Implemented + Not-yet-implemented + Deviations-from-design) | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+the-heartbeat-IS-the-core-"there"-that-makes-an-agent-tick | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+heartbeat-vs-cron-vs-policy-three-layered-separation | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+IntervalScheduler/IntervalControl two-facet caretaker pattern | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+TickResponse-as-one-shot-exo-with-three-fates (resolve + reschedule + implicit-timeout-resolve) | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+default-resolve-on-timeout-not-default-reschedule (default IS forward progress) | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+start-to-start-timing-not-end-to-start | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+missed-ticks-coalesced-not-replayed | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+tick-events-as-messages-not-iterator-values | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+exponential-backoff-with-three-named-bounds | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+thisDiesIfThatDies + onCancel (two named lifetime mechanisms) | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+atomic-write-via-write-then-rename | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+in-memory-state-is-derived-from-the-persisted-state | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+pause-suppresses-not-defers (named distinction) | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+revocation-is-permanent | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+cited-prior-art-by-name (Go time.Ticker + Tokio time::Interval) | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+no-ambient-scheduling (capability by construction) | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+four-named-attack-defense-pairs in Security Considerations | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+ten-numbered-Design-Decisions (highest count yet in library) | (see section: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed)
+thirty-second-honest-design-evolution-record family member | patterns
+sixteenth-different-shape-of-design-evolution-record in 2026-06 cluster | patterns
+nine-cycles-on-no-new-abstractions discipline (211 + 214 + 222 + 232 + 236 + 238 + 240 + 242 + 244) | patterns
+seven-cycles-with-Dependencies-table-with-Relationship-column (224 + 230 + 236 + 238 + 240 + 242 + 244) | patterns
+five-cycles-with-numbered-Design-Decisions (230 had 5 + 236 had 9 + 240 had 3 + 242 had 7 + 244 has 10) | patterns
+three-cycles-with-canonical-caretaker-two-facet-pattern (234 + 238 + 244) | patterns
+three-cycles-with-explicit-refusal-of-conventional-feature (240 + 242 + 244) | patterns
+three-cycles-with-explicit-capability-by-construction-discipline (234 + 238 + 244) | patterns
+three-different-temporal-postures-on-design-implementation-mismatch (238 pre + 244 mid + 242 post) | patterns
+two-cycles-with-thisDiesIfThatDies-named-lifetime-linkage (236 + 244) | patterns
+two-different-shapes-of-evolution-record (242 temporal + 244 personal) | patterns
+three-cycles-on-explicit-three-fates-of-an-operation (238 alts + 240 alts + 244 tick fates) | patterns
+seventy-eighth consecutive designs-chat alternation cycles 166-244 | patterns
+library-reaches-750-sections at cycle 244 (designs-lane endoclaw-timer) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
