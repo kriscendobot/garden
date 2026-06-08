@@ -7296,6 +7296,44 @@ first-explicit-observation of "shortlex" as named-ordering in library | patterns
 README-mermaid-graphs as named-illustration-mechanism (four mermaid graphs) | patterns
 seventy-first consecutive designs-chat alternation cycles 166-237 | patterns
 library-reaches-743-sections at cycle 237 (chat-lane @endo/path-compare/src/index) | patterns
+design-revision-after-CHANGES_REQUESTED-with-named-PR-and-review-id | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+the-controller-and-client-cap-split (canonical ocap two-facet pattern) | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+mutate-the-policy-not-the-client-identity (with three named benefits) | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+the-controller-IS-the-pet-name-handle (survives across CLI invocations) | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+endo-http-subcommand-tree-replaces-single-verb (room-to-grow pattern) | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+method-placement-table as cap-discipline statement | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+the-add-and-remove-convenience-methods-prevent-read-mutate-write-races | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+cancellation-promise-as-platform-neutral-interface (Promise<never>) | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+AbortController-is-mapped-one-way-at-the-platform-boundary | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+two-independent-cancellation-channels (host-revoke + caller-cancellation) | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+three-named-SSRF-vectors-and-three-named-defenses (redirect + slow-loris + response-flooding) | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+redirect-manual to defeat metadata-server pivot | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+truncation-at-read-time-survives-Content-Length-lie | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+local-idioms-cited-table as no-new-abstractions evidence | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+ReadableBlob-IS-the-forward-compatible-shim | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+forward-compatible-shim-with-named-future-target | patterns
+Alternatives-Considered-with-three-fates (rejected + rejected + deferred) | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+each-rejection-names-the-specific-failure-mode | patterns
+deferral-names-the-non-breaking-condition | patterns
+identifier-conventions-TBD-pending-namer-dispatch | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+open-questions-with-default-or-proposal | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+test-plan-named-in-the-design-doc (eight named scenarios) | (see section: endo-but-for-bots--llm-designs-cli-http-client--controller-and-client-cap-split-and-mutate-the-policy-not-the-client-identity-and-the-controller-IS-the-pet-name-handle-and-three-SSRF-defenses-and-design-revision-after-CHANGES_REQUESTED)
+Supersedes-in-part as metadata-table-field-shape | patterns
+the-design-doc-IS-the-prose-counterpart-to-the-PR-review-thread | patterns
+the-design-doc-cites-the-PR-and-the-review-id-by-number | patterns
+the-split-is-a-strict-generalization (anything-rejected-can-still-be-expressed-by-not-mutating) | patterns
+twenty-ninth-honest-design-evolution-record family member | patterns
+thirteenth-different-shape-of-design-evolution-record in 2026-06 cluster | patterns
+six-cycles-on-no-new-abstractions discipline (211 + 214 + 222 + 232 + 236 + 238) | patterns
+four-cycles-with-Dependencies-table-with-Relationship-column (224 + 230 + 236 + 238) | patterns
+fifth-Prompt-section-instance (198 + 224 + 230 + 236 + 238) | patterns
+five-cycles-with-Prompt-section-captured (198 + 224 + 230 + 236 + 238) | patterns
+two-different-postures-on-naming-decisions-in-2026-06-cluster (236 named + 238 deferred) | patterns
+two-cycles-with-explicit-identity-stability-as-a-named-design-axis (236 state-purge + 238 policy-mutation-without-identity-change) | patterns
+eleven-design-cluster for endoclaw + cli-http (cluster grows by partial-supersession-relationship) | patterns
+cluster-evolution-by-extraction-and-renaming | patterns
+seventy-second consecutive designs-chat alternation cycles 166-238 | patterns
+library-reaches-744-sections at cycle 238 (designs-lane cli-http-client) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
