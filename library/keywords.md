@@ -7498,6 +7498,29 @@ two-different-shapes-of-evolution-record (242 temporal + 244 personal) | pattern
 three-cycles-on-explicit-three-fates-of-an-operation (238 alts + 240 alts + 244 tick fates) | patterns
 seventy-eighth consecutive designs-chat alternation cycles 166-244 | patterns
 library-reaches-750-sections at cycle 244 (designs-lane endoclaw-timer) | patterns
+pony-vs-shim-distinction (pony is the mechanism + shim is the installation) | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+conditional-method-via-conditional-spread (when platform feature is optional) | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+the-`opt`-prefix-on-optional-pony-functions | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+better-fidelity-emulation-of-class-prototype-via-non-enumerable-properties | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+strip-enumerability-via-defineProperty-loop | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+warning-not-error-on-prior-installation (modern-shim discipline) | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+install-via-defineProperties-plus-getOwnPropertyDescriptors (canonical batch-install) | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+TS-flow-inference-workaround-via-local-rebinding | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+destructure-globalThis-at-top-with-eslint-disable-no-restricted-globals | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+two-eslint-disables-with-distinct-named-justifications | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+getter-as-property-syntax (`get name()` inside object literal) | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+the-TODO-names-a-known-confusing-case | (see section: endo--packages-immutable-arraybuffer-src-immutable-arraybuffer-shim-js--pony-vs-shim-distinction-and-conditional-method-via-conditional-spread-and-warning-not-error-on-prior-installation)
+three-cycles-with-platform-bridge-discipline (188 monkey-patch + 242 elevator-module + 245 pony-shim) | patterns
+three-cycles-with-explicit-absence-as-attenuation (238 + 242 + 245) | patterns
+two-cycles-with-explicit-globalThis-destructure (237 + 245) | patterns
+two-different-naming-conventions-for-rename-aliases (237 + 245) | patterns
+two-different-shapes-of-TypeScript-workaround (241 + 245) | patterns
+two-different-shapes-of-warning-discipline (237 + 245) | patterns
+two-cycles-with-explicit-acknowledgment-of-a-known-imperfection (235 + 245) | patterns
+two-cycles-with-getter-syntax-on-object (235 + 245) | patterns
+first-direct-ingest from @endo/immutable-arraybuffer/src | patterns
+seventy-ninth consecutive designs-chat alternation cycles 166-245 | patterns
+library-reaches-751-sections at cycle 245 (chat-lane @endo/immutable-arraybuffer/src/immutable-arraybuffer-shim) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
