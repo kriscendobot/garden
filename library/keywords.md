@@ -6540,3 +6540,29 @@ Permit2-as-intent with factory-principal-check | references
 first-Agoric-Labs-design-ingested into the library | patterns
 the-discipline-of-good-architecture-design-transcends-specific-substrate-technologies | patterns
 library-reaches-720-sections at cycle 214 (Ymax side-ingest) | patterns
+`@endo/hex` | (see source: endo--packages-hex)
+`encodeHex` / `decodeHex` | (see source: endo--packages-hex)
+`jsEncodeHex` / `jsDecodeHex` | (see source: endo--packages-hex)
+ponyfill-with-load-time-dispatch | patterns
+pre-lockdown-capture (defense against post-lockdown mutation redirecting dispatched binding) | patterns
+race-against-lockdown-to-snapshot-intrinsics | patterns
+post-lockdown-freezing-makes-the-snapshot-load-bearing | patterns
+Reflect.apply-as-the-defensive-uncurry-against-Function.prototype.call-tampering | patterns
+native-error-rerun-polyfill-for-better-diagnostic (run polyfill on native throw for precise offset + name) | patterns
+the-polyfill-is-the-error-formatter-not-just-the-fallback | patterns
+two-different-shapes-for-dispatching-to-native (unconditional for encode + on-failure-polyfill-rerun for decode) | patterns
+direct-nibble-computation-from-charcodes (no lookup table; 2.5-3x faster on V8/Node 22) | patterns
+`c | 0x20`-fold-uppercase-onto-lowercase (bitwise OR trick) | patterns
+range-check-still-rejects-bit-folded-non-letters | patterns
+pre-allocate-the-output-array-to-avoid-quadratic-time-string-concatenation | patterns
+name-for-error-diagnostics parameter (`'<unknown>'` default) | patterns
+document-where-the-polyfill-is-known-to-be-slow + point-at-the-native-intrinsic-as-the-eventual-answer | patterns
+harden-every-export (polyfills + dispatched defaults) | patterns
+three-different-ponyfill-shapes (cycle 197 panic + cycle 201 immutable-arraybuffer + cycle 215 hex) | references
+four-concrete-canonical-uncurry-shape-instances (cycle 199 + cycle 207 + cycle 211 + cycle 215) | references
+eleventh-SES-defense-family member (cycle 215 hex pre-lockdown capture) | references
+fourth-instance-of-Reflect.apply-defensive-uncurry-in-endo | patterns
+TC39-proposal-arraybuffer-base64-Stage-4 (Uint8Array.toHex / Uint8Array.fromHex) | references
+twenty-sixth-member of small-files-with-large-knowledge-density family | patterns
+forty-ninth consecutive designs-chat alternation cycles 166-215 | patterns
+library-reaches-721-sections at cycle 215 (chat-lane @endo/hex) | patterns
