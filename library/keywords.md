@@ -7334,6 +7334,29 @@ eleven-design-cluster for endoclaw + cli-http (cluster grows by partial-superses
 cluster-evolution-by-extraction-and-renaming | patterns
 seventy-second consecutive designs-chat alternation cycles 166-238 | patterns
 library-reaches-744-sections at cycle 238 (designs-lane cli-http-client) | patterns
+GET_INTERFACE_GUARD (`__getInterfaceGuard__`) | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+the-named-constant-string-IS-the-protocol-name | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+double-underscore-wrap (CapTP introspection meta-method naming convention) | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+two-named-meta-methods-in-CapTP-introspection (getMethodNames + getInterfaceGuard) | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+the-cache-staleness-caveat-as-explicit-warning (Beware prefix) | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+the-warning-IS-the-protocol-contract | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+Beware-prefix-marks-actionable-warning-not-passive-note | patterns
+the-computed-property-key-uses-the-constant | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+defense-by-construction-via-computed-property-key | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+the-PR-discussion-link-IS-the-design-record-of-the-constant | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+two-cycles-with-PR-discussion-link-as-named-provenance (cycles 238 + 239) | patterns
+template-with-constraint (`@template {Record<...>} M`) | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+two-named-shapes-of-not-having-an-interface (method absent vs method present returning undefined) | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+mapped-type-from-method-record-to-method-guard-record | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+inline-import-expressions-as-fallback-when-@import-isn't-set-up | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+twenty-eight-lines-as-a-complete-protocol-artifact | (see section: endo--packages-exo-src-get-interface--GET_INTERFACE_GUARD-protocol-name-and-double-underscore-wrap-and-typedef-with-computed-property-key-and-cache-staleness-caveat)
+the-protocol-artifact-shape-not-the-implementation-shape | patterns
+two-different-cache-shapes (deterministic-algorithm-cache cycle 235 + protocol-state-cache cycle 239) | patterns
+four-different-underscore-or-hash-conventions in library (cycles 217 + 223 + 235 + 239) | patterns
+third-direct-ingest from @endo/exo src (after exo-makers cycle 79 + exo-tools cycle 80) | patterns
+thirty-seventh-member of small-files-with-large-knowledge-density family | patterns
+seventy-third consecutive designs-chat alternation cycles 166-239 | patterns
+library-reaches-745-sections at cycle 239 (chat-lane @endo/exo/src/get-interface) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
