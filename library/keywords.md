@@ -7415,6 +7415,38 @@ sixth-direct-ingest from @endo/eventual-send/src | patterns
 thirty-eighth-member of small-files-with-large-knowledge-density family | patterns
 seventy-fifth consecutive designs-chat alternation cycles 166-241 | patterns
 library-reaches-747-sections at cycle 241 (chat-lane @endo/eventual-send/src/postponed) | patterns
+Roadmap-calibration-per-git-blame (retrospective design-doc structure with named bursts and commit hashes) | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+calendar-vs-active-development-distinction | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+conditional-exports-with-three-paths (default-condition-gated + lite-always-available + explicit-platform-bypass) | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+type-lattice-as-2x3-axis-table (three-roles × two-kinds) | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+Snapshot-extends-Readable (structural subtyping) | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+structural-attenuation-not-behavioral-attenuation (readOnly returns readable interface not frozen copy) | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+the-"elevator"-module (platform-specific module does the platform import) | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+No-help()-in-this-layer (explicit non-inclusion with higher-layer named) | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+push-interface-vs-pull-interface-decoupling (TreeWriter vs ReadableTree) | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+tree-manifest-format-named-with-explicit-canonicalization | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+three-roles-an-object-can-play (Readable / Snapshot / Mutable with named substrates) | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+Relationship-to-existing-interfaces (enumerate each overlap with mapping or omission) | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+stops-at-the-filesystem-boundary (named design discipline) | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+four-phase-implementation-plan-with-S/M-complexity-tags | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+The-Prompt-IS-the-naming-spec | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+superset-by-construction | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+subDir-deferred-to-future-VFS-layer-with-reason | (see section: endo-but-for-bots--llm-designs-platform-fs--platform-package-with-conditional-exports-and-type-lattice-and-elevator-module-and-roadmap-calibration-per-git-blame-and-structural-attenuation)
+thirty-first-honest-design-evolution-record family member | patterns
+fifteenth-different-shape-of-design-evolution-record in 2026-06 cluster | patterns
+eight-cycles-on-no-new-abstractions discipline (211 + 214 + 222 + 232 + 236 + 238 + 240 + 242) | patterns
+six-cycles-with-Dependencies-table-with-Relationship-column (224 + 230 + 236 + 238 + 240 + 242) | patterns
+seventh-Prompt-section-instance (198 + 224 + 230 + 236 + 238 + 240 + 242) | patterns
+four-cycles-with-numbered-Design-Decisions (230 had 5 + 236 had 9 + 240 had 3 + 242 has 7) | patterns
+three-cycles-with-axis-tables-as-design-vocabulary (236 + 241 + 242) | patterns
+two-cycles-with-explicit-structural-attenuation-discipline (238 + 242) | patterns
+two-cycles-with-explicit-non-inclusion-of-a-conventional-method (238 + 242) | patterns
+two-cycles-with-explicit-future-deferral-with-reason-and-future-layer (238 + 242) | patterns
+two-different-temporal-postures-on-PR-provenance (238 forward-looking + 242 retrospective) | patterns
+two-different-postures-on-naming (240 namer-dispatch + 242 names-in-prompt) | patterns
+two-different-shapes-of-platform-bridge-discipline (188 monkey-patch + 242 elevator-module) | patterns
+seventy-sixth consecutive designs-chat alternation cycles 166-242 | patterns
+library-reaches-748-sections at cycle 242 (designs-lane platform-fs) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
