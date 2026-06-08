@@ -6592,6 +6592,42 @@ Test-Plan four-scenario shape for durability designs | patterns
 Security-Considerations one-line inherit-from-substrate shape | patterns
 fiftieth consecutive designs-chat alternation cycles 166-216 (golden cycle 50) | patterns
 library-reaches-722-sections at cycle 216 (designs-lane lal-transcript-memory-management) | patterns
+`@endo/errors` | (see source: endo--packages-errors)
+`hideAndHardenFunction` | (see source: endo--packages-errors)
+`Rejector` typedef (`false | typeof Fail`) | (see source: endo--packages-errors)
+`assert` / `Fail` / `note` / `quote` / `bare` / `details` / `makeError` | (see source: endo--packages-errors)
+public-API-for-SES-assert | patterns
+resource-module-discipline (entanglement with console) | patterns
+strict-fail-on-load-if-missing-prerequisite + error-message-tells-the-user-what-to-do | patterns
+enumerate-required-methods-and-tolerate-missing-ones | patterns
+load-bearing-comment-out-lines (encoding tolerance for older SES) | patterns
+named-tolerance-for-a-specific-runtime-environment | patterns
+pre-1.13.0-SES-Agoric-bootstrap-vat-tolerance | references
+rename-utilities-split-from-assertions (destructure + rest-spread) | patterns
+rest-spread-collects-everything-not-named (clean way to discriminate two API shapes) | patterns
+destructure-with-underscore-prefix-to-deliberately-discard | patterns
+honest-fallback-policy with named-runtime-compat-fallback | patterns
+conventional-abbreviations (b/X/q) for template-literal use | patterns
+named-aliases (annotateError/redacted/throwRedacted) for prose call sites | patterns
+when-a-function-is-used-both-in-templates-and-in-prose export-it-under-two-names | patterns
+`__HIDE_`-prefix-protocol (cross-module coordination via name prefix) | patterns
+protocol-via-name-prefix (lightweight cross-module coordination) | patterns
+hideAndHardenFunction canonical definition (the protocol that bridges two packages: censor in tame-v8 + marker-installer in @endo/errors) | patterns
+use-`String`-in-case-name-is-a-symbol defensive-coercion | patterns
+drop-in-replacement-for-`harden` | patterns
+Rejector-three-line-idiom (`cond || reject && reject\`...\``) | patterns
+Rejector-three-cases (truthy / false-reject / Fail-reject) | patterns
+the-dual-mode-pattern (predicate-or-assertion via parameter) | patterns
+parameter-controlled-error-vs-silent-failure | patterns
+tests-as-illustrative-examples (the test file is the second half of the documentation) | patterns
+when-a-pattern-is-hard-to-express-in-prose-or-types point-readers-at-the-test-file | patterns
+two-channels-for-two-audiences (thrown-error redacted for caller + console-log full for debugger) | patterns
+security-vs-diagnostic-tension resolved by two-channels-with-different-trust-levels | patterns
+the-debugger-channel-is-the-privileged-side | patterns
+four-different-runtime-version-or-environment-compat-hacks (cycles 199 / 205 / 213 / 217) | references
+twenty-seventh-member of small-files-with-large-knowledge-density family | patterns
+fifty-first consecutive designs-chat alternation cycles 166-217 | patterns
+library-reaches-723-sections at cycle 217 (chat-lane @endo/errors) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
