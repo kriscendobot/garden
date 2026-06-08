@@ -6784,6 +6784,44 @@ two-different-Set-data-structure-uses (cycle 132 deduplication + cycle 221 fan-o
 twenty-ninth-member of small-files-with-large-knowledge-density family | patterns
 fifty-fifth consecutive designs-chat alternation cycles 166-221 | patterns
 library-reaches-727-sections at cycle 221 (chat-lane @endo/bundle-source) | patterns
+endoclaw-skill-registry | (see source: endo-but-for-bots--llm-designs-endoclaw-skill-registry)
+Parent-pointer-as-explicit-frontmatter-field | patterns
+twentieth-honest-design-evolution-record family member | references
+five-different-shapes-of-design-evolution-record in 2026-06 cluster (cycles 214 + 216 + 218 + 220 + 222) | references
+four-different-shapes-for-naming-design-relationships in 2026-06 cluster | references
+no-new-abstractions (the registry IS a directory; descriptors ARE directories; metadata IS string values) | patterns
+three-recursive-EndoDirectory-levels with uniform-shape-with-recursive-nesting | patterns
+uniform-shape-with-recursive-nesting | patterns
+you-don't-need-to-learn-three-vocabularies-because-everything-uses-the-same-three-operations | patterns
+three-cycles-with-no-new-abstractions discipline (cycles 211 + 214 + 222) | references
+capability-declaration-via-directory-structure | patterns
+encode-structured-metadata-as-directory-structure | patterns
+the-directory-IS-the-schema (no JSON schema, no YAML parser) | patterns
+no-ambient-authority (host grants; application petitions) | patterns
+the-requires-section-is-advisory-not-authoritative | patterns
+three-cycles-on-the-host-grants-capabilities-application-doesn't-take-them discipline (cycles 208 + 218 + 222) | references
+five-step-CLI-installation composing existing verbs (no-new-verbs) | patterns
+single-convenience-command-wrapping-the-explicit-flow | patterns
+two-shapes-for-the-same-operation (explicit-flow + convenience-wrapper) | patterns
+decentralized-by-default (any agent creates a registry; no central authority) | patterns
+the-built-in-registry-is-convenience-not-gatekeeper | patterns
+three-cycles-on-decentralized-by-default discipline (cycles 200 + 220 + 222) | references
+federation-by-reference (not federation-by-protocol) | patterns
+three-named-federation-patterns (multiple-roots + cross-reference + filtered-view-via-copy) | patterns
+live-discovery via followNameChanges (reuse existing event-stream primitive) | patterns
+when-an-existing-primitive-already-provides-event-streaming use-it-everywhere | patterns
+discriminated-union-via-key-presence (`'add' in change`) not via discriminator string | patterns
+forward-compatible-via-key-presence-check | patterns
+built-in-registry-as-Specials-mechanism (`@apps`, `@lal`, `@fae`) | patterns
+publishing-as-a-mail-message-not-an-RPC | patterns
+two-actors-with-different-roles (author + operator) | patterns
+the-Depends-On-section-with-status-per-dependency | patterns
+three-already-implemented + one-precondition | patterns
+named-Endo-Idiom-section enumerating five emergent disciplines | patterns
+a-named-Idiom-section-listing-the-design-principles-that-emerge-from-the-substrate-choice | patterns
+when-a-design-fits-into-an-existing-substrate write-the-Idiom-section-that-names-which-principles-emerge | patterns
+fifty-sixth consecutive designs-chat alternation cycles 166-222 | patterns
+library-reaches-728-sections at cycle 222 (designs-lane endoclaw-skill-registry) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
