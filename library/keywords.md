@@ -7067,6 +7067,37 @@ the-marshal-package-now-substantially-ingested across six cycles (69 + 74 + 81 +
 thirty-second-member of small-files-with-large-knowledge-density family | patterns
 sixty-third consecutive designs-chat alternation cycles 166-229 | patterns
 library-reaches-735-sections at cycle 229 (chat-lane @endo/marshal/marshal-justin) | patterns
+endor-npm-registry-proxy | (see source: endo-but-for-bots--llm-designs-endor-npm-registry-proxy)
+enumerate-the-existing-substrate's-prerequisites-and-eliminate-each-one | patterns
+the-replacement-design-IS-the-substitution + the-substitution-IS-defined-by-what-it-removes | patterns
+phases-by-number-with-implementation-files-and-remaining-one-line-purposes | patterns
+twenty-fifth-honest-design-evolution-record family member | references
+ten-different-shapes-of-design-evolution-record in 2026-06 cluster (cycles 214 + 216 + 218 + 220 + 222 + 224 + 226 + 227 + 228 + 230) | references
+fifth-cycle-with-ASCII-illustration in 2026-06 (cycles 214 + 218 + 220 + 228 + 230) | references
+two-table-SQLite-schema (packages + package_meta) with two-different-cache-grains | patterns
+Go-style-Minimal-Version-Selection (MVS) | patterns
+the-greatest-explicitly-mentioned-minor-version-rule | patterns
+conservative-not-aggressive (avoid pulling in untested versions) | patterns
+comparison-with-Go's-MVS table (five aspects named side-by-side) | patterns
+when-the-design-is-inspired-by-a-named-precedent a-side-by-side-table-makes-the-similarities-and-differences-explicit | patterns
+six-step-package-fetching-pipeline | patterns
+six-step-integration-with-`endor run` for bare-specifier resolution | patterns
+offline-mode + registry-table-as-implicit-lock-file | patterns
+CAS-tree-structure with three-named-fields-per-entry (type + hash + size) | patterns
+automatic-deduplication-at-blob-level (property of content-addressing not separate optimization) | patterns
+three-cycles-on-content-addressed-deduplication (cycles 200 + 222 + 230) | references
+five-Design-decisions with named-rationale-per-decision | patterns
+Known-gaps-section-with-checkboxes | patterns
+intentionally-omitted-pre/post-install-scripts (Endo does not execute arbitrary install scripts) | patterns
+when-omitting-a-feature-for-security-reasons name-it-as-intentionally-omitted + name-the-security-reason | patterns
+honor-npm's-.npmrc-token-format for compatibility | patterns
+two-named-Dependencies with verb-prefixed-Relationship-column (Requires + Integrates) | patterns
+five-Implementation-Phases each with named-test-per-phase | patterns
+the-test-IS-the-completion-criterion-for-the-phase | patterns
+three-cycles-with-Prompt-section-captured (cycles 198 + 224 + 230) | references
+a-design-doc-as-a-design-reminder (cycle 230's meta self-referential prompt) | patterns
+sixty-fourth consecutive designs-chat alternation cycles 166-230 | patterns
+library-reaches-736-sections at cycle 230 (designs-lane endor-npm-registry-proxy) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
