@@ -6822,6 +6822,49 @@ a-named-Idiom-section-listing-the-design-principles-that-emerge-from-the-substra
 when-a-design-fits-into-an-existing-substrate write-the-Idiom-section-that-names-which-principles-emerge | patterns
 fifty-sixth consecutive designs-chat alternation cycles 166-222 | patterns
 library-reaches-728-sections at cycle 222 (designs-lane endoclaw-skill-registry) | patterns
+`@endo/module-source` | (see source: endo--packages-module-source)
+`ModuleSource` class | (see source: endo--packages-module-source)
+`AbstractModuleSource` (prototype bridge for forward-compatibility) | (see source: endo--packages-module-source)
+`HIDDEN_PREFIX` with U+034F Combining Grapheme Joiner | (see source: endo--packages-module-source)
+`HIDDEN_META` sized to match `import.meta` length | (see source: endo--packages-module-source)
+`HIDDEN_IDENTIFIERS` enumerated allow-list (seven named identifiers) | (see source: endo--packages-module-source)
+ModuleSource-class-as-parsed-cache-shareable-across-Compartments | patterns
+class-constructor-must-be-invoked-with-`new` check via `new.target === undefined` | patterns
+two-form-of-options-with-single-line-normalization | patterns
+when-the-most-common-option-is-a-string accept-it-as-shorthand-and-normalize | patterns
+deep-freeze-of-everything via three-levels-of-freezing (inner-entries + map-values + the-instance-itself) | patterns
+when-an-object-graph-must-be-immutable traverse-it-and-freeze-each-level-explicitly | patterns
+`__double-underscore__`-private-names-convention (SES Compartment internal contract) | patterns
+the-babel-vs-babelStar-NESM-RESM matrix encoded as 4-by-2 ASCII table in opening comment | patterns
+four-by-two-matrix-encoded-as-comment | patterns
+honest-acknowledgment-of-platform-quirks | patterns
+five-member runtime-version-or-environment-compat-hacks-and-disclosures family (cycles 199 + 205 + 213 + 217 + 223) | references
+disclosure-depth-deepens-cycle-by-cycle | patterns
+shebang-comment-out-trick (`if (source.startsWith('#!')) source = '//' + source;`) | patterns
+when-you-must-pass-source-text-through-a-parser-that-rejects-the-shebang comment-it-out-with-`//`-prefix | patterns
+`sourceOptions`-as-shared-state-bag with ten-named-fields | patterns
+Object.create(null)-for-prototype-free-maps | patterns
+defensive-shape-against-prototype-pollution | patterns
+`{ present: false }` pattern (mutable-boolean-wrapped-in-object as out-parameter) | patterns
+when-a-callee-needs-to-mutate-a-boolean-from-deep-inside-a-traversal wrap-it-in-an-object | patterns
+JavaScript-doesn't-have-out-parameters an-object-with-a-mutable-field-IS-the-out-parameter | patterns
+AbstractModuleSource-prototype-bridge-for-forward-compatibility | patterns
+asymmetric-tolerance-discipline | patterns
+when-future-evolution-could-go-multiple-ways pick-the-shape-that-tolerates-both | patterns
+lockdown-tolerates-absence-but-not-presence-of-unexpected-prototype | patterns
+WebAssembly.Module-entanglement-deferred with named rationale | patterns
+name-the-temptation-and-resist-it-with-rationale | patterns
+invisible-combining-character-as-identifier-prefix (U+034F) | patterns
+use-an-invisible-Unicode-character-in-identifier-prefixes-to-avoid-collision-with-user-code | patterns
+source-map-friendly-replacement (size the substitute to match the original) | patterns
+when-you-substitute-tokens-in-source-text size-the-replacement-to-match-the-original-length | patterns
+enumerated-allow-list of reserved identifiers as exported frozen array | patterns
+try-catch-wrap-with-cause + location-context (Error `cause` ES2022) | patterns
+JSON.stringify-with-fallback-default safe-quoting-with-fallback | patterns
+sixth-cycle-using-freeze-not-harden-with-named-correctness-argument family (cycles 132 + 146 + 154 + 199 + 219 + 223) | references
+fifty-seventh consecutive designs-chat alternation cycles 166-223 | patterns
+thirtieth-member of small-files-with-large-knowledge-density family | patterns
+library-reaches-729-sections at cycle 223 (chat-lane @endo/module-source) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
