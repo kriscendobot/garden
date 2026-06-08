@@ -7562,6 +7562,27 @@ fortieth-member of small-files-with-large-knowledge-density family | patterns
 first-direct-ingest from @endo/check-bundle/src | patterns
 eighty-first consecutive designs-chat alternation cycles 166-247 | patterns
 library-reaches-753-sections at cycle 247 (chat-lane @endo/check-bundle/src/json) | patterns
+UI-only-no-daemon-API-changes | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+drop-target-table (Target × Action × Daemon API Call) | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+custom-MIME-type-as-discriminator-on-HTML5-drag-payload | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+two-MIME-types-on-drag-data (legacy text/plain + custom application/x-endo-petname) | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+five-Considerations-sections (Security + Scaling + Test Plan + Compatibility + Upgrade) | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+empty-considerations-section-acknowledged-explicitly (say `None` not omit) | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+default-copy-Alt-to-move (modifier-key disambiguation) | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+move-operations-not-atomic-acknowledged (matches existing CLI behavior) | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+send-confirmation-dialog (defense against accidental capability sharing) | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+three-named-visual-affordances-on-drag-interaction (source ghost + target highlight + no-drop cursor) | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+multi-select-as-stretch-goal (named scope deferral vocabulary) | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+Affected-Packages-section as narrow-blast-radius-evidence | (see section: endo-but-for-bots--llm-designs-inventory-drag-and-drop--drop-target-table-and-custom-MIME-type-and-five-considerations-sections-and-UI-only-no-daemon-API-changes)
+three-different-shapes-of-deferral-vocabulary (`deferred` + `reserved-as-future-sibling` + `stretch goal`) | patterns
+eleven-cycles-on-no-new-abstractions discipline (211 + 214 + 222 + 232 + 236 + 238 + 240 + 242 + 244 + 246 + 248) | patterns
+two-cycles-with-explicit-no-new-daemon-API-changes-as-named-discipline (246 + 248) | patterns
+three-cycles-with-explicit-dispatch-or-method-placement-table (238 + 240 + 248) | patterns
+two-cycles-with-the-default-IS-the-safer-or-forward-progress-choice (244 + 248) | patterns
+three-cycles-with-explicit-defense-against-irreversible-action (238 + 246 + 248) | patterns
+four-cycles-with-explicit-deferral-of-a-named-future-feature (238 + 240 + 242 + 248) | patterns
+eighty-second consecutive designs-chat alternation cycles 166-248 | patterns
+library-reaches-754-sections at cycle 248 (designs-lane inventory-drag-and-drop) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
