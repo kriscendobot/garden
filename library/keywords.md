@@ -6967,6 +6967,41 @@ eight-design-cluster for the-endoclaw-feature (cycle 196 parent + cycle 222 skil
 two-different-cluster-ingest-types (cluster-of-code-files cycles 199/211 + cluster-of-design-documents cycle 226) | references
 sixtieth consecutive designs-chat alternation cycles 166-226 | patterns
 library-reaches-732-sections at cycle 226 (designs-lane endoclaw-six-design-cluster) | patterns
+@endo/pass-style helpers cluster (byteArray + copyArray + copyRecord + tagged + iter-helpers + string + makeTagged) | (see source: endo--packages-pass-style-helpers-cluster)
+PassStyleHelper-uniform-shape (styleName + confirmCanBeValid + assertRestValid) | patterns
+two-phase-validation (cheap discriminator + deep well-formedness) | patterns
+split-validation-into-cheap-discriminator + deep-well-formedness | patterns
+the-cheap-check-runs-on-every-classification + the-deep-check-runs-only-after-classification-succeeds | patterns
+Rejector-typedef-from-cycle-217 used consistently across pass-style helpers | references
+rest-spread-collects-everything-not-named (tagged.js) | patterns
+the-rest-spread-IS-the-validation-of-no-extra-properties | patterns
+second-use-of-rest-spread-collects (cycle 217 omits known + cycle 227 detects unknown) | references
+length-vs-ownKeys-check (copyArray invariant) | patterns
+invariant-encoded-as-count-check | patterns
+adapt-feature-detection (byteArray.js) returns deny-bindings when feature missing | patterns
+feature-detection-returns-bindings-that-deny-when-the-feature-is-missing | patterns
+the-validation-degrades-to-always-reject-byteArrays when feature absent | patterns
+Reflect.apply-as-the-defensive-uncurry fifth-instance (cycles 199 + 207 + 211 + 215 + 227) | references
+don't-coerce-input (string.js) via pre-typeof-check-before-platform-method | patterns
+explain-why-in-the-comment + cite-the-isNaN-precedent | patterns
+wrap-the-platform-method-with-an-explicit-typeof-check | patterns
+env-option-gated-strictness with named-three-phase-plan (disabled → enabled → switch-removed) | patterns
+the-comment-tells-the-consumer-what-to-expect-over-time | patterns
+three-cycles-on-env-option-controlled-features (cycle 130 + cycle 217 + cycle 227) | references
+mapIterable + filterIterable lazy iterator utilities (Far-wrapped) | patterns
+lazy-iterator-utility-that-returns-Far-wrapped-objects | patterns
+the-completion-value-is-passed-through-not-transformed | patterns
+!!done boolean-coerce to ensure IteratorResult done is strictly boolean | patterns
+pair-the-constructor-with-the-validator in adjacent files (makeTagged + tagged) | patterns
+the-constructor-is-the-trusted-path + the-validator-is-the-untrusted-path | patterns
+central-dispatcher + uniform-shape-of-handlers-per-case | patterns
+the-pass-style-package-comprehensively-ingested across ten cycles | references
+twenty-third-honest-design-evolution-record family member | references
+two-cluster-shapes-paired (cycle 226 design-documents + cycle 227 code-files) | references
+three-cycles-of-code-file-clusters-with-shared-template (cycles 199 + 211 + 227) | references
+three-different-shared-disciplines + three-different-purposes-for-the-cluster-shape | patterns
+sixty-first consecutive designs-chat alternation cycles 166-227 | patterns
+library-reaches-733-sections at cycle 227 (chat-lane @endo/pass-style helpers cluster) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
