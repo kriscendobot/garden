@@ -7208,6 +7208,32 @@ twenty-seventh-honest-design-evolution-record family member | references
 the-design-evolution-record-grows-not-just-by-new-shapes-but-also-by-more-instances-of-existing-shapes | patterns
 sixty-eighth consecutive designs-chat alternation cycles 166-234 | patterns
 library-reaches-740-sections at cycle 234 (designs-lane endoclaw-oauth) | patterns
+@endo/compartment-mapper/src/generic-graph | (see source: endo--packages-compartment-mapper-src-generic-graph)
+GenericGraph class with class-private-fields | patterns
+class-private-field-syntax (`#name`) for language-level true privacy | patterns
+four-different-underscore-or-hash-conventions (cycles 217 + 223 + 233 + 235) | references
+honest-attribution-to-third-party with license (datavis-tech/graph-data-structure MIT by Curran Kelleher) | patterns
+three-cycles-on-third-party-attribution (cycles 84 + 232 + 235) | references
+Dijkstra's-single-source-shortest-path-algorithm with three-named-classical-steps (extractMin + relax + loop) | patterns
+cache-the-traversal-context-by-source (amortize O(V²); subsequent calls O(path length)) | patterns
+recognize-when-the-algorithm's-natural-product-is-larger-than-the-API's-natural-product + cache-the-larger-product | patterns
+when-an-algorithm-is-single-source-but-the-API-is-pairwise cache-by-source | patterns
+pathCompare-as-edge-weight (path-itself-is-cost; cycle 209 sibling) | patterns
+when-the-cost-is-the-path-not-a-number extending-the-path-is-the-cost-update | patterns
+defensive-copy-in-getter (returns new Set(this.#nodes) to prevent mutation) | patterns
+chainable-API via return this (mutating methods chainable) | patterns
+classical-algorithm-step-names for reader recognition (relax + extractMin) | patterns
+three-named-assertions-after-walking-predecessor-chain | patterns
+nodeList.reverse() to get source-to-target order from backwards traversal | patterns
+`[T, T, ...T[]]` tuple-type-for-non-empty-array-with-minimum-length | patterns
+linear-search-priority-queue with named trade-off (O(V²) overall) | patterns
+explicit-termination-signal-via-undefined when algorithm cannot proceed | patterns
+first-direct-ingest from @endo/compartment-mapper/src | patterns
+when-a-package-is-foundational-machinery ingest-its-thin-dispatchers-first + work-down-to-the-heavy-files-over-time | patterns
+the-library-builds-up-the-shape-of-the-package-from-its-edges-inward | patterns
+thirty-fifth-member of small-files-with-large-knowledge-density family | patterns
+sixty-ninth consecutive designs-chat alternation cycles 166-235 | patterns
+library-reaches-741-sections at cycle 235 (chat-lane @endo/compartment-mapper/generic-graph) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
