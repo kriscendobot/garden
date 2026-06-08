@@ -7158,6 +7158,32 @@ later-member-of-an-established-cluster-template | patterns
 when-a-cluster-establishes-a-template later-members-follow-it-without-explanation | patterns
 sixty-sixth consecutive designs-chat alternation cycles 166-232 | patterns
 library-reaches-738-sections at cycle 232 (designs-lane endoclaw-channel-bridges) | patterns
+@endo/init/node-async-local-storage-patch | (see source: endo--packages-init-node-async-local-storage-patch)
+the-kResourceStore-setter-intercept (Object.defineProperty setter on AsyncLocalStorage.prototype) | patterns
+intercept-the-platform's-internal-property-set-via-setter-on-prototype | patterns
+three-cycles-on-intercept-platform's-internal-property-set (cycles 219 + 225 + 233) | references
+two-level-WeakMap-for-two-level-keying (outer by instance + inner by resource) | patterns
+replace-strong-reference-with-WeakMap-for-GC-friendly-resource-tracking | patterns
+the-_propagate-hook for store inheritance from trigger resource | patterns
+the-run()-four-step-discipline (optimize-fast-path + enable+capture+set + try + finally restore) | patterns
+optimize-when-store-is-already-active (skip AsyncResource creation) | patterns
+three-cycles-on-fast-path-when-input-matches-current-state (cycles 215 + 222 + 233) | references
+ObjectIs-not-equality for SameValue semantics | patterns
+ReflectApply-with-null-this for callback invocation | patterns
+sixth-instance of Reflect.apply-as-the-defensive-uncurry (cycles 199 + 207 + 211 + 215 + 227 + 233) | references
+getStore-undefined-when-disabled (distinct sentinel return value) | patterns
+enterWith() as the-other-store-setter without try-finally cleanup | patterns
+two-API-shapes-for-two-different-lifetime-models (scoped run + persistent enterWith) | patterns
+the-eslint-disable-no-underscore-dangle to honor platform's internal-API convention | patterns
+three-cycles-with-underscore-prefix-naming-and-eslint-disable (cycles 217 + 223 + 233) | references
+three-different-underscore-conventions for three-different-substrates | patterns
+three-cycles-with-pre-instantiation-or-pre-lockdown-property-installation (cycles 219 + 225 + 233) | references
+three-cycles-with-try-finally-swap-and-restore (cycles 229 + 231 + 233) | references
+`configurable: true` on prototype property to leave door open for platform | patterns
+the-file-must-run-before-AsyncLocalStorage-is-instantiated (pre-instantiation discipline) | patterns
+thirty-fourth-member of small-files-with-large-knowledge-density family | patterns
+sixty-seventh consecutive designs-chat alternation cycles 166-233 | patterns
+library-reaches-739-sections at cycle 233 (chat-lane @endo/init/node-async-local-storage-patch) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
