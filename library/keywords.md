@@ -6566,6 +6566,32 @@ TC39-proposal-arraybuffer-base64-Stage-4 (Uint8Array.toHex / Uint8Array.fromHex)
 twenty-sixth-member of small-files-with-large-knowledge-density family | patterns
 forty-ninth consecutive designs-chat alternation cycles 166-215 | patterns
 library-reaches-721-sections at cycle 215 (chat-lane @endo/hex) | patterns
+lal-transcript-memory-management | (see source: endo-but-for-bots--llm-designs-lal-transcript-memory-management)
+Phase-5-extracted-to-separate-design (cycle 214 → cycle 216 parent-child design pair) | patterns
+extracted-from-Phase-N-of-predecessor (child-side language) | patterns
+explicit-Predecessor-section pointing back to parent design | patterns
+Existing-Infrastructure-named-with-bullet-list | patterns
+inherit-don't-redescribe (additive-deltas only in the new document) | patterns
+every-message-maps-to-a-durable-node (inbound creates new + outbound creates alias) | patterns
+every-conceptual-event-must-map-to-the-canonical-durable-representation | patterns
+durability-beyond-message-lifecycle | patterns
+two-different-stores-with-two-different-lifecycles (ephemeral inbox vs durable transcript) | patterns
+the-user's-action-on-the-inbox-does-not-cascade-to-the-transcript | patterns
+accumulation-is-intentional (name the policy not just the mechanism) | patterns
+name-the-policy-not-just-the-mechanism | patterns
+error-not-silent-truncation | patterns
+fail-loud-at-the-application-layer (sibling to cycle 100 fail-loud-not-degrade) | patterns
+user-initiated-cleanup with two-named-cleanup-paths (discard-agent or export-then-cleanup) | patterns
+the-design-resists-feature-creep-by-naming-future-features-as-out-of-scope | patterns
+single-Decisions-table (vs cycle 214 two-table Decisions-Made-vs-Tentative) | patterns
+shape-of-the-Decisions-section-tracks-the-Status-section | patterns
+sixteenth-honest-design-evolution-record family member | references
+design-evolution-visible-across-two-documents (new shape; vs cycle 214 within-one-document) | patterns
+five-completed-Lal/Fae-cluster-designs (cycle 208 delivery + 210 configuration + 214 transcript memory + 216 durability) | references
+Test-Plan four-scenario shape for durability designs | patterns
+Security-Considerations one-line inherit-from-substrate shape | patterns
+fiftieth consecutive designs-chat alternation cycles 166-216 (golden cycle 50) | patterns
+library-reaches-722-sections at cycle 216 (designs-lane lal-transcript-memory-management) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
