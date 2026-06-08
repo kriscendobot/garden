@@ -6660,6 +6660,40 @@ two-design-documents-with-asymmetric-implementation-progress (sibling-Ready + th
 six-completed-Familiar-cluster-designs (cycles 174 + 176 + 182 + 184 + 208 + 218) | references
 fifty-second consecutive designs-chat alternation cycles 166-218 | patterns
 library-reaches-724-sections at cycle 218 (designs-lane familiar-chat-weblet-hosting) | patterns
+`@endo/ses-ava` | (see source: endo--packages-ses-ava)
+`MAKE_CAUSAL_CONSOLE_FROM_LOGGER_KEY_FOR_SES_AVA` (registered-symbol key) | (see source: endo--packages-ses-ava)
+`wrapTest(avaTest)` | (see source: endo--packages-ses-ava)
+`logErrorFirst` | (see source: endo--packages-ses-ava)
+`makeVirtualExecutionContext` | (see source: endo--packages-ses-ava)
+registered-symbol-on-globalThis-as-cross-module-coordination | patterns
+privileged-API-on-start-compartment-only | patterns
+rely-on-SES-Compartment-isolation-to-keep-privileged-API-out-of-guest-compartments | patterns
+experimental-API-flag-via-comment with single-intended-consumer | patterns
+co-maintenance-relationship across two packages | patterns
+feature-test-at-use-time-with-graceful-degradation | patterns
+virtualT-proxy via defineProperty-with-getter-setter-delegation | patterns
+three-kinds-of-property-handling (accessor + function-value + data) | patterns
+spread-prototype-descriptors-first-so-own-properties-override | patterns
+proxy-via-defineProperty-not-via-Proxy when shape-of-original-is-known | patterns
+logErrorFirst three-cases (sync-throw + promise-reject + success) | patterns
+THROWN-vs-REJECTED log-prefix-distinction | patterns
+intercept-without-changing-the-outcome (logger is side-effect, not transformation) | patterns
+honest-disclosure-of-observable-difference (delayed-rejection-equivalent-enough-for-testing) | patterns
+AVA-method-override-list (seven-named-chainable-methods: after / afterEach / before / beforeEach / failing / serial / only) | patterns
+recursive-wrapping-for-chainable-methods | patterns
+allow-list-for-recursive-wrapping with honest-fragility | patterns
+pre-lockdown-freeze-with-named-correctness-argument | patterns
+five-cycles-using-freeze-not-harden-with-named-correctness-argument (cycles 132 + 146 + 154 + 199 + 219) | references
+single-import-replaces-multiple-imports | patterns
+devDependencies-not-dependencies discipline (avoid AVA bundling bloat) | patterns
+multi-config-CLI-as-package.json-driven-runner | patterns
+sesAvaConfigs | (see source: endo--packages-ses-ava)
+three-different-shapes-for-cross-module-coordination-protocols (cycles 197 / 217 / 219) | references
+the-causal-console-substrate-is-fully-wired-now (cycles 90 + 93 + 96 + 98 + 100 + 106 + 217 + 219) | references
+eighth-and-final-piece of SES error-channel infrastructure | patterns
+twenty-eighth-member of small-files-with-large-knowledge-density family | patterns
+fifty-third consecutive designs-chat alternation cycles 166-219 | patterns
+library-reaches-725-sections at cycle 219 (chat-lane @endo/ses-ava) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
