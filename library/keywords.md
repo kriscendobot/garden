@@ -7598,3 +7598,6 @@ grant matching equality | brand-and-trademark
 CAS-internal move (refcount swap, no byte copy) | (see section: endo-but-for-bots--llm-designs-daemon-content-store-gc--design-and-api-extension)
 streaming CAS variants (cas-store-stream / cas-content-stream) | (see section: endo-but-for-bots--llm-designs-daemon-cas-management--content-address-store-as-supervisor-owned-subsystem-with-typed-content-retain-release-and-background-mark-sweep-gc)
 cap-not-string mounts | (see section: endo-but-for-bots--llm-designs-endo-posix-sandbox--cap-not-string-mounts-with-three-rule-security-boundary-and-pluggable-driver-interface)
+destructive-autofix | (see entry: entries/2026/06/07/050114Z-result-fixer-a538e1.md)
+`@endo/harden-exports` autofix deletes harden() | (see entry: entries/2026/06/07/050114Z-result-fixer-a538e1.md)
+`jsdoc/require-param` autofix injects empty @param | (see entry: entries/2026/06/07/050114Z-result-fixer-a538e1.md)
