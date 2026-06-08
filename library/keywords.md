@@ -7392,6 +7392,29 @@ two-cycles-with-Test-plan-named-in-the-design-doc (238 + 240) | patterns
 twelve-design-cluster for endoclaw + cli-http + cli-store | patterns
 seventy-fourth consecutive designs-chat alternation cycles 166-240 | patterns
 library-reaches-746-sections at cycle 240 (designs-lane cli-store-verb-text-modes) | patterns
+postponed-handler-pattern (defers every operation until donePostponing callback) | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+interlockP (name a pending promise after the synchronization shape) | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+the-resolve-callback-is-captured-via-closure-in-Promise-executor | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+`assert(callback)`-with-`@ts-expect-error`-and-cited-error-code | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+six-method-handler-protocol-as-2x3-axis-table (operation × send-mode) | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+postponedOperation-as-method-name-string-used-as-key-on-HandledPromise | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+makePostponedOperation-as-method-factory | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+the-returned-function-has-a-debug-name (`function postpone(...)`) | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+`.then(_ =>` ignored-resolve-value with underscore prefix | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+commented-out-console.log-as-debugging-affordance | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+`Required<Handler<any>>` for completeness-of-implementation type discipline | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+defense-by-construction-via-`Required<>`-wrapper | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+the-`<any>`-parameter-as-the-honest-type-when-the-target-is-genuinely-unknown | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+forty-six-lines-as-a-complete-handler-protocol-postponement | (see section: endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type)
+thin-wrapper-around-a-Promise-no-class-machinery | patterns
+two-cycles-with-`@ts-expect-error`-citing-a-specific-TS-issue-or-error-code (146 + 241) | patterns
+two-different-comment-shapes-with-named-roles (239 Beware-prefix + 241 commented-out-console.log) | patterns
+two-different-shapes-of-deferred-resolution (238 controller-pet-name-handle + 241 postponed-handler) | patterns
+two-uses-of-string-as-protocol-key (239 GET_INTERFACE_GUARD + 241 postponedOperation) | patterns
+sixth-direct-ingest from @endo/eventual-send/src | patterns
+thirty-eighth-member of small-files-with-large-knowledge-density family | patterns
+seventy-fifth consecutive designs-chat alternation cycles 166-241 | patterns
+library-reaches-747-sections at cycle 241 (chat-lane @endo/eventual-send/src/postponed) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
