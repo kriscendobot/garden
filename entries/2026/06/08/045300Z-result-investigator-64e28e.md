@@ -252,8 +252,7 @@ Backend-factory layer where the host wires Playwright in.
 
 ## Reply posted
 
-Reply comment on PR #106 will follow this entry's commit; URL
-captured in the orchestrator summary.
+https://github.com/endojs/endo-but-for-bots/pull/106#issuecomment-4645589133
 
 Self-improvement: nothing this time. The investigator role's
 hypothesis-driven posture and the journal's prior-work search
