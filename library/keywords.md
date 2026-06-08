@@ -26,6 +26,15 @@ anti-impersonation invariant | delegates-and-epithets
 assistant to Alice | delegates-and-epithets
 caretaker | caretaker-pattern
 caretaker pattern | caretaker-pattern
+`@endo/compartment-mapper` | (see source: endo--pkg-compartment-mapper-readme)
+compartment mapper | (see source: endo--pkg-compartment-mapper-readme)
+compartment-mapper architecture | (see section: endo--pkg-compartment-mapper-readme--language-extensions)
+`mapNodeModules` | (see section: endo--pkg-compartment-mapper-readme--language-extensions)
+`languageForExtension` | (see section: endo--pkg-compartment-mapper-readme--language-extensions)
+`moduleLanguageForExtension` | (see section: endo--pkg-compartment-mapper-readme--language-extensions)
+`parsers` (package.json) | (see section: endo--pkg-compartment-mapper-readme--language-extensions)
+auxiliary package.json | (see section: endo--pkg-compartment-mapper-readme--language-extensions)
+language-for-extension overrides | (see section: endo--pkg-compartment-mapper-readme--language-extensions)
 connector identity guarantee | pass-invariant-handle-equality
 chat invariants | (see source: endo-but-for-bots--llm-designs-chat-invariants)
 chat principles | (see source: endo-but-for-bots--llm-designs-chat-invariants)
