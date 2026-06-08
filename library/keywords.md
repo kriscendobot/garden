@@ -7521,6 +7521,28 @@ two-cycles-with-getter-syntax-on-object (235 + 245) | patterns
 first-direct-ingest from @endo/immutable-arraybuffer/src | patterns
 seventy-ninth consecutive designs-chat alternation cycles 166-245 | patterns
 library-reaches-751-sections at cycle 245 (chat-lane @endo/immutable-arraybuffer/src/immutable-arraybuffer-shim) | patterns
+webhook-as-formula (formula IS the webhook + formula-id IS the URL path) | (see section: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section)
+inbox-delivery (webhook payloads as normal inbox messages) | (see section: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section)
+capability-controlled-creation (host grants the authority) | (see section: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section)
+HMAC-verification (secret part of formula state; gateway verifies at boundary) | (see section: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section)
+two-named-external-services-cited-by-header-name (GitHub X-Hub-Signature-256 + Stripe Stripe-Signature) | (see section: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section)
+WebhookEndpoint/WebhookControl two-facet caretaker pattern | (see section: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section)
+two-shapes-of-deactivation (reversible-disable on use facet + permanent-revoke on control facet) | (see section: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section)
+short-design-doc-as-named-shape (five sections only) | (see section: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section)
+Depends-On-bullet-list-as-distinct-from-Dependencies-table | (see section: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section)
+Endo-Idiom-section as recurring design-doc shape with N-named-disciplines | (see section: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section)
+five-section-design-as-named-shape (Summary + Capability-Shape + How-It-Works + Endo-Idiom + Depends-On) | (see section: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section)
+ten-cycles-on-no-new-abstractions discipline (211 + 214 + 222 + 232 + 236 + 238 + 240 + 242 + 244 + 246) | patterns
+four-cycles-with-canonical-caretaker-two-facet-pattern (234 + 238 + 244 + 246) | patterns
+four-cycles-with-explicit-capability-by-construction-discipline (234 + 238 + 244 + 246) | patterns
+three-cycles-with-mail-system-as-the-event-substrate (232 + 244 + 246) | patterns
+three-cycles-with-stable-cap-handles-via-pet-name-or-formula-id (238 + 244 + 246) | patterns
+two-cycles-with-Endo-Idiom-section-with-N-named-disciplines (232 + 246) | patterns
+two-different-shapes-of-dependency-record (Dependencies-table 7 cycles + Depends-On-bullet-list 1 cycle) | patterns
+two-different-shapes-of-cluster-member-length (244 long 837-lines + 246 short 79-lines) | patterns
+thirteenth-design-cluster-member for endoclaw + cli-http + cli-store | patterns
+eightieth consecutive designs-chat alternation cycles 166-246 | patterns
+library-reaches-752-sections at cycle 246 (designs-lane endoclaw-webhooks) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
