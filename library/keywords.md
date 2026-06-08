@@ -7098,6 +7098,34 @@ three-cycles-with-Prompt-section-captured (cycles 198 + 224 + 230) | references
 a-design-doc-as-a-design-reminder (cycle 230's meta self-referential prompt) | patterns
 sixty-fourth consecutive designs-chat alternation cycles 166-230 | patterns
 library-reaches-736-sections at cycle 230 (designs-lane endor-npm-registry-proxy) | patterns
+@endo/marshal/encodeToCapData | (see source: endo--packages-marshal-src-encodeToCapData)
+QCLASS-as-special-property-name (`@qclass`) | patterns
+the-canonical-JSON-discipline (JSON.stringify(encode(v1)) === JSON.stringify(encode(v2))) | patterns
+sort-copyRecord-property-names (only case where order is not implicit in the code) | patterns
+honest-disclosure-about-non-determinism-mitigation | patterns
+dont-encode-defaults-that-throw | patterns
+strict-by-default-with-opt-in-extension | patterns
+three-cycles-on-strict-by-default-with-opt-in-extension (cycles 226 + 230 + 231) | references
+defense-in-depth-validation-of-callback-return-shape via qclassMatches | patterns
+`-0`-normalization-for-canonical-encoding | patterns
+three-instances-of-Hilbert-Hotel-encoding family (cycles 148 + 229 + 231) | references
+`freeze(rest)`-explicit-after-spread (rest is freshly constructed; freeze restores invariant) | patterns
+isErrorLike-tolerance at root only (lenient-at-the-root + strict-deeper) | patterns
+when-the-design-is-about-error-reporting be-extra-tolerant-of-malformed-inputs-at-the-error-reporting-path | patterns
+three-phase-deprecation (currently accepted + TODO env-option-conditional + eventually remove) | patterns
+explicit-BEWARE-comment for known vulnerability with deprecation rationale | patterns
+four-cycles-on-honest-acknowledgment-of-architectural-asymmetry (cycles 220 + 224 + 229 + 231) | references
+implementation-restriction-with-named-issue-tracker-link (Agoric-sdk#4334) | patterns
+the-issue-IS-the-roadmap-entry | patterns
+`@ts-expect-error`-as-marker-for-error-cases-that-must-throw | patterns
+don't-harden-since-we're-not-done-mutating-it (named comment as protocol against premature hardening) | patterns
+seven-cycles-using-freeze-or-don't-harden-with-named-correctness-argument (cycles 132 + 146 + 154 + 199 + 219 + 223 + 231) | references
+three-cycles-on-protocol-via-name-prefix family (cycles 217 + 219 + 231) | references
+the-marshal-package-now-comprehensively-ingested across seven cycles (cycles 69 + 74 + 81 + 84 + 158 + 229 + 231) | references
+the-encode-decode-pair (cycle 229 marshal-justin decode + cycle 231 encodeToCapData encode) | references
+thirty-third-member of small-files-with-large-knowledge-density family | patterns
+sixty-fifth consecutive designs-chat alternation cycles 166-231 | patterns
+library-reaches-737-sections at cycle 231 (chat-lane @endo/marshal/encodeToCapData) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
