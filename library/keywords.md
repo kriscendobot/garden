@@ -7543,6 +7543,25 @@ two-different-shapes-of-cluster-member-length (244 long 837-lines + 246 short 79
 thirteenth-design-cluster-member for endoclaw + cli-http + cli-store | patterns
 eightieth consecutive designs-chat alternation cycles 166-246 | patterns
 library-reaches-752-sections at cycle 246 (designs-lane endoclaw-webhooks) | patterns
+augment-the-error-with-location-on-the-error-path-only | (see section: endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new)
+two-named-error-cases (SyntaxError augmented + non-SyntaxError rethrown undisguised) | (see section: endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new)
+the-`instanceof SyntaxError`-discrimination (narrow augmentation scope) | (see section: endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new)
+Error-constructor-without-`new` (Error subclass callable as function since ES6) | (see section: endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new)
+template-literal-error-coercion-loses-stack-trace (use { cause: error } instead if stack matters) | (see section: endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new)
+location-q-quoted-before-inclusion (JSON.stringify for safe special-character handling) | (see section: endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new)
+the-q-alias-as-direct-property-alias (`const q = JSON.stringify;`) | (see section: endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new)
+three-different-stylistic-conventions-for-q-alias (237 destructure-rename + 245 destructure-no-rename + 247 direct-property) | patterns
+comment-`For enquoting strings`-explains-why-the-letter-q | (see section: endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new)
+the-single-function-file (isolate one error-augmentation utility) | (see section: endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new)
+the-function-name-encodes-the-discipline | (see section: endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new)
+the-parameter-name-IS-the-required-context | (see section: endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new)
+four-cycles-with-small-files-that-each-isolate-one-named-decision (239 + 241 + 243 + 247) | patterns
+three-cycles-with-q-in-error-message-context (237 + 247) | patterns
+two-cycles-with-deliberate-stylistic-choice-over-equivalent-form (243 named-vs-IIFE + 247 call-vs-new) | patterns
+fortieth-member of small-files-with-large-knowledge-density family | patterns
+first-direct-ingest from @endo/check-bundle/src | patterns
+eighty-first consecutive designs-chat alternation cycles 166-247 | patterns
+library-reaches-753-sections at cycle 247 (chat-lane @endo/check-bundle/src/json) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
