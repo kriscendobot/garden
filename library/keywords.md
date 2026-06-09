@@ -7632,6 +7632,43 @@ two-cycles-with-explicit-named-security-argument (244 no-ambient-X + 250 X-alrea
 cycle-250-milestone-cycle (the 250th librarian cycle in this session) | patterns
 eighty-fourth consecutive designs-chat alternation cycles 166-250 | patterns
 library-reaches-756-sections at cycle 250 (designs-lane inventory-grouping-by-type) | patterns
+five-named-deliverables-of-a-release | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+multiple-SEPs-collectively-deliver-an-architectural-change | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+Before-and-after-code-block-pair-with-named-version-numbers | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+the-practical-effect-on-production-IS-the-value-statement | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+stateless-protocol-stateful-applications (explicit-handle pattern) | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+the-explicit-handle-pattern-makes-state-visible-to-the-model-not-hidden-in-transport-metadata | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+opaque-server-state-echoed-by-client-as-resumption-mechanism (requestState) | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+expose-the-routing-discriminator-as-an-HTTP-header-not-in-the-body (Mcp-Method + Mcp-Name) | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+cache-control-shape-as-replacement-for-SSE-polling (ttlMs + cacheScope) | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+formalize-existing-key-names-in-spec (W3C Trace Context) | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+reverse-DNS-IDs-as-named-identifier-convention-for-extensions | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+server-rendered-UI-with-three-named-defenses (sandbox + pre-declaration + uniform-back-channel) | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+feature-graduates-to-an-extension-as-named-demotion-from-core | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+per-deprecated-feature-named-replacement | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+twelve-month-minimum-between-deprecation-and-removal | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+named-security-constraints-when-adopting-more-expressive-schema-language | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+named-breaking-change-with-named-affected-consumer-pattern | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+the-breaking-change-IS-the-foundation-for-non-breaking-future-changes | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+conformance-suite-as-gating-mechanism-for-Final-status | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+SEP-numbering-as-traceable-history-of-protocol-decisions | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+release-candidate-to-final-as-named-validation-window-with-tier-1-SDK-expectations | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+the-future-direction-named-in-a-current-release | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+three-state-lifecycle (Active + Deprecated + Removed) | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+Standards-Track-vs-Extensions-Track-distinction | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+first-papers-lane-ingest-after-144+-blocked-cycles | patterns
+cycle-251-is-an-out-of-band-cycle-not-part-of-the-designs-chat-alternation | patterns
+first-direct-ingest from blog.modelcontextprotocol.io | patterns
+first-protocol-spec-blog-post ingested in library | patterns
+first-non-Endo-source ingested in library since the long Endo cluster began | patterns
+two-cycles-with-explicit-before-and-after-comparison (238 + 251) | patterns
+two-cycles-with-three-named-defenses-against-a-substrate-risk (238 + 251) | patterns
+two-cycles-with-explicit-named-time-windows (242 + 251) | patterns
+three-cycles-with-deferred-response-mechanisms (241 + 249 + 251) | patterns
+three-cycles-with-explicit-refusal-or-graduation-of-conventional-feature (240 + 244 + 251 Tasks-demoted) | patterns
+three-cycles-with-explicit-test-verification-as-gating-mechanism (244 + 248 + 251) | patterns
+three-cycles-with-cited-numbered-decision-tokens (238 + 240 + 251) | patterns
+library-reaches-757-sections at cycle 251 (papers-lane MCP-RC out-of-band) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
