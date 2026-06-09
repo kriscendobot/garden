@@ -7605,6 +7605,33 @@ forty-first-member of small-files-with-large-knowledge-density family | patterns
 five-cycles-with-small-files-that-each-isolate-one-named-decision (239 + 241 + 243 + 247 + 249) | patterns
 eighty-third consecutive designs-chat alternation cycles 166-249 | patterns
 library-reaches-755-sections at cycle 249 (chat-lane @endo/captp/src/types) | patterns
+Options-Considered-with-preferred (distinct from Alternatives-Considered) | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+four-column-Group-table-with-Icon-and-Description | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+catch-all-bucket-explicitly-named (completeness guarantee) | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+additive-API-change-via-destructure-immune-consumers | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+substrate-count-named-as-evidence-of-categorization-scope | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+the-design-IS-the-exposure-not-the-computation | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+exposing-X-doesn't-grant-new-capabilities (named security argument shape) | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+restrict-interface-metadata-to-host-level-authority (stretch-goal security thinking not deferred) | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+no-migration-needed (when API extension exposes existing substrate field) | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+design-doc-template-recurs-across-related-designs (named author-discipline) | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+Affected-Packages-section-as-blast-radius-evidence with varying row counts | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+a-specific-author's-recurring-deferral-vocabulary (named-discipline-signature) | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+preserve-existing-toggle-as-named-non-change | (see section: endo-but-for-bots--llm-designs-inventory-grouping-by-type--Group-table-and-Options-Considered-with-preferred-and-additive-API-change-and-five-Considerations-sections)
+three-shapes-of-design-doc-alternatives-section in library (Alternatives-with-three-rejected + Alternatives-with-rejected+deferred + Options-with-preferred) | patterns
+twelve-cycles-on-no-new-abstractions discipline (211 + 214 + 222 + 232 + 236 + 238 + 240 + 242 + 244 + 246 + 248 + 250) | patterns
+two-cycles-with-the-same-Five-Considerations-sections-shape (248 + 250) | patterns
+two-cycles-with-Affected-Packages-section (248 single-package + 250 three-packages with different blast radii) | patterns
+two-cycles-with-`stretch goal`-as-named-deferral-vocabulary (248 + 250) | patterns
+five-cycles-with-explicit-deferral-of-a-named-future-feature (238 + 240 + 242 + 248 + 250) | patterns
+three-cycles-with-recurring-section-templates (Endo-Idiom 232+246 + Five-Considerations 248+250) | patterns
+two-cycles-with-explicit-catch-all-bucket-as-completeness-guarantee (236 + 250) | patterns
+two-different-shapes-of-Upgrade-Considerations-content (236 state-purge + 250 no-migration-needed) | patterns
+two-cycles-with-explicit-named-backward-compatibility-discipline (242 forward-compatible-shim + 250 additive-API-change) | patterns
+two-cycles-with-explicit-named-security-argument (244 no-ambient-X + 250 X-already-implicitly-available) | patterns
+cycle-250-milestone-cycle (the 250th librarian cycle in this session) | patterns
+eighty-fourth consecutive designs-chat alternation cycles 166-250 | patterns
+library-reaches-756-sections at cycle 250 (designs-lane inventory-grouping-by-type) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
