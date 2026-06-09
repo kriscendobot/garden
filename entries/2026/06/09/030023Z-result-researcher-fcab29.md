@@ -23,18 +23,18 @@ prs:
     role: source
 ---
 
-# result: researcher refinement for the Agoric/agoric-sdk#12527 mirror-and-refresh builder dispatch
+# result: researcher refinement for the Agoric/agoric-sdk#12527 mirror-and-refresh builder dispatch (fcab29)
 
 The proposed builder will mirror Copilot-authored upstream PR
 `Agoric/agoric-sdk#12527` (`Sync Endo dependencies and refresh patch
 set`, base `master`, head `copilot/update-endo-dependency-versions`,
 +4637/-4731 across 92 files; APPROVED by turadg but DIRTY /
 CONFLICTING with master) onto `kriscendobot/agoric-sdk`, rebase on
-current master, and move to the latest npm-published Endo versions —
-which probably means refreshing the patch set again because the
+current master, and move to the latest npm-published Endo versions
+(which probably means refreshing the patch set again because the
 versions named in the upstream PR (`@endo/pass-style@1.7.0`,
 `@endo/bundle-source@4.2.0`, `@endo/compartment-mapper@2.0.0`) are
-already older than current npm (`1.8.0`, `4.3.1`, `2.2.0` per
+already older than current npm: `1.8.0`, `4.3.1`, `2.2.0` per
 `npm view` 2026-06-09). The most direct precedent is the prior
 agoric-sdk Endo-sync mirror (`Agoric/agoric-sdk#11540` → branch
 `parallel-upgrade-tests` on `kriscendobot/agoric-sdk`, May 2026); the
@@ -68,7 +68,7 @@ for the scholar / librarian, not fabricated as citations.
 ### Project context (agoric-sdk)
 
 - [`journal/projects/agoric-sdk/README.md`](../../projects/agoric-sdk/README.md)
-  § *Rules of engagement* — the project is on **passive standing
+  § *Rules of engagement*. The project is on **passive standing
   watch** with monitor reactions consolidated to journal-only ticks
   per [`garden/skills/monitor-agoric-sdk/SKILL.md`](../../../garden/skills/monitor-agoric-sdk/SKILL.md).
   The README's framing: *"Until this garden opens its first PR
@@ -79,18 +79,18 @@ for the scholar / librarian, not fabricated as citations.
   entry that the project has moved out of passive standing watch so
   the gardener can land per-class rules in a follow-up.
 - [`journal/projects/agoric-sdk/README.md`](../../projects/agoric-sdk/README.md)
-  § *Identity and credentials* — same shape as endo. Routine work
+  § *Identity and credentials*. Same shape as endo. Routine work
   uses the `kriscendobot` identity; `kriskowal` reserved for upstream
   landings. The mirror PR is fork-side (`kriscendobot/agoric-sdk`);
   the dispatch does **not** open an upstream PR on
   `Agoric/agoric-sdk` and does **not** carry
   `identity_switch_authorized: true`.
 - [`journal/projects/endo/README.md`](../../projects/endo/README.md)
-  § *Authority structure* — agoric-sdk consumes Endo. Endo's senior
+  § *Authority structure*. Agoric-sdk consumes Endo. Endo's senior
   contributor (erights) is authoritative on `pass-style`, `marshal`,
   `eventual-send`, `patterns`, `captp`. Patch-refresh decisions that
-  touch the substance of any of those packages (e.g., a patch that
-  reverts an erights-authored change) merit erights-grade scrutiny
+  touch the substance of any of those packages (for example, a patch
+  that reverts an erights-authored change) merit erights-grade scrutiny
   even though the PR lives on the agoric-sdk side. The dispatch
   should surface any such patch-substance change for the orchestrator
   rather than silently keeping or dropping.
@@ -98,8 +98,8 @@ for the scholar / librarian, not fabricated as citations.
 ### Prior agoric-sdk Endo-sync precedent
 
 - [`journal/entries/2026/05/13/214419Z-dispatch-liaison-3fdcd2.md`](../../entries/2026/05/13/214419Z-dispatch-liaison-3fdcd2.md)
-  and [`journal/entries/2026/05/13/214930Z-result-builder-a2f187.md`](../../entries/2026/05/13/214930Z-result-builder-a2f187.md)
-  — the May 2026 mirror of `Agoric/agoric-sdk#11540` (`kris-sync-endo-2025-06-27-00-30-49`,
+  and [`journal/entries/2026/05/13/214930Z-result-builder-a2f187.md`](../../entries/2026/05/13/214930Z-result-builder-a2f187.md):
+  the May 2026 mirror of `Agoric/agoric-sdk#11540` (`kris-sync-endo-2025-06-27-00-30-49`,
   the prior Endo-sync PR) onto `kriscendobot/agoric-sdk:parallel-upgrade-tests`.
   Critical context: the May dispatch was **mirror-and-comment only,
   no rebase**. The reason: *"the rebase is too contentious to
@@ -117,8 +117,8 @@ for the scholar / librarian, not fabricated as citations.
   should pick a distinct head-branch name to avoid colliding with
   it.
 - [`journal/entries/2026/05/13/023600Z-message-monitor-926d77.md`](../../entries/2026/05/13/023600Z-message-monitor-926d77.md)
-  and [`journal/entries/2026/05/13/023818Z-result-gardener-b86896.md`](../../entries/2026/05/13/023818Z-result-gardener-b86896.md)
-  — the monitor's "passive standing watch" rule-set proposal and the
+  and [`journal/entries/2026/05/13/023818Z-result-gardener-b86896.md`](../../entries/2026/05/13/023818Z-result-gardener-b86896.md):
+  the monitor's "passive standing watch" rule-set proposal and the
   gardener's landing on [`garden/skills/monitor-agoric-sdk/SKILL.md`](../../../garden/skills/monitor-agoric-sdk/SKILL.md).
   The rule set is uniform across event classes (every class →
   journal a tick and stop). With today's dispatch, agoric-sdk has an
@@ -131,7 +131,7 @@ for the scholar / librarian, not fabricated as citations.
 The agoric-sdk upstream `MAINTAINERS.md` § *Syncing Endo dependency
 versions* (read at `master` 2026-06-09 via `gh api repos/Agoric/agoric-sdk/contents/MAINTAINERS.md`)
 is the canonical procedure. The substance (not citable as a library
-path — see *Open questions* for the library gap):
+path; see *Open questions* for the library gap):
 
 1. Branch from `master`, optionally `git merge origin/integration-endo-master`
    first to pick up parallel work.
@@ -156,7 +156,7 @@ path — see *Open questions* for the library gap):
    diff shows the pattern: `@endo-eventual-send-npm-1.3.4-12411c5a98.patch`
    DELETED (substance landed upstream); `@endo-pass-style-npm-1.6.3-139d4e4c47.patch`
    DELETED and replaced with `@endo-pass-style-npm-1.7.0-7dc50195b4.patch`
-   (substance carried forward to a new version); etc. Today's
+   (substance carried forward to a new version); and so on. Today's
    re-resolution against `@endo/pass-style@1.8.0` (current npm)
    requires a third refresh pass.
 5. `yarn` at the root, separate `chore: Update yarn.lock`.
@@ -214,8 +214,8 @@ into 1.7.0/1.8.0 upstream. Check `endojs/endo` commit log between
 
 ### Fork-side PR conventions
 
-- [`garden/skills/frozen-base-branch/SKILL.md`](../../../garden/skills/frozen-base-branch/SKILL.md)
-  — every fork-side PR uses a frozen base `<base>-<7-char-short-sha>`.
+- [`garden/skills/frozen-base-branch/SKILL.md`](../../../garden/skills/frozen-base-branch/SKILL.md):
+  every fork-side PR uses a frozen base `<base>-<7-char-short-sha>`.
   For this dispatch the convention is `master-<short-sha>`
   snapshotting `Agoric/agoric-sdk@master` (via `git rev-parse --short=7
   upstream/master`). The mirror PR opens against `kriscendobot/agoric-sdk:master-<sha>`
@@ -224,38 +224,38 @@ into 1.7.0/1.8.0 upstream. Check `endojs/endo` commit log between
   used the plain branch name `parallel-upgrade-tests` because frozen-
   base discipline post-dates it (2026-05-22); today's dispatch is
   bound by the current convention.
-- [`garden/skills/pr-formation/SKILL.md`](../../../garden/skills/pr-formation/SKILL.md)
-  — fetch agoric-sdk's PR template on the `master` branch; behavior-
+- [`garden/skills/pr-formation/SKILL.md`](../../../garden/skills/pr-formation/SKILL.md):
+  fetch agoric-sdk's PR template on the `master` branch; behavior-
   over-diff body; no checklists; no internal-agent references. The
   PR body should cite `Agoric/agoric-sdk#12527` as the upstream source
   and explain the post-rebase patch-refresh.
 - [`garden/skills/pre-pr-checklist/SKILL.md`](../../../garden/skills/pre-pr-checklist/SKILL.md)
-  and [`garden/skills/pre-push-gates/SKILL.md`](../../../garden/skills/pre-push-gates/SKILL.md)
-  — the deterministic gate runs before the first push. **Auto-fix
+  and [`garden/skills/pre-push-gates/SKILL.md`](../../../garden/skills/pre-push-gates/SKILL.md):
+  the deterministic gate runs before the first push. **Auto-fix
   behaviors** (Prettier, eslint) will run silently in the builder's
   commit; non-auto-fixable findings get addressed before pushing.
   Note: agoric-sdk's lint regime differs from endo-but-for-bots
   (different lockfile shape, different lint plugin versions); the
   pre-push gate may surface findings the builder has not seen
   before. Surface unfamiliar ones in the result rather than chasing.
-- [`garden/skills/yarn-lock-separate-commit/SKILL.md`](../../../garden/skills/yarn-lock-separate-commit/SKILL.md)
-  — `chore: Update yarn.lock` ships in its own commit. The MAINTAINERS
+- [`garden/skills/yarn-lock-separate-commit/SKILL.md`](../../../garden/skills/yarn-lock-separate-commit/SKILL.md):
+  `chore: Update yarn.lock` ships in its own commit. The MAINTAINERS
   procedure already prescribes this shape; the skill reinforces it.
   **Important nuance**: the Endo-sync flow produces **two** distinct
-  lockfile commits — `chore: Sync Endo versions` (the per-`yarn.lock`
+  lockfile commits (`chore: Sync Endo versions`, the per-`yarn.lock`
   `yarn up`+dedupe walk that produces the bulk of the diff) and
   `chore: Update yarn.lock` (the root-level `yarn` after patch
   refresh). Both are lockfile churn; keep them separate per
   MAINTAINERS.
-- [`garden/skills/pr-creation-flow/SKILL.md`](../../../garden/skills/pr-creation-flow/SKILL.md)
-  — the PR opens DRAFT. The cleaner / judge / fixer / un-draft chain
+- [`garden/skills/pr-creation-flow/SKILL.md`](../../../garden/skills/pr-creation-flow/SKILL.md):
+  the PR opens DRAFT. The cleaner / judge / fixer / un-draft chain
   applies (this is a normal `build #N` deliverable, not a `probe`).
-- [`garden/skills/changeset-discipline/SKILL.md`](../../../garden/skills/changeset-discipline/SKILL.md)
-  — agoric-sdk uses lerna-lite for versioning; no changesets per se.
+- [`garden/skills/changeset-discipline/SKILL.md`](../../../garden/skills/changeset-discipline/SKILL.md):
+  agoric-sdk uses lerna-lite for versioning; no changesets per se.
   The upstream `#12527` does not add a changeset file (verified in
   the diff); today's mirror should follow the same shape.
-- [`garden/skills/verify-upstream-state-before-pinning/SKILL.md`](../../../garden/skills/verify-upstream-state-before-pinning/SKILL.md)
-  — verify the Endo npm versions in real time (per the `npm view`
+- [`garden/skills/verify-upstream-state-before-pinning/SKILL.md`](../../../garden/skills/verify-upstream-state-before-pinning/SKILL.md):
+  verify the Endo npm versions in real time (per the `npm view`
   table above) rather than copying from `#12527`'s diff verbatim;
   npm publishes drift between the upstream PR's open date (2026-03)
   and now (2026-06).
@@ -268,7 +268,7 @@ The repo has these branches on `kriscendobot/agoric-sdk` today:
 `integrate/xsnap-pub-pr-50`, `parallel-upgrade-tests`. The convention
 the May `#11540` mirror used (`parallel-upgrade-tests`) is descriptive
 but non-citing. The endo-but-for-bots precedent uses `mirror/<N>-<slug>`
-(e.g., `mirror/3164-freezable-typedarrays`); applied here that would
+(for example, `mirror/3164-freezable-typedarrays`); applied here that would
 be `mirror/12527-endo-sync` or `mirror/12527-endo-sync-refresh`. The
 *-refresh* suffix is meaningful because today's PR diverges from
 `#12527` (post-rebase and post-version-refresh); reviewers should
@@ -288,7 +288,7 @@ not assume the diff equals `#12527`'s.
   will hit. Today's deliverable is the rebase the May dispatch
   declined to attempt; the May commentary is the best available
   briefing for what will go wrong.
-- The MAINTAINERS procedure is the canonical recipe — every step
+- The MAINTAINERS procedure is the canonical recipe. Every step
   matters (the `yarn up` walk, the patch-rename triage, the xsnap
   METER_TYPE bump, the SwingSet snapshot regen).
 - The npm version table is the live target; copying `#12527`'s
@@ -359,7 +359,7 @@ No writebacks applied during this engagement. Per the
 § 4a-c, writebacks require either (a) a flat-grep success that
 reached the right concept page (no concept page exists for any of
 the Endo-sync, patch-package, xsnap-METER_TYPE, or
-agoric-sdk-MAINTAINERS terms — flat-grep returned nothing relevant),
+agoric-sdk-MAINTAINERS terms; flat-grep returned nothing relevant),
 (b) a distraction on a concept page (none surfaced), or (c) enough
 context to draft a missing concept page (the engagement read upstream
 `MAINTAINERS.md` directly, but a single read is not the right basis
@@ -399,8 +399,8 @@ required per-package `npm view` reads to detect the drift between
 `#12527`'s ship date and now, and (c) the May `#11540` precedent
 needed full reading (not just citation) to surface the conflict-
 surface and `test-dapp` expected-fail context. The *don't-invent-
-citations* norm held: every cited journal entry, project README, and
+citations* norm held (every cited journal entry, project README, and
 skill path was verified at the researcher's `journal/` HEAD or under
-`garden/`. The *index-on-the-fly is mandatory* clause was honored by
+`garden/`). The *index-on-the-fly is mandatory* clause was honored by
 surfacing the three library gaps for the librarian / scholar rather
 than drafting concept pages on a thin single-source basis.
