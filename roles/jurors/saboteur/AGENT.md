@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-14
+updated: 2026-06-09
 author: gardener
 ---
 
@@ -43,6 +43,8 @@ Assumes you have already read `roles/COMMON.md`.
 - **Secondary surface (overlap).** Invariant adjacency when an adversarial input also falsifies a published invariant. The breaker is the primary on invariants; the saboteur's overlap is the "this input attack happens to break the invariant" call-out, not a full invariant audit.
 - **Stay terse.** Under 400 words. One sentence per attack, verdict, and (if must-fix) the file:line the attack targets.
 - **Stop when the next gotcha tests a property the module does not claim.** The category is endless; the goal is to cover the *behavior the module asserts*, not to enumerate every bad input.
+- **Tight-try discipline.** Flag any new `try { ... } catch { ... }` whose body contains more than the operation that can throw. A broad `try` swallows real errors from code that was never supposed to be exception-handled, hiding bugs behind a generic catch. The fix shape is `let result; try { result = mayThrow(input); } catch (err) { /* log with discernable origin, then return / fallback */; return; } // downstream uses result outside the try`. Cite the file:line; this is must-fix when the catch is a bare `catch {}` or `catch (_) {}` (silently discarding the error) and should-fix when the catch does log but the try body is wider than the throwing operation. The maintainer's framing on PR `endojs/endo-but-for-bots#131` inline `r3376908385` (2026-06-09): *"This `try` block is too broad as it will also ignore real errors beyond those thrown by `JSON.parse`."*
+- **Located-error discipline for JSON parsing (and analogous parsers).** When the input being parsed has a discernable origin (a file path, a row identifier, a MIME type, a peer URL), the caller threads that origin into the error message so the failure surface names where the bad data came from. The canonical shape on `endojs/endo-but-for-bots` is `packages/check-bundle/src/json.js` § `parseLocatedJson`: wrap `JSON.parse` and re-throw a `SyntaxError` whose message names the location. When the error path is `console.error` (not a throw), apply the same shape: log the origin plus the parser's message. Flag bare `JSON.parse(raw)` whose origin is known and is not threaded into the error; must-fix when the error surface is user-facing, should-fix when it is internal-only. Provenance: PR `endojs/endo-but-for-bots#131` same review (kriskowal 2026-06-09): *"if the raw data has a discernable origin, that should be captured in the error message to improve the debugging and user error reporting experience. There are numerous examples of parsing JSON with a location."*
 
 ### Test-writing variant (maintainer-requested)
 
