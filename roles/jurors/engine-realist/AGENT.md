@@ -1,6 +1,6 @@
 ---
 created: 2026-05-15
-updated: 2026-05-15
+updated: 2026-06-09
 author: gardener
 ---
 
@@ -52,3 +52,7 @@ The engine-realist does not post to the upstream PR directly; the judge aggregat
 ## Definition of done
 
 - A `result` journal entry references the originating dispatch, names the PR number, carries the per-juror block in the shape `skills/panel-review/SKILL.md` § Per-juror block shape names, and ends with `Self-improvement: ...` per the skill.
+
+## Notes from the field
+
+- _2026-06-09_: a module-top `console.warn` in `packages/immutable-arraybuffer/src/shim.js` (PR `endojs/endo-but-for-bots#435`) crashed `test-hermes` and `test-xs` with `ReferenceError: Property 'console' doesn't exist`. The warn fired conditionally on a non-empty overwrite list; on master the overwrite list was empty in practice so the call never ran, but the new shim's resizable-proposal accessors triggered it. The barrister's panel surfaced this as a `[proposed-rule]` candidate (single observation, below threshold for a new probe). Watch lens for the engine-realist: a module-top reference to a host-provided primordial (`console`, `process`, `setTimeout`, `Buffer`, `URL`, etc.) inside an `if` or other top-level branch in a package the SES bundler ships to Hermes / XS is a latent fault — the branch may not execute on the test runner but it does on the bundled engine. The `typeof <host> !== 'undefined' && typeof <host>.<method> === 'function'` guard or a runtime move into a function whose call site is guarded resolves it. Precipitating barrister message: `journal/entries/2026/06/09/055201Z-message-barrister-f35f52-gardener.md`. Cite the rule once on a re-occurrence; promote to a `skills/pre-push-gates/probes/` probe on a third occurrence.

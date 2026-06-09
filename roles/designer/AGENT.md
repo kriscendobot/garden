@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-07
+updated: 2026-06-09
 author: gardener, liaison
 ---
 
@@ -57,3 +57,5 @@ Designer commits land on a `design/<slug>` branch in a fork. For projects with a
 ## Notes from the field
 
 - _2026-05-14_: maintainer directive after the SES top-level-await and SES import-attributes designers landed: *"The designer should in general open pull requests against the llm branch when producing a draft."* Followed same-day by the clarification: *"We don't carry designs onto the master branch. The designs should be based on llm. The implementations should be based on master, for those designs."* The two together: design PRs land on `llm` (or the equivalent roadmap branch in another project's README); implementations of those designs are separate builder dispatches that land master-base PRs, mirrored from the corresponding llm work later. The Node-18-drop pattern (`endojs/endo-but-for-bots#232` on `llm`, `endojs/endo-but-for-bots#246` master-base mirror) is the reference shape.
+
+- _2026-06-09_: PR `endojs/endo-but-for-bots#435`'s `DESIGN.md` § Move 2 named the `[Symbol.toStringTag]` change as *"a substantive behaviour change"*, observed that callers doing `Object.prototype.toString.call(immuAB)` would see `'[object ArrayBuffer]'` instead of `'[object ImmutableArrayBuffer]'`, and concluded *"concordance will sniff `'ArrayBuffer'` either way"*. The conclusion was empirically wrong: concordance routes into `Buffer.from` on `'[object ArrayBuffer]'`, which throws on the emulated immutable buffer and killed 13 ocapn codec tests. The barrister's panel was the first stage to catch the regression (CI logs); the diff alone did not expose it because the test files did not change. Lens for future designs: when DESIGN.md flags a substantive behaviour change affecting an observable property of a public API, name the downstream consumers the change touches, by package and by call site if possible. The next builder smoke-tests against each named consumer before opening the PR. The barrister can then verify the smoke-tests landed. Single observation, below threshold for a hard rule; recorded as a *Notes from the field* row so a future similar observation has prior context. Precipitating barrister message: `journal/entries/2026/06/09/055201Z-message-barrister-f35f52-gardener.md`.
