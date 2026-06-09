@@ -11,6 +11,7 @@ refs:
 # Cleaner pass on PR #60 (rerun-the-improved-gamut, stage 1) — test(ses): replace deleted get-intrinsics test
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/60
+PR comment: https://github.com/endojs/endo-but-for-bots/pull/60#issuecomment-4656017844
 
 ## What I did
 
@@ -40,9 +41,7 @@ The PR is **not in draft** (`isDraft: false`, `reviewDecision: ""`, `reviews: []
 
 ## Post-cleaner CI state
 
-Awaiting CI convergence on the rebased + hygiene-fixed head `c2c1cd33b`. Pre-push gates pass locally; test passes locally; the prior PR head was all-green; the rebase changes nothing about the test's surface (the change is a single comment-line edit plus a fast-forward over base history). I expect CI to converge green; if a check unexpectedly red-lights, the next-stage handoff defers to a shepherd before the barrister.
-
-(The CI status as recorded in this entry is "polling at result-write time"; the steward dispatching the next stage should re-read `gh pr checks 60` immediately before dispatch and rate-limit on red.)
+26 of 27 checks pass on the rebased + hygiene-fixed head `c2c1cd33b`. The 27th, `browser-tests`, is stalled at the `Install Playwright Browsers` step (over 25 minutes elapsed; other recent runs of the same workflow on master and on sibling branches complete in 3 to 5 minutes total). This is upstream infrastructure flakiness on the Playwright browser download, not a regression introduced by the rebase or the hygiene commit. The cleaner's norm `(or only documented pre-existing infra red)` covers this case; the barrister panel reads code rather than CI and can proceed in parallel. If `browser-tests` ultimately reds out before the panel finishes, a shepherd dispatch can re-run the job (workflow-rerun is the standard fix for Playwright-install stalls).
 
 ## PR comment
 
