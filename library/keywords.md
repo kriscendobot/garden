@@ -7704,6 +7704,24 @@ six-cycles-with-small-files-that-each-isolate-one-named-decision (239 + 241 + 24
 forty-second-member of small-files-with-large-knowledge-density family | patterns
 eighty-fifth consecutive designs-chat alternation cycles 166-250 + 252 (251 was out-of-band) | patterns
 library-reaches-758-sections at cycle 252 (chat-lane @endo/promise-kit/src/is-promise) | patterns
+graceful-degradation-across-substrates (named capability-implementation discipline) | (see section: endo-but-for-bots--llm-designs-endoclaw-notifications--Notify-NotifyControl-two-facet-and-rate-limit-silently-dropped-or-queued-and-graceful-degradation-in-headless)
+silently-dropped-or-queued (named rate-limit policy) | (see section: endo-but-for-bots--llm-designs-endoclaw-notifications--Notify-NotifyControl-two-facet-and-rate-limit-silently-dropped-or-queued-and-graceful-degradation-in-headless)
+Notify-NotifyControl two-facet at most compact (5th caretaker instance) | (see section: endo-but-for-bots--llm-designs-endoclaw-notifications--Notify-NotifyControl-two-facet-and-rate-limit-silently-dropped-or-queued-and-graceful-degradation-in-headless)
+single-rate-limit-axis as simplest possible control surface | (see section: endo-but-for-bots--llm-designs-endoclaw-notifications--Notify-NotifyControl-two-facet-and-rate-limit-silently-dropped-or-queued-and-graceful-degradation-in-headless)
+named-non-dependency as design discipline | (see section: endo-but-for-bots--llm-designs-endoclaw-notifications--Notify-NotifyControl-two-facet-and-rate-limit-silently-dropped-or-queued-and-graceful-degradation-in-headless)
+the-agent-cannot-discover-or-influence-the-control-facet (canonical phrasing) | (see section: endo-but-for-bots--llm-designs-endoclaw-notifications--Notify-NotifyControl-two-facet-and-rate-limit-silently-dropped-or-queued-and-graceful-degradation-in-headless)
+revocation-is-immediate + all-future-calls-throw (named permanence) | (see section: endo-but-for-bots--llm-designs-endoclaw-notifications--Notify-NotifyControl-two-facet-and-rate-limit-silently-dropped-or-queued-and-graceful-degradation-in-headless)
+five-cycles-with-canonical-caretaker-two-facet-pattern (234 + 238 + 244 + 246 + 253) | patterns
+five-cycles-with-explicit-capability-by-construction-discipline (234 + 238 + 244 + 246 + 253) | patterns
+four-cycles-with-revocation-as-named-permanent-state (238 + 244 + 246 + 253) | patterns
+three-cycles-with-named-substrate-routing-discipline (244 forbid-ambient + 246 reuse-existing + 253 degrade-to-alternate) | patterns
+three-cycles-with-explicit-acknowledgment-of-no-content-in-named-section (248 Upgrade `None` + 250 Upgrade `No-migration-needed` + 253 Depends-On `No other designs required`) | patterns
+three-cycles-with-variable-control-facet-size (244 six methods + 246 four methods + 253 three methods) | patterns
+two-cycles-with-five-section-design-shape (246 + 253) | patterns
+two-different-shapes-of-default-non-error-policy (244 timeout-resolves-forward-progress + 253 rate-limit-silently-drops-or-queues) | patterns
+smallest-endoclaw-cluster-member-yet at 55 lines (cycle 253 displaces cycle 246's 79 lines) | patterns
+eighty-sixth consecutive designs-chat alternation cycles 166-250 + 252-253 (251 was out-of-band) | patterns
+library-reaches-759-sections at cycle 253 (designs-lane endoclaw-notifications) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
