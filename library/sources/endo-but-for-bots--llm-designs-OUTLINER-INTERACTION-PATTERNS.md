@@ -55,7 +55,12 @@ Cycle 273 confirms all three by reading the actual file at `designs/OUTLINER_INT
 
 ## Section files
 
-- [§Cross-directory drift confirmed + §three-layer architecture + §pure behavior functions + §eight Lessons Learned + §named criticism of contentEditable](../sections/endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-of-contentEditable.md) — structural pattern observations (997-line file ingested in pattern-scope).
+- [§Cross-directory drift confirmed + §three-layer architecture + §pure behavior functions + §eight Lessons Learned + §named criticism of contentEditable](../sections/endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-of-contentEditable.md) — cycle 273 structural pattern observations (997-line file ingested in pattern-scope).
+- [§five-cycles-with-Muddle-attribution + §the-ALL_CAPS_UNDERSCORES-naming-convention-canonical-example + §the-`{ type: 'default' }`-action-as-named-pass-through (refined sub-patterns of cycle 273's fall-through shape) + §three-vertical-zones + §double-rAF-for-mobile + many more](../sections/endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--five-cycles-with-Muddle-attribution-and-the-ALL-CAPS-UNDERSCORES-naming-convention-canonical-example-and-the-default-action-as-pass-through-and-three-vertical-zones-and-double-rAF-for-mobile.md) — cycle 285 deeper second-pass at full-scope (996-line file).
+
+## Second ingest at cycle 285
+
+Cycle 285 (designs-lane) re-ingested this source at **full scope**, complementing cycle 273's structural-pattern-observations scope. The second pass uncovered many additional named shapes that cycle 273 did not cover (drop-zone partition shape; pending-focus-queue mechanism; batch-validation discipline; bullet-pattern regex vocabulary; block-position-registry; What-Unit-Tests-Catch-vs-E2E table; modifier-object shape; constraint-IS-the-feature pattern; etc.) — *roughly fourteen observations new in cycle 285, twelve that refine cycle 273's existing observations*. The cluster-position observations also extend: cycle 285 marks **§five-cycles-with-Muddle-attribution** (extends cycle 273's pair) and **§twenty-design-docs-from-endo-but-for-bots-designs-cluster-ingested** (extends cycle 277's nineteen).
 
 ## Ingest scope
 
