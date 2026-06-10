@@ -7686,6 +7686,24 @@ three-cycles-with-explicit-refusal-or-graduation-of-conventional-feature (240 + 
 three-cycles-with-explicit-test-verification-as-gating-mechanism (244 + 248 + 251) | patterns
 three-cycles-with-cited-numbered-decision-tokens (238 + 240 + 251) | patterns
 library-reaches-757-sections at cycle 251 (papers-lane MCP-RC out-of-band) | patterns
+`Promise.resolve(x) === x`-as-canonical-promise-detection | (see section: endo--packages-promise-kit-src-is-promise-js--Promise.resolve-equality-as-canonical-promise-detection-and-type-predicate-narrowing-and-twelve-lines)
+the-Promise.resolve-trick-IS-the-defense-against-malicious-thenables | (see section: endo--packages-promise-kit-src-is-promise-js--Promise.resolve-equality-as-canonical-promise-detection-and-type-predicate-narrowing-and-twelve-lines)
+canonical-tricks-extracting-a-fact-not-available-via-the-feature's-stated-purpose (recurring named discipline) | (see section: endo--packages-promise-kit-src-is-promise-js--Promise.resolve-equality-as-canonical-promise-detection-and-type-predicate-narrowing-and-twelve-lines)
+`unknown`-plus-type-predicate-narrowing-as-detection-function-type-discipline | (see section: endo--packages-promise-kit-src-is-promise-js--Promise.resolve-equality-as-canonical-promise-detection-and-type-predicate-narrowing-and-twelve-lines)
+`@returns {x is T}`-type-predicate-narrowing | (see section: endo--packages-promise-kit-src-is-promise-js--Promise.resolve-equality-as-canonical-promise-detection-and-type-predicate-narrowing-and-twelve-lines)
+harden-immediately-after-export-as-named-SES-discipline | (see section: endo--packages-promise-kit-src-is-promise-js--Promise.resolve-equality-as-canonical-promise-detection-and-type-predicate-narrowing-and-twelve-lines)
+`harden`-imported-from-`@endo/harden`-not-from-a-global (package-portability discipline) | (see section: endo--packages-promise-kit-src-is-promise-js--Promise.resolve-equality-as-canonical-promise-detection-and-type-predicate-narrowing-and-twelve-lines)
+`maybe<TargetType>`-as-named-parameter-naming-convention-for-detection-functions | (see section: endo--packages-promise-kit-src-is-promise-js--Promise.resolve-equality-as-canonical-promise-detection-and-type-predicate-narrowing-and-twelve-lines)
+twelve-lines-as-a-complete-promise-detection-utility | (see section: endo--packages-promise-kit-src-is-promise-js--Promise.resolve-equality-as-canonical-promise-detection-and-type-predicate-narrowing-and-twelve-lines)
+single-export-named-the-same-as-the-purpose (file name and export name converge) | (see section: endo--packages-promise-kit-src-is-promise-js--Promise.resolve-equality-as-canonical-promise-detection-and-type-predicate-narrowing-and-twelve-lines)
+two-cycles-with-canonical-tricks-extracting-a-fact-not-available-via-the-feature's-stated-purpose (243 + 252) | patterns
+two-cycles-with-named-defense-against-substrate-confusion-attacks (249 method-detach + 252 thenable-impersonation) | patterns
+two-cycles-with-named-TypeScript-discipline-around-validation (249 + 252) | patterns
+two-cycles-with-named-identifier-encodes-the-discipline (247 function-name + 252 parameter-name) | patterns
+six-cycles-with-small-files-that-each-isolate-one-named-decision (239 + 241 + 243 + 247 + 249 + 252) | patterns
+forty-second-member of small-files-with-large-knowledge-density family | patterns
+eighty-fifth consecutive designs-chat alternation cycles 166-250 + 252 (251 was out-of-band) | patterns
+library-reaches-758-sections at cycle 252 (chat-lane @endo/promise-kit/src/is-promise) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
