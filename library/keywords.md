@@ -7793,6 +7793,25 @@ two-cycles-with-explicit-Endo-feature-classification-axis (255 + 257) | patterns
 three-cycles-with-Endo-Idiom-section-as-recurring-design-doc-shape (232 + 246 + 257) | patterns
 ninetieth consecutive designs-chat alternation cycles 166-250 + 252-257 (251 was out-of-band) | patterns
 library-reaches-763-sections at cycle 257 (designs-lane endoclaw-proactive-messages) | patterns
+the-package-IS-a-curated-re-export-set | (see section: endo--packages-far-src-index-js-and-exports-js--the-package-IS-a-curated-re-export-set-and-the-dummy-exports-js-companion-and-the-five-line-package)
+four-named-re-exports-from-two-named-upstream-packages (E + Far + getInterfaceOf + passStyleOf) | (see section: endo--packages-far-src-index-js-and-exports-js--the-package-IS-a-curated-re-export-set-and-the-dummy-exports-js-companion-and-the-five-line-package)
+the-dummy-`.js`-companion-to-a-`.d.ts`-file (TypeScript-and-runtime bridge) | (see section: endo--packages-far-src-index-js-and-exports-js--the-package-IS-a-curated-re-export-set-and-the-dummy-exports-js-companion-and-the-five-line-package)
+the-comment-explains-the-non-obvious-purpose-of-a-trivial-file | (see section: endo--packages-far-src-index-js-and-exports-js--the-package-IS-a-curated-re-export-set-and-the-dummy-exports-js-companion-and-the-five-line-package)
+curated-re-export-package-IS-the-abstraction-boundary | (see section: endo--packages-far-src-index-js-and-exports-js--the-package-IS-a-curated-re-export-set-and-the-dummy-exports-js-companion-and-the-five-line-package)
+the-canonical-Far-vocabulary (E + Far + getInterfaceOf + passStyleOf) | (see section: endo--packages-far-src-index-js-and-exports-js--the-package-IS-a-curated-re-export-set-and-the-dummy-exports-js-companion-and-the-five-line-package)
+five-line-`src/index.js`-as-curated-re-export-package-entry-point (smallest yet) | (see section: endo--packages-far-src-index-js-and-exports-js--the-package-IS-a-curated-re-export-set-and-the-dummy-exports-js-companion-and-the-five-line-package)
+two-line-`exports.js`-as-companion-to-`.d.ts` (smallest file ingested in library) | (see section: endo--packages-far-src-index-js-and-exports-js--the-package-IS-a-curated-re-export-set-and-the-dummy-exports-js-companion-and-the-five-line-package)
+three-cycles-with-`export {};`-marker (249 typedef-only-protocol-file + 256 typedef-only-Promise-and-ERef-vocabulary + 258 runtime-companion-to-`.d.ts`) | patterns
+three-cycles-with-named-import-isolation (242 elevator + 254 no-shim + 258 curated-re-export) | patterns
+three-cycles-with-named-eslint-disable-acknowledging-known-conflict (245 + 254 + 258) | patterns
+three-cycles-with-named-identifier-or-comment-encodes-the-discipline (247 function-name + 252 parameter-name + 258 file-purpose-comment) | patterns
+two-cycles-with-named-curated-package-as-stable-import-path (242 + 258) | patterns
+two-cycles-with-`export *`-with-named-eslint-disable (254 + 258) | patterns
+two-cycles-with-multiple-export-styles-in-one-file (254 + 258) | patterns
+eight-cycles-with-small-files-that-each-isolate-one-named-decision (239 + 241 + 243 + 247 + 249 + 252 + 256 + 258) | patterns
+forty-fifth-member of small-files-with-large-knowledge-density family | patterns
+ninety-first consecutive designs-chat alternation cycles 166-250 + 252-258 (251 was out-of-band) | patterns
+library-reaches-764-sections at cycle 258 (chat-lane @endo/far/src/index+exports) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
