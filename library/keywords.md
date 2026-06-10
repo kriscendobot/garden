@@ -7722,6 +7722,23 @@ two-different-shapes-of-default-non-error-policy (244 timeout-resolves-forward-p
 smallest-endoclaw-cluster-member-yet at 55 lines (cycle 253 displaces cycle 246's 79 lines) | patterns
 eighty-sixth consecutive designs-chat alternation cycles 166-250 + 252-253 (251 was out-of-band) | patterns
 library-reaches-759-sections at cycle 253 (designs-lane endoclaw-notifications) | patterns
+the-no-shim-module-as-counterpart-to-the-pony-shim | (see section: endo--packages-eventual-send-src-no-shim-js--the-no-shim-module-and-hp-as-alias-of-global-and-XXX-comment-as-named-workaround-and-three-export-styles)
+capture-the-global-at-module-load (defense against later global replacement) | (see section: endo--packages-eventual-send-src-no-shim-js--the-no-shim-module-and-hp-as-alias-of-global-and-XXX-comment-as-named-workaround-and-three-export-styles)
+XXX-comment-as-named-workaround-prefix (distinct from TODO) | (see section: endo--packages-eventual-send-src-no-shim-js--the-no-shim-module-and-hp-as-alias-of-global-and-XXX-comment-as-named-workaround-and-three-export-styles)
+three-different-export-styles-in-one-file (export const + export { local as Public } + export *) | (see section: endo--packages-eventual-send-src-no-shim-js--the-no-shim-module-and-hp-as-alias-of-global-and-XXX-comment-as-named-workaround-and-three-export-styles)
+`export { local as Public }`-form (short-internal-alias + canonical-public-name) | (see section: endo--packages-eventual-send-src-no-shim-js--the-no-shim-module-and-hp-as-alias-of-global-and-XXX-comment-as-named-workaround-and-three-export-styles)
+file-level-API-overview-via-JSDoc-on-canonical-export | (see section: endo--packages-eventual-send-src-no-shim-js--the-no-shim-module-and-hp-as-alias-of-global-and-XXX-comment-as-named-workaround-and-three-export-styles)
+makeE(hp)-factory-as-dependency-injection-of-platform-substrate | (see section: endo--packages-eventual-send-src-no-shim-js--the-no-shim-module-and-hp-as-alias-of-global-and-XXX-comment-as-named-workaround-and-three-export-styles)
+shim-vs-no-shim-package-entrypoints-as-named-dispatch-shape | (see section: endo--packages-eventual-send-src-no-shim-js--the-no-shim-module-and-hp-as-alias-of-global-and-XXX-comment-as-named-workaround-and-three-export-styles)
+four-cycles-with-platform-bridge-discipline (188 monkey-patch + 242 elevator + 245 pony-shim + 254 no-shim) | patterns
+three-cycles-with-short-alias-convention-for-long-canonical-name (237 `q` + 245 `optXferBuf2Immu` + 254 `hp`) | patterns
+three-cycles-with-platform-power-as-factory-argument (242 + 245 + 254) | patterns
+two-cycles-with-`as`-rename-in-module-boundary (245 import-rename + 254 export-rename) | patterns
+two-cycles-with-named-eslint-disable-acknowledging-known-conflict (245 + 254) | patterns
+seventh-direct-ingest from @endo/eventual-send/src (E.js + handled-promise.js + local.js + message-breakpoints.js + track-turns.js + postponed.js + no-shim.js) | patterns
+forty-third-member of small-files-with-large-knowledge-density family | patterns
+eighty-seventh consecutive designs-chat alternation cycles 166-250 + 252-254 (251 was out-of-band) | patterns
+library-reaches-760-sections at cycle 254 (chat-lane @endo/eventual-send/src/no-shim) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
