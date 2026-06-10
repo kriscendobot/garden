@@ -7739,6 +7739,26 @@ seventh-direct-ingest from @endo/eventual-send/src (E.js + handled-promise.js + 
 forty-third-member of small-files-with-large-knowledge-density family | patterns
 eighty-seventh consecutive designs-chat alternation cycles 166-250 + 252-254 (251 was out-of-band) | patterns
 library-reaches-760-sections at cycle 254 (chat-lane @endo/eventual-send/src/no-shim) | patterns
+voice-input-is-a-UI-concern-not-a-capability-concern | (see section: endo-but-for-bots--llm-designs-endoclaw-voice--voice-input-is-UI-concern-not-capability-and-three-Options-with-Pros-Cons-no-preferred-and-the-agent-cannot-distinguish-voice-from-typed)
+UI-vs-capability as named-design-axis | (see section: endo-but-for-bots--llm-designs-endoclaw-voice--voice-input-is-UI-concern-not-capability-and-three-Options-with-Pros-Cons-no-preferred-and-the-agent-cannot-distinguish-voice-from-typed)
+the-agent-cannot-distinguish-voice-input-from-typed-input (capability-by-invariance) | (see section: endo-but-for-bots--llm-designs-endoclaw-voice--voice-input-is-UI-concern-not-capability-and-three-Options-with-Pros-Cons-no-preferred-and-the-agent-cannot-distinguish-voice-from-typed)
+three-Options-with-Pros-Cons-no-preferred (distinct from Options-Considered-with-preferred) | (see section: endo-but-for-bots--llm-designs-endoclaw-voice--voice-input-is-UI-concern-not-capability-and-three-Options-with-Pros-Cons-no-preferred-and-the-agent-cannot-distinguish-voice-from-typed)
+the-agent-never-receives-raw-audio (only text crosses the capability boundary) | (see section: endo-but-for-bots--llm-designs-endoclaw-voice--voice-input-is-UI-concern-not-capability-and-three-Options-with-Pros-Cons-no-preferred-and-the-agent-cannot-distinguish-voice-from-typed)
+capability-boundary-IS-the-projection-to-existing-substrate | (see section: endo-but-for-bots--llm-designs-endoclaw-voice--voice-input-is-UI-concern-not-capability-and-three-Options-with-Pros-Cons-no-preferred-and-the-agent-cannot-distinguish-voice-from-typed)
+three-explicitly-named-non-changes-as-evidence-of-UI-only-claim (no new capabilities + no new formula types + no new daemon changes) | (see section: endo-but-for-bots--llm-designs-endoclaw-voice--voice-input-is-UI-concern-not-capability-and-three-Options-with-Pros-Cons-no-preferred-and-the-agent-cannot-distinguish-voice-from-typed)
+Endo-Idiom-section-with-two-paragraphs (no N-named-disciplines) | (see section: endo-but-for-bots--llm-designs-endoclaw-voice--voice-input-is-UI-concern-not-capability-and-three-Options-with-Pros-Cons-no-preferred-and-the-agent-cannot-distinguish-voice-from-typed)
+conditional-dependencies-IS-an-honest-record (different options have different dep profiles) | (see section: endo-but-for-bots--llm-designs-endoclaw-voice--voice-input-is-UI-concern-not-capability-and-three-Options-with-Pros-Cons-no-preferred-and-the-agent-cannot-distinguish-voice-from-typed)
+implicit-vs-explicit-axes-in-Pros-Cons-text (Pros/Cons prose vs axis table) | (see section: endo-but-for-bots--llm-designs-endoclaw-voice--voice-input-is-UI-concern-not-capability-and-three-Options-with-Pros-Cons-no-preferred-and-the-agent-cannot-distinguish-voice-from-typed)
+thirteen-cycles-on-no-new-abstractions discipline (211 + 214 + 222 + 232 + 236 + 238 + 240 + 242 + 244 + 246 + 248 + 250 + 255) | patterns
+four-shapes-of-design-doc-alternatives-section in library (Alternatives-with-three-rejected 240 + Alternatives-with-rejected+deferred 238 + Options-with-preferred 250 + three-Options-with-Pros-Cons-no-preferred 255) | patterns
+three-cycles-with-UI-only-no-substrate-changes (248 + 250 + 255) | patterns
+three-cycles-with-named-capability-boundary-discipline (244 forbid-ambient + 253 degrade-across-substrate + 255 project-new-modality-to-existing-substrate) | patterns
+three-cycles-with-Endo-Idiom-section-with-varying-shape (232 five-disciplines + 246 four-disciplines + 255 two-paragraphs-no-discipline-headings) | patterns
+three-cycles-with-explicit-list-of-substrate-elements-that-don't-change (248 + 250 + 255) | patterns
+two-cycles-with-Pros-Cons-without-named-preferred (240 + 255) | patterns
+two-cycles-with-explicit-non-dependency-in-Depends-On (253 + 255) | patterns
+eighty-eighth consecutive designs-chat alternation cycles 166-250 + 252-255 (251 was out-of-band) | patterns
+library-reaches-761-sections at cycle 255 (designs-lane endoclaw-voice) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
