@@ -7775,6 +7775,24 @@ seven-cycles-with-small-files-that-each-isolate-one-named-decision (239 + 241 + 
 forty-fourth-member of small-files-with-large-knowledge-density family | patterns
 eighty-ninth consecutive designs-chat alternation cycles 166-250 + 252-256 (251 was out-of-band) | patterns
 library-reaches-762-sections at cycle 256 (chat-lane @endo/promise-kit/src/types) | patterns
+a-design-pattern-not-a-new-capability (load-bearing classification) | (see section: endo-but-for-bots--llm-designs-endoclaw-proactive-messages--a-design-pattern-not-a-new-capability-and-composes-three-existing-primitives-and-code-example-as-the-design)
+three-named-categories-of-Endo-feature-classification (capability + UI-feature + design-pattern) | (see section: endo-but-for-bots--llm-designs-endoclaw-proactive-messages--a-design-pattern-not-a-new-capability-and-composes-three-existing-primitives-and-code-example-as-the-design)
+code-example-as-the-design (replaces Capability-Shape section) | (see section: endo-but-for-bots--llm-designs-endoclaw-proactive-messages--a-design-pattern-not-a-new-capability-and-composes-three-existing-primitives-and-code-example-as-the-design)
+the-`@`-prefix-as-system-pet-name-convention (`@host`, `@self`, `@agent`) | (see section: endo-but-for-bots--llm-designs-endoclaw-proactive-messages--a-design-pattern-not-a-new-capability-and-composes-three-existing-primitives-and-code-example-as-the-design)
+cross-cluster-composition-as-named-design-extension-point | (see section: endo-but-for-bots--llm-designs-endoclaw-proactive-messages--a-design-pattern-not-a-new-capability-and-composes-three-existing-primitives-and-code-example-as-the-design)
+the-section-inventory-distinguishes-design-pattern-from-capability | (see section: endo-but-for-bots--llm-designs-endoclaw-proactive-messages--a-design-pattern-not-a-new-capability-and-composes-three-existing-primitives-and-code-example-as-the-design)
+capability-by-construction-via-composition (the design-pattern is bounded by the substrate caps) | (see section: endo-but-for-bots--llm-designs-endoclaw-proactive-messages--a-design-pattern-not-a-new-capability-and-composes-three-existing-primitives-and-code-example-as-the-design)
+six-section-design-pattern-shape (Summary + Pattern + How-It-Works + Endo-Idiom + Use-Cases + Depends-On) | (see section: endo-but-for-bots--llm-designs-endoclaw-proactive-messages--a-design-pattern-not-a-new-capability-and-composes-three-existing-primitives-and-code-example-as-the-design)
+Use-Cases-section as named design-doc section | (see section: endo-but-for-bots--llm-designs-endoclaw-proactive-messages--a-design-pattern-not-a-new-capability-and-composes-three-existing-primitives-and-code-example-as-the-design)
+six-cycles-with-explicit-capability-by-construction-discipline (234 + 238 + 244 + 246 + 253 + 257) | patterns
+two-cycles-with-`@`-prefix-system-pet-names (250 + 257) | patterns
+two-cycles-with-Use-Cases-section-enumerating-named-use-cases (234 + 257) | patterns
+two-cycles-with-cross-cluster-composition (253 + 257) | patterns
+two-cycles-with-evidence-of-cluster-vocabulary-evolution (250 + 257) | patterns
+two-cycles-with-explicit-Endo-feature-classification-axis (255 + 257) | patterns
+three-cycles-with-Endo-Idiom-section-as-recurring-design-doc-shape (232 + 246 + 257) | patterns
+ninetieth consecutive designs-chat alternation cycles 166-250 + 252-257 (251 was out-of-band) | patterns
+library-reaches-763-sections at cycle 257 (designs-lane endoclaw-proactive-messages) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
