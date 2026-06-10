@@ -7812,6 +7812,35 @@ eight-cycles-with-small-files-that-each-isolate-one-named-decision (239 + 241 + 
 forty-fifth-member of small-files-with-large-knowledge-density family | patterns
 ninety-first consecutive designs-chat alternation cycles 166-250 + 252-258 (251 was out-of-band) | patterns
 library-reaches-764-sections at cycle 258 (chat-lane @endo/far/src/index+exports) | patterns
+ninety-second consecutive designs-chat alternation cycles 166-250 + 252-259 (251 was out-of-band) | patterns
+library-reaches-765-sections at cycle 259 (designs-lane endoclaw-browser) | patterns
+Browser/Page/BrowserControl three-facet (Page derived from Browser.goto()) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+a-derived-capability-from-the-use-facet (first-explicit-observation) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+two-cycles-with-derived-capability-from-the-use-facet (244 one-shot TickResponse + 259 long-lived Page) | patterns
+Playwright-backed confined browsing capability | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+structural-origin-confinement | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+three-cycles-with-structural-confinement-discipline (234 path-restrictions + 238 origin-allowlist + 259 origin-confinement) | patterns
+setReadOnly with three named mutation methods disabled (fill + click + submit) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+three-cycles-with-setReadOnly-mode-toggle (226 + 234 + 259) | patterns
+caretaker-revocation-propagates-to-derived-caps (first-explicit-observation) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+five-cycles-with-revocation-as-named-permanent-state (238 + 244 + 246 + 253 + 259) | patterns
+no-cookie-credential-leakage (three named non-exposures) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+three-named-non-exposures-on-Page-interface (cookies + localStorage + network requests) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+confinement-by-omission (the-omission-IS-the-defense) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+three-cycles-with-explicit-confinement-by-omission (234 + 238 + 259) | patterns
+use-facet-size-correlates-with-substrate-API-size (first-explicit-observation) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+`Optional:`-prefix-on-Depends-On-bullet (first-explicit-observation) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+three-cycles-with-Depends-On-bullet-list-variants (253 standalone + 255 conditional-per-option + 259 with-Optional-prefix) | patterns
+running-without-platform-sandbox-when-substrate-IS-the-sandbox (first-explicit-observation) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+two-named-return-shapes-via-same-method-by-context (snapshot text vs screenshot; first-explicit-observation) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+six-cycles-with-canonical-caretaker-two-facet-pattern (234 + 238 + 244 + 246 + 253 + 259) | patterns
+seven-cycles-with-explicit-capability-by-construction-discipline (234 + 238 + 244 + 246 + 253 + 257 + 259) | patterns
+three-cycles-with-Use-Cases-section-enumerating-named-use-cases (234 + 257 + 259) | patterns
+Page-has-11-methods (largest use-facet of endoclaw cluster ingest) | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+flight-check-in as Use-Case enumeration item | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+web-research as Use-Case enumeration item | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+price-monitoring as Use-Case enumeration item | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
+form-automation as Use-Case enumeration item | (see section: endo-but-for-bots--llm-designs-endoclaw-browser--Browser-Page-BrowserControl-three-facets-and-structural-origin-confinement-and-setReadOnly-and-no-cookie-credential-leakage)
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
