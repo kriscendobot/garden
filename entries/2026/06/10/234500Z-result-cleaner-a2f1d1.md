@@ -20,10 +20,11 @@ refs:
 ## Branch tip
 
 - Pre-cleaner head: `74ada9915` (builder's snapshot-mapper commit).
-- Post-cleaner head: `2cc36176c` (ASCII source-comment fix).
-- Two new commits on `feat/registry-capability`:
+- Post-cleaner head: `c0d348497` (prettier reformat).
+- Three new commits on `feat/registry-capability`:
   - `5c6dc5580` docs(exo-npm): remove stray tool-envelope markers; sentence-per-line README (#403)
   - `2cc36176c` docs(exo-npm): replace non-ASCII section symbol in source comments (#403)
+  - `c0d348497` style(exo-npm): prettier reformat builder commits (#403)
 - No yarn.lock churn this dispatch (no dependency changes).
 - Append-only push; no amend or force on builder commits.
 
@@ -55,6 +56,12 @@ No prose substance changes; the package's What / Status sections read the same a
 Six occurrences of `§` (U+00A7) in design-section references inside JSDoc comments are rewritten in long form ("the Foo section of designs/bar.md") to stay within the ASCII range. References still resolve to the same design-document sections; only the notational shorthand changes. Files touched: `src/errors.js`, `src/interfaces.js`, `src/mvs-resolver.js`. No runtime or type changes.
 
 This addresses pre-push-gates `no-non-ascii-in-source` (per the PR #417 r3353301111 directive: "Avoid non-ASCII. This is in the guide.").
+
+### `c0d348497` style(exo-npm): prettier reformat builder commits (#403)
+
+CI lint job on the first push (`2cc36176c`) flagged Prettier drift in four files from the builder's commits: `src/errors.js`, `src/mvs-resolver.js`, `src/snapshot-mapper.js`, `test/mvs-resolver.test.js`. The drift was line-wrap and continuation-indentation differences (an `X` tagged-template wrap that the builder's local lint accepted but the CI's stricter pass rejected, plus a few callsite-line-wrap differences). `yarn prettier --write` against the same files produces the deterministic reformat; 39 tests still pass. No semantic changes.
+
+This commit is a separate change from the two hygiene commits above so a reviewer can take the style reformat without the other doc fixes, or vice versa.
 
 ## PR body audit against pr-formation
 
@@ -111,7 +118,7 @@ All files             |   90.21 |     80.8 |   95.83 |   90.21
 
 ## CI state
 
-Pushed to `feat/registry-capability` at `2cc36176c`. CI run started at `https://github.com/endojs/endo-but-for-bots/actions/runs/27313668298`; build/lint/test jobs in pending state at push time. The cleaner does not block on CI here because the diff is documentation-only (README reflow + comment-character substitutions); a green CI on `74ada9915` is the trustworthy signal for the substance.
+First push to `feat/registry-capability` at `2cc36176c`: CI's `lint:prettier` job failed on Prettier drift in four builder-touched files. Second push at `c0d348497` carries the deterministic prettier reformat; CI re-fired at `https://github.com/endojs/endo-but-for-bots/actions/runs/27313849665` and is pending at result-write time. The cleaner does not block on CI here because the documentation-class commits introduce no semantic change; the substantive substance (39 tests passing locally) is unchanged.
 
 ## Top-level summary comment
 
