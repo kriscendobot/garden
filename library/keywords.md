@@ -7759,6 +7759,22 @@ two-cycles-with-Pros-Cons-without-named-preferred (240 + 255) | patterns
 two-cycles-with-explicit-non-dependency-in-Depends-On (253 + 255) | patterns
 eighty-eighth consecutive designs-chat alternation cycles 166-250 + 252-255 (251 was out-of-band) | patterns
 library-reaches-761-sections at cycle 255 (designs-lane endoclaw-voice) | patterns
+PromiseKit-as-reified-Promise | (see section: endo--packages-promise-kit-src-types-js--PromiseKit-as-reified-Promise-and-ERef-as-four-named-shapes-and-PromiseRecord-as-deprecated-alias-and-second-typedef-only-file)
+resolve-takes-ERef-not-T (canonical PromiseKit resolver shape) | (see section: endo--packages-promise-kit-src-types-js--PromiseKit-as-reified-Promise-and-ERef-as-four-named-shapes-and-PromiseRecord-as-deprecated-alias-and-second-typedef-only-file)
+ERef-as-four-named-shapes (local T + local presence for remote T + promise for T + thenable for T) | (see section: endo--packages-promise-kit-src-types-js--PromiseKit-as-reified-Promise-and-ERef-as-four-named-shapes-and-PromiseRecord-as-deprecated-alias-and-second-typedef-only-file)
+four-named-shapes-distinguished-in-prose-not-in-narrower-type | (see section: endo--packages-promise-kit-src-types-js--PromiseKit-as-reified-Promise-and-ERef-as-four-named-shapes-and-PromiseRecord-as-deprecated-alias-and-second-typedef-only-file)
+thenable-defined-explicitly-as-promise-like-non-promise-with-then-method | (see section: endo--packages-promise-kit-src-types-js--PromiseKit-as-reified-Promise-and-ERef-as-four-named-shapes-and-PromiseRecord-as-deprecated-alias-and-second-typedef-only-file)
+deprecated-typedef-alias-with-named-replacement-in-JSDoc | (see section: endo--packages-promise-kit-src-types-js--PromiseKit-as-reified-Promise-and-ERef-as-four-named-shapes-and-PromiseRecord-as-deprecated-alias-and-second-typedef-only-file)
+stack-of-three-typedefs-in-one-file (general-input + canonical + deprecated-alias) | (see section: endo--packages-promise-kit-src-types-js--PromiseKit-as-reified-Promise-and-ERef-as-four-named-shapes-and-PromiseRecord-as-deprecated-alias-and-second-typedef-only-file)
+two-cycles-with-`export {};`-typedef-only-file-pattern (249 + 256) | patterns
+two-cycles-with-explicit-treatment-of-the-thenable-vs-Promise-distinction (252 detection + 256 definition) | patterns
+two-cycles-with-multiple-typedefs-in-one-file (249 + 256) | patterns
+two-cycles-with-named-deprecation-with-named-replacement (251 MCP + 256 PromiseRecord) | patterns
+three-cycles-with-`@template`-parameterization (237 + 249 + 256) | patterns
+seven-cycles-with-small-files-that-each-isolate-one-named-decision (239 + 241 + 243 + 247 + 249 + 252 + 256) | patterns
+forty-fourth-member of small-files-with-large-knowledge-density family | patterns
+eighty-ninth consecutive designs-chat alternation cycles 166-250 + 252-256 (251 was out-of-band) | patterns
+library-reaches-762-sections at cycle 256 (chat-lane @endo/promise-kit/src/types) | patterns
 `move` (daemon mount mutation method) | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 move on mount | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
 mount move | (see section: endo-but-for-bots--llm-designs-daemon-mount--two-formula-type-split-with-shared-exo-interface-and-realpath-at-operation-time-confinement)
