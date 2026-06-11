@@ -9517,3 +9517,176 @@ the-named-multi-cycle-bridge (5-cycle: 296 + 297 + 298 + 299 + 300) | patterns
 the-named-five-into-three-source-and-two-document-and-one-instructions split | patterns
 one-hundred-and-thirty-third consecutive designs-chat alternation cycles 166-250 + 252-300 (251 was out-of-band) | patterns
 library-reaches-812-sections at cycle 300 (chat-lane garden daemons triple; CYCLE-MILESTONE-300) | patterns
+the-named-standing-subagent-instructions-shape (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-three-named-tiers-of-subagent-context (standing/COMMON.md + role/AGENT.md + on-demand/SKILL.md) | patterns
+the-named-tiered-context-loading-IS-named-progressive-disclosure | patterns
+the-named-on-demand-skill-loading | patterns
+the-named-explicit-load-vs-auto-load (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+two-named-shapes-of-load-first-instructions (auto-load + explicit-load) | patterns
+the-named-naming-discipline-against-auto-load (extends cycle 299) | patterns
+the-named-discipline-design-and-instance-pair-across-two-cycles (299 names rule + 301 IS instance) | patterns
+the-named-distinction-between-the-runtime's-load-mechanism-and-the-dispatcher's-load-mechanism | patterns
+the-named-subagent-vs-orchestrator-distinction-at-the-document-level (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-section-applicability-distinction | patterns
+the-named-self-aware-applicability-marker | patterns
+the-named-orchestrator-vs-subagent-binary | patterns
+the-named-three-prose-style-rules-as-skills (em-dash-style + relative-paths + no-latin-shorthand) (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-prose-style-IS-named-skill-not-inline-norm | patterns
+the-named-discipline-of-keeping-COMMON.md-small | patterns
+the-named-three-universal-skills | patterns
+the-named-vendored-content-exemption (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-vendored-exempt-from-bot-style-rules | patterns
+the-named-explicit-exempt-discipline | patterns
+the-named-snapshot-IS-read-only-shape | patterns
+the-named-document-frontmatter-IS-three-named-fields (created + updated + author) (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+four-cycles-with-named-role-as-author-shape (281 + 297 + 299 + 301) | patterns
+the-named-trivial-fixes-do-NOT-warrant-an-authorship-change | patterns
+the-named-threshold-for-authorship-bump-IS-named-explicitly | patterns
+the-named-meaningful-edit-discipline | patterns
+the-named-journal-does-NOT-use-this-frontmatter | patterns
+two-named-frontmatter-shapes-in-the-garden (persistent-doc + journal-entry) | patterns
+two-named-statements-of-the-same-monitoring-safety-constraint (299 CLAUDE.md + 301 COMMON.md) | patterns
+the-named-same-constraint-stated-from-two-named-perspectives (orchestrator framing + subagent framing) | patterns
+the-named-DRY-discipline-IS-violated-deliberately-for-safety-critical-rules | patterns
+the-named-redundancy-IS-the-named-anti-miss-discipline | patterns
+two-cycles-with-named-monitoring-safety-constraint-statement (299 + 301) | patterns
+the-named-cross-cycle-constraint-recurrence | patterns
+the-named-external-repo-etiquette (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-default-deny-on-external-repo-actions | patterns
+the-named-broad-default-deny-list (comments + reviews + review-comments + reactjis + cross-references + opens/edits/closes) | patterns
+the-named-comprehensive-coverage-of-side-channels | patterns
+the-named-Why-section-naming-the-rationale | patterns
+the-named-rule-WITH-named-rationale-paragraph | patterns
+the-named-rationale-prevents-rule-rot | patterns
+the-named-per-role-authorization-table (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-implicit-vs-per-action-authorization-distinction | patterns
+the-named-eight-named-roles-with-named-authorization-shapes (fixer + weaver + shepherd + conductor + designer + scout + botanist + major-general) | patterns
+the-named-fine-grained-authorization-discipline | patterns
+the-named-implicit-IS-named-dispatch-shape-determined | patterns
+the-named-boatman-exception (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-single-authorization-covers-cross-link | patterns
+the-named-one-named-flag-IS-the-named-broad-authorization | patterns
+the-named-boatman-IS-the-only-role-with-the-cross-repo-write-default-allow | patterns
+the-named-three-stage-authorization-pipeline (originate + record + inline) (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-originate-record-inline-pipeline | patterns
+the-named-asymmetric-authorization-origination (maintainer originates + steward forwards) | patterns
+the-named-authorization-IS-named-paper-trail | patterns
+the-named-auditable-authorization-discipline | patterns
+the-named-late-binding-of-authorization | patterns
+the-named-named-authority-structure (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-senior-contributor-IS-named-non-default-authority-actor | patterns
+the-named-technical-authority-vs-authorization-chain-distinction | patterns
+the-named-project-README-IS-the-named-actor-registry | patterns
+the-named-data-not-in-roles-or-skills-IS-named-locality-discipline | patterns
+the-named-endo-prototype | patterns
+the-named-prototype-pattern-shape | patterns
+the-named-project-specifics-live-in-the-journal (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+three-named-tiers-of-information-locality (project-agnostic + project-specific + per-dispatch) | patterns
+the-named-locality-shape-determines-the-storage-tier | patterns
+the-named-grep-recipe-IS-named-self-service-API | patterns
+the-named-recipe-WITH-named-grep-flags | patterns
+the-named-most-recent-matching-entry-IS-the-current-source-of-truth | patterns
+the-named-append-only-with-most-recent-wins-semantics | patterns
+the-named-library-IS-three-indexing-axes (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+three-named-indexing-axes (provenance + taxonomy + term-lookup) | patterns
+the-named-multi-axis-knowledge-graph | patterns
+the-named-self-referential-shape-of-the-library | patterns
+the-named-skill-rather-than-read-by-eye (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-skill-mediated-access-discipline | patterns
+the-named-named-uniform-access-discipline | patterns
+the-named-index-on-the-fly-IS-the-compounding-property | patterns
+the-named-index-improvements-by-one-role-benefit-every-subsequent-caller-in-every-other-role | patterns
+the-named-compounding-knowledge-graph | patterns
+the-named-self-improving-knowledge-graph | patterns
+the-named-access-IS-a-named-improvement-opportunity | patterns
+the-named-orphan-branch-journal (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-orphan-branch-IS-the-named-history-isolation-mechanism | patterns
+the-named-orphan-IS-the-named-deliberate-isolation | patterns
+the-named-isolation-discipline | patterns
+the-named-history-cleanliness-IS-named-orphan-branch-property | patterns
+the-named-bulletin-IS-the-maintainer-dashboard (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-journal-README-IS-the-bulletin | patterns
+the-named-single-pane-of-glass | patterns
+the-named-agents-own-the-bulletin-entirely | patterns
+the-named-bulletin-lifecycle-IS-named-post-then-clear | patterns
+the-named-self-clearing-shape | patterns
+the-named-maintainer-acts-and-agents-detect-and-clear | patterns
+the-named-action-IS-out-of-band-detection-IS-in-band | patterns
+the-named-journal-archives-terminated-long-living-subagents (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-agent-archive-IS-named-by-three-axes (date + role + subject) | patterns
+two-cycles-with-named-skill-for-meta-procedure (journal-sync + agent-termination) | patterns
+the-named-entry-layout-IS-named-six-component-filename (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+three-cycles-with-6-hex-short-id-discipline (297 named + 298 implemented + 301 names purpose) | patterns
+the-named-6-hex-IS-cross-document-consistent | patterns
+the-named-collision-avoidance-IS-the-named-purpose | patterns
+the-named-collision-IS-effectively-impossible | patterns
+the-named-five-named-entry-kinds (dispatch + tick + message + result + worktree) (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-discrete-finite-state-set | patterns
+the-named-kind-IS-named-named-relationship-class | patterns
+the-named-broadcast-to-IS-the-asterisk (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-asterisk-IS-the-broadcast-marker | patterns
+the-named-string-overload-shape (role name OR "*") | patterns
+the-named-OR-grep-pattern-for-both-directed-and-broadcast | patterns
+the-named-project-field-IS-optional-but-recommended (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-grep-by-frontmatter-discipline | patterns
+the-named-project-slug-IS-kebab-case-upstream-not-fork-owner | patterns
+the-named-canonical-upstream-name-IS-the-slug | patterns
+the-named-disambiguation-discipline | patterns
+two-named-worktree-path-shapes (ephemeral + standing) | patterns
+the-named-distinct-worktree-path-shapes-for-distinct-worktree-lifetimes | patterns
+the-named-path-shape-encodes-lifetime | patterns
+the-named-journal-sync-skill-IS-the-named-anti-divergence-mechanism (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-DO-NOT-roll-your-own-concurrent-append | patterns
+the-named-canonical-skill-IS-the-named-single-source-of-truth | patterns
+the-named-concurrent-appends-IS-named-subtle | patterns
+the-named-honest-difficulty-claim | patterns
+three-named-distinct-reading-recipes (overview + role-directed + specific-path) | patterns
+the-named-recipe-per-query-shape | patterns
+the-named-explicit-flag-discipline | patterns
+the-named-worktree-triple-IS-ephemeral (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-ephemeral-worktree-discipline | patterns
+the-named-only-journal-survives-dispatch-teardown | patterns
+the-named-`.garden-monitor/`-naming-discipline | patterns
+the-named-dot-prefix-IS-named-untracked-state | patterns
+the-named-standing-monitor-exception (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-daemon-owned-state-survives-dispatch-teardown | patterns
+the-named-LLM-vs-daemon-ownership-distinction | patterns
+two-cycles-with-named-standing-exception (297 + 301) | patterns
+the-named-cross-document-standing-exception | patterns
+the-named-do-not-rename-move-or-remove-worktree | patterns
+the-named-do-not-modify-worktree-shape-from-subagent | patterns
+the-named-orchestrator-owns-the-worktree-lifecycle | patterns
+the-named-journal-worktrees-host-index (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-per-host-worktree-index | patterns
+the-named-hostname-as-the-index-key | patterns
+the-named-heartbeat-IS-named-liveness-marker | patterns
+the-named-`last_heartbeat`-and-`status`-update-discipline | patterns
+the-named-result-entry-AND-final-message (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-dual-channel-reporting (journal-durable + final-message-convenience) | patterns
+the-named-two-named-reporting-channels | patterns
+the-named-durable-vs-convenience-distinction | patterns
+the-named-temporal-asymmetry-of-the-two-channels | patterns
+the-named-mandatory-`Self-improvement:`-one-line (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-mandatory-meta-improvement-line | patterns
+the-named-explicit-named-null-shape ("nothing this time.") | patterns
+the-named-mandatory-field-with-explicit-null | patterns
+the-named-meta-improvement-discipline | patterns
+the-named-continuous-improvement-discipline | patterns
+the-named-message-on-interruption-or-blocker (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-blocker-escalation-path | patterns
+the-named-mid-dispatch-escalation-shape | patterns
+the-named-named-tried-vs-named-need | patterns
+the-named-failure-message-IS-named-tried-plus-need-pair | patterns
+the-named-cycle-301-IS-the-named-sixth-garden-source (first-explicit-observation; cycle 301) | (see section: garden--roles-COMMON-md--sixth-garden-source-and-standing-subagent-instructions-and-explicit-load-vs-auto-load)
+the-named-first-cycle-after-CYCLE-MILESTONE-300 | patterns
+the-named-post-milestone-continuation | patterns
+the-named-cadence-IS-named-unbroken-discipline | patterns
+six-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300 + 301) | patterns
+six-named-shapes-of-garden-self-documentation (proposed-design + standing-reference + implementation-source + project-instructions + operational-daemon-control + standing-subagent-instructions) | patterns
+the-named-six-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301) | patterns
+the-named-six-into-four-doc-and-one-source-and-one-operational split | patterns
+the-named-three-tiered-document-by-audience-shape (orchestrator/CLAUDE.md + subagent/COMMON.md + role-specific/AGENT.md) | patterns
+the-named-COMMON.md-describes-the-shape-of-the-very-work-its-current-ingest-cycle-extends | patterns
+the-named-self-referential-shape | patterns
+one-hundred-and-thirty-fourth consecutive designs-chat alternation cycles 166-250 + 252-301 (251 was out-of-band) | patterns
+library-reaches-813-sections at cycle 301 (designs-lane garden roles/COMMON.md; first cycle after CYCLE-MILESTONE-300) | patterns
