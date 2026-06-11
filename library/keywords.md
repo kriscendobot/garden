@@ -10406,3 +10406,60 @@ the-named-leaf-dependency-discipline | patterns
 the-named-cluster-saturation-and-pivot-pair (309 + 310) | patterns
 one-hundred-and-forty-third consecutive designs-chat alternation cycles 166-250 + 252-310 (251 was out-of-band) | patterns
 library-reaches-822-sections at cycle 310 (chat-lane @endo/nat src/index.js; first non-garden chat-lane source after twenty-nine cycles; deliberate pivot) | patterns
+two-cycles-with-named-source-and-README-pair-for-the-same-package (310 src + 311 README) (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+the-named-what-vs-why-split-across-two-cycles | patterns
+the-named-stay-in-new-domain-after-pivot-discipline | patterns
+the-named-distinction-between-mathematical-numbers-and-JS-numbers (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+two-named-JS-numeric-types (IEEE 754 + bigints) | patterns
+three-named-NaN-and-infinity-exclusions | patterns
+the-named-vocabulary-discipline-explicit | patterns
+the-named-mathematical-natural-numbers-IS-named-non-negative-integers (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+three-named-representation-tiers | patterns
+the-named-memory-bound-vs-precision-bound-distinction | patterns
+the-named-skippable-detail-about-floating-point (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+the-named-skippable-marker-discipline | patterns
+the-named-2-to-the-70-plus-1-equals-2-to-the-70-example | patterns
+the-named-safe-integer-range-IS-named-concrete-bounds | patterns
+the-named-additive-correctness-property | patterns
+the-named-bigint-IS-named-inherently-safe (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+the-named-README-uses-literal-source-uses-constructor | patterns
+seven-named-input-examples-per-function (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+the-named-shape-coverage-discipline | patterns
+the-named-API-typing-with-pipe-union (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+the-named-README-IS-named-TypeScript-style-typed | patterns
+the-named-asymmetric-API-typing | patterns
+two-cycles-with-named-asymmetric-naming-and-typing-discipline (310 naming + 311 typing) | patterns
+the-named-iff-discipline (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+the-named-mathematical-iff-IS-named-precise-equivalence | patterns
+the-named-type-tester-of-possible-representations-shape (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+the-named-multi-representation-type-tester | patterns
+the-named-cautious-type-talk-discipline | patterns
+the-named-Validators-and-Coercers-section (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+two-named-function-classifications (validators + coercers) | patterns
+the-named-validator-vs-coercer-precise-definitions | patterns
+the-named-input-knowledge-vs-output-knowledge-distinction | patterns
+the-named-BigInt-IS-named-coercer-example | patterns
+the-named-Nat-IS-named-interesting-mixture (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+the-named-cross-abstraction-level-function-discipline | patterns
+the-named-mixture-IS-named-non-binary | patterns
+two-named-abstraction-levels (concrete JS data + mathematical number) | patterns
+the-named-validator-or-coercer-discipline-IS-level-relative | patterns
+the-named-mathematical-identity-across-representations | patterns
+the-named-history-section (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+the-named-Caja-origin | patterns
+two-cycles-with-named-deep-provenance (310 + 311) | patterns
+three-deep-provenance-chain (Caja → @endo → garden library) | patterns
+the-named-tc39-notes-link-IS-named-historical-deliberation-citation | patterns
+three-named-link-classes-now (spec-authoritative + esdiscuss-historical + tc39-notes-deliberation) | patterns
+the-named-CircleCI-and-david-dm-badge-discipline (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+the-named-four-named-OSS-badges | patterns
+the-named-reference-style-Markdown-links | patterns
+the-named-DRY-link-discipline | patterns
+the-named-policy-IS-content-class-dependent (WET 310 + DRY 311 both deliberate) | patterns
+two-cycles-with-named-Apache-2.0-license-confirmation (310 + 311) | patterns
+the-named-cycle-311-IS-the-companion-README-to-cycle-310-source-and-validators-and-coercers-section (first-explicit-observation; cycle 311) | (see section: endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section)
+the-named-source-and-README-pair-IS-named-canonical-coverage | patterns
+the-named-lane-discipline-respects-document-class (source = chat-lane; README = designs-lane) | patterns
+the-named-source-first-then-README-ingest-order | patterns
+one-hundred-and-forty-fourth consecutive designs-chat alternation cycles 166-250 + 252-311 (251 was out-of-band) | patterns
+library-reaches-823-sections at cycle 311 (designs-lane @endo/nat README.md; companion to cycle 310 source) | patterns
