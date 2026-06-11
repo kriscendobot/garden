@@ -10718,3 +10718,48 @@ the-named-harden-call-IS-named-canonical-export-shape | patterns
 the-named-source-and-README-cross-reference-IS-named-pair-shape-marker (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
 one-hundred-and-forty-ninth consecutive designs-chat alternation cycles 166-250 + 252-316 (251 was out-of-band) | patterns
 library-reaches-828-sections at cycle 316 (chat-lane @endo/lp32 reader.js; seventh consecutive @endo/* source; fourth package extends; reverse-pair shape established; cross-references cycle 243 host-endian.js) | patterns
+the-named-supply-chain-attack-exposure-IS-named-threat-model-for-harden (first-explicit-observation; cycle 317) | (see section: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314)
+the-named-shift-from-prerequisite-framing-to-threat-model-framing (first-explicit-observation; cycle 317) | (see section: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314)
+the-named-ponyfill-IS-named-precise-over-polyfill (first-explicit-observation; cycle 317) | (see section: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314)
+the-named-ponyfill-vs-polyfill-distinction | patterns
+the-named-ponyfill-IS-named-SES-compatible | patterns
+the-named-naming-IS-named-load-bearing-in-SES-context | patterns
+the-named-terminology-IS-named-security-claim | patterns
+the-named-separate-import-per-direction-discipline (first-explicit-observation; cycle 317) | (see section: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314)
+the-named-entrain-IS-named-load-time-cost (first-explicit-observation; cycle 317) | (see section: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314)
+the-named-default-to-narrow-import-with-broad-import-as-escape-hatch | patterns
+the-named-tree-shaking-aware-discipline-without-requiring-tree-shaking | patterns
+the-named-genuinely-needing-both-IS-named-the-exception | patterns
+the-named-LICENSE-file-makes-README-License-section-optional (first-explicit-observation; cycle 317) | (see section: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314)
+the-named-LICENSE-file-is-the-authoritative-source | patterns
+the-named-README-License-section-IS-named-redundant-if-LICENSE-file-exists | patterns
+the-named-four-section-README-shape-as-new-data-point (Install + Usage + API + Hardened-JavaScript; no Overview heading; no License) | patterns
+the-named-README-shape-IS-named-tailored-to-package-depth | patterns
+the-named-delayed-pair-shape (cycle 314 hex source + cycle 317 hex README; src→README with 3-cycle gap) (first-explicit-observation; cycle 317) | (see section: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314)
+the-named-orphan-singleton-was-temporary | patterns
+the-named-delayed-pair-IS-named-retroactive-completion | patterns
+the-named-pair-can-survive-gaps | patterns
+the-named-pair-shape-IS-named-cross-product-of-order-and-gap (first-explicit-observation; cycle 317) | (see section: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314)
+four-shapes-of-pair-discipline (regular-adjacent 310-311 + 312-313; reverse-adjacent 315-316; delayed src→README 314+317; delayed README→src not yet observed) | patterns
+the-named-dispatches-at-module-load-time (first-explicit-observation; cycle 317) | (see section: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314)
+two-cycles-with-named-module-load-time-dispatch-naming (314 source + 317 README; doc/impl boundary) | patterns
+the-named-SES-locked-down-compartments-named-as-fallback-trigger (first-explicit-observation; cycle 317) | (see section: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314)
+the-named-realm-removes-intrinsics-IS-named-SES-specific-failure-mode | patterns
+the-named-fallback-IS-named-portable-pure-JavaScript | patterns
+the-named-SES-realm-IS-named-deliberate-attenuation-context | patterns
+three-cycles-with-named-name-parameter-IS-named-error-attribution (315 + 316 + 317) | patterns
+the-named-throws-on-named-error-conditions | patterns
+the-named-error-conditions-enumerated-in-API-section | patterns
+two-cycles-with-named-lowercase-default-with-caller-uppercase-discipline (314 source + 317 README; doc/impl boundary) | patterns
+the-named-canonical-Uint8Array-example-shape (first-explicit-observation; cycle 317) | (see section: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314)
+the-named-non-degenerate-example-values | patterns
+the-named-round-trip-example-via-symmetric-functions | patterns
+the-named-symmetric-API-symmetric-example | patterns
+the-named-API-section-with-H3-subheadings-per-function | patterns
+two-cycles-with-named-API-section-IS-named-formal-parameter-documentation (315 + 317) | patterns
+the-named-proposal-stage-citation-without-link | patterns
+two-cycles-with-named-Stage-4-TC39-proposal-citation (314 source + 317 README; doc/impl boundary) | patterns
+eight-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314 + 315 + 316 + 317) | patterns
+six-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316 + 317) | patterns
+one-hundred-and-fiftieth consecutive designs-chat alternation cycles 166-250 + 252-317 (251 was out-of-band) | patterns
+library-reaches-829-sections at cycle 317 (designs-lane @endo/hex README.md; eighth consecutive @endo/* source; fourth package extends; delayed-pair shape established; supply-chain-attack-exposure threat-model framing introduced) | patterns
