@@ -9964,3 +9964,122 @@ nine-named-shapes-of-garden-self-documentation (proposed-design + standing-refer
 the-named-nine-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304) | patterns
 one-hundred-and-thirty-seventh consecutive designs-chat alternation cycles 166-250 + 252-304 (251 was out-of-band) | patterns
 library-reaches-816-sections at cycle 304 (chat-lane garden scripts/watcher/endo-but-for-bots/watcher.sh; first chat-lane after the eight-cycle bridge) | patterns
+the-named-library-conventions-shape (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-cross-branch-garden-cluster (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-multi-branch-self-documentation-shape | patterns
+the-named-third-design-and-instance-pair-across-the-garden-cluster (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+three-named-design-and-instance-pairs-across-the-garden-cluster (299→301 + 301→302 + 302→305) | patterns
+the-named-pattern-of-pattern-extends-to-three-instances | patterns
+the-named-three-cycle-property-procedure-rationale-chain (301 + 302 + 305) (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-three-angle-coverage-shape (property + procedure + rationale) | patterns
+the-named-bootstrap-attribution (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-bootstrap-marker | patterns
+the-named-file-naming-discipline (three named file shapes) (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-path-flattening-discipline | patterns
+the-named-pragmatic-slug-shortening | patterns
+the-named-typographic-stripping-discipline | patterns
+the-named-default-section-granularity (H2 by default; H3 conditional) | patterns
+eleven-named-section-frontmatter-fields (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-required-vs-optional-frontmatter-distinction | patterns
+the-named-file-specific-commit-not-repo-HEAD (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-idempotency-check-via-file-specific-commit | patterns
+the-named-anti-divergence-by-recording-the-right-anchor | patterns
+four-named-status-values-for-sections (current + stale + superseded + conflicted) (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-Abstract-IS-named-specific-enough-to-use-as-exit-criterion | patterns
+the-named-Source-footer-format | patterns
+two-named-frontmatter-shapes-within-the-library-discipline (section + source-index) | patterns
+the-named-topic-pages-have-NO-frontmatter (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+three-content-classes-of-the-library-files (first-class sections + first-class sources + catalog topics) | patterns
+the-named-frontmatter-IS-named-content-class-marker | patterns
+the-named-staleness-supersession-contradiction-section (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+three-cycles-with-named-append-only-discipline (301 + 302 + 305) | patterns
+three-named-rotation-mechanisms (stale + superseded + conflicted) | patterns
+the-named-in-place-edit-exception-to-append-only | patterns
+two-named-overlap-handling-shapes (soft-flag default + hard-flag conflicted) (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-default-IS-soft-flag-NOT-hard-flag | patterns
+three-canonical-overlap-examples | patterns
+the-named-three-shapes-of-the-same-material (reference + background + tutorial) | patterns
+the-named-dated-pattern-emergence-discipline | patterns
+the-named-library-vs-project-distinction (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-cross-cutting-vs-project-specific-distinction | patterns
+two-named-journal-content-areas (library + projects) | patterns
+the-named-operational-vs-technical-distinction | patterns
+twenty-named-topic-slugs-in-the-seed-taxonomy (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-grow-and-merge-discipline | patterns
+eight-named-ingestion-steps (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+two-named-sectioning-exceptions (alphabetical-consolidate + single-screen-overview) (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-pragmatic-consolidation-discipline-for-alphabetical-references | patterns
+the-named-pattern-attribution-IS-named-with-the-source-cycle | patterns
+five-named-consolidation-steps (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+three-named-canonical-criteria (most context + cleanest framing + broadest reader audience) | patterns
+three-named-supersession-metadata-fields (superseded_by + superseded_on + superseded_reason) | patterns
+the-named-bolded-default-emphasis | patterns
+three-named-cycle-derived-principles (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-shape-not-content-for-upstream-meta-tables (from cycle 41) | patterns
+the-named-consumers-own-rendering-producers-own-typed-shape (from cycle 42) | patterns
+the-named-hidden-intrinsic-sampling-via-throwaway-instance-prototype-walk (from cycle 43) | patterns
+the-named-sources-from-unmerged-PRs-discipline (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+three-named-PR-source-transitions (force-push + merge + close-without-merge) | patterns
+the-named-slug-stability-discipline | patterns
+the-named-do-NOT-invent-a-new-status-value | patterns
+the-named-anti-taxonomy-proliferation-discipline | patterns
+the-named-PR-head-fetch-recipe | patterns
+the-named-three-source-kinds (repo + paper + comment-fragment) (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-source-kind-discriminant-shape | patterns
+the-named-discriminant-IS-named-extension-point | patterns
+the-named-implicit-default-for-backward-compatibility | patterns
+the-named-paper-source-schema (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+twelve-named-paper-frontmatter-fields | patterns
+the-named-source_pdf_sha256-IS-named-idempotency-anchor-for-papers | patterns
+the-named-discriminant-determines-the-idempotency-anchor | patterns
+the-named-canonical-URL-vs-mirror-URL-distinction | patterns
+the-named-degenerate-paper-idempotency-check | patterns
+the-named-revisions-are-distinct-sources-not-updates | patterns
+the-named-Translation-block-convention (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-domain-translation-table-discipline | patterns
+six-named-PDF-sources-in-priority-order (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-fallback-priority-list | patterns
+the-named-anchor-vs-pointer-distinction | patterns
+the-named-anti-source-IS-named-with-reason | patterns
+the-named-comment-fragment-source-schema (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-line-range-IS-named-snapshot-not-live-cursor | patterns
+the-named-point-in-time-marker | patterns
+four-named-longform-comment-shapes (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-quantitative-thresholds | patterns
+the-named-trivial-comment-anti-pattern | patterns
+the-named-slug-evolution-with-no-retroactive-rename-discipline | patterns
+two-named-permitted-in-place-edits (status flip + line-range update) | patterns
+the-named-Notice-Investigate-Propose-discipline (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+three-named-actions-on-drift (notice + investigate + propose) | patterns
+the-named-highest-payoff-upstream-contribution-class | patterns
+three-indexing-axes-NAMED-AGAIN (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+three-cycles-with-named-three-indexing-axes (301 + 302 + 305) | patterns
+three-named-partition-axes (by-subject + by-provenance + by-unit) | patterns
+the-named-concept-page-shape (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-concept-page-three-named-frontmatter-fields (id + aliases + topics) | patterns
+the-named-concept-page-three-named-body-parts (definition + sections-table + see-also) | patterns
+the-named-aliases-IS-named-multi-keyword-shape | patterns
+the-named-See-also-IS-named-multi-perspective | patterns
+two-cycles-with-named-canonical-example-crdt-in-formula-persistence (302 + 305) | patterns
+the-named-keyword-index-shape (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+two-cycles-with-named-pipe-delimited-keyword-row-shape (302 + 305) | patterns
+two-cycles-with-named-backticks-for-code-symbols-discipline (302 + 305) | patterns
+two-cycles-with-named-grepped-not-read-discipline (302 + 305) | patterns
+two-cycles-with-named-skill-mediated-access (302 + 305) | patterns
+the-named-meaningful-case-preservation | patterns
+the-named-indexing-on-the-fly-discipline (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+three-named-corresponding-maintenance-actions (add-shortcut + prune-distraction + draft-missing-concept) | patterns
+the-named-three-vs-four-writeback-actions-distinction (cycle 302 SKILL counts FOUR; cycle 305 conventions counts THREE) | patterns
+the-named-counting-discrepancy-IS-named-discrepancy-in-counting-not-substance | patterns
+the-named-skill-mediated-permission-discipline | patterns
+the-named-scholar-province-extends | patterns
+the-named-skill-IS-named-discipline-trivializer (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+the-named-pre-package-the-writeback-discipline | patterns
+the-named-cycle-305-IS-the-named-tenth-garden-source-and-the-first-journal-branch-source (first-explicit-observation; cycle 305) | (see section: garden--journal-library-conventions-md--tenth-garden-source-and-library-conventions-shape-and-third-design-instance-pair)
+ten-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305) | patterns
+ten-named-shapes-of-garden-self-documentation (proposed-design + standing-reference + implementation-source + project-instructions + operational-daemon-control + standing-subagent-instructions + skill-procedural-playbook + role-specific-orchestrator-instructions + per-feed-watcher-stub + library-conventions) | patterns
+the-named-ten-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305) | patterns
+the-named-WORKTREES-design-pointer-to-journal-implementation (297 + 305) | patterns
+the-named-self-referential-shape-at-the-spec-level | patterns
+one-hundred-and-thirty-eighth consecutive designs-chat alternation cycles 166-250 + 252-305 (251 was out-of-band) | patterns
+library-reaches-817-sections at cycle 305 (designs-lane garden journal/library/conventions.md; first journal-branch source in the garden cluster) | patterns
