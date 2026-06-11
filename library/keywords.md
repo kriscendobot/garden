@@ -10516,3 +10516,45 @@ the-named-foundation-utility-shape-extends | patterns
 the-named-small-focused-foundation-package-shape | patterns
 one-hundred-and-forty-fifth consecutive designs-chat alternation cycles 166-250 + 252-312 (251 was out-of-band) | patterns
 library-reaches-824-sections at cycle 312 (chat-lane @endo/memoize; third consecutive @endo/* source after the pivot) | patterns
+two-named-instances-of-source-and-README-pair-pattern (nat 310-311 + memoize 312-313) (first-explicit-observation; cycle 313) | (see section: endo--packages-memoize-README-md--companion-README-to-cycle-312-source-and-named-memoization-safety-properties)
+four-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313) | patterns
+the-named-pair-pattern-IS-named-extensible | patterns
+the-named-pivot-IS-named-productive-four-cycles-in | patterns
+the-named-Hardened-JavaScript-IS-named-target-environment (first-explicit-observation; cycle 313) | (see section: endo--packages-memoize-README-md--companion-README-to-cycle-312-source-and-named-memoization-safety-properties)
+three-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313) | patterns
+the-named-output-IS-hardened-by-construction | patterns
+the-named-component-of-SES-IS-named-security-scrutiny (first-explicit-observation; cycle 313) | (see section: endo--packages-memoize-README-md--companion-README-to-cycle-312-source-and-named-memoization-safety-properties)
+the-named-security-issue-routing-discipline | patterns
+the-named-cross-package-security-routing | patterns
+the-named-Usage-section-IS-named-worked-example (first-explicit-observation; cycle 313) | (see section: endo--packages-memoize-README-md--companion-README-to-cycle-312-source-and-named-memoization-safety-properties)
+the-named-memoization-identity-claim | patterns
+the-named-harden-the-argument-IS-named-required-discipline | patterns
+the-named-Hardened-JS-input-discipline | patterns
+four-named-behavior-properties (Caching + Throws-not-memoized + Rejected-promises-memoized + Invalid-keys-throw) (first-explicit-observation; cycle 313) | (see section: endo--packages-memoize-README-md--companion-README-to-cycle-312-source-and-named-memoization-safety-properties)
+the-named-throws-vs-rejected-promises-asymmetry | patterns
+the-named-promise-rejection-IS-named-value-not-failure | patterns
+the-named-completion-vs-non-completion-distinction | patterns
+the-named-deliberate-asymmetry-IS-named-explicit | patterns
+the-named-principled-asymmetry-discipline | patterns
+two-cycles-with-named-throws-cleanup (312 impl + 313 doc) | patterns
+two-cycles-with-named-fail-fast-on-invalid-arg (312 impl + 313 doc) | patterns
+the-named-source-TODO-and-README-pointer-pair-across-cycles (first-explicit-observation; cycle 313) | (see section: endo--packages-memoize-README-md--companion-README-to-cycle-312-source-and-named-memoization-safety-properties)
+the-named-TODO-resolution-confirmed | patterns
+two-cycles-with-named-deferred-link-status | patterns
+three-named-memoization-safety-properties (defensiveness + unobservable-memoization + isolation-preservation) (first-explicit-observation; cycle 313) | (see section: endo--packages-memoize-README-md--companion-README-to-cycle-312-source-and-named-memoization-safety-properties)
+the-named-named-IS-named-without-explaining-discipline | patterns
+the-named-vocabulary-creation-by-naming | patterns
+the-named-observational-equivalence | patterns
+the-named-Install-section-IS-named-package-discovery (first-explicit-observation; cycle 313) | (see section: endo--packages-memoize-README-md--companion-README-to-cycle-312-source-and-named-memoization-safety-properties)
+two-named-package-manager-commands (npm + yarn) | patterns
+the-named-License-section-IS-named-Apache-2.0 (first-explicit-observation; cycle 313) | (see section: endo--packages-memoize-README-md--companion-README-to-cycle-312-source-and-named-memoization-safety-properties)
+three-cycles-with-named-Apache-2.0-license-confirmation (310 + 311 + 313) | patterns
+six-named-README-sections (first-explicit-observation; cycle 313) | (see section: endo--packages-memoize-README-md--companion-README-to-cycle-312-source-and-named-memoization-safety-properties)
+two-cycles-with-named-README-shape-variation (311 nat + 313 memoize) | patterns
+the-named-shape-IS-named-tailored-to-package-content | patterns
+the-named-cycle-313-IS-the-companion-README-to-cycle-312-source (first-explicit-observation; cycle 313) | (see section: endo--packages-memoize-README-md--companion-README-to-cycle-312-source-and-named-memoization-safety-properties)
+the-named-pattern-recurs-with-distinct-content | patterns
+the-named-shape-recurs-content-varies | patterns
+the-named-stay-discipline-extends-with-each-cycle | patterns
+one-hundred-and-forty-sixth consecutive designs-chat alternation cycles 166-250 + 252-313 (251 was out-of-band) | patterns
+library-reaches-825-sections at cycle 313 (designs-lane @endo/memoize README.md; second instance of source-and-README pair pattern; four-cycle pivot stay) | patterns
