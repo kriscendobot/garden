@@ -9,6 +9,15 @@ Designs authored by garden designer dispatches but not yet committed to `endojs/
 
 ## Current drafts
 
+**2026-06-11 Endo strategy engagement** (maintainer brief; liaison sub-orchestration `32c83f`):
+
+- [resequencing-2026-06.md](./resequencing-2026-06.md) — Workstream A: M3–M11 resequencing proposal for the two-stage O1/O2 objective; 15 proposed gap-design files; old→new mapping table ready to apply on authorization. Maintainer-gated; no ledger edits applied. Designer dispatch `d4cf94`.
+- [prospectus-2026-06.md](./prospectus-2026-06.md) — Workstream B1: supportive-investor prospectus (attenuation moat, staged plan, funding-the-commons). Journalist dispatch `2a3e67`.
+- [bear-brief-2026-06.md](./bear-brief-2026-06.md) — Workstream B2: bear brief; eight objections at full strength with per-objection dispositions and retirement conditions. Journalist dispatch `199b06`.
+- [operators-pitch-2026-06.md](./operators-pitch-2026-06.md) — Workstream B3: operator's pitch (O1 developer audience; practical second person; stage-honesty section). Journalist dispatch `a0a95f`.
+- [hosts-pitch-2026-06.md](./hosts-pitch-2026-06.md) — Workstream B4: host's pitch (O2 community-operator audience; candor register; open problems named from the gap inventory). Journalist dispatch `dd5978`.
+- [road-to-maturity-2026-06.md](./road-to-maturity-2026-06.md) — Workstream C: the synthesis (argument / machine / road / maturity), successor to "A Choice of Giants". **Identity-sensitive: not for publication or attribution until the maintainer explicitly approves.** Journalist dispatch `58f7ba`.
+
 - [exo-import.md](./exo-import.md) — plug-and-play import mechanism using compartment-mapper primitives, Go-style version resolution, snapshot-strict. Authored by designer (dispatch `e3b1aa`, 2026-05-14). Sibling: exo-npm-registry. Open questions surfaced in [`entries/2026/05/14/051353Z-result-designer-e3b1aa.md`](../../../entries/2026/05/14/) and on the bulletin's *Awaits maintainer decision*.
 - [exo-npm-registry.md](./exo-npm-registry.md) — daemon-side capability that captures, indexes, and vends readable-trees for `(npm name, version)` couples; the lookup interface that `exo-import` consumes. Authored by designer (dispatch `e3b1aa`, 2026-05-14). Sibling: exo-import.
 - [ses-import-attributes.md](./ses-import-attributes.md) — propagate JavaScript's import-attributes (`with { type: 'json' }` clause) through normalization → memo-key extension → SES `importHook` signature → source-type multiplex in ModuleSource. JSON in v1; CSS/Wasm deferred. Authored by designer (dispatch `96bd08`, 2026-05-14, priority: medium).
