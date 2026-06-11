@@ -411,6 +411,17 @@ Sources retrieved from public URLs rather than from repository git history. Use 
 | [Let's Encrypt ACME challenge types](web--lets-encrypt-acme-challenges.md) | https://letsencrypt.org/docs/challenge-types/ | 2 | current |
 | [The Update Framework (TUF) specification](web--tuf-specification.md) | https://theupdateframework.io/docs/metadata/ | 1 | current |
 
+## Web essays and surveys
+
+External web content ingested in support of Workstream B (the persuasion suite). These are `source_kind: web-essay` and `source_kind: web-survey` rather than repo doc-file, paper, or comment-fragment sources. Idempotency anchor for web essays is retrieval date plus URL; web surveys list their primary sources in the `notes:` frontmatter. Re-ingest on next scholar cycle if the canonical URL content has materially changed.
+
+| Source | URL | Date | Sections | Status |
+|--------|-----|------|----------|--------|
+| [A Choice of Giants](kriskowal-com--giants.md) | https://kriskowal.com/giants | 2024-02-22 | 1 | current (retrieved 2026-06-11; canonical problem-statement and vocabulary source: user agent, weblet, chat as medium of distribution; essay by Kris Kowal) |
+| [MCP Gateway and Hosting Category Landscape](mcp-landscape--gateway-hosting-category.md) | https://modelcontextprotocol.io/ | 2026-06-11 | 1 | current (multi-source survey; primary sources: MCP spec architecture docs, MCP security best-practices spec, Cloudflare remote MCP developer docs, MCP SDK npm v1.29.0, MCP servers GitHub repo, MCP Safety Audit paper arXiv:2504.03767) |
+| [Object-Capability History: E, CapDesk, Polaris](ocap-history--e-capdesk-polaris.md) | https://erights.org/elang/index.html | 2026-06-11 | 1 | current (synthesized from library's existing Miller papers + Wikipedia E-language article + Waterken project page; erights.org unreachable at retrieval time) |
+| [Mastodon Instance-Operator Burden and Liability](mastodon-docs--operator-burden.md) | https://docs.joinmastodon.org/admin/moderation/ | 2026-06-11 | 1 | current (synthesized from Mastodon admin moderation docs; legal/liability dimension described structurally -- no case-law citations retrieved) |
+
 ## Notes
 
 - Some files have only one commit in `git log` (probably post-rename); their content date may predate the commit date. The pilot ingestion flagged these in per-source `notes:` fields. A future contradiction-check pass should compare pre- and post- rename content if the upstream history is recovered.
