@@ -10596,3 +10596,55 @@ the-named-rotate-after-pair-discipline | patterns
 the-named-package-rotation-discipline | patterns
 one-hundred-and-forty-seventh consecutive designs-chat alternation cycles 166-250 + 252-314 (251 was out-of-band) | patterns
 library-reaches-826-sections at cycle 314 (chat-lane @endo/hex src/encode.js; fifth consecutive @endo/* source; third package) | patterns
+the-named-WebExtension-Native-Messaging-IS-named-target-protocol (first-explicit-observation; cycle 315) | (see section: endo--packages-lp32-README-md--length-prefixed-message-streams-and-WebExtension-Native-Messaging-target)
+the-named-cite-the-named-external-protocol-target | patterns
+the-named-package-IS-named-protocol-implementation | patterns
+three-cycles-with-named-reference-style-Markdown-links (310 + 311 + 315) | patterns
+the-named-32-bit-host-byte-order-discipline (first-explicit-observation; cycle 315) | (see section: endo--packages-lp32-README-md--length-prefixed-message-streams-and-WebExtension-Native-Messaging-target)
+the-named-host-byte-order-IS-named-deliberate | patterns
+the-named-protocol-target-determines-byte-order-discipline (first-explicit-observation; cycle 315) | (see section: endo--packages-lp32-README-md--length-prefixed-message-streams-and-WebExtension-Native-Messaging-target)
+the-named-three-bullet-protocol-description | patterns
+the-named-explicit-simplicity-claim | patterns
+the-named-worked-byte-sequence-example (first-explicit-observation; cycle 315) | (see section: endo--packages-lp32-README-md--length-prefixed-message-streams-and-WebExtension-Native-Messaging-target)
+the-named-byte-level-example-IS-named-evidentiary | patterns
+the-named-show-the-bytes-discipline | patterns
+the-named-little-endian-IS-named-implicit-in-host-byte-order | patterns
+the-named-hello-IS-the-named-canonical-test-message | patterns
+the-named-makeLp32Reader-and-makeLp32Writer-named-pair (first-explicit-observation; cycle 315) | (see section: endo--packages-lp32-README-md--length-prefixed-message-streams-and-WebExtension-Native-Messaging-target)
+the-named-reader-writer-pair-shape | patterns
+the-named-make-prefix-IS-named-factory-shape | patterns
+the-named-async-iterator-IS-named-stream-shape | patterns
+the-named-Uint8Array-IS-named-byte-representation | patterns
+the-named-async-iterator-consumption-via-for-await-of | patterns
+three-named-Reader-options (name + maxMessageLength + initialCapacity) (first-explicit-observation; cycle 315) | (see section: endo--packages-lp32-README-md--length-prefixed-message-streams-and-WebExtension-Native-Messaging-target)
+the-named-name-option-IS-named-for-error-messages | patterns
+the-named-1MB-default-bound | patterns
+two-cycles-with-named-pre-allocation-discipline (314 chars + 315 reader buffer) | patterns
+the-named-Writer-API-shape (`.next(value)` + `.return()`) (first-explicit-observation; cycle 315) | (see section: endo--packages-lp32-README-md--length-prefixed-message-streams-and-WebExtension-Native-Messaging-target)
+the-named-async-iterator-writer-via-next-and-return | patterns
+the-named-explicit-close-via-return | patterns
+the-named-no-implicit-string-bytes-conversion-discipline | patterns
+the-named-round-trip-example-shape (first-explicit-observation; cycle 315) | (see section: endo--packages-lp32-README-md--length-prefixed-message-streams-and-WebExtension-Native-Messaging-target)
+the-named-cross-package-stream-pair-example | patterns
+the-named-package-composition-IS-named-discipline | patterns
+the-named-pipe-IS-named-tuple-of-input-and-output | patterns
+the-named-producer-and-consumer-IS-named-in-comments | patterns
+the-named-API-section-IS-named-formal-parameter-documentation (first-explicit-observation; cycle 315) | (see section: endo--packages-lp32-README-md--length-prefixed-message-streams-and-WebExtension-Native-Messaging-target)
+the-named-Usage-tutorial-and-API-reference-separation | patterns
+the-named-Iterable-or-AsyncIterable-IS-named-flexible-input | patterns
+the-named-Hardened-JavaScript-section (first-explicit-observation; cycle 315) | (see section: endo--packages-lp32-README-md--length-prefixed-message-streams-and-WebExtension-Native-Messaging-target)
+the-named-environment-must-be-locked-down-discipline | patterns
+four-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315) | patterns
+the-named-typically-via-endo-init-IS-named-canonical-locking-mechanism | patterns
+the-named-iterables-also-hardened | patterns
+three-cycles-with-named-six-section-README-shape (311 + 313 + 315) | patterns
+the-named-shape-varies-by-package-content (nat + memoize + lp32) | patterns
+three-cycles-with-named-two-named-package-manager-commands (311 + 313 + 315) | patterns
+four-cycles-with-named-Apache-2.0-license-confirmation (310 + 311 + 313 + 315) | patterns
+six-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314 + 315) | patterns
+the-named-sixth-non-garden-cycle-in-the-pivot | patterns
+four-named-packages-in-the-pivot-cluster (@endo/nat + @endo/memoize + @endo/hex + @endo/lp32) | patterns
+the-named-fourth-package-in-the-pivot-cluster | patterns
+the-named-pivot-IS-named-productive-six-cycles-in | patterns
+one-hundred-and-forty-eighth consecutive designs-chat alternation cycles 166-250 + 252-315 (251 was out-of-band) | patterns
+library-reaches-827-sections at cycle 315 (designs-lane @endo/lp32 README.md; sixth consecutive @endo/* source; fourth package; six-cycle pivot stay) | patterns
