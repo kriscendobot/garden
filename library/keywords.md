@@ -10558,3 +10558,41 @@ the-named-shape-recurs-content-varies | patterns
 the-named-stay-discipline-extends-with-each-cycle | patterns
 one-hundred-and-forty-sixth consecutive designs-chat alternation cycles 166-250 + 252-313 (251 was out-of-band) | patterns
 library-reaches-825-sections at cycle 313 (designs-lane @endo/memoize README.md; second instance of source-and-README pair pattern; four-cycle pivot stay) | patterns
+the-named-polyfill-and-dispatcher-pair-shape (first-explicit-observation; cycle 314) | (see section: endo--packages-hex-src-encode-js--polyfill-and-native-dispatch-pair-and-pre-lockdown-capture)
+the-named-two-named-exports-from-one-module | patterns
+the-named-exported-for-benchmarking | patterns
+the-named-Reflect.apply-captured-at-module-load (first-explicit-observation; cycle 314) | (see section: endo--packages-hex-src-encode-js--polyfill-and-native-dispatch-pair-and-pre-lockdown-capture)
+the-named-Reflect.apply-preferred-over-Function.prototype.call | patterns
+the-named-tamper-resistance-discipline | patterns
+two-cycles-with-named-defensive-binding-via-destructuring (310 + 314) | patterns
+the-named-destructure-from-intrinsic-IS-named-pre-lockdown-capture | patterns
+the-named-belt-and-suspenders-discipline | patterns
+the-named-defense-in-depth-IS-named-explicit | patterns
+the-named-pre-lockdown-binding-capture (first-explicit-observation; cycle 314) | (see section: endo--packages-hex-src-encode-js--polyfill-and-native-dispatch-pair-and-pre-lockdown-capture)
+the-named-mutation-window-closes-discipline | patterns
+the-named-immutable-binding-via-pre-mutation-capture | patterns
+the-named-cast-to-any-to-access-non-spec-prop (first-explicit-observation; cycle 314) | (see section: endo--packages-hex-src-encode-js--polyfill-and-native-dispatch-pair-and-pre-lockdown-capture)
+the-named-feature-detection-via-typeof-function | patterns
+the-named-Stage-4-TC39-proposal-citation (first-explicit-observation; cycle 314) | (see section: endo--packages-hex-src-encode-js--polyfill-and-native-dispatch-pair-and-pre-lockdown-capture)
+four-named-link-classes-now (spec + esdiscuss + tc39-notes + TC39-proposal) | patterns
+the-named-pre-allocate-for-linear-time-discipline (first-explicit-observation; cycle 314) | (see section: endo--packages-hex-src-encode-js--polyfill-and-native-dispatch-pair-and-pre-lockdown-capture)
+the-named-quadratic-anti-pattern-named | patterns
+the-named-explicit-Big-O-in-comment | patterns
+the-named-bitwise-via-shift-and-mask-IS-named-canonical-byte-to-nibble (first-explicit-observation; cycle 314) | (see section: endo--packages-hex-src-encode-js--polyfill-and-native-dispatch-pair-and-pre-lockdown-capture)
+the-named-unsigned-shift-IS-named-explicit-for-clarity | patterns
+the-named-hexAlphabet-IS-named-string-as-lookup-table | patterns
+the-named-eslint-disable-no-bitwise (first-explicit-observation; cycle 314) | (see section: endo--packages-hex-src-encode-js--polyfill-and-native-dispatch-pair-and-pre-lockdown-capture)
+the-named-lowercase-hex-default-with-caller-uppercase-discipline (first-explicit-observation; cycle 314) | (see section: endo--packages-hex-src-encode-js--polyfill-and-native-dispatch-pair-and-pre-lockdown-capture)
+the-named-canonical-form-on-output-caller-discretion-on-format | patterns
+the-named-encodeHex-typed-as-typeof-jsEncodeHex (first-explicit-observation; cycle 314) | (see section: endo--packages-hex-src-encode-js--polyfill-and-native-dispatch-pair-and-pre-lockdown-capture)
+the-named-typeof-IS-named-type-inheritance-via-JSDoc | patterns
+three-named-JSDoc-type-application-shapes (cast-with-parens + type-comment + typeof-reference) | patterns
+two-named-harden-calls-on-exports (first-explicit-observation; cycle 314) | (see section: endo--packages-hex-src-encode-js--polyfill-and-native-dispatch-pair-and-pre-lockdown-capture)
+three-cycles-with-named-canonical-import-harden-shape (312 + 313 + 314) | patterns
+five-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314) | patterns
+the-named-fifth-non-garden-cycle-in-the-pivot | patterns
+three-named-packages-in-the-pivot-cluster (@endo/nat + @endo/memoize + @endo/hex) | patterns
+the-named-rotate-after-pair-discipline | patterns
+the-named-package-rotation-discipline | patterns
+one-hundred-and-forty-seventh consecutive designs-chat alternation cycles 166-250 + 252-314 (251 was out-of-band) | patterns
+library-reaches-826-sections at cycle 314 (chat-lane @endo/hex src/encode.js; fifth consecutive @endo/* source; third package) | patterns
