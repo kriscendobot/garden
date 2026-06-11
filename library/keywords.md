@@ -9060,3 +9060,48 @@ docker self-hosting endo | (see section: endo-but-for-bots--llm-designs-daemon-d
 MCP protocol stateless | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
 MCP release candidate 2026 | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
 endoclaw-network-fetch design | (see section: endo-but-for-bots--llm-designs-endoclaw-network-fetch--HttpClient-HttpClientControl-two-facets-and-structural-origin-allowlist-and-rate-limit-and-max-response-bytes-and-no-ambient-DNS-or-socket-and-substrate-for-OAuth)
+AWS Marketplace | cloud-marketplace
+AMI product requirements | cloud-marketplace
+container product requirements | cloud-marketplace
+MeterUsage API | cloud-marketplace
+RegisterUsage API | cloud-marketplace
+Metering Service | cloud-marketplace
+HVM virtualization | cloud-marketplace
+EBS-backed AMI | cloud-marketplace
+hardcoded credentials | cloud-marketplace
+AMI scanning | cloud-marketplace
+Limited state (marketplace listing) | cloud-marketplace
+hourly-annual pricing | cloud-marketplace
+contract pricing (marketplace) | cloud-marketplace
+custom metering dimensions | cloud-marketplace
+Paid Usage model | cloud-marketplace
+ACME | tls-provisioning
+HTTP-01 challenge | tls-provisioning
+DNS-01 challenge | tls-provisioning
+TLS-ALPN-01 challenge | tls-provisioning
+Let's Encrypt | tls-provisioning
+DNS-PERSIST-01 | tls-provisioning
+CNAME delegation (acme-challenge) | tls-provisioning
+vendor-delegated subdomain | tls-provisioning
+trust-on-first-use | tls-provisioning
+TOFU certificate | tls-provisioning
+first-boot ceremony (TLS) | tls-provisioning
+_acme-challenge TXT record | tls-provisioning
+wildcard certificate | tls-provisioning
+DNS propagation delay | tls-provisioning
+The Update Framework | signed-updates
+TUF | signed-updates
+root.json | signed-updates
+targets.json | signed-updates
+snapshot.json | signed-updates
+timestamp.json | signed-updates
+online key (TUF) | signed-updates
+offline key (TUF) | signed-updates
+rollback attack | signed-updates
+freeze attack | signed-updates
+mix-and-match attack | signed-updates
+threshold signatures (TUF) | signed-updates
+delegated targets (TUF) | signed-updates
+Phase 11 OS packaging | node-packaging
+marketplace listing (Endo gateway) | node-packaging
+upgrade channel (Endo node) | node-packaging

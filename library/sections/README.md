@@ -1353,4 +1353,22 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 - endo--packages-zip-src-format-writer-js--{three-stage-pipeline-encode-compress-make-record-and-DOS-date-bit-packing-and-LocalFileLocator-with-three-offsets-and-FileRecord-extends-ArchiveHeaders}
 
-## Total: 800 sections from 340 source documents (through 2026-06-11).
+### From web: AWS Marketplace AMI requirements (scholar ingest 2026-06-11; 2 sections covering security/architecture hardening rules and pricing models + listing review timeline)
+
+- [web--aws-marketplace-ami-requirements--technical-security](web--aws-marketplace-ami-requirements--technical-security.md)
+- [web--aws-marketplace-ami-requirements--pricing-and-listing](web--aws-marketplace-ami-requirements--pricing-and-listing.md)
+
+### From web: AWS Marketplace container product requirements (scholar ingest 2026-06-11; 1 section covering container security, ECR push, ECS/EKS billing integration via MeterUsage/RegisterUsage APIs)
+
+- [web--aws-marketplace-container-requirements--technical-security](web--aws-marketplace-container-requirements--technical-security.md)
+
+### From web: Let's Encrypt ACME challenge types (scholar ingest 2026-06-11; 2 sections covering HTTP-01/DNS-01/TLS-ALPN-01 comparison and four first-boot TLS provisioning patterns for marketplace-deployed self-custodial nodes)
+
+- [web--acme-challenge-types--http01-dns01-tls-alpn01](web--acme-challenge-types--http01-dns01-tls-alpn01.md)
+- [web--tls-first-boot-patterns--vendor-delegated-and-tofu](web--tls-first-boot-patterns--vendor-delegated-and-tofu.md)
+
+### From web: The Update Framework (TUF) specification (scholar ingest 2026-06-11; 1 section covering TUF role hierarchy, online/offline key discipline, rollback-attack defense, and always-online node deployment pattern)
+
+- [web--tuf-signed-update-framework--overview](web--tuf-signed-update-framework--overview.md)
+
+## Total: 806 sections from 344 source documents (through 2026-06-11, scholar web-ingest for Endo strategy Workstream A).

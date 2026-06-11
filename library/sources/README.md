@@ -400,6 +400,17 @@ Roughly grouped by priority. The full file inventory was captured during the pil
 Auto-generated content not for ingestion:
 - `CHANGELOG.md` files (47): one per package; per-package change history. Out-of-scope for the library; the upstream files remain the source of truth.
 
+## External web sources
+
+Sources retrieved from public URLs rather than from repository git history. Use `source_kind: web` schema; idempotency anchor is the `source_url` and `source_date` (web pages do not have git SHAs). These sources were ingested in the scholar's one-shot directed engagement for Endo Workstream A (2026-06-11).
+
+| Source | URL | Sections | Status |
+|--------|-----|----------|--------|
+| [AWS Marketplace AMI requirements](web--aws-marketplace-ami-requirements.md) | https://docs.aws.amazon.com/marketplace/latest/userguide/product-and-ami-policies.html | 2 | current |
+| [AWS Marketplace container product requirements](web--aws-marketplace-container-requirements.md) | https://docs.aws.amazon.com/marketplace/latest/userguide/container-product-policies.html | 1 | current |
+| [Let's Encrypt ACME challenge types](web--lets-encrypt-acme-challenges.md) | https://letsencrypt.org/docs/challenge-types/ | 2 | current |
+| [The Update Framework (TUF) specification](web--tuf-specification.md) | https://theupdateframework.io/docs/metadata/ | 1 | current |
+
 ## Notes
 
 - Some files have only one commit in `git log` (probably post-rename); their content date may predate the commit date. The pilot ingestion flagged these in per-source `notes:` fields. A future contradiction-check pass should compare pre- and post- rename content if the upstream history is recovered.
