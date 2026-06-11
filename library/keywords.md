@@ -9790,3 +9790,111 @@ three-cycles-with-named-`---` YAML-frontmatter-with-three-fields (299 + 301 + 30
 the-named-seven-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302) | patterns
 one-hundred-and-thirty-fifth consecutive designs-chat alternation cycles 166-250 + 252-302 (251 was out-of-band) | patterns
 library-reaches-814-sections at cycle 302 (chat-lane garden skills/library-lookup; first chat-lane after the six-cycle bridge) | patterns
+the-named-role-specific-orchestrator-instructions-shape (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+four-named-document-tiers-realized (CLAUDE.md + COMMON.md + AGENT.md + SKILL.md) | patterns
+the-named-pattern-of-completeness (four tiers fully instantiated across cycles 299 + 301 + 303 + 302) | patterns
+the-named-extreme-self-referential-shape (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+two-cycles-with-named-recursive-self-reference (302 + 303) | patterns
+the-named-AGENT.md-IS-distinct-from-SKILL.md (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+two-distinct-prescribed-shapes-for-AGENT-and-SKILL | patterns
+the-named-canonical-shape-IS-the-named-minimum-not-the-maximum | patterns
+the-named-elaboration-beyond-the-minimum | patterns
+nine-named-sections-actually (opening-purpose + Posture + Skills + Posting-jobs + Researcher-precedence + Vocabulary-the-gamut + Vocabulary + Operating-norms + Done) | patterns
+the-named-liaison-IS-the-user-facing-agent (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-liaison-IS-the-only-role-that-talks-to-the-user | patterns
+the-named-meta-domain-discipline | patterns
+the-named-meta-vs-object-distinction-at-the-role-level | patterns
+the-named-two-postures-divide-one-job-by-trust-posture (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-trust-posture-binary | patterns
+the-named-cautious-restraint-discipline | patterns
+the-named-constraint-precedes-autonomy | patterns
+the-named-concurrent-stewards-IS-the-named-standard-shape-for-work-distribution (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-coordination-without-a-coordinator | patterns
+the-named-general-contractor-retirement-IS-named-explicitly (2026-06-03 direct maintainer quote) | patterns
+the-named-deterministic-infrastructure-replaces-LLM-posture | patterns
+the-named-direct-quote-IS-named-authoritative-anchor | patterns
+five-named-liaison-discretions (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-because-it-can-do-all-of-this-it-asks-before-doing-most-of-it | patterns
+the-named-asks-before-doing-discipline | patterns
+the-named-propose-and-confirm-discipline | patterns
+the-named-user-IS-in-the-loop | patterns
+three-named-liaison-skills (journal-sync + inbox-drain + job-board) (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-skill-roster-IS-named-in-the-role-file | patterns
+the-named-roster-declaration-vs-on-demand-loading | patterns
+the-named-inbox-drain-IS-gated-on-user-authorization | patterns
+the-named-2026-05-18-channel-split (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-channel-split-IS-named-by-date | patterns
+the-named-dated-policy-shape | patterns
+two-cycles-with-named-2026-05-18-dated-defaults (299 + 303) | patterns
+the-named-producer-consumer-vs-directed-distinction | patterns
+five-named-pieces-of-a-job-posting (verb + target + eligible_roles + authorizations + body) (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-explicit-default-discipline (eligible-default = steward) | patterns
+the-named-path-encodes-eligibility (driver-lane subdirs) | patterns
+two-cycles-with-named-stdout-as-return-value (298 + 303) | patterns
+four-named-residual-inbox-patterns (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-inbox-vs-job-board-discrimination-shape | patterns
+the-named-act-vs-read-discrimination-question | patterns
+the-named-channel-capability-asymmetry (broadcast IS job-board-incapable) | patterns
+the-named-researcher-precedence-on-designer-and-builder-dispatches (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-precedence-rule | patterns
+the-named-curated-citations-precede-cold-library-walk | patterns
+four-named-precedence-trigger-points (direct designer + direct builder + design-to-PR-pipeline + job-board claim) | patterns
+six-named-exclusions-from-the-precedence (fixer + weaver + shepherd + conductor + judge + panel-juror) | patterns
+two-named-skip-justifications (refined-output + chain-continuation) | patterns
+the-named-skipping-IS-named-with-named-recording-discipline | patterns
+the-named-explicit-wall-time-target-for-a-role (1-3 minutes for researcher) | patterns
+the-named-time-bound-IS-named-discipline-not-just-observation | patterns
+the-named-the-gamut-IS-the-named-compound-chain-idiom (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+seven-named-stages-in-the-gamut (builder + cleaner + judge-first-round + fixer + judge-re-run + appellate + un-draft) | patterns
+the-named-state-machine-IS-named-by-stage-name | patterns
+three-named-anti-misreadings-of-the-gamut | patterns
+the-named-anti-pattern-naming-discipline | patterns
+the-named-same-procedure-distinct-cadence-shape (liaison sequential-in-one-turn + steward across-cycles) | patterns
+seven-named-vocabulary-tables (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-broader-vocabulary-than-CLAUDE.md | patterns
+the-named-CLAUDE.md-IS-the-glossary-and-AGENT.md-IS-the-complete-vocabulary | patterns
+the-named-shorthand-vs-full-vocabulary-distinction | patterns
+fifteen-named-direct-dispatch-verb-rows (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-multi-phrase-per-row | patterns
+five-named-disambiguation-pairs (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-disambiguation-as-named-pedagogy | patterns
+the-named-context-clues-named-explicitly | patterns
+the-named-ask-on-ambiguity-discipline | patterns
+the-named-rsvp-vocabulary (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-shortest-synonym | patterns
+the-named-bare-verb-IS-context-recognized | patterns
+the-named-implicit-argument-from-context | patterns
+nineteen-named-operating-norms (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-future-sessions-will-read-your-journal-entries | patterns
+the-named-cross-session-continuity-via-the-journal | patterns
+the-named-one-question-honored-for-the-whole-session | patterns
+the-named-anti-repeat-question-discipline | patterns
+the-named-anti-speed-bias | patterns
+two-named-correct-discharges (continue-chain-in-session OR hand-off-to-steward-scan) | patterns
+the-named-discipline-violation-IS-neither (orphaning the PR) | patterns
+the-named-chaining-IS-the-orchestrator-not-the-stage | patterns
+the-named-inline-answer-vs-dispatch-discrimination | patterns
+the-named-meta-evolution-measurement-discipline | patterns
+the-named-no-comments-on-primary-repos-under-the-kriskowal-identity (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-kriskowal-identity-IS-named-maintainer-weight | patterns
+the-named-maintainer-weight-IS-reserved-for-three-actions (reviews + approvals + merges) | patterns
+the-named-comments-belong-to-the-bot | patterns
+the-named-identity-routing-via-the-message-bus | patterns
+the-named-comment-delegation-shape | patterns
+the-named-primary-vs-garden-repos-distinction | patterns
+four-step-translate-user-prompts-to-a-role (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+the-named-active-library-first-discipline | patterns
+the-named-adoption-precedes-dispatch | patterns
+the-named-reference-IS-named-read-material-not-executable | patterns
+the-named-Done-section-IS-named-explicit-turn-end-shape (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+two-acceptable-turn-ends (user-has-what-they-asked-for + work-dispatched-journaled-clear-expectation) | patterns
+the-named-anti-silence-discipline | patterns
+six-cycles-with-named-role-as-author-shape (281 + 297 + 299 + 301 + 302 + 303) | patterns
+four-cycles-with-named-`---` YAML-frontmatter-with-three-fields (299 + 301 + 302 + 303) | patterns
+the-named-cycle-303-IS-the-named-eighth-garden-source-and-the-self-referential-ingest-of-its-own-role-file (first-explicit-observation; cycle 303) | (see section: garden--roles-liaison-AGENT-md--eighth-garden-source-and-role-specific-orchestrator-instructions)
+eight-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300 + 301 + 302 + 303) | patterns
+eight-named-shapes-of-garden-self-documentation (proposed-design + standing-reference + implementation-source + project-instructions + operational-daemon-control + standing-subagent-instructions + skill-procedural-playbook + role-specific-orchestrator-instructions) | patterns
+the-named-eight-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303) | patterns
+two-named-standing-exceptions-acknowledged (cycle 301 from WORKTREES + cycle 303 in liaison norms) | patterns
+one-hundred-and-thirty-sixth consecutive designs-chat alternation cycles 166-250 + 252-303 (251 was out-of-band) | patterns
+library-reaches-815-sections at cycle 303 (designs-lane garden roles/liaison/AGENT.md; first designs-lane after the seven-cycle bridge) | patterns
