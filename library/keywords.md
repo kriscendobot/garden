@@ -8856,3 +8856,50 @@ the-named-shell-and-state-shape | (see section: endo--packages-zip-src-buffer-wr
 the-zip-cluster-source-file-deep-ingest-progresses (8 of 12 files now per-file ingested) | patterns
 one-hundred-and-twenty-third consecutive designs-chat alternation cycles 166-250 + 252-290 (251 was out-of-band) | patterns
 library-reaches-796-sections at cycle 290 (chat-lane @endo/zip/src/buffer-writer.js per-file deep ingest) | patterns
+draft standalone SES spec | (see source: endo--pkg-ses-docs-draft-standalone-spec)
+standalone SES | (see source: endo--pkg-ses-docs-draft-standalone-spec)
+SES IoT context | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+SES blockchain context | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+vetted customization code | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+shared globals SES | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+shared intrinsics SES | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+Realm.makeCompartment | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+Realm.makeRootRealm | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+ROM-able shared intrinsics | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-"Draft Spec"-genre-as-named-tentativeness-marker (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+three-cycles-with-named-tentativeness-marker-locations (263 prose-hedge + 288 code-comment + 291 document-title) | patterns
+the-IoT-vs-blockchain-as-named-runtime-context-pair (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-shorthand-definition-disclaimer (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-`## Omissions and Simplifications`-section-as-named-subtractive-spec-discipline (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-spec-as-named-delta-from-a-reference-spec | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+nine-named-omissions (sloppy + non-ES2018 + import() + Annex B + RegExp statics + Math.random + Date forms + Intl + Function constructors via .constructor) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-three-named-Date-constructor-variants-all-block (first-explicit-observation; cycle 291; Date.now + new Date + Date()) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+two-named-sources-of-non-determinism (random + clock; first-explicit-observation; cycle 291) | patterns
+the-non-determinism-IS-the-named-attack-vector-for-replicated-computation | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-shared-globals-and-shared-intrinsics-named-definitions (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-`## Additions`-section-as-named-additive-spec-discipline (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-Omissions-and-Additions-pair-of-named-sections | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-feature-detection-via-property-presence (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-vetted-customization-code-named-stage (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+two-named-stages-in-SES-startup (vetted-customization + frozen-runtime) | patterns
+the-trust-IS-front-loaded-to-the-vetted-stage | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-shopkeeper-analogy as named-domain-shift discipline (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+three-named-analogue-mappings (shopkeeper/host + shop-preparation/vetted-customization + opening-the-doors/the-freeze) | patterns
+the-build-time-vs-runtime-mapping for IoT (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+three-named-instantiations-of-the-same-pre-freeze-vs-post-freeze-stage (JS-engine + everyday-shop + IoT-lifecycle) | patterns
+the-named-cross-domain-stage-mapping | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-frozen-shared-intrinsics-IS-ROM-able (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-named-ROM-ability-property | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-`Function !== Function.prototype.constructor`-invariant (first-explicit-observation; cycle 291; stated as equation) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-spec-states-its-counter-intuitive-claims-as-equations | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-`TBD:`-section-as-named-open-questions-list (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+three-cycles-with-named-open-questions-section-shapes (283 + 287 + 291) | patterns
+three-named-shapes-for-open-questions (Open-Questions + Resolved-by-review + TBD) | patterns
+the-`## Work in Progress`-section-as-named-deferred-topic-marker (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+three-named-SES-variants (Full + Standalone + Stage-separated; first-explicit-observation; cycle 291) | patterns
+the-named-multi-variant-discipline | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-direct-eval-syntax-low-priority-named-omission (first-explicit-observation; cycle 291) | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+the-named-early-error-discipline | (see section: endo--pkg-ses-docs-draft-standalone-spec--Math-Date-omissions-and-vetted-customization-stage-and-shopkeeper-analogy-and-IoT-vs-blockchain-as-runtime-context-pair)
+four-cycles-with-no-metadata-table-shape (285 + 287 + 289 + 291) | patterns
+one-hundred-and-twenty-fourth consecutive designs-chat alternation cycles 166-250 + 252-291 (251 was out-of-band) | patterns
+library-reaches-797-sections at cycle 291 (designs-lane draft-standalone-spec) | patterns
