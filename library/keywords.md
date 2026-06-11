@@ -10176,3 +10176,81 @@ the-named-eleven-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 3
 the-named-zero-dependency-coordination-IS-named-realized-in-the-jobs-board-implementation | patterns
 one-hundred-and-thirty-ninth consecutive designs-chat alternation cycles 166-250 + 252-306 (251 was out-of-band) | patterns
 library-reaches-818-sections at cycle 306 (chat-lane garden journal/jobs/README.md; the second journal-branch source) | patterns
+the-named-orchestrator-pair-IS-now-fully-realized (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+two-cycles-with-named-role-specific-orchestrator-instructions (303 + 307) | patterns
+the-named-shape-extension-vs-shape-addition-distinction (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-autonomous-counterpart-to-the-liaison (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-no-user-in-the-loop-discipline | patterns
+six-named-steward-cycle-phases (wake + survey + dispatch + journal + schedule + exit) | patterns
+the-named-bounded-authority-by-design | patterns
+six-named-must-nots-of-the-steward (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-explicit-negative-discretion-list | patterns
+the-named-positive-vs-negative-discretion-pair (303 + 307) | patterns
+the-named-discretions-and-must-nots-IS-named-mirror-pair-across-the-pair | patterns
+five-named-mays-of-the-steward (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+seven-named-steward-skills (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-skill-roster-IS-named-asymmetric-across-the-pair | patterns
+the-named-conditional-vs-unconditional-skill-invocation-across-the-pair | patterns
+the-named-safety-by-construction-IS-named-the-authorization-substitute | patterns
+the-named-canonical-call-site-discipline | patterns
+the-named-write-report-not-commit-discipline | patterns
+the-named-workspace-presence-job-board-three-piece-composition (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+three-named-composition-pieces-for-the-clear-survival-posture | patterns
+three-named-workspace-check-steps (pwd + branch + sync) (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-drift-escalates-via-message-and-refuses-to-act | patterns
+eight-named-presence-frontmatter-fields (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-presence-file-IS-the-named-durable-breadcrumb-for-/clear-re-anchoring | patterns
+the-named-90-seconds-IS-named-heartbeat-default | patterns
+two-named-cadence-defaults-in-the-garden (30s daemons + 90s heartbeat) | patterns
+the-named-presence-IS-named-self-anchoring-not-named-routing | patterns
+three-named-claim-disciplines (frontmatter-only read + re-check eligibility + opportunistic concurrency) (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-frontmatter-only-read-discipline | patterns
+the-named-body-verbatim-forwarding | patterns
+the-named-routing-without-reading-the-payload-discipline | patterns
+the-named-one-claim-per-cycle-IS-named-steady-state | patterns
+eight-named-per-job-lifecycle-steps (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-per-job-substance-IS-confined-to-the-dispatch-context | patterns
+the-named-context-isolation-by-construction | patterns
+four-named-parent-context-Monitors (daemon-log tail + inbox-drain + @-mention surveillance + job-board tail) (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-Monitor-IS-named-real-time-vs-cycle-delayed | patterns
+three-named-precipitating-incidents | patterns
+the-named-per-cycle-re-arm-discipline | patterns
+the-named-path-fallback-discipline-for-wrapped-skill-scripts (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-canonical-then-legacy-fallback-shape | patterns
+the-named-rebase-mid-tree-state-defense | patterns
+the-named-silent-not-loud-with-out-of-band-escalation-discipline | patterns
+the-named-discipline-IS-named-with-named-provenance | patterns
+the-named-issue-surveillance-IS-first-class-signal (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-loud-floor | patterns
+the-named-standing-principle-vs-per-repo-bespoke-distinction | patterns
+three-cycles-with-named-monitor-garden-asymmetry-or-equivalent (299 + 301 + 307) | patterns
+six-named-operational-flake-steps (detect + broadcast + resilience-PR + merge + retire + validate) (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+three-named-components-of-the-retirement-transaction (name-the-broadcast + enumerate-affected-PRs + re-run-failed-CI) | patterns
+the-named-transaction-IS-named-atomic-not-streamed | patterns
+the-named-step-5c-IS-named-the-precipitating-missing-step | patterns
+the-named-shepherd-to-fixer-auto-pickup-chain (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-subordinate-verdict-IS-the-authorization-signal | patterns
+the-named-one-role-hop-discipline | patterns
+the-named-classification-discriminates-fixer-vs-deeper-problem | patterns
+the-named-maintainer-correction-precipitates-the-encoded-rule | patterns
+the-named-parked-followup-revisit (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+five-named-parked-followup-revisit-steps | patterns
+three-named-PR-state-outcomes (MERGED + CLOSED + OPEN) | patterns
+the-named-merge-triggers-actioning-of-deferred-followups | patterns
+twenty-three-named-subordinate-roles (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-steward-dispatches-more-roles-than-the-liaison | patterns
+the-named-three-judge-pattern (PR-stage-determines-which-judge) | patterns
+two-named-autonomous-loop-roles-in-the-garden (scholar + steward) | patterns
+the-named-evaluator-IS-named-NOT-dispatched-by-the-steward | patterns
+the-named-jury-fixer-loop-IS-named-explicit-loop-construct | patterns
+the-named-loop-IS-named-orchestrator-managed-not-stage-managed | patterns
+seven-cycles-with-named-role-as-author-shape (281 + 297 + 299 + 301 + 302 + 303 + 307) | patterns
+five-cycles-with-named-`---` YAML-frontmatter-with-three-fields (299 + 301 + 302 + 303 + 307) | patterns
+the-named-multi-role-author-count-varies-by-role (303 two-role + 307 three-role) | patterns
+the-named-cycle-307-completes-the-orchestrator-pair-IS-explicit (first-explicit-observation; cycle 307) | (see section: garden--roles-steward-AGENT-md--twelfth-garden-source-and-orchestrator-pair-completes)
+the-named-pair-IS-named-complete | patterns
+the-named-orchestrator-pair-IS-named-foundational | patterns
+twelve-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305 + 306 + 307) | patterns
+the-named-twelve-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305 + 306 + 307) | patterns
+one-hundred-and-fortieth consecutive designs-chat alternation cycles 166-250 + 252-307 (251 was out-of-band) | patterns
+library-reaches-819-sections at cycle 307 (designs-lane garden roles/steward/AGENT.md; the second role file completes the orchestrator pair) | patterns
