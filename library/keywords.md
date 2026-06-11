@@ -10648,3 +10648,73 @@ the-named-fourth-package-in-the-pivot-cluster | patterns
 the-named-pivot-IS-named-productive-six-cycles-in | patterns
 one-hundred-and-forty-eighth consecutive designs-chat alternation cycles 166-250 + 252-315 (251 was out-of-band) | patterns
 library-reaches-827-sections at cycle 315 (designs-lane @endo/lp32 README.md; sixth consecutive @endo/* source; fourth package; six-cycle pivot stay) | patterns
+the-named-DataView-and-TypedArray-byte-order-asymmetry (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-two-classes-of-JS-binary-views-with-opposite-default-byte-orders | patterns
+the-named-protocol-target-determined-byte-order-implemented-via-explicit-endianness-argument (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-two-layer-factory-with-hidden-generator (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-private-generator-and-public-factory-pair | patterns
+the-named-thin-wrapper-exposes-harden | patterns
+the-named-async-generator-not-arrow-because-generator (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-private-generator-still-hardened | patterns
+the-named-double-harden-on-factory-and-generator-object (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-harden-the-result-and-harden-the-producer | patterns
+the-named-three-options-with-numeric-defaults (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-1MB-default-as-inline-comment (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-name-default-IS-named-unknown-bracketed-placeholder | patterns
+the-named-1024-byte-initial-capacity-default | patterns
+the-named-Math.max-floor-on-initialCapacity (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-defensive-minimum-floor | patterns
+the-named-clamp-to-protocol-minimum | patterns
+the-named-callers-cannot-undercut-the-protocol-prefix-size | patterns
+the-named-geometric-buffer-growth (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-double-when-full-discipline | patterns
+the-named-geometric-growth-amortization | patterns
+the-named-while-not-if-because-one-double-may-be-insufficient (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-DataView-must-be-rebuilt-on-resize (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-DataView-binding-IS-named-eager | patterns
+the-named-rebind-on-buffer-replacement-discipline | patterns
+the-named-shared-buffer-between-Uint8Array-and-DataView (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-two-views-one-buffer | patterns
+the-named-buffer-as-shared-substrate | patterns
+the-named-typed-view-for-typed-read-untyped-view-for-byte-copy | patterns
+the-named-drain-loop-on-each-arrival (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-pull-drain-pattern | patterns
+the-named-amortize-multiple-messages-per-arrival | patterns
+the-named-length-greater-than-or-equal-to-4-IS-named-prefix-fits | patterns
+the-named-Fail-via-q-tagged-template-literal (first-explicit-observation as named pattern; cycle 316; the @endo/errors idiom appears throughout but named here) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-short-circuit-Fail-discipline | patterns
+the-named-q-for-value-quoting | patterns
+the-named-tagged-template-as-error-shape | patterns
+the-named-message-includes-named-stream-name (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-yield-a-copy-not-a-view (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-slice-not-subarray-for-isolation | patterns
+the-named-allocate-on-yield-discipline | patterns
+the-named-share-the-buffer-internally-isolate-on-yield | patterns
+the-named-copyWithin-for-in-place-shift (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-no-new-allocation-on-buffer-compaction | patterns
+the-named-buffer-recycled-not-replaced | patterns
+the-named-only-allocate-on-yield-not-on-compaction | patterns
+the-named-absolute-offset-only-for-error-context (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-tracking-variable-only-for-diagnostics | patterns
+the-named-error-message-pays-for-the-tracking | patterns
+the-named-named-stream-cursor-IS-named-debug-aid | patterns
+the-named-trailing-bytes-fail-noisy (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-fail-loud-on-incomplete-trailing-bytes | patterns
+the-named-stream-ends-cleanly-only-on-message-boundary | patterns
+the-named-truncation-IS-named-detected | patterns
+the-named-cross-package-type-reference-via-import-string (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+the-named-JSDoc-cross-package-type | patterns
+the-named-Reader-IS-named-stream-package-protocol-shape | patterns
+the-named-Uint8Array-and-void-IS-named-payload-and-return-type-parameters | patterns
+seven-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314 + 315 + 316) | patterns
+the-named-reverse-pair-shape (cycle 315 README → cycle 316 source) | patterns
+three-shapes-of-pair-discipline (regular 310-311 + 312-313 + reverse 315-316 + orphan-singleton 314) | patterns
+the-named-regular-pair-shape (src first then README; 310-311 + 312-313) | patterns
+the-named-orphan-singleton-shape (cycle 314 hex source without same-cycle pair) | patterns
+five-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316) | patterns
+three-cycles-with-named-pre-allocation-discipline (314 + 315 + 316) | patterns
+seven-cycles-with-named-harden-call-on-exports | patterns
+the-named-harden-call-IS-named-canonical-export-shape | patterns
+the-named-source-and-README-cross-reference-IS-named-pair-shape-marker (first-explicit-observation; cycle 316) | (see section: endo--packages-lp32-reader-js--makeLp32Reader-and-DataView-byte-order-asymmetry)
+one-hundred-and-forty-ninth consecutive designs-chat alternation cycles 166-250 + 252-316 (251 was out-of-band) | patterns
+library-reaches-828-sections at cycle 316 (chat-lane @endo/lp32 reader.js; seventh consecutive @endo/* source; fourth package extends; reverse-pair shape established; cross-references cycle 243 host-endian.js) | patterns
