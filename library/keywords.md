@@ -9898,3 +9898,69 @@ the-named-eight-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303) | p
 two-named-standing-exceptions-acknowledged (cycle 301 from WORKTREES + cycle 303 in liaison norms) | patterns
 one-hundred-and-thirty-sixth consecutive designs-chat alternation cycles 166-250 + 252-303 (251 was out-of-band) | patterns
 library-reaches-815-sections at cycle 303 (designs-lane garden roles/liaison/AGENT.md; first designs-lane after the seven-cycle bridge) | patterns
+the-named-per-feed-watcher-stub-shape (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-quadruple-claim-and-single-realization (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-multi-cycle-claim-converges-to-single-realization-cycle | patterns
+the-named-stub-IS-named-deliberate-not-incomplete | patterns
+the-named-numbered-phase-discipline (Phase 1 + Phase 2-5) | patterns
+five-named-contract-steps (poll + classify + route + reactji + self-heal) (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-stub-IS-named-contract-bearer | patterns
+the-named-deferred-contract-marker | patterns
+six-named-event-types (push + review submission + comment + label + assigned-issue + CI status) (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-eyes-reactji-discipline (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-acknowledgment-before-routing | patterns
+the-named-deterministic-reactji | patterns
+the-named-typographic-emphasis-on-temporal-ordering | patterns
+the-named-per-host-per-lane-subscription-file (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+two-axis-subscription-file-name (host + lane) | patterns
+the-named-non-markdown-extension-discipline | patterns
+the-named-event-log-path-shape (`journal/events/<repo>--<pr>.log`) (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+two-cycles-with-named-double-dash-separator-discipline (297 + 304) | patterns
+the-named-`--`-IS-the-named-garden-wide-pair-separator | patterns
+the-named-`.log`-extension-IS-named-append-only-log | patterns
+the-named-fallback-to-job-board-when-no-subscriber (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+two-named-routing-targets (per-PR event log + open job board) | patterns
+the-named-broadcast-via-job-board-fallback | patterns
+the-named-driver-vs-steward-claim-distinction | patterns
+the-named-self-heal-via-systemd-Restart-on-failure (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-systemd-policy-as-named-resilience-mechanism | patterns
+the-named-rely-on-the-runtime-for-recovery | patterns
+two-named-failure-classes-with-named-distinct-handling (transient + persistent) | patterns
+the-named-escalation-to-gardener-inbox (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-escalation-via-named-skill | patterns
+the-named-implementation-points-at-named-skill | patterns
+four-named-environment-overrides (GARDEN_ROOT + GARDEN_JOURNAL + GARDEN_HOST + FEED_POLL_SECONDS) (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-defaults-are-named-pedagogical | patterns
+the-named-stub-IS-honest-about-honoring-only-one-env | patterns
+the-named-honest-stub-discipline | patterns
+the-named-30-seconds-IS-named-feed-poll-default | patterns
+three-cycles-with-named-script-location-discovery-shapes (298 single-level + 300 decomposed + 304 three-deep) (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-depth-encodes-nesting | patterns
+the-named-deep-script-location-discovery | patterns
+two-named-script-location-variable-names (SCRIPT_DIR + SCRIPT_PATH) | patterns
+the-named-`${VAR:-default}`-bash-default-substitution (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+three-cycles-with-named-bash-parameter-expansion-discipline (298 + 300 + 304) | patterns
+two-cycles-with-`set -uo pipefail`-WITHOUT-`-e` (300 + 304) | patterns
+two-named-strictness-tiers-by-script-cluster (dispatch with -e + daemons/watcher without -e) | patterns
+the-named-parameterized-prefix-shape (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+three-named-prefix-shapes (298 no-prefix + 300 simple-prefix + 304 parameterized-prefix) | patterns
+the-named-three-fold-instance-encoding (systemd template + bash constant + log prefix) | patterns
+three-named-pointer-references-in-the-docstring (feed-inventory + feed-specifics + design-rationale) (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+two-cycles-with-named-design-and-implementation-cross-reference-pair (281 + 304) | patterns
+the-named-design-pointer-from-implementation-stub | patterns
+the-named-FEED_SLUG-named-as-constant-not-derived (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-explicit-feed-identity | patterns
+the-named-Phase-1-stub-IS-named-end-to-end-exercise-before-implementation (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-end-to-end-exercise-before-implementation-discipline | patterns
+the-named-plumbing-first-substance-later | patterns
+the-named-vertical-slice-IS-named-validatable-before-horizontal-completion | patterns
+the-named-exit-0-clean-exit (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+the-named-stub-exits-cleanly-not-with-error | patterns
+the-named-deliberate-no-op-IS-named-exit-zero | patterns
+the-named-stub-IS-named-vertical-slice-realization | patterns
+the-named-cycle-304-IS-the-named-ninth-garden-source-and-the-named-stub-implementation (first-explicit-observation; cycle 304) | (see section: garden--scripts-watcher-endo-but-for-bots-watcher-sh--ninth-garden-source-and-named-phase-1-stub-shape)
+nine-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304) | patterns
+nine-named-shapes-of-garden-self-documentation (proposed-design + standing-reference + implementation-source + project-instructions + operational-daemon-control + standing-subagent-instructions + skill-procedural-playbook + role-specific-orchestrator-instructions + per-feed-watcher-stub) | patterns
+the-named-nine-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304) | patterns
+one-hundred-and-thirty-seventh consecutive designs-chat alternation cycles 166-250 + 252-304 (251 was out-of-band) | patterns
+library-reaches-816-sections at cycle 304 (chat-lane garden scripts/watcher/endo-but-for-bots/watcher.sh; first chat-lane after the eight-cycle bridge) | patterns
