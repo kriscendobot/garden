@@ -10321,3 +10321,35 @@ thirteen-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300 + 30
 the-named-thirteen-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305 + 306 + 307 + 308) | patterns
 one-hundred-and-forty-first consecutive designs-chat alternation cycles 166-250 + 252-308 (251 was out-of-band) | patterns
 library-reaches-820-sections at cycle 308 (chat-lane garden skills/self-improvement/SKILL.md; second shape-extension) | patterns
+the-named-design-index-catalog-shape (first-explicit-observation; cycle 309) | (see section: garden--designs-README-md--fourteenth-garden-source-and-design-index-catalog-shape)
+the-named-shape-addition-mode-resumes (first-explicit-observation; cycle 309) | (see section: garden--designs-README-md--fourteenth-garden-source-and-design-index-catalog-shape)
+the-named-modal-alternation | patterns
+the-named-modal-alternation-IS-named-pattern | patterns
+the-named-extension-streak-IS-named-bounded-at-two | patterns
+the-named-meta-designs-vs-project-designs-distinction (first-explicit-observation; cycle 309) | (see section: garden--designs-README-md--fourteenth-garden-source-and-design-index-catalog-shape)
+two-cycles-with-named-meta-vs-object-distinction (303 + 309) | patterns
+the-named-four-named-garden-evolution-axes (roles + skills + journal + host infrastructure) | patterns
+four-named-status-values-for-designs (Proposed + Accepted + Implemented + Withdrawn) (first-explicit-observation; cycle 309) | (see section: garden--designs-README-md--fourteenth-garden-source-and-design-index-catalog-shape)
+two-named-four-status-value-sets-in-the-garden (305 sections + 309 designs) | patterns
+the-named-arity-shared-distinct-semantics | patterns
+the-named-rejected-design-IS-named-preserved-not-deleted | patterns
+four-cycles-with-named-preservation-over-deletion-discipline (302 + 305 + 308 + 309) | patterns
+the-named-PR-against-garden-exception (first-explicit-observation; cycle 309) | (see section: garden--designs-README-md--fourteenth-garden-source-and-design-index-catalog-shape)
+two-cycles-with-named-no-PR-vs-PR-exception (299 + 309) | patterns
+the-named-rule-and-exception-pair-across-cycles | patterns
+the-named-substantial-vs-smaller-change-discriminator | patterns
+three-named-smaller-change-classes (role-edits + skill-additions + notes-from-the-field-rows) | patterns
+three-named-design-metadata-fields (Created + Author + Status) (first-explicit-observation; cycle 309) | (see section: garden--designs-README-md--fourteenth-garden-source-and-design-index-catalog-shape)
+two-named-metadata-shapes-in-the-garden (YAML frontmatter + Markdown metadata table) | patterns
+the-named-metadata-shape-IS-not-universally-YAML | patterns
+three-named-design-index-table-columns (Design + Status + Summary) | patterns
+the-named-cycle-309-IS-the-fourteenth-garden-source-and-the-resumption-of-shape-addition-mode (first-explicit-observation; cycle 309) | (see section: garden--designs-README-md--fourteenth-garden-source-and-design-index-catalog-shape)
+the-named-smallest-source-IS-the-named-catalog (30 vs 60 vs 84 vs 621 lines) | patterns
+the-named-size-variation-across-the-cluster | patterns
+the-named-index-vs-indexed-content-distinction | patterns
+the-named-cluster-IS-fourteen-cycles-and-the-named-pattern-of-pattern-has-saturated | patterns
+fourteen-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305 + 306 + 307 + 308 + 309) | patterns
+twelve-named-shapes-of-garden-self-documentation (adds design-index-catalog as twelfth) | patterns
+the-named-fourteen-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305 + 306 + 307 + 308 + 309) | patterns
+one-hundred-and-forty-second consecutive designs-chat alternation cycles 166-250 + 252-309 (251 was out-of-band) | patterns
+library-reaches-821-sections at cycle 309 (designs-lane garden designs/README.md; resumption of shape-addition; smallest source in the cluster) | patterns
