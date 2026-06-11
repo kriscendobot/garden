@@ -10463,3 +10463,56 @@ the-named-lane-discipline-respects-document-class (source = chat-lane; README = 
 the-named-source-first-then-README-ingest-order | patterns
 one-hundred-and-forty-fourth consecutive designs-chat alternation cycles 166-250 + 252-311 (251 was out-of-band) | patterns
 library-reaches-823-sections at cycle 311 (designs-lane @endo/nat README.md; companion to cycle 310 source) | patterns
+the-named-memoize-IS-the-named-canonical-memoization-primitive (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+the-named-WeakMap-IS-named-for-WeakKey-arguments (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+the-named-WeakMap-as-named-memoization-backing-store | patterns
+the-named-GC-friendly-memoization | patterns
+the-named-WeakKey-template-discipline | patterns
+the-named-arity-restriction (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+the-named-no-multi-arg-support-IS-named-deliberate | patterns
+the-named-encapsulatedPumpkin-IS-named-recursion-sentinel (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+the-named-pumpkin-IS-named-Cinderella-reference | patterns
+the-named-narrative-naming-discipline | patterns
+the-named-mythological-allusion-IS-named-cognitive-anchor | patterns
+the-named-must-not-escape-this-module | patterns
+the-named-module-private-invariant | patterns
+the-named-single-sentinel-instance-per-module | patterns
+the-named-identity-equality-IS-named-detection-mechanism | patterns
+three-phase-memoize-pattern (check + sentinel-set + replace-or-cleanup) (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+the-named-sentinel-set-IS-named-in-flight-marker | patterns
+the-named-replace-or-clean-up-discipline | patterns
+the-named-recursion-detection-via-sentinel | patterns
+the-named-anti-infinite-recursion-via-named-sentinel | patterns
+the-named-exception-cleanup-discipline (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+the-named-failed-calls-do-not-stick | patterns
+the-named-rethrow-after-cleanup-discipline | patterns
+the-named-dual-purpose-sentinel-set (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+the-named-multi-purpose-statement-discipline | patterns
+the-named-fail-fast-on-invalid-arg-discipline | patterns
+the-named-early-error-IS-named-better-than-late-error | patterns
+the-named-explicit-TS-limitation-comment (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+two-named-TS-limitations | patterns
+the-named-cite-the-tool-limitation-discipline | patterns
+the-named-typo-interleavs (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+the-named-typo-IS-named-evidence-of-organic-prose | patterns
+four-cycles-with-named-preserved-typo-IS-named-evidence (263 + 280 + 295 + 312) | patterns
+the-named-TS-cast-via-JSDoc-type-assertion (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+three-named-harden-call-sites (sentinel + inner-fn + module-export) (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+the-named-defensive-harden-on-every-exposed-value | patterns
+two-named-harden-shapes-across-cycles (310 freeze-stand-in + 312 import-directly) | patterns
+the-named-canonical-shape-vs-workaround-shape-distinction | patterns
+the-named-import-harden-IS-named-canonical-shape | patterns
+the-named-different-packages-use-different-harden-shapes | patterns
+the-named-TODO-with-named-future-resolution (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+the-named-deferred-link-discipline | patterns
+the-named-explicit-incompleteness-marker | patterns
+the-named-early-return-no-else-discipline (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+the-named-implicit-else-via-early-return | patterns
+the-named-cycle-312-IS-the-third-non-garden-pivot-cycle (first-explicit-observation; cycle 312) | (see section: endo--packages-memoize-src-memoize-js--memoization-primitive-with-named-encapsulatedPumpkin-recursion-sentinel)
+three-cycles-with-named-pivot-domain-stay (310 + 311 + 312) | patterns
+the-named-pivot-IS-named-productive-three-cycles-in | patterns
+the-named-pattern-surface-remains-fresh | patterns
+the-named-foundation-utility-shape-extends | patterns
+the-named-small-focused-foundation-package-shape | patterns
+one-hundred-and-forty-fifth consecutive designs-chat alternation cycles 166-250 + 252-312 (251 was out-of-band) | patterns
+library-reaches-824-sections at cycle 312 (chat-lane @endo/memoize; third consecutive @endo/* source after the pivot) | patterns
