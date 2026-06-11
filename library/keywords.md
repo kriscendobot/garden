@@ -10254,3 +10254,70 @@ twelve-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300 + 301 
 the-named-twelve-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305 + 306 + 307) | patterns
 one-hundred-and-fortieth consecutive designs-chat alternation cycles 166-250 + 252-307 (251 was out-of-band) | patterns
 library-reaches-819-sections at cycle 307 (designs-lane garden roles/steward/AGENT.md; the second role file completes the orchestrator pair) | patterns
+the-named-triple-claim-and-single-realization (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+the-named-claim-multiplicity-enumeration ({1, 2, 3, 4} prior cycles can claim a realization) | patterns
+two-cycles-with-named-shape-extension (307 + 308) | patterns
+two-named-cycle-modes (shape-addition + shape-extension) | patterns
+the-named-modal-cycle-shape | patterns
+the-named-monotonically-enumerated-claim-multiplicity-set | patterns
+the-named-final-task-of-every-engagement-before-reporting-back (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+the-named-engagement-final-task-discipline | patterns
+the-named-compounding-improvement-IS-named-the-mechanism | patterns
+three-cycles-with-named-canonical-skill-discipline (302 + 305 + 308) | patterns
+the-named-defers-here-discipline | patterns
+the-named-self-improvement-applies-to-every-role-including-the-orchestrator | patterns
+the-named-context-freshness-IS-named-the-asset | patterns
+six-named-self-improvement-categories (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+the-named-multi-polarity-observation-categories | patterns
+four-named-lesson-routing-targets (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+the-named-routing-by-lesson-type-discipline | patterns
+the-named-how-vs-when-discrimination | patterns
+the-named-anti-mid-engagement-naming-discipline | patterns
+three-cycles-with-named-meta-evolution-IS-the-liaisons-purview (303 + 307 + 308) | patterns
+three-cycles-with-named-project-specifics-live-in-the-journal-not-in-roles-or-skills (301 + 305 + 308) | patterns
+the-named-cross-cutting-documents-touched-only-when (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+three-named-cross-cutting-documents (CLAUDE.md + WORKTREES.md + roles/COMMON.md) | patterns
+the-named-cross-cutting-document-protection-discipline | patterns
+the-named-explicit-user-direction-IS-named-required-for-cross-cutting-changes | patterns
+three-named-evidence-thresholds (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+the-named-evidence-tier-by-action-class | patterns
+the-named-three-engagement-pattern-threshold | patterns
+the-named-deletion-IS-higher-stakes-than-addition | patterns
+the-named-cost-benefit-framing (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+the-named-context-cost-IS-named-by-load-count | patterns
+the-named-line-cost-IS-named-explicit-multiplier | patterns
+the-named-role-and-skill-distinct-content-shape | patterns
+the-named-content-class-determines-storage-class | patterns
+the-named-anti-sprawl-discipline | patterns
+the-named-behavior-IS-role-content-procedure-IS-skill-content | patterns
+five-named-writing-disciplines (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+three-cycles-with-named-additive-preservation-discipline (302 + 305 + 308) | patterns
+three-cycles-with-named-screen-as-size-limit (302 + 305 + 308) | patterns
+the-named-cite-don't-copy-discipline | patterns
+the-named-output-format-IS-named-explicit (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+three-cycles-with-named-Self-improvement-output-format (301 + 303 + 308) | patterns
+the-named-nothing-this-time-IS-named-intentional | patterns
+the-named-considered-vs-forgotten-distinction | patterns
+two-cycles-with-named-dual-channel-output (301 + 308) | patterns
+five-named-pitfalls (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+the-named-wait-for-the-pattern-discipline | patterns
+the-named-resist-appending-discipline | patterns
+the-named-voice-matching-discipline | patterns
+the-named-grep-for-references-before-deleting-discipline | patterns
+the-named-cross-role-write-IS-named-recommendation-not-direct-edit | patterns
+the-named-Notes-from-the-field-section (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+four-cycles-with-named-append-only-discipline (301 + 302 + 305 + 308) | patterns
+two-cycles-with-named-Notes-from-the-field-section (305 + 308) | patterns
+the-named-do-not-rewrite-history-discipline | patterns
+the-named-terse-and-dated-discipline | patterns
+the-named-2026-05-12-adoption-provenance (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+four-named-carried-over-elements | patterns
+two-named-garden-specific-adaptations | patterns
+the-named-staged-adoption-discipline | patterns
+the-named-self-documenting-adoption-discipline | patterns
+the-named-document-and-journey-pair-across-cycles (303 + 308) | patterns
+the-named-cycle-308-IS-the-thirteenth-garden-source-and-the-second-shape-extension-and-the-triple-claim-realization (first-explicit-observation; cycle 308) | (see section: garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim)
+thirteen-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305 + 306 + 307 + 308) | patterns
+the-named-thirteen-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305 + 306 + 307 + 308) | patterns
+one-hundred-and-forty-first consecutive designs-chat alternation cycles 166-250 + 252-308 (251 was out-of-band) | patterns
+library-reaches-820-sections at cycle 308 (chat-lane garden skills/self-improvement/SKILL.md; second shape-extension) | patterns
