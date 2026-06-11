@@ -8763,3 +8763,50 @@ two-named-`@type`-cast-purposes-in-the-zip-cluster (intra-package binding cycle 
 the-naming-style-DEPENDS-on-the-domain (cycle 286 mathematical letters vs cycle 288 descriptive verbosity) | patterns
 one-hundred-and-twenty-first consecutive designs-chat alternation cycles 166-250 + 252-288 (251 was out-of-band) | patterns
 library-reaches-794-sections at cycle 288 (chat-lane @endo/zip/src/{deflate,inflate}.js pair ingest) | patterns
+chat outliner drag-and-drop | (see source: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop)
+packages/chat/designs/outliner_drag_and_drop.md | (see source: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop)
+fractional sort order | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+MODIFIER_REPLY_TYPES | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+moveOverrides | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+move reply type | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+two-cycles-with-the-same-design-file-name-in-different-directories (cycle 277 + cycle 289 both named outliner_drag_and_drop.md but in different directories; first-explicit-observation) | patterns
+the-cross-directory-shared-name-IS-the-named-link-mechanism | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-filename-IS-the-cross-document-anchor | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+three-cycles-with-cross-directory-naming-evidence-in-the-outliner-cluster (263 + 273 + 289) | patterns
+the-outliner-cluster-IS-cross-directory-rich | patterns
+the-`Features`-section-as-named-design-doc-opening-section-name (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+four-named-opening-section-conventions (Features + Objective + Motivation + Problem) | patterns
+the-fragment-design-doc-shape-WITH-implementation-details (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+two-named-design-fragment-shapes-in-the-cluster (tentative-fragment cycle 263 + implementation-detail-fragment cycle 289) | patterns
+the-`Files Modified`-section-at-the-bottom (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+four-named-shapes-for-naming-implementation-blast-radius (275 + 281 + 283 + 289) | patterns
+the-fractional-sort-order-via-`(A+B)/2` (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-named-floating-point-as-named-insertion-key | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-`MODIFIER_REPLY_TYPES`-named-constant-reference (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-design-defers-to-existing-named-vocabulary | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-`(already declared in X)`-parenthetical-as-named-existing-implementation-marker (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-`E(channel).post(...)`-code-example-with-named-comment-aligned-arguments (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-call-site-IS-self-documenting-via-trailing-comments | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-empty-IS-not-the-missing-empty-IS-the-deliberate-empty | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+five-named-selection-modes (Click + Cmd/Ctrl+Click + Shift+Click + Rubber-band + Escape; first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+two-cycles-with-different-Cmd/Ctrl+Click-treatment (285 forbids + 289 allows) | patterns
+the-same-parent-constraint as named UI invariant (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-reorder-vs-reparent-as-named-distinct-operations | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-input-modality-IS-the-named-discriminator | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+three-cycles-with-named-deliberate-omission-disciplines (259 + 285 + 289) | patterns
+the-group-drag-preserves-relative-order (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-relative-order-IS-the-named-preserved-property | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-drag-handle-IS-the-bullet (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-existing-visual-element-IS-the-drag-affordance | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-affordance-IS-not-new-it-IS-repurposed | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-`moveOverrides`-Map-as-named-sort-order-override-mechanism (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-default-IS-message-number-the-override-IS-the-fractional-value | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-move-reply-type-as-named-channel-message-shape (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-named-channel-API-reuse | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-`replyTo`-IS-overloaded-as-target-node (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+the-modifier-type-IS-not-visible-as-children (first-explicit-observation; cycle 289) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+three-named-modifier-types-in-the-channel-protocol (edit + deletion + move) | (see section: endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type)
+three-cycles-with-no-metadata-table-shape (285 + 287 + 289) | patterns
+twenty-one-design-docs-from-endo-but-for-bots-designs-cluster-ingested | patterns
+one-hundred-and-twenty-second consecutive designs-chat alternation cycles 166-250 + 252-289 (251 was out-of-band) | patterns
+library-reaches-795-sections at cycle 289 (designs-lane chat/designs/outliner_drag_and_drop.md) | patterns
