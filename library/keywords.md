@@ -9043,3 +9043,20 @@ two-cycles-with-the-`Date?`-shorthand (282 + 294) | patterns
 the-zip-cluster-source-file-deep-ingest-progresses (10 of 12 files now per-file ingested) | patterns
 one-hundred-and-twenty-seventh consecutive designs-chat alternation cycles 166-250 + 252-294 (251 was out-of-band) | patterns
 library-reaches-800-sections at cycle 294 (chat-lane @endo/zip/src/format-writer.js per-file deep ingest; MILESTONE 800) | patterns
+endo-gateway design | (see section: endo-but-for-bots--llm-designs-endo-gateway--same-binary-two-configurations-and-host-scope-vs-user-scope-and-outbound-registration-and-pubkey-routing-and-noise-not-tls-and-content-addressed-cache-at-relay)
+gateway-package design | (see section: endo-but-for-bots--llm-designs-gateway-package--ten-feature-decomposition-of-one-package-with-one-factory-many-configurations)
+gateway-bearer-token-auth design | (see section: endo-but-for-bots--llm-designs-gbta--problem-and-auth-model)
+bearer token gateway auth | (see section: endo-but-for-bots--llm-designs-gbta--problem-and-auth-model)
+daemon-agent-network-identity design | (see section: endo-but-for-bots--llm-designs-dani--per-agent-networks-and-nets)
+DANI design | (see section: endo-but-for-bots--llm-designs-dani--per-agent-networks-and-nets)
+app-sharing-milestone design | (see section: endo-but-for-bots--llm-designs-app-sharing-milestone--three-pillar-cut-with-verified-current-state-methodology-and-adopt-existing-plan-discipline)
+app sharing milestone | (see section: endo-but-for-bots--llm-designs-app-sharing-milestone--three-pillar-cut-with-verified-current-state-methodology-and-adopt-existing-plan-discipline)
+familiar-deep-link-invitations | (see section: endo-but-for-bots--llm-designs-app-sharing-milestone--three-pillar-cut-with-verified-current-state-methodology-and-adopt-existing-plan-discipline)
+deep-link invitation | (see section: endo-but-for-bots--llm-designs-app-sharing-milestone--three-pillar-cut-with-verified-current-state-methodology-and-adopt-existing-plan-discipline)
+endoclaw-oauth design | (see section: endo-but-for-bots--llm-designs-endoclaw-oauth--the-agent-never-sees-the-token-and-authority-to-use-not-authority-to-delegate-and-path-restrictions-structural-and-read-only-mode-and-tenth-member-of-endoclaw-cluster)
+OAuth capability ocap | (see section: endo-but-for-bots--llm-designs-endoclaw-oauth--the-agent-never-sees-the-token-and-authority-to-use-not-authority-to-delegate-and-path-restrictions-structural-and-read-only-mode-and-tenth-member-of-endoclaw-cluster)
+daemon-docker-selfhost design | (see section: endo-but-for-bots--llm-designs-daemon-docker-selfhost--docker-image-with-external-TLS-and-reuse-of-Familiar-bundle-pipeline)
+docker self-hosting endo | (see section: endo-but-for-bots--llm-designs-daemon-docker-selfhost--docker-image-with-external-TLS-and-reuse-of-Familiar-bundle-pipeline)
+MCP protocol stateless | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+MCP release candidate 2026 | (see section: mcp-blog--2026-07-28-release-candidate--stateless-protocol-core-and-Extensions-framework-and-MCP-Apps-and-Tasks-graduates-to-extension-and-feature-lifecycle-policy-with-12-month-minimum)
+endoclaw-network-fetch design | (see section: endo-but-for-bots--llm-designs-endoclaw-network-fetch--HttpClient-HttpClientControl-two-facets-and-structural-origin-allowlist-and-rate-limit-and-max-response-bytes-and-no-ambient-DNS-or-socket-and-substrate-for-OAuth)
