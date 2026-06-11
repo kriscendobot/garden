@@ -10083,3 +10083,96 @@ the-named-WORKTREES-design-pointer-to-journal-implementation (297 + 305) | patte
 the-named-self-referential-shape-at-the-spec-level | patterns
 one-hundred-and-thirty-eighth consecutive designs-chat alternation cycles 166-250 + 252-305 (251 was out-of-band) | patterns
 library-reaches-817-sections at cycle 305 (designs-lane garden journal/library/conventions.md; first journal-branch source in the garden cluster) | patterns
+the-named-job-board-contract-shape (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+two-cycles-with-named-journal-branch-source (305 + 306) | patterns
+the-named-cross-branch-cluster-extends | patterns
+the-named-fourth-design-and-instance-pair-across-the-garden-cluster (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+four-named-design-and-instance-pairs-across-the-garden-cluster (299→301 + 301→302 + 302→305 + (299+303)→306) | patterns
+the-named-double-claim-and-single-realization (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+the-named-claim-multiplicity-variation | patterns
+two-named-contract-and-procedure-pairs (305 + 306) | patterns
+the-named-distributed-work-queue-shape (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+three-named-producer-shapes (liaison + returning subagent + scheduled-engagement firing) | patterns
+two-named-consumer-roles (steward + general-contractor) | patterns
+the-named-stale-reference-witness | patterns
+the-named-board-lifecycle-IS-the-journal-lifecycle (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+three-cycles-with-named-git-push-as-the-serialization-point (299 + 301 + 306) | patterns
+the-named-four-named-coresidents-on-the-journal-branch | patterns
+the-named-contract-vs-procedure-split (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+two-named-board-layouts (flat + per-role) (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+the-named-coexisting-flat-and-per-role-boards | patterns
+the-named-migration-discipline-shape | patterns
+six-named-per-role-boards (cleaner + judge + fixer + weaver + shepherd + conductor) (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+the-named-shared-queue-discipline | patterns
+three-cycles-with-design-pointer-back-to-driver-design (281 + 304 + 306) | patterns
+six-named-filename-components (UTC + host + role + sid + short-id + slug) (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+the-named-monotonically-growing-filename-shape | patterns
+the-named-find-recipe-via-stable-identity | patterns
+the-named-job-identity-IS-set-once-at-post-time-and-never-changes | patterns
+four-cycles-with-6-hex-short-id-discipline (297 + 298 + 301 + 306) | patterns
+the-named-timestamp-IS-the-transition-time | patterns
+four-named-UTC-semantics (post + claim + done + abandon) | patterns
+the-named-three-phase-frontmatter-accumulation (post-time + claim-time + completion-time) (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+the-named-frontmatter-grows-monotonically-across-transitions | patterns
+four-named-target-shapes (repo + pr + issue + design) | patterns
+the-named-authorizations-frontmatter-shape | patterns
+two-named-priority-levels (normal + urgent) | patterns
+the-named-staleness-threshold (deadline) | patterns
+the-named-informational-only-field (preconditions) | patterns
+the-named-body-IS-the-named-same-brief-as-message-entries (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+the-named-channel-change-not-content-change | patterns
+three-cycles-with-named-2026-05-18-channel-split-or-equivalent (299 + 303 + 306) | patterns
+four-named-job-transitions (post + claim + complete-done + complete-abandoned) (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+the-named-atomic-git-commit-per-transition | patterns
+the-named-prescribed-commit-message-format | patterns
+the-named-no-auto-recycle-discipline | patterns
+the-named-fresh-short-id-on-re-post | patterns
+the-named-four-directory-structure-IS-the-producer-consumer-signal (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+the-named-directory-IS-the-named-state-machine | patterns
+the-named-ls-IS-the-state-query | patterns
+four-named-job-states (open + claimed + done + abandoned) | patterns
+the-named-state-transitions-via-git-mv | patterns
+the-named-claim-race-resolution-via-git-push (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+the-named-git-push-IS-named-serial-against-origin-journal | patterns
+the-named-loser-hard-resets-and-moves-on | patterns
+the-named-no-retry-with-rebase-on-claim | patterns
+the-named-rejection-IS-named-meaningful-not-noise | patterns
+the-named-anti-force-fight-discipline | patterns
+the-named-single-commit-invariant | patterns
+the-named-discipline-makes-the-destructive-operation-safe | patterns
+the-named-git-mv-atomicity-discipline | patterns
+the-named-edit-after-not-before-move | patterns
+two-cycles-with-named-back-off-without-retry (299 + 306) | patterns
+the-named-graceful-degradation-under-heavy-concurrency | patterns
+the-named-bash-poll-daemon-shape (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+two-cycles-with-named-30-second-default-daemon-cadence (304 + 306) | patterns
+the-named-30-seconds-IS-named-garden-wide-daemon-cadence-default | patterns
+two-named-state-change-markers (NEW + GONE) | patterns
+three-named-state-files-on-tmp (log + state + pid) | patterns
+the-named-parallel-daemon-shape (job-board-poll parallel to monitor-poll) | patterns
+three-cycles-with-named-bash-daemon-owned-state-survives-LLM-ticks (301 + 304 + 306) | patterns
+the-named-two-tier-poll-and-monitor | patterns
+two-cycles-with-named-where-things-are-section (301 + 306) | patterns
+three-named-job-board-helpers (post-job + claim-job + job-board-poll) | patterns
+two-cycles-with-named-bash-daemon-state-locations (304 + 306) | patterns
+the-named-inventory-cap-IS-named-absent (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+the-named-no-hard-cap | patterns
+the-named-empty-IS-named-success-state | patterns
+the-named-queue-depth-IS-named-capacity-signal | patterns
+the-named-bulletin-IS-the-named-escalation-surface | patterns
+the-named-composition-with-the-message-bus (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+the-named-orthogonal-channels | patterns
+three-named-channel-routing-examples | patterns
+two-cycles-with-named-act-vs-read-discrimination-question (303 + 306) | patterns
+the-named-act-vs-read-IS-the-named-discriminator | patterns
+the-named-bi-directional-cross-reference | patterns
+the-named-document-mutual-citation-shape | patterns
+the-named-three-cycle-property-procedure-data-chain (299 + 303 + 306) | patterns
+two-named-three-cycle-chains-with-distinct-third-position-roles (rationale vs data) | patterns
+the-named-cycle-306-IS-the-named-eleventh-garden-source-and-the-second-journal-branch-source-and-the-fourth-design-and-instance-pair-realization (first-explicit-observation; cycle 306) | (see section: garden--journal-jobs-README-md--eleventh-garden-source-and-job-board-contract-and-fourth-design-instance-pair)
+eleven-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305 + 306) | patterns
+eleven-named-shapes-of-garden-self-documentation | patterns
+the-named-eleven-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305 + 306) | patterns
+the-named-zero-dependency-coordination-IS-named-realized-in-the-jobs-board-implementation | patterns
+one-hundred-and-thirty-ninth consecutive designs-chat alternation cycles 166-250 + 252-306 (251 was out-of-band) | patterns
+library-reaches-818-sections at cycle 306 (chat-lane garden journal/jobs/README.md; the second journal-branch source) | patterns
