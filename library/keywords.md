@@ -9690,3 +9690,103 @@ the-named-COMMON.md-describes-the-shape-of-the-very-work-its-current-ingest-cycl
 the-named-self-referential-shape | patterns
 one-hundred-and-thirty-fourth consecutive designs-chat alternation cycles 166-250 + 252-301 (251 was out-of-band) | patterns
 library-reaches-813-sections at cycle 301 (designs-lane garden roles/COMMON.md; first cycle after CYCLE-MILESTONE-300) | patterns
+the-named-skill-procedural-playbook-shape (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+six-named-sections-in-a-skill-playbook (purpose + inputs + procedure + output + state + notes) | patterns
+three-named-document-tiers-realized (standing/COMMON.md + role/AGENT.md + on-demand/SKILL.md) | patterns
+the-named-second-design-and-instance-pair-across-the-garden-cluster (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+two-named-design-and-instance-pairs-across-the-garden-cluster (299→301 + 301→302) | patterns
+the-named-pattern-of-pattern (pairs-of-discipline-cycle-and-instance-cycle recurring) | patterns
+the-named-two-cycle-gap-between-discipline-and-instance | patterns
+the-named-mandatory-Step-4-IS-named-realization-of-cycle-301's-named-compounding-property (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-claim-and-realization-pair-across-cycles | patterns
+the-named-explicit-mandatory-marker (heading literally names "mandatory") | patterns
+the-named-four-named-writeback-actions (4a shortcut + 4b prune distraction + 4c draft missing concept + 4d queue scholar review) (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-trigger-action-pair-structure | patterns
+the-named-when-then-pair-discipline | patterns
+the-named-conditional-mandatory-discipline | patterns
+the-named-canonical-sub-step-ordering | patterns
+the-named-five-numbered-steps (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-grep-i-IS-named-default-case-insensitive-lookup | patterns
+three-named-fallback-sub-steps (synonyms + flat-grep + adjacent-indexes) | patterns
+the-named-fall-back-IS-named-progressive-broadening | patterns
+the-named-active-tracking-discipline | patterns
+the-named-commit-message-format-IS-named-prescribed | patterns
+the-named-skill-IS-self-mediating (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-self-referential-pointer-pair-across-two-cycles (301 named "use this skill" + 302 IS the skill) | patterns
+the-named-recursive-self-reference | patterns
+the-named-keyword-index-IS-grepped-not-read (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-grep-not-read-discipline | patterns
+the-named-keyword-row-shape-IS-grep-anchored | patterns
+the-named-good-enough-ordering (do not spend effort on perfect sort) | patterns
+the-named-effort-economy-IS-named-anti-perfectionism | patterns
+two-named-mediation-layers (skill-mediated + tool-mediated grep) | patterns
+the-named-Common-confusions-block (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-additive-pruning-NOT-deletion | patterns
+the-named-preserve-history-additive-pruning | patterns
+the-named-no-delete-discipline | patterns
+the-named-disambiguation-IS-on-the-concept-page-not-on-the-keyword-row | patterns
+the-named-status-draft-frontmatter-for-new-concept-drafts (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-draft-vs-current-status-shape | patterns
+two-named-status-states-for-concept-pages (draft + current) | patterns
+the-named-write-by-librarian-audit-by-scholar-pipeline | patterns
+the-named-scholar-vs-librarian-province-boundary (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-roles-have-named-data-territories | patterns
+the-named-explicit-mutate-and-no-mutate-list | patterns
+the-named-cross-role-handoff-via-message-entry | patterns
+the-named-province-boundary-IS-permeable-via-named-bridge (queue-a-scholar-review) | patterns
+two-named-province-territories (librarian's keywords.md+concepts/ + scholar's sections/+sources/+topics/) | patterns
+the-named-data-territory-IS-named-role-province | patterns
+the-named-end-of-dispatch-batching (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-batch-not-stream-discipline | patterns
+the-named-batch-IS-named-amortized-cost | patterns
+three-bullet-shapes-in-the-summary (keyword shortcut + new concept draft + distraction pruned) | patterns
+the-named-output-IS-named-focused-brief (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-output-shape-IS-named-four-named-ingredients (concept summary + section bold-fact + source provenance + writeback note) | patterns
+three-named-source-status-values (current + draft-PR + stale) | patterns
+the-named-State-section-NAMES-what-the-skill-mutates (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-data-side-effect-declaration | patterns
+the-named-append-style-where-possible (extends cycle 301's named-append-only) | patterns
+the-named-`(occasionally)`-IS-named-frequency-marker | patterns
+the-named-append-only-IS-cross-document-consistent (301 + 302) | patterns
+the-named-bare-name-vs-path-form-distinction (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-multi-shape-keyword-discipline | patterns
+the-named-exhaustive-variant-search ("try them all before giving up") | patterns
+the-named-distinct-variant-axes-for-code-vs-prose | patterns
+the-named-backticks-for-code-symbols-discipline (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-typographic-disambiguation | patterns
+the-named-glance-readable-distinction | patterns
+the-named-cross-document-typographic-consistency | patterns
+the-named-`[[concept-id]]`-wiki-style-link (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-wiki-link-as-named-cross-reference-shape | patterns
+the-named-non-matching-link-IS-named-TODO-not-error | patterns
+the-named-graceful-degradation-of-broken-links | patterns
+the-named-broken-link-IS-named-marker-for-future-work | patterns
+the-named-convention-IS-library-wide-not-skill-local | patterns
+the-named-concept-pages-may-point-at-sections-that-contradict-the-concept (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-contradictory-references-IS-named-completeness-property | patterns
+the-named-concepts-axis-IS-named-multi-perspective-aggregation | patterns
+the-named-canonical-example-IS-named-explicit (`crdt-in-formula-persistence`) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-self-documenting-by-example | patterns
+the-named-concept-pages-stay-short (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-screen-as-named-size-limit | patterns
+the-named-lookup-target-vs-primer-distinction | patterns
+three-named-document-sizes-in-the-library (concept + topic + section) | patterns
+the-named-size-driven-relocation-discipline | patterns
+the-named-conventions.md-IS-the-named-data-structure-spec (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-data-structure-vs-operation-skill-pair | patterns
+the-named-spec-and-procedure-pair | patterns
+the-named-what-vs-how-discipline | patterns
+the-named-keyword-index-PLUS-concepts-dir-IS-the-named-concepts-axis | patterns
+the-named-Examples-block (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-examples-IS-named-pedagogical | patterns
+three-named-keyword-shapes-via-example (code-symbols + proper-names + prose-phrases) | patterns
+the-named-cycle-302-IS-the-named-seventh-garden-source-and-the-skill-the-rule-cycle-301-shaped (first-explicit-observation; cycle 302) | (see section: garden--skills-library-lookup-SKILL-md--seventh-garden-source-and-skill-procedural-playbook-and-second-design-instance-pair)
+the-named-cluster-IS-named-self-extending | patterns
+the-named-compounding-cluster-shape | patterns
+seven-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300 + 301 + 302) | patterns
+seven-named-shapes-of-garden-self-documentation (proposed-design + standing-reference + implementation-source + project-instructions + operational-daemon-control + standing-subagent-instructions + skill-procedural-playbook) | patterns
+five-cycles-with-named-role-as-author-shape (281 + 297 + 299 + 301 + 302) | patterns
+three-cycles-with-named-`---` YAML-frontmatter-with-three-fields (299 + 301 + 302) | patterns
+the-named-seven-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302) | patterns
+one-hundred-and-thirty-fifth consecutive designs-chat alternation cycles 166-250 + 252-302 (251 was out-of-band) | patterns
+library-reaches-814-sections at cycle 302 (chat-lane garden skills/library-lookup; first chat-lane after the six-cycle bridge) | patterns
