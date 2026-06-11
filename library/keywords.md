@@ -10353,3 +10353,56 @@ twelve-named-shapes-of-garden-self-documentation (adds design-index-catalog as t
 the-named-fourteen-cycle-bridge (296 + 297 + 298 + 299 + 300 + 301 + 302 + 303 + 304 + 305 + 306 + 307 + 308 + 309) | patterns
 one-hundred-and-forty-second consecutive designs-chat alternation cycles 166-250 + 252-309 (251 was out-of-band) | patterns
 library-reaches-821-sections at cycle 309 (designs-lane garden designs/README.md; resumption of shape-addition; smallest source in the cluster) | patterns
+the-named-isNat-predicate-and-Nat-coercion-pair (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-predicate-and-coercion-pair-shape | patterns
+the-named-naming-discriminates-shape (is*-predicate + Capital*-coercion) | patterns
+two-named-Nat-input-types (non-negative bigint + non-negative-safe-integer number) | patterns
+the-named-Number.isSafeInteger-IS-named-floating-point-safety-criterion | patterns
+the-named-coercion-produces-bigint-uniformly | patterns
+the-named-bigint-IS-the-named-canonical-Nat-representation | patterns
+two-named-canonical-BigInt-constants (ZERO_N + ONE_N) (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-N-suffix-IS-named-BigInt-marker | patterns
+the-named-deliberate-constructor-over-literal-discipline | patterns
+the-named-DUPLICATED-RATIONALE-COMMENT (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-deliberate-DRY-violation-for-named-self-contained-documentation | patterns
+the-named-WET-discipline-for-self-contained-docstrings | patterns
+the-named-cursor-location-IS-named-immediate-comprehension-context | patterns
+two-named-content-policies-by-document-level (cite at document/role/skill + copy at code-comment) | patterns
+the-named-conditional-applicability-discipline (Apps Script compat scoped to specific downstream packages) (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-scoped-compatibility-discipline | patterns
+the-named-PR-as-named-future-state-anchor | patterns
+the-named-freeze-as-harden-stand-in-comment (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-freeze-equals-harden-for-arrow-functions | patterns
+the-named-substitution-with-named-applicability-condition | patterns
+the-named-arrow-functions-IS-the-named-harden-equivalent-class | patterns
+the-named-Object-method-destructuring-discipline (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-capture-at-module-load-discipline | patterns
+the-named-prevents-late-binding-attack | patterns
+the-named-defensive-binding-discipline | patterns
+four-named-error-paths-in-Nat (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+two-named-error-classes-with-named-distinct-causes (RangeError + TypeError) | patterns
+the-named-fall-through-throw-discipline | patterns
+the-named-value-and-type-in-error-discipline | patterns
+the-named-explicit-freeze-call-on-each-export (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-freeze-after-export-discipline | patterns
+the-named-allegedNum-IS-named-parameter-name (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-alleged-prefix-discipline | patterns
+the-named-defensive-naming-discipline | patterns
+the-named-`@param {unknown}`-validator-takes-unknown-discipline (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-unknown-vs-any-discrimination | patterns
+the-named-`@ts-check`-directive (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-JSDoc-IS-named-type-source | patterns
+multi-cycle-pattern-`@ts-check`-discipline | patterns
+the-named-multi-org-multi-year-copyright-discipline (Google 2011 + Agoric 2018) (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-seven-year-provenance-gap | patterns
+the-named-deep-provenance-IS-named-foundation-utility-marker | patterns
+the-named-tc39-spec-citation-IS-named-authoritative-link (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+two-named-link-classes (spec authoritative + esdiscuss historical) | patterns
+the-named-cycle-310-pivots-from-garden-cluster-to-foundation-utility (first-explicit-observation; cycle 310) | (see section: endo--packages-nat-src-index-js--Nat-predicate-and-coercion-pair-and-named-BigInt-constants)
+the-named-first-pivot-after-fourteen-cycle-cluster | patterns
+the-named-pattern-surface-refreshes | patterns
+the-named-foundation-utility-shape | patterns
+the-named-leaf-dependency-discipline | patterns
+the-named-cluster-saturation-and-pivot-pair (309 + 310) | patterns
+one-hundred-and-forty-third consecutive designs-chat alternation cycles 166-250 + 252-310 (251 was out-of-band) | patterns
+library-reaches-822-sections at cycle 310 (chat-lane @endo/nat src/index.js; first non-garden chat-lane source after twenty-nine cycles; deliberate pivot) | patterns
