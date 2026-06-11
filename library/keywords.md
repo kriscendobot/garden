@@ -9401,3 +9401,119 @@ the-named-canonical-choice-IS-a-named-anti-drift-mechanism | (see section: garde
 the-named-DRY-discipline-via-named-central-table | (see section: garden--CLAUDE-md--fourth-garden-source-ingested-and-named-project-instructions-shape-and-vocabulary-table-and-two-channel-message-bus-and-monitoring-safety-constraint-and-current-inventory)
 one-hundred-and-thirty-second consecutive designs-chat alternation cycles 166-250 + 252-299 (251 was out-of-band) | patterns
 library-reaches-811-sections at cycle 299 (designs-lane garden CLAUDE.md) | patterns
+the-named-paired-management-scripts (start.sh + stop.sh) (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+two-cycles-with-named-script-pair-shape (298 prepare/teardown + 300 start/stop) | patterns
+the-named-symmetric-script-pair-as-a-named-shape (multi-cycle) | patterns
+the-named-asymmetric-asymmetry-across-script-pairs (298 65/46 ≈ 1.4× + 300 81/69 ≈ 1.17×) | patterns
+the-named-deliberate-`set -uo pipefail`-WITHOUT-`-e` (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-`-e`-omission-IS-the-named-tolerated-failure-discipline | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-`-e`-vs-`|| true`-as-named-distinct-error-discipline-shapes | patterns
+two-named-bash-strictness-shapes-in-the-garden-scripts (298 `set -euo pipefail` + 300 `set -uo pipefail`) | patterns
+the-named-bash-strictness-discipline-IS-context-determined-not-universal | patterns
+the-named-`-u`-and-`-o pipefail`-as-named-universal-strictness | patterns
+the-named-`-e`-as-named-cycle-distinct-choice | patterns
+the-named-`systemctl --user`-IS-named-no-root-orchestration (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-per-user-systemd-IS-the-named-bot-account-isolation | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-defense-in-depth-via-user-scope | patterns
+the-named-`systemctl --user daemon-reload`-IS-named-cheap-and-idempotent (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-comment-with-named-property-attribution | patterns
+the-named-systemd-template-units-IS-the-named-instance-shape (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-`@` syntax-IS-systemd's-named-template-instance-marker | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-one-unit-file-many-instances | patterns
+the-named-instance-name-via-string-interpolation | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-config-value-becomes-systemd-instance-identity | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+two-named-template-unit-families (integer + slug) | patterns
+the-named-distinct-instance-identifier-types (integer + slug) | patterns
+the-named-host-local-gitignored-config-AND-checked-in-`.example`-template-pair (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-template-and-realization-pair | patterns
+the-named-host-local-customization-via-template-instantiation | patterns
+the-named-config-IS-executable-bash | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-config-IS-not-JSON-not-YAML-not-INI-IS-bash | patterns
+the-named-`# shellcheck source=/dev/null`-discipline | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-shellcheck-direction-comment | patterns
+the-named-graceful-fallback-when-config-missing (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-missing-config-IS-not-an-error | patterns
+two-cycles-with-named-actionable-error-messages (298 + 300) | patterns
+the-named-actionable-error-message-with-named-fix | patterns
+the-named-exit-0-on-missing-config-vs-exit-1-on-missing-systemctl | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-distinct-failure-modes-deserve-distinct-exit-codes | patterns
+the-named-pre-flight-`command -v systemctl`-check (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-dependency-check-before-use | patterns
+the-named-bash-`command -v`-IS-named-portable-which | patterns
+the-named-portability-discipline-extends-into-error-checking | patterns
+the-named-pre-flight-vs-fail-on-use | patterns
+the-named-pre-flight-discipline-IS-named-better-UX | patterns
+two-cycles-with-`exit 64`-for-usage-errors (298 + 300) | patterns
+the-named-canonical-exit-code-discipline-IS-cross-cycle-consistent | patterns
+the-named-`case ${1:-} in`-named-flag-parsing-shape | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-four-case-flag-parsing (two-flags + empty + catch-all) | patterns
+the-named-`exit 64`-IS-named-fail-loud-on-unknown-input | patterns
+the-named-three-flag-tristate-mode (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-flag-product-collapsed-to-tristate | patterns
+the-named-default-favors-the-common-case | patterns
+the-named-common-case-IS-named-the-flag-less-default | patterns
+the-named-`--enable-only`-IS-named-pre-boot-setup | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-`--start-only`-IS-named-already-enabled-just-relaunch | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-default-stop-leaves-enabled (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-`--disable-too`-named-explicit-opt-in-for-disable | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-default-stop-IS-temporary | patterns
+the-named-asymmetric-defaults-between-start-and-stop | patterns
+the-named-asymmetric-default-IS-the-named-safer-shape | patterns
+the-named-empty-array-guard (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-zero-IS-a-special-case-in-bash-arrays | patterns
+the-named-empty-IS-not-an-error-IS-just-nothing-to-do | patterns
+the-named-`${#all_units[@]}`-IS-named-array-length-syntax | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-empty-array-handling-distinct-from-missing-config | patterns
+the-named-distinct-empty-states-distinct-messages | patterns
+the-named-`+=` array-append-discipline (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-`+=`-IS-named-array-append-operator | patterns
+the-named-bash-`+=`-polymorphic-on-type | patterns
+the-named-two-phase-array-build | patterns
+the-named-build-then-concatenate-shape | patterns
+the-named-`(s)` pluralization-handles-zero-and-many-uniformly (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-`(s)`-suffix-IS-the-named-poor-mans-plural | patterns
+the-named-pragmatic-i18n | patterns
+the-named-prefix-discipline-on-every-stderr-line (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-script-name-prefix-IS-named-message-attribution | patterns
+the-named-prefix-discipline-IS-named-readable-logs (journalctl) | patterns
+the-named-success-marker-IS-stdout (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+two-cycles-with-named-distinct-uses-of-stdout-and-stderr (298 return-value + 300 success-marker) | patterns
+the-named-`shellcheck disable=SC2034`-WITH-named-justification (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-shellcheck-suppression-WITH-justification | patterns
+the-named-shellcheck-suppression-IS-self-documenting | patterns
+three-named-rules-for-named-justified-shellcheck-suppression (rule code + reason + narrow scope) | patterns
+two-cycles-with-distinct-shellcheck-stances (298 no-suppressions + 300 justified-suppressions) | patterns
+the-named-shellcheck-stance-IS-cycle-distinct | patterns
+the-named-tolerated-failure-via-`|| true` (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-`stop || true`-IS-named-idempotent-stop | patterns
+the-named-stop-IS-idempotent-via-tolerance | patterns
+two-cycles-with-named-`|| true`-tolerated-failure (298 + 300) | patterns
+the-named-`|| true`-IS-the-named-idempotency-tool | patterns
+the-named-export-`GARDEN_ROOT`-for-downstream-wrappers (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-export-with-named-rationale | patterns
+the-named-context-propagation-via-environment-variable | patterns
+the-named-environment-as-context-channel | patterns
+two-named-script-location-discovery-shapes (collapsed 298 + decomposed 300) | patterns
+the-named-decomposition-of-script-location-discovery | patterns
+the-named-config.sh.example-IS-the-named-self-documenting-template (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-template-IS-the-named-documentation | patterns
+the-named-comments-name-the-constraints | patterns
+the-named-constraint-comment-IS-the-named-invariant-marker | patterns
+the-named-default-values-in-the-template-IS-named-pedagogical | patterns
+the-named-template-defaults-IS-the-named-tutorial | patterns
+two-cycles-with-named-top-of-file-docstring (298 + 300) | patterns
+the-named-docstring-with-named-sections (purpose + behavior + usage) | patterns
+the-named-bash-shebang-line-IS-named-explicit-interpreter (`#!/bin/bash` vs `#!/usr/bin/env bash`) | patterns
+the-named-comments-explain-WHY-not-just-WHAT | patterns
+the-named-Usage-line-microformat (square brackets + pipe alternatives) | patterns
+two-cycles-with-named-Usage-line-microformat (298 + 300) | patterns
+the-named-cycle-300-IS-the-named-three-hundredth-cycle-milestone (first-explicit-observation; cycle 300) | (see section: garden--scripts-daemons-start-and-stop-pair--five-cycles-with-garden-source-ingest-and-set-uo-pipefail-and-systemd-template-units)
+the-named-cadence-IS-the-named-library-shape | patterns
+the-named-multi-cycle-pattern-accumulation | patterns
+five-cycles-with-garden-repo-source-ingest (281 + 297 + 298 + 299 + 300) | patterns
+five-named-shapes-of-garden-self-documentation (proposed-design + standing-reference + implementation-source + project-instructions + operational-daemon-control) | patterns
+the-named-coverage-IS-the-named-five-shape-set | patterns
+the-named-multi-cycle-bridge (5-cycle: 296 + 297 + 298 + 299 + 300) | patterns
+the-named-five-into-three-source-and-two-document-and-one-instructions split | patterns
+one-hundred-and-thirty-third consecutive designs-chat alternation cycles 166-250 + 252-300 (251 was out-of-band) | patterns
+library-reaches-812-sections at cycle 300 (chat-lane garden daemons triple; CYCLE-MILESTONE-300) | patterns
