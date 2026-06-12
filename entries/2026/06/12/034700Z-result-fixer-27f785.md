@@ -259,17 +259,35 @@ authorization, lists each ask + SHA, calls out the parity-sweep
 beyond ask 4, explains the worker-side `onReject` composition for
 ask 3, and reports the smoke-test outcome.
 
+## CI state at re-request time
+
+All 22 check runs completed `success` on `dc4412c23`:
+
+```
+browser-tests, build, build-wasm, check-action-pins,
+cover (22.x, ubuntu-latest), cover (24.x, ubuntu-latest),
+familiar-bundle, lint, sandbox-drivers,
+test (22.x, macos-15), test (22.x, ubuntu-latest),
+test (24.x, macos-15), test (24.x, ubuntu-latest),
+test-async-hooks (22, ubuntu-latest), test-hermes,
+test-ocapn-python, test-xs,
+test262 (22.x, ubuntu-latest), test262 (24.x, ubuntu-latest),
+viable-release (22.x, ubuntu-latest),
+viable-release (24.x, ubuntu-latest), zizmor
+```
+
 ## Re-request review
 
-Deferred until CI is fully green. At entry-write time (3:47Z) 16 of
-22 check runs are completed `success`; the test matrix (`test`,
-`cover`, `build-wasm`) is still in_progress. Per
-`roles/fixer/AGENT.md` ("After fix-up commits land, drive CI to green
-BEFORE re-requesting maintainer review"), the re-request will be
-issued by the orchestrator (or by a follow-on shepherd if CI catches
-a regression) once the matrix completes. A background watcher polled
-to the all-checks-complete condition is running; its result will be
-the trigger.
+Issued via the JSON-body shape per the role norm:
+
+```
+echo '{"reviewers":["kriskowal"]}' | gh api \
+  repos/endojs/endo-but-for-bots/pulls/58/requested_reviewers --input -
+```
+
+Returned 200 with `kriskowal` now in the PR's
+`requested_reviewers` array (alongside the standing `erights`
+reviewer). PR is back in kriskowal's queue.
 
 ## Out of scope
 
@@ -283,16 +301,9 @@ the trigger.
 
 ## Recommended next stage
 
-If CI stays green, **re-request review from kriskowal** via the
-JSON-body shape:
-
-```
-echo '{"reviewers":["kriskowal"]}' | gh api \
-  repos/endojs/endo-but-for-bots/pulls/58/requested_reviewers --input -
-```
-
-If CI surfaces a regression, dispatch **shepherd** to drive it to
-green before the re-request.
+Wait on kriskowal's re-review. If approved, dispatch **conductor**
+to merge. If another `CHANGES_REQUESTED` round arrives, dispatch
+**fixer** again with the new must-fix list.
 
 Self-improvement: nothing this time. The dispatch brief was unusually
 precise (the 6 asks were pre-enumerated by id + line + body), so the
