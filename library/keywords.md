@@ -182,6 +182,9 @@ disincarnation by cohort | cohort-destruction
 do not transcribe upstream rows | shape-not-content
 dynamic chained cross-domain composable attenuated accountable revocable | six-aspects-of-sharing
 Formula Persistence | formula-persistence-thesis
+Formula view of a value | (see section: endo-but-for-bots--llm-designs-formula-inspector--pop-the-bonnet-on-pet-named-capabilities-with-edit-toggle-and-retention-path-reveal)
+flip the modal card | (see section: endo-but-for-bots--llm-designs-chat-command-bar--value-modal-and-states)
+literal vs reference property | (see section: endo-but-for-bots--llm-designs-formula-inspector--pop-the-bonnet-on-pet-named-capabilities-with-edit-toggle-and-retention-path-reveal)
 formula graph | formula-graph
 formula key vs locator | dehydrate-hydrate
 formula persistence | formula-persistence-thesis
