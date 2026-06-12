@@ -3914,6 +3914,11 @@ ocap substrate composes into revocable proxy | marshal
 revocable membrane capability primitive | marshal
 Turadg Aleahmad commit ec42cb7b | marshal
 formula inspector pop the bonnet | daemon
+`@info` special name | (see section: endo-but-for-bots--llm-designs-formula-inspector--pop-the-bonnet-on-pet-named-capabilities-with-edit-toggle-and-retention-path-reveal)
+`@info` name hub | (see section: endo-but-for-bots--llm-designs-formula-inspector--pop-the-bonnet-on-pet-named-capabilities-with-edit-toggle-and-retention-path-reveal)
+inspector special name host-only | (see section: endo-but-for-bots--llm-designs-formula-inspector--pop-the-bonnet-on-pet-named-capabilities-with-edit-toggle-and-retention-path-reveal)
+host-only daemon method precedent | (see section: endo-but-for-bots--llm-designs-drp--daemon-surface-and-subscription)
+Host method absent on Guest | (see section: endo-but-for-bots--llm-designs-drp--daemon-surface-and-subscription)
 26 formula types | daemon
 pet-name-hides-the-formula | daemon
 rendered value vs richer formula structure | daemon
