@@ -10763,3 +10763,53 @@ eight-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314 + 315 + 3
 six-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316 + 317) | patterns
 one-hundred-and-fiftieth consecutive designs-chat alternation cycles 166-250 + 252-317 (251 was out-of-band) | patterns
 library-reaches-829-sections at cycle 317 (designs-lane @endo/hex README.md; eighth consecutive @endo/* source; fourth package extends; delayed-pair shape established; supply-chain-attack-exposure threat-model framing introduced) | patterns
+the-named-native-fast-path-polyfill-diagnostic-path (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-pay-for-diagnostic-precision-in-the-time-it-takes-to-fail | patterns
+the-named-call-the-polyfill-expecting-it-to-throw (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-fallback-to-original-error-if-polyfill-disagrees | patterns
+the-named-native-throw-doesn't-name-the-offset (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-encode-decode-asymmetry-IS-named-input-trust-asymmetry (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-symmetric-API-asymmetric-implementations | patterns
+the-named-cross-reference-rationale-to-sister-file (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-don't-repeat-rationale-cite-the-sibling | patterns
+the-named-See-sister-file-for-rationale | patterns
+the-named-direct-charcode-arithmetic-not-lookup-table (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-two-justifications-one-decision (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-comment-cites-named-benchmark-result (V8 + Node 22 + ~1 MiB + 2.5-3x) (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-no-module-scope-mutable-data-discipline (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-bitwise-case-fold-trick (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-OR-0x20-IS-named-canonical-ASCII-lowercase-fold | patterns
+the-named-non-letters-still-fail-discipline | patterns
+the-named-bitwise-trick-with-defense-narrated | patterns
+the-named-sentinel-value-minus-one-for-nibble (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-impossible-value-IS-named-sentinel | patterns
+the-named-out-of-range-sentinel-discipline | patterns
+the-named-throw-includes-precise-failing-offset (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-precise-offset-IS-named-cite-the-failing-nibble | patterns
+the-named-odd-length-check-first (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-cheapest-validation-first-discipline | patterns
+the-named-fail-loud-on-shape-before-content | patterns
+the-named-XS-engine-named (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-Moddable-IS-named-XS-vendor | patterns
+the-named-engine-specific-performance-disclaimer | patterns
+the-named-future-dependency-named-without-blocking-on-it | patterns
+the-named-Reflect.apply-with-explicit-thisArg (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-static-method-needs-explicit-thisArg-as-constructor | patterns
+the-named-js-prefix-discipline-for-polyfill-name (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-naming-convention-marks-the-pure-JS-implementation | patterns
+the-named-sibling-file-shape-shared (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-three-file-cluster-doc-impl-sibling-arc (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+the-named-first-three-file-cluster-of-the-pivot (first-explicit-observation; cycle 318) | (see section: endo--packages-hex-src-decode-js--native-fast-path-with-polyfill-diagnostic-fallback)
+two-cycles-with-named-Reflect.apply-captured-at-module-load (314 + 318) | patterns
+two-cycles-with-named-eslint-disable-no-bitwise (314 + 318) | patterns
+two-cycles-with-named-cast-to-any-to-access-non-spec-prop (314 + 318) | patterns
+two-cycles-with-named-feature-detection-via-typeof-function (314 + 318) | patterns
+two-cycles-with-named-typeof-IS-named-type-inheritance-via-JSDoc (314 + 318) | patterns
+two-cycles-with-named-two-harden-calls-on-exports (314 + 318) | patterns
+two-cycles-with-named-js-prefix-discipline-for-polyfill-name (314 + 318) | patterns
+three-cycles-with-named-Stage-4-TC39-proposal-citation (314 source + 317 README + 318 source) | patterns
+seven-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316 + 317 + 318) | patterns
+nine-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318) | patterns
+nine-cycles-with-named-harden-call-on-exports | patterns
+one-hundred-and-fifty-first consecutive designs-chat alternation cycles 166-250 + 252-318 (251 was out-of-band) | patterns
+library-reaches-830-sections at cycle 318 (chat-lane @endo/hex src/decode.js; ninth consecutive @endo/* source; fourth package; first three-file cluster of the pivot established: encode + README + decode) | patterns
