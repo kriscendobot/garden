@@ -23,6 +23,10 @@ refs:
   - entries/2026/06/14/085400Z-dispatch-barrister-5f9f2f.md
   - entries/2026/06/14/090825Z-result-appellate-98a88d.md
 preconditions: []
+claimed_by_role: fixer
+claimed_by_host: endolinbot
+claimed_by_session: c24d
+claimed_at: 2026-06-14T09:15:29Z
 ---
 
 # summary-fix bundle for PR #442 (barrister panel, round 1)
