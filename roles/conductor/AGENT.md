@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-06
+updated: 2026-06-14
 author: liaison, gardener
 ---
 
@@ -57,7 +57,7 @@ For each PR at the head of the queue:
    Force-push with `--force-with-lease=<head>:<old-sha>`. The push triggers a fresh CI run that step 4 reads.
 4. **Check CI state.** Use run-level `status` / `conclusion`:
    - **Green**: step 5 with direct `--merge`.
-   - **Failing**: do NOT merge. Stall with reason `ci red: needs shepherd`; the next steward cycle dispatches a shepherd. Out-of-scope failures (multi-file refactor, public-API change, test deletion) stall `ci needs fixer`.
+   - **Failing**: do NOT merge. Stall with reason `ci red: needs shepherd`; the next steward cycle dispatches a shepherd. The shepherd's own escalation classification routes onward to fixer / weaver / designer / liaison as needed (per `roles/shepherd/AGENT.md` § Escalation classification: name the next role); the conductor does not pre-classify the failure. (The prior "Out-of-scope failures stall `ci needs fixer`" sub-rule was retired 2026-06-14 alongside the shepherd's surgical-fix-scope retirement; the shepherd now handles multi-file refactor in-scope.)
    - **In flight**: step 5 with `--auto --merge`. GitHub holds the merge until CI is green; cancels on red.
 
    **Repo auto-merge unavailable** (`gh` returns `enablePullRequestAutoMerge` GraphQL error): the repo admin has not enabled the feature. Stall the PR with `awaiting CI (auto-merge not enabled)`; the orchestrator can arm a parent Monitor and re-dispatch the conductor when CI converges.
