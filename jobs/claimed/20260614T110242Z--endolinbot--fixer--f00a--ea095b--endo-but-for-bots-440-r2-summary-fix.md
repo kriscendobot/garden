@@ -23,6 +23,10 @@ refs:
   - entries/2026/06/14/095115Z-result-barrister-103358.md
   - entries/2026/06/14/104357Z-result-fixer-9bf98b.md
 preconditions: []
+claimed_by_role: fixer
+claimed_by_host: endolinbot
+claimed_by_session: f00a
+claimed_at: 2026-06-14T11:02:42Z
 ---
 
 # Summary-fix bundle for endo-but-for-bots#440 (justice round 2)
