@@ -5,7 +5,7 @@ pr_number: 440
 upstream_mirror_repo: null
 upstream_mirror_pr: null
 created_at: 2026-06-14T09:50:00Z
-last_appended_at: 2026-06-14T09:50:00Z
+last_appended_at: 2026-06-14T10:52:00Z
 status: parked
 ---
 
@@ -44,3 +44,9 @@ Created from the barrister code-panel verdict (23 seats, in-band fallback) on `f
   **Round**: 1.
   **Recommended action**: open a follow-up implementation PR adding one stability test for `endo inspect counter --json` that pins the key order of the `FormulaRecord` JSON output (`type`, `number`, `properties`) so downstream scripts can parse via `jq` without ordering surprises across daemon revisions.
   Lightweight; the current `inspect-formula.js` demo asserts a regex match against specific substrings but does not pin shape stability.
+
+- [ ] **Chat-side registry `host` propertyList alignment with daemon's rewritten host case.**
+  **Source juror(s)**: integrator (justice round 2).
+  **Round**: 2.
+  **Recommended action**: superseded by the justice round-2 `summary-fix` job at `jobs/open/20260614T105226Z--ea095b--endo-but-for-bots-440-r2-summary-fix.md` (a fixer or steward should claim and land before un-draft if alignment is wanted on day one; otherwise the registry's fallback path renders the new host references in the unknown-properties tail and the curated order can land as a post-merge follow-up).
+  Tracking here for the merge-watch sweep: if the summary-fix job ages out without being claimed and the PR merges first, this becomes the deferred item to action.
