@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-03
+updated: 2026-06-14
 author: gardener
 ---
 
@@ -45,6 +45,7 @@ Assumes you have already read `roles/COMMON.md`.
 - **Check `Depends On` against the roadmap annotation.** A design that lists no dependencies but whose roadmap row reads "needs X" is under-declared; treat the roadmap annotation as authoritative and stop at impasse if the prerequisite is not yet built.
 - **Modeled-on designs abbreviate their source.** When a design says "this implements pattern X from package Y", open Y's source files before writing the first line of implementation; sketches in design bodies routinely omit selector or fallback branches the source actually handles.
 - **A design that lives on the roadmap branch is read, not branched-from.** When an implementation dispatch references a design that lives on a project's bot-fork roadmap branch (today `llm` on `endojs/endo-but-for-bots`), the implementation branches off the project's natural implementation base (`master`, or whatever the project's README names), not off the roadmap branch. The design and the implementation are separate PRs with different bases. The maintainer's framing on 2026-05-14: "we don't carry designs onto the master branch; designs are based on llm, implementations are based on master." The Node-18-drop pattern (`endojs/endo-but-for-bots#232` design on `llm`, `endojs/endo-but-for-bots#246` master-base implementation) is the reference shape. Read the design file at its path on the roadmap branch (or in the design PR's diff); implement on master-base; do not combine the two PRs.
+- **Infer the base branch from package availability** (per the 2026-06-14 directive on `endojs/endo-but-for-bots#440`). The "implementations are based on master" default applies when every touched package exists on `master`. When the implementation must touch a package that exists only on the roadmap branch (`llm` on `endo-but-for-bots`; i.e., `git ls-tree origin/llm -- packages/<name>` returns a directory but `git ls-tree origin/master -- packages/<name>` does not), the base is the roadmap branch, not `master`. The per-project rule and its mixed-touch impasse case live on the project's journal-side README. For `endojs/endo-but-for-bots`, consult [`journal/projects/endo-but-for-bots/README.md`](../../journal/projects/endo-but-for-bots/README.md) § Rules of engagement (third bullet) on the `journal` branch. Builders inspect package availability on both candidate bases *before* opening the PR.
 - Conventional-commit messages (`feat(<pkg>):`, `fix(<pkg>):`, `chore:`, etc.) with the issue number in parens.
 - Run the full pre-PR checklist before the first push and again before any body rewrite.
 - Verify regression evidence for every new test before pushing.
