@@ -3824,6 +3824,14 @@ five Design Decisions codify choices | daemon
 supersedes JS-side daemon-content-store-gc | daemon
 integrates with daemon-xs-worker-snapshot | daemon
 extends daemon-endor-architecture | daemon
+`makeContentStore` | (see section: endo-but-for-bots--llm-designs-daemon-cas-management--content-address-store-as-supervisor-owned-subsystem-with-typed-content-retain-release-and-background-mark-sweep-gc)
+`makeDaemonicPersistencePowers` | (see section: endo-but-for-bots--llm-designs-daemon-content-store-gc--design-and-api-extension)
+`daemon-persistence-powers.js` | (see section: endo-but-for-bots--llm-designs-daemon-content-store-gc--design-and-api-extension)
+`makeSnapshotStore` | (see section: endo-but-for-bots--llm-designs-daemon-cas-management--content-address-store-as-supervisor-owned-subsystem-with-typed-content-retain-release-and-background-mark-sweep-gc)
+`@endo/platform/fs/lite` ContentStore SnapshotStore | (see section: endo-but-for-bots--llm-designs-daemon-cas-management--content-address-store-as-supervisor-owned-subsystem-with-typed-content-retain-release-and-background-mark-sweep-gc)
+`store-sha256` filesystem CAS layout | (see section: endo-but-for-bots--llm-designs-daemon-cas-management--content-address-store-as-supervisor-owned-subsystem-with-typed-content-retain-release-and-background-mark-sweep-gc)
+git-cas drop-in target | (see project design: endojs/endo-but-for-bots@llm:designs/daemon-git-capability.md)
+Phase 5 JS manager integration replacing makeContentStore | daemon
 PASS_STYLE typed as string literal | pass-style
 Symbol passStyle as nameable string type | pass-style
 TS4023 TS9006 unique symbol declaration emit | pass-style
