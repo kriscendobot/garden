@@ -1,17 +1,26 @@
 ---
-source_kind: comment-fragment
+source_kind: source-file
 source_repo: endojs/endo
 source_path: packages/promise-kit/src/memo-race.js
 source_line_range: 1-170
 file_commit: e56bf00f289ff8484094b785b11636b8bc71d87e
-file_commit_date: 2025-10-09
+file_commit_date: 2026-02-24
 file_commit_author: Kris Kowal
-comment_subject: memoRace with WeakMap deferred-sets and finally-cleanup vs native Promise.race memory leak
+comment_subject: memoRace with WeakMap deferred-sets (cycle 152) + complementary-lens discipline/architecture view (cycle 336)
 ingested: 2026-06-03
-ingested_by: scholar
-section_count: 1
+re-ingested: 2026-06-15
+ingested_by: scholar (cycle 152) + liaison (cycle 336)
+section_count: 2
 status: current
 notes: |
+  **Two ingest cycles** — cycle 152 (comment-fragment, algorithm
+  lens) + cycle 336 (full-file complementary-lens, discipline/
+  architecture view). Cycle 336 is the **fifth** application of
+  the §the-named-complementary-lens-re-ingest librarian
+  discipline (after cycles 322 + 324 + 330 + 332).
+
+  ## Cycle 152 lens (algorithm)
+
   Thirty-fifth comment-fragment ingest (cycle 152). 170-line
   @endo/promise-kit *memory-safe-race* primitive. **First
   @endo/promise-kit source file ingested** (the cluster
@@ -106,6 +115,56 @@ notes: |
   Cycle 152 was nominally chat-lane (exhausted at 20/20);
   papers-lane blocked 46+ consecutive cycles. Pivoted to
   comments-lane.
+
+  ## Cycle 336 lens (discipline / architecture)
+
+  Fifth complementary-lens re-ingest. Cycle 336 emphasizes the
+  **discipline / architecture** view rather than the algorithm.
+  Adjacent-reverse pair with cycle 335 designs-lane @endo/
+  promise-kit README; the eighth INSTANCE of one-cycle README↔
+  source pattern (after the §seven-cycles-with-named-one-cycle-
+  README-source-arc streak ended at cycle 334 → 335 cross-
+  package).
+
+  Single most structurally interesting move: §the-named-
+  deviation-named-in-the-source-too — line 127-128 JSDoc
+  *"Unlike `Promise.race` it cleans up after itself so a
+  non-resolved value doesn't hold onto the result promise"*.
+  The README at cycle 335 made the abstract *deliberately-
+  imperfect-ponyfill* claim; the source at cycle 336 NAMES
+  THE DEVIATION at the JSDoc level. §the-named-implementation-
+  of-the-accommodation; §the-named-honesty-at-two-levels-
+  discipline (README + JSDoc).
+
+  Other complementary observations: §the-named-public-domain-
+  license-header-preserved-verbatim (29-line Unlicense block
+  for Brian Kim's original); §the-named-attribution-discipline-
+  when-adopting-public-domain-code; §the-named-licensing-
+  asymmetry-within-a-single-package (Apache-2.0 package + file-
+  header Unlicense); §the-named-name-both-the-goal-and-the-
+  obstacle (TODO names what to do AND why it hasn't been done);
+  §the-named-helpers-private-export-single-public (5 private
+  names + 1 public export); §the-named-three-shapes-of-export-
+  discipline (barrel-index + one-file-one-export-no-index +
+  single-file-single-export-with-private-helpers; refines cycle
+  333's three-way package categorization with export-shape
+  parameter); §the-named-in-place-transition-for-shared-
+  references (mutate not replace because multiple races hold
+  pointers); §the-named-fake-record-honors-real-record-
+  discipline; §the-named-api-name-vs-impl-name-asymmetry
+  (`race` internal vs `memoRace` external); §the-named-JSDoc-
+  as-three-tools (semantic-marker + type-level-surgery +
+  generic-this-binding); §the-named-iterable-vs-array-
+  discipline; §the-named-synchronous-registration-via-promise-
+  constructor-body.
+
+  Closes citation arcs: cycle 152 (184 cycles, self) + cycle
+  335 (1 cycle, adjacent-reverse pair) + cycle 173 (163 cycles,
+  promise-executor-kit sibling) + cycle 187 (149 cycles, shim
+  cluster `Promise.race = memoRace`) + cycle 108 (228 cycles,
+  e56bf00f migration commit cluster) + cycle 142 (194 cycles,
+  passStyle-helpers.js isPrimitive duplication). Pushes
+  citation-arc-closures-in-pivot to **50**.
 ---
 
 > Abstract: `memo-race.js` (170 lines) is the @endo/promise-
@@ -152,9 +211,10 @@ notes: |
 
 | Section | Topics | Status |
 |---------|--------|--------|
-| [memoRace-with-WeakMap-deferred-sets-and-finally-cleanup-vs-native-Promise.race-memory-leak](../sections/endo--packages-promise-kit-src-memo-race-js--memoRace-with-WeakMap-deferred-sets-and-finally-cleanup-vs-native-Promise.race-memory-leak.md) | eventual-send, hardened-javascript, async-flow | current |
+| [memoRace-with-WeakMap-deferred-sets-and-finally-cleanup-vs-native-Promise.race-memory-leak](../sections/endo--packages-promise-kit-src-memo-race-js--memoRace-with-WeakMap-deferred-sets-and-finally-cleanup-vs-native-Promise.race-memory-leak.md) | eventual-send, hardened-javascript, async-flow | current (cycle 152, algorithm lens) |
+| [fifth-complementary-lens-deviation-named-in-the-source-too](../sections/endo--packages-promise-kit-src-memo-race-js--fifth-complementary-lens-deviation-named-in-the-source-too.md) | eventual-send, hardened-javascript, ponyfill-discipline, attribution-discipline, JSDoc-discipline | current (cycle 336, discipline/architecture lens) |
 
-Tight 170-line file. One cohesion-honest section.
+170-line file with **two cohesion-honest sections** from two complementary lenses: cycle 152 algorithm view (WeakMap + finally-cleanup mechanics) + cycle 336 discipline view (license header preservation + named-deviation in JSDoc + export shape + transition discipline + JSDoc-as-three-tools).
 
 ## Provenance
 
@@ -171,9 +231,18 @@ Tight 170-line file. One cohesion-honest section.
   (faster-isObject refactor), Turadg Aleahmad 2024-08-19 /
   2022-09-30 (TypeScript), Mark S. Miller 2022-07-27
   (more-hardens).
-- **Thirty-fifth comment-fragment ingest.** **First
-  @endo/promise-kit source file ingested.**
+- **Thirty-fifth comment-fragment ingest** (cycle 152).
+  **First @endo/promise-kit source file ingested** (cycle 152).
 - Cycle 152 was nominally **chat-lane** (exhausted at 20/20);
   papers-lane blocked **46+ consecutive cycles**. Cycle 152
   pivoted to comments-lane.
-- One cohesion-honest section.
+- **Re-ingested 2026-06-15 in cycle 336** as the **fifth
+  complementary-lens re-ingest** (after cycles 322 + 324 + 330
+  + 332). Cycle 336 takes the discipline/architecture view —
+  license-header preservation, named-deviation in JSDoc,
+  helpers-private-export-single-public, in-place-transition-
+  for-shared-references, api-name-vs-impl-name-asymmetry, JSDoc-
+  as-three-tools, iterable-vs-array-discipline, synchronous-
+  registration-via-promise-constructor-body.
+- **Two cohesion-honest sections** from two complementary
+  lenses (algorithm + discipline).

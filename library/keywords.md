@@ -11525,3 +11525,46 @@ thirteen-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + strea
 twenty-six-cycles-with-named-pivot-domain-stay (310-335) | patterns
 one-hundred-and-sixty-eighth consecutive designs-chat alternation cycles 166-250 + 252-335 (251 was out-of-band) | patterns
 library-reaches-847-sections at cycle 335 (designs-lane @endo/promise-kit README.md; twenty-sixth consecutive @endo/* source; THIRTEENTH PACKAGE added; deliberately-imperfect-ponyfill discipline named as tier-3 meta-pattern; §two-shapes-of-ponyfill-discipline parameterizes the ponyfill-vs-polyfill distinction; cycle 152 memo-race arc closes at 183 cycles; SEVEN-CYCLE one-cycle-README-source-arc streak ENDS) | patterns
+the-named-deviation-named-in-the-source-too (first-explicit-observation; cycle 336; line 127-128 JSDoc "Unlike `Promise.race` it cleans up after itself"; closes cycle 335 deliberately-imperfect-ponyfill at the implementation-side) | (see section: endo--packages-promise-kit-src-memo-race-js--fifth-complementary-lens-deviation-named-in-the-source-too)
+the-named-implementation-of-the-accommodation (first-explicit-observation; cycle 336; source-side closure of README claim) | patterns
+the-named-honesty-at-two-levels-discipline (first-explicit-observation; cycle 336; package-level README + symbol-level JSDoc independent commitments) | patterns
+the-named-public-domain-license-header-preserved-verbatim (first-explicit-observation; cycle 336; 29-line Unlicense block for Brian Kim's 2017 nodejs/node#17469 contribution) | (see section: endo--packages-promise-kit-src-memo-race-js--fifth-complementary-lens-deviation-named-in-the-source-too)
+the-named-attribution-discipline-when-adopting-public-domain-code (first-explicit-observation; cycle 336) | patterns
+the-named-canonical-URL-as-provenance (first-explicit-observation; cycle 336; cite to original GitHub issue comment) | patterns
+the-named-licensing-asymmetry-within-a-single-package (first-explicit-observation; cycle 336; Apache-2.0 package + file-header Unlicense) | patterns
+the-named-explicit-acknowledgment-of-cross-package-layering-constraint (first-explicit-observation; cycle 336; TODO at line 34-36) | patterns
+the-named-name-both-the-goal-and-the-obstacle (first-explicit-observation; cycle 336; TODO names what to do AND why it hasn't been done) | patterns
+the-named-honest-TODO-with-named-obstacle (first-explicit-observation; cycle 336) | patterns
+the-named-helpers-private-export-single-public (first-explicit-observation; cycle 336; five private names + one public export) | patterns
+the-named-export-the-noun-not-the-verbs (first-explicit-observation; cycle 336) | patterns
+the-named-private-state-machine-public-surface (first-explicit-observation; cycle 336) | patterns
+the-named-three-shapes-of-export-discipline (first-explicit-observation; cycle 336; barrel-index + one-file-one-export-no-index + single-file-single-export-with-private-helpers; refines cycle 333 three-way package categorization with export-shape parameter) | patterns
+the-named-in-place-transition-for-shared-references (first-explicit-observation; cycle 336; Object.assign mutates because multiple races hold pointers) | patterns
+the-named-assign-then-freeze-transition (first-explicit-observation; cycle 336) | patterns
+the-named-fake-record-honors-real-record-discipline (first-explicit-observation; cycle 336; primitives get harden({settled: true}) to match structural shape) | patterns
+the-named-construction-shape-determines-freeze-vs-harden (first-explicit-observation; cycle 336) | patterns
+the-named-named-function-via-object-destructure (first-explicit-observation; cycle 336; method-syntax + object-destructure + named-binding in one idiom) | patterns
+the-named-api-name-vs-impl-name-asymmetry (first-explicit-observation; cycle 336; internal `race` generic + external `memoRace` qualified) | patterns
+the-named-impl-name-is-generic-API-name-is-qualified (first-explicit-observation; cycle 336) | patterns
+the-named-JSDoc-generic-this-binding (first-explicit-observation; cycle 336; @template P + @this {P} for subclassability) | patterns
+the-named-subclassable-via-JSDoc-only (first-explicit-observation; cycle 336; runtime property exposed through JSDoc machinery) | patterns
+the-named-JSDoc-as-three-tools (first-explicit-observation; cycle 336; semantic-marker + type-level-surgery + generic-this-binding) | patterns
+the-named-cachedValues-defends-against-one-shot-iterables (reaffirmed; cycle 336) | patterns
+the-named-single-pass-with-cached-array-idiom (first-explicit-observation in discipline lens; cycle 336) | patterns
+the-named-iterable-vs-array-discipline (first-explicit-observation; cycle 336; broader prose contract + narrower JSDoc type + defensive implementation) | patterns
+the-named-ts-expect-error-with-named-cause (cycle 336) | patterns
+four-cycles-with-named-ts-expect-error-discipline (146 + 187 + 211 + 336) | patterns
+the-named-synchronous-registration-via-promise-constructor-body (first-explicit-observation; cycle 336) | patterns
+two-cycles-with-named-executor-body-as-synchronous-capture-hook (173 + 336) | patterns
+the-named-streak-resumes-after-one-cycle-gap (first-explicit-observation; cycle 336; eighth INSTANCE of one-cycle README↔source pattern, isolated after cycle 334 → 335 broke the §seven-cycles-with-named-one-cycle-README-source-arc streak) | patterns
+the-named-citation-arc-from-cycle-152-takes-184-cycles-to-close (first-explicit-observation; cycle 336; complementary-lens self-arc) | (see section: endo--packages-promise-kit-src-memo-race-js--fifth-complementary-lens-deviation-named-in-the-source-too)
+the-named-citation-arc-from-cycle-335-takes-1-cycle-to-close (first-explicit-observation; cycle 336; implementation-of-deliberate-imperfection arc) | (see section: endo--packages-promise-kit-src-memo-race-js--fifth-complementary-lens-deviation-named-in-the-source-too)
+the-named-citation-arc-from-cycle-173-takes-163-cycles-to-close (first-explicit-observation; cycle 336; promise-executor-kit sibling) | (see section: endo--packages-promise-kit-src-memo-race-js--fifth-complementary-lens-deviation-named-in-the-source-too)
+the-named-citation-arc-from-cycle-187-takes-149-cycles-to-close (first-explicit-observation; cycle 336; shim cluster `Promise.race = memoRace`) | (see section: endo--packages-promise-kit-src-memo-race-js--fifth-complementary-lens-deviation-named-in-the-source-too)
+the-named-citation-arc-from-cycle-108-takes-228-cycles-to-close (first-explicit-observation; cycle 336; e56bf00f migration commit cluster member) | (see section: endo--packages-promise-kit-src-memo-race-js--fifth-complementary-lens-deviation-named-in-the-source-too)
+the-named-citation-arc-from-cycle-142-takes-194-cycles-to-close (first-explicit-observation; cycle 336; passStyle-helpers.js isPrimitive duplication acknowledged from both sides) | (see section: endo--packages-promise-kit-src-memo-race-js--fifth-complementary-lens-deviation-named-in-the-source-too)
+five-cycles-with-named-complementary-lens-re-ingest (322 exo-makers + 324 atomics + 330 smallcaps + 332 exo-tools + 336 memo-race) | patterns
+fifty-citation-arc-closures-in-pivot-now (49 + 1 net new in cycle 336; MILESTONE) | patterns
+twenty-seven-cycles-with-named-pivot-domain-stay (310-336) | patterns
+one-hundred-and-sixty-ninth consecutive designs-chat alternation cycles 166-250 + 252-336 (251 was out-of-band) | patterns
+library-reaches-848-sections at cycle 336 (chat-lane @endo/promise-kit/src/memo-race.js; twenty-seventh consecutive @endo/* source; thirteenth package extends with adjacent-reverse pair; FIFTH complementary-lens re-ingest of cycle 152; deviation-named-in-the-source-too discipline named as tier-3 meta-pattern; honesty-at-two-levels-discipline named for the first time; attribution-discipline-when-adopting-public-domain-code first-explicit-observation; three-shapes-of-export-discipline refines cycle 333 package categorization; eighth INSTANCE of one-cycle README↔source pattern but ISOLATED — §the-named-streak-resumes-after-one-cycle-gap; FIFTY-citation-arc-closures-in-pivot milestone) | patterns
