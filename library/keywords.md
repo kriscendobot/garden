@@ -11745,3 +11745,30 @@ thirty-one-cycles-with-named-pivot-domain-stay (310-340) | patterns
 seventy-five-citation-arc-closures-in-pivot-now (68 + 7 net new in cycle 340) | patterns
 one-hundred-and-seventy-third consecutive designs-chat alternation cycles 166-250 + 252-340 (251 was out-of-band) | patterns
 library-reaches-852-sections at cycle 340 (chat-lane @endo/errors/rejector.js; thirty-first consecutive @endo/* source; errors's source after its README; TENTH INSTANCE of one-cycle README↔source pattern; canonical-typedef-as-the-pattern-anchor named as tier-3 meta-pattern; canonical-source-of-a-distributed-pattern as tier-3 meta-pattern; types-only-file as tier-3 meta-pattern; discriminator-type-as-mode-switch as tier-3 meta-pattern; test-file-as-canonical-examples as tier-3 meta-pattern; canonical-source-closure-of-the-Rejector-trio cycle 102 → 340 = 238 cycles; nine citation arcs closed including 253-cycle arc to cycle 87) | patterns
+the-named-subset-relationship-named-with-named-alternative (first-explicit-observation; cycle 341; @endo/lockdown README names HardenedJS ⊂ Endo + points to @endo/init for comprehensive) | (see section: endo--packages-lockdown-README-md--sixteenth-package-side-effect-import-as-environment-upgrade-and-subset-relationship-with-named-alternative)
+the-named-pointer-to-related-package-with-named-relationship (first-explicit-observation; cycle 341; pointer qualified by relationship — reader learns alternative AND when to use it) | patterns
+the-named-scope-awareness-discipline (first-explicit-observation; cycle 341; substrate-policy READMEs should name their scope and point to larger/related packages) | patterns
+the-named-side-effect-import-as-environment-upgrade (first-explicit-observation; cycle 341) | (see section: endo--packages-lockdown-README-md--sixteenth-package-side-effect-import-as-environment-upgrade-and-subset-relationship-with-named-alternative)
+the-named-side-effect-only-package (first-explicit-observation; cycle 341; no exports; the import IS the contract) | patterns
+two-shapes-of-export-less-package (types-only cycle 340 + side-effect-only cycle 341; both zero runtime exports but contribute different things — typedefs vs runtime side-effects) | patterns
+the-named-import-order-as-temporal-discipline (first-explicit-observation; cycle 341; lockdown must be imported FIRST) | patterns
+the-named-import-statement-as-temporal-anchor (first-explicit-observation; cycle 341; when side effects matter, source-order import IS the temporal contract) | patterns
+two-cycles-with-named-temporal-ordering-discipline (cycle 337 vulnerability via with-OR-without-NOT-both-policy + cycle 341 prevention via import-order discipline) | patterns
+the-named-quoted-import-ellipsis-as-placeholder (first-explicit-observation; cycle 341; `import 'hardened-modules...';` string-literal-ellipsis as documentation idiom) | patterns
+the-named-coordinate-with-SES-via-import (first-explicit-observation; cycle 341) | patterns
+three-cycles-with-named-coordination-target-IS-SES (337 harden + 339 errors + 341 lockdown; SES is the convergent coordination target for all three minimal-substrate-policy READMEs) | patterns
+the-named-SES-as-convergent-coordination-target (first-explicit-observation; cycle 341; substrate-packages converge on one underlying foundational package) | patterns
+three-cycles-with-named-package-coordinates-with-named-other-package (337 harden's prepare-* convention + 339 errors with ses + 341 lockdown with init) | patterns
+the-named-simply-ensures-language (first-explicit-observation; cycle 341; minimalism discipline-marker) | patterns
+the-named-fifteen-line-policy-minimal-README (first-explicit-observation; cycle 341) | patterns
+two-substrate-policy-minimal-READMEs (cycle 339 errors at 13 lines + cycle 341 lockdown at 15 lines) | patterns
+the-named-substrate-policy-minimal-shape-confirmed-across-two-applications (first-explicit-observation; cycle 341) | patterns
+four-cycles-with-named-substrate-package-introduction (337 + 339 + 340 + 341) | patterns
+the-named-substrate-package-cluster-introduction-trend (first-explicit-observation; cycle 341; five-consecutive-cycle substrate-introduction phase 337-341) | patterns
+sixteen-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style + patterns + marshal + common + promise-kit + harden + errors + lockdown) | patterns
+thirty-two-cycles-with-named-pivot-domain-stay (310-341) | patterns
+eighty-two-citation-arc-closures-in-pivot-now (75 + 7 net new in cycle 341) | patterns
+the-named-citation-arc-from-cycle-87-takes-254-cycles-to-close (first-explicit-observation; cycle 341; ties cycle 340's 253-cycle as second-longest pivot arc) | patterns
+the-named-citation-arc-from-cycle-183-takes-158-cycles-to-close (first-explicit-observation; cycle 341; init/lockdown 12-file comment-fragment cluster; first observation of tolerance-ladder) | patterns
+one-hundred-and-seventy-fourth consecutive designs-chat alternation cycles 166-250 + 252-341 (251 was out-of-band) | patterns
+library-reaches-853-sections at cycle 341 (designs-lane @endo/lockdown README.md; thirty-second consecutive @endo/* source; SIXTEENTH PACKAGE added to pivot cluster; substrate-policy-minimal shape confirmed across two applications; subset-relationship-named-with-named-alternative discipline named as tier-3 meta-pattern; SES-as-convergent-coordination-target as tier-3 meta-pattern; substrate-package-cluster-introduction-trend names the five-cycle phase; two-shapes-of-export-less-package; import-statement-as-temporal-anchor; eight citation arcs closed) | patterns
