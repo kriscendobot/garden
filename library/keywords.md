@@ -11687,3 +11687,31 @@ sixty-two-citation-arc-closures-in-pivot-now (56 + 6 net new in cycle 338) | pat
 twenty-nine-cycles-with-named-pivot-domain-stay (310-338) | patterns
 one-hundred-and-seventy-first consecutive designs-chat alternation cycles 166-250 + 252-338 (251 was out-of-band) | patterns
 library-reaches-850-sections at cycle 338 (chat-lane @endo/harden/make-hardener.js; twenty-ninth consecutive @endo/* source; harden's source after its README; NINTH INSTANCE of one-cycle README↔source pattern; three-phase-traversal-with-named-commit-after-all-frozen discipline named as tier-3 meta-pattern; four-shapes-of-atomic-transition-discipline; FERAL-prefix-naming-convention; platform-detection-at-factory-time-not-per-call; substrate-of-substrates-zero-endo-imports; NINE citation arcs closed including 251-cycle arc back to cycle 87 V8-stack-accessor observation) | patterns
+the-named-information-disclosure-via-thrown-exception-threat-model (first-explicit-observation; cycle 339; @endo/errors README opens with information disclosure threat; structurally different from cycle 337 supply-chain-attack threat) | (see section: endo--packages-errors-README-md--fifteenth-package-information-disclosure-threat-model-with-package-coordinates-with-ses)
+two-threat-models-named-in-pivot-READMEs (337 supply-chain-attack + 339 information-disclosure-via-thrown-exception) | patterns
+the-named-two-threat-models-name-different-attack-surfaces (first-explicit-observation; cycle 339; substrate-packages name DIFFERENT threats at DIFFERENT layers; not redundant) | patterns
+the-named-host-vs-guest-information-disclosure (first-explicit-observation; cycle 339) | patterns
+the-named-symmetric-disclosure-risk-named-twice (first-explicit-observation; cycle 339; README names BOTH host→guest AND guest→guest) | patterns
+the-named-host-AND-guest-guest-disclosure-symmetry (first-explicit-observation; cycle 339) | patterns
+the-named-redacted-messages-as-package-purpose (first-explicit-observation; cycle 339) | patterns
+the-named-one-sentence-purpose-statement (first-explicit-observation; cycle 339) | patterns
+the-named-package-coordinates-with-named-other-package (first-explicit-observation; cycle 339; @endo/errors coordinates with `ses` in host realm) | (see section: endo--packages-errors-README-md--fifteenth-package-information-disclosure-threat-model-with-package-coordinates-with-ses)
+the-named-coordination-with-ses-for-console-reveal (first-explicit-observation; cycle 339) | patterns
+the-named-redacted-vs-revealed-asymmetry (first-explicit-observation; cycle 339; catchers see redacted; console sees full) | (see section: endo--packages-errors-README-md--fifteenth-package-information-disclosure-threat-model-with-package-coordinates-with-ses)
+the-named-two-audiences-different-privileges (first-explicit-observation; cycle 339) | patterns
+three-cycles-with-named-capability-channel-by-audience (87 V8-stack-accessor + 337 intrinsic-over-endowment + 339 redacted-vs-revealed) | patterns
+the-named-NEW-SHORTEST-README-in-pivot (first-explicit-observation; cycle 339; 13 lines; previous record cycle 333 @endo/common at 17 lines) | (see section: endo--packages-errors-README-md--fifteenth-package-information-disclosure-threat-model-with-package-coordinates-with-ses)
+the-named-thirteen-line-README-as-floor (first-explicit-observation; cycle 339) | patterns
+the-named-substrate-policy-vs-collection-package-shape-distinct (first-explicit-observation; cycle 339) | patterns
+the-named-substrate-policy-README-can-be-13-lines (first-explicit-observation; cycle 339) | patterns
+the-named-five-shapes-of-README (collection cycle 333 + utility cycle 335 + substrate-policy-prose cycle 337 + substrate-policy-minimal cycle 339 + substrate-deep cycle 325; refines cycle 337's four-shape categorization with FIFTH shape) | patterns
+the-named-three-piece-minimal-README (first-explicit-observation; cycle 339; threat-model + purpose + coordination = 13 lines is sufficient) | patterns
+two-cycles-with-named-substrate-package-introduction (337 + 339; substrate-package documentation-side closure discipline) | patterns
+the-named-streak-of-zero-cross-package (first-explicit-observation; cycle 339; cycle 338 → 339 is cross-package; streak count returns to 0) | patterns
+the-named-citation-arc-from-cycle-87-takes-252-cycles-to-close (first-explicit-observation; cycle 339; equals cycle 338's 251-cycle arc as second-longest pivot arc after the 261-cycle record) | (see section: endo--packages-errors-README-md--fifteenth-package-information-disclosure-threat-model-with-package-coordinates-with-ses)
+the-named-citation-arc-from-cycle-102-takes-237-cycles-to-close (first-explicit-observation; cycle 339; Rejector trio pattern lives in rejector.js of this package) | patterns
+fifteen-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style + patterns + marshal + common + promise-kit + harden + errors) | patterns
+thirty-cycles-with-named-pivot-domain-stay (310-339; MILESTONE: 30 consecutive cycles in the pivot) | patterns
+sixty-eight-citation-arc-closures-in-pivot-now (62 + 6 net new in cycle 339) | patterns
+one-hundred-and-seventy-second consecutive designs-chat alternation cycles 166-250 + 252-339 (251 was out-of-band) | patterns
+library-reaches-851-sections at cycle 339 (designs-lane @endo/errors README.md; thirtieth consecutive @endo/* source MILESTONE; FIFTEENTH PACKAGE added to pivot cluster; NEW SHORTEST README in pivot at 13 lines; information-disclosure-via-thrown-exception-threat-model named as tier-3 meta-pattern; two-threat-models-named-in-pivot-READMEs as tier-2 multi-cycle pattern; package-coordinates-with-named-other-package; redacted-vs-revealed-asymmetry; five-shapes-of-README refines cycle 337's four-shape with substrate-policy-minimal as FIFTH; nine citation arcs closed) | patterns
