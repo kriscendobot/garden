@@ -11298,3 +11298,44 @@ nineteen-cycles-with-named-pivot-domain-stay (310-328) | patterns
 eleven-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style + patterns + marshal) | patterns
 one-hundred-and-sixty-first consecutive designs-chat alternation cycles 166-250 + 252-328 (251 was out-of-band) | patterns
 library-reaches-840-sections at cycle 328 (chat-lane @endo/marshal src/encodeToCapData.js; nineteenth consecutive @endo/* source; ELEVENTH PACKAGE added to pivot cluster; SIX CITATION ARCS CLOSED matching cycle 325 record; NEW LONGEST PIVOT ARC 259 cycles cycle 69 → 328; Hilbert-Hotel encoding confirmed as transferable technique across cycles 148 + 328) | patterns
+the-named-side-by-side-format-comparison-discipline (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-comparison-by-side-by-side-output | patterns
+the-named-functionality-not-supported-at-all-subtype (first-explicit-observation; cycle 329; fifth named subtype of honesty-about-API-tradeoffs) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+five-cycles-with-named-honesty-about-API-tradeoffs (321 low-utility-paths + 323 relaxed-security-models + 325 functionality-elsewhere + 326 documentation-language-cannot-express + 329 functionality-not-supported-at-all) | patterns
+the-named-more-tolerant-and-less-tolerant-IS-named-symmetric-comparison-discipline (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-symmetric-comparison-via-both-directions | patterns
+the-named-explicit-error-vs-silent-omission-discipline (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-throw-not-skip-discipline | patterns
+the-named-marshalling-IS-named-conversion-of-structured-data (first-explicit-observation; cycle 329; opening sentence defines the term) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-define-the-term-first-discipline | patterns
+the-named-capability-bearing-data-IS-named-special-data (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-CapData-structure-IS-named-body-plus-slots (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-slot-identifier-as-named-indirection-mechanism | patterns
+the-named-side-table-pattern | patterns
+the-named-parameterized-with-two-functions-discipline (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-convertValToSlot-and-convertSlotToVal-named-pair | patterns
+the-named-each-callback-defaults-to-identity-function | patterns
+the-named-makePassableKit-as-alternative-API (first-explicit-observation; cycle 329; closes cycle 81 encodePassable arc) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-legacyOrdered-vs-compactOrdered (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-PR-citation-for-historical-context (first-explicit-observation; cycle 329; PR #1594 cited for legacy background) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-PR-link-as-design-record | patterns
+the-named-default-vs-preferred-distinction (first-explicit-observation; cycle 329; the default has diverged from the preferred) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-Frozen-Objects-Only-section (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-pass-by-presence-vs-pass-by-copy-with-distinguishing-criteria (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-rejected-mixed-objects (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-Empty-Objects-are-pass-by-copy-with-Far-as-alternative (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-Far-IS-named-empty-marker-for-identity-comparison | patterns
+the-named-rights-amplification-IS-named-canonical-pattern (first-explicit-observation; cycle 329; closes cycle 322 exo amplify arc) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-rights-amplification-IS-named-WeakMap-key-pattern | patterns
+the-named-no-slots-IS-named-no-presence-discipline (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-shape-determines-which-types-supported | patterns
+the-named-intra-document-cross-section-anchoring (first-explicit-observation; cycle 329) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-self-referential-anchor-within-README | patterns
+the-named-citation-arc-from-cycle-328-takes-1-cycle-to-close (first-explicit-observation; cycle 329; FOURTH one-cycle README↔source arc) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-citation-arc-from-cycle-160-takes-169-cycles-to-close (first-explicit-observation; cycle 329; marshal-stringify) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+the-named-citation-arc-from-cycle-81-takes-248-cycles-to-close (first-explicit-observation; cycle 329; makePassableKit uses encodePassable internals) | (see section: endo--packages-marshal-README-md--side-by-side-format-comparison-and-fifth-honesty-subtype)
+four-cycles-with-named-one-cycle-README-source-arc (323→324 + 325→326 + 326→327 + 328→329) | patterns
+twenty-five-citation-arc-closures-in-pivot-now (1 + 1 + 1 + 1 + 2 + 3 + 4 + 165 + 169 + 169 + 175 + 175 + 177 + 180 + 189 + 191 + 214 + 238 + 247 + 248 + 254 + 255 + 257 + 259 cycles) | patterns
+twenty-cycles-with-named-pivot-domain-stay (310-329) | patterns
+one-hundred-and-sixty-second consecutive designs-chat alternation cycles 166-250 + 252-329 (251 was out-of-band) | patterns
+library-reaches-841-sections at cycle 329 (designs-lane @endo/marshal README.md; twentieth consecutive @endo/* source; eleventh package extends with source → README adjacent-reverse pair; FOURTH one-cycle README↔source arc closure 328→329; FIVE named subtypes of honesty-about-API-tradeoffs; side-by-side-format-comparison-discipline named) | patterns
