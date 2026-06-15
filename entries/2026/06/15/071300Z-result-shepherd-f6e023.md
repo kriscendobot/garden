@@ -142,10 +142,13 @@ dispatch.
 
 ## PR #438 comment URL
 
-Pending: top-level comment to be posted after the CI run on
-`31aee0f6c` converges and we can report which jobs went red. Will be
-appended when the lint job completes (the monitor in the parent
-dispatch context is watching for that signal).
+https://github.com/endojs/endo-but-for-bots/pull/438#issuecomment-4705457419
+
+Posted after the new CI run on `31aee0f6c` converged:
+[CI run 27530090245](https://github.com/endojs/endo-but-for-bots/actions/runs/27530090245).
+Lint completed `FAILURE` at 07:14:44Z with 620 TS errors (panic gone,
+matching local-repro count). Other CI shards in progress at comment
+time; the substantive failure is the lint cascade.
 
 ## Why this is `next: liaison` (not `next: fixer`)
 
