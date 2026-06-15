@@ -11772,3 +11772,38 @@ the-named-citation-arc-from-cycle-87-takes-254-cycles-to-close (first-explicit-o
 the-named-citation-arc-from-cycle-183-takes-158-cycles-to-close (first-explicit-observation; cycle 341; init/lockdown 12-file comment-fragment cluster; first observation of tolerance-ladder) | patterns
 one-hundred-and-seventy-fourth consecutive designs-chat alternation cycles 166-250 + 252-341 (251 was out-of-band) | patterns
 library-reaches-853-sections at cycle 341 (designs-lane @endo/lockdown README.md; thirty-second consecutive @endo/* source; SIXTEENTH PACKAGE added to pivot cluster; substrate-policy-minimal shape confirmed across two applications; subset-relationship-named-with-named-alternative discipline named as tier-3 meta-pattern; SES-as-convergent-coordination-target as tier-3 meta-pattern; substrate-package-cluster-introduction-trend names the five-cycle phase; two-shapes-of-export-less-package; import-statement-as-temporal-anchor; eight citation arcs closed) | patterns
+the-named-re-export-then-overwrite-pattern (first-explicit-observation; cycle 342; three-step substitution: load source for side-effect + export-star for types + capture-wrap-replace global) | (see section: endo--packages-lockdown-pre-js--sixth-complementary-lens-re-export-then-overwrite-pattern-and-Start-Compartment-naming)
+the-named-three-step-install-load-re-export-replace (first-explicit-observation; cycle 342) | patterns
+the-named-substitution-discipline-in-the-substrate-stack (first-explicit-observation; cycle 342; substrate packages wrap underlying packages by load + capture + wrap + replace) | patterns
+the-named-feature-detection-two-channel-sniff (first-explicit-observation; cycle 342; global OR env-var) | patterns
+the-named-LOCKDOWN_OPTIONS-as-global-OR-env-discipline (first-explicit-observation; cycle 342) | patterns
+the-named-console-warn-on-detection (first-explicit-observation; cycle 342) | patterns
+the-named-discipline-violation-visible (first-explicit-observation; cycle 342; when a package deliberately violates ocap discipline, make the violation VISIBLE via console.warn) | patterns
+two-cycles-with-named-visibility-discipline-on-discipline-violation (337 helpful-stack + 342 console.warn) | patterns
+the-named-three-branch-decision-tree-with-defaults (first-explicit-observation; cycle 342; sniff / arg / hardcoded) | patterns
+the-named-domainTaming-unsafe-always-injected (first-explicit-observation; cycle 342; across all three branches because of standardthings/esm dependency on Node.js domain module) | patterns
+the-named-injected-default-as-platform-acknowledgment (first-explicit-observation; cycle 342) | patterns
+the-named-NOTE-TO-REVIEWERS-pattern-with-four-applications (first-explicit-observation; cycle 342; pre.js has FOUR NOTE TO REVIEWERS blocks — errorTaming + stackFiltering + overrideTaming + consoleTaming) | (see section: endo--packages-lockdown-pre-js--sixth-complementary-lens-re-export-then-overwrite-pattern-and-Start-Compartment-naming)
+the-named-four-commented-out-options-with-NOTE-TO-REVIEWERS (first-explicit-observation; cycle 342) | patterns
+the-named-NOTE-TO-REVIEWERS-as-merge-defense (first-explicit-observation; cycle 342; code reviewer reads the embedded NOTE and catches the accident; defense embedded in source, not in tooling) | patterns
+four-shapes-of-source-level-honesty (322 warning-thrice + 326 deprecation-with-redirect + 337 deprecated-with-named-regret + 342 NOTE-TO-REVIEWERS-as-merge-defense) | patterns
+the-named-imperative-comment-block-as-design-document (first-explicit-observation; cycle 342; lines 16-49 form a 34-line comment block that IS the design rationale) | (see section: endo--packages-lockdown-pre-js--sixth-complementary-lens-re-export-then-overwrite-pattern-and-Start-Compartment-naming)
+the-named-init-violates-normal-ocap-discipline-honest-comment (first-explicit-observation; cycle 342) | patterns
+the-named-Initialization-is-often-awkward (first-explicit-observation; cycle 342; one-sentence design-anchor) | patterns
+three-cycles-with-named-honest-confession-in-prose-comment (183 + 337 + 342) | patterns
+the-named-Start-Compartment-canonical-naming (first-explicit-observation; cycle 342; lines 167-170 name post-lockdown state) | (see section: endo--packages-lockdown-pre-js--sixth-complementary-lens-re-export-then-overwrite-pattern-and-Start-Compartment-naming)
+the-named-three-names-installed-after-lockdown (first-explicit-observation; cycle 342; Compartment + assert + harden) | patterns
+the-named-canonical-comment-after-lockdown-names-the-surface (first-explicit-observation; cycle 342) | patterns
+the-named-postLockdown-as-second-phase (first-explicit-observation; cycle 342; two-phase init with named second-phase function call) | patterns
+the-named-export-star-for-types-from-source-package (first-explicit-observation; cycle 342) | patterns
+the-named-types-pass-through-via-export-star (first-explicit-observation; cycle 342; wrapper packages preserve type-level interface) | patterns
+six-cycles-with-named-complementary-lens-re-ingest (322 exo-makers + 324 atomics + 330 smallcaps + 332 exo-tools + 336 memo-race + 342 lockdown-pre) | patterns
+the-named-streak-resumes-with-eleventh-instance (first-explicit-observation; cycle 342; eleventh INSTANCE of one-cycle README↔source pattern; streak count is 1) | patterns
+five-cycles-with-named-substrate-package-introduction (337 + 339 + 340 + 341 + 342) | patterns
+the-named-substrate-package-cluster-introduction-trend-extends-to-six-cycles (first-explicit-observation; cycle 342) | patterns
+the-named-citation-arc-from-cycle-183-takes-159-cycles-to-close (first-explicit-observation; cycle 342; sixth complementary-lens re-ingest) | (see section: endo--packages-lockdown-pre-js--sixth-complementary-lens-re-export-then-overwrite-pattern-and-Start-Compartment-naming)
+the-named-citation-arc-from-cycle-167-takes-175-cycles-to-close (first-explicit-observation; cycle 342; named-TODO sibling from @endo/where) | patterns
+thirty-three-cycles-with-named-pivot-domain-stay (310-342) | patterns
+eighty-nine-citation-arc-closures-in-pivot-now (82 + 7 net new in cycle 342) | patterns
+one-hundred-and-seventy-fifth consecutive designs-chat alternation cycles 166-250 + 252-342 (251 was out-of-band) | patterns
+library-reaches-854-sections at cycle 342 (chat-lane @endo/lockdown pre.js; thirty-third consecutive @endo/* source; lockdown's source after its README; ELEVENTH INSTANCE of one-cycle README↔source pattern; SIXTH complementary-lens re-ingest; re-export-then-overwrite-pattern as tier-3 meta-pattern; substitution-discipline-in-the-substrate-stack; NOTE-TO-REVIEWERS-as-merge-defense; four-shapes-of-source-level-honesty; Start-Compartment-canonical-naming; substrate-package-cluster-introduction-trend extends to six cycles; nine citation arcs closed) | patterns
