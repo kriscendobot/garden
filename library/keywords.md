@@ -11807,3 +11807,37 @@ thirty-three-cycles-with-named-pivot-domain-stay (310-342) | patterns
 eighty-nine-citation-arc-closures-in-pivot-now (82 + 7 net new in cycle 342) | patterns
 one-hundred-and-seventy-fifth consecutive designs-chat alternation cycles 166-250 + 252-342 (251 was out-of-band) | patterns
 library-reaches-854-sections at cycle 342 (chat-lane @endo/lockdown pre.js; thirty-third consecutive @endo/* source; lockdown's source after its README; ELEVENTH INSTANCE of one-cycle README↔source pattern; SIXTH complementary-lens re-ingest; re-export-then-overwrite-pattern as tier-3 meta-pattern; substitution-discipline-in-the-substrate-stack; NOTE-TO-REVIEWERS-as-merge-defense; four-shapes-of-source-level-honesty; Start-Compartment-canonical-naming; substrate-package-cluster-introduction-trend extends to six cycles; nine citation arcs closed) | patterns
+the-named-enumeration-of-side-effects-as-package-purpose (first-explicit-observation; cycle 343; lines 3-7 enumerate FIVE specific actions on import — HardenedJS setup + Eventual Send + atob + btoa + promise hardening) | (see section: endo--packages-init-README-md--seventeenth-package-enumeration-of-side-effects-as-package-purpose-and-three-rung-tolerance-ladder-named-in-README)
+the-named-five-named-actions-performed-on-import (first-explicit-observation; cycle 343) | patterns
+the-named-side-effect-only-package-with-enumerated-side-effects (first-explicit-observation; cycle 343; side-effect-only packages should enumerate their side effects in the README) | patterns
+three-cycles-with-named-side-effect-only-package (cycle 187 shim cluster + cycle 341 lockdown + cycle 343 init) | patterns
+the-named-default-is-fully-locked-down (first-explicit-observation; cycle 343) | patterns
+the-named-cotenant-host-and-guest-programs (first-explicit-observation; cycle 343; threat model named) | patterns
+two-cycles-with-named-cotenant-threat-model (339 errors + 343 init) | patterns
+the-named-three-entry-point-tolerance-ladder-named-in-README (first-explicit-observation; cycle 343; @endo/init + @endo/init/debug.js + @endo/init/unsafe-fast.js) | (see section: endo--packages-init-README-md--seventeenth-package-enumeration-of-side-effects-as-package-purpose-and-three-rung-tolerance-ladder-named-in-README)
+the-named-hr-separator-as-section-divider (first-explicit-observation; cycle 343; Markdown --- between sections) | patterns
+the-named-three-rung-ladder-default-debug-unsafe-fast (first-explicit-observation; cycle 343) | patterns
+three-shapes-of-safety-vs-performance-tradeoff-exposure (cycle 183 entry-point-files + cycle 337 build-conditions + cycle 343 entry-point-ladder-with-named-rationale) | patterns
+the-named-debug-as-less-safe-but-conducive-to-debugging (first-explicit-observation; cycle 343; non-pejorative tradeoff phrasing) | patterns
+the-named-detailed-rationale-for-each-debug-option (first-explicit-observation; cycle 343; per-option documentation for errorTaming + stackFiltering + overrideTaming) | patterns
+two-shapes-of-per-option-discipline (cycle 342 NOTE-TO-REVIEWERS in source + cycle 343 per-option rationale in README) | patterns
+the-named-cross-package-compensation-named (first-explicit-observation; cycle 343; "@endo/ses-ava package compensates for the case of Ava specifically") | (see section: endo--packages-init-README-md--seventeenth-package-enumeration-of-side-effects-as-package-purpose-and-three-rung-tolerance-ladder-named-in-README)
+the-named-ses-ava-compensates-for-Ava-specifically (first-explicit-observation; cycle 343) | patterns
+the-named-cross-package-compensation-mechanism (first-explicit-observation; cycle 343; when defaults conflict with tool, compensation package preserves defaults) | patterns
+three-shapes-of-compatibility-strategy (cycle 187 conditional-install + cycle 187 unconditional-replacement + cycle 343 cross-package-compensation) | patterns
+the-named-unsafe-fast-with-named-regret-and-named-aspiration (first-explicit-observation; cycle 343; "Avoid using... extreme measure we hope to obviate") | (see section: endo--packages-init-README-md--seventeenth-package-enumeration-of-side-effects-as-package-purpose-and-three-rung-tolerance-ladder-named-in-README)
+the-named-extreme-measure-we-hope-to-obviate (first-explicit-observation; cycle 343) | patterns
+the-named-existing-entry-point-with-named-aspiration-to-remove (first-explicit-observation; cycle 343) | patterns
+two-cycles-with-named-honest-regret-with-named-aspiration (cycle 337 isFake-deprecated-with-named-regret + cycle 343 unsafe-fast-named-aspiration) | patterns
+the-named-fifty-two-line-policy-deep-README (first-explicit-observation; cycle 343) | patterns
+six-shapes-of-README (collection cycle 333 + utility cycle 335 + substrate-policy-minimal cycle 339 + substrate-policy-mid cycle 343 + substrate-policy-prose cycle 337 + substrate-deep cycle 325; refines cycle 339's five-shape with substrate-policy-mid as SIXTH shape) | patterns
+the-named-substrate-policy-shape-spans-three-length-ranges (minimal 13-15 + mid 52 + prose 158) | patterns
+six-cycles-with-named-substrate-package-introduction (337 + 339 + 340 + 341 + 342 + 343) | patterns
+the-named-substrate-package-cluster-introduction-trend-extends-to-seven-cycles (first-explicit-observation; cycle 343; counting all sources 337-343 gives seven consecutive cycles in substrate-introduction phase) | patterns
+seventeen-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style + patterns + marshal + common + promise-kit + harden + errors + lockdown + init) | patterns
+thirty-four-cycles-with-named-pivot-domain-stay (310-343) | patterns
+ninety-eight-citation-arc-closures-in-pivot-now (89 + 9 net new in cycle 343; approaching 100-arc milestone) | patterns
+the-named-citation-arc-from-cycle-87-takes-256-cycles-to-close (first-explicit-observation; cycle 343; NEW second-longest pivot arc after the 261-cycle record) | patterns
+the-named-citation-arc-from-cycle-183-takes-160-cycles-to-close (first-explicit-observation; cycle 343; init+lockdown 12-file cluster) | patterns
+one-hundred-and-seventy-sixth consecutive designs-chat alternation cycles 166-250 + 252-343 (251 was out-of-band) | patterns
+library-reaches-855-sections at cycle 343 (designs-lane @endo/init README.md; thirty-fourth consecutive @endo/* source; SEVENTEENTH PACKAGE added to pivot cluster; substrate-policy-mid shape fills gap between minimal and prose; enumeration-of-side-effects-as-package-purpose discipline named as tier-3 meta-pattern; cross-package-compensation-mechanism as tier-3 meta-pattern; three-shapes-of-safety-vs-performance-tradeoff-exposure; three-shapes-of-compatibility-strategy; six-shapes-of-README refines cycle 339's five-shape with substrate-policy-mid as SIXTH; substrate-package-cluster-introduction-trend extends to seven cycles; nine citation arcs closed including 256-cycle arc to cycle 87 as NEW second-longest pivot arc) | patterns
