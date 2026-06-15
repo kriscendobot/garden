@@ -11625,3 +11625,65 @@ twenty-eight-cycles-with-named-pivot-domain-stay (310-337) | patterns
 fifty-six-citation-arc-closures-in-pivot-now (50 + 6 net new in cycle 337) | patterns
 one-hundred-and-seventieth consecutive designs-chat alternation cycles 166-250 + 252-337 (251 was out-of-band) | patterns
 library-reaches-849-sections at cycle 337 (designs-lane @endo/harden README.md; twenty-eighth consecutive @endo/* source; FOURTEENTH PACKAGE added to pivot cluster; substrate-package documentation-side closure for sixteen-plus prior cycles; SIXTEEN citation arcs closed in one cycle; three-tier-defense-named-in-the-opening discipline named as tier-3 meta-pattern; supply-chain-attack-IS-named-threat-model as canonical threat anchor; four-shapes-of-README refines cycle 333's three-way categorization with substrate-policy as FOURTH category) | patterns
+the-named-three-phase-traversal-with-named-commit-after-all-frozen (first-explicit-observation; cycle 338; harden enqueue + dequeue + commit; commit phase comes AFTER all freezes complete; partial failures don't mark as hardened) | (see section: endo--packages-harden-make-hardener-js--canonical-harden-implementation-with-three-phase-traversal-and-commit-after-all-frozen)
+the-named-mark-hardened-only-after-all-frozen-discipline (first-explicit-observation; cycle 338) | patterns
+the-named-transactional-harden-discipline (first-explicit-observation; cycle 338; all-or-nothing) | patterns
+four-shapes-of-atomic-transition-discipline (152 single-record + 322 state-seal + 336 assign-then-freeze + 338 three-phase-over-graph) | patterns
+the-named-enqueue-dequeue-commit-algorithm (first-explicit-observation; cycle 338) | patterns
+the-named-multi-generation-derivation-chain-named-in-the-header (first-explicit-observation; cycle 338; four-stage attribution: Google Caja 2011 → TC39 frozen-realms → SES → @endo) | (see section: endo--packages-harden-make-hardener-js--canonical-harden-implementation-with-three-phase-traversal-and-commit-after-all-frozen)
+the-named-four-stage-attribution-chain (first-explicit-observation; cycle 338) | patterns
+the-named-attribution-as-historical-record (first-explicit-observation; cycle 338) | patterns
+two-shapes-of-attribution-discipline (336 verbatim-preserved-dedication + 338 multi-generation-chain-named-in-header) | patterns
+the-named-FERAL-prefix-naming-convention (first-explicit-observation; cycle 338; FERAL_ERROR + FERAL_STACK_GETTER + FERAL_STACK_SETTER mark values with excess authority) | (see section: endo--packages-harden-make-hardener-js--canonical-harden-implementation-with-three-phase-traversal-and-commit-after-all-frozen)
+the-named-feral-error-with-named-reason (first-explicit-observation; cycle 338) | patterns
+the-named-FERAL-binding-with-four-part-justification (first-explicit-observation; cycle 338; safe-use + unsafe-exposure + platform + capability) | patterns
+the-named-V8-error-own-stack-accessor-repair (first-explicit-observation; cycle 338; 70-line platform-specific repair) | (see section: endo--packages-harden-make-hardener-js--canonical-harden-implementation-with-three-phase-traversal-and-commit-after-all-frozen)
+the-named-platform-specific-repair-with-named-error-code (first-explicit-observation; cycle 338; SES_UNEXPECTED_ERROR_OWN_STACK_ACCESSOR) | patterns
+the-named-error-code-as-stable-URL-anchor (first-explicit-observation; cycle 338; SES_ codes are grep-able stable identifiers) | patterns
+three-shapes-of-stable-pointer-discipline (326 deprecation-pointer + 336 issue-link + 338 error-code-Markdown) | patterns
+the-named-platforms-with-AND-without-bug-named-explicitly (first-explicit-observation; cycle 338; FF/SpiderMonkey + Moddable/XS + error stack proposal don't need heroics) | patterns
+three-cycles-with-named-V8-stack-accessor-discipline (87 + 336 + 338) | patterns
+the-named-platform-detection-at-factory-time-not-per-call (first-explicit-observation; cycle 338; freezeAndTraverse is ONE OF TWO closures defined at factory time) | (see section: endo--packages-harden-make-hardener-js--canonical-harden-implementation-with-three-phase-traversal-and-commit-after-all-frozen)
+the-named-platform-conditional-fast-path-vs-slow-path (first-explicit-observation; cycle 338) | patterns
+three-cycles-with-named-pay-only-when-necessary-discipline (332 zero-copy + 334 harden-cast-distinction + 338 platform-conditional-fast-path) | patterns
+the-named-acknowledged-and-bounded-hazard (first-explicit-observation; cycle 338; comment names hazard AND bounded reason for accepting it) | (see section: endo--packages-harden-make-hardener-js--canonical-harden-implementation-with-three-phase-traversal-and-commit-after-all-frozen)
+the-named-four-part-hazard-acknowledgment (first-explicit-observation; cycle 338; hazard + bounded reason + suppression + PR discussion) | patterns
+three-shapes-of-hazard-acknowledgment (156 named-warning + 322 repeated-warning + 338 four-part-acknowledgment) | patterns
+the-named-triple-duplication-with-named-layering-constraint (first-explicit-observation; cycle 338; isPrimitive in THREE packages: @endo/harden + @endo/pass-style + ses; cycle 336 named TWO; cycle 338 reveals THREE) | (see section: endo--packages-harden-make-hardener-js--canonical-harden-implementation-with-three-phase-traversal-and-commit-after-all-frozen)
+the-named-three-package-duplication-discipline (first-explicit-observation; cycle 338) | patterns
+four-cycles-with-named-isPrimitive-duplication-observation (142 passStyle-helpers + 336 memo-race + 338 make-hardener + implicit ses) | patterns
+the-named-bulk-destructure-of-globalThis (first-explicit-observation; cycle 338; ten intrinsics at module load) | patterns
+five-cycles-with-named-pre-lockdown-intrinsic-capture (314 + 318 + 332 + 334 + 338) | patterns
+the-named-bulk-destructure-tracks-file-scope (first-explicit-observation; cycle 338) | patterns
+the-named-Safari-bug-workaround-with-named-tracking-URL (first-explicit-observation; cycle 338; webkit.org/show_bug.cgi?id=222538 + SES_DEFINE_PROPERTY_FAILED_SILENTLY Markdown URL) | patterns
+the-named-platform-bug-workaround-with-named-tracking-URL (first-explicit-observation; cycle 338) | patterns
+the-named-forward-vs-backward-pointer-discipline (first-explicit-observation; cycle 338; deprecation forward; bug-workaround backward) | patterns
+the-named-Please-report-language (first-explicit-observation; cycle 338; error message asks caller to report the bug) | patterns
+the-named-error-message-as-bug-report-request (first-explicit-observation; cycle 338) | patterns
+the-named-uncurry-this-canonical-idiom (first-explicit-observation; cycle 338; bind.bind(bind.call) form) | patterns
+the-named-link-rot-acknowledgment-with-archive-URL (first-explicit-observation; cycle 338; web.archive.org fallback for dead canonical URL) | patterns
+the-named-fallback-URL-when-canonical-dies (first-explicit-observation; cycle 338) | patterns
+the-named-named-lint-rule-with-canonical-exception (first-explicit-observation; cycle 338; @endo/no-polymorphic-call eslint rule + disable-comment as discipline-marker) | patterns
+the-named-hasOwn-shim-with-named-issue-link (first-explicit-observation; cycle 338; endo/endo#2930) | patterns
+the-named-feature-detect-then-install-shim-pattern (first-explicit-observation; cycle 338) | patterns
+the-named-extra-test-because-of-validation-order-differences (first-explicit-observation; cycle 338) | patterns
+the-named-shim-explicitly-names-spec-divergence (first-explicit-observation; cycle 338) | patterns
+the-named-freezeTypedArray-with-tc39-spec-citation (first-explicit-observation; cycle 338; tc39.es/ecma262/#sec-integer-indexed-exotic-objects) | patterns
+the-named-tc39-spec-citation-as-rationale (first-explicit-observation; cycle 338) | patterns
+the-named-conceptual-analogy-to-justify-exception (first-explicit-observation; cycle 338; TypedArray data "analogous to the data of a hardened Map or Set") | patterns
+the-named-platform-bug-defended-against-with-per-item-fallback (first-explicit-observation; cycle 338; GraalJS getOwnPropertyDescriptor returns undefined for existing property) | patterns
+the-named-substrate-of-substrates-zero-endo-imports (first-explicit-observation; cycle 338; the canonical harden file depends on NO other @endo package) | (see section: endo--packages-harden-make-hardener-js--canonical-harden-implementation-with-three-phase-traversal-and-commit-after-all-frozen)
+the-named-zero-endo-imports-as-substrate-marker (first-explicit-observation; cycle 338) | patterns
+the-named-dependency-import-count-tracks-package-tier (first-explicit-observation; cycle 338; more @endo imports = higher in stack; zero = at the bottom) | patterns
+the-named-traversePrototypes-as-named-option (first-explicit-observation; cycle 338) | patterns
+the-named-named-option-vs-positional-arg-discipline (first-explicit-observation; cycle 338) | patterns
+the-named-canonical-Endo-idiom-named-function-via-object-destructure (first-explicit-observation; cycle 338; method-syntax + object-destructure + named-binding) | (see section: endo--packages-harden-make-hardener-js--canonical-harden-implementation-with-three-phase-traversal-and-commit-after-all-frozen)
+three-cycles-with-named-named-function-via-object-destructure (152 + 336 + 338) | patterns
+the-named-streak-resumes-with-ninth-instance (first-explicit-observation; cycle 338; cycle 337 → 338 same-package; ninth INSTANCE of one-cycle README↔source pattern; streak count is 1 because cycle 336 → 337 was cross-package) | patterns
+the-named-citation-arc-from-cycle-87-takes-251-cycles-to-close (first-explicit-observation; cycle 338; V8 stack-accessor observation; second-longest pivot arc after the 261-cycle record) | (see section: endo--packages-harden-make-hardener-js--canonical-harden-implementation-with-three-phase-traversal-and-commit-after-all-frozen)
+the-named-citation-arc-from-cycle-175-takes-163-cycles-to-close (first-explicit-observation; cycle 338; make-selector sibling) | patterns
+the-named-citation-arc-from-cycle-156-takes-182-cycles-to-close (first-explicit-observation; cycle 338; finalize.js three-shapes-of-hazard) | patterns
+sixty-two-citation-arc-closures-in-pivot-now (56 + 6 net new in cycle 338) | patterns
+twenty-nine-cycles-with-named-pivot-domain-stay (310-338) | patterns
+one-hundred-and-seventy-first consecutive designs-chat alternation cycles 166-250 + 252-338 (251 was out-of-band) | patterns
+library-reaches-850-sections at cycle 338 (chat-lane @endo/harden/make-hardener.js; twenty-ninth consecutive @endo/* source; harden's source after its README; NINTH INSTANCE of one-cycle README↔source pattern; three-phase-traversal-with-named-commit-after-all-frozen discipline named as tier-3 meta-pattern; four-shapes-of-atomic-transition-discipline; FERAL-prefix-naming-convention; platform-detection-at-factory-time-not-per-call; substrate-of-substrates-zero-endo-imports; NINE citation arcs closed including 251-cycle arc back to cycle 87 V8-stack-accessor observation) | patterns
