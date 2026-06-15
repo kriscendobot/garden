@@ -11871,3 +11871,58 @@ thirty-five-cycles-with-named-pivot-domain-stay (310-344) | patterns
 one-hundred-five-citation-arc-closures-in-pivot-now (98 + 7 net new in cycle 344; CROSSES 100-ARC MILESTONE) | patterns
 one-hundred-and-seventy-seventh consecutive designs-chat alternation cycles 166-250 + 252-344 (251 was out-of-band) | patterns
 library-reaches-856-sections at cycle 344 (chat-lane @endo/init source cluster; thirty-fifth consecutive @endo/* source; TWELFTH INSTANCE of one-cycle README↔source pattern; SEVENTH complementary-lens re-ingest; README-curates-subset-of-implementation-rungs as tier-3 meta-pattern; orchestration-via-import-graph as tier-3 meta-pattern; five-shapes-of-deprecation-discipline as tier-3 meta-pattern; substrate-package-cluster-introduction-trend extends to EIGHT cycles; nine citation arcs closed; CROSSES 100-ARC MILESTONE) | patterns
+the-named-precise-claims-with-precise-caveats-discipline (first-explicit-observation; cycle 345; Security claims and caveats section pairs each guarantee with its limitation; never claim more than is true; explicitly enumerate what is NOT guaranteed) | (see section: endo--packages-ses-README-md--eighteenth-package-precise-claims-with-precise-caveats-and-pre-written-PR-language-for-ecosystem-cooperation)
+three-cycles-with-named-precise-security-claim-discipline (337 partial-safety-with-tradeoff + 342 named-hole-with-named-mitigation + 345 full-claims-with-caveats) | patterns
+the-named-pre-written-PR-language-for-ecosystem-cooperation (first-explicit-observation; cycle 345; lines 932-948 provide verbatim text for downstream maintainers to paste into upstream issues) | (see section: endo--packages-ses-README-md--eighteenth-package-precise-claims-with-precise-caveats-and-pre-written-PR-language-for-ecosystem-cooperation)
+the-named-README-as-cultural-artifact-not-just-documentation (first-explicit-observation; cycle 345; READMEs can SCRIPT community-action) | patterns
+the-named-volunteer-PR-language-with-named-fallback-comment (first-explicit-observation; cycle 345) | patterns
+the-named-acronym-with-named-philosophical-expansion (first-explicit-observation; cycle 345; "SES stands for fearless cooperation"; lead with values not technical expansion) | (see section: endo--packages-ses-README-md--eighteenth-package-precise-claims-with-precise-caveats-and-pre-written-PR-language-for-ecosystem-cooperation)
+the-named-SES-stands-for-fearless-cooperation (first-explicit-observation; cycle 345) | patterns
+three-cycles-with-named-architectural-philosophy (87 V8-stack-accessor metaphor + 337 place-to-stand metaphor + 345 fearless-cooperation) | patterns
+the-named-four-pillars-of-HardenedJS (first-explicit-observation; cycle 345; Compartments + Frozen-realm + Strict-mode + POLA each as bolded keyword + one-line description) | (see section: endo--packages-ses-README-md--eighteenth-package-precise-claims-with-precise-caveats-and-pre-written-PR-language-for-ecosystem-cooperation)
+the-named-bolded-keyword-as-pillar-marker (first-explicit-observation; cycle 345) | patterns
+two-shapes-of-architectural-summary (337 three-tier-meta-defense + 345 four-pillars-component-architecture) | patterns
+the-named-host-program-vs-guest-program-vocabulary (first-explicit-observation; cycle 345; formal in-section definition) | patterns
+the-named-vocabulary-definition-in-section (first-explicit-observation; cycle 345; define load-bearing vocabulary in section that uses it) | patterns
+the-named-three-tiers-of-isolation-claims (first-explicit-observation; cycle 345; Single-guest + Multi-guest + Endowment-Protection) | (see section: endo--packages-ses-README-md--eighteenth-package-precise-claims-with-precise-caveats-and-pre-written-PR-language-for-ecosystem-cooperation)
+the-named-layered-isolation-claims-with-named-conditions (first-explicit-observation; cycle 345) | patterns
+the-named-list-of-things-guest-cannot-do (first-explicit-observation; cycle 345) | patterns
+the-named-list-of-things-guest-can-still-do (first-explicit-observation; cycle 345) | patterns
+the-named-Trusted-Compute-Base-enumerated (first-explicit-observation; cycle 345; SEVEN TCB components — hardware + OS + virtual OS + memory manager + ECMAScript 2021 impl + debugger + pre-lockdown JavaScript) | (see section: endo--packages-ses-README-md--eighteenth-package-precise-claims-with-precise-caveats-and-pre-written-PR-language-for-ecosystem-cooperation)
+the-named-domain-property-on-promises-as-named-Node-host-behavior (first-explicit-observation; cycle 345) | patterns
+the-named-override-mistake-as-named-JavaScript-anti-feature (first-explicit-observation; cycle 345; named JS language wart with cite to ECMAScript wiki strawman) | (see section: endo--packages-ses-README-md--eighteenth-package-precise-claims-with-precise-caveats-and-pre-written-PR-language-for-ecosystem-cooperation)
+the-named-defineProperties-workaround-for-override-mistake (first-explicit-observation; cycle 345) | patterns
+the-named-language-anti-feature-with-workaround-code (first-explicit-observation; cycle 345) | patterns
+the-named-audit-history-as-trust-signal (first-explicit-observation; cycle 345; FOUR trust-building activities — formal third-party audit June 2021 + collaborative bug hunt July 2021 + formal verification + bug bounty) | (see section: endo--packages-ses-README-md--eighteenth-package-precise-claims-with-precise-caveats-and-pre-written-PR-language-for-ecosystem-cooperation)
+the-named-purple-teaming-as-collaborative-audit-style (first-explicit-observation; cycle 345) | patterns
+the-named-canonical-deployers-named-with-logos (first-explicit-observation; cycle 345; Agoric + MetaMask logos embedded) | patterns
+the-named-video-introductions-embedded (first-explicit-observation; cycle 345; TWO YouTube videos as image-links) | patterns
+the-named-community-channels-trio (first-explicit-observation; cycle 345; Mailing List + Matrix + weekly call) | patterns
+the-named-Caja-as-named-predecessor-with-named-extensions (first-explicit-observation; cycle 345; "introduces compartments and modernizes") | patterns
+the-named-three-attack-categories-lockdown-defends-against (first-explicit-observation; cycle 345; prototype pollution + man-in-the-middle + covert communication channels) | patterns
+the-named-undeniable-objects-discipline (first-explicit-observation; cycle 345; "effectively undeniable to programs in the realm") | patterns
+the-named-taming-as-named-verb-of-art (first-explicit-observation; cycle 345; "tames" is SES's verb for modifying intrinsics — RegExp + locale + errors) | patterns
+the-named-locale-methods-as-fingerprinting-vector (first-explicit-observation; cycle 345) | patterns
+the-named-realm-vs-compartment-distinction (first-explicit-observation; cycle 345) | patterns
+the-named-initial-compartment-named (first-explicit-observation; cycle 345) | patterns
+the-named-harden-as-post-lockdown-tool (first-explicit-observation; cycle 345; temporal ordering — harden requires lockdown first) | patterns
+the-named-surface-vs-state-distinction (first-explicit-observation; cycle 345; surface frozen but mutable counter in closure) | patterns
+the-named-hardening-makes-surface-immutable-but-not-side-effect-free (first-explicit-observation; cycle 345) | patterns
+the-named-Math-random-and-Date-now-disabled-by-default (first-explicit-observation; cycle 345; covert-channel hazards named) | patterns
+the-named-SharedArrayBuffer-as-named-attack-vector (first-explicit-observation; cycle 345; high-resolution-timer construction) | patterns
+the-named-reentrancy-attack-named-explicitly (first-explicit-observation; cycle 345) | patterns
+the-named-defending-via-clean-stack-promise (first-explicit-observation; cycle 345; "interacts with guest objects on a clean stack through the use of promises") | patterns
+the-named-supply-chain-attack-via-bundler-named (first-explicit-observation; cycle 345) | patterns
+the-named-Taxonomy-of-Security-Issues-paper-link (first-explicit-observation; cycle 345; research-paper link as boundary-definition reference) | patterns
+the-named-964-line-substrate-policy-vast-README (first-explicit-observation; cycle 345) | patterns
+seven-shapes-of-README (collection cycle 333 + substrate-policy-minimal cycle 339/341 + substrate-policy-mid cycle 343 + utility cycle 335 + substrate-policy-prose cycle 337 + substrate-deep cycle 325 + substrate-policy-vast cycle 345; refines cycle 343's six-shape with substrate-policy-vast as SEVENTH shape) | patterns
+the-named-foundational-package-gets-vast-README (first-explicit-observation; cycle 345; complexity tracks position in layered architecture) | patterns
+eight-cycles-with-named-substrate-package-introduction (337 + 339 + 340 + 341 + 342 + 343 + 344 + 345) | patterns
+the-named-substrate-package-cluster-introduction-trend-extends-to-nine-cycles (first-explicit-observation; cycle 345; counting all sources 337-345) | patterns
+the-named-substrate-introduction-phase-culminates-at-foundational-package (first-explicit-observation; cycle 345; the phase moved from outer layers — harden + errors + lockdown + init — inward to the foundation — ses) | patterns
+the-named-citation-arc-from-cycle-87-takes-258-cycles-to-close (first-explicit-observation; cycle 345; V8-stack-accessor; new second-longest pivot arc just under 261-cycle record) | (see section: endo--packages-ses-README-md--eighteenth-package-precise-claims-with-precise-caveats-and-pre-written-PR-language-for-ecosystem-cooperation)
+eighteen-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style + patterns + marshal + common + promise-kit + harden + errors + lockdown + init + ses) | patterns
+thirty-six-cycles-with-named-pivot-domain-stay (310-345) | patterns
+one-hundred-sixteen-citation-arc-closures-in-pivot-now (105 + 11 net new in cycle 345) | patterns
+one-hundred-and-seventy-eighth consecutive designs-chat alternation cycles 166-250 + 252-345 (251 was out-of-band) | patterns
+library-reaches-857-sections at cycle 345 (designs-lane @endo/ses README.md; thirty-sixth consecutive @endo/* source; EIGHTEENTH PACKAGE added; SUBSTRATE-INTRODUCTION CULMINATION; substrate-policy-vast 964 lines; precise-claims-with-precise-caveats-discipline named as tier-3 meta-pattern; pre-written-PR-language-for-ecosystem-cooperation as tier-3 meta-pattern; README-as-cultural-artifact-not-just-documentation as tier-3 meta-pattern; foundational-package-gets-vast-README; seven-shapes-of-README refines cycle 343's six-shape with substrate-policy-vast as SEVENTH; substrate-introduction-phase-culminates-at-foundational-package; eleven citation arcs closed including 258-cycle arc to cycle 87 as new second-longest pivot arc) | patterns
