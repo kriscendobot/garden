@@ -10829,3 +10829,64 @@ nine-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314 + 315 + 31
 nine-cycles-with-named-harden-call-on-exports | patterns
 one-hundred-and-fifty-first consecutive designs-chat alternation cycles 166-250 + 252-318 (251 was out-of-band) | patterns
 library-reaches-830-sections at cycle 318 (chat-lane @endo/hex src/decode.js; ninth consecutive @endo/* source; fourth package; first three-file cluster of the pivot established: encode + README + decode) | patterns
+the-named-parity-IS-named-odd-vs-even-channel-protocol-invariant (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-prime-IS-named-parity-corrector (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-different-causes-same-corrector | patterns
+the-named-primer-IS-named-canonical-fix-for-odd-parity | patterns
+the-named-streams-are-symmetric (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-symmetric-shape-with-pair-shaped-API | patterns
+the-named-streams-as-hardened-async-iterators (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-conceptual-frame-IS-named-first-sentence-discipline | patterns
+the-named-async-iterators-suffice-for-back-pressure (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-return-value-IS-named-reverse-channel | patterns
+the-named-bidirectional-from-unidirectional-protocol | patterns
+the-named-back-pressure-by-awaiting-next | patterns
+the-named-pacing-IS-named-emergent-from-await | patterns
+the-named-mapReader-and-mapWriter-named-pair (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-writer-transform-runs-in-reverse-direction (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-makePipe-returns-entangled-pair (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-entanglement-IS-named-coupled-by-back-pressure | patterns
+the-named-array-destructure-as-canonical-shape | patterns
+the-named-pipes-for-mocking-streams-in-tests | patterns
+the-named-mock-via-real-shape-not-fake | patterns
+the-named-test-fixture-via-real-substrate | patterns
+the-named-makeQueue-IS-named-async-promise-queue (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-get-before-put-discipline | patterns
+the-named-async-promise-queue-IS-named-rendezvous-shape | patterns
+the-named-promise-queue-IS-named-temporal-decoupling | patterns
+the-named-no-promise-ordering-guarantee (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-honest-about-absent-guarantees (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-stream-IS-named-pair-of-queues (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-mechanism-IS-named-in-the-README | patterns
+the-named-pump-IS-named-reader-to-writer-bridge (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-cat-implemented-via-pump (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-canonical-OS-utility-as-canonical-example | patterns
+the-named-async-generator-as-writer (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-yield-IS-named-bidirectional-channel-point | patterns
+the-named-language-semantics-as-architectural-substrate | patterns
+the-named-generator-writers-have-odd-parity (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-program-counter-as-named-mental-model (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-PC-IS-named-execution-cursor | patterns
+the-named-low-level-abstraction-in-user-facing-docs | patterns
+the-named-iteration-results-are-shallowly-frozen (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-shallow-freeze-vs-deep-harden-distinction (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-deep-harden-IS-user-responsibility | patterns
+the-named-library-takes-responsibility-for-shape-not-content | patterns
+the-named-some-values-cannot-be-frozen (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-frozenness-IS-named-bounded-by-JS | patterns
+the-named-honest-about-language-limitations | patterns
+the-named-Hardening-section-not-Hardened-JavaScript (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-section-header-discriminates-framing | patterns
+the-named-content-first-README-shape (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-no-Install-section-as-new-shape-variant (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-library-author-oriented-README-shape (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-library-IS-named-meant-to-be-composed-not-installed-directly | patterns
+the-named-README-shape-IS-named-tailored-to-package-depth-and-audience | patterns
+the-named-cross-package-citation-arc-closes-with-cycle-315 (first-explicit-observation; cycle 319) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+the-named-citation-arc-takes-four-cycles-to-close (first-explicit-observation; cycle 319; cycle 315 cited @endo/stream; cycle 319 IS @endo/stream) | (see section: endo--packages-stream-README-md--streams-are-symmetric-and-parity-is-odd-vs-even)
+ten-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319) | patterns
+five-named-packages-in-the-pivot-cluster (@endo/nat + @endo/memoize + @endo/hex + @endo/lp32 + @endo/stream) | patterns
+five-README-shapes-now (six-section nat + memoize + lp32; four-section hex; seven-section content-first stream) | patterns
+eight-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316 + 317 + 318 + 319) | patterns
+one-hundred-and-fifty-second consecutive designs-chat alternation cycles 166-250 + 252-319 (251 was out-of-band) | patterns
+library-reaches-831-sections at cycle 319 (designs-lane @endo/stream README.md; tenth consecutive @endo/* source; FIFTH PACKAGE; cross-package citation arc closes with cycle 315; content-first README shape established as fifth shape) | patterns
