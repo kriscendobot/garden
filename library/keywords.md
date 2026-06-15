@@ -11568,3 +11568,60 @@ fifty-citation-arc-closures-in-pivot-now (49 + 1 net new in cycle 336; MILESTONE
 twenty-seven-cycles-with-named-pivot-domain-stay (310-336) | patterns
 one-hundred-and-sixty-ninth consecutive designs-chat alternation cycles 166-250 + 252-336 (251 was out-of-band) | patterns
 library-reaches-848-sections at cycle 336 (chat-lane @endo/promise-kit/src/memo-race.js; twenty-seventh consecutive @endo/* source; thirteenth package extends with adjacent-reverse pair; FIFTH complementary-lens re-ingest of cycle 152; deviation-named-in-the-source-too discipline named as tier-3 meta-pattern; honesty-at-two-levels-discipline named for the first time; attribution-discipline-when-adopting-public-domain-code first-explicit-observation; three-shapes-of-export-discipline refines cycle 333 package categorization; eighth INSTANCE of one-cycle README↔source pattern but ISOLATED — §the-named-streak-resumes-after-one-cycle-gap; FIFTY-citation-arc-closures-in-pivot milestone) | patterns
+the-named-three-tier-defense-named-in-the-opening (first-explicit-observation; cycle 337; @endo/harden README opening names threat + three coordinated defenses (HardenedJS primordials + LavaMoat POLA + harden()) + package's role) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-threat-model-named-first (first-explicit-observation; cycle 337; name what we defend against before how) | patterns
+the-named-supply-chain-attack-IS-named-threat-model (first-explicit-observation; cycle 337; canonical threat anchor for entire HardenedJS stack) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-place-to-stand-toward-its-own-defense-metaphor (first-explicit-observation; cycle 337; architectural metaphor for HardenedJS provision) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+two-cycles-with-named-architectural-metaphor (87 V8-stack-accessor-channel + 337 place-to-stand) | patterns
+the-named-dual-purpose-of-harden (first-explicit-observation; cycle 337; type information + cross-environment portability) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-and-also-as-two-purpose-conjunction (first-explicit-observation; cycle 337) | patterns
+the-named-substrate-package-with-policy-README (first-explicit-observation; cycle 337) | patterns
+the-named-Object-Symbol.for-harden-intrinsic (first-explicit-observation; cycle 337; registered-symbol property on shared intrinsic) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-intrinsic-over-endowment-discipline (first-explicit-observation; cycle 337) | patterns
+the-named-cannot-be-subverted-in-a-compartment (first-explicit-observation; cycle 337) | patterns
+the-named-invariant-named-with-cannot-language (first-explicit-observation; cycle 337; strongest available guarantee language) | patterns
+the-named-build-condition-as-policy-knob (first-explicit-observation; cycle 337; -C hardened + -C harden:unsafe) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-two-named-build-conditions (first-explicit-observation; cycle 337) | patterns
+the-named-three-build-time-modes (first-explicit-observation; cycle 337; strict + default-degraded + no-harden) | patterns
+the-named-fail-loud-or-pay-cost-binary-choice (first-explicit-observation; cycle 337) | patterns
+two-shapes-of-policy-knob (cycle 183 separate-entry-point-files + cycle 337 build-condition) | patterns
+the-named-multiple-instances-first-call-wins (first-explicit-observation; cycle 337) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-shim-like-behavior-pre-lockdown (first-explicit-observation; cycle 337; README's own framing) | patterns
+the-named-side-effect-as-coordination-mechanism (first-explicit-observation; cycle 337; shared intrinsic location coordinates multiple instances) | patterns
+the-named-installed-harden-as-pre-lockdown-sentinel (first-explicit-observation; cycle 337; lockdown senses pre-lockdown harden by presence at intrinsic location) | patterns
+the-named-with-OR-without-NOT-both-policy (first-explicit-observation; cycle 337; section heading itself encodes the policy) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-temporal-ordering-creates-vulnerability (first-explicit-observation; cycle 337; same structural state at different times has different guarantees) | patterns
+the-named-helpful-stack-on-misuse (first-explicit-observation; cycle 337; lockdown throws with stack pointing to offending module) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-stack-points-to-the-offending-module (first-explicit-observation; cycle 337) | patterns
+three-cycles-with-named-stack-as-diagnostic (87 V8-stack-accessor + 336 honest-TODO-with-named-obstacle + 337 helpful-stack-on-misuse) | patterns
+the-named-prepare-star-convention (first-explicit-observation; cycle 337; modules named prepare-* are initialization-side-effect by convention) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-naming-convention-as-import-time-side-effect-marker (first-explicit-observation; cycle 337) | patterns
+the-named-isFake-deprecated-with-named-regret (first-explicit-observation; cycle 337; "We regret this misfeature.") | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-honest-regret-in-README (first-explicit-observation; cycle 337; stronger than deprecation) | patterns
+three-shapes-of-honesty-about-past-decisions (cycle 326 deprecation-with-redirect + cycle 336 TODO-with-named-obstacle + cycle 337 deprecated-with-named-regret) | patterns
+the-named-migration-path-with-named-alternative (first-explicit-observation; cycle 337; README provides migration code AND justifies why it works) | patterns
+the-named-deprecation-explains-WHY-the-alternative-works (first-explicit-observation; cycle 337) | patterns
+the-named-hardenIsNoop-as-replacement-API (first-explicit-observation; cycle 337) | patterns
+the-named-deprecation-points-to-named-replacement-in-same-package (first-explicit-observation; cycle 337; intra-package vs cycle 326 cross-package) | patterns
+the-named-Without-HardenedJS-degradation-mode (first-explicit-observation; cycle 337; surface immutability via own-properties; no prototype-chain traversal) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-partial-safety-with-named-tradeoff (first-explicit-observation; cycle 337) | patterns
+the-named-test-and-UI-framework-acknowledgment (first-explicit-observation; cycle 337; testing + UI frameworks rely on alterable intrinsics) | patterns
+the-named-uncoordinated-alteration-of-realm-intrinsics (first-explicit-observation; cycle 337) | patterns
+the-named-precise-technical-language-without-pejorative-tone (first-explicit-observation; cycle 337) | patterns
+two-shapes-of-precise-technical-language (cycle 186 sharp "illusion of an option" + cycle 337 neutral "uncoordinated alteration") | patterns
+the-named-six-headed-section-policy-README-shape (first-explicit-observation; cycle 337; seven sections total) | patterns
+the-named-four-shapes-of-README (collection cycle 333 + utility cycle 335 + substrate-policy cycle 337 + substrate-deep cycle 325 pass-style; refines cycle 333's three-way categorization with FOURTH category) | patterns
+the-named-substrate-package-introduction-closes-many-arcs (first-explicit-observation; cycle 337; librarian-discipline observation) | patterns
+the-named-citation-arc-from-cycle-108-takes-229-cycles-to-close (first-explicit-observation; cycle 337; second-longest pivot arc; first e56bf00f migration observation closure) | (see section: endo--packages-harden-README-md--fourteenth-package-three-tier-defense-named-in-the-opening)
+the-named-citation-arc-from-cycle-118-takes-219-cycles-to-close (first-explicit-observation; cycle 337) | patterns
+the-named-citation-arc-from-cycle-142-takes-195-cycles-to-close (first-explicit-observation; cycle 337) | patterns
+the-named-citation-arc-from-cycle-152-takes-185-cycles-to-close (first-explicit-observation; cycle 337; memo-race.js imports @endo/harden) | patterns
+the-named-citation-arc-from-cycle-187-takes-150-cycles-to-close (first-explicit-observation; cycle 337) | patterns
+the-named-citation-arc-from-cycle-211-takes-126-cycles-to-close (first-explicit-observation; cycle 337; @endo/common dependency-ceiling) | patterns
+the-named-streak-of-one (first-explicit-observation; cycle 337; the eighth INSTANCE of one-cycle README↔source pattern at cycle 335 → 336 was isolated; cycle 336 → 337 is cross-package, so the streak count returns to 1 immediately) | patterns
+sixteen-citation-arc-closures-in-cycle-337 (first-explicit-observation; cycle 337; one of the largest single-cycle arc-closure counts in the pivot) | patterns
+fourteen-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style + patterns + marshal + common + promise-kit + harden) | patterns
+twenty-eight-cycles-with-named-pivot-domain-stay (310-337) | patterns
+fifty-six-citation-arc-closures-in-pivot-now (50 + 6 net new in cycle 337) | patterns
+one-hundred-and-seventieth consecutive designs-chat alternation cycles 166-250 + 252-337 (251 was out-of-band) | patterns
+library-reaches-849-sections at cycle 337 (designs-lane @endo/harden README.md; twenty-eighth consecutive @endo/* source; FOURTEENTH PACKAGE added to pivot cluster; substrate-package documentation-side closure for sixteen-plus prior cycles; SIXTEEN citation arcs closed in one cycle; three-tier-defense-named-in-the-opening discipline named as tier-3 meta-pattern; supply-chain-attack-IS-named-threat-model as canonical threat anchor; four-shapes-of-README refines cycle 333's three-way categorization with substrate-policy as FOURTH category) | patterns
