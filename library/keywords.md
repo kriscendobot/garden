@@ -11841,3 +11841,33 @@ the-named-citation-arc-from-cycle-87-takes-256-cycles-to-close (first-explicit-o
 the-named-citation-arc-from-cycle-183-takes-160-cycles-to-close (first-explicit-observation; cycle 343; init+lockdown 12-file cluster) | patterns
 one-hundred-and-seventy-sixth consecutive designs-chat alternation cycles 166-250 + 252-343 (251 was out-of-band) | patterns
 library-reaches-855-sections at cycle 343 (designs-lane @endo/init README.md; thirty-fourth consecutive @endo/* source; SEVENTEENTH PACKAGE added to pivot cluster; substrate-policy-mid shape fills gap between minimal and prose; enumeration-of-side-effects-as-package-purpose discipline named as tier-3 meta-pattern; cross-package-compensation-mechanism as tier-3 meta-pattern; three-shapes-of-safety-vs-performance-tradeoff-exposure; three-shapes-of-compatibility-strategy; six-shapes-of-README refines cycle 339's five-shape with substrate-policy-mid as SIXTH; substrate-package-cluster-introduction-trend extends to seven cycles; nine citation arcs closed including 256-cycle arc to cycle 87 as NEW second-longest pivot arc) | patterns
+the-named-README-curates-subset-of-implementation-rungs (first-explicit-observation; cycle 344; cycle 343 README named THREE rungs; cycle 344 implementation reveals FIVE rungs plus three preamble files; README curates a user-facing subset) | (see section: endo--packages-init-source-cluster--seventh-complementary-lens-README-curates-subset-of-implementation-rungs)
+the-named-five-rungs-in-implementation-vs-three-in-README (first-explicit-observation; cycle 344) | patterns
+the-named-curated-vs-full-API-distinction (first-explicit-observation; cycle 344; README documentation can DELIBERATELY UNDERSTATE implementation complexity for user-facing tractability) | patterns
+the-named-two-shapes-of-tolerance-ladder-rung (first-explicit-observation; cycle 344; re-export-from-variant + direct-call-with-options) | patterns
+the-named-re-export-from-variant-vs-direct-call-with-options (first-explicit-observation; cycle 344) | patterns
+three-shapes-of-tolerance-ladder-implementation (cycle 183 separate-entry-point-files + cycle 344 re-export-from-variant + cycle 344 direct-call-with-options) | patterns
+the-named-orchestration-via-import-graph (first-explicit-observation; cycle 344; tiny files connected via import graph encode full architecture) | (see section: endo--packages-init-source-cluster--seventh-complementary-lens-README-curates-subset-of-implementation-rungs)
+the-named-tiny-files-where-the-COMPOSITION-is-the-content (first-explicit-observation; cycle 344) | patterns
+two-shapes-of-substrate-package-implementation (cycle 338 single-substantial-file 471 lines + cycle 344 tiny-files-orchestrated 8 × ~8 lines) | patterns
+the-named-pre-remoting-adds-eventual-send-to-pre (first-explicit-observation; cycle 344) | patterns
+the-named-layered-shim-with-named-addition (first-explicit-observation; cycle 344) | patterns
+the-named-base64-and-promise-kit-as-canonical-pre-lockdown-shims (first-explicit-observation; cycle 344) | patterns
+the-named-export-star-from-named-lockdown-variant (first-explicit-observation; cycle 344) | patterns
+the-named-direct-import-and-call-when-custom-options (first-explicit-observation; cycle 344) | patterns
+the-named-deprecated-with-named-replacement-in-source (first-explicit-observation; cycle 344; pre-bundle-source.js's file-header DEPRECATED comment with TWO named replacements: simple `@endo/init` + advanced `@endo/init/pre.js`) | (see section: endo--packages-init-source-cluster--seventh-complementary-lens-README-curates-subset-of-implementation-rungs)
+five-shapes-of-deprecation-discipline (326 @deprecated-with-canonical-pointer + 337 deprecated-with-named-regret + 343 deprecated-with-named-aspiration-to-remove + 344 deprecated-with-named-replacement-in-source + 211 deprecated-with-forwarding-comment) | patterns
+the-named-async_hooks-patch-with-named-platform-limitation (first-explicit-observation; cycle 344; "This patch may not work in Node.js 24+") | patterns
+the-named-platform-version-window-named-explicitly (first-explicit-observation; cycle 344) | patterns
+the-named-doubled-underscores-as-internal-API-marker (first-explicit-observation; cycle 344; `__hardenTaming__: 'unsafe'`) | patterns
+two-shapes-of-internal-API-marker (cycle 337 build-condition `-C harden:unsafe` + cycle 344 runtime doubled-underscores) | patterns
+seven-cycles-with-named-complementary-lens-re-ingest (322 exo-makers + 324 atomics + 330 smallcaps + 332 exo-tools + 336 memo-race + 342 lockdown-pre + 344 init-source-cluster) | patterns
+the-named-streak-resumes-with-twelfth-instance (first-explicit-observation; cycle 344; twelfth INSTANCE of one-cycle README↔source pattern; streak count is 1) | patterns
+seven-cycles-with-named-substrate-package-introduction (337 + 339 + 340 + 341 + 342 + 343 + 344) | patterns
+the-named-substrate-package-cluster-introduction-trend-extends-to-eight-cycles (first-explicit-observation; cycle 344; eight consecutive cycles in substrate-introduction phase 337-344 counting all sources) | patterns
+the-named-citation-arc-from-cycle-152-takes-192-cycles-to-close (first-explicit-observation; cycle 344; memo-race installed via @endo/promise-kit/shim from pre.js) | patterns
+the-named-citation-arc-from-cycle-183-takes-161-cycles-to-close (first-explicit-observation; cycle 344; SEVENTH complementary-lens re-ingest from cycle 183 cluster) | (see section: endo--packages-init-source-cluster--seventh-complementary-lens-README-curates-subset-of-implementation-rungs)
+thirty-five-cycles-with-named-pivot-domain-stay (310-344) | patterns
+one-hundred-five-citation-arc-closures-in-pivot-now (98 + 7 net new in cycle 344; CROSSES 100-ARC MILESTONE) | patterns
+one-hundred-and-seventy-seventh consecutive designs-chat alternation cycles 166-250 + 252-344 (251 was out-of-band) | patterns
+library-reaches-856-sections at cycle 344 (chat-lane @endo/init source cluster; thirty-fifth consecutive @endo/* source; TWELFTH INSTANCE of one-cycle README↔source pattern; SEVENTH complementary-lens re-ingest; README-curates-subset-of-implementation-rungs as tier-3 meta-pattern; orchestration-via-import-graph as tier-3 meta-pattern; five-shapes-of-deprecation-discipline as tier-3 meta-pattern; substrate-package-cluster-introduction-trend extends to EIGHT cycles; nine citation arcs closed; CROSSES 100-ARC MILESTONE) | patterns
