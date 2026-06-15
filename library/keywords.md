@@ -11966,3 +11966,36 @@ thirty-eight-cycles-with-named-pivot-domain-stay (310-347) | patterns
 one-hundred-twenty-five-citation-arc-closures-in-pivot-now (120 + 5 net new in cycle 347) | patterns
 one-hundred-and-eightieth consecutive designs-chat alternation cycles 166-250 + 252-347 (251 was out-of-band) | patterns
 library-reaches-859-sections at cycle 347 (designs-lane @endo/where README.md; thirty-eighth consecutive @endo/* source; NINETEENTH PACKAGE added; substrate-policy-minimal shape with question-as-title anchor; question-as-package-title discipline named as tier-3 meta-pattern; named-external-spec-with-named-limitations as tier-3 meta-pattern; honest-documentation-of-incomplete-features-discipline as tier-3 meta-pattern; substrate-policy-minimal-anchor-varies-but-shape-is-stable as tier-3 meta-pattern; documentation-side closure of cycle 167 at 180 cycles; nine citation arcs closed) | patterns
+the-named-cross-platform-spec-FIRST-platform-native-FALLBACK-discipline (first-explicit-observation; cycle 348; implementation of cycle 347 README's policy; applied uniformly across all four locator functions) | (see section: endo--packages-where-index-js--eighth-complementary-lens-XDG-first-platform-second-fallback-and-Endo-canonical-storage-taxonomy)
+the-named-XDG-FIRST-platform-SECOND-fallback-pattern (first-explicit-observation; cycle 348) | patterns
+the-named-policy-uniformly-applied-across-functions-discipline (first-explicit-observation; cycle 348; when multiple functions implement variants of the same policy, share structural similarity so the policy is visible) | patterns
+the-named-Endo-canonical-storage-taxonomy (first-explicit-observation; cycle 348; four-category — State + Ephemeral + Sock + Cache — with named purposes and XDG correspondents) | (see section: endo--packages-where-index-js--eighth-complementary-lens-XDG-first-platform-second-fallback-and-Endo-canonical-storage-taxonomy)
+the-named-four-functions-locate-four-kinds-of-storage (first-explicit-observation; cycle 348) | patterns
+the-named-state-vs-ephemeral-vs-sock-vs-cache (first-explicit-observation; cycle 348) | patterns
+the-named-progressive-degradation-fallback (first-explicit-observation; cycle 348; five-step Windows-home fallback chain; try cleanest convention first; degrade gracefully) | patterns
+the-named-five-step-fallback-chain-for-Windows-home (first-explicit-observation; cycle 348) | patterns
+the-named-LOCALAPPDATA-favoring-rationale (first-explicit-observation; cycle 348) | patterns
+the-named-ENDO_SOCK-override-with-named-rationale (first-explicit-observation; cycle 348) | patterns
+the-named-XDG-doesnt-fit-so-we-invent-our-own (first-explicit-observation; cycle 348; project-prefix env var when spec doesn't cover the case) | patterns
+two-cycles-with-named-project-prefix-env-var (cycle 342 LOCKDOWN_OPTIONS + cycle 348 ENDO_SOCK) | patterns
+the-named-named-pipes-have-special-place-comment (first-explicit-observation; cycle 348; "Named pipes have a special place in Windows (and in our ashen hearts)") | patterns
+the-named-ashen-hearts-comment-as-frustration-marker (first-explicit-observation; cycle 348; humor-frustration to mark maintenance burden) | patterns
+two-shapes-of-emotional-tone-in-source-comments (cycle 337 precise-without-pejorative + cycle 348 emotional-frustration-marker) | patterns
+the-named-protocol-versioned-socket-path (first-explicit-observation; cycle 348) | patterns
+the-named-CapTP0-as-protocol-versioning (first-explicit-observation; cycle 348) | patterns
+the-named-protocol-version-in-path-for-coexistence (first-explicit-observation; cycle 348; encode wire-protocol version in socket/pipe path so multiple versions can coexist side-by-side) | patterns
+the-named-info-vs-env-as-two-sources (first-explicit-observation; cycle 348; env = user/OS-overridable; info = platform-detected; env falls back to info) | patterns
+the-named-env-falls-back-to-info-discipline (first-explicit-observation; cycle 348) | patterns
+the-named-pure-function-by-injection (first-explicit-observation; cycle 348; functions take env + info as parameters; no globalThis access; testable + portable) | patterns
+two-shapes-of-environment-access (cycle 342 direct-globals + cycle 348 injection-of-env-and-info) | patterns
+the-named-typedef-as-types-imports (first-explicit-observation; cycle 348; JSDoc @type {typeof import('./types.js').X}) | patterns
+the-named-separate-types-d-ts-for-public-API-types (first-explicit-observation; cycle 348) | patterns
+the-named-roaming-app-data-named-TODO (first-explicit-observation; cycle 348; full content of TODO that cycle 167 named the presence of) | patterns
+the-named-multi-host-state-sync-as-named-future-work (first-explicit-observation; cycle 348) | patterns
+eight-cycles-with-named-complementary-lens-re-ingest (322 exo-makers + 324 atomics + 330 smallcaps + 332 exo-tools + 336 memo-race + 342 lockdown-pre + 344 init-source-cluster + 348 where-index-js) | patterns
+the-named-streak-resumes-with-fourteenth-instance (first-explicit-observation; cycle 348; cycle 347 → 348 same-package; FOURTEENTH INSTANCE of one-cycle README↔source pattern; streak count is 1) | patterns
+the-named-citation-arc-from-cycle-167-takes-181-cycles-to-close (first-explicit-observation; cycle 348; complementary-lens self-arc) | patterns
+thirty-nine-cycles-with-named-pivot-domain-stay (310-348) | patterns
+one-hundred-thirty-citation-arc-closures-in-pivot-now (125 + 5 net new in cycle 348) | patterns
+one-hundred-and-eighty-first consecutive designs-chat alternation cycles 166-250 + 252-348 (251 was out-of-band) | patterns
+library-reaches-860-sections at cycle 348 (chat-lane @endo/where/index.js; thirty-ninth consecutive @endo/* source; FOURTEENTH INSTANCE of one-cycle README↔source pattern; EIGHTH complementary-lens re-ingest; cross-platform-spec-FIRST-platform-native-FALLBACK-discipline as tier-3 meta-pattern; Endo-canonical-storage-taxonomy as tier-3 meta-pattern; progressive-degradation-fallback; XDG-doesnt-fit-so-we-invent-our-own; ashen-hearts-comment-as-frustration-marker; protocol-version-in-path-for-coexistence; pure-function-by-injection; separate-types-d-ts-for-public-API-types; five citation arcs closed including 181-cycle complementary-lens self-arc to cycle 167) | patterns

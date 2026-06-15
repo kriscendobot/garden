@@ -6,10 +6,20 @@ source_branch: master
 source_commit: e2b783712758f5976e504ecd6f8cb9fb20e95e7a
 source_authors: [Kris Kowal (prompted)]
 ingested: 2026-06-03
-ingested_by: scholar
-section_count: 1
+re-ingested: 2026-06-15
+ingested_by: scholar (cycle 167) + liaison (cycle 348)
+section_count: 2
 status: current
 notes: |
+  **Two ingest cycles** — cycle 167 (algorithm-and-vocabulary
+  lens) + cycle 348 (implementation-pattern lens; EIGHTH
+  complementary-lens re-ingest). The cycle 167 section
+  named the algorithm and core vocabulary; the cycle 348
+  section elevates the cross-function consistency to tier-3
+  meta-patterns and adds cross-cycle comparisons.
+
+  ## Cycle 167 lens (algorithm + vocabulary)
+
   Cycle 167. **Chat-lane after cycle 166's designs-lane
   break**. §Endo-source-comment-fragment genre.
 
@@ -114,6 +124,49 @@ notes: |
   Cycle 167 was nominally chat-lane (after cycle 166's
   designs-lane). Papers-lane blocked 61+ consecutive
   cycles.
+
+  ## Cycle 348 lens (implementation-pattern + cross-cycle)
+
+  Cycle 348 chat-lane after cycle 347 designs-lane @endo/
+  where README. FOURTEENTH INSTANCE of one-cycle README↔
+  source pattern; EIGHTH complementary-lens re-ingest (after
+  322 + 324 + 330 + 332 + 336 + 342 + 344 + 348); §eight-
+  cycles-with-named-complementary-lens-re-ingest.
+
+  Single most structurally interesting move in cycle 348:
+  §the-named-cross-platform-spec-FIRST-platform-native-
+  FALLBACK-discipline — the IMPLEMENTATION of cycle 347
+  README's policy ("XDG first; native fallback"); cycle 348
+  reveals it applied UNIFORMLY across all four functions
+  (whereEndoState + whereEndoEphemeralState + whereEndoSock
+  + whereEndoCache); §the-named-XDG-FIRST-platform-SECOND-
+  fallback-pattern; §the-named-policy-uniformly-applied-
+  across-functions-discipline as tier-3 meta-pattern.
+
+  Other elevations to tier-3 meta-patterns: §the-named-Endo-
+  canonical-storage-taxonomy (four-category: State +
+  Ephemeral + Sock + Cache); §the-named-progressive-
+  degradation-fallback (five-step Windows-home fallback
+  chain); §the-named-XDG-doesnt-fit-so-we-invent-our-own
+  (ENDO_SOCK custom env var); §the-named-protocol-version-
+  in-path-for-coexistence; §the-named-pure-function-by-
+  injection (testable + portable via env + info parameters);
+  §the-named-separate-types-d-ts-for-public-API-types.
+
+  Cross-cycle comparisons added:
+  - §two-cycles-with-named-project-prefix-env-var (cycle 342
+    LOCKDOWN_OPTIONS + cycle 348 ENDO_SOCK)
+  - §two-shapes-of-emotional-tone-in-source-comments (cycle
+    337 precise-without-pejorative + cycle 348 ashen-hearts-
+    emotional-frustration)
+  - §two-shapes-of-environment-access (cycle 342 direct-
+    globals + cycle 348 injection-of-env-and-info)
+
+  Closes five citation arcs: cycle 347 (1 cycle) + cycle 167
+  (181 cycles, complementary-lens self-arc) + cycle 187 (161
+  cycles) + cycle 342 (6 cycles) + cycle 337 (11 cycles).
+  Pushes citation-arc-closures-in-pivot to ONE-HUNDRED-
+  THIRTY (125 + 5 net new).
 ---
 
 > Abstract: `packages/where/index.js` (115 lines) is the
@@ -153,18 +206,15 @@ notes: |
 
 | Section | Topics | Status |
 |---------|--------|--------|
-| [four-state-domain-path-resolution-with-XDG-precedence-and-platform-fallback-chain](../sections/endo--packages-where-index-js--four-state-domain-path-resolution-with-XDG-precedence-and-platform-fallback-chain.md) | tooling, daemon, getting-started | current |
+| [four-state-domain-path-resolution-with-XDG-precedence-and-platform-fallback-chain](../sections/endo--packages-where-index-js--four-state-domain-path-resolution-with-XDG-precedence-and-platform-fallback-chain.md) | tooling, daemon, getting-started | current (cycle 167, algorithm + vocabulary lens) |
+| [eighth-complementary-lens-XDG-first-platform-second-fallback-and-Endo-canonical-storage-taxonomy](../sections/endo--packages-where-index-js--eighth-complementary-lens-XDG-first-platform-second-fallback-and-Endo-canonical-storage-taxonomy.md) | hardened-javascript-tooling, locator-discipline, cross-platform-spec-vs-native-fallback, storage-taxonomy, complementary-lens-re-ingest | current (cycle 348, implementation-pattern + cross-cycle lens) |
 
-One cohesion-honest section. §The-five-functions-form-a-
-coherent-surface (uniform 3-arg signature, four state
-domains, one master pattern); splitting would fragment.
+**Two cohesion-honest sections** from two complementary lenses: cycle 167 algorithm-and-vocabulary view (the algorithm + the four state-domains + the platform-specific paths) + cycle 348 implementation-pattern + cross-cycle view (the uniform discipline applied across functions + tier-3 meta-patterns + cross-cycle comparisons).
 
 ## Provenance
 
-- Fetched 2026-06-03 from `endojs/endo@master`
-  (file last touched in commit `e2b78371`).
+- Fetched 2026-06-03 from `endojs/endo@master` (file last touched in commit `e2b78371`).
 - Author: Kris Kowal (prompted).
-- Cycle 167 was nominally **chat-lane** (after cycle 166's
-  designs-lane daemon-mount). Papers-lane has been blocked
-  for **61+ consecutive cycles**.
-- One cohesion-honest section.
+- Cycle 167 was nominally **chat-lane** (after cycle 166's designs-lane daemon-mount). Papers-lane has been blocked for **61+ consecutive cycles** at that point.
+- **Re-ingested 2026-06-15 in cycle 348** as the **EIGHTH complementary-lens re-ingest** (after cycles 322 + 324 + 330 + 332 + 336 + 342 + 344). Cycle 348 takes the implementation-pattern lens; the cycle 167 section took the algorithm-and-vocabulary lens.
+- **Two cohesion-honest sections** from two complementary lenses.
