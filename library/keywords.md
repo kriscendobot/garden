@@ -11495,3 +11495,33 @@ forty-six-citation-arc-closures-in-pivot-now (43 + 3 new in cycle 334) | pattern
 twenty-five-cycles-with-named-pivot-domain-stay (310-334) | patterns
 one-hundred-and-sixty-seventh consecutive designs-chat alternation cycles 166-250 + 252-334 (251 was out-of-band) | patterns
 library-reaches-846-sections at cycle 334 (chat-lane @endo/common object-map.js; twenty-fifth consecutive @endo/* source; twelfth package extends with README → source adjacent-reverse pair; SEVENTH one-cycle README↔source arc closure 333→334; FOUR-CYCLE deprecation-canonical-source chain 326→332→333→334 closes; two-shapes-of-pre-lockdown-method-capture meta-pattern established) | patterns
+the-named-deliberately-imperfect-ponyfill (first-explicit-observation; cycle 335; ponyfill for Promise.withResolvers WITH named eventual-send accommodations) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+the-named-ponyfill-with-named-deliberate-divergence | patterns
+two-shapes-of-ponyfill-discipline (faithful 317 hex + deliberately-imperfect 335 promise-kit) | patterns
+two-cycles-with-named-ponyfill-vs-polyfill-distinction (317 + 335) | patterns
+the-named-eventual-send-pipelining-IS-named-accommodation (first-explicit-observation; cycle 335; promise-pipelining is the REASON for the divergence) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+the-named-protocol-described-from-both-ends-discipline (cycle 321 from E() side + cycle 335 from promise-kit side) | patterns
+the-named-makePromiseKit-IS-named-canonical-promise-deferred (first-explicit-observation; cycle 335) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+the-named-three-named-returns (promise + resolve + reject) | patterns
+the-named-Agoric-smart-contract-OR-JavaScript-program (first-explicit-observation; cycle 335) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+three-cycles-with-named-Agoric-citation (321 money-flow + 323 Agoric-modules + 335 Agoric-smart-contract) | patterns
+the-named-example-with-both-branches (first-explicit-observation; cycle 335; Basic Example shows BOTH success and failure paths) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+two-cycles-with-named-example-with-both-branches (327 + 335) | patterns
+the-named-multiple-promise-kits-example-shows-composability (first-explicit-observation; cycle 335) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+the-named-second-example-for-composability | patterns
+the-named-API-section-minimal (first-explicit-observation; cycle 335) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+the-named-API-section-depth-tracks-package-complexity | patterns
+the-named-Links-section (first-explicit-observation; cycle 335; single-link section to GitHub repository) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+the-named-single-link-Links-section | patterns
+the-named-License-section-Apache-2.0 (first-explicit-observation; cycle 335; explicit License section) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+the-named-License-section-presence-varies (cycle 333 common omitted; cycle 335 promise-kit included; choice tracks README's purpose) | patterns
+the-named-six-section-README-shape (first-explicit-observation; cycle 335; mid-size utility-package shape) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+the-named-citation-arc-from-cycle-152-takes-183-cycles-to-close (first-explicit-observation; cycle 335; README of the package that memo-race.js belongs to) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+the-named-citation-arc-from-cycle-317-takes-18-cycles-to-close (first-explicit-observation; cycle 335; ponyfill terminology re-applied) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+the-named-citation-arc-from-cycle-321-takes-14-cycles-to-close (first-explicit-observation; cycle 335; promise-pipelining named as accommodation) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+the-named-one-cycle-streak-ends-at-seven (first-explicit-observation; cycle 335; the §seven-cycles-with-named-one-cycle-README-source-arc streak from cycles 323-334 ends because cycle 334 → 335 is cross-package) | (see section: endo--packages-promise-kit-README-md--thirteenth-package-deliberately-imperfect-ponyfill)
+forty-nine-citation-arc-closures-in-pivot-now (46 + 3 new in cycle 335) | patterns
+thirteen-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style + patterns + marshal + common + promise-kit) | patterns
+twenty-six-cycles-with-named-pivot-domain-stay (310-335) | patterns
+one-hundred-and-sixty-eighth consecutive designs-chat alternation cycles 166-250 + 252-335 (251 was out-of-band) | patterns
+library-reaches-847-sections at cycle 335 (designs-lane @endo/promise-kit README.md; twenty-sixth consecutive @endo/* source; THIRTEENTH PACKAGE added; deliberately-imperfect-ponyfill discipline named as tier-3 meta-pattern; §two-shapes-of-ponyfill-discipline parameterizes the ponyfill-vs-polyfill distinction; cycle 152 memo-race arc closes at 183 cycles; SEVEN-CYCLE one-cycle-README-source-arc streak ENDS) | patterns
