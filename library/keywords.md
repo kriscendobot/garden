@@ -11369,3 +11369,44 @@ twenty-nine-citation-arc-closures-in-pivot-now (1 + 1 + 1 + 1 + 2 + 2 + 3 + 4 + 
 twenty-one-cycles-with-named-pivot-domain-stay (310-330) | patterns
 one-hundred-and-sixty-third consecutive designs-chat alternation cycles 166-250 + 252-330 (251 was out-of-band) | patterns
 library-reaches-842-sections at cycle 330 (chat-lane @endo/marshal src/encodeToSmallcaps.js complementary-lens re-ingest; twenty-first consecutive @endo/* source; eleventh package extends; THIRD complementary-lens re-ingest applying cycle 322's librarian discipline; THIRD instance of Hilbert-Hotel technique; NEW PIVOT-RECORD longest arc 261 cycles cycle 69 self-arc; source count unchanged because smallcaps already counted from cycle 69) | patterns
+the-named-functionality-in-different-org-subtype (first-explicit-observation; cycle 331; sixth named subtype of honesty-about-API-tradeoffs) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-cross-org-pointer-to-Agoric (first-explicit-observation; cycle 331) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-cross-org-discipline-IS-named-organizational-boundary-crossing | patterns
+six-cycles-with-named-honesty-about-API-tradeoffs (321 + 323 + 325 + 326 + 329 + 331; SIX named subtypes) | patterns
+the-named-positive-when-to-use-after-pointing-elsewhere (first-explicit-observation; cycle 331) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-scope-positive-naming-after-cross-pointer | patterns
+the-named-same-code-with-and-without-discipline (first-explicit-observation; cycle 331) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+two-cycles-with-named-side-by-side-comparison-discipline (329 NaN-in-two-formats + 331 same-code-with-and-without) | patterns
+the-named-Exo-IS-Far-plus-InterfaceGuard-combination (first-explicit-observation; cycle 331) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-three-patterns-for-creating-exos (first-explicit-observation; cycle 331) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-makeExo-defineExoClass-defineExoClassKit-trio | patterns
+the-named-Why-Exo-section-with-Far-comparison (first-explicit-observation; cycle 331) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+two-cycles-with-named-Why-X-section-discipline (327 patterns + 331 exo) | patterns
+the-named-when-to-use-checklist-discipline (first-explicit-observation; cycle 331; three "When to use:" bullet lists, one per pattern) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+three-when-to-use-bullets-per-pattern | patterns
+the-named-least-authority-as-named-discipline (first-explicit-observation; cycle 331) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-canonical-three-facet-example (first-explicit-observation; cycle 331; up + down + reader; least-authority illustration) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-incrementer-decrementer-reader-canonical-trio | patterns
+the-named-this.state-and-this.facets-canonical-shapes (first-explicit-observation; cycle 331) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-M.callWhen-three-or-four-step-semantics (first-explicit-observation; cycle 331; four numbered steps: validate pattern + await if promise + validate resolved value + call method) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-numbered-step-semantics-discipline | patterns
+the-named-GET_INTERFACE_GUARD-as-meta-method (first-explicit-observation; cycle 331; closes cycle 239 get-interface.js arc = 92 cycles) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-four-named-uses-of-interface-introspection (runtime discovery + dynamic clients + documentation + protocol negotiation) | patterns
+the-named-cache-staleness-on-upgrade-warning (first-explicit-observation; cycle 331; closes cycle 239's cache-staleness-caveat arc) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-three-runtime-backing-tiers (heap + virtual + durable) | patterns
+the-named-three-tier-runtime-backing-IS-named-canonical-axis | patterns
+the-named-cross-package-pointer-names-the-specific-API-surface (first-explicit-observation; cycle 331) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-nine-section-README-shape (deep-feature-package shape) | patterns
+the-named-See-Also-IS-named-completeness-pointer | patterns
+four-cycles-with-named-role-label-before-package-name (321 + 325 + 327 + 331) | patterns
+four-cycles-with-named-monorepo-docs-reference (321 + 325 + 327 + 331) | patterns
+four-cycles-with-named-Hardened-JS-discipline-streak-continues-broken (323 + 325 + 327 + 331; four different reasons for absence) | patterns
+two-cycles-with-named-defensive-programming-as-named-discipline (327 + 331) | patterns
+the-named-citation-arc-from-cycle-108-takes-223-cycles-to-close (first-explicit-observation; cycle 331; exo-makers comment-fragment) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-citation-arc-from-cycle-118-takes-213-cycles-to-close (first-explicit-observation; cycle 331; exo-tools) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-citation-arc-from-cycle-239-takes-92-cycles-to-close (first-explicit-observation; cycle 331; get-interface.js → GET_INTERFACE_GUARD section + cache-staleness warning) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+the-named-citation-arc-from-cycle-322-takes-9-cycles-to-close (first-explicit-observation; cycle 331; exo-makers full-source → factory trio) | (see section: endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without)
+thirty-five-citation-arc-closures-in-pivot-now (29 + 6 new in cycle 331) | patterns
+twenty-two-cycles-with-named-pivot-domain-stay (310-331) | patterns
+one-hundred-and-sixty-fourth consecutive designs-chat alternation cycles 166-250 + 252-331 (251 was out-of-band) | patterns
+library-reaches-843-sections at cycle 331 (designs-lane @endo/exo README.md; twenty-second consecutive @endo/* source; seventh package extends; SIX named subtypes of honesty-about-API-tradeoffs; cross-org pointer to @agoric/vat-data as sixth subtype; SIX CITATION ARCS CLOSED including longest 223 cycles to cycle 108 exo-makers comment-fragment) | patterns
