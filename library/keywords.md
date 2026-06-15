@@ -12034,3 +12034,25 @@ forty-cycles-with-named-pivot-domain-stay (310-349; MILESTONE: 40 consecutive cy
 one-hundred-thirty-five-citation-arc-closures-in-pivot-now (130 + 5 net new in cycle 349) | patterns
 one-hundred-and-eighty-second consecutive designs-chat alternation cycles 166-250 + 252-349 (251 was out-of-band) | patterns
 library-reaches-861-sections at cycle 349 (designs-lane @endo/ses docs/preparing-for-stabilize.md; FORTIETH consecutive @endo/* source MILESTONE; three-language-anti-features-mitigated-by-SES as tier-3 meta-pattern; forward-looking-design-document-discipline as tier-3 meta-pattern; name-not-yet-finalized-honesty-discipline; trivial-frozen-target-as-proxy-pattern; implementation-PRs-named-explicitly; four-shapes-of-stable-pointer-discipline; discipline-semantics-evolution-with-named-migration; eight citation arcs closed including 203-cycle arc to cycle 146) | patterns
+the-named-package-self-detects-endowment-via-global-symbol (first-explicit-observation; cycle 350; PassStyleOfEndowmentSymbol = Symbol.for('@endo passStyleOf') + globalThis check at module load; substrate package supports runtime override via global endowment symbol) | (see section: endo--packages-pass-style-src-passStyleOf-js--ninth-complementary-lens-package-self-detects-endowment-via-global-symbol-and-NOTE-HAZARD-discipline)
+the-named-NOTE-HAZARD-comment-discipline (first-explicit-observation; cycle 350; comment names property impl relies on + the hazard if not preserved + the downstream context where it matters) | patterns
+two-shapes-of-NOTE-prefix-comment (cycle 342 NOTE-TO-REVIEWERS-merge-defense + cycle 350 NOTE-HAZARD-determinism-dependency) | patterns
+the-named-liveslots-as-canonical-endower (first-explicit-observation; cycle 350) | patterns
+the-named-authorization-via-write-access-to-global (first-explicit-observation; cycle 350) | patterns
+the-named-isFrozen-check-at-the-evolution-points (first-explicit-observation; cycle 350; lines 167 + 201 are the two specific lines that will change when Stabilize lands) | patterns
+the-named-known-future-change-site-named-at-implementation-level (first-explicit-observation; cycle 350; design-doc + source pair identifies specific lines that will evolve) | patterns
+the-named-TypedArrays-get-special-treatment-error-distinction (first-explicit-observation; cycle 350) | patterns
+the-named-error-message-discriminates-by-failure-cause (first-explicit-observation; cycle 350; tier-3 meta-pattern) | patterns
+the-named-helper-table-with-assertions-on-table-construction (first-explicit-observation; cycle 350; makeHelperTable asserts THREE invariants: no unknown helpers + no duplicates + no missing) | patterns
+the-named-defensive-init-pattern-for-registries (first-explicit-observation; cycle 350; tier-3 meta-pattern — assert all invariants at construction) | patterns
+the-named-null-prototype-table (first-explicit-observation; cycle 350; { __proto__: null } defends against Object.prototype pollution) | patterns
+the-named-confirmCanBeValid-then-assertRestValid-two-phase-validation (first-explicit-observation; cycle 350; silent applicability phase 1 + throwing completeness phase 2) | patterns
+the-named-two-phase-validation-with-silent-applicability-then-throwing-completeness (first-explicit-observation; cycle 350; tier-3 meta-pattern) | patterns
+the-named-PASS_STYLE-as-well-known-tag-symbol (first-explicit-observation; cycle 350) | patterns
+three-shapes-of-symbol-coordination (intrinsic Object[Symbol.for('harden')] cycle 337 + per-object inner[PASS_STYLE] cycle 350 + endowment globalThis[PassStyleOfEndowmentSymbol] cycle 350) | patterns
+nine-cycles-with-named-complementary-lens-re-ingest (322 + 324 + 330 + 332 + 336 + 342 + 344 + 348 + 350) | patterns
+the-named-citation-arc-from-cycle-71-takes-279-cycles-to-close (first-explicit-observation; cycle 350; NEW LONGEST PIVOT ARC after the 261-cycle record from cycle 69 → 330) | (see section: endo--packages-pass-style-src-passStyleOf-js--ninth-complementary-lens-package-self-detects-endowment-via-global-symbol-and-NOTE-HAZARD-discipline)
+the-named-NEW-LONGEST-PIVOT-ARC-at-279-cycles (first-explicit-observation; cycle 350; cycle 71 → 350) | patterns
+forty-one-cycles-with-named-pivot-domain-stay (310-350) | patterns
+one-hundred-forty-two-citation-arc-closures-in-pivot-now (135 + 7 net new in cycle 350) | patterns
+library-reaches-862-sections at cycle 350 (chat-lane @endo/pass-style/src/passStyleOf.js; FORTY-FIRST consecutive @endo/* source; NINTH complementary-lens re-ingest; package-self-detects-endowment-via-global-symbol as tier-3 meta-pattern; NOTE-HAZARD-comment-discipline; defensive-init-pattern-for-registries; two-phase-validation; three-shapes-of-symbol-coordination; known-future-change-site-named-at-implementation-level; SEVEN citation arcs closed including 279-cycle arc to cycle 71 as NEW LONGEST PIVOT ARC) | patterns

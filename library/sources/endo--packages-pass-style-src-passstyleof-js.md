@@ -7,8 +7,9 @@ source_commit: e56bf00f289ff8484094b785b11636b8bc71d87e
 comment_subject: "passStyleOf internals: the passStyleMemo cache (mutable static state with proxy-observability hazard), the PassStyleOfEndowmentSymbol liveslot delegation gate (with GC-determinism requirement), and the toPassableError/toThrowable coercion functions (diagnostic-preservation rule plus exo-boundary throwables-only contract)"
 source_authors: [Kris Kowal, Mark S. Miller, Michael FIG, Turadg Aleahmad]
 ingested: 2026-05-28
-ingested_by: scholar
-section_count: 3
+re-ingested: 2026-06-15
+ingested_by: scholar (cycle 71) + liaison (cycle 350)
+section_count: 4
 status: current
 notes: |
   Third comment-fragment ingest (cycle 71), following the
