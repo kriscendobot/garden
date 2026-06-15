@@ -11002,3 +11002,52 @@ six-README-shapes-now (six-section × 3 + four-section × 1 + seven-section cont
 ten-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316 + 317 + 318 + 319 + 320 + 321) | patterns
 one-hundred-and-fifty-fourth consecutive designs-chat alternation cycles 166-250 + 252-321 (251 was out-of-band) | patterns
 library-reaches-833-sections at cycle 321 (designs-lane @endo/eventual-send README.md; twelfth consecutive @endo/* source; SIXTH PACKAGE; TWO LONGEST CITATION ARCS IN LIBRARY CLOSE simultaneously: cycle 66 = 255 cycles + cycle 146 = 175 cycles; substrate-package twelve-section README shape established) | patterns
+the-named-callback-receives-capability-discipline (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-introduce-and-forget-capability-handoff (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-option-applicability-by-shape (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-fail-on-misapplied-option | patterns
+the-named-state-is-sealed-not-frozen (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-warning-comment-repeated-thrice-IS-named-load-bearing (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-warning-IS-named-paid-by-repetition | patterns
+the-named-seal-vs-freeze-distinction (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-deliberate-non-freezing-of-state-record | patterns
+the-named-frozen-outer-and-sealed-inner-discipline (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-two-level-immutability-discipline | patterns
+the-named-amplify-IS-named-cross-facet-access (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-facet-sibling-access | patterns
+the-named-amplification-IS-named-capability-uplift | patterns
+the-named-circular-reference-via-late-binding (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-bind-then-freeze-discipline | patterns
+the-named-don't-freeze-context-until-facets-attached | patterns
+the-named-defineExoClass-vs-defineExoClassKit-named-pair (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-makeExo-IS-named-singleton-wrapper (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-singleton-via-immediate-call | patterns
+the-named-emptyRecord-hardened-and-shared (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-shared-singleton-for-zero-state | patterns
+the-named-WeakMap-contextMap-keyed-by-instance (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-context-is-not-accessible-from-outside | patterns
+the-named-per-facet-WeakMap-discipline (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-isInstance-via-WeakMap-has (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-membership-IS-named-WeakMap-key-test | patterns
+the-named-isInstance-with-optional-facetName (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-five-name-Object-destructure-at-module-load (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+two-cycles-with-named-Object-destructure (310 small + 322 large) | patterns
+the-named-import-graph-from-exo-IS-named-fan-out (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-multi-package-composition-IS-named-dependency-fanout | patterns
+the-named-LABEL_INSTANCES-gated-debug-feature (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-debug-flag-via-env-var | patterns
+the-named-zero-cost-when-debug-flag-off | patterns
+the-named-defineProperty-toStringTag-with-instanceCount (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-debug-label-via-Symbol.toStringTag | patterns
+the-named-instanceCount-as-named-monotonic-counter (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-objectMap-IS-named-canonical-record-functor (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-double-objectMap-discipline | patterns
+the-named-amplify-throws-if-not-a-facet (first-explicit-observation; cycle 322) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-complementary-lens-re-ingest (first-explicit-observation; cycle 322; librarian discipline: two section files for one source, each taking a different framing) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+the-named-citation-arc-from-cycle-108-takes-214-cycles-to-close (first-explicit-observation; cycle 322; third-longest arc closure in pivot after cycle 321's 255 + 175) | (see section: endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen)
+four-citation-arc-closures-in-pivot-now (cycle 319 → 315 = 4 cycles; cycle 321 → 146 = 175 cycles; cycle 321 → 66 = 255 cycles; cycle 322 → 108 = 214 cycles) | patterns
+thirteen-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322) | patterns
+seven-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo) | patterns
+eleven-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322) | patterns
+one-hundred-and-fifty-fifth consecutive designs-chat alternation cycles 166-250 + 252-322 (251 was out-of-band) | patterns
+library-reaches-834-sections at cycle 322 (chat-lane @endo/exo src/exo-makers.js; thirteenth consecutive @endo/* source; SEVENTH PACKAGE added to pivot cluster but file previously ingested in cycle 108 with different framing; SECOND SECTION for the same source via complementary-lens-re-ingest discipline; FOUR CITATION ARCS CLOSED in pivot; source count unchanged because exo-makers.js was already counted from cycle 108) | patterns

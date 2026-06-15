@@ -7,7 +7,7 @@ source_date: 2025-10-09
 source_authors: [Kris Kowal]
 ingested: 2026-06-02
 ingested_by: scholar
-section_count: 1
+section_count: 2
 status: current
 notes: |
   Sixteenth comment-fragment ingest. Kris Kowal-authored *Exo
@@ -79,9 +79,10 @@ notes: |
 
 | Section | Topics | Status |
 |---------|--------|--------|
-| [defineExoClass-defineExoClassKit-and-makeExo-factory-trio](../sections/endo--packages-exo-src-exo-makers-js--defineExoClass-defineExoClassKit-and-makeExo-factory-trio.md) | hardened-javascript, exo | current |
+| [defineExoClass-defineExoClassKit-and-makeExo-factory-trio](../sections/endo--packages-exo-src-exo-makers-js--defineExoClass-defineExoClassKit-and-makeExo-factory-trio.md) | hardened-javascript, exo | current (cycle 108; factory-trio lens) |
+| [callback-receives-capability-and-state-sealed-not-frozen](../sections/endo--packages-exo-src-exo-makers-js--callback-receives-capability-and-state-sealed-not-frozen.md) | capability-discipline, seal-vs-freeze, circular-reference-via-late-binding | current (cycle 322; complementary capability-discipline lens) |
 
-The 242-line file is honestly one cohesive argument-cluster — *one factory trio* with shared idioms (callback-options hooks, state-sealed-not-frozen, class-vs-kit symmetry). Single-section ingest preserves the unified structure; forcing a multi-section split would create artificial divisions between the three factory definitions that all follow the same pattern.
+The 242-line file is honestly one cohesive argument-cluster — *one factory trio* with shared idioms (callback-options hooks, state-sealed-not-frozen, class-vs-kit symmetry). The cycle 108 ingest preserved the unified structure via a single section (the factory-trio lens); cycle 322 added a complementary section with a capability-discipline lens (callback-receives-capability + seal-vs-freeze + circular-reference-via-late-binding) that highlights *transferable patterns* rather than the construction-surface structure. **§the-named-complementary-lens-re-ingest** — two section files for one source, each taking a different framing.
 
 ## Provenance
 
