@@ -11926,3 +11926,22 @@ thirty-six-cycles-with-named-pivot-domain-stay (310-345) | patterns
 one-hundred-sixteen-citation-arc-closures-in-pivot-now (105 + 11 net new in cycle 345) | patterns
 one-hundred-and-seventy-eighth consecutive designs-chat alternation cycles 166-250 + 252-345 (251 was out-of-band) | patterns
 library-reaches-857-sections at cycle 345 (designs-lane @endo/ses README.md; thirty-sixth consecutive @endo/* source; EIGHTEENTH PACKAGE added; SUBSTRATE-INTRODUCTION CULMINATION; substrate-policy-vast 964 lines; precise-claims-with-precise-caveats-discipline named as tier-3 meta-pattern; pre-written-PR-language-for-ecosystem-cooperation as tier-3 meta-pattern; README-as-cultural-artifact-not-just-documentation as tier-3 meta-pattern; foundational-package-gets-vast-README; seven-shapes-of-README refines cycle 343's six-shape with substrate-policy-vast as SEVENTH; substrate-introduction-phase-culminates-at-foundational-package; eleven citation arcs closed including 258-cycle arc to cycle 87 as new second-longest pivot arc) | patterns
+the-named-single-line-forwarder-as-stability-barrier (first-explicit-observation; cycle 346; top-level files are one-line `import './src/X.js';` wrappers creating stable API surface) | (see section: endo--packages-ses-entry-cluster--thirteenth-one-cycle-pair-single-line-forwarder-as-stability-barrier-and-two-modes-of-package-installation)
+the-named-stable-URL-surface-via-thin-forwarder (first-explicit-observation; cycle 346) | patterns
+the-named-rung-as-entry-point-vs-stability-via-thin-forwarder (first-explicit-observation; cycle 346; TWO shapes of tiny-file orchestration — cycle 344 init = config variants vs cycle 346 ses = stable URLs) | patterns
+two-shapes-of-tiny-files-orchestration (cycle 344 rung-as-entry-point + cycle 346 stability-via-thin-forwarder) | patterns
+the-named-two-modes-of-package-installation (first-explicit-observation; cycle 346; all-or-nothing + à-la-carte) | (see section: endo--packages-ses-entry-cluster--thirteenth-one-cycle-pair-single-line-forwarder-as-stability-barrier-and-two-modes-of-package-installation)
+the-named-all-or-nothing-vs-a-la-carte-install (first-explicit-observation; cycle 346) | patterns
+the-named-index-js-aggregates-all-shims (first-explicit-observation; cycle 346; 4 imports installs everything) | patterns
+the-named-individual-shim-files-allow-partial-installation (first-explicit-observation; cycle 346) | patterns
+the-named-license-header-as-most-of-the-file (first-explicit-observation; cycle 346; index.js 14:4 ratio of license to code) | patterns
+the-named-six-tiny-files-with-license-header-dominating (first-explicit-observation; cycle 346) | patterns
+the-named-license-header-only-on-aggregator (first-explicit-observation; cycle 346; discipline-marker for tiny-file clusters — put header on canonical aggregator, individual forwarders inherit) | patterns
+the-named-foundational-package-has-thinnest-entry-cluster (first-explicit-observation; cycle 346; MORE foundational = SMALLER entry-point cluster) | patterns
+the-named-stability-correlates-inversely-with-cluster-size (first-explicit-observation; cycle 346; thin entry cluster signals interface stability) | patterns
+the-named-streak-resumes-with-thirteenth-instance (first-explicit-observation; cycle 346; THIRTEENTH INSTANCE of one-cycle README↔source pattern; streak count is 1) | patterns
+thirty-seven-cycles-with-named-pivot-domain-stay (310-346) | patterns
+one-hundred-twenty-citation-arc-closures-in-pivot-now (116 + 4 net new in cycle 346) | patterns
+the-named-citation-arc-from-cycle-183-takes-163-cycles-to-close (first-explicit-observation; cycle 346) | patterns
+one-hundred-and-seventy-ninth consecutive designs-chat alternation cycles 166-250 + 252-346 (251 was out-of-band) | patterns
+library-reaches-858-sections at cycle 346 (chat-lane @endo/ses entry-point cluster; thirty-seventh consecutive @endo/* source; THIRTEENTH INSTANCE of one-cycle README↔source pattern; single-line-forwarder-as-stability-barrier as tier-3 meta-pattern; rung-as-entry-point-vs-stability-via-thin-forwarder; two-modes-of-package-installation; foundational-package-has-thinnest-entry-cluster; eight citation arcs closed) | patterns
