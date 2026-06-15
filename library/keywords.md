@@ -11467,3 +11467,31 @@ twelve-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream 
 twenty-four-cycles-with-named-pivot-domain-stay (310-333) | patterns
 one-hundred-and-sixty-sixth consecutive designs-chat alternation cycles 166-250 + 252-333 (251 was out-of-band) | patterns
 library-reaches-845-sections at cycle 333 (designs-lane @endo/common README.md; twenty-fourth consecutive @endo/* source; TWELFTH PACKAGE added; SHORTEST README in pivot at 17 lines; no-barrel-index-discipline as STRUCTURAL INVERSE of cycle 326's barrel-index; three-way COLLECTION-vs-SUBSTRATE-vs-UTILITY package categorization; SIX consecutive one-cycle README↔source arc closures; documentation-side closure of cycle 326's deprecation pointers) | patterns
+the-named-Function.prototype.call.bind-as-method-extraction (first-explicit-observation; cycle 334; canonical pre-lockdown method-extraction technique; one-step pre-bind) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-callable-form-of-prototype-method-via-bind-call | patterns
+the-named-tamper-resistance-via-pre-bind-at-module-load (first-explicit-observation; cycle 334) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-two-shapes-of-pre-lockdown-method-capture (Reflect.apply two-step cycles 314/318/328 + Function.prototype.call.bind one-step cycle 334) | patterns
+the-named-typed-re-export-of-native-method (first-explicit-observation; cycle 334) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-JSDoc-inline-cast-syntax-discipline | patterns
+the-named-five-named-edge-cases-in-JSDoc (first-explicit-observation; cycle 334; objectMap normalization properties) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-edge-cases-enumerated-in-JSDoc-discipline | patterns
+the-named-CopyRecord-result-IS-conditional-on-mapped-values-Passable (first-explicit-observation; cycle 334) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-objectExtendEach-with-mapped-type-example (first-explicit-observation; cycle 334) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-JSDoc-as-tutorial-not-just-reference | patterns
+the-named-constraint-discipline (first-explicit-observation; cycle 334; constrain types to prevent silent runtime gotchas) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-rest-spread-of-primitive-silently-yields-empty (first-explicit-observation; cycle 334; JS-language gotcha named explicitly) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-type-and-runtime-behavior-agree-by-constraint | patterns
+the-named-harden-cast-vs-harden-function-distinction (first-explicit-observation; cycle 334) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-only-one-import (first-explicit-observation; cycle 334) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-canonical-low-level-utility-shape | patterns
+the-named-local-helpers-not-elevated-to-exports (first-explicit-observation; cycle 334) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-value-first-key-second-mapper-shape | patterns
+the-named-deprecation-canonical-source-arc-closure (first-explicit-observation; cycle 334; four-cycle chain 326→332→333→334) | (see section: endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration)
+the-named-citation-arc-from-cycle-326-takes-8-cycles-to-close (deprecation-pointer-to-canonical-source) | patterns
+the-named-citation-arc-from-cycle-333-takes-1-cycle-to-close (SEVENTH one-cycle README↔source arc) | patterns
+the-named-citation-arc-from-cycle-332-takes-2-cycles-to-close (deprecation-followed-to-canonical) | patterns
+seven-cycles-with-named-one-cycle-README-source-arc (323→324 + 325→326 + 326→327 + 328→329 + 331→332 + 332→333 + 333→334) | patterns
+forty-six-citation-arc-closures-in-pivot-now (43 + 3 new in cycle 334) | patterns
+twenty-five-cycles-with-named-pivot-domain-stay (310-334) | patterns
+one-hundred-and-sixty-seventh consecutive designs-chat alternation cycles 166-250 + 252-334 (251 was out-of-band) | patterns
+library-reaches-846-sections at cycle 334 (chat-lane @endo/common object-map.js; twenty-fifth consecutive @endo/* source; twelfth package extends with README → source adjacent-reverse pair; SEVENTH one-cycle README↔source arc closure 333→334; FOUR-CYCLE deprecation-canonical-source chain 326→332→333→334 closes; two-shapes-of-pre-lockdown-method-capture meta-pattern established) | patterns
