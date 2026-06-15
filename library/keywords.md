@@ -11715,3 +11715,33 @@ thirty-cycles-with-named-pivot-domain-stay (310-339; MILESTONE: 30 consecutive c
 sixty-eight-citation-arc-closures-in-pivot-now (62 + 6 net new in cycle 339) | patterns
 one-hundred-and-seventy-second consecutive designs-chat alternation cycles 166-250 + 252-339 (251 was out-of-band) | patterns
 library-reaches-851-sections at cycle 339 (designs-lane @endo/errors README.md; thirtieth consecutive @endo/* source MILESTONE; FIFTEENTH PACKAGE added to pivot cluster; NEW SHORTEST README in pivot at 13 lines; information-disclosure-via-thrown-exception-threat-model named as tier-3 meta-pattern; two-threat-models-named-in-pivot-READMEs as tier-2 multi-cycle pattern; package-coordinates-with-named-other-package; redacted-vs-revealed-asymmetry; five-shapes-of-README refines cycle 337's four-shape with substrate-policy-minimal as FIFTH; nine citation arcs closed) | patterns
+the-named-canonical-typedef-as-the-pattern-anchor (first-explicit-observation; cycle 340; @endo/errors rejector.js IS the pattern: ONE import + ONE typedef + ONE worked-idiom + ONE pointer to test file; zero runtime exports) | (see section: endo--packages-errors-rejector-js--canonical-typedef-as-the-pattern-anchor-of-the-distributed-Rejector-trio)
+the-named-canonical-source-of-a-distributed-pattern (first-explicit-observation; cycle 340; Rejector trio observed in 13+ prior pivot cycles; cycle 340 IS the closure for ALL) | (see section: endo--packages-errors-rejector-js--canonical-typedef-as-the-pattern-anchor-of-the-distributed-Rejector-trio)
+the-named-pattern-citation-network-anchored-at-canonical-source (first-explicit-observation; cycle 340) | patterns
+the-named-types-only-file (first-explicit-observation; cycle 340; JSDoc + lint-disabled import; no runtime exports) | (see section: endo--packages-errors-rejector-js--canonical-typedef-as-the-pattern-anchor-of-the-distributed-Rejector-trio)
+the-named-twenty-three-line-types-only-file (first-explicit-observation; cycle 340) | patterns
+the-named-Rejector-as-typedef (first-explicit-observation; cycle 340) | patterns
+the-named-Rejector-IS-false-OR-Fail (first-explicit-observation; cycle 340; sum-type discriminator: false | typeof Fail) | (see section: endo--packages-errors-rejector-js--canonical-typedef-as-the-pattern-anchor-of-the-distributed-Rejector-trio)
+the-named-binary-choice-silent-vs-throwing (first-explicit-observation; cycle 340; silent-reject mode false + throwing-reject mode Fail) | patterns
+the-named-discriminator-type-as-mode-switch (first-explicit-observation; cycle 340; one function body serves two modes via discriminator parameter whose type is a sum-type) | patterns
+the-named-cond-OR-reject-AND-reject-template-literal (first-explicit-observation; cycle 340; three-part short-circuit idiom from JSDoc) | (see section: endo--packages-errors-rejector-js--canonical-typedef-as-the-pattern-anchor-of-the-distributed-Rejector-trio)
+the-named-three-step-evaluation-shown-in-JSDoc (first-explicit-observation; cycle 340; prose enumerates three cases) | patterns
+the-named-three-case-enumeration-tracks-binary-tree (first-explicit-observation; cycle 340) | patterns
+the-named-template-literal-tag-as-error-constructor (first-explicit-observation; cycle 340; Fail`...` invoked as template literal tag) | patterns
+two-shapes-of-error-construction-syntax (cycle 87 null.null for makeTypeError + cycle 340 Fail`...` for Rejector trio) | patterns
+the-named-references-test-as-illustration (first-explicit-observation; cycle 340; JSDoc points to rejector.test.js) | patterns
+the-named-test-file-as-canonical-examples (first-explicit-observation; cycle 340; tests aren't just verification; they're documentation for cases too subtle for prose) | (see section: endo--packages-errors-rejector-js--canonical-typedef-as-the-pattern-anchor-of-the-distributed-Rejector-trio)
+two-cycles-with-named-tests-as-examples-discipline (333 named-discipline + 340 applies-it) | patterns
+the-named-import-for-typedef-only-with-named-lint-disable (first-explicit-observation; cycle 340) | patterns
+three-cycles-with-named-named-lint-disable-with-canonical-rationale (211 + 338 @endo/no-polymorphic-call + 340 no-unused-vars) | patterns
+the-named-intra-package-import-as-canonical-coupling (first-explicit-observation; cycle 340; relative-path import marks intra-package vs cross-package @endo/X/foo.js) | patterns
+three-cycles-with-named-intra-package-relative-import (322 + 332 + 340) | patterns
+the-named-canonical-source-closure-of-the-Rejector-trio (first-explicit-observation; cycle 340; cycle 102 → 340 = 238 cycles) | (see section: endo--packages-errors-rejector-js--canonical-typedef-as-the-pattern-anchor-of-the-distributed-Rejector-trio)
+the-named-citation-arc-from-cycle-102-takes-238-cycles-to-close (first-explicit-observation; cycle 340; Rejector trio FIRST observation; canonical anchor closure) | (see section: endo--packages-errors-rejector-js--canonical-typedef-as-the-pattern-anchor-of-the-distributed-Rejector-trio)
+the-named-citation-arc-from-cycle-87-takes-253-cycles-to-close (first-explicit-observation; cycle 340; ties cycle 339's 252-cycle arc as second-longest pivot arc) | patterns
+three-cycles-with-named-substrate-package-introduction (337 + 339 + 340) | patterns
+the-named-streak-resumes-with-tenth-instance (first-explicit-observation; cycle 340; cycle 339 → 340 same-package; tenth INSTANCE of one-cycle README↔source pattern; streak count is 1) | patterns
+thirty-one-cycles-with-named-pivot-domain-stay (310-340) | patterns
+seventy-five-citation-arc-closures-in-pivot-now (68 + 7 net new in cycle 340) | patterns
+one-hundred-and-seventy-third consecutive designs-chat alternation cycles 166-250 + 252-340 (251 was out-of-band) | patterns
+library-reaches-852-sections at cycle 340 (chat-lane @endo/errors/rejector.js; thirty-first consecutive @endo/* source; errors's source after its README; TENTH INSTANCE of one-cycle README↔source pattern; canonical-typedef-as-the-pattern-anchor named as tier-3 meta-pattern; canonical-source-of-a-distributed-pattern as tier-3 meta-pattern; types-only-file as tier-3 meta-pattern; discriminator-type-as-mode-switch as tier-3 meta-pattern; test-file-as-canonical-examples as tier-3 meta-pattern; canonical-source-closure-of-the-Rejector-trio cycle 102 → 340 = 238 cycles; nine citation arcs closed including 253-cycle arc to cycle 87) | patterns
