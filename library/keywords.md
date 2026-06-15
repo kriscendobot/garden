@@ -10890,3 +10890,55 @@ five-README-shapes-now (six-section nat + memoize + lp32; four-section hex; seve
 eight-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316 + 317 + 318 + 319) | patterns
 one-hundred-and-fifty-second consecutive designs-chat alternation cycles 166-250 + 252-319 (251 was out-of-band) | patterns
 library-reaches-831-sections at cycle 319 (designs-lane @endo/stream README.md; tenth consecutive @endo/* source; FIFTH PACKAGE; cross-package citation arc closes with cycle 315; content-first README shape established as fifth shape) | patterns
+the-named-verbatim-comment-across-sibling-files (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-two-choices-for-sibling-rationale-coordination (first-explicit-observation; cycle 320; cite-the-sibling vs verbatim-duplicate) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-DRY-vs-self-contained-tension-in-sibling-files | patterns
+the-named-hex-cluster-cites-and-lp32-cluster-duplicates | patterns
+the-named-writer-via-harden-object-literal (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-writer-doesn't-need-the-two-layer-shape | patterns
+the-named-AsyncIterator-protocol-via-object-literal (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-manual-protocol-implementation | patterns
+the-named-no-generator-needed-discipline | patterns
+the-named-Symbol.asyncIterator-returns-self (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-iterable-and-iterator-are-the-same-object | patterns
+the-named-iteration-IS-named-single-pass-and-stateful | patterns
+the-named-self-reference-via-lexical-binding-not-this (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-detach-safe-via-lexical-capture | patterns
+the-named-arrow-function-or-lexical-capture-for-detach-safety | patterns
+the-named-closure-captures-binding-not-value | patterns
+the-named-sibling-shape-shared-IS-named-bounded-by-domain-complexity (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-reader-uncertain-writer-certain-asymmetry (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-options-only-two-not-three (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-options-asymmetric-by-direction | patterns
+the-named-name-default-IS-named-unknown-lp32-writer-bracketed (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-asymmetric-naming-defaults | patterns
+the-named-writer-self-identifies-more-than-reader-discipline | patterns
+the-named-pre-allocate-frame-buffer (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-known-size-IS-named-exact-allocation | patterns
+the-named-no-resize-loop-needed | patterns
+the-named-writer-knows-message-size-up-front-discipline | patterns
+the-named-setUint32-getUint32-symmetric-pair (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-set-after-prefix | patterns
+the-named-payload-after-prefix-offset | patterns
+the-named-output-as-cross-package-Writer-type (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-Writer-IS-named-stream-package-protocol-shape | patterns
+the-named-undefined-vs-void-distinction (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-asymmetric-type-parameters-between-reader-and-writer | patterns
+the-named-undefined-IS-named-value-void-IS-named-non-value | patterns
+the-named-writer-resolves-to-undefined-reader-returns-void | patterns
+the-named-throw-delegates-to-output (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-wrap-don't-catch-discipline | patterns
+the-named-error-passes-through-the-frame | patterns
+the-named-return-delegates-to-output-with-undefined (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+the-named-explicit-undefined-on-close-of-inner-writer | patterns
+the-named-close-IS-named-deliberate-not-implicit | patterns
+the-named-second-three-file-cluster-of-the-pivot (first-explicit-observation; cycle 320) | (see section: endo--packages-lp32-writer-js--object-literal-AsyncIterator-and-verbatim-sibling-rationale)
+two-three-file-clusters-now-in-pivot (hex 314+317+318; lp32 315+316+320) | patterns
+two-cycles-with-named-Fail-via-q-tagged-template-literal (316 + 320) | patterns
+two-cycles-with-named-shared-buffer-between-Uint8Array-and-DataView (316 + 320) | patterns
+three-cycles-with-named-host-byte-order-via-explicit-endianness-argument (315 README rationale + 316 reader getUint32 + 320 writer setUint32) | patterns
+three-cycles-with-named-message-includes-named-stream-name (315 + 316 + 320) | patterns
+eleven-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320) | patterns
+nine-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316 + 317 + 318 + 319 + 320) | patterns
+one-hundred-and-fifty-third consecutive designs-chat alternation cycles 166-250 + 252-320 (251 was out-of-band) | patterns
+library-reaches-832-sections at cycle 320 (chat-lane @endo/lp32 writer.js; eleventh consecutive @endo/* source; fifth package extends; SECOND THREE-FILE CLUSTER OF THE PIVOT established: lp32 README + reader + writer) | patterns
