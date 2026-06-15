@@ -11051,3 +11051,56 @@ seven-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream +
 eleven-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316 + 317 + 318 + 319 + 320 + 321 + 322) | patterns
 one-hundred-and-fifty-fifth consecutive designs-chat alternation cycles 166-250 + 252-322 (251 was out-of-band) | patterns
 library-reaches-834-sections at cycle 322 (chat-lane @endo/exo src/exo-makers.js; thirteenth consecutive @endo/* source; SEVENTH PACKAGE added to pivot cluster but file previously ingested in cycle 108 with different framing; SECOND SECTION for the same source via complementary-lens-re-ingest discipline; FOUR CITATION ARCS CLOSED in pivot; source count unchanged because exo-makers.js was already counted from cycle 108) | patterns
+the-named-API-with-honesty-about-relaxed-security-model (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-not-for-mutually-suspicious-parties-disclaimer (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-honesty-about-API-tradeoffs (parameterized: low-utility-paths from cycle 321 + relaxed-security-models from cycle 323) (first-explicit-observation as parameterized; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-discipline-breaks-in-pivot-at-cycle-323 (first-explicit-observation; cycle 323; §eleven-cycles-with-named-Hardened-JS-discipline STOPS) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-Hardened-JS-absent-from-README-but-present-in-code (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-Trap-and-E-named-pair (first-explicit-observation; cycle 323; closes citation arc with cycle 154 trap.js) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+two-cycles-with-named-Trap-and-E-named-pair (154 + 323) | patterns
+the-named-Loopback-as-named-test-fixture (first-explicit-observation; cycle 323; closes citation arc with cycle 158 loopback.js) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+two-cycles-with-named-Loopback-as-named-test-fixture (158 + 323) | patterns
+the-named-async-barrier-between-near-and-far (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-near-and-far-IS-named-canonical-CapTP-vocabulary (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+two-cycles-with-named-CapTP-or-E-language-jargon-as-given (321 vat/presence + 323 near/far/bootstrap) | patterns
+the-named-myconn-disclaimer (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-library-boundary-explicitly-named (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-NOTE-prefix-marks-boundary-clarification | patterns
+the-named-three-return-values-from-makeCapTP (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-destructured-triple-of-capabilities | patterns
+the-named-three-step-Usage-with-bootstrap (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-eight-line-lifecycle-example | patterns
+the-named-abort-IS-named-explicit-teardown (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-error-arg-IS-named-cause | patterns
+the-named-synchronous-iterator-drives-async-iterator-pattern (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-iteration-as-protocol-synchronization-point | patterns
+the-named-sync-driver-async-driven-asymmetry | patterns
+the-named-sync-bridge-via-SharedArrayBuffer-and-Atomics (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-JS-language-mechanism-for-sync-bridge | patterns
+the-named-advanced-section-IS-named-longer-than-canonical-section (first-explicit-observation; cycle 323; TrapCaps 33 lines > Usage 20 > Loopback 4) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-advanced-section-deserves-more-explanation | patterns
+the-named-section-length-IS-named-proportional-to-complexity-not-importance | patterns
+the-named-numbered-three-step-recipe-for-TrapCaps (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-asymmetric-numbered-steps-for-asymmetric-roles | patterns
+the-named-explanation-by-analogy-to-named-abstraction (first-explicit-observation; cycle 323; "consider X as Y") | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-consider-X-as-Y-framing | patterns
+the-named-protocol-explained-as-iterator | patterns
+the-named-Trap-throws-if-not-TrapHandler (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-mark-as-discipline | patterns
+the-named-partial-support-disclaimer (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-named-limitation-with-specific-mechanism | patterns
+the-named-honest-about-composition-limits | patterns
+the-named-Agoric-cited-as-genealogy (first-explicit-observation as a named pattern; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+two-cycles-with-named-Agoric-as-named-genealogy (321 money-flow + 323 package-introduction) | patterns
+the-named-four-section-shape-recurs-with-different-content (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+two-cycles-with-named-four-section-README-shape (317 + 323) | patterns
+the-named-shape-IS-form-not-content | patterns
+the-named-shape-recurs-content-differs | patterns
+the-named-citation-arc-from-cycle-154-takes-169-cycles-to-close (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-citation-arc-from-cycle-158-takes-165-cycles-to-close (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+the-named-citation-arc-from-cycle-321-takes-2-cycles-to-close (first-explicit-observation; cycle 323) | (see section: endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures)
+seven-citation-arc-closures-in-pivot-now (4 + 165 + 169 + 175 + 214 + 255 + 2 cycles) | patterns
+fourteen-cycles-with-named-pivot-domain-stay (310-323) | patterns
+eight-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp) | patterns
+one-hundred-and-fifty-sixth consecutive designs-chat alternation cycles 166-250 + 252-323 (251 was out-of-band) | patterns
+library-reaches-835-sections at cycle 323 (designs-lane @endo/captp README.md; fourteenth consecutive @endo/* source; EIGHTH PACKAGE added to pivot cluster; THREE CITATION ARCS CLOSED with cycles 154 + 158 + 321; HARDENED-JS-DISCIPLINE STREAK BREAKS after eleven cycles; honesty-about-API-tradeoffs parameterized as two subtypes) | patterns
