@@ -11223,3 +11223,39 @@ seventeen-cycles-with-named-pivot-domain-stay (310-326) | patterns
 ten-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style + patterns) | patterns
 one-hundred-and-fifty-ninth consecutive designs-chat alternation cycles 166-250 + 252-326 (251 was out-of-band) | patterns
 library-reaches-838-sections at cycle 326 (chat-lane @endo/patterns index.js; seventeenth consecutive @endo/* source; TENTH PACKAGE in pivot cluster; FOUR named subtypes of honesty-about-API-tradeoffs; documentation-language-cannot-express named as fourth subtype; SECOND one-cycle README→package arc closure 325→326) | patterns
+the-named-three-Why-X-sections-in-one-README (first-explicit-observation; cycle 327; Why not use JavaScript Set + Why not use plain objects + Why partial order) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-Why-X-section-discipline (first-explicit-observation; cycle 327) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-comparative-justification-by-anticipated-objection | patterns
+the-named-Key-Pattern-Passable-hierarchy-tree (first-explicit-observation; cycle 327; 13-line ASCII tree) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-ASCII-tree-for-type-hierarchy | patterns
+the-named-Pattern-IS-itself-Passable (first-explicit-observation; cycle 327; load-bearing for distributed validation) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-three-named-categories-Passable-Key-Pattern | patterns
+the-named-visualization-shape-matches-structural-relationship (table for parallel as in 325; tree for containment as in 327) | patterns
+the-named-M-namespace-as-canonical-builder (first-explicit-observation; cycle 327) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-six-categories-of-M-matchers (Primitive + Container + Structured + Logical + Comparison + Special) (first-explicit-observation; cycle 327) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-required-optional-rest-tripartite (first-explicit-observation; cycle 327) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-three-argument-canonical-shape | patterns
+the-named-eref-IS-named-eventual-reference (first-explicit-observation; cycle 327; encodes (Value | Promise) axis of cycle 321 cartesian product as single matcher) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-Quick-Start-shows-error-output (first-explicit-observation; cycle 327; example fails on purpose) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-fail-on-purpose-discipline | patterns
+the-named-call-vs-callWhen-distinction (first-explicit-observation; cycle 327) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-callWhen-IS-named-async-method-guard | patterns
+the-named-chained-method-guard-builder (first-explicit-observation; cycle 327) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-defensive-programming-IS-named-discipline (first-explicit-observation; cycle 327) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-distributed-equality-semantics (first-explicit-observation; cycle 327) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-equality-IS-named-protocol-not-implementation | patterns
+the-named-partial-order-not-total-order (first-explicit-observation; cycle 327) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-NaN-as-named-incomparable (first-explicit-observation; cycle 327; JS NaN repurposed for "no defined ordering") | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-bigint-for-arbitrary-precision-counts (first-explicit-observation; cycle 327) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-counts-combine-on-duplicate-keys | patterns
+the-named-Endo-reference-docs-link (first-explicit-observation; cycle 327) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+the-named-rendering-disclaimer-with-link-to-docs-site | patterns
+the-named-citation-arc-from-cycle-326-takes-1-cycle-to-close (first-explicit-observation; cycle 327; third one-cycle README↔source arc) | (see section: endo--packages-patterns-README-md--three-Why-X-sections-and-Key-Pattern-Passable-hierarchy-tree)
+three-cycles-with-named-one-cycle-README-source-arc (323→324 + 325→326 + 326→327) | patterns
+three-cycles-with-named-role-label-before-package-name (321 + 325 + 327) | patterns
+three-cycles-with-named-monorepo-docs-reference (321 + 325 + 327; ../../docs/message-passing.md) | patterns
+three-cycles-with-named-Hardened-JS-discipline-streak-continues-broken (323 absence-via-presupposition + 325 absence-via-foundational-status + 327 absence-via-implicit-citation-to-pass-style) | patterns
+sixteen-citation-arc-closures-in-pivot-now (1 + 1 + 1 + 2 + 4 + 165 + 169 + 175 + 175 + 177 + 189 + 191 + 214 + 238 + 254 + 255 cycles) | patterns
+eighteen-cycles-with-named-pivot-domain-stay (310-327) | patterns
+one-hundred-and-sixtieth consecutive designs-chat alternation cycles 166-250 + 252-327 (251 was out-of-band) | patterns
+library-reaches-839-sections at cycle 327 (designs-lane @endo/patterns README.md; eighteenth consecutive @endo/* source; tenth package extends; THIRD one-cycle README↔source arc closure 326→327; THREE-CYCLE confirmation of role-label / monorepo-docs / Hardened-JS-absent disciplines; three-Why-X-sections discipline named; Key/Pattern/Passable hierarchy tree established as canonical) | patterns
