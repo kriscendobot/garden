@@ -11945,3 +11945,24 @@ one-hundred-twenty-citation-arc-closures-in-pivot-now (116 + 4 net new in cycle 
 the-named-citation-arc-from-cycle-183-takes-163-cycles-to-close (first-explicit-observation; cycle 346) | patterns
 one-hundred-and-seventy-ninth consecutive designs-chat alternation cycles 166-250 + 252-346 (251 was out-of-band) | patterns
 library-reaches-858-sections at cycle 346 (chat-lane @endo/ses entry-point cluster; thirty-seventh consecutive @endo/* source; THIRTEENTH INSTANCE of one-cycle README↔source pattern; single-line-forwarder-as-stability-barrier as tier-3 meta-pattern; rung-as-entry-point-vs-stability-via-thin-forwarder; two-modes-of-package-installation; foundational-package-has-thinnest-entry-cluster; eight citation arcs closed) | patterns
+the-named-question-as-package-title (first-explicit-observation; cycle 347; line 1 "# Where is Endo?"; the TITLE is a QUESTION the package ANSWERS) | (see section: endo--packages-where-README-md--nineteenth-package-question-as-package-title-and-platform-specific-acknowledgment-of-incomplete-support)
+the-named-package-title-as-question-form (first-explicit-observation; cycle 347) | patterns
+the-named-package-name-as-implicit-question (first-explicit-observation; cycle 347; when package name is a question word, README can make question form explicit) | patterns
+the-named-where-as-user-files-and-socket-locator (first-explicit-observation; cycle 347; two-part purpose: locate user files + locate daemon IPC endpoint) | patterns
+the-named-per-user-runtime-data (first-explicit-observation; cycle 347; named scope) | patterns
+the-named-XDG-with-named-where-the-spec-breaks (first-explicit-observation; cycle 347) | patterns
+the-named-named-external-spec-with-named-limitations (first-explicit-observation; cycle 347; name spec AND where it fails to apply) | (see section: endo--packages-where-README-md--nineteenth-package-question-as-package-title-and-platform-specific-acknowledgment-of-incomplete-support)
+the-named-fall-back-to-native-conventions-when-spec-doesnt-fit (first-explicit-observation; cycle 347; spec-as-primary + native-as-fallback) | patterns
+the-named-platform-specific-acknowledgment-of-incomplete-support (first-explicit-observation; cycle 347; README documents FOUR states — what we do + where spec breaks + fallback + what's not yet done) | (see section: endo--packages-where-README-md--nineteenth-package-question-as-package-title-and-platform-specific-acknowledgment-of-incomplete-support)
+the-named-not-yet-named-aspiration (first-explicit-observation; cycle 347; "does not yet" softer than cycle 343 "we hope to obviate") | patterns
+the-named-honest-documentation-of-incomplete-features-discipline (first-explicit-observation; cycle 347) | patterns
+four-cycles-with-named-explicit-acknowledgment-of-limits (337 isFake-deprecated-with-named-regret + 343 unsafe-fast-named-aspiration + 345 precise-claims-with-caveats + 347 platform-specific-incomplete-support) | patterns
+three-substrate-policy-minimal-READMEs-confirms-the-shape (339 errors 13 lines + 341 lockdown 15 lines + 347 where 15 lines; each with different anchor but consistent structural shape) | patterns
+the-named-substrate-policy-minimal-anchor-varies-but-shape-is-stable (first-explicit-observation; cycle 347; cycle 339 threat-model + cycle 341 side-effect-import + cycle 347 question-as-title; consistent shape of need + spec/coordination + limitation/aspiration) | patterns
+the-named-fifteen-line-substrate-policy-minimal-README (first-explicit-observation; cycle 347) | patterns
+the-named-citation-arc-from-cycle-167-takes-180-cycles-to-close (first-explicit-observation; cycle 347; documentation-side closure of where/index.js comment-fragment ingest) | (see section: endo--packages-where-README-md--nineteenth-package-question-as-package-title-and-platform-specific-acknowledgment-of-incomplete-support)
+nineteen-named-packages-in-the-pivot-cluster (after the eighteen named in cycle 345 + @endo/where as NINETEENTH) | patterns
+thirty-eight-cycles-with-named-pivot-domain-stay (310-347) | patterns
+one-hundred-twenty-five-citation-arc-closures-in-pivot-now (120 + 5 net new in cycle 347) | patterns
+one-hundred-and-eightieth consecutive designs-chat alternation cycles 166-250 + 252-347 (251 was out-of-band) | patterns
+library-reaches-859-sections at cycle 347 (designs-lane @endo/where README.md; thirty-eighth consecutive @endo/* source; NINETEENTH PACKAGE added; substrate-policy-minimal shape with question-as-title anchor; question-as-package-title discipline named as tier-3 meta-pattern; named-external-spec-with-named-limitations as tier-3 meta-pattern; honest-documentation-of-incomplete-features-discipline as tier-3 meta-pattern; substrate-policy-minimal-anchor-varies-but-shape-is-stable as tier-3 meta-pattern; documentation-side closure of cycle 167 at 180 cycles; nine citation arcs closed) | patterns
