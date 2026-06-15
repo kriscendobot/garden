@@ -7,7 +7,7 @@ source_date: 2025-10-09
 source_authors: [Kris Kowal]
 ingested: 2026-06-02
 ingested_by: scholar
-section_count: 2
+section_count: 3
 status: current
 notes: |
   Nineteenth comment-fragment ingest. Kris Kowal-authored
@@ -90,8 +90,9 @@ notes: |
 
 | Section | Topics | Status |
 |---------|--------|--------|
-| [method-defense-with-raw-guards-and-async-await-handling](../sections/endo--packages-exo-src-exo-tools-js--method-defense-with-raw-guards-and-async-await-handling.md) | hardened-javascript, exo | current |
-| [defendPrototype-and-defendPrototypeKit-with-interface-guard-validation](../sections/endo--packages-exo-src-exo-tools-js--defendPrototype-and-defendPrototypeKit-with-interface-guard-validation.md) | hardened-javascript, exo | current |
+| [method-defense-with-raw-guards-and-async-await-handling](../sections/endo--packages-exo-src-exo-tools-js--method-defense-with-raw-guards-and-async-await-handling.md) | hardened-javascript, exo | current (cycle 118; per-method defense lens) |
+| [defendPrototype-and-defendPrototypeKit-with-interface-guard-validation](../sections/endo--packages-exo-src-exo-tools-js--defendPrototype-and-defendPrototypeKit-with-interface-guard-validation.md) | hardened-javascript, exo | current (cycle 118; prototype-building lens) |
+| [fourth-complementary-lens-deprecation-pointers-followed-in-practice](../sections/endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice.md) | exo, cross-package-substrate, deprecation-discipline | current (cycle 332; complementary-lens re-ingest — fourth instance of librarian discipline after cycles 322/324/330; import-graph cross-package substrate + cycle 326 deprecation pointers followed in practice + three-sentinel-set + zero-copy discipline + pivot-cluster context) |
 
 The 513-line file decomposes into two argument-cluster sections. Lines 1-346 are the per-method defense layer (sync + async + raw-guard handling) → section 1. Lines 348-513 are the prototype-building layer (`defendPrototype` + `defendPrototypeKit` + interface-guard validation) → section 2.
 

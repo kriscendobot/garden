@@ -11410,3 +11410,35 @@ thirty-five-citation-arc-closures-in-pivot-now (29 + 6 new in cycle 331) | patte
 twenty-two-cycles-with-named-pivot-domain-stay (310-331) | patterns
 one-hundred-and-sixty-fourth consecutive designs-chat alternation cycles 166-250 + 252-331 (251 was out-of-band) | patterns
 library-reaches-843-sections at cycle 331 (designs-lane @endo/exo README.md; twenty-second consecutive @endo/* source; seventh package extends; SIX named subtypes of honesty-about-API-tradeoffs; cross-org pointer to @agoric/vat-data as sixth subtype; SIX CITATION ARCS CLOSED including longest 223 cycles to cycle 108 exo-makers comment-fragment) | patterns
+the-named-deprecation-pointers-followed-in-practice (first-explicit-observation; cycle 332; exo-tools imports listDifference and objectMap DIRECTLY from @endo/common per cycle 326's deprecation pointers) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+the-named-deprecation-as-soft-contract-with-followed-pointer | patterns
+the-named-internal-consumers-follow-deprecation-pointers | patterns
+the-named-canonical-path-vs-backward-compatibility-path-distinction (deprecated re-export remains for external consumers; canonical direct-import for internal consumers) | patterns
+the-named-citation-arc-from-cycle-326-takes-6-cycles-to-close (deprecation-followed-in-practice arc) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+the-named-import-graph-from-exo-tools-IS-named-cross-package-substrate (first-explicit-observation; cycle 332; six @endo packages + one local file) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+the-named-fan-out-import-graph-recurs | patterns
+two-cycles-with-named-fan-out-import-graph-from-exo (322 exo-makers 5 external + 332 exo-tools 6 external + 1 local) | patterns
+the-named-listDifference-and-objectMap-from-common-not-patterns (first-explicit-observation; cycle 332) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+the-named-three-sentinel-set-discipline (first-explicit-observation; cycle 332; RawMethodGuard + REDACTED_RAW_ARG + PassableMethodGuard) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+the-named-RawMethodGuard-and-PassableMethodGuard-default-guards | patterns
+the-named-REDACTED_RAW_ARG-as-sentinel-string (first-explicit-observation; cycle 332; human-readable sentinel string visible in debug output) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+the-named-string-sentinel-for-pattern-match-redaction | patterns
+the-named-raw-vs-passable-distinction-with-two-default-guards | patterns
+the-named-PassableMethodGuard-IS-named-implied-by-all-non-raw-guards | patterns
+the-named-zero-copy-when-possible-discipline (first-explicit-observation; cycle 332; defendSyncArgs reuses original syncArgs array if no redaction; only copies when necessary) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+the-named-redact-before-harden-discipline (first-explicit-observation; cycle 332; redaction happens BEFORE harden so original values stay unfrozen) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+the-named-pay-copy-cost-only-when-necessary | patterns
+the-named-Reflect-destructure-grows-with-adoption (first-explicit-observation; cycle 332; cycle 314+318 had {apply} one name; cycle 332 has {apply, ownKeys} two names) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+three-cycles-with-named-Reflect-destructure-at-module-load (314 + 318 + 332) | patterns
+the-named-eight-named-imports-from-patterns (first-explicit-observation; cycle 332; four functional categories) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+the-named-multi-categorical-import-from-one-package | patterns
+the-named-three-names-from-pass-style (first-explicit-observation; cycle 332; getRemotableMethodNames + toThrowable + Far) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+the-named-only-one-local-import (first-explicit-observation; cycle 332; GET_INTERFACE_GUARD from get-interface.js) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+the-named-substrate-file-has-minimal-local-imports | patterns
+the-named-citation-arc-from-cycle-118-self-takes-214-cycles-to-close (matches cycle 322 exo-makers 214-cycle self-arc; second-equal-longest self-arc in pivot) | (see section: endo--packages-exo-src-exo-tools-js--fourth-complementary-lens-deprecation-pointers-followed-in-practice)
+four-cycles-with-named-complementary-lens-re-ingest (322 exo-makers + 324 atomics + 330 smallcaps + 332 exo-tools) | patterns
+five-cycles-with-named-one-cycle-README-source-arc (323→324 + 325→326 + 326→327 + 328→329 + 331→332) | patterns
+forty-one-citation-arc-closures-in-pivot-now (35 + 6 new in cycle 332) | patterns
+twenty-three-cycles-with-named-pivot-domain-stay (310-332) | patterns
+one-hundred-and-sixty-fifth consecutive designs-chat alternation cycles 166-250 + 252-332 (251 was out-of-band) | patterns
+library-reaches-844-sections at cycle 332 (chat-lane @endo/exo src/exo-tools.js complementary-lens re-ingest; twenty-third consecutive @endo/* source; FOURTH complementary-lens re-ingest applying cycle 322's librarian discipline; FIFTH one-cycle README↔source arc closure 331→332; deprecation-pointers-followed-in-practice as implementation-side closure of cycle 326's deprecation discipline; source count unchanged because exo-tools was already counted from cycle 118) | patterns
