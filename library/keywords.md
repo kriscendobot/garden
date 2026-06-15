@@ -11999,3 +11999,38 @@ thirty-nine-cycles-with-named-pivot-domain-stay (310-348) | patterns
 one-hundred-thirty-citation-arc-closures-in-pivot-now (125 + 5 net new in cycle 348) | patterns
 one-hundred-and-eighty-first consecutive designs-chat alternation cycles 166-250 + 252-348 (251 was out-of-band) | patterns
 library-reaches-860-sections at cycle 348 (chat-lane @endo/where/index.js; thirty-ninth consecutive @endo/* source; FOURTEENTH INSTANCE of one-cycle README↔source pattern; EIGHTH complementary-lens re-ingest; cross-platform-spec-FIRST-platform-native-FALLBACK-discipline as tier-3 meta-pattern; Endo-canonical-storage-taxonomy as tier-3 meta-pattern; progressive-degradation-fallback; XDG-doesnt-fit-so-we-invent-our-own; ashen-hearts-comment-as-frustration-marker; protocol-version-in-path-for-coexistence; pure-function-by-injection; separate-types-d-ts-for-public-API-types; five citation arcs closed including 181-cycle complementary-lens self-arc to cycle 167) | patterns
+the-named-three-language-anti-features-mitigated-by-SES (first-explicit-observation; cycle 349; return-override + assignment-override + proxy-reentrancy each mitigated by Stabilize integrity trait: fixed + overridable + non-trapping) | (see section: endo--packages-ses-docs-preparing-for-stabilize-md--three-language-anti-features-mitigated-by-SES-and-forward-looking-design-document-discipline)
+the-named-Stabilize-proposal-with-three-integrity-traits (first-explicit-observation; cycle 349; TC39 proposal at stage 1) | patterns
+the-named-return-override-mistake (first-explicit-observation; cycle 349; mitigated by fixed trait; prevents private-field stamping) | patterns
+the-named-assignment-override-mistake (cycle 349 names this as one of THREE anti-features; cycle 345 named it alone) | patterns
+the-named-proxy-based-reentrancy-hazard (first-explicit-observation; cycle 349) | patterns
+the-named-fixed-overridable-non-trapping-three-traits (first-explicit-observation; cycle 349) | patterns
+the-named-language-anti-features-as-orthogonal-traits (first-explicit-observation; cycle 349; tier-3 meta-pattern — name anti-features distinctly as orthogonal mitigation surface) | patterns
+three-shapes-of-language-anti-feature-mitigation (TC39 spec + SES library + user defineProperties-workaround) | patterns
+the-named-forward-looking-design-document-discipline (first-explicit-observation; cycle 349; prospective vs retrospective; describes upcoming changes and how to prepare) | (see section: endo--packages-ses-docs-preparing-for-stabilize-md--three-language-anti-features-mitigated-by-SES-and-forward-looking-design-document-discipline)
+the-named-prepare-for-future-changes-discipline (first-explicit-observation; cycle 349) | patterns
+the-named-30-line-forward-looking-design-doc (first-explicit-observation; cycle 349) | patterns
+two-shapes-of-30-line-substrate-document (retrospective threat-model + prospective change-preparation) | patterns
+the-named-placeholder-names-are-not-final (first-explicit-observation; cycle 349) | patterns
+the-named-bikeshedding-process-acknowledged (first-explicit-observation; cycle 349) | patterns
+the-named-stabilize-renaming-suppressTrapping-with-named-alternatives (first-explicit-observation; cycle 349; TWO candidate names listed) | patterns
+the-named-name-not-yet-finalized-honesty-discipline (first-explicit-observation; cycle 349; tier-3 meta-pattern) | patterns
+the-named-by-default-discipline-with-named-opt-in (first-explicit-observation; cycle 349) | patterns
+the-named-safety-by-default-opt-in-for-less-safety (first-explicit-observation; cycle 349) | patterns
+four-cycles-with-named-safety-by-default-discipline (337 + 343 + 345 + 349) | patterns
+the-named-E-returns-proxy-with-frozen-trivial-target (first-explicit-observation; cycle 349; closes 203-cycle arc to cycle 146) | (see section: endo--packages-ses-docs-preparing-for-stabilize-md--three-language-anti-features-mitigated-by-SES-and-forward-looking-design-document-discipline)
+the-named-trivial-frozen-target-as-proxy-pattern (first-explicit-observation; cycle 349; tier-3 meta-pattern — when Proxy exists only to provide trapping behavior, target can be trivial frozen object) | patterns
+the-named-shared-trivial-target-via-module-scope (first-explicit-observation; cycle 349; tier-3 meta-pattern — module-level definitions enable safe sharing) | patterns
+the-named-top-level-target-discipline (first-explicit-observation; cycle 349) | patterns
+the-named-TC39-stage-1-named (first-explicit-observation; cycle 349) | patterns
+the-named-draft-PR-named-with-issue-number (first-explicit-observation; cycle 349; #2673 and #2675) | patterns
+the-named-implementation-PRs-named-explicitly (first-explicit-observation; cycle 349; tier-3 meta-pattern — name specific WIP PRs for traceability) | patterns
+four-shapes-of-stable-pointer-discipline (326 deprecation-pointer + 336 issue-link + 338 error-code-Markdown + 349 PR-link-for-WIP) | patterns
+the-named-harden-discipline-changing-meaning (first-explicit-observation; cycle 349; SEMANTICS of harden vs Object.freeze is changing) | patterns
+the-named-discipline-semantics-evolution-with-named-migration (first-explicit-observation; cycle 349; tier-3 meta-pattern — name old + new + migration path) | patterns
+the-named-citation-arc-from-cycle-146-takes-203-cycles-to-close (first-explicit-observation; cycle 349; E.js cited preparing-for-stabilize directly) | (see section: endo--packages-ses-docs-preparing-for-stabilize-md--three-language-anti-features-mitigated-by-SES-and-forward-looking-design-document-discipline)
+the-named-citation-arc-from-cycle-154-takes-195-cycles-to-close (first-explicit-observation; cycle 349; trap.js cited preparing-for-stabilize directly) | patterns
+forty-cycles-with-named-pivot-domain-stay (310-349; MILESTONE: 40 consecutive cycles) | patterns
+one-hundred-thirty-five-citation-arc-closures-in-pivot-now (130 + 5 net new in cycle 349) | patterns
+one-hundred-and-eighty-second consecutive designs-chat alternation cycles 166-250 + 252-349 (251 was out-of-band) | patterns
+library-reaches-861-sections at cycle 349 (designs-lane @endo/ses docs/preparing-for-stabilize.md; FORTIETH consecutive @endo/* source MILESTONE; three-language-anti-features-mitigated-by-SES as tier-3 meta-pattern; forward-looking-design-document-discipline as tier-3 meta-pattern; name-not-yet-finalized-honesty-discipline; trivial-frozen-target-as-proxy-pattern; implementation-PRs-named-explicitly; four-shapes-of-stable-pointer-discipline; discipline-semantics-evolution-with-named-migration; eight citation arcs closed including 203-cycle arc to cycle 146) | patterns
