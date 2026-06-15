@@ -10942,3 +10942,63 @@ eleven-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314 + 315 + 
 nine-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316 + 317 + 318 + 319 + 320) | patterns
 one-hundred-and-fifty-third consecutive designs-chat alternation cycles 166-250 + 252-320 (251 was out-of-band) | patterns
 library-reaches-832-sections at cycle 320 (chat-lane @endo/lp32 writer.js; eleventh consecutive @endo/* source; fifth package extends; SECOND THREE-FILE CLUSTER OF THE PIVOT established: lp32 README + reader + writer) | patterns
+the-named-four-target-cases-as-cartesian-product (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-cartesian-product-of-locality-and-resolution (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-cross-product-enumeration-IS-named-falsifiable-claim | patterns
+two-cycles-with-named-cartesian-product-structural-pattern (317 pair shapes + 321 target cases) | patterns
+the-named-citation-arc-from-cycle-66-takes-255-cycles-to-close (first-explicit-observation; cycle 321; LONGEST citation arc in library) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-citation-arc-from-cycle-146-takes-175-cycles-to-close (first-explicit-observation; cycle 321; second-longest) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+three-citation-arc-closures-in-pivot-now (cycle 319 closes 315 = 4 cycles; cycle 321 closes 146 = 175 cycles; cycle 321 closes 66 = 255 cycles) | patterns
+the-named-Mark-Miller-thesis-cited-as-original-source (first-explicit-observation; cycle 321; first foundational academic citation in pivot) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-citation-to-original-academic-source | patterns
+the-named-eval-twins-as-named-coordination-hazard (first-explicit-observation; cycle 321; novel terminology with "what we call" meta-discourse) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-acknowledged-in-group-vocabulary | patterns
+the-named-vocabulary-IS-named-acknowledged-as-local | patterns
+the-named-shim-section-explains-eval-twins-coordination (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-instance-coordination-via-shim-discipline | patterns
+the-named-promise-pipelining-IS-named-canonical-benefit (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-canonical-pipeline-example-IS-named-money-flow (mint → purse → payment → deposit) | patterns
+the-named-domain-flavored-canonical-example | patterns
+the-named-four-numbered-benefits-section (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-numbered-list-IS-named-canonical-enumeration | patterns
+the-named-write-local-code-deploy-distributed-promise (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-tagline-IS-named-engineering-promise | patterns
+the-named-message-ordering-IS-named-guaranteed-per-target (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-per-target-FIFO | patterns
+the-named-FIFO-scope-IS-named-discipline | patterns
+the-named-order-IS-guaranteed-locally-not-globally | patterns
+the-named-cross-package-link-list-with-roles (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-role-label-before-package-name | patterns
+the-named-cross-package-citation-IS-named-architectural-role | patterns
+the-named-two-Integration-sections-pattern | patterns
+the-named-tight-vs-loose-integration-distinction | patterns
+the-named-relative-path-link-as-cross-package-citation (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-monorepo-relative-path-citation | patterns
+the-named-cross-package-link-graph-via-relative-paths | patterns
+the-named-resolveWithPresence-IS-named-third-settle-mode (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-promise-with-three-settle-modes | patterns
+the-named-presence-IS-named-third-mode | patterns
+the-named-handler-intercepts-operations (first-explicit-observation; cycle 321; citation-arc-closure marker with cycle 66) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-most-users-don't-need-this-disclaimer (first-explicit-observation; cycle 321; appears twice in one README) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+two-mentions-of-the-named-most-users-don't-need-this | patterns
+the-named-API-with-honesty-about-low-utility-paths | patterns
+the-named-Use-in-Tests-section (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+four-named-test-benefits (tests-mirror-production + async-tested + easy-to-mock + same-code-local-or-remote) | patterns
+the-named-test-discipline-section-in-README | patterns
+the-named-vat-as-undefined-but-used-vocabulary (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-presence-as-named-remote-proxy | patterns
+the-named-jargon-IS-named-marker-of-intended-audience | patterns
+the-named-domain-vocabulary-as-given | patterns
+the-named-twelve-section-README-shape-IS-named-substrate-package (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+the-named-substrate-package-README-IS-named-deeper-not-shallower | patterns
+the-named-README-shape-IS-named-tailored-to-package-depth-and-audience-extends | patterns
+the-named-ECMAScript-proposal-citation-with-link (first-explicit-observation; cycle 321) | (see section: endo--packages-eventual-send-README-md--four-target-cartesian-product-and-mark-miller-thesis-citation)
+three-cycles-with-named-TC39-or-ECMAScript-proposal-citation (314 source URL + 317 README plain text + 321 README hyperlink) | patterns
+three-citation-shapes-for-same-TC39-proposal-family | patterns
+the-named-citation-arcs-of-widely-varying-lengths-close-in-the-same-cycle | patterns
+twelve-cycles-with-named-pivot-domain-stay (310 + 311 + 312 + 313 + 314 + 315 + 316 + 317 + 318 + 319 + 320 + 321) | patterns
+six-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send) | patterns
+six-README-shapes-now (six-section × 3 + four-section × 1 + seven-section content-first × 1 + twelve-section substrate × 1) | patterns
+ten-cycles-with-named-Hardened-JS-discipline (310 + 312 + 313 + 315 + 316 + 317 + 318 + 319 + 320 + 321) | patterns
+one-hundred-and-fifty-fourth consecutive designs-chat alternation cycles 166-250 + 252-321 (251 was out-of-band) | patterns
+library-reaches-833-sections at cycle 321 (designs-lane @endo/eventual-send README.md; twelfth consecutive @endo/* source; SIXTH PACKAGE; TWO LONGEST CITATION ARCS IN LIBRARY CLOSE simultaneously: cycle 66 = 255 cycles + cycle 146 = 175 cycles; substrate-package twelve-section README shape established) | patterns
