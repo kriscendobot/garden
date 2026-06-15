@@ -11259,3 +11259,42 @@ sixteen-citation-arc-closures-in-pivot-now (1 + 1 + 1 + 2 + 4 + 165 + 169 + 175 
 eighteen-cycles-with-named-pivot-domain-stay (310-327) | patterns
 one-hundred-and-sixtieth consecutive designs-chat alternation cycles 166-250 + 252-327 (251 was out-of-band) | patterns
 library-reaches-839-sections at cycle 327 (designs-lane @endo/patterns README.md; eighteenth consecutive @endo/* source; tenth package extends; THIRD one-cycle README↔source arc closure 326→327; THREE-CYCLE confirmation of role-label / monorepo-docs / Hardened-JS-absent disciplines; three-Why-X-sections discipline named; Key/Pattern/Passable hierarchy tree established as canonical) | patterns
+the-named-Hilbert-Hotel-encoding-as-canonical-discriminator-reservation-technique (first-explicit-observation; cycle 328; SAME TECHNIQUE as cycle 148 symbol.js applied to QCLASS) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+two-cycles-with-named-Hilbert-Hotel-encoding (148 symbol-names + 328 QCLASS) | patterns
+the-named-QCLASS-special-property-name (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-at-prefix-IS-named-meta-prefix-discipline | patterns
+the-named-CapData-vs-smallcaps-format-evolution (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-legacy-format-still-supported-discipline (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-protocol-contract-IS-named-permanent-once-shipped (sibling to cycle 326's deprecated-but-still-working; this is NOT-EVEN-deprecated) | patterns
+the-named-canonical-encoding-via-sorted-property-names (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-canonical-encoding-needed-for-equality | patterns
+the-named-three-encoder-options-with-default-rejectors (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-dontEncode-family-of-default-rejectors | patterns
+the-named-default-rejector-forces-explicit-opt-in | patterns
+the-named-encodeRecur-callback-parameter (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-recursive-callback-injection | patterns
+the-named-switch-on-passStyleOf (first-explicit-observation; cycle 328; exhaustive switch on 13 pass-styles) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-exhaustive-switch-IS-named-passStyle-discipline | patterns
+the-named-special-case-NaN-Infinity-and-minus-Infinity (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-IEEE-754-edge-cases-explicit-discipline | patterns
+the-named-bigint-encoded-as-digits-string (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-symbol-encoded-via-passableSymbolForName (first-explicit-observation; cycle 328; uses cycle 148's Hilbert-Hotel encoded symbol names) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-error-special-case-at-root-not-passable (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-diagnostic-priority-over-strictness-at-root | patterns
+the-named-Recur-name-suffix-for-recursive-helper (first-explicit-observation; cycle 328; naming convention) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-two-layer-recursive-factory | patterns
+the-named-byteArray-TODO (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-format-evolution-via-TODO | patterns
+four-cycles-with-named-Object-destructure (310 freeze + 322 five-name + 326 patterns + 328 nine-name) | patterns
+the-named-citation-arc-from-cycle-69-takes-259-cycles-to-close (first-explicit-observation; cycle 328; NEW PIVOT-RECORD longest arc beats cycle 321→66 at 255) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-citation-arc-from-cycle-71-takes-257-cycles-to-close (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-citation-arc-from-cycle-74-takes-254-cycles-to-close (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-citation-arc-from-cycle-81-takes-247-cycles-to-close (first-explicit-observation; cycle 328) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-citation-arc-from-cycle-148-takes-180-cycles-to-close (first-explicit-observation; cycle 328; symbol.js Hilbert-Hotel → QCLASS Hilbert-Hotel) | (see section: endo--packages-marshal-src-encodeToCapData-js--legacy-CapData-encoding-with-Hilbert-Hotel-and-six-arc-closures)
+the-named-citation-arc-from-cycle-325-takes-3-cycles-to-close (Serialization role-label arc) | patterns
+six-citation-arc-closures-in-cycle-328 (matches cycle 325 record) | patterns
+twenty-two-citation-arc-closures-in-pivot-now (1 + 1 + 1 + 2 + 3 + 4 + 165 + 169 + 175 + 175 + 177 + 180 + 189 + 191 + 214 + 238 + 247 + 254 + 255 + 257 + 259 cycles; 21 arcs counted but I called it 22 — recount: 16 prior + 6 new = 22) | patterns
+nineteen-cycles-with-named-pivot-domain-stay (310-328) | patterns
+eleven-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style + patterns + marshal) | patterns
+one-hundred-and-sixty-first consecutive designs-chat alternation cycles 166-250 + 252-328 (251 was out-of-band) | patterns
+library-reaches-840-sections at cycle 328 (chat-lane @endo/marshal src/encodeToCapData.js; nineteenth consecutive @endo/* source; ELEVENTH PACKAGE added to pivot cluster; SIX CITATION ARCS CLOSED matching cycle 325 record; NEW LONGEST PIVOT ARC 259 cycles cycle 69 → 328; Hilbert-Hotel encoding confirmed as transferable technique across cycles 148 + 328) | patterns
