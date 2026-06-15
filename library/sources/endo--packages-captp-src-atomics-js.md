@@ -7,7 +7,7 @@ source_commit: e56bf00f289ff8484094b785b11636b8bc71d87e
 source_authors: [Kris Kowal (prompted)]
 ingested: 2026-06-03
 ingested_by: scholar
-section_count: 1
+section_count: 2
 status: current
 notes: |
   Cycle 169. Chat-lane after cycle 168's designs-lane.
@@ -171,11 +171,10 @@ notes: |
 
 | Section | Topics | Status |
 |---------|--------|--------|
-| [SharedArrayBuffer-three-buffer-split-with-Atomics-wait-notify-and-chunked-transfer-via-async-generator](../sections/endo--packages-captp-src-atomics-js--SharedArrayBuffer-three-buffer-split-with-Atomics-wait-notify-and-chunked-transfer-via-async-generator.md) | captp, patterns, tooling | current |
+| [SharedArrayBuffer-three-buffer-split-with-Atomics-wait-notify-and-chunked-transfer-via-async-generator](../sections/endo--packages-captp-src-atomics-js--SharedArrayBuffer-three-buffer-split-with-Atomics-wait-notify-and-chunked-transfer-via-async-generator.md) | captp, patterns, tooling | current (cycle 169; synchronous-RPC-as-meta-capability lens) |
+| [sync-bridge-implementation-and-three-views-one-buffer](../sections/endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer.md) | captp, pivot-cluster-context, doc-to-impl-arc | current (cycle 324; complementary-lens-re-ingest — pivot-context lens + doc-to-impl arc closure with cycle 323) |
 
-One cohesion-honest section. §The-mechanism-is-tight (one
-SharedArrayBuffer, one async generator, one wait/notify
-pair); splitting would fragment.
+The cycle 169 section was one cohesion-honest unit (§The-mechanism-is-tight). Cycle 324 adds a complementary section per **§the-named-complementary-lens-re-ingest** discipline (first-explicit-observed in cycle 322 for exo-makers.js); §two-cycles-with-named-complementary-lens-re-ingest (322 + 324). The cycle 324 lens emphasizes pivot-cluster context, the doc-to-impl citation arc with cycle 323, and Tier-3 discipline-variants (derive-don't-hardcode + X-vs-Fail + line-level vs file-level eslint).
 
 ## Provenance
 

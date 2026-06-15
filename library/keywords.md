@@ -11104,3 +11104,54 @@ fourteen-cycles-with-named-pivot-domain-stay (310-323) | patterns
 eight-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp) | patterns
 one-hundred-and-fifty-sixth consecutive designs-chat alternation cycles 166-250 + 252-323 (251 was out-of-band) | patterns
 library-reaches-835-sections at cycle 323 (designs-lane @endo/captp README.md; fourteenth consecutive @endo/* source; EIGHTH PACKAGE added to pivot cluster; THREE CITATION ARCS CLOSED with cycles 154 + 158 + 321; HARDENED-JS-DISCIPLINE STREAK BREAKS after eleven cycles; honesty-about-API-tradeoffs parameterized as two subtypes) | patterns
+the-named-yield-as-three-completion-path-rendezvous (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-iteration-protocol-IS-named-built-in-cleanup-protocol (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-yield-IS-named-rendezvous-with-caller | patterns
+the-named-Atomics-sync-bridge-implementation (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-three-views-one-buffer (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-multi-view-one-buffer-pattern (first-explicit-observation as parameterized; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+three-cycles-with-named-multi-view-one-buffer (316 reader 2 views + 320 writer 2 views + 324 atomics 3 views) | patterns
+the-named-view-type-determined-by-API-constraint (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-Int32Array-for-Atomics.notify-with-MDN-link (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-language-spec-citation-with-link (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-bit-flags-for-status (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-orthogonal-flags-via-power-of-two-discipline | patterns
+the-named-OR-to-combine-orthogonal-bitfields | patterns
+the-named-AND-to-test-bitfield-flag | patterns
+the-named-Atomics.notify-with-Infinity-wake-all (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-Atomics.wait-as-named-blocking-primitive (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-MIN_DATA_BUFFER_LENGTH-IS-pathological-minimum (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-pathological-minimum-IS-named-test-discipline | patterns
+the-named-TRANSFER_OVERHEAD_LENGTH-IS-named-computed-constant (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-derive-don't-hardcode-discipline | patterns
+the-named-constant-IS-named-derived-from-type-system-not-fixed-value | patterns
+the-named-assert.equal-with-X-tagged-template (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-X-vs-Fail-distinction (first-explicit-observation; cycle 324; X for assertion-detail; Fail for short-circuit-throw) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-internal-error-prefix (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-internal-error-IS-named-library-bug | patterns
+the-named-async-generator-as-trapHost (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+two-cycles-with-named-async-generator-protocol (316 reader + 324 trapHost) | patterns
+the-named-fast-path-for-single-chunk (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-common-case-optimization-named-in-comment | patterns
+the-named-allocate-after-first-chunk-reveals-size (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-size-revealed-by-protocol-not-known-up-front | patterns
+the-named-it.throw-null-as-graceful-cleanup (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-cleanup-via-iterator-protocol-termination | patterns
+the-named-TODO-with-blocking-reason-named (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-honest-about-temporary-workaround | patterns
+the-named-TODO-cites-the-blocker | patterns
+the-named-JSON-encode-then-byte-encode-pipeline (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-two-step-serialization | patterns
+the-named-tagged-tuple-via-position (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+two-cycles-with-named-tagged-tuple-via-position (154 trap.js + 324 atomics.js) | patterns
+the-named-line-level-eslint-disable-discipline (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-line-level-vs-file-level-eslint-disable (first-explicit-observation; cycle 324) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-eslint-disable-discipline-variants (file-level for many-uses cycles 314+318 + line-level for few-uses cycle 324) | patterns
+the-named-captp-five-file-cluster-now (first-explicit-observation; cycle 324; 154 trap.js + 156 finalize.js + 158 loopback.js + 323 README + 324 atomics.js; FIRST five-file cluster in pivot) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+the-named-substrate-package-IS-named-deeper-cluster | patterns
+the-named-citation-arc-from-cycle-323-takes-1-cycle-to-close (first-explicit-observation; cycle 324; shortest README→source arc in pivot) | (see section: endo--packages-captp-src-atomics-js--sync-bridge-implementation-and-three-views-one-buffer)
+eight-citation-arc-closures-in-pivot-now (4 + 165 + 169 + 175 + 214 + 255 + 2 + 1 cycles) | patterns
+two-cycles-with-named-complementary-lens-re-ingest (322 exo-makers + 324 atomics) | patterns
+fifteen-cycles-with-named-pivot-domain-stay (310-324) | patterns
+one-hundred-and-fifty-seventh consecutive designs-chat alternation cycles 166-250 + 252-324 (251 was out-of-band) | patterns
+library-reaches-836-sections at cycle 324 (chat-lane @endo/captp src/atomics.js; fifteenth consecutive @endo/* source; CAPTP FIVE-FILE CLUSTER established as first five-file cluster in pivot; SECOND complementary-lens re-ingest applying cycle 322's discipline to a second prior ingest; SHORTEST README→source citation arc in pivot closes with cycle 323; source count unchanged because atomics.js already counted from cycle 169) | patterns
