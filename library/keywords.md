@@ -11442,3 +11442,28 @@ forty-one-citation-arc-closures-in-pivot-now (35 + 6 new in cycle 332) | pattern
 twenty-three-cycles-with-named-pivot-domain-stay (310-332) | patterns
 one-hundred-and-sixty-fifth consecutive designs-chat alternation cycles 166-250 + 252-332 (251 was out-of-band) | patterns
 library-reaches-844-sections at cycle 332 (chat-lane @endo/exo src/exo-tools.js complementary-lens re-ingest; twenty-third consecutive @endo/* source; FOURTH complementary-lens re-ingest applying cycle 322's librarian discipline; FIFTH one-cycle README↔source arc closure 331→332; deprecation-pointers-followed-in-practice as implementation-side closure of cycle 326's deprecation discipline; source count unchanged because exo-tools was already counted from cycle 118) | patterns
+the-named-no-barrel-index-discipline (first-explicit-observation; cycle 333; structural inverse of cycle 326's barrel-index) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-no-barrel-index-IS-named-inverse-of-barrel-index | patterns
+the-named-collection-package-vs-substrate-package-vs-utility-package (first-explicit-observation; cycle 333; three-way categorization of pivot packages) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-README-length-tracks-package-category | patterns
+the-named-four-named-membership-criteria-discipline (first-explicit-observation; cycle 333; low-level + highly reusable + sufficiently general + self-contained explainability) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-dependency-ceiling-discipline (first-explicit-observation; cycle 333; upper bound on dependencies: ses + @endo/eventual-send + @endo/promise-kit) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-low-level-IS-defined-by-negation | patterns
+the-named-one-file-one-export-with-named-export-name (first-explicit-observation; cycle 333) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-deep-imports-enable-tree-shaking | patterns
+the-named-src-directory-reserved-for-non-exports (first-explicit-observation; cycle 333) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-discipline-with-named-exception (first-explicit-observation; cycle 333; make-iterator.js tested indirectly via test-make-array-iterator.js) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-README-IS-named-package-policy-not-utility-documentation (first-explicit-observation; cycle 333) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-README-as-policy-not-API | patterns
+the-named-tests-as-examples-discipline (first-explicit-observation; cycle 333) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-no-canonical-sections-IS-named-curation-policy-shape (first-explicit-observation; cycle 333) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-shortest-README-in-pivot (first-explicit-observation; cycle 333; 17 lines vs 60-415 lines for other pivot READMEs) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-low-level-utilities-collection (first-explicit-observation; cycle 333) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-citation-arc-from-cycle-332-takes-1-cycle-to-close (first-explicit-observation; cycle 333; SIXTH one-cycle README↔source arc) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+the-named-citation-arc-from-cycle-326-takes-7-cycles-to-close (first-explicit-observation; cycle 333; documentation-side closure of deprecation pointers) | (see section: endo--packages-common-README-md--twelfth-package-no-barrel-index-discipline-and-curation-policy-shape)
+six-cycles-with-named-one-cycle-README-source-arc (323→324 + 325→326 + 326→327 + 328→329 + 331→332 + 332→333) | patterns
+forty-three-citation-arc-closures-in-pivot-now (41 + 2 new in cycle 333) | patterns
+twelve-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style + patterns + marshal + common) | patterns
+twenty-four-cycles-with-named-pivot-domain-stay (310-333) | patterns
+one-hundred-and-sixty-sixth consecutive designs-chat alternation cycles 166-250 + 252-333 (251 was out-of-band) | patterns
+library-reaches-845-sections at cycle 333 (designs-lane @endo/common README.md; twenty-fourth consecutive @endo/* source; TWELFTH PACKAGE added; SHORTEST README in pivot at 17 lines; no-barrel-index-discipline as STRUCTURAL INVERSE of cycle 326's barrel-index; three-way COLLECTION-vs-SUBSTRATE-vs-UTILITY package categorization; SIX consecutive one-cycle README↔source arc closures; documentation-side closure of cycle 326's deprecation pointers) | patterns
