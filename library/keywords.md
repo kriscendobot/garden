@@ -12056,3 +12056,24 @@ the-named-NEW-LONGEST-PIVOT-ARC-at-279-cycles (first-explicit-observation; cycle
 forty-one-cycles-with-named-pivot-domain-stay (310-350) | patterns
 one-hundred-forty-two-citation-arc-closures-in-pivot-now (135 + 7 net new in cycle 350) | patterns
 library-reaches-862-sections at cycle 350 (chat-lane @endo/pass-style/src/passStyleOf.js; FORTY-FIRST consecutive @endo/* source; NINTH complementary-lens re-ingest; package-self-detects-endowment-via-global-symbol as tier-3 meta-pattern; NOTE-HAZARD-comment-discipline; defensive-init-pattern-for-registries; two-phase-validation; three-shapes-of-symbol-coordination; known-future-change-site-named-at-implementation-level; SEVEN citation arcs closed including 279-cycle arc to cycle 71 as NEW LONGEST PIVOT ARC) | patterns
+the-named-omissions-organized-by-removed-property (first-explicit-observation; cycle 351; doc enumerates omissions each tied to a NAMED PROPERTY being eliminated — non-determinism + ambient authority + global communications channel + evaluators) | (see section: endo--packages-ses-docs-draft-standalone-spec-md--omissions-organized-by-removed-property-and-shim-vs-standalone-engine-distinction)
+three-named-anti-properties-being-eliminated (first-explicit-observation; cycle 351; non-determinism + ambient-authority + global-communication-channels) | patterns
+the-named-three-anti-properties-equal-the-three-attack-categories (first-explicit-observation; cycle 351; cycle 351's anti-properties parallel cycle 345's attack categories) | patterns
+two-shapes-of-defense-taxonomy (cycle 345 attack-categories + cycle 351 property-eliminated) | patterns
+the-named-shim-vs-standalone-engine-distinction (first-explicit-observation; cycle 351; SES has TWO implementation strategies — shim and standalone) | (see section: endo--packages-ses-docs-draft-standalone-spec-md--omissions-organized-by-removed-property-and-shim-vs-standalone-engine-distinction)
+the-named-throws-rather-than-returns-discipline (first-explicit-observation; cycle 351; when denying a capability throw on call rather than silently returning a degraded value) | patterns
+three-shapes-of-discipline-violation-visibility (337 helpful-stack + 342 console-warn + 351 throw-on-denied-capability) | patterns
+the-named-rom-able-immutable-discipline (first-explicit-observation; cycle 351; frozen intrinsics + no hidden state + no ambient authority → ROM-able for IoT) | patterns
+the-named-deterministic-replication-as-canonical-use-case (first-explicit-observation; cycle 351; blockchain as shorthand) | patterns
+the-named-blockchain-as-shorthand-for-deterministic-replication (first-explicit-observation; cycle 351) | patterns
+the-named-shared-globals-vs-shared-intrinsics-distinction (first-explicit-observation; cycle 351; formal definitions) | patterns
+the-named-formal-definitions-in-design-doc (first-explicit-observation; cycle 351; italicize-define key terms before using them) | patterns
+the-named-IoT-and-blockchain-may-omit-evaluators (first-explicit-observation; cycle 351) | patterns
+the-named-function-constructors-not-evaluators (first-explicit-observation; cycle 351; taxonomy distinguishes evaluators from non-evaluators based on whether they construct code) | patterns
+the-named-makeRootRealm-feature-test-discipline (first-explicit-observation; cycle 351; missing capabilities should be ABSENT not present-but-broken) | patterns
+the-named-global-communications-channel-language (first-explicit-observation; cycle 351; RegExp static properties named as "global communications channel") | patterns
+the-named-non-determinism-as-removed-feature (first-explicit-observation; cycle 351) | patterns
+the-named-ambient-authority-as-removed-feature (first-explicit-observation; cycle 351) | patterns
+forty-two-cycles-with-named-pivot-domain-stay (310-351) | patterns
+one-hundred-forty-eight-citation-arc-closures-in-pivot-now (142 + 6 net new in cycle 351) | patterns
+library-reaches-863-sections at cycle 351 (designs-lane @endo/ses docs/draft-standalone-spec.md; FORTY-SECOND consecutive @endo/* source; omissions-organized-by-removed-property as tier-3 meta-pattern; shim-vs-standalone-engine-distinction; throws-rather-than-returns-discipline; three-shapes-of-discipline-violation-visibility; rom-able-immutable-discipline; two-shapes-of-defense-taxonomy; eight citation arcs closed) | patterns
