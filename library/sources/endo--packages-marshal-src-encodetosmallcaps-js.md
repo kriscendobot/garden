@@ -8,7 +8,7 @@ comment_subject: "Smallcaps wire-format rationale: the reserved special-characte
 source_authors: [Mark S. Miller, Kris Kowal, Richard Gibson, Michael FIG, Turadg Aleahmad, Mathieu Hofman, Chip Morningstar]
 ingested: 2026-05-15
 ingested_by: scholar
-section_count: 3
+section_count: 4
 status: current
 notes: |
   Second comment-fragment ingest (cycle 69), following the
@@ -51,9 +51,10 @@ reference summarily but do not re-explain in depth.
 
 | Section | Topics | Status |
 |---------|--------|--------|
-| [special-character-prefix-scheme](../sections/endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme.md) | marshal, pass-style | current |
-| [canonical-encoding-invariants](../sections/endo--packages-marshal-src-encodetosmallcaps-js--canonical-encoding-invariants.md) | marshal, pass-style | current |
-| [error-encoding-root-special-case](../sections/endo--packages-marshal-src-encodetosmallcaps-js--error-encoding-root-special-case.md) | marshal, pass-style, errors | current |
+| [special-character-prefix-scheme](../sections/endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme.md) | marshal, pass-style | current (cycle 69; wire-format-rationale lens) |
+| [canonical-encoding-invariants](../sections/endo--packages-marshal-src-encodetosmallcaps-js--canonical-encoding-invariants.md) | marshal, pass-style | current (cycle 69; canonical-encoding lens) |
+| [error-encoding-root-special-case](../sections/endo--packages-marshal-src-encodetosmallcaps-js--error-encoding-root-special-case.md) | marshal, pass-style, errors | current (cycle 69; diagnostic-priority lens) |
+| [complementary-lens-trivial-Hilbert-Hotel-and-sibling-comparison-with-capdata](../sections/endo--packages-marshal-src-encodetosmallcaps-js--complementary-lens-trivial-Hilbert-Hotel-and-sibling-comparison-with-capdata.md) | marshal, hilbert-hotel, sibling-comparison | current (cycle 330; complementary-lens-re-ingest — trivial-Hilbert-Hotel via character range + sort-order preservation + sibling comparison with cycle 328 capdata) |
 
 ## Provenance
 
