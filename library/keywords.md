@@ -11155,3 +11155,46 @@ two-cycles-with-named-complementary-lens-re-ingest (322 exo-makers + 324 atomics
 fifteen-cycles-with-named-pivot-domain-stay (310-324) | patterns
 one-hundred-and-fifty-seventh consecutive designs-chat alternation cycles 166-250 + 252-324 (251 was out-of-band) | patterns
 library-reaches-836-sections at cycle 324 (chat-lane @endo/captp src/atomics.js; fifteenth consecutive @endo/* source; CAPTP FIVE-FILE CLUSTER established as first five-file cluster in pivot; SECOND complementary-lens re-ingest applying cycle 322's discipline to a second prior ingest; SHORTEST README→source citation arc in pivot closes with cycle 323; source count unchanged because atomics.js already counted from cycle 169) | patterns
+the-named-exhaustive-enumeration-via-table (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-thirteen-pass-styles-in-one-table-fixed-set (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-closed-set-IS-named-security-foundation (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-pass-styles-organized-by-category (Primitive 7 + Pass-by-copy 2 + Pass-by-presence 3 + Extension 1) | patterns
+the-named-pass-by-copy-vs-pass-by-presence-distinction (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-binary-distinction-with-internal-substructure (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-Far-doesn-t-validate-with-pointer-to-exo (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-cross-package-pointer-when-functionality-is-here-not-elsewhere (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-honesty-about-API-tradeoffs (parameterized with three subtypes: low-utility-paths 321 + relaxed-security-models 323 + functionality-elsewhere 325) | patterns
+three-cycles-with-named-honesty-about-API-tradeoffs (321 + 323 + 325) | patterns
+the-named-makeTagged-IS-named-extension-point (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-extension-point-IS-named-API-shape | patterns
+the-named-five-named-requirements-for-passability (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-tentatively-modal (first-explicit-observation; cycle 325; "Symbols must tentatively be created") | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-hedge-word-in-canonical-rule | patterns
+three-cycles-with-named-meta-discourse-in-pivot-READMEs (321 "what we call" + 323 "not for mutually-suspicious" + 325 "tentatively") | patterns
+the-named-canonical-counterexamples-after-canonical-examples (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-counterexample-discipline | patterns
+the-named-Use-for-and-Pass-styles-pair-rows-discipline (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-when-and-what-pair-rows | patterns
+the-named-type-guards-section-with-canonical-imports (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+two-cycles-with-named-four-predicate-assertion-pairs (150 typeGuards.js + 325 README) | patterns
+the-named-Integration-with-Endo-Packages-with-role-labels (first-explicit-observation as a recurring discipline; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+two-cycles-with-named-role-label-before-package-name (321 + 325) | patterns
+the-named-Deep-Dives-IS-named-implementation-detail-section (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-internal-docs-pointer-section | patterns
+the-named-monorepo-docs-reference (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-Hardened-JS-mentioned-pervasively-but-no-section (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-Hardened-JS-absent-as-section-by-foundational-status | patterns
+two-cycles-with-named-Hardened-JS-discipline-streak-continues-broken (323 absence-via-presupposition + 325 absence-via-foundational-status) | patterns
+the-named-Far-iface-IS-named-identity-string (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-citation-arc-from-cycle-71-takes-254-cycles-to-close (first-explicit-observation; cycle 325; second-longest closure in pivot after cycle 321's 255-cycle closure to cycle 66) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-citation-arc-from-cycle-87-takes-238-cycles-to-close (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-citation-arc-from-cycle-134-takes-191-cycles-to-close (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-citation-arc-from-cycle-136-takes-189-cycles-to-close (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-citation-arc-from-cycle-148-takes-177-cycles-to-close (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+the-named-citation-arc-from-cycle-150-takes-175-cycles-to-close (first-explicit-observation; cycle 325) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+six-citation-arc-closures-in-one-cycle (first-explicit-observation; cycle 325; new record) | (see section: endo--packages-pass-style-README-md--thirteen-pass-styles-table-and-six-arc-closures)
+fourteen-citation-arc-closures-in-pivot-now (1 + 2 + 4 + 165 + 169 + 175 + 175 + 177 + 189 + 191 + 214 + 238 + 254 + 255 cycles) | patterns
+sixteen-cycles-with-named-pivot-domain-stay (310-325) | patterns
+nine-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style) | patterns
+one-hundred-and-fifty-eighth consecutive designs-chat alternation cycles 166-250 + 252-325 (251 was out-of-band) | patterns
+library-reaches-837-sections at cycle 325 (designs-lane @endo/pass-style README.md; sixteenth consecutive @endo/* source; NINTH PACKAGE in pivot cluster; SIX CITATION ARCS CLOSED in one cycle — largest single-cycle closure count; honesty-about-API-tradeoffs parameterized with three subtypes; Hardened-JS-discipline streak break for foundational-status reason) | patterns
