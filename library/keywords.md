@@ -11198,3 +11198,28 @@ sixteen-cycles-with-named-pivot-domain-stay (310-325) | patterns
 nine-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style) | patterns
 one-hundred-and-fifty-eighth consecutive designs-chat alternation cycles 166-250 + 252-325 (251 was out-of-band) | patterns
 library-reaches-837-sections at cycle 325 (designs-lane @endo/pass-style README.md; sixteenth consecutive @endo/* source; NINTH PACKAGE in pivot cluster; SIX CITATION ARCS CLOSED in one cycle — largest single-cycle closure count; honesty-about-API-tradeoffs parameterized with three subtypes; Hardened-JS-discipline streak break for foundational-status reason) | patterns
+the-named-JSDoc-cannot-express-TypeScript-declarations-discipline (first-explicit-observation; cycle 326) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+the-named-three-TS-features-JSDoc-cannot-express (namespace merge for M + type predicate for matches + asserts signature for mustMatch) (first-explicit-observation; cycle 326) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+the-named-typed-re-export-for-JSDoc-limitations (first-explicit-observation; cycle 326) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+the-named-namespace-merge-for-M (first-explicit-observation; cycle 326) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+the-named-type-predicate-for-matches (first-explicit-observation; cycle 326) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+the-named-asserts-signature-for-mustMatch (first-explicit-observation; cycle 326) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+the-named-documentation-language-cannot-express-target-language-features (first-explicit-observation; cycle 326; fourth named subtype of honesty-about-API-tradeoffs) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+four-cycles-with-named-honesty-about-API-tradeoffs (321 low-utility-paths + 323 relaxed-security-models + 325 functionality-elsewhere + 326 documentation-language-cannot-express) | patterns
+the-named-barrel-index-as-package-surface-artifact (first-explicit-observation; cycle 326) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+the-named-organized-export-clusters-by-source-file (first-explicit-observation; cycle 326) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+eight-source-files-aggregated-by-the-index | patterns
+the-named-deprecation-re-export-with-canonical-pointer (first-explicit-observation; cycle 326) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+the-named-deprecated-but-still-working | patterns
+the-named-deprecation-tag-with-canonical-pointer (pointer IS migration plan) | patterns
+the-named-section-divider-as-separator (first-explicit-observation; cycle 326) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+the-named-comments-as-section-delimiters | patterns
+the-named-line-level-eslint-disable-with-context-rationale (first-explicit-observation; cycle 326) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+three-cycles-with-named-line-level-eslint-disable (324 atomics no-bitwise + 326 patterns import/export; 314 + 318 hex were file-level) | patterns
+the-named-citation-arc-from-cycle-325-takes-1-cycle-to-close (first-explicit-observation; cycle 326; second one-cycle README→package arc) | (see section: endo--packages-patterns-index-js--barrel-index-as-package-surface-and-jsdoc-cannot-express-discipline)
+two-cycles-with-named-one-cycle-README-to-package-arc (323→324 + 325→326) | patterns
+fifteen-citation-arc-closures-in-pivot-now (1 + 1 + 2 + 4 + 165 + 169 + 175 + 175 + 177 + 189 + 191 + 214 + 238 + 254 + 255 cycles) | patterns
+seventeen-cycles-with-named-pivot-domain-stay (310-326) | patterns
+ten-named-packages-in-the-pivot-cluster (nat + memoize + hex + lp32 + stream + eventual-send + exo + captp + pass-style + patterns) | patterns
+one-hundred-and-fifty-ninth consecutive designs-chat alternation cycles 166-250 + 252-326 (251 was out-of-band) | patterns
+library-reaches-838-sections at cycle 326 (chat-lane @endo/patterns index.js; seventeenth consecutive @endo/* source; TENTH PACKAGE in pivot cluster; FOUR named subtypes of honesty-about-API-tradeoffs; documentation-language-cannot-express named as fourth subtype; SECOND one-cycle README→package arc closure 325→326) | patterns
