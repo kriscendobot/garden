@@ -9,6 +9,8 @@ source_authors: [Kris Kowal]
 topics: [hardened-javascript, compartments]
 status: current
 notes: **Status: Not Started** upstream. Sibling of [[endo-but-for-bots--llm-designs-hardened-url-shim]] (split out per PR #84 review on the URL shim). Unlike URL, these codecs have **no ambient-authority static methods and no exposed iterator prototype** — the taming story is straightforward and lands on `universalPropertyNames` directly.
+kind: index
+section_count: 2
 ---
 
 Endo's hardened-JavaScript model rests on the premise that **every
@@ -25,41 +27,7 @@ the permitted intrinsics. Unlike `URL`, the text codecs have:
 The taming story is therefore the simplest of the three placements
 in the permits-bucket framework (see [[permits-buckets]]).
 
-## Three-bucket framework (recap)
+Sections:
 
-`packages/ses/src/permits.js` distinguishes three relevant buckets:
-
-| Bucket | What lives there | When created |
-|---|---|---|
-| `universalPropertyNames` | Powerless data and constructors that live on **every global** | Start compartment + every post-lockdown compartment |
-| `initialGlobalPropertyNames` | **Powered** variants — `Date`, `Error`, `RegExp`, `Math` | Start compartment only |
-| `sharedGlobalPropertyNames` | The **tamed, powerless** variants of those same names | Every post-lockdown compartment |
-
-`TextEncoder` and `TextDecoder` are **pure transformations** between
-`string` and `Uint8Array`. They have no static side channels, no
-ambient-authority methods. They belong on `universalPropertyNames`:
-**one identity-equal constructor across the start compartment and
-every shared compartment.**
-
-This is the simplest placement — no split between *initial* (powered)
-and *shared* (tamed) variants is needed, because there is no powered
-variant to tame down to.
-
-## Permits table
-
-| Constructor | Property | Disposition | Rationale |
-|---|---|---|---|
-| `TextEncoder` | `prototype` | ✓ | Required for instances. |
-| `TextEncoder` | `prototype.encode`, `encodeInto` | ✓ | Pure. |
-| `TextEncoder` | `prototype.encoding` | ✓ | Pure (always `'utf-8'`). |
-| `TextDecoder` | `prototype` | ✓ | Required for instances. |
-| `TextDecoder` | `prototype.decode` | ✓ | Pure. |
-| `TextDecoder` | `prototype.encoding`, `fatal`, `ignoreBOM` | ✓ | Pure. |
-
-These constructors return `Uint8Array` (already a permitted
-intrinsic) or `string`. `TextDecoder`'s constructor accepts a label
-and an options bag; both are pure inputs. **No iterator prototypes
-are exposed** — which is what distinguishes this case from
-[[endo-but-for-bots--llm-designs-hurl--iterator-prototype-sampling]]
-(URLSearchParams needed throwaway-instance sampling to seed the
-iterator prototype permit).
+- [Three-bucket framework (recap)](endo-but-for-bots--llm-designs-htcs--problem-and-permits--three-bucket-framework-recap.md)
+- [Permits table](endo-but-for-bots--llm-designs-htcs--problem-and-permits--permits-table.md)

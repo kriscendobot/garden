@@ -11,6 +11,8 @@ ingested_by: scholar
 topics: [hardened-javascript, repository-governance]
 status: current
 notes: The "tame inside SES, not as an external shim" decision is the load-bearing structural call — folding into SES intrinsics pipeline avoids opt-in fragmentation AND avoids duplicating the whitelisting machinery in a per-package shim. The "no polyfill in this design" decision keeps XS users without URL but accepts a future @endo/url polyfill as a layerable addition. All three phases are S-sized.
+kind: index
+section_count: 4
 ---
 
 > Abstract: **Comparison to original `@endo/url` package proposal**: earlier sketch was an `@endo/url` package with `shim.js` for `@endo/init`; each consumer would opt in by importing the shim before lockdown. Two drawbacks: (1) opt-in fragmentation — some compartments would have URL, others not, depending on whether the shim loaded before lockdown; library authors can't rely on URL being present; (2) out-of-band intrinsic — a URL installed by external shim is not visited by `intrinsics.js`'s permits graph, so the iterator-prototype problem must be solved with bespoke duplicate-whitelisting code. **Folding into SES**: every compartment gets the appropriate constructor; existing permits/whitelist pipeline does the taming in one place. **Residual `@endo/url` use case**: a polyfill for hosts (XS) wanting a JS URL implementation — separate design, out of scope here; would compose cleanly (polyfill installs URL on globalThis before lockdown; SES permits then tame it). **Test plan**: 9 tests covering presence on start + shared compartments, shared prototype + cross-compartment instanceof, `urlBlobMethods: 'remove'` opt-in, frozen-everything, iterator-prototype tampering rejection, round-trip semantics, host without URL degradation, XS smoke test. **Compatibility**: code monkey-patching URL throws (must do it before lockdown like other intrinsics); browser blob-URL workflow broken — must obtain createObjectURL from host pre-lockdown and explicitly endow into the compartment that needs it (this is the explicit goal: moving ambient authority to deliberate capability); `lib.dom.d.ts` typedefs declare the removed methods, will compile-but-fail-at-runtime in downstream packages (no fix here; downstream adds capability shims); `URLSearchParams` iterable-arg constructor not new attack surface (all major host impls consume the iterable strictly and store string copies). **Phases**: all S-sized — Phase 1 permits + sampling, Phase 2 tests + changeset, Phase 3 downstream audit (grep for `URL.createObjectURL` / `URL.revokeObjectURL` / `new URL(` in compartment code). **7 design decisions** + 2 open questions (synthetic-intrinsic name; cross-compartment instanceof direction).
@@ -48,34 +50,11 @@ Tests live under `packages/ses/test/`.
 - **Type definitions**: `lib.dom.d.ts` declares `createObjectURL`/`revokeObjectURL` as static methods. Downstream packages compile against `lib.dom.d.ts` will compile but fail at runtime under SES. No fix here; downstream adds capability shims.
 - **URLSearchParams constructor accepting iterables**: takes a sequence of `[name, value]` pairs. A malicious iterable whose `next()` mutates shared state isn't a new attack surface — all major host impls consume strictly and store string copies. Worth noting in test plan.
 
-## Related work
+Sections:
 
-| Design | Relationship |
-|---|---|
-| `base64-native-fallthrough.md` | Same family: tame and dispatch to native intrinsics inside SES rather than re-implement in JS. |
-| `hex-package.md` | Same family: ponyfill-shim pattern around a TC39 native. The URL shim is the SES-internal analogue. |
-
-## Phases
-
-**Phase 1: Permits and sampling (S)** — extend `permits.js` with `%URL%` + `%SharedURL%` + `%URLSearchParams%` + `%URLSearchParamsIteratorPrototype%`; plumb `urlBlobMethods` opt-in; extend `get-anonymous-intrinsics.js` (or equivalent) for iterator-prototype sampling; update whitelist pass if needed.
-
-**Phase 2: Tests and changeset (S)** — test cases from the plan; changeset describing tamed intrinsics + `urlBlobMethods` option + removed methods + host-without-URL behavior.
-
-**Phase 3: Downstream audit (S)** — grep monorepo for `URL.createObjectURL` and `URL.revokeObjectURL` (none should remain in code that runs under SES); grep for `new URL(` in compartment-running code (newly enabled, candidates for simplification).
-
-## Design Decisions
-
-1. **`%URL%` on start, `%SharedURL%` on shared.** Date-style split — smallest change that captures both intents (host app keeps powered binding; shared compartments get powerless variant). Both bound to `globalThis.URL` so consumer code is identical. Naming follows `%SharedSymbol%`/`%SharedDate%`/`%SharedError%`/`%SharedRegExp%` precedent.
-2. **Lockdown opt-in to conflate.** `urlBlobMethods: 'remove'` collapses for embeddings with no blob use; default keeps host-provided start shape.
-3. **Tame inside SES, not as an external shim.** Iterator-prototype hazard is an SES whitelisting concern; centralizing in `permits.js` avoids duplicating whitelisting machinery.
-4. **TextEncoder/TextDecoder split to sibling design.** Same source issue but no implementation overlap.
-5. **No polyfill in this design.** XS users continue without URL; a future `@endo/url` polyfill can layer cleanly.
-6. **Permit `URL.parse`, `URL.canParse`, iterator prototype's `[Symbol.toStringTag]`.** Pure helpers admitted; absence on older hosts handled by skip-when-missing.
-7. **Bundle-size impact negligible.** Tens of lines of permits + one sampler + one boolean check. No measurement required.
-
-## Open questions
-
-1. **Synthetic-intrinsic name**: `%URLSearchParamsIteratorPrototype%` mirrors the `%IteratorPrototype%` convention. Shorter alternative?
-2. **Cross-compartment `instanceof`**: shared-prototype is the recommendation (single prototype value across compartments → instanceof works); cost is `Foo.constructor === URL` gives different answers depending on origin compartment. Alternative: distinct prototype chains, push burden onto cross-compartment helpers.
+- [Related work](endo-but-for-bots--llm-designs-hurl--comparison-tests-decisions--related-work.md)
+- [Phases](endo-but-for-bots--llm-designs-hurl--comparison-tests-decisions--phases.md)
+- [Design Decisions](endo-but-for-bots--llm-designs-hurl--comparison-tests-decisions--design-decisions.md)
+- [Open questions](endo-but-for-bots--llm-designs-hurl--comparison-tests-decisions--open-questions.md)
 
 Source: [designs/hardened-url-shim.md](https://github.com/endojs/endo-but-for-bots/blob/6ddaa541d27da22f01ad49437f0d690eaed8329a/designs/hardened-url-shim.md) at commit `6ddaa541` on branch `llm`.
