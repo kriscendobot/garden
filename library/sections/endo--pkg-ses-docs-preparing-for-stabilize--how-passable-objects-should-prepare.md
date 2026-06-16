@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Specific guidance for code that constructs passable objects (copyArrays, copyRecords, Far-built remotables): how the new integrity-trait will affect these and what to change ahead of time.
 
-## How passable objects should prepare
 
 Although we think of `passStyleOf` as requiring its input to be hardened, `passStyleOf` instead checked that each relevant object is frozen. Manually freezing all objects reachable from a root object had been equivalent to hardening that root object. With these changes, even such manual transitive freezing will not make an object passable. To prepare for these changes, use `harden` explicitly instead.
 

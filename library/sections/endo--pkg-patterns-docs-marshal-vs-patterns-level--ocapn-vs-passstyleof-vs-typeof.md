@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Three abstraction levels of JS values: typeof (the JS-language primitive), passStyleOf (Endo's marshal-level classification with the 8 pass styles), OCapN protocol kinds (the wire-format categories OCapN distinguishes). Each level subsumes the next in detail; the document traces the mappings between them.
 
-## OCapN *vs* Endo `passStyleOf` *vs* JavaScript `typeof`
 
 The OCapN language-independent ocap protocol is in flux. As of May 20 2023, the best draft of the OCapN data model is [the thread starting here](https://github.com/ocapn/ocapn/issues/5#issuecomment-1549012122). Although the Endo `passStyleOf` names differ, the taxonomy and data models will be the same. The [`@endo/pass-style`](https://www.npmjs.com/package/@endo/pass-style) package defines the language binding of this abstract data model to JavaScript language values, which are therefore considered *Passable values*.
 

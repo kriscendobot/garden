@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Two H3 sub-sections consolidated: Basic Example (single kit construction and resolution) and Creating Multiple Promise Kits (patterns for multi-kit code, e.g., when an API needs many independent promises).
 
-## Usage
 
 Here’s an example of how `makePromiseKit` might be used in an Agoric smart contract or JavaScript program:
 

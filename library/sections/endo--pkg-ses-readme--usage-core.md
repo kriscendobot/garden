@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The core Usage section: lockdown() one-time setup; harden() per-value transitive freezing; Compartment for isolating guest code in its own global scope; Compartment + Lockdown showing how the two compose for typical applications. Consolidates four H3 sub-sections (Lockdown, Harden, Compartment, Compartment+Lockdown) at the H2 Usage boundary.
 
-## Usage
 
 The SES shim runs in most engines, either as an ESM module `ses` or as a
 `<script>` tag.

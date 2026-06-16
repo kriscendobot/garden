@@ -9,13 +9,14 @@ ingested: 2026-05-14
 ingested_by: scholar
 topics: [eventual-send]
 status: current
+kind: index
+section_count: 1
 ---
 
 > Abstract: Pointers to related packages and license info.
 
-## Links
-[Repository](https://github.com/endojs/endo/tree/master/packages/promise-kit)
+Sections:
 
-## License
+- [Links](endo--pkg-promise-kit-readme--links-and-license--links.md)
 
 Source: [packages/promise-kit/README.md](https://github.com/endojs/endo/blob/2fc917e9/packages/promise-kit/README.md) at commit `2fc917e9`.

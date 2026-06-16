@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/stream defines an async-iterator-based stream abstraction with deliberate hardening properties. Streams are pull-based; consumer requests values one at a time. Designed for use under SES where mutable state and ambient authority must be avoided.
 
-# Endo Streams
 
 Endo models streams as hardened async iterators.
 Async iterators are sufficient to model back-pressure or pacing

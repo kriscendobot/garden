@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Signature and semantics of makePromiseKit(): no arguments; returns a frozen {promise, resolve, reject} record.
 
-## API
 
 ### `makePromiseKit()`
 Creates a new promise kit.

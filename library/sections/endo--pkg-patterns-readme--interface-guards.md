@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Interface guards declare the shape of an Exo class's methods: argument types per method, return type, async behavior. Built via M.interface(name, methodGuards) where each methodGuard is M.call(...args).returns(ret) or similar. Exo uses interface guards both at construction time (the methodsGuard parameter) and at message-arrival time (validating inbound arguments before dispatching to the method body). Integration with Exo: every Exo class declares one or more interface guards as part of its definition.
 
-## Interface Guards
 
 InterfaceGuards describe behavioral contracts for objects, particularly useful
 with [@endo/exo](../exo/README.md):

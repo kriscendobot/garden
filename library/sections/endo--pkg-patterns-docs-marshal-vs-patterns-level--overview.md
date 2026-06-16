@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Frames the two-level type system: pass-style is the transport-level discipline (what marshal cares about); kindOf is the patterns-level discipline (what M.* matchers care about). Same value can have different pass-style and kind. The document is one of the foundational pieces by Mark Miller (erights) on the design rationale.
 
-# Passables: `kindOf` and `passStyleOf` levels of abstraction
 
 We have three very distinct abstraction levels in our system in which to describe the passable data types and the operations on them. On the left is the higher ***`kindOf`*** level, containing the passable data types and operations of concern to the normal application programmer. A document intended for those application programmers would explain the `kindOf` level in a self contained manner. This is not that document.
 

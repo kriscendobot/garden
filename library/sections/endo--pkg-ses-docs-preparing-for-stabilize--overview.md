@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Mark Miller's note on the upcoming non-trapping integrity trait. Background: TC39 is adding a new ES feature where certain proxy traps and passable invariants behave differently to support stronger integrity guarantees. This document tells SES users how to prepare.
 
-# Preparing for the Non-trapping Integrity Trait
 
 The [Stabilize proposal](https://github.com/tc39/proposal-stabilize) is currently at stage 1 of the tc39 process. It proposes three distinct integrity traits whose current placeholder names are:
 - ***fixed***: would mitigate the return-override mistake by preventing objects with this trait from being stamped with new class-private-fields.

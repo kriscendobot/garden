@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Background: the trampoline pattern, why it exists, when to use it vs alternatives (await, generators, simple recursion).
 
-## What is this?
 
 The pattern exposed by this library—known as [trampolining][]—helps manage control flow in a way that avoids deep recursion and potential stack overflows.
 

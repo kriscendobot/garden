@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The umbrella-level core concepts the Endo family realizes: HardenedJS substrate, Compartment isolation, capability discipline (Far, Exo), pass-style classification, eventual-send messaging, OCapN-family protocols. Each concept is one paragraph; the section is the landing page for someone new to the model.
 
-## Core Concepts
 
 [HardenedJS][] introduces three components to the base JavaScript:
 

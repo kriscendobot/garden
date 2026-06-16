@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The same example rewritten under SES discipline: hardened values, explicit endowments, no shared mutable globals. Demonstrates the safe patterns: harden() at the boundary, Far() for capabilities, Compartment for guest-code isolation, defensive receive. The substantial body of the document.
 
-## Basic SES Example
 
 The basic logger example in SES looks exactly the same.
 

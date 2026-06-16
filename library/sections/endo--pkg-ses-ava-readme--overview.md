@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/ses-ava is an ava-compatible test framework wrapper that runs tests under a SES-locked-down environment. Provides the same ava t.is / t.throwsAsync API surface but inside a hardened JS realm, so tests exercise code in the same environment production runs in.
 
-# `@endo/ses-ava`
 
 *SES-AVA* wraps AVA `test` functions and initializes the SES-shim with options
 suitable for debugging tests. This includes logging errors to the console with

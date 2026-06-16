@@ -13,7 +13,6 @@ status: current
 
 > Abstract: keyEQ(key1, key2) compares two keys for equality; compareKeys(key1, key2) returns -1/0/+1 for a total order on keys. Used by Copy Collections to maintain consistent iteration order across realms. Both honor the key, pattern, and passable hierarchy (a key is a pattern with no holes; a passable is a key if it has a total order).
 
-## Key Comparison
 
 Keys can be compared for equality and ordering:
 

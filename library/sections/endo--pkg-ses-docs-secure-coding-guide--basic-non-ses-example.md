@@ -13,7 +13,6 @@ status: current
 
 > Abstract: A worked example of code as it would be written without SES considerations. Demonstrates the kinds of assumptions developers naturally make (mutable shared objects, ambient authority) and the security implications. Used as the baseline against which the SES version (next section) is contrasted.
 
-## Basic Non-SES Example
 
 Consider the following non-SES simple example: a logging service with two customers:
 the "writer" can append strings to a list, and the "reader" can read the

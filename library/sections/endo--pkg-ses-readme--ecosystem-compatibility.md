@@ -13,7 +13,6 @@ status: current
 
 > Abstract: What works (and what does not) when SES is applied to common JS ecosystem libraries. Some packages assume mutable primordials or unrestricted Date.now; SES breaks them. The README lists known-incompatible patterns and the Compartment-endowment workarounds for the common cases.
 
-## Ecosystem Compatibility
 
 Most ordinary JavaScript can run without issues in a realm locked down by SES.
 Exceptions are tracked at [issue #576][incompatibility tracking], and almost

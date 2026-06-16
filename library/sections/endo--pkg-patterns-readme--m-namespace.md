@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The M namespace enumerates the pattern constructors: Primitive Matchers (M.string, M.number, M.bigint, etc.), Container Matchers (M.array, M.record, M.set, etc.), Structured Matchers (M.recordOf, M.arrayOf, etc.), Logical Operators (M.and, M.or, M.not), Comparison Matchers (M.gte, M.lt, etc.), and Special Matchers (M.remotable, M.promise, M.any). Each section enumerates the constructors with brief signatures and use cases.
 
-## The M Namespace
 
 The `M` object provides methods for creating pattern matchers organized into
 several categories:

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Worked example showing trampoline composing a recursive coroutine without consuming the call stack. The substantial body of the README.
 
-## Example Usage
 
 ```js
 import { asyncTrampoline, syncTrampoline } from '@endo/trampoline';

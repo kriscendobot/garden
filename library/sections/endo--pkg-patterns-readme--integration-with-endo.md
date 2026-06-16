@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How patterns relates to its neighbors: pass-style defines the substrate (passable values), marshal serializes them, exo uses patterns for method guards, captp transports them. Patterns occupies the validation-and-shape niche between pass-style (type discipline for transport) and exo (using shapes as guards).
 
-## Integration with Endo Packages
 
 - **Foundation**: [@endo/pass-style](../pass-style/README.md) - What can be
   passed (Passables)

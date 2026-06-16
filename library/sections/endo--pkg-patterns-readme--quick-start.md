@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Minimal usage of the patterns package: import M from @endo/patterns; construct patterns via M.string(), M.recordOf(), etc.; test with matches() or assert with mustMatch(). Demonstrates the common shape: declare expected structure, validate inbound passables against it.
 
-## Quick Start
 
 ```javascript
 import { M, mustMatch } from '@endo/patterns';

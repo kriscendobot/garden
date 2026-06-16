@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Install via npm/yarn: npm install @endo/ses or yarn add @endo/ses. Use the auto-installing shim entry point (import 'ses') or the explicit form (import { lockdown } from 'ses').
 
-## Install
 
 ```sh
 npm install ses

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Specific guidance for code that wraps values in Proxy objects: which traps need to be aware of the new integrity-trait semantics, and what changes to make ahead of the language change.
 
-## How proxy code should prepare
 
 [#2673](https://github.com/endojs/endo/pull/2673) will *by default* produce proxies that refuse to be made non-trapping. An explicit handler trap (perhaps named `stabilize` or `suppressTrapping`) will need to be explicitly provided to make a proxy that allows itself to be made non-trapping. This is the right default, because proxies on frozen almost-empty objects can still have useful trap behavior for their `get`, `set`, `has`, and `apply` traps. Even on a frozen target
 - the `get`, `set`, and `has` traps applied to a non-own property name are still general traps that can have useful trapping behavior.

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Compatibility notes: which ava features work as-is under SES, which need adaptation, and which are unsupported. Useful for anyone migrating an existing ava-based test suite to ses-ava.
 
-# Compatibility
 
 If you were already using `@endo/ses-ava` by doing
 

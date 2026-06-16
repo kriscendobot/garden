@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The inclusion hierarchy: every Key is a Pattern (one that matches only itself), every Pattern is a Passable (one that classifies). Most Passables are Keys (those with a total order); some are not (records with non-key values). The hierarchy informs which constructs can appear where: only Keys can be CopySet elements; only Patterns can be method guards; all are Passables.
 
-## Key, Pattern, and Passable Hierarchy
 
 Understanding the type hierarchy:
 

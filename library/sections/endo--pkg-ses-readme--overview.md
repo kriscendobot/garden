@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/ses is the Hardened JavaScript implementation: a shim that installs the SES (Secure ECMAScript) semantics in a regular JS realm via the lockdown() function. Establishes the core verbs (lockdown, harden, Compartment), the security model (frozen intrinsics, opt-in endowments), and the relationship to the broader Endo ecosystem. Foundational reading for anyone deploying SES.
 
-# SES
 
 SES is a [shim][define shim] for [Hardened JavaScript][] as [proposed][SES
 proposal] to ECMA TC39.

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: npm install @endo/trampoline. Standard install instructions.
 
-## Install
 
 The usual sort of thing:
 

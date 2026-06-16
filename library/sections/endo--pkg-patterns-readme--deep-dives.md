@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Pointer to packages/patterns/docs/marshal-vs-patterns-level.md, which clarifies the relationship between the marshal-level type discipline (pass-style) and the patterns-level shape discipline (patterns). Worth reading when designing schemas or method guards that span both layers.
 
-## Deep Dives
 
 For implementation details:
 - [marshal vs patterns abstraction levels](./docs/marshal-vs-patterns-level.md)

@@ -19,7 +19,6 @@ group: Documents
 category: Guides
 ---
 
-# Endo
 
 [![contributing][contributing-svg]][contributing-url]
 [![license][license-image]][license-url]

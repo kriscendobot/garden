@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Inventory of security audits SES has undergone, with dates, auditors, and links to reports. Important for downstream consumers evaluating whether SES is suitable for their threat model.
 
-## Audits
 
 In June 2021, `ses` underwent formal third party vulnerability assessment over a
 period of 4 weeks with 3 engineers and a dedicated project manager that

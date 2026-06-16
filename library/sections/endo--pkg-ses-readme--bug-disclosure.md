@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Brief pointer to the same coordinated-disclosure protocol covered by docs/security.md. Reports go to security@agoric.com or the Agoric HackerOne program.
 
-## Bug Disclosure
 
 Please help us practice coordinated security bug disclosure, by using the
 instructions in [SECURITY.md][] to report security-sensitive bugs privately.

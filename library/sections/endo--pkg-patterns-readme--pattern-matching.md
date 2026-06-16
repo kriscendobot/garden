@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Two functions for applying patterns: matches(specimen, pattern) returns boolean (non-throwing); mustMatch(specimen, pattern, label?) throws with a useful diagnostic message on failure. Use matches() in fast-path predicates; use mustMatch() at boundaries where failure should propagate as an error with context.
 
-## Pattern Matching
 
 ### matches(specimen, pattern)
 

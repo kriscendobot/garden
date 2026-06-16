@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/trampoline is a small library implementing the trampoline pattern for unwinding deeply nested async invocations. Used to compose generator-style coroutine code that bridges sync and async boundaries.
 
-# @endo/trampoline
 
 > Multicolor trampolining using generators
 

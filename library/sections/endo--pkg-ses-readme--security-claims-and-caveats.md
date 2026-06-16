@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Five sub-sections analyzing SES's security posture: Single-guest Compartment Isolation (what one Compartment can do to itself), Multi-guest Compartment Isolation (cross-Compartment effects), Endowment Protection (what powers cross the boundary), Caveats (known weaknesses), Trusted Compute Base (what must be trusted for SES to hold its guarantees). The substantive security-properties section of the SES README; consolidated as one section with H3 sub-sections inline.
 
-## Security claims and caveats
 
 The `ses` shim concerns boundaries between programs in the same process and
 JavaScript realm.

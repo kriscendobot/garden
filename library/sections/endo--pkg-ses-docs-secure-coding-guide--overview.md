@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Mark Miller's practitioner-facing guide to writing secure JavaScript under SES. Walks through a worked example showing the same code under non-SES and under SES, with patterns and anti-patterns. Substantial (532 lines); the foundational read for anyone writing code intended to defend against malicious cooperating modules.
 
-# Secure Coding Guidelines under SES
 
 SES is a JavaScript-based programming environment that
 makes it easier to write *defensively consistent* programs. We define

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Three passable collection types beyond plain copyArray/copyRecord: CopySet (unordered set of keys), CopyBag (multiset; keys with counts), CopyMap (key-to-value mapping). Each is a tagged value (see makeTagged from pass-style) and patterns provides M.set(), M.bag(), M.map() constructors plus comparison and iteration helpers. Used when applications need richer-than-array structure with consistent ordering across realms.
 
-## Copy Collections
 
 Patterns introduces three passable collection types built on `makeTagged()`:
 

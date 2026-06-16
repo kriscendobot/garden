@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How a single test file can exercise multiple SES configurations (different lockdown option combinations). Pattern: parameterized test wrappers that re-run the same body under each configuration; tooling for distinguishing the configurations in test output.
 
-# Supporting multiple configurations
 
 SES-AVA also provides a command line tool, `ses-ava`, that can run AVA with
 multiple configurations in a single command, intercepting flags to filter
