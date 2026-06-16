@@ -68,15 +68,15 @@ Worked examples on `kriscendobot/agoric-sdk#5`:
 - `multichain-testing imports.test.ts` `null == true`: dual-AVA-install in the lockfile (fixer cc9bb5 diagnosis after cb7a05's SES-pin work resolved a parallel root cause).
 - `async-flow LogStore` type-check residue: `@ts-expect-error` directives at the call sites (fixer ba72cd).
 
-#### Class D — Regression (flag urgently)
+#### Class D: Regression (flag urgently)
 
 A previously-green check (or a previously-classified-as-expected check) has flipped to red in the current cycle. This is *not* a normal class C failure; it is a signal that the chain just regressed and the fixer's most recent push (or a base-branch update) likely introduced it. The orchestrator dispatches a fixer immediately, citing the regression explicitly so the fixer treats the most recent diff as the prime suspect.
 
 A regression is detected by comparing the current classification to `prior_classification`. A job whose name was absent from the prior failing set or was classified as A (expected) or as silent-green and is now red is a regression. The detection happens at orientation; it is not a separate phase.
 
-Worked example: none in the PR #5 chain so far, but the regression class is the OODA loop's circuit breaker. The maintainer's framing on 2026-06-16: *"Regressions (failures that were green and went red — flag urgently)."*
+Worked example: none in the PR #5 chain so far, but the regression class is the OODA loop's circuit breaker. The maintainer's framing on 2026-06-16: *"Regressions (failures that were green and went red, flag urgently)."*
 
-### 3. Decide — pick the next class to dispatch
+### 3. Decide: pick the next class to dispatch
 
 Decision rules, in order:
 
@@ -89,7 +89,7 @@ Class B failures are never dispatched against from this loop; their resolution r
 
 When the same C class persists across two consecutive cycles with no progress (the fixer's push did not change the failure signature), promote the class to B (structural impasse) on the third cycle and surface to the maintainer. A fixer that cannot make progress in two attempts has discovered a deeper problem; do not iterate further.
 
-### 4. Act — dispatch the role chosen in Decide
+### 4. Act: dispatch the role chosen in Decide
 
 For Class C or Class D, dispatch a fixer (per `roles/fixer/AGENT.md`). The dispatch brief:
 
@@ -161,4 +161,4 @@ On termination, the entry adds a *Termination* block naming the condition (green
 
 ## Notes from the field
 
-- _2026-06-16_: this skill was authored by gardener dispatch `633f85` per kriskowal's directive on `kriscendobot/agoric-sdk#5`: *"on PR #5 he had to manually re-prompt the steward 3 times to reclassify CI failures + dispatch the next fixer."* The classification rubric (A expected, B structural impasse, C tractable, D regression) is distilled from the successful chain of fixer dispatches `ba72cd` → `cb7a05` → `cc9bb5` on that PR. The loop's purpose is to close the seam where the orchestrator stopped at each red rollup to re-ask the maintainer "what next?" — the maintainer's authority to dispatch the next fixer is implicit in the original "drive this to green" directive and remains in force until the loop terminates.
+- _2026-06-16_: this skill was authored by gardener dispatch `633f85` per kriskowal's directive on `kriscendobot/agoric-sdk#5`: *"on PR #5 he had to manually re-prompt the steward 3 times to reclassify CI failures + dispatch the next fixer."* The classification rubric (A expected, B structural impasse, C tractable, D regression) is distilled from the successful chain of fixer dispatches `ba72cd`, `cb7a05`, `cc9bb5` on that PR. The loop's purpose is to close the seam where the orchestrator stopped at each red rollup to re-ask the maintainer "what next?". The maintainer's authority to dispatch the next fixer is implicit in the original "drive this to green" directive and remains in force until the loop terminates.
