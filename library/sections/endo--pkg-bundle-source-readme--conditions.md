@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Package.json export conditions: how bundle-source resolves which file to bundle for a given package based on conditions (default, node, browser, import, require, etc.).
 
-## Conditions
 
 Node.js introduced [conditions](https://nodejs.org/api/packages.html#conditional-exports).
 The `--condition`/`-C` option accordingly influences `bundle-source` module

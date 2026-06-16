@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/bundle-source bundles a JavaScript module graph into a single archive string, suitable for serialization as part of a passable. 6 H2 sub-sections cover the bundler's behavior: package.json conditions, comment elision, TypeScript type erasure, source maps, the moduleFormat negotiation, and the endoScript-specific module format.
 
-# Bundle Source
 
 This package creates source bundles from ES Modules, compatible with Endo
 applications, Agoric contracts, and SwingSet vats.

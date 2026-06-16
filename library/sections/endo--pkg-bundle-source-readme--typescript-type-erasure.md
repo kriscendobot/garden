@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How bundle-source strips TypeScript type annotations during bundling. The result is plain JS compatible with the SES runtime.
 
-## TypeScript type erasure
 
 TypeScript modules with the `.ts`, `.mts`, and `.cts` extensions in
 packages that are not under a `node_modules` directory are automatically

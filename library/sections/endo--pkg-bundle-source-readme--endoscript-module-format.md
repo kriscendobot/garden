@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Detailed coverage of the endoScript moduleFormat: the canonical format for Endo bundles. Describes the serialization shape, the entry-point convention, and how compartment-mapper consumes endoScript archives.
 
-## endoScript moduleFormat
 
 The `ses` shim uses the "endoScript" format to generate its distribution bundles,
 suitable for injecting in a web page with a `<script>` tag.

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How bundle-source removes JS comments from bundled sources. Important for size reduction and for stripping potentially-sensitive comment content.
 
-## Comment Elision
 
 The `--elide-comments`/`-e` option with default format "endoZipBase64" or
 explicit format "endoScript" via `--format`/`-f` causes the bundler to blank out

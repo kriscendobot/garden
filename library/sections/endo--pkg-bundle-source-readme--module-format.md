@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The moduleFormat option's variants and what each one means: nested, getExport, endoScript, etc. Each format is a different way of representing the bundled module graph in the resulting string.
 
-## `moduleFormat` explanations
 
 <a id="getexport-moduleformat"></a>
 ### getExport

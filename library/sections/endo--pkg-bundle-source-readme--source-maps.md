@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How bundle-source produces source maps for debugged-bundled-output mapping. The source maps allow stack traces in bundled code to refer back to the original source files.
 
-## Source maps
 
 With the default `moduleFormat` of "endoZipBase64", the bundler can generate
 source maps but does not include them in the bundle itself.
