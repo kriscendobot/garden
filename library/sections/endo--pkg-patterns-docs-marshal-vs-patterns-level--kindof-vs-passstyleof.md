@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The relationship at the patterns layer: kindOf adds finer-grained classification on top of passStyleOf (e.g., a copyArray with all-numeric elements has kind 'copyArray' but a more specific kindOf-derived shape). Patterns uses kindOf for matching; marshal uses passStyleOf for transport.
 
-## `kindOf` *vs* `passStyleOf`
 
 Only the `passStyleOf` level is assumed for universal interoperability, but `kindOf(p) === passStyleOf(p)` for every non-Tagged Passable value. For a Tagged Passable `p`, `kindOf` may or may not recognize the value as encoding an instance of one of its known higher-level data types. If it is not recognized, then `kindOf(p) === undefined` but the Passable remains valid and must be accurately transmissable by all participants (for example, Alice might send a Tagged that she recognizes to Bob, who does not recognize it but sends it on to Carol who does).
 

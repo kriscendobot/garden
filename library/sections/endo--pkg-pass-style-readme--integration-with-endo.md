@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How pass-style relates to other Endo packages: marshal uses pass-style to classify, patterns uses it to match, exo uses Far/makeTagged for declaring class instances, captp uses it to decide what crosses the wire by data vs by proxy. A short cross-cutting map; deeper detail lives in each package's own README.
 
-## Integration with Endo Packages
 
 - **Validation**: [@endo/patterns](../patterns/README.md) - Pattern matching to
   validate passables

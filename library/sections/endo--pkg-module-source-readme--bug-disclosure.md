@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Standard pointer to the coordinated-disclosure process for security-sensitive issues.
 
-## Bug Disclosure
 
 Please help us practice coordinated security bug disclosure, by using the
 instructions in

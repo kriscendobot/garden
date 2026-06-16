@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Edge case: same module loaded twice (once original, once via eval into different compartment) both memoizing the same function. The eval-twin scenario reveals subtle cross-realm cache coordination issues.
 
-## What Happens When a Module Meets its Eval Twin?
 
 Only those modules whose exports preserve isolation
 should be widely shared across a system.

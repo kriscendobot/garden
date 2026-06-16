@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How @endo/ocapn composes the lower-level packages (captp, marshal, netstring, noise) to realize the protocol. The package-composition view of the OCapN realization.
 
-## Architecture
 
 The package is organized in layers, from high to low:
 

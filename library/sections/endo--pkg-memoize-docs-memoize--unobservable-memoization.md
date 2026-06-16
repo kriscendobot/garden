@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The strongest form of memoization safety: callers cannot observe whether a result was cached or computed fresh. Requires care around timing channels, harden() state, prototype-chain visibility.
 
-## Unobservable Memoization
 
 If the following requirements are met, then the memoizing by `memoFn` is
 not observable. IOW, under these circumstances, `memoize` is not observably

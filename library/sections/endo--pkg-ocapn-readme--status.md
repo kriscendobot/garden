@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Current maturity status of the package: which OCapN spec features are implemented, which are work-in-progress, which are deferred.
 
-## Status
 
 This package is a work in progress and is not yet published to npm.
 The API is subject to change.

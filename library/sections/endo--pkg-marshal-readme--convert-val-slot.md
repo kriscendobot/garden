@@ -14,7 +14,6 @@ notes: convertValToSlot / convertSlotToVal is where CapTP plugs marshal into a p
 
 > Abstract: Application-supplied callbacks that bridge marshal's slot-index abstraction to the application's notion of capability identity. convertValToSlot takes a remotable and returns a unique slot identifier (typically a string from a sender-side table). convertSlotToVal takes a slot identifier and returns a remotable (typically by constructing a proxy on the receiver side). CapTP plugs its own implementations in to make sender-side and receiver-side identity consistent across the wire.
 
-## `convertValToSlot` / `convertSlotToVal`
 
 When `m.toCapData()` encounters a pass-by-presence object, it will call the
 `convertValToSlot` callback with the value to be serialized. The return value

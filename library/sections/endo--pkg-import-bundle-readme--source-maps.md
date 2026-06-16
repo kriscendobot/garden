@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Source-map handling at load time: how bundled-evaluated code references original source locations for error stacks and debuggers.
 
-## Source maps
 
 For an Endo (zip, base64) bundle, `bundleSource` will add source maps to a
 per-user cache so they can be debugged if imported on the same host.

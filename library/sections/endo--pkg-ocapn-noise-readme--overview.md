@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/ocapn-noise: the noise-protocol netlayer implementation for OCapN. Provides integrity and confidentiality over an underlying transport, per the OCapN Netlayers spec requirements.
 
-# `@endo/ocapn-noise`
 
 Provides a [Noise Protocol](https://noiseprotocol.org/) netlayer for
 `@endo/ocapn`.

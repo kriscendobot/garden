@@ -9,26 +9,15 @@ ingested: 2026-05-14
 ingested_by: scholar
 topics: [ocapn]
 status: current
+kind: index
+section_count: 2
 ---
 
 > Abstract: Pointers to related Endo packages (captp, marshal, syrups, syrup-frame, ocapn-noise, netstring, stream) plus the license header.
 
-## Related Packages
+Sections:
 
-- [`@endo/captp`](../captp/README.md): A minimal CapTP implementation using
-  JSON encoding, suitable for simpler use cases.
-- [`@endo/marshal`](../marshal/README.md): Serialization of passable objects.
-- [`@endo/eventual-send`](../eventual-send/README.md): The `E()` proxy for
-  asynchronous message passing.
-- [`@endo/ocapn-noise`](../ocapn-noise/README.md): Cryptographic utilities
-  for an OCapN network based on [Noise Protocol][].
-
-## License
-
-[Apache-2.0](./LICENSE)
-
-[OCapN]: https://ocapn.org
-[Syrup]: https://github.com/ocapn/syrup
-[Noise Protocol]: https://noiseprotocol.org/
+- [Related Packages](endo--pkg-ocapn-readme--related-and-license--related-packages.md)
+- [License](endo--pkg-ocapn-readme--related-and-license--license.md)
 
 Source: [packages/ocapn/README.md](https://github.com/endojs/endo/blob/36db20f1/packages/ocapn/README.md) at commit `36db20f1`.

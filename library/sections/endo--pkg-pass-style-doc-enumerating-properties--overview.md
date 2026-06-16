@@ -14,7 +14,6 @@ status: current
 > Abstract: How pass-style enumerates the properties of a value during classification. Covers Object.keys() vs Reflect.ownKeys(), why pass-style uses one or the other, edge cases around frozen vs non-extensible vs sealed objects, and the implications for what passStyleOf actually inspects.
 
 
-# How do I enumerate JavaScript object properties? Let me count the ways.
 
 JavaScript has a tremendous number of different constructs for enumerating the
 properties of an object, with different semantics of what subset they choose to

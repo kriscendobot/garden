@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Configuration options for the loader: endowments, transforms, error policies. Mirrors the Compartment constructor's options but at the bundle-loading layer.
 
-## Options
 
 `importBundle()` takes an options bag and optional additional powers.
 

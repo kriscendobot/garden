@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Calling marshal: makeMarshal returns a {toCapData, fromCapData} pair. toCapData serializes a JS value to {body, slots} where slots are capability references resolved by application-supplied convertValToSlot/convertSlotToVal callbacks; fromCapData reverses the process. The body is a JSON-encoded smallcaps string.
 
-## Usage
 
 This module exports a `makeMarshal()` function, which can be called with two
 optional callbacks (`convertValToSlot` and `convertSlotToVal`), and returns

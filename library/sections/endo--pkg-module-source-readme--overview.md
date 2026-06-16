@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/module-source provides the ModuleSource constructor: a representation of a JavaScript module's source for use in Compartments. Used by compartment-mapper and import-bundle when assembling module graphs.
 
-# ModuleSource
 
 This package provides a ponyfill for the `ModuleSource` constructor, suitable
 for use in the SES shim's module descriptors.

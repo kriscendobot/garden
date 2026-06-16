@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Baseline memoize() semantics: function input → cached output mapping. What equality is used for the lookup key, what cache-lifetime guarantees are provided.
 
-## Base semantics
 
 ***Hardened JS***: Even the supposedly non-contingent base semantics does
 depend on a key assumption: That the primordial intrinsics still conform to

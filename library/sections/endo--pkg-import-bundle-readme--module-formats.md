@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The 5 bundle formats import-bundle understands: endoZipBase64 (zip-encoded archive), endoScript (single-script encoding), getExport (legacy format), nestedEvaluate (Compartment-nested form), test (development helper). Each maps to a specific bundle-source output mode.
 
-## Module Formats
 
 The source can be bundled in a variety of "formats".
 

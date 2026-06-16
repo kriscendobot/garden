@@ -13,7 +13,6 @@ status: current
 
 > Abstract: TypeScript type guards exported by the package: assertPassable, assertPureData, isPureData, etc. The pure-data variants are stricter than passable: they exclude remotables and promises (only pure values, no capability identity). Useful in serializers and predicate contexts where capability semantics would be wrong.
 
-## Type Guards
 
 The package provides type guards for common pass styles:
 

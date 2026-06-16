@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/init is the full-Endo initialization shim: more comprehensive than @endo/lockdown alone. Importing it sets up lockdown + the causal console + assertion globals + base intrinsics in one go. The typical bootstrap for Endo-using applications.
 
-# `@endo/init`
 
 Importing `@endo/init` sets up an Endo JavaScript realm.
 This includes setting up HardenedJS, including locking it down,

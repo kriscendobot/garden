@@ -13,7 +13,6 @@ status: current
 
 > Abstract: A variant of ModuleSource for the XS JS engine (used by Agoric for embedded contexts). Notes the differences from the standard engine variant.
 
-## XS Specific Variant
 
 With the `xs` condition, `@endo/module-source` will not entrain Babel and will
 just adapt the native `ModuleSource` to the older interface presented by this

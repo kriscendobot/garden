@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/ocapn: the in-Endo realization of the OCapN protocol family. Top-level frame; the substantive content is in the H2 sub-sections.
 
-# `@endo/ocapn`
 
 A tentative implementation of the [OCapN][] (Object Capability Network)
 protocol for Hardened JavaScript.

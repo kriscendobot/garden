@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Why memoize must be defensive: a memoize wrapper exposes its cache state implicitly through timing and through the same-result-for-same-input guarantee. Adversarial callers can probe the cache.
 
-## Defensiveness
 
 For `fn` to be defensive, it should throw at least on any argument
 that is not a valid WeakMap key. It should also throw on any argument

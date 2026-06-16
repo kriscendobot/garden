@@ -13,7 +13,6 @@ status: current
 
 > Abstract: ModuleSource carries source-map data alongside the source text so Compartments can produce useful stack traces against the original source.
 
-## Source maps
 
 The `ModuleSource` is a shim for what we hope to eventually call a native
 `ModuleSource` constructor.

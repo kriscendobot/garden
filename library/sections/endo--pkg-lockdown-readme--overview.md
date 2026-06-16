@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The thin @endo/lockdown shim package. Importing it ensures SES has both initialized AND locked down the environment, so subsequent imports can rely on a hardened environment. Use @endo/init for a more comprehensive upgrade beyond just lockdown.
 
-# `@endo/lockdown`
 
 We often need to upgrade a JavaScript environment to HardenedJS as a side
 effect of importing a module, so that later modules can rely on the hardened

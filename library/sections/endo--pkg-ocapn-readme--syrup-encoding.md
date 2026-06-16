@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How the package handles Syrup serialization (the wire format OCapN uses for some serializations). Maps to the @endo/syrups + @endo/syrup-frame packages.
 
-## Syrup Encoding
 
 [Syrup][] is a binary serialization format tentatively used by OCapN for encoding
 messages.

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The high-level distinction marshal enforces. Pass-by-copy (copyArray, copyRecord, tagged, primitives, errors): contents serialize and the receiver reconstructs an equivalent value. Pass-by-presence (remotable, promise): only an identity reference crosses; the receiver gets a proxy that forwards method calls back to the sender. The choice determines whether the value preserves identity across the boundary or only data.
 
-## Pass-by-Copy vs Pass-by-Presence
 
 ### Pass-by-Copy
 

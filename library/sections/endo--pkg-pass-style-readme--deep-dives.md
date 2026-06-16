@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Pointers to deeper documentation under packages/pass-style/doc/: copyArray-guarantees.md, copyRecord-guarantees.md, enumerating-properties.md. Each addresses a subtle aspect of how marshal classifies non-trivial structures and what guarantees the classification provides about iteration order, property enumeration, and similar JS-level surprises.
 
-## Deep Dives
 
 For implementation details:
 - [CopyRecord guarantees](./doc/copyRecord-guarantees.md) - Detailed validation

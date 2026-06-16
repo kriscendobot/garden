@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Enumerates which JS values are passable: primitives (with the symbol restrictions), frozen empty objects, hardened copyArrays, hardened copyRecords, hardened taggeds, frozen errors (with restricted property sets), Far-built remotables, and promises. Non-passable: unfrozen objects, regular functions, exotic objects, host objects, weakly-rooted references.
 
-## Passable Values
 
 A value is passable if it meets these requirements:
 

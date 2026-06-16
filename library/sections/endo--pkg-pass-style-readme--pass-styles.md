@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The complete enumeration of pass styles. Primitive styles (string, number, bigint, boolean, undefined, null, symbol) match their JS counterparts with restrictions (symbols must be well-known or registered). Container styles (copyArray, copyRecord, tagged) compose other passable values. Special styles: error (the only mutable-state-bearing pass-by-copy type), promise (pass-by-presence in concept; resolves to its eventual value), remotable (pass-by-presence for capability-bearing objects).
 
-## Pass Styles
 
 | Pass Style | Category | Description | Examples |
 |------------|----------|-------------|----------|

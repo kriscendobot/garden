@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Netstring is a simple length-prefixed framing format: `<decimal-length>:<byte-sequence>,`. `@endo/netstring` exposes `makeNetstringReader(input, {name?, maxMessageLength?})` and `makeNetstringWriter(output, {chunked?})` as the encoder/decoder pair; both implement `@endo/stream`'s typed `Reader<Uint8Array, undefined, undefined>` / `Writer<Uint8Array, undefined, undefined>` shape (`next` / `return` / `throw` plus `[Symbol.asyncIterator]`) with **`Uint8Array` at every boundary** — never strings, the decimal length prefix is the only stringly-typed surface. Yielded chunks may be ranges of a ring buffer the stream owns until the next `next()` call. Used as the framing layer beneath OCapN; referenced by the upstream protocol's Netlayers spec.
 
-# netstring
 
 This is an implementation of asynchronous streams framed as [Netstrings][].
 A netstring is a binary protocol for length-prefixed frames,

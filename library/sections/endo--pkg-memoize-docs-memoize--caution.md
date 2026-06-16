@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Closing caveat: memoize is a sharp tool. The safe patterns cover common cases; novel use-cases need careful security analysis. When in doubt, prefer explicit caches.
 
-## Caution
 
 We do not currently have the tooling to check or enforce the above requirements.
 That's why we phrase this as *contingent safety*. The `memoize` function

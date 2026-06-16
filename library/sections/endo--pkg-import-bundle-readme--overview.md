@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/import-bundle is the runtime bundle-loader. Takes a bundle string (produced by @endo/bundle-source or @endo/compartment-mapper) and evaluates it into Compartments, returning the entry point's namespace.
 
-# import-bundle
 
 `importBundle` is an async function that evaluates the bundles created by
 `bundle-source`, turning them back into callable functions:

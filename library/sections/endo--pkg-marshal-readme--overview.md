@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/marshal is the pass-style serialization layer for capability-bearing values. Converts between in-memory JavaScript values and a smallcaps wire format, distinguishing pass-by-copy values (the passable types: copyArray, copyRecord, primitive, error) from pass-by-presence values (remotables). Foundation for CapTP and OCapN protocols.
 
-# @endo/marshal
 
 "Marshalling" refers to the conversion of structured data (a tree or graph of
 objects) into a string, and back again.

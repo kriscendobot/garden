@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How memoize interacts with Compartment isolation: a cache shared across compartments is a covert channel; one cache per compartment is sometimes acceptable. Trade-offs and patterns.
 
-## Preserving Isolation
 
 There is a similar guarantee to unobservability that can be provided by
 meeting similar requirements. In Hardened JavaScript, `lockdown` makes all the

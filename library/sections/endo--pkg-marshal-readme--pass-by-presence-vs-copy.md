@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Pass-by-copy values cross the wire as data (their contents serialize). Pass-by-presence values (remotables) cross as a slot reference; the receiving side reconstructs a local proxy that forwards method calls back to the sender's original. The classification is determined by pass-style: copyArray, copyRecord, primitive, error are pass-by-copy; remotable is pass-by-presence.
 
-## Pass-by-Presence vs Pass-by-Copy
 
 `marshal` relies upon `@endo/pass-style` to distinguish between objects that are
 pass-by-presence and those that are pass-by-copy.

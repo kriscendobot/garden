@@ -9,36 +9,15 @@ ingested: 2026-05-14
 ingested_by: scholar
 topics: [marshal, pass-style]
 status: current
+kind: index
+section_count: 2
 ---
 
 > Abstract: Smallcaps extends JSON to encode types JSON cannot: undefined, NaN, Infinity, BigInt, Symbol (well-known), Error (with cause-tree), and capability references (as slot indexes). The encoding is a string-only JSON wire format; type tags use prefix characters in string positions to disambiguate.
 
-## Beyond JSON
+Sections:
 
-`marshal` uses special values to represent both Presences and data which cannot
-be expressed directly in JSON. These special values are usually strings with
-reserved prefixes in the preferred "smallcaps" encoding, but in the original
-encoding were objects with a property named `@qclass`. For example:
-
-```js
-import '@endo/init';
-import { makeMarshal } from '@endo/marshal';
-
-// Smallcaps encoding.
-const m1 = makeMarshal(undefined, undefined, { serializeBodyFormat: 'smallcaps' });
-console.log(m1.toCapData(NaN));
-// { body: '#"#NaN"', slots: [] }
-
-// Original encoding.
-const m2 = makeMarshal();
-console.log(m2.toCapData(NaN));
-// { body: '{"@qclass":"NaN"}', slots: [] }
-```
-
-
-## See also
-
-- [`endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme`](endo--packages-marshal-src-encodetosmallcaps-js--special-character-prefix-scheme.md) — the implementation-side rationale for the prefix scheme this README section introduces; why the reserved-character range is contiguous and what the byte-savings vs capdata are quantitatively.
-- [[smallcaps-encoding]] — the concept page for the wire format.
+- [Beyond JSON](endo--pkg-marshal-readme--beyond-json--beyond-json.md)
+- [See also](endo--pkg-marshal-readme--beyond-json--see-also.md)
 
 Source: [packages/marshal/README.md](https://github.com/endojs/endo/blob/70bcca3d4ba93e92221a9188f583126ca84e4e4d/packages/marshal/README.md) at commit `70bcca3d`.

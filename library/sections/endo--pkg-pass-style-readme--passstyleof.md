@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Returns the pass-style of the input value as a string (one of the enumerated styles). Throws if the value is not passable (e.g., a non-hardened object, a non-Far'd remotable, a non-well-known symbol). The primary discriminator any marshal-adjacent code uses.
 
-## Core Functions
 
 ### passStyleOf(value)
 

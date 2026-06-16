@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Marshal can be used as a direct JSON replacement when capability values are not in play: it handles BigInt, NaN, Infinity, undefined, errors, and other types JSON cannot, with deterministic encoding. Useful for serializing arbitrary frozen JS values to a stable wire format even outside the capability-bearing context.
 
-# As a direct alternative to JSON
 
 This marshal package also exports `stringify` and `parse` functions that are
 built on the marshal encoding of passable data. They can serve as direct

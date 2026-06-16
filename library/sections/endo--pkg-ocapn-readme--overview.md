@@ -13,7 +13,6 @@ status: current
 
 > Abstract: What @endo/ocapn provides: the application-facing API for OCapN-based capability-bearing messaging. Distinct from the spec docs (which describe the wire-level requirements) in that this package is the JS-side library application code calls into.
 
-## Overview
 
 OCapN is a protocol for secure distributed object programming.
 It enables networked programming with the convenience of calling methods on

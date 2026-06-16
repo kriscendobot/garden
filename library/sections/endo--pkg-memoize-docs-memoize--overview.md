@@ -14,7 +14,6 @@ status: current
 > Abstract: Mark Miller's writeup on safe memoization under SES. Naive memoization breaks under SES (mutable cache as covert channel, capability identity assumptions). This document walks through the constraints and the safe pattern @endo/memoize implements.
 
 
-# Memoization Safety
 
 Let's examime the contingent safety properties of the `memoize` function
 implemented by the `memoize.js` module, whose implementation at the time of
