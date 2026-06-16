@@ -15,7 +15,6 @@ notes: Complete / Implemented are synonyms; the doc allows both. Reference and A
 
 > Abstract: The 8-value status taxonomy for the metadata table. **Not Started** (design written, no implementation), **Proposed** (under discussion, not accepted), **In Progress** (implementation underway), **Complete** (fully implemented; sometimes bolded `**Complete**`), **Implemented** (synonym for Complete), **Active** (living document, continuously maintained), **Reference** (informational, not an implementation target), **Deprecated** (superseded by another design — requires Supersedes pointer).
 
-## Status Values
 
 | Status | Meaning |
 |--------|---------|

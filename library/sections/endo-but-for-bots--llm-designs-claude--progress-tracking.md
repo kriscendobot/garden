@@ -15,7 +15,6 @@ notes: The load-bearing rule of this section: **any modification to a design doc
 
 > Abstract: Progress is tracked at two levels. **Per-document**: the metadata-table Status field is primary; an optional `## Status` prose section provides implementation details (file paths built, design deviations, what remains). **Cross-document**: `designs/README.md` maintains a summary table, a mermaid dependency graph, milestone tables with exit criteria, size/duration estimates calibrated against observed velocity, and a Gantt timeline. **Critical synchronization rule**: any modification to a design doc (especially metadata) must be reflected in `designs/README.md`. New designs require adding a summary-table row, assigning to a milestone, inserting into the dependency graph if applicable, adding a size/duration estimate, and updating milestone totals + timeline if the critical path changes.
 
-## Progress Tracking
 
 Progress is tracked at two levels:
 

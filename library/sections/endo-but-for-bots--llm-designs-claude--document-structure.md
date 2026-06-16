@@ -15,7 +15,6 @@ notes: The 7 sections are a template, not a contract — simpler designs may omi
 
 > Abstract: After the metadata table, design docs follow a 7-section template. **(1) Status** (optional prose section for partially/fully implemented designs — file paths, deviations); **(2) Problem statement** (`## What is the Problem Being Solved?` or `## Motivation`); **(3) Design** (main body); **(4) Dependencies** (table of related designs); **(5) Phased implementation** (numbered phases when work is incremental); **(6) Design Decisions** (numbered rationale list); **(7) Known Gaps and TODOs** (`- [ ]` checklist, used sparingly). Simpler designs may omit sections. Each design also captures its originating **Prompt** at the end as a blockquote under `## Prompt`.
 
-## Document Structure
 
 After the metadata table, documents follow this general structure:
 

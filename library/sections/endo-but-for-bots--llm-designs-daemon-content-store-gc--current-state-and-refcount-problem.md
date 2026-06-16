@@ -15,7 +15,6 @@ notes: The "two formulas can share a content hash via dedup" is the load-bearing
 
 > Abstract: **Content store before this design**: `makeContentStore()` in `daemon-node-powers.js` exposes `store()`, `fetch()`, `has()`. **No `remove()`. No retention tracking. No integration with formula GC.** **Formula GC** (`collectIfDirty()` in `daemon.js`): mark-and-sweep over formulas; on collection it cancels the controller, drops live values + CapTP retainers, deletes the formula JSON file, deletes pet-store/mailbox-store/known-peers-store directories. **Does NOT** handle content-store files or scratch-mount directories. **Reference-counting problem**: multiple formulas can reference the same SHA-256 hash (content deduplication). A naive "delete content when formula is collected" would break if two `readable-blob` formulas share the same hash and only one is collected.
 
-## Current State
 
 ### Content store
 

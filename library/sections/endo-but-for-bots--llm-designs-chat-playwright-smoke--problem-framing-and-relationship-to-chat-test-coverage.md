@@ -16,90 +16,15 @@ notes: |
   in CI today, and explains why the sibling `chat-test-coverage` e2e
   suite (Complete; uses `yarn dev` + daemon fixture) is the wrong tool
   for this narrower regression.
+kind: index
+section_count: 6
 ---
 
-## Abstract
+Sections:
 
-The endo-but-for-bots repo already has a `Browser Tests` GitHub Actions workflow (`.github/workflows/browser-test.yml`, job `browser-tests`) that provisions Playwright and exercises the SES UMD bundle in a real browser via `browser-test/tests/canary.spec.js`. But the `@endo/chat` package's substantial Vite-built React/SES bundle is *not* exercised by that job today, so a regression in the Chat entry point — a stray top-level import that fails under SES, a Vite plugin misconfiguration, a dependency upgrade that breaks the bundle, a CSS import that 404s, a runtime error before the WebSocket connection is attempted — currently lands silently. The first signal is a contributor running `yarn dev` locally and seeing a blank page or a `pageerror` in the devtools console. The sibling design `chat-test-coverage.md` (Complete) describes the unit, component, and Playwright e2e tests that already live inside `packages/chat/test/`. Those tests are valuable but they (a) do not currently run in CI, and (b) exercise UI behaviors against `yarn dev` (Vite dev server) and require a daemon-shaped powers fixture; the present design proposes a single Playwright smoke that proves the *production bundle* builds and loads, scoped deliberately narrower than the Chat e2e suite so it can run without a daemon, without `yarn dev`, and without test fixtures.
-
-## Body
-
-### What the existing `browser-tests` job exercises
-
-The `.github/workflows/browser-test.yml` workflow defines a `browser-tests` job that:
-
-1. Installs Playwright and its browser binaries.
-2. Runs `yarn build` at the workspace root (the `Build artifacts` step), which builds every workspace package — including `@endo/chat`'s Vite output to `packages/chat/dist/`.
-3. Runs `npx playwright test` against the specs in `browser-test/tests/`, the main of which is `canary.spec.js` — a Playwright check that the SES UMD bundle loads in a real browser.
-
-The job *already does* the heavy infrastructure work: Playwright is provisioned, a real browser is available, the workspace is built, and a static-file server is running (via `browser-test/server.js` plus the `webServer` config in `browser-test/playwright.config.js`). What the job does *not* do is point Playwright at the `@endo/chat` bundle and assert it loads.
-
-### The regression class this design targets
-
-The narrow regression this smoke catches is *the production bundle fails to reach its first user-visible state*. Specifically:
-
-- **Bundle parse failures**: SES rejecting an asset for non-strict-mode constructs; Vite output that surprises SES's parser; a `lockdown()` call that throws before any user-visible UI renders.
-- **Top-level import failures**: `main.js`'s top-level imports (`ses`, `@endo/eventual-send/shim.js`, `connection.js`, `chat.js`, and their transitive imports) all execute before any UI renders. A missing or renamed module surfaces only when the bundle is loaded by a browser.
-- **Asset path mismatches**: a 404 on the bundle, on `index.css`, or on a chunk — caused by a bad `base:` in `vite.config.js`, a missing `assetsInclude`, or a stray reference to an asset that no longer exists.
-- **Lockdown-time errors**: errors that throw between bundle-parse and entry-script-execution — e.g. a `lockdown` call with an option the current SES doesn't recognize.
-
-All four classes share a property: they fail *before any user-visible UI renders*, so a developer using `yarn dev` sees a blank page or a console error and a contributor running CI sees nothing at all (because no CI test exercises the bundle in a browser).
-
-### Why `chat-test-coverage` is not the answer for this regression
-
-The sibling design `chat-test-coverage.md` (Complete) describes the broader unit, component, and Playwright e2e tests that already live inside `packages/chat/test/`. Those tests:
-
-- **Exercise UI behaviors**, not just bundle-load. They assume the bundle loads and check what happens after.
-- **Require `yarn dev`**, the Vite dev server, not the production build. The dev-server bundle is *different* from the production bundle — Vite resolves imports differently, applies different transformations, and serves modules in a different shape. A regression in the production bundle that the dev-server bundle masks can land silently even if the e2e suite passes.
-- **Require a daemon-shaped powers fixture**. The Chat e2e tests mock or stub the daemon connection; setting up that fixture is non-trivial for CI.
-- **Do not currently run in CI**. The `chat-test-coverage` design notes they live in `packages/chat/test/` but the existing `browser-tests` workflow does not invoke them.
-
-So the chat-test-coverage suite is the wrong tool for this regression for *three independent reasons*: (1) it doesn't run in CI today; (2) even when it does run, it tests `yarn dev` not the production bundle; (3) it requires daemon-shaped fixtures.
-
-The chat-playwright-smoke is *deliberately* narrower:
-
-- **Production-bundle**: tests what CI builds, which is what users get.
-- **Daemon-free**: navigates without a fragment, so the entry point reaches the "Gateway not configured" deterministic fallback state and never attempts a WebSocket connection.
-- **Fixture-free**: no daemon stubs, no powers mocks, no setup overhead.
-
-The two designs are complementary. The smoke catches "the bundle builds and loads"; chat-test-coverage catches "the loaded UI behaves correctly". The smoke is a *prerequisite* for the e2e suite — if the bundle doesn't load, there is no point exercising deeper behavior.
-
-### The "build-and-load" invariant
-
-The design's choice of invariant is *the entry point reaches the "Gateway not configured" heading without any uncaught error or failed request*. This invariant has three nice properties:
-
-1. **Deterministic without fixtures**: the entry point at `packages/chat/main.js` lines 33-46 renders a "Gateway not configured" heading when no `gateway` and `agent` parameters are in the URL fragment. So a fragment-less navigation deterministically reaches this state. No daemon, no WebSocket, no fixtures needed.
-2. **Strong**: reaching the heading proves SES lockdown succeeded, the bundle parsed, the entry script ran past its top-level imports, the asset URLs all resolved, and the React render reached its first state. *All four regression classes* fail this invariant.
-3. **Tight**: the assertion is "heading is visible AND no uncaught pageerror AND no failed request". Each of the three conditions independently catches a regression class. Together they form a tight, falsifiable assertion that admits no false-pass.
-
-The design notes that supplying a fake gateway and agent would force the bundle into WebSocket connection logic which would fail without a daemon; filtering those errors out would *weaken* the assertion. The fragment-less path is the deterministic, daemon-free state the entry point already implements, so it is the right target for the smoke.
-
-## Connection to the wider library
-
-This section is the **motivational framing for a narrow CI guard against silent bundle regressions**. The library can cite this section whenever:
-
-1. **A design needs to motivate a narrow CI guard.** The pattern of *targeting a regression class so narrow that the broader test suite is the wrong tool* is rare and useful. The chat-playwright-smoke is a worked example.
-2. **A design discusses the dev-vs-prod build divergence.** Vite's dev-server bundle differs from its production bundle in module resolution, transformations, and module shape; tests that pass against `yarn dev` can miss regressions that only the production bundle exposes. The smoke's daemon-free production-bundle scope is the canonical answer.
-3. **A design needs to explain why two test surfaces are complementary, not duplicative.** The chat-test-coverage e2e suite + the chat-playwright-smoke each catch a different class of failure; running both is not redundant.
-
-## Implications for Endo / Agoric
-
-This section maps directly to the contemporary Endo `browser-tests` CI workflow. The library can cite it whenever:
-
-1. **A design discusses adding a new Vite-built package to CI.** The chat-playwright-smoke pattern (fragment-less navigation + deterministic fallback state assertion) generalizes to any Vite-built React/SES application.
-2. **A design discusses SES lockdown failures.** The bundle parse / lockdown-time error / top-level import failure regression classes all reach back to SES's strict requirements; a "bundle builds and loads" smoke is the right CI surface for those classes.
-
-## See also
-
-- [[hardened-javascript]] (topic) — SES is the strict environment that catches bundle regressions; the smoke is the CI surface that exposes them.
-- [[testing]] (topic) — CI test-suite design choices; the smoke is a worked example of *deliberately-narrow* scoping.
-- `endo-but-for-bots--llm-designs-chat-components` — the broader Chat component design that the smoke protects against silent regression.
-- `endo-but-for-bots--llm-designs-chat-pending-commands` — adjacent chat-UI design; both target the same Vite-built package.
-- `endo-but-for-bots--llm-designs-chat-playwright-smoke--build-serve-and-playwright-fixture` — the next section in this source: how the smoke is built, served, and run.
-
-## Common confusions
-
-- **"Why not just run chat-test-coverage in CI?"** Three reasons: (a) it doesn't run there today; (b) it tests `yarn dev` not the production bundle, and the two bundles can diverge; (c) it requires daemon-shaped fixtures the smoke doesn't. The smoke and the e2e suite are *complementary*: smoke catches build-and-load; e2e catches behavior post-load.
-- **"The smoke duplicates the canary spec."** The canary spec exercises the SES UMD bundle as a standalone; the smoke exercises the Chat Vite bundle. The two are different artifacts with different failure modes. The canary catches SES-bundle regressions; the smoke catches Chat-bundle regressions.
-- **"The 'Gateway not configured' heading is brittle."** The heading text is the existing fallback state the entry point already implements (lines 33-46 of `packages/chat/main.js`). Renaming it would be a deliberate UI change and would be caught by the smoke, prompting the engineer to update the assertion. The brittleness is *intentional*: the heading is the deterministic signal that the bundle reached its first user-visible state.
-- **"Without a daemon, the smoke doesn't test anything realistic."** The smoke explicitly targets *build-and-load*, not behavior. Behavior is tested by the e2e suite. Asking the smoke to test behavior is asking the wrong question.
+- [Abstract](endo-but-for-bots--llm-designs-chat-playwright-smoke--problem-framing-and-relationship-to-chat-test-coverage--abstract.md)
+- [Body](endo-but-for-bots--llm-designs-chat-playwright-smoke--problem-framing-and-relationship-to-chat-test-coverage--body.md)
+- [Connection to the wider library](endo-but-for-bots--llm-designs-chat-playwright-smoke--problem-framing-and-relationship-to-chat-test-coverage--connection-to-the-wider-library.md)
+- [Implications for Endo / Agoric](endo-but-for-bots--llm-designs-chat-playwright-smoke--problem-framing-and-relationship-to-chat-test-coverage--implications-for-endo-agoric.md)
+- [See also](endo-but-for-bots--llm-designs-chat-playwright-smoke--problem-framing-and-relationship-to-chat-test-coverage--see-also.md)
+- [Common confusions](endo-but-for-bots--llm-designs-chat-playwright-smoke--problem-framing-and-relationship-to-chat-test-coverage--common-confusions.md)

@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Every design doc opens with a level-1 heading (the title) followed by a 2-column metadata table. **Required fields**: Created, Author, Status. **Optional**: Updated (added when revised), Source (provenance if extracted), Supersedes (path to superseded design). **Author format**: `Name (prompted)` to indicate human-directs-LLM authorship. **Date format**: ISO 8601 (`YYYY-MM-DD`); update Updated whenever the doc is materially revised.
 
-## Metadata Table
 
 Every design document begins with a level-1 heading (the title), followed immediately by a metadata table using this format:
 
