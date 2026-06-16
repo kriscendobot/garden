@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How to rebuild the SES shim from sources. Short procedural section; covers the build commands and what produces the published artifacts.
 
-## Rebuilding `ses`
 
 Changes to `ses` require a `yarn build` to be reflected in any dependency where `import 'ses';` appears. Use `yarn build` under `packages/ses` to refresh the build.
 Everything else is wired up thanks to workspaces, so no need to run installs in other packages.

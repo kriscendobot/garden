@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Top-level contributor onboarding for endojs/endo. The 6-section guide covers: initial setup (Node, yarn, action pinning), validation (lint, types, tests), creating a new package, rebuilding ses, and the changeset workflow for tracking changes across the monorepo's release process.
 
-# Contributing to Endo
 
 
 Source: [CONTRIBUTING.md](https://github.com/endojs/endo/blob/6ad084a6900b/CONTRIBUTING.md) at commit `6ad084a6`.

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Endo's three test commands are `yarn test` (ava, runtime), `yarn lint:types` (tsd, type tests in `test/types.test-d.ts`), and `yarn lint` (runs both `lint:types` and `lint:eslint`). Always run `yarn lint` in each modified package before committing.
 
-## Testing
 
 - Runtime tests: `yarn test` (uses `ava`)
 - Type tests: `yarn lint:types` (uses `tsd`. Test files are `test/types.test-d.ts`)

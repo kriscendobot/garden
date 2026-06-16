@@ -14,7 +14,6 @@ notes: Liveslots is the standard high-level layer; the `enableSetup: true` + `ma
 
 > Abstract: Each Vat source file (`vat-foo.js` / `vat-bar.js`) is the starting point of a bundling process that converts the Vat's source tree into a single string (so it can be evaluated in a SES realm). The source file exports a `buildRootObject` function returning a Vat "root object" managed by Liveslots — non-local imports are not yet allowed. Bypass option: `enableSetup: true` + `managerType: "local"` lets a Vat export a default `setup` function that receives `syscall` directly and returns `dispatch`. Liveslots provides `helpers.makeLiveSlots(syscall, state, buildRootObject, helpers.vatID)` to build `dispatch` from `syscall` for the standard case. The Root Object becomes available to the Bootstrap Vat.
 
-## Vat Sources
 
 Each Vat source file (like `vat-foo.js` or `vat-bar.js`) is treated as a starting point for a bundling process that converts the Vat's source tree into a single string (so it can be evaluated in a SES realm). This starting point can use `import` to reference shared local files. No non-local imports are allowed yet.
 

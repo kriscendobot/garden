@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The standard build sequence: `corepack enable && yarn install && yarn build`. Explains the node_modules layout: top-level `node_modules/` holds shared deps; per-subproject `node_modules/` holds the deps unique to that subproject (with an aspirational goal to eliminate all such uniqueness). Inter-subproject deps are symlinks (e.g., `node_modules/@endo/marshal` → `packages/marshal`). `yarn workspaces info` reports the dependency graph; the `mismatchedWorkspaceDependencies` section identifies symlink-blockers (version mismatches) the contributor should resolve. `yarn build` generates kernel bundles.
 
-## Build
 
 From a new checkout of this repository, run:
 

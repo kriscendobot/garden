@@ -14,7 +14,6 @@ notes: The "endo provides the lower layers" frame is the most important architec
 
 > Abstract: The Agoric Platform SDK repo contains most of the packages making up the upper layers of the Agoric platform. The lower layers are provided by the [endo repository](https://github.com/endojs/endo). Dapp builders should *not* check out this repo — they should follow the [getting-started guide at docs.agoric.com](https://docs.agoric.com/guides/getting-started/) instead. This repository is for those improving the platform itself.
 
-# Agoric Platform SDK
 
 ![unit tests status](https://github.com/Agoric/agoric-sdk/actions/workflows/test-all-packages.yml/badge.svg)
 ![integration tests status](https://github.com/Agoric/agoric-sdk/actions/workflows/integration.yml/badge.svg)

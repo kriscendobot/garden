@@ -14,7 +14,6 @@ notes: The doc carries `???` placeholders about double-provisioning behavior at 
 
 > Abstract: The provisioning sequence: (1) generate an address off-chain; (2) provision an account using that address — creates a Bank as a side effect; (3) create a Wallet using the Bank, which includes Virtual Purses that translate `getAmount` calls down to the Golang layer. Per-address invariant: 0 or 1 wallets per Cosmos address. There's a 1:1:1:1 relationship across Address ↔ Bank ↔ `myAddressNamesAdmin` ↔ Wallet. `namesByAddress` and `board` are shared globally. Two unresolved `???` questions in the doc: double-provisioning an address (probably a Cosmos transaction failure), double-wallet-creation from a bank (unspecified).
 
-## Usage
 
 There can be zero or one wallets per Cosmos address.
 

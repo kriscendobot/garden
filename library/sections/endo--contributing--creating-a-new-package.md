@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Procedure for adding a new package to the monorepo: directory layout, package.json conventions, the types-index pair, README and CHANGELOG templates. Coding Style sub-section covers the eslint rules; Markdown Style Guide sub-section covers the docs style (em-dash policy, link conventions).
 
-## Creating a new package
 
 Run <code>[scripts/create-package.sh](./scripts/create-package.sh) $name</code>,
 then update the resulting README.md, package.json (specifically setting

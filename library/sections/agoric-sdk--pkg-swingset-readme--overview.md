@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Frame. SwingSet implements an architecture where Vats run on top of a "kernel" as if they were userspace processes in an operating system. Each Vat gets a `syscall` object for sending messages to the kernel and registers a `dispatch` function to receive messages from the kernel. Deeper material in `./docs`; tooling via SwingSet Runner and the in-package `vat` utility.
 
-# SwingSet Vat
 
 This repository implements an architecture in which Vats run on top of a "kernel" as if they were userspace processes in an operating system. Each Vat gets access to a "syscall" object, through which it can send messages into the kernel. Vats receive message from the kernel via a "dispatch" function which they register at startup.
 

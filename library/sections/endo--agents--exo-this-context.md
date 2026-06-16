@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Exo methods receive a `this` context whose shape depends on the API: `makeExo` and `defineExoClass` expose `this.self`; `defineExoClassKit` exposes `this.facets` instead (no single self in a multi-facet kit). State (`this.state`) is present for the two class APIs, absent for `makeExo`. Never mix `self` and `facets` in the same `ThisType<>` annotation.
 
-## Exo `this` context
 
 Exo methods receive a `this` context (via `ThisType<>`) that differs between single-facet and multi-facet exos:
 

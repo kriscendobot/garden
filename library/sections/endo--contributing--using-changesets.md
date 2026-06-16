@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The changeset workflow for the monorepo: adding a changeset for a PR that affects published packages, editing existing changesets, deciding whether a changeset is needed (test-only, doc-only, internal-refactor PRs may not need one), and the release workflow that converts changesets into version bumps.
 
-## Using Changesets
 
 Endo uses [Changesets](https://github.com/changesets/changesets) to manage
 versioning and changelogs.

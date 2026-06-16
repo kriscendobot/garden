@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The endo repository is a Yarn-workspace monorepo with packages under `packages/`. Tests use ava (runtime) and tsd (types). Linting is eslint with project rules, run per-package via `yarn lint`.
 
-## Repository structure
 
 - Monorepo managed with Yarn workspaces
 - Packages live in `packages/`

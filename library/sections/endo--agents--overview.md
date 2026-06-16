@@ -13,7 +13,6 @@ status: current
 
 > Abstract: One-line frame for the endo repository's AGENTS.md file: conventions and constraints for AI agents working in this repository. Specific rules live in the sibling sections (repository structure, TypeScript usage, Exo this-context, testing, commit conventions).
 
-# Agent Instructions for endo
 
 This file provides conventions and constraints for AI agents working in this repository.
 

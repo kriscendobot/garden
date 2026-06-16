@@ -14,7 +14,6 @@ notes: The "no E() in flows" constraint is a key restriction — flows are synch
 
 > Abstract: Orchestration flows are regular JS functions with **four constraints** to be resumable after vat termination: (1) must not close over any values that could change between invocations; (2) must satisfy the `OrchestrationFlow` interface; (3) must be hardened; (4) **must not use `E()`** (eventual send). The call to `orchestrate` in reincarnations must use the same `durableName`. Recommended file pattern: keep flows in a `.flows.js` module, import them all with `import * as flows` to get a single object keyed by export name, use `orchestrateAll` to treat each export name as a `durableName`, adopt `@agoric/eslint-config` rules.
 
-## Orchestration flows
 
 Flows to orchestrate are regular Javascript functions but have some constraints to fulfill the requirements of resumability after termination of the enclosing vat. Some requirements for each orchestration flow:
 

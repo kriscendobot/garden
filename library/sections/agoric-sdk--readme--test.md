@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How to run unit tests in agoric-sdk: `yarn test` from the top-level runs across all packages; per-package, `cd packages/<name>` and `yarn test`. (AVA underneath, framework-detail in `agoric-sdk--agents--testing-guidelines`.)
 
-## Test
 
 To run all unit tests (in all packages):
 

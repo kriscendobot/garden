@@ -13,7 +13,6 @@ status: current
 
 > Abstract: One-line frame plus a pointer at `src/examples`. The package supports "feature-rich applications that can orchestrate assets and services across the interchain." Usage examples are exported for integration testing with other packages.
 
-# Orchestration
 
 Build feature-rich applications that can orchestrate assets and services across the interchain.
 

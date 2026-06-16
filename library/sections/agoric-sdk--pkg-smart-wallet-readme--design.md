@@ -14,7 +14,6 @@ notes: The dual-channel requirement (ocap + Cosmos-signed) is the central design
 
 > Abstract: Product requirements: provision a wallet, execute offers, deposit payments, notify state changes. **Every** wallet operation must work over two channels — ocap (for JS in vats holding object references like factory or wallet) AND Cosmos signed messages. Non-requirement: multiple purses per brand (issue #6126); when needed, requires a purse-specifier in offer execution with a "default" purse policy. Security requirements live in `src/AttackersGuide.md` (not in this README).
 
-## Design
 
 See the [Attackers Guide](src/AttackersGuide.md) for security requirements.
 

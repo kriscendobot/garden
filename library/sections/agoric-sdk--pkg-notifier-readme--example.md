@@ -14,7 +14,6 @@ notes: The Alice/Bob/Carol trio demonstrates three consumer patterns: `for await
 
 > Abstract: Walked example using `makeSubscriptionKit()` with three published values ('a', 'b', then `finish('done')`). Three consumers: **Alice** uses `for await of subscription` — sees non-final values and whether the iteration finished/failed, but **cannot see the completion value 'done'** (JavaScript iteration limitation). **Bob** uses `observeIteration(subscription, observer)` with `{updateState, finish, fail}` observer — sees everything including the completion value. **Carol** uses the lower-level `ForkableAsyncIterable` interface directly: she gets `subscription[Symbol.asyncIterator]()`, listens for 'a' via her observer, and calls `subscriptionIterator.fork()` to capture a new iterator starting from that point — useful for "branch off the iteration once condition X is met" patterns. Note: SubscriptionKits are fully lossless; NotifierKits are lossy and the same example with `makeNotifierKit()` would still be correct but Alice and Bob might miss either non-final value.
 
-# Example
 
 Let's look at a subscription example. We have three characters: Paula the publisher, and Alice and Bob the subscribers. While Alice and Bob both consume Paula's published iteration, they use different tools to do so.
 

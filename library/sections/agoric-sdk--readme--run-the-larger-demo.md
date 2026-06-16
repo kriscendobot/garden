@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Quick-start demo recipe pointing at docs.agoric.com getting-started. The TL;DR sequence: `yarn link-cli ~/bin/agoric`, then `agoric init foo`, `cd foo`, `agoric install`, `agoric start`, browse to `http://localhost:8000`.
 
-## Run the larger demo
 
 Visit
 [https://docs.agoric.com](https://docs.agoric.com/guides/getting-started/) for

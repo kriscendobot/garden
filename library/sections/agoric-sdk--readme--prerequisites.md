@@ -14,7 +14,6 @@ notes: Soft-flag overlap with agoric-sdk--docs-node-version-- and agoric-sdk--co
 
 > Abstract: agoric-sdk's toolchain prerequisites: Git, Go ^1.24.1, Node.js ^20.9 or ^22.11 (latest LTS recommended via nvm), Yarn (any version — `.yarnrc` pins the checked-in `.yarn/releases/` version), gcc ≥10 / clang ≥10 / another compiler with `__has_builtin()`. These ranges are also enforced in `repoconfig.sh` (`golang_version_check`, `nodejs_version_check`). Apple-Silicon and newer-arch builds may need to compile some native deps from source — currently Canvas — and may require `export CPLUS_INCLUDE_PATH=/opt/homebrew/include` and `xcode-select --install`.
 
-## Prerequisites
 
 Prerequisites are enforced in various places that should be kept synchronized
 with this section (e.g., [repoconfig.sh](./repoconfig.sh) defines

@@ -14,7 +14,6 @@ notes: The bootstrap-vat singleton-entry-point pattern is the canonical mechanis
 
 > Abstract: The in-package `vat` CLI. Two modes: `bin/vat run --config <swingset-config>` and `bin/vat shell --config <swingset-config>` (REPL with `dump()` / `await step()` / `await run()` added to the environment). A basedir-style invocation is also supported: every `vat-*.js` (or `vat-*/index.js`) under the basedir creates a Vat. A `bootstrap.js` is mandatory: it defines the "bootstrap Vat" whose `bootstrap(argv, vats)` method is invoked at startup with the argv array and a `vats` object holding Presences of every other Vat's root object. The bootstrap invocation is the **only** way to get things started — all other Vats are born without external references; they may run setup code but cannot interact without Presences.
 
-## `vat` CLI
 
 ```console
 $ yarn install

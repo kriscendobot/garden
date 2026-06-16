@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How Zoe contracts publish data for off-chain readers. Contracts use `StoredPublishKit` which tees writes to off-chain storage; readers consume via `makeFollower(storeKey, makeDefaultLeader())` and `iterateLatest(follower)` for await/yield. The canonical key hierarchy lives under `published.<stream>`; non-terminal nodes could have data but mostly don't yet. High-cardinality types get a parent key for enumeration (`vaults`). Currently published streams include `priceAggregator`. The demo flow uses `make scenario2-run-chain-economy` and `agoric follow :published.priceFeed.ATOM-USD_price_feed`.
 
-## Reading data off-chain
 
 Some Zoe contracts publish data using StoredPublishKit which tees writes to off-chain storage. These can then be followed off-chain like so,
 

@@ -14,7 +14,6 @@ notes: Soft-flag overlap with agoric-sdk--docs-commit-hygiene--* (the canonical 
 
 > Abstract: agoric-sdk dev-process standards: all work on branches; single-commit branches can land on trunk without separate merge, but multi-commit branches should have a separate merge commit naming the affected packages (e.g., `(SwingSet,cosmic-swingset) merge 123-fix-persistence`). Tidy history; rebase to avoid overlapping branches. Every branch references an Issue and uses the issue number as a name prefix (`123-description`). Issue Labels mark affected packages. User-visible changes go into `changelogs/` named after the issue number. Branches should modify a single package unless the issue spans multiple. Releases follow `MAINTAINERS.md`.
 
-## Development Standards
 
 * All work should happen on branches. Single-commit branches can land on trunk
   without a separate merge, but multi-commit branches should have a separate

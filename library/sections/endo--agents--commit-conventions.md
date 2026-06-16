@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Endo uses conventional commits with a package scope: `feat(pkg):`, `fix(pkg):`, `refactor(pkg):`, `chore:`, `test(pkg):`. Breaking changes append `!` (e.g., `feat(pkg)!:`). File-type conversions (`.js` to `.ts`) get their own `refactor:` commit.
 
-## Commit conventions
 
 - Use conventional commits: `feat(pkg):`, `fix(pkg):`, `refactor(pkg):`, `chore:`, `test(pkg):`
 - Breaking changes: `feat(pkg)!:` or `fix(pkg)!:`

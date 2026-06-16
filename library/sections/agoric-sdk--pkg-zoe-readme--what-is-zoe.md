@@ -14,7 +14,6 @@ notes: The "users get what they want OR a full refund" property is Zoe's definin
 
 > Abstract: Zoe is a framework for building smart contracts (auctions, swaps, decentralized exchanges, …). Zoe is itself a smart contract written in JavaScript running on the Agoric platform. **Core safety property**: as a user, you either get what you wanted or get a full refund, even if the contract is buggy or malicious. (The contract never has direct access to user assets.) **For developers**: write contracts in plain JavaScript on a framework that ensures users can't lose assets due to code bugs.
 
-## What is Zoe?
 
 Zoe is a framework for building smart contracts like auctions, swaps,
 decentralized exchanges, and more. Zoe itself is a smart contract

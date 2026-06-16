@@ -14,7 +14,6 @@ notes: This tip is a practical gotcha: any incoming message after vat-incarnatio
 
 > Abstract: Durable-kind maker functions are **synchronous**. When converting from an async maker, all needed data must be already available in the vat's `prepare` — no awaits. The reason is the load-bearing invariant: all `prepare`s happen in the **first crank** of the event loop. Once the successor vat-incarnation is online, a message can arrive for any exo a previous incarnation exported to another vat, and that exo's kind behavior must be ready to handle it. Data persists across vat-incarnations but code does not, so the successor must redefine all outstanding-exo behaviors in the first crank before any messages can arrive.
 
-## Tips
 
 ### Synchronous makers
 

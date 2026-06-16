@@ -14,9 +14,7 @@ notes: The "by convention one well-known VaultFactory" + "by governance one Vaul
 
 > Abstract: IST is the Agoric economy's stable token. **VaultFactory** is the well-known singleton (one per protocol instance, by convention). **VaultManager** is created by governance, one per collateral asset type. **Vault** is created by anyone who puts up collateral with the appropriate VaultManager — then can request IST backed by that collateral. Liquidation: when the debt:collateral ratio exceeds the governed threshold, the VaultManager performs a price check; if undercollateralized, it liquidates the vault.
 
-# Inter protocol
 
-## Overview
 
 IST is a stable token that enables the core of the Agoric economy.
 

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Frame for the package. Provides production/consumption of asynchronous value sequences via three kits: the recommended PublishKit, plus the deprecated NotifierKit and SubscriptionKit. All three let a service notify clients of state changes. The README assumes familiarity with JavaScript async iteration (AsyncGenerators / AsyncIterables / AsyncIterators) and elaborates on the user-doc semantics at docs.agoric.com/guides/js-programming/notifiers.html.
 
-# PublishKit and Related Types
 
 This package provides an abstraction for production and consumption of asynchronous value sequences, the *PublishKit*, along with similar but deprecated types *NotifierKit* and *SubscriptionKit*. All three let a service notify clients of state changes.
 

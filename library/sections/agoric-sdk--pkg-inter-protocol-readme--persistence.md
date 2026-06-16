@@ -14,7 +14,6 @@ notes: One-line stub. The "(Endo?)" parenthetical signals lineage uncertainty be
 
 > Abstract: A one-line note. The protocol states (factory, managers, vaults, debts) are robust to system restarts and upgrades, accomplished via the Agoric (Endo?) Collections API.
 
-## Persistence
 
 The above states are robust to system restarts and upgrades. This is accomplished using the Agoric (Endo?) Collections API.
 

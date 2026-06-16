@@ -14,7 +14,6 @@ notes: The Finish/Fail distinction is the formal termination model — Finish ca
 
 > Abstract: Formal semantics. An async iteration is an abstract sequence of values consisting of zero or more **non-final values** in a fully-ordered sequence, revealed asynchronously over time. Full ordering means all consumers see the whole sequence (or a subset) in the same order. Termination is either **Finish** (successful completion with a completion value, any JS value) or **Fail** (failure with a reason, should be an Error but can be any JS value). "Non-final" and "final" refer only to position, not the Java meaning.
 
-# Distributed Asynchronous Iteration
 
 An async iteration is an abstract sequence of values. It consists of zero or more *non-final values* in a fully ordered sequence, revealed asynchronously over time. In other words, the values have a full ordering, and all consumers see the whole sequence, or a subset of it, in the same order.
 

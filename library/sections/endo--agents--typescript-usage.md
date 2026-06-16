@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Endo's TypeScript rules accommodate `.js` development (this repo) and `.ts` consumers (e.g., agoric-sdk). Six sub-rules apply: no `.ts` in runtime bundles, `.ts` files for type definitions only, the `types-index` convention (paired `.js` and `.d.ts` files for re-exports), placement rules for type definitions, `emitDeclarationOnly: true` is repo-wide, and `.js` files use `/** @import */` JSDoc to pull in types without a runtime module load.
 
-## TypeScript usage
 
 Our TypeScript conventions accommodate `.js` development (this repo) and `.ts` consumers (e.g. agoric-sdk). See [agoric-sdk/docs/typescript.md](https://github.com/Agoric/agoric-sdk/blob/master/docs/typescript.md) for full background.
 

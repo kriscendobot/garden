@@ -13,7 +13,6 @@ status: current
 
 > Abstract: A one-line frame — `walletFactory` is the contract that provisions and manages smart wallets. Per agoric-sdk's AGENTS.md, smart-wallet is one of the primary-code packages.
 
-# Smart Wallet
 
 The `walletFactory` contract provisions and manages smart wallets.
 

@@ -14,7 +14,6 @@ notes: This is the canonical map of the Inter Protocol's off-chain-readable stat
 
 > Abstract: VaultFactory publishes via `StoredPublishKit` to off-chain storage; readers consume with `@agoric/casting`'s `makeFollower` + `iterateLatest`. The canonical key hierarchy under `published`: **vaultFactory** (with `governance`, `metrics`, and `managers.managerN.{metrics, governance, vaults.vaultN}`), **auction** (`schedule`, `governance`, `book0`), **reserve** (`governance`, `metrics`), **priceFeed** (per-pair `${input}-${output}_price_feed` with `.latestRound` sub-key), **psm** (`<minted>.<anchor>.{governance, metrics}`), **committees** (`Economic_Committee.{latestQuestion, latestOutcome}`).
 
-## Reading data off-chain
 
 VaultFactory publishes data using StoredPublishKit which tees writes to off-chain storage. These can then be followed off-chain like so,
 

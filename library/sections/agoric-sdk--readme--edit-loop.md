@@ -14,7 +14,6 @@ notes: The "yarn build in zoe creates the contract facet bundle" point is a non-
 
 > Abstract: The agoric-sdk inner-loop iteration: modify code in e.g. `zoe/`, run `yarn build` (top-level or in `zoe/`), re-run tests or `agoric start --reset`, repeat. Important caveat: doing `yarn build` in `zoe` creates the "contract facet bundle" — a single file rolled up from all Zoe contract vat sources. This bundle is what `zoe~.install(...)` invokes, so without `yarn build` your edits to the Zoe contract facet are ignored.
 
-## Edit Loop
 
 * modify something in e.g. `zoe/`
 * run `yarn build` (at the top level or in `zoe/`)

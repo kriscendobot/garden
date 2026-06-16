@@ -14,6 +14,5 @@ notes: One-line README. Substantive Liveslots material lives in agoric-sdk--pkg-
 
 > Abstract: A one-line stub README. The substantive material on the Liveslots layer (Vat root object management, syscall→dispatch conversion, kind registration) lives in the SwingSet README's "Vat Sources" section (`agoric-sdk--pkg-swingset-readme--vat-sources-and-liveslots`). For deeper content, check the package's own `/docs/` directory.
 
-# SwingSet Liveslots
 
 Source: [packages/swingset-liveslots/README.md](https://github.com/Agoric/agoric-sdk/blob/37e9855108595c38567a2b9d54c29b3242471f37/packages/swingset-liveslots/README.md) at commit `37e98551`.

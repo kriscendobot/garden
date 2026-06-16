@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The producer-side decision matrix. Publisher decides whether to support fully lossless, forward-lossless, and/or lossy consumption. Use a PublishKit `subscriber.getUpdateSince` or a NotifierKit when consumers only care about recent states (changing-quantity pattern). Use a PublishKit `subscriber.subscribeAfter` or a SubscriptionKit when consumers need gap-free values. Consumers can independently choose how to process the sequence; the publisher doesn't have to know its consumers, and consumers can't interfere with the producer or with each other.
 
-# Summary
 
 Data producers must decide whether to support fully lossless, forward-lossless, and/or lossy consumption. If your consumers only care about more recent states, then use a PublishKit `subscriber.getUpdateSince` or a NotifierKit. This is often appropriate when the iteration represents a changing quantity. If you want to support consumers that need to see gap-free values, then use a PublishKit `subscriber.subscribeAfter` or a SubscriptionKit.
 

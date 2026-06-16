@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Node.js + yarn install, dependency installation, the initial build. Includes a sub-section on action pinning (GitHub Actions versions are pinned by SHA for supply-chain safety; how to update or add pinned actions).
 
-## Initial setup
 
 ```sh
 git clone git@github.com:endojs/endo.git
