@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How compartment-mapper resolves and evaluates a module graph rooted at a local file. Walks the import tree, builds Compartments per package, applies the language-specific source transforms, and invokes the entry point. The primary developer-facing flow for running an Endo application without bundling.
 
-## Evaluating an application from a file system
 
 The `importLocation` function evaluates a compartmentalized application off the
 file system.

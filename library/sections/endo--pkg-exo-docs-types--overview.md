@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How Exo's runtime method guards interact with static TypeScript annotations. Matrix of four behaviors based on whether the implementation is plain-or-typed and whether method guards are present. Tiny pointer-style doc (12 lines).
 
-# Exo types
 
 Exos have runtime guards and also static type annotations. Both are optional, leading to this matrix of behaviors:
 

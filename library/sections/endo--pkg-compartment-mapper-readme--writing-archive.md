@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How to serialize a module graph into a self-contained archive: capture the import graph, sources, and metadata needed to evaluate the application elsewhere. The archive format is the basis for distributing capability-confined applications without depending on the source filesystem at runtime.
 
-## Writing an application archive
 
 Use `writeArchive` to capture an application in an archival format.
 Archives are `zip` files with a `compartment-map.json` manifest file.

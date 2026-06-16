@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/compartment-mapper packages a module graph into Compartments suitable for evaluation or archival. Three main flows: evaluate from filesystem (resolve imports against a local layout), write an application archive (serialize a module graph for distribution), evaluate from archive (deserialize and run). Plus a Language Extensions sub-section covering supported source-language flavors.
 
-# Compartment mapper
 
 The compartment mapper builds _compartment maps_ for Node.js style
 applications, finding their dependencies and describing how to create

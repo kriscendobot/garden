@@ -13,7 +13,6 @@ status: current
 
 > Abstract: M.callWhen() is the pattern-language operator that converts an async method declaration into one that automatically awaits eventual-send results before passing them to the implementation. Lets a method declare arg shape against the resolved value rather than the promise, while still being callable via E().
 
-## Async Methods with M.callWhen()
 
 For methods that await promises, use `M.callWhen()` instead of `M.call()`:
 

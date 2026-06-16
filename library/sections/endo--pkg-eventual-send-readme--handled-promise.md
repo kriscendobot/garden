@@ -14,7 +14,6 @@ notes: HandledPromise is CapTP's plug-in point for promise references; the marsh
 
 > Abstract: The underlying primitive: a HandledPromise is a promise with a handler that decides how E()/E.get()/E.sendOnly() are dispatched. The eventual-send shim implements HandledPromise; CapTP and other transports plug their own handler implementations in to make E() work across the wire.
 
-## HandledPromise
 
 Under the hood, `E()` uses `HandledPromise`, a Promise subclass that supports
 handler-based dispatch:

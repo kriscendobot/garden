@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The primary eventual-send operation: E(target).method(args) eventually sends a method-call message to target. If target is local, calls happen in a future turn; if remote, calls are pipelined across the comm boundary. Returns a promise for the eventual return value.
 
-## Core API
 
 ### E(target).method(...args)
 

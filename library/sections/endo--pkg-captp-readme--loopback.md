@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How CapTP connects to itself in-process: a loopback pair lets two halves of a system communicate via CapTP semantics without an actual transport. Used for testing and for in-process vat isolation.
 
-## Loopback
 
 The `makeLoopback()` function creates an async barrier between "near" and "far"
 objects.  This is useful for testing and isolation within the same address

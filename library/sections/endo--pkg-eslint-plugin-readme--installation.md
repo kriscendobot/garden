@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Install via npm/yarn and add the plugin to your eslint config. Standard eslint-plugin integration pattern.
 
-## Installation
 
 You'll first need to install [ESLint](http://eslint.org):
 

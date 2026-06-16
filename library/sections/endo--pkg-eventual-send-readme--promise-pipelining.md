@@ -13,7 +13,6 @@ status: current
 
 > Abstract: When messages cross a network boundary via E(), the comm layer can pipeline subsequent E() calls against the not-yet-resolved promise without a full round-trip. E.g., E(E(remote).getX()).method() sends both calls in one trip, with the second message addressed at the resolution-of-getX as a promise reference. Critical for performance over high-latency links.
 
-## Promise Pipelining
 
 One of the most powerful features is **promise pipelining**: the ability to
 send messages to promises before they resolve.

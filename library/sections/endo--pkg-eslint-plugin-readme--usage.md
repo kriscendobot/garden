@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How to enable the rules in your eslint config: extends, plugins, and rule-level configuration patterns.
 
-## Usage
 
 Extend a `plugin:@endo/CONFIG` in your `.eslintrc` configuration file. You can omit the `/eslint-plugin` suffix:
 

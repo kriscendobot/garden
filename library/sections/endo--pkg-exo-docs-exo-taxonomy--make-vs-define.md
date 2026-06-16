@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The first axis. makeExo: one instance per call. defineExoClass: class declaration returning a maker for many instances. defineExoClassKit: class declaration returning a maker for cohorts of facets sharing one state. Each form trades off composition cost vs the kind of state it manages.
 
-## Make instance vs Define class vs Define class kit
 
 ### make*Exo
 Each call to `makeExo` makes and returns a new fresh Exo instance. Note that there is no `makeVirtualExo` or `makeDurableExo`, although the latter is largely covered by `prepareExo`.

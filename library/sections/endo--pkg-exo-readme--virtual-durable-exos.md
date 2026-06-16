@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Exos can be virtual (state lives in a heap-managed store, not as a JS heap object) or durable (state survives across vat or daemon restarts). The defineDurableExoClass / defineDurableExoClassKit variants integrate with a baggage capability that persists state to durable storage. Required pattern for any agoric-sdk or Endo-daemon use that survives restarts.
 
-## Virtual and Durable Exos
 
 This package provides **heap-based exos** that don't survive vat termination.
 For production systems with high cardinality or upgrade requirements, see:

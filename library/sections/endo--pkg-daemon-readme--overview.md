@@ -14,7 +14,6 @@ notes: Tiny README; entire file is one section. Date is from 2022 (oldest README
 
 > Abstract: The Endo daemon is a persistent host for hardened-JavaScript worker processes, owned per-user and reached over a Unix domain socket or named pipe. Communicates in CapTP framed over netstring envelopes; the bootstrap object provides the user-agent API, from which agents derive facets for other agents. The controller manages daemon lifecycle. This is the package's entire README; per-topic detail (process model, capability bank, mount handles) will accumulate in topic files as the corpus grows.
 
-# Endo Daemon
 
 This package provides the Endo daemon and controller. The controller manages the Endo daemon lifecycle.
 

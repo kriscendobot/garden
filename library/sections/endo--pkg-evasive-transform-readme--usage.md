@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Two H3 sub-sections consolidated: the options the transform takes and a worked example. The 'evasion' here is escaping identifier collisions and proto-chain visibility, not active anti-debug.
 
-## Usage 
 
 ### Options
 

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Endo-specific eslint rules. Provides custom rules ensuring code conforms to endo conventions (no .ts in runtime bundles, proper Far()/Exo usage, etc.).
 
-# @endo/eslint-plugin
 
 ESLint customizations for Endo packages.
 

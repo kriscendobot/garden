@@ -13,7 +13,6 @@ status: current
 
 > Abstract: @endo/errors: package-level interface for the assert and error utilities described in docs/errors.md. Tiny pointer (13 lines).
 
-# `@endo/errors`
 
 When host and guest programs share a JavaScript context, there is some risk that
 the guest will call a host function and induce it to throw an exception that

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Four reasons: (1) Uniform API: same code messages local and remote objects with no syntactic change. (2) Message Ordering: E() preserves causal order across the boundary. (3) Pipeline Optimization: avoids round-trip costs. (4) Future-Proof Code: code written with E() works against any handled-promise-aware runtime, including future distributed systems that don't exist yet.
 
-## Why Eventual Send?
 
 Eventual send provides four key benefits:
 

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The @endo/captp package: a JavaScript implementation of the CapTP (Capability Transport Protocol). Provides bidirectional capability-bearing message passing over an arbitrary message transport, with promise pipelining and consistent capability identity across vat boundaries. One of the older packages in the corpus (2022-era README) but still foundational.
 
-# `@endo/captp`
 
 A minimal CapTP implementation leveraging Agoric's published modules.
 

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The third axis (durable-variant only). make/define functions create new state on each call; prepare functions retrieve previously-defined classes from a baggage capability. The prepare form is what allows code to survive a process restart: on restart, prepareDurableExoClass re-hydrates the class from baggage rather than creating a fresh definition.
 
-## Make/Define vs Prepare
 
 "prepare" is like "provide" in that it defines something that should be in the baggage, using the one that is there if found, but otherwise making a new one and registering it, so that the successor vat-invocation will find it at the same place in the baggage. Unlike "provide", for each exo behavior already in the baggage, one must call "prepare" immediately --- during the first crank of the vat incarnation. What is passed in baggage is only the state of the durable objects. Only the `prepare*` calls associate that state with code, giving it behavior. All these objects must be prepared early, so they know how to react when they receive messages.
 

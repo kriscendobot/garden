@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Source transform that helps bundled code evade detection or interception by other JS frameworks running in the same realm. Used by bundle-source for the SES-defensive parts of bundle output.
 
-# @endo/evasive-transform
 
 > Source transforms for evading censorship in [SES](https://github.com/endojs/endo/tree/master/packages/ses)-enabled applications
 

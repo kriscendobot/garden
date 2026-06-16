@@ -14,7 +14,6 @@ notes: This section zooms into eventual-send's composition with Exo specifically
 
 > Abstract: How E() composes with Exo classes: Exo instances are remotables; E(exoInstance).methodName(args) is the standard call form. Exo's method guards validate the args; the method runs in a future turn; the return value crosses back as a promise. The M.callWhen() pattern (covered in patterns) lets the method declaration shape its arg types against resolved values rather than the raw promise.
 
-## Integration with Exo
 
 Exos (from [@endo/exo](../exo/README.md)) are the ideal targets for eventual
 send:

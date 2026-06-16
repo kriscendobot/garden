@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How to wire up CapTP: makeCapTP returns a {dispatch, getBootstrap, abort} triple. dispatch consumes incoming wire messages (e.g., from a WebSocket); getBootstrap returns a promise for the remote bootstrap capability; abort tears down the connection. The convertValToSlot/convertSlotToVal callbacks from marshal plug in here for slot identity.
 
-## Usage
 
 NOTE: `myconn` below is not part of the CapTP library, it represents a connection
 object that you have created where `makeCapTP` is called on both sides of the

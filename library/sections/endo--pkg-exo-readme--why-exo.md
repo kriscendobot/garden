@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Motivates Exo over Far() alone: declarative method guards from the patterns package enforce shape at the boundary; ThisType<>-shaped state makes encapsulation explicit; multi-facet kits express the common attenuator pattern (public read-only facet + admin write facet sharing state) cleanly. Replaces ad-hoc Far + closure patterns with a typed, introspectable surface.
 
-## Why Exo?
 
 Far objects are remotable but don't validate inputs.
 Exos add automatic validation:

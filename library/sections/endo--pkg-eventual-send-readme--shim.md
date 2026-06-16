@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The package installs a HandledPromise shim that adds the eventual-send methods to all promises. Once imported, every promise gains the ability to be eventually-sent. The shim must load before any promise-handling code that depends on these methods.
 
-## Shim
 
 Eventual send relies on an Endo environment.
 Programs running in an existing Endo platform like an Agoric smart contract or

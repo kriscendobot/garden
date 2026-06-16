@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Apache-2.0 license header.
 
-## License
 
 Apache-2.0
 

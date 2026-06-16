@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Patterns for testing eventually-sent code: the eventual-send shim is synchronous-by-default in single-threaded JS (just defers to the microtask queue), so tests can await an E() call directly. Test frameworks like ava's t.is and t.throwsAsync compose naturally with promises returned from E().
 
-## Use in Tests
 
 Use `E()` even in unit tests for consistency:
 

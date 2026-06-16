@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Every exo carries a GET_INTERFACE_GUARD symbol-keyed method returning the exo's methodsGuard pattern. Lets external code inspect the declared interface for documentation, code-generation, or runtime API discovery without invoking implementation methods. The symbol-keyed access avoids name collisions with the method record.
 
-## Introspection with `GET_INTERFACE_GUARD`
 
 Every exo with an InterfaceGuard has a meta-method to retrieve its interface at
 runtime:

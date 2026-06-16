@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Where the Exo-making functions live: the @endo/exo package exports the heap-variant make/define functions; the durable variants live in the upstream consumer (typically @agoric/vat-data or similar). Endo's exo package is the heap-variant baseline; durable extensions are downstream additions.
 
-## Package Organization
 
 This `@endo/exo` package itself exports only the heap variants:
 

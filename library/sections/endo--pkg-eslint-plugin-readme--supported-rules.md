@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Inventory of rules the plugin exports, each with a brief description of what it enforces.
 
-## Supported Rules
 
 * Fill in provided rules here
 

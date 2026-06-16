@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The second axis. Heap: state in regular JS heap, dies with the process. Virtual: state in a virtual-object store, managed by a heap-management layer. Durable: state in durable storage that survives process restarts. Class Cardinality: how many instances each form supports. All three flavors of each Exo form exist.
 
-## Heap vs Virtual vs Durable
 
 ### Exo*
 As with stores, the default is that exo objects created by `makeExo` or the functions returned by `defineExoClass` or `defineExoClassKit` live in JavaScript's heap. Therefore, the total number of such Exo objects in a given vat must be able to fit into the JavaScript heap of that vat, and will occupy room in that vat's snapshot. We say the total number of instances is *low cardinality* when we expect the total number to remain low enough that this heap representation is not a problem.

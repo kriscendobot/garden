@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How Exo relates to neighbors: patterns provides the method-guard language, pass-style classifies the resulting remotable, marshal serializes it, eventual-send messages it, captp transports it. Most code that uses Exo also uses some subset of these.
 
-## Integration with Endo Packages
 
 - **Foundation**: [@endo/pass-style](../pass-style/README.md) - Remotables
   created with `Far()`

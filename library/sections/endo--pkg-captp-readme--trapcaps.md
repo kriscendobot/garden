@@ -13,7 +13,6 @@ status: current
 
 > Abstract: TrapCaps: a mechanism for synchronously trapping remote calls into a CapTP system, useful for hooking debuggers or interceptors. Lets code observe (and potentially modify) the message flow at well-defined boundaries.
 
-## TrapCaps
 
 In addition to the normal CapTP facilities, this library also has the notion of
 "TrapCaps", which enable a "guest" endpoint to call a "host" object (which may

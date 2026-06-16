@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How state is provided and accessed across the three forms: makeExo has no state (this.state is empty); defineExoClass provides state from init() to each method via this.state; defineExoClassKit provides one state from init() shared across all facets in the cohort. State is mutable; the framework does not freeze it.
 
-## State Management
 
 Each exo pattern handles state differently:
 
