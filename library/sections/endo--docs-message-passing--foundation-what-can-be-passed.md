@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Establishes the pass-style classification at a tutorial level: what types of values cross a message boundary, the pass-by-copy vs pass-by-presence distinction, and how marshal serializes each kind. The foundational read for understanding what messages can carry.
 
-## Foundation: What Can Be Passed?
 
 Before we can send messages between isolated compartments, we need to
 understand what data can safely cross boundaries.

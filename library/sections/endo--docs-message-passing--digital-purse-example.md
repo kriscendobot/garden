@@ -14,7 +14,6 @@ notes: This is the canonical end-to-end worked example for the Endo message-pass
 
 > Abstract: Worked example: a digital purse with deposit, withdraw, getBalance methods. Demonstrates pass-style (the purse is a remotable), patterns (method guards on amounts), defensive-receive (multi-facet attenuation between mint and holder), and eventual-send (E() calls across boundary). The canonical end-to-end example for the Endo message-passing model.
 
-## Putting It All Together: Digital Purse Example
 
 Let's build a complete capability-based payment system that demonstrates all
 four packages working together.

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How to add SES to an existing JS project: install the @endo/lockdown package, call lockdown() once at program start before any other module loads, then proceed normally. Covers package-import vs bundler-shim choices, plus pitfalls (lockdown before Date/Math touches, no Compartment creation before lockdown).
 
-## Using SES with your code
 
 The SES shim transforms ordinary JavaScript environments into HardenedJS environments.
 

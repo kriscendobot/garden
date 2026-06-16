@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How to use E() and E.when in practice: messaging local or remote objects uniformly, the turn model, error propagation through promises, pipelining for round-trip elimination. Composes with the prior sections to form the application-facing message-passing surface.
 
-## Eventual Send: Async Messaging
 
 The **@endo/eventual-send** package provides the `E()` proxy for asynchronous
 message passing.

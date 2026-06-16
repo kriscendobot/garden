@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Inventory of JS globals SES removes or restricts: Date.now() returns NaN by default, Math.random() is removed from compartments, locale-sensitive methods aliased to non-locale equivalents, RegExp.prototype.compile deleted under safe taming, ambient-authority sources removed. Companion to docs/lockdown.md per-option detail; this is the one-screen summary.
 
-## Removed by HardenedJS summary
 
 The following are missing or unusable under HardenedJS:
 - Most [Node.js-specific global objects](https://nodejs.org/dist/latest-v14.x/docs/api/globals.html)

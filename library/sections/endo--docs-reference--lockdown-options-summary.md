@@ -14,7 +14,6 @@ notes: Overlaps with docs/lockdown.md sections (endo--docs-lockdown--regexp-tami
 
 > Abstract: A summary of the lockdown options: default-safe settings table, a quick reference table, and per-option detail for regExpTaming, localeTaming, consoleTaming, errorTaming, stackFiltering, overrideTaming. Overlaps with docs/lockdown.md's per-option H2 sections. The reference here is shorter and reference-shaped; docs/lockdown.md has the full background, examples, and rationale per option.
 
-## `lockdown` Options
 
 ### Default `'safe'` settings
 

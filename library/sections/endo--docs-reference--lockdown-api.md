@@ -16,7 +16,6 @@ superseded_reason: Cluster B consolidation (per the cycle-15 review and the cycl
 
 > Abstract: Signature and brief semantics of lockdown(): idempotent (subsequent calls are no-ops), accepts an options object whose fields and defaults are documented in docs/lockdown.md. Calling lockdown() turns the start compartment into a SES-shape realm; cannot be undone. Distinct from repairIntrinsics()/hardenIntrinsics() (the lower-level building blocks).
 
-## `lockdown(options)`
 
 Lockdown performs two operations and these can be separated by calling
 `repairIntrinsics(options)` and `hardenIntrinsics()`.

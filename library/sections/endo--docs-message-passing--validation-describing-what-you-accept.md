@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How patterns lets a receiver describe the shape of expected inputs. Covers the M.* namespace at a tutorial pace: primitive matchers, container matchers, interface guards. The defensive-programming layer between marshal's transport and the application's logic.
 
-## Validation: Describing What You Accept
 
 Now we can pass objects between vats, but how do we ensure received data is
 well-formed?

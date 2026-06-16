@@ -13,7 +13,6 @@ status: current
 
 > Abstract: SES and the Endo packages are under active development and security review; security fixes apply only to the most recent branch, so all users are encouraged to use the latest version.
 
-## Supported Versions
 
 The SES package and associated Endo packages are still undergoing development and security review, and all users are encouraged to use the latest version available. Security fixes will be made for the most recent branch only.
 

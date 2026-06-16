@@ -16,7 +16,6 @@ superseded_reason: Cluster B consolidation (per the cycle-15 review and the cycl
 
 > Abstract: Signature and semantics of hardenIntrinsics(): the second phase of lockdown(), which transitively freezes built-in objects after repair. Calling it twice is a no-op. Useful in the delayed-freeze scenarios where repairIntrinsics() is called separately.
 
-## `hardenIntrinsics()`
 
 `hardenIntrinsics()` tamper-proofs all of the JavaScript intrinsics, so no
 program can subvert their methods (preventing some man in the middle attacks).

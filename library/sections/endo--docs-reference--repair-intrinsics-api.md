@@ -16,7 +16,6 @@ superseded_reason: Cluster B consolidation (per the cycle-15 review and the cycl
 
 > Abstract: Signature and semantics of repairIntrinsics(): the first phase of lockdown(), which patches built-in objects to remove non-SES-conforming behaviors but does not freeze them. Used directly when an application wants to delay freezing (install monkey-patches between repair and harden) while still wanting SES-style built-in behavior.
 
-## `repairIntrinsics(options)`
 
 `repairIntrinsics()` *tames* some objects, such as:
 - Regular expressions

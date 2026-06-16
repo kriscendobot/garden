@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Programmer's reference frame for SES + Endo. Distinct from docs/get-started.md (tutorial) and docs/lockdown.md (option detail): reference-shaped, suitable for skimming once and returning to as needed. Covers when to use SES, what HardenedJS removes/adds, the lockdown/repair/harden API trio, and a summary of lockdown options.
 
-# Endo and HardenedJS (SES) Programming Reference
 
 This document describes how `ses` creates a
 [HardenedJS](https://hardenedjs.org) mode for safe JavaScript.  It is very much

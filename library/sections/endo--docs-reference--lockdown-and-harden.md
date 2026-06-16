@@ -16,7 +16,6 @@ superseded_reason: Cluster B consolidation (per the cycle-15 review and the cycl
 
 > Abstract: How the two main SES verbs relate: lockdown() is one-time program-wide setup that freezes built-ins and installs the causal console; harden() is a per-value operation that transitively freezes an object graph. lockdown() is called once; harden() is called many times throughout program life. Without lockdown(), harden() works but does not benefit from frozen built-ins.
 
-## `lockdown()` and `harden()`
 
 `lockdown()` and `harden()` do the same thing; freeze objects so their
 properties cannot be changed. You can only interact with frozen objects through

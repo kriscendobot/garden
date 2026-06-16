@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Inventory of what SES adds or modifies: introduces global Compartment class, replaces Error to hide stacks in-band, replaces console with the causal console, adds assert globals, freezes and makes non-configurable various primordials. Companion to the removed-summary section above.
 
-## Added/Changed by HardenedJS summary
 
 HardenedJS adds the following to JavaScript or changes them significantly:
 - `lockdown()`

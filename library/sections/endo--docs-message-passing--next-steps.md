@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Pointers to deeper material: per-package READMEs (marshal, patterns, eventual-send, exo), the SES specification, Agoric documentation for blockchain-side use, and community discussion channels.
 
-## Next Steps
 
 You now understand the complete eventual send and receive stack.
 Here are resources for going deeper:

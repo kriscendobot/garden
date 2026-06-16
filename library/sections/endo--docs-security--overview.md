@@ -14,7 +14,6 @@ notes: Single commit in git log; older history likely predates a docs reorg.
 
 > Abstract: The top of the endo `docs/security.md` policy document is a frame; the substantive content is in the two sibling sections (supported versions, coordinated disclosure). Read this for the framing only.
 
-# Security Policy
 
 (The H1 heading is a frame; the substantive policy is in the two H2 sub-sections below.)
 
