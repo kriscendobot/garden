@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-06-04
+updated: 2026-06-16
 author: gardener, steward, liaison
 ---
 
@@ -326,9 +326,20 @@ The chain does **not** apply when the shepherd's `result` carries `next: designe
 
 When the steward dispatches a fixer via this chain, the dispatch entry's `trigger:` field cites the shepherd's `result` path and the `next: fixer` verdict so the chain is traceable. A brief PR comment (when the staged authorization permits it) noting "shepherd reported real failures; dispatching fixer per standing rule" is preferable to a maintainer ping; the chain's visibility lives in the journal and the dispatch's own work product.
 
+### Fixer → fixer (CI failure classification loop)
+
+The Shepherd → fixer chain handles the first hop. The standing form (the OODA loop the steward runs across CI cycles on a single red-CI PR) lives in [`skills/ci-failure-classification-loop/SKILL.md`](../../skills/ci-failure-classification-loop/SKILL.md). Use it whenever a PR is mid-loop: a fixer returned, the orchestrator polled the next CI cycle, and the remaining red set needs reclassification and a next dispatch.
+
+The skill names the four classes the steward uses to orient (A expected, B structural impasse, C tractable, D regression) and the decision rule for picking the next class to dispatch against. The steward enters the loop whenever the maintainer's original directive on this PR was "drive to green" (or any of its synonyms in the *Direct-dispatch verbs* table) and CI is not yet green. The loop terminates on green, on A+B-only, on no-progress, or on a missing authorization; it does not terminate on the steward's uncertainty.
+
+The principle: the maintainer's authority to dispatch the next fixer is implicit in the original "drive this to green" directive and remains in force until the loop terminates. The steward does not stop at each red rollup to re-ask "what next?"; the classification rubric **is** the next-question's answer, and the per-cycle dispatch is the loop's *Act* phase.
+
+When the steward's per-cycle scan encounters a PR that is mid-loop (the most recent `result` entry for the PR carries a classification table and no termination block), this skill is the per-cycle action for that PR. It replaces the otherwise-default "stop and wait for maintainer direction" behavior on PRs the maintainer has explicitly delegated to the loop.
+
 ### Notes from the field
 
 - _2026-05-23_: this sub-section was added by gardener dispatch `fa60a7` per kriskowal directive 2026-05-23T07:07:53Z on PR #345. Precipitating cause: on 2026-05-22T22:46Z the shepherd-2abcf7 dispatch on PR #355 returned with six real failures recommending fixer dispatch, and the steward treated the recommendation as a hand-off requiring kriskowal authorization rather than as the authorization itself. The maintainer's correction ("Dispatch fixer." 2026-05-23T03:44Z; then the standing-rule directive on #345) made it explicit that the shepherd's "needs fixer" verdict is the authorization signal, not a request for one. The shepherd-side counterpart landed in the same engagement on `roles/shepherd/AGENT.md` § Escalation classification: name the next role.
+- _2026-06-16_: the *Fixer → fixer (CI failure classification loop)* sub-section was added by gardener dispatch `633f85` per kriskowal directive on `kriscendobot/agoric-sdk#5`: he had to manually re-prompt the steward three times to reclassify CI failures and dispatch the next fixer. Precipitating chain: fixer `ba72cd` (Class C async-flow type-check) → fixer `cb7a05` (Class A multichain-testing SES split) → fixer `cc9bb5` (Class A redux, dual-AVA install). At each cycle the steward stopped to re-ask rather than running the OODA loop autonomously. The new skill (`ci-failure-classification-loop`) codifies the rubric the maintainer was applying manually so the steward can run it forward without re-prompt; this sub-section is the steward-side citation that authorizes the loop's continuation under the original "drive to green" directive.
 
 ## Parked followup revisit
 

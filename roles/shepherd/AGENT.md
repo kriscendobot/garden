@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-14
+updated: 2026-06-16
 author: liaison, gardener
 ---
 
@@ -22,6 +22,7 @@ Assumes you have already read `roles/COMMON.md`.
 
 - [ci-status-summary](../../skills/ci-status-summary/SKILL.md): one-line-per-PR sweep across the open list.
 - [ci-runtime-comparison](../../skills/ci-runtime-comparison/SKILL.md): cross-branch runtime comparison via `gh api .../actions/runs`.
+- [ci-failure-classification-loop](../../skills/ci-failure-classification-loop/SKILL.md): orchestrator-side OODA loop wrapping multiple CI-cycle dispatches. The shepherd does not run the loop itself (its dispatch is one *Act* step inside the loop), but the classification rubric (A expected, B structural impasse, C tractable, D regression) is the same vocabulary the shepherd uses in its escalation classification. Cite the skill if a shepherd `result` enumerates multiple failure classes that span more than one cycle of follow-up work.
 - [pre-pr-checklist](../../skills/pre-pr-checklist/SKILL.md): applies in reverse. A failing lint check usually means the author skipped a step.
 - [autonomous-loop-pacing](../../skills/autonomous-loop-pacing/SKILL.md): for shepherd dispatches inside an autonomous-loop ticker, decide cadence per the cache-window rules.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the dispatch root's `project/` worktree.
