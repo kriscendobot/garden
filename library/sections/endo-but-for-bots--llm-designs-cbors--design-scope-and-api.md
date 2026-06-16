@@ -15,7 +15,6 @@ notes: The "byte-string framing only" scope rule is the load-bearing limitation;
 
 > Abstract: **Scope**: byte-string framing only, just enough of RFC 8949 to read/write CBOR major-type-2 heads (optionally wrapped in tag 24, major type 6 argument 24). Rejects any other major type or tag. **API shape**: `makeCborsReader(input, {name?, maxMessageLength?})` takes an Iterable/AsyncIterable of `Uint8Array` and returns an `@endo/stream` Reader of `Uint8Array`. `makeCborsWriter(output, {chunked?, tagged?, name?})` takes an `@endo/stream` Writer of `Uint8Array` and returns the same shape. Both reader and writer carry **byte strings** at their boundaries. `tagged: true` requests tag-24 wrapping on output; the reader accepts both wrapped and unwrapped frames transparently.
 
-## Design
 
 ### Scope
 

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Etymology and naming history for 'Endo'. Notes the play on 'inside the perimeter' (endogenous), the connection to E (the language Mark Miller co-designed), and how the name was chosen for the family of packages. Background reading, not API surface.
 
-## Ruminations on the Name
 
 * In Greek, "endo-" means "internal" or "within".
   This is fitting because Endo runs Node _within_ a safe sandbox.
