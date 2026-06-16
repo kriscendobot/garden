@@ -15,7 +15,6 @@ notes: Cross-reference: library/sections/endo--docs-errors--hiding-revealing-dis
 
 > Abstract: OCapN Error: an error value sent by copy. The OCapN spec describes error-name and message-string fields; the Endo equivalent (pass-style error pass-style + the comm-system's identifier annotation per docs/errors.md § Hiding and Revealing Distributed Diagnostic Information) covers more ground including stack-trace identifier correlation.
 
-# Error
 
 A value capturing the reason for rejecting a delivery.
 

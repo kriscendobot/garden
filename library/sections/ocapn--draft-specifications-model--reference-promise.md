@@ -15,7 +15,6 @@ notes: Cross-reference: library/sections/endo--pkg-eventual-send-readme--handled
 
 > Abstract: OCapN Reference > Promise: a pending capability that will resolve to a Target. The OCapN spec describes promise resolution semantics across the wire (a promise can be fulfilled, rejected, or resolved to another remote reference). Maps to pass-style's promise pass-style and to the HandledPromise primitive in @endo/eventual-send.
 
-## Promise
 
 A Promise represents the eventual return value (fulfillment) or thrown error
 (rejection reason) for a message delivery.

@@ -11,25 +11,15 @@ project: ocapn
 topics: [ocapn]
 status: current
 notes: Draft spec. The Endo netstring + noise + stream packages collectively implement what this spec calls a netlayer.
+kind: index
+section_count: 2
 ---
 
 > Abstract: Netlayers abstract over the transport beneath OCapN: they provide message-stream connectivity with specific properties (reliability, ordering, integrity, optional confidentiality). Section is the warning + additional-documents pointer.
 
-# Warning: This is a draft specification likely to undergo significant change
+Sections:
 
-This draft specification has been initially written based on Spritely Goblin's
-implementation as a base for the [OCapN pre-standardization
-group](https://ocapn.org) to work from. Over time this document will change,
-likely significantly as the group converges on the design of OCapN. If you're
-interested in being part of that work, please join!
-
-Authors: Jessica Tallon, Christine Lemmer-Webber & The OCapN Pre-standardization
-Group.
-
-# Additional Documents
-
-- [OCapN Locators](): Representation of object references for both in-band and
-  out-of-band usage.
-
+- [Warning: This is a draft specification likely to undergo significant change](ocapn--draft-specifications-netlayers--overview--warning-this-is-a-draft-specification-likely-to-undergo-significant-change.md)
+- [Additional Documents](ocapn--draft-specifications-netlayers--overview--additional-documents.md)
 
 Source: `draft-specifications/Netlayers.md` at commit `d05a6d3e` (held at kriscendobot/ocapn).

@@ -15,7 +15,6 @@ notes: Cross-reference: library/sections/endo--pkg-pass-style-readme--maketagged
 
 > Abstract: OCapN Tagged: a (tag, payload) pair where tag is a Symbol and payload is any value. Maps directly to pass-style tagged (created via makeTagged). Tag-symbol restrictions match the OCapN Symbol atom restrictions.
 
-## Tagged
 
 A pair consisting of a tag and a [Value](#value).
 The tag must be a [String](#string).

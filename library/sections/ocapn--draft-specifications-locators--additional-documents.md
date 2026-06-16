@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Pointer section listing other spec docs that depend on or extend Locators.
 
-# Additional Documents
 
 This document does not stand alone, it relies upon multiple other documents
 which together build up OCapN  (Object Capability Network) specifications.

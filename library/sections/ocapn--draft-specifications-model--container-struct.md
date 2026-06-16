@@ -15,7 +15,6 @@ notes: Cross-reference: library/sections/endo--pkg-pass-style-doc-copyrecord-gua
 
 > Abstract: OCapN Struct: an unordered map from symbols to values. Maps to pass-style copyRecord with one important difference: OCapN Struct keys are Symbols (with restrictions); copyRecord keys are strings (also with restrictions). Both forbid arbitrary keys and require all values be passable.
 
-## Struct
 
 ([JSON](#json-invariants))
 

@@ -10,40 +10,15 @@ ingested_by: scholar
 project: ocapn
 topics: [ocapn, marshal, pass-style]
 status: current
+kind: index
+section_count: 2
 ---
 
 > Abstract: The Value top-level definition and Atom sub-category framing. Distinguishes Atom (primitives + ByteArray) from Container, Reference, Error. The Endo equivalent splits primitives across pass-style's primitive pass-styles (undefined, null, boolean, number, bigint, string, symbol).
 
-# Value
+Sections:
 
-A value is any [Atom](#atom), [Container](#container),
-[Reference](#reference-capability), or [Error](#error).
-
-Atoms:
-
-- [Undefined](#undefined)
-- [Null](#null)
-- [Boolean](#boolean)
-- [Integer](#integer)
-- [Float64](#float64)
-- [String](#string)
-- [ByteArray](#bytearray)
-- [Symbol](#symbol)
-
-Containers:
-
-- [List](#list)
-- [Struct](#struct)
-- [Tagged](#tagged)
-
-References:
-
-- [Target](#target)
-- [Promise](#promise)
-
-# Atom
-
-Atoms are values that cannot contain or refer to other values.
-
+- [Value](ocapn--draft-specifications-model--value-and-atom-frame--value.md)
+- [Atom](ocapn--draft-specifications-model--value-and-atom-frame--atom.md)
 
 Source: `draft-specifications/Model.md` in the upstream protocol's specification (held at `kriscendobot/ocapn` locally) at commit `971eadd1`.

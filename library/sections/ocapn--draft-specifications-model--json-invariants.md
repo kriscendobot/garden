@@ -15,7 +15,6 @@ notes: Cross-reference: library/sections/endo--pkg-marshal-readme--beyond-json.m
 
 > Abstract: OCapN's spec for how Model values relate to JSON. Describes which OCapN values are JSON-representable directly and which need extension. The Endo smallcaps wire format extends JSON with the prefix-character-encoded extensions per packages/marshal/README's beyond-json section; this OCapN section is the wire-level spec the Endo extension realizes.
 
-# JSON Invariants
 
 OCapN holds invariant that:
 
