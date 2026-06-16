@@ -7,9 +7,14 @@ repo: endojs/endo
 path: packages/zip/src/signature.js
 total-lines: 22
 ingest-cycle: 278
+re-ingest-cycle: 358
 ingest-date: 2026-06-10
+re-ingest-date: 2026-06-16
+section_count: 2
 lane: chat
 ---
+
+Cycle 358 added a thirteenth complementary-lens re-ingest (after 322 + 324 + 330 + 332 + 336 + 342 + 344 + 348 + 350 + 352 + 354 + 356), focusing on §the-named-design-vs-implementation-arc-from-README-to-source — cycle 357 @endo/zip README's §the-named-attack-via-magic-numbers-in-comment abstract becomes concrete byte sequences here as named exports. §the-named-magic-numbers-as-named-exports + §the-named-attack-vectors-made-visible-via-naming + §the-named-detect-and-reject-via-named-signatures (Zip64 signatures still exported for detection) + §the-named-inline-helper-for-constant-construction established as tier-3 meta-patterns in cycle 358. Sixth authored-conformant single-body section doc in the post-refactor era.
 
 # `@endo/zip/src/signature.js`
 
