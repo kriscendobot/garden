@@ -30,7 +30,6 @@ All three are funnelled through a single `formulaChangeTopic` so that
 the retention-accumulator and graph-mutation logic have one mutation
 surface to watch rather than three.
 
-## Subscription lifecycle
 
 Each `followRetentionSet(peerNodeNumber)` call attaches a fresh
 accumulator + follower record to the peer entry in

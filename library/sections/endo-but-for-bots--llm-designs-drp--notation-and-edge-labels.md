@@ -15,7 +15,6 @@ notes: Compare to the **sibling** `endo-but-for-bots--llm-designs-rpn--retention
 
 > Abstract: Reuses `graph.js`'s existing `RetentionPathSegment` types (`groupMembers`, `referencedBy?`, `labels?`, `type?: 'root'`). **RetentionPath = RetentionPathSegment[]**. The **leaf segment is the target group**; subsequent segments walk *upstream* toward a root. Matches `listRetentionPaths`'s shape. **Four edge-label conventions**: (1) **`pet:<name>`** — the upstream's pet store contains the literal pet name mapping to this group (source: `onPetStoreWrite`); (2) **`<field>`** plain — a static formula-field reference (`worker`, `handle`, `petStore`, `hub`, `powers`, `slot0`, `bundle`, `agent`, `mailbox`, `mailHub`, `inspector`, `endo`, `networks`, `pins`; source: `extractLabeledDeps` at `daemon.js:476`); (3) **`retention`** — a cross-peer retention edge (the upstream agent's peer is holding this formula; source: `formulaGraph.addRetention`); (4) **`transient`** — a short-lived pin held by an in-flight host operation (source: `transientRoots`). The `pet:` prefix is the central point of the user's request: CLI + UI must distinguish *human-facing names* from *internal links*. Unambiguous because pet names never start with `:`.
 
-## Design
 
 ### Notation: paths and segments
 
