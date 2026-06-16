@@ -13,7 +13,6 @@ status: current
 
 > Abstract: agoric-sdk's testing framework is AVA. Test files match `**/test/**/*.test.*` per package. All-package run: `yarn test` from repo root. Per-package: `yarn test` from the package directory. Coverage with c8: `yarn test:c8`, then `yarn c8 report --reporter=html-spa`, view `coverage/html/index.html`.
 
-## Testing Guidelines
 - Framework: AVA. Test files follow `**/test/**/*.test.*` within each package.
 - Run all: `yarn test`. Per-package: `yarn test` from that package directory.
 - Coverage: in a package, run `yarn test:c8` and open `coverage/html/index.html` after `yarn c8 report --reporter=html-spa` if needed.

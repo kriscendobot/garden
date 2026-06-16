@@ -14,7 +14,6 @@ status: current
 
 > Abstract: 4 H3 sub-sections consolidated: the emitDeclarationOnly: true constraint (.d.ts only, no .js emit), when .ts files have runtime code (escape hatches), using build-ts-to-js for the cases that need it, why not two tsc passes (the design choice agoric-sdk makes vs alternatives).
 
-## Build
 
 ### The `emitDeclarationOnly` constraint
 

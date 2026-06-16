@@ -14,7 +14,6 @@ notes: The `@agoric/*` vs `@aglocal/*` namespace rule is a published-vs-internal
 
 > Abstract: ESM-by-default JS+TS targeting Node ^20.9 or ^22.11. dprint enforces Prettier-compatible formatting (single quotes, trailing commas). ESLint via `eslint.config.mjs`. Crucial naming distinction: `@agoric/*` packages are publishable and may not import `@aglocal/*` packages (which are private). For duration measurement prefer `performance.now()`; reserve `Date.now()` for wall-clock semantics (timestamps, IDs, protocol deadlines). Ambient-authority discipline: confine `process.env`, `console`, filesystem, network to entrypoints; pass capabilities (e.g., `io.console`) explicitly into shared modules; never call `@endo/init` inside a module (only at an entrypoint's start).
 
-## Coding Style & Naming Conventions
 - ESM by default; JS and TypeScript both used. Target Node ^20.9 or ^22.11.
 - dprint enforced (Prettier-compatible options include single quotes and trailing commas).
 - ESLint configured via `eslint.config.mjs` (includes AVA, TypeScript, JSDoc, and repository-specific rules).

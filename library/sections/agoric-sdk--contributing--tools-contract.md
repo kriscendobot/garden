@@ -14,7 +14,6 @@ notes: Names a strong directional-import discipline (src/** must not import **/t
 
 > Abstract: agoric-sdk's per-package directory contract. Four scopes: `scripts/` (executable entrypoints only), `src/` (production-safe library code), `tools/` (cross-package test harnesses, mocks, fixtures, helper interfaces), `test/` (local tests only, not imported by other packages). Decision rule for src vs tools: if consumers import it to exercise/simulate package behavior, prefer `tools/`; if they import it as part of real runtime behavior, prefer `src/`. Directional rules: `src/**` must not import `**/tools/**` (except temporary allowlisted legacy imports); `tools/**` may import `src/**` but not vice versa; non-test files must not import `**/test/**` from any package. Publishing rules: `tools/` may be deep-imported within the monorepo and across CI but is not enforced by CI for manifest/export policy and is not part of the semver contract.
 
-## `tools` contract
 
 Repository scope boundaries:
 

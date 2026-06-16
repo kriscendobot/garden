@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Exported type discipline and other best-practice rules at the top of the document. Sub-section: Exported Types (where exported types live, naming conventions).
 
-## Best practices
 
 ### Exported types
 

@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Pre-commit requirements for agoric-sdk. Distinct from but adjacent to endo's CONTRIBUTING.md: agoric-sdk has its own monorepo discipline.
 
-# Commit Hygiene Requirements
 
 This document outlines the commit hygiene requirements for the Agoric SDK repository.
 

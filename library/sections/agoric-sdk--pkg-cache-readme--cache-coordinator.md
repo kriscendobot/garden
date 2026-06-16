@@ -14,7 +14,6 @@ notes: The Coordinator + Updater interface pair is the API for plugging differen
 
 > Abstract: The backend interface. `Coordinator` implements eventual consistency with optimistic updates. Three methods: `getRecentValue(key)` returns the eventually-consistent value; `setCacheValue(key, newValue, guardPattern)` updates to `newValue` only if the current value matches `guardPattern`; `updateCacheValue(key, updater, assertedMatch)` is the higher-level form that runs an Updater (which computes `newValue` from `oldValue`) and asserts the match. All values must be Passable.
 
-## Cache coordinator
 
 The cache coordinator must implement the `Coordinator` interface, which supports eventual consistency with optimistic updates:
 

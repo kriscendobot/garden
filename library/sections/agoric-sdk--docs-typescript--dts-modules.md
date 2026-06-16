@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Pure re-export .d.ts indexes. Same shape as endo's types-index.d.ts convention.
 
-## d.ts modules
 
 We take on the complexity above of indirection because `.d.ts` files aren't checked. We have `"skipLibCheck": true"` in the root tsconfig.json because some libraries we depend on have their own type errors. (A massive one is the output of Telescope, used in `@agoric/cosmic-proto`.)
 

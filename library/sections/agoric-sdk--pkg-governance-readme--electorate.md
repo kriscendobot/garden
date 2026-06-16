@@ -14,7 +14,6 @@ notes: The voterHandle-based capability discipline (submitVote can only be calle
 
 > Abstract: An Electorate is a set of voters. Each voter receives an invitation for a voterFacet which allows voting in all elections supported by that electorate. The Electorate starts a fresh VoteCounter instance per question and holds its `creatorFacet`; that facet carries the `submitVote()` method that registers votes with the VoteCounter. The Electorate enforces that `submitVote()` can only be called with the voter's unique voterHandle — the capability discipline that ensures one voter, one ballot.
 
-## Electorate
 
 An Electorate represents a set of voters. Each voter receives an invitation for a voterFacet, which allows voting in all elections supported by that electorate. The Electorate starts a new VoteCounter instance for each separate question, and gets the `creatorFacet`, which carries the `submitVote()` method that registers votes with the voteCounter. The Electorate is responsible for ensuring that `submitVote()` can only be called with the voter's unique voterHandle.
 

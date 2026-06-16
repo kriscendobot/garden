@@ -14,7 +14,6 @@ notes: This section names a durable-lifecycle replay model with strong constrain
 
 > Abstract: agoric-sdk's async-flow model runs each invocation as an activation with durable lifecycle states: `Running`, `Sleeping`, `Replaying`, `Failed`, `Done`. Upgrade-safe behavior depends on deterministic replay of prior host interactions; divergence during replay or invalid interactions transitions the activation to `Failed`. `Done` is settled and replay bookkeeping is dropped — promises not yet settled at `Done` time never see reactions run. Adding an `await` inside an async helper or calling without immediate await can reorder later effects into a different turn. For `*.flows.*` modules, also read `packages/async-flow/docs/async-flow-states.md`.
 
-## Async-Flow Model Notes
 - Async-flow runs each invocation as an activation with durable lifecycle states: `Running`, `Sleeping`, `Replaying`, `Failed`, `Done`.
 - Upgrade-safe behavior depends on deterministic replay of prior host interactions; divergence during replay or invalid interactions can move an activation to `Failed`.
 - `Done` means the activation outcome is settled and replay bookkeeping is dropped; logic that assumes continued activation state after completion is erroneous. Once the async-flow is done, any promises not yet settled will never see their reactions run. That's because the vow settling on the host side no longer translates into a settlement of the guest promise.

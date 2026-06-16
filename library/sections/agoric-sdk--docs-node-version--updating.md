@@ -14,7 +14,6 @@ status: current
 
 > Abstract: How to update the Node.js version requirement when the project rev's.
 
-## Updating
 
 When a new version becomes Active LTS:
 - [ ] update integrations to use it (e.g. `.github/workflows/integration.yml`)

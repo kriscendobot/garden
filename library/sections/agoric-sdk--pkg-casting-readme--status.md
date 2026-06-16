@@ -14,7 +14,6 @@ notes: The short-term goals were authored in 2022 (the README is from 2024-09-10
 
 > Abstract: Dependencies: Hardened JavaScript, `@agoric/notifier` (async-iterable adapters for `iterateLatest`), `@endo/marshal` (default object unserialization), CosmJS (proof verification; doesn't yet support light-client validator-set tracking per cosmjs#492), bespoke WebSocket Tendermint event follower. Short-term goals: integrate the SharedSubscription API from agoric-sdk#5418 `makePublisherKit` PR, support `iterateEach` with the lossless-forward-iteration algorithm via agoric-sdk#5466 `x/vstream` PR, upgrade to Tendermint v0.36 event-log API when supported.
 
-## Status
 
 This package currently depends on:
 

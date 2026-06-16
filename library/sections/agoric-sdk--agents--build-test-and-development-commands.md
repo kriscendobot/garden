@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The canonical command inventory for agoric-sdk work: `corepack enable && yarn install` to bootstrap, `yarn build` for kernel bundles, `yarn test` for AVA across all packages, `yarn lint` / `yarn lint-fix`, `yarn run -T tsc --noEmit --incremental` for fast per-package typecheck (plus a `--watch --preserveWatchOutput` mode the agent can monitor), `yarn typecheck-quick` for whole-repo (4-7s), `yarn format` (dprint), `yarn hooks:install` for git hooks, `./scripts/env-doctor.sh` to verify the toolchain. Also documents the prepack/postpack workflow: `yarn lerna run --reject-cycles --concurrency 1 prepack` for full sequential, `--since <pkg> --include-dependencies` to resume from a failure, and a mandatory `postpack` to clean generated artifacts.
 
-## Build, Test, and Development Commands
 - `corepack enable && yarn install`: Set up the repo with the pinned Yarn version and install dependencies.
 - `yarn build`: Build all workspaces (generates kernel bundles where needed).
 - `yarn test`: Run unit tests across all packages (AVA).

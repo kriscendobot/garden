@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Agoric-sdk's supported Node.js version. Tiny pointer doc.
 
-# Node.js version
 
 This repo supports the Active and Maintenance LTS versions of Node.js.
 

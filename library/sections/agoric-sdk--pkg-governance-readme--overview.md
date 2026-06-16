@@ -14,7 +14,6 @@ notes: The "self-describing" property of Electorates + VoteCounters is the load-
 
 > Abstract: A general framework for governance via three layers. **Electorate** — a set of voters; two kinds today: committees (elected or appointed) and stakeholders (in review). The electorate must exist before questions can be posed. **ElectionManager** — manages one Electorate's questions; specifies which VoteCounter is used per question. **VoteCounters** — pluggable counting strategies: majority, approval, proportional, quadratic, instant-runoff, etc. **QuestionSpec** has `{method, issue, positions, electionType, maxChoices}`; method is UNRANKED or ORDER (latter for STV/IRV); electionType distinguishes PARAM_CHANGE from string-issue questions. **Voters** get a voterFacet via invitation, subscribe with the electorate for new questions, cast votes by sending selected positions to their trusted electorate. The Electorate/VoteCounter design supports verifying counting and who-can-vote without constraining question-creation; ElectionManagers fill that gap. ContractGovernor is the canonical ElectionManager example.
 
-# Governance
 
 This package provides Electorates and VoteCounters to create a general framework for governance. It has implementations for particular kinds of electorates and different ways of tallying votes.
 

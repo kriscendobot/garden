@@ -14,7 +14,6 @@ notes: Two publishing surfaces. Governed contracts publish alongside the contrac
 
 > Abstract: Two off-chain publishing surfaces for governance. **Governed contracts** publish along with the contract they're governing — see `agoric-sdk--pkg-inter-protocol-readme--reading-data-off-chain` for the canonical pattern. **Committee contracts** publish their questions: follow `published.committee.questions` (or a specific committee's keys like `published.committees.Economic_Committee.latestQuestion`) via `makeFollower` + `iterateLatest` from `@agoric/casting`. Demo: standard three-tab chain + cli + follow pattern. Note: `published.committees.Economic_Committee.latestQuestion` only exists once an `.addQuestion()` call has executed.
 
-## Reading data off-chain
 
 Governed contracts publish along with the contract they're governing. See [../inter-protocol/README.md].
 

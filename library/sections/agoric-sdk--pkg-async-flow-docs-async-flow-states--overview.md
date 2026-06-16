@@ -14,7 +14,6 @@ notes: A guest async-function activation in async-flow is internally an exoClass
 
 > Abstract: A prepared guest async function is internally an exoClass; each `wrapperFunc(...)` call creates an activation. The activation's lifecycle: **Running** (initial state, actions cause actual effects and are logged for replay), **Sleeping** (across an upgrade; awaiting a vow with the log intact and PC reset), **Replaying** (catch-up via the durable log; transitions back to Running when caught up), **Failed** (inactive state from replay misbehavior or `asyncFlow`-mechanism failure; cleared at the next reincarnation, which retries Replaying then Running), **Done** (the guest's outcome promise settled; bookkeeping is dropped). The activation can be optionally configured to be an "eager waker" — revival immediately starts Replaying instead of waiting for an awaited vow to settle.
 
-# Async Flow States
 
 ![async flow state diagram](./async-flow-states.png)
 

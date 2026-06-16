@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Rationale: agoric-sdk's CI is expensive (consensus + chain integration tests); pre-commit hygiene reduces feedback-loop time and catches issues before merge.
 
-## Why These Requirements Matter
 
 - **Codegen**: Ensures generated code is in sync with proto definitions
 - **Package Locks**: Keeps all yarn.lock files synchronized across the monorepo, preventing version conflicts

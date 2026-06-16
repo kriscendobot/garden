@@ -14,7 +14,6 @@ notes: The virtualized-debt design is a clever O(1) algorithm for what would nai
 
 > Abstract: Debts are denominated in **µIST** (1 million µIST = 1 IST). Each interest charging period (e.g., daily) the actual debts in all vaults would naively need to be updated — O(n) writes. **Virtualization** makes interest charging O(1): a `compoundedInterest` value on the manager tracks accrual since launch, and a `debtSnapshot` on the vault lets the actual debt be computed on demand. **Normalized collateralization ratio**: vault keys for liquidation ordering must be time-independent, so they're stored as "actual collateral / normalized debt" rather than "actual collateral / actual debt" (which would change as interest accrues).
 
-## Debts
 
 Debts are denominated in µIST. (1 million µIST = 1 IST)
 

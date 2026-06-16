@@ -13,7 +13,6 @@ status: current
 
 > Abstract: `@agoric/casting` follows ocap broadcasts flexibly. The `yarn demo` script demonstrates; the CLI `npx agoric follow` provides the same. The example creates a leader from the devnet network-config URL, makes a casting spec for a mailbox address, makes a follower, and iterates via `for await of iterateLatest(follower)`. Requires Hardened JS via `@endo/init` (with `pre-remoting.js` first if using `for await of`).
 
-# Agoric Casting
 
 This [Agoric](https://agoric.com) Casting package follows ocap broadcasts in a flexible, future-proof way.
 

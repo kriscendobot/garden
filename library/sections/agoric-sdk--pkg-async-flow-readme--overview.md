@@ -14,7 +14,6 @@ notes: The "closed function" requirement is the central capability-discipline ru
 
 > Abstract: The core `asyncFlow(zone, name, asyncFn)` API. `asyncFlow` wraps an async function so its activations are durable: each call to the returned `wrapperFunc` creates an activation whose state survives vat upgrades via log-and-replay. The critical discipline: the wrapped async function must be **closed** — it may capture only powerless globals; any lexically-captured mutable state or capability to cause effects will misbehave under replay because the replay would re-execute those effects outside the isolation mechanism. In later incarnations the original `asyncFlow` call is re-registered with an async function that reproduces the original's logged behavior; old activations continue. May migrate to `@endo/async-flow` (see header note).
 
-# `@agoric/async-flow`
 
 ***Beware that this module may migrate to the endo repository as `@endo/async-flow`.***
 

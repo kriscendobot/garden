@@ -14,7 +14,6 @@ notes: The package README is a small pointer; substantive ERTP material (mints, 
 
 > Abstract: ERTP is Agoric's digital-asset standard — a uniform JavaScript-level way of transferring tokens and other digital assets. All kinds of digital assets can be created with the same security properties and transfer ways. Fundamentals — mints, issuers, purses, payments — are documented externally; the package README is a pointer-shaped one-screen frame plus a pointer to @agoric/zoe (smart-contract framework, previously in this package).
 
-# ERTP - Electronic Rights Transfer Protocol
 
 ERTP is Agoric's digital asset standard.
 

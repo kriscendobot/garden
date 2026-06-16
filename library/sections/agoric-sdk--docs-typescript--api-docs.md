@@ -14,7 +14,6 @@ status: current
 
 > Abstract: How to generate API documentation from the type definitions. TypeDoc or similar.
 
-## Generating API docs
 
 We use [TypeDoc](https://typedoc.org/) to render API docs in HTML.
 

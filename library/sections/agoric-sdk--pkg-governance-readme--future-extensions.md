@@ -14,7 +14,6 @@ notes: This section is forward-looking from the README's 2023-04-20 commit. Some
 
 > Abstract: Forward-looking architecture intentions. **Electorates**: today only a Committee electorate (opaque group of voters) exists. Plausible future: a public-vote-result electorate that gives voting facets to election winners (would require some kind of public registration of candidates). **VoteCounters**: today only `BinaryVoteCounter` (presumes two positions; assigns votes; declares majority winner; configurable default outcome — ContractGovernance uses this for "no change is default"). Future: multi-candidate counters, IRV (instant runoff), proportional representation. **ElectionManager**: a role rather than an API. The current example is ContractGovernor (manages contract-parameter changes). Future managers: take a specific action (e.g., add a new AMM collateral type) when a vote passes; run a plebiscite among stakeholders.
 
-## Future Extensions
 
 The architecture is intended to support several scenarios that haven't been filled in yet.
 

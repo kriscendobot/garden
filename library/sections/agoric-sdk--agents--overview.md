@@ -13,7 +13,6 @@ status: current
 
 > Abstract: A one-line frame — the document follows the [agents.md](https://agents.md/) standard and lists agent-facing repository guidelines for agoric-sdk. Subsequent sections cover structure, build/test, style, testing, async-flow, A3P, and commits.
 
-# Repository Guidelines
 
 per https://agents.md/
 

@@ -14,7 +14,6 @@ notes: Stricter than typical: every commit following the leftmost parent from ma
 
 > Abstract: agoric-sdk's PR-landing agreement. Conventional Commits for every commit. Every commit reached by following leftmost parents from main/master must pass CI tests (not just the merge commit). Follow-up commits are encouraged during incremental review but should not survive to land on main/master. Rebases are necessary to confirm continued CI passing as main moves. "Squash and merge" is the default. The xsnap-introduction history is the canonical example of preserving a multi-commit narrative through a merge commit; left-hand-rule traversal of parents keeps `git bisect` working even when intermediate commits don't build.
 
-## Landing pull requests
 
 The agreement so far is for every change to have a [conventional commit message][CC] and for every commit following the leftmost parent from main/master to pass tests in CI.
 

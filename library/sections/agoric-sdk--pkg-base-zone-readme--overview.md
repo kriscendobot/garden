@@ -14,7 +14,6 @@ notes: The "use @agoric/zone instead unless you're writing a backing store" guid
 
 > Abstract: A Zone provides an API for allocating Exo objects and Stores under one of three persistence regimes — heap (ephemeral, lost on vat termination), virtual (pageable to disk, lost on termination), durable (pageable AND revivable after a vat upgrade). `@agoric/base-zone` is the internal substrate; library code should normally use `@agoric/zone` to stay agnostic about the backing-store choice. The package is **destined for migration** to `@endo/zone` (along with `@agoric/store` → `@endo/store`); the migration will land first as deprecation, then as reexport stubs, then eventual removal.
 
-# Base Zone Library
 
 Each Zone provides an API that allows the allocation of [Exo objects](https://github.com/endojs/endo/tree/master/packages/exo#readme) and [Stores (object collections)](../store/README.md) which use the same underlying persistence mechanism. This allows library code to be agnostic to whether its objects are backed purely by the JS heap (ephemeral), pageable out to disk (virtual) or can be revived after a vat upgrade (durable).
 

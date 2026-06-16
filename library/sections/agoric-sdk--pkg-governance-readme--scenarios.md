@@ -14,7 +14,6 @@ notes: The "follow the chain of terms" examination procedure is the canonical le
 
 > Abstract: Two scenarios. **Examining a contract before use** — governed contracts make their governor and parameters visible via `terms` or the publicFacet. The governor's publicFacet refers back to the contract it governs and exposes the electorate, which lists questions and their voteCounters. From an instance, retrieve the installation from Zoe to examine the source. Acknowledged gap: there's no way to verify the question-creation process today (the create-question facet is private). **Participating in governance** — voters get a voting API as the outcome of an invitation; this lets them verify the electorate instance. The electorate's publicFacet has `getQuestionSubscription()` (new questions) and `getOpenQuestions()` (unresolved). Each question's `ElectionType` is one of PARAM_CHANGE, ELECTION, or SURVEY. PARAM_CHANGE questions identify the contract instance, the parameter, and the proposed value; all PARAM_CHANGE elections are by majority vote with "no change" as the default outcome.
 
-## Scenarios
 
 ### Examining a Contract before use
 

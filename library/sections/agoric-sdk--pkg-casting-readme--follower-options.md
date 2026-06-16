@@ -14,7 +14,6 @@ notes: The `proof: 'optimistic'` default has a subtle gotcha: data is released b
 
 > Abstract: `makeFollower(leader, key, followerOpts)` accepts a bag of options. **proof**: three modes — `strict` (release after validation, may wait one block), `optimistic` (default; release immediately, may crash later if a released value can't be proven), `none` (release without validation). **decode**: function `Uint8Array → string`; default interprets buf as utf-8 then `JSON.parse`. **unserializer**: default uses `@endo/marshal`'s `makeMarshal()`; `null` skips unserialization; or any custom object supporting `E(unserializer).fromCapData(data)`. **crasher**: default `null` propagates failures via exception; or any object supporting `E(crasher).crash(reason)`.
 
-## Follower options
 
 The `followerOpts` argument in `makeFollower(leader, key, followerOpts)` provides an optional bag of options:
 

@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Six pre-commit steps consolidated: run code generation if applicable, update package locks, format with Prettier, install git hooks, run lint, run tests, build before testing. The procedural checklist agoric-sdk maintains.
 
-## Before Committing Changes
 
 ### 1. Run Code Generation (if applicable)
 

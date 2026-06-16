@@ -14,7 +14,6 @@ status: current
 
 > Abstract: What CI runs automatically and what relies on developer discipline. Brief closing section.
 
-## Automated Checks
 
 CI will verify these requirements, but running them locally saves time and prevents failed builds.
 

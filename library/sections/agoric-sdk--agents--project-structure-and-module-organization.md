@@ -13,7 +13,6 @@ status: current
 
 > Abstract: agoric-sdk is a Yarn-workspaces + Lerna-Lite monorepo. Primary code lives under `packages/*` (SwingSet, zoe, ERTP, smart-wallet are named exemplars). Go components live under `golang/` (e.g., `golang/cosmos`). Per-package tests at `packages/<name>/test/`. Tooling lives in `scripts/`. Two integration directories: `a3p-integration/` and `multichain-testing/`.
 
-## Project Structure & Module Organization
 - Monorepo managed by Yarn workspaces and Lerna Lite. Primary code lives under `packages/*` (e.g., `SwingSet`, `zoe`, `ERTP`, `smart-wallet`).
 - Go components are under `golang/` (e.g., `golang/cosmos`).
 - Tests reside per package in `packages/<name>/test/`.

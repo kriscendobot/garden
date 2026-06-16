@@ -14,7 +14,6 @@ status: current
 
 > Abstract: How index.js + types-index.js / .d.ts compose as the package entrypoint. Mirrors endo's types-index convention.
 
-## entrypoint
 
 This is usually an `index.js` file which contains a wildcard export like,
 

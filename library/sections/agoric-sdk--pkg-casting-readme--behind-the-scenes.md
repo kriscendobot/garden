@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How the follower works internally. The **network config** contains Tendermint RPC node info for the Agoric network; `makeLeaderFromRpcAddresses` bypasses the network-config fetch. Each follower uses periodic CosmJS state polling (every X ms), refreshable via Tendermint subscription to the `state_change` event. Published string values are auto-unmarshalled but without object references — applications can pass a custom `marshaller`. The `iterateRecent` adapter transforms a follower into a local async iterator that yields only the last-queried value (no history reconstruction), as opposed to `iterateLatest` which gets every value.
 
-## Behind the scenes
 
 - the network config contains enough information to obtain Tendermint RPC nodes for a given Agoric network. You can use `makeLeaderFromRpcAddresses` directly if you want to avoid fetching a network-config.
 - each follower uses periodic CosmJS state polling (every X milliseconds) which can be refreshed more expediently via a Tendermint subscription to the corresponding `state_change` event

@@ -14,7 +14,6 @@ notes: The cache-client API is CAS-style: three steps (read, check guard pattern
 
 > Abstract: The client API surface. `makeCache(coordinator, follower)` creates the client function; the default coordinator is an in-memory local map. Ground state for any key is undefined; you cannot distinguish "value set to undefined" from "key unset." Two overloads: `cache(key, updaterFn, guardPattern?)` returns the new value after a transactional update (read current → match guard → call updater on current → sanitize result → write); retries the whole sequence if the stored value moved during the transaction; `guardPattern` defaults to matching only undefined. `cache(key, passable, guardPattern?)` is shorthand for an updater that ignores its argument and returns `passable`.
 
-## Cache client
 
 The client-side API is normally exposed as a single function named `cache`. You can create a cache client function by running `makeCache(coordinator, follower)`. If not specified, the default coordinator is just a local in-memory map without persistence.
 

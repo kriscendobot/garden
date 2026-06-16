@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Per-package overrides where the standard pre-commit procedure differs. @agoric/client-utils has additional steps; other packages may add their own.
 
-## Package-Specific Requirements
 
 ### @agoric/client-utils
 

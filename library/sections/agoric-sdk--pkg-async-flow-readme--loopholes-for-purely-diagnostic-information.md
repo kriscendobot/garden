@@ -14,7 +14,6 @@ notes: The exception is principled — `console` is write-only and similar to de
 
 > Abstract: Explicit exceptions to the closed-function rule. `console` is allowed because log messages are write-only and similar to a debugger — neither counts as an "observable effect" the replay mechanism must mirror. Out-of-band `console` logging may appear again during replay, and the async function has no obligation to reproduce previous log events. Similarly, error comparison is loose: when checking sent errors against the log, only `error.name` (e.g., `TypeError` / `URIError`) must match — `error.message`, call-stack, subsidiary errors are diagnostic and may legitimately differ.
 
-## Loopholes for purely diagnostic information
 
 > We make an explicit exception to the closed-function requirement for `console`, since log messages sent to `console` are only for diagnostic purposes, and `console` as a whole is write-only. We consider the ability to read the console log output to be similar to the ability to view computation through a debugger. Not counting either as "observing effects", the `console` does not cause "observable effects". During replay, such out-of-band console log events may appear again. For the same reason, the async function has no obligation to reproduce previous runs of such out-of-band console logging events, since they are outside the replay mechanisms. Likewise, the guest function has no obligation to reproduce the experience of viewing it through a debugger.
 

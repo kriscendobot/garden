@@ -10,33 +10,15 @@ ingested_by: scholar
 project: agoric-sdk
 topics: [tooling, repository-governance]
 status: current
+kind: index
+section_count: 2
 ---
 
 > Abstract: Reference frame for the agoric-sdk env-var catalog. The Template section establishes the documentation pattern used for each variable (description, default, valid values, when each setting applies).
 
-# Agoric SDK Environment Variables
+Sections:
 
-```js
-process.env.DOCUMENTATION // for power users
-```
-
-This file describes environment variables that influence the execution of the
-Agoric SDK.
-
-<!--
-## Template
-
-**Add to a new section in alphabetical order.**
-
-Affects:
-
-Purpose:
-
-Description:
-
-Lifetime:
-
--->
-
+- [Agoric SDK Environment Variables](agoric-sdk--docs-env--overview--agoric-sdk-environment-variables.md)
+- [Template](agoric-sdk--docs-env--overview--template.md)
 
 Source: [docs/env.md](https://github.com/agoric/agoric-sdk/blob/8051bed260133080a0d46339aefcc9baba5c1d34/docs/env.md) at commit `8051bed2`.
