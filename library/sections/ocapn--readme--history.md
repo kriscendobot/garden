@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Historical context for the protocol family: descent from E, Joe-E, CapTP work; the open-spec process; key contributors and venues.
 
-## History
 
 CapTP is something which has been implemented many times.
 The first "open" version of CapTP was implemented in the

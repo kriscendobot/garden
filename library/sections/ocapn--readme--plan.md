@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Roadmap section: planned spec maturation milestones, anticipated implementations, areas where the spec is still evolving (locators and netlayers were both draft as of the cycle 18 ingestion).
 
-## What's the plan?
 
 Different recent implementations have brought different things to the
 table in terms of their implementations:

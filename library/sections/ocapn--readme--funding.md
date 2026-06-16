@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Acknowledgement of funding sources for the spec work.
 
-## Funding
 
 A large amount of the work done in this group has been funded through the [NGI Assure Fund](https://nlnet.nl/assure), a fund established by [NLnet](https://nlnet.nl) with financial support from the European Commission's [Next Generation Internet](https://ngi.eu) program. Learn more on the [NLnet project page]( https://nlnet.nl/project/SpritelyOCCapN#ack).
 

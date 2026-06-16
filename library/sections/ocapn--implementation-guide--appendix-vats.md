@@ -14,8 +14,6 @@ notes: The source carries a "/NOTE: whether to keep this section is subject to f
 
 > Abstract: Background note — implementations are free to organize delivery semantics however they want, but the model rooted in the upstream protocol is the **vat**: an event loop with an object heap. Messages to objects are queued FIFO and delivered one at a time; the vat is transactional, so a delivery that errors leaves the vat in the prior state. A peer may contain one or more vats; whether a peer subdivides into vats is internal to that peer and not exposed across the network. Some implementations use a single inter-vat-and-inter-machine messaging system (everything goes through CapTP); others have a fast local-vat-to-local-vat path with CapTP only at machine boundaries.
 
-# Appendix
-## Appendix A: Vats
 
 > NOTE: whether or not continuing to include this section is worthwhile is subject to further consideration within the OCapN specification group.
 

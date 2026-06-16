@@ -12,127 +12,15 @@ ingested: 2026-05-17
 ingested_by: liaison-direct-draft
 topics: [capability-security, agent-conventions]
 status: current
+kind: index
+section_count: 6
 ---
 
-## Abstract
+Sections:
 
-The paper opens with a *plausible-but-fictional* running scenario: Alice's always-on agent installs a "morning news" skill in front of a Telegram group on Monday; three weeks later, while answering an unrelated tax-summary question over email, the agent forwards Alice's last fifty inbox messages to an attacker address. The Telegram group member has not contacted the agent since Monday. This is a **sleeper channel**: an indirect prompt injection whose intake `T0` and effect `T1` are *decoupled* across time, storage substrate, and communication surface. The attack is *not* a fresh prompt fired each turn — it is a persistence artifact (memory note, skill, cron entry, dotfile patch) that survives inside the agent's authority boundary until a benign trigger releases it through a different surface. §V defines the formal threat class on **two independent axes**: a persistence-substrate axis with five values (M1 same-session context window, M2 long-term memory, M3 self-authored skill, M4 filesystem state, M5 scheduled or external trigger) and a firing-separation axis with five values (C0 same-surface-same-session, C1 same-surface-later-session, C2 cross-channel, C3 cross-actor, C4 cross-execution-context). The §V Table I 5×5 matrix marks cells as **vacuous**, **prior work**, or **illustrative**. The paper claims novelty in four cells — A2 (M3×C2 skill-trojan via group chat), A3 (M2×C2 cross-channel exfil via memory), A4 (M5×C4 cron via confused deputy, walked end-to-end), A5 (M4×C4 dotfile patch) — and grounds each at file/line granularity in the OpenClaw runtime at a pinned commit. §VI's running A4 walk-through demonstrates the *confused-deputy condition* (Hardy 1988): the owner is the unwitting trampoline for an attacker action whose visible tool-call name is benign, while the attacker-supplied URL embedded in a recalled memory note is the actual destination.
-
-## Body
-
-### §I-§II The OS-live agent — single authority boundary, multiple persistence substrates
-
-An *OS-live agent* (the paper's term for the always-on autonomous-agent class) is a single persistent process under the owner's identity that folds five capabilities together:
-
-1. **Bidirectional messaging gateway** (group chats, paired DMs, email).
-2. **Long-term memory store** (a vector index + a memo store the model retrieves from).
-3. **Skill or plugin system the agent itself can author** (ClawHub workspace skills, MCP servers).
-4. **Host-adjacent execution backends** (Docker sandboxes for untrusted contacts; host shell for the owner's paired DM).
-5. **Scheduler** (cron entries the agent can create on the owner's behalf).
-
-All five surfaces consult the same memory and skill stores. All five execute under the owner's identity (with documented narrowing for untrusted contacts via Docker sandboxing). The paper anchors specific behaviors to file/line citations against OpenClaw at commit `3120401f53e789caf565e60ba29cb9751829b1b6` (2026-04-27); claims that cannot be confirmed-from-source are explicitly labeled *requires-deeper-trace*.
-
-The architectural diagnosis: existing prompt-injection literature treats each capability one at a time (Greshake's 2023 indirect-injection model assumes single-turn; AgentDojo and InjecAgent benchmark web-tool agents in single sessions; MemoryGraft covers memory-only persistence in one runtime; "sleeper agents" of Hubinger et al. covers training-time backdoors). **None treats the combined substrate as a unified threat class, and none separates persistence from surface-shift.** That gap is what the paper sets out to close.
-
-The §II positioning notes that OpenClaw already ships *two* adjacent partial defenses: `external-content.ts` wraps untrusted content in unique-id XML markers and prepends an in-context security warning (the paper's D1 instantiation), and `src/infra/exec-approvals*` gates host shell commands on owner approval *keyed on tool identity rather than data provenance*. Neither addresses the persistence-substrate cross-surface case the paper formalizes.
-
-### §IV Threat Model — *untrusted-but-admitted*
-
-The attacker is **untrusted-but-admitted**: a party whose content reaches the agent through a surface the owner has *enabled* but does not *personally trust*. The category covers: a group-chat participant, a paired but low-trust contact, an email sender, the author of a fetched webpage, the source of an imported memory, the publisher of a third-party skill or MCP server. The attacker has **no** physical access, **no** host root, **no** LLM-provider collusion, and **cannot bypass DM pairing**. The defender is the install's owner.
-
-The paper anchors "default-authorised" to three documented configuration profiles:
-
-- **P0**: gateway-only with skills, shell, and filesystem disabled.
-- **P1**: default-authorised baseline. Main session has host access (restricted to DM-paired contacts), ClawHub workspace skills, memory, per-tool first-use confirmation, and `workspaceAccess="none"` (config.ts:248).
-- **P2**: P1 + scheduler + outbound network + third-party ClawHub skills + `workspaceAccess="rw"`.
-
-Goals are the standard CIA triad — **confidentiality** (exfiltrate secrets/memory/contacts/files), **integrity** (persist injected behavior or mutate agent state), **availability** (burn compute or budget) — plus the cross-cutting **owner-equivalent action**: the agent emitting outbound messages or filesystem effects *on behalf of the owner*, i.e., the **confused-deputy condition** (Hardy 1988).
-
-Three firing modes are distinguished by *who* reactivates the artifact at `T1`:
-
-- **Owner-triggered** (A4 example): a benign owner request retrieves the artifact and feeds it into a new dispatch.
-- **Agent-triggered**: an autonomous loop surfaces it.
-- **External-triggered** (A5 example): cron, shell startup, a systemd timer, or a git hook fires it without the agent present.
-
-### §V The Persistence × Firing-Separation taxonomy
-
-The persistence axis enumerates *where* the attacker payload survives between `T0` and `T1`:
-
-- **M1**: same-session context window (single-shot injection; the Greshake 2023 case).
-- **M2**: long-term memory (the MemoryGraft 2025 case).
-- **M3**: self-authored skill (the agent writes a skill that includes attacker text).
-- **M4**: filesystem state (a file outside the agent's scratch space, read later by another process).
-- **M5**: scheduled or external trigger (a cron entry, systemd timer, or git hook).
-
-M4 is *passive* (read by another process). M5 is *active* (a timer fires without the agent's involvement). The cell label records the substrate at *firing time*, not the entire route. A4 is an M2→M5 *chain* — the attacker email persists as a memory note, and a cron entry is materialised later under owner mediation — but the cell label is M5 because the trigger acts on the cron entry.
-
-The firing-separation axis is a partial order over four independent flags (session, channel, actor, execution context), collapsed for compactness into five labels:
-
-- **C0** same-surface same-session.
-- **C1** same-surface later-session.
-- **C2** cross-channel (different surface than the intake).
-- **C3** cross-actor (the agent's emitted action targets the *owner's contacts*, not the attacker).
-- **C4** cross-execution-context (the firing happens outside the agent process — cron daemon, interactive shell, etc.).
-
-The four illustrative cells the paper covers are exactly the under-studied combinations:
-
-- **A2 (M3×C2)** — skill-trojan via group chat.
-- **A3 (M2×C2)** — cross-channel exfil via memory.
-- **A4 (M5×C4)** — cron via confused deputy. *The running example.*
-- **A5 (M4×C4)** — dotfile patch.
-
-### §VI The A4 cron walk-through (the running scenario)
-
-A4 is walked end-to-end at file/line granularity. The setup uses the non-default `P2` profile (P1 doesn't enable the scheduler). The sequence:
-
-1. **Intake (T0).** An attacker email reaches the configured email gateway with a benign-sounding "daily health-check" tip whose body embeds a webhook URL pointing to `atk-sink.example`.
-2. **Memory persistence (the artifact).** The agent's memory pipeline summarises the email into a stored memo that *includes the attacker URL*. The memo carries a unique-id marker (OpenClaw's `external-content.ts` line 63) and an in-context security warning (line 81-82) — but those signals are *model-visible only*; no runtime hook downstream consults them.
-3. **Trigger (T1).** Days later, the *owner* asks the agent: "set up that daily health-check we got the email about." A benign-sounding owner request.
-4. **Retrieval and dispatch.** The agent retrieves the memory note and synthesises a `cron.add` tool call whose `delivery.to` field is the attacker's webhook URL. The runtime treats the call as *owner-issued* because the tool-call principal is the agent acting under owner authority.
-5. **Effect (α).** The cron entry is materialised. From this moment forward, the cron daemon fires the request — outside the agent process — at the schedule the owner approved. The attacker is no longer present, no longer needs to be.
-
-The §VI walk-through cites four load-bearing source anchors:
-
-- `cron-tool.ts` line 37: the `delivery` enum.
-- `cron-tool.ts` lines 180-202: `CronDeliverySchema` accepts an *arbitrary `to` URL*.
-- `cron-tool.ts` lines 670-675: `normalizeHttpWebhookUrl` accepts *any* `http(s)` URL.
-- `cron-tool.ts` line 525: `ownerOnly` wires the cron tool to the main (DM-paired) session.
-
-The confused-deputy step is *step 4*: the owner sees the visible tool-call name (`cron.add`) but cannot attribute the embedded URL to the *email gateway's principal* — the URL has been laundered through the memory pipeline into what looks like an owner-authorised dispatch.
-
-The n=20 single-shot smoke probe the paper ships (anchored in §VII-G) shows **19/20 attacker-successful dispatches** under OpenClaw's existing in-context warning. A two-stage variant (n=10) still produces 7/10 attacker outcomes. The result *anchors* (but does not prove) the narrative claim that in-context warnings alone do not prevent A4.
-
-## Translation block (paper idiom → garden / Endo equivalent)
-
-| Paper concept                                    | Garden / Endo equivalent                                                                       |
-| ------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
-| OS-live agent                                    | The garden's *steward* posture (autonomous, owner-credentials, bounded by sandbox).            |
-| Untrusted-but-admitted                           | Any GitHub-comment-author or PR-author the garden's monitors might read. The `Monitoring Safety Constraint` in `CLAUDE.md` is the garden's existing partial defense. |
-| `T0` intake / `T1` firing decoupling             | Standing-monitor daemons reading event bodies that may include attacker prose; effects fire on a later journal-read or dispatch. |
-| Persistence substrate (M1-M5)                    | Journal entries (M2-equivalent); skills written into `skills/` (M3); worktree state (M4); scheduled wakeups + cron routines (M5). |
-| Cross-execution-context (C4)                     | A boatman dispatched from a journal message reads the message in a *different* context than the journal-writer; the gap is the garden's structural equivalent of C4. |
-| Confused deputy (Hardy 1988)                     | The bot identity acting under owner credentials on behalf of a journal entry whose authorship may itself be untrusted. |
-| `external-content.ts` security warning           | The garden's `CLAUDE.md § Monitoring safety constraint` — a similar in-context-warning posture. The paper's empirical result (in-context warnings alone don't prevent A4) is sobering. |
-
-## Implications for the garden
-
-This section is the *threat-class anchor* for several garden-meta discussions:
-
-1. **The Monitoring Safety Constraint is the garden's existing partial defense.** The constraint (only monitor repos gated against untrusted contributors) is the garden's enactment of "narrow the attack surface" at the substrate level — restrict which surfaces are eligible to be `σ0`. The paper's framing makes explicit what the constraint was implicitly hedging against.
-2. **The journal is an M2-equivalent substrate.** Journal messages from one role to another (`to: scholar`, `to: boatman`) are read at later times, in different contexts (different dispatches), under owner credentials. A malicious journal message could persist between cycles. The garden's mitigation today is *all journal authorship is bot-identity-only* (no external write surface to the journal), but this is an architectural property, not an enforcement gate.
-3. **Standing-monitor daemons match the OS-live agent description.** Each daemon reads untrusted event bodies and feeds them into agent context. The garden's current posture (only `endojs/endo-but-for-bots` monitored among active repos) is the prudent narrowing. Re-enabling another monitor requires explicit maintainer authorization recorded in a journal `message` entry — this is the garden's *capability-discipline* for monitoring scope.
-4. **The confused-deputy framing applies to the boatman.** When a boatman ferries a PR under owner credentials based on a journal directive, the boatman's dispatch is structurally identical to A4's owner-trampoline: the visible action (a `gh pr create`) is benign, but the message contents driving the action came through a different surface (the journal). The garden's protection is that journal authorship is itself bot-identity-only; if that invariant were ever broken, the boatman would be a confused deputy by this paper's definition.
-5. **The paper's "M3 self-authored skill" matches the garden's `roles/` and `skills/` directories.** The garden allows scholar (via the gardener) to land new skills based on observed patterns. The discipline that requires gardener-mediation for skill landing (rather than letting any role write skills directly) is the garden's enactment of *mediation* in the paper's H4 sense.
-
-## See also
-
-- [[confused-deputy]] — *placeholder concept page*. This paper's A4 scenario is one of two canonical citations (the other is Hardy 1988, referenced via `papers--miller-capability-myths-demolished-2003--*`).
-- [[principle-of-least-authority]] — also placeholder. The paper's D3 stage explicitly composes the "Agents Rule of Two" with the capability-security lineage; POLA is the over-arching discipline.
-- `papers--miller-capability-myths-demolished-2003--*` — the four-models / seven-properties framing is the capability-security basis the paper cites.
-- `papers--miller-tribble-shapiro-concurrency-among-strangers-2005--vat-and-event-loop-model` — the vat model is the temporal-isolation companion to the paper's spatial-mediation framing. Both are necessary; neither is sufficient alone.
-
-## Common confusions
-
-- **"Sleeper channels and sleeper agents (Hubinger 2024) are the same thing."** No — the paper is explicit about this. Hubinger's "sleeper agents" are *training-time deceptive behavior* surviving safety training; this paper's sleeper channels are *inference-time persistence* in a deployed agent. The shared metaphor doesn't transfer to the mechanism.
-- **"The defense is just provenance tagging."** Provenance tagging is the *substrate*; the defense is *gating on provenance at enforcement points outside the model loop*. The §VII paper makes the boundary placement load-bearing: in-context-only provenance is bypassable (D1), so the gate must sit at H1-H10 in the runtime (D2).
-- **"OpenClaw is a real runtime."** It is treated as real by the paper, with a pinned commit hash. As of this section's writing, whether the repo at `github.com/openclaw/openclaw` is a published real artifact, a synthetic example, or a forthcoming runtime cannot be verified from inside the library. The paper's analysis is structured and self-contained regardless.
+- [Abstract](papers--maloyan-namiot-sleeper-channels-2026--sleeper-channel-taxonomy-and-running-scenario--abstract.md)
+- [Body](papers--maloyan-namiot-sleeper-channels-2026--sleeper-channel-taxonomy-and-running-scenario--body.md)
+- [Translation block (paper idiom → garden / Endo equivalent)](papers--maloyan-namiot-sleeper-channels-2026--sleeper-channel-taxonomy-and-running-scenario--translation-block-paper-idiom-garden-endo-equivalent.md)
+- [Implications for the garden](papers--maloyan-namiot-sleeper-channels-2026--sleeper-channel-taxonomy-and-running-scenario--implications-for-the-garden.md)
+- [See also](papers--maloyan-namiot-sleeper-channels-2026--sleeper-channel-taxonomy-and-running-scenario--see-also.md)
+- [Common confusions](papers--maloyan-namiot-sleeper-channels-2026--sleeper-channel-taxonomy-and-running-scenario--common-confusions.md)

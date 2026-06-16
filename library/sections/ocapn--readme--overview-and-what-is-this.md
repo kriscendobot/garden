@@ -14,9 +14,7 @@ status: current
 
 > Abstract: Top-level introduction to the upstream protocol suite: what it is (a network-protocol family for distributed capability-secure communication), the components (Model, Notation, Locators, Netlayers, CapTP), and what implementations exist.
 
-# OCapN network suite
 
-## What is this?
 
 OCapN stands for "Object Capability Network".
 OCapN provides:

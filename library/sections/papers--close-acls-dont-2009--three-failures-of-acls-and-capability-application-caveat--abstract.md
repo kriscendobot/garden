@@ -1,0 +1,18 @@
+---
+title: Abstract
+source: "ACLs don't (Tyler Close, ~2009)"
+source_kind: paper
+source_authors: [Tyler Close]
+source_year: 2009
+source_venue: "Position paper (Hewlett-Packard Labs, Palo Alto)"
+source_url: https://papers.agoric.com/papers/acls-dont/
+source_pdf_sha256: d1ffe9e6e56f513dc83e8143ef7134ffb01f5f30020b10816e4798913181fc75
+source_paper_pages: "3-7 (§2.4 ACLs don't authorize correctly through §2.7 Avoiding Confused Deputy within a capability application)"
+ingested: 2026-05-29
+ingested_by: liaison-direct-draft
+topics: [capability-security, capability-theory]
+status: current
+parent: papers--close-acls-dont-2009--three-failures-of-acls-and-capability-application-caveat
+---
+
+§2.4-§2.7 enumerate three structural failures of ACLs, plus a caveat that capability applications can re-introduce the same failures by re-implementing ACL design on top of capabilities. The §2.4 paper observes the *Speaks-for* paper's [10] characterization of the ACL reference monitor's inputs — *the principal making the request, the operation in the request, and an access rule that controls which principals may perform that operation on the object* — and points out the gap: *the particulars of the operation may have been determined by a principal other than the request sender or the request receiver, and this information is not available to the reference monitor*. The capability reference monitor, by contrast, *performs access checks earlier in the call chain of messages, when the principal designating a particular object is still known*. **§2.4.1 RBAC, ABAC, IBAC variants** — all suffer the same Confused Deputy problem because they share the *delaying-the-access-control-check-until-a-late-stage* property. **§2.4.2 setuid** — fails too; *none of the existing principals is an appropriate one for execution of the output message* (Compiler-as-User would let the Compiler write to *all* User files; Compiler-as-Vendor would be the Confused Deputy unchanged). **§2.4.3 Stack introspection** — partially mitigates by requiring every principal in the call chain to possess the required permission, but only tracks a *single* authorization chain per operation; multi-argument operations cannot be correctly authorized this way; *also depends upon rigorous participation of the application programmer to make the uid setting system calls*. The §2.5 paper observes that *the ability to know "Who said this?" for any given message is generally thought to be important*, but *client authentication is actually misleading when used as the input to an access decision*. The §2.6 paper turns the lens on accountability: ACLs assign accountability to the *deputy* (the Compiler) for an action the deputy *was instigated to perform* by another principal — *holding the Compiler accountable is neither fair, nor useful; redress of the situation requires identification of the User, not the Compiler*. The §2.7 paper provides the crucial caveat that the capability model is *not automatically* immune: *an application built for a capability system could make itself vulnerable to a Confused Deputy attack by effectively re-implementing an ACL design on top of capabilities*; *the crucial step in a Confused Deputy attack occurs when an object identifier passes through an intermediate principal without being checked against the access matrix*. The §2.7 fix is *replace string-name-to-capability mappings at the API surface with capabilities-by-reference everywhere* — use file descriptors instead of filenames; let the User pass the actual `a.out` write-capability to the Compiler rather than the string `"a.out"`.

@@ -16,7 +16,6 @@ notes: Companion to ocapn--draft-specifications-model--*. Model.md defines the v
 > Abstract: The notation used throughout the upstream protocol's spec documents. Defines a meta-notation, then walks through how each Value type is written in that notation. Companion document to Model.md (the data model itself).
 
 
-# Notation
 
 The OCapN specification uses an Abstract Notation for the corresponding
 Concrete Representation of messages.

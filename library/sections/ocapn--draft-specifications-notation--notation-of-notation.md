@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Meta-notation. Defines the syntactic conventions used to express the rest of the notation: how rules are written, how alternatives are joined, how repetitions are described. Self-referential by necessity.
 
-## Notation of the Notation
 
 For the grammars of both the abstract notation and concrete representations,
 this document uses the following notation:

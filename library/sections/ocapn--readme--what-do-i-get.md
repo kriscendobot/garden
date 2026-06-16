@@ -14,7 +14,6 @@ status: current
 
 > Abstract: Motivation section: the properties using the protocol gets you (capability-secure messaging across mutually-suspicious peers, language-agnostic interop, the network-of-vats programming model). Aimed at potential adopters.
 
-## What do I get from using this?
 
 You get:
 
