@@ -6,8 +6,9 @@ source_commit: e56bf00f289ff8484094b785b11636b8bc71d87e
 source_date: 2026-02-24
 source_authors: [Kris Kowal]
 ingested: 2026-06-03
-ingested_by: scholar
-section_count: 1
+re-ingested: 2026-06-15
+ingested_by: scholar (cycle 132) + liaison (cycle 352)
+section_count: 2
 status: current
 notes: |
   Twenty-fifth comment-fragment ingest. 139-line file by Kris
