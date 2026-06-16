@@ -14,7 +14,6 @@ notes: Overlaps with endo--pkg-ses-readme--ecosystem-compatibility. Kept both.
 
 > Abstract: What works and what does not when SES is applied to common JS ecosystem libraries. Overlaps with endo--pkg-ses-readme--ecosystem-compatibility; this version is the docs/-tree counterpart with possibly different examples.
 
-## Library compatibility
 
 Programs running under SES can use `import` or `require()` to import other libraries consisting
 only of SES-compatible JavaScript code. This includes a significant part of the NPM registry.

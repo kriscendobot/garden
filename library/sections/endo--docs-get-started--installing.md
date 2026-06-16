@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Endo requires a supported version of Node.js and a package manager (npm or yarn; inside the Endo project specifically yarn). Short procedural-style section pointing at install commands; concrete prerequisites are in the source file.
 
-## Installing Endo
 
 To get started with Endo today, you will need a supported version of
 [Node.js][] and one of its suitable package managers like `npm` or `yarn`.

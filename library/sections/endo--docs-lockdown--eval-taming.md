@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Controls eval() and the Function constructor in the start compartment after lockdown. Default: safe-eval (SES's safe evaluator). Options: unsafe-eval (preserve original; allows code injection); no-eval (disable both eval and Function entirely).
 
-## `evalTaming` Options
 
 This option only affects the start compartment!
 

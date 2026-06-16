@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Three categories of diagnostic info are hidden from in-band code but available to the causal console via per-realm side tables: error stack traces, detailed error message data (via `assert`'s `details` template tag), and error annotations (added by higher-level catch clauses). One safe `Error`, one global `assert`, and a tree of filtering consoles together let compartment C's console decide what to show regardless of which compartment created or annotated an error. Logging is the only path to side-table content; throwing, asserting, and annotating produce no log output directly.
 
-## Hiding and Revealing Local Diagnostic Information
 
 A pervasive concern is hiding diagnostic information (both for confidentiality and for deterministic replay). Code that obtains access to an error object, for example by catching it, should not have access this hidden diagnostic information. However, the console system produces logging output, typically for human developers to look at to help track down problems. The `console` interface should ideally be a write-only interface when considered by itself. We consider the viewer of log information produced by the console the way we consider the operator of a debug interface of an IDE. We view both as at a meta-level outside the computational system producing the diagnostic information. This system has several categories of hidden diagnostic information:
 

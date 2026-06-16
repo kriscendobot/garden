@@ -14,7 +14,6 @@ notes: Section is plans-only; describes future work. Tracked at https://github.c
 
 > Abstract: Plans (not implemented) for distributed error diagnostics across mutually suspicious platforms. Errors are sent by copy. Alice's comm system generates an identifier, logs the error association locally, and includes the identifier in the serialization. Bob's comm system annotates the unserialized error with that identifier, so Bob's local logging includes a pointer back to Alice's logs. Open issue: automatic per-send logging is too noisy; bounded in-memory tables are one proposed mechanism.
 
-## Hiding and Revealing Distributed Diagnostic Information
 
 This section explains our *plans* to build a distributed logging experience on top of this system. Also tracked at [Support stack-tracking serialization of error objects #1863](https://github.com/Agoric/agoric-sdk/issues/1863).
 

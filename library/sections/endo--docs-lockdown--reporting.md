@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Controls where SES sends its own diagnostic warnings (distinct from the tamed console). Platform default. Options: console (route warnings to the tamed console), none (suppress).
 
-## `reporting` Options
 
 **Background**: `lockdown` and `repairIntrinsics` report warnings if they
 encounter unexpected but repairable variations on the shared intrinsics, which

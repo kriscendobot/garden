@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Historical narrative for HardenedJS: motivations from the original E and Joe-E work, the JavaScript Realms proposal, why SES was built as a shim rather than a language extension, the path from research through standardization to production deployment in MetaMask and Agoric. Background reading for context, not for direct API use.
 
-## The HardenedJS story
 
 JavaScript was created to let web surfers safely run programs from strangers.
 Web pages put JavaScript programs in a *sandbox* that restricts their abilities

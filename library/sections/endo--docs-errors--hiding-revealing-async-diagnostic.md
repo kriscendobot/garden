@@ -14,7 +14,6 @@ notes: Section is plans-only. Tracked at https://github.com/Agoric/agoric-sdk/is
 
 > Abstract: Plans (not implemented) for "deep asynchronous stacks." Restricting instrumentation to `E()` and `E.when` (rather than `Promise.prototype.then`, which platform code calls implicitly in ways user code cannot override) preserves predictability and platform independence at the cost of some diagnostic completeness. Each `E()` or `E.when` would create a hidden error associated with the turn it causes; recursive logging of annotations reconstructs a deep-stack causal chain backward (and a tree forward). Memory pressure from accumulating deep annotation trees needs a bounded data structure.
 
-## Hiding and Revealing Asynchronous Diagnostic Information
 
 This section explains our *plans* to build a logging experience on top of this system that supports local and distributed asynchrony. Also tracked at [Support deep stacks for local asynchronous log-based debugging #1862](https://github.com/Agoric/agoric-sdk/issues/1862) and [Support distributed deep stacks for log-based debugging #1864](https://github.com/Agoric/agoric-sdk/issues/1864).
 

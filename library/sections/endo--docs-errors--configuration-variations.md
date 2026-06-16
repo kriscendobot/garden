@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The error/assert/console system runs across multiple configurations: pre-repair, post-repair start compartment (with all `errorTaming` and `consoleTaming` combinations), and created compartments. The recommended endowment pattern (a tree of created compartments sharing one safe `Error`, one `assert`, and per-compartment filtering consoles) is the primary target for strong simple security and determinism.
 
-## Configuration variations
 
 This directory is a system of three related abstractions:
 

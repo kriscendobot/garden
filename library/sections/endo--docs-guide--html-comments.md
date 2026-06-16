@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Edge case in JavaScript: HTML-style comments (<!-- and -->) are legal in JS but interact oddly with SES's frozen-intrinsics model. Documents the specific behaviors and any taming options.
 
-## HTML comments
 
 JavaScript parsers may not recognize HTML comments within source code, potentially causing different
 behavior on different engines. For safety, the Agoric SES shim rejects any source code containing a comment

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Idioms and anti-patterns: when to use Far() vs full Exo, when to attenuate vs share, how to handle revocation, how to manage state ownership across multi-facet kits. Distills accumulated practice from Agoric and Endo codebases into rules of thumb.
 
-## Design Patterns and Best Practices
 
 Now that we've seen the full stack in action, let's discuss patterns for
 structuring your distributed objects.

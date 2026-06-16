@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Controls handling of uncaught exceptions. Platform default. Options: exit (abort the process), abort (immediate non-graceful), report (log via the tamed console), none (do nothing). Behavior varies between Node.js and browser environments.
 
-## `errorTrapping` Options
 
 **Background**: With safe error taming and console taming, after lockdown,
 errors are born without an attached `stack` string.

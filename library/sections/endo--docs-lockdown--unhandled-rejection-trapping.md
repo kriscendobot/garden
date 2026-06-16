@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Controls handling of finalized unhandled promise rejections. Default: report (log via the tamed console). Option: none (suppress).
 
-## `unhandledRejectionTrapping` Options
 
 **Background**: Same concerns as `errorTrapping`, but in addition, SES will
 attempt to install platform-specific finalized (rather than just same-turn)

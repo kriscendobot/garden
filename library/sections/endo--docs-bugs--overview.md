@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Single-paragraph pointer document. Security-sensitive bugs go through coordinated disclosure per the SES security guide (link to `packages/ses/SECURITY.md` upstream); non-security bugs go to the Agoric SES-shim Issues page on GitHub. This file is intentionally tiny; the actual reporting protocol lives in `docs/security.md`.
 
-# Bug Disclosure
 
 Please help us practice coordinated security bug disclosure, by using the instructions in our [security guide](https://github.com/endojs/endo/tree/master/packages/ses/SECURITY.md) to report security-sensitive bugs privately.
 

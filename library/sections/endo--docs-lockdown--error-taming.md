@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Controls Error.stack visibility and the Error constructor taming. Safe (default): hide error stacks from in-band code (routed to side tables for the causal console). Unsafe: preserve original error.stack access in-band. unsafe-debug: maintain in-band stack access for debugging while keeping other taming. This is the longest option section, with detailed discussion of stack-trace policy, redaction, and how the assert/console/error triple interacts.
 
-## `errorTaming` Options
 
 **Background**: The error system of JavaScript has several safety problems.
 In most JavaScript engines running normal JavaScript, if `err` is an

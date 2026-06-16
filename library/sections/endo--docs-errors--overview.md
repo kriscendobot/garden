@@ -14,7 +14,6 @@ notes: Single commit in git log; content references issues from 2020 era, so mat
 
 > Abstract: Summary of how SES handles error-related diagnostic information: an `assert` global adds hidden-from-callers annotations, the global `Error` is tamed to hide stacks, and the global `console` (the "causal console") reveals annotations and stacks back to the real console. Both `assert` and `console` are powerful globals that must be explicitly endowed into child compartments. The `TRACK_TURNS=enabled` + `DEBUG=track-turns` env vars enable deep asynchronous stacks via `@endo/eventual-send`.
 
-# Logging Errors
 
 Summary:
 

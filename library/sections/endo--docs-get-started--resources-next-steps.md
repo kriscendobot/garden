@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Pointers to further reading: the docs/ tree (lockdown, errors, message-passing, security), key package READMEs (ses, eventual-send, marshal), the SES specification, talks, and how to file issues. The tutorial's exit ramp.
 
-## Resources & Next Steps
 
 Please join the conversation on our [Mailing List][SES Strategy Group] and
 [Matrix][].

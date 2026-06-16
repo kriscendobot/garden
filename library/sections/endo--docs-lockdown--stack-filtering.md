@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Controls signal-to-noise filtering of stack traces in the causal console. Default: concise (omit frames from SES infrastructure to reduce noise). Options: omit-frames, shorten-paths, verbose (show everything). The longest option section, with detailed discussion of which frames are noise versus signal, how the filtering interacts with source-map resolution, and the trade-off between debugging completeness and visual focus.
 
-## `stackFiltering` Options
 
 **Background**: The error stacks shown by many JavaScript engines are
 voluminous.

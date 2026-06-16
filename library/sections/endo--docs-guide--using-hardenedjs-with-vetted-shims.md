@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How to use HardenedJS in environments where the SES shim cannot run directly (older bundlers, browsers without ES2020+, or constrained sandboxes). Covers the vetted-shim pattern: a pre-locked-down JS bundle that consumers can use without calling lockdown() themselves. Distinct from the standard install path.
 
-## Using HardenedJS with vetted shims
 
 Some modules depend on language features that may not be present in the
 underlying platform.

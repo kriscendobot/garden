@@ -14,7 +14,6 @@ notes: Overlaps with endo--docs-reference--using-ses-with-your-code and endo--do
 
 > Abstract: Practical onboarding for adding HardenedJS to a JS project. Overlaps with docs/reference.md's section of the same title and docs/get-started.md's installing/first-steps sections; this version is guide-shaped (more background, more explanation) where the others are reference-shaped or tutorial-shaped.
 
-## Using HardenedJS with your code
 
 The Lockdown function transforms ordinary JavaScript environments into Hardened
 JavaScript environments.

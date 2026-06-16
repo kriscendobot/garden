@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Antidote for the JavaScript override mistake: an inherited non-writable property cannot be overridden by assignment on a derived object, breaking common subclass-by-assignment patterns. Default: moderate (turn affected built-in properties into accessors that permit assignment-style override). Options: min (only the most critical properties), severe (more aggressive). Trade-off: tool compatibility (some tools treat accessors specially) vs code compatibility.
 
-## `overrideTaming` Options
 
 **Background**: JavaScript suffers from the so-called
 [override mistake](https://web.archive.org/web/20141230041441/http://wiki.ecmascript.org/doku.php?id=strawman:fixing_override_mistake),

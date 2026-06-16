@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Controls locale-sensitive primordial methods (toLocaleString, toLocaleLowerCase, localeCompare, etc.). Safe (default): alias to non-locale equivalents (eliminates fingerprinting and live locale-change non-determinism). Unsafe: preserve original locale-dependent behavior for compatibility.
 
-## `localeTaming` Options
 
 **Background**: In standard plain JavaScript, the builtin methods with
  "`Locale`" or "`locale`" in their name&mdash;`toLocaleString`,

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: How to run the test and lint suites before submitting a PR: yarn test, yarn lint, yarn lint:types (tsd). What CI runs. Pre-commit recommendations.
 
-## Validation
 
 Continuous Integration is comprehensive.
 Many issues can be anticipated locally by running:

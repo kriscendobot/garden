@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Walk-through of taking a normal Node.js application and confining it inside a Compartment, addressing how to provide bounded access to filesystem, network, and process resources via explicit endowments. Bridges the conceptual lockdown/Compartment material to a recognizable real-world target.
 
-## Confining Node.js-style applications
 
 Endo provides both high-level and low-level tools for creating and executing
 bundles out of Node.js packages and their transitive dependencies.

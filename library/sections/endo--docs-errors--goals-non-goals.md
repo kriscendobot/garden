@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The three building blocks of JS developer debugging (thrown errors with stack traces, `assert` convenience, built-in `console`) must be preserved under the constraints of a secure, distributed, deterministic blockchain system. This is distinct from symbolic logging frameworks intended for post-processing; the `console` produces information for direct human consumption, which severely constrains what symbolic metadata can be added without visual noise.
 
-## Goals, non-goals, and partial goals
 
 Aside from IDE-based debuggers, the normal JavaScript developer debugging experience rests on the interplay of three widespread building blocks:
 

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Edge case in JavaScript: direct eval (eval(code) in syntactically-direct position) and indirect eval (saved-reference eval, or eval used as expression result) have different semantics under SES. Direct eval is constrained by the surrounding lexical scope; indirect eval runs in the global scope. Affects how Compartments interpret evaluated code.
 
-## Direct vs. indirect eval expressions
 
 A *direct eval*, invoked as `eval(code)`, behaves as if `code` were expanded in place. The
 evaluated code sees the same scope as the `eval` itself sees, so this `code` can reference `x`:

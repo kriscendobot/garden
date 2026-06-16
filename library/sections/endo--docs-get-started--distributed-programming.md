@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Distributed programming concepts via Endo: eventual-send (E() / E.when), capability-bearing remotables, the OCapN family of transport protocols (CapTP, marshal, netstring), and the daemon model. The second substantial section; introduces the distributed half of the Endo programming model after the local-confinement half.
 
-## Distributed Programming with Endo
 
 Endo also provides tools that let programmers communicate between processes
 and over networks with asynchronous, object-oriented message passing.

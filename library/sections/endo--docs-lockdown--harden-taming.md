@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Makes harden() a no-op for performance in trusted environments where the cost of recursive freezing exceeds the safety value. Default: safe (harden actually freezes). Option: unsafe (harden becomes a no-op; significantly faster, significantly less safe). The double-underscore prefix marks this option as exceptional and dangerous-on-purpose.
 
-## `__hardenTaming__` Options
 
 The `__hardenTaming__` option to `lockdown`, with values `'safe'` (the default)
 in which `harden` still works, and `'unsafe'`, in which `harden` is a do-nothing

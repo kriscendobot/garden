@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Controls RegExp.prototype.compile (which can violate frozen-instance invariants and corrupt Proxy guarantees). Safe (default): delete the method. Unsafe: preserve for compatibility at the price of some risk. Legacy RegExp static methods (RegExp.lastMatch and friends) are removed under all settings because they are an unsafe global overt-communications channel.
 
-## `regExpTaming` Options
 
 **Background**: In standard plain JavaScript, the builtin
 `RegExp.prototype.compile` method may violate the object invariants of frozen

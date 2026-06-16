@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Short enumeration of categories where Endo confinement is useful: AI agent sandboxes, supply-chain protection, plugin systems, blockchain smart contracts, and developer tools. The motivating examples behind the tutorial; each is one paragraph or less.
 
-## Use Cases
 
 Endo's most dedicated users are the
 [Agoric](https://github.com/Agoric/agoric-sdk) smart contract platform and

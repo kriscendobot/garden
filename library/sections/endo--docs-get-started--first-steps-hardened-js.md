@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Hands-on introduction to Hardened JavaScript: calling lockdown(), demonstrating frozen intrinsics, the harden() pattern, and using a Compartment to isolate guest code with explicit endowments. The most substantial section of the tutorial; intended as the first concrete encounter with SES for a new user.
 
-## First Steps: Introducing HardenedJS
 
 Endo includes a [shim][] implementation of HardenedJS called [SES][].
 By importing `ses` and calling `lockdown()`, we can transform ordinary

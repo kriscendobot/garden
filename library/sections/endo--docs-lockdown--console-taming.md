@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Controls whether the global console is virtualized during lockdown. Safe (default): replace with a tamed console that has a special relationship with errors and the assert package, revealing redacted details to the original console without exposing them to in-band code. Unsafe: leave the platform console in place; combine with overrideTaming: 'min' until issue #636 is fixed. Examples show the deep-stack-style log output under each setting.
 
-## `consoleTaming` Options
 
 **Background**: Most JavaScript environments provide a `console` object on the
 global object with interesting information hiding properties. JavaScript code

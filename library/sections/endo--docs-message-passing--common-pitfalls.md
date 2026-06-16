@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Bugs that recur in code written against this model: forgetting to harden(), passing a non-passable, confusing E() with .then(), pattern mismatches in method guards, identity assumptions that break across the wire. Each pitfall is paired with its diagnostic symptom and the fix.
 
-## Common Pitfalls
 
 ### Forgetting M.callWhen() for Async Methods
 

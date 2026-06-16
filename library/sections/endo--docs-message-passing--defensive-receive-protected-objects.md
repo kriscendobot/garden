@@ -13,7 +13,6 @@ status: current
 
 > Abstract: The longest section. How to build receiving objects that protect themselves: Exo classes with method guards, multi-facet kits for attenuation, defensive-copy patterns, the trust boundary between in-band and out-of-band code. The applied capability-security material.
 
-## Defensive Receive: Protected Objects
 
 **Exos** introduce interface guards for remotable objects.
 At this point, you should forget about the `Far` stepping-stone and always

@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Array of property names to actively detect override-mistake violations against. Default: empty array. When set, override attempts on the named properties throw with a diagnostic instead of silently failing. Useful for debugging code that hits taming-related errors during SES migration.
 
-## `overrideDebug` Options
 
 To help diagnose problems with the [Property Override Mistake][POM], you can
 set this option to a list of properties that will print diagnostic information

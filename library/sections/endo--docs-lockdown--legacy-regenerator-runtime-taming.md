@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Controls regenerator-runtime (Babel's transpiler output for generator functions). Default: safe (apply the taming). Option: unsafe-ignore (skip the taming, accepting the resulting attack surface).
 
-## `legacyRegeneratorRuntimeTaming` Options
 
 `regenerator-runtime` is a widely used package in the ecosystem.
 It is used to support generators and async functions transpiled to ES5.

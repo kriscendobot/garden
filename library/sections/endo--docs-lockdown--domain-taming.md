@@ -13,7 +13,6 @@ status: current
 
 > Abstract: Controls Node.js's deprecated domain module. Default: safe (remove the domain mechanism). Unsafe: leave in place.
 
-## `domainTaming` Options
 
 The deprecated Node.js `domain` module adds `domain` properties to callbacks
 and promises.
