@@ -15,7 +15,6 @@ notes: The list of recently-added designs is itself a useful change-log surface.
 
 > Abstract: The frame for the design corpus. **Last updated 2026-05-11**. The overview names recently-added designs as a change log: `daemon-make-archive` (2026-04-23), `filesystem-watchers` (2026-05-07), `endo-posix-sandbox` (2026-05-07; mirrors `PLAN/endo_posix_sandbox.md` for roadmap calibration), `exo-zip-package` (2026-05-08; PR #128 reshape blocker), `trust-on-first-bind` (2026-05-08; shared capability-policy adapter; addendum to PR #144 HttpClient), `break-dev-dependency-cycles` (2026-05-11; PR #121 follow-up; synthetic test-package factoring), `cli-http-client` (2026-05-09; PR #144 design revision under `endo http` subcommand tree), `endo-gateway` (2026-05-10; per-host system-service HTTP virtual host for OCapN; closes issue #173, unblocks PR #134), `retention-path-notation` (2026-05-10; PR #151 row-format unblocker; sibling of `daemon-retention-paths`), `cli-store-verb-text-modes` (2026-05-08; PR #128 reshape blocker), `unhandled-rejection-display` (2026-05-10; closes issue #171), `cli-edit-verb` (2026-05-08; sibling of PR #153; hashline patches for AI agents).
 
-# Endo Design Documents
 
 *Last updated: 2026-05-11*
 

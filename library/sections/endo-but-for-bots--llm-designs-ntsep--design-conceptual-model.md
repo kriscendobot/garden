@@ -15,7 +15,6 @@ notes: The key API difference: `OcapnNetwork.connect(location): Promise<Session>
 
 > Abstract: The new conceptual model is a four-layer hierarchy: **OCapN Core** → **Network** (e.g., `np` for OCapN-Noise, `tcp-testing-only` for test) → **Transport** (`ws:`, `tcp:`) → **Physical connection** (WebSocket, TCP socket). **Locator** designates a network (rename `transport` field → `network`). **Network** is responsible for session establishment, authentication, encryption; defines its own handshake; registered by network identifier. **Transport** is a byte-stream carrier used by a network; a network may support multiple. **Connection hints** like `ws:` or `tcp:` prefixed on an address tell the network which transport to use. The new **OcapnNetwork** interface has `identifier`, `location`, `connect(location): Promise<Session>`, and `shutdown()` — critically, `connect` returns a Session (authenticated, encrypted, CapTP-ready), not a raw Connection. The network owns the full lifecycle.
 
-## Description of the Design
 
 ### New Conceptual Model
 

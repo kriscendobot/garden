@@ -15,7 +15,6 @@ notes: The four problems are the load-bearing motivation for the refactor. Item 
 
 > Abstract: OCapN today conflates "network" with "transport". The `OcapnLocation.transport` field (e.g., `'tcp-testing-only'`) simultaneously identifies a protocol family AND how to physically connect. `packages/ocapn/src/client/index.js`'s `netlayers` map is keyed by transport name; `establishSession` looks up netlayers by `location.transport`. Four concrete problems: (1) a network like OCapN-Noise that supports WebSocket + TCP+Netstring + Tor must register each as a separate "netlayer", losing shared identity and session semantics; (2) locators should designate a **network** (the authenticator and session multiplexer), not a transport (the byte carrier); (3) the `op:start-session` handshake in `packages/ocapn/src/client/handshake.js` is OCapN-core-mandated, but OCapN-Noise piggybacks authentication on Noise's handshake and shouldn't be forced through `op:start-session`; (4) crossed-hellos resolution and initiator/responder authenticity should live in the network, not be OCapN's job.
 
-## What is the Problem Being Solved?
 
 OCapN currently conflates the concepts of "network" and "transport". The `OcapnLocation` type has a `transport` field (e.g., `'tcp-testing-only'`) that simultaneously identifies what protocol family a peer belongs to and how to physically connect to it. The `netlayers` map in `packages/ocapn/src/client/index.js` registers implementations by transport name, and the `establishSession` function looks up a netlayer by `location.transport`.
 

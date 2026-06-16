@@ -15,7 +15,6 @@ notes: This section deliberately does **not** transcribe the full 100+-row summa
 
 > Abstract: The Summary section is a 100+-row table with columns `Design | Created | Updated | Status` — one row per design in the corpus. **Status values** (per the CLAUDE.md taxonomy): Not Started, Proposed, In Progress, **Complete** (sometimes bolded), Implemented (synonym for Complete), Active (living document), Reference (informational), Deprecated. Plus per-PR status markers like `PR #93`. As of 2026-05-11 the corpus has **~100 designs**, of which the README's strategic-early-items section notes **26 of 95 complete/implemented** and **15 in progress** (per the 2026-05-08 progress note). **For per-design status the library does not mirror the upstream table** (it would diverge as upstream updates land); query upstream directly via `git --git-dir=worktrees/endojs-endo-but-for-bots.git show llm:designs/README.md | grep <design-slug>` for the current row, or open the URL on the GitHub `llm` branch.
 
-## Summary
 
 | Design | Created | Updated | Status |
 |--------|---------|---------|--------|
