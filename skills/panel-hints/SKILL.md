@@ -44,12 +44,13 @@ for f in $files; do
   has_any=true
   case "$f" in
     designs/*.md|*/designs/*.md) ;;
+    DESIGN*.md|*/DESIGN*.md) ;;
     *) all_design=false; break;;
   esac
 done
 ```
 
-If every changed file is under a design directory and there is at least one changed file, the panel is `design-panel` (route to `solicitor`). Otherwise it is `code-panel` (route to `barrister` for the first round; `justice` for re-runs). The choice is the orchestrator's, not this script's; this script only emits the panel-kind so the orchestrator's heuristic can verify.
+If every changed file is under a design directory or matches the `DESIGN*.md` naming convention (used in `endojs/endo` for per-package design documents at `packages/<name>/DESIGN*.md`) and there is at least one changed file, the panel is `design-panel` (route to `solicitor`). Otherwise it is `code-panel` (route to `barrister` for the first round; `justice` for re-runs). The choice is the orchestrator's, not this script's; this script only emits the panel-kind so the orchestrator's heuristic can verify.
 
 ### 2. Run the seat probes (code-panel case)
 

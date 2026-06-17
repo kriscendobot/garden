@@ -60,6 +60,7 @@ all_design=true
 for f in $files; do
   case "$f" in
     designs/*.md|*/designs/*.md) ;;
+    DESIGN*.md|*/DESIGN*.md) ;;
     *) all_design=false; break;;
   esac
 done
