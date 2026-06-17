@@ -1180,6 +1180,14 @@ captp-bounded transient pin | captp-bounded-transient-pin
 captp partition handler | captp-bounded-transient-pin
 captp partition signal | captp-bounded-transient-pin
 partition-triggered release | captp-bounded-transient-pin
+presence severance | captp-bounded-transient-pin
+connection severance | captp-bounded-transient-pin
+captp severance | captp-bounded-transient-pin
+captp connection sever | captp-bounded-transient-pin
+remote disconnected | captp-bounded-transient-pin
+disconnection-triggered release | captp-bounded-transient-pin
+whenSevered | (no concept; load-bearing term for proposed presence-severance-observation design)
+onSever | (no concept; load-bearing term for proposed presence-severance-observation design)
 disk before graph | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--daemon-changes-makeretainedvalue-and-captp-bounded-pin)
 disk-before-graph | (see section: endo-but-for-bots--llm-designs-chat-slot-slash-commands--daemon-changes-makeretainedvalue-and-captp-bounded-pin)
 real locator over opaque ephemeral identifier | captp-bounded-transient-pin
