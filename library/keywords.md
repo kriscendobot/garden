@@ -4241,7 +4241,29 @@ reconcile-don't-duplicate posture | daemon
 parallel-substrate-acknowledgment | daemon
 familiar-run-apps-vfs PR 241 | daemon
 exo-zip exo-unzip PR 160 | daemon
-exo-stream PR 330 | daemon
+exo-stream PR 330 | exo-stream
+`@endo/exo-stream` | exo-stream
+`readerFromIterator` | exo-stream
+`writerFromIterator` | exo-stream
+`bytesReaderFromIterator` | exo-stream
+`bytesWriterFromIterator` | exo-stream
+`iterateReader` | exo-stream
+`iterateWriter` | exo-stream
+`iterateBytesReader` | exo-stream
+`iterateBytesWriter` | exo-stream
+`makeReaderPump` | exo-stream
+`makeWriterPump` | exo-stream
+`PassableReader` | exo-stream
+`PassableWriter` | exo-stream
+`PassableBytesReader` | exo-stream
+`PassableBytesWriter` | exo-stream
+`StreamNode` | exo-stream
+`makeIteratorRef` | exo-stream
+`makeReaderRef` | exo-stream
+`makeRefIterator` | exo-stream
+`makeRefReader` | exo-stream
+reader-ref.js | exo-stream
+ref-reader.js | exo-stream
 daemon git-tree archive PR 367 | daemon
 four-phase plan P0 P1 P2 P3 | daemon
 exit-criterion-per-phase | daemon
