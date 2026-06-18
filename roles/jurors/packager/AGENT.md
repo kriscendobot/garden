@@ -1,6 +1,6 @@
 ---
 created: 2026-05-14
-updated: 2026-05-14
+updated: 2026-06-18
 author: gardener
 ---
 
@@ -34,6 +34,8 @@ Assumes you have already read `roles/COMMON.md`.
 - **Each finding has a verdict**: must-fix, should-fix, or comment-only.
 - **Be specific.** Cite the commit SHA and the file. "The diff is messy" is unactionable; "commit `abc1234` claims `lint autofix only` but also rewrites `packages/foo/README.md:42-90` substantively" is actionable.
 - **Conflated autofix is the recurring packager finding.** When a commit message claims "X autofix only" but the commit also contains JSDoc rewrites or unrelated changes, that is a must-fix diff-hygiene complaint. The fixer's response is to split the commit. Observed pattern from the endo-but-for-bots#243 panel.
+- **typedoc / tsconfig parity.** A package's `typedoc.json` `entryPoints` must be a subset of what the root `tsconfig.json` includes for compilation. A package excluded from TypeScript compilation but referenced from typedoc produces stale documentation against a build target that no longer exists; conversely, a typedoc entry for an uncompiled package fails at doc-build time. Flag `typedoc.json` entries whose package is not in the `tsconfig.json` include set; the fix is to align the two configs. Provenance: barrister code panel on `endojs/endo-but-for-bots#460` round 1, 2026-06-18 (packager + gateway seats).
+- **Peer-dependency ranges that include unverified future major versions.** A peer-dependency range that extends across a future major version the package has not actually been tested against (e.g., `"^11.0.0"` on a package currently at v10) carries an implicit compatibility claim the diff does not back. Flag any new or widened peer-dep range whose upper bound is a future major; the fix is either to tighten the range to verified versions or to add an inline `// unverified against vX.0.0` comment in the `package.json` adjacent to the range. Provenance: barrister code panel on `endojs/endo-but-for-bots#460` round 1, 2026-06-18 (migrator seat).
 - **Stay terse and structured.** Under ~400 words for the per-juror block.
 - **Submit the per-juror block as a `result` journal entry.** The judge aggregates and submits the formal `gh pr review`.
 

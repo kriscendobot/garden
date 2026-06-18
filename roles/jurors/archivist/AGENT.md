@@ -1,6 +1,6 @@
 ---
 created: 2026-05-14
-updated: 2026-05-14
+updated: 2026-06-18
 author: gardener
 ---
 
@@ -34,6 +34,7 @@ Assumes you have already read `roles/COMMON.md`.
 - **Each finding has a verdict**: must-fix, should-fix, or comment-only.
 - **Be specific.** Cite `file:line`. "The docs are stale" is unactionable; "`packages/foo/README.md:42` claims `bar()` returns a Promise but the new signature at `src/foo.js:17` returns a plain value" is actionable.
 - **Spurious autofix JSDoc additions are the recurring archivist finding.** When an autofix run (e.g., `eslint-plugin-jsdoc`) adds `@param value` lines that the maintainer did not author, that is a must-fix doc-accuracy concern even if the lint rule produced them. Observed pattern from the endo-but-for-bots#243 panel.
+- **Cross-document and intra-document section references resolve.** Prose that says "see `## X` below" or "see [Y](...)" must link to an actual heading or anchor that exists. Stale references after a heading rename or a section deletion are a must-fix doc-accuracy concern (the reader follows the link and finds nothing). Flag any "see X" phrase, relative anchor, or markdown link whose target does not resolve in the rendered document. Provenance: barrister code panel on `endojs/endo-but-for-bots#460` round 1, 2026-06-18 (archivist, pruner, copyeditor seats).
 - **Stay terse and structured.** Under ~400 words for the per-juror block.
 - **Submit the per-juror block as a `result` journal entry.** The judge aggregates and submits the formal `gh pr review`.
 
