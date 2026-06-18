@@ -1,8 +1,8 @@
 ---
 host: endolinbot
 role: gardener
-last_drained_at: 2026-06-18T04:29:19Z
-last_drained_commit: dda99b0b4a4155286e0f7b5be7dfff63385b46ee
+last_drained_at: 2026-06-18T08:45:36Z
+last_drained_commit: ddcc22954efad3f497ca0405c16daace66653310
 ---
 
 # gardener inbox state on endolinbot
