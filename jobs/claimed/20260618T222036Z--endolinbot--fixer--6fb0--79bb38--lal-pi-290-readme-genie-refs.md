@@ -19,6 +19,10 @@ eligible_roles:
   - fixer
 preconditions: []
 refs: []
+claimed_by_role: fixer
+claimed_by_host: endolinbot
+claimed_by_session: 6fb0
+claimed_at: 2026-06-18T22:20:36Z
 ---
 
 ## Summary-fix bundle: PR #290 README genie stale references
