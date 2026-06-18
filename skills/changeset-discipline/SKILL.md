@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-14
+updated: 2026-06-18
 author: liaison, gardener
 ---
 
@@ -26,7 +26,7 @@ Skip entirely (don't write a "no-op" entry) if all of:
 - The change does not obligate the user to perform any migration.
 - The user could not detect the change by reading the package's documentation, signatures, or behavior.
 
-Examples that do *not* need a changeset: removing an unused devDependency; moving tests into a sibling synthetic test package; renaming an internal-only file under `src/`; adding a private internal subpath gated by a test export condition; refactoring a fixture; updating a comment, JSDoc, or README that describes already-existing behavior; CI workflow tweaks; build- or lint-only changes.
+Examples that do *not* need a changeset: removing an unused devDependency; moving tests into a sibling synthetic test package; renaming an internal-only file under `src/`; adding a private internal subpath gated by a test export condition; refactoring a fixture; updating a comment, JSDoc, or README that describes already-existing behavior; CI workflow tweaks; build- or lint-only changes; additions or edits under `.claude/` (project-internal agent context that is not part of any package's public surface).
 
 A noisy changelog full of "removed unused devDep" or "moved tests" entries trains downstream consumers to ignore the changelog, which makes the genuinely user-facing entries harder to notice.
 
@@ -47,3 +47,4 @@ A changeset's audience is a downstream package author reading the published rele
 
 - _2026-05-13_: adopted from the reference. The project-specific origin (kriskowal on PR #209 / #210) was dropped; the discipline applies wherever Changesets is in use. Per-project conventions (the file path under `.changeset/`, the YAML front-matter shape) belong in a journal entry tagged with the relevant project slug.
 - _2026-05-14_: the *What goes inside* section was extracted from kriskowal's review of [endojs/endo#3232](https://github.com/endojs/endo/pull/3232), specifically comments [3239062983](https://github.com/endojs/endo/pull/3232#discussion_r3239062983) (no process commentary), [3239064618](https://github.com/endojs/endo/pull/3232#discussion_r3239064618) and [3239067688](https://github.com/endojs/endo/pull/3232#discussion_r3239067688) (stale interface in the changeset body), [3239068864](https://github.com/endojs/endo/pull/3232#discussion_r3239068864) (implementation detail not interesting to package authors updating dependencies), and [3239072009](https://github.com/endojs/endo/pull/3232#discussion_r3239072009) (consolidate when a single release cycle produces multiple `.changeset/*.md` files).
+- _2026-06-18_: the `.claude/` exclusion in the *When not to* list was added per barrister panel on `endojs/endo-but-for-bots#452` (changeset-auditor seat surfaced a `.claude/skills/endo/skill.md` edit that did not warrant a changeset entry). Precipitating message: `journal/entries/2026/06/17/232115Z-message-barrister-d0e483.md`. The `.claude/` directory is project-internal agent context; it is not exported from any package and never reaches a downstream consumer reading release notes.
