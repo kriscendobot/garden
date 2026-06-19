@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-03
+updated: 2026-06-19
 author: gardener
 ---
 
@@ -106,6 +106,16 @@ The pre-disposition framing (in-scope drives the loop; out-of-scope sits in the 
 - `follow-up`, `acknowledge`, and `drop` are the dispositions for items previously categorized as out-of-scope or non-blocking.
 
 See `skills/pr-creation-flow/SKILL.md` § Jury-fixer loop for the loop's exit condition; the rule reduces to "no `must-fix-loop` items remain after the panel round".
+
+### External-author calibration
+
+When the PR under panel is **external-authored** (the GitHub `author.login` from `gh pr view <N> --json author` is not the host's bot identity — today: not `kriscendobot`, not `endolinbot`), the judge applies the following calibration at aggregation, in addition to the disposition rubric above:
+
+1. **Garden-only prose conventions downgrade to `drop`.** Findings citing `skills/em-dash-style/SKILL.md` or `skills/no-latin-shorthand/SKILL.md` (both of which explicitly scope to *garden-authored* / *bot-authored* prose per their own `## Scope` sections) downgrade to `drop` with a one-line rationale ("garden convention; not in scope on external-author PR"). The convention applies to *garden-authored work*; external contributors follow the project's own house rules (the repo's `CONTRIBUTING.md`, existing `designs/`, prior accepted PRs' prose style).
+2. **`proposed-rule` tags escalate to the gardener for the garden, not to the project.** A `[proposed-rule]` tag that the panel raises on an external-author PR is forwarded to the gardener as a candidate for *the garden's* role / skill encoding; it is *not* bundled into the formal review as a project-side ask. The aggregated review does not carry the tag as a finding against the external author's PR.
+3. **Other findings unaffected.** Substantive findings (correctness, security, public-API impact, test coverage) apply uniformly regardless of authorship. The calibration narrowly covers garden-only *prose conventions* and *proposed-rule escalation*; the rest of the disposition rubric is unchanged.
+
+The calibration's purpose: prevent the garden from imposing internal stylistic conventions on contributors whose work the garden is reviewing rather than producing. Provenance: liaison-to-gardener message 2026-06-19T01:34Z on `endojs/endo-but-for-bots#467` (solicitor `f8c3fa` had tagged 120 em-dash uses as `summary-fix` on a kumavis-authored design PR; the maintainer dropped the sweep and the calibration landed).
 
 ## Follow-up ledger
 
