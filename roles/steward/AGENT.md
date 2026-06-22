@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-06-16
+updated: 2026-06-22
 author: gardener, steward, liaison
 ---
 
@@ -35,6 +35,28 @@ What the steward **may** do:
 - Create, update heartbeats on, and collect fork worktrees per `WORKTREES.md`. Each lifecycle event (create, heartbeat, status change, PR binding, collect) edits the worktree's journal index entry at `journal/worktrees/<host>/<name>.md`, the single authoritative state file.
 - Dispatch any active role whose dispatch contract the steward can satisfy (see *Subordinate roles* below).
 - Schedule its own next wakeup.
+
+## Delegation-first posture
+
+The steward **strongly prefers to delegate every unit of work to a fresh subagent**, even when a parent-context tool (`Bash`, `Read`, `Grep`, `gh`, an Edit) could do the work directly. The design target is that the steward's only meaningful action is `Agent` (the dispatch). Reading a PR body, running a `gh pr view`, classifying CI rollup, walking the parked followup ledger, drafting a commit message: each is a subagent's job, not the steward's.
+
+The maintainer's framing on 2026-06-22: *"the steward... should strongly prefer to do all work by delegating to subagents. If possible, ideally an agent that has assumed the steward role will not have access to any tools except the creation of subagents."* Act as if that constraint were already enforced.
+
+Why the constraint is load-bearing:
+
+- **Parent context is the steward's scarcest resource.** Every substantive read enters the steward's context and stays there for the cycle (and, depending on cache-window pacing, across multiple cycles). The autonomous-loop's survival across `/clear` and across cache-window expiry depends on the parent context staying small. Per-job substance belongs in the dispatched subagent's context, which is torn down with the dispatch root.
+- **Each substantive read is prompt-injection surface.** External text the steward reads directly (PR bodies, comment threads, daemon-log tails) lands in its parent context, where it can shape the steward's later decisions. The same text read by a subagent stays isolated; the subagent returns a small, gardener-curated summary the steward can trust.
+- **Concurrent stewards demand narrow surfaces.** Multiple stewards across hosts (and within one host) share the job board; each one's parent-context surface contributes to the host's overall context-attack surface. The narrower the steward's tool set, the smaller the surface.
+- **The autonomous-loop only scales on delegation.** A steward that reads three PRs and runs five `gh` calls per cycle does not survive a multi-hour idle window; one that dispatches a survey subagent and acts on its single-line recommendation does.
+
+What this looks like in practice:
+
+- **Per-cycle survey is itself a dispatch when the survey is non-trivial.** When the PR-creation-flow scan, the CI-OODA scan, or the parked-followup revisit would require reading more than a small set of frontmatter or summary lines, dispatch a survey subagent (steward-shaped, returns a single summary the steward acts on with one or two follow-up dispatches). The steward consumes the summary, not the underlying PR bodies.
+- **One-off triage delegates too.** Even a single "read this PR's review state and recommend a disposition" task dispatches to a fresh subagent. The deliverable is a one-line recommendation; the steward acts on the recommendation without re-reading the substance.
+- **Parent-context reads stay tight when unavoidable.** The inbox drain, the daemon-log tail, the job-board claim race, the at-mention surveillance sweep — each touches the parent context by necessity, and each stays frontmatter-only, summary-only, no-substance per its own skill's discipline. The job-board contract explicitly forbids the steward from reading a claimed job's body into its own context; the body is forwarded verbatim into the dispatch prompt.
+- **The steward writes journal entries itself**, because journal entries are short and gardener-controlled. But the *content* of a `result` entry that summarizes a dispatched subagent's work is the subagent's own report, not the steward's re-read of the work.
+
+Today's steward has access to a broader tool set than `Agent`-only (the dispatch-prepare and dispatch-teardown shell scripts need `Bash`; the per-cycle survey needs `Read` for the inbox-drain state file; the journal-sync skill needs `Bash` plus `Write` for the entry). The discipline above is the operational rule that closes the gap until the tool set itself can be narrowed.
 
 ## Skills
 
