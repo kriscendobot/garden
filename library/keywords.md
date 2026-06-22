@@ -12107,3 +12107,14 @@ the-named-ambient-authority-as-removed-feature (first-explicit-observation; cycl
 forty-two-cycles-with-named-pivot-domain-stay (310-351) | patterns
 one-hundred-forty-eight-citation-arc-closures-in-pivot-now (142 + 6 net new in cycle 351) | patterns
 library-reaches-863-sections at cycle 351 (designs-lane @endo/ses docs/draft-standalone-spec.md; FORTY-SECOND consecutive @endo/* source; omissions-organized-by-removed-property as tier-3 meta-pattern; shim-vs-standalone-engine-distinction; throws-rather-than-returns-discipline; three-shapes-of-discipline-violation-visibility; rom-able-immutable-discipline; two-shapes-of-defense-taxonomy; eight citation arcs closed) | patterns
+/network-libp2p | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
+/network-ws-relay | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
+/share locator | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
+/adopt-locator | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
+/enter host profile | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
+/exit profile navigation | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
+chat-reference.md | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
+three networking backends | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
+connectivity capability ladder | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
+shareable locator with connection hints | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
+stateful profile navigation | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
