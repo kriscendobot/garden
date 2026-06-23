@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-14
+updated: 2026-06-23
 author: gardener
 ---
 
@@ -25,6 +25,7 @@ Assumes you have already read `roles/COMMON.md`.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the dispatch root's `project/` worktree.
 - [coverage-driven-testing](../../skills/coverage-driven-testing/SKILL.md): the `c8` baseline-and-iterate loop and the four "dead code" criteria for safe deletion.
 - [regression-evidence](../../skills/regression-evidence/SKILL.md): every new test must fail when its target code path is broken.
+- [no-function-keyword](../../skills/no-function-keyword/SKILL.md): new test code in endo-family package sources defaults to arrow and concise method syntax, the same rule that applies to package code. The only legitimate exception in tests is a fixture that specifically exercises `function`-keyword behavior (constructor emulation, sloppy-mode `this`, hoisting); name the reason inline.
 - [pre-pr-checklist](../../skills/pre-pr-checklist/SKILL.md): format, lint, docs, tests run locally before pushing.
 - [pr-creation-flow](../../skills/pr-creation-flow/SKILL.md): the canonical procedure that places the cleaner between builder and jury.
 - [ci-status-summary](../../skills/ci-status-summary/SKILL.md): observe the matrix after the cleaner's push without blocking.

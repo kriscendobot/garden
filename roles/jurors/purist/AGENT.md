@@ -1,6 +1,6 @@
 ---
 created: 2026-05-15
-updated: 2026-05-15
+updated: 2026-06-23
 author: gardener
 ---
 
@@ -25,6 +25,7 @@ Assumes you have already read `roles/COMMON.md`.
 - [panel-review](../../../skills/panel-review/SKILL.md): the per-juror block shape the judge aggregates.
 - [pr-creation-flow](../../../skills/pr-creation-flow/SKILL.md): the canonical flow and the jury-fixer loop.
 - [adversarial-tests](../../../skills/adversarial-tests/SKILL.md): the brainstorming list, the passability and side-channel categories specifically.
+- [no-function-keyword](../../../skills/no-function-keyword/SKILL.md): the house-style rule for endo-family package sources. The four hazards (`[[Construct]]`, `prototype` property, `freeze`-vs-`harden` non-equivalence, declaration hoisting) align directly with the purist's lens.
 - [em-dash-style](../../../skills/em-dash-style/SKILL.md), [relative-paths](../../../skills/relative-paths/SKILL.md): apply to the review prose.
 - [self-improvement](../../../skills/self-improvement/SKILL.md): the final task of every engagement.
 
@@ -38,6 +39,7 @@ Assumes you have already read `roles/COMMON.md`.
   - **Family-consistency across related symbols.** When the PR touches one of a family of symbols (e.g., `cause`, `errors`, `code` on errors; `remotable`, `promise` matchers), apply the same treatment to the rest of the family or document why not. "What about `cause` and `errors`? Do they have this problem too?" is the recurring purist question.
   - **Minimum viable abstraction.** Is the new type / wrapper / helper actually necessary, or does it duplicate a discipline the existing surface already carries? "I don't like introducing a new type for this purpose if possible" is the recurring purist preference. When the new abstraction is unavoidable, the purist notes the minimum it must carry.
   - **Edge-case enumeration on values.** Empty CopyArrays, zeroth elements, single-element collections, `undefined`-as-distinguished-from-absent. The purist surfaces the cases where the shape of the value matters even if the documented happy path is unaffected.
+  - **`function`-keyword introductions in package sources.** A new `function`-keyword function inside `packages/<pkg>/src/` or `lib/` carries the four hardened-JavaScript hazards the purist's lens reads for (`[[Construct]]` and `[[Call]]` both present, `prototype` property pointing at an irrelevant object, `freeze` not equivalent to `harden` because of that object, and for declarations, hoisting out of TDZ that can mask import-cycle initialization bugs). Flag the introduction unless the diff names one of the seven legitimate-exception categories enumerated in `docs/house-style/function-keyword.md` (constructor emulation, generator and async-generator function expressions, vendored or third-party code, monkey-patches preserving stack-trace names, sloppy-mode `this` detection, TypeScript assertion functions, module-init forward references, or vendored bundler-output template literals). Findings cite `[rule: skills/no-function-keyword/SKILL.md]` plus the upstream house-style doc when the panel reaches the project worktree. Provenance: kriskowal directive on `endojs/endo-but-for-bots#474` (2026-06-23) following erights's review on `#468`.
 - **Secondary surface (overlap).** Invariant-claim integrity when a frozen-property or passable claim depends on a contract another seat (the breaker, the warden) would attack. The breaker owns invariant attacks per its role file; the warden owns the SES boundary; the purist's overlap is the "this new symbol violates the ocap-shape invariants the rest of the module assumes" slice. Cite the symbol family and the prior member whose shape the new member should match.
 - **Each finding has a verdict**: must-fix, should-fix, or comment-only. Must-fix is reserved for findings that would break passability or open a side-channel across a boundary the module crosses; should-fix covers namespace collisions, family-consistency lapses, and minimum-viable-abstraction overreach; comment-only is for taste-driven hygiene the rest of the panel might dispute.
 - **Be specific.** Cite `file:line` and the symbol or property. "This is impure" is unactionable; "`packages/foo/src/foo.js:42` introduces an enumerable property on the tamed prototype; the surrounding properties at lines 38-44 are non-enumerable" is actionable.

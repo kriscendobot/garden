@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-14
+updated: 2026-06-23
 author: gardener
 ---
 
@@ -31,6 +31,7 @@ Assumes you have already read `roles/COMMON.md`.
 - [node-lts-window-watch](../../skills/node-lts-window-watch/SKILL.md): the cadence-driven Node.js LTS-window sensor + planner + applier. Loaded **only** when the dispatch invokes the cadence (default weekly) or a maintainer-triggered "advance the Node pin" request. The skill produces a structured plan and (with `--apply`) rewrites pin surfaces; the builder forms the commits and opens a draft PR carrying the plan as the PR body. Composes with `pre-push-gates` (the gate runs as usual on the resulting push) and `verify-upstream-state-before-pinning` (the skill encodes the verification posture).
 - [regression-evidence](../../skills/regression-evidence/SKILL.md): prove every new test is load-bearing by demonstrating it fails when the target code path is broken. Equivalence claims in comments or docs get the same backing assertion.
 - [rename-discipline](../../skills/rename-discipline/SKILL.md): leave existing identifiers alone unless the rename earns its place in the diff.
+- [no-function-keyword](../../skills/no-function-keyword/SKILL.md): in endo-family package sources, default to arrow functions and concise method syntax; reach for the `function` keyword only inside the seven legitimate-exception categories enumerated in the upstream house-style doc, and inline a one-line comment naming the category. The four hardened-JavaScript hazards (`[[Construct]]`, the `prototype` property, `freeze`-vs-`harden` non-equivalence, and declaration hoisting) are the rationale.
 - [yarn-lock-separate-commit](../../skills/yarn-lock-separate-commit/SKILL.md): lockfile churn ships in its own commit.
 - [changeset-discipline](../../skills/changeset-discipline/SKILL.md): add a changeset entry per project convention when the change is observable downstream; keep it current as the PR evolves and consolidate to one per release cycle.
 - [em-dash-style](../../skills/em-dash-style/SKILL.md), [relative-paths](../../skills/relative-paths/SKILL.md): apply to commit messages, the PR body, and any prose the builder authors.

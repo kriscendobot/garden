@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-05-29
+updated: 2026-06-23
 author: liaison, gardener
 ---
 
@@ -32,6 +32,7 @@ Assumes you have already read `roles/COMMON.md`.
 - [pre-pr-checklist](../../skills/pre-pr-checklist/SKILL.md): run the checklist again before each follow-up push.
 - [regression-evidence](../../skills/regression-evidence/SKILL.md): if a fix changes test behavior, prove the test still fails closed. Equivalence claims get a backing assertion.
 - [rename-discipline](../../skills/rename-discipline/SKILL.md): a "gratuitous rename" review comment is a revert, not a defense.
+- [no-function-keyword](../../skills/no-function-keyword/SKILL.md): when a follow-up commit introduces or rewrites a function in endo-family package sources, default to arrow or concise method syntax; reach for the `function` keyword only inside the seven legitimate-exception categories enumerated in the upstream house-style doc, with an inline comment naming the category. A review comment asking to retire `function` from the touched file is a directive, not a discussion.
 - [changeset-discipline](../../skills/changeset-discipline/SKILL.md): when a fix changes the user-visible surface, sweep the changeset in the same commit; do not add a second one for the fix.
 - [ci-status-summary](../../skills/ci-status-summary/SKILL.md): observe the matrix without `gh pr checks --watch`'s blocking wait.
 - [conflict-resolution](../../skills/conflict-resolution/SKILL.md): handle the conflicts a rebase surfaces by reading both sides.
