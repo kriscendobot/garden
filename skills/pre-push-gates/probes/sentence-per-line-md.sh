@@ -26,6 +26,7 @@ for p in $paths; do
   case "$p" in
     *CHANGELOG*) continue;;
     *changeset/*) continue;;
+    *SECURITY.md) continue;;
   esac
   awk '
     BEGIN { in_code = 0; bad = 0 }
