@@ -5240,6 +5240,38 @@ Tier-1 borrowing caretaker-facet-separation | daemon, capability-security
 Tier-1 borrowing defense-in-depth-deny-patterns-as-secondary | daemon, capability-security
 Tier-1 borrowing help-plus-interface-guards-for-LLM-discoverability | daemon, patterns
 64+ consecutive papers-lane blocks | daemon, capability-security, patterns
+`@agoric/notifier` | (see source: agoric-sdk--pkg-notifier-readme)
+`makePublishKit` | (see section: agoric-sdk--pkg-notifier-readme--type-differences--type-differences)
+`makeNotifierKit` | (see section: agoric-sdk--pkg-notifier-readme--type-differences--type-differences)
+`makeSubscriptionKit` | (see section: agoric-sdk--pkg-notifier-readme--type-differences--type-differences)
+PublishKit | (see section: agoric-sdk--pkg-notifier-readme--publishkit-and-related-types)
+NotifierKit | (see section: agoric-sdk--pkg-notifier-readme--type-differences--lossiness)
+SubscriptionKit | (see section: agoric-sdk--pkg-notifier-readme--type-differences--lossiness)
+publisher subscriber pair | (see section: agoric-sdk--pkg-notifier-readme--type-differences--type-differences)
+updater notifier pair | (see section: agoric-sdk--pkg-notifier-readme--type-differences--type-differences)
+publication subscription pair | (see section: agoric-sdk--pkg-notifier-readme--type-differences--type-differences)
+IterationObserver interface | (see section: agoric-sdk--pkg-notifier-readme--type-differences--type-differences)
+Publisher interface (notifier) | (see section: agoric-sdk--pkg-notifier-readme--type-differences--type-differences)
+Subscriber interface (notifier) | (see section: agoric-sdk--pkg-notifier-readme--type-differences--type-differences)
+`subscribeAfter` | (see section: agoric-sdk--pkg-notifier-readme--type-differences--lossiness)
+`getUpdateSince` | (see section: agoric-sdk--pkg-notifier-readme--type-differences--lossiness)
+`subscribeEach` | (see section: agoric-sdk--pkg-notifier-readme--type-differences--lossiness)
+`subscribeLatest` | (see section: agoric-sdk--pkg-notifier-readme--type-differences--lossiness)
+fully lossless iteration | (see section: agoric-sdk--pkg-notifier-readme--type-differences--lossiness)
+forward-lossless iteration | (see section: agoric-sdk--pkg-notifier-readme--type-differences--lossiness)
+lossy iteration | (see section: agoric-sdk--pkg-notifier-readme--type-differences--lossiness)
+sampling subset | (see section: agoric-sdk--pkg-notifier-readme--type-differences--lossiness)
+suffix subset | (see section: agoric-sdk--pkg-notifier-readme--type-differences--lossiness)
+Finish Fail termination | (see section: agoric-sdk--pkg-notifier-readme--distributed-asynchronous-iteration)
+`getSharableSubscriptionInternals` | (see section: agoric-sdk--pkg-notifier-readme--distributed-operation)
+`getSharableNotifierInternals` | (see section: agoric-sdk--pkg-notifier-readme--distributed-operation)
+producer not vulnerable to consumers | (see section: agoric-sdk--pkg-notifier-readme--distributed-operation)
+consumers mutually-independent | (see section: agoric-sdk--pkg-notifier-readme--distributed-operation)
+notifier pubsub migration | (see source: agoric-sdk--pkg-notifier-readme)
+makeLatestTopic | (open question: not in library; load-bearing for notifier-pubsub-migration design)
+makeChangeTopic | (open question: not in library; load-bearing for notifier-pubsub-migration design)
+makeUpdateTopic | (open question: not in library; load-bearing for notifier-pubsub-migration design)
+formulaChangeTopic | (see section: endo-but-for-bots--llm-designs-dcpg--event-sources-and-subscription)
 @endo/stream index.js canonical async-stream substrate | streams, patterns, captp
 Endo-async-stream-substrate | streams, patterns
 makeQueue makeStream makePipe pump prime mapReader mapWriter | streams, patterns
