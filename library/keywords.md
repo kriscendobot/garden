@@ -27,6 +27,8 @@ assistant to Alice | delegates-and-epithets
 caretaker | caretaker-pattern
 caretaker pattern | caretaker-pattern
 `@endo/compartment-mapper` | (see source: endo--pkg-compartment-mapper-readme)
+`Compartment.prototype.evaluate` | vat-and-compartment
+`compartment.evaluate` | vat-and-compartment
 compartment mapper | (see source: endo--pkg-compartment-mapper-readme)
 compartment-mapper architecture | (see section: endo--pkg-compartment-mapper-readme--language-extensions)
 `mapNodeModules` | (see section: endo--pkg-compartment-mapper-readme--language-extensions)
