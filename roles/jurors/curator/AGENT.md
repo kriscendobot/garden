@@ -1,6 +1,6 @@
 ---
 created: 2026-05-14
-updated: 2026-05-14
+updated: 2026-06-23
 author: gardener
 ---
 
@@ -35,6 +35,7 @@ Assumes you have already read `roles/COMMON.md`.
 - **Each finding has a verdict**: must-fix, should-fix, or comment-only.
 - **Be specific.** Cite `file:line` on the changing exported identifier. "This breaks the public surface" is unactionable; "`packages/foo/src/index.js:42` exports `bar(x)`; the new signature is `bar(x, y)` with `y` required, and the changeset is `patch`" is actionable.
 - **Bump-mismatched renames are the recurring curator finding.** A `patch` changeset on a renamed export is must-fix. The fixer's response is usually to re-classify the changeset rather than to revert the rename.
+- **Cross-package option types live in one canonical package and re-export.** When an option object (the typedef for a function's `options` parameter, a hook's `attachOptions` shape, an extension-point bag) travels through call chains across two or more packages, the type must be defined in *one* canonical package (typically the topmost importer in the layering) and re-exported from the others. Two or more independent declarations of the same shape drift apart over time: a field added in one package's copy stays absent in the other, the types compile because each package sees only its own copy, and the runtime breaks at the call boundary. Flag any option-type shape that is declared independently in two or more packages this PR touches; the fix is to choose a canonical home, re-export from the others, and delete the duplicates. Provenance: barrister code panel on `endojs/endo-but-for-bots#509` round 1, 2026-06-23 (curator seat; `ProfilingOptions` duplicated across `compartment-mapper/types/external.ts`, `evasive-transform/src/index.js`, `module-source/types/module-source.ts`).
 - **Stay terse and structured.** Under ~400 words for the per-juror block.
 - **Submit the per-juror block as a `result` journal entry.** The judge aggregates and submits the formal `gh pr review`.
 
