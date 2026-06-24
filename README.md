@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T22:49:02Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T22:50:13Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -23,16 +23,16 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - `fix-comment-watcher-timer-and-classification` — Make the comment-watcher actually fire, and catch plain-language maintainer d...
 - `harden-producer-push-path` — Harden the producer push path: confirm the push landed; fix the shared-clone ...
 - `research-frb-endo-exo-collections` — Research: FRB operators for Endo/Exo collections with query + subscriber faci...
-- `scholar-ingest-cask-3` — Scholar: continue the library ingest of kriskowal/cask (cycle 4)
+- `scholar-ingest-cask-4` — Scholar: continue the library ingest of kriskowal/cask (cycle 5)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
-### tada (81)
+### tada (82)
+- `scholar-ingest-cask-3` — tada: scholar-ingest-cask-3 — cask library ingest cycle 4
 - `reliable-pause-resume` — Awaiting the clean test run's completion.
 - `build-github-mention-watcher` — Completion report
 - `scholar-ingest-collections-operators` — The work is complete. Here is my report.
 - `scholar-ingest-frb-3` — Completion report — scholar-ingest-frb-3 (scholar cycle 4)
-- `scholar-ingest-cask-2` — The follow-on scholar-ingest-cask-3 was posted and already claimed by another...
-- … and 76 more
+- … and 77 more
 
 ## Watch set
 (none)
@@ -41,7 +41,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 223035Z-progress-gardener-1bd9d5.md: gardener-28 on endolinbot claimed job improve-mentor-journalctl-timeout
 - 223044Z-progress-gardener-4880a0.md: gardener-62 on endolinbot claimed job scholar-ingest-cask-3
 - 223147Z-progress-gardener-deb883.md: gardener-21 on endolinbot completed job harden-fleet-gh-identity
 - 223157Z-progress-gardener-2638ba.md: gardener-6 on endolinbot completed job bulletin-show-job-descriptions
@@ -56,6 +55,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 224647Z-progress-gardener-b6b4c0.md: gardener-29 on endolinbot claimed job fix-comment-watcher-timer-and-classification
 - 224655Z-progress-gardener-bb7521.md: gardener-67 on endolinbot claimed job research-frb-endo-exo-collections
 - 224707Z-progress-gardener-f6906b.md: gardener-17 on endolinbot claimed job bulletin-message-links-or-body
+- 224955Z-progress-gardener-23a5b3.md: gardener-15 on endolinbot claimed job scholar-ingest-cask-4
 ## Latest
 
-Since the last bulletin the board has drained its todo queue to empty while eight jobs run in flight. A wave of completions landed: gardeners finished `harden-fleet-gh-identity`, `build-github-mention-watcher`, `reliable-pause-resume`, `improve-mentor-journalctl-timeout`, `bulletin-show-job-descriptions`, and two scholar cask/collections ingests, with the cask library ingest reaching cycle 4 (the GC family, dbstore, and cryptography). Freshly claimed and now working: `apply-503-feedback` (maintainer meeting feedback for endo-but-for-bots #503), `fix-comment-watcher-timer-and-classification`, `research-frb-endo-exo-collections`, and `bulletin-message-links-or-body`. Two items want the maintainer's eye: a heads-up from `harden-fleet-gh-identity` about the live tree's GitHub identity, and a SIWE/OAuth research deliverable from `research-siwe-oauth-providers`.
+Scholar wrapped cask ingest cycle 4 (`scholar-ingest-cask-3` landed in tada with a result entry covering the GC family, dbstore, and cryptography.md) and immediately picked up the next pass, claiming `scholar-ingest-cask-4`. The board is otherwise drained of `todo` work, with eight jobs in flight — including two fresh gardener pickups worth watching: `apply-503-feedback` (carrying maintainer meeting feedback into endo-but-for-bots #503) and `fix-comment-watcher-timer-and-classification`, which is meant to make the PR/issue comment watcher actually fire and catch plain-language maintainer directives. Two maintainer messages are queued for a human: a SIWE/OAuth research summary and a heads-up from `harden-fleet-gh-identity` about the live tree's GitHub identity.
