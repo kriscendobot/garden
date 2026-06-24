@@ -12458,3 +12458,42 @@ backpressure | codel-send-buffer-shedding
 wake by traffic class | codel-send-buffer-shedding
 `WithTrafficClass` | codel-send-buffer-shedding
 `TrafficClassFromContext` | codel-send-buffer-shedding
+polymorphic operator | polymorphic-operator
+polymorphic operators | polymorphic-operator
+generic operator | polymorphic-operator
+free-function operator | polymorphic-operator
+operator delegates to method | polymorphic-operator
+eponymous method dispatch | polymorphic-operator
+monkey-patch alternative | polymorphic-operator
+dunk-punch | polymorphic-operator
+`clear` | polymorphic-operator
+`@collections/clear` | polymorphic-operator
+clear operator | polymorphic-operator
+`clone` | polymorphic-operator
+`@collections/clone` | polymorphic-operator
+deep clone cyclic graph | polymorphic-operator
+clone depth memo | polymorphic-operator
+`has` | polymorphic-operator
+`@collections/has` | polymorphic-operator
+has operator membership test | polymorphic-operator
+`hash` | polymorphic-operator
+`@collections/hash` | polymorphic-operator
+hash bucketing key | polymorphic-operator
+`iterate` | polymorphic-operator
+`@collections/iterate` | polymorphic-operator
+iterate operator index property | polymorphic-operator
+`swap` | polymorphic-operator
+`@collections/swap` | polymorphic-operator
+swap rather than splice | polymorphic-operator
+allocation-frugal splice | polymorphic-operator
+operational transform array operator | polymorphic-operator
+`toArray` | polymorphic-operator
+`@collections/to-array` | polymorphic-operator
+to-array coercion | polymorphic-operator
+`zip` | polymorphic-operator
+`unzip` | polymorphic-operator
+`@collections/zip` | polymorphic-operator
+zip unzip transpose | polymorphic-operator
+`copy` | polymorphic-operator
+`@collections/copy` | polymorphic-operator
+copy owned properties mix prototypes | polymorphic-operator

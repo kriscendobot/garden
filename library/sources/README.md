@@ -447,7 +447,7 @@ These three repos were forked under the bot account for future garden work and g
 
 #### Collections per-package READMEs (begin 2026-06-24 via `scholar-ingest-collections`)
 
-The per-structure idiomatic APIs. Each package's README sits at `packages/<name>/README.md` (last touched in the 2020-09-26 / 2020-11-06 monorepo reorg, file-commit `4688abad`). The first cycle (begin-ingest) ingested the four abstract mixins, the three notable operators, and the six core concrete structures (13 sources, 14 sections). The 2026-06-24 deepening cycle added the two `fast-*` indexes, the four LRU/LFU eviction families, `mini-map`, `iterator`, and the three `sorted-array*` structures (11 sources, 11 sections). Remaining: the eight generic operators (`clear`, `clone`, `has`, `hash`, `iterate`, `swap`, `to-array`, `zip`) and a few extras (`copy`, `operators`, `permute`), deferred to a follow-on `scholar-ingest-collections` job. Note: `multi-map`, `sorted-map`, and `sorted-set` packages exist but ship **no README** at `4688abad`, so there is nothing to ingest for them.
+The per-structure idiomatic APIs. Each package's README sits at `packages/<name>/README.md` (last touched in the 2020-09-26 / 2020-11-06 monorepo reorg, file-commit `4688abad`). The first cycle (begin-ingest) ingested the four abstract mixins, the three notable operators, and the six core concrete structures (13 sources, 14 sections). The 2026-06-24 deepening cycle added the two `fast-*` indexes, the four LRU/LFU eviction families, `mini-map`, `iterator`, and the three `sorted-array*` structures (11 sources, 11 sections). The 2026-06-24 operator cycle (via `scholar-ingest-collections-operators`) added the eight generic operators (`clear`, `clone`, `has`, `hash`, `iterate`, `swap`, `to-array`, `zip`) and the `copy` micro-utility (9 sources, 9 sections), plus the [[polymorphic-operator]] concept page for their shared free-function-delegates-to-eponymous-method dispatch pattern. **The collections README corpus is now complete.** Note: `multi-map`, `sorted-map`, and `sorted-set` packages exist but ship **no README** at `4688abad`; the `operators` and `permute` packages likewise ship **no README** at `4688abad` (only `operators.js` / `permute.js`), so there is nothing to ingest for any of those.
 
 | Source | Package | Sections | Status |
 |--------|---------|----------|--------|
@@ -475,6 +475,15 @@ The per-structure idiomatic APIs. Each package's README sits at `packages/<name>
 | [sorted-array](collections--pkg-sorted-array-readme.md) | sorted-array | 1 | current |
 | [sorted-array-set](collections--pkg-sorted-array-set-readme.md) | sorted-array-set | 1 | current |
 | [sorted-array-map](collections--pkg-sorted-array-map-readme.md) | sorted-array-map | 1 | current |
+| [clear](collections--pkg-clear-readme.md) | clear | 1 | current |
+| [clone](collections--pkg-clone-readme.md) | clone | 1 | current |
+| [has](collections--pkg-has-readme.md) | has | 1 | current |
+| [hash](collections--pkg-hash-readme.md) | hash | 1 | current |
+| [iterate](collections--pkg-iterate-readme.md) | iterate | 1 | current |
+| [swap](collections--pkg-swap-readme.md) | swap | 1 | current |
+| [to-array](collections--pkg-to-array-readme.md) | to-array | 1 | current |
+| [zip](collections--pkg-zip-readme.md) | zip | 1 | current |
+| [copy](collections--pkg-copy-readme.md) | copy | 1 | current |
 
 ## Backlog (not yet ingested)
 
