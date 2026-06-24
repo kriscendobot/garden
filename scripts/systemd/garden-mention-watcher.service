@@ -1,0 +1,12 @@
+[Unit]
+Description=Garden GitHub-wide @kriscendobot mention watcher (sender-trust gated)
+# Producer: poll GitHub-wide @-mentions of the bot and post jobs ONLY for mentions
+# whose author passes the deterministic sender-trust gate (allowlist OR current
+# endojs/Agoric org member). Untrusted senders are dropped before any LLM. Single
+# instance (GitHub-wide, not per-repo). Driven by its .timer. See
+# scripts/jobs/mention-watcher.sh for the security rationale.
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecStart=@GARDEN_ROOT@/scripts/jobs/mention-watcher.sh

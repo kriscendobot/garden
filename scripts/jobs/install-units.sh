@@ -65,7 +65,13 @@ enable_services() {
   unit_ctl enable --now garden-foreman.timer
   unit_ctl enable --now garden-proxy.timer
   unit_ctl enable --now garden-deadmail.timer
-  log "enabled repo-watcher, reaper, watchman, gardener-scaler, scheduler, bulletin (service), mentor, follow-up, foreman, proxy, deadmail"
+  # GitHub-wide @-mention watcher: single instance (not per-repo). Safe to run
+  # GitHub-wide ONLY because of its deterministic sender-trust gate, which drops
+  # any mention whose author is not a verified trusted contributor before any LLM
+  # (see scripts/jobs/mention-watcher.sh). Maintainer-authorized widening recorded
+  # in a journal message entry the day it was armed.
+  unit_ctl enable --now garden-mention-watcher.timer
+  log "enabled repo-watcher, reaper, watchman, gardener-scaler, scheduler, bulletin (service), mentor, follow-up, foreman, proxy, deadmail, mention-watcher"
 }
 
 status() {

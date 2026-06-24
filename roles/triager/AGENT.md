@@ -45,6 +45,23 @@ gardeners — with **more automation and less discretion** than a v1 dispatcher.
   `endojs/endo-but-for-bots`. The watcher maps the verb table deterministically,
   reactji-acknowledges (👀) before posting, and verifies each post reached
   `origin/journal2` before advancing its `comments/<slug>` cursor.
+- **GitHub-wide @-mention watch + the SENDER-TRUST GATE.** A separate watcher,
+  `scripts/jobs/mention-watcher.sh` (single instance, `garden-mention-watcher`),
+  watches **all of GitHub** for @kriscendobot mentions — not a gated repo set.
+  Because it cannot rely on repo-gating for monitoring safety, its injection
+  defense is a **deterministic sender-trust gate** that runs in plain code with
+  **no LLM, before any mention text reaches a job, a reactji, or `claude -p`**: a
+  mention is dropped unless its author is (a) on the journal allowlist
+  (`trusted-senders/allowlist`, extensible by appending a login and pushing) or
+  (b) a current member of the **endojs** or **Agoric** org
+  (`gh api orgs/<org>/members/<login>` → 204). An untrusted sender's mention is
+  logged and discarded, never triaged. Confirming Agoric membership is a
+  read-only trust check; it does **not** authorize any work on agoric-sdk, which
+  stays off-limits. This GitHub-wide widening is maintainer-authorized and
+  recorded in a journal `message` entry the day it was armed (the same
+  authorization shape the comment-watch arming demands). The seed allowlist:
+  `kriskowal`, `erights`, `gibson42`, `kumavis`, `0xpatrickdev`, `mhofman`
+  (Mathieu Hofman).
 
 ## Definition of done
 
