@@ -1,0 +1,9 @@
+[Unit]
+Description=Garden gardener-scaler timer
+
+[Timer]
+OnActiveSec=1m
+OnUnitActiveSec=1m
+
+[Install]
+WantedBy=timers.target

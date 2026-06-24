@@ -1,0 +1,9 @@
+[Unit]
+Description=Garden improver timer
+
+[Timer]
+OnActiveSec=30m
+OnUnitActiveSec=30m
+
+[Install]
+WantedBy=timers.target
