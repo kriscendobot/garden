@@ -57,6 +57,8 @@
 | [cask--package-taxonomy--future-structures](../sections/cask--package-taxonomy--future-structures.md) | cask package-taxonomy | Sketches: a Rabin-chunked sorted array and a circular doubly-linked list over int-arrays. |
 | [cask--dbstore-design--on-disk-file-formats](../sections/cask--dbstore-design--on-disk-file-formats.md) | cask dbstore | On-disk swap-to-end allocator and a Robin-Hood open-addressing hash table at adaptive integer width. |
 | [cask--trace2--buffercasktel-sampling-buffer-and-eviction](../sections/cask--trace2--buffercasktel-sampling-buffer-and-eviction.md) | cask trace2 | The casktel sampling tracer's fixed-size parallel-array span+log buffer with a priority heap and parasitic eviction (same shape as the sendbuffer/CoDel buffers). |
+| [cask--cells--caskdir-mode-field](../sections/cask--cells--caskdir-mode-field.md) | cask cells | The 2-byte caskdir entry mode (high-byte category, low-byte subtype) that types every directory entry and cell record. |
+| [cask--cells-and-entries--through-lines](../sections/cask--cells-and-entries--through-lines.md) | cask cells-and-entries | The fixed 32-byte reference width that keeps the storage format (a parallel-array column, a block link slot) unchanged across mode categories. |
 
 ## See also
 

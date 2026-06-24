@@ -12563,3 +12563,27 @@ deadlines local vs wire | noise-ik-session-establishment
 session in CAS | noise-ik-session-establishment
 counter nonce replay | noise-ik-session-establishment
 
+cell bank | cask-cell-bank
+cell graph | cask-cell-bank
+stand-alone cell | cask-cell-bank
+mutable cell | cask-cell-bank
+`cell_addr` | cask-cell-bank
+`cap_token` | cask-cell-bank
+`value_hash` | cask-cell-bank
+`capability_map` | cask-cell-bank
+`cell_map` | cask-cell-bank
+cell reference | cask-cell-bank
+`cell_ref` | cask-cell-bank
+named mutable reference | cask-cell-bank
+swiss number cell | cask-cell-bank
+cell key rotation | cask-cell-bank
+caskmap cell bank | cask-cell-bank
+named typed pointer | cask-named-typed-pointer
+name mode reference | cask-named-typed-pointer
+cells and entries | cask-named-typed-pointer
+caskdir mode field | cask-named-typed-pointer
+directory entry | cask-named-typed-pointer
+cell record | cask-named-typed-pointer
+mode category subtype | cask-named-typed-pointer
+2-byte mode | cask-named-typed-pointer
+uniform resolution walk | cask-named-typed-pointer

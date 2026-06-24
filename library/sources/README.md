@@ -450,6 +450,8 @@ These three repos were forked under the bot account for future garden work and g
 | [doc/design/store-gc-design.md](cask--store-gc-design.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 4 | current (store-wrapper + cask/set root set + mark/sweep; missing-link/insertion-order discipline; root-set self-retention) |
 | [doc/design/dbstore-design.md](cask--dbstore-design.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 5 | current (caskdbstore: flat-file single-directory block store; on-disk alloc+hashmap; flock-owner+WAL concurrency; WAL-quarantine GC) |
 | [doc/design/cryptography.md](cask--cryptography.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 4 | current (the secure-transport "minimal proposal": Option A PSK / Option B one-way DH; design predecessor net-crypto.md realizes as Noise IK) |
+| [doc/design/cells.md](cask--cells.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 7 | current (the mutable cell graph over the immutable store: cell bank = capability_map + cell_map, weak cell_refs, 2-byte caskdir mode, hierarchical capabilities, GC; introduces cask-cell-bank) |
+| [doc/design/cells-and-entries.md](cask--cells-and-entries.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 5 | current (the shared name/mode/reference shape behind cells and directory entries; five through-lines; typed cell bank; introduces cask-named-typed-pointer) |
 
 #### Collections per-package READMEs (begin 2026-06-24 via `scholar-ingest-collections`)
 

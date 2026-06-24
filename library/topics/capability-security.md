@@ -165,6 +165,10 @@
 | [ocap-history--e-capdesk-polaris-market-history](../sections/ocap-history--e-capdesk-polaris-market-history.md) | ocap systems history survey | E (1997), CapDesk, Polaris, Waterken demonstrated technical success; none achieved commercial adoption; structural analysis of why and what is different now. |
 | [mastodon-docs--operator-burden-and-liability](../sections/mastodon-docs--operator-burden-and-liability.md) | Mastodon admin docs survey | Four-level individual moderation + three-level domain-block moderation surfaces; legal exposure for UGC hosting; governance pressure and operator burnout — the operator-liability problem the O2 hub pitch must address honestly. |
 | [cask--net-crypto--authorization-member-table](../sections/cask--net-crypto--authorization-member-table.md) | cask net-crypto | casknet peer authorization as a member table of accepted ed25519 public keys (`cask accept`/`cask invite`), checked during the Noise IK handshake. |
+| [cask--cells--cell-bank-structure](../sections/cask--cells--cell-bank-structure.md) | cask cells | The cell bank's capability_map (cap_token → cell_addr): unguessable 32-byte bearer tokens, rotatable while the cell_addr stays stable. |
+| [cask--cells--cell-references-and-retention](../sections/cask--cells--cell-references-and-retention.md) | cask cells | Distributed cell_refs as swiss numbers (unguessable cell_addr + owner_pubkey), the CapTP/OCapN unforgeable-reference model. |
+| [cask--cells--capability-model-and-nested-cells](../sections/cask--cells--capability-model-and-nested-cells.md) | cask cells | Hierarchical capability allocation (NONCE-as-bearer-token); ALLOC/WRITE/READ; capability-map key rotation. |
+| [cask--cells-and-entries--standalone-cells-and-cell-record](../sections/cask--cells-and-entries--standalone-cells-and-cell-record.md) | cask cells-and-entries | A stand-alone cell named by a secret cap_token; the cell bank as a capability-keyed namespace. |
 
 ## See also
 
