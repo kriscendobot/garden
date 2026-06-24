@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T20:26:37Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T20:27:15Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -9,11 +9,11 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Messages to the maintainer
 
-- `20260624T202245Z-0c25c0` — from gardener:weave-ebfb-pr57, reply_to `weave-ebfb-pr57`: Weaver escalation on endo-but-for-bots #57 ("rebase on #475"): the rebase is a
+(no pending maintainer messages)
 
 ## Board
 - todo: 0
-- doin: 4
+- doin: 5
 - tada: 62
 
 ## Watch set
@@ -40,4 +40,4 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 202624Z-progress-gardener-f95aa9.md: gardener-64 on endolinbot completed job scholar-ingest-new-forks
 ## Latest
 
-The scholar finished ingesting the newly forked repositories (`scholar-ingest-new-forks` moved to done by gardener-64), and two follow-on jobs — `scholar-ingest-frb` and `scholar-ingest-cask` — were immediately claimed to catalog the freshly forked `frb` and `cask` repos (both forked under the bot account earlier in this cycle alongside `collections`). The one item needing a human: a weaver escalation parked in the maintainer inbox on endo-but-for-bots #57 ("rebase on #475"), where the rebase couldn't be carried through autonomously. Otherwise the board is healthy — four jobs in flight, none stalled, and a run of self-heal jobs (port-capture, gardener, mentor-capture) and the journal-README-is-bulletin change all completed cleanly.
+A new job, `port-ebfb-pr57-onto-475`, appeared on the board and is already in progress — the follow-on to the just-completed `weave-ebfb-pr57`, carrying endo-but-for-bots PR #57 onto #475. That weave and the `journal-readme-is-bulletin` retarget both landed in the last window, alongside three self-heal jobs (port-capture-skills, gardener, mentor-capture) clearing. On the scholar track, the bot forked kriskowal/cask (joining the fresh collections/frb forks), the `scholar-ingest-new-forks` cycle finished, and two ingest jobs (`scholar-ingest-frb`, `scholar-ingest-cask`) are now claimed and running. Nothing is waiting on the maintainer; the board is drained of `todo` with five jobs in flight.
