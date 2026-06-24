@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T22:16:31Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T22:31:17Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -9,12 +9,33 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260624T222907Z-d848e0` — from gardener:research-siwe-oauth-providers, reply_to `research-siwe-oauth-providers`: # Research: OAuth/OIDC "Sign in with your Ethereum address" (SIWE landscape)
+- `20260624T223047Z-ff38ba` — from gardener:harden-fleet-gh-identity, reply_to `harden-fleet-gh-identity`: Heads-up from job harden-fleet-gh-identity (gardener-21): the live tree
 
 ## Board
-- todo: 0
-- doin: 8
-- tada: 66
+### todo (0)
+(none)
+
+### doin (11)
+- `build-github-mention-watcher` — Build a GitHub-wide @kriscendobot mention watcher, gated on a verified-truste...
+- `bulletin-show-job-descriptions` — Bulletin: show a short description per job, not just the slug/count
+- `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
+- `harden-fleet-gh-identity` — Harden the fleet's GitHub identity so it is deterministically the bot
+- `harden-producer-push-path` — Harden the producer push path: confirm the push landed; fix the shared-clone ...
+- `improve-mentor-journalctl-timeout` — Guard mentor.sh's journalctl probe with a timeout (it can hang indefinitely)
+- `reliable-pause-resume` — Make liaison "pause" and "resume" reliable (codify scripts + role), from rece...
+- `scholar-ingest-cask-3` — Scholar: continue the library ingest of kriskowal/cask (cycle 4)
+- `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
+- `scholar-ingest-collections-operators` — Scholar: ingest the remaining kriskowal/collections operator READMEs
+- `scholar-ingest-frb-3` — Scholar: ingest the kriskowal/frb grammar + compiler source (cycle 4 — the la...
+
+### tada (74)
+- `scholar-ingest-cask-2` — scholar-ingest-cask-2 — done (gardener 52, endolinbot, 2026-06-24)
+- `shepherd-ebfb-pr57` — CI converged to green with no intervention required.
+- `scholar-ingest-frb-2` — Completion report — scholar-ingest-frb-2 (kriskowal/frb cycle 3)
+- `scholar-ingest-collections` — Completion report: scholar-ingest-collections (gardener 22)
+- `revise-readme-liaison-interface` — Completion report
+- … and 69 more
 
 ## Watch set
 (none)
@@ -23,21 +44,21 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 203607Z-progress-gardener-5da9f8.md: gardener-26 on endolinbot completed job scholar-ingest-frb
-- 203617Z-progress-gardener-74480a.md: gardener-91 on endolinbot completed job audit-inbox-discipline-and-deadmail
-- 203644Z-progress-gardener-dd4c5b.md: gardener-74 on endolinbot claimed job harden-producer-push-path
-- 204029Z-progress-gardener-b890ee.md: gardener-58 on endolinbot claimed job finish-ebfb-pr96
-- 204146Z-progress-gardener-0968a9.md: gardener-7 on endolinbot claimed job scholar-ingest-cask-2
-- 204152Z-result-scholar-e0c77c.md: Scholar cycle for job `scholar-ingest-collections` (gardener 19 on endolinbot). Continues the `kriskowal/collections` ingest begun by `scholar-ingest-new-forks` (which filed only the root README). Read-only from a scratch clone of `kriskowal/collections` (default branch `master`, HEAD `c7855495`).
-- 204201Z-result-scholar-bf7c5a.md: project: cask
-- 220841Z-progress-gardener-83517f.md: gardener-51 on endolinbot claimed job fix-bulletin-unit-type
-- 221008Z-progress-gardener-e79cb6.md: gardener-51 on endolinbot completed job fix-bulletin-unit-type
-- 221215Z-progress-gardener-2f7bf1.md: gardener-53 on endolinbot claimed job build-pr-comment-watcher
-- 221237Z-progress-gardener-525ed8.md: gardener-22 on endolinbot claimed job scholar-ingest-collections
-- 221241Z-progress-gardener-3138b4.md: gardener-3 on endolinbot claimed job scholar-ingest-frb-2
-- 221426Z-message-gardener-30f2af.md: # Authorization: comment-watching for endojs/endo-but-for-bots
-- 221603Z-progress-gardener-8b06ff.md: gardener-53 on endolinbot completed job build-pr-comment-watcher
-- 221615Z-progress-gardener-6931dc.md: gardener-60 on endolinbot claimed job harden-producer-push-path
+- 222158Z-result-scholar-b75cfb.md: # Result: scholar-ingest-collections (deepening cycle, gardener 22)
+- 222204Z-progress-gardener-c30c5e.md: gardener-81 on endolinbot claimed job shepherd-ebfb-pr57
+- 222236Z-progress-gardener-c51dbb.md: gardener-70 on endolinbot claimed job scholar-ingest-collections-operators
+- 222327Z-progress-gardener-080aa4.md: gardener-22 on endolinbot completed job scholar-ingest-collections
+- 222344Z-progress-gardener-244b81.md: gardener-69 on endolinbot claimed job build-github-mention-watcher
+- 222420Z-progress-gardener-6e616c.md: gardener-47 on endolinbot completed job port-ebfb-pr57-onto-475
+- 222439Z-progress-gardener-83fb23.md: gardener-18 on endolinbot completed job revise-readme-liaison-interface
+- 222541Z-progress-gardener-ad38d8.md: gardener-6 on endolinbot claimed job bulletin-show-job-descriptions
+- 222638Z-progress-gardener-244e3e.md: gardener-18 on endolinbot claimed job address-copilot-ebfb-pr474
+- 222655Z-result-gardener-siwe-oauth.md: # Research — OAuth/OIDC "Sign in with your Ethereum address" (the SIWE landscape)
+- 222918Z-progress-gardener-2a4e22.md: gardener-81 on endolinbot completed job shepherd-ebfb-pr57
+- 222942Z-progress-gardener-7b2b84.md: gardener-42 on endolinbot completed job research-siwe-oauth-providers
+- 222949Z-progress-gardener-9c8d7b.md: gardener-18 on endolinbot completed job address-copilot-ebfb-pr474
+- 223035Z-progress-gardener-1bd9d5.md: gardener-28 on endolinbot claimed job improve-mentor-journalctl-timeout
+- 223044Z-progress-gardener-4880a0.md: gardener-62 on endolinbot claimed job scholar-ingest-cask-3
 ## Latest
 
-The PR/issue comment watcher landed — `build-pr-comment-watcher` moved to tada (gardener-53), completing the job-board side of the verb-table → reactji → verified-job-post flow committed at HEAD. Backing it, a gardener filed a `message` recording maintainer authorization to monitor comments on `endojs/endo-but-for-bots`, the one repo gated enough to be monitor-safe. Otherwise the board is steady: `harden-producer-push-path` and `port-ebfb-pr57-onto-475` are both still in progress (claims refreshed, not yet done), leaving 8 jobs in flight and an empty todo queue.
+Eight jobs landed in tada and the todo queue drained to zero. On the endo-but-for-bots front, shepherd-ebfb-pr57 reported CI converged to green with no intervention, port-ebfb-pr57-onto-475 and address-copilot-ebfb-pr474 both completed, clearing the PR #57/#474 work. The SIWE/OAuth research job finished and its report is waiting as a maintainer message (`research-siwe-oauth-providers`) — worth a read if the "Sign in with your Ethereum address" question is still live. The scholar fleet kept grinding through the library ingest, completing the cask cycle 2, collections, and frb cycle 3 passes and immediately reclaiming the next cycles (cask-3, collections-operators, frb-3). One thing for the maintainer to notice directly: the `harden-fleet-gh-identity` gardener posted a heads-up about the live tree's GitHub identity — that message is queued and the job is still in doin. Newly claimed and in flight: the GitHub-wide @kriscendobot mention watcher, the bulletin per-job descriptions, the mentor journalctl-timeout guard, and reliable pause/resume.
