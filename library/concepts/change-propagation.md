@@ -37,6 +37,10 @@ The change-propagation cluster is how agents stay synchronized: a query establis
 |---|---|
 | [gtor--readme--reactivity-taxonomy](../sections/gtor--readme--reactivity-taxonomy.md) | The producer/consumer dual × singular/plural × spatial/temporal grid; broadcast vs unicast; pressure. |
 | [gtor--readme--signals-and-behaviors](../sections/gtor--readme--signals-and-behaviors.md) | Discrete pushed signals (changes) vs continuous polled behaviors (latest); the two faces of one signal. |
+| [gtor--readme--asynchronous-values-and-functions](../sections/gtor--readme--asynchronous-values-and-functions.md) | Promise (broadcast, no cancel) vs task (unicast, observer cancels upstream); the singular-temporal precedent for the producer/consumer dual. |
+| [gtor--readme--promise-queues-and-buffers](../sections/gtor--readme--promise-queues-and-buffers.md) | The async linked-list queue and two-queue buffer that make pressure concrete; the substrate beneath @endo/stream and @endo/pubsub. |
+| [gtor--readme--promise-iterators-and-generators](../sections/gtor--readme--promise-iterators-and-generators.md) | Reader/writer stream sides; async map/forEach/reduce/pipe carry the deltas; cancellation flows upstream through the unicast task. |
+| [gtor--readme--asynchronous-generator-functions](../sections/gtor--readme--asynchronous-generator-functions.md) | await + yield compose into a promise iterator; the stream algebra reduces to one `next` primitive. |
 | [frb--readme--architecture](../sections/frb--readme--architecture.md) | Typed change records propagate through a compiled observer tree so each layer needs only the delta. |
 | [frb--readme--properties](../sections/frb--readme--properties.md) | "Incremental" and "reactive" among FRB's six self-described adjectives. |
 | [frb--readme--tutorial-windowing-and-structure](../sections/frb--readme--tutorial-windowing-and-structure.md) | `view(start, length)` projects a sliding window over a SortedSet, reacting to content and window-position changes. |

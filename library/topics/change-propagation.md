@@ -8,6 +8,10 @@
 |---------|--------|-------------------|
 | [gtor--readme--reactivity-taxonomy](../sections/gtor--readme--reactivity-taxonomy.md) | gtor README | The producer/consumer dual × singular/plural × spatial/temporal grid; broadcast vs unicast; pressure. |
 | [gtor--readme--signals-and-behaviors](../sections/gtor--readme--signals-and-behaviors.md) | gtor README | Discrete pushed signals (changes) vs continuous polled behaviors (latest); the two faces of one signal. |
+| [gtor--readme--asynchronous-values-and-functions](../sections/gtor--readme--asynchronous-values-and-functions.md) | gtor README | Promise/resolver/deferred; promise (broadcast) vs task (unicast, cancel upstream); the async-function promise trampoline. |
+| [gtor--readme--promise-queues-and-buffers](../sections/gtor--readme--promise-queues-and-buffers.md) | gtor README | The asynchronous linked-list queue (get-before-put); a two-queue buffer realizes back-pressure as a returned acknowledgement promise. |
+| [gtor--readme--promise-iterators-and-generators](../sections/gtor--readme--promise-iterators-and-generators.md) | gtor README | The readable/writable stream sides; async map/forEach/reduce/pipe; forEach returns a task so cancellation flows upstream; remote iterators. |
+| [gtor--readme--asynchronous-generator-functions](../sections/gtor--readme--asynchronous-generator-functions.md) | gtor README | await + yield compose into a promise iterator (Promise<Iteration<T>>); the whole stream algebra reduces to one `next`. |
 | [frb--readme--architecture](../sections/frb--readme--architecture.md) | frb README | Typed change records propagate through a compiled observer tree so each layer needs only the delta. |
 | [frb--readme--properties](../sections/frb--readme--properties.md) | frb README | "Incremental" and "reactive" among FRB's six design adjectives. |
 | [frb--readme--tutorial-windowing-and-structure](../sections/frb--readme--tutorial-windowing-and-structure.md) | frb README | `view(start, length)` projects a sliding window over a SortedSet, reacting to content and window-position changes. |

@@ -20,7 +20,15 @@ The package implements the contract from the **notifier-pubsub-migration** desig
 
 ## Sections that touch this concept
 
-This concept is currently grounded in journal result entries rather than ingested library sections (the `@endo/pubsub` package and the notifier-pubsub-migration design are not yet ingested as library sources). Primary citations:
+The `@endo/pubsub` package and the notifier-pubsub-migration design are not yet ingested as library sources, but the gtor README sections below ground the *mechanism* the package realizes (the async promise linked list, the sink/spring broadcast shape, and the back-pressure handshake):
+
+| Section | One-line summary |
+|---|---|
+| [gtor--readme--promise-queues-and-buffers](../sections/gtor--readme--promise-queues-and-buffers.md) | The asynchronous linked-list promise queue (`head` promise / `tail` deferred, get-before-put) is exactly the "async-singly-linked-list queue" `makeQueue` realizes as cons-cells and the sink/spring linked list rides on; the two-queue buffer realizes pressure as a returned acknowledgement promise. |
+| [gtor--readme--promise-iterators-and-generators](../sections/gtor--readme--promise-iterators-and-generators.md) | The reader (spring/getter) and generator (sink/setter) sides; `forEach` returns a unicast task that cancels upstream; a promise iterator can proxy a *remote* reader (the `@endo/exo-stream` `PassableReader` seam). |
+| [gtor--readme--reactivity-taxonomy](../sections/gtor--readme--reactivity-taxonomy.md) | Broadcast publish/subscribe (one setter, many getters, no continuity for a late subscriber) is the shape a pubsub topic instantiates, distinct from a unicast back-pressured stream. |
+
+Primary journal citations (the design and build work itself):
 
 - `entries/2026/06/23/164225Z-result-builder-801cc4.md` — the #513 build: package shape, factory names, the sink/spring + change/latest implementation, `makeCancelKit`, 30 passing tests, the graveyard-cursor trick on `throw`.
 - `entries/2026/06/23/162601Z-result-designer-beaa6d.md` — design revision 4: the two-package layering, gtor vocabulary anchor (`Sink<T>`/`Spring<T>`/`Reader<T>`/`Writer<T>`), asymmetric passability, the collection-change-propagation future direction.

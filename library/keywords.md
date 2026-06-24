@@ -12190,6 +12190,14 @@ signal vs behavior | change-propagation
 push vs pull | change-propagation
 broadcast vs unicast | change-propagation
 back-pressure | change-propagation
+promise vs task | change-propagation
+deferred promise resolver | change-propagation
+gtor async function trampoline | change-propagation
+gtor promise iterator | change-propagation
+gtor promise generator | change-propagation
+gtor asynchronous generator function | change-propagation
+gtor pressure | change-propagation
+async map forEach reduce pipe | change-propagation
 changes vs latest | changes-versus-latest
 changes versus latest | changes-versus-latest
 latest vs changes | changes-versus-latest
@@ -12207,6 +12215,12 @@ sink and spring | endo-pubsub
 `Sink` | endo-pubsub
 `Spring` | endo-pubsub
 async promise linked list | endo-pubsub
+gtor promise queue | endo-pubsub
+gtor promise buffer | endo-pubsub
+asynchronous linked list queue | endo-pubsub
+get before put queue | endo-pubsub
+two-queue buffer pressure | endo-pubsub
+semaphore as promise queue | endo-pubsub
 `makeCancelKit` | endo-pubsub
 `nullSink` | endo-pubsub
 `nullSpring` | endo-pubsub
