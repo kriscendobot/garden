@@ -12675,3 +12675,46 @@ scoped cell reference | cask-cell-path-descriptor
 subpath capability | cask-cell-path-descriptor
 `StoreCellPathDescriptor` | cask-cell-path-descriptor
 `LoadCellPathDescriptor` | cask-cell-path-descriptor
+cell facets | cask-cell-facets
+five facets | cask-cell-facets
+read facet | cask-cell-facets
+write facet | cask-cell-facets
+observe facet | cask-cell-facets
+delegate-read facet | cask-cell-facets
+delegate-write facet | cask-cell-facets
+`read_cap` | cask-cell-facets
+`write_cap` | cask-cell-facets
+`observe_cap` | cask-cell-facets
+`delegate_read_cap` | cask-cell-facets
+`delegate_write_cap` | cask-cell-facets
+`root_cap` | cask-cell-facets
+capability token | cask-cell-facets
+bearer token capability | cask-cell-facets
+32-byte capability | cask-cell-facets
+capability rotation | cask-cell-facets
+`ALLOC` cell | cask-cell-facets
+`BATCH` operations | cask-cell-facets
+`casw` | cask-cell-facets
+observe packet | cask-cell-facets
+notify packet | cask-cell-facets
+cell version | cask-cell-facets
+monotonic version | cask-cell-facets
+capability hierarchy | cask-cell-facets
+caskhead | cask-caskhead-root
+caskhead0 | cask-caskhead-root
+caskhead root | cask-caskhead-root
+CASK root structure | cask-caskhead-root
+`SchemaV0` | cask-caskhead-root
+schema hash | cask-caskhead-root
+sessions hash | cask-caskhead-root
+membership hash | cask-caskhead-root
+nursery hash | cask-caskhead-root
+`sessiontable` | cask-caskhead-root
+session state blob | cask-caskhead-root
+`best_traffic_class` | cask-caskhead-root
+`GetSessionsRoot` | cask-caskhead-root
+`SetSessionsRoot` | cask-caskhead-root
+`GetMembershipRoot` | cask-caskhead-root
+`SetMembershipRoot` | cask-caskhead-root
+`cask member` | cask-caskhead-root
+schema version detection | cask-caskhead-root

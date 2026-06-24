@@ -178,6 +178,14 @@
 | [cask--cell-capabilities--command-vocabulary-and-examples](../sections/cask--cell-capabilities--command-vocabulary-and-examples.md) | cask cell-capabilities | cask mkroot mints attenuated references (read-only at root, scoped at subpath); access checks at command level; tiered-access examples. |
 | [cask--cell-capabilities--relationship-to-capability-map](../sections/cask--cell-capabilities--relationship-to-capability-map.md) | cask cell-capabilities | Structural (entry type, local) and cryptographic (token, network) capabilities compose; effective access is the intersection. |
 | [cask--cell-capabilities--implementation-plan-and-open-questions](../sections/cask--cell-capabilities--implementation-plan-and-open-questions.md) | cask cell-capabilities | Transitive attenuation acceptable locally / prevented by tokens over the network; future content kinds attenuate down only. |
+| [cask--ocaps--overview-and-root-store](../sections/cask--ocaps--overview-and-root-store.md) | cask ocaps | The ocap model (unguessable 32-byte bearer tokens, no ACLs/identity), the extensible ROOT caskmap (cells/sessions), and the .cask/ NONCE that doubles as the root capability. |
+| [cask--ocaps--cell-state-and-versioning](../sections/cask--ocaps--cell-state-and-versioning.md) | cask ocaps | A cell's monotonic uint64 version, updated atomically with the content hash for ordering, consistency, and caching. |
+| [cask--ocaps--cell-facets-and-hierarchy](../sections/cask--ocaps--cell-facets-and-hierarchy.md) | cask ocaps | The five facets (read/write-CAS/observe/delegate-read/delegate-write), read+write as cap *sets*, and the root_cap → delegate → individual hierarchy. |
+| [cask--ocaps--operations-and-wire-protocol](../sections/cask--ocaps--operations-and-wire-protocol.md) | cask ocaps | ALLOC/DELETE/atomic-rotation operations and the read/casw/observe/notify wire packets. |
+| [cask--ocaps--security-properties](../sections/cask--ocaps--security-properties.md) | cask ocaps | Unforgeability (256-bit tokens), attenuation (write>observe>read), revocability (drop the cap from the caskmap), confinement (no ambient authority). |
+| [cask--ocaps--batch-operations-and-example](../sections/cask--ocaps--batch-operations-and-example.md) | cask ocaps | Atomic multi-cell BATCH via one root-hash CAS preserving single-writer-at-root; the collaborative-document facet-sharing example. |
+| [cask--ocaps--open-questions](../sections/cask--ocaps--open-questions.md) | cask ocaps | Observer authentication, delegation transitivity, capability expiration, audit logging. |
+| [cask--caskroot-design--scope-and-structure](../sections/cask--caskroot-design--scope-and-structure.md) | cask caskroot-design | caskhead0's four-link root block (schema/sessions/membership/nursery) and the session-state blob; the membership set gates who may establish a session. |
 
 ## See also
 

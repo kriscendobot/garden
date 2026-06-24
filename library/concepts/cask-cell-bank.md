@@ -23,6 +23,7 @@ CASK's **mutable-reference layer** over its immutable content-addressed store. C
 
 ## See also
 
+- [[cask-cell-facets]] — ocaps.md's cryptographic capability-token model that elaborates this bank: the five facets (read/write/observe/delegate-read/delegate-write) answer cells.md's "read capabilities" open question, and `cap_token` is the bearer token of that model.
 - [[cask-named-typed-pointer]] — the shared name/mode/reference shape cells and directory entries both realize.
 - [[content-addressed-block-store]] — the immutable Merkle store a cell's value_hash roots.
 - [[member-table-authorization]] — casknet's peer-admission capability layer, adjacent ocap machinery.

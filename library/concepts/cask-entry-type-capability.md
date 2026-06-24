@@ -28,6 +28,7 @@ CASK's **structural, local-namespace capability layer**: a directory entry's **t
 - [[cask-cell-path-descriptor]] — the immutable Merkle tree behind an indirect cell reference (cell ID as link + CBOR path).
 - [[cask-named-typed-pointer]] — the `name → (mode, reference)` shape; entry-type capability is the *authority* read of the same mode field that pointer concept reads as *interpretation metadata*.
 - [[cask-cell-bank]] — the mutable cell layer (cap_token / cell_addr / value_hash); the cryptographic-network half of the capability model this concept's entry types are the structural-local half of.
+- [[cask-cell-facets]] — ocaps.md's five-facet capability-token model; the cryptographic-network layer whose effective access **intersects** with this entry-type structural-local layer.
 - [[member-table-authorization]] — casknet's peer-admission capability layer; adjacent cryptographic ocap machinery.
 - [[object-capability]] — the general ocap model these entry-type facets are an instance of.
 - [[principle-of-least-authority]] — read-only and subpath-scoped attenuations are POLA applied to the namespace.

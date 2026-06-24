@@ -44,6 +44,9 @@
 | [cask--cryptography--option-a-pre-shared-secret](../sections/cask--cryptography--option-a-pre-shared-secret.md) | cask cryptography | Option A (PSK): no handshake; BLAKE2b session key; counter-nonce replay. Origin of the superseded PSK form. |
 | [cask--cryptography--option-b-one-way-dh](../sections/cask--cryptography--option-b-one-way-dh.md) | cask cryptography | Option B (one-way x25519 DH): single-flight establishment + optional ed25519 auth; ancestor of Noise IK. |
 | [cask--cryptography--unordered-noise-and-smallest-path](../sections/cask--cryptography--unordered-noise-and-smallest-path.md) | cask cryptography | Why CASK avoids ordered Noise handshakes; the rollout path; reference primitives. |
+| [cask--ocaps--operations-and-wire-protocol](../sections/cask--ocaps--operations-and-wire-protocol.md) | cask ocaps | The read/casw/observe/notify capability-wire packets; observe registers a peer for push notifications over authenticated sessions. |
+| [cask--caskroot-design--scope-and-structure](../sections/cask--caskroot-design--scope-and-structure.md) | cask caskroot-design | The caskhead0 session table (Links[1]) and session-state blob (counters, ChaCha20-Poly1305 key, role, mode, best_traffic_class) that gate secure transport. |
+| [cask--caskroot-design--operations-and-usage](../sections/cask--caskroot-design--operations-and-usage.md) | cask caskroot-design | Session create/lookup/expire against the sessiontable; the membership set (node_ids) gating who may establish a session; `cask member` CLI. |
 
 ## See also
 

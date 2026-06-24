@@ -58,6 +58,14 @@
 | [cask--cell-capabilities--content-model-changes](../sections/cask--cell-capabilities--content-model-changes.md) | cask cell-capabilities | The nine uint16 type constants + predicates; cellpath Store/Load; cell table and GC need no changes; new caskdir wire values. |
 | [cask--cell-capabilities--command-vocabulary-and-examples](../sections/cask--cell-capabilities--command-vocabulary-and-examples.md) | cask cell-capabilities | Resolution of direct/indirect cells, read/write/cas/rm rules, cask mkroot/typeof/ls, and tiered-access worked examples. |
 | [cask--cell-capabilities--implementation-plan-and-open-questions](../sections/cask--cell-capabilities--implementation-plan-and-open-questions.md) | cask cell-capabilities | The ten implementation steps and six open questions (transitive attenuation, append-only deferral, descriptor caching, CBOR, future types). |
+| [cask--ocaps--overview-and-root-store](../sections/cask--ocaps--overview-and-root-store.md) | cask ocaps | The extensible ROOT caskmap (cells/sessions sections) and the .cask/ on-disk layout (NONCE, ROOT, blocks/). |
+| [cask--ocaps--cell-state-and-versioning](../sections/cask--ocaps--cell-state-and-versioning.md) | cask ocaps | Cell state is a fixed-layout block: content_hash link plus a monotonic version incremented on each CAS write. |
+| [cask--ocaps--cell-facets-and-hierarchy](../sections/cask--ocaps--cell-facets-and-hierarchy.md) | cask ocaps | The per-cell caskmap entry (state/observers/read/write/observe/delegate facets) and the capability hierarchy. |
+| [cask--ocaps--operations-and-wire-protocol](../sections/cask--ocaps--operations-and-wire-protocol.md) | cask ocaps | ALLOC/DELETE/rotation against the cells caskmap and the read/casw/observe/notify packets. |
+| [cask--ocaps--batch-operations-and-example](../sections/cask--ocaps--batch-operations-and-example.md) | cask ocaps | Atomic multi-cell transactions via a single CAS on the root hash; single-writer-at-root. |
+| [cask--caskroot-design--scope-and-structure](../sections/cask--caskroot-design--scope-and-structure.md) | cask caskroot-design | The caskhead0 fixed-layout root block: schema/sessions/membership/nursery links, ZeroHash defaults, session-state blob. |
+| [cask--caskroot-design--operations-and-usage](../sections/cask--caskroot-design--operations-and-usage.md) | cask caskroot-design | New/Load/Get-Set session and membership roots; the reducer idiom where each mutation folds a new sub-hash into a new root hash. |
+| [cask--caskroot-design--versioning-and-implementation](../sections/cask--caskroot-design--versioning-and-implementation.md) | cask caskroot-design | Schema-hash-driven O(1) root-version detection and defaulted-field migration; the go/cask/head/ build plan. |
 
 ## See also
 
