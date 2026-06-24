@@ -31,3 +31,9 @@ lands, the v1 copy can be dropped in a later prune — note that, do not delete 
 v1 copy here.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 44
+  claimed_at: 2026-06-24T10:19:33Z
