@@ -1,0 +1,6 @@
+from_host: endolinbot
+from: send
+sent_at: 2026-06-24T09:02:11Z
+to: role/librarian
+---
+New proactive responsibility: a weekly `librarian-library-audit` job (scheduler-posted from `journal/schedules/librarian-library-audit`) puts you in **audit mode**. Walk `library/sections/`, `library/concepts/`, `library/topics/`; flag oversize/multi-concept files against the context-library abstract-at-the-top contract and post **split** jobs; flag gaps in `keywords.md`, `topics/README.md`, `sources/README.md` and post **index** jobs. Audit mode may post board jobs (a narrow carve-out) but is still read-only otherwise: do not edit library docs or push code — the posted jobs do the actual work. Deliverable is the set of posted jobs, or "library within budget; nothing posted." See `roles/librarian/AGENT.md` § Proactive library audit.
