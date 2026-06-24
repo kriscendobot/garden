@@ -81,8 +81,3 @@ rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
 
----
-claim:
-  host: endolinbot
-  gardener: 14
-  claimed_at: 2026-06-24T20:28:32Z
