@@ -41,3 +41,9 @@ Design: `designs/job-board.md`, `designs/gardening-state-machine.md`,
 `designs/judicial-workflow.md`. Scripts: `scripts/jobs/`. The journal (this
 branch, `journal2`) carries the migrated v1 record; `journal-v1` retains the
 original.
+
+---
+claim:
+  host: endolinbot
+  gardener: 1
+  claimed_at: 2026-06-24T08:22:11Z
