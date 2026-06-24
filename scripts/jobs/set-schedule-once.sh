@@ -23,7 +23,7 @@ name="${1:?usage: set-schedule-once.sh <name> <ISO-datetime> [prefix] [body-file
 when="${2:?ISO-datetime}"
 prefix="${3:-$name}"
 body_src="${4:-}"
-case "$name" in */*|.*|'') die "illegal schedule name '$name'";; esac
+case "$name" in -*|*/*|.*|'') die "illegal schedule name '$name'";; esac
 
 # Validate the timestamp up front so a bad value fails loudly here, not silently
 # in the scheduler.

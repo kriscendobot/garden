@@ -19,7 +19,7 @@ base="${2:?missing basename}"
 report="${3:?missing report-file}"
 GARDEN_TAG="done/$id"
 [ -f "$report" ] || die "report file not found: $report"
-case "$base" in */*|.*|'') die "illegal basename: '$base'";; esac
+case "$base" in -*|*/*|.*|'') die "illegal basename: '$base'";; esac
 
 DIR="${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/gardeners/$id/journal}"
 ensure_clone "$DIR"

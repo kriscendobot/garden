@@ -19,7 +19,7 @@ name="${1:?usage: set-schedule.sh <name> <cadence> [prefix] [body-file]}"
 cadence="${2:?cadence}"
 prefix="${3:-$name}"
 body_src="${4:-}"
-case "$name" in */*|.*|'') die "illegal schedule name '$name'";; esac
+case "$name" in -*|*/*|.*|'') die "illegal schedule name '$name'";; esac
 
 if   [ -n "$body_src" ] && [ -f "$body_src" ]; then BODY="$(cat "$body_src")"
 elif [ ! -t 0 ];                                then BODY="$(cat)"

@@ -24,7 +24,10 @@ GARDEN_TAG="post"
 base="${1:?usage: post-job.sh <basename> [body-file]}"
 body_src="${2:-}"
 
-case "$base" in */*|.*|'') die "illegal basename: '$base'";; esac
+case "$base" in
+  -*)        die "illegal basename: '$base' (names must not start with '-'; if you meant usage, there is none beyond this line)";;
+  */*|.*|'') die "illegal basename: '$base'";;
+esac
 
 # Producer uses a shared clone (one is fine; posts don't compete on a worktree).
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
