@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T23:25:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T23:28:19Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -40,15 +40,15 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
 - `scholar-ingest-cask-7` — Scholar: continue the library ingest of kriskowal/cask (cycle 8)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
-- `scholar-ingest-gtor` — Scholar: full ingest of kriskowal/gtor (A General Theory of Reactivity)
+- `scholar-ingest-gtor-recap` — Scholar: finish the ingest of kriskowal/gtor (the plural-spatial column + the...
 
-### tada (94)
+### tada (95)
+- `scholar-ingest-gtor` — scholar-ingest-gtor — cycle 2 complete (gtor README async/queue substrate)
 - `teardown-live-wip-unwedge-watchman` — Completion report: teardown-live-wip-unwedge-watchman
 - `scholar-ingest-cask-6` — scholar-ingest-cask-6 (cask cycle 7) — completion report
 - `scholar-through-lines-change-propagation` — All work landed and cleaned up. Final report:
 - `scholar-ingest-cask-5` — Completion report — scholar-ingest-cask-5 (scholar cycle 6)
-- `design-siwe-ymax-mcp-auth` — Completion report — design-siwe-ymax-mcp-auth
-- … and 89 more
+- … and 90 more
 
 ## Watch set
 (none)
@@ -57,8 +57,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 230740Z-progress-gardener-d39f64.md: gardener-60 on endolinbot completed job harden-producer-push-path
-- 230821Z-result-scholar-1b6932.md: # Scholar cycle 6: cask cell/entry family ingest (job scholar-ingest-cask-5)
 - 230834Z-progress-gardener-8e55fd.md: gardener-66 on endolinbot claimed job --help
 - 231010Z-progress-gardener-55389b.md: gardener-14 on endolinbot claimed job scholar-ingest-cask-6
 - 231050Z-progress-gardener-24fe0d.md: gardener-86 on endolinbot completed job design-siwe-ymax-mcp-auth
@@ -72,6 +70,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 232130Z-progress-gardener-4b3d22.md: gardener-30 on endolinbot claimed job scholar-ingest-cask-7
 - 232242Z-progress-gardener-40ee19.md: gardener-14 on endolinbot completed job scholar-ingest-cask-6
 - 232504Z-progress-gardener-95aff1.md: gardener-16 on endolinbot completed job teardown-live-wip-unwedge-watchman
+- 232737Z-progress-gardener-84cd04.md: gardener-75 on endolinbot claimed job scholar-ingest-gtor-recap
+- 232801Z-result-scholar-5ea427.md: # scholar-ingest-gtor — cycle 2 complete (gtor README async/queue substrate)
 ## Latest
 
-The watchman live-WIP-unwedge teardown finished (`teardown-live-wip-unwedge-watchman`, doin→tada), clearing the board's todo queue to empty. What remains in flight is almost entirely scholar ingest work: cask cycles 7 and 8, a deepening cask pass, and a fresh full ingest of kriskowal/gtor, alongside the two open endo-but-for-bots jobs (#513 review follow-up and #96 implementation). The item most worth a maintainer's eye is the unread inbox message from the scholar's change-propagation synthesis — it curates the cross-cutting theory behind the FRB / @endo/pubsub / propagators cluster and flags honestly that propagators are only partially grounded in the corpus, with @endo/pubsub README and the notifier-pubsub-migration design still un-ingested as library sources.
+Scholar work dominated this cycle: the gtor README ingest (cycle 2, the async/queue substrate under @endo/pubsub) completed and a follow-on `scholar-ingest-gtor-recap` was immediately claimed to finish the remaining columns (plural-spatial). This caps a run that also landed the change-propagation through-lines synthesis — a new `change-propagation` library topic with four concept pages tying FRB observers, @endo/pubsub topics, and propagators to one delta-propagation theory, grounded against the #513/#507 pubsub work; that scholar flagged propagators as only partially grounded in the corpus and surfaced the @endo/pubsub README as a not-yet-ingested source worth a follow-on. Two PR jobs (`address-review-ebfb-pr513`, `finish-ebfb-pr96`) remain in flight, and the maintainer has one unread message — the full change-propagation curation summary. The board is otherwise drained: todo is empty.
