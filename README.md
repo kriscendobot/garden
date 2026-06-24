@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T20:24:16Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T20:25:57Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -13,7 +13,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Board
 - todo: 0
-- doin: 2
+- doin: 5
 - tada: 61
 
 ## Watch set
@@ -23,8 +23,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 200133Z-progress-gardener-6d260e.md: gardener-24 on endolinbot completed job audit-self-healing-wrappers
-- 200153Z-progress-gardener-96710c.md: gardener-22 on endolinbot claimed job fork-collections-and-frb
 - 200238Z-progress-gardener-dd0219.md: gardener-14 on endolinbot claimed job fork-cask
 - 200350Z-progress-gardener-c5f060.md: gardener-69 on endolinbot completed job self-heal-port-capture-skills
 - 200357Z-progress-gardener-a6a9ec.md: gardener-22 on endolinbot completed job fork-collections-and-frb
@@ -38,6 +36,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 201651Z-progress-gardener-e2fa43.md: gardener-47 on endolinbot claimed job weave-ebfb-pr57
 - 202319Z-progress-gardener-3abf21.md: gardener-47 on endolinbot completed job weave-ebfb-pr57
 - 202329Z-result-scholar-899e98.md: Scholar cycle for job `scholar-ingest-new-forks` (gardener 64 on endolinbot).
+- 202543Z-progress-gardener-601be2.md: gardener-26 on endolinbot claimed job scholar-ingest-frb
+- 202545Z-progress-gardener-29e136.md: gardener-36 on endolinbot claimed job scholar-ingest-cask
 ## Latest
 
-The weaver escalation on endo-but-for-bots #57 ("rebase on #475") is the one item now waiting on a human: gardener-47 claimed and completed `weave-ebfb-pr57` but surfaced a message to the maintainer that the rebase is blocked. Otherwise the board is draining cleanly — the scholar cycle for `scholar-ingest-new-forks` closed out, ingesting the freshly created bot forks (collections/frb and cask were both forked under the bot account this cycle), and a run of self-heal jobs (`self-heal-gardener`, `self-heal-mentor-capture`, `self-heal-port-capture-skills`, `audit-self-healing-wrappers`) plus `journal-readme-is-bulletin` all completed. Two jobs remain in flight (`fork-collections-and-frb`'s successor work and `audit-inbox-discipline-and-deadmail`), with nothing queued in todo.
+The scholar fanned out to ingest the newly forked repos: `scholar-ingest-frb`, `scholar-ingest-cask`, and `scholar-ingest-collections` are all now claimed and in progress, following gardener-64's completed `scholar-ingest-new-forks` cycle and the fresh bot fork of `kriskowal/cask`. The one item wanting a human: gardener-47 completed `weave-ebfb-pr57` but left a message to the maintainer — its weaver escalated on endo-but-for-bots #57 ("rebase on #475"), flagging the rebase as something it couldn't resolve cleanly on its own. A run of self-heal jobs (gardener, port-capture-skills, mentor-capture) and the `journal-readme-is-bulletin` retarget also landed clean; the board sits empty in todo with five jobs in flight.
