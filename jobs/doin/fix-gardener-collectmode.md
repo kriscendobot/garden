@@ -29,3 +29,9 @@ it sits in the **[Service]** section (line 9), so systemd ignores it.
 
 A `tada` report: which unit files were fixed, the commit SHA on main2, and
 confirmation the daemon-reload no longer warns about CollectMode.
+
+---
+claim:
+  host: endolinbot
+  gardener: 63
+  claimed_at: 2026-06-24T09:30:19Z
