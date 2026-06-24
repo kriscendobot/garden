@@ -27,7 +27,14 @@ msgs/            topic bus (fan-out): role/<role>, job/<base>, broadcast
 repos/           watched repositories — one file per repo (the watch set)
 hosts/           per-host config — hosts/<host> declares its gardener count
 entries/         progress narration — entries/<YYYY>/<MM>/<DD>/<HHMMSSZ>-…md
+cursors/         poll cursors — cursors/<key> (e.g. activity/<repo>) for resume
 ```
+
+`cursors/` makes polling durable: a poller records the last position it
+processed (a GitHub activity `last_event_id`/`etag`, or a branch `last_sha`) in
+the journal, advancing it only after the work up to that point is done. A
+restart or a failed run therefore resumes where it left off, and any host picks
+up from the shared cursor — see `cursor-get.sh` / `cursor-set.sh`.
 
 The **basename is the spine**: a job `jobs/todo/<basename>` is claimed by moving
 it to `jobs/doin/<basename>`, completed by removing `jobs/doin/<basename>` and
