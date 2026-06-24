@@ -76,3 +76,9 @@ claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
 
+
+---
+claim:
+  host: endolinbot
+  gardener: 60
+  claimed_at: 2026-06-24T22:16:13Z
