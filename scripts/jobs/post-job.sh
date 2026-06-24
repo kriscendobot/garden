@@ -40,13 +40,13 @@ BODY="$(read_body)"
 
 for attempt in $(seq 1 50); do
   sync_clone "$DIR"
-  if [ -e "$DIR/$JOBS_TODO/$base" ] || [ -e "$DIR/$JOBS_DOIN/$base" ] || [ -e "$DIR/$JOBS_TADA/$base" ]; then
+  if [ -e "$DIR/$JOBS_TODO/$base.md" ] || [ -e "$DIR/$JOBS_DOIN/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
     log "job '$base' already present in lifecycle; nothing to do"
     exit 0
   fi
   mkdir -p "$DIR/$JOBS_TODO"
-  printf '%s\n' "$BODY" > "$DIR/$JOBS_TODO/$base"
-  git -C "$DIR" add "$JOBS_TODO/$base"
+  printf '%s\n' "$BODY" > "$DIR/$JOBS_TODO/$base.md"
+  git -C "$DIR" add "$JOBS_TODO/$base.md"
   if commit_and_push "$DIR" "todo($base) posted by $GARDEN_HOST"; then
     log "posted '$base'"
     exit 0

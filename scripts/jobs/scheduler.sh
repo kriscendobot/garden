@@ -48,11 +48,11 @@ for name in $(list_jobs "$DIR" schedules); do
 
     body="$(sed '1,/^---$/d' "$DIR/schedules/$name")"
     mkdir -p "$DIR/$JOBS_TODO"
-    printf '%s\n' "$body" > "$DIR/$JOBS_TODO/$base"
+    printf '%s\n' "$body" > "$DIR/$JOBS_TODO/$base.md"
     # stamp last_dispatched in the same commit
     { printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n---\n' \
         "$cad" "$(date -u +%FT%TZ)" "$prefix"; printf '%s\n' "$body"; } > "$DIR/schedules/$name"
-    git -C "$DIR" add "$JOBS_TODO/$base" "schedules/$name"
+    git -C "$DIR" add "$JOBS_TODO/$base.md" "schedules/$name"
     if commit_and_push "$DIR" "schedule($name) dispatched $base"; then
       log "dispatched $base from schedule $name"; dispatched=$((dispatched+1)); break
     fi

@@ -12,7 +12,7 @@ board and stamps `last_dispatched` — atomically, so no host double-dispatches.
 
 ## Inputs / state
 
-`journal/schedules/<name>` — one file per schedule:
+`journal/schedules/<name>.md` — one file per schedule:
 ```
 cadence: weekly            # weekly | daily | hourly | <N>s | <N>m | <N>h | <N>d
 last_dispatched: <ISO>     # stamped by the scheduler; the dispatch note
@@ -26,7 +26,7 @@ job_basename_prefix: <p>   # dispatched job basename = <p>-<YYYYMMDD-HHMMSS>
 - Add/change: `set-schedule.sh <name> <cadence> [prefix] [body-file]` (body else
   stdin). It CAS-races the file onto the journal, preserving any existing
   `last_dispatched`. Idempotent if unchanged.
-- Remove: delete `schedules/<name>` and push (a normal CAS commit).
+- Remove: delete `schedules/<name>.md` and push (a normal CAS commit).
 - The scheduler (`scheduler.sh`, `garden-scheduler.timer`) does the dispatching;
   you only post the schedule definition.
 

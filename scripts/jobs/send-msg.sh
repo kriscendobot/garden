@@ -28,7 +28,7 @@ esac
 
 # unique, sortable message id (timestamp + short random)
 msgid="$(date -u +%Y%m%dT%H%M%SZ)-$(od -An -N3 -tx1 /dev/urandom | tr -d ' \n')"
-relpath="msgs/$addr/$msgid"
+relpath="msgs/$addr/$msgid.md"
 
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"

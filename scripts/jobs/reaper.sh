@@ -27,6 +27,8 @@ sync_clone "$DIR"
 now="$(date -u +%s)"
 reaped=0
 for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
+  # board files carry .md; the work/ spine key is extensionless.
+  spine="${base%.md}"
   f="$DIR/$JOBS_DOIN/$base"
   claimed_at="$(sed -n 's/^  claimed_at: //p' "$f" | head -1)"
   ts=0; [ -n "$claimed_at" ] && ts="$(date -u -d "$claimed_at" +%s 2>/dev/null || echo 0)"
@@ -37,7 +39,7 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   log "reaping '$base' (age ${age}s ≥ TTL ${GARDEN_CLAIM_TTL}s)"
 
   # best-effort orphaned-worktree cleanup from the work/ record
-  wt="$(sed -n 's/^worktree_dir: //p' "$DIR/work/$base" 2>/dev/null | head -1)"
+  wt="$(sed -n 's/^worktree_dir: //p' "$DIR/work/$spine" 2>/dev/null | head -1)"
   if [ -n "$wt" ] && [ -d "$wt" ]; then
     git -C "$wt" rev-parse --is-inside-work-tree >/dev/null 2>&1 \
       && git --git-dir="$(git -C "$wt" rev-parse --git-common-dir 2>/dev/null)" worktree remove --force "$wt" 2>/dev/null \
@@ -51,7 +53,7 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   mkdir -p "$DIR/$JOBS_TODO"
   sed '/^---$/,$d' "$f" > "$DIR/$JOBS_TODO/$base"
   git -C "$DIR" rm -q "$JOBS_DOIN/$base"
-  [ -e "$DIR/work/$base" ] && git -C "$DIR" rm -q "work/$base"
+  [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
   git -C "$DIR" add "$JOBS_TODO/$base"
   if commit_and_push "$DIR" "requeue($base) reaped stale claim by $GARDEN_HOST"; then
     reaped=$((reaped+1))

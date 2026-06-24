@@ -30,9 +30,9 @@ ensure_clone "$DIR"
 for attempt in $(seq 1 100); do
   sync_clone "$DIR"
   mkdir -p "$DIR/$JOBS_TADA"
-  cp "$report" "$DIR/$JOBS_TADA/$base"
-  git -C "$DIR" add "$JOBS_TADA/$base"
-  [ -e "$DIR/$JOBS_DOIN/$base" ] && git -C "$DIR" rm -q "$JOBS_DOIN/$base"
+  cp "$report" "$DIR/$JOBS_TADA/$base.md"
+  git -C "$DIR" add "$JOBS_TADA/$base.md"
+  [ -e "$DIR/$JOBS_DOIN/$base.md" ] && git -C "$DIR" rm -q "$JOBS_DOIN/$base.md"
   [ -e "$DIR/work/$base" ]       && git -C "$DIR" rm -q "work/$base"
   # destroy this job doer's inbox; its lifetime ends with the job.
   [ -d "$DIR/inbox/$base" ]      && git -C "$DIR" rm -rq "inbox/$base"

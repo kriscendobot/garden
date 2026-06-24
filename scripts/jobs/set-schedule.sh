@@ -33,12 +33,12 @@ for attempt in $(seq 1 50); do
   mkdir -p "$DIR/schedules"
   # preserve an existing last_dispatched if the schedule already exists
   last=""
-  [ -f "$DIR/schedules/$name" ] && last="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
+  [ -f "$DIR/schedules/$name.md" ] && last="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
   {
     printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n---\n' "$cadence" "$last" "$prefix"
     printf '%s\n' "$BODY"
-  } > "$DIR/schedules/$name"
-  git -C "$DIR" add "schedules/$name"
+  } > "$DIR/schedules/$name.md"
+  git -C "$DIR" add "schedules/$name.md"
   if commit_and_push "$DIR" "schedule($name) cadence=$cadence"; then log "set schedule $name ($cadence)"; exit 0; fi
   rc=$?; [ "$rc" -eq 2 ] && { log "schedule $name unchanged"; exit 0; }
   backoff

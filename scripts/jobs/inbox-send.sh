@@ -38,8 +38,8 @@ for attempt in $(seq 1 50); do
     [ -n "${GARDEN_REPLY_TO:-}" ] && printf 'reply_to: %s\n' "$GARDEN_REPLY_TO"
     printf 'sent_at: %s\n---\n' "$(date -u +%FT%TZ)"
     printf '%s\n' "$BODY"
-  } > "$DIR/inbox/$doer/unread/$msgid"
-  git -C "$DIR" add "inbox/$doer/unread/$msgid"
+  } > "$DIR/inbox/$doer/unread/$msgid.md"
+  git -C "$DIR" add "inbox/$doer/unread/$msgid.md"
   if commit_and_push "$DIR" "inbox($doer) ← $msgid from $GARDEN_HOST"; then
     log "delivered to inbox/$doer ($msgid)"; exit 0
   fi

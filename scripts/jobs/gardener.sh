@@ -55,7 +55,7 @@ while :; do
   [ "$rc" -ne 0 ] && die "claim failed (rc=$rc)"
   idle_rounds=0
 
-  jobfile="$CLONE/$JOBS_DOIN/$base"
+  jobfile="$CLONE/$JOBS_DOIN/$base.md"
   report="$(mktemp "${TMPDIR:-/tmp}/garden-report-$base.XXXXXX")"
 
   # narrate progress into the journal (garden practice), then drain this job

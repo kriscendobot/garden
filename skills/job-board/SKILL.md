@@ -17,20 +17,24 @@ under `GARDEN_STATE` (never a shared worktree). Scripts under `scripts/jobs/`.
 
 ## Procedure
 
-- **Post** (`post-job.sh <base> [body]`): write `jobs/todo/<base>`, push;
+Board files are markdown and carry `.md`; the **basename `<base>` is the
+extensionless spine**. Scripts append `.md` for board files and strip it for the
+`work/`/`inbox/` keys.
+
+- **Post** (`post-job.sh <base> [body]`): write `jobs/todo/<base>.md`, push;
   idempotent on the basename; retry-with-backoff on contention.
-- **Claim** (`claim-job.sh <id>`): fetch+reset to tip, `git mv todo→doin`, stamp
-  claim metadata, create `work/<base>` + `inbox/<base>/`, commit, **push — the
-  accepted push is the claim**. On rejection, re-sync; if the job already moved,
-  **back off to another candidate (never blind-retry a claim)**.
+- **Claim** (`claim-job.sh <id>`): fetch+reset to tip, `git mv todo→doin`
+  (`<base>.md`), stamp claim metadata, create `work/<base>` + `inbox/<base>/`,
+  commit, **push — the accepted push is the claim**. On rejection, re-sync; if the
+  job already moved, **back off to another candidate (never blind-retry a claim)**.
 - **Complete** (`complete-job.sh <id> <base> <report>`): remove
-  `doin/<base>`/`work/<base>`/`inbox/<base>`, write `tada/<base>`, push. Touches
-  only your own basename, so **retry with backoff until it lands**.
+  `doin/<base>.md`/`work/<base>`/`inbox/<base>`, write `tada/<base>.md`, push.
+  Touches only your own basename, so **retry with backoff until it lands**.
 - **Reap** (`reaper.sh`): requeue `doin/` claims older than `GARDEN_CLAIM_TTL`.
 
 ## Output
 
-A completed job leaves exactly one `tada/<base>` report; `doin`, `work`, and the
+A completed job leaves exactly one `tada/<base>.md` report; `doin`, `work`, and the
 inbox for that basename are gone.
 
 ## Notes

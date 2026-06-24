@@ -54,7 +54,7 @@ git -C "$SEED" checkout -q -b "$BRANCH"
            inbox/maintainer/unread inbox/maintainer/read; do touch "$d/.gitkeep"; done
   for n in $(seq 1 "$NJOBS"); do
     b="$(printf 'job-%03d' "$n")"
-    printf '# %s\n\ndo the work for %s\n' "$b" "$b" > "jobs/todo/$b"
+    printf '# %s\n\ndo the work for %s\n' "$b" "$b" > "jobs/todo/$b.md"
   done )
 git -C "$SEED" add -A
 git -C "$SEED" "${git_id[@]}" commit -q -m "seed: $NJOBS jobs + structure"
@@ -145,7 +145,7 @@ unset GARDEN_UNIT_CTL GARDEN_MOCK_STATE GARDEN_MOCK_LOG
 # ============================================================================
 hr; echo "SUBTEST 5 — INBOX: per-doer unread→read CAS + lifecycle"; hr
 export GARDEN_STATE="$TR/state-inbox" GARDEN_HOST=ibhost
-push_change "jobs/todo/inbox-demo" "# inbox-demo" "seed inbox-demo job"
+push_change "jobs/todo/inbox-demo.md" "# inbox-demo" "seed inbox-demo job"
 ibclaim="$("$JOBS/claim-job.sh" 9)"
 [ "$ibclaim" = "inbox-demo" ] && ok "claim created job doer 'inbox-demo'" || bad "claim returned '$ibclaim'"
 I="$TR/iv"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$I"
@@ -185,7 +185,7 @@ grep -qxF "garden-triager@kriscendobot-endo.timer" "$GARDEN_MOCK_STATE" \
 # ============================================================================
 hr; echo "SUBTEST 6 — MAINTAINER CHANNEL: gardener↔user via liaison, in-flight"; hr
 export GARDEN_STATE="$TR/state-maint" GARDEN_HOST=mhost
-push_change "jobs/todo/maint-demo" "# maint-demo" "seed maint-demo job"
+push_change "jobs/todo/maint-demo.md" "# maint-demo" "seed maint-demo job"
 mbase="$("$JOBS/claim-job.sh" 7)"      # doer becomes active, inbox created
 [ "$mbase" = "maint-demo" ] && ok "doer 'maint-demo' active (working)" || bad "claim returned '$mbase'"
 echo "need a decision on X" | "$JOBS/message-user.sh" maint-demo >/dev/null
@@ -267,7 +267,7 @@ h1="$(git -C "$BV" rev-parse HEAD)"; rm -rf "$BV"
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"; h2="$(git -C "$BV" rev-parse HEAD)"
 [ "$h1" = "$h2" ] && ok "re-run with no change makes no commit (idempotent)" || bad "bulletin churned a commit"
 rm -rf "$BV"
-push_change "jobs/todo/bul-newjob" "# new" "add a job to change board state"
+push_change "jobs/todo/bul-newjob.md" "# new" "add a job to change board state"
 "$JOBS/bulletin.sh" >/dev/null 2>&1
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
 grep -q '^- todo: ' "$BV/bulletin.md" && [ "$(git -C "$BV" rev-parse HEAD)" != "$h2" ] \

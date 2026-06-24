@@ -40,13 +40,14 @@ if [[ "$id" =~ ^[0-9]+$ ]]; then off="$id"; else off=$(( $(printf '%s' "$id" | c
 off=$(( off % n ))
 
 for ((k=0; k<n; k++)); do
-  base="${cand[$(( (off + k) % n ))]}"
+  # candidates are leaf filenames (<base>.md); the spine key is extensionless.
+  base="${cand[$(( (off + k) % n ))]%.md}"
   # re-sync each attempt: the board may have moved under us
   sync_clone "$DIR"
-  [ -e "$DIR/$JOBS_TODO/$base" ] || { log "'$base' already taken; next"; continue; }
+  [ -e "$DIR/$JOBS_TODO/$base.md" ] || { log "'$base' already taken; next"; continue; }
 
   mkdir -p "$DIR/$JOBS_DOIN" "$DIR/work"
-  git -C "$DIR" mv "$JOBS_TODO/$base" "$JOBS_DOIN/$base"
+  git -C "$DIR" mv "$JOBS_TODO/$base.md" "$JOBS_DOIN/$base.md"
   claimed_at="$(date -u +%FT%TZ)"
   # stamp claim metadata into the job file (appended; the body is preserved)
   {
@@ -54,7 +55,7 @@ for ((k=0; k<n; k++)); do
     printf '  host: %s\n'      "$GARDEN_HOST"
     printf '  gardener: %s\n'  "$id"
     printf '  claimed_at: %s\n' "$claimed_at"
-  } >> "$DIR/$JOBS_DOIN/$base"
+  } >> "$DIR/$JOBS_DOIN/$base.md"
   # worktree-state record under work/ (the spine: same basename), so the
   # reaper can find and remove an orphaned worktree if this gardener dies.
   {
@@ -66,7 +67,7 @@ for ((k=0; k<n; k++)); do
   # create this job doer's inbox (unread/read), alive for the job's lifetime.
   mkdir -p "$DIR/inbox/$base/unread" "$DIR/inbox/$base/read"
   touch "$DIR/inbox/$base/unread/.gitkeep" "$DIR/inbox/$base/read/.gitkeep"
-  git -C "$DIR" add "$JOBS_DOIN/$base" "work/$base" "inbox/$base"
+  git -C "$DIR" add "$JOBS_DOIN/$base.md" "work/$base" "inbox/$base"
 
   if commit_and_push "$DIR" "claim($base) $GARDEN_HOST/gardener-$id"; then
     log "claimed '$base'"

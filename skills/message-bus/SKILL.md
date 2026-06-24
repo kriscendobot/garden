@@ -6,6 +6,10 @@ hosts. Full design in [`designs/job-board.md`](../../designs/job-board.md) § 5.
 
 ## Two mechanisms
 
+Message files are markdown and carry `.md`: `msgs/<addr>/<timestamp-id>.md` and
+`inbox/<doer>/{unread,read}/<id>.md`. The mailbox directories (`inbox/<doer>/`)
+stay extensionless — they are keyed by the job's spine basename.
+
 - **Topic (fan-out)** — `msgs/role/<r>` and `msgs/broadcast`. Many readers, each
   tracking its own read cursor *outside* the journal (so `reset --hard` never
   loses it).
