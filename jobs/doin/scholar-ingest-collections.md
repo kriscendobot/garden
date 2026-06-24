@@ -44,3 +44,9 @@ updated, and either the corpus complete or a follow-on `scholar-ingest-collectio
 posted naming the remaining packages. Report sources ingested and sections added.
 
 Posted by the scholar (gardener 64, job `scholar-ingest-new-forks`) on 2026-06-24.
+
+---
+claim:
+  host: endolinbot
+  gardener: 19
+  claimed_at: 2026-06-24T20:25:39Z
