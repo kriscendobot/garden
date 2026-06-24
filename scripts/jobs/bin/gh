@@ -1,0 +1,70 @@
+#!/bin/bash
+# gh — fleet identity wrapper.
+#
+# WHY THIS EXISTS
+# The garden's systemd units carry no GH_TOKEN, so a bare `gh` resolves its
+# identity from the *global active account* in ~/.config/gh/hosts.yml. That file
+# is mutable: any `gh auth switch` anywhere flips it, and on the maintainer's host
+# it can point at `kriskowal` (the human). When it did, every fleet gh action
+# (reactji, PR comments, reviews, merges, forks) silently acted AS THE MAINTAINER
+# — an identity leak (see designs/fleet-gh-identity.md and the
+# harden-fleet-gh-identity job).
+#
+# THE FIX
+# This wrapper sits at the FRONT of the fleet's PATH (prepended in
+# scripts/jobs/common.sh, which every fleet entrypoint sources, so the change
+# propagates to every child — including the `claude -p` gardener subagents and
+# their Bash tool calls). It makes the fleet's gh identity DETERMINISTIC and
+# independent of the global active account:
+#
+#   * Default → the bot (kriscendobot). The wrapper injects the bot's *live*
+#     token (read fresh from gh's own store each call, so it never goes stale)
+#     unless an explicit, auditable override is present.
+#   * Override → set GARDEN_GH_IDENTITY=<login> to resolve a different account's
+#     token, OR pre-set GH_TOKEN yourself to pass a token through untouched.
+#     This is the boatman's authorized-kriskowal path: it must set the override
+#     EXPLICITLY (GARDEN_GH_IDENTITY=kriskowal) for an upstream-acting call.
+#     Routine work that sets nothing can never silently become kriskowal — the
+#     override is one-directional by construction (bot is the floor, never the
+#     reverse).
+#
+# This wrapper only affects processes whose PATH includes scripts/jobs/bin
+# (i.e. the fleet). A maintainer's interactive shell is untouched and keeps
+# whatever active account they chose.
+set -euo pipefail
+
+# The login whose token we resolve when the caller has not pre-set GH_TOKEN.
+# Default is the bot. The boatman sets GARDEN_GH_IDENTITY=kriskowal for an
+# authorized upstream ferry; nothing else should set it.
+: "${GARDEN_GH_IDENTITY:=kriscendobot}"
+
+# Resolve the REAL gh, skipping this wrapper (which is first on PATH). `command
+# gh` would re-find this wrapper (command bypasses functions/aliases, not PATH
+# order) and recurse, so walk `type -aP gh` and take the first entry that is not
+# this file.
+self="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+real_gh=""
+while IFS= read -r cand; do
+  [ "$cand" = "$self" ] && continue
+  real_gh="$cand"; break
+done < <(type -aP gh 2>/dev/null)
+[ -n "$real_gh" ] || { printf 'gh-wrapper: no real gh found on PATH after %s\n' "$self" >&2; exit 127; }
+
+# If the caller already chose a token, honor it untouched (explicit override,
+# including the boatman pre-setting GH_TOKEN directly). Otherwise inject the
+# resolved identity's live token. `env -u GH_TOKEN` keeps the token lookup itself
+# from being skewed by any inherited GH_TOKEN.
+if [ -z "${GH_TOKEN:-}" ]; then
+  if tok="$(env -u GH_TOKEN "$real_gh" auth token --user "$GARDEN_GH_IDENTITY" 2>/dev/null)" && [ -n "$tok" ]; then
+    export GH_TOKEN="$tok"
+  else
+    # Could not resolve the intended identity's token (account not logged in on
+    # this host?). Degrade to the bare gh baseline rather than break every fleet
+    # gh call — but say so loudly, because the fallback is exactly the leak this
+    # wrapper exists to prevent.
+    printf 'gh-wrapper: WARNING could not resolve token for identity=%s; falling back to the global active account (POSSIBLE IDENTITY LEAK)\n' \
+      "$GARDEN_GH_IDENTITY" >&2
+  fi
+fi
+
+exec "$real_gh" "$@"

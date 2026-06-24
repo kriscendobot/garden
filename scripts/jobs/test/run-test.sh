@@ -572,5 +572,55 @@ rm -rf "$DV"
 unset JOURNAL_REMOTE
 
 # ============================================================================
+hr; echo "SUBTEST 17 — GH IDENTITY: fleet gh pins to the bot, boatman override preserved"; hr
+# Hermetic: a fake gh (test/fake-gh.sh) is the "real" gh the wrapper exec's, and
+# a file simulates the mutable global active account. No network, no ~/.config/gh.
+GHWRAP_DIR="$JOBS/bin"
+FAKE_DIR="$TR/fake-gh"; mkdir -p "$FAKE_DIR"
+cp "$HERE/fake-gh.sh" "$FAKE_DIR/gh"; chmod +x "$FAKE_DIR/gh"
+ACTIVE="$TR/gh-active"
+# The leak condition: the global active account is the maintainer.
+echo "kriskowal" > "$ACTIVE"
+# Minimal PATH: wrapper first, fake gh second, plus the basics the wrapper needs
+# (it runs bash/cd/dirname/printf via its shebang interpreter only).
+gh_path="$GHWRAP_DIR:$FAKE_DIR:/usr/bin:/bin"
+
+# Baseline (NO wrapper): proves the leak is real — bare gh resolves to the active
+# account, which is kriskowal.
+base_id="$(env -i PATH="$FAKE_DIR:/usr/bin:/bin" FAKE_GH_ACTIVE="$ACTIVE" gh api user)"
+[ "$base_id" = "kriskowal" ] && ok "baseline leak reproduced: bare gh acts as the global active account (kriskowal)" \
+  || bad "baseline did not reproduce the leak (got '$base_id')"
+
+# With the wrapper on PATH: the fleet gh resolves to the bot DESPITE active=kriskowal.
+wrap_id="$(env -i PATH="$gh_path" FAKE_GH_ACTIVE="$ACTIVE" gh api user)"
+[ "$wrap_id" = "kriscendobot" ] && ok "wrapper pins fleet gh to kriscendobot even when active account is kriskowal" \
+  || bad "wrapper did not pin to the bot (got '$wrap_id')"
+
+# Boatman override: an explicit GARDEN_GH_IDENTITY=kriskowal reaches the maintainer.
+boat_id="$(env -i PATH="$gh_path" FAKE_GH_ACTIVE="$ACTIVE" GARDEN_GH_IDENTITY=kriskowal gh api user)"
+[ "$boat_id" = "kriskowal" ] && ok "explicit GARDEN_GH_IDENTITY=kriskowal override reaches the maintainer (boatman path)" \
+  || bad "override did not reach kriskowal (got '$boat_id')"
+
+# A caller that pre-sets GH_TOKEN is honored untouched (the other override form).
+pass_id="$(env -i PATH="$gh_path" FAKE_GH_ACTIVE="$ACTIVE" GH_TOKEN=token-for-kriscendobot gh api user)"
+[ "$pass_id" = "kriscendobot" ] && ok "pre-set GH_TOKEN passes through untouched" \
+  || bad "pre-set GH_TOKEN not honored (got '$pass_id')"
+
+# Direction check: with NO override, even an active=kriskowal world stays the bot —
+# routine fleet work can never silently become kriskowal.
+echo "kriskowal" > "$ACTIVE"
+default_id="$(env -i PATH="$gh_path" FAKE_GH_ACTIVE="$ACTIVE" gh api user)"
+[ "$default_id" = "kriscendobot" ] && ok "default is one-directional: bot is the floor, kriskowal only via explicit signal" \
+  || bad "default drifted off the bot (got '$default_id')"
+
+# Static checks on the wrapper itself.
+bash -n "$GHWRAP_DIR/gh" && ok "wrapper: bash -n clean" || bad "wrapper: bash -n failed"
+if command -v shellcheck >/dev/null 2>&1; then
+  shellcheck -x "$GHWRAP_DIR/gh" >/dev/null 2>&1 && ok "wrapper: shellcheck clean" || bad "wrapper: shellcheck reported issues"
+else
+  echo "  SKIP: shellcheck not installed"
+fi
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

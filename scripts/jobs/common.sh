@@ -33,6 +33,22 @@
 # A killswitch file; if present, workers stop claiming. Mirrors pivoker's NOPE.
 : "${GARDEN_KILLSWITCH:=$GARDEN_STATE/NOPE}"
 
+# --- deterministic fleet gh identity -----------------------------------------
+#
+# Prepend the fleet's gh wrapper dir to PATH so every fleet `gh` call (this
+# script's children, and the `claude -p` gardener subagents and their Bash tool
+# calls, which all inherit this exported PATH) resolves to scripts/jobs/bin/gh.
+# That wrapper pins the gh identity to the bot (kriscendobot) regardless of the
+# mutable global active account in ~/.config/gh, with an explicit override path
+# for the boatman's authorized-kriskowal ferries. See scripts/jobs/bin/gh and
+# designs/fleet-gh-identity.md. Guarded so repeated sourcing in one process tree
+# does not stack the entry.
+GARDEN_BIN="$GARDEN_ROOT/scripts/jobs/bin"
+case ":$PATH:" in
+  "$GARDEN_BIN:"*) : ;;             # already at the front; nothing to do
+  *) export PATH="$GARDEN_BIN:$PATH" ;;
+esac
+
 # --- small utilities ---------------------------------------------------------
 
 log()  { printf '%s [%s] %s\n' "$(date -u +%H:%M:%S)" "${GARDEN_TAG:-jobs}" "$*" >&2; }

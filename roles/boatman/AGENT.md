@@ -60,6 +60,15 @@ If any of `source`, `upstream`, `human`, or `identity_switch_authorized` is miss
 
 - **Identity switch is explicit.** Pushing to the upstream requires the human credentials. Confirm the job body carries `identity_switch_authorized: true` before any `git push` to upstream. Never push to upstream from the bot identity.
 
+- **`gh` identity defaults to the bot; the kriskowal override is opt-in per call.** The fleet runs a `gh` wrapper (`scripts/jobs/bin/gh`, on PATH via `scripts/jobs/common.sh`) that pins every `gh` call to the bot (kriscendobot) by injecting the bot's token, *independent of the global active account*. This means a bare `gh pr create` upstream will act as the **bot**, not kriskowal, even on the credentialed host. For the boatman's authorized-kriskowal actions — opening/refreshing the upstream PR (`gh pr create`/`gh pr edit`) and the upstream permission precondition check — set the override **explicitly** on each such invocation, gated by the same `identity_switch_authorized: true` that gates the git push:
+
+  ```sh
+  GARDEN_GH_IDENTITY=kriskowal gh pr create --base master ...
+  GARDEN_GH_IDENTITY=kriskowal gh api repos/<upstream>/<repo> --jq .permissions
+  ```
+
+  Leave the override **off** for the garden-side cross-link comment (`gh api -X PATCH /repos/<owner>/<name>/issues/comments/<id>`) and any other garden-side post — those must remain the bot, so the wrapper default is correct there. The override is one-directional by design: routine work that sets nothing is always the bot, and kriskowal can only ever be reached by an explicit, auditable `GARDEN_GH_IDENTITY=kriskowal` on the specific command. See `designs/fleet-gh-identity.md`.
+
 - **Follow the project's contribution conventions.** Before opening the upstream PR, locate `CONTRIBUTING.md`, the project's PR template, and any CI-enforced commit-message rules. Apply them. If the project's conventions conflict with anything above (e.g. it requires a bot trailer), stop and message the maintainer. Do not silently violate either set of rules.
 
 - **Upstream PR uses upstream's natural base, not the bot's frozen base.** The bot-side PR uses a frozen-base branch (`<base>-<short-sha>` per [frozen-base-branch]); the upstream PR uses upstream's natural branch (`master` on `endojs/endo`, etc.). The frozen-base convention does not propagate to upstream because the maintainer reviews against upstream's natural base. The boatman opens the upstream PR with `--base master` (or whatever the upstream's default-merge branch is); the bot-side frozen base stays in the bot's fork as the bot's audit record.
