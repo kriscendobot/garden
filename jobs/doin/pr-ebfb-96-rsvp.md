@@ -15,3 +15,9 @@ work forward through the normal chain. Reply on the triggering comment (or the P
 to confirm the work is proceeding and to report what was done.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 94
+  claimed_at: 2026-06-24T09:46:41Z
