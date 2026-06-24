@@ -25,9 +25,13 @@ sync_clone "$DIR"
 
 # desired set = files under repos/
 declare -A want=()
-for slug in $(ls -1 "$DIR/repos" 2>/dev/null | grep -v -x '.gitkeep'); do
+shopt -s nullglob
+for path in "$DIR"/repos/*; do
+  slug="${path##*/}"
+  [ "$slug" = .gitkeep ] && continue
   want["$slug"]=1
 done
+shopt -u nullglob
 
 # currently-armed set = enabled garden-triager@<slug>.timer instances
 declare -A have=()
