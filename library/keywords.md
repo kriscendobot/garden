@@ -12199,6 +12199,36 @@ FRB observer model | frb-compiled-observer-tree
 `keys()` `values()` `entries()` `toMap()` | (see section: frb--readme--tutorial-maps-and-lookups)
 `rangeContent()` `mapContent()` | (see section: frb--readme--tutorial-equality-and-content)
 FRB query language operators | (see section: frb--readme--tutorial-expression-language)
+`$` parameters expression | (see section: frb--readme--tutorial-parameters-and-components)
+`#` element by id `@` component by label | (see section: frb--readme--tutorial-parameters-and-components)
+`frb/dom` observable DOM | (see section: frb--readme--tutorial-parameters-and-components)
+`observe()` frb/observe | frb-compiled-observer-tree
+`beforeChange` `contentChange` observer flags | (see section: frb--readme--tutorial-observer-interface)
+nested observers | frb-compiled-observer-tree
+observer returns canceler | frb-compiled-observer-tree
+`defineBindings` `cancelBindings` `getBindings` | (see section: frb--readme--tutorial-bindings-interface)
+binding descriptor fields | (see section: frb--readme--reference-programmatic-api)
+`convert` `revert` converter | (see section: frb--readme--tutorial-converters-computed-and-traces)
+`reverter` | (see section: frb--readme--tutorial-converters-computed-and-traces)
+computed property `args` `compute` | (see section: frb--readme--tutorial-converters-computed-and-traces)
+`trace` binding debugging | (see section: frb--readme--tutorial-converters-computed-and-traces)
+`frb/bind` `frb/compute` `frb/observe` | (see section: frb--readme--reference-programmatic-api)
+`frb/evaluate` `frb/compile-evaluator` | (see section: frb--readme--reference-programmatic-api)
+`frb/stringify` | (see section: frb--readme--reference-programmatic-api)
+FRB grammar | (see section: frb--readme--reference-grammar)
+FRB property language grammar | (see section: frb--readme--reference-grammar)
+FRB semantics | (see section: frb--readme--reference-semantics)
+binder semantics left-hand side | (see section: frb--readme--reference-semantics)
+`.*` content target binding | (see section: frb--readme--reference-semantics)
+FRB syntax tree | (see section: frb--readme--reference-syntax-tree-and-language-interface)
+`parse` `compileObserver` `compileBinder` | (see section: frb--readme--reference-syntax-tree-and-language-interface)
+`mapBlock` `filterBlock` `groupBlock` syntax node | (see section: frb--readme--reference-syntax-tree-and-language-interface)
+`rangeContent` `mapContent` syntax node | (see section: frb--readme--reference-syntax-tree-and-language-interface)
+`observers` module FRB | (see section: frb--readme--reference-observers-and-binders)
+`binders` module FRB | (see section: frb--readme--reference-observers-and-binders)
+`makeNonReplacing` `makeArrayObserverMaker` | (see section: frb--readme--reference-observers-and-binders)
+`autoCancelPrevious` `makeUniq` | (see section: frb--readme--reference-observers-and-binders)
+`makePropertyObserver` `makePropertyBinder` | (see section: frb--readme--reference-observers-and-binders)
 collections | generic-collections
 kriskowal/collections | generic-collections
 `generic-collection` | generic-collections

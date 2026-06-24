@@ -17,6 +17,11 @@ The execution model behind `kriskowal/frb`'s query language: a binding's source 
 | [frb--readme--bindings-and-query-language](../sections/frb--readme--bindings-and-query-language.md) | Binding descriptor caches the `*Syntax` trees; binder + observer functions combine for two-way update. |
 | [frb--readme--tutorial-bindings-and-paths](../sections/frb--readme--tutorial-bindings-and-paths.md) | Observers reattach across structural change: orphaned listeners cancel, new graph is observed. |
 | [frb--readme--tutorial-order-and-grouping](../sections/frb--readme--tutorial-order-and-grouping.md) | group is a groupMap block followed by an entries() observer — observers compose into pipelines. |
+| [frb--readme--tutorial-observer-interface](../sections/frb--readme--tutorial-observer-interface.md) | `observe()` callbacks return cancelers; a returned canceler fires when a new value is observed, which is how the tree nests and tears down. |
+| [frb--readme--reference-syntax-tree-and-language-interface](../sections/frb--readme--reference-syntax-tree-and-language-interface.md) | `parse`→`compileObserver`/`compileBinder` build the tree by visiting each JSON-serializable syntax node. |
+| [frb--readme--reference-semantics](../sections/frb--readme--reference-semantics.md) | Per-node observation behavior, including the binder-side last-term semantics and the `null`/`undefined` suppression rule. |
+| [frb--readme--reference-observers-and-binders](../sections/frb--readme--reference-observers-and-binders.md) | The `observers`/`binders` maker functions that are the tree's nodes, plus the incremental combinators `makeNonReplacing` and `autoCancelPrevious`. |
+| [frb--readme--reference-programmatic-api](../sections/frb--readme--reference-programmatic-api.md) | `bind` is built on `parse`+`compileBinder`+`compileObserver`; `observe` on `parse`+`compileObserver`; the module stack that assembles the tree. |
 
 ## See also
 
@@ -30,4 +35,4 @@ The execution model behind `kriskowal/frb`'s query language: a binding's source 
 
 ## Deferred
 
-The deep mechanics of this model (the Reference section's Observe / Bind / Compute / Evaluate / Stringify interfaces, the grammar and semantics, and the `compile-observer.js` / `compile-binder.js` / `language.js` source) are not yet ingested; see the follow-on `scholar-ingest-frb` job.
+The README's account of this model is now fully ingested (the Reference programmatic-api, grammar, semantics, syntax-tree/language-interface, and observers-and-binders sections, plus the observer-interface tutorial section). What remains is the **source** behind the README's prose: `grammar.pegjs`, `compile-observer.js`, `compile-binder.js`, and `language.js`, to be ingested per the longform-comment / source-file conventions under the follow-on `scholar-ingest-frb-3` job. The README's Grammar / Semantics / Syntax-Tree sections double as the readable spec of those files.

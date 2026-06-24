@@ -18,6 +18,15 @@
 | [frb--readme--tutorial-maps-and-lookups](../sections/frb--readme--tutorial-maps-and-lookups.md) | frb README | has, get (variable key), keys/values/entries projections, toMap coercion. |
 | [frb--readme--tutorial-equality-and-content](../sections/frb--readme--tutorial-equality-and-content.md) | frb README | == two-way equality, array-as-map duplicity, rangeContent/mapContent, empty-path-implies-source, context expressions. |
 | [frb--readme--tutorial-expression-language](../sections/frb--readme--tutorial-expression-language.md) | frb README | Operators and precedence, string functions, ternary, automatic algebraic inversion, literals, tuples, records. |
+| [frb--readme--tutorial-parameters-and-components](../sections/frb--readme--tutorial-parameters-and-components.md) | frb README | `$` parameters as a second source, `#` DOM elements, `@` Montage components; reaching outside the source object. |
+| [frb--readme--tutorial-observer-interface](../sections/frb--readme--tutorial-observer-interface.md) | frb README | `observe()` with beforeChange/contentChange flags; callbacks return cancelers, which is how observers nest. |
+| [frb--readme--tutorial-bindings-interface](../sections/frb--readme--tutorial-bindings-interface.md) | frb README | `defineBindings`/`cancelBindings`/`getBindings`; a `<-`/`<->` descriptor is a binding descriptor recorded per object. |
+| [frb--readme--tutorial-converters-computed-and-traces](../sections/frb--readme--tutorial-converters-computed-and-traces.md) | frb README | convert/revert converters, reverters, `args`+`compute` computed properties, and `trace` console logging. |
+| [frb--readme--reference-programmatic-api](../sections/frb--readme--reference-programmatic-api.md) | frb README | The per-module entry points (frb, bind, compute, observe, evaluate, stringify) and the binding-descriptor field list. |
+| [frb--readme--reference-grammar](../sections/frb--readme--reference-grammar.md) | frb README | The precedence-climbing expression grammar; each term names the syntax-node type it produces. |
+| [frb--readme--reference-semantics](../sections/frb--readme--reference-semantics.md) | frb README | Normative per-operator observation behavior plus the binder-side (left-hand-side) semantics and the `.*` content target. |
+| [frb--readme--reference-syntax-tree-and-language-interface](../sections/frb--readme--reference-syntax-tree-and-language-interface.md) | frb README | parse/compileObserver/compileBinder and the JSON-serializable syntax-tree node types. |
+| [frb--readme--reference-observers-and-binders](../sections/frb--readme--reference-observers-and-binders.md) | frb README | The `observers`/`binders` module function catalog and the incremental combinators (makeNonReplacing, autoCancelPrevious). |
 
 ## Concepts
 

@@ -430,7 +430,7 @@ These three repos were forked under the bot account for future garden work and g
 | Source | Repo | Last-modified | Primary author | Sections | Status |
 |--------|------|---------------|----------------|----------|--------|
 | [README.md](collections--readme.md) | kriskowal/collections | 2017-10-15 | Kris Kowal | 2 | current (root README; per-package READMEs listed under "Collections per-package READMEs" below — 13 of ~43 ingested, remainder deferred to `scholar-ingest-collections`) |
-| [README.md](frb--readme.md) | kriskowal/frb | 2013-09-15 | Kris Kowal | 12 | current (conceptual + 8 operator-tutorial sections; declarative/observer machinery, Reference section, and grammar/compiler source deferred to `scholar-ingest-frb`) |
+| [README.md](frb--readme.md) | kriskowal/frb | 2013-09-15 | Kris Kowal | 21 | current (README fully ingested: 4 conceptual + 8 operator-tutorial + 4 declarative/observer-machinery + 5 Reference sections; only the grammar/compiler **source** files deferred to `scholar-ingest-frb-3`) |
 | [README.md](cask--readme.md) | kriskowal/cask | 2026-02-17 | Kris Kowal | 13 | current (README ingested in full; remaining `doc/design/` docs and Go source deferred to a re-posted `scholar-ingest-cask`) |
 | [doc/design/architecture.md](cask--architecture.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 5 | current (the layered casknet protocol stack, Layers 0–4 plus ledger/sampling/security; net-crypto/net-session-init/gc design docs deferred) |
 | [doc/design/parallel-arrays.md](cask--parallel-arrays.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 6 | current (the columnar/ECS pattern in depth: in-memory, reducer-style persistent structures, adaptive index width, schema hashes, table IDL, Rabin-bounded sorted indexes) |
