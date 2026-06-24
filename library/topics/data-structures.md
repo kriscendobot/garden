@@ -59,6 +59,8 @@
 | [cask--trace2--buffercasktel-sampling-buffer-and-eviction](../sections/cask--trace2--buffercasktel-sampling-buffer-and-eviction.md) | cask trace2 | The casktel sampling tracer's fixed-size parallel-array span+log buffer with a priority heap and parasitic eviction (same shape as the sendbuffer/CoDel buffers). |
 | [cask--cells--caskdir-mode-field](../sections/cask--cells--caskdir-mode-field.md) | cask cells | The 2-byte caskdir entry mode (high-byte category, low-byte subtype) that types every directory entry and cell record. |
 | [cask--cells-and-entries--through-lines](../sections/cask--cells-and-entries--through-lines.md) | cask cells-and-entries | The fixed 32-byte reference width that keeps the storage format (a parallel-array column, a block link slot) unchanged across mode categories. |
+| [cask--cell-capabilities--cell-path-descriptor-format](../sections/cask--cell-capabilities--cell-path-descriptor-format.md) | cask cell-capabilities | The cell path descriptor block: a compactblob with exactly one first-leaf link (the cell ID, 32 bytes) plus a CBOR array of path-segment strings. |
+| [cask--cell-capabilities--content-model-changes](../sections/cask--cell-capabilities--content-model-changes.md) | cask cell-capabilities | The nine uint16 entry-type constants and the IsCell/IsCellDirect/IsCellIndirect/IsCellWritable/IsBlob/IsDir/IsExecutable predicate family. |
 
 ## See also
 

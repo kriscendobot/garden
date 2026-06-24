@@ -453,6 +453,7 @@ These repos are kriskowal's own (forked under the bot account for future garden 
 | [doc/design/cryptography.md](cask--cryptography.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 4 | current (the secure-transport "minimal proposal": Option A PSK / Option B one-way DH; design predecessor net-crypto.md realizes as Noise IK) |
 | [doc/design/cells.md](cask--cells.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 7 | current (the mutable cell graph over the immutable store: cell bank = capability_map + cell_map, weak cell_refs, 2-byte caskdir mode, hierarchical capabilities, GC; introduces cask-cell-bank) |
 | [doc/design/cells-and-entries.md](cask--cells-and-entries.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 5 | current (the shared name/mode/reference shape behind cells and directory entries; five through-lines; typed cell bank; introduces cask-named-typed-pointer) |
+| [doc/design/cell-capabilities.md](cask--cell-capabilities.md) | kriskowal/cask | 2026-02-17 | Kris Kowal | 11 | current (Entry Type Capabilities: the entry type as ocap facet; information hiding fixes honest attenuations; nine types incl. read-only/subpath cells; cell path descriptor; cask mkroot/typeof; introduces cask-entry-type-capability + cask-cell-path-descriptor; co-current lineage sibling of cells.md/cells-and-entries.md) |
 
 #### Collections per-package READMEs (begin 2026-06-24 via `scholar-ingest-collections`)
 

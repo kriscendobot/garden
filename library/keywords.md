@@ -12635,3 +12635,29 @@ cell record | cask-named-typed-pointer
 mode category subtype | cask-named-typed-pointer
 2-byte mode | cask-named-typed-pointer
 uniform resolution walk | cask-named-typed-pointer
+entry type capability | cask-entry-type-capability
+entry type is the capability | cask-entry-type-capability
+honest attenuation | cask-entry-type-capability
+read-only cell | cask-entry-type-capability
+`TypeCell` | cask-entry-type-capability
+`TypeCellRead` | cask-entry-type-capability
+`TypeCellPath` | cask-entry-type-capability
+`TypeCellPathRead` | cask-entry-type-capability
+`TypeBlob` | cask-entry-type-capability
+`TypeDir` | cask-entry-type-capability
+direct cell reference | cask-entry-type-capability
+indirect cell reference | cask-cell-path-descriptor
+structural capability | cask-entry-type-capability
+facet over namespace | cask-entry-type-capability
+write implies read | cask-entry-type-capability
+CAS couples read and write | cask-entry-type-capability
+attenuation lattice | cask-entry-type-capability
+`cask mkroot` | cask-entry-type-capability
+`cask typeof` | cask-entry-type-capability
+cell path descriptor | cask-cell-path-descriptor
+`cellpath` | cask-cell-path-descriptor
+descriptor hash | cask-cell-path-descriptor
+scoped cell reference | cask-cell-path-descriptor
+subpath capability | cask-cell-path-descriptor
+`StoreCellPathDescriptor` | cask-cell-path-descriptor
+`LoadCellPathDescriptor` | cask-cell-path-descriptor
