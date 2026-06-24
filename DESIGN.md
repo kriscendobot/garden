@@ -1,5 +1,9 @@
 # journal
 
+> This is the journal's design and layout reference. The live maintainer
+> dashboard is now [`README.md`](README.md), written continuously by
+> `scripts/jobs/bulletin.sh` (the journal's landing page IS the bulletin).
+
 The garden's message bus and shared state. This worktree directory is
 `journal`, but the branch is the fresh **orphan branch `journal2`**, independent
 of `main`; it is pushed to a shared `origin` and a `git push` is the cross-host
