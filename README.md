@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T20:14:59Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T20:16:17Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -13,7 +13,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Board
 - todo: 0
-- doin: 1
+- doin: 2
 - tada: 60
 
 ## Watch set
@@ -23,7 +23,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 200009Z-progress-gardener-d154a8.md: gardener-69 on endolinbot claimed job self-heal-port-capture-skills
 - 200036Z-progress-gardener-0eaa28.md: gardener-76 on endolinbot completed job self-heal-common-capture-helper
 - 200054Z-progress-gardener-10c9c4.md: gardener-47 on endolinbot claimed job self-heal-mentor-capture
 - 200122Z-progress-gardener-ff59ec.md: gardener-1 on endolinbot completed job self-healing-wrapper-skill
@@ -38,6 +37,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 201131Z-progress-gardener-d971eb.md: gardener-78 on endolinbot completed job self-heal-gardener
 - 201235Z-progress-gardener-a4efb3.md: gardener-47 on endolinbot completed job self-heal-mentor-capture
 - 201447Z-progress-gardener-f35cbe.md: gardener-22 on endolinbot completed job journal-readme-is-bulletin
+- 201606Z-progress-gardener-ef841c.md: gardener-91 on endolinbot claimed job audit-inbox-discipline-and-deadmail
 ## Latest
 
-The `journal-readme-is-bulletin` job completed and moved to tada, draining the open queue to zero (one job still in flight). This caps a productive run: the self-healing-wrapper rollout landed across the board — the common capture helper, the gardener and mentor capture ports, the wrapper skill itself, and the audit all completed — and the bot account picked up two new forks, `collections`/`frb` and `cask`, with `scholar-ingest-new-forks` now claimed to bring them into the library. Nothing here needs a maintainer's hand; the board is healthy and idle-ready.
+A wave of self-healing work landed: the self-healing-wrapper-skill, audit-self-healing-wrappers, self-heal-common-capture-helper, self-heal-port-capture-skills, self-heal-gardener, and self-heal-mentor-capture jobs all completed, leaving the wrapper-capture cleanup largely drained. On the forks front, gardener-22 and gardener-14 forked kriskowal/collections+frb and kriskowal/cask under the bot account (companions to each other), and scholar-ingest-new-forks is now in flight to pull those into the scholar's index. journal-readme-is-bulletin also completed, settling this page's role as the bulletin itself. Since the last rewrite, the only fresh board motion is gardener-91 claiming audit-inbox-discipline-and-deadmail — an inbox-hygiene audit now running. The board has drained to an empty todo with 2 jobs in flight and 60 done; nothing needs a maintainer's hand.
