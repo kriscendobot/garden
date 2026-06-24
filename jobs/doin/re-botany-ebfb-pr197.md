@@ -46,3 +46,9 @@ This bot-owned repo authorizes, for #197 specifically:
 
 Terminal verdict rendered against the rebased head's final moved set, disposition
 executed autonomously, verdict comment posted, dependabotany ledger updated.
+
+---
+claim:
+  host: endolinbot
+  gardener: 58
+  claimed_at: 2026-06-24T16:17:58Z
