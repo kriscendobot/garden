@@ -133,10 +133,32 @@ render_board() {
   fi
 }
 
+# Render a maintainer message body as a Markdown blockquote so the bulletin is
+# self-contained and followable: everything after the frontmatter delimiter, each
+# line prefixed with "> " (blank lines become a bare ">"), with leading/trailing
+# blank lines trimmed. Prefixing every body line keeps any fenced code block
+# balanced inside the quote, so a Markdown- or fence-containing body cannot break
+# the surrounding bulletin. An empty body renders as "> (empty message)".
+msg_body_quote() {
+  awk '
+    b { body[++n] = $0 }
+    /^---$/ { b=1 }
+    END {
+      s=1; while (s<=n && body[s] ~ /^[[:space:]]*$/) s++
+      e=n; while (e>=s && body[e] ~ /^[[:space:]]*$/) e--
+      if (s>e) { print "> (empty message)"; exit }
+      for (i=s; i<=e; i++) {
+        if (body[i] ~ /^[[:space:]]*$/) print ">"
+        else print "> " body[i]
+      }
+    }
+  ' "$1"
+}
+
 # Compute the deterministic dashboard for the current synced state of $DIR and
 # print it to stdout. This is the always-works base; it reuses the v1 board logic.
 compute_dashboard() {
-  local watch hosts_block h g maint m mf rt frm sum recent f first now board
+  local watch hosts_block h g maint m mf rt frm link recent f first now board
   board=$(render_board)
   watch=$(list_jobs "$DIR" repos | paste -sd' ' - 2>/dev/null); [ -n "$watch" ] || watch="(none)"
 
@@ -148,16 +170,19 @@ compute_dashboard() {
   [ -n "$hosts_block" ] || hosts_block="(no hosts configured)"$'\n'
 
   # Aggregate the maintainer inbox: every unread message addressed to the user,
-  # shown with enough to act on it (id, originating doer via reply_to, sender,
-  # and a one-line summary = first non-empty body line after the frontmatter).
+  # rendered to be *followable* rather than a teaser. Each entry keeps its header
+  # line (id, sender, originating doer via reply_to) plus a link to the message
+  # blob on the journal2 branch, then the full body inline as a Markdown
+  # blockquote so the maintainer can act without leaving the bulletin.
   maint=""
   for m in $(list_jobs "$DIR" inbox/maintainer/unread); do
     mf="$DIR/inbox/maintainer/unread/$m"
     [ -f "$mf" ] || continue
     rt=$(sed -n 's/^reply_to:[[:space:]]*//p' "$mf" | head -1)
     frm=$(sed -n 's/^from:[[:space:]]*//p' "$mf" | head -1)
-    sum=$(awk 'b && NF{print; exit} /^---$/{b=1}' "$mf")
-    maint+="- \`${m%.md}\` — from ${frm:-?}, reply_to \`${rt:-?}\`: ${sum:-(no summary)}"$'\n'
+    link="https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/$m"
+    maint+="- \`${m%.md}\` — from ${frm:-?}, reply_to \`${rt:-?}\` · [open message]($link)"$'\n\n'
+    maint+="$(msg_body_quote "$mf")"$'\n\n'
   done
   [ -n "$maint" ] || maint="(no pending maintainer messages)"$'\n'
 

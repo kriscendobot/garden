@@ -327,6 +327,26 @@ h4="$(ohead)"
 [ "$(cat "$CURSOR_FILE")" = "$h4" ] && ok "cursor advances even on degraded post" || bad "cursor stalled on degraded post"
 rm -rf "$BV"
 
+# (5) maintainer messages are FOLLOWABLE: each entry links the message blob AND
+#     inlines the full body as a blockquote (not a one-line teaser), and a
+#     Markdown/fence-containing body does not break the bulletin's rendering.
+mmsg="$(printf 'from_host: testhost\nfrom: gardener:demo-doer\nreply_to: demo-doer\nsent_at: t0\n---\nNeed a call on the rebase direction.\n\n```\nconflicting hunk in byteArray.js\n```\n\n## Recommend\nport onto the Uint8Array model\n')"
+push_change "inbox/maintainer/unread/bul-maint-1.md" "$mmsg" "seed maintainer message for bulletin"
+run_bul
+rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
+grep -qF 'blob/journal2/inbox/maintainer/unread/bul-maint-1.md' "$BV/README.md" \
+  && ok "maintainer entry links the message blob on journal2" || bad "no blob link to the maintainer message"
+{ grep -qF '> Need a call on the rebase direction.' "$BV/README.md" \
+  && grep -qF '> ## Recommend' "$BV/README.md" \
+  && grep -qF '> port onto the Uint8Array model' "$BV/README.md"; } \
+  && ok "maintainer entry inlines the FULL body as a blockquote (not a teaser)" || bad "full body not inlined as blockquote"
+# fences stay balanced: the body fence is quoted (`> ```\`) so the count of
+# blockquoted fence lines is even — the bulletin's own Markdown is not broken.
+nfence=$(grep -cE '^> ```' "$BV/README.md" || true)
+{ [ "$nfence" -ge 2 ] && [ $((nfence % 2)) -eq 0 ]; } \
+  && ok "fence-containing body stays balanced inside the blockquote (no broken Markdown)" || bad "body fence unbalanced ($nfence)"
+rm -rf "$BV"
+
 # ============================================================================
 hr; echo "SUBTEST 11 — MENTOR: log → improvement job (self-healing)"; hr
 export GARDEN_STATE="$TR/state-imp" GARDEN_HOST=ihost
