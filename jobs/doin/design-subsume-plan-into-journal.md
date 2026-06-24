@@ -115,3 +115,9 @@ cutover. If blocked, report the diagnosis and the exact ready-to-apply state rat
 than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 64
+  claimed_at: 2026-06-24T18:07:01Z
