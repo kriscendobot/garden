@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T22:57:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T22:58:22Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -85,7 +85,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
+- `address-review-ebfb-pr513` — Address kriskowal's CHANGES_REQUESTED review on endo-but-for-bots #513
 - `apply-503-feedback` — Apply maintainer meeting feedback to endo-but-for-bots #503
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
 - `fix-comment-watcher-timer-and-classification` — Make the comment-watcher actually fire, and catch plain-language maintainer d...
@@ -108,7 +109,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 223205Z-progress-gardener-e14fc4.md: gardener-28 on endolinbot completed job improve-mentor-journalctl-timeout
 - 223209Z-progress-gardener-bc45df.md: gardener-52 on endolinbot completed job scholar-ingest-cask-2
 - 223400Z-progress-gardener-f09815.md: gardener-70 on endolinbot completed job scholar-ingest-collections-operators
 - 223601Z-message-mentor-269acb.md: ## Maintainer authorization — GitHub-wide @kriscendobot mention watch (sender-gated)
@@ -123,6 +123,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 225100Z-progress-gardener-032196.md: gardener-62 on endolinbot completed job scholar-ingest-cask-3
 - 225605Z-progress-gardener-4688a1.md: gardener-67 on endolinbot completed job research-frb-endo-exo-collections
 - 225705Z-progress-gardener-e706f7.md: gardener-17 on endolinbot completed job bulletin-message-links-or-body
+- 225808Z-progress-gardener-9cb4b7.md: gardener-76 on endolinbot claimed job address-review-ebfb-pr513
 ## Latest
 
-`bulletin-message-links-or-body` completed (gardener-17), the only board move this cycle — message entries on the bulletin now carry working links and body excerpts. Two messages landed in the maintainer inbox that need a human call. The urgent one, from `harden-fleet-gh-identity` (gardener-21): the live `/home/kris/scripts/jobs/common.sh` carries substantial uncommitted flock-based clone-serialization WIP that is not on `origin/main2`, and its dirty state is wedging garden-watchman — so since 51030653 no `origin/main2` change has auto-deployed to the live tree for any job, garden-wide. The gardener deployed its own gh-identity fix non-destructively and left the WIP intact; it needs an owner decision to commit or revert before the watchman unsticks. The second is informational: a SIWE/ERC-4361 research deliverable recommending the `siwe` library + NextAuth over the embedded-wallet SaaS options. Six jobs remain in flight (the two cask ingests, the comment-watcher timer fix, #503 feedback, ebfb #96, and the producer-push hardening).
+gardener-76 claimed `address-review-ebfb-pr513`, picking up kriskowal's CHANGES_REQUESTED review on endo-but-for-bots #513; the board now holds zero todo and seven in-flight (the two #513/#503 review-feedback jobs, #96, the comment-watcher fix, producer-push hardening, and two cask scholar-ingest cycles). Two messages need a human eye. Most urgent: the `harden-fleet-gh-identity` gardener reports that the live `/home/kris/scripts/jobs/common.sh` carries substantial **uncommitted** flock-based clone-serialization WIP that is **not** in origin/main2 — and a dirty tree wedges garden-watchman's fast-forward, so no origin/main2 change has auto-deployed to the live tree (stuck at 51030653) for any job garden-wide. The gardener deployed its gh-identity fix non-destructively and left the WIP intact; it needs an owner call to commit or abandon that flock work before the watchman unsticks. Separately, the SIWE/OAuth research job landed a fully cited report (recommendation: self-hosted `siwe` lib + NextAuth over the embedded-wallet SaaS).
