@@ -68,13 +68,76 @@ mkdir -p "$(dirname "$CURSOR")"
 read_cursor()  { [ -f "$CURSOR" ] && head -1 "$CURSOR" 2>/dev/null; return 0; }
 write_cursor() { printf '%s\n' "$1" > "$CURSOR"; }
 
+# Extract a one-line description from a job file: its first Markdown heading
+# (`# …`) if present, else its first non-empty line. Strip leading `#`/whitespace,
+# collapse internal whitespace, drop characters that could break the bulletin's
+# Markdown (backticks and control chars; grep -m1 already guarantees no embedded
+# newline), and truncate to ~80 chars. Cheap: reads only until the first match.
+job_desc() {
+  local f="$1" line
+  line=$(grep -m1 -E '^#+[[:space:]]' "$f" 2>/dev/null || true)
+  [ -n "$line" ] || line=$(grep -m1 -E '[^[:space:]]' "$f" 2>/dev/null || true)
+  line=$(printf '%s' "$line" | sed -E 's/^[[:space:]]*#+[[:space:]]*//; s/^[[:space:]]+//')
+  line=$(printf '%s' "$line" | tr -d '`\r' | tr '\t' ' ' | tr -s ' ')
+  line="${line#"${line%%[![:space:]]*}"}"
+  line="${line%"${line##*[![:space:]]}"}"
+  [ -n "$line" ] || line="(no description)"
+  if [ "${#line}" -gt 80 ]; then line="${line:0:77}..."; fi
+  printf '%s' "$line"
+}
+
+# Render the active job board: list every todo and doin job with a one-line
+# description (grouped under counted sub-headings), then a bounded tada section
+# (count + the few most-recently-modified completions), so a large tada set never
+# bloats the bulletin. Print to stdout.
+render_board() {
+  local todo_n doin_n tada_n j desc
+  todo_n=$(list_jobs "$DIR" jobs/todo | grep -c . || true)
+  doin_n=$(list_jobs "$DIR" jobs/doin | grep -c . || true)
+  tada_n=$(list_jobs "$DIR" jobs/tada | grep -c . || true)
+
+  printf '### todo (%s)\n' "$todo_n"
+  if [ "$todo_n" -gt 0 ]; then
+    while IFS= read -r j; do
+      [ -n "$j" ] || continue
+      desc=$(job_desc "$DIR/jobs/todo/$j")
+      printf -- '- `%s` — %s\n' "${j%.md}" "$desc"
+    done < <(list_jobs "$DIR" jobs/todo)
+  else
+    printf '(none)\n'
+  fi
+
+  printf '\n### doin (%s)\n' "$doin_n"
+  if [ "$doin_n" -gt 0 ]; then
+    while IFS= read -r j; do
+      [ -n "$j" ] || continue
+      desc=$(job_desc "$DIR/jobs/doin/$j")
+      printf -- '- `%s` — %s\n' "${j%.md}" "$desc"
+    done < <(list_jobs "$DIR" jobs/doin)
+  else
+    printf '(none)\n'
+  fi
+
+  # tada can hold hundreds of completed jobs; never list them all. Show the count
+  # and at most the 5 most-recently-modified, with descriptions.
+  printf '\n### tada (%s)\n' "$tada_n"
+  if [ "$tada_n" -gt 0 ]; then
+    while IFS= read -r j; do
+      [ -n "$j" ] || continue
+      desc=$(job_desc "$DIR/jobs/tada/$j")
+      printf -- '- `%s` — %s\n' "${j%.md}" "$desc"
+    done < <(find "$DIR/jobs/tada" -maxdepth 1 -type f ! -name '.gitkeep' -printf '%T@ %f\n' 2>/dev/null | sort -rn | head -5 | cut -d' ' -f2-)
+    if [ "$tada_n" -gt 5 ]; then printf -- '- … and %s more\n' "$((tada_n - 5))"; fi
+  else
+    printf '(none)\n'
+  fi
+}
+
 # Compute the deterministic dashboard for the current synced state of $DIR and
 # print it to stdout. This is the always-works base; it reuses the v1 board logic.
 compute_dashboard() {
-  local todo doin tada watch hosts_block h g maint m mf rt frm sum recent f first now
-  todo=$(list_jobs "$DIR" jobs/todo | grep -c . || true)
-  doin=$(list_jobs "$DIR" jobs/doin | grep -c . || true)
-  tada=$(list_jobs "$DIR" jobs/tada | grep -c . || true)
+  local watch hosts_block h g maint m mf rt frm sum recent f first now board
+  board=$(render_board)
   watch=$(list_jobs "$DIR" repos | paste -sd' ' - 2>/dev/null); [ -n "$watch" ] || watch="(none)"
 
   hosts_block=""
@@ -126,9 +189,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ${maint}
 ## Board
-- todo: $todo
-- doin: $doin
-- tada: $tada
+${board}
 
 ## Watch set
 $watch
