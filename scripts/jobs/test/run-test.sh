@@ -384,5 +384,71 @@ disp2=$(ls -1 "$FV/jobs/todo" | grep -c '^fu-fu-new-2\.md$' || true)
 rm -rf "$FV"
 
 # ============================================================================
+hr; echo "SUBTEST 14 — FOREMAN: idle-pump, settle window, cost gate, anti-flap"; hr
+# Dedicated empty board on its own origin so idle state is fully controllable.
+FBARE="$TR/foreman.git"; git init -q --bare "$FBARE"
+FSEED="$TR/foreman-seed"; git init -q "$FSEED"; git -C "$FSEED" checkout -q -b "$BRANCH"
+( cd "$FSEED"
+  mkdir -p jobs/todo jobs/doin jobs/tada inbox/maintainer/unread inbox/maintainer/read entries
+  for d in jobs/todo jobs/doin jobs/tada inbox/maintainer/unread inbox/maintainer/read entries; do touch "$d/.gitkeep"; done )
+git -C "$FSEED" add -A; git -C "$FSEED" "${git_id[@]}" commit -q -m "seed empty foreman board"
+git -C "$FSEED" remote add origin "$FBARE"; git -C "$FSEED" push -q -u origin "$BRANCH"
+
+export GARDEN_STATE="$TR/state-fm" GARDEN_HOST=fmhost
+FCALLS="$TR/fm-calls"; : > "$FCALLS"
+fboard() {  # fboard <job-base> | @CLEAR  → set todo/ on the foreman origin
+  local wt; wt="$(mktemp -d "$TR/fedit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$FBARE" "$wt"
+  if [ "$1" = "@CLEAR" ]; then git -C "$wt" rm -q --ignore-unmatch jobs/todo/*.md >/dev/null 2>&1 || true
+  else printf '# %s\n' "$1" > "$wt/jobs/todo/$1.md"; git -C "$wt" add "jobs/todo/$1.md"; fi
+  git -C "$wt" "${git_id[@]}" commit -q -m "board: $1" >/dev/null 2>&1 || true
+  git -C "$wt" push -q origin "HEAD:$BRANCH" >/dev/null 2>&1 || true
+  rm -rf "$wt"
+}
+fcount() {  # fcount <subdir>  → non-gitkeep entries in a fresh clone of the foreman origin
+  local v n; v="$(mktemp -d "$TR/fv.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$FBARE" "$v" 2>/dev/null
+  n=$(ls -1 "$v/$1" 2>/dev/null | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"
+}
+run_fm() {  # run_fm <now-epoch>
+  : > "$FCALLS"
+  env JOURNAL_REMOTE="$FBARE" GARDEN_FOREMAN_HANDLER="$HERE/foreman-stub.sh" \
+      GARDEN_FOREMAN_STUB_CALLS="$FCALLS" GARDEN_FOREMAN_NOW="$1" GARDEN_FOREMAN_IDLE_SETTLE=240 \
+      "$JOBS/foreman.sh" >/dev/null 2>&1
+}
+
+# (1) busy board → NO claude call and NO post (cost gate)
+fboard busywork
+run_fm 1000
+{ [ ! -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 1 ]; } \
+  && ok "busy board: no claude call and nothing posted (cost gate)" || bad "busy board leaked (calls=$(wc -l <"$FCALLS") todo=$(fcount jobs/todo))"
+
+# (2) idle but within the settle window → start the clock, then do nothing
+fboard @CLEAR
+run_fm 2000   # first idle observation: writes idle-since=2000, no pump
+{ [ ! -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 0 ]; } \
+  && ok "idle first-seen: settle clock started, no pump" || bad "first idle pumped early"
+run_fm 2100   # 100s < 240 settle → still nothing
+{ [ ! -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 0 ]; } \
+  && ok "idle within settle window: no claude call, no pump" || bad "within-settle leaked"
+
+# (3) sustained idle past the settle window → posts exactly ONE job
+run_fm 2300   # 300s since idle-since(2000) ≥ 240 → pump
+{ [ -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 1 ]; } \
+  && ok "sustained idle past settle: pumped exactly one job" || bad "pump (calls=$(wc -l <"$FCALLS") todo=$(fcount jobs/todo))"
+FV="$TR/fmv"; git clone -q --single-branch --branch "$BRANCH" "$FBARE" "$FV"
+[ -f "$FV/jobs/todo/foreman-next-step.md" ] && ok "posted the foreman's chosen next step" || bad "expected next-step job missing"
+rm -rf "$FV"
+
+# (4) anti-flap: board redrains, same step recurs → NOT re-posted, surfaced to maintainer
+fboard @CLEAR   # remove the just-posted job → board idle again
+run_fm 2400     # 100s since idle-since(2300) < 240 → within settle, no pump
+[ ! -s "$FCALLS" ] && ok "post-pump settle window re-armed (no immediate re-pump)" || bad "re-pumped within settle"
+run_fm 2600     # 300s ≥ 240 → pump; stub proposes the same base as last posted
+{ [ "$(fcount jobs/todo)" -eq 0 ] && [ "$(fcount inbox/maintainer/unread)" -ge 1 ]; } \
+  && ok "redrained board: identical step not duplicated (anti-flap), repeat surfaced to maintainer" \
+  || bad "anti-flap (todo=$(fcount jobs/todo) maint=$(fcount inbox/maintainer/unread))"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

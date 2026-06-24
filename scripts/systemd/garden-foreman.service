@@ -1,0 +1,7 @@
+[Unit]
+Description=Garden foreman (pump the next milestone step when the board goes idle)
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecStart=@GARDEN_ROOT@/scripts/jobs/foreman.sh
