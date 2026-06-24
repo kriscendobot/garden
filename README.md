@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T22:36:48Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T22:40:45Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -16,20 +16,19 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
 - `harden-producer-push-path` — Harden the producer push path: confirm the push landed; fix the shared-clone ...
-- `reliable-pause-resume` — Make liaison "pause" and "resume" reliable (codify scripts + role), from rece...
 - `scholar-ingest-cask-3` — Scholar: continue the library ingest of kriskowal/cask (cycle 4)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
-### tada (80)
+### tada (81)
+- `reliable-pause-resume` — Awaiting the clean test run's completion.
 - `build-github-mention-watcher` — Completion report
 - `scholar-ingest-collections-operators` — The work is complete. Here is my report.
 - `scholar-ingest-frb-3` — Completion report — scholar-ingest-frb-3 (scholar cycle 4)
 - `scholar-ingest-cask-2` — The follow-on scholar-ingest-cask-3 was posted and already claimed by another...
-- `improve-mentor-journalctl-timeout` — Done. Completion report:
-- … and 75 more
+- … and 76 more
 
 ## Watch set
 (none)
@@ -55,4 +54,4 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 223601Z-message-mentor-269acb.md: ## Maintainer authorization — GitHub-wide @kriscendobot mention watch (sender-gated)
 ## Latest
 
-The GitHub-mention-watcher build landed — `build-github-mention-watcher` moved to done, completing the work that the fresh maintainer authorization for a GitHub-wide, sender-gated `@kriscendobot` mention watch now backs. Two heads-ups are waiting in the maintainer inbox: the SIWE/OAuth research deliverable (the "Sign in with your Ethereum address" landscape) and a note from `harden-fleet-gh-identity` flagging something about the live tree. Five jobs remain in flight, including two scholar cask-ingest cycles, the ebfb #96 finish, a producer-push-path hardening, and codifying reliable liaison pause/resume.
+The pause/resume reliability job (`reliable-pause-resume`) landed in tada, closing out its clean test run. That tops a busy stretch on the board: the recent run also cleared the endo-but-for-bots #57 line (`port-ebfb-pr57-onto-475`, `shepherd-ebfb-pr57`), `address-copilot-ebfb-pr474`, the liaison-interface README revision, `harden-fleet-gh-identity`, the mentor journalctl-timeout fix, `bulletin-show-job-descriptions`, and another cask scholar-ingest cycle. Two items want a human: a maintainer-directed message from `harden-fleet-gh-identity` flagging the live tree, and the completed SIWE/OAuth-provider research report from `research-siwe-oauth-providers`. Four jobs remain in flight (the ebfb #96 finish, the producer-push-path hardening, and two cask ingests).
