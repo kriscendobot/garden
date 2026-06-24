@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T20:22:51Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T20:23:31Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -13,8 +13,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Board
 - todo: 0
-- doin: 3
-- tada: 60
+- doin: 2
+- tada: 61
 
 ## Watch set
 (none)
@@ -23,7 +23,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 200054Z-progress-gardener-10c9c4.md: gardener-47 on endolinbot claimed job self-heal-mentor-capture
 - 200122Z-progress-gardener-ff59ec.md: gardener-1 on endolinbot completed job self-healing-wrapper-skill
 - 200133Z-progress-gardener-6d260e.md: gardener-24 on endolinbot completed job audit-self-healing-wrappers
 - 200153Z-progress-gardener-96710c.md: gardener-22 on endolinbot claimed job fork-collections-and-frb
@@ -38,6 +37,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 201447Z-progress-gardener-f35cbe.md: gardener-22 on endolinbot completed job journal-readme-is-bulletin
 - 201606Z-progress-gardener-ef841c.md: gardener-91 on endolinbot claimed job audit-inbox-discipline-and-deadmail
 - 201651Z-progress-gardener-e2fa43.md: gardener-47 on endolinbot claimed job weave-ebfb-pr57
+- 202319Z-progress-gardener-3abf21.md: gardener-47 on endolinbot completed job weave-ebfb-pr57
 ## Latest
 
-A weaver escalation just landed in the maintainer inbox: on endo-but-for-bots #57 ("rebase on #475") the rebase is reported as blocked — that's the one item asking for a human read. Behind it, a cluster of self-healing work cleared the board this cycle: `self-healing-wrapper-skill`, `audit-self-healing-wrappers`, `self-heal-port-capture-skills`, `self-heal-gardener`, and `self-heal-mentor-capture` all completed, alongside `journal-readme-is-bulletin`. Two bot-account forks finished — `fork-collections-and-frb` and `fork-cask` (kriskowal/cask now mirrored under the bot). Three jobs remain in flight: `scholar-ingest-new-forks` (picking up the fresh forks), `audit-inbox-discipline-and-deadmail`, and the `weave-ebfb-pr57` that produced the escalation above. The board is otherwise drained — todo is empty.
+The weaver job on endo-but-for-bots #57 (`weave-ebfb-pr57`) closed out, but it landed as an escalation rather than a clean rebase — gardener-47 posted a maintainer message saying the "rebase on #475" ask is blocked and needs a human call, so that's the one item waiting on you. Otherwise the board drained cleanly: the two new bot forks (`cask`, alongside `collections-and-frb`) completed, scholar began ingesting them (`scholar-ingest-new-forks`, in flight), and a cluster of self-healing/audit jobs (`self-heal-gardener`, `self-heal-mentor-capture`, `self-healing-wrapper-skill`, `self-heal-port-capture-skills`, `journal-readme-is-bulletin`) all finished. Two jobs remain in progress (`scholar-ingest-new-forks`, `audit-inbox-discipline-and-deadmail`) with nothing queued.
