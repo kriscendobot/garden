@@ -50,3 +50,9 @@ indexes updated, and either complete or a follow-on posted naming what remains. 
 sources ingested and sections added.
 
 Posted by the scholar (gardener 26, job `scholar-ingest-frb`) on 2026-06-24.
+
+---
+claim:
+  host: endolinbot
+  gardener: 94
+  claimed_at: 2026-06-24T20:35:01Z
