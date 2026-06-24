@@ -6,24 +6,27 @@ source_date: 2017-12-04
 source_authors: [Kris Kowal]
 ingested: 2026-06-24
 ingested_by: scholar
-section_count: 6
+section_count: 9
 status: current
 notes: |
-  Multi-cycle ingest in progress. Cycle 1 (`scholar-through-lines-change-propagation`)
-  filed the two keystone sections (the reactivity taxonomy and the
-  signal-vs-behavior duality) that anchor the change-propagation through-line
-  concept pages. Cycle 2 (`scholar-ingest-gtor`) added the four async/queue
-  substrate sections (asynchronous-values-and-functions,
-  promise-queues-and-buffers, promise-iterators-and-generators,
-  asynchronous-generator-functions) that ground the @endo/stream makeQueue
-  cons-cell and @endo/pubsub sink/spring mechanisms. Still deferred to a
-  re-posted `scholar-ingest-gtor` follow-on: the plural-spatial column
-  (Iterators / Generator Functions / Generators, README lines 254-524) and the
-  cross-cutting recap (Summary / Further Work / Glossary, lines 1654-1822, the
-  vocabulary glossary being keyword-index fodder). The Concepts intro
+  Full README coverage as of 2026-06-24 (three cycles). Cycle 1
+  (`scholar-through-lines-change-propagation`) filed the two keystone sections
+  (the reactivity taxonomy and the signal-vs-behavior duality) that anchor the
+  change-propagation through-line concept pages. Cycle 2 (`scholar-ingest-gtor`)
+  added the four async/queue substrate sections
+  (asynchronous-values-and-functions, promise-queues-and-buffers,
+  promise-iterators-and-generators, asynchronous-generator-functions) that
+  ground the @endo/stream makeQueue cons-cell and @endo/pubsub sink/spring
+  mechanisms. Cycle 3 (`scholar-ingest-gtor-recap`) finished the README with the
+  synchronous-plural-spatial column (iterators-and-generators, lines 254-524 —
+  the spatial primitives the temporal stream algebra mirrors), the cross-cutting
+  recap (summary-and-glossary, lines 1654-1822, the flat vocabulary glossary
+  harvested into keywords.md), and the progress/estimation worked example
+  (progress-and-estimated-completion, lines 1598-1654 — the cleanest
+  illustration of the signal-vs-behavior duality). The Concepts intro
   (lines 55-247) is covered by reactivity-taxonomy; the Observables /
   Observables and Signals / Behaviors H3s (1432-1598) are covered by
-  signals-and-behaviors.
+  signals-and-behaviors. No deferred remainder.
 ---
 
 > Abstract: *A General Theory of Reactivity* (gtor) is Kris Kowal's framework unifying JavaScript's reactive primitives under one vocabulary. Its organizing claim: every reactive primitive is a **producer/consumer dual** (getter/setter, reader/writer, observable/signal-generator), and the primitives partition along three axes — **singular vs plural** (one value or many), **spatial vs temporal** (a value in space or a value that arrives over time), and **broadcast vs unicast** (many independent consumers, or one cancelable cooperative consumer with back-pressure). Streams transport an entire collection with pressure; publish/subscribe is broadcast and discontinuous; **signals** push discrete changes while **behaviors** are polled for their latest value. gtor is the conceptual root the garden's change-propagation cluster descends from: `@endo/stream`'s Reader/Writer, `@endo/pubsub`'s sink/spring and changes-vs-latest topics, and `kriskowal/frb`'s incremental bindings are all instances of these dualities. The `@endo/exo-pubsub` design (endo-but-for-bots#507) cites gtor explicitly as its vocabulary anchor.
@@ -38,5 +41,8 @@ This source document is the canonical statement of the reactivity taxonomy that 
 | [promise-queues-and-buffers](../sections/gtor--readme--promise-queues-and-buffers.md) | streams, change-propagation | current |
 | [promise-iterators-and-generators](../sections/gtor--readme--promise-iterators-and-generators.md) | streams, change-propagation, eventual-send | current |
 | [asynchronous-generator-functions](../sections/gtor--readme--asynchronous-generator-functions.md) | streams, change-propagation | current |
+| [iterators-and-generators](../sections/gtor--readme--iterators-and-generators.md) | change-propagation, streams | current |
+| [progress-and-estimated-completion](../sections/gtor--readme--progress-and-estimated-completion.md) | change-propagation | current |
+| [summary-and-glossary](../sections/gtor--readme--summary-and-glossary.md) | change-propagation, streams | current |
 
 Source: [README.md](https://github.com/kriskowal/gtor/blob/d2a238fce2cc0b73bbaec795a7230473b584fa9d/README.md) at commit `d2a238fc`.

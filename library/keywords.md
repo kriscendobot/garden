@@ -12198,6 +12198,31 @@ gtor promise generator | change-propagation
 gtor asynchronous generator function | change-propagation
 gtor pressure | change-propagation
 async map forEach reduce pipe | change-propagation
+gtor iterator | change-propagation
+gtor generator | change-propagation
+gtor generator function | change-propagation
+plural getter | change-propagation
+plural setter | change-propagation
+synchronous plural spatial | change-propagation
+iterator vs generator | change-propagation
+lazy iterator | change-propagation
+iteration object | change-propagation
+unicast cooperative iterator | change-propagation
+generator backward channel | change-propagation
+yield as method | change-propagation
+gtor summary | change-propagation
+gtor further work | change-propagation
+gtor glossary | change-propagation
+reactivity glossary | change-propagation
+cancelability vs robustness | change-propagation
+thundering herd | change-propagation
+hot and cold observables | change-propagation
+primitive coercion promise task signal behavior | change-propagation
+gtor progress estimation | change-propagation
+estimated time of completion | change-propagation
+progress bar signal vs behavior | change-propagation
+throughput time series | change-propagation
+discrete signal vs continuous behavior | changes-versus-latest
 changes vs latest | changes-versus-latest
 changes versus latest | changes-versus-latest
 latest vs changes | changes-versus-latest
