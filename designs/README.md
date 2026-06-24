@@ -28,3 +28,4 @@ The garden's `CLAUDE.md` § Conventions states that the garden does not generall
 | Design | Status | Summary |
 | --- | --- | --- |
 | [driver.md](driver.md) | Proposed | Pivot the PR-creation flow from claude-on-top orchestration to claude-under-script worker pool with role-specific job boards. |
+| [plan-in-journal.md](plan-in-journal.md) | Proposed | Move the roadmap into `journal2` as cross-repo plan state with a generated view; replace the manual README-sync discipline with garden automation; cut over journalist, bulletin, and foreman. |
