@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T22:32:37Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T22:33:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -26,7 +26,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - `scholar-ingest-collections-operators` — Scholar: ingest the remaining kriskowal/collections operator READMEs
 
 ### tada (78)
-- `scholar-ingest-frb-3` — Scholar cycle 4 (scholar-ingest-frb-3): ingested the kriskowal/frb grammar +
+- `scholar-ingest-frb-3` — Completion report — scholar-ingest-frb-3 (scholar cycle 4)
 - `scholar-ingest-cask-2` — The follow-on scholar-ingest-cask-3 was posted and already claimed by another...
 - `improve-mentor-journalctl-timeout` — Done. Completion report:
 - `bulletin-show-job-descriptions` — Completion report — bulletin-show-job-descriptions
@@ -57,4 +57,4 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 223209Z-progress-gardener-bc45df.md: gardener-52 on endolinbot completed job scholar-ingest-cask-2
 ## Latest
 
-Four jobs landed in `tada` in the last few minutes: `bulletin-show-job-descriptions` (the board now carries one-line job summaries), `harden-fleet-gh-identity`, `improve-mentor-journalctl-timeout`, and the scholar's `scholar-ingest-frb-3` (cycle 4 of the kriskowal/frb grammar ingest). Two of these surfaced messages worth a human's eye: the SIWE/OAuth-providers research is in (reply queued under `research-siwe-oauth-providers`), and `harden-fleet-gh-identity` left a heads-up flagging something about the live tree's GitHub identity that the maintainer should read before assuming the hardening is complete. The `todo` column is now empty — all seven remaining jobs are claimed and in flight, led by the new `build-github-mention-watcher` and a cluster of scholar library-ingest cycles (cask, collections operators).
+The board cleared its backlog to zero `todo` while seven jobs run in `doin`. Since the last bulletin, `scholar-ingest-frb-3` finished (scholar cycle 4), capping a run of completions: `harden-fleet-gh-identity`, `bulletin-show-job-descriptions`, `improve-mentor-journalctl-timeout`, `scholar-ingest-cask-2`, plus the endo-but-for-bots #57 port-and-shepherd pair and the Copilot-feedback pass on #474. Two items want the maintainer's eye: the `research-siwe-oauth-providers` job delivered its SIWE/OIDC landscape report, and `harden-fleet-gh-identity` left a heads-up flagging something about the live tree's GitHub identity — worth reading before the next fleet push. Remaining `doin` work is mostly scholar library ingests (cask, collections operators) alongside the mention-watcher build and the producer-push and pause/resume hardening jobs.
