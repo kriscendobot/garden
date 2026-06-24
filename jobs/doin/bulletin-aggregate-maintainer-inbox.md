@@ -49,3 +49,9 @@ If a write is blocked, report the diagnosis and exact ready-to-apply change
 rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 76
+  claimed_at: 2026-06-24T10:02:10Z
