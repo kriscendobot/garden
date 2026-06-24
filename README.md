@@ -272,7 +272,7 @@ is the garden's transcript, its job board (`jobs/{todo,doin,tada}/`), and its
 message bus (per-role and per-job inboxes) — append-only and git-backed, so it
 coordinates workers across hosts without a separate lock service.
 
-**[Browse the journal on GitHub](https://github.com/kriskowal/garden/tree/journal)**
+**[Browse the journal on GitHub](https://github.com/kriskowal/garden/tree/journal2)**
 
 The journal's `README.md` is the maintainer dashboard: a bulletin of items that
 need a human's attention plus a summary of ongoing work. Agents post and clear
