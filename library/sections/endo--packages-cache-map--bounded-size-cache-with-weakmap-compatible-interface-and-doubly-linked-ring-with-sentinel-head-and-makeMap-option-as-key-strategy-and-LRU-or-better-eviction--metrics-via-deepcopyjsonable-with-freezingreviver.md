@@ -1,0 +1,83 @@
+---
+title: §Metrics via §deepCopyJsonable with §freezingReviver
+source: endo packages/cache-map/{src/cachemap.js,README.md}
+source-slug: endo--packages-cache-map
+ingest-cycle: 203
+ingest-date: 2026-06-06
+lane: chat
+authors: [Endo contributors]
+related:
+  - endo--packages-trampoline-memoize-nat-trio (cycle 199: §minimal-dependency-discipline sibling; memoize+cache-map have parallel structures for WeakMap-key caching)
+  - endo--packages-immutable-arraybuffer (cycle 201: §WeakMap-as-emulated-private-field — different use of WeakMap; this cycle uses WeakMap as the cache substrate)
+  - endo--packages-pass-style (cycle 71+: passStyleOf uses internal memoization that could be cache-map; cycle 199 named passStyleOf as canonical memoize-user)
+  - endo--packages-panic (cycle 197: §three-layer-dispatch-chain sibling — both designs have §gradient-of-fallbacks)
+  - endo--packages-where-index-js (cycle 167: §small-files-with-large-knowledge-density sibling family)
+keywords:
+  - bounded-size-cache with WeakMap-compatible interface
+  - makeMap-option-as-key-strategy (weak vs strong via WeakMap or Map)
+  - doubly-linked-ring with sentinel-head
+  - touch-moves-to-first; LRU-evicts-last
+  - LRU-or-better eviction (CLOCK / SIEVE as named alternatives)
+  - sentinel-head-throws-on-direct-access
+  - UNKNOWN_KEY sentinel symbol
+  - "delete" is a keyword idiom (object literal with delete property)
+  - deepCopyJsonable + freezingReviver for metrics
+  - WeakCacheMap vs CacheMap tag based on weak vs strong
+  - capacity-bounded-strict (isSafeInteger non-negative; TypeError on invalid)
+  - cells-not-frozen-because-closely-encapsulated
+  - SingleEntryMap typedef for cell payload
+  - WeakMap-instances-must-be-replaced-when-key-unknown
+  - touchKey: side-effect of moving cell to first position
+  - don't-establish-entry-until-prior-steps-succeed (keyToCell.set last)
+  - freeze-each-method-individually + freeze-implementation + freeze-kit
+  - cycle 203 chat-lane (alternation continues)
+  - twentieth-member of small-files-with-large-knowledge-density family
+  - thirty-seventh consecutive designs/chat alternation cycle 166-203
+parent: endo--packages-cache-map--bounded-size-cache-with-weakmap-compatible-interface-and-doubly-linked-ring-with-sentinel-head-and-makeMap-option-as-key-strategy-and-LRU-or-better-eviction
+---
+
+```js
+const deepCopyJsonable = (value, reviver) => {
+  const encoded = stringify(value);
+  const decoded = parse(encoded, reviver);
+  return decoded;
+};
+
+const freezingReviver = (_name, value) => freeze(value);
+
+const deepCopyAndFreezeJsonable = value => deepCopyJsonable(value, freezingReviver);
+
+const zeroMetrics = freeze({
+  totalQueryCount: 0,
+  totalHitCount: 0,
+});
+
+const metrics = deepCopyJsonable(zeroMetrics);
+const getMetrics = () => deepCopyAndFreezeJsonable(metrics);
+```
+
+§JSON-roundtrip-with-reviver as §a-deep-clone-mechanism + §freezingReviver applies `freeze` to each value during the reviver pass. §So-`deepCopyAndFreezeJsonable`-returns-a-deeply-frozen-copy.
+
+§`getMetrics`-returns-a-fresh-frozen-copy-on-every-call — §so-the-caller-cannot-mutate-the-internal-metrics. §Defensive-clone-on-read.
+
+§Borrowable-pattern: §JSON-roundtrip-with-freezing-reviver for §deep-clone-with-freeze in one pass.
+
+§zeroMetrics with §named-TODO comments:
+
+```js
+const zeroMetrics = freeze({
+  totalQueryCount: 0,
+  totalHitCount: 0,
+  // TODO?
+  // * method-specific counts
+  // * liveTouchStats/evictedTouchStats { count, sum, mean, min, max }
+  //   * p50/p90/p95/p99 via Ben-Haim/Tom-Tov streaming histograms
+});
+```
+
+§Three-named-future-extensions in comments:
+1. method-specific counts (count per has/get/set/delete)
+2. liveTouchStats / evictedTouchStats with count/sum/mean/min/max
+3. percentiles via §Ben-Haim/Tom-Tov-streaming-histograms (citation to the algorithm)
+
+§Borrowable-pattern: §TODO-comments-with-citations for §future-extensions-that-have-known-implementation-shapes. §Sibling-pattern to cycle 197 panic's §three-named-future-extensions and cycle 198 patterns-diagnostic-feedback's §future-helpers-named-not-shipped.

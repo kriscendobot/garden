@@ -1,0 +1,70 @@
+---
+title: §Stream-must-have-return-and-throw — stricter than AsyncIterator
+source: endo packages/stream-node/{reader.js,writer.js,index.js,README.md}
+source-slug: endo--packages-stream-node
+ingest-cycle: 213
+ingest-date: 2026-06-06
+lane: chat
+authors: [Endo contributors]
+related:
+  - endo--packages-common (cycle 211; makeIterator/makeArrayIterator hardening-analog sibling)
+  - endo--packages-trampoline-memoize-nat-trio (cycle 199; §sync/async-two-color-sharing-via-generator sibling at iterator-protocol layer)
+  - endo--packages-marshal-src-marshal-justin-and-marshal-stringify-js (cycle 189; passable-leaf substrate which Uint8Array becomes via this adapter)
+  - endo--packages-immutable-arraybuffer (cycle 201; by-copy bulk binary data — Uint8Array is the marshalled wire shape)
+  - endo--packages-stream (the package this adapter targets; not yet ingested separately)
+keywords:
+  - Node-stream-adapters (makeNodeReader + makeNodeWriter)
+  - readableObjectMode-and-readableEncoding guards
+  - Buffer-to-Uint8Array conversion via mapReader
+  - self-referential-asyncIterator (return this)
+  - Stream-must-have-return-and-throw (stricter than AsyncIterator)
+  - iterator.return preserved via assert
+  - input.destroy(error) on throw
+  - Promise.race-with-finalIteration in writer.next
+  - three-Node-event-handlers (error / finish / close)
+  - watching-close-is-redundant-but-makes-us-feel-safer comment
+  - sink-for-Node-14-unhandled-error-race-defense (`writer.on('error', sink)` after cleanup)
+  - back-pressure-via-await-on-write
+  - writer.write-callback-and-drain-coordination
+  - pre-hardened-nonFinalIterationResult-constant
+  - Fail-on-write-after-finalized
+  - honest-Streams-should-emit-either-error-or-finish-and-then-may-emit-close disclosure
+  - hybrid-async-iterator-plus-generator (Writer modeled as)
+  - cycle 213 chat-lane
+  - twenty-fifth-member of small-files-with-large-knowledge-density family
+  - forty-seventh consecutive designs/chat alternation cycle 166-213
+parent: endo--packages-stream-node--node-stream-adapters-with-buffer-to-uint8array-conversion-and-promise-race-with-finalIteration-and-three-event-handlers-and-back-pressure-via-await
+---
+
+> Adapt the AsyncIterator to the more strict interface of a Stream: must have return and throw methods.
+
+§Stream-is-stricter-than-AsyncIterator. §JavaScript-AsyncIterator-allows-return-and-throw-to-be-optional; §Endo-Stream-requires-them.
+
+§The-adapter-fills-in-the-gaps:
+
+```js
+const iterator = input[Symbol.asyncIterator]();
+assert(iterator.return);
+
+const reader = {
+  async next() { return iterator.next(); },
+  async return() {
+    assert(iterator.return);
+    return iterator.return();
+  },
+  async throw(error) {
+    input.destroy(error);
+    assert(iterator.return);
+    return iterator.return();
+  },
+  [Symbol.asyncIterator]() { return reader; },
+};
+```
+
+§iterator.return-preserved-via-assert — §the-Node-AsyncIterator-might-not-have-it; §the-adapter-asserts-and-uses-it.
+
+§input.destroy(error)-on-throw — §propagates-the-Stream-error-to-the-underlying-Node-Reader.
+
+§Self-referential-asyncIterator via `[Symbol.asyncIterator]() { return reader; }` — §the-reader-is-its-own-iterable. §Sibling-pattern to cycle 211 common's §makeIterator self-iterable pattern.
+
+§Borrowable-pattern: §adapt-AsyncIterator-to-stricter-Stream-interface by §filling-in-missing-methods + §self-iterable-via-Symbol.iterator-returns-self.

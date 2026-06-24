@@ -1,0 +1,30 @@
+---
+title: "`@endo/hex README.md` — ponyfill terminology; supply-chain-attack threat naming; delayed pair with cycle 314"
+source: endo--packages-hex-README-md
+url: https://github.com/endojs/endo/blob/master/packages/hex/README.md
+authors: [Endo project (collective)]
+repo: endojs/endo
+path: packages/hex/README.md
+total-lines: 60
+ingest-cycle: 317
+ingest-date: 2026-06-11
+lane: designs
+section-tags:
+  - the-named-ponyfill-IS-named-precise-over-polyfill
+  - the-named-separate-import-per-direction-discipline
+  - the-named-entrain-IS-named-load-time-cost
+  - the-named-default-to-narrow-import-with-broad-import-as-escape-hatch
+  - the-named-supply-chain-attack-exposure-IS-named-threat-model-for-harden
+  - the-named-LICENSE-file-makes-README-License-section-optional
+  - the-named-delayed-pair-shape
+  - the-named-pair-shape-IS-named-cross-product-of-order-and-gap
+  - eight-cycles-with-named-pivot-domain-stay
+  - six-cycles-with-named-Hardened-JS-discipline
+  - four-shapes-of-pair-discipline
+  - the-named-shape-varies-by-package-content-extends
+  - the-named-shorter-README-with-no-License-and-no-Overview-heading
+  - the-named-four-section-README-shape-as-new-data-point
+parent: endo--packages-hex-README-md--ponyfill-and-supply-chain-defense-and-delayed-pair-with-cycle-314
+---
+
+The 60-line README for `@endo/hex` — the hex-encoding ponyfill whose source `encode.js` was ingested in cycle 314 (60 lines, chat-lane). Cycle 317 is **designs-lane after cycle 316's chat-lane @endo/lp32 reader.js**. **Eighth consecutive non-garden source after the pivot** (cycles 310 + 311 + 312 + 313 + 314 + 315 + 316 + 317). **§eight-cycles-with-named-pivot-domain-stay**. **Fourth package extends; no new package added** (hex was cycle 314's package).

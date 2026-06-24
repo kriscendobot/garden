@@ -1,0 +1,64 @@
+# Concepts
+
+Per-concept lookup pages. An agent reaching the library with a *specific term* in mind (a code symbol, a domain phrase, a proper name) arrives here via [`keywords.md`](../keywords.md): a keyword resolves to a concept-id, and this directory holds one short page per concept.
+
+Each page contains:
+
+- A one-paragraph definition of the concept.
+- A `Sections that touch this concept` table with the relevant section files and one-line summaries of what each one contributes.
+- A `See also` list of adjacent concept-ids.
+
+This index is a third axis next to [`sources/`](../sources/README.md) (by provenance) and [`topics/`](../topics/README.md) (by broad subject taxonomy). Use it when:
+
+- You know the **exact term** but not which source or topic owns it.
+- You want **all the angles** on one concept (a concept page is allowed to point at multiple sources and at sibling concepts, including ones that *abandon* the concept — see [[crdt-in-formula-persistence]] for the canonical worked example).
+- You need to **disambiguate** — concept pages collect "this is not that" notes so the next reader's search succeeds where yours did.
+
+## Seed inventory (bootstrap, 2026-05-14)
+
+Bootstrapped from the daemon design cluster and the structural principles in `conventions.md`. Extended cycle 50 with `delegates-and-epithets`, `caretaker-pattern`, and `pass-invariant-handle-equality` from the `daemon-capability-persona` ingest:
+
+- [agoric-system](agoric-system.md) — a software system using market mechanisms based on capability-security foundations for encapsulation and communication of information, access, and resources; Miller-Drexler 1988 coinage from *agora*; the entire Agoric project's mission anchor (added 2026-05-29 by the cycle-76 decomposition batch; six citations across the Miller 1988-2005 cluster).
+- [brand-and-trademark](brand-and-trademark.md) — the family of rights-amplification primitives (sealer/unsealer pairs, BrandMaker, FactoryStamp, interface guards); types-by-fiat without cryptography; the can-and-can-opener analogy; underwrites mint-purse-money and Endo's @endo/marshal brand primitive (added 2026-05-29 by cycle-77 decomposition batch two; 2000 §3.3 + 2003 §5 + Endo enactment).
+- [business-agent](business-agent.md) — a performance-domain delegate in an agoric system; the §5.3 1988 paper distinguishes business-agents from competence-domain subcontractors; sub-families include data-type agents, manager-agents, reputation services, and compilation speculators (added 2026-05-30 by cycle-78 decomposition batch three).
+- [captp-bounded-transient-pin](captp-bounded-transient-pin.md) — the daemon's pattern for letting a captp peer hold a formula alive without granting persistence; pin lives in-memory only (`transientRoots`); captp partition signal wires intrinsic release; release exo is the explicit deactivation handle. Load-bearing for the chat-slot-slash-commands `makeRetainedValue(spec) -> { id, release }` method (added cycle 83 by the chat-slot-slash-commands ingest).
+- [caretaker-pattern](caretaker-pattern.md) — split one capability into action and control facets.
+- [cohort-destruction](cohort-destruction.md) — partition response: destroy the dependent live-reference subgraph, rebuild from formulas on demand.
+- [competence-vs-performance-modularity](competence-vs-performance-modularity.md) — the structural distinction Miller-Drexler 1988 §4.3 establishes: object-orientation modularizes *what programs can do* (safety, liveness); computational markets modularize *how efficiently they do it*; the two disciplines are orthogonal and composable (added 2026-05-30 by cycle-78 decomposition batch three; 1988 §4.3 + 2004 SoA Table 1).
+- [crdt-in-formula-persistence](crdt-in-formula-persistence.md) — where CRDT shape is used; where a bidirectional CRDT was rejected.
+- [dehydrate-hydrate](dehydrate-hydrate.md) — stable formula keys vs. ephemeral connection hints.
+- [delegates-and-epithets](delegates-and-epithets.md) — agent identity that carries verifiable + deniable claims about its relationship to a principal.
+- [formula-graph](formula-graph.md) — the daemon's durable substrate; acyclic + locally refcounted.
+- [formula-persistence-thesis](formula-persistence-thesis.md) — the design's core thesis (endojs/endo#3121 draft).
+- [four-tables-coordinated-retention](four-tables-coordinated-retention.md) — cross-peer retention data model.
+- [four-ways-to-acquire-references](four-ways-to-acquire-references.md) — the canonical enumeration (Introduction / Parenthood / Endowment / Initial Conditions) of how an object can come to hold a reference to another; *only connectivity begets connectivity* (added 2026-05-21 by the Miller-cluster concept-page batch; SoA §3.4 + Paradigm Regained §4.2 + CAS §9.2).
+- [granovetter-operator](granovetter-operator.md) — the three-object reference-passing primitive (Alice sends `bob.foo(carol)`); the *Introduction* mechanism with the constraint that it's the only way Bob gains access to Carol when both pre-exist; six independent disciplines find structural meaning in the same step (added 2026-05-29; canonical naming in *Capability-Based Financial Instruments* 2000 §1.2).
+- [local-node-sentinel](local-node-sentinel.md) — `LOCAL_NODE = '0'.repeat(64)`; the `0.0.0.0`-of-Ed25519.
+- [marketplace-of-mind](marketplace-of-mind.md) — Miller-Drexler 1988 §6.2: intelligence as emergent property of market interactions among diverse knowledge-bearing agents; *"the idea of intelligence may thus be separated from the ideas of individuality, consciousness, and will"*; the 1988 ancestor of contemporary multi-agent LLM ecosystems (added 2026-05-30 by cycle-79 decomposition batch four).
+- [mint-purse-money](mint-purse-money.md) — the canonical capability-based money example (Capability-Based Financial Instruments 2000 §3.4): ~25 lines of E implementing MintMaker → mint → purse with sealed `decr` envelopes; six demonstrable security properties via visual inspection; Agoric ERTP ancestor (added 2026-05-29 by cycle-77 decomposition batch two).
+- [object-capability](object-capability.md) — the "true" capability model per Miller-Yee-Shapiro 2003: Model 4 holding all seven security properties (A–G).
+- [opaque-box](opaque-box.md) — Miller-Drexler 1988 §6.1.2: hardware-encapsulation pattern (sensors + processor + RAM + battery + private-key + tamper-detection-wipes-RAM); now realized as Intel SGX / AMD SEV / ARM TrustZone / Apple Secure Enclave / AWS Nitro Enclaves / Microsoft Pluton; the 2026 Sleeper Channels D2 gate's *hardware-attested companion channel* applies the same pattern to AI-agent control (added 2026-05-30 by cycle-79 decomposition batch four — campaign closure).
+- [pass-invariant-handle-equality](pass-invariant-handle-equality.md) — connector guarantee: same backing identity → same formula identifier.
+- [per-agent-keypair](per-agent-keypair.md) — `@keypair`, `KeypairFormula`, agent identity as a formula.
+- [positive-vs-negative-reputation](positive-vs-negative-reputation.md) — the structural taxonomy (Miller-Drexler 1988 §5.3.3): negative reputation systems fail under cheap pseudonyms; positive systems require only unforgeable identity; cash-bond performance guarantees address cold-start; contemporary cryptocurrency staking is the production enactment (added 2026-05-30 by cycle-78 decomposition batch three).
+- [principle-of-least-authority](principle-of-least-authority.md) — POLA: every subject holds the minimum *authority* (not just permission) needed to fulfill its responsibilities. The strict reading of information hiding; least-authority not least-permission per Paradigm Regained §2 (added 2026-05-21; four canonical citations across the Miller 2003-2005 cluster).
+- [promise-pipelining](promise-pipelining.md) — `E(E(x).foo()).bar()` over the wire collapses to one round-trip; emerges from `applyMethod`'s reduction into `get` + `applyFunction` plus CapTP's answer-slot reference (added cycle 66 by the handled-promise.js longform-comment ingest).
+- [rank-order-preserving-encoding](rank-order-preserving-encoding.md) — `@endo/marshal`'s `encodePassable` discipline of encoding each Passable to a byte string so lexicographic byte order matches PassStyle rank order; five coordinated techniques (bit-complement on doubles, Elias-delta + sign-aware alphabets on bigints, contiguous-range string escapes, dual array encodings, canonical `passStylePrefixes` table); the substrate for keyed-store collections like CopyMap / CopySet / CopyBag (added cycle 81 by the encodePassable.js longform-comment ingest).
+- [permits-buckets](permits-buckets.md) — SES's three-bucket framework for vetted-shim placement: `universal` / `initial` / `shared` global property names.
+- [producer-typed-shape-consumer-rendering](producer-typed-shape-consumer-rendering.md) — daemon-wide convention: typed values from producers, rendering from consumers.
+- [retention-accumulator](retention-accumulator.md) — microtask-coalesced retention-delta batching primitive.
+- [revocation-by-withdrawal](revocation-by-withdrawal.md) — the fourth revocation mechanism.
+- [security-as-extreme-modularity](security-as-extreme-modularity.md) — every capability-discipline practice is the strict reading of a software-engineering practice; Table 1's ten-row mapping; nested POLA multiplies attack-surface reduction (added 2026-05-21; Paradigm Regained §4.5 + SoA Table 1 + CAS §6).
+- [sentinel-with-rationale](sentinel-with-rationale.md) — the pattern: deliberately-unreachable value + why-it-cannot-collide.
+- [subjective-aggregation](subjective-aggregation.md) — "only trust makes distinctions"; each participant subjectively aggregates objects into composites for trust analysis; mistrust of a vat is equivalent to ignorance of internal structure, so capability analysis can reason as if only suspicious of objects (added 2026-05-29; Capability-Based Financial Instruments 2000 §4.3 + CAS 2005 vat-as-TCB).
+- [shape-not-content](shape-not-content.md) — capture upstream meta-table shape, not its rows.
+- [space](space.md) — Familiar Chat's bookmark into the daemon's capability graph; `SpaceConfig` shape, home (Space 0) vs user spaces, Cmd+N keyboard mapping.
+- [syrup-record-positionality](syrup-record-positionality.md) — Syrup record field names are positional bindings, not on-the-wire; renames are wire-compatible.
+- [six-aspects-of-sharing](six-aspects-of-sharing.md) — Karp/Stiegler/Close 6/7 taxonomy.
+- [smallcaps-encoding](smallcaps-encoding.md) — Marshal's JSON-representable wire format: contiguous reserved-character range (`!`-`-`), seven assigned sigils (`!` escape, `+`/`-` bigint, `#` manifest constant + tag-prop, `%` symbol, `$` remotable, `&` promise), canonical encoding via copyRecord key sort, diagnostic-priority error-encoding root special case; supersedes capdata's `@qclass` (added cycle 69 by the encodeToSmallcaps.js longform-comment ingest).
+- [smart-contract](smart-contract.md) — a partially self-enforcing computational embodiment of a contract (Szabo 1996); composition of capability primitives (purses + brands + timers + escrow) rather than per-contract bespoke cryptographic protocol; CoveredCallOption is the canonical worked example; Agoric Zoe is the production enactment (added 2026-05-29 by cycle-77 decomposition batch two; 2000 §6.4 + §7).
+- [throwaway-instance-prototype-walk](throwaway-instance-prototype-walk.md) — SES taming for return-value prototypes.
+- [token-chip](token-chip.md) — Familiar Chat's visual representation of a pet-name reference: styled `@`-prefix chip backed by a formula identifier; clickable, removable, autocompleted.
+- [vat-and-compartment](vat-and-compartment.md) — two terms for one primitive at different abstraction layers: vat (heap + thread + pending-delivery queue; unit of persistence, migration, partial failure, resource control, DoS-defense) and compartment (the SES / Hardened JavaScript realm-isolation enactment); the cross-pillar translation between the 2005 E-language vat model and Endo's bundle + compartment hierarchy (added 2026-05-29; CAS 2005 §3 + Capability-Based Financial Instruments 2000 §4.1).
+
+This index grows as agents using the [`library-lookup`](../../../skills/library-lookup/SKILL.md) skill encounter terms that lead them down circuitous routes — see that skill's *Indexing on the fly* section.
