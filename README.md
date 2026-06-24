@@ -15,9 +15,9 @@ Reborn from the ashes of v1: the prior generation's journal is archived on the
 
 ```
 jobs/            the job board — the todo → doin → tada lifecycle
-  todo/          posted, unclaimed jobs
-  doin/          claimed, in-flight jobs (one claim file per job)
-  tada/          completed jobs, each a report under the job's reserved basename
+  todo/          posted, unclaimed jobs        (<base>.md)
+  doin/          claimed, in-flight jobs        (<base>.md, one claim per job)
+  tada/          completed job reports          (<base>.md)
 work/            worktree state — one file per active worktree, keyed by basename
 inbox/           directed mailboxes (unread → read)
   <doer>/        a job doer's inbox, alive only while it works (created at claim,
@@ -36,11 +36,18 @@ the journal, advancing it only after the work up to that point is done. A
 restart or a failed run therefore resumes where it left off, and any host picks
 up from the shared cursor — see `cursor-get.sh` / `cursor-set.sh`.
 
-The **basename is the spine**: a job `jobs/todo/<basename>` is claimed by moving
-it to `jobs/doin/<basename>`, completed by removing `jobs/doin/<basename>` and
-writing `jobs/tada/<basename>`, worked in a worktree tracked at `work/<basename>`,
-and addressable while in flight at `inbox/<basename>/`. One token ties board ↔
-claim ↔ report ↔ worktree ↔ inbox together.
+**Markdown bus files carry a `.md` extension** — the job board (`jobs/`), the
+topic bus (`msgs/`), directed-inbox messages, and `schedules/` — because their
+bodies are markdown. Data records keep no extension (`work/`, `hosts/`,
+`cursors/`, the `repos/` watch set).
+
+The **basename is the spine, and it is extensionless**: a job `jobs/todo/<base>.md`
+is claimed by moving it to `jobs/doin/<base>.md`, completed by removing
+`jobs/doin/<base>.md` and writing `jobs/tada/<base>.md`, worked in a worktree
+tracked at `work/<base>`, and addressable while in flight at `inbox/<base>/`. One
+token ties board ↔ claim ↔ report ↔ worktree ↔ inbox together: the scripts append
+`.md` when they touch a board/message/schedule file and strip it to derive the
+spine key for `work/` and `inbox/`.
 
 ## jobs/ — the board
 
