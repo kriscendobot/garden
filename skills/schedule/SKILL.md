@@ -12,7 +12,9 @@ board and stamps `last_dispatched` — atomically, so no host double-dispatches.
 
 ## Inputs / state
 
-`journal/schedules/<name>.md` — one file per schedule:
+`journal/schedules/<name>.md` — one file per schedule. Two kinds:
+
+Recurring (`cadence:`):
 ```
 cadence: weekly            # weekly | daily | hourly | <N>s | <N>m | <N>h | <N>d
 last_dispatched: <ISO>     # stamped by the scheduler; the dispatch note
@@ -21,11 +23,24 @@ job_basename_prefix: <p>   # dispatched job basename = <p>-<YYYYMMDD-HHMMSS>
 <the task body to duplicate each period>
 ```
 
+One-time future (`once:`) — fires exactly once at a date, then the scheduler
+DELETES the schedule file (CAS commit) so it never repeats:
+```
+once: <ISO>                # when to fire, e.g. 2026-07-01T09:00:00Z
+job_basename_prefix: <p>   # dispatched job basename = <p> (no timestamp → idempotent retry)
+---
+<the task body to dispatch when due>
+```
+
 ## Procedure
 
-- Add/change: `set-schedule.sh <name> <cadence> [prefix] [body-file]` (body else
-  stdin). It CAS-races the file onto the journal, preserving any existing
-  `last_dispatched`. Idempotent if unchanged.
+- Add/change recurring: `set-schedule.sh <name> <cadence> [prefix] [body-file]`
+  (body else stdin). It CAS-races the file onto the journal, preserving any
+  existing `last_dispatched`. Idempotent if unchanged.
+- Add a one-time future job: `set-schedule-once.sh <name> <ISO> [prefix]
+  [body-file]`. The scheduler dispatches it when due and removes the schedule in
+  the same commit; the dispatched job basename is the prefix itself (no
+  timestamp), so a retried dispatch is basename-idempotent.
 - Remove: delete `schedules/<name>.md` and push (a normal CAS commit).
 - The scheduler (`scheduler.sh`, `garden-scheduler.timer`) does the dispatching;
   you only post the schedule definition.

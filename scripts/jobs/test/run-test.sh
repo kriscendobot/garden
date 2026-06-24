@@ -302,5 +302,47 @@ got2="$(GARDEN_STATE="$TR/state-cur-c" "$JOBS/cursor-get.sh" activity/kriscendob
 grep -q 'last_event_id: 67890' <<<"$got2" && ok "advanced cursor is the shared resume point" || bad "cursor did not advance"
 
 # ============================================================================
+hr; echo "SUBTEST 13 — FOLLOW-UP: tada follow-ups → job/one-shot-schedule/maintainer"; hr
+export GARDEN_STATE="$TR/state-fu" GARDEN_HOST=fuhost
+# a report present at COLD START must NOT be acted on (only marked seen)
+push_change "jobs/tada/fu-old.md" "$(printf '# old\n## Follow-ups\n- weaver rebase on endo-but-for-bots\n')" "seed pre-existing tada report"
+env GARDEN_FOLLOWUP_HANDLER="$HERE/follow-up-stub.sh" "$JOBS/follow-up.sh" >/dev/null 2>&1
+FV="$TR/fuv"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$FV"
+nfu_cold=$(ls -1 "$FV/jobs/todo" | grep -c '^fu-' || true)
+[ "$nfu_cold" -eq 0 ] && ok "cold start acts on nothing (existing reports marked seen)" || bad "cold start posted $nfu_cold job(s)"
+rm -rf "$FV"
+# a NEW report (produced after install) with an actionable follow-up section
+push_change "jobs/tada/fu-new.md" "$(printf '# new\n## Follow-ups (escalated to liaison)\n- weaver rebase #197 then re-botany\n- confirm with the maintainer whether to continue #197\n')" "seed new tada report"
+env GARDEN_FOLLOWUP_HANDLER="$HERE/follow-up-stub.sh" "$JOBS/follow-up.sh" >/dev/null 2>&1
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$FV"
+job1=$(ls -1 "$FV/jobs/todo" | grep -c '^fu-fu-new-1\.md$' || true)
+sch1=0; [ -f "$FV/schedules/fu-fu-new-2.md" ] && sch1=$(grep -c '^once:' "$FV/schedules/fu-fu-new-2.md" || true)
+mm1=$(ls -1 "$FV/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true)
+[ "$job1" -eq 1 ] && ok "new report → one-time job fu-fu-new-1 posted"            || bad "job not posted ($job1)"
+[ "$sch1" -ge 1 ] && ok "new report → one-time future schedule written (once:)"  || bad "one-shot schedule missing"
+[ "$mm1" -ge 1 ] && ok "maintainer-judgment follow-up delivered to inbox"        || bad "no maintainer message ($mm1)"
+rm -rf "$FV"
+# second tick: no commit (quiet-on-success) and no duplicate (seen advanced)
+hb=$(git ls-remote "$BARE" "refs/heads/$BRANCH" | awk '{print $1}')
+env GARDEN_FOLLOWUP_HANDLER="$HERE/follow-up-stub.sh" "$JOBS/follow-up.sh" >/dev/null 2>&1
+ha=$(git ls-remote "$BARE" "refs/heads/$BRANCH" | awk '{print $1}')
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$FV"
+job1b=$(ls -1 "$FV/jobs/todo" | grep -c '^fu-fu-new-1\.md$' || true)
+{ [ "$hb" = "$ha" ] && [ "$job1b" -eq 1 ]; } && ok "second tick: no commit, no duplicate job (idempotent)" || bad "second tick not idempotent (commit $hb→$ha job=$job1b)"
+rm -rf "$FV"
+# the one-shot schedule (a past `once:`) fires exactly once, then is deleted
+"$JOBS/scheduler.sh" >/dev/null 2>&1
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$FV"
+disp=$(ls -1 "$FV/jobs/todo" | grep -c '^fu-fu-new-2\.md$' || true)
+gone=0; [ -f "$FV/schedules/fu-fu-new-2.md" ] && gone=1
+{ [ "$disp" -eq 1 ] && [ "$gone" -eq 0 ]; } && ok "one-shot schedule dispatched fu-fu-new-2 then deleted" || bad "one-shot dispatch/delete (disp=$disp present=$gone)"
+rm -rf "$FV"
+"$JOBS/scheduler.sh" >/dev/null 2>&1   # re-run: must not re-dispatch
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$FV"
+disp2=$(ls -1 "$FV/jobs/todo" | grep -c '^fu-fu-new-2\.md$' || true)
+[ "$disp2" -eq 1 ] && ok "one-shot does not re-dispatch (fired exactly once)" || bad "one-shot re-dispatched ($disp2)"
+rm -rf "$FV"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

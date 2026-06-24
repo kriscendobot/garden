@@ -1,0 +1,7 @@
+[Unit]
+Description=Garden follow-up (convert tada-report follow-ups into jobs/schedules/maintainer messages)
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecStart=@GARDEN_ROOT@/scripts/jobs/follow-up.sh
