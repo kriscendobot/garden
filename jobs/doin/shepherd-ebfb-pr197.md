@@ -41,3 +41,9 @@ rebased head.
 
 CI green on head `4d13a7cdc` (or a shepherd/fixer follow-up head), failures
 classified, `re-botany-ebfb-pr197` ensured on the board.
+
+---
+claim:
+  host: endolinbot
+  gardener: 46
+  claimed_at: 2026-06-24T16:17:55Z
