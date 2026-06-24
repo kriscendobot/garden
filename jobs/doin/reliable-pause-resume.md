@@ -82,3 +82,9 @@ dry-run health summary. Complements the separately-posted `fix-bulletin-unit-typ
 diagnosis and ready-to-apply content rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 44
+  claimed_at: 2026-06-24T22:21:08Z
