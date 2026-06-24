@@ -66,6 +66,8 @@
 | [cask--caskroot-design--scope-and-structure](../sections/cask--caskroot-design--scope-and-structure.md) | cask caskroot-design | The caskhead0 fixed-layout root block: schema/sessions/membership/nursery links, ZeroHash defaults, session-state blob. |
 | [cask--caskroot-design--operations-and-usage](../sections/cask--caskroot-design--operations-and-usage.md) | cask caskroot-design | New/Load/Get-Set session and membership roots; the reducer idiom where each mutation folds a new sub-hash into a new root hash. |
 | [cask--caskroot-design--versioning-and-implementation](../sections/cask--caskroot-design--versioning-and-implementation.md) | cask caskroot-design | Schema-hash-driven O(1) root-version detection and defaulted-field migration; the go/cask/head/ build plan. |
+| [cask--protocol--message-and-block-formats](../sections/cask--protocol--message-and-block-formats.md) | cask protocol | The on-the-wire block: 1024-byte body (links then data) + separate 12-byte metadata footer (height, numLinks 0-32, dataLen 0-1024); the hash covers only the occupied portion. |
+| [cask--protocol2--message-and-block-framing](../sections/cask--protocol2--message-and-block-framing.md) | cask protocol2 | **Superseded**: the never-shipped v2 "regular framing" 1026-byte block (1-byte depth + 1-byte type + 1024-byte payload), contrasted with the shipped body+footer shape. |
 
 ## See also
 

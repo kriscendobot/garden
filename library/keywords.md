@@ -12743,3 +12743,22 @@ session state blob | cask-caskhead-root
 `SetMembershipRoot` | cask-caskhead-root
 `cask member` | cask-caskhead-root
 schema version detection | cask-caskhead-root
+casksock | casksock-local-protocol
+cask/sock | casksock-local-protocol
+cask.sock | casksock-local-protocol
+cask local protocol | casksock-local-protocol
+CLI-to-daemon protocol | casksock-local-protocol
+local unix socket protocol | casksock-local-protocol
+`casw` | casksock-local-protocol
+`coll` | casksock-local-protocol
+`ackn` | casksock-local-protocol
+`nonc` | casksock-local-protocol
+cask protocol v2 | cask-protocol-v2-abandoned
+protocol2 | cask-protocol-v2-abandoned
+PROTOCOL2 | cask-protocol-v2-abandoned
+protocol2-arch | cask-protocol-v2-abandoned
+cask cohort | cask-protocol-v2-abandoned
+cohort field | cask-protocol-v2-abandoned
+trace identifier and priority | cask-protocol-v2-abandoned
+regular block framing | cask-protocol-v2-abandoned
+1026-byte block | cask-protocol-v2-abandoned

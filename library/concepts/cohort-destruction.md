@@ -34,3 +34,7 @@ defensive (E) or partition-blind (Waterken).
 - [[formula-persistence-thesis]] — the surrounding design that names this property.
 - [[revocation-by-withdrawal]] — the user-initiated form of cohort destruction.
 - [[object-capability]] — the model whose property-B (dynamic subject creation) is what makes cohort-as-unit reasoning meaningful at all.
+
+## Common confusions
+
+- This is the **Endo daemon** sense of *cohort* (a capability plus its transitive live-reference dependencies, destroyed together on partition). It is unrelated to `kriskowal/cask`'s *cohort* field, a UDP-packet 64-bit integer that doubles as a Dapper trace identifier and a priority. A reader searching "cohort" for cask wants [[cask-protocol-v2-abandoned]] (and the shipped TrafficClass/Priority model), not this page.
