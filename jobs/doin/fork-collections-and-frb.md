@@ -38,3 +38,9 @@ or permissions), report the precise diagnosis and the exact `gh` commands to run
 rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 22
+  claimed_at: 2026-06-24T20:01:51Z
