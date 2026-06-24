@@ -23,9 +23,13 @@ A data-layout pattern, borrowed from the Entity Component System (ECS) tradition
 | [cask--readme--priority-load-shedding](../sections/cask--readme--priority-load-shedding.md) | The priority heaps over the sendbuffer columns drive per-class load shedding. |
 | [cask--package-taxonomy--design-patterns](../sections/cask--package-taxonomy--design-patterns.md) | The parallel-array pattern (value/index/co-index columns, swap-to-end) stated from the taxonomy. |
 | [cask--package-taxonomy--package-categories](../sections/cask--package-taxonomy--package-categories.md) | Where the buffer, array, and table packages sit, and the adaptive `hashtreetouint*` widths. |
+| [cask--dir-design-v2--table-with-parallel-arrays-alternative](../sections/cask--dir-design-v2--table-with-parallel-arrays-alternative.md) | Directories-as-tables: names/modes/values columns + a byName sortedarray index over an allocator, adaptive slot width. |
+| [cask--dir-benchmark--compact-vs-table-implementations-and-storage](../sections/cask--dir-benchmark--compact-vs-table-implementations-and-storage.md) | The table directory measured 70x-326x larger than the inline-compact format (five trees per entry). |
+| [cask--dir-benchmark--analysis-and-adaptive-strategy](../sections/cask--dir-benchmark--analysis-and-adaptive-strategy.md) | The table layout's O(log n)/incremental wins only pay off above ~10,000 entries; compact stays the default. |
 
 ## See also
 
+- [[caskdir-directory-format]] — directories realized as a parallel-array table, and why the benchmark keeps the inline format as the default.
 - [[swap-to-end-allocation]] — the allocation discipline within the columns.
 - [[cask-reducer-pattern]] — every persistent operation over these columns is a reducer.
 - [[content-addressed-block-store]] — the store the persistent columns live in.

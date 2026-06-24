@@ -12762,3 +12762,37 @@ cohort field | cask-protocol-v2-abandoned
 trace identifier and priority | cask-protocol-v2-abandoned
 regular block framing | cask-protocol-v2-abandoned
 1026-byte block | cask-protocol-v2-abandoned
+
+# --- cask directory format family (scholar-ingest-cask-9, cycle 10, 2026-06-24) ---
+caskdir | caskdir-directory-format
+caskcompactdir | caskdir-directory-format
+compact directory format | caskdir-directory-format
+table directory format | caskdir-directory-format
+compact vs table directory | caskdir-directory-format
+dir-design | caskdir-directory-format
+dir-design-v2 | caskdir-directory-format
+caskdir v2 | caskdir-directory-format
+dir v2 | caskdir-directory-format
+dir-benchmark | caskdir-directory-format
+directory benchmark | caskdir-directory-format
+adaptive directory format | caskdir-directory-format
+Rabin-chunked directory | caskdir-directory-format
+directories as Merkle trees | caskdir-directory-format
+`SchemaAdaptiveV0` | caskdir-directory-format
+`byName` index | caskdir-directory-format
+`caskcompactblob` | caskdir-directory-format
+`casksortedindex` | caskdir-directory-format
+min-key hint | caskdir-directory-format
+key block | caskdir-directory-format
+entries tree | caskdir-directory-format
+SDIF SOPS directory sync | caskdir-directory-format
+directory entry mode | cask-named-typed-pointer
+`FileMode` | cask-named-typed-pointer
+`DirMode` | cask-named-typed-pointer
+`ExecMode` | cask-named-typed-pointer
+`NoMode` | cask-named-typed-pointer
+mode high byte category | cask-named-typed-pointer
+mode low byte subtype | cask-named-typed-pointer
+`LocalCell` | cask-named-typed-pointer
+`RemoteCell` | cask-named-typed-pointer
+cell reference entry | cask-named-typed-pointer

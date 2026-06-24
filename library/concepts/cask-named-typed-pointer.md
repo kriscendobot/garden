@@ -19,8 +19,11 @@ The single design idea behind both CASK directory entries and stand-alone cells:
 | [cask--cells-and-entries--through-lines](../sections/cask--cells-and-entries--through-lines.md) | The five through-lines justifying the shared shape. |
 | [cask--cells-and-entries--typed-cell-bank-and-summary](../sections/cask--cells-and-entries--typed-cell-bank-and-summary.md) | Typed cell bank, allocation-time-immutable mode, the comparison summary. |
 | [cask--cells--caskdir-mode-field](../sections/cask--cells--caskdir-mode-field.md) | The 2-byte category/subtype mode encoding this pointer uses. |
+| [cask--dir-design--mode-field](../sections/cask--dir-design--mode-field.md) | The directory-side statement of the 2-byte category/subtype mode (immutable/cell/map/set). |
+| [cask--dir-design--cell-reference-entries](../sections/cask--dir-design--cell-reference-entries.md) | When mode category is 0x01, the entry's reference is a 32-byte cell address resolved through the cell bank. |
 
 ## See also
 
+- [[caskdir-directory-format]] — the directory format whose entries are these named typed pointers.
 - [[cask-cell-bank]] — the mutable side of the pointer (cells); this concept is the shape both cells and entries share.
 - [[content-addressed-block-store]] — the immutable side the reference may point into.

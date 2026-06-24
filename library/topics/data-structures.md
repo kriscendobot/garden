@@ -61,6 +61,13 @@
 | [cask--cells-and-entries--through-lines](../sections/cask--cells-and-entries--through-lines.md) | cask cells-and-entries | The fixed 32-byte reference width that keeps the storage format (a parallel-array column, a block link slot) unchanged across mode categories. |
 | [cask--cell-capabilities--cell-path-descriptor-format](../sections/cask--cell-capabilities--cell-path-descriptor-format.md) | cask cell-capabilities | The cell path descriptor block: a compactblob with exactly one first-leaf link (the cell ID, 32 bytes) plus a CBOR array of path-segment strings. |
 | [cask--cell-capabilities--content-model-changes](../sections/cask--cell-capabilities--content-model-changes.md) | cask cell-capabilities | The nine uint16 entry-type constants and the IsCell/IsCellDirect/IsCellIndirect/IsCellWritable/IsBlob/IsDir/IsExecutable predicate family. |
+| [cask--dir-design--lookup-complexity-future-work](../sections/cask--dir-design--lookup-complexity-future-work.md) | cask dir-design | The O(n)-lookup limitation of inline directory entries and four candidate O(log n) structures (sorted+boundary-keys, trie, hash index, Rabin-chunked sorted). |
+| [cask--dir-design-v2--goals-and-rabin-chunked-entries-tree](../sections/cask--dir-design-v2--goals-and-rabin-chunked-entries-tree.md) | cask dir v2 | A directory as a Rabin-chunked sorted array of entries with min-key links for O(log n) navigation. |
+| [cask--dir-design-v2--navigation-and-mutation-algorithms](../sections/cask--dir-design-v2--navigation-and-mutation-algorithms.md) | cask dir v2 | Binary-search Lookup and locality-preserving Insert/Delete over the chunked sorted tree. |
+| [cask--dir-design-v2--table-with-parallel-arrays-alternative](../sections/cask--dir-design-v2--table-with-parallel-arrays-alternative.md) | cask dir v2 | Directory as a parallel-array table: names/modes/values columns + a byName sortedarray index over an allocator, adaptive slot width. |
+| [cask--dir-benchmark--compact-vs-table-implementations-and-storage](../sections/cask--dir-benchmark--compact-vs-table-implementations-and-storage.md) | cask dir-benchmark | Inline-compact vs parallel-array-table storage cost; the table spreads each entry across five trees (70x-326x more blocks). |
+| [cask--dir-benchmark--speed-benchmarks](../sections/cask--dir-benchmark--speed-benchmarks.md) | cask dir-benchmark | Build/insert/delete/list timings: the parallel-array table loses to inline-compact at all tested sizes (40x-70,000x). |
+| [cask--dir-benchmark--analysis-and-adaptive-strategy](../sections/cask--dir-benchmark--analysis-and-adaptive-strategy.md) | cask dir-benchmark | When the O(log n) table structure pays off (very large directories) and the adaptive compact-default hybrid that follows. |
 
 ## See also
 

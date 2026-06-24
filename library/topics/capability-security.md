@@ -186,6 +186,8 @@
 | [cask--ocaps--batch-operations-and-example](../sections/cask--ocaps--batch-operations-and-example.md) | cask ocaps | Atomic multi-cell BATCH via one root-hash CAS preserving single-writer-at-root; the collaborative-document facet-sharing example. |
 | [cask--ocaps--open-questions](../sections/cask--ocaps--open-questions.md) | cask ocaps | Observer authentication, delegation transitivity, capability expiration, audit logging. |
 | [cask--caskroot-design--scope-and-structure](../sections/cask--caskroot-design--scope-and-structure.md) | cask caskroot-design | caskhead0's four-link root block (schema/sessions/membership/nursery) and the session-state blob; the membership set gates who may establish a session. |
+| [cask--dir-design--mode-field](../sections/cask--dir-design--mode-field.md) | cask dir-design | The 2-byte mode category that types a directory entry, including the cell (capability-addressed) category that distinguishes a capability reference from immutable content. |
+| [cask--dir-design--cell-reference-entries](../sections/cask--dir-design--cell-reference-entries.md) | cask dir-design | A mode-0x01 directory entry references a mutable cell by 32-byte cell address, resolved through the cell bank rather than by content hash. |
 
 ## See also
 
