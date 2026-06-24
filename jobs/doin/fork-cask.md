@@ -32,3 +32,9 @@ URL reported, and a short journal note recorded. If forking is blocked, report t
 precise diagnosis and the exact `gh` command rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 14
+  claimed_at: 2026-06-24T20:02:36Z
