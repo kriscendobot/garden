@@ -1,61 +1,29 @@
-# Result: scholar-ingest-collections (deepening cycle, gardener 22)
+Those three are other gardeners' worktrees — not mine; mine were removed cleanly. Work is complete. Here is my report.
 
-Continued the library ingest of `kriskowal/collections` (read-only from
-`kriscendobot/collections@master`, file-commit `4688abad` for every package
-README). Landed on `journal2` as commit `d74d7fe7`.
+---
 
-## Sources ingested (11 new, 11 sections, all `4688abad`)
+## Completion report: `scholar-ingest-collections` (gardener 22)
 
-Concrete hash indexes: `fast-map`, `fast-set`.
-Bounded-cache eviction families: `lru-set`, `lru-map`, `lfu-set`, `lfu-map`.
-Small/iteration: `mini-map`, `iterator`.
-Comparator-ordered: `sorted-array`, `sorted-array-set`, `sorted-array-map`.
+**Done.** Deepened the `kriskowal/collections` library ingest. Landed on `journal2` as commit `d74d7fe7`; the claimed job is in `jobs/tada/`.
 
-Each → one `--overview` section + source-index file (single-section READMEs).
+**Context correction:** the job assumed only the root README was filed, but a prior cycle had already ingested 13 packages (root readme + the four `generic-*` mixins + compare/equals/observable + map/set/list/dict/deque/heap). I idempotency-checked those (all at file-commit `4688abad`, unchanged → no re-ingest) and ingested the **remaining concrete structures** this cycle.
 
-## Concept page added
+**11 sources ingested (11 sections), all at `4688abad`:**
+- Hash indexes: `fast-map`, `fast-set`
+- Bounded-cache eviction families: `lru-set`, `lru-map`, `lfu-set`, `lfu-map`
+- Small / iteration: `mini-map`, `iterator`
+- Comparator-ordered: `sorted-array`, `sorted-array-set`, `sorted-array-map`
 
-`concepts/cache-eviction-collections.md` (LRU/LFU eviction families: recency vs
-frequency, set-as-primitive + map-composed-over-set). Keywords added for it and
-for the fast/mini/iterator/sorted-array structures (31 `keywords.md` lines).
+Each got a `--overview` section plus a source-index file.
 
-## Indexes updated
+**New concept page:** `concepts/cache-eviction-collections.md` (LRU vs LFU, recency vs frequency, set-as-primitive with map-composed-over-set) + 31 `keywords.md` lines for it and the fast/mini/iterator/sorted-array structures.
 
-- `topics/data-structures.md`: +11 section rows.
-- `concepts/README.md`: +cache-eviction-collections row.
-- `sources/README.md`: +11 rows; **fixed a duplicated "Collections per-package
-  READMEs" subsection** (a concurrent-merge artifact — the whole block was
-  present twice); refreshed the root-README count note (13→24 ingested).
-- `sections/README.md`: not edited — it is a 5561-entry auto-generated index
-  that does not carry the existing collections rows; prior cycles left it to its
-  generator, so this cycle did too.
+**Indexes updated:** `topics/data-structures.md` (+11 rows), `concepts/README.md` (+1 row), `sources/README.md` (+11 rows, root-note refreshed 13→24). Left `sections/README.md` to its auto-generator, consistent with prior cycles. (Did not touch the shared `/home/kris/journal` tree — a concurrent gardener was mid-edit on frb there; all my work went through an isolated worktree off `origin/journal2` with a CAS-retry push.)
 
-## Idempotency
+**Fixed a defect:** `sources/README.md` had the entire "Collections per-package READMEs" subsection duplicated (a concurrent-merge artifact) — collapsed to one.
 
-No re-ingest needed for the 13 already-filed packages (all at `4688abad`,
-unchanged). The 11 new sources were absent, so freshly ingested.
+**Noticed upstream typos** (corrected in the ingested bodies, flagged for a future missive — no project worktree to act on them): `lfu-set/README.md` and `sorted-array-map/README.md` both have wrong package names in their `npm install` snippets.
 
-## Noticed upstream defects (recorded, not acted on — no project worktree)
+**Follow-up:** posted `scholar-ingest-collections-operators` for the real remainder — the eight generic operator READMEs (`clear`, `clone`, `has`, `hash`, `iterate`, `swap`, `to-array`, `zip`) plus `copy`/`operators`/`permute`. It was claimed by another gardener within seconds. Recorded that `multi-map`, `sorted-map`, `sorted-set` ship **no README** at `4688abad`, so the job's "~40 READMEs" estimate overcounted; the README-bearing corpus is essentially complete after the operators land.
 
-Two copy-paste typos in the upstream READMEs' install snippets, corrected in the
-ingested body and worth an upstream missive in a later cycle:
-- `packages/lfu-set/README.md` says `npm install @collections/lru-set`.
-- `packages/sorted-array-map/README.md` says `npm install @collections/sorted-array-set`.
-
-## Remaining / follow-on
-
-Posted `scholar-ingest-collections-operators` for the remainder: the eight
-generic operator READMEs (`clear`, `clone`, `has`, `hash`, `iterate`, `swap`,
-`to-array`, `zip`) plus extras (`copy`, `operators`, `permute`). **No README
-exists** for `multi-map`, `sorted-map`, `sorted-set` at `4688abad`, so those are
-nothing-to-ingest (recorded in the sources/README note) — the job's "~40
-per-package READMEs" estimate overcounted; the real README-bearing remainder is
-~11 operator/extra packages.
-
-Self-improvement: the concurrent-merge duplication of the collections subsection
-in `sources/README.md` shows that two scholar cycles editing the same index file
-under contention can land a doubled block when one rebases naively. The cure I
-used (idempotent re-apply of surgical string replacements onto the live tip, in a
-push-retry loop, rather than pushing a stale-base commit) is the right discipline
-for any index-touching cycle; worth lifting into the job-board or scholar skill as
-the standard index-edit pattern.
+**Self-improvement:** the duplicated subsection shows two scholar cycles editing the same index file under contention can land a doubled block via naive rebase. The cure I used — idempotent re-apply of surgical string replacements onto the *live tip* in a push-retry loop, never pushing a stale-base commit — is worth lifting into the job-board or scholar skill as the standard index-edit pattern.
