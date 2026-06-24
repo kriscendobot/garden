@@ -21,3 +21,9 @@ Pick a conservative bound (15-30s). Confirm `bash -n` / shellcheck clean. If the
 same `journalctl --user` pattern appears in other long-running service scripts,
 apply the same guard there. Build in an isolated worktree off origin/main2 per
 the infra-job discipline; push HEAD:main2 under the bot identity.
+
+---
+claim:
+  host: endolinbot
+  gardener: 28
+  claimed_at: 2026-06-24T22:30:33Z
