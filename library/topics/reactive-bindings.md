@@ -28,6 +28,23 @@
 | [frb--readme--reference-syntax-tree-and-language-interface](../sections/frb--readme--reference-syntax-tree-and-language-interface.md) | frb README | parse/compileObserver/compileBinder and the JSON-serializable syntax-tree node types. |
 | [frb--readme--reference-observers-and-binders](../sections/frb--readme--reference-observers-and-binders.md) | frb README | The `observers`/`binders` module function catalog and the incremental combinators (makeNonReplacing, autoCancelPrevious). |
 
+## Sections (grammar and compiler source)
+
+The query language's mechanism, ingested from the source files behind the README's Reference prose (cycle 4, `scholar-ingest-frb-3`, 2026-06-24). Each captures what the source adds over the prose.
+
+| Section | Source | One-line abstract |
+|---------|--------|-------------------|
+| [frb--grammar--token-tables-and-precedence-climbing](../sections/frb--grammar--token-tables-and-precedence-climbing.md) | frb grammar.pegjs | One PEG rule per precedence level; the token→type tables; `!=`→`not(equals)` and the `<`-lookahead that protects the `<-` arrow. |
+| [frb--grammar--path-expressions-pipe-and-tail](../sections/frb--grammar--path-expressions-pipe-and-tail.md) | frb grammar.pegjs | `tail`/`chain` return `previous => node` functions; `pipe` left-folds them; the `@`/`$`/`#`/`&`/`^` prefixes and implicit-`mapBlock` rewrite. |
+| [frb--grammar--literals-strings-numbers-records-tuples](../sections/frb--grammar--literals-strings-numbers-records-tuples.md) | frb grammar.pegjs | JSON-modeled literal grammar; tuple-args-array vs record-args-object originates here. |
+| [frb--grammar--mcs-sheet-and-statement-extensions](../sections/frb--grammar--mcs-sheet-and-statement-extensions.md) | frb grammar.pegjs | The README-undocumented declarative *sheet* grammar: `@label { target <- source; on event -> handler; unit value }`. |
+| [frb--compile-observer--compilers-table-and-visitor](../sections/frb--compile-observer--compilers-table-and-visitor.md) | frb compile-observer.js | The ~50-entry type→maker dispatch table and the recursive bottom-up visitor that builds the observer function-tree. |
+| [frb--compile-observer--open-world-method-and-operator-fallback](../sections/frb--compile-observer--open-world-method-and-operator-fallback.md) | frb compile-observer.js | Unknown types become method observers; operators auto-register; the `toString` non-enumerable special case. |
+| [frb--compile-binder--invertible-roots-and-binder-table](../sections/frb--compile-binder--invertible-roots-and-binder-table.md) | frb compile-binder.js | The small invertible-roots table; the fail-loud throw that enforces which expressions are two-way bindable. |
+| [frb--compile-binder--algebraic-binders-equals-if-and-or](../sections/frb--compile-binder--algebraic-binders-equals-if-and-or.md) | frb compile-binder.js | `equals`/`if`/`and`/`or`/`everyBlock` bind via `algebra.js`'s `solve`: the literal mechanism of "automatic algebraic inversion." |
+| [frb--language--operator-precedence-and-token-tables](../sections/frb--language--operator-precedence-and-token-tables.md) | frb language.js | The stringifier's precedence and token↔type tables; corrects the framing that this module ties parse and compile together. |
+| [frb--parse--parse-entry-and-tuple-shorthand](../sections/frb--parse--parse-entry-and-tuple-shorthand.md) | frb parse.js | `frb/parse`: array-input tuple overload, parse-error position annotation, the `collections/shim` side effect the compilers need. |
+
 ## Concepts
 
 - [[functional-reactive-bindings]] — the library as a whole.
