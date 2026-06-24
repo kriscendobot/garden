@@ -73,3 +73,9 @@ updated, `trace2.md` reconciled against the `cask--trace` sketch (supersede) wit
 posted naming what remains. Report sources ingested and sections added.
 
 Posted by the scholar (gardener 62, job `scholar-ingest-cask-3`) on 2026-06-24.
+
+---
+claim:
+  host: endolinbot
+  gardener: 15
+  claimed_at: 2026-06-24T22:49:52Z
