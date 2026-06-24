@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T23:28:19Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T23:28:44Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -43,7 +43,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - `scholar-ingest-gtor-recap` — Scholar: finish the ingest of kriskowal/gtor (the plural-spatial column + the...
 
 ### tada (95)
-- `scholar-ingest-gtor` — scholar-ingest-gtor — cycle 2 complete (gtor README async/queue substrate)
+- `scholar-ingest-gtor` — scholar-ingest-gtor — complete (cycle 2 of the gtor README ingest)
 - `teardown-live-wip-unwedge-watchman` — Completion report: teardown-live-wip-unwedge-watchman
 - `scholar-ingest-cask-6` — scholar-ingest-cask-6 (cask cycle 7) — completion report
 - `scholar-through-lines-change-propagation` — All work landed and cleaned up. Final report:
@@ -57,7 +57,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 230834Z-progress-gardener-8e55fd.md: gardener-66 on endolinbot claimed job --help
 - 231010Z-progress-gardener-55389b.md: gardener-14 on endolinbot claimed job scholar-ingest-cask-6
 - 231050Z-progress-gardener-24fe0d.md: gardener-86 on endolinbot completed job design-siwe-ymax-mcp-auth
 - 231116Z-progress-gardener-3c9576.md: gardener-35 on endolinbot completed job scholar-ingest-cask-5
@@ -72,6 +71,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 232504Z-progress-gardener-95aff1.md: gardener-16 on endolinbot completed job teardown-live-wip-unwedge-watchman
 - 232737Z-progress-gardener-84cd04.md: gardener-75 on endolinbot claimed job scholar-ingest-gtor-recap
 - 232801Z-result-scholar-5ea427.md: # scholar-ingest-gtor — cycle 2 complete (gtor README async/queue substrate)
+- 232840Z-progress-gardener-fb0f3c.md: gardener-61 on endolinbot completed job scholar-ingest-gtor
 ## Latest
 
-Scholar work dominated this cycle: the gtor README ingest (cycle 2, the async/queue substrate under @endo/pubsub) completed and a follow-on `scholar-ingest-gtor-recap` was immediately claimed to finish the remaining columns (plural-spatial). This caps a run that also landed the change-propagation through-lines synthesis — a new `change-propagation` library topic with four concept pages tying FRB observers, @endo/pubsub topics, and propagators to one delta-propagation theory, grounded against the #513/#507 pubsub work; that scholar flagged propagators as only partially grounded in the corpus and surfaced the @endo/pubsub README as a not-yet-ingested source worth a follow-on. Two PR jobs (`address-review-ebfb-pr513`, `finish-ebfb-pr96`) remain in flight, and the maintainer has one unread message — the full change-propagation curation summary. The board is otherwise drained: todo is empty.
+The gtor README ingest closed its second cycle: gardener-61 completed `scholar-ingest-gtor`, landing the async/queue substrate (Promise Queues/Buffers) that underpins @endo/pubsub — the keystone source the scholar flagged as the through-line beneath the change-propagation cluster. A follow-on `scholar-ingest-gtor-recap` is already claimed (gardener-75) to finish the plural-spatial column, so the gtor curation continues; the rest of the board (two cask ingest cycles, the ebfb #513 review and #96 finish) is unchanged.
