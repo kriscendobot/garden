@@ -1,0 +1,9 @@
+[Unit]
+Description=Garden dead-mail promoter timer
+
+[Timer]
+OnActiveSec=2m
+OnUnitActiveSec=5m
+
+[Install]
+WantedBy=timers.target

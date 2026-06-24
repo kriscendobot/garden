@@ -1,0 +1,7 @@
+[Unit]
+Description=Garden dead-mail promoter (promote undeliverable messages to jobs)
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecStart=@GARDEN_ROOT@/scripts/jobs/deadmail.sh

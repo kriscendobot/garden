@@ -60,7 +60,8 @@ enable_services() {
   unit_ctl enable --now garden-follow-up.timer
   unit_ctl enable --now garden-foreman.timer
   unit_ctl enable --now garden-proxy.timer
-  log "enabled repo-watcher, reaper, watchman, gardener-scaler, scheduler, bulletin (service), mentor, follow-up, foreman, proxy"
+  unit_ctl enable --now garden-deadmail.timer
+  log "enabled repo-watcher, reaper, watchman, gardener-scaler, scheduler, bulletin (service), mentor, follow-up, foreman, proxy, deadmail"
 }
 
 status() {

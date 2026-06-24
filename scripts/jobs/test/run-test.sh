@@ -150,6 +150,11 @@ ibclaim="$("$JOBS/claim-job.sh" 9)"
 [ "$ibclaim" = "inbox-demo" ] && ok "claim created job doer 'inbox-demo'" || bad "claim returned '$ibclaim'"
 I="$TR/iv"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$I"
 [ -d "$I/inbox/inbox-demo/unread" ] && ok "inbox created at claim" || bad "inbox dir missing after claim"
+# inbox-list surfaces the live doer (peer discovery) and excludes maintainer/dead
+ilout="$("$JOBS/inbox-list.sh" 2>/dev/null)"
+{ grep -qx 'inbox-demo' <<<"$ilout" && ! grep -qx 'maintainer' <<<"$ilout" && ! grep -qx 'dead' <<<"$ilout"; } \
+  && ok "inbox-list surfaces the live doer 'inbox-demo' (peer discovery), excludes maintainer/dead" \
+  || bad "inbox-list output wrong: $ilout"
 echo "hello doer 1" | "$JOBS/inbox-send.sh" inbox-demo >/dev/null
 echo "hello doer 2" | "$JOBS/inbox-send.sh" inbox-demo >/dev/null
 set +e; ibout="$("$JOBS/inbox-read.sh" inbox-demo)"; ibc=$?; set -e
@@ -161,8 +166,17 @@ nrd=$(ls -1 "$I/inbox/inbox-demo/read"   | grep -vxc '.gitkeep' || true)
 { [ "$nun" -eq 0 ] && [ "$nrd" -eq 2 ]; } && ok "after read: unread=0 read=2" || bad "states (unread=$nun read=$nrd)"
 set +e; "$JOBS/inbox-read.sh" inbox-demo >/dev/null; ibc2=$?; set -e
 [ "$ibc2" -eq 0 ] && ok "re-read yields 0 (no redelivery)" || bad "re-read count=$ibc2"
-set +e; echo x | "$JOBS/inbox-send.sh" no-such-doer >/dev/null 2>&1; sndrc=$?; set -e
-[ "$sndrc" -ne 0 ] && ok "send to inactive doer refused" || bad "send to inactive doer succeeded"
+# a message to a torn-down/absent inbox is DEAD-LETTERED (not dropped, not a hard
+# error) so garden-deadmail can later promote its intent into a job.
+set +e; echo "carry this intent" | "$JOBS/inbox-send.sh" no-such-doer >/dev/null 2>&1; sndrc=$?; set -e
+rm -rf "$I"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$I"
+ndead=$(ls -1 "$I/inbox/dead" 2>/dev/null | grep -vxc '.gitkeep' || true)
+{ [ "$sndrc" -eq 0 ] && [ "$ndead" -ge 1 ]; } \
+  && ok "send to torn-down doer dead-lettered (not dropped, not a hard error)" \
+  || bad "send to inactive doer not dead-lettered (rc=$sndrc dead=$ndead)"
+# the legacy hard-fail is still available behind GARDEN_NO_DEADLETTER=1
+set +e; echo x | GARDEN_NO_DEADLETTER=1 "$JOBS/inbox-send.sh" no-such-doer-2 >/dev/null 2>&1; sndrc2=$?; set -e
+[ "$sndrc2" -ne 0 ] && ok "GARDEN_NO_DEADLETTER=1 restores the legacy hard failure" || bad "opt-out did not hard-fail (rc=$sndrc2)"
 rpt="$(mktemp)"; echo "done" > "$rpt"; "$JOBS/complete-job.sh" 9 inbox-demo "$rpt" >/dev/null
 rm -rf "$I"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$I"
 [ -d "$I/inbox/inbox-demo" ] && bad "inbox not destroyed at completion" || ok "inbox destroyed at completion"
@@ -510,6 +524,52 @@ run_proxy 0
 PV="$TR/pxv"; rm -rf "$PV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$PV"
 [ "$(count_unread_matching "$PV" 'beyond proxy authority' 'px-live-b')" -eq 1 ] && ok "second tick: deferred question not re-noted (single note)" || bad "defer note duplicated"
 rm -rf "$PV"; rm -f "$qa" "$qb" "$qd"
+
+# ============================================================================
+hr; echo "SUBTEST 16 — DEADMAIL: dead-letter undeliverable mail, promote to a job"; hr
+# Dedicated bare so the dead-mail count is fully controllable (other subtests
+# dead-letter into $BARE).
+DBARE="$TR/deadmail.git"; git init -q --bare "$DBARE"
+DSEED="$TR/deadmail-seed"; git init -q "$DSEED"; git -C "$DSEED" checkout -q -b "$BRANCH"
+( cd "$DSEED"
+  mkdir -p jobs/todo jobs/doin jobs/tada inbox/dead inbox/maintainer/unread inbox/maintainer/read entries
+  for d in jobs/todo jobs/doin jobs/tada inbox/dead inbox/maintainer/unread inbox/maintainer/read entries; do touch "$d/.gitkeep"; done )
+git -C "$DSEED" add -A; git -C "$DSEED" "${git_id[@]}" commit -q -m "seed deadmail board"
+git -C "$DSEED" remote add origin "$DBARE"; git -C "$DSEED" push -q -u origin "$BRANCH"
+
+export GARDEN_STATE="$TR/state-dm" GARDEN_HOST=dmhost
+dm_env() { env JOURNAL_REMOTE="$DBARE" "$@"; }
+
+# (1) a message to an absent doer is dead-lettered (not dropped, not a hard error)
+set +e; echo "rebase prune-v1-legacy on master before ferrying" \
+  | dm_env "$JOBS/inbox-send.sh" prune-v1-legacy >/dev/null 2>&1; dmrc=$?; set -e
+DV="$TR/dmv"; git clone -q --single-branch --branch "$BRANCH" "$DBARE" "$DV"
+ndead=$(ls -1 "$DV/inbox/dead" | grep -vxc '.gitkeep' || true)
+{ [ "$dmrc" -eq 0 ] && [ "$ndead" -eq 1 ]; } && ok "undeliverable message dead-lettered to inbox/dead" || bad "dead-letter (rc=$dmrc dead=$ndead)"
+deadid="$(ls -1 "$DV/inbox/dead" | grep -vx '.gitkeep' | head -1)"; deadid="${deadid%.md}"
+grep -q '^to: prune-v1-legacy$' "$DV/inbox/dead/$deadid.md" && ok "dead-mail records the intended recipient" || bad "dead-mail missing 'to:'"
+rm -rf "$DV"
+
+# (2) the promoter turns the dead-mail entry into exactly one job and retires it
+dm_env "$JOBS/deadmail.sh" >/dev/null 2>&1
+git clone -q --single-branch --branch "$BRANCH" "$DBARE" "$DV"
+njob=$(ls -1 "$DV/jobs/todo" | grep -c "^deadmail-${deadid}\.md$" || true)
+ndead2=$(ls -1 "$DV/inbox/dead" | grep -vxc '.gitkeep' || true)
+[ "$njob" -eq 1 ] && ok "dead-mail promoted to exactly one job (deadmail-$deadid)" || bad "promotion job count=$njob"
+[ "$ndead2" -eq 0 ] && ok "dead-mail entry retired after promotion" || bad "dead-mail not retired ($ndead2)"
+grep -q 'prune-v1-legacy' "$DV/jobs/todo/deadmail-$deadid.md" && grep -qi 'pick up' "$DV/jobs/todo/deadmail-$deadid.md" \
+  && ok "promoted job carries the original message + intended recipient + pick-up-its-intent" || bad "promoted job body missing context"
+rm -rf "$DV"
+
+# (3) idempotent on re-scan: no second job, nothing new
+hb=$(git ls-remote "$DBARE" "refs/heads/$BRANCH" | awk '{print $1}')
+dm_env "$JOBS/deadmail.sh" >/dev/null 2>&1
+ha=$(git ls-remote "$DBARE" "refs/heads/$BRANCH" | awk '{print $1}')
+git clone -q --single-branch --branch "$BRANCH" "$DBARE" "$DV"
+njob2=$(ls -1 "$DV/jobs/todo" | grep -c "^deadmail-${deadid}\.md$" || true)
+{ [ "$hb" = "$ha" ] && [ "$njob2" -eq 1 ]; } && ok "re-scan is idempotent (no duplicate job, no new commit)" || bad "re-scan not idempotent (head $hb→$ha job=$njob2)"
+rm -rf "$DV"
+unset JOURNAL_REMOTE
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

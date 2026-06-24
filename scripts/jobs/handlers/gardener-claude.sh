@@ -17,11 +17,23 @@ source "$HERE/../common.sh"
 base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report-out}"
 role_brief="$GARDEN_ROOT/roles/gardener/AGENT.md"
 
+jobs_dir="$GARDEN_ROOT/scripts/jobs"
 prompt="$(cat <<EOF
 You are a garden gardener (role brief: $role_brief). You have claimed job
 '$base'. Its specification follows between the markers. Do the work it asks for,
 then write a concise completion report (what you did, what changed, any
 follow-ups) to stdout. Output ONLY the report.
+
+Messaging discipline (you are a living agent on the message bus):
+- Your inbox key is your job base, '$base'. A maintainer reply or a peer message
+  can arrive while you work — drain it at natural checkpoints with
+  '$jobs_dir/inbox-read.sh $base'.
+- Reach the maintainer (via the liaison) with '$jobs_dir/message-user.sh $base';
+  the reply routes back into your own inbox.
+- Reach a peer living agent with '$jobs_dir/inbox-send.sh <their-base>'. Discover
+  who is alive right now with '$jobs_dir/inbox-list.sh'. A message to a peer that
+  has already completed is dead-lettered and promoted to a fresh job, so its
+  intent is never lost.
 
 ----- JOB $base -----
 $(cat "$jobfile")
