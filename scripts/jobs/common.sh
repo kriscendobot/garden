@@ -68,9 +68,88 @@ journal_remote() {
     || die "no JOURNAL_REMOTE set and no origin on $GARDEN_ROOT/journal"
 }
 
-# Ensure a single-branch journal clone exists at $1 and is identity-pinned.
+# --- per-clone serialization (the shared-clone race fix) ---------------------
+#
+# Many producers share ONE journal clone: post-job, inbox-send, send-msg,
+# set-schedule, set-schedule-once, set-gardeners, and journal-entry all default
+# to $GARDEN_STATE/producer/journal. Without serialization their
+# sync→write→commit→push critical sections interleave on a single working tree,
+# index, and HEAD. The failure modes (all observed under an 8-way concurrent
+# post): one process's sync_clone `reset --hard`/`clean` discards another's
+# just-staged job before it pushes (then `git add`/`commit` aborts the script
+# under `set -e`, BEFORE its retry loop — a silent directive loss); concurrent
+# git invocations collide on `.git/index.lock`, `cannot lock ref 'HEAD'`, and
+# `could not lock config file .git/config`; and a cold concurrent `git clone`
+# into the same dir fails outright.
+#
+# We serialize the whole critical section with an flock held from sync_clone
+# (or ensure_clone) through commit_and_push. The lock file is a SIBLING of the
+# clone dir (outside the working tree) so `git clean`/`git add` never touch it,
+# and closing the fd releases the lock even if the holder is killed — a crashed
+# producer never wedges its peers. For per-service clones with no concurrent
+# users the lock is uncontended: one cheap syscall. This is the smaller change
+# than per-process clones (no new clone-per-invocation cost, no teardown) and
+# removes the race at its source for every caller of the shared primitive.
+
+declare -A _CLONE_LOCK_FD 2>/dev/null || true
+
+_clone_lockfile() { printf '%s' "${1%/}.lock"; }
+
+# A process-tree-stable env-var name marking that an ANCESTOR process already
+# holds this clone's lock. A nested same-clone child (e.g. maintainer-reply holds
+# the maintainer clone, then invokes maintainer-archive on the same clone) must
+# NOT try to acquire the lock again: the ancestor is blocked waiting for the
+# child, so a fresh flock on the same file would deadlock. Instead the child
+# BORROWS the ancestor's lock — the ancestor's flock is still held (its fd stays
+# open across the wait), so external mutual exclusion is preserved and the child
+# is safe to operate while the ancestor idles.
+_clone_lock_envkey() {
+  local k; k="$(printf '%s' "${1%/}" | tr -c 'A-Za-z0-9' '_')"
+  printf 'GARDEN_HELD_LOCK_%s' "$k"
+}
+
+# Ensure this process tree holds the exclusive lock for clone <dir>. Idempotent
+# and re-entrant:
+#   * already held by THIS process (a retry loop re-entering sync_clone before a
+#     commit_and_push releases): no-op, keep holding.
+#   * held by an ANCESTOR (env marker inherited across exec): borrow it, do not
+#     re-flock (that would deadlock).
+#   * otherwise: open a sibling lock file (outside the working tree) and flock it.
+clone_lock() {
+  local dir="$1" key lf fd
+  [ -n "${_CLONE_LOCK_FD[$dir]:-}" ] && return 0       # this process already holds it
+  key="$(_clone_lock_envkey "$dir")"
+  if [ -n "${!key:-}" ]; then                          # an ancestor holds it — borrow
+    _CLONE_LOCK_FD["$dir"]=borrowed
+    return 0
+  fi
+  lf="$(_clone_lockfile "$dir")"; mkdir -p "$(dirname "$lf")"
+  exec {fd}>"$lf" || die "cannot open clone lock $lf"
+  flock "$fd"     || die "cannot acquire clone lock $lf"
+  _CLONE_LOCK_FD["$dir"]="$fd"
+  export "$key=held"
+}
+
+# Release the lock for clone <dir> if this process owns it (closing the fd
+# releases the flock). A borrowed lock (owned by an ancestor) is left alone.
+clone_unlock() {
+  local dir="$1" key fd
+  fd="${_CLONE_LOCK_FD[$dir]:-}"
+  [ -n "$fd" ] || return 0
+  unset '_CLONE_LOCK_FD[$dir]'
+  [ "$fd" = borrowed ] && return 0
+  key="$(_clone_lock_envkey "$dir")"; unset "$key"
+  # NOTE: never add a `2>...` redirection to this `exec` — exec makes redirections
+  # PERMANENT, so it would silence the shell's stderr for the rest of the run.
+  exec {fd}>&- || true
+}
+
+# Ensure a single-branch journal clone exists at $1 and is identity-pinned. The
+# clone + config write is serialized so concurrent producers don't race a cold
+# `git clone` into the same dir or collide on `.git/config`.
 ensure_clone() {
   local dir="$1" remote; remote="$(journal_remote)"
+  clone_lock "$dir"
   if [ ! -d "$dir/.git" ]; then
     mkdir -p "$(dirname "$dir")"
     git clone -q --single-branch --branch "$JOURNAL_BRANCH" "$remote" "$dir" \
@@ -78,26 +157,68 @@ ensure_clone() {
   fi
   git -C "$dir" config user.name  "$(bot_name)"
   git -C "$dir" config user.email "$(bot_email)"
+  clone_unlock "$dir"
 }
 
-# Hard-sync a clone to the authoritative tip. The board's true state.
+# Hard-sync a clone to the authoritative tip. The board's true state. Acquires
+# the per-clone lock and HOLDS it; the matching commit_and_push releases it, so
+# the entire sync→write→commit→push critical section is atomic per clone. A
+# read-only caller that never pushes releases the lock at process exit (fd close)
+# or on its next sync_clone (clone_lock re-entry).
 sync_clone() {
   local dir="$1"
+  clone_lock "$dir"
   git -C "$dir" fetch -q origin "$JOURNAL_BRANCH" || die "fetch failed in $dir"
   git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH"
   git -C "$dir" clean -qfd jobs 2>/dev/null || true
 }
 
-# Commit staged changes and attempt the CAS push. Returns 0 if the push was
-# accepted (the operation is now authoritative), 1 if rejected (someone else
-# advanced the branch — caller decides whether to retry or back off).
-commit_and_push() {
-  local dir="$1" msg="$2"
-  git -C "$dir" commit -q -m "$msg" || return 2   # nothing to commit
-  if git -C "$dir" push -q origin "HEAD:$JOURNAL_BRANCH" 2>/dev/null; then
-    return 0
+# Push the journal branch. Indirected via GARDEN_PUSH_CMD so a test can inject a
+# push that "succeeds" without advancing the remote (the silent-loss case).
+_push_journal() {
+  local dir="$1"
+  if [ -n "${GARDEN_PUSH_CMD:-}" ]; then
+    GARDEN_PUSH_DIR="$dir" "$GARDEN_PUSH_CMD"
+  else
+    git -C "$dir" push -q origin "HEAD:$JOURNAL_BRANCH" 2>/dev/null
   fi
-  return 1
+}
+
+# Confirm the just-pushed HEAD actually landed on origin/$JOURNAL_BRANCH. A push
+# can report success yet not advance the remote (shared-clone races, transient
+# ref-locks). Re-fetch and require our commit to BE the remote tip or an ancestor
+# of it. Returns 0 if reachable, 1 if the post was silently lost.
+_verify_pushed() {
+  local dir="$1" head remote
+  head="$(git -C "$dir" rev-parse HEAD 2>/dev/null)"               || return 1
+  git -C "$dir" fetch -q origin "$JOURNAL_BRANCH" 2>/dev/null      || return 1
+  remote="$(git -C "$dir" rev-parse "origin/$JOURNAL_BRANCH" 2>/dev/null)" || return 1
+  [ "$head" = "$remote" ] && return 0
+  git -C "$dir" merge-base --is-ancestor "$head" "$remote" 2>/dev/null
+}
+
+# Commit staged changes, attempt the CAS push, and CONFIRM it landed before
+# reporting success. Returns 0 only if the commit is verified reachable from
+# origin/$JOURNAL_BRANCH; 1 if the push was rejected (CAS lost — normal, quiet)
+# OR succeeded-but-was-silently-lost (loud, so the symptom is never invisible);
+# 2 if there was nothing to commit. The caller's retry loop re-syncs and re-posts
+# on 1. Releases the per-clone lock taken by sync_clone/ensure_clone on every
+# path. This is the single place verify-after-push lives, so post-job,
+# complete-job, claim-job, schedule, bulletin, inbox-send, and every other caller
+# inherit it.
+commit_and_push() {
+  local dir="$1" msg="$2" rc=1
+  if ! git -C "$dir" commit -q -m "$msg"; then clone_unlock "$dir"; return 2; fi
+  if _push_journal "$dir"; then
+    if _verify_pushed "$dir"; then
+      rc=0
+    else
+      log "ALERT: push of '$msg' reported success but did NOT land on origin/$JOURNAL_BRANCH; re-syncing (silent-loss guard)"
+      rc=1
+    fi
+  fi
+  clone_unlock "$dir"
+  return "$rc"
 }
 
 # --- failure capture (the git-content-store pattern) -------------------------

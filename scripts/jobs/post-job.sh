@@ -38,7 +38,7 @@ read_body() {
 }
 BODY="$(read_body)"
 
-for attempt in $(seq 1 50); do
+for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"
   if [ -e "$DIR/$JOBS_TODO/$base.md" ] || [ -e "$DIR/$JOBS_DOIN/$base.md" ] || [ -e "$DIR/$JOBS_TADA/$base.md" ]; then
     log "job '$base' already present in lifecycle; nothing to do"

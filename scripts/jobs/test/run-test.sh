@@ -642,5 +642,76 @@ else
 fi
 
 # ============================================================================
+hr; echo "SUBTEST 18 — PRODUCER PUSH PATH: shared-clone serialization + verify-after-push"; hr
+# Dedicated bare so the landed-count is fully controllable.
+PBARE="$TR/producer.git"; git init -q --bare "$PBARE"
+PSEED="$TR/producer-seed"; git init -q "$PSEED"; git -C "$PSEED" checkout -q -b "$BRANCH"
+( cd "$PSEED"; mkdir -p jobs/todo; touch jobs/todo/.gitkeep )
+git -C "$PSEED" add -A; git -C "$PSEED" "${git_id[@]}" commit -q -m "seed producer board"
+git -C "$PSEED" remote add origin "$PBARE"; git -C "$PSEED" push -q -u origin "$BRANCH"
+
+# (1) CONCURRENCY: N concurrent post-job calls SHARE one producer clone (same
+# GARDEN_STATE). Without the flock serialization, at least one is silently lost
+# (reset --hard wipes a peer's staged job; index/HEAD/config lock collisions).
+export GARDEN_STATE="$TR/state-push" GARDEN_HOST=pushhost
+PN=8; ppids=()
+for i in $(seq 1 "$PN"); do
+  ( echo "# concurrent post $i" | env JOURNAL_REMOTE="$PBARE" "$JOBS/post-job.sh" "push-$i" ) \
+      >"$TR/logs/push-$i.log" 2>&1 &
+  ppids+=($!)
+done
+pfail=0; for p in "${ppids[@]}"; do wait "$p" || pfail=$((pfail+1)); done
+PV="$TR/pv"; git clone -q --single-branch --branch "$BRANCH" "$PBARE" "$PV"
+landed=$(ls -1 "$PV/jobs/todo" | grep -c '^push-' || true)
+{ [ "$landed" -eq "$PN" ] && [ "$pfail" -eq 0 ]; } \
+  && ok "all $PN concurrent posts landed on origin/$BRANCH (no silent loss under shared clone)" \
+  || bad "concurrency: landed=$landed/$PN nonzero-exits=$pfail"
+rm -rf "$PV"
+
+# (2) SILENT-LOSS (unit): a push that "succeeds" without advancing the remote must
+# make commit_and_push RETURN FAILURE (verify-after-push), not a false success.
+export GARDEN_STATE="$TR/state-push2" GARDEN_HOST=pushhost2
+sl_rc=$(
+  cd "$JOBS"
+  JOURNAL_REMOTE="$PBARE" JOURNAL_BRANCH="$BRANCH" GARDEN_STATE="$TR/state-push2" \
+  GARDEN_HOST=pushhost2 bash -c '
+    set -uo pipefail
+    source ./common.sh
+    DIR="$GARDEN_STATE/producer/journal"
+    ensure_clone "$DIR"; sync_clone "$DIR"
+    printf "x\n" > "$DIR/jobs/todo/silent-loss.md"
+    git -C "$DIR" add jobs/todo/silent-loss.md
+    # inject a push that reports success but never advances the remote, and
+    # capture the verdict without set -e swallowing the non-zero return.
+    if GARDEN_PUSH_CMD=/bin/true commit_and_push "$DIR" "todo(silent-loss) injected"; then
+      echo landed
+    else
+      echo "rejected:$?"
+    fi
+  ' 2>/dev/null | tail -1
+)
+case "${sl_rc:-}" in
+  rejected:*) ok "commit_and_push returns failure when push does not advance the remote (verify-after-push)" ;;
+  *)          bad "commit_and_push did not signal a lost push (verdict='$sl_rc')" ;;
+esac
+SLV="$TR/slv"; git clone -q --single-branch --branch "$BRANCH" "$PBARE" "$SLV"
+[ ! -e "$SLV/jobs/todo/silent-loss.md" ] && ok "the lost post is NOT on the remote (no phantom landing)" \
+  || bad "silent-loss job unexpectedly present on remote"
+rm -rf "$SLV"
+
+# (3) CALLER RETRY + loud give-up: post-job with a no-op push retries (bounded for
+# the test) and FAILS loudly — it must NOT print a false "posted".
+export GARDEN_STATE="$TR/state-push3" GARDEN_HOST=pushhost3
+set +e
+env JOURNAL_REMOTE="$PBARE" GARDEN_PUSH_CMD=/bin/true GARDEN_POST_ATTEMPTS=3 \
+    "$JOBS/post-job.sh" never-lands </dev/null >"$TR/logs/never-lands.log" 2>&1
+nl_rc=$?
+set -e
+{ [ "$nl_rc" -ne 0 ] && grep -q "could not post" "$TR/logs/never-lands.log" \
+  && ! grep -q "posted 'never-lands'" "$TR/logs/never-lands.log"; } \
+  && ok "caller retries then gives up loudly (non-zero exit, 'could not post', never a false 'posted')" \
+  || bad "give-up not loud (rc=$nl_rc log: $(tr '\n' '|' <"$TR/logs/never-lands.log"))"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
