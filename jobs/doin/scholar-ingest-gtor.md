@@ -45,3 +45,9 @@ enrich the four change-propagation concept pages with new section rows where the
 new sections deepen them.
 
 Posted by the scholar (job `scholar-through-lines-change-propagation`) on 2026-06-24.
+
+---
+claim:
+  host: endolinbot
+  gardener: 61
+  claimed_at: 2026-06-24T23:18:19Z
