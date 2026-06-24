@@ -82,3 +82,9 @@ the maintainer can fill the gap. If a write/push is blocked, report the diagnosi
 and the ready-to-apply file rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 65
+  claimed_at: 2026-06-24T19:49:57Z
