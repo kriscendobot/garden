@@ -40,7 +40,11 @@ EOF
 )"
 
 command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run watchman"
-out="$(claude -p "$prompt")"
+# --dangerously-skip-permissions: autonomous headless context, no human
+# approver; the default permission gate would deny every tool call. Bypass is
+# the intended fleet posture (operator pre-consents via
+# skipDangerousModePermissionPrompt in ~/.claude). Requires running as non-root.
+out="$(claude -p --dangerously-skip-permissions "$prompt")"
 
 sent=0; addr=""; body=""
 while IFS= read -r line; do

@@ -84,7 +84,13 @@ cmd_enter() {
         docker start "$CONTAINER_NAME" >/dev/null
     fi
 
-    exec docker exec -it "$CONTAINER_NAME" /bin/bash -l
+    # Drop into the container as kris (uid 1000), NOT root. PID 1 (systemd)
+    # must run as root and the ENTRYPOINT owns that, so the image's default
+    # USER stays root; we override it here per-exec. Entering as kris means
+    # the interactive session (and any `claude` it launches) uses kris's
+    # gh/ssh credentials and manages the garden's `systemctl --user` units
+    # directly — no `sudo -u kris`, and no root-vs-kris credential split.
+    exec docker exec -it -u kris "$CONTAINER_NAME" /bin/bash -l
 }
 
 if [[ $# -eq 0 ]]; then

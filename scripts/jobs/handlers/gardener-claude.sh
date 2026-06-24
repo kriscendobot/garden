@@ -29,8 +29,13 @@ $(cat "$jobfile")
 EOF
 )"
 
+# --dangerously-skip-permissions: this is an autonomous, headless gardener with
+# no human approver, so the default permission gate would deny every Bash/tool
+# call (gh, git push, even `command -v gh`) and the gardener could do no real
+# work. Bypass is the intended posture for the sandboxed fleet; the operator
+# pre-consents via `skipDangerousModePermissionPrompt: true` in ~/.claude.
 if command -v claude >/dev/null 2>&1; then
-  claude -p "$prompt" > "$report"
+  claude -p --dangerously-skip-permissions "$prompt" > "$report"
 else
   die "claude not on PATH; cannot run default gardener handler for '$base'"
 fi

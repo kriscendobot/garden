@@ -43,7 +43,11 @@ EOF
 )"
 
 command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot triage $slug"
-out="$(claude -p "$prompt")"
+# --dangerously-skip-permissions: autonomous headless context, no human
+# approver; the default permission gate would deny every tool call (the triager
+# needs gh especially). Bypass is the intended fleet posture (operator
+# pre-consents via skipDangerousModePermissionPrompt in ~/.claude). Non-root.
+out="$(claude -p --dangerously-skip-permissions "$prompt")"
 
 # parse JOB..ENDJOB blocks and post each
 posted=0; base=""; body=""

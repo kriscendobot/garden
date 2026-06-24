@@ -159,7 +159,9 @@ STOPSIGNAL SIGRTMIN+3
 
 # PID 1 is systemd (entrypoint runs as root, its domain); the garden
 # units run as user kris via the user@1000 manager. Interactive access is
-# `docker exec -it ... bash -l` (the `garden` launcher does this).
+# `docker exec -it -u kris ... bash -l` (the `garden` launcher does this) —
+# entering as kris, not root, so the session uses kris's gh/ssh credentials
+# and drives `systemctl --user` directly without sudo.
 WORKDIR /home/kris
 ENTRYPOINT ["/usr/local/bin/garden-entrypoint"]
 CMD ["/lib/systemd/systemd"]
