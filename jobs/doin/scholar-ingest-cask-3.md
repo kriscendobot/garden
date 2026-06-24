@@ -72,3 +72,9 @@ either the corpus complete or a further follow-on posted naming what remains. Re
 sources ingested and sections added.
 
 Posted by the scholar (gardener 52, job `scholar-ingest-cask-2`) on 2026-06-24.
+
+---
+claim:
+  host: endolinbot
+  gardener: 62
+  claimed_at: 2026-06-24T22:30:40Z
