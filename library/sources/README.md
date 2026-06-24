@@ -429,7 +429,7 @@ These three repos were forked under the bot account for future garden work and g
 
 | Source | Repo | Last-modified | Primary author | Sections | Status |
 |--------|------|---------------|----------------|----------|--------|
-| [README.md](collections--readme.md) | kriskowal/collections | 2017-10-15 | Kris Kowal | 2 | current (root README; per-package READMEs listed under "Collections per-package READMEs" below — 13 of ~43 ingested, remainder deferred to `scholar-ingest-collections`) |
+| [README.md](collections--readme.md) | kriskowal/collections | 2017-10-15 | Kris Kowal | 2 | current (root README; per-package READMEs listed under "Collections per-package READMEs" below — 24 ingested, ~11 operator/extra READMEs remain, deferred to `scholar-ingest-collections`; `multi-map`/`sorted-map`/`sorted-set` ship no README) |
 | [README.md](frb--readme.md) | kriskowal/frb | 2013-09-15 | Kris Kowal | 21 | current (README fully ingested: 4 conceptual + 8 operator-tutorial + 4 declarative/observer-machinery + 5 Reference sections; only the grammar/compiler **source** files deferred to `scholar-ingest-frb-3`) |
 | [README.md](cask--readme.md) | kriskowal/cask | 2026-02-17 | Kris Kowal | 13 | current (README ingested in full; remaining `doc/design/` docs and Go source deferred to a re-posted `scholar-ingest-cask`) |
 | [doc/design/architecture.md](cask--architecture.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 5 | current (the layered casknet protocol stack, Layers 0–4 plus ledger/sampling/security; net-crypto/net-session-init/gc design docs deferred) |
@@ -438,7 +438,7 @@ These three repos were forked under the bot account for future garden work and g
 
 #### Collections per-package READMEs (begin 2026-06-24 via `scholar-ingest-collections`)
 
-The per-structure idiomatic APIs. Each package's README sits at `packages/<name>/README.md` (last touched in the 2020-11-06 monorepo reorg, file-commit `4688abad`). This cycle ingested the four abstract mixins, the three notable operators, and the six core concrete structures (13 sources, 14 sections). The remaining ~30 packages are deferred to a follow-on `scholar-ingest-collections` job.
+The per-structure idiomatic APIs. Each package's README sits at `packages/<name>/README.md` (last touched in the 2020-09-26 / 2020-11-06 monorepo reorg, file-commit `4688abad`). The first cycle (begin-ingest) ingested the four abstract mixins, the three notable operators, and the six core concrete structures (13 sources, 14 sections). The 2026-06-24 deepening cycle added the two `fast-*` indexes, the four LRU/LFU eviction families, `mini-map`, `iterator`, and the three `sorted-array*` structures (11 sources, 11 sections). Remaining: the eight generic operators (`clear`, `clone`, `has`, `hash`, `iterate`, `swap`, `to-array`, `zip`) and a few extras (`copy`, `operators`, `permute`), deferred to a follow-on `scholar-ingest-collections` job. Note: `multi-map`, `sorted-map`, and `sorted-set` packages exist but ship **no README** at `4688abad`, so there is nothing to ingest for them.
 
 | Source | Package | Sections | Status |
 |--------|---------|----------|--------|
@@ -455,26 +455,17 @@ The per-structure idiomatic APIs. Each package's README sits at `packages/<name>
 | [dict](collections--pkg-dict-readme.md) | dict | 1 | current |
 | [deque](collections--pkg-deque-readme.md) | deque | 1 | current |
 | [heap](collections--pkg-heap-readme.md) | heap | 1 | current |
-
-#### Collections per-package READMEs (begin 2026-06-24 via `scholar-ingest-collections`)
-
-The per-structure idiomatic APIs. Each package's README sits at `packages/<name>/README.md` (last touched in the 2020-11-06 monorepo reorg, file-commit `4688abad`). This cycle ingested the four abstract mixins, the three notable operators, and the six core concrete structures (13 sources, 14 sections). The remaining ~30 packages are deferred to a follow-on `scholar-ingest-collections` job.
-
-| Source | Package | Sections | Status |
-|--------|---------|----------|--------|
-| [generic-collection](collections--pkg-generic-collection-readme.md) | generic-collection | 1 | current |
-| [generic-map](collections--pkg-generic-map-readme.md) | generic-map | 1 | current |
-| [generic-order](collections--pkg-generic-order-readme.md) | generic-order | 1 | current |
-| [generic-set](collections--pkg-generic-set-readme.md) | generic-set | 1 | current |
-| [compare](collections--pkg-compare-readme.md) | compare | 1 | current |
-| [equals](collections--pkg-equals-readme.md) | equals | 1 | current |
-| [observable](collections--pkg-observable-readme.md) | observable | 2 | current |
-| [map](collections--pkg-map-readme.md) | map | 1 | current |
-| [set](collections--pkg-set-readme.md) | set | 1 | current |
-| [list](collections--pkg-list-readme.md) | list | 1 | current |
-| [dict](collections--pkg-dict-readme.md) | dict | 1 | current |
-| [deque](collections--pkg-deque-readme.md) | deque | 1 | current |
-| [heap](collections--pkg-heap-readme.md) | heap | 1 | current |
+| [fast-map](collections--pkg-fast-map-readme.md) | fast-map | 1 | current |
+| [fast-set](collections--pkg-fast-set-readme.md) | fast-set | 1 | current |
+| [lru-set](collections--pkg-lru-set-readme.md) | lru-set | 1 | current |
+| [lru-map](collections--pkg-lru-map-readme.md) | lru-map | 1 | current |
+| [lfu-set](collections--pkg-lfu-set-readme.md) | lfu-set | 1 | current |
+| [lfu-map](collections--pkg-lfu-map-readme.md) | lfu-map | 1 | current |
+| [mini-map](collections--pkg-mini-map-readme.md) | mini-map | 1 | current |
+| [iterator](collections--pkg-iterator-readme.md) | iterator | 1 | current |
+| [sorted-array](collections--pkg-sorted-array-readme.md) | sorted-array | 1 | current |
+| [sorted-array-set](collections--pkg-sorted-array-set-readme.md) | sorted-array-set | 1 | current |
+| [sorted-array-map](collections--pkg-sorted-array-map-readme.md) | sorted-array-map | 1 | current |
 
 ## Backlog (not yet ingested)
 

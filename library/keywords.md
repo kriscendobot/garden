@@ -12337,3 +12337,34 @@ child observer | content-change-listener
 `@collections/heap` | generic-collections
 circular buffer deque | generic-collections
 binary max-heap | generic-collections
+LRU | cache-eviction-collections
+LFU | cache-eviction-collections
+LruSet | cache-eviction-collections
+LruMap | cache-eviction-collections
+LfuSet | cache-eviction-collections
+LfuMap | cache-eviction-collections
+least recently used | cache-eviction-collections
+least frequently used | cache-eviction-collections
+cache eviction | cache-eviction-collections
+bounded collection | cache-eviction-collections
+`@collections/lru-set` | cache-eviction-collections
+`@collections/lru-map` | cache-eviction-collections
+`@collections/lfu-set` | cache-eviction-collections
+`@collections/lfu-map` | cache-eviction-collections
+FastMap | generic-collections
+FastSet | generic-collections
+`@collections/fast-map` | generic-collections
+`@collections/fast-set` | generic-collections
+hash dictionary with collision lists | generic-collections
+MiniMap | generic-collections
+`@collections/mini-map` | generic-collections
+Iterator upgrade | generic-collections
+`@collections/iterator` | generic-collections
+takeWhile dropWhile | generic-collections
+SortedArray | generic-order-comparison-protocol
+SortedArraySet | generic-order-comparison-protocol
+SortedArrayMap | generic-order-comparison-protocol
+`@collections/sorted-array` | generic-order-comparison-protocol
+`@collections/sorted-array-set` | generic-order-comparison-protocol
+`@collections/sorted-array-map` | generic-order-comparison-protocol
+comparator-ordered array | generic-order-comparison-protocol
