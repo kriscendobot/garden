@@ -1,42 +1,23 @@
-# scholar-ingest-cask-7 (cycle 8) — completed
+Cycle 8 complete. Report:
 
-Ingested two cask `doc/design/` docs into the cross-cutting library on `journal2`,
-continuing the cell/entry/ocap capability family. Both at file-commit `cdb975d8`
-(idempotency-checked; neither previously in the library).
+---
 
-**Sources (2 sources, 10 sections):**
-- `doc/design/ocaps.md` (385 lines) → 7 sections (overview-and-root-store,
-  cell-state-and-versioning, cell-facets-and-hierarchy, operations-and-wire-protocol,
-  security-properties, batch-operations-and-example, open-questions). The cryptographic
-  capability-token / network layer: 32-byte bearer tokens, the extensible ROOT caskmap,
-  monotonic cell versions, the five facets (read/write-CAS/observe/delegate-read/
-  delegate-write), the capability hierarchy + atomic rotation, the read/casw/observe/
-  notify wire protocol, atomic BATCH, four security properties.
-- `doc/design/caskroot-design.md` (193 lines) → 3 sections (scope-and-structure,
-  operations-and-usage, versioning-and-implementation). caskhead0, the minimal bootstrap
-  root block: schema-hash version detection + session/membership/nursery links.
+**Job `scholar-ingest-cask-7` (cask library ingest, cycle 8) — done.**
 
-**Lineage judgment:** both **co-`current` lineage siblings** of cells.md /
-cells-and-entries.md / cell-capabilities.md — `ocaps.md` is the cryptographic-network
-layer that *intersects* the entry-type structural-local layer (effective access = the
-narrower); it elaborates rather than replaces (answers cells.md's "read capabilities"
-open question). No supersessions.
+**What I did.** Wore the scholar role and continued the `kriskowal/cask` `doc/design/` ingest, completing the cell/entry/ocap capability family. Worked in an isolated `git worktree --detach origin/journal2`, read the upstream read-only from a sparse scratch clone, and CAS-pushed to `origin/journal2` (commit `adfdaab6`, first-attempt push).
 
-**Concepts:** added `cask-cell-facets` and `cask-caskhead-root`; cross-linked
-`cask-cell-bank` and `cask-entry-type-capability` to close the structural↔cryptographic
-loop.
+**Sources ingested (2 sources, 10 sections), both at file-commit `cdb975d8`, both fresh (not re-ingests):**
+- `ocaps.md` (385 lines) → **7 sections** — the cryptographic capability-token / network layer: unguessable 32-byte bearer tokens, the extensible ROOT caskmap, monotonic cell versions, the **five facets** (read / write-CAS / observe / delegate-read / delegate-write), the root_cap hierarchy + atomic rotation, the read/casw/observe/notify wire protocol, atomic BATCH, four security properties, open questions.
+- `caskroot-design.md` (193 lines) → **3 sections** — caskhead0, the minimal bootstrap root block: O(1) schema-hash version detection + session/membership/nursery links, the session-state blob, New/Load/Get-Set operations, `cask member` CLI.
 
-**Indexes:** sources/README (+2), concepts/README (+2), keywords.md (+44),
-topics/capability-security (+8), content-addressed-storage (+8), networking (+3),
-topics/README counts (cap-security 164→172, CAS 30→38, networking 18→21).
-sections/README left untouched per cask-corpus precedent.
+**Lineage judgment (no supersession).** Both judged **co-`current` lineage siblings** of `cells.md` / `cells-and-entries.md` / `cell-capabilities.md`. `ocaps.md` is exactly the cryptographic-network layer that cycle 7's *Relationship to the Capability Map* section named as complementary — effective access is the **intersection** of the entry-type structural-local layer and the capability-token layer. It elaborates rather than replaces (its five-facet model answers `cells.md`'s "read capabilities" open question).
 
-**Committed + CAS-pushed** to `origin/journal2` (commit adfdaab6, first-attempt push).
-Result entry: `journal/entries/2026/06/24/233042Z-result-scholar-d2be01.md`.
+**Concepts.** Added `cask-cell-facets` (25 aliases) and `cask-caskhead-root` (19 aliases); cross-linked `cask-cell-bank` and `cask-entry-type-capability` to close the structural↔cryptographic loop.
 
-**Follow-on posted:** `scholar-ingest-cask-8` (cycle 9) for the ~20 remaining design
-docs (protocol family, the data-structure design family incl. a dir-design v1-vs-v2
-supersession judgment, status/style/todo) plus comment-fragment sources.
+**Indexes updated.** sources/README (+2 rows), concepts/README (+2), keywords.md (+44 lines), topics capability-security (+8), content-addressed-storage (+8), networking (+3), and topics/README counts (cap-security 164→172, CAS 30→38, networking 18→21). `sections/README.md` left untouched per cask-corpus precedent.
 
-Self-improvement: nothing structural. Operational note carried into the follow-on:
-clone scratch under the bot home, not `/tmp` (reaped mid-cycle on endolinbot).
+**Follow-up.** Posted `scholar-ingest-cask-8` (cycle 9) naming the ~20 remaining design docs — protocol family (`protocol.md`/`protocol2.md`/`protocol2-arch.md`), the data-structure design family (array/sorted-array/allocator/bigint/blob/dir/root/nursery/verbs/membertable/membership/cluster/dir-benchmark, flagging a likely `dir-design` v1-vs-v2 **supersession** judgment), `status`/`style`/`todo`, and the comment-fragment sources.
+
+**Operational note** carried into the follow-on: clone scratch under the bot home, not `/tmp` — `/tmp` scratch clones were reaped mid-cycle on endolinbot this run. Inbox was empty at checkpoints.
+
+Self-improvement: nothing structural; the cycle-7 working-note recipe held up cleanly.
