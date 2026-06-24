@@ -31,3 +31,9 @@ per-rule status. If a write is blocked, report the diagnosis and the exact
 ready-to-apply change rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 61
+  claimed_at: 2026-06-24T10:19:40Z
