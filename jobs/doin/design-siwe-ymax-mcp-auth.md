@@ -60,3 +60,9 @@ you cannot determine what ymax is from the available context, say so and request
 pointer rather than guessing.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 86
+  claimed_at: 2026-06-24T23:03:56Z
