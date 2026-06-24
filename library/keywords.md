@@ -12152,3 +12152,41 @@ three networking backends | (see source: endo-but-for-bots--packages-lal-primer-
 connectivity capability ladder | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
 shareable locator with connection hints | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
 stateful profile navigation | (see source: endo-but-for-bots--packages-lal-primer-chat-reference-md)
+CASK | content-addressed-block-store
+cask | content-addressed-block-store
+content-addressed block store | content-addressed-block-store
+content-addressed storage | content-addressed-block-store
+content addressing | content-addressed-block-store
+1KB block | content-addressed-block-store
+fixed-size block | content-addressed-block-store
+block store | content-addressed-block-store
+Merkle tree | merkle-tree-of-blocks
+Merkle DAG | merkle-tree-of-blocks
+hash tree | merkle-tree-of-blocks
+`hashtree` | merkle-tree-of-blocks
+`arraytree` | merkle-tree-of-blocks
+32-way trie | merkle-tree-of-blocks
+FRB | functional-reactive-bindings
+frb | functional-reactive-bindings
+functional reactive bindings | functional-reactive-bindings
+reactive binding | functional-reactive-bindings
+two-way binding | functional-reactive-bindings
+incremental binding | functional-reactive-bindings
+data binding | functional-reactive-bindings
+collections | generic-collections
+kriskowal/collections | generic-collections
+`generic-collection` | generic-collections
+idiomatic collection interface | generic-collections
+@collections | generic-collections
+collection interface | generic-collections
+parallel arrays | parallel-arrays-columnar
+columnar | parallel-arrays-columnar
+ECS | parallel-arrays-columnar
+entity component system | parallel-arrays-columnar
+structure of arrays | parallel-arrays-columnar
+`hashtreetouint` | parallel-arrays-columnar
+adaptive width | parallel-arrays-columnar
+Rabin fingerprint | rabin-chunking
+Rabin chunking | rabin-chunking
+content-defined chunking | rabin-chunking
+rolling hash | rabin-chunking
