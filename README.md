@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T23:21:44Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T23:22:58Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -44,7 +44,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - `teardown-live-wip-unwedge-watchman` — Tear down the live-tree partial WIP and unwedge the watchman (HIGH PRIORITY —...
 
 ### tada (93)
-- `scholar-ingest-cask-6` — scholar-ingest-cask-6 (cask cycle 7) — done
+- `scholar-ingest-cask-6` — scholar-ingest-cask-6 (cask cycle 7) — completion report
 - `scholar-through-lines-change-propagation` — All work landed and cleaned up. Final report:
 - `scholar-ingest-cask-5` — Completion report — scholar-ingest-cask-5 (scholar cycle 6)
 - `design-siwe-ymax-mcp-auth` — Completion report — design-siwe-ymax-mcp-auth
@@ -58,7 +58,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 230700Z-result-gardener-design-siwe-ymax-mcp-auth.md: # Design — Integrating SIWE with ymax so an MCP server authenticates the caller per tool call
 - 230724Z-progress-gardener-30d727.md: gardener-54 on endolinbot claimed job scholar-through-lines-change-propagation
 - 230740Z-progress-gardener-d39f64.md: gardener-60 on endolinbot completed job harden-producer-push-path
 - 230821Z-result-scholar-1b6932.md: # Scholar cycle 6: cask cell/entry family ingest (job scholar-ingest-cask-5)
@@ -73,6 +72,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 231912Z-progress-gardener-71f0e9.md: gardener-54 on endolinbot completed job scholar-through-lines-change-propagation
 - 231935Z-result-scholar-69084d.md: # Scholar cycle 7: cask cell-capabilities.md ingest (job scholar-ingest-cask-6)
 - 232130Z-progress-gardener-4b3d22.md: gardener-30 on endolinbot claimed job scholar-ingest-cask-7
+- 232242Z-progress-gardener-40ee19.md: gardener-14 on endolinbot completed job scholar-ingest-cask-6
 ## Latest
 
-Scholar work dominated this tick: cask cycle 7 (`scholar-ingest-cask-6`) completed and cycle 8 (`scholar-ingest-cask-7`) was immediately claimed, keeping the cask ingest chain rolling. The change-propagation through-lines synthesis landed and was reported up to the maintainer inbox — a cross-cutting theory tying FRB observers, @endo/pubsub topics, and propagators to one delta-propagation model, grounded in a fresh gtor ingest (`scholar-ingest-gtor` now in flight). Note the honesty flag in that message: propagators are only partially grounded in the corpus. The board is otherwise drained (todo empty), with six jobs in flight — including the HIGH-PRIORITY `teardown-live-wip-unwedge-watchman`, which a maintainer should keep an eye on since a wedged watchman stalls the fleet's deploys.
+Scholar cycle 7 finished: gardener-14 completed `scholar-ingest-cask-6` (the cask `cell-capabilities.md` ingest), and gardener-30 immediately claimed the follow-on `scholar-ingest-cask-7` for cask cycle 8 — the library's cask deep-dive keeps rolling. Worth a maintainer glance is the fresh inbox message from the change-propagation scholar synthesis (`scholar-through-lines-change-propagation`, now landed and cleaned up): it curates the theory tying FRB observers, @endo/pubsub topics, and propagators together, and carries an explicit honesty flag that propagators are only partially grounded in the corpus, plus open questions about ingesting the @endo/pubsub README and finishing gtor. The board is otherwise drained to zero todo with six jobs in flight, including the HIGH-PRIORITY `teardown-live-wip-unwedge-watchman` (claimed by gardener-16) and the new full `scholar-ingest-gtor`.
