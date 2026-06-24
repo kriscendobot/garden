@@ -256,22 +256,62 @@ set +e; wmout="$("$JOBS/read-msgs.sh" probe-wm broadcast)"; wmc=$?; set -e
 { [ "$wmc" -ge 1 ] && grep -qi "reread" <<<"$wmout"; } && ok "broadcast told gardeners to reread roles/skills" || bad "no reread broadcast (count=$wmc)"
 
 # ============================================================================
-hr; echo "SUBTEST 10 — BULLETIN: reliable regenerate + idempotency"; hr
+hr; echo "SUBTEST 10 — BULLETIN: continuous loop, cost gate, degradation, cursor"; hr
 export GARDEN_STATE="$TR/state-bul" GARDEN_HOST=bhost
-"$JOBS/bulletin.sh" >/dev/null 2>&1
-BV="$TR/bv"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
-{ [ -f "$BV/bulletin.md" ] && grep -q '^# Garden bulletin' "$BV/bulletin.md" && grep -q '^## Board' "$BV/bulletin.md"; } \
-  && ok "bulletin.md generated with board section" || bad "bulletin not generated"
-h1="$(git -C "$BV" rev-parse HEAD)"; rm -rf "$BV"
-"$JOBS/bulletin.sh" >/dev/null 2>&1
-git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"; h2="$(git -C "$BV" rev-parse HEAD)"
-[ "$h1" = "$h2" ] && ok "re-run with no change makes no commit (idempotent)" || bad "bulletin churned a commit"
-rm -rf "$BV"
+CURSOR_FILE="$GARDEN_STATE/bulletin/cursor"
+CALLS="$TR/bul-calls"; CAP="$TR/bul-digest"
+# run ONE pass of the continuous loop with the journalist stubbed
+run_bul() {
+  : > "$CALLS"
+  env GARDEN_BULLETIN_ONCE=1 GARDEN_BULLETIN_IDLE_SLEEP=0 \
+      GARDEN_BULLETIN_HANDLER="${1:-$HERE/bulletin-stub.sh}" \
+      GARDEN_BULLETIN_STUB_CALLS="$CALLS" GARDEN_BULLETIN_STUB_CAPTURE="$CAP" \
+      "$JOBS/bulletin.sh" >/dev/null 2>&1
+}
+ohead() { git ls-remote "$BARE" "refs/heads/$BRANCH" | awk '{print $1}'; }
+
+# (1) cold pass: deterministic dashboard + journalist `## Latest`, cursor written
+run_bul
+BV="$TR/bv"; rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
+{ [ -f "$BV/bulletin.md" ] && grep -q '^# Garden bulletin' "$BV/bulletin.md" \
+  && grep -q '^## Board' "$BV/bulletin.md" && grep -q '^## Latest$' "$BV/bulletin.md"; } \
+  && ok "bulletin assembled with deterministic board + journalist ## Latest" || bad "bulletin missing board or ## Latest"
+[ -s "$CALLS" ] && ok "journalist invoked on a changed board" || bad "journalist not invoked on change"
+{ [ -f "$CURSOR_FILE" ] && [ -s "$CURSOR_FILE" ]; } && ok "durable cursor written after post" || bad "cursor not written"
+h1="$(ohead)"; cur1="$(cat "$CURSOR_FILE")"
+[ "$cur1" = "$h1" ] && ok "cursor advanced to the posted journal head" || bad "cursor ($cur1) != posted head ($h1)"
+
+# (2) cost gate: unchanged board makes NO commit and NO journalist call
+run_bul
+h2="$(ohead)"
+{ [ "$h1" = "$h2" ] && [ ! -s "$CALLS" ]; } \
+  && ok "unchanged board: no commit AND no journalist call (cost gate)" || bad "cost gate leaked (head $h1->$h2, calls=$(wc -l <"$CALLS"))"
+[ "$(cat "$CURSOR_FILE")" = "$h2" ] && ok "restart on unchanged board neither re-narrates nor skips (cursor stable)" || bad "cursor drifted on unchanged restart"
+
+# (3) board change: fresh bulletin, journalist called, digest is the delta only
 push_change "jobs/todo/bul-newjob.md" "# new" "add a job to change board state"
-"$JOBS/bulletin.sh" >/dev/null 2>&1
-git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
-grep -q '^- todo: ' "$BV/bulletin.md" && [ "$(git -C "$BV" rev-parse HEAD)" != "$h2" ] \
-  && ok "board change triggers a fresh bulletin" || bad "bulletin did not refresh on change"
+run_bul
+rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
+h3="$(ohead)"
+{ [ "$h3" != "$h2" ] && grep -q '^## Latest$' "$BV/bulletin.md" && [ -s "$CALLS" ]; } \
+  && ok "board change → fresh bulletin, journalist re-narrates" || bad "board change did not refresh"
+# the transitions section (not the dashboard, which may mention old jobs in
+# Recent progress) must carry only the since-cursor delta
+btrans="$(awk '/BOARD TRANSITIONS SINCE/{f=1} f' "$CAP")"
+{ grep -q 'bul-newjob' <<<"$btrans" && ! grep -q 'job-001' <<<"$btrans"; } \
+  && ok "digest narrates the since-cursor delta only (resume, not the whole history)" || bad "digest is not the delta"
+[ "$(cat "$CURSOR_FILE")" = "$h3" ] && ok "cursor advanced only after the successful post" || bad "cursor not at new head"
+
+# (4) graceful degradation: journalist fails → deterministic bulletin still ships,
+#     prior `## Latest` preserved, cursor still advances
+push_change "jobs/todo/bul-newjob2.md" "# new2" "another board change"
+run_bul "$HERE/bulletin-fail-stub.sh"
+rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
+h4="$(ohead)"
+{ [ "$h4" != "$h3" ] && grep -q '^## Board' "$BV/bulletin.md" && grep -q '^## Latest$' "$BV/bulletin.md"; } \
+  && ok "journalist failure still ships deterministic bulletin (prior ## Latest preserved)" || bad "degradation broke the bulletin"
+[ "$(cat "$CURSOR_FILE")" = "$h4" ] && ok "cursor advances even on degraded post" || bad "cursor stalled on degraded post"
+rm -rf "$BV"
 
 # ============================================================================
 hr; echo "SUBTEST 11 — MENTOR: log → improvement job (self-healing)"; hr

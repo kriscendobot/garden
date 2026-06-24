@@ -51,10 +51,14 @@ enable_services() {
   unit_ctl enable --now garden-watchman.timer
   unit_ctl enable --now garden-gardener-scaler.timer
   unit_ctl enable --now garden-scheduler.timer
-  unit_ctl enable --now garden-bulletin.timer
+  # The bulletin is now a long-running service (continuous loop + durable cursor),
+  # not a oneshot+timer. Migrate: stop and disable the retired timer if present,
+  # then enable the service.
+  unit_ctl disable --now garden-bulletin.timer 2>/dev/null || true
+  unit_ctl enable --now garden-bulletin.service
   unit_ctl enable --now garden-mentor.timer
   unit_ctl enable --now garden-follow-up.timer
-  log "enabled repo-watcher, reaper, watchman, gardener-scaler, scheduler, bulletin, mentor, follow-up timers"
+  log "enabled repo-watcher, reaper, watchman, gardener-scaler, scheduler, bulletin (service), mentor, follow-up"
 }
 
 status() {

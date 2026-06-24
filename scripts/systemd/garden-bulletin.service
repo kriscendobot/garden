@@ -1,7 +1,18 @@
 [Unit]
-Description=Garden bulletin (regenerate the journal bulletin)
+Description=Garden bulletin (continuous: keep the journal bulletin current as the board advances)
+After=default.target
 
 [Service]
-Type=oneshot
+# Long-running loop, NOT a oneshot+timer. The loop debounces by being busy and
+# polls a short idle sleep when the board is quiet; it IS the watcher. Keep it up
+# if it dies, with a restart backoff.
+Type=exec
+Slice=background.slice
+CollectMode=inactive-or-failed
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 ExecStart=@GARDEN_ROOT@/scripts/jobs/bulletin.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
