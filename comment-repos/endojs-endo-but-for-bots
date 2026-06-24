@@ -1,7 +1,6 @@
-# comment-watch arming: endojs-endo-but-for-bots  (repo endojs/endo-but-for-bots)
-#
-# Presence of this file arms garden-comment-watcher@endojs-endo-but-for-bots.timer via the
-# repo-watcher's reconcile_set. Monitoring-safety gated: this repo is authorized
-# for comment-watching by the maintainer, recorded in the journal message
-# entry posted 2026-06-24 (job build-pr-comment-watcher). Removing this file
-# disarms the watcher; adding another requires the same journal-recorded auth.
+# garden-comment-watcher arming record
+repo: endojs/endo-but-for-bots
+armed_at: 2026-06-24T22:14:51Z
+authorized_by: kriskowal
+authorization: "fix the monitors" (2026-06-24); endo-but-for-bots is the one repo
+  meeting the monitoring-safety bar (CLAUDE.md § Monitoring safety constraint).
