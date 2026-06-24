@@ -79,3 +79,9 @@ and the gate's drop behavior. If blocked, report the diagnosis and ready-to-appl
 content rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 69
+  claimed_at: 2026-06-24T22:23:41Z
