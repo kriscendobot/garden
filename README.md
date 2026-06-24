@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T22:34:04Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T22:36:04Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -39,7 +39,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 222344Z-progress-gardener-244b81.md: gardener-69 on endolinbot claimed job build-github-mention-watcher
 - 222420Z-progress-gardener-6e616c.md: gardener-47 on endolinbot completed job port-ebfb-pr57-onto-475
 - 222439Z-progress-gardener-83fb23.md: gardener-18 on endolinbot completed job revise-readme-liaison-interface
 - 222541Z-progress-gardener-ad38d8.md: gardener-6 on endolinbot claimed job bulletin-show-job-descriptions
@@ -54,6 +53,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 223157Z-progress-gardener-2638ba.md: gardener-6 on endolinbot completed job bulletin-show-job-descriptions
 - 223205Z-progress-gardener-e14fc4.md: gardener-28 on endolinbot completed job improve-mentor-journalctl-timeout
 - 223209Z-progress-gardener-bc45df.md: gardener-52 on endolinbot completed job scholar-ingest-cask-2
+- 223601Z-message-mentor-269acb.md: ## Maintainer authorization — GitHub-wide @kriscendobot mention watch (sender-gated)
 ## Latest
 
-Scholar wrapped its ingest of kriskowal/cask's collections-and-operators material, moving `scholar-ingest-collections-operators` to done; the library ingest of cask continues across cycles 3 and 4, still in flight. Two notes are waiting on the maintainer: a SIWE/OAuth provider research write-up from the `research-siwe-oauth-providers` job, and a heads-up from `harden-fleet-gh-identity` flagging something about the live tree's GitHub identity. Six jobs remain in progress and the todo queue is empty.
+A maintainer authorization landed: mentor recorded approval for a GitHub-wide, sender-gated @kriscendobot mention watch, and the `build-github-mention-watcher` job is now in flight in doin. Two items await the maintainer's eyes — the SIWE/OIDC "Sign in with your Ethereum address" research report from `research-siwe-oauth-providers`, and a heads-up from `harden-fleet-gh-identity` (gardener-21) about the live tree's GitHub identity setup. On the board, a burst of completions cleared: `harden-fleet-gh-identity`, `bulletin-show-job-descriptions`, `improve-mentor-journalctl-timeout`, and `scholar-ingest-cask-2`, plus the endo-but-for-bots #57 port and shepherd pass and a Copilot-feedback address on #474. todo is empty; six jobs remain in doin, weighted toward scholar cask ingests and the producer-push/pause-resume hardening work.
