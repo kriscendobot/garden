@@ -450,5 +450,67 @@ run_fm 2600     # 300s ≥ 240 → pump; stub proposes the same base as last pos
   || bad "anti-flap (todo=$(fcount jobs/todo) maint=$(fcount inbox/maintainer/unread))"
 
 # ============================================================================
+hr; echo "SUBTEST 15 — PROXY: stand in for the absent maintainer on gating questions"; hr
+export GARDEN_STATE="$TR/state-proxy" GARDEN_HOST=pxhost
+PXCALLS="$TR/proxy-calls"; : > "$PXCALLS"
+run_proxy() {  # run_proxy <grace-seconds>
+  env GARDEN_PROXY_GRACE="${1:?grace}" \
+      GARDEN_PROXY_HANDLER="$HERE/proxy-stub.sh" \
+      GARDEN_PROXY_STUB_CALLS="$PXCALLS" \
+      "$JOBS/proxy.sh" >/dev/null 2>&1
+}
+# count maintainer-unread messages matching BOTH patterns (no xargs → no hang on
+# an empty match set)
+count_unread_matching() {  # <clone> <pat1> <pat2>
+  local c=0 f
+  for f in "$1"/inbox/maintainer/unread/*.md; do
+    [ -e "$f" ] || continue
+    grep -q "$2" "$f" 2>/dev/null && grep -q "$3" "$f" 2>/dev/null && c=$((c+1))
+  done
+  echo "$c"
+}
+# two LIVE doers (inbox present) and one DEAD doer (no inbox); each posts a
+# gating question to the maintainer inbox via message-user.sh (reply_to=<doer>).
+push_change "inbox/px-live-a/unread/.gitkeep" "" "live doer px-live-a"
+push_change "inbox/px-live-b/unread/.gitkeep" "" "live doer px-live-b"
+qa="$(mktemp)"; echo "Two refactors are possible for the parser; which should I try first?" > "$qa"
+qb="$(mktemp)"; echo "CI is green — should I ferry this PR upstream now?"                    > "$qb"
+qd="$(mktemp)"; echo "Is this job considered complete?"                                       > "$qd"
+"$JOBS/message-user.sh" px-live-a "$qa" >/dev/null
+"$JOBS/message-user.sh" px-live-b "$qb" >/dev/null
+"$JOBS/message-user.sh" px-dead   "$qd" >/dev/null
+
+# (1) within grace: a present maintainer gets first crack — proxy does NOTHING
+run_proxy 3600
+[ ! -s "$PXCALLS" ] && ok "within grace: proxy leaves gating questions alone (no race, no handler call)" || bad "proxy raced inside grace ($(grep -c . "$PXCALLS") calls)"
+
+# (2) past grace: in-bounds ANSWERED, out-of-bounds DEFERRED, dead doer IGNORED
+run_proxy 0
+set +e; pra="$("$JOBS/inbox-read.sh" px-live-a)"; prc=$?; set -e
+{ [ "$prc" -ge 1 ] && grep -qi 'tentative' <<<"$pra"; } && ok "in-bounds gating question answered: tentative reply routed to the gardener" || bad "px-live-a got no tentative reply (count=$prc)"
+PV="$TR/pxv"; rm -rf "$PV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$PV"
+amsg_un=$(grep -rl '^reply_to: px-live-a$' "$PV/inbox/maintainer/unread" 2>/dev/null | grep -c . || true)
+amsg_rd=$(grep -rl '^reply_to: px-live-a$' "$PV/inbox/maintainer/read"   2>/dev/null | grep -c . || true)
+{ [ "$amsg_un" -eq 0 ] && [ "$amsg_rd" -ge 1 ]; } && ok "answered question's maintainer message archived (unread→read)" || bad "px-live-a message not archived (unread=$amsg_un read=$amsg_rd)"
+[ "$(count_unread_matching "$PV" 'proxy answered' 'px-live-a')" -ge 1 ] && ok "answered question reported back to the maintainer inbox" || bad "no maintainer report for px-live-a"
+set +e; "$JOBS/inbox-read.sh" px-live-b >/dev/null; prbc=$?; set -e
+[ "$prbc" -eq 0 ] && ok "out-of-bounds question NOT answered (no reply to the gardener)" || bad "px-live-b wrongly answered (count=$prbc)"
+bmsg_un=$(grep -rl '^reply_to: px-live-b$' "$PV/inbox/maintainer/unread" 2>/dev/null | grep -c . || true)
+[ "$bmsg_un" -ge 1 ] && ok "out-of-bounds question left UNREAD for the maintainer" || bad "px-live-b message not left unread ($bmsg_un)"
+[ "$(count_unread_matching "$PV" 'beyond proxy authority' 'px-live-b')" -eq 1 ] && ok "deferred question noted to the maintainer ('beyond proxy authority')" || bad "defer note count wrong"
+dmsg_un=$(grep -rl '^reply_to: px-dead$' "$PV/inbox/maintainer/unread" 2>/dev/null | grep -c . || true)
+{ [ "$dmsg_un" -ge 1 ] && [ "$(count_unread_matching "$PV" 'beyond proxy authority' 'px-dead')" -eq 0 ]; } && ok "non-gating completion report (dead doer) ignored" || bad "px-dead handled (unread=$dmsg_un)"
+[ "$(grep -c . "$PXCALLS")" -eq 2 ] && ok "handler invoked on exactly the 2 eligible gating questions" || bad "handler call count=$(grep -c . "$PXCALLS") (want 2)"
+rm -rf "$PV"
+
+# (3) second tick: no re-answer, no re-note, no duplicate handler call (idempotent)
+prev_calls="$(grep -c . "$PXCALLS")"
+run_proxy 0
+[ "$(grep -c . "$PXCALLS")" -eq "$prev_calls" ] && ok "second tick: no duplicate handler call (cost gate + seen-marker)" || bad "handler re-invoked (calls $prev_calls→$(grep -c . "$PXCALLS"))"
+PV="$TR/pxv"; rm -rf "$PV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$PV"
+[ "$(count_unread_matching "$PV" 'beyond proxy authority' 'px-live-b')" -eq 1 ] && ok "second tick: deferred question not re-noted (single note)" || bad "defer note duplicated"
+rm -rf "$PV"; rm -f "$qa" "$qb" "$qd"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

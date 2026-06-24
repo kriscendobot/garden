@@ -1,0 +1,7 @@
+[Unit]
+Description=Garden proxy (answer absent-maintainer gating questions so blocked gardeners keep moving)
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecStart=@GARDEN_ROOT@/scripts/jobs/proxy.sh
