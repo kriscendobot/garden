@@ -15,8 +15,18 @@ status: draft
 |---|---|
 | [collections--readme--overview](../sections/collections--readme--overview.md) | Idiomatic uniform interfaces across all structures; multi-package monorepo; the frb companion. |
 | [collections--readme--package-catalog](../sections/collections--readme--package-catalog.md) | The catalog: concrete collections, abstract mixins, operators, helpers. |
+| [collections--pkg-generic-collection-readme--overview](../sections/collections--pkg-generic-collection-readme--overview.md) | The base mixin and the primitives-in / derived-methods-out factoring. |
+| [collections--pkg-map-readme--overview](../sections/collections--pkg-map-readme--overview.md) | Concrete insertion-ordered map (Set of entries over List + FastSet). |
+| [collections--pkg-set-readme--overview](../sections/collections--pkg-set-readme--overview.md) | Concrete insertion-ordered set (List + FastSet). |
+| [collections--pkg-list-readme--overview](../sections/collections--pkg-list-readme--overview.md) | Circular doubly-linked list, the order substrate under Set/Map. |
+| [collections--pkg-dict-readme--overview](../sections/collections--pkg-dict-readme--overview.md) | String-keyed map over one JS object. |
+| [collections--pkg-deque-readme--overview](../sections/collections--pkg-deque-readme--overview.md) | Circular-buffer double-ended queue. |
+| [collections--pkg-heap-readme--overview](../sections/collections--pkg-heap-readme--overview.md) | Array-backed binary max-heap. |
 
 ## See also
 
+- [[generic-collection-mixin-protocol]] — the four abstract mixins (`generic-collection`/`-set`/`-map`/`-order`) and the primitives-in / derived-methods-out factoring.
+- [[generic-order-comparison-protocol]] — the `compare`/`equals` operators structures use for ordering and deduplication.
+- [[content-change-listener]] — the synchronous change-notification interface every collection mutator dispatches.
 - [[functional-reactive-bindings]] — frb consumes the generic change-notification interface these collections implement.
 - [[parallel-arrays-columnar]] — a different data-structure organizing principle (columnar storage) used by cask.

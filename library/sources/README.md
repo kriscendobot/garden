@@ -456,6 +456,26 @@ The per-structure idiomatic APIs. Each package's README sits at `packages/<name>
 | [deque](collections--pkg-deque-readme.md) | deque | 1 | current |
 | [heap](collections--pkg-heap-readme.md) | heap | 1 | current |
 
+#### Collections per-package READMEs (begin 2026-06-24 via `scholar-ingest-collections`)
+
+The per-structure idiomatic APIs. Each package's README sits at `packages/<name>/README.md` (last touched in the 2020-11-06 monorepo reorg, file-commit `4688abad`). This cycle ingested the four abstract mixins, the three notable operators, and the six core concrete structures (13 sources, 14 sections). The remaining ~30 packages are deferred to a follow-on `scholar-ingest-collections` job.
+
+| Source | Package | Sections | Status |
+|--------|---------|----------|--------|
+| [generic-collection](collections--pkg-generic-collection-readme.md) | generic-collection | 1 | current |
+| [generic-map](collections--pkg-generic-map-readme.md) | generic-map | 1 | current |
+| [generic-order](collections--pkg-generic-order-readme.md) | generic-order | 1 | current |
+| [generic-set](collections--pkg-generic-set-readme.md) | generic-set | 1 | current |
+| [compare](collections--pkg-compare-readme.md) | compare | 1 | current |
+| [equals](collections--pkg-equals-readme.md) | equals | 1 | current |
+| [observable](collections--pkg-observable-readme.md) | observable | 2 | current |
+| [map](collections--pkg-map-readme.md) | map | 1 | current |
+| [set](collections--pkg-set-readme.md) | set | 1 | current |
+| [list](collections--pkg-list-readme.md) | list | 1 | current |
+| [dict](collections--pkg-dict-readme.md) | dict | 1 | current |
+| [deque](collections--pkg-deque-readme.md) | deque | 1 | current |
+| [heap](collections--pkg-heap-readme.md) | heap | 1 | current |
+
 ## Backlog (not yet ingested)
 
 Roughly grouped by priority. The full file inventory was captured during the pilot survey; the lists below are summaries, not authoritative manifests.
