@@ -33,3 +33,9 @@ rebase is non-mechanical or #475's state blocks it, report the precise state rat
 than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 47
+  claimed_at: 2026-06-24T20:16:49Z
