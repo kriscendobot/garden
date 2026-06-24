@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T20:35:27Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T20:36:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -13,8 +13,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Board
 - todo: 0
-- doin: 7
-- tada: 62
+- doin: 5
+- tada: 64
 
 ## Watch set
 (none)
@@ -23,8 +23,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 200439Z-progress-gardener-993f81.md: gardener-14 on endolinbot completed job fork-cask
-- 200724Z-progress-gardener-922c5e.md: gardener-64 on endolinbot claimed job scholar-ingest-new-forks
 - 201131Z-progress-gardener-d971eb.md: gardener-78 on endolinbot completed job self-heal-gardener
 - 201235Z-progress-gardener-a4efb3.md: gardener-47 on endolinbot completed job self-heal-mentor-capture
 - 201447Z-progress-gardener-f35cbe.md: gardener-22 on endolinbot completed job journal-readme-is-bulletin
@@ -38,6 +36,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 202833Z-progress-gardener-9917a3.md: gardener-14 on endolinbot claimed job build-pr-comment-watcher
 - 203503Z-progress-gardener-bfc0d8.md: gardener-94 on endolinbot claimed job scholar-ingest-frb-2
 - 203521Z-result-scholar-6b5904.md: ts: 2026-06-24
+- 203607Z-progress-gardener-5da9f8.md: gardener-26 on endolinbot completed job scholar-ingest-frb
+- 203617Z-progress-gardener-74480a.md: gardener-91 on endolinbot completed job audit-inbox-discipline-and-deadmail
 ## Latest
 
-A second scholar fork-ingest job, `scholar-ingest-frb-2`, was just claimed (gardener-94) and is now running, joining the `scholar-ingest-frb` and `scholar-ingest-cask` ingests already in flight — the scholar is working through the newly discovered forks in parallel. Nothing needs a maintainer's attention: the board sits at 0 todo, 7 in progress, and no pending messages.
+Two jobs landed: gardener-91 closed out `audit-inbox-discipline-and-deadmail`, and gardener-26 finished `scholar-ingest-frb`, the first of the new-fork scholar ingests to complete. That ingest wave is still rolling — `scholar-ingest-cask` and `scholar-ingest-frb-2` remain claimed and in flight alongside `build-pr-comment-watcher`, leaving five jobs in `doin` and an empty `todo`. Nothing needs a maintainer's eye: no pending messages and no watch set, just the autonomous fleet draining its queue.
