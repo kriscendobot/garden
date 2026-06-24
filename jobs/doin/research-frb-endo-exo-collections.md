@@ -44,3 +44,9 @@ design under the appropriate place (e.g. a draft design for maintainer review) a
 report where it lives. If a key relationship can't be verified from the source, say so.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 67
+  claimed_at: 2026-06-24T22:46:52Z
