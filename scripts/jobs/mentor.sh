@@ -13,7 +13,7 @@
 # and proposes improvements, posting them as jobs for gardeners. The script is
 # thin and quiet; only its own failures surface.
 #
-# Pluggable for tests: GARDEN_MENTOR_HANDLER <digest-file>.
+# Pluggable for tests: GARDEN_MENTOR_HANDLER <digest-sha> <clone-dir>.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -61,12 +61,20 @@ if [ -n "$jlog" ]; then
   printf '===== journalctl garden-* (since %s) =====\n%s\n' "$since" "$jlog" >> "$digest"
 fi
 
-# 5. hand it to the inner agent; advance markers only on success
-if "$GARDEN_MENTOR_HANDLER" "$digest"; then
+# 5. capture the digest as a content-addressed blob in the mentor's own journal
+#    clone, and hand the inner agent ONLY its SHA. The mentor (same host, same
+#    clone) reads just the slices it needs via `git cat-file -p <sha> | grep/sed`
+#    rather than carrying the whole journalctl tail in its context. Identical
+#    digests hash to identical SHAs, so a recurring failure is recognizable by
+#    its content address. See common.sh § failure capture and
+#    designs/self-healing-audit.md (Part B #2).
+sha="$(capture_blob "$digest" "$DIR")"
+rm -f "$digest"   # the blob now lives in $DIR's object DB; the temp file is spent
+
+# 6. hand the SHA to the inner agent; advance markers only on success
+if "$GARDEN_MENTOR_HANDLER" "$sha" "$DIR"; then
   for f in "${new[@]}"; do printf '%s\n' "${f#"$DIR"/}" >> "$SEEN"; done
   date -u +%FT%TZ > "$JSINCE"
-  rm -f "$digest"
 else
-  rm -f "$digest"
   die "improve handler failed; leaving markers so the next tick retries"
 fi
