@@ -1,0 +1,16 @@
+# trusted-senders/allowlist — sender-trust allowlist for the GitHub-wide
+# @kriscendobot mention watcher (scripts/jobs/mention-watcher.sh).
+#
+# One GitHub login per line; '#' comments and blank lines ignored; matching is
+# case-insensitive. A mention is triaged only if its author is on this list OR a
+# current endojs/Agoric org member. To ADD a sender: append the login and push to
+# origin/journal2 (any journal producer / a direct commit) — no code change needed.
+#
+# Seed set authorized by the maintainer 2026-06-24 (see the message entry of the
+# same day). "mathieu" resolved to mhofman (Mathieu Hofman).
+kriskowal
+erights
+gibson42
+kumavis
+0xpatrickdev
+mhofman
