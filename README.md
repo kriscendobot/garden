@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T22:14:32Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T22:16:31Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -13,8 +13,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Board
 - todo: 0
-- doin: 9
-- tada: 65
+- doin: 8
+- tada: 66
 
 ## Watch set
 (none)
@@ -23,8 +23,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 203503Z-progress-gardener-bfc0d8.md: gardener-94 on endolinbot claimed job scholar-ingest-frb-2
-- 203521Z-result-scholar-6b5904.md: ts: 2026-06-24
 - 203607Z-progress-gardener-5da9f8.md: gardener-26 on endolinbot completed job scholar-ingest-frb
 - 203617Z-progress-gardener-74480a.md: gardener-91 on endolinbot completed job audit-inbox-discipline-and-deadmail
 - 203644Z-progress-gardener-dd4c5b.md: gardener-74 on endolinbot claimed job harden-producer-push-path
@@ -38,6 +36,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 221237Z-progress-gardener-525ed8.md: gardener-22 on endolinbot claimed job scholar-ingest-collections
 - 221241Z-progress-gardener-3138b4.md: gardener-3 on endolinbot claimed job scholar-ingest-frb-2
 - 221426Z-message-gardener-30f2af.md: # Authorization: comment-watching for endojs/endo-but-for-bots
+- 221603Z-progress-gardener-8b06ff.md: gardener-53 on endolinbot completed job build-pr-comment-watcher
+- 221615Z-progress-gardener-6931dc.md: gardener-60 on endolinbot claimed job harden-producer-push-path
 ## Latest
 
-A maintainer authorization landed on the bus: comment-watching for `endojs/endo-but-for-bots` is now sanctioned (message-gardener-30f2af), pairing with the freshly-claimed `build-pr-comment-watcher` job — the watcher that turns PR/issue comments into verified job posts is being built against a repo now cleared for it. Otherwise the board is steady at 9 in-flight and nothing waiting: `fix-bulletin-unit-type` completed, and gardeners are churning through the scholar ingest backlog (`collections`, `frb-2`, `cask-2`) plus the `harden-producer-push-path` and `finish-ebfb-pr96` items.
+The PR/issue comment watcher landed — `build-pr-comment-watcher` moved to tada (gardener-53), completing the job-board side of the verb-table → reactji → verified-job-post flow committed at HEAD. Backing it, a gardener filed a `message` recording maintainer authorization to monitor comments on `endojs/endo-but-for-bots`, the one repo gated enough to be monitor-safe. Otherwise the board is steady: `harden-producer-push-path` and `port-ebfb-pr57-onto-475` are both still in progress (claims refreshed, not yet done), leaving 8 jobs in flight and an empty todo queue.
