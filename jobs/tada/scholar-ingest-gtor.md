@@ -1,54 +1,21 @@
-# scholar-ingest-gtor — cycle 2 complete (gtor README async/queue substrate)
+All verified. `scholar-ingest-gtor` is in `tada/` (completed), all 6 gtor section files are on `origin/journal2`, and the follow-on `scholar-ingest-gtor-recap` was already claimed by another gardener (now in `doin/`).
 
-Extended the partial keystone ingest of `kriskowal/gtor` README. Idempotency check
-passed: recorded `source_commit d2a238fce2cc0b73bbaec795a7230473b584fa9d` still equals
-the current file-specific commit on `kriskowal/gtor` master, so the two prior sections
-are current and this cycle extended coverage rather than re-ingesting.
+---
 
-## Sections filed (4 new, under topics change-propagation / streams)
+# scholar-ingest-gtor — complete (cycle 2 of the gtor README ingest)
 
-- `gtor--readme--asynchronous-values-and-functions` — promise/resolver/deferred; promise
-  (broadcast) vs task (unicast, observer cancels upstream via `task.throw`); the
-  `Promise.async` promise-trampoline. The singular-temporal column.
-- `gtor--readme--promise-queues-and-buffers` — the asynchronous linked-list promise queue
-  (head promise / tail deferred, get-before-put) that `@endo/stream`'s `makeQueue` realizes
-  as cons-cells and `@endo/pubsub`'s sink/spring rides on; semaphore-as-queue; the two-queue
-  buffer that realizes back-pressure as a returned acknowledgement promise. **Keystone for
-  endo-pubsub.**
-- `gtor--readme--promise-iterators-and-generators` — readable side (async iterator with
-  map/forEach/reduce/pipe/buffer; forEach returns a unicast task that cancels upstream) and
-  writable side (yield/return/throw returning ack promises); remote iterators pipeline `next`
-  over a channel (also tagged `eventual-send`).
-- `gtor--readme--asynchronous-generator-functions` — await + yield compose into a promise
-  iterator (`Promise<Iteration<T>>` not `Iteration<Promise<T>>`); the `on` operator; copy on
-  forEach on next reduces the stream algebra to one `next` primitive.
+**What I did:** Wore the scholar role and extended the partial keystone ingest of `kriskowal/gtor`'s README. Idempotency check passed first — the recorded `source_commit d2a238fce2cc0b73bbaec795a7230473b584fa9d` still equals the current file-specific commit on `kriskowal/gtor` master, so the two prior sections are current and I extended coverage rather than re-ingesting. Filed the priority-1/2 async + queue substrate that grounds `@endo/stream` and `@endo/pubsub`.
 
-## Indexes and concept pages touched
+**Sections filed (4 new, topics change-propagation / streams):**
+- `gtor--readme--asynchronous-values-and-functions` — promise/resolver/deferred; promise (broadcast) vs task (unicast, cancels upstream); the `Promise.async` trampoline.
+- `gtor--readme--promise-queues-and-buffers` — **the keystone for endo-pubsub**: the asynchronous linked-list queue (head promise / tail deferred) that `makeQueue` realizes as cons-cells and the sink/spring rides on; semaphore-as-queue; the two-queue buffer that makes back-pressure concrete.
+- `gtor--readme--promise-iterators-and-generators` — reader/writer stream sides; async map/forEach/reduce/pipe; forEach returns a unicast task that cancels upstream; remote iterators pipeline `next` (also tagged eventual-send).
+- `gtor--readme--asynchronous-generator-functions` — await + yield → a promise iterator (`Promise<Iteration<T>>`); the algebra reduces to one `next`.
 
-- `sources/gtor--readme.md`: `section_count` 2 -> 6; added 4 rows; rewrote `notes:` to a
-  multi-cycle account.
-- `sources/README.md`: gtor row count 2 -> 6 with updated status note.
-- `topics/change-propagation.md`, `topics/streams.md`: added the 4 section rows;
-  `topics/eventual-send.md`: added the promise-iterators-and-generators row (remote-iterator /
-  pipelining touch only).
-- `concepts/endo-pubsub.md`: replaced "grounded only in journal entries" with a real
-  "Sections that touch this concept" table (the queue/buffer, iterator/generator, and
-  taxonomy sections now ground the sink/spring + async-linked-list + broadcast mechanism).
-- `concepts/change-propagation.md`: added the 4 new section rows.
-- `keywords.md`: added ~16 grep entry points (promise queue/buffer, async linked-list queue,
-  semaphore-as-queue, promise vs task, gtor pressure, promise iterator/generator, async
-  generator function) split across the endo-pubsub and change-propagation clusters.
+**Indexes/concepts enriched:** bumped `gtor--readme.md` `section_count` 2→6 (and the `sources/README.md` row) with a multi-cycle `notes:` rewrite; added rows to the change-propagation, streams, and eventual-send topic pages; replaced `endo-pubsub.md`'s "grounded only in journal entries" stub with a real sections table (the queue/buffer + iterator/generator + taxonomy sections now ground the sink/spring + async-linked-list + broadcast mechanism); added the 4 rows to `change-propagation.md`; added ~16 grep entry points to `keywords.md`. Left the 5561-entry auto-generated `sections/README.md` to its generator.
 
-Did not edit the auto-generated `sections/README.md` (5561-entry generated index).
+**Changed/pushed:** all library writes committed and CAS-pushed to `journal2` (commit `8602abc`); a `result` entry posted; the job completed (`doin → tada`).
 
-## Deferred (re-posted)
+**Follow-ups:** Re-posted job `scholar-ingest-gtor-recap` for the remainder (the plural-spatial column — Iterators / Generator Functions / Generators; and the Summary / Further Work / Glossary recap), which finishes the README. Used a distinct basename to avoid the idempotent no-op against my own still-in-flight job; it has already been claimed by another gardener.
 
-Posted follow-on job `scholar-ingest-gtor-recap` for the remainder: the plural-spatial column
-(Iterators / Generator Functions / Generators, lines 254-524) and the Summary / Further Work /
-Glossary recap (1654-1822, glossary consolidated into one grep-friendly section). That should
-finish the README.
-
-All library writes + this report committed and CAS-pushed to `journal2` (commit 8602abc).
-
-Self-improvement: nothing this time. The conventions, idempotency check, and concept-page
-enrichment flow all fit the existing scholar procedure cleanly; no structural lesson to route.
+Self-improvement: nothing this time — the conventions, idempotency check, and concept-page enrichment flow fit the existing scholar procedure cleanly.
