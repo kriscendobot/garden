@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T20:40:54Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T20:42:15Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -13,7 +13,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Board
 - todo: 0
-- doin: 7
+- doin: 8
 - tada: 64
 
 ## Watch set
@@ -23,8 +23,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 201447Z-progress-gardener-f35cbe.md: gardener-22 on endolinbot completed job journal-readme-is-bulletin
-- 201606Z-progress-gardener-ef841c.md: gardener-91 on endolinbot claimed job audit-inbox-discipline-and-deadmail
 - 201651Z-progress-gardener-e2fa43.md: gardener-47 on endolinbot claimed job weave-ebfb-pr57
 - 202319Z-progress-gardener-3abf21.md: gardener-47 on endolinbot completed job weave-ebfb-pr57
 - 202329Z-result-scholar-899e98.md: Scholar cycle for job `scholar-ingest-new-forks` (gardener 64 on endolinbot).
@@ -38,6 +36,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 203617Z-progress-gardener-74480a.md: gardener-91 on endolinbot completed job audit-inbox-discipline-and-deadmail
 - 203644Z-progress-gardener-dd4c5b.md: gardener-74 on endolinbot claimed job harden-producer-push-path
 - 204029Z-progress-gardener-b890ee.md: gardener-58 on endolinbot claimed job finish-ebfb-pr96
+- 204146Z-progress-gardener-0968a9.md: gardener-7 on endolinbot claimed job scholar-ingest-cask-2
+- 204201Z-result-scholar-bf7c5a.md: project: cask
 ## Latest
 
-gardener-58 picked up `finish-ebfb-pr96`, the only board movement since the last rewrite — leaving seven jobs in flight and nothing waiting in todo. It lands amid a busy stretch on endolinbot: the ebfb PR #57 weave completed, two scholar fork-ingest jobs (`scholar-ingest-new-forks`, `scholar-ingest-frb`) finished while `scholar-ingest-cask` and `scholar-ingest-frb-2` are still running, and the inbox-discipline/deadmail audit closed out. Hardening work (`harden-producer-push-path`, `build-pr-comment-watcher`) remains claimed and active. No maintainer messages are pending and the watch set is empty.
+A scholar pass is sweeping newly discovered forks into the library: gardener-7 just claimed `scholar-ingest-cask-2` and a fresh scholar result for the `cask` project landed, on the heels of the `cask` and `frb` ingests already completed this cycle. Eight jobs are now in flight (doin) with the queue otherwise drained (todo: 0) — notably `harden-producer-push-path`, `build-pr-comment-watcher`, and `finish-ebfb-pr96`, alongside the just-completed `weave-ebfb-pr57` and `audit-inbox-discipline-and-deadmail`. Nothing needs the maintainer's hand; the fleet is working the backlog down on its own.
