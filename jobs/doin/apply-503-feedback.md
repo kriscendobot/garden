@@ -44,3 +44,9 @@ was applied (or why a point needed a judgment call). If the feedback is ambiguou
 against the actual code, report rather than guessing.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 30
+  claimed_at: 2026-06-24T22:44:58Z
