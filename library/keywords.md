@@ -12368,3 +12368,59 @@ SortedArrayMap | generic-order-comparison-protocol
 `@collections/sorted-array-set` | generic-order-comparison-protocol
 `@collections/sorted-array-map` | generic-order-comparison-protocol
 comparator-ordered array | generic-order-comparison-protocol
+Noise_IK_25519_ChaChaPoly_BLAKE2b | noise-ik-session-establishment
+forward secrecy | noise-ik-session-establishment
+directional keys | noise-ik-session-establishment
+x25519 | noise-ik-session-establishment
+ephemeral key exchange | noise-ik-session-establishment
+`ensureSession` | noise-ik-session-establishment
+`Split` transport keys | noise-ik-session-establishment
+WireGuard-style handshake | noise-ik-session-establishment
+init tini handshake | noise-ik-session-establishment
+PSK handshake (superseded) | noise-ik-session-establishment
+`stor` | casknet-wire-protocol
+`load` | casknet-wire-protocol
+`rots` | casknet-wire-protocol
+`casc` | casknet-wire-protocol
+`csac` | casknet-wire-protocol
+`gcgc` | casknet-wire-protocol
+`cgcg` | casknet-wire-protocol
+reversed response command | casknet-wire-protocol
+casknet commands | casknet-wire-protocol
+casknet wire protocol | casknet-wire-protocol
+`span_id` | casknet-wire-protocol
+`cask.MetadataSize` | casknet-wire-protocol
+block metadata footer | casknet-wire-protocol
+command detection | casknet-wire-protocol
+casksock | casknet-wire-protocol
+member table | member-table-authorization
+`membertable` | member-table-authorization
+`cask accept` | member-table-authorization
+`cask invite` | member-table-authorization
+authorized peer key | member-table-authorization
+ed25519 node identity | member-table-authorization
+`.cask/id` | member-table-authorization
+session gating | member-table-authorization
+status=2 not authorized | member-table-authorization
+`hashtree` | cask-block-backbones
+`arraytree` | cask-block-backbones
+block backbone | cask-block-backbones
+32-way trie | cask-block-backbones
+sparse trie | cask-block-backbones
+dense tree | cask-block-backbones
+`ZeroHash` | cask-block-backbones
+adaptive index width | cask-block-backbones
+`hashtreetouint8` | cask-block-backbones
+`hashtreetouint16` | cask-block-backbones
+`hashtreetouint32` | cask-block-backbones
+`hashtreetouint64` | cask-block-backbones
+`StoreLinkLeaf` | cask-block-backbones
+`StoreLeaf` | cask-block-backbones
+backpressure | codel-send-buffer-shedding
+`drainNotify` | codel-send-buffer-shedding
+`drainWaiterCount` | codel-send-buffer-shedding
+`notifyDrain` | codel-send-buffer-shedding
+`PopPriority` | codel-send-buffer-shedding
+wake by traffic class | codel-send-buffer-shedding
+`WithTrafficClass` | codel-send-buffer-shedding
+`TrafficClassFromContext` | codel-send-buffer-shedding

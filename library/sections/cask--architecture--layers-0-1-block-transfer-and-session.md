@@ -9,7 +9,7 @@ ingested: 2026-06-24
 ingested_by: scholar
 topics: [networking]
 status: current
-notes: High-level architectural view; the cryptography and session-establishment depth is in doc/design/net-crypto.md and doc/design/net-session-init-design.md (deferred to a follow-on cask ingest).
+notes: High-level architectural view. The Layer-1 PSK init/tini handshake described here is the **previous** session-establishment design; the current form is the Noise IK (x25519 DH, forward secrecy) handshake in doc/design/net-crypto.md, ingested 2026-06-24 (sections cask--net-crypto--*). The inner-command wire formats and AEAD envelope remain current; see the noise-ik-session-establishment concept for the full reconciliation.
 ---
 
 > Abstract: The two foundation layers of casknet. Layer 0 is raw 1KB-block transfer (LOAD/STOR and their reversed-tag responses) over UDP within a 1500-byte MTU, the unchanging foundation. Layer 1 establishes secure authenticated sessions: a two-message PSK-authenticated handshake (`init` 82 bytes, `tini` 65 bytes) derives a session key `K = BLAKE2b-256(PSK || session_id || "cask0")` with no Diffie-Hellman, after which every data packet is wrapped in a ChaCha20-Poly1305 AEAD envelope of the form `session_id (32B) || nonce (12B) || ciphertext (incl. 16B Poly1305 tag)`. Response command tags are the request tag reversed (`stor`/`rots`, `casc`/`csac`, `gcgc`/`cgcg`).

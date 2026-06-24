@@ -16,6 +16,7 @@ The uniform shape of every persistent CASK operation: `Operation(ctx, store, roo
 | [cask--parallel-arrays--persistent-structures-as-reducers](../sections/cask--parallel-arrays--persistent-structures-as-reducers.md) | The reducer signature and the replay/verify/compose properties; minimizing disturbance; the four persistent structures. |
 | [cask--parallel-arrays--compact-index-representation](../sections/cask--parallel-arrays--compact-index-representation.md) | maybeResize folded into the reducer so identical inputs give identical outputs. |
 | [cask--parallel-arrays--rabin-bounded-sorted-indexes](../sections/cask--parallel-arrays--rabin-bounded-sorted-indexes.md) | Deterministic Rabin boundaries preserve the reducer property for sorted-index transforms. |
+| [cask--package-taxonomy--design-patterns](../sections/cask--package-taxonomy--design-patterns.md) | The `(root_hash, args) → new_root_hash` reducer shape over an append-only store, stated from the taxonomy. |
 
 ## See also
 

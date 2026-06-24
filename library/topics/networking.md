@@ -20,6 +20,19 @@
 | [cask--architecture--ledger-sampling-and-security](../sections/cask--architecture--ledger-sampling-and-security.md) | cask architecture | Content-addressed activity ledger with SAMP sampling; session-based vs sessionless; layered security model. |
 | [cask--trace--tracer-interface-and-telemetry-buffer](../sections/cask--trace--tracer-interface-and-telemetry-buffer.md) | cask trace | casktel tracer/Span interface; buffercasktel's parallel-array buffer where high-priority spans evict lower-priority ones. |
 | [cask--trace--traffic-class-and-priority](../sections/cask--trace--traffic-class-and-priority.md) | cask trace | TrafficClass (0–128) and Priority `Trace >> (128 - TrafficClass)`; the 256-bit (TrafficClass, Trace) eviction key. |
+| [cask--net-crypto--overview-and-identity](../sections/cask--net-crypto--overview-and-identity.md) | cask net-crypto | Current crypto overview; ed25519 node identity at `.cask/id`; x25519 birational map for DH. |
+| [cask--net-crypto--authorization-member-table](../sections/cask--net-crypto--authorization-member-table.md) | cask net-crypto | Member table of authorized ed25519 peer keys; `cask accept`/`cask invite`; status=2 rejection. |
+| [cask--net-crypto--noise-ik-handshake](../sections/cask--net-crypto--noise-ik-handshake.md) | cask net-crypto | The **current** two-message Noise IK handshake; init/tini layouts; WireGuard-style; tini-lost retry. |
+| [cask--net-crypto--transport-keys-and-forward-secrecy](../sections/cask--net-crypto--transport-keys-and-forward-secrecy.md) | cask net-crypto | `Split()` directional transport keys via HMAC-BLAKE2b HKDF; ephemeral-DH forward secrecy. |
+| [cask--net-crypto--encrypted-packet-and-replay](../sections/cask--net-crypto--encrypted-packet-and-replay.md) | cask net-crypto | The `session_id‖nonce‖AEAD` envelope and per-direction monotonic-counter replay protection. |
+| [cask--net-crypto--primitives-threat-model-and-lifecycle](../sections/cask--net-crypto--primitives-threat-model-and-lifecycle.md) | cask net-crypto | Primitives table, threat model, command inventory, key lifecycle, phase-locked-clock future work. |
+| [cask--net-session-init-design--command-vocabulary-and-detection](../sections/cask--net-session-init-design--command-vocabulary-and-detection.md) | cask net-session-init | Reversed-response command table; first-4-bytes plaintext-handshake vs encrypted-data detection. |
+| [cask--net-session-init-design--session-state-and-envelope](../sections/cask--net-session-init-design--session-state-and-envelope.md) | cask net-session-init | caskhead session-table state (send/recv_ctr, key, role, mode, best_traffic_class); AEAD envelope. |
+| [cask--net-session-init-design--inner-command-wire-formats](../sections/cask--net-session-init-design--inner-command-wire-formats.md) | cask net-session-init | Byte-exact LOAD/STOR/ROTS/CASC/CSAC/GCGC/CGCG layouts; 12-byte block metadata footer. |
+| [cask--net-session-init-design--security-considerations](../sections/cask--net-session-init-design--security-considerations.md) | cask net-session-init | Replay, rate limiting, expiration, transport boundary; PSK-distribution note now superseded. |
+| [cask--net-session-init-design--psk-handshake-packet-formats](../sections/cask--net-session-init-design--psk-handshake-packet-formats.md) | cask net-session-init | **Superseded**: the previous PSK + BLAKE2b-128 init/tini handshake and `K = BLAKE2b-256(...)`. |
+| [cask--net-design--backpressure-and-traffic-class-wake](../sections/cask--net-design--backpressure-and-traffic-class-wake.md) | cask net-design | Enqueue-side backpressure: block `Store()` on a full queue; wake by TrafficClass via 129 channels. |
+| [cask--net-design--lost-notification-coordination](../sections/cask--net-design--lost-notification-coordination.md) | cask net-design | The increment-under-lock / notify-after-unlock proof that no drain notification is lost. |
 
 ## See also
 

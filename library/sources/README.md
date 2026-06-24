@@ -435,6 +435,10 @@ These three repos were forked under the bot account for future garden work and g
 | [doc/design/architecture.md](cask--architecture.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 5 | current (the layered casknet protocol stack, Layers 0–4 plus ledger/sampling/security; net-crypto/net-session-init/gc design docs deferred) |
 | [doc/design/parallel-arrays.md](cask--parallel-arrays.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 6 | current (the columnar/ECS pattern in depth: in-memory, reducer-style persistent structures, adaptive index width, schema hashes, table IDL, Rabin-bounded sorted indexes) |
 | [doc/design/trace.md](cask--trace.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 2 | current (casktel telemetry interface sketch + the TrafficClass/Priority model; richer trace2.md deferred) |
+| [doc/design/package-taxonomy.md](cask--package-taxonomy.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 5 | current (package categories, hashtree-vs-arraytree backbones, naming conventions, reducer/parallel-array patterns, future structures) |
+| [doc/design/net-crypto.md](cask--net-crypto.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 6 | current (the **authoritative** casknet crypto: Noise IK + x25519 DH + forward secrecy; supersedes the PSK handshake) |
+| [doc/design/net-session-init-design.md](cask--net-session-init-design.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 5 | current (command vocabulary, session state, inner-command wire formats, security; the PSK-handshake section is superseded by net-crypto) |
+| [doc/design/net-design.md](cask--net-design.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 2 | current (enqueue-side send-buffer backpressure: wake-by-TrafficClass and the no-lost-notification proof) |
 
 #### Collections per-package READMEs (begin 2026-06-24 via `scholar-ingest-collections`)
 

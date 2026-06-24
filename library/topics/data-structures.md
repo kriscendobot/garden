@@ -41,6 +41,11 @@
 | [cask--parallel-arrays--universal-tree-and-schema-hashes](../sections/cask--parallel-arrays--universal-tree-and-schema-hashes.md) | cask parallel-arrays | Schema hashes as self-description; directories-as-tables; the unified adaptive TreeNode. |
 | [cask--parallel-arrays--table-idl-and-data-model](../sections/cask--parallel-arrays--table-idl-and-data-model.md) | cask parallel-arrays | The table IDL, JSON-like data model with inline/ref/auto, and auto-reindexing field updates. |
 | [cask--parallel-arrays--rabin-bounded-sorted-indexes](../sections/cask--parallel-arrays--rabin-bounded-sorted-indexes.md) | cask parallel-arrays | Rabin-chunked sorted indexes: B-tree queries without rebalancing; local re-chunk on edit. |
+| [cask--package-taxonomy--package-categories](../sections/cask--package-taxonomy--package-categories.md) | cask package-taxonomy | Seven package categories: block structures, `*tree` backbones, `go/*` utilities, `*buffer`, `*store`, net, telemetry; adaptive index widths. |
+| [cask--package-taxonomy--hashtree-vs-arraytree](../sections/cask--package-taxonomy--hashtree-vs-arraytree.md) | cask package-taxonomy | Sparse-associative `hashtree` vs dense-sequential `arraytree`; how array/uint*array share arraytree (leaf storage, endianness). |
+| [cask--package-taxonomy--naming-conventions](../sections/cask--package-taxonomy--naming-conventions.md) | cask package-taxonomy | Package naming suffixes; `cask`-prefixed declarations under `cask/`, bare names under `cask/go/`; import aliases. |
+| [cask--package-taxonomy--design-patterns](../sections/cask--package-taxonomy--design-patterns.md) | cask package-taxonomy | The `(root_hash, args) → new_root_hash` reducer and the parallel-array column layout, stated from the taxonomy. |
+| [cask--package-taxonomy--future-structures](../sections/cask--package-taxonomy--future-structures.md) | cask package-taxonomy | Sketches: a Rabin-chunked sorted array and a circular doubly-linked list over int-arrays. |
 
 ## See also
 

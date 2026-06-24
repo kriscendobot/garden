@@ -21,6 +21,8 @@ A data-layout pattern, borrowed from the Entity Component System (ECS) tradition
 | [cask--readme--columnar-ecs-design](../sections/cask--readme--columnar-ecs-design.md) | README summary: typed columns plus co-indexed heaps; adaptive-width tries minimizing Merkle disturbance. |
 | [cask--readme--package-taxonomy](../sections/cask--readme--package-taxonomy.md) | The `hashtreetouint8`…`hashtreetouint64` family and the parallel-array tables (`sessiontable`, `membertable`). |
 | [cask--readme--priority-load-shedding](../sections/cask--readme--priority-load-shedding.md) | The priority heaps over the sendbuffer columns drive per-class load shedding. |
+| [cask--package-taxonomy--design-patterns](../sections/cask--package-taxonomy--design-patterns.md) | The parallel-array pattern (value/index/co-index columns, swap-to-end) stated from the taxonomy. |
+| [cask--package-taxonomy--package-categories](../sections/cask--package-taxonomy--package-categories.md) | Where the buffer, array, and table packages sit, and the adaptive `hashtreetouint*` widths. |
 
 ## See also
 

@@ -164,6 +164,7 @@
 | [mcp-landscape--gateway-hosting-category](../sections/mcp-landscape--gateway-hosting-category.md) | MCP gateway/hosting landscape survey (2024–2025) | The MCP ambient-authority problem: current MCP integrations grant broad bearer-token access to entire SaaS accounts; Cloudflare and others host MCP servers as commodity infrastructure; Endo's attenuated-capability model is the structural differentiator. |
 | [ocap-history--e-capdesk-polaris-market-history](../sections/ocap-history--e-capdesk-polaris-market-history.md) | ocap systems history survey | E (1997), CapDesk, Polaris, Waterken demonstrated technical success; none achieved commercial adoption; structural analysis of why and what is different now. |
 | [mastodon-docs--operator-burden-and-liability](../sections/mastodon-docs--operator-burden-and-liability.md) | Mastodon admin docs survey | Four-level individual moderation + three-level domain-block moderation surfaces; legal exposure for UGC hosting; governance pressure and operator burnout — the operator-liability problem the O2 hub pitch must address honestly. |
+| [cask--net-crypto--authorization-member-table](../sections/cask--net-crypto--authorization-member-table.md) | cask net-crypto | casknet peer authorization as a member table of accepted ed25519 public keys (`cask accept`/`cask invite`), checked during the Noise IK handshake. |
 
 ## See also
 

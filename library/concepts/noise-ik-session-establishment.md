@@ -1,27 +1,34 @@
 ---
 id: noise-ik-session-establishment
-aliases: ["Noise IK", "Noise Protocol", "noise handshake", "session establishment", "init tini", "init/tini", "PSK handshake", "ChaCha20-Poly1305", "AEAD envelope", "session key", "casknet session", "BLAKE2b session key"]
+aliases: ["Noise IK", "Noise Protocol", "noise handshake", "Noise_IK_25519_ChaChaPoly_BLAKE2b", "session establishment", "init tini", "init/tini", "ensureSession", "forward secrecy", "x25519", "ed25519", "directional keys", "WireGuard-style handshake", "PSK handshake", "ChaCha20-Poly1305", "AEAD envelope", "session key", "casknet session", "BLAKE2b session key", "transport keys", "Split"]
 topics: [networking]
 status: current
 ---
 
 # noise-ik-session-establishment
 
-How casknet (CASK's encrypted-UDP inter-node protocol) sets up a secure session before any data flows. The architecture document describes the implemented form as a two-message PSK-authenticated handshake: the client sends `init` (82 bytes: session_id, TTL, IPv6 address, timestamp, and a BLAKE2b-128 tag proving PSK knowledge), the server replies `tini` (65 bytes: session_id, granted TTL, status, its own tag), and both derive the session key `K = BLAKE2b-256(PSK || session_id || "cask0")` with no Diffie-Hellman. Thereafter every data packet is a ChaCha20-Poly1305 AEAD envelope `session_id (32B) || nonce (12B) || ciphertext (incl. 16B Poly1305 tag)`, with replay protection via monotonic counter nonces and a configurable TTL (default 1 hour). The README and the security section frame the cryptographic posture as Noise-style (ChaCha20-Poly1305 over a Noise IK handshake, ed25519 node identity, x25519 key exchange) with no DNS/TLS/CA dependency; the local casksock protocol is plaintext, protected by filesystem permissions, never encrypted.
+How casknet (CASK's encrypted-UDP inter-node protocol) sets up a secure session before any data flows. The **current** mechanism (`doc/design/net-crypto.md`) is a two-message **Noise IK** handshake, `Noise_IK_25519_ChaChaPoly_BLAKE2b`: the client sends `init` (~144 bytes: session_id, requested TTL, its ephemeral x25519 public key, its AEAD-encrypted static x25519 key, and an encrypted timestamp), the server decrypts the static key, checks it against the member table, and replies `tini` (~89 bytes: echoed session_id, granted TTL, its ephemeral x25519 public key, encrypted status). Both sides then `Split()` the Noise symmetric state into two 32-byte **directional** transport keys via HMAC-BLAKE2b HKDF (initiator encrypts with `k1`/decrypts with `k2`, responder the reverse). Because each handshake uses fresh ephemeral x25519 keypairs, the session has **forward secrecy**: compromising a node's long-term ed25519 key does not reveal past session keys. Thereafter every data packet is a ChaCha20-Poly1305 AEAD envelope `session_id (32B) || nonce (12B) || ciphertext (incl. 16B Poly1305 tag)`, with replay protection via monotonic counter nonces and a configurable TTL (default 1 hour). The design is WireGuard-like (two messages, Noise-based) and needs no DNS/TLS/CA; the local casksock protocol is plaintext, protected by filesystem permissions.
 
 ## Sections that touch this concept
 
 | Section | One-line summary |
 |---|---|
-| [cask--readme--noise-cryptography](../sections/cask--readme--noise-cryptography.md) | ChaCha20-Poly1305 AEAD over a two-message Noise IK handshake; no DNS/TLS/CA; plaintext only on the local socket. |
-| [cask--architecture--layers-0-1-block-transfer-and-session](../sections/cask--architecture--layers-0-1-block-transfer-and-session.md) | The init/tini PSK handshake, BLAKE2b session-key derivation, and the AEAD envelope layout. |
-| [cask--architecture--ledger-sampling-and-security](../sections/cask--architecture--ledger-sampling-and-security.md) | The layered security model: transport/session/application encryption, ed25519/x25519/Noise authentication. |
+| [cask--net-crypto--overview-and-identity](../sections/cask--net-crypto--overview-and-identity.md) | Current crypto overview; ed25519 identity at `.cask/id`, x25519 birational map. |
+| [cask--net-crypto--noise-ik-handshake](../sections/cask--net-crypto--noise-ik-handshake.md) | The two-message Noise IK handshake, init/tini byte layouts, tini-lost retry. |
+| [cask--net-crypto--transport-keys-and-forward-secrecy](../sections/cask--net-crypto--transport-keys-and-forward-secrecy.md) | `Split()` directional keys via HMAC-BLAKE2b HKDF; ephemeral-DH forward secrecy. |
+| [cask--net-crypto--encrypted-packet-and-replay](../sections/cask--net-crypto--encrypted-packet-and-replay.md) | The AEAD envelope and per-direction monotonic-counter replay protection. |
+| [cask--readme--noise-cryptography](../sections/cask--readme--noise-cryptography.md) | ChaCha20-Poly1305 AEAD over a two-message Noise IK handshake; no DNS/TLS/CA. |
+| [cask--net-session-init-design--psk-handshake-packet-formats](../sections/cask--net-session-init-design--psk-handshake-packet-formats.md) | The **previous** PSK + BLAKE2b-128 handshake (superseded). |
+| [cask--architecture--layers-0-1-block-transfer-and-session](../sections/cask--architecture--layers-0-1-block-transfer-and-session.md) | Layered overview describing the older PSK init/tini form. |
+| [cask--architecture--ledger-sampling-and-security](../sections/cask--architecture--ledger-sampling-and-security.md) | The layered security model: ed25519/x25519/Noise authentication. |
 
 ## See also
 
+- [[member-table-authorization]] — the authorized-peer table the Noise IK server checks the decrypted static key against.
+- [[casknet-wire-protocol]] — the reversed-response command set and AEAD envelope the session carries.
 - [[content-addressed-block-store]] — the 1KB blocks the AEAD envelope carries.
 - [[codel-send-buffer-shedding]] — scheduling of the encrypted datagrams once a session exists.
 
 ## Common confusions
 
-- The architecture document's *implemented* handshake is PSK + BLAKE2b auth tags with **no DH**; the README and security section describe the cryptographic posture as Noise IK with x25519 key exchange. Treat the PSK/BLAKE2b form as the current casknet session-init mechanism and the Noise IK framing as the protocol family it belongs to. The full reconciliation lives in `doc/design/net-crypto.md` and `doc/design/net-session-init-design.md`, deferred to a follow-on cask ingest; revisit this page once those are ingested.
+- **Resolved (2026-06-24).** Two design docs at the same commit describe different handshakes. `net-crypto.md` is the **current** design: a Noise IK handshake with ephemeral x25519 Diffie-Hellman and forward secrecy. It explicitly calls the PSK + BLAKE2b-128 form "the previous PSK-based design." The PSK form (no DH, `K = BLAKE2b-256(PSK || session_id || "cask0")`) appears in `net-session-init-design.md` (now section-flagged `superseded`) and in the `architecture.md` Layer-1 overview. **Use the Noise IK form as casknet's session-init mechanism.** The session-table state shape and the AEAD envelope from net-session-init-design.md remain current; only the handshake that fills `session_key` changed.
