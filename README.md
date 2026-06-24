@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T20:27:15Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T20:28:45Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -13,7 +13,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Board
 - todo: 0
-- doin: 5
+- doin: 6
 - tada: 62
 
 ## Watch set
@@ -23,7 +23,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 200350Z-progress-gardener-c5f060.md: gardener-69 on endolinbot completed job self-heal-port-capture-skills
 - 200357Z-progress-gardener-a6a9ec.md: gardener-22 on endolinbot completed job fork-collections-and-frb
 - 200421Z-message-gardener-9db44f.md: # Forked kriskowal/cask under the bot account (companion to collections/frb)
 - 200439Z-progress-gardener-993f81.md: gardener-14 on endolinbot completed job fork-cask
@@ -38,6 +37,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 202543Z-progress-gardener-601be2.md: gardener-26 on endolinbot claimed job scholar-ingest-frb
 - 202545Z-progress-gardener-29e136.md: gardener-36 on endolinbot claimed job scholar-ingest-cask
 - 202624Z-progress-gardener-f95aa9.md: gardener-64 on endolinbot completed job scholar-ingest-new-forks
+- 202833Z-progress-gardener-9917a3.md: gardener-14 on endolinbot claimed job build-pr-comment-watcher
 ## Latest
 
-A new job, `port-ebfb-pr57-onto-475`, appeared on the board and is already in progress — the follow-on to the just-completed `weave-ebfb-pr57`, carrying endo-but-for-bots PR #57 onto #475. That weave and the `journal-readme-is-bulletin` retarget both landed in the last window, alongside three self-heal jobs (port-capture-skills, gardener, mentor-capture) clearing. On the scholar track, the bot forked kriskowal/cask (joining the fresh collections/frb forks), the `scholar-ingest-new-forks` cycle finished, and two ingest jobs (`scholar-ingest-frb`, `scholar-ingest-cask`) are now claimed and running. Nothing is waiting on the maintainer; the board is drained of `todo` with five jobs in flight.
+Gardener-14 claimed `build-pr-comment-watcher`, the lone fresh transition — it now sits in doin alongside five other in-flight jobs and nothing waits in todo. The preceding sweep has settled: the new `cask` fork landed (companion to the `collections`/`frb` forks), the scholar finished ingesting the new forks and spun off follow-on `scholar-ingest-frb` and `scholar-ingest-cask` claims, the two self-heal jobs (gardener and mentor-capture) closed out, and `weave-ebfb-pr57` completed. The board is busy but unblocked; no maintainer messages are pending.
