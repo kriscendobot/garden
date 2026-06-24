@@ -7,7 +7,10 @@ source_authors: [Kris Kowal]
 ingested: 2026-06-24
 ingested_by: scholar
 section_count: 2
-status: current
+status: superseded
+superseded_source: cask--trace2
+superseded_on: 2026-06-24
+notes: Superseded by the comprehensive successor doc/design/trace2.md (source-index cask--trace2), ingested cycle 5. trace.md is the raw notes sketch; trace2.md is the polished, complete design. Both share commit cdb975d8. Section files retained per the append-only norm with status flipped.
 ---
 
 > Abstract: An early design-notes sketch of CASK's telemetry and priority model. It outlines the `casktel` tracer interface (Trace/Nice, Span with TrafficClass/Priority/Cancel and Zap-style logging), a no-op `nopcasktel`, and a `buffercasktel` whose fixed-size parallel-array buffer lets high-priority spans parasitically evict lower-priority spans and their log blocks. It then defines the priority model that the README's load-shedding section references: TrafficClass is a one-byte (0–128) class, Priority is `Trace >> (128 - TrafficClass)`, and `(TrafficClass, Trace)` forms a 256-bit ordering key for queue and eviction decisions, with classes 0–5 reserved for acknowledgements (ack class = class − 5).

@@ -36,6 +36,8 @@
 | [cask--dbstore-design--operations-store-load-cas-collect](../sections/cask--dbstore-design--operations-store-load-cas-collect.md) | cask dbstore | Store/Load/Consolidate/CAS/Collection; WAL-as-quarantine mark-and-sweep with on-disk diskHashSet. |
 | [cask--dbstore-design--concurrency-model-and-lock-protocol](../sections/cask--dbstore-design--concurrency-model-and-lock-protocol.md) | cask dbstore | Single flock-owner mutator; lock-free WAL writers; lock-free pread readers over append-only files. |
 | [cask--dbstore-design--implementation-plan-and-sizing](../sections/cask--dbstore-design--implementation-plan-and-sizing.md) | cask dbstore | Phases 1–4; slot alloc against the alloc file; root temp+rename; sizing; diskstore comparison. |
+| [cask--trace2--span-as-storage-completion-abstraction](../sections/cask--trace2--span-as-storage-completion-abstraction.md) | cask trace2 | How stores track block-store completion on a casktel Span: sync Store vs async StoreWithSpan, the SpanDriver embeddable, Peer/dir/blob fire-and-forget + ack via Add(1)/Add(-1). |
+| [cask--trace2--dir-store-span-contract-and-test](../sections/cask--trace2--dir-store-span-contract-and-test.md) | cask trace2 | dir.Store makes a Span mandatory (ErrSpanRequired) and is fire-and-forget: returns the root hash immediately, the caller waits on `<-span.Done()`. |
 
 ## See also
 

@@ -13,8 +13,10 @@ CASK's approach to bounding latency and shedding load under pressure, borrowing 
 
 | Section | One-line summary |
 |---|---|
-| [cask--trace--traffic-class-and-priority](../sections/cask--trace--traffic-class-and-priority.md) | TrafficClass/Priority computation and the (TrafficClass, Trace) 256-bit eviction key; ack classes 0–5. |
-| [cask--trace--tracer-interface-and-telemetry-buffer](../sections/cask--trace--tracer-interface-and-telemetry-buffer.md) | buffercasktel: high-priority spans parasitically evict lower-priority spans and their log blocks. |
+| [cask--trace2--traffic-class-and-priority](../sections/cask--trace2--traffic-class-and-priority.md) | trace2.md §6's restatement of the model ("unchanged from TRACE.md"), with the `<<`/`>>` shift-operator discrepancy documented; the `>>` form is canonical. |
+| [cask--trace2--buffercasktel-sampling-buffer-and-eviction](../sections/cask--trace2--buffercasktel-sampling-buffer-and-eviction.md) | buffercasktel: the parallel-array span buffer; high-priority spans parasitically evict lower-priority spans and their log blocks; Flush. |
+| [cask--trace--traffic-class-and-priority](../sections/cask--trace--traffic-class-and-priority.md) | **Superseded** by the trace2 section above. TrafficClass/Priority computation, the (TrafficClass, Trace) 256-bit eviction key, ack classes 0–5; the original `>>` form. |
+| [cask--trace--tracer-interface-and-telemetry-buffer](../sections/cask--trace--tracer-interface-and-telemetry-buffer.md) | **Superseded** by the trace2 buffercasktel section above. The original sketch of the parallel-array eviction buffer. |
 | [cask--readme--priority-load-shedding](../sections/cask--readme--priority-load-shedding.md) | Per-class backpressure and coordinated fan-out shedding over the sendbuffer priority heaps. |
 | [cask--readme--what-tcp-costs-you](../sections/cask--readme--what-tcp-costs-you.md) | The TCP critique (bufferbloat, no in-flight priority/expiry) that motivates CoDel borrowing. |
 | [cask--architecture--layers-3-4-rpc-routing-orchestration](../sections/cask--architecture--layers-3-4-rpc-routing-orchestration.md) | Cohort-based health grouping and coordinated load shedding at the RPC layer. |
@@ -23,6 +25,11 @@ CASK's approach to bounding latency and shedding load under pressure, borrowing 
 
 ## See also
 
+- [[casktel-span-completion]] — the *completion/progress* side of the same casktel Span: `Add`/`Done`/`Progress` and the Store/StoreWithSpan/SpanDriver layering. This concept is the *priority/eviction* side; the two meet in the Span, which carries the Priority that buffers (including buffercasktel) order by.
 - [[parallel-arrays-columnar]] — the fixed-size buffer the priority heaps order; eviction is a swap-to-end deallocation.
 - [[swap-to-end-allocation]] — how an evicted slot is reclaimed.
 - [[content-addressed-block-store]] — the 1KB block is the unit both buffered and shed.
+
+## Common confusions
+
+- **Priority shift direction (`>>` vs `<<`).** trace.md writes `Priority = Trace >> (128 - TrafficClass)` (right shift) and trace2.md §6 writes `Trace << (128 - TrafficClass)` (left shift) while labelling §6 "unchanged from TRACE.md". The **right-shift form is canonical**: it is the one internally consistent with the shared rule that a *lower* TrafficClass and *lower* Trace are *less* likely to be evicted (lower value = higher priority). A lower TrafficClass makes `128 - TrafficClass` larger; a larger *right* shift leaves the Trace with fewer significant bits and thus a smaller value. A left shift would invert that. Re-audited cycle 5; the trace2 §6 `<<` reads as a transcription slip and is a candidate upstream comment cleanup. Everything else in §6 (default class 5, ack classes 0–5, ack = T − 5, the 256-bit `(TrafficClass, Trace)` key) is genuinely unchanged.

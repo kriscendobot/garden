@@ -8,8 +8,11 @@ source_authors: [Kris Kowal]
 ingested: 2026-06-24
 ingested_by: scholar
 topics: [networking]
-status: current
-notes: trace.md is an early design-notes sketch (raw interface jottings), not polished prose; ingested as the current statement of the casktel telemetry design. The richer successor trace2.md is deferred to a follow-on cask ingest.
+status: superseded
+superseded_by: [cask--trace2--casktel-package-interfaces, cask--trace2--buffercasktel-sampling-buffer-and-eviction]
+superseded_on: 2026-06-24
+superseded_reason: trace2.md (the comprehensive successor) was ingested cycle 5; its casktel-package-interfaces section supersedes this section's interface half and its buffercasktel section supersedes the telemetry-buffer half.
+notes: trace.md is an early design-notes sketch (raw interface jottings), not polished prose. Superseded by the trace2.md ingest; retained per the append-only norm.
 ---
 
 > Abstract: CASK's telemetry/tracing design, package `casktel`. A `Tracer.Trace(ctx, label, ...Option) (ctx, Span)` either adopts an existing Span from the context or creates one from whole cloth; given a parent Span it creates a child that inherits the Trace and gets a fresh random Span ID, also inheriting the context's deadline and cancellation. `Nice(ctx, n)` shifts a span's priority `n` bits right to produce a lower-priority child. A Span exposes `Trace()`, `TrafficClass()`, `Priority()`, `Cancel()` (cancelling a span cancels all derived contexts), and Zap-style logging. The default TrafficClass is 5. Two companion packages: `nopcasktel` (a no-op tracer) and `buffercasktel`, whose buffer is a fixed-size parallel-array structure (the same shape as the load-shedding and CoDel buffers) where logging events from high-priority spans **parasitically evict** lower-priority spans and their associated log blocks, with a flush hook for a telemetry server to collect.

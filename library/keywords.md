@@ -12312,7 +12312,39 @@ cohort shedding | codel-send-buffer-shedding
 parasitic eviction | codel-send-buffer-shedding
 casktel | codel-send-buffer-shedding
 `buffercasktel` | codel-send-buffer-shedding
-Tracer interface | (see section: cask--trace--tracer-interface-and-telemetry-buffer)
+Tracer interface | casktel-span-completion
+`Tracer` | casktel-span-completion
+`casktel.Tracer` | casktel-span-completion
+`casktel.Span` | casktel-span-completion
+casktel Span | casktel-span-completion
+Span completion | casktel-span-completion
+`Tracer.Trace` | casktel-span-completion
+`Tracer.Nice` | casktel-span-completion
+`NopTracer` | casktel-span-completion
+`NopSpan` | casktel-span-completion
+`nopcasktel` | casktel-span-completion
+`StoreWithSpan` | casktel-span-completion
+`casktel.SpanDriver` | casktel-span-completion
+SpanDriver | casktel-span-completion
+`casktel.StoreWrapper` | casktel-span-completion
+StoreWrapper | casktel-span-completion
+`Span.Add` | casktel-span-completion
+`Span.Done` | casktel-span-completion
+`Span.Progress` | casktel-span-completion
+`Progress()` | casktel-span-completion
+span progress | casktel-span-completion
+numerator denominator progress | casktel-span-completion
+fire-and-forget store | casktel-span-completion
+`ErrSpanRequired` | casktel-span-completion
+`SpanFromContext` | casktel-span-completion
+`WithContext` | casktel-span-completion
+`SpanSnapshot` | casktel-span-completion
+`Flush` | casktel-span-completion
+`dir.StoreWithSpan` | casktel-span-completion
+trace2 | casktel-span-completion
+TRACE2 | casktel-span-completion
+`casktel.SpanKey` | casktel-span-completion
+`Span.Fail` | casktel-span-completion
 Noise IK | noise-ik-session-establishment
 casknet session | noise-ik-session-establishment
 init/tini | noise-ik-session-establishment
