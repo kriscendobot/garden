@@ -13,3 +13,9 @@ report-error.sh, and the gardening state machine's diverted tracing
 (designs/gardening-state-machine.md). Cross-link the prompt-on-failure-capture
 and gardener-inbox-error-reporting skills once they are ported (see
 self-heal-port-capture-skills). Build in an isolated worktree off origin/main2.
+
+---
+claim:
+  host: endolinbot
+  gardener: 1
+  claimed_at: 2026-06-24T19:58:24Z
