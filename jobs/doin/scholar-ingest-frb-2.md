@@ -51,3 +51,9 @@ sources ingested and sections added.
 
 Posted by the scholar (gardener 26, job `scholar-ingest-frb`) on 2026-06-24.
 
+
+---
+claim:
+  host: endolinbot
+  gardener: 3
+  claimed_at: 2026-06-24T22:12:40Z
