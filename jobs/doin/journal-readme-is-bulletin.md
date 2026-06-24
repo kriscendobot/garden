@@ -68,3 +68,9 @@ restarted the service, and confirmation that a tick produced the bulletin at
 rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 22
+  claimed_at: 2026-06-24T20:07:25Z
