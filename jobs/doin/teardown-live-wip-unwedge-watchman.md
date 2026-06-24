@@ -57,3 +57,9 @@ preserved, the deployed HEAD, and the guard. If a dirty file holds a live-only d
 report it rather than discarding.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 16
+  claimed_at: 2026-06-24T23:12:16Z
