@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T22:56:14Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T22:57:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -85,22 +85,21 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - `apply-503-feedback` — Apply maintainer meeting feedback to endo-but-for-bots #503
-- `bulletin-message-links-or-body` — Bulletin: link each maintainer message, or include its full body
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
 - `fix-comment-watcher-timer-and-classification` — Make the comment-watcher actually fire, and catch plain-language maintainer d...
 - `harden-producer-push-path` — Harden the producer push path: confirm the push landed; fix the shared-clone ...
 - `scholar-ingest-cask-4` — Scholar: continue the library ingest of kriskowal/cask (cycle 5)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
-### tada (83)
+### tada (84)
+- `bulletin-message-links-or-body` — Completion report: bulletin-message-links-or-body
 - `research-frb-endo-exo-collections` — Done. The deliverable is live on origin/journal2 and the temp worktree, stale...
 - `scholar-ingest-cask-3` — Completion report — scholar-ingest-cask-3 (cask library ingest, cycle 4)
 - `reliable-pause-resume` — Awaiting the clean test run's completion.
 - `build-github-mention-watcher` — Completion report
-- `scholar-ingest-collections-operators` — The work is complete. Here is my report.
-- … and 78 more
+- … and 79 more
 
 ## Watch set
 (none)
@@ -109,7 +108,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 223157Z-progress-gardener-2638ba.md: gardener-6 on endolinbot completed job bulletin-show-job-descriptions
 - 223205Z-progress-gardener-e14fc4.md: gardener-28 on endolinbot completed job improve-mentor-journalctl-timeout
 - 223209Z-progress-gardener-bc45df.md: gardener-52 on endolinbot completed job scholar-ingest-cask-2
 - 223400Z-progress-gardener-f09815.md: gardener-70 on endolinbot completed job scholar-ingest-collections-operators
@@ -124,6 +122,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 224955Z-progress-gardener-23a5b3.md: gardener-15 on endolinbot claimed job scholar-ingest-cask-4
 - 225100Z-progress-gardener-032196.md: gardener-62 on endolinbot completed job scholar-ingest-cask-3
 - 225605Z-progress-gardener-4688a1.md: gardener-67 on endolinbot completed job research-frb-endo-exo-collections
+- 225705Z-progress-gardener-e706f7.md: gardener-17 on endolinbot completed job bulletin-message-links-or-body
 ## Latest
 
-The Endo exo-collections FRB research job completed (gardener-67), the only board move this tick, leaving seven jobs in flight and the todo queue empty. Two maintainer messages need a human eye. The louder one: gardener-21 reports the live `/home/kris/scripts/jobs/common.sh` carries substantial uncommitted flock-based "per-clone serialization" WIP that is *not* on origin/main2 — and that dirty tree has **wedged garden-watchman**, so no origin/main2 change has auto-deployed garden-wide since 51030653. The gh-identity fix was landed non-destructively around it, but someone needs to decide whether that flock work gets committed or reverted before deploys resume. Separately, the SIWE/OAuth research deliverable landed: the recommendation is the self-hosted `siwe` library + NextAuth path, with `siwe-oidc` only if a standard OIDC IdP is genuinely needed (and only after vendoring, given staleness). Background: scholar's cask ingest reached cycle 4 and the GitHub mention-watcher build completed.
+`bulletin-message-links-or-body` completed (gardener-17), the only board move this cycle — message entries on the bulletin now carry working links and body excerpts. Two messages landed in the maintainer inbox that need a human call. The urgent one, from `harden-fleet-gh-identity` (gardener-21): the live `/home/kris/scripts/jobs/common.sh` carries substantial uncommitted flock-based clone-serialization WIP that is not on `origin/main2`, and its dirty state is wedging garden-watchman — so since 51030653 no `origin/main2` change has auto-deployed to the live tree for any job, garden-wide. The gardener deployed its own gh-identity fix non-destructively and left the WIP intact; it needs an owner decision to commit or revert before the watchman unsticks. The second is informational: a SIWE/ERC-4361 research deliverable recommending the `siwe` library + NextAuth over the embedded-wallet SaaS options. Six jobs remain in flight (the two cask ingests, the comment-watcher timer fix, #503 feedback, ebfb #96, and the producer-push hardening).
