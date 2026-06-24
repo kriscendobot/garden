@@ -12216,3 +12216,94 @@ Rabin fingerprint | rabin-chunking
 Rabin chunking | rabin-chunking
 content-defined chunking | rabin-chunking
 rolling hash | rabin-chunking
+Rabin-bounded sorted index | rabin-chunking
+`rabin_sorted` | rabin-chunking
+`CaskIndexedHeap` | parallel-arrays-columnar
+schema hash | parallel-arrays-columnar
+table IDL | parallel-arrays-columnar
+index width tiers | parallel-arrays-columnar
+compact index representation | parallel-arrays-columnar
+directories as tables | parallel-arrays-columnar
+swap-to-end | swap-to-end-allocation
+swap-to-end allocation | swap-to-end-allocation
+`entities` array | swap-to-end-allocation
+`coEntities` | swap-to-end-allocation
+`CaskAllocator` | swap-to-end-allocation
+free-list partition | swap-to-end-allocation
+Swap primitive | swap-to-end-allocation
+cask reducer | cask-reducer-pattern
+reducer pattern | cask-reducer-pattern
+`(state_hash, args) -> new_state_hash` | cask-reducer-pattern
+`CaskHeap` | cask-reducer-pattern
+Merkle disturbance | cask-reducer-pattern
+CoDel | codel-send-buffer-shedding
+controlled delay | codel-send-buffer-shedding
+load shedding | codel-send-buffer-shedding
+`TrafficClass` | codel-send-buffer-shedding
+traffic class | codel-send-buffer-shedding
+256-bit priority | codel-send-buffer-shedding
+`sendbuffer` | codel-send-buffer-shedding
+`recvbuffer` | codel-send-buffer-shedding
+cohort shedding | codel-send-buffer-shedding
+parasitic eviction | codel-send-buffer-shedding
+casktel | codel-send-buffer-shedding
+`buffercasktel` | codel-send-buffer-shedding
+Tracer interface | (see section: cask--trace--tracer-interface-and-telemetry-buffer)
+Noise IK | noise-ik-session-establishment
+casknet session | noise-ik-session-establishment
+init/tini | noise-ik-session-establishment
+PSK handshake | noise-ik-session-establishment
+ChaCha20-Poly1305 | noise-ik-session-establishment
+AEAD envelope | noise-ik-session-establishment
+session key derivation | noise-ik-session-establishment
+casknet | content-addressed-block-store
+casksock | content-addressed-block-store
+`STOR` `LOAD` | content-addressed-block-store
+cask cells | content-addressed-block-store
+`TREE` command | merkle-tree-of-blocks
+tree sync | merkle-tree-of-blocks
+generic-collection | generic-collection-mixin-protocol
+generic-set | generic-collection-mixin-protocol
+generic-map | generic-collection-mixin-protocol
+generic-order | generic-collection-mixin-protocol
+collection mixin | generic-collection-mixin-protocol
+abstract collection | generic-collection-mixin-protocol
+primitives in derived methods out | generic-collection-mixin-protocol
+`constructClone` | generic-collection-mixin-protocol
+`addEach` | generic-collection-mixin-protocol
+idiomatic collection interface | generic-collection-mixin-protocol
+`@collections/generic-collection` | generic-collection-mixin-protocol
+compare operator | generic-order-comparison-protocol
+equals operator | generic-order-comparison-protocol
+`@collections/compare` | generic-order-comparison-protocol
+`@collections/equals` | generic-order-comparison-protocol
+polymorphic operator | generic-order-comparison-protocol
+deep compare | generic-order-comparison-protocol
+deep equals | generic-order-comparison-protocol
+every value equal to itself | generic-order-comparison-protocol
+NaN equals NaN | generic-order-comparison-protocol
+structural comparison | generic-order-comparison-protocol
+`contentCompare` | generic-order-comparison-protocol
+observable | content-change-listener
+`@collections/observable` | content-change-listener
+content change | content-change-listener
+change notification | content-change-listener
+range change | content-change-listener
+map change | content-change-listener
+property change | content-change-listener
+ObservableArray | content-change-listener
+ObservableObject | content-change-listener
+ObservableMap | content-change-listener
+ObservableRange | content-change-listener
+`observePropertyChange` | content-change-listener
+`dispatchRangeChange` | content-change-listener
+will-change observer | content-change-listener
+child observer | content-change-listener
+`@collections/map` | generic-collections
+`@collections/set` | generic-collections
+`@collections/list` | generic-collections
+`@collections/dict` | generic-collections
+`@collections/deque` | generic-collections
+`@collections/heap` | generic-collections
+circular buffer deque | generic-collections
+binary max-heap | generic-collections

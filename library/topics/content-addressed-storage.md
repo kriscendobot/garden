@@ -1,6 +1,6 @@
 # Topic: content-addressed-storage
 
-> Abstract: Storing data as content-addressed blocks organized into Merkle trees, as practiced by `kriskowal/cask` (CASK). The organizing constraint is a fixed 1KB block size that unifies storage and transport: every higher structure (blobs, directories, arrays, maps, sets) is a tree of 1KB blocks, the same bytes move on the wire and onto disk with no reformatting, and garbage collection is content-agnostic because every block's link structure lives in its metadata. Seeded 2026-06-24 from the cask README. Related to but distinct from `persistence` (Endo's formula-graph value persistence across vat incarnations) — both are about durable identity, but CAS keys on content hash while Endo persistence keys on formula identity. Distinct from `networking` (CASK's UDP transport side), though the two share the block abstraction.
+> Abstract: Storing data as content-addressed blocks organized into Merkle trees, as practiced by `kriskowal/cask` (CASK). The organizing constraint is a fixed 1KB block size that unifies storage and transport: every higher structure (blobs, directories, arrays, maps, sets) is a tree of 1KB blocks, the same bytes move on the wire and onto disk with no reformatting, and garbage collection is content-agnostic because every block's link structure lives in its metadata. Seeded 2026-06-24 from the cask README and deepened the same day from the `doc/design/` corpus (the layered casknet architecture and the parallel-arrays persistent-structure designs). Related to but distinct from `persistence` (Endo's formula-graph value persistence across vat incarnations) — both are about durable identity, but CAS keys on content hash while Endo persistence keys on formula identity. Distinct from `networking` (CASK's UDP transport side), though the two share the block abstraction.
 
 ## Sections
 
@@ -15,6 +15,12 @@
 | [cask--readme--content-agnostic-gc](../sections/cask--readme--content-agnostic-gc.md) | cask README | Link structure in metadata lets GC walk the retention graph without parsing content; pinned vs deadline regimes; concurrent quarantine. |
 | [cask--readme--block-format](../sections/cask--readme--block-format.md) | cask README | 1024-byte body (links then data) plus 12-byte metadata footer; hash covers only the occupied portion. |
 | [cask--readme--package-taxonomy](../sections/cask--readme--package-taxonomy.md) | cask README | CASK's package layers from trie backbones up through stores and tables. |
+| [cask--architecture--design-principles-and-protocols](../sections/cask--architecture--design-principles-and-protocols.md) | cask architecture | The two protocols (casknet, casksock) and the optional five-layer casknet stack over the block foundation. |
+| [cask--architecture--layer-2-merkle-tree-and-filesystem](../sections/cask--architecture--layer-2-merkle-tree-and-filesystem.md) | cask architecture | TREE (SYNC/DIFF/WALK/GC) and FSOP over a GC-transparent filesystem of Merkle-tree directories and files. |
+| [cask--parallel-arrays--persistent-structures-as-reducers](../sections/cask--parallel-arrays--persistent-structures-as-reducers.md) | cask parallel-arrays | Persistent structures as reducers `(state_hash, args) → new_state_hash` minimizing Merkle disturbance. |
+| [cask--parallel-arrays--compact-index-representation](../sections/cask--parallel-arrays--compact-index-representation.md) | cask parallel-arrays | Adaptive index width with hysteresis; positional-link table roots more compact than caskmap. |
+| [cask--parallel-arrays--universal-tree-and-schema-hashes](../sections/cask--parallel-arrays--universal-tree-and-schema-hashes.md) | cask parallel-arrays | Schema hashes self-describe structures; directories-as-tables; one adaptive TreeNode schema. |
+| [cask--parallel-arrays--rabin-bounded-sorted-indexes](../sections/cask--parallel-arrays--rabin-bounded-sorted-indexes.md) | cask parallel-arrays | Rabin-chunked sorted (key, slot) records give B-tree queries without rebalancing. |
 
 ## See also
 

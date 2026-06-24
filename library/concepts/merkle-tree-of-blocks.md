@@ -1,8 +1,8 @@
 ---
 id: merkle-tree-of-blocks
-aliases: ["Merkle tree", "Merkle DAG", "hash tree", "merkle", "hashtree", "arraytree", "32-way trie"]
-topics: [content-addressed-storage]
-status: draft
+aliases: ["Merkle tree", "Merkle DAG", "hash tree", "merkle", "hashtree", "arraytree", "32-way trie", "Merkle disturbance", "tree sync", "TREE command", "leaf-to-root path"]
+topics: [content-addressed-storage, networking]
+status: current
 ---
 
 # merkle-tree-of-blocks
@@ -16,8 +16,12 @@ A tree (or DAG) whose nodes are content-addressed blocks: each node holds the ha
 | [cask--readme--merkle-trees-for-everything](../sections/cask--readme--merkle-trees-for-everything.md) | Blobs, directories, arrays, maps, and sets are all trees of 1KB blocks; GC needs only metadata. |
 | [cask--readme--package-taxonomy](../sections/cask--readme--package-taxonomy.md) | `arraytree` (dense, index-keyed) and `hashtree` (sparse, hash-keyed) are the trie backbones under the data-structure packages. |
 | [cask--readme--why-1kb-blocks](../sections/cask--readme--why-1kb-blocks.md) | A block is simultaneously a Merkle node and a unit of transfer. |
+| [cask--architecture--layer-2-merkle-tree-and-filesystem](../sections/cask--architecture--layer-2-merkle-tree-and-filesystem.md) | The TREE command (SYNC/DIFF/WALK/GC) and a GC-transparent filesystem of Merkle-tree directories and files. |
+| [cask--parallel-arrays--persistent-structures-as-reducers](../sections/cask--parallel-arrays--persistent-structures-as-reducers.md) | Reducers minimize Merkle disturbance by modifying a single leaf-to-root path; 32-way tries keep depth shallow. |
 
 ## See also
 
 - [[content-addressed-block-store]] — the store these trees live in.
 - [[rabin-chunking]] — how blob leaves are chosen so edits are local.
+- [[cask-reducer-pattern]] — operations written to disturb only one path of the tree.
+- [[parallel-arrays-columnar]] — the table structures built over arraytree/hashtree backbones.
