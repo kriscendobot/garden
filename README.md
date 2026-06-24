@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T23:54:25Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T23:55:44Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -37,16 +37,16 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ### doin (3)
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
-- `scholar-ingest-cask-9` — Scholar: continue the library ingest of kriskowal/cask (cycle 10)
+- `scholar-ingest-cask-10` — Scholar: continue the library ingest of kriskowal/cask (cycle 11)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
-### tada (99)
+### tada (100)
+- `scholar-ingest-cask-9` — Completion report — scholar-ingest-cask-9 (cask ingest cycle 10)
 - `scholar-ingest-gtor-recap` — scholar-ingest-gtor-recap — cycle 3 complete: gtor README fully ingested
 - `scholar-ingest-cask-8` — scholar-ingest-cask-8 → cask library ingest cycle 9 complete
 - `scholar-ingest-cask-7` — Cycle 8 complete. Report:
 - `address-review-ebfb-pr513` — Completion report: address-review-ebfb-pr513
-- `scholar-ingest-gtor` — scholar-ingest-gtor — complete (cycle 2 of the gtor README ingest)
-- … and 94 more
+- … and 95 more
 
 ## Watch set
 (none)
@@ -55,8 +55,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 232130Z-progress-gardener-4b3d22.md: gardener-30 on endolinbot claimed job scholar-ingest-cask-7
-- 232242Z-progress-gardener-40ee19.md: gardener-14 on endolinbot completed job scholar-ingest-cask-6
 - 232504Z-progress-gardener-95aff1.md: gardener-16 on endolinbot completed job teardown-live-wip-unwedge-watchman
 - 232737Z-progress-gardener-84cd04.md: gardener-75 on endolinbot claimed job scholar-ingest-gtor-recap
 - 232801Z-result-scholar-5ea427.md: # scholar-ingest-gtor — cycle 2 complete (gtor README async/queue substrate)
@@ -70,6 +68,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 234200Z-progress-gardener-f36ea0.md: gardener-99 on endolinbot claimed job scholar-ingest-cask-9
 - 234241Z-progress-gardener-a6b37d.md: gardener-16 on endolinbot completed job scholar-ingest-cask-8
 - 235331Z-result-scholar-fad5b1.md: # Scholar cycle 10: cask `doc/design/` dir cluster ingested (job `scholar-ingest-cask-9`)
+- 235511Z-progress-gardener-5be133.md: gardener-31 on endolinbot claimed job scholar-ingest-cask-10
+- 235540Z-progress-gardener-b2c144.md: gardener-99 on endolinbot completed job scholar-ingest-cask-9
 ## Latest
 
-Scholar ingests carried the board this window: the gtor README is now fully ingested (cycle 3, `scholar-ingest-gtor-recap`), the cask ingest reached cycle 10 with the `doc/design/` cluster landing (`scholar-ingest-cask-9` completing, cycle-11 work already claimed as `scholar-ingest-cask`), and `address-review-ebfb-pr513` closed out. The board is drained to zero todo with three jobs in flight (cask deepening, cask cycle 10, and the ebfb #96 implementation). Worth a maintainer's eye: a new unread message synthesizing the change-propagation through-lines across FRB / @endo/pubsub / propagators, which flags two follow-ons — ingesting the @endo/pubsub README and notifier-pubsub-migration design as proper library sources, and finishing the partial gtor ingest — and is candid that the propagator model is only partially grounded in the corpus.
+The scholar cask ingest advanced one cycle: `scholar-ingest-cask-9` completed (cask `doc/design/` directory cluster, cycle 10) and `scholar-ingest-cask-10` was immediately claimed to continue into cycle 11. The board is otherwise quiet — nothing waiting in todo, and the three in-flight jobs are the cask ingest plus the long-running `finish-ebfb-pr96` implementation. Worth a maintainer's eye: a fresh unread message from the scholar synthesizing the change-propagation through-lines across FRB, @endo/pubsub, and propagators, with a new `change-propagation` library topic and an honesty flag that the propagator model is only partially grounded in the corpus; it also surfaces follow-ons (ingest the @endo/pubsub README and the rest of gtor) once #513/#507 stabilize.
