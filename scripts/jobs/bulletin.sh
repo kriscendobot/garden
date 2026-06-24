@@ -64,8 +64,18 @@ for attempt in $(seq 1 50); do
   done < <(find "$DIR/entries" -type f -name '*.md' 2>/dev/null | sort | tail -15)
   [ -n "$recent" ] || recent="(no progress entries yet)"$'\n'
 
+  # Freshness stamp. The dashboard is recomputed every 5m (garden-bulletin.timer)
+  # but only rewritten when it changes, so this marks the last change, not the
+  # last check. It is excluded from the change comparison below, so an advancing
+  # timestamp never causes a commit on its own.
+  now=$(date -u +%FT%TZ)
+  next=$(date -u -d '+5 minutes' +%FT%TZ 2>/dev/null \
+         || date -u -d "@$(( $(date -u +%s) + 300 ))" +%FT%TZ 2>/dev/null || echo unknown)
+
   content="$(cat <<EOF
 # Garden bulletin
+
+_As of ${now} · recomputed every 5m by garden-bulletin.timer; next tick ~${next}. Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically every tick by
@@ -89,11 +99,15 @@ ${recent}
 EOF
 )"
 
-  old="$(grep -v '^generated:' "$DIR/bulletin.md" 2>/dev/null || true)"
-  if [ "$content" = "$old" ]; then
+  # Compare ignoring the volatile freshness line (the "_As of …" line) so an
+  # advancing timestamp never causes a commit on its own.
+  vol='^_As of '
+  new_stable="$(printf '%s\n' "$content" | grep -vE "$vol")"
+  old_stable="$(grep -vE "$vol" "$DIR/bulletin.md" 2>/dev/null || true)"
+  if [ "$new_stable" = "$old_stable" ]; then
     log "bulletin unchanged; no commit"; exit 0
   fi
-  { printf '%s\n' "$content"; printf 'generated: %s\n' "$(date -u +%FT%TZ)"; } > "$DIR/bulletin.md"
+  printf '%s\n' "$content" > "$DIR/bulletin.md"
   git -C "$DIR" add bulletin.md
   if commit_and_push "$DIR" "bulletin regenerated"; then log "bulletin regenerated"; exit 0; fi
   rc=$?; [ "$rc" -eq 2 ] && exit 0
