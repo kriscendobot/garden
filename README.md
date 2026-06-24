@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T23:00:26Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T23:01:10Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -95,7 +95,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
 ### tada (85)
-- `scholar-ingest-cask-4` — Scholar cycle 5 for kriskowal/cask: ingested doc/design/trace2.md (7 sections...
+- `scholar-ingest-cask-4` — Scholar cycle 5 — cask doc/design/trace2.md ingest + cask--trace supersession
 - `bulletin-message-links-or-body` — Completion report: bulletin-message-links-or-body
 - `research-frb-endo-exo-collections` — Done. The deliverable is live on origin/journal2 and the temp worktree, stale...
 - `scholar-ingest-cask-3` — Completion report — scholar-ingest-cask-3 (cask library ingest, cycle 4)
@@ -109,7 +109,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 223601Z-message-mentor-269acb.md: ## Maintainer authorization — GitHub-wide @kriscendobot mention watch (sender-gated)
 - 223644Z-progress-gardener-51697d.md: gardener-69 on endolinbot completed job build-github-mention-watcher
 - 224044Z-progress-gardener-c928a9.md: gardener-44 on endolinbot completed job reliable-pause-resume
 - 224501Z-progress-gardener-9f65c3.md: gardener-30 on endolinbot claimed job apply-503-feedback
@@ -124,6 +123,9 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 225808Z-progress-gardener-9cb4b7.md: gardener-76 on endolinbot claimed job address-review-ebfb-pr513
 - 225830Z-result-scholar-893212.md: # Result — cask doc/design ingest cycle 5: trace2.md + the cask--trace supersession
 - 230006Z-progress-gardener-bcdd79.md: gardener-35 on endolinbot claimed job scholar-ingest-cask-5
+- 230047Z-progress-gardener-e106d1.md: gardener-15 on endolinbot completed job scholar-ingest-cask-4
 ## Latest
 
-Scholar's cask ingest rolled forward another cycle: cycle 5 landed (trace2.md plus the cask→trace supersession) and cycle 6 (`scholar-ingest-cask-5`) is already claimed and running, so the library deepening is the only board motion this tick. Worth a maintainer's eye are two fresh inbox messages rather than the board itself: `harden-fleet-gh-identity` reports that uncommitted flock-based "per-clone serialization" WIP sitting in the live `scripts/jobs/common.sh` is wedging garden-watchman — no `origin/main2` change has auto-deployed garden-wide since 51030653 — and needs an owner call to either commit or revert it (the gh-identity fix itself was deployed non-destructively and is live). Separately, the SIWE/OAuth research deliverable is in, recommending the self-hosted `siwe` library + NextAuth path over the embedded-wallet SaaS options.
+Scholar cask ingest cycle 5 just completed (`scholar-ingest-cask-4` moved to tada via gardener-15), and cycle 6 (`scholar-ingest-cask-5`) is already claimed and running — the cask library ingest keeps advancing one cycle at a time. The board is otherwise quiet: todo is empty, seven jobs in flight (two EBFB review-feedback jobs, the comment-watcher timer fix, the producer-push hardening, and the two remaining cask ingests).
+
+Two fresh maintainer messages need a human, and one is load-bearing: `harden-fleet-gh-identity` (gardener-21) reports the live `/home/kris/scripts/jobs/common.sh` carries substantial **uncommitted** flock-based clone-serialization WIP that is not on origin/main2 — and because the tree is dirty, garden-watchman's fast-forward aborts, so **no origin/main2 change has auto-deployed garden-wide** since 51030653. The gardener deployed its own gh-identity fix non-destructively and left the WIP untouched; someone needs to decide whether that flock work gets committed or reverted to unwedge the watchman. Separately, the SIWE/OAuth "sign in with your Ethereum address" research landed with a recommendation (default to the `siwe` library + NextAuth self-hosted; reach for Spruce's `siwe-oidc` only if a standard OIDC IdP is genuinely needed, and vendor it given staleness).
