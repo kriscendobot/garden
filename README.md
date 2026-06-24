@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T23:22:58Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T23:25:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -35,21 +35,20 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - `address-review-ebfb-pr513` — Address kriskowal's CHANGES_REQUESTED review on endo-but-for-bots #513
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
 - `scholar-ingest-cask-7` — Scholar: continue the library ingest of kriskowal/cask (cycle 8)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 - `scholar-ingest-gtor` — Scholar: full ingest of kriskowal/gtor (A General Theory of Reactivity)
-- `teardown-live-wip-unwedge-watchman` — Tear down the live-tree partial WIP and unwedge the watchman (HIGH PRIORITY —...
 
-### tada (93)
+### tada (94)
+- `teardown-live-wip-unwedge-watchman` — Completion report: teardown-live-wip-unwedge-watchman
 - `scholar-ingest-cask-6` — scholar-ingest-cask-6 (cask cycle 7) — completion report
 - `scholar-through-lines-change-propagation` — All work landed and cleaned up. Final report:
 - `scholar-ingest-cask-5` — Completion report — scholar-ingest-cask-5 (scholar cycle 6)
 - `design-siwe-ymax-mcp-auth` — Completion report — design-siwe-ymax-mcp-auth
-- `--help` — The full picture confirms the diagnosis. The job history (8c56609c todo(--hel...
-- … and 88 more
+- … and 89 more
 
 ## Watch set
 (none)
@@ -58,7 +57,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 230724Z-progress-gardener-30d727.md: gardener-54 on endolinbot claimed job scholar-through-lines-change-propagation
 - 230740Z-progress-gardener-d39f64.md: gardener-60 on endolinbot completed job harden-producer-push-path
 - 230821Z-result-scholar-1b6932.md: # Scholar cycle 6: cask cell/entry family ingest (job scholar-ingest-cask-5)
 - 230834Z-progress-gardener-8e55fd.md: gardener-66 on endolinbot claimed job --help
@@ -73,6 +71,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 231935Z-result-scholar-69084d.md: # Scholar cycle 7: cask cell-capabilities.md ingest (job scholar-ingest-cask-6)
 - 232130Z-progress-gardener-4b3d22.md: gardener-30 on endolinbot claimed job scholar-ingest-cask-7
 - 232242Z-progress-gardener-40ee19.md: gardener-14 on endolinbot completed job scholar-ingest-cask-6
+- 232504Z-progress-gardener-95aff1.md: gardener-16 on endolinbot completed job teardown-live-wip-unwedge-watchman
 ## Latest
 
-Scholar cycle 7 finished: gardener-14 completed `scholar-ingest-cask-6` (the cask `cell-capabilities.md` ingest), and gardener-30 immediately claimed the follow-on `scholar-ingest-cask-7` for cask cycle 8 — the library's cask deep-dive keeps rolling. Worth a maintainer glance is the fresh inbox message from the change-propagation scholar synthesis (`scholar-through-lines-change-propagation`, now landed and cleaned up): it curates the theory tying FRB observers, @endo/pubsub topics, and propagators together, and carries an explicit honesty flag that propagators are only partially grounded in the corpus, plus open questions about ingesting the @endo/pubsub README and finishing gtor. The board is otherwise drained to zero todo with six jobs in flight, including the HIGH-PRIORITY `teardown-live-wip-unwedge-watchman` (claimed by gardener-16) and the new full `scholar-ingest-gtor`.
+The watchman live-WIP-unwedge teardown finished (`teardown-live-wip-unwedge-watchman`, doin→tada), clearing the board's todo queue to empty. What remains in flight is almost entirely scholar ingest work: cask cycles 7 and 8, a deepening cask pass, and a fresh full ingest of kriskowal/gtor, alongside the two open endo-but-for-bots jobs (#513 review follow-up and #96 implementation). The item most worth a maintainer's eye is the unread inbox message from the scholar's change-propagation synthesis — it curates the cross-cutting theory behind the FRB / @endo/pubsub / propagators cluster and flags honestly that propagators are only partially grounded in the corpus, with @endo/pubsub README and the notifier-pubsub-migration design still un-ingested as library sources.
