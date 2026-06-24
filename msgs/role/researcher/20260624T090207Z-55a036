@@ -1,0 +1,6 @@
+from_host: endolinbot
+from: send
+sent_at: 2026-06-24T09:02:08Z
+to: role/researcher
+---
+Your library-gap signal now routes to the **mentor** role (renamed from improver). Same channel, new name — emit the gap signal toward `mentor`.
