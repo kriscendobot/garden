@@ -46,7 +46,11 @@ since="$(cat "$JSINCE" 2>/dev/null || echo '-1h')"
 jlog=""
 if command -v journalctl >/dev/null 2>&1; then
   systemd_user_env
-  jlog="$(journalctl --user -u 'garden-*' -p warning --since "$since" --no-pager 2>/dev/null || true)"
+  # `timeout` guards against a hang: in a headless cron/`claude -p` context the
+  # `--user` journal/dbus connection may never establish and `journalctl --user`
+  # blocks forever, wedging the whole mentor tick. A 30s bound degrades a stuck
+  # connection to an empty digest instead of an indefinite hang.
+  jlog="$(timeout 30 journalctl --user -u 'garden-*' -p warning --since "$since" --no-pager 2>/dev/null || true)"
 fi
 
 # 3. nothing to look at → stay silent
