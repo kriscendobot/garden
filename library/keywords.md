@@ -12177,6 +12177,54 @@ incremental update | frb-incremental-update
 incremental binding update | frb-incremental-update
 delta not recompute | frb-incremental-update
 incremental query maintenance | frb-incremental-update
+change propagation | change-propagation
+change-propagation | change-propagation
+incremental change propagation | change-propagation
+delta propagation | change-propagation
+three faces of reactivity | change-propagation
+observers topics propagators | change-propagation
+gtor | change-propagation
+A General Theory of Reactivity | change-propagation
+reactivity taxonomy | change-propagation
+signal vs behavior | change-propagation
+push vs pull | change-propagation
+broadcast vs unicast | change-propagation
+back-pressure | change-propagation
+changes vs latest | changes-versus-latest
+changes versus latest | changes-versus-latest
+latest vs changes | changes-versus-latest
+lossy vs lossless | changes-versus-latest
+lossless deltas vs lossy latest | changes-versus-latest
+current value vs change stream | changes-versus-latest
+forward-lossless | changes-versus-latest
+fully lossless | changes-versus-latest
+`makeChangeTopic` | changes-versus-latest
+`makeLatestTopic` | changes-versus-latest
+@endo/pubsub | endo-pubsub
+endo pubsub | endo-pubsub
+`makePubSub` | endo-pubsub
+sink and spring | endo-pubsub
+`Sink` | endo-pubsub
+`Spring` | endo-pubsub
+async promise linked list | endo-pubsub
+`makeCancelKit` | endo-pubsub
+`nullSink` | endo-pubsub
+`nullSpring` | endo-pubsub
+@endo/exo-pubsub | endo-pubsub
+exo-pubsub | endo-pubsub
+notifier-pubsub-migration | endo-pubsub
+`makeChangesPubSub` | endo-pubsub
+`makeLatestPubSub` | endo-pubsub
+sliding window topic | sliding-window-topic
+sliding-window topic | sliding-window-topic
+ordered collection window | sliding-window-topic
+window over ordered collection | sliding-window-topic
+derived topic | sliding-window-topic
+`view(start, length)` | sliding-window-topic
+frb view | sliding-window-topic
+collection-change propagation | sliding-window-topic
+range-change topic | sliding-window-topic
+windowing over a sorted collection | sliding-window-topic
 FRB incrementality | frb-incremental-update
 bound collection identity never changes | frb-incremental-update
 compiled observer | frb-compiled-observer-tree
