@@ -84,6 +84,72 @@ commit_and_push() {
   return 1
 }
 
+# --- failure capture (the git-content-store pattern) -------------------------
+#
+# A self-healing wrapper should never inline a large failure log into a
+# `claude -p` prompt: it bloats the responder's context and an identical failure
+# never short-circuits. Instead, capture the log as a git blob and pass only its
+# SHA; the responder pulls just the slices it needs with `git cat-file -p <sha> |
+# grep/sed/awk/tail`. Identical inputs hash to identical SHAs, so recurring flakes
+# are recognizable by their content address. See designs/self-healing-audit.md
+# (Part B) and designs/driver.md § Prompt-on-failure capture pattern.
+#
+# Cross-host inspection (the local-clone-vs-cross-host nuance):
+#   `git hash-object -w` writes the blob into the *local* object DB of <clone-dir>
+#   only. Each v2 service hashes into its own $GARDEN_STATE/<svc>/journal clone
+#   (the caller's $DIR), so the blob is reachable by any reader ON THIS HOST but
+#   is NOT on origin and NOT visible to a responder on another host (the central
+#   mentor may run elsewhere). A bare `hash-object` is therefore enough only when
+#   the responder runs on the same host against the same clone.
+#
+#   For a failure that a DIFFERENT host must inspect, the SHA must be made
+#   reachable on the shared remote. Two durable options, in order of preference:
+#     1. Write the SHA into a *committed* board/inbox file (a job body, an
+#        inbox-error report) and push it the normal CAS way. The commit references
+#        the tree, not a loose blob, so `git push origin HEAD:journal2` carries the
+#        blob with it. This is what the v1 report-error.sh does and is the default
+#        for any capture that escalates off-host.
+#     2. Anchor the loose blob under a ref and push that ref, when you want the
+#        capture available before/without a committed escalation:
+#          anchor_blob "$sha" "captures/$(basename ...)" "$dir"   # see below
+#   A capture that only ever feeds a same-host responder needs neither.
+
+# capture_blob <file> [<clone-dir>] -> prints the blob SHA on stdout.
+#
+# Hash <file> into <clone-dir>'s object store (default: the caller's per-service
+# $DIR clone) and print the resulting blob SHA. The blob is written (-w) but
+# unreferenced, so it lives only in that clone's local object DB until a commit
+# or ref makes it reachable for a push — see the cross-host note above.
+capture_blob() {
+  local file="$1" dir="${2:-${DIR:?capture_blob: no clone-dir given and \$DIR unset}}"
+  git -C "$dir" hash-object -w --stdin < "$file"
+}
+
+# inspect_note <sha> [<clone-dir>] -> the one-line brief handed to a responder.
+#
+# Prints the exact command a responder runs to read the captured blob. The
+# responder narrows from there with a pipe (`| grep`, `| tail`, `| sed -n`); it
+# never needs the whole blob in context. Pair the SHA with this note in any
+# `claude -p` prompt or inbox-error report instead of inlining the log body.
+inspect_note() {
+  local sha="$1" dir="${2:-${DIR:?inspect_note: no clone-dir given and \$DIR unset}}"
+  printf 'inspect via: git -C %s cat-file -p %s\n' "$dir" "$sha"
+}
+
+# anchor_blob <sha> <ref-suffix> [<clone-dir>] -> pushes the loose blob to the
+# shared remote under refs/captures/<ref-suffix> so an off-host responder (the
+# central mentor) can fetch it. Use only when you need the capture reachable
+# WITHOUT a committed escalation; the committed-file route (option 1 above) is the
+# default. Returns non-zero (and logs) if the push is rejected; the loose blob is
+# still safe locally, so the caller may fall back to a committed report.
+anchor_blob() {
+  local sha="$1" suffix="$2" dir="${3:-${DIR:?anchor_blob: no clone-dir given and \$DIR unset}}"
+  local ref="refs/captures/$suffix"
+  git -C "$dir" update-ref "$ref" "$sha" || { log "anchor_blob: update-ref $ref failed"; return 1; }
+  git -C "$dir" push -q origin "$ref:$ref" 2>/dev/null \
+    || { log "anchor_blob: push of $ref rejected (blob still local in $dir)"; return 1; }
+}
+
 # Bootstrap the env `systemctl --user` needs in non-login/cron/ssh contexts.
 # (pivoker common.sh does the same; lingering via `loginctl enable-linger` is a
 # separate one-time operator step.)
