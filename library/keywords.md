@@ -12458,42 +12458,76 @@ backpressure | codel-send-buffer-shedding
 wake by traffic class | codel-send-buffer-shedding
 `WithTrafficClass` | codel-send-buffer-shedding
 `TrafficClassFromContext` | codel-send-buffer-shedding
-polymorphic operator | polymorphic-operator
-polymorphic operators | polymorphic-operator
-generic operator | polymorphic-operator
-free-function operator | polymorphic-operator
-operator delegates to method | polymorphic-operator
-eponymous method dispatch | polymorphic-operator
-monkey-patch alternative | polymorphic-operator
-dunk-punch | polymorphic-operator
-`clear` | polymorphic-operator
-`@collections/clear` | polymorphic-operator
-clear operator | polymorphic-operator
-`clone` | polymorphic-operator
-`@collections/clone` | polymorphic-operator
-deep clone cyclic graph | polymorphic-operator
-clone depth memo | polymorphic-operator
-`has` | polymorphic-operator
-`@collections/has` | polymorphic-operator
-has operator membership test | polymorphic-operator
-`hash` | polymorphic-operator
-`@collections/hash` | polymorphic-operator
-hash bucketing key | polymorphic-operator
-`iterate` | polymorphic-operator
-`@collections/iterate` | polymorphic-operator
-iterate operator index property | polymorphic-operator
-`swap` | polymorphic-operator
-`@collections/swap` | polymorphic-operator
-swap rather than splice | polymorphic-operator
-allocation-frugal splice | polymorphic-operator
-operational transform array operator | polymorphic-operator
-`toArray` | polymorphic-operator
-`@collections/to-array` | polymorphic-operator
-to-array coercion | polymorphic-operator
-`zip` | polymorphic-operator
-`unzip` | polymorphic-operator
-`@collections/zip` | polymorphic-operator
-zip unzip transpose | polymorphic-operator
-`copy` | polymorphic-operator
-`@collections/copy` | polymorphic-operator
-copy owned properties mix prototypes | polymorphic-operator
+
+# --- cask GC family + dbstore + cryptography (scholar-ingest-cask-3, cycle 4, 2026-06-24) ---
+gc-quarantine-store | gc-quarantine-store
+GC quarantine | gc-quarantine-store
+quarantine store | gc-quarantine-store
+write quarantine | gc-quarantine-store
+`CollectorStore` | gc-quarantine-store
+`CollectibleStore` | gc-quarantine-store
+collectorstore | gc-quarantine-store
+diskcollectorstore | gc-quarantine-store
+mark and sweep | gc-quarantine-store
+mark-and-sweep | gc-quarantine-store
+snapshot GC | gc-quarantine-store
+concurrent GC | gc-quarantine-store
+install-after-store | gc-quarantine-store
+root swap | gc-quarantine-store
+atomic root swap | gc-quarantine-store
+`RootRef` | gc-quarantine-store
+epoch monotonicity | gc-quarantine-store
+quarantine flush | gc-quarantine-store
+quarantine visibility | gc-quarantine-store
+WAL quarantine | gc-quarantine-store
+`diskHashSet` | gc-quarantine-store
+mark set | gc-quarantine-store
+markset | gc-quarantine-store
+retained set | gc-quarantine-store
+`RetainSet` | gc-quarantine-store
+missing link | gc-quarantine-store
+missing links | gc-quarantine-store
+copy-forward | gc-quarantine-store
+pinned roots | gc-quarantine-store
+pinned content | gc-quarantine-store
+deadline retention | gc-quarantine-store
+deadline-based retention | gc-quarantine-store
+ephemeral retention | gc-quarantine-store
+root set | gc-quarantine-store
+cask garbage collection | gc-quarantine-store
+content-agnostic GC | gc-quarantine-store
+`Collect` | gc-quarantine-store
+hash-trie of roots | gc-quarantine-store
+top-to-bottom insertion | gc-quarantine-store
+pin the root | gc-quarantine-store
+caskdbstore | content-addressed-block-store
+dbstore | content-addressed-block-store
+single-directory block store | content-addressed-block-store
+flat-file block store | content-addressed-block-store
+`.cask` directory | content-addressed-block-store
+blocks file | content-addressed-block-store
+meta file | content-addressed-block-store
+store nonce | content-addressed-block-store
+WAL staging | content-addressed-block-store
+write-ahead log block store | content-addressed-block-store
+flock owner process | content-addressed-block-store
+pread block store | content-addressed-block-store
+alloc file | swap-to-end-allocation
+on-disk allocator | swap-to-end-allocation
+persistent allocator | swap-to-end-allocation
+hashmap file | swap-to-end-allocation
+Robin Hood hashing | swap-to-end-allocation
+Robin Hood probing | swap-to-end-allocation
+open-addressing hash table | swap-to-end-allocation
+adaptive integer width | swap-to-end-allocation
+Option A PSK | noise-ik-session-establishment
+Option B DH | noise-ik-session-establishment
+one-way DH | noise-ik-session-establishment
+pre-shared secret | noise-ik-session-establishment
+minimal crypto proposal | noise-ik-session-establishment
+cryptography.md | noise-ik-session-establishment
+secure transport proposal | noise-ik-session-establishment
+deadlines local vs wire | noise-ik-session-establishment
+session in CAS | noise-ik-session-establishment
+counter nonce replay | noise-ik-session-establishment
+

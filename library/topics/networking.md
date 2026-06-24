@@ -33,6 +33,10 @@
 | [cask--net-session-init-design--psk-handshake-packet-formats](../sections/cask--net-session-init-design--psk-handshake-packet-formats.md) | cask net-session-init | **Superseded**: the previous PSK + BLAKE2b-128 init/tini handshake and `K = BLAKE2b-256(...)`. |
 | [cask--net-design--backpressure-and-traffic-class-wake](../sections/cask--net-design--backpressure-and-traffic-class-wake.md) | cask net-design | Enqueue-side backpressure: block `Store()` on a full queue; wake by TrafficClass via 129 channels. |
 | [cask--net-design--lost-notification-coordination](../sections/cask--net-design--lost-notification-coordination.md) | cask net-design | The increment-under-lock / notify-after-unlock proof that no drain notification is lost. |
+| [cask--cryptography--goal-and-constraints](../sections/cask--cryptography--goal-and-constraints.md) | cask cryptography | The secure-transport proposal: encrypt UDP without TLS; unordered messages; deadlines local-vs-wire. |
+| [cask--cryptography--option-a-pre-shared-secret](../sections/cask--cryptography--option-a-pre-shared-secret.md) | cask cryptography | Option A (PSK): no handshake; BLAKE2b session key; counter-nonce replay. Origin of the superseded PSK form. |
+| [cask--cryptography--option-b-one-way-dh](../sections/cask--cryptography--option-b-one-way-dh.md) | cask cryptography | Option B (one-way x25519 DH): single-flight establishment + optional ed25519 auth; ancestor of Noise IK. |
+| [cask--cryptography--unordered-noise-and-smallest-path](../sections/cask--cryptography--unordered-noise-and-smallest-path.md) | cask cryptography | Why CASK avoids ordered Noise handshakes; the rollout path; reference primitives. |
 
 ## See also
 

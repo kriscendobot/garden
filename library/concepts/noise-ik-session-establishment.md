@@ -21,6 +21,8 @@ How casknet (CASK's encrypted-UDP inter-node protocol) sets up a secure session 
 | [cask--net-session-init-design--psk-handshake-packet-formats](../sections/cask--net-session-init-design--psk-handshake-packet-formats.md) | The **previous** PSK + BLAKE2b-128 handshake (superseded). |
 | [cask--architecture--layers-0-1-block-transfer-and-session](../sections/cask--architecture--layers-0-1-block-transfer-and-session.md) | Layered overview describing the older PSK init/tini form. |
 | [cask--architecture--ledger-sampling-and-security](../sections/cask--architecture--ledger-sampling-and-security.md) | The layered security model: ed25519/x25519/Noise authentication. |
+| [cask--cryptography--option-b-one-way-dh](../sections/cask--cryptography--option-b-one-way-dh.md) | The design predecessor: one-way x25519 DH + optional ed25519 auth that Noise IK realizes. |
+| [cask--cryptography--option-a-pre-shared-secret](../sections/cask--cryptography--option-a-pre-shared-secret.md) | The design predecessor's PSK option — origin of the superseded PSK handshake. |
 
 ## See also
 
@@ -28,6 +30,7 @@ How casknet (CASK's encrypted-UDP inter-node protocol) sets up a secure session 
 - [[casknet-wire-protocol]] — the reversed-response command set and AEAD envelope the session carries.
 - [[content-addressed-block-store]] — the 1KB blocks the AEAD envelope carries.
 - [[codel-send-buffer-shedding]] — scheduling of the encrypted datagrams once a session exists.
+- [[gc-quarantine-store]] — ephemeral session state lives in the deadline-based retention regime, evicted on TTL.
 
 ## Common confusions
 

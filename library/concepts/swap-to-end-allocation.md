@@ -15,9 +15,12 @@ An allocation discipline for fixed-capacity parallel-array tables. A single `ent
 |---|---|
 | [cask--parallel-arrays--in-memory-pattern](../sections/cask--parallel-arrays--in-memory-pattern.md) | The entities/coEntities free-list partition, append-to-end alloc, swap-to-end free, and the Swap primitive. |
 | [cask--parallel-arrays--persistent-structures-as-reducers](../sections/cask--parallel-arrays--persistent-structures-as-reducers.md) | CaskAllocator: persistent free list, Alloc/Free touch O(log n) in entities only, values untouched. |
+| [cask--dbstore-design--on-disk-file-formats](../sections/cask--dbstore-design--on-disk-file-formats.md) | The `alloc` flat file: the swap-to-end allocator persisted on disk at adaptive 1/2/4/8-byte width. |
+| [cask--dbstore-design--implementation-plan-and-sizing](../sections/cask--dbstore-design--implementation-plan-and-sizing.md) | Slot Allocate/Free against the alloc file; rebuildable from meta if lost. |
 
 ## See also
 
 - [[parallel-arrays-columnar]] — the columnar layout swap-to-end allocates within.
 - [[cask-reducer-pattern]] — Alloc/Free are reducers returning a new root hash.
 - [[merkle-tree-of-blocks]] — why touching only the entities array (not values) limits disturbance.
+- [[gc-quarantine-store]] — caskdbstore's GC frees swept slots back into this allocator.

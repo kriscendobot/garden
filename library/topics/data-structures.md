@@ -55,6 +55,7 @@
 | [cask--package-taxonomy--naming-conventions](../sections/cask--package-taxonomy--naming-conventions.md) | cask package-taxonomy | Package naming suffixes; `cask`-prefixed declarations under `cask/`, bare names under `cask/go/`; import aliases. |
 | [cask--package-taxonomy--design-patterns](../sections/cask--package-taxonomy--design-patterns.md) | cask package-taxonomy | The `(root_hash, args) → new_root_hash` reducer and the parallel-array column layout, stated from the taxonomy. |
 | [cask--package-taxonomy--future-structures](../sections/cask--package-taxonomy--future-structures.md) | cask package-taxonomy | Sketches: a Rabin-chunked sorted array and a circular doubly-linked list over int-arrays. |
+| [cask--dbstore-design--on-disk-file-formats](../sections/cask--dbstore-design--on-disk-file-formats.md) | cask dbstore | On-disk swap-to-end allocator and a Robin-Hood open-addressing hash table at adaptive integer width. |
 
 ## See also
 

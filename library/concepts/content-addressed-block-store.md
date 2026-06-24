@@ -20,6 +20,7 @@ A store in which every unit of data is a fixed-size **block** named by the crypt
 | [cask--readme--content-agnostic-gc](../sections/cask--readme--content-agnostic-gc.md) | GC walks the retention graph from pinned roots using only block metadata. |
 | [cask--architecture--design-principles-and-protocols](../sections/cask--architecture--design-principles-and-protocols.md) | The two protocols (casknet, casksock) and the optional five-layer casknet stack over the block foundation. |
 | [cask--architecture--layers-0-1-block-transfer-and-session](../sections/cask--architecture--layers-0-1-block-transfer-and-session.md) | Layer 0 LOAD/STOR block transfer as the unchanging foundation under sessions and higher layers. |
+| [cask--dbstore-design--goals-and-directory-layout](../sections/cask--dbstore-design--goals-and-directory-layout.md) | caskdbstore: a `cask.CASStore` keeping all blocks in a few flat files with on-disk content-addressed indexes. |
 
 ## See also
 
@@ -28,6 +29,7 @@ A store in which every unit of data is a fixed-size **block** named by the crypt
 - [[parallel-arrays-columnar]] — the columnar pattern CASK's persistent tables use.
 - [[cask-reducer-pattern]] — operations consume and produce the store's root hashes.
 - [[noise-ik-session-establishment]] — how casknet secures block transfer between nodes.
+- [[gc-quarantine-store]] — how CASK garbage-collects blocks no longer reachable from a pinned root.
 
 ## Common confusions
 

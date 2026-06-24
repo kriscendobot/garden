@@ -27,6 +27,6 @@ status: current
 
 - Repository default branch `main`; file last modified 2026-02-14 by Kris Kowal.
 - **Supersession**: this document is the forward authority on casknet session cryptography. The PSK-handshake material in `cask--net-session-init-design--psk-handshake-packet-formats` is marked `superseded` and points here. The architecture overview's Layer 1 (`cask--architecture--layers-0-1-block-transfer-and-session`) describes the same PSK form and is soft-flagged with a `notes:` pointer to this reconciliation; it remains useful as a layered overview.
-- The `cryptography.md` design doc (the "CRYPTOGRAPHY.md Option A (PSK) / Option B (DH)" referenced from net-session-init-design) is deferred to a follow-on cask ingest; net-crypto.md is the realization of Option B (DH).
+- The `cryptography.md` design doc (the "Option A (PSK) / Option B (DH)" minimal proposal referenced from net-session-init-design) was ingested cycle 4 (`scholar-ingest-cask-3`, 2026-06-24) — see `cask--cryptography.md`. net-crypto.md is the realization of its Option B (DH) direction as a full Noise IK handshake; `cask--cryptography--option-b-one-way-dh` and `cask--cryptography--option-a-pre-shared-secret` cross-link here.
 
 Source: [doc/design/net-crypto.md](https://github.com/kriskowal/cask/blob/cdb975d875b876c8fb7b4fb9e97f6567b52a7aa4/doc/design/net-crypto.md) at commit `cdb975d8`.

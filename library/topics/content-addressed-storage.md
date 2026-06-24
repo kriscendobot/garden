@@ -21,6 +21,21 @@
 | [cask--parallel-arrays--compact-index-representation](../sections/cask--parallel-arrays--compact-index-representation.md) | cask parallel-arrays | Adaptive index width with hysteresis; positional-link table roots more compact than caskmap. |
 | [cask--parallel-arrays--universal-tree-and-schema-hashes](../sections/cask--parallel-arrays--universal-tree-and-schema-hashes.md) | cask parallel-arrays | Schema hashes self-describe structures; directories-as-tables; one adaptive TreeNode schema. |
 | [cask--parallel-arrays--rabin-bounded-sorted-indexes](../sections/cask--parallel-arrays--rabin-bounded-sorted-indexes.md) | cask parallel-arrays | Rabin-chunked sorted (key, slot) records give B-tree queries without rebalancing. |
+| [cask--gc-and-retention--overview-and-two-regimes](../sections/cask--gc-and-retention--overview-and-two-regimes.md) | cask gc-and-retention | Two retention regimes: pinned-roots (on-disk, hash-trie) vs deadline (in-memory, min-heap). |
+| [cask--gc-and-retention--pinned-roots-hash-trie](../sections/cask--gc-and-retention--pinned-roots-hash-trie.md) | cask gc-and-retention | Roots in a persistent hash-trie; retained set by mark/sweep; snapshot+chain optimization. |
+| [cask--gc-and-retention--deadline-based-ephemeral-retention](../sections/cask--gc-and-retention--deadline-based-ephemeral-retention.md) | cask gc-and-retention | In-memory deadline retention via a min-heap (recvbuffer/tempstore pattern); evict at now_ns. |
+| [cask--gc-concurrent-design--snapshot-gc-with-quarantine](../sections/cask--gc-concurrent-design--snapshot-gc-with-quarantine.md) | cask gc-concurrent | Snapshot GC with mandatory write quarantine; CollectorStore (primary + quarantine). |
+| [cask--gc-concurrent-design--concurrency-invariants-and-root-swaps](../sections/cask--gc-concurrent-design--concurrency-invariants-and-root-swaps.md) | cask gc-concurrent | Seven invariants (install-after-store, snapshot safety, epoch monotonicity); Collect channel API. |
+| [cask--gc-concurrent-design--proposed-tests](../sections/cask--gc-concurrent-design--proposed-tests.md) | cask gc-concurrent | Tests asserting retention under concurrent root swaps across blob/dir/array. |
+| [cask--store-gc-design--architecture-and-root-set-keying](../sections/cask--store-gc-design--architecture-and-root-set-keying.md) | cask store-gc | Store wrapper + cask/set root set keyed by a 32-bit projection of the 32-byte hash. |
+| [cask--store-gc-design--mark-and-sweep](../sections/cask--store-gc-design--mark-and-sweep.md) | cask store-gc | Mark via Links through successful Loads; sweep stored-and-unreachable; index/List/copy-forward. |
+| [cask--store-gc-design--missing-links-and-insertion-order](../sections/cask--store-gc-design--missing-links-and-insertion-order.md) | cask store-gc | Failed Load ≠ garbage; pin-root-when-stored + top-to-bottom write order; safety table. |
+| [cask--store-gc-design--higher-level-ops-and-root-set-retention](../sections/cask--store-gc-design--higher-level-ops-and-root-set-retention.md) | cask store-gc | Blob/dir write order; multi-root pins; the root set retains itself via a fixed meta root. |
+| [cask--dbstore-design--goals-and-directory-layout](../sections/cask--dbstore-design--goals-and-directory-layout.md) | cask dbstore | caskdbstore goals and the `.cask/` flat-file layout (blocks, meta, alloc, hashmap, root, WAL). |
+| [cask--dbstore-design--on-disk-file-formats](../sections/cask--dbstore-design--on-disk-file-formats.md) | cask dbstore | Byte-exact blocks/meta/alloc/hashmap/root/nonce/WAL formats; Robin-Hood hashmap; 1068-byte WAL entry. |
+| [cask--dbstore-design--operations-store-load-cas-collect](../sections/cask--dbstore-design--operations-store-load-cas-collect.md) | cask dbstore | Store/Load/Consolidate/CAS/Collection; WAL-as-quarantine mark-and-sweep with on-disk diskHashSet. |
+| [cask--dbstore-design--concurrency-model-and-lock-protocol](../sections/cask--dbstore-design--concurrency-model-and-lock-protocol.md) | cask dbstore | Single flock-owner mutator; lock-free WAL writers; lock-free pread readers over append-only files. |
+| [cask--dbstore-design--implementation-plan-and-sizing](../sections/cask--dbstore-design--implementation-plan-and-sizing.md) | cask dbstore | Phases 1–4; slot alloc against the alloc file; root temp+rename; sizing; diskstore comparison. |
 
 ## See also
 

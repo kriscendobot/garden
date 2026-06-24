@@ -444,6 +444,11 @@ These three repos were forked under the bot account for future garden work and g
 | [doc/design/net-crypto.md](cask--net-crypto.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 6 | current (the **authoritative** casknet crypto: Noise IK + x25519 DH + forward secrecy; supersedes the PSK handshake) |
 | [doc/design/net-session-init-design.md](cask--net-session-init-design.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 5 | current (command vocabulary, session state, inner-command wire formats, security; the PSK-handshake section is superseded by net-crypto) |
 | [doc/design/net-design.md](cask--net-design.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 2 | current (enqueue-side send-buffer backpressure: wake-by-TrafficClass and the no-lost-notification proof) |
+| [doc/design/gc-and-retention.md](cask--gc-and-retention.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 3 | current (the two retention regimes: pinned-roots hash-trie + mark/sweep vs deadline-based in-memory min-heap) |
+| [doc/design/gc-concurrent-design.md](cask--gc-concurrent-design.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 3 | current (concurrency-safe snapshot GC with mandatory write quarantine; seven invariants; CollectorStore; Collect channel API) |
+| [doc/design/store-gc-design.md](cask--store-gc-design.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 4 | current (store-wrapper + cask/set root set + mark/sweep; missing-link/insertion-order discipline; root-set self-retention) |
+| [doc/design/dbstore-design.md](cask--dbstore-design.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 5 | current (caskdbstore: flat-file single-directory block store; on-disk alloc+hashmap; flock-owner+WAL concurrency; WAL-quarantine GC) |
+| [doc/design/cryptography.md](cask--cryptography.md) | kriskowal/cask | 2026-02-14 | Kris Kowal | 4 | current (the secure-transport "minimal proposal": Option A PSK / Option B one-way DH; design predecessor net-crypto.md realizes as Noise IK) |
 
 #### Collections per-package READMEs (begin 2026-06-24 via `scholar-ingest-collections`)
 
