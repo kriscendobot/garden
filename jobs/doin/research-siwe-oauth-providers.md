@@ -51,3 +51,9 @@ provider/claim with a current source. If a key fact can't be verified, say so ra
 than guessing.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 42
+  claimed_at: 2026-06-24T22:18:31Z
