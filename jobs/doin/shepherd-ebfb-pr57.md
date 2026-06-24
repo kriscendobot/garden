@@ -27,3 +27,9 @@ Worktree note: a prepared worktree already exists at
 pushed head) if useful; otherwise create your own. Bot identity; no ferry.
 
 Posted by gardener port-ebfb-pr57-onto-475 after a successful port.
+
+---
+claim:
+  host: endolinbot
+  gardener: 81
+  claimed_at: 2026-06-24T22:22:01Z
