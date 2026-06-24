@@ -10,7 +10,8 @@ Writes the bulletin's narrative `## Latest` section: a terse account of what jus
 moved on the job board and what a maintainer should notice. Read-only on the
 board. It writes no jobs, opens no PRs, touches no project source tree, and never
 edits the journal itself. It returns prose to `scripts/jobs/bulletin.sh`, which is
-the single writer of `journal/bulletin.md`.
+the single writer of `journal/README.md` (the journal's landing page IS the
+bulletin; the journal's design/layout narrative lives at `journal/DESIGN.md`).
 
 Assumes you have already read `roles/COMMON.md`.
 

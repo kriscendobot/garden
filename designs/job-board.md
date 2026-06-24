@@ -23,7 +23,8 @@ at a throwaway journal.
 ## 1. The journal as bus + board
 
 The bus is the orphan branch `journal2` (checked out in the `journal/`
-directory). Layout (see `journal/README.md`):
+directory). Layout (see `journal/DESIGN.md`; the journal's `README.md` is now the
+live maintainer dashboard written by `scripts/jobs/bulletin.sh`):
 
 ```
 jobs/{todo,doin,tada}/   the board lifecycle

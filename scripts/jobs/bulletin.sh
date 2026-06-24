@@ -1,7 +1,8 @@
 #!/bin/bash
-# bulletin.sh — the continuous bulletin loop: keep journal/bulletin.md current as
+# bulletin.sh — the continuous bulletin loop: keep journal/README.md current as
 # the job board advances, augmenting the deterministic dashboard with a
-# journalist's `## Latest` narrative.
+# journalist's `## Latest` narrative. The journal's landing page IS the bulletin;
+# the journal's design/layout narrative lives at journal/DESIGN.md.
 #
 # Usage: bulletin.sh
 #
@@ -118,7 +119,8 @@ _As of ${now} · updated continuously as the job board advances (garden-bulletin
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
-journalist's narrative in the Latest section.
+journalist's narrative in the Latest section. This page (the journal's README.md)
+IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](DESIGN.md).
 
 ## Messages to the maintainer
 
@@ -203,7 +205,7 @@ while :; do
   # volatile freshness line) against the dashboard already posted. If they match,
   # the board has not advanced beyond what is published (or another host posted
   # the current state first), so we run no journalist and make no commit.
-  old_full="$(cat "$DIR/bulletin.md" 2>/dev/null || true)"
+  old_full="$(cat "$DIR/README.md" 2>/dev/null || true)"
   if [ "$(stable "$dashboard")" = "$(stable "$(dashboard_part "$old_full")")" ]; then
     # Nothing to post. Advance the cursor to head so a transition another host
     # already narrated is not re-narrated by us on the next real change.
@@ -219,8 +221,8 @@ while :; do
   latest="$(narrate "$dashboard" "$cursor" "$head" "$prior_latest")"
   if [ -n "$latest" ]; then content="$dashboard"$'\n'"$latest"; else content="$dashboard"; fi
 
-  printf '%s\n' "$content" > "$DIR/bulletin.md"
-  git -C "$DIR" add bulletin.md
+  printf '%s\n' "$content" > "$DIR/README.md"
+  git -C "$DIR" add README.md
   if commit_and_push "$DIR" "bulletin: narrate board advance"; then
     # Advance the cursor durably ONLY after the push is accepted, so a crash
     # between post and cursor-write re-processes rather than skips.

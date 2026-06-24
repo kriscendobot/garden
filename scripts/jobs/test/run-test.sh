@@ -273,8 +273,8 @@ ohead() { git ls-remote "$BARE" "refs/heads/$BRANCH" | awk '{print $1}'; }
 # (1) cold pass: deterministic dashboard + journalist `## Latest`, cursor written
 run_bul
 BV="$TR/bv"; rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
-{ [ -f "$BV/bulletin.md" ] && grep -q '^# Garden bulletin' "$BV/bulletin.md" \
-  && grep -q '^## Board' "$BV/bulletin.md" && grep -q '^## Latest$' "$BV/bulletin.md"; } \
+{ [ -f "$BV/README.md" ] && grep -q '^# Garden bulletin' "$BV/README.md" \
+  && grep -q '^## Board' "$BV/README.md" && grep -q '^## Latest$' "$BV/README.md"; } \
   && ok "bulletin assembled with deterministic board + journalist ## Latest" || bad "bulletin missing board or ## Latest"
 [ -s "$CALLS" ] && ok "journalist invoked on a changed board" || bad "journalist not invoked on change"
 { [ -f "$CURSOR_FILE" ] && [ -s "$CURSOR_FILE" ]; } && ok "durable cursor written after post" || bad "cursor not written"
@@ -293,7 +293,7 @@ push_change "jobs/todo/bul-newjob.md" "# new" "add a job to change board state"
 run_bul
 rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
 h3="$(ohead)"
-{ [ "$h3" != "$h2" ] && grep -q '^## Latest$' "$BV/bulletin.md" && [ -s "$CALLS" ]; } \
+{ [ "$h3" != "$h2" ] && grep -q '^## Latest$' "$BV/README.md" && [ -s "$CALLS" ]; } \
   && ok "board change → fresh bulletin, journalist re-narrates" || bad "board change did not refresh"
 # the transitions section (not the dashboard, which may mention old jobs in
 # Recent progress) must carry only the since-cursor delta
@@ -308,7 +308,7 @@ push_change "jobs/todo/bul-newjob2.md" "# new2" "another board change"
 run_bul "$HERE/bulletin-fail-stub.sh"
 rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
 h4="$(ohead)"
-{ [ "$h4" != "$h3" ] && grep -q '^## Board' "$BV/bulletin.md" && grep -q '^## Latest$' "$BV/bulletin.md"; } \
+{ [ "$h4" != "$h3" ] && grep -q '^## Board' "$BV/README.md" && grep -q '^## Latest$' "$BV/README.md"; } \
   && ok "journalist failure still ships deterministic bulletin (prior ## Latest preserved)" || bad "degradation broke the bulletin"
 [ "$(cat "$CURSOR_FILE")" = "$h4" ] && ok "cursor advances even on degraded post" || bad "cursor stalled on degraded post"
 rm -rf "$BV"
