@@ -1,5 +1,5 @@
 [Unit]
-Description=Garden improver timer
+Description=Garden mentor timer
 
 [Timer]
 OnActiveSec=30m

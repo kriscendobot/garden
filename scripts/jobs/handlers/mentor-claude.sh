@@ -1,26 +1,26 @@
 #!/bin/bash
-# improver-claude.sh — default self-improvement handler: find opportunities via
-# `claude -p` wearing the improver role, and post them as jobs for gardeners.
+# mentor-claude.sh — default self-improvement handler: find opportunities via
+# `claude -p` wearing the mentor role, and post them as jobs for gardeners.
 #
-# Invoked by improver.sh as: improver-claude.sh <digest-file>
+# Invoked by mentor.sh as: mentor-claude.sh <digest-file>
 # The digest is the unseen journal entries (progress + errors). The inner agent
 # looks for: recurring failures worth hardening a script against, and
 # responsibilities currently done by an agent that a script could do more
 # reliably. It emits job blocks (JOB <base> … ENDJOB); this handler posts each.
 #
-# Test harness overrides GARDEN_IMPROVE_HANDLER with a deterministic stub.
+# Test harness overrides GARDEN_MENTOR_HANDLER with a deterministic stub.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../common.sh
 source "$HERE/../common.sh"
-GARDEN_TAG="improver-claude"
+GARDEN_TAG="mentor-claude"
 
-digest="${1:?usage: improver-claude.sh <digest-file>}"
-role_brief="$GARDEN_ROOT/roles/improver/AGENT.md"
+digest="${1:?usage: mentor-claude.sh <digest-file>}"
+role_brief="$GARDEN_ROOT/roles/mentor/AGENT.md"
 
 prompt="$(cat <<EOF
-You are the garden improver (role brief: $role_brief). Below are recent journal
+You are the garden mentor (role brief: $role_brief). Below are recent journal
 entries (progress and errors). Identify concrete opportunities to (a) harden a
 scripted automation against a recurring failure, or (b) move a responsibility off
 an agent into a script where it can run more reliably. For each, emit a job block
@@ -38,7 +38,7 @@ $(cat "$digest")
 EOF
 )"
 
-command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run improver"
+command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run mentor"
 out="$(claude -p "$prompt")"
 
 base=""; body=""

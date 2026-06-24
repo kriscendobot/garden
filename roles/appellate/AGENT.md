@@ -49,7 +49,7 @@ An item the appellate decides not to appeal is silent; only proposed promotions 
 ## Discipline
 
 - **Conservative bias.** When in doubt, the panel's deferral stands. The appellate catches items the panel *clearly should not have deferred* given the small-and-in-context criteria; it does not second-guess every disposition.
-- **External-author calibration.** When the PR's `author.login` is not the host's bot identity, do not appeal house-prose-style findings (they should already be `drop`); proposed-rule findings on external-author PRs are escalation targets for the improver/watchman, not appeal candidates.
+- **External-author calibration.** When the PR's `author.login` is not the host's bot identity, do not appeal house-prose-style findings (they should already be `drop`); proposed-rule findings on external-author PRs are escalation targets for the mentor/watchman, not appeal candidates.
 - **Cite the rule.** Proposals cite the same rule citations the panel's findings carried; the appeal does not re-derive the underlying rule.
 - **Terse and structured.** Under ~600 words; typical output is 3 to 8 proposed promotions.
 - **Advisory only.** The appellate pass does not block the un-draft, does not push, and does not comment on the PR. Skippable when the terminating round has zero `follow-up` and zero `acknowledge` items, or on a tiny variant where deferred items are clearly out of scope.

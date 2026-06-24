@@ -30,7 +30,7 @@ If `downstream_role` or the task body is missing, message the maintainer describ
 
 - [library-lookup]: the canonical primitive. Invoke it once per domain term identified in the task, indexing on the fly per the skill's writeback procedure. The researcher is the primary library-lookup caller; every refinement improves the keyword index for the next caller.
 - [job-board](../../skills/job-board/SKILL.md): when run as a posted `research` job, complete it with the refinement section.
-- [message-bus](../../skills/message-bus/SKILL.md): surface a discovered library gap to the improver / liaison.
+- [message-bus](../../skills/message-bus/SKILL.md): surface a discovered library gap to the mentor / liaison.
 
 ## Procedure
 
@@ -61,7 +61,7 @@ If `downstream_role` or the task body is missing, message the maintainer describ
 1. A one-paragraph summary of what the task is about and what the refinement contributes.
 2. The `## Library and project references` section verbatim (the part that gets inlined into the design/build job).
 3. A *Library writeback* paragraph listing any keyword shortcuts added, concept pages drafted, or distractions pruned.
-4. *Open questions* (when applicable): terms whose canonical material the researcher could not find; signals for the improver to grow the corpus.
+4. *Open questions* (when applicable): terms whose canonical material the researcher could not find; signals for the mentor to grow the corpus.
 
 ## External-repo etiquette
 

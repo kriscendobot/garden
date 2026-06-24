@@ -274,15 +274,15 @@ grep -q '^- todo: ' "$BV/bulletin.md" && [ "$(git -C "$BV" rev-parse HEAD)" != "
   && ok "board change triggers a fresh bulletin" || bad "bulletin did not refresh on change"
 
 # ============================================================================
-hr; echo "SUBTEST 11 — IMPROVER: log → improvement job (self-healing)"; hr
+hr; echo "SUBTEST 11 — MENTOR: log → improvement job (self-healing)"; hr
 export GARDEN_STATE="$TR/state-imp" GARDEN_HOST=ihost
 printf 'a connection error occurred during push\n' | GARDEN_ROLE=gardener "$JOBS/journal-entry.sh" error >/dev/null
-env GARDEN_IMPROVE_HANDLER="$HERE/improver-stub.sh" "$JOBS/improver.sh" >/dev/null 2>&1
+env GARDEN_MENTOR_HANDLER="$HERE/mentor-stub.sh" "$JOBS/mentor.sh" >/dev/null 2>&1
 IV="$TR/imv"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$IV"
 nimp=$(ls -1 "$IV/jobs/todo" | grep -c '^improve-' || true)
 [ "$nimp" -ge 1 ] && ok "error entry → improvement job posted" || bad "no improvement job ($nimp)"
 rm -rf "$IV"
-env GARDEN_IMPROVE_HANDLER="$HERE/improver-stub.sh" "$JOBS/improver.sh" >/dev/null 2>&1
+env GARDEN_MENTOR_HANDLER="$HERE/mentor-stub.sh" "$JOBS/mentor.sh" >/dev/null 2>&1
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$IV"
 nimp2=$(ls -1 "$IV/jobs/todo" | grep -c '^improve-' || true)
 [ "$nimp2" -eq "$nimp" ] && ok "no new entries → silent, no duplicate job" || bad "re-run changed jobs ($nimp→$nimp2)"

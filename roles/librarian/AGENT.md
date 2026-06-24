@@ -38,6 +38,14 @@ The `librarian` job (or bus message) names the question, the breadcrumbs to star
 - **Cite, do not paraphrase.** The return is a list of paths the asking role can read directly, each with a one-sentence abstract. The librarian does not synthesize a long prose answer.
 - **Empty results are a real return.** "Nothing found at `<breadcrumbs>`; tried: `<list>`" is a complete answer when the question has no hit. Do not fabricate a partial match.
 
+## Proactive library audit (scheduled)
+
+Beyond answering on-demand questions, the librarian owns the library's **research context-efficiency**: future research must be doable without burning a reader's context budget on oversized documents or dead-end searches. A recurring `librarian-library-audit` job (posted by the scheduler — see `journal/schedules/librarian-library-audit`) drives this:
+
+- **Audit for oversize documents.** Walk `library/sections/`, `library/concepts/`, and `library/topics/`. Flag any file that violates the [context-library] abstract-at-the-top exit-criterion contract — too long to skim against its abstract, or mixing several distinct concepts under one file. Post a **split** job for each: break it into finer-grain per-concept files per [context-library].
+- **Audit for index gaps.** Flag concepts/keywords absent from `library/keywords.md`, topics absent from `topics/README.md`, and sources absent from `sources/README.md`. Post an **index** job for each gap.
+- **Post, do not edit.** This audit mode may **post board jobs** (a narrow carve-out from the otherwise read-only posture), but it still does not edit library documents or push code directly — the actual splitting and indexing is done by the posted jobs when a worker claims them. The audit's own deliverable is the set of posted jobs (or "library within budget; nothing posted").
+
 ## Done
 
 The job's `tada` report (or the bus reply) is a single message:

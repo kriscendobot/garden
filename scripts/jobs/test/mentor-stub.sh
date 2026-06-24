@@ -1,5 +1,5 @@
 #!/bin/bash
-# improver-stub.sh — deterministic improver handler for tests. If the digest
+# mentor-stub.sh — deterministic mentor handler for tests. If the digest
 # mentions an error, post one improvement job.
 set -euo pipefail
 digest="${1:?digest}"

@@ -29,7 +29,7 @@ v1's `panel-hints` signal-gating (firing only the subset of seats whose lens has
 - **Pre-run state check.** Confirm the PR is `OPEN` and still `isDraft` before fanning the panel; a PR closed or un-drafted since the gauntlet decided to run short-circuits to a no-op.
 - **First-round briefing.** This is the first code-panel round: each seat approaches the PR fresh, with no prior verdict to cite. The delta-briefed re-runs are the [justice](../justice/AGENT.md)'s surface (the loop's later iterations).
 - **Disposition decision.** The script's decide step reduces the panel's findings to `must-fix` (loop) or `pass` (terminate). On `must-fix`, the script invokes the fixer hook with the must-fix items and re-runs the panel against the new head; that re-run is the justice surface.
-- **External-author calibration.** When the PR's `author.login` is not the host's bot identity, the decide step downgrades house-prose-style findings (em-dash, no-Latin-shorthand) to `drop` and escalates proposed-rule findings to the improver/watchman rather than bundling them into a project-side ask.
+- **External-author calibration.** When the PR's `author.login` is not the host's bot identity, the decide step downgrades house-prose-style findings (em-dash, no-Latin-shorthand) to `drop` and escalates proposed-rule findings to the mentor/watchman rather than bundling them into a project-side ask.
 - **Termination.** On a (rare but valid) first-round `pass`, the script runs the appellate pass and un-drafts via `gh pr ready <N>`.
 - **No pushes to the PR branch.** The panel stage reviews and un-drafts; the fixer stage owns commits.
 

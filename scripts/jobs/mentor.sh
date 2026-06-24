@@ -1,35 +1,35 @@
 #!/bin/bash
-# improver.sh — the self-improvement service: watch the log AND journalctl for
+# mentor.sh — the self-improvement service: watch the log AND journalctl for
 # failures, debug them, and find ways to make the automation more reliable (or
 # to move a responsibility off an agent into a script).
 #
-# Usage: improver.sh
+# Usage: mentor.sh
 #
 # Part of the garden's self-healing posture: every automation is supervised and
 # shells out to `claude -p` inner agents, and automation is SILENT UNTIL AN
-# ERROR. This service feeds two failure surfaces to an inner agent (the improver
+# ERROR. This service feeds two failure surfaces to an inner agent (the mentor
 # role): (1) new journal progress/error entries, and (2) recent warnings/errors
 # from `journalctl --user` across ALL garden-* services. The inner agent debugs
 # and proposes improvements, posting them as jobs for gardeners. The script is
 # thin and quiet; only its own failures surface.
 #
-# Pluggable for tests: GARDEN_IMPROVE_HANDLER <digest-file>.
+# Pluggable for tests: GARDEN_MENTOR_HANDLER <digest-file>.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
-GARDEN_TAG="improver"
-: "${GARDEN_IMPROVE_HANDLER:=$HERE/handlers/improver-claude.sh}"
+GARDEN_TAG="mentor"
+: "${GARDEN_MENTOR_HANDLER:=$HERE/handlers/mentor-claude.sh}"
 
 killswitch_engaged && exit 0
 
-DIR="${GARDEN_IMPROVER_CLONE:-$GARDEN_STATE/improver/journal}"
+DIR="${GARDEN_MENTOR_CLONE:-$GARDEN_STATE/mentor/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
-SEEN="$GARDEN_STATE/improver/seen"
-JSINCE="$GARDEN_STATE/improver/journalctl-since"
+SEEN="$GARDEN_STATE/mentor/seen"
+JSINCE="$GARDEN_STATE/mentor/journalctl-since"
 mkdir -p "$(dirname "$SEEN")"; touch "$SEEN"
 
 # 1. new journal entries since last run
@@ -62,7 +62,7 @@ if [ -n "$jlog" ]; then
 fi
 
 # 5. hand it to the inner agent; advance markers only on success
-if "$GARDEN_IMPROVE_HANDLER" "$digest"; then
+if "$GARDEN_MENTOR_HANDLER" "$digest"; then
   for f in "${new[@]}"; do printf '%s\n' "${f#"$DIR"/}" >> "$SEEN"; done
   date -u +%FT%TZ > "$JSINCE"
   rm -f "$digest"

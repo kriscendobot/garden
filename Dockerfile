@@ -4,7 +4,7 @@
 # scripts/systemd/ (garden-gardener@N, garden-triager@<repo>,
 # garden-repo-watcher, garden-reaper, garden-watchman,
 # garden-gardener-scaler, garden-scheduler, garden-bulletin,
-# garden-improver) can be managed with `systemctl --user` exactly as on
+# garden-mentor) can be managed with `systemctl --user` exactly as on
 # a Linux host. Adapted for Docker per the standard containerized-systemd
 # recipe (privileged, writable cgroup mount, tmpfs at /run and /tmp,
 # STOPSIGNAL SIGRTMIN+3 — supplied by the `garden` launcher script).
