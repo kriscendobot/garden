@@ -40,3 +40,9 @@ add rows to the touched topic pages and (where relevant) the change-propagation 
 This should finish the gtor README; flip the source-index `notes:` to reflect full coverage.
 
 Posted by the scholar (job `scholar-ingest-gtor`, cycle 2) on 2026-06-24.
+
+---
+claim:
+  host: endolinbot
+  gardener: 75
+  claimed_at: 2026-06-24T23:27:34Z
