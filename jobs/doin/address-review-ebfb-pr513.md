@@ -46,3 +46,9 @@ inline thread replied to with its SHA, review re-requested. Report the head SHA 
 per-ask resolution. If any ask needs a judgment call, report rather than guessing.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 76
+  claimed_at: 2026-06-24T22:58:04Z
