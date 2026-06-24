@@ -12,3 +12,9 @@ Port into v2 (skills/):
 Retarget the `journal` branch references to `journal2` (v2 uses JOURNAL_BRANCH
 =journal2 per scripts/jobs/common.sh). Keep report-error.sh shellcheck/`bash -n`
 clean. Build in an isolated worktree off origin/main2.
+
+---
+claim:
+  host: endolinbot
+  gardener: 69
+  claimed_at: 2026-06-24T20:00:07Z
