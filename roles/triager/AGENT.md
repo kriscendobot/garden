@@ -34,6 +34,17 @@ gardeners — with **more automation and less discretion** than a v1 dispatcher.
 - **Monitoring safety:** you feed PR/comment text into `claude -p`. Only watch
   repos gated against untrusted contributors — our forks and
   `endojs/endo-but-for-bots`.
+- **Comment-watch arming + authorization.** The executable comment watcher is
+  `scripts/jobs/comment-watcher.sh` (sibling to the commit triager
+  `scripts/jobs/triager.sh`). Its watch set is the journal's **`comment-repos/`**
+  directory — separate from `repos/` (which arms the laxer commit triager) so the
+  stricter comment bar cannot be widened by accident. **Arming a new repo for
+  comment-watching requires maintainer authorization recorded in a journal
+  `message` entry FIRST** (CLAUDE.md § Monitoring safety constraint), then adding
+  the slug to `comment-repos/`. As of 2026-06-24 the sole armed repo is
+  `endojs/endo-but-for-bots`. The watcher maps the verb table deterministically,
+  reactji-acknowledges (👀) before posting, and verifies each post reached
+  `origin/journal2` before advancing its `comments/<slug>` cursor.
 
 ## Definition of done
 

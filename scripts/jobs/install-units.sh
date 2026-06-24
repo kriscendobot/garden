@@ -23,6 +23,10 @@ DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 
 render() {
   mkdir -p "$DEST"
+  # Globs every garden-*.{service,timer}, including the instance templates
+  # garden-triager@ and garden-comment-watcher@ (the latter is instance-armed
+  # per watched repo by the repo-watcher from the journal's comment-repos/ set,
+  # so it has no entry in enable_services below).
   for f in "$SRC"/garden-*.service "$SRC"/garden-*.timer; do
     [ -e "$f" ] || continue
     sed "s#@GARDEN_ROOT@#$GARDEN_ROOT#g" "$f" > "$DEST/$(basename "$f")"

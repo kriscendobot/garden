@@ -1,0 +1,9 @@
+[Unit]
+Description=Garden comment-watcher timer for repo %i
+
+[Timer]
+OnActiveSec=90s
+OnUnitActiveSec=90s
+
+[Install]
+WantedBy=timers.target

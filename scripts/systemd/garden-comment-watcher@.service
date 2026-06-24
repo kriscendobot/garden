@@ -1,0 +1,10 @@
+[Unit]
+Description=Garden PR/issue comment watcher for repo %i
+# Producer: watch one gated repo's PR/issue comments and post jobs for verb-table
+# directives + @-mentions. Driven by its .timer. Monitoring-safety gated: armed
+# only for repos in the journal's comment-repos/ set (see comment-watcher.sh).
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecStart=@GARDEN_ROOT@/scripts/jobs/comment-watcher.sh %i
