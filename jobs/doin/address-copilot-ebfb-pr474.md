@@ -33,3 +33,9 @@ if warranted. Report the head SHA and which items were addressed vs declined (wi
 reasons). If feedback is ambiguous, report rather than guessing.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 18
+  claimed_at: 2026-06-24T22:26:35Z
