@@ -57,6 +57,9 @@ while :; do
 
   jobfile="$CLONE/$JOBS_DOIN/$base.md"
   report="$(mktemp "${TMPDIR:-/tmp}/garden-report-$base.XXXXXX")"
+  # divert the handler's combined stdout+stderr here so a failure can be captured
+  # by hash instead of vanishing into this gardener's systemd journal.
+  capture="$(mktemp "${TMPDIR:-/tmp}/garden-capture-$base.XXXXXX")"
 
   # narrate progress into the journal (garden practice), then drain this job
   # doer's directed inbox (unread → read) before working.
@@ -65,14 +68,38 @@ while :; do
   "$HERE/inbox-read.sh" "$base" || true
 
   log "working '$base'"
-  if GARDEN_GARDENER_ID="$id" "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report"; then
+  if GARDEN_GARDENER_ID="$id" "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1; then
     "$HERE/complete-job.sh" "$id" "$base" "$report"
+    printf 'gardener-%s on %s completed job %s\n' "$id" "$GARDEN_HOST" "$base" \
+      | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
   else
-    log "handler FAILED for '$base'; writing a failure report and completing"
-    { echo "# $base — FAILED"; echo; echo "handler exited non-zero at $(date -u +%FT%TZ) on $GARDEN_HOST/gardener-$id"; } > "$report"
-    "$HERE/complete-job.sh" "$id" "$base" "$report"
+    # The job handler — the gardening state machine / a `claude -p` inner agent —
+    # exited non-zero. Its combined stdout+stderr is in $capture. DO NOT discard
+    # it (the prior one-line report did) and DO NOT complete the job doin→tada
+    # (which records a failure as done). Capture the output by hash and escalate
+    # the SHA to the gardener inbox via the canonical helper, then leave the job
+    # in `doin` for the reaper's stale-claim requeue (GARDEN_CLAIM_TTL).
+    #
+    # OPEN — failed-job lane (designs/self-healing-audit.md, maintainer review):
+    # whether a failed handler should requeue→todo immediately, move to a
+    # dedicated jobs/failed/ lane, or stay in doin for the reaper (current) is a
+    # state-machine design decision deliberately left out of this change. Leaving
+    # it in doin means a deterministically-failing job is retried after the TTL;
+    # which lane is permanent is the question this surfaces.
+    log "handler FAILED for '$base'; capturing output and escalating to the gardener inbox (job left in doin for the reaper)"
+    sha="$(GARDEN_JOURNAL="$CLONE" "$GARDEN_ROOT/skills/gardener-inbox-error-reporting/report-error.sh" \
+             --transcript "$capture" --lane 0 --state handler-nonzero \
+             --context "gardener-$id on $GARDEN_HOST: job '$base' handler exited non-zero" \
+           2>/dev/null || true)"
+    # Fall back to a bare local hash if the inbox-append escalation itself failed,
+    # so the output is at least durable in this gardener's clone.
+    [ -n "$sha" ] || sha="$(capture_blob "$capture" "$CLONE" 2>/dev/null || echo unknown)"
+    # Anchor the capture under refs/captures so an off-host responder can fetch it
+    # even if the inbox-append push was lost; best-effort (blob stays local in $CLONE).
+    [ "$sha" = unknown ] || anchor_blob "$sha" "gardener/$id/$base" "$CLONE" 2>/dev/null || true
+    printf 'gardener-%s on %s: job %s handler FAILED; output captured as %s, escalated to the gardener inbox, left in doin for the reaper\n' \
+      "$id" "$GARDEN_HOST" "$base" "$sha" \
+      | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" error || true
   fi
-  printf 'gardener-%s on %s completed job %s\n' "$id" "$GARDEN_HOST" "$base" \
-    | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
-  rm -f "$report"
+  rm -f "$report" "$capture"
 done
