@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T23:04:31Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T23:20:42Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -9,25 +9,26 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Messages to the maintainer
 
-- `20260624T223047Z-ff38ba` — from gardener:harden-fleet-gh-identity, reply_to `harden-fleet-gh-identity` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260624T223047Z-ff38ba.md)
+- `20260624T231841Z-f0e8dc` — from gardener:scholar-through-lines-change-propagation, reply_to `scholar-through-lines-change-propagation` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260624T231841Z-f0e8dc.md)
 
-> Heads-up from job harden-fleet-gh-identity (gardener-21): the live tree
-> /home/kris/scripts/jobs/common.sh has SUBSTANTIAL UNCOMMITTED work — a flock-based
-> "per-clone serialization (shared-clone race fix)" adding clone_lock/clone_unlock
-> and rewiring ensure_clone/sync_clone/commit_and_push — that is NOT in origin/main2.
+> Scholar synthesis — the change-propagation through-lines (job scholar-through-lines-change-propagation)
 >
-> Impact: this dirty file WEDGES garden-watchman (its fast-forward aborts on a dirty
-> tree), so NO origin/main2 change is auto-deploying to the live /home/kris tree for
-> ANY job, garden-wide — it has been stuck at 51030653 while origin advanced.
+> Curated the cross-cutting *theory* the FRB / @endo/pubsub / propagators cluster instantiates, grounded in source (gtor README @ d2a238fc, the already-ingested FRB sections, and the #513/#507 pubsub result entries). New library home: topic `change-propagation` + 4 concept pages, with gtor ingested as the keystone source.
 >
-> I did NOT touch/clobber that WIP. I deployed my own fix non-destructively (added
-> scripts/jobs/bin/gh; applied my PATH hunk to a different region of the live
-> common.sh), so the gh-identity fix is live now and the flock WIP is intact.
+> The through-lines:
+> 1. One idea, three faces — FRB observers (sync/in-process), @endo/pubsub topics (async/cross-vat), and propagators (multi-directional constraint) all propagate the DELTA, not a snapshot. gtor names the axes they differ on: producer/consumer dual · singular/plural · spatial/temporal · push/pull · broadcast/unicast.
+> 2. changes vs latest — lossless order-significant deltas (signal / makeChangeTopic / notifier-lossless) vs lossy convergent current-value (behavior / makeLatestTopic / notifier-lossy). gtor shows they're two faces of one signal (forEach vs next). forward-lossless = changes + one-shot latest snapshot (composition, not a third mechanism) — matches the #507 design's makeUpdateTopic retirement.
+> 3. Ordered-collection windows as derived topics — FRB's view(start,length) over a SortedSet is the synchronous precedent for the "collection-change propagation" future direction #507 names for pubsub.
+> 4. Core tension: idempotent convergence (latest/behavior/propagator-cell tolerates loss+reordering) vs order-significance (changes/stream — every delta matters).
 >
-> Needs a human/owner call: is that flock work an in-flight job that should be
-> committed to origin/main2, or abandoned? Until it's committed (or reverted) the
-> watchman stays wedged and the live tree won't track origin. I left it untouched
-> because committing someone else's untested WIP isn't mine to decide.
+> Honesty flag: propagators are only PARTIALLY grounded in our corpus. The one in-corpus instance of multi-directional constraint propagation is FRB two-way (<->) bindings; the fuller Sussman/Radul lattice-merge propagator model is named as adjacent external lineage, NOT asserted from a garden source. Every concept page flags this.
+>
+> Open questions surfaced:
+> - @endo/pubsub README + designs/notifier-pubsub-migration.md are not yet ingested as library sources (the endo-pubsub concept currently cites journal entries) — worth a follow-on once #513/#507 stabilize.
+> - The in-flight Endo/Exo reactive-collections research (splay-tree / sorted-array-set interface) should feed sliding-window-topic's citations when it lands.
+> - gtor is a partial ingest (2 keystone sections of ~20); posted scholar-ingest-gtor for the rest (Promise Queues/Buffers — the async-linked-list substrate under pubsub — first).
+>
+> Full curation on journal2: concepts/{change-propagation,changes-versus-latest,endo-pubsub,sliding-window-topic}, topics/change-propagation, sources/gtor--readme + 2 sections, 51 keyword shortcuts.
 
 
 ## Board
@@ -36,19 +37,19 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ### doin (6)
 - `address-review-ebfb-pr513` — Address kriskowal's CHANGES_REQUESTED review on endo-but-for-bots #513
-- `design-siwe-ymax-mcp-auth` — Design: integrate SIWE with ymax for an MCP that authenticates the caller per...
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
-- `harden-producer-push-path` — Harden the producer push path: confirm the push landed; fix the shared-clone ...
-- `scholar-ingest-cask-5` — Scholar: continue the library ingest of kriskowal/cask (cycle 6)
+- `scholar-ingest-cask-6` — Scholar: continue the library ingest of kriskowal/cask (cycle 7)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
+- `scholar-ingest-gtor` — Scholar: full ingest of kriskowal/gtor (A General Theory of Reactivity)
+- `teardown-live-wip-unwedge-watchman` — Tear down the live-tree partial WIP and unwedge the watchman (HIGH PRIORITY —...
 
-### tada (87)
-- `fix-comment-watcher-timer-and-classification` — Completion report: fix-comment-watcher-timer-and-classification
-- `apply-503-feedback` — Completion report — apply-503-feedback
-- `scholar-ingest-cask-4` — Scholar cycle 5 — cask doc/design/trace2.md ingest + cask--trace supersession
-- `bulletin-message-links-or-body` — Completion report: bulletin-message-links-or-body
-- `research-frb-endo-exo-collections` — Done. The deliverable is live on origin/journal2 and the temp worktree, stale...
-- … and 82 more
+### tada (92)
+- `scholar-through-lines-change-propagation` — All work landed and cleaned up. Final report:
+- `scholar-ingest-cask-5` — Completion report — scholar-ingest-cask-5 (scholar cycle 6)
+- `design-siwe-ymax-mcp-auth` — Completion report — design-siwe-ymax-mcp-auth
+- `--help` — The full picture confirms the diagnosis. The job history (8c56609c todo(--hel...
+- `harden-producer-push-path` — Completion report: harden-producer-push-path
+- … and 87 more
 
 ## Watch set
 (none)
@@ -57,21 +58,21 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 224645Z-result-scholar-3840b7.md: # Result: cask library ingest cycle 4 — the GC family, dbstore, and cryptography.md
-- 224647Z-progress-gardener-b6b4c0.md: gardener-29 on endolinbot claimed job fix-comment-watcher-timer-and-classification
-- 224655Z-progress-gardener-bb7521.md: gardener-67 on endolinbot claimed job research-frb-endo-exo-collections
-- 224707Z-progress-gardener-f6906b.md: gardener-17 on endolinbot claimed job bulletin-message-links-or-body
-- 224955Z-progress-gardener-23a5b3.md: gardener-15 on endolinbot claimed job scholar-ingest-cask-4
-- 225100Z-progress-gardener-032196.md: gardener-62 on endolinbot completed job scholar-ingest-cask-3
-- 225605Z-progress-gardener-4688a1.md: gardener-67 on endolinbot completed job research-frb-endo-exo-collections
-- 225705Z-progress-gardener-e706f7.md: gardener-17 on endolinbot completed job bulletin-message-links-or-body
-- 225808Z-progress-gardener-9cb4b7.md: gardener-76 on endolinbot claimed job address-review-ebfb-pr513
-- 225830Z-result-scholar-893212.md: # Result — cask doc/design ingest cycle 5: trace2.md + the cask--trace supersession
-- 230006Z-progress-gardener-bcdd79.md: gardener-35 on endolinbot claimed job scholar-ingest-cask-5
-- 230047Z-progress-gardener-e106d1.md: gardener-15 on endolinbot completed job scholar-ingest-cask-4
-- 230341Z-progress-gardener-9f46e7.md: gardener-30 on endolinbot completed job apply-503-feedback
-- 230400Z-progress-gardener-3448f7.md: gardener-86 on endolinbot claimed job design-siwe-ymax-mcp-auth
 - 230414Z-progress-gardener-0f1348.md: gardener-29 on endolinbot completed job fix-comment-watcher-timer-and-classification
+- 230700Z-result-gardener-design-siwe-ymax-mcp-auth.md: # Design — Integrating SIWE with ymax so an MCP server authenticates the caller per tool call
+- 230724Z-progress-gardener-30d727.md: gardener-54 on endolinbot claimed job scholar-through-lines-change-propagation
+- 230740Z-progress-gardener-d39f64.md: gardener-60 on endolinbot completed job harden-producer-push-path
+- 230821Z-result-scholar-1b6932.md: # Scholar cycle 6: cask cell/entry family ingest (job scholar-ingest-cask-5)
+- 230834Z-progress-gardener-8e55fd.md: gardener-66 on endolinbot claimed job --help
+- 231010Z-progress-gardener-55389b.md: gardener-14 on endolinbot claimed job scholar-ingest-cask-6
+- 231050Z-progress-gardener-24fe0d.md: gardener-86 on endolinbot completed job design-siwe-ymax-mcp-auth
+- 231116Z-progress-gardener-3c9576.md: gardener-35 on endolinbot completed job scholar-ingest-cask-5
+- 231218Z-progress-gardener-192907.md: gardener-66 on endolinbot completed job --help
+- 231219Z-progress-gardener-3e78f3.md: gardener-16 on endolinbot claimed job teardown-live-wip-unwedge-watchman
+- 231703Z-result-scholar-chgprop.md: # result: scholar — change-propagation through-lines curated
+- 231823Z-progress-gardener-f927ce.md: gardener-61 on endolinbot claimed job scholar-ingest-gtor
+- 231912Z-progress-gardener-71f0e9.md: gardener-54 on endolinbot completed job scholar-through-lines-change-propagation
+- 231935Z-result-scholar-69084d.md: # Scholar cycle 7: cask cell-capabilities.md ingest (job scholar-ingest-cask-6)
 ## Latest
 
-Two jobs landed: `fix-comment-watcher-timer-and-classification` and `apply-503-feedback` both completed, and `design-siwe-ymax-mcp-auth` was claimed into `doin`, leaving the board with six in flight and nothing waiting in todo. The item that needs a human first is the new maintainer message from gardener-21 (`harden-fleet-gh-identity`): the live `/home/kris/scripts/jobs/common.sh` carries substantial uncommitted flock-based "per-clone serialization" WIP that is not on `origin/main2`, and that dirty tree is wedging `garden-watchman` — its fast-forward aborts, so no `origin/main2` change has auto-deployed garden-wide while origin advanced past `51030653`. The gardener deployed its own gh-identity fix non-destructively and left the WIP intact, so the owner call is whether to commit that flock work or revert it; until then the live tree won't track origin.
+Five jobs cleared to tada this cycle: the SIWE-ymax-MCP-auth design landed (full design report posted), `harden-producer-push-path` completed, the `--help` footgun job closed out, and scholar's cask ingest reached cycle 6. The headline is the scholar synthesis `scholar-through-lines-change-propagation`, now complete and reported to the maintainer's inbox — it curates the cross-cutting theory behind the FRB / @endo/pubsub / propagators cluster with an honesty flag that propagators are only partially grounded in the corpus, and it surfaces follow-ons (ingest @endo/pubsub README, full gtor ingest). On the in-progress side, a HIGH-PRIORITY `teardown-live-wip-unwedge-watchman` job was claimed and is running — worth watching, since it concerns clearing a live-tree partial WIP that can wedge the watchman. The todo queue is empty; the six doin jobs are scholar ingests (cask cycle 7, full gtor) plus the two ebfb PRs (#513 review, #96 finish) and the watchman teardown.
