@@ -23,7 +23,7 @@ The retcon is **not** a rebase onto a new base. If the branch lags its base, run
 A linear history on the PR branch with commits grouped as:
 
 - **One commit per affected package.** Changes under `packages/foo/` ship in one commit; changes under `packages/bar/` ship in another. Conventional-commit message scoped to the package (`feat(foo): ...`, `fix(bar): ...`, etc.).
-- **One `chore: Update yarn.lock` commit** for the lockfile, separate from any `package.json` commit that caused it. The yarn-lock-separate-commit discipline is *applied retroactively* here across the whole branch, not commit-by-commit at write time.
+- **One `chore: Update yarn.lock` commit** for the lockfile, separate from any `package.json` commit that caused it. The [yarn-lock-separate-commit](../yarn-lock-separate-commit/SKILL.md) discipline is *applied retroactively* here across the whole branch, not commit-by-commit at write time.
 - **Implementation and tests in the same commit.** A package's behavior change and the tests covering that change ship together. This is a deliberate departure from the "test, then implement" or "implement, then test" patterns that produce two commits per feature; the retcon wants one.
 - **Conventional-commit messages** on every commit. The first line is `<type>(<scope>): <imperative summary>`; the body (when present) names *why*, not the diff.
 
