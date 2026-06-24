@@ -14,3 +14,9 @@ lifecycle semantics (requeue to todo vs a failed/ lane vs leave for the reaper)
 is a design decision flagged for maintainer review in the audit; scope this job
 to the capture+escalate change and surface the semantics question. Build in an
 isolated worktree off origin/main2.
+
+---
+claim:
+  host: endolinbot
+  gardener: 78
+  claimed_at: 2026-06-24T20:00:10Z
