@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T23:28:44Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-24T23:46:53Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -35,20 +35,18 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (5)
-- `address-review-ebfb-pr513` — Address kriskowal's CHANGES_REQUESTED review on endo-but-for-bots #513
+### doin (3)
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
-- `scholar-ingest-cask-7` — Scholar: continue the library ingest of kriskowal/cask (cycle 8)
+- `scholar-ingest-cask-9` — Scholar: continue the library ingest of kriskowal/cask (cycle 10)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
-- `scholar-ingest-gtor-recap` — Scholar: finish the ingest of kriskowal/gtor (the plural-spatial column + the...
 
-### tada (95)
+### tada (99)
+- `scholar-ingest-gtor-recap` — scholar-ingest-gtor-recap — cycle 3 complete: gtor README fully ingested
+- `scholar-ingest-cask-8` — scholar-ingest-cask-8 → cask library ingest cycle 9 complete
+- `scholar-ingest-cask-7` — Cycle 8 complete. Report:
+- `address-review-ebfb-pr513` — Completion report: address-review-ebfb-pr513
 - `scholar-ingest-gtor` — scholar-ingest-gtor — complete (cycle 2 of the gtor README ingest)
-- `teardown-live-wip-unwedge-watchman` — Completion report: teardown-live-wip-unwedge-watchman
-- `scholar-ingest-cask-6` — scholar-ingest-cask-6 (cask cycle 7) — completion report
-- `scholar-through-lines-change-propagation` — All work landed and cleaned up. Final report:
-- `scholar-ingest-cask-5` — Completion report — scholar-ingest-cask-5 (scholar cycle 6)
-- … and 90 more
+- … and 94 more
 
 ## Watch set
 (none)
@@ -57,14 +55,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 231010Z-progress-gardener-55389b.md: gardener-14 on endolinbot claimed job scholar-ingest-cask-6
-- 231050Z-progress-gardener-24fe0d.md: gardener-86 on endolinbot completed job design-siwe-ymax-mcp-auth
-- 231116Z-progress-gardener-3c9576.md: gardener-35 on endolinbot completed job scholar-ingest-cask-5
-- 231218Z-progress-gardener-192907.md: gardener-66 on endolinbot completed job --help
-- 231219Z-progress-gardener-3e78f3.md: gardener-16 on endolinbot claimed job teardown-live-wip-unwedge-watchman
-- 231703Z-result-scholar-chgprop.md: # result: scholar — change-propagation through-lines curated
-- 231823Z-progress-gardener-f927ce.md: gardener-61 on endolinbot claimed job scholar-ingest-gtor
-- 231912Z-progress-gardener-71f0e9.md: gardener-54 on endolinbot completed job scholar-through-lines-change-propagation
 - 231935Z-result-scholar-69084d.md: # Scholar cycle 7: cask cell-capabilities.md ingest (job scholar-ingest-cask-6)
 - 232130Z-progress-gardener-4b3d22.md: gardener-30 on endolinbot claimed job scholar-ingest-cask-7
 - 232242Z-progress-gardener-40ee19.md: gardener-14 on endolinbot completed job scholar-ingest-cask-6
@@ -72,6 +62,14 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 232737Z-progress-gardener-84cd04.md: gardener-75 on endolinbot claimed job scholar-ingest-gtor-recap
 - 232801Z-result-scholar-5ea427.md: # scholar-ingest-gtor — cycle 2 complete (gtor README async/queue substrate)
 - 232840Z-progress-gardener-fb0f3c.md: gardener-61 on endolinbot completed job scholar-ingest-gtor
+- 233228Z-progress-gardener-e498e3.md: gardener-16 on endolinbot claimed job scholar-ingest-cask-8
+- 233243Z-progress-gardener-ecf406.md: gardener-76 on endolinbot completed job address-review-ebfb-pr513
+- 233301Z-result-scholar-gtorrcp.md: # scholar-ingest-gtor-recap — cycle 3 complete (gtor README FULLY ingested)
+- 233311Z-progress-gardener-2de347.md: gardener-30 on endolinbot completed job scholar-ingest-cask-7
+- 233437Z-progress-gardener-32a5fb.md: gardener-75 on endolinbot completed job scholar-ingest-gtor-recap
+- 234020Z-result-scholar-cf7398.md: # Scholar cask ingest cycle 9: the protocol family (protocol.md, protocol2.md, protocol2-arch.md)
+- 234200Z-progress-gardener-f36ea0.md: gardener-99 on endolinbot claimed job scholar-ingest-cask-9
+- 234241Z-progress-gardener-a6b37d.md: gardener-16 on endolinbot completed job scholar-ingest-cask-8
 ## Latest
 
-The gtor README ingest closed its second cycle: gardener-61 completed `scholar-ingest-gtor`, landing the async/queue substrate (Promise Queues/Buffers) that underpins @endo/pubsub — the keystone source the scholar flagged as the through-line beneath the change-propagation cluster. A follow-on `scholar-ingest-gtor-recap` is already claimed (gardener-75) to finish the plural-spatial column, so the gtor curation continues; the rest of the board (two cask ingest cycles, the ebfb #513 review and #96 finish) is unchanged.
+Scholar library-ingest work dominated the board this cycle: the gtor README ingest finished out — `scholar-ingest-gtor-recap` (cycle 3) completed the full README, and the scholar synthesized the cross-cutting change-propagation through-lines (FRB observers / @endo/pubsub topics / propagators all propagating the delta, not a snapshot) into a new `change-propagation` library topic with four concept pages, flagged to the maintainer for review. The cask ingest advanced two cycles — `scholar-ingest-cask-7` and `-8` completed (cell-capabilities and the protocol family), with `scholar-ingest-cask-9` (cycle 10) now claimed and in flight. On the PR side, `address-review-ebfb-pr513` completed, clearing review feedback on endo-but-for-bots #513. The board is drained to zero queued jobs; the three in-flight items are all long-running ingests (cask cycle 10, the cask deepening, and the ebfb #96 implementation). One thing to notice: the scholar's synthesis carries an honesty flag — propagators are only partially grounded in the garden's corpus, and it surfaced open questions (the @endo/pubsub README and migration design aren't yet ingested as sources) worth a follow-on once #513/#507 stabilize.
