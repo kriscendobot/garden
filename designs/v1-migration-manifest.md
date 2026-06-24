@@ -227,14 +227,19 @@ copy whose home is the reference shelf, not the active library.
 | monitor-endo | skill | DORMANT per the v1 monitoring-safety constraint; not in the v2 safe-to-watch set. |
 | monitor-agoric-sdk | skill | DORMANT; not in the v2 safe-to-watch set. |
 | monitor-cosgov | skill | DORMANT; not in the v2 safe-to-watch set. |
-| em-dash-style | skill | House style rule; absorb into v2 `roles/COMMON.md` once written, not a standalone carried skill. |
-| no-latin-shorthand | skill | House style rule; absorb into v2 `COMMON.md`. |
-| relative-paths | skill | House style rule; absorb into v2 `COMMON.md`. |
-| test-title-spec-spelling | skill | Narrow house style rule; absorb into `COMMON.md` / spec-keeper-seat guidance. |
+| em-dash-style | skill | House style rule, now absorbed into v2 `roles/COMMON.md` § House style (confirmed 2026-06-24). v1 copy droppable. |
+| no-latin-shorthand | skill | House style rule, now absorbed into v2 `roles/COMMON.md` § House style (confirmed 2026-06-24). v1 copy droppable. |
+| relative-paths | skill | House style rule, now absorbed into v2 `roles/COMMON.md` § House style (confirmed 2026-06-24). v1 copy droppable. |
+| test-title-spec-spelling | skill | Narrow house style rule, now absorbed into v2 `roles/COMMON.md` § House style (confirmed 2026-06-24). v1 copy droppable. |
 | job-board (v1) | skill | v1 `journal/jobs/` claim/complete skill; superseded by v2 `skills/job-board` (already present) over `journal2`. |
 | cleaner (skill) | skill | v1 driver-pool per-role executable for the cleaner; the executable lives under v2 `scripts/jobs/gardening/`, not as a carried skill (cleaner is a gauntlet script step). |
 
-> Style-rule note: `em-dash-style`, `no-latin-shorthand`, `relative-paths`, and
-> `test-title-spec-spelling` are left behind **as standalone skills** but their
-> substance should be folded into the v2 `roles/COMMON.md` when it is authored
-> (the v2 README notes COMMON.md is "not yet written").
+> Style-rule note (updated 2026-06-24): v2 `roles/COMMON.md` is now authored
+> (about 215 lines). Its § House style section states all four rules outright, so
+> the substance of `em-dash-style`, `no-latin-shorthand`, `relative-paths`, and
+> `test-title-spec-spelling` is folded in. Full skill bodies are retained in v2
+> under `skills/<name>/` and linked from COMMON.md for detail; COMMON.md is the
+> standing one-line statement every dispatched subagent reads first. The four v1
+> copies under `/home/kris/v1/skills/` are therefore droppable by a future prune.
+> (The earlier note that COMMON.md was "not yet written" was stale and has been
+> corrected here.)
