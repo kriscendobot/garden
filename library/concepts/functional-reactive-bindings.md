@@ -2,7 +2,7 @@
 id: functional-reactive-bindings
 aliases: ["FRB", "frb", "functional reactive bindings", "reactive binding", "two-way binding", "incremental binding", "data binding"]
 topics: [reactive-bindings]
-status: draft
+status: current
 ---
 
 # functional-reactive-bindings
@@ -18,8 +18,12 @@ status: draft
 | [frb--readme--architecture](../sections/frb--readme--architecture.md) | Four layers: collection change events → compiled observer function-trees → binders → declarative graph. |
 | [frb--readme--bindings-and-query-language](../sections/frb--readme--bindings-and-query-language.md) | The `Bindings` API, descriptor fields, and the bound-collection-identity-is-stable guarantee. |
 
+For the per-operator tutorial sections (map, filter, sorted, group, flatten, has, get, equality, the scalar expression language, and the rest), see the [reactive-bindings topic page](../topics/reactive-bindings.md); this concept page stays a short index of the conceptual sections.
+
 ## See also
 
+- [[frb-incremental-update]] — the delta-not-recompute mechanism that defines the library; bound-collection identity is stable.
+- [[frb-compiled-observer-tree]] — the query language compiles once to a tree of observer/binder functions.
 - [[generic-collections]] — the change-notification interface FRB's "generic" property depends on.
 - [[eventual-send]] — the asynchronous, cross-vat counterpart to FRB's synchronous in-process consistency.
 

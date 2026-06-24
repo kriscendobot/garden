@@ -430,7 +430,7 @@ These three repos were forked under the bot account for future garden work and g
 | Source | Repo | Last-modified | Primary author | Sections | Status |
 |--------|------|---------------|----------------|----------|--------|
 | [README.md](collections--readme.md) | kriskowal/collections | 2017-10-15 | Kris Kowal | 2 | current (begin-ingest; per-package READMEs deferred to `scholar-ingest-collections`) |
-| [README.md](frb--readme.md) | kriskowal/frb | 2013-09-15 | Kris Kowal | 4 | current (begin-ingest; the ~50-section operator tutorial deferred to `scholar-ingest-frb`) |
+| [README.md](frb--readme.md) | kriskowal/frb | 2013-09-15 | Kris Kowal | 12 | current (conceptual + 8 operator-tutorial sections; declarative/observer machinery, Reference section, and grammar/compiler source deferred to `scholar-ingest-frb`) |
 | [README.md](cask--readme.md) | kriskowal/cask | 2026-02-17 | Kris Kowal | 13 | current (README ingested in full; `doc/design/` and Go source deferred to `scholar-ingest-cask`) |
 
 ## Backlog (not yet ingested)

@@ -39,7 +39,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [signed-updates](signed-updates.md) | Cryptographically signed software update channels for always-online nodes: TUF role hierarchy, online/offline key discipline, rollback-attack defense, deployment pattern. | 1 |
 | [node-packaging](node-packaging.md) | OS packaging and marketplace distribution of the Endo gateway: aggregated external constraints on Phase 11 covering marketplace requirements, TLS provisioning, and signed update channels. | 6 |
 | [data-structures](data-structures.md) | General-purpose data structures and the interfaces over them: kriskowal/collections (idiomatic uniform JS collection interfaces) and cask's columnar parallel-array pattern. Cross-cutting, independent of the capability-security corpus. | 4 |
-| [reactive-bindings](reactive-bindings.md) | Synchronous, incremental binding of object properties and collection contents (kriskowal/frb): one- and two-way bindings, incremental query chains, the small binding query language. | 4 |
+| [reactive-bindings](reactive-bindings.md) | Synchronous, incremental binding of object properties and collection contents (kriskowal/frb): one- and two-way bindings, incremental query chains, the small binding query language. | 12 |
 | [content-addressed-storage](content-addressed-storage.md) | Storing data as content-addressed Merkle trees of fixed-size 1KB blocks (kriskowal/cask): block format, blobs/dirs/arrays/maps as block trees, content-agnostic GC, cells. | 9 |
 | [networking](networking.md) | Transport-layer design (kriskowal/cask): UDP block transfer reacting against TCP's limits, Noise-IK encryption, 256-bit priority load shedding. | 7 |
 

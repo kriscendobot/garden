@@ -12173,6 +12173,32 @@ reactive binding | functional-reactive-bindings
 two-way binding | functional-reactive-bindings
 incremental binding | functional-reactive-bindings
 data binding | functional-reactive-bindings
+incremental update | frb-incremental-update
+incremental binding update | frb-incremental-update
+delta not recompute | frb-incremental-update
+incremental query maintenance | frb-incremental-update
+FRB incrementality | frb-incremental-update
+bound collection identity never changes | frb-incremental-update
+compiled observer | frb-compiled-observer-tree
+observer function tree | frb-compiled-observer-tree
+tree of functions | frb-compiled-observer-tree
+binder and observer functions | frb-compiled-observer-tree
+FRB observer model | frb-compiled-observer-tree
+`<-` one-way binding | functional-reactive-bindings
+`<->` two-way binding | functional-reactive-bindings
+`map{}` block | (see section: frb--readme--tutorial-mapping-and-filtering)
+`filter{}` block | (see section: frb--readme--tutorial-mapping-and-filtering)
+`some{}` and `every{}` | (see section: frb--readme--tutorial-mapping-and-filtering)
+`sum()` `average()` `last()` `only()` | (see section: frb--readme--tutorial-aggregations)
+`sorted{}` `sortedSet{}` | (see section: frb--readme--tutorial-order-and-grouping)
+`group{}` `groupMap{}` | (see section: frb--readme--tutorial-order-and-grouping)
+`min{}` `max{}` | (see section: frb--readme--tutorial-order-and-grouping)
+`flatten()` `concat()` `reversed()` | (see section: frb--readme--tutorial-windowing-and-structure)
+`view()` `enumerate()` `range()` | (see section: frb--readme--tutorial-windowing-and-structure)
+`has()` `get()` | (see section: frb--readme--tutorial-maps-and-lookups)
+`keys()` `values()` `entries()` `toMap()` | (see section: frb--readme--tutorial-maps-and-lookups)
+`rangeContent()` `mapContent()` | (see section: frb--readme--tutorial-equality-and-content)
+FRB query language operators | (see section: frb--readme--tutorial-expression-language)
 collections | generic-collections
 kriskowal/collections | generic-collections
 `generic-collection` | generic-collections
