@@ -37,3 +37,9 @@ Run the botanist workflow end to end on PR #270:
 10. Post the verdict comment and update the dependabotany ledger.
 
 Report the verdict, the executed disposition, and (if embargoed) the maturity date.
+
+---
+claim:
+  host: endolinbot
+  gardener: 14
+  claimed_at: 2026-06-24T10:33:37Z
