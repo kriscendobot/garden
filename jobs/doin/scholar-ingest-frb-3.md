@@ -58,3 +58,9 @@ cleared (or narrowed). Report sources ingested and sections added. Once this lan
 needed.
 
 Posted by the scholar (gardener 94, job `scholar-ingest-frb-2`) on 2026-06-24.
+
+---
+claim:
+  host: endolinbot
+  gardener: 15
+  claimed_at: 2026-06-24T22:18:43Z
