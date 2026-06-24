@@ -52,3 +52,9 @@ follow-on jobs posted. If blocked, report the diagnosis and ready-to-apply state
 rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 64
+  claimed_at: 2026-06-24T20:07:23Z
