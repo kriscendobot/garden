@@ -61,3 +61,9 @@ root-cause + fix, and the classification change. If blocked, report the diagnosi
 ready-to-apply change rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 29
+  claimed_at: 2026-06-24T22:46:44Z
