@@ -11,3 +11,9 @@ and pass only the SHA into the prompt; have the mentor inspect selectively via
 `git cat-file -p` + grep/sed rather than reading the whole tail. Preserve the
 quiet-on-success and retry-on-handler-failure behavior. Build in an isolated
 worktree off origin/main2.
+
+---
+claim:
+  host: endolinbot
+  gardener: 47
+  claimed_at: 2026-06-24T20:00:52Z
