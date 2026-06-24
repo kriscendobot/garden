@@ -2,8 +2,22 @@
 Description=Garden comment-watcher timer for repo %i
 
 [Timer]
-OnActiveSec=90s
+# Bind the instance timer explicitly to its same-instance service (the template
+# default, made explicit so the @-binding is never ambiguous).
+Unit=garden-comment-watcher@%i.service
+# OnBootSec anchors the first elapse to a FIXED monotonic reference (boot), which
+# is recomputed deterministically across every daemon-reload and, on a host that
+# has been up a while, is already in the past — so the timer always has a concrete
+# next-trigger and fires promptly on arming. The previous OnActiveSec-only anchor
+# had a single elapse point relative to timer activation; if that one point was
+# dropped across a daemon-reload issued between activation and the 90s mark (with
+# the service never yet run, so OnUnitActiveSec could not re-anchor), the timer sat
+# active with NO future trigger — the reported "active, LastTrigger empty, never
+# fired" state. OnUnitActiveSec drives the steady 90s cadence after the first run.
+OnBootSec=30s
 OnUnitActiveSec=90s
+# Default accuracy is 1min; tighten so a 90s cadence does not get batched late.
+AccuracySec=1s
 
 [Install]
 WantedBy=timers.target

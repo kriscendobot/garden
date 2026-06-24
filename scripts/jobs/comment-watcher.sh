@@ -15,6 +15,16 @@
 #       → VERIFY the post actually landed on origin/journal2 before advancing
 #         the cursor (a lost push must re-poll, never drop the directive).
 #
+# Beyond the fixed verb table, a plain-language maintainer directive with NO verb
+# and NO @-mention ("Please apply this feedback", "please finish this") must not
+# be dropped. The widening is narrow and deterministic: a comment is routed to the
+# claude triager fallback ONLY when BOTH (a) its author passes the same sender-
+# trust gate the mention-watcher uses (journal `trusted-senders/allowlist` OR a
+# current endojs/Agoric org member) AND (b) the body reads as an imperative
+# directive ("please …", "apply …", "address …", "finish …"). Ordinary chatter
+# ("thanks, looks great!") and untrusted senders stay inert. This is the fix for
+# the dropped #503 "Please apply this feedback" directive (issuecomment-4794208524).
+#
 # ── Monitoring safety + arming authorization (STANDING NORM, do not bypass) ──
 # This watcher feeds external PR/comment TEXT into `claude -p`, so it is governed
 # by CLAUDE.md § Monitoring safety constraint and roles/triager/AGENT.md
@@ -32,8 +42,9 @@
 #   GARDEN_COMMENT_REACTJI <owner/name> <surface> <comment-id> <content>
 #   GARDEN_COMMENT_POST    <basename> <body-file>                (post-job.sh)
 #   GARDEN_COMMENT_FALLBACK <owner/name> <pr> <author> <url> <body-file> -> verb
-# The deterministic verb mapping itself lives HERE (not in a handler), so it is
-# exercised directly by the test rather than mocked away.
+#   GARDEN_COMMENT_TRUST   <login>                  rc 0 = endojs/Agoric org member
+# The deterministic verb mapping AND the sender-trust gate live HERE (not in a
+# handler), so they are exercised directly by the test rather than mocked away.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -48,7 +59,9 @@ GARDEN_TAG="comment-watcher/$slug"
 : "${GARDEN_COMMENT_REACTJI:=$HERE/handlers/comment-reactji-gh.sh}"
 : "${GARDEN_COMMENT_POST:=$HERE/post-job.sh}"
 : "${GARDEN_COMMENT_FALLBACK:=$HERE/handlers/comment-claude.sh}"
+: "${GARDEN_COMMENT_TRUST:=$HERE/handlers/mention-trust-gh.sh}"
 : "${GARDEN_COMMENT_VERIFY_CLONE:=$GARDEN_STATE/comment-watcher/verify}"
+VERIFY="$GARDEN_COMMENT_VERIFY_CLONE"
 
 killswitch_engaged && { log "killswitch engaged; skipping"; exit 0; }
 
@@ -80,12 +93,73 @@ verify_posted() {
   return 1
 }
 
+# --- the trusted-sender allowlist (journal data; extensible, no code change) --
+# Identical mechanism to mention-watcher.sh: lives at trusted-senders/allowlist on
+# origin/journal2 (one login per line, '#' comments and blanks ignored), read via
+# the verify clone's committed copy so every host resolves the authoritative set.
+# A file override (GARDEN_TRUSTED_ALLOWLIST) lets the test supply a fixture.
+declare -a ALLOWLIST=()
+load_allowlist() {
+  ALLOWLIST=()
+  local line src
+  if [ -n "${GARDEN_TRUSTED_ALLOWLIST:-}" ] && [ -f "$GARDEN_TRUSTED_ALLOWLIST" ]; then
+    src="file:$GARDEN_TRUSTED_ALLOWLIST"
+    while IFS= read -r line; do
+      line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+      [ -n "$line" ] && ALLOWLIST+=("$line")
+    done < "$GARDEN_TRUSTED_ALLOWLIST"
+  else
+    src="journal:trusted-senders/allowlist"
+    ensure_clone "$VERIFY"
+    git -C "$VERIFY" fetch -q origin "$JOURNAL_BRANCH" 2>/dev/null || true
+    while IFS= read -r line; do
+      line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+      [ -n "$line" ] && ALLOWLIST+=("$line")
+    done < <(git -C "$VERIFY" show "origin/$JOURNAL_BRANCH:trusted-senders/allowlist" 2>/dev/null || true)
+  fi
+  log "loaded ${#ALLOWLIST[@]} allowlisted sender(s) from $src"
+}
+
+# --- the SENDER-TRUST GATE (deterministic, no LLM) --------------------------
+# rc 0 = trusted (allowlisted OR a current endojs/Agoric org member); rc 1 = not.
+# Same gate the GitHub-wide mention-watcher uses. Here it is an ADDITIONAL bar on
+# top of the repo-gating (this watcher only runs on comment-repos/ which are
+# already gated): it is what lets a plain-language directive with no verb be
+# acted on without opening a prompt-injection hole for an untrusted commenter.
+declare -A _TRUST_CACHE=()
+is_trusted() {  # is_trusted <login>
+  local login="$1" lc a
+  [ -n "$login" ] || return 1
+  lc="$(printf '%s' "$login" | tr '[:upper:]' '[:lower:]')"
+  if [ -n "${_TRUST_CACHE[$lc]:-}" ]; then [ "${_TRUST_CACHE[$lc]}" = y ]; return; fi
+  for a in "${ALLOWLIST[@]}"; do
+    if [ "$a" = "$lc" ]; then _TRUST_CACHE[$lc]=y; return 0; fi
+  done
+  if "$GARDEN_COMMENT_TRUST" "$login" >/dev/null 2>&1; then _TRUST_CACHE[$lc]=y; return 0; fi
+  _TRUST_CACHE[$lc]=n; return 1
+}
+
+# --- imperative-directive reading (deterministic; the SECOND half of the gate) -
+# rc 0 if the body reads as a directive a maintainer would expect acted upon. A
+# pure-string check (no I/O), so chatter is rejected before any trust lookup. The
+# fast verb table above already catches the named verbs; this only widens the
+# unnamed "please do the thing" shape.
+reads_as_directive() {  # reads_as_directive <body-text>
+  local lc; lc="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
+  # "please" anywhere is the canonical maintainer-directive marker.
+  printf '%s' "$lc" | grep -Eq '(^|[^a-z])please([^a-z]|$)' && return 0
+  # Imperative cues without an explicit "please".
+  printf '%s' "$lc" | grep -Eq '(^|[^a-z])(apply|address|finish|complete|handle|resolve|implement|revisit|incorporate|land this|go ahead|take a look|take care of|look into|follow up|sort out|clean this up|can you|could you|would you mind)([^a-z]|$)' && return 0
+  return 1
+}
+
 # --- deterministic verb mapping (the fixed table; no open-ended reasoning) ---
 # Sets VERB to one of rebase|retcon|refresh|shepherd|gauntlet on a hit. Prefer a
 # fixed mapping; return 2 ("ambiguous") only when the comment plainly addresses
-# the bot or carries an explicit ask but names no verb — the one case that may
-# fall back to claude wearing the triager role.
-classify() {  # classify <body-file> <surface>; sets VERB; rc 0=verb 2=ambiguous 1=none
+# the bot, carries an explicit review ask, or is a trusted sender's plain-language
+# directive but names no verb — the cases that may fall back to claude wearing the
+# triager role.
+classify() {  # classify <body-file> <surface> <author>; sets VERB; rc 0=verb 2=ambiguous 1=none
   local body lc; body="$(cat "$1")"; lc="$(printf '%s' "$body" | tr '[:upper:]' '[:lower:]')"
   VERB=""
   case "$lc" in *"run the gauntlet"*) VERB=gauntlet; return 0;; esac
@@ -96,6 +170,10 @@ classify() {  # classify <body-file> <surface>; sets VERB; rc 0=verb 2=ambiguous
   # @-mention of the bot, or a CHANGES_REQUESTED review body: an ask with no verb.
   if printf '%s' "$lc" | grep -qiF "@$GARDEN_BOT_LOGIN"; then return 2; fi
   if [ "$2" = pr-review-body ] && printf '%s' "$body" | grep -q '^\[CHANGES_REQUESTED\]'; then return 2; fi
+  # A trusted maintainer/contributor's plain-language imperative directive with no
+  # verb and no @-mention (e.g. "Please apply this feedback"). reads_as_directive
+  # runs first (pure string, no I/O) so chatter never triggers a trust lookup.
+  if reads_as_directive "$body" && is_trusted "${3:-}"; then return 2; fi
   return 1
 }
 
@@ -143,12 +221,15 @@ if [ "$nlines" -eq 0 ]; then
   exit 0
 fi
 
+# Load the trusted-sender allowlist once (only when there is work to classify).
+load_allowlist
+
 hw="$last_seen"; failed=0; acted=0
 while IFS=$'\t' read -r created surface cid pr author url body; do
   [ -n "$created" ] || continue
   bf="$(mktemp)"; printf '%s\n' "$body" > "$bf"
 
-  set +e; classify "$bf" "$surface"; rc=$?; set -e
+  set +e; classify "$bf" "$surface" "$author"; rc=$?; set -e
   if [ "$rc" -eq 1 ]; then
     rm -f "$bf"; hw="$created"; continue          # not actionable; slide cursor past it
   fi

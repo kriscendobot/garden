@@ -68,6 +68,15 @@ reconcile_set() {
   log "reconciled $subdir: ${#want[@]} watched, ${#have[@]} previously armed"
 }
 
+# Reload the user manager before arming so the latest @.timer / @.service template
+# bodies are loaded. Arming a template instance (`enable --now @<slug>.timer`)
+# against a not-yet-loaded service template leaves the timer active but unable to
+# resolve its trigger target — it never fires, and a `.timer` restart alone does
+# NOT fix it (only a daemon-reload loads the service template). Reloading here,
+# before every reconcile, closes that arming race durably. Cheap and idempotent;
+# the test's mock-systemctl treats daemon-reload as a no-op.
+unit_ctl daemon-reload 2>/dev/null || log "WARN: daemon-reload failed (continuing to reconcile)"
+
 # repos/ → commit triager (laxer bar); comment-repos/ → comment watcher (stricter
 # monitoring-safety bar, widened only after journal-recorded maintainer auth).
 reconcile_set repos         garden-triager

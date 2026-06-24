@@ -2,8 +2,15 @@
 Description=Garden triager timer for repo %i
 
 [Timer]
-OnActiveSec=2m
+# Same hardening as garden-comment-watcher@.timer: an explicit @-instance binding
+# and an OnBootSec anchor so the timer always has a concrete next-trigger and
+# cannot get stuck "active but never fired" if its first elapse is dropped across
+# a daemon-reload before the service has ever run. See that timer for the full
+# rationale. OnUnitActiveSec drives the steady cadence after the first run.
+Unit=garden-triager@%i.service
+OnBootSec=30s
 OnUnitActiveSec=2m
+AccuracySec=2s
 
 [Install]
 WantedBy=timers.target

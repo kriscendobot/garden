@@ -137,5 +137,73 @@ seen_d="$(cursor_seen "$TR/state-d" "$BARE_D")"
 [ -z "$seen_d" ] && ok "cursor did NOT advance past a lost post (will re-poll)" || bad "cursor advanced despite lost post ($seen_d)"
 
 # ============================================================================
+# Bug 2 — a trusted sender's plain-language directive (no @-mention, no verb) must
+# fall back to the triager, while the same comment from an untrusted sender, and a
+# non-directive from a trusted sender, stay dropped. A fallback stub stands in for
+# the claude triager (returns 'attention'); trust is granted via the allowlist file
+# override and DENIED by a /bin/false org-membership handler.
+ALLOW="$TR/allowlist"; printf 'kriskowal\n' > "$ALLOW"
+FBSTUB="$TR/attention-fallback.sh"
+cat > "$FBSTUB" <<'EOF'
+#!/bin/bash
+# stand in for the claude triager: a directive routes to 'attention'.
+echo attention
+EOF
+chmod +x "$FBSTUB"
+# run the watcher with the directive-aware trust wiring (allowlist + deny org).
+run_directive() {  # run_directive <state> <bare> <fixture> <reactlog>
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" \
+      CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
+      GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+      GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_COMMENT_FALLBACK="$FBSTUB" \
+      GARDEN_COMMENT_TRUST=/bin/false \
+      GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
+}
+todo_count() {  # todo_count <bare>  -> non-gitkeep entries in jobs/todo
+  local v n; v="$(mktemp -d "$TR/tc.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  n=$(ls -1 "$v/jobs/todo" | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"
+}
+
+hr; echo "E — trusted sender plain directive (no @, no verb) → triager fallback job"; hr
+BARE_E="$TR/e.git"; seed_bare "$BARE_E"
+FIX_E="$TR/fix-e.tsv"; RLOG_E="$TR/react-e.log"; : > "$RLOG_E"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-24T13:00:00Z issue-comment 444 503 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/503#issuecomment-4794208524 \
+  'Please apply this feedback' > "$FIX_E"
+run_directive "$TR/state-e" "$BARE_E" "$FIX_E" "$RLOG_E"
+[ "$(todo_count "$BARE_E")" -eq 1 ] && ok "trusted plain-language directive routed to a posted job" || bad "directive dropped (todo=$(todo_count "$BARE_E"))"
+[ -s "$RLOG_E" ] && ok "eyes reactji acked the directive comment" || bad "no reactji on the directive"
+[ "$(cursor_seen "$TR/state-e" "$BARE_E")" = 2026-06-24T13:00:00Z ] && ok "cursor advanced past the actioned directive" || bad "cursor not advanced"
+
+hr; echo "F — SAME directive from an UNTRUSTED sender → still dropped"; hr
+BARE_F="$TR/f.git"; seed_bare "$BARE_F"
+FIX_F="$TR/fix-f.tsv"; RLOG_F="$TR/react-f.log"; : > "$RLOG_F"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-24T14:00:00Z issue-comment 555 503 drive-by-rando \
+  https://github.com/endojs/endo-but-for-bots/pull/503#issuecomment-555 \
+  'Please apply this feedback' > "$FIX_F"
+run_directive "$TR/state-f" "$BARE_F" "$FIX_F" "$RLOG_F"
+[ "$(todo_count "$BARE_F")" -eq 0 ] && ok "untrusted sender's directive dropped (no job)" || bad "untrusted directive posted a job"
+[ ! -s "$RLOG_F" ] && ok "no reactji for an untrusted sender" || bad "reactji posted for untrusted: $(cat "$RLOG_F")"
+[ "$(cursor_seen "$TR/state-f" "$BARE_F")" = 2026-06-24T14:00:00Z ] && ok "cursor slid past the dropped untrusted comment" || bad "cursor did not slide"
+
+hr; echo "G — non-directive from a TRUSTED sender → dropped"; hr
+BARE_G="$TR/g.git"; seed_bare "$BARE_G"
+FIX_G="$TR/fix-g.tsv"; RLOG_G="$TR/react-g.log"; : > "$RLOG_G"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-24T15:00:00Z issue-comment 666 503 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/503#issuecomment-666 \
+  'Thanks for the help here!' > "$FIX_G"
+run_directive "$TR/state-g" "$BARE_G" "$FIX_G" "$RLOG_G"
+[ "$(todo_count "$BARE_G")" -eq 0 ] && ok "non-directive from a trusted sender dropped (no job)" || bad "non-directive posted a job"
+[ ! -s "$RLOG_G" ] && ok "no reactji on a non-directive" || bad "reactji posted on chatter"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
