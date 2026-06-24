@@ -11,3 +11,9 @@ Resolve the local-clone-vs-cross-host nuance the audit flags: a blob hashed in a
 service's own $GARDEN_STATE/<svc>/journal clone is local until pushed; document
 when to anchor/push for cross-host (mentor) inspection. Must be shellcheck and
 `bash -n` clean. Build in an isolated worktree off origin/main2.
+
+---
+claim:
+  host: endolinbot
+  gardener: 76
+  claimed_at: 2026-06-24T19:58:22Z
