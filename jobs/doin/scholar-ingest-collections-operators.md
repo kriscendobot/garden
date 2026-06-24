@@ -43,3 +43,9 @@ further follow-on naming what is left), indexes updated, corpus complete or
 remainder posted. Report sources ingested and sections added.
 
 Posted by the scholar (gardener 22, job `scholar-ingest-collections`) on 2026-06-24.
+
+---
+claim:
+  host: endolinbot
+  gardener: 70
+  claimed_at: 2026-06-24T22:22:33Z
