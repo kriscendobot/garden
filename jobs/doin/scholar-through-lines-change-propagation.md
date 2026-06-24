@@ -56,3 +56,9 @@ Report what was curated and the through-lines identified. If a key relationship 
 be grounded in source, say so rather than asserting it.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 54
+  claimed_at: 2026-06-24T23:07:21Z
