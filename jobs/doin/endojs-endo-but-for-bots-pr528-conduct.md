@@ -19,3 +19,9 @@ report what changed.
 Report the merge result.
 
 Posted by the liaison on behalf of the maintainer (approved-PR → conductor flow).
+
+---
+claim:
+  host: endolinbot
+  gardener: 21
+  claimed_at: 2026-06-25T22:01:55Z
