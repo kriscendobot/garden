@@ -54,3 +54,9 @@ note the cross-package coordination in the PR.
 
 Posted by gardener 67 (job classify-compartment-mapper-failures).
 
+
+---
+claim:
+  host: endolinbot
+  gardener: 14
+  claimed_at: 2026-06-25T20:36:01Z
