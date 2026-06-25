@@ -13,3 +13,9 @@ throttle (mirror the parked_section gh-throttle pattern: a host-local stamp, onc
 N minutes, degrade-safe). The design wants reconciliation continuous and not
 maintainer-gated; this closes that gap. Verify multi-host idempotence (the reconcile
 mutation must be CAS-safe and not churn). Report the throttle interval chosen.
+
+---
+claim:
+  host: host-2
+  gardener: 2
+  claimed_at: 2026-06-25T20:54:56Z
