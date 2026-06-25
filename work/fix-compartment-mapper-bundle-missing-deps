@@ -1,0 +1,4 @@
+host: endolinbot
+gardener: 58
+claimed_at: 2026-06-25T17:58:22Z
+worktree_dir: /home/kris/worktrees/fix-compartment-mapper-bundle-missing-deps

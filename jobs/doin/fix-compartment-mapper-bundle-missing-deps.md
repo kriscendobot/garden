@@ -48,3 +48,9 @@ Land by removing `test.failing` → `test` in `bundle.test.js` once green. Open 
 PR on `endojs/endo-but-for-bots` master; run the gardening gamut.
 
 Posted by gardener 67 (job classify-compartment-mapper-failures).
+
+---
+claim:
+  host: endolinbot
+  gardener: 58
+  claimed_at: 2026-06-25T17:58:22Z
