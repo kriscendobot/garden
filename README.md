@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T17:56:52Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:00:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A review directive on [kriskowal/garden#4](https://github.com/kriskowal/garden/pull/4) was claimed and is now in flight alongside a round-two finalize job for the same PR. Recently landed: the banner-and-set cleanup on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), a new deterministic garden-mirror-closer service, and the bulletin restructure that now leads with this Latest section over the parked-PR queue. Freshly parked for review is [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package), waiting only a few hours; everything else in the parked list is unchanged.
+The most urgent item: watchman reports `main2` on host endolinbot is **wedged** — `origin/main2` has advanced but the live tree is stuck at `153c3026` because tracked edits to `scripts/jobs/comment-watcher.sh`, `comment-source-gh.sh`, and `comment-watcher-test.sh` block the fast-forward, so this host won't pick up new roles/skills/scripts until the tree is cleaned.
+
+On the autonomous side, a gardener classified `@endo/compartment-mapper`'s 12 known master test failures into three root causes — ESM dynamic `import()` not traced during archival (10 of 12), the CJS bundler aborting on missing/optional internal modules, and an archive exit-module re-export missing its `notify` notifier — and fanned out one fix job per class, all now in flight. Garden [kriskowal/garden#4](https://github.com/kriskowal/garden/pull/4) round-two work landed (the maintainer-reviews reinforcement and finalize jobs completed), and fresh directives were claimed for [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (retcon) and [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (attention).
 
 ## Parked for maintainer feedback
 
@@ -49,26 +51,55 @@ A review directive on [kriskowal/garden#4](https://github.com/kriskowal/garden/p
 - [endojs/playground#14](https://github.com/endojs/playground/pull/14) — feat: rock-paper-scissors (waiting 789d)
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260625T175821Z-6b5f31` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T175821Z-6b5f31.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to c81e3641396945f59d9f545e08e6202ba16384bb but the live tree is stuck at 153c30264865a22c97a4e5b351f00e6c7cda4c41: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/comment-watcher.sh
+>  M scripts/jobs/handlers/comment-source-gh.sh
+>  M scripts/jobs/test/comment-watcher-test.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260625T175939Z-28a7e0` — from gardener:classify-compartment-mapper-failures, reply_to `classify-compartment-mapper-failures` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T175939Z-28a7e0.md)
+
+> Classified @endo/compartment-mapper's 12 known test failures on master (endo-but-for-bots master == endo@master for this package; no bot-master reset needed). All 12 reproduce on master and collapse into **3 root-cause classes**, one fix-proposal job posted per class:
+>
+> 1. **ESM dynamic `import()` not traced during archival** (10/12) — `dynamic-import-esm` ×5 + `optionalDependencies/esm` ×5, all archive-only combos. Archiver follows only static bindings; dynamically-imported modules are absent from the archive → "Cannot find external module … in archive". Job `fix-compartment-mapper-esm-dynamic-import-archival`.
+> 2. **CJS bundler aborts on missing/optional internal modules** (1/12) — `bundle cjs-compat`. Importer tolerates a missing `require('./spam')` as a deferredError; bundler treats it as fatal. Job `fix-compartment-mapper-bundle-missing-deps`.
+> 3. **Archive exit-module via `modules` map fails through a re-export** (1/12) — `exit` URL-scheme case. `{ namespace }` record lacks the `notify` export-notifier → `TypeError: notify is not a function` in ses module-instance on re-export. Likely ses+compartment-mapper. Job `fix-compartment-mapper-archive-exit-reexport`.
+>
+> Full classification (per-test mapping, reproduced errors, fix directions) in journal result entry. No failure left unexplained.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (9)
 - `classify-compartment-mapper-failures` — Classify & investigate compartment-mapper's known test failures, then fan out...
-- `finalize-garden-pr4-round2` — Finalize garden#4 per kriskowal's answers to the open questions (review round 2)
+- `endojs-endo-but-for-bots-pr474-retcon` — retcon directive on endojs/endo-but-for-bots PR #474
+- `endojs-endo-but-for-bots-pr96-0105506f` — attention directive on endojs/endo-but-for-bots PR #96
+- `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
+- `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
+- `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
+- `kriskowal-garden-pr4-b8d45a0f` — attention directive on kriskowal/garden PR #4
 - `kriskowal-garden-pr4-review-022d380c` — review directive on kriskowal/garden PR #4
-- `reinforce-cw-maintainer-reviews` — Reinforce the comment-watcher: a trusted maintainer's review with inline comm...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (137)
+### tada (139)
+- `reinforce-cw-maintainer-reviews` — Completion report: reinforce-cw-maintainer-reviews
+- `finalize-garden-pr4-round2` — Done. Completion report follows.
 - `bulletin-restructure-latest-top-parked-prs` — Completion report
 - `fix-ebfb-pr503-banners-and-set` — Completion report — fix-ebfb-pr503-banners-and-set
 - `address-review-garden-pr4` — The worktree was removed (the earlier error was just the shell's cwd being de...
-- `endojs-endo-but-for-bots-pr503-7822ef8a` — Completion report — job endojs-endo-but-for-bots-pr503-7822ef8a
-- `build-mirror-closer-service` — Completion report — build-mirror-closer-service
-- … and 132 more
+- … and 134 more
 
 ## Watch set
 (none)
