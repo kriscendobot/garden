@@ -51,3 +51,9 @@ parameters. If blocked, report the diagnosis and ready-to-apply change rather th
 claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 47
+  claimed_at: 2026-06-25T15:20:46Z
