@@ -33,6 +33,31 @@
 # A killswitch file; if present, workers stop claiming. Mirrors pivoker's NOPE.
 : "${GARDEN_KILLSWITCH:=$GARDEN_STATE/NOPE}"
 
+# --- bounded git network operations (the stuck-fetch hardening) --------------
+#
+# A journal fetch should finish in well under a second, but git has NO default
+# IO timeout: a half-open connection left over from a transient network blip can
+# stall a `git fetch` FOREVER. Worse, since harden-producer-push-path serialized
+# each clone behind an flock, one stuck fetch HOLDS its clone lock, so every
+# producer serialized behind that lock blocks too — a single stale connection
+# wedged the WHOLE fleet (2026-06-25). The fix bounds BOTH the fetch and the
+# lock wait, and a janitor (reaper.sh) reaps any fetch that outlives its bound.
+: "${GARDEN_FETCH_TIMEOUT:=45}"   # seconds before a journal fetch is killed and retried
+: "${GARDEN_FETCH_RETRIES:=3}"    # bounded attempts for a journal fetch
+: "${GARDEN_LOCK_WAIT:=60}"       # seconds a clone-lock waiter blocks before backing off
+: "${GARDEN_LOCK_RETRIES:=3}"     # bounded waits before a lock acquisition gives up
+
+# Belt: teach git itself to abort a stalled transfer rather than rely solely on
+# the `timeout` wrapper. For https remotes, treat a transfer slower than
+# ~1KB/s sustained for GARDEN_FETCH_TIMEOUT seconds as dead. For the
+# git@github.com ssh remote, cap connect time and send keepalives so a dead peer
+# is detected promptly. Only set GIT_SSH_COMMAND if the operator has not.
+export GIT_HTTP_LOW_SPEED_LIMIT="${GIT_HTTP_LOW_SPEED_LIMIT:-1000}"
+export GIT_HTTP_LOW_SPEED_TIME="${GIT_HTTP_LOW_SPEED_TIME:-$GARDEN_FETCH_TIMEOUT}"
+if [ -z "${GIT_SSH_COMMAND:-}" ]; then
+  export GIT_SSH_COMMAND="ssh -o ConnectTimeout=10 -o ServerAliveInterval=10 -o ServerAliveCountMax=3"
+fi
+
 # --- deterministic fleet gh identity -----------------------------------------
 #
 # Prepend the fleet's gh wrapper dir to PATH so every fleet `gh` call (this
@@ -178,7 +203,18 @@ clone_lock() {
   fi
   lf="$(_clone_lockfile "$dir")"; mkdir -p "$(dirname "$lf")"
   exec {fd}>"$lf" || die "cannot open clone lock $lf"
-  flock "$fd"     || die "cannot acquire clone lock $lf"
+  # Bound the wait: a stuck holder (a hung fetch) must NOT block a waiter
+  # forever — that is exactly how one stale connection wedged the whole fleet.
+  # flock -w caps each wait; on timeout we back off and retry a bounded number
+  # of times, then give up loudly rather than block indefinitely.
+  local n=1
+  until flock -w "$GARDEN_LOCK_WAIT" "$fd"; do
+    if [ "$n" -ge "$GARDEN_LOCK_RETRIES" ]; then
+      die "cannot acquire clone lock $lf after $n waits of ${GARDEN_LOCK_WAIT}s (stuck holder?)"
+    fi
+    log "clone lock $lf busy >${GARDEN_LOCK_WAIT}s; backoff + retry ($((n+1))/$GARDEN_LOCK_RETRIES)"
+    backoff; n=$((n+1))
+  done
   _CLONE_LOCK_FD["$dir"]="$fd"
   export "$key=held"
 }
@@ -213,6 +249,30 @@ ensure_clone() {
   clone_unlock "$dir"
 }
 
+# Bounded journal fetch: timeout-wrapped, with backoff + retry. git has no IO
+# timeout of its own, so a half-open connection can hang a fetch forever; we wrap
+# every journal fetch in `timeout GARDEN_FETCH_TIMEOUT` and treat a timeout
+# (exit 124) or any transient failure as retryable, never a hang. Returns 0 on
+# success, the last non-zero rc after GARDEN_FETCH_RETRIES attempts. Honors
+# GARDEN_FETCH_CMD for test injection (it then owns its own timing).
+journal_fetch() {
+  local dir="$1" attempt=1 rc=0
+  while :; do
+    if [ -n "${GARDEN_FETCH_CMD:-}" ]; then
+      GARDEN_FETCH_DIR="$dir" "$GARDEN_FETCH_CMD"; rc=$?
+    else
+      timeout "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch -q origin "$JOURNAL_BRANCH"; rc=$?
+    fi
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 124 ] && log "journal fetch in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s) on attempt $attempt"
+    if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
+      log "journal fetch in $dir failed after $attempt attempt(s) (last rc=$rc)"
+      return "$rc"
+    fi
+    backoff; attempt=$((attempt+1))
+  done
+}
+
 # Hard-sync a clone to the authoritative tip. The board's true state. Acquires
 # the per-clone lock and HOLDS it; the matching commit_and_push releases it, so
 # the entire sync→write→commit→push critical section is atomic per clone. A
@@ -221,7 +281,7 @@ ensure_clone() {
 sync_clone() {
   local dir="$1"
   clone_lock "$dir"
-  git -C "$dir" fetch -q origin "$JOURNAL_BRANCH" || die "fetch failed in $dir"
+  journal_fetch "$dir" || die "fetch failed in $dir after bounded retries"
   git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH"
   git -C "$dir" clean -qfd jobs 2>/dev/null || true
 }
@@ -244,7 +304,7 @@ _push_journal() {
 _verify_pushed() {
   local dir="$1" head remote
   head="$(git -C "$dir" rev-parse HEAD 2>/dev/null)"               || return 1
-  git -C "$dir" fetch -q origin "$JOURNAL_BRANCH" 2>/dev/null      || return 1
+  journal_fetch "$dir" >/dev/null 2>&1                             || return 1
   remote="$(git -C "$dir" rev-parse "origin/$JOURNAL_BRANCH" 2>/dev/null)" || return 1
   [ "$head" = "$remote" ] && return 0
   git -C "$dir" merge-base --is-ancestor "$head" "$remote" 2>/dev/null

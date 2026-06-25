@@ -118,7 +118,7 @@ last_seen="$("$HERE/cursor-get.sh" "$CURSOR_KEY" | sed -n 's/^last_seen:[[:space
 verify_posted() {
   local base="$1" dir="$GARDEN_COMMENT_VERIFY_CLONE" sub
   ensure_clone "$dir"
-  git -C "$dir" fetch -q origin "$JOURNAL_BRANCH" 2>/dev/null || return 1
+  journal_fetch "$dir" >/dev/null 2>&1 || return 1
   for sub in todo doin tada; do
     git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
   done
@@ -143,7 +143,7 @@ load_allowlist() {
   else
     src="journal:trusted-senders/allowlist"
     ensure_clone "$VERIFY"
-    git -C "$VERIFY" fetch -q origin "$JOURNAL_BRANCH" 2>/dev/null || true
+    journal_fetch "$VERIFY" >/dev/null 2>&1 || true
     while IFS= read -r line; do
       line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
       [ -n "$line" ] && ALLOWLIST+=("$line")
