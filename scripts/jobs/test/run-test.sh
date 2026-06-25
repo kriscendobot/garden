@@ -448,6 +448,51 @@ PARKED_REC="$(
 rm -rf "$PF"
 
 # ============================================================================
+hr; echo "SUBTEST 10c — PLAN QUEUE: jobs/plan/ rendered (go-ahead + deferred)"; hr
+# Unit-test render_plan_queue directly — the deterministic "## Plan queue" section
+# that surfaces the parked jobs/plan/ category (NOT the design-plan render_plan).
+# Extract the renderer + its job_desc helper from bulletin.sh and the plan-metadata
+# helpers from common.sh, source them over a throwaway jobs/plan/ fixture, and
+# assert each parked job lands under the right group with its description+priority.
+QF="$TR/plan-queue"; mkdir -p "$QF/journal/jobs/plan"
+# extract_fn (defined in SUBTEST 10b) pulls a function body from a given file; the
+# renderer spans two source files, so name them explicitly here.
+qextract() { awk -v fn="$1" 'index($0, fn"() {")==1{f=1} f{print} f && /^}/{exit}' "$2"; }
+{
+  for fn in list_jobs plan_field plan_gate plan_priority plan_rank plan_deferred_ranked; do qextract "$fn" "$JOBS/common.sh"; echo; done
+  for fn in job_desc render_plan_queue; do qextract "$fn" "$JOBS/bulletin.sh"; echo; done
+  echo 'JOBS_PLAN="jobs/plan"'
+} > "$QF/funcs.sh"
+bash -n "$QF/funcs.sh" && ok "extracted plan-queue functions parse" || bad "plan-queue functions do not parse"
+# Fixture: one go-ahead job (needs maintainer authorization) and two deferred jobs
+# at different priorities (high should rank above low).
+printf -- '---\ngate: go-ahead\npriority: high\n---\n# authorize the ocap import\n' > "$QF/journal/jobs/plan/needs-authz.md"
+printf -- '---\ngate: deferred\npriority: high\n---\n# refactor the widget\n'        > "$QF/journal/jobs/plan/defer-high.md"
+printf -- '---\ngate: deferred\npriority: low\n---\n# tidy the docs\n'               > "$QF/journal/jobs/plan/defer-low.md"
+PQ_OUT="$(DIR="$QF/journal" bash -c 'source "'"$QF"'/funcs.sh"; render_plan_queue')"
+# go-ahead group lists the authz job with its description; deferred jobs do NOT appear there
+goahead_block="$(awk '/^### awaiting go-ahead/{f=1;next} /^### deferred/{f=0} f' <<<"$PQ_OUT")"
+defer_block="$(awk '/^### deferred/{f=1} f' <<<"$PQ_OUT")"
+{ grep -qF 'needs-authz' <<<"$goahead_block" && grep -qF 'authorize the ocap import' <<<"$goahead_block" \
+  && ! grep -qF 'defer-high' <<<"$goahead_block"; } \
+  && ok "go-ahead group lists gate=go-ahead jobs with description (deferred excluded)" || bad "go-ahead group wrong ($goahead_block)"
+# deferred group lists both deferred jobs, high before low, with descriptions; not the go-ahead one
+{ grep -qF 'defer-high' <<<"$defer_block" && grep -qF 'refactor the widget' <<<"$defer_block" \
+  && grep -qF 'defer-low' <<<"$defer_block" && ! grep -qF 'needs-authz' <<<"$defer_block"; } \
+  && ok "deferred group lists gate=deferred jobs with description (go-ahead excluded)" || bad "deferred group wrong ($defer_block)"
+# priority order: high ranks before low in the deferred group
+hi_ln="$(grep -n 'defer-high' <<<"$defer_block" | head -1 | cut -d: -f1)"
+lo_ln="$(grep -n 'defer-low'  <<<"$defer_block" | head -1 | cut -d: -f1)"
+{ [ -n "$hi_ln" ] && [ -n "$lo_ln" ] && [ "$hi_ln" -lt "$lo_ln" ]; } \
+  && ok "deferred group sorted by priority (high before low)" || bad "deferred not priority-sorted (hi=$hi_ln lo=$lo_ln)"
+# empty jobs/plan/ → both groups render "(none)", never an empty section
+rm -f "$QF"/journal/jobs/plan/*.md
+PQ_EMPTY="$(DIR="$QF/journal" bash -c 'source "'"$QF"'/funcs.sh"; render_plan_queue')"
+{ [ "$(grep -c '^(none)$' <<<"$PQ_EMPTY")" -eq 2 ]; } \
+  && ok "empty jobs/plan/ → both groups render (none)" || bad "empty plan queue not (none) ($PQ_EMPTY)"
+rm -rf "$QF"
+
+# ============================================================================
 hr; echo "SUBTEST 11 — MENTOR: log → improvement job (self-healing)"; hr
 export GARDEN_STATE="$TR/state-imp" GARDEN_HOST=ihost
 printf 'a connection error occurred during push\n' | GARDEN_ROLE=gardener "$JOBS/journal-entry.sh" error >/dev/null
