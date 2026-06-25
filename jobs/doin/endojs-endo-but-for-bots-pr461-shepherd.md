@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Shepherd. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 81
+  claimed_at: 2026-06-25T23:31:17Z
