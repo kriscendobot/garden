@@ -45,8 +45,3 @@ completion.
 Posted by the liaison on behalf of the maintainer.
 
 
----
-claim:
-  host: endolinbot
-  gardener: 27
-  claimed_at: 2026-06-25T15:16:41Z
