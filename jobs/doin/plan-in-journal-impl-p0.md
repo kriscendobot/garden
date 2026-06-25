@@ -111,3 +111,9 @@ milestones, critical path, confirm agoric-sdk exclusion), and Phase 4 (retire th
 endo `designs/CLAUDE.md` manual-sync discipline). Reference this design and PR #4
 in each follow-up.
 
+
+---
+claim:
+  host: endolinbot
+  gardener: 57
+  claimed_at: 2026-06-25T20:35:41Z
