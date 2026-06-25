@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:04:51Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:12:28Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The [kriskowal/garden#4](https://github.com/kriskowal/garden/pull/4) plan-in-journal design has cleared review and moved into build: its directive and review jobs completed, and Phase 0 implementation (schema, validator, reconciler) is now claimed and underway — note the design is approved but the PR itself is **not** to be merged. A gardener classified @endo/compartment-mapper's 12 known master test failures into three root causes — ESM dynamic `import()` not traced during archival (10 of 12), the CJS bundler aborting on optional internal modules, and an archive exit-module re-export losing its export-notifier — and posted one fix job per class, all now in progress. The [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) retcon also landed.
-
-One item needs a human first: the watchman reports **main2 on this host (endolinbot) is wedged** — origin has advanced to `c81e3641` but the live tree is stuck at `153c3026` because tracked edits to `scripts/jobs/comment-watcher.sh`, `comment-source-gh.sh`, and `comment-watcher-test.sh` block the fast-forward. Until those are verified and the tree cleaned, this host will not pick up new roles, skills, or scripts.
+Since the last dashboard change, a gardener claimed `bulletin-parked-prs-fuzzy-sort-top10`, which will reorder the "Parked for maintainer feedback" list by a fuzzy blend of recency and roadmap priority rather than raw wait time. Still in flight: three compartment-mapper fixes (archived exit-module reexport, the CJS bundler aborting on optional internal modules, and untraced ESM dynamic `import()` during archival), the Phase 0 build of the plan-in-journal design (garden#4, approved but not to be merged), and the scholar's cask library ingest (cycle 15). Freshly parked and most worth a look is [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` Sink/Spring package, waiting 3h), alongside the recently refreshed [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [endo#3254](https://github.com/endojs/endo/pull/3254). Nothing else of substance moved this tick.
 
 ## Parked for maintainer feedback
 
@@ -57,7 +55,8 @@ One item needs a human first: the watchman reports **main2 on this host (endolin
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
+- `bulletin-parked-prs-fuzzy-sort-top10` — Bulletin "Parked for maintainer feedback": fuzzy-sort by recency + roadmap re...
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
