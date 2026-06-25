@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T15:49:01Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T15:50:04Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -93,8 +93,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - `shepherd-ebfb-pr96` — Shepherd endo-but-for-bots #96 CI to green
 
 ### tada (124)
+- `finish-ebfb-pr96` — Completion report — finish endo-but-for-bots #96 (Phase 7)
 - `fix-reaper-requeue-reliability` — Report: fix-reaper-requeue-reliability
-- `finish-ebfb-pr96` — Completion report: finish-ebfb-pr96
 - `scholar-ingest-cask-13` — Completion report — scholar-ingest-cask-13 (gardener 91, endolinbot)
 - `scholar-ingest-cask` — Done. Here is my completion report.
 - `scholar-reingest-pubsub-on-stabilize` — Completion report
@@ -107,7 +107,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 151927Z-progress-gardener-2bb1a1.md: gardener-80 on endolinbot claimed job scholar-ingest-cask
 - 151928Z-progress-gardener-7e8d63.md: gardener-33 on endolinbot claimed job finish-ebfb-pr96
 - 151934Z-progress-gardener-73b3dc.md: gardener-91 on endolinbot claimed job scholar-ingest-cask-13
 - 152050Z-progress-gardener-cddfce.md: gardener-47 on endolinbot claimed job fix-reaper-requeue-reliability
@@ -122,6 +121,9 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 153657Z-progress-gardener-29d71b.md: gardener-27 on endolinbot completed job finish-ebfb-pr96
 - 153823Z-error-gardener-6e2874.md: gardener-24 on endolinbot: job scholar-ingest-cask-14 handler FAILED; output captured as e69de29bb2d1d6434b8b29ae775ad8c2e48c5391, escalated to the gardener inbox, left in doin for the reaper
 - 154136Z-progress-gardener-3a798b.md: gardener-47 on endolinbot completed job fix-reaper-requeue-reliability
+- 154945Z-progress-gardener-35fe1c.md: gardener-33 on endolinbot completed job finish-ebfb-pr96
 ## Latest
 
-Three messages landed in the maintainer inbox, one needing a decision. On compartment-mapper PR #96, a concurrent peer gardener pushed the Phase 7 fix (honoring `languageForExtensionByPrefix` at parse time) for the entry-path case, satisfying the PR-facing ask; `finish-ebfb-pr96` then completed but parked an independently-built general case (dependency-subtree auxiliaries) on side branch `pr96-auxiliary-lazy-parse-general-case` — the maintainer is asked to choose between accepting entry-path scope now or reconciling the two mechanisms. The cask library ingest advanced through cycle 13 to cycle 14, but a double-claim defect surfaced: gardeners 78 and 91 both fully worked `scholar-ingest-cask-13`, and the stale chain-root `scholar-ingest-cask` stayed re-claimable until closed as a reconciliation — flagged as the same class as the just-completed `fix-reaper-requeue-reliability`. Worth noticing: `scholar-ingest-cask-14` then failed in its handler and was left in `doin` for the reaper, while `shepherd-ebfb-pr96` is now driving #96's CI to green. The scholar also posted a change-propagation synthesis update with two honesty corrections (makeCancelKit is not an @endo/pubsub export; #513 and #507 have diverged on factory names) and queued a re-ingest for when those branches stabilize.
+PR #96 (compartment-mapper auxiliary package.json) is the live item for a human: `finish-ebfb-pr96` closed out, but its completion report flags a fork in the road — a peer gardener already pushed the entry-path fix for the flagged unconsumed-override gap (729e07f1/905cb720), satisfying the PR-facing ask, while this gardener independently built the *general* dependency-subtree case on a side branch (`origin/pr96-auxiliary-lazy-parse-general-case`, all tests green) rather than clobber the peer. The two use different architectures and don't compose trivially, so the maintainer is asked to choose: accept entry-path scope now and defer the general case, or reconcile onto the lazy approach. `shepherd-ebfb-pr96` is now driving #96's CI to green.
+
+Two reliability signals worth noticing, both already being addressed: the cask ingest chain showed redundant concurrent work — `scholar-ingest-cask-13` was double-claimed and fully worked by gardeners 78 and 91, and the stale chain root `scholar-ingest-cask` stayed re-claimable until gardener-80 closed it as a no-op reconciliation (corpus already current). `fix-reaper-requeue-reliability` completed in the same window, the same class of defect. Separately, `scholar-ingest-cask-14`'s handler failed under gardener-24 and was left in `doin` for the reaper before gardener-24 re-claimed it; the cask ingest is otherwise advancing on cycle 15.
