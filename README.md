@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T15:11:17Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T15:14:43Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -46,19 +46,18 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
 - `scholar-ingest-cask-13` — Scholar: continue the library ingest of kriskowal/cask (cycle 14)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
-- `scholar-reingest-pubsub-on-stabilize` — Scholar: re-ingest the pubsub sources when #513 / #507 stabilize
 
-### tada (119)
+### tada (120)
+- `scholar-reingest-pubsub-on-stabilize` — Completion report
 - `scholar-continue-change-propagation` — scholar-continue-change-propagation — complete
 - `harden-git-fetch-timeout` — Completion report — harden-git-fetch-timeout
 - `garden-comment-watcher-verb-imperative-gate` — Completion report
 - `endojs-endo-but-for-bots-pr513-rebase` — Completion report: endojs-endo-but-for-bots-pr513-rebase
-- `harden-jq-and-loud-tool-failure` — Completion report — harden-jq-and-loud-tool-failure
-- … and 114 more
+- … and 115 more
 
 ## Watch set
 (none)
@@ -67,8 +66,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 144825Z-progress-gardener-48bc31.md: gardener-87 on endolinbot completed job endojs-endo-but-for-bots-pr513-be1cd0d3
-- 144918Z-progress-gardener-771a75.md: gardener-83 on endolinbot completed job endojs-endo-but-for-bots-pr522-gauntlet
 - 145023Z-progress-gardener-93d99f.md: gardener-11 on endolinbot completed job fix-watcher-verb-keyword-false-positive
 - 145036Z-progress-gardener-672044.md: gardener-29 on endolinbot completed job reconduct-endo-cancel-507
 - 145057Z-progress-gardener-024a2c.md: gardener-44 on endolinbot claimed job scholar-continue-change-propagation
@@ -82,6 +79,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 150930Z-progress-gardener-a90d96.md: gardener-30 on endolinbot claimed job scholar-reingest-pubsub-on-stabilize
 - 150959Z-progress-gardener-52cde8.md: gardener-62 on endolinbot completed job harden-git-fetch-timeout
 - 151112Z-progress-gardener-ab51ad.md: gardener-44 on endolinbot completed job scholar-continue-change-propagation
+- 151348Z-result-scholar-2fd7fb.md: # Scholar re-check: pubsub sources (#513 / #507) — no movement, no re-ingest
+- 151426Z-progress-gardener-1972cf.md: gardener-30 on endolinbot completed job scholar-reingest-pubsub-on-stabilize
 ## Latest
 
-The scholar's change-propagation curation cycle completed (`scholar-continue-change-propagation` → tada) and left a maintainer message: it curated the two missing pubsub sources — the @endo/pubsub README (#513) and the notifier-pubsub-migration design (#507) — into the library, but both still live on unmerged branches and have diverged on factory names (`makeChangeTopic`/`makeLatestTopic` vs `makeChangesPubSub`/`makeLatestPubSub`), flagged for reconciliation. Two honesty corrections landed: `makeCancelKit` was dropped as an @endo/pubsub export (its home is @endo/cancel, not yet ingested), and the sliding-window-topic findings are marked draft, not shipped. A follow-on `scholar-reingest-pubsub-on-stabilize` job is already claimed and waits for #513/#507/@endo/cancel to settle before refreshing the sources. Four jobs remain in flight (the two cask ingests, ebfb #96, and the pubsub re-ingest); nothing currently needs the maintainer beyond reading that message.
+The scholar's `scholar-reingest-pubsub-on-stabilize` job ran and completed without re-ingesting anything: the re-check found no movement on the two pubsub sources (#513 / #507), so the library stays as curated rather than refreshing against still-diverged branches. That closes out the change-propagation curation cycle the maintainer endorsed — its synthesis report (curated @endo/pubsub and notifier-pubsub-migration sources, two honesty corrections around makeCancelKit's true home and the #513/#507 factory-name divergence) is waiting unread in the maintainer inbox. The board is otherwise quiet: todo is empty, and the three in-flight jobs are all scholar/ebfb continuations.
