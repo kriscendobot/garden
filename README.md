@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T21:02:25Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T21:03:32Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The plan-in-journal feature continues to land: the `add-plan-job-category` job — which carves a `jobs/plan/` board category for parked, go-ahead-or-deferred work — completed, joining the recently finished core implementation, Phase 3 cross-repo edges, and continuous-reconcile jobs now in the done column. Still in flight: Phase 0 (schema/validator/reconciler) and the combined Phase 1+4 endo-redirect work that retires the sync discipline, plus two compartment-mapper archival fixes (exit-module re-export through the modules map, and untraced ESM dynamic `import()`) and the next cycle of the scholar's kriskowal/cask library ingest. Nothing new is parked for review; the maintainer queue is unchanged, topped by the recently-arrived [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) locator-scheme refactor and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) passable byte arrays.
+The plan-in-journal effort closed out its first wave: the phase-1 endo redirect and the `plan-in-journal-impl-p0` job both landed in `tada`, joining the earlier schema/validator/renderer/reconciler and job-category work from the same series — the cross-repo plan tracking now has its initial implementation and Phase 1 in place. Three jobs remain in flight: two compartment-mapper archival fixes (exit-module reexport via the modules map, and untraced ESM dynamic `import()`) and the scholar's cycle-16 ingest of kriskowal/cask. Nothing new entered the maintainer-review queue, but the parked set is still deep at 31 PRs, with [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package) now waiting 6h and the locator-scheme refactor [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) and passable-byte-arrays [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) freshly surfaced for a look.
 
 ## Parked for maintainer feedback
 
@@ -34,20 +34,18 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (3)
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
-- `implement-plan-phase1-endo-redirect` — Plan-in-journal Phase 1 + Phase 4: endo redirect + retire the sync discipline
-- `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
 
-### tada (169)
+### tada (171)
+- `plan-in-journal-impl-p0` — Completion report — job plan-in-journal-impl-p0
+- `implement-plan-phase1-endo-redirect` — Completion report: implement-plan-phase1-endo-redirect
 - `add-plan-job-category` — Completion report: add-plan-job-category
 - `implement-plan-in-journal` — Completion report — implement-plan-in-journal
 - `implement-plan-phase3-cross-repo-and-edges` — report: implement-plan-phase3-cross-repo-and-edges
-- `implement-plan-continuous-reconcile` — report: implement-plan-continuous-reconcile
-- `fix-compartment-mapper-bundle-missing-deps` — CI is still in progress. The background watch (bxdq2h9o3) will notify me when...
-- … and 164 more
+- … and 166 more
 
 ## Watch set
 (none)
