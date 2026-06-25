@@ -72,16 +72,36 @@ gh api --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>/dev/
           ((.pull_request_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
           .user.login, .html_url, ($oneline) ] | @tsv" || true
 
-# 3) formal review bodies (no since= filter; iterate open PRs, filter by submitted_at).
-#    Prefix CHANGES_REQUESTED bodies so the watcher's classifier can see the state.
+# 3) formal review bodies AND inline-only reviews (no since= filter; iterate open
+#    PRs, filter by submitted_at).
+#    A review whose top-level body is EMPTY but that carries one or more inline
+#    comments (the substance lives entirely in the inline threads) used to be
+#    dropped here by `select((.body // "") != "")`, silently losing an entire
+#    maintainer review — observed on endo-but-for-bots #503/#96 and kriskowal/
+#    garden #4 (reviews 4573331488 + 4573434772, neither acted on). The presence
+#    of a trusted maintainer's inline review comments IS the directive, so such a
+#    review must be surfaced regardless of body/verb/phrasing. For each open PR we
+#    compute the set of review ids that carry >=1 inline comment and surface a
+#    review-body line when the body is non-empty OR the review is inline-bearing.
+#    Inline-bearing reviews are prefixed [INLINE-REVIEW] so the watcher's
+#    classifier can treat a trusted sender's review as actionable and enumerate
+#    ALL its inline comments. CHANGES_REQUESTED keeps its own prefix too.
 gh pr list -R "$repo" --state open --json number --jq '.[].number' 2>/dev/null \
   | while read -r n; do
       [ -n "$n" ] || continue
+      # Review ids that carry at least one inline comment on this PR. A
+      # space-delimited string so the reviews jq below can membership-test it.
+      rids="$(gh api --paginate "repos/$repo/pulls/$n/comments?per_page=100" 2>/dev/null \
+              | jq -r '.[] | (.pull_request_review_id // empty) | tostring' \
+              | sort -u | tr '\n' ' ')"
       gh api "repos/$repo/pulls/$n/reviews" 2>/dev/null \
-        | jq -r --arg s "$since" --arg n "$n" '
+        | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " '
             .[] | select((.submitted_at // "") >= $s)
-            | select((.body // "") != "")
-            | [ .submitted_at, "pr-review-body", (.id|tostring), $n, .user.login, .html_url,
-                ((if .state=="CHANGES_REQUESTED" then "[CHANGES_REQUESTED] " else "" end)
-                 + ((.body) | gsub("[\t\r\n]+"; " "))) ] | @tsv' || true
+            | (.id|tostring) as $rid
+            | ($rids | contains(" " + $rid + " ")) as $inline
+            | select(((.body // "") != "") or $inline)
+            | [ .submitted_at, "pr-review-body", $rid, $n, .user.login, .html_url,
+                ( (if $inline then "[INLINE-REVIEW] " else "" end)
+                + (if .state=="CHANGES_REQUESTED" then "[CHANGES_REQUESTED] " else "" end)
+                + ((.body // "") | gsub("[\t\r\n]+"; " ")) ) ] | @tsv' || true
     done

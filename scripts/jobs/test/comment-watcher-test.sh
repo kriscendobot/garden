@@ -336,5 +336,96 @@ run_watcher "$TR/state-m" "$BARE_M" "$FIX_M" "$RLOG_M"
 board_has "$BARE_M" "$SLUG-pr57-rebase" && ok "an @-mention licenses the verb table even without 'please'" || bad "@-mention + verb did not mint a rebase job"
 
 # ============================================================================
+# N/O/P — a TRUSTED maintainer's REVIEW carrying inline comments is ALWAYS
+# actionable, regardless of body/verb/phrasing (the gap behind endo-but-for-bots
+# #503/#96 and kriskowal/garden #4). The source marks such reviews [INLINE-REVIEW];
+# the classifier mints exactly one deterministic `review` job (keyed per review id)
+# that enumerates ALL inline comments. The sender gate still applies: untrusted →
+# dropped. A review with no inline marker and no body → nothing.
+todo_glob() {  # todo_glob <bare> <ere>  -> count of jobs/todo entries matching ERE
+  local v n; v="$(mktemp -d "$TR/tg.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  n=$(ls -1 "$v/jobs/todo" 2>/dev/null | grep -Ec "$2" || true); rm -rf "$v"; printf '%s' "$n"
+}
+
+hr; echo "N — trusted empty-body review WITH inline comments → exactly one 'review' job"; hr
+BARE_N="$TR/n.git"; seed_bare "$BARE_N"
+FIX_N="$TR/fix-n.tsv"; RLOG_N="$TR/react-n.log"; : > "$RLOG_N"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T13:00:00Z pr-review-body 4573331488 4 kriskowal \
+  https://github.com/kriskowal/garden/pull/4#pullrequestreview-4573331488 \
+  '[INLINE-REVIEW] ' > "$FIX_N"
+run_directive "$TR/state-n" "$BARE_N" "$FIX_N" "$RLOG_N"
+[ "$(todo_count "$BARE_N")" -eq 1 ] && ok "trusted inline-bearing review posted exactly one job" || bad "review dropped or duplicated (todo=$(todo_count "$BARE_N"))"
+[ "$(todo_glob "$BARE_N" "^$SLUG-pr4-review-")" -eq 1 ] && ok "the job is a per-review 'review' job ($SLUG-pr4-review-…)" || bad "no per-review 'review' job minted"
+[ ! -s "$RLOG_N" ] && ok "no reactji on a review body (the job is the response)" || bad "reactji posted on a review body: $(cat "$RLOG_N")"
+[ "$(cursor_seen "$TR/state-n" "$BARE_N")" = 2026-06-25T13:00:00Z ] && ok "cursor advanced past the actioned review" || bad "cursor not advanced"
+# re-poll → idempotent (same review id → same base → no dup)
+run_directive "$TR/state-n" "$BARE_N" "$FIX_N" "$RLOG_N"
+[ "$(todo_glob "$BARE_N" "^$SLUG-pr4-review-")" -eq 1 ] && ok "re-poll of the same review is idempotent (still one job)" || bad "review job duplicated on re-poll"
+
+hr; echo "O — SAME inline-bearing review from an UNTRUSTED sender → dropped"; hr
+BARE_O="$TR/o.git"; seed_bare "$BARE_O"
+FIX_O="$TR/fix-o.tsv"; RLOG_O="$TR/react-o.log"; : > "$RLOG_O"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T13:30:00Z pr-review-body 4573434772 4 drive-by-rando \
+  https://github.com/kriskowal/garden/pull/4#pullrequestreview-4573434772 \
+  '[INLINE-REVIEW] ' > "$FIX_O"
+run_directive "$TR/state-o" "$BARE_O" "$FIX_O" "$RLOG_O"
+[ "$(todo_count "$BARE_O")" -eq 0 ] && ok "untrusted reviewer's inline-bearing review dropped (no job)" || bad "untrusted review posted a job"
+[ ! -s "$RLOG_O" ] && ok "no reactji for an untrusted reviewer" || bad "reactji posted for untrusted"
+[ "$(cursor_seen "$TR/state-o" "$BARE_O")" = 2026-06-25T13:30:00Z ] && ok "cursor slid past the dropped untrusted review" || bad "cursor did not slide"
+
+hr; echo "P — trusted review, NO inline marker AND empty body → nothing"; hr
+BARE_P="$TR/p.git"; seed_bare "$BARE_P"
+FIX_P="$TR/fix-p.tsv"; RLOG_P="$TR/react-p.log"; : > "$RLOG_P"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T14:00:00Z pr-review-body 4573500000 4 kriskowal \
+  https://github.com/kriskowal/garden/pull/4#pullrequestreview-4573500000 \
+  '' > "$FIX_P"
+run_directive "$TR/state-p" "$BARE_P" "$FIX_P" "$RLOG_P"
+[ "$(todo_count "$BARE_P")" -eq 0 ] && ok "an empty review with no inline comments produced no job" || bad "empty no-inline review posted a job"
+
+# ============================================================================
+# Q — SOURCE-level: comment-source-gh.sh must SURFACE an empty-body review that
+# carries inline comments (marked [INLINE-REVIEW]), and must DROP an empty-body
+# review with no inline comments. A compact gh stub answers the four endpoints the
+# handler hits; the REAL jq processes the JSON.
+hr; echo "Q — comment-source-gh.sh surfaces empty-body inline-bearing reviews"; hr
+command -v jq >/dev/null 2>&1 && have_jq_q=1 || have_jq_q=0
+if [ "$have_jq_q" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHQ="$TR/gh-q"; mkdir -p "$GHQ"
+  cat > "$GHQ/gh" <<'EOF'
+#!/bin/bash
+# minimal gh stub for the comment-source review-surfacing test. Recognizes the
+# four call shapes comment-source-gh.sh makes; everything else → empty array.
+args="$*"
+case "$args" in
+  "pr list"*"--json number"*)   printf '4\n'; exit 0;;          # one open PR: #4
+  *"/issues/comments"*)          printf '[]\n'; exit 0;;
+  *"/pulls/comments"*)           printf '[]\n'; exit 0;;        # repo-wide inline feed (unused here)
+  *"/pulls/4/comments"*)         # inline comments on #4: two tied to review 9001, none to 9002
+    printf '%s\n' '[{"pull_request_review_id":9001},{"pull_request_review_id":9001}]'; exit 0;;
+  *"/pulls/4/reviews"*)          # one inline-bearing empty-body review, one empty no-inline review
+    printf '%s\n' '[{"id":9001,"state":"COMMENTED","body":"","submitted_at":"2026-06-25T13:00:00Z","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9001"},{"id":9002,"state":"COMMENTED","body":"","submitted_at":"2026-06-25T13:00:00Z","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9002"}]'; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHQ/gh"
+  Q_OUT="$TR/q.out"
+  env PATH="$GHQ:$PATH" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-q" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots 2026-06-25T00:00:00Z kriscendobot \
+    > "$Q_OUT" 2>/dev/null || true
+  grep -q $'\t9001\t' "$Q_OUT" && grep -q 'INLINE-REVIEW' "$Q_OUT" \
+    && ok "inline-bearing empty-body review 9001 surfaced with [INLINE-REVIEW]" \
+    || bad "review 9001 not surfaced (out: $(cat "$Q_OUT"))"
+  grep -q $'\t9002\t' "$Q_OUT" \
+    && bad "empty no-inline review 9002 was surfaced (should be dropped)" \
+    || ok "empty review 9002 with no inline comments correctly dropped"
+fi
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
