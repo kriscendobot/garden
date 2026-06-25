@@ -56,3 +56,9 @@ Report the SHA(s), what landed vs deferred, and whether a pause was needed. If a
 to do without maintainer presence, surface it rather than forcing it.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 73
+  claimed_at: 2026-06-25T18:02:28Z
