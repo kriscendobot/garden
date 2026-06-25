@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T19:34:23Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T19:38:40Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Garden infra landed a run of reliability and hygiene fixes — a deterministic, silent-by-default local pre-PR verification harness, a comment-watcher change that now captures the whole review as one unit rather than the single mapped verb, a dedicated gitignored scratch tree for job worktrees, and a fuzzy-ranked parked-PR queue capped at the top ten. On the PR pipeline, [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528)'s panel completed and its verdict is posted, now blocked on CI before the terminal un-draft, with shepherd and review directives still in flight; a fresh attention directive on [endo-but-for-bots#231](https://github.com/endojs/endo-but-for-bots/pull/231) was just claimed. Thirty-one PRs remain parked for review, [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) the newest at the top.
+Garden tooling got the bulk of the recent attention: a deterministic, silent-by-default [local pre-PR verification harness](https://github.com/endojs/endo-but-for-bots) landed, the comment-watcher now captures the whole review as one unit rather than just the mapped verb, job worktrees were routed through a dedicated gitignored scratch tree, and the parked-PR queue here is now fuzzy-ranked by recency plus roadmap relevance and capped at the top ten. On the PR side, the panel for [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) is complete with its verdict posted and is now waiting on CI before the terminal un-draft, while a refresh directive on [endo-but-for-bots#416](https://github.com/endojs/endo-but-for-bots/pull/416) was just claimed. Maintainer attention is still owed on the parked queue, led by [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub package).
 
 ## Parked for maintainer feedback
 
@@ -34,9 +34,10 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (14)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
 - `endojs-endo-but-for-bots-pr231-d9bdcb80` — attention directive on endojs/endo-but-for-bots PR #231
+- `endojs-endo-but-for-bots-pr416-refresh` — refresh directive on endojs/endo-but-for-bots PR #416
 - `endojs-endo-but-for-bots-pr442-cebb93dd` — attention directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — Review directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr503-retcon` — retcon directive on endojs/endo-but-for-bots PR #503
