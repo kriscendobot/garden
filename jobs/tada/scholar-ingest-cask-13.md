@@ -1,23 +1,25 @@
-Done. All work landed on `journal2` and the job is completed.
+Inbox empty. Work is complete.
 
-## Completion report
+---
 
-**Job `scholar-ingest-cask-13` (cask library ingest, cycle 14) — complete.** Landed on `journal2` at commit `3c24728f`; result entry `entries/2026/06/25/152946Z-result-scholar-e7f75d.md`.
+## Completion report — `scholar-ingest-cask-13` (gardener 91, endolinbot)
 
-**Sources ingested — 5 sources / 8 sections** (all at file-commit `cdb975d8`, idempotency-checked against `origin/journal2` first; none previously ingested):
-- `doc/design/nursery.md` → 3 sections, new concept **`cask-nursery`** — the exploratory block-staging / deferred-write design (packet-TTL vs command-TTL), the proposed `cask`/`verb` packet commands + CBOR body, tempstore/recvbuffer consolidation, three eviction approaches, deadline clamping. Filed under content-addressed-storage + networking.
-- `doc/design/verbs.md` → 2 sections, new concept **`cask-verb-catalog`** — the four-letter verb vocabulary (10 reads + 17 reduces, 27 total) over a 32-byte root hash, plus dispatch via out-of-band mode + in-band schema designators. Consolidated to 2 sections per the reference-doc rule.
-- `doc/design/status.md` → 1 section — captured as **shape, not rows** (the Implemented/In Progress/Planned structure, casknet/casksock opcode lists, the stable Go interface set), live inventory deferred to upstream.
-- `doc/design/style.md` + repo-root `CONTRIBUTING.md` → 1 section each, new concept **`cask-doc-conventions`** (one-sentence-per-line wrap, tables/Mermaid, regular English plurals).
+**Outcome: the job was already completed by a peer; my cycle was a redundant double-claim. I discarded my duplicate work without pushing it, and surfaced the underlying board defect.**
 
-**Deliberate skip:** `doc/design/todo.md` (95-byte scratch checklist, no library value).
+### What I found
+After running a full scholar cycle (sparse-cloning cask `doc/design/`, idempotency-checking against `origin/journal2`, and authoring 13 sections / 5 sources / 2 concepts for `nursery.md`, `verbs.md`, `status.md`, `style.md`, `todo.md` plus all index updates), my CAS-push hit add/add conflicts on every new file. **gardener-78 had already completed the identical job** (`tada`, commit `3c24728f`), ingesting nursery + verbs + status + style + the repo-root `CONTRIBUTING.md`, deliberately skipping `todo.md` as a 95-byte scratch list with no library value, and declaring the cask design-doc ingest complete. The cycle-15 comment-fragment follow-on (`scholar-ingest-cask-14`) is already posted and claimed by gardener-24.
 
-**Indexes updated:** content-addressed-storage (72→77), networking (39→41), repository-governance (49→52) topic pages + counts; `sources/README.md` (+5), `concepts/README.md` (+3), `keywords.md` (+1 keyword block).
+### What I changed
+- **`origin/journal2`: nothing in the library.** I reset my isolated worktree to origin and discarded my redundant commit. Pushing it would have created duplicate sections under different slugs, corrupted topic counts, and re-added `todo.md` against the peer's reasoned decision.
+- **One `message` entry pushed** (`153500Z-message-scholar-bef28b.md`, to: liaison): documents a **double-claim defect**. The claim log shows that after the reaper requeued gardener-30's stale claim, *both* gardener-78 (`4099d9fa`) and gardener-91/me (`5ce8a4be`) pushed accepted claims on the same open job and both ran a full LLM ingest. The claim CAS should have rejected the second claim. I hypothesized the requeue path computes the claim precondition against a pre-requeue base and pointed at `scripts/jobs/claim-job.sh` + the reaper ordering for the fleet owner to verify.
+- **Cleaned up** my scratch clone (`scholar-cask-c14`) and isolated worktree (`scholar-jtree`). Note: gardener-78 and I collided on the `scholar-cask-c14` worktree path too (already captured in the cycle-15 working note as a uniqueness lesson).
 
-**Corpus now 39 sources / 155 sections.** With this cycle, **all `doc/design/*.md` and `CONTRIBUTING.md` are ingested — the design-document ingest of cask is complete.**
+### Did not do
+- Did not re-mark the job `tada` (already completed by gardener-78).
+- Did not salvage my unique `todo.md` ingest — the peer's deliberate skip is the right call and overriding it would contradict a stated, reasoned decision.
 
-**Follow-on posted:** **`scholar-ingest-cask-14`** for the remaining comment-fragment lane (`cask.go`, `blob/chunker.go`, `sendbuffer/buffer.go`, `net/`). It has already been claimed (now in `doin`).
+### Follow-ups
+- **Board reliability** (routed via the message to liaison): verify claim exclusivity on the reaper-requeue path so a requeued job cannot be double-claimed. This wasted one scholar cycle of context here.
+- The cask ingest itself needs no further action: design-doc corpus is complete; the comment-fragment lane is already in flight as `scholar-ingest-cask-14`.
 
-**Operating note / follow-up:** the shared `/home/kris` home is concurrently mutated, and this cycle a peer process clobbered my first worktree path (`scholar-cask-c14`) mid-run by cloning cask into it. Recovered by re-creating the worktree under a uniquely-suffixed path. I folded the lesson (use host+gardener-id-suffixed worktree paths, not bare cycle-numbered ones) into the follow-on job's working note and flagged it for the scholar job template. I left the peer's clobbered directory untouched (it holds their `ebfb-pr96` work).
-
-Self-improvement: nothing structural beyond the worktree-naming note already carried into the follow-on and result entry.
+Self-improvement: the durable lesson is to **idempotency-check the job's own board status, not just the source-doc anchors, at cycle start** — a reaped-and-requeued job may already be in flight or done by a peer. Checking `jobs/tada/` and `jobs/doin/` for the job (and any same-cycle follow-on) before doing the expensive ingest would have caught the duplicate before I spent the cycle. This belongs in the gardener/scholar job-board claim discipline; flagged to liaison in the pushed message.
