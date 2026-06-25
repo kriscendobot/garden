@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please consolidate type definitions into the .d.ts types tree. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 17
+  claimed_at: 2026-06-25T17:57:15Z
