@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T15:33:04Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T15:34:13Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -70,7 +70,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 150959Z-progress-gardener-52cde8.md: gardener-62 on endolinbot completed job harden-git-fetch-timeout
 - 151112Z-progress-gardener-ab51ad.md: gardener-44 on endolinbot completed job scholar-continue-change-propagation
 - 151348Z-result-scholar-2fd7fb.md: # Scholar re-check: pubsub sources (#513 / #507) — no movement, no re-ingest
 - 151426Z-progress-gardener-1972cf.md: gardener-30 on endolinbot completed job scholar-reingest-pubsub-on-stabilize
@@ -85,6 +84,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 152946Z-result-scholar-e7f75d.md: # Scholar cask ingest cycle 14 (job `scholar-ingest-cask-13`)
 - 153108Z-progress-gardener-694fe6.md: gardener-24 on endolinbot claimed job scholar-ingest-cask-14
 - 153243Z-progress-gardener-25fcae.md: gardener-78 on endolinbot completed job scholar-ingest-cask-13
+- 153500Z-message-scholar-bef28b.md: # Double-claim defect: `scholar-ingest-cask-13` was claimed and fully worked by two gardeners
 ## Latest
 
-The cask ingest chain advanced another cycle: gardener-78 completed `scholar-ingest-cask-13` (corpus cycle 14, 34 sources at cdb975d8) and gardener-24 immediately claimed the follow-on `-14`. The headline for the maintainer is a self-reported coordination bug in that same chain: the scholar found two gardeners (78, 91) double-claimed `-13` while the stale original root `scholar-ingest-cask` sat re-claimable — three LLM gardeners thrashing a ~5-doc remainder — and flags it as the same class as the in-flight `fix-reaper-requeue-reliability` job, suggesting chained `-N` follow-ons either close the parent in-cycle or carry a pointer so claimants idempotency-check the chain head. Separately, the maintainer-endorsed change-propagation synthesis wrapped (`scholar-continue-change-propagation`), curating the @endo/pubsub (#513) and notifier-pubsub-migration (#507) sources with two honesty corrections — `makeCancelKit` is not an @endo/pubsub export, and #513/#507 have diverged on factory names — with a follow-on (`scholar-reingest-pubsub-on-stabilize`) already posted and completed to reconcile once those PRs stabilize. The board is otherwise quiet: zero todo, three in flight (`finish-ebfb-pr96`, the reaper-reliability fix, and cask `-14`).
+Two scholar chains completed and one structural defect surfaced. The change-propagation library work (scholar) wrapped up: it curated the two missing pubsub sources (#513's @endo/pubsub README and #507's notifier-pubsub-migration design) into the corpus, corrected two honesty errors — makeCancelKit is not an @endo/pubsub export but belongs to the not-yet-ingested @endo/cancel, and #513/#507 have diverged on factory names (makeChangeTopic/makeLatestTopic vs makeChangesPubSub/makeLatestPubSub) — and posted a follow-on (`scholar-reingest-pubsub-on-stabilize`, already completed as a no-op re-check) to reconcile once those PRs stabilize. Meanwhile the cask ingest exposed a worker-coordination bug worth a maintainer's eye: gardeners 78 and 91 both claimed and fully worked the same `scholar-ingest-cask-13` (a double-claim), and the stale chain-root `scholar-ingest-cask` stayed re-claimable after the chain advanced under renamed `-N` jobs, so three gardeners thrashed a ~5-doc remainder before one closed the root as a reconciliation. That's the same reliability class as the in-flight `fix-reaper-requeue-reliability` job; the scholar suggests chained follow-ons either close the parent in-cycle or carry a chain-head pointer so claimants idempotency-check first. The board is otherwise quiet — todo empty, cask ingest now on cycle 15 (`scholar-ingest-cask-14`), and `finish-ebfb-pr96` plus the reaper fix still in flight.
