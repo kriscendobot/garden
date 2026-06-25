@@ -56,3 +56,9 @@ PR number, head SHA, mapping location, and CI status. If the mirror cannot be cr
 (e.g. master drift/conflicts), report the precise obstacle rather than forcing it.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 8
+  claimed_at: 2026-06-25T17:02:41Z
