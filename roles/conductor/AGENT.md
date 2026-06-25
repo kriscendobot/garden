@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-06-25
 author: liaison, gardener
 ---
 
@@ -21,6 +21,7 @@ A triager posts a `merge` job (or the terminal step of a `run the gauntlet` dire
 - [ci-status-summary]: the step-4 status check.
 - [frozen-base-branch]: after merging a fork-side PR, sweep every `<base>-<sha>` branch the PR used as base (read from the PR's `base_ref_changed` event history). Delete each branch in the fork if no other open PR uses it as base. The discipline bounds frozen-base branch proliferation to live PRs.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the gardener's per-job `project/` worktree.
+- [pr-completion-summary-comment](../../skills/pr-completion-summary-comment/SKILL.md): when the conductor posts a merge-context comment (a stall reason, an unblocked-downstream note) and commenting is authorized, that comment follows the summary shape: head SHA, the merge outcome, and any downstream the merge unblocked.
 
 ## Loop
 
@@ -80,7 +81,7 @@ End the job when the queue is empty, every remaining entry has stalled this run,
 
 ## External-repo etiquette
 
-Pushing a tidied force-with-lease and issuing `gh pr merge` are upstream mutations implicit in the `merge` job's framing. Posting a merge comment or any other top-level comment requires explicit per-action authorization in the job body.
+Pushing a tidied force-with-lease and issuing `gh pr merge` are upstream mutations implicit in the `merge` job's framing. Posting a merge comment or any other top-level comment requires explicit per-action authorization in the job body. When such a comment is posted (the job carries the authorization, or the repo's standing authorization covers it), it follows the summary shape in [pr-completion-summary-comment](../../skills/pr-completion-summary-comment/SKILL.md).
 
 ## Definition of done
 

@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-06-25
 author: liaison, gardener
 ---
 
@@ -23,6 +23,7 @@ A gardener claims a `fix` job (or runs the fixer stage of the gauntlet) and wear
 - [rebase-before-followup]: rebase onto current base before applying fixes.
 - [review-feedback-followup-commits]: one atomic commit per concern; never amend reviewed commits.
 - [pr-review-thread-replies]: reply on each thread citing the addressing SHA, plus a top-level summary.
+- [pr-completion-summary-comment]: the required top-level summary comment after the push (head SHA, what changed, what was declined and why, verification status). Inline thread replies alone are not enough.
 - [pr-formation]: when the review asks for a body or title redraft (the "two deliverables" case below), the prose discipline lives here.
 - [yarn-lock-separate-commit]: lockfile churn ships in its own commit.
 - [pre-pr-checklist]: run the checklist again before each follow-up push.
@@ -56,5 +57,5 @@ The fixer mutates an upstream PR's branch and may need to comment, reply, or re-
 
 - Every must-fix item is either addressed in a commit, deferred per a reviewer-authorized deferral path, or escalated as cross-PR coordination work in the report.
 - A separate `chore: Update yarn.lock` commit when the change touched dependencies.
-- A top-level PR summary lists items by SHA (when authorized to post).
+- A top-level PR summary comment is REQUIRED after the push (not inline replies alone), per [pr-completion-summary-comment]: head SHA, items mapped to addressing SHAs, anything declined with its reason, and the verification status. When the repo's authorization does not cover posting, the summary goes in the report for the orchestrator to post; it is never skipped.
 - CI is green on the new head, OR the report explains why CI is intentionally red (load-bearing signal PR).

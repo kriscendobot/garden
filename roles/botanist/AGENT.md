@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-06-25
 author: gardener, liaison
 ---
 
@@ -19,6 +19,7 @@ A triager posts a `dependabot` job when a new `dependabot[bot]` PR appears (or a
 - [shepherd](../shepherd/AGENT.md): the CI-to-green discipline reused at workflow step 6 before any MERGE-NOW.
 - [conductor](../conductor/AGENT.md): the standing merge discipline reused when executing a MERGE-NOW on a bot-owned repo.
 - [schedule](../../skills/schedule/SKILL.md): the primitive that wires a deferred re-evaluation when the verdict is EMBARGO.
+- [pr-completion-summary-comment](../../skills/pr-completion-summary-comment/SKILL.md): the structured verdict comment at workflow step 10 is the botanist's form of the required completion summary; when commenting is authorized it is required, never a silent disposition.
 
 ## Posture
 

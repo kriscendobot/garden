@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-05-14
+updated: 2026-06-25
 author: gardener, liaison
 ---
 
@@ -88,6 +88,8 @@ Per-role notes for the active library, expressed as the *kind* of per-action aut
 - **scout**: posting the benchmark report as a PR comment is a per-action authorization. The scout's default deliverable is a journal `result` entry; the PR-comment posting is a separate carried authorization.
 - **botanist**: posting the verdict (MERGE-NOW / EMBARGO / REJECT) as a PR comment is a per-action authorization. Closing a REJECT'd Dependabot PR via `gh pr close` is a separate authorization the job must carry when staged.
 - **major-general**: opening the adoption PR is implicit when the job authorizes it. Opening a DEFER's tracking issue is a per-action authorization, as is any comment on a closed Dependabot PR explaining why the major-general's adoption supersedes it.
+
+**Standing communication norm: the completion summary comment.** Whenever a role pushes work to a PR in response to a maintainer directive, a review, or feedback, and commenting on that repo is authorized (the job carries the authorization, or the repo's standing authorization covers it, as `endojs/endo-but-for-bots` does per `journal/projects/endo-but-for-bots/README.md` § Standing authorizations), the role **must** post a top-level summary comment in addition to any inline thread replies. The summary names the head SHA, what changed (mapped to addressing SHAs), what was declined and why, and the verification status (tests / lint / types). Inline-only replies and silent pushes are not enough: the PR conversation should carry a human-readable acknowledgment of the work. This applies fleet-wide to every PR-touching role (fixer, builder, weaver, shepherd, conductor, botanist, designer, scout, major-general). The shape is written once in `skills/pr-completion-summary-comment/SKILL.md`. When commenting is **not** authorized on a given repo, the summary goes in the completion report for the orchestrator to post; it is relocated, never skipped. Source: maintainer feedback on PR #474 (2026-06-25), where a fixer posted inline replies and pushed the fix but no after-the-fact summary, and the maintainer expected one ("I expect feedback on the PR in general").
 
 These authorizations originate with the maintainer (typically through the liaison after user confirmation, or through a journal `message` / inbox entry), and are carried into the job's body or the doer's inbox at claim time. No autonomous role originates a new cross-repo authorization; it acts only on the authorization the job carries.
 

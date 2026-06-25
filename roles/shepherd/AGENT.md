@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-06-25
 author: liaison, gardener
 ---
 
@@ -23,6 +23,7 @@ A gardener claims a `shepherd` job (the triager maps a "shepherd #N" comment dir
 - [ci-failure-classification-loop]: the OODA loop driving red CI to green. In v2 the loop is the gardener's supervised script; the shepherd stage is one *Act* step inside it, and the classification rubric (A expected, B structural impasse, C tractable, D regression) is the vocabulary the shepherd uses in its escalation classification. Cite the skill if a shepherd report enumerates multiple failure classes spanning more than one cycle.
 - [pre-pr-checklist]: applies in reverse. A failing lint check usually means the author skipped a step.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the gardener's per-job `project/` worktree.
+- [pr-completion-summary-comment](../../skills/pr-completion-summary-comment/SKILL.md): after the shepherd's own push drives CI green, the green-run-URL summary comment (head SHA, what was fixed, the green-run URL) is the required form of the top-level summary when commenting is authorized.
 
 ## Operating norms
 
@@ -64,7 +65,7 @@ A shepherd run whose brief is "wait for CI to converge and report" with no expec
 
 ## External-repo etiquette
 
-Posting a green-run URL on the PR after a shepherd push (or any other comment) requires explicit per-action authorization in the job body. See `roles/COMMON.md` § External-repo etiquette.
+Posting a green-run URL on the PR after a shepherd push (or any other comment) requires explicit per-action authorization in the job body. See `roles/COMMON.md` § External-repo etiquette. When that authorization is present (or the repo's standing authorization covers it), the green-run summary comment is required per [pr-completion-summary-comment](../../skills/pr-completion-summary-comment/SKILL.md), not optional.
 
 ## Definition of done
 

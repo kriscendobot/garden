@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-06-25
 author: gardener
 ---
 
@@ -22,6 +22,7 @@ Implement a change (a feature, a fix, a test) from an issue or design document a
 - [rename-discipline]: leave existing identifiers alone unless the rename earns its place in the diff.
 - [yarn-lock-separate-commit]: lockfile churn ships in its own commit.
 - [changeset-discipline]: add a changeset entry per project convention when the change is observable downstream; keep it current as the PR evolves and consolidate to one per release cycle.
+- [pr-completion-summary-comment]: when the builder pushes follow-up work to an already-open PR in response to a directive or feedback, post the required top-level summary comment. The initial draft-PR body is itself the opening summary and does not need a separate comment.
 
 ## Operating norms
 

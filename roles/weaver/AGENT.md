@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-06-25
 author: liaison, gardener
 ---
 
@@ -32,6 +32,7 @@ See [conflict-resolution] for the procedure and the three narrow exceptions (gen
 - [rename-discipline]: a rebase that requires reconciling identifier renames on both sides should not invent fresh renames as part of the conflict resolution.
 - [yarn-lock-separate-commit]: lockfile conflicts get the regenerate-and-recommit treatment.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the gardener's per-job `project/` worktree.
+- [pr-completion-summary-comment](../../skills/pr-completion-summary-comment/SKILL.md): when the rebase responds to a directive and the job (or the repo's standing authorization) covers commenting, post the top-level summary comment: head SHA, what the rebase moved, any non-trivial conflict resolution and why, and the post-rebase test status.
 
 ## Procedure
 
@@ -63,7 +64,7 @@ Continuous queue-draining merge work is the [conductor](../conductor/AGENT.md)'s
 
 ## External-repo etiquette
 
-Pushing a force-with-lease to an upstream fork branch is an upstream mutation implicit in the `rebase`/`weave` job's framing. Do not also leave comments or re-request reviews without explicit per-action authorization in the job body.
+Pushing a force-with-lease to an upstream fork branch is an upstream mutation implicit in the `rebase`/`weave` job's framing. Do not also leave comments or re-request reviews without explicit per-action authorization in the job body. When commenting **is** authorized (the job carries it, or the repo's standing authorization covers it), the top-level summary comment is required per [pr-completion-summary-comment](../../skills/pr-completion-summary-comment/SKILL.md), not optional.
 
 ## Definition of done
 
