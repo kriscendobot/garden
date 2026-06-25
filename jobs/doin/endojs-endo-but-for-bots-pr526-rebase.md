@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 [CHANGES_REQUESTED] I didn't think this needed its own PR, but it's fine to leave the current split. 1. The second eval exposes some gaps in our file/folder structure. With everything in a single files (outcome.js,scenario.js, _eval fixture etc, files will grow to large and be ha
+
+---
+claim:
+  host: endolinbot
+  gardener: 6
+  claimed_at: 2026-06-25T14:41:14Z
