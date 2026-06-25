@@ -52,3 +52,9 @@ render, committed/pushed to `origin/main2`, redeployed, a tick confirmed to show
 SHA and a sample rendering.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 66
+  claimed_at: 2026-06-25T21:21:49Z
