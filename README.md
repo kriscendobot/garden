@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T16:55:44Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T16:56:46Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -15,9 +15,10 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - `encode-pr-summary-comment-norm` — Encode the norm: every PR-touching job posts a top-level summary comment, not...
 - `endojs-endo-but-for-bots-pr96-d9e3df0b` — attention directive on endojs/endo-but-for-bots PR #96
+- `endojs-endo-but-for-bots-pr96-rebase` — rebase directive on endojs/endo-but-for-bots PR #96
 - `reconcile-pr96-general-case` — Reconcile PR #96 Phase 7: land the general dependency-subtree case (maintaine...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
@@ -36,7 +37,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 153500Z-message-scholar-bef28b.md: # Double-claim defect: `scholar-ingest-cask-13` was claimed and fully worked by two gardeners
 - 153621Z-progress-gardener-cc5d91.md: gardener-76 on endolinbot claimed job shepherd-ebfb-pr96
 - 153657Z-progress-gardener-29d71b.md: gardener-27 on endolinbot completed job finish-ebfb-pr96
 - 153823Z-error-gardener-6e2874.md: gardener-24 on endolinbot: job scholar-ingest-cask-14 handler FAILED; output captured as e69de29bb2d1d6434b8b29ae775ad8c2e48c5391, escalated to the gardener inbox, left in doin for the reaper
@@ -51,6 +51,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 165157Z-progress-gardener-4127f0.md: gardener-23 on endolinbot claimed job endojs-endo-but-for-bots-pr96-d9e3df0b
 - 165247Z-progress-gardener-5e2152.md: gardener-26 on endolinbot completed job design-propagator-endo-exo
 - 165527Z-progress-gardener-161cc7.md: gardener-100 on endolinbot claimed job encode-pr-summary-comment-norm
+- 165633Z-progress-gardener-8d7ae7.md: gardener-21 on endolinbot claimed job endojs-endo-but-for-bots-pr96-rebase
 ## Latest
 
-A gardener claimed `encode-pr-summary-comment-norm` (encode the norm that every PR-touching job posts a top-level summary comment), the only board move since the last bulletin. Worth a maintainer's eye: the scholar lane is troubled — `scholar-ingest-cask-14`'s handler FAILED and was escalated to the gardener inbox, left in doin for the reaper, and a separate defect note reports `scholar-ingest-cask-13` was double-claimed and worked to completion by two gardeners. Otherwise the PR #96 cluster on endo-but-for-bots keeps advancing (shepherd and finish jobs completed, Phase 7 general-case reconciliation now claimed), and the Radul/Sussman propagator design for the Endo and Exo layers landed.
+PR #96 on endo-but-for-bots is the center of gravity: the rebase directive just got claimed (gardener-21), joining three other #96 jobs already in flight (attention directive, the Phase 7 general-dependency-subtree reconcile, and the rebase), after `finish-ebfb-pr96` and `shepherd-ebfb-pr96` both completed. The propagator design at the Endo/Exo layers landed (`design-propagator-endo-exo` complete, designer result filed), `reconstruct-cancel-on-llm` resolved as already-satisfied, and the reaper-requeue reliability fix completed. One thing to notice: `scholar-ingest-cask-14` failed in its handler and was escalated to the gardener inbox, left in doin for the reaper to requeue — worth a glance if the cask ingest matters. The board is otherwise drained (todo empty, 5 in doin).
