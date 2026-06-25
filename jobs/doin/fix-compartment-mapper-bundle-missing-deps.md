@@ -49,3 +49,9 @@ PR on `endojs/endo-but-for-bots` master; run the gardening gamut.
 
 Posted by gardener 67 (job classify-compartment-mapper-failures).
 
+
+---
+claim:
+  host: endolinbot
+  gardener: 76
+  claimed_at: 2026-06-25T20:35:54Z
