@@ -64,3 +64,9 @@ entry point + per-step discovery, the capture/inspect contract, and how it plugs
 shepherd/builder flow. If blocked, report diagnosis + ready-to-apply change.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 89
+  claimed_at: 2026-06-25T18:40:20Z
