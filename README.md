@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:01:05Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:03:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener finished classifying `@endo/compartment-mapper`'s 12 known test failures on master into three root-cause classes — ESM dynamic `import()` going untraced during archival (10 of 12), the CJS bundler aborting on missing optional internal modules, and an archive exit-module re-export losing its export-notifier — and fanned out one fix-proposal job per class, all now in progress. Also in flight: a retcon directive on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), an attention pass on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), attention plus review on [kriskowal/garden#4](https://github.com/kriskowal/garden/pull/4), and the scholar's cask library ingest at cycle 15. One thing for the maintainer to notice directly: the watchman reports this host's `main2` deploy is **wedged** — origin has advanced but tracked working-tree edits to three `scripts/jobs/` files block the fast-forward, so until that tree is cleaned the host won't pick up new roles, skills, or scripts.
+The [kriskowal/garden#4](https://github.com/kriskowal/garden/pull/4) plan-in-journal design has cleared review and moved into build: its directive and review jobs completed, and Phase 0 implementation (schema, validator, reconciler) is now claimed and underway — note the design is approved but the PR itself is **not** to be merged. A gardener classified @endo/compartment-mapper's 12 known master test failures into three root causes — ESM dynamic `import()` not traced during archival (10 of 12), the CJS bundler aborting on optional internal modules, and an archive exit-module re-export losing its export-notifier — and posted one fix job per class, all now in progress. The [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) retcon also landed.
+
+One item needs a human first: the watchman reports **main2 on this host (endolinbot) is wedged** — origin has advanced to `c81e3641` but the live tree is stuck at `153c3026` because tracked edits to `scripts/jobs/comment-watcher.sh`, `comment-source-gh.sh`, and `comment-watcher-test.sh` block the fast-forward. Until those are verified and the tree cleaned, this host will not pick up new roles, skills, or scripts.
 
 ## Parked for maintainer feedback
 
@@ -80,23 +82,22 @@ A gardener finished classifying `@endo/compartment-mapper`'s 12 known test failu
 ### todo (0)
 (none)
 
-### doin (8)
-- `endojs-endo-but-for-bots-pr474-retcon` — retcon directive on endojs/endo-but-for-bots PR #474
+### doin (7)
 - `endojs-endo-but-for-bots-pr96-0105506f` — attention directive on endojs/endo-but-for-bots PR #96
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
-- `kriskowal-garden-pr4-b8d45a0f` — attention directive on kriskowal/garden PR #4
-- `kriskowal-garden-pr4-review-022d380c` — review directive on kriskowal/garden PR #4
+- `implement-plan-in-journal` — Implement the plan-in-journal design (garden#4, approved — do NOT merge the PR)
+- `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (140)
+### tada (143)
+- `kriskowal-garden-pr4-b8d45a0f` — The directive is fully discharged. The implementation job is posted and alrea...
+- `kriskowal-garden-pr4-review-022d380c` — Completion report — job kriskowal-garden-pr4-review-022d380c
+- `endojs-endo-but-for-bots-pr474-retcon` — Completion report: endojs-endo-but-for-bots-pr474-retcon
 - `classify-compartment-mapper-failures` — Completion report — classify-compartment-mapper-failures
 - `reinforce-cw-maintainer-reviews` — Completion report: reinforce-cw-maintainer-reviews
-- `finalize-garden-pr4-round2` — Done. Completion report follows.
-- `bulletin-restructure-latest-top-parked-prs` — Completion report
-- `fix-ebfb-pr503-banners-and-set` — Completion report — fix-ebfb-pr503-banners-and-set
-- … and 135 more
+- … and 138 more
 
 ## Watch set
 (none)
