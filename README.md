@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T20:20:07Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T20:23:55Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,11 +10,11 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bulletin advanced on a single transition: the [endo-but-for-bots#509](https://github.com/endojs/endo-but-for-bots/pull/509) review (mirror of endo#3099, kriskowal's review) completed and moved to done — a gardener resolved 2 of 3 inline asks and pushed `af5894487`: restored `@ts-expect-error` annotations across the module-source files under the pinned `@babel` types (verified by tsc), and reseeded the zip benchmark-writer's corpus with `@endo/chacha12` instead of an ad hoc xorshift (benchmark + zip tests pass). The third ask — a request to profile agoric-sdk bundle generation — is parked in the maintainer inbox and needs kriskowal's call, since standing scope bars autonomous bot work on agoric-sdk; the gardener has replied on the thread that it's tracked pending direction and laid out three options (human runs the profiling, an explicit one-off authorization, or noting the report as deferred).
+[endo-but-for-bots#509](https://github.com/endojs/endo-but-for-bots/pull/509) (the mirror of endo#3099) cleared kriskowal's review: two of three inline asks are resolved and pushed (af5894487) — `analyzer.test.js` restored to `@ts-expect-error` under the pinned `@babel` types, and the zip benchmark-writer now seeds its corpus from `@endo/chacha12`. The third ask needs the maintainer's call: it requests profiling agoric-sdk bundle generation, which is outside autonomous bot scope, so it's been replied-to on the thread and parked pending direction (see the message above — choose run-it-yourself, authorize a one-off, or defer). A gardener has just picked up the attention directive on [endo-but-for-bots#522](https://github.com/endojs/endo-but-for-bots/pull/522); otherwise the board is quiet with an empty todo queue and work in flight on the #442, #503 retcon, and #528 lanes.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 16m)
+- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 21m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 5h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -44,11 +44,12 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (13)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
 - `endojs-endo-but-for-bots-pr442-cebb93dd` — attention directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — Review directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr503-retcon` — retcon directive on endojs/endo-but-for-bots PR #503
+- `endojs-endo-but-for-bots-pr522-206edf1d` — attention directive on endojs/endo-but-for-bots PR #522
 - `endojs-endo-but-for-bots-pr528-review-4f5fb2c7` — Review directive on endojs/endo-but-for-bots PR #528
 - `endojs-endo-but-for-bots-pr528-shepherd` — shepherd directive on endojs/endo-but-for-bots PR #528
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
