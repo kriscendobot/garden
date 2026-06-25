@@ -69,3 +69,9 @@ anticipate this feedback at generation and review") is already done on main2
 (commit `bbed94e2`): new `skills/no-comment-banners/SKILL.md`, widened
 `no-ascii-banners` probe, archivist + pedant review backstops, builder mention.
 This job is the remaining "apply the feedback generally" half on the PR itself.
+
+---
+claim:
+  host: endolinbot
+  gardener: 37
+  claimed_at: 2026-06-25T17:23:33Z
