@@ -86,6 +86,11 @@ gh api --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>/dev/
 #    Inline-bearing reviews are prefixed [INLINE-REVIEW] so the watcher's
 #    classifier can treat a trusted sender's review as actionable and enumerate
 #    ALL its inline comments. CHANGES_REQUESTED keeps its own prefix too.
+#    An APPROVED review is ALSO always surfaced — even with an empty body and no
+#    inline comments — prefixed [APPROVED], so the watcher can NOTICE a clean
+#    maintainer approval and dispatch the finalization-to-merge (the gap behind
+#    endo-but-for-bots #528: APPROVED + MERGEABLE + asks done, but left DRAFT
+#    because nothing surfaced the approval).
 gh pr list -R "$repo" --state open --json number --jq '.[].number' 2>/dev/null \
   | while read -r n; do
       [ -n "$n" ] || continue
@@ -99,9 +104,10 @@ gh pr list -R "$repo" --state open --json number --jq '.[].number' 2>/dev/null \
             .[] | select((.submitted_at // "") >= $s)
             | (.id|tostring) as $rid
             | ($rids | contains(" " + $rid + " ")) as $inline
-            | select(((.body // "") != "") or $inline)
+            | select(((.body // "") != "") or $inline or (.state=="APPROVED"))
             | [ .submitted_at, "pr-review-body", $rid, $n, .user.login, .html_url,
                 ( (if $inline then "[INLINE-REVIEW] " else "" end)
                 + (if .state=="CHANGES_REQUESTED" then "[CHANGES_REQUESTED] " else "" end)
+                + (if .state=="APPROVED" then "[APPROVED] " else "" end)
                 + ((.body // "") | gsub("[\t\r\n]+"; " ")) ) ] | @tsv' || true
     done

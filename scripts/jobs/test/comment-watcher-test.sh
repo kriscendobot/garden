@@ -477,5 +477,145 @@ SBODY="$(review_job_body "$BARE_S" 530)"
 printf '%s' "$SBODY" | grep -q 'pull_request_review_id' && ok "the bundle instructs enumerating every inline comment" || bad "bundle missing inline-enumeration instruction"
 
 # ============================================================================
+# T/U/V/W/X/Y — APPROVAL → finalization-to-merge. A trusted maintainer's APPROVED
+# review on a mergeable bot-repo PR mints exactly one idempotent conductor job
+# (<slug>-pr<N>-conduct). An approval bundled with asks routes the WHOLE review
+# FIRST (no conduct job yet). Guards: non-bot repo OR untrusted sender → no merge
+# dispatch; already-merged → nothing; not-green → shepherd, never a forced merge.
+# The mergeable probe is stubbed by exit code (0 ready / 2 merged-or-closed / 1 not
+# ready); trust is granted via the allowlist file (kriskowal) and DENIED org-wide.
+MERGEABLE="$TR/mergeable.sh";  printf '#!/bin/bash\nexit 0\n' > "$MERGEABLE";  chmod +x "$MERGEABLE"
+MERGEDST="$TR/merged.sh";      printf '#!/bin/bash\nexit 2\n' > "$MERGEDST";   chmod +x "$MERGEDST"
+NOTGREEN="$TR/notgreen.sh";    printf '#!/bin/bash\nexit 1\n' > "$NOTGREEN";   chmod +x "$NOTGREEN"
+run_approval() {  # <state> <bare> <fixture> <reactlog> <mergeable-probe> [slug]
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" \
+      CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
+      GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+      GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_COMMENT_FALLBACK=/bin/false \
+      GARDEN_COMMENT_TRUST=/bin/false \
+      GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
+      GARDEN_PR_MERGEABLE="$5" \
+      "$JOBS/comment-watcher.sh" "${6:-$SLUG}" >/dev/null 2>&1
+}
+
+hr; echo "T — trusted clean APPROVED on a mergeable bot PR → one conductor job, idempotent"; hr
+BARE_T="$TR/t.git"; seed_bare "$BARE_T"
+FIX_T="$TR/fix-t.tsv"; RLOG_T="$TR/react-t.log"; : > "$RLOG_T"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T16:00:00Z pr-review-body 4574000000 540 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/540#pullrequestreview-4574000000 \
+  '[APPROVED] Looks great, ship it.' > "$FIX_T"
+run_approval "$TR/state-t" "$BARE_T" "$FIX_T" "$RLOG_T" "$MERGEABLE"
+board_has "$BARE_T" "$SLUG-pr540-conduct" && ok "clean approval minted the conductor job ($SLUG-pr540-conduct)" || bad "no conductor job for a mergeable clean approval"
+[ "$(todo_count "$BARE_T")" -eq 1 ] && ok "exactly one job for the approval" || bad "expected one job, got $(todo_count "$BARE_T")"
+[ ! -s "$RLOG_T" ] && ok "no reactji on a review body (the job is the response)" || bad "reactji posted on an approval review: $(cat "$RLOG_T")"
+TBODY="$(mktemp -d "$TR/tb.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_T" "$TBODY" 2>/dev/null
+grep -qi 'conductor' "$TBODY/jobs/todo/$SLUG-pr540-conduct.md" && ok "conduct job names the conductor" || bad "conduct job does not name the conductor"
+grep -qi 'merge method' "$TBODY/jobs/todo/$SLUG-pr540-conduct.md" && ok "conduct job declines to name a merge method" || bad "conduct job should defer the merge method to the conductor"; rm -rf "$TBODY"
+[ "$(cursor_seen "$TR/state-t" "$BARE_T")" = 2026-06-25T16:00:00Z ] && ok "cursor advanced past the actioned approval" || bad "cursor not advanced"
+run_approval "$TR/state-t" "$BARE_T" "$FIX_T" "$RLOG_T" "$MERGEABLE"   # re-poll
+[ "$(todo_glob "$BARE_T" "^$SLUG-pr540-conduct")" -eq 1 ] && ok "re-poll is idempotent (still one conductor job)" || bad "conductor job duplicated on re-poll"
+
+hr; echo "U — APPROVED bundled with inline asks → asks route FIRST (review), no conduct yet"; hr
+BARE_U="$TR/u.git"; seed_bare "$BARE_U"
+FIX_U="$TR/fix-u.tsv"; RLOG_U="$TR/react-u.log"; : > "$RLOG_U"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T16:30:00Z pr-review-body 4574100000 528 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/528#pullrequestreview-4574100000 \
+  '[INLINE-REVIEW] [APPROVED] Please also express the types in the .d.ts.' > "$FIX_U"
+run_approval "$TR/state-u" "$BARE_U" "$FIX_U" "$RLOG_U" "$MERGEABLE"
+board_has "$BARE_U" "$SLUG-pr528-conduct" && bad "approval-with-asks minted a conductor job before the asks were addressed" || ok "no premature conductor job (asks come first)"
+[ "$(todo_glob "$BARE_U" "^$SLUG-pr528-review-")" -eq 1 ] && ok "the asks routed as exactly one per-review job" || bad "asks not routed as a review job (todo=$(todo_count "$BARE_U"))"
+UBODY="$(review_job_body "$BARE_U" 528)"
+printf '%s' "$UBODY" | grep -qi 'APPROVAL bundled with asks' && ok "review job notes the finalize-after-asks step" || bad "review job missing the finalize-after note"
+printf '%s' "$UBODY" | grep -qi 'conductor' && ok "review job names the conductor for the finalize step" || bad "review job omits the conductor finalize"
+
+hr; echo "V — APPROVED from an UNTRUSTED sender → no merge dispatch"; hr
+BARE_V="$TR/v.git"; seed_bare "$BARE_V"
+FIX_V="$TR/fix-v.tsv"; RLOG_V="$TR/react-v.log"; : > "$RLOG_V"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T17:00:00Z pr-review-body 4574200000 542 drive-by-rando \
+  https://github.com/endojs/endo-but-for-bots/pull/542#pullrequestreview-4574200000 \
+  '[APPROVED] LGTM' > "$FIX_V"
+run_approval "$TR/state-v" "$BARE_V" "$FIX_V" "$RLOG_V" "$MERGEABLE"
+[ "$(todo_count "$BARE_V")" -eq 0 ] && ok "untrusted approval minted no job" || bad "untrusted approval posted a job"
+[ "$(cursor_seen "$TR/state-v" "$BARE_V")" = 2026-06-25T17:00:00Z ] && ok "cursor slid past the dropped untrusted approval" || bad "cursor did not slide"
+
+hr; echo "W — APPROVED on a NON-bot repo (endojs/endo) → no merge dispatch"; hr
+BARE_W="$TR/w.git"; seed_bare "$BARE_W"
+FIX_W="$TR/fix-w.tsv"; RLOG_W="$TR/react-w.log"; : > "$RLOG_W"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T17:30:00Z pr-review-body 4574300000 543 kriskowal \
+  https://github.com/endojs/endo/pull/543#pullrequestreview-4574300000 \
+  '[APPROVED] Approving.' > "$FIX_W"
+run_approval "$TR/state-w" "$BARE_W" "$FIX_W" "$RLOG_W" "$MERGEABLE" "endojs-endo"
+nW=$(git clone -q --single-branch --branch "$BRANCH" "$BARE_W" "$TR/wv" && ls -1 "$TR/wv/jobs/todo" | grep -vxc '.gitkeep' || true); rm -rf "$TR/wv"
+[ "$nW" -eq 0 ] && ok "approval on endojs/endo upstream minted no merge job" || bad "autonomous merge dispatched on a non-bot repo ($nW)"
+
+hr; echo "X — APPROVED but the PR is ALREADY MERGED → nothing"; hr
+BARE_X="$TR/x.git"; seed_bare "$BARE_X"
+FIX_X="$TR/fix-x.tsv"; RLOG_X="$TR/react-x.log"; : > "$RLOG_X"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T18:00:00Z pr-review-body 4574400000 544 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/544#pullrequestreview-4574400000 \
+  '[APPROVED] Done.' > "$FIX_X"
+run_approval "$TR/state-x" "$BARE_X" "$FIX_X" "$RLOG_X" "$MERGEDST"
+[ "$(todo_count "$BARE_X")" -eq 0 ] && ok "already-merged PR minted nothing" || bad "posted a job for an already-merged PR"
+[ "$(cursor_seen "$TR/state-x" "$BARE_X")" = 2026-06-25T18:00:00Z ] && ok "cursor slid past the already-merged approval" || bad "cursor did not slide"
+
+hr; echo "Y — APPROVED but NOT mergeable/green → shepherd, not a forced merge"; hr
+BARE_Y="$TR/y.git"; seed_bare "$BARE_Y"
+FIX_Y="$TR/fix-y.tsv"; RLOG_Y="$TR/react-y.log"; : > "$RLOG_Y"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T18:30:00Z pr-review-body 4574500000 545 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/545#pullrequestreview-4574500000 \
+  '[APPROVED] Approving; CI should settle.' > "$FIX_Y"
+run_approval "$TR/state-y" "$BARE_Y" "$FIX_Y" "$RLOG_Y" "$NOTGREEN"
+board_has "$BARE_Y" "$SLUG-pr545-conduct" && bad "forced a conductor merge on a not-green PR" || ok "no conductor job when not mergeable/green"
+board_has "$BARE_Y" "$SLUG-pr545-shepherd" && ok "dispatched the shepherd to drive green instead" || bad "no shepherd job for a not-green approval"
+
+# ============================================================================
+# Z — SOURCE-level: comment-source-gh.sh must SURFACE a CLEAN APPROVED review even
+# when its body is empty AND it carries no inline comments (so the watcher can
+# notice the approval), prefixed [APPROVED]. A COMMENTED empty no-inline review is
+# still dropped. Same compact-gh-stub shape as Q; the REAL jq processes the JSON.
+hr; echo "Z — comment-source-gh.sh surfaces empty-body APPROVED reviews with [APPROVED]"; hr
+command -v jq >/dev/null 2>&1 && have_jq_z=1 || have_jq_z=0
+if [ "$have_jq_z" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHZ="$TR/gh-z"; mkdir -p "$GHZ"
+  cat > "$GHZ/gh" <<'EOF'
+#!/bin/bash
+# minimal gh stub: PR #7 has one empty-body APPROVED review (id 7001, no inline)
+# and one empty-body COMMENTED review (id 7002, no inline → must stay dropped).
+args="$*"
+case "$args" in
+  "pr list"*"--json number"*)   printf '7\n'; exit 0;;
+  *"/issues/comments"*)          printf '[]\n'; exit 0;;
+  *"/pulls/comments"*)           printf '[]\n'; exit 0;;
+  *"/pulls/7/comments"*)         printf '[]\n'; exit 0;;     # no inline comments at all
+  *"/pulls/7/reviews"*)
+    printf '%s\n' '[{"id":7001,"state":"APPROVED","body":"","submitted_at":"2026-06-25T19:00:00Z","user":{"login":"kriskowal"},"html_url":"https://x/pull/7#r7001"},{"id":7002,"state":"COMMENTED","body":"","submitted_at":"2026-06-25T19:00:00Z","user":{"login":"kriskowal"},"html_url":"https://x/pull/7#r7002"}]'; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHZ/gh"
+  Z_OUT="$TR/z.out"
+  env PATH="$GHZ:$PATH" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-z" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots 2026-06-25T00:00:00Z kriscendobot \
+    > "$Z_OUT" 2>/dev/null || true
+  grep -q $'\t7001\t' "$Z_OUT" && grep -q 'APPROVED' "$Z_OUT" \
+    && ok "empty-body APPROVED review 7001 surfaced with [APPROVED]" \
+    || bad "APPROVED review 7001 not surfaced (out: $(cat "$Z_OUT"))"
+  grep -q $'\t7002\t' "$Z_OUT" \
+    && bad "empty no-inline COMMENTED review 7002 was surfaced (should be dropped)" \
+    || ok "empty no-inline COMMENTED review 7002 correctly dropped"
+fi
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
