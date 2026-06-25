@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T21:30:30Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T21:31:52Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-No board transitions resolved since the last bulletin; two jobs remain in flight — the bulletin's own [plan-queue display](https://github.com/endojs/endo-but-for-bots) work and the scholar's cycle-16 ingest of kriskowal/cask. The freshest completions cleared review and follow-up work on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525). Worth a look at the top of the parked queue: the @-delimited locator scheme in [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) and the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) have both surfaced in the last hour, and the [@endo/pubsub](https://github.com/endojs/endo-but-for-bots/pull/513) Sink/Spring PR has been waiting six hours.
+The bulletin's deterministic dashboard gained a **Plan queue** section (`bulletin-show-plan-queue` landed), surfacing parked plan work split into "awaiting go-ahead" and foreman-auto-promoted "deferred" buckets — the latter currently holds five investigations and ingests, led by the systemd-run-vs-gardener-loop and resumable-gardener studies. Otherwise the board is quiet: the only active job is the scholar's cycle-16 ingest of kriskowal/cask, and the parked-for-feedback set is unchanged, still topped by [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) (locator scheme) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), with [#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub`) now six hours in.
 
 ## Parked for maintainer feedback
 
@@ -34,17 +34,16 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- `bulletin-show-plan-queue` — Bulletin: display the jobs/plan/ queue (parked plan jobs) — "## Plan queue" s...
+### doin (1)
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
 
-### tada (177)
+### tada (178)
+- `bulletin-show-plan-queue` — Completion report — bulletin-show-plan-queue
 - `endojs-endo-but-for-bots-pr475-7a9cc2ee` — Completion report
 - `endojs-endo-but-for-bots-pr525-review-25103d76` — Completion report
 - `endojs-endo-but-for-bots-pr475-f56659bc` — Completion report
 - `fix-compartment-mapper-esm-dynamic-import-archival` — The CI poll is in progress. I'll await the completion notification before wri...
-- `endojs-endo-but-for-bots-pr475-48532f80` — Done. Completion report:
-- … and 172 more
+- … and 173 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
