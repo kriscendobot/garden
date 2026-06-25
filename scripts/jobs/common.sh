@@ -483,9 +483,73 @@ unit_ctl() {
 JOBS_TODO="jobs/todo"
 JOBS_DOIN="jobs/doin"
 JOBS_TADA="jobs/tada"
+# The PLAN category sits ALONGSIDE the lifecycle but is OUTSIDE it: a plan job is
+# a proposal/parked item that gardeners NEVER claim and the reaper NEVER reaps. It
+# becomes work only when promoted into JOBS_TODO (see promote-plan.sh). Claims read
+# only JOBS_TODO and the reaper scans only JOBS_DOIN, so plan/ is invisible to the
+# worker pool by construction.
+JOBS_PLAN="jobs/plan"
 
 # List job basenames in a lifecycle dir, sorted, excluding .gitkeep.
 list_jobs() {
   local dir="$1" sub="$2"
   ls -1 "$dir/$sub" 2>/dev/null | grep -v -x '.gitkeep' || true
+}
+
+# --- plan-job metadata helpers ----------------------------------------------
+# A plan job carries leading YAML frontmatter:
+#   ---
+#   gate: go-ahead | deferred          # WHY it is parked (the gate reason)
+#   priority: urgent|high|normal|low   # selection key for deferred promotion
+#   roadmap: <milestone/item>          # optional; the roadmap item it serves
+#   posted_by: <role>                  # optional provenance
+#   posted_at: <iso8601>               # optional provenance
+#   ---
+#   <the work body — becomes the todo job on promotion>
+# `urgency:` is accepted as a synonym for `priority:` (legacy plan files use it).
+
+# Read a single leading-frontmatter scalar field from a plan file ($1=file,
+# $2=key), stripping surrounding quotes. Empty if absent.
+plan_field() {
+  sed -n "s/^$2:[[:space:]]*//p" "$1" 2>/dev/null | head -1 | sed 's/^"\(.*\)"$/\1/; s/^'\''\(.*\)'\''$/\1/'
+}
+
+# The gate reason of a plan file, defaulting to 'deferred' when unset.
+plan_gate() {
+  local g; g="$(plan_field "$1" gate)"; printf '%s\n' "${g:-deferred}"
+}
+
+# The priority of a plan file (falls back to the legacy `urgency:` key), default 'normal'.
+plan_priority() {
+  local p; p="$(plan_field "$1" priority)"; [ -n "$p" ] || p="$(plan_field "$1" urgency)"
+  printf '%s\n' "${p:-normal}"
+}
+
+# Map a named priority/urgency to a numeric rank (LOWER = more important, promoted
+# first). Unknown values rank as normal so a typo never jumps the queue.
+plan_rank() {
+  case "$1" in
+    urgent|critical|p0|0) echo 0;;
+    high|p1|1)            echo 1;;
+    normal|medium|p2|2|'') echo 2;;
+    low|p3|3)             echo 3;;
+    *)                    echo 2;;
+  esac
+}
+
+# Print the deferred plan jobs in promotion order: highest priority first, oldest
+# first within a priority (FIFO fairness). One basename (extensionless) per line.
+# go-ahead plan jobs are EXCLUDED — those are promoted only by maintainer
+# authorization, never auto-selected. $1 = a synced journal clone root.
+plan_deferred_ranked() {
+  local dir="$1" base f gate rank mtime
+  for base in $(list_jobs "$dir" "$JOBS_PLAN"); do
+    f="$dir/$JOBS_PLAN/$base"
+    [ -f "$f" ] || continue
+    gate="$(plan_gate "$f")"
+    [ "$gate" = "deferred" ] || continue
+    rank="$(plan_rank "$(plan_priority "$f")")"
+    mtime="$(stat -c %Y "$f" 2>/dev/null || echo 0)"
+    printf '%s\t%s\t%s\n' "$rank" "$mtime" "${base%.md}"
+  done | sort -t"$(printf '\t')" -k1,1n -k2,2n | cut -f3
 }

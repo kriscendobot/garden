@@ -14,6 +14,10 @@
 #
 # Each gardener operates in its OWN journal clone (never a shared worktree),
 # so two same-host gardeners cannot stomp each other's working tree.
+#
+# Candidates are drawn ONLY from JOBS_TODO. The jobs/plan/ category (parked work
+# awaiting a go-ahead or deferred by priority) is never a claim candidate — it is
+# promoted into todo/ first (promote-plan.sh).
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

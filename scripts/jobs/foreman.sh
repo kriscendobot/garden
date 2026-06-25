@@ -22,8 +22,11 @@
 #      least GARDEN_FOREMAN_IDLE_SETTLE seconds (so a brief gap between a
 #      completion and a follow-on post does not trigger a premature pump). A busy
 #      board clears the marker.
-#   4. On sustained idle, hand a small digest (project, board state, last step
-#      posted) to the handler (the foreman role) and post the one job it returns.
+#   4. On sustained idle, FIRST prefer promoting the top deferred plan job
+#      (jobs/plan/, gate=deferred) by priority/urgency — pre-approved, queued work
+#      that costs no `claude -p` call. Only if none exists, hand a small digest
+#      (project, board state, last step posted) to the handler (the foreman role)
+#      and post the one job it returns. go-ahead plan jobs are never auto-promoted.
 #   5. COST GATE: the handler (and its `claude -p`) runs ONLY on sustained idle,
 #      never while the board is busy or still within the settle window.
 #   6. ANTI-FLAP: the last step posted is recorded; if the handler proposes the
@@ -95,6 +98,25 @@ since="$(cat "$IDLE_SINCE" 2>/dev/null || echo "$NOW")"
 elapsed=$(( NOW - since ))
 if [ "$elapsed" -lt "$GARDEN_FOREMAN_IDLE_SETTLE" ]; then
   exit 0   # idle but within the settle window; do nothing
+fi
+
+# --- sustained idle: prefer promoting a deferred plan job --------------------
+# Before generating a NEW step (a `claude -p` call), prefer promoting the top
+# already-parked deferred plan job: it is pre-approved work picked by priority, so
+# it both honors the maintainer's queue and SAVES the handler's cost. go-ahead
+# plan jobs are excluded by plan_deferred_ranked (those need maintainer
+# authorization, never auto-selection). Promotion makes the board non-idle, so the
+# idle clock clears on the next busy tick — exactly like a normal post.
+top_deferred="$(plan_deferred_ranked "$DIR" | head -1)"
+if [ -n "$top_deferred" ]; then
+  if "$HERE/promote-plan.sh" "$top_deferred" >/dev/null 2>&1; then
+    printf '%s\n' "$top_deferred" > "$LAST_STEP"
+    : > "$NOTED"   # forward progress clears the maintainer-note dedupe
+    log "promoted top deferred plan job '$top_deferred' (preferred over generating a new step)"
+    printf '%s\n' "$NOW" > "$IDLE_SINCE"
+    exit 0
+  fi
+  log "failed to promote deferred plan job '$top_deferred'; falling through to handler"
 fi
 
 # --- sustained idle: pump the next milestone step ----------------------------

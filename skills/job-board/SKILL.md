@@ -32,6 +32,45 @@ extensionless spine**. Scripts append `.md` for board files and strip it for the
   Touches only your own basename, so **retry with backoff until it lands**.
 - **Reap** (`reaper.sh`): requeue `doin/` claims older than `GARDEN_CLAIM_TTL`.
 
+## Plan category — parked work, not claimable until promoted
+
+`jobs/plan/` sits **alongside** `todo/doin/tada` but **outside** the claim
+lifecycle: gardeners claim only from `todo/`, and the reaper scans only `doin/`,
+so a plan job is invisible to the worker pool and never goes stale. A plan job is
+a **proposal / parked item**, parked for one of two reasons (its **gate**):
+
+- **`go-ahead`** — needs the maintainer's **authorization** before any work runs.
+- **`deferred`** — parked behind higher-priority items, to be **selected by
+  priority/urgency**.
+
+Metadata is leading YAML frontmatter:
+
+```
+---
+gate: go-ahead | deferred
+priority: urgent | high | normal | low      # selection key (urgency: accepted as a synonym)
+roadmap: <milestone/item>                    # optional; what it serves, for roadmap-aware selection
+posted_by: <role>
+posted_at: <iso8601>
+---
+<the work body — becomes the todo job verbatim on promotion>
+```
+
+- **Park** (`post-plan.sh [--go-ahead|--deferred] [--priority L] [--roadmap I]
+  [--by R] <base> [body]`): write `jobs/plan/<base>.md`. Default gate `--deferred`.
+  Idempotent on the basename (no-op if `<base>` is anywhere in plan/todo/doin/tada),
+  retry-with-backoff like `post-job.sh`.
+- **Promote** (`promote-plan.sh <base>`): move `plan/<base>` → `todo/<base>`,
+  stripping the plan frontmatter so the todo job is the clean work body; then a
+  gardener claims it normally. Touches only its own basename, so it retries with
+  backoff like a completion. Two promotion paths:
+  1. **maintainer go-ahead** — the **liaison** (or the **proxy** within its
+     bounds) promotes a `go-ahead` job when the maintainer authorizes it. A
+     `go-ahead` job is **only ever** promoted this way — never auto-selected.
+  2. **priority/urgency selection** — the **foreman** auto-promotes the top
+     `deferred` plan job (highest priority, FIFO within a priority) when the board
+     is idle, preferring it over generating a brand-new step.
+
 ## Output
 
 A completed job leaves exactly one `tada/<base>.md` report; `doin`, `work`, and the

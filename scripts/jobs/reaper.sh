@@ -9,6 +9,10 @@
 # that basename. A gardener that died mid-job thus releases its job back to
 # the pool.
 #
+# Only jobs/doin/ is scanned. The jobs/plan/ category (parked work — gated on a
+# go-ahead or deferred by priority) is never claimed, so it is never in flight and
+# never reaped; parked jobs do not go stale.
+#
 # This is vigil's "idle-but-pending → trigger" decision retargeted from
 # systemd unit state to claim-file age.
 #

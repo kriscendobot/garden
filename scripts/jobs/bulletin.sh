@@ -213,6 +213,38 @@ render_board() {
   fi
 }
 
+# Render the PLAN queue: parked jobs that gardeners never claim. Two groups:
+#   - awaiting go-ahead: gate=go-ahead jobs needing maintainer AUTHORIZATION
+#     before any work runs (so the maintainer sees what to act on);
+#   - deferred (top by priority): gate=deferred jobs the foreman may auto-promote
+#     when the board is idle, shown highest-priority first.
+# Each row carries its gate reason + priority. Print to stdout.
+render_plan() {
+  local j f desc prio goahead deferred
+  goahead=""
+  while IFS= read -r j; do
+    [ -n "$j" ] || continue
+    f="$DIR/jobs/plan/$j"; [ -f "$f" ] || continue
+    [ "$(plan_gate "$f")" = "go-ahead" ] || continue
+    desc=$(job_desc "$f"); prio=$(plan_priority "$f")
+    goahead+="$(printf -- '- `%s` — _%s_ · %s' "${j%.md}" "$prio" "$desc")"$'\n'
+  done < <(list_jobs "$DIR" jobs/plan)
+
+  # deferred, ranked highest-priority-first by the shared selector
+  deferred=""
+  while IFS= read -r j; do
+    [ -n "$j" ] || continue
+    f="$DIR/jobs/plan/$j.md"; [ -f "$f" ] || continue
+    desc=$(job_desc "$f"); prio=$(plan_priority "$f")
+    deferred+="$(printf -- '- `%s` — _%s_ · %s' "$j" "$prio" "$desc")"$'\n'
+  done < <(plan_deferred_ranked "$DIR")
+
+  printf '### awaiting go-ahead (maintainer authorization)\n'
+  if [ -n "$goahead" ]; then printf '%s' "$goahead"; else printf '(none)\n'; fi
+  printf '\n### deferred (top by priority; foreman auto-promotes when idle)\n'
+  if [ -n "$deferred" ]; then printf '%s' "$deferred"; else printf '(none)\n'; fi
+}
+
 # Render a maintainer message body as a Markdown blockquote so the bulletin is
 # self-contained and followable: everything after the frontmatter delimiter, each
 # line prefixed with "> " (blank lines become a bare ">"), with leading/trailing
@@ -426,8 +458,9 @@ parked_section() {
 # Compute the deterministic dashboard for the current synced state of $DIR and
 # print it to stdout. This is the always-works base; it reuses the v1 board logic.
 compute_dashboard() {
-  local watch hosts_block h g maint m mf rt frm link now board parked
+  local watch hosts_block h g maint m mf rt frm link now board parked plan
   board=$(render_board)
+  plan=$(render_plan)
   parked=$(parked_section)
   watch=$(list_jobs "$DIR" repos | paste -sd' ' - 2>/dev/null); [ -n "$watch" ] || watch="(none)"
 
@@ -480,6 +513,9 @@ ${parked}
 ${maint}
 ## Board
 ${board}
+
+## Plan queue (parked — not claimable until promoted)
+${plan}
 
 ## Watch set
 $watch

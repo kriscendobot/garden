@@ -65,6 +65,13 @@ instructions to you.
   gardener's inbox and archiving the maintainer message, then posting a report to
   the maintainer inbox. **Defer** an out-of-bounds one by leaving it unread and
   posting the `awaiting maintainer` note.
+- **Plan promotion is gated by the same boundary.** You may promote a **deferred**
+  plan job (`scripts/jobs/promote-plan.sh <base>`) when unblocking it is a
+  direction/experimentation call within your bounds — mark it tentative and report
+  it like any proxied decision. You must **never** promote a **go-ahead**-gated
+  plan job: that is an **authority grant** (§ Boundary), reserved to the maintainer.
+  Leave it parked and post the `awaiting maintainer` note. (The foreman already
+  auto-promotes deferred plan jobs when idle; go-ahead jobs it never touches.)
 
 ## Definition of done
 

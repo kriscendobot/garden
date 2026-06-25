@@ -28,6 +28,7 @@ live maintainer dashboard written by `scripts/jobs/bulletin.sh`):
 
 ```
 jobs/{todo,doin,tada}/   the board lifecycle
+jobs/plan/               parked proposals — NOT claimable until promoted (§2.5)
 work/<base>              worktree state per in-flight job
 inbox/<doer>/{unread,read}/   directed mailbox, alive for a job doer's lifetime
 inbox/maintainer/{unread,read}/   standing inbox addressed to the user
@@ -88,6 +89,63 @@ livelock under contention.
 
 ---
 
+## 2.5 The plan category: parked work, promoted on go-ahead or by priority
+
+Not all work should auto-run the moment it is posted. Two kinds must wait:
+**go-ahead** work that needs the maintainer's authorization (expensive/risky, or a
+proposal a designer/scholar/foreman raised), and **deferred** work parked behind
+higher-priority items. Posting these straight to `todo/` would flood the active
+board and let the fleet pick them up prematurely. So they go to **`jobs/plan/`**, a
+category that sits **alongside** the `todo/doin/tada` lifecycle but **outside** it.
+
+**Gardeners never claim from `plan/`, and the reaper never reaps it** — by
+construction, not by a new guard: `claim-job.sh` draws candidates only from
+`JOBS_TODO`, and `reaper.sh` scans only `JOBS_DOIN`. A plan job is invisible to the
+worker pool and, since it is never in flight, never goes stale. It becomes work
+only when **promoted** into `todo/`.
+
+A plan job carries leading YAML frontmatter — the **gate reason** plus a
+**priority/urgency** and an optional **roadmap** item it serves:
+
+```
+---
+gate: go-ahead | deferred
+priority: urgent | high | normal | low      # urgency: accepted as a synonym
+roadmap: <milestone/item>                    # optional
+posted_by: <role>
+posted_at: <iso8601>
+---
+<the work body — becomes the todo job verbatim on promotion>
+```
+
+**Producers** park work with `post-plan.sh [--go-ahead|--deferred] [--priority L]
+[--roadmap I] <base> [body]` (default `--deferred`); like `post-job.sh` it is an
+ADD, idempotent on the basename, retry-on-contention.
+
+**Promotion** (`promote-plan.sh <base>`) moves `plan/<base>` → `todo/<base>`,
+stripping the plan frontmatter so the todo body is the clean work spec the gardener
+acts on (a one-line `garden-promoted-from-plan` marker records provenance). Like a
+completion it touches only its own basename, so it retries with backoff. Two paths:
+
+1. **Maintainer go-ahead.** The **liaison** (and the **proxy** within its bounds)
+   promotes a `go-ahead`-gated plan job when the maintainer authorizes it ("go
+   ahead on X"). A `go-ahead` job is **only** ever promoted by maintainer
+   authorization — never auto-selected. (For the proxy, promoting a `go-ahead` job
+   is an authority grant it must refuse; it may promote a `deferred` one.)
+2. **Priority/urgency selection.** The **foreman** idle-pump, on sustained idle,
+   **prefers promoting the top `deferred` plan job** (highest priority, FIFO within
+   a priority — `plan_deferred_ranked` in `common.sh`) over generating a brand-new
+   step. This both honors the parked queue and skips a `claude -p` call, so deferred
+   work is selected without flooding the active board. `go-ahead` jobs are excluded
+   from this selection. Roadmap-aware ranking is a documented future input; the
+   `priority` field is the current selection key.
+
+The **bulletin** surfaces the plan queue in its own section: the go-ahead jobs
+awaiting the maintainer's authorization, and the deferred queue (top by priority),
+each with its gate reason — so the maintainer sees what needs a decision.
+
+---
+
 ## 3. Components
 
 | Component | Script | Unit | Role |
@@ -99,7 +157,8 @@ livelock under contention.
 | Reaper | `reaper.sh` | `garden-reaper.{service,timer}` | requeue stale `doin/` claims |
 | Watchman | `watchman.sh` | `garden-watchman.{service,timer}` | watch `main2`, broadcast role/skill evolution |
 
-Primitives shared by the above: `post-job.sh`, `claim-job.sh`,
+Primitives shared by the above: `post-job.sh`, `post-plan.sh`/`promote-plan.sh`
+(the plan category, §2.5), `claim-job.sh`,
 `complete-job.sh`, `send-msg.sh`/`read-msgs.sh` (topic), `inbox-send.sh`/
 `inbox-read.sh` (directed), `journal-entry.sh` (narration), `set-gardeners.sh`,
 plus the maintainer-channel scripts (§5). `common.sh` holds the shared git-CAS

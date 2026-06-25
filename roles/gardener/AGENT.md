@@ -16,6 +16,10 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
   **inbox**, do the work, **complete** (doin→tada report).
 - The claim is the accepted `git push`; on a rejected push **back off to another
   job — never blind-retry a claim**. Completions/posts retry with backoff.
+- You claim only from `jobs/todo/`. The **`jobs/plan/`** category (parked work
+  gated on a maintainer go-ahead, or deferred by priority) is **never claimed**
+  and **never reaped** — it is invisible to the pool until the liaison or the
+  foreman promotes it into `todo/` (`skills/job-board/SKILL.md` § Plan category).
 - Work a PR job through the **gardening state machine**
   (`scripts/jobs/gardening/garden-pr.sh`), which you *supervise*: it runs
   deterministic automation and asks you (`claude -p`) only for decisions. Keep

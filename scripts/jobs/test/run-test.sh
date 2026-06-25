@@ -899,5 +899,113 @@ rm -rf "$RV"
 unset JOURNAL_REMOTE
 
 # ============================================================================
+hr; echo "SUBTEST 20 — PLAN: park (unclaimable) → promote → claimable; foreman deferred-promotion; reaper ignores plan/"; hr
+# Dedicated bare with a jobs/plan/ category so plan state is fully controllable.
+PLBARE="$TR/plan.git"; git init -q --bare "$PLBARE"
+PLSEED="$TR/plan-seed"; git init -q "$PLSEED"; git -C "$PLSEED" checkout -q -b "$BRANCH"
+( cd "$PLSEED"
+  mkdir -p jobs/todo jobs/doin jobs/tada jobs/plan inbox/maintainer/unread inbox/maintainer/read entries
+  for d in jobs/todo jobs/doin jobs/tada jobs/plan inbox/maintainer/unread inbox/maintainer/read entries; do touch "$d/.gitkeep"; done )
+git -C "$PLSEED" add -A; git -C "$PLSEED" "${git_id[@]}" commit -q -m "seed plan board"
+git -C "$PLSEED" remote add origin "$PLBARE"; git -C "$PLSEED" push -q -u origin "$BRANCH"
+
+export GARDEN_STATE="$TR/state-plan" GARDEN_HOST=planhost
+pl_env() { env JOURNAL_REMOTE="$PLBARE" "$@"; }
+plcount() {  # plcount <subdir> → non-gitkeep entries in a fresh clone
+  local v n; v="$(mktemp -d "$TR/plv.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$PLBARE" "$v" 2>/dev/null
+  n=$(ls -1 "$v/$1" 2>/dev/null | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"
+}
+plhas() {  # plhas <relpath> → exit 0 if present in a fresh clone
+  local v r; v="$(mktemp -d "$TR/plh.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$PLBARE" "$v" 2>/dev/null
+  [ -e "$v/$1" ]; r=$?; rm -rf "$v"; return $r
+}
+plcat() {  # plcat <relpath> → contents from a fresh clone
+  local v; v="$(mktemp -d "$TR/plc.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$PLBARE" "$v" 2>/dev/null
+  cat "$v/$1" 2>/dev/null; rm -rf "$v"
+}
+
+# (1) post-plan parks in plan/, NOT todo/
+echo "the deferred work body" | pl_env "$JOBS/post-plan.sh" --deferred --priority normal plan-deferred-a >/dev/null 2>&1
+{ [ "$(plcount jobs/plan)" -eq 1 ] && [ "$(plcount jobs/todo)" -eq 0 ] && plhas jobs/plan/plan-deferred-a.md; } \
+  && ok "post-plan parked 'plan-deferred-a' in plan/, not todo/" \
+  || bad "post-plan misfiled (plan=$(plcount jobs/plan) todo=$(plcount jobs/todo))"
+
+# idempotency: a second post-plan on the same base is a no-op
+echo "second body" | pl_env "$JOBS/post-plan.sh" --deferred plan-deferred-a >/dev/null 2>&1
+[ "$(plcount jobs/plan)" -eq 1 ] && ok "post-plan idempotent on basename (no duplicate)" || bad "post-plan duplicated (plan=$(plcount jobs/plan))"
+
+# (2) a gardener does NOT claim a plan job (empty todo → no-work exit 3, plan/ untouched)
+set +e
+claimout="$(pl_env "$JOBS/claim-job.sh" 1 2>/dev/null)"; claimrc=$?
+set -e
+{ [ "$claimrc" -eq 3 ] && [ -z "$claimout" ] && [ "$(plcount jobs/plan)" -eq 1 ] && [ "$(plcount jobs/doin)" -eq 0 ]; } \
+  && ok "gardener did NOT claim the plan job (no-work exit 3; plan/ untouched)" \
+  || bad "plan job was claimable (rc=$claimrc out='$claimout' plan=$(plcount jobs/plan) doin=$(plcount jobs/doin))"
+
+# (3) promote-plan moves plan→todo, strips frontmatter, stamps provenance
+pl_env "$JOBS/promote-plan.sh" plan-deferred-a >/dev/null 2>&1
+{ [ "$(plcount jobs/plan)" -eq 0 ] && [ "$(plcount jobs/todo)" -eq 1 ] && plhas jobs/todo/plan-deferred-a.md; } \
+  && ok "promote-plan moved 'plan-deferred-a' plan→todo" \
+  || bad "promote-plan failed (plan=$(plcount jobs/plan) todo=$(plcount jobs/todo))"
+pbody="$(plcat jobs/todo/plan-deferred-a.md)"
+{ printf '%s' "$pbody" | grep -q 'garden-promoted-from-plan' \
+  && ! printf '%s\n' "$pbody" | grep -q '^gate:' \
+  && printf '%s' "$pbody" | grep -q 'the deferred work body'; } \
+  && ok "promoted todo body: frontmatter stripped, provenance stamped, work body preserved" \
+  || bad "promoted body wrong ($(printf '%s' "$pbody" | tr '\n' '|'))"
+
+# (4) the promoted job IS now claimable by a gardener
+set +e
+claimout="$(pl_env "$JOBS/claim-job.sh" 2 2>/dev/null)"; claimrc=$?
+set -e
+{ [ "$claimrc" -eq 0 ] && [ "$claimout" = "plan-deferred-a" ] && [ "$(plcount jobs/doin)" -eq 1 ]; } \
+  && ok "promoted job IS claimable (gardener claimed it normally)" \
+  || bad "promoted job not claimable (rc=$claimrc out='$claimout' doin=$(plcount jobs/doin))"
+
+# (5) foreman prefers promoting the top DEFERRED plan job; never the go-ahead one.
+# Fresh bare so the board is genuinely idle (todo=0 doin=0) with three parked plan jobs.
+PFBARE="$TR/plan-fm.git"; git init -q --bare "$PFBARE"
+PFSEED="$TR/plan-fm-seed"; git init -q "$PFSEED"; git -C "$PFSEED" checkout -q -b "$BRANCH"
+( cd "$PFSEED"
+  mkdir -p jobs/todo jobs/doin jobs/tada jobs/plan inbox/maintainer/unread inbox/maintainer/read entries
+  for d in jobs/todo jobs/doin jobs/tada jobs/plan inbox/maintainer/unread inbox/maintainer/read entries; do touch "$d/.gitkeep"; done )
+git -C "$PFSEED" add -A; git -C "$PFSEED" "${git_id[@]}" commit -q -m "seed plan-fm board"
+git -C "$PFSEED" remote add origin "$PFBARE"; git -C "$PFSEED" push -q -u origin "$BRANCH"
+
+export GARDEN_STATE="$TR/state-plan-fm" GARDEN_HOST=plfmhost
+echo 'authz body' | env JOURNAL_REMOTE="$PFBARE" "$JOBS/post-plan.sh" --go-ahead              plan-needs-authz >/dev/null 2>&1
+echo 'low body'   | env JOURNAL_REMOTE="$PFBARE" "$JOBS/post-plan.sh" --deferred --priority low  plan-defer-low  >/dev/null 2>&1
+echo 'high body'  | env JOURNAL_REMOTE="$PFBARE" "$JOBS/post-plan.sh" --deferred --priority high plan-defer-high >/dev/null 2>&1
+
+PFCALLS="$TR/plan-fm-calls"; : > "$PFCALLS"
+pfcount() { local v n; v="$(mktemp -d "$TR/pfv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$PFBARE" "$v" 2>/dev/null; n=$(ls -1 "$v/$1" 2>/dev/null | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"; }
+pfhas()   { local v r; v="$(mktemp -d "$TR/pfh.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$PFBARE" "$v" 2>/dev/null; [ -e "$v/$1" ]; r=$?; rm -rf "$v"; return $r; }
+run_plfm() {  # run_plfm <now-epoch>
+  : > "$PFCALLS"
+  env JOURNAL_REMOTE="$PFBARE" GARDEN_FOREMAN_HANDLER="$HERE/foreman-stub.sh" \
+      GARDEN_FOREMAN_STUB_CALLS="$PFCALLS" GARDEN_FOREMAN_NOW="$1" GARDEN_FOREMAN_IDLE_SETTLE=240 \
+      "$JOBS/foreman.sh" >/dev/null 2>&1
+}
+run_plfm 1000   # idle (todo=0 doin=0): first idle observation, start the settle clock
+run_plfm 1300   # 300s ≥ 240 settle → sustained idle → prefer promoting a deferred plan job
+{ [ ! -s "$PFCALLS" ] && pfhas jobs/todo/plan-defer-high.md && [ "$(pfcount jobs/todo)" -eq 1 ]; } \
+  && ok "foreman promoted the HIGH-priority deferred plan job (NO claude call — handler cost saved)" \
+  || bad "foreman deferred-promotion wrong (calls=$(wc -l <"$PFCALLS") todo=$(pfcount jobs/todo) high=$(pfhas jobs/todo/plan-defer-high.md && echo y || echo n))"
+{ pfhas jobs/plan/plan-needs-authz.md && pfhas jobs/plan/plan-defer-low.md && ! pfhas jobs/plan/plan-defer-high.md; } \
+  && ok "go-ahead job left parked (never auto-promoted); lower-priority deferred still parked behind high" \
+  || bad "foreman over-promoted (authz parked=$(pfhas jobs/plan/plan-needs-authz.md && echo y||echo n) low parked=$(pfhas jobs/plan/plan-defer-low.md && echo y||echo n))"
+
+# (6) the reaper ignores plan/ entirely (parked jobs never go stale, even at TTL 0)
+plan_before="$(pfcount jobs/plan)"
+env JOURNAL_REMOTE="$PFBARE" GARDEN_CLAIM_TTL=0 "$JOBS/reaper.sh" >/dev/null 2>&1 || true
+{ [ "$(pfcount jobs/plan)" -eq "$plan_before" ] && pfhas jobs/plan/plan-needs-authz.md; } \
+  && ok "reaper left plan/ untouched (parked jobs are never reaped)" \
+  || bad "reaper disturbed plan/ (before=$plan_before after=$(pfcount jobs/plan))"
+unset JOURNAL_REMOTE
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

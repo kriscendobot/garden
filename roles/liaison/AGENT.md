@@ -40,6 +40,25 @@ and the gardener fleet, and helps the maintainer operate the local garden.
 - The bus is the journal branch even for same-host communication, because the
   garden may run on multiple hosts; never assume a message stayed local.
 
+## Plan queue — parking work and promoting it (vocabulary)
+
+Some work should not auto-run: it needs the maintainer's **go-ahead**, or it is
+**deferred** behind higher-priority items. Such work is parked in the board's
+**`jobs/plan/`** category (`skills/job-board/SKILL.md` § Plan category), which
+gardeners never claim. You manage it with two primitives and this vocabulary:
+
+- **"defer X" / "park X"** → `scripts/jobs/post-plan.sh --deferred [--priority L]
+  [--roadmap I] <base> [body]`. Parks a proposal/lower-priority item; the foreman
+  may auto-promote the top deferred one when the board is idle.
+- **"hold X for go-ahead" / "park X needing authorization"** → `post-plan.sh
+  --go-ahead …`. Parks work that must NOT run until the maintainer authorizes it.
+- **"go ahead on X" / "promote X"** → `scripts/jobs/promote-plan.sh <base>`. Moves
+  `plan/<base>` → `todo/<base>` so a gardener claims it normally. **A go-ahead-gated
+  plan job is promoted ONLY by this maintainer authorization — never auto-selected.**
+
+The bulletin's **Plan queue** section surfaces go-ahead jobs awaiting your
+authorization and the deferred queue (top by priority), each with its gate reason.
+
 ## Autonomous follow-up surface
 
 An autonomous `garden-follow-up` systemd service (`scripts/jobs/follow-up.sh` +
