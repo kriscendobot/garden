@@ -318,10 +318,11 @@ render_parked() {
   fi
   now=$(date +%s)
   idx="$(roadmap_index 2>/dev/null || true)"
-  # awk: load the roadmap index (FNR==NR on the first file), then score each PR
-  # row from stdin. Emit "score<TAB>repo<TAB>num<TAB>url<TAB>updated<TAB>title".
+  # awk: load the roadmap index, then score each tab-separated PR row from stdin.
+  # Emit "score<TAB>repo<TAB>num<TAB>url<TAB>updated<TAB>title". -F'\t' is required
+  # so a title's internal spaces are not split into separate fields.
   printf '%s\n' "$rows" \
-  | awk -v now="$now" -v hl="$hl" -v wr="$wr" -v wm="$wm" \
+  | awk -F'\t' -v now="$now" -v hl="$hl" -v wr="$wr" -v wm="$wm" \
         -v idxdata="$idx" '
     function epoch(iso,   c) { c="date -d \"" iso "\" +%s 2>/dev/null"; c | getline e; close(c); return e+0 }
     BEGIN {
