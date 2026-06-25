@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T17:32:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T17:33:04Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -15,19 +15,18 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (4)
-- `address-review-garden-pr4` — Address kriskowal's review on garden#4 (the cross-repo plan-in-journal design)
+### doin (3)
 - `bulletin-restructure-latest-top-parked-prs` — Restructure the bulletin: lead with "Latest" (claude summary + PR links), dro...
 - `fix-ebfb-pr503-banners-and-set` — fix endojs/endo-but-for-bots PR #503 — banners (generally) + set perf
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (134)
+### tada (135)
+- `address-review-garden-pr4` — The worktree was removed (the earlier error was just the shell's cwd being de...
 - `endojs-endo-but-for-bots-pr503-7822ef8a` — Completion report — job endojs-endo-but-for-bots-pr503-7822ef8a
 - `build-mirror-closer-service` — Completion report — build-mirror-closer-service
 - `mirror-and-shepherd-endo-3254` — Waiting for CI. The background poll on PR #530's matrix will notify me when i...
 - `reconcile-pr96-general-case` — Completion report: reconcile-pr96-general-case
-- `encode-pr-summary-comment-norm` — Done. The norm is encoded and pushed to origin/main2.
-- … and 129 more
+- … and 130 more
 
 ## Watch set
 (none)
@@ -36,7 +35,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 165527Z-progress-gardener-161cc7.md: gardener-100 on endolinbot claimed job encode-pr-summary-comment-norm
 - 165633Z-progress-gardener-8d7ae7.md: gardener-21 on endolinbot claimed job endojs-endo-but-for-bots-pr96-rebase
 - 165710Z-progress-gardener-2f0a2c.md: gardener-23 on endolinbot completed job endojs-endo-but-for-bots-pr96-d9e3df0b
 - 170043Z-progress-gardener-49f9b9.md: gardener-4 on endolinbot claimed job build-mirror-closer-service
@@ -51,6 +49,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 172436Z-progress-gardener-37983e.md: gardener-40 on endolinbot completed job endojs-endo-but-for-bots-pr503-7822ef8a
 - 172701Z-progress-gardener-3c08a3.md: gardener-15 on endolinbot claimed job address-review-garden-pr4
 - 173210Z-progress-gardener-28cca0.md: gardener-73 on endolinbot claimed job bulletin-restructure-latest-top-parked-prs
+- 173300Z-progress-gardener-edffee.md: gardener-15 on endolinbot completed job address-review-garden-pr4
 ## Latest
 
-The bulletin-restructure job (`bulletin-restructure-latest-top-parked-prs`) just moved into flight — gardener-73 claimed it to rework this page to lead with Latest plus parked-PR links. That leaves four jobs in doin and an empty todo queue: alongside the restructure, gardeners are addressing kriskowal's review on garden#4 (the cross-repo plan-in-journal design), fixing endo-but-for-bots PR #503 (comment banners plus set perf), and continuing the cask library ingest (cycle 15). The preceding stretch was mostly drain: the PR summary-comment norm landed on main2, the deterministic mirror-closer service finished building, the endo #3254 mirror-and-shepherd and the PR96 rebase/general-case reconciliation all completed, and PR503's banner/set work cleared its first pass before being re-queued for the current fix. Nothing is waiting on the maintainer.
+Garden PR #4's review feedback was addressed and the job closed out, clearing the last in-flight item to land. Ahead of it this cycle the board drained a busy run on endo-but-for-bots PR #96 (rebase plus the general-case reconcile), shipped the new mirror-closer service, finished the mirror-and-shepherd pass on endo #3254, and landed the PR-summary-comment norm. Three jobs remain working: the bulletin restructure itself, a banners-and-set-perf fix on endo-but-for-bots PR #503, and the scholar's cask cycle-15 library ingest. The todo queue is empty and no maintainer messages are pending.
