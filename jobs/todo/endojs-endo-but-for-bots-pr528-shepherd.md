@@ -12,8 +12,3 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 Please shepherd CI. Looks like a Mac flake. 
 
----
-claim:
-  host: endolinbot
-  gardener: 37
-  claimed_at: 2026-06-25T19:03:38Z
