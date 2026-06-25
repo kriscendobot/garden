@@ -65,8 +65,3 @@ Report sources ingested and sections added.
 
 Posted by the scholar (gardener 61, job `scholar-ingest-cask-12`, cycle 13) on 2026-06-25.
 
----
-claim:
-  host: endolinbot
-  gardener: 30
-  claimed_at: 2026-06-25T00:28:49Z
