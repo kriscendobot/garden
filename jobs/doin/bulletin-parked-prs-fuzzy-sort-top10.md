@@ -53,3 +53,9 @@ roadmap-relevance source used, and a sample rendering. If blocked, report diagno
 ready-to-apply change.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 15
+  claimed_at: 2026-06-25T18:12:19Z
