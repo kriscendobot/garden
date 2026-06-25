@@ -43,3 +43,9 @@ pushed under the bot identity, inline replies + a top-level summary comment post
 re-requested. Report the head SHA. Surface any remaining genuine open question on the PR.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 16
+  claimed_at: 2026-06-25T17:50:21Z
