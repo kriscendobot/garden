@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T19:53:11Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T20:00:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,12 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The board is quiet at the moment — no jobs completed or claimed since the last bulletin — but a cluster of work remains in flight on the bot fork: the gauntlet is running on [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) (locator scheme), a retcon on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, freshly parked 47m ago), and a review plus shepherd pass on [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528), alongside review and attention directives on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442). On the garden's own infrastructure, gardeners are implementing the plan-in-journal design (garden#4, build-only — not to be merged) and working three compartment-mapper archival fixes (exit-module reexport, CJS missing-dep abort, ESM dynamic-import tracing). Maintainer attention is most warranted on the newly surfaced parked PRs — [#178](https://github.com/endojs/endo-but-for-bots/pull/178) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) — and on the long-waiting [#513](https://github.com/endojs/endo-but-for-bots/pull/513) (@endo/pubsub, 5h).
+A gardener picked up [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528), claiming `address-pr528-dts-types` to sort out the PR's `.d.ts` typings — it now joins the in-flight review and shepherd jobs already running against #528.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 4m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 47m)
+- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 9m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 52m)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 5h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1d)
@@ -34,8 +34,9 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (14)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
+- `address-pr528-dts-types` — ---
 - `endojs-endo-but-for-bots-pr178-gauntlet` — gauntlet directive on endojs/endo-but-for-bots PR #178
 - `endojs-endo-but-for-bots-pr442-cebb93dd` — attention directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — Review directive on endojs/endo-but-for-bots PR #442
