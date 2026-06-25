@@ -66,6 +66,7 @@
 | [cask--root-design--bootstrap-sequence](../sections/cask--root-design--bootstrap-sequence.md) | cask root-design | Joining a cluster: identity exchange, the existing member adding the joiner to membership and trusted, current-membership transfer, and Raft catch-up. |
 | [cask--nursery--cask-and-verb-packet-commands](../sections/cask--nursery--cask-and-verb-packet-commands.md) | cask nursery | The proposed `cask` (stage one block) and `verb` (collect tree + execute) packet commands, the single-block combined form, and the CBOR command body. |
 | [cask--nursery--eviction-consolidation-and-deadline-clamping](../sections/cask--nursery--eviction-consolidation-and-deadline-clamping.md) | cask nursery | tempstore/recvbuffer consolidation, reference-counting eviction, and sender/receiver deadline clamping (`packet_ttl = clamp(rto, min_ttl, cmd_ttl_remaining)`). |
+| [cask--cask-go--store-interface-and-span-tracked-completion](../sections/cask--cask-go--store-interface-and-span-tracked-completion.md) | cask cask.go | The Store interface's `tel` span-tracked async-completion contract (Add(1)/Add(-1)/Fail, the four-step wait-on-Done caller pattern) that `Peer` and the local stores share; the consumer side of the casktel Span model. |
 
 ## See also
 

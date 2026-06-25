@@ -19,6 +19,7 @@ A tree (or DAG) whose nodes are content-addressed blocks: each node holds the ha
 | [cask--architecture--layer-2-merkle-tree-and-filesystem](../sections/cask--architecture--layer-2-merkle-tree-and-filesystem.md) | The TREE command (SYNC/DIFF/WALK/GC) and a GC-transparent filesystem of Merkle-tree directories and files. |
 | [cask--parallel-arrays--persistent-structures-as-reducers](../sections/cask--parallel-arrays--persistent-structures-as-reducers.md) | Reducers minimize Merkle disturbance by modifying a single leaf-to-root path; 32-way tries keep depth shallow. |
 | [cask--blob-design--block-format-and-limits](../sections/cask--blob-design--block-format-and-limits.md) | The blob tree's concrete leaf/internal block format: dataLen leaves, k-link internal nodes with a 4-byte subtree-size table, k ≤ 28 fanout. |
+| [cask--cask-go--block-model-and-merkle-trees](../sections/cask--cask-go--block-model-and-merkle-trees.md) | The `cask.go` package-header statement that content spanning multiple blocks forms a Merkle tree, with blobs and directories as the two built-in tree shapes. |
 
 ## See also
 

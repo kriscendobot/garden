@@ -105,6 +105,10 @@
 | [cask--nursery--eviction-consolidation-and-deadline-clamping](../sections/cask--nursery--eviction-consolidation-and-deadline-clamping.md) | cask nursery | Consolidating tempstore + recvbuffer, the three reference-counting/eviction approaches, and outbound/receiver deadline clamping. |
 | [cask--verbs--verb-catalog](../sections/cask--verbs--verb-catalog.md) | cask verbs | The four-letter verb vocabulary: 10 reads + 17 reduces over a root hash, per-type function mappings, and the summary table. |
 | [cask--verbs--verb-dispatch-and-type-designators](../sections/cask--verbs--verb-dispatch-and-type-designators.md) | cask verbs | Out-of-band mode + in-band schema designators, the five-step verb dispatch, and verb applicability (incompatible-type errors). |
+| [cask--cask-go--block-model-and-merkle-trees](../sections/cask--cask-go--block-model-and-merkle-trees.md) | cask cask.go | The package-header design rationale: 1KB blocks of links+bytes+height form Merkle trees; blobs and directories; why 1KB (Ethernet MTU, UDP, filesystem block, log-proportional immutable-structure evolution). |
+| [cask--cask-go--block-byte-layout-and-metadata-footer](../sections/cask--cask-go--block-byte-layout-and-metadata-footer.md) | cask cask.go | The concrete byte layout: a 1024-byte body of links+bytes plus a separate 12-byte metadata footer (height/numLinks/dataLen/reserved); 1036 total; the hash covers only the occupied portion. |
+| [cask--cask-go--store-interface-and-span-tracked-completion](../sections/cask--cask-go--store-interface-and-span-tracked-completion.md) | cask cask.go | The Store interface contract: span.Add(1)/Add(-1)/Fail completion tracking via tel.SpanFromContext, the four-step caller pattern, Weigh's 0-means-uncomputed sentinel, and the CollectibleStore GC primitives. |
+| [cask--cask-go--cells-cas-and-the-retention-mechanism](../sections/cask--cask-go--cells-cas-and-the-retention-mechanism.md) | cask cask.go | The mutable-reference layer in code: CASStore.CAS nonce/old/new semantics, the Cell interface, the "a tree is retained while its root is some cell's value" claim, and the cell entry-type capability constants. |
 
 ## See also
 

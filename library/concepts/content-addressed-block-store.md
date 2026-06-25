@@ -21,6 +21,9 @@ A store in which every unit of data is a fixed-size **block** named by the crypt
 | [cask--architecture--design-principles-and-protocols](../sections/cask--architecture--design-principles-and-protocols.md) | The two protocols (casknet, casksock) and the optional five-layer casknet stack over the block foundation. |
 | [cask--architecture--layers-0-1-block-transfer-and-session](../sections/cask--architecture--layers-0-1-block-transfer-and-session.md) | Layer 0 LOAD/STOR block transfer as the unchanging foundation under sessions and higher layers. |
 | [cask--dbstore-design--goals-and-directory-layout](../sections/cask--dbstore-design--goals-and-directory-layout.md) | caskdbstore: a `cask.CASStore` keeping all blocks in a few flat files with on-disk content-addressed indexes. |
+| [cask--cask-go--block-model-and-merkle-trees](../sections/cask--cask-go--block-model-and-merkle-trees.md) | The package-header code that defines the 1KB block model and the why-1KB rationale (Ethernet MTU, UDP, filesystem block). |
+| [cask--cask-go--block-byte-layout-and-metadata-footer](../sections/cask--cask-go--block-byte-layout-and-metadata-footer.md) | The concrete 1024-byte-body + 12-byte-footer layout in code; the hash covers only the occupied portion. |
+| [cask--cask-go--store-interface-and-span-tracked-completion](../sections/cask--cask-go--store-interface-and-span-tracked-completion.md) | The `Store`/`CollectibleStore`/`CASStore` interface contracts every block-store implementation realizes. |
 
 ## See also
 

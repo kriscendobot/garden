@@ -13003,3 +13003,34 @@ regular english plurals | cask-doc-conventions
 indexes not indices | cask-doc-conventions
 Latin plural avoidance | cask-doc-conventions
 Mermaid over ASCII art | cask-doc-conventions
+`cask.Block` | content-addressed-block-store
+`BlockWithMetadata` | content-addressed-block-store
+`MaxBlockSize` | content-addressed-block-store
+`MetadataSize` | content-addressed-block-store
+12-byte metadata footer | content-addressed-block-store
+1036-byte block | content-addressed-block-store
+block height field | content-addressed-block-store
+`numLinks` | content-addressed-block-store
+`dataLen` | content-addressed-block-store
+1KB block model | content-addressed-block-store
+links plus bytes plus height | content-addressed-block-store
+`cask.Model` block builder | content-addressed-block-store
+`cask.Store` interface | content-addressed-block-store
+`Store.Weigh` | content-addressed-block-store
+subtree block count | content-addressed-block-store
+weight zero means not yet computed | content-addressed-block-store
+`SpanFromContext` store completion | casktel-span-completion
+store Add(1) Add(-1) on completion | casktel-span-completion
+trust or validate the hash | casktel-span-completion
+`cask.CASStore` | cask-cell-bank
+`CASStore.CAS` | cask-cell-bank
+compare-and-swap mutable reference | cask-cell-bank
+store Nonce identity token | cask-cell-bank
+store Head hash | cask-cell-bank
+`cask.Cell` interface | cask-cell-bank
+`Cell.CompareAndSwap` | cask-cell-bank
+zero hash means create-if-absent | cask-cell-bank
+zero hash means delete-if-present | cask-cell-bank
+cells are the retention mechanism | cask-cell-bank
+retention transfer on cell update | cask-cell-bank
+tree retained while root is a cell value | cask-cell-bank

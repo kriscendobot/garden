@@ -20,6 +20,7 @@ CASK's **mutable-reference layer** over its immutable content-addressed store. C
 | [cask--cells--garbage-collection](../sections/cask--cells--garbage-collection.md) | Cell-bank, value-tree, and weak-cell-reference GC faces. |
 | [cask--cells--filesystem-analogy-and-wire-protocol](../sections/cask--cells--filesystem-analogy-and-wire-protocol.md) | inode≈cell / directory≈caskdir; casw/casr wire protocol; open questions. |
 | [cask--cells-and-entries--standalone-cells-and-cell-record](../sections/cask--cells-and-entries--standalone-cells-and-cell-record.md) | Stand-alone cell as cap_token-named triple; proposed mode-bearing cell_record. |
+| [cask--cask-go--cells-cas-and-the-retention-mechanism](../sections/cask--cask-go--cells-cas-and-the-retention-mechanism.md) | The code-side `Cell`/`CASStore` definitions: CAS nonce/old/new semantics, the "a tree is retained while its root is some cell's value" claim, and the cell entry-type capability constants (direct vs indirect, writable vs read-only). |
 
 ## See also
 

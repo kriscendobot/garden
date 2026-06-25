@@ -197,6 +197,7 @@
 | [cask--root-design--root-block-layout-and-flags](../sections/cask--root-design--root-block-layout-and-flags.md) | cask root-design | The caskhead1+ links to the identity block and cell bank, and the encrypted/authenticated feature flags governing session admission. |
 | [cask--root-design--component-structures](../sections/cask--root-design--component-structures.md) | cask root-design | The identity block (ed25519 + stable node_id), the cell bank capability_map/cell_map, and the membership trust model (peers_index vs trusted set). |
 | [cask--root-design--evolution-migration-and-security](../sections/cask--root-design--evolution-migration-and-security.md) | cask root-design | Cell capabilities as 32-byte bearer tokens (possession = authorization, no revocation without rotation); private-key protection and cluster-trust discipline. |
+| [cask--cask-go--cells-cas-and-the-retention-mechanism](../sections/cask--cask-go--cells-cas-and-the-retention-mechanism.md) | cask cask.go | The code-side mutable-reference layer: CASStore.CAS nonce bearer-token auth + zero-hash create/delete conventions, the Cell interface, "a tree is retained while its root is some cell's value", and the read/write/scoped-path cell entry-type capability lattice. |
 
 ## See also
 

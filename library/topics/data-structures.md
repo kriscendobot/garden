@@ -80,6 +80,8 @@
 | [cask--bigint-design--adaptive-width-with-overflow](../sections/cask--bigint-design--adaptive-width-with-overflow.md) | cask bigint-design | `BigIntArray`: a width-adaptive value column + overflow tail + max heap/coheap; sentinel-to-overflow and hysteresis-banded width changes. |
 | [cask--bigint-design--operations-and-complexity](../sections/cask--bigint-design--operations-and-complexity.md) | cask bigint-design | Get/Set/Append/Swap/Remove, the width-threshold table, signed two's-complement storage, O(log n) ops with rare O(n) width changes. |
 | [cask--membertable-design--structure-and-operations](../sections/cask--membertable-design--structure-and-operations.md) | cask membertable-design | The member table as a parallel-array instance: swap-to-end allocator + keys + byKey hashtreetouint64 + trafficClasses uint8array; the session-table pattern minus expiry/data. |
+| [cask--cask-go--block-model-and-merkle-trees](../sections/cask--cask-go--block-model-and-merkle-trees.md) | cask cask.go | The package-header design rationale: 1KB blocks of links+bytes+height form Merkle trees; blobs are leaf-data trees, directories are name-ordered entry trees; arbitrary block types decouple semantics/storage/transport. |
+| [cask--cask-go--block-byte-layout-and-metadata-footer](../sections/cask--cask-go--block-byte-layout-and-metadata-footer.md) | cask cask.go | The concrete block byte layout: a 1024-byte body (links at the start, then bytes) plus a separate 12-byte metadata footer (height/numLinks/dataLen/reserved); 1036 total. |
 
 ## See also
 
