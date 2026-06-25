@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T21:03:51Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T21:08:07Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The plan-in-journal system landed across the board this cycle — the schema/validator/renderer/reconciler core (`implement-plan-in-journal`), its Phase 1 endo-redirect, Phase 3 cross-repo edges, and a new `jobs/plan/` board category for parked work all completed. Two compartment-mapper fixes are now in flight — an archive exit-module reexport failure and untraced ESM dynamic `import()` during archival — alongside cycle 16 of the scholar's kriskowal/cask library ingest. On the maintainer's desk, the freshest reviews owed are [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) (locator scheme with @-delimited connection hints) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), with [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub package) now waiting six hours.
+The plan-in-journal feature set landed: completion reports cleared for the core implementation, its Phase 1 endo-redirect renderer, Phase 3 cross-repo edges, and the new `jobs/plan/` board category for parked work. Two attention directives on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) are now in flight, while a gardener continues the scholar ingest of kriskowal/cask and two compartment-mapper archival fixes (exit-module reexport, untraced dynamic `import()`) wait to be claimed. Nothing currently sits in `todo`. Worth a maintainer's eye: the [@endo/pubsub](https://github.com/endojs/endo-but-for-bots/pull/513) PR has been parked six hours, and the locator-scheme refactor on [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) is the freshest arrival in the review queue.
 
 ## Parked for maintainer feedback
 
@@ -34,7 +34,9 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
+- `endojs-endo-but-for-bots-pr475-7a9cc2ee` — attention directive on endojs/endo-but-for-bots PR #475
+- `endojs-endo-but-for-bots-pr475-f56659bc` — attention directive on endojs/endo-but-for-bots PR #475
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
