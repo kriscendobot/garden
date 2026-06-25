@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T14:42:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T14:42:58Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -35,12 +35,10 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (11)
+### doin (9)
 - `endojs-endo-but-for-bots-pr503-95390ef3` — attention directive on endojs/endo-but-for-bots PR #503
 - `endojs-endo-but-for-bots-pr513-be1cd0d3` — attention directive on endojs/endo-but-for-bots PR #513
 - `endojs-endo-but-for-bots-pr513-gauntlet` — gauntlet directive on endojs/endo-but-for-bots PR #513
-- `endojs-endo-but-for-bots-pr519-147aa72c` — attention directive on endojs/endo-but-for-bots PR #519
-- `endojs-endo-but-for-bots-pr519-1d79f1bc` — attention directive on endojs/endo-but-for-bots PR #519
 - `endojs-endo-but-for-bots-pr519-f2f4c5ca` — attention directive on endojs/endo-but-for-bots PR #519
 - `endojs-endo-but-for-bots-pr522-gauntlet` — gauntlet directive on endojs/endo-but-for-bots PR #522
 - `endojs-endo-but-for-bots-pr526-rebase` — rebase directive on endojs/endo-but-for-bots PR #526
@@ -48,13 +46,13 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - `scholar-ingest-cask-13` — Scholar: continue the library ingest of kriskowal/cask (cycle 14)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
-### tada (104)
+### tada (106)
+- `endojs-endo-but-for-bots-pr519-1d79f1bc` — Completion report: attention directive on endojs/endo-but-for-bots PR #519
+- `endojs-endo-but-for-bots-pr519-147aa72c` — Completion report — attention directive on endojs/endo-but-for-bots PR #519
 - `endojs-endo-but-for-bots-pr513-af11a4e0` — Completion report — endojs/endo-but-for-bots PR #513, barrel-module directive
 - `scholar-ingest-cask-12` — Completion report — job scholar-ingest-cask-12 (scholar, cycle 13)
 - `scholar-ingest-cask-11` — Completion report
-- `scholar-ingest-cask-10` — scholar-ingest-cask-10 — complete (cycle 11)
-- `scholar-ingest-cask-9` — Completion report — scholar-ingest-cask-9 (cask ingest cycle 10)
-- … and 99 more
+- … and 101 more
 
 ## Watch set
 (none)
@@ -63,8 +61,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 002006Z-progress-gardener-4d81e8.md: gardener-30 on endolinbot completed job scholar-ingest-cask-11
-- 002711Z-result-scholar-dbabf1.md: # Scholar cask library ingest — cycle 13 (job `scholar-ingest-cask-12`)
 - 002853Z-progress-gardener-11f9c9.md: gardener-30 on endolinbot claimed job scholar-ingest-cask-13
 - 002930Z-progress-gardener-4d9ce9.md: gardener-61 on endolinbot completed job scholar-ingest-cask-12
 - 003414Z-error-gardener-2ff8de.md: gardener-30 on endolinbot: job scholar-ingest-cask-13 handler FAILED; output captured as e69de29bb2d1d6434b8b29ae775ad8c2e48c5391, escalated to the gardener inbox, left in doin for the reaper
@@ -78,6 +74,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 144119Z-progress-gardener-86722f.md: gardener-16 on endolinbot claimed job endojs-endo-but-for-bots-pr519-147aa72c
 - 144139Z-progress-gardener-c2721d.md: gardener-83 on endolinbot claimed job endojs-endo-but-for-bots-pr522-gauntlet
 - 144201Z-progress-gardener-6765a7.md: gardener-27 on endolinbot completed job endojs-endo-but-for-bots-pr513-af11a4e0
+- 144242Z-progress-gardener-ea309e.md: gardener-16 on endolinbot completed job endojs-endo-but-for-bots-pr519-147aa72c
+- 144252Z-progress-gardener-207a7a.md: gardener-21 on endolinbot completed job endojs-endo-but-for-bots-pr519-1d79f1bc
 ## Latest
 
-Eight endo-but-for-bots directives moved from board to in-progress in a single ~14:39–14:42 burst as the gardener fleet claimed them: attention directives on PRs #503, #519 (three separate threads), and #513; gauntlet runs on #513 and #522; and a rebase on #526. The first to finish was #513's barrel-module directive (`pr513-af11a4e0`), claimed and completed within ~90 seconds. Worth a human note: the scholar cask ingest cycle 14 (`scholar-ingest-cask-13`) failed — its handler errored, the output was escalated to the gardener inbox, and the job was left in `doin` for the reaper rather than retried. An unread maintainer message also stands from the scholar synthesizing the change-propagation through-lines across FRB / @endo/pubsub / propagators, which flags that the propagator model is only partially grounded in the corpus and proposes follow-on ingests.
+Two attention directives on endojs/endo-but-for-bots PR #519 just landed in `tada` — gardener-16 and gardener-21 closed out `endojs-endo-but-for-bots-pr519-147aa72c` and `-1d79f1bc` within seconds of each other, completing a burst of PR-519 work claimed minutes earlier. The board is otherwise mid-stride: nine jobs remain in flight, including gauntlet runs on PRs #513 and #522, a #526 rebase, and the #513 barrel-module directive that gardener-27 already finished this cycle. Worth a maintainer's eye: the `scholar-ingest-cask-13` job failed its handler and is parked in `doin` for the reaper after gardener-30's escalation to the gardener inbox.
