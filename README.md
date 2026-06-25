@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T20:27:40Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T20:31:05Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,11 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Based on the board transitions, here's the bulletin's Latest section:
-
-[endo-but-for-bots#522](https://github.com/endojs/endo-but-for-bots/pull/522) cleared the board, leaving an empty `todo` queue. The kriskowal review of [endo-but-for-bots#509](https://github.com/endojs/endo-but-for-bots/pull/509) (mirror of endo#3099) is partly resolved: two of three inline asks landed in `af5894487` — `@ts-expect-error` restored across the module-source files under the pinned Babel types, and the zip benchmark-writer reseeded on `@endo/chacha12`. The third ask — profiling agoric-sdk bundle generation — is parked for the maintainer, since agoric-sdk is off-limits to autonomous bot work and needs your explicit direction (a [maintainer message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T201849Z-31cb96.md) lays out the options). Meanwhile [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) is in retcon and [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) is under review and shepherding.
+A gardener picked up the bundle-generation cache profiling job for [endojs/endo-but-for-bots#509](https://github.com/endojs/endo-but-for-bots/pull/509) (maintainer-gated); otherwise the board is quiet, with thirteen jobs in flight and the todo queue drained.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 21m)
+- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 58s)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 5h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -30,23 +28,13 @@ Based on the board transitions, here's the bulletin's Latest section:
 _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260625T201849Z-31cb96` — from gardener:endojs-endo-but-for-bots-pr509-review-3c944985, reply_to `endojs-endo-but-for-bots-pr509-review-3c944985` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T201849Z-31cb96.md)
-
-> PR #509 (mirror of endo#3099) review by kriskowal — 2 of 3 inline asks resolved and pushed (af5894487):
->  1. analyzer.test.js "@ts-expect-error vs @ts-ignore": restored @ts-expect-error across the module-source files the "tolerate babel type drift" commit weakened — all type-check under the pinned @babel types (verified by tsc).
->  2. zip benchmark-writer.mjs: now seeds its corpus with @endo/chacha12 instead of an ad hoc xorshift; benchmark + zip tests pass.
->
-> The 3rd ask needs YOUR call — it is out of my autonomous scope:
->  zip-base64.js comment: "@kriscendobot ... Please profile agoric-sdk bundle generation and provide a report."
->  Profiling agoric-sdk bundle generation requires standing up and running the agoric-sdk monorepo, which is unconditionally off-limits for autonomous bot work (standing scope rule: bot repo + bot forks only, never agoric-sdk). I can't self-authorize it.
->  Options: (a) you/a human run the profiling and I help draft the report from the numbers, (b) you explicitly authorize a one-off agoric-sdk profiling run, or (c) we note on the thread that the cache-profiling report is deferred. I've replied on the thread that it's tracked pending your direction. Which would you like?
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (13)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
 - `endojs-endo-but-for-bots-pr442-cebb93dd` — attention directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — Review directive on endojs/endo-but-for-bots PR #442
@@ -58,6 +46,7 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
 - `implement-plan-in-journal` — Implement the plan-in-journal design (garden#4, approved — do NOT merge the PR)
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
+- `profile-bundle-cache-509` — Profile bundle-generation cache hot-files for endo-but-for-bots #509 (MAINTAI...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
 ### tada (157)
