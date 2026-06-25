@@ -205,5 +205,49 @@ run_directive "$TR/state-g" "$BARE_G" "$FIX_G" "$RLOG_G"
 [ ! -s "$RLOG_G" ] && ok "no reactji on a non-directive" || bad "reactji posted on chatter"
 
 # ============================================================================
+# Bug 3 — a verb named as the PR's SUBJECT MATTER (not as an imperative) must NOT
+# short-circuit the verb table. This is the endo-but-for-bots #526 false-positive:
+# a CHANGES_REQUESTED review body that critiqued a "clean-rebase eval scenario"
+# design (mentioning rebase/shepherd/refresh as topics, with NO imperative) minted
+# a bogus pr526-rebase job. The fix gates the verb scan on an imperative reading or
+# an @-mention; a bare keyword in prose now routes to the body reader instead.
+hr; echo "H — verb-as-topic in a CHANGES_REQUESTED review body → NOT a verb job, routed to reader"; hr
+BARE_H="$TR/h.git"; seed_bare "$BARE_H"
+FIX_H="$TR/fix-h.tsv"; RLOG_H="$TR/react-h.log"; : > "$RLOG_H"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-24T16:00:00Z pr-review-body 777 526 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/526#pullrequestreview-777 \
+  '[CHANGES_REQUESTED] The clean-rebase eval scenario should use a folder-per-eval layout with deeper scenarios; the shepherd reference and the refresh hook want the same structure.' > "$FIX_H"
+run_directive "$TR/state-h" "$BARE_H" "$FIX_H" "$RLOG_H"
+board_has "$BARE_H" "$SLUG-pr526-rebase"   && bad "verb-as-topic minted a bogus rebase job"   || ok "no pr526-rebase job from review subject matter"
+board_has "$BARE_H" "$SLUG-pr526-shepherd" && bad "verb-as-topic minted a bogus shepherd job" || ok "no pr526-shepherd job from review subject matter"
+board_has "$BARE_H" "$SLUG-pr526-refresh"  && bad "verb-as-topic minted a bogus refresh job"  || ok "no pr526-refresh job from review subject matter"
+[ "$(todo_count "$BARE_H")" -eq 1 ] && ok "CHANGES_REQUESTED body routed to the reader (one fallback job)" || bad "expected exactly one fallback job, got $(todo_count "$BARE_H")"
+[ ! -s "$RLOG_H" ] && ok "no reactji on a review body (reviews are not reactable)" || bad "reactji posted on a review body: $(cat "$RLOG_H")"
+
+hr; echo "I — verb-as-topic in a plain comment (no imperative, no @bot) → dropped, no job"; hr
+BARE_I="$TR/i.git"; seed_bare "$BARE_I"
+FIX_I="$TR/fix-i.tsv"; RLOG_I="$TR/react-i.log"; : > "$RLOG_I"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-24T17:00:00Z issue-comment 888 527 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/527#issuecomment-888 \
+  'The rebase here looks clean now; nice work, no further changes needed.' > "$FIX_I"
+run_directive "$TR/state-i" "$BARE_I" "$FIX_I" "$RLOG_I"
+board_has "$BARE_I" "$SLUG-pr527-rebase" && bad "verb-as-topic minted a bogus rebase job" || ok "no rebase job from a non-imperative mention of the word"
+[ "$(todo_count "$BARE_I")" -eq 0 ] && ok "non-directive verb-topic comment dropped (no job)" || bad "posted $(todo_count "$BARE_I") job(s)"
+[ ! -s "$RLOG_I" ] && ok "no reactji on a non-directive" || bad "reactji posted: $(cat "$RLOG_I")"
+[ "$(cursor_seen "$TR/state-i" "$BARE_I")" = 2026-06-24T17:00:00Z ] && ok "cursor slid past the non-actionable comment" || bad "cursor did not slide"
+
+hr; echo "J — explicit 'please rebase #N' still classifies as a verb (no regression)"; hr
+BARE_J="$TR/j.git"; seed_bare "$BARE_J"
+FIX_J="$TR/fix-j.tsv"; RLOG_J="$TR/react-j.log"; : > "$RLOG_J"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-24T18:00:00Z pr-review-body 999 528 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/528#pullrequestreview-999 \
+  '[CHANGES_REQUESTED] Looks close. Please rebase on master and push again.' > "$FIX_J"
+run_directive "$TR/state-j" "$BARE_J" "$FIX_J" "$RLOG_J"
+board_has "$BARE_J" "$SLUG-pr528-rebase" && ok "explicit imperative 'please rebase' still mints the rebase job" || bad "true directive lost — rebase job missing"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

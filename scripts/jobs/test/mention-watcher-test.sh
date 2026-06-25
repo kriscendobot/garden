@@ -187,5 +187,22 @@ seen_e="$(cursor_seen "$TR/state-e" "$BARE_E")"
 [ -z "$seen_e" ] && ok "cursor did NOT advance past a lost post (will re-poll)" || bad "cursor advanced despite lost post ($seen_e)"
 
 # ============================================================================
+# F — a trusted sender @-mentions the bot but names a verb only as SUBJECT MATTER
+# (no imperative). The @-mention is the trigger for every line here, so it cannot
+# discriminate a directive from a topic; the imperative reading does. This must map
+# to "attention" (a gardener reads the body), NOT mint a bogus deterministic rebase
+# job — the mention-watcher counterpart of the comment-watcher #526 fix.
+hr; echo "F — trusted @-mention with a verb as TOPIC (no imperative) → attention, not a verb job"; hr
+BARE_F="$TR/f.git"; seed_bare "$BARE_F"
+FIX_F="$TR/fix-f.tsv"; RLOG_F="$TR/react-f.log"; : > "$RLOG_F"
+mkline 2026-06-24T14:00:00Z issue-comment 555 endojs/endo-but-for-bots 526 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/526#issuecomment-555 \
+  '@kriscendobot what do you think of the clean-rebase eval scenario design here?' > "$FIX_F"
+run_watcher "$TR/state-f" "$BARE_F" "$FIX_F" "$RLOG_F" ""
+board_has "$BARE_F" "mention-endojs-endo-but-for-bots-526-rebase" && bad "verb-as-topic minted a bogus rebase job" || ok "no rebase job from a non-imperative @-mention of the word"
+[ "$(board_count "$BARE_F")" -eq 1 ] && ok "verb-topic @-mention routed to an attention job" || bad "expected 1 attention job, got $(board_count "$BARE_F")"
+grep -qx "issue-comment 555 eyes" "$RLOG_F" && ok "eyes reactji on the @-mention" || bad "reactji wrong ($(cat "$RLOG_F"))"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

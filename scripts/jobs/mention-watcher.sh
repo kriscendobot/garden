@@ -123,18 +123,39 @@ verify_posted() {
   return 1
 }
 
+# --- imperative-directive reading (deterministic; pure string, no I/O) -------
+# rc 0 if the body reads as an imperative directive ("please …", "rebase this",
+# "could you …"). Mirrors comment-watcher.sh's same-named helper. Used to gate the
+# verb table so a verb named as a mention's SUBJECT MATTER ("@bot what do you
+# think of the rebase eval scenario?") is not minted into a deterministic rebase
+# job — it falls to "attention" instead, where a gardener reads the body.
+reads_as_directive() {  # reads_as_directive <body-text>
+  local lc; lc="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
+  printf '%s' "$lc" | grep -Eq '(^|[^a-z])please([^a-z]|$)' && return 0
+  printf '%s' "$lc" | grep -Eq '(^|[^a-z])(apply|address|finish|complete|handle|resolve|implement|revisit|incorporate|land this|go ahead|take a look|take care of|look into|follow up|sort out|clean this up|can you|could you|would you mind)([^a-z]|$)' && return 0
+  return 1
+}
+
 # --- deterministic verb mapping (no open-ended reasoning, no claude) ---------
 # Every line the source emits is already an @-mention of the bot, so a mention
 # with no recognized verb is still actionable: it maps to "attention" (a gardener
 # re-fetches the mention and routes it). Sets VERB.
+#
+# The @-mention is the trigger for EVERY line here, so it cannot discriminate a
+# directive from a topic — the IMPERATIVE reading does. The verb table fires only
+# when the body reads as an imperative ("@bot please rebase #N"); a verb named as
+# subject matter ("@bot the rebase eval scenario needs deeper folders") falls
+# through to "attention" rather than minting a bogus deterministic verb job.
 classify() {  # classify <body-file>; sets VERB (always actionable)
-  local lc; lc="$(tr '[:upper:]' '[:lower:]' < "$1")"
+  local body lc; body="$(cat "$1")"; lc="$(printf '%s' "$body" | tr '[:upper:]' '[:lower:]')"
   VERB=""
   case "$lc" in *"run the gauntlet"*) VERB=gauntlet; return 0;; esac
-  local v
-  for v in rebase retcon refresh shepherd; do
-    if printf '%s' "$lc" | grep -Eq "(^|[^a-z])$v([^a-z]|\$)"; then VERB="$v"; return 0; fi
-  done
+  if reads_as_directive "$body"; then
+    local v
+    for v in rebase retcon refresh shepherd; do
+      if printf '%s' "$lc" | grep -Eq "(^|[^a-z])$v([^a-z]|\$)"; then VERB="$v"; return 0; fi
+    done
+  fi
   VERB=attention; return 0
 }
 
