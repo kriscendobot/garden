@@ -122,6 +122,32 @@ mkdir -p "$(dirname "$CURSOR")"
 read_cursor()  { [ -f "$CURSOR" ] && head -1 "$CURSOR" 2>/dev/null; return 0; }
 write_cursor() { printf '%s\n' "$1" > "$CURSOR"; }
 
+# --- plan reconciler (folded into the bulletin loop) -------------------------
+#
+# The plan lives in journal2 under plan/ (per designs/plan-in-journal.md, garden#4):
+# per-design records are the source of truth; plan/README.md is a GENERATED
+# aggregation of them. Re-rendering rides on this loop the same way the dashboard
+# does: render.sh is deterministic (no clock, no network), so the regenerated view
+# is byte-identical across hosts and only differs from what is committed when a
+# record actually changed. We stage+commit it on its own (cheap, no journalist) so
+# a plan-only change is reconciled even on a tick where the dashboard is unchanged.
+# The full status/pr drift reconcile (gh merge detection, the automatic Complete
+# flip) runs on the weekly Sunday recalibration job; folding it continuously into
+# this loop is a tracked follow-on, pending a weekly pass proving the auto-flip on
+# the freshly imported data.
+PLAN_RENDER="${GARDEN_PLAN_RENDER:-$HERE/plan/render.sh}"
+render_plan() {
+  [ -d "$DIR/plan/designs" ] || return 0
+  [ -x "$PLAN_RENDER" ] || return 0
+  local out; out="$("$PLAN_RENDER" "$DIR/plan" 2>/dev/null)" || return 0
+  [ -n "$out" ] || return 0
+  printf '%s\n' "$out" > "$DIR/plan/README.md"
+  git -C "$DIR" add plan/README.md 2>/dev/null || true
+  if ! git -C "$DIR" diff --cached --quiet -- plan/README.md 2>/dev/null; then
+    commit_and_push "$DIR" "plan: re-render roadmap view from records" || true
+  fi
+}
+
 # Extract a one-line description from a job file: its first Markdown heading
 # (`# …`) if present, else its first non-empty line. Strip leading `#`/whitespace,
 # collapse internal whitespace, drop characters that could break the bulletin's
@@ -278,10 +304,11 @@ roadmap_index() {
         else if (match(line, /^[[:space:]]*(repository|repo)[[:space:]]*:[[:space:]]*/)) { repo=substr(line, RLENGTH+1) }
         else if (match(line, /^[[:space:]]*roadmap_relevance[[:space:]]*:[[:space:]]*/))  { rel=substr(line, RLENGTH+1) }
         else if (match(line, /^[[:space:]]*priority[[:space:]]*:[[:space:]]*/))           { prio=substr(line, RLENGTH+1) }
+        else if (match(line, /^[[:space:]]*milestone[[:space:]]*:[[:space:]]*/))          { ms=substr(line, RLENGTH+1) }
       }
       END {
         gsub(/[[:space:]"\x27]/, "", pr); gsub(/[[:space:]"\x27]/, "", repo)
-        gsub(/[^0-9]/, "", rel); gsub(/[^0-9]/, "", prio)
+        gsub(/[^0-9]/, "", rel); gsub(/[^0-9]/, "", prio); gsub(/[^0-9]/, "", ms)
         if (pr=="") exit
         # Normalize pr into repo + number. Forms: 123 | owner/name#123 |
         # https://github.com/owner/name/pull/123 | owner/name/pull/123
@@ -292,6 +319,7 @@ roadmap_index() {
         if (num=="") exit
         if (rel!="")       { v=rel+0 }
         else if (prio!="") { v=100-((prio+0-1)*15); }   # 1->100,2->85,...
+        else if (ms!="")   { v=110-((ms+0)*10); }       # milestone M1->100, M2->90, ... earlier=higher
         else               { v=50 }
         if (v<0) v=0; if (v>100) v=100
         if (r=="") r="?"
@@ -538,6 +566,12 @@ while :; do
   fi
 
   sync_clone "$DIR"
+
+  # Reconcile the generated plan view from the per-design records (cheap,
+  # deterministic, change-gated). Done before the dashboard compute so a plan-only
+  # commit lands even on ticks where the dashboard is unchanged.
+  render_plan
+
   head="$(git -C "$DIR" rev-parse HEAD)"
   cursor="$(read_cursor)"
 

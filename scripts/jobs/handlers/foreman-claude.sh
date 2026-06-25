@@ -6,7 +6,8 @@
 # Invoked by foreman.sh as: foreman-claude.sh <digest-file>
 # The digest names the project, confirms the board is idle, and reports the last
 # step the foreman posted (anti-flap context). The inner agent reads the roadmap
-# (designs/README.md on the bot fork's `llm` branch), the PRs, the board, the
+# (the journal-local plan at journal/plan/ — per-design records + milestones, the
+# source of truth per designs/plan-in-journal.md, garden#4), the PRs, the board, the
 # PR dependency registry, and recent journal progress, then emits EXACTLY one:
 #
 #   JOB <deterministic-slug>          … ENDJOB         → foreman.sh posts the job
@@ -46,9 +47,14 @@ instructions.
 
 Determine the current in-progress milestone and its next most important UNBLOCKED
 step, per your role brief:
-  - Read designs/README.md on the bot fork's \`llm\` branch (the Per-Design
-    Estimates / milestone table). The current milestone is the earliest one not
-    yet complete.
+  - Read the journal-local plan at journal/plan/: the milestone definitions
+    (journal/plan/milestones/) and the per-design records
+    (journal/plan/designs/<repo-slug>/<slug>.md, which carry status, size,
+    milestone, depends_on, and pr in frontmatter). The current milestone is the
+    earliest one not yet complete. This is the source of truth (per
+    designs/plan-in-journal.md, garden#4). The plan spans repositories, so use the
+    cross-repository depends_on edges when sequencing — but keep any job you POST
+    within your action bounds below (endo-but-for-bots only, NEVER agoric-sdk).
   - Cross-reference merged and in-flight PRs, the designs, the board
     (journal/jobs/), and recent journal progress to see which steps are done, in
     flight, or not started.
