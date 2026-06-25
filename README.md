@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:49:20Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:51:23Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Here's the bulletin "## Latest" body:
-
-[build-local-prepr-verification](https://github.com/endojs/endo-but-for-bots/pull/528) landed its completion report, closing out the [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) gauntlet — the panel verdict is posted and the PR now waits only on CI before its terminal un-draft. Six jobs remain in flight: three compartment-mapper fixes (archival of ESM dynamic `import()`, the CJS bundler's missing/optional internal modules, and exit-module-via-modules-map), the two-part plan-in-journal build (Phase 0 schema/validator/reconciler plus the broader garden#4 implementation, which is approved but explicitly not to be merged), and cycle 15 of the scholar's kriskowal/cask library ingest. Newest for the maintainer: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub package) has been parked three hours awaiting review.
+Garden infrastructure work landed: a deterministic pre-PR verification harness, a dedicated gitignored scratch tree for job worktrees, a comment-watcher fix that now captures the whole review as one unit, and a fuzzy-ranked top-10 parked-PR queue on this dashboard. A new `add-plan-job-category` job just opened to carve out a "plan" board category for work gated on maintainer go-ahead, joining active threads on the plan-in-journal implementation (garden#4, Phase 0), three compartment-mapper archival fixes (ESM dynamic `import()`, exit-module reexport, CJS missing-deps), and the scholar's cask ingest. On the PR side, [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) cleared its panel with the verdict posted and is now waiting on CI before the terminal un-draft. The parked queue still wants a human: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (new @endo/pubsub) has been waiting 3h, with [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) all parked a day or more.
 
 ## Parked for maintainer feedback
 
@@ -36,7 +34,8 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
+- `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
