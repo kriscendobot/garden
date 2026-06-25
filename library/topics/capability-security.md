@@ -188,6 +188,11 @@
 | [cask--caskroot-design--scope-and-structure](../sections/cask--caskroot-design--scope-and-structure.md) | cask caskroot-design | caskhead0's four-link root block (schema/sessions/membership/nursery) and the session-state blob; the membership set gates who may establish a session. |
 | [cask--dir-design--mode-field](../sections/cask--dir-design--mode-field.md) | cask dir-design | The 2-byte mode category that types a directory entry, including the cell (capability-addressed) category that distinguishes a capability reference from immutable content. |
 | [cask--dir-design--cell-reference-entries](../sections/cask--dir-design--cell-reference-entries.md) | cask dir-design | A mode-0x01 directory entry references a mutable cell by 32-byte cell address, resolved through the cell bank rather than by content hash. |
+| [cask--membertable-design--structure-and-operations](../sections/cask--membertable-design--structure-and-operations.md) | cask membertable-design | The member table that answers "is this node_id authorized to establish a session?": the parallel-array structure and its Has/Add/Remove operations. |
+| [cask--membertable-design--cli-root-and-server-integration](../sections/cask--membertable-design--cli-root-and-server-integration.md) | cask membertable-design | `cask member` admission, the caskhead membership link, and the server's per-ini6 authorization check. |
+| [cask--membership-next-steps--three-gate-access-model](../sections/cask--membership-next-steps--three-gate-access-model.md) | cask membership-next-steps | The invited-guest principle and CASK's membership → session → capability gate order. |
+| [cask--membership-next-steps--membership-mvp-roadmap](../sections/cask--membership-next-steps--membership-mvp-roadmap.md) | cask membership-next-steps | The staged plan to enforce the membership gate: node_id identity, Option A/B proof, CASK_ROOT/CASK_MEMBERSHIP bootstrap. |
+| [cask--membership-next-steps--capability-gated-read-write](../sections/cask--membership-next-steps--capability-gated-read-write.md) | cask membership-next-steps | Gate 3: even a valid session only reads/writes a cell when authorized by a cap_token scoped to it. |
 
 ## See also
 

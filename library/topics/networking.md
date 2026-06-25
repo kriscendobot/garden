@@ -54,6 +54,13 @@
 | [cask--protocol2--message-and-block-framing](../sections/cask--protocol2--message-and-block-framing.md) | cask protocol2 | **Superseded**: the proposed 60-byte fixed header (command/session/recipient/span/cohort) and the 1026-byte depth+type+payload block framing (neither shipped). |
 | [cask--protocol2--session-span-cohort-model](../sections/cask--protocol2--session-span-cohort-model.md) | cask protocol2 | **Superseded**: signed 64-bit session numbers, per-session spans, and the dual trace-identifier-plus-priority cohort (ancestor of TrafficClass/Priority). |
 | [cask--protocol2-arch--design-brief](../sections/cask--protocol2-arch--design-brief.md) | cask protocol2-arch | **Superseded**: the design brief that requested v2 — fixed-offset command-first framing, TTL-as-relay-deadline, and naming the trace+priority "cohort" field. |
+| [cask--membertable-design--structure-and-operations](../sections/cask--membertable-design--structure-and-operations.md) | cask membertable-design | The member table that gates session establishment: allocator/keys/byKey/trafficClasses parallel arrays; Has/Add/Remove/traffic-class ops. |
+| [cask--membertable-design--cli-root-and-server-integration](../sections/cask--membertable-design--cli-root-and-server-integration.md) | cask membertable-design | The `cask member` CLI, the caskhead membership link, and the server's per-ini6 Has() check returning statusNotMember. |
+| [cask--membership-next-steps--three-gate-access-model](../sections/cask--membership-next-steps--three-gate-access-model.md) | cask membership-next-steps | The membership → session → capability gate order; CASK is not an open service. |
+| [cask--membership-next-steps--membership-mvp-roadmap](../sections/cask--membership-next-steps--membership-mvp-roadmap.md) | cask membership-next-steps | Node_id identity, Option A/B proof, CASK_ROOT bootstrap, the CASK_MEMBERSHIP MVP, ini6/statusNotMember, staged steps. |
+| [cask--membership-next-steps--capability-gated-read-write](../sections/cask--membership-next-steps--capability-gated-read-write.md) | cask membership-next-steps | Gate 3: a session is transport only; each LOAD/STOR needs a cap_token for the target cell. |
+| [cask--cluster-provisioning--problem-and-prior-ssh-approach](../sections/cask--cluster-provisioning--problem-and-prior-ssh-approach.md) | cask cluster-provisioning | The five steps a new node needs; the abandoned `cask ssh provision` SSH prototype and its limitations. |
+| [cask--cluster-provisioning--prerequisites-and-future-design](../sections/cask--cluster-provisioning--prerequisites-and-future-design.md) | cask cluster-provisioning | Address discovery, membership propagation, binary distribution, health/liveness; the future sketch and open questions. |
 
 ## See also
 

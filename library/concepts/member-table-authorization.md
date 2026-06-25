@@ -1,6 +1,6 @@
 ---
 id: member-table-authorization
-aliases: ["member table", "membertable", "caskhead membertable", "cask accept", "cask invite", "authorized peer", "peer public key", "node identity", "ed25519 identity", "session gating", "status=2 not authorized", ".cask/id"]
+aliases: ["member table", "membertable", "caskhead membertable", "cask accept", "cask invite", "authorized peer", "peer public key", "node identity", "ed25519 identity", "session gating", "status=2 not authorized", ".cask/id", "node_id", "cask member add", "cask member rm", "cask member ls", "set-traffic-class", "trafficClasses", "AddWithTrafficClass", "best traffic class", "membership set", "membership root", "GetMembershipRoot", "SetMembershipRoot", "statusNotMember", "Has(node_id)", "byKey lookup"]
 topics: [networking, capability-security]
 status: current
 ---
@@ -17,8 +17,15 @@ How a casknet node decides which peers may open a session. Each node holds a lon
 | [cask--net-crypto--overview-and-identity](../sections/cask--net-crypto--overview-and-identity.md) | The ed25519 node identity the member table admits. |
 | [cask--net-session-init-design--session-state-and-envelope](../sections/cask--net-session-init-design--session-state-and-envelope.md) | The session-table `mode` field that records member vs guest. |
 | [cask--package-taxonomy--package-categories](../sections/cask--package-taxonomy--package-categories.md) | The `membertable` and `caskhead` packages in the taxonomy. |
+| [cask--membertable-design--structure-and-operations](../sections/cask--membertable-design--structure-and-operations.md) | The member table's parallel-array structure (allocator/keys/byKey/trafficClasses) and its Has/Add/Remove/traffic-class operations. |
+| [cask--membertable-design--cli-root-and-server-integration](../sections/cask--membertable-design--cli-root-and-server-integration.md) | The `cask member` CLI, the caskhead membership link, and the server's per-ini6 Has() check. |
+| [cask--membership-next-steps--membership-mvp-roadmap](../sections/cask--membership-next-steps--membership-mvp-roadmap.md) | How the membership set comes to be: node_id identity, the CASK_MEMBERSHIP MVP, CASK_ROOT bootstrap, statusNotMember. |
 
 ## See also
 
 - [[noise-ik-session-establishment]] — the handshake that consults the member table.
 - [[content-addressed-block-store]] — the store the authorized peer gains access to.
+- [[cask-three-gate-access]] — the member table realizes gate 1 (membership) of the three-gate model.
+- [[cask-caskhead-root]] — the caskhead `Links[2]` membership link the member table roots at.
+- [[swap-to-end-allocation]] — the allocator the member table reuses for stable slot indexes.
+- [[cask-cluster-provisioning]] — how two nodes' member tables come to permit each other.

@@ -12838,3 +12838,44 @@ adaptive width hysteresis | parallel-arrays-columnar
 overflow blob sentinel | parallel-arrays-columnar
 `field_width` | parallel-arrays-columnar
 max heap coheap magnitude | parallel-arrays-columnar
+member table | member-table-authorization
+membertable | member-table-authorization
+cask member add | member-table-authorization
+cask member rm | member-table-authorization
+cask member ls | member-table-authorization
+set-traffic-class | member-table-authorization
+`trafficClasses` | member-table-authorization
+best traffic class | member-table-authorization
+`AddWithTrafficClass` | member-table-authorization
+`Has(node_id)` | member-table-authorization
+membership set | member-table-authorization
+membership root | member-table-authorization
+`GetMembershipRoot` | member-table-authorization
+`SetMembershipRoot` | member-table-authorization
+`node_id` | member-table-authorization
+byKey index | member-table-authorization
+three gates | cask-three-gate-access
+three-gate access | cask-three-gate-access
+order of gates | cask-three-gate-access
+invited guest | cask-three-gate-access
+known friend | cask-three-gate-access
+membership gate | cask-three-gate-access
+session gate | cask-three-gate-access
+capability gate | cask-three-gate-access
+CASK is not an open service | cask-three-gate-access
+`statusNotMember` | cask-three-gate-access
+`CASK_ROOT` | cask-three-gate-access
+`CASK_MEMBERSHIP` | cask-three-gate-access
+root user | cask-three-gate-access
+membership MVP | cask-three-gate-access
+cluster provisioning | cask-cluster-provisioning
+cask ssh provision | cask-cluster-provisioning
+node join | cask-cluster-provisioning
+address discovery | cask-cluster-provisioning
+membership propagation | cask-cluster-provisioning
+push-members | cask-cluster-provisioning
+binary distribution | cask-cluster-provisioning
+gossip protocol | cask-cluster-provisioning
+rendezvous service | cask-cluster-provisioning
+key revocation | cask-cluster-provisioning
+NAT traversal | cask-cluster-provisioning

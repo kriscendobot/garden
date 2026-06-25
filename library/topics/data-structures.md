@@ -79,6 +79,7 @@
 | [cask--allocator-design--session-table-composite](../sections/cask--allocator-design--session-table-composite.md) | cask allocator-design | `sessiontable`: allocator + key index + expiry heap + keys/expiry/data columns in one root; Create/Lookup/Get/Update/Delete/PopExpired. |
 | [cask--bigint-design--adaptive-width-with-overflow](../sections/cask--bigint-design--adaptive-width-with-overflow.md) | cask bigint-design | `BigIntArray`: a width-adaptive value column + overflow tail + max heap/coheap; sentinel-to-overflow and hysteresis-banded width changes. |
 | [cask--bigint-design--operations-and-complexity](../sections/cask--bigint-design--operations-and-complexity.md) | cask bigint-design | Get/Set/Append/Swap/Remove, the width-threshold table, signed two's-complement storage, O(log n) ops with rare O(n) width changes. |
+| [cask--membertable-design--structure-and-operations](../sections/cask--membertable-design--structure-and-operations.md) | cask membertable-design | The member table as a parallel-array instance: swap-to-end allocator + keys + byKey hashtreetouint64 + trafficClasses uint8array; the session-table pattern minus expiry/data. |
 
 ## See also
 

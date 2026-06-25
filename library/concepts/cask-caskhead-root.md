@@ -16,6 +16,7 @@ CASK's **minimal-viable concrete bootstrap root block** (`caskhead0`, caskroot-d
 | [cask--caskroot-design--scope-and-structure](../sections/cask--caskroot-design--scope-and-structure.md) | The caskhead0 four-link root block, the schema hash, and the session-state blob layout. |
 | [cask--caskroot-design--operations-and-usage](../sections/cask--caskroot-design--operations-and-usage.md) | New/Load/Get-Set session and membership roots; the bootstrap-to-expiry usage cycle; the `cask member` CLI. |
 | [cask--caskroot-design--versioning-and-implementation](../sections/cask--caskroot-design--versioning-and-implementation.md) | Schema-hash-driven O(1) version detection and migration; the five-step build plan and go/cask/head/ files. |
+| [cask--membertable-design--cli-root-and-server-integration](../sections/cask--membertable-design--cli-root-and-server-integration.md) | The Root Block Extension giving the membership link (`Links[2]`, ZeroHash when empty) and `GetMembershipRoot`/`SetMembershipRoot`. |
 
 ## See also
 

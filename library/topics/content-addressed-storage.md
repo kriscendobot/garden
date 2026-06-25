@@ -91,6 +91,8 @@
 | [cask--allocator-design--session-table-composite](../sections/cask--allocator-design--session-table-composite.md) | cask allocator-design | The composite `sessiontable` root: allocator + key index + expiry heap + value columns, all content-addressed, atomic at the root. |
 | [cask--bigint-design--adaptive-width-with-overflow](../sections/cask--bigint-design--adaptive-width-with-overflow.md) | cask bigint-design | Width-adaptive integer column with an overflow tail of compactblob hashes; a single value change touches O(log n) blocks. |
 | [cask--bigint-design--operations-and-complexity](../sections/cask--bigint-design--operations-and-complexity.md) | cask bigint-design | Merkle impact: O(log n) per value, O(n / values_per_leaf) per width change, kept rare by hysteresis. |
+| [cask--membertable-design--structure-and-operations](../sections/cask--membertable-design--structure-and-operations.md) | cask membertable-design | The member table as a block-tree structure under the CASK root: allocator + keys + byKey hashtreetouint64 + trafficClasses columns. |
+| [cask--membertable-design--cli-root-and-server-integration](../sections/cask--membertable-design--cli-root-and-server-integration.md) | cask membertable-design | The caskhead Root Block Extension (`Links[2]` membership link) and the reducer-style Get/SetMembershipRoot threading. |
 
 ## See also
 
