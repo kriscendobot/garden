@@ -40,3 +40,9 @@ right home) and COMMON.md, with a juror check for its absence — committed and 
 `origin/main2` under the bot identity. Report the SHA and where the norm landed.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 100
+  claimed_at: 2026-06-25T16:55:24Z
