@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T14:49:36Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T14:51:05Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -9,47 +9,26 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Messages to the maintainer
 
-- `20260624T231841Z-f0e8dc` — from gardener:scholar-through-lines-change-propagation, reply_to `scholar-through-lines-change-propagation` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260624T231841Z-f0e8dc.md)
-
-> Scholar synthesis — the change-propagation through-lines (job scholar-through-lines-change-propagation)
->
-> Curated the cross-cutting *theory* the FRB / @endo/pubsub / propagators cluster instantiates, grounded in source (gtor README @ d2a238fc, the already-ingested FRB sections, and the #513/#507 pubsub result entries). New library home: topic `change-propagation` + 4 concept pages, with gtor ingested as the keystone source.
->
-> The through-lines:
-> 1. One idea, three faces — FRB observers (sync/in-process), @endo/pubsub topics (async/cross-vat), and propagators (multi-directional constraint) all propagate the DELTA, not a snapshot. gtor names the axes they differ on: producer/consumer dual · singular/plural · spatial/temporal · push/pull · broadcast/unicast.
-> 2. changes vs latest — lossless order-significant deltas (signal / makeChangeTopic / notifier-lossless) vs lossy convergent current-value (behavior / makeLatestTopic / notifier-lossy). gtor shows they're two faces of one signal (forEach vs next). forward-lossless = changes + one-shot latest snapshot (composition, not a third mechanism) — matches the #507 design's makeUpdateTopic retirement.
-> 3. Ordered-collection windows as derived topics — FRB's view(start,length) over a SortedSet is the synchronous precedent for the "collection-change propagation" future direction #507 names for pubsub.
-> 4. Core tension: idempotent convergence (latest/behavior/propagator-cell tolerates loss+reordering) vs order-significance (changes/stream — every delta matters).
->
-> Honesty flag: propagators are only PARTIALLY grounded in our corpus. The one in-corpus instance of multi-directional constraint propagation is FRB two-way (<->) bindings; the fuller Sussman/Radul lattice-merge propagator model is named as adjacent external lineage, NOT asserted from a garden source. Every concept page flags this.
->
-> Open questions surfaced:
-> - @endo/pubsub README + designs/notifier-pubsub-migration.md are not yet ingested as library sources (the endo-pubsub concept currently cites journal entries) — worth a follow-on once #513/#507 stabilize.
-> - The in-flight Endo/Exo reactive-collections research (splay-tree / sorted-array-set interface) should feed sliding-window-topic's citations when it lands.
-> - gtor is a partial ingest (2 keystone sections of ~20); posted scholar-ingest-gtor for the rest (Promise Queues/Buffers — the async-linked-list substrate under pubsub — first).
->
-> Full curation on journal2: concepts/{change-propagation,changes-versus-latest,endo-pubsub,sliding-window-topic}, topics/change-propagation, sources/gtor--readme + 2 sections, 51 keyword shortcuts.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
-- `fix-watcher-verb-keyword-false-positive` — fix: comment/mention-watcher verb-keyword false-positive on review subject ma...
 - `harden-jq-and-loud-tool-failure` — Harden against the jq outage: add jq to the image, fail loudly on missing tools
-- `reconduct-endo-cancel-507` — Verify @endo/cancel (#345) exists; reconduct if missing (endo-but-for-bots #507)
+- `scholar-continue-change-propagation` — Scholar: continue pursuing the change-propagation open questions (maintainer-...
 - `scholar-ingest-cask-13` — Scholar: continue the library ingest of kriskowal/cask (cycle 14)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
-### tada (112)
+### tada (114)
+- `reconduct-endo-cancel-507` — Completion report — reconduct-endo-cancel-507
+- `fix-watcher-verb-keyword-false-positive` — Completion report — fix-watcher-verb-keyword-false-positive
 - `endojs-endo-but-for-bots-pr522-gauntlet` — Completion report: endojs-endo-but-for-bots-pr522-gauntlet
 - `endojs-endo-but-for-bots-pr513-be1cd0d3` — The background poll (bg7sf6864) is running and will notify me when CI converg...
 - `endojs-endo-but-for-bots-pr513-gauntlet` — Fix pushed, review thread answered, CI in flight. I'll resume when the poller...
-- `endojs-endo-but-for-bots-pr503-95390ef3` — The directive is fully addressed and recorded. Final report:
-- `endojs-endo-but-for-bots-pr519-f2f4c5ca` — Review posted. The directive is satisfied.
-- … and 107 more
+- … and 109 more
 
 ## Watch set
 (none)
@@ -58,9 +37,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 144119Z-progress-gardener-86722f.md: gardener-16 on endolinbot claimed job endojs-endo-but-for-bots-pr519-147aa72c
-- 144139Z-progress-gardener-c2721d.md: gardener-83 on endolinbot claimed job endojs-endo-but-for-bots-pr522-gauntlet
-- 144201Z-progress-gardener-6765a7.md: gardener-27 on endolinbot completed job endojs-endo-but-for-bots-pr513-af11a4e0
 - 144242Z-progress-gardener-ea309e.md: gardener-16 on endolinbot completed job endojs-endo-but-for-bots-pr519-147aa72c
 - 144252Z-progress-gardener-207a7a.md: gardener-21 on endolinbot completed job endojs-endo-but-for-bots-pr519-1d79f1bc
 - 144402Z-progress-gardener-8a325f.md: gardener-11 on endolinbot claimed job fix-watcher-verb-keyword-false-positive
@@ -73,6 +49,9 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 144640Z-progress-gardener-22199b.md: gardener-59 on endolinbot completed job endojs-endo-but-for-bots-pr513-gauntlet
 - 144825Z-progress-gardener-48bc31.md: gardener-87 on endolinbot completed job endojs-endo-but-for-bots-pr513-be1cd0d3
 - 144918Z-progress-gardener-771a75.md: gardener-83 on endolinbot completed job endojs-endo-but-for-bots-pr522-gauntlet
+- 145023Z-progress-gardener-93d99f.md: gardener-11 on endolinbot completed job fix-watcher-verb-keyword-false-positive
+- 145036Z-progress-gardener-672044.md: gardener-29 on endolinbot completed job reconduct-endo-cancel-507
+- 145057Z-progress-gardener-024a2c.md: gardener-44 on endolinbot claimed job scholar-continue-change-propagation
 ## Latest
 
-The endo-but-for-bots #522 gauntlet just finished, clearing the last in-flight item from a busy stretch on the board — gardeners also closed out the #513 gauntlet and its CI-convergence follow-on (#513-be1cd0d3, af11a4e0), three #519 review/directive passes, the #503 directive, and a #526 rebase in the same window. Six jobs remain in flight: the ebfb #96 build, the watcher verb-keyword false-positive fix, the jq-outage hardening (gardener-24), the @endo/cancel reconduct for #507 (gardener-29), and two cask library-ingest cycles. The todo column is empty and the watch set is clear, so nothing is queued or stalled. One maintainer message is still unread: the scholar's change-propagation synthesis tying FRB, @endo/pubsub, and propagators together — worth a look, and it flags that the @endo/pubsub README isn't yet ingested as a library source.
+The watcher-verb keyword false-positive fix landed (`fix-watcher-verb-keyword-false-positive` completed by gardener-11), tightening the comment-watcher's plain-language directive matching — worth noting given the recent hardening work on that path. The `reconduct-endo-cancel-507` merge job also completed. On the endo-but-for-bots front, a burst of PR gauntlet work cleared this cycle: #513 (gauntlet plus follow-up fix), #522 gauntlet, and several #519/#503/#526 stages all finished. A scholar picked up `scholar-continue-change-propagation`, leaving the board with no open `todo` and five jobs in flight — the jq-hardening and scholar ingest tasks plus the ebfb #96 implementation continue to run.
