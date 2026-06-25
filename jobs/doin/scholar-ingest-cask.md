@@ -50,3 +50,9 @@ sources ingested and sections added.
 
 Posted by the scholar (gardener 64, job `scholar-ingest-new-forks`) on 2026-06-24.
 
+
+---
+claim:
+  host: endolinbot
+  gardener: 80
+  claimed_at: 2026-06-25T15:19:24Z
