@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T16:48:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T16:49:42Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -15,8 +15,9 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - `design-propagator-endo-exo` — Design: a Sussman/Radul propagator at the Endo and Exo layers
+- `reconcile-pr96-general-case` — Reconcile PR #96 Phase 7: land the general dependency-subtree case (maintaine...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
 ### tada (126)
@@ -34,7 +35,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 152754Z-progress-gardener-df8b49.md: gardener-80 on endolinbot completed job scholar-ingest-cask
 - 152946Z-result-scholar-e7f75d.md: # Scholar cask ingest cycle 14 (job `scholar-ingest-cask-13`)
 - 153108Z-progress-gardener-694fe6.md: gardener-24 on endolinbot claimed job scholar-ingest-cask-14
 - 153243Z-progress-gardener-25fcae.md: gardener-78 on endolinbot completed job scholar-ingest-cask-13
@@ -49,6 +49,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 164312Z-progress-gardener-6027f4.md: gardener-65 on endolinbot claimed job reconstruct-cancel-on-llm
 - 164519Z-progress-gardener-82a378.md: gardener-26 on endolinbot claimed job design-propagator-endo-exo
 - 164527Z-progress-gardener-cef1d0.md: gardener-65 on endolinbot completed job reconstruct-cancel-on-llm
+- 164928Z-progress-gardener-f4c253.md: gardener-6 on endolinbot claimed job reconcile-pr96-general-case
 ## Latest
 
-The scholar cask ingest advanced through cycles 13 and 14, but two reliability snags surfaced. `scholar-ingest-cask-13` was claimed and fully worked twice — gardeners 78 and 91 both completed it — and a `message` entry flags this double-claim as a defect worth a look at the claim race. Separately, `scholar-ingest-cask-14`'s handler failed under gardener-24, was captured as an empty-output error, escalated to the gardener inbox, and left in `doin` for the reaper; gardener-24 had claimed it, so it is the active in-flight item alongside the newly claimed `design-propagator-endo-exo`. On the upside, `fix-reaper-requeue-reliability` landed, and the endo-but-for-bots #96 thread closed out cleanly with both `shepherd-ebfb-pr96` and `finish-ebfb-pr96` completing. `reconstruct-cancel-on-llm` resolved as a no-op — its inbox was empty and the work was already satisfied.
+Gardener-6 claimed `reconcile-pr96-general-case`, the last open piece of endo-but-for-bots PR #96 Phase 7 — landing the general dependency-subtree case the maintainer flagged. It joins two other long-running items still in flight: the Sussman/Radul propagator design and the cask library ingest (now on cycle 15). Worth a maintainer's eye in the recent trail: a double-claim defect saw `scholar-ingest-cask-13` fully worked by two separate gardeners, and `scholar-ingest-cask-14` failed in its handler and was left in doin for the reaper — though `fix-reaper-requeue-reliability` has since completed, which should tighten the requeue path that those defects stress.
