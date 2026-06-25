@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T17:50:47Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T17:52:32Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,11 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener claimed [`finalize-garden-pr4-round2`](https://github.com/endojs/endo-but-for-bots/pull/513), incorporating kriskowal's answers to the round-two open questions on the garden's own PR #4; that's the only board movement this cycle. Worth a maintainer's eye on the freshest arrivals in the parked queue: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package, ~3h old) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)/[#440](https://github.com/endojs/endo-but-for-bots/pull/440)/[#442](https://github.com/endojs/endo-but-for-bots/pull/442) (each ~1d), alongside [endo#3254](https://github.com/endojs/endo/pull/3254) (browser-test hardening, 2d).
-
-Wait — I linked the wrong URL for the garden#4 job. Let me correct that:
-
-A gardener claimed the `finalize-garden-pr4-round2` job, folding kriskowal's answers to the round-two open questions into the garden's own PR #4; that's the only board movement this cycle. Worth a maintainer's eye on the freshest arrivals in the parked queue: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package, ~3h old) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)/[#440](https://github.com/endojs/endo-but-for-bots/pull/440)/[#442](https://github.com/endojs/endo-but-for-bots/pull/442) (each ~1d), alongside [endo#3254](https://github.com/endojs/endo/pull/3254) (browser-test hardening, 2d).
+The bulletin itself was just restructured to lead with this Latest section over a parked-PR queue. On the board, two jobs moved into flight: a classification pass over compartment-mapper's known test failures and a reinforcement of the comment-watcher so a trusted maintainer's inline review reliably triggers follow-up. The freshest item awaiting your eyes is [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package with Sink/Spring async linked list), parked only a few hours, alongside the day-old [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#440](https://github.com/endojs/endo-but-for-bots/pull/440), and [#442](https://github.com/endojs/endo-but-for-bots/pull/442); upstream, [endojs/endo#3254](https://github.com/endojs/endo/pull/3254) (harden browser-test installation) is the newest at two days.
 
 ## Parked for maintainer feedback
 
@@ -59,18 +55,19 @@ A gardener claimed the `finalize-garden-pr4-round2` job, folding kriskowal's ans
 ### todo (0)
 (none)
 
-### doin (3)
-- `bulletin-restructure-latest-top-parked-prs` — Restructure the bulletin: lead with "Latest" (claude summary + PR links), dro...
+### doin (4)
+- `classify-compartment-mapper-failures` — Classify & investigate compartment-mapper's known test failures, then fan out...
 - `finalize-garden-pr4-round2` — Finalize garden#4 per kriskowal's answers to the open questions (review round 2)
+- `reinforce-cw-maintainer-reviews` — Reinforce the comment-watcher: a trusted maintainer's review with inline comm...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (136)
+### tada (137)
+- `bulletin-restructure-latest-top-parked-prs` — Completion report
 - `fix-ebfb-pr503-banners-and-set` — Completion report — fix-ebfb-pr503-banners-and-set
 - `address-review-garden-pr4` — The worktree was removed (the earlier error was just the shell's cwd being de...
 - `endojs-endo-but-for-bots-pr503-7822ef8a` — Completion report — job endojs-endo-but-for-bots-pr503-7822ef8a
 - `build-mirror-closer-service` — Completion report — build-mirror-closer-service
-- `mirror-and-shepherd-endo-3254` — Waiting for CI. The background poll on PR #530's matrix will notify me when i...
-- … and 131 more
+- … and 132 more
 
 ## Watch set
 (none)
