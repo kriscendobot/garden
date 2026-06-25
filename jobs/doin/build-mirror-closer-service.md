@@ -74,3 +74,9 @@ result (what it created, that the mirror closed with a comment, idempotency held
 cannot locate the mirror-creation point, report precisely rather than guessing.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 4
+  claimed_at: 2026-06-25T17:00:40Z
