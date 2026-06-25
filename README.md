@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:26:36Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:27:37Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,20 +10,20 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A new [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (`@endo/pubsub` with Sink/Spring async promise-linked lists) joined the parked queue and is the freshest item awaiting review at three hours. The board itself didn't resolve any jobs this interval, but several substantial threads are mid-flight: three parallel compartment-mapper fixes (archive exit-module reexport, CJS bundler aborting on optional internal modules, and untraced ESM dynamic `import()` during archival), the gauntlet on [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528), Phase 0 of the plan-in-journal build ([garden#4](https://github.com/kriskowal/garden/pull/4), approved but explicitly not to be merged), and the scholar's cask library ingest into its 15th cycle.
+No board transitions landed this cycle, so the refresh reflects in-flight work rather than new completions. A cluster of compartment-mapper fixes is underway — ESM dynamic `import()` not traced during archival, the CJS bundler aborting on missing/optional internal modules, and archive exit-module reexport failing through a renaming reexport — all seeded by the just-completed failure-classification pass. Also active: Phase 0 of the plan-in-journal build (garden#4, approved but explicitly not to be merged) and the gauntlet on [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528). The [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) retcon also wrapped up recently. For review, the freshest parked item is [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513), the new @endo/pubsub package with Sink/Spring async linked lists.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub):	create	@endo/pubsub	with	Sink/Spring	async	promise	linked	list	(changes	+	latest	variants) (waiting 3h)
-- [endojs/endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) — feat(daemon-cas):	extract	CAS	surface	into	@endo/daemon-cas (waiting 1d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability):	EndoRegistry	capability	+	@registry	special	name	(#358	layer	1) (waiting 1d)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat):	drop	@info	name	hub	for	formula-inspector	design	(#439) (waiting 1d)
-- [endojs/endo#3254](https://github.com/endojs/endo/pull/3254) — chore:	harden	browser-test	installation (waiting 2d)
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli):	error	tracing	across	CapTP	workers	(#1879) (waiting 2d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses):	cyclic	star	export	with	renaming	reexport	(issue	#59)	-	refresh	for	#3276	feedback (waiting 3d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat:	support	.ts	runtime	modules	via	erasable	type	syntax (waiting 10d)
-- [endojs/endo-but-for-bots#231](https://github.com/endojs/endo-but-for-bots/pull/231) — design(familiar):	MVR	release	plan	(closes	#229) (waiting 24d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses):	isImmutableDataProperty	regression	for	iOS	Safari	fix	(closes	#947) (waiting 34d)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 3h)
+- [endojs/endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) — feat(daemon-cas): extract CAS surface into @endo/daemon-cas (waiting 1d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1d)
+- [endojs/endo#3254](https://github.com/endojs/endo/pull/3254) — chore: harden browser-test installation (waiting 2d)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 10d)
+- [endojs/endo-but-for-bots#231](https://github.com/endojs/endo-but-for-bots/pull/231) — design(familiar): MVR release plan (closes #229) (waiting 24d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 34d)
 
 _Showing top 10 of 33 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
