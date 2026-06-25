@@ -1,0 +1,7 @@
+# garden-comment-watcher arming record
+repo: kriskowal/garden
+armed_at: 2026-06-25T17:26:58Z
+authorized_by: kriskowal
+authorization: "not sure whether this is being watched, but it should" (2026-06-25, re garden#4 review).
+  The garden's own design PRs (e.g. #4) need their reviews/directives noticed. Comment-watcher
+  sender-trust gating applies; widening per CLAUDE.md § Monitoring safety constraint.
