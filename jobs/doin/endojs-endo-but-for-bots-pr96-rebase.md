@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Please produce tests with fixtures that cover the use of a `package.json` nested under a transitive dependency’s `package.json`, without an intermediate `node_modules` and complete the implementation. All packages should support language for extension overrides in
+
+---
+claim:
+  host: endolinbot
+  gardener: 21
+  claimed_at: 2026-06-25T16:56:30Z
