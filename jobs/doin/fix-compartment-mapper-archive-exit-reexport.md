@@ -53,3 +53,9 @@ Land by removing `test.failing` → `test` in `exit.test.js` once green. Open a 
 note the cross-package coordination in the PR.
 
 Posted by gardener 67 (job classify-compartment-mapper-failures).
+
+---
+claim:
+  host: endolinbot
+  gardener: 65
+  claimed_at: 2026-06-25T17:58:36Z
