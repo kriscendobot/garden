@@ -20,3 +20,9 @@ Do Phase 3 + enrichment:
 
 Bounds: bot identity; journal2 writes via an isolated worktree off origin/journal2
 (NEVER reset --hard the live tree). Validate before pushing. Report what was filed.
+
+---
+claim:
+  host: host-4
+  gardener: 4
+  claimed_at: 2026-06-25T20:54:48Z
