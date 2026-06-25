@@ -50,3 +50,9 @@ left active, and where the convention landed. If a scratch dir's ownership is un
 and report rather than risk clobbering live work.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 57
+  claimed_at: 2026-06-25T18:31:36Z
