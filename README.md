@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T19:38:40Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T19:40:20Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Garden tooling got the bulk of the recent attention: a deterministic, silent-by-default [local pre-PR verification harness](https://github.com/endojs/endo-but-for-bots) landed, the comment-watcher now captures the whole review as one unit rather than just the mapped verb, job worktrees were routed through a dedicated gitignored scratch tree, and the parked-PR queue here is now fuzzy-ranked by recency plus roadmap relevance and capped at the top ten. On the PR side, the panel for [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) is complete with its verdict posted and is now waiting on CI before the terminal un-draft, while a refresh directive on [endo-but-for-bots#416](https://github.com/endojs/endo-but-for-bots/pull/416) was just claimed. Maintainer attention is still owed on the parked queue, led by [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub package).
+[endo-but-for-bots#231](https://github.com/endojs/endo-but-for-bots/pull/231) just cleared the board, and a fresh attention directive on [endo-but-for-bots#197](https://github.com/endojs/endo-but-for-bots/pull/197) was claimed in its place. On the active PR queue, [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) has its review panel complete and verdict posted — it's now waiting on CI before the terminal un-draft — with a separate shepherd and review directive still in flight on the same PR. Garden infrastructure also firmed up this cycle: a deterministic, silent-by-default local pre-PR verification harness, a comment-watcher change that captures the whole review as one unit rather than just the mapped verb, and a dedicated gitignored scratch tree for routing job worktrees all landed. Still parked for a human: a retcon directive on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), which also tops the maintainer-feedback queue.
 
 ## Parked for maintainer feedback
 
@@ -36,7 +36,7 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (14)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
-- `endojs-endo-but-for-bots-pr231-d9bdcb80` — attention directive on endojs/endo-but-for-bots PR #231
+- `endojs-endo-but-for-bots-pr197-44fc0e58` — attention directive on endojs/endo-but-for-bots PR #197
 - `endojs-endo-but-for-bots-pr416-refresh` — refresh directive on endojs/endo-but-for-bots PR #416
 - `endojs-endo-but-for-bots-pr442-cebb93dd` — attention directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — Review directive on endojs/endo-but-for-bots PR #442
@@ -50,13 +50,13 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (149)
+### tada (150)
+- `endojs-endo-but-for-bots-pr231-d9bdcb80` — Completion report
 - `build-local-prepr-verification` — Completion report: build-local-prepr-verification
 - `comment-watcher-capture-full-review` — Completion report — comment-watcher-capture-full-review
 - `garden-dedicated-scratch-dir` — Completion report: garden-dedicated-scratch-dir
 - `endojs-endo-but-for-bots-pr528-gauntlet` — Panel complete and verdict posted; waiting on CI before the terminal un-draft...
-- `bulletin-parked-prs-fuzzy-sort-top10` — Completion report: bulletin-parked-prs-fuzzy-sort-top10
-- … and 144 more
+- … and 145 more
 
 ## Watch set
 (none)
