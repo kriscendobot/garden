@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 [CHANGES_REQUESTED] Apply feedback about banners generally, and reinforce the garden to anticipate this feedback going forward, both at the site of generation and review. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 40
+  claimed_at: 2026-06-25T17:13:04Z
