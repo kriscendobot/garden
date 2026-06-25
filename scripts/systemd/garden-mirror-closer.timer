@@ -1,0 +1,11 @@
+[Unit]
+Description=Garden mirror-closer timer
+
+[Timer]
+# A closed upstream PR is not time-critical; a few minutes' latency is fine and
+# keeps the GitHub API load low (one cheap state read per unresolved mapping).
+OnActiveSec=2min
+OnUnitActiveSec=5min
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=Garden mirror-closer (close our mirror PR when its upstream PR closes)
+# Deterministic, NO claude: reads the journal pr-mirrors/ mappings, checks each
+# mapped UPSTREAM PR's mechanical state (open|closed/merged), and closes our
+# mirror with a comment when the upstream closes. No untrusted text reaches any
+# model, so this upstream watcher is injection-safe despite CLAUDE.md
+# § Monitoring safety — see scripts/jobs/mirror-closer.sh header. Single instance
+# (the watch set is self-maintaining from the mappings, not per-repo). Driven by
+# its .timer.
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecStart=@GARDEN_ROOT@/scripts/jobs/mirror-closer.sh

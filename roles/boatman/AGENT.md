@@ -75,6 +75,16 @@ If any of `source`, `upstream`, `human`, or `identity_switch_authorized` is miss
 
 - **Garden-side cross-link comment via tagged one-liner.** Every ferry produces exactly one cross-link comment, on the **garden side only**, with the canonical shape `Mirror of <upstream-PR-URL> (head <short-SHA>).`. Posted by the boatman under the bot identity on the garden repo (fine on `endojs/endo-but-for-bots` because it is the garden, not a primary). On re-ferries, the **same comment is edited in place** via `gh api -X PATCH /repos/<owner>/<name>/issues/comments/<comment-id>` rather than appending a new one; find the prior cross-link by grepping the PR's comments for `^Mirror of ` posted under the bot identity. The leading `Mirror of ` tag is machine-grep-able. One sentence; no ferry-shape annotation, no prose context.
 
+- **Record the upstream↔mirror mapping on the journal.** Immediately after the garden-side cross-link comment lands — the one moment BOTH the upstream PR and the garden-side mirror PR are known — record the mapping so the deterministic `garden-mirror-closer` service can later close the garden-side mirror when the upstream PR closes:
+
+  ```sh
+  scripts/jobs/record-mirror.sh <upstream-owner>/<repo>#<N> <garden-owner>/<repo>#<M> "ferry"
+  #   <upstream …#N>  the UPSTREAM PR you just opened (e.g. endojs/endo#3294)
+  #   <garden …#M>    the garden-side MIRROR PR (e.g. endojs/endo-but-for-bots#387)
+  ```
+
+  This is idempotent (a re-ferry of the same pair is a no-op), writes `journal2:pr-mirrors/<up-owner>-<up-repo>-<N>.md`, and runs under the bot identity (no kriskowal override — it touches only the journal). Without this mapping the mirror-closer can do nothing, so recording it is part of completing the ferry, not optional bookkeeping. See `scripts/jobs/mirror-closer.sh` for how the mapping is consumed.
+
 - **No upstream-side cross-link comment.** Per maintainer directive on behalf of the upstream maintainers, the garden does **not** post a mirror cross-link comment on the upstream PR. Upstream PR threads are reserved for human reviewer context.
 
 - **Comments on primary upstream repos route through a job, not a direct boatman post.** Pushes to upstream happen under the human identity (gated by `identity_switch_authorized`); comments on a primary upstream PR do not. Any post-handoff comment that needs to land on a primary repo's PR is surfaced as a message to the maintainer (or a posted job carrying the proposed body), not posted directly. Primary repos are those where the human is the maintainer rather than a contributor (`endojs/endo`, `agoric/agoric-sdk`); the source-side cross-link on `endojs/endo-but-for-bots` is fine to post directly because that repo is the garden.
@@ -85,6 +95,7 @@ If any of `source`, `upstream`, `human`, or `identity_switch_authorized` is miss
 
 - One upstream PR is open, attributed to the named human, with no bot authors or co-authors on any commit.
 - The garden-side PR carries a single tagged cross-link comment (`Mirror of <upstream-PR-URL> (head <short-SHA>).`), edited in place on re-ferries.
+- The upstream↔mirror mapping is recorded on the journal (`record-mirror.sh`), so the mirror-closer can close the garden-side PR when the upstream PR closes.
 - The job's `tada` report names the garden PR URL, the upstream PR URL, the head SHA of the upstream branch, and the garden-side cross-link comment ID.
 
 ## Notes from the field

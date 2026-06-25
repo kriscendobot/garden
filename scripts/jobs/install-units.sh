@@ -71,7 +71,12 @@ enable_services() {
   # (see scripts/jobs/mention-watcher.sh). Maintainer-authorized widening recorded
   # in a journal message entry the day it was armed.
   unit_ctl enable --now garden-mention-watcher.timer
-  log "enabled repo-watcher, reaper, watchman, gardener-scaler, scheduler, bulletin (service), mentor, follow-up, foreman, proxy, deadmail, mention-watcher"
+  # Mirror-closer: single instance, deterministic (NO claude), close-only. Watches
+  # the upstream PRs named by journal2:pr-mirrors/ and closes our mirror when the
+  # upstream closes. Injection-safe despite the monitoring constraint because no
+  # untrusted text reaches a model (see scripts/jobs/mirror-closer.sh header).
+  unit_ctl enable --now garden-mirror-closer.timer
+  log "enabled repo-watcher, reaper, watchman, gardener-scaler, scheduler, bulletin (service), mentor, follow-up, foreman, proxy, deadmail, mention-watcher, mirror-closer"
 }
 
 status() {

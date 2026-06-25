@@ -263,6 +263,14 @@ Run these in order before completing the ferry job. The checklist is the executa
 
    **No symmetric upstream-side comment.** Per the 2026-05-29 maintainer directive on behalf of the upstream maintainers, the garden does not post mirror cross-link comments on upstream PRs.
 
+9. **Record the upstream↔mirror mapping on the journal.** With both the upstream PR (`<up-owner>/<repo>#<N>`) and the garden-side mirror PR (`<garden-owner>/<repo>#<M>`) now known, record the mapping the deterministic `garden-mirror-closer` service consults to close the mirror when the upstream PR closes:
+
+   ```sh
+   scripts/jobs/record-mirror.sh <up-owner>/<repo>#<N> <garden-owner>/<repo>#<M> "ferry"
+   ```
+
+   Idempotent (a re-ferry of the same pair is a no-op); writes `journal2:pr-mirrors/<up-owner>-<up-repo>-<N>.md` under the bot identity. This is the data without which the mirror-closer cannot act, so it is part of the ferry, not optional bookkeeping. See `scripts/jobs/mirror-closer.sh`.
+
 ## Notes from the field
 
 - _2026-05-15_: skill landed after nine ferries exercised all three shapes and both attribution cases. The fast-forward-append shape is the most review-preserving; prefer it when the ancestor check passes.
