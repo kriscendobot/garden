@@ -61,11 +61,18 @@ whose cost we want to avoid when a signal says they cannot matter.
 2. **sense-gated automations** — docs/lint when Markdown changed; dependency
    checks when an `import` line moved; etc. (`run_if <sense…> -- <command…>`).
 3. **evaluation gate (always)** — run the project's eval suite; *no* sense-gate.
-   False positives fine, false negatives unacceptable.
+   False positives fine, false negatives unacceptable. The default eval runner is
+   the deterministic, no-LLM pre-PR verification harness
+   `scripts/jobs/gardening/local-verify.sh` (format/lint/build/test/docgen,
+   silent on success, git-hash-capturing failures for selective debugging-agent
+   inspection); see [local-verify](../skills/local-verify/SKILL.md). It is wired
+   as `GARDEN_EVAL`; a project overrides that with its own runner when needed.
 4. **push for CI** — deterministic (identity owned by the boatman for upstream).
 5. **loop decision** — `decide` whether to wait on CI and loop, or stop. Emits
    `loop` to the supervisor or exits quietly.
 
-The scaffold wires placeholders (`true`, `GARDEN_EVAL`) where a project plugs in
-its real rebase/lint/eval/push commands; the control flow, quiet-on-success
-discipline, diverted tracing, and heuristic gating are the reusable parts.
+The scaffold wires the rebase/push mechanics as placeholders where a project
+plugs in its real commands; the `GARDEN_EVAL` gate now defaults to the
+`local-verify` harness rather than the original `true` no-op. The control flow,
+quiet-on-success discipline, diverted tracing, and heuristic gating are the
+reusable parts.

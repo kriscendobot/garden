@@ -64,9 +64,13 @@ run_if "$SENSE" diff-keyword "$wt" import "$base" -- true  # placeholder: e.g. c
 
 # --- evaluation/test gate BEFORE CI: err toward running everything -----------
 # False positives are fine here; false negatives are not. We do NOT sense-gate
-# the eval suite — we run it (the supervisor wires the project's eval scripts).
-: "${GARDEN_EVAL:=true}"   # default no-op; supervisor sets the real eval runner
-"$GARDEN_EVAL" "$wt" || fail "evaluation suite"
+# the eval suite: we run it. The default eval runner is the deterministic local
+# pre-PR verification harness (format/lint/build/test/docgen, silent on success,
+# git-hash-capturing failures for selective inspection); see local-verify.sh and
+# skills/local-verify/SKILL.md. A supervisor may override GARDEN_EVAL with a
+# project-specific runner that takes the worktree as its single argument.
+: "${GARDEN_EVAL:=$HERE/local-verify.sh}"
+"$GARDEN_EVAL" "$wt" || fail "local verification (inspect the emitted blob SHAs)"
 
 # --- push for CI (deterministic; mechanics elided in the scaffold) ----------
 # git -C "$wt" push --force-with-lease ...   # supervisor/boatman owns identity

@@ -125,6 +125,7 @@ The exit code is the gate's sole machine-readable signal. The summary (printed t
 - **[yarn-lock-separate-commit]**: the yarn-lock-as-its-own-commit rule still applies on top of the gate. The gate does not stage `yarn.lock` changes from its own auto-fixes; if Prettier or eslint touched `yarn.lock` (rare), the calling step splits the commit per the lockfile-separation skill.
 - **[pre-pr-checklist](../pre-pr-checklist/SKILL.md)**: the pre-PR checklist is the broader human-facing review-yourself list; this gate is the deterministic subset of it. The checklist's items that are not in the gate (e.g., "PR body uses behavior-over-diff prose") remain the calling step's responsibility.
 - **[em-dash-style]**: not currently gated (em-dash discipline applies to journal entries and garden documents, not to all code). A future probe `no-em-dashes-in-prose` would cover prose under `docs/` and README files; for now the rule stays in role files.
+- **[local-verify](../local-verify/SKILL.md)**: the complementary half of the push path. This gate runs the mutating style/probe checks (Prettier and eslint auto-fix, garden-specific probes, typecheck) and re-stages; `local-verify` runs the project's full verification suite (format/lint/build/test/docgen) read-only and captures any failure by git blob SHA for selective debugging-agent inspection. The push path runs the style gate, then `local-verify`, then pushes.
 
 ## Adding a probe
 
