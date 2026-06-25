@@ -1,0 +1,90 @@
+---
+created: 2026-06-25
+updated: 2026-06-25
+author: gardener
+---
+
+# Skill: no comment banners
+
+## The rule
+
+Do not draw **banner horizontal rules** in code comments. A banner is a
+comment line whose body is a run of repeated punctuation used as a decorative
+separator rather than as prose:
+
+```js
+// ---------------------------------------------------------------------------
+// Section title
+// ---------------------------------------------------------------------------
+```
+
+The forbidden shapes are a comment line (`//`, `#`, `/* … */`, or a JSDoc
+` * ` continuation) whose remaining content is four or more repeated rule
+characters from the set `- = * ~ _` and nothing else. The section title is
+fine; the rules bracketing it are not. Write the title as a plain comment and
+delete the rules:
+
+```js
+// Section title.
+```
+
+The maintainer's reason (PR #503, review `4573212313`): banner rules are
+"inevitably inconsistent with a human maintainer in the loop." A person editing
+the file does not redraw the ruler to the same width, does not add one to the
+next section, and does not agree on the character. The decoration drifts the
+moment a human touches the file, so it reads as machine-generated noise. The
+same objection retired ASCII box diagrams (`skills/pre-push-gates/SKILL.md`
+`no-ascii-banners`); horizontal rules are the same class of decoration in a
+thinner shape.
+
+## What is *not* a banner
+
+- A `// foo -> bar` directional arrow or any comment that is prose containing a
+  dash.
+- A markdown thematic break (`---` on its own line in a `.md` file) used as a
+  real section divider in prose. This rule is about *code comments*, not
+  markdown structure.
+- A dashed line inside a fenced code block that is sample output or data.
+- A pre-existing banner in a file the change does not otherwise touch: do not
+  open a diff just to delete one. Sweep banners only in files you are already
+  editing.
+
+## Scope
+
+The rule governs code comments in the projects the garden builds for (today
+`endojs/endo-but-for-bots` and, post-ferry, `endojs/endo`). It is a project
+code-style rule, not a garden-document prose rule, so it is enforced at the two
+sites the maintainer named:
+
+- **Generation.** The `no-ascii-banners` probe in
+  `skills/pre-push-gates/SKILL.md` fails a push whose changed `.js` / `.ts` /
+  `.md` files add a banner-rule comment. By the time a diff reaches the panel,
+  this class of finding cannot survive.
+- **Review.** The `archivist` code-panel seat (it already reads comment and
+  JSDoc prose) flags any surviving banner rule as should-fix. The `pedant`
+  design-panel seat carries the same rule for code blocks inside design
+  documents, alongside the ASCII-diagram rule it already holds.
+
+## How to sweep a file you are editing
+
+```sh
+grep -nE '^[[:space:]]*(//|#|\*)[[:space:]]*[-=*~_]{4,}[[:space:]]*$' path/to/file
+grep -nE '/\*[[:space:]]*[-=*~_]{4,}[[:space:]]*\*/' path/to/file
+```
+
+Delete each matched line. When the banner bracketed a section title, keep the
+title line and adjust its punctuation so it reads as a sentence.
+
+## Notes from the field
+
+(Append; terse and dated.)
+
+- _2026-06-25_: adopted after PR `endojs/endo-but-for-bots#503` review
+  `4573212313`. The maintainer asked to apply the banner feedback generally and
+  to reinforce the garden to anticipate it at the generation and review sites.
+  The reconstructed passable-byte-arrays PR carried roughly forty `// ----`
+  rule comments across six files; the existing `no-ascii-banners` probe missed
+  them because it matched only box-drawing characters and `+--+` / `|...|`
+  boxes, not plain hyphen and equals rules. The probe definition was widened the
+  same day and this skill landed as the single citeable rule the gate and the
+  two juror seats reference.
