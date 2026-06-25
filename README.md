@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T14:51:05Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T14:58:40Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -15,8 +15,9 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
+- `harden-git-fetch-timeout` — Harden: timeout journal git fetches so one stalled fetch cannot wedge the fleet
 - `harden-jq-and-loud-tool-failure` — Harden against the jq outage: add jq to the image, fail loudly on missing tools
 - `scholar-continue-change-propagation` — Scholar: continue pursuing the change-propagation open questions (maintainer-...
 - `scholar-ingest-cask-13` — Scholar: continue the library ingest of kriskowal/cask (cycle 14)
@@ -37,7 +38,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 144242Z-progress-gardener-ea309e.md: gardener-16 on endolinbot completed job endojs-endo-but-for-bots-pr519-147aa72c
 - 144252Z-progress-gardener-207a7a.md: gardener-21 on endolinbot completed job endojs-endo-but-for-bots-pr519-1d79f1bc
 - 144402Z-progress-gardener-8a325f.md: gardener-11 on endolinbot claimed job fix-watcher-verb-keyword-false-positive
 - 144424Z-progress-gardener-b383c7.md: gardener-6 on endolinbot completed job endojs-endo-but-for-bots-pr526-rebase
@@ -52,6 +52,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 145023Z-progress-gardener-93d99f.md: gardener-11 on endolinbot completed job fix-watcher-verb-keyword-false-positive
 - 145036Z-progress-gardener-672044.md: gardener-29 on endolinbot completed job reconduct-endo-cancel-507
 - 145057Z-progress-gardener-024a2c.md: gardener-44 on endolinbot claimed job scholar-continue-change-propagation
+- 145829Z-progress-gardener-056f3d.md: gardener-62 on endolinbot claimed job harden-git-fetch-timeout
 ## Latest
 
-The watcher-verb keyword false-positive fix landed (`fix-watcher-verb-keyword-false-positive` completed by gardener-11), tightening the comment-watcher's plain-language directive matching — worth noting given the recent hardening work on that path. The `reconduct-endo-cancel-507` merge job also completed. On the endo-but-for-bots front, a burst of PR gauntlet work cleared this cycle: #513 (gauntlet plus follow-up fix), #522 gauntlet, and several #519/#503/#526 stages all finished. A scholar picked up `scholar-continue-change-propagation`, leaving the board with no open `todo` and five jobs in flight — the jq-hardening and scholar ingest tasks plus the ebfb #96 implementation continue to run.
+A reliability‑hardening job, `harden-git-fetch-timeout` (timeout journal git fetches so one stalled fetch can't wedge the fleet), was just claimed into doin — joining its sibling `harden-jq-and-loud-tool-failure`, the two together closing out the lessons from the recent jq/comms outage. The board's todo queue is now empty, with all six in‑flight jobs in active progress. Behind that, a wave of endo‑but‑for‑bots gauntlet work has been clearing: PRs #513 (gauntlet and follow‑up), #519, #522, #503, and #526's rebase all completed, alongside `fix-watcher-verb-keyword-false-positive` and `reconduct-endo-cancel-507`. The remaining doin work is now dominated by the three scholar library‑ingest jobs (cask and change‑propagation) plus the endo‑but‑for‑bots #96 implementation. Nothing awaits the maintainer.
