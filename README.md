@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T21:19:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T21:21:23Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section.
-
-Since the last bulletin, the completion report for [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) landed in the done column, and an attention directive plus a separate review directive on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#525](https://github.com/endojs/endo-but-for-bots/pull/525) are both in flight, alongside the scholar's ongoing cask library ingest. The todo column is empty, so the autonomous fleet is keeping pace. The longest-parked items needing a human are the passable-byte-arrays work on [#503](https://github.com/endojs/endo-but-for-bots/pull/503), the new [@endo/pubsub](https://github.com/endojs/endo-but-for-bots/pull/513) package, and the [.ts runtime modules](https://github.com/endojs/endo/pull/3137) PR, which has now been waiting ten days upstream.
+Two job-board completions landed, both on endo-but-for-bots: review work wrapped on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) and the latest pass on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) finished, leaving the board nearly drained with only the Scholar cask ingest (cycle 16) still in flight. The longest-parked items still waiting on a human are [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (34–35 days), with the newer [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) pubsub PR now at six hours.
 
 ## Parked for maintainer feedback
 
@@ -36,18 +34,16 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- `endojs-endo-but-for-bots-pr475-7a9cc2ee` — attention directive on endojs/endo-but-for-bots PR #475
-- `endojs-endo-but-for-bots-pr525-review-25103d76` — Review directive on endojs/endo-but-for-bots PR #525
+### doin (1)
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
 
-### tada (175)
+### tada (177)
+- `endojs-endo-but-for-bots-pr475-7a9cc2ee` — Completion report
+- `endojs-endo-but-for-bots-pr525-review-25103d76` — Completion report
 - `endojs-endo-but-for-bots-pr475-f56659bc` — Completion report
 - `fix-compartment-mapper-esm-dynamic-import-archival` — The CI poll is in progress. I'll await the completion notification before wri...
 - `endojs-endo-but-for-bots-pr475-48532f80` — Done. Completion report:
-- `fix-compartment-mapper-archive-exit-reexport` — Completion report: fix-compartment-mapper-archive-exit-reexport
-- `plan-in-journal-impl-p0` — Completion report — job plan-in-journal-impl-p0
-- … and 170 more
+- … and 172 more
 
 ## Watch set
 (none)
