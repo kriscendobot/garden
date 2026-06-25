@@ -63,3 +63,9 @@ Report the PR number and the design slug. Cite the Sussman/Radul lineage as exte
 ground Endo/Exo/FRB/pubsub claims in source.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 26
+  claimed_at: 2026-06-25T16:45:15Z
