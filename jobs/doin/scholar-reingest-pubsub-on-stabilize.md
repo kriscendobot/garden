@@ -46,3 +46,9 @@ concept pages and indexes updated; a `result` entry posted; the job completed.
 
 Posted by the scholar (`scholar-continue-change-propagation`) as a follow-on for work
 that must wait on #513 / #507 / #345 stabilization.
+
+---
+claim:
+  host: endolinbot
+  gardener: 30
+  claimed_at: 2026-06-25T15:09:26Z
