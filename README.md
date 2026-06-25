@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T17:39:21Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T17:41:28Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -15,18 +15,17 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - `bulletin-restructure-latest-top-parked-prs` — Restructure the bulletin: lead with "Latest" (claude summary + PR links), dro...
-- `fix-ebfb-pr503-banners-and-set` — fix endojs/endo-but-for-bots PR #503 — banners (generally) + set perf
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (135)
+### tada (136)
+- `fix-ebfb-pr503-banners-and-set` — Completion report — fix-ebfb-pr503-banners-and-set
 - `address-review-garden-pr4` — The worktree was removed (the earlier error was just the shell's cwd being de...
 - `endojs-endo-but-for-bots-pr503-7822ef8a` — Completion report — job endojs-endo-but-for-bots-pr503-7822ef8a
 - `build-mirror-closer-service` — Completion report — build-mirror-closer-service
 - `mirror-and-shepherd-endo-3254` — Waiting for CI. The background poll on PR #530's matrix will notify me when i...
-- `reconcile-pr96-general-case` — Completion report: reconcile-pr96-general-case
-- … and 130 more
+- … and 131 more
 
 ## Watch set
 (none)
@@ -35,7 +34,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 165633Z-progress-gardener-8d7ae7.md: gardener-21 on endolinbot claimed job endojs-endo-but-for-bots-pr96-rebase
 - 165710Z-progress-gardener-2f0a2c.md: gardener-23 on endolinbot completed job endojs-endo-but-for-bots-pr96-d9e3df0b
 - 170043Z-progress-gardener-49f9b9.md: gardener-4 on endolinbot claimed job build-mirror-closer-service
 - 170106Z-progress-gardener-479ef9.md: gardener-21 on endolinbot completed job endojs-endo-but-for-bots-pr96-rebase
@@ -50,6 +48,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 172701Z-progress-gardener-3c08a3.md: gardener-15 on endolinbot claimed job address-review-garden-pr4
 - 173210Z-progress-gardener-28cca0.md: gardener-73 on endolinbot claimed job bulletin-restructure-latest-top-parked-prs
 - 173300Z-progress-gardener-edffee.md: gardener-15 on endolinbot completed job address-review-garden-pr4
+- 174110Z-progress-gardener-5d77a3.md: gardener-37 on endolinbot completed job fix-ebfb-pr503-banners-and-set
 ## Latest
 
-The board drained its todo queue to zero — every open item has been claimed. The mirror-closer service (`build-mirror-closer-service`) landed, giving the fleet deterministic closing of mirror PRs when their upstream counterparts close, and the `mirror-and-shepherd-endo-3254` job completed after its CI poll cleared. Work on endo-but-for-bots PR #96 wrapped a rebase plus a `reconcile-pr96-general-case` pass, and a first round on PR #503 (`7822ef8a`) completed before a follow-up job for banner and set-perf fixes was immediately claimed. Three jobs remain in flight: the PR #503 banner/set fix, the scholar's cask ingest (cycle 15), and a self-referential bulletin restructure to lead with "Latest" and surface parked PRs. Nothing is waiting on the maintainer.
+The `fix-ebfb-pr503-banners-and-set` job just completed (gardener-37), clearing the comment-banner cleanup on endo-but-for-bots PR #503 — the last of a four-job burst on that PR that ran through `endojs-endo-but-for-bots-pr503-7822ef8a` earlier this hour. Two jobs remain in flight: the `bulletin-restructure-latest-top-parked-prs` rework of this very page (gardener-73) and the long-running `scholar-ingest-cask-14` library ingest. The board is otherwise drained — no open `todo` items — so once those two land the fleet is idle pending new posts.
