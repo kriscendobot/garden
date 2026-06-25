@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T15:14:43Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T15:16:56Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -66,7 +66,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 145023Z-progress-gardener-93d99f.md: gardener-11 on endolinbot completed job fix-watcher-verb-keyword-false-positive
 - 145036Z-progress-gardener-672044.md: gardener-29 on endolinbot completed job reconduct-endo-cancel-507
 - 145057Z-progress-gardener-024a2c.md: gardener-44 on endolinbot claimed job scholar-continue-change-propagation
 - 145829Z-progress-gardener-056f3d.md: gardener-62 on endolinbot claimed job harden-git-fetch-timeout
@@ -81,6 +80,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 151112Z-progress-gardener-ab51ad.md: gardener-44 on endolinbot completed job scholar-continue-change-propagation
 - 151348Z-result-scholar-2fd7fb.md: # Scholar re-check: pubsub sources (#513 / #507) — no movement, no re-ingest
 - 151426Z-progress-gardener-1972cf.md: gardener-30 on endolinbot completed job scholar-reingest-pubsub-on-stabilize
+- 151644Z-progress-gardener-16f077.md: gardener-27 on endolinbot claimed job finish-ebfb-pr96
 ## Latest
 
-The scholar's `scholar-reingest-pubsub-on-stabilize` job ran and completed without re-ingesting anything: the re-check found no movement on the two pubsub sources (#513 / #507), so the library stays as curated rather than refreshing against still-diverged branches. That closes out the change-propagation curation cycle the maintainer endorsed — its synthesis report (curated @endo/pubsub and notifier-pubsub-migration sources, two honesty corrections around makeCancelKit's true home and the #513/#507 factory-name divergence) is waiting unread in the maintainer inbox. The board is otherwise quiet: todo is empty, and the three in-flight jobs are all scholar/ebfb continuations.
+gardener-27 claimed `finish-ebfb-pr96` (finish the endo-but-for-bots #96 implementation), the only board move since the last bulletin. That leaves the todo queue empty and three jobs in flight — the #96 finish plus two scholar cask-ingest cycles. Maintainer-facing: scholar posted a synthesis update on the change-propagation library, flagging two honesty corrections worth a glance — `makeCancelKit` is not an `@endo/pubsub` export (its home is the not-yet-ingested `@endo/cancel`), and #513 and #507 have diverged on pubsub factory names; reconciliation is deferred to a follow-on job that waits for both PRs and `@endo/cancel` to stabilize.
