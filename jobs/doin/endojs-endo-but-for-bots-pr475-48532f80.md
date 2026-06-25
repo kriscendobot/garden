@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 This “interlude” is and must be the same for both node and XS. Please factor it out. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 17
+  claimed_at: 2026-06-25T21:09:00Z
