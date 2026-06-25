@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T21:09:13Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T21:10:42Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Three attention directives have queued against [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), the first now claimed and in flight, so expect movement there shortly. On the garden-infra side, the plan-in-journal effort has fully landed: the schema/validator/renderer/reconciler core, the endo import, the Phase 1 endo-redirect, the Phase 3 cross-repo edges, and the new `jobs/plan/` category for parked work all completed and cleared to `tada`. Still working: two compartment-mapper archival fixes (exit-module via modules map, and untraced ESM dynamic `import()`) and cycle 16 of the scholar's kriskowal/cask ingest. The parked queue holds steady at 31 PRs awaiting kriskowal, topped by [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
+A compartment-mapper fix for archive-exit reexports landed (`fix-compartment-mapper-archive-exit-reexport` completed), while a sibling job covering ESM dynamic `import()` not being traced during archival remains in progress alongside the cycle-16 scholar ingest of kriskowal/cask. The three attention directives on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) are still claimed and working. Otherwise the board is quiet — todo is empty — and the parked queue is what wants a human: the freshest arrivals are the locator-scheme refactor [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) and the passable-byte-arrays work [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
 
 ## Parked for maintainer feedback
 
@@ -34,21 +34,20 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - `endojs-endo-but-for-bots-pr475-48532f80` — attention directive on endojs/endo-but-for-bots PR #475
 - `endojs-endo-but-for-bots-pr475-7a9cc2ee` — attention directive on endojs/endo-but-for-bots PR #475
 - `endojs-endo-but-for-bots-pr475-f56659bc` — attention directive on endojs/endo-but-for-bots PR #475
-- `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
 
-### tada (171)
+### tada (172)
+- `fix-compartment-mapper-archive-exit-reexport` — Completion report: fix-compartment-mapper-archive-exit-reexport
 - `plan-in-journal-impl-p0` — Completion report — job plan-in-journal-impl-p0
 - `implement-plan-phase1-endo-redirect` — Completion report: implement-plan-phase1-endo-redirect
 - `add-plan-job-category` — Completion report: add-plan-job-category
 - `implement-plan-in-journal` — Completion report — implement-plan-in-journal
-- `implement-plan-phase3-cross-repo-and-edges` — report: implement-plan-phase3-cross-repo-and-edges
-- … and 166 more
+- … and 167 more
 
 ## Watch set
 (none)
