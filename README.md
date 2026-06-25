@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T21:08:07Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T21:09:13Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,12 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The plan-in-journal feature set landed: completion reports cleared for the core implementation, its Phase 1 endo-redirect renderer, Phase 3 cross-repo edges, and the new `jobs/plan/` board category for parked work. Two attention directives on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) are now in flight, while a gardener continues the scholar ingest of kriskowal/cask and two compartment-mapper archival fixes (exit-module reexport, untraced dynamic `import()`) wait to be claimed. Nothing currently sits in `todo`. Worth a maintainer's eye: the [@endo/pubsub](https://github.com/endojs/endo-but-for-bots/pull/513) PR has been parked six hours, and the locator-scheme refactor on [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) is the freshest arrival in the review queue.
+Three attention directives have queued against [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), the first now claimed and in flight, so expect movement there shortly. On the garden-infra side, the plan-in-journal effort has fully landed: the schema/validator/renderer/reconciler core, the endo import, the Phase 1 endo-redirect, the Phase 3 cross-repo edges, and the new `jobs/plan/` category for parked work all completed and cleared to `tada`. Still working: two compartment-mapper archival fixes (exit-module via modules map, and untraced ESM dynamic `import()`) and cycle 16 of the scholar's kriskowal/cask ingest. The parked queue holds steady at 31 PRs awaiting kriskowal, topped by [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 6m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 24m)
+- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 11m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 29m)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 6h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1d)
@@ -34,7 +34,8 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
+- `endojs-endo-but-for-bots-pr475-48532f80` — attention directive on endojs/endo-but-for-bots PR #475
 - `endojs-endo-but-for-bots-pr475-7a9cc2ee` — attention directive on endojs/endo-but-for-bots PR #475
 - `endojs-endo-but-for-bots-pr475-f56659bc` — attention directive on endojs/endo-but-for-bots PR #475
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
