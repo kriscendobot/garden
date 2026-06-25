@@ -64,3 +64,9 @@ blocked, report diagnosis + ready-to-apply change.
 
 Posted by the liaison on behalf of the maintainer.
 
+
+---
+claim:
+  host: endolinbot
+  gardener: 34
+  claimed_at: 2026-06-25T20:36:07Z
