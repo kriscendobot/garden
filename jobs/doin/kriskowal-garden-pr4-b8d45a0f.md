@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Looks good to me. We do not need to merge this PR, but post a job to implement the plan. This may require pausing the garden while the journal gets reorganized. Please do. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 74
+  claimed_at: 2026-06-25T17:59:39Z
