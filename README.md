@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T19:47:42Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T19:50:37Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,11 +10,11 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The refresh of [endo-but-for-bots#416](https://github.com/endojs/endo-but-for-bots/pull/416) completed and moved off the board; nothing else of substance advanced this cycle.
+A gardener picked up the gauntlet directive on [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178), the only board movement since the last bulletin. Otherwise the queue is steady: review and shepherd work continues on [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) and the attention/review pair on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442), while the retcon on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) is in flight ahead of that PR's freshly-parked review request. Nothing new awaits a human; the parked queue's most recent additions — the passable-byte-arrays work on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the new [@endo/pubsub](https://github.com/endojs/endo-but-for-bots/pull/513) package — remain the freshest items for maintainer eyes.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 37m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 42m)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 4h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1d)
@@ -34,8 +34,9 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (12)
+### doin (13)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
+- `endojs-endo-but-for-bots-pr178-gauntlet` — gauntlet directive on endojs/endo-but-for-bots PR #178
 - `endojs-endo-but-for-bots-pr442-cebb93dd` — attention directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — Review directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr503-retcon` — retcon directive on endojs/endo-but-for-bots PR #503
