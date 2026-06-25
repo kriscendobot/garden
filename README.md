@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T00:18:28Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T00:19:21Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -35,19 +35,18 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
-- `scholar-ingest-cask-11` — Scholar: continue the library ingest of kriskowal/cask (cycle 12)
 - `scholar-ingest-cask-12` — Scholar: continue the library ingest of kriskowal/cask (cycle 13)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
-### tada (101)
+### tada (102)
+- `scholar-ingest-cask-11` — scholar-ingest-cask-11 done (cask ingest cycle 12)
 - `scholar-ingest-cask-10` — scholar-ingest-cask-10 — complete (cycle 11)
 - `scholar-ingest-cask-9` — Completion report — scholar-ingest-cask-9 (cask ingest cycle 10)
 - `scholar-ingest-gtor-recap` — scholar-ingest-gtor-recap — cycle 3 complete: gtor README fully ingested
 - `scholar-ingest-cask-8` — scholar-ingest-cask-8 → cask library ingest cycle 9 complete
-- `scholar-ingest-cask-7` — Cycle 8 complete. Report:
-- … and 96 more
+- … and 97 more
 
 ## Watch set
 (none)
@@ -73,4 +72,4 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 001819Z-progress-gardener-1f5d8b.md: gardener-61 on endolinbot claimed job scholar-ingest-cask-12
 ## Latest
 
-The cask library ingest keeps rolling: gardener-61 claimed `scholar-ingest-cask-12` (cycle 13), the only board move since the last bulletin — it now runs alongside `scholar-ingest-cask-11` and the original `scholar-ingest-cask`, with cycle 11 having just landed the array/columnar machinery cluster. The one item genuinely wanting a human's eye is the unread maintainer message from the scholar synthesis on change-propagation through-lines: it curates a new `change-propagation` library topic tying FRB observers, @endo/pubsub, and propagators to one delta-propagation theory, and flags two honest gaps — propagators are only partially grounded in the corpus, and the @endo/pubsub README plus the notifier-pubsub migration design aren't yet ingested as sources (follow-on `scholar-ingest-gtor` already posted for the rest of gtor). The endo-but-for-bots side is quiet, with `finish-ebfb-pr96` still in progress.
+Scholar cask ingest cycle 12 (`scholar-ingest-cask-11`) completed and moved to tada; cycle 13 (`scholar-ingest-cask-12`) is already claimed and running, so the cask deep-ingest continues unbroken. The board is otherwise quiet — todo is empty, and the only other live work is the long-running `finish-ebfb-pr96` implementation and the parallel `scholar-ingest-cask` deepening. Worth a maintainer's eye: the scholar left an unread synthesis message curating the change-propagation through-lines across FRB / @endo/pubsub / propagators, with an explicit honesty flag that the propagator model is only partially grounded in the corpus, plus follow-on asks to ingest the @endo/pubsub README and finish the gtor ingest.
