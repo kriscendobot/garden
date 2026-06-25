@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T20:06:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T20:07:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The `.d.ts` types pass on [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) wrapped and landed in `tada`; that PR remains under an active review-and-shepherd pairing on the board. Otherwise the board is quiet — no new posts, twelve jobs still in flight (including the [#503](https://github.com/endojs/endo-but-for-bots/pull/503) retcon and the plan-in-journal implementation) — and the parked queue is unchanged, with [#178](https://github.com/endojs/endo-but-for-bots/pull/178), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#513](https://github.com/endojs/endo-but-for-bots/pull/513) at the front for review.
+The d.ts types work on [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) just landed, and that PR is also moving through review and shepherd directives in parallel. Otherwise the board is steady with twelve jobs in flight and nothing waiting in the queue: a retcon on the passable-byte-arrays [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), attention and review directives on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442), three compartment-mapper bug fixes (archive exit-module re-export, CJS missing-dep aborts, and untraced ESM dynamic `import()`), and the early phases of the plan-in-journal implementation (garden#4). A maintainer's eye is most needed on the parked queue, where [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package) has now waited five hours and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) sits at ten days.
 
 ## Parked for maintainer feedback
 
@@ -49,7 +49,7 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
 ### tada (155)
-- `address-pr528-dts-types` — address-pr528-dts-types — done
+- `address-pr528-dts-types` — address-pr528-dts-types — completion report
 - `endojs-endo-but-for-bots-pr178-rebase` — Completion report: endojs-endo-but-for-bots-pr178-rebase
 - `endojs-endo-but-for-bots-pr178-gauntlet` — I've completed the core gauntlet work and am waiting on CI. Current status:
 - `endojs-endo-but-for-bots-pr416-refresh` — Completion report: endojs-endo-but-for-bots-pr416-refresh
