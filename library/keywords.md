@@ -5269,10 +5269,10 @@ Finish Fail termination | (see section: agoric-sdk--pkg-notifier-readme--distrib
 `getSharableNotifierInternals` | (see section: agoric-sdk--pkg-notifier-readme--distributed-operation)
 producer not vulnerable to consumers | (see section: agoric-sdk--pkg-notifier-readme--distributed-operation)
 consumers mutually-independent | (see section: agoric-sdk--pkg-notifier-readme--distributed-operation)
-notifier pubsub migration | (see source: agoric-sdk--pkg-notifier-readme)
-makeLatestTopic | (open question: not in library; load-bearing for notifier-pubsub-migration design)
-makeChangeTopic | (open question: not in library; load-bearing for notifier-pubsub-migration design)
-makeUpdateTopic | (open question: not in library; load-bearing for notifier-pubsub-migration design)
+notifier pubsub migration | endo-pubsub (see source: endo-but-for-bots--llm-designs-notifier-pubsub-migration; design framing in agoric-sdk--pkg-notifier-readme)
+makeLatestTopic | endo-pubsub (ingested: endo-but-for-bots--pkg-pubsub-readme--change-and-latest-topics)
+makeChangeTopic | endo-pubsub (ingested: endo-but-for-bots--pkg-pubsub-readme--change-and-latest-topics)
+makeUpdateTopic | endo-pubsub (retired in the #507 design; recovered by composition — changes + one-shot latestSnapshot)
 formulaChangeTopic | (see section: endo-but-for-bots--llm-designs-dcpg--event-sources-and-subscription)
 @endo/stream index.js canonical async-stream substrate | streams, patterns, captp
 Endo-async-stream-substrate | streams, patterns
@@ -12246,14 +12246,30 @@ asynchronous linked list queue | endo-pubsub
 get before put queue | endo-pubsub
 two-queue buffer pressure | endo-pubsub
 semaphore as promise queue | endo-pubsub
-`makeCancelKit` | endo-pubsub
-`nullSink` | endo-pubsub
-`nullSpring` | endo-pubsub
+`makeCancelKit` | endo-pubsub (home is @endo/cancel, NOT @endo/pubsub; the bundled cancel kit was dropped per review in commit d15e34cb)
+@endo/cancel | endo-pubsub (the prerequisite package that homes makeCancelKit; not yet on the llm branch)
+`nullSink` | endo-pubsub (dropped from @endo/pubsub along with the barrel index, commit d15e34cb)
+`nullSpring` | endo-pubsub (dropped from @endo/pubsub along with the barrel index, commit d15e34cb)
 @endo/exo-pubsub | endo-pubsub
 exo-pubsub | endo-pubsub
 notifier-pubsub-migration | endo-pubsub
 `makeChangesPubSub` | endo-pubsub
 `makeLatestPubSub` | endo-pubsub
+asymmetric passability | endo-pubsub (one of topic/publisher crosses the wire, rarely both)
+hot topic | endo-pubsub (hotTopicFromExoStream: drains eagerly on construction)
+cold topic | endo-pubsub (coldTopicFromExoStream: drains lazily on first subscriber)
+`topicFromReader` | endo-pubsub
+`topicFromSpring` | endo-pubsub
+`readerFromTopic` | endo-pubsub
+`patcherFromTopic` | endo-pubsub (patch a local mirror value from a remote delta subscription)
+`coalesceReader` | endo-pubsub (consumer-side coalescing / operational-transform middleware)
+`publisherFromIterator` | endo-pubsub
+`publisherFromUpdateSampler` | endo-pubsub
+`publisherFromChangeSampler` | endo-pubsub
+`makePubSub` pub sub put | endo-pubsub (makePubSub() returns { pub, sub }; pub.put extends the linked list)
+`makeWindowTopic` | sliding-window-topic (proposed @endo/reactive-collection operator, not shipped; from the research-frb-endo-exo-collections draft)
+ordered-set observable contract | sliding-window-topic (add/delete/has + ordered slice + range-change notification; satisfied by SortedSet splay tree and SortedArraySet)
+`makeViewObserver` five-branch splicer | sliding-window-topic (FRB observers.js l.817; the incremental window machinery)
 sliding window topic | sliding-window-topic
 sliding-window topic | sliding-window-topic
 ordered collection window | sliding-window-topic
