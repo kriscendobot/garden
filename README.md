@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:04:37Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:04:51Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -51,16 +51,7 @@ One item needs a human first: the watchman reports **main2 on this host (endolin
 - [endojs/playground#14](https://github.com/endojs/playground/pull/14) — feat: rock-paper-scissors (waiting 789d)
 ## Messages to the maintainer
 
-- `20260625T175939Z-28a7e0` — from gardener:classify-compartment-mapper-failures, reply_to `classify-compartment-mapper-failures` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T175939Z-28a7e0.md)
-
-> Classified @endo/compartment-mapper's 12 known test failures on master (endo-but-for-bots master == endo@master for this package; no bot-master reset needed). All 12 reproduce on master and collapse into **3 root-cause classes**, one fix-proposal job posted per class:
->
-> 1. **ESM dynamic `import()` not traced during archival** (10/12) — `dynamic-import-esm` ×5 + `optionalDependencies/esm` ×5, all archive-only combos. Archiver follows only static bindings; dynamically-imported modules are absent from the archive → "Cannot find external module … in archive". Job `fix-compartment-mapper-esm-dynamic-import-archival`.
-> 2. **CJS bundler aborts on missing/optional internal modules** (1/12) — `bundle cjs-compat`. Importer tolerates a missing `require('./spam')` as a deferredError; bundler treats it as fatal. Job `fix-compartment-mapper-bundle-missing-deps`.
-> 3. **Archive exit-module via `modules` map fails through a re-export** (1/12) — `exit` URL-scheme case. `{ namespace }` record lacks the `notify` export-notifier → `TypeError: notify is not a function` in ses module-instance on re-export. Likely ses+compartment-mapper. Job `fix-compartment-mapper-archive-exit-reexport`.
->
-> Full classification (per-test mapping, reproduced errors, fix directions) in journal result entry. No failure left unexplained.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
