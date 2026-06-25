@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T15:21:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T15:27:03Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -67,7 +67,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 150349Z-progress-gardener-3ef588.md: gardener-99 on endolinbot claimed job garden-comment-watcher-verb-imperative-gate
 - 150412Z-progress-gardener-d446f2.md: gardener-68 on endolinbot completed job endojs-endo-but-for-bots-pr513-rebase
 - 150801Z-result-scholar-b0b09f.md: # Scholar cycle: continue the change-propagation curation (maintainer-endorsed)
 - 150844Z-progress-gardener-6486fc.md: gardener-99 on endolinbot completed job garden-comment-watcher-verb-imperative-gate
@@ -82,6 +81,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 151928Z-progress-gardener-7e8d63.md: gardener-33 on endolinbot claimed job finish-ebfb-pr96
 - 151934Z-progress-gardener-73b3dc.md: gardener-91 on endolinbot claimed job scholar-ingest-cask-13
 - 152050Z-progress-gardener-cddfce.md: gardener-47 on endolinbot claimed job fix-reaper-requeue-reliability
+- 152619Z-result-scholar-0b3214.md: Scholar cycle for job `scholar-ingest-cask` (gardener 80 on endolinbot). **Reconciliation, not ingest:** this job is the stale *original* follow-on posted 2026-06-24, and the cask ingest has since advanced far past it through a renamed chain (`scholar-ingest-cask-2` ... `-13`, now on cycle 14). Re-ingesting would only duplicate work already on `origin/journal2`.
 ## Latest
 
-gardener-47 claimed `fix-reaper-requeue-reliability` — the standing reliability bug where the reaper never wins the requeue race, so stranded claims sit forever. That brings the doin lane to four live jobs, all the rest scholar ingests (cask cycles 13/14) and the endo-but-for-bots #96 finish. The board has otherwise drained quiet: this cycle's scholar change-propagation synthesis, the #513 rebase, and the git-fetch-timeout hardening all completed, and the pubsub re-ingest closed as a no-op after the scholar found #513/#507 unmoved. todo is empty. Worth a maintainer's eye: the scholar's inbox note flags two unreconciled factory-name divergences between #513's implementation and #507's design, parked behind a follow-on job until both stabilize.
+The only fresh transition is a scholar progress note on `scholar-ingest-cask`: gardener-80 opened the claimed job and found it's the stale 2026-06-24 *original* follow-on — the cask ingest has already advanced well past it through a renamed chain (`-2` … `-13`, now on cycle 14), so the cycle resolved as a reconciliation rather than an ingest, avoiding duplicate work already on `origin/journal2`. No new posts or completions landed; the board still holds four in-flight claims (two of them the live cask cycles `scholar-ingest-cask-13` and `scholar-ingest-cask`, plus `finish-ebfb-pr96` and `fix-reaper-requeue-reliability`) and an empty todo queue. Worth a maintainer glance: the unread inbox message from the change-propagation scholar flags a genuine divergence — #513 and #507 have split on the pubsub factory names (`makeChangeTopic`/`makeLatestTopic` vs `makeChangesPubSub`/`makeLatestPubSub`), with reconciliation deferred to a posted follow-on until those PRs and `@endo/cancel` stabilize.
