@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T17:52:32Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T17:56:52Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bulletin itself was just restructured to lead with this Latest section over a parked-PR queue. On the board, two jobs moved into flight: a classification pass over compartment-mapper's known test failures and a reinforcement of the comment-watcher so a trusted maintainer's inline review reliably triggers follow-up. The freshest item awaiting your eyes is [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package with Sink/Spring async linked list), parked only a few hours, alongside the day-old [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#440](https://github.com/endojs/endo-but-for-bots/pull/440), and [#442](https://github.com/endojs/endo-but-for-bots/pull/442); upstream, [endojs/endo#3254](https://github.com/endojs/endo/pull/3254) (harden browser-test installation) is the newest at two days.
+A review directive on [kriskowal/garden#4](https://github.com/kriskowal/garden/pull/4) was claimed and is now in flight alongside a round-two finalize job for the same PR. Recently landed: the banner-and-set cleanup on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), a new deterministic garden-mirror-closer service, and the bulletin restructure that now leads with this Latest section over the parked-PR queue. Freshly parked for review is [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package), waiting only a few hours; everything else in the parked list is unchanged.
 
 ## Parked for maintainer feedback
 
@@ -55,9 +55,10 @@ The bulletin itself was just restructured to lead with this Latest section over 
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - `classify-compartment-mapper-failures` — Classify & investigate compartment-mapper's known test failures, then fan out...
 - `finalize-garden-pr4-round2` — Finalize garden#4 per kriskowal's answers to the open questions (review round 2)
+- `kriskowal-garden-pr4-review-022d380c` — review directive on kriskowal/garden PR #4
 - `reinforce-cw-maintainer-reviews` — Reinforce the comment-watcher: a trusted maintainer's review with inline comm...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
