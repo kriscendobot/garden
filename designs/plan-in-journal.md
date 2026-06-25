@@ -5,14 +5,6 @@
 | Author   | designer (gardener fleet) |
 | Status   | Proposed   |
 
-> Revised 2026-06-25 to fold in kriskowal's review on
-> [garden#4](https://github.com/kriskowal/garden/pull/4). The six decisions: the
-> plan moves fully into the garden journal (records and narrative), journal2 is the
-> single source of truth, a reconciler keeps the plan current, that reconciliation
-> consolidates into the bulletin generator and journalist rather than a new role or
-> service, review-queue latency stays a single garden-wide metric, and each project
-> is named by a short kebab-case slug that maps to a repository URL (GitHub or not).
-
 ## Summary
 
 Move the **plan** (the roadmap: milestones, the design index, statuses, estimates,
@@ -24,7 +16,7 @@ journalist loops over journal2). The plan becomes garden-level state because the
 garden now operates at garden scope, not endo scope.
 
 The plan lives in one place. Both the **plan metadata** (status, size, dependencies,
-milestone, target date, project) and the **design narrative** (the prose of each
+milestone, target date, repository) and the **design narrative** (the prose of each
 design) move into `journal2`. The maintainer's directive is to move it all into the
 journal to avoid a coordination problem: keeping metadata in journal state while the
 narrative lived on per-repo fork branches meant two homes that had to be kept in
@@ -71,18 +63,21 @@ the records that target endo, not as structure the garden imposes everywhere.
 
 The plan lives under a new `journal/plan/` tree on the `journal2` branch, alongside
 the existing `jobs/`, `inbox/`, `repos/`, and `projects/` state. The **journal is the
-single source of truth**: there is no authoritative per-repo copy of any part of the
-plan. The per-design records are the source of truth for metadata, the per-design
-narrative is the source of truth for prose, and the rendered roadmap is generated and
-must not be hand-edited.
+single source of truth**, and within the journal **the per-design files are the
+authoritative unit**: each `designs/<repository-slug>/<design-slug>.md` is the source
+of truth for both its metadata (frontmatter) and its narrative (prose). The roadmap —
+the milestone table, the dependency graph, the estimate rollups — is an
+**aggregation** of those per-design files: generated, never hand-edited, and never a
+second source of truth. There is no authoritative per-repo copy of any part of the
+plan. Edit a design by editing its file; the aggregate roadmap recomputes from it.
 
 ```
 journal/plan/
-  projects.md                              the project-slug to repository-URL mapping (see Cross-repository model)
-  designs/<project-slug>/<design-slug>.md  one record per design: metadata frontmatter + the design narrative below it
-  milestones/<id>.md                       milestone definition: exit criteria, target date, members
-  velocity.md                              observed PR-merge velocity inputs and the S/M/L/XL day-mapping
-  README.md                                GENERATED roadmap view (table + dep graph + estimates); do not hand-edit
+  repositories.md                             the repository-slug to repository-URL mapping (see Cross-repository model)
+  designs/<repository-slug>/<design-slug>.md  one record per design: metadata frontmatter + the design narrative below it (the source of truth)
+  milestones/<id>.md                          milestone definition: exit criteria, target date, members
+  velocity.md                                 observed PR-merge velocity inputs and the S/M/L/XL day-mapping
+  README.md                                   GENERATED roadmap view, AGGREGATED from the per-design files (table + dep graph + estimates); do not hand-edit
 ```
 
 A design record is small in metadata and self-contained: the frontmatter is the
@@ -93,12 +88,12 @@ file, in the journal, not on a fork branch.
 ```yaml
 ---
 slug: daemon-supervisor
-project: endo-but-for-bots                     # project slug; projects.md maps it to a repository URL
+repository: endo-but-for-bots                   # repository slug; repositories.md maps it to a repository URL
 status: in-progress                            # the v1 enum, carried verbatim
 size: M                                         # S | M | L | XL
 milestone: M2
-depends_on: [daemon-vat, ocapn-handoff]        # design slugs, resolved across all projects
-pr: endo-but-for-bots#246                       # the implementing PR(s) when known, by project slug
+depends_on: [daemon-vat, ocapn-handoff]        # design slugs, resolved across all repositories
+pr: endo-but-for-bots#246                       # the implementing PR(s) when known, by repository slug
 target: 2026-07-15                             # optional explicit target; otherwise projected
 created: 2026-06-01
 updated: 2026-06-24
@@ -124,33 +119,39 @@ Draft, Complete (Implemented), Active, Reference, Deprecated, Superseded.
 
 ## Cross-repository model
 
-The garden develops in several repositories. The plan is cross-repo in that each
-design **targets** a project that maps to a repository, while every part of the plan
-itself (records, narrative, milestones, the generated view) lives in journal2.
+The garden develops in several repositories. Each design **targets** exactly one
+**repository** (the field is named `repository` for that reason — a design lands in a
+specific repository), while every part of the plan itself (records, narrative,
+milestones, the generated view) lives in journal2. A **project** is a higher-level
+effort that may **span multiple repositories**; spanning is expressed through
+milestone membership and `depends_on` edges that cross repository boundaries, not
+through the per-design field, which always names a single repository.
 
-- **Projects are named by a short slug.** Each design's `project` field is a short
-  kebab-case slug (`endo-but-for-bots`, `garden`, `endo`). Slugs are deliberately
-  lightweight and adaptable: a kebab-case variation can be introduced later without a
-  schema migration.
-- **`projects.md` maps slug to repository URL.** A single mapping file records, for
-  each project slug, the repository URL it targets. The plan tracks **repository
+- **Each design names one repository by a short slug.** The `repository` field is a
+  short kebab-case slug (`endo-but-for-bots`, `garden`, `endo`). Slugs are
+  deliberately lightweight and adaptable: a kebab-case variation can be introduced
+  later without a schema migration.
+- **`repositories.md` maps slug to repository URL.** A single mapping file records,
+  for each repository slug, the repository URL it names. The plan tracks **repository
   URLs**, not GitHub `owner/name` pairs, so the model stays open to **repositories
   that are not on GitHub** (a self-hosted git remote, a non-GitHub forge). Nothing in
   the record schema or the renderer assumes a GitHub host. Where a GitHub-specific
   affordance is needed (PR links, merge detection), it keys off the resolved URL
-  being a GitHub URL rather than assuming it for every project.
-- **Dependency edges cross projects.** `depends_on` lists design slugs; the renderer
-  resolves each slug to its record across the whole record set, so an edge from an
-  endo-but-for-bots design to an endo design is just two records and one edge. Slugs
-  are unique across the plan (the validator enforces uniqueness).
+  being a GitHub URL rather than assuming it for every repository.
+- **Dependency edges cross repositories.** `depends_on` lists design slugs; the
+  renderer resolves each slug to its record across the whole record set, so an edge
+  from an endo-but-for-bots design to an endo design is just two records and one edge.
+  This is how a multi-repository project is stitched together. Slugs are unique across
+  the plan (the validator enforces uniqueness).
 - **Aggregate computation is over the union.** Milestone totals, completion
   percentage, estimate rollups, and the critical path are computed across all records,
-  not per project. The critical path follows `depends_on` across project boundaries.
-- **Scope is bounded.** The allowed project set is the repositories the garden
-  actively develops: the garden itself, `endojs/endo`, `endojs/endo-but-for-bots`, and
-  others the maintainer adds to `projects.md`. **`agoric-sdk` is excluded
+  not per repository. The critical path follows `depends_on` across repository
+  boundaries, so a milestone or project spanning several repositories rolls up as one.
+- **Scope is bounded.** The allowed repository set is the ones the garden actively
+  develops: the garden itself, `endojs/endo`, `endojs/endo-but-for-bots`, and others
+  the maintainer adds to `repositories.md`. **`agoric-sdk` is excluded
   unconditionally** ("we must not and cannot do anything for agoric-sdk"): the
-  validator rejects a record whose `project` resolves to the agoric-sdk repository,
+  validator rejects a record whose `repository` resolves to the agoric-sdk repository,
   and the renderer never emits an agoric-sdk row.
 
 ```mermaid
@@ -159,7 +160,7 @@ flowchart LR
     A["endo-but-for-bots / daemon-supervisor (M2)"]
     B["endo / ocapn-handoff (M2)"]
     C["garden / plan-in-journal (M-infra)"]
-    M["projects.md (slug to repo URL)"]
+    M["repositories.md (slug to repo URL)"]
   end
   A -- depends_on --> B
   records --> R["roadmap reconciler (folded into bulletin + journalist)"]
@@ -181,13 +182,33 @@ change-gated CAS push, and multi-host idempotence. The plan view is one more
 journal-local rendered artifact that loop produces, and keeping the plan current is
 one more reconciliation it performs.
 
+**Reconciliation is continuous and not maintainer-gated.** It runs on every bulletin
+and journalist pass, the same as the rest of those loops; the maintainer does not
+approve plan updates and no transition waits on a gate. In particular the **Complete
+flip is automatic**: when the reconciler detects a design PR's merge it advances the
+record to Complete on its own, with an audit `entry`, rather than holding it for
+maintainer confirmation. The plan tracks reality as fast as the loops observe it.
+
+**Weekly recalibration and grooming (Sunday evenings).** On top of the per-pass
+reconciliation, a weekly scheduled task runs **Sunday evenings** via the
+[`schedule`](../skills/schedule/SKILL.md) skill (`set-schedule.sh`, dispatched by the
+sole `garden-scheduler`): it recalibrates velocity from the week's merged-PR cadence
+([`skills/velocity-recalibration`](../skills/velocity-recalibration/SKILL.md)),
+reprojects milestone target dates
+([`skills/roadmap-projection`](../skills/roadmap-projection/SKILL.md)), and grooms the
+plan's open questions and stale records
+([`skills/groom-open-questions`](../skills/groom-open-questions/SKILL.md)). The
+continuous reconciler keeps status and the view honest moment to moment; the weekly
+pass is the slower cadence at which estimates, projections, and grooming are
+refreshed.
+
 | `designs/CLAUDE.md` process step | Garden mechanism |
 |---|---|
-| Per-doc metadata table required on every design | **Plan validator** (a pre-push gate plus a job posted on plan change): validates each record's frontmatter against the schema, rejects missing or unknown fields, rejects an unknown status, enforces slug uniqueness, and rejects a project that resolves to agoric-sdk. Reuses [`skills/pre-push-gates`](../skills/pre-push-gates/SKILL.md). |
+| Per-doc metadata table required on every design | **Plan validator** (a pre-push gate plus a job posted on plan change): validates each record's frontmatter against the schema, rejects missing or unknown fields, rejects an unknown status, enforces slug uniqueness, and rejects a record whose `repository` resolves to agoric-sdk. Reuses [`skills/pre-push-gates`](../skills/pre-push-gates/SKILL.md). |
 | Sync every metadata edit into the README table | **Reconciler in the bulletin generator**: the bulletin loop regenerates `journal/plan/README.md` from the records whenever the plan changes. This replaces the manual sync; the view is recomputed, never hand-edited. No separate `garden-roadmap-renderer` service is introduced. |
 | Milestone totals and exit criteria | The reconciler aggregates membership and totals; a milestone-rollup step recomputes per-milestone size totals and completion percentage. |
 | Dependency graph | The reconciler emits the Mermaid graph; a cycle-and-dangling-edge check runs via [`skills/dependency-graph-maintenance`](../skills/dependency-graph-maintenance/SKILL.md) and surfaces a violation as a maintainer note rather than a silent bad graph. |
-| Velocity-calibrated estimates | **Velocity recalibration** ([`skills/velocity-recalibration`](../skills/velocity-recalibration/SKILL.md)) observes merged-PR cadence from board `tada` completions plus merge timestamps, recomputes the S/M/L/XL day-mapping into `velocity.md`, and **roadmap projection** ([`skills/roadmap-projection`](../skills/roadmap-projection/SKILL.md)) reprojects milestone target dates. **Review-queue latency is a single garden-wide timeline input**, not per-project: one latency figure feeds every projection regardless of which repository a milestone's designs target. |
+| Velocity-calibrated estimates | **Velocity recalibration** ([`skills/velocity-recalibration`](../skills/velocity-recalibration/SKILL.md)) observes merged-PR cadence from board `tada` completions plus merge timestamps, recomputes the S/M/L/XL day-mapping into `velocity.md`, and **roadmap projection** ([`skills/roadmap-projection`](../skills/roadmap-projection/SKILL.md)) reprojects milestone target dates. **Review-queue latency is a single garden-wide timeline input**, not per-repository: one latency figure feeds every projection regardless of which repository a milestone's designs target. |
 | Status drift (record says Complete, PR unmerged, or the reverse) | **The reconciler takes responsibility for updating the plan.** Riding on the bulletin and journalist loops (which already observe completions), it compares each record's `status` and `pr` against actual PR and board state and advances the status, with an audit `entry`. Design authors do not hand-sync a summary table; the reconciler keeps the plan current. |
 | Design lifecycle (proposal to complete) | Board-event-driven transitions the reconciler applies: a design PR opening sets Proposed or Draft; a detected merge sets Complete; the reconciler advances the record. The lifecycle is data the reconciler maintains, not a human checklist. |
 
@@ -201,7 +222,7 @@ consumer is re-pointed at the journal-local plan. The cutover points:
   the endo `designs/README.md` Per-Design Estimates table. **Cutover:** it bins and
   reconciles against `journal/plan/` (the records plus the generated view), which
   removes its cross-repo fetch of the `llm` branch and lets it bin work from any plan
-  project.
+  repository.
 - **bulletin roadmap sections** (`scripts/jobs/bulletin.sh`) render milestone-binned
   sections and now also regenerate `journal/plan/README.md`. **Cutover:** render from
   `journal/plan/`, which is journal-local, so the bulletin stops reaching into a fork
@@ -211,20 +232,21 @@ consumer is re-pointed at the journal-local plan. The cutover points:
   milestone. Today it reads `designs/README.md` on `llm` to find the current milestone
   and next step. **Cutover:** read `journal/plan/milestones/` and the records, pick the
   current milestone and the next unblocked step from the journal-local plan and the
-  `depends_on` edges. The foreman gains cross-project sequencing for free and loses its
-  fork fetch.
+  `depends_on` edges. The foreman gains cross-repository sequencing for free and loses
+  its fork fetch.
 - **design-poller / design-to-pr-pipeline** walked the `llm` roadmap branch for
   designs ready to build. **Cutover:** the readiness query becomes a plan query: a
   record with status Proposed or Accepted and an unblocked `depends_on` set is
-  ready-to-build. The poller (or the foreman) reads the records; the cross-project edge
-  resolution is the same machinery the reconciler uses.
+  ready-to-build. The poller (or the foreman) reads the records; the cross-repository
+  edge resolution is the same machinery the reconciler uses.
 
 ## Migration path
 
 Incremental, with a named cutover point per consumer so the journalist, the bulletin,
 and the foreman keep working mid-flight. Journal2 becomes the single source of truth
 as soon as the records render faithfully; the endo file degrades to a generated,
-non-authoritative redirect and then retires.
+non-authoritative redirect that is **kept indefinitely** as a courtesy pointer for any
+human reader.
 
 ```mermaid
 flowchart TD
@@ -232,12 +254,12 @@ flowchart TD
   P1["Phase 1: journal2 becomes the single source of truth; endo README becomes a generated redirect"]
   P2["Phase 2: cut over consumers one at a time (bulletin, journalist, foreman, poller)"]
   P3["Phase 3: cross-repo activation (garden + endo records; spanning milestones)"]
-  P4["Phase 4: retire the manual sync discipline and the endo redirect"]
+  P4["Phase 4: retire the manual sync discipline (the endo redirect is kept indefinitely)"]
   P0 --> P1 --> P2 --> P3 --> P4
 ```
 
 - **Phase 0: schema, reconciler, shadow import.** Land the `journal/plan/` schema, the
-  validator, the `projects.md` mapping, and the reconciler step inside the bulletin
+  validator, the `repositories.md` mapping, and the reconciler step inside the bulletin
   loop. A one-time import reads the current `endojs/endo-but-for-bots:llm`
   `designs/README.md` table into per-design records, and pulls each design's narrative
   from its fork `designs/` file into the record body. The generated
@@ -257,41 +279,23 @@ flowchart TD
   Each consumer's cutover is one commit; until it lands, that consumer reads the
   redirect copy of the endo file.
 - **Phase 3: cross-repo activation.** Add records (with narrative) for garden-itself
-  designs and endo designs; populate `projects.md`; let milestones span projects; turn
-  on cross-project critical-path computation; confirm the agoric-sdk exclusion in the
-  validator.
+  designs and endo designs; populate `repositories.md`; let milestones span
+  repositories; turn on cross-repository critical-path computation; confirm the
+  agoric-sdk exclusion in the validator.
 - **Phase 4: retire the manual discipline.** Replace the synchronization section of
   the endo `designs/CLAUDE.md` with a pointer to `journal/plan/` and the reconciler.
-  Endo `designs/` narrative is now mirrored from the journal record bodies; the
-  Phase 1 redirect can stop once no human relies on it.
-
-## Decisions folded in (kriskowal review, garden#4, 2026-06-25)
-
-- **Plan fully in the journal.** Both metadata and narrative live in `journal2`. The
-  earlier narrative-stays-home split is removed because it recreated the coordination
-  problem this design exists to remove.
-- **Journal2 is the single source of truth.** No authoritative per-repo copy. The endo
-  README becomes a generated, non-authoritative redirect and then retires.
-- **The reconciler updates the plan.** Status, lifecycle, and the view stay current via
-  a reconciler, not via design authors hand-syncing a summary table.
-- **Reconciler consolidates into the bulletin generator and journalist.** No new
-  plan-updating role and no standalone `garden-roadmap-renderer` service; the work
-  rides the loops already running over `journal2`.
-- **Review-queue latency is garden-wide.** One latency metric feeds every projection;
-  no per-project granularity.
-- **Slug to repository-URL mapping, non-GitHub allowed.** Projects are named by a
-  short kebab-case slug; `projects.md` maps each slug to a repository URL; the model
-  does not assume GitHub.
+  Endo `designs/` narrative is now mirrored from the journal record bodies. The
+  Phase 1 redirect is **kept indefinitely** as a courtesy pointer; it is generated
+  output, so it costs nothing to leave in place for human readers.
 
 ## Open questions
 
-- Source-of-truth granularity within the journal: per-design record files (proposed,
-  for board merge-friendliness) versus one structured plan file. The proposal keeps
-  per-design files; is that the maintainer's preference?
-- Should the Complete transition be fully automatic on a detected merge, or should the
-  reconciler hold Complete behind a maintainer gate? (The reconciler owns the update
-  either way; the question is whether the final flip is gated.)
-- Does the Phase 1 endo `designs/README.md` redirect get removed in Phase 4, or kept
-  indefinitely as a courtesy pointer for human readers?
-- Field naming: is `project` the right field name (versus `repository`), now that the
-  value is a slug resolved through `projects.md` rather than an inline `owner/name`?
+None remaining. The four questions this design previously carried are resolved by the
+maintainer's review on garden#4 (2026-06-25) and folded into the body above:
+per-design files are the authoritative source of truth and the roadmap is an
+aggregation of them; reconciliation is continuous and not maintainer-gated (the
+Complete flip is automatic on a detected merge), with a weekly Sunday-evening
+recalibration-and-grooming pass added to the schedule; the endo `designs/README.md`
+redirect is kept indefinitely; and the per-design field is named `repository` (a
+design targets one repository, while a project may span several). The design is
+settled and ready to build.
