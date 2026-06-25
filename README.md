@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T17:03:15Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T17:07:21Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -22,19 +22,18 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - `build-mirror-closer-service` — Build a deterministic (no-claude) service: close our mirror PR when its upstr...
 - `mirror-and-shepherd-endo-3254` — Mirror endojs/endo#3254 onto endo-but-for-bots, record the mapping, and sheph...
-- `reconcile-pr96-general-case` — Reconcile PR #96 Phase 7: land the general dependency-subtree case (maintaine...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (130)
+### tada (131)
+- `reconcile-pr96-general-case` — Completion report: reconcile-pr96-general-case
 - `encode-pr-summary-comment-norm` — Done. The norm is encoded and pushed to origin/main2.
 - `endojs-endo-but-for-bots-pr96-rebase` — Completion report — endojs-endo-but-for-bots-pr96-rebase
 - `endojs-endo-but-for-bots-pr96-d9e3df0b` — Completion report — endojs-endo-but-for-bots-pr96-d9e3df0b (attention/routing)
 - `design-propagator-endo-exo` — Job complete.
-- `reconstruct-cancel-on-llm` — Inbox empty. The job is already satisfied — I will not duplicate the work. Wr...
-- … and 125 more
+- … and 126 more
 
 ## Watch set
 (none)
@@ -43,7 +42,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 155052Z-progress-gardener-af96ac.md: gardener-76 on endolinbot completed job shepherd-ebfb-pr96
 - 164312Z-progress-gardener-6027f4.md: gardener-65 on endolinbot claimed job reconstruct-cancel-on-llm
 - 164519Z-progress-gardener-82a378.md: gardener-26 on endolinbot claimed job design-propagator-endo-exo
 - 164527Z-progress-gardener-cef1d0.md: gardener-65 on endolinbot completed job reconstruct-cancel-on-llm
@@ -58,6 +56,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 170106Z-progress-gardener-479ef9.md: gardener-21 on endolinbot completed job endojs-endo-but-for-bots-pr96-rebase
 - 170245Z-progress-gardener-bea046.md: gardener-8 on endolinbot claimed job mirror-and-shepherd-endo-3254
 - 170301Z-progress-gardener-9d2d15.md: gardener-100 on endolinbot completed job encode-pr-summary-comment-norm
+- 170707Z-progress-gardener-4de159.md: gardener-6 on endolinbot completed job reconcile-pr96-general-case
 ## Latest
 
-The PR-summary-comment norm landed: `encode-pr-summary-comment-norm` completed and pushed to origin/main2, closing the loop on kriskowal's #474/#513 feedback that PR work needs a top-level summary comment alongside inline replies. A new job, `mirror-and-shepherd-endo-3254`, was just claimed and is underway (mirroring endojs/endo#3254 onto endo-but-for-bots and shepherding it). Four jobs are now in flight, including the ongoing #96 general-case reconciliation. One item wants a human's eye: a gardener flagged that kriskowal's latest #96 comment (nested-transitive fixtures + complete impl + extension overrides) was mis-triaged as a "rebase" when it was a builder directive — it was correctly re-routed to the live `reconcile-pr96-general-case` worker rather than spawning a colliding implementation, and a self-improvement was filed to teach the triager verb-map that "produce tests"/"complete the implementation" maps to builder, not rebase.
+`reconcile-pr96-general-case` completed — the live worker on endojs/endo-but-for-bots #96's general-case workstream landed its changes and reported back. This is the worker that absorbed the maintainer's 2026-06-25T16:51Z #96 comment (nested-transitive fixtures, complete implementation, extension overrides for all packages), which a triager had misrouted as a "rebase" job; the directive was rerouted to this rightful owner rather than spawning a competing implementation on the same branch, and a self-improvement was filed to teach the triager verb-map that "produce tests"/"complete the implementation" means builder, not rebase. A maintainer message is waiting in the unread inbox confirming that routing. Three jobs remain in flight: the mirror-closer service build, the endo#3254 mirror-and-shepherd, and the cask cycle-15 scholar ingest.
