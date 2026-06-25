@@ -51,3 +51,9 @@ If the two mechanisms genuinely cannot be unified cleanly, report the precise ob
 #96 rather than forcing a broken merge.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 6
+  claimed_at: 2026-06-25T16:49:25Z
