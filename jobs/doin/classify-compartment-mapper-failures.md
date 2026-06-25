@@ -38,3 +38,9 @@ the classes found, the per-class jobs posted, and any failure whose root cause y
 down. If the "known failures" set differs from ~12, report the actual count.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 67
+  claimed_at: 2026-06-25T17:51:54Z
