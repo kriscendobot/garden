@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:29:13Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:30:59Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Little moved on the board since the last bulletin beyond the parked-PR queue switching to a fuzzy recency-plus-roadmap ranking (now capped at the top 10 of 33). In flight: a gauntlet directive on [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528), three independent compartment-mapper archival fixes (exit-module reexport, CJS bundler aborting on optional internal modules, and untraced ESM `import()`), the Phase 0 build of the plan-in-journal design ([garden#4](https://github.com/kriskowal/garden/pull/4), approved but explicitly not to be merged), and the scholar's cycle-15 ingest of kriskowal/cask. Nothing new is parked for the maintainer; the longest-waiting reviews remain [endo#3137](https://github.com/endojs/endo/pull/3137) (10d) and the design PRs [endo-but-for-bots#231](https://github.com/endojs/endo-but-for-bots/pull/231) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182).
+The endo-but-for-bots#528 gauntlet [endojs/endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) cleared its panel — verdict posted, now waiting on CI before the terminal un-draft. Three compartment-mapper fixes remain in flight (archive exit-reexport, CJS bundler missing/optional deps, and ESM dynamic-`import()` archival tracing), alongside the plan-in-journal implementation ([garden#4](https://github.com/kriskowal/garden/pull/4), approved but explicitly not to be merged) and the cask library ingest (cycle 15).
 
 ## Parked for maintainer feedback
 
@@ -34,8 +34,7 @@ _Showing top 10 of 33 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
-- `endojs-endo-but-for-bots-pr528-gauntlet` — gauntlet directive on endojs/endo-but-for-bots PR #528
+### doin (6)
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
@@ -43,13 +42,13 @@ _Showing top 10 of 33 parked PRs (ranked by recency + roadmap relevance)._
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (145)
+### tada (146)
+- `endojs-endo-but-for-bots-pr528-gauntlet` — Panel complete and verdict posted; waiting on CI before the terminal un-draft...
 - `bulletin-parked-prs-fuzzy-sort-top10` — Completion report: bulletin-parked-prs-fuzzy-sort-top10
 - `endojs-endo-but-for-bots-pr96-0105506f` — Completion report: attention directive on endojs/endo-but-for-bots PR #96
 - `kriskowal-garden-pr4-b8d45a0f` — The directive is fully discharged. The implementation job is posted and alrea...
 - `kriskowal-garden-pr4-review-022d380c` — Completion report — job kriskowal-garden-pr4-review-022d380c
-- `endojs-endo-but-for-bots-pr474-retcon` — Completion report: endojs-endo-but-for-bots-pr474-retcon
-- … and 140 more
+- … and 141 more
 
 ## Watch set
 (none)
