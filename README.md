@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T14:44:30Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T14:45:57Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -36,23 +36,23 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 (none)
 
 ### doin (9)
-- `endojs-endo-but-for-bots-pr503-95390ef3` — attention directive on endojs/endo-but-for-bots PR #503
 - `endojs-endo-but-for-bots-pr513-be1cd0d3` — attention directive on endojs/endo-but-for-bots PR #513
 - `endojs-endo-but-for-bots-pr513-gauntlet` — gauntlet directive on endojs/endo-but-for-bots PR #513
-- `endojs-endo-but-for-bots-pr519-f2f4c5ca` — attention directive on endojs/endo-but-for-bots PR #519
 - `endojs-endo-but-for-bots-pr522-gauntlet` — gauntlet directive on endojs/endo-but-for-bots PR #522
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
 - `fix-watcher-verb-keyword-false-positive` — fix: comment/mention-watcher verb-keyword false-positive on review subject ma...
+- `harden-jq-and-loud-tool-failure` — Harden against the jq outage: add jq to the image, fail loudly on missing tools
+- `reconduct-endo-cancel-507` — Verify @endo/cancel (#345) exists; reconduct if missing (endo-but-for-bots #507)
 - `scholar-ingest-cask-13` — Scholar: continue the library ingest of kriskowal/cask (cycle 14)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
-### tada (107)
+### tada (109)
+- `endojs-endo-but-for-bots-pr503-95390ef3` — The directive is fully addressed and recorded. Final report:
+- `endojs-endo-but-for-bots-pr519-f2f4c5ca` — Review posted. The directive is satisfied.
 - `endojs-endo-but-for-bots-pr526-rebase` — Done. Here is my completion report.
 - `endojs-endo-but-for-bots-pr519-1d79f1bc` — Completion report: attention directive on endojs/endo-but-for-bots PR #519
 - `endojs-endo-but-for-bots-pr519-147aa72c` — Completion report — attention directive on endojs/endo-but-for-bots PR #519
-- `endojs-endo-but-for-bots-pr513-af11a4e0` — Completion report — endojs/endo-but-for-bots PR #513, barrel-module directive
-- `scholar-ingest-cask-12` — Completion report — job scholar-ingest-cask-12 (scholar, cycle 13)
-- … and 102 more
+- … and 104 more
 
 ## Watch set
 (none)
@@ -61,11 +61,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 003414Z-error-gardener-2ff8de.md: gardener-30 on endolinbot: job scholar-ingest-cask-13 handler FAILED; output captured as e69de29bb2d1d6434b8b29ae775ad8c2e48c5391, escalated to the gardener inbox, left in doin for the reaper
-- 143942Z-progress-gardener-629fb9.md: gardener-81 on endolinbot claimed job endojs-endo-but-for-bots-pr503-95390ef3
-- 144005Z-progress-gardener-6ce88e.md: gardener-59 on endolinbot claimed job endojs-endo-but-for-bots-pr513-gauntlet
-- 144019Z-progress-gardener-f3a624.md: gardener-27 on endolinbot claimed job endojs-endo-but-for-bots-pr513-af11a4e0
-- 144032Z-progress-gardener-f73c68.md: gardener-17 on endolinbot claimed job endojs-endo-but-for-bots-pr519-f2f4c5ca
 - 144040Z-progress-gardener-febcfc.md: gardener-87 on endolinbot claimed job endojs-endo-but-for-bots-pr513-be1cd0d3
 - 144047Z-progress-gardener-ebc219.md: gardener-21 on endolinbot claimed job endojs-endo-but-for-bots-pr519-1d79f1bc
 - 144117Z-progress-gardener-c444d6.md: gardener-6 on endolinbot claimed job endojs-endo-but-for-bots-pr526-rebase
@@ -76,6 +71,11 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 144252Z-progress-gardener-207a7a.md: gardener-21 on endolinbot completed job endojs-endo-but-for-bots-pr519-1d79f1bc
 - 144402Z-progress-gardener-8a325f.md: gardener-11 on endolinbot claimed job fix-watcher-verb-keyword-false-positive
 - 144424Z-progress-gardener-b383c7.md: gardener-6 on endolinbot completed job endojs-endo-but-for-bots-pr526-rebase
+- 144457Z-progress-gardener-651f8c.md: gardener-17 on endolinbot completed job endojs-endo-but-for-bots-pr519-f2f4c5ca
+- 144515Z-result-gardener-9580e6.md: ---
+- 144527Z-progress-gardener-4bffbe.md: gardener-24 on endolinbot claimed job harden-jq-and-loud-tool-failure
+- 144538Z-progress-gardener-75491a.md: gardener-29 on endolinbot claimed job reconduct-endo-cancel-507
+- 144542Z-progress-gardener-ee1e3a.md: gardener-81 on endolinbot completed job endojs-endo-but-for-bots-pr503-95390ef3
 ## Latest
 
-The endo-but-for-bots #526 rebase landed (gardener-6 claimed and completed it within minutes), clearing it off the board. A gardener also picked up `fix-watcher-verb-keyword-false-positive` — a fix for the comment/mention-watcher firing on verb keywords that appear in a review's subject line, worth noting since it touches the trusted-directive path that drives the watchman fleet. Otherwise the board is steady: nine jobs in flight (a cluster of #503/#513/#519/#522 PR directives plus the cask and ebfb-#96 work), todo is empty, and the only thing awaiting a human is the scholar's change-propagation synthesis message in the maintainer inbox.
+Two endo-but-for-bots directives closed out — PR #503's attention directive is fully addressed and recorded, and PR #519's review is posted — both moving doin→tada. Two garden-infra jobs were freshly claimed and are now in flight: `harden-jq-and-loud-tool-failure` (add jq to the image and fail loudly on missing tools, following the jq outage) and `reconduct-endo-cancel-507` (verify @endo/cancel exists and reconduct #507 if missing). The todo queue is drained to zero with nine jobs in progress, so the fleet is keeping pace with intake rather than backlogging — the standing items to watch remain the PR #513/#522 gauntlets and the two scholar cask ingests.
