@@ -31,6 +31,16 @@ following, then commit the changed records + regenerated view and push HEAD:jour
    `scripts/jobs/plan/validate.sh <worktree>/plan` and fix any ERROR it reports.
 5. **Re-render** `journal/plan/README.md` with `scripts/jobs/plan/render.sh` so the
    committed view matches the groomed records.
+6. **Regenerate the endo courtesy redirect** (plan-in-journal Phase 1, kept
+   indefinitely). Run `scripts/jobs/plan/render-endo-redirect.sh <worktree>/plan`
+   and write its output to the `endojs/endo-but-for-bots` `llm` branch's
+   `designs/README.md` (a non-authoritative pointer back to the journal plan,
+   generated from the records). Push it change-gated, in a separate worktree off
+   `origin/llm`: skip the push when the regenerated file is byte-identical to what
+   is on `llm` (deterministic output, so a no-op week makes no push). The `llm`
+   branch carries a "changes through a pull request" rule, so land the change as a
+   bot PR against `llm` rather than a direct push (the only open redirect PR; reuse
+   it across weeks if still open). Bot identity only; this fork is bot-pushable.
 
 Bounds: bot identity, bot-actionable repos only; `agoric-sdk` excluded
 unconditionally (the validator enforces this). Report what was reconciled,
