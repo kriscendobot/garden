@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T17:17:55Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T17:23:49Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -22,8 +22,9 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - `endojs-endo-but-for-bots-pr503-7822ef8a` — attention directive on endojs/endo-but-for-bots PR #503
+- `fix-ebfb-pr503-banners-and-set` — fix endojs/endo-but-for-bots PR #503 — banners (generally) + set perf
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
 ### tada (133)
@@ -41,7 +42,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 164928Z-progress-gardener-f4c253.md: gardener-6 on endolinbot claimed job reconcile-pr96-general-case
 - 165144Z-result-designer-6c372a.md: Designed a Radul/Sussman propagator at the Endo and Exo layers (job
 - 165157Z-progress-gardener-4127f0.md: gardener-23 on endolinbot claimed job endojs-endo-but-for-bots-pr96-d9e3df0b
 - 165247Z-progress-gardener-5e2152.md: gardener-26 on endolinbot completed job design-propagator-endo-exo
@@ -56,6 +56,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 171029Z-progress-gardener-0f6cbf.md: gardener-8 on endolinbot completed job mirror-and-shepherd-endo-3254
 - 171307Z-progress-gardener-a894b6.md: gardener-40 on endolinbot claimed job endojs-endo-but-for-bots-pr503-7822ef8a
 - 171742Z-progress-gardener-e4bc20.md: gardener-4 on endolinbot completed job build-mirror-closer-service
+- 172336Z-progress-gardener-3ec5cd.md: gardener-37 on endolinbot claimed job fix-ebfb-pr503-banners-and-set
 ## Latest
 
-Build-mirror-closer-service landed — gardener-4 completed the deterministic garden-mirror-closer service that closes our mirror PR when its upstream PR closes, draining the last queued build. The board is now quiet at zero todo: just two items in flight — the attention directive on endo-but-for-bots #503 (gardener-40, claimed minutes ago) and the long-running Scholar cask ingest (cycle 15). Worth a maintainer's eye: an unread inbox message flags a triager misclassification — your #96 comment (nested-transitive fixtures, complete impl, extension overrides for all packages) was mapped to "rebase" rather than a builder directive; the gardener rerouted it to the live #96 general-case workstream (since completed) rather than spawning a colliding implementation, and filed a self-improvement to fix the verb map.
+A second worker has now joined PR #503 on endojs/endo-but-for-bots: `fix-ebfb-pr503-banners-and-set` claimed into doin (gardener-37), running alongside the existing `endojs-endo-but-for-bots-pr503-7822ef8a` attention directive — two jobs now converging on the same PR's comment banners and set-performance fix. The board is otherwise drained (todo empty), with the recent wave of completions — the mirror-closer service build, the #96 general-case reconciliation, the PR-summary-comment norm encode, and the endo-3254 mirror-and-shepherd (now waiting on CI) — all settled into tada. One item wants a human: the maintainer message flagging that the triager misclassified the #96 builder directive ("produce tests / complete the implementation") as a rebase; the work was correctly re-routed to the live #96 worker and a self-improvement was filed to fix the verb map.
