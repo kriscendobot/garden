@@ -17,6 +17,8 @@ An allocation discipline for fixed-capacity parallel-array tables. A single `ent
 | [cask--parallel-arrays--persistent-structures-as-reducers](../sections/cask--parallel-arrays--persistent-structures-as-reducers.md) | CaskAllocator: persistent free list, Alloc/Free touch O(log n) in entities only, values untouched. |
 | [cask--dbstore-design--on-disk-file-formats](../sections/cask--dbstore-design--on-disk-file-formats.md) | The `alloc` flat file: the swap-to-end allocator persisted on disk at adaptive 1/2/4/8-byte width. |
 | [cask--dbstore-design--implementation-plan-and-sizing](../sections/cask--dbstore-design--implementation-plan-and-sizing.md) | Slot Allocate/Free against the alloc file; rebuildable from meta if lost. |
+| [cask--allocator-design--swap-to-end-allocator](../sections/cask--allocator-design--swap-to-end-allocator.md) | The canonical detailed spec: entities/coEntities root, the `entities[coEntities[i]] == i` invariants, Alloc/Free/IsAllocated, adaptive width. |
+| [cask--allocator-design--session-table-composite](../sections/cask--allocator-design--session-table-composite.md) | The allocator as Links[0] of the sessiontable, providing the stable slot space the value columns and indexes share. |
 
 ## See also
 

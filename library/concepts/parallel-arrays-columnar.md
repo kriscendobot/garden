@@ -26,11 +26,16 @@ A data-layout pattern, borrowed from the Entity Component System (ECS) tradition
 | [cask--dir-design-v2--table-with-parallel-arrays-alternative](../sections/cask--dir-design-v2--table-with-parallel-arrays-alternative.md) | Directories-as-tables: names/modes/values columns + a byName sortedarray index over an allocator, adaptive slot width. |
 | [cask--dir-benchmark--compact-vs-table-implementations-and-storage](../sections/cask--dir-benchmark--compact-vs-table-implementations-and-storage.md) | The table directory measured 70x-326x larger than the inline-compact format (five trees per entry). |
 | [cask--dir-benchmark--analysis-and-adaptive-strategy](../sections/cask--dir-benchmark--analysis-and-adaptive-strategy.md) | The table layout's O(log n)/incremental wins only pay off above ~10,000 entries; compact stays the default. |
+| [cask--allocator-design--swap-to-end-allocator](../sections/cask--allocator-design--swap-to-end-allocator.md) | The persistent allocator providing the stable logical-index space the value columns share. |
+| [cask--allocator-design--session-table-composite](../sections/cask--allocator-design--session-table-composite.md) | `sessiontable`: the full columnar table (allocator + key index + expiry heap + keys/expiry/data columns) on disk. |
+| [cask--bigint-design--adaptive-width-with-overflow](../sections/cask--bigint-design--adaptive-width-with-overflow.md) | `BigIntArray` as a columnar instance: a width-adaptive value column, an overflow tail column, and a max heap + coheap over the indexes. |
+| [cask--sorted-array-design--operations-transform-and-use-cases](../sections/cask--sorted-array-design--operations-transform-and-use-cases.md) | The standalone Rabin-chunked sorted array (sorted index column) and its direct-to-store mutation strategy. |
 
 ## See also
 
 - [[caskdir-directory-format]] — directories realized as a parallel-array table, and why the benchmark keeps the inline format as the default.
 - [[swap-to-end-allocation]] — the allocation discipline within the columns.
+- [[cask-operational-transform]] — the offset-edit cost the columnar layout sidesteps by moving indexes, not values.
 - [[cask-reducer-pattern]] — every persistent operation over these columns is a reducer.
 - [[content-addressed-block-store]] — the store the persistent columns live in.
 - [[rabin-chunking]] — used by the Rabin-bounded sorted-index variant of these tables.

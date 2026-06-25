@@ -17,9 +17,12 @@ The two internal 32-way tree implementations every CASK block structure builds o
 | [cask--package-taxonomy--package-categories](../sections/cask--package-taxonomy--package-categories.md) | The backbones and the adaptive-width hashtreetouint* family in the taxonomy. |
 | [cask--parallel-arrays--compact-index-representation](../sections/cask--parallel-arrays--compact-index-representation.md) | Adaptive 1/2/4/8-byte index width with hysteresis; positional-link table roots. |
 | [cask--readme--columnar-ecs-design](../sections/cask--readme--columnar-ecs-design.md) | Adaptive-width tries that minimize Merkle-tree disturbance. |
+| [cask--array-design--compact-trie-layout-and-capacity](../sections/cask--array-design--compact-trie-layout-and-capacity.md) | The `arraytree` backbone in full: one 32-slot block per node, height-in-metadata distinguishing leaf from internal, `32^(D+1)` capacity, a separate array-root block carrying the length. |
+| [cask--allocator-design--hashtreetouint-and-index-heap](../sections/cask--allocator-design--hashtreetouint-and-index-heap.md) | `hashtreetouint64`: the hashtree trie with leaves packing 32 × uint64 instead of hash Links; the adaptive uint8/16/32/64 width family and MaxUint64 sentinel. |
 
 ## See also
 
 - [[merkle-tree-of-blocks]] — the content-addressed tree these backbones realize.
 - [[parallel-arrays-columnar]] — the columnar structures `arraytree` backs.
 - [[rabin-chunking]] — the chunking approach for sorted arrays, a sibling backbone strategy.
+- [[cask-operational-transform]] — the Keep/Skip/Inject primitive that rebuilds an `arraytree`.

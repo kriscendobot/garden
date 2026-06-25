@@ -12796,3 +12796,45 @@ mode low byte subtype | cask-named-typed-pointer
 `LocalCell` | cask-named-typed-pointer
 `RemoteCell` | cask-named-typed-pointer
 cell reference entry | cask-named-typed-pointer
+`caskarray` | cask-block-backbones
+compact array trie | cask-block-backbones
+array root block | cask-block-backbones
+`int8array` | cask-block-backbones
+`int16array` | cask-block-backbones
+`int32array` | cask-block-backbones
+`int64array` | cask-block-backbones
+`Transform` | cask-operational-transform
+Keep Skip Inject | cask-operational-transform
+`Keep(n)` | cask-operational-transform
+`Skip(n)` | cask-operational-transform
+`Inject(hashes)` | cask-operational-transform
+operational transform | cask-operational-transform
+covering invariant | cask-operational-transform
+`Reify` | cask-operational-transform
+`Realize` | cask-operational-transform
+`TransformReified` | cask-operational-transform
+op-stream root | cask-operational-transform
+reified op stream | cask-operational-transform
+`SOPS` | cask-operational-transform
+`sortedarray` | rabin-chunking
+Rabin-chunked sorted array | rabin-chunking
+`chunks_tree` | rabin-chunking
+sorted array diff | rabin-chunking
+sorted array sync | rabin-chunking
+`SDIF` | rabin-chunking
+chunk stability property | rabin-chunking
+`allocator` | swap-to-end-allocation
+`Alloc` | swap-to-end-allocation
+`Free` | swap-to-end-allocation
+`IsAllocated` | swap-to-end-allocation
+`indexheap` | parallel-arrays-columnar
+index heap getValue callback | parallel-arrays-columnar
+`sessiontable` | parallel-arrays-columnar
+session table | parallel-arrays-columnar
+`hashtreetouint64` leaf packing | cask-block-backbones
+`BigIntArray` | parallel-arrays-columnar
+bigint array | parallel-arrays-columnar
+adaptive width hysteresis | parallel-arrays-columnar
+overflow blob sentinel | parallel-arrays-columnar
+`field_width` | parallel-arrays-columnar
+max heap coheap magnitude | parallel-arrays-columnar

@@ -17,9 +17,12 @@ The uniform shape of every persistent CASK operation: `Operation(ctx, store, roo
 | [cask--parallel-arrays--compact-index-representation](../sections/cask--parallel-arrays--compact-index-representation.md) | maybeResize folded into the reducer so identical inputs give identical outputs. |
 | [cask--parallel-arrays--rabin-bounded-sorted-indexes](../sections/cask--parallel-arrays--rabin-bounded-sorted-indexes.md) | Deterministic Rabin boundaries preserve the reducer property for sorted-index transforms. |
 | [cask--package-taxonomy--design-patterns](../sections/cask--package-taxonomy--design-patterns.md) | The `(root_hash, args) → new_root_hash` reducer shape over an append-only store, stated from the taxonomy. |
+| [cask--array-design--operational-transform-keep-skip-inject](../sections/cask--array-design--operational-transform-keep-skip-inject.md) | `Transform(priorRoot, ops) → newRoot` is itself a reducer: a deterministic pure function expressing every caskarray mutation. |
+| [cask--sorted-array-design--operations-transform-and-use-cases](../sections/cask--sorted-array-design--operations-transform-and-use-cases.md) | The sorted array picks direct-to-store (Option B) mutation for reducer-pattern fit: `(root, args) → new_root`. |
 
 ## See also
 
 - [[content-addressed-block-store]] — the store whose root hashes reducers consume and produce.
 - [[swap-to-end-allocation]] — Alloc/Free expressed as reducers.
 - [[merkle-tree-of-blocks]] — the tree a reducer disturbs along one path.
+- [[cask-operational-transform]] — the Keep/Skip/Inject transform, a reducer over array-shaped structures.

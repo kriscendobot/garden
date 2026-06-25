@@ -17,6 +17,9 @@ Content-defined chunking: splitting a byte stream into blocks at boundaries chos
 | [cask--parallel-arrays--rabin-bounded-sorted-indexes](../sections/cask--parallel-arrays--rabin-bounded-sorted-indexes.md) | Rabin-chunked (key, slot) records give B-tree queries without rebalancing; local re-chunk, no cascade. |
 | [cask--dir-design-v2--goals-and-rabin-chunked-entries-tree](../sections/cask--dir-design-v2--goals-and-rabin-chunked-entries-tree.md) | caskdir v2's entries tree: name-sorted entries with Rabin boundaries over the 32-byte name hash. |
 | [cask--dir-design-v2--navigation-and-mutation-algorithms](../sections/cask--dir-design-v2--navigation-and-mutation-algorithms.md) | Insert/Delete re-chunk only the affected region at Rabin boundaries, keeping distant blocks unchanged. |
+| [cask--sorted-array-design--rabin-chunked-structure-and-stability](../sections/cask--sorted-array-design--rabin-chunked-structure-and-stability.md) | The standalone `sortedarray`: chunks_tree over Rabin-chunked sorted entries; the boundary rule and the stability property in full. |
+| [cask--sorted-array-design--operations-transform-and-use-cases](../sections/cask--sorted-array-design--operations-transform-and-use-cases.md) | Insert/Delete re-chunk locally (split over max_chunk, merge under min_chunk); the B-tree-without-rebalance comparison. |
+| [cask--sorted-array-design--sdif-sops-diff-sync-protocol](../sections/cask--sorted-array-design--sdif-sops-diff-sync-protocol.md) | SDIF/SOPS diff loads only chunks whose hashes differ — the stability property applied to peer reconciliation. |
 
 ## See also
 
