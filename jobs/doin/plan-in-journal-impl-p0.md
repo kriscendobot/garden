@@ -110,3 +110,9 @@ order), Phase 3 (cross-repo activation: garden + endo records, spanning
 milestones, critical path, confirm agoric-sdk exclusion), and Phase 4 (retire the
 endo `designs/CLAUDE.md` manual-sync discipline). Reference this design and PR #4
 in each follow-up.
+
+---
+claim:
+  host: endolinbot
+  gardener: 63
+  claimed_at: 2026-06-25T18:01:59Z
