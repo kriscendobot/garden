@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 This is incorrect for reasons best said in `@endo/bytes/compare.js`. Emulated frozen Uint8Arrays do not have integer-index behavior. Please ensure this is tested and consider refactoring to deduplicate the implementation. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 90
+  claimed_at: 2026-06-25T21:07:29Z
