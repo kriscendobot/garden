@@ -7,6 +7,14 @@
 /v1/
 /repos/
 
+# Dedicated job scratch. Every job's ephemeral scratch files and ad-hoc
+# worktrees live under /scratch/ (GARDEN_SCRATCH; see scripts/jobs/common.sh
+# scratch_dir/scratch_cleanup and roles/COMMON.md § Scratch discipline). It is
+# never tracked, so a job that dirties files there can never block the
+# watchman fast-forward. Never create scratch dirs or worktrees at the live
+# tree root; route them through /scratch/.
+/scratch/
+
 # Docker container detritus. The garden directory is bind-mounted as the
 # container's $HOME (see ./garden, Dockerfile), so any dotfile the bot or
 # its tools create — including the kriscendobot SSH keys and gh oauth

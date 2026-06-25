@@ -191,6 +191,15 @@ Full doc in `garden/WORKTREES.md`. Minimum you need to know:
 - The standing-monitor exception: a small number of long-lived `worktrees/<owner>-<repo>/watch-<slug>--monitor--<ts>/` checkouts persist across dispatches because their `.garden-monitor/<repo>/` state is owned by a bash daemon that runs continuously. These are referenced by the daemon, not by you; do not write to them from an LLM dispatch.
 - Do not rename, move, or remove any worktree. Lifecycle is the orchestrator's job; per-dispatch teardown happens via `skills/dispatch-worktree/dispatch-teardown.sh` when you return.
 
+### Scratch discipline
+
+**Never create scratch files or ad-hoc worktrees in the live garden tree root.** A scratch dir or worktree at the root pollutes `git status` and, when a job dirties a tracked file there, wedges the watchman's fast-forward: that is the recurring deploy outage. Use the dedicated, gitignored scratch tree instead:
+
+- `GARDEN_SCRATCH` (defaults to `<garden-root>/scratch`, gitignored as `/scratch/`) is the one place for ephemeral job scratch and ad-hoc worktrees.
+- `scripts/jobs/common.sh` provides the helpers: `scratch_dir <base>` makes and echoes a fresh private `$GARDEN_SCRATCH/<base>-<short-rand>/`; `scratch_cleanup <dir>` removes it (deregistering it first if it is a git worktree). Source `common.sh` and call `scratch_dir "<job-slug>"` to get your path; `scratch_cleanup` it when done.
+- A shell job that needs an isolated worktree off `origin/main2` (garden-infra discipline) adds it under `$GARDEN_SCRATCH/`, not at the garden root: `git worktree add --detach "$(scratch_dir infra-<slug>)" origin/main2`.
+- The reaper runs a scratch janitor that GCs `$GARDEN_SCRATCH/*` entries left untouched for `GARDEN_SCRATCH_GC_AGE` hours (default 24), so a job that dies mid-flight self-cleans. Still call `scratch_cleanup` yourself; the janitor is only a backstop.
+
 If you are dispatched into a long-lived project worktree (a standing monitor, an integrate scratch), the orchestrator names it in your dispatch prompt as the project worktree and you treat it normally. The worktree's authoritative journal index lives at:
 
 ```

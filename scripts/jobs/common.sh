@@ -27,6 +27,15 @@
 # Kept OUTSIDE any reset-prone worktree on purpose.
 : "${GARDEN_STATE:=$GARDEN_ROOT/.garden-state}"
 
+# The one place for ephemeral job scratch and ad-hoc worktrees. It is
+# gitignored (`/scratch/` in .gitignore), so a job that dirties files here can
+# never block the watchman fast-forward — the recurring deploy outage whose
+# root cause was jobs leaving scratch dirs and worktrees at the live tree root.
+# Jobs get a private path via scratch_dir and release it with scratch_cleanup
+# (both below); never create scratch at the garden root. See roles/COMMON.md
+# § Scratch discipline.
+: "${GARDEN_SCRATCH:=$GARDEN_ROOT/scratch}"
+
 # Logical host name (the journal index key). Falls back gracefully.
 : "${GARDEN_HOST:=$(hostname -s 2>/dev/null || echo host)}"
 
@@ -136,6 +145,60 @@ alert_maintainer() {
 
 # Randomized backoff (~50–300ms) to break lockstep retries under contention.
 backoff() { sleep "0.$(printf '%03d' "$(( (RANDOM % 250) + 50 ))")"; }
+
+# --- job scratch (the live-tree-root clutter fix) ----------------------------
+#
+# Jobs that need a private scratch directory or an ad-hoc worktree MUST place it
+# under $GARDEN_SCRATCH, never at the live garden tree root. A scratch dir/
+# worktree at the root pollutes `git status` and — when a job dirties a tracked
+# file — wedges the watchman's fast-forward (the recurring deploy outage). The
+# $GARDEN_SCRATCH tree is gitignored, so nothing under it can ever block the
+# watchman.
+#
+# scratch_dir <base> [<keep-list>] — make and echo a fresh private path
+#   $GARDEN_SCRATCH/<base>-<short-rand>/, created on demand. The <base> is a
+#   human-readable label (the job slug); the random suffix keeps concurrent
+#   jobs sharing a base from colliding. Echoes the absolute path on stdout.
+scratch_dir() {
+  local base="${1:-scratch}" rand path
+  base="${base//[^A-Za-z0-9._-]/-}"                 # keep the path well-formed
+  # 4 hex chars of randomness without Date/openssl dependency hard-fails: prefer
+  # openssl, fall back to $RANDOM (two draws → up to 8 hex digits of entropy).
+  rand="$(openssl rand -hex 2 2>/dev/null || printf '%04x' $(( RANDOM & 0xffff )))"
+  path="$GARDEN_SCRATCH/${base}-${rand}"
+  mkdir -p "$path" || die "scratch_dir: cannot create $path"
+  printf '%s\n' "$path"
+}
+
+# scratch_cleanup <dir> — remove a scratch dir created by scratch_dir. If <dir>
+# is a registered git worktree (of any repo whose admin dir can be located), it
+# is torn down with `git worktree remove --force` first so no stale worktree
+# administrative entry is left behind; then the directory itself is removed.
+# Refuses to touch anything outside $GARDEN_SCRATCH so a bad argument can never
+# delete a live tree. Best-effort: never fails its caller.
+scratch_cleanup() {
+  local dir="${1:-}"
+  [ -n "$dir" ] || return 0
+  # Resolve to an absolute, normalized path and confine to $GARDEN_SCRATCH.
+  local abs scratch_abs
+  abs="$(cd "$dir" 2>/dev/null && pwd)" || { rm -rf "$dir" 2>/dev/null || true; return 0; }
+  scratch_abs="$(cd "$GARDEN_SCRATCH" 2>/dev/null && pwd)" || return 0
+  case "$abs/" in
+    "$scratch_abs"/*) : ;;                          # inside scratch — safe to remove
+    *) log "scratch_cleanup: refusing to remove $abs (outside $scratch_abs)"; return 0 ;;
+  esac
+  # If it is a git worktree, deregister it from its owning repo first.
+  if [ -e "$abs/.git" ]; then
+    local gitdir owner
+    gitdir="$(git -C "$abs" rev-parse --git-common-dir 2>/dev/null || true)"
+    if [ -n "$gitdir" ]; then
+      owner="$(cd "$gitdir/.." 2>/dev/null && pwd || true)"
+      [ -n "$owner" ] && git -C "$owner" worktree remove --force "$abs" >/dev/null 2>&1 || true
+    fi
+  fi
+  rm -rf "$abs" 2>/dev/null || true
+  return 0
+}
 
 bot_name()  { git -C "$GARDEN_ROOT" config --get user.name  2>/dev/null || echo garden-bot; }
 bot_email() { git -C "$GARDEN_ROOT" config --get user.email 2>/dev/null || echo garden-bot@localhost; }

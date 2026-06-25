@@ -84,6 +84,41 @@ reap_stuck_fetches() {
   return 0
 }
 
+# --- scratch janitor ---------------------------------------------------------
+#
+# GC the dedicated job-scratch tree (GARDEN_SCRATCH; see common.sh scratch_dir/
+# scratch_cleanup). A job is supposed to scratch_cleanup its own dir, but a job
+# that dies mid-flight leaves it behind. This backstop removes $GARDEN_SCRATCH/*
+# entries whose whole subtree has been UNTOUCHED for GARDEN_SCRATCH_GC_AGE hours
+# (default 24): the mtime-quiescence test is the "no live owner" proxy, since a
+# running job touches its scratch continuously. A quiescent entry that is still a
+# registered git worktree is deregistered (git worktree remove --force) before
+# its directory is removed, so no stale worktree admin entry is left behind.
+GARDEN_SCRATCH_GC_AGE="${GARDEN_SCRATCH_GC_AGE:-24}"   # hours of quiescence before GC
+gc_scratch() {
+  [ -d "$GARDEN_SCRATCH" ] || return 0
+  local removed=0 entry
+  for entry in "$GARDEN_SCRATCH"/*; do
+    [ -e "$entry" ] || continue                         # empty-glob guard
+    # Quiescence: the most recent mtime anywhere in the subtree. If nothing has
+    # been modified within the window, treat the scratch dir as abandoned.
+    if find "$entry" -newermt "-${GARDEN_SCRATCH_GC_AGE} hours" -print -quit 2>/dev/null | grep -q .; then
+      continue                                          # touched recently — a live owner
+    fi
+    if [ -e "$entry/.git" ]; then
+      local gitdir owner
+      gitdir="$(git -C "$entry" rev-parse --git-common-dir 2>/dev/null || true)"
+      if [ -n "$gitdir" ]; then
+        owner="$(cd "$gitdir/.." 2>/dev/null && pwd || true)"
+        [ -n "$owner" ] && git -C "$owner" worktree remove --force "$entry" >/dev/null 2>&1 || true
+      fi
+    fi
+    rm -rf "$entry" 2>/dev/null && removed=$((removed+1)) || true
+  done
+  [ "$removed" -gt 0 ] && log "scratch janitor removed $removed quiescent scratch dir(s) (>${GARDEN_SCRATCH_GC_AGE}h)"
+  return 0
+}
+
 # clean_body <doin-file> — print the job body with the trailing claim block, the
 # reap-count markers, and any trailing blank lines removed. The claim block is
 # anchored on the `---` line IMMEDIATELY followed by `claim:` (the shape
@@ -112,6 +147,9 @@ clean_body() {
 # for a clone lock held by a hung fetch, clearing the hang first lets this very
 # tick proceed instead of blocking behind it.
 reap_stuck_fetches
+
+# GC abandoned job scratch (best-effort; never blocks the requeue path).
+gc_scratch
 
 DIR="${GARDEN_REAPER_CLONE:-$GARDEN_STATE/reaper/journal}"
 ensure_clone "$DIR"
