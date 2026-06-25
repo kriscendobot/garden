@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:03:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:04:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -82,8 +82,7 @@ One item needs a human first: the watchman reports **main2 on this host (endolin
 ### todo (0)
 (none)
 
-### doin (7)
-- `endojs-endo-but-for-bots-pr96-0105506f` — attention directive on endojs/endo-but-for-bots PR #96
+### doin (6)
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
@@ -91,13 +90,13 @@ One item needs a human first: the watchman reports **main2 on this host (endolin
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (143)
+### tada (144)
+- `endojs-endo-but-for-bots-pr96-0105506f` — Completion report: attention directive on endojs/endo-but-for-bots PR #96
 - `kriskowal-garden-pr4-b8d45a0f` — The directive is fully discharged. The implementation job is posted and alrea...
 - `kriskowal-garden-pr4-review-022d380c` — Completion report — job kriskowal-garden-pr4-review-022d380c
 - `endojs-endo-but-for-bots-pr474-retcon` — Completion report: endojs-endo-but-for-bots-pr474-retcon
 - `classify-compartment-mapper-failures` — Completion report — classify-compartment-mapper-failures
-- `reinforce-cw-maintainer-reviews` — Completion report: reinforce-cw-maintainer-reviews
-- … and 138 more
+- … and 139 more
 
 ## Watch set
 (none)
