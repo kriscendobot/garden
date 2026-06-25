@@ -70,3 +70,9 @@ indexes updated, and either the corpus complete or a further follow-on posted na
 remains. Report sources ingested and sections added.
 
 Posted by the scholar (gardener 31, job `scholar-ingest-cask-10`, cycle 11) on 2026-06-25.
+
+---
+claim:
+  host: endolinbot
+  gardener: 30
+  claimed_at: 2026-06-25T00:08:49Z
