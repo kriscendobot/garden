@@ -219,7 +219,9 @@ render_board() {
 #   - deferred (top by priority): gate=deferred jobs the foreman may auto-promote
 #     when the board is idle, shown highest-priority first.
 # Each row carries its gate reason + priority. Print to stdout.
-render_plan() {
+# (Named *_queue to avoid colliding with render_plan, the roadmap-view
+# re-renderer above, which writes plan/README.md from the per-design records.)
+render_plan_queue() {
   local j f desc prio goahead deferred
   goahead=""
   while IFS= read -r j; do
@@ -460,7 +462,7 @@ parked_section() {
 compute_dashboard() {
   local watch hosts_block h g maint m mf rt frm link now board parked plan
   board=$(render_board)
-  plan=$(render_plan)
+  plan=$(render_plan_queue)
   parked=$(parked_section)
   watch=$(list_jobs "$DIR" repos | paste -sd' ' - 2>/dev/null); [ -n "$watch" ] || watch="(none)"
 
