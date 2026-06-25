@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 [INLINE-REVIEW] [CHANGES_REQUESTED] Reconstruct the original title and description. Run the gauntlet once more. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 62
+  claimed_at: 2026-06-25T18:21:14Z
