@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 This is a barrel module and we strongly discourage them. Please remove this, obligating dependent modules to import the specific tool they need. This is important for artifact/archive/bundle minimization given that we cannot rely on automated tree shaking for dead code eliminatio
+
+---
+claim:
+  host: endolinbot
+  gardener: 27
+  claimed_at: 2026-06-25T14:40:16Z
