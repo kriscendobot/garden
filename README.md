@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T21:21:23Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T21:22:10Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Two job-board completions landed, both on endo-but-for-bots: review work wrapped on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) and the latest pass on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) finished, leaving the board nearly drained with only the Scholar cask ingest (cycle 16) still in flight. The longest-parked items still waiting on a human are [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (34–35 days), with the newer [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) pubsub PR now at six hours.
+A gardener claimed `bulletin-show-plan-queue` to add a "## Plan queue" section surfacing parked plan jobs to this dashboard, while `scholar-ingest-cask-15` continues the kriskowal/cask library ingest (cycle 16); both remain in flight. Otherwise the board is quiet — no new jobs posted or completed since the last rewrite — so the maintainer's attention is best spent on the parked review queue, where [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package) has now waited 6 hours and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) over a day.
 
 ## Parked for maintainer feedback
 
@@ -34,7 +34,8 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- `bulletin-show-plan-queue` — Bulletin: display the jobs/plan/ queue (parked plan jobs) — "## Plan queue" s...
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
 
 ### tada (177)
