@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Please schedule a job to reevaluate the embargo at the proposed time. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 25
+  claimed_at: 2026-06-25T19:39:46Z
