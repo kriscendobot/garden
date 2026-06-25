@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T21:13:01Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T21:13:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the board transitions.
-
-Two job-board completions landed since the last bulletin: [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) saw an attention-directive job (`48532f80`) wrap up with a completion report, while two further #475 directives (`7a9cc2ee`, `f56659bc`) remain in flight. On the compartment-mapper front, `fix-compartment-mapper-esm-dynamic-import-archival` completed after its CI poll, joining the earlier `fix-compartment-mapper-archive-exit-reexport` fix. The scholar's ingest of kriskowal/cask continues (cycle 16). Nothing new awaits the maintainer beyond the existing parked queue — most pressing of which is [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub package), now waiting 6h.
+A review directive on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) was just claimed off the board and is now in progress, alongside two attention directives on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). Recently landed: two compartment-mapper fixes (ESM dynamic-import archival and archive-exit reexport) and the first phase of the plan-in-journal effort, including the endo-redirect scaffolding. The parked queue is the place for a human to look — [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package) has now been waiting six hours, and [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) are both fresh and ready for review.
 
 ## Parked for maintainer feedback
 
@@ -36,9 +34,10 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - `endojs-endo-but-for-bots-pr475-7a9cc2ee` — attention directive on endojs/endo-but-for-bots PR #475
 - `endojs-endo-but-for-bots-pr475-f56659bc` — attention directive on endojs/endo-but-for-bots PR #475
+- `endojs-endo-but-for-bots-pr525-review-25103d76` — Review directive on endojs/endo-but-for-bots PR #525
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
 
 ### tada (174)
