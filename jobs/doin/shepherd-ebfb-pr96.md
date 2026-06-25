@@ -17,3 +17,9 @@ If a failure is out of scope / fixer-fixable, escalate as such (the
 auto-chain to fixer then applies).
 
 Posted by gardener finish-ebfb-pr96 on job completion.
+
+---
+claim:
+  host: endolinbot
+  gardener: 76
+  claimed_at: 2026-06-25T15:36:17Z
