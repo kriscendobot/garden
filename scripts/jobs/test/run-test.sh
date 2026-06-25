@@ -274,12 +274,19 @@ hr; echo "SUBTEST 10 — BULLETIN: continuous loop, cost gate, degradation, curs
 export GARDEN_STATE="$TR/state-bul" GARDEN_HOST=bhost
 CURSOR_FILE="$GARDEN_STATE/bulletin/cursor"
 CALLS="$TR/bul-calls"; CAP="$TR/bul-digest"
-# run ONE pass of the continuous loop with the journalist stubbed
+# The parked-PR gh query is stubbed (GARDEN_BULLETIN_PARKED_CMD) and its calls are
+# recorded in PCALLS — NOT reset between ticks — so the cross-tick throttle can be
+# asserted. A generous TTL keeps every tick in this subtest inside one refresh
+# window, so the stub must be invoked exactly once across all the run_bul passes.
+PCALLS="$TR/bul-parked-calls"; : > "$PCALLS"
+# run ONE pass of the continuous loop with the journalist + parked query stubbed
 run_bul() {
   : > "$CALLS"
   env GARDEN_BULLETIN_ONCE=1 GARDEN_BULLETIN_IDLE_SLEEP=0 \
       GARDEN_BULLETIN_HANDLER="${1:-$HERE/bulletin-stub.sh}" \
       GARDEN_BULLETIN_STUB_CALLS="$CALLS" GARDEN_BULLETIN_STUB_CAPTURE="$CAP" \
+      GARDEN_BULLETIN_PARKED_CMD="$HERE/bulletin-parked-stub.sh" \
+      GARDEN_BULLETIN_PARKED_CALLS="$PCALLS" GARDEN_BULLETIN_PARKED_TTL=600 \
       "$JOBS/bulletin.sh" >/dev/null 2>&1
 }
 ohead() { git ls-remote "$BARE" "refs/heads/$BRANCH" | awk '{print $1}'; }
@@ -309,8 +316,8 @@ rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
 h3="$(ohead)"
 { [ "$h3" != "$h2" ] && grep -q '^## Latest$' "$BV/README.md" && [ -s "$CALLS" ]; } \
   && ok "board change → fresh bulletin, journalist re-narrates" || bad "board change did not refresh"
-# the transitions section (not the dashboard, which may mention old jobs in
-# Recent progress) must carry only the since-cursor delta
+# the transitions section (not the dashboard, whose Board section may mention
+# other jobs) must carry only the since-cursor delta
 btrans="$(awk '/BOARD TRANSITIONS SINCE/{f=1} f' "$CAP")"
 { grep -q 'bul-newjob' <<<"$btrans" && ! grep -q 'job-001' <<<"$btrans"; } \
   && ok "digest narrates the since-cursor delta only (resume, not the whole history)" || bad "digest is not the delta"
@@ -345,6 +352,27 @@ grep -qF 'blob/journal2/inbox/maintainer/unread/bul-maint-1.md' "$BV/README.md" 
 nfence=$(grep -cE '^> ```' "$BV/README.md" || true)
 { [ "$nfence" -ge 2 ] && [ $((nfence % 2)) -eq 0 ]; } \
   && ok "fence-containing body stays balanced inside the blockquote (no broken Markdown)" || bad "body fence unbalanced ($nfence)"
+rm -rf "$BV"
+
+# (6) restructured layout: `## Latest` LEADS, a deterministic parked-for-maintainer
+#     section lists the review-requested PRs with hyperlinks, `## Recent progress`
+#     is gone, and the gh query was throttled (fetched once across all the ticks).
+rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
+README="$BV/README.md"
+lp=$(grep -n '^## Latest$' "$README" | head -1 | cut -d: -f1)
+pk=$(grep -n '^## Parked for maintainer feedback$' "$README" | head -1 | cut -d: -f1)
+bd=$(grep -n '^## Board$' "$README" | head -1 | cut -d: -f1)
+{ [ -n "$lp" ] && [ -n "$pk" ] && [ -n "$bd" ] && [ "$lp" -lt "$pk" ] && [ "$pk" -lt "$bd" ]; } \
+  && ok "layout leads with ## Latest, then Parked, then Board" || bad "section order wrong (Latest=$lp Parked=$pk Board=$bd)"
+! grep -q '^## Recent progress' "$README" \
+  && ok "## Recent progress removed" || bad "## Recent progress still present"
+{ grep -qF '[endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513)' "$README" \
+  && grep -qF '[kriskowal/garden#474](https://github.com/kriskowal/garden/pull/474)' "$README" \
+  && grep -qE 'waiting [0-9]+[dhms]\)$' "$README"; } \
+  && ok "parked section lists review-requested PRs as hyperlinks with a waiting age" || bad "parked PRs not rendered with links/age"
+pn=$(grep -c . "$PCALLS" || true)
+[ "$pn" -eq 1 ] \
+  && ok "parked gh query throttled: fetched once across all ticks (not per-tick)" || bad "parked query not throttled (calls=$pn)"
 rm -rf "$BV"
 
 # ============================================================================

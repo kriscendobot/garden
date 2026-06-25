@@ -15,21 +15,32 @@
 #   1. killswitch check; sync the bulletin journal clone.
 #   2. read the durable cursor (the origin/journal2 SHA last reconciled from) and
 #      compute the board transitions since it.
-#   3. compute the deterministic dashboard (board counts, watch set, hosts,
-#      maintainer inbox, recent progress) — the always-works base.
+#   3. compute the deterministic dashboard (the parked-for-maintainer PR queue,
+#      board counts, watch set, hosts, maintainer inbox) — the always-works base.
 #   4. if the dashboard changed since what is posted: drive the journalist
 #      (claude -p via GARDEN_BULLETIN_HANDLER) with the dashboard + the
-#      since-cursor transitions to produce `## Latest`; assemble dashboard +
-#      `## Latest`; write, commit, push (CAS); then advance the cursor durably
-#      ONLY after the push is accepted (a crash mid-cycle re-processes, never
-#      skips).
+#      since-cursor transitions to produce `## Latest`; assemble it as the LEAD
+#      (`## Latest` sits at the top, right after the freshness line, ahead of the
+#      deterministic sections); write, commit, push (CAS); then advance the cursor
+#      durably ONLY after the push is accepted (a crash mid-cycle re-processes,
+#      never skips).
 #   5. if nothing changed: advance the cursor to the synced head (so a transition
 #      another host already posted is not re-narrated), short sleep, loop.
 #
 # Cost gate: claude -p runs ONLY when the dashboard changed since what is posted;
 # never on an idle poll. The change-compare excludes the volatile `_As of`
-# freshness line and the `## Latest` narrative, so neither an advancing timestamp
-# nor non-deterministic narrative prose churns a commit on its own.
+# freshness line, the `## Latest` narrative (wherever it sits — it now leads), and
+# the volatile "(waiting <age>)" suffix on parked-PR rows, so neither an advancing
+# timestamp, non-deterministic narrative prose, nor a ticking PR age churns a
+# commit on its own. The parked-PR set itself (a PR entering/leaving the
+# review-requested queue) DOES change the dashboard and is news worth posting.
+#
+# Parked-PR throttle: the "## Parked for maintainer feedback" section is sourced
+# from GitHub (gh search prs --review-requested kriskowal). The loop runs
+# continuously, so the gh query is throttled to at most once per
+# GARDEN_BULLETIN_PARKED_TTL seconds (default 300) via a host-local cache+stamp in
+# GARDEN_STATE; between refreshes the cached render is reused. A failed query
+# degrades to the last cached set (or "(unavailable)") and never wedges the loop.
 #
 # Graceful degradation: if claude is absent or the journalist fails/times out, the
 # deterministic dashboard still ships (preserving the prior `## Latest` if present)
@@ -54,6 +65,12 @@ GARDEN_TAG="bulletin"
 : "${GARDEN_BULLETIN_IDLE_SLEEP:=5}"
 : "${GARDEN_BULLETIN_ONCE:=0}"
 : "${GARDEN_BULLETIN_MAX_ITERS:=0}"   # 0 = unbounded
+: "${GARDEN_BULLETIN_PARKED_TTL:=300}"   # seconds between parked-PR gh refreshes
+# Test/override hook: a command emitting parked-PR rows as TSV
+# (repo<TAB>number<TAB>url<TAB>updatedAt<TAB>title), one per open non-draft PR
+# awaiting kriskowal's review. Empty stdout + success = no parked PRs; non-zero
+# exit = query failure (degrade to cache). Empty default = use the real gh query.
+: "${GARDEN_BULLETIN_PARKED_CMD:=}"
 
 DIR="${GARDEN_BULLETIN_CLONE:-$GARDEN_STATE/bulletin/journal}"
 ensure_clone "$DIR"
@@ -155,11 +172,81 @@ msg_body_quote() {
   ' "$1"
 }
 
+# Humanize an age, in seconds, into a compact "Nd"/"Nh"/"Nm"/"Ns" token. Used to
+# render how long a parked PR has been waiting.
+humanize_age() {
+  local iso="$1" epoch now diff
+  epoch=$(date -d "$iso" +%s 2>/dev/null) || { printf 'unknown'; return 0; }
+  now=$(date +%s)
+  diff=$(( now - epoch )); [ "$diff" -lt 0 ] && diff=0
+  if   [ "$diff" -ge 86400 ]; then printf '%dd' "$(( diff / 86400 ))"
+  elif [ "$diff" -ge 3600 ];  then printf '%dh' "$(( diff / 3600 ))"
+  elif [ "$diff" -ge 60 ];    then printf '%dm' "$(( diff / 60 ))"
+  else                              printf '%ds' "$diff"; fi
+}
+
+# Emit parked-PR rows as TSV: repo<TAB>number<TAB>url<TAB>updatedAt<TAB>title, one
+# per OPEN, NON-DRAFT pull request on which kriskowal is a requested reviewer (the
+# "parked for the maintainer" queue — trusted GitHub state, safe to poll by
+# construction per skills/review-queue-poll). The override hook lets tests stub the
+# query without emulating gh's --jq. Empty stdout + success = no parked PRs; a
+# non-zero exit signals a query failure the caller degrades around. Uses gh's
+# built-in --jq (never external jq) per the recent require_tools hardening.
+fetch_parked_rows() {
+  if [ -n "$GARDEN_BULLETIN_PARKED_CMD" ]; then
+    $GARDEN_BULLETIN_PARKED_CMD
+    return $?
+  fi
+  command -v gh >/dev/null 2>&1 || return 1
+  gh search prs --review-requested kriskowal --state open --draft=false \
+     --limit 100 --json number,repository,title,url,updatedAt \
+     --jq '.[] | [.repository.nameWithOwner, (.number|tostring), .url, .updatedAt, .title] | @tsv'
+}
+
+# Render the parked-PR section body (markdown lines) from the TSV rows, sorted for
+# determinism. Echoes a "(no open PRs…)" placeholder when the queue is empty.
+render_parked() {
+  local rows="$1" out="" repo num url updated title age
+  if [ -z "${rows//[$' \t\n']/}" ]; then
+    printf '(no open PRs awaiting kriskowal review)\n'; return 0
+  fi
+  while IFS=$'\t' read -r repo num url updated title; do
+    [ -n "$repo" ] || continue
+    age="$(humanize_age "$updated")"
+    out+="- [${repo}#${num}](${url}) — ${title} (waiting ${age})"$'\n'
+  done < <(printf '%s\n' "$rows" | LC_ALL=C sort)
+  printf '%s' "$out"
+}
+
+# The parked-PR section body, throttled: refresh from GitHub at most once per
+# GARDEN_BULLETIN_PARKED_TTL seconds, reusing a host-local cache between refreshes
+# so the continuous loop never hits the API per-tick. A failed refresh degrades to
+# the last cached render (or "(unavailable)") and marks the attempt so failures are
+# throttled too. State lives under GARDEN_STATE (never a reset-prone worktree).
+parked_section() {
+  local data="$GARDEN_STATE/bulletin/parked.md"
+  local stamp="$GARDEN_STATE/bulletin/parked.stamp"
+  local ttl="$GARDEN_BULLETIN_PARKED_TTL" now last age rows
+  mkdir -p "$(dirname "$data")"
+  now=$(date +%s)
+  last=$(cat "$stamp" 2>/dev/null || echo 0)
+  case "$last" in (*[!0-9]*|'') last=0 ;; esac
+  age=$(( now - last ))
+  if [ ! -f "$data" ] || [ "$age" -ge "$ttl" ]; then
+    if rows="$(fetch_parked_rows 2>/dev/null)"; then
+      render_parked "$rows" > "$data"
+    fi
+    printf '%s' "$now" > "$stamp"   # throttle attempts whether or not the query won
+  fi
+  if [ -f "$data" ]; then cat "$data"; else printf '(unavailable)\n'; fi
+}
+
 # Compute the deterministic dashboard for the current synced state of $DIR and
 # print it to stdout. This is the always-works base; it reuses the v1 board logic.
 compute_dashboard() {
-  local watch hosts_block h g maint m mf rt frm link recent f first now board
+  local watch hosts_block h g maint m mf rt frm link now board parked
   board=$(render_board)
+  parked=$(parked_section)
   watch=$(list_jobs "$DIR" repos | paste -sd' ' - 2>/dev/null); [ -n "$watch" ] || watch="(none)"
 
   hosts_block=""
@@ -186,14 +273,6 @@ compute_dashboard() {
   done
   [ -n "$maint" ] || maint="(no pending maintainer messages)"$'\n'
 
-  recent=""
-  while IFS= read -r f; do
-    [ -n "$f" ] || continue
-    first=$(awk 'c>=2 && NF{print; exit} /^---$/{c++}' "$f")
-    recent+="- ${f##*/}: ${first}"$'\n'
-  done < <(find "$DIR/entries" -type f -name '*.md' 2>/dev/null | sort | tail -15)
-  [ -n "$recent" ] || recent="(no progress entries yet)"$'\n'
-
   # Freshness stamp. The bulletin now updates continuously as the board advances
   # (garden-bulletin.service), rewritten only when the dashboard changes, so this
   # marks the last change, not the last check. It is excluded from the change
@@ -206,10 +285,14 @@ compute_dashboard() {
 _As of ${now} · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
-autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
-journalist's narrative in the Latest section. This page (the journal's README.md)
-IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](DESIGN.md).
+autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
+journalist's narrative leads in the Latest section above. This page (the journal's
+README.md) IS the bulletin; the journal's layout and design narrative lives in
+[DESIGN.md](DESIGN.md).
 
+## Parked for maintainer feedback
+
+${parked}
 ## Messages to the maintainer
 
 ${maint}
@@ -221,17 +304,36 @@ $watch
 
 ## Hosts
 ${hosts_block}
-## Recent progress
-${recent}
 EOF
 }
 
-# Everything in $1 (a full bulletin) up to but not including the `## Latest` line.
-dashboard_part() { awk '/^## Latest$/{exit} {print}' <<<"$1"; }
-# The `## Latest` section (heading + body) of $1, empty if absent.
-latest_part()    { awk '/^## Latest$/{f=1} f{print}'   <<<"$1"; }
-# Strip the volatile freshness line so the compare is stable.
-stable()         { grep -vE '^_As of ' <<<"$1" || true; }
+# The deterministic part of a full bulletin: everything EXCEPT the `## Latest`
+# section (which now LEADS, sitting between the intro and the first deterministic
+# section). Drops the `## Latest` heading and its body up to the next `## ` heading,
+# so a freshly computed (Latest-free) dashboard and a posted bulletin compare on the
+# same deterministic content regardless of where Latest sits.
+dashboard_part() {
+  awk '
+    /^## Latest$/      { skip=1; next }
+    skip && /^## /     { skip=0 }
+    !skip              { print }
+  ' <<<"$1"
+}
+# The `## Latest` section (heading + body up to the next `## ` heading) of $1, empty
+# if absent. Used to preserve the prior narrative when the journalist degrades.
+latest_part() {
+  awk '
+    /^## Latest$/                   { f=1; print; next }
+    f && /^## / && !/^## Latest$/    { f=0 }
+    f                               { print }
+  ' <<<"$1"
+}
+# Strip the volatile lines so the compare is stable: the `_As of` freshness line and
+# the ticking "(waiting <age>)" suffix on parked-PR rows (the PR set still differs
+# when a PR enters/leaves the queue, so real motion is not masked).
+stable() {
+  grep -vE '^_As of ' <<<"$1" | sed -E 's/ \(waiting [^)]*\)$//' || true
+}
 
 # Build the journalist's digest (dashboard + since-cursor transitions) into a temp
 # file and echo its path. Caller removes it.
@@ -302,10 +404,18 @@ while :; do
     continue
   fi
 
-  # The board changed. Narrate the delta and assemble the full bulletin.
+  # The board changed. Narrate the delta and assemble the full bulletin with the
+  # `## Latest` narrative as the LEAD: inject it right after the intro (before the
+  # first `## ` deterministic section). On no narrative, ship the dashboard alone.
   prior_latest="$(latest_part "$old_full")"
   latest="$(narrate "$dashboard" "$cursor" "$head" "$prior_latest")"
-  if [ -n "$latest" ]; then content="$dashboard"$'\n'"$latest"; else content="$dashboard"; fi
+  if [ -n "$latest" ]; then
+    head_part="$(awk '/^## /{exit} {print}' <<<"$dashboard")"
+    sect_part="$(awk '/^## /{f=1} f{print}' <<<"$dashboard")"
+    content="$head_part"$'\n\n'"$latest"$'\n\n'"$sect_part"
+  else
+    content="$dashboard"
+  fi
 
   printf '%s\n' "$content" > "$DIR/README.md"
   git -C "$DIR" add README.md
