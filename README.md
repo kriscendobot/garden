@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T20:04:14Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T20:06:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) rebase landed — its job cleared the board (doin→tada), and the locator-scheme refactor is now freshly rebased and back in the parked queue awaiting kriskowal's review.
+The `.d.ts` types pass on [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) wrapped and landed in `tada`; that PR remains under an active review-and-shepherd pairing on the board. Otherwise the board is quiet — no new posts, twelve jobs still in flight (including the [#503](https://github.com/endojs/endo-but-for-bots/pull/503) retcon and the plan-in-journal implementation) — and the parked queue is unchanged, with [#178](https://github.com/endojs/endo-but-for-bots/pull/178), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#513](https://github.com/endojs/endo-but-for-bots/pull/513) at the front for review.
 
 ## Parked for maintainer feedback
 
@@ -34,9 +34,8 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (12)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
-- `address-pr528-dts-types` — ---
 - `endojs-endo-but-for-bots-pr442-cebb93dd` — attention directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — Review directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr503-retcon` — retcon directive on endojs/endo-but-for-bots PR #503
@@ -49,13 +48,13 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (154)
+### tada (155)
+- `address-pr528-dts-types` — address-pr528-dts-types — done
 - `endojs-endo-but-for-bots-pr178-rebase` — Completion report: endojs-endo-but-for-bots-pr178-rebase
 - `endojs-endo-but-for-bots-pr178-gauntlet` — I've completed the core gauntlet work and am waiting on CI. Current status:
 - `endojs-endo-but-for-bots-pr416-refresh` — Completion report: endojs-endo-but-for-bots-pr416-refresh
 - `endojs-endo-but-for-bots-pr197-44fc0e58` — Done. The acknowledgment is posted and the schedule is live on the journal.
-- `endojs-endo-but-for-bots-pr231-d9bdcb80` — Completion report
-- … and 149 more
+- … and 150 more
 
 ## Watch set
 (none)
