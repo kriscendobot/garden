@@ -43,6 +43,16 @@
 # GARDEN_STATE; between refreshes the cached render is reused. A failed query
 # degrades to the last cached set (or "(unavailable)") and never wedges the loop.
 #
+# Parked-PR fuzzy ranking: the cached set can hold ~35 review-requested PRs, some
+# idle for hundreds of days — noise. Each PR is scored by a weighted sum of RECENCY
+# (exponential decay on idle age, half-life GARDEN_BULLETIN_PARKED_HALFLIFE_DAYS)
+# and ROADMAP RELEVANCE (how high in the roadmap the PR's design sits, from the
+# journal plan tree via roadmap_index — deterministic, NO claude). The list is
+# sorted by score descending and capped at GARDEN_BULLETIN_PARKED_TOPN (~10), with
+# a "showing N of M" note. When no roadmap data maps any PR, scoring degrades to
+# recency-only. Scores are integers so a sub-day clock tick never reorders PRs that
+# differ by days of age (keeps the idempotent change-compare stable).
+#
 # Graceful degradation: if claude is absent or the journalist fails/times out, the
 # deterministic dashboard still ships (preserving the prior `## Latest` if present)
 # and the cursor still advances. A journalist failure never wedges the loop.
@@ -78,6 +88,26 @@ GARDEN_TAG="bulletin"
 # awaiting kriskowal's review. Empty stdout + success = no parked PRs; non-zero
 # exit = query failure (degrade to cache). Empty default = use the real gh query.
 : "${GARDEN_BULLETIN_PARKED_CMD:=}"
+# Fuzzy-ranking knobs for the parked-PR queue. The queue can hold ~35 review-
+# requested PRs, some idle for hundreds of days — noise. We score each by a
+# weighted sum of (1) RECENCY (exponential decay on idle age) and (2) ROADMAP
+# RELEVANCE (how high in the roadmap the PR's design sits), then show only the
+# top N with a "showing N of M" note. Both factors are heavily weighted so a
+# stale-but-on-critical-path PR and a fresh-but-peripheral PR both surface, while
+# ancient peripheral PRs drop off. Scores are integers (0..100 per factor) so a
+# sub-day tick of the clock cannot reorder PRs that differ by days of idle age.
+: "${GARDEN_BULLETIN_PARKED_TOPN:=10}"               # cap the rendered queue at N
+: "${GARDEN_BULLETIN_PARKED_HALFLIFE_DAYS:=14}"      # recency half-life in days
+: "${GARDEN_BULLETIN_PARKED_WEIGHT_RECENCY:=50}"     # weight on the recency factor
+: "${GARDEN_BULLETIN_PARKED_WEIGHT_ROADMAP:=50}"     # weight on the roadmap factor
+# Roadmap-relevance source (deterministic; NO claude). Override hook for tests and
+# for a future deterministic mapping: a command emitting one TSV line per known
+# PR→roadmap mapping as repo<TAB>number<TAB>relevance, where relevance is 0..100
+# (higher = higher in the roadmap). Empty default = derive from the journal plan
+# tree (journal/plan/designs/**/*.md frontmatter, the source of truth being built
+# by implement-plan-in-journal). When NO mapping is available for any PR, scoring
+# degrades to recency-only — never wedges.
+: "${GARDEN_BULLETIN_PARKED_ROADMAP_CMD:=}"
 
 DIR="${GARDEN_BULLETIN_CLONE:-$GARDEN_STATE/bulletin/journal}"
 ensure_clone "$DIR"
@@ -213,19 +243,132 @@ fetch_parked_rows() {
      --jq '.[] | [.repository.nameWithOwner, (.number|tostring), .url, .updatedAt, .title] | @tsv'
 }
 
-# Render the parked-PR section body (markdown lines) from the TSV rows, sorted for
-# determinism. Echoes a "(no open PRs…)" placeholder when the queue is empty.
+# Emit the roadmap-relevance index as TSV lines: repo<TAB>number<TAB>relevance,
+# where relevance is an integer 0..100 (higher = higher in the roadmap). This is
+# the deterministic roadmap source for the parked-PR fuzzy score; it uses NO
+# claude. Resolution order:
+#   1. GARDEN_BULLETIN_PARKED_ROADMAP_CMD override (tests + future plug-in).
+#   2. The journal plan tree at $DIR/plan/designs/**/*.md — the source of truth
+#      being built by implement-plan-in-journal. Each per-design file carries
+#      frontmatter; we read a `pr:` field (a PR number, an owner/repo#N, or a
+#      .../pull/N URL) and a relevance signal, preferring an explicit numeric
+#      `roadmap_relevance:` (0..100), else a `priority:` integer (1 = highest,
+#      mapped to a relevance band), else a neutral 50 for a known-but-unranked
+#      design. The `repository` for a bare `pr:` number is taken from a sibling
+#      `repository:`/`repo:` frontmatter field when present.
+# When neither source yields a mapping the function emits nothing, and the caller
+# degrades to recency-only. Forgiving by construction: an unparseable file is
+# skipped, never fatal.
+roadmap_index() {
+  if [ -n "$GARDEN_BULLETIN_PARKED_ROADMAP_CMD" ]; then
+    $GARDEN_BULLETIN_PARKED_ROADMAP_CMD
+    return 0
+  fi
+  local plan="$DIR/plan/designs" f
+  [ -d "$plan" ] || return 0
+  while IFS= read -r f; do
+    [ -n "$f" ] || continue
+    awk '
+      # frontmatter only: the block between the first two "---" lines
+      NR==1 && $0!="---" { exit }
+      $0=="---" { d++; if (d>=2) exit; next }
+      d==1 {
+        line=$0
+        if (match(line, /^[[:space:]]*pr[[:space:]]*:[[:space:]]*/))  { pr=substr(line, RLENGTH+1) }
+        else if (match(line, /^[[:space:]]*(repository|repo)[[:space:]]*:[[:space:]]*/)) { repo=substr(line, RLENGTH+1) }
+        else if (match(line, /^[[:space:]]*roadmap_relevance[[:space:]]*:[[:space:]]*/))  { rel=substr(line, RLENGTH+1) }
+        else if (match(line, /^[[:space:]]*priority[[:space:]]*:[[:space:]]*/))           { prio=substr(line, RLENGTH+1) }
+      }
+      END {
+        gsub(/[[:space:]"\x27]/, "", pr); gsub(/[[:space:]"\x27]/, "", repo)
+        gsub(/[^0-9]/, "", rel); gsub(/[^0-9]/, "", prio)
+        if (pr=="") exit
+        # Normalize pr into repo + number. Forms: 123 | owner/name#123 |
+        # https://github.com/owner/name/pull/123 | owner/name/pull/123
+        num=""; r=repo
+        if (pr ~ /^[0-9]+$/) { num=pr }
+        else if (match(pr, /pull\/[0-9]+/))   { num=substr(pr, RSTART+5); if (match(pr,/github\.com\/[^/]+\/[^/]+/)) { seg=substr(pr,RSTART+11); split(seg,a,"/"); r=a[1]"/"a[2] } }
+        else if (match(pr, /#[0-9]+$/))       { num=substr(pr, RSTART+1); r=substr(pr,1,RSTART-1) }
+        if (num=="") exit
+        if (rel!="")       { v=rel+0 }
+        else if (prio!="") { v=100-((prio+0-1)*15); }   # 1->100,2->85,...
+        else               { v=50 }
+        if (v<0) v=0; if (v>100) v=100
+        if (r=="") r="?"
+        printf "%s\t%s\t%d\n", r, num, v
+      }
+    ' "$f"
+  done < <(find "$plan" -type f -name '*.md' 2>/dev/null | LC_ALL=C sort)
+}
+
+# Render the parked-PR section body (markdown lines) from the TSV rows. Each PR is
+# scored by a fuzzy combination of RECENCY (exponential decay on idle age) and
+# ROADMAP RELEVANCE (roadmap_index lookup); the list is sorted by score descending
+# and capped at GARDEN_BULLETIN_PARKED_TOPN, with a "showing N of M" note when the
+# queue is longer. When the roadmap index is empty the score is recency-only (the
+# graceful-degradation path). All math runs in a single awk pass (bash has no
+# floats); scores are integers so a sub-day clock tick cannot reorder day-apart
+# PRs. Echoes a "(no open PRs…)" placeholder when the queue is empty.
 render_parked() {
-  local rows="$1" out="" repo num url updated title age
+  local rows="$1" topn="$GARDEN_BULLETIN_PARKED_TOPN"
+  local wr="$GARDEN_BULLETIN_PARKED_WEIGHT_RECENCY" wm="$GARDEN_BULLETIN_PARKED_WEIGHT_ROADMAP"
+  local hl="$GARDEN_BULLETIN_PARKED_HALFLIFE_DAYS" now idx
   if [ -z "${rows//[$' \t\n']/}" ]; then
     printf '(no open PRs awaiting kriskowal review)\n'; return 0
   fi
-  while IFS=$'\t' read -r repo num url updated title; do
-    [ -n "$repo" ] || continue
-    age="$(humanize_age "$updated")"
-    out+="- [${repo}#${num}](${url}) — ${title} (waiting ${age})"$'\n'
-  done < <(printf '%s\n' "$rows" | LC_ALL=C sort)
-  printf '%s' "$out"
+  now=$(date +%s)
+  idx="$(roadmap_index 2>/dev/null || true)"
+  # awk: load the roadmap index (FNR==NR on the first file), then score each PR
+  # row from stdin. Emit "score<TAB>repo<TAB>num<TAB>url<TAB>updated<TAB>title".
+  printf '%s\n' "$rows" \
+  | awk -v now="$now" -v hl="$hl" -v wr="$wr" -v wm="$wm" \
+        -v idxdata="$idx" '
+    function epoch(iso,   c) { c="date -d \"" iso "\" +%s 2>/dev/null"; c | getline e; close(c); return e+0 }
+    BEGIN {
+      have_roadmap=0
+      n=split(idxdata, lines, "\n")
+      for (i=1;i<=n;i++) {
+        if (lines[i]=="") continue
+        split(lines[i], p, "\t")
+        if (p[1]!="" && p[2]!="") { rel[p[1]"#"p[2]]=p[3]+0; have_roadmap=1 }
+      }
+      hls=hl*86400; if (hls<=0) hls=86400
+    }
+    {
+      repo=$1; num=$2; url=$3; updated=$4
+      title=$5; for (i=6;i<=NF;i++) title=title"\t"$i
+      if (repo=="") next
+      e=epoch(updated); age=now-e; if (age<0) age=0
+      # exponential decay to half-life: 100 * 2^(-age/halflife)
+      rec=100*exp(-0.6931471805599453*age/hls)
+      reci=int(rec+0.5)
+      if (have_roadmap) {
+        rv=(rel[repo"#"num]!="" ? rel[repo"#"num] : 0)
+        score=int((wr*reci + wm*rv)/(wr+wm) + 0.5)
+      } else {
+        score=reci   # recency-only fallback
+      }
+      printf "%d\t%s\t%s\t%s\t%s\t%s\n", score, repo, num, url, updated, title
+    }
+  ' \
+  | LC_ALL=C sort -t$'\t' -k1,1nr -k2,2 -k3,3n \
+  | cut -f2- \
+  | {
+      local total=0 shown=0 out="" repo num url updated title age
+      while IFS=$'\t' read -r repo num url updated title; do
+        [ -n "$repo" ] || continue
+        total=$((total+1))
+        if [ "$shown" -lt "$topn" ]; then
+          age="$(humanize_age "$updated")"
+          out+="- [${repo}#${num}](${url}) — ${title} (waiting ${age})"$'\n'
+          shown=$((shown+1))
+        fi
+      done
+      printf '%s' "$out"
+      if [ "$total" -gt "$shown" ]; then
+        printf '\n_Showing top %s of %s parked PRs (ranked by recency + roadmap relevance)._\n' "$shown" "$total"
+      fi
+    }
 }
 
 # The parked-PR section body, throttled: refresh from GitHub at most once per

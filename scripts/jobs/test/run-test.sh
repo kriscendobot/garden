@@ -376,6 +376,78 @@ pn=$(grep -c . "$PCALLS" || true)
 rm -rf "$BV"
 
 # ============================================================================
+hr; echo "SUBTEST 10b — PARKED FUZZY RANK: recency + roadmap, top-N cap, fallback"; hr
+# Unit-test the parked-PR scorer directly (the exact functions the bulletin loop
+# calls): extract humanize_age + roadmap_index + render_parked from bulletin.sh,
+# source them, and assert ranking semantics deterministically. Ages are computed
+# relative to run time so the fixture stays stable across days.
+PF="$TR/parked-funcs"; mkdir -p "$PF"
+extract_fn() { awk -v fn="$1" 'index($0, fn"() {")==1{f=1} f{print} f && /^}/{exit}' "$JOBS/bulletin.sh"; }
+{ extract_fn humanize_age; echo; extract_fn roadmap_index; echo; extract_fn render_parked; } > "$PF/funcs.sh"
+bash -n "$PF/funcs.sh" && ok "extracted parked functions parse" || bad "parked functions do not parse"
+# Plan fixture: PR 100 is a 450-day-stale but TOP-of-roadmap design (priority 1 →
+# relevance 100); PR 200 is mid-roadmap (explicit relevance 30). Everything else
+# is unmapped (peripheral).
+PLAN="$PF/journal/plan/designs/proj"; mkdir -p "$PLAN"
+printf -- '---\nrepository: endojs/endo-but-for-bots\npr: 100\npriority: 1\n---\n# critical\n' > "$PLAN/crit.md"
+printf -- '---\npr: https://github.com/endojs/endo-but-for-bots/pull/200\nroadmap_relevance: 30\n---\n# mid\n' > "$PLAN/mid.md"
+PARKED_OUT="$(
+  DIR="$PF/journal" \
+  GARDEN_BULLETIN_PARKED_TOPN=3 GARDEN_BULLETIN_PARKED_HALFLIFE_DAYS=14 \
+  GARDEN_BULLETIN_PARKED_WEIGHT_RECENCY=50 GARDEN_BULLETIN_PARKED_WEIGHT_ROADMAP=50 \
+  GARDEN_BULLETIN_PARKED_ROADMAP_CMD= \
+  bash -c '
+    source "'"$PF"'/funcs.sh"
+    NOW=$(date -u +%FT%TZ); D2=$(date -u -d "2 days ago" +%FT%TZ)
+    OLD=$(date -u -d "450 days ago" +%FT%TZ); MID=$(date -u -d "20 days ago" +%FT%TZ)
+    rows=$(printf "%s\t%s\t%s\t%s\t%s\n" \
+      endojs/endo-but-for-bots 100 https://x/100 "$OLD" "stale-but-critical" \
+      endojs/endo-but-for-bots 999 https://x/999 "$NOW" "fresh-peripheral" \
+      endojs/endo-but-for-bots 200 https://x/200 "$MID" "mid-roadmap" \
+      endojs/endo-but-for-bots 555 https://x/555 "$OLD" "ancient-peripheral" \
+      endojs/endo-but-for-bots 777 https://x/777 "$D2" "recent-peripheral")
+    render_parked "$rows"
+  '
+)"
+# roadmap index parsed both mappings (number form + pull-URL form)
+ridx="$(DIR="$PF/journal" GARDEN_BULLETIN_PARKED_ROADMAP_CMD= bash -c 'source "'"$PF"'/funcs.sh"; roadmap_index')"
+{ grep -qP 'endojs/endo-but-for-bots\t100\t100' <<<"$ridx" \
+  && grep -qP 'endojs/endo-but-for-bots\t200\t30' <<<"$ridx"; } \
+  && ok "roadmap_index parses pr-number and pull-URL frontmatter forms" || bad "roadmap_index parse wrong ($ridx)"
+# stale-but-critical surfaces (roadmap lifts it above ancient peripheral)
+grep -qF 'stale-but-critical' <<<"$PARKED_OUT" \
+  && ok "stale-but-high-roadmap PR surfaces in the top N" || bad "critical PR did not surface"
+# fresh peripheral also surfaces
+grep -qF 'fresh-peripheral' <<<"$PARKED_OUT" \
+  && ok "fresh-but-peripheral PR surfaces in the top N" || bad "fresh peripheral did not surface"
+# ancient peripheral falls off the top-3
+! grep -qF 'ancient-peripheral' <<<"$PARKED_OUT" \
+  && ok "ancient peripheral PR drops off below the cap" || bad "ancient peripheral did not drop"
+# cap + count note
+{ [ "$(grep -c '^- \[' <<<"$PARKED_OUT")" -eq 3 ] && grep -qF 'Showing top 3 of 5 parked PRs' <<<"$PARKED_OUT"; } \
+  && ok "output capped at TOPN with a 'showing N of M' note" || bad "cap/note wrong ($PARKED_OUT)"
+# recency-only fallback: with NO roadmap mapping, the 450-day critical PR drops and
+# the ranking is pure recency (fresh > recent > mid).
+PARKED_REC="$(
+  DIR="$PF/journal" GARDEN_BULLETIN_PARKED_TOPN=3 GARDEN_BULLETIN_PARKED_HALFLIFE_DAYS=14 \
+  GARDEN_BULLETIN_PARKED_WEIGHT_RECENCY=50 GARDEN_BULLETIN_PARKED_WEIGHT_ROADMAP=50 \
+  GARDEN_BULLETIN_PARKED_ROADMAP_CMD=true bash -c '
+    source "'"$PF"'/funcs.sh"
+    NOW=$(date -u +%FT%TZ); D2=$(date -u -d "2 days ago" +%FT%TZ)
+    OLD=$(date -u -d "450 days ago" +%FT%TZ); MID=$(date -u -d "20 days ago" +%FT%TZ)
+    rows=$(printf "%s\t%s\t%s\t%s\t%s\n" \
+      endojs/endo-but-for-bots 100 https://x/100 "$OLD" "stale-but-critical" \
+      endojs/endo-but-for-bots 999 https://x/999 "$NOW" "fresh-peripheral" \
+      endojs/endo-but-for-bots 200 https://x/200 "$MID" "mid-roadmap" \
+      endojs/endo-but-for-bots 777 https://x/777 "$D2" "recent-peripheral")
+    render_parked "$rows"
+  '
+)"
+{ ! grep -qF 'stale-but-critical' <<<"$PARKED_REC" && grep -qF 'fresh-peripheral' <<<"$PARKED_REC"; } \
+  && ok "recency-only fallback (no roadmap data): stale PR drops, recency ranks" || bad "recency fallback wrong ($PARKED_REC)"
+rm -rf "$PF"
+
+# ============================================================================
 hr; echo "SUBTEST 11 — MENTOR: log → improvement job (self-healing)"; hr
 export GARDEN_STATE="$TR/state-imp" GARDEN_HOST=ihost
 printf 'a connection error occurred during push\n' | GARDEN_ROLE=gardener "$JOBS/journal-entry.sh" error >/dev/null
