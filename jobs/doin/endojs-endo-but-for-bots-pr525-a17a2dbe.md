@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Thanks @kriscendobot, my message was intended for @0xpatrickbot but appreciate you picking it up. @kriskowal is likely already tuning you to only act on messages from me _if_ they're on a PR or issue you authored. But if not, here's a ping 
+
+---
+claim:
+  host: endolinbot
+  gardener: 26
+  claimed_at: 2026-06-25T22:05:19Z
