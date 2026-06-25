@@ -36,8 +36,9 @@
 # review-requested queue) DOES change the dashboard and is news worth posting.
 #
 # Parked-PR throttle: the "## Parked for maintainer feedback" section is sourced
-# from GitHub (gh search prs --review-requested kriskowal). The loop runs
-# continuously, so the gh query is throttled to at most once per
+# from GitHub (gh search prs --review-requested kriskowal, scoped to the
+# GARDEN_BULLETIN_PARKED_OWNERS owners so the off-limits agoric-sdk flood stays
+# out). The loop runs continuously, so the gh query is throttled to at most once per
 # GARDEN_BULLETIN_PARKED_TTL seconds (default 300) via a host-local cache+stamp in
 # GARDEN_STATE; between refreshes the cached render is reused. A failed query
 # degrades to the last cached set (or "(unavailable)") and never wedges the loop.
@@ -66,6 +67,12 @@ GARDEN_TAG="bulletin"
 : "${GARDEN_BULLETIN_ONCE:=0}"
 : "${GARDEN_BULLETIN_MAX_ITERS:=0}"   # 0 = unbounded
 : "${GARDEN_BULLETIN_PARKED_TTL:=300}"   # seconds between parked-PR gh refreshes
+# Owners to scope the parked-PR query to (space-separated). Restricting by owner
+# keeps the "parked for kriskowal" board to the garden's domain and EXCLUDES the
+# off-limits Agoric/agoric-sdk flood of stale dependabot review-requests, which
+# would otherwise drown the high-value human queue. Default: the endojs org and
+# kriskowal's own repos (covers the watched endo-but-for-bots + garden).
+: "${GARDEN_BULLETIN_PARKED_OWNERS:=endojs kriskowal}"
 # Test/override hook: a command emitting parked-PR rows as TSV
 # (repo<TAB>number<TAB>url<TAB>updatedAt<TAB>title), one per open non-draft PR
 # awaiting kriskowal's review. Empty stdout + success = no parked PRs; non-zero
@@ -198,7 +205,10 @@ fetch_parked_rows() {
     return $?
   fi
   command -v gh >/dev/null 2>&1 || return 1
+  local owner_args=() o
+  for o in $GARDEN_BULLETIN_PARKED_OWNERS; do owner_args+=(--owner "$o"); done
   gh search prs --review-requested kriskowal --state open --draft=false \
+     ${owner_args[@]+"${owner_args[@]}"} \
      --limit 100 --json number,repository,title,url,updatedAt \
      --jq '.[] | [.repository.nameWithOwner, (.number|tostring), .url, .updatedAt, .title] | @tsv'
 }
