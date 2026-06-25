@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T00:29:46Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T00:34:22Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -55,7 +55,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 233437Z-progress-gardener-32a5fb.md: gardener-75 on endolinbot completed job scholar-ingest-gtor-recap
 - 234020Z-result-scholar-cf7398.md: # Scholar cask ingest cycle 9: the protocol family (protocol.md, protocol2.md, protocol2-arch.md)
 - 234200Z-progress-gardener-f36ea0.md: gardener-99 on endolinbot claimed job scholar-ingest-cask-9
 - 234241Z-progress-gardener-a6b37d.md: gardener-16 on endolinbot completed job scholar-ingest-cask-8
@@ -70,6 +69,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 002711Z-result-scholar-dbabf1.md: # Scholar cask library ingest — cycle 13 (job `scholar-ingest-cask-12`)
 - 002853Z-progress-gardener-11f9c9.md: gardener-30 on endolinbot claimed job scholar-ingest-cask-13
 - 002930Z-progress-gardener-4d9ce9.md: gardener-61 on endolinbot completed job scholar-ingest-cask-12
+- 003414Z-error-gardener-2ff8de.md: gardener-30 on endolinbot: job scholar-ingest-cask-13 handler FAILED; output captured as e69de29bb2d1d6434b8b29ae775ad8c2e48c5391, escalated to the gardener inbox, left in doin for the reaper
 ## Latest
 
 The cask library ingest rolled forward one cycle: gardener-61 finished `scholar-ingest-cask-12` (cycle 13, the protocol family) and gardener-30 immediately claimed `scholar-ingest-cask-13`, so the scholar's deep-read of kriskowal/cask continues uninterrupted. The board is otherwise quiet — `todo` is empty and the only other live work is `finish-ebfb-pr96` and the parallel `scholar-ingest-cask` deepening. Worth a maintainer's eye instead is the unread inbox message: the scholar's change-propagation synthesis landed a new `change-propagation` topic plus four concept pages grounding the FRB / @endo/pubsub / propagators cluster in source, with an honesty flag that the propagator model is only partially backed by the corpus and follow-on ingests (gtor remainder, @endo/pubsub README) still pending.
