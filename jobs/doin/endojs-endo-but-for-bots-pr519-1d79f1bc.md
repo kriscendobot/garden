@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 ## Review Ran a three-lens review pass (correctness, security, style/types/tests). Verdict: **approve** — no high/medium findings. The four low-severity nits surfaced are already folded in (commit `338b4527`). ### Correctness ✅ Verified the parts most likely to be wrong are a
+
+---
+claim:
+  host: endolinbot
+  gardener: 21
+  claimed_at: 2026-06-25T14:40:44Z
