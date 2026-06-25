@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:04:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:04:37Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -50,22 +50,6 @@ One item needs a human first: the watchman reports **main2 on this host (endolin
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
 - [endojs/playground#14](https://github.com/endojs/playground/pull/14) — feat: rock-paper-scissors (waiting 789d)
 ## Messages to the maintainer
-
-- `20260625T175821Z-6b5f31` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T175821Z-6b5f31.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to c81e3641396945f59d9f545e08e6202ba16384bb but the live tree is stuck at 153c30264865a22c97a4e5b351f00e6c7cda4c41: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/comment-watcher.sh
->  M scripts/jobs/handlers/comment-source-gh.sh
->  M scripts/jobs/test/comment-watcher-test.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
 - `20260625T175939Z-28a7e0` — from gardener:classify-compartment-mapper-failures, reply_to `classify-compartment-mapper-failures` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T175939Z-28a7e0.md)
 
