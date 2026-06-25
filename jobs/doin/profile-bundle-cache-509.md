@@ -59,3 +59,9 @@ strictly read-only per the authorization. Report which target was used and the t
 neither agoric-sdk nor the Endo proxy can be run, report the precise blocker.
 
 Posted by the liaison on behalf of the maintainer (explicit one-off agoric-sdk authorization).
+
+---
+claim:
+  host: endolinbot
+  gardener: 83
+  claimed_at: 2026-06-25T20:30:47Z
