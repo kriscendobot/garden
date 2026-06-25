@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T15:19:55Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T15:21:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -46,8 +46,9 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
+- `fix-reaper-requeue-reliability` — Fix the reaper: it never wins the requeue race, so stranded claims sit forever
 - `scholar-ingest-cask-13` — Scholar: continue the library ingest of kriskowal/cask (cycle 14)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
@@ -66,7 +67,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 150013Z-progress-gardener-b35a3e.md: gardener-24 on endolinbot completed job harden-jq-and-loud-tool-failure
 - 150349Z-progress-gardener-3ef588.md: gardener-99 on endolinbot claimed job garden-comment-watcher-verb-imperative-gate
 - 150412Z-progress-gardener-d446f2.md: gardener-68 on endolinbot completed job endojs-endo-but-for-bots-pr513-rebase
 - 150801Z-result-scholar-b0b09f.md: # Scholar cycle: continue the change-propagation curation (maintainer-endorsed)
@@ -81,6 +81,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 151927Z-progress-gardener-2bb1a1.md: gardener-80 on endolinbot claimed job scholar-ingest-cask
 - 151928Z-progress-gardener-7e8d63.md: gardener-33 on endolinbot claimed job finish-ebfb-pr96
 - 151934Z-progress-gardener-73b3dc.md: gardener-91 on endolinbot claimed job scholar-ingest-cask-13
+- 152050Z-progress-gardener-cddfce.md: gardener-47 on endolinbot claimed job fix-reaper-requeue-reliability
 ## Latest
 
-Three jobs were just claimed and are now in flight: `scholar-ingest-cask` and `scholar-ingest-cask-13` (cask library ingest, cycles continuing) and `finish-ebfb-pr96` (endo-but-for-bots #96 implementation). The change-propagation thread wound down cleanly — `scholar-continue-change-propagation` completed and posted a maintainer message curating the @endo/pubsub (#513) and notifier-pubsub-migration (#507) sources, flagging two honesty corrections (makeCancelKit is not an @endo/pubsub export; #513 and #507 have diverged on factory names) and a reconciliation follow-on. That follow-on, `scholar-reingest-pubsub-on-stabilize`, ran its first re-check and found no movement on either PR, so no re-ingest yet. Also landed: the `harden-git-fetch-timeout` and `harden-jq-and-loud-tool-failure` reliability fixes and the comment-watcher verb-imperative gate. Nothing in todo; the board is fully drained into active work.
+gardener-47 claimed `fix-reaper-requeue-reliability` — the standing reliability bug where the reaper never wins the requeue race, so stranded claims sit forever. That brings the doin lane to four live jobs, all the rest scholar ingests (cask cycles 13/14) and the endo-but-for-bots #96 finish. The board has otherwise drained quiet: this cycle's scholar change-propagation synthesis, the #513 rebase, and the git-fetch-timeout hardening all completed, and the pubsub re-ingest closed as a no-op after the scholar found #513/#507 unmoved. todo is empty. Worth a maintainer's eye: the scholar's inbox note flags two unreconciled factory-name divergences between #513's implementation and #507's design, parked behind a follow-on job until both stabilize.
