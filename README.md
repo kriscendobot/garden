@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T20:40:33Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T20:41:48Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The review pass on [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) wrapped (its shepherd and review jobs both landed in tada), leaving the board with no open todo items and eight in flight — a mix of compartment-mapper archival fixes, the plan-in-journal build (Phase 0 schema/validator/reconciler), and the scholar's ongoing cask ingest. Nothing new needs a human; the parked queue is steady, with the freshly retconned [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (@endo/pubsub) the newest arrivals awaiting kriskowal's review.
+The [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) review wrapped and cleared the board's last open item, leaving nothing in `todo`. In-flight work is now three threads: a cluster of compartment-mapper fixes (archive exit-module reexport, the CJS bundler aborting on missing/optional internal modules, and untraced ESM dynamic `import()` during archival), Phase 0 of the plan-in-journal implementation (schema, validator, reconciler) tracked against garden#4 — explicitly *not* to be merged as a PR — and the scholar's continued library ingest of kriskowal/cask (cycle 15). Maintainer attention is best spent on the freshly parked [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) locator-scheme refactor and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) passable byte arrays, the two PRs that have been waiting the shortest and so are most likely still warm.
 
 ## Parked for maintainer feedback
 
@@ -34,9 +34,8 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
-- `endojs-endo-but-for-bots-pr442-cebb93dd` — attention directive on endojs/endo-but-for-bots PR #442
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
@@ -44,13 +43,13 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (162)
+### tada (163)
+- `endojs-endo-but-for-bots-pr442-cebb93dd` — Completion report
 - `endojs-endo-but-for-bots-pr528-review-4f5fb2c7` — Completion report
 - `endojs-endo-but-for-bots-pr503-retcon` — Completion report: endojs-endo-but-for-bots-pr503-retcon
 - `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — No inbox messages. The work is complete — here is my report.
 - `profile-bundle-cache-509` — Completion report — profile-bundle-cache-509
-- `endojs-endo-but-for-bots-pr528-shepherd` — Completion report
-- … and 157 more
+- … and 158 more
 
 ## Watch set
 (none)
