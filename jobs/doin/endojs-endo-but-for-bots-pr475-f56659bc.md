@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please eject this into a fixture so that it’s subject to lint and other validation. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 47
+  claimed_at: 2026-06-25T21:07:43Z
