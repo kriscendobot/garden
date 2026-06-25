@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:30:59Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:32:01Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The endo-but-for-bots#528 gauntlet [endojs/endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) cleared its panel — verdict posted, now waiting on CI before the terminal un-draft. Three compartment-mapper fixes remain in flight (archive exit-reexport, CJS bundler missing/optional deps, and ESM dynamic-`import()` archival tracing), alongside the plan-in-journal implementation ([garden#4](https://github.com/kriskowal/garden/pull/4), approved but explicitly not to be merged) and the cask library ingest (cycle 15).
+A gardener just claimed [`garden-dedicated-scratch-dir`](https://github.com/endojs/endo-but-for-bots) — wait, that's an infra job, not a PR; let me keep it plain: a gardener claimed the `garden-dedicated-scratch-dir` infra job (carve a gitignored scratch directory and route all job scratch through it), alongside in-flight builds on the plan-in-journal design ([kriskowal/garden#4](https://github.com/kriskowal/garden/pull/4)) and three compartment-mapper archival/bundling fixes. The [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) gauntlet finished its panel and posted a verdict; it's now waiting on CI before the terminal un-draft. Nothing new is parked for review beyond the freshly-arrived [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (@endo/pubsub), which has sat ~3h.
 
 ## Parked for maintainer feedback
 
@@ -34,10 +34,11 @@ _Showing top 10 of 33 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
+- `garden-dedicated-scratch-dir` — Carve out a dedicated, gitignored scratch directory and route all job scratch...
 - `implement-plan-in-journal` — Implement the plan-in-journal design (garden#4, approved — do NOT merge the PR)
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
