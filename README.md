@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:40:48Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:49:20Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The garden's comment-watcher now captures the whole review as a single unit rather than just the mapped verb, closing a gap where inline-comment context was being dropped during triage. A dedicated gitignored scratch tree landed alongside it, with job worktrees now routed through it. On the fork side, the gauntlet for [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) finished its panel and posted a verdict — it's now waiting on CI before the terminal un-draft — and an attention directive on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) was handled. A new job to build a deterministic, silent-by-default local pre-PR verification harness has been claimed and is in flight, joining the cluster of open compartment-mapper fixes (archive exit-reexport, missing-deps bundling, ESM dynamic-import archival) and the plan-in-journal implementation. Nothing new is parked for review beyond the standing queue, topped by [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub package, waiting 3h).
+Here's the bulletin "## Latest" body:
+
+[build-local-prepr-verification](https://github.com/endojs/endo-but-for-bots/pull/528) landed its completion report, closing out the [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) gauntlet — the panel verdict is posted and the PR now waits only on CI before its terminal un-draft. Six jobs remain in flight: three compartment-mapper fixes (archival of ESM dynamic `import()`, the CJS bundler's missing/optional internal modules, and exit-module-via-modules-map), the two-part plan-in-journal build (Phase 0 schema/validator/reconciler plus the broader garden#4 implementation, which is approved but explicitly not to be merged), and cycle 15 of the scholar's kriskowal/cask library ingest. Newest for the maintainer: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub package) has been parked three hours awaiting review.
 
 ## Parked for maintainer feedback
 
@@ -34,8 +36,7 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
-- `build-local-prepr-verification` — Build a deterministic, silent-by-default local pre-PR verification harness (o...
+### doin (6)
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
@@ -43,13 +44,13 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (148)
+### tada (149)
+- `build-local-prepr-verification` — Completion report: build-local-prepr-verification
 - `comment-watcher-capture-full-review` — Completion report — comment-watcher-capture-full-review
 - `garden-dedicated-scratch-dir` — Completion report: garden-dedicated-scratch-dir
 - `endojs-endo-but-for-bots-pr528-gauntlet` — Panel complete and verdict posted; waiting on CI before the terminal un-draft...
 - `bulletin-parked-prs-fuzzy-sort-top10` — Completion report: bulletin-parked-prs-fuzzy-sort-top10
-- `endojs-endo-but-for-bots-pr96-0105506f` — Completion report: attention directive on endojs/endo-but-for-bots PR #96
-- … and 143 more
+- … and 144 more
 
 ## Watch set
 (none)
