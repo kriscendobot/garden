@@ -43,3 +43,9 @@ sender gate, tests added — committed/pushed to `origin/main2`, redeployed. Rep
 classification change. If blocked, report diagnosis + ready-to-apply change.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 80
+  claimed_at: 2026-06-25T17:51:46Z
