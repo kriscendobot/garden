@@ -45,3 +45,9 @@ redeployed. Report the SHA and the dispatch behavior. Note whether a distinct or
 "curator" role is worth defining as a follow-up.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 43
+  claimed_at: 2026-06-25T22:02:03Z
