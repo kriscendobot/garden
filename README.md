@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T14:46:45Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T14:48:38Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -35,8 +35,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (8)
-- `endojs-endo-but-for-bots-pr513-be1cd0d3` — attention directive on endojs/endo-but-for-bots PR #513
+### doin (7)
 - `endojs-endo-but-for-bots-pr522-gauntlet` — gauntlet directive on endojs/endo-but-for-bots PR #522
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
 - `fix-watcher-verb-keyword-false-positive` — fix: comment/mention-watcher verb-keyword false-positive on review subject ma...
@@ -45,13 +44,13 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - `scholar-ingest-cask-13` — Scholar: continue the library ingest of kriskowal/cask (cycle 14)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
-### tada (110)
+### tada (111)
+- `endojs-endo-but-for-bots-pr513-be1cd0d3` — The background poll (bg7sf6864) is running and will notify me when CI converg...
 - `endojs-endo-but-for-bots-pr513-gauntlet` — Fix pushed, review thread answered, CI in flight. I'll resume when the poller...
 - `endojs-endo-but-for-bots-pr503-95390ef3` — The directive is fully addressed and recorded. Final report:
 - `endojs-endo-but-for-bots-pr519-f2f4c5ca` — Review posted. The directive is satisfied.
 - `endojs-endo-but-for-bots-pr526-rebase` — Done. Here is my completion report.
-- `endojs-endo-but-for-bots-pr519-1d79f1bc` — Completion report: attention directive on endojs/endo-but-for-bots PR #519
-- … and 105 more
+- … and 106 more
 
 ## Watch set
 (none)
@@ -60,7 +59,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 144047Z-progress-gardener-ebc219.md: gardener-21 on endolinbot claimed job endojs-endo-but-for-bots-pr519-1d79f1bc
 - 144117Z-progress-gardener-c444d6.md: gardener-6 on endolinbot claimed job endojs-endo-but-for-bots-pr526-rebase
 - 144119Z-progress-gardener-86722f.md: gardener-16 on endolinbot claimed job endojs-endo-but-for-bots-pr519-147aa72c
 - 144139Z-progress-gardener-c2721d.md: gardener-83 on endolinbot claimed job endojs-endo-but-for-bots-pr522-gauntlet
@@ -75,6 +73,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 144538Z-progress-gardener-75491a.md: gardener-29 on endolinbot claimed job reconduct-endo-cancel-507
 - 144542Z-progress-gardener-ee1e3a.md: gardener-81 on endolinbot completed job endojs-endo-but-for-bots-pr503-95390ef3
 - 144640Z-progress-gardener-22199b.md: gardener-59 on endolinbot completed job endojs-endo-but-for-bots-pr513-gauntlet
+- 144825Z-progress-gardener-48bc31.md: gardener-87 on endolinbot completed job endojs-endo-but-for-bots-pr513-be1cd0d3
 ## Latest
 
-PR #513's gauntlet directive on endojs/endo-but-for-bots just landed in `tada` — gardener-59 pushed the fix, answered the review thread, and left CI in flight to resume on the next poller wake. That clears the last of a busy cycle that also retired the #519 attention directives (two passes), the #526 rebase, and the #503 directive. Eight jobs remain in flight with nothing queued: the #513/#522 PR directives, two cask library ingests, the jq-hardening and watcher-false-positive infra fixes, the @endo/cancel reconduct check, and the ebfb #96 finish. Worth a maintainer's eye: the scholar synthesis message in the inbox flags that propagators are only partially grounded in the corpus and that @endo/pubsub's README isn't yet ingested — a follow-on once #513/#507 stabilize.
+The #513 gauntlet has fully drained: its trailing background-poll job (`pr513-be1cd0d3`) completed as CI converged, closing out the cluster of #513 work that ran today alongside finished rebases and reviews on #519 and #526. The board now holds no pending posts — `todo` is empty — and the seven in-flight jobs are split between endo-but-for-bots PR work (#522 gauntlet, #96, #507 reconduct) and a batch of garden-infra hardening that gardeners just picked up: the comment/mention-watcher verb-keyword false-positive fix, the jq-outage hardening (add jq to the image, fail loudly on missing tools), and two cask library-ingest cycles. Worth a maintainer's eye: an unread message from the scholar synthesizing the change-propagation through-lines across FRB, @endo/pubsub, and propagators, which flags that the propagator model is only partially grounded in the corpus and proposes follow-on ingests.
