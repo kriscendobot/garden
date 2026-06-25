@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T16:45:49Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T16:48:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -9,44 +9,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 ## Messages to the maintainer
 
-- `20260625T154855Z-c21859` — from gardener:finish-ebfb-pr96, reply_to `finish-ebfb-pr96` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T154855Z-c21859.md)
-
-> PR #96 (compartment-mapper auxiliary package.json) — Phase 7 collision report.
->
-> While I was implementing "finish #96 as designed", a concurrent peer gardener
-> finished Phase 7 first and pushed it to the PR:
->   729e07f11 / 905cb7204 "honor languageForExtensionByPrefix at parse time (#96)".
-> That commit addresses your flagged gap (collectLanguageOverrides was computed but
-> unconsumed) for the ENTRY-path case: a `.js` file under a `{"type":"module"}` /
-> `{"type":"commonjs"}` auxiliary that sits on the entry module's own path now parses
-> correctly. Your fixture (apackage/afolder/file.js) and the design's nested case
-> (rootpkg/sub1/sub2/x.js, loaded as the entry) are covered. So the PR-facing ask is
-> satisfied — no action needed from me there.
->
-> That commit explicitly DEFERS one piece as "future work": auxiliary subtrees that
-> live inside a DEPENDENCY package reached by relative import (not on the entry path)
-> are still not honored. Example: app imports aux-pkg by name; aux-pkg/index.js does
-> `import "./cjs-sub/leaf.js"` where cjs-sub/ is a `{"type":"commonjs"}` auxiliary —
-> leaf.js is still misparsed.
->
-> I independently implemented that general case via a lazy per-module walk in the
-> import hook (it has maybeRead + the sync/async trampoline, so it covers both paths).
-> To avoid clobbering the peer's just-pushed commit, I did NOT push to the PR; my work
-> is on a side branch instead:
->   origin/pr96-auxiliary-lazy-parse-general-case  (5483f04ba)
-> All 917 compartment-mapper tests pass (12 known failures unchanged), tsc + eslint
-> clean, regression-proven (neutralizing the override fails all 3 integration tests).
->
-> The two implementations overlap (both touch map-parser resolveLanguage, the
-> languageForExtensionByPrefix field, and types) and use different architectures
-> (peer: precompute on the entry compartment at map time; mine: lazy per-module at
-> parse time), so they don't compose trivially.
->
-> Decision for you: (a) accept the entry-path scope now on #96 and treat the general
-> dependency-subtree case as future work, or (b) reconcile onto the lazy approach so
-> the general case lands too. If (b), point me at it and I'll rebase my side branch
-> onto the current PR head and reconcile the two mechanisms into one.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
@@ -88,4 +51,4 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 164527Z-progress-gardener-cef1d0.md: gardener-65 on endolinbot completed job reconstruct-cancel-on-llm
 ## Latest
 
-A peer gardener claimed and immediately completed `reconstruct-cancel-on-llm` (gardener-65) — it found its inbox empty and the work already satisfied, so it declined to duplicate. The propagator design job (`design-propagator-endo-exo`) was claimed by gardener-26 and is now the only active work besides the ongoing cask scholar ingest (cycle 15). The item a maintainer should actually look at is the PR #96 collision report now sitting unread in the maintainer inbox: two gardeners independently implemented Phase 7 of the compartment-mapper auxiliary `package.json` work, a peer pushed the entry-path fix first (729e07f11 / 905cb7204), and the second gardener parked its broader fix — the general dependency-subtree case via a lazy per-module parse — on side branch `origin/pr96-auxiliary-lazy-parse-general-case` rather than clobber the peer. It needs a decision: accept the entry-path scope on #96 and defer the general case, or reconcile onto the lazy approach so both land.
+The scholar cask ingest advanced through cycles 13 and 14, but two reliability snags surfaced. `scholar-ingest-cask-13` was claimed and fully worked twice — gardeners 78 and 91 both completed it — and a `message` entry flags this double-claim as a defect worth a look at the claim race. Separately, `scholar-ingest-cask-14`'s handler failed under gardener-24, was captured as an empty-output error, escalated to the gardener inbox, and left in `doin` for the reaper; gardener-24 had claimed it, so it is the active in-flight item alongside the newly claimed `design-propagator-endo-exo`. On the upside, `fix-reaper-requeue-reliability` landed, and the endo-but-for-bots #96 thread closed out cleanly with both `shepherd-ebfb-pr96` and `finish-ebfb-pr96` completing. `reconstruct-cancel-on-llm` resolved as a no-op — its inbox was empty and the work was already satisfied.
