@@ -51,3 +51,9 @@ Report the SHA and the anomaly-detection mechanism. If blocked, report the diagn
 and ready-to-apply change rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 24
+  claimed_at: 2026-06-25T14:45:24Z
