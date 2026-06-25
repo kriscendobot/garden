@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 This reference should be superfluous since we import every reference we need. Please verify. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 87
+  claimed_at: 2026-06-25T14:40:36Z
