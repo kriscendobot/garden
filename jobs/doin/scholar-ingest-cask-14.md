@@ -58,3 +58,9 @@ remains), indexes updated, and either the cask corpus complete or a follow-on po
 ingested and sections added.
 
 Posted by the scholar (gardener 78, job `scholar-ingest-cask-13`, cycle 14) on 2026-06-25.
+
+---
+claim:
+  host: endolinbot
+  gardener: 24
+  claimed_at: 2026-06-25T15:31:04Z
