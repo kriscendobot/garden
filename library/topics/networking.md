@@ -64,6 +64,8 @@
 | [cask--root-design--root-block-layout-and-flags](../sections/cask--root-design--root-block-layout-and-flags.md) | cask root-design | The caskhead1+ sessions/membership/consensus links and the clustered/encrypted/authenticated flags that scope a cluster's transport. |
 | [cask--root-design--component-structures](../sections/cask--root-design--component-structures.md) | cask root-design | The session table, the Rabin-chunked membership (peers_index + peer_info with address/port + trusted set), and the Raft consensus state in the root. |
 | [cask--root-design--bootstrap-sequence](../sections/cask--root-design--bootstrap-sequence.md) | cask root-design | Joining a cluster: identity exchange, the existing member adding the joiner to membership and trusted, current-membership transfer, and Raft catch-up. |
+| [cask--nursery--cask-and-verb-packet-commands](../sections/cask--nursery--cask-and-verb-packet-commands.md) | cask nursery | The proposed `cask` (stage one block) and `verb` (collect tree + execute) packet commands, the single-block combined form, and the CBOR command body. |
+| [cask--nursery--eviction-consolidation-and-deadline-clamping](../sections/cask--nursery--eviction-consolidation-and-deadline-clamping.md) | cask nursery | tempstore/recvbuffer consolidation, reference-counting eviction, and sender/receiver deadline clamping (`packet_ttl = clamp(rto, min_ttl, cmd_ttl_remaining)`). |
 
 ## See also
 

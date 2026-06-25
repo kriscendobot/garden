@@ -100,6 +100,11 @@
 | [cask--root-design--component-structures](../sections/cask--root-design--component-structures.md) | cask root-design | The seven components: identity block (stable node_id), session table, cell bank GC root, Rabin-chunked membership with a trusted subset, Raft consensus, pinned roots, application root. |
 | [cask--root-design--bootstrap-sequence](../sections/cask--root-design--bootstrap-sequence.md) | cask root-design | Fresh-server, existing-server, and join-a-cluster startup paths for the root structure. |
 | [cask--root-design--evolution-migration-and-security](../sections/cask--root-design--evolution-migration-and-security.md) | cask root-design | Schema-versioned migration via composable zippers; key/session/capability/cluster security; five open questions. |
+| [cask--nursery--two-ttls-and-the-nursery](../sections/cask--nursery--two-ttls-and-the-nursery.md) | cask nursery | The packet-TTL vs command-TTL split, the five nursery requirements, and the in-memory-vs-permanent-storage (caskhead nursery root) placement question. |
+| [cask--nursery--cask-and-verb-packet-commands](../sections/cask--nursery--cask-and-verb-packet-commands.md) | cask nursery | The `cask` (stage block) and `verb` (collect tree + execute) wire layouts, the single-block combined form, the CBOR command body, and the stor/load migration path. |
+| [cask--nursery--eviction-consolidation-and-deadline-clamping](../sections/cask--nursery--eviction-consolidation-and-deadline-clamping.md) | cask nursery | Consolidating tempstore + recvbuffer, the three reference-counting/eviction approaches, and outbound/receiver deadline clamping. |
+| [cask--verbs--verb-catalog](../sections/cask--verbs--verb-catalog.md) | cask verbs | The four-letter verb vocabulary: 10 reads + 17 reduces over a root hash, per-type function mappings, and the summary table. |
+| [cask--verbs--verb-dispatch-and-type-designators](../sections/cask--verbs--verb-dispatch-and-type-designators.md) | cask verbs | Out-of-band mode + in-band schema designators, the five-step verb dispatch, and verb applicability (incompatible-type errors). |
 
 ## See also
 

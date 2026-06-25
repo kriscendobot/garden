@@ -12946,3 +12946,60 @@ joining a cluster | cask-caskhead-root
 peers_index | cask-caskhead-root
 trusted set | cask-caskhead-root
 peer info block | cask-caskhead-root
+# --- cask nursery + verb catalog + doc conventions (scholar-ingest-cask-13, cycle 14, 2026-06-25) ---
+cask nursery | cask-nursery
+nursery | cask-nursery
+block nursery | cask-nursery
+nursery root | cask-nursery
+block staging area | cask-nursery
+packet TTL | cask-nursery
+command TTL | cask-nursery
+two TTLs | cask-nursery
+`cask` command | cask-nursery
+`verb` command | cask-nursery
+cask verb commands | cask-nursery
+`ready` channel | cask-nursery
+tempstore | cask-nursery
+recvbuffer | cask-nursery
+deadline clamping | cask-nursery
+`packet_ttl` clamp | cask-nursery
+nursery eviction | cask-nursery
+reference counting eviction | cask-nursery
+single-block command | cask-nursery
+CBOR command body | cask-nursery
+nursery.md | cask-nursery
+cask verbs | cask-verb-catalog
+verbs.md | cask-verb-catalog
+four-letter verb | cask-verb-catalog
+verb code | cask-verb-catalog
+verb catalog | cask-verb-catalog
+read verb | cask-verb-catalog
+reduce verb | cask-verb-catalog
+verb dispatch | cask-verb-catalog
+verb applicability | cask-verb-catalog
+out-of-band type designator | cask-verb-catalog
+in-band type designator | cask-verb-catalog
+in-band schema hash | cask-verb-catalog
+unified operation layer | cask-verb-catalog
+`getv` | cask-verb-catalog
+`getk` | cask-verb-catalog
+`setv` | cask-verb-catalog
+`putk` | cask-verb-catalog
+`delk` | cask-verb-catalog
+`delv` | cask-verb-catalog
+`popv` | cask-verb-catalog
+`insv` | cask-verb-catalog
+`spli` | cask-verb-catalog
+`fixv` | cask-verb-catalog
+`aloc` | cask-verb-catalog
+`updv` | cask-verb-catalog
+`writ` | cask-verb-catalog
+cask style guide | cask-doc-conventions
+cask CONTRIBUTING | cask-doc-conventions
+cask markdown style | cask-doc-conventions
+one sentence per line | cask-doc-conventions
+80 column wrap | cask-doc-conventions
+regular english plurals | cask-doc-conventions
+indexes not indices | cask-doc-conventions
+Latin plural avoidance | cask-doc-conventions
+Mermaid over ASCII art | cask-doc-conventions
