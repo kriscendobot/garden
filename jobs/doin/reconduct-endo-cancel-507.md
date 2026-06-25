@@ -35,3 +35,9 @@ reconduct requires a maintainer decision (which base, conflicts), surface it rat
 than guessing.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 29
+  claimed_at: 2026-06-25T14:45:35Z
