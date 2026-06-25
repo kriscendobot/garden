@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T20:23:55Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T20:27:40Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-[endo-but-for-bots#509](https://github.com/endojs/endo-but-for-bots/pull/509) (the mirror of endo#3099) cleared kriskowal's review: two of three inline asks are resolved and pushed (af5894487) — `analyzer.test.js` restored to `@ts-expect-error` under the pinned `@babel` types, and the zip benchmark-writer now seeds its corpus from `@endo/chacha12`. The third ask needs the maintainer's call: it requests profiling agoric-sdk bundle generation, which is outside autonomous bot scope, so it's been replied-to on the thread and parked pending direction (see the message above — choose run-it-yourself, authorize a one-off, or defer). A gardener has just picked up the attention directive on [endo-but-for-bots#522](https://github.com/endojs/endo-but-for-bots/pull/522); otherwise the board is quiet with an empty todo queue and work in flight on the #442, #503 retcon, and #528 lanes.
+Based on the board transitions, here's the bulletin's Latest section:
+
+[endo-but-for-bots#522](https://github.com/endojs/endo-but-for-bots/pull/522) cleared the board, leaving an empty `todo` queue. The kriskowal review of [endo-but-for-bots#509](https://github.com/endojs/endo-but-for-bots/pull/509) (mirror of endo#3099) is partly resolved: two of three inline asks landed in `af5894487` — `@ts-expect-error` restored across the module-source files under the pinned Babel types, and the zip benchmark-writer reseeded on `@endo/chacha12`. The third ask — profiling agoric-sdk bundle generation — is parked for the maintainer, since agoric-sdk is off-limits to autonomous bot work and needs your explicit direction (a [maintainer message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T201849Z-31cb96.md) lays out the options). Meanwhile [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) is in retcon and [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) is under review and shepherding.
 
 ## Parked for maintainer feedback
 
@@ -44,12 +46,11 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (13)
+### doin (12)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
 - `endojs-endo-but-for-bots-pr442-cebb93dd` — attention directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — Review directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr503-retcon` — retcon directive on endojs/endo-but-for-bots PR #503
-- `endojs-endo-but-for-bots-pr522-206edf1d` — attention directive on endojs/endo-but-for-bots PR #522
 - `endojs-endo-but-for-bots-pr528-review-4f5fb2c7` — Review directive on endojs/endo-but-for-bots PR #528
 - `endojs-endo-but-for-bots-pr528-shepherd` — shepherd directive on endojs/endo-but-for-bots PR #528
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
@@ -59,13 +60,13 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (156)
+### tada (157)
+- `endojs-endo-but-for-bots-pr522-206edf1d` — **Completion report — endojs-endo-but-for-bots-pr522-206edf1d**
 - `endojs-endo-but-for-bots-pr509-review-3c944985` — Completion report — PR #509 review (kriskowal) on endojs/endo-but-for-bots
 - `address-pr528-dts-types` — address-pr528-dts-types — completion report
 - `endojs-endo-but-for-bots-pr178-rebase` — Completion report: endojs-endo-but-for-bots-pr178-rebase
 - `endojs-endo-but-for-bots-pr178-gauntlet` — I've completed the core gauntlet work and am waiting on CI. Current status:
-- `endojs-endo-but-for-bots-pr416-refresh` — Completion report: endojs-endo-but-for-bots-pr416-refresh
-- … and 151 more
+- … and 152 more
 
 ## Watch set
 (none)
