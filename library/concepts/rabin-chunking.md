@@ -14,6 +14,7 @@ Content-defined chunking: splitting a byte stream into blocks at boundaries chos
 | Section | One-line summary |
 |---|---|
 | [cask--readme--merkle-trees-for-everything](../sections/cask--readme--merkle-trees-for-everything.md) | Blobs split byte streams with a Rabin-fingerprint rolling hash so mid-file edits invalidate O(log n) blocks. |
+| [cask--blob-design--content-defined-chunking-and-random-access](../sections/cask--blob-design--content-defined-chunking-and-random-access.md) | The blob CAT's leaf-level no-reset rolling hash and the same CDC re-applied at internal levels to form a stable anchor tree. |
 | [cask--parallel-arrays--rabin-bounded-sorted-indexes](../sections/cask--parallel-arrays--rabin-bounded-sorted-indexes.md) | Rabin-chunked (key, slot) records give B-tree queries without rebalancing; local re-chunk, no cascade. |
 | [cask--dir-design-v2--goals-and-rabin-chunked-entries-tree](../sections/cask--dir-design-v2--goals-and-rabin-chunked-entries-tree.md) | caskdir v2's entries tree: name-sorted entries with Rabin boundaries over the 32-byte name hash. |
 | [cask--dir-design-v2--navigation-and-mutation-algorithms](../sections/cask--dir-design-v2--navigation-and-mutation-algorithms.md) | Insert/Delete re-chunk only the affected region at Rabin boundaries, keeping distant blocks unchanged. |
@@ -23,6 +24,7 @@ Content-defined chunking: splitting a byte stream into blocks at boundaries chos
 
 ## See also
 
+- [[cask-blob-cat]] — the blob content-addressed tree that applies this both per-leaf and per-internal-level.
 - [[caskdir-directory-format]] — the directory whose v2 entries tree is Rabin-chunked.
 - [[merkle-tree-of-blocks]] — the tree blob leaves hang from.
 - [[parallel-arrays-columnar]] — the table whose sorted indexes can be Rabin-bounded.

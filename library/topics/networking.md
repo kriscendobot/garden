@@ -61,6 +61,9 @@
 | [cask--membership-next-steps--capability-gated-read-write](../sections/cask--membership-next-steps--capability-gated-read-write.md) | cask membership-next-steps | Gate 3: a session is transport only; each LOAD/STOR needs a cap_token for the target cell. |
 | [cask--cluster-provisioning--problem-and-prior-ssh-approach](../sections/cask--cluster-provisioning--problem-and-prior-ssh-approach.md) | cask cluster-provisioning | The five steps a new node needs; the abandoned `cask ssh provision` SSH prototype and its limitations. |
 | [cask--cluster-provisioning--prerequisites-and-future-design](../sections/cask--cluster-provisioning--prerequisites-and-future-design.md) | cask cluster-provisioning | Address discovery, membership propagation, binary distribution, health/liveness; the future sketch and open questions. |
+| [cask--root-design--root-block-layout-and-flags](../sections/cask--root-design--root-block-layout-and-flags.md) | cask root-design | The caskhead1+ sessions/membership/consensus links and the clustered/encrypted/authenticated flags that scope a cluster's transport. |
+| [cask--root-design--component-structures](../sections/cask--root-design--component-structures.md) | cask root-design | The session table, the Rabin-chunked membership (peers_index + peer_info with address/port + trusted set), and the Raft consensus state in the root. |
+| [cask--root-design--bootstrap-sequence](../sections/cask--root-design--bootstrap-sequence.md) | cask root-design | Joining a cluster: identity exchange, the existing member adding the joiner to membership and trusted, current-membership transfer, and Raft catch-up. |
 
 ## See also
 

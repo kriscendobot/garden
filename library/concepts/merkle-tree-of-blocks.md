@@ -18,10 +18,12 @@ A tree (or DAG) whose nodes are content-addressed blocks: each node holds the ha
 | [cask--readme--why-1kb-blocks](../sections/cask--readme--why-1kb-blocks.md) | A block is simultaneously a Merkle node and a unit of transfer. |
 | [cask--architecture--layer-2-merkle-tree-and-filesystem](../sections/cask--architecture--layer-2-merkle-tree-and-filesystem.md) | The TREE command (SYNC/DIFF/WALK/GC) and a GC-transparent filesystem of Merkle-tree directories and files. |
 | [cask--parallel-arrays--persistent-structures-as-reducers](../sections/cask--parallel-arrays--persistent-structures-as-reducers.md) | Reducers minimize Merkle disturbance by modifying a single leaf-to-root path; 32-way tries keep depth shallow. |
+| [cask--blob-design--block-format-and-limits](../sections/cask--blob-design--block-format-and-limits.md) | The blob tree's concrete leaf/internal block format: dataLen leaves, k-link internal nodes with a 4-byte subtree-size table, k ≤ 28 fanout. |
 
 ## See also
 
 - [[content-addressed-block-store]] — the store these trees live in.
+- [[cask-blob-cat]] — the concrete blob realization: leaf/internal block formats and the CDC anchor tree.
 - [[rabin-chunking]] — how blob leaves are chosen so edits are local.
 - [[cask-reducer-pattern]] — operations written to disturb only one path of the tree.
 - [[parallel-arrays-columnar]] — the table structures built over arraytree/hashtree backbones.

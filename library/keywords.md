@@ -12879,3 +12879,54 @@ gossip protocol | cask-cluster-provisioning
 rendezvous service | cask-cluster-provisioning
 key revocation | cask-cluster-provisioning
 NAT traversal | cask-cluster-provisioning
+# --- cask blob CAT + system root (scholar-ingest-cask-12, cycle 13, 2026-06-25) ---
+cask/blob | cask-blob-cat
+cask blob | cask-blob-cat
+blob-design | cask-blob-cat
+content-addressed tree | cask-blob-cat
+CAT | cask-blob-cat
+content-defined chunked Merkle tree | cask-blob-cat
+anchor tree | cask-blob-cat
+CDC at higher levels | cask-blob-cat
+internal-level chunking | cask-blob-cat
+`MinChunk` | cask-blob-cat
+`MaxChunk` | cask-blob-cat
+`AvgChunk` | cask-blob-cat
+`MinLinks` | cask-blob-cat
+`MaxLinks` | cask-blob-cat
+size table | cask-blob-cat
+subtree size table | cask-blob-cat
+blob random access | cask-blob-cat
+blob leaf block | cask-blob-cat
+blob internal block | cask-blob-cat
+28-way fanout | cask-blob-cat
+`dataLen` | cask-blob-cat
+re-lock | cask-blob-cat
+root-design | cask-caskhead-root
+CASK root structure design | cask-caskhead-root
+system root | cask-caskhead-root
+store tip | cask-caskhead-root
+tip | cask-caskhead-root
+`CASK_ROOT` root user | cask-caskhead-root
+root user | cask-caskhead-root
+caskhead1 | cask-caskhead-root
+identity block | cask-caskhead-root
+`node_id` | cask-caskhead-root
+stable node identifier | cask-caskhead-root
+cell bank link | cask-caskhead-root
+pinned roots link | cask-caskhead-root
+application root | cask-caskhead-root
+raft state | cask-caskhead-root
+consensus state | cask-caskhead-root
+feature flags | cask-caskhead-root
+clustered flag | cask-caskhead-root
+encrypted flag | cask-caskhead-root
+authenticated flag | cask-caskhead-root
+schema zipper | cask-caskhead-root
+zipper migration | cask-caskhead-root
+schema versioning | cask-caskhead-root
+bootstrap sequence | cask-caskhead-root
+joining a cluster | cask-caskhead-root
+peers_index | cask-caskhead-root
+trusted set | cask-caskhead-root
+peer info block | cask-caskhead-root

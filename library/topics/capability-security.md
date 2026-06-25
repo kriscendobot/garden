@@ -193,6 +193,10 @@
 | [cask--membership-next-steps--three-gate-access-model](../sections/cask--membership-next-steps--three-gate-access-model.md) | cask membership-next-steps | The invited-guest principle and CASK's membership → session → capability gate order. |
 | [cask--membership-next-steps--membership-mvp-roadmap](../sections/cask--membership-next-steps--membership-mvp-roadmap.md) | cask membership-next-steps | The staged plan to enforce the membership gate: node_id identity, Option A/B proof, CASK_ROOT/CASK_MEMBERSHIP bootstrap. |
 | [cask--membership-next-steps--capability-gated-read-write](../sections/cask--membership-next-steps--capability-gated-read-write.md) | cask membership-next-steps | Gate 3: even a valid session only reads/writes a cell when authorized by a cap_token scoped to it. |
+| [cask--root-design--overview-and-design-principles](../sections/cask--root-design--overview-and-design-principles.md) | cask root-design | The CASK system root joining the cryptography/capability threads: identity, cells as GC roots, and the CASK_ROOT root user among the five fundamental structures. |
+| [cask--root-design--root-block-layout-and-flags](../sections/cask--root-design--root-block-layout-and-flags.md) | cask root-design | The caskhead1+ links to the identity block and cell bank, and the encrypted/authenticated feature flags governing session admission. |
+| [cask--root-design--component-structures](../sections/cask--root-design--component-structures.md) | cask root-design | The identity block (ed25519 + stable node_id), the cell bank capability_map/cell_map, and the membership trust model (peers_index vs trusted set). |
+| [cask--root-design--evolution-migration-and-security](../sections/cask--root-design--evolution-migration-and-security.md) | cask root-design | Cell capabilities as 32-byte bearer tokens (possession = authorization, no revocation without rotation); private-key protection and cluster-trust discipline. |
 
 ## See also
 
