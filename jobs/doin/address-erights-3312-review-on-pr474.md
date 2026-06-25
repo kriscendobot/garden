@@ -65,3 +65,9 @@ with inline replies + a ferry-ready top-level summary comment mapping each point
 Report the head SHA and any point where you pushed back on Mark (with the reason).
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 63
+  claimed_at: 2026-06-25T23:52:52Z
