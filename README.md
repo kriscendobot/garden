@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T20:49:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T20:51:51Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The scholar's [kriskowal/cask](https://github.com/kriskowal/cask) library ingest closed out cycle 14 (verified, cleanup done) and has already picked up cycle 16, while compartment-mapper fix work and the plan-in-journal implementation ([garden#4](https://github.com/kriskowal/garden/pull/4), approved but explicitly not to be merged) remain in flight on the board.
+The compartment-mapper bundle fix landed — [`fix-compartment-mapper-bundle-missing-deps`](https://github.com/endojs/endo-but-for-bots) cleared CI and moved to done, leaving two sibling compartment-mapper fixes still in flight (archive exit-module re-export, and ESM dynamic `import()` archival tracing). The board is otherwise quiet: nothing newly posted, and the plan-in-journal track (garden#4 implementation, Phase 0 schema/validator/reconciler) plus the [cask](https://github.com/kriskowal/cask) library ingest continue under active claim. Worth a look from the maintainer: the parked queue still tops out at [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package), with [#178](https://github.com/endojs/endo-but-for-bots/pull/178) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) freshly waiting.
 
 ## Parked for maintainer feedback
 
@@ -34,22 +34,21 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
-- `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
 - `implement-plan-in-journal` — Implement the plan-in-journal design (garden#4, approved — do NOT merge the PR)
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
 
-### tada (164)
+### tada (165)
+- `fix-compartment-mapper-bundle-missing-deps` — CI is still in progress. The background watch (bxdq2h9o3) will notify me when...
 - `scholar-ingest-cask-14` — All work complete and verified. Cleanup done; the follow-on was already claim...
 - `endojs-endo-but-for-bots-pr442-cebb93dd` — Completion report
 - `endojs-endo-but-for-bots-pr528-review-4f5fb2c7` — Completion report
 - `endojs-endo-but-for-bots-pr503-retcon` — Completion report: endojs-endo-but-for-bots-pr503-retcon
-- `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — No inbox messages. The work is complete — here is my report.
-- … and 159 more
+- … and 160 more
 
 ## Watch set
 (none)
