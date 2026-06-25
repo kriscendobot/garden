@@ -47,3 +47,9 @@ rebase issues. If `@endo/cancel` is already on current `llm`, report that instea
 duplicating it.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 65
+  claimed_at: 2026-06-25T16:43:04Z
