@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:12:28Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T18:21:34Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Since the last dashboard change, a gardener claimed `bulletin-parked-prs-fuzzy-sort-top10`, which will reorder the "Parked for maintainer feedback" list by a fuzzy blend of recency and roadmap priority rather than raw wait time. Still in flight: three compartment-mapper fixes (archived exit-module reexport, the CJS bundler aborting on optional internal modules, and untraced ESM dynamic `import()` during archival), the Phase 0 build of the plan-in-journal design (garden#4, approved but not to be merged), and the scholar's cask library ingest (cycle 15). Freshly parked and most worth a look is [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` Sink/Spring package, waiting 3h), alongside the recently refreshed [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [endo#3254](https://github.com/endojs/endo/pull/3254). Nothing else of substance moved this tick.
+A gauntlet run just kicked off on [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) — the only board movement since the last bulletin. Otherwise the doin lane is steady: compartment-mapper is getting three parallel fixes (archival exit-reexport, missing/optional CJS deps, untraced ESM `import()`), and the plan-in-journal build (garden#4, approved but explicitly not to be merged) is advancing through Phase 0. Freshest items waiting on the maintainer are the new [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) `@endo/pubsub` package (3h) and yesterday's batch — [#403](https://github.com/endojs/endo-but-for-bots/pull/403), [#440](https://github.com/endojs/endo-but-for-bots/pull/440), and [#442](https://github.com/endojs/endo-but-for-bots/pull/442).
 
 ## Parked for maintainer feedback
 
@@ -55,8 +55,9 @@ Since the last dashboard change, a gardener claimed `bulletin-parked-prs-fuzzy-s
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (8)
 - `bulletin-parked-prs-fuzzy-sort-top10` — Bulletin "Parked for maintainer feedback": fuzzy-sort by recency + roadmap re...
+- `endojs-endo-but-for-bots-pr528-gauntlet` — gauntlet directive on endojs/endo-but-for-bots PR #528
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
