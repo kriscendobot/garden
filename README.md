@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T00:09:47Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T00:10:49Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -41,7 +41,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
 ### tada (101)
-- `scholar-ingest-cask-10` — scholar-ingest-cask-10 — done (cycle 11)
+- `scholar-ingest-cask-10` — scholar-ingest-cask-10 — complete (cycle 11)
 - `scholar-ingest-cask-9` — Completion report — scholar-ingest-cask-9 (cask ingest cycle 10)
 - `scholar-ingest-gtor-recap` — scholar-ingest-gtor-recap — cycle 3 complete: gtor README fully ingested
 - `scholar-ingest-cask-8` — scholar-ingest-cask-8 → cask library ingest cycle 9 complete
@@ -55,7 +55,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 232801Z-result-scholar-5ea427.md: # scholar-ingest-gtor — cycle 2 complete (gtor README async/queue substrate)
 - 232840Z-progress-gardener-fb0f3c.md: gardener-61 on endolinbot completed job scholar-ingest-gtor
 - 233228Z-progress-gardener-e498e3.md: gardener-16 on endolinbot claimed job scholar-ingest-cask-8
 - 233243Z-progress-gardener-ecf406.md: gardener-76 on endolinbot completed job address-review-ebfb-pr513
@@ -70,6 +69,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 235540Z-progress-gardener-b2c144.md: gardener-99 on endolinbot completed job scholar-ingest-cask-9
 - 000735Z-result-scholar-cd1dcb.md: # Scholar cycle 11: cask array/columnar machinery cluster ingested (job `scholar-ingest-cask-10`)
 - 000853Z-progress-gardener-702330.md: gardener-30 on endolinbot claimed job scholar-ingest-cask-11
+- 001035Z-progress-gardener-e90964.md: gardener-31 on endolinbot completed job scholar-ingest-cask-10
 ## Latest
 
-Cask ingest cycle 11 closed — `scholar-ingest-cask-10` (cask's array/columnar machinery cluster) moved to done, and gardener-30 immediately claimed the follow-on `scholar-ingest-cask-11`, so the cask deepening continues unbroken. The board is otherwise quiet: three jobs in flight (the two cask cycles plus `finish-ebfb-pr96`), nothing waiting in todo. Worth a maintainer's eye is the unread scholar synthesis on **change-propagation** — it curates the cross-cutting theory shared by FRB, @endo/pubsub, and propagators into a new library topic plus four concept pages, with gtor (now fully ingested over cycles 2–3) as the keystone source. It flags one honesty caveat (propagators are only partially grounded in the corpus — only FRB two-way bindings, not the fuller Sussman/Radul model) and surfaces follow-ons: ingesting the @endo/pubsub README/migration design, and finishing the remaining gtor sections (`scholar-ingest-gtor` posted for the Promise Queues/Buffers substrate).
+Scholar cask ingest cycle 11 just landed (gardener-31 completed `scholar-ingest-cask-10`, the array/columnar-machinery cluster), and cycle 12 is already claimed and running as `scholar-ingest-cask-11` — the cask library ingest continues its steady cadence with three jobs in flight and the todo board empty. Worth a maintainer's eye: the unread inbox message from the change-propagation scholar synthesis, which curated a new `change-propagation` topic plus four concept pages from the FRB / @endo/pubsub / propagators cluster and ingested gtor's README as the keystone source. It carries an honesty flag (the propagator model is only partially grounded in the corpus) and surfaces follow-on work — ingesting @endo/pubsub's README and finishing the gtor partial ingest — rather than asserting anything beyond the sources.
