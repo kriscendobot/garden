@@ -49,3 +49,9 @@ bulletin synthesis update. Report what was curated and what remains pending upst
 stabilization. Ground every claim in source; flag what you cannot ground.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 44
+  claimed_at: 2026-06-25T14:50:54Z
