@@ -52,3 +52,9 @@ addressed. If a decision conflicts with another part of the design, surface it o
 rather than guessing.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 15
+  claimed_at: 2026-06-25T17:26:58Z
