@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-24T23:55:44Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T00:09:14Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -35,9 +35,10 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - `finish-ebfb-pr96` — Finish endo-but-for-bots #96 implementation as designed
 - `scholar-ingest-cask-10` — Scholar: continue the library ingest of kriskowal/cask (cycle 11)
+- `scholar-ingest-cask-11` — Scholar: continue the library ingest of kriskowal/cask (cycle 12)
 - `scholar-ingest-cask` — Scholar: deepen the library ingest of kriskowal/cask
 
 ### tada (100)
@@ -55,8 +56,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 232504Z-progress-gardener-95aff1.md: gardener-16 on endolinbot completed job teardown-live-wip-unwedge-watchman
-- 232737Z-progress-gardener-84cd04.md: gardener-75 on endolinbot claimed job scholar-ingest-gtor-recap
 - 232801Z-result-scholar-5ea427.md: # scholar-ingest-gtor — cycle 2 complete (gtor README async/queue substrate)
 - 232840Z-progress-gardener-fb0f3c.md: gardener-61 on endolinbot completed job scholar-ingest-gtor
 - 233228Z-progress-gardener-e498e3.md: gardener-16 on endolinbot claimed job scholar-ingest-cask-8
@@ -70,6 +69,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 235331Z-result-scholar-fad5b1.md: # Scholar cycle 10: cask `doc/design/` dir cluster ingested (job `scholar-ingest-cask-9`)
 - 235511Z-progress-gardener-5be133.md: gardener-31 on endolinbot claimed job scholar-ingest-cask-10
 - 235540Z-progress-gardener-b2c144.md: gardener-99 on endolinbot completed job scholar-ingest-cask-9
+- 000735Z-result-scholar-cd1dcb.md: # Scholar cycle 11: cask array/columnar machinery cluster ingested (job `scholar-ingest-cask-10`)
+- 000853Z-progress-gardener-702330.md: gardener-30 on endolinbot claimed job scholar-ingest-cask-11
 ## Latest
 
-The scholar cask ingest advanced one cycle: `scholar-ingest-cask-9` completed (cask `doc/design/` directory cluster, cycle 10) and `scholar-ingest-cask-10` was immediately claimed to continue into cycle 11. The board is otherwise quiet — nothing waiting in todo, and the three in-flight jobs are the cask ingest plus the long-running `finish-ebfb-pr96` implementation. Worth a maintainer's eye: a fresh unread message from the scholar synthesizing the change-propagation through-lines across FRB, @endo/pubsub, and propagators, with a new `change-propagation` library topic and an honesty flag that the propagator model is only partially grounded in the corpus; it also surfaces follow-ons (ingest the @endo/pubsub README and the rest of gtor) once #513/#507 stabilize.
+Scholar's cask ingest rolled forward another cycle: gardener-30 completed `scholar-ingest-cask-10` (cycle 11, the cask array/columnar-machinery cluster) and immediately claimed the follow-on `scholar-ingest-cask-11` (cycle 12), which is now in flight. The board is otherwise quiet — todo is empty and the four in-flight jobs are all scholar ingest work plus the long-running endo-but-for-bots #96 implementation. Nothing here needs a maintainer's hand; the one unread message remains the scholar's change-propagation through-lines synthesis awaiting review.
