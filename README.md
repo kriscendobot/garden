@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T20:39:20Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T20:39:46Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Here's the Latest section:
-
-A gardener wrapped the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) attention directive, the only board transition since the last bulletin; ten jobs remain in flight, including a retcon on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and a review of [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528), plus the plan-in-journal build (garden#4) and several compartment-mapper archival fixes. Awaiting kriskowal: the freshly-parked [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) locator-scheme refactor and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) pubsub package lead a queue of 31 open PRs.
+A retcon of [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays — freezable TypedArray emulation) completed and the PR is now parked for kriskowal's review.
 
 ## Parked for maintainer feedback
 
@@ -36,10 +34,9 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (10)
+### doin (9)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
 - `endojs-endo-but-for-bots-pr442-cebb93dd` — attention directive on endojs/endo-but-for-bots PR #442
-- `endojs-endo-but-for-bots-pr503-retcon` — retcon directive on endojs/endo-but-for-bots PR #503
 - `endojs-endo-but-for-bots-pr528-review-4f5fb2c7` — Review directive on endojs/endo-but-for-bots PR #528
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
@@ -48,13 +45,13 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
-### tada (160)
+### tada (161)
+- `endojs-endo-but-for-bots-pr503-retcon` — Completion report: endojs-endo-but-for-bots-pr503-retcon
 - `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — No inbox messages. The work is complete — here is my report.
 - `profile-bundle-cache-509` — Completion report — profile-bundle-cache-509
 - `endojs-endo-but-for-bots-pr528-shepherd` — Completion report
 - `endojs-endo-but-for-bots-pr522-206edf1d` — **Completion report — endojs-endo-but-for-bots-pr522-206edf1d**
-- `endojs-endo-but-for-bots-pr509-review-3c944985` — Completion report — PR #509 review (kriskowal) on endojs/endo-but-for-bots
-- … and 155 more
+- … and 156 more
 
 ## Watch set
 (none)
