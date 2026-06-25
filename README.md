@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T15:51:14Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T16:43:32Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -88,7 +88,8 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- `reconstruct-cancel-on-llm` — Reconstruct the @endo/cancel package on current llm (rebase the closed PR #345)
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
 ### tada (125)
@@ -106,7 +107,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 151934Z-progress-gardener-73b3dc.md: gardener-91 on endolinbot claimed job scholar-ingest-cask-13
 - 152050Z-progress-gardener-cddfce.md: gardener-47 on endolinbot claimed job fix-reaper-requeue-reliability
 - 152619Z-result-scholar-0b3214.md: Scholar cycle for job `scholar-ingest-cask` (gardener 80 on endolinbot). **Reconciliation, not ingest:** this job is the stale *original* follow-on posted 2026-06-24, and the cask ingest has since advanced far past it through a renamed chain (`scholar-ingest-cask-2` ... `-13`, now on cycle 14). Re-ingesting would only duplicate work already on `origin/journal2`.
 - 152754Z-progress-gardener-df8b49.md: gardener-80 on endolinbot completed job scholar-ingest-cask
@@ -121,6 +121,9 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 154136Z-progress-gardener-3a798b.md: gardener-47 on endolinbot completed job fix-reaper-requeue-reliability
 - 154945Z-progress-gardener-35fe1c.md: gardener-33 on endolinbot completed job finish-ebfb-pr96
 - 155052Z-progress-gardener-af96ac.md: gardener-76 on endolinbot completed job shepherd-ebfb-pr96
+- 164312Z-progress-gardener-6027f4.md: gardener-65 on endolinbot claimed job reconstruct-cancel-on-llm
 ## Latest
 
-The shepherd lane on endo-but-for-bots #96 closed out — `shepherd-ebfb-pr96` moved from doin to tada, leaving the board at a single in-flight job (`scholar-ingest-cask-14`) and an otherwise empty queue. The headline for a human is PR #96 itself: a peer gardener landed the entry-path fix for the flagged `languageForExtensionByPrefix` gap (729e07f11/905cb7204), and `finish-ebfb-pr96` reports the PR-facing ask is satisfied — but it parked an independent general-case fix (dependency-subtree auxiliaries reached by relative import) on side branch `origin/pr96-auxiliary-lazy-parse-general-case` rather than clobber the peer's commit, and is asking whether to accept entry-path scope now or reconcile the lazy approach in. Two reliability notes also surfaced: the cask ingest chain hit a double-claim (gardeners 78 and 91 both worked `scholar-ingest-cask-13`) plus a stale re-claimable chain root, and `scholar-ingest-cask-14`'s handler failed and was left in doin for the reaper — both flagged as the same class as the just-completed `fix-reaper-requeue-reliability`.
+A gardener (65) just claimed `reconstruct-cancel-on-llm` — rebasing the closed PR #345 to bring @endo/cancel onto current llm; it's the lone active build alongside the ongoing cask ingest (now cycle 15, `scholar-ingest-cask-14`). The board has otherwise drained to zero todo after a busy stretch: the reaper-requeue reliability fix landed, and both the ebfb #96 shepherd and finish jobs completed.
+
+Three unread maintainer messages warrant attention. One needs a decision: PR #96 (compartment-mapper auxiliary package.json) reached Phase 7, where a peer gardener's entry-path fix landed on the PR and satisfies the flagged gap, but a second gardener independently built the general dependency-subtree case on side branch `pr96-auxiliary-lazy-parse-general-case` — the maintainer must choose to accept the narrower scope now or reconcile the two mechanisms. The other two are informational: the scholar folded the missing @endo/pubsub (#513) and notifier-pubsub-migration (#507) sources into the change-propagation library, flagging that the two have diverged on factory names and that makeCancelKit is no longer a pubsub export (which is why the cancel reconstruction matters); and a double-claim defect surfaced where `scholar-ingest-cask-13` was fully worked by two gardeners while the stale chain root stayed re-claimable — the same reliability class as the just-landed reaper fix.
