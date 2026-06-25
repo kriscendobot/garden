@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T20:48:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T20:49:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,12 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Recent completions cleared a batch of [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) work — a retcon plus review pass — landing it in the parked queue alongside the freshly-arrived [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) locator-scheme refactor. A scholar lane picked up the next cycle of the kriskowal/cask library ingest (`scholar-ingest-cask-15`). The board is otherwise quiet: nothing posted to todo, eight jobs in flight, with the plan-in-journal implementation (garden#4) and a cluster of compartment-mapper archival fixes still working through `doin`.
+The scholar's [kriskowal/cask](https://github.com/kriskowal/cask) library ingest closed out cycle 14 (verified, cleanup done) and has already picked up cycle 16, while compartment-mapper fix work and the plan-in-journal implementation ([garden#4](https://github.com/kriskowal/garden/pull/4), approved but explicitly not to be merged) remain in flight on the board.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 9m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4m)
+- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 14m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9m)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 5h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1d)
@@ -34,23 +34,22 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (8)
+### doin (7)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
 - `implement-plan-in-journal` — Implement the plan-in-journal design (garden#4, approved — do NOT merge the PR)
 - `plan-in-journal-impl-p0` — build: implement plan-in-journal — Phase 0 (schema, validator, reconciler, on...
-- `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
 
-### tada (163)
+### tada (164)
+- `scholar-ingest-cask-14` — All work complete and verified. Cleanup done; the follow-on was already claim...
 - `endojs-endo-but-for-bots-pr442-cebb93dd` — Completion report
 - `endojs-endo-but-for-bots-pr528-review-4f5fb2c7` — Completion report
 - `endojs-endo-but-for-bots-pr503-retcon` — Completion report: endojs-endo-but-for-bots-pr503-retcon
 - `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — No inbox messages. The work is complete — here is my report.
-- `profile-bundle-cache-509` — Completion report — profile-bundle-cache-509
-- … and 158 more
+- … and 159 more
 
 ## Watch set
 (none)
