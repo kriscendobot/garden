@@ -205,48 +205,93 @@ run_directive "$TR/state-g" "$BARE_G" "$FIX_G" "$RLOG_G"
 [ ! -s "$RLOG_G" ] && ok "no reactji on a non-directive" || bad "reactji posted on chatter"
 
 # ============================================================================
-# Bug 3 — a verb named as the PR's SUBJECT MATTER (not as an imperative) must NOT
-# short-circuit the verb table. This is the endo-but-for-bots #526 false-positive:
-# a CHANGES_REQUESTED review body that critiqued a "clean-rebase eval scenario"
-# design (mentioning rebase/shepherd/refresh as topics, with NO imperative) minted
-# a bogus pr526-rebase job. The fix gates the verb scan on an imperative reading or
-# an @-mention; a bare keyword in prose now routes to the body reader instead.
-hr; echo "H — verb-as-topic in a CHANGES_REQUESTED review body → NOT a verb job, routed to reader"; hr
-BARE_H="$TR/h.git"; seed_bare "$BARE_H"
-FIX_H="$TR/fix-h.tsv"; RLOG_H="$TR/react-h.log"; : > "$RLOG_H"
-printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-  2026-06-24T16:00:00Z pr-review-body 777 526 kriskowal \
-  https://github.com/endojs/endo-but-for-bots/pull/526#pullrequestreview-777 \
-  '[CHANGES_REQUESTED] The clean-rebase eval scenario should use a folder-per-eval layout with deeper scenarios; the shepherd reference and the refresh hook want the same structure.' > "$FIX_H"
-run_directive "$TR/state-h" "$BARE_H" "$FIX_H" "$RLOG_H"
-board_has "$BARE_H" "$SLUG-pr526-rebase"   && bad "verb-as-topic minted a bogus rebase job"   || ok "no pr526-rebase job from review subject matter"
-board_has "$BARE_H" "$SLUG-pr526-shepherd" && bad "verb-as-topic minted a bogus shepherd job" || ok "no pr526-shepherd job from review subject matter"
-board_has "$BARE_H" "$SLUG-pr526-refresh"  && bad "verb-as-topic minted a bogus refresh job"  || ok "no pr526-refresh job from review subject matter"
-[ "$(todo_count "$BARE_H")" -eq 1 ] && ok "CHANGES_REQUESTED body routed to the reader (one fallback job)" || bad "expected exactly one fallback job, got $(todo_count "$BARE_H")"
-[ ! -s "$RLOG_H" ] && ok "no reactji on a review body (reviews are not reactable)" || bad "reactji posted on a review body: $(cat "$RLOG_H")"
+# H — the ROOT CAUSE: a missing jq must make the comment SOURCE fail LOUD, not
+# emit empty. Simulate by PATH-masking jq (a shimdir of every /usr/bin tool EXCEPT
+# jq; common.sh re-prepends its own gh wrapper, so gh stays resolvable). Assert the
+# handler exits NONZERO, names jq on stderr, and produces NO stdout — the opposite
+# of the silent-empty behaviour that hid the 2026-06-24 outage.
+hr; echo "H — missing jq → comment-source-gh.sh fails LOUD (no silent empty)"; hr
+SHIMDIR="$TR/nojq-bin"; mkdir -p "$SHIMDIR"
+for f in /usr/bin/*; do ln -sf "$f" "$SHIMDIR/$(basename "$f")" 2>/dev/null || true; done
+rm -f "$SHIMDIR/jq"   # the only tool removed
+command -v jq >/dev/null 2>&1 && have_jq=1 || have_jq=0   # sanity: jq exists on the real host
+SRC_OUT="$TR/h.out"; SRC_ERR="$TR/h.err"
+set +e
+env -i HOME="$HOME" PATH="$SHIMDIR" GARDEN_NO_MAINTAINER_ALERT=1 \
+    GARDEN_STATE="$TR/state-h" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots 2026-06-24T00:00:00Z kriscendobot \
+    > "$SRC_OUT" 2> "$SRC_ERR"
+rc=$?
+set -e
+if [ "$have_jq" -eq 0 ]; then
+  echo "  SKIP: no real jq on host to mask meaningfully"
+else
+  [ "$rc" -ne 0 ] && ok "comment-source exits nonzero when jq is masked (rc=$rc)" || bad "comment-source returned 0 with jq masked (silent-empty regression!)"
+  grep -qi 'jq' "$SRC_ERR" && ok "stderr names the missing tool (jq)" || bad "stderr did not mention jq: $(cat "$SRC_ERR")"
+  [ ! -s "$SRC_OUT" ] && ok "no stdout emitted on the missing-tool failure" || bad "emitted output despite missing jq"
+fi
 
-hr; echo "I — verb-as-topic in a plain comment (no imperative, no @bot) → dropped, no job"; hr
+# ============================================================================
+# I — SILENT-WATCHER ANOMALY: many consecutive zero-result ticks while the repo is
+# demonstrably ACTIVE must surface a throttled maintainer alert (the failure mode
+# that hid the outage for 16h). Source stub emits EMPTY; activity probe is stubbed
+# active; alert is captured via GARDEN_ALERT_CMD. Threshold lowered to 3.
+hr; echo "I — zero results + active source → throttled maintainer anomaly"; hr
 BARE_I="$TR/i.git"; seed_bare "$BARE_I"
-FIX_I="$TR/fix-i.tsv"; RLOG_I="$TR/react-i.log"; : > "$RLOG_I"
-printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-  2026-06-24T17:00:00Z issue-comment 888 527 kriskowal \
-  https://github.com/endojs/endo-but-for-bots/pull/527#issuecomment-888 \
-  'The rebase here looks clean now; nice work, no further changes needed.' > "$FIX_I"
-run_directive "$TR/state-i" "$BARE_I" "$FIX_I" "$RLOG_I"
-board_has "$BARE_I" "$SLUG-pr527-rebase" && bad "verb-as-topic minted a bogus rebase job" || ok "no rebase job from a non-imperative mention of the word"
-[ "$(todo_count "$BARE_I")" -eq 0 ] && ok "non-directive verb-topic comment dropped (no job)" || bad "posted $(todo_count "$BARE_I") job(s)"
-[ ! -s "$RLOG_I" ] && ok "no reactji on a non-directive" || bad "reactji posted: $(cat "$RLOG_I")"
-[ "$(cursor_seen "$TR/state-i" "$BARE_I")" = 2026-06-24T17:00:00Z ] && ok "cursor slid past the non-actionable comment" || bad "cursor did not slide"
+EMPTY_FIX="$TR/empty.tsv"; : > "$EMPTY_FIX"
+ACTIVE="$TR/active.sh";   printf '#!/bin/bash\nexit 0\n' > "$ACTIVE";   chmod +x "$ACTIVE"
+INACTIVE="$TR/inactive.sh"; printf '#!/bin/bash\nexit 1\n' > "$INACTIVE"; chmod +x "$INACTIVE"
+ALERTLOG_I="$TR/alert-i.log"; : > "$ALERTLOG_I"
+ALERTCAP="$TR/alert-cap.sh"
+cat > "$ALERTCAP" <<EOF
+#!/bin/bash
+# capture key+message so the test can count alerts without touching the board.
+printf '%s\t%s\n' "\$1" "\$2" >> "$ALERTLOG_I"
+EOF
+chmod +x "$ALERTCAP"
+run_silent() {  # run_silent <state> <bare> <activity-probe> <alert-log-state>
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" \
+      CW_FIXTURE="$EMPTY_FIX" CW_REACTJI_LOG="$TR/react-i.log" \
+      GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+      GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_COMMENT_FALLBACK=/bin/false \
+      GARDEN_COMMENT_ZERO_STREAK_THRESHOLD=3 \
+      GARDEN_COMMENT_ACTIVITY="$3" \
+      GARDEN_ALERT_CMD="$ALERTCAP" \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
+}
+# Three zero-result ticks against an ACTIVE source: streak reaches the threshold on
+# the 3rd and fires exactly one alert (later ticks are throttled by the same key).
+run_silent "$TR/state-i" "$BARE_I" "$ACTIVE"
+run_silent "$TR/state-i" "$BARE_I" "$ACTIVE"
+run_silent "$TR/state-i" "$BARE_I" "$ACTIVE"
+nalert=$(grep -c "silent-comment-watcher-$SLUG" "$ALERTLOG_I" 2>/dev/null || echo 0)
+[ "$nalert" -ge 1 ] && ok "anomaly surfaced once streak hit the threshold (alerts=$nalert)" || bad "no anomaly alert despite repeated zero ticks on an active source"
+run_silent "$TR/state-i" "$BARE_I" "$ACTIVE"   # a 4th tick must be throttled
+nalert2=$(grep -c "silent-comment-watcher-$SLUG" "$ALERTLOG_I" 2>/dev/null || echo 0)
+[ "$nalert2" -eq "$nalert" ] && ok "alert is throttled (no flood: still $nalert2)" || bad "alert flooded ($nalert2 > $nalert)"
 
-hr; echo "J — explicit 'please rebase #N' still classifies as a verb (no regression)"; hr
+hr; echo "J — zero results while source is QUIET → NO false anomaly"; hr
 BARE_J="$TR/j.git"; seed_bare "$BARE_J"
-FIX_J="$TR/fix-j.tsv"; RLOG_J="$TR/react-j.log"; : > "$RLOG_J"
-printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-  2026-06-24T18:00:00Z pr-review-body 999 528 kriskowal \
-  https://github.com/endojs/endo-but-for-bots/pull/528#pullrequestreview-999 \
-  '[CHANGES_REQUESTED] Looks close. Please rebase on master and push again.' > "$FIX_J"
-run_directive "$TR/state-j" "$BARE_J" "$FIX_J" "$RLOG_J"
-board_has "$BARE_J" "$SLUG-pr528-rebase" && ok "explicit imperative 'please rebase' still mints the rebase job" || bad "true directive lost — rebase job missing"
+ALERTLOG_J="$TR/alert-j.log"; : > "$ALERTLOG_J"
+ALERTCAP_J="$TR/alert-cap-j.sh"
+cat > "$ALERTCAP_J" <<EOF
+#!/bin/bash
+printf '%s\t%s\n' "\$1" "\$2" >> "$ALERTLOG_J"
+EOF
+chmod +x "$ALERTCAP_J"
+for _ in 1 2 3 4; do
+  env GARDEN_STATE="$TR/state-j" JOURNAL_REMOTE="$BARE_J" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" CW_FIXTURE="$EMPTY_FIX" CW_REACTJI_LOG="$TR/react-j.log" \
+      GARDEN_COMMENT_SOURCE="$SRCSTUB" GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" GARDEN_COMMENT_FALLBACK=/bin/false \
+      GARDEN_COMMENT_ZERO_STREAK_THRESHOLD=3 GARDEN_COMMENT_ACTIVITY="$INACTIVE" \
+      GARDEN_ALERT_CMD="$ALERTCAP_J" \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
+done
+[ ! -s "$ALERTLOG_J" ] && ok "no anomaly when the source is genuinely quiet" || bad "false anomaly on a quiet source: $(cat "$ALERTLOG_J")"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

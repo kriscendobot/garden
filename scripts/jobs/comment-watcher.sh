@@ -63,6 +63,38 @@ GARDEN_TAG="comment-watcher/$slug"
 : "${GARDEN_COMMENT_VERIFY_CLONE:=$GARDEN_STATE/comment-watcher/verify}"
 VERIFY="$GARDEN_COMMENT_VERIFY_CLONE"
 
+# --- silent-watcher anomaly detection ---------------------------------------
+# The 2026-06-24 outage hid for ~16h because a broken source emitted ZERO comments
+# every tick and "no new comments" reads as normal for an idle repo. Defense in
+# depth: track the consecutive-zero-result streak durably (a local marker; a repo's
+# watcher timer runs on one host) and, once it crosses a threshold, CROSS-CHECK
+# with an INDEPENDENT activity probe. If the repo is demonstrably active (it has had
+# a comment since the cursor) while we keep finding nothing, the watcher is silently
+# blind → surface a throttled maintainer anomaly. The probe deliberately uses gh's
+# BUILT-IN `--jq` (a different code path than the external jq the source pipes to),
+# so a broken-external-jq blindness is exactly what it catches.
+: "${GARDEN_COMMENT_ZERO_STREAK_THRESHOLD:=20}"
+ZERO_STREAK_FILE="$GARDEN_STATE/comment-watcher/zero-streak/$slug"
+# Overridable so the test can stand in a deterministic active/inactive probe:
+#   GARDEN_COMMENT_ACTIVITY <repo> <since>  -> rc 0 = active, rc 1 = quiet
+: "${GARDEN_COMMENT_ACTIVITY:=}"
+
+read_zero_streak()  { grep -Eo '^[0-9]+' "$ZERO_STREAK_FILE" 2>/dev/null | head -1; }
+write_zero_streak() { mkdir -p "$(dirname "$ZERO_STREAK_FILE")" 2>/dev/null || true
+                      printf '%s\n' "$1" > "$ZERO_STREAK_FILE" 2>/dev/null || true; }
+
+# rc 0 if the repo has had >=1 conversation comment since <since> (demonstrably
+# active). Uses gh's built-in --jq, NOT external jq, so it stays a valid witness
+# even when the external-jq source path is the thing that is broken.
+source_is_active() {  # source_is_active <repo> <since>
+  local repo="$1" since="$2" n
+  if [ -n "$GARDEN_COMMENT_ACTIVITY" ]; then "$GARDEN_COMMENT_ACTIVITY" "$repo" "$since"; return; fi
+  command -v gh >/dev/null 2>&1 || return 1
+  [ -n "$since" ] || since="$(date -u -d '-24 hours' +%FT%TZ 2>/dev/null || echo '')"
+  n="$(gh api "repos/$repo/issues/comments?since=$since&per_page=1" --jq 'length' 2>/dev/null || echo 0)"
+  [ "${n:-0}" -gt 0 ] 2>/dev/null
+}
+
 killswitch_engaged && { log "killswitch engaged; skipping"; exit 0; }
 
 # slug is <owner>-<name>; owners in our set carry no dash, so split on the first.
@@ -159,40 +191,21 @@ reads_as_directive() {  # reads_as_directive <body-text>
 # the bot, carries an explicit review ask, or is a trusted sender's plain-language
 # directive but names no verb — the cases that may fall back to claude wearing the
 # triager role.
-#
-# The verb table is meant to catch IMPERATIVE directives ("please rebase",
-# "rebase this on #N"), NOT mentions of a verb as a PR's SUBJECT MATTER. A bare
-# word-boundary hit over the whole body fired on review prose that merely
-# DISCUSSED the topic — e.g. endo-but-for-bots #526's CHANGES_REQUESTED body
-# critiqued a "clean-rebase git code-mode eval scenario" design and never asked
-# for a git rebase, yet minted a bogus pr526-rebase job (the branch was already
-# CLEAN). So the verb scan is GATED: a keyword counts as a directive only when the
-# body also reads as an imperative directive (reads_as_directive) OR @-mentions
-# the bot. A bare keyword in prose falls through to the ambiguous/none paths
-# below so the body is read (triager/claude) rather than mis-minted into a verb.
 classify() {  # classify <body-file> <surface> <author>; sets VERB; rc 0=verb 2=ambiguous 1=none
   local body lc; body="$(cat "$1")"; lc="$(printf '%s' "$body" | tr '[:upper:]' '[:lower:]')"
   VERB=""
   case "$lc" in *"run the gauntlet"*) VERB=gauntlet; return 0;; esac
-  # Compute the two directive signals once: an imperative reading (pure string,
-  # no I/O) and an @-mention of the bot. Either one licenses the verb table.
-  local mentions_bot="" imperative=""
-  printf '%s' "$lc" | grep -qiF "@$GARDEN_BOT_LOGIN" && mentions_bot=y
-  reads_as_directive "$body" && imperative=y
-  if [ -n "$imperative" ] || [ -n "$mentions_bot" ]; then
-    local v
-    for v in rebase retcon refresh shepherd; do
-      if printf '%s' "$lc" | grep -Eq "(^|[^a-z])$v([^a-z]|\$)"; then VERB="$v"; return 0; fi
-    done
-  fi
-  # @-mention of the bot, or a CHANGES_REQUESTED review body: an ask with no verb
-  # (or a verb-as-topic that the gate above declined to mint). Route to the reader.
-  if [ -n "$mentions_bot" ]; then return 2; fi
+  local v
+  for v in rebase retcon refresh shepherd; do
+    if printf '%s' "$lc" | grep -Eq "(^|[^a-z])$v([^a-z]|\$)"; then VERB="$v"; return 0; fi
+  done
+  # @-mention of the bot, or a CHANGES_REQUESTED review body: an ask with no verb.
+  if printf '%s' "$lc" | grep -qiF "@$GARDEN_BOT_LOGIN"; then return 2; fi
   if [ "$2" = pr-review-body ] && printf '%s' "$body" | grep -q '^\[CHANGES_REQUESTED\]'; then return 2; fi
   # A trusted maintainer/contributor's plain-language imperative directive with no
-  # verb and no @-mention (e.g. "Please apply this feedback"). The imperative read
-  # is reused from above so chatter never triggers a trust lookup.
-  if [ -n "$imperative" ] && is_trusted "${3:-}"; then return 2; fi
+  # verb and no @-mention (e.g. "Please apply this feedback"). reads_as_directive
+  # runs first (pure string, no I/O) so chatter never triggers a trust lookup.
+  if reads_as_directive "$body" && is_trusted "${3:-}"; then return 2; fi
   return 1
 }
 
@@ -227,18 +240,34 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
 }
 
 # --- poll, then process each comment in created_at order --------------------
-SRC="$(mktemp)"; trap 'rm -f "$SRC"' EXIT
-if ! "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>/dev/null; then
-  die "comment source failed for $repo"
+SRC="$(mktemp)"; ERRF="$(mktemp)"; trap 'rm -f "$SRC" "$ERRF"' EXIT
+# Capture the source's stderr (do NOT 2>/dev/null it) so a loud failure inside the
+# handler — e.g. require_tools' "jq missing" die — surfaces in the watcher's death
+# instead of being swallowed (the silent-empty trap that hid the 2026-06-24 outage).
+if ! "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF"; then
+  sed 's/^/  source: /' "$ERRF" >&2 || true
+  die "comment source failed for $repo (see source stderr above)"
 fi
 # Defensive ascending sort by created_at (field 1); the source should already.
 sort -t$'\t' -k1,1 -o "$SRC" "$SRC"
 
 nlines="$(grep -c . "$SRC" || true)"
 if [ "$nlines" -eq 0 ]; then
-  log "no new comments on $repo since ${last_seen:-<coldstart>}"
+  # Advance the consecutive-zero-result streak and check for a SILENT-BLIND
+  # watcher: many zero ticks while the repo is demonstrably active is the exact
+  # signature of the jq outage (a broken parse yielding empty output).
+  streak=$(( $(read_zero_streak || echo 0) + 1 ))
+  write_zero_streak "$streak"
+  log "no new comments on $repo since ${last_seen:-<coldstart>} (zero-streak=$streak)"
+  if [ "$streak" -ge "$GARDEN_COMMENT_ZERO_STREAK_THRESHOLD" ] \
+     && source_is_active "$repo" "${last_seen:-}"; then
+    alert_maintainer "silent-comment-watcher-$slug" \
+      "ANOMALY: comment-watcher/$slug found 0 comments for $streak consecutive ticks, but $repo IS active (a comment exists since ${last_seen:-<coldstart>}). The watcher may be silently blind — check jq/gh on $GARDEN_HOST and the comment-source handler. This is the 2026-06-24 outage signature."
+  fi
   exit 0
 fi
+# Found comments → the source is demonstrably working; reset the zero streak.
+write_zero_streak 0
 
 # Load the trusted-sender allowlist once (only when there is work to classify).
 load_allowlist

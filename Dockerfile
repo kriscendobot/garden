@@ -29,6 +29,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 # systemd-sysv ships the /sbin/init → systemd symlink; dbus +
 # dbus-user-session + libpam-systemd are what make `systemctl --user`
 # and user lingering work. The rest mirror the dev tooling.
+#
+# jq is a HARD RUNTIME DEPENDENCY of the fleet, not just dev tooling: the comment
+# and mention source handlers pipe `gh api` output to external `jq`. Its absence
+# is what caused the 2026-06-24 ~16h comment-watcher outage (a hot-installed jq
+# restored service); common.sh's require_tools now also fails loudly if it is
+# missing, but it must be in the image so a rebuild does not reintroduce the gap.
 RUN apt-get update && apt-get install -y \
     systemd \
     systemd-sysv \
@@ -48,6 +54,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     gnupg \
     unzip \
+    jq \
     python3 \
     python3-dev \
     python3-pip \

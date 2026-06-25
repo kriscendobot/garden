@@ -31,7 +31,12 @@ GARDEN_TAG="comment-source"
 
 repo="${1:?owner/name}"; since="${2:-}"; bot="${3:-kriscendobot}"
 
-command -v gh >/dev/null 2>&1 || die "gh not on PATH; cannot poll $repo comments"
+# Hard dependencies. ROOT-CAUSE fix for the 2026-06-24 outage: this handler pipes
+# `gh api | jq` to EXTERNAL jq, so a missing jq used to yield silent empty output
+# ("no new comments") for ~16h. require_tools fails LOUDLY (and alerts the
+# maintainer) instead of letting a missing binary masquerade as "no comments".
+# Must run BEFORE the jq pipelines below.
+require_tools gh jq
 
 # Bound the query window: never look back more than 24h, and on a cold start
 # (empty cursor) seed a modest 1h retroactive window. This keeps `since=` from
@@ -45,13 +50,19 @@ if [ -n "$floor" ] && [ "$since" \< "$floor" ]; then since="$floor"; fi
 
 oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 
+# Stderr policy below: gh's `2>/dev/null` suppresses EXPECTED-empty noise (404 on
+# an endpoint, an idle window). jq carries NO `2>/dev/null`: a jq parse error is a
+# real fault that must surface, not be swallowed. The `|| true` tolerates a
+# transient gh failure on one endpoint without aborting the others; a truly missing
+# jq can no longer reach here (require_tools above dies first).
+
 # 1) issue/PR conversation comments
 gh api --paginate "repos/$repo/issues/comments?since=$since&per_page=100" 2>/dev/null \
   | jq -r --arg s "$since" "
       .[] | select(.created_at >= \$s)
       | [ .created_at, \"issue-comment\", (.id|tostring),
           ((.issue_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
-          .user.login, .html_url, ($oneline) ] | @tsv" 2>/dev/null || true
+          .user.login, .html_url, ($oneline) ] | @tsv" || true
 
 # 2) inline PR review-comments (all comments tied to a review)
 gh api --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>/dev/null \
@@ -59,7 +70,7 @@ gh api --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>/dev/
       .[] | select(.created_at >= \$s)
       | [ .created_at, \"pr-review-comment\", (.id|tostring),
           ((.pull_request_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
-          .user.login, .html_url, ($oneline) ] | @tsv" 2>/dev/null || true
+          .user.login, .html_url, ($oneline) ] | @tsv" || true
 
 # 3) formal review bodies (no since= filter; iterate open PRs, filter by submitted_at).
 #    Prefix CHANGES_REQUESTED bodies so the watcher's classifier can see the state.
@@ -72,5 +83,5 @@ gh pr list -R "$repo" --state open --json number --jq '.[].number' 2>/dev/null \
             | select((.body // "") != "")
             | [ .submitted_at, "pr-review-body", (.id|tostring), $n, .user.login, .html_url,
                 ((if .state=="CHANGES_REQUESTED" then "[CHANGES_REQUESTED] " else "" end)
-                 + ((.body) | gsub("[\t\r\n]+"; " "))) ] | @tsv' 2>/dev/null || true
+                 + ((.body) | gsub("[\t\r\n]+"; " "))) ] | @tsv' || true
     done

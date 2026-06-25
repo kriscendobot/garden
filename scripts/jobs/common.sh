@@ -56,6 +56,59 @@ die()  { log "FATAL: $*"; exit 1; }
 
 killswitch_engaged() { [ -e "$GARDEN_KILLSWITCH" ]; }
 
+# --- hard-dependency guard (the silent-jq-outage fix) ------------------------
+#
+# A missing external binary must NEVER hide as silent empty output. On
+# 2026-06-24 `jq` was absent from the host, and comment-source-gh.sh piped
+# `gh api | jq` with a blanket `2>/dev/null || true` that swallowed the
+# "command not found" — every PR comment was dropped for ~16h with no error
+# surfaced. require_tools makes any fleet hard dependency a LOUD, fail-fast
+# precondition instead.
+#
+#   require_tools git gh jq      # at the top of any script that needs them
+#
+# On a missing tool it logs FATAL, best-effort surfaces a THROTTLED maintainer
+# message (so a silent dependency gap reaches a human, not just a systemd log),
+# and exits 1. The maintainer alert is best-effort and never masks the die: it
+# is skipped entirely when GARDEN_NO_MAINTAINER_ALERT=1 (set by tests and by any
+# context with no journal), and routed through GARDEN_ALERT_CMD when set (tests
+# capture it without touching the board).
+require_tools() {
+  local t missing=()
+  for t in "$@"; do command -v "$t" >/dev/null 2>&1 || missing+=("$t"); done
+  [ "${#missing[@]}" -eq 0 ] && return 0
+  local msg="required tool(s) missing on PATH (host=${GARDEN_HOST}, tag=${GARDEN_TAG:-jobs}): ${missing[*]} — this silently drops work; install them or fix PATH"
+  alert_maintainer "missing-tools-${GARDEN_HOST}" "$msg"
+  die "$msg"
+}
+
+# alert_maintainer <dedup-key> <message> — best-effort, THROTTLED escalation to
+# the maintainer inbox. Used by require_tools and the watchers' silent-output
+# anomaly check. Throttled per <dedup-key> (default 1h) via a local state marker
+# so a per-minute failure loop cannot spam the inbox with hundreds of messages.
+# Never fails its caller: every path swallows errors and returns 0.
+alert_maintainer() {
+  local key="$1" msg="$2"
+  [ "${GARDEN_NO_MAINTAINER_ALERT:-0}" = 1 ] && return 0
+  # Throttle: at most once per window per key (a runaway timer must not flood).
+  local marker="$GARDEN_STATE/alerts/${key//[^A-Za-z0-9._-]/_}.last" now last
+  now="$(date +%s 2>/dev/null || echo 0)"
+  if [ -f "$marker" ]; then
+    last="$(cat "$marker" 2>/dev/null || echo 0)"
+    [ $(( now - last )) -lt "${GARDEN_ALERT_THROTTLE_SECS:-3600}" ] && return 0
+  fi
+  mkdir -p "$(dirname "$marker")" 2>/dev/null || true
+  printf '%s\n' "$now" > "$marker" 2>/dev/null || true
+  if [ -n "${GARDEN_ALERT_CMD:-}" ]; then
+    "$GARDEN_ALERT_CMD" "$key" "$msg" >/dev/null 2>&1 || true
+    return 0
+  fi
+  printf '%s\n' "$msg" \
+    | GARDEN_SENDER="watchdog:${GARDEN_TAG:-jobs}" \
+      "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 || true
+  return 0
+}
+
 # Randomized backoff (~50–300ms) to break lockstep retries under contention.
 backoff() { sleep "0.$(printf '%03d' "$(( (RANDOM % 250) + 50 ))")"; }
 

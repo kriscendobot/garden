@@ -30,8 +30,10 @@ GARDEN_TAG="mention-source"
 
 since="${1:-}"; bot="${2:-kriscendobot}"
 
-command -v gh >/dev/null 2>&1 || die "gh not on PATH; cannot poll mentions"
-command -v jq >/dev/null 2>&1 || die "jq not on PATH; cannot parse mentions"
+# Hard dependencies (this handler pipes `gh api | jq` to EXTERNAL jq). require_tools
+# fails loudly + alerts the maintainer rather than letting a missing binary yield
+# silent empty output — the 2026-06-24 comment-watcher failure mode.
+require_tools gh jq
 
 # Bound the query window: never look back more than 24h; on a cold start seed a
 # modest 1h retroactive window so a just-left mention is still caught.
