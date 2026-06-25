@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T15:41:54Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T15:49:01Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -45,6 +45,44 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 
 > Heads-up (no action needed if the reaper fix covers it): the cask ingest chain has redundant concurrent workers. Two gardeners (78, 91) are both live on the SAME job `scholar-ingest-cask-13` (a double-claim), and the obsolete chain root `scholar-ingest-cask` (me, gardener 80) was never closed when the chain continued under renamed `-N` jobs, so it stayed re-claimable — three LLM gardeners thrashing a ~5-doc remainder. I completed the root as a reconciliation (corpus already current on journal2, 34 sources at commit cdb975d8; nothing to re-ingest). Looks like the same class as the in-flight `fix-reaper-requeue-reliability` job. Suggest the chained-follow-on idiom either complete the parent in-cycle or have `-N` jobs carry a pointer so claimants idempotency-check against the chain head first. Full detail in entries/2026/06/25/152619Z-result-scholar-0b3214.md.
 
+- `20260625T154855Z-c21859` — from gardener:finish-ebfb-pr96, reply_to `finish-ebfb-pr96` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T154855Z-c21859.md)
+
+> PR #96 (compartment-mapper auxiliary package.json) — Phase 7 collision report.
+>
+> While I was implementing "finish #96 as designed", a concurrent peer gardener
+> finished Phase 7 first and pushed it to the PR:
+>   729e07f11 / 905cb7204 "honor languageForExtensionByPrefix at parse time (#96)".
+> That commit addresses your flagged gap (collectLanguageOverrides was computed but
+> unconsumed) for the ENTRY-path case: a `.js` file under a `{"type":"module"}` /
+> `{"type":"commonjs"}` auxiliary that sits on the entry module's own path now parses
+> correctly. Your fixture (apackage/afolder/file.js) and the design's nested case
+> (rootpkg/sub1/sub2/x.js, loaded as the entry) are covered. So the PR-facing ask is
+> satisfied — no action needed from me there.
+>
+> That commit explicitly DEFERS one piece as "future work": auxiliary subtrees that
+> live inside a DEPENDENCY package reached by relative import (not on the entry path)
+> are still not honored. Example: app imports aux-pkg by name; aux-pkg/index.js does
+> `import "./cjs-sub/leaf.js"` where cjs-sub/ is a `{"type":"commonjs"}` auxiliary —
+> leaf.js is still misparsed.
+>
+> I independently implemented that general case via a lazy per-module walk in the
+> import hook (it has maybeRead + the sync/async trampoline, so it covers both paths).
+> To avoid clobbering the peer's just-pushed commit, I did NOT push to the PR; my work
+> is on a side branch instead:
+>   origin/pr96-auxiliary-lazy-parse-general-case  (5483f04ba)
+> All 917 compartment-mapper tests pass (12 known failures unchanged), tsc + eslint
+> clean, regression-proven (neutralizing the override fails all 3 integration tests).
+>
+> The two implementations overlap (both touch map-parser resolveLanguage, the
+> languageForExtensionByPrefix field, and types) and use different architectures
+> (peer: precompute on the entry compartment at map time; mine: lazy per-module at
+> parse time), so they don't compose trivially.
+>
+> Decision for you: (a) accept the entry-path scope now on #96 and treat the general
+> dependency-subtree case as future work, or (b) reconcile onto the lazy approach so
+> the general case lands too. If (b), point me at it and I'll rebase my side branch
+> onto the current PR head and reconcile the two mechanisms into one.
+
 
 ## Board
 ### todo (0)
@@ -86,4 +124,4 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 154136Z-progress-gardener-3a798b.md: gardener-47 on endolinbot completed job fix-reaper-requeue-reliability
 ## Latest
 
-The `fix-reaper-requeue-reliability` fix landed (doin→tada, gardener-47), which is timely: the cask ingest chain just exhibited exactly the failure class that fix targets. Two scholar messages flag it for the maintainer — `scholar-ingest-cask-13` was double-claimed and fully worked by two gardeners (78 and 91), and the stale chain root `scholar-ingest-cask` was never closed so it stayed re-claimable, leaving three gardeners thrashing a ~5-doc remainder; gardener-80 closed the root as a no-op reconciliation (corpus already current at commit cdb975d8, 34 sources). The chain now sits at `scholar-ingest-cask-14`, but that job's handler FAILED under gardener-24 and was left in doin for the reaper — worth watching that the freshly-landed reaper fix actually requeues it. Separately, the scholar reports the change-propagation library synthesis advanced: two pubsub sources (#513, #507) curated in with factory-name divergence flagged for reconciliation when those PRs and @endo/cancel stabilize.
+Three messages landed in the maintainer inbox, one needing a decision. On compartment-mapper PR #96, a concurrent peer gardener pushed the Phase 7 fix (honoring `languageForExtensionByPrefix` at parse time) for the entry-path case, satisfying the PR-facing ask; `finish-ebfb-pr96` then completed but parked an independently-built general case (dependency-subtree auxiliaries) on side branch `pr96-auxiliary-lazy-parse-general-case` — the maintainer is asked to choose between accepting entry-path scope now or reconciling the two mechanisms. The cask library ingest advanced through cycle 13 to cycle 14, but a double-claim defect surfaced: gardeners 78 and 91 both fully worked `scholar-ingest-cask-13`, and the stale chain-root `scholar-ingest-cask` stayed re-claimable until closed as a reconciliation — flagged as the same class as the just-completed `fix-reaper-requeue-reliability`. Worth noticing: `scholar-ingest-cask-14` then failed in its handler and was left in `doin` for the reaper, while `shepherd-ebfb-pr96` is now driving #96's CI to green. The scholar also posted a change-propagation synthesis update with two honesty corrections (makeCancelKit is not an @endo/pubsub export; #513 and #507 have diverged on factory names) and queued a re-ingest for when those branches stabilize.
