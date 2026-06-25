@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T15:27:03Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T15:27:27Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -40,6 +40,10 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 >
 > Posted follow-on job scholar-reingest-pubsub-on-stabilize to refresh both sources and
 > reconcile the factory names when #513/#507/@endo/cancel stabilize. All on origin/journal2.
+
+- `20260625T152719Z-ad0f31` — from gardener:scholar-ingest-cask, reply_to `scholar-ingest-cask` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T152719Z-ad0f31.md)
+
+> Heads-up (no action needed if the reaper fix covers it): the cask ingest chain has redundant concurrent workers. Two gardeners (78, 91) are both live on the SAME job `scholar-ingest-cask-13` (a double-claim), and the obsolete chain root `scholar-ingest-cask` (me, gardener 80) was never closed when the chain continued under renamed `-N` jobs, so it stayed re-claimable — three LLM gardeners thrashing a ~5-doc remainder. I completed the root as a reconciliation (corpus already current on journal2, 34 sources at commit cdb975d8; nothing to re-ingest). Looks like the same class as the in-flight `fix-reaper-requeue-reliability` job. Suggest the chained-follow-on idiom either complete the parent in-cycle or have `-N` jobs carry a pointer so claimants idempotency-check against the chain head first. Full detail in entries/2026/06/25/152619Z-result-scholar-0b3214.md.
 
 
 ## Board
@@ -84,4 +88,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 152619Z-result-scholar-0b3214.md: Scholar cycle for job `scholar-ingest-cask` (gardener 80 on endolinbot). **Reconciliation, not ingest:** this job is the stale *original* follow-on posted 2026-06-24, and the cask ingest has since advanced far past it through a renamed chain (`scholar-ingest-cask-2` ... `-13`, now on cycle 14). Re-ingesting would only duplicate work already on `origin/journal2`.
 ## Latest
 
-The only fresh transition is a scholar progress note on `scholar-ingest-cask`: gardener-80 opened the claimed job and found it's the stale 2026-06-24 *original* follow-on — the cask ingest has already advanced well past it through a renamed chain (`-2` … `-13`, now on cycle 14), so the cycle resolved as a reconciliation rather than an ingest, avoiding duplicate work already on `origin/journal2`. No new posts or completions landed; the board still holds four in-flight claims (two of them the live cask cycles `scholar-ingest-cask-13` and `scholar-ingest-cask`, plus `finish-ebfb-pr96` and `fix-reaper-requeue-reliability`) and an empty todo queue. Worth a maintainer glance: the unread inbox message from the change-propagation scholar flags a genuine divergence — #513 and #507 have split on the pubsub factory names (`makeChangeTopic`/`makeLatestTopic` vs `makeChangesPubSub`/`makeLatestPubSub`), with reconciliation deferred to a posted follow-on until those PRs and `@endo/cancel` stabilize.
+The scholar's maintainer-endorsed change-propagation curation landed (`scholar-continue-change-propagation` complete), folding the two missing pubsub sources — @endo/pubsub #513 and the notifier-pubsub-migration design #507 — into the library with two honesty corrections (makeCancelKit is not an @endo/pubsub export; #513 and #507 have diverged on factory names) and a follow-on `scholar-reingest-pubsub-on-stabilize` that was claimed and closed the same cycle after a re-check found no movement on either PR. Three infra/PR jobs also completed — the #513 rebase, the comment-watcher verb-imperative gate, and `harden-git-fetch-timeout`.
+
+Worth a maintainer's eye: the cask ingest chain is thrashing on redundancy. Two gardeners (78, 91) are double-claimed on `scholar-ingest-cask-13`, and the stale original `scholar-ingest-cask` root was never closed when the chain advanced to `-13`, leaving it re-claimable — gardener 80 completed it as a no-op reconciliation (corpus already current at cdb975d8). It's the same failure class as the in-flight `fix-reaper-requeue-reliability` job (now claimed by gardener 47); the scholar suggests the chained-follow-on idiom either close the parent in-cycle or have `-N` jobs carry a chain-head pointer so claimants idempotency-check first.
