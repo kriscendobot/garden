@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T15:32:10Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T15:33:04Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh, with a
@@ -56,7 +56,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - `scholar-ingest-cask-14` — Scholar: continue the library ingest of kriskowal/cask (cycle 15) — comment-f...
 
 ### tada (122)
-- `scholar-ingest-cask-13` — scholar-ingest-cask-13 — done (cask ingest cycle 14)
+- `scholar-ingest-cask-13` — Completion report
 - `scholar-ingest-cask` — Done. Here is my completion report.
 - `scholar-reingest-pubsub-on-stabilize` — Completion report
 - `scholar-continue-change-propagation` — scholar-continue-change-propagation — complete
@@ -70,7 +70,6 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - endolinbot: 100 gardeners
 
 ## Recent progress
-- 150930Z-progress-gardener-a90d96.md: gardener-30 on endolinbot claimed job scholar-reingest-pubsub-on-stabilize
 - 150959Z-progress-gardener-52cde8.md: gardener-62 on endolinbot completed job harden-git-fetch-timeout
 - 151112Z-progress-gardener-ab51ad.md: gardener-44 on endolinbot completed job scholar-continue-change-propagation
 - 151348Z-result-scholar-2fd7fb.md: # Scholar re-check: pubsub sources (#513 / #507) — no movement, no re-ingest
@@ -85,6 +84,7 @@ IS the bulletin; the journal's layout and design narrative lives in [DESIGN.md](
 - 152754Z-progress-gardener-df8b49.md: gardener-80 on endolinbot completed job scholar-ingest-cask
 - 152946Z-result-scholar-e7f75d.md: # Scholar cask ingest cycle 14 (job `scholar-ingest-cask-13`)
 - 153108Z-progress-gardener-694fe6.md: gardener-24 on endolinbot claimed job scholar-ingest-cask-14
+- 153243Z-progress-gardener-25fcae.md: gardener-78 on endolinbot completed job scholar-ingest-cask-13
 ## Latest
 
-The cask ingest chain advanced a cycle — `scholar-ingest-cask-13` (cycle 14) completed and `scholar-ingest-cask-14` (cycle 15) is already claimed and running — but a gardener flagged a coordination defect in that same chain: the job double-claimed (gardeners 78 and 91 both live on it) and its stale original root `scholar-ingest-cask` stayed re-claimable because the renamed `-N` follow-ons never closed the parent, leaving three gardeners thrashing a small remainder. The root was completed as a no-op reconciliation (corpus already current at `cdb975d8`), and the reporter ties this to the in-flight `fix-reaper-requeue-reliability` job, suggesting chained follow-ons either close the parent in-cycle or carry a head pointer. On the change-propagation track, `scholar-continue-change-propagation` completed with a substantial library synthesis (curated the @endo/pubsub and notifier-pubsub-migration sources, with two honesty corrections on makeCancelKit and diverged factory names between #513/#507), and its follow-on `scholar-reingest-pubsub-on-stabilize` ran and closed immediately after finding no movement on those PRs. `harden-git-fetch-timeout` also landed. The board is drained to zero todo with three jobs in flight — including `finish-ebfb-pr96` and the reaper-reliability fix. Two maintainer messages are unread, both heads-ups rather than action items.
+The cask ingest chain advanced another cycle: gardener-78 completed `scholar-ingest-cask-13` (corpus cycle 14, 34 sources at cdb975d8) and gardener-24 immediately claimed the follow-on `-14`. The headline for the maintainer is a self-reported coordination bug in that same chain: the scholar found two gardeners (78, 91) double-claimed `-13` while the stale original root `scholar-ingest-cask` sat re-claimable — three LLM gardeners thrashing a ~5-doc remainder — and flags it as the same class as the in-flight `fix-reaper-requeue-reliability` job, suggesting chained `-N` follow-ons either close the parent in-cycle or carry a pointer so claimants idempotency-check the chain head. Separately, the maintainer-endorsed change-propagation synthesis wrapped (`scholar-continue-change-propagation`), curating the @endo/pubsub (#513) and notifier-pubsub-migration (#507) sources with two honesty corrections — `makeCancelKit` is not an @endo/pubsub export, and #513/#507 have diverged on factory names — with a follow-on (`scholar-reingest-pubsub-on-stabilize`) already posted and completed to reconcile once those PRs stabilize. The board is otherwise quiet: zero todo, three in flight (`finish-ebfb-pr96`, the reaper-reliability fix, and cask `-14`).
