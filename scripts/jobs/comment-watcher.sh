@@ -191,21 +191,50 @@ reads_as_directive() {  # reads_as_directive <body-text>
 # the bot, carries an explicit review ask, or is a trusted sender's plain-language
 # directive but names no verb — the cases that may fall back to claude wearing the
 # triager role.
+#
+# The verb table is meant to catch IMPERATIVE directives ("please rebase",
+# "rebase this on #N"), NOT mentions of a verb as a PR's SUBJECT MATTER or a
+# future/conditional intention. A bare word-boundary hit over the whole body
+# fired on prose that merely DISCUSSED the topic. Two real false positives:
+#   - endo-but-for-bots #526's CHANGES_REQUESTED body critiqued a "clean-rebase
+#     git code-mode eval scenario" design and never asked for a git rebase
+#     (the branch was already CLEAN) — yet minted a bogus pr526-rebase job.
+#   - endo-but-for-bots #513 issue-comment 4800685785 (by kriscendobot) explained
+#     a base situation and concluded "a subsequent rebase of this PR onto a fresh
+#     `llm` snapshot will pick it up. No action needed here until #528 merges." The
+#     future-tense noun "rebase" minted pr513-rebase — an IMMEDIATE rebase directive
+#     whose source explicitly says to WAIT. This is the canonical verb-as-subject-
+#     matter / future-tense case for the FIXED table (a different table than the
+#     194b0a49 fix, which was clobbered by the later jq-outage commit; this restores
+#     and re-canonicalizes the gate).
+# So the verb scan is GATED: a keyword counts as a directive only when the body
+# also reads as an imperative directive (reads_as_directive) OR @-mentions the
+# bot. A bare keyword in prose ("a subsequent rebase ... will", "once X merges",
+# "no action needed") falls through to the ambiguous/none paths below so the body
+# is read (triager/claude) rather than mis-minted into a verb.
 classify() {  # classify <body-file> <surface> <author>; sets VERB; rc 0=verb 2=ambiguous 1=none
   local body lc; body="$(cat "$1")"; lc="$(printf '%s' "$body" | tr '[:upper:]' '[:lower:]')"
   VERB=""
   case "$lc" in *"run the gauntlet"*) VERB=gauntlet; return 0;; esac
-  local v
-  for v in rebase retcon refresh shepherd; do
-    if printf '%s' "$lc" | grep -Eq "(^|[^a-z])$v([^a-z]|\$)"; then VERB="$v"; return 0; fi
-  done
-  # @-mention of the bot, or a CHANGES_REQUESTED review body: an ask with no verb.
-  if printf '%s' "$lc" | grep -qiF "@$GARDEN_BOT_LOGIN"; then return 2; fi
+  # Compute the two directive signals once: an imperative reading (pure string,
+  # no I/O) and an @-mention of the bot. Either one licenses the verb table.
+  local mentions_bot="" imperative=""
+  printf '%s' "$lc" | grep -qiF "@$GARDEN_BOT_LOGIN" && mentions_bot=y
+  reads_as_directive "$body" && imperative=y
+  if [ -n "$imperative" ] || [ -n "$mentions_bot" ]; then
+    local v
+    for v in rebase retcon refresh shepherd; do
+      if printf '%s' "$lc" | grep -Eq "(^|[^a-z])$v([^a-z]|\$)"; then VERB="$v"; return 0; fi
+    done
+  fi
+  # @-mention of the bot, or a CHANGES_REQUESTED review body: an ask with no verb
+  # (or a verb-as-topic that the gate above declined to mint). Route to the reader.
+  if [ -n "$mentions_bot" ]; then return 2; fi
   if [ "$2" = pr-review-body ] && printf '%s' "$body" | grep -q '^\[CHANGES_REQUESTED\]'; then return 2; fi
   # A trusted maintainer/contributor's plain-language imperative directive with no
-  # verb and no @-mention (e.g. "Please apply this feedback"). reads_as_directive
-  # runs first (pure string, no I/O) so chatter never triggers a trust lookup.
-  if reads_as_directive "$body" && is_trusted "${3:-}"; then return 2; fi
+  # verb and no @-mention (e.g. "Please apply this feedback"). The imperative read
+  # is reused from above so chatter never triggers a trust lookup.
+  if [ -n "$imperative" ] && is_trusted "${3:-}"; then return 2; fi
   return 1
 }
 

@@ -294,5 +294,47 @@ done
 [ ! -s "$ALERTLOG_J" ] && ok "no anomaly when the source is genuinely quiet" || bad "false anomaly on a quiet source: $(cat "$ALERTLOG_J")"
 
 # ============================================================================
+# K/L/M — VERB-AS-SUBJECT-MATTER gate on the FIXED verb table. A bare verb word
+# (rebase/retcon/refresh/shepherd) appearing as a PR's topic or as a future/
+# conditional intention ("a subsequent rebase ... will", "no action needed") must
+# NOT short-circuit into a deterministic verb job; the table fires only when the
+# body reads as an imperative directive OR @-mentions the bot. Canonical case:
+# endo-but-for-bots #513 issue-comment 4800685785 minted a bogus pr513-rebase from
+# a future-tense "rebase" whose own text said to WAIT.
+hr; echo "K — future-tense 'rebase' as subject matter (no @, no imperative) → NO verb job"; hr
+BARE_K="$TR/k.git"; seed_bare "$BARE_K"
+FIX_K="$TR/fix-k.tsv"; RLOG_K="$TR/react-k.log"; : > "$RLOG_K"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T10:00:00Z issue-comment 777 513 kriscendobot \
+  https://github.com/endojs/endo-but-for-bots/pull/513#issuecomment-4800685785 \
+  'A subsequent rebase of this PR onto a fresh `llm` snapshot will pick it up. No action needed here until #528 merges.' > "$FIX_K"
+run_watcher "$TR/state-k" "$BARE_K" "$FIX_K" "$RLOG_K"
+board_has "$BARE_K" "$SLUG-pr513-rebase" && bad "verb-as-subject-matter minted a bogus rebase job (#513 regression)" || ok "no rebase job from a future-tense 'rebase' mention"
+[ "$(todo_count "$BARE_K")" -eq 0 ] && ok "non-imperative verb mention posted no job at all" || bad "posted a job for verb-as-topic (todo=$(todo_count "$BARE_K"))"
+[ ! -s "$RLOG_K" ] && ok "no reactji on a non-directive verb mention" || bad "reactji posted: $(cat "$RLOG_K")"
+[ "$(cursor_seen "$TR/state-k" "$BARE_K")" = 2026-06-25T10:00:00Z ] && ok "cursor slid past the non-actionable verb mention" || bad "cursor did not slide"
+
+hr; echo "L — CHANGES_REQUESTED body discussing a 'rebase' design → reader path, NOT a verb job"; hr
+BARE_L="$TR/l.git"; seed_bare "$BARE_L"
+FIX_L="$TR/fix-l.tsv"; RLOG_L="$TR/react-l.log"; : > "$RLOG_L"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T11:00:00Z pr-review-body 888 526 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/526#pullrequestreview-888 \
+  '[CHANGES_REQUESTED] The clean-rebase git code-mode eval scenario needs deeper folders.' > "$FIX_L"
+run_directive "$TR/state-l" "$BARE_L" "$FIX_L" "$RLOG_L"
+board_has "$BARE_L" "$SLUG-pr526-rebase" && bad "CHANGES_REQUESTED verb-as-topic minted a bogus rebase job (#526 regression)" || ok "no rebase job from a verb discussed in a review body"
+[ "$(todo_count "$BARE_L")" -eq 1 ] && ok "review body routed to the reader (triager fallback) instead" || bad "review body not routed to reader (todo=$(todo_count "$BARE_L"))"
+
+hr; echo "M — @-mention WITH a bare verb ('@bot rebase #57') still fires the table"; hr
+BARE_M="$TR/m.git"; seed_bare "$BARE_M"
+FIX_M="$TR/fix-m.tsv"; RLOG_M="$TR/react-m.log"; : > "$RLOG_M"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T12:00:00Z issue-comment 999 57 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/57#issuecomment-999 \
+  '@kriscendobot rebase #475' > "$FIX_M"
+run_watcher "$TR/state-m" "$BARE_M" "$FIX_M" "$RLOG_M"
+board_has "$BARE_M" "$SLUG-pr57-rebase" && ok "an @-mention licenses the verb table even without 'please'" || bad "@-mention + verb did not mint a rebase job"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
