@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Context for the earlier fixer observation that `@endo/cancel` is not on this PR's base (`llm-44e3b17`): That is correct, and the root cause is now identified. `@endo/cancel` (#345) merged onto the frozen snapshot `llm-5b1361d` on 2026-06-02 but was **never absorbed into live `llm
+
+---
+claim:
+  host: endolinbot
+  gardener: 68
+  claimed_at: 2026-06-25T15:00:07Z
