@@ -56,3 +56,9 @@ the count of files to delete vs references to update, and any piece whose deadne
 confirm. Do not delete anything in this PR.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 17
+  claimed_at: 2026-06-25T22:44:04Z
