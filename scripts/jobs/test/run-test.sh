@@ -713,5 +713,91 @@ set -e
   || bad "give-up not loud (rc=$nl_rc log: $(tr '\n' '|' <"$TR/logs/never-lands.log"))"
 
 # ============================================================================
+hr; echo "SUBTEST 19 — REAPER: requeue lands under contention, claim-strip safe, poison"; hr
+# Dedicated bare so the reaped/poisoned counts are fully controllable.
+RBARE="$TR/reaper.git"; git init -q --bare "$RBARE"
+RSEED="$TR/reaper-seed"; git init -q "$RSEED"; git -C "$RSEED" checkout -q -b "$BRANCH"
+( cd "$RSEED"
+  mkdir -p jobs/todo jobs/doin jobs/tada work inbox/maintainer/unread inbox/maintainer/read
+  for d in jobs/todo jobs/doin jobs/tada work inbox/maintainer/unread inbox/maintainer/read; do touch "$d/.gitkeep"; done
+  # (a) a stale claim whose BODY contains an internal '---' (a Markdown rule).
+  #     The old `sed '/^---$/,$d'` would truncate the body at the FIRST '---';
+  #     the hardened strip must cut only the trailing claim block.
+  {
+    printf '# reap-strip\n\nIntro paragraph.\n\n---\n\nText AFTER an internal horizontal rule.\n'
+    printf '\n---\nclaim:\n  host: deadhost\n  gardener: 99\n  claimed_at: 2020-01-01T00:00:00Z\n'
+  } > jobs/doin/reap-strip.md
+  printf 'host: deadhost\ngardener: 99\nclaimed_at: 2020-01-01T00:00:00Z\nworktree_dir: /nonexistent/reap-strip\n' > work/reap-strip
+  # (b) a stale claim already requeued twice (poison once count reaches threshold 3).
+  {
+    printf '# reap-poison\n\nThis handler fails every time.\n\n<!-- garden-reaped: 2 -->\n'
+    printf '\n---\nclaim:\n  host: deadhost\n  gardener: 98\n  claimed_at: 2020-01-01T00:00:00Z\n'
+  } > jobs/doin/reap-poison.md
+  printf 'host: deadhost\ngardener: 98\nclaimed_at: 2020-01-01T00:00:00Z\nworktree_dir: /nonexistent/reap-poison\n' > work/reap-poison )
+git -C "$RSEED" add -A; git -C "$RSEED" "${git_id[@]}" commit -q -m "seed reaper board (2 stale claims)"
+git -C "$RSEED" remote add origin "$RBARE"; git -C "$RSEED" push -q -u origin "$BRANCH"
+
+export GARDEN_STATE="$TR/state-reap" GARDEN_HOST=reaphost
+# A competing pusher: lose the CAS race the first TWO times the reaper pushes its
+# batch (a competitor lands a commit, making the reaper's push non-fast-forward),
+# then let it land. Proves the reaper RETRIES within the tick instead of conceding
+# the first race and stranding the claims (the 2026-06-25 failure).
+RCOUNT="$TR/reap-pushcount"; : > "$RCOUNT"
+RPUSH="$TR/reap-push.sh"
+cat > "$RPUSH" <<EOF
+#!/bin/bash
+c=\$(cat "$RCOUNT" 2>/dev/null || echo 0); c=\$((c+1)); printf '%s' "\$c" > "$RCOUNT"
+dir="\$GARDEN_PUSH_DIR"
+if [ "\$c" -le 2 ]; then
+  wt=\$(mktemp -d "$TR/rcomp.XXXXXX")
+  git clone -q --single-branch --branch "$BRANCH" "$RBARE" "\$wt"
+  printf '# competitor %s\n' "\$c" > "\$wt/jobs/todo/competitor-\$c.md"
+  git -C "\$wt" add -A; git -C "\$wt" -c user.name=c -c user.email=c@l commit -q -m "competitor \$c"
+  git -C "\$wt" push -q origin "HEAD:$BRANCH"; rm -rf "\$wt"
+  git -C "\$dir" push -q origin "HEAD:$BRANCH" 2>/dev/null   # now non-ff → fails
+  exit \$?
+fi
+git -C "\$dir" push -q origin "HEAD:$BRANCH" 2>/dev/null
+EOF
+chmod +x "$RPUSH"
+
+set +e
+env JOURNAL_REMOTE="$RBARE" GARDEN_REAP_POISON_THRESHOLD=3 GARDEN_PUSH_CMD="$RPUSH" \
+    "$JOBS/reaper.sh" >"$TR/logs/reaper.log" 2>&1
+reap_rc=$?
+set -e
+[ "$reap_rc" -eq 0 ] && ok "reaper exited 0 after losing 2 push races (landed within the tick)" \
+  || bad "reaper exited $reap_rc (log: $(tr '\n' '|' <"$TR/logs/reaper.log"))"
+[ "$(cat "$RCOUNT")" -ge 3 ] && ok "reaper retried its requeue push (≥3 push attempts, not one-and-done)" \
+  || bad "reaper did not retry (push attempts=$(cat "$RCOUNT"))"
+
+RV="$TR/rv"; git clone -q --single-branch --branch "$BRANCH" "$RBARE" "$RV"
+# (a) reap-strip: requeued to todo, claim block stripped, internal '---' preserved
+{ [ -f "$RV/jobs/todo/reap-strip.md" ] && [ ! -e "$RV/jobs/doin/reap-strip.md" ]; } \
+  && ok "stale claim 'reap-strip' requeued doin→todo under contention" \
+  || bad "reap-strip not requeued (todo=$([ -f "$RV/jobs/todo/reap-strip.md" ] && echo y || echo n) doin=$([ -e "$RV/jobs/doin/reap-strip.md" ] && echo y || echo n))"
+if [ -f "$RV/jobs/todo/reap-strip.md" ]; then
+  { grep -qxF -- '---' "$RV/jobs/todo/reap-strip.md" \
+    && grep -qF 'Text AFTER an internal horizontal rule.' "$RV/jobs/todo/reap-strip.md" \
+    && ! grep -q '^claim:' "$RV/jobs/todo/reap-strip.md"; } \
+    && ok "claim-strip preserved the body's internal '---' and dropped the claim block" \
+    || bad "claim-strip damaged the body or left the claim block ($(tr '\n' '|' <"$RV/jobs/todo/reap-strip.md"))"
+  grep -qx '<!-- garden-reaped: 1 -->' "$RV/jobs/todo/reap-strip.md" \
+    && ok "requeued job stamped with reap-count 1" || bad "reap-count marker missing/wrong"
+fi
+# batching: both stale claims moved in ONE commit
+git -C "$RV" log --pretty=%s | grep -q 'reaped 2 stale claim' \
+  && ok "both stale claims reaped in a single batched commit" || bad "reaps not batched into one commit"
+# (b) reap-poison: dropped from the board (not requeued), surfaced to maintainer
+{ [ ! -e "$RV/jobs/todo/reap-poison.md" ] && [ ! -e "$RV/jobs/doin/reap-poison.md" ]; } \
+  && ok "poison job 'reap-poison' dropped from the board (not requeued)" \
+  || bad "reap-poison still on the board"
+pmsg=$(grep -rl 'reap-poison' "$RV/inbox/maintainer/unread" 2>/dev/null | head -1)
+{ [ -n "$pmsg" ] && grep -qi 'POISON' "$pmsg"; } \
+  && ok "poison job surfaced to the maintainer inbox with its body" || bad "no poison alert to maintainer"
+rm -rf "$RV"
+unset JOURNAL_REMOTE
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

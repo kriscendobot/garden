@@ -7,10 +7,33 @@
 # them back to jobs/todo/ (stripping the claim stamp), removes the matching
 # work/<base> record, and best-effort removes any orphaned worktree named by
 # that basename. A gardener that died mid-job thus releases its job back to
-# the pool. Each requeue is its own CAS push (back off on contention).
+# the pool.
 #
 # This is vigil's "idle-but-pending → trigger" decision retargeted from
 # systemd unit state to claim-file age.
+#
+# THE REQUEUE MUST ACTUALLY LAND. The journal is under constant push contention
+# (the bulletin loop, comment-watcher, schedulers, and every gardener push to
+# origin/journal2 all the time). A reaper that attempts each requeue exactly once
+# per tick loses that single CAS race on essentially every tick under steady
+# contention, so a stale claim is requeued NEVER, not "next tick" — exactly the
+# failure observed 2026-06-25 (three jobs stranded 15–19h, "lost a race; will
+# retry next reaper tick" logged every tick, hand-requeued in the end). So this
+# reaper:
+#   1. RETRIES the requeue within the tick (a bounded sync→stage→commit→push loop
+#      like post-job.sh), reusing the hardened commit_and_push (verify-after-push)
+#      so a "succeeded but didn't land" push also retries — it concedes the first
+#      race but not the tick.
+#   2. BATCHES the tick's reaps into ONE commit+push, so N stale claims cost one
+#      race, not N races each of which can be lost.
+#   3. Strips ONLY the trailing claim block (anchored on the `---` that precedes
+#      `claim:`), so a job body that itself contains a `---` (a Markdown rule or
+#      embedded frontmatter) is not truncated.
+#   4. Counts requeue cycles per job (a `<!-- garden-reaped: N -->` marker carried
+#      in the body across cycles). A job whose handler fails every time would loop
+#      forever; after GARDEN_REAP_POISON_THRESHOLD cycles it is surfaced to the
+#      maintainer inbox as a POISON job and dropped from the board rather than
+#      requeued again.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -18,8 +41,16 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="reaper"
 
-: "${GARDEN_CLAIM_TTL:=3600}"   # seconds a claim may sit in doin before reaping
-: "${GARDEN_FETCH_REAP_AGE:=120}"  # seconds a `git fetch` may run before it is killed
+: "${GARDEN_CLAIM_TTL:=3600}"          # seconds a claim may sit in doin before reaping
+: "${GARDEN_FETCH_REAP_AGE:=120}"      # seconds a `git fetch` may run before it is killed
+: "${GARDEN_REAP_PUSH_ATTEMPTS:=50}"   # bounded retries for the batched requeue push (CAS contention)
+: "${GARDEN_REAP_POISON_THRESHOLD:=5}" # requeue cycles after which a job is surfaced as poison, not requeued
+
+# Marker the reaper stamps into a requeued job body to count requeue cycles. It
+# is an HTML comment so it is invisible in rendered Markdown, and it survives both
+# the claim-block strip (it lives in the body, above the trailing claim block) and
+# a re-claim (claim-job appends its stamp BELOW the body).
+REAP_MARKER_RE='^<!-- garden-reaped: [0-9][0-9]* -->$'
 
 # --- stuck-fetch janitor -----------------------------------------------------
 #
@@ -53,6 +84,30 @@ reap_stuck_fetches() {
   return 0
 }
 
+# clean_body <doin-file> — print the job body with the trailing claim block, the
+# reap-count markers, and any trailing blank lines removed. The claim block is
+# anchored on the `---` line IMMEDIATELY followed by `claim:` (the shape
+# claim-job.sh appends), and only the LAST such pair is the cut point — so a body
+# that itself contains a `---` rule is preserved intact. If no claim block is
+# found the body is returned unchanged (never blindly truncated at a stray `---`).
+clean_body() {
+  awk -v mark="$REAP_MARKER_RE" '
+    { line[NR] = $0 }
+    END {
+      cut = 0
+      for (i = 1; i < NR; i++) if (line[i] == "---" && line[i+1] == "claim:") cut = i
+      end = (cut > 0) ? cut - 1 : NR
+      m = 0
+      for (i = 1; i <= end; i++) {
+        if (line[i] ~ mark) continue          # drop prior reap-count markers
+        out[++m] = line[i]
+      }
+      while (m > 0 && out[m] ~ /^[ \t]*$/) m--  # trim trailing blank lines
+      for (i = 1; i <= m; i++) print out[i]
+    }
+  ' "$1"
+}
+
 # Reap stuck fetches FIRST: if the reaper's own sync_clone below would contend
 # for a clone lock held by a hung fetch, clearing the hang first lets this very
 # tick proceed instead of blocking behind it.
@@ -62,11 +117,10 @@ DIR="${GARDEN_REAPER_CLONE:-$GARDEN_STATE/reaper/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
+# --- 1. detect the stale set -------------------------------------------------
 now="$(date -u +%s)"
-reaped=0
+declare -a STALE=()
 for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
-  # board files carry .md; the work/ spine key is extensionless.
-  spine="${base%.md}"
   f="$DIR/$JOBS_DOIN/$base"
   claimed_at="$(sed -n 's/^  claimed_at: //p' "$f" | head -1)"
   ts=0; [ -n "$claimed_at" ] && ts="$(date -u -d "$claimed_at" +%s 2>/dev/null || echo 0)"
@@ -74,9 +128,19 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   if [ "$ts" -eq 0 ] || [ "$age" -lt "$GARDEN_CLAIM_TTL" ]; then
     continue
   fi
-  log "reaping '$base' (age ${age}s ≥ TTL ${GARDEN_CLAIM_TTL}s)"
+  log "stale: '$base' (age ${age}s ≥ TTL ${GARDEN_CLAIM_TTL}s)"
+  STALE+=("$base")
+done
 
-  # best-effort orphaned-worktree cleanup from the work/ record
+if [ "${#STALE[@]}" -eq 0 ]; then
+  clone_unlock "$DIR"
+  log "no stale claims"
+  exit 0
+fi
+
+# --- 2. best-effort orphaned-worktree cleanup (once, before the push loop) ----
+for base in "${STALE[@]}"; do
+  spine="${base%.md}"
   wt="$(sed -n 's/^worktree_dir: //p' "$DIR/work/$spine" 2>/dev/null | head -1)"
   if [ -n "$wt" ] && [ -d "$wt" ]; then
     git -C "$wt" rev-parse --is-inside-work-tree >/dev/null 2>&1 \
@@ -84,19 +148,89 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
       || rm -rf "$wt" 2>/dev/null || true
     log "removed orphaned worktree $wt"
   fi
-
-  sync_clone "$DIR"
-  [ -e "$f" ] || { log "'$base' already moved by someone else; skip"; continue; }
-  # strip the appended claim stamp (everything from the trailing '---' marker)
-  mkdir -p "$DIR/$JOBS_TODO"
-  sed '/^---$/,$d' "$f" > "$DIR/$JOBS_TODO/$base"
-  git -C "$DIR" rm -q "$JOBS_DOIN/$base"
-  [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
-  git -C "$DIR" add "$JOBS_TODO/$base"
-  if commit_and_push "$DIR" "requeue($base) reaped stale claim by $GARDEN_HOST"; then
-    reaped=$((reaped+1))
-  else
-    log "requeue of '$base' lost a race; will retry next reaper tick"
-  fi
 done
-log "reaped $reaped stale claim(s)"
+
+# --- 3. batch-requeue with bounded retry (the land-within-a-tick fix) ---------
+#
+# Each attempt re-syncs (so we rebase onto the latest tip, the same way a lost
+# CAS forces), re-stages every still-present stale claim, and pushes the whole
+# batch as ONE commit. A poison job (too many requeue cycles) is removed from the
+# board and queued for a maintainer alert flushed only after the board change
+# lands. sync_clone holds the per-clone lock through commit_and_push, which
+# releases it; on a non-final failed attempt we keep looping (sync_clone re-takes
+# the lock re-entrantly).
+reaped=0
+poisoned=0
+staged=0
+declare -a POISON_BASE=() POISON_BODY=() POISON_COUNT=()
+for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
+  sync_clone "$DIR"
+  staged=0
+  POISON_BASE=(); POISON_BODY=(); POISON_COUNT=()
+  mkdir -p "$DIR/$JOBS_TODO"
+  for base in "${STALE[@]}"; do
+    spine="${base%.md}"
+    f="$DIR/$JOBS_DOIN/$base"
+    [ -e "$f" ] || { log "'$base' already moved by someone else; skip"; continue; }
+
+    prev="$(sed -n 's/^<!-- garden-reaped: \([0-9][0-9]*\) -->$/\1/p' "$f" | tail -1)"
+    [ -n "${prev:-}" ] || prev=0
+    count=$(( prev + 1 ))
+    body="$(clean_body "$f")"
+
+    if [ "$count" -ge "$GARDEN_REAP_POISON_THRESHOLD" ]; then
+      # Poison: drop from the board (do NOT requeue) and remember it for a
+      # post-push maintainer alert so a job whose handler fails every time does
+      # not loop forever invisibly. Its full body goes to the maintainer so the
+      # intent is preserved, not lost.
+      git -C "$DIR" rm -q "$JOBS_DOIN/$base"
+      [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
+      [ -d "$DIR/inbox/$spine" ] && git -C "$DIR" rm -qr "inbox/$spine"
+      POISON_BASE+=("$spine"); POISON_BODY+=("$body"); POISON_COUNT+=("$count")
+    else
+      {
+        printf '%s\n' "$body"
+        printf '\n<!-- garden-reaped: %s -->\n' "$count"
+      } > "$DIR/$JOBS_TODO/$base"
+      git -C "$DIR" rm -q "$JOBS_DOIN/$base"
+      [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
+      git -C "$DIR" add "$JOBS_TODO/$base"
+    fi
+    staged=$(( staged + 1 ))
+  done
+
+  if [ "$staged" -eq 0 ]; then
+    clone_unlock "$DIR"
+    log "nothing left to reap (all claims moved by peers)"
+    break
+  fi
+
+  if commit_and_push "$DIR" "requeue: reaped $staged stale claim(s) by $GARDEN_HOST"; then
+    poisoned=${#POISON_BASE[@]}
+    reaped=$(( staged - poisoned ))
+    # Flush poison alerts only AFTER the board change has landed, so a maintainer
+    # is told only about jobs actually removed from the board.
+    for i in "${!POISON_BASE[@]}"; do
+      pbase="${POISON_BASE[$i]}"
+      log "POISON: '$pbase' reaped ${POISON_COUNT[$i]}× (≥ ${GARDEN_REAP_POISON_THRESHOLD}); dropped from board, surfacing to maintainer"
+      {
+        printf 'POISON job dropped from the board after %s requeue cycles on %s.\n' \
+               "${POISON_COUNT[$i]}" "$GARDEN_HOST"
+        printf 'Its handler appears to fail every time; the reaper stopped requeueing it.\n'
+        printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
+               "$pbase" "${POISON_BODY[$i]}"
+      } | GARDEN_SENDER="reaper:$GARDEN_HOST" \
+          "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 \
+        || log "WARNING: could not surface poison job '$pbase' to maintainer inbox"
+    done
+    break
+  fi
+  log "batch requeue lost a push race (attempt $attempt/$GARDEN_REAP_PUSH_ATTEMPTS); re-syncing"
+  backoff
+done
+
+if [ "$reaped" -eq 0 ] && [ "$poisoned" -eq 0 ] && [ "$staged" -ne 0 ]; then
+  log "FAILED to land requeue of ${#STALE[@]} stale claim(s) after $GARDEN_REAP_PUSH_ATTEMPTS attempts"
+  exit 1
+fi
+log "reaped $reaped stale claim(s); poisoned $poisoned"
