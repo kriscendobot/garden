@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T18:51:23Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-25T19:02:43Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,11 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Garden infrastructure work landed: a deterministic pre-PR verification harness, a dedicated gitignored scratch tree for job worktrees, a comment-watcher fix that now captures the whole review as one unit, and a fuzzy-ranked top-10 parked-PR queue on this dashboard. A new `add-plan-job-category` job just opened to carve out a "plan" board category for work gated on maintainer go-ahead, joining active threads on the plan-in-journal implementation (garden#4, Phase 0), three compartment-mapper archival fixes (ESM dynamic `import()`, exit-module reexport, CJS missing-deps), and the scholar's cask ingest. On the PR side, [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) cleared its panel with the verdict posted and is now waiting on CI before the terminal un-draft. The parked queue still wants a human: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (new @endo/pubsub) has been waiting 3h, with [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) all parked a day or more.
+Two directives on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) — an attention directive and a separate review directive — were just claimed off the board and are now in progress. Ahead of them, recent garden-infrastructure work landed: a deterministic, silent-by-default local pre-PR verification harness, a comment-watcher fix that now captures the whole review as one unit rather than just the mapped verb, a dedicated gitignored scratch tree for job worktrees, and the fuzzy recency-plus-roadmap ranking that trims the parked-PR queue to a top ten. On the fork side, the [endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) gauntlet finished its panel and posted a verdict; it is holding for CI before the terminal un-draft. Nothing new is parked for the maintainer beyond the standing queue, topped by the 4-hour-old [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) pubsub PR.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 3h)
-- [endojs/endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) — feat(daemon-cas): extract CAS surface into @endo/daemon-cas (waiting 1d)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 4h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
@@ -24,8 +23,9 @@ Garden infrastructure work landed: a deterministic pre-PR verification harness, 
 - [endojs/endo-but-for-bots#231](https://github.com/endojs/endo-but-for-bots/pull/231) — design(familiar): MVR release plan (closes #229) (waiting 24d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 34d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 34d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 35d)
 
-_Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 (no pending maintainer messages)
@@ -34,8 +34,10 @@ _Showing top 10 of 32 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (9)
 - `add-plan-job-category` — Add a "plan" job-board category for jobs gated on maintainer go-ahead or defe...
+- `endojs-endo-but-for-bots-pr442-cebb93dd` — attention directive on endojs/endo-but-for-bots PR #442
+- `endojs-endo-but-for-bots-pr442-review-b7f5f9e9` — Review directive on endojs/endo-but-for-bots PR #442
 - `fix-compartment-mapper-archive-exit-reexport` — Fix compartment-mapper: archive exit-module via modules map fails through a r...
 - `fix-compartment-mapper-bundle-missing-deps` — Fix compartment-mapper: CJS bundler aborts on missing/optional internal modul...
 - `fix-compartment-mapper-esm-dynamic-import-archival` — Fix compartment-mapper: ESM dynamic import() not traced during archival (on m...
