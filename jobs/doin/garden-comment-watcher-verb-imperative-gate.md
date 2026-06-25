@@ -34,3 +34,9 @@ as the canonical verb-as-subject-matter case for the fixed table (the prior fix
 covered a different table).
 
 Build in an isolated worktree off origin/main2 per garden infra-job convention.
+
+---
+claim:
+  host: endolinbot
+  gardener: 99
+  claimed_at: 2026-06-25T15:03:46Z
