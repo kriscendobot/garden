@@ -41,3 +41,9 @@ origin/main2 (the shared /home/kris main2 tree is concurrently mutated); commit
 explicit pathspecs; push HEAD:main2. Do not `git reset --hard`.
 
 Source PR for the false-positive: https://github.com/endojs/endo-but-for-bots/pull/526
+
+---
+claim:
+  host: endolinbot
+  gardener: 11
+  claimed_at: 2026-06-25T14:43:59Z

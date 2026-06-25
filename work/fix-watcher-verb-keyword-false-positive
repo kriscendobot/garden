@@ -1,0 +1,4 @@
+host: endolinbot
+gardener: 11
+claimed_at: 2026-06-25T14:43:59Z
+worktree_dir: /home/kris/worktrees/fix-watcher-verb-keyword-false-positive
