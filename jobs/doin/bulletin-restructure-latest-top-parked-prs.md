@@ -65,3 +65,9 @@ the parked-PR query used + throttle interval, and a sample rendering. If blocked
 diagnosis and ready-to-apply content rather than claiming completion.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 73
+  claimed_at: 2026-06-25T17:32:06Z
