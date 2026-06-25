@@ -427,5 +427,55 @@ EOF
 fi
 
 # ============================================================================
+# R/S — the WHOLE review is the unit: a trusted review whose body carries a VERB
+# plus other asks must mint ONE per-review `review` job (body + enumerate-ALL-inline
+# instruction, the verb noted as PRIMARY) — NOT a verb-only job that drops the rest.
+# Canonical case: endo-but-for-bots #528 (review 4573773954) said "Reconstruct the
+# original title and description. Run the gauntlet once more." with an inline
+# banner-comment note; the watcher mapped `gauntlet` and dropped the rest.
+review_job_body() {  # review_job_body <bare> <pr>  -> cat the single per-review job
+  local v f; v="$(mktemp -d "$TR/rj.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  f="$(ls -1 "$v"/jobs/todo/"$SLUG-pr$2-review-"*.md 2>/dev/null | head -1)"
+  [ -n "$f" ] && cat "$f"
+  rm -rf "$v"
+}
+
+hr; echo "R — trusted review with a VERB in body → ONE bundle job, not a verb-only job"; hr
+BARE_R="$TR/r.git"; seed_bare "$BARE_R"
+FIX_R="$TR/fix-r.tsv"; RLOG_R="$TR/react-r.log"; : > "$RLOG_R"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T15:00:00Z pr-review-body 4573773954 528 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/528#pullrequestreview-4573773954 \
+  '[INLINE-REVIEW] Reconstruct the original title and description. Run the gauntlet once more.' > "$FIX_R"
+run_directive "$TR/state-r" "$BARE_R" "$FIX_R" "$RLOG_R"
+board_has "$BARE_R" "$SLUG-pr528-gauntlet" && bad "minted a verb-only gauntlet job (dropped the rest of the review)" || ok "no verb-only gauntlet job (the verb did not short-circuit the review)"
+[ "$(todo_glob "$BARE_R" "^$SLUG-pr528-review-")" -eq 1 ] && ok "exactly one per-review 'review' job minted" || bad "no per-review 'review' job (todo=$(todo_count "$BARE_R"))"
+[ "$(todo_count "$BARE_R")" -eq 1 ] && ok "exactly one job total for the review" || bad "expected one job, got $(todo_count "$BARE_R")"
+RBODY="$(review_job_body "$BARE_R" 528)"
+printf '%s' "$RBODY" | grep -qi 'WHOLE review' && ok "review job frames the WHOLE review as the unit" || bad "review job not framed as whole-review"
+printf '%s' "$RBODY" | grep -qi 'gauntlet' && ok "review job notes the verb (gauntlet) as the primary action" || bad "review job dropped the verb action"
+printf '%s' "$RBODY" | grep -qi 'primary action' && ok "the verb is labelled PRIMARY (one item, not the whole job)" || bad "verb not labelled primary"
+printf '%s' "$RBODY" | grep -q 'pull_request_review_id' && ok "review job instructs enumerating ALL inline comments" || bad "review job missing inline-enumeration instruction"
+[ ! -s "$RLOG_R" ] && ok "no reactji on a review body (the job is the response)" || bad "reactji posted on a review body: $(cat "$RLOG_R")"
+[ "$(cursor_seen "$TR/state-r" "$BARE_R")" = 2026-06-25T15:00:00Z ] && ok "cursor advanced past the actioned review" || bad "cursor not advanced"
+# re-poll → idempotent (same review id → same base → no dup)
+run_directive "$TR/state-r" "$BARE_R" "$FIX_R" "$RLOG_R"
+[ "$(todo_glob "$BARE_R" "^$SLUG-pr528-review-")" -eq 1 ] && ok "re-poll of the same review is idempotent (still one job)" || bad "review job duplicated on re-poll"
+
+hr; echo "S — trusted CHANGES_REQUESTED review (no verb) → ONE bundle job, not a reader-fallback"; hr
+BARE_S="$TR/s.git"; seed_bare "$BARE_S"
+FIX_S="$TR/fix-s.tsv"; RLOG_S="$TR/react-s.log"; : > "$RLOG_S"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-25T15:30:00Z pr-review-body 4573800000 530 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/530#pullrequestreview-4573800000 \
+  '[CHANGES_REQUESTED] Please also update the changelog and rename the helper.' > "$FIX_S"
+run_directive "$TR/state-s" "$BARE_S" "$FIX_S" "$RLOG_S"
+[ "$(todo_glob "$BARE_S" "^$SLUG-pr530-review-")" -eq 1 ] && ok "CHANGES_REQUESTED review bundled into one per-review job" || bad "CHANGES_REQUESTED review not bundled (todo=$(todo_count "$BARE_S"))"
+[ "$(todo_count "$BARE_S")" -eq 1 ] && ok "exactly one job for the CHANGES_REQUESTED review" || bad "expected one job, got $(todo_count "$BARE_S")"
+SBODY="$(review_job_body "$BARE_S" 530)"
+printf '%s' "$SBODY" | grep -q 'pull_request_review_id' && ok "the bundle instructs enumerating every inline comment" || bad "bundle missing inline-enumeration instruction"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
