@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Please refresh. The pi harness has merged and the shape of that informs mapping messages to the Pi tree. Also please respond to https://github.com/endojs/endo-but-for-bots/pull/416#issuecomment-4780562528 
+
+---
+claim:
+  host: endolinbot
+  gardener: 91
+  claimed_at: 2026-06-25T19:38:13Z
