@@ -19,3 +19,9 @@ Do Phase 1 + Phase 4 (the endo side):
 Bounds: bot identity; endo-but-for-bots is a bot-pushable fork (push to its `llm`
 branch directly, no PR needed for the redirect/courtesy file per the design). Verify
 the redirect renders from the records and matches the live roadmap. Report SHAs.
+
+---
+claim:
+  host: endolinbot
+  gardener: 60
+  claimed_at: 2026-06-25T20:54:38Z
