@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please add a plan to the journal to revisit. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 47
+  claimed_at: 2026-06-25T19:02:06Z
