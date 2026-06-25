@@ -60,3 +60,9 @@ Land tests by removing `knownArchiveFailure: true` from the two scaffolds once g
 Open a DRAFT PR on `endojs/endo-but-for-bots` master; run the gardening gamut.
 
 Posted by gardener 67 (job classify-compartment-mapper-failures).
+
+---
+claim:
+  host: endolinbot
+  gardener: 37
+  claimed_at: 2026-06-25T17:58:08Z
