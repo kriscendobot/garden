@@ -16,6 +16,7 @@ is a **generated aggregation** of them — never hand-edited.
 | `render.sh` | Aggregate the records into the roadmap view (`journal/plan/README.md`): per-design table, per-milestone rollup, Mermaid dependency graph. Deterministic (no clock, no network) so it is multi-host idempotent and change-gated. |
 | `reconcile.sh` | Advance each record's `status`/`pr` against actual PR + board state; auto-flip to Complete on a detected merge, with an audit note. Mutates records; the caller commits. |
 | `import-endo.sh` | The one-time import of the endo v1 plan (`endojs/endo-but-for-bots:llm` `designs/README.md` + per-design narratives) into the record set. |
+| `render-endo-redirect.sh` | Generate the **non-authoritative** redirect copy of the endo design index for `endojs/endo-but-for-bots:llm` `designs/README.md`: a courtesy pointer (header + link to the journal plan + the Design/Created/Updated/Status table) for human readers browsing the fork. Filtered to records targeting `endo-but-for-bots`; deterministic (no clock, no network) so the weekly regeneration only pushes on a real record change. Kept indefinitely per the design. |
 
 ## Where each runs
 
@@ -32,6 +33,12 @@ is a **generated aggregation** of them — never hand-edited.
 - **The bulletin's parked-PR ranking** (`roadmap_index` in `bulletin.sh`) reads the
   records' `pr:` + `milestone:` frontmatter to rank the maintainer's review queue by
   roadmap position; it degrades to recency-only when no record maps a parked PR.
+- **The endo redirect** (`render-endo-redirect.sh`) regenerates on the **weekly
+  Sunday recalibration job**, not on the bulletin loop: it writes to a *different
+  repository* (the `endo-but-for-bots` `llm` branch) and so needs a network push at
+  the slower cadence, unlike the journal-local `render.sh`. The weekly job pushes the
+  fork's `designs/README.md` change-gated (deterministic output, so a no-op week makes
+  no push).
 
 ## Cutover state (per designs/plan-in-journal.md Migration phases)
 
@@ -40,6 +47,12 @@ is a **generated aggregation** of them — never hand-edited.
 - **Phase 2 bulletin / foreman:** done — `roadmap_index` already reads the journal
   plan tree; `foreman-claude.sh` reads `journal/plan/` instead of the endo `llm`
   `designs/README.md`.
-- **Phase 1 endo redirect, Phase 3 cross-repo records (garden/endo), Phase 4 retire
-  the endo CLAUDE.md discipline, continuous gh reconcile:** tracked as follow-on
-  `implement-plan-*` jobs.
+- **Phase 1 (endo redirect):** done — `render-endo-redirect.sh` generates the
+  non-authoritative courtesy redirect into the endo fork's `designs/README.md`;
+  regenerated on the weekly recalibration job and kept indefinitely.
+- **Phase 4 (retire the manual sync discipline):** done — the endo `designs/CLAUDE.md`
+  "Cross-document" synchronization discipline is replaced by a pointer to the journal
+  plan and the reconciler; the per-design narratives are mirrored from the journal
+  record bodies.
+- **Phase 3 cross-repo records (garden/endo) and continuous gh reconcile:** tracked as
+  follow-on `implement-plan-*` jobs.
