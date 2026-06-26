@@ -68,3 +68,9 @@ by historical-or-speculated series — tested and green, with follow-on jobs pos
 Report what the eval shows about the forecaster and the risk/reward frontier.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 64
+  claimed_at: 2026-06-26T05:44:12Z
