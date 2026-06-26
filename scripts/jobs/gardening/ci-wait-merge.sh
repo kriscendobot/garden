@@ -14,10 +14,25 @@
 #     events do NOT appear on the events feed; see skills/pr-ci-watch) on a real
 #     timeout/backoff cadence until every check has SETTLED (no QUEUED/IN_PROGRESS/
 #     PENDING/WAITING left), or the overall deadline passes.
-#   * On GREEN terminal (no failures) and --merge (default): `"$GH" pr merge --merge
-#     --delete-branch`, then VERIFY state=MERGED. Issuing the merge in the same
-#     invocation as the wait is the whole point — never "wait, exit, hope a later
-#     tick merges".
+#   * On GREEN terminal (no failures) and --merge (default): first UNFREEZE the
+#     base if it is a frozen snapshot (conductor step 2 — see below), then
+#     `"$GH" pr merge --merge --delete-branch`, then VERIFY state=MERGED. Issuing
+#     the merge in the same invocation as the wait is the whole point — never
+#     "wait, exit, hope a later tick merges".
+#   * UNFREEZE-TO-LIVE (conductor step 2): a fork-side PR opened under the
+#     frozen-base-branch convention targets a snapshot named `<branch>-<sha>`
+#     (e.g. `llm-65b0abe`) so a stacked PR's base does not move under it. Merging
+#     onto the snapshot strands the content there — it never reaches the live
+#     trunk (`llm`/`main`/`master`); endo-but-for-bots #510 merged onto
+#     `llm-65b0abe` (186 commits behind live `llm`) and its content never landed.
+#     Before merging, if the base matches the frozen pattern this spine re-points
+#     the PR at the live trunk (`gh pr edit --base <branch>`) so the merge lands on
+#     the trunk. SHARED-STACK SAFETY: if OTHER open PRs sit on the same frozen base
+#     (a stack, e.g. #510/#521), re-pointing one alone would fork it off the shared
+#     base — so the spine does NOT touch it; it alerts the maintainer with the
+#     specific stack and stalls (exit 1) rather than silently stranding OR
+#     force-forking. See roles/conductor/AGENT.md § Loop step 2 and
+#     skills/frozen-base-branch § Unfreeze before merge.
 #   * On RED terminal: print the failing checks and exit 3 (the conductor stalls
 #     `ci red: needs shepherd`; it does NOT merge red).
 #   * On TIMEOUT while still pending: exit 4 — CI is NOT a terminal state, so the
@@ -29,7 +44,8 @@
 #   2  already CLOSED on entry                      → nothing to finalize
 #   3  CI red (terminal failure)                    → stall: needs shepherd
 #   4  timed out with CI still pending              → re-enqueue, still unmerged
-#   1  hard error / merge blocked / not mergeable   → stall with the gh error
+#   1  hard error / merge blocked / not mergeable / frozen base shared by a
+#      sibling stack (maintainer alerted)           → stall
 #
 # --no-merge makes it a pure block-until-CI-terminal probe (exit 0 = green,
 # 3 = red, 4 = timeout) for callers that drive the merge themselves.
@@ -121,6 +137,56 @@ print_failures() {
 # A persistent read failure must NOT loop past the deadline. Honor the same bound
 # the pending branch does, so a flapping gh/network can never spin unbounded.
 past_deadline() { [ $(( $(date +%s) - start )) -ge "$deadline_secs" ]; }
+
+# --- conductor step 2: unfreeze a frozen-base snapshot to the live trunk ------
+# A fork-side PR opened under the frozen-base-branch convention targets a snapshot
+# named `<branch>-<sha>`. Merging onto the snapshot strands the content there; the
+# live trunk never absorbs it (the #510 → llm-65b0abe bug). Before merging,
+# re-point the PR at the live trunk so the merge lands on the trunk — UNLESS other
+# open PRs share the same frozen base (a stack), in which case re-pointing this one
+# alone would fork the stack off the shared base; then alert the maintainer with
+# the specific stack and refuse to merge (neither strand nor force-fork).
+#
+# Returns:
+#   0  base is already live, or it was successfully unfrozen → proceed to merge
+#   10 frozen base shared by a sibling stack → maintainer alerted; do NOT merge
+unfreeze_base_if_frozen() {
+  local meta state base live count nums
+  meta="$("$GH" pr view "$pr" -R "$repo" --json state,baseRefName 2>/dev/null)" \
+    || { log "gh pr view (baseRefName) $repo#$pr failed — skipping unfreeze check"; return 0; }
+  [ -n "$meta" ] || return 0
+  state="$(printf '%s' "$meta" | jq -r '.state // ""')"
+  base="$(printf '%s' "$meta" | jq -r '.baseRefName // ""')"
+  # Only an OPEN PR can be unfrozen; the wait loop handles terminal states.
+  [ "$state" = OPEN ] || return 0
+  # Frozen-base pattern: <live-branch>-<4..40 hex>. A live trunk (no -<sha>) skips.
+  [[ "$base" =~ ^(llm|main|master)-[0-9a-f]{4,40}$ ]] || return 0
+  live="${base%-*}"   # llm-65b0abe → llm; master-c49fb04 → master
+  # Shared-stack safety: count OPEN PRs sitting on this frozen base (incl. self).
+  count="$("$GH" pr list -R "$repo" --search "base:$base is:open" --json number --jq 'length' 2>/dev/null || echo 1)"
+  case "$count" in ''|*[!0-9]*) count=1 ;; esac
+  if [ "$count" -gt 1 ]; then
+    nums="$("$GH" pr list -R "$repo" --search "base:$base is:open" --json number --jq '[.[].number]|join(", #")' 2>/dev/null || echo '?')"
+    alert_maintainer "shared-frozen-base-${repo//\//_}-$base" \
+      "conductor unfreeze BLOCKED for $repo#$pr: frozen base '$base' is shared by open PRs (#$nums). Forwarding #$pr to live '$live' alone would fork the stack off the shared base. Weave the stack forward together, or merge them in dependency order — do not let me do it unilaterally. (#$pr left on the snapshot: not stranded silently, not force-forked.)"
+    echo "unfreeze-blocked repo=$repo pr=$pr base=$base shared-with=#$nums → alerted maintainer, NOT merging"
+    return 10
+  fi
+  if "$GH" pr edit "$pr" -R "$repo" --base "$live" >/dev/null 2>&1; then
+    echo "unfroze repo=$repo pr=$pr base=$base → $live (live trunk) before merge"
+    return 0
+  fi
+  log "gh pr edit --base $live failed for $repo#$pr — proceeding; the merge will block if the base is wrong rather than strand"
+  return 0
+}
+
+# --- conductor step 2: unfreeze before the wait/merge -----------------------
+# Re-point a frozen-base PR at the live trunk now, so any base-change-triggered CI
+# is awaited by the loop below and the eventual merge lands on the trunk. Skipped
+# for --no-merge probes (they do not merge, so they must not mutate the PR's base).
+if [ "$do_merge" -eq 1 ]; then
+  unfreeze_base_if_frozen || { rc=$?; [ "$rc" -eq 10 ] && exit 1; }
+fi
 
 # --- block until CI is terminal (or the deadline passes) --------------------
 while :; do
