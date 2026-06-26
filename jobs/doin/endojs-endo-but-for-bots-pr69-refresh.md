@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 > I can refresh the screenshot if you would like it updated in the PR. @kriscendobot  Yes, please do. Once this is all merged into endojs/endo itself, please prepare a separate PR in which such an active page is findable starting from endojs/endo/packages/pass-style . 
+
+---
+claim:
+  host: endolinbot
+  gardener: 32
+  claimed_at: 2026-06-26T02:59:09Z
