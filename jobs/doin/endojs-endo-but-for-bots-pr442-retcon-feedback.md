@@ -44,3 +44,9 @@ with a summary comment — left for re-review. Report the retcon head SHA, the p
 status.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 58
+  claimed_at: 2026-06-26T07:25:20Z
