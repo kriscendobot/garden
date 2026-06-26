@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:01:04Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:04:14Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The lone board move this cycle: the [sturdyref-retention-competing-design-pair](https://github.com/endojs/endo-but-for-bots/pull/500) job completed, so the competing SturdyRef-retention plans [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) and [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) are now fully aligned, compared side-by-side, and parked for kriskowal's decision. A two-juror design panel (determinism and user-agency lenses) independently converged on the same answer: synthesize with #510's daemon-owned retain/release syscall as the spine, grafting #511's proactive per-turn export deletion as a hard requirement and its FinalizationRegistry as an optional off-by-default leak-detector. The full rationale is on [endo-but-for-bots#500](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325); the report also flags a typo to fix before it sets a public name — `getStudyRefLocator` should be `getSturdyRefLocator` in [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521). Separately, a routing question awaits a call: a mention on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) (authored by 0xpatrickbot, not kriscendobot) was triaged because the watcher gates on sender trust alone, and 0xpatrickdev suggests adding an authorship gate so kriscendobot only acts on PRs it authored.
+A code review of [endo-but-for-bots#527](https://github.com/endojs/endo-but-for-bots/pull/527) finished and the PR is now in front of a shepherd to drive its CI; a conductor-hardening job is also underway to make the merge step wait for CI to actually settle rather than ending while a watch is still pending. The competing SturdyRef design pair, [#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [#511](https://github.com/endojs/endo-but-for-bots/pull/511), is complete and compared: a two-juror panel converged on synthesizing the two with #510's daemon-owned retain/release syscall as the spine, and that decision is parked for the maintainer ([side-by-side rationale](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325)). Two items want a human call — whether to add an authorship gate to kriscendobot's mention triage after it acted on [#525](https://github.com/endojs/endo-but-for-bots/pull/525) (another bot's PR, though the help was welcomed), and a `getStudyRefLocator`→`getSturdyRefLocator` typo in [#521](https://github.com/endojs/endo-but-for-bots/pull/521)'s shipped surface worth fixing before it sets the public name.
 
 ## Parked for maintainer feedback
 
@@ -55,18 +55,19 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
 - `design-mcp-oauth-aws-minion-town` — Design an MCP server with OAuth authN/authZ — great local DX + AWS-deployable...
-- `endojs-endo-but-for-bots-pr527-review-0fb462c4` — Review directive on endojs/endo-but-for-bots PR #527
+- `endojs-endo-but-for-bots-pr527-shepherd` — shepherd directive on endojs/endo-but-for-bots PR #527
+- `harden-conductor-ci-wait-complete-merge` — Harden the conductor's CI-wait: complete the merge, don't end the job while w...
 
-### tada (195)
+### tada (196)
+- `endojs-endo-but-for-bots-pr527-review-0fb462c4` — Completion report
 - `sturdyref-retention-competing-design-pair` — Completion report: sturdyref-retention-competing-design-pair
 - `endojs-endo-but-for-bots-pr178-finish-merge-llm` — Waiting for the background CI watch to settle. Nothing more to do until then.
 - `endojs-endo-but-for-bots-pr69-d9e42969` — The directive is handled. Final report below.
 - `endojs-endo-but-for-bots-pr507-rebase` — Completion report: endojs-endo-but-for-bots-pr507-rebase
-- `scholar-ingest-cask-18` — Completion report — scholar-ingest-cask-18 (cycle 18)
-- … and 190 more
+- … and 191 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
