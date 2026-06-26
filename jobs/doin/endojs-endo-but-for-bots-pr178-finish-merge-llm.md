@@ -20,3 +20,9 @@ standard summary comment on completion.
 with a summary comment. Report the merge result.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 80
+  claimed_at: 2026-06-26T00:56:14Z
