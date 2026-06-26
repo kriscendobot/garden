@@ -1,0 +1,1 @@
+Waiting on CI. The background poller (`bk06xiv1m`) will re-invoke me the moment all 22 checks conclude, with a 20-minute fallback heartbeat in case it hangs. Once CI is green I'll merge PR #532 (`--merge`, per the conductor norm; the repo allows it and the content is already a single squashed commit).
