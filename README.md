@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T06:52:50Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T06:54:53Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,12 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener just claimed [mirror-endo-3137](https://github.com/endojs/endo/pull/3137), beginning the mirror of the TypeScript-runtime-modules PR onto endo-but-for-bots; that work joins two still-in-flight reviews — the directive on [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) and the long-running `finbot-additional-instruments` portfolio goal. On the finbot front, four pieces landed since the last bulletin — the cyclical forecaster, richer instrument models, volatility-tolerance elicitation, and a stream flatMap reader design — alongside a completed review pass on [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539). Nothing is currently parked in a maintainer message queue, but the review backlog remains long, with the byte-arrays PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) now waiting 10 hours and the TypeScript-modules upstream [endo#3137](https://github.com/endojs/endo/pull/3137) at 10 days.
+The review pass on [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) finished and closed out, the last of a long completion streak. A gardener has just claimed `garden-encode-initial-changelog-convention` (encoding the new-package changelog/version convention into garden guidance), which now runs alongside the finbot multi-instrument-portfolio build and the effort to mirror [endo#3137](https://github.com/endojs/endo/pull/3137) onto endo-but-for-bots. The board is otherwise drained — nothing waiting in todo — so the maintainer's attention is best spent on the parked queue, where [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has been waiting 10 hours and [endo#3137](https://github.com/endojs/endo/pull/3137) ten days.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 1h)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 54m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 59m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
@@ -35,17 +35,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (3)
-- `endojs-endo-but-for-bots-pr513-review-08d03afe` — Review directive on endojs/endo-but-for-bots PR #513
 - `finbot-additional-instruments` — GOAL: multi-instrument portfolios and yield-bearing instruments
+- `garden-encode-initial-changelog-convention` — Encode the new-package changelog/version convention into garden guidance
 - `mirror-endo-3137` — Mirror endojs/endo#3137 onto endo-but-for-bots
 
-### tada (254)
+### tada (255)
+- `endojs-endo-but-for-bots-pr513-review-08d03afe` — All work complete. Final report:
 - `design-endo-stream-flatmap-reader` — Job complete. Report follows.
 - `finbot-cyclical-forecaster` — Job complete: finbot-cyclical-forecaster
 - `finbot-richer-instrument-models` — Completion report: finbot-richer-instrument-models
 - `finbot-volatility-tolerance-elicitation` — Completion report: finbot-volatility-tolerance-elicitation
-- `endojs-endo-but-for-bots-pr539-review-3c5cd6fb` — Completion report — PR #539 review directive (endojs/endo-but-for-bots)
-- … and 249 more
+- … and 250 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
