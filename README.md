@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T07:19:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T07:24:51Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bot's [finbot-llm-role-dispatch](https://github.com/endojs/endo-but-for-bots) build completed and moved to done, leaving the job board fully drained — no open or in-progress work. The parked queue still holds 29 PRs awaiting kriskowal's review; the longest-waiting are [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules via erasable type syntax, 10 days) and a cluster of month-old endo-but-for-bots PRs ([#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186), [#288](https://github.com/endojs/endo-but-for-bots/pull/288)), with the freshest additions being [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [#440](https://github.com/endojs/endo-but-for-bots/pull/440) (drop @info name hub).
+The board is nearly quiet: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) has moved into finalization, with a gardener now curating and conducting it toward merge after its review pass completed. Nothing else is open or queued — the todo board is empty and ten PRs (topped by [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440), both freshly waiting only an hour or two) remain parked for kriskowal's review.
 
 ## Parked for maintainer feedback
 
@@ -34,8 +34,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `endojs-endo-but-for-bots-pr513-conduct` — Finalize (curate → merge) endojs/endo-but-for-bots PR #513
 
 ### tada (259)
 - `finbot-llm-role-dispatch` — What I did
