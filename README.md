@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:24:53Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:29:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,14 +10,12 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The scholar finished cask cycle 16 and has already claimed cycle 17, now working the comment-fed library ingest. The only other in-flight job is hardening the bulletin loop so one bad tick can't take the service down (it went dark earlier). Recently landed: review passes on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) and the erights #3312 feedback on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), plus a triager that now detects maintainer approvals and a plan to remove driver dead code.
-
-One item needs a human: a [message to the maintainer](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md) asks whether kriscendobot's mention triage should add an **authorship gate** — acting only on mentions where the target PR or issue was authored by kriscendobot. The trigger was [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525), authored by 0xpatrickbot, where an allowlisted sender's comment got triaged (and acted on) even though it was meant for the other bot; the sender welcomed the help but flagged the expectation. It's a scope/identity call awaiting your decision before any infra change lands.
+The bulletin loop is now crash-resilient — [`harden-bulletin-loop-crash-resilience`](https://github.com/endojs/endo-but-for-bots) landed in `jobs/tada`, wrapping each tick so a single bad pass can no longer crash the `garden-bulletin.service` into systemd's start-limit. Worth a maintainer's eye: a routing question is parked in the inbox over [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a PR authored by *0xpatrickbot* (not itself) because the mention-watcher gates on sender trust alone, and 0xpatrickdev (the allowlisted commenter) noted the message was meant for the other bot. The work was welcomed, but the gardener is asking whether to add an authorship gate so triage only fires on PRs kriscendobot authored. Otherwise quiet: the scholar continues its cask library ingest (cycle 17).
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 3h)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 10m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 15m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -45,17 +43,16 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- `harden-bulletin-loop-crash-resilience` — Harden the bulletin loop: one bad tick must not kill the service (it went dar...
+### doin (1)
 - `scholar-ingest-cask-16` — Scholar: continue the library ingest of kriskowal/cask (cycle 17) — comment-f...
 
-### tada (186)
+### tada (187)
+- `harden-bulletin-loop-crash-resilience` — Completion report: harden-bulletin-loop-crash-resilience
 - `scholar-ingest-cask-15` — Completion report — scholar-ingest-cask-15 (cask cycle 16)
 - `endojs-endo-but-for-bots-pr532-review-79d8b272` — Completion report
 - `address-erights-3312-review-on-pr474` — Completion report: address-erights-3312-review-on-pr474
 - `triager-detect-approvals` — Completion report — triager-detect-approvals
-- `plan-remove-driver-dead-code` — Completion report
-- … and 181 more
+- … and 182 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
