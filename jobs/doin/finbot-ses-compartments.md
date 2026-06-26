@@ -30,3 +30,9 @@ No agoric-sdk work.
 SES compartments in force for spawned roles; wallet is a real Far+InterfaceGuard
 vended only to the executor in live; ambient-authority denial is tested; the
 `designs/cap-attenuation.md` Notes-from-the-field section is updated. Tests green.
+
+---
+claim:
+  host: endolinbot
+  gardener: 6
+  claimed_at: 2026-06-26T08:48:53Z
