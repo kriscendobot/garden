@@ -57,3 +57,9 @@ reported. Report what now works end-to-end, what was decomposed into follow-ons,
 executor never touched a live wallet.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 9
+  claimed_at: 2026-06-26T00:49:29Z
