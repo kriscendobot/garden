@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:05:27Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:10:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,15 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Shepherd finished CI monitoring on [endo-but-for-bots#527](https://github.com/endojs/endo-but-for-bots/pull/527) (review pass also landed), and a gardener has now claimed the conductor job to finalize and merge [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532). Two items need the maintainer's eye. First, the SturdyRef competing-design pair ([endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511)) is complete: a two-juror panel independently converged on a synthesis built on #510's daemon-owned retain/release syscall, with three grafts from #511 — [side-by-side rationale on #500](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325) — awaiting a decision (and flagging a `getStudyRefLocator`→`getSturdyRefLocator` typo in [#521](https://github.com/endojs/endo-but-for-bots/pull/521)'s shipped surface). Second, a scope/identity question: kriscendobot acted on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — a PR authored by another bot — because mention triage gates on sender trust but not PR authorship; the maintainer is asked whether to add an authorship gate.
+Two items need a decision. The [SturdyRef competing design pair (#510 vs #511)](https://github.com/endojs/endo-but-for-bots/pull/510) is complete and compared — a two-juror design panel independently converged on synthesizing with #510 (the endor retain/release syscall) as the spine plus three grafts from #511; the [side-by-side rationale](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325) is posted and awaits your call (adopt the synthesis, pick one, or redirect). It also flags a `getStudyRefLocator`/`getSturdyRefLocator` typo in #521's shipped surface worth fixing before it sets the public name. Separately, a gardener surfaced a scope question on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525): the mention-watcher acted on a comment for a PR authored by another bot (0xpatrickbot) because it gates on sender trust, not authorship — do you want an authorship gate added? No action was taken on either; both sit in the maintainer inbox.
+
+On the board, [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) is mid-flight with shepherd and conductor jobs both in progress, and recent completions cleared [#527](https://github.com/endojs/endo-but-for-bots/pull/527) (shepherd + review), [#178](https://github.com/endojs/endo-but-for-bots/pull/178) (finish-merge), and [#69](https://github.com/endojs/endo-but-for-bots/pull/69).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 51m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 56m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4h)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 19m)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 24m)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -55,10 +57,11 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
 - `design-mcp-oauth-aws-minion-town` — Design an MCP server with OAuth authN/authZ — great local DX + AWS-deployable...
 - `endojs-endo-but-for-bots-pr532-conduct` — Finalize (curate → merge) endojs/endo-but-for-bots PR #532
+- `endojs-endo-but-for-bots-pr532-shepherd` — shepherd directive on endojs/endo-but-for-bots PR #532
 - `harden-conductor-ci-wait-complete-merge` — Harden the conductor's CI-wait: complete the merge, don't end the job while w...
 
 ### tada (197)
