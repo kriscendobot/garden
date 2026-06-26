@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:08:55Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:11:05Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-[endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) merged via the conductor, and the triager gained explicit approval-detection (both jobs completed). Three jobs are in flight: carrying Mark Miller's erights review from upstream endo#3312 onto the mirror [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), a review directive on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532), and the scholar's cask library ingest (cycle 16). The shepherd on [endo-but-for-bots#461](https://github.com/endojs/endo-but-for-bots/pull/461) is waiting on CI (15 pending, no failures). 
-
-One item needs a maintainer decision: routing on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) surfaced a gating question — kriscendobot acted on a mention from an allowlisted sender (0xpatrickdev) on a PR authored by *another* bot (0xpatrickbot). The work was welcomed and isn't being reverted, but 0xpatrickdev expects the bot to only act on PRs/issues it authored. The journalist is asking whether to add an authorship gate to mention-watcher; no further action taken pending your call.
+A gardener just claimed [harden-bulletin-loop-crash-resilience](https://github.com/endojs/endo-but-for-bots) — the bulletin service went dark when a single bad tick crashed the loop, so this work makes one failed tick non-fatal. Awaiting your decision: a routing question parked in your inbox asks whether kriscendobot's mention triage should add an *authorship* gate, so it only acts on mentions targeting PRs/issues it authored — prompted by 0xpatrickdev's review landing on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525), a PR authored by 0xpatrickbot, where kriscendobot picked up the work (the change was welcomed, not reverted). Otherwise the board is quiet: the four in-flight jobs cover Mark Miller's erights review on the [#474](https://github.com/endojs/endo-but-for-bots/pull/474) mirror, a review directive on [#532](https://github.com/endojs/endo-but-for-bots/pull/532), and the scholar's cask library ingest, with the todo queue drained to empty.
 
 ## Parked for maintainer feedback
 
@@ -45,9 +43,10 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - `address-erights-3312-review-on-pr474` — Address Mark Miller's (erights) review on the mirror #474 (upstream endo#3312...
 - `endojs-endo-but-for-bots-pr532-review-79d8b272` — Review directive on endojs/endo-but-for-bots PR #532
+- `harden-bulletin-loop-crash-resilience` — Harden the bulletin loop: one bad tick must not kill the service (it went dar...
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
 
 ### tada (183)
