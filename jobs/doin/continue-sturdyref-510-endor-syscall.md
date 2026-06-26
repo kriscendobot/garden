@@ -39,3 +39,9 @@ clarifications, the `type` field, and the synthesis grafts (required proactive d
 optional FinReg leak-detector, local-only-at-boundary), aligned with #521; #511 marked deferred.
 Push to #510 with a top-level summary comment. Report the head SHA. Surface the
 `getStudyRefLocator`→`getSturdyRefLocator` typo on #521 for the maintainer (their PR).
+
+---
+claim:
+  host: endolinbot
+  gardener: 26
+  claimed_at: 2026-06-26T01:25:12Z
