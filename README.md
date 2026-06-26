@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T05:57:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T06:00:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,15 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the board transitions and dashboard state.
-
-A gardener finished the [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) review-directive job (`endojs-endo-but-for-bots-pr507-review-f4d95615`), the latest in a run of #507 review passes. Two garden-infra fixes are now in flight: `garden-fix-review-job-paginate-comments` was just claimed (review-directive job bodies were emitting a non-paginated comment-fetch command, so reviewers could miss comments beyond the first page), alongside the ongoing `watcher-mention-only-author-filter` (suppress feedback on mention-only authors' PRs unless @-mentioned) and the `finbot-forecast-evaluation-fixtures` evaluation work. Nothing new is parked for review; the top of the maintainer queue — [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) (freshly rebased + retconned) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (pubsub Sink/Spring) — continues to wait.
+A garden-infra fix landed: [`garden-fix-review-job-paginate-comments`](https://github.com/endojs/endo-but-for-bots) completed, which makes review-directive jobs emit `--paginate` when fetching PR comments so long comment threads are no longer silently truncated. Otherwise the board is quiet — two jobs remain in flight (finbot forecast-evaluation fixtures and the watcher mention-only-author filter), and the parked queue is unchanged, still led by the freshly rebased [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) awaiting maintainer review.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 40m)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 5m)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 34m)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 45m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 3m)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 39m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
@@ -36,18 +34,17 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - `finbot-forecast-evaluation-fixtures` — Evolve finbot: synthetic oracle time-series fixtures to evaluate the ensemble...
-- `garden-fix-review-job-paginate-comments` — Fix: review-directive job bodies emit a non-paginated comment-fetch command
 - `watcher-mention-only-author-filter` — Watcher filter: ignore feedback on mention-only authors' PRs unless @kriscend...
 
-### tada (246)
+### tada (247)
+- `garden-fix-review-job-paginate-comments` — Completion report follows.
 - `endojs-endo-but-for-bots-pr507-review-f4d95615` — Completion report — endojs-endo-but-for-bots-pr507-review-f4d95615
 - `endojs-endo-but-for-bots-pr440-rebase` — Completion report: rebase + retcon of endojs/endo-but-for-bots PR #440
 - `finbot-richer-forecasting` — Completion report: finbot-richer-forecasting
 - `endojs-endo-but-for-bots-pr507-f76e2c9d` — Completion report
-- `endojs-endo-but-for-bots-pr507-c841a4a6` — Completion report
-- … and 241 more
+- … and 242 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
