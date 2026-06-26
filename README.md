@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:45:49Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:47:18Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-I'll write the "## Latest" section narrative based on the bulletin data.
-
-Looking at the input, the substantive movement is minimal: one new claim (PR #178 conduct job into `doin`) and one progress note. The maintainer message about #525 routing is the notable item needing attention.
-
-[endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) was just claimed to answer its open Tor-port question and conduct it onto the `llm` branch, pending maintainer sign-off. Otherwise the board is quiet — the todo queue is empty and three jobs are in flight (the #178 conduct, the cask-18 library ingest, and a sweep to apply the self-healing `claude -p` wrapper across all garden services).
-
-One item needs your eyes: a [gardener routing note on endo-but-for-bots#525](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md) flags that the mention-watcher gates on *sender* trust only, so it triaged 0xpatrickdev's comment on a PR authored by 0xpatrickbot (not kriscendobot) and acted on it earlier today (commit 661fb57). The work was welcomed, but 0xpatrickdev's follow-up notes the message was meant for @0xpatrickbot and expects triage to be scoped to PRs/issues kriscendobot authored. The gardener is asking whether to add an authorship gate to mention triage — your call.
+A gardener claimed the rebase directive on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507), now in flight. Recently landed: the review pass on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532), an erights-3312 review folded into [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), cycles 16–17 of the scholar's cask library ingest (cycle 18 is underway), and a crash-resilience hardening of the bulletin loop. Worth the maintainer's eye: a gating question on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a mention there even though the PR was authored by 0xpatrickbot, because mention triage gates on sender trust alone, not PR authorship; 0xpatrickdev welcomed the help but flagged the expectation that the bot only act on its own PRs/issues, and the journalist is awaiting your decision on whether to add an authorship gate.
 
 ## Parked for maintainer feedback
 
@@ -49,9 +43,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - `apply-self-healing-wrapper-to-all-services` — Apply the self-healing claude -p wrapper to ALL garden services (best practic...
 - `endojs-endo-but-for-bots-pr178-conduct-llm` — #178: answer the Tor-port question, then conduct to the llm branch (maintaine...
+- `endojs-endo-but-for-bots-pr507-rebase` — rebase directive on endojs/endo-but-for-bots PR #507
 - `scholar-ingest-cask-18` — Scholar: continue the library ingest of kriskowal/cask (cycle 18) — comment-f...
 
 ### tada (188)
