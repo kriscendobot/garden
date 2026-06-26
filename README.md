@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T07:00:47Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T07:01:57Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The board is nearly quiet: the lone completion this cycle was `garden-encode-initial-changelog-convention`, a garden-internal job to encode a changelog convention, now done with its inbox drained and worktree torn down. One job remains in flight — `finbot-additional-instruments` (multi-instrument portfolios and yield-bearing instruments) is still being worked. Nothing new was posted or claimed, and no PR-bearing work moved, so the parked review queue is unchanged; the oldest items still awaiting kriskowal are [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (36d) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) (35d each).
+The [finbot-additional-instruments](https://github.com/endojs/endo-but-for-bots) job landed and reported complete, the lone board movement since the last bulletin; the queue is otherwise idle with nothing in todo or doin and 29 PRs still parked for maintainer review.
 
 ## Parked for maintainer feedback
 
@@ -34,16 +34,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `finbot-additional-instruments` — GOAL: multi-instrument portfolios and yield-bearing instruments
+### doin (0)
+(none)
 
-### tada (257)
+### tada (258)
+- `finbot-additional-instruments` — Completion report: finbot-additional-instruments
 - `garden-encode-initial-changelog-convention` — Done. Inbox is empty and the worktree is torn down.
 - `mirror-endo-3137` — Completion report: mirror-endo-3137
 - `endojs-endo-but-for-bots-pr513-review-08d03afe` — All work complete. Final report:
 - `design-endo-stream-flatmap-reader` — Job complete. Report follows.
-- `finbot-cyclical-forecaster` — Job complete: finbot-cyclical-forecaster
-- … and 252 more
+- … and 253 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
