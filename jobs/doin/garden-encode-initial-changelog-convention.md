@@ -46,3 +46,9 @@ This is the v1→v2 translation note: encode into whichever skills/roles are
 live (`skills/changeset-discipline/SKILL.md` and the juror seat that reviews
 changesets are the natural homes). Treat the quoted directive above as the
 authority.
+
+---
+claim:
+  host: endolinbot
+  gardener: 39
+  claimed_at: 2026-06-26T06:54:09Z
