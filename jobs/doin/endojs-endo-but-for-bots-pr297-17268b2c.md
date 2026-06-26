@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot please see if you're able to advance any open items here: https://github.com/endojs/endo-but-for-bots/pull/297#issuecomment-4617498872 
+
+---
+claim:
+  host: endolinbot
+  gardener: 67
+  claimed_at: 2026-06-26T04:59:24Z
