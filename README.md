@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:18:03Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:18:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The conductor's CI-wait-to-merge hardening [just landed](https://github.com/endojs/endo-but-for-bots/pull/532) — the fix that keeps a merge job from ending while CI is merely pending now backs the active shepherd/conduct loop on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) and [#527](https://github.com/endojs/endo-but-for-bots/pull/527), both parked on CI and set to re-invoke when checks settle. A new garden-infra job is in flight to harden producer-clone locking so a crashed `post-plan`/`post-job` can't wedge future posts with a stale lock. Three things want a human: the SturdyRef competing-design pair ([#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs #511) is complete and a two-juror panel converged on a synthesis recommendation ([side-by-side here](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325)) — also flagging a `getStudyRefLocator`→`getSturdyRefLocator` typo in #521 worth fixing before it sets the public name; a scope question on whether kriscendobot's mention triage should add an authorship gate (it acted on [#525](https://github.com/endojs/endo-but-for-bots/pull/525), authored by another bot, on an allowlisted sender's mention); and a watchdog warning that `gh` was missing from PATH on endolinbot, which silently drops CI-wait work. Two minion.town AWS plans (Cognito↔MCP OAuth bridge, synth-and-deploy) are parked awaiting go-ahead.
+Two design decisions are waiting on you. The [SturdyRef](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325) competing-design pair ([#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [#511](https://github.com/endojs/endo-but-for-bots/pull/511)) is complete and compared: a two-juror panel independently converged on synthesizing with #510's daemon-owned retain/release syscall as the spine plus three grafts from #511 — adopt, pick one, or redirect (it also flags a `getStudyRefLocator`→`getSturdyRefLocator` typo in #521's shipped surface). Separately, a routing question on [#525](https://github.com/endojs/endo-but-for-bots/pull/525): the mention-watcher gates on sender trust but not PR authorship, so kriscendobot acted on another bot's PR; the work was welcomed, but the gardener is asking whether to add an authorship gate.
+
+On the autonomous side, the conductor was hardened to carry CI-pending merges to completion, and that fix flowed through [#532](https://github.com/endojs/endo-but-for-bots/pull/532) (shepherd + conductor, now CI-watched) and [#527](https://github.com/endojs/endo-but-for-bots/pull/527) (shepherd + review). A new [@endo/pubsub](https://github.com/endojs/endo-but-for-bots/pull/513) PR landed in the parked set, and an `@endo/stream` flatMapReader design was queued (deferred). One operational flag: a `ci-wait-merge` watchdog reports `gh` missing on PATH on endolinbot, which silently drops merge-completion work until the binary or PATH is fixed.
 
 ## Parked for maintainer feedback
 
@@ -84,6 +86,7 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `ingest-ocap-library-sections` — _normal_ · PLAN: scholar — ingest sources for six missing ocap library sections
 - `ingest-ocap-kernel` — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel into the library
 - `formula-inspector-retention-paths-table` — _normal_ · PLAN (follow-on): add a retention-paths table to the formula inspector
+- `design-endo-stream-flatmap-reader` — _normal_ · PLAN: @endo/stream flatMapReader — 1-to-many reader transform (flatten a stre...
 - `classify-lint-endo-master` — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 
 ## Watch set
