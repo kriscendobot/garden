@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T08:57:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T09:07:07Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,12 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Building on the [formula-inspector chat work for PR #440](https://github.com/endojs/endo-but-for-bots/pull/440), a gardener picked up the next slice — converting that PR's chat views to confined Preact — while the attention directive on the same PR closed out. The `finbot-ses-compartments` job (replacing the in-process v0.5 capability attenuator with real SES compartments) remains in flight.
+The `finbot-ses-compartments` build job just landed, clearing the board's last queued work and leaving only the conversion of [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440)'s formula-inspector chat views to confined Preact in flight. With `todo` now empty, the autonomous fleet is otherwise idle; the maintainer's attention is best spent on the parked queue, where [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) and the long-waiting [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 12h) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 1d) await review.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3h)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 8m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 13m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 12h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
@@ -34,17 +34,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - `endojs-endo-but-for-bots-pr440-preact-views` — convert PR #440 formula-inspector chat views to confined Preact
-- `finbot-ses-compartments` — GOAL: replace the in-process v0.5 capability attenuator with real SES compart...
 
-### tada (271)
+### tada (272)
+- `finbot-ses-compartments` — Completion report: finbot-ses-compartments
 - `endojs-endo-but-for-bots-pr440-0053f267` — Completion report: attention directive on endojs/endo-but-for-bots PR #440
 - `endojs-endo-but-for-bots-pr516-659b0193` — Completion report
 - `build-notifier-exo-pubsub-migration-per-507` — I've completed the build and verification work; only the final end-to-end int...
 - `endojs-endo-but-for-bots-pr545-conduct` — Completion report: PR #545 conduct (curate → merge)
-- `endojs-endo-but-for-bots-pr545-shepherd` — Completion report
-- … and 266 more
+- … and 267 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
