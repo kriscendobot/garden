@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T07:24:51Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T07:25:35Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The board is nearly quiet: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) has moved into finalization, with a gardener now curating and conducting it toward merge after its review pass completed. Nothing else is open or queued — the todo board is empty and ten PRs (topped by [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440), both freshly waiting only an hour or two) remain parked for kriskowal's review.
+A gardener claimed [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) for a retcon-plus-feedback pass — addressing the maintainer's CHANGES_REQUESTED, rebasing, and shepherding CI — while the conduct (curate-then-merge) of [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) remains in flight. The todo queue is drained, so these two are the only active work items right now; nothing new awaits a human beyond the standing parked set, where [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has been waiting longest among the fresh arrivals at 10 hours.
 
 ## Parked for maintainer feedback
 
@@ -34,7 +34,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- `endojs-endo-but-for-bots-pr442-retcon-feedback` — #442: retcon + address open feedback + rebase + shepherd (maintainer CHANGES_...
 - `endojs-endo-but-for-bots-pr513-conduct` — Finalize (curate → merge) endojs/endo-but-for-bots PR #513
 
 ### tada (259)
