@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T06:16:19Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T06:17:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The finbot line advanced: [`finbot-richer-instrument-models`](https://github.com/endojs/endo-but-for-bots) completed and the fleet rolled straight into `finbot-cyclical-forecaster`, evolving the forecaster to capture cyclical and mean-reverting structure. The board is otherwise quiet — todo is empty, one job in flight — so the maintainer's attention is best spent on the parked queue, where [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) (formula-inspector name-hub drop) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub Sink/Spring) are the freshest reviews waiting, alongside the longer-parked [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+The [finbot-cyclical-forecaster](https://github.com/endojs/endo-but-for-bots) job completed, the only board movement since the last bulletin — the queue is otherwise idle with nothing in todo or doin, so the maintainer's attention belongs on the parked review backlog, where [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440), [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513), and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) are the freshest PRs awaiting feedback.
 
 ## Parked for maintainer feedback
 
@@ -34,16 +34,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `finbot-cyclical-forecaster` — Evolve finbot: a forecaster that captures cyclical / mean-reverting structure...
+### doin (0)
+(none)
 
-### tada (252)
+### tada (253)
+- `finbot-cyclical-forecaster` — Job complete: finbot-cyclical-forecaster
 - `finbot-richer-instrument-models` — Completion report: finbot-richer-instrument-models
 - `finbot-volatility-tolerance-elicitation` — Completion report: finbot-volatility-tolerance-elicitation
 - `endojs-endo-but-for-bots-pr539-review-3c5cd6fb` — Completion report — PR #539 review directive (endojs/endo-but-for-bots)
 - `finbot-forecast-evaluation-fixtures` — Job complete: finbot-forecast-evaluation-fixtures
-- `watcher-mention-only-author-filter` — Completion report
-- … and 247 more
+- … and 248 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
