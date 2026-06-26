@@ -617,5 +617,81 @@ EOF
 fi
 
 # ============================================================================
+# AA/BB/CC/DD — MENTION-ONLY PR-author filter. A contributor (0xpatrickdev for
+# 0xpatrickbot) asked the bot to IGNORE feedback on PRs/issues THEY author unless
+# it directly @-mentions the bot. Driven by the journal mention-only-pr-authors/
+# allowlist (here a file fixture). The PR/issue AUTHOR is looked up via a stubbed
+# GARDEN_PR_AUTHOR (maps pr-number → login). The filter is an ADDITIONAL gate
+# applied BEFORE classify, so a drop never triages or reacts.
+MOLIST="$TR/mention-only-allowlist"; printf '# header\n0xpatrickbot\n0xpatrickdev\n' > "$MOLIST"
+PRAUTHOR="$TR/pr-author-stub.sh"
+cat > "$PRAUTHOR" <<'EOF'
+#!/bin/bash
+# test fixture: map a PR/issue number to its author login.
+case "$2" in
+  600) echo 0xpatrickbot ;;   # listed
+  601) echo someoutsider ;;   # NOT listed
+  602) echo 0xPatrickBot ;;   # listed, mixed-case (case-insensitivity check)
+  *)   echo "" ;;
+esac
+EOF
+chmod +x "$PRAUTHOR"
+run_mentiononly() {  # run_mentiononly <state> <bare> <fixture> <reactlog>
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" \
+      CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
+      GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+      GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_COMMENT_FALLBACK=/bin/false \
+      GARDEN_MENTION_ONLY_ALLOWLIST="$MOLIST" \
+      GARDEN_PR_AUTHOR="$PRAUTHOR" \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
+}
+
+hr; echo "AA — directive WITHOUT @bot on a listed author's PR → dropped"; hr
+BARE_AA="$TR/aa.git"; seed_bare "$BARE_AA"
+FIX_AA="$TR/fix-aa.tsv"; RLOG_AA="$TR/react-aa.log"; : > "$RLOG_AA"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-26T10:00:00Z issue-comment 1600 600 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/600#issuecomment-1600 \
+  'Please rebase #475' > "$FIX_AA"
+run_mentiononly "$TR/state-aa" "$BARE_AA" "$FIX_AA" "$RLOG_AA"
+board_has "$BARE_AA" "$SLUG-pr600-rebase" && bad "dispatched on a mention-only author's PR without @bot" || ok "dropped: no job for a listed author's PR without @bot"
+[ ! -s "$RLOG_AA" ] && ok "no reactji on a mention-only drop" || bad "reactji posted on a mention-only drop: $(cat "$RLOG_AA")"
+[ "$(cursor_seen "$TR/state-aa" "$BARE_AA")" = 2026-06-26T10:00:00Z ] && ok "cursor slid past the dropped comment" || bad "cursor did not slide"
+
+hr; echo "BB — SAME directive WITH @bot on the listed author's PR → dispatched"; hr
+BARE_BB="$TR/bb.git"; seed_bare "$BARE_BB"
+FIX_BB="$TR/fix-bb.tsv"; RLOG_BB="$TR/react-bb.log"; : > "$RLOG_BB"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-26T10:30:00Z issue-comment 1601 600 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/600#issuecomment-1601 \
+  '@kriscendobot please rebase #475' > "$FIX_BB"
+run_mentiononly "$TR/state-bb" "$BARE_BB" "$FIX_BB" "$RLOG_BB"
+board_has "$BARE_BB" "$SLUG-pr600-rebase" && ok "an @bot mention overrides the filter (job dispatched)" || bad "@bot mention did not override the mention-only filter"
+grep -qx "issue-comment 1601 eyes" "$RLOG_BB" && ok "reactji acked the @bot comment" || bad "no reactji on the @bot override ($(cat "$RLOG_BB"))"
+
+hr; echo "CC — directive on a NON-listed author's PR → unaffected"; hr
+BARE_CC="$TR/cc.git"; seed_bare "$BARE_CC"
+FIX_CC="$TR/fix-cc.tsv"; RLOG_CC="$TR/react-cc.log"; : > "$RLOG_CC"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-26T11:00:00Z issue-comment 1602 601 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/601#issuecomment-1602 \
+  'Please rebase #475' > "$FIX_CC"
+run_mentiononly "$TR/state-cc" "$BARE_CC" "$FIX_CC" "$RLOG_CC"
+board_has "$BARE_CC" "$SLUG-pr601-rebase" && ok "non-listed author's PR is unaffected (job dispatched)" || bad "filter wrongly dropped a non-listed author's PR"
+
+hr; echo "DD — listed author match is CASE-INSENSITIVE → dropped"; hr
+BARE_DD="$TR/dd.git"; seed_bare "$BARE_DD"
+FIX_DD="$TR/fix-dd.tsv"; RLOG_DD="$TR/react-dd.log"; : > "$RLOG_DD"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-26T11:30:00Z issue-comment 1603 602 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/602#issuecomment-1603 \
+  'Please rebase #475' > "$FIX_DD"
+run_mentiononly "$TR/state-dd" "$BARE_DD" "$FIX_DD" "$RLOG_DD"
+board_has "$BARE_DD" "$SLUG-pr602-rebase" && bad "mixed-case listed author was not matched (dispatched)" || ok "mixed-case author matched case-insensitively (dropped)"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

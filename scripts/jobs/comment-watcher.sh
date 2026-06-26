@@ -77,8 +77,20 @@
 #   GARDEN_COMMENT_POST    <basename> <body-file>                (post-job.sh)
 #   GARDEN_COMMENT_FALLBACK <owner/name> <pr> <author> <url> <body-file> -> verb
 #   GARDEN_COMMENT_TRUST   <login>                  rc 0 = endojs/Agoric org member
-# The deterministic verb mapping AND the sender-trust gate live HERE (not in a
-# handler), so they are exercised directly by the test rather than mocked away.
+#   GARDEN_PR_AUTHOR       <owner/name> <number>    -> PR/issue author login
+# The deterministic verb mapping, the sender-trust gate, AND the mention-only
+# PR-author filter live HERE (not in a handler), so they are exercised directly by
+# the test rather than mocked away.
+#
+# ── Mention-only PR-author filter (STANDING POLICY) ──────────────────────────
+# Some contributors ask the bot to IGNORE feedback on PRs/issues THEY author
+# unless the feedback directly @-mentions the bot. The set is list-driven and
+# extensible WITHOUT a code change: journal mention-only-pr-authors/allowlist (one
+# login per line, '#' comments and blanks ignored, case-insensitive — mirrors
+# trusted-senders/allowlist). Before dispatching, the watcher looks up the
+# PR/issue AUTHOR (GARDEN_PR_AUTHOR) and, if listed AND the body does not @-mention
+# the bot, DROPS the dispatch (logged, never silent). It composes with — does not
+# replace — the sender-trust gate and the verb/@-mention classification.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -94,6 +106,8 @@ GARDEN_TAG="comment-watcher/$slug"
 : "${GARDEN_COMMENT_POST:=$HERE/post-job.sh}"
 : "${GARDEN_COMMENT_FALLBACK:=$HERE/handlers/comment-claude.sh}"
 : "${GARDEN_COMMENT_TRUST:=$HERE/handlers/mention-trust-gh.sh}"
+# PR/issue AUTHOR lookup for the mention-only filter: <repo> <number> -> login.
+: "${GARDEN_PR_AUTHOR:=$HERE/handlers/pr-author-gh.sh}"
 # APPROVAL → finalization probe: rc 0 = OPEN+mergeable+green (mint the conductor),
 # rc 2 = already merged/closed (nothing to do), rc 1 = open-but-not-ready (shepherd).
 : "${GARDEN_PR_MERGEABLE:=$HERE/handlers/pr-mergeable-gh.sh}"
@@ -221,6 +235,64 @@ is_trusted() {  # is_trusted <login>
   done
   if "$GARDEN_COMMENT_TRUST" "$login" >/dev/null 2>&1; then _TRUST_CACHE[$lc]=y; return 0; fi
   _TRUST_CACHE[$lc]=n; return 1
+}
+
+# --- the MENTION-ONLY PR-authors allowlist (journal data; extensible) --------
+# Contributors who asked that the bot IGNORE feedback on PRs/issues THEY author
+# unless the feedback directly @-mentions the bot. Same mechanism and read path as
+# load_allowlist above: lives at mention-only-pr-authors/allowlist on
+# origin/journal2 (one login per line, '#' comments and blanks ignored,
+# case-insensitive), read via the verify clone's committed copy so every host
+# resolves the authoritative set. Adding a login is append-and-push — NO code
+# change. A file override (GARDEN_MENTION_ONLY_ALLOWLIST) lets the test supply a
+# fixture. (List requested by 0xpatrickdev for 0xpatrickdev/0xpatrickbot,
+# 2026-06-26; the policy is list-driven so further requests need no code change.)
+declare -a MENTION_ONLY_AUTHORS=()
+load_mention_only_authors() {
+  MENTION_ONLY_AUTHORS=()
+  local line src
+  if [ -n "${GARDEN_MENTION_ONLY_ALLOWLIST:-}" ] && [ -f "$GARDEN_MENTION_ONLY_ALLOWLIST" ]; then
+    src="file:$GARDEN_MENTION_ONLY_ALLOWLIST"
+    while IFS= read -r line; do
+      line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+      [ -n "$line" ] && MENTION_ONLY_AUTHORS+=("$line")
+    done < "$GARDEN_MENTION_ONLY_ALLOWLIST"
+  else
+    src="journal:mention-only-pr-authors/allowlist"
+    ensure_clone "$VERIFY"
+    journal_fetch "$VERIFY" >/dev/null 2>&1 || true
+    while IFS= read -r line; do
+      line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+      [ -n "$line" ] && MENTION_ONLY_AUTHORS+=("$line")
+    done < <(git -C "$VERIFY" show "origin/$JOURNAL_BRANCH:mention-only-pr-authors/allowlist" 2>/dev/null || true)
+  fi
+  log "loaded ${#MENTION_ONLY_AUTHORS[@]} mention-only PR-author(s) from $src"
+}
+
+# --- PR/issue AUTHOR lookup (cached per tick) -------------------------------
+# The comment source carries the PR/issue NUMBER but not the THREAD AUTHOR (the
+# TSV author is the COMMENTER). For the mention-only filter we need the author of
+# the PR/issue the comment lands on, so look it up once per number and cache it
+# (a PR can have many comments in one tick). A failed/empty lookup caches "" so
+# the filter fails OPEN (treated as not-mention-only → unchanged behavior).
+declare -A _PR_AUTHOR_CACHE=()
+pr_author() {  # pr_author <pr-number>; echoes the author login ("" if unknown)
+  local pr="$1" a
+  [ -n "$pr" ] && [ "$pr" != 0 ] || { printf ''; return; }
+  if [ -n "${_PR_AUTHOR_CACHE[$pr]+x}" ]; then printf '%s' "${_PR_AUTHOR_CACHE[$pr]}"; return; fi
+  a="$("$GARDEN_PR_AUTHOR" "$repo" "$pr" 2>/dev/null | head -1 || true)"
+  _PR_AUTHOR_CACHE[$pr]="$a"; printf '%s' "$a"
+}
+
+# rc 0 if the PR/issue's AUTHOR is on the mention-only allowlist (case-insensitive).
+# rc 1 if not listed, the list is empty, or the author cannot be determined.
+author_is_mention_only() {  # author_is_mention_only <pr-number>
+  local pr="$1" a lc m
+  [ "${#MENTION_ONLY_AUTHORS[@]}" -gt 0 ] || return 1
+  a="$(pr_author "$pr")"; [ -n "$a" ] || return 1
+  lc="$(printf '%s' "$a" | tr '[:upper:]' '[:lower:]')"
+  for m in "${MENTION_ONLY_AUTHORS[@]}"; do [ "$m" = "$lc" ] && return 0; done
+  return 1
 }
 
 # --- imperative-directive reading (deterministic; the SECOND half of the gate) -
@@ -464,13 +536,39 @@ fi
 # Found comments → the source is demonstrably working; reset the zero streak.
 write_zero_streak 0
 
-# Load the trusted-sender allowlist once (only when there is work to classify).
+# Load the trusted-sender allowlist + the mention-only PR-authors list once (only
+# when there is work to classify).
 load_allowlist
+load_mention_only_authors
 
 hw="$last_seen"; failed=0; acted=0
 while IFS=$'\t' read -r created surface cid pr author url body; do
   [ -n "$created" ] || continue
   bf="$(mktemp)"; printf '%s\n' "$body" > "$bf"
+
+  # PR number: prefer the source's field, else the first #N in the body. Resolved
+  # up front because the mention-only filter (below) needs it before classify.
+  [ -n "${pr:-}" ] && [ "$pr" != "?" ] || pr="$(grep -oE '#[0-9]+' "$bf" | head -1 | tr -d '#')"
+  [ -n "$pr" ] || pr="0"
+
+  # --- MENTION-ONLY PR-author filter (FIRST gate; before any triage/react) -----
+  # A contributor may ask that the bot IGNORE feedback on PRs/issues THEY author
+  # unless the feedback directly @-mentions the bot (mention-only-pr-authors/
+  # allowlist). This is an ADDITIONAL gate on top of the sender-trust gate and the
+  # verb/@-mention classification: if the PR/issue AUTHOR is listed AND the
+  # comment/review body does NOT @-mention the bot, DROP the dispatch — do not
+  # triage (no claude fallback), do not react, just slide the cursor. The drop is
+  # LOGGED, never silent. PRs/issues authored by anyone NOT on the list are
+  # unaffected. The earlier "heed listed authors' directives" policy still holds:
+  # the @-mention is now the REQUIRED trigger to act on their PRs.
+  if author_is_mention_only "$pr"; then
+    if printf '%s' "$body" | grep -qiF "@$GARDEN_BOT_LOGIN"; then
+      log "mention-only author on #$pr but @$GARDEN_BOT_LOGIN present in $surface by $author — proceeding"
+    else
+      log "DROP (mention-only): #$pr authored by a mention-only login; $surface by $author does not @$GARDEN_BOT_LOGIN — not dispatching"
+      rm -f "$bf"; hw="$created"; continue
+    fi
+  fi
 
   set +e; classify "$bf" "$surface" "$author"; rc=$?; set -e
   if [ "$rc" -eq 1 ]; then
@@ -482,10 +580,6 @@ while IFS=$'\t' read -r created surface cid pr author url body; do
       rm -f "$bf"; hw="$created"; continue
     fi
   fi
-
-  # PR number: prefer the source's field, else the first #N in the body.
-  [ -n "${pr:-}" ] && [ "$pr" != "?" ] || pr="$(grep -oE '#[0-9]+' "$bf" | head -1 | tr -d '#')"
-  [ -n "$pr" ] || pr="0"
 
   # --- APPROVAL → finalization gating -----------------------------------------
   # A clean trusted approval classified as `finalize`. Before minting the
