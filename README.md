@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T04:27:28Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T04:29:57Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A self-heal job is in flight to retire the orphaned `garden-design-poller` unit, which has been crash-looping with exit 127; aside from that, the board is quiet (todo empty, one job claimed).
+Based on the board transition, the only change since the last bulletin is the completion of one self-heal job.
 
-The substantive item for your attention sits in the maintainer inbox: the sturdyref continuation work. [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged into the stacked base `llm-65b0abe` ~17s after the job was claimed and its branch was deleted, so the design was continued as a successor draft — [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) — folding in proactive per-turn `deleteExport` as a hard requirement, `FinalizationRegistry` demoted to an optional leak detector, the local-only-at-the-boundary rule, and an optional `type` hint on the SturdyRef; [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Two calls are waiting on you: whether to run #539 through the gamut and un-draft, and whether to have a fixer push a rename for a typo flagged in your own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` → `getSturdyRefLocator`, across source, exports, and tests).
+The journalist task here is to write the "## Latest" narrative. Let me write it.
+
+The retired orphan `garden-design-poller` unit was fully decommissioned — all three job items resolved end to end, closing out the superseded service cleanup.
+
+A larger item awaits the maintainer's call: the sturdyref continuation. Because [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged ~17 seconds after the job was claimed (and its head branch was deleted), the design continued as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), off the stacked base — folding in proactive per-turn `deleteExport` as a requirement, demoting `FinalizationRegistry` to an optional leak detector, and deferring [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511). Two questions are parked in the maintainer inbox: whether to run #539 through the gamut and un-draft it, and whether to dispatch a fixer for the `getStudyRefLocator`→`getSturdyRefLocator` typo flagged on [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521). On the review queue, [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) are the freshest parked PRs, both waiting only a few hours.
 
 ## Parked for maintainer feedback
 
@@ -50,16 +54,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `self-heal-fix-garden-design-poller-orphan-superseded-unit` — Retire the orphan garden-design-poller unit, which crash-loops with exit 127:...
+### doin (0)
+(none)
 
-### tada (233)
+### tada (234)
+- `self-heal-fix-garden-design-poller-orphan-superseded-unit` — Retired the orphan garden-design-poller unit end to end. All three job items ...
 - `fix-enable-services-timer-coverage` — Completion report
 - `self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-source-section3-unguarded-pipefail` — Completion report
 - `endojs-endo-but-for-bots-pr543-a390364f` — Completion report — job endojs-endo-but-for-bots-pr543-a390364f
 - `endojs-endo-but-for-bots-pr543-rebase` — Completion report: endojs-endo-but-for-bots-pr543-rebase
-- `endojs-endo-but-for-bots-pr537-conduct` — Completion report
-- … and 228 more
+- … and 229 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
