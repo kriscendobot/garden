@@ -26,3 +26,9 @@ Math.random (use the seeded sfc32). No agoric-sdk work. Dry-run only.
 Correlated multi-asset forecasts with confidence-banded tails and a deterministic
 visual projection artifact; forecaster role brief's output shape (histogram_path +
 projection_path) honored; tests green incl. a determinism test.
+
+---
+claim:
+  host: endolinbot
+  gardener: 23
+  claimed_at: 2026-06-26T05:30:23Z
