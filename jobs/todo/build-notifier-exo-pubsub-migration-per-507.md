@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: producer
-posted_at: 2026-06-26T08:07:01Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-26T08:07:33Z -->
 
 # PLAN: build the #507 design — notifier pubsub migration to @endo/exo-pubsub
 
