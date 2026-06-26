@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T04:03:26Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T04:06:02Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,15 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bulletin caller wants only the prose for the "## Latest" section. Let me write it based on the board transitions and dashboard.
-
-Looking at the data: PR #543 has two directives in flight (attention + rebase), PR #542 just completed its full chain (conduct, shepherd, merge), PR #537 conducted, PR #69 refreshed. The sturdyref message is notable — #510 merged before the gardener could continue it, so a successor draft #539 was opened, plus a typo flag on #521.
-
-Let me write the prose.
-
-[endojs/endo-but-for-bots#542](https://github.com/endojs/endo-but-for-bots/pull/542) cleared its full pipeline this cycle — shepherded green, conducted, and merged. [endojs/endo-but-for-bots#537](https://github.com/endojs/endo-but-for-bots/pull/537) also completed conduct and [endojs/endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69) finished a refresh. Now in flight: a paired attention + rebase directive on [endojs/endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543), both currently claimed.
-
-Two things in the [maintainer inbox](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260626T013612Z-6a7140.md) want a call: the sturdyref design job found that #510 had already merged (into `llm-65b0abe`) seconds after it was claimed and its branch deleted, so the continuation landed as a fresh draft — [endojs/endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) — stacked on that base, awaiting your word to run the gamut and un-draft. The same gardener flagged a typo in your [endojs/endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521): the exported `getStudyRefLocator` is missing an `r` (should be `getSturdyRefLocator`) across source, exports, and tests — a fixer can rename it on request. Ten PRs remain parked for review, led by [#440](https://github.com/endojs/endo-but-for-bots/pull/440) and [#513](https://github.com/endojs/endo-but-for-bots/pull/513).
+The bulletin board has gone quiet after a busy stretch: [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543) was rebased and that job completed, leaving only a single attention directive still in flight on the same PR. The notable item for the maintainer is in the inbox: the sturdyref design job continuing [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) found that PR had already merged (head branch deleted) seconds after the job was claimed, so the work landed instead as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), which folds in proactive per-turn `deleteExport` as a requirement and demotes FinalizationRegistry to an optional leak detector — it awaits a word to run the gamut and un-draft. The same report flags a typo in your [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` should be `getSturdyRefLocator`) and offers a fixer rename on request. Otherwise the parked queue is unchanged, with [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) and the freshly-landed [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) at the top awaiting review.
 
 ## Parked for maintainer feedback
 
@@ -56,17 +48,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - `endojs-endo-but-for-bots-pr543-a390364f` — attention directive on endojs/endo-but-for-bots PR #543
-- `endojs-endo-but-for-bots-pr543-rebase` — rebase directive on endojs/endo-but-for-bots PR #543
 
-### tada (229)
+### tada (230)
+- `endojs-endo-but-for-bots-pr543-rebase` — Completion report: endojs-endo-but-for-bots-pr543-rebase
 - `endojs-endo-but-for-bots-pr537-conduct` — Completion report
 - `endojs-endo-but-for-bots-pr542-merge` — Inbox empty. Job complete.
 - `endojs-endo-but-for-bots-pr542-shepherd` — Shepherd job complete.
 - `endojs-endo-but-for-bots-pr542-conduct` — ci-wait-merge is running tracked in the background; the harness will re-invok...
-- `endojs-endo-but-for-bots-pr69-refresh` — Completion report
-- … and 224 more
+- … and 225 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
