@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:18:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:19:10Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Two design decisions are waiting on you. The [SturdyRef](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325) competing-design pair ([#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [#511](https://github.com/endojs/endo-but-for-bots/pull/511)) is complete and compared: a two-juror panel independently converged on synthesizing with #510's daemon-owned retain/release syscall as the spine plus three grafts from #511 — adopt, pick one, or redirect (it also flags a `getStudyRefLocator`→`getSturdyRefLocator` typo in #521's shipped surface). Separately, a routing question on [#525](https://github.com/endojs/endo-but-for-bots/pull/525): the mention-watcher gates on sender trust but not PR authorship, so kriscendobot acted on another bot's PR; the work was welcomed, but the gardener is asking whether to add an authorship gate.
-
-On the autonomous side, the conductor was hardened to carry CI-pending merges to completion, and that fix flowed through [#532](https://github.com/endojs/endo-but-for-bots/pull/532) (shepherd + conductor, now CI-watched) and [#527](https://github.com/endojs/endo-but-for-bots/pull/527) (shepherd + review). A new [@endo/pubsub](https://github.com/endojs/endo-but-for-bots/pull/513) PR landed in the parked set, and an `@endo/stream` flatMapReader design was queued (deferred). One operational flag: a `ci-wait-merge` watchdog reports `gh` missing on PATH on endolinbot, which silently drops merge-completion work until the binary or PATH is fixed.
+The minion.town MCP OAuth design landed — [design-mcp-oauth-aws-minion-town](https://github.com/kriskowal/garden) completed and moved to done, leaving the board nearly idle (3 jobs in flight, none claimable). Two items want the maintainer's eyes: the competing SturdyRef-retention design pair ([endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [#511](https://github.com/endojs/endo-but-for-bots/pull/511)) is now fully compared and ready for a decision — a two-juror panel independently converged on a synthesis with #510's daemon-owned retain/release syscall as the spine, written up on [#500](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325), and it also flags a `getStudyRefLocator` typo in [#521](https://github.com/endojs/endo-but-for-bots/pull/521)'s shipped surface worth fixing before the public name sets. Separately, a routing/scope question is parked: kriscendobot acted on [#525](https://github.com/endojs/endo-but-for-bots/pull/525) (a 0xpatrickbot PR) because mention triage gates on sender trust but not PR authorship — the work was welcomed, but the maintainer is asked whether to add an authorship gate. One watchdog also reports `gh` missing from PATH on endolinbot under the `ci-wait-merge` tag, silently dropping CI-wait work until the tool is installed.
 
 ## Parked for maintainer feedback
 
@@ -61,19 +59,18 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
-- `design-mcp-oauth-aws-minion-town` — Design an MCP server with OAuth authN/authZ — great local DX + AWS-deployable...
 - `endojs-endo-but-for-bots-pr510-review-93293593` — Review directive on endojs/endo-but-for-bots PR #510
 - `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
 
-### tada (200)
+### tada (201)
+- `design-mcp-oauth-aws-minion-town` — Job complete: design-mcp-oauth-aws-minion-town
 - `harden-conductor-ci-wait-complete-merge` — Completion report: harden-conductor-ci-wait-complete-merge
 - `endojs-endo-but-for-bots-pr532-shepherd` — Waiting on CI. The background poller (bk06xiv1m) will re-invoke me the moment...
 - `endojs-endo-but-for-bots-pr532-conduct` — Inbox is empty. The background CI poll (bs3izgx4m) will notify me when PR #53...
 - `endojs-endo-but-for-bots-pr527-shepherd` — I've kicked off CI monitoring for PR #527. The watcher will re-invoke me when...
-- `endojs-endo-but-for-bots-pr527-review-0fb462c4` — Completion report
-- … and 195 more
+- … and 196 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
