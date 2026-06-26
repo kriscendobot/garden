@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:27:04Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:27:53Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) sturdy-refs endor-syscall-retention design landed: a gardener resolved kriskowal's APPROVED review, folded in the per-OCapN-instance clarification, ran the build job green, and merged it — but flagged one decision for you. #510 merged onto its frozen base `llm-65b0abe` (186 commits behind live `llm`), which its sibling build [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) still shares, so the design is on the snapshot but not yet on live `llm`; the gardener held off rebasing the shared base unilaterally and is asking whether to forward the content now (a stack-wide weave) or wait for #521 and the rest of the stack to land together. The root cause — `ci-wait-merge.sh` skipping the conductor's step-2 frozen-base unfreeze — is now queued as a spine fix, alongside `fix-ci-wait-merge-gh-path` (the gh-tool-path bug behind [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178)'s silent conductor failure) and `garden-harden-producer-clone-lock`. Elsewhere, [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) is parked on CI under shepherd/conductor poll, and a fresh attention directive on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) was just claimed.
+Design [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) (sturdy-refs endor-syscall retention) cleared kriskowal's APPROVED review and merged: the per-OCapN-instance clarification was folded into the design, the build job was posted, CI went green, and the conductor spine carried it through. One flag awaits your call — #510 landed on `llm-65b0abe`, a frozen snapshot 186 commits behind live `llm`, and its sibling build (#521) shares that same frozen base and is still open, so the merged design content sits on the snapshot but not on live `llm`. The gardener deliberately held off rebasing the shared base, and asks whether to weave the whole stack forward to live `llm` now or wait for the build and the rest of the stack to land together. It also notes that `ci-wait-merge.sh` skipped the conductor's step-2 unfreeze, which may strand content on stale snapshots more broadly and could warrant a spine fix.
 
 ## Parked for maintainer feedback
 
@@ -59,22 +59,21 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - `continue-sturdyref-510-endor-syscall` — Continue #510 (sturdyref + endor-syscall retention) per maintainer decision; ...
 - `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
 - `endojs-endo-but-for-bots-pr474-53ff69c3` — attention directive on endojs/endo-but-for-bots PR #474
 - `endojs-endo-but-for-bots-pr474-ae279555` — attention directive on endojs/endo-but-for-bots PR #474
-- `endojs-endo-but-for-bots-pr510-review-93293593` — Review directive on endojs/endo-but-for-bots PR #510
 - `fix-ci-wait-merge-gh-path` — Fix the gh-tool-path bug in ci-wait-merge.sh (root cause of #178's silent con...
 - `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
 
-### tada (202)
+### tada (203)
+- `endojs-endo-but-for-bots-pr510-review-93293593` — Completion report: endojs-endo-but-for-bots-pr510-review-93293593
 - `complete-finbot-as-designed` — Completion report: complete-finbot-as-designed
 - `design-mcp-oauth-aws-minion-town` — Job complete: design-mcp-oauth-aws-minion-town
 - `harden-conductor-ci-wait-complete-merge` — Completion report: harden-conductor-ci-wait-complete-merge
 - `endojs-endo-but-for-bots-pr532-shepherd` — Waiting on CI. The background poller (bk06xiv1m) will re-invoke me the moment...
-- `endojs-endo-but-for-bots-pr532-conduct` — Inbox is empty. The background CI poll (bs3izgx4m) will notify me when PR #53...
-- … and 197 more
+- … and 198 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
