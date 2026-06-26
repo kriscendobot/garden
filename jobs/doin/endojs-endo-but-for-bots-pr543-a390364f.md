@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot  Less urgently, this same rationale applies among modules within a package. But that is decoupled enough that it should be in a separate PR. Please write that PR as well. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 64
+  claimed_at: 2026-06-26T03:58:25Z
