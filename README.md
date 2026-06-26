@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:29:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:34:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,21 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bulletin loop is now crash-resilient — [`harden-bulletin-loop-crash-resilience`](https://github.com/endojs/endo-but-for-bots) landed in `jobs/tada`, wrapping each tick so a single bad pass can no longer crash the `garden-bulletin.service` into systemd's start-limit. Worth a maintainer's eye: a routing question is parked in the inbox over [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a PR authored by *0xpatrickbot* (not itself) because the mention-watcher gates on sender trust alone, and 0xpatrickdev (the allowlisted commenter) noted the message was meant for the other bot. The work was welcomed, but the gardener is asking whether to add an authorship gate so triage only fires on PRs kriscendobot authored. Otherwise quiet: the scholar continues its cask library ingest (cycle 17).
+I'll write the bulletin's "## Latest" narrative based on the dashboard and board state.
+
+Looking at the input: no file-level board transitions resolved since the last bulletin, but the `tada` completions and the parked PR set tell the recent story.
+
+A maintainer mention-watcher routing question landed on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525): kriscendobot acted on a PR authored by another bot (0xpatrickbot) because the mention-watcher gates on sender trust alone, not PR authorship — 0xpatrickdev welcomed the help but flagged that an authorship gate is expected. That's a scope/identity call now [waiting unread in the maintainer inbox](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md), and the only item needing a human decision.
+
+On the autonomous side, recent completions hardened the bulletin loop against single-tick crashes (`harden-bulletin-loop-crash-resilience`), added approval detection to the triager (`triager-detect-approvals`), advanced the cask library ingest into cycle 17 (`scholar-ingest-cask-15`, now `-16` in flight), reviewed [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532), and addressed erights #3312 review feedback on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474). The board is otherwise drained (0 todo, 1 doin) with 30 PRs parked for review — the freshest being [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#513](https://github.com/endojs/endo-but-for-bots/pull/513).
+
+Here is the "## Latest" body:
+
+A mention-routing edge case needs a maintainer decision: kriscendobot acted on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — a PR authored by *0xpatrickbot*, not itself — because the mention-watcher gates on sender trust alone and not PR authorship. The committed work was welcomed, but 0xpatrickdev flagged the expectation that the bot only act on mentions tied to PRs it authored; the question of adding an authorship gate to `mention-watcher.sh` is [parked unread in the maintainer inbox](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md). On the autonomous side, recent completions hardened the bulletin loop so one bad tick can't kill the service, taught the triager to detect approvals, reviewed [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532), and folded erights' #3312 review feedback into [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474); the scholar's cask ingest rolled into cycle 17. The board is drained to a single in-flight job, leaving 30 PRs parked for review — most recently [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#513](https://github.com/endojs/endo-but-for-bots/pull/513).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 3h)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 15m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 20m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -24,8 +33,9 @@ The bulletin loop is now crash-resilient — [`harden-bulletin-loop-crash-resili
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 10d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 35d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 34d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 34d)
 
-_Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260625T220640Z-aa7070` — from gardener:endojs-endo-but-for-bots-pr525-a17a2dbe, reply_to `endojs-endo-but-for-bots-pr525-a17a2dbe` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md)
