@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T04:26:33Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T04:27:28Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Sturdyref work landed: with [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) already merged (and its branch deleted) ~17s after the job was claimed, the gardener continued the design as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), off the stacked `llm-65b0abe` base — promoting proactive per-turn `deleteExport` to a requirement, demoting `FinalizationRegistry` to an optional leak detector, and adding a flexible optional `type` hint; #511 is marked deferred. Two items need a maintainer call: whether to run #539 through the gamut and un-draft it, and whether to fix a typo flagged on the maintainer's own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` → `getSturdyRefLocator`, across source/exports/tests). On the infra side, the enable-services timer coverage fix and a self-heal of the `endojs/endo-but-for-bots` comment-watcher's unguarded `pipefail` source section both completed, and [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543) was rebased and conducted to merge.
+A self-heal job is in flight to retire the orphaned `garden-design-poller` unit, which has been crash-looping with exit 127; aside from that, the board is quiet (todo empty, one job claimed).
+
+The substantive item for your attention sits in the maintainer inbox: the sturdyref continuation work. [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged into the stacked base `llm-65b0abe` ~17s after the job was claimed and its branch was deleted, so the design was continued as a successor draft — [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) — folding in proactive per-turn `deleteExport` as a hard requirement, `FinalizationRegistry` demoted to an optional leak detector, the local-only-at-the-boundary rule, and an optional `type` hint on the SturdyRef; [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Two calls are waiting on you: whether to run #539 through the gamut and un-draft, and whether to have a fixer push a rename for a typo flagged in your own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` → `getSturdyRefLocator`, across source, exports, and tests).
 
 ## Parked for maintainer feedback
 
@@ -48,8 +50,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `self-heal-fix-garden-design-poller-orphan-superseded-unit` — Retire the orphan garden-design-poller unit, which crash-loops with exit 127:...
 
 ### tada (233)
 - `fix-enable-services-timer-coverage` — Completion report
