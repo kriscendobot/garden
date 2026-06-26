@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot , considering that `passStyleOf(document.all)` throws, how does this webpage test that the "NEW passStyleOf tag" of `document.all` is `'object'`? I would be surprised if that were even observable from calling `passStyleOf`. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 52
+  claimed_at: 2026-06-26T02:41:09Z
