@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: producer
-posted_at: 2026-06-26T01:18:30Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-26T06:26:20Z -->
 
 # PLAN: @endo/stream `flatMapReader` — 1-to-many reader transform (flatten a stream of arrays)
 
