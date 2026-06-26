@@ -58,3 +58,9 @@ runner + bulletin + the top few unattended loops and **post follow-on jobs** for
 which). Report the SHA, the wrapper API, and the per-service application status.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 39
+  claimed_at: 2026-06-26T00:35:15Z
