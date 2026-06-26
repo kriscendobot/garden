@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:10:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:11:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Two items need a decision. The [SturdyRef competing design pair (#510 vs #511)](https://github.com/endojs/endo-but-for-bots/pull/510) is complete and compared — a two-juror design panel independently converged on synthesizing with #510 (the endor retain/release syscall) as the spine plus three grafts from #511; the [side-by-side rationale](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325) is posted and awaits your call (adopt the synthesis, pick one, or redirect). It also flags a `getStudyRefLocator`/`getSturdyRefLocator` typo in #521's shipped surface worth fixing before it sets the public name. Separately, a gardener surfaced a scope question on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525): the mention-watcher acted on a comment for a PR authored by another bot (0xpatrickbot) because it gates on sender trust, not authorship — do you want an authorship gate added? No action was taken on either; both sit in the maintainer inbox.
-
-On the board, [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) is mid-flight with shepherd and conductor jobs both in progress, and recent completions cleared [#527](https://github.com/endojs/endo-but-for-bots/pull/527) (shepherd + review), [#178](https://github.com/endojs/endo-but-for-bots/pull/178) (finish-merge), and [#69](https://github.com/endojs/endo-but-for-bots/pull/69).
+The conductor wrapped [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) (CI poll will signal the merge), closing out a run that earlier saw [#527](https://github.com/endojs/endo-but-for-bots/pull/527) shepherded through CI and reviewed and [#178](https://github.com/endojs/endo-but-for-bots/pull/178) handed to a finish-merge. Two items now want a maintainer decision: the SturdyRef competing-design pair ([#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [#511](https://github.com/endojs/endo-but-for-bots/pull/511)) is complete, and a two-juror panel independently converged on a synthesis with #510 as the spine — full side-by-side on [#500](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325), which also flags a `getStudyRefLocator` typo shipped in [#521](https://github.com/endojs/endo-but-for-bots/pull/521); and a scope question on [#525](https://github.com/endojs/endo-but-for-bots/pull/525), where kriscendobot acted on a mention against another bot's PR — should mention triage add an authorship gate? Also worth a glance: a watchdog reported `gh` missing from PATH on endolinbot during a ci-wait-merge, which silently drops work. In flight: finbot's end-to-end dry-run, the MCP/OAuth design, the [#532](https://github.com/endojs/endo-but-for-bots/pull/532) shepherd directive, and a hardening pass on the conductor's CI-wait so it completes the merge rather than ending early.
 
 ## Parked for maintainer feedback
 
@@ -52,25 +50,28 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 >
 > For your call: adopt the synthesis, pick one as-is, or redirect. Also surfaced: getStudyRefLocator is a typo for getSturdyRefLocator in #521's shipped surface — worth fixing before it sets the public name.
 
+- `20260626T011048Z-6f52fa` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260626T011048Z-6f52fa.md)
+
+> required tool(s) missing on PATH (host=endolinbot, tag=ci-wait-merge): /tmp/tmp.rrolnKVTO1/gh — this silently drops work; install them or fix PATH
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
 - `design-mcp-oauth-aws-minion-town` — Design an MCP server with OAuth authN/authZ — great local DX + AWS-deployable...
-- `endojs-endo-but-for-bots-pr532-conduct` — Finalize (curate → merge) endojs/endo-but-for-bots PR #532
 - `endojs-endo-but-for-bots-pr532-shepherd` — shepherd directive on endojs/endo-but-for-bots PR #532
 - `harden-conductor-ci-wait-complete-merge` — Harden the conductor's CI-wait: complete the merge, don't end the job while w...
 
-### tada (197)
+### tada (198)
+- `endojs-endo-but-for-bots-pr532-conduct` — Inbox is empty. The background CI poll (bs3izgx4m) will notify me when PR #53...
 - `endojs-endo-but-for-bots-pr527-shepherd` — I've kicked off CI monitoring for PR #527. The watcher will re-invoke me when...
 - `endojs-endo-but-for-bots-pr527-review-0fb462c4` — Completion report
 - `sturdyref-retention-competing-design-pair` — Completion report: sturdyref-retention-competing-design-pair
 - `endojs-endo-but-for-bots-pr178-finish-merge-llm` — Waiting for the background CI watch to settle. Nothing more to do until then.
-- `endojs-endo-but-for-bots-pr69-d9e42969` — The directive is handled. Final report below.
-- … and 192 more
+- … and 193 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
