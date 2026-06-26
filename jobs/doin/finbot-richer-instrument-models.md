@@ -18,3 +18,9 @@ overlays on a price series. This job deepens them.
 ## Done when
 finbot models yield/dividend/growth instruments with realistic dynamics + fees/taxes/reinvestment, drivable
 from ingested historical data, mixable under a rebalancer; tested and green.
+
+---
+claim:
+  host: endolinbot
+  gardener: 16
+  claimed_at: 2026-06-26T06:01:34Z
