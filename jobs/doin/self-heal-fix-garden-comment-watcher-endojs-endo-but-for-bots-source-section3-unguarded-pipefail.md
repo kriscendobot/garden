@@ -2,3 +2,9 @@ In `scripts/jobs/handlers/comment-source-gh.sh`, section 3 (the open-PR review-b
   1. Capture the PR list with tolerance before iterating, instead of piping `gh pr list` directly into `while`: e.g. `prs="$(gh pr list -R "$repo" --state open --json number --jq '.[].number' 2>/dev/null || true)"` then `while read -r n; do ...; done <<< "$prs"`. This keeps a transient `gh pr list` failure from aborting the whole source under pipefail.
   2. Add `|| true` to the `rids="$(... | tr '\n' ' ')"` command substitution (lines ~99-101) so a transient `gh api .../comments` blip degrades to an empty rids set rather than silently killing the script.
 This makes a gh hiccup degrade to empty output (caught by comment-watcher.sh's zero-streak silent-blind detector at lines 450-459 if it persists) instead of a misleading silent FATAL. Verify with `scripts/jobs/test/comment-watcher-test.sh` and a shellcheck pass on the handler.
+
+---
+claim:
+  host: endolinbot
+  gardener: 78
+  claimed_at: 2026-06-26T04:22:18Z
