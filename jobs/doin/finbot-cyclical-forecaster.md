@@ -21,3 +21,9 @@ GBM forecaster on those presets under the *same* evaluation harness.
 ## Done when
 finbot has a cyclical-structure-aware forecaster that the evaluation harness scores as better-calibrated than
 GBM on cyclic/synthesis fixtures, with the comparison table in the report; tested and green.
+
+---
+claim:
+  host: endolinbot
+  gardener: 79
+  claimed_at: 2026-06-26T06:01:48Z
