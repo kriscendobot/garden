@@ -27,3 +27,9 @@ coherent), nothing lost — pushed. Report the live `llm` SHA and #521's new bas
 note on #521 that its base moved to live `llm`.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 100
+  claimed_at: 2026-06-26T01:37:10Z
