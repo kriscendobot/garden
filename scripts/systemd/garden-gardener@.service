@@ -10,7 +10,7 @@ CollectMode=inactive-or-failed
 Type=exec
 Slice=background.slice
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/gardener.sh %i
+ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-gardener --work-id %i -- @GARDEN_ROOT@/scripts/jobs/gardener.sh %i
 # long-running loop; keep it up if it dies, but back off
 Restart=on-failure
 RestartSec=5

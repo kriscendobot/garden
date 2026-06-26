@@ -187,11 +187,49 @@ A self-healing wrapper produces, on a failure:
 On success it produces **nothing** — the wrapper is silent on the happy path, so
 it adds no noise to the supervisor's context.
 
+## The reusable runner (the live, canonical implementation)
+
+`scripts/jobs/self-heal-run.sh` is the **portable wrapper** every garden service
+unit runs through. It extracts the driver's full shape (below) into a reusable
+CLI so the pattern survives the driver's removal (`plan-remove-driver-dead-code`)
+and is applied uniformly, not re-derived per service. The systemd units invoke it
+as `ExecStart=…/self-heal-run.sh <context> [--work-id %i] -- …/<service>.sh [args]`.
+
+```
+self-heal-run.sh <context> [--work-id <id>] [--role <brief>] [--expect <code>] -- <command...>
+```
+
+- **Capture (Part 1):** runs the command, tees combined stdout+stderr to journald
+  AND a bounded capture file; on an UNEXPECTED non-zero exit hashes the tail via
+  `capture_blob` into `$GARDEN_STATE/self-heal/journal`.
+- **Responder (Part 2):** hands the responder (`handlers/self-heal-claude.sh`,
+  overridable via `SELF_HEAL_HANDLER`) ONLY the SHA + a four-slot brief; it wears
+  the `--role` brief (default the mentor role) named for *this* context.
+- **Escalate (Part 3):** the responder posts `JOB … ENDJOB` fix jobs, or escalates
+  a no-fix diagnosis to the maintainer inbox (throttled).
+- **Preserves the exit code** so systemd's `Restart=` / `OnFailure=` / journal /
+  central-mentor layers still see the failure — the wrapper *diagnoses*, systemd
+  *restarts*. A SIGTERM/SIGINT (a systemd stop) is forwarded to the child and
+  treated as a CLEAN shutdown, never diagnosed.
+- **Hard throttle (the token-burn guard):** the responder fires at most once per
+  `(context, exit-code)` signature per `SELF_HEAL_THROTTLE_SECS` (default 30m),
+  capped at `SELF_HEAL_DAILY_CAP` (default 12) per UTC day. Throttle state lives
+  under `$GARDEN_STATE/self-heal/throttle/`, outside the unit, so a crash-looping
+  service can never spawn `claude -p` every few seconds. The homogeneous
+  100-instance gardener pool shares ONE context (`garden-gardener`, with the
+  instance as `--work-id`) so a fleet-wide gardener crash is throttled fleet-wide,
+  not per instance.
+- **CAS-primitive exception:** pure git/CAS primitives (the reaper, post/claim/
+  complete, cursors, inboxes) are NOT wrapped — their only failure mode is
+  contention, which the retry-on-rejection loop already heals. Use
+  `SELF_HEAL_CAPTURE_ONLY=1` for capture without a responder where that fits.
+
 ## Exemplars
 
 | Artifact | What it demonstrates | Caveat |
 | --- | --- | --- |
-| `scripts/driver/driver.sh` | The **full shape**: EXIT trap (`report_unexpected_exit`, `:131-151`) + per-tick `capture_and_self_improve` (`:481-582`) that hashes into the journal (`:497`) and feeds **only the SHA** to a backgrounded `claude -p` (`:532-541`). The strongest wrapper in the tree. | On the **retired/superseded** driver posture; never ported into the v2 service fleet or the gardener worker. Read it for the pattern, not as a live dependency. |
+| `scripts/jobs/self-heal-run.sh` (+ `handlers/self-heal-claude.sh`) | The **live, reusable runner** applied to the whole service fleet: bounded capture → throttled, task-specific responder → fix-job/inbox escalation, exit-code-preserving, signal-clean. | The canonical implementation; prefer it over re-deriving. |
+| `scripts/driver/driver.sh` | The **full shape** the runner was extracted from: EXIT trap (`report_unexpected_exit`, `:131-151`) + per-tick `capture_and_self_improve` (`:481-582`) that hashes into the journal (`:497`) and feeds **only the SHA** to a backgrounded `claude -p` (`:532-541`). | On the **retired/superseded** driver posture; being removed. Read it for the pattern's origin, not as a live dependency. |
 | v1 `report-error.sh` (`v1/skills/gardener-inbox-error-reporting/`) | The **capture + cross-host escalate** half: hash the transcript, append a SHA-bearing section to the committed gardener inbox, CAS-push. | Targets the **`journal`** branch; v2 is **`journal2`** (`scripts/jobs/common.sh`). A straight copy pushes to the wrong branch — retarget on port (`self-heal-port-capture-skills`). |
 | Gardening state machine (`designs/gardening-state-machine.md` § Divert debugging; `scripts/jobs/gardening/garden-pr.sh:34-37`, `panel.sh:56-59`) | The **diverted-tracing** half: `set -x` → `$GARDEN_TRACE_LOG` via `BASH_XTRACEFD`, so trace noise never reaches the supervisor. | **Half the pattern only.** Neither script hashes the trace nor invokes a debugger; `fail()` just `exit 1`s and the trace in `/tmp` is lost on cleanup. To self-heal, `fail()` must capture-by-hash and emit the SHA. |
 | `scripts/jobs/mentor.sh` (+ `handlers/mentor-claude.sh`) | The **fleet-wide net of last resort** the wrapper complements. | **Coarse:** 30-minute timer, **no per-task role**, inlines the whole journalctl tail rather than capturing by hash. A per-script wrapper is the targeted layer this lacks. |

@@ -8,7 +8,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 WorkingDirectory=%h
-ExecStart=%h/scripts/watcher/%i/watcher.sh
+ExecStart=%h/scripts/jobs/self-heal-run.sh garden-watcher@%i -- %h/scripts/watcher/%i/watcher.sh
 Restart=on-failure
 RestartSec=30s
 StandardOutput=journal

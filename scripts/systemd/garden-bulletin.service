@@ -19,7 +19,7 @@ StartLimitIntervalSec=0
 Type=exec
 Slice=background.slice
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/bulletin.sh
+ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-bulletin -- @GARDEN_ROOT@/scripts/jobs/bulletin.sh
 Restart=always
 RestartSec=5
 

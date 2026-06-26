@@ -1052,5 +1052,56 @@ env JOURNAL_REMOTE="$PFBARE" GARDEN_CLAIM_TTL=0 "$JOBS/reaper.sh" >/dev/null 2>&
 unset JOURNAL_REMOTE
 
 # ============================================================================
+hr; echo "SUBTEST 21 — SELF-HEAL WRAPPER: capture, throttle, signal-clean, rc"; hr
+# The reusable self-heal runner (scripts/jobs/self-heal-run.sh) wraps a service
+# command so a failure is captured by SHA and handed to a task-specific responder
+# exactly ONCE per (context, exit-code) signature per window — never on a clean
+# exit, and never on a systemd stop. The responder is stubbed (records calls) so
+# no real `claude -p` runs; the wrapper's own behavior is what we assert.
+export GARDEN_STATE="$TR/state-selfheal" GARDEN_HOST=shhost GARDEN_ROOT="$JOBS/.."
+SHRUN="$JOBS/self-heal-run.sh"
+SHCALLS="$TR/selfheal-calls"; : > "$SHCALLS"
+export SELF_HEAL_STUB_CALLS="$SHCALLS" SELF_HEAL_HANDLER="$HERE/self-heal-stub.sh"
+shcalls() { grep -c RESPONDER "$SHCALLS" 2>/dev/null || true; }  # grep -c already prints 0 on no match
+
+# (1) clean exit → silent, no responder, rc 0 preserved
+: > "$SHCALLS"
+set +e; "$SHRUN" garden-probe -- bash -c 'echo ok; exit 0' >/dev/null 2>&1; r0=$?; set -e
+{ [ "$r0" -eq 0 ] && [ "$(shcalls)" -eq 0 ]; } \
+  && ok "clean exit: silent, no responder fired (rc preserved)" || bad "clean exit fired responder (rc=$r0 calls=$(shcalls))"
+
+# (2) failure WITH output → responder fires once, exit code preserved, blob captured
+: > "$SHCALLS"
+set +e; "$SHRUN" garden-probe --work-id PR42 -- bash -c 'echo line; echo boom >&2; exit 3' >/dev/null 2>&1; r3=$?; set -e
+sha="$(sed -n 's/.*sha=\([0-9a-f]\{40\}\).*/\1/p' "$SHCALLS" | head -1)"
+{ [ "$r3" -eq 3 ] && [ "$(shcalls)" -eq 1 ] && grep -q 'rc=3' "$SHCALLS" && grep -q 'workid=PR42' "$SHCALLS"; } \
+  && ok "failure: responder fired ONCE with rc=3 and work-id (exit code preserved)" || bad "failure handling wrong (rc=$r3 calls=$(shcalls))"
+{ [ -n "$sha" ] && git -C "$GARDEN_STATE/self-heal/journal" cat-file -p "$sha" 2>/dev/null | grep -q boom; } \
+  && ok "failure output captured as a content-addressed blob (responder gets the SHA, not the log)" || bad "capture blob missing or wrong (sha=$sha)"
+
+# (3) immediate re-failure, SAME (context, rc) signature → THROTTLED (no 2nd responder)
+set +e; "$SHRUN" garden-probe -- bash -c 'echo again; exit 3' >/dev/null 2>&1; set -e
+[ "$(shcalls)" -eq 1 ] && ok "same-signature re-failure THROTTLED (no token-burn on a crash loop)" || bad "throttle leaked ($(shcalls) calls)"
+
+# (4) distinct exit code is a distinct signature → fires
+set +e; SELF_HEAL_THROTTLE_SECS=1800 "$SHRUN" garden-probe -- bash -c 'echo seven; exit 7' >/dev/null 2>&1; set -e
+{ [ "$(shcalls)" -eq 2 ] && grep -q 'rc=7' "$SHCALLS"; } \
+  && ok "distinct exit code → distinct signature, responder fires for the new failure" || bad "rc=7 not treated as new signature ($(shcalls))"
+
+# (5) daily cap caps a same-signature flood even with a zero window
+: > "$SHCALLS"
+for _ in 1 2 3 4; do
+  set +e; SELF_HEAL_THROTTLE_SECS=0 SELF_HEAL_DAILY_CAP=2 "$SHRUN" garden-flood -- bash -c 'echo f; exit 9' >/dev/null 2>&1; set -e
+done
+[ "$(shcalls)" -eq 2 ] && ok "daily cap holds: 4 same-signature failures → at most 2 responders" || bad "daily cap not enforced ($(shcalls) of cap 2)"
+
+# (6) a TERM mid-run (systemd stop) is a CLEAN shutdown → no responder
+: > "$SHCALLS"
+SELF_HEAL_THROTTLE_SECS=0 "$SHRUN" garden-sleeper -- bash -c 'sleep 30' >/dev/null 2>&1 & shpid=$!
+sleep 1; kill -TERM "$shpid"; wait "$shpid" 2>/dev/null || true
+[ "$(shcalls)" -eq 0 ] && ok "SIGTERM mid-run treated as clean shutdown (no spurious diagnosis)" || bad "systemd stop wrongly diagnosed ($(shcalls) calls)"
+unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

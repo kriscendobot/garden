@@ -9,4 +9,9 @@ Description=Garden GitHub-wide @kriscendobot mention watcher (sender-trust gated
 [Service]
 Type=oneshot
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/mention-watcher.sh
+ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-mention-watcher -- @GARDEN_ROOT@/scripts/jobs/mention-watcher.sh
+# The self-heal responder runs synchronously on a failed tick before the
+# wrapper returns the failing rc; give it headroom beyond the implicit 90s
+# oneshot start timeout so a diagnosis is not cut off (responder itself is
+# hard-bounded by SELF_HEAL_RESPONDER_TIMEOUT).
+TimeoutStartSec=900
