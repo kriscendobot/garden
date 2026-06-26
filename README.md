@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T04:06:02Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T04:08:15Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bulletin board has gone quiet after a busy stretch: [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543) was rebased and that job completed, leaving only a single attention directive still in flight on the same PR. The notable item for the maintainer is in the inbox: the sturdyref design job continuing [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) found that PR had already merged (head branch deleted) seconds after the job was claimed, so the work landed instead as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), which folds in proactive per-turn `deleteExport` as a requirement and demotes FinalizationRegistry to an optional leak detector — it awaits a word to run the gamut and un-draft. The same report flags a typo in your [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` should be `getSturdyRefLocator`) and offers a fixer rename on request. Otherwise the parked queue is unchanged, with [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) and the freshly-landed [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) at the top awaiting review.
+Since the last bulletin the board fully drained — [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543) finished its rebase and completion job, leaving todo and doin empty, on the heels of [#542](https://github.com/endojs/endo-but-for-bots/pull/542) (shepherded to green and merged) and [#537](https://github.com/endojs/endo-but-for-bots/pull/537) (conducted). The one item needing a human decision is a gardener message on the sturdyref work: [#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged seconds after the continue-job was claimed, so the design was carried forward as a successor draft, [#539](https://github.com/endojs/endo-but-for-bots/pull/539) (per-turn `deleteExport` promoted to a requirement, FinalizationRegistry demoted to an optional leak detector), off the stacked `llm-65b0abe` base — the gardener is awaiting word to run it through the gamut and un-draft. It also flagged a typo in the maintainer's own [#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` should be `getSturdyRefLocator`) and offered a fixer rename. Thirty PRs remain parked for review, the oldest-relevant being [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) and [#513](https://github.com/endojs/endo-but-for-bots/pull/513).
 
 ## Parked for maintainer feedback
 
@@ -48,16 +48,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `endojs-endo-but-for-bots-pr543-a390364f` — attention directive on endojs/endo-but-for-bots PR #543
+### doin (0)
+(none)
 
-### tada (230)
+### tada (231)
+- `endojs-endo-but-for-bots-pr543-a390364f` — Completion report — job endojs-endo-but-for-bots-pr543-a390364f
 - `endojs-endo-but-for-bots-pr543-rebase` — Completion report: endojs-endo-but-for-bots-pr543-rebase
 - `endojs-endo-but-for-bots-pr537-conduct` — Completion report
 - `endojs-endo-but-for-bots-pr542-merge` — Inbox empty. Job complete.
 - `endojs-endo-but-for-bots-pr542-shepherd` — Shepherd job complete.
-- `endojs-endo-but-for-bots-pr542-conduct` — ci-wait-merge is running tracked in the background; the harness will re-invok...
-- … and 225 more
+- … and 226 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
