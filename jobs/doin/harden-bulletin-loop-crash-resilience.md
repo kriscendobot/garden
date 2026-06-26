@@ -43,3 +43,9 @@ longer fatal, the unit cannot be permanently killed by a crash loop (start-limit
 Report the SHA, the root-cause pipeline, and the resilience change.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 65
+  claimed_at: 2026-06-26T00:10:45Z
