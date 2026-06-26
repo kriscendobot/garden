@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T05:39:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T05:42:25Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,11 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Three fresh directives on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) — two attention items plus a review directive — just landed in progress, the only new claims this tick. On the completion side, rebases wrapped up across [#513](https://github.com/endojs/endo-but-for-bots/pull/513), [#379](https://github.com/endojs/endo-but-for-bots/pull/379), and [#297](https://github.com/endojs/endo-but-for-bots/pull/297), and an attention directive plus the sturdyref enliven-on-demand redirect closed out on [#539](https://github.com/endojs/endo-but-for-bots/pull/539). The board is otherwise quiet — todo is empty and the parked queue still leads with [#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [#513](https://github.com/endojs/endo-but-for-bots/pull/513) awaiting maintainer review.
+I'll write the bulletin's "## Latest" section based on the board transitions and dashboard state.
+
+Looking at the data: the main movement since the last bulletin is the completion of the PR #507 attention directive, plus recently-completed work on #513, #379, and #539 in the tada queue.
+
+[endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) cleared its attention directive — that completion just landed on the board — though a follow-on review directive on the same PR is still in flight alongside an `finbot-richer-forecasting` build. Recently wrapped: a rebase-refactor pass on [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub Sink/Spring package, now parked for review), a rebase on [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (the cyclic star-export fix, also freshly back in the parked queue), and a sturdyref enliven-on-demand redirect plus attention directive on [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539). The board is otherwise drained — nothing in todo, three jobs running. Maintainer's eyes are most usefully spent on the freshly-refreshed reviews: [#513](https://github.com/endojs/endo-but-for-bots/pull/513) and [#379](https://github.com/endojs/endo-but-for-bots/pull/379) both re-entered the parked queue within the last half hour.
 
 ## Parked for maintainer feedback
 
@@ -34,19 +38,18 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- `endojs-endo-but-for-bots-pr507-c841a4a6` — attention directive on endojs/endo-but-for-bots PR #507
+### doin (3)
 - `endojs-endo-but-for-bots-pr507-f76e2c9d` — attention directive on endojs/endo-but-for-bots PR #507
 - `endojs-endo-but-for-bots-pr507-review-f4d95615` — Review directive on endojs/endo-but-for-bots PR #507
 - `finbot-richer-forecasting` — GOAL: richer ensemble forecasting + the visual histogram projection
 
-### tada (241)
+### tada (242)
+- `endojs-endo-but-for-bots-pr507-c841a4a6` — Completion report
 - `endojs-endo-but-for-bots-pr513-rebase-refactor-cancel` — Completion report
 - `endojs-endo-but-for-bots-pr379-rebase` — I'll stop polling and wait for the harness to re-invoke me when the backgroun...
 - `redirect-pr539-sturdyref-enliven-on-demand` — Completion report — redirect-pr539-sturdyref-enliven-on-demand
 - `endojs-endo-but-for-bots-pr539-6364bb7d` — Completion report: attention directive on endojs/endo-but-for-bots PR #539
-- `endojs-endo-but-for-bots-pr297-rebase` — Completion report — endojs-endo-but-for-bots-pr297-rebase
-- … and 236 more
+- … and 237 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
