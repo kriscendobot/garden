@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T04:08:15Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T04:20:31Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,11 +10,11 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Since the last bulletin the board fully drained — [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543) finished its rebase and completion job, leaving todo and doin empty, on the heels of [#542](https://github.com/endojs/endo-but-for-bots/pull/542) (shepherded to green and merged) and [#537](https://github.com/endojs/endo-but-for-bots/pull/537) (conducted). The one item needing a human decision is a gardener message on the sturdyref work: [#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged seconds after the continue-job was claimed, so the design was carried forward as a successor draft, [#539](https://github.com/endojs/endo-but-for-bots/pull/539) (per-turn `deleteExport` promoted to a requirement, FinalizationRegistry demoted to an optional leak detector), off the stacked `llm-65b0abe` base — the gardener is awaiting word to run it through the gamut and un-draft. It also flagged a typo in the maintainer's own [#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` should be `getSturdyRefLocator`) and offered a fixer rename. Thirty PRs remain parked for review, the oldest-relevant being [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) and [#513](https://github.com/endojs/endo-but-for-bots/pull/513).
+A gardener completing the sturdy-ref work hit a deviation worth a maintainer call: [#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already MERGED (into `llm-65b0abe`) seconds after the job was claimed and its head branch was deleted, so the continuation landed as a successor DRAFT, [#539](https://github.com/endojs/endo-but-for-bots/pull/539) — folding in proactive per-turn `deleteExport` as a requirement, `FinalizationRegistry` demoted to an optional leak detector, and an optional `type` hint on the SturdyRef; [#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Two items await your word in the [maintainer inbox](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260626T013612Z-6a7140.md): whether to run #539 through the gamut and un-draft it, and whether to fix a typo flagged on your own [#521](https://github.com/endojs/endo-but-for-bots/pull/521) (the exported symbol reads `getStudyRefLocator`, missing the `r`). On the autonomous side, [#543](https://github.com/endojs/endo-but-for-bots/pull/543) was rebased and completed, [#542](https://github.com/endojs/endo-but-for-bots/pull/542) merged, and [#537](https://github.com/endojs/endo-but-for-bots/pull/537) was conducted through. A gardener also claimed garden-infra work to fix `install-units.sh enable-services` so it enables all intended garden timers.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 3h)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 4h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 3h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -48,8 +48,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `fix-enable-services-timer-coverage` — Fix install-units.sh enable-services to enable ALL intended garden timers (ma...
 
 ### tada (231)
 - `endojs-endo-but-for-bots-pr543-a390364f` — Completion report — job endojs-endo-but-for-bots-pr543-a390364f
