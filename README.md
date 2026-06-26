@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T05:43:19Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T05:44:36Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,18 +10,14 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the board transitions.
-
-Looking at the data: the main movement since the last bulletin is PR #507 work completing — a review directive job moved to completion (tada), with a progress note from a gardener.
-
-[endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) review work just landed — a completion report moved onto the board, and a second #507 review-directive job is still in flight alongside the long-running `finbot-richer-forecasting` build. Two PRs newly surfaced for maintainer eyes: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the @endo/pubsub Sink/Spring async linked list, ~19m parked) and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export rebase refreshed for #3276 feedback, ~24m parked). The board is otherwise quiet — todo is empty and the plan queue stays parked awaiting authorization.
+Work on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) wrapped up — two completion reports landed back-to-back, with a review directive on the same PR still being worked in `doin`. A [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) rebase/refactor was cancelled, the [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) rebase paused to await re-invocation when its background step finishes, and the [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) sturdyref enliven-on-demand redirect completed. A gardener has just claimed the `finbot-forecast-evaluation-fixtures` job (synthetic oracle time-series fixtures to evaluate the forecasting ensemble), now running alongside the richer-forecasting effort. The board is otherwise drained — nothing waiting in `todo`. Maintainer attention is most useful on the freshly parked reviews: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (@endo/pubsub) and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 24m)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 30m)
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 5h)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 19m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8h)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 24m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 10d)
@@ -38,8 +34,9 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - `endojs-endo-but-for-bots-pr507-review-f4d95615` — Review directive on endojs/endo-but-for-bots PR #507
+- `finbot-forecast-evaluation-fixtures` — Evolve finbot: synthetic oracle time-series fixtures to evaluate the ensemble...
 - `finbot-richer-forecasting` — GOAL: richer ensemble forecasting + the visual histogram projection
 
 ### tada (243)
