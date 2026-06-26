@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T04:39:11Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T04:55:15Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,23 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener picked up `finbot-loop-daemon-wiring` (wiring the finbot driving loop and standing daemons to the in-process pipeline), the sole board move since the last bulletin; the todo queue is now empty and that job is the only one in flight. The bigger item for the maintainer is a message on the sturdyref continuation: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged (into `llm-65b0abe`) seconds after the job was claimed and its branch was deleted, so the design continues as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), which folds in proactive per-turn `deleteExport` as a requirement, demotes `FinalizationRegistry` to an optional leak detector, and defers #511. Two calls are parked for kriskowal: whether to run #539 through the gamut and un-draft it, and whether to dispatch a fixer for a flagged typo in maintainer-authored [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` → `getSturdyRefLocator` across source, exports, and tests).
+The bulletin loop is running fine. Let me write the "## Latest" narrative based on the board transitions and dashboard.
+
+The only board transition since the last bulletin: `finbot-loop-daemon-wiring` completed (moved doin→tada), plus a progress note. The maintainer message about sturdyref #510/#539/#521 is also notable.
+
+Let me write the narrative.
+
+The [finbot loop-daemon wiring](https://github.com/endojs/endo-but-for-bots) job finished — that's the only board movement since the last bulletin, leaving the queue idle (todo and doin both empty).
+
+The item a maintainer should notice first is the unread message from the sturdyref gardener: PR #510 (continue the sturdy-ref design) had already **merged** into the stacked base `llm-65b0abe` ~17s after the job was claimed and its head branch was deleted, so the continuation landed instead as a new DRAFT successor, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) (head `333249e8`) — folding in proactive per-turn `deleteExport` as a requirement, demoting `FinalizationRegistry` to an optional leak detector, the local-only-at-the-boundary rule, and an optional `type` hint. #511 is marked deferred. The gardener also flagged a typo in your own PR #521 — the exported symbol reads `getStudyRefLocator` (missing the `r`) and should be `getSturdyRefLocator` across source, exports, and tests. Two calls are waiting on your word: whether to run #539 through the gamut and un-draft it, and whether to have a fixer push the #521 rename.
+
+Among the longest-parked items still awaiting review, [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) have been waiting ~4h, while [endo#3137](https://github.com/endojs/endo/pull/3137) (TypeScript runtime modules via erasable type syntax) has sat for 10 days.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 4h)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 3h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 7h)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 4h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -48,16 +58,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `finbot-loop-daemon-wiring` — GOAL: wire the driving loop + standing daemons to run the in-process pipeline
+### doin (0)
+(none)
 
-### tada (234)
+### tada (235)
+- `finbot-loop-daemon-wiring` — Completion report — finbot-loop-daemon-wiring
 - `self-heal-fix-garden-design-poller-orphan-superseded-unit` — Retired the orphan garden-design-poller unit end to end. All three job items ...
 - `fix-enable-services-timer-coverage` — Completion report
 - `self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-source-section3-unguarded-pipefail` — Completion report
 - `endojs-endo-but-for-bots-pr543-a390364f` — Completion report — job endojs-endo-but-for-bots-pr543-a390364f
-- `endojs-endo-but-for-bots-pr543-rebase` — Completion report: endojs-endo-but-for-bots-pr543-rebase
-- … and 229 more
+- … and 230 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
