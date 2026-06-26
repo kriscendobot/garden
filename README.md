@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T05:13:57Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T05:14:53Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The attention directive on [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) wrapped up and landed in the completed column; a follow-on redirect for the same PR — dropping endor-syscall/FinReg sturdyref retention in favor of an enliven-on-demand design — is now in progress, alongside in-flight rebases of [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513).
+Two jobs landed in the last tick: the [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) rebase (the cyclic-star-export fix, now refreshed and back in the maintainer's parked queue) and the sturdyref enliven-on-demand redirect on [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539). The only work still in flight is the [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) pubsub rebase onto the current `@endo/cancel`-bearing llm branch. Maintainer attention is otherwise wanted on the parked stack — #379, [#440](https://github.com/endojs/endo-but-for-bots/pull/440), #513, and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) are the freshest, while [endo#3137](https://github.com/endojs/endo/pull/3137) has now waited ten days.
 
 ## Parked for maintainer feedback
 
@@ -34,18 +34,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- `endojs-endo-but-for-bots-pr379-rebase` — rebase directive on endojs/endo-but-for-bots PR #379
+### doin (1)
 - `endojs-endo-but-for-bots-pr513-rebase-refactor-cancel` — #513: rebase onto current llm (now has @endo/cancel) and refactor pubsub to u...
-- `redirect-pr539-sturdyref-enliven-on-demand` — Redirect #539: drop endor-syscall/FinReg sturdyref retention; design enliven-...
 
-### tada (238)
+### tada (240)
+- `endojs-endo-but-for-bots-pr379-rebase` — I'll stop polling and wait for the harness to re-invoke me when the backgroun...
+- `redirect-pr539-sturdyref-enliven-on-demand` — Completion report — redirect-pr539-sturdyref-enliven-on-demand
 - `endojs-endo-but-for-bots-pr539-6364bb7d` — Completion report: attention directive on endojs/endo-but-for-bots PR #539
 - `endojs-endo-but-for-bots-pr297-rebase` — Completion report — endojs-endo-but-for-bots-pr297-rebase
 - `endojs-endo-but-for-bots-pr297-17268b2c` — What the directive asked
-- `finbot-loop-daemon-wiring` — Completion report — finbot-loop-daemon-wiring
-- `self-heal-fix-garden-design-poller-orphan-superseded-unit` — Retired the orphan garden-design-poller unit end to end. All three job items ...
-- … and 233 more
+- … and 235 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
