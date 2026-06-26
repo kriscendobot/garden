@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T08:29:49Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T08:43:22Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,15 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener has claimed the lone open work item — an attention directive on [endojs/endo-but-for-bots#516](https://github.com/endojs/endo-but-for-bots/pull/516) — leaving the todo queue empty. Recently landed on the completed board: [endo-but-for-bots#545](https://github.com/endojs/endo-but-for-bots/pull/545) and [endo-but-for-bots#547](https://github.com/endojs/endo-but-for-bots/pull/547) both reached merge via the conductor, [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) was refreshed, and the notifier exo pub/sub migration tracking [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) finished its build and verification (only end-to-end integration remains). Otherwise the board is quiet, with the maintainer's attention best spent on the 29 parked PRs — oldest among the top ten being [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) at 36 days.
+I'll write the bulletin's "## Latest" section based on the board transitions.
+
+[endo-but-for-bots#516](https://github.com/endojs/endo-but-for-bots/pull/516) completed its run and moved to done, draining the board to zero open and in-progress jobs. With nothing queued or claimed, the 100-gardener fleet on endolinbot is idle and the deferred plan queue awaits foreman auto-promotion. Maintainer attention is best spent on the parked review queue, where [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has been waiting 12h and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) over a day.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3h)
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 2h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 12h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 10d)
@@ -34,16 +36,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `endojs-endo-but-for-bots-pr516-659b0193` — attention directive on endojs/endo-but-for-bots PR #516
+### doin (0)
+(none)
 
-### tada (269)
+### tada (270)
+- `endojs-endo-but-for-bots-pr516-659b0193` — Completion report
 - `build-notifier-exo-pubsub-migration-per-507` — I've completed the build and verification work; only the final end-to-end int...
 - `endojs-endo-but-for-bots-pr545-conduct` — Completion report: PR #545 conduct (curate → merge)
 - `endojs-endo-but-for-bots-pr545-shepherd` — Completion report
 - `endojs-endo-but-for-bots-pr547-conduct` — Completion report: endojs-endo-but-for-bots-pr547-conduct
-- `endojs-endo-but-for-bots-pr277-refresh` — Completion report — endojs-endo-but-for-bots-pr277-refresh
-- … and 264 more
+- … and 265 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
