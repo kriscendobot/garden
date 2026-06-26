@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:53:25Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:56:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,19 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bulletin input is data to narrate — let me write the "## Latest" section prose.
-
-Looking at the input: little of substance moved in this window. The only board transitions are one new progress note and one job claim ([endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69) moving into `doin`). The notable item for a maintainer is the unread message about #525's authorship-gate question, plus freshly-parked PRs.
-
-Let me write a terse Latest section.
-
-A quiet window: the only board movement was a gardener claiming the attention directive on [endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69), now in progress alongside the ongoing finbot dry-run and the [#510](https://github.com/endojs/endo-but-for-bots/pull/510)-vs-[#511](https://github.com/endojs/endo-but-for-bots/pull/511) sturdyref/retention design pair. Most maintainer attention is owed off the board: an **unread message** raises a scope question about whether kriscendobot's mention triage should add an authorship gate — it acted on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) (authored by 0xpatrickbot, not kriscendobot) on an allowlisted sender's comment; the work was welcomed, but 0xpatrickdev suggested mentions should only be acted on for PRs kriscendobot itself authored, and the gardener is awaiting your call before landing that change. Freshest in the parked queue are the new [@endo/pubsub](https://github.com/endojs/endo-but-for-bots/pull/513) PR and the [formula-inspector design](https://github.com/endojs/endo-but-for-bots/pull/440) (#439), both awaiting review.
+[endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69) wrapped up and moved to done, while two jobs were just claimed: the conduct to finish merging [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) to the `llm` branch (its CI had been pending), and a fresh design task for an OAuth-secured MCP server. The item most needing a human is a routing/identity question parked in the maintainer inbox: a gardener acting on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) noticed that kriscendobot's mention triage gates on sender trust alone, so it engaged with an allowlisted reviewer's comment on a PR authored by *another* bot (0xpatrickbot); the work was welcomed, but the reviewer and the gardener both suggest adding an authorship gate so triage only fires on PRs kriscendobot itself authored — your call before it's landed.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 35m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 40m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4h)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 4m)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 9m)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -49,18 +43,19 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
-- `endojs-endo-but-for-bots-pr69-d9e42969` — attention directive on endojs/endo-but-for-bots PR #69
+- `design-mcp-oauth-aws-minion-town` — Design an MCP server with OAuth authN/authZ — great local DX + AWS-deployable...
+- `endojs-endo-but-for-bots-pr178-finish-merge-llm` — Finish merging #178 to llm (CI was pending; the prior conduct ended before me...
 - `sturdyref-retention-competing-design-pair` — Advance the competing sturdyref + formula-retention design pair (#510 vs #511...
 
-### tada (192)
+### tada (193)
+- `endojs-endo-but-for-bots-pr69-d9e42969` — The directive is handled. Final report below.
 - `endojs-endo-but-for-bots-pr507-rebase` — Completion report: endojs-endo-but-for-bots-pr507-rebase
 - `scholar-ingest-cask-18` — Completion report — scholar-ingest-cask-18 (cycle 18)
 - `apply-self-healing-wrapper-to-all-services` — Completion report
 - `endojs-endo-but-for-bots-pr178-conduct-llm` — Waiting for CI completion. The harness will re-invoke me when the background ...
-- `scholar-ingest-cask-16` — Completion report — scholar-ingest-cask-16 (cask cycle 17)
-- … and 187 more
+- … and 188 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
