@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:22:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:23:43Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Garaderoned [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) is in the conductor's hands — shepherded green and now blocked on a CI wait, with the conductor's `harden-conductor-ci-wait-complete-merge` change landed so the merge job carries through to completion rather than ending while CI is merely pending. The finbot-as-designed build wrapped, and a new producer-clone-locking hardening job (`garden-harden-producer-clone-lock`) is in flight to keep a crashed post-plan/post-job from wedging future posts. Maintainer attention is most fresh on [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub package, 35m parked) and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) (1h).
+A gardener just claimed the attention directive on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), the only board movement this tick; it joins three other in-flight jobs — the SturdyRefs endor-syscall retention build off design [#510](https://github.com/endojs/endo-but-for-bots/pull/510), a review directive on that same PR, and the `garden-harden-producer-clone-lock` infra fix that closes out the stale-lock wedge that could freeze posts. On the recently-completed side, the conductor CI-wait hardening landed (it now carries merges to completion rather than ending while CI is merely pending), and [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) is parked under shepherd/conductor watch awaiting CI before merge. Worth a maintainer's eye: [#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package) has been waiting 35 minutes, and the longer-parked [#503](https://github.com/endojs/endo-but-for-bots/pull/503) passable-byte-arrays and [#440](https://github.com/endojs/endo-but-for-bots/pull/440) formula-inspector design are still awaiting review.
 
 ## Parked for maintainer feedback
 
@@ -34,8 +34,9 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
+- `endojs-endo-but-for-bots-pr474-53ff69c3` — attention directive on endojs/endo-but-for-bots PR #474
 - `endojs-endo-but-for-bots-pr510-review-93293593` — Review directive on endojs/endo-but-for-bots PR #510
 - `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
 
