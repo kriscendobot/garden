@@ -55,6 +55,15 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # real fault that must surface, not be swallowed. The `|| true` tolerates a
 # transient gh failure on one endpoint without aborting the others; a truly missing
 # jq can no longer reach here (require_tools above dies first).
+#
+# EXCEPTION — section 3's STRUCTURAL gh calls (`gh pr list` and the `rids=` review-
+# id `gh api`) do NOT use `2>/dev/null`. Unlike the per-endpoint fetches in 1–2, a
+# failure here aborts the open-PR walk; blinding it (a rate-limit / network / auth
+# blip) produced an EMPTY self-heal blob — one FATAL line, no `  source:` context
+# (blob d65a4f0a). Their stderr is captured to a buffer that is echoed to fd 2 ONLY
+# on failure (so a genuine gh fault reaches the watcher's ERRF), and the failure is
+# then degraded with `|| true` / `|| rids=""` so a transient blip can't kill the
+# source — matching the graceful-degrade intent of sections 1–2.
 
 # 1) issue/PR conversation comments
 gh api --paginate "repos/$repo/issues/comments?since=$since&per_page=100" 2>/dev/null \
@@ -91,14 +100,19 @@ gh api --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>/dev/
 #    maintainer approval and dispatch the finalization-to-merge (the gap behind
 #    endo-but-for-bots #528: APPROVED + MERGEABLE + asks done, but left DRAFT
 #    because nothing surfaced the approval).
-gh pr list -R "$repo" --state open --json number --jq '.[].number' 2>/dev/null \
+# Capture buffers for the structural gh calls' stderr (see Stderr policy EXCEPTION
+# above): echoed to fd 2 only when the call fails, so a real fault reaches ERRF
+# while a clean run stays quiet.
+prlist_err="$(mktemp)"; rids_err="$(mktemp)"
+gh pr list -R "$repo" --state open --json number --jq '.[].number' 2>"$prlist_err" \
   | while read -r n; do
       [ -n "$n" ] || continue
       # Review ids that carry at least one inline comment on this PR. A
       # space-delimited string so the reviews jq below can membership-test it.
-      rids="$(gh api --paginate "repos/$repo/pulls/$n/comments?per_page=100" 2>/dev/null \
+      : >"$rids_err"
+      rids="$(gh api --paginate "repos/$repo/pulls/$n/comments?per_page=100" 2>"$rids_err" \
               | jq -r '.[] | (.pull_request_review_id // empty) | tostring' \
-              | sort -u | tr '\n' ' ')"
+              | sort -u | tr '\n' ' ')" || { rids=""; cat "$rids_err" >&2; }
       gh api "repos/$repo/pulls/$n/reviews" 2>/dev/null \
         | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " '
             .[] | select((.submitted_at // "") >= $s)
@@ -110,4 +124,5 @@ gh pr list -R "$repo" --state open --json number --jq '.[].number' 2>/dev/null \
                 + (if .state=="CHANGES_REQUESTED" then "[CHANGES_REQUESTED] " else "" end)
                 + (if .state=="APPROVED" then "[APPROVED] " else "" end)
                 + ((.body // "") | gsub("[\t\r\n]+"; " ")) ) ] | @tsv' || true
-    done
+    done || { cat "$prlist_err" >&2; true; }
+rm -f "$prlist_err" "$rids_err"
