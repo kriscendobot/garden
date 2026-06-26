@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T07:30:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T07:31:21Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-[endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) cleared its conduct/merge job and landed in `tada`, closing out that PR's pipeline. The board is otherwise quiet — a single job remains in flight, the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) retcon that's working through a maintainer CHANGES_REQUESTED (reset, address open feedback, rebase, then shepherd). No new work was posted, and the plan queue stays parked behind maintainer authorization. The standing ask for kriskowal is the parked review backlog, which now sits at 29 PRs — the oldest movers being [endo#3137](https://github.com/endojs/endo/pull/3137) (10d) and the long-waiting [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (35d each).
+Little moved since the last rewrite: a single low-priority plan, `endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`, was parked to the deferred queue to revisit reusable file/crypto test powers for the @endo/daemon-cas tests on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) — the same PR whose retcon-plus-feedback-plus-rebase job is the lone item still in flight, working through the maintainer's CHANGES_REQUESTED.
 
 ## Parked for maintainer feedback
 
@@ -60,6 +60,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `finbot-ses-compartments` — _normal_ · GOAL: replace the in-process v0.5 capability attenuator with real SES compart...
 - `finbot-substrate-adapters` — _normal_ · GOAL: executor signing adapters for real substrates (ymax Path A / Path C)
 - `classify-lint-endo-master` — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
+- `endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers` — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
 
 ## Watch set
 (none)
