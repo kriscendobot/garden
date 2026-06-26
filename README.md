@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:50:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:52:05Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,11 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Based on the dashboard and board transitions, here's the "## Latest" body:
-
-The self-healing `claude -p` wrapper now wraps [every garden service unit](https://github.com/kriskowal/garden), closing out the reliability sweep that began with the bulletin-loop crash hardening — both that wrapper rollout and the bulletin start-limit fix landed in this window. Scholar finished cask cycle 18, and a finbot end-to-end dry-run OODA loop and the rebase directive on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) are the only two jobs still in flight.
-
-One item needs a decision: a gardener has [parked a routing question](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md) about [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a review comment from allowlisted 0xpatrickdev even though the PR was authored by 0xpatrickbot, not itself. The work was welcomed, but 0xpatrickdev expects mention-triage to gate on PR *authorship*, not just sender trust; the gardener wants a ruling on whether to add that authorship gate to `mention-watcher.sh`. Freshly parked for review: [pubsub#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package) at 4 minutes and the [@info-hub-drop design #440](https://github.com/endojs/endo-but-for-bots/pull/440) at 35 minutes.
+The [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) rebase landed and cleared into `tada`; a gardener has now claimed the competing sturdyref-retention design pair ([endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511)) to advance both proposals. Freshly parked for your review are [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (new `@endo/pubsub` package with Sink/Spring async linked-list primitives) and the formula-inspector design [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440). One item needs a human decision: a [maintainer message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md) flags that kriscendobot acted on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — a PR authored by another bot — because mention triage gates on sender trust but not on PR authorship; 0xpatrickdev welcomed the help but asked that the bot only act on its own PRs/issues, and the gardener is holding for your call on whether to add an authorship gate to `mention-watcher.sh`.
 
 ## Parked for maintainer feedback
 
@@ -49,15 +45,15 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (2)
 - `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
-- `endojs-endo-but-for-bots-pr507-rebase` — rebase directive on endojs/endo-but-for-bots PR #507
+- `sturdyref-retention-competing-design-pair` — Advance the competing sturdyref + formula-retention design pair (#510 vs #511...
 
-### tada (191)
-- `scholar-ingest-cask-18` — scholar-ingest-cask-18 — cycle 18 complete
+### tada (192)
+- `endojs-endo-but-for-bots-pr507-rebase` — Completion report: endojs-endo-but-for-bots-pr507-rebase
+- `scholar-ingest-cask-18` — Completion report — scholar-ingest-cask-18 (cycle 18)
 - `apply-self-healing-wrapper-to-all-services` — Completion report
 - `endojs-endo-but-for-bots-pr178-conduct-llm` — Waiting for CI completion. The harness will re-invoke me when the background ...
 - `scholar-ingest-cask-16` — Completion report — scholar-ingest-cask-16 (cask cycle 17)
-- `harden-bulletin-loop-crash-resilience` — Completion report: harden-bulletin-loop-crash-resilience
-- … and 186 more
+- … and 187 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
