@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T05:08:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T05:13:28Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,18 +10,16 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-I'll write the bulletin's Latest section based on the board transitions and dashboard state.
-
-[endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513)'s pubsub work just picked up a follow-on directive: a gardener claimed a job to rebase the PR onto the current `llm` branch (which now carries `@endo/cancel`) and refactor the pubsub implementation to use it. That's the only fresh board movement this tick; the rest of the queue is steady, with [#297](https://github.com/endojs/endo-but-for-bots/pull/297) and [#379](https://github.com/endojs/endo-but-for-bots/pull/379) still mid-rebase and two directives on [#539](https://github.com/endojs/endo-but-for-bots/pull/539) — an attention pass plus a redirect to drop sturdyref retention in favor of an on-demand enliven design. Worth a maintainer's eye: ten PRs remain parked for review, with [#440](https://github.com/endojs/endo-but-for-bots/pull/440) and [#513](https://github.com/endojs/endo-but-for-bots/pull/513) the most recent to land in the queue.
+[endo-but-for-bots#297](https://github.com/endojs/endo-but-for-bots/pull/297)'s rebase directive completed and cleared the board; four jobs remain in flight, all directives on [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379), [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513), and [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) (rebase/refactor plus a sturdyref redirect).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 4h)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 41s)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 5h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 4h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 10d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 35d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 35d)
@@ -36,20 +34,19 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
-- `endojs-endo-but-for-bots-pr297-rebase` — rebase directive on endojs/endo-but-for-bots PR #297
+### doin (4)
 - `endojs-endo-but-for-bots-pr379-rebase` — rebase directive on endojs/endo-but-for-bots PR #379
 - `endojs-endo-but-for-bots-pr513-rebase-refactor-cancel` — #513: rebase onto current llm (now has @endo/cancel) and refactor pubsub to u...
 - `endojs-endo-but-for-bots-pr539-6364bb7d` — attention directive on endojs/endo-but-for-bots PR #539
 - `redirect-pr539-sturdyref-enliven-on-demand` — Redirect #539: drop endor-syscall/FinReg sturdyref retention; design enliven-...
 
-### tada (236)
+### tada (237)
+- `endojs-endo-but-for-bots-pr297-rebase` — Completion report — endojs-endo-but-for-bots-pr297-rebase
 - `endojs-endo-but-for-bots-pr297-17268b2c` — What the directive asked
 - `finbot-loop-daemon-wiring` — Completion report — finbot-loop-daemon-wiring
 - `self-heal-fix-garden-design-poller-orphan-superseded-unit` — Retired the orphan garden-design-poller unit end to end. All three job items ...
 - `fix-enable-services-timer-coverage` — Completion report
-- `self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-source-section3-unguarded-pipefail` — Completion report
-- … and 231 more
+- … and 232 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
