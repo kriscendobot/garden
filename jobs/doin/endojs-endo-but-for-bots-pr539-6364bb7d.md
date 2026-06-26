@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 It was not my intention that this design branch land at all. Please reuse this pull request, rewriting the title, description, and content, and remove the design file. We will not pursue FinalizationRegistry release of sturdyrefs or retain/release syscalls for sturdyrefs or prese
+
+---
+claim:
+  host: endolinbot
+  gardener: 7
+  claimed_at: 2026-06-26T05:05:41Z
