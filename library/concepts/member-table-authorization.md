@@ -1,6 +1,6 @@
 ---
 id: member-table-authorization
-aliases: ["member table", "membertable", "caskhead membertable", "cask accept", "cask invite", "authorized peer", "peer public key", "node identity", "ed25519 identity", "session gating", "status=2 not authorized", ".cask/id", "node_id", "cask member add", "cask member rm", "cask member ls", "set-traffic-class", "trafficClasses", "AddWithTrafficClass", "best traffic class", "membership set", "membership root", "GetMembershipRoot", "SetMembershipRoot", "statusNotMember", "Has(node_id)", "byKey lookup", "MemberAdd", "MemberAddFunc", "MemberLookupFunc", "mutual membership", "statusNotAuthorized"]
+aliases: ["member table", "membertable", "caskhead membertable", "cask accept", "cask invite", "authorized peer", "peer public key", "node identity", "ed25519 identity", "session gating", "status=2 not authorized", ".cask/id", "node_id", "cask member add", "cask member rm", "cask member ls", "set-traffic-class", "trafficClasses", "AddWithTrafficClass", "best traffic class", "membership set", "membership root", "GetMembershipRoot", "SetMembershipRoot", "statusNotMember", "Has(node_id)", "byKey lookup", "MemberAdd", "MemberAddFunc", "MemberLookupFunc", "mutual membership", "statusNotAuthorized", "MemberLookup", "ed25519 consistency check", "Ed25519PublicToX25519", "handleInit authorization", "responder mutual membership", "statusAuthFailed"]
 topics: [networking, capability-security]
 status: current
 ---
@@ -22,6 +22,7 @@ How a casknet node decides which peers may open a session. Each node holds a lon
 | [cask--membership-next-steps--membership-mvp-roadmap](../sections/cask--membership-next-steps--membership-mvp-roadmap.md) | How the membership set comes to be: node_id identity, the CASK_MEMBERSHIP MVP, CASK_ROOT bootstrap, statusNotMember. |
 | [cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry](../sections/cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry.md) | **Implementation note**: `MemberLookupFunc` gates on the initiator's ed25519 key (transmitted in the Noise payload), and `MemberAddFunc` makes membership mutual — a successful handshake records both peers (must be idempotent). |
 | [cask--net-peer-go--session-renewal-single-flight](../sections/cask--net-peer-go--session-renewal-single-flight.md) | The initiator's side of mutual membership: after a successful handshake the initiator calls `MemberAdd` with the responder's ed25519 key (a failure is logged, not fatal), the symmetric counterpart to the responder's add. |
+| [cask--net-peer-go--responder-handshake-consistency-and-authorization](../sections/cask--net-peer-go--responder-handshake-consistency-and-authorization.md) | **The responder side**: `Server.handleInit` proves the initiator's ed25519 key converts to the handshake's x25519 key (binding the ed25519-keyed table to the x25519 DH), checks `MemberLookup` and rejects non-members with `statusNotAuthorized`, then calls `MemberAdd` to record the initiator — the responder half of mutual membership. |
 
 ## See also
 

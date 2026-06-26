@@ -1,6 +1,6 @@
 ---
 id: casknet-wire-protocol
-aliases: ["casknet commands", "casknet wire protocol", "reversed response", "reversed command", "stor", "load", "rots", "casc", "csac", "gcgc", "cgcg", "init", "tini", "mass", "ssam", "weigh command", "span_id", "command detection", "MetadataSize", "block metadata footer", "inner command format", "SessionManager", "initPacketSize", "tiniPacketSize", "buildInitPacket", "buildStorePlaintext", "command constants", "casknet packet size"]
+aliases: ["casknet commands", "casknet wire protocol", "reversed response", "reversed command", "stor", "load", "rots", "casc", "csac", "gcgc", "cgcg", "init", "tini", "mass", "ssam", "weigh command", "span_id", "command detection", "MetadataSize", "block metadata footer", "inner command format", "SessionManager", "initPacketSize", "tiniPacketSize", "buildInitPacket", "buildStorePlaintext", "command constants", "casknet packet size", "handle", "handleEncrypted", "Server.handle", "first four bytes", "command detection fork", "minEncryptedPacketSize", "UpdatePeerAddr", "peer mobility", "noteEncryptedAcknowledge", "flushEncryptedAcknowledgesLocked", "encrypted acknowledge batching", "average holdback", "averageHoldBackNanoseconds", "AcknowledgeBatchSize", "buildStoreAckPlaintext", "Server receive loop"]
 topics: [networking]
 status: current
 ---
@@ -20,6 +20,8 @@ casknet's command vocabulary and packet layout. Every wire command is a 4-byte c
 | [cask--architecture--layers-0-1-block-transfer-and-session](../sections/cask--architecture--layers-0-1-block-transfer-and-session.md) | Layer 0/1 framing of the command set. |
 | [cask--net-crypto-go--command-constants-and-mirror-convention](../sections/cask--net-crypto-go--command-constants-and-mirror-convention.md) | **Implementation source-of-truth**: the eleven command constants, the reversed-response convention, status codes, and the Noise-IK packet sizes (176 / 121). Adds the `mass`/`ssam` weigh pair the design table predates. |
 | [cask--net-crypto-go--command-plaintext-wire-layouts](../sections/cask--net-crypto-go--command-plaintext-wire-layouts.md) | **Implementation source-of-truth**: the byte-exact build/parse layouts of every command plaintext, including the weigh pair and the error-string tail on cgcg/ssam. |
+| [cask--net-peer-go--server-receive-loop-and-encrypted-dispatch](../sections/cask--net-peer-go--server-receive-loop-and-encrypted-dispatch.md) | **Receive side**: the Server's single read goroutine forks on the first four bytes (plaintext `init`/`tini` vs encrypted data ≥ `minEncryptedPacketSize`), and `handleEncrypted` decrypts → updates the peer address for mobility → dispatches on the inner command code. |
+| [cask--net-peer-go--encrypted-acknowledge-batching](../sections/cask--net-peer-go--encrypted-acknowledge-batching.md) | How the `rots` store-acknowledge is batched per session and flushed on `AcknowledgeBatchSize` or a holdback deadline, with a single average-holdback field the remote subtracts from its RTT sample. |
 
 ## See also
 

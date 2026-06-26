@@ -13097,3 +13097,51 @@ session renewal margin | noise-ik-session-establishment
 init packet retransmit | noise-ik-session-establishment
 mutual membership initiator | member-table-authorization
 `MemberAdd` initiator | member-table-authorization
+`noiseState` | noise-ik-session-establishment
+`mixHash` | noise-ik-session-establishment
+`mixKey` | noise-ik-session-establishment
+`encryptAndHash` | noise-ik-session-establishment
+`decryptAndHash` | noise-ik-session-establishment
+`NoiseIKInitiator` | noise-ik-session-establishment
+`NoiseIKResponder` | noise-ik-session-establishment
+`WriteMessage1` | noise-ik-session-establishment
+`ReadMessage1` | noise-ik-session-establishment
+`WriteMessage2` | noise-ik-session-establishment
+`ReadMessage2` | noise-ik-session-establishment
+`noiseHKDF` | noise-ik-session-establishment
+`hmacBlake2b256` | noise-ik-session-establishment
+HMAC-BLAKE2b | noise-ik-session-establishment
+Noise HKDF | noise-ik-session-establishment
+handshake hash | noise-ik-session-establishment
+chaining key | noise-ik-session-establishment
+IK token ladder | noise-ik-session-establishment
+`split` directional keys | noise-ik-session-establishment
+`Ed25519PublicToX25519` | noise-ik-session-establishment
+`Ed25519PrivateToX25519` | noise-ik-session-establishment
+ed25519 to x25519 conversion | noise-ik-session-establishment
+birational map | noise-ik-session-establishment
+Montgomery u-coordinate | noise-ik-session-establishment
+`BytesMontgomery` | noise-ik-session-establishment
+key clamping | noise-ik-session-establishment
+`Server.handleInit` | member-table-authorization
+`handleInit` | member-table-authorization
+ed25519 x25519 consistency check | member-table-authorization
+`statusNotAuthorized` | member-table-authorization
+`statusAuthFailed` | member-table-authorization
+`MemberLookup` | member-table-authorization
+responder mutual membership | member-table-authorization
+`Server.handle` | casknet-wire-protocol
+`handleEncrypted` | casknet-wire-protocol
+Server receive loop | casknet-wire-protocol
+first four bytes detection | casknet-wire-protocol
+`minEncryptedPacketSize` | casknet-wire-protocol
+`UpdatePeerAddr` | casknet-wire-protocol
+peer mobility | casknet-wire-protocol
+session address update | casknet-wire-protocol
+`noteEncryptedAcknowledge` | casknet-wire-protocol
+`flushEncryptedAcknowledgesLocked` | casknet-wire-protocol
+encrypted acknowledge batching | casknet-wire-protocol
+average holdback | casknet-wire-protocol
+`averageHoldBackNanoseconds` | casknet-wire-protocol
+`AcknowledgeBatchSize` | casknet-wire-protocol
+`buildStoreAckPlaintext` | casknet-wire-protocol
