@@ -55,6 +55,16 @@
 : "${GARDEN_FETCH_RETRIES:=3}"    # bounded attempts for a journal fetch
 : "${GARDEN_LOCK_WAIT:=60}"       # seconds a clone-lock waiter blocks before backing off
 : "${GARDEN_LOCK_RETRIES:=3}"     # bounded waits before a lock acquisition gives up
+# Stale-lock recovery: a clone lock whose recorded holder is dead, or whose stamp
+# is older than the TTL, is presumed crashed/hung and reclaimable. This is the
+# belt to flock's suspenders — flock frees a dead holder on fd close, but if the
+# lock file outlives its holder (a 0-byte tombstone left by a killed run) or a
+# holder hangs forever holding it, a waiter that would otherwise give up loudly
+# first tries to reclaim. The TTL must sit comfortably ABOVE the longest
+# legitimate hold (worst case ~GARDEN_FETCH_TIMEOUT * GARDEN_FETCH_RETRIES + a
+# push) so a slow-but-live holder is never stolen from.
+: "${GARDEN_LOCK_TTL:=300}"       # seconds; a still-held lock older than this is reclaimable
+: "${GARDEN_LOCK_STEALS:=2}"      # bounded reclaim attempts before giving up loudly
 
 # Belt: teach git itself to abort a stalled transfer rather than rely solely on
 # the `timeout` wrapper. For https remotes, treat a transfer slower than
@@ -231,10 +241,49 @@ journal_remote() {
 # users the lock is uncontended: one cheap syscall. This is the smaller change
 # than per-process clones (no new clone-per-invocation cost, no teardown) and
 # removes the race at its source for every caller of the shared primitive.
+#
+# flock's "fd close frees the lock" guarantee has ONE gap: a killed holder whose
+# child inherited the open fd keeps the lock alive (an orphan), so the next post
+# blocks then dies, and a 0-byte tombstone is all the operator sees — the
+# 2026-06-26 producer wedge that only `rm -f journal.lock` cleared. So the lock is
+# also STALE-AWARE: the holder stamps "PID EPOCH" into the lock file, and a waiter
+# that times out reclaims the lock when that holder is dead or older than
+# GARDEN_LOCK_TTL (see clone_lock + _clone_lock_is_stale). Producers should still
+# post SEQUENTIALLY against one clone — these helpers bound and recover from
+# contention, they do not make concurrent fan-out against a shared clone free.
 
 declare -A _CLONE_LOCK_FD 2>/dev/null || true
 
 _clone_lockfile() { printf '%s' "${1%/}.lock"; }
+
+# Stamp the acquiring process's identity into an already-flocked lock fd so a
+# future waiter can tell a crashed/hung holder from a busy one. Written at offset
+# 0 of the <>-opened fd as "PID EPOCH" on the first line; a waiter reads only that
+# line, so trailing bytes from a longer prior stamp are harmless. Best-effort: a
+# failed stamp must never abort the holder that already owns the lock.
+_clone_lock_stamp() {
+  local fd="$1"
+  printf '%s %s\n' "$$" "$(date +%s 2>/dev/null || echo 0)" >&"$fd" 2>/dev/null || true
+}
+
+# Decide whether the lock file <lf> is held by a crashed/hung holder and may be
+# reclaimed. True (0) only when the recorded holder PID is gone, OR the stamp is
+# older than GARDEN_LOCK_TTL. Conservative by construction: an unreadable, empty,
+# or non-numeric stamp returns false (1) so we never steal from a holder that just
+# has not stamped yet — preserving mutual exclusion in the common busy case. On
+# this single-user fleet `kill -0` is a reliable liveness probe (all producers run
+# as the same user); PID reuse is backstopped by the TTL.
+_clone_lock_is_stale() {
+  local lf="$1" pid ts now
+  [ -f "$lf" ] || return 1
+  read -r pid ts _ < "$lf" 2>/dev/null || return 1
+  case "${pid:-}" in ''|*[!0-9]*) return 1 ;; esac     # no/garbled stamp → not provably stale
+  kill -0 "$pid" 2>/dev/null || return 0               # recorded holder is gone → stale
+  case "${ts:-}" in ''|*[!0-9]*) return 1 ;; esac      # alive but no usable timestamp → busy
+  now="$(date +%s 2>/dev/null || echo 0)"
+  [ "$ts" -gt 0 ] && [ $(( now - ts )) -ge "$GARDEN_LOCK_TTL" ] && return 0   # alive but ancient → hung
+  return 1
+}
 
 # A process-tree-stable env-var name marking that an ANCESTOR process already
 # holds this clone's lock. A nested same-clone child (e.g. maintainer-reply holds
@@ -257,7 +306,7 @@ _clone_lock_envkey() {
 #     re-flock (that would deadlock).
 #   * otherwise: open a sibling lock file (outside the working tree) and flock it.
 clone_lock() {
-  local dir="$1" key lf fd
+  local dir="$1" key lf fd n=1 steals=0
   [ -n "${_CLONE_LOCK_FD[$dir]:-}" ] && return 0       # this process already holds it
   key="$(_clone_lock_envkey "$dir")"
   if [ -n "${!key:-}" ]; then                          # an ancestor holds it — borrow
@@ -265,21 +314,38 @@ clone_lock() {
     return 0
   fi
   lf="$(_clone_lockfile "$dir")"; mkdir -p "$(dirname "$lf")"
-  exec {fd}>"$lf" || die "cannot open clone lock $lf"
-  # Bound the wait: a stuck holder (a hung fetch) must NOT block a waiter
-  # forever — that is exactly how one stale connection wedged the whole fleet.
-  # flock -w caps each wait; on timeout we back off and retry a bounded number
-  # of times, then give up loudly rather than block indefinitely.
-  local n=1
-  until flock -w "$GARDEN_LOCK_WAIT" "$fd"; do
+  # Bound the wait, then RECLAIM a stale holder rather than wedge. Two ways a lock
+  # outlives its usefulness: (a) a stuck holder (a hung fetch) blocks a waiter —
+  # how one stale connection wedged the whole fleet; (b) a KILLED run leaves the
+  # lock effectively held by an orphaned child that inherited the fd, so every
+  # later post blocks then dies — the 2026-06-26 producer outage, where manual
+  # `rm -f journal.lock` was the only recovery. flock -w caps each wait; on
+  # timeout we consult the holder's stamp and reclaim it if the holder is dead or
+  # older than the TTL, else back off and retry a bounded number of times, then
+  # give up loudly. A stale steal trades flock's strict exclusion for liveness,
+  # but only after a full GARDEN_LOCK_WAIT AND a positive staleness verdict, so a
+  # busy live holder is never disturbed.
+  while :; do
+    # Open NON-truncating (<>) so a waiter peeking at the holder's stamp never
+    # wipes it; the file is created on demand.
+    exec {fd}<>"$lf" || die "cannot open clone lock $lf"
+    if flock -w "$GARDEN_LOCK_WAIT" "$fd"; then
+      _clone_lock_stamp "$fd"                          # record our pid + time for the next waiter
+      _CLONE_LOCK_FD["$dir"]="$fd"
+      export "$key=held"
+      return 0
+    fi
+    exec {fd}>&- 2>/dev/null || true                   # release our failed attempt before deciding
+    if [ "$steals" -lt "$GARDEN_LOCK_STEALS" ] && _clone_lock_is_stale "$lf"; then
+      log "clone lock $lf stale (holder dead or >${GARDEN_LOCK_TTL}s old); reclaiming ($((steals+1))/$GARDEN_LOCK_STEALS)"
+      rm -f "$lf"; steals=$((steals+1)); continue       # drop the tombstone, reopen a fresh inode, retry now
+    fi
     if [ "$n" -ge "$GARDEN_LOCK_RETRIES" ]; then
-      die "cannot acquire clone lock $lf after $n waits of ${GARDEN_LOCK_WAIT}s (stuck holder?)"
+      die "cannot acquire clone lock $lf after $n waits of ${GARDEN_LOCK_WAIT}s and $steals reclaim attempt(s) (a live holder is still busy; if it is crashed, rm -f $lf)"
     fi
     log "clone lock $lf busy >${GARDEN_LOCK_WAIT}s; backoff + retry ($((n+1))/$GARDEN_LOCK_RETRIES)"
     backoff; n=$((n+1))
   done
-  _CLONE_LOCK_FD["$dir"]="$fd"
-  export "$key=held"
 }
 
 # Release the lock for clone <dir> if this process owns it (closing the fd

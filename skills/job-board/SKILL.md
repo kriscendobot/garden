@@ -82,3 +82,10 @@ Claims back off; completions/posts retry — because a retried claim could steal
 job, but a completion/post only ever fast-forwards its own files. Randomized
 `backoff` breaks lockstep livelock (a fixed no-backoff retry stranded a job under
 8-way contention; see the design doc's test section).
+
+`post-job.sh` and `post-plan.sh` (and every other producer) serialize on a
+per-clone `journal.lock` next to the shared producer clone, so producers should
+post **sequentially**, not fan out concurrent posts against one clone. The lock
+is stale-aware (it self-recovers from a crashed/hung holder after a bounded wait;
+see `common.sh` § per-clone serialization), but concurrent fan-out still
+needlessly contends — drive batch posts one at a time.
