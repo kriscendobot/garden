@@ -21,3 +21,9 @@ band on it) to drive the planner's risk/reward optimization.
 ## Done when
 finbot can elicit a calibrated volatility tolerance from a bounded interaction, persist it, and the planner
 consumes it; tested and green.
+
+---
+claim:
+  host: endolinbot
+  gardener: 56
+  claimed_at: 2026-06-26T06:01:13Z
