@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T06:17:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T06:26:48Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The [finbot-cyclical-forecaster](https://github.com/endojs/endo-but-for-bots) job completed, the only board movement since the last bulletin — the queue is otherwise idle with nothing in todo or doin, so the maintainer's attention belongs on the parked review backlog, where [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440), [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513), and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) are the freshest PRs awaiting feedback.
+A designer has just claimed [`design-endo-stream-flatmap-reader`](https://github.com/endojs/endo-but-for-bots), drafting a plan for a 1-to-many `flatMapReader` transform on `@endo/stream` (flattening a stream of streams into one reader); it's the sole job in flight right now. Otherwise the board is quiet — worth a maintainer glance at the freshest parked reviews, [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) (drop the `@info` name hub for the formula-inspector design) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` Sink/Spring linked-list), both of which have been parked roughly half an hour to an hour.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 1h)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 18m)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 54m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 28m)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 1h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
@@ -34,8 +34,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `design-endo-stream-flatmap-reader` — PLAN: @endo/stream flatMapReader — 1-to-many reader transform (flatten a stre...
 
 ### tada (253)
 - `finbot-cyclical-forecaster` — Job complete: finbot-cyclical-forecaster
@@ -57,7 +57,6 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `ingest-ocap-library-sections` — _normal_ · PLAN: scholar — ingest sources for six missing ocap library sections
 - `ingest-ocap-kernel` — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel into the library
 - `formula-inspector-retention-paths-table` — _normal_ · PLAN (follow-on): add a retention-paths table to the formula inspector
-- `design-endo-stream-flatmap-reader` — _normal_ · PLAN: @endo/stream flatMapReader — 1-to-many reader transform (flatten a stre...
 - `finbot-ses-compartments` — _normal_ · GOAL: replace the in-process v0.5 capability attenuator with real SES compart...
 - `finbot-additional-instruments` — _normal_ · GOAL: multi-instrument portfolios and yield-bearing instruments
 - `finbot-substrate-adapters` — _normal_ · GOAL: executor signing adapters for real substrates (ymax Path A / Path C)
