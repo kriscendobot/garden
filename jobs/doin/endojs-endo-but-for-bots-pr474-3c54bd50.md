@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 > If you'd prefer the concise-method shorthand for these ESLint visitor objects specifically, the path is relaxing avoidQuotes for them (a config change beyond this PR's scope), and I'm happy to open that as a follow-up. @kriscendobot  Please do so in a follow-up PR. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 31
+  claimed_at: 2026-06-26T01:41:35Z
