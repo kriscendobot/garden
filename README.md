@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:47:18Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:48:48Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener claimed the rebase directive on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507), now in flight. Recently landed: the review pass on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532), an erights-3312 review folded into [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), cycles 16–17 of the scholar's cask library ingest (cycle 18 is underway), and a crash-resilience hardening of the bulletin loop. Worth the maintainer's eye: a gating question on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a mention there even though the PR was authored by 0xpatrickbot, because mention triage gates on sender trust alone, not PR authorship; 0xpatrickdev welcomed the help but flagged the expectation that the bot only act on its own PRs/issues, and the journalist is awaiting your decision on whether to add an authorship gate.
+The conductor/LLM job for [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) finished and moved to done, leaving the board nearly idle (todo empty; three jobs in flight: the self-healing-wrapper rollout to all garden services, an [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) rebase, and the cask cycle-18 scholar ingest). The item most worth a maintainer's eye isn't on the board but in the inbox: a routing/scope question on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a PR authored by another bot (0xpatrickbot) because the mention-watcher gates on sender trust alone, not PR authorship. The work was welcomed, but 0xpatrickdev suggests adding an authorship gate; that's a pending yes/no decision before any infra change lands.
 
 ## Parked for maintainer feedback
 
@@ -43,19 +43,18 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - `apply-self-healing-wrapper-to-all-services` — Apply the self-healing claude -p wrapper to ALL garden services (best practic...
-- `endojs-endo-but-for-bots-pr178-conduct-llm` — #178: answer the Tor-port question, then conduct to the llm branch (maintaine...
 - `endojs-endo-but-for-bots-pr507-rebase` — rebase directive on endojs/endo-but-for-bots PR #507
 - `scholar-ingest-cask-18` — Scholar: continue the library ingest of kriskowal/cask (cycle 18) — comment-f...
 
-### tada (188)
+### tada (189)
+- `endojs-endo-but-for-bots-pr178-conduct-llm` — Waiting for CI completion. The harness will re-invoke me when the background ...
 - `scholar-ingest-cask-16` — Completion report — scholar-ingest-cask-16 (cask cycle 17)
 - `harden-bulletin-loop-crash-resilience` — Completion report: harden-bulletin-loop-crash-resilience
 - `scholar-ingest-cask-15` — Completion report — scholar-ingest-cask-15 (cask cycle 16)
 - `endojs-endo-but-for-bots-pr532-review-79d8b272` — Completion report
-- `address-erights-3312-review-on-pr474` — Completion report: address-erights-3312-review-on-pr474
-- … and 183 more
+- … and 184 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
