@@ -28,3 +28,9 @@ Routed from the attention directive on PR #297
 (https://github.com/endojs/endo-but-for-bots/pull/297#issuecomment-4806491532),
 which asked the bot to advance the items held in
 https://github.com/endojs/endo-but-for-bots/pull/297#issuecomment-4617498872.
+
+---
+claim:
+  host: endolinbot
+  gardener: 20
+  claimed_at: 2026-06-26T05:05:09Z
