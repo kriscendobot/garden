@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T02:41:29Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T02:51:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Sturdyref work landed: with [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) already MERGED (head branch deleted) ~17s into the claim, the gardener continued the design as successor DRAFT [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) off the same stacked base — folding in proactive per-turn `deleteExport` as a requirement, FinalizationRegistry demoted to an optional leak detector, and an optional `type` hint on the SturdyRef; #511 is marked deferred. Two items await your call: whether to run #539 through the gamut and un-draft it, and whether to dispatch a fixer for a flagged typo in your own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (the exported `getStudyRefLocator` should be `getSturdyRefLocator`). The board is otherwise quiet — one attention directive on [endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69) is in progress with an empty todo queue.
+The board has drained to idle (todo and doin both empty) after the [endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69) attention-directive job completed. The item most worth a look is a fresh maintainer message from the sturdyref worker: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged ~17 seconds after the job was claimed and its head branch was deleted, so the design continuation landed instead as a new DRAFT successor, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) (off the stacked base `llm-65b0abe`), folding in the per-turn `deleteExport` requirement, an optional off-by-default FinalizationRegistry leak detector, and a flexible `type` hint; [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Two calls await kriskowal: whether to run #539 through the gamut and un-draft it, and whether to dispatch a fixer for a flagged typo in his own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` → `getSturdyRefLocator`).
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 2h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6h)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 1h)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 2h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -48,16 +48,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `endojs-endo-but-for-bots-pr69-0d9d315c` — attention directive on endojs/endo-but-for-bots PR #69
+### doin (0)
+(none)
 
-### tada (221)
+### tada (222)
+- `endojs-endo-but-for-bots-pr69-0d9d315c` — Completion report: attention directive on endojs/endo-but-for-bots PR #69
 - `endojs-endo-but-for-bots-pr527-607067cf` — Completion report
 - `endojs-endo-but-for-bots-pr474-merge` — Merge complete. PR #474 is state=MERGED with merge commit 87823d83, merged on...
 - `endojs-endo-but-for-bots-pr474-shepherd` — Shepherd report — endojs/endo-but-for-bots PR #474
 - `endojs-endo-but-for-bots-pr474-conduct` — Waiting on the CI-wait-merge spine for PR #474. It will block until CI settle...
-- `endojs-endo-but-for-bots-pr474-review-26b36b68` — Completion report
-- … and 216 more
+- … and 217 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
