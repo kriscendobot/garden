@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T08:00:50Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T08:07:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-[endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) cleared its conductor (merge) stage and moved to done, leaving the board otherwise quiet — the only PR still in flight is a refresh directive on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277). Maintainer attention is best spent on the parked queue, where the immutable-arraybuffer passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) has been waiting 11 hours and the registry-capability layer in [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) over a day.
+A new build plan landed on the queue (parked, awaiting promotion): [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507)'s notifier→`@endo/exo-pubsub` pubsub migration is now staged as `build-notifier-exo-pubsub-migration-per-507`. Since the last bulletin the fleet wrapped several endo-but-for-bots items — [#513](https://github.com/endojs/endo-but-for-bots/pull/513) and [#507](https://github.com/endojs/endo-but-for-bots/pull/507) merged (conduct), the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) retcon completed (with its feedback follow-up parked until CI settles), and a stray tmp-dir gitignore was cleaned up. The only job in flight is a refresh directive on [#277](https://github.com/endojs/endo-but-for-bots/pull/277); the parked queue still holds 29 PRs awaiting your review, with [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) the most recent additions.
 
 ## Parked for maintainer feedback
 
@@ -59,6 +59,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `formula-inspector-retention-paths-table` — _normal_ · PLAN (follow-on): add a retention-paths table to the formula inspector
 - `finbot-ses-compartments` — _normal_ · GOAL: replace the in-process v0.5 capability attenuator with real SES compart...
 - `finbot-substrate-adapters` — _normal_ · GOAL: executor signing adapters for real substrates (ymax Path A / Path C)
+- `build-notifier-exo-pubsub-migration-per-507` — _normal_ · PLAN: build the #507 design — notifier pubsub migration to @endo/exo-pubsub
 - `classify-lint-endo-master` — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 - `endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers` — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
 
