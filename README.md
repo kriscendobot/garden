@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T06:50:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T06:52:50Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener just claimed the [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) review directive into flight, alongside the ongoing `finbot-additional-instruments` build (multi-instrument portfolios and yield-bearing instruments). Recently landed work clears a cluster of finbot pieces — the [cyclical forecaster](https://github.com/endojs/endo-but-for-bots/pull/513) groundwork plus richer instrument models and volatility-tolerance elicitation — and a completed review pass on [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539). The board is otherwise quiet, with nothing in todo and the plan queue parked awaiting maintainer go-ahead.
+A gardener just claimed [mirror-endo-3137](https://github.com/endojs/endo/pull/3137), beginning the mirror of the TypeScript-runtime-modules PR onto endo-but-for-bots; that work joins two still-in-flight reviews — the directive on [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) and the long-running `finbot-additional-instruments` portfolio goal. On the finbot front, four pieces landed since the last bulletin — the cyclical forecaster, richer instrument models, volatility-tolerance elicitation, and a stream flatMap reader design — alongside a completed review pass on [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539). Nothing is currently parked in a maintainer message queue, but the review backlog remains long, with the byte-arrays PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) now waiting 10 hours and the TypeScript-modules upstream [endo#3137](https://github.com/endojs/endo/pull/3137) at 10 days.
 
 ## Parked for maintainer feedback
 
@@ -34,9 +34,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - `endojs-endo-but-for-bots-pr513-review-08d03afe` — Review directive on endojs/endo-but-for-bots PR #513
 - `finbot-additional-instruments` — GOAL: multi-instrument portfolios and yield-bearing instruments
+- `mirror-endo-3137` — Mirror endojs/endo#3137 onto endo-but-for-bots
 
 ### tada (254)
 - `design-endo-stream-flatmap-reader` — Job complete. Report follows.
