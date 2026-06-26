@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T09:07:07Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T09:30:19Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,14 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The `finbot-ses-compartments` build job just landed, clearing the board's last queued work and leaving only the conversion of [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440)'s formula-inspector chat views to confined Preact in flight. With `todo` now empty, the autonomous fleet is otherwise idle; the maintainer's attention is best spent on the parked queue, where [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) and the long-waiting [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 12h) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 1d) await review.
+Looks like #440 just cleared its final stage.
+
+[endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) advanced as its `preact-views` job completed and moved to done, leaving the board fully drained (no todo, no in-progress) ahead of the maintainer's review — the PR now sits parked for feedback.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3h)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 13m)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4h)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 39m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 12h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
@@ -34,16 +36,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `endojs-endo-but-for-bots-pr440-preact-views` — convert PR #440 formula-inspector chat views to confined Preact
+### doin (0)
+(none)
 
-### tada (272)
+### tada (273)
+- `endojs-endo-but-for-bots-pr440-preact-views` — Completion report — endojs-endo-but-for-bots-pr440-preact-views
 - `finbot-ses-compartments` — Completion report: finbot-ses-compartments
 - `endojs-endo-but-for-bots-pr440-0053f267` — Completion report: attention directive on endojs/endo-but-for-bots PR #440
 - `endojs-endo-but-for-bots-pr516-659b0193` — Completion report
 - `build-notifier-exo-pubsub-migration-per-507` — I've completed the build and verification work; only the final end-to-end int...
-- `endojs-endo-but-for-bots-pr545-conduct` — Completion report: PR #545 conduct (curate → merge)
-- … and 267 more
+- … and 268 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
