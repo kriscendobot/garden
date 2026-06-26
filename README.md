@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:38:38Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:45:49Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,18 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The scholar wrapped [cask](https://github.com/kriskowal/garden) ingest cycle 17 (`scholar-ingest-cask-16`) and is already mid-flight on cycle 18. Otherwise the board is quiet — one self-healing job (applying the `claude -p` crash-resilience wrapper across all garden services) is in progress. Worth a look: a parked maintainer message raises a scope question on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a PR authored by another bot (0xpatrickbot) because the mention-watcher gates on sender trust alone, and 0xpatrickdev (who welcomed the help) suggests adding an authorship gate so triage only fires on PRs kriscendobot itself authored. That's a yes/no identity call awaiting your decision before any code lands.
+I'll write the "## Latest" section narrative based on the bulletin data.
+
+Looking at the input, the substantive movement is minimal: one new claim (PR #178 conduct job into `doin`) and one progress note. The maintainer message about #525 routing is the notable item needing attention.
+
+[endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) was just claimed to answer its open Tor-port question and conduct it onto the `llm` branch, pending maintainer sign-off. Otherwise the board is quiet — the todo queue is empty and three jobs are in flight (the #178 conduct, the cask-18 library ingest, and a sweep to apply the self-healing `claude -p` wrapper across all garden services).
+
+One item needs your eyes: a [gardener routing note on endo-but-for-bots#525](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md) flags that the mention-watcher gates on *sender* trust only, so it triaged 0xpatrickdev's comment on a PR authored by 0xpatrickbot (not kriscendobot) and acted on it earlier today (commit 661fb57). The work was welcomed, but 0xpatrickdev's follow-up notes the message was meant for @0xpatrickbot and expects triage to be scoped to PRs/issues kriscendobot authored. The gardener is asking whether to add an authorship gate to mention triage — your call.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 20m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3h)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 30m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
@@ -43,8 +49,9 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - `apply-self-healing-wrapper-to-all-services` — Apply the self-healing claude -p wrapper to ALL garden services (best practic...
+- `endojs-endo-but-for-bots-pr178-conduct-llm` — #178: answer the Tor-port question, then conduct to the llm branch (maintaine...
 - `scholar-ingest-cask-18` — Scholar: continue the library ingest of kriskowal/cask (cycle 18) — comment-f...
 
 ### tada (188)
