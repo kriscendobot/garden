@@ -62,3 +62,9 @@ is not even reachable from the current base.
   rebase first, confirm the chat package builds on the new base, then rewrite.
 - Branch/identity: kriscendobot. Do NOT involve kriskowal/boatman; this stays on
   the bot fork's PR branch.
+
+---
+claim:
+  host: endolinbot
+  gardener: 83
+  claimed_at: 2026-06-26T08:56:51Z
