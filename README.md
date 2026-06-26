@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:23:43Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:25:32Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener just claimed the attention directive on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), the only board movement this tick; it joins three other in-flight jobs — the SturdyRefs endor-syscall retention build off design [#510](https://github.com/endojs/endo-but-for-bots/pull/510), a review directive on that same PR, and the `garden-harden-producer-clone-lock` infra fix that closes out the stale-lock wedge that could freeze posts. On the recently-completed side, the conductor CI-wait hardening landed (it now carries merges to completion rather than ending while CI is merely pending), and [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) is parked under shepherd/conductor watch awaiting CI before merge. Worth a maintainer's eye: [#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package) has been waiting 35 minutes, and the longer-parked [#503](https://github.com/endojs/endo-but-for-bots/pull/503) passable-byte-arrays and [#440](https://github.com/endojs/endo-but-for-bots/pull/440) formula-inspector design are still awaiting review.
+Two jobs just moved into flight: a gardener picked up [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510)'s next slice (sturdyref + endor-syscall retention, per the maintainer's decision), and another claimed the fix for the gh-tool-path bug in `ci-wait-merge.sh` — the root cause of [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178)'s silent merge stall. [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) is through shepherd and conductor and now blocked only on CI, with a background poller set to finish the merge the moment it goes green. Also recently landed: the finbot build completed as designed, the conductor's CI-wait/complete-merge hardening, and the minion.town MCP-OAuth metadata-bridge design. Still open for review: directives on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) and [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510), plus a standing task to harden producer-clone locking so a crashed post can't wedge the board.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4h)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 35m)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 40m)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -34,10 +34,12 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (6)
+- `continue-sturdyref-510-endor-syscall` — Continue #510 (sturdyref + endor-syscall retention) per maintainer decision; ...
 - `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
 - `endojs-endo-but-for-bots-pr474-53ff69c3` — attention directive on endojs/endo-but-for-bots PR #474
 - `endojs-endo-but-for-bots-pr510-review-93293593` — Review directive on endojs/endo-but-for-bots PR #510
+- `fix-ci-wait-merge-gh-path` — Fix the gh-tool-path bug in ci-wait-merge.sh (root cause of #178's silent con...
 - `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
 
 ### tada (202)
