@@ -1,6 +1,16 @@
 [Unit]
 Description=Garden bulletin (continuous: keep the journal bulletin current as the board advances)
 After=default.target
+# CollectMode is a [Unit] key (it was mis-placed under [Service], which systemd
+# rejected with "Unknown key name 'CollectMode' in section 'Service'").
+CollectMode=inactive-or-failed
+# The bulletin is the maintainer's live dashboard; it must NEVER be permanently
+# killable by a crash loop. With a finite start-limit, rapid Restart=always
+# cycles trip systemd's rate limiter and it STOPS restarting (root cause of the
+# 2026-06-25 ~2h dark window). Disable the start-limit so the service always
+# self-recovers; the tick-level resilience in bulletin.sh means it should never
+# crash-loop in the first place, but this is the belt to that fix's suspenders.
+StartLimitIntervalSec=0
 
 [Service]
 # Long-running loop, NOT a oneshot+timer. The loop debounces by being busy and
@@ -8,7 +18,6 @@ After=default.target
 # if it dies, with a restart backoff.
 Type=exec
 Slice=background.slice
-CollectMode=inactive-or-failed
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 ExecStart=@GARDEN_ROOT@/scripts/jobs/bulletin.sh
 Restart=always

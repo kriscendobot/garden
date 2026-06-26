@@ -2,11 +2,13 @@
 Description=Garden gardener worker %i
 # A consumer in the worker pool. Scale by enabling instances @1..@N.
 After=default.target
+# CollectMode is a [Unit] key (it was mis-placed under [Service], which systemd
+# rejected with "Unknown key name 'CollectMode' in section 'Service'").
+CollectMode=inactive-or-failed
 
 [Service]
 Type=exec
 Slice=background.slice
-CollectMode=inactive-or-failed
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 ExecStart=@GARDEN_ROOT@/scripts/jobs/gardener.sh %i
 # long-running loop; keep it up if it dies, but back off

@@ -206,7 +206,18 @@ render_board() {
       [ -n "$j" ] || continue
       desc=$(job_desc "$DIR/jobs/tada/$j")
       printf -- '- `%s` — %s\n' "${j%.md}" "$desc"
-    done < <(find "$DIR/jobs/tada" -maxdepth 1 -type f ! -name '.gitkeep' -printf '%T@ %f\n' 2>/dev/null | sort -rn | head -5 | cut -d' ' -f2-)
+    done < <(
+      # `sort | head -5`: head closes the pipe after 5 lines, so on a large tada
+      # `sort` can be SIGPIPE-killed mid-write (a benign "sort: write error" /
+      # "fflush failed: Broken pipe"). Keep that off the fatal path — silence
+      # sort's stderr and ABSORB its status with `|| true` so the limited
+      # pipeline never trips `pipefail`/`set -e`. A broken pipe from a head/limit
+      # is normal, not a failure. (Root cause of the 2026-06-25 ~2h dark window:
+      # a sort broken-pipe took down the loop, then rapid restarts hit the
+      # systemd start-limit and the dashboard stayed dark.)
+      find "$DIR/jobs/tada" -maxdepth 1 -type f ! -name '.gitkeep' -printf '%T@ %f\n' 2>/dev/null \
+        | { sort -rn 2>/dev/null || true; } | head -5 | cut -d' ' -f2-
+    )
     if [ "$tada_n" -gt 5 ]; then printf -- '- … and %s more\n' "$((tada_n - 5))"; fi
   else
     printf '(none)\n'
@@ -595,14 +606,19 @@ narrate() {
   return 0
 }
 
-iters=0
-while :; do
-  if killswitch_engaged; then
-    log "killswitch engaged; idling"
-    [ "$GARDEN_BULLETIN_ONCE" = "1" ] && exit 0
-    sleep "$GARDEN_BULLETIN_IDLE_SLEEP"; continue
-  fi
-
+# One bulletin tick: sync, reconcile the plan view, compute the dashboard, and
+# post when it changed. All side effects are durable (the cursor file, the clone's
+# README + git state), so it carries no shell state back to the loop except its
+# return code:
+#   0 = idle (dashboard unchanged) → the loop idle-sleeps before the next tick;
+#   3 = active (the board advanced; we posted, found nothing-to-commit, or lost
+#       the CAS) → the loop runs the next tick promptly (debounce by being busy).
+# Any OTHER non-zero return is a FAILED tick: `set -e`/`pipefail` is active inside
+# this function, so a transient git/sort/jq hiccup aborts THIS tick cleanly (no
+# half-written bulletin) and surfaces as a non-zero status the loop logs and
+# survives. A single bad tick must never take down the continuous service.
+bulletin_tick() {
+  local head cursor dashboard old_full prior_latest latest head_part sect_part content rc
   sync_clone "$DIR"
 
   # Reconcile the generated plan view from the per-design records (cheap,
@@ -624,10 +640,7 @@ while :; do
     # Nothing to post. Advance the cursor to head so a transition another host
     # already narrated is not re-narrated by us on the next real change.
     [ "$cursor" != "$head" ] && write_cursor "$head"
-    iters=$((iters+1))
-    { [ "$GARDEN_BULLETIN_ONCE" = "1" ] || { [ "$GARDEN_BULLETIN_MAX_ITERS" -gt 0 ] && [ "$iters" -ge "$GARDEN_BULLETIN_MAX_ITERS" ]; }; } && exit 0
-    sleep "$GARDEN_BULLETIN_IDLE_SLEEP"
-    continue
+    return 0
   fi
 
   # The board changed. Narrate the delta and assemble the full bulletin with the
@@ -663,7 +676,38 @@ while :; do
       backoff
     fi
   fi
+  return 3
+}
+
+iters=0
+while :; do
+  if killswitch_engaged; then
+    log "killswitch engaged; idling"
+    [ "$GARDEN_BULLETIN_ONCE" = "1" ] && exit 0
+    sleep "$GARDEN_BULLETIN_IDLE_SLEEP"; continue
+  fi
+
+  # Run the tick in ISOLATION so one bad tick can never kill the service. The tick
+  # is a backgrounded subshell launched at top level (NOT inside an `if`/`||`
+  # context — that would disable `set -e` inside it per bash's conditional rule),
+  # so `set -e`/`pipefail` stay ACTIVE within the tick while the parent loop is
+  # immune to its failure. `wait` harvests the status without tripping the loop's
+  # own `set -e`. A failed tick is LOGGED and the loop CONTINUES to the next tick;
+  # it is never fatal. (Before this, a transient `sort` broken-pipe / fetch `die`
+  # exited the whole process; with Restart=always the rapid restarts then hit
+  # systemd's start-limit and the dashboard went dark for ~2h on 2026-06-25.)
+  ( bulletin_tick ) & tick_pid=$!
+  tick_rc=0
+  wait "$tick_pid" || tick_rc=$?
+
+  case "$tick_rc" in
+    0) idle=1 ;;                         # dashboard unchanged → idle-sleep
+    3) idle=0 ;;                         # board advanced → loop promptly
+    *) log "bulletin tick failed (rc=$tick_rc); logged, continuing to next tick"
+       idle=1 ;;                         # transient hiccup → idle-sleep, survive
+  esac
 
   iters=$((iters+1))
   { [ "$GARDEN_BULLETIN_ONCE" = "1" ] || { [ "$GARDEN_BULLETIN_MAX_ITERS" -gt 0 ] && [ "$iters" -ge "$GARDEN_BULLETIN_MAX_ITERS" ]; }; } && exit 0
+  [ "$idle" = 1 ] && sleep "$GARDEN_BULLETIN_IDLE_SLEEP"
 done
