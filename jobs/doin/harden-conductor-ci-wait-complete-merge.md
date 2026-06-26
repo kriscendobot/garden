@@ -37,3 +37,9 @@ never ends a merge job while CI is merely pending — committed/pushed to `origi
 redeployed, the rule encoded in the conductor role/skill. Report the SHA and the behavior change.
 
 Posted by the liaison on behalf of the maintainer (latent bug; bit #178 twice).
+
+---
+claim:
+  host: endolinbot
+  gardener: 39
+  claimed_at: 2026-06-26T01:03:43Z
