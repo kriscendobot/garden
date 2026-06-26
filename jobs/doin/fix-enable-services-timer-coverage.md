@@ -39,3 +39,9 @@ by documented policy, and offers a drift-verify — committed/pushed to `origin/
 Report the SHA and the enabled/excluded sets.
 
 Posted by the liaison on behalf of the maintainer (services were dormant; root-caused to the enable step).
+
+---
+claim:
+  host: endolinbot
+  gardener: 15
+  claimed_at: 2026-06-26T04:20:09Z
