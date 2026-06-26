@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T06:10:50Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T06:15:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,15 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the input.
-
-Since the last bulletin, the [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) review directive completed, joining a large run of recently finished work — including the [#507](https://github.com/endojs/endo-but-for-bots/pull/507) review, a comment-watcher mention-only PR-author filter, and a fix to paginate review-job comment fetches. Three finbot evolution jobs (cyclical/mean-reverting forecasting, richer instrument models, and volatility-tolerance elicitation) are now the only work in flight. The board is otherwise drained — nothing in todo — so attention should turn to the parked PRs awaiting your review: the freshest are [#440](https://github.com/endojs/endo-but-for-bots/pull/440) (drop @info name hub for formula-inspector), [#513](https://github.com/endojs/endo-but-for-bots/pull/513) (new @endo/pubsub package), and the long-refreshed [#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star export fix). Three plans — the Cognito↔MCP bridge, the exported-literals hardening follow-up, and the minion.town AWS deploy — remain parked awaiting your go-ahead.
+A gardener finished `finbot-volatility-tolerance-elicitation`, the latest step in the finbot evolution track, leaving two siblings still in progress — `finbot-cyclical-forecaster` (mean-reverting/cyclical structure) and `finbot-richer-instrument-models` (yield curves, dividend dynamics). The job board is otherwise quiet, with `todo` empty and the maintainer's attention better spent on the parked review queue: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` Sink/Spring package) and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) (formula-inspector design) have both been waiting under an hour, while [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix) is freshly refreshed for #3276 feedback.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 55m)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 13m)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 49m)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 1h)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 18m)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 54m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
@@ -36,18 +34,17 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - `finbot-cyclical-forecaster` — Evolve finbot: a forecaster that captures cyclical / mean-reverting structure...
 - `finbot-richer-instrument-models` — Evolve finbot: richer instrument models (yield curves, dividend dynamics, fee...
-- `finbot-volatility-tolerance-elicitation` — Evolve finbot: volatility-tolerance elicitation UX (infer/calibrate the user'...
 
-### tada (250)
+### tada (251)
+- `finbot-volatility-tolerance-elicitation` — Completion report: finbot-volatility-tolerance-elicitation
 - `endojs-endo-but-for-bots-pr539-review-3c5cd6fb` — Completion report — PR #539 review directive (endojs/endo-but-for-bots)
 - `finbot-forecast-evaluation-fixtures` — Job complete: finbot-forecast-evaluation-fixtures
 - `watcher-mention-only-author-filter` — Completion report
 - `garden-fix-review-job-paginate-comments` — Completion report follows.
-- `endojs-endo-but-for-bots-pr507-review-f4d95615` — Completion report — endojs-endo-but-for-bots-pr507-review-f4d95615
-- … and 245 more
+- … and 246 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
