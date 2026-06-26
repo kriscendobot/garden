@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:14:40Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:16:03Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-[endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) cleared its shepherd stage and is now waiting on CI, with the background poller set to resume the conduct→merge chain the moment checks land — the only board movement this tick. The bigger items are queued for your eyes: the SturdyRef competing-design pair ([endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511)) is complete, and a two-juror panel independently converged on a synthesis with #510's daemon-owned retain/release syscall as the spine plus three grafts from #511 — full side-by-side on [endo-but-for-bots#500](https://github.com/endojs/endo-but-for-bots/pull/500); it awaits your adopt/pick/redirect call (and flags a `getStudyRefLocator`→`getSturdyRefLocator` typo to fix in #521's public surface before it sets). Two more gating notes: a scope question on whether kriscendobot's mention triage should add an authorship gate after it acted on 0xpatrickbot's [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) (work was welcomed, not reverted), and a watchdog alert that `gh` went missing from PATH on endolinbot during a CI-wait/merge tag, which silently drops work until fixed.
+The competing-design pair for SturdyRef retention ([#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [#511](https://github.com/endojs/endo-but-for-bots/pull/511)) is complete and compared: a two-juror design panel converged independently on a synthesis with #510's endor retain/release syscall as the spine, plus three grafts from #511 — full side-by-side at [#500](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325). It's parked for a maintainer call (adopt the synthesis, pick one, or redirect); the report also flags a `getStudyRefLocator`→`getSturdyRefLocator` typo on #521's shipped surface worth fixing before it sets the public name. A fresh review directive on #510 was just claimed. Newly parked: [#513](https://github.com/endojs/endo-but-for-bots/pull/513), the new `@endo/pubsub` package with Sink/Spring async linked lists. Two operational notes need attention: a routing question on [#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a PR authored by another bot because mention triage gates on sender trust but not PR authorship, and the maintainer is asked whether to add an authorship gate — and a watchdog alert that the `ci-wait-merge` tooling is silently dropping work because `gh` is missing from PATH on endolinbot. Meanwhile [#532](https://github.com/endojs/endo-but-for-bots/pull/532) and [#527](https://github.com/endojs/endo-but-for-bots/pull/527) are in shepherd/conductor CI-wait.
 
 ## Parked for maintainer feedback
 
@@ -59,9 +59,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
 - `design-mcp-oauth-aws-minion-town` — Design an MCP server with OAuth authN/authZ — great local DX + AWS-deployable...
+- `endojs-endo-but-for-bots-pr510-review-93293593` — Review directive on endojs/endo-but-for-bots PR #510
 - `harden-conductor-ci-wait-complete-merge` — Harden the conductor's CI-wait: complete the merge, don't end the job while w...
 
 ### tada (199)
