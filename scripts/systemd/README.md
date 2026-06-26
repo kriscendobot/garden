@@ -6,16 +6,15 @@ author: builder, gardener
 
 # scripts/systemd
 
-Systemd user unit files for the garden's driver pool, the per-feed activity
-watchers, and the design-queue poller.
+Systemd user unit files for the garden's driver pool and the per-feed activity
+watchers.
 
 | File                                | Instance arg (`%i`) | Invokes                                       |
 | ----------------------------------- | ------------------- | --------------------------------------------- |
 | `garden-driver@.service`            | lane number         | `~/scripts/driver/driver.sh <lane>`           |
 | `garden-watcher@.service`           | feed slug           | `~/scripts/watcher/<feed>/watcher.sh`         |
-| `garden-design-poller.service`      | (single-instance)   | `~/scripts/daemons/design-poller.sh endo-but-for-bots` |
 
-The design-poller (added 2026-06-04 per the contractor retirement; see `skills/design-poller/SKILL.md` for the contract and `designs/driver.md` § Update — 2026-06-03 contractor retirement) is single-instance because today only one project's roadmap branch is configured (`endojs/endo-but-for-bots:llm`). A templated `garden-design-poller@.service` with the project slug as `%i` lands when a second project comes online.
+The `garden-design-poller.service` proposed during the 2026-06-03 contractor retirement was never ported to v2: its unit crash-looped on a missing `scripts/daemons/design-poller.sh` and was retired 2026-06-26. The design-queue-walk seam it was meant to fill is served in the v2 job system by the triager/poller producer + gardener pool (see `designs/v1-migration-manifest.md`, where the `design-poller` skill is marked superseded).
 
 See [`designs/driver.md`](../../designs/driver.md) § systemd-managed
 daemons for the full rationale.
@@ -38,7 +37,6 @@ A minimal install:
 mkdir -p ~/.config/systemd/user
 ln -sf "$PWD/scripts/systemd/garden-driver@.service"       ~/.config/systemd/user/
 ln -sf "$PWD/scripts/systemd/garden-watcher@.service"      ~/.config/systemd/user/
-ln -sf "$PWD/scripts/systemd/garden-design-poller.service" ~/.config/systemd/user/
 systemctl --user daemon-reload
 ```
 
