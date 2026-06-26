@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T07:55:23Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T07:58:46Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,12 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener finished `ebfb-remove-tmp-dir-gitignore`, a small endo-but-for-bots housekeeping job dropping a temp-directory `.gitignore` entry; the board is now idle (todo and doin both empty) with the 29-PR parked queue unchanged and awaiting maintainer review.
+Two gardeners just picked up work: one is processing a refresh directive on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277), the other is finalizing (curate → merge) [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507). Both are mid-flight with the board otherwise drained — nothing is queued in todo. Recently landed: the retcon on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) (now waiting on CI before follow-up resumes) and the conduct/merge of [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513). No maintainer messages are pending; the parked queue still holds 29 PRs awaiting review, the oldest being [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at over a month.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2h)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1h)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 2h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
@@ -34,8 +34,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- `endojs-endo-but-for-bots-pr277-refresh` — refresh directive on endojs/endo-but-for-bots PR #277
+- `endojs-endo-but-for-bots-pr507-conduct` — Finalize (curate → merge) endojs/endo-but-for-bots PR #507
 
 ### tada (263)
 - `ebfb-remove-tmp-dir-gitignore` — Completion report — ebfb-remove-tmp-dir-gitignore
