@@ -13034,3 +13034,32 @@ zero hash means delete-if-present | cask-cell-bank
 cells are the retention mechanism | cask-cell-bank
 retention transfer on cell update | cask-cell-bank
 tree retained while root is a cell value | cask-cell-bank
+`SessionManager` | casknet-wire-protocol
+`commandINIT` | casknet-wire-protocol
+casknet command constants | casknet-wire-protocol
+reversed-response convention | casknet-wire-protocol
+`mass` | casknet-wire-protocol
+`ssam` | casknet-wire-protocol
+weigh command | casknet-wire-protocol
+`initPacketSize` | casknet-wire-protocol
+`tiniPacketSize` | casknet-wire-protocol
+casknet packet size | casknet-wire-protocol
+`buildInitPacket` | casknet-wire-protocol
+`buildStorePlaintext` | casknet-wire-protocol
+casknet wire layout | casknet-wire-protocol
+`nonceFromCounter` | noise-ik-session-establishment
+`counterFromNonce` | noise-ik-session-establishment
+counter-derived nonce | noise-ik-session-establishment
+`ErrReplayDetected` | noise-ik-session-establishment
+replay protection | noise-ik-session-establishment
+monotonic counter nonce | noise-ik-session-establishment
+`sendCtr` | noise-ik-session-establishment
+`recvCtr` | noise-ik-session-establishment
+`MemberAddFunc` | member-table-authorization
+`MemberLookupFunc` | member-table-authorization
+mutual membership | member-table-authorization
+`statusNotAuthorized` | member-table-authorization
+`bestTrafficClass` | codel-send-buffer-shedding
+`BestTrafficClass` | codel-send-buffer-shedding
+traffic class clamping | codel-send-buffer-shedding
+claimable priority clamp | codel-send-buffer-shedding

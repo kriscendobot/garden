@@ -1,6 +1,6 @@
 ---
 id: noise-ik-session-establishment
-aliases: ["Noise IK", "Noise Protocol", "noise handshake", "Noise_IK_25519_ChaChaPoly_BLAKE2b", "session establishment", "init tini", "init/tini", "ensureSession", "forward secrecy", "x25519", "ed25519", "directional keys", "WireGuard-style handshake", "PSK handshake", "ChaCha20-Poly1305", "AEAD envelope", "session key", "casknet session", "BLAKE2b session key", "transport keys", "Split"]
+aliases: ["Noise IK", "Noise Protocol", "noise handshake", "Noise_IK_25519_ChaChaPoly_BLAKE2b", "session establishment", "init tini", "init/tini", "ensureSession", "forward secrecy", "x25519", "ed25519", "directional keys", "WireGuard-style handshake", "PSK handshake", "ChaCha20-Poly1305", "AEAD envelope", "session key", "casknet session", "BLAKE2b session key", "transport keys", "Split", "nonceFromCounter", "counterFromNonce", "counter nonce", "send counter", "recv counter", "recvCtr", "sendCtr", "ErrReplayDetected", "replay protection", "monotonic counter nonce"]
 topics: [networking]
 status: current
 ---
@@ -19,6 +19,8 @@ How casknet (CASK's encrypted-UDP inter-node protocol) sets up a secure session 
 | [cask--net-crypto--encrypted-packet-and-replay](../sections/cask--net-crypto--encrypted-packet-and-replay.md) | The AEAD envelope and per-direction monotonic-counter replay protection. |
 | [cask--readme--noise-cryptography](../sections/cask--readme--noise-cryptography.md) | ChaCha20-Poly1305 AEAD over a two-message Noise IK handshake; no DNS/TLS/CA. |
 | [cask--net-session-init-design--psk-handshake-packet-formats](../sections/cask--net-session-init-design--psk-handshake-packet-formats.md) | The **previous** PSK + BLAKE2b-128 handshake (superseded). |
+| [cask--net-crypto-go--counter-nonce-and-replay-protection](../sections/cask--net-crypto-go--counter-nonce-and-replay-protection.md) | **Implementation source-of-truth**: the 12-byte nonce is the 8-byte big-endian send counter; the receive counter is a single strictly-increasing high-water mark; directional keys make the two counters independent. |
+| [cask--net-crypto-go--command-constants-and-mirror-convention](../sections/cask--net-crypto-go--command-constants-and-mirror-convention.md) | The Noise-IK handshake packet sizes as the code defines them (176 / 121); the init payload carries the encrypted ed25519 identity key the member check authorizes. |
 | [cask--architecture--layers-0-1-block-transfer-and-session](../sections/cask--architecture--layers-0-1-block-transfer-and-session.md) | Layered overview describing the older PSK init/tini form. |
 | [cask--architecture--ledger-sampling-and-security](../sections/cask--architecture--ledger-sampling-and-security.md) | The layered security model: ed25519/x25519/Noise authentication. |
 | [cask--cryptography--option-b-one-way-dh](../sections/cask--cryptography--option-b-one-way-dh.md) | The design predecessor: one-way x25519 DH + optional ed25519 auth that Noise IK realizes. |

@@ -1,6 +1,6 @@
 ---
 id: member-table-authorization
-aliases: ["member table", "membertable", "caskhead membertable", "cask accept", "cask invite", "authorized peer", "peer public key", "node identity", "ed25519 identity", "session gating", "status=2 not authorized", ".cask/id", "node_id", "cask member add", "cask member rm", "cask member ls", "set-traffic-class", "trafficClasses", "AddWithTrafficClass", "best traffic class", "membership set", "membership root", "GetMembershipRoot", "SetMembershipRoot", "statusNotMember", "Has(node_id)", "byKey lookup"]
+aliases: ["member table", "membertable", "caskhead membertable", "cask accept", "cask invite", "authorized peer", "peer public key", "node identity", "ed25519 identity", "session gating", "status=2 not authorized", ".cask/id", "node_id", "cask member add", "cask member rm", "cask member ls", "set-traffic-class", "trafficClasses", "AddWithTrafficClass", "best traffic class", "membership set", "membership root", "GetMembershipRoot", "SetMembershipRoot", "statusNotMember", "Has(node_id)", "byKey lookup", "MemberAdd", "MemberAddFunc", "MemberLookupFunc", "mutual membership", "statusNotAuthorized"]
 topics: [networking, capability-security]
 status: current
 ---
@@ -20,6 +20,7 @@ How a casknet node decides which peers may open a session. Each node holds a lon
 | [cask--membertable-design--structure-and-operations](../sections/cask--membertable-design--structure-and-operations.md) | The member table's parallel-array structure (allocator/keys/byKey/trafficClasses) and its Has/Add/Remove/traffic-class operations. |
 | [cask--membertable-design--cli-root-and-server-integration](../sections/cask--membertable-design--cli-root-and-server-integration.md) | The `cask member` CLI, the caskhead membership link, and the server's per-ini6 Has() check. |
 | [cask--membership-next-steps--membership-mvp-roadmap](../sections/cask--membership-next-steps--membership-mvp-roadmap.md) | How the membership set comes to be: node_id identity, the CASK_MEMBERSHIP MVP, CASK_ROOT bootstrap, statusNotMember. |
+| [cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry](../sections/cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry.md) | **Implementation note**: `MemberLookupFunc` gates on the initiator's ed25519 key (transmitted in the Noise payload), and `MemberAddFunc` makes membership mutual — a successful handshake records both peers (must be idempotent). |
 
 ## See also
 

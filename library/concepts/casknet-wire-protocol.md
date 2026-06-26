@@ -1,6 +1,6 @@
 ---
 id: casknet-wire-protocol
-aliases: ["casknet commands", "casknet wire protocol", "reversed response", "reversed command", "stor", "load", "rots", "casc", "csac", "gcgc", "cgcg", "init", "tini", "span_id", "command detection", "MetadataSize", "block metadata footer", "inner command format"]
+aliases: ["casknet commands", "casknet wire protocol", "reversed response", "reversed command", "stor", "load", "rots", "casc", "csac", "gcgc", "cgcg", "init", "tini", "mass", "ssam", "weigh command", "span_id", "command detection", "MetadataSize", "block metadata footer", "inner command format", "SessionManager", "initPacketSize", "tiniPacketSize", "buildInitPacket", "buildStorePlaintext", "command constants", "casknet packet size"]
 topics: [networking]
 status: current
 ---
@@ -18,9 +18,16 @@ casknet's command vocabulary and packet layout. Every wire command is a 4-byte c
 | [cask--net-session-init-design--session-state-and-envelope](../sections/cask--net-session-init-design--session-state-and-envelope.md) | The AEAD envelope and counter-derived nonce. |
 | [cask--net-crypto--primitives-threat-model-and-lifecycle](../sections/cask--net-crypto--primitives-threat-model-and-lifecycle.md) | The same command inventory from the crypto-doc side. |
 | [cask--architecture--layers-0-1-block-transfer-and-session](../sections/cask--architecture--layers-0-1-block-transfer-and-session.md) | Layer 0/1 framing of the command set. |
+| [cask--net-crypto-go--command-constants-and-mirror-convention](../sections/cask--net-crypto-go--command-constants-and-mirror-convention.md) | **Implementation source-of-truth**: the eleven command constants, the reversed-response convention, status codes, and the Noise-IK packet sizes (176 / 121). Adds the `mass`/`ssam` weigh pair the design table predates. |
+| [cask--net-crypto-go--command-plaintext-wire-layouts](../sections/cask--net-crypto-go--command-plaintext-wire-layouts.md) | **Implementation source-of-truth**: the byte-exact build/parse layouts of every command plaintext, including the weigh pair and the error-string tail on cgcg/ssam. |
 
 ## See also
 
 - [[noise-ik-session-establishment]] — how the session the commands ride over is established and keyed.
 - [[content-addressed-block-store]] — the 1KB block STOR/LOAD move.
 - [[codel-send-buffer-shedding]] — TrafficClass on CASC and the priority scheduling of these packets.
+
+## Common confusions
+
+- **Handshake packet sizes (176 / 121 vs ~144 / ~89 vs 82 / 65).** Three numbers circulate for the init / tini sizes. The running implementation (`net/crypto.go`) uses `initPacketSize` = **176** and `tiniPacketSize` = **121** — use these. The `~144 / ~89` figures in the [[noise-ik-session-establishment]] abstract are the design doc's approximations (the ~144 understates init by omitting the encrypted ed25519-key blob). The **82 / 65** figures in this concept's abstract above are the **superseded PSK-era** detection minimums, not the Noise-IK sizes. The abstract's 82 / 65 predate the Noise-IK ingest and should be read as historical.
+- **buildInitPacket layout comment lags.** Within `net/crypto.go`, `buildInitPacket`'s layout comment describes a 144-byte init that omits the ed25519-key blob, while the `initPacketSize` const (and `net/noise.go`) say 176 with the blob. The const is authoritative; the layout comment is a candidate upstream comment-fix. See [cask--net-crypto-go--command-plaintext-wire-layouts](../sections/cask--net-crypto-go--command-plaintext-wire-layouts.md) § Comment-vs-code note.

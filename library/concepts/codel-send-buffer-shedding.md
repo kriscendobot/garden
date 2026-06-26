@@ -1,6 +1,6 @@
 ---
 id: codel-send-buffer-shedding
-aliases: ["CoDel", "codel", "controlled delay", "send-buffer shedding", "load shedding", "load-shedding", "sendbuffer", "recvbuffer", "priority load shedding", "TrafficClass", "traffic class", "256-bit priority", "parasitic eviction", "cohort shedding", "backpressure", "drainNotify", "drainWaiterCount", "notifyDrain", "PopPriority", "wake by traffic class", "WithTrafficClass", "TrafficClassFromContext"]
+aliases: ["CoDel", "codel", "controlled delay", "send-buffer shedding", "load shedding", "load-shedding", "sendbuffer", "recvbuffer", "priority load shedding", "TrafficClass", "traffic class", "256-bit priority", "parasitic eviction", "cohort shedding", "backpressure", "drainNotify", "drainWaiterCount", "notifyDrain", "PopPriority", "wake by traffic class", "WithTrafficClass", "TrafficClassFromContext", "bestTrafficClass", "BestTrafficClass", "traffic class clamp", "traffic class clamping", "claimable priority"]
 topics: [networking, data-structures]
 status: current
 ---
@@ -22,6 +22,7 @@ CASK's approach to bounding latency and shedding load under pressure, borrowing 
 | [cask--architecture--layers-3-4-rpc-routing-orchestration](../sections/cask--architecture--layers-3-4-rpc-routing-orchestration.md) | Cohort-based health grouping and coordinated load shedding at the RPC layer. |
 | [cask--net-design--backpressure-and-traffic-class-wake](../sections/cask--net-design--backpressure-and-traffic-class-wake.md) | Enqueue-side: block `Store()` on a full queue; wake waiters by TrafficClass via 129 per-class notifier channels. |
 | [cask--net-design--lost-notification-coordination](../sections/cask--net-design--lost-notification-coordination.md) | The increment-under-lock / notify-after-unlock proof that no drain notification is lost. |
+| [cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry](../sections/cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry.md) | The per-session `bestTrafficClass` enforcement point: a session's claimed class is clamped up to its admitted ceiling (unknown sessions default to 128), so a peer cannot escalate its own priority by lying in the `casc` traffic-class byte. |
 
 ## See also
 
