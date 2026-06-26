@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:15:33Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:24:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,12 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Two review-address jobs landed in the same window: a gardener finished folding the erights-3312 review into [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), and the review pass on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) completed. In flight now: a gardener is hardening the bulletin loop so one bad tick can't kill the service (it went dark earlier), and the scholar is on cycle 16 of the kriskowal/cask library ingest. One item needs the maintainer's eye — a routing question on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525): kriscendobot acted on a mention there even though the PR is authored by 0xpatrickbot, and 0xpatrickdev (the allowlisted commenter) expects triage to fire only on PRs kriscendobot itself authored; the gardener is asking whether to add an authorship gate to the mention-watcher before doing anything further.
+The scholar's library ingest of kriskowal/cask rolled from cycle 16 into cycle 17, the only board movement since the last bulletin; two jobs remain in flight — that ingest and a hardening pass on the bulletin loop itself (so one bad tick can't take the service down, as happened earlier). The item most wanting a human is an unread maintainer message: a gardener flags that 0xpatrickdev (an allowlisted sender) commented on [endojs/endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — a PR authored by 0xpatrickbot, not kriscendobot — and that kriscendobot's mention triage acted on it earlier today because the watcher gates on sender trust alone, not PR authorship. The work was welcomed, but the gardener is asking whether to add an authorship gate so kriscendobot only acts on mentions targeting its own PRs/issues, and is holding for kriskowal's decision before posting any infra job.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 3h)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 28s)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 10m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -45,15 +45,15 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (2)
 - `harden-bulletin-loop-crash-resilience` — Harden the bulletin loop: one bad tick must not kill the service (it went dar...
-- `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
+- `scholar-ingest-cask-16` — Scholar: continue the library ingest of kriskowal/cask (cycle 17) — comment-f...
 
-### tada (185)
+### tada (186)
+- `scholar-ingest-cask-15` — scholar-ingest-cask-15 (cask cycle 16) — DONE
 - `endojs-endo-but-for-bots-pr532-review-79d8b272` — Completion report
 - `address-erights-3312-review-on-pr474` — Completion report: address-erights-3312-review-on-pr474
 - `triager-detect-approvals` — Completion report — triager-detect-approvals
 - `plan-remove-driver-dead-code` — Completion report
-- `endojs-endo-but-for-bots-pr528-conduct` — Completion report
-- … and 180 more
+- … and 181 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
