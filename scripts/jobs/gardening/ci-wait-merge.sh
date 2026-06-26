@@ -56,11 +56,29 @@ case "${3:-}" in
   *) die "unknown flag: ${3:-} (expected --merge or --no-merge)" ;;
 esac
 
-# The gh binary is overridable (GARDEN_GH) so the block-then-merge logic can be
-# driven by a stub in tests without a live GitHub.
-GH="${GARDEN_GH:-gh}"
+# Resolve the gh binary DURABLY for the whole (potentially 90-minute) CI-wait.
+# Default: the PATH-resolved `gh`, which common.sh pins to the fleet wrapper
+# (scripts/jobs/bin/gh) at the FRONT of PATH — a stable path on disk for the
+# fleet's lifetime that also pins the bot identity. GARDEN_GH overrides it (tests
+# inject a stub), but ONLY when it still resolves to a runnable command at the
+# moment we check.
+#
+# The endo-but-for-bots #178 root cause: GARDEN_GH was honored blindly even when
+# it pointed at a `mktemp -d` wrapper that had ALREADY been cleaned up by the time
+# require_tools ran — so the missing-tool guard fired and the merge was silently
+# DROPPED (twice on the same PR; the liaison merged it by hand). A stale temp
+# override must never be fatal: if GARDEN_GH does not resolve, fall back to the
+# durable PATH `gh` LOUDLY and carry the merge to completion anyway.
+GH="gh"
+if [ -n "${GARDEN_GH:-}" ]; then
+  if [ -x "$GARDEN_GH" ] || command -v "$GARDEN_GH" >/dev/null 2>&1; then
+    GH="$GARDEN_GH"
+  else
+    log "GARDEN_GH=$GARDEN_GH does not resolve (stale temp path?) — falling back to the durable PATH gh (fleet wrapper) so the merge is never dropped"
+  fi
+fi
 require_tools jq
-{ [ -x "$GH" ] || command -v "$GH" >/dev/null 2>&1; } || require_tools "$GH"
+require_tools "$GH"
 
 deadline_secs="${GARDEN_CI_DEADLINE_SECS:-5400}"
 poll_secs="${GARDEN_CI_POLL_SECS:-60}"

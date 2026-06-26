@@ -17,6 +17,8 @@
 #   T5 green but verify!=MERGED → exit 1 (never reports a merge that didn't happen)
 #   T6 --no-merge probe, green → exit 0, merge NEVER called
 #   T7 CLOSED on entry         → exit 2
+#   T8 stale GARDEN_GH (vanished temp path) → falls back to the durable PATH gh
+#      (fleet wrapper) and still merges, never dropping the merge (the #178 fix)
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -91,6 +93,19 @@ run o/r 178 --no-merge; chk "$rc" 0 T6; nomerge T6
 echo "T7 CLOSED → exit 2"
 reset_seq; seq_add '{"state":"CLOSED","statusCheckRollup":[]}'
 run o/r 178; chk "$rc" 2 T7
+
+echo "T8 stale GARDEN_GH (vanished temp path) → falls back to durable PATH gh, still merges"
+# The #178 root cause: GARDEN_GH pointed at a mktemp -d wrapper already cleaned up
+# by the time the wait's tool check ran, so require_tools fired and the merge was
+# dropped. Reproduce: place the stub at the fleet-wrapper location common.sh
+# prepends to PATH (via GARDEN_ROOT=$TR), then point GARDEN_GH at a path that does
+# NOT exist. The script must IGNORE the stale override, resolve gh via the durable
+# PATH wrapper, and complete the merge (exit 0) rather than die on a missing tool.
+reset_seq; seq_add "$PEND"; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+mkdir -p "$TR/scripts/jobs/bin"; cp "$TR/gh" "$TR/scripts/jobs/bin/gh"; chmod +x "$TR/scripts/jobs/bin/gh"
+rc=0
+GARDEN_ROOT="$TR" GARDEN_GH="$TR/gone-$$/gh" bash "$SCRIPT" o/r 178 >/dev/null 2>&1 || rc=$?
+chk "$rc" 0 T8; merged T8
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"
