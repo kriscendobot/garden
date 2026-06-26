@@ -1,6 +1,6 @@
 ---
 created: 2026-05-20
-updated: 2026-05-20
+updated: 2026-06-26
 author: gardener
 ---
 
@@ -33,12 +33,13 @@ Assumes you have already read `roles/COMMON.md`.
 - **Primary surface.** For each `.changeset/*.md` file in the diff:
   - **Package-set coherence.** The front-matter's listed packages must match the diff's touched packages. A package in the front-matter that the diff does not touch is a stale entry; a package the diff touches that is not in the front-matter is a missed entry. Cite each mismatch by package name.
   - **Bump-level coherence.** Patch for behavior-preserving fixes; minor for additive surface; major for breaking changes (and major for a package's first release per the PR-#75 `r3270497748` finding). The auditor reads the diff against the published shape (when the package exists) or against the README's claimed-public surface (when the package is new) and verifies the bump level matches.
+  - **New-package initial-release shape.** When the diff introduces a brand-new package, enforce the fixed initial-release shape per `skills/changeset-discipline/SKILL.md` § New-package initial release. Three coupled prohibitions, each a must-fix: (1) the new package's `CHANGELOG.md` must be the bare stub (`# Change Log` + the Conventional-Commits boilerplate) and nothing else — flag any hand-written release notes, a `## 0.1.0 (unreleased)` heading, or a feature bullet list, since the release tooling regenerates the changelog from changesets at publish and the "what this package is" prose belongs in the changeset body; (2) the `package.json` version must be `0.1.0` at creation; (3) the changeset must bump `major` so the first published release is `1.0.0` — flag a `minor` or `patch` initial-release changeset, which would publish `0.2.0` / `0.1.1` instead. Reference exemplar in-tree: `@endo/cancel`.
   - **Body-vs-diff identifier coherence.** The changeset body names the identifiers and concepts the diff actually changes. A body that names `makeFoo` when the diff renamed `makeFoo` to `makeBar` is stale; flag and propose the rewrite.
   - **Style: sentence-per-line; no process commentary.** Each sentence on its own line; no "I noticed that...", no "the agent attempted...", no commit-message-style metadata in the changeset body. The changeset is the migration note future readers consult.
   - **Bundling.** One bundled changeset per PR is the default for the garden's workspaces; multiple changesets are valid when the PR splits packages with genuinely independent semver implications. The auditor flags multiple changesets without that justification.
 - **Cite the rule.** Every finding cites `skills/changeset-discipline/SKILL.md` § the relevant sub-section (Bundling, Bump level, Sentence-per-line, No process commentary, etc.). Findings the skill doesn't cover get `[proposed-rule]` and a one-sentence proposal.
 - **Default disposition: summary-fix.** Changeset coherence is almost always one-shot addressable; the fixer rewrites the changeset and re-stages. Reserve `must-fix-loop` for the bump-level case where the changeset would publish a wrong semver bump (a breaking change as patch).
-- **Be specific.** "`changeset/endo-chacha12.md` lists `@endo/chacha12: patch`; the diff introduces a new public package, so the bump should be `minor` (or `major` if first release) per `skills/changeset-discipline/SKILL.md` § Bump level for new packages" beats "bump level wrong".
+- **Be specific.** "`changeset/endo-chacha12.md` lists `@endo/chacha12: patch`; the diff introduces a new public package, so the bump should be `minor` (or `major` for a first release, with version `0.1.0` and an empty stub changelog) per `skills/changeset-discipline/SKILL.md` § New-package initial release" beats "bump level wrong".
 - **Stay terse and structured.** Under ~300 words for the per-juror block; the changeset surface is narrow.
 
 ## External-repo etiquette

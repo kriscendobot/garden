@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-06-26
 author: liaison, gardener
 ---
 
@@ -74,6 +74,44 @@ release notes and deciding whether to upgrade. Write to that reader.
   "addresses reviewer ask" all belong in the PR body or in the commit message,
   not in the published release notes.
 
+## New-package initial release
+
+When the change introduces a brand-new package (e.g. a new `@endo/*`
+workspace), the initial release follows a fixed shape. The release tooling
+regenerates `CHANGELOG.md` from changesets at publish, so a hand-authored
+initial changelog is always wrong.
+
+- **`CHANGELOG.md` starts empty** — the standard stub and nothing more:
+
+  ```
+  # Change Log
+
+  All notable changes to this project will be documented in this file.
+  See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+  ```
+
+  No hand-written release notes, no `## 0.1.0 (unreleased)` heading, no
+  bullet list of features. Authoring release prose in the changelog is the
+  builder error this rule exists to prevent.
+- **`package.json` version is `0.1.0`** at creation.
+- **The changeset bumps `major`** (`'@endo/pkg': major`). A major bump from
+  `0.1.0` yields a first published release of **1.0.0**, which is what the
+  regenerated changelog will reflect. A `minor` or `patch` initial-release
+  changeset is wrong: it would publish `0.2.0` / `0.1.1` instead of `1.0.0`.
+- **The "what this package is" prose lives in the changeset body**, not in
+  the changelog. The changeset body is the substantive description a
+  downstream reader consults; the changelog is regenerated from it.
+
+Reference exemplar already in-tree: `@endo/cancel` (changeset
+`cancel-initial-release.md`, `major`; version `0.1.0`; empty stub
+`CHANGELOG.md`).
+
+Provenance: kriskowal review directive on `endojs/endo-but-for-bots#513`
+(inline comment on `packages/pubsub/CHANGELOG.md`, 2026-06-26) — *"keep the
+initial changelog empty, the first version 0.1.0, and a changeset bumping the
+major, such that the first release is 1.0.0 as will be reflected in the change
+log."*
+
 ## Notes from the field
 
 - _2026-05-13_: adopted from a reference garden. The discipline applies wherever
@@ -93,3 +131,10 @@ release notes and deciding whether to upgrade. Write to that reader.
 - _2026-06-24_: migrated into v2. Pure discipline; no coordination wording to
   rewire. Consumed by builder/cleaner script steps and the changeset-auditor/
   releaser/migrator jury seats rather than by a dispatched judge.
+- _2026-06-26_: added the *New-package initial release* section (empty stub
+  changelog, version `0.1.0`, `major` changeset → first release `1.0.0`, prose
+  in the changeset body) per kriskowal's review directive on
+  `endojs/endo-but-for-bots#513`. The directive asked for both builder guidance
+  (this section) and reviewer prohibition (added to the changeset-auditor seat,
+  whose dangling `§ Bump level for new packages` citation now points here and
+  enforces the concrete `0.1.0`/`major`/`1.0.0` shape).
