@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T05:52:18Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T05:56:46Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Little of substance has moved since the last bulletin: a single new gardener claimed [`watcher-mention-only-author-filter`](https://github.com/endojs/endo-but-for-bots) — a watcher-filter change to ignore feedback on mention-only authors' PRs unless @kriscendobot is mentioned. In the recent run-up, review work on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) closed out (two completions), the [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) rebase/refactor was cancelled, the [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) rebase paused to await background re-invocation, and a finbot richer-forecasting job landed. Active lanes now cover the [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) rebase, the [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) review directive, and finbot forecast-evaluation fixtures. The maintainer queue is unchanged: 30 PRs parked, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) waiting longest at 9h among the recently-active set.
+The rebase and retcon of [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) (drop the @info name hub for the formula-inspector design) completed and the PR is now parked for maintainer review, freshly rebased just minutes ago.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 35m)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 50s)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 29m)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 40m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 5m)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 34m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
@@ -34,19 +34,18 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- `endojs-endo-but-for-bots-pr440-rebase` — rebase directive on endojs/endo-but-for-bots PR #440
+### doin (3)
 - `endojs-endo-but-for-bots-pr507-review-f4d95615` — Review directive on endojs/endo-but-for-bots PR #507
 - `finbot-forecast-evaluation-fixtures` — Evolve finbot: synthetic oracle time-series fixtures to evaluate the ensemble...
 - `watcher-mention-only-author-filter` — Watcher filter: ignore feedback on mention-only authors' PRs unless @kriscend...
 
-### tada (244)
+### tada (245)
+- `endojs-endo-but-for-bots-pr440-rebase` — Completion report: rebase + retcon of endojs/endo-but-for-bots PR #440
 - `finbot-richer-forecasting` — Completion report: finbot-richer-forecasting
 - `endojs-endo-but-for-bots-pr507-f76e2c9d` — Completion report
 - `endojs-endo-but-for-bots-pr507-c841a4a6` — Completion report
 - `endojs-endo-but-for-bots-pr513-rebase-refactor-cancel` — Completion report
-- `endojs-endo-but-for-bots-pr379-rebase` — I'll stop polling and wait for the harness to re-invoke me when the backgroun...
-- … and 239 more
+- … and 240 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
