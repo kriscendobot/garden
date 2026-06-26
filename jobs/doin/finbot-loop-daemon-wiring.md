@@ -26,3 +26,9 @@ Dry-run only; oracle polling read-only against pinned trusted endpoints only
 ## Done
 A persistent dry-run driver that runs the in-process OODA cycle on cadence and
 journals it; oracle-watcher daemon + units; steward/journalist loops; tests green.
+
+---
+claim:
+  host: endolinbot
+  gardener: 23
+  claimed_at: 2026-06-26T04:38:50Z
