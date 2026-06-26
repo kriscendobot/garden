@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:19:10Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:20:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,15 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The minion.town MCP OAuth design landed — [design-mcp-oauth-aws-minion-town](https://github.com/kriskowal/garden) completed and moved to done, leaving the board nearly idle (3 jobs in flight, none claimable). Two items want the maintainer's eyes: the competing SturdyRef-retention design pair ([endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [#511](https://github.com/endojs/endo-but-for-bots/pull/511)) is now fully compared and ready for a decision — a two-juror panel independently converged on a synthesis with #510's daemon-owned retain/release syscall as the spine, written up on [#500](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325), and it also flags a `getStudyRefLocator` typo in [#521](https://github.com/endojs/endo-but-for-bots/pull/521)'s shipped surface worth fixing before the public name sets. Separately, a routing/scope question is parked: kriscendobot acted on [#525](https://github.com/endojs/endo-but-for-bots/pull/525) (a 0xpatrickbot PR) because mention triage gates on sender trust but not PR authorship — the work was welcomed, but the maintainer is asked whether to add an authorship gate. One watchdog also reports `gh` missing from PATH on endolinbot under the `ci-wait-merge` tag, silently dropping CI-wait work until the tool is installed.
+The SturdyRef design contest just resolved into action: the [#510](https://github.com/endojs/endo-but-for-bots/pull/510)-vs-[#511](https://github.com/endojs/endo-but-for-bots/pull/511) competing pair is complete and compared, and a build job for the SturdyRefs **endor-syscall retention** slice (design #510) has been claimed and is in progress. A two-juror design panel (determinism and user-agency lenses) independently converged on the same call — synthesize with #510's daemon-owned retain/release syscall as the spine, grafting in #510's proactive per-turn deleteExport as a requirement, #511's FinalizationRegistry as an optional off-by-default leak detector, and #511's local-only-at-the-boundary rule; the side-by-side is on [#500](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325). That message also flags a `getStudyRefLocator`→`getSturdyRefLocator` typo shipped in [#521](https://github.com/endojs/endo-but-for-bots/pull/521)'s public surface, worth fixing before it sets the name. New this cycle: [#513](https://github.com/endojs/endo-but-for-bots/pull/513) (@endo/pubsub) is parked for review, six finbot follow-on plans landed in the deferred queue, and design-mcp-oauth-aws-minion-town plus the conductor CI-wait hardening completed.
+
+Two items need a human: a scope/identity question on whether kriscendobot's mention triage should add an **authorship gate** (it acted on [#525](https://github.com/endojs/endo-but-for-bots/pull/525), another bot's PR, because the watcher gates on sender trust only), and a watchdog alert that `gh` is missing from PATH on endolinbot for the `ci-wait-merge` tag — silently dropping work until the tool is installed.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4h)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 29m)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 35m)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -59,8 +61,9 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
+- `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
 - `endojs-endo-but-for-bots-pr510-review-93293593` — Review directive on endojs/endo-but-for-bots PR #510
 - `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
 
@@ -78,12 +81,18 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `synth-and-deploy-minion-town-aws` — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
+- `finbot-loop-daemon-wiring` — _high_ · GOAL: wire the driving loop + standing daemons to run the in-process pipeline
+- `finbot-richer-forecasting` — _high_ · GOAL: richer ensemble forecasting + the visual histogram projection
 - `investigate-systemd-run-vs-gardener-loops` — _normal_ · PLAN: investigate systemd-run vs. the fixed 100-gardener-loop pool → garden d...
 - `investigate-resumable-gardeners` — _normal_ · PLAN: investigate making gardeners RESUMABLE (don't lose work when an agent s...
 - `ingest-ocap-library-sections` — _normal_ · PLAN: scholar — ingest sources for six missing ocap library sections
 - `ingest-ocap-kernel` — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel into the library
 - `formula-inspector-retention-paths-table` — _normal_ · PLAN (follow-on): add a retention-paths table to the formula inspector
 - `design-endo-stream-flatmap-reader` — _normal_ · PLAN: @endo/stream flatMapReader — 1-to-many reader transform (flatten a stre...
+- `finbot-ses-compartments` — _normal_ · GOAL: replace the in-process v0.5 capability attenuator with real SES compart...
+- `finbot-additional-instruments` — _normal_ · GOAL: multi-instrument portfolios and yield-bearing instruments
+- `finbot-substrate-adapters` — _normal_ · GOAL: executor signing adapters for real substrates (ymax Path A / Path C)
+- `finbot-llm-role-dispatch` — _normal_ · GOAL: drive the OODA roles by inference (connect spawn's stub LLM to a provider)
 - `classify-lint-endo-master` — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 
 ## Watch set
