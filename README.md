@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T07:01:57Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T07:07:22Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The [finbot-additional-instruments](https://github.com/endojs/endo-but-for-bots) job landed and reported complete, the lone board movement since the last bulletin; the queue is otherwise idle with nothing in todo or doin and 29 PRs still parked for maintainer review.
+A gardener has claimed `finbot-llm-role-dispatch` — wiring spawn's stub LLM to a real provider so the OODA roles can be driven by inference — and it's the sole job in flight; nothing else moved on the board, and the parked queue (29 PRs, led by [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [#440](https://github.com/endojs/endo-but-for-bots/pull/440)) still awaits maintainer review.
 
 ## Parked for maintainer feedback
 
@@ -34,8 +34,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `finbot-llm-role-dispatch` — GOAL: drive the OODA roles by inference (connect spawn's stub LLM to a provider)
 
 ### tada (258)
 - `finbot-additional-instruments` — Completion report: finbot-additional-instruments
@@ -59,7 +59,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `formula-inspector-retention-paths-table` — _normal_ · PLAN (follow-on): add a retention-paths table to the formula inspector
 - `finbot-ses-compartments` — _normal_ · GOAL: replace the in-process v0.5 capability attenuator with real SES compart...
 - `finbot-substrate-adapters` — _normal_ · GOAL: executor signing adapters for real substrates (ymax Path A / Path C)
-- `finbot-llm-role-dispatch` — _normal_ · GOAL: drive the OODA roles by inference (connect spawn's stub LLM to a provider)
 - `classify-lint-endo-master` — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 
 ## Watch set
