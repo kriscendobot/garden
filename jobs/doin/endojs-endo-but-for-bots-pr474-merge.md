@@ -21,3 +21,9 @@ Drive the merge to completion per the conductor contract (ci-wait-merge
 spine: block until CI terminal, then merge on green, then verify
 state=MERGED). Let the conductor choose the merge method per its canonical
 norm.
+
+---
+claim:
+  host: endolinbot
+  gardener: 96
+  claimed_at: 2026-06-26T02:29:37Z
