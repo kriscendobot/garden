@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T02:08:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T02:21:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,11 +10,11 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A sturdyref design job resolved with a twist: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged into the stacked base ~17s after the gardener claimed it (head branch deleted), so the continuation landed as a successor DRAFT, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), folding in proactive per-turn `deleteExport` as a hard requirement, FinalizationRegistry demoted to an optional leak detector, and the local-only-at-boundary rule; [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Two items need the maintainer's call: whether to run #539 through the gamut and un-draft it, and whether to dispatch a fixer for a typo on the maintainer's own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (the exported `getStudyRefLocator` should be `getSturdyRefLocator`). Separately, review and follow-up work on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) completed (eslint avoid-quotes fix plus review reports), with a shepherd directive now in flight on it; a self-heal also patched an unguarded `gh`/pipefail in the garden comment-watcher source.
+The sturdyref design effort moved but needs a maintainer call: [#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged (into `llm-65b0abe`) seconds after the continue job claimed it and its head branch was deleted, so the work continued as a successor draft, [#539](https://github.com/endojs/endo-but-for-bots/pull/539) — folding in per-turn `deleteExport` as a hard requirement, FinalizationRegistry demoted to an optional leak detector, and an optional `type` hint on the SturdyRef; [#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. The gardener is awaiting word on whether to run #539 through the gamut and un-draft it, and flagged a typo in maintainer-authored [#521](https://github.com/endojs/endo-but-for-bots/pull/521) (the exported symbol reads `getStudyRefLocator`, missing the `r`) — a fixer rename is ready on request. Meanwhile [#474](https://github.com/endojs/endo-but-for-bots/pull/474) is in its finalize/shepherd leg (conduct and shepherd both claimed), and a self-heal landed an unguarded-`gh`/pipefail fix in the garden comment-watcher source.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1h)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 2h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 1h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -48,7 +48,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- `endojs-endo-but-for-bots-pr474-conduct` — Finalize (curate → merge) endojs/endo-but-for-bots PR #474
 - `endojs-endo-but-for-bots-pr474-shepherd` — shepherd directive on endojs/endo-but-for-bots PR #474
 
 ### tada (217)
