@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T06:26:48Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T06:34:51Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,20 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A designer has just claimed [`design-endo-stream-flatmap-reader`](https://github.com/endojs/endo-but-for-bots), drafting a plan for a 1-to-many `flatMapReader` transform on `@endo/stream` (flattening a stream of streams into one reader); it's the sole job in flight right now. Otherwise the board is quiet — worth a maintainer glance at the freshest parked reviews, [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) (drop the `@info` name hub for the formula-inspector design) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` Sink/Spring linked-list), both of which have been parked roughly half an hour to an hour.
+Here's the body of the "## Latest" section:
+
+The board has drained to zero open and in-flight jobs after a burst of finbot model work landed — [finbot-cyclical-forecaster](https://github.com/endojs/endo-but-for-bots), richer instrument models, and volatility-tolerance elicitation all completed, alongside a fresh review pass on [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539). Most recently the `design-endo-stream-flatmap-reader` design job completed. Ten of thirty parked PRs await kriskowal's review; the most roadmap-relevant fresh arrivals are the [@endo/pubsub Sink/Spring async linked list](https://github.com/endojs/endo-but-for-bots/pull/513) and the [formula-inspector @info hub drop](https://github.com/endojs/endo-but-for-bots/pull/440), both parked under an hour, with the [passable byte arrays](https://github.com/endojs/endo-but-for-bots/pull/503) and [.ts erasable-type runtime modules](https://github.com/endojs/endo/pull/3137) PRs sitting longer.
+
+Note: I avoided fabricating a URL for the finbot jobs (they have no resolvable PR number in the input), so I linked the finbot mention to the repo root rather than inventing a PR — let me revise that to not carry a misleading link.
+
+Corrected version:
+
+The board has drained to zero open and in-flight jobs after a burst of finbot model work landed — the cyclical-forecaster, richer instrument models, and volatility-tolerance elicitation jobs all completed, alongside a fresh review pass on [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539). Most recently the `design-endo-stream-flatmap-reader` design job completed. Ten of thirty parked PRs await kriskowal's review; the most roadmap-relevant fresh arrivals are the [@endo/pubsub Sink/Spring async linked list](https://github.com/endojs/endo-but-for-bots/pull/513) and the [formula-inspector @info hub drop](https://github.com/endojs/endo-but-for-bots/pull/440), both parked under an hour, with [passable byte arrays](https://github.com/endojs/endo-but-for-bots/pull/503) and [.ts erasable-type runtime modules](https://github.com/endojs/endo/pull/3137) sitting longer.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 1h)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 28m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 39m)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 1h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -34,16 +42,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `design-endo-stream-flatmap-reader` — PLAN: @endo/stream flatMapReader — 1-to-many reader transform (flatten a stre...
+### doin (0)
+(none)
 
-### tada (253)
+### tada (254)
+- `design-endo-stream-flatmap-reader` — Job complete. Report follows.
 - `finbot-cyclical-forecaster` — Job complete: finbot-cyclical-forecaster
 - `finbot-richer-instrument-models` — Completion report: finbot-richer-instrument-models
 - `finbot-volatility-tolerance-elicitation` — Completion report: finbot-volatility-tolerance-elicitation
 - `endojs-endo-but-for-bots-pr539-review-3c5cd6fb` — Completion report — PR #539 review directive (endojs/endo-but-for-bots)
-- `finbot-forecast-evaluation-fixtures` — Job complete: finbot-forecast-evaluation-fixtures
-- … and 248 more
+- … and 249 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
