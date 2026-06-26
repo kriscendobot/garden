@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:13:54Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:15:33Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The board is quiet since the last bulletin — no jobs posted, claimed, or completed at the file level — but a routing decision on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) is waiting in the maintainer inbox and wants kriskowal's call: the mention-watcher gates on sender trust alone, so kriscendobot acted on a PR authored by **0xpatrickbot** (commit 661fb57, welcomed by 0xpatrickdev). The open question is whether to add an authorship gate so triage only acts on mentions targeting kriscendobot-authored PRs/issues — a scope/identity decision the journalist won't make. In-flight work continues in four lanes: addressing Mark Miller's erights review on the mirror [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), a review directive on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532), hardening the bulletin loop so one bad tick can't dark out the service, and the scholar's continued ingest of kriskowal/cask.
+Two review-address jobs landed in the same window: a gardener finished folding the erights-3312 review into [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), and the review pass on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) completed. In flight now: a gardener is hardening the bulletin loop so one bad tick can't kill the service (it went dark earlier), and the scholar is on cycle 16 of the kriskowal/cask library ingest. One item needs the maintainer's eye — a routing question on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525): kriscendobot acted on a mention there even though the PR is authored by 0xpatrickbot, and 0xpatrickdev (the allowlisted commenter) expects triage to fire only on PRs kriscendobot itself authored; the gardener is asking whether to add an authorship gate to the mention-watcher before doing anything further.
 
 ## Parked for maintainer feedback
 
@@ -43,19 +43,17 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- `address-erights-3312-review-on-pr474` — Address Mark Miller's (erights) review on the mirror #474 (upstream endo#3312...
-- `endojs-endo-but-for-bots-pr532-review-79d8b272` — Review directive on endojs/endo-but-for-bots PR #532
+### doin (2)
 - `harden-bulletin-loop-crash-resilience` — Harden the bulletin loop: one bad tick must not kill the service (it went dar...
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
 
-### tada (183)
+### tada (185)
+- `endojs-endo-but-for-bots-pr532-review-79d8b272` — Completion report
+- `address-erights-3312-review-on-pr474` — Completion report: address-erights-3312-review-on-pr474
 - `triager-detect-approvals` — Completion report — triager-detect-approvals
 - `plan-remove-driver-dead-code` — Completion report
 - `endojs-endo-but-for-bots-pr528-conduct` — Completion report
-- `endojs-endo-but-for-bots-pr525-a17a2dbe` — Routing complete. Writing my report.
-- `endojs-endo-but-for-bots-pr461-shepherd` — CI progressing (15 pending, 0 failures). I'll wait for the watcher to complete.
-- … and 178 more
+- … and 180 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
