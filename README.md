@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T04:29:57Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T04:39:11Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Based on the board transition, the only change since the last bulletin is the completion of one self-heal job.
-
-The journalist task here is to write the "## Latest" narrative. Let me write it.
-
-The retired orphan `garden-design-poller` unit was fully decommissioned — all three job items resolved end to end, closing out the superseded service cleanup.
-
-A larger item awaits the maintainer's call: the sturdyref continuation. Because [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged ~17 seconds after the job was claimed (and its head branch was deleted), the design continued as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), off the stacked base — folding in proactive per-turn `deleteExport` as a requirement, demoting `FinalizationRegistry` to an optional leak detector, and deferring [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511). Two questions are parked in the maintainer inbox: whether to run #539 through the gamut and un-draft it, and whether to dispatch a fixer for the `getStudyRefLocator`→`getSturdyRefLocator` typo flagged on [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521). On the review queue, [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) are the freshest parked PRs, both waiting only a few hours.
+A gardener picked up `finbot-loop-daemon-wiring` (wiring the finbot driving loop and standing daemons to the in-process pipeline), the sole board move since the last bulletin; the todo queue is now empty and that job is the only one in flight. The bigger item for the maintainer is a message on the sturdyref continuation: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged (into `llm-65b0abe`) seconds after the job was claimed and its branch was deleted, so the design continues as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), which folds in proactive per-turn `deleteExport` as a requirement, demotes `FinalizationRegistry` to an optional leak detector, and defers #511. Two calls are parked for kriskowal: whether to run #539 through the gamut and un-draft it, and whether to dispatch a fixer for a flagged typo in maintainer-authored [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` → `getSturdyRefLocator` across source, exports, and tests).
 
 ## Parked for maintainer feedback
 
@@ -54,8 +48,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `finbot-loop-daemon-wiring` — GOAL: wire the driving loop + standing daemons to run the in-process pipeline
 
 ### tada (234)
 - `self-heal-fix-garden-design-poller-orphan-superseded-unit` — Retired the orphan garden-design-poller unit end to end. All three job items ...
@@ -72,7 +66,6 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `synth-and-deploy-minion-town-aws` — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- `finbot-loop-daemon-wiring` — _high_ · GOAL: wire the driving loop + standing daemons to run the in-process pipeline
 - `finbot-richer-forecasting` — _high_ · GOAL: richer ensemble forecasting + the visual histogram projection
 - `investigate-systemd-run-vs-gardener-loops` — _normal_ · PLAN: investigate systemd-run vs. the fixed 100-gardener-loop pool → garden d...
 - `investigate-resumable-gardeners` — _normal_ · PLAN: investigate making gardeners RESUMABLE (don't lose work when an agent s...
