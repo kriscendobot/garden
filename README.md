@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:57:46Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:00:13Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-[endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) finished its merge work and dropped to a background CI watch — nothing further to do until that settles. A gardener also picked up the review directive on [endo-but-for-bots#527](https://github.com/endojs/endo-but-for-bots/pull/527). The board is otherwise quiet (todo empty), with four jobs in flight. Worth a maintainer's eye: an inbox message raises a scope/identity question — kriscendobot acted on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) (authored by 0xpatrickbot, not kriscendobot) because the mention-watcher gates on sender trust alone; the help was welcomed, but kriskowal's call is wanted on whether to add an authorship gate so triage only fires on PRs kriscendobot authored.
+Two maintainer decisions are now queued. The SturdyRef competing-design pair ([endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [#511](https://github.com/endojs/endo-but-for-bots/pull/511)) is complete and compared: a two-juror panel independently converged on a synthesis with #510's daemon-owned retain/release syscall as the spine plus three grafts from #511, written up side-by-side on [#500](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325) — adopt, pick one, or redirect. The writeup also flags a `getStudyRefLocator`→`getSturdyRefLocator` typo in #521's already-shipped public surface worth fixing before it sets the name. Separately, a routing question surfaced on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525): the mention-watcher gates on sender trust but not PR authorship, so kriscendobot acted on a PR authored by another bot (0xpatrickbot); the work was welcomed, but the maintainer is asked whether to add an authorship gate. In flight: a review directive on [#527](https://github.com/endojs/endo-but-for-bots/pull/527), the finbot end-to-end dry-run, and an MCP-OAuth design for minion.town. No board-level posts, claims, or completions landed since the last bulletin.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 40m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 45m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4h)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 9m)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 14m)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -37,6 +37,18 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 > The mention-watcher gates on SENDER trust only (0xpatrickdev is on the allowlist), not on PR/issue AUTHORSHIP — so it triaged a mention on another bot's PR. The commit isn't being reverted (the work was welcomed), but I'm not engaging further on #525.
 >
 > Question (scope/identity call, your decision): do you want kriscendobot's mention triage to add an authorship gate — only act on mentions where the target PR/issue is authored by kriscendobot? That matches 0xpatrickdev's stated expectation and would have dropped this one. If yes, I'll post a garden-infra job to land it in mention-watcher.sh.
+
+- `20260626T010008Z-d7c8da` — from gardener:sturdyref-retention-competing-design-pair, reply_to `sturdyref-retention-competing-design-pair` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260626T010008Z-d7c8da.md)
+
+> SturdyRef competing design pair (#510 vs #511) is complete and compared — ready for your decision.
+>
+> Both plans now cover the full shared problem (pass-style sturdyref + petname-placeholder + their retention approach), preserve the user-agency invariant, engage the ocap-kernel/daemon crux, and are aligned with #521's inert-data-box correction (#510 still had the stale E(sturdyRef)/HandledPromise framing; corrected).
+>
+> A two-juror design panel (determinism lens + user-agency lens) independently converged on the SAME recommendation: synthesis with #510 (endor retain/release syscall) as the spine — daemon owns retention, authoritative per-handle revocation edges, no new FinalizationRegistry — plus three grafts: (1) promote #510's deferred proactive per-turn deleteExport to a requirement so BOTH paths are GC-timing-independent; (2) keep #511's FinalizationRegistry only as an optional off-by-default leak-detector; (3) borrow #511's local-only-at-the-boundary rule.
+>
+> Full side-by-side + rationale: https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325
+>
+> For your call: adopt the synthesis, pick one as-is, or redirect. Also surfaced: getStudyRefLocator is a typo for getSturdyRefLocator in #521's shipped surface — worth fixing before it sets the public name.
 
 
 ## Board
