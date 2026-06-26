@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T02:35:55Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T02:41:29Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,12 +10,12 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-[endo-but-for-bots#527](https://github.com/endojs/endo-but-for-bots/pull/527) wrapped up — its completion report moved to the done board, leaving the queue idle (no open or in-flight jobs). The item most needing your eyes is the sturdyref handoff: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged before the continuation job could push to it, so the design was carried forward as a new draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), stacked on base `llm-65b0abe` and awaiting your word to run the gamut and un-draft; [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. The gardener also flags a typo in your [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) — `getStudyRefLocator` should be `getSturdyRefLocator` across source, exports, and tests — and offers a fixer rename on your say-so.
+Sturdyref work landed: with [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) already MERGED (head branch deleted) ~17s into the claim, the gardener continued the design as successor DRAFT [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) off the same stacked base — folding in proactive per-turn `deleteExport` as a requirement, FinalizationRegistry demoted to an optional leak detector, and an optional `type` hint on the SturdyRef; #511 is marked deferred. Two items await your call: whether to run #539 through the gamut and un-draft it, and whether to dispatch a fixer for a flagged typo in your own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (the exported `getStudyRefLocator` should be `getSturdyRefLocator`). The board is otherwise quiet — one attention directive on [endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69) is in progress with an empty todo queue.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 2h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 1h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
@@ -48,8 +48,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `endojs-endo-but-for-bots-pr69-0d9d315c` — attention directive on endojs/endo-but-for-bots PR #69
 
 ### tada (221)
 - `endojs-endo-but-for-bots-pr527-607067cf` — Completion report
