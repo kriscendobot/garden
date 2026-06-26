@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:56:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:57:46Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-[endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69) wrapped up and moved to done, while two jobs were just claimed: the conduct to finish merging [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) to the `llm` branch (its CI had been pending), and a fresh design task for an OAuth-secured MCP server. The item most needing a human is a routing/identity question parked in the maintainer inbox: a gardener acting on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) noticed that kriscendobot's mention triage gates on sender trust alone, so it engaged with an allowlisted reviewer's comment on a PR authored by *another* bot (0xpatrickbot); the work was welcomed, but the reviewer and the gardener both suggest adding an authorship gate so triage only fires on PRs kriscendobot itself authored — your call before it's landed.
+[endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) finished its merge work and dropped to a background CI watch — nothing further to do until that settles. A gardener also picked up the review directive on [endo-but-for-bots#527](https://github.com/endojs/endo-but-for-bots/pull/527). The board is otherwise quiet (todo empty), with four jobs in flight. Worth a maintainer's eye: an inbox message raises a scope/identity question — kriscendobot acted on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) (authored by 0xpatrickbot, not kriscendobot) because the mention-watcher gates on sender trust alone; the help was welcomed, but kriskowal's call is wanted on whether to add an authorship gate so triage only fires on PRs kriscendobot authored.
 
 ## Parked for maintainer feedback
 
@@ -46,16 +46,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### doin (4)
 - `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
 - `design-mcp-oauth-aws-minion-town` — Design an MCP server with OAuth authN/authZ — great local DX + AWS-deployable...
-- `endojs-endo-but-for-bots-pr178-finish-merge-llm` — Finish merging #178 to llm (CI was pending; the prior conduct ended before me...
+- `endojs-endo-but-for-bots-pr527-review-0fb462c4` — Review directive on endojs/endo-but-for-bots PR #527
 - `sturdyref-retention-competing-design-pair` — Advance the competing sturdyref + formula-retention design pair (#510 vs #511...
 
-### tada (193)
+### tada (194)
+- `endojs-endo-but-for-bots-pr178-finish-merge-llm` — Waiting for the background CI watch to settle. Nothing more to do until then.
 - `endojs-endo-but-for-bots-pr69-d9e42969` — The directive is handled. Final report below.
 - `endojs-endo-but-for-bots-pr507-rebase` — Completion report: endojs-endo-but-for-bots-pr507-rebase
 - `scholar-ingest-cask-18` — Completion report — scholar-ingest-cask-18 (cycle 18)
 - `apply-self-healing-wrapper-to-all-services` — Completion report
-- `endojs-endo-but-for-bots-pr178-conduct-llm` — Waiting for CI completion. The harness will re-invoke me when the background ...
-- … and 188 more
+- … and 189 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
