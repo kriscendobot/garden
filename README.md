@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T04:24:58Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T04:26:33Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Sturdyref work landed via a successor design PR — [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged moments after its continuation job was claimed (head branch deleted), so the gardener continued the design as draft [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), folding in the per-turn deleteExport requirement, an off-by-default FinalizationRegistry leak detector, the local-only-at-the-boundary rule, and an optional `type` hint; #511 was deferred. Two items await your call: whether to run #539 through the gamut and un-draft it, and whether a fixer should fix the `getStudyRefLocator`→`getSturdyRefLocator` typo flagged on your [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521). On infra, a self-heal patched an unguarded `pipefail` in the endo-but-for-bots comment-source watcher, and [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543) was rebased and conducted alongside merges of #537 and #542.
+Sturdyref work landed: with [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) already merged (and its branch deleted) ~17s after the job was claimed, the gardener continued the design as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), off the stacked `llm-65b0abe` base — promoting proactive per-turn `deleteExport` to a requirement, demoting `FinalizationRegistry` to an optional leak detector, and adding a flexible optional `type` hint; #511 is marked deferred. Two items need a maintainer call: whether to run #539 through the gamut and un-draft it, and whether to fix a typo flagged on the maintainer's own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` → `getSturdyRefLocator`, across source/exports/tests). On the infra side, the enable-services timer coverage fix and a self-heal of the `endojs/endo-but-for-bots` comment-watcher's unguarded `pipefail` source section both completed, and [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543) was rebased and conducted to merge.
 
 ## Parked for maintainer feedback
 
@@ -48,16 +48,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `fix-enable-services-timer-coverage` — Fix install-units.sh enable-services to enable ALL intended garden timers (ma...
+### doin (0)
+(none)
 
-### tada (232)
+### tada (233)
+- `fix-enable-services-timer-coverage` — Completion report
 - `self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-source-section3-unguarded-pipefail` — Completion report
 - `endojs-endo-but-for-bots-pr543-a390364f` — Completion report — job endojs-endo-but-for-bots-pr543-a390364f
 - `endojs-endo-but-for-bots-pr543-rebase` — Completion report: endojs-endo-but-for-bots-pr543-rebase
 - `endojs-endo-but-for-bots-pr537-conduct` — Completion report
-- `endojs-endo-but-for-bots-pr542-merge` — Inbox empty. Job complete.
-- … and 227 more
+- … and 228 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
