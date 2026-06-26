@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-25T21:31:52Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:08:55Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,15 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bulletin's deterministic dashboard gained a **Plan queue** section (`bulletin-show-plan-queue` landed), surfacing parked plan work split into "awaiting go-ahead" and foreman-auto-promoted "deferred" buckets — the latter currently holds five investigations and ingests, led by the systemd-run-vs-gardener-loop and resumable-gardener studies. Otherwise the board is quiet: the only active job is the scholar's cycle-16 ingest of kriskowal/cask, and the parked-for-feedback set is unchanged, still topped by [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) (locator scheme) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), with [#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub`) now six hours in.
+[endo-but-for-bots#528](https://github.com/endojs/endo-but-for-bots/pull/528) merged via the conductor, and the triager gained explicit approval-detection (both jobs completed). Three jobs are in flight: carrying Mark Miller's erights review from upstream endo#3312 onto the mirror [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), a review directive on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532), and the scholar's cask library ingest (cycle 16). The shepherd on [endo-but-for-bots#461](https://github.com/endojs/endo-but-for-bots/pull/461) is waiting on CI (15 pending, no failures). 
+
+One item needs a maintainer decision: routing on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) surfaced a gating question — kriscendobot acted on a mention from an allowlisted sender (0xpatrickdev) on a PR authored by *another* bot (0xpatrickbot). The work was welcomed and isn't being reverted, but 0xpatrickdev expects the bot to only act on PRs/issues it authored. The journalist is asking whether to add an authorship gate to mention-watcher; no further action taken pending your call.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 32m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 50m)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 6h)
+- [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 3h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3h)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
@@ -28,22 +30,33 @@ The bulletin's deterministic dashboard gained a **Plan queue** section (`bulleti
 _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260625T220640Z-aa7070` — from gardener:endojs-endo-but-for-bots-pr525-a17a2dbe, reply_to `endojs-endo-but-for-bots-pr525-a17a2dbe` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md)
+
+> Routing decision on endojs/endo-but-for-bots #525 (no action taken; surfacing a gating question).
+>
+> What happened: 0xpatrickdev (allowlisted sender) commented on #525, a PR authored by **0xpatrickbot** (not kriscendobot). Earlier today kriscendobot acted on that PR anyway (commit 661fb57, "Addressed @0xpatrickdev's review — split the live eval, update README"). 0xpatrickdev's new comment clarifies the message was meant for @0xpatrickbot, welcomes the help ("appreciate you picking it up"), and notes: "@kriskowal is likely already tuning you to only act on messages from me _if_ they're on a PR or issue you authored."
+>
+> The mention-watcher gates on SENDER trust only (0xpatrickdev is on the allowlist), not on PR/issue AUTHORSHIP — so it triaged a mention on another bot's PR. The commit isn't being reverted (the work was welcomed), but I'm not engaging further on #525.
+>
+> Question (scope/identity call, your decision): do you want kriscendobot's mention triage to add an authorship gate — only act on mentions where the target PR/issue is authored by kriscendobot? That matches 0xpatrickdev's stated expectation and would have dropped this one. If yes, I'll post a garden-infra job to land it in mention-watcher.sh.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- `address-erights-3312-review-on-pr474` — Address Mark Miller's (erights) review on the mirror #474 (upstream endo#3312...
+- `endojs-endo-but-for-bots-pr532-review-79d8b272` — Review directive on endojs/endo-but-for-bots PR #532
 - `scholar-ingest-cask-15` — Scholar: continue the library ingest of kriskowal/cask (cycle 16) — comment-f...
 
-### tada (178)
-- `bulletin-show-plan-queue` — Completion report — bulletin-show-plan-queue
-- `endojs-endo-but-for-bots-pr475-7a9cc2ee` — Completion report
-- `endojs-endo-but-for-bots-pr525-review-25103d76` — Completion report
-- `endojs-endo-but-for-bots-pr475-f56659bc` — Completion report
-- `fix-compartment-mapper-esm-dynamic-import-archival` — The CI poll is in progress. I'll await the completion notification before wri...
-- … and 173 more
+### tada (183)
+- `triager-detect-approvals` — Completion report — triager-detect-approvals
+- `plan-remove-driver-dead-code` — Completion report
+- `endojs-endo-but-for-bots-pr528-conduct` — Completion report
+- `endojs-endo-but-for-bots-pr525-a17a2dbe` — Routing complete. Writing my report.
+- `endojs-endo-but-for-bots-pr461-shepherd` — CI progressing (15 pending, 0 failures). I'll wait for the watcher to complete.
+- … and 178 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -54,6 +67,7 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `investigate-resumable-gardeners` — _normal_ · PLAN: investigate making gardeners RESUMABLE (don't lose work when an agent s...
 - `ingest-ocap-library-sections` — _normal_ · PLAN: scholar — ingest sources for six missing ocap library sections
 - `ingest-ocap-kernel` — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel into the library
+- `formula-inspector-retention-paths-table` — _normal_ · PLAN (follow-on): add a retention-paths table to the formula inspector
 - `classify-lint-endo-master` — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 
 ## Watch set
