@@ -35,3 +35,9 @@ conducted to the **`llm`** branch, with a top-level summary comment. Report the 
 the Tor-port answer. If it is not mergeable/green, report why instead of forcing it.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 60
+  claimed_at: 2026-06-26T00:45:25Z
