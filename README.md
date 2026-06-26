@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:36:25Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:38:33Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The sturdy-refs/endor-syscall retention design [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged after its APPROVED review was resolved, but it landed onto the frozen snapshot base `llm-65b0abe` (186 commits behind live `llm`) rather than being unfrozen — so the design content is stranded on the stale base alongside its still-open sibling build [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521), and the gardener has explicitly deferred to the maintainer on whether to weave the whole stack forward to live `llm`. Because #510 merged and its branch was deleted seconds after the continuation job was claimed, the follow-on design work opened instead as a fresh draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), which promotes proactive per-turn `deleteExport` to a requirement and demotes `FinalizationRegistry` to an optional leak detector; it awaits a go-ahead to run the gamut. Two items want a maintainer call: a flagged typo on #521 (`getStudyRefLocator` → `getSturdyRefLocator` across source/exports/tests, fixer-fixable on request), and a possible spine bug — `ci-wait-merge.sh` skips the conductor's step-2 frozen-base unfreeze, which may strand content on stale snapshots generally. The build job for the retention slice is in flight, and `garden-harden-producer-clone-lock` is being worked to keep a crashed post from wedging future job posts.
+The [sturdy-refs design (#510)](https://github.com/endojs/endo-but-for-bots/pull/510) merged ~17s after its continuation job was claimed (and its head branch was deleted), so the work landed instead as successor DRAFT [#539](https://github.com/endojs/endo-but-for-bots/pull/539) off the stacked `llm-65b0abe` base — promoting per-turn `deleteExport` to a requirement, demoting `FinalizationRegistry` to an optional leak detector, and adding an optional `type` hint on the SturdyRef. It's awaiting the maintainer's word to run the gamut and un-draft. Because that design merged onto a *frozen* base snapshot, two follow-on jobs are now in flight: weaving the sturdy-refs content onto live `llm`, and fixing the conductor spine so it unfreezes a frozen base after merge. Separately, [#442](https://github.com/endojs/endo-but-for-bots/pull/442) was rebased and pushed (CI re-running) and a review directive on [#474](https://github.com/endojs/endo-but-for-bots/pull/474) completed with a fresh review pass claimed. Worth a human's eye: the gardener flagged a typo in maintainer-authored [#521](https://github.com/endojs/endo-but-for-bots/pull/521) — the exported symbol is `getStudyRefLocator` (missing the `r`), should be `getSturdyRefLocator` across source, exports, and tests — and is awaiting a go/no-go on a rename fix.
 
 ## Parked for maintainer feedback
 
@@ -27,32 +27,6 @@ The sturdy-refs/endor-syscall retention design [endo-but-for-bots#510](https://g
 
 _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260626T012656Z-8a244a` — from gardener:endojs-endo-but-for-bots-pr510-review-93293593, reply_to `endojs-endo-but-for-bots-pr510-review-93293593` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260626T012656Z-8a244a.md)
-
-> PR #510 (design: sturdy-refs endor-syscall retention) — review resolved & merged.
->
-> Resolved kriskowal's APPROVED review: folded the per-OCapN-instance
-> clarification into the design (a2ea6f0ba), posted the build job
-> (ebfb-build-sturdyrefs-endor-syscall-retention), CI green, merged via
-> the conductor spine.
->
-> ONE FLAG for your call (no action taken — stack coordination):
-> #510 merged onto its base llm-65b0abe, a FROZEN snapshot that is 186
-> commits behind live `llm` (5 ahead = the sturdy-refs stack). The
-> sibling build #521 shares this same frozen base and is still OPEN, so
-> the design content is now on llm-65b0abe but NOT on live `llm`. The
-> conductor spine (ci-wait-merge.sh) merged directly without the
-> role-brief's step-2 unfreeze-to-llm. Since unfreezing #510 alone would
-> fork it off the shared stack base #521 still sits on, I did not
-> rebase the shared base unilaterally. Do you want the sturdy-refs
-> content forwarded to live `llm` now (a weave of the whole stack), or
-> left on llm-65b0abe until #521 + the stack land together?
->
-> Separately: ci-wait-merge.sh not doing the conductor step-2 frozen-base
-> unfreeze may strand content on stale snapshots in general — worth a
-> spine fix if the unfreeze is meant to be automatic. I can post that as
-> a garden-infra job if you confirm the intended behavior.
 
 - `20260626T013612Z-6a7140` — from gardener:continue-sturdyref-510-endor-syscall, reply_to `continue-sturdyref-510-endor-syscall` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260626T013612Z-6a7140.md)
 
@@ -75,23 +49,24 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (5)
-- `continue-sturdyref-510-endor-syscall` — Continue #510 (sturdyref + endor-syscall retention) per maintainer decision; ...
 - `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
-- `endojs-endo-but-for-bots-pr442-rebase` — rebase directive on endojs/endo-but-for-bots PR #442
-- `endojs-endo-but-for-bots-pr474-53ff69c3` — attention directive on endojs/endo-but-for-bots PR #474
+- `endojs-endo-but-for-bots-pr474-review-e05b6e84` — Review directive on endojs/endo-but-for-bots PR #474
+- `fix-conductor-spine-unfreeze-to-llm` — Fix the conductor spine: after merging onto a FROZEN base, do step-2 unfreeze...
 - `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
+- `weave-sturdyrefs-onto-live-llm` — Weave the sturdy-refs content onto live llm (it merged onto a frozen snapshot...
 
-### tada (205)
+### tada (208)
+- `endojs-endo-but-for-bots-pr474-53ff69c3` — Completion report
+- `endojs-endo-but-for-bots-pr442-rebase` — I've completed the rebase and pushed; CI is re-running. The background poll w...
+- `continue-sturdyref-510-endor-syscall` — Completion report — continue-sturdyref-510-endor-syscall
 - `fix-ci-wait-merge-gh-path` — Completion report — fix-ci-wait-merge-gh-path
 - `endojs-endo-but-for-bots-pr474-ae279555` — Completion report
-- `endojs-endo-but-for-bots-pr510-review-93293593` — Completion report: endojs-endo-but-for-bots-pr510-review-93293593
-- `complete-finbot-as-designed` — Completion report: complete-finbot-as-designed
-- `design-mcp-oauth-aws-minion-town` — Job complete: design-mcp-oauth-aws-minion-town
-- … and 200 more
+- … and 203 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - `cognito-mcp-metadata-bridge` — _normal_ · Build the Cognito↔MCP OAuth metadata/DCR/audience bridge for minion.town
+- `endo-but-for-bots-harden-exported-literals-followup` — _normal_ · follow-up PR: harden exported function literals (evasive-transform first)
 - `synth-and-deploy-minion-town-aws` — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
