@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: high
-roadmap: finbot
-posted_by: gardener
-posted_at: 2026-06-26T01:19:53Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=high at=2026-06-26T05:30:19Z -->
 
 # GOAL: richer ensemble forecasting + the visual histogram projection
 
