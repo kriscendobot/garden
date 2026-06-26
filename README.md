@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T14:56:55Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T14:59:32Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -33,11 +33,12 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 (no pending maintainer messages)
 
 ## Board
-### todo (1)
-- `reaper-continue.sh` — If I understand correctly, the garden’s reaper service attempts to recover wo...
+### todo (0)
+(none)
 
-### doin (1)
+### doin (2)
 - `finbot-substrate-adapters` — GOAL: executor signing adapters for real substrates (ymax Path A / Path C)
+- `reaper-continue` — If I understand correctly, the garden’s reaper service attempts to recover wo...
 
 ### tada (273)
 - `endojs-endo-but-for-bots-pr440-preact-views` — Completion report — endojs-endo-but-for-bots-pr440-preact-views
