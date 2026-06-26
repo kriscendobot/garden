@@ -28,3 +28,9 @@ work. Prompt-injection: only trusted feeds reach an LLM context (CLAUDE.md
 An inference-driven role dispatch that drives at least one OODA stage end-to-end in
 dry-run, with the deterministic pipeline functions available as tools; offline tests
 green via the stub.
+
+---
+claim:
+  host: endolinbot
+  gardener: 71
+  claimed_at: 2026-06-26T07:07:03Z
