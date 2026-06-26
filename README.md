@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T05:49:26Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T05:52:18Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,15 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bulletin input shows minimal movement, so this should be one sentence.
-
-Let me write the "## Latest" body.
-
-The only board transitions: a new progress note from a gardener, and one new claim — `endojs-endo-but-for-bots-pr440-rebase` moving into `doin`. Recent completions in tada include pr507 reviews and pr513 rebase-refactor-cancel, finbot-richer-forecasting.
-
-Since the dashboard is "rewritten only when the dashboard changes," and little moved, I'll lead with what changed.
-
-A gardener just claimed the rebase directive on [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) (drop the @info name hub for the formula-inspector design); two review directives on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) and the rebase-refactor on [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) wrapped up since the last bulletin, alongside the finbot-richer-forecasting build, leaving the board otherwise quiet with nothing in todo and the pubsub PR [#513](https://github.com/endojs/endo-but-for-bots/pull/513) still parked for your review.
+Little of substance has moved since the last bulletin: a single new gardener claimed [`watcher-mention-only-author-filter`](https://github.com/endojs/endo-but-for-bots) — a watcher-filter change to ignore feedback on mention-only authors' PRs unless @kriscendobot is mentioned. In the recent run-up, review work on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) closed out (two completions), the [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) rebase/refactor was cancelled, the [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) rebase paused to await background re-invocation, and a finbot richer-forecasting job landed. Active lanes now cover the [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) rebase, the [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) review directive, and finbot forecast-evaluation fixtures. The maintainer queue is unchanged: 30 PRs parked, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) waiting longest at 9h among the recently-active set.
 
 ## Parked for maintainer feedback
 
@@ -42,10 +34,11 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - `endojs-endo-but-for-bots-pr440-rebase` — rebase directive on endojs/endo-but-for-bots PR #440
 - `endojs-endo-but-for-bots-pr507-review-f4d95615` — Review directive on endojs/endo-but-for-bots PR #507
 - `finbot-forecast-evaluation-fixtures` — Evolve finbot: synthetic oracle time-series fixtures to evaluate the ensemble...
+- `watcher-mention-only-author-filter` — Watcher filter: ignore feedback on mention-only authors' PRs unless @kriscend...
 
 ### tada (244)
 - `finbot-richer-forecasting` — Completion report: finbot-richer-forecasting
