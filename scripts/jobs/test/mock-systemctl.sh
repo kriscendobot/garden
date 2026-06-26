@@ -28,5 +28,9 @@ case "$cmd" in
     u="$(unit_arg "$@")"; grep -qxF "$u" "$STATE" 2>/dev/null || echo "$u" >> "$STATE" ;;
   disable)
     u="$(unit_arg "$@")"; grep -vxF "$u" "$STATE" > "$STATE.tmp" 2>/dev/null || true; mv "$STATE.tmp" "$STATE" ;;
+  is-enabled)
+    # echo "enabled"/exit 0 for an armed unit, else "disabled"/exit 1 (mirrors systemctl)
+    u="$(unit_arg "$@")"
+    if grep -qxF "$u" "$STATE" 2>/dev/null; then echo enabled; else echo disabled; exit 1; fi ;;
   *) : ;;
 esac
