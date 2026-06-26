@@ -77,3 +77,9 @@ remains), indexes updated, and either the cask comment-fragment corpus complete 
 sources ingested and sections added.
 
 Posted by the scholar (gardener 93, job `scholar-ingest-cask-15`, cycle 16) on 2026-06-26.
+
+---
+claim:
+  host: endolinbot
+  gardener: 55
+  claimed_at: 2026-06-26T00:23:34Z
