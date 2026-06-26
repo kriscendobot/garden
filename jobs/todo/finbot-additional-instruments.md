@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: normal
-roadmap: finbot
-posted_by: gardener
-posted_at: 2026-06-26T01:19:58Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-26T06:41:50Z -->
 
 # GOAL: multi-instrument portfolios and yield-bearing instruments
 
