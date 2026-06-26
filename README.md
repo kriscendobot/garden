@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T03:55:55Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T03:59:03Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,34 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The conductor finished merging [endo-but-for-bots#537](https://github.com/endojs/endo-but-for-bots/pull/537), the only board movement since the last bulletin — the queue is now fully drained (todo and doin empty). Worth the maintainer's eye: a [gardener message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260626T013612Z-6a7140.md) reports the sturdyref continuation hit a snag — [#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged (into `llm-65b0abe`) with its head branch deleted, so the design was carried forward instead as a successor draft, [#539](https://github.com/endojs/endo-but-for-bots/pull/539), now awaiting a word to run the gamut. The same note flags a typo in your own [#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` should be `getSturdyRefLocator` across source/exports/tests) and offers a fixer rename on request. Otherwise the parked set is unchanged, with [#440](https://github.com/endojs/endo-but-for-bots/pull/440), [#513](https://github.com/endojs/endo-but-for-bots/pull/513), and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) the freshest PRs still waiting on review.
+The bulletin caller is asking me to write the "## Latest" section narrative. Let me look at the input data and produce only the prose.
+
+Let me analyze what actually moved here. The board transitions since last bulletin are minimal: one new progress note and one claim into doin (PR #543 attention directive). The dashboard shows the broader state.
+
+Key things to narrate:
+- PR #543 attention directive just claimed (in doin)
+- Recent completions in tada: #537 conductor, #542 merge/shepherd/conductor, #69 refresh
+- The maintainer message about sturdyref #510/#511 → #539, and the #521 typo
+
+Let me write a terse summary leading with what changed.
+
+The sturdyref message is significant — needs maintainer's call on two things (#539 gamut/un-draft, #521 rename).
+
+Let me resolve URLs:
+- #543: https://github.com/endojs/endo-but-for-bots/pull/543
+- #537: https://github.com/endojs/endo-but-for-bots/pull/537
+- #542: https://github.com/endojs/endo-but-for-bots/pull/542
+- #69: https://github.com/endojs/endo-but-for-bots/pull/69
+- #539: https://github.com/endojs/endo-but-for-bots/pull/539
+- #510: https://github.com/endojs/endo-but-for-bots/pull/510
+- #521: https://github.com/endojs/endo-but-for-bots/pull/521
+- #511: https://github.com/endojs/endo-but-for-bots/pull/511
+
+I should not invent — all these are resolvable from job names/message. Good.
+
+A gardener just claimed an attention directive on [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543); it's the only job in flight. The board is otherwise drained (todo empty), with [endo-but-for-bots#542](https://github.com/endojs/endo-but-for-bots/pull/542) shepherded, conducted, and merged this cycle, alongside completions on [endo-but-for-bots#537](https://github.com/endojs/endo-but-for-bots/pull/537) and a refresh on [endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69).
+
+Two items need a maintainer's call, raised in the sturdyref message: because [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged ~17s after the job was claimed (head branch deleted), the design continued as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), off the stacked base — awaiting your word to run the gamut and un-draft; [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) is deferred. The gardener also flagged a typo in your own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) — the exported `getStudyRefLocator` should be `getSturdyRefLocator` across source, exports, and tests — and offers a fixer rename on request.
 
 ## Parked for maintainer feedback
 
@@ -48,8 +75,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `endojs-endo-but-for-bots-pr543-a390364f` — attention directive on endojs/endo-but-for-bots PR #543
 
 ### tada (229)
 - `endojs-endo-but-for-bots-pr537-conduct` — Completion report
