@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T05:30:49Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T05:39:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener picked up `finbot-richer-forecasting` (richer ensemble forecasting plus the visual histogram projection), now the only job in flight. Otherwise the board is quiet — no new posts and no completions since the last bulletin. Worth a maintainer's eye among the freshly-parked PRs: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` Sink/Spring async linked list) and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix refreshed for #3276 feedback) both just landed in the review queue.
+Three fresh directives on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) — two attention items plus a review directive — just landed in progress, the only new claims this tick. On the completion side, rebases wrapped up across [#513](https://github.com/endojs/endo-but-for-bots/pull/513), [#379](https://github.com/endojs/endo-but-for-bots/pull/379), and [#297](https://github.com/endojs/endo-but-for-bots/pull/297), and an attention directive plus the sturdyref enliven-on-demand redirect closed out on [#539](https://github.com/endojs/endo-but-for-bots/pull/539). The board is otherwise quiet — todo is empty and the parked queue still leads with [#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [#513](https://github.com/endojs/endo-but-for-bots/pull/513) awaiting maintainer review.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 14m)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 24m)
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 5h)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 9m)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 19m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
@@ -34,7 +34,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (4)
+- `endojs-endo-but-for-bots-pr507-c841a4a6` — attention directive on endojs/endo-but-for-bots PR #507
+- `endojs-endo-but-for-bots-pr507-f76e2c9d` — attention directive on endojs/endo-but-for-bots PR #507
+- `endojs-endo-but-for-bots-pr507-review-f4d95615` — Review directive on endojs/endo-but-for-bots PR #507
 - `finbot-richer-forecasting` — GOAL: richer ensemble forecasting + the visual histogram projection
 
 ### tada (241)
