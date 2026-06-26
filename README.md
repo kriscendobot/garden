@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:37:26Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:38:38Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The scholar's library ingest of kriskowal/cask advanced another cycle — [scholar-ingest-cask-16](https://github.com/kriskowal/garden) (cask cycle 17, net/peer.go comment-fragment ingest) completed and cycle 18 is already underway, leaving two jobs in flight alongside the standing effort to apply the self-healing `claude -p` wrapper across all garden services. The board is otherwise drained (nothing in todo). One item wants the maintainer's eye: a gating question parked in the inbox about [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a PR authored by another bot (0xpatrickbot) because the mention-watcher gates on sender trust alone, not PR authorship; 0xpatrickdev welcomed the help but suggested triage should only fire on PRs kriscendobot itself authored. No action was taken pending your decision on whether to add that authorship gate.
+The scholar wrapped [cask](https://github.com/kriskowal/garden) ingest cycle 17 (`scholar-ingest-cask-16`) and is already mid-flight on cycle 18. Otherwise the board is quiet — one self-healing job (applying the `claude -p` crash-resilience wrapper across all garden services) is in progress. Worth a look: a parked maintainer message raises a scope question on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a PR authored by another bot (0xpatrickbot) because the mention-watcher gates on sender trust alone, and 0xpatrickdev (who welcomed the help) suggests adding an authorship gate so triage only fires on PRs kriscendobot itself authored. That's a yes/no identity call awaiting your decision before any code lands.
 
 ## Parked for maintainer feedback
 
@@ -48,7 +48,7 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `scholar-ingest-cask-18` — Scholar: continue the library ingest of kriskowal/cask (cycle 18) — comment-f...
 
 ### tada (188)
-- `scholar-ingest-cask-16` — scholar-ingest-cask-16 — cask cycle 17: net/peer.go comment-fragment ingest (...
+- `scholar-ingest-cask-16` — Completion report — scholar-ingest-cask-16 (cask cycle 17)
 - `harden-bulletin-loop-crash-resilience` — Completion report: harden-bulletin-loop-crash-resilience
 - `scholar-ingest-cask-15` — Completion report — scholar-ingest-cask-15 (cask cycle 16)
 - `endojs-endo-but-for-bots-pr532-review-79d8b272` — Completion report
