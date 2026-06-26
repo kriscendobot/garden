@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T02:22:47Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T02:30:29Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bulletin spine carried [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) over the finish line — its merge job completed off the CI-wait-merge spine, leaving only the post-merge shepherd directive still in flight. Otherwise the board is quiet, with one message parked for the maintainer: the sturdyref continuation (#510/#511) found #510 already merged seconds after the job was claimed, so the design was carried forward as successor draft [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) (awaiting your word to run the gamut), and a typo in your own #521 — `getStudyRefLocator` should be `getSturdyRefLocator` — is flagged pending a fixer rename.
+[endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) cleared shepherding — its shepherd report landed and the conductor merge job is now claimed and running on the CI-wait-merge spine, blocking until CI settles before it merges. The standout for the maintainer is in the inbox: the sturdyref continuation job found [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged (into the stacked `llm-65b0abe` base) with its head branch deleted, so the gardener continued the design as a successor DRAFT, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), folding in the proactive per-turn `deleteExport` requirement, a demoted optional FinalizationRegistry leak detector, the local-only-at-the-boundary rule, and an optional `type` hint; #511 is marked deferred. Two calls are parked for kriskowal: whether to run #539 through the gamut and un-draft it, and whether to have a fixer push the flagged `getStudyRefLocator` → `getSturdyRefLocator` typo rename across [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521).
 
 ## Parked for maintainer feedback
 
@@ -22,8 +22,8 @@ The bulletin spine carried [endo-but-for-bots#474](https://github.com/endojs/end
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 10d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 35d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 34d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 34d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 35d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 35d)
 
 _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -49,15 +49,15 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- `endojs-endo-but-for-bots-pr474-shepherd` — shepherd directive on endojs/endo-but-for-bots PR #474
+- `endojs-endo-but-for-bots-pr474-merge` — conductor directive on endojs/endo-but-for-bots PR #474
 
-### tada (218)
+### tada (219)
+- `endojs-endo-but-for-bots-pr474-shepherd` — Shepherd report — endojs/endo-but-for-bots PR #474
 - `endojs-endo-but-for-bots-pr474-conduct` — Waiting on the CI-wait-merge spine for PR #474. It will block until CI settle...
 - `endojs-endo-but-for-bots-pr474-review-26b36b68` — Completion report
 - `self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-source-section3-unguarded-gh-pipefail` — Completion report
 - `ebfb-build-followup-474-eslint-avoidquotes` — Completion report — ebfb-build-followup-474-eslint-avoidquotes
-- `ebfb-build-sturdyrefs-endor-syscall-retention` — Completion report — ebfb-build-sturdyrefs-endor-syscall-retention
-- … and 213 more
+- … and 214 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
