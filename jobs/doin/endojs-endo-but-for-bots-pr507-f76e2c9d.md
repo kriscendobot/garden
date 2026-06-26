@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 If we integrate the debouncer, we need to also accept a timer, which is beyond the scope. Please remove, but add a section on composing a timer subscription. In general, a timer is an I/O capability that should always be injected in the ocap discipline, which is a house rule for 
+
+---
+claim:
+  host: endolinbot
+  gardener: 15
+  claimed_at: 2026-06-26T05:38:42Z
