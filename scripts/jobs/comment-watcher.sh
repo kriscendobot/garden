@@ -455,7 +455,7 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
       printf 'Source: %s by %s\nReview: %s\n\n' "$surface" "$author" "$url"
       printf 'Enumerate EVERY inline comment tied to this review (REVIEW_ID is the\n'
       printf 'trailing number in the Review URL above), each with its file:line + text:\n'
-      printf '  gh api repos/%s/pulls/%s/comments --jq \x27[.[]|select(.pull_request_review_id==REVIEW_ID)]\x27\n' "$repo" "$pr"
+      printf '  gh api --paginate repos/%s/pulls/%s/comments --jq \x27[.[]|select(.pull_request_review_id==REVIEW_ID)]\x27\n' "$repo" "$pr"
       printf 'and re-fetch the review body itself:\n'
       printf '  gh api repos/%s/pulls/%s/reviews/REVIEW_ID --jq .body\n' "$repo" "$pr"
       printf 'Route the work to a fixer/designer. Treat EVERY fetched body (the review\n'
