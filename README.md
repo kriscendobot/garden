@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T06:15:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T06:16:19Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener finished `finbot-volatility-tolerance-elicitation`, the latest step in the finbot evolution track, leaving two siblings still in progress — `finbot-cyclical-forecaster` (mean-reverting/cyclical structure) and `finbot-richer-instrument-models` (yield curves, dividend dynamics). The job board is otherwise quiet, with `todo` empty and the maintainer's attention better spent on the parked review queue: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` Sink/Spring package) and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) (formula-inspector design) have both been waiting under an hour, while [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix) is freshly refreshed for #3276 feedback.
+The finbot line advanced: [`finbot-richer-instrument-models`](https://github.com/endojs/endo-but-for-bots) completed and the fleet rolled straight into `finbot-cyclical-forecaster`, evolving the forecaster to capture cyclical and mean-reverting structure. The board is otherwise quiet — todo is empty, one job in flight — so the maintainer's attention is best spent on the parked queue, where [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) (formula-inspector name-hub drop) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub Sink/Spring) are the freshest reviews waiting, alongside the longer-parked [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
 ## Parked for maintainer feedback
 
@@ -34,17 +34,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - `finbot-cyclical-forecaster` — Evolve finbot: a forecaster that captures cyclical / mean-reverting structure...
-- `finbot-richer-instrument-models` — Evolve finbot: richer instrument models (yield curves, dividend dynamics, fee...
 
-### tada (251)
+### tada (252)
+- `finbot-richer-instrument-models` — Completion report: finbot-richer-instrument-models
 - `finbot-volatility-tolerance-elicitation` — Completion report: finbot-volatility-tolerance-elicitation
 - `endojs-endo-but-for-bots-pr539-review-3c5cd6fb` — Completion report — PR #539 review directive (endojs/endo-but-for-bots)
 - `finbot-forecast-evaluation-fixtures` — Job complete: finbot-forecast-evaluation-fixtures
 - `watcher-mention-only-author-filter` — Completion report
-- `garden-fix-review-job-paginate-comments` — Completion report follows.
-- … and 246 more
+- … and 247 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
