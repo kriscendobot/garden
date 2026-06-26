@@ -44,3 +44,9 @@ ignored unless kriscendobot is directly @-mentioned, driven by `mention-only-pr-
 `origin/main2`, redeployed. Report the SHA and the filter behavior.
 
 Posted by the liaison on behalf of the maintainer (0xpatrickdev request, 2026-06-26).
+
+---
+claim:
+  host: endolinbot
+  gardener: 39
+  claimed_at: 2026-06-26T05:51:47Z
