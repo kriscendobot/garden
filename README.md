@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T04:20:31Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T04:22:52Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener completing the sturdy-ref work hit a deviation worth a maintainer call: [#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already MERGED (into `llm-65b0abe`) seconds after the job was claimed and its head branch was deleted, so the continuation landed as a successor DRAFT, [#539](https://github.com/endojs/endo-but-for-bots/pull/539) — folding in proactive per-turn `deleteExport` as a requirement, `FinalizationRegistry` demoted to an optional leak detector, and an optional `type` hint on the SturdyRef; [#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Two items await your word in the [maintainer inbox](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260626T013612Z-6a7140.md): whether to run #539 through the gamut and un-draft it, and whether to fix a typo flagged on your own [#521](https://github.com/endojs/endo-but-for-bots/pull/521) (the exported symbol reads `getStudyRefLocator`, missing the `r`). On the autonomous side, [#543](https://github.com/endojs/endo-but-for-bots/pull/543) was rebased and completed, [#542](https://github.com/endojs/endo-but-for-bots/pull/542) merged, and [#537](https://github.com/endojs/endo-but-for-bots/pull/537) was conducted through. A gardener also claimed garden-infra work to fix `install-units.sh enable-services` so it enables all intended garden timers.
+Recent completions cleared a cluster of endo-but-for-bots work through the pipeline: [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543) was rebased and finished, [endo-but-for-bots#537](https://github.com/endojs/endo-but-for-bots/pull/537) was conducted to merge, and [endo-but-for-bots#542](https://github.com/endojs/endo-but-for-bots/pull/542) was shepherded and merged. The sturdyref design job needs a maintainer call: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged (head branch deleted) seconds after the job was claimed, so the continuation landed as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), off the stacked `llm-65b0abe` base — awaiting your word to run it through the gamut and un-draft, with #511 marked deferred. The gardener also flagged a typo in your [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` → `getSturdyRefLocator`) and can push a rename on request. On the infra side, a self-heal job is in flight to fix an unguarded `pipefail` in section 3 of the comment-watcher source (`comment-source-gh.sh`), alongside an open fix to make `install-units.sh enable-services` enable all intended garden timers.
 
 ## Parked for maintainer feedback
 
@@ -48,8 +48,9 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - `fix-enable-services-timer-coverage` — Fix install-units.sh enable-services to enable ALL intended garden timers (ma...
+- `self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-source-section3-unguarded-pipefail` — In scripts/jobs/handlers/comment-source-gh.sh, section 3 (the open-PR review-...
 
 ### tada (231)
 - `endojs-endo-but-for-bots-pr543-a390364f` — Completion report — job endojs-endo-but-for-bots-pr543-a390364f
