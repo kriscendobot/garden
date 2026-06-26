@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:48:48Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:50:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,17 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The conductor/LLM job for [endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) finished and moved to done, leaving the board nearly idle (todo empty; three jobs in flight: the self-healing-wrapper rollout to all garden services, an [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) rebase, and the cask cycle-18 scholar ingest). The item most worth a maintainer's eye isn't on the board but in the inbox: a routing/scope question on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a PR authored by another bot (0xpatrickbot) because the mention-watcher gates on sender trust alone, not PR authorship. The work was welcomed, but 0xpatrickdev suggests adding an authorship gate; that's a pending yes/no decision before any infra change lands.
+Based on the dashboard and board transitions, here's the "## Latest" body:
+
+The self-healing `claude -p` wrapper now wraps [every garden service unit](https://github.com/kriskowal/garden), closing out the reliability sweep that began with the bulletin-loop crash hardening — both that wrapper rollout and the bulletin start-limit fix landed in this window. Scholar finished cask cycle 18, and a finbot end-to-end dry-run OODA loop and the rebase directive on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) are the only two jobs still in flight.
+
+One item needs a decision: a gardener has [parked a routing question](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md) about [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a review comment from allowlisted 0xpatrickdev even though the PR was authored by 0xpatrickbot, not itself. The work was welcomed, but 0xpatrickdev expects mention-triage to gate on PR *authorship*, not just sender trust; the gardener wants a ruling on whether to add that authorship gate to `mention-watcher.sh`. Freshly parked for review: [pubsub#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new `@endo/pubsub` package) at 4 minutes and the [@info-hub-drop design #440](https://github.com/endojs/endo-but-for-bots/pull/440) at 35 minutes.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 30m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 35m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4h)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 9h)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 4m)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -43,18 +47,17 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- `apply-self-healing-wrapper-to-all-services` — Apply the self-healing claude -p wrapper to ALL garden services (best practic...
+### doin (2)
+- `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
 - `endojs-endo-but-for-bots-pr507-rebase` — rebase directive on endojs/endo-but-for-bots PR #507
-- `scholar-ingest-cask-18` — Scholar: continue the library ingest of kriskowal/cask (cycle 18) — comment-f...
 
-### tada (189)
+### tada (191)
+- `scholar-ingest-cask-18` — scholar-ingest-cask-18 — cycle 18 complete
+- `apply-self-healing-wrapper-to-all-services` — Completion report
 - `endojs-endo-but-for-bots-pr178-conduct-llm` — Waiting for CI completion. The harness will re-invoke me when the background ...
 - `scholar-ingest-cask-16` — Completion report — scholar-ingest-cask-16 (cask cycle 17)
 - `harden-bulletin-loop-crash-resilience` — Completion report: harden-bulletin-loop-crash-resilience
-- `scholar-ingest-cask-15` — Completion report — scholar-ingest-cask-15 (cask cycle 16)
-- `endojs-endo-but-for-bots-pr532-review-79d8b272` — Completion report
-- … and 184 more
+- … and 186 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
