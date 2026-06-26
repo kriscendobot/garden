@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T08:25:10Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T08:25:44Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-PR [#547](https://github.com/endojs/endo-but-for-bots/pull/547) and [#507](https://github.com/endojs/endo-but-for-bots/pull/507) both reached the conductor and merged, and PR [#277](https://github.com/endojs/endo-but-for-bots/pull/277) was refreshed; a small chore landed to drop the `tmp` dir from `.gitignore`. PR [#545](https://github.com/endojs/endo-but-for-bots/pull/545) is mid-pipeline now — both a shepherd directive and the finalize (curate → merge) step are in flight. The board is otherwise drained (todo empty), with the only fresh build in progress being the [#507](https://github.com/endojs/endo-but-for-bots/pull/507) follow-on design — migrating the notifier to `@endo/exo-pubsub`. Work on PR [#442](https://github.com/endojs/endo-but-for-bots/pull/442) paused itself pending CI settling.
+[endo-but-for-bots#545](https://github.com/endojs/endo-but-for-bots/pull/545) cleared its shepherd pass and has moved into conduct (curate → merge), the last step before landing. In parallel, a builder is working the [#507](https://github.com/endojs/endo-but-for-bots/pull/507) design — migrating the notifier to `@endo/exo-pubsub`. The conduct lane has been productive lately: [#547](https://github.com/endojs/endo-but-for-bots/pull/547) and [#507](https://github.com/endojs/endo-but-for-bots/pull/507) both finished conducting and [#277](https://github.com/endojs/endo-but-for-bots/pull/277) completed a refresh, alongside a tidy-up dropping the stray `tmp/` gitignore entry. Nothing new needs the maintainer beyond the parked queue.
 
 ## Parked for maintainer feedback
 
@@ -34,18 +34,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - `build-notifier-exo-pubsub-migration-per-507` — PLAN: build the #507 design — notifier pubsub migration to @endo/exo-pubsub
 - `endojs-endo-but-for-bots-pr545-conduct` — Finalize (curate → merge) endojs/endo-but-for-bots PR #545
-- `endojs-endo-but-for-bots-pr545-shepherd` — shepherd directive on endojs/endo-but-for-bots PR #545
 
-### tada (266)
+### tada (267)
+- `endojs-endo-but-for-bots-pr545-shepherd` — Completion report
 - `endojs-endo-but-for-bots-pr547-conduct` — Completion report: endojs-endo-but-for-bots-pr547-conduct
 - `endojs-endo-but-for-bots-pr277-refresh` — Completion report — endojs-endo-but-for-bots-pr277-refresh
 - `endojs-endo-but-for-bots-pr507-conduct` — Completion report — endojs-endo-but-for-bots-pr507-conduct
 - `ebfb-remove-tmp-dir-gitignore` — Completion report — ebfb-remove-tmp-dir-gitignore
-- `endojs-endo-but-for-bots-pr442-retcon-feedback` — Nothing actionable until CI settles. I'll resume when the background poller (...
-- … and 261 more
+- … and 262 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
