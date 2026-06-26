@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot , in Brave at https://htmlpreview.github.io/?https://github.com/endojs/endo-but-for-bots/blob/design/issue-3156-pass-style-document-all/packages/pass-style/test/document-all.html I still get "This site can’t provide a secure connection htmlpreview.github.io sent a
+
+---
+claim:
+  host: endolinbot
+  gardener: 99
+  claimed_at: 2026-06-26T00:53:01Z
