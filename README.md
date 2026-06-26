@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T05:44:36Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T05:46:18Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Work on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) wrapped up — two completion reports landed back-to-back, with a review directive on the same PR still being worked in `doin`. A [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) rebase/refactor was cancelled, the [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) rebase paused to await re-invocation when its background step finishes, and the [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) sturdyref enliven-on-demand redirect completed. A gardener has just claimed the `finbot-forecast-evaluation-fixtures` job (synthetic oracle time-series fixtures to evaluate the forecasting ensemble), now running alongside the richer-forecasting effort. The board is otherwise drained — nothing waiting in `todo`. Maintainer attention is most useful on the freshly parked reviews: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (@endo/pubsub) and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379).
+The finbot forecasting track advanced: `finbot-richer-forecasting` landed and a follow-on, `finbot-forecast-evaluation-fixtures` (synthetic oracle time-series to evaluate the ensemble), is already in progress. A review directive on [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) is the other job still in flight. Otherwise the board is quiet — nothing in todo — and the maintainer's attention is best spent on the parked queue, where [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub package) and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix, refreshed for #3276 feedback) have been waiting under half an hour, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) the longer-standing reviews.
 
 ## Parked for maintainer feedback
 
@@ -34,18 +34,17 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - `endojs-endo-but-for-bots-pr507-review-f4d95615` — Review directive on endojs/endo-but-for-bots PR #507
 - `finbot-forecast-evaluation-fixtures` — Evolve finbot: synthetic oracle time-series fixtures to evaluate the ensemble...
-- `finbot-richer-forecasting` — GOAL: richer ensemble forecasting + the visual histogram projection
 
-### tada (243)
+### tada (244)
+- `finbot-richer-forecasting` — Completion report: finbot-richer-forecasting
 - `endojs-endo-but-for-bots-pr507-f76e2c9d` — Completion report
 - `endojs-endo-but-for-bots-pr507-c841a4a6` — Completion report
 - `endojs-endo-but-for-bots-pr513-rebase-refactor-cancel` — Completion report
 - `endojs-endo-but-for-bots-pr379-rebase` — I'll stop polling and wait for the harness to re-invoke me when the backgroun...
-- `redirect-pr539-sturdyref-enliven-on-demand` — Completion report — redirect-pr539-sturdyref-enliven-on-demand
-- … and 238 more
+- … and 239 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
