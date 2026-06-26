@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T04:59:46Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T05:06:50Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener picked up an attention directive on [endo-but-for-bots#297](https://github.com/endojs/endo-but-for-bots/pull/297) (now in progress), the only board movement this tick. The substantive item awaiting your call is the sturdyref design: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged out from under its job (~17s after claim, head branch deleted), so the continuation landed as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), off the stacked `llm-65b0abe` base — it promotes proactive per-turn `deleteExport` to a requirement, demotes the FinalizationRegistry to an optional leak detector, and adds an optional `type` hint on the SturdyRef; [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Two things need your word: whether to run #539 through the gamut and un-draft it, and whether to dispatch a fixer for a `getStudyRefLocator` → `getSturdyRefLocator` typo flagged on your [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521).
+[endo-but-for-bots#297](https://github.com/endojs/endo-but-for-bots/pull/297) just landed its review directive and moved to done. Two jobs are now in flight: a rebase directive on [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and a fresh attention directive on [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539). The sturdyref continuation needs a maintainer call: [#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged ~17s after its job was claimed and its head branch was deleted, so the design continues as DRAFT successor [#539](https://github.com/endojs/endo-but-for-bots/pull/539) off the stacked `llm-65b0abe` base — awaiting your word to run it through the gamut and un-draft (#511 marked deferred). Separately, the gardener flagged a typo in your [#521](https://github.com/endojs/endo-but-for-bots/pull/521): the exported `getStudyRefLocator` is missing an `r` and should be `getSturdyRefLocator` across source, exports, and tests — offered as a fixer rename pending your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -48,16 +48,17 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `endojs-endo-but-for-bots-pr297-17268b2c` — attention directive on endojs/endo-but-for-bots PR #297
+### doin (2)
+- `endojs-endo-but-for-bots-pr379-rebase` — rebase directive on endojs/endo-but-for-bots PR #379
+- `endojs-endo-but-for-bots-pr539-6364bb7d` — attention directive on endojs/endo-but-for-bots PR #539
 
-### tada (235)
+### tada (236)
+- `endojs-endo-but-for-bots-pr297-17268b2c` — What the directive asked
 - `finbot-loop-daemon-wiring` — Completion report — finbot-loop-daemon-wiring
 - `self-heal-fix-garden-design-poller-orphan-superseded-unit` — Retired the orphan garden-design-poller unit end to end. All three job items ...
 - `fix-enable-services-timer-coverage` — Completion report
 - `self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-source-section3-unguarded-pipefail` — Completion report
-- `endojs-endo-but-for-bots-pr543-a390364f` — Completion report — job endojs-endo-but-for-bots-pr543-a390364f
-- … and 230 more
+- … and 231 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
