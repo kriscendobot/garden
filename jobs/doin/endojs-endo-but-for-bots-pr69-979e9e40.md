@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot  Clarify that `document.all` is - the only known JS value with that internal slot - is the only JS value allowed to have that internal slot according to the current tc39 spec. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 10
+  claimed_at: 2026-06-26T02:51:47Z
