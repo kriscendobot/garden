@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Parked a deferred plan on the journal job board to revisit this — base `endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers` (gate: deferred, in `jobs/plan/`). It records the triggers to revisit (when `@endo/stream` or another package gains a shared array→async-iterab
+
+---
+claim:
+  host: endolinbot
+  gardener: 88
+  claimed_at: 2026-06-26T07:33:28Z
