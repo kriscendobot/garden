@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:29:59Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:31:03Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The attention directive on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) finished and moved to done, leaving the board with no queued work and five jobs still in flight (the #474 follow-up, the SturdyRefs endor-syscall build and its #510 continuation, the `ci-wait-merge.sh` gh-path fix, and the producer-clone-lock hardening). Worth the maintainer's eye: the message from the [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) gardener — the sturdy-refs design merged green, but onto the frozen base `llm-65b0abe` (186 commits behind live `llm`), so the content is stranded off the live branch and needs a call on whether to weave the whole stack forward now or wait for sibling build #521 to land. The same note flags that `ci-wait-merge.sh` skipped the conductor's step-2 frozen-base unfreeze, which could strand content on stale snapshots more generally and may warrant a spine fix.
+The board quieted to a single completion: [`fix-ci-wait-merge-gh-path`](https://github.com/endojs/endo-but-for-bots) landed, repairing the conductor spine's `gh` path resolution in `ci-wait-merge.sh`. More worth a maintainer's eye is the flag attached to it — [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) (sturdy-refs endor-syscall retention design) was approved, built, and merged, but it landed on the frozen base `llm-65b0abe` (186 commits behind live `llm`) because the spine merged directly without the conductor's step-2 unfreeze. The design content now sits on the snapshot, not live `llm`, and its sibling build [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) shares that same frozen base and is still open. The gardener deliberately held off rebasing the shared stack base and is asking whether to forward the content to live `llm` now or wait for #521 and the rest of the stack to land together — plus whether `ci-wait-merge.sh` skipping the frozen-base unfreeze warrants a spine fix.
 
 ## Parked for maintainer feedback
 
@@ -59,20 +59,19 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - `continue-sturdyref-510-endor-syscall` — Continue #510 (sturdyref + endor-syscall retention) per maintainer decision; ...
 - `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
 - `endojs-endo-but-for-bots-pr474-53ff69c3` — attention directive on endojs/endo-but-for-bots PR #474
-- `fix-ci-wait-merge-gh-path` — Fix the gh-tool-path bug in ci-wait-merge.sh (root cause of #178's silent con...
 - `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
 
-### tada (204)
+### tada (205)
+- `fix-ci-wait-merge-gh-path` — Completion report — fix-ci-wait-merge-gh-path
 - `endojs-endo-but-for-bots-pr474-ae279555` — Completion report
 - `endojs-endo-but-for-bots-pr510-review-93293593` — Completion report: endojs-endo-but-for-bots-pr510-review-93293593
 - `complete-finbot-as-designed` — Completion report: complete-finbot-as-designed
 - `design-mcp-oauth-aws-minion-town` — Job complete: design-mcp-oauth-aws-minion-town
-- `harden-conductor-ci-wait-complete-merge` — Completion report: harden-conductor-ci-wait-complete-merge
-- … and 199 more
+- … and 200 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
