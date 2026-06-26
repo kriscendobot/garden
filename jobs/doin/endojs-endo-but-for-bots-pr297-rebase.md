@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @0xpatrickdev — swept the three items held in #297's [holding note](https://github.com/endojs/endo-but-for-bots/pull/297#issuecomment-4617498872). Current state and what I've advanced: | Item | Upstream | Status | Action | | --- | --- | --- | --- | | `export * as ns` namespace 
+
+---
+claim:
+  host: endolinbot
+  gardener: 83
+  claimed_at: 2026-06-26T05:07:15Z
