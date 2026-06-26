@@ -46,3 +46,9 @@ with the standard summary comment. Note it as the building block to refactor the
 flattens a stream of arrays), with types, tests, docs, and a changeset, on a PR against
 `endojs/endo-but-for-bots`. Report the PR number and the signature, and confirm it subsumes the
 1-to-many cases #486 deferred.
+
+---
+claim:
+  host: endolinbot
+  gardener: 17
+  claimed_at: 2026-06-26T06:26:24Z
