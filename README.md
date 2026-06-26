@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:38:33Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:42:02Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The [sturdy-refs design (#510)](https://github.com/endojs/endo-but-for-bots/pull/510) merged ~17s after its continuation job was claimed (and its head branch was deleted), so the work landed instead as successor DRAFT [#539](https://github.com/endojs/endo-but-for-bots/pull/539) off the stacked `llm-65b0abe` base — promoting per-turn `deleteExport` to a requirement, demoting `FinalizationRegistry` to an optional leak detector, and adding an optional `type` hint on the SturdyRef. It's awaiting the maintainer's word to run the gamut and un-draft. Because that design merged onto a *frozen* base snapshot, two follow-on jobs are now in flight: weaving the sturdy-refs content onto live `llm`, and fixing the conductor spine so it unfreezes a frozen base after merge. Separately, [#442](https://github.com/endojs/endo-but-for-bots/pull/442) was rebased and pushed (CI re-running) and a review directive on [#474](https://github.com/endojs/endo-but-for-bots/pull/474) completed with a fresh review pass claimed. Worth a human's eye: the gardener flagged a typo in maintainer-authored [#521](https://github.com/endojs/endo-but-for-bots/pull/521) — the exported symbol is `getStudyRefLocator` (missing the `r`), should be `getSturdyRefLocator` across source, exports, and tests — and is awaiting a go/no-go on a rename fix.
+The sturdyref design job wrapped with a twist worth a maintainer glance: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged (into `llm-65b0abe`) seconds after the job was claimed and its head branch deleted, so the continuation landed as a fresh DRAFT successor, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) — folding in proactive per-turn `deleteExport` as a requirement, FinalizationRegistry demoted to an optional leak detector, and the local-only-at-the-boundary rule; [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Two items need your word: whether to run #539 through the gamut and un-draft, and whether a fixer should fix a typo flagged in your own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` → `getSturdyRefLocator`, across source/exports/tests). A CI-wait/merge `gh`-path fix also completed, and review/attention directives on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) are still being worked. In flight on the board: the SturdyRefs endor-syscall retention build, weaving that sturdy-refs content onto live `llm` (it merged onto a frozen snapshot), the conductor-spine unfreeze fix, and hardening the producer-clone lock so a crashed post can't wedge future posts.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4h)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 50m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5h)
+- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 55m)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -48,8 +48,9 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
+- `endojs-endo-but-for-bots-pr474-3c54bd50` — attention directive on endojs/endo-but-for-bots PR #474
 - `endojs-endo-but-for-bots-pr474-review-e05b6e84` — Review directive on endojs/endo-but-for-bots PR #474
 - `fix-conductor-spine-unfreeze-to-llm` — Fix the conductor spine: after merging onto a FROZEN base, do step-2 unfreeze...
 - `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
