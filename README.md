@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:31:03Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:34:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,15 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The board quieted to a single completion: [`fix-ci-wait-merge-gh-path`](https://github.com/endojs/endo-but-for-bots) landed, repairing the conductor spine's `gh` path resolution in `ci-wait-merge.sh`. More worth a maintainer's eye is the flag attached to it — [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) (sturdy-refs endor-syscall retention design) was approved, built, and merged, but it landed on the frozen base `llm-65b0abe` (186 commits behind live `llm`) because the spine merged directly without the conductor's step-2 unfreeze. The design content now sits on the snapshot, not live `llm`, and its sibling build [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) shares that same frozen base and is still open. The gardener deliberately held off rebasing the shared stack base and is asking whether to forward the content to live `llm` now or wait for #521 and the rest of the stack to land together — plus whether `ci-wait-merge.sh` skipping the frozen-base unfreeze warrants a spine fix.
+The bulletin input shows minimal movement, so this should be brief.
+
+Let me write the "## Latest" narrative based on what actually changed.
+
+The board transitions since last bulletin are minimal: one progress note and one claim (`endojs-endo-but-for-bots-pr442-rebase` moved into doin). The most notable item is the maintainer message about PR #510.
+
+Let me write a terse summary.
+
+The sturdy-refs design [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) cleared kriskowal's APPROVED review and merged via the conductor spine — the per-OCapN-instance clarification was folded into the design and CI went green. One open question is parked in the maintainer inbox: #510 landed on its frozen base `llm-65b0abe` (186 commits behind live `llm`) rather than being unfrozen to live `llm`, because its sibling build [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) still sits on the same shared frozen base; the gardener held off forwarding to live `llm` pending your call on whether to weave the whole stack now or wait for #521 and the rest to land together. It also flags that the conductor spine's `ci-wait-merge.sh` skipped the role-brief's step-2 unfreeze, which could strand content on stale snapshots generally — a candidate garden-infra spine fix awaiting your confirmation. Otherwise the board is quiet: the rebase directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) was just claimed and is in progress, alongside the ongoing sturdy-refs build and the producer-clone-lock hardening job.
 
 ## Parked for maintainer feedback
 
@@ -59,9 +67,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - `continue-sturdyref-510-endor-syscall` — Continue #510 (sturdyref + endor-syscall retention) per maintainer decision; ...
 - `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
+- `endojs-endo-but-for-bots-pr442-rebase` — rebase directive on endojs/endo-but-for-bots PR #442
 - `endojs-endo-but-for-bots-pr474-53ff69c3` — attention directive on endojs/endo-but-for-bots PR #474
 - `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
 
