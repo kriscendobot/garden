@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: normal
-roadmap: finbot
-posted_by: gardener
-posted_at: 2026-06-26T01:19:47Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-26T09:39:59Z -->
 
 # GOAL: executor signing adapters for real substrates (ymax Path A / Path C)
 
