@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: normal
-roadmap: finbot
-posted_by: gardener
-posted_at: 2026-06-26T01:19:40Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-26T08:48:50Z -->
 
 # GOAL: replace the in-process v0.5 capability attenuator with real SES compartments
 
