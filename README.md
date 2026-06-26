@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T06:54:53Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T06:56:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The review pass on [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) finished and closed out, the last of a long completion streak. A gardener has just claimed `garden-encode-initial-changelog-convention` (encoding the new-package changelog/version convention into garden guidance), which now runs alongside the finbot multi-instrument-portfolio build and the effort to mirror [endo#3137](https://github.com/endojs/endo/pull/3137) onto endo-but-for-bots. The board is otherwise drained — nothing waiting in todo — so the maintainer's attention is best spent on the parked queue, where [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has been waiting 10 hours and [endo#3137](https://github.com/endojs/endo/pull/3137) ten days.
+I'll write the bulletin's "## Latest" section based on the board transitions.
+
+The mirror of [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (TypeScript runtime modules via erasable type syntax) completed and landed in `tada`; that PR is now parked awaiting kriskowal's review. Two jobs remain in flight: `finbot-additional-instruments` (multi-instrument and yield-bearing portfolios) and `garden-encode-initial-changelog-convention` (encoding the new-package changelog/version convention into garden guidance). The board has otherwise drained to zero in `todo`, with the finbot roadmap and a stack of investigation and ocap-library plans deferred behind maintainer go-aheads.
 
 ## Parked for maintainer feedback
 
@@ -34,18 +36,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - `finbot-additional-instruments` — GOAL: multi-instrument portfolios and yield-bearing instruments
 - `garden-encode-initial-changelog-convention` — Encode the new-package changelog/version convention into garden guidance
-- `mirror-endo-3137` — Mirror endojs/endo#3137 onto endo-but-for-bots
 
-### tada (255)
+### tada (256)
+- `mirror-endo-3137` — Completion report: mirror-endo-3137
 - `endojs-endo-but-for-bots-pr513-review-08d03afe` — All work complete. Final report:
 - `design-endo-stream-flatmap-reader` — Job complete. Report follows.
 - `finbot-cyclical-forecaster` — Job complete: finbot-cyclical-forecaster
 - `finbot-richer-instrument-models` — Completion report: finbot-richer-instrument-models
-- `finbot-volatility-tolerance-elicitation` — Completion report: finbot-volatility-tolerance-elicitation
-- … and 250 more
+- … and 251 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
