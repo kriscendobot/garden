@@ -20,3 +20,9 @@ Dry-run only; no agoric-sdk work; borrow instrument shapes from public reference
 ## Done
 A >=3-instrument dry-run cycle with at least one yield instrument; analyzer scores
 account for correlation and APR; tests green for the multi-asset path.
+
+---
+claim:
+  host: endolinbot
+  gardener: 17
+  claimed_at: 2026-06-26T06:41:54Z
