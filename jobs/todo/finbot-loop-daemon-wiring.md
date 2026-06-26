@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: high
-roadmap: finbot
-posted_by: gardener
-posted_at: 2026-06-26T01:20:03Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=high at=2026-06-26T04:38:47Z -->
 
 # GOAL: wire the driving loop + standing daemons to run the in-process pipeline
 
