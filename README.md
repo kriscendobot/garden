@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:20:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:22:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The SturdyRef design contest just resolved into action: the [#510](https://github.com/endojs/endo-but-for-bots/pull/510)-vs-[#511](https://github.com/endojs/endo-but-for-bots/pull/511) competing pair is complete and compared, and a build job for the SturdyRefs **endor-syscall retention** slice (design #510) has been claimed and is in progress. A two-juror design panel (determinism and user-agency lenses) independently converged on the same call — synthesize with #510's daemon-owned retain/release syscall as the spine, grafting in #510's proactive per-turn deleteExport as a requirement, #511's FinalizationRegistry as an optional off-by-default leak detector, and #511's local-only-at-the-boundary rule; the side-by-side is on [#500](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325). That message also flags a `getStudyRefLocator`→`getSturdyRefLocator` typo shipped in [#521](https://github.com/endojs/endo-but-for-bots/pull/521)'s public surface, worth fixing before it sets the name. New this cycle: [#513](https://github.com/endojs/endo-but-for-bots/pull/513) (@endo/pubsub) is parked for review, six finbot follow-on plans landed in the deferred queue, and design-mcp-oauth-aws-minion-town plus the conductor CI-wait hardening completed.
-
-Two items need a human: a scope/identity question on whether kriscendobot's mention triage should add an **authorship gate** (it acted on [#525](https://github.com/endojs/endo-but-for-bots/pull/525), another bot's PR, because the watcher gates on sender trust only), and a watchdog alert that `gh` is missing from PATH on endolinbot for the `ci-wait-merge` tag — silently dropping work until the tool is installed.
+Garaderoned [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) is in the conductor's hands — shepherded green and now blocked on a CI wait, with the conductor's `harden-conductor-ci-wait-complete-merge` change landed so the merge job carries through to completion rather than ending while CI is merely pending. The finbot-as-designed build wrapped, and a new producer-clone-locking hardening job (`garden-harden-producer-clone-lock`) is in flight to keep a crashed post-plan/post-job from wedging future posts. Maintainer attention is most fresh on [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) (the new @endo/pubsub package, 35m parked) and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) (1h).
 
 ## Parked for maintainer feedback
 
@@ -30,50 +28,24 @@ Two items need a human: a scope/identity question on whether kriscendobot's ment
 _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260625T220640Z-aa7070` — from gardener:endojs-endo-but-for-bots-pr525-a17a2dbe, reply_to `endojs-endo-but-for-bots-pr525-a17a2dbe` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md)
-
-> Routing decision on endojs/endo-but-for-bots #525 (no action taken; surfacing a gating question).
->
-> What happened: 0xpatrickdev (allowlisted sender) commented on #525, a PR authored by **0xpatrickbot** (not kriscendobot). Earlier today kriscendobot acted on that PR anyway (commit 661fb57, "Addressed @0xpatrickdev's review — split the live eval, update README"). 0xpatrickdev's new comment clarifies the message was meant for @0xpatrickbot, welcomes the help ("appreciate you picking it up"), and notes: "@kriskowal is likely already tuning you to only act on messages from me _if_ they're on a PR or issue you authored."
->
-> The mention-watcher gates on SENDER trust only (0xpatrickdev is on the allowlist), not on PR/issue AUTHORSHIP — so it triaged a mention on another bot's PR. The commit isn't being reverted (the work was welcomed), but I'm not engaging further on #525.
->
-> Question (scope/identity call, your decision): do you want kriscendobot's mention triage to add an authorship gate — only act on mentions where the target PR/issue is authored by kriscendobot? That matches 0xpatrickdev's stated expectation and would have dropped this one. If yes, I'll post a garden-infra job to land it in mention-watcher.sh.
-
-- `20260626T010008Z-d7c8da` — from gardener:sturdyref-retention-competing-design-pair, reply_to `sturdyref-retention-competing-design-pair` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260626T010008Z-d7c8da.md)
-
-> SturdyRef competing design pair (#510 vs #511) is complete and compared — ready for your decision.
->
-> Both plans now cover the full shared problem (pass-style sturdyref + petname-placeholder + their retention approach), preserve the user-agency invariant, engage the ocap-kernel/daemon crux, and are aligned with #521's inert-data-box correction (#510 still had the stale E(sturdyRef)/HandledPromise framing; corrected).
->
-> A two-juror design panel (determinism lens + user-agency lens) independently converged on the SAME recommendation: synthesis with #510 (endor retain/release syscall) as the spine — daemon owns retention, authoritative per-handle revocation edges, no new FinalizationRegistry — plus three grafts: (1) promote #510's deferred proactive per-turn deleteExport to a requirement so BOTH paths are GC-timing-independent; (2) keep #511's FinalizationRegistry only as an optional off-by-default leak-detector; (3) borrow #511's local-only-at-the-boundary rule.
->
-> Full side-by-side + rationale: https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325
->
-> For your call: adopt the synthesis, pick one as-is, or redirect. Also surfaced: getStudyRefLocator is a typo for getSturdyRefLocator in #521's shipped surface — worth fixing before it sets the public name.
-
-- `20260626T011048Z-6f52fa` — from watchdog:ci-wait-merge, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260626T011048Z-6f52fa.md)
-
-> required tool(s) missing on PATH (host=endolinbot, tag=ci-wait-merge): /tmp/tmp.rrolnKVTO1/gh — this silently drops work; install them or fix PATH
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
+### doin (3)
 - `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
 - `endojs-endo-but-for-bots-pr510-review-93293593` — Review directive on endojs/endo-but-for-bots PR #510
 - `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
 
-### tada (201)
+### tada (202)
+- `complete-finbot-as-designed` — Completion report: complete-finbot-as-designed
 - `design-mcp-oauth-aws-minion-town` — Job complete: design-mcp-oauth-aws-minion-town
 - `harden-conductor-ci-wait-complete-merge` — Completion report: harden-conductor-ci-wait-complete-merge
 - `endojs-endo-but-for-bots-pr532-shepherd` — Waiting on CI. The background poller (bk06xiv1m) will re-invoke me the moment...
 - `endojs-endo-but-for-bots-pr532-conduct` — Inbox is empty. The background CI poll (bs3izgx4m) will notify me when PR #53...
-- `endojs-endo-but-for-bots-pr527-shepherd` — I've kicked off CI monitoring for PR #527. The watcher will re-invoke me when...
-- … and 196 more
+- … and 197 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
