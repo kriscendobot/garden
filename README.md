@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T02:56:20Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T02:59:29Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The lone board movement since the last bulletin is the completion of an attention-directive job on [endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69), which closed out and emptied its inbox. The board is otherwise idle (todo and doin both empty). Worth a glance: a fresh maintainer message reports the sturdyref design job finished with a deviation — [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged before it could be pushed to, so the continuation landed as a new draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), awaiting your word to run the gamut; the same note flags a `getStudyRefLocator` → `getSturdyRefLocator` typo on your [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) pending a fixer rename.
+The sturdyref design work landed as a new DRAFT successor, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) (continuing [#510](https://github.com/endojs/endo-but-for-bots/pull/510)): because #510 had already merged and its branch was deleted ~17s after the job was claimed, the gardener carried the design forward off the same stacked base (llm-65b0abe) rather than pushing to the merged PR. It promotes per-turn `deleteExport` to a hard requirement, demotes the FinalizationRegistry to an optional leak detector, and defers [#511](https://github.com/endojs/endo-but-for-bots/pull/511) with a note. Two items want a maintainer call (in the [unread message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260626T013612Z-6a7140.md)): whether to run #539 through the gamut and un-draft it, and whether to dispatch a fixer for a typo flagged on your own [#521](https://github.com/endojs/endo-but-for-bots/pull/521) — the exported symbol reads `getStudyRefLocator` (missing the `r`) where `getSturdyRefLocator` was intended. Meanwhile a refresh directive on [endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69) is in progress.
 
 ## Parked for maintainer feedback
 
@@ -48,8 +48,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `endojs-endo-but-for-bots-pr69-refresh` — refresh directive on endojs/endo-but-for-bots PR #69
 
 ### tada (224)
 - `endojs-endo-but-for-bots-pr69-40f355ef` — Completion report
