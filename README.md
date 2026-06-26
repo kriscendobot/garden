@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T08:43:22Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T08:49:17Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the board transitions.
-
-[endo-but-for-bots#516](https://github.com/endojs/endo-but-for-bots/pull/516) completed its run and moved to done, draining the board to zero open and in-progress jobs. With nothing queued or claimed, the 100-gardener fleet on endolinbot is idle and the deferred plan queue awaits foreman auto-promotion. Maintainer attention is best spent on the parked review queue, where [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has been waiting 12h and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) over a day.
+A gardener just claimed [finbot-ses-compartments](https://github.com/endojs/endo-but-for-bots) — replacing the in-process v0.5 capability attenuator with real SES compartments — which is now the sole job in flight. Since the last bulletin the board cleared several endo-but-for-bots items to completion: [#545](https://github.com/endojs/endo-but-for-bots/pull/545) and [#547](https://github.com/endojs/endo-but-for-bots/pull/547) were shepherded and conducted to merge, [#516](https://github.com/endojs/endo-but-for-bots/pull/516) reported complete, and the exo-pubsub migration build for [#507](https://github.com/endojs/endo-but-for-bots/pull/507) finished verification with only the end-to-end integration step outstanding. Nothing new is parked for review; the 29-deep parked queue still leads with [#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [#440](https://github.com/endojs/endo-but-for-bots/pull/440), and the plan queue continues to wait on maintainer go-ahead for the minion.town and exported-literals follow-ups.
 
 ## Parked for maintainer feedback
 
@@ -36,8 +34,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `finbot-ses-compartments` — GOAL: replace the in-process v0.5 capability attenuator with real SES compart...
 
 ### tada (270)
 - `endojs-endo-but-for-bots-pr516-659b0193` — Completion report
@@ -59,7 +57,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `ingest-ocap-library-sections` — _normal_ · PLAN: scholar — ingest sources for six missing ocap library sections
 - `ingest-ocap-kernel` — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel into the library
 - `formula-inspector-retention-paths-table` — _normal_ · PLAN (follow-on): add a retention-paths table to the formula inspector
-- `finbot-ses-compartments` — _normal_ · GOAL: replace the in-process v0.5 capability attenuator with real SES compart...
 - `finbot-substrate-adapters` — _normal_ · GOAL: executor signing adapters for real substrates (ymax Path A / Path C)
 - `classify-lint-endo-master` — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 - `endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers` — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
