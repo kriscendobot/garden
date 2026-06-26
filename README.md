@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:54:16Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:56:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,11 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the job-board transitions and dashboard state.
+The follow-up on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) landed (an ESLint `avoidEscape` quotes fix), and a fresh review directive on the same PR is now in flight alongside a self-heal that hardens `comment-source-gh.sh` — guarding an unguarded `gh … | pipefail` in section 3 of the comment watcher, the same class of silently-swallowed-error bug behind the earlier comms outage.
 
-The sturdyrefs/endor syscall-retention build job just completed ([endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539)), and there's a notable maintainer message about it. Let me compose the narrative.
-
-The sturdy-ref build for endor syscall-retention landed as completed work. The gardener continuing the design (#510 → defer #511) reports one deviation worth a maintainer look: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already MERGED ~17 seconds after the job was claimed (into `llm-65b0abe` at `95ecf86`) with its head branch deleted, so the work continued as a successor DRAFT, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) (head `333249e8`), off the same stacked base. It folds in proactive per-turn `deleteExport` as a hard requirement (both retention paths now GC-timing-independent), demotes `FinalizationRegistry` to an optional off-by-default leak detector, and adds a flexible optional `type` hint on the SturdyRef. Two calls await kriskowal: whether to run #539 through the gamut and un-draft, and whether to dispatch a fixer for a typo flagged on the maintainer's own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) — the exported symbol reads `getStudyRefLocator` (missing the `r`) and should be `getSturdyRefLocator` across source, exports, and tests. The lone job still in flight is the ESLint `avoidQuotes` follow-up build on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474).
+Two items want a maintainer call. The sturdyref continuation reports that [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged ~17s after the job claimed it (head branch deleted), so the design was carried forward as DRAFT [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) off the stacked `llm-65b0abe` base — folding in per-turn `deleteExport` as a hard requirement, FinalizationRegistry demoted to an optional leak detector, and an optional `type` hint; [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. #539 awaits your word to run the gamut and un-draft. Separately, a typo was flagged on your [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521): the exported symbol reads `getStudyRefLocator` (missing the `r`) where `getSturdyRefLocator` is intended, across source, exports, and tests — a fixer can push the rename if you want it.
 
 ## Parked for maintainer feedback
 
@@ -52,16 +50,17 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `ebfb-build-followup-474-eslint-avoidquotes` — Build: relax object-shorthand avoidQuotes for ESLint visitor objects (follow-...
+### doin (2)
+- `endojs-endo-but-for-bots-pr474-review-26b36b68` — Review directive on endojs/endo-but-for-bots PR #474
+- `self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-source-section3-unguarded-gh-pipefail` — In scripts/jobs/handlers/comment-source-gh.sh, section 3 (the gh pr list -R "...
 
-### tada (214)
+### tada (215)
+- `ebfb-build-followup-474-eslint-avoidquotes` — Completion report — ebfb-build-followup-474-eslint-avoidquotes
 - `ebfb-build-sturdyrefs-endor-syscall-retention` — Completion report — ebfb-build-sturdyrefs-endor-syscall-retention
 - `endojs-endo-but-for-bots-pr474-review-e05b6e84` — Completion report — endojs-endo-but-for-bots-pr474-review-e05b6e84
 - `endojs-endo-but-for-bots-pr474-3c54bd50` — Completion report
 - `garden-harden-producer-clone-lock` — Completion report — garden-harden-producer-clone-lock
-- `fix-conductor-spine-unfreeze-to-llm` — Completion report — fix-conductor-spine-unfreeze-to-llm
-- … and 209 more
+- … and 210 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
