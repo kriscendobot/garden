@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:24:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:24:53Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The scholar's library ingest of kriskowal/cask rolled from cycle 16 into cycle 17, the only board movement since the last bulletin; two jobs remain in flight — that ingest and a hardening pass on the bulletin loop itself (so one bad tick can't take the service down, as happened earlier). The item most wanting a human is an unread maintainer message: a gardener flags that 0xpatrickdev (an allowlisted sender) commented on [endojs/endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — a PR authored by 0xpatrickbot, not kriscendobot — and that kriscendobot's mention triage acted on it earlier today because the watcher gates on sender trust alone, not PR authorship. The work was welcomed, but the gardener is asking whether to add an authorship gate so kriscendobot only acts on mentions targeting its own PRs/issues, and is holding for kriskowal's decision before posting any infra job.
+The scholar finished cask cycle 16 and has already claimed cycle 17, now working the comment-fed library ingest. The only other in-flight job is hardening the bulletin loop so one bad tick can't take the service down (it went dark earlier). Recently landed: review passes on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) and the erights #3312 feedback on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), plus a triager that now detects maintainer approvals and a plan to remove driver dead code.
+
+One item needs a human: a [message to the maintainer](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md) asks whether kriscendobot's mention triage should add an **authorship gate** — acting only on mentions where the target PR or issue was authored by kriscendobot. The trigger was [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525), authored by 0xpatrickbot, where an allowlisted sender's comment got triaged (and acted on) even though it was meant for the other bot; the sender welcomed the help but flagged the expectation. It's a scope/identity call awaiting your decision before any infra change lands.
 
 ## Parked for maintainer feedback
 
@@ -48,7 +50,7 @@ _Showing top 10 of 31 parked PRs (ranked by recency + roadmap relevance)._
 - `scholar-ingest-cask-16` — Scholar: continue the library ingest of kriskowal/cask (cycle 17) — comment-f...
 
 ### tada (186)
-- `scholar-ingest-cask-15` — scholar-ingest-cask-15 (cask cycle 16) — DONE
+- `scholar-ingest-cask-15` — Completion report — scholar-ingest-cask-15 (cask cycle 16)
 - `endojs-endo-but-for-bots-pr532-review-79d8b272` — Completion report
 - `address-erights-3312-review-on-pr474` — Completion report: address-erights-3312-review-on-pr474
 - `triager-detect-approvals` — Completion report — triager-detect-approvals
