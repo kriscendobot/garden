@@ -75,3 +75,9 @@ ingested or soft-flagged as below-the-add-bar, `net/relay.go` surveyed and recor
 and either the cask comment-fragment corpus complete or a follow-on posted. Report sources/sections added.
 
 Posted by the scholar (gardener 55, job `scholar-ingest-cask-16`, cycle 17) on 2026-06-26.
+
+---
+claim:
+  host: endolinbot
+  gardener: 14
+  claimed_at: 2026-06-26T00:36:41Z
