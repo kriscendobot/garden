@@ -48,3 +48,9 @@ with a top-level summary comment on #539. Report the new #539 state and how #541
 design file are handled.
 
 Posted by the liaison on behalf of the maintainer (design pivot on #539).
+
+---
+claim:
+  host: endolinbot
+  gardener: 51
+  claimed_at: 2026-06-26T05:07:41Z
