@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 - rename the doc's baseHandledPromise reference to initial-caps BaseHandledPromise — a constructor rename in eventual-send/src/handled-promise.js @kriscendobot , please do the rename in this PR. Please find all other places where an identifier that does not begin with an upper 
+
+---
+claim:
+  host: endolinbot
+  gardener: 82
+  claimed_at: 2026-06-26T01:23:20Z
