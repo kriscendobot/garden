@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T03:06:08Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T03:28:07Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,17 +10,15 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Here's the body for the "## Latest" section:
-
-[endo-but-for-bots#69](https://github.com/endojs/endo-but-for-bots/pull/69) completed its refresh and moved to done, leaving the board fully drained — no open or in-flight jobs. The standout is a flagged deviation awaiting your call: the sturdyref continuation job found [#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged (into `llm-65b0abe` at 95ecf86) seconds after the job was claimed and its head branch deleted, so the design continues as successor DRAFT [#539](https://github.com/endojs/endo-but-for-bots/pull/539), stacked on that same base — folding in proactive per-turn `deleteExport` as a hard requirement, FinalizationRegistry demoted to an optional leak detector, and a flexible optional `type` hint; [#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Two things need your word: whether to run #539 through the gamut and un-draft, and whether to dispatch a fixer for the `getStudyRefLocator` → `getSturdyRefLocator` typo flagged on your [#521](https://github.com/endojs/endo-but-for-bots/pull/521).
+A conductor has claimed [endo-but-for-bots#542](https://github.com/endojs/endo-but-for-bots/pull/542) and is finalizing it (curate → merge), the only job in flight. Separately, the sturdyref continuation closed out: [#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged (into the `llm-65b0abe` stacked base) with its head branch deleted seconds after the job was claimed, so the design was carried forward as a successor DRAFT, [#539](https://github.com/endojs/endo-but-for-bots/pull/539), which promotes proactive per-turn `deleteExport` to a requirement, demotes the FinalizationRegistry to an optional leak detector, and adds the local-only-at-the-boundary rule and an optional `type` hint; [#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Two items want a maintainer call: whether to run #539 through the gamut and un-draft, and whether to dispatch a fixer for a typo flagged on the maintainer's own [#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` should be `getSturdyRefLocator` across source, exports, and tests).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 2h)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 3h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 6h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 2h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 10d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 35d)
@@ -50,8 +48,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `endojs-endo-but-for-bots-pr542-conduct` — Finalize (curate → merge) endojs/endo-but-for-bots PR #542
 
 ### tada (225)
 - `endojs-endo-but-for-bots-pr69-refresh` — Completion report
