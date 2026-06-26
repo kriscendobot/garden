@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:16:03Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:18:03Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The competing-design pair for SturdyRef retention ([#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs [#511](https://github.com/endojs/endo-but-for-bots/pull/511)) is complete and compared: a two-juror design panel converged independently on a synthesis with #510's endor retain/release syscall as the spine, plus three grafts from #511 — full side-by-side at [#500](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325). It's parked for a maintainer call (adopt the synthesis, pick one, or redirect); the report also flags a `getStudyRefLocator`→`getSturdyRefLocator` typo on #521's shipped surface worth fixing before it sets the public name. A fresh review directive on #510 was just claimed. Newly parked: [#513](https://github.com/endojs/endo-but-for-bots/pull/513), the new `@endo/pubsub` package with Sink/Spring async linked lists. Two operational notes need attention: a routing question on [#525](https://github.com/endojs/endo-but-for-bots/pull/525) — kriscendobot acted on a PR authored by another bot because mention triage gates on sender trust but not PR authorship, and the maintainer is asked whether to add an authorship gate — and a watchdog alert that the `ci-wait-merge` tooling is silently dropping work because `gh` is missing from PATH on endolinbot. Meanwhile [#532](https://github.com/endojs/endo-but-for-bots/pull/532) and [#527](https://github.com/endojs/endo-but-for-bots/pull/527) are in shepherd/conductor CI-wait.
+The conductor's CI-wait-to-merge hardening [just landed](https://github.com/endojs/endo-but-for-bots/pull/532) — the fix that keeps a merge job from ending while CI is merely pending now backs the active shepherd/conduct loop on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) and [#527](https://github.com/endojs/endo-but-for-bots/pull/527), both parked on CI and set to re-invoke when checks settle. A new garden-infra job is in flight to harden producer-clone locking so a crashed `post-plan`/`post-job` can't wedge future posts with a stale lock. Three things want a human: the SturdyRef competing-design pair ([#510](https://github.com/endojs/endo-but-for-bots/pull/510) vs #511) is complete and a two-juror panel converged on a synthesis recommendation ([side-by-side here](https://github.com/endojs/endo-but-for-bots/pull/500#issuecomment-4805502325)) — also flagging a `getStudyRefLocator`→`getSturdyRefLocator` typo in #521 worth fixing before it sets the public name; a scope question on whether kriscendobot's mention triage should add an authorship gate (it acted on [#525](https://github.com/endojs/endo-but-for-bots/pull/525), authored by another bot, on an allowlisted sender's mention); and a watchdog warning that `gh` was missing from PATH on endolinbot, which silently drops CI-wait work. Two minion.town AWS plans (Cognito↔MCP OAuth bridge, synth-and-deploy) are parked awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -63,19 +63,20 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 - `complete-finbot-as-designed` — GOAL: complete kriscendobot/finbot as designed (end-to-end dry-run OODA loop)
 - `design-mcp-oauth-aws-minion-town` — Design an MCP server with OAuth authN/authZ — great local DX + AWS-deployable...
 - `endojs-endo-but-for-bots-pr510-review-93293593` — Review directive on endojs/endo-but-for-bots PR #510
-- `harden-conductor-ci-wait-complete-merge` — Harden the conductor's CI-wait: complete the merge, don't end the job while w...
+- `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
 
-### tada (199)
+### tada (200)
+- `harden-conductor-ci-wait-complete-merge` — Completion report: harden-conductor-ci-wait-complete-merge
 - `endojs-endo-but-for-bots-pr532-shepherd` — Waiting on CI. The background poller (bk06xiv1m) will re-invoke me the moment...
 - `endojs-endo-but-for-bots-pr532-conduct` — Inbox is empty. The background CI poll (bs3izgx4m) will notify me when PR #53...
 - `endojs-endo-but-for-bots-pr527-shepherd` — I've kicked off CI monitoring for PR #527. The watcher will re-invoke me when...
 - `endojs-endo-but-for-bots-pr527-review-0fb462c4` — Completion report
-- `sturdyref-retention-competing-design-pair` — Completion report: sturdyref-retention-competing-design-pair
-- … and 194 more
+- … and 195 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
-(none)
+- `cognito-mcp-metadata-bridge` — _normal_ · Build the Cognito↔MCP OAuth metadata/DCR/audience bridge for minion.town
+- `synth-and-deploy-minion-town-aws` — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - `investigate-systemd-run-vs-gardener-loops` — _normal_ · PLAN: investigate systemd-run vs. the fixed 100-gardener-loop pool → garden d...
