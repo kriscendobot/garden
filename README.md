@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T06:42:23Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T06:50:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,12 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener picked up `finbot-additional-instruments` (multi-instrument portfolios and yield-bearing instruments), which is now the sole job in flight; nothing else moved on the board since the last bulletin.
+A gardener just claimed the [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) review directive into flight, alongside the ongoing `finbot-additional-instruments` build (multi-instrument portfolios and yield-bearing instruments). Recently landed work clears a cluster of finbot pieces — the [cyclical forecaster](https://github.com/endojs/endo-but-for-bots/pull/513) groundwork plus richer instrument models and volatility-tolerance elicitation — and a completed review pass on [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539). The board is otherwise quiet, with nothing in todo and the plan queue parked awaiting maintainer go-ahead.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 1h)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 44m)
-- [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 1h)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 54m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
@@ -24,8 +23,9 @@ A gardener picked up `finbot-additional-instruments` (multi-instrument portfolio
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 35d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 35d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 35d)
+- [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 36d)
 
-_Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 (no pending maintainer messages)
@@ -34,7 +34,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- `endojs-endo-but-for-bots-pr513-review-08d03afe` — Review directive on endojs/endo-but-for-bots PR #513
 - `finbot-additional-instruments` — GOAL: multi-instrument portfolios and yield-bearing instruments
 
 ### tada (254)
