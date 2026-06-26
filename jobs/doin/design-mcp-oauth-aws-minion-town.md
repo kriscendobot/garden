@@ -58,3 +58,9 @@ deploy path), grounded in the current MCP authorization spec. Report the repo/PR
 shape + why, and the local-dev story. Flag any open questions for the maintainer.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 57
+  claimed_at: 2026-06-26T00:55:04Z
