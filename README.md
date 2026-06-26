@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T07:35:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T07:45:15Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,13 +10,13 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The retcon of [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) landed, and a gardener immediately picked up the follow-up — addressing the maintainer's CHANGES_REQUESTED, rebasing, and shepherding CI — which is now the only job in flight. The board is otherwise drained (todo empty), so the maintainer's attention is best spent on the parked review queue, where [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) have been waiting longest among the roadmap-relevant PRs.
+The only board movement was the completion of the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) retcon-feedback job, which closed out with nothing actionable: the retcon landed and there's nothing more to do until CI settles, so the gardener deferred to the background poller to resume. The board is otherwise idle — todo and doin are empty — leaving the 29 parked PRs as the standing call on the maintainer's attention, most notably the long-waiting [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, 3d) and [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules via erasable type syntax, 10d).
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2h)
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 11h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 10d)
@@ -34,16 +34,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `endojs-endo-but-for-bots-pr442-retcon-feedback` — #442: retcon + address open feedback + rebase + shepherd (maintainer CHANGES_...
+### doin (0)
+(none)
 
-### tada (261)
+### tada (262)
+- `endojs-endo-but-for-bots-pr442-retcon-feedback` — Nothing actionable until CI settles. I'll resume when the background poller (...
 - `endojs-endo-but-for-bots-pr442-retcon` — Completion report: endojs-endo-but-for-bots-pr442-retcon
 - `endojs-endo-but-for-bots-pr513-conduct` — Completion report — endojs/endo-but-for-bots PR #513 (conduct/merge)
 - `finbot-llm-role-dispatch` — What I did
 - `finbot-additional-instruments` — Completion report: finbot-additional-instruments
-- `garden-encode-initial-changelog-convention` — Done. Inbox is empty and the worktree is torn down.
-- … and 256 more
+- … and 257 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
