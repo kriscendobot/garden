@@ -25,3 +25,9 @@ branch(es) were cleaned. If `.tmp` is not actually tracked, report that and just
 `.gitignore` entry exists.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 18
+  claimed_at: 2026-06-26T07:53:01Z
