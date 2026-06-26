@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T07:45:15Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T07:53:29Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The only board movement was the completion of the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) retcon-feedback job, which closed out with nothing actionable: the retcon landed and there's nothing more to do until CI settles, so the gardener deferred to the background poller to resume. The board is otherwise idle — todo and doin are empty — leaving the 29 parked PRs as the standing call on the maintainer's attention, most notably the long-waiting [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, 3d) and [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules via erasable type syntax, 10d).
+A gardener just claimed [`ebfb-remove-tmp-dir-gitignore`](https://github.com/endojs/endo-but-for-bots) — removing a stray top-level `.tmp` directory from endo-but-for-bots and gitignoring it — the only job currently in flight. The board is otherwise drained (no `todo`), on the heels of a busy stretch: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) was conducted to merge, [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) finished a retcon (now waiting on CI before any follow-up), and the finbot LLM-role-dispatch and additional-instruments tasks both completed. Nothing new is parked for review, but the queue of maintainer-authorization holds is growing — `cognito-mcp-metadata-bridge`, `synth-and-deploy-minion-town-aws`, and the exported-literals hardening follow-up all await a go-ahead before the foreman can promote them.
 
 ## Parked for maintainer feedback
 
@@ -34,8 +34,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `ebfb-remove-tmp-dir-gitignore` — Remove the top-level .tmp directory from endo-but-for-bots and gitignore it
 
 ### tada (262)
 - `endojs-endo-but-for-bots-pr442-retcon-feedback` — Nothing actionable until CI settles. I'll resume when the background poller (...
