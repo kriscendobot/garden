@@ -110,6 +110,7 @@
 | [cask--cask-go--store-interface-and-span-tracked-completion](../sections/cask--cask-go--store-interface-and-span-tracked-completion.md) | cask cask.go | The Store interface contract: span.Add(1)/Add(-1)/Fail completion tracking via tel.SpanFromContext, the four-step caller pattern, Weigh's 0-means-uncomputed sentinel, and the CollectibleStore GC primitives. |
 | [cask--cask-go--cells-cas-and-the-retention-mechanism](../sections/cask--cask-go--cells-cas-and-the-retention-mechanism.md) | cask cask.go | The mutable-reference layer in code: CASStore.CAS nonce/old/new semantics, the Cell interface, the "a tree is retained while its root is some cell's value" claim, and the cell entry-type capability constants. |
 | [cask--net-crypto-go--command-constants-and-mirror-convention](../sections/cask--net-crypto-go--command-constants-and-mirror-convention.md) | cask net/crypto.go | The store/load/store-ack block-transfer commands within the casknet command vocabulary and the reversed-response convention; the wire side of the 1KB-block move. |
+| [cask--net-peer-go--command-request-span-lifecycle](../sections/cask--net-peer-go--command-request-span-lifecycle.md) | cask net/peer.go | The Peer's `Store`/`Load`/`CAS`/`Collect`/`Weigh` over the remote store: fire-and-forget enqueue tracked by a casktel Span, in-flight coalescing of identical-hash stores, and per-spanID request/response correlation. |
 
 ## See also
 

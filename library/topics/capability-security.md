@@ -200,6 +200,7 @@
 | [cask--cask-go--cells-cas-and-the-retention-mechanism](../sections/cask--cask-go--cells-cas-and-the-retention-mechanism.md) | cask cask.go | The code-side mutable-reference layer: CASStore.CAS nonce bearer-token auth + zero-hash create/delete conventions, the Cell interface, "a tree is retained while its root is some cell's value", and the read/write/scoped-path cell entry-type capability lattice. |
 | [cask--net-crypto-go--counter-nonce-and-replay-protection](../sections/cask--net-crypto-go--counter-nonce-and-replay-protection.md) | cask net/crypto.go | The replay-protection invariant on the encrypted envelope: counter-derived nonces and a strictly-increasing per-direction receive counter reject replayed datagrams. |
 | [cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry](../sections/cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry.md) | cask net/crypto.go | Mutual membership (MemberAdd records both peers after a handshake), per-session traffic-class clamping so a session cannot escalate its own priority, and the send-only key-persistence limitation. |
+| [cask--net-peer-go--session-renewal-single-flight](../sections/cask--net-peer-go--session-renewal-single-flight.md) | cask net/peer.go | The initiator side of mutual membership: after a successful single-flight Noise IK handshake the initiator records the responder's ed25519 key via `MemberAdd`, so future sessions in either direction are authorized. |
 
 ## See also
 

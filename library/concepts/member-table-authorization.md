@@ -21,6 +21,7 @@ How a casknet node decides which peers may open a session. Each node holds a lon
 | [cask--membertable-design--cli-root-and-server-integration](../sections/cask--membertable-design--cli-root-and-server-integration.md) | The `cask member` CLI, the caskhead membership link, and the server's per-ini6 Has() check. |
 | [cask--membership-next-steps--membership-mvp-roadmap](../sections/cask--membership-next-steps--membership-mvp-roadmap.md) | How the membership set comes to be: node_id identity, the CASK_MEMBERSHIP MVP, CASK_ROOT bootstrap, statusNotMember. |
 | [cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry](../sections/cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry.md) | **Implementation note**: `MemberLookupFunc` gates on the initiator's ed25519 key (transmitted in the Noise payload), and `MemberAddFunc` makes membership mutual — a successful handshake records both peers (must be idempotent). |
+| [cask--net-peer-go--session-renewal-single-flight](../sections/cask--net-peer-go--session-renewal-single-flight.md) | The initiator's side of mutual membership: after a successful handshake the initiator calls `MemberAdd` with the responder's ed25519 key (a failure is logged, not fatal), the symmetric counterpart to the responder's add. |
 
 ## See also
 

@@ -13063,3 +13063,37 @@ mutual membership | member-table-authorization
 `BestTrafficClass` | codel-send-buffer-shedding
 traffic class clamping | codel-send-buffer-shedding
 claimable priority clamp | codel-send-buffer-shedding
+RFC 6298 | casknet-rtt-and-retransmission-timeout
+RFC6298 | casknet-rtt-and-retransmission-timeout
+retransmission timeout | casknet-rtt-and-retransmission-timeout
+RTO | casknet-rtt-and-retransmission-timeout
+smoothed RTT | casknet-rtt-and-retransmission-timeout
+SRTT | casknet-rtt-and-retransmission-timeout
+RTTVAR | casknet-rtt-and-retransmission-timeout
+RTT variance | casknet-rtt-and-retransmission-timeout
+round-trip time estimation | casknet-rtt-and-retransmission-timeout
+Karn's algorithm | casknet-rtt-and-retransmission-timeout
+Karn algorithm | casknet-rtt-and-retransmission-timeout
+`RTTStats` | casknet-rtt-and-retransmission-timeout
+`retransmissionTimeoutLocked` | casknet-rtt-and-retransmission-timeout
+`updateRoundTripTimeLocked` | casknet-rtt-and-retransmission-timeout
+`RetransmissionTimeoutMinimum` | casknet-rtt-and-retransmission-timeout
+`RetransmissionTimeoutMaximum` | casknet-rtt-and-retransmission-timeout
+`nextRetryAt` | casknet-rtt-and-retransmission-timeout
+`enqueueDueRetriesLocked` | casknet-rtt-and-retransmission-timeout
+casknet retransmission | casknet-rtt-and-retransmission-timeout
+in-flight coalescing | casktel-span-completion
+fire-and-forget UDP store | casktel-span-completion
+`Peer.Store` span | casktel-span-completion
+Fail outside lock | casktel-span-completion
+`drainClassFromContext` | codel-send-buffer-shedding
+`DefaultDrainTrafficClass` | codel-send-buffer-shedding
+notify after unlock | codel-send-buffer-shedding
+`ensureSession` single-flight | noise-ik-session-establishment
+`establishSession` | noise-ik-session-establishment
+session renewal margin | noise-ik-session-establishment
+`sessionInitTimeout` | noise-ik-session-establishment
+`sessionInitRetryInterval` | noise-ik-session-establishment
+init packet retransmit | noise-ik-session-establishment
+mutual membership initiator | member-table-authorization
+`MemberAdd` initiator | member-table-authorization

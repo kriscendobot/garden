@@ -20,6 +20,7 @@ CASK's `casktel.Span` is the abstraction storage systems use to track completion
 | [cask--trace2--dir-store-span-contract-and-test](../sections/cask--trace2--dir-store-span-contract-and-test.md) | dir.Store requires a Span (ErrSpanRequired); fire-and-forget traversal; the nopcasktel test flow. |
 | [cask--trace2--file-layout-and-implementation-order](../sections/cask--trace2--file-layout-and-implementation-order.md) | The three-package layout and the staged build order from interfaces to buffercasktel. |
 | [cask--cask-go--store-interface-and-span-tracked-completion](../sections/cask--cask-go--store-interface-and-span-tracked-completion.md) | The consumer side: the `cask.Store` interface doc-comment specifying the Add(1)/Add(-1)/Fail span discipline and the four-step create-span → call-Store → wait-on-Done → check-Err caller pattern. |
+| [cask--net-peer-go--command-request-span-lifecycle](../sections/cask--net-peer-go--command-request-span-lifecycle.md) | The casknet `Peer` consumer: `Store`/`Load`/`CAS`/`Collect`/`Weigh` enqueue and return immediately, resolving the Span on the remote's UDP acknowledgment; duplicate in-flight stores coalesce one ack onto many spans; Fail/Add(-1) run after the peer lock releases. |
 
 ## See also
 

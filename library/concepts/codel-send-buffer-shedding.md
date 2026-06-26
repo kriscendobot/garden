@@ -23,6 +23,7 @@ CASK's approach to bounding latency and shedding load under pressure, borrowing 
 | [cask--net-design--backpressure-and-traffic-class-wake](../sections/cask--net-design--backpressure-and-traffic-class-wake.md) | Enqueue-side: block `Store()` on a full queue; wake waiters by TrafficClass via 129 per-class notifier channels. |
 | [cask--net-design--lost-notification-coordination](../sections/cask--net-design--lost-notification-coordination.md) | The increment-under-lock / notify-after-unlock proof that no drain notification is lost. |
 | [cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry](../sections/cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry.md) | The per-session `bestTrafficClass` enforcement point: a session's claimed class is clamped up to its admitted ceiling (unknown sessions default to 128), so a peer cannot escalate its own priority by lying in the `casc` traffic-class byte. |
+| [cask--net-peer-go--traffic-class-send-queue-drain-prioritization](../sections/cask--net-peer-go--traffic-class-send-queue-drain-prioritization.md) | **Implementation source-of-truth** for the enqueue-side wake: the 129-element `drainNotify`/`drainWaiterCount` arrays, `notifyDrain` scanning class 0 upward to wake the highest-priority blocked `Store` waiter, `DefaultDrainTrafficClass = 64`, and `drainClassFromContext` (explicit TrafficClass → Span.TrafficClass → default). |
 
 ## See also
 
