@@ -35,3 +35,9 @@ full wait, no longer dropping the merge on a stale temp path — committed/pushe
 redeployed. Report the SHA and the root-cause path bug.
 
 Posted by the liaison on behalf of the maintainer (root cause of #178; surfaced by the loud-tool alert).
+
+---
+claim:
+  host: endolinbot
+  gardener: 64
+  claimed_at: 2026-06-26T01:24:58Z
