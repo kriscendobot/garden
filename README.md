@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:52:40Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:54:16Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,11 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A review pass on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) completed, and two builds are now in flight against it and the sturdyref track: an ESLint `object-shorthand` avoidQuotes relaxation follow-up on #474, and the SturdyRefs endor-syscall retention slice from design [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510). Notably, #510 merged out from under its own continuation job (~17s after claim, head branch deleted), so the gardener carried the design forward as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) — folding in proactive per-turn `deleteExport` as a requirement, demoting FinalizationRegistry to an optional leak detector, and adding an optional `type` hint; it awaits a maintainer go-ahead to run the gamut. The gardener also flagged a typo in maintainer-authored #521 (`getStudyRefLocator` should be `getSturdyRefLocator`) and offered a fixer rename — both calls are parked in the maintainer inbox.
+I'll write the bulletin's "## Latest" section based on the job-board transitions and dashboard state.
+
+The sturdyrefs/endor syscall-retention build job just completed ([endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539)), and there's a notable maintainer message about it. Let me compose the narrative.
+
+The sturdy-ref build for endor syscall-retention landed as completed work. The gardener continuing the design (#510 → defer #511) reports one deviation worth a maintainer look: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already MERGED ~17 seconds after the job was claimed (into `llm-65b0abe` at `95ecf86`) with its head branch deleted, so the work continued as a successor DRAFT, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) (head `333249e8`), off the same stacked base. It folds in proactive per-turn `deleteExport` as a hard requirement (both retention paths now GC-timing-independent), demotes `FinalizationRegistry` to an optional off-by-default leak detector, and adds a flexible optional `type` hint on the SturdyRef. Two calls await kriskowal: whether to run #539 through the gamut and un-draft, and whether to dispatch a fixer for a typo flagged on the maintainer's own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) — the exported symbol reads `getStudyRefLocator` (missing the `r`) and should be `getSturdyRefLocator` across source, exports, and tests. The lone job still in flight is the ESLint `avoidQuotes` follow-up build on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474).
 
 ## Parked for maintainer feedback
 
@@ -48,17 +52,16 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - `ebfb-build-followup-474-eslint-avoidquotes` — Build: relax object-shorthand avoidQuotes for ESLint visitor objects (follow-...
-- `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
 
-### tada (213)
+### tada (214)
+- `ebfb-build-sturdyrefs-endor-syscall-retention` — Completion report — ebfb-build-sturdyrefs-endor-syscall-retention
 - `endojs-endo-but-for-bots-pr474-review-e05b6e84` — Completion report — endojs-endo-but-for-bots-pr474-review-e05b6e84
 - `endojs-endo-but-for-bots-pr474-3c54bd50` — Completion report
 - `garden-harden-producer-clone-lock` — Completion report — garden-harden-producer-clone-lock
 - `fix-conductor-spine-unfreeze-to-llm` — Completion report — fix-conductor-spine-unfreeze-to-llm
-- `weave-sturdyrefs-onto-live-llm` — Done. Completion report below.
-- … and 208 more
+- … and 209 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
