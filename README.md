@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T07:25:35Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T07:30:24Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener claimed [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) for a retcon-plus-feedback pass — addressing the maintainer's CHANGES_REQUESTED, rebasing, and shepherding CI — while the conduct (curate-then-merge) of [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) remains in flight. The todo queue is drained, so these two are the only active work items right now; nothing new awaits a human beyond the standing parked set, where [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has been waiting longest among the fresh arrivals at 10 hours.
+[endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) cleared its conduct/merge job and landed in `tada`, closing out that PR's pipeline. The board is otherwise quiet — a single job remains in flight, the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) retcon that's working through a maintainer CHANGES_REQUESTED (reset, address open feedback, rebase, then shepherd). No new work was posted, and the plan queue stays parked behind maintainer authorization. The standing ask for kriskowal is the parked review backlog, which now sits at 29 PRs — the oldest movers being [endo#3137](https://github.com/endojs/endo/pull/3137) (10d) and the long-waiting [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (35d each).
 
 ## Parked for maintainer feedback
 
@@ -34,17 +34,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - `endojs-endo-but-for-bots-pr442-retcon-feedback` — #442: retcon + address open feedback + rebase + shepherd (maintainer CHANGES_...
-- `endojs-endo-but-for-bots-pr513-conduct` — Finalize (curate → merge) endojs/endo-but-for-bots PR #513
 
-### tada (259)
+### tada (260)
+- `endojs-endo-but-for-bots-pr513-conduct` — Completion report — endojs/endo-but-for-bots PR #513 (conduct/merge)
 - `finbot-llm-role-dispatch` — What I did
 - `finbot-additional-instruments` — Completion report: finbot-additional-instruments
 - `garden-encode-initial-changelog-convention` — Done. Inbox is empty and the worktree is torn down.
 - `mirror-endo-3137` — Completion report: mirror-endo-3137
-- `endojs-endo-but-for-bots-pr513-review-08d03afe` — All work complete. Final report:
-- … and 254 more
+- … and 255 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
