@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:45:15Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:46:32Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The SturdyRefs weave onto the live `llm-65b0abe` trunk completed, closing out the endor-syscall retention slice's rebase; a build job for that same slice ([design #510](https://github.com/endojs/endo-but-for-bots/pull/510)) is still in flight. A gardener flagged that #510 had already merged ~17s after it claimed the continuation job (head branch deleted), so the design continues as successor draft [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) — awaiting your word to run the gamut and un-draft. Two items need your call: #539's go-ahead, and a typo in your own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) — the exported symbol is `getStudyRefLocator` (missing the "r"), which a fixer can rename on request. Still parked at the top of the queue: passable byte arrays ([#503](https://github.com/endojs/endo-but-for-bots/pull/503)), the new [@endo/pubsub](https://github.com/endojs/endo-but-for-bots/pull/513) package, and the formula-inspector design drop ([#440](https://github.com/endojs/endo-but-for-bots/pull/440)).
+Two garden-infra fixes just landed: [garden-harden-producer-clone-lock](https://github.com/kriskowal/garden) resolves the stale `journal.lock` tombstone that could wedge all future job/plan posts, and the conductor-spine fix now unfreezes a frozen base to the live `llm-` trunk before merging. A build follow-up on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (relaxing `object-shorthand` avoidQuotes for the ESLint visitor objects) is now in progress, alongside the still-running #474 attention and review directives and the SturdyRefs endor-syscall retention build.
+
+Worth the maintainer's eye: the sturdyref job reports that [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged ~17s after the job was claimed and its branch was deleted, so the design continues as a new DRAFT successor, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) — awaiting your go-ahead to run the gamut. The same report flags a typo in your [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521): the exported symbol reads `getStudyRefLocator` (missing the `r`) and should be `getSturdyRefLocator`; a fixer can rename it on your word.
 
 ## Parked for maintainer feedback
 
@@ -48,20 +50,19 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
+- `ebfb-build-followup-474-eslint-avoidquotes` — Build: relax object-shorthand avoidQuotes for ESLint visitor objects (follow-...
 - `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
 - `endojs-endo-but-for-bots-pr474-3c54bd50` — attention directive on endojs/endo-but-for-bots PR #474
 - `endojs-endo-but-for-bots-pr474-review-e05b6e84` — Review directive on endojs/endo-but-for-bots PR #474
-- `fix-conductor-spine-unfreeze-to-llm` — Fix the conductor spine: after merging onto a FROZEN base, do step-2 unfreeze...
-- `garden-harden-producer-clone-lock` — Harden producer-clone locking so a crashed post-plan/post-job can't wedge the...
 
-### tada (209)
+### tada (211)
+- `garden-harden-producer-clone-lock` — Completion report — garden-harden-producer-clone-lock
+- `fix-conductor-spine-unfreeze-to-llm` — Completion report — fix-conductor-spine-unfreeze-to-llm
 - `weave-sturdyrefs-onto-live-llm` — Done. Completion report below.
 - `endojs-endo-but-for-bots-pr474-53ff69c3` — Completion report
 - `endojs-endo-but-for-bots-pr442-rebase` — I've completed the rebase and pushed; CI is re-running. The background poll w...
-- `continue-sturdyref-510-endor-syscall` — Completion report — continue-sturdyref-510-endor-syscall
-- `fix-ci-wait-merge-gh-path` — Completion report — fix-ci-wait-merge-gh-path
-- … and 204 more
+- … and 206 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
