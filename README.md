@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:11:05Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:13:54Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,15 +10,15 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener just claimed [harden-bulletin-loop-crash-resilience](https://github.com/endojs/endo-but-for-bots) — the bulletin service went dark when a single bad tick crashed the loop, so this work makes one failed tick non-fatal. Awaiting your decision: a routing question parked in your inbox asks whether kriscendobot's mention triage should add an *authorship* gate, so it only acts on mentions targeting PRs/issues it authored — prompted by 0xpatrickdev's review landing on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525), a PR authored by 0xpatrickbot, where kriscendobot picked up the work (the change was welcomed, not reverted). Otherwise the board is quiet: the four in-flight jobs cover Mark Miller's erights review on the [#474](https://github.com/endojs/endo-but-for-bots/pull/474) mirror, a review directive on [#532](https://github.com/endojs/endo-but-for-bots/pull/532), and the scholar's cask library ingest, with the todo queue drained to empty.
+The board is quiet since the last bulletin — no jobs posted, claimed, or completed at the file level — but a routing decision on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) is waiting in the maintainer inbox and wants kriskowal's call: the mention-watcher gates on sender trust alone, so kriscendobot acted on a PR authored by **0xpatrickbot** (commit 661fb57, welcomed by 0xpatrickdev). The open question is whether to add an authorship gate so triage only acts on mentions targeting kriscendobot-authored PRs/issues — a scope/identity decision the journalist won't make. In-flight work continues in four lanes: addressing Mark Miller's erights review on the mirror [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), a review directive on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532), hardening the bulletin loop so one bad tick can't dark out the service, and the scholar's continued ingest of kriskowal/cask.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#178](https://github.com/endojs/endo-but-for-bots/pull/178) — refactor(daemon): introduce locator scheme with @-delimited connection hints (per kriskowal #178) (waiting 3h)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 28s)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3h)
 - [endojs/endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) — feat(pubsub): create @endo/pubsub with Sink/Spring async promise linked list (changes + latest variants) (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 10d)
