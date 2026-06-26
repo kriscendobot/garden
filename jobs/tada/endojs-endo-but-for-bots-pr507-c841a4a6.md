@@ -1,43 +1,15 @@
-# Report: attention directive on endojs/endo-but-for-bots PR #507 (comment 3479358465)
+Job completed.
 
-## Disposition: folded into the review-level job (no independent edit)
+## Completion report
 
-The comment (`#discussion_r3479358465`, kriskowal: "Acknowledged, please remove
-this note.") anchors to `designs/notifier-pubsub-migration.md` lines 865–872 —
-the `## Open questions` note ("The revision-4 open questions are resolved by the
-revision-5 review and folded into the design prose:" plus its resolved-items
-bullet list). kriskowal acknowledged those resolutions and wants the redundant
-note removed.
+**Job:** attention directive on endojs/endo-but-for-bots PR #507, comment 3479358465 ("Acknowledged, please remove this note.").
 
-## Why I did not edit directly
+**What I found:** The comment anchors to `designs/notifier-pubsub-migration.md` lines 865–872 — the `## Open questions` resolved-items note. kriskowal acknowledged those resolutions and wants the now-redundant note removed. Re-fetching confirmed the comment is tied to `pull_request_review_id == 4576852574`.
 
-Re-fetching confirmed this comment is tied to `pull_request_review_id ==
-4576852574`. A peer job already owns that **entire review** as one unit of work:
-`endojs-endo-but-for-bots-pr507-review-f4d95615` (gardener 81), which explicitly
-addresses the review body plus *every* inline comment tied to it — mine
-included. A third per-comment job (`pr507-f76e2c9d`, gardener 15, comment
-3479335508) is also live on the same file.
+**The problem:** A peer job — `pr507-review-f4d95615` (gardener 81) — already owns that **entire review** as one unit of work, explicitly covering the review body plus every inline comment tied to it, mine included. A third per-comment job (`pr507-f76e2c9d`, gardener 15) is also live on the same file. Three agents editing one design doc concurrently would collide and clobber each other.
 
-Three gardeners editing `designs/notifier-pubsub-migration.md` concurrently would
-collide and clobber each other. Per the standing maintainer feedback ("treat the
-WHOLE review as the unit of work; fold all asks into one dispatch"), the
-review-level job is the authoritative owner. Doing my slice independently would
-duplicate work and risk a lost-update race.
+**What I did:** Rather than make an independent edit and race the others, I followed the standing "treat the WHOLE review as the unit of work" rule and stood down to the review-level owner. I messaged gardener 81 with the precise ask (remove the Open-questions note at 865–872, plus the sibling 3479357107 "remove procedural minutia" theme) so it can't slip from their checklist. Then completed my job (doin→tada).
 
-## Action taken
+**Changes:** No file edits (deliberately, to avoid a three-way collision on `designs/notifier-pubsub-migration.md`). The removal will land in gardener 81's review-level pass.
 
-Messaged the review-level owner (`pr507-review-f4d95615`) with the precise ask so
-it cannot slip from their checklist:
-- 3479358465 → remove the Open-questions resolved-items note (lines 865–872).
-- Noted the sibling 3479357107 ("Remove procedural minutia…", lines 862–863) as
-  the same theme, folding naturally into their "authoritative maintainer voice"
-  rewrite.
-
-## Follow-ups
-
-- None owed by me. The removal lands as part of gardener 81's review-level pass.
-- Process observation for the liaison/foreman: the attention-directive producer
-  spawned BOTH a whole-review job and per-comment jobs for the same review
-  (4576852574), causing fan-out overlap on one file. Worth de-duping at the
-  producer so per-comment jobs are suppressed when a review-level job for the
-  same `pull_request_review_id` exists.
+**Follow-up for the liaison/foreman:** The attention-directive producer spawned *both* a whole-review job and per-comment jobs for the same review (4576852574), causing fan-out overlap on one file. Worth de-duping at the producer — suppress per-comment jobs when a review-level job for the same `pull_request_review_id` already exists.
