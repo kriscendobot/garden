@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:48:14Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T01:52:40Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The latest board change closes out the review directive on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), whose completion report landed in tada; a follow-up build to relax `object-shorthand` avoidQuotes for ESLint visitor objects and a fresh review pass on the same PR are still in flight. The item needing the maintainer's eye is a sturdyref message in the inbox: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) MERGED moments after the job was claimed (head branch deleted), so the design was continued as a new DRAFT, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), stacked off base `llm-65b0abe` and awaiting your word to run the gamut and un-draft; the linked [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Also flagged: a typo in your [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) — the exported symbol reads `getStudyRefLocator` (missing the `r`) and should be `getSturdyRefLocator` across source, exports, and tests, with a fixer rename offered on your call.
+A review pass on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) completed, and two builds are now in flight against it and the sturdyref track: an ESLint `object-shorthand` avoidQuotes relaxation follow-up on #474, and the SturdyRefs endor-syscall retention slice from design [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510). Notably, #510 merged out from under its own continuation job (~17s after claim, head branch deleted), so the gardener carried the design forward as a successor draft, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) — folding in proactive per-turn `deleteExport` as a requirement, demoting FinalizationRegistry to an optional leak detector, and adding an optional `type` hint; it awaits a maintainer go-ahead to run the gamut. The gardener also flagged a typo in maintainer-authored #521 (`getStudyRefLocator` should be `getSturdyRefLocator`) and offered a fixer rename — both calls are parked in the maintainer inbox.
 
 ## Parked for maintainer feedback
 
@@ -48,18 +48,17 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - `ebfb-build-followup-474-eslint-avoidquotes` — Build: relax object-shorthand avoidQuotes for ESLint visitor objects (follow-...
 - `ebfb-build-sturdyrefs-endor-syscall-retention` — Build: SturdyRefs endor-syscall retention slice (design #510)
-- `endojs-endo-but-for-bots-pr474-review-e05b6e84` — Review directive on endojs/endo-but-for-bots PR #474
 
-### tada (212)
+### tada (213)
+- `endojs-endo-but-for-bots-pr474-review-e05b6e84` — Completion report — endojs-endo-but-for-bots-pr474-review-e05b6e84
 - `endojs-endo-but-for-bots-pr474-3c54bd50` — Completion report
 - `garden-harden-producer-clone-lock` — Completion report — garden-harden-producer-clone-lock
 - `fix-conductor-spine-unfreeze-to-llm` — Completion report — fix-conductor-spine-unfreeze-to-llm
 - `weave-sturdyrefs-onto-live-llm` — Done. Completion report below.
-- `endojs-endo-but-for-bots-pr474-53ff69c3` — Completion report
-- … and 207 more
+- … and 208 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
