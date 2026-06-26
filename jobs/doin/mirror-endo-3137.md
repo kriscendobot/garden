@@ -25,3 +25,9 @@ upstream PR, on the correct bot base. Report the mirror PR number and its base/h
 already mirrored, report the existing mirror PR instead of opening a duplicate.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 100
+  claimed_at: 2026-06-26T06:52:32Z
