@@ -24,3 +24,9 @@ out concurrent posts against one clone.
 Garden infra (bot repo, main2). Build in an isolated worktree off origin/main2
 per the standing norm. Verify by simulating a crashed holder (touch a stale
 lock) and confirming a fresh post recovers.
+
+---
+claim:
+  host: endolinbot
+  gardener: 46
+  claimed_at: 2026-06-26T01:17:43Z
