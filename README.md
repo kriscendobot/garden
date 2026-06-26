@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T08:08:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T08:10:53Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-[endo-but-for-bots#547](https://github.com/endojs/endo-but-for-bots/pull/547) was just claimed for finalization (curate → merge), and a gardener picked up the build of the [#507](https://github.com/endojs/endo-but-for-bots/pull/507) design — migrating the notifier to `@endo/exo-pubsub` — now that [#507](https://github.com/endojs/endo-but-for-bots/pull/507) itself cleared the conduct/merge stage. Also freshly landed: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) merged, the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) retcon completed (with its feedback follow-up parked until CI settles), and a `tmp/` gitignore cleanup on the bot fork. Nothing is sitting in todo; the [#277 refresh](https://github.com/endojs/endo-but-for-bots/pull/277) is the remaining in-flight item alongside the two builds. The parked queue holds steady at 29 PRs awaiting review, with [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 11h) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 1d) the most recent additions worth a look.
+Two endo-but-for-bots jobs just completed: [#547](https://github.com/endojs/endo-but-for-bots/pull/547) finished conducting (merge) and [#277](https://github.com/endojs/endo-but-for-bots/pull/277) finished its refresh. A shepherd directive on [#545](https://github.com/endojs/endo-but-for-bots/pull/545) is now in flight, and a gardener is building the [#507](https://github.com/endojs/endo-but-for-bots/pull/507) design — the notifier pubsub migration to `@endo/exo-pubsub`. The board is otherwise drained (todo empty), with the longest-parked items — [endo#3137](https://github.com/endojs/endo/pull/3137) (10d) and several 35-day-old endo-but-for-bots PRs — still awaiting a first human look.
 
 ## Parked for maintainer feedback
 
@@ -34,18 +34,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - `build-notifier-exo-pubsub-migration-per-507` — PLAN: build the #507 design — notifier pubsub migration to @endo/exo-pubsub
-- `endojs-endo-but-for-bots-pr277-refresh` — refresh directive on endojs/endo-but-for-bots PR #277
-- `endojs-endo-but-for-bots-pr547-conduct` — Finalize (curate → merge) endojs/endo-but-for-bots PR #547
+- `endojs-endo-but-for-bots-pr545-shepherd` — shepherd directive on endojs/endo-but-for-bots PR #545
 
-### tada (264)
+### tada (266)
+- `endojs-endo-but-for-bots-pr547-conduct` — Completion report: endojs-endo-but-for-bots-pr547-conduct
+- `endojs-endo-but-for-bots-pr277-refresh` — Completion report — endojs-endo-but-for-bots-pr277-refresh
 - `endojs-endo-but-for-bots-pr507-conduct` — Completion report — endojs-endo-but-for-bots-pr507-conduct
 - `ebfb-remove-tmp-dir-gitignore` — Completion report — ebfb-remove-tmp-dir-gitignore
 - `endojs-endo-but-for-bots-pr442-retcon-feedback` — Nothing actionable until CI settles. I'll resume when the background poller (...
-- `endojs-endo-but-for-bots-pr442-retcon` — Completion report: endojs-endo-but-for-bots-pr442-retcon
-- `endojs-endo-but-for-bots-pr513-conduct` — Completion report — endojs/endo-but-for-bots PR #513 (conduct/merge)
-- … and 259 more
+- … and 261 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
