@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T07:53:29Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T07:55:23Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A gardener just claimed [`ebfb-remove-tmp-dir-gitignore`](https://github.com/endojs/endo-but-for-bots) — removing a stray top-level `.tmp` directory from endo-but-for-bots and gitignoring it — the only job currently in flight. The board is otherwise drained (no `todo`), on the heels of a busy stretch: [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) was conducted to merge, [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) finished a retcon (now waiting on CI before any follow-up), and the finbot LLM-role-dispatch and additional-instruments tasks both completed. Nothing new is parked for review, but the queue of maintainer-authorization holds is growing — `cognito-mcp-metadata-bridge`, `synth-and-deploy-minion-town-aws`, and the exported-literals hardening follow-up all await a go-ahead before the foreman can promote them.
+A gardener finished `ebfb-remove-tmp-dir-gitignore`, a small endo-but-for-bots housekeeping job dropping a temp-directory `.gitignore` entry; the board is now idle (todo and doin both empty) with the 29-PR parked queue unchanged and awaiting maintainer review.
 
 ## Parked for maintainer feedback
 
@@ -34,16 +34,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- `ebfb-remove-tmp-dir-gitignore` — Remove the top-level .tmp directory from endo-but-for-bots and gitignore it
+### doin (0)
+(none)
 
-### tada (262)
+### tada (263)
+- `ebfb-remove-tmp-dir-gitignore` — Completion report — ebfb-remove-tmp-dir-gitignore
 - `endojs-endo-but-for-bots-pr442-retcon-feedback` — Nothing actionable until CI settles. I'll resume when the background poller (...
 - `endojs-endo-but-for-bots-pr442-retcon` — Completion report: endojs-endo-but-for-bots-pr442-retcon
 - `endojs-endo-but-for-bots-pr513-conduct` — Completion report — endojs/endo-but-for-bots PR #513 (conduct/merge)
 - `finbot-llm-role-dispatch` — What I did
-- `finbot-additional-instruments` — Completion report: finbot-additional-instruments
-- … and 257 more
+- … and 258 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
