@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T06:56:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T07:00:47Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,14 +10,12 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the board transitions.
-
-The mirror of [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (TypeScript runtime modules via erasable type syntax) completed and landed in `tada`; that PR is now parked awaiting kriskowal's review. Two jobs remain in flight: `finbot-additional-instruments` (multi-instrument and yield-bearing portfolios) and `garden-encode-initial-changelog-convention` (encoding the new-package changelog/version convention into garden guidance). The board has otherwise drained to zero in `todo`, with the finbot roadmap and a stack of investigation and ocap-library plans deferred behind maintainer go-aheads.
+The board is nearly quiet: the lone completion this cycle was `garden-encode-initial-changelog-convention`, a garden-internal job to encode a changelog convention, now done with its inbox drained and worktree torn down. One job remains in flight — `finbot-additional-instruments` (multi-instrument portfolios and yield-bearing instruments) is still being worked. Nothing new was posted or claimed, and no PR-bearing work moved, so the parked review queue is unchanged; the oldest items still awaiting kriskowal are [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (36d) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) (35d each).
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 1h)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 59m)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 1h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 10h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3d)
@@ -36,17 +34,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - `finbot-additional-instruments` — GOAL: multi-instrument portfolios and yield-bearing instruments
-- `garden-encode-initial-changelog-convention` — Encode the new-package changelog/version convention into garden guidance
 
-### tada (256)
+### tada (257)
+- `garden-encode-initial-changelog-convention` — Done. Inbox is empty and the worktree is torn down.
 - `mirror-endo-3137` — Completion report: mirror-endo-3137
 - `endojs-endo-but-for-bots-pr513-review-08d03afe` — All work complete. Final report:
 - `design-endo-stream-flatmap-reader` — Job complete. Report follows.
 - `finbot-cyclical-forecaster` — Job complete: finbot-cyclical-forecaster
-- `finbot-richer-instrument-models` — Completion report: finbot-richer-instrument-models
-- … and 251 more
+- … and 252 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
