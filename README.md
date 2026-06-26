@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T06:00:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T06:02:14Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A garden-infra fix landed: [`garden-fix-review-job-paginate-comments`](https://github.com/endojs/endo-but-for-bots) completed, which makes review-directive jobs emit `--paginate` when fetching PR comments so long comment threads are no longer silently truncated. Otherwise the board is quiet — two jobs remain in flight (finbot forecast-evaluation fixtures and the watcher mention-only-author filter), and the parked queue is unchanged, still led by the freshly rebased [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) and [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513) awaiting maintainer review.
+Here's the body for the "## Latest" section:
+
+The mention-only PR-author filter shipped — kriscendobot now ignores feedback on PRs by opted-out contributors unless explicitly @-mentioned ([watcher-mention-only-author-filter](https://github.com/endojs/endo-but-for-bots)), and the review-job comment-fetch was fixed to emit `--paginate` so directive jobs see the full comment thread. A review directive on [endojs/endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) is now in flight, alongside ongoing finbot evolution work (cyclical/mean-reverting forecaster, richer instrument models, synthetic forecast-evaluation fixtures, and volatility-tolerance elicitation). On the parked side, [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) was freshly rebased and retconned and is back awaiting review; [#513](https://github.com/endojs/endo-but-for-bots/pull/513) (@endo/pubsub) and [#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix) remain the most recent additions to the review queue.
 
 ## Parked for maintainer feedback
 
@@ -34,17 +36,20 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (5)
+- `endojs-endo-but-for-bots-pr539-review-3c5cd6fb` — Review directive on endojs/endo-but-for-bots PR #539
+- `finbot-cyclical-forecaster` — Evolve finbot: a forecaster that captures cyclical / mean-reverting structure...
 - `finbot-forecast-evaluation-fixtures` — Evolve finbot: synthetic oracle time-series fixtures to evaluate the ensemble...
-- `watcher-mention-only-author-filter` — Watcher filter: ignore feedback on mention-only authors' PRs unless @kriscend...
+- `finbot-richer-instrument-models` — Evolve finbot: richer instrument models (yield curves, dividend dynamics, fee...
+- `finbot-volatility-tolerance-elicitation` — Evolve finbot: volatility-tolerance elicitation UX (infer/calibrate the user'...
 
-### tada (247)
+### tada (248)
+- `watcher-mention-only-author-filter` — Completion report
 - `garden-fix-review-job-paginate-comments` — Completion report follows.
 - `endojs-endo-but-for-bots-pr507-review-f4d95615` — Completion report — endojs-endo-but-for-bots-pr507-review-f4d95615
 - `endojs-endo-but-for-bots-pr440-rebase` — Completion report: rebase + retcon of endojs/endo-but-for-bots PR #440
 - `finbot-richer-forecasting` — Completion report: finbot-richer-forecasting
-- `endojs-endo-but-for-bots-pr507-f76e2c9d` — Completion report
-- … and 242 more
+- … and 243 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
