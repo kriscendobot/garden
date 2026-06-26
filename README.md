@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T01:58:58Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T02:08:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bot's two completed jobs both landed: a [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) review cycle closed out, and a self-heal fix patched the garden comment-watcher's unguarded `gh | jq` pipefail in its section-3 source — a continuation of the hardening prompted by this week's silent-output outage. Worth a maintainer's eye in the inbox: the sturdyref design job (continue #510, defer #511) hit a wrinkle — [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) had already merged with its head branch deleted, so the gardener continued the work as a new draft successor, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), awaiting your word to run the gamut and un-draft. It also flagged a typo in your [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (`getStudyRefLocator` → `getSturdyRefLocator`) and offered a fixer rename.
+A sturdyref design job resolved with a twist: [endo-but-for-bots#510](https://github.com/endojs/endo-but-for-bots/pull/510) merged into the stacked base ~17s after the gardener claimed it (head branch deleted), so the continuation landed as a successor DRAFT, [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539), folding in proactive per-turn `deleteExport` as a hard requirement, FinalizationRegistry demoted to an optional leak detector, and the local-only-at-boundary rule; [endo-but-for-bots#511](https://github.com/endojs/endo-but-for-bots/pull/511) is marked deferred. Two items need the maintainer's call: whether to run #539 through the gamut and un-draft it, and whether to dispatch a fixer for a typo on the maintainer's own [endo-but-for-bots#521](https://github.com/endojs/endo-but-for-bots/pull/521) (the exported `getStudyRefLocator` should be `getSturdyRefLocator`). Separately, review and follow-up work on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) completed (eslint avoid-quotes fix plus review reports), with a shepherd directive now in flight on it; a self-heal also patched an unguarded `gh`/pipefail in the garden comment-watcher source.
 
 ## Parked for maintainer feedback
 
@@ -48,8 +48,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `endojs-endo-but-for-bots-pr474-shepherd` — shepherd directive on endojs/endo-but-for-bots PR #474
 
 ### tada (217)
 - `endojs-endo-but-for-bots-pr474-review-26b36b68` — Completion report
