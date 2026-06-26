@@ -33,3 +33,9 @@ PR number and what was migrated. If the design is underspecified for a clean bui
 rather than guessing.
 
 Posted by the liaison on behalf of the maintainer (design #507 → build).
+
+---
+claim:
+  host: endolinbot
+  gardener: 1
+  claimed_at: 2026-06-26T08:07:36Z
