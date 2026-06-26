@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T05:08:02Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T05:08:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Two jobs moved into progress since the last bulletin: a rebase of [endo-but-for-bots#297](https://github.com/endojs/endo-but-for-bots/pull/297) and a redirect of [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539) to drop endor-syscall/FinReg sturdyref retention in favor of an enliven-on-demand design. Both join in-flight rebase work on [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and an attention directive on [endo-but-for-bots#539](https://github.com/endojs/endo-but-for-bots/pull/539); nothing new landed and the todo queue is empty.
+I'll write the bulletin's Latest section based on the board transitions and dashboard state.
+
+[endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513)'s pubsub work just picked up a follow-on directive: a gardener claimed a job to rebase the PR onto the current `llm` branch (which now carries `@endo/cancel`) and refactor the pubsub implementation to use it. That's the only fresh board movement this tick; the rest of the queue is steady, with [#297](https://github.com/endojs/endo-but-for-bots/pull/297) and [#379](https://github.com/endojs/endo-but-for-bots/pull/379) still mid-rebase and two directives on [#539](https://github.com/endojs/endo-but-for-bots/pull/539) — an attention pass plus a redirect to drop sturdyref retention in favor of an on-demand enliven design. Worth a maintainer's eye: ten PRs remain parked for review, with [#440](https://github.com/endojs/endo-but-for-bots/pull/440) and [#513](https://github.com/endojs/endo-but-for-bots/pull/513) the most recent to land in the queue.
 
 ## Parked for maintainer feedback
 
@@ -34,9 +36,10 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - `endojs-endo-but-for-bots-pr297-rebase` — rebase directive on endojs/endo-but-for-bots PR #297
 - `endojs-endo-but-for-bots-pr379-rebase` — rebase directive on endojs/endo-but-for-bots PR #379
+- `endojs-endo-but-for-bots-pr513-rebase-refactor-cancel` — #513: rebase onto current llm (now has @endo/cancel) and refactor pubsub to u...
 - `endojs-endo-but-for-bots-pr539-6364bb7d` — attention directive on endojs/endo-but-for-bots PR #539
 - `redirect-pr539-sturdyref-enliven-on-demand` — Redirect #539: drop endor-syscall/FinReg sturdyref retention; design enliven-...
 
