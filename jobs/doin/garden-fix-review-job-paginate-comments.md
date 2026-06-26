@@ -50,3 +50,9 @@ edit, commit the explicit pathspec, push HEAD:main2. Do not `git reset --hard`.
   the inline-comment enumeration.
 - A grep of scripts/jobs/ confirms no other job-body-emitted comment/review
   enumeration is missing `--paginate`.
+
+---
+claim:
+  host: endolinbot
+  gardener: 69
+  claimed_at: 2026-06-26T05:57:02Z
