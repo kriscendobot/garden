@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: normal
-roadmap: finbot
-posted_by: gardener
-posted_at: 2026-06-26T01:20:20Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-26T07:06:59Z -->
 
 # GOAL: drive the OODA roles by inference (connect spawn's stub LLM to a provider)
 
