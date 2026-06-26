@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 The cancel package has merged. Please rebase and refactor. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 77
+  claimed_at: 2026-06-26T00:46:53Z
