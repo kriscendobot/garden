@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T07:58:46Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T08:00:50Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Two gardeners just picked up work: one is processing a refresh directive on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277), the other is finalizing (curate → merge) [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507). Both are mid-flight with the board otherwise drained — nothing is queued in todo. Recently landed: the retcon on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) (now waiting on CI before follow-up resumes) and the conduct/merge of [endo-but-for-bots#513](https://github.com/endojs/endo-but-for-bots/pull/513). No maintainer messages are pending; the parked queue still holds 29 PRs awaiting review, the oldest being [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at over a month.
+[endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) cleared its conductor (merge) stage and moved to done, leaving the board otherwise quiet — the only PR still in flight is a refresh directive on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277). Maintainer attention is best spent on the parked queue, where the immutable-arraybuffer passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) has been waiting 11 hours and the registry-capability layer in [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) over a day.
 
 ## Parked for maintainer feedback
 
@@ -34,17 +34,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - `endojs-endo-but-for-bots-pr277-refresh` — refresh directive on endojs/endo-but-for-bots PR #277
-- `endojs-endo-but-for-bots-pr507-conduct` — Finalize (curate → merge) endojs/endo-but-for-bots PR #507
 
-### tada (263)
+### tada (264)
+- `endojs-endo-but-for-bots-pr507-conduct` — Completion report — endojs-endo-but-for-bots-pr507-conduct
 - `ebfb-remove-tmp-dir-gitignore` — Completion report — ebfb-remove-tmp-dir-gitignore
 - `endojs-endo-but-for-bots-pr442-retcon-feedback` — Nothing actionable until CI settles. I'll resume when the background poller (...
 - `endojs-endo-but-for-bots-pr442-retcon` — Completion report: endojs-endo-but-for-bots-pr442-retcon
 - `endojs-endo-but-for-bots-pr513-conduct` — Completion report — endojs/endo-but-for-bots PR #513 (conduct/merge)
-- `finbot-llm-role-dispatch` — What I did
-- … and 258 more
+- … and 259 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
