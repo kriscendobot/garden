@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 [APPROVED] @0xpatrickbot weaver to squash, then conductor to merge. Edit: PR body should also match the repo template and not include journal entry references or garden-internal tasks names (R1) 
+
+---
+claim:
+  host: endolinbot
+  gardener: 55
+  claimed_at: 2026-06-26T01:09:41Z
