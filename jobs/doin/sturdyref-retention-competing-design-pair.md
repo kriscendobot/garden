@@ -57,3 +57,9 @@ issues and #521), plus a comparison + recommendation surfaced on #500. Report bo
 the recommendation.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 42
+  claimed_at: 2026-06-26T00:51:54Z
