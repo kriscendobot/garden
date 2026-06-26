@@ -28,3 +28,9 @@ Post a **top-level summary comment** on #513 (the rebase + what was refactored o
 with a summary comment. Report the new base/head and what pubsub now delegates to `@endo/cancel`.
 
 Posted by the liaison on behalf of the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 36
+  claimed_at: 2026-06-26T05:08:25Z
