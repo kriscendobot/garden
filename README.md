@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T00:34:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T00:35:36Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,17 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-I'll write the bulletin's "## Latest" narrative based on the dashboard and board state.
-
-Looking at the input: no file-level board transitions resolved since the last bulletin, but the `tada` completions and the parked PR set tell the recent story.
-
-A maintainer mention-watcher routing question landed on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525): kriscendobot acted on a PR authored by another bot (0xpatrickbot) because the mention-watcher gates on sender trust alone, not PR authorship — 0xpatrickdev welcomed the help but flagged that an authorship gate is expected. That's a scope/identity call now [waiting unread in the maintainer inbox](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md), and the only item needing a human decision.
-
-On the autonomous side, recent completions hardened the bulletin loop against single-tick crashes (`harden-bulletin-loop-crash-resilience`), added approval detection to the triager (`triager-detect-approvals`), advanced the cask library ingest into cycle 17 (`scholar-ingest-cask-15`, now `-16` in flight), reviewed [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532), and addressed erights #3312 review feedback on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474). The board is otherwise drained (0 todo, 1 doin) with 30 PRs parked for review — the freshest being [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#513](https://github.com/endojs/endo-but-for-bots/pull/513).
-
-Here is the "## Latest" body:
-
-A mention-routing edge case needs a maintainer decision: kriscendobot acted on [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — a PR authored by *0xpatrickbot*, not itself — because the mention-watcher gates on sender trust alone and not PR authorship. The committed work was welcomed, but 0xpatrickdev flagged the expectation that the bot only act on mentions tied to PRs it authored; the question of adding an authorship gate to `mention-watcher.sh` is [parked unread in the maintainer inbox](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260625T220640Z-aa7070.md). On the autonomous side, recent completions hardened the bulletin loop so one bad tick can't kill the service, taught the triager to detect approvals, reviewed [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532), and folded erights' #3312 review feedback into [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474); the scholar's cask ingest rolled into cycle 17. The board is drained to a single in-flight job, leaving 30 PRs parked for review — most recently [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [#513](https://github.com/endojs/endo-but-for-bots/pull/513).
+A gardener just claimed [`apply-self-healing-wrapper-to-all-services`](https://github.com/kriskowal/garden), rolling out the self-healing `claude -p` wrapper across every garden service as standard practice. That follows the completed `harden-bulletin-loop-crash-resilience` work, which armored the bulletin loop so a single bad tick can no longer take the service down — part of an ongoing push to make the autonomous fleet crash-resilient. On the PR side, reviews landed on [endo-but-for-bots#532](https://github.com/endojs/endo-but-for-bots/pull/532) and the erights #3312 feedback was addressed on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), while the triager gained the ability to detect maintainer approvals. The scholar's `kriskowal/cask` library ingest advanced into cycle 17. One item needs a human: a gardener is asking whether kriscendobot's mention triage should add an authorship gate (only act on PRs/issues it authored) after acting on 0xpatrickbot's [endo-but-for-bots#525](https://github.com/endojs/endo-but-for-bots/pull/525) — welcomed, but outside the expected scope.
 
 ## Parked for maintainer feedback
 
@@ -53,7 +43,8 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- `apply-self-healing-wrapper-to-all-services` — Apply the self-healing claude -p wrapper to ALL garden services (best practic...
 - `scholar-ingest-cask-16` — Scholar: continue the library ingest of kriskowal/cask (cycle 17) — comment-f...
 
 ### tada (187)
