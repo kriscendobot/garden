@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-26T08:28:10Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-26T08:29:49Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Two jobs cleared the board this cycle. [endo-but-for-bots#545](https://github.com/endojs/endo-but-for-bots/pull/545) finished its conduct stage (curate → merge), completing the shepherd → conduct chain for that PR. Separately, the notifier exo pub/sub migration tracking work item 507 reported its build and verification complete, with only the final end-to-end integration check outstanding. The board is otherwise drained (todo and doin both empty), and no maintainer messages are pending — the standing ask remains the 29 parked PRs awaiting kriskowal's review, led by the recently refreshed [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and the formula-inspector design [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440).
+A gardener has claimed the lone open work item — an attention directive on [endojs/endo-but-for-bots#516](https://github.com/endojs/endo-but-for-bots/pull/516) — leaving the todo queue empty. Recently landed on the completed board: [endo-but-for-bots#545](https://github.com/endojs/endo-but-for-bots/pull/545) and [endo-but-for-bots#547](https://github.com/endojs/endo-but-for-bots/pull/547) both reached merge via the conductor, [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) was refreshed, and the notifier exo pub/sub migration tracking [endo-but-for-bots#507](https://github.com/endojs/endo-but-for-bots/pull/507) finished its build and verification (only end-to-end integration remains). Otherwise the board is quiet, with the maintainer's attention best spent on the 29 parked PRs — oldest among the top ten being [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) at 36 days.
 
 ## Parked for maintainer feedback
 
@@ -34,8 +34,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- `endojs-endo-but-for-bots-pr516-659b0193` — attention directive on endojs/endo-but-for-bots PR #516
 
 ### tada (269)
 - `build-notifier-exo-pubsub-migration-per-507` — I've completed the build and verification work; only the final end-to-end int...
