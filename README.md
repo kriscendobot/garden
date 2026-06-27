@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T20:43:34Z_
+_As of 2026-06-27T20:52:40Z_
 
 ## Latest
 
-The board barely moved this cycle: the garden's own issue inbox cleared, with [kriskowal/garden#8](https://github.com/kriskowal/garden/issues/8) and its follow-up both completed (comment posted, inbox empty), leaving the todo board empty and only the deliberate-deploy infra job in flight. The substance is in the maintainer queue, where several items now wait on your decision. On [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405), a comment was misclassified as a "rebase" when it is actually a feature directive — reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and fully hide empty groups across space-chat, chat, cli, and daemon — which needs a liaison-driven builder/fixer dispatch rather than the autonomous path. The "harden exported literals" follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on two answers from you: narrow vs. repo-wide breadth, and `llm` vs. `master` base. The formula-inspector retention-paths table is blocked until [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) gets the rebase-and-gamut you already requested. Read-only work landed cleanly elsewhere: two scholar ingests (MetaMask ocap-kernel guide and six distributed-ocap concept sections) and a lint sweep finding endo master fully green (only 5 non-failing jsdoc warnings). The ymax0/XS repro investigation concluded it's an XS native-stack-depth property, not an Endo regression, with the v320 swing-store export and any contract-side fix sitting in off-limits agoric-sdk territory awaiting your direction.
+Deploy reliability is the active front: two follow-ups to the just-landed deliberate-deploy work were claimed into progress — [`improve-deploy-always-reconciles-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deploy-always-reconciles-units.md) (make `deploy-restart.sh` always reconcile units) and [`improve-self-reconciling-retired-unit-prune`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-self-reconciling-retired-unit-prune.md) (prune the retired `garden-deploy-sync.service` that crash-looped) — so the root-checkout-as-deployed-version model keeps tightening.
+
+Several gardener reports are now parked awaiting your call. Two need a scoping decision: the harden-exported-function-literals follow-up to the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs you to pick breadth (narrow two exports vs. repo-wide) and base branch (`llm` vs `master`) before any PR opens; and [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a real maintainer feature directive (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) that was misrouted as a "rebase" — it needs a liaison-driven builder/fixer dispatch, and the classifier bug that mislabeled it is being fixed separately. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since your "rebase and re-run the gamut" request and currently shows 4 failing checks. On the library side, scholars landed the sixth ocap-kernel ingest (MetaMask's 689-line kernel guide) plus a distributed-ocap concept cluster on journal2, and endo-but-for-bots master lint came back clean (only 5 non-blocking jsdoc warnings).
 
 ## Parked for maintainer feedback
 
@@ -178,8 +180,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
+- [`improve-deploy-always-reconciles-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deploy-always-reconciles-units.md) — restart_long_running_fleet in scripts/jobs/deploy-restart.sh (lines 68–74) on...
+- [`improve-self-reconciling-retired-unit-prune`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-self-reconciling-retired-unit-prune.md) — The retired garden-deploy-sync.service crash-looped (Failed with result 'exit...
 
 ### tada (407)
 - [`issue-kriskowal-garden-8-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-8-followup.md) — Comment posted. Job complete.
