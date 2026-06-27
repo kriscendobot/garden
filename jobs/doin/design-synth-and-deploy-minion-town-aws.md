@@ -26,3 +26,9 @@ Deliverable — a design doc that:
 
 Constraints: bot repo only; no secrets committed; this is design-only — do not
 attempt any AWS call or deploy.
+
+---
+claim:
+  host: endolinbot
+  gardener: 31
+  claimed_at: 2026-06-27T05:07:55Z
