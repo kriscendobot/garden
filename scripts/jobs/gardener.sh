@@ -36,7 +36,9 @@ CLONE="$GARDEN_GARDENER_CLONE"
 # Cleared at startup so a marker stranded by a hard crash (the gardener was killed
 # before it could clear it) can never permanently exempt this id from re-exec — a
 # fresh process is, by definition, not yet mid-job.
-BUSY_MARKER="$GARDEN_STATE/gardeners/$id/busy"
+# Path comes from the shared helper (common.sh) so the writer here and the readers
+# in deploy-sync.sh / install-units.sh scale agree on one definition of "mid-job".
+BUSY_MARKER="$(gardener_busy_marker "$id")"
 mkdir -p "$(dirname "$BUSY_MARKER")" 2>/dev/null || true
 rm -f "$BUSY_MARKER" 2>/dev/null || true
 

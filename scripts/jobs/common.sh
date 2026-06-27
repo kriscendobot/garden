@@ -113,6 +113,26 @@ fleet_draining() { [ -e "$GARDEN_DRAINING_MARKER" ] || [ -e "$GARDEN_KILLSWITCH"
 # Deprecated alias retained so any not-yet-updated caller keeps working.
 killswitch_engaged() { fleet_draining; }
 
+# --- gardener mid-job (busy) marker — the single definition of "do not disturb" -
+#
+# gardener.sh drops a local, lock-free marker file while a job handler runs and
+# clears it the moment the job ends (and at the top of each loop), so a gardener
+# instance is "busy" (mid-job) exactly while that marker exists. Both the deploy
+# reconciler (deploy-sync.sh, which re-execs workers onto landed code) and the
+# pool scaler (install-units.sh scale, which disables extras on a scale-down) gate
+# on it so a worker is restarted/disabled BETWEEN claims, never mid-`claude -p`:
+# a `disable --now`/`restart` of a mid-job gardener SIGTERMs the in-flight handler,
+# which then requeues and burns a full TTL cycle — the rc=143 transient-handler
+# outage this marker exists to prevent. Keeping the path and the predicate here,
+# in one place both callers source, means the deploy and scale paths can never
+# drift on what "mid-job" means or where the marker lives.
+gardener_busy_marker() {
+  printf '%s\n' "$GARDEN_STATE/gardeners/${1:?gardener_busy_marker: idx required}/busy"
+}
+gardener_busy() {
+  [ -e "$(gardener_busy_marker "${1:?gardener_busy: idx required}")" ]
+}
+
 # --- deterministic weekly token meter (the foreman back-off signal) -----------
 # Sourced AFTER log/GARDEN_STATE so its helpers (meter_record, meter_window_total,
 # meter_quota_status, meter_claude) can use them. See usage-meter.sh for the design

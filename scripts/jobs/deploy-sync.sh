@@ -164,7 +164,7 @@ while read -r unit; do
   [ -n "$unit" ] || continue
   case "$unit" in garden-gardener@*.service) ;; *) continue ;; esac
   idx="${unit#garden-gardener@}"; idx="${idx%.service}"
-  if [ -e "$GARDEN_STATE/gardeners/$idx/busy" ]; then
+  if gardener_busy "$idx"; then
     log "gardener $idx is mid-job; deferring its restart to a later tick"
     deferred=$((deferred+1))
     continue

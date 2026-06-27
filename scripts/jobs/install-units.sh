@@ -109,15 +109,31 @@ render() {
 scale() {
   local n="${1:?usage: install-units.sh scale <N>}"
   for i in $(seq 1 "$n"); do unit_ctl enable --now "garden-gardener@$i.service"; done
-  # disable any higher-numbered instances still running
+  # Disable any higher-numbered instances still running. A `disable --now` SIGTERMs
+  # the worker immediately — fine when it is idle, but a SIGTERM of a mid-job
+  # gardener kills its in-flight `claude -p` handler, which then requeues and burns
+  # a full TTL cycle (the observed rc=143 transient-handler outage). So gate on the
+  # SAME busy marker deploy-sync.sh gates its restart on (gardener_busy, common.sh):
+  # an extra that is mid-job is DEFERRED — left running for now and SKIPPED — and a
+  # later scaler tick (the 1-minute garden-gardener-scaler.timer) disables it once
+  # it has gone idle, so the worker stops between claims, never mid-call.
+  local deferred=0
   while read -r unit _; do
     case "$unit" in
       garden-gardener@*.service)
         idx="${unit#garden-gardener@}"; idx="${idx%.service}"
-        [[ "$idx" =~ ^[0-9]+$ ]] && [ "$idx" -gt "$n" ] && unit_ctl disable --now "$unit";;
+        [[ "$idx" =~ ^[0-9]+$ ]] || continue
+        [ "$idx" -gt "$n" ] || continue
+        if gardener_busy "$idx"; then
+          log "gardener $idx is mid-job; deferring its disable to a later scaler tick (stops between claims, not mid-job)"
+          deferred=$((deferred+1))
+        else
+          unit_ctl disable --now "$unit"
+        fi
+        ;;
     esac
   done < <(unit_ctl list-units --all 'garden-gardener@*.service' --no-legend 2>/dev/null || true)
-  log "scaled gardener pool to $n"
+  log "scaled gardener pool to $n (deferred $deferred mid-job extra(s) for a later tick)"
 }
 
 enable_services() {

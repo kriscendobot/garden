@@ -105,6 +105,34 @@ set -e
 { [ "$vrc2" -ne 0 ] && grep -q 'DRIFT: garden-foreman.timer' <<<"$vout"; } \
   && ok "verify flags a dropped unit and exits non-zero (drift visible)" || bad "verify missed the drift (rc=$vrc2)"
 
+# ============================================================================
+hr; echo "SCALE — a mid-job extra is deferred (not SIGTERM'd), an idle one disabled"; hr
+# Regression for the rc=143 transient-handler outage: scale-down used
+# `disable --now` on EVERY higher-numbered gardener, SIGTERMing an in-flight
+# `claude -p` mid-call. The fix gates the disable on the same busy marker
+# deploy-sync.sh gates its restart on (gardener_busy, common.sh): a mid-job extra
+# is left running and skipped, so a later 1-minute scaler tick disables it once
+# idle — it stops between claims, never mid-job.
+reset_mock
+SCALE_STATE="$TR/scale-state"; rm -rf "$SCALE_STATE"
+# Arm three gardeners; mark @3 mid-job (busy), leave @2 idle.
+printf '%s\n' garden-gardener@1.service garden-gardener@2.service garden-gardener@3.service > "$GARDEN_MOCK_STATE"
+mkdir -p "$SCALE_STATE/gardeners/3"; : > "$SCALE_STATE/gardeners/3/busy"
+sout="$(GARDEN_STATE="$SCALE_STATE" "$INSTALL" scale 1 2>&1)"
+# @2 is idle and an extra → disabled --now.
+grep -q 'disable --now garden-gardener@2.service' "$GARDEN_MOCK_LOG" \
+  && ok "idle extra gardener 2 disabled --now" || bad "idle extra gardener 2 NOT disabled"
+# @3 is mid-job → must NOT be disabled (no SIGTERM of an in-flight handler).
+grep -q 'disable --now garden-gardener@3.service' "$GARDEN_MOCK_LOG" \
+  && bad "busy gardener 3 was disabled --now (mid-job SIGTERM!)" || ok "busy gardener 3 deferred (not disabled)"
+grep -q 'is mid-job; deferring its disable' <<<"$sout" \
+  && ok "deferral logged for the busy extra" || bad "deferral not logged"
+# @1 stays in the kept set; @3 still armed because its disable was deferred.
+grep -qxF 'garden-gardener@1.service' "$GARDEN_MOCK_STATE" \
+  && ok "kept gardener 1 still enabled" || bad "gardener 1 not kept"
+grep -qxF 'garden-gardener@3.service' "$GARDEN_MOCK_STATE" \
+  && ok "busy gardener 3 still armed (disable deferred to a later tick)" || bad "busy gardener 3 was disarmed mid-job"
+
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"
 [ "$FAIL" -eq 0 ]
