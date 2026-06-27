@@ -112,7 +112,8 @@ equality across serialization.
 - [[pass-invariant-handle-equality]] — the identity-level instance of this concept: a connector guarantees that two `handleFor(X)` calls for the same backing identity return the same *formula identifier*. This page is the value-level, structural counterpart for ordinary Keys.
 - [[rank-order-preserving-encoding]] — the marshal-side coordinated encoder (`encodePassable`) and comparator (`rankOrder.js`). Equal keys encode to identical order-preserving bytes; key order refines rank order. The total-order completion of the partial order this page covers.
 - [[smallcaps-encoding]] — the JSON-shape wire encoder (`encodeToSmallcaps`). Its canonical encoding (sorted record keys, escaped-string Hilbert hotel) is what makes `keyEQ`-equal keys serialize identically and round-trip back equal.
-- [[grant-matcher-puzzle]] — the motivating puzzle (not yet ingested): a holder must recognize when the *same* key arrives from two mutually distrusting sources. Pass-invariant passable equality is the mechanism that makes that recognition trustworthy without trusting either sender.
+- [[object-sameness]] — Mark Miller's E-language *identity* taxonomy (Selfish creation-identity versus Selfless value-identity; the synchronous `==` designational-equivalence predicate; the asynchronous `join`). `keyEQ`'s structural equality of Selfless-style values plus identity-only comparison of remotables is the Endo realization of that taxonomy at the Passable layer.
+- [[grant-matcher-puzzle]] — the motivating puzzle: a holder must recognize when the *same* capability arrives from two mutually distrusting sources. Pass-invariant passable equality is the mechanism that makes that recognition trustworthy without trusting either sender.
 - [[shape-not-content]] — equality is defined on the structural *shape* of a Passable, not on incidental JavaScript identity; non-Key shapes (errors, promises) have no equality at all.
 
 ## Common confusions
