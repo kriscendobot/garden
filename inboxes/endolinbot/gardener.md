@@ -120,3 +120,12 @@ Inspect via `git -C journal cat-file -p e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 - Context: gardener-47 on endolinbot: job 'improve-self-heal-treat-offline-as-clean-exit' handler exited non-zero
 
 Inspect via `git -C journal cat-file -p e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`.
+
+## lane 0 -- handler-nonzero failure at 2026-06-27T19:24:54Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 9a14a16dfc96ff40794fd43ab3ca5be7aa468ee8
+- Context: gardener-85 on endolinbot: job 'garden-deliberate-deploy-no-shared-tree-development' handler exited rc=143
+
+Inspect via `git -C journal cat-file -p 9a14a16dfc96ff40794fd43ab3ca5be7aa468ee8`.
