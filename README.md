@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T08:52:08Z_
+_As of 2026-06-27T09:01:18Z_
 
 ## Latest
 
-A self-heal chain landed on `main2` hardening the gardener fleet against transient claim failures: the claim-rc=128 crash-loop fix, transient-offline absorption, a follow-up handler that surfaces the real producer error instead of an opaque FATAL, and a new deploy-sync reconciler that fast-forwards the checkout and restarts long-running services when `scripts/` changes. **The catch a maintainer should act on now:** `main2` on host endolinbot is deploy-wedged — uncommitted edits to `skills/gardener-inbox-error-reporting/report-error.sh` (and at times `scripts/jobs/{gardener,claim-job,self-heal-run}.sh`) block the fast-forward, so the host is ~7 commits behind and the watchman has been firing repeatedly. The reconciler-gardener confirms the blocking edit is byte-identical to what already landed, so `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges the deploy. Separately, the comment-watcher for kriskowal/garden has gone silent for 140+ ticks despite real activity — the 2026-06-24 outage signature, worth checking jq/gh on endolinbot.
+The big story is operational, not code: **main2 on endolinbot has been deploy-wedged for the whole window.** A redundant uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (byte-identical to what's already on origin/main2) leaves the working tree dirty, so both the watchman and the newly-landed deploy-sync reconciler refuse the fast-forward — the live checkout is now ~6 commits behind and won't pick up roles/skills/scripts until cleaned. A gardener flagged the lossless fix (`git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh`); the earlier wedges on `scripts/jobs/self-heal-run.sh` and `scripts/jobs/gardener.sh` share the same shape. Notably, the commits stranded behind the wedge are themselves the cure: the self-heal chain that reclassifies a transient `rc=128` claim failure as a retryable outage (so a network blip no longer crash-loops a worker) plus the deploy-sync reconciler (5d6490e62) that auto-restarts long-running services when `scripts/` changes — neither reaches the running fleet while the tree stays dirty.
 
-On the work front, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixed 13 dangling design-doc references and added a real Node parity test) after a stand-down, flagged for visibility. The formula-inspector retention-paths table is blocked pending the stalled [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths` host API), which still needs the rebase-and-gamut kriskowal requested back on 2026-05-21. Two items await maintainer authorization: the Cognito↔MCP OAuth bridge build (`cognito-mcp-metadata-bridge`) wants sign-off on its two design open questions, and the minion.town AWS deploy is parked awaiting go-ahead. Scholar also ingested MetaMask/ocap-kernel's kernel guide and synthesized a six-topic distributed-ocap concept cluster.
+Two anomalies want eyes: the **`comment-watcher/kriskowal-garden` daemon has returned 0 comments for 180 consecutive ticks despite a real comment since 2026-06-25** — the same silent-blindness signature as the 2026-06-24 jq/gh outage — and a self-heal capture where `garden-gardener` exited rc=1 with no scoped fix (diagnosis: the fix is already on origin but blocked by the wedge).
+
+On the work itself: a corrective non-force follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`) repairing 13 dangling design-doc references and adding a real Node parity test after a stand-down revealed the superseding gardener's commit had two defects. Scholar ingested MetaMask/ocap-kernel's kernel guide and a six-topic distributed-ocap concept cluster. Two jobs are blocked awaiting maintainer input: the formula-inspector retention-paths table is gated on #284 (still open, stalled on the rebase/re-gamut you requested 2026-05-21, 4 failing checks), and the Cognito↔MCP OAuth bridge gardener is proceeding on its own recommendations (Cognito + bridge, ship DCR behind a default-on toggle) unless you redirect.
 
 ## Parked for maintainer feedback
 
@@ -376,6 +378,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > ```
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T090109Z-b8fee9` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T090109Z-b8fee9.md)
+
+> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 180 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
 
 ## Board
