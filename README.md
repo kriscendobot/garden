@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:12:15Z_
+_As of 2026-06-27T07:23:35Z_
 
 ## Latest
 
-The headline is operational, not feature work: the watchman has fired repeatedly through the morning that **main2 on endolinbot is wedged** — `origin/main2` has advanced through roughly a dozen commits while the live tree stays pinned, blocked by tracked edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`. This matters because the fix it's starving is already landed: the self-heal diagnosis confirms the `garden-gardener` claim crash-loop (transient git rc=128 treated as fatal) was resolved on `origin/main2` — completed jobs `improve-gardener-honor-offline-rc-on-claim`, `improve-broaden-offline-fetch-signatures`, and `self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal` — but the wedged tree means the running unit can't pick it up. The one in-flight job, [`improve-deploy-sync-fleet-onto-landed-fixes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deploy-sync-fleet-onto-landed-fixes.md), targets exactly this gap (a deterministic reconciler so landed script fixes actually reach the fleet). Separately, the comment-watcher on kriskowal/garden has logged 0 comments for 60-then-100 ticks despite a real comment since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking. Two gardener notes await the maintainer: a corrective non-force follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (dangling design-doc references plus a real Node parity test, pushed after a stand-down on duplicate work), and two design open questions on the Cognito↔MCP OAuth bridge before that build proceeds.
+The deploy-sync reconciler landed on main2 (`5d6490e62`): it now fast-forwards each host's checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart. A companion self-heal fix also landed, reclassifying transient git-128 claim failures as recoverable rather than fatal (no more crash-loops on a network blip). The catch a maintainer should notice: the endolinbot live tree is **dirty-wedged** and has been for the whole window — the watchman fired ~10 times reporting main2 frozen, now 6+ commits behind, because uncommitted working-tree edits block the fast-forward. The current blocker is `skills/gardener-inbox-error-reporting/report-error.sh`, which is byte-identical to the already-landed committed version; `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges both the watchman and the new deploy-sync advance. Separately, the comment-watcher for kriskowal/garden tripped the **2026-06-24 outage signature** again (0 comments over 100 ticks while the repo is active) — worth checking jq/gh on endolinbot. On the PR side, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node.js parity test after a stand-down revealed the superseding gardener's landed work had two gaps.
 
 ## Parked for maintainer feedback
 
@@ -222,21 +222,43 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
+- `20260627T072213Z-857dde` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T072213Z-857dde.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 5d6490e62a7ff78f28c3d6253e823636f4bcf46a but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M skills/gardener-inbox-error-reporting/report-error.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T072235Z-b12c9f` — from gardener:improve-deploy-sync-fleet-onto-landed-fixes, reply_to `improve-deploy-sync-fleet-onto-landed-fixes` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T072235Z-b12c9f.md)
+
+> deploy-sync reconciler landed on main2 (5d6490e62): advances the checkout by a strict clean fast-forward and restarts the long-running services (gardeners between-claims via a busy marker, plus bulletin/driver/watcher) when scripts/ changes, so landed fixes reach running workers without a manual restart.
+>
+> Two bringup notes:
+> 1. It is INERT until armed. garden-deploy-sync.timer auto-enables on the next 'install-units.sh install && enable-services' (it is in the derived enable-set), so a routine units refresh arms it; no special step.
+> 2. The live /home/kris tree is currently dirty-wedged: 'skills/gardener-inbox-error-reporting/report-error.sh' is modified in the working copy, and its content is BYTE-IDENTICAL to origin/main2's committed version (a redundant uncommitted edit duplicating an already-landed fix). git refuses the fast-forward while it is dirty, so BOTH the watchman and deploy-sync skip the advance (the checkout is now 6 behind). 'git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh' is lossless (content already on origin) and unwedges the deploy. I did not touch the shared live tree from a gardener job.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-deploy-sync-fleet-onto-landed-fixes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deploy-sync-fleet-onto-landed-fixes.md) — Add a deterministic deploy reconciler so landed script fixes actually reach t...
+### doin (0)
+(none)
 
-### tada (316)
+### tada (317)
+- [`improve-deploy-sync-fleet-onto-landed-fixes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-sync-fleet-onto-landed-fixes.md) — Completion report: improve-deploy-sync-fleet-onto-landed-fixes
 - [`improve-broaden-offline-fetch-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-broaden-offline-fetch-signatures.md) — Completion report
 - [`scholar-sections-readme-reindex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-sections-readme-reindex.md) — Completion report — scholar-sections-readme-reindex
 - [`scholar-library-cycle-20260627-065049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-065049.md) — Completion report — scholar-library-cycle-20260627-065049
 - [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Inbox empty, worktree cleaned up, change pushed. Job complete.
-- [`improve-gardener-honor-offline-rc-on-claim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-honor-offline-rc-on-claim.md) — Completion report — improve-gardener-honor-offline-rc-on-claim
-- … and 311 more
+- … and 312 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
