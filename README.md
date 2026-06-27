@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T18:09:48Z_
+_As of 2026-06-27T18:11:37Z_
 
 ## Latest
 
-The comment-classifier bug that misrouted a maintainer feature directive as a "rebase" is [fixed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-comment-classifier-misroutes-directive-to-rebase.md), and the directive it mangled now has a real home: kriskowal's comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) asks for a reshaped inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) plus full empty-group hiding across space-chat, chat, cli, and daemon — a cross-package feature change that needs a liaison-driven builder/fixer dispatch, since the v2 fleet has no autonomous path for implementing maintainer feature asks. Two scope decisions are waiting on the maintainer: the breadth and base branch for the "harden exported function literals" follow-up to the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), and the branch-naming for the deliberate no-shared-tree deploy model. Scholar work landed an ocap-kernel guide ingest and a distributed-ocap concept cluster; a revisit of [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442)'s reusable-test-powers plan concluded no change (the only API match would invert the extraction), and endo master lint came back clean apart from five non-blocking jsdoc warnings now parked as a low-priority plan.
+The [library-link-check stale-worktree guard](https://github.com/endojs/endo-but-for-bots/pull/442) improvement landed (the only board completion this cycle), and a garden-infra fix corrected the comment-classifier bug that had misrouted a maintainer feature directive into a no-op "rebase" job on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405).
+
+Several maintainer decisions are now queued in the inbox and worth attention. [#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a real feature directive from kriskowal — reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and fully hide empty groups, a cross-package change needing a liaison-driven builder/fixer dispatch since the autonomous fleet has no "implement a feature directive" path. The harden-exported-function-literals follow-up to the now-merged [#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you scoping two axes (narrow two-export vs. repo-wide; base `llm` vs. `master`). Two scholar ingests landed on journal2 (MetaMask ocap-kernel guide + a distributed-ocap concept cluster), and a lint sweep found endo master CLEAN apart from five non-failing jsdoc warnings. Finally, the ymax0/XS beta3 investigation concluded the vat-abort is an XS native-stack-depth property, not an Endo regression — both follow-ups (sourcing a v320 swing-store export, contract-side depth-bounding) land in off-limits agoric-sdk territory and are yours to direct.
 
 ## Parked for maintainer feedback
 
@@ -188,19 +190,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
-- [`improve-library-link-check-stale-worktree-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-library-link-check-stale-worktree-guard.md) — Harden /home/kris/scripts/jobs/library-link-check.sh so it cannot emit a phan...
 - [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
 - [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-mirror.md) — Re-ingest erights.org E-language page from the now-reachable GitHub Pages mirror
 
-### tada (382)
+### tada (383)
+- [`improve-library-link-check-stale-worktree-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-library-link-check-stale-worktree-guard.md) — No inbox messages. Work is complete and pushed.
 - [`scholar-library-cycle-20260627-175523`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-175523.md) — Job completed and confirmed on tip (jobs/tada/, gone from doin/).
 - [`garden-fix-comment-classifier-misroutes-directive-to-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-comment-classifier-misroutes-directive-to-rebase.md) — Completion report: garden-fix-comment-classifier-misroutes-directive-to-rebase
 - [`endojs-endo-but-for-bots-pr405-de3edd06`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-de3edd06.md) — Completion report — endojs-endo-but-for-bots-pr405-de3edd06
 - [`endojs-endo-but-for-bots-pr405-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-rebase.md) — Both routes are in place. The misclassified "rebase" job has nothing real to ...
-- [`improve-gardener-transient-line-carries-reap-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-transient-line-carries-reap-count.md) — Completion report: improve-gardener-transient-line-carries-reap-count
-- … and 377 more
+- … and 378 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
