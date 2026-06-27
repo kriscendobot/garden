@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T11:08:04Z_
+_As of 2026-06-27T11:11:40Z_
 
 ## Latest
 
-Endolinbot's deploy is **wedged and frozen**: the watchman fired roughly a dozen alerts through the morning because the live `/home/kris` tree has uncommitted edits to `scripts/jobs/{self-heal-run,gardener,claim-job}.sh` and `skills/gardener-inbox-error-reporting/report-error.sh` that block the fast-forward, so the host has stopped picking up new commits and now trails `origin/main2` by several. The gardener that landed the new deploy-sync reconciler (`5d6490e62`) diagnosed the root cause: the blocking `report-error.sh` edit is byte-for-byte identical to what's already committed, so `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges the host. This same staleness is keeping a *fixed* gardener crash-loop (the `claim failed rc=128` self-heal report) un-deployed — the fix is on `origin/main2`, the running unit just can't reach it.
+This host's deploy is the headline: `main2` on endolinbot has been **dirty-wedged for the entire window**, with the watchman firing roughly hourly because origin advanced ~10 commits while the live tree stayed pinned — first on uncommitted edits to `scripts/jobs/gardener.sh`/`self-heal-run.sh`/`claim-job.sh`, then on a redundant working-copy edit to `skills/gardener-inbox-error-reporting/report-error.sh` whose content is byte-identical to what already landed; a lossless `git checkout --` on that path unwedges it. The new deploy-sync reconciler landed on main2 (`5d6490e62`) to fast-forward the checkout and restart long-running services on `scripts/` changes, but it's inert until a units refresh arms its timer — and it too is blocked by the same dirty tree. Relatedly, self-heal diagnosed the `garden-gardener` rc=1 crash-loop as already-fixed on origin (the host is simply behind), and the comment-watcher for kriskowal/garden has now reported **zero comments for 260 consecutive ticks despite real activity** — the 2026-06-24 jq/gh blindness signature recurring.
 
-Two recurring signals worth a look: the `comment-watcher/kriskowal-garden` watcher has now reported **0 comments for 260 consecutive ticks** while the repo is demonstrably active — the same silent-blindness signature as the 2026-06-24 jq/gh outage — and the producer-side wedge is independent of it. On the code side, a gardener pushed a conflict-safe follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) after a stand-down, fixing 13 dangling design-doc references and adding a real Node parity test the earlier landing only asserted in prose; full suite green. Two jobs are parked on your input: the Cognito↔MCP OAuth bridge gardener is proceeding on its two recommendations (Cognito+bridge, ship DCR behind a default-on toggle) unless redirected, and the formula-inspector retention-paths table is blocked on an unlanded, CI-failing host API that's been stalled since May awaiting the rebase you requested. Scholar work continued steadily — a sixth ocap-kernel ingest plus a distributed-ocap concept cluster, with the grant-matcher-puzzle source deferred (erights.org unreachable).
+On the PR side, a corrective non-force follow-up (`3aa37bbd`) landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) after a stand-down — fixing 13 dangling design-doc references and adding a real Node parity test that the earlier "parity confirmed in prose only" commit had missed. The `formula-inspector-retention-paths-table` build is **blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)** (the `listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently shows 4 failing checks. Scholar work continued steadily — ingesting MetaMask/ocap-kernel's kernel guide and a six-topic distributed-ocap concept cluster — and the `cognito-mcp-metadata-bridge` builder is proceeding on its two design Open Questions (Cognito+bridge over an MCP-native IdP, and RFC 7591 DCR shipped behind a default-on toggle) unless you redirect.
 
 ## Parked for maintainer feedback
 
@@ -403,23 +403,29 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 260 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
+- `20260627T111122Z-225c6a` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T111122Z-225c6a.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 7899b55e7f3429bfd333fdaa1292cae268430585 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: fast-forward refused (an untracked file collides with an incoming tracked path).
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-journal-entry-help-and-flaglike-kind-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-entry-help-and-flaglike-kind-guard.md) — scripts/jobs/journal-entry.sh mints a malformed journal entry when invoked wi...
+### doin (2)
 - [`scholar-author-concept-endoclaw`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-author-concept-endoclaw.md) — scholar-author-concept-endoclaw
 - [`scholar-ingest-e-equality-taxonomy-adjacent`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-e-equality-taxonomy-adjacent.md) — scholar-ingest-e-equality-taxonomy-adjacent
 
-### tada (339)
+### tada (340)
+- [`improve-journal-entry-help-and-flaglike-kind-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-entry-help-and-flaglike-kind-guard.md) — Completion report: improve-journal-entry-help-and-flaglike-kind-guard
 - [`scholar-ingest-grant-matcher-puzzle`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-grant-matcher-puzzle.md) — Completion report — scholar-ingest-grant-matcher-puzzle
 - [`scholar-library-cycle-20260627-105244`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-105244.md) — Completion report — scholar-library-cycle-20260627-105244
 - [`scholar-ingest-ocap-kernel-usage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-usage.md) — Completion report: scholar-ingest-ocap-kernel-usage
 - [`investigate-systemd-run-vs-gardener-loops`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-systemd-run-vs-gardener-loops.md) — Completion report: investigate-systemd-run-vs-gardener-loops
-- [`improve-scripted-journal2-content-edit-landing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scripted-journal2-content-edit-landing.md) — Completion report: improve-scripted-journal2-content-edit-landing
-- … and 334 more
+- … and 335 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
