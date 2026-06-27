@@ -13334,3 +13334,14 @@ sameValueZero composes up to structural key equality | passable-equality
 distributed equality semantics | passable-equality
 passable equality preserved across serialize unserialize | passable-equality
 kindOf level equivalence operation | passable-equality
+
+# E language tutorial (2026-06-27 erights.org mirror re-ingest)
+
+E language tutorial | (see section: erights--elang-intro--tutorial-overview)
+patterns of cooperation without vulnerability | (see section: erights--elang-intro--tutorial-overview)
+cooperation without vulnerability | (see section: erights--elang-intro--tutorial-overview)
+Elmer (E interpreter) | (see section: erights--elang-intro--tutorial-overview)
+Secureit-Echat | (see section: erights--elang-intro--tutorial-overview)
+lambda-based objects | (see section: erights--elang-intro--tutorial-overview)
+Pluribus protocol | (see section: erights--elang-intro--tutorial-overview)
+E in a Walnut | (see section: erights--elang-index--overview)
