@@ -2,11 +2,20 @@
 Description=Garden library-source-drift-scan timer
 
 [Timer]
-# Offset past clone-keeper's first run (OnActiveSec=10m) so the bare clones are
-# already fast-forward-fresh before we audit against them. Freshness is not
-# urgent, so an hourly cadence is ample.
-OnActiveSec=20m
-OnUnitActiveSec=1h
+# Absolute wall-clock schedule (minute :07 every hour), NOT a relative
+# OnActiveSec/OnUnitActiveSec pair. A relative first-elapse window larger than the
+# fleet's ~1-minute daemon-reload cadence (repo-watcher reloads every tick, plus
+# deploy-sync / install-units) is re-armed before it can elapse, so the first run
+# is deferred indefinitely and the service never fires (observed: active-waiting
+# for 4h44m with LastTrigger empty). A realtime OnCalendar anchor is immune to
+# daemon-reload churn, and Persistent=true catches up a run missed across downtime.
+# The :07 minute keeps the original "offset past clone-keeper" intent: clone-keeper
+# now runs at :00/:30, so the bare clones are fast-forward-fresh before we audit
+# them. Freshness is not urgent, so the hourly cadence is ample. (`*:07`, not
+# `*:07/60`: a step of 60 on the 0-59 minute field is rejected by systemd; bare
+# `*:07` is the valid spelling of "minute 7 of every hour".)
+OnCalendar=*:07
+Persistent=true
 
 [Install]
 WantedBy=timers.target

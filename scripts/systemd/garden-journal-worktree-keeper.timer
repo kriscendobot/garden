@@ -2,8 +2,14 @@
 Description=Garden journal-worktree-keeper timer
 
 [Timer]
-OnActiveSec=10m
-OnUnitActiveSec=30m
+# Absolute wall-clock schedule (every 30 minutes at :15 / :45), NOT a relative
+# OnActiveSec/OnUnitActiveSec pair: a relative first-elapse window larger than the
+# fleet's ~1-minute daemon-reload cadence is re-armed before it elapses and can be
+# deferred indefinitely — this timer was observed never-fired (LastTrigger empty).
+# See garden-library-source-drift-scan.timer for the full rationale. Offset to
+# :15/:45 so it runs after clone-keeper (:00/:30). Persistent=true catches up.
+OnCalendar=*:15/30
+Persistent=true
 
 [Install]
 WantedBy=timers.target

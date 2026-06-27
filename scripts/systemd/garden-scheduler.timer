@@ -2,8 +2,14 @@
 Description=Garden scheduler timer
 
 [Timer]
-OnActiveSec=15m
-OnUnitActiveSec=15m
+# Absolute wall-clock schedule (every 15 minutes at :05 / :20 / :35 / :50), NOT a
+# relative OnActiveSec/OnUnitActiveSec pair: a relative first-elapse window larger
+# than the fleet's ~1-minute daemon-reload cadence is re-armed before it elapses and
+# can be deferred indefinitely (see garden-library-source-drift-scan.timer).
+# Persistent=true is especially apt here: it catches up a scheduled-job dispatch
+# missed across downtime instead of silently skipping the cadence.
+OnCalendar=*:05/15
+Persistent=true
 
 [Install]
 WantedBy=timers.target
