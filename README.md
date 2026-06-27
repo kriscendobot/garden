@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T06:47:13Z_
+_As of 2026-06-27T06:49:22Z_
 
 ## Latest
 
-A run of connectivity-resilience hardening landed on main2: self-heal now treats an offline state as a clean exit, connectivity-outage signatures were unified, and the error reporter now rejects empty transcripts (`58283556a`). Two follow-ons are still in flight in `doin` — making the gardener claim loop absorb transient git-128 outages and honor the offline release-candidate on claim. The [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) review directive also completed.
+The headline for the maintainer is operational, not PR work: the **watchman is reporting `main2` on host `endolinbot` WEDGED** across the whole window — tracked working-tree edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and now `skills/gardener-inbox-error-reporting/report-error.sh` are blocking the fast-forward, so this host has stopped picking up new roles/skills/scripts even as `origin/main2` advanced through eight commits. The tree needs to be cleaned (checkout/stash after confirming none of it is unsaved work) before the deploy unfreezes. A second outage signal landed alongside it: the comment-watcher for `kriskowal/garden` saw 0 comments for 60 straight ticks despite a live comment since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking on `endolinbot`.
 
-Two operational alarms need a human eye. First, the watchman has fired repeatedly that **main2 on endolinbot is WEDGED** — uncommitted tracked edits (to `scripts/jobs/gardener.sh`, `self-heal-run.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`) are blocking the fast-forward, so this host has not picked up new roles/skills/scripts across at least a dozen advancing commits; someone should confirm those edits aren't unsaved work and clean the tree. Second, a watchdog reports `comment-watcher/kriskowal-garden` returned zero comments for 60 straight ticks despite a real comment existing since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage.
-
-For maintainer judgment: a gardener proceeded past a stand-down on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), pushing a conflict-safe follow-up (`3aa37bbd`) that fixed 13 dangling design-doc references and added a real Node parity test, and flagged it as corrective rather than duplicate work. The `cognito-mcp-metadata-bridge` builder is also awaiting answers on two OAuth-design open questions (Cognito-plus-bridge vs. an MCP-native IdP, and whether to ship RFC 7591 dynamic client registration) before it builds.
+On the board, the connectivity-resilience push largely landed: `improve-gardener-honor-offline-rc-on-claim` completed, joining a cluster of self-heal fixes (`improve-self-heal-treat-offline-as-clean-exit`, `improve-unify-connectivity-outage-signatures`, `improve-report-error-reject-empty-transcript` as `58283556a`) that teach the gardener/self-heal loop to treat transient outages as clean exits; one follow-on (`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`) is still in progress. Note a judgment call to review: a gardener pushed a corrective non-force follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down, after finding 13 dangling design-doc references and a missing Node parity test in the superseding commit. Finally, the `cognito-mcp-metadata-bridge` gardener is awaiting confirmation on two design open questions (Cognito-vs-native IdP and whether to ship RFC 7591 dynamic client registration) before building, and `synth-and-deploy-minion-town-aws` remains parked on maintainer authorization.
 
 ## Parked for maintainer feedback
 
@@ -174,17 +172,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-gardener-honor-offline-rc-on-claim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-honor-offline-rc-on-claim.md) — In scripts/jobs/gardener.sh, the claim loop treats every non-zero, non-3 retu...
+### doin (1)
 - [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Make the long-running gardener claim loop absorb transient connectivity outag...
 
-### tada (311)
+### tada (312)
+- [`improve-gardener-honor-offline-rc-on-claim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-honor-offline-rc-on-claim.md) — Completion report — improve-gardener-honor-offline-rc-on-claim
 - [`endojs-endo-but-for-bots-pr440-review-a9ecd20f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr440-review-a9ecd20f.md) — Completion report — PR #440 review directive (endojs/endo-but-for-bots)
 - [`improve-self-heal-treat-offline-as-clean-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-self-heal-treat-offline-as-clean-exit.md) — Completion report
 - [`improve-unify-connectivity-outage-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-unify-connectivity-outage-signatures.md) — Pushed and cleaned up. Completion report:
 - [`improve-report-error-reject-empty-transcript`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-report-error-reject-empty-transcript.md) — Landed on origin/main2 as 58283556a. Worktree cleaned up.
-- [`endojs-endo-but-for-bots-pr405-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-refresh.md) — Completion report: endojs-endo-but-for-bots-pr405-refresh
-- … and 306 more
+- … and 307 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
