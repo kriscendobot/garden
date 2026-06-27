@@ -1,10 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-27T21:06:37Z_
+_As of 2026-06-27T21:22:42Z_
 
 ## Latest
 
-The deliberate-deploy overhaul landed: the root checkout is now advanced only by a drained `deploy-garden.sh` rather than continuous fast-forward, with development moved to per-subagent worktrees off `origin/main2` (jobs `garden-enforce-per-subagent-worktree`, `improve-deploy-always-reconciles-units`, and `improve-self-reconciling-retired-unit-prune` all completed). Several gardener reports now need maintainer decisions: a real feature directive from kriskowal on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a rebase and needs a liaison-driven fixer/builder dispatch; the harden-exported-function-literals follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on a breadth-and-base-branch scope call; and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), whose requested rebase-and-gamut never happened and which still has 4 failing CI checks. On the quieter side, endo master lint came back clean (only 5 non-failing jsdoc warnings, plan parked), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the duplication is intrinsic), and the scholar fleet ingested MetaMask/ocap-kernel's kernel guide plus a six-section distributed-ocap concept cluster. Two ymax0/agoric-sdk decisions (sourcing a v320 swing-store export, and whether to file an upstream-Endo note for the XS stack-depth repro) remain parked as out-of-bounds for autonomous action.
+I'll write the bulletin's "## Latest" section based on the board transitions and recent work.
+
+Since the last bulletin, a scholar library cycle completed and a new scholar ingest of [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) E-language primaries from the erights.org mirror is in progress — both deep-corpus work with no maintainer action owed. The substance is in the maintainer inbox: several gardener reports surfaced decisions that are yours.
+
+Two need an explicit call before any cross-repo PR opens. The "harden exported function literals" follow-up from erights's review of the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you scoping **breadth** (narrow: just `evadeCensorSync`/`evadeCensor`; or repo-wide via the `@endo/harden-exports` rule) and **base branch** (`llm` vs `master` — the literal form differs between them). And the maintainer directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy to Directories/Agents/Personas/Values/Capabilities + full empty-group hiding) was misclassified as a "rebase"; it's a cross-package feature directive needing a liaison-driven builder/fixer dispatch, and a classifier-bug fix has been posted separately.
+
+Two more are blocked on artifacts outside garden scope: the formula-inspector retention-paths table can't be built until [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API) gets its requested rebase-and-gamut and lands, and the beta3/ymax0 XS investigation concluded the overflow is an XS native-stack-depth property (not an Endo regression), so the real fix is contract-side in agoric-sdk territory and needs a v320 swing-store export only you can source. Separately, lint on endo-but-for-bots master is clean (only 5 non-failing jsdoc warnings, plan parked), and the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit confirmed the duplication is intrinsic — no change.
 
 ## Parked for maintainer feedback
 
@@ -180,15 +186,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (2)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
-- [`scholar-library-cycle-20260627-210543`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-210543.md) — Hourly scholar library cycle
+- [`scholar-ingest-source-erights-elang-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-primaries.md) — scholar-ingest-source: deeper erights.org E-language primaries via the mirror
 
-### tada (409)
+### tada (410)
+- [`scholar-library-cycle-20260627-210543`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-210543.md) — Completion report
 - [`improve-deploy-always-reconciles-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-always-reconciles-units.md) — Completion report — improve-deploy-always-reconciles-units
 - [`improve-self-reconciling-retired-unit-prune`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-self-reconciling-retired-unit-prune.md) — Completion report — improve-self-reconciling-retired-unit-prune
 - [`issue-kriskowal-garden-8-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-8-followup.md) — Comment posted. Job complete.
 - [`issue-kriskowal-garden-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-8.md) — Done. Inbox is empty.
-- [`garden-enforce-per-subagent-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-enforce-per-subagent-worktree.md) — Completion report: garden-enforce-per-subagent-worktree
-- … and 404 more
+- … and 405 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
