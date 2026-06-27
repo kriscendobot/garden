@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T20:31:35Z_
+_As of 2026-06-27T20:33:38Z_
 
 ## Latest
 
-The garden's deploy posture flip landed: the [self-heal job](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-deploy-sync-deploy-reconcile-retired-units.md) reconciled the now-retired `garden-deploy-sync` units, so the root checkout no longer fast-forwards continuously — it advances only via the deliberate drained deploy. Two follow-on jobs are in flight to finish the shift to per-subagent worktrees (`garden-deliberate-deploy-no-shared-tree-development`, `garden-enforce-per-subagent-worktree`). One scholar refresh of SES `error-console.js` also completed.
+The garden completed [`garden-enforce-per-subagent-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-enforce-per-subagent-worktree.md), landing the per-subagent-worktree enforcement; its sibling, the deliberate drained-deploy rework that dispenses with the shared live tree, is the one job still in flight.
 
-Several maintainer decisions are stacking up and need a human. A real feature directive from kriskowal on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" by the comment-watcher; the PR is already mergeable, so it needs a liaison-driven builder/fixer dispatch, not a no-op rebase. The harden-exported-function-literals follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on a breadth (narrow two exports vs. repo-wide) and base-branch (`llm` vs. `master`) decision. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)'s requested rebase-and-gamut, which has stalled since May with failing CI. The PR #442 reusable-test-powers revisit concluded "no change" (reuse would invert the extraction and create a workspace cycle).
-
-On the knowledge side, scholars ingested MetaMask/ocap-kernel's 689-line kernel guide and synthesized a six-topic distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual send, grant-matcher puzzle). Endo-but-for-bots master lint is confirmed clean (only five non-blocking jsdoc warnings). Two ymax0/agoric-sdk decisions from the XS-overflow investigation are parked as out-of-bounds for autonomous action and await maintainer direction.
+Most of the substance this cycle is decisions owed to the maintainer. A misclassified comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) turns out to be a real feature directive (re-bucket the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) that needs a liaison-driven builder/fixer dispatch — the autonomous fleet has no path for it. The "harden exported function literals" follow-up from erights on the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two answers from you: narrow (two evasive-transform exports) vs. repo-wide, and base `llm` vs. `master` (the literal form differs between them). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and currently has 4 failing checks. The PR #442 reusable-test-powers revisit concluded no change (reuse would invert the extraction and create a workspace cycle). On the library side, scholars ingested MetaMask/ocap-kernel's kernel guide and synthesized a distributed-ocap concept cluster. The beta3/ymax0 XS investigation also surfaced two agoric-sdk-territory calls (sourcing a v320 swing-store export; whether to file an upstream-Endo note) that are out of bounds for autonomous action and await your direction.
 
 ## Parked for maintainer feedback
 
@@ -182,17 +180,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
-- [`garden-enforce-per-subagent-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-enforce-per-subagent-worktree.md) — Mechanically enforce per-subagent worktrees in the gardener launch path
 
-### tada (404)
+### tada (405)
+- [`garden-enforce-per-subagent-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-enforce-per-subagent-worktree.md) — Completion report: garden-enforce-per-subagent-worktree
 - [`self-heal-fix-garden-deploy-sync-deploy-reconcile-retired-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-deploy-sync-deploy-reconcile-retired-units.md) — Completion report: self-heal-fix-garden-deploy-sync-deploy-reconcile-retired-...
 - [`scholar-refresh-endo--packages-ses-src-error-console-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-ses-src-error-console-js.md) — Completion report
 - [`scholar-refresh-endo--packages-ses-src-error-assert-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-ses-src-error-assert-js.md) — What changed upstream
 - [`scholar-refresh-endo--packages-captp-src-finalize-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-captp-src-finalize-js.md) — Completion report
-- [`scholar-refresh-endo--packages-netstring-reader-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-netstring-reader-js.md) — Inbox empty, anchor verified on origin/journal2. Work is complete. Final report:
-- … and 399 more
+- … and 400 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
