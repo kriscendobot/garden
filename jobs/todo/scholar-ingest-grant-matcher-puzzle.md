@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: scholar
-posted_at: 2026-06-27T08:21:23Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-27T10:52:44Z -->
 
 # scholar-ingest-grant-matcher-puzzle
 
