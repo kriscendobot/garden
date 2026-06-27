@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T16:48:37Z_
+_As of 2026-06-27T16:50:15Z_
 
 ## Latest
 
-Landed on `main2`: the foreman now meters weekly token spend from Claude Code session logs (Max x20) rather than the API, and a deploy-sync reconciler that fast-forwards the checkout and restarts long-running services when `scripts/` changes — though it's inert until a routine `install-units.sh` refresh arms its timer, and the live `/home/kris` tree is currently dirty-wedged on a redundant byte-identical edit to `report-error.sh`, blocking both deploy-sync and the watchman from advancing (lossless `git checkout --` unwedges it). The comment-watcher dropped its false "inactivity = blind" alert in favor of a positive self-test, and the fleet killswitch was renamed to a plain draining marker.
+Two infrastructure fixes landed on main2: the foreman now meters weekly token spend from Claude Code session logs rather than the API ([d52bb1ce2]), and a deploy-sync reconciler (5d6490e62) fast-forwards the live checkout and restarts long-running services when `scripts/` changes — but it stays inert until the next units refresh arms its timer, and the live `/home/kris` tree is currently dirty-wedged on a redundant byte-identical edit to `report-error.sh`, leaving both the watchman and deploy-sync 6 commits behind until a lossless `git checkout --` clears it. Also completed this cycle: the comment-watcher dropped its false-positive inactivity alarm, the fleet killswitch was renamed to a self-describing draining marker, and the beta3/ymax0 XS investigation closed by attributing the vat-abort overflow to XS native stack depth (a contract-side depth-bounding fix, not an Endo regression).
 
-Three decisions are now parked for you. The harden-exported-function-literals follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (merged) needs you to set breadth (narrow two exports vs. repo-wide via the `@endo/harden-exports` rule) and base branch before any PR opens. The formula-inspector retention-paths table is blocked on a stalled, CI-red host-API PR (#284) that's been awaiting your requested rebase-and-gamut since 2026-05-21. And the beta3/ymax0 XS investigation concluded the nested-record overflow is an XS native-stack-depth property, not an Endo regression — the real fix is contract-side depth-bounding and needs a v320 swing-store export, both in off-limits agoric-sdk territory. On the library side, the scholar ingested MetaMask/ocap-kernel's kernel guide and landed a distributed-ocap concept cluster (three-party-handoff, sturdyref, distributed-confinement, eventual-send), and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the daemon-cas extraction).
+A cluster of decisions is parked for you: the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up needs only breadth (narrow vs repo-wide) and base-branch (`llm` vs `master`) before a builder runs; the formula-inspector retention-paths table is blocked until the stalled `listRetentionPaths` host PR gets the rebase-and-gamut you already requested; and the ymax0 trace needs a v320 swing-store export the garden can't obtain autonomously. The board is otherwise quiet — two jobs in flight (the Endo/Pi harness-absorb design and a proxy watchdog-message auto-clear) and an empty todo queue. Scholars also ingested the MetaMask ocap-kernel guide and a distributed-ocap concept cluster into the library.
 
 ## Parked for maintainer feedback
 
@@ -165,8 +165,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`design-endo-absorb-pi-harness-layers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-absorb-pi-harness-layers.md) — Design: should Endo's agent harness absorb layers of the Pi agent harness? (c...
+- [`proxy-auto-clear-watchdog-messages`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proxy-auto-clear-watchdog-messages.md) — Proxy: auto-clear watchdog-class messages from the maintainer inbox (determin...
 
 ### tada (371)
 - [`foreman-meter-from-claude-code-session-logs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-meter-from-claude-code-session-logs.md) — Completion report: foreman-meter-from-claude-code-session-logs
