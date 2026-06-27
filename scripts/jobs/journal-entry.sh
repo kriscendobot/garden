@@ -15,31 +15,38 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="entry"
 
-usage() {
-  cat <<'EOF'
-journal-entry.sh — post a progress/communication entry to the journal.
+# Print the leading comment block as usage (mirrors land-journal-edit.sh).
+usage() { awk 'NR>1 && /^#/{sub(/^# ?/,"");print;next} NR>1{exit}' "$0"; }
 
-Usage: journal-entry.sh <kind> [<body-file>]
-  <kind>  e.g. progress, claim, result, message (lowercase letters and hyphens only)
-  body    from <body-file>, else stdin, else a placeholder.
-EOF
-}
-
-# Intercept help BEFORE consuming the positional: -h/--help look like flags, and
-# without this the first positional ('--help') would be minted verbatim as a real
-# <kind> and committed to the add-only journal (the observed --help-as-entry bug).
-case "${1:-}" in -h|--help) usage; exit 0;; esac
+# -h/--help is a query, not an entry: print usage and exit without writing or
+# pushing. Before this guard, `journal-entry.sh --help` wrote a permanent
+# append-only entry with `kind: --help` (the stray 115515Z---help-* entry).
+case "${1:-}" in -h|--help) usage; exit 0 ;; esac
 
 kind="${1:?usage: journal-entry.sh <kind> [body-file]}"
-body_src="${2:-}"
-# A flag-shaped or oddly-charactered <kind> can never become a committed entry:
-# reject a leading '-' (a flag typo) and constrain to lowercase letters/hyphens so
-# the entry filename and frontmatter stay well-formed.
+# Reject a malformed kind before the clone/push loop so a typo or stray flag
+# fails fast instead of polluting the append-only journal. A real kind is a
+# letter-led token (progress, claim, result, message, dispatch, error, tick,
+# worktree, …); anything dash-led or otherwise shaped is a mistake.
 case "$kind" in
-  -*)            die "illegal kind: '$kind' (must not start with '-'; run --help for usage)";;
-  *[!a-z-]*|'')  die "illegal kind: '$kind' (lowercase letters and hyphens only; e.g. progress, result)";;
+  [A-Za-z]*) : ;;
+  *) die "unknown kind: '$kind' (a kind is a letter-led token like progress, result, message; try --help)" ;;
 esac
+case "$kind" in
+  *[!A-Za-z0-9_-]*) die "unknown kind: '$kind' (a kind may contain only letters, digits, '_' and '-')" ;;
+esac
+
+body_src="${2:-}"
 role="${GARDEN_ROLE:-gardener}"
+
+# Body source guard: a non-empty $2 that is not a readable file is almost always
+# a mistake (an inline body string passed where a body-FILE path is expected).
+# Without this, the script silently falls through to reading stdin — and with a
+# non-tty stdin it blocks on `cat` forever (the inline-body stdin hang, the same
+# unguarded-argv class as garden-harden-producer-body-read-hang). Fail fast.
+if [ -n "$body_src" ] && [ ! -f "$body_src" ]; then
+  die "body source '$body_src' is not a readable file (pass a body FILE path, or feed the body on stdin / leave \$2 empty for a placeholder)"
+fi
 
 if   [ -n "$body_src" ] && [ -f "$body_src" ]; then BODY="$(cat "$body_src")"
 elif [ ! -t 0 ];                                then BODY="$(cat)"
