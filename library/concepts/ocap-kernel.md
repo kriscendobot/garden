@@ -32,6 +32,12 @@ The single most distinctive divergence from Endo is the **four-scope reference n
 | [docs-glossary-md--...](../sources/metamask-ocap-kernel--docs-glossary-md.md) | The canonical vocabulary surface (cycle 163): kref/vref/rref/eref scopes, crank, decider, liveslots, bringOutYourDead, three independent GC domains. |
 | [docs-ken-protocol-assessment-md--...](../sources/metamask-ocap-kernel--docs-ken-protocol-assessment-md.md) | Self-assessment against Ken's seven properties (cycle 162): crank-buffering, SQLite savepoints, run-queue-as-commit-fence. |
 
+| [docs-usage-md (index)](../sections/metamask-ocap-kernel--docs-usage-md.md) | The operational usage guide (seventh ingest): setup, vat bundling, cluster config, kernel API, dev tools, e2e testing — the operator companion to the kernel guide. |
+| [docs-usage-md--setting-up-the-kernel](../sections/metamask-ocap-kernel--docs-usage-md--setting-up-the-kernel.md) | Browser/Node.js kernel instantiation via injected `platformServices` + `kernelDatabase`; `Kernel.make` / `makeKernel`; worker remote-comms config. |
+| [docs-usage-md--cluster-configuration](../sections/metamask-ocap-kernel--docs-usage-md--cluster-configuration.md) | The `ClusterConfig` JSON: `bundleSpec` forms, the `globals` endowment array, and the fail-closed `network.allowedHosts` allowlist (distributed confinement in config). |
+| [docs-usage-md--kernel-api](../sections/metamask-ocap-kernel--docs-usage-md--kernel-api.md) | Operator call surface: subcluster lifecycle, `queueMessage` + `kunser`, `initRemoteComms` over libp2p, status, and a fenced testing/debugging-only group. |
+| [docs-usage-md--development-tools](../sections/metamask-ocap-kernel--docs-usage-md--development-tools.md) | TypeDoc `build:docs`, the `ocap bundle`/`serve` CLI, Vitest, and SQLite `kv`-table debugging. |
+
 ## See also
 
 - [[vat-and-compartment]] — the shared SwingSet/E-language root: ocap-kernel keeps the "vat" name; Endo speaks of bundles + compartments. The two denote the same primitive at different layers.
