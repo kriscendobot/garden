@@ -28,3 +28,4 @@ The garden's `CLAUDE.md` § Conventions states that the garden does not generall
 | Design | Status | Summary |
 | --- | --- | --- |
 | [driver.md](driver.md) | Proposed | Pivot the PR-creation flow from claude-on-top orchestration to claude-under-script worker pool with role-specific job boards. |
+| [resumable-gardeners.md](resumable-gardeners.md) | Proposed | Weigh making gardeners resumable (session resume, checkpointing, idempotent jobs) after the 2026-06-25 stall; recommends idempotency over a checkpoint subsystem. |
