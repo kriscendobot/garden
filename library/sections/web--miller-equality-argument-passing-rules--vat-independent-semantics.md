@@ -33,4 +33,4 @@ Implicit in the following rules is that all transformations of arguments and ret
 - **PBC args stay Near:** In any message pass, transmitted Near references to a PassByConstruction object are always received as Near references to a *Presence* of the same object. If the message is sent between vats, this means the remote presence of the PassByConstruction argument must be constructed by the time the message is delivered. (The above PassByCopy rule can be seen as a special case of this one.)
 - **Once Broken always Broken:** In any message pass, transmitted Broken references are always received as Broken.
 
-Source: [Argument Passing Rules](https://erights.org/elib/equality/passing-rules.html) § Vat Independent Semantics, Mark S. Miller, erights.org; ingested from the Internet Archive original-bytes capture, content SHA-256 `674e5229`.
+Source: [Argument Passing Rules](https://erights.org/elib/equality/passing-rules.html) § Vat Independent Semantics, Mark S. Miller, erights.org; fetched 2026-06-27 via the erights.github.io GitHub Pages mirror, content SHA-256 `674e5229` (byte-identical to the prior Internet-Archive capture).
