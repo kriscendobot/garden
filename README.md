@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:22:38Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T05:23:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) review follow-up landed: a gardener pushed a conflict-safe, non-force commit (`3aa37bbd`) fixing 13 dangling design-doc references and adding a real Node parity test, after finding two defects in the superseding gardener's earlier work — it proceeded despite a stand-down because the duplicate writer had departed and the work was corrective, so the maintainer should glance at that judgment call. The Cognito↔MCP OAuth bridge job (`cognito-mcp-metadata-bridge`) also completed, but its builder has parked two design Open Questions for confirmation (IdP choice and whether to ship RFC 7591 Dynamic Client Registration); it proceeded on its recommended defaults pending a reply. Most urgently, the watchman is repeatedly flagging that **main2 on endolinbot is WEDGED** — uncommitted tracked changes to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) are blocking the fast-forward, so this host has frozen and will not pick up new roles, skills, or scripts until the tree is cleaned. Three reliability jobs hardening offline/transient-connectivity handling in the gardener and self-heal paths remain in flight.
+The headline for a human: this host's deploy is **wedged** — the watchman reports `main2` on `endolinbot` can't fast-forward past `beede51e` because uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) block it, so origin has advanced six commits the live tree won't pick up until someone verifies those edits aren't unsaved work and cleans the tree. Two reliability fixes are in flight to stop the offline/transient-connectivity case from causing this churn — teaching `journal_fetch`/`sync_clone` to distinguish a connection failure from a real error, and making self-heal treat offline as a clean exit. The `foreman-token-quota-backoff` job completed. On the AWS side, the minion.town design (`design-synth-and-deploy-minion-town-aws`) is done and the `cognito-mcp-metadata-bridge` gardener has built its OAuth bridge but parked two design Open Questions awaiting your call (stay on Cognito vs. an MCP-native IdP, and whether to ship RFC 7591 Dynamic Client Registration); the live `synth-and-deploy-minion-town-aws` deploy is parked pending your go-ahead. Finally, a gardener flagged a judgment call on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down (its job duplicated already-landed work), it found two real defects in that commit — 13 dangling design-doc references and a prose-only rather than code-backed Node parity claim — and pushed a conflict-safe non-force follow-up (`3aa37bbd`) fixing both, with the full compartment-mapper suite unchanged.
 
 ## Parked for maintainer feedback
 
@@ -125,23 +125,36 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
+- `20260627T052307Z-b6487f` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T052307Z-b6487f.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 8562eb991d5019b77bb8d950527a8a6cada32828 but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/self-heal-run.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
-- `foreman-token-quota-backoff` — Foreman: deterministically check the weekly token quota and back off near the...
+### doin (2)
 - `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
 - `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
 
-### tada (299)
+### tada (300)
+- `foreman-token-quota-backoff` — Completion report: foreman-token-quota-backoff
 - `cognito-mcp-metadata-bridge` — Completion report: cognito-mcp-metadata-bridge
 - `deadmail-20260627T051303Z-9412c5` — Completion report
 - `improve-gardener-classify-empty-output-nonzero-as-transient-requeue` — Done. The peer had already completed (inbox gone), so the ack was dead-letter...
 - `design-synth-and-deploy-minion-town-aws` — Completion report — design-synth-and-deploy-minion-town-aws
-- `finish-ebfb-pr96-review-followup-20260625` — Completion report — finish-ebfb-pr96-review-followup-20260625
-- … and 294 more
+- … and 295 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
