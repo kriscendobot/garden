@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T15:53:39Z_
+_As of 2026-06-27T15:55:26Z_
 
 ## Latest
 
-The day's headline is infrastructure self-healing landing against a deploy that was wedged all day: endolinbot's `main2` checkout repeatedly refused to fast-forward (uncommitted tracked edits to `gardener.sh`, `claim-job.sh`, the library-link scripts, then untracked-file collisions), freezing role/skill/script pickup while `origin/main2` advanced dozens of commits. Two fixes for exactly this class landed — the `watchman-resolve-wedge-autonomously` job (autonomous lossless unwedging instead of paging the maintainer) and the deploy-sync reconciler (`5d6490e2`, inert until the next units refresh arms its timer) that fast-forwards and restarts long-running services when `scripts/` changes. A gardener noted the live wedge is lossless to clear: `skills/gardener-inbox-error-reporting/report-error.sh` is byte-identical to origin, so a plain checkout unsticks it. Relatedly, a self-heal capture confirmed a `garden-gardener` crash-loop whose claim-failure fix is already on `main2` — the running unit was just behind.
+The garden spent most of the day fighting a deploy wedge on **endolinbot**: `origin/main2` advanced through dozens of commits while the live `/home/kris` tree stayed stuck, with repeated watchman pages tracing the block to redundant uncommitted edits (`report-error.sh`, `gardener.sh`, the `library-link-*` scripts, `journal-entry.sh`) that are byte-identical to what already landed on `origin/main2` — a `git checkout --` away from lossless. A new deploy-sync reconciler landed on main2 (`5d6490e62`) to fast-forward the checkout and restart long-running services automatically when `scripts/` changes, alongside the completed `watchman-resolve-wedge-autonomously` work — but it stays inert until the next `install-units.sh` refresh arms its timer, and the tree must be cleaned before either it or the watchman can advance.
 
-Two scope decisions are owed to the maintainer. The "harden exported function literals" follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) needs breadth (narrow two exports vs repo-wide) plus base-branch (`llm` vs `master`) before a DRAFT PR opens. And the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which is stalled with failing CI awaiting the rebase-and-gamut you already requested. Lower-stakes: a lint classification found endo master clean (only 5 jsdoc warnings, plan parked), and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change. Scholar landed the sixth ocap-kernel ingest plus a six-section distributed-ocap concept cluster. A new investigation into a beta3 ymax0 portfolio-upgrade stack overflow is in flight.
+The comment-watcher kept firing its "silently blind" anomaly (0 comments for 420+ ticks while kriskowal/garden shows activity since 2026-06-25); the `comment-watcher-no-inactivity-anomaly` fix that replaces inactivity-reporting with a positive self-test is now in `doin`. On the library side, scholars ingested MetaMask/ocap-kernel's kernel guide (sixth ocap-kernel ingest) and synthesized a six-topic distributed-ocap concept cluster. Lint on endo-but-for-bots master is clean — only five non-blocking jsdoc warnings, parked as a low-priority plan.
 
-One note: the comment-watcher kept firing "0 comments for N ticks" anomaly alerts against kriskowal/garden through the day — the exact false-positive the standing directive says to remove (people sleep); the `comment-watcher-no-inactivity-anomaly` fix is in progress.
+Two items await your call. The harden-exported-function-literals follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) needs a breadth-and-base decision before a cross-repo DRAFT opens. And the formula-inspector retention-paths table is blocked on #284 (`listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently shows four failing CI checks; the gardener offered to take that rebase as a separate job on your word.
 
 ## Parked for maintainer feedback
 
@@ -559,11 +559,12 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-inactivity-anomaly.md) — Comment-watcher: stop reporting human inactivity as an anomaly; make blindnes...
 - [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — Investigation: beta3 portfolio-contract (ymax0) upgrade crashes with "stack o...
 - [`land-journal-entry-hardening`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/land-journal-entry-hardening.md) — Land the journal-entry.sh hardening (preserve a gardener's stashed WIP)
 - [`rename-killswitch-to-draining-marker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/rename-killswitch-to-draining-marker.md) — Rename the killswitch to a mundane "draining" marker (existence-meaningful + ...
+- [`scholar-library-cycle-20260627-155443`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-155443.md) — Hourly scholar library cycle
 
 ### tada (364)
 - [`watchman-resolve-wedge-autonomously`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/watchman-resolve-wedge-autonomously.md) — Completion report — watchman-resolve-wedge-autonomously
