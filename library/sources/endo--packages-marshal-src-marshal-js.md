@@ -3,7 +3,7 @@ source_kind: comment-fragment
 source_repo: endojs/endo
 source_path: packages/marshal/src/marshal.js
 source_line_range: "47-409"
-source_commit: da16a78e177904e08bd4603527fef98d68af2bbd
+source_commit: c423ed37b4c574aaccd778fc72acb2ff8910d586
 comment_subject: "makeMarshal constructor rationale clusters: error-diagnostic-priority (rather-send-it-anyway + no-stack + errorId-correlation + late-addition-tolerance), slot-typing-security-hazard (the under-typed remotable-vs-promise wire encoding and the implementation restriction that mitigates it per agoric-sdk#4334), and dual-format-body-discriminator (the `#` JSON-illegal sentinel + 'ontogeny recapitulates phylogeny' default-to-capdata backward-compat)"
 source_authors: [Mark S. Miller, Turadg Aleahmad, Kris Kowal, Richard Gibson, Mathieu Hofman, Michael FIG]
 ingested: 2026-05-29
@@ -32,7 +32,19 @@ notes: |
   over-density lesson applied): each section pulls together
   multiple discrete comment blocks that together form one
   cohesive argument cluster.
----
+
+  Anchor refreshed 2026-06-27 (library-cycle): the file-specific
+  commit advanced `da16a78e` to `c423ed37`
+  ("chore(eslint-plugin): require underscore-delimited groups in
+  numeric literals"), a cosmetic single-line change of the
+  `errorIdNum` default from `10000` to `10_000` on a code line
+  inside the range. None of the three distilled rationale clusters
+  reference that default, the comments are unchanged in shape, and
+  the 421-line file did not shift, so the source_commit anchor and
+  the footer SHA were refreshed in place with no section rewrite
+  (the non-substantive-change branch of `conventions.md` §
+  comment-fragment idempotency anchor). The idempotency check is
+  now current as of `c423ed37`.
 
 ## Abstract
 
@@ -94,7 +106,7 @@ rollout proceed peer-by-peer rather than fleet-wide.
 ## Provenance
 
 - File last modified 2026-04-06 by Turadg Aleahmad (`refactor(types): resolve exactOptionalPropertyTypes errors`).
-- File-specific commit `da16a78e` (captured 2026-05-29).
+- File-specific commit `c423ed37` (anchor refreshed 2026-06-27; originally captured at `da16a78e` 2026-05-29, advanced by a cosmetic `10000` to `10_000` numeric-literal grouping that left the rationale comments unchanged).
 - Comments authored across the file's history by Mark S. Miller (15 commits), Turadg Aleahmad (14), Kris Kowal (3), Richard Gibson (2), Mathieu Hofman (2), and Michael FIG (1). The `errorIdNum` "Temporary hack" TODO cites agoric-sdk#2780; the `decodeErrorCommon` capData-string-transform comment cites endojs/endo#2052; the `decodeRemotableOrPromiseFromCapData` implementation restriction cites agoric-sdk#4334; the post-`assertPassable` comment in `fromCapData` cites agoric-sdk#4337 ("which should be considered fixed once we've completed the switch to smallcaps").
 
 ## See also
@@ -103,4 +115,4 @@ rollout proceed peer-by-peer rather than fleet-wide.
 - [`endo--pkg-marshal-readme`](endo--pkg-marshal-readme.md) — the marshal README's user-facing framing; this source is the rationale layer below it.
 - [`endo--pkg-marshal-docs-smallcaps-cheatsheet`](endo--pkg-marshal-docs-smallcaps-cheatsheet.md) — quick reference for the wire format.
 
-Source: [packages/marshal/src/marshal.js](https://github.com/endojs/endo/blob/da16a78e177904e08bd4603527fef98d68af2bbd/packages/marshal/src/marshal.js) at commit `da16a78e`.
+Source: [packages/marshal/src/marshal.js](https://github.com/endojs/endo/blob/c423ed37b4c574aaccd778fc72acb2ff8910d586/packages/marshal/src/marshal.js) at commit `c423ed37`.
