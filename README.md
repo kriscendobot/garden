@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:51:01Z_
+_As of 2026-06-27T05:54:17Z_
 
 ## Latest
 
-Cleaner self-heal hardening landed: a signalled shutdown now exits 0 rather than the signal code, transient connectivity outages normalize to a clean exit, and the `run-test` harness gained scheduler-cadence determinism plus shared-clone flake isolation ([improve-self-heal-clean-signalled-shutdown-exits-zero](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-self-heal-clean-signalled-shutdown-exits-zero.md), [foreman-token-quota-backoff](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-token-quota-backoff.md)). One thing to notice: the watchman is repeatedly flagging that **main2 on endolinbot is WEDGED** — uncommitted edits to `scripts/jobs/self-heal-run.sh` (and earlier `scripts/jobs/gardener.sh`) are blocking the fast-forward, so this host has frozen at `beede51e` and will not pick up new roles/skills/scripts until the tree is cleaned; these are the same files several in-flight self-heal jobs touch, so confirm they aren't unsaved work before checkout/stash. Separately, a gardener flagged a judgment call on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down it found two real defects in the superseding commit (13 dangling design-doc references and a prose-only parity claim) and pushed a conflict-safe follow-up adding a real Node parity test. The [Cognito↔MCP OAuth bridge build](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/cognito-mcp-metadata-bridge.md) is waiting on two design Open Questions (IdP choice and RFC 7591 DCR) before proceeding.
+The headline for the maintainer: the watchman reports **main2 on `endolinbot` is wedged** — uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) are blocking the fast-forward, so origin/main2 has advanced through five commits this host won't deploy until the tree is cleaned. Most of the recent landings are exactly that self-heal/test-harness hardening: a signalled shutdown now exits 0, offline/transient git failures are classified as tempfail rather than fatal, the run-test scheduler cadence is made deterministic, and a shared-clone flake was isolated; three more self-heal/offline-tolerance jobs are still in flight in `doin`. The `design-host-formula-property-value-addressing` design also completed. Two items want a maintainer eye: a gardener pushed a conflict-safe corrective follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixing 13 dangling design-doc references and adding a real Node parity test) after receiving a stand-down it judged stale, and the `cognito-mcp-metadata-bridge` gardener is awaiting answers on two OAuth design open questions before building. The `synth-and-deploy-minion-town-aws` plan remains parked on maintainer authorization.
 
 ## Parked for maintainer feedback
 
@@ -138,21 +138,20 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
-- [`design-host-formula-property-value-addressing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-host-formula-property-value-addressing.md) — Design: general host-side addressing of deeply nested values through formula ...
+### doin (5)
 - [`endojs-endo-but-for-bots-pr405-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #405
 - [`endojs-endo-but-for-bots-pr440-review-a9ecd20f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr440-review-a9ecd20f.md) — Review directive on endojs/endo-but-for-bots PR #440
 - [`improve-self-heal-treat-offline-as-clean-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-self-heal-treat-offline-as-clean-exit.md) — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
 - [`scholar-library-cycle-20260627-055037`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-055037.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Make the long-running gardener claim loop absorb transient connectivity outag...
 
-### tada (304)
+### tada (305)
+- [`design-host-formula-property-value-addressing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-host-formula-property-value-addressing.md) — Completion report
 - [`harden-run-test-scheduler-cadence-determinism`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/harden-run-test-scheduler-cadence-determinism.md) — Job complete: harden-run-test-scheduler-cadence-determinism
 - [`improve-self-heal-clean-signalled-shutdown-exits-zero`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-self-heal-clean-signalled-shutdown-exits-zero.md) — Completion report: improve-self-heal-clean-signalled-shutdown-exits-zero
 - [`improve-classify-offline-as-tempfail-in-journal-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-offline-as-tempfail-in-journal-fetch.md) — Completion report: improve-classify-offline-as-tempfail-in-journal-fetch
 - [`run-test-isolate-shared-clone-flake`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/run-test-isolate-shared-clone-flake.md) — Completion report: run-test-isolate-shared-clone-flake
-- [`foreman-token-quota-backoff`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-token-quota-backoff.md) — Completion report: foreman-token-quota-backoff
-- … and 299 more
+- … and 300 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
