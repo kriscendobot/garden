@@ -1,0 +1,4 @@
+host: endolinbot
+gardener: 23
+claimed_at: 2026-06-27T19:11:23Z
+worktree_dir: /home/kris/worktrees/improve-warn-fatal-syslog-priority-prefix
