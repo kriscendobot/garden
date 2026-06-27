@@ -1,28 +1,39 @@
-Root-cause writeup delivered to the maintainer (`inbox/maintainer 20260627T160307Z-0bd3f9`).
+Investigation complete to the limit of the provided artifacts and this host's capabilities. Final report follows.
 
 ---
 
-## Completion report
+## Completion report — `investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`
 
-**Job:** `investigate-beta3-ymax0-portfolio-upgrade-stack-overflow` (resumed after reaper requeue). The spec was re-scoped by the liaison to authorized **fork** work on `kriscendobot/agoric-sdk` with bundles supplied via gist — resolving my prior session's scope decline. I continued and completed an evidence-backed investigation.
+**Role:** gardener (endolinbot), fork-scope authorization (2026-06-27). **Method:** primary-source diff of the two contract bundles + `jq` analysis of the slog + GitHub-API regression-window confirmation. Deliverable is an evidence-backed **root-cause narrowing + decisive experiment plan**, not a verified fix (see boundary).
 
-**What I did**
-- Pulled both contract bundles from the gist; verified byte-exact to spec (beta2 1,129,924 B/35,131 ln; beta3 1,139,323 B/35,447 ln).
-- Ran the string-literal diff (rename-normalized) and walked every recursive path on the `startVat` durable-exo rehydration route in both bundles.
-- Confirmed the regression window via GitHub API (no clone): `3952deecd4` is a true ancestor of beta3 `9d518832d4` (`ahead_by:142, behind_by:0, merge_base=3952deecd4`).
-- Wrote a full root-cause analysis (`ROOT-CAUSE.md`) and delivered it to the maintainer.
+### What I did
+- Pulled `beta2.js`/`beta3.js` from the gist (byte-exact to spec) and ran the string-literal diff (rename-normalized): 414 added / 395 removed literals, ~99% pure minifier churn.
+- Walked **every recursive path** on the `startVat` rehydration route and compared SES-1.14 (beta2) vs SES-2.x (beta3).
+- Parsed the 152-entry slog (`gistfile1.txt`) to fix the exact crash boundary.
+- Confirmed the regression window via the GitHub API (no clone).
+- Pulled the SES 2.0.0 changelog to check for a documented depth regression.
 
-**Findings (primary-source, from the bundles)**
-- **harden — RULED OUT** (brief candidate #2): iterative work-list in *both* bundles; SES 2.x only adds the `@harden` symbol wrapper. Cannot overflow by recursion.
-- **True new cycle — RULED OUT** (brief candidate #3) for pass-by-copy data: `passStyleOf` has explicit cycle detection (throws `Pass-by-copy data cannot be cyclic`) + persistent memo — a cycle errors, it doesn't overflow. So the overflow is **depth-driven**.
-- **passStyleOf / patterns** (brief candidate #1): correct *locus*, but the Endo bump did **not** deepen it — the dispatcher, memo, cycle guard, copyRecord/byteArray helpers and the entire matcher-combinator registry are structurally identical 1.14→2.x. The only patterns addition is the **leaf** `match:promise` (no sub-pattern recursion).
-- **Premise correction (most actionable):** beta3 is **not** a pure Endo-bump over beta2 — it also carries the `OpenPortfolioWithAutoFeatures` contract change (#12761; Auto-Features 21→26, OpenPortfolio 18→21). So "the Endo bump is the only runtime change" is false for this pair, and a pin-Endo-back bisection alone cannot attribute the regression.
-- Likely mechanism: native-stack exhaustion in passStyleOf/`checkMatches`/marshal-unserialize over the contract's interface guards/durable data at `startVat`, depth already near XS's shallow-stack margin and pushed over by the Auto-Features guard/data depth and/or a sub-minification per-level frame change — overflowing XS but not V8.
+### Findings (root cause)
+1. **Regression window CONFIRMED.** `compare/3952deecd4...9d518832d4` → `status: ahead, ahead_by:142, merge_base = 3952deecd4`. So `3952deecd4` ("sync Endo to latest including ses 2.x") is a true ancestor of beta3 and present on the fork. ✓
+2. **It is a *metered* stack overflow, not a native segfault.** Slog: `startVat → error "Stack meter exceeded"` (the fixed `xs-meter-36` xsnap stack budget), surfaced as `exited: stack overflow`.
+3. **Exact crash locus.** One `upgrade-vat` crank: `bringOutYourDead` ok (reports **76 durable kinds**), then `startVat` rehydrates durable kinds **10→17 linearly and cleanly**, and overflows specifically while rehydrating **dkind 17 `"offer handler taker"`’s singleton `o+d17/1`, immediately after `invoke kd513 getBundle`**. Kinds 10–16 rehydrated fine → per-kind `harden`/`passStyleOf` over guards is healthy.
+4. **Two of the brief's three candidates RULED OUT by direct evidence:**
+   - **#2 harden:** classic **iterative work-list** in *both* bundles (`a()` enqueues into set `n`; `d()=Z0(n,c)` drains BFS). Cannot overflow by recursion.
+   - **#3 a new cycle:** `passStyleOf` has an explicit cycle guard (`Pass-by-copy data cannot be cyclic`) + persistent memo — a real cycle *throws a clear error*, it does not silently recurse to overflow. The overflow is **depth-driven**.
+   - **#1 passStyleOf/patterns over guards:** right locus *family*, but the bump did **not** deepen it — the matcher registry is identical except the new **leaf** `match:promise` (no new combinators); the `passStyleOf` core, `copyRecord`/`byteArray` helpers, and async-flow membrane markers are all structurally preserved 1.14→2.x. SES 2.0.0's documented majors (NaN side-channel plug; `overrideTaming`) add no recursion depth.
+5. **The proximate regressing recursion is NOT in the provided bundles.** beta2/beta3 are the *contract* vat bundle (contract + zoe/zcf + `@endo/{marshal,pass-style,patterns,exo,harden}`); they contain **zero** `Compartment`/module-linker/`import-bundle` code. The `"offer handler taker"` + `getBundle` signature is an **orchestration async-flow guest offer handler**: the deep work is the post-`getBundle` **bundle import → module link/evaluate → membrane re-wrap → harden**, which lives in the **supervisor/lockdown bundle that was not provided**. This cleanly explains why no recursion regression is visible in the contract-bundle diff.
 
-**What changed:** no code on the fork (no verified fix to push). Deliverable is the analysis. Scratch artifacts in `/tmp/ymax0-investig/` (bundles, literal diffs, `ROOT-CAUSE.md`); no commits to any shared tree.
+**Revised mechanism:** a deep (bounded, not cyclic) recursion in the **SES-2.x bundle-import / module-link / membrane-rewrap path**, triggered when the async-flow `"offer handler taker"` durable singleton is rehydrated and its guest bundle is imported. The 2.x per-level frame cost (the `@harden` indirection wrapper, pass-style's two-call `confirmCanBeValid`+`assertRestValid`, marshal's `DataView` encode path) pushes that import/rewrap depth past the **fixed** xsnap stack meter — on XS only; V8's deep stack absorbs it, so it passed review.
 
-**Honest boundary / follow-ups**
-- Naming the single exact recursive frame and shipping a verified fix both require the XS stack trace from a live repro (build fork@`9d518832d4`, drive the v320 upgrade under `swingset`+`xsnap`). That toolchain/checkout is **not available on the bot host**, so I could not run it.
-- Handoff to a repro session (maintainer's machine or fork CI) with a precise plan: (1) capture the XS stack dump → names the function; (2) clean bisection pinning **only** Endo deps back with the contract unchanged → attributes Endo vs Auto-Features; (3) Node/V8 + beta2-deps controls. Fix decision tree included (flatten contract guard/durable nesting if contract-attributed; reduce frames-per-level + upstream-Endo bug report if Endo-attributed; raise XS stack limit only as last resort).
+**Premise correction surfaced to the maintainer:** the brief's "Established #3" (the Endo bump is the *only* runtime change between the bundles) is **not exact** — beta3 also carries the Auto-Features contract change (#12761; `OpenPortfolioWithAutoFeatures`, literal counts 21→26 / 18→21; durable-kind and interfaceGuard *counts* unchanged). A "pin Endo back" bisection alone therefore can't attribute the regression.
 
-Sources: [Agoric/agoric-sdk#2224 (xsnap security properties)](https://github.com/Agoric/agoric-sdk/issues/2224), [endojs/endo ses package](https://github.com/endojs/endo/tree/master/packages/ses).
+### What changed
+Nothing in any repo. This is analysis only. **No fork clone/build/repro was run** — infeasible on the bot host (agoric-sdk is multi-GB; xsnap needs a native build; this sandbox blocks node bin-shims; the fork is not checked out here). Full 162-line writeup at `/tmp/ymax0-investig/ROOT-CAUSE.md` (ephemeral — its substance is reproduced above).
+
+### Follow-ups (for the repro session where the toolchain lives)
+1. **One missing artifact:** provide the **supervisor/lockdown bundle** (or the `ses` + `@endo/import-bundle` versions) alongside the contract bundle — the regressing recursion is in there, not in the two bundles given.
+2. **Capture the frame:** build `kriscendobot/agoric-sdk@9d518832d4`, drive the v320 upgrade (incarnation 70→71) under swingset+xsnap, dump the XS stack at the meter trip — the repeating cycle will sit in the import/link/membrane path and names the exact function.
+3. **Attribute it:** pin only the Endo deps back to beta2 versions with contract source unchanged; controls = same upgrade on Node/V8 (should pass) and beta2 deps on XS (should pass).
+4. **Fix decision tree:** if Endo-attributed → reduce the offending helper's frames-per-level (convert hot recursion to a work-list, as `harden` already is) + upstream-Endo bug with minimal XS repro (deliverable, not an upstream push). Most practical fork-side fix: **defer/flatten the guest-bundle import out of the durable-kind rehydration call stack** so import depth doesn't stack on rehydration depth. Raising the xsnap stack meter remains last-resort mitigation.
+
+No inbox messages arrived during the work.
