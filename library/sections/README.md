@@ -7017,6 +7017,19 @@ Total section files: 5826 (506 parent indexes + 5320 children).
   - [§Two-directory-structure-choices](metamask-ocap-kernel--docs-platform-specific-md--platform-obvious-vs-platform-implicit-exports-with-six-step-contributor-guide-for-Node-browser-split--two-directory-structure-choices.md)
   - [§Two-platforms-Node-and-browser-as-canonical-targets](metamask-ocap-kernel--docs-platform-specific-md--platform-obvious-vs-platform-implicit-exports-with-six-step-contributor-guide-for-Node-browser-split--two-platforms-node-and-browser-as-canonical-targets.md)
 
+### metamask-ocap-kernel--docs-usage-md
+
+- [metamask-ocap-kernel--docs-usage-md](metamask-ocap-kernel--docs-usage-md.md) (index — seventh ocap-kernel ingest, job `ingest-ocap-kernel-usage`, 2026-06-27; the operational usage guide companion to the kernel guide: setup, bundling, cluster config, kernel API, dev tools, e2e testing)
+  - [OCAP Kernel Usage Guide (overview)](metamask-ocap-kernel--docs-usage-md--overview.md)
+  - [Setting Up the Kernel](metamask-ocap-kernel--docs-usage-md--setting-up-the-kernel.md)
+  - [Vat Bundles](metamask-ocap-kernel--docs-usage-md--vat-bundles.md)
+  - [Cluster Configuration](metamask-ocap-kernel--docs-usage-md--cluster-configuration.md)
+  - [Kernel API (operational)](metamask-ocap-kernel--docs-usage-md--kernel-api.md)
+  - [Endo Integration](metamask-ocap-kernel--docs-usage-md--endo-integration.md)
+  - [Development Tools](metamask-ocap-kernel--docs-usage-md--development-tools.md)
+  - [End-to-End Testing](metamask-ocap-kernel--docs-usage-md--end-to-end-testing.md)
+  - [Implementation Example (browser and Node.js)](metamask-ocap-kernel--docs-usage-md--implementation-example.md)
+
 ### metamask-ocap-kernel--overview
 
 - [metamask-ocap-kernel--overview--monorepo-survey-with-SwingSet-derived-kernel-vat-architecture-and-Ken-protocol-substrate](metamask-ocap-kernel--overview--monorepo-survey-with-SwingSet-derived-kernel-vat-architecture-and-Ken-protocol-substrate.md) (index)
