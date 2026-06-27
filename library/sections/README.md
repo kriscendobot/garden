@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5834 (506 parent indexes + 5328 children).
+Total section files: 5836 (506 parent indexes + 5330 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -6690,6 +6690,14 @@ Total section files: 5834 (506 parent indexes + 5328 children).
 ### erights--elang-intro-starting-e
 
 - [erights--elang-intro-starting-e--launching-and-elmer](erights--elang-intro-starting-e--launching-and-elmer.md)
+
+### erights--elib-capability-ode-ode-pki
+
+- [erights--elib-capability-ode-ode-pki--capabilities-as-a-public-key-infrastructure](erights--elib-capability-ode-ode-pki--capabilities-as-a-public-key-infrastructure.md)
+
+### erights--elib-capability-ode-ode-protocol
+
+- [erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol](erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol.md)
 
 ### frb--compile-binder
 
