@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T15:32:42Z_
+_As of 2026-06-27T15:34:19Z_
 
 ## Latest
 
-The day's dominant story is deploy plumbing, not feature work: endolinbot's `main2` checkout sat **wedged for most of the day**, with the watchman firing ~20 dirty-tree alerts as origin advanced ~20 commits ahead of a frozen tree. The blocker is benign — redundant uncommitted edits (e.g. `skills/gardener-inbox-error-reporting/report-error.sh`, several `scripts/jobs/library-link-*` files) that are byte-identical to what already landed, so a lossless `git checkout --` unwedges it. A **deploy-sync reconciler landed on main2 (5d6490e)** to clean-fast-forward and restart long-running services automatically once armed via a units refresh, which should prevent the recurrence; jobs to make the watchman resolve wedges autonomously and harden `journal-entry.sh` are in flight. Separately, the comment-watcher kept emitting "0 comments for N ticks" inactivity anomalies against kriskowal/garden — the exact false-positive the maintainer asked to retire — and a `comment-watcher-no-inactivity-anomaly` fix is now in `doin`.
+The endolinbot deploy was wedged for most of the day: `origin/main2` advanced many times while the live `/home/kris` tree stayed frozen behind it, repeatedly blocked by uncommitted edits to `report-error.sh`, `gardener.sh`, `claim-job.sh`, `journal-entry.sh`, and the `library-link-*` scripts — several of which are byte-identical to versions already landed (a lossless `git checkout --` unwedges them). A **deploy-sync reconciler landed on main2** (`5d6490e62`) that strict-fast-forwards the checkout and restarts long-running services when `scripts/` changes, so landed fixes reach workers without manual restarts; it arms on the next units refresh. Lint on endo-but-for-bots master was classified **clean** (only 5 non-blocking jsdoc warnings, plan parked). The agoric-sdk `ymax0` portfolio-upgrade stack-overflow investigation was correctly **declined** by the fleet — it's go-ahead-gated, agoric-sdk is off-limits, and the artifacts live only on the maintainer's Mac; a follow-up to harden `promote-plan.sh` against race-claiming gated plans is flagged.
 
-On substance, scholars ingested MetaMask/ocap-kernel's kernel guide and a six-topic distributed-ocap concept cluster (three-party handoff, sturdyref, confinement, eventual-send, grant-matcher), and a lint sweep found endo-but-for-bots master **clean** (only 5 non-blocking jsdoc warnings, parked as low).
-
-Three items need a maintainer decision: the harden-exported-function-literals follow-up to merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you choosing breadth (narrow two-export vs repo-wide) and base branch (`llm` vs `master`); the formula-inspector retention-paths table is **blocked** on the still-open, CI-failing `listRetentionPaths` host-API PR you asked to rebase back on 2026-05-21; and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded **no change** (reuse would invert the extraction).
+Two decisions are owed to the maintainer. The harden-exported-literals follow-up from erights's directive on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) needs scope: narrow (two evasive-transform exports) vs. repo-wide, and base branch `llm` vs. `master`. Separately, the `formula-inspector-retention-paths-table` plan is blocked until [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) gets the rebase-and-gamut you requested back on 2026-05-21. Note also the recurring comment-watcher "0 comments for N ticks" anomaly alerts are the false-positive inactivity reports already slated for removal.
 
 ## Parked for maintainer feedback
 
@@ -554,25 +552,52 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 420 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
+- `20260627T153338Z-f3cc46` — from gardener:investigate-beta3-ymax0-portfolio-upgrade-stack-overflow, reply_to `investigate-beta3-ymax0-portfolio-upgrade-stack-overflow` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T153338Z-f3cc46.md)
+
+> Gate/scope stop: bot gardener 73 (endolinbot) claimed go-ahead-gated job
+> 'investigate-beta3-ymax0-portfolio-upgrade-stack-overflow' but is declining to run it.
+>
+> Three independent reasons it cannot/must not run on the bot fleet:
+> 1. SCOPE: the brief targets agoric-sdk, which is off-limits for autonomous garden work
+>    (standing directive: "we must not and cannot do anything for agoric-sdk").
+> 2. GATE: the brief itself says go-ahead gated, "run only on explicit maintainer
+>    authorization, by the maintainer or a maintainer-supervised session. NOT bot-fleet work."
+>    It carries gate=go-ahead but was promoted to todo/ at 15:32:04Z and auto-claimed by the
+>    fleet 4s later (15:32:08Z).
+> 3. ARTIFACTS ABSENT: every input lives on your Mac (/Users/kris/agoric-sdk @ ymax-v0.3.2606-beta3,
+>    beta2.js/beta3.js, the slog crash JSON in ~/Downloads). None exist on endolinbot; only a
+>    stray /home/kris/bundle-ymax0.json is here, which is insufficient. The work is physically
+>    impossible on this host.
+>
+> No agoric-sdk investigation was performed. ACTION NEEDED: re-engage this brief in a
+> maintainer-supervised session on your Mac where the artifacts live (it is a real, valuable
+> investigation — XS native-stack overflow during the ymax0 portfolio vat upgrade, prime mover
+> commit 3952deecd4 "sync Endo to latest including ses 2.x"). The board entry is being marked
+> done so the fleet stops re-claiming it; the brief content is preserved in this message and the
+> plan history so its intent is not lost.
+>
+> Possible garden-infra follow-up: tighten promote-plan.sh / the promotion path so a gate=go-ahead
+> plan cannot land in todo/ on a bot host without a maintainer-supervised marker, since the fleet
+> will race-claim anything in todo/ within seconds.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-inactivity-anomaly.md) — Comment-watcher: stop reporting human inactivity as an anomaly; make blindnes...
-- [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — Investigation brief: beta3 portfolio-contract upgrade crashes with "stack ove...
 - [`land-journal-entry-hardening`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/land-journal-entry-hardening.md) — Land the journal-entry.sh hardening (preserve a gardener's stashed WIP)
 - [`rename-killswitch-to-draining-marker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/rename-killswitch-to-draining-marker.md) — Rename the killswitch to a mundane "draining" marker (existence-meaningful + ...
 - [`watchman-resolve-wedge-autonomously`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/watchman-resolve-wedge-autonomously.md) — Watchman: resolve dirty-tree wedges AUTONOMOUSLY (no maintainer escalation)
 
-### tada (363)
+### tada (364)
+- [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — Completion report
 - [`improve-library-source-drift-scan`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-library-source-drift-scan.md) — Completion report: improve-library-source-drift-scan
 - [`deadmail-20260627T151020Z-5f405e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260627T151020Z-5f405e.md) — Completion report — deadmail-20260627T151020Z-5f405e (intent of cognito-mcp-m...
 - [`scholar-refresh-marshal-rankorder-encodepassable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-marshal-rankorder-encodepassable.md) — Completion report — scholar-refresh-marshal-rankorder-encodepassable
 - [`scholar-library-cycle-20260627-145422`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-145422.md) — Completion report — scholar-library-cycle-20260627-145422
-- [`scholar-ingest-passable-equality`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-passable-equality.md) — Completion report — scholar-ingest-passable-equality
-- … and 358 more
+- … and 359 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
