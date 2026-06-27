@@ -15,8 +15,30 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="entry"
 
+usage() {
+  cat <<'EOF'
+journal-entry.sh — post a progress/communication entry to the journal.
+
+Usage: journal-entry.sh <kind> [<body-file>]
+  <kind>  e.g. progress, claim, result, message (lowercase letters and hyphens only)
+  body    from <body-file>, else stdin, else a placeholder.
+EOF
+}
+
+# Intercept help BEFORE consuming the positional: -h/--help look like flags, and
+# without this the first positional ('--help') would be minted verbatim as a real
+# <kind> and committed to the add-only journal (the observed --help-as-entry bug).
+case "${1:-}" in -h|--help) usage; exit 0;; esac
+
 kind="${1:?usage: journal-entry.sh <kind> [body-file]}"
 body_src="${2:-}"
+# A flag-shaped or oddly-charactered <kind> can never become a committed entry:
+# reject a leading '-' (a flag typo) and constrain to lowercase letters/hyphens so
+# the entry filename and frontmatter stay well-formed.
+case "$kind" in
+  -*)            die "illegal kind: '$kind' (must not start with '-'; run --help for usage)";;
+  *[!a-z-]*|'')  die "illegal kind: '$kind' (lowercase letters and hyphens only; e.g. progress, result)";;
+esac
 role="${GARDEN_ROLE:-gardener}"
 
 if   [ -n "$body_src" ] && [ -f "$body_src" ]; then BODY="$(cat "$body_src")"

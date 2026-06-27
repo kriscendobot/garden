@@ -21,11 +21,27 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="post"
 
+usage() {
+  cat <<'EOF'
+post-job.sh — put a job onto the board's todo/.
+
+Usage: post-job.sh <basename> [<body-file>]
+  <basename>   reserved job name (filesystem- and git-ref-safe; must not start
+               with '-'); the spine tying todo<->doin<->tada<->worktree.
+  <body-file>  optional; the job body. If omitted, read from stdin (or a
+               one-line placeholder).
+EOF
+}
+
+# Intercept help BEFORE consuming the positional, so a '--help' typo cannot be
+# posted verbatim as a real job basename.
+case "${1:-}" in -h|--help) usage; exit 0;; esac
+
 base="${1:?usage: post-job.sh <basename> [body-file]}"
 body_src="${2:-}"
 
 case "$base" in
-  -*)        die "illegal basename: '$base' (names must not start with '-'; if you meant usage, there is none beyond this line)";;
+  -*)        die "illegal basename: '$base' (names must not start with '-'; run --help for usage)";;
   */*|.*|'') die "illegal basename: '$base'";;
 esac
 

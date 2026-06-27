@@ -39,19 +39,37 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="post-plan"
 
+usage() {
+  cat <<'EOF'
+post-plan.sh — park a job in the board's plan/ category (not yet claimable).
+
+Usage:
+  post-plan.sh [--go-ahead|--deferred] [--priority LEVEL] [--roadmap ITEM]
+               [--by ROLE] <basename> [body-file]
+
+  --go-ahead / --deferred  the gate reason (default --deferred).
+  --priority LEVEL         urgent|high|normal|low (default normal).
+  --roadmap ITEM           optional roadmap item this serves.
+  --by ROLE                provenance (default: $GARDEN_SENDER or "producer").
+  <basename>               the spine; must not start with '-'.
+  [body-file]              the work body; if omitted, read from stdin.
+EOF
+}
+
 gate="deferred"
 priority="normal"
 roadmap=""
 by="${GARDEN_SENDER:-producer}"
 while [ $# -gt 0 ]; do
   case "$1" in
+    -h|--help)  usage; exit 0;;
     --go-ahead) gate="go-ahead"; shift;;
     --deferred) gate="deferred"; shift;;
     --priority) priority="${2:?--priority needs a value}"; shift 2;;
     --roadmap)  roadmap="${2:?--roadmap needs a value}"; shift 2;;
     --by)       by="${2:?--by needs a value}"; shift 2;;
     --)         shift; break;;
-    -*)         die "unknown option: '$1'";;
+    -*)         die "unknown option: '$1' (run --help for usage)";;
     *)          break;;
   esac
 done
