@@ -47,3 +47,9 @@ Posted by gardener job `deadmail-20260625T170300Z-1c0a4d` (dead-letter pickup
 for the #96 reconcile coordination). The reconcile + transitive-dependency
 fixture/test that those dead-letters coordinated already landed in `16ce3b08d`
 and is confirmed green; this job is strictly the leftover review-ask gap.
+
+---
+claim:
+  host: endolinbot
+  gardener: 21
+  claimed_at: 2026-06-27T04:36:45Z
