@@ -73,6 +73,7 @@ while :; do
     printf 'gardener-%s on %s completed job %s\n' "$id" "$GARDEN_HOST" "$base" \
       | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
   else
+    rc=$?  # exit code of the failed handler — capture FIRST, before any command clobbers $?
     # The job handler — the gardening state machine / a `claude -p` inner agent —
     # exited non-zero. Its combined stdout+stderr is in $capture. DO NOT discard
     # it (the prior one-line report did) and DO NOT complete the job doin→tada
@@ -86,10 +87,27 @@ while :; do
     # state-machine design decision deliberately left out of this change. Leaving
     # it in doin means a deterministically-failing job is retried after the TTL;
     # which lane is permanent is the question this surfaces.
-    log "handler FAILED for '$base'; capturing output and escalating to the gardener inbox (job left in doin for the reaper)"
+    log "handler FAILED (rc=$rc) for '$base'; capturing output and escalating to the gardener inbox (job left in doin for the reaper)"
+    # Most handlers (the default handlers/gardener-claude.sh among them) write their
+    # real output to $report, not to their own stdout/stderr, so $capture is often
+    # empty even though the handler produced diagnostics. Fold the tail of $report
+    # into $capture before hashing so the escalated blob carries the handler's own
+    # output rather than the empty git blob (e69de29b).
+    if [ -s "$report" ]; then
+      printf '\n--- handler report (partial) ---\n' >>"$capture"
+      tail -n 200 "$report" >>"$capture" 2>/dev/null || true
+    fi
+    rm -f "$report"  # folded into $capture above; safe to drop now
+    # If the handler was killed (OOM/exec failure/claude-CLI crash) it may have
+    # written nothing anywhere; never hash the empty blob — synthesize a line so the
+    # reaper and maintainer triage have something to act on.
+    if [ ! -s "$capture" ]; then
+      printf "handler '%s' exited rc=%s with NO captured output (likely killed/OOM/exec or claude-CLI failure)\n" \
+        "$base" "$rc" >>"$capture"
+    fi
     sha="$(GARDEN_JOURNAL="$CLONE" "$GARDEN_ROOT/skills/gardener-inbox-error-reporting/report-error.sh" \
              --transcript "$capture" --lane 0 --state handler-nonzero \
-             --context "gardener-$id on $GARDEN_HOST: job '$base' handler exited non-zero" \
+             --context "gardener-$id on $GARDEN_HOST: job '$base' handler exited rc=$rc" \
            2>/dev/null || true)"
     # Fall back to a bare local hash if the inbox-append escalation itself failed,
     # so the output is at least durable in this gardener's clone.
@@ -97,8 +115,8 @@ while :; do
     # Anchor the capture under refs/captures so an off-host responder can fetch it
     # even if the inbox-append push was lost; best-effort (blob stays local in $CLONE).
     [ "$sha" = unknown ] || anchor_blob "$sha" "gardener/$id/$base" "$CLONE" 2>/dev/null || true
-    printf 'gardener-%s on %s: job %s handler FAILED; output captured as %s, escalated to the gardener inbox, left in doin for the reaper\n' \
-      "$id" "$GARDEN_HOST" "$base" "$sha" \
+    printf 'gardener-%s on %s: job %s handler FAILED (rc=%s); output captured as %s, escalated to the gardener inbox, left in doin for the reaper\n' \
+      "$id" "$GARDEN_HOST" "$base" "$rc" "$sha" \
       | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" error || true
   fi
   rm -f "$report" "$capture"
