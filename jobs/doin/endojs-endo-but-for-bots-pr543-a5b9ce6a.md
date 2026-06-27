@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot I see #544 for the design and guidance for the intra-package case. What about the inter-package case? If there is no such PR, please create it. In either case, where #544 cites this issue #543 , where appropriate, have it cite the design PR for the inter-package cas
+
+---
+claim:
+  host: endolinbot
+  gardener: 4
+  claimed_at: 2026-06-27T04:31:51Z
