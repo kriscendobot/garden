@@ -13220,3 +13220,23 @@ matching grant capability | grant-matcher-puzzle
 capability man-in-the-middle | grant-matcher-puzzle
 capability equivalence puzzle | grant-matcher-puzzle
 do two parties designate the same object | grant-matcher-puzzle
+## OCAP Kernel usage guide (metamask-ocap-kernel--docs-usage-md, seventh ocap-kernel ingest, 2026-06-27)
+ocap-kernel usage guide | ocap-kernel
+MetaMask ocap-kernel docs/usage.md | ocap-kernel
+`Kernel.make(platformServices, kernelDatabase, options)` | ocap-kernel
+`makeKernel` kernel-node-runtime | ocap-kernel
+`makeSQLKernelDatabase` sqlite wasm nodejs | ocap-kernel
+`PlatformServicesClient` `NodejsPlatformServices` | ocap-kernel
+`yarn ocap bundle` vat bundle | ocap-kernel
+`ocap serve` local dev server | ocap-kernel
+`@metamask/kernel-cli` | ocap-kernel
+`ClusterConfig` bundleSpec globals network.allowedHosts | ocap-kernel
+`launchSubcluster` `reloadSubcluster` `terminateSubcluster` | ocap-kernel
+`queueMessage` `kunser` | ocap-kernel
+`initRemoteComms` libp2p relay multiaddr | ocap-kernel
+`ClusterConfigStruct` superstruct config validation | ocap-kernel
+ocap-kernel Vitest dbFilename :memory: | ocap-kernel
+ocap-kernel Playwright test:e2e test:e2e:ci | ocap-kernel
+ocap-kernel TypeDoc build:docs | ocap-kernel
+`createCommsQueryString` `getCommsParamsFromCurrentLocation` | ocap-kernel
+`vatPowers.stdout()` vat debugging | ocap-kernel
