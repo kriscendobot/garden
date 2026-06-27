@@ -24,4 +24,4 @@ The Grant Matcher must operate so as to ensure that Alice will not lose $10 unle
 
 Suppose there is no *EQ* primitive — that one can only gain information about a capability by sending messages over it. Then the Grant Matcher has to determine equality by sending messages over these capabilities in some equality-determining protocol. Having determined — somehow — that both references are equivalent, the Grant Matcher can simply pick one and send the money. The next section shows why a message-only equality protocol is not enough.
 
-Source: [The Grant Matcher Puzzle](https://erights.org/elib/equality/grant-matcher/index.html) § When it Works, Mark S. Miller, erights.org; ingested from the Internet Archive original-bytes capture, content SHA-256 `d25136c9`.
+Source: [The Grant Matcher Puzzle](https://erights.org/elib/equality/grant-matcher/index.html) § When it Works, Mark S. Miller, erights.org; fetched 2026-06-27 via the erights.github.io GitHub Pages mirror, content SHA-256 `d25136c9` (byte-identical to the prior Internet-Archive capture).
