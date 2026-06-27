@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T18:59:38Z_
+_As of 2026-06-27T19:01:59Z_
 
 ## Latest
 
-The proxy now parks blocked jobs as `gate=blocked` plans with a deterministic unblock trigger (landed on main2), alongside a cluster of gardener-scaler reliability fixes — busy-gate on disable, no-op on an unreadable count — and an autonomous wedge resolution on endolinbot. The real signal this cycle is the maintainer inbox: a genuine feature directive from kriskowal on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch through the gamut; a fix for the classifier bug that misrouted it is already posted. The harden-exported-literals follow-up that erights requested on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked on two of your calls: breadth (narrow two exports vs. a repo-wide pass aligned to the `@endo/harden-exports` rule) and base branch (`llm` vs. `master`). Two more items await you: the formula-inspector retention-paths table is blocked on the still-open, stalled retention-paths host API it must source from, and the ymax0/XS investigation concluded the nested-record overflow is an XS native-stack-depth property, not an Endo regression — so the fix is contract-side depth-bounding in agoric-sdk territory (out of bounds for autonomous action), and sourcing the v320 swing-store export is your call. On the quieter side, scholars ingested MetaMask's ocap-kernel guide plus a distributed-ocap concept cluster, and endo master lint came back clean (only 5 non-failing jsdoc warnings, with a low-priority cleanup plan parked).
+The board is nearly quiet — the [issue-inbox maintainer-interaction workflow](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-maintainer-interaction-workflow.md) just completed (maintainers can now drive this instance from its own GitHub issues), and two infra jobs are in flight: dispensing with the shared live tree in favor of per-subagent worktrees, and a gardener-scaler fix to no-op rather than scale-to-zero on an unreadable count. Scholar ingests added a sixth ocap-kernel source (MetaMask's kernel guide) plus a distributed-ocap concept cluster.
+
+What needs your attention is queued in the maintainer inbox, not the board. Two PRs are stalled on decisions only you can make: the harden-exported-function-literals follow-up to the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs a breadth call (narrow two-export fix vs. repo-wide) and a base-branch choice before any PR opens; and a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities + hide empty groups) was misclassified as a rebase and now awaits a liaison-driven dispatch — an infra fix for the misrouting classifier is being posted separately. Separately, the formula-inspector retention-paths table is blocked on the long-stalled #284 (the rebase-and-gamut you requested 2026-05-21 never ran; 4 CI checks red), and the beta3/ymax0 XS investigation surfaced two agoric-sdk-adjacent calls (sourcing a v320 swing-store export; whether to file an upstream-Endo note) that are out of autonomous bounds.
 
 ## Parked for maintainer feedback
 
@@ -178,18 +180,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
 - [`improve-scaler-no-op-on-unreadable-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scaler-no-op-on-unreadable-count.md) — scripts/jobs/gardener-scaler.sh initializes want=0 and only overwrites it whe...
-- [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
 
-### tada (391)
-- [`scholar-library-cycle-20260627-185542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-185542.md) — result: scholar — hourly library cycle (quick-drain, idle)
+### tada (392)
+- [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-maintainer-interaction-workflow.md) — Completion report — issue-inbox-maintainer-interaction-workflow
+- [`scholar-library-cycle-20260627-185542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-185542.md) — Completion report
 - [`proxy-park-blocked-jobs-and-auto-unblock`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proxy-park-blocked-jobs-and-auto-unblock.md) — Completion report: proxy-park-blocked-jobs-and-auto-unblock
 - [`resolve-wedge-endolinbot-af274bcab32b-266490807632`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-af274bcab32b-266490807632.md) — Completion report — resolve-wedge-endolinbot-af274bcab32b-266490807632
 - [`improve-scaler-busy-gate-on-disable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scaler-busy-gate-on-disable.md) — Inbox empty. Work complete.
-- [`scholar-ingest-erights-equality-pages-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-equality-pages-mirror.md) — Completion report: scholar-ingest-erights-equality-pages-mirror
-- … and 386 more
+- … and 387 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -202,6 +203,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`scholar-ingest-ocap-kernel-comment-fragments`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments.md) — _low_ · PLAN: scholar — ingest MetaMask/ocap-kernel kernel-internals comment fragments
 - [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — _low_ · PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
+
+### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
+(none)
 
 ## Watch set
 (none)
