@@ -178,6 +178,25 @@ run_deploy
 [ "$RC" -ne 0 ] && ok "aborts on a dirty root while pre-drained" || bad "did not abort"
 draining && ok "an aborted deploy PRESERVES an operator-engaged drain" || bad "aborted deploy lifted the operator's drain"
 
+# ============================================================================
+hr; echo "UNIT RECONCILE — a deploy disables + removes a stale RETIRED_UNITS unit"; hr
+# Simulate a host that still carries a retired unit (garden-deploy-sync) enabled
+# and rendered into DEST from a prior install. A tree-advancing deploy must run
+# enable-services, which disables it AND removes the lingering rendered file so it
+# can never fire again (the rc-127 loop fix, 2026-06-27).
+setup_fixture
+DEST="$TR/config/systemd/user"; mkdir -p "$DEST"
+printf '[Unit]\n' > "$DEST/garden-deploy-sync.timer"      # stale rendered file lingers
+printf '[Unit]\n' > "$DEST/garden-deploy-sync.service"
+printf '%s\n' garden-deploy-sync.timer garden-deploy-sync.service >> "$TR/armed"  # still enabled
+origin_commit scripts/jobs/worker-lib.sh "echo new5" "fix: worker-lib 5"
+run_deploy
+[ "$RC" -eq 0 ] && ok "deploy succeeds while reconciling units" || bad "exit $RC: $OUT"
+log_has "disable --now garden-deploy-sync.timer" && ok "stale timer disabled during reconcile" || bad "stale timer NOT disabled"
+log_has "disable --now garden-deploy-sync.service" && ok "stale service disabled during reconcile" || bad "stale service NOT disabled"
+[ ! -e "$DEST/garden-deploy-sync.timer" ] && ok "stale rendered timer file removed from DEST" || bad "stale timer file lingered"
+[ ! -e "$DEST/garden-deploy-sync.service" ] && ok "stale rendered service file removed from DEST" || bad "stale service file lingered"
+
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"
 [ "$FAIL" -eq 0 ]

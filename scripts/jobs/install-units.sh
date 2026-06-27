@@ -142,9 +142,20 @@ scale() {
 }
 
 enable_services() {
-  local u
-  # Retire units a prior install may have left enabled (bulletin's old timer).
-  for u in "${RETIRED_UNITS[@]}"; do unit_ctl disable --now "$u" 2>/dev/null || true; done
+  local u retired=0
+  # Retire units a prior install may have left enabled+active. `disable --now`
+  # stops + un-enables, but the RENDERED unit file lingers in $DEST, so a retired
+  # unit can still be re-triggered (a stale garden-deploy-sync.timer kept firing
+  # its missing deploy-sync.sh into an rc-127 loop, 2026-06-27). Remove the
+  # rendered files too and daemon-reload so systemd forgets the unit entirely.
+  for u in "${RETIRED_UNITS[@]}"; do
+    unit_ctl disable --now "$u" 2>/dev/null || true
+    if [ -e "$DEST/$u" ]; then rm -f "$DEST/$u"; retired=$((retired+1)); fi
+  done
+  if [ "$retired" -gt 0 ]; then
+    unit_ctl daemon-reload 2>/dev/null || true
+    log "retired $retired stale unit file(s) from $DEST and reloaded"
+  fi
   # Enable every intended (derived) unit. --now starts it immediately too.
   local enabled=()
   while read -r u; do

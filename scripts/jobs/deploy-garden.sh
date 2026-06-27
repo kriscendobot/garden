@@ -142,6 +142,23 @@ log "merged origin/$GARDEN_MAIN_BRANCH into the root: $old_sha -> $new_sha"
 record_deployed_sha "$new_sha"
 log "recorded deployed sha: $new_sha"
 
+# Reconcile systemd units to the freshly-deployed tree. A deploy can LAND a unit
+# retirement (a unit removed from scripts/systemd/ and added to install-units'
+# RETIRED_UNITS) or ADD a new intended unit, but advancing the tree does not by
+# itself disable a retired unit or enable a new one — the unit set lives in
+# systemd, not the tree. Without this step a retirement landed by a deploy stays
+# enabled+active on the host and fires its (now-missing) script every timer tick
+# (garden-deploy-sync's rc-127 loop, 2026-06-27). `install` re-renders the
+# current unit set; `enable-services` enables every intended unit and
+# disables+removes every RETIRED_UNITS unit.
+"$HERE/install-units.sh" install >/dev/null 2>&1 \
+  || log "WARN: unit render during reconcile failed (continuing)"
+if "$HERE/install-units.sh" enable-services >/dev/null 2>&1; then
+  log "reconciled systemd units to the deployed tree (enabled intended, retired stale)"
+else
+  log "WARN: enable-services reconcile failed; check for stale/retired units by hand"
+fi
+
 # Lift the drain BEFORE restarting so the restarted units come up live (the
 # drained gardeners have already exited; nothing runs on the old code).
 "$HERE/drain-fleet.sh" off >/dev/null 2>&1 || log "WARN: could not lift the draining marker"
