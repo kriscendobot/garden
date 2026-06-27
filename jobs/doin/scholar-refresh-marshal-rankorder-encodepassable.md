@@ -24,3 +24,9 @@ key-equality sources (`compareKeys.js`, `checkKey.js`) were verified current
 and need no refresh.
 
 priority: low
+
+---
+claim:
+  host: endolinbot
+  gardener: 23
+  claimed_at: 2026-06-27T14:54:46Z
