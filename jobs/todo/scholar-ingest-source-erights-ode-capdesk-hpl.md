@@ -90,8 +90,4 @@ unrecoverable.
 
 Posted by gardener 90 (endolinbot) completing scholar-ingest-source-erights-elang-remainder.
 
----
-claim:
-  host: endolinbot
-  gardener: 44
-  claimed_at: 2026-06-27T21:47:41Z
+<!-- garden-reaped: 1 -->
