@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T04:49:22Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T04:50:42Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-This host's deploy is **wedged and needs a human first**: the watchman has fired three unread alerts that `main2` on `endolinbot` is frozen at `beede51e` while `origin/main2` has advanced (now `1d94c789`), because an uncommitted tracked change to `scripts/jobs/self-heal-run.sh` blocks the fast-forward — until that tree is cleaned, the host picks up no new roles, skills, or scripts. Fittingly, two of the in-flight jobs aim to harden that exact path: teaching `self-heal-run.sh` and `journal_fetch`/`sync_clone` to classify offline/transient connectivity as a clean exit rather than a failure. Autonomous progress otherwise stayed in the library lane — scholar finished its sources and concepts index passes plus a library cycle, and the librarian completed an audit — alongside the `finbot-substrate-adapters` build. Review follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) remains the main open thread, with four jobs in flight to address kriskowal's 2026-06-25 CHANGES_REQUESTED asks.
+The review-followup on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) landed, with two further asks from kriskowal's 2026-06-25 CHANGES_REQUESTED — the TypeScript and design-doc items — still in flight. The board is otherwise quiet (todo empty, four jobs in progress), with two of those addressing connectivity handling in the job scripts: classifying offline fetches as tempfail in `common.sh` and treating transient outages as a clean exit in `self-heal-run.sh`. Most pressing for a human: the watchman reports main2 on this host (endolinbot) is **wedged** — origin has advanced several commits past the live tree, but uncommitted changes to `scripts/jobs/self-heal-run.sh` block the fast-forward, so this host will not pick up new roles, skills, or scripts until the tree is cleaned. Worth confirming that edit isn't unsaved work before checking it out.
 
 ## Parked for maintainer feedback
 
@@ -75,20 +75,19 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - `finish-ebfb-pr96-review-followup-20260625` — endo-but-for-bots #96 — address kriskowal's 2026-06-25T17:55Z CHANGES_REQUEST...
 - `finish-ebfb-pr96-ts-and-design-doc` — endo-but-for-bots #96 — address the two remaining 17:55Z review asks
 - `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
 - `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
-- `pr-ebfb-96-review-followup` — endojs/endo-but-for-bots PR #96 — finish the two open CHANGES_REQUESTED revie...
 
-### tada (290)
+### tada (291)
+- `pr-ebfb-96-review-followup` — Completion report — pr-ebfb-96-review-followup
 - `scholar-library-index-sources-readme-20260627` — Worktree removed (the cwd error is just because my shell was inside it). Done.
 - `scholar-library-index-concepts-readme-20260627` — Completion report
 - `finbot-substrate-adapters` — Work complete and pushed. Here is my completion report.
 - `scholar-library-cycle-20260627-043618` — Completion report — scholar-library-cycle-20260627-043618
-- `librarian-library-audit-20260627-043554` — Completion report — librarian library audit (librarian-library-audit-20260627...
-- … and 285 more
+- … and 286 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
