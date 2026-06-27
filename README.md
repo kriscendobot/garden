@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T21:47:03Z_
+_As of 2026-06-27T21:49:02Z_
 
 ## Latest
 
-Two open PRs need a maintainer decision before work can proceed. On [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405), kriskowal's comment is a real feature directive — reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and fully hide empty groups across space-chat, chat, cli, and daemon — but it was misclassified as a "rebase" (the PR is already mergeable, so no rebase ran); it needs a liaison-driven builder/fixer dispatch, and a classifier-bug fix has been posted separately. The harden-exported-function-literals follow-up to the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you choosing breadth (narrow two-export vs repo-wide) and base branch (`llm` vs `master`) — the diff shape differs because the exports are function declarations on `llm` but arrow consts on `master`. Separately, the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing CI checks awaiting the rebase-and-gamut you already requested.
+The scholar fleet kept moving on the erights/ocap corpus: an erights elang ingest completed and the [erights.org Ode/CapDesk/HPL](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-ode-capdesk-hpl.md) source ingest is now in flight, on top of today's landings of the MetaMask ocap-kernel host-app guide and a six-topic distributed-ocap concept cluster (three-party-handoff, sturdyref, distributed-confinement, eventual-send, grant-matcher-puzzle — the last flagged source-less because erights.org was unreachable).
 
-On the quieter side: a lint sweep found endo-but-for-bots master clean (only 5 non-failing jsdoc warnings, plan parked), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction), and scholar landed a substantial distributed-ocap corpus — MetaMask/ocap-kernel's kernel guide, six interlocking ocap concept syntheses, and erights E-language primaries (with grant-matching and a few sources flagged as deferred while erights.org is unreachable). The ymax0/XS investigation surfaced two out-of-bounds (agoric-sdk) calls for you: sourcing a v320 swing-store export, and whether to file an upstream-Endo note — the investigation pinned the vat-abort on XS native stack depth, not an Endo regression, so the real fix is contract-side depth-bounding.
+The substance for kriskowal is a stack of parked decisions, not code. Three need a direct call: [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a real maintainer feature directive (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) that the v2 fleet can't dispatch autonomously and that a classifier bug misrouted as a "rebase" — it needs a liaison-driven builder/fixer through the gamut; the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) harden-exports follow-up is blocked only on you picking breadth (narrow two exports vs. repo-wide) and base branch (`llm` vs. `master`); and the formula-inspector retention-paths table is blocked on landing endo-but-for-bots#284, whose requested rebase-and-gamut never happened (4 failing checks). Two items resolved to no-op: [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442)'s reusable-powers revisit concluded the duplication is intrinsic (reuse would invert the extraction), and endo master lint came back clean apart from 5 non-blocking jsdoc warnings. Separately, the ymax0/XS investigation flagged that its real fix is contract-side depth-bounding in agoric-sdk territory — out of bounds for the garden — and needs a v320 swing-store export only you can source.
 
 ## Parked for maintainer feedback
 
@@ -181,15 +181,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`scholar-ingest-source-erights-elang-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-remainder.md) — scholar-ingest-source: remaining erights.org E-language primaries via the mirror
+- [`scholar-ingest-source-erights-ode-capdesk-hpl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-ode-capdesk-hpl.md) — scholar-ingest-source: erights.org Ode subpages, CapDesk/Polaris, and the HPL...
 
-### tada (412)
+### tada (413)
+- [`scholar-ingest-source-erights-elang-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-remainder.md) — scholar-ingest-source-erights-elang-remainder — completion report
 - [`scholar-ingest-source-erights-elang-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-primaries.md) — Completion report
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-deliberate-deploy-no-shared-tree-development.md) — The follow-on job has already been claimed and completed (it's in tada/). Eve...
 - [`scholar-library-cycle-20260627-210543`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-210543.md) — Completion report
 - [`improve-deploy-always-reconciles-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-always-reconciles-units.md) — Completion report — improve-deploy-always-reconciles-units
-- [`improve-self-reconciling-retired-unit-prune`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-self-reconciling-retired-unit-prune.md) — Completion report — improve-self-reconciling-retired-unit-prune
-- … and 407 more
+- … and 408 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
