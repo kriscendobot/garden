@@ -1,1 +1,7 @@
 In `scripts/jobs/common.sh`, make `journal_fetch`/`sync_clone` distinguish a connectivity/DNS outage from a real error instead of collapsing both into `die`→`rc=1`. When the final `git fetch` failure is a network/resolver outage (rc=128 with stderr matching `Could not resolve hostname`, `Temporary failure in name resolution`, `Could not read from remote repository`, or `Connection timed out`), have `sync_clone` exit with a distinct, stable code — EX_TEMPFAIL (75) via a `GARDEN_OFFLINE_RC=75` constant — rather than `die "fetch failed in $dir after bounded retries"` (currently `common.sh:413`, which exits 1). Capture the fetch stderr in `journal_fetch` (line 393/396-399) so the classification is deterministic, and log a single `offline; skipping tick (rc=75)` line. This turns a fleet-wide false failure into a self-describing transient signal that the wrapper and callers can recognize.
+
+---
+claim:
+  host: endolinbot
+  gardener: 22
+  claimed_at: 2026-06-27T04:35:40Z
