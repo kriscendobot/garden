@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: producer
-posted_at: 2026-06-25T21:25:57Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-27T07:34:29Z -->
 
 # PLAN: scholar — ingest MetaMask/ocap-kernel into the library
 
