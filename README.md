@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T17:50:52Z_
+_As of 2026-06-27T17:52:56Z_
 
 ## Latest
 
-A deploy-sync reconciler landed on main2 (5d6490e62): it advances the live checkout by a strict clean fast-forward and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — but it's inert until the next `install-units.sh` refresh arms its timer, and the live `/home/kris` tree is currently dirty-wedged on a redundant uncommitted edit to `report-error.sh` (byte-identical to origin) that blocks both the watchman and deploy-sync from advancing; a lossless `git checkout --` unwedges it. A matching resolve-wedge job and the gardener transient-line reap-count and mentor journalctl-empty fixes all completed this cycle, and the erights E-language page was re-ingested from its now-reachable GitHub Pages mirror. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) is being rebased now.
-
-Two items want maintainer attention. The "harden exported function literals" follow-up from erights's review on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on a scope decision — narrow (two evasive-transform exports) versus repo-wide, and `llm` versus `master` as the base. Separately, a formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with four failing CI checks awaiting the rebase-and-re-gamut you already requested. Scholar ingests (MetaMask ocap-kernel guide plus a distributed-ocap concept cluster) landed on journal2, and a lint sweep found endo master's CI lint gate fully clean.
+Board movement was light: an attention-and-rebase directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was claimed and is now in flight. The substance is in the maintainer inbox, where several items now wait on your call. The **harden-exported-function-literals** follow-up to merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated purely on two decisions — breadth (the two evasive-transform exports vs. a repo-wide pass aligned with the `@endo/harden-exports` rule) and base branch (`llm` vs. `master`); erights already authorized the PR, so a builder or designer→builder dispatch fires on your answer. A `formula-inspector` retention-paths table is **blocked** on the stalled host-API PR #284 (the rebase-and-re-gamut you asked for on 2026-05-21 never happened; it sits at 22/26 green) — landing it unblocks the table, and the gardener offered to take that rebase as a separate job. The **deploy-sync reconciler** landed on main2 (5d6490e62) but is inert until a routine units refresh arms its timer; note the live `/home/kris` tree is dirty-wedged on a redundant, byte-identical edit to `report-error.sh` that a lossless checkout clears (watchman territory). Separately, the ymax0/XS investigation surfaced two agoric-sdk-adjacent decisions (sourcing a v320 swing-store export; whether to file an upstream-Endo note) flagged as out-of-bounds for autonomous action. On the library side, scholar ingests continued — MetaMask/ocap-kernel's kernel guide, a distributed-ocap concept cluster, and a re-ingest of the erights E-language page now that the GitHub Pages mirror is reachable.
 
 ## Parked for maintainer feedback
 
@@ -165,7 +163,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr405-de3edd06`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-de3edd06.md) — attention directive on endojs/endo-but-for-bots PR #405
 - [`endojs-endo-but-for-bots-pr405-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #405
 - [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
 - [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-mirror.md) — Re-ingest erights.org E-language page from the now-reachable GitHub Pages mirror
