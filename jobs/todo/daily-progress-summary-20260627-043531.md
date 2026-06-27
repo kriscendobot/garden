@@ -1,7 +1,3 @@
-cadence: daily
-last_dispatched: 2026-06-27T04:35:37Z
-job_basename_prefix: daily-progress-summary
----
 
 # Daily midnight Pacific progress summary
 
