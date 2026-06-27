@@ -29,3 +29,9 @@ only; NEVER merge agoric-sdk or the endojs/endo upstream.
 [APPROVED] Passed user acceptance tests. Please conduct to llm branch. 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 80
+  claimed_at: 2026-06-27T06:45:34Z
