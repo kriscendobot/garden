@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:58:12Z_
+_As of 2026-06-27T08:00:49Z_
 
 ## Latest
 
-The deploy-sync reconciler landed on main2 (`5d6490e62`): it now fast-forwards the checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart. Also landed: improved sync-clone transient-fetch classification (`ba38a1372`, suite green) and a self-heal fix for the follow-up handler that was swallowing Claude errors.
+The big story is operational, not PR-side: the `main2` deploy on host **endolinbot** is wedged and has been all morning — a working-tree edit to `skills/gardener-inbox-error-reporting/report-error.sh` (byte-identical to the already-landed origin version, a redundant uncommitted edit) blocks the fast-forward, so the host has fallen ~6 commits behind `origin/main2` and is not picking up new roles/skills/scripts. A `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges it. Notably, the fixes that would prevent this class of stall just landed but can't take effect until the tree clears: a **deploy-sync reconciler** (5d6490e62) that auto-fast-forwards the checkout and restarts long-running services when `scripts/` changes, plus self-heal/sync-clone transient-fetch classification hardening (ba38a1372) that stops a network blip from crash-looping a gardener.
 
-The headline operational issue is that endolinbot's live tree is **dirty-wedged** and roughly 6 commits behind origin/main2 — a redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (earlier, `scripts/jobs/self-heal-run.sh`) is blocking every fast-forward, so both the watchman and the new deploy-sync keep skipping the advance and this host is not picking up new roles/skills/scripts. The reconciler's own note flags the fix as lossless (`git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh`). Worth a quick maintainer confirm that nothing in those edits is unsaved work before cleaning the tree.
+Second alarm: `comment-watcher/kriskowal-garden` has reported **0 comments for 140 consecutive ticks** while the repo is demonstrably active — the same silent-blindness signature as the 2026-06-24 jq/gh outage; worth checking the comment-source handler on endolinbot.
 
-Two more to notice: the comment-watcher on kriskowal/garden has reported **0 comments for 100 consecutive ticks while the repo is active** — the 2026-06-24 outage signature again, pointing at jq/gh on endolinbot. On the PR side, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) — fixing 13 dangling design-doc references and adding a real Node parity test after a stand-down was deemed corrective rather than duplicate (flagged for visibility). Meanwhile the formula-inspector retention-paths table is **blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)**, which has been stalled since 2026-05-21 awaiting the requested rebase-and-re-gamut (4 failing checks); the scholar also completed its sixth ocap-kernel ingest (the 689-line kernel-guide).
+On the work side, a corrective follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (3aa37bbd) fixing 13 dangling design-doc references and adding a real Node parity test after a stand-down was overridden on judgment. The scholar completed a sixth ocap-kernel ingest (MetaMask's kernel guide). Two items are blocked on maintainer input: `formula-inspector-retention-paths-table` is stalled behind [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (open since 2026-05-21, 4 failing checks, awaiting the rebase-and-gamut you requested), and a gardener building the Cognito↔MCP OAuth bridge is requesting confirmation on two design open questions before proceeding.
 
 ## Parked for maintainer feedback
 
@@ -312,6 +312,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > ```
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T080041Z-e5e019` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T080041Z-e5e019.md)
+
+> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 140 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
 
 ## Board
