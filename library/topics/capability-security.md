@@ -218,6 +218,7 @@
 | [web--miller-grant-matcher-puzzle--setting-up-the-puzzle](../sections/web--miller-grant-matcher-puzzle--setting-up-the-puzzle.md) | The Grant Matcher Puzzle (Miller) | Least authority as the donors' only protection against a misbehaving Grant Matcher; two mutually-distrustful donors using a trusted third party. |
 | [web--miller-grant-matcher-history--overview](../sections/web--miller-grant-matcher-history--overview.md) | History of the Grant Matcher (Miller) | KeyKOS's EQ/DISCRIM underwrites security patterns like the Factory; the Actor/Joule no-EQ tradition; the security-vs-flexibility tension the puzzle crystallized. |
 | [web--miller-grant-matcher-history--sealer-unsealer-equivalence](../sections/web--miller-grant-matcher-history--sealer-unsealer-equivalence.md) | History of the Grant Matcher (Miller) | EQ and Sealer/Unsealer (rights-amplification) pairs are mutually constructible — two faces of the same security expressive power. |
+| [metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose](../sections/metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose.md) | MetaMask/ocap-kernel packages/ocap-kernel/README.md | The kernel-and-vat core package of a sibling object-capability implementation read for reference (reference-not-substrate); `@metamask/` public vs `@ocap/` private namespace split. |
 ## See also
 
 - [`hardened-javascript`](hardened-javascript.md): substrate that makes ocap discipline enforceable.

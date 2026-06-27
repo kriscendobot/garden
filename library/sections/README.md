@@ -7044,6 +7044,32 @@ Total section files: 5834 (506 parent indexes + 5328 children).
   - [The §single most structurally interesting move — §Ken-protocol-substrate](metamask-ocap-kernel--overview--monorepo-survey-with-SwingSet-derived-kernel-vat-architecture-and-Ken-protocol-substrate--the-single-most-structurally-interesting-move-ken-protocol-substrate.md)
   - [The §why-ingested rationale (user-provided context)](metamask-ocap-kernel--overview--monorepo-survey-with-SwingSet-derived-kernel-vat-architecture-and-Ken-protocol-substrate--the-why-ingested-rationale-user-provided-context.md)
 
+### metamask-ocap-kernel--packages-kernel-rpc-methods-readme
+
+- [@metamask/kernel-rpc-methods: JSON-RPC method utilities (package purpose)](metamask-ocap-kernel--packages-kernel-rpc-methods-readme--json-rpc-method-utilities-package-purpose.md)
+
+### metamask-ocap-kernel--packages-kernel-store-readme
+
+- [@metamask/kernel-store: storage abstractions and implementations (package purpose)](metamask-ocap-kernel--packages-kernel-store-readme--storage-abstractions-and-implementations-package-purpose.md)
+
+### metamask-ocap-kernel--packages-kernel-utils-readme
+
+- [@metamask/kernel-utils: Ocap Kernel utilities (package purpose)](metamask-ocap-kernel--packages-kernel-utils-readme--ocap-kernel-utilities-package-purpose.md)
+- [SES/lockdown compatibility: auto-applied dependency patches](metamask-ocap-kernel--packages-kernel-utils-readme--ses-lockdown-patch-requirement.md)
+
+### metamask-ocap-kernel--packages-ocap-kernel-readme
+
+- [@metamask/ocap-kernel: core components (package purpose)](metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose.md)
+- [SES/lockdown compatibility: the @chainsafe/libp2p-yamux patch requirement](metamask-ocap-kernel--packages-ocap-kernel-readme--ses-lockdown-libp2p-yamux-patch-requirement.md)
+
+### metamask-ocap-kernel--packages-remote-iterables-readme
+
+- [@ocap/remote-iterables: remotable iterable objects (package purpose)](metamask-ocap-kernel--packages-remote-iterables-readme--remotable-iterable-objects-package-purpose.md)
+
+### metamask-ocap-kernel--packages-streams-readme
+
+- [streams: SES-compatible streams in the gtor and @endo/stream lineage](metamask-ocap-kernel--packages-streams-readme--ses-compatible-streams-gtor-endo-stream-lineage.md)
+
 ### ocap-history
 
 - [ocap-history--e-capdesk-polaris-market-history](ocap-history--e-capdesk-polaris-market-history.md) (index)

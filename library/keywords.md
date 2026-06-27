@@ -13302,3 +13302,15 @@ Escrow Exchange Agent | grant-matcher-puzzle
 WebMart | grant-matcher-puzzle
 Four Party Partial Orders | grant-matcher-puzzle
 4-party partial orders | grant-matcher-puzzle
+`@chainsafe/libp2p-yamux` | ocap-kernel
+libp2p-yamux patch under SES lockdown | ocap-kernel
+patch-package under lockdown | ocap-kernel
+cost of libp2p under SES | ocap-kernel
+`@metamask/streams` gtor @endo/stream lineage | ocap-kernel
+`BaseDuplexStream` | ocap-kernel
+`@ocap/remote-iterables` | ocap-kernel
+remotable iterators generators | ocap-kernel
+`@metamask/kernel-store` savepoint persistence | ocap-kernel
+`@metamask/kernel-rpc-methods` JSON-RPC control plane | ocap-kernel
+`makeDefaultExo` kernel-utils exo.ts | ocap-kernel
+ocap-kernel package READMEs | ocap-kernel
