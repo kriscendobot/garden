@@ -9,6 +9,24 @@ Type=oneshot
 # doesn't mark a SIGTERM stop as Failed.
 SuccessExitStatus=143 130 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# --- weekly token meter / back-off gate (Claude Max x20 subscription) ---------
+# The foreman is the garden's autonomous token pump, so it gates on a deterministic
+# weekly token meter sourced from Claude Code's OWN session logs
+# (~/.claude/projects/**/*.jsonl) — NOT the Admin Usage/Cost API, which does not
+# apply to a subscription. See scripts/jobs/usage-meter.sh for the full design.
+#
+# ARMING THE GATE: set GARDEN_TOKEN_WEEKLY_QUOTA to the Max x20 WEEKLY token
+# allowance to turn the gate ON. It is UNSET here on purpose: the subscription's
+# weekly token ceiling is not machine-readable (Claude Code `/usage` shows usage,
+# not a token cap), so the number is a MAINTAINER CONFIG VALUE — fill it in below
+# (or via a drop-in like pause.conf) rather than guessing. Until it is set the
+# meter is OFF (no gating) and the foreman pumps unthrottled.
+#   Environment=GARDEN_TOKEN_WEEKLY_QUOTA=<weekly token allowance>
+# Optional tunables (defaults shown; uncomment to override):
+#   Environment=GARDEN_TOKEN_BACKOFF_FRACTION=0.85   # back off at 85% of quota
+#   Environment=GARDEN_TOKEN_WINDOW_SECS=604800      # rolling 7-day window
+#   Environment=GARDEN_TOKEN_COUNT_CACHE_READ=0      # 1 = also count cache_read
+#   Environment=GARDEN_CCUSAGE_LOGDIR=%h/.claude/projects  # session-log location
 ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-foreman -- @GARDEN_ROOT@/scripts/jobs/foreman.sh
 # The self-heal responder runs synchronously on a failed tick before the
 # wrapper returns the failing rc; give it headroom beyond the implicit 90s

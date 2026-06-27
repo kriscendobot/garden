@@ -55,11 +55,15 @@ GARDEN_TAG="foreman"
 
 # Token-quota back-off knobs (defaults declared in usage-meter.sh; restated here so
 # the foreman's tunables read together). The foreman pumps spend autonomously, so
-# it is the right place to gate on the garden's weekly token budget:
+# it is the right place to gate on the garden's weekly token budget. The meter is
+# sourced from Claude Code's OWN session logs (~/.claude/projects/**/*.jsonl) — the
+# whole fleet runs `claude -p` on a single Max x20 SUBSCRIPTION, so the Admin Usage
+# & Cost API (API-key/Console only) does NOT apply and is deliberately not wired.
 #   GARDEN_TOKEN_WEEKLY_QUOTA     weekly token ceiling; 0/unset = meter OFF (no gating).
 #   GARDEN_TOKEN_BACKOFF_FRACTION high-water mark as a fraction of quota (default 0.85).
 #   GARDEN_TOKEN_WINDOW_SECS      rolling window in seconds (default 604800 = 7 days).
-#   GARDEN_USAGE_LEDGER           host-local rolling token ledger path.
+#   GARDEN_CCUSAGE_LOGDIR         Claude Code session-log dir (primary source).
+#   GARDEN_USAGE_LEDGER           legacy ledger path (fallback only).
 # At/over the high-water mark the foreman pumps NOTHING this tick and emits at most
 # one throttled maintainer note; a broken/unreadable meter fails OPEN (pumps, warns).
 

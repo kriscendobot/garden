@@ -833,56 +833,131 @@ run_fm 2600     # 300s ≥ 240 → pump; stub proposes the same base as last pos
   || bad "anti-flap (todo=$(fcount jobs/todo) maint=$(fcount inbox/maintainer/unread))"
 
 # ============================================================================
-hr; echo "SUBTEST 14b — FOREMAN TOKEN QUOTA: deterministic weekly back-off"; hr
-# The foreman gates BOTH pump paths on a deterministic, no-LLM weekly token meter.
-# Reuses the foreman origin (FBARE) but a FRESH GARDEN_STATE per case so each case
-# starts with a clean settle clock and a clean usage ledger.
+hr; echo "SUBTEST 14b — FOREMAN TOKEN QUOTA: deterministic weekly back-off (session logs)"; hr
+# The foreman gates BOTH pump paths on a deterministic, no-LLM weekly token meter
+# sourced from Claude Code's own session logs (~/.claude/projects/**/*.jsonl). Each
+# case points GARDEN_CCUSAGE_LOGDIR at a synthetic JSONL fixture (NOT the real
+# ~/.claude) and uses a FRESH GARDEN_STATE so each starts with a clean settle clock.
 export GARDEN_HOST=fmqhost
-run_fmq() {  # run_fmq <now-epoch> <weekly-quota> <state-dir>
+# Use a small rolling window for these cases so synthetic small-epoch timestamps
+# fall inside/outside it predictably; restored to the default after the block.
+export GARDEN_TOKEN_WINDOW_SECS=1000
+# fxlog <logdir> <msg-id> <epoch> <input> <output> <cache_creation> [<cache_read>]
+# — append one synthetic Claude Code assistant-turn line to <logdir>'s project tree.
+fxlog() {
+  local d="$1/proj" id="$2" ep="$3" in_t="$4" out_t="$5" cc="$6" cr="${7:-0}" iso
+  mkdir -p "$d"; iso="$(date -u -d "@$ep" +%Y-%m-%dT%H:%M:%S.000Z)"
+  printf '{"type":"assistant","timestamp":"%s","message":{"id":"%s","usage":{"input_tokens":%s,"output_tokens":%s,"cache_creation_input_tokens":%s,"cache_read_input_tokens":%s}}}\n' \
+    "$iso" "$id" "$in_t" "$out_t" "$cc" "$cr" >> "$d/${id}.jsonl"
+}
+run_fmq() {  # run_fmq <now-epoch> <weekly-quota> <state-dir> [<ccusage-logdir>]
   : > "$FCALLS"
   env GARDEN_STATE="$3" JOURNAL_REMOTE="$FBARE" \
       GARDEN_FOREMAN_HANDLER="$HERE/foreman-stub.sh" GARDEN_FOREMAN_STUB_CALLS="$FCALLS" \
       GARDEN_FOREMAN_NOW="$1" GARDEN_USAGE_NOW="$1" GARDEN_FOREMAN_IDLE_SETTLE=240 \
-      GARDEN_TOKEN_WEEKLY_QUOTA="$2" \
+      GARDEN_TOKEN_WEEKLY_QUOTA="$2" GARDEN_TOKEN_WINDOW_SECS=1000 \
+      GARDEN_CCUSAGE_LOGDIR="${4:-$TR/fmq-no-such-logdir}" \
       "$JOBS/foreman.sh" >/dev/null 2>&1
 }
-# (1) UNDER quota → pumps as today. quota=1000, high-water=850; window total=500.
-SA="$TR/state-fmq-under"
+# (1) UNDER quota → pumps as today. quota=1000, high-water=850; session-log total
+# is 500 (one in-window turn 300+100+100; an OLD turn worth 9999 is out of window
+# and must be ignored; cache_read is excluded from billable).
+SA="$TR/state-fmq-under"; LA="$TR/log-fmq-under"; rm -rf "$LA"
 fboard @CLEAR
-mkdir -p "$SA/usage"; printf '%s\t%s\n' 5000 500 > "$SA/usage/ledger"
-run_fmq 5000 1000 "$SA"   # first idle observation: start the clock
-run_fmq 5300 1000 "$SA"   # 300s ≥ 240 settle, under high-water → pump
+fxlog "$LA" u1 5290 300 100 100 88888   # in-window: billable 500 (cache_read excluded)
+fxlog "$LA" u0 100  9999 0 0 0          # far out of the 1000s window → ignored
+run_fmq 5000 1000 "$SA" "$LA"   # first idle observation: start the clock
+run_fmq 5300 1000 "$SA" "$LA"   # 300s ≥ 240 settle, under high-water → pump
 { [ -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 1 ]; } \
   && ok "under quota: foreman pumps as normal (handler ran, one job posted)" \
   || bad "under-quota pump (calls=$(wc -l <"$FCALLS") todo=$(fcount jobs/todo))"
 
 # (2) AT/OVER quota → promotes nothing, runs NO handler; ONE throttled note.
-SB="$TR/state-fmq-over"
+# session-log total is 900 (500 + 400). A DUPLICATE of the 500 turn (same message
+# id, as a streamed content block emits) must NOT inflate the sum to 1400.
+SB="$TR/state-fmq-over"; LB="$TR/log-fmq-over"; rm -rf "$LB"
 fboard @CLEAR
-mkdir -p "$SB/usage"; { printf '%s\t%s\n' 5000 500; printf '%s\t%s\n' 5001 400; } > "$SB/usage/ledger"  # total 900 ≥ 850
-run_fmq 6000 1000 "$SB"   # first idle observation: start the clock
-run_fmq 6300 1000 "$SB"   # sustained idle, but over high-water → back off
+fxlog "$LB" o1 6290 500 0 0 0   # in-window: 500
+fxlog "$LB" o1 6290 500 0 0 0   # DUPLICATE message id → deduped, not double-counted
+fxlog "$LB" o2 6291 400 0 0 0   # in-window: 400  → total 900 ≥ 850 high-water
+run_fmq 6000 1000 "$SB" "$LB"   # first idle observation: start the clock
+run_fmq 6300 1000 "$SB" "$LB"   # sustained idle, but over high-water → back off
 M1="$(fcount inbox/maintainer/unread)"
 { [ ! -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 0 ] && [ "$M1" -ge 1 ]; } \
   && ok "over quota: no handler call, nothing posted, back-off note sent" \
   || bad "over-quota back-off (calls=$(wc -l <"$FCALLS") todo=$(fcount jobs/todo) maint=$M1)"
-run_fmq 6600 1000 "$SB"   # still over quota, still sustained → must NOT re-note
+run_fmq 6600 1000 "$SB" "$LB"   # still over quota, still sustained → must NOT re-note
 M2="$(fcount inbox/maintainer/unread)"
 { [ ! -s "$FCALLS" ] && [ "$M2" -eq "$M1" ]; } \
   && ok "over quota: back-off note throttled (no duplicate across ticks)" \
   || bad "back-off note not throttled (M1=$M1 M2=$M2 calls=$(wc -l <"$FCALLS"))"
 
-# (3) BROKEN/UNREADABLE meter with a quota set → FAIL OPEN (pump, with warning).
-# A directory at the ledger path makes the read fail (→ status 'unknown').
+# (3) BROKEN/MISSING meter with a quota set → FAIL OPEN (pump, with warning).
+# A non-existent log dir AND no fallback ledger makes the read fail (→ 'unknown').
 SC="$TR/state-fmq-broken"
 fboard @CLEAR
-mkdir -p "$SC/usage/ledger"   # ledger path is a directory → unreadable
-run_fmq 7000 1000 "$SC"   # first idle observation: start the clock
-run_fmq 7300 1000 "$SC"   # sustained idle, meter unreadable → fail open → pump
+run_fmq 7000 1000 "$SC" "$TR/log-fmq-does-not-exist"   # first idle observation
+run_fmq 7300 1000 "$SC" "$TR/log-fmq-does-not-exist"   # meter unreadable → fail open → pump
 { [ -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 1 ]; } \
   && ok "broken meter: fails open (handler ran, one job posted) despite quota set" \
   || bad "broken-meter fail-open (calls=$(wc -l <"$FCALLS") todo=$(fcount jobs/todo))"
+
+# (4) LEDGER FALLBACK: the session-log dir is missing but the legacy ledger exists
+# → the meter falls back to the ledger (total 500 under quota) and pumps.
+SD="$TR/state-fmq-fallback"
 fboard @CLEAR
+mkdir -p "$SD/usage"; { printf '%s\t%s\n' 7290 500; printf '%s\t%s\n' 100 9999; } > "$SD/usage/ledger"
+run_fmq 7000 1000 "$SD" "$TR/log-fmq-does-not-exist"   # first idle observation
+run_fmq 7300 1000 "$SD" "$TR/log-fmq-does-not-exist"   # logdir missing → ledger fallback → under → pump
+{ [ -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 1 ]; } \
+  && ok "ledger fallback: missing session logs fall back to the legacy ledger (under quota → pump)" \
+  || bad "ledger-fallback pump (calls=$(wc -l <"$FCALLS") todo=$(fcount jobs/todo))"
+fboard @CLEAR
+unset GARDEN_TOKEN_WINDOW_SECS
+
+# ============================================================================
+hr; echo "SUBTEST 14c — TOKEN METER (unit): session-log sum, dedup, window, fail-open"; hr
+# Direct unit tests of meter_window_total over a synthetic session-log fixture.
+export GARDEN_HOST=meterhost
+MLOG="$TR/meter-unit-log"; rm -rf "$MLOG"
+fxlog "$MLOG" a1 9500 100 10 5 70000   # in-window (cutoff 9000): billable 115
+fxlog "$MLOG" a1 9500 100 10 5 70000   # duplicate id → deduped
+fxlog "$MLOG" a2 9600 200 0 0 0        # in-window: 200  → in-window total 315
+fxlog "$MLOG" a3 8000 999 0 0 0        # OLD (< cutoff 9000) → ignored
+# a non-assistant line and a garbled line in the same file → skipped, not fatal
+mkdir -p "$MLOG/proj"
+printf '{"type":"user","timestamp":"1970-01-01T02:40:00.000Z","message":{}}\n' >> "$MLOG/proj/a2.jsonl"
+printf 'this is not json {{{\n' >> "$MLOG/proj/a2.jsonl"
+meter_unit() {  # meter_unit <logdir> <now> <window> [<count-cache-read>] [<ledger>]
+  ( cd "$JOBS"
+    GARDEN_STATE="$TR/state-meter-unit" GARDEN_HOST=meterhost \
+    GARDEN_CCUSAGE_LOGDIR="$1" GARDEN_USAGE_NOW="$2" GARDEN_TOKEN_WINDOW_SECS="$3" \
+    GARDEN_TOKEN_COUNT_CACHE_READ="${4:-0}" GARDEN_USAGE_LEDGER="${5:-$TR/meter-unit-no-ledger}" \
+    bash -c 'set -uo pipefail; source ./common.sh; meter_window_total && echo "RC=$?" >&2' 2>/dev/null )
+}
+U1="$(meter_unit "$MLOG" 10000 1000)"
+[ "$U1" = "315" ] && ok "session-log sum: in-window deduped billable total (expected 315)" \
+  || bad "session-log sum wrong (got '$U1', expected 315)"
+U2="$(meter_unit "$MLOG" 10000 1000 1)"
+[ "$U2" = "70315" ] && ok "cache_read toggle: GARDEN_TOKEN_COUNT_CACHE_READ folds in cache_read (expected 70315)" \
+  || bad "cache_read toggle wrong (got '$U2', expected 70315)"
+# missing log dir, no ledger → meter_window_total returns non-zero (→ unknown/fail-open)
+mrc=$( cd "$JOBS"
+  GARDEN_STATE="$TR/state-meter-unit2" GARDEN_HOST=meterhost \
+  GARDEN_CCUSAGE_LOGDIR="$TR/meter-unit-missing" GARDEN_USAGE_NOW=10000 \
+  GARDEN_USAGE_LEDGER="$TR/meter-unit-missing-ledger" \
+  bash -c 'set -uo pipefail; source ./common.sh; meter_window_total >/dev/null 2>&1; echo $?' )
+[ "$mrc" = "1" ] && ok "fail-open: missing log dir + no ledger → meter_window_total returns non-zero (unknown)" \
+  || bad "missing-source did not signal unknown (rc=$mrc)"
+# quota status verdicts over the same fixture
+ST_OK="$( cd "$JOBS"; GARDEN_STATE="$TR/sm3" GARDEN_HOST=meterhost GARDEN_CCUSAGE_LOGDIR="$MLOG" \
+  GARDEN_USAGE_NOW=10000 GARDEN_TOKEN_WINDOW_SECS=1000 GARDEN_TOKEN_WEEKLY_QUOTA=1000 \
+  GARDEN_USAGE_LEDGER="$TR/sm3-noledger" bash -c 'source ./common.sh; meter_quota_status' 2>/dev/null )"
+[ "$ST_OK" = "ok" ] && ok "quota status: under high-water → ok" || bad "quota status ok wrong (got '$ST_OK')"
+ST_BO="$( cd "$JOBS"; GARDEN_STATE="$TR/sm4" GARDEN_HOST=meterhost GARDEN_CCUSAGE_LOGDIR="$MLOG" \
+  GARDEN_USAGE_NOW=10000 GARDEN_TOKEN_WINDOW_SECS=1000 GARDEN_TOKEN_WEEKLY_QUOTA=300 \
+  GARDEN_USAGE_LEDGER="$TR/sm4-noledger" bash -c 'source ./common.sh; meter_quota_status' 2>/dev/null )"
+[ "$ST_BO" = "backoff" ] && ok "quota status: at/over high-water (315 ≥ 0.85·300) → backoff" || bad "quota status backoff wrong (got '$ST_BO')"
 
 # ============================================================================
 hr; echo "SUBTEST 15 — PROXY: stand in for the absent maintainer on gating questions"; hr
