@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T17:00:33Z_
+_As of 2026-06-27T17:09:01Z_
 
 ## Latest
 
-The deploy-sync reconciler landed on main2 (5d6490e62) — it fast-forwards the live checkout and restarts the long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart; it stays inert until a routine `install-units.sh` units refresh arms its timer. **Notice now:** the live `/home/kris` tree is dirty-wedged on a redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh`, so both the watchman and deploy-sync are refusing the fast-forward and the checkout has drifted 6 commits behind; `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges it. The proxy now auto-clears watchdog-class maintainer messages, and the scholar fleet ran a library cycle ingesting MetaMask/ocap-kernel's kernel guide plus a six-topic distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matching).
+Several infra fixes landed on main2: a deploy-sync reconciler (5d6490e62) now fast-forwards the live checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — though it's inert until the next units refresh arms its timer, and the live `/home/kris` tree is currently dirty-wedged on a redundant uncommitted edit to `report-error.sh` that blocks both it and the watchman (a lossless `git checkout --` unwedges it). Also merged: the foreman now meters weekly token spend from Claude Code session logs rather than the API, and the proxy auto-clears watchdog-class maintainer messages. On the library side, the scholar ingested MetaMask's ocap-kernel host-app guide (the sixth ocap-kernel ingest) plus a six-topic distributed-ocap concept cluster, and a lint sweep confirmed endo master is clean (only 5 non-failing jsdoc warnings, parked as a low plan).
 
-Three items are parked for your call: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded *no change* (reusing the daemon powers would invert the daemon-cas extraction and create a workspace cycle); the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) harden-exported-literals follow-up (now merged) needs you to pick breadth (narrow two exports vs. repo-wide) and base branch before a builder opens the cross-repo PR; and the formula-inspector retention-paths table is blocked on the still-open `listRetentionPaths` host PR #284, which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested (4 failing checks). The ymax0/XS investigation closed read-only: the nested-record vat abort is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding in agoric-sdk territory — out of bounds for autonomous action and awaiting your direction, along with sourcing the v320 swing-store export it needs.
+Maintainer decisions are stacking up in the inbox. The [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up — authorized by erights — is gated on you choosing breadth (narrow two-export vs repo-wide) and base branch (`llm` vs `master`) before a builder/designer dispatches. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), still open and stalled since 2026-05-21 on the rebase-and-gamut you requested (4 failing checks); a gardener offers to take that rebase as a separate job. The ymax0/XS overflow investigation concluded the crash is an XS native-stack-depth property, not an Endo regression — the real fix is contract-side depth-bounding in agoric-sdk territory, which is off-limits to autonomous action, so both that and sourcing a v320 swing-store export need your direction. Finally, the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction and create a workspace cycle).
 
 ## Parked for maintainer feedback
 
@@ -165,8 +165,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-mentor-treat-journalctl-no-entries-as-empty`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-treat-journalctl-no-entries-as-empty.md) — In scripts/jobs/mentor.sh, after computing jlog from journalctl --user -u 'ga...
 
 ### tada (374)
 - [`scholar-library-cycle-20260627-165512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-165512.md) — Completion report: scholar-library-cycle-20260627-165512
