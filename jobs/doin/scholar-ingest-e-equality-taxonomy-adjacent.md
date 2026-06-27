@@ -28,3 +28,9 @@ as the idempotency anchor, with `source_url` the canonical erights.org URL and
 Also worth a concept page while in this material: **three-party-handoff**
 already exists; consider whether **pass-by-construction** / **sameness** warrant
 their own concept pages cross-linked from `grant-matcher-puzzle`.
+
+---
+claim:
+  host: endolinbot
+  gardener: 3
+  claimed_at: 2026-06-27T11:06:17Z
