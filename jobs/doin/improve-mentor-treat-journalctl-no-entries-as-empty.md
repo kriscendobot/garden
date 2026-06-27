@@ -1,7 +1,0 @@
-In `scripts/jobs/mentor.sh`, after computing `jlog` from `journalctl --user -u 'garden-*' -p warning ...`, normalize journalctl's empty-result sentinel to the empty string so the step-3 silence guard works. When there are no matching warnings, `journalctl --no-pager` prints `-- No entries --` to stdout (confirmed: this captured failure-surface blob contains exactly that line in its `===== journalctl =====` section), so `jlog="-- No entries --"` is non-empty and the `[ -z "$jlog" ]` check at step 3 never short-circuits. The result is that on every tick with no new journal entries but a reachable-and-clean journalctl, the mentor still captures a content-less blob and invokes the inner `GARDEN_MENTOR_HANDLER` (`claude -p`) against pure noise — wasted tokens and a spurious agent wake on a service that is supposed to be "silent until an error." Fix: immediately after the `jlog="$(timeout 30 journalctl ... || true)"` line, add a normalization such as `[ "$(printf '%s' "$jlog" | tr -d '[:space:]')" = "--Noentries--" ] && jlog=""` (whitespace-tolerant so it also catches a leading/trailing-newline variant), then the existing step-3 `if [ "${#new[@]}" -eq 0 ] && [ -z "$jlog" ]; then exit 0; fi` correctly keeps the mentor silent. Add a brief comment noting the sentinel-vs-empty distinction so a future edit doesn't reintroduce it.
-
----
-claim:
-  host: endolinbot
-  gardener: 76
-  claimed_at: 2026-06-27T17:08:22Z
