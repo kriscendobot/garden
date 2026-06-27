@@ -44,3 +44,9 @@ cwd (the root, $PWD).
   job runs with cwd = a worktree, never the root tree, and that a requeue re-enters the same worktree.
 - Update designs/deliberate-deploy.md § Follow-on work to mark this done and roles/COMMON.md if the
   mechanism changes the norm's wording.
+
+---
+claim:
+  host: endolinbot
+  gardener: 35
+  claimed_at: 2026-06-27T20:17:01Z
