@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T12:53:56Z_
+_As of 2026-06-27T12:58:57Z_
 
 ## Latest
 
-Library-link integrity tooling landed on main2 — the deterministic post-ingest section-link check plus a tip-synced standing scan and precision fixes to the shared resolver — alongside the producer body-read-hang hardening and the journal-entry/producer argv guards that close out the 2026-06-27 post-hang root cause. A deploy-sync reconciler also landed (5d6490e62) to fast-forward the checkout and restart long-running services when `scripts/` changes. On the library side, the scholar fleet ingested MetaMask/ocap-kernel's kernel guide (sixth ocap-kernel source) and synthesized a distributed-ocap concept cluster.
+The big operational story is a day-long **deploy wedge**: `main2` on host endolinbot has been frozen since early morning — origin advanced ~20 commits while the live checkout stayed pinned, each time blocked by uncommitted tracked edits (cycling through `self-heal-run.sh`, `gardener.sh`, `report-error.sh`, and the `library-link-*` scripts) plus, later, untracked files colliding with incoming paths. The good news landed mid-stream: a **deploy-sync reconciler** (main2 `5d6490e62`) now auto-fast-forwards the checkout and restarts long-running services when `scripts/` changes, and a gardener diagnosed the current wedge as a redundant byte-identical edit to `report-error.sh` — `git checkout --` on that one path is lossless and unblocks the fleet. Worth a maintainer hand to clear it.
 
-Two operational alarms dominate and need attention. First, this host's deploy is **wedged**: the watchman reports `main2` on endolinbot stuck many commits behind `origin/main2` across a long string of ticks because uncommitted working-tree edits (variously `self-heal-run.sh`, `report-error.sh`, `gardener.sh`, and the library-link scripts) block the fast-forward — one gardener notes the dirty `report-error.sh` is byte-identical to the landed version and a lossless `git checkout --` unwedges it. Second, `comment-watcher/kriskowal-garden` has now logged **0 comments for 300+ consecutive ticks** while the repo is demonstrably active — the same 2026-06-24 jq/gh blindness signature, recurring.
+Two items need maintainer decisions: the [#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up (now merged) is gated on you choosing **breadth** (narrow two exports vs. repo-wide) and **base branch** (`llm` vs `master`) before any cross-repo PR opens; and the formula-inspector retention-paths table is **blocked on [#284](https://github.com/endojs/endo-but-for-bots/pull/284)**, which has stalled since 2026-05-21 awaiting the rebase-and-gamut you requested (4 CI checks red) — a gardener offers to take that rebase as its own job on your word.
 
-Three decisions are parked for you: the harden-exported-function-literals follow-up to the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs breadth (narrow two exports vs. repo-wide) and base-branch (`llm` vs. `master`) before a PR opens; the Cognito↔MCP OAuth bridge build is proceeding on the gardener's recommendations (full RFC 8414/7591/8707 bridge with DCR behind a toggle) absent redirection; and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which still owes the rebase-and-gamut you requested on 2026-05-21 (4 failing checks). Separately, a gardener pushed a conflict-safe corrective follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down (fixing 13 dangling doc references and adding a real Node parity test), and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the only API match would invert the extraction).
+On the autonomous side, a gardener pushed a conflict-safe corrective follow-up to [#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`) — fixing 13 dangling design-doc references and adding a real Node parity test after finding the superseding commit had departed; the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded "no change" (reuse would invert the extraction); endo master lint classified **clean** (only 5 non-blocking jsdoc warnings); and scholar ingests added the ocap-kernel guide and a distributed-ocap concept cluster. One standing concern: the `kriskowal/garden` comment-watcher has now reported **300 consecutive ticks finding zero comments** despite known activity — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth a look.
 
 ## Parked for maintainer feedback
 
@@ -600,17 +600,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-parallel-sync-browser-design.md) — Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo sho...
-- [`scholar-library-cycle-20260627-125313`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-125313.md) — Hourly scholar library cycle
 
-### tada (352)
+### tada (353)
+- [`scholar-library-cycle-20260627-125313`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-125313.md) — Scholar library cycle complete — idle drain.
 - [`endo-but-for-bots-harden-exported-literals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-harden-exported-literals-followup.md) — Completion report
 - [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — Completion report — endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers
 - [`garden-fix-producer-arg-guard-uppercase-kind`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-producer-arg-guard-uppercase-kind.md) — Completion report
 - [`garden-harden-producer-body-read-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-harden-producer-body-read-hang.md) — Completion report: garden-harden-producer-body-read-hang
-- [`improve-journal-entry-argv-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-entry-argv-guard.md) — Job complete. Completion report:
-- … and 347 more
+- … and 348 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
