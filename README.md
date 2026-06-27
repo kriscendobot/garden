@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T15:50:22Z_
+_As of 2026-06-27T15:53:39Z_
 
 ## Latest
 
-The garden spent the day fighting a recurring main2 deploy wedge on endolinbot — a string of watchman pages traced to redundant or already-landed uncommitted edits (`report-error.sh`, `library-link-check.sh`, `journal-entry.sh`) blocking the fast-forward. Two infrastructure fixes landed in response: the [watchman-resolve-wedge-autonomously](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/watchman-resolve-wedge-autonomously.md) job (the watchman now clears dirty-tree wedges itself rather than paging the maintainer), and a deploy-sync reconciler on main2 (`5d6490e62`) that fast-forwards the checkout and restarts services when `scripts/` changes — though it stays inert until the next units refresh arms it. The comment-watcher false-alarm storm (repeated "0 comments for N ticks" anomalies, which kriskowal directed us to stop reporting) is being addressed by the in-flight [comment-watcher-no-inactivity-anomaly](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-inactivity-anomaly.md) job.
+The day's headline is infrastructure self-healing landing against a deploy that was wedged all day: endolinbot's `main2` checkout repeatedly refused to fast-forward (uncommitted tracked edits to `gardener.sh`, `claim-job.sh`, the library-link scripts, then untracked-file collisions), freezing role/skill/script pickup while `origin/main2` advanced dozens of commits. Two fixes for exactly this class landed — the `watchman-resolve-wedge-autonomously` job (autonomous lossless unwedging instead of paging the maintainer) and the deploy-sync reconciler (`5d6490e2`, inert until the next units refresh arms its timer) that fast-forwards and restarts long-running services when `scripts/` changes. A gardener noted the live wedge is lossless to clear: `skills/gardener-inbox-error-reporting/report-error.sh` is byte-identical to origin, so a plain checkout unsticks it. Relatedly, a self-heal capture confirmed a `garden-gardener` crash-loop whose claim-failure fix is already on `main2` — the running unit was just behind.
 
-Two decisions are owed before work can proceed. The [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up (now merged) needs a scope call from you — narrow (the two evasive-transform exports) versus repo-wide, plus base branch (`llm` vs `master`); a builder/designer dispatch is staged on your answer. Separately, the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and currently has 4 failing checks. Quieter notes: endo master lint is clean (only 5 non-blocking jsdoc warnings, plan parked); the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no-change; and scholar landed two library cycles (the sixth ocap-kernel ingest plus a distributed-ocap concept cluster).
+Two scope decisions are owed to the maintainer. The "harden exported function literals" follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) needs breadth (narrow two exports vs repo-wide) plus base-branch (`llm` vs `master`) before a DRAFT PR opens. And the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which is stalled with failing CI awaiting the rebase-and-gamut you already requested. Lower-stakes: a lint classification found endo master clean (only 5 jsdoc warnings, plan parked), and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change. Scholar landed the sixth ocap-kernel ingest plus a six-section distributed-ocap concept cluster. A new investigation into a beta3 ymax0 portfolio-upgrade stack overflow is in flight.
+
+One note: the comment-watcher kept firing "0 comments for N ticks" anomaly alerts against kriskowal/garden through the day — the exact false-positive the standing directive says to remove (people sleep); the `comment-watcher-no-inactivity-anomaly` fix is in progress.
 
 ## Parked for maintainer feedback
 
@@ -557,8 +559,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-inactivity-anomaly.md) — Comment-watcher: stop reporting human inactivity as an anomaly; make blindnes...
+- [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — Investigation: beta3 portfolio-contract (ymax0) upgrade crashes with "stack o...
 - [`land-journal-entry-hardening`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/land-journal-entry-hardening.md) — Land the journal-entry.sh hardening (preserve a gardener's stashed WIP)
 - [`rename-killswitch-to-draining-marker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/rename-killswitch-to-draining-marker.md) — Rename the killswitch to a mundane "draining" marker (existence-meaningful + ...
 
@@ -572,7 +575,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
-- [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — _normal_ · Investigation brief: beta3 portfolio-contract upgrade crashes with "stack ove...
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
