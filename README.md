@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T04:50:42Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T04:53:43Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The review-followup on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) landed, with two further asks from kriskowal's 2026-06-25 CHANGES_REQUESTED — the TypeScript and design-doc items — still in flight. The board is otherwise quiet (todo empty, four jobs in progress), with two of those addressing connectivity handling in the job scripts: classifying offline fetches as tempfail in `common.sh` and treating transient outages as a clean exit in `self-heal-run.sh`. Most pressing for a human: the watchman reports main2 on this host (endolinbot) is **wedged** — origin has advanced several commits past the live tree, but uncommitted changes to `scripts/jobs/self-heal-run.sh` block the fast-forward, so this host will not pick up new roles, skills, or scripts until the tree is cleaned. Worth confirming that edit isn't unsaved work before checking it out.
+This host's deploy is **wedged**: the watchman fired three alerts that `main2` on endolinbot is frozen at `beede51e9` while origin has advanced past three commits, because uncommitted tracked changes to `scripts/jobs/self-heal-run.sh` block the fast-forward — until the tree is cleaned, this host picks up no new roles, skills, or scripts. Verify that edit isn't unsaved work, then check out or stash it. On the review front, the [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) follow-up addressed all three of kriskowal's 2026-06-25 inline asks but deliberately left `ts`/`mts`/`cts` out of the default language maps in `node-modules.js` (no TS parser ships by default, and adding them risked the 12-known-failures invariant) — TS classification works only through the override mechanism, so the liaison is asking whether default TS classification was actually intended before the PR is finalized; two #96 jobs remain in flight alongside two self-heal/journal-fetch reliability improvements that teach the scripts to treat offline/transient connectivity as a clean exit rather than a failure.
 
 ## Parked for maintainer feedback
 
@@ -69,6 +69,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > ```
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T045332Z-4a6e98` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T045332Z-4a6e98.md)
+
+> On endojs/endo-but-for-bots PR #96 (report pr-ebfb-96-review-followup): the fix addressed all three inline asks but did NOT add ts/mts/cts to the production default language maps in `node-modules.js` — no TS parser ships by default, and adding them risked the 12-known-failures invariant. TS classification is handled only via the override mechanism (caller supplies TS language options + parsers), which the test exercises. Please confirm whether you intended default TS classification rather than override-only; if default is wanted, that's a follow-up change before the PR is final.
 
 
 ## Board
