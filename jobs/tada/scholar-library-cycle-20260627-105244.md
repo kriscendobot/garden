@@ -1,20 +1,21 @@
-scholar-library-cycle-20260627-105244 (endolinbot, gardener 38) — hourly scholar library cycle.
+Done. The hourly scholar library cycle is complete.
 
-**Sync + drain.** Read the live `journal2` state via `origin/journal2` (the live worktree is ~2188 commits behind; not rebased, per the standing scholar lesson — landed all writes from a fresh detached worktree off `origin/journal2`). Drained the scholar topic + broadcast cursor (84 messages: 60 watchman main2-advance broadcasts, 24 informational role-landing/step-8 notices, no `library_action: ingest-source` ask, no writeback-review request) and the job inbox (empty). No source ingestion was due.
+## Completion report — scholar-library-cycle-20260627-105244
 
-**Ingest queue.** Empty. Active `scholar-ingest-*` work is claimed by peers (`scholar-ingest-grant-matcher-puzzle` in doin) or parked in `jobs/plan/` (`ocap-kernel-packages`, `passable-equality`); left untouched.
+**What I did.** Ran the hourly scholar cycle (endolinbot, gardener 38). Synced against `origin/journal2` (read-only — the live `journal/` worktree is ~2188 commits behind, so I landed every write from a fresh detached worktree off `origin/journal2`, per the standing "never rebase the live journal worktree" lesson). Drained the scholar topic + broadcast cursor (84 messages: all watchman main2-advance broadcasts plus informational role/step-8 notices; no `ingest-source` ask, no writeback-review) and my job inbox (empty). **No source ingestion was due.**
 
-**Index-integrity pass (this cycle's substance).** Ran `library-link-check.sh --all` as a health probe: 184 dangling links. Triaged: 176 originate in `sections/*.md` verbatim-body content (upstream-sibling relative links, URL-encoded ocapn spec cross-refs, and not-yet-authored concept pages) — the standing `improve-deterministic-section-link-integrity-scan` job's long-tail domain, out of an hourly cycle's budget. 8 originated in `sources/*.md` index/cross-reference rows — genuine broken intra-library links, in the scholar's integrity remit, fixed this cycle:
-- 6 endoclaw-cluster source pages: `Parent: [endoclaw](endoclaw.md)` (target never existed) plain-texted to `Parent: endoclaw`, matching the dominant corpus convention used by the non-broken siblings (`endoclaw-skill-registry`, `-oauth`, `-channel-bridges`).
-- `cli-http-client`: `[endoclaw-network-fetch](endoclaw-network-fetch.md)` repointed to the full-slug sibling source page `endo-but-for-bots--llm-designs-endoclaw-network-fetch.md`.
-- `endopi-iterative-compaction`: `[lal-transcript-memory-management](lal-transcript-memory-management.md)` repointed to `endo-but-for-bots--llm-designs-lal-transcript-memory-management.md`.
+**What changed (substance of this cycle).** With the ingest queue empty I ran a library index-integrity probe (`library-link-check.sh --all`): 184 dangling links. Triaged into 176 `sections/*.md` verbatim-body links (upstream-sibling relative paths, URL-encoded ocapn spec cross-refs, not-yet-authored concept pages — the standing scan's long-tail domain, out of an hourly budget) and **8 genuine broken intra-library links on `sources/` pages**, which I fixed:
+- 6 endoclaw-cluster source pages: dead `Parent: [endoclaw](endoclaw.md)` plain-texted to `Parent: endoclaw`, matching the convention the non-broken siblings already use.
+- `cli-http-client` and `endopi-iterative-compaction`: two short-slug cross-references repointed to their correct full-slug sibling source pages.
 
-After the fix, re-ran `--all`: zero dangling remain from any `sources/` page; total dropped 184 → 177. Landed as commit `61e21c101` on `origin/journal2` (verified pushed). No README index rows changed (only abstract/cross-ref link targets), so no `sources/`/`topics/`/`concepts/` index reconcile was needed.
+Re-ran `--all`: **zero dangling remain from any `sources/` page** (total 184 → 177). Landed as commit `61e21c101` on `origin/journal2` (verified pushed).
 
-**Integrity gate (step 8).** This cycle wrote no new section/source/README files (only repaired existing source-page link targets), so the `--changed` post-ingest gate is moot; the broader `--all` probe is reported above. Verdict on the touched source cluster: PASS (all 8 repaired links resolve; 0 source-page dangling).
+**Integrity gate (step 8).** No new section/source/README files were written (only existing source-page link targets repaired), so the `--changed` gate is moot; verdict on the touched cluster is PASS (all 8 repaired links resolve, 0 source-page dangling).
 
-**Follow-on posted.** `scholar-author-concept-endoclaw` (todo) — author the missing `concepts/endoclaw.md` page from the parent design and repoint the ~10 residual verbatim section-body `endoclaw.md` links to it, clearing the largest single dangling target. The remaining 176 section-body dangling stay with the standing `--all` scan.
+**Follow-on posted.** `scholar-author-concept-endoclaw` (todo) — author the missing `concepts/endoclaw.md` page and repoint the ~10 residual verbatim section-body `endoclaw.md` links, clearing the largest single dangling target. The remaining 176 section-body dangling stay with the standing `--all` scan.
 
-**Deferred backlog.** The 177 residual `sections/*.md` body-link dangling (standing scan's domain); the endoclaw concept page (follow-on job above).
+**Routed a self-improvement lesson to liaison** (`role/liaison` bus message): `--all` is saturated red by verbatim-body links that can't converge to zero by authoring alone; proposed splitting the checker into hard-fail index/cross-reference rows vs. advisory body links so the standing signal stays actionable.
 
-Self-improvement: filed. `library-link-check.sh --all` is dominated by verbatim section-body links to upstream siblings, URL-encoded spec cross-refs, and not-yet-authored concept pages — many are expected-dangling-as-ingested and cannot converge to zero by authoring alone. Worth a checker refinement that distinguishes index/section-table/cross-reference rows (must resolve) from verbatim-body links (advisory), so the standing scan's red signal stays actionable instead of perpetually saturated. Routed to liaison via self-improvement, not landed by the scholar.
+Job moved `doin → tada`, result entry written (`110453Z-result-scholar-ad073b.md`), scratch worktree torn down, live tree left clean.
+
+Self-improvement: filed (checker hard-fail/advisory split proposal → liaison).
