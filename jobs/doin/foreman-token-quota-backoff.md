@@ -37,3 +37,9 @@ Scope:
 
 Keep it deterministic and cheap (runs every foreman tick). Document the new env
 knobs where the other GARDEN_FOREMAN_* defaults are declared.
+
+---
+claim:
+  host: endolinbot
+  gardener: 12
+  claimed_at: 2026-06-27T05:08:42Z
