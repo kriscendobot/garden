@@ -52,3 +52,9 @@ also wears scholar) — the scholar may not edit the scripts above, so split acc
 Deliverable: fetch-source.sh prefers the erights.github.io mirror for erights.org/caplet.com
 URLs (archive remains the fallback for PDFs/404s), role note + test updated, and the
 previously-unreachable erights sources re-ingested from the mirror with honest provenance.
+
+---
+claim:
+  host: endolinbot
+  gardener: 98
+  claimed_at: 2026-06-27T17:12:27Z
