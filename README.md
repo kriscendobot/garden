@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T12:48:50Z_
+_As of 2026-06-27T12:52:42Z_
 
 ## Latest
 
-The headline for the maintainer: **endolinbot's deploy is wedged and has been all day.** The watchman has fired ~20 times — origin/main2 keeps advancing while the live `/home/kris` tree is stuck behind it, because a string of tracked working-tree edits (first `scripts/jobs/self-heal-run.sh`, then `skills/gardener-inbox-error-reporting/report-error.sh`, latterly the `library-link-*` scripts and `journal-entry.sh`) keep blocking the fast-forward; one gardener confirmed the `report-error.sh` edit is byte-identical to what's already committed, so `git -C /home/kris checkout --` on the dirty paths is lossless and unwedges the host. Until it clears, this host won't pick up new roles, skills, or scripts. Separately, the `comment-watcher/kriskowal-garden` watchdog has now reported 0 comments for 300 consecutive ticks despite known activity — the same silent-blindness signature as the 2026-06-24 outage, worth a jq/gh check on endolinbot.
+The board barely moved this cycle — one completion ([endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474)'s "harden exported literals" follow-up landed as a no-op decision, parked back for your scoping) — but two infrastructure issues warrant attention. First, the **main2 deploy on endolinbot has been wedged all morning**: the watchman has fired ~25 times because uncommitted edits to tracked scripts (`self-heal-run.sh`, `gardener.sh`, `report-error.sh`, the `library-link-*` scripts) keep blocking the fast-forward, so the live tree sits many commits behind origin while landed fixes don't reach running workers. A gardener confirmed the `report-error.sh` edit is byte-identical to what's already committed — a lossless `git checkout --` unwedges it — and the new deploy-sync reconciler (landed on main2 at `5d6490e6`) will auto-advance the checkout once a units refresh arms its timer. Second, the **comment-watcher for kriskowal/garden is blind again** — 0 comments for 300+ consecutive ticks despite a real comment since 2026-06-25, matching the 2026-06-24 jq/gh outage signature.
 
-On the work that did land: a deploy-sync reconciler shipped to main2 (it fast-forwards the checkout and restarts long-running services when `scripts/` changes, though it stays inert until the next units refresh arms it), plus producer-hardening fixes (body-read-hang, argv guards). A corrective follow-up went onto [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) — fixing 13 dangling design-doc references and adding a real Node parity test atop the superseding gardener's commit, pushed non-force. The [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded as no-change (the only API match would invert the extraction and create a workspace cycle). Scholar ingested the MetaMask ocap-kernel guide and a distributed-ocap concept cluster. Lint on endo-but-for-bots master is clean (only 5 non-blocking jsdoc warnings, parked). Two items need a maintainer decision: the `cognito-mcp-metadata-bridge` gardener is proceeding on its two design Open Questions (Cognito+bridge, DCR behind a toggle) unless redirected, and the `formula-inspector-retention-paths-table` job is blocked on the still-open, CI-failing #284 host API you'd asked to rebase-and-re-gamut.
+Several items are genuinely parked on your decision: the harden-exported-literals follow-up needs breadth (narrow two-export vs. repo-wide) plus base-branch (`llm` vs `master`); the Cognito↔MCP OAuth bridge gardener wants confirmation on DCR/IdP before building (proceeding on its recommendations otherwise); and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since your "please rebase and run the gamut" request and now has failing CI. On the quieter side, a corrective non-force follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) fixed dangling doc references and added a real Node parity test, endo-but-for-bots master lint came back clean (only 5 non-blocking jsdoc warnings), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change, and scholars ingested the MetaMask ocap-kernel guide and a distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -554,21 +554,60 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Both re-arm triggers stay armed; the plan re-fires if @endo/stream gains a real array->async-iterable helper, or a second test reaches for the same real-fs/crypto powers shim. Optional low-risk improvement if you want it folded into #442: a one-line comment by the inline shim noting the identical @endo/daemon powers are intentionally not reused because daemon depends on daemon-cas. I left the PR branch untouched since it is under active review.
 
+- `20260627T125202Z-44b78c` — from gardener:endo-but-for-bots-harden-exported-literals-followup, reply_to `endo-but-for-bots-harden-exported-literals-followup` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T125202Z-44b78c.md)
+
+> # Scope decision needed: "harden exported function literals" follow-up (endo-but-for-bots)
+>
+> Origin: erights bullet 4 on endojs/endo-but-for-bots#474 — "agreed, not in this
+> PR. Please start a separate PR with that change... Attn @kriskowal". The job is
+> gated on you scoping its breadth before any cross-repo PR opens.
+>
+> What I verified (read-only) today:
+>
+> - **#474 is MERGED** (into `master`, 2026-06-26): "retire function-keyword in
+>   favor of arrow/method syntax per erights review". No open PR on endo-but-for-bots
+>   or endo covers the harden follow-up.
+> - **The literal form differs by branch** — this matters for how the change is
+>   written and which base to target:
+>   - Default/working branch `llm`: `evadeCensorSync`/`evadeCensor` are still
+>     un-hardened **function declarations** (index.js:65 / :129).
+>   - `master` (post-#474): the arrow-const form erights reviewed (his ref was
+>     index.js:91).
+> - A real `@endo/harden-exports` eslint rule exists in the repo (#474 touched it),
+>   so a repo-wide pass would lean on / interact with it.
+> - Note: the parked job spec described the evasive-transform exports as
+>   "un-hardened arrow consts" — that's only true on `master`; on the `llm` default
+>   they're function declarations. So the base branch choice changes the diff shape.
+>
+> Decision I need from you (two axes):
+>
+> 1. **Breadth** — (a) **narrow**: harden only the two evasive-transform exports
+>    (`evadeCensorSync`, `evadeCensor`); or (b) **repo-wide**: harden every exported
+>    function literal, driven by/aligned with the `@endo/harden-exports` rule
+>    (designer-first; larger blast radius). erights authorized (a) and framed (b) as
+>    the better trailing form.
+> 2. **Base branch** — target `llm` (default) or `master`?
+>
+> On your answer I'll dispatch a builder (narrow) or designer→builder (repo-wide) to
+> open a DRAFT PR with that scope and run the gamut. Authorization to open the
+> cross-repo PR is already carried by erights's directive; only breadth + base are
+> owed.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endo-but-for-bots-harden-exported-literals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-harden-exported-literals-followup.md) — follow-up PR: harden exported function literals (evasive-transform first)
+### doin (0)
+(none)
 
-### tada (351)
+### tada (352)
+- [`endo-but-for-bots-harden-exported-literals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-harden-exported-literals-followup.md) — Completion report
 - [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — Completion report — endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers
 - [`garden-fix-producer-arg-guard-uppercase-kind`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-producer-arg-guard-uppercase-kind.md) — Completion report
 - [`garden-harden-producer-body-read-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-harden-producer-body-read-hang.md) — Completion report: garden-harden-producer-body-read-hang
 - [`improve-journal-entry-argv-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-entry-argv-guard.md) — Job complete. Completion report:
-- [`scholar-library-cycle-20260627-115254`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-115254.md) — Completion report — scholar-library-cycle-20260627-115254
-- … and 346 more
+- … and 347 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
