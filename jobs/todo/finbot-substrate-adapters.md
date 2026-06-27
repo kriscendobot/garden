@@ -27,8 +27,4 @@ adapters, NOT a live-enable.
 At least one substrate adapter built behind the live gate with a dry-run proof
 path; the route/place markers are real, not `sim:single-venue`; tests green.
 
----
-claim:
-  host: endolinbot
-  gardener: 97
-  claimed_at: 2026-06-26T09:40:03Z
+<!-- garden-reaped: 1 -->
