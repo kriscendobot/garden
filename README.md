@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:45:19Z_
+_As of 2026-06-27T05:46:20Z_
 
 ## Latest
 
-The headline for the maintainer: watchman reports **main2 on endolinbot is WEDGED** — origin/main2 has advanced through several commits but the live tree is frozen at `beede51e` because tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `scripts/jobs/gardener.sh`) block the fast-forward, so this host is not picking up new roles/skills/scripts until the tree is cleaned. Verify those edits aren't unsaved work and check out/stash them.
-
-A cluster of self-heal and connectivity-resilience hardening is in flight (treating offline/transient git-128 outages as clean exits rather than fatal failures), alongside run-test determinism fixes — `run-test-isolate-shared-clone-flake` and `foreman-token-quota-backoff` just completed, and a scheduler-cadence determinism job was claimed.
-
-The `cognito-mcp-metadata-bridge` build (the Cognito↔MCP OAuth bridge for minion.town) completed but surfaced two design open questions awaiting your call: stay on Cognito + bridge vs. an MCP-native IdP, and whether to ship RFC 7591 Dynamic Client Registration (the gardener proceeded on its recommendations — keep Cognito, build all three RFC pieces with `/register` behind a default-on toggle — and will adjust if you redirect). The related `synth-and-deploy-minion-town-aws` plan remains parked awaiting your go-ahead.
-
-Finally, a judgment-call flag on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): a gardener received a stand-down (its job duplicated already-landed work in `aa78d8329`) but, finding no active second writer, pushed a conflict-safe non-force follow-up (`3aa37bbd`) fixing 13 dangling design-doc references and adding a real Node parity test; full suite passed, and the commit is trivially revertible if you'd rather it had routed differently.
+The self-heal/connectivity-resilience cluster keeps landing: offline conditions are now classified as temporary failures in the journal fetch path ([completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-offline-as-tempfail-in-journal-fetch.md)), with four more in flight to treat transient `git 128` outages and signalled shutdowns as clean exits, plus a foreman token-quota back-off. Most urgent: the watchman reports **main2 on endolinbot is WEDGED** — uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) are blocking the fast-forward, so this host has stopped picking up new roles/skills/scripts across at least six advancing commits; those changes need verifying and clearing. A corrective follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down: a gardener found 13 dangling design-doc references and a missing Node parity test in the superseding commit, pushed a conflict-safe fix with the full compartment-mapper suite green, and flagged it for visibility. Separately, the Cognito↔MCP OAuth bridge build completed but a gardener is awaiting maintainer answers on two design questions (IdP choice and whether to ship RFC 7591 dynamic client registration) before relying on its defaults.
 
 ## Parked for maintainer feedback
 
@@ -144,22 +138,21 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`design-host-formula-property-value-addressing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-host-formula-property-value-addressing.md) — Design: general host-side addressing of deeply nested values through formula ...
 - [`endojs-endo-but-for-bots-pr440-review-a9ecd20f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr440-review-a9ecd20f.md) — Review directive on endojs/endo-but-for-bots PR #440
 - [`harden-run-test-scheduler-cadence-determinism`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/harden-run-test-scheduler-cadence-determinism.md) — run-test.sh SUBTEST 8 (scheduler cadence): make the 1s-cadence assertion cloc...
-- [`improve-classify-offline-as-tempfail-in-journal-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-classify-offline-as-tempfail-in-journal-fetch.md) — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
 - [`improve-self-heal-clean-signalled-shutdown-exits-zero`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-self-heal-clean-signalled-shutdown-exits-zero.md) — In /home/kris/scripts/jobs/self-heal-run.sh, a signalled shutdown is treated ...
 - [`improve-self-heal-treat-offline-as-clean-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-self-heal-treat-offline-as-clean-exit.md) — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
 - [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Make the long-running gardener claim loop absorb transient connectivity outag...
 
-### tada (301)
+### tada (302)
+- [`improve-classify-offline-as-tempfail-in-journal-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-offline-as-tempfail-in-journal-fetch.md) — Completion report: improve-classify-offline-as-tempfail-in-journal-fetch
 - [`run-test-isolate-shared-clone-flake`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/run-test-isolate-shared-clone-flake.md) — Completion report: run-test-isolate-shared-clone-flake
 - [`foreman-token-quota-backoff`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-token-quota-backoff.md) — Completion report: foreman-token-quota-backoff
 - [`cognito-mcp-metadata-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/cognito-mcp-metadata-bridge.md) — Completion report: cognito-mcp-metadata-bridge
 - [`deadmail-20260627T051303Z-9412c5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260627T051303Z-9412c5.md) — Completion report
-- [`improve-gardener-classify-empty-output-nonzero-as-transient-requeue`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-classify-empty-output-nonzero-as-transient-requeue.md) — Done. The peer had already completed (inbox gone), so the ack was dead-letter...
-- … and 296 more
+- … and 297 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
