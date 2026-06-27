@@ -611,6 +611,65 @@ disp2=$(ls -1 "$FV/jobs/todo" | grep -c '^fu-fu-new-2\.md$' || true)
 rm -rf "$FV"
 
 # ============================================================================
+hr; echo "SUBTEST 13b — FOLLOW-UP HANDLER: producer failure classification"; hr
+# The default follow-up handler (follow-up-claude.sh) is driven here directly —
+# GARDEN_FOLLOWUP_HANDLER is left at its default so the REAL handler runs — with
+# the inner `claude -p` replaced by a deterministic stub (GARDEN_FOLLOWUP_CLAUDE)
+# that emits chosen action blocks. We assert the split the 2026-06-27 wedge
+# required: a block whose producer rejects it DETERMINISTICALLY (an illegal
+# derived name) is logged-and-skipped (tick succeeds, seen-marker advances, so a
+# non-deterministic re-roll can never re-wedge), while a TRANSIENT producer
+# failure (push-retry exhaustion) fails the tick (marker NOT advanced, so the
+# digest is retried next cadence).
+export GARDEN_STATE="$TR/state-fuh" GARDEN_HOST=fuhhost
+SEEN_FUH="$GARDEN_STATE/follow-up/seen"
+# Prime the cold-start marker so subsequent ticks ACT (cold start never calls the
+# handler — it only records existing reports seen).
+push_change "jobs/tada/fuh-prime.md" "$(printf '# prime\n## Follow-ups\n- None\n')" "seed prime tada (cold start)"
+env GARDEN_FOLLOWUP_CLAUDE="$HERE/fake-claude.sh" "$JOBS/follow-up.sh" >/dev/null 2>&1
+
+# (A) deterministic rejection — illegal derived name → post-job `die "illegal
+# basename"`. Handler must SKIP (continue), the tick must SUCCEED, the marker
+# must advance, no job may leak to todo, and the dropped block is routed to the
+# maintainer inbox so it is not silently lost.
+push_change "jobs/tada/fuh-detrej.md" \
+  "$(printf '# detrej\n## Follow-ups (escalated to liaison)\n- post a follow-up job on endo-but-for-bots\n')" \
+  "seed deterministic-reject report"
+printf 'JOB fuh-detrej/bad-1\nendojs/endo-but-for-bots: a follow-up task\nENDJOB\n' > "$TR/blocks-detrej"
+mm_before=$(git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/fuhv0" && \
+  ls -1 "$TR/fuhv0/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/fuhv0"
+rcA=0
+env GARDEN_FOLLOWUP_CLAUDE="$HERE/fake-claude.sh" FAKE_CLAUDE_BLOCKS="$TR/blocks-detrej" \
+    "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcA=$?
+seenA=0; grep -qxF "jobs/tada/fuh-detrej.md" "$SEEN_FUH" 2>/dev/null && seenA=1
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/fuhv1"
+leakA=$(ls -1 "$TR/fuhv1/jobs/todo" | grep -c '^fuh-detrej' || true)
+mm_after=$(ls -1 "$TR/fuhv1/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/fuhv1"
+{ [ "$rcA" -eq 0 ] && [ "$seenA" -eq 1 ] && [ "$leakA" -eq 0 ]; } \
+  && ok "deterministic rejection: logged-and-skipped, tick succeeds, marker advanced, no job leaked" \
+  || bad "deterministic case wrong (rc=$rcA seen=$seenA leak=$leakA)"
+[ "$mm_after" -gt "$mm_before" ] \
+  && ok "rejected block routed to maintainer inbox (not silently dropped)" \
+  || bad "rejected block not routed to maintainer ($mm_before→$mm_after)"
+
+# (B) transient failure — a VALID block whose producer's push is forced to fail
+# (GARDEN_PUSH_CMD=/bin/false) so post-job exhausts its retries and dies "could
+# not post … after retries". Handler must FAIL the tick; the marker must NOT
+# advance, so follow-up.sh retries the digest next cadence.
+push_change "jobs/tada/fuh-trans.md" \
+  "$(printf '# trans\n## Follow-ups (escalated to liaison)\n- post a follow-up job on endo-but-for-bots\n')" \
+  "seed transient-fail report"
+printf 'JOB fuh-trans-1\nendojs/endo-but-for-bots: a valid follow-up task\nENDJOB\n' > "$TR/blocks-trans"
+rcB=0
+env GARDEN_FOLLOWUP_CLAUDE="$HERE/fake-claude.sh" FAKE_CLAUDE_BLOCKS="$TR/blocks-trans" \
+    GARDEN_PUSH_CMD=/bin/false GARDEN_POST_ATTEMPTS=2 \
+    "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcB=$?
+seenB=0; grep -qxF "jobs/tada/fuh-trans.md" "$SEEN_FUH" 2>/dev/null && seenB=1
+{ [ "$rcB" -ne 0 ] && [ "$seenB" -eq 0 ]; } \
+  && ok "transient producer failure: tick fails, marker NOT advanced (digest retried)" \
+  || bad "transient case wrong (rc=$rcB seen=$seenB — want rc!=0, seen=0)"
+
+# ============================================================================
 hr; echo "SUBTEST 14 — FOREMAN: idle-pump, settle window, cost gate, anti-flap"; hr
 # Dedicated empty board on its own origin so idle state is fully controllable.
 FBARE="$TR/foreman.git"; git init -q --bare "$FBARE"

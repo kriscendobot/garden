@@ -91,7 +91,12 @@ $(cat "$digest")
 EOF
 )"
 
-command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run follow-up"
+# The inner agent is `claude` by default; tests inject a deterministic stub via
+# GARDEN_FOLLOWUP_CLAUDE so the parse/dispatch/classification path can be driven
+# without a live model.
+: "${GARDEN_FOLLOWUP_CLAUDE:=claude}"
+command -v "$GARDEN_FOLLOWUP_CLAUDE" >/dev/null 2>&1 \
+  || die "$GARDEN_FOLLOWUP_CLAUDE not on PATH; cannot run follow-up"
 # --dangerously-skip-permissions: autonomous headless context, no human
 # approver; the default permission gate would deny every tool call. Bypass is
 # the intended fleet posture (operator pre-consents via
@@ -106,7 +111,7 @@ command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run follow-
 # transient back-off self-classifying versus an actual code bug.
 claude_err="$(mktemp "${TMPDIR:-/tmp}/follow-up-claude.XXXXXX.err")"
 rc=0
-out="$(claude -p --dangerously-skip-permissions "$prompt" 2>"$claude_err")" || rc=$?
+out="$("$GARDEN_FOLLOWUP_CLAUDE" -p --dangerously-skip-permissions "$prompt" 2>"$claude_err")" || rc=$?
 if [ "$rc" -ne 0 ]; then
   err_tail="$(tail -c 500 "$claude_err" 2>/dev/null || true)"
   rm -f "$claude_err"
@@ -117,6 +122,64 @@ rm -f "$claude_err"
 # Refuse to act on a body that names agoric-sdk (defense-in-depth; MAINTAINER
 # messages are exempt — the maintainer may be told anything).
 scope_ok() { ! printf '%s' "$1" | grep -qi 'agoric-sdk'; }
+
+# Classify a failed producer's combined output. A DETERMINISTIC rejection is one
+# that re-running the SAME digest cannot fix: an illegal derived name or an
+# unparseable value the inner agent emitted (the producers `die` on these BEFORE
+# touching the network). These must NOT fail the tick — the digest is a
+# non-deterministic `claude -p` roll, so failing it would only re-roll, wedge the
+# seen-marker, and self-heal-loop forever on the first bad block (the 07:53–08:25
+# 2026-06-27 outage). A TRANSIENT failure (push-retry exhaustion — "could not
+# post/set … after retries") is the opposite: the same digest WILL succeed once
+# contention clears, so it must fail the tick so follow-up.sh leaves the marker
+# and retries next cadence. Anything unrecognized is treated as transient — the
+# safe default is to retry, not to silently drop work.
+is_deterministic_rejection() {
+  case "$1" in
+    *"illegal basename"*)         return 0 ;;
+    *"illegal schedule name"*)    return 0 ;;
+    *"unparseable ISO datetime"*) return 0 ;;
+  esac
+  return 1
+}
+
+# Route a rejected/dropped block to the maintainer inbox so a deterministic
+# rejection is visible to a human rather than silently discarded. Best-effort:
+# never fails the tick (a failure here is itself logged, not propagated).
+route_rejected() {
+  local label="$1" detail="$2"
+  printf 'A garden-follow-up action block was REJECTED and dropped (not retried):\n  %s\n\nProducer output:\n%s\n' \
+    "$label" "$detail" \
+    | GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer >/dev/null 2>&1 \
+    || log "route_rejected: could not deliver rejected '$label' to maintainer (dropped)"
+}
+
+# tick_failed is set to 1 by the first TRANSIENT producer failure; the handler
+# exits non-zero at the end so follow-up.sh retries the whole digest. Deterministic
+# rejections never set it (they are logged, routed, and skipped).
+tick_failed=0
+
+# Run one producer for an action block, capturing combined output + status
+# WITHOUT letting the pipe's non-zero abort the tick (we are under pipefail).
+# `$@` is the producer command (post-job.sh / set-schedule.sh / …); the block
+# body is piped to it on stdin. On a deterministic rejection: log, route to the
+# maintainer, skip. On a transient failure: log the block label, command, and
+# output tail, then flag the tick for retry. Always returns 0 so the parse loop
+# proceeds to the next block; the tick verdict is carried by tick_failed.
+run_producer() {
+  local label="$1"; shift
+  local out st
+  out="$(printf '%s' "$body" | "$@" 2>&1)" && st=0 || st=$?
+  [ "$st" -eq 0 ] && return 0
+  if is_deterministic_rejection "$out"; then
+    log "skipping $label (rc=$st): producer rejected it deterministically; not retrying — $(printf '%s' "$out" | tr '\n' ' ' | tail -c 200)"
+    route_rejected "$label" "$out"
+  else
+    log "TRANSIENT producer failure for $label (rc=$st, cmd: $1); will retry tick — $(printf '%s' "$out" | tail -n 3 | tr '\n' ' ' | tail -c 300)"
+    tick_failed=1
+  fi
+  return 0
+}
 
 state=""; name=""; cadence=""; prefix=""; iso=""; body=""
 parts=()
@@ -135,31 +198,33 @@ while IFS= read -r line; do
     "ENDJOB")
       if [ "$state" = JOB ] && [ -n "$name" ]; then
         if scope_ok "$body"; then
-          printf '%s' "$body" | "$HERE/../post-job.sh" "$name" \
-            || log "post-job '$name' failed (rc=$?); skipping this action, continuing digest"
+          run_producer "JOB $name" "$HERE/../post-job.sh" "$name"
         else log "refused JOB '$name': body names agoric-sdk (out of bounds)"; fi
       fi
       state="";;
     "ENDSCHEDULE")
       if [ "$state" = SCHEDULE ] && [ -n "$name" ] && [ -n "$cadence" ]; then
         if scope_ok "$body"; then
-          printf '%s' "$body" | "$HERE/../set-schedule.sh" "$name" "$cadence" "${prefix:-$name}" \
-            || log "set-schedule '$name' ($cadence) failed (rc=$?); skipping this action, continuing digest"
+          run_producer "SCHEDULE $name" "$HERE/../set-schedule.sh" "$name" "$cadence" "${prefix:-$name}"
         else log "refused SCHEDULE '$name': body names agoric-sdk (out of bounds)"; fi
       elif [ "$state" = ONCE ] && [ -n "$name" ] && [ -n "$iso" ]; then
         if scope_ok "$body"; then
-          printf '%s' "$body" | "$HERE/../set-schedule-once.sh" "$name" "$iso" \
-            || log "set-schedule-once '$name' ($iso) failed (rc=$?); skipping this action, continuing digest"
+          run_producer "SCHEDULE-ONCE $name" "$HERE/../set-schedule-once.sh" "$name" "$iso"
         else log "refused SCHEDULE-ONCE '$name': body names agoric-sdk (out of bounds)"; fi
       fi
       state="";;
     "ENDMAINTAINER")
       if [ "$state" = MAINT ]; then
-        printf '%s' "$body" | GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer \
-          || log "inbox-send to maintainer failed (rc=$?); skipping this action, continuing digest"
+        run_producer "MAINTAINER" env GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer
       fi
       state="";;
     *)
       [ -n "$state" ] && body+="$line"$'\n';;
   esac
 done <<< "$out"
+
+# A transient producer failure leaves the tick FAILED so follow-up.sh keeps the
+# seen-marker and retries next cadence; deterministic rejections and successes
+# leave the tick clean so the marker advances (and the bad block does not wedge
+# self-heal forever).
+[ "$tick_failed" -eq 0 ] || die "a producer failed transiently; failing the tick so follow-up.sh retries the digest"
