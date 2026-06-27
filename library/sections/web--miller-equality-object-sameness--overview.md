@@ -31,4 +31,4 @@ A **Selfless** object has *value-based* sameness identity, or just *value identi
 
 The page's `PassByProxy Objects`, `PassByCopy Objects`, and `Infinite Rational Trees` subsections are headed but marked *"to be written"* on the source; the PassByProxy/PassByCopy/PassByConstruction passing taxonomy is covered in [Argument Passing Rules](../sections/web--miller-equality-argument-passing-rules--vat-independent-semantics.md).
 
-Source: [Object Sameness](https://erights.org/elib/equality/same-object.html), Mark S. Miller, erights.org; ingested from the Internet Archive original-bytes capture, content SHA-256 `463a4dc5`.
+Source: [Object Sameness](https://erights.org/elib/equality/same-object.html), Mark S. Miller, erights.org; fetched 2026-06-27 via the erights.github.io GitHub Pages mirror, content SHA-256 `463a4dc5` (byte-identical to the prior Internet-Archive capture).
