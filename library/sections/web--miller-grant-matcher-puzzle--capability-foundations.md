@@ -23,4 +23,4 @@ Shown here is the fundamental step of capability computation. Alice, Bob, and Ca
 
 The subtleties in making this last issue precise are the heart of the Grant Matcher Puzzle. *Matching Distributed Grants* explains how to avoid the capability equivalent of a **man-in-the-middle attack**, otherwise a danger in a distributed cryptographic capability system.
 
-Source: [The Grant Matcher Puzzle](https://erights.org/elib/equality/grant-matcher/index.html) § Capability Foundations, Mark S. Miller, erights.org; ingested from the Internet Archive original-bytes capture, content SHA-256 `d25136c9`.
+Source: [The Grant Matcher Puzzle](https://erights.org/elib/equality/grant-matcher/index.html) § Capability Foundations, Mark S. Miller, erights.org; fetched 2026-06-27 via the erights.github.io GitHub Pages mirror, content SHA-256 `d25136c9` (byte-identical to the prior Internet-Archive capture).
