@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: low
-roadmap: endo-showcase
-posted_by: liaison
-posted_at: 2026-06-27T05:08:12Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-06-27T12:53:15Z -->
 
 # Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo showcase)
 
