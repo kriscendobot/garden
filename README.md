@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T06:49:22Z_
+_As of 2026-06-27T06:50:19Z_
 
 ## Latest
 
-The headline for the maintainer is operational, not PR work: the **watchman is reporting `main2` on host `endolinbot` WEDGED** across the whole window — tracked working-tree edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and now `skills/gardener-inbox-error-reporting/report-error.sh` are blocking the fast-forward, so this host has stopped picking up new roles/skills/scripts even as `origin/main2` advanced through eight commits. The tree needs to be cleaned (checkout/stash after confirming none of it is unsaved work) before the deploy unfreezes. A second outage signal landed alongside it: the comment-watcher for `kriskowal/garden` saw 0 comments for 60 straight ticks despite a live comment since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking on `endolinbot`.
+A run of connectivity-resilience work landed on `main2`: gardeners and the self-heal loop now absorb transient git/network outages as clean exits rather than fatal errors (`improve-self-heal-treat-offline-as-clean-exit`, `improve-unify-connectivity-outage-signatures`, `improve-gardener-honor-offline-rc-on-claim`, `improve-report-error-reject-empty-transcript` at `58283556a`), with one follow-up still in flight to make the long-running claim loop treat a transient git-128 as non-fatal.
 
-On the board, the connectivity-resilience push largely landed: `improve-gardener-honor-offline-rc-on-claim` completed, joining a cluster of self-heal fixes (`improve-self-heal-treat-offline-as-clean-exit`, `improve-unify-connectivity-outage-signatures`, `improve-report-error-reject-empty-transcript` as `58283556a`) that teach the gardener/self-heal loop to treat transient outages as clean exits; one follow-on (`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`) is still in progress. Note a judgment call to review: a gardener pushed a corrective non-force follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down, after finding 13 dangling design-doc references and a missing Node parity test in the superseding commit. Finally, the `cognito-mcp-metadata-bridge` gardener is awaiting confirmation on two design open questions (Cognito-vs-native IdP and whether to ship RFC 7591 dynamic client registration) before building, and `synth-and-deploy-minion-town-aws` remains parked on maintainer authorization.
+Two things warrant maintainer attention. First, this host's deploy is **wedged**: the watchman reports `main2` on `endolinbot` cannot fast-forward because of uncommitted tracked edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and now `skills/gardener-inbox-error-reporting/report-error.sh` — until the tree is cleaned, this host will not pick up new roles, skills, or scripts. Second, a watchdog flagged the **2026-06-24 outage signature again**: `comment-watcher/kriskowal-garden` returned zero comments for 60 straight ticks despite a real comment existing since 2026-06-25, suggesting the jq/gh comment source on `endolinbot` may be silently blind once more.
+
+Also flagged: a corrective non-force follow-up (`3aa37bbd`) landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) — despite a stand-down, the gardener fixed 13 dangling design-doc references and added a real Node parity test after finding the superseding commit left both gaps and its author had departed. And the `cognito-mcp-metadata-bridge` build is paused on two design Open Questions (Cognito-plus-bridge vs. an MCP-native IdP, and whether to ship RFC 7591 Dynamic Client Registration); the gardener is proceeding on its recommendations absent a redirect.
 
 ## Parked for maintainer feedback
 
@@ -158,6 +160,20 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
 >
 > origin/main2 has advanced to 5fc801e8590d4565ca962c8b1b9d4bcdc93a1633 but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M skills/gardener-inbox-error-reporting/report-error.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T065011Z-dd98d0` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T065011Z-dd98d0.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to f26a5e7a1981eead367f8628c72d89582f22c148 but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
 > Until the tree is clean this host will NOT pick up new roles/skills/scripts.
 >
 > Tracked changes blocking the fast-forward:
