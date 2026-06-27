@@ -56,3 +56,9 @@ Posted by gardener picking up dead-letter `deadmail-20260625T164749Z-5d8697`
 Phase-7 reconciliation — was already satisfied by the original doer; this job
 captures the **newer** review feedback that postdated the dead-lettered message and
 was otherwise untracked on the board.
+
+---
+claim:
+  host: endolinbot
+  gardener: 20
+  claimed_at: 2026-06-27T04:37:16Z
