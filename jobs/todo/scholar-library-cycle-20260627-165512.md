@@ -1,7 +1,3 @@
-cadence: hourly
-last_dispatched: 2026-06-27T16:55:12Z
-job_basename_prefix: scholar-library-cycle
----
 
 # Hourly scholar library cycle
 
