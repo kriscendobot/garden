@@ -114,36 +114,62 @@ GARDEN_TAG="comment-watcher/$slug"
 : "${GARDEN_COMMENT_VERIFY_CLONE:=$GARDEN_STATE/comment-watcher/verify}"
 VERIFY="$GARDEN_COMMENT_VERIFY_CLONE"
 
-# --- silent-watcher anomaly detection ---------------------------------------
-# The 2026-06-24 outage hid for ~16h because a broken source emitted ZERO comments
-# every tick and "no new comments" reads as normal for an idle repo. Defense in
-# depth: track the consecutive-zero-result streak durably (a local marker; a repo's
-# watcher timer runs on one host) and, once it crosses a threshold, CROSS-CHECK
-# with an INDEPENDENT activity probe. If the repo is demonstrably active (it has had
-# a comment since the cursor) while we keep finding nothing, the watcher is silently
-# blind → surface a throttled maintainer anomaly. The probe deliberately uses gh's
-# BUILT-IN `--jq` (a different code path than the external jq the source pipes to),
-# so a broken-external-jq blindness is exactly what it catches.
-: "${GARDEN_COMMENT_ZERO_STREAK_THRESHOLD:=20}"
-ZERO_STREAK_FILE="$GARDEN_STATE/comment-watcher/zero-streak/$slug"
-# Overridable so the test can stand in a deterministic active/inactive probe:
-#   GARDEN_COMMENT_ACTIVITY <repo> <since>  -> rc 0 = active, rc 1 = quiet
-: "${GARDEN_COMMENT_ACTIVITY:=}"
+# --- silent-blindness self-test (NOT an inactivity detector) -----------------
+# The 2026-06-24 outage hid for ~16h because a broken source (jq absent) emitted
+# ZERO comments every tick and "no new comments" reads as normal for an idle repo.
+# The earlier defense INFERRED blindness from a long zero-result streak crossed with
+# an "activity probe" — but that conflated a BLIND watcher with a merely QUIET one:
+# the probe saw an OLD already-seen comment, called the repo "active", and so paged
+# the maintainer for what was really just nobody having commented. Human inactivity
+# is normal and must NEVER be an anomaly (maintainer directive 2026-06-27: "let's not
+# treat maintainer inactivity as a report-worthy anomaly. People sleep sometimes.").
+#
+# The REAL concern — the source path silently returning nothing — is instead caught
+# by a DETERMINISTIC POSITIVE SELF-TEST: periodically confirm the comment SOURCE PATH
+# can actually FETCH a KNOWN-EXISTING comment via the SAME gh+jq pipe shape the source
+# uses. A PASS (or an inconclusive transient) means zero new comments is just quiet →
+# report nothing. Only a FAILED self-test (the source yields nothing for a comment
+# that demonstrably exists) is a genuine-blindness anomaly worth a throttled alert.
+# The require_tools hard-dependency guard (in the source handler) stays the LOUD
+# first-line defense; this is defense in depth for a silently-degraded path.
+#
+# The self-test is THROTTLED to once per window so it costs at most one extra API
+# call per interval, never one per tick.
+: "${GARDEN_COMMENT_SELFTEST_INTERVAL_SECS:=3600}"
+SELFTEST_MARKER="$GARDEN_STATE/comment-watcher/selftest/$slug.last"
+# Overridable so the test can stand in a deterministic healthy/blind probe:
+#   GARDEN_COMMENT_SELFTEST <repo>  -> rc 0 = source path healthy, rc 1 = blind
+: "${GARDEN_COMMENT_SELFTEST:=}"
 
-read_zero_streak()  { grep -Eo '^[0-9]+' "$ZERO_STREAK_FILE" 2>/dev/null | head -1; }
-write_zero_streak() { mkdir -p "$(dirname "$ZERO_STREAK_FILE")" 2>/dev/null || true
-                      printf '%s\n' "$1" > "$ZERO_STREAK_FILE" 2>/dev/null || true; }
+selftest_due() {  # rc 0 if the self-test window has elapsed (or it never ran)
+  local now last
+  [ -f "$SELFTEST_MARKER" ] || return 0
+  now="$(date +%s 2>/dev/null || echo 0)"
+  last="$(grep -Eo '^[0-9]+' "$SELFTEST_MARKER" 2>/dev/null | head -1 || echo 0)"
+  [ $(( now - ${last:-0} )) -ge "$GARDEN_COMMENT_SELFTEST_INTERVAL_SECS" ]
+}
+selftest_stamp() {
+  mkdir -p "$(dirname "$SELFTEST_MARKER")" 2>/dev/null || true
+  printf '%s\n' "$(date +%s 2>/dev/null || echo 0)" > "$SELFTEST_MARKER" 2>/dev/null || true
+}
 
-# rc 0 if the repo has had >=1 conversation comment since <since> (demonstrably
-# active). Uses gh's built-in --jq, NOT external jq, so it stays a valid witness
-# even when the external-jq source path is the thing that is broken.
-source_is_active() {  # source_is_active <repo> <since>
-  local repo="$1" since="$2" n
-  if [ -n "$GARDEN_COMMENT_ACTIVITY" ]; then "$GARDEN_COMMENT_ACTIVITY" "$repo" "$since"; return; fi
-  command -v gh >/dev/null 2>&1 || return 1
-  [ -n "$since" ] || since="$(date -u -d '-24 hours' +%FT%TZ 2>/dev/null || echo '')"
-  n="$(gh api "repos/$repo/issues/comments?since=$since&per_page=1" --jq 'length' 2>/dev/null || echo 0)"
-  [ "${n:-0}" -gt 0 ] 2>/dev/null
+# rc 0 = the comment SOURCE PATH can fetch a KNOWN-EXISTING comment (healthy) OR the
+# result is inconclusive (a gh/network transient — never paged); rc 1 = the path
+# returned nothing for a comment that demonstrably exists (BLIND). Exercises the SAME
+# external-jq pipe shape the source uses, so an absent/broken external jq — the exact
+# 2026-06-24 signature — makes the self-test fail. A test stub overrides the probe.
+source_path_healthy() {  # source_path_healthy <repo>
+  local repo="$1" raw id
+  if [ -n "$GARDEN_COMMENT_SELFTEST" ]; then "$GARDEN_COMMENT_SELFTEST" "$repo"; return; fi
+  command -v gh >/dev/null 2>&1 || return 0              # cannot reach API → inconclusive
+  # Fetch the single most-recent issue comment as a known-existing fixture.
+  raw="$(gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
+  [ -n "$raw" ] || return 0                              # gh returned nothing → transient, inconclusive
+  case "$raw" in *'{'*) ;; *) return 0;; esac            # gh returned no comment object → inconclusive
+  # gh demonstrably returned a comment; the source pipes it through EXTERNAL jq.
+  command -v jq >/dev/null 2>&1 || return 1              # jq absent (the outage cause) → BLIND
+  id="$(printf '%s' "$raw" | jq -r '.[0].id // empty' 2>/dev/null || true)"
+  [ -n "$id" ]                                           # empty despite a real comment → BLIND
 }
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
@@ -520,21 +546,28 @@ sort -t$'\t' -k1,1 -o "$SRC" "$SRC"
 
 nlines="$(grep -c . "$SRC" || true)"
 if [ "$nlines" -eq 0 ]; then
-  # Advance the consecutive-zero-result streak and check for a SILENT-BLIND
-  # watcher: many zero ticks while the repo is demonstrably active is the exact
-  # signature of the jq outage (a broken parse yielding empty output).
-  streak=$(( $(read_zero_streak || echo 0) + 1 ))
-  write_zero_streak "$streak"
-  log "no new comments on $repo since ${last_seen:-<coldstart>} (zero-streak=$streak)"
-  if [ "$streak" -ge "$GARDEN_COMMENT_ZERO_STREAK_THRESHOLD" ] \
-     && source_is_active "$repo" "${last_seen:-}"; then
-    alert_maintainer "silent-comment-watcher-$slug" \
-      "ANOMALY: comment-watcher/$slug found 0 comments for $streak consecutive ticks, but $repo IS active (a comment exists since ${last_seen:-<coldstart>}). The watcher may be silently blind — check jq/gh on $GARDEN_HOST and the comment-source handler. This is the 2026-06-24 outage signature."
+  # No NEW comments. This is the NORMAL state of a quiet repo (nobody has commented
+  # — people sleep), NOT an anomaly: human inactivity is never paged. The only real
+  # concern is the watcher going SILENTLY BLIND (the 2026-06-24 jq outage), which we
+  # detect with a DETERMINISTIC POSITIVE SELF-TEST — confirming the source path can
+  # still fetch a KNOWN-EXISTING comment — NOT by inferring blindness from how long
+  # the repo has been quiet. A PASS (or inconclusive transient) → quiet, say nothing;
+  # only a FAILED self-test surfaces a throttled blindness anomaly. The self-test is
+  # throttled to once per window so a per-minute timer cannot flood the API.
+  if selftest_due; then
+    selftest_stamp
+    if source_path_healthy "$repo"; then
+      log "no new comments on $repo since ${last_seen:-<coldstart>} (source self-test OK; just quiet)"
+    else
+      log "SELF-TEST FAILED on $repo: source path returned nothing for a known-existing comment — watcher may be silently blind"
+      alert_maintainer "blind-comment-watcher-$slug" \
+        "ANOMALY: comment-watcher/$slug self-test FAILED on $repo — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on $GARDEN_HOST and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet."
+    fi
+  else
+    log "no new comments on $repo since ${last_seen:-<coldstart>} (quiet; source self-test throttled)"
   fi
   exit 0
 fi
-# Found comments → the source is demonstrably working; reset the zero streak.
-write_zero_streak 0
 
 # Load the trusted-sender allowlist + the mention-only PR-authors list once (only
 # when there is work to classify).

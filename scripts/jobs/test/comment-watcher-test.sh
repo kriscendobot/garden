@@ -232,15 +232,34 @@ else
 fi
 
 # ============================================================================
-# I — SILENT-WATCHER ANOMALY: many consecutive zero-result ticks while the repo is
-# demonstrably ACTIVE must surface a throttled maintainer alert (the failure mode
-# that hid the outage for 16h). Source stub emits EMPTY; activity probe is stubbed
-# active; alert is captured via GARDEN_ALERT_CMD. Threshold lowered to 3.
-hr; echo "I — zero results + active source → throttled maintainer anomaly"; hr
-BARE_I="$TR/i.git"; seed_bare "$BARE_I"
+# I/J — BLINDNESS is a POSITIVE SELF-TEST, never an inactivity inference. Human
+# inactivity (a quiet repo) must NEVER page the maintainer — "people sleep
+# sometimes" (maintainer directive 2026-06-27). The watcher's only zero-result
+# concern is the source path going SILENTLY BLIND (the 2026-06-24 jq outage), which
+# is detected by a deterministic self-test that confirms the source path can still
+# fetch a KNOWN-EXISTING comment — NOT by how long the repo has been quiet. The
+# self-test is stubbed by exit code (HEALTHY=0 / BLIND=1); the interval is forced to
+# 0 so EVERY tick runs it (so streak length is irrelevant by construction); alerts
+# are captured via GARDEN_ALERT_CMD.
 EMPTY_FIX="$TR/empty.tsv"; : > "$EMPTY_FIX"
-ACTIVE="$TR/active.sh";   printf '#!/bin/bash\nexit 0\n' > "$ACTIVE";   chmod +x "$ACTIVE"
-INACTIVE="$TR/inactive.sh"; printf '#!/bin/bash\nexit 1\n' > "$INACTIVE"; chmod +x "$INACTIVE"
+HEALTHY="$TR/healthy.sh"; printf '#!/bin/bash\nexit 0\n' > "$HEALTHY"; chmod +x "$HEALTHY"
+BLIND="$TR/blind.sh";     printf '#!/bin/bash\nexit 1\n' > "$BLIND";   chmod +x "$BLIND"
+run_silent() {  # run_silent <state> <bare> <selftest-probe> <alert-cmd>
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" \
+      CW_FIXTURE="$EMPTY_FIX" CW_REACTJI_LOG="$TR/react-silent.log" \
+      GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+      GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_COMMENT_FALLBACK=/bin/false \
+      GARDEN_COMMENT_SELFTEST="$3" \
+      GARDEN_COMMENT_SELFTEST_INTERVAL_SECS=0 \
+      GARDEN_ALERT_CMD="$4" \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
+}
+
+hr; echo "I — zero results + a BLIND source (self-test FAILS) → throttled anomaly"; hr
+BARE_I="$TR/i.git"; seed_bare "$BARE_I"
 ALERTLOG_I="$TR/alert-i.log"; : > "$ALERTLOG_I"
 ALERTCAP="$TR/alert-cap.sh"
 cat > "$ALERTCAP" <<EOF
@@ -249,31 +268,18 @@ cat > "$ALERTCAP" <<EOF
 printf '%s\t%s\n' "\$1" "\$2" >> "$ALERTLOG_I"
 EOF
 chmod +x "$ALERTCAP"
-run_silent() {  # run_silent <state> <bare> <activity-probe> <alert-log-state>
-  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
-      GARDEN_REPOS="$TR/norepos" \
-      CW_FIXTURE="$EMPTY_FIX" CW_REACTJI_LOG="$TR/react-i.log" \
-      GARDEN_COMMENT_SOURCE="$SRCSTUB" \
-      GARDEN_COMMENT_REACTJI="$REACTSTUB" \
-      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
-      GARDEN_COMMENT_FALLBACK=/bin/false \
-      GARDEN_COMMENT_ZERO_STREAK_THRESHOLD=3 \
-      GARDEN_COMMENT_ACTIVITY="$3" \
-      GARDEN_ALERT_CMD="$ALERTCAP" \
-      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
-}
-# Three zero-result ticks against an ACTIVE source: streak reaches the threshold on
-# the 3rd and fires exactly one alert (later ticks are throttled by the same key).
-run_silent "$TR/state-i" "$BARE_I" "$ACTIVE"
-run_silent "$TR/state-i" "$BARE_I" "$ACTIVE"
-run_silent "$TR/state-i" "$BARE_I" "$ACTIVE"
-nalert=$(grep -c "silent-comment-watcher-$SLUG" "$ALERTLOG_I" 2>/dev/null || echo 0)
-[ "$nalert" -ge 1 ] && ok "anomaly surfaced once streak hit the threshold (alerts=$nalert)" || bad "no anomaly alert despite repeated zero ticks on an active source"
-run_silent "$TR/state-i" "$BARE_I" "$ACTIVE"   # a 4th tick must be throttled
-nalert2=$(grep -c "silent-comment-watcher-$SLUG" "$ALERTLOG_I" 2>/dev/null || echo 0)
+# Several zero-result ticks against a BLIND source: the very first failed self-test
+# fires the anomaly; later ticks are throttled by alert_maintainer's per-key window.
+run_silent "$TR/state-i" "$BARE_I" "$BLIND" "$ALERTCAP"
+run_silent "$TR/state-i" "$BARE_I" "$BLIND" "$ALERTCAP"
+run_silent "$TR/state-i" "$BARE_I" "$BLIND" "$ALERTCAP"
+nalert=$(grep -c "blind-comment-watcher-$SLUG" "$ALERTLOG_I" 2>/dev/null || echo 0)
+[ "$nalert" -ge 1 ] && ok "a FAILED self-test surfaces the blindness anomaly (alerts=$nalert)" || bad "no anomaly alert despite a blind source"
+run_silent "$TR/state-i" "$BARE_I" "$BLIND" "$ALERTCAP"   # a 4th tick must be throttled
+nalert2=$(grep -c "blind-comment-watcher-$SLUG" "$ALERTLOG_I" 2>/dev/null || echo 0)
 [ "$nalert2" -eq "$nalert" ] && ok "alert is throttled (no flood: still $nalert2)" || bad "alert flooded ($nalert2 > $nalert)"
 
-hr; echo "J — zero results while source is QUIET → NO false anomaly"; hr
+hr; echo "J — zero results while the source is HEALTHY (just quiet) → NO anomaly, any streak"; hr
 BARE_J="$TR/j.git"; seed_bare "$BARE_J"
 ALERTLOG_J="$TR/alert-j.log"; : > "$ALERTLOG_J"
 ALERTCAP_J="$TR/alert-cap-j.sh"
@@ -282,16 +288,12 @@ cat > "$ALERTCAP_J" <<EOF
 printf '%s\t%s\n' "\$1" "\$2" >> "$ALERTLOG_J"
 EOF
 chmod +x "$ALERTCAP_J"
-for _ in 1 2 3 4; do
-  env GARDEN_STATE="$TR/state-j" JOURNAL_REMOTE="$BARE_J" JOURNAL_BRANCH="$BRANCH" \
-      GARDEN_REPOS="$TR/norepos" CW_FIXTURE="$EMPTY_FIX" CW_REACTJI_LOG="$TR/react-j.log" \
-      GARDEN_COMMENT_SOURCE="$SRCSTUB" GARDEN_COMMENT_REACTJI="$REACTSTUB" \
-      GARDEN_COMMENT_POST="$JOBS/post-job.sh" GARDEN_COMMENT_FALLBACK=/bin/false \
-      GARDEN_COMMENT_ZERO_STREAK_THRESHOLD=3 GARDEN_COMMENT_ACTIVITY="$INACTIVE" \
-      GARDEN_ALERT_CMD="$ALERTCAP_J" \
-      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
+# Six consecutive zero-result ticks — a long quiet streak — with a HEALTHY source.
+# Inactivity must NEVER alert, no matter how long the streak runs.
+for _ in 1 2 3 4 5 6; do
+  run_silent "$TR/state-j" "$BARE_J" "$HEALTHY" "$ALERTCAP_J"
 done
-[ ! -s "$ALERTLOG_J" ] && ok "no anomaly when the source is genuinely quiet" || bad "false anomaly on a quiet source: $(cat "$ALERTLOG_J")"
+[ ! -s "$ALERTLOG_J" ] && ok "no anomaly for a quiet repo regardless of streak length (people sleep)" || bad "false inactivity anomaly on a healthy quiet source: $(cat "$ALERTLOG_J")"
 
 # ============================================================================
 # K/L/M — VERB-AS-SUBJECT-MATTER gate on the FIXED verb table. A bare verb word
