@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T10:15:42Z_
+_As of 2026-06-27T10:22:39Z_
 
 ## Latest
 
-The big story this cycle is operational, not code: endolinbot's live `main2` checkout has been **deploy-wedged all morning**, so this host is not picking up any landed roles, skills, or scripts. The watchman fired roughly a dozen WEDGED alerts as `origin/main2` advanced well past the stuck tree; the cause is redundant uncommitted edits to `scripts/jobs/{self-heal-run,gardener,claim-job}.sh` and `skills/gardener-inbox-error-reporting/report-error.sh` whose contents are byte-identical to what already landed upstream. A `git -C /home/kris checkout --` of those paths is lossless and unwedges the deploy. Ironically, the fix for the underlying crash-loop (the `claim failed rc=128` self-heal chain) and a new **deploy-sync reconciler** that auto-restarts services when `scripts/` changes both already landed on `main2` (`5d6490e`) — they just can't reach the running workers until the tree is cleaned.
+The standing-fleet's deploy on host **endolinbot is wedged and should be cleared first** — for hours the watchman has refused every fast-forward because the live tree carries uncommitted edits to `scripts/jobs/{gardener,self-heal-run,claim-job}.sh` and `skills/gardener-inbox-error-reporting/report-error.sh`, leaving the checkout six-plus commits behind `origin/main2`. A gardener confirmed the blocking `report-error.sh` edit is byte-identical to what already landed, so `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is a lossless unwedge; the same gardener landed a `garden-deploy-sync` reconciler (`5d6490e62`) that will auto-advance the checkout and restart services once a units refresh arms it. Note the four-commit fix chain for the `garden-gardener` rc=128 claim crash-loop is already on `origin/main2` but cannot reach the running workers until this host deploys.
 
-Two more things to notice: the **comment-watcher for kriskowal/garden is blind again** — 220+ consecutive ticks reporting zero comments while the repo is demonstrably active, the same signature as the 2026-06-24 jq/gh outage. And on the code side, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node parity test after finding the superseding commit had shipped both asks in prose only. Scholar work continued steadily (ocap-kernel guide plus a six-section distributed-ocap concept cluster), and the `formula-inspector-retention-paths-table` job is blocked pending the long-stalled `listRetentionPaths` host API, which still needs its requested rebase-and-gamut before the table can be built.
+Separately, the `comment-watcher/kriskowal-garden` watchdog has now reported 220 consecutive ticks with zero comments despite known activity — the same silent-blindness signature as the 2026-06-24 jq/gh outage — and warrants a `command -v jq` check on endolinbot.
+
+On the PR front, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling doc references and adding a real Node parity test atop the earlier `aa78d8329`; full suite green. The `formula-inspector-retention-paths-table` job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently shows 4 failing checks. The board is otherwise drained (todo empty, one investigation in flight), with recent completions concentrated in journal2-edit landing, section-link integrity, and a wave of scholar ocap ingests (the ocap-kernel kernel-guide plus a six-section distributed-ocap concept cluster). Two items await your word: the `cognito-mcp-metadata-bridge` gardener has paused on two design open questions (Cognito-vs-native-IdP and whether to ship RFC 7591 DCR), and `synth-and-deploy-minion-town-aws` remains parked for authorization.
 
 ## Parked for maintainer feedback
 
@@ -404,8 +406,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`investigate-systemd-run-vs-gardener-loops`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-systemd-run-vs-gardener-loops.md) — PLAN: investigate systemd-run vs. the fixed 100-gardener-loop pool → garden d...
 
 ### tada (335)
 - [`improve-scripted-journal2-content-edit-landing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scripted-journal2-content-edit-landing.md) — Completion report: improve-scripted-journal2-content-edit-landing
@@ -420,7 +422,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`investigate-systemd-run-vs-gardener-loops`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-systemd-run-vs-gardener-loops.md) — _normal_ · PLAN: investigate systemd-run vs. the fixed 100-gardener-loop pool → garden d...
 - [`scholar-ingest-ocap-kernel-usage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-usage.md) — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel docs/usage.md
 - [`scholar-ingest-grant-matcher-puzzle`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-grant-matcher-puzzle.md) — _normal_ · scholar-ingest-grant-matcher-puzzle
 - [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/classify-lint-endo-master.md) — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
