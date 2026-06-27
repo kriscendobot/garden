@@ -25,7 +25,7 @@ For the per-operator tutorial sections (map, filter, sorted, group, flatten, has
 - [[frb-incremental-update]] — the delta-not-recompute mechanism that defines the library; bound-collection identity is stable.
 - [[frb-compiled-observer-tree]] — the query language compiles once to a tree of observer/binder functions.
 - [[generic-collections]] — the change-notification interface FRB's "generic" property depends on.
-- [[eventual-send]] — the asynchronous, cross-vat counterpart to FRB's synchronous in-process consistency.
+- [eventual-send](../topics/eventual-send.md) — the asynchronous, cross-vat counterpart to FRB's synchronous in-process consistency (a topic, not a single concept page).
 
 ## Common confusions
 

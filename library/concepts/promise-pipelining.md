@@ -39,7 +39,7 @@ implemented primitive.
 ## See also
 
 - [[caretaker-pattern]] — pipelining and caretakers are independent decompositions of a capability call, but both rely on the same `HandledPromise` substrate.
-- [[handler-protocol]] — *placeholder* for a concept page covering `dispatchToHandler`'s reductions, the SendOnly substitution, and the minimum-viable handler interface. The handler-protocol page would expand on the *mechanism* this concept names; for now the section [endo--packages-eventual-send-src-handled-promise-js--operation-reduction-and-sendonly](../sections/endo--packages-eventual-send-src-handled-promise-js--operation-reduction-and-sendonly.md) is the canonical reference.
+- [[handler-protocol]] — `dispatchToHandler`'s reductions, the SendOnly substitution, and the minimum-viable handler interface. Expands on the *mechanism* this concept names: the `applyMethod` decomposition there is where pipelining emerges. The section [endo--packages-eventual-send-src-handled-promise-js--operation-reduction-and-sendonly](../sections/endo--packages-eventual-send-src-handled-promise-js--operation-reduction-and-sendonly.md) is the canonical source.
 
 ## Common confusions
 

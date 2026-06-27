@@ -479,6 +479,17 @@ round-trip elimination | promise-pipelining
 answer slot | promise-pipelining
 `<desc:answer>` | promise-pipelining
 pipelined message send | promise-pipelining
+handler protocol | handler-protocol
+`HandledPromise` handler | handler-protocol
+`dispatchToHandler` | handler-protocol
+SendOnly substitution | handler-protocol
+`getSendOnly` | handler-protocol
+`applyFunctionSendOnly` | handler-protocol
+`applyMethodSendOnly` | handler-protocol
+minimum viable handler | handler-protocol
+minimal handler surface | handler-protocol
+`forwardingHandler` | handler-protocol
+`applyMethod` reduction | handler-protocol
 
 ## Chat edit-message UI (chat-edit-message-ui, cycle 68)
 

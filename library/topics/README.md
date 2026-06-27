@@ -34,6 +34,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 64 |
 | [bundles](bundles.md) | Module bundling, Compartment module loading, bundle-source / compartment-mapper family. | 29 |
 | [spec-to-implementation](spec-to-implementation.md) | Cross-cutting concordance: OCapN spec sections ↔ Endo realizations. | (meta) |
+| [references](references.md) | The cross-reference axis: external prior-art and specification citations the library quotes, and internal cross-cycle observations (design-evolution-record family, multi-cycle pattern threads) the scholar attaches while ingesting. A meta tag, not a section catalog; the routing target for `keywords.md`'s `\| references` lines. | (meta) |
 | [cloud-marketplace](cloud-marketplace.md) | AWS Marketplace and equivalent cloud vendor distribution channels: seller requirements, AMI and container product technical constraints, pricing models, and listing lifecycle. | 3 |
 | [tls-provisioning](tls-provisioning.md) | TLS certificate acquisition and first-boot provisioning patterns for self-custodial nodes: ACME challenge types, vendor-delegated subdomains, TOFU self-signed, renewal automation. | 2 |
 | [signed-updates](signed-updates.md) | Cryptographically signed software update channels for always-online nodes: TUF role hierarchy, online/offline key discipline, rollback-attack defense, deployment pattern. | 1 |

@@ -63,9 +63,9 @@ The `SpaceConfig` typedef appears across **three** chat-spaces designs, each des
 
 | Design | Fields the design's typedef lists |
 |---|---|
-| [[endo-but-for-bots--llm-designs-chat-spaces-gutter--space-model-and-persistence]] | `id`, `name`, `icon`, `profilePath`, `mode: 'inbox'`, `order` (6 fields; `id` typed as `crypto.randomUUID`; `mode` typed as `'inbox'` literal only) |
-| [[endo-but-for-bots--llm-designs-chat-spaces-home--indelible-space-zero-and-numbering]] | References `scheme` for the home space but does not detail the type |
-| [[endo-but-for-bots--llm-designs-chat-per-space-color-scheme--spaceconfig-extension-persistence-and-monaco]] | Adds `scheme: ColorScheme` with the 5-value enum and default `'auto'` |
+| [chat-spaces-gutter / space-model-and-persistence](../sections/endo-but-for-bots--llm-designs-chat-spaces-gutter--space-model-and-persistence.md) | `id`, `name`, `icon`, `profilePath`, `mode: 'inbox'`, `order` (6 fields; `id` typed as `crypto.randomUUID`; `mode` typed as `'inbox'` literal only) |
+| [chat-spaces-home / indelible-space-zero-and-numbering](../sections/endo-but-for-bots--llm-designs-chat-spaces-home--indelible-space-zero-and-numbering.md) | References `scheme` for the home space but does not detail the type |
+| [chat-per-space-color-scheme / spaceconfig-extension-persistence-and-monaco](../sections/endo-but-for-bots--llm-designs-chat-per-space-color-scheme--spaceconfig-extension-persistence-and-monaco.md) | Adds `scheme: ColorScheme` with the 5-value enum and default `'auto'` |
 
 **Sources where this concept page differs from the design typedefs:**
 
