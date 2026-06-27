@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T09:21:43Z_
+_As of 2026-06-27T09:27:39Z_
 
 ## Latest
 
-A cluster of gardener/deploy reliability fixes landed on main2 — classifying transient `claim-job` failures as offline rather than fatal, bounding follow-up handler retries (quarantining wedged digests), and a new deploy-sync reconciler (`5d6490e62`) that fast-forwards the checkout and restarts long-running services when `scripts/` changes — but none are running on **endolinbot** yet: the live tree has been deploy-wedged for the whole window, with the watchman firing repeatedly because uncommitted edits to `self-heal-run.sh`, `gardener.sh`, and `report-error.sh` block the fast-forward. A gardener confirmed `report-error.sh` is byte-identical to the committed version, so `git checkout --` is lossless and unwedges the deploy; this is the one item a maintainer should act on. Separately, the **comment-watcher/kriskowal-garden** watchdog has been blind for 180 consecutive ticks despite live activity — the 2026-06-24 jq/gh outage signature recurring. On the PR side, a corrective non-force follow-up (`3aa37bbd`) landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) fixing 13 dangling doc references and adding a real Node parity test after a stand-down; the formula-inspector retention-paths table is blocked pending the long-stalled #284 rebase-and-gamut you requested 2026-05-21; and the cognito-MCP OAuth bridge build is proceeding on its author's recommendations (Cognito + bridge, DCR behind a default-on toggle) absent a redirect. Scholar also ingested MetaMask/ocap-kernel's kernel guide and a six-topic distributed-ocap concept cluster.
+The headline is operational, not feature work: host **endolinbot's main2 deploy is wedged** — repeated watchman alerts show origin/main2 advancing through a long chain of landed fixes while the live `/home/kris` tree stays stuck behind uncommitted edits to `scripts/jobs/self-heal-run.sh`, `gardener.sh`, `claim-job.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`. A gardener confirmed the blocking `report-error.sh` change is byte-identical to what already landed, so `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` losslessly unwedges it; until the tree is clean this host picks up no new roles, skills, or scripts. The newly-landed **deploy-sync reconciler** (5d6490e62) will auto-advance the checkout and restart long-running services on the next units refresh, but it can't help while the tree is dirty. Separately, the gardener/self-heal resilience chain landed (transient claim-offline absorption, inner-`claude` failure classification, bounded follow-up retry with wedged-digest quarantine), and `investigate-resumable-gardeners` completed.
+
+Two things need a maintainer eye. The **comment-watcher for kriskowal/garden has gone silent for 180 ticks** despite a real comment existing since 2026-06-25 — the same blind-watcher signature as the 2026-06-24 jq/gh outage. And several jobs are blocked on decisions: `formula-inspector-retention-paths-table` is stalled until [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (open since 2026-05-21, 4 failing checks, awaiting the rebase-and-gamut you already requested); the `cognito-mcp-metadata-bridge` gardener is proceeding on its own recommendations but flagged two design questions; and `synth-and-deploy-minion-town-aws` sits in the plan queue awaiting your go-ahead. On the corrective side, a gardener landed a Node-parity test and fixed 13 dangling doc references on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) after finding defects in superseded work, and the scholar fleet ingested the MetaMask ocap-kernel guide plus a distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -384,16 +386,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`investigate-resumable-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-resumable-gardeners.md) — PLAN: investigate making gardeners RESUMABLE (don't lose work when an agent s...
+### doin (0)
+(none)
 
-### tada (329)
+### tada (330)
+- [`investigate-resumable-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-resumable-gardeners.md) — Completion report
 - [`improve-follow-up-classify-inner-claude-failure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-follow-up-classify-inner-claude-failure.md) — Completion report
 - [`improve-follow-up-bound-retry-quarantine-wedged-digest`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-follow-up-bound-retry-quarantine-wedged-digest.md) — Completion report
 - [`scholar-library-cycle-20260627-085143`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-085143.md) — Completion report — scholar-library-cycle-20260627-085143
 - [`improve-gardener-absorb-transient-claim-offline-rc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-absorb-transient-claim-offline-rc.md) — Completion report: improve-gardener-absorb-transient-claim-offline-rc
-- [`self-heal-fix-garden-gardener-deploy-rc128-claim-fix-stale-checkout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-deploy-rc128-claim-fix-stale-checkout.md) — Completion report
-- … and 324 more
+- … and 325 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
