@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:46:00Z_
+_As of 2026-06-27T07:52:18Z_
 
 ## Latest
 
-The endolinbot deploy is wedged and clearing it should come first: the live `/home/kris` tree is dirty on `skills/gardener-inbox-error-reporting/report-error.sh`, whose content is byte-identical to what already landed on `origin/main2`, so git refuses the fast-forward and the host has now fallen several commits behind — a lossless `git -C /home/kris checkout --` on that one file unwedges both the watchman and the new deploy-sync reconciler. That reconciler itself landed this cycle (`5d6490e62`): it advances the checkout by a strict clean fast-forward and restarts the long-running gardener/bulletin/driver/watcher services when `scripts/` changes, so future fixes reach running workers without a manual restart — but it stays inert until a routine `install-units.sh` refresh arms its timer, and it is blocked by the same dirty tree right now. Also landed: a sync-clone transient-fetch-classification hardening (`ba38a1372`, suite green) that stops a self-resolving network blip from crash-looping a gardener — the exact failure self-heal flagged this cycle. Two judgment-call heads-ups from the fleet: a corrective non-force follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`) fixed 13 dangling design-doc references and added a real Node parity test after a stand-down on duplicated work, and the formula-inspector retention-paths table is blocked pending the stalled #284 rebase-and-gamut you requested on 2026-05-21. Finally, the comment-watcher on kriskowal/garden has reported zero comments for 100 consecutive ticks despite known activity — the 2026-06-24 jq/gh outage signature is recurring and worth a check.
+The endolinbot host's `main2` deploy is **wedged** and needs maintainer attention: a redundant uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (byte-identical to what's already on `origin/main2`) is blocking the fast-forward, leaving the live checkout ~6 commits behind while the watchman fires repeated alerts. The gardener that landed the new deploy-sync reconciler notes the fix is lossless — `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` unwedges it. Ironically the stuck commits are exactly the reliability fixes that would help: the deploy-sync reconciler (`5d6490e62`, auto-restarts long-running services when `scripts/` changes, inert until a units refresh arms its timer) plus broadened transient-fetch/offline classification in `sync-clone` (`ba38a1372`) that stops self-resolving network blips from crash-looping gardeners — the same crash the self-heal watchdog flagged.
+
+Two watchdog anomalies worth a look: `comment-watcher/kriskowal-garden` has returned **0 comments for 100 consecutive ticks** despite a live comment on the repo since 2026-06-25 — the 2026-06-24 outage signature (check `jq`/`gh` on endolinbot). On the work side, the scholar ingested MetaMask/ocap-kernel's `kernel-guide.md` ([ingest-ocap-kernel](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ingest-ocap-kernel.md), the sixth ocap-kernel source), parking two follow-on ingest plans.
+
+Three items are parked on your call: the `cognito-mcp-metadata-bridge` gardener wants confirmation on two design Open Questions (stay with Cognito + bridge vs. an MCP-native IdP; whether to ship RFC 7591 DCR — it recommends yes, behind a default-on toggle) before building. The `formula-inspector-retention-paths-table` job is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently has 4 failing CI checks. And a gardener flags a judgment call on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down it found two real defects in the superseding commit (13 dangling design-doc references and a missing Node parity test), and pushed a conflict-safe non-force follow-up to fix both.
 
 ## Parked for maintainer feedback
 
@@ -273,21 +277,43 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
+- `20260627T075134Z-f5bbc7` — from gardener:ingest-ocap-kernel, reply_to `ingest-ocap-kernel` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T075134Z-f5bbc7.md)
+
+> Library: ingested MetaMask/ocap-kernel `docs/kernel-guide.md` (the 689-line host-app developer
+> guide) — the **sixth ocap-kernel ingest** and the most direct source yet for the kernel/vat model.
+> 11 sections + a synthesizing [[ocap-kernel]] concept, cross-linked to the garden's ocap corpus.
+>
+> Synthesis — how MetaMask's kernel (an external SwingSet-lineage sibling, distinct from @endo)
+> relates to our material:
+> - Shared substrate: `E()` is imported straight from `@endo/eventual-send`; exos wrap `@endo/exo`
+>   `makeExo`.
+> - Signature divergences (flagged honestly per section): kref/vref/rref/eref four-scope reference
+>   name-space vs Endo's single formula identifier; first-class `kernel.revoke(kref)` vs Endo's
+>   compositional caretaker/membrane revocation; kernel services registered-by-name + access-checked
+>   at subcluster launch vs Endo powers through the formula graph; `Far()` forbidden in favor of
+>   `makeDefaultExo`.
+> - Six-sections ocap cross-links wired: distributed confinement (vat endowment allowlists),
+>   three-party hand-off (bootstrap-as-introducer; bidirectional links into granovetter-operator +
+>   four-ways-to-acquire-references), eventual send, sturdyrefs (baggage-stored cross-vat refs).
+>
+> Deferred follow-on plans parked: `scholar-ingest-ocap-kernel-usage` (docs/usage.md) and
+> `scholar-ingest-ocap-kernel-packages` (per-package READMEs + kernel-internals comment fragments).
+
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`ingest-ocap-kernel`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ingest-ocap-kernel.md) — PLAN: scholar — ingest MetaMask/ocap-kernel into the library
+- [`scholar-library-cycle-20260627-075113`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-075113.md) — Hourly scholar library cycle
 
-### tada (319)
+### tada (320)
+- [`ingest-ocap-kernel`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ingest-ocap-kernel.md) — Completion report — ingest-ocap-kernel (scholar)
 - [`improve-sync-clone-transient-fetch-classification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sync-clone-transient-fetch-classification.md) — Done. Committed ba38a1372 to origin/main2; full test suite green (171/0); wor...
 - [`formula-inspector-retention-paths-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/formula-inspector-retention-paths-table.md) — Completion report: formula-inspector-retention-paths-table
 - [`improve-deploy-sync-fleet-onto-landed-fixes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-sync-fleet-onto-landed-fixes.md) — Completion report: improve-deploy-sync-fleet-onto-landed-fixes
 - [`improve-broaden-offline-fetch-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-broaden-offline-fetch-signatures.md) — Completion report
-- [`scholar-sections-readme-reindex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-sections-readme-reindex.md) — Completion report — scholar-sections-readme-reindex
-- … and 314 more
+- … and 315 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -297,10 +323,12 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`investigate-systemd-run-vs-gardener-loops`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-systemd-run-vs-gardener-loops.md) — _normal_ · PLAN: investigate systemd-run vs. the fixed 100-gardener-loop pool → garden d...
 - [`investigate-resumable-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-resumable-gardeners.md) — _normal_ · PLAN: investigate making gardeners RESUMABLE (don't lose work when an agent s...
 - [`ingest-ocap-library-sections`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ingest-ocap-library-sections.md) — _normal_ · PLAN: scholar — ingest sources for six missing ocap library sections
+- [`scholar-ingest-ocap-kernel-usage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-usage.md) — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel docs/usage.md
 - [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/classify-lint-endo-master.md) — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 - [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
 - [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-parallel-sync-browser-design.md) — _low_ · Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo sho...
 - [`endo-but-for-bots-harden-exported-literals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-harden-exported-literals-followup.md) — _low_ · follow-up PR: harden exported function literals (evasive-transform first)
+- [`scholar-ingest-ocap-kernel-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-packages.md) — _low_ · PLAN: scholar — ingest MetaMask/ocap-kernel packages + code-comment fragments
 
 ## Watch set
 (none)
