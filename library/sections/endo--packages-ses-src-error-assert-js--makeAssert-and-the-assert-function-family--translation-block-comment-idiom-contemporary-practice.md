@@ -3,10 +3,10 @@ title: Translation block (comment idiom → contemporary practice)
 source: packages/ses/src/error/assert.js
 source_repo: endojs/endo
 source_branch: master
-source_commit: 816bc2574052e686bb14efd95e4709180f79cca6
-source_date: 2026-04-30
+source_commit: bfa149b4f18c6ad1cf1fed3e91cbaddf1e61b39d
+source_date: 2026-06-23
 source_authors: [Richard Gibson]
-source_lines: "479-604 (makeAssert + fail + Fail + assert + equal + assertTypeof + assertString + assertion bundles + module-level exports)"
+source_lines: "508-633 (makeAssert + fail + Fail + assert + equal + assertTypeof + assertString + assertion bundles + module-level exports)"
 topics: [hardened-javascript, errors]
 status: current
 notes: |

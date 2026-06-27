@@ -3,10 +3,10 @@ title: Body
 source: packages/ses/src/error/assert.js
 source_repo: endojs/endo
 source_branch: master
-source_commit: 816bc2574052e686bb14efd95e4709180f79cca6
-source_date: 2026-04-30
+source_commit: bfa149b4f18c6ad1cf1fed3e91cbaddf1e61b39d
+source_date: 2026-06-23
 source_authors: [Richard Gibson]
-source_lines: "204-477 (getLogArgs + hiddenMessageLogArgs + errorTagNum + tagError + sanitizeError + makeError + note + defaultGetStackString + loggedErrorHandler)"
+source_lines: "214-506 (getLogArgs + hiddenMessageLogArgs + errorTagNum + tagError + sanitizeError + makeError + note + defaultGetStackString + loggedErrorHandler)"
 topics: [hardened-javascript, errors]
 status: current
 notes: |
@@ -32,7 +32,7 @@ parent: endo--packages-ses-src-error-assert-js--logArgs-makeError-sanitizeError-
 
 ### §getLogArgs — unquoting and space-trimming for console substitution
 
-The §getLogArgs function (lines 204-238):
+The §getLogArgs function (lines 222-248):
 
 ```js
 const getLogArgs = ({ template, args }) => {
@@ -75,7 +75,7 @@ The §honest-name in the comment (*adjacent log args have nothing of interest be
 
 ### §The hiddenMessageLogArgs WeakMap
 
-The §hiddenMessageLogArgs WeakMap (line 246) is one of the module's *top-level mutable state* members (the one the file header warned about):
+The §hiddenMessageLogArgs WeakMap (line 257) is one of the module's *top-level mutable state* members (the one the file header warned about):
 
 ```js
 const hiddenMessageLogArgs = new WeakMap();
@@ -87,7 +87,7 @@ The §weakness reason: WeakMap so that errors that are no longer referenced can 
 
 ### §errorTagNum + errorTags + tagError
 
-The §errorTagNum mutable counter + §errorTags WeakMap (lines 247-249):
+The §errorTagNum mutable counter + §errorTags WeakMap (lines 260-265):
 
 ```js
 let errorTagNum = 0;
@@ -95,32 +95,25 @@ let errorTagNum = 0;
 const errorTags = new WeakMap();
 ```
 
-The §tagError function (lines 250-271):
+The §tagError function (lines 272-281):
 
 ```js
-const tagError = (err, optErrorName = undefined) => {
+const tagError = (err, optErrorName = err.name) => {
   let errorTag = weakmapGet(errorTags, err);
   if (errorTag !== undefined) {
     return errorTag;
   }
-  if (optErrorName !== undefined && typeof optErrorName !== 'string') {
-    throw TypeError(`error name must be a string: ${optErrorName}`);
-  }
-  if (optErrorName !== undefined) {
-    errorTag = optErrorName;
-  } else {
-    errorTagNum += 1;
-    errorTag = `${err.name}#${errorTagNum}`;
-  }
+  errorTagNum += 1;
+  errorTag = `${optErrorName}#${errorTagNum}`;
   weakmapSet(errorTags, err, errorTag);
   return errorTag;
 };
 ```
 
-The §two-mode behavior:
+The §two-mode behavior (the `optErrorName` parameter defaults to `err.name`, so the *name component* of the tag is always supplied; the *number* is always appended):
 
-- **`tagError(err)`** — assigns a monotonically-increasing tag like `Error#1`, `TypeError#2`, `RangeError#3`, derived from `err.name` and the counter.
-- **`tagError(err, optErrorName)`** — uses the explicit name as the tag. Useful when an error has a maintainer-meaningful identity (e.g. tagged at `makeError` time via the `errorName` option).
+- **`tagError(err)`** — assigns a monotonically-increasing tag like `Error#1`, `TypeError#2`, `RangeError#3`, where the name part defaults to `err.name` and the number is the post-increment of the shared `errorTagNum` counter.
+- **`tagError(err, optErrorName)`** — substitutes an explicit name for the name component, yielding `${optErrorName}#${errorTagNum}`. Useful when an error has a maintainer-meaningful identity (e.g. tagged at `makeError` time via the `errorName` option). Note the *number* is still appended — the explicit name does not replace the whole tag.
 
 The §idempotence: if the error has already been tagged, return the existing tag. This means *every error gets exactly one tag* over its lifetime; subsequent `tagError(err)` calls return the same string.
 
@@ -130,7 +123,7 @@ The §cross-reference rendering: when the causal-console encounters an error as 
 
 ### §sanitizeError — stripping host-added own properties
 
-The §sanitizeError function (lines 273-330):
+The §sanitizeError function (lines 310-340):
 
 ```js
 const sanitizeError = error => {
@@ -181,28 +174,45 @@ The §note about the dropped values is rendered by the causal-console as a sub-l
 
 ### §makeError — the factory
 
-The §makeError function (lines 335-386):
+The §makeError function (lines 345-414):
 
 ```js
 const makeError = (
-  optDetails = redactedDetails`Assert failed`,
-  errConstructor = globalThis.Error,
+  optDetails,
+  errConstructor,
   { errorName = undefined, cause = undefined, errors = undefined, sanitize = true } = {},
 ) => {
-  if (typeof optDetails === 'string') {
-    optDetails = redactedDetails([optDetails]);
+  // The first two parameters above cannot be inferred unless this is rewritten
+  // as a function declaration using an @overload tag. This is a workaround so
+  // that we at least have type-safety within the function body.
+  //
+  // Note that due to the overload of AssertionUtilities['makeError'], strict
+  // mode will complain if default parameters are provided in the method
+  // signature. The below workaround (optDetails -> details; errConstructor ->
+  // errCtor) is functionally equivalent but allows us to use type assertions to
+  // workaround the strict mode issue.
+  let details = /** @type {Details} */ (
+    optDetails ?? redactedDetails`Assert failed`
+  );
+  // Internally, this is a GenericErrorConstructor, but externally it can be
+  // some T which extends GenericErrorConstructor.
+  const errCtor = /** @type {GenericErrorConstructor} */ (
+    errConstructor ?? globalThis.Error
+  );
+  if (typeof details === 'string') {
+    details = redactedDetails([details]);
   }
-  const hiddenDetails = weakmapGet(hiddenDetailsMap, optDetails);
+  const hiddenDetails = weakmapGet(hiddenDetailsMap, details);
   if (hiddenDetails === undefined) {
-    throw TypeError(`unrecognized details ${quote(optDetails)}`);
+    throw TypeError(`unrecognized details ${quote(details)}`);
   }
   const messageString = getMessageString(hiddenDetails);
   const opts = cause && { cause };
   let error;
-  if (typeof AggregateError !== 'undefined' && errConstructor === AggregateError) {
+  if (typeof AggregateError !== 'undefined' && errCtor === AggregateError) {
     error = AggregateError(errors || [], messageString, opts);
   } else {
-    const ErrorCtor = /** @type {ErrorConstructor} */ (errConstructor);
+    const ErrorCtor = /** @type {ErrorConstructor} */ (errCtor);
     error = ErrorCtor(messageString, opts);
     if (errors !== undefined) {
       defineProperty(error, 'errors', {
@@ -219,18 +229,18 @@ const makeError = (
 
 The §six-step construction:
 
-1. **Coerce a string `optDetails` into a single-literal details token**. Maintainers can write `makeError('something failed')` instead of `makeError(X\`something failed\`)` for the no-substitution case.
+1. **Apply the parameter defaults internally, not in the signature**. As of the 2026-06-23 refactor (Christopher Hiller, commit `bfa149b4`) the `optDetails`/`errConstructor` parameters carry *no* default-value expressions; instead the body reassigns `details = optDetails ?? redactedDetails\`Assert failed\`` and `errCtor = errConstructor ?? globalThis.Error` behind `@type` assertions. The §reason named in the new comment block: `AssertionUtilities['makeError']` is a typed *overload*, and TypeScript strict mode complains when default parameters are written on a method that has an `@overload` declaration. The behaviour is *functionally equivalent* to the old signature defaults — this is purely a type-checking workaround — but the rename (`optDetails` → `details`, `errConstructor` → `errCtor`) lets the assertions land. Maintainers can still write `makeError('something failed')` instead of `makeError(X\`something failed\`)`; the string-coercion below turns it into a single-literal details token.
 2. **Look up the hidden parts**. If the token doesn't have hidden parts, throw `TypeError` — the caller passed something that wasn't a details-token.
 3. **Compute the redacted message string** via `getMessageString` (used as the error's `.message` own property).
 4. **Branch on AggregateError**. If the requested constructor is `AggregateError`, use its constructor signature `(errors, message, opts)`. Otherwise call the standard `(message, opts)` and *backfill* `errors` as a non-enumerable own-property if provided. The §`opts.cause` field uses the new `Error.prototype.cause` semantics.
 5. **Store the log-args form** in `hiddenMessageLogArgs` so the causal-console can later render the verbose form.
 6. **Optionally tag and sanitize**. The default is `sanitize: true`; callers who want to preserve host-added properties can pass `sanitize: false`.
 
-The §footer comment (line 383): `// The next line is a particularly fruitful place to put a breakpoint.` — the *honest-debugger-affordance* idiom. The maintainer wrote this knowing that anyone debugging an assert failure will want to break right before the error is returned to its eventual `throw`.
+The §footer comment (line 412): `// The next line is a particularly fruitful place to put a breakpoint.` — the *honest-debugger-affordance* idiom. The maintainer wrote this knowing that anyone debugging an assert failure will want to break right before the error is returned to its eventual `throw`. The 2026-06-23 refactor prefixes this with a short note that the return type is externally `InstanceType<T>` (where `T extends GenericErrorConstructor`) but internally `InstanceType<GenericErrorConstructor>` for implementation simplicity — the same internal-vs-external typing distinction the parameter rename is in service of.
 
 ### §note — the after-the-error annotation surface
 
-The §hiddenNoteCallbacks WeakMap + §note function (lines 405-428):
+The §hiddenNoteCallbacks WeakMap + §note function (lines 434-456):
 
 ```js
 const hiddenNoteCallbacks = new WeakMap();
@@ -266,7 +276,7 @@ The §design intent: errors are often created and annotated over their lifetime 
 
 ### §defaultGetStackString — the non-privileged fallback
 
-The §defaultGetStackString function (lines 438-448):
+The §defaultGetStackString function (lines 467-477):
 
 ```js
 const defaultGetStackString = error => {
@@ -293,7 +303,7 @@ The §comment naming choice: *unprivileged form that just uses the de facto `err
 
 ### §loggedErrorHandler — the canonical bridge object
 
-The §loggedErrorHandler (lines 451-477):
+The §loggedErrorHandler (lines 480-505):
 
 ```js
 const loggedErrorHandler = {

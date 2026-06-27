@@ -2,8 +2,8 @@
 source: packages/ses/src/error/assert.js
 source_repo: endojs/endo
 source_branch: master
-source_commit: 816bc2574052e686bb14efd95e4709180f79cca6
-source_date: 2026-04-30
+source_commit: bfa149b4f18c6ad1cf1fed3e91cbaddf1e61b39d
+source_date: 2026-06-23
 source_authors: [Richard Gibson]
 ingested: 2026-06-01
 ingested_by: scholar
@@ -46,7 +46,7 @@ notes: |
 > Abstract: `packages/ses/src/error/assert.js` is SES's *assert*
 > module — *the* substrate that holds the canonical `assert`, `Fail`,
 > `details` (`X`), `quote` (`q`), `bare` (`b`), and `loggedErrorHandler`
-> that every @endo and SES module imports. The 604-line file is
+> that every @endo and SES module imports. The 633-line file is
 > unusual among @endo packages because it admits up-front that it
 > carries *top-level mutable state, observable to any code that has
 > access to the `loggedErrorHandler`*; the *intentional, narrow-gate*
@@ -90,13 +90,14 @@ notes: |
 | [logArgs-makeError-sanitizeError-tagError-and-loggedErrorHandler](../sections/endo--packages-ses-src-error-assert-js--logArgs-makeError-sanitizeError-tagError-and-loggedErrorHandler.md) | hardened-javascript, errors | current |
 | [makeAssert-and-the-assert-function-family](../sections/endo--packages-ses-src-error-assert-js--makeAssert-and-the-assert-function-family.md) | hardened-javascript, errors | current |
 
-The 604-line file decomposes into three argument-cluster sections. Lines 1-202 are the redaction discipline (header + declassifiers/quote/bare + DetailsToken + redactedDetails/unredactedDetails) → section 1. Lines 204-477 are the rendering machinery (getLogArgs + makeError + sanitizeError + tagError + note + loggedErrorHandler) → section 2. Lines 479-604 are the user-facing surface (makeAssert + fail + Fail + assert + equal + typeof + string + bundles + module-level exports) → section 3.
+The 633-line file decomposes into three argument-cluster sections. Lines 1-212 are the redaction discipline (header + declassifiers/quote/bare + DetailsToken + redactedDetails/unredactedDetails) → section 1. Lines 214-506 are the rendering machinery (getLogArgs + makeError + sanitizeError + tagError + note + loggedErrorHandler) → section 2. Lines 508-633 are the user-facing surface (makeAssert + fail + Fail + assert + equal + typeof + string + bundles + module-level exports) → section 3.
 
 ## Provenance
 
-- Fetched 2026-06-01 from `endojs/endo@816bc2574052e686bb14efd95e4709180f79cca6` via the local bare-clone (the cycle-93 commit; assert.js has not been touched since).
-- Last touched 2026-04-30 by Richard Gibson. Rich's authorship is appropriate given the V8-stack-attenuation work (cycle 93) Rich also authored; assert.js's `sanitizeError` is the *consumer* side of the V8 stack-getter discipline that tame-v8 set up.
-- Verified file existence and comment density via bare-clone listing: 604 lines / file is *deliberately dense* — many short fragmentary comments rather than longform paragraphs. The decisive comment density is in the §header block (lines 1-12) and the §declassifiers / §canBeBare / §sanitizeError / §loggedErrorHandler micro-comments rather than a single block.
+- Originally fetched 2026-06-01 from `endojs/endo@816bc2574052e686bb14efd95e4709180f79cca6` via the local bare-clone.
+- **Freshness-refreshed 2026-06-27** to `endojs/endo@bfa149b4f18c6ad1cf1fed3e91cbaddf1e61b39d` (last-modified 2026-06-23 by Christopher Hiller). The only material change since the original ingest is a TypeScript-typing refactor of `makeError` (commit `bfa149b4`): the `optDetails`/`errConstructor` parameters lost their signature default-value expressions and now apply the defaults internally (`details = optDetails ?? redactedDetails\`Assert failed\``; `errCtor = errConstructor ?? globalThis.Error`) behind `@type {Details}` / `@type {GenericErrorConstructor}` assertions, with an expanded `@import` block adding `Details`, `GenericErrorConstructor`, and `AssertMakeErrorOptions`. The change is *functionally equivalent* — it works around a strict-mode complaint about default parameters on a method carrying an `@overload` declaration — so the §makeError narrative is unchanged in substance; the code block was re-transcribed. The reconcile also corrected a pre-existing transcription error in the §tagError code block (upstream is `optErrorName = err.name` producing `${optErrorName}#${errorTagNum}`, not the `optErrorName = undefined` two-branch form previously recorded).
+- Last substantively authored 2026-04-30 by Richard Gibson. Rich's authorship is appropriate given the V8-stack-attenuation work (cycle 93) Rich also authored; assert.js's `sanitizeError` is the *consumer* side of the V8 stack-getter discipline that tame-v8 set up.
+- Verified file existence and comment density via bare-clone listing: 633 lines / file is *deliberately dense* — many short fragmentary comments rather than longform paragraphs. The decisive comment density is in the §header block (lines 1-12) and the §declassifiers / §canBeBare / §sanitizeError / §loggedErrorHandler micro-comments rather than a single block.
 - **Eleventh comment-fragment ingest**. The chosen file *completes* the SES causal-console architecture:
   - **Cycle 90** `track-turns.js` (Mark Miller) — produces causal annotations on errors.
   - **Cycle 93** `tame-v8-error-constructor.js` (Richard Gibson) — provides `getStackString` capability with V8-attenuation.

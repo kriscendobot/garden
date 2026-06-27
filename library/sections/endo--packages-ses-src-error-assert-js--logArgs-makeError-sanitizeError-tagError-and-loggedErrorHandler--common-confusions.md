@@ -3,10 +3,10 @@ title: Common confusions
 source: packages/ses/src/error/assert.js
 source_repo: endojs/endo
 source_branch: master
-source_commit: 816bc2574052e686bb14efd95e4709180f79cca6
-source_date: 2026-04-30
+source_commit: bfa149b4f18c6ad1cf1fed3e91cbaddf1e61b39d
+source_date: 2026-06-23
 source_authors: [Richard Gibson]
-source_lines: "204-477 (getLogArgs + hiddenMessageLogArgs + errorTagNum + tagError + sanitizeError + makeError + note + defaultGetStackString + loggedErrorHandler)"
+source_lines: "214-506 (getLogArgs + hiddenMessageLogArgs + errorTagNum + tagError + sanitizeError + makeError + note + defaultGetStackString + loggedErrorHandler)"
 topics: [hardened-javascript, errors]
 status: current
 notes: |
