@@ -523,6 +523,115 @@ The per-structure idiomatic APIs. Each package's README sits at `packages/<name>
 | [zip](collections--pkg-zip-readme.md) | zip | 1 | current |
 | [copy](collections--pkg-copy-readme.md) | copy | 1 | current |
 
+### endojs/endo per-package READMEs, design, and changeset docs (batch ingest 2026-06-16 → 2026-06-24)
+
+Per-package READMEs (the documentation-side closure of the "pivot cluster"), package source-file fragments, design docs, and `.changeset` entries ingested across the June 2026 designs-lane cycles. Grouped by package via the slug; one row per source.
+
+| Source | Abstract | Sections | Status |
+|--------|----------|----------|--------|
+| [.changeset/base64-harden.md](endo--changeset-base64-harden-md.md) | 13-line .changeset entry for the base64 hardening change. | 1 | current |
+| [.changeset/daemon-ts6-type-precision.md](endo--changeset-daemon-ts6-type-precision-md.md) | 11-line .changeset entry for @endo/daemon TypeScript 6 conformance improvements. | 1 | current |
+| [packages/base64/README.md](endo--packages-base64-README-md.md) | 22-line minimal-utility README for @endo/base64 (twentieth pivot-cluster package). | 1 | current |
+| [packages/base64/{index.js,atob.js,btoa.js,decode.js,encode.js,shim.js,src/common.js}](endo--packages-base64-entry-cluster.md) | 7-file entry-point cluster of @endo/base64 (cycle 356 chat-lane). | 1 | current |
+| [packages/benchmark/README.md](endo--packages-benchmark-README-md.md) | 8-line README for @endo/benchmark (twenty-fourth package in pivot cluster). | 1 | current |
+| [packages/benchmark/src/benchmark.js](endo--packages-benchmark-src-benchmark-js.md) | 39-line `src/benchmark.js` for @endo/benchmark, the hand-rolled "minimalistic ava-like interface". | 1 | current |
+| [packages/captp/changelogs/README-changelogs.md](endo--packages-captp-changelogs-README-changelogs-md.md) | 13-line README describing the per-PR per-package changelog file convention used in selected @endo packages (captp + marshal both have identical copies). | 1 | current |
+| [packages/check-bundle/README.md](endo--packages-check-bundle-README-md.md) | 13-line README for @endo/check-bundle. | 1 | current |
+| [packages/cli/README.md](endo--packages-cli-README-md.md) | 5-line README for @endo/cli (twenty-seventh package in pivot cluster). | 1 | current |
+| [packages/cli/test/demo/names-in-transit.js](endo--packages-cli-test-demo-names-in-transit-js.md) | 27-line CLI test demo operationally demonstrating capability-passing-with-petname-substitution-in-transit between HOST and alice-agent principals. | 1 | current |
+| [packages/compartment-mapper/README.md](endo--packages-compartment-mapper-README-md.md) | 773-line README for @endo/compartment-mapper (central architectural workhorse for module loading + bundling). | 1 | current |
+| [packages/compartment-mapper/src/extension.js](endo--packages-compartment-mapper-src-extension-js.md) | 22-line utility for parsing the file extension from a URL location string in @endo/compartment-mapper. | 1 | current |
+| [packages/daemon/README.md](endo--packages-daemon-README-md.md) | 14-line README for @endo/daemon (twenty-sixth package in pivot cluster). | 1 | current |
+| [packages/daemon/src/deferred-tasks.js](endo--packages-daemon-src-deferred-tasks-js.md) | 23-line internal task-deferral utility from @endo/daemon. | 1 | current |
+| [packages/daemon/types.d.ts](endo--packages-daemon-types-d-ts.md) | 21-line daemon/types.d.ts, the daemon package's top-level public TypeScript declarations. | 1 | current |
+| [packages/eslint-plugin/README.md](endo--packages-eslint-plugin-README-md.md) | 54-line README for @endo/eslint-plugin (twenty-second package in pivot cluster). | 1 | current |
+| [packages/eslint-plugin/lib/index.js](endo--packages-eslint-plugin-lib-index-js.md) | 20-line `lib/index.js` for @endo/eslint-plugin uses requireIndex to enumerate `lib/rules/` and `lib/configs/`. | 1 | current |
+| [packages/exo/docs/exo-taxonomy.md](endo--packages-exo-docs-exo-taxonomy-md.md) | 53-line taxonomy doc for @endo/exo's full creation grammar; pointed to by cycle 367 README. | 1 | current |
+| [packages/module-source/DESIGN.md](endo--packages-module-source-DESIGN-md.md) | 207-line DESIGN.md for @endo/module-source, the package that transforms ESM source into executable functors plus static-analysis records. | 1 | current |
+| [packages/module-source/src/hidden.js](endo--packages-module-source-src-hidden-js.md) | 20-line implementation of the invisible-joiner-character trick named in cycle 375 module-source DESIGN.md. | 1 | current |
+| [packages/ses-ava/README.md](endo--packages-ses-ava-README-md.md) | 113-line README for @endo/ses-ava (twenty-third package in pivot cluster). | 1 | current |
+| [packages/ses-ava/prepare-endo.js](endo--packages-ses-ava-prepare-endo-js.md) | 27-line `prepare-endo.js` for @endo/ses-ava, the canonical user-facing entry point named in cycle 361's README. | 1 | current |
+| [packages/ses/docs/secure-coding-guide.md](endo--packages-ses-docs-secure-coding-guide-md.md) | Partial ingest (first 180 of 532 lines) of SES secure-coding-guide. | 1 | partial |
+| [packages/ses/docs/ses-0.7.md](endo--packages-ses-docs-ses-0-7-md.md) | 64-line version-introduction document for SES 0.7. | 1 | current |
+| [packages/ses/src/tame-harden.js](endo--packages-ses-src-tame-harden-js.md) | 29-line implementation of the harden taming function in SES. | 1 | current |
+| [packages/skel/README.md](endo--packages-skel-README-md.md) | 3-line README for @endo/skel (twenty-fifth package in pivot cluster). | 1 | current |
+| [packages/skel/test/index.test.js](endo--packages-skel-test-index-test-js.md) | 6-line test file shipping in the @endo/skel skeleton template; every derivative inherits this pattern. | 1 | current |
+| [packages/zip/README.md](endo--packages-zip-README-md.md) | 57-line README for @endo/zip (twenty-first package in pivot cluster). | 1 | current |
+### endojs/endo-but-for-bots per-package READMEs, docs, designs, and source fragments (batch ingest 2026-06-16 → 2026-06-24)
+
+The bot-fork's per-package READMEs (lal, fae, genie, familiar, whylip, exo, chat, conversation-tree, captp, patterns, pass-style, marshal, errors, eventual-send, init), the lal primer doc cluster, the AGENTS / docs / llm-designs / evoke material, and assorted source-file fragments ingested across the June 2026 designs-lane cycles. Grouped by package via the slug; one row per source.
+
+| Source | Abstract | Sections | Status |
+|--------|----------|----------|--------|
+| [AGENTS.md](endo-but-for-bots--AGENTS-md.md) | 92-line AGENTS.md at endo-but-for-bots/llm repo root. | 1 | current |
+| [docs/daemon-lore.md](endo-but-for-bots--docs-daemon-lore-md.md) | Partial ingest of 212-line daemon-lore.md, the bot-fork's daemon glossary. | 1 | partial-ingest |
+| [docs/exo-method-banks.md](endo-but-for-bots--docs-exo-method-banks-md.md) | 135-line design doc explaining the method-bank-and-exo two-layer pattern used in endo-but-for-bots. | 1 | current |
+| [docs/mailbox-durability-plan.md](endo-but-for-bots--docs-mailbox-durability-plan-md.md) | Partial ingest of 189-line mailbox-durability-plan.md (first 140 lines). | 1 | partial-ingest |
+| [evoke/SOUL.md](endo-but-for-bots--evoke-SOUL-md.md) | 29-line SOUL.md at endo-but-for-bots/llm repo root in evoke/. | 1 | current |
+| [evoke/config.sh](endo-but-for-bots--evoke-config-sh.md) | 19-line evoke/config.sh, the shell-script configuration for invoking the agent. | 1 | current |
+| [designs/ocapn-tcp-syrups-framing.md](endo-but-for-bots--llm-designs-ocapn-tcp-syrups-framing.md) | > Abstract: Design for `@endo/syrups` — a comma-less Netstring framing package named for parallelism with `@endo/cbors`. | 4 | current |
+| [packages/captp/README.md](endo-but-for-bots--packages-captp-README-md.md) | 65-line README.md for @endo/captp — the capability transfer protocol underlying every cross-vat capability passing the cluster has framed. | 1 | current |
+| [packages/captp/src/loopback.js](endo-but-for-bots--packages-captp-src-loopback-js.md) | 117-line loopback.js from @endo/captp/src — the in-process CapTP cycle 429 framed as "async barrier between near and far objects." Chat-lane after cycle 429 designs-lane captp/README.md. | 1 | current |
+| [packages/chat/README.md](endo-but-for-bots--packages-chat-README-md.md) | 98-line README for @endo/chat, the bot-fork's web-based chat application. | 1 | current |
+| [packages/chat/message-parse.js](endo-but-for-bots--packages-chat-message-parse-js.md) | 30-line implementation of the petname parser used by the chat web UI. | 1 | current |
+| [packages/conversation-tree/index.js](endo-but-for-bots--packages-conversation-tree-index-js.md) | 92-line index.js of @endo/conversation-tree — FIRST artifact OUTSIDE @endo/lal in cycles 399-414 (lal stretch ended). | 1 | current |
+| [packages/conversation-tree/src/endopetstore-backend.js](endo-but-for-bots--packages-conversation-tree-src-endopetstore-backend-js.md) | 68-line endopetstore-backend.js from @endo/conversation-tree/src — the persistent backend whose actual async operations justify cycle 418's interface-parity-tax framing. | 1 | current |
+| [packages/conversation-tree/src/memory-backend.js](endo-but-for-bots--packages-conversation-tree-src-memory-backend-js.md) | 52-line memory-backend.js from @endo/conversation-tree/src — the in-memory implementation of the TreeBackend interface cycle 414's conversation-tree/index.js consumed. | 1 | current |
+| [packages/conversation-tree/types.js](endo-but-for-bots--packages-conversation-tree-types-js.md) | 41-line types.js from @endo/conversation-tree — the canonical type definitions binding the three artifacts cycles 414, 418, 420 ingested. | 1 | current |
+| [packages/daemon/src/networks/libp2p.js](endo-but-for-bots--packages-daemon-src-networks-libp2p-js.md) | 1049-line `packages/daemon/src/networks/libp2p.js` — the libp2p network backend for the Endo daemon. | 1 | current |
+| [packages/daemon/src/networks/setup-ws-relay.js](endo-but-for-bots--packages-daemon-src-networks-setup-ws-relay-js.md) | 46-line setup-ws-relay.js, a concrete runlet that installs a WebSocket relay network module into the daemon. | 1 | current |
+| [packages/daemon/src/networks/tcp-netstring.js](endo-but-for-bots--packages-daemon-src-networks-tcp-netstring-js.md) | 191-line `packages/daemon/src/networks/tcp-netstring.js` — the TCP network backend for the Endo daemon. | 1 | current |
+| [packages/daemon/src/networks/ws-relay.js](endo-but-for-bots--packages-daemon-src-networks-ws-relay-js.md) | 506-line `packages/daemon/src/networks/ws-relay.js` — the WebSocket relay network backend for the Endo daemon. | 1 | current |
+| [packages/daemon/src/pet-name.js](endo-but-for-bots--packages-daemon-src-pet-name-js.md) | 126-line pet-name.js, the canonical implementation of the bot-fork's pet-name validation discipline. | 1 | current |
+| [packages/errors/index.js](endo-but-for-bots--packages-errors-index-js.md) | 132-line index.js of @endo/errors — the package whose Fail, X, Rejector helpers the cluster has been seeing since cycle 322. | 1 | current |
+| [packages/eventual-send/README.md](endo-but-for-bots--packages-eventual-send-README-md.md) | 332-line README.md for @endo/eventual-send — the E() primitive underlying every remote method call the cluster has framed. | 1 | current |
+| [packages/exo/README.md](endo-but-for-bots--packages-exo-README-md.md) | 365-line README.md for @endo/exo — the defensive-remotable discipline (Far + InterfaceGuard). | 1 | current |
+| [packages/exo/src/get-interface.js](endo-but-for-bots--packages-exo-src-get-interface-js.md) | 28-line get-interface.js from @endo/exo/src — the definition of the GET_INTERFACE_GUARD meta-method symbol. | 1 | current |
+| [packages/fae/COMPARISON-FAE-LAL.md](endo-but-for-bots--packages-fae-COMPARISON-FAE-LAL-md.md) | 386-line COMPARISON-FAE-LAL.md from @endo/fae — the cluster's FIRST comparison document; bridges the lal cluster (cycles 399-413) and conversation-tree (cycle 414) into a broader Fae/Lal landscape. | 1 | current |
+| [packages/fae/COMPARISON-FAE-NANOBOT.md](endo-but-for-bots--packages-fae-COMPARISON-FAE-NANOBOT-md.md) | 281-line COMPARISON-FAE-NANOBOT.md from @endo/fae — the cluster's SECOND comparative architecture document. | 1 | current |
+| [packages/fae/README.md](endo-but-for-bots--packages-fae-README-md.md) | 230-line README.md for @endo/fae — Fae's own self-description (distinct from COMPARISON documents). | 1 | current |
+| [packages/fae/setup.js](endo-but-for-bots--packages-fae-setup-js.md) | 44-line setup.js from @endo/fae — first step of fae's multi-script setup flow; companion to cycle 410's lal/setup.js. | 1 | current |
+| [packages/fae/src/extract-tool-calls.js](endo-but-for-bots--packages-fae-src-extract-tool-calls-js.md) | 188-line `packages/fae/src/extract-tool-calls.js` — the model-agnostic tool-call extraction layer for the Fae agent. | 1 | current |
+| [packages/fae/src/tools.js](endo-but-for-bots--packages-fae-src-tools-js.md) | 95-line tools.js from @endo/fae/src — the tool-discovery module the cycle 415 COMPARISON document referenced. | 1 | current |
+| [packages/familiar/README.md](endo-but-for-bots--packages-familiar-README-md.md) | 45-line README.md for @endo/familiar — the Electron shell that hosts the Endo daemon + chat UI. | 1 | current |
+| [packages/familiar/src/exfiltration-defense.js](endo-but-for-bots--packages-familiar-src-exfiltration-defense-js.md) | 167-line exfiltration-defense.js from @endo/familiar/src — the security-critical module implementing three of six defense layers against data exfiltration from weblet iframes. | 1 | current |
+| [packages/familiar/src/navigation-guard.js](endo-but-for-bots--packages-familiar-src-navigation-guard-js.md) | 79-line navigation-guard.js from @endo/familiar/src — Layer 4 (navigation delegate) of cycle 436's six-layer exfiltration defense. | 1 | current |
+| [packages/familiar/src/protocol-handler.js](endo-but-for-bots--packages-familiar-src-protocol-handler-js.md) | 91-line protocol-handler.js from @endo/familiar/src — Layer 1 (CSP) of cycle 436's six-layer exfiltration defense. | 1 | current |
+| [packages/genie/DESIGN.md](endo-but-for-bots--packages-genie-DESIGN-md.md) | 203-line DESIGN.md for @endo/genie, the bot-fork's AI agent framework. | 1 | current |
+| [packages/genie/README.md](endo-but-for-bots--packages-genie-README-md.md) | 109-line README for @endo/genie, the bot-fork's AI agent framework. | 1 | current |
+| [packages/genie/src/tools/index.js](endo-but-for-bots--packages-genie-src-tools-index-js.md) | 25-line barrel export listing the genie package's tool surface. | 1 | current |
+| [packages/init/README.md](endo-but-for-bots--packages-init-README-md.md) | 52-line README.md for @endo/init — the canonical SES bootstrap entry point. | 1 | current |
+| [packages/lal/LAL-ARCHITECTURE.md](endo-but-for-bots--packages-lal-LAL-ARCHITECTURE-md.md) | 488-line LAL-ARCHITECTURE.md, the canonical design document for @endo/lal — the third document in the lal package after the README and source. | 1 | current |
+| [packages/lal/README.md](endo-but-for-bots--packages-lal-README-md.md) | 50-line README for @endo/lal, the bot-fork's LLM-powered agent caplet. | 1 | current |
+| [packages/lal/agent.types.d.ts](endo-but-for-bots--packages-lal-agent-types-d-ts.md) | 127-line agent.types.d.ts, the TypeScript type-definition file for @endo/lal. | 1 | current |
+| [packages/lal/primer/README.md](endo-but-for-bots--packages-lal-primer-README-md.md) | 37-line primer/README.md, the index of @endo/lal's agent-facing primer directory. | 1 | current |
+| [packages/lal/primer/capabilities.md](endo-but-for-bots--packages-lal-primer-capabilities-md.md) | 148-line capabilities.md from @endo/lal's agent-facing primer. | 1 | current |
+| [packages/lal/primer/chat-reference.md](endo-but-for-bots--packages-lal-primer-chat-reference-md.md) | 114-line `packages/lal/primer/chat-reference.md` — the Chat UI slash-command reference for Endo operators. | 1 | current |
+| [packages/lal/primer/cli-reference.md](endo-but-for-bots--packages-lal-primer-cli-reference-md.md) | 85-line `packages/lal/primer/cli-reference.md` — the Endo CLI reference for operators. | 1 | current |
+| [packages/lal/primer/howto-capabilities.md](endo-but-for-bots--packages-lal-primer-howto-capabilities-md.md) | 143-line howto-capabilities.md from @endo/lal's agent-facing primer. | 1 | current |
+| [packages/lal/primer/howto-code.md](endo-but-for-bots--packages-lal-primer-howto-code-md.md) | 140-line howto-code.md from @endo/lal's agent-facing primer. | 1 | current |
+| [packages/lal/primer/howto-inventory.md](endo-but-for-bots--packages-lal-primer-howto-inventory-md.md) | 133-line howto-inventory.md from @endo/lal's agent-facing primer. | 1 | current |
+| [packages/lal/primer/howto-messaging.md](endo-but-for-bots--packages-lal-primer-howto-messaging-md.md) | 97-line howto-messaging.md from @endo/lal's agent-facing primer. | 1 | current |
+| [packages/lal/primer/messaging.md](endo-but-for-bots--packages-lal-primer-messaging-md.md) | 97-line messaging.md from @endo/lal's agent-facing primer. | 1 | current |
+| [packages/lal/primer/smallcaps.md](endo-but-for-bots--packages-lal-primer-smallcaps-md.md) | 25-line `packages/lal/primer/smallcaps.md` — the LLM-facing SmallCaps encoding spec for @endo/lal tool call arguments. | 1 | current |
+| [packages/lal/primer/tools.md](endo-but-for-bots--packages-lal-primer-tools-md.md) | 89-line tools.md from @endo/lal's agent-facing primer. | 1 | current |
+| [packages/lal/providers/anthropic.js](endo-but-for-bots--packages-lal-providers-anthropic-js.md) | 166-line providers/anthropic.js, the Anthropic API provider for @endo/lal. | 1 | current |
+| [packages/lal/providers/config.js](endo-but-for-bots--packages-lal-providers-config-js.md) | 69-line providers/config.js, the LLM provider detection and model-resolution implementation. | 1 | current |
+| [packages/lal/providers/index.js](endo-but-for-bots--packages-lal-providers-index-js.md) | 113-line providers/index.js, the LLM provider factory that ties together the four providers and uses config.js helpers from cycle 400. | 1 | current |
+| [packages/lal/providers/ollama.js](endo-but-for-bots--packages-lal-providers-ollama-js.md) | 143-line providers/ollama.js, the native Ollama provider for @endo/lal. | 1 | current |
+| [packages/lal/setup.js](endo-but-for-bots--packages-lal-setup-js.md) | 105-line setup.js, the provisioning entry point that launches the lal agent inside the Endo daemon. | 1 | current |
+| [packages/lal/test/simulator/README.md](endo-but-for-bots--packages-lal-test-simulator-README-md.md) | 54-line README.md for @endo/lal's simulator testing harness. | 1 | current |
+| [packages/lal/test/simulator/mock-powers.js](endo-but-for-bots--packages-lal-test-simulator-mock-powers-js.md) | 296-line mock-powers.js, the mock-internals implementation cycle 403's simulator README described. | 1 | current |
+| [packages/marshal/README.md](endo-but-for-bots--packages-marshal-README-md.md) | 188-line README.md for @endo/marshal — the cluster's FIRST non-agent-package ingest, grounding accumulated framings about CapTP, SmallCaps, Justin serialization, and pass-by-presence. | 1 | current |
+| [packages/pass-style/src/byteArray.js](endo-but-for-bots--packages-pass-style-src-byteArray-js.md) | 68-line byteArray.js from @endo/pass-style/src — the pass-style helper for the ImmutableArrayBuffer-based ByteArray pass-style. | 1 | current |
+| [packages/pass-style/src/copyRecord.js](endo-but-for-bots--packages-pass-style-src-copyRecord-js.md) | 70-line copyRecord.js from @endo/pass-style/src — the canonical implementation of the pass-by-copy/Record classification cycle 423 named. | 1 | current |
+| [packages/patterns/README.md](endo-but-for-bots--packages-patterns-README-md.md) | 415-line README.md for @endo/patterns — the M namespace for pattern matching and interface guards. | 1 | current |
+| [packages/patterns/src/keys/copySet.js](endo-but-for-bots--packages-patterns-src-keys-copySet-js.md) | 110-line copySet.js from @endo/patterns/src/keys — the implementation of CopySet (cycle 427's "passable alternative to JavaScript Set"). | 1 | current |
+| [packages/patterns/types-index.d.ts](endo-but-for-bots--packages-patterns-types-index-d-ts.md) | 9-line patterns/types-index.d.ts — the canonical example of AGENTS.md's types-index convention. | 1 | current |
+| [packages/whylip/README.md](endo-but-for-bots--packages-whylip-README-md.md) | 121-line `packages/whylip/README.md` — the @endo/whylip package overview. | 1 | current |
+| [packages/whylip/src/SceneCanvas.jsx](endo-but-for-bots--packages-whylip-src-SceneCanvas-jsx.md) | 43-line `packages/whylip/src/SceneCanvas.jsx` — the React component implementing Layer 6 of the six-layer exfiltration defense. | 1 | current |
+| [packages/whylip/src/hooks/useConversation.js](endo-but-for-bots--packages-whylip-src-hooks-useConversation-js.md) | 444-line `packages/whylip/src/hooks/useConversation.js` — the React hook implementing Whylip's complete conversation state machine. | 1 | current |
+
 ## Backlog (not yet ingested)
 
 Roughly grouped by priority. The full file inventory was captured during the pilot survey; the lists below are summaries, not authoritative manifests.
@@ -562,6 +671,12 @@ Sources retrieved from public URLs rather than from repository git history. Use 
 | [AWS Marketplace container product requirements](web--aws-marketplace-container-requirements.md) | https://docs.aws.amazon.com/marketplace/latest/userguide/container-product-policies.html | 1 | current |
 | [Let's Encrypt ACME challenge types](web--lets-encrypt-acme-challenges.md) | https://letsencrypt.org/docs/challenge-types/ | 2 | current |
 | [The Update Framework (TUF) specification](web--tuf-specification.md) | https://theupdateframework.io/docs/metadata/ | 1 | current |
+| [AWS Marketplace fees and identity](web--aws-marketplace-fees-and-identity.md) | https://docs.aws.amazon.com/marketplace/latest/userguide/listing-fees.html | 2 | current |
+| [Azure Marketplace containers](web--azure-marketplace-containers.md) | https://learn.microsoft.com/en-us/partner-center/marketplace-offers/marketplace-containers | 1 | current |
+| [Azure Marketplace publisher guide](web--azure-marketplace-publisher-guide.md) | https://learn.microsoft.com/en-us/partner-center/marketplace-offers/publisher-guide-by-offer-type | 3 | current |
+| [Comparative analysis: AWS / Azure / GCP marketplaces](web--comparative-analysis-aws-azure-gcp-marketplaces.md) | https://divein.market/cloud-marketplace-fee-comparison-2025/ | 1 | current |
+| [GCP Marketplace partner program](web--gcp-marketplace-partner-program.md) | https://docs.cloud.google.com/marketplace/docs/partners | 2 | current |
+
 
 ## Web essays and surveys
 
