@@ -46,3 +46,9 @@ it is coherent work that should LAND on `main2`:
 If `resolve-wedge.sh` exits non-zero (tracked dirt it could not classify
 remains), re-survey by hand, resolve only the specific blocking file(s) the same
 lossless way, and STOP if any unrelated tracked file is unexpectedly dirty.
+
+---
+claim:
+  host: endolinbot
+  gardener: 48
+  claimed_at: 2026-06-27T19:47:49Z
