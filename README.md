@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T09:47:18Z_
+_As of 2026-06-27T09:53:00Z_
 
 ## Latest
 
-The big story is operational, not on the board: the live tree on host **endolinbot** has been deploy-wedged for most of the day. The watchman fired roughly a dozen "main2 WEDGED" alerts as origin/main2 raced ahead through a long fix chain while the checkout stayed pinned — first on uncommitted edits to `gardener.sh`/`self-heal-run.sh`, then on a redundant byte-identical edit to `report-error.sh` that git won't fast-forward past, and finally on an untracked file colliding with an incoming tracked path. A gardener confirmed the `report-error.sh` change is content-identical to what already landed on origin, so `git checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges the deploy. Until the tree is cleaned, this host picks up no new roles/skills/scripts. Notably, the new **deploy-sync reconciler** landed on main2 (`5d6490e62`) to auto-fast-forward the checkout and restart long-running services on `scripts/` changes — but it is inert until a units refresh arms its timer, and it's blocked by the same dirty tree it's meant to prevent.
+The headline for the maintainer: **main2 on endolinbot is wedged and the host's deploy is frozen.** A run of watchman alerts through the morning reports the live tree stuck behind a steadily-advancing `origin/main2` (now ~many commits back), blocked first by uncommitted edits to `scripts/jobs/self-heal-run.sh`, `gardener.sh`, and `claim-job.sh`, then by `skills/gardener-inbox-error-reporting/report-error.sh` — which a gardener confirmed is **byte-identical to the committed version**, so `git checkout --` on it is lossless and unwedges the deploy. The latest 09:46Z alert shows a new flavor: an untracked file now collides with an incoming tracked path. Knock-on effects: self-heal reports `garden-gardener` crash-looped on a transient `claim failed (rc=128)` whose fix is *already on `origin/main2`* but unreachable until the tree advances, and a new **deploy-sync reconciler** landed (`5d6490e62`) to auto-fast-forward and restart services on `scripts/` changes — but it stays inert until a units refresh arms it, and is itself blocked by the same wedge.
 
-Two recurring failure signatures want eyes: the `comment-watcher/kriskowal-garden` watchdog has now reported **180 consecutive ticks with zero comments** despite the repo being active — the same silent-blindness signature as the 2026-06-24 jq/gh outage — and self-heal caught `garden-gardener` crash-looping on transient git-128 claim failures (already fixed on main2, just not deployed here, per the wedge above).
+Also recurring: the **comment-watcher/kriskowal-garden blindness** — 0 comments for 180+ consecutive ticks against a demonstrably active repo, the same signature as the 2026-06-24 jq/gh outage; worth confirming the comment-source handler on endolinbot isn't silently dark again.
 
-On the PR side, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) — fixing 13 dangling design-doc references and adding a real Node parity test — after finding genuine defects in superseding work despite a stand-down. Separately, the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently has 4 failing CI checks. The board itself was quiet: one completion (`improve-post-ingest-parent-index-resolution-gate`), plus scholar ingests of the MetaMask ocap-kernel guide and a distributed-ocap concept cluster. One maintainer decision is pending: the `cognito-mcp-metadata-bridge` gardener is proceeding on its own recommendations (Cognito + bridge, full RFC 7591/8414/8707 with DCR behind a default-on toggle) unless you redirect.
+On the PR front, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node-parity test pair after a stand-down; full suite green. The formula-inspector retention-paths table is **blocked on an open, stalled upstream host-API PR** (rebase-and-re-gamut never happened, 4 failing checks) and was correctly reported rather than reimplemented. Scholar landed two library expansions — the ocap-kernel kernel-guide ingest and a distributed-ocap concept cluster (`dc5d328e`) — each honestly flagging an unreachable source (erights.org down for the grant-matcher puzzle). Finally, the `cognito-mcp-metadata-bridge` gardener is awaiting your call on two design questions (Cognito-vs-native IdP, and RFC 7591 DCR) but will proceed on its recommendations — full bridge, `/register` behind a default-on toggle — unless redirected.
 
 ## Parked for maintainer feedback
 
@@ -395,8 +395,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`improve-deterministic-section-link-integrity-scan`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deterministic-section-link-integrity-scan.md) — The library section-link-integrity scan is performed inside the scholar LLM a...
+- [`scholar-library-cycle-20260627-095222`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-095222.md) — Hourly scholar library cycle
 
 ### tada (332)
 - [`improve-post-ingest-parent-index-resolution-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-post-ingest-parent-index-resolution-gate.md) — Completion report: improve-post-ingest-parent-index-resolution-gate
