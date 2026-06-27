@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T19:49:05Z_
+_As of 2026-06-27T19:57:03Z_
 
 ## Latest
 
-The job board drained to empty: the gardener fleet's two open items both completed this cycle — a signal-kill classifier fix (now classifying SIGKILL'd ticks as transient regardless of whether output was captured) and an autonomous main2 wedge resolve on endolinbot. One job remains in flight, the deliberate-deploy "no shared live tree" infrastructure change (per-subagent worktrees).
+A run of garden-infra reliability fixes landed since the last bulletin: gardeners now classify a signal-kill return code as transient regardless of capture state, the scaler no-ops on an unreadable count, systemd units exec a stable interpreter so a deploy-window restart can't 203/EXEC, and failure logs carry a syslog priority prefix for self-diagnosing tails — plus a main2 dirty-tree wedge on endolinbot was resolved autonomously. The board itself is quiet (one hourly scholar library cycle in flight); the substance is queued in the maintainer inbox.
 
-Most of what a maintainer should notice is queued in the inbox, not the board. Several gardener reports are parked on decisions only kriskowal can make: a feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (kriskowal asked to reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch through the gamut — the classifier bug that misrouted it is being fixed separately. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you already requested. The "harden exported function literals" follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is waiting on a breadth-and-base decision before a cross-repo PR opens. Two investigations bounced out of scope into ymax0/agoric-sdk territory (a v320 swing-store export and an XS native-stack-depth repro judged not to be an Endo regression), and the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change. Lower-priority: scholar landed ocap-kernel and distributed-ocap concept clusters in the library, and endo master lint came back clean apart from five non-failing jsdoc warnings.
+Several decisions are parked on kriskowal. A real maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (re-bucket the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was **misclassified as a "rebase"** by the comment-watcher — the PR is already mergeable, so no rebase ran; it needs a liaison-driven builder/fixer dispatch through the gamut, and a classifier-bug fix job was posted separately. The retention-paths inspector table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you already requested. The harden-exported-literals follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is owed a scope call (narrow two exports vs. repo-wide, and `llm` vs. `master` base). And the ymax0/XS investigation surfaced two out-of-bounds (agoric-sdk) calls — sourcing a v320 swing-store export and whether to file an upstream-Endo note — both awaiting your direction.
+
+In lower-stakes news: scholar ingested MetaMask/ocap-kernel's host-app guide and synthesized a distributed-ocap concept cluster on journal2; endo master lint came back clean (only 5 non-failing jsdoc warnings); and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reusing @endo/daemon's powers would invert the extraction).
 
 ## Parked for maintainer feedback
 
@@ -180,8 +182,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
+- [`scholar-library-cycle-20260627-195612`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-195612.md) — Hourly scholar library cycle
 
 ### tada (397)
 - [`resolve-wedge-endolinbot-1d4f136208cb-22707619253`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-1d4f136208cb-22707619253.md) — Completion report
