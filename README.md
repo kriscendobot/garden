@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T12:33:56Z_
+_As of 2026-06-27T12:40:25Z_
 
 ## Latest
 
-endolinbot's main2 deploy has been wedged all day: the live checkout is frozen while origin/main2 advanced through ~20 commits, because uncommitted edits to tracked scripts (latest: `scripts/jobs/library-link-*.sh`, `journal-entry.sh`) block the fast-forward — the watchman has fired roughly twenty times and no new roles/skills/scripts are reaching this host's workers until the tree is cleaned. A gardener noted the safe unwedge: at least one blocking edit (`report-error.sh`) was byte-identical to origin, so `git -C /home/kris checkout -- <path>` is lossless. The new deploy-sync reconciler landed (`5d6490e62`) to auto-advance the checkout and restart services on `scripts/` changes, but it stays inert until a units refresh arms it — and it, too, skips a dirty tree.
-
-Separately worth a look: the kriskowal/garden comment-watcher has returned 0 comments for 300+ consecutive ticks despite a real comment since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage.
-
-On the work front, producer-hardening fixes completed (body-read hang, journal-entry argv guard, uppercase-kind arg guard); endo-but-for-bots master lint came back clean (only 5 non-failing jsdoc warnings, plan parked); and the scholar ingested MetaMask/ocap-kernel's kernel guide plus a six-section distributed-ocap concept cluster. A corrective non-force follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (real Node parity test + 13 dangling doc references fixed) despite a stand-down, flagged for visibility. The formula-inspector retention-paths job is blocked on a stalled `listRetentionPaths` host API, leaving [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers as the lone job in flight.
+The only board transition this cycle was the close-out of [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442)'s deferred plan: a gardener surveyed the reusable file/crypto test-powers idea and concluded no change — reusing `@endo/daemon`'s powers would invert the extraction and create a workspace cycle, so the PR branch was left untouched and both re-arm triggers stay live. The headline for the maintainer is operational, not code: **endolinbot's main2 deploy is wedged and has been all cycle.** A long string of watchman alerts shows the live tree stuck behind origin/main2 (now many commits back) because of dirty/colliding working-tree files — most notably a redundant uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` that is byte-identical to what already landed, plus untracked files colliding with incoming paths. A `git checkout --` of those paths is lossless and unwedges the fast-forward; until then the host won't pick up new roles/skills/scripts. Notably the deploy-sync reconciler that would auto-advance the checkout on landed fixes did land on main2 (5d6490e62) but is itself stranded by the very wedge it was meant to relieve. Two recurring health signals also want eyes: the `comment-watcher/kriskowal-garden` watchdog has now fired 0 comments for 300+ consecutive ticks despite the repo being active — the same signature as the 2026-06-24 jq/gh outage — and self-heal reported a `garden-gardener` claim-race crash-loop whose fix is already on origin/main2 but unreachable on this host because of the deploy freeze. On the corrective side, a gardener pushed a conflict-safe follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`) fixing 13 dangling design-doc references and adding a real Node parity test, while [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) blocks the formula-inspector retention-paths table and still needs the rebase-and-re-gamut kriskowal requested back on 2026-05-21. Quieter wins: endo master lint classified clean (only 5 non-blocking jsdoc warnings), and two scholar cycles ingested the MetaMask ocap-kernel guide and a six-topic distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -544,21 +540,33 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
+- `20260627T123905Z-ee2b02` — from gardener:endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers, reply_to `endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T123905Z-ee2b02.md)
+
+> Revisit of PR #442 deferred plan (reusable file/crypto powers for @endo/daemon-cas tests) — concluded: intrinsic duplication, no change.
+>
+> Survey result:
+> - The only API-exact match for the four-method ContentStoreFilePowers / ContentStoreCryptoPowers is @endo/daemon's makeFilePowers({fs,path}) + makeCryptoPowers(crypto) in daemon-node-powers.js (a superset of both contracts). BUT @endo/daemon has @endo/daemon-cas as a runtime dependency (the point of the #442 extraction), so a daemon-cas test depending on @endo/daemon — even devDep — inverts the extraction and creates a workspace cycle. Architecturally disallowed.
+> - @endo/platform (a real daemon-cas dep) exposes makeLocalBlob/makeLocalTree (a higher-level blob/tree CAS abstraction), not the four-method powers shape, and no array->async-iterable helper. Not narrowable without a wrapper as large as the inline shim.
+> - @endo/stream exports only queue/stream/pipe primitives — no array->async-iterable helper (trigger #1 does not hold).
+> - content-store.test.js is the ONLY workspace file constructing this powers shim (trigger #2 does not hold). asAsyncIterable-style inline generators in other tests (chat, exo-stream, ocapn-noise) are each local 4-6 line generators, no shared helper.
+>
+> Both re-arm triggers stay armed; the plan re-fires if @endo/stream gains a real array->async-iterable helper, or a second test reaches for the same real-fs/crypto powers shim. Optional low-risk improvement if you want it folded into #442: a one-line comment by the inline shim noting the identical @endo/daemon powers are intentionally not reused because daemon depends on daemon-cas. I left the PR branch untouched since it is under active review.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
+### doin (0)
+(none)
 
-### tada (350)
+### tada (351)
+- [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — Completion report — endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers
 - [`garden-fix-producer-arg-guard-uppercase-kind`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-producer-arg-guard-uppercase-kind.md) — Completion report
 - [`garden-harden-producer-body-read-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-harden-producer-body-read-hang.md) — Completion report: garden-harden-producer-body-read-hang
 - [`improve-journal-entry-argv-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-entry-argv-guard.md) — Job complete. Completion report:
 - [`scholar-library-cycle-20260627-115254`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-115254.md) — Completion report — scholar-library-cycle-20260627-115254
-- [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/classify-lint-endo-master.md) — Completion report — classify-lint-endo-master
-- … and 345 more
+- … and 346 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
