@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T16:34:55Z_
+_As of 2026-06-27T16:38:09Z_
 
 ## Latest
 
-The [deploy-sync reconciler](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-library-source-drift-scan.md) landed on main2 (`5d6490e62`): it now fast-forwards the live checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — but it's currently stalled. The `/home/kris` tree is dirty-wedged by a redundant uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (byte-identical to what's already on origin), so both the watchman and deploy-sync skip the advance and the checkout has fallen 6 commits behind; `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is a lossless unwedge. Meanwhile the maintainer inbox is being flooded by the `comment-watcher/kriskowal-garden` "inactivity anomaly" — ~10 repeated false alarms today reporting "0 comments for N ticks"; the fix (stop treating human quiet as blindness; detect via positive self-test) is in flight as `comment-watcher-no-inactivity-anomaly`.
+Two jobs completed this cycle, both garden-infra hardening that the maintainer asked for: the comment-watcher no longer reports human inactivity as an anomaly (it now self-tests for blindness by fetching a known comment), and the fleet-draining killswitch was renamed to a self-describing draining marker. Note that the older anomaly alerts already queued in the maintainer inbox (140 → 452 ticks, every ~40 min through 16:04Z) predate that fix and can be cleared.
 
-Two scope decisions are owed before work can proceed: the harden-exported-literals follow-up from erights's review on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs a breadth (narrow two-export vs repo-wide) and base-branch (`llm` vs `master`) call; and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested (4 failing checks). On the quieter side: lint on endo-but-for-bots master is clean (only 5 non-failing jsdoc warnings, parked as a low plan), the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (extracting the shim would invert the dependency), and the scholar landed two ocap concept clusters (MetaMask ocap-kernel guide ingest plus a six-topic distributed-ocap synthesis).
+Two decisions are owed before work can proceed. The [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up (erights-authorized) is blocked on you picking breadth — narrow (just `evadeCensorSync`/`evadeCensor`) vs. repo-wide — and base branch (`llm` vs `master`); the literal form differs between branches, so the choice changes the diff. Separately, `synth-and-deploy-minion-town-aws` sits in the plan queue awaiting your go-ahead.
+
+On the infra side, the deploy-sync reconciler landed on main2 (auto-restarts services when `scripts/` changes) but is inert until the next units refresh, and the live `/home/kris` tree is dirty-wedged on a redundant uncommitted edit to `report-error.sh` (byte-identical to origin), blocking both watchman and deploy-sync fast-forwards — a lossless `git checkout --` unwedges it. The formula-inspector retention-paths table is blocked on #284 (still open, 4 failing checks, never got its requested rebase+gamut). Scholar also ingested MetaMask/ocap-kernel's kernel guide and synthesized a distributed-ocap concept cluster on journal2.
 
 ## Parked for maintainer feedback
 
@@ -206,19 +208,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-inactivity-anomaly.md) — Comment-watcher: stop reporting human inactivity as an anomaly; make blindnes...
+### doin (2)
 - [`foreman-meter-from-claude-code-session-logs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/foreman-meter-from-claude-code-session-logs.md) — Foreman token meter: re-point at Claude Code session logs (Max x20 subscripti...
 - [`investigate-beta3-ymax0-xs-repro-and-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-beta3-ymax0-xs-repro-and-fix.md) — beta3 ymax0 stack-overflow: build the fork on this host and run the XS repro ...
-- [`rename-killswitch-to-draining-marker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/rename-killswitch-to-draining-marker.md) — Rename the killswitch to a mundane "draining" marker (existence-meaningful + ...
 
-### tada (367)
+### tada (369)
+- [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-inactivity-anomaly.md) — Completion report — comment-watcher-no-inactivity-anomaly
+- [`rename-killswitch-to-draining-marker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/rename-killswitch-to-draining-marker.md) — Completion report — rename-killswitch-to-draining-marker
 - [`land-journal-entry-hardening`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/land-journal-entry-hardening.md) — The job is already fully landed. No code changes were needed.
 - [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — Completion report — investigate-beta3-ymax0-portfolio-upgrade-stack-overflow
 - [`scholar-library-cycle-20260627-155443`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-155443.md) — I should not call complete-job.sh myself — the gardener wrapper completes the...
-- [`watchman-resolve-wedge-autonomously`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/watchman-resolve-wedge-autonomously.md) — Completion report — watchman-resolve-wedge-autonomously
-- [`improve-library-source-drift-scan`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-library-source-drift-scan.md) — Completion report: improve-library-source-drift-scan
-- … and 362 more
+- … and 364 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
