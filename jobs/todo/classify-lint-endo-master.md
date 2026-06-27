@@ -1,9 +1,5 @@
----
-gate: deferred
-urgency: low
-posted_by: liaison
-note: "Parked in jobs/plan/ (deferred). Gardeners do not claim from plan/; promote to todo (maintainer go-ahead, or foreman priority-selection once add-plan-job-category lands) to run it."
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-06-27T11:53:05Z -->
+
 # PLAN: classify lint errors on endo master, then post per-class fix plans
 
 Maintainer directive: a **plan** to classify lint errors on **endo master** and then **post
