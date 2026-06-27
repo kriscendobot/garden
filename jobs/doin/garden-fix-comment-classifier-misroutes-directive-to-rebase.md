@@ -36,3 +36,9 @@ header comment says is for "a genuine directive that needs a human-routed read".
 The PR #405 feature directive itself is being routed to the maintainer/liaison
 separately (maintainer inbox message from the pr405-rebase gardener). This job
 fixes only the classifier so future feature directives do not get misrouted.
+
+---
+claim:
+  host: endolinbot
+  gardener: 95
+  claimed_at: 2026-06-27T17:55:15Z
