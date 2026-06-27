@@ -26,4 +26,4 @@ The page links a reference implementation of an address-equality-based Grant Mat
 
 The lasting lesson: the choice of equality primitive is not free. Address-equality `EQ` defeats the transparent-forwarder attack but precludes truly transparent forwarders; a message-only system preserves transparency but cannot, by itself, answer the equality question safely. A distributed object-capability system that wants both a safe equality test *and* reliable transport needs a **pass-invariant equality** primitive and a man-in-the-middle-resistant handoff — the modern OCapN answer to the two questions this puzzle poses.
 
-Source: [The Grant Matcher Puzzle](https://erights.org/elib/equality/grant-matcher/index.html) § How EQ Makes a Difference, Mark S. Miller, erights.org; ingested from the Internet Archive original-bytes capture, content SHA-256 `d25136c9`.
+Source: [The Grant Matcher Puzzle](https://erights.org/elib/equality/grant-matcher/index.html) § How EQ Makes a Difference, Mark S. Miller, erights.org; fetched 2026-06-27 via the erights.github.io GitHub Pages mirror, content SHA-256 `d25136c9` (byte-identical to the prior Internet-Archive capture).
