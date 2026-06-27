@@ -1,1 +1,7 @@
 `scripts/jobs/install-units.sh` `scale()` (lines ~109-120) disables higher-numbered gardeners with `unit_ctl disable --now`, which SIGTERMs them immediately regardless of whether they are mid-job. This is the source of the observed `rc=143` transient-handler outages: a scale-down (or any pool reconcile that lowers the count) kills in-flight `claude -p` handlers mid-call, which then requeue and burn a full TTL cycle. `deploy-sync.sh` already solved exactly this for its restart path by gating on the per-gardener busy marker (`$GARDEN_STATE/gardeners/<idx>/busy`): it defers a mid-job gardener and restarts it only when idle. Apply the same gate in `scale()`'s disable-extras loop — when an extra index carries a busy marker, `disable` it WITHOUT `--now` (or skip it and let the next scaler tick catch it once idle) so the worker stops between claims rather than mid-job. Reuse the busy-marker helper/logic from `deploy-sync.sh` so there is one definition of "mid-job."
+
+---
+claim:
+  host: endolinbot
+  gardener: 68
+  claimed_at: 2026-06-27T18:39:50Z
