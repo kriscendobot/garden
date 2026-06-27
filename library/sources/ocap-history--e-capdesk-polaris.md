@@ -16,6 +16,16 @@ notes: |
   unreachable (ECONNREFUSED) at retrieval time. HPL technical reports (HPL-2004-116,
   HPL-2006-116) were also unreachable; their contents are accessible via the Miller
   papers' citations.
+
+  2026-06-27 update: the primary erights.org E-language page at this source_url is
+  now reachable through the erights.github.io GitHub Pages mirror and has been
+  ingested as its own source, [erights--elang-index](erights--elang-index.md) (Mark
+  Miller's documentation index). This survey is retained, unchanged, as the
+  secondary-source MARKET-HISTORY synthesis (adoption narrative for the B2 essay);
+  it is materially distinct from the primary documentation index. The notes above
+  remain an accurate record of how this survey was synthesized — it was never
+  fetched from erights.org; source_url is the canonical pointer to the page the
+  survey is about.
 ---
 
 ## Abstract
@@ -25,3 +35,7 @@ Survey of the E programming language, CapDesk, and Polaris as the canonical firs
 | Section | Topics | Status |
 |---------|--------|--------|
 | [e-capdesk-polaris-market-history](../sections/ocap-history--e-capdesk-polaris-market-history.md) | capability-theory, capability-security | current |
+
+## See also
+
+- [erights--elang-index](erights--elang-index.md) — the **primary** erights.org E-language documentation index (Mark S. Miller), fetched via the erights.github.io mirror. This survey is the secondary-source market-history companion to that primary page.
