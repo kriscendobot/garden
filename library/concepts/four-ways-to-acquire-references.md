@@ -35,6 +35,8 @@ This rule gives the object-capability model its formal teeth: an object's permis
 - [[formula-graph]] — the Endo enactment. The four ways a new formula identifier comes to exist in the daemon (introduction via marshal pass-style; parenthood via formula construction; endowment via initial bundle endowments; initial conditions via daemon bootstrap) match §3.4 exactly.
 - [[per-agent-keypair]] — the agent identity is an *Initial Conditions* artifact at the per-agent layer: a fresh keypair is part of the bootstrap state every agent is born with.
 - [[ocap-kernel]] — a sibling-implementation enactment: in MetaMask/ocap-kernel, a vat's `bootstrap(vats, services)` references arrive by *Endowment* + *Initial Conditions* (the kernel hands them at launch); references passed in later `E()` messages arrive by *Introduction*; baggage-persisted references re-supply *Initial Conditions* across resuscitation.
+- [[three-party-handoff]] — the *Introduction* mechanism realized across CapTP session boundaries: when the introduced object lives behind a different session, the signed gift/handoff protocol is how the reference is conveyed.
+- [[sturdyref]] — the *Initial Conditions* mechanism made durable and distributed: a sturdyref is the persisted seed from which a fresh live reference graph is bootstrapped (the §9.2 offline-capabilities form already cited above).
 
 ## Common confusions
 

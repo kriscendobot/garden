@@ -37,3 +37,5 @@ consistent.
 - [[delegates-and-epithets]] — connectors that vend Handles for external identities use this guarantee.
 - [[formula-graph]] — the substrate that makes formula-identifier equality stable across sessions.
 - [[object-capability]] — Property A is the formal property name in the Miller-Yee-Shapiro vocabulary; this discipline is Endo's enforcement of it at the Handle layer.
+- [[grant-matcher-puzzle]] — the canonical *motivation* for pass-invariant equality: Mark Miller's Grant Matcher Puzzle is *why* a distributed capability system needs an equality primitive that two parties can trust to decide whether they designate the same object, defeating a capability man-in-the-middle.
+- [[three-party-handoff]] — the transport counterpart: equality decides *whether* two designations match; the handoff reliably *moves* the capability to the matched destination.

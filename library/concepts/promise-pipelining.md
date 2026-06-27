@@ -40,6 +40,7 @@ implemented primitive.
 
 - [[caretaker-pattern]] — pipelining and caretakers are independent decompositions of a capability call, but both rely on the same `HandledPromise` substrate.
 - [[handler-protocol]] — `dispatchToHandler`'s reductions, the SendOnly substitution, and the minimum-viable handler interface. Expands on the *mechanism* this concept names: the `applyMethod` decomposition there is where pipelining emerges. The section [endo--packages-eventual-send-src-handled-promise-js--operation-reduction-and-sendonly](../sections/endo--packages-eventual-send-src-handled-promise-js--operation-reduction-and-sendonly.md) is the canonical source.
+- [[eventual-send]] — the parent operation. Pipelining is the property that *emerges* when eventual sends are chained across a session boundary; eventual send is the `E()` / `HandledPromise` substrate pipelining rides on.
 
 ## Common confusions
 

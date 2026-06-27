@@ -34,6 +34,8 @@ The Endo daemon is a Model 4 system. The library's `capability-security` topic c
 - [[revocation-by-withdrawal]] — the Endo-specific revocation mechanism; structurally distinct from caretaker-style revocation but presupposes the object-capability model.
 - [[cohort-destruction]] — partition response that depends on Model 4's dynamic subject creation (Property B).
 - [[pass-invariant-handle-equality]] — Endo-side enforcement of Property A (No Designation Without Authority) at the Handle layer.
+- [[distributed-confinement]] — confinement is achievable *only* in the Model-4 object-capability model; the *Confinement Myth* is the canonical proof that Models 2 and 3 cannot confine while Model 4 can.
+- [[eventual-send]] — the capability-safe operation over a Model-4 reference: the only thing you can do with a reference is send it messages, and the only way it reaches a new holder is as a message argument.
 
 ## Common confusions
 

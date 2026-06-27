@@ -28,6 +28,9 @@ The Granovetter Operator is the *Introduction* mechanism in the 2004 *Structure 
 - [[principle-of-least-authority]] — POLA is the discipline of choosing *which* Granovetter steps to take and *what* authority to transfer in each. Every `bob.foo(carol)` is a POLA decision.
 - [[agoric-system]] — the broader framing that places the Granovetter Operator in the context of market-based computational systems.
 - [[ocap-kernel]] — a sibling-implementation enactment: MetaMask/ocap-kernel's once-only `bootstrap(vats, services)` callback IS the Granovetter Operator with the kernel as introducer — the bootstrap vat receives references to its sibling vats and requested services, and any reference later passed in an `E()` message is a further Introduction.
+- [[three-party-handoff]] — the *distributed* operator: when Carol lives in a different CapTP session than the one carrying `bob.foo(carol)`, the reference cannot pass inline and the signed gift/handoff protocol bridges the three peers instead.
+- [[eventual-send]] — `E(bob).foo(carol)` is the eventual-send surface form of the operator; eventual send is how introductions cross a network without changing the call shape.
+- [[grant-matcher-puzzle]] — the hazard when the operator transports a capability to a destination two parties both designate: a capability man-in-the-middle the handoff must defeat.
 
 ## Common confusions
 

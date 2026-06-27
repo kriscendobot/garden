@@ -13177,3 +13177,46 @@ baggage durable per-vat state sturdyref | ocap-kernel
 `kernel.revoke` first-class revocation kref | ocap-kernel
 `ClusterConfig` `VatConfig` `SubclusterLaunchResult` | ocap-kernel
 resuscitation vat restart restore from baggage | ocap-kernel
+three-party handoff | three-party-handoff
+third-party handoff | three-party-handoff
+third party handoffs | three-party-handoff
+gift handoff | three-party-handoff
+CapTP handoff | three-party-handoff
+`desc:handoff-give` | three-party-handoff
+`desc:handoff-receive` | three-party-handoff
+`deposit-gift` | three-party-handoff
+gifter receiver exporter | three-party-handoff
+distributed Granovetter operator | three-party-handoff
+sturdyref | sturdyref
+sturdyrefs | sturdyref
+sturdy reference | sturdyref
+SturdyRef | sturdyref
+sturdyref locator | sturdyref
+`swiss-num` | sturdyref
+swiss number | sturdyref
+offline capability | sturdyref
+persistent capability reference | sturdyref
+distributed confinement | distributed-confinement
+confinement | distributed-confinement
+confinement problem | distributed-confinement
+the confinement problem | distributed-confinement
+controlled subject | distributed-confinement
+uncontrolled subject | distributed-confinement
+non-discretionary capabilities | distributed-confinement
+confinement myth | distributed-confinement
+Lampson confinement | distributed-confinement
+eventual send | eventual-send
+eventual-send | eventual-send
+`E()` | eventual-send
+`E.when` | eventual-send
+`E.sendOnly` | eventual-send
+infix bang | eventual-send
+eventually send a message | eventual-send
+async message passing | eventual-send
+grant matching | grant-matcher-puzzle
+grant matcher | grant-matcher-puzzle
+Grant Matcher Puzzle | grant-matcher-puzzle
+matching grant capability | grant-matcher-puzzle
+capability man-in-the-middle | grant-matcher-puzzle
+capability equivalence puzzle | grant-matcher-puzzle
+do two parties designate the same object | grant-matcher-puzzle
