@@ -77,3 +77,9 @@ Per-subagent worktree enforcement (no shared-root development), `deploy-garden.s
 restart, deterministic), the "Upgrade ready" monitor + journal deployed-sha marker, retirement of the
 continuous-ff path, the liaison Monitor wiring so this session auto-deploys on the signal, a design
 doc, tests, and CLAUDE.md docs — with the branch naming confirmed with the maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 4
+  claimed_at: 2026-06-27T18:07:42Z
