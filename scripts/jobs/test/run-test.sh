@@ -1177,6 +1177,37 @@ done
 SELF_HEAL_THROTTLE_SECS=0 "$SHRUN" garden-sleeper -- bash -c 'sleep 30' >/dev/null 2>&1 & shpid=$!
 sleep 1; kill -TERM "$shpid"; wait "$shpid" 2>/dev/null || true
 [ "$(shcalls)" -eq 0 ] && ok "SIGTERM mid-run treated as clean shutdown (no spurious diagnosis)" || bad "systemd stop wrongly diagnosed ($(shcalls) calls)"
+
+# (7) PRODUCER-classified transient outage: sync_clone exits GARDEN_OFFLINE_RC (75)
+# on a DNS/connectivity blip. The wrapper must normalize that to a CLEAN exit 0 and
+# fire NO responder — a self-resolving network outage is not a unit failure and
+# must not burn a `claude -p`. This exercises block 1 of the decision (the RC path,
+# whose producer side lives in common.sh sync_clone via _fetch_stderr_is_offline).
+: > "$SHCALLS"
+set +e; SELF_HEAL_THROTTLE_SECS=0 "$SHRUN" garden-net -- \
+  bash -c "exit ${GARDEN_OFFLINE_RC:-75}" >/dev/null 2>&1; rnet=$?; set -e
+{ [ "$rnet" -eq 0 ] && [ "$(shcalls)" -eq 0 ]; } \
+  && ok "producer-classified outage (rc=75) → clean exit 0, no responder" \
+  || bad "offline-rc not normalized to clean (rc=$rnet calls=$(shcalls))"
+
+# (8) BELT-AND-SUSPENDERS: an outage hit OUTSIDE sync_clone (e.g. a raw `git fetch`
+# that exits 128 with a connectivity diagnostic in its output, not GARDEN_OFFLINE_RC)
+# must still be recognized from the captured tail and skipped — clean exit 0, no
+# responder. A genuine failure that exits the same code WITHOUT an outage signature
+# must STILL diagnose, proving the grep gates on the signature and not just the rc.
+: > "$SHCALLS"
+set +e; SELF_HEAL_THROTTLE_SECS=0 "$SHRUN" garden-net -- \
+  bash -c 'echo "fatal: Could not resolve hostname github.com" >&2; exit 128' >/dev/null 2>&1; rblip=$?; set -e
+{ [ "$rblip" -eq 0 ] && [ "$(shcalls)" -eq 0 ]; } \
+  && ok "outage signature in tail (rc=128) → clean exit 0, no responder (belt-and-suspenders)" \
+  || bad "connectivity signature not short-circuited (rc=$rblip calls=$(shcalls))"
+
+: > "$SHCALLS"
+set +e; SELF_HEAL_THROTTLE_SECS=0 "$SHRUN" garden-net -- \
+  bash -c 'echo "fatal: bad object HEAD" >&2; exit 128' >/dev/null 2>&1; rreal=$?; set -e
+{ [ "$rreal" -eq 128 ] && [ "$(shcalls)" -eq 1 ]; } \
+  && ok "genuine rc=128 failure (no outage signature) STILL diagnoses (rc preserved)" \
+  || bad "real failure wrongly treated as outage (rc=$rreal calls=$(shcalls))"
 unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER
 
 # ============================================================================

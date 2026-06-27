@@ -102,6 +102,17 @@ trap - TERM INT
 wait 2>/dev/null || true
 
 # --- decide: clean exit vs. a failure worth diagnosing ----------------------
+# GARDEN_OFFLINE_RC (75=EX_TEMPFAIL): sync_clone exits this code when it
+# classified the tick as a transient connectivity/DNS outage. A network blip is
+# NOT a unit failure — normalize it to a CLEAN exit 0 so systemd records success
+# (no fleet-wide `Failed with result 'exit-code'` noise) and no responder spends
+# on a self-resolving outage. Checked first, ahead of the generic clean-exit
+# handling, because we deliberately rewrite the code to 0 rather than preserve it.
+if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
+  log "transient connectivity outage; skipping responder"
+  exit 0
+fi
+
 is_expected=0
 [ "$rc" -eq 0 ] && is_expected=1
 [ "$got_signal" -eq 1 ] && is_expected=1                    # systemd stop → clean
@@ -112,6 +123,17 @@ for code in "${expected_codes[@]:-}"; do [ -n "$code" ] && [ "$rc" = "$code" ] &
 if [ "$is_expected" -eq 1 ]; then
   # Silent on the happy path: add zero context to the supervisor.
   exit "$rc"
+fi
+
+# Belt-and-suspenders: a path that hits a connectivity outage WITHOUT returning
+# GARDEN_OFFLINE_RC (e.g. a raw `ssh … git fetch` outside journal_fetch, which
+# exits 128) would otherwise be diagnosed as a real failure. Grep the bounded
+# capture tail for the connectivity signatures and short-circuit to a clean exit,
+# so a DNS/GitHub blip never marks the unit failed or burns a responder.
+if tail -c "$SELF_HEAL_CAPTURE_BYTES" "$capture" 2>/dev/null \
+     | grep -qE 'Could not resolve hostname|Temporary failure in name resolution|Could not read from remote repository'; then
+  log "transient connectivity outage; skipping responder"
+  exit 0
 fi
 
 log "wrapped '$context' exited rc=$rc; capturing + (maybe) diagnosing"
