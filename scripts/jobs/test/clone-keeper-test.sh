@@ -1,0 +1,128 @@
+#!/bin/bash
+# clone-keeper-test.sh — coverage for the standing-bare-clone freshness keeper
+# (clone-keeper.sh).
+#
+# Regression for the 2026-05-12..06-27 outage: the endo standing bare clone sat
+# pinned at master=052b0487 for SIX WEEKS because nothing fetched it, silently
+# blocking endo upstream-drift re-ingestion until a scholar cycle fast-forwarded
+# it by hand. clone-keeper.sh runs that fetch + strict fast-forward on a cadence
+# so the block can never re-form, and surfaces (does NOT clobber) a clone that has
+# diverged.
+#
+# Hermetic: a throwaway upstream bare repo + a bare "tracked clone" whose `origin`
+# carries NO fetch refspec (mirrors the real endo clone, where `git fetch origin
+# master` advances FETCH_HEAD only and the branch ref must be moved explicitly).
+# No real garden, journal, or network is touched.
+#
+# Usage: clone-keeper-test.sh
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+JOBS="$(cd "$HERE/.." && pwd)"
+KEEPER="$JOBS/clone-keeper.sh"
+PASS=0; FAIL=0
+ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
+bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
+hr()  { echo "----------------------------------------------------------------"; }
+
+# Scrub ambient fleet env so a live gardener invoking this test cannot splice its
+# own GARDEN_*/JOURNAL_* state underneath the fixture (mirrors run-test.sh).
+unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+
+TR=/home/kris/.garden-clone-keeper-test
+git_id=(-c user.name=test -c user.email=test@localhost)
+
+UP="$TR/upstream.git"
+CLONE="$TR/endojs-endo.git"
+
+# Push a commit onto upstream master. Pass --amend to REWRITE the tip (a
+# divergence: the new tip does not have the old as an ancestor).
+upstream_commit() {  # upstream_commit <content> <msg> [--amend]
+  local wt; wt="$(mktemp -d "$TR/push.XXXXXX")"
+  git clone -q --branch master "$UP" "$wt"
+  printf '%s\n' "$1" > "$wt/f"
+  git -C "$wt" add -A
+  if [ "${3:-}" = "--amend" ]; then
+    git -C "$wt" "${git_id[@]}" commit -q --amend -m "$2"
+    git -C "$wt" push -q -f origin master
+  else
+    git -C "$wt" "${git_id[@]}" commit -q -m "$2"
+    git -C "$wt" push -q origin master
+  fi
+  rm -rf "$wt"
+}
+
+setup_fixture() {
+  rm -rf "$TR"; mkdir -p "$TR/state"
+  git init -q --bare "$UP"
+  local SEED="$TR/seed"; git init -q "$SEED"
+  git -C "$SEED" checkout -q -b master
+  printf 'a\n' > "$SEED/f"
+  git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m c1
+  git -C "$SEED" remote add origin "$UP"; git -C "$SEED" push -q -u origin master
+  rm -rf "$SEED"
+  # The tracked bare clone, with origin's fetch refspec REMOVED so it behaves like
+  # the real endo clone: `git fetch origin master` moves FETCH_HEAD only.
+  git clone -q --bare "$UP" "$CLONE"
+  git -C "$CLONE" config --unset-all remote.origin.fetch 2>/dev/null || true
+}
+
+run_keeper() {  # run_keeper [extra env...] ; fills $OUT, $RC
+  set +e
+  OUT="$(env GARDEN_ROOT="$TR" GARDEN_STATE="$TR/state" \
+             GARDEN_TRACKED_CLONES="$CLONE|origin|master" \
+             GARDEN_FETCH_TIMEOUT=10 GARDEN_FETCH_RETRIES=1 \
+             "$@" bash "$KEEPER" 2>&1)"
+  RC=$?
+  set -e
+}
+local_master() { git -C "$CLONE" rev-parse refs/heads/master; }
+
+# ============================================================================
+hr; echo "STATIC — the script parses (bash -n)"; hr
+bash -n "$KEEPER" && ok "clone-keeper.sh parses" || bad "clone-keeper.sh syntax error"
+
+# ============================================================================
+hr; echo "FRESH — local == upstream: no-op, ref unchanged"; hr
+setup_fixture
+before="$(local_master)"
+run_keeper
+[ "$RC" -eq 0 ] && ok "exit 0 when already fresh" || bad "exit $RC when already fresh"
+[ "$(local_master)" = "$before" ] && ok "ref unchanged when fresh" || bad "ref moved when already fresh"
+grep -qF "already fresh" <<<"$OUT" && ok "logged 'already fresh'" || bad "did not log already-fresh"
+
+# ============================================================================
+hr; echo "FAST-FORWARD — upstream advanced: local master moves to the new tip"; hr
+setup_fixture
+old="$(local_master)"
+upstream_commit b c2
+upstream_tip="$(git -C "$UP" rev-parse master)"
+run_keeper
+[ "$RC" -eq 0 ] && ok "exit 0 on fast-forward" || bad "exit $RC on fast-forward"
+[ "$(local_master)" = "$upstream_tip" ] && ok "local master advanced to upstream tip" || bad "local master did NOT advance ($(local_master) != $upstream_tip)"
+grep -qF "fast-forwarded master $old -> $upstream_tip" <<<"$OUT" && ok "logged the fast-forward" || bad "did not log the fast-forward"
+
+# ============================================================================
+hr; echo "DIVERGED — upstream rewrote the tip: surfaced, NOT clobbered"; hr
+setup_fixture
+before="$(local_master)"
+upstream_commit z c1-rewritten --amend   # new tip does not have local's tip as ancestor
+run_keeper
+[ "$RC" -eq 0 ] && ok "exit 0 on divergence (does not abort the fleet)" || bad "exit $RC on divergence"
+[ "$(local_master)" = "$before" ] && ok "ref NOT clobbered on divergence" || bad "ref was moved despite divergence"
+grep -qF "STALE:" <<<"$OUT" && ok "logged a STALE divergence anomaly" || bad "divergence not surfaced as STALE"
+
+# ============================================================================
+hr; echo "OFFLINE — remote unreachable: logged, ref left in place, exit 0"; hr
+setup_fixture
+before="$(local_master)"
+git -C "$CLONE" remote set-url origin "$TR/does-not-exist.git"
+run_keeper
+[ "$RC" -eq 0 ] && ok "exit 0 when the fetch fails (never wedged)" || bad "exit $RC when fetch fails"
+[ "$(local_master)" = "$before" ] && ok "ref unchanged when offline" || bad "ref moved when offline"
+grep -qF "failed (offline?)" <<<"$OUT" && ok "logged the offline skip" || bad "offline skip not logged"
+
+# ============================================================================
+hr
+echo "clone-keeper-test: $PASS passed, $FAIL failed"
+rm -rf "$TR"
+[ "$FAIL" -eq 0 ]
