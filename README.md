@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T04:54:21Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T04:55:03Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Host **endolinbot** is wedged: the watchman reports `main2` frozen at `beede51e` while `origin/main2` has advanced past it, blocked by uncommitted tracked changes to `scripts/jobs/self-heal-run.sh` — until that tree is cleaned the host won't pick up new roles, skills, or scripts. Two garden-infra jobs in flight aim at the same neighborhood, teaching `self-heal-run.sh` and `common.sh` to treat offline/transient-connectivity as a clean tempfail rather than an error. On review work, the [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) followup landed all three inline asks, but the liaison has parked a question for kriskowal: TS (`ts/mts/cts`) classification was wired through the override mechanism only, not the default language maps, to protect the 12-known-failures invariant — please confirm whether default TS classification was intended. Otherwise the scholar's library-index cycles and the finbot substrate-adapters job completed cleanly.
+Review-followup work on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) is the active thread: two jobs are in flight to address kriskowal's 2026-06-25 CHANGES_REQUESTED (the TS-classification and design-doc asks), and the liaison has parked a question for the maintainer — the fix wired TS (ts/mts/cts) classification through the override mechanism only, not the production default language maps, to protect the 12-known-failures invariant. **The maintainer should confirm whether default TS classification was intended rather than override-only**, since that would be a follow-up change before the PR is final. Alongside the PR work, two garden-infra jobs are underway to treat offline/transient connectivity as a tempfail (in `journal_fetch`/`sync_clone`) and a clean exit (in self-heal) rather than a hard failure. Scholar library-index cycles and the finbot substrate-adapters work completed this interval.
 
 ## Parked for maintainer feedback
 
@@ -27,34 +27,6 @@ Host **endolinbot** is wedged: the watchman reports `main2` frozen at `beede51e`
 
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260627T044252Z-ea6d82` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T044252Z-ea6d82.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to e0a0d7776b5413ff47904a5ed7704199e8897971 but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/self-heal-run.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T044453Z-54a8d3` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T044453Z-54a8d3.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 1d94c7895f24763d49bd80d45248d7bb8e79083b but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/self-heal-run.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
 - `20260627T045332Z-4a6e98` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T045332Z-4a6e98.md)
 
