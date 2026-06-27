@@ -18,6 +18,11 @@ StartLimitIntervalSec=0
 # if it dies, with a restart backoff.
 Type=exec
 Slice=background.slice
+# A systemd stop/restart SIGTERMs this loop; a signalled shutdown is a CLEAN
+# exit, never a failure. The self-heal wrapper already normalizes 143/130 to 0,
+# but treat the signal codes (and the kill-by-signal forms) as success here too
+# so any future bypass of the wrapper still doesn't flap the unit to Failed.
+SuccessExitStatus=143 130 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-bulletin -- @GARDEN_ROOT@/scripts/jobs/bulletin.sh
 Restart=always

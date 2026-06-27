@@ -114,14 +114,22 @@ if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
 fi
 
 is_expected=0
+clean_shutdown=0
 [ "$rc" -eq 0 ] && is_expected=1
-[ "$got_signal" -eq 1 ] && is_expected=1                    # systemd stop → clean
+[ "$got_signal" -eq 1 ] && { is_expected=1; clean_shutdown=1; }  # systemd stop → clean
 # 143=SIGTERM,130=SIGINT: a signalled shutdown is clean even without the flag.
-case "$rc" in 143|130) is_expected=1;; esac
+case "$rc" in 143|130) is_expected=1; clean_shutdown=1;; esac
 for code in "${expected_codes[@]:-}"; do [ -n "$code" ] && [ "$rc" = "$code" ] && is_expected=1; done
 
 if [ "$is_expected" -eq 1 ]; then
   # Silent on the happy path: add zero context to the supervisor.
+  # A signalled shutdown (a systemd stop/restart) is a CLEAN exit, so return 0
+  # rather than the signal code: a literal `exit 143` makes systemd record
+  # "Main process exited, code=exited, status=143" → "Failed with result
+  # 'exit-code'" on EVERY stop/restart of a continuous unit, flapping it to a
+  # false Failed state. A genuine non-signal --expect code still passes through
+  # unchanged so its caller can distinguish it; real failures keep rc below.
+  [ "$clean_shutdown" -eq 1 ] && exit 0
   exit "$rc"
 fi
 
