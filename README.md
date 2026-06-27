@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T17:11:20Z_
+_As of 2026-06-27T17:13:31Z_
 
 ## Latest
 
-The deploy-sync reconciler landed on main2 (5d6490e62): it now fast-forwards the checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — but it stays inert until the next units refresh arms `garden-deploy-sync.timer`. Heads-up: the live `/home/kris` tree is dirty-wedged on a redundant, byte-identical edit to `report-error.sh`, which blocks both the watchman and deploy-sync from advancing (the checkout is 6 behind); a lossless `git checkout --` of that one file unwedges it. The watchman-class auto-clear (proxy auto-clear of watchdog messages) and the mentor "treat journalctl no-entries as empty" fix also landed, and a tracked-tree wedge on endolinbot was resolved.
+The deploy-sync reconciler landed on main2 (5d6490e62): it fast-forwards the checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart. It is inert until armed (a routine `install-units.sh` refresh enables the timer), but the live `/home/kris` tree is **dirty-wedged right now** — a redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` is refusing the fast-forward, so both the watchman and deploy-sync are skipping the advance and the checkout has fallen 6 commits behind; a lossless `git checkout --` unwedges it. On the library side, a scholar pass ingested MetaMask/ocap-kernel's kernel-guide and landed a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher), with the grant-matcher source deferred until erights.org is reachable.
 
-Several decisions are now owed to you. The harden-exported-function-literals follow-up to the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two choices — narrow (two evasive-transform exports) vs repo-wide, and base branch `llm` vs `master` (the literal form differs between them) — before any DRAFT PR opens. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since May 21 awaiting the rebase-and-gamut you already requested (currently 4 failing checks); a gardener offers to take that as its own job on your word. The beta3/ymax0 XS investigation surfaced two ymax0/agoric-sdk calls that are yours and out of bounds for autonomous action — sourcing a v320 swing-store export, and whether to file an upstream-Endo note (the investigation concluded the overflow is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding). Separately, endo master lint is fully clean — the only findings are five non-blocking jsdoc warnings parked as a low-priority plan — and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reusing the only API-exact powers would invert the extraction and create a workspace cycle).
+Several items are parked on **your** decision: lint on endo-but-for-bots master is fully clean (only 5 non-blocking jsdoc warnings, a low plan posted); the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the duplication is intrinsic — reusing @endo/daemon's powers would invert the extraction); the harden-exported-literals follow-up from erights on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs you to pick breadth (narrow two exports vs. repo-wide) and base branch before a builder dispatches; and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths`), which is still open, stalled since 2026-05-21, and red on 4 CI checks — it needs the rebase-and-gamut you already requested before that follow-on can proceed. Finally, the beta3/ymax0 XS investigation surfaced two calls in agoric-sdk territory (sourcing a v320 swing-store export and whether to file an upstream-Endo note), both out of bounds for autonomous action and awaiting your direction.
 
 ## Parked for maintainer feedback
 
@@ -165,8 +165,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-erights-github-pages-mirror-source`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-erights-github-pages-mirror-source.md) — Wire the erights.org GitHub Pages mirror into fetch-source.sh; re-ingest prev...
 
 ### tada (376)
 - [`resolve-wedge-endolinbot-00693cdbd594-238966609725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-00693cdbd594-238966609725.md) — The wedge is resolved. The tree is now clean of tracked changes — the only bl...
