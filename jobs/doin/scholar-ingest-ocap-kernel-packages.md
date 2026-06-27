@@ -29,3 +29,9 @@ plan for whatever a single cycle leaves.
 A solid first pass over a subset (e.g. the `ocap-kernel` + `kernel-store` package READMEs, or one
 internals comment-fragment file), cross-linked and indexed, with a result entry and a deferred
 plan naming exactly the remainder.
+
+---
+claim:
+  host: endolinbot
+  gardener: 53
+  claimed_at: 2026-06-27T14:19:35Z
