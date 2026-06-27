@@ -1,21 +1,19 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:23:39Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
-
-The maintainer dashboard: what needs a human first, then the state of ongoing
-autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
-journalist's narrative leads in the Latest section above. This page (the journal's
-README.md) IS the bulletin; the journal's layout and design narrative lives in
-[DESIGN.md](DESIGN.md).
+_As of 2026-06-27T05:32:09Z_
 
 ## Latest
 
-The headline for a human: this host's deploy is **wedged** — the watchman reports `main2` on `endolinbot` can't fast-forward past `beede51e` because uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) block it, so origin has advanced six commits the live tree won't pick up until someone verifies those edits aren't unsaved work and cleans the tree. Two reliability fixes are in flight to stop the offline/transient-connectivity case from causing this churn — teaching `journal_fetch`/`sync_clone` to distinguish a connection failure from a real error, and making self-heal treat offline as a clean exit. The `foreman-token-quota-backoff` job completed. On the AWS side, the minion.town design (`design-synth-and-deploy-minion-town-aws`) is done and the `cognito-mcp-metadata-bridge` gardener has built its OAuth bridge but parked two design Open Questions awaiting your call (stay on Cognito vs. an MCP-native IdP, and whether to ship RFC 7591 Dynamic Client Registration); the live `synth-and-deploy-minion-town-aws` deploy is parked pending your go-ahead. Finally, a gardener flagged a judgment call on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down (its job duplicated already-landed work), it found two real defects in that commit — 13 dangling design-doc references and a prose-only rather than code-backed Node parity claim — and pushed a conflict-safe non-force follow-up (`3aa37bbd`) fixing both, with the full compartment-mapper suite unchanged.
+The headline for the maintainer: **host endolinbot's `main2` deploy is wedged.** The watchman has fired repeatedly — `origin/main2` has advanced through several commits but the live tree is stuck at `beede51e`, blocked by uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `scripts/jobs/gardener.sh`). Until someone confirms those aren't unsaved work and cleans the tree, this host won't pick up new roles, skills, or scripts. Self-heal/offline-classification work is in flight that touches exactly those files: three jobs (`improve-self-heal-treat-offline-as-clean-exit`, `improve-classify-offline-as-tempfail-in-journal-fetch`, `run-test-isolate-shared-clone-flake`) are claimed and running, the latest landed commit normalizes transient connectivity outages to a clean exit, and `foreman-token-quota-backoff` completed.
+
+On the PR side, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite receiving a stand-down: it found two real defects in the superseding commit — 13 dangling design-doc references and a prose-only (not code-backed) Node parity claim — and, finding no active second writer, fixed both with a non-force fast-forward (full compartment-mapper suite green) and flagged the judgment call for visibility.
+
+Two items await your word: the `cognito-mcp-metadata-bridge` gardener has paused on two design open questions (stick with Cognito + bridge vs. an MCP-native IdP, and whether to ship RFC 7591 dynamic client registration — it recommends both and will proceed unless redirected), and `synth-and-deploy-minion-town-aws` sits in the plan queue awaiting your authorization to live-deploy.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 1d)
-- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 19h)
+- [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 20h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 4d)
@@ -144,9 +142,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
 - `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
+- `run-test-isolate-shared-clone-flake` — run-test.sh: isolate self-heal/shared-clone subtests onto a dedicated throwaw...
 
 ### tada (300)
 - `foreman-token-quota-backoff` — Completion report: foreman-token-quota-backoff
