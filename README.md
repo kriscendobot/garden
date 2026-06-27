@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T20:04:56Z_
+_As of 2026-06-27T20:11:25Z_
 
 ## Latest
 
-A scholar library cycle completed, landing two ingests on `journal2`: MetaMask/ocap-kernel's 689-line host-app guide (the sixth ocap-kernel source, with a synthesizing ocap-kernel concept) and a six-section distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual send, grant-matcher puzzle) — the grant-matcher page is flagged draft because erights.org was unreachable. A lint sweep found endo-but-for-bots `master` clean: only five non-failing jsdoc warnings, parked as a low-priority fix.
+Two maintainer decisions surfaced this cycle and need an answer before work can proceed. The harden-exported-function-literals follow-up to the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you picking breadth (narrow: just the two evasive-transform exports, which erights authorized; or repo-wide via the `@endo/harden-exports` rule) and base branch (`llm` vs `master`, which changes the diff shape since the exports are still function declarations on `llm`). Separately, a real maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — re-bucket the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups — was misclassified by the comment-watcher as a "rebase" (the PR is already mergeable, so no rebase ran); it needs a liaison-driven builder/fixer dispatch, and a garden-infra fix for the classifier bug is being posted alongside.
 
-Three decisions are owed to the maintainer. A misrouted comment-watcher classification on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) buried a real feature directive — regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups, a cross-package change needing a liaison-driven gamut dispatch (a classifier-bug fix is being posted separately). The harden-exported-literals follow-up to the now-merged [#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on a breadth (narrow two exports vs. repo-wide) and base-branch (`llm` vs. `master`) call. And the formula-inspector retention-paths table is blocked on [#284](https://github.com/endojs/endo-but-for-bots/pull/284), stalled since 2026-05-21 with four failing CI checks after a requested rebase-and-gamut never ran. Separately, the beta3/ymax0 XS investigation surfaced two agoric-sdk-territory calls (sourcing a v320 swing-store export, and whether to file an upstream-Endo note) that the liaison flagged as out of bounds for autonomous action.
+Blocked work to note: the formula-inspector retention-paths table can't be built because its data source — the `listRetentionPaths` host API PR — is still open and stalled on the rebase-and-gamut you requested back on 2026-05-21 (currently 22/26 green); the gardener correctly declined to duplicate the graph walk and parked the table until that lands.
+
+On the research side, the ymax0/XS investigation concluded the nested-record overflow is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding in agoric-sdk territory (out of bounds for autonomous action); a v320 swing-store export is the missing artifact and sourcing it is your call. Library ingests landed cleanly — MetaMask/ocap-kernel's kernel-guide (the sixth ocap-kernel ingest) plus a six-concept distributed-ocap cluster on journal2 — and a lint sweep found endo master fully clean (only 5 non-failing jsdoc warnings, parked as a low-priority fix). The revisit of [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442)'s reusable-test-powers plan concluded no change (reusing daemon's powers would invert the daemon-cas extraction). On the board, the drift-scan timer `OnCalendar`/`Persistent` conversion was claimed into progress.
 
 ## Parked for maintainer feedback
 
@@ -180,8 +182,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
+- [`improve-drift-scan-timer-oncalendar-persistent`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-drift-scan-timer-oncalendar-persistent.md) — Convert scripts/systemd/garden-library-source-drift-scan.timer from the relat...
 
 ### tada (398)
 - [`scholar-library-cycle-20260627-195612`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-195612.md) — Completion report follows.
