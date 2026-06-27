@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T11:42:49Z_
+_As of 2026-06-27T11:45:08Z_
 
 ## Latest
 
-This host (endolinbot) spent the day with its `main2` deploy **wedged**: the watchman fired more than twenty times as `origin/main2` advanced commit after commit while the live tree stayed pinned — first on uncommitted edits to `scripts/jobs/self-heal-run.sh`, `gardener.sh`, and `claim-job.sh`, then on a redundant working-copy edit to `skills/gardener-inbox-error-reporting/report-error.sh`, and latterly on untracked-file collisions and the `library-link-check.sh` changes. A gardener confirmed the `report-error.sh` edit is byte-identical to what already landed, so `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is a lossless unwedge; until the tree is clean this host picks up no new roles/skills/scripts. Relatedly, the new **deploy-sync reconciler** landed (`5d6490e6`) to fast-forward the checkout and restart long-running services when `scripts/` changes — but it stays inert until a routine `install-units.sh` units refresh arms its timer.
+The big operational story is that **main2 deploys on `endolinbot` have been wedged all morning**: a steady stream of watchman alerts show the live checkout stuck while `origin/main2` raced ahead by a dozen-plus commits, each fast-forward refused by uncommitted edits to tracked files (`scripts/jobs/self-heal-run.sh`, `gardener.sh`, `claim-job.sh`, `skills/gardener-inbox-error-reporting/report-error.sh`, and the library-link-check trio). One gardener diagnosed the report-error.sh edit as byte-identical to what's already committed — a redundant uncommitted change — so `git -C /home/kris checkout --` on the named paths is a lossless unwedge. Until the tree is clean this host won't pick up new roles, skills, or scripts.
 
-A second standing alarm: the `comment-watcher/kriskowal-garden` watchdog reported 0 comments for 260 consecutive ticks despite known activity since 2026-06-25 — the same signature as the 2026-06-24 jq/gh outage, worth a `command -v jq` check on this host.
+Relief is already in tree but inert: a **deploy-sync reconciler landed on main2 (`5d6490e62`)** that strict-fast-forwards the checkout and restarts long-running services when `scripts/` changes, arming automatically on the next units refresh — but it can't help while the tree itself is dirty-wedged. Separately, the **comment-watcher for kriskowal/garden is firing the 2026-06-24 outage signature** — 0 comments across 260+ ticks despite known activity since 2026-06-25 — suggesting the jq/gh comment source has gone silently blind again and warrants a check.
 
-On the PR side, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down — fixing 13 dangling doc references and adding a real Node parity test where the prior commit only asserted parity in prose. The `formula-inspector-retention-paths-table` job is blocked on endo's #284 (`listRetentionPaths`), which has stalled since 2026-05-21 with 4 failing checks awaiting the rebase + re-gamut you already requested. And the `cognito-mcp-metadata-bridge` gardener is proceeding on its own recommendations (Cognito + bridge, ship DCR behind a default-on toggle) unless you redirect. Scholar ingests continued — the MetaMask ocap-kernel guide and a distributed-ocap concept cluster. The board is drained of `todo` work, with two link-check hardening jobs in flight.
+On the job board, two infra jobs completed: link-check now classifies advisory vs. must-resolve links, and source-acquisition gained an archive-fallback script. Worth noting for visibility: a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down, after finding 13 dangling doc references and a missing Node-parity test in the superseding commit — flagged as revertible if you'd rather it had routed differently. The formula-inspector retention-paths table is blocked pending a still-open, CI-red `listRetentionPaths` host PR (#284, last touched by your 2026-05-21 rebase request), and the Cognito↔MCP OAuth bridge build is paused on two design questions (IdP choice and whether to ship RFC 7591 DCR). Scholar ingests added the sixth MetaMask/ocap-kernel source and a distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -442,22 +442,37 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
+- `20260627T114447Z-a4fa48` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T114447Z-a4fa48.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to f0b93d637cb56a186aabcd4120f2b925eac1b76f but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/library-link-check.sh
+>  M scripts/jobs/library-link-scan.sh
+>  M scripts/jobs/test/library-link-check-test.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-link-check-classify-advisory-vs-must-resolve`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-link-check-classify-advisory-vs-must-resolve.md) — Harden scripts/jobs/library-link-check.sh so the standing scan's red signal s...
-- [`improve-source-acquisition-archive-fallback-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-source-acquisition-archive-fallback-script.md) — Move source acquisition off the agent into a deterministic helper. Add script...
+### doin (0)
+(none)
 
-### tada (343)
+### tada (345)
+- [`improve-source-acquisition-archive-fallback-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-source-acquisition-archive-fallback-script.md) — Completion report
+- [`improve-link-check-classify-advisory-vs-must-resolve`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-link-check-classify-advisory-vs-must-resolve.md) — Completion report
 - [`fu-scholar-ingest-e-equality-taxonomy-adjacent-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-e-equality-taxonomy-adjacent-1.md) — Done. The work is complete, pushed to origin/journal2, and the worktree is to...
 - [`scholar-ingest-e-equality-taxonomy-adjacent`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-e-equality-taxonomy-adjacent.md) — scholar-ingest-e-equality-taxonomy-adjacent — done
 - [`scholar-author-concept-endoclaw`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-author-concept-endoclaw.md) — Completed the job. Concise report follows.
-- [`improve-journal-entry-help-and-flaglike-kind-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-entry-help-and-flaglike-kind-guard.md) — Completion report: improve-journal-entry-help-and-flaglike-kind-guard
-- [`scholar-ingest-grant-matcher-puzzle`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-grant-matcher-puzzle.md) — Completion report — scholar-ingest-grant-matcher-puzzle
-- … and 338 more
+- … and 340 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
