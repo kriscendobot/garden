@@ -1,0 +1,4 @@
+host: endolinbot
+gardener: 28
+claimed_at: 2026-06-27T05:44:52Z
+worktree_dir: /home/kris/worktrees/improve-classify-offline-as-tempfail-in-journal-fetch
