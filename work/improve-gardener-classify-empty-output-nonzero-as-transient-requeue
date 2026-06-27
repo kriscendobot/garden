@@ -1,0 +1,4 @@
+host: endolinbot
+gardener: 53
+claimed_at: 2026-06-27T05:05:46Z
+worktree_dir: /home/kris/worktrees/improve-gardener-classify-empty-output-nonzero-as-transient-requeue
