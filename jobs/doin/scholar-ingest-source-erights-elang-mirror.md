@@ -45,3 +45,9 @@ archive/unreachable fallback for an HTML page (not a PDF), re-ingest them from t
 under the same discipline; post a follow-on for any that exceed one cycle's budget.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 22
+  claimed_at: 2026-06-27T18:24:18Z
