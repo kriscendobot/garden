@@ -1298,5 +1298,65 @@ grep -q 'claim failed' "$OFFLOG" \
 unset JOURNAL_REMOTE
 
 # ============================================================================
+hr; echo "SUBTEST 23 — OFFLINE CLASSIFIER: transient signatures → EX_TEMPFAIL"; hr
+# _fetch_stderr_is_offline (common.sh) is the producer-side gate that decides
+# whether a failed fetch is a self-resolving network/DNS/TLS blip (classify as
+# offline → sync_clone exits EX_TEMPFAIL, the fleet skips the tick) or a real
+# repository error (fall through to `die`). The set was broadened beyond the
+# original four DNS/SSH literals to the full HTTPS/TLS transient surface; an
+# unmatched signature means a momentary GitHub 5xx or reset-by-peer kills every
+# caller running through sync_clone (complete-job, post-job, bulletin,
+# scheduler). Feed each signature string straight through the classifier and
+# assert it classifies offline, case-insensitively; then assert a genuine repo
+# error does NOT (so the gate still lets real failures die).
+(
+  set +e
+  # shellcheck source=/dev/null
+  . "$JOBS/common.sh"   # defines _fetch_stderr_is_offline + GARDEN_OFFLINE_SIGNATURES
+  cpass=0; cfail=0
+  expect_offline() {  # <description> <stderr-text>
+    if _fetch_stderr_is_offline "$2"; then echo "  PASS: offline classified: $1"; cpass=$((cpass+1))
+    else echo "  FAIL: classifier missed offline signature: $1"; cfail=$((cfail+1)); fi
+  }
+  expect_online() {   # <description> <stderr-text>
+    if _fetch_stderr_is_offline "$2"; then echo "  FAIL: classifier wrongly flagged as offline: $1"; cfail=$((cfail+1))
+    else echo "  PASS: real error not classified offline: $1"; cpass=$((cpass+1)); fi
+  }
+  # DNS / resolver
+  expect_offline "git HTTPS resolver"   "fatal: unable to access 'https://github.com/': Could not resolve host: github.com"
+  expect_offline "SSH resolver"         "ssh: Could not resolve hostname github.com: Name or service not known"
+  expect_offline "getaddrinfo"          "ssh: connect to host github.com: Temporary failure in name resolution"
+  # remote / SSH
+  expect_offline "ssh remote read"      "fatal: Could not read from remote repository."
+  # timeouts
+  expect_offline "connection timeout"   "ssh: connect to host github.com port 22: Connection timed out"
+  expect_offline "operation timeout"    "fatal: unable to access 'https://github.com/': Operation timed out after 45001 ms"
+  # HTTPS transport blips
+  expect_offline "reset by peer"        "fatal: unable to access 'https://github.com/': Connection reset by peer"
+  expect_offline "recv failure"         "error: RPC failed; curl 56 Recv failure: Connection reset by peer"
+  expect_offline "early eof"            "fatal: the remote end hung up unexpectedly\nfatal: early EOF"
+  expect_offline "unexpected disconnect" "fatal: early EOF\nremote: unexpected disconnect while reading sideband packet"
+  expect_offline "rpc failed"           "error: RPC failed; HTTP 502 curl 22 The requested URL returned error: 502"
+  expect_offline "http 5xx"             "fatal: unable to access 'https://github.com/': The requested URL returned error: 503"
+  expect_offline "http 500 numeric"     "error: RPC failed; HTTP 500 curl 22"
+  # TLS / SSL
+  expect_offline "gnutls handshake"     "fatal: unable to access 'https://github.com/': gnutls_handshake() failed: The TLS connection was non-properly terminated."
+  expect_offline "openssl error"        "fatal: unable to access 'https://github.com/': OpenSSL SSL_read: Connection was reset, errno 10054"
+  # case-insensitivity: a lower-cased diagnostic still classifies
+  expect_offline "lowercased dns"       "could not resolve host: github.com"
+  expect_offline "uppercased reset"     "CONNECTION RESET BY PEER"
+  # genuine repository errors must NOT classify as offline
+  expect_online  "bad object"           "fatal: bad object HEAD"
+  expect_online  "non-fast-forward"     "! [rejected]        journal2 -> journal2 (non-fast-forward)"
+  expect_online  "no such ref"          "fatal: couldn't find remote ref refs/heads/nope"
+  expect_online  "merge conflict"       "error: could not apply abc1234... commit"
+  echo "$cpass $cfail" > "$TR/classifier-counts"
+)
+# The cases ran in a subshell (to source common.sh in isolation), so reconcile
+# its per-case tallies into the harness PASS/FAIL totals here in the parent.
+read -r cp cf < "$TR/classifier-counts"
+PASS=$((PASS+cp)); FAIL=$((FAIL+cf))
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

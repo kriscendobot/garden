@@ -141,7 +141,7 @@ fi
 # signature set is the canonical GARDEN_OFFLINE_SIGNATURES from common.sh, shared
 # with _fetch_stderr_is_offline so the two lists can never drift.
 if tail -c "$SELF_HEAL_CAPTURE_BYTES" "$capture" 2>/dev/null \
-     | grep -qE "$GARDEN_OFFLINE_SIGNATURES"; then
+     | grep -qiE "$GARDEN_OFFLINE_SIGNATURES"; then
   log "transient connectivity outage; skipping responder"
   exit 0
 fi

@@ -432,14 +432,28 @@ journal_fetch() {
 # a real repository error. Both _fetch_stderr_is_offline (below) and the
 # belt-and-suspenders fallback grep in self-heal-run.sh consume this regex, so the
 # two lists can never drift. Add new signatures HERE and both paths inherit them.
-: "${GARDEN_OFFLINE_SIGNATURES:=Could not resolve hostname|Temporary failure in name resolution|Could not read from remote repository|Connection timed out}"
+# Matched case-INSENSITIVELY (grep -i): git/curl/OpenSSH/gnuTLS vary the casing of
+# the same diagnostic across versions, so the patterns gate on the words, not the
+# case. The set spans the full transient surface a fetch over HTTPS or SSH hits:
+#   * DNS:        Could not resolve host[name]:   (git/curl resolver failure)
+#                 Temporary failure in name resolution   (getaddrinfo / SSH)
+#   * remote:     Could not read from remote repository   (SSH side)
+#   * timeouts:   Connection timed out / Operation timed out
+#   * HTTPS blip: Connection reset by peer / Recv failure   (curl transport drop)
+#                 Early EOF / unexpected disconnect / RPC failed   (smart-HTTP cut)
+#                 HTTP 5NN / The requested URL returned error: 5NN   (5xx gateway)
+#   * TLS:        gnutls_handshake / SSL / TLS errors   (handshake interrupted)
+# A `Could not resolve host` pattern (no trailing `name`) deliberately covers BOTH
+# git-over-HTTPS's `Could not resolve host:` and SSH's `Could not resolve hostname`.
+: "${GARDEN_OFFLINE_SIGNATURES:=Could not resolve host|Temporary failure in name resolution|Could not read from remote repository|Connection timed out|Operation timed out|Connection reset by peer|Recv failure|Early EOF|unexpected disconnect|RPC failed|HTTP 5[0-9][0-9]|The requested URL returned error: 5|gnutls_handshake|SSL|TLS}"
 
 # Classify captured git-fetch stderr ($1) as a connectivity/DNS outage rather
 # than a real repository error. These are the transient, self-resolving failures
 # a tick should skip over (EX_TEMPFAIL) instead of dying on. Returns 0 if the
-# text matches a known outage signature, 1 otherwise.
+# text matches a known outage signature, 1 otherwise. Case-insensitive (-i) so a
+# signature classifies regardless of how the producing tool cased it.
 _fetch_stderr_is_offline() {
-  printf '%s' "$1" | grep -qE "$GARDEN_OFFLINE_SIGNATURES"
+  printf '%s' "$1" | grep -qiE "$GARDEN_OFFLINE_SIGNATURES"
 }
 
 # Hard-sync a clone to the authoritative tip. The board's true state. Acquires
