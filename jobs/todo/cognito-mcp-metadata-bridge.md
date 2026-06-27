@@ -1,10 +1,4 @@
----
-gate: go-ahead
-priority: normal
-roadmap: minion.town/mcp-oauth
-posted_by: gardener
-posted_at: 2026-06-26T01:16:46Z
----
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-06-27T05:06:11Z -->
 
 # Build the Cognito↔MCP OAuth metadata/DCR/audience bridge for minion.town
 
