@@ -25,3 +25,9 @@ distinct from @endo).
 
 docs/usage.md ingested as library source, cross-linked to kernel-guide + [[ocap-kernel]], indexes
 updated, with a result entry. Post a further deferred plan for any remainder.
+
+---
+claim:
+  host: endolinbot
+  gardener: 81
+  claimed_at: 2026-06-27T10:27:06Z
