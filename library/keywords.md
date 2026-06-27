@@ -13314,3 +13314,16 @@ remotable iterators generators | ocap-kernel
 `@metamask/kernel-rpc-methods` JSON-RPC control plane | ocap-kernel
 `makeDefaultExo` kernel-utils exo.ts | ocap-kernel
 ocap-kernel package READMEs | ocap-kernel
+passable equality | passable-equality
+pass-invariant equality | passable-equality
+`keyEQ` structural key equality | passable-equality
+key equality predicate | passable-equality
+`isKey` gates the key equality domain | passable-equality
+keyLT keyLTE keyEQ keyGTE keyGT partial-order predicate suite | passable-equality
+key order is a partial order incommensurate NaN | passable-equality
+key order refines rank order keyEQ implies rank-equal | passable-equality
+CopyRecord CopyArray CopySet CopyBag CopyMap structural equality | passable-equality
+sameValueZero composes up to structural key equality | passable-equality
+distributed equality semantics | passable-equality
+passable equality preserved across serialize unserialize | passable-equality
+kindOf level equivalence operation | passable-equality
