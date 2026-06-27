@@ -1,0 +1,12 @@
+[Unit]
+Description=Garden library-source-drift-scan timer
+
+[Timer]
+# Offset past clone-keeper's first run (OnActiveSec=10m) so the bare clones are
+# already fast-forward-fresh before we audit against them. Freshness is not
+# urgent, so an hourly cadence is ample.
+OnActiveSec=20m
+OnUnitActiveSec=1h
+
+[Install]
+WantedBy=timers.target
