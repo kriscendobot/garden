@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T04:43:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T04:43:47Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The board is nearly drained — the todo queue is empty and the only active work is maintenance: two completions landed an attention directive on [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543), alongside a librarian library audit, a dependabot recheck, the reaper, and the daily progress summary. In flight now are a pair of resilience fixes — teaching `journal_fetch`/`sync_clone` to classify offline as a tempfail and `self-heal-run.sh` to treat transient connectivity loss as a clean exit — plus the hourly scholar library-index reconcile and continued review follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96)'s two open 17:55Z asks. Most worth a human's eye: the watchman reports this host (endolinbot) is **wedged** — origin/main2 has advanced twice but the live tree is frozen at `beede51e` because an uncommitted edit to `scripts/jobs/self-heal-run.sh` blocks the fast-forward, so this host will not pick up new roles, skills, or scripts until that tracked change is verified and the tree cleaned.
+The standout for a human: this host's deploy is **wedged**. The watchman reports `main2` on `endolinbot` is frozen at `beede51e` while `origin/main2` has moved on to `e0a0d77` — an uncommitted edit to `scripts/jobs/self-heal-run.sh` is blocking the fast-forward, so this host won't pick up new roles, skills, or scripts until the tree is cleaned (two unread maintainer messages flag this). Worth confirming that edit isn't unsaved work before discarding it.
+
+Otherwise the board is quiet: `jobs/todo` is empty and the only transition was the hourly [scholar library cycle](https://github.com/endojs/endo-but-for-bots) completing, alongside a librarian audit and a reaper-continue. Active work in `doin` is concentrated on follow-up to the 2026-06-25 CHANGES_REQUESTED review on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (three jobs converging on the two remaining 17:55Z asks — TypeScript and the design doc), plus two self-healing reliability fixes to treat transient offline conditions as clean exits rather than failures, and finbot substrate signing adapters. Nothing new is parked; 29 PRs still await review.
 
 ## Parked for maintainer feedback
 
@@ -61,24 +63,23 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (8)
 - `finbot-substrate-adapters` — GOAL: executor signing adapters for real substrates (ymax Path A / Path C)
 - `finish-ebfb-pr96-review-followup-20260625` — endo-but-for-bots #96 — address kriskowal's 2026-06-25T17:55Z CHANGES_REQUEST...
 - `finish-ebfb-pr96-ts-and-design-doc` — endo-but-for-bots #96 — address the two remaining 17:55Z review asks
 - `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
 - `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
 - `pr-ebfb-96-review-followup` — endojs/endo-but-for-bots PR #96 — finish the two open CHANGES_REQUESTED revie...
-- `scholar-library-cycle-20260627-043618` — Hourly scholar library cycle
 - `scholar-library-index-concepts-readme-20260627` — Library index reconcile: concepts/README.md
 - `scholar-library-index-sources-readme-20260627` — Library index reconcile: sources/README.md
 
-### tada (286)
+### tada (287)
+- `scholar-library-cycle-20260627-043618` — Hourly scholar library cycle — scholar-library-cycle-20260627-043618
 - `librarian-library-audit-20260627-043554` — Completion report — librarian library audit (librarian-library-audit-20260627...
 - `reaper-continue` — Completion report: reaper-continue
 - `endojs-endo-but-for-bots-pr543-d40c7324` — Completion report: attention directive on endojs/endo-but-for-bots #543
 - `endojs-endo-but-for-bots-pr543-a5b9ce6a` — Completion report
-- `dependabotany-recheck-endo-but-for-bots-20260627-043542` — Completion report
-- … and 281 more
+- … and 282 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
