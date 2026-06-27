@@ -56,3 +56,9 @@ Source pages + concept/section pages ingested for the six topics (or a solid fir
 with deferred follow-on plans for the rest), cross-linked, with honest grounding flags,
 and a bulletin synthesis. Report what was curated per topic and any topic whose
 authoritative source you could not locate.
+
+---
+claim:
+  host: endolinbot
+  gardener: 93
+  claimed_at: 2026-06-27T08:09:38Z
