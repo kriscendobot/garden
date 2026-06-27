@@ -1,9 +1,5 @@
----
-gate: deferred
-urgency: normal
-posted_by: liaison
-note: "Parked in jobs/plan/ (deferred). Promote to todo (maintainer go-ahead, or foreman priority-selection once add-plan-job-category lands) to run it. Deliverable is a garden design PR for review — investigate before any re-architecture."
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-27T10:21:47Z -->
+
 # PLAN: investigate systemd-run vs. the fixed 100-gardener-loop pool → garden design PR
 
 **Advisor input (Josh Corbin):** `systemd-run` (transient units spawned on demand) might be
