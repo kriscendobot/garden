@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T16:55:53Z_
+_As of 2026-06-27T17:00:33Z_
 
 ## Latest
 
-Several garden-infrastructure fixes landed on main2: a [deploy-sync reconciler](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T072235Z-b12c9f.md) (5d6490e62) that fast-forwards the checkout and restarts long-running services when `scripts/` changes, plus the foreman now meters weekly token spend from Claude Code session logs, the comment-watcher dropped its human-inactivity alert in favor of a positive self-test, and the fleet killswitch was renamed to a plain draining marker. The `design-endo-absorb-pi-harness-layers` design also completed.
+The deploy-sync reconciler landed on main2 (5d6490e62) — it fast-forwards the live checkout and restarts the long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart; it stays inert until a routine `install-units.sh` units refresh arms its timer. **Notice now:** the live `/home/kris` tree is dirty-wedged on a redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh`, so both the watchman and deploy-sync are refusing the fast-forward and the checkout has drifted 6 commits behind; `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges it. The proxy now auto-clears watchdog-class maintainer messages, and the scholar fleet ran a library cycle ingesting MetaMask/ocap-kernel's kernel guide plus a six-topic distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matching).
 
-Two operational notes for the maintainer. First, the live `/home/kris` tree is dirty-wedged — `skills/gardener-inbox-error-reporting/report-error.sh` carries a redundant uncommitted edit byte-identical to origin/main2, so both the watchman and the new deploy-sync are skipping the advance (now 6 behind); `git -C /home/kris checkout -- <that file>` is lossless and unwedges it.
-
-Second, three items are parked on your decision: the "harden exported function literals" follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs only a breadth (narrow vs repo-wide) and base-branch (`llm` vs `master`) call before a DRAFT PR opens; the formula-inspector retention-paths table is blocked until [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) gets the rebase-and-gamut you already requested (still open, 4 failing checks); and the beta3 ymax0 XS investigation concluded the overflow is an XS native-stack-depth property (not an Endo regression, so the fix is contract-side depth-bounding), with the real-data trace gated on a v320 swing-store export the garden can't autonomously obtain. On the library side, the scholar ingested MetaMask/ocap-kernel's kernel guide and synthesized a distributed-ocap concept cluster, and endo master lint came back clean (only 5 non-blocking jsdoc warnings).
+Three items are parked for your call: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded *no change* (reusing the daemon powers would invert the daemon-cas extraction and create a workspace cycle); the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) harden-exported-literals follow-up (now merged) needs you to pick breadth (narrow two exports vs. repo-wide) and base branch before a builder opens the cross-repo PR; and the formula-inspector retention-paths table is blocked on the still-open `listRetentionPaths` host PR #284, which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested (4 failing checks). The ymax0/XS investigation closed read-only: the nested-record vat abort is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding in agoric-sdk territory — out of bounds for autonomous action and awaiting your direction, along with sourcing the v320 swing-store export it needs.
 
 ## Parked for maintainer feedback
 
@@ -167,17 +165,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`proxy-auto-clear-watchdog-messages`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proxy-auto-clear-watchdog-messages.md) — Proxy: auto-clear watchdog-class messages from the maintainer inbox (determin...
-- [`scholar-library-cycle-20260627-165512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-165512.md) — Hourly scholar library cycle
+### doin (0)
+(none)
 
-### tada (372)
+### tada (374)
+- [`scholar-library-cycle-20260627-165512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-165512.md) — Completion report: scholar-library-cycle-20260627-165512
+- [`proxy-auto-clear-watchdog-messages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proxy-auto-clear-watchdog-messages.md) — Completion report
 - [`design-endo-absorb-pi-harness-layers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-absorb-pi-harness-layers.md) — Completion report — design-endo-absorb-pi-harness-layers
 - [`foreman-meter-from-claude-code-session-logs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-meter-from-claude-code-session-logs.md) — Completion report: foreman-meter-from-claude-code-session-logs
 - [`investigate-beta3-ymax0-xs-repro-and-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-beta3-ymax0-xs-repro-and-fix.md) — Completion report — investigate-beta3-ymax0-xs-repro-and-fix
-- [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-inactivity-anomaly.md) — Completion report — comment-watcher-no-inactivity-anomaly
-- [`rename-killswitch-to-draining-marker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/rename-killswitch-to-draining-marker.md) — Completion report — rename-killswitch-to-draining-marker
-- … and 367 more
+- … and 369 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
