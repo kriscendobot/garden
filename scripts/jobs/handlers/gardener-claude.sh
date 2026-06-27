@@ -7,7 +7,9 @@
 # roles/gardener/AGENT.md in the garden's main2 worktree.
 #
 # This is the production path. The test harness overrides GARDEN_JOB_HANDLER
-# with a fast deterministic stub, so this file is not exercised by the tests.
+# with a fast deterministic stub, so this file is not exercised by the gardener
+# tests; its own behavior is covered by test/gardener-worktree-test.sh, which
+# drives it directly with a fake `claude` on PATH.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -17,12 +19,93 @@ source "$HERE/../common.sh"
 base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report-out}"
 role_brief="$GARDEN_ROOT/roles/gardener/AGENT.md"
 
+# --- per-job worktree (the HARD RULE: no development in the root tree) --------
+#
+# Every developing subagent works in its own git worktree off the dev branch,
+# never the deployed root checkout (designs/deliberate-deploy.md § All
+# development in per-subagent worktrees, roles/COMMON.md § Scratch discipline).
+# The norm is documented for the `claude -p` gardener to read each tick, but a
+# prompt can forget; this is the MECHANICAL half. We launch `claude -p` with its
+# cwd already set to a fresh per-job worktree off `origin/$GARDEN_MAIN_BRANCH`, so
+# a job physically cannot edit the root tree even if its prompt does not say so.
+#
+# The worktree path is STABLE per job base (derived from the base, exactly like
+# the session id below), NOT a per-attempt random suffix: a reaper requeue
+# re-runs the SAME base, so the same path lets the resumed run re-enter the same
+# worktree and find both its uncommitted work and its session transcript (whose
+# project dir is keyed by this cwd). A random suffix would break resume.
+#
+# Lifecycle (constraints from the job spec):
+#   * created off origin/$GARDEN_MAIN_BRANCH before launch;
+#   * REUSED as-is on a resume (the in-flight work must survive the requeue);
+#   * reset to a fresh base on a first claim that finds a stale leftover dir;
+#   * torn down on successful completion (below), and GC-safe on death because it
+#     lives under $GARDEN_SCRATCH, which the reaper's scratch janitor reclaims
+#     after GARDEN_SCRATCH_GC_AGE hours of quiescence (common.sh, reaper.sh).
+# It is a top-level child of $GARDEN_SCRATCH so the janitor GCs and deregisters
+# it as one unit. The base is a job basename (no '/', '#', ':'), safe as a single
+# path component.
+main_branch="${GARDEN_MAIN_BRANCH:-main2}"
+worktree="$GARDEN_SCRATCH/gardener-wt-$base"
+
+# Resume detection keys on the session transcript, which Claude Code writes under
+# ~/.claude/projects/<encoded-cwd>/<sid>.jsonl with every '/' in the launch cwd
+# rewritten to '-'. Because the cwd is now the per-base worktree (not the gardener's
+# stable launch dir), the encoded dir is derived from $worktree. The transcript's
+# presence is also exactly the signal that distinguishes a RESUME (in-flight work
+# to keep) from a FRESH claim that merely found a stale worktree dir to reset.
+session_id="$(python3 -c 'import sys,uuid; print(uuid.uuid5(uuid.NAMESPACE_URL, "garden-job:"+sys.argv[1]))' "$base" 2>/dev/null || true)"
+proj_dir="$HOME/.claude/projects/$(printf '%s' "$worktree" | sed 's#/#-#g')"
+resuming=false
+if [ -n "$session_id" ] && [ -f "$proj_dir/$session_id.jsonl" ]; then
+  resuming=true
+fi
+
+# ensure_worktree — make $worktree a detached checkout of origin/$main_branch.
+# On a resume we keep whatever is there (the interrupted attempt's uncommitted
+# work); otherwise we (re)create it fresh at the current dev-branch tip. We base
+# off the LOCAL tracking ref origin/$main_branch — kept fresh by the watchman's
+# fetch — rather than fetching here, so the launch path adds no per-job network
+# cost; the CAS push loop the job itself runs reconciles any staleness. Falls
+# back to the bare branch then HEAD if the tracking ref is absent (a freshly
+# cloned root that has never fetched).
+ensure_worktree() {
+  if $resuming && [ -d "$worktree" ]; then
+    return 0                          # resume: reuse the in-flight worktree as-is
+  fi
+  # Fresh claim. A leftover dir (stale completion that never cleaned up, or a
+  # requeue whose transcript was pruned) is removed and recreated so the job
+  # starts from a clean current-tip checkout, never a stale base.
+  [ -e "$worktree" ] && scratch_cleanup "$worktree"
+  local ref
+  for ref in "origin/$main_branch" "$main_branch" HEAD; do
+    if git -C "$GARDEN_ROOT" rev-parse --verify --quiet "$ref" >/dev/null 2>&1; then
+      mkdir -p "$GARDEN_SCRATCH"
+      git -C "$GARDEN_ROOT" worktree add --detach "$worktree" "$ref" >/dev/null 2>&1 && return 0
+    fi
+  done
+  die "could not create per-job worktree $worktree off any of origin/$main_branch, $main_branch, HEAD"
+}
+ensure_worktree
+
 jobs_dir="$GARDEN_ROOT/scripts/jobs"
+worktree_note="$(cat <<EOF
+Your working directory is a dedicated git worktree for THIS job, checked out off
+origin/$main_branch at $worktree. Do ALL development for this job here, in your
+cwd: never edit the deployed garden root checkout. Commit explicit pathspecs and
+push with a rebase CAS loop to $main_branch (git push origin HEAD:$main_branch).
+The worktree is torn down when you finish and is garbage-collected if your run
+dies, so nothing you need to keep should live outside a commit.
+EOF
+)"
+
 prompt="$(cat <<EOF
 You are a garden gardener (role brief: $role_brief). You have claimed job
 '$base'. Its specification follows between the markers. Do the work it asks for,
 then write a concise completion report (what you did, what changed, any
 follow-ups) to stdout. Output ONLY the report.
+
+$worktree_note
 
 Messaging discipline (you are a living agent on the message bus):
 - Your inbox key is your job base, '$base'. A maintainer reply or a peer message
@@ -54,34 +137,33 @@ EOF
 # "remembers" of the interrupted attempt — forward to completion:
 #   * fresh claim  -> `--session-id <sid>` starts the session under that id;
 #   * requeued job -> the base is identical, so the derived id is identical, and
-#                     if that session's transcript is present on this host we
-#                     `--resume <sid>` and nudge it to finish.
+#                     if that session's transcript is present on this host (its
+#                     project dir is keyed by the per-base worktree cwd, which is
+#                     also stable) we `--resume <sid>` and nudge it to finish.
 # Determinism is what lets the reaper stay a dumb requeue: no session id has to
-# be plumbed through the board because the base alone reproduces it.
+# be plumbed through the board because the base alone reproduces it AND the
+# worktree it ran in.
 #
 # Resume is best-effort and same-host: a transcript lives under
 # ~/.claude/projects/<encoded-cwd>/<sid>.jsonl on the host that wrote it. If the
-# requeue is claimed on another host (or the transcript was pruned) we fall back
-# to a fresh session pinned to the same id, so the NEXT death stays resumable.
-session_id="$(python3 -c 'import sys,uuid; print(uuid.uuid5(uuid.NAMESPACE_URL, "garden-job:"+sys.argv[1]))' "$base" 2>/dev/null || true)"
-
+# requeue is claimed on another host (or the transcript was pruned) $resuming is
+# false above, ensure_worktree recreated a fresh worktree, and we fall back to a
+# fresh session pinned to the same id so the NEXT death stays resumable.
 session_args=()
 if [ -n "$session_id" ]; then
-  # Claude Code names each project's session dir by the launch cwd with every
-  # '/' rewritten to '-' (e.g. /home/kris -> -home-kris). Gardeners launch from
-  # a stable cwd, so this reproduces the dir the prior attempt wrote into.
-  proj_dir="$HOME/.claude/projects/$(printf '%s' "$PWD" | sed 's#/#-#g')"
-  if [ -f "$proj_dir/$session_id.jsonl" ]; then
+  if $resuming; then
     session_args=(--resume "$session_id")
-    log "resuming session $session_id for requeued job '$base'"
+    log "resuming session $session_id for requeued job '$base' in worktree $worktree"
     prompt="$(cat <<EOF
 You are RESUMING garden job '$base' after a reaper requeue: your earlier session
 was interrupted before it finished and has been carried forward to you intact.
-Review what you had already done — including any uncommitted work still in your
-worktree — and CONTINUE from where you left off, driving the job to completion.
-Re-read the job spec below in case anything changed, then finish and write ONLY
-the concise completion report (what you did, what changed, any follow-ups) to
-stdout.
+Your cwd is the same dedicated worktree you were working in. Review what you had
+already done — including any uncommitted work still in this worktree — and
+CONTINUE from where you left off, driving the job to completion. Re-read the job
+spec below in case anything changed, then finish and write ONLY the concise
+completion report (what you did, what changed, any follow-ups) to stdout.
+
+$worktree_note
 
 ----- JOB $base -----
 $(cat "$jobfile")
@@ -98,8 +180,24 @@ fi
 # call (gh, git push, even `command -v gh`) and the gardener could do no real
 # work. Bypass is the intended posture for the sandboxed fleet; the operator
 # pre-consents via `skipDangerousModePermissionPrompt: true` in ~/.claude.
-if command -v claude >/dev/null 2>&1; then
-  claude -p --dangerously-skip-permissions "${session_args[@]}" "$prompt" > "$report"
-else
-  die "claude not on PATH; cannot run default gardener handler for '$base'"
+#
+# The job runs with cwd = $worktree (a subshell `cd`), so every relative path the
+# gardener touches lands in its own worktree. The report path is absolute (gardener.sh
+# mktemp), so the redirect is unaffected by the cd.
+command -v claude >/dev/null 2>&1 \
+  || die "claude not on PATH; cannot run default gardener handler for '$base'"
+
+set +e
+( cd "$worktree" && claude -p --dangerously-skip-permissions "${session_args[@]}" "$prompt" ) > "$report"
+rc=$?
+set -e
+
+# Teardown on COMPLETION only. A zero exit means the job finished (gardener.sh
+# will move it doin->tada); reclaim the worktree now. A non-zero exit means the
+# handler failed or was killed: LEAVE the worktree so a reaper requeue resumes
+# into the same in-flight checkout. A truly dead job's worktree is reclaimed by
+# the reaper's scratch janitor after GARDEN_SCRATCH_GC_AGE hours of quiescence.
+if [ "$rc" -eq 0 ]; then
+  scratch_cleanup "$worktree"
 fi
+exit "$rc"

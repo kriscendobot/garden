@@ -195,6 +195,8 @@ Full doc in `garden/WORKTREES.md`. Minimum you need to know:
 
 **The root checkout (`<garden-root>`) is read-only for development.** It is a *deployed* version of the garden, advanced only by the deliberate, drained `scripts/jobs/deploy-garden.sh` ([deliberate-deploy](../designs/deliberate-deploy.md)) — never edited in place. Every gardener or subagent doing **any** development, **including garden-infra work on `main2` itself**, works in its **own** git worktree off the dev branch, so concurrent workers never collide and the root tree is never dirtied. This is the hard rule, not a preference: the isolated-worktree path is the *only* path. A garden-infra job that edits the root tree directly is a defect.
 
+The launch paths enforce this mechanically, so the rule holds even when a prompt forgets it. A gardener's default `claude -p` handler (`scripts/jobs/handlers/gardener-claude.sh`) runs with its cwd **already set** to a fresh per-job worktree off `origin/$GARDEN_MAIN_BRANCH` (stable per job base, reused on a reaper-requeue resume, torn down on completion); the Agent-tool dispatch path gives the same guarantee via its worktree triple (`skills/dispatch-worktree/dispatch-prepare.sh`). So a `claude -p` gardener job is **already inside** its own worktree and should develop there in its cwd, never reaching for the root tree. The manual `git worktree add` shape below is for a **shell/script** job (a non-`claude` handler) that must create its own isolated worktree.
+
 ```sh
 # the one correct shape for a garden-infra (main2) job:
 git -C <garden-root> fetch origin main2

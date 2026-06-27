@@ -28,9 +28,10 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
   [gardening-state-machine](../../designs/gardening-state-machine.md)).
 - **All development happens in your OWN worktree, never the root checkout.** The
   root checkout (`<garden-root>`) is a deployed version, read-only for development
-  and advanced only by `scripts/jobs/deploy-garden.sh`. Any job that develops —
-  including garden-infra work on `main2` — adds an isolated worktree off
-  `origin/main2` under `$GARDEN_SCRATCH` and commits there
+  and advanced only by `scripts/jobs/deploy-garden.sh`. Your `claude -p` handler
+  launches you with your **cwd already set** to a fresh per-job worktree off
+  `origin/$GARDEN_MAIN_BRANCH` under `$GARDEN_SCRATCH`, so develop right there in
+  your cwd — including garden-infra work on `main2` — and commit and push from it
   (`roles/COMMON.md` § Per-subagent worktrees; [deliberate-deploy](../../designs/deliberate-deploy.md)).
   Editing the root tree directly is a defect: it dirties the deployed tree and
   collides with peers.

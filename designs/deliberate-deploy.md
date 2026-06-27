@@ -67,14 +67,17 @@ The convention is enforced at two layers:
    `roles/COMMON.md` § Scratch discipline state the hard rule; every garden-infra
    job body repeats "build in an isolated worktree off origin/main2". A
    `claude -p` gardener reads these fresh each tick.
-2. **Mechanical enforcement** (follow-on job
-   `garden-enforce-per-subagent-worktree`): launch the gardener's `claude -p`
-   handler with its cwd already set to a fresh per-job worktree off
-   `origin/main2`, so a job physically cannot edit the root tree. This is
-   deferred to its own job because it interacts with the session-resume logic in
-   `gardener-claude.sh` (the deterministic session id keys on the launch cwd) and
-   with `dispatch-prepare.sh`; getting it right deserves a focused change rather
-   than riding along here.
+2. **Mechanical enforcement** (job `garden-enforce-per-subagent-worktree`, done):
+   the default handler `scripts/jobs/handlers/gardener-claude.sh` launches the
+   gardener's `claude -p` with its cwd already set to a fresh per-job worktree off
+   `origin/$GARDEN_MAIN_BRANCH`, so a job physically cannot edit the root tree even
+   if its prompt forgets to. This rode in its own job because it interacts with the
+   session-resume logic in `gardener-claude.sh` (the deterministic session id keys
+   on the launch cwd, so the worktree path is stable per job base, reused on
+   resume, and torn down on completion). The Agent-tool dispatch path reaches the
+   same guarantee independently via the worktree triple
+   (`skills/dispatch-worktree/dispatch-prepare.sh`), so every developing subagent
+   gets its own worktree on **both** launch paths. See § Follow-on work.
 
 ## The deliberate deploy process
 
@@ -179,8 +182,13 @@ are gone and the watchman's aggressive checkout is off by default).
 
 ## Follow-on work
 
-- `garden-enforce-per-subagent-worktree` — mechanical enforcement of the hard
-  worktree rule in the gardener `claude -p` launch path (cwd = a fresh per-job
-  worktree off `origin/main2`), reconciled with the session-resume logic.
-</content>
-</invoke>
+- `garden-enforce-per-subagent-worktree` (done) — mechanical enforcement of the
+  hard worktree rule in the gardener `claude -p` launch path. The default handler
+  `scripts/jobs/handlers/gardener-claude.sh` now launches `claude -p` with its cwd
+  already set to a fresh per-job worktree off `origin/$GARDEN_MAIN_BRANCH` under
+  `$GARDEN_SCRATCH`, so a job physically cannot edit the root tree even if its
+  prompt forgets to. The worktree path is stable per job base (reconciled with the
+  deterministic session id, whose project dir is keyed by the launch cwd), so a
+  reaper requeue re-enters the same worktree and resumes the same transcript; it is
+  reused on resume, torn down on completion, and garbage-collected on death by the
+  reaper's scratch janitor. Covered by `scripts/jobs/test/gardener-worktree-test.sh`.
