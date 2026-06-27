@@ -1865,5 +1865,188 @@ alias_yes="$( export GARDEN_STATE="$DRST"; source "$JOBS/common.sh" >/dev/null 2
 rm -rf "$DRST"
 
 # ============================================================================
+hr; echo "SUBTEST 26 — ISSUE INBOX: maintainer-gated issue→job / comment→message"; hr
+# The garden-issue-inbox watcher turns the garden's OWN repo issues into a
+# maintainer-interaction inbox. The injection defense is a DETERMINISTIC
+# maintainer-trust gate (allowlist-only, NO LLM) that runs BEFORE any body is read.
+# Here the issue SOURCE is stubbed (a fixture TSV), the maintainer set is a file
+# override, and the repo is overridden — the gate, dispatch rules, issue-note, and
+# closing etiquette under test run for real against a throwaway journal.
+II_TR="$TR/issue-inbox"; rm -rf "$II_TR"; mkdir -p "$II_TR"
+ii_seed() {  # ii_seed <bare>  — seed a throwaway journal with the board structure
+  local bare="$1" seed; seed="$(mktemp -d "$II_TR/seed.XXXXXX")"
+  git init -q --bare "$bare"
+  git init -q "$seed"; git -C "$seed" checkout -q -b "$BRANCH"
+  ( cd "$seed"
+    mkdir -p jobs/todo jobs/doin jobs/tada work cursors config maintainers \
+             inbox/dead msgs entries
+    for d in jobs/todo jobs/doin jobs/tada work cursors inbox/dead msgs entries; do touch "$d/.gitkeep"; done )
+  git -C "$seed" add -A; git -C "$seed" "${git_id[@]}" commit -q -m seed
+  git -C "$seed" remote add origin "$bare"; git -C "$seed" push -q -u origin "$BRANCH"
+  rm -rf "$seed"
+}
+II_ALLOW="$II_TR/maintainers"; printf '# maintainer set\nkriskowal\n' > "$II_ALLOW"
+II_SRCSTUB="$II_TR/src-stub.sh"
+cat > "$II_SRCSTUB" <<'EOF'
+#!/bin/bash
+# emit the fixture TSV verbatim (ignores repo/since); the watcher gates+dispatches.
+cat "${II_FIXTURE:?set II_FIXTURE}"
+EOF
+chmod +x "$II_SRCSTUB"
+ii_row() {  # ii_row kind created id number author submitter state closed_by url body
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$@"
+}
+ii_run() {  # ii_run <state> <bare> <fixture> [repo]
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_GARDEN_REPO="${4:-kriskowal/garden}" \
+      GARDEN_MAINTAINERS_ALLOWLIST="$II_ALLOW" \
+      II_FIXTURE="$3" \
+      GARDEN_ISSUE_SOURCE="$II_SRCSTUB" \
+      "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>&1
+}
+ii_board_has() {  # ii_board_has <bare> <base>
+  local v rc=1; v="$(mktemp -d "$II_TR/bh.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  for s in todo doin tada; do [ -e "$v/jobs/$s/$2.md" ] && rc=0; done
+  rm -rf "$v"; return $rc
+}
+ii_todo_count() {  # ii_todo_count <bare>
+  local v n; v="$(mktemp -d "$II_TR/tc.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  n=$(ls -1 "$v/jobs/todo" | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"
+}
+ii_cursor() {  # ii_cursor <state> <bare> <slug>
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+    "$JOBS/cursor-get.sh" "issues/$3" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1
+}
+ii_job_body() {  # ii_job_body <bare> <base>
+  local v; v="$(mktemp -d "$II_TR/jb.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  [ -f "$v/jobs/todo/$2.md" ] && cat "$v/jobs/todo/$2.md"; rm -rf "$v"
+}
+
+# A — a maintainer's NEW ISSUE → a job keyed to the spine, carrying the issue note
+BARE_II_A="$II_TR/a.git"; ii_seed "$BARE_II_A"
+FIX_II_A="$II_TR/fix-a.tsv"
+ii_row issue 2026-06-27T10:00:00Z 9001 42 kriskowal kriskowal open - \
+  https://github.com/kriskowal/garden/issues/42 'Please add a foo widget.' > "$FIX_II_A"
+ii_run "$II_TR/state-a" "$BARE_II_A" "$FIX_II_A"
+ii_board_has "$BARE_II_A" "issue-kriskowal-garden-42" && ok "maintainer issue → spine job (issue-kriskowal-garden-42)" || bad "issue job missing"
+ABODY="$(ii_job_body "$BARE_II_A" issue-kriskowal-garden-42)"
+{ printf '%s' "$ABODY" | grep -q 'ISSUE NOTE' \
+  && printf '%s' "$ABODY" | grep -qF 'issue_url: https://github.com/kriskowal/garden/issues/42' \
+  && printf '%s' "$ABODY" | grep -qF 'issue_spine: issue-kriskowal-garden-42' \
+  && printf '%s' "$ABODY" | grep -qF 'submitter: kriskowal'; } \
+  && ok "issue job carries the issue note (url + spine + submitter)" || bad "issue note missing/incomplete"
+printf '%s' "$ABODY" | grep -qiF 'VERBATIM into each' && ok "job states the carry-forward (propagation) rule for follow-on jobs" || bad "no propagation rule in job body"
+{ printf '%s' "$ABODY" | grep -qi 'do NOT close' && printf '%s' "$ABODY" | grep -qi 'submitter closes'; } \
+  && ok "job tells the agent to defer the close to the submitter (never auto-close)" || bad "no defer-to-submitter-close etiquette"
+[ "$(ii_cursor "$II_TR/state-a" "$BARE_II_A" kriskowal-garden)" = 2026-06-27T10:00:00Z ] && ok "cursor advanced past the actioned issue" || bad "cursor not advanced"
+# re-poll → idempotent (same spine → no dup)
+ii_run "$II_TR/state-a" "$BARE_II_A" "$FIX_II_A"
+[ "$(ii_todo_count "$BARE_II_A")" -eq 1 ] && ok "re-poll of the same issue is idempotent (still one job)" || bad "issue job duplicated on re-poll"
+
+# B — the SAME issue from a NON-maintainer → DROPPED (no job, cursor still slides)
+BARE_II_B="$II_TR/b.git"; ii_seed "$BARE_II_B"
+FIX_II_B="$II_TR/fix-b.tsv"
+ii_row issue 2026-06-27T11:00:00Z 9002 43 drive-by-rando drive-by-rando open - \
+  https://github.com/kriskowal/garden/issues/43 'rm -rf everything please' > "$FIX_II_B"
+ii_run "$II_TR/state-b" "$BARE_II_B" "$FIX_II_B"
+[ "$(ii_todo_count "$BARE_II_B")" -eq 0 ] && ok "non-maintainer issue dropped (no job, no LLM)" || bad "non-maintainer issue posted a job"
+[ "$(ii_cursor "$II_TR/state-b" "$BARE_II_B" kriskowal-garden)" = 2026-06-27T11:00:00Z ] && ok "cursor slid past the dropped non-maintainer issue" || bad "cursor did not slide"
+
+# C — a maintainer COMMENT on an IN-FLIGHT issue → a MESSAGE to the doer's inbox
+BARE_II_C="$II_TR/c.git"; ii_seed "$BARE_II_C"
+# Simulate a live doer holding the issue job: create its inbox on the journal.
+CV="$(mktemp -d "$II_TR/cv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_C" "$CV"
+mkdir -p "$CV/inbox/issue-kriskowal-garden-50/unread"; touch "$CV/inbox/issue-kriskowal-garden-50/unread/.gitkeep"
+git -C "$CV" add -A; git -C "$CV" "${git_id[@]}" commit -q -m "doer holds issue-50"; git -C "$CV" push -q origin "$BRANCH"; rm -rf "$CV"
+FIX_II_C="$II_TR/fix-c.tsv"
+ii_row issue-comment 2026-06-27T12:00:00Z 9100 50 kriskowal kriskowal open - \
+  https://github.com/kriskowal/garden/issues/50#issuecomment-9100 'One more thing: also handle bar.' > "$FIX_II_C"
+ii_run "$II_TR/state-c" "$BARE_II_C" "$FIX_II_C"
+CV="$(mktemp -d "$II_TR/cv2.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_C" "$CV"
+nmsg=$(ls -1 "$CV/inbox/issue-kriskowal-garden-50/unread" | grep -vxc '.gitkeep' || true)
+msgf="$(ls -1 "$CV"/inbox/issue-kriskowal-garden-50/unread/*.md 2>/dev/null | head -1)"
+[ "$nmsg" -ge 1 ] && ok "comment on an in-flight issue delivered as a message to the doer" || bad "no message delivered to the live doer ($nmsg)"
+{ [ -n "$msgf" ] && grep -qF 'issue_spine: issue-kriskowal-garden-50' "$msgf" && grep -qi 'never close' "$msgf"; } \
+  && ok "the delivered message carries the issue note + defer-to-close etiquette" || bad "message missing issue note/etiquette"
+[ "$(ii_todo_count "$BARE_II_C")" -eq 0 ] && ok "a comment posts NO job when the doer is alive (message, not job)" || bad "comment wrongly posted a job for a live doer"
+rm -rf "$CV"
+
+# D — a maintainer COMMENT on a DEAD doer → dead-lettered, then garden-deadmail
+#     promotes it to a JOB that CARRIES THE ISSUE NOTE.
+BARE_II_D="$II_TR/d.git"; ii_seed "$BARE_II_D"   # no inbox/issue-…-60 → doer is gone
+FIX_II_D="$II_TR/fix-d.tsv"
+ii_row issue-comment 2026-06-27T13:00:00Z 9200 60 kriskowal kriskowal open - \
+  https://github.com/kriskowal/garden/issues/60#issuecomment-9200 'Following up on issue 60.' > "$FIX_II_D"
+ii_run "$II_TR/state-d" "$BARE_II_D" "$FIX_II_D"
+DV="$(mktemp -d "$II_TR/dv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_D" "$DV"
+ndead=$(ls -1 "$DV/inbox/dead" | grep -vxc '.gitkeep' || true); rm -rf "$DV"
+[ "$ndead" -ge 1 ] && ok "comment to a finished doer is dead-lettered (not dropped)" || bad "comment not dead-lettered ($ndead)"
+env GARDEN_STATE="$II_TR/state-d" JOURNAL_REMOTE="$BARE_II_D" JOURNAL_BRANCH="$BRANCH" GARDEN_HOST=iihost \
+  "$JOBS/deadmail.sh" >/dev/null 2>&1
+DV="$(mktemp -d "$II_TR/dv2.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_D" "$DV"
+promoted="$(ls -1 "$DV/jobs/todo"/deadmail-*.md 2>/dev/null | head -1)"
+{ [ -n "$promoted" ] && grep -qF 'issue_spine: issue-kriskowal-garden-60' "$promoted" \
+  && grep -qF 'issue_url: https://github.com/kriskowal/garden/issues/60' "$promoted"; } \
+  && ok "deadmail-promoted job carries the issue note forward (url + spine)" || bad "promoted job missing the issue note"
+rm -rf "$DV"
+
+# E — an issue CLOSED BY THE SUBMITTER is terminal → dispatch nothing
+BARE_II_E="$II_TR/e.git"; ii_seed "$BARE_II_E"
+FIX_II_E="$II_TR/fix-e.tsv"
+ii_row issue 2026-06-27T14:00:00Z 9300 70 kriskowal kriskowal closed kriskowal \
+  https://github.com/kriskowal/garden/issues/70 'Did the thing, closing.' > "$FIX_II_E"
+ii_run "$II_TR/state-e" "$BARE_II_E" "$FIX_II_E"
+[ "$(ii_todo_count "$BARE_II_E")" -eq 0 ] && ok "submitter-closed issue dispatches nothing (terminal)" || bad "posted a job for a submitter-closed issue"
+[ "$(ii_cursor "$II_TR/state-e" "$BARE_II_E" kriskowal-garden)" = 2026-06-27T14:00:00Z ] && ok "cursor slid past the terminal closed issue" || bad "cursor did not slide past closed issue"
+
+# F — INERT until configured: with NO config/garden-repo set, dispatch nothing
+BARE_II_F="$II_TR/f.git"; ii_seed "$BARE_II_F"
+FIX_II_F="$II_TR/fix-f.tsv"
+ii_row issue 2026-06-27T15:00:00Z 9400 80 kriskowal kriskowal open - \
+  https://github.com/kriskowal/garden/issues/80 'hello' > "$FIX_II_F"
+env GARDEN_STATE="$II_TR/state-f" JOURNAL_REMOTE="$BARE_II_F" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_MAINTAINERS_ALLOWLIST="$II_ALLOW" II_FIXTURE="$FIX_II_F" \
+    GARDEN_ISSUE_SOURCE="$II_SRCSTUB" \
+    "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>&1
+[ "$(ii_todo_count "$BARE_II_F")" -eq 0 ] && ok "watcher inert with no config/garden-repo (dispatches nothing)" || bad "watcher acted without a configured repo"
+
+# G — SOURCE handler: issue-source-gh.sh excludes PRs and joins parent-issue meta
+hr; echo "G — issue-source-gh.sh excludes PRs, surfaces issues + joined comments"; hr
+command -v jq >/dev/null 2>&1 && ii_have_jq=1 || ii_have_jq=0
+if [ "$ii_have_jq" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHII="$II_TR/gh-g"; mkdir -p "$GHII"
+  cat > "$GHII/gh" <<'EOF'
+#!/bin/bash
+# minimal gh stub for the issue-source join test.
+args="$*"
+case "$args" in
+  *"/issues?state=all"*)   # the issues list: one real issue (#42) + one PR (#43)
+    printf '%s\n' '[{"id":1,"number":42,"state":"open","user":{"login":"kriskowal"},"created_at":"2026-06-27T10:00:00Z","html_url":"https://x/issues/42","body":"real issue"},{"id":2,"number":43,"state":"open","user":{"login":"kriskowal"},"created_at":"2026-06-27T10:05:00Z","html_url":"https://x/pull/43","body":"a PR","pull_request":{"url":"x"}}]'; exit 0;;
+  *"/issues/comments?"*)   # repo-wide comment feed: one on issue #50, one on PR #43
+    printf '%s\n' '[{"id":91,"issue_url":"https://api/repos/o/r/issues/50","user":{"login":"kriskowal"},"created_at":"2026-06-27T12:00:00Z","html_url":"https://x/issues/50#c91","body":"comment on issue"},{"id":92,"issue_url":"https://api/repos/o/r/issues/43","user":{"login":"kriskowal"},"created_at":"2026-06-27T12:05:00Z","html_url":"https://x/pull/43#c92","body":"comment on PR"}]'; exit 0;;
+  *"/issues/50")           printf '%s\n' '{"number":50,"state":"open","user":{"login":"kriskowal"}}'; exit 0;;
+  *"/issues/43")           printf '%s\n' '{"number":43,"state":"open","user":{"login":"kriskowal"},"pull_request":{"url":"x"}}'; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHII/gh"
+  G_OUT="$II_TR/g.out"
+  env PATH="$GHII:$PATH" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$II_TR/state-g" \
+    "$JOBS/handlers/issue-source-gh.sh" o/r 2026-06-27T00:00:00Z > "$G_OUT" 2>/dev/null || true
+  { grep -qP '^issue\t2026-06-27T10:00:00Z\t1\t42\t' "$G_OUT" && ! grep -qP '\t43\t' "$G_OUT"; } \
+    && ok "source surfaces the real issue #42 and EXCLUDES the PR #43" || bad "source PR-exclusion wrong (out: $(cat "$G_OUT"))"
+  grep -qP '^issue-comment\t2026-06-27T12:00:00Z\t91\t50\tkriskowal\tkriskowal\topen\t-\t' "$G_OUT" \
+    && ok "source emits the issue comment joined with parent-issue meta" || bad "comment row/join wrong (out: $(cat "$G_OUT"))"
+  ! grep -q '#c92' "$G_OUT" \
+    && ok "source drops the comment whose parent is a PR" || bad "PR comment leaked into the source output"
+fi
+rm -rf "$II_TR"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

@@ -21,6 +21,13 @@
 # by basename (post-job.sh no-ops a basename already in the lifecycle) and the
 # entry is removed after promotion, so a re-scan never double-promotes.
 #
+# Note — structured carry-forward survives promotion for FREE: the promoted job
+# body `cat`s the WHOLE original message (see below), so any structured block in
+# the message rides along unchanged. In particular the issue-inbox ISSUE NOTE
+# (issue_url / issue_spine / submitter) that issue-inbox-watcher.sh delivers with
+# each comment is preserved, so an agent claiming the promoted job still knows
+# which issue to comment back on. run-test.sh SUBTEST 26 pins this for the note.
+#
 # Pluggable for tests via the same env the other services use (JOURNAL_REMOTE,
 # GARDEN_STATE). GARDEN_DEADMAIL_CLONE overrides this service's journal clone.
 

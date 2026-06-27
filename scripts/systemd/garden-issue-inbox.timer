@@ -1,0 +1,15 @@
+[Unit]
+Description=Garden issue-inbox watcher timer
+
+[Timer]
+# OnBootSec anchors the first elapse to a FIXED monotonic reference (boot), so the
+# timer always has a concrete next-trigger and fires promptly on arming;
+# OnUnitActiveSec drives the steady cadence after the first run (see the
+# garden-comment-watcher@.timer header for the daemon-reload rationale).
+OnBootSec=45s
+OnUnitActiveSec=120s
+# Default accuracy is 1min; tighten so the cadence does not get batched late.
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

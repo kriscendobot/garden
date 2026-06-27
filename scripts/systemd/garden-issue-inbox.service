@@ -1,0 +1,25 @@
+[Unit]
+Description=Garden issue-inbox watcher (the garden's own repo issues → maintainer inbox)
+# Producer: watch the garden's OWN GitHub repo's issues + issue-comments and
+# dispatch jobs/messages so a maintainer can drive the garden by filing/commenting
+# on an issue. Driven by its .timer. Safe on a PUBLIC repo by construction: a
+# DETERMINISTIC maintainer-trust gate (allowlist-only, NO LLM) drops every
+# non-maintainer author BEFORE any body is read (see issue-inbox-watcher.sh). The
+# watcher is INERT until the journal carries config/garden-repo AND a non-empty
+# maintainers/allowlist — writing those (set-garden-repo.sh / add-maintainer.sh)
+# is the deliberate per-instance arming act, so this unit may be enabled normally.
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN exit,
+# not a failure. The self-heal wrapper normalizes 143/130 to 0; this is the
+# belt-and-suspenders so any future bypass of the wrapper still doesn't mark a
+# SIGTERM stop as Failed.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-issue-inbox -- @GARDEN_ROOT@/scripts/jobs/issue-inbox-watcher.sh
+# The self-heal responder runs synchronously on a failed tick before the wrapper
+# returns the failing rc; give it headroom beyond the implicit 90s oneshot start
+# timeout so a diagnosis is not cut off (responder itself is hard-bounded by
+# SELF_HEAL_RESPONDER_TIMEOUT).
+TimeoutStartSec=900
