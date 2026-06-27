@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T04:59:40Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T05:06:37Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Work on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) advanced: a review-followup pass completed addressing all three of kriskowal's inline asks, but TS classification was left override-only rather than wired into the production default language maps in `node-modules.js` — no TS parser ships by default and adding one risked the 12-known-failures invariant. The liaison has parked a message asking whether default TS classification was intended; two further #96 jobs (the 2026-06-25T17:55Z CHANGES_REQUESTED and the remaining TS-and-design-doc asks) are still in progress. Separately, the scholar landed several library-index and concept-README cycles and the `finbot-substrate-adapters` work, while two reliability jobs in flight teach `journal_fetch`/`sync_clone` and `self-heal-run.sh` to treat transient offline conditions as tempfail/clean-exit rather than errors. Maintainer should also note the watchdog anomaly: `comment-watcher/kriskowal-garden` reported zero comments for 20 consecutive ticks despite real activity since 2026-06-25T20:56Z — the 2026-06-24 outage signature, worth a jq/gh check on endolinbot.
+The endo-but-for-bots [#96](https://github.com/endojs/endo-but-for-bots/pull/96) review follow-up landed: the fix addressed all three of kriskowal's inline asks, but TS (`ts`/`mts`/`cts`) classification is wired through the override mechanism only — not the production default language maps — to protect the 12-known-failures invariant. A liaison message is parked asking kriskowal to confirm whether default (rather than override-only) TS classification was intended; that would be a follow-up before the PR is final. On the infrastructure side, a cluster of gardener-reliability jobs is in flight to treat offline/transient-connectivity conditions as tempfail-and-requeue rather than hard failures across `journal_fetch`/`sync_clone`, the gardener failure-capture path, and self-heal. One anomaly needs eyes: the `comment-watcher/kriskowal-garden` watcher has reported zero comments for 20 consecutive ticks despite real activity in kriskowal/garden since 2026-06-25 — the same signature as the 2026-06-24 comms outage, so jq/gh on endolinbot and the comment-source handler are worth checking.
 
 ## Parked for maintainer feedback
 
@@ -41,23 +41,24 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (6)
+- `cognito-mcp-metadata-bridge` — Build the Cognito↔MCP OAuth metadata/DCR/audience bridge for minion.town
 - `finish-ebfb-pr96-review-followup-20260625` — endo-but-for-bots #96 — address kriskowal's 2026-06-25T17:55Z CHANGES_REQUEST...
-- `finish-ebfb-pr96-ts-and-design-doc` — endo-but-for-bots #96 — address the two remaining 17:55Z review asks
 - `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
+- `improve-gardener-classify-empty-output-nonzero-as-transient-requeue` — Both failed jobs (improve-classify-offline-as-tempfail-in-journal-fetch, impr...
+- `improve-gardener-fold-report-and-rc-into-failure-capture` — In scripts/jobs/gardener.sh, the handler-failure branch (lines 75-103) escala...
 - `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
 
-### tada (291)
+### tada (292)
+- `finish-ebfb-pr96-ts-and-design-doc` — Completion report — finish-ebfb-pr96-ts-and-design-doc
 - `pr-ebfb-96-review-followup` — Completion report — pr-ebfb-96-review-followup
 - `scholar-library-index-sources-readme-20260627` — Worktree removed (the cwd error is just because my shell was inside it). Done.
 - `scholar-library-index-concepts-readme-20260627` — Completion report
 - `finbot-substrate-adapters` — Work complete and pushed. Here is my completion report.
-- `scholar-library-cycle-20260627-043618` — Completion report — scholar-library-cycle-20260627-043618
-- … and 286 more
+- … and 287 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
-- `cognito-mcp-metadata-bridge` — _normal_ · Build the Cognito↔MCP OAuth metadata/DCR/audience bridge for minion.town
 - `endo-but-for-bots-harden-exported-literals-followup` — _normal_ · follow-up PR: harden exported function literals (evasive-transform first)
 - `synth-and-deploy-minion-town-aws` — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
