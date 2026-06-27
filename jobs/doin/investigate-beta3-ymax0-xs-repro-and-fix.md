@@ -84,3 +84,9 @@ The exact overflowing recursive function (from the XS trace), the attribution
 an upstream-Endo bug report + minimal repro) with the XS upgrade repro confirmed green.
 If the toolchain truly cannot build here, the deliverable is the specific failing
 build command + error so the maintainer can decide on a provisioned fork-CI host.
+
+---
+claim:
+  host: endolinbot
+  gardener: 62
+  claimed_at: 2026-06-27T16:28:20Z
