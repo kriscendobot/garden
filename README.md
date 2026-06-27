@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T18:08:39Z_
+_As of 2026-06-27T18:09:48Z_
 
 ## Latest
 
-The comment classifier that misrouted kriskowal's feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) as a "rebase" has been fixed (`garden-fix-comment-classifier-misroutes-directive-to-rebase` landed), and the misclassification was caught: #405 is already mergeable, and the real directive is a cross-package taxonomy reshape (Directories/Agents/Personas/Values/Capabilities buckets plus full empty-group hiding) that needs a liaison-driven fixer/builder dispatch through the gamut — the v2 fleet has no autonomous path for implementing a maintainer feature directive.
-
-Several items are now parked on maintainer decisions: the [#474](https://github.com/endojs/endo-but-for-bots/pull/474)-derived "harden exported function literals" follow-up needs a breadth (narrow two-export vs repo-wide) and base-branch (`llm` vs `master`) call before any cross-repo PR opens; the formula-inspector retention-paths table is blocked on [#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with 4 failing checks awaiting the rebase/re-gamut you already requested; and the deliberate-deploy / no-shared-tree rework needs branch-naming sign-off before it wires into `deploy-garden.sh`. The [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reusing @endo/daemon's powers would invert the extraction and create a workspace cycle).
-
-On the quiet-progress side: endo-but-for-bots `master` lint is clean (only 5 non-failing jsdoc warnings, parked as a low plan), and the scholar landed two ingests — MetaMask/ocap-kernel's kernel-guide and a six-section distributed-ocap concept cluster — with the erights E-language mirror re-ingest now in flight off the newly reachable GitHub Pages source.
+The comment-classifier bug that misrouted a maintainer feature directive as a "rebase" is [fixed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-comment-classifier-misroutes-directive-to-rebase.md), and the directive it mangled now has a real home: kriskowal's comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) asks for a reshaped inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) plus full empty-group hiding across space-chat, chat, cli, and daemon — a cross-package feature change that needs a liaison-driven builder/fixer dispatch, since the v2 fleet has no autonomous path for implementing maintainer feature asks. Two scope decisions are waiting on the maintainer: the breadth and base branch for the "harden exported function literals" follow-up to the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), and the branch-naming for the deliberate no-shared-tree deploy model. Scholar work landed an ocap-kernel guide ingest and a distributed-ocap concept cluster; a revisit of [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442)'s reusable-test-powers plan concluded no change (the only API match would invert the extraction), and endo master lint came back clean apart from five non-blocking jsdoc warnings now parked as a low-priority plan.
 
 ## Parked for maintainer feedback
 
@@ -192,8 +188,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
+- [`improve-library-link-check-stale-worktree-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-library-link-check-stale-worktree-guard.md) — Harden /home/kris/scripts/jobs/library-link-check.sh so it cannot emit a phan...
 - [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
 - [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-mirror.md) — Re-ingest erights.org E-language page from the now-reachable GitHub Pages mirror
 
