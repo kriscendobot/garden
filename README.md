@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T09:53:00Z_
+_As of 2026-06-27T10:00:28Z_
 
 ## Latest
 
-The headline for the maintainer: **main2 on endolinbot is wedged and the host's deploy is frozen.** A run of watchman alerts through the morning reports the live tree stuck behind a steadily-advancing `origin/main2` (now ~many commits back), blocked first by uncommitted edits to `scripts/jobs/self-heal-run.sh`, `gardener.sh`, and `claim-job.sh`, then by `skills/gardener-inbox-error-reporting/report-error.sh` — which a gardener confirmed is **byte-identical to the committed version**, so `git checkout --` on it is lossless and unwedges the deploy. The latest 09:46Z alert shows a new flavor: an untracked file now collides with an incoming tracked path. Knock-on effects: self-heal reports `garden-gardener` crash-looped on a transient `claim failed (rc=128)` whose fix is *already on `origin/main2`* but unreachable until the tree advances, and a new **deploy-sync reconciler** landed (`5d6490e62`) to auto-fast-forward and restart services on `scripts/` changes — but it stays inert until a units refresh arms it, and is itself blocked by the same wedge.
+The big thing this host needs: **main2 on endolinbot is deploy-wedged** and has been all morning. Uncommitted edits to `scripts/jobs/gardener.sh`, `self-heal-run.sh`, `claim-job.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh` block every fast-forward, so the live tree fell ~6+ commits behind origin/main2 and the watchman/deploy-sync both keep skipping the advance. A gardener verified the `report-error.sh` edit is byte-identical to the committed version (a redundant duplicate of an already-landed fix), so `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless — the same is worth checking for the other three before cleaning. The newest watchman tick reports the wedge has shifted to an *untracked file colliding with an incoming tracked path*, so the cleanup now also needs that collision resolved. Notably, the very fixes that would stop the gardener crash-loop (transient claim-failure handling) and auto-restart services on script changes — the new **deploy-sync reconciler** (landed 5d6490e62) — are among the commits this host can't pick up until the tree is clean.
 
-Also recurring: the **comment-watcher/kriskowal-garden blindness** — 0 comments for 180+ consecutive ticks against a demonstrably active repo, the same signature as the 2026-06-24 jq/gh outage; worth confirming the comment-source handler on endolinbot isn't silently dark again.
-
-On the PR front, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node-parity test pair after a stand-down; full suite green. The formula-inspector retention-paths table is **blocked on an open, stalled upstream host-API PR** (rebase-and-re-gamut never happened, 4 failing checks) and was correctly reported rather than reimplemented. Scholar landed two library expansions — the ocap-kernel kernel-guide ingest and a distributed-ocap concept cluster (`dc5d328e`) — each honestly flagging an unreachable source (erights.org down for the grant-matcher puzzle). Finally, the `cognito-mcp-metadata-bridge` gardener is awaiting your call on two design questions (Cognito-vs-native IdP, and RFC 7591 DCR) but will proceed on its recommendations — full bridge, `/register` behind a default-on toggle — unless redirected.
+Separately, the **comment-watcher for kriskowal/garden has now logged 0 comments for 180 consecutive ticks despite the repo being active** since 2026-06-25 — the same signature as the 2026-06-24 jq/gh outage; worth a `command -v jq`/`gh` check on the comment-source handler. On the work side, a gardener landed a corrective non-force follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixing 13 dangling doc references and adding a real Node parity test after a stand-down it judged corrective rather than duplicate — flagged for your visibility), the [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) retention-paths inspector table is **blocked** because #284 is still open and stalled since 2026-05-21 with 4 failing checks (the rebase/re-gamut you requested never happened), and the `cognito-mcp-metadata-bridge` gardener is proceeding on its two OAuth design recommendations (keep Cognito + bridge; ship RFC 7591 DCR behind a default-on toggle) unless you redirect. The board is otherwise quiet — only a scholar library cycle completed, alongside scholar ingests of MetaMask/ocap-kernel's kernel-guide and a distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -395,17 +393,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`improve-deterministic-section-link-integrity-scan`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deterministic-section-link-integrity-scan.md) — The library section-link-integrity scan is performed inside the scholar LLM a...
-- [`scholar-library-cycle-20260627-095222`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-095222.md) — Hourly scholar library cycle
 
-### tada (332)
+### tada (333)
+- [`scholar-library-cycle-20260627-095222`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-095222.md) — scholar-library-cycle-20260627-095222 — complete
 - [`improve-post-ingest-parent-index-resolution-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-post-ingest-parent-index-resolution-gate.md) — Completion report: improve-post-ingest-parent-index-resolution-gate
 - [`improve-endo-bare-clone-freshness-keeper`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-endo-bare-clone-freshness-keeper.md) — Completion report:
 - [`investigate-resumable-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-resumable-gardeners.md) — Completion report
 - [`improve-follow-up-classify-inner-claude-failure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-follow-up-classify-inner-claude-failure.md) — Completion report
-- [`improve-follow-up-bound-retry-quarantine-wedged-digest`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-follow-up-bound-retry-quarantine-wedged-digest.md) — Completion report
-- … and 327 more
+- … and 328 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
