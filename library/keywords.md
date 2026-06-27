@@ -13247,3 +13247,11 @@ ocap-kernel Playwright test:e2e test:e2e:ci | ocap-kernel
 ocap-kernel TypeDoc build:docs | ocap-kernel
 `createCommsQueryString` `getCommsParamsFromCurrentLocation` | ocap-kernel
 `vatPowers.stdout()` vat debugging | ocap-kernel
+endoclaw | endoclaw
+EndoClaw | endoclaw
+the endoclaw cluster | endoclaw
+endoclaw capability cluster | endoclaw
+OpenClaw parity | endoclaw
+OpenClaw (ClawdBot / Moltbot) | endoclaw
+a claw (endoclaw domain vocabulary) | endoclaw
+capability vs UI feature classification (endoclaw) | endoclaw

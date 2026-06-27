@@ -12,4 +12,4 @@ lane: designs
 parent: endo-but-for-bots--llm-designs-endoclaw-proactive-messages--a-design-pattern-not-a-new-capability-and-composes-three-existing-primitives-and-code-example-as-the-design
 ---
 
-A §74-line **Not Started** design (Created 2026-03-03; Updated 2026-03-03). Parent: [endoclaw](endoclaw.md). Distinctive among endoclaw cluster members: §a-design-pattern-not-a-new-capability — explicitly classified as neither UI nor a new capability, but a composition of existing primitives.
+A §74-line **Not Started** design (Created 2026-03-03; Updated 2026-03-03). Parent: [endoclaw](../concepts/endoclaw.md). Distinctive among endoclaw cluster members: §a-design-pattern-not-a-new-capability — explicitly classified as neither UI nor a new capability, but a composition of existing primitives.

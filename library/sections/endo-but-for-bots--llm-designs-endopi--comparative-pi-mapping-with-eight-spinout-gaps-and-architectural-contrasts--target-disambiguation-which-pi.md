@@ -20,7 +20,7 @@ The §Target disambiguation block rejects four alternatives:
 
 The chosen reference is `badlogic/pi-mono`: 4100+ commits, ~49.5k
 stars, MIT, shipping at v0.74.x as of 2026-05-15. The maintainer's
-prior reference [`endoclaw`](endoclaw.md) already cites *Pi-compatible
+prior reference [`endoclaw`](../concepts/endoclaw.md) already cites *Pi-compatible
 jsonl files* as the desired session-persistence shape (see
 endoclaw §Persistence and Memory), consistent with pi-mono being the
 intended target.

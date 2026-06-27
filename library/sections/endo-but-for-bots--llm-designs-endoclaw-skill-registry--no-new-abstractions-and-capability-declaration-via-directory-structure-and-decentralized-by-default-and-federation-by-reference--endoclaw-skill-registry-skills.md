@@ -14,4 +14,4 @@ lane: designs
 parent: endo-but-for-bots--llm-designs-endoclaw-skill-registry--no-new-abstractions-and-capability-declaration-via-directory-structure-and-decentralized-by-default-and-federation-by-reference
 ---
 
-A 252-line **Not Started** design (created and updated 2026-03-03). §Parent-design: [endoclaw](endoclaw.md). The most structurally interesting move: §the-design-introduces-no-new-abstractions — a skill registry is *just an EndoDirectory*. The §named-Endo-Idiom-section enumerates the five disciplines that fall out of that choice.
+A 252-line **Not Started** design (created and updated 2026-03-03). §Parent-design: [endoclaw](../concepts/endoclaw.md). The most structurally interesting move: §the-design-introduces-no-new-abstractions — a skill registry is *just an EndoDirectory*. The §named-Endo-Idiom-section enumerates the five disciplines that fall out of that choice.

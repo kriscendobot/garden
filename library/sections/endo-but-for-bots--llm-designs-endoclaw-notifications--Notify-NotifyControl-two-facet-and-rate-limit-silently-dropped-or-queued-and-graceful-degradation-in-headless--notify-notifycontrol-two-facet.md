@@ -12,4 +12,4 @@ lane: designs
 parent: endo-but-for-bots--llm-designs-endoclaw-notifications--Notify-NotifyControl-two-facet-and-rate-limit-silently-dropped-or-queued-and-graceful-degradation-in-headless
 ---
 
-A §55-line **Not Started** design (Created 2026-03-03; Updated 2026-03-03). Parent: [endoclaw](endoclaw.md). The §smallest endoclaw cluster member ingested so far (cycle 246's webhooks was 79 lines; this is 55).
+A §55-line **Not Started** design (Created 2026-03-03; Updated 2026-03-03). Parent: [endoclaw](../concepts/endoclaw.md). The §smallest endoclaw cluster member ingested so far (cycle 246's webhooks was 79 lines; this is 55).

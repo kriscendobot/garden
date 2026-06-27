@@ -12,4 +12,4 @@ lane: designs
 parent: endo-but-for-bots--llm-designs-endoclaw-webhooks--webhook-as-formula-and-inbox-delivery-and-capability-controlled-creation-and-HMAC-verification-and-Endo-Idiom-section
 ---
 
-A §79-line **Not Started** design (Created 2026-03-03; Updated 2026-03-03). Parent: [endoclaw](endoclaw.md). Among the §shortest-design-doc-ingests-in-library so far.
+A §79-line **Not Started** design (Created 2026-03-03; Updated 2026-03-03). Parent: [endoclaw](../concepts/endoclaw.md). Among the §shortest-design-doc-ingests-in-library so far.

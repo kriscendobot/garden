@@ -12,4 +12,4 @@ lane: designs
 parent: endo-but-for-bots--llm-designs-endoclaw-timer--two-author-fields-and-heartbeat-vs-cron-split-and-start-to-start-timing-and-TickResponse-one-shot-exo-with-three-fates-and-missed-ticks-coalesced-not-replayed
 ---
 
-A 837-line **In Progress** design (Created 2026-03-03; Updated 2026-03-18). Parent: [endoclaw](endoclaw.md). The prototype lives in `packages/genie/src/interval/` with 25 passing tests; Phase 1 only.
+A 837-line **In Progress** design (Created 2026-03-03; Updated 2026-03-18). Parent: [endoclaw](../concepts/endoclaw.md). The prototype lives in `packages/genie/src/interval/` with 25 passing tests; Phase 1 only.

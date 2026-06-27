@@ -12,4 +12,4 @@ lane: designs
 parent: endo-but-for-bots--llm-designs-endoclaw-voice--voice-input-is-UI-concern-not-capability-and-three-Options-with-Pros-Cons-no-preferred-and-the-agent-cannot-distinguish-voice-from-typed
 ---
 
-A §69-line **Not Started** design (Created 2026-03-03; Updated 2026-03-03). Parent: [endoclaw](endoclaw.md). Adds voice input to the Chat UI via three substrate options.
+A §69-line **Not Started** design (Created 2026-03-03; Updated 2026-03-03). Parent: [endoclaw](../concepts/endoclaw.md). Adds voice input to the Chat UI via three substrate options.

@@ -15,7 +15,7 @@ parent: endo-but-for-bots--llm-designs-endoclaw-skill-registry--no-new-abstracti
 ---
 
 ```
-| **Parent** | [endoclaw](endoclaw.md) |
+| **Parent** | [endoclaw](../concepts/endoclaw.md) |
 ```
 
 §Parent-pointer-as-explicit-frontmatter-field. §Sibling to:
