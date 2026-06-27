@@ -41,13 +41,65 @@ $(cat "$jobfile")
 EOF
 )"
 
+# --- session continuity across a reaper requeue ------------------------------
+#
+# A gardener that dies mid-job (crash, OOM, host reboot) leaves its claim in
+# `doin/`; the reaper requeues the SAME base back to `todo/` after the claim
+# TTL, and a fresh gardener re-claims it. Without continuity that fresh gardener
+# runs `claude -p` from a blank slate — every step the dead session reasoned
+# through and every uncommitted edit is lost, and the job restarts from zero.
+#
+# Instead we pin a DETERMINISTIC Claude session id derived from the job base, so
+# the resumed run carries the prior session's transcript — what Claude
+# "remembers" of the interrupted attempt — forward to completion:
+#   * fresh claim  -> `--session-id <sid>` starts the session under that id;
+#   * requeued job -> the base is identical, so the derived id is identical, and
+#                     if that session's transcript is present on this host we
+#                     `--resume <sid>` and nudge it to finish.
+# Determinism is what lets the reaper stay a dumb requeue: no session id has to
+# be plumbed through the board because the base alone reproduces it.
+#
+# Resume is best-effort and same-host: a transcript lives under
+# ~/.claude/projects/<encoded-cwd>/<sid>.jsonl on the host that wrote it. If the
+# requeue is claimed on another host (or the transcript was pruned) we fall back
+# to a fresh session pinned to the same id, so the NEXT death stays resumable.
+session_id="$(python3 -c 'import sys,uuid; print(uuid.uuid5(uuid.NAMESPACE_URL, "garden-job:"+sys.argv[1]))' "$base" 2>/dev/null || true)"
+
+session_args=()
+if [ -n "$session_id" ]; then
+  # Claude Code names each project's session dir by the launch cwd with every
+  # '/' rewritten to '-' (e.g. /home/kris -> -home-kris). Gardeners launch from
+  # a stable cwd, so this reproduces the dir the prior attempt wrote into.
+  proj_dir="$HOME/.claude/projects/$(printf '%s' "$PWD" | sed 's#/#-#g')"
+  if [ -f "$proj_dir/$session_id.jsonl" ]; then
+    session_args=(--resume "$session_id")
+    log "resuming session $session_id for requeued job '$base'"
+    prompt="$(cat <<EOF
+You are RESUMING garden job '$base' after a reaper requeue: your earlier session
+was interrupted before it finished and has been carried forward to you intact.
+Review what you had already done — including any uncommitted work still in your
+worktree — and CONTINUE from where you left off, driving the job to completion.
+Re-read the job spec below in case anything changed, then finish and write ONLY
+the concise completion report (what you did, what changed, any follow-ups) to
+stdout.
+
+----- JOB $base -----
+$(cat "$jobfile")
+----- END JOB -----
+EOF
+)"
+  else
+    session_args=(--session-id "$session_id")
+  fi
+fi
+
 # --dangerously-skip-permissions: this is an autonomous, headless gardener with
 # no human approver, so the default permission gate would deny every Bash/tool
 # call (gh, git push, even `command -v gh`) and the gardener could do no real
 # work. Bypass is the intended posture for the sandboxed fleet; the operator
 # pre-consents via `skipDangerousModePermissionPrompt: true` in ~/.claude.
 if command -v claude >/dev/null 2>&1; then
-  claude -p --dangerously-skip-permissions "$prompt" > "$report"
+  claude -p --dangerously-skip-permissions "${session_args[@]}" "$prompt" > "$report"
 else
   die "claude not on PATH; cannot run default gardener handler for '$base'"
 fi
