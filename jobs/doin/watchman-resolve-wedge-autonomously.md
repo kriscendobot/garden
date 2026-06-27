@@ -58,3 +58,9 @@ emailing the maintainer:
 The root cause feeding these wedges is gardeners editing the SHARED tree instead of
 an isolated worktree; this job makes the symptom self-healing. A separate norm push
 (isolated-worktree discipline for infra jobs) is the upstream fix.
+
+---
+claim:
+  host: endolinbot
+  gardener: 48
+  claimed_at: 2026-06-27T15:27:38Z
