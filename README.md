@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T21:24:55Z_
+_As of 2026-06-27T21:34:47Z_
 
 ## Latest
 
-The deliberate-deploy migration landed: [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-deliberate-deploy-no-shared-tree-development.md) completed, so the root checkout is now advanced only by the drained `deploy-garden.sh` rather than continuous fast-forward — its follow-on (deploy always reconciles units, retired-unit pruning) is already done too. The board is otherwise drained to a single in-flight scholar ingest, but several maintainer decisions are stacking up in the inbox. A real maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified by the comment-watcher as a "rebase" and needs a liaison-driven fixer/builder dispatch; a classifier-bug fix is being posted separately. The "harden exported function literals" follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked awaiting a breadth + base-branch decision (narrow two exports vs. repo-wide via the `@endo/harden-exports` rule). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with four failing checks awaiting the requested rebase-and-gamut. The ymax0/XS investigation concluded the nested-record overflow is an XS native-stack-depth property (not an Endo regression), leaving the v320 swing-store export and any contract-side fix as out-of-bounds maintainer calls. On the library side, scholars ingested MetaMask/ocap-kernel's kernel guide and a distributed-ocap concept cluster, and endo master lint came back clean (only five non-blocking jsdoc warnings).
+The board barely moved on jobs this cycle — the scholar finished [ingesting three erights.org E-language tutorial chapters](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-primaries.md) via the GitHub Pages mirror and immediately claimed the follow-on for the remaining E-language primaries; that's the only in-flight job. The substance this cycle is a stack of maintainer decisions surfacing in the inbox. Most urgent for action: a real feature directive from kriskowal landed on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy to Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) that was misclassified as a no-op "rebase" — it needs a liaison-driven fixer dispatch through the gamut, and the classifier bug behind the misroute is already posted as an infra fix. Two scope questions are owed your call: the breadth + base branch for the "harden exported function literals" follow-up to merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), and whether to file the XS nested-record stack-depth finding upstream (the investigation concluded it's an XS native-stack property, not an Endo regression, so the fix is contract-side depth-bounding plus sourcing a v320 swing-store export — both in agoric-sdk territory that's off-limits to the garden). The formula-inspector retention-paths table is BLOCKED on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing checks awaiting the rebase + gamut you requested. On the library side, the scholar landed a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher) and ingested MetaMask/ocap-kernel's host-app guide; endo-but-for-bots master lint came back clean (only 5 non-blocking jsdoc warnings, parked as a low-priority fix).
 
 ## Parked for maintainer feedback
 
@@ -179,15 +179,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`scholar-ingest-source-erights-elang-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-primaries.md) — scholar-ingest-source: deeper erights.org E-language primaries via the mirror
+- [`scholar-ingest-source-erights-elang-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-remainder.md) — scholar-ingest-source: remaining erights.org E-language primaries via the mirror
 
-### tada (411)
+### tada (412)
+- [`scholar-ingest-source-erights-elang-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-primaries.md) — Ingested 3 erights.org E-language tutorial body chapters via the GitHub Pages
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-deliberate-deploy-no-shared-tree-development.md) — The follow-on job has already been claimed and completed (it's in tada/). Eve...
 - [`scholar-library-cycle-20260627-210543`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-210543.md) — Completion report
 - [`improve-deploy-always-reconciles-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-always-reconciles-units.md) — Completion report — improve-deploy-always-reconciles-units
 - [`improve-self-reconciling-retired-unit-prune`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-self-reconciling-retired-unit-prune.md) — Completion report — improve-self-reconciling-retired-unit-prune
-- [`issue-kriskowal-garden-8-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-8-followup.md) — Comment posted. Job complete.
-- … and 406 more
+- … and 407 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
