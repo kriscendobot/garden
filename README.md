@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T04:38:46Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T04:43:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The bulletin loop spun up its midnight-Pacific batch — a [daily progress summary](https://github.com/endojs/endo-but-for-bots), a [dependabotany recheck](https://github.com/endojs/endo-but-for-bots) on endo-but-for-bots, a librarian audit, and an hourly scholar cycle all claimed within the same minute. The substantive thread is [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): three overlapping jobs are now in flight to clear kriskowal's 2026-06-25T17:55Z CHANGES_REQUESTED — the TypeScript and design-doc asks plus the broader review follow-up. Two fresh attention directives landed on [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543). On the infra side, two self-improvement jobs were claimed to make the garden treat offline/transient connectivity as a clean tempfail rather than an error — one in `scripts/jobs/common.sh`'s journal fetch path, one in self-heal — following the recent connectivity-outage lessons. A run of dead-lettered messages from 06-25/06-26 cleared into done.
+The board is nearly drained — the todo queue is empty and the only active work is maintenance: two completions landed an attention directive on [endo-but-for-bots#543](https://github.com/endojs/endo-but-for-bots/pull/543), alongside a librarian library audit, a dependabot recheck, the reaper, and the daily progress summary. In flight now are a pair of resilience fixes — teaching `journal_fetch`/`sync_clone` to classify offline as a tempfail and `self-heal-run.sh` to treat transient connectivity loss as a clean exit — plus the hourly scholar library-index reconcile and continued review follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96)'s two open 17:55Z asks. Most worth a human's eye: the watchman reports this host (endolinbot) is **wedged** — origin/main2 has advanced twice but the live tree is frozen at `beede51e` because an uncommitted edit to `scripts/jobs/self-heal-run.sh` blocks the fast-forward, so this host will not pick up new roles, skills, or scripts until that tracked change is verified and the tree cleaned.
 
 ## Parked for maintainer feedback
 
@@ -28,36 +28,57 @@ The bulletin loop spun up its midnight-Pacific batch — a [daily progress summa
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260627T044054Z-af9db3` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T044054Z-af9db3.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 2ea90f4b1543a518da34da7fb2c282926f416a1b but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/self-heal-run.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T044252Z-ea6d82` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T044252Z-ea6d82.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to e0a0d7776b5413ff47904a5ed7704199e8897971 but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/self-heal-run.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (15)
-- `daily-progress-summary-20260627-043531` — Daily midnight Pacific progress summary
-- `deadmail-20260625T164749Z-5d8697` — Dead-lettered message — pick up its intent
-- `deadmail-20260625T170305Z-ce5467` — Dead-lettered message — pick up its intent
-- `dependabotany-recheck-endo-but-for-bots-20260627-043542` — Daily dependabotany recheck: endojs/endo-but-for-bots
-- `endojs-endo-but-for-bots-pr543-a5b9ce6a` — attention directive on endojs/endo-but-for-bots PR #543
-- `endojs-endo-but-for-bots-pr543-d40c7324` — attention directive on endojs/endo-but-for-bots PR #543
+### doin (9)
 - `finbot-substrate-adapters` — GOAL: executor signing adapters for real substrates (ymax Path A / Path C)
 - `finish-ebfb-pr96-review-followup-20260625` — endo-but-for-bots #96 — address kriskowal's 2026-06-25T17:55Z CHANGES_REQUEST...
 - `finish-ebfb-pr96-ts-and-design-doc` — endo-but-for-bots #96 — address the two remaining 17:55Z review asks
 - `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
 - `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
-- `librarian-library-audit-20260627-043554` — Librarian library audit
 - `pr-ebfb-96-review-followup` — endojs/endo-but-for-bots PR #96 — finish the two open CHANGES_REQUESTED revie...
-- `reaper-continue` — If I understand correctly, the garden’s reaper service attempts to recover wo...
 - `scholar-library-cycle-20260627-043618` — Hourly scholar library cycle
+- `scholar-library-index-concepts-readme-20260627` — Library index reconcile: concepts/README.md
+- `scholar-library-index-sources-readme-20260627` — Library index reconcile: sources/README.md
 
-### tada (278)
-- `deadmail-20260626T013640Z-c6dcd4` — The dead-lettered message's intent has already been fully enacted by the weav...
-- `deadmail-20260625T170300Z-1c0a4d` — Completion report — dead-letter pickup deadmail-20260625T170300Z-1c0a4d
-- `deadmail-20260626T012143Z-ea8f47` — Completion report — job deadmail-20260626T012143Z-ea8f47
-- `deadmail-20260625T171700Z-c188cf` — Completion report — job deadmail-20260625T171700Z-c188cf
-- `deadmail-20260625T210243Z-cade8f` — The landed state is fully intact and verified. Writing my completion report.
-- … and 273 more
+### tada (286)
+- `librarian-library-audit-20260627-043554` — Completion report — librarian library audit (librarian-library-audit-20260627...
+- `reaper-continue` — Completion report: reaper-continue
+- `endojs-endo-but-for-bots-pr543-d40c7324` — Completion report: attention directive on endojs/endo-but-for-bots #543
+- `endojs-endo-but-for-bots-pr543-a5b9ce6a` — Completion report
+- `dependabotany-recheck-endo-but-for-bots-20260627-043542` — Completion report
+- … and 281 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
