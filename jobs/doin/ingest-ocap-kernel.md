@@ -45,3 +45,9 @@ ocap-kernel ingested as library source (source pages + concept/section), cross-l
 garden's ocap material and the six-sections topics, with honest external-lineage flags, and a
 bulletin synthesis — or a solid first pass with deferred follow-on plans. Report what was curated
 and how it maps to the existing ocap concepts.
+
+---
+claim:
+  host: endolinbot
+  gardener: 82
+  claimed_at: 2026-06-27T07:34:33Z
