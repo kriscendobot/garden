@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T21:52:06Z_
+_As of 2026-06-27T21:56:36Z_
 
 ## Latest
 
-Several maintainer decisions surfaced today, each blocking a downstream job. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API), which has been stalled since your "rebase and run the gamut" request and now carries 4 failing CI checks — a gardener offers to take that rebase-and-gamut as its own job on your word, after which the table follow-on is ready to fire. The "harden exported function literals" follow-up from erights's review of merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you scoping two axes (narrow two-export fix vs. repo-wide rule-driven pass; base `llm` vs. `master`). A maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups — was misclassified by the comment-watcher as a "rebase" (a no-op, since #405 is already mergeable); it needs a liaison-driven builder/fixer dispatch through the gamut, and a classifier-bug fix job was posted separately. The ymax0/XS overflow investigation concluded the abort is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding in agoric-sdk territory (out of bounds); sourcing the v320 swing-store export is likewise yours to direct.
-
-On the library side, scholars landed the sixth ocap-kernel ingest (MetaMask's 689-line kernel guide plus an `[[ocap-kernel]]` concept) and a distributed-ocap concept cluster synthesizing six topics — flagging honestly that the grant-matcher-puzzle source couldn't be reached (erights.org down). Lint on endo-but-for-bots master is clean (only 5 non-blocking jsdoc warnings, parked as a low-priority fix), and the PR #442 reusable-test-powers revisit concluded no change (the duplication is intrinsic). Two scholar-tooling hardening jobs — better fetch-stub detection and a source-slug prefix-divergence check — were just claimed.
+The only board completion this cycle was [`improve-fetch-source-stub-detection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-stub-detection.md), committed and pushed to `origin/main2` (797907141); two scholar source-ingest jobs remain in flight. The substance is in the maintainer inbox, where several items need your call. A comment-watcher misrouted a real feature directive from kriskowal on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) as a "rebase" — it's actually a request to reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and hide empty groups across space-chat, chat, cli, and daemon; the v2 fleet has no autonomous path for this, so it needs a liaison-driven gamut dispatch (and a separate infra fix for the classifier bug was posted). The "harden exported function literals" follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two decisions only you can make — breadth (just the two evasive-transform exports vs. a repo-wide pass aligned with the `@endo/harden-exports` rule) and base branch (`llm` vs. `master`, which changes the diff shape since the exports are still function declarations on `llm`). The formula-inspector retention-paths table is blocked on #284, which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested and now carries 4 failing CI checks; the gardener offers to take that rebase as a job on your word. Lower-stakes: endo master lint is fully clean (only 5 non-blocking jsdoc warnings, plan parked), the #442 reusable-test-powers revisit concluded no change (reuse would invert the extraction), and the ymax0/XS investigation surfaced two decisions that sit in off-limits agoric-sdk territory and await your direction.
 
 ## Parked for maintainer feedback
 
@@ -180,18 +178,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-fetch-source-stub-detection`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fetch-source-stub-detection.md) — The 2026-06-27 scholar cycles hit the same trap twice: the erights GitHub Pag...
+### doin (2)
 - [`improve-source-slug-prefix-divergence-check`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-source-slug-prefix-divergence-check.md) — A scholar landed a new erights.org source under the divergent slug prefix eri...
 - [`scholar-ingest-source-erights-ode-capdesk-hpl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-ode-capdesk-hpl.md) — scholar-ingest-source: erights.org Ode subpages, CapDesk/Polaris, and the HPL...
 
-### tada (413)
+### tada (414)
+- [`improve-fetch-source-stub-detection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-stub-detection.md) — Done. The change is committed and pushed to origin/main2 (commit 797907141), ...
 - [`scholar-ingest-source-erights-elang-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-remainder.md) — Completion report: scholar-ingest-source-erights-elang-remainder
 - [`scholar-ingest-source-erights-elang-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-primaries.md) — Completion report
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-deliberate-deploy-no-shared-tree-development.md) — The follow-on job has already been claimed and completed (it's in tada/). Eve...
 - [`scholar-library-cycle-20260627-210543`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-210543.md) — Completion report
-- [`improve-deploy-always-reconciles-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-always-reconciles-units.md) — Completion report — improve-deploy-always-reconciles-units
-- … and 408 more
+- … and 409 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
