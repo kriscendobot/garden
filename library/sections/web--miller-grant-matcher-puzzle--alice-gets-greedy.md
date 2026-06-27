@@ -21,4 +21,4 @@ Notice that Alice cannot really be said to have done anything dishonest. The cau
 
 However, the Grant Matcher's situation is completely symmetrical, so it might still break the symmetry in Alice's favor, in which case Alice pockets the money. **Dana has lost his $10 even though no destination acceptable to Dana got $20.** By no stretch of semantics could one interpret Dana's actions so as to say that Alice's bank account was a valid interpretation of the destination Dana meant to designate.
 
-Source: [The Grant Matcher Puzzle](https://erights.org/elib/equality/grant-matcher/index.html) § Alice Gets Greedy, Mark S. Miller, erights.org; ingested from the Internet Archive original-bytes capture, content SHA-256 `d25136c9`.
+Source: [The Grant Matcher Puzzle](https://erights.org/elib/equality/grant-matcher/index.html) § Alice Gets Greedy, Mark S. Miller, erights.org; fetched 2026-06-27 via the erights.github.io GitHub Pages mirror, content SHA-256 `d25136c9` (byte-identical to the prior Internet-Archive capture).
