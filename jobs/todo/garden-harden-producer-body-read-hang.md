@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: scholar
-posted_at: 2026-06-27T12:01:58Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-27T12:17:58Z -->
 
 # Harden producer body-reading: a non-file body arg + non-tty stdin hangs on `cat` holding the producer lock
 
