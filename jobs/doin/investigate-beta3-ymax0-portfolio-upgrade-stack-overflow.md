@@ -79,3 +79,9 @@ Derive the exact forms on the fork; sketches:
 
 Provenance: re-parked from plan/ and adjusted to fork-scope + gist artifacts by liaison
 (maintainer-authorized 2026-06-27).
+
+---
+claim:
+  host: endolinbot
+  gardener: 43
+  claimed_at: 2026-06-27T15:52:54Z
