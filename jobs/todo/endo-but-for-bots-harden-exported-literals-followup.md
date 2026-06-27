@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: low
-posted_by: gardener
-posted_at: 2026-06-26T01:36:49Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-06-27T12:48:11Z -->
 
 # follow-up PR: harden exported function literals (evasive-transform first)
 
