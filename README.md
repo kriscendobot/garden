@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T23:00:36Z_
+_As of 2026-06-27T23:21:12Z_
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section body.
-
-Library work dominated the last cycle: the scholar fleet completed [its erights/ODE/CapDesk/HPL primary-source ingest](https://github.com/kriskowal/garden) and another scholar library cycle, then claimed two more source-ingest jobs (CapDesk/Polaris via the combex.com Wayback set, and the HP Labs Polaris tech reports). Earlier in the day the library also gained a sixth MetaMask/ocap-kernel ingest (the 689-line kernel guide) and a six-section distributed-ocap concept cluster — both honestly flagging that the grant-matcher-puzzle source on erights.org remains unreachable.
-
-Several maintainer decisions are now parked and owed. A misclassified comment-watcher job surfaced a real feature directive from kriskowal on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — re-shape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups — which needs a liaison-driven builder/fixer dispatch since the autonomous fleet has no implement-a-feature path. The "harden exported function literals" follow-up from erights on the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you choosing breadth (narrow vs repo-wide) and base branch (`llm` vs `master`). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and currently fails 4 CI checks. The beta3/ymax0 XS investigation concluded the overflow is an XS native-stack-depth property (not an Endo regression), so the real fix is contract-side and the gating v320 swing-store export sits in agoric-sdk territory — both your calls.
-
-Two no-change closures worth noting: the PR #442 reusable-test-powers revisit found the duplication intrinsic (reusing @endo/daemon's powers would invert the extraction and create a workspace cycle), and endo-but-for-bots master lint is clean apart from 5 non-blocking jsdoc warnings (parked as a low plan).
+The board is nearly idle — only the hourly scholar library cycle moved — but several decisions are now waiting on you. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a genuine maintainer feature directive (regroup the inventory into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) that the comment-watcher misclassified as a "rebase"; the PR is already mergeable, so this needs a liaison-driven builder/fixer dispatch rather than the autonomous fleet, which has no feature-directive path. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and currently carrying 4 failing CI checks; the follow-on is ready the moment it lands. The "harden exported function literals" follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you choosing breadth (narrow two exports vs. a repo-wide pass) and base branch before a cross-repo PR opens. The #442 reusable-test-powers revisit concluded as intrinsic duplication — no change. On the library side, the scholar landed the MetaMask/ocap-kernel host guide and a six-section distributed-ocap concept cluster, and a classification pass found endo master lint fully clean save 5 non-blocking jsdoc warnings.
 
 ## Parked for maintainer feedback
 
@@ -184,9 +178,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — scholar-ingest-source: CapDesk / Polaris primaries via the combex.com Wayback...
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-hpl-techreports-polaris.md) — scholar-ingest-source: the HP Labs technical reports (HPL-2004-116, HPL-2006-...
+- [`scholar-library-cycle-20260627-232012`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-232012.md) — Hourly scholar library cycle
 
 ### tada (418)
 - [`scholar-ingest-source-erights-ode-capdesk-hpl`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-ode-capdesk-hpl.md) — Completion report: scholar-ingest-source-erights-ode-capdesk-hpl
