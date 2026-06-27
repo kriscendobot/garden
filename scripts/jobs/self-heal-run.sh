@@ -137,9 +137,11 @@ fi
 # GARDEN_OFFLINE_RC (e.g. a raw `ssh … git fetch` outside journal_fetch, which
 # exits 128) would otherwise be diagnosed as a real failure. Grep the bounded
 # capture tail for the connectivity signatures and short-circuit to a clean exit,
-# so a DNS/GitHub blip never marks the unit failed or burns a responder.
+# so a DNS/GitHub blip never marks the unit failed or burns a responder. The
+# signature set is the canonical GARDEN_OFFLINE_SIGNATURES from common.sh, shared
+# with _fetch_stderr_is_offline so the two lists can never drift.
 if tail -c "$SELF_HEAL_CAPTURE_BYTES" "$capture" 2>/dev/null \
-     | grep -qE 'Could not resolve hostname|Temporary failure in name resolution|Could not read from remote repository'; then
+     | grep -qE "$GARDEN_OFFLINE_SIGNATURES"; then
   log "transient connectivity outage; skipping responder"
   exit 0
 fi

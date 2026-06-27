@@ -418,18 +418,19 @@ journal_fetch() {
   done
 }
 
+# Canonical transient-connectivity signature set. The single source of truth for
+# what stderr text counts as a self-resolving network/DNS outage (EX_TEMPFAIL) vs
+# a real repository error. Both _fetch_stderr_is_offline (below) and the
+# belt-and-suspenders fallback grep in self-heal-run.sh consume this regex, so the
+# two lists can never drift. Add new signatures HERE and both paths inherit them.
+: "${GARDEN_OFFLINE_SIGNATURES:=Could not resolve hostname|Temporary failure in name resolution|Could not read from remote repository|Connection timed out}"
+
 # Classify captured git-fetch stderr ($1) as a connectivity/DNS outage rather
 # than a real repository error. These are the transient, self-resolving failures
 # a tick should skip over (EX_TEMPFAIL) instead of dying on. Returns 0 if the
 # text matches a known outage signature, 1 otherwise.
 _fetch_stderr_is_offline() {
-  case "$1" in
-    *"Could not resolve hostname"*) return 0 ;;
-    *"Temporary failure in name resolution"*) return 0 ;;
-    *"Could not read from remote repository"*) return 0 ;;
-    *"Connection timed out"*) return 0 ;;
-  esac
-  return 1
+  printf '%s' "$1" | grep -qE "$GARDEN_OFFLINE_SIGNATURES"
 }
 
 # Hard-sync a clone to the authoritative tip. The board's true state. Acquires
