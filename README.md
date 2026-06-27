@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T16:50:15Z_
+_As of 2026-06-27T16:55:53Z_
 
 ## Latest
 
-Two infrastructure fixes landed on main2: the foreman now meters weekly token spend from Claude Code session logs rather than the API ([d52bb1ce2]), and a deploy-sync reconciler (5d6490e62) fast-forwards the live checkout and restarts long-running services when `scripts/` changes — but it stays inert until the next units refresh arms its timer, and the live `/home/kris` tree is currently dirty-wedged on a redundant byte-identical edit to `report-error.sh`, leaving both the watchman and deploy-sync 6 commits behind until a lossless `git checkout --` clears it. Also completed this cycle: the comment-watcher dropped its false-positive inactivity alarm, the fleet killswitch was renamed to a self-describing draining marker, and the beta3/ymax0 XS investigation closed by attributing the vat-abort overflow to XS native stack depth (a contract-side depth-bounding fix, not an Endo regression).
+Several garden-infrastructure fixes landed on main2: a [deploy-sync reconciler](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T072235Z-b12c9f.md) (5d6490e62) that fast-forwards the checkout and restarts long-running services when `scripts/` changes, plus the foreman now meters weekly token spend from Claude Code session logs, the comment-watcher dropped its human-inactivity alert in favor of a positive self-test, and the fleet killswitch was renamed to a plain draining marker. The `design-endo-absorb-pi-harness-layers` design also completed.
 
-A cluster of decisions is parked for you: the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up needs only breadth (narrow vs repo-wide) and base-branch (`llm` vs `master`) before a builder runs; the formula-inspector retention-paths table is blocked until the stalled `listRetentionPaths` host PR gets the rebase-and-gamut you already requested; and the ymax0 trace needs a v320 swing-store export the garden can't obtain autonomously. The board is otherwise quiet — two jobs in flight (the Endo/Pi harness-absorb design and a proxy watchdog-message auto-clear) and an empty todo queue. Scholars also ingested the MetaMask ocap-kernel guide and a distributed-ocap concept cluster into the library.
+Two operational notes for the maintainer. First, the live `/home/kris` tree is dirty-wedged — `skills/gardener-inbox-error-reporting/report-error.sh` carries a redundant uncommitted edit byte-identical to origin/main2, so both the watchman and the new deploy-sync are skipping the advance (now 6 behind); `git -C /home/kris checkout -- <that file>` is lossless and unwedges it.
+
+Second, three items are parked on your decision: the "harden exported function literals" follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs only a breadth (narrow vs repo-wide) and base-branch (`llm` vs `master`) call before a DRAFT PR opens; the formula-inspector retention-paths table is blocked until [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) gets the rebase-and-gamut you already requested (still open, 4 failing checks); and the beta3 ymax0 XS investigation concluded the overflow is an XS native-stack-depth property (not an Endo regression, so the fix is contract-side depth-bounding), with the real-data trace gated on a v320 swing-store export the garden can't autonomously obtain. On the library side, the scholar ingested MetaMask/ocap-kernel's kernel guide and synthesized a distributed-ocap concept cluster, and endo master lint came back clean (only 5 non-blocking jsdoc warnings).
 
 ## Parked for maintainer feedback
 
@@ -166,16 +168,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (2)
-- [`design-endo-absorb-pi-harness-layers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-absorb-pi-harness-layers.md) — Design: should Endo's agent harness absorb layers of the Pi agent harness? (c...
 - [`proxy-auto-clear-watchdog-messages`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proxy-auto-clear-watchdog-messages.md) — Proxy: auto-clear watchdog-class messages from the maintainer inbox (determin...
+- [`scholar-library-cycle-20260627-165512`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-165512.md) — Hourly scholar library cycle
 
-### tada (371)
+### tada (372)
+- [`design-endo-absorb-pi-harness-layers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-absorb-pi-harness-layers.md) — Completion report — design-endo-absorb-pi-harness-layers
 - [`foreman-meter-from-claude-code-session-logs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-meter-from-claude-code-session-logs.md) — Completion report: foreman-meter-from-claude-code-session-logs
 - [`investigate-beta3-ymax0-xs-repro-and-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-beta3-ymax0-xs-repro-and-fix.md) — Completion report — investigate-beta3-ymax0-xs-repro-and-fix
 - [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-inactivity-anomaly.md) — Completion report — comment-watcher-no-inactivity-anomaly
 - [`rename-killswitch-to-draining-marker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/rename-killswitch-to-draining-marker.md) — Completion report — rename-killswitch-to-draining-marker
-- [`land-journal-entry-hardening`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/land-journal-entry-hardening.md) — The job is already fully landed. No code changes were needed.
-- … and 366 more
+- … and 367 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
