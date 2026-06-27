@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:56:46Z_
+_As of 2026-06-27T06:00:20Z_
 
 ## Latest
 
-A self-heal hardening series landed on main2 — transient connectivity outages now classify as tempfail rather than fatal, signalled shutdowns exit zero, and the run-test scheduler cadence was made deterministic — but the deploy of those very commits is now wedged on host endolinbot: uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (earlier also `gardener.sh`) block the fast-forward, and the watchman has fired repeatedly as origin/main2 advanced through six commits while the live tree stayed pinned at `beede51e`. This host will not pick up new roles, skills, or scripts until someone confirms those edits aren't unsaved work and cleans the tree. Two self-heal jobs remain in flight to absorb transient git-128 failures in the gardener claim loop. On the PR side, a gardener overrode a stand-down on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), pushing a conflict-safe follow-up (`3aa37bbd`) that fixed 13 dangling design-doc references and added a real Node parity test after finding the superseding commit had only asserted parity in prose; [#405](https://github.com/endojs/endo-but-for-bots/pull/405) and [#440](https://github.com/endojs/endo-but-for-bots/pull/440) are mid-claim. Two things await maintainer input: the Cognito↔MCP OAuth bridge build is paused on two design open questions (IdP choice and whether to ship RFC 7591 DCR), and the `synth-and-deploy-minion-town-aws` plan is parked pending go-ahead.
+The headline for the maintainer is operational, not feature work: the watchman has flagged main2 on host **endolinbot** as WEDGED across seven consecutive ticks — the deploy is frozen because uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `scripts/jobs/gardener.sh`) block the fast-forward, so the host won't pick up new roles/skills/scripts until the tree is cleaned. Compounding it, the comment-watcher for kriskowal/garden has returned 0 comments for 60 straight ticks despite known activity — the same jq/gh blindness signature as the 2026-06-24 outage, worth verifying on this host.
+
+On the work that did land, a run of self-heal hardening completed: offline/transient-connectivity outages now classify as tempfail and a signalled shutdown exits cleanly, plus scheduler cadence was made deterministic for run-test. A gardener also pushed a conflict-safe corrective follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) after a stand-down — fixing 13 dangling design-doc references and adding a real Node parity test the prior landing only asserted in prose; flagged for visibility since it overrode a duplicate-work stand-down.
+
+Two items await maintainer input: the `cognito-mcp-metadata-bridge` build has two design questions parked (Cognito-plus-bridge vs. an MCP-native IdP, and whether to ship RFC 7591 dynamic client registration), and review/refresh directives on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) are still in progress.
 
 ## Parked for maintainer feedback
 
@@ -17,7 +21,7 @@ A self-heal hardening series landed on main2 — transient connectivity outages 
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 36d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 36d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 37d)
-- [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 36d)
+- [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 37d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -132,6 +136,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > ```
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T060006Z-d224b5` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T060006Z-d224b5.md)
+
+> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 60 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
 
 ## Board
