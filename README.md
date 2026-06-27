@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T18:56:33Z_
+_As of 2026-06-27T18:59:38Z_
 
 ## Latest
 
-Recent infra work landed: the proxy now parks blocked jobs as `gate=blocked` plans with a deterministic unblock trigger, the gardener-scaler gained a busy-gate on disable plus a no-op guard for unreadable counts, an endolinbot main2 wedge was auto-resolved, and the scholar shelf grew several ocap ingests (MetaMask/ocap-kernel kernel guide, six synthesized distributed-ocap concepts, and the erights equality-page mirrors). The board is otherwise idle — todo is empty and only routine jobs are in flight.
-
-What needs maintainer attention is a stack of parked decisions, not parked code. A maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder dispatch — the fleet has no autonomous path for it. The "harden exported function literals" follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you choosing breadth (narrow vs repo-wide) and base branch (`llm` vs `master`). The retention-paths table job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you requested. Two other revisits closed cleanly with no change: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers plan (intrinsic duplication; reuse would invert the extraction) and endo master lint (clean, only 5 non-blocking jsdoc warnings). The ymax0/XS investigation also surfaced two out-of-bounds calls for you — sourcing a v320 swing-store export and whether to file an upstream-Endo note — since the root cause is XS native stack depth, not an Endo regression.
+The proxy now parks blocked jobs as `gate=blocked` plans with a deterministic unblock trigger (landed on main2), alongside a cluster of gardener-scaler reliability fixes — busy-gate on disable, no-op on an unreadable count — and an autonomous wedge resolution on endolinbot. The real signal this cycle is the maintainer inbox: a genuine feature directive from kriskowal on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch through the gamut; a fix for the classifier bug that misrouted it is already posted. The harden-exported-literals follow-up that erights requested on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked on two of your calls: breadth (narrow two exports vs. a repo-wide pass aligned to the `@endo/harden-exports` rule) and base branch (`llm` vs. `master`). Two more items await you: the formula-inspector retention-paths table is blocked on the still-open, stalled retention-paths host API it must source from, and the ymax0/XS investigation concluded the nested-record overflow is an XS native-stack-depth property, not an Endo regression — so the fix is contract-side depth-bounding in agoric-sdk territory (out of bounds for autonomous action), and sourcing the v320 swing-store export is your call. On the quieter side, scholars ingested MetaMask's ocap-kernel guide plus a distributed-ocap concept cluster, and endo master lint came back clean (only 5 non-failing jsdoc warnings, with a low-priority cleanup plan parked).
 
 ## Parked for maintainer feedback
 
@@ -180,19 +178,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
 - [`improve-scaler-no-op-on-unreadable-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scaler-no-op-on-unreadable-count.md) — scripts/jobs/gardener-scaler.sh initializes want=0 and only overwrites it whe...
 - [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
-- [`scholar-library-cycle-20260627-185542`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-185542.md) — Hourly scholar library cycle
 
-### tada (390)
+### tada (391)
+- [`scholar-library-cycle-20260627-185542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-185542.md) — result: scholar — hourly library cycle (quick-drain, idle)
 - [`proxy-park-blocked-jobs-and-auto-unblock`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proxy-park-blocked-jobs-and-auto-unblock.md) — Completion report: proxy-park-blocked-jobs-and-auto-unblock
 - [`resolve-wedge-endolinbot-af274bcab32b-266490807632`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-af274bcab32b-266490807632.md) — Completion report — resolve-wedge-endolinbot-af274bcab32b-266490807632
 - [`improve-scaler-busy-gate-on-disable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scaler-busy-gate-on-disable.md) — Inbox empty. Work complete.
 - [`scholar-ingest-erights-equality-pages-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-equality-pages-mirror.md) — Completion report: scholar-ingest-erights-equality-pages-mirror
-- [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-mirror.md) — Inbox empty. All work landed and the gate passes. Job complete.
-- … and 385 more
+- … and 386 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
