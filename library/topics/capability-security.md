@@ -219,6 +219,8 @@
 | [web--miller-grant-matcher-history--overview](../sections/web--miller-grant-matcher-history--overview.md) | History of the Grant Matcher (Miller) | KeyKOS's EQ/DISCRIM underwrites security patterns like the Factory; the Actor/Joule no-EQ tradition; the security-vs-flexibility tension the puzzle crystallized. |
 | [web--miller-grant-matcher-history--sealer-unsealer-equivalence](../sections/web--miller-grant-matcher-history--sealer-unsealer-equivalence.md) | History of the Grant Matcher (Miller) | EQ and Sealer/Unsealer (rights-amplification) pairs are mutually constructible — two faces of the same security expressive power. |
 | [metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose](../sections/metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose.md) | MetaMask/ocap-kernel packages/ocap-kernel/README.md | The kernel-and-vat core package of a sibling object-capability implementation read for reference (reference-not-substrate); `@metamask/` public vs `@ocap/` private namespace split. |
+| [erights--elang-index--overview](../sections/erights--elang-index--overview.md) | The E Language documentation index (erights.org, Mark S. Miller) | The primary erights.org documentation index for E, the first-wave working object-capability language: grammar→Kernel-E, vat / eventual-send concurrency, Sameness, tooling, historical design goals. Mark Miller's own organization of E's docs, fetched via the erights.github.io mirror. |
+
 ## See also
 
 - [`hardened-javascript`](hardened-javascript.md): substrate that makes ocap discipline enforceable.
