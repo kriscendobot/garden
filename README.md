@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:07:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T05:09:36Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Work on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) landed: the review-followup addressed all three of kriskowal's inline asks and shipped the accompanying design doc, but the fix deliberately left `ts/mts/cts` out of the default language maps in `node-modules.js` (no TS parser ships by default, and adding them risked the 12-known-failures invariant) — TS classification works only through the override mechanism the test exercises. The liaison has asked the maintainer to confirm whether default TS classification was intended or override-only is acceptable before the PR is final. Two infrastructure alarms also warrant a look: the watchman reports main2 on **endolinbot is wedged** — uncommitted tracked edits to `scripts/jobs/gardener.sh` and `scripts/jobs/self-heal-run.sh` are blocking the fast-forward, so this host won't pick up new roles/skills/scripts until the tree is cleaned; and the comment-watcher for kriskowal/garden has gone 20 ticks finding zero comments despite live activity, matching the 2026-06-24 silent-outage signature. A cluster of reliability jobs is in flight to harden the gardener and self-heal loops against offline/transient-connectivity false failures.
+The big mover is [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): the review-followup and the TS-plus-design-doc jobs both completed, but the liaison is parking a decision for you — the fix addressed all three inline asks yet deliberately did **not** add `ts/mts/cts` to the production default language maps (no TS parser ships by default, and adding them risked the 12-known-failures invariant), so TS classification stays override-only; confirm whether you wanted default classification before the PR is finalized. On the autonomous front, two minion.town jobs picked up — a Cognito↔MCP OAuth bridge build (parked on two design Open Questions: stay-with-Cognito vs. an MCP-native IdP, and whether to ship RFC 7591 DCR, both with recommendations to proceed) and a companion AWS synth/deploy design — while the live deploy itself stays parked awaiting your go-ahead. Several gardener self-heal hardening jobs (classifying offline/transient connectivity as clean/requeue rather than failure) are mid-flight. Two operational alerts deserve attention: the watchman reports **main2 on endolinbot is wedged** — uncommitted changes to `scripts/jobs/self-heal-run.sh` block the fast-forward, so this host won't pick up new roles/skills/scripts until the tree is cleaned — and the comment-watcher flags the 2026-06-24 outage signature again (0 comments across 20 ticks while kriskowal/garden is demonstrably active), suggesting the watcher may be silently blind.
 
 ## Parked for maintainer feedback
 
@@ -51,30 +51,56 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
+- `20260627T050802Z-599fab` — from gardener:cognito-mcp-metadata-bridge, reply_to `cognito-mcp-metadata-bridge` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T050802Z-599fab.md)
+
+> Building job `cognito-mcp-metadata-bridge` (the Cognito↔MCP OAuth bridge for kriscendobot/minion.town). Two design Open Questions to confirm before I build (designs/mcp-oauth.md §9):
+>
+> **#1 — Cognito + bridge, or an MCP-native IdP (Stytch/WorkOS/Auth0/Keycloak)?**
+> Recommendation: stay with Cognito + the small API Gateway + Lambda bridge. It is what the design defaults to and what this job is scoped for; the bridge is ~2 small Lambdas we own and keeps the toy on one managed AWS service with no third-party dependency. Switching IdP later is a config-only change (OAUTH_ISSUER + JWKS), so this is reversible.
+>
+> **#2 — Do we need RFC 7591 Dynamic Client Registration?**
+> Recommendation: yes, build it, but it is the one piece truly gated on your answer. Real MCP clients (Claude, IDE integrations) still attempt DCR, and the metadata doc will advertise client_id_metadata_document_supported anyway. I will ship all three pieces — RFC 8414 metadata doc, RFC 7591 /register, RFC 8707 audience binding — with /register behind a stack toggle (default on) so you can disable DCR to "metadata + audience only" without code changes if clients turn out to be fixed/known.
+>
+> Plan unless you redirect: build the full bridge (metadata + /register + audience) as CDK constructs + Lambda source in infra/, cdk synth passing, local unit tests of the metadata/register handlers. Bot repo only, no live AWS. I'll proceed on these recommendations and adjust if you reply otherwise.
+
+- `20260627T050856Z-f7b77a` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T050856Z-f7b77a.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 9f5642360cd1b2fb6c07fdebc00b836ac460004f but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/self-heal-run.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - `cognito-mcp-metadata-bridge` — Build the Cognito↔MCP OAuth metadata/DCR/audience bridge for minion.town
+- `design-synth-and-deploy-minion-town-aws` — Design the minion.town AWS synth + live-deploy work (surface maintainer quest...
 - `finish-ebfb-pr96-review-followup-20260625` — endo-but-for-bots #96 — address kriskowal's 2026-06-25T17:55Z CHANGES_REQUEST...
+- `foreman-token-quota-backoff` — Foreman: deterministically check the weekly token quota and back off near the...
 - `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
 - `improve-gardener-classify-empty-output-nonzero-as-transient-requeue` — Both failed jobs (improve-classify-offline-as-tempfail-in-journal-fetch, impr...
-- `improve-gardener-fold-report-and-rc-into-failure-capture` — In scripts/jobs/gardener.sh, the handler-failure branch (lines 75-103) escala...
 - `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
 
-### tada (292)
+### tada (294)
+- `improve-gardener-fold-report-and-rc-into-failure-capture` — Message delivered. The work is complete.
+- `deadmail-20260627T050451Z-08fe7e` — Verified. Reporting.
 - `finish-ebfb-pr96-ts-and-design-doc` — Completion report — finish-ebfb-pr96-ts-and-design-doc
 - `pr-ebfb-96-review-followup` — Completion report — pr-ebfb-96-review-followup
 - `scholar-library-index-sources-readme-20260627` — Worktree removed (the cwd error is just because my shell was inside it). Done.
-- `scholar-library-index-concepts-readme-20260627` — Completion report
-- `finbot-substrate-adapters` — Work complete and pushed. Here is my completion report.
-- … and 287 more
+- … and 289 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
-- `endo-but-for-bots-harden-exported-literals-followup` — _normal_ · follow-up PR: harden exported function literals (evasive-transform first)
 - `synth-and-deploy-minion-town-aws` — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
@@ -85,6 +111,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `formula-inspector-retention-paths-table` — _normal_ · PLAN (follow-on): add a retention-paths table to the formula inspector
 - `classify-lint-endo-master` — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 - `endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers` — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
+- `endo-but-for-bots-parallel-sync-browser-design` — _low_ · Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo sho...
+- `endo-but-for-bots-harden-exported-literals-followup` — _low_ · follow-up PR: harden exported function literals (evasive-transform first)
 
 ## Watch set
 (none)
