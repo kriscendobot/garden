@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T08:10:08Z_
+_As of 2026-06-27T08:32:31Z_
 
 ## Latest
 
-The standout item for the maintainer: **endolinbot's `main2` deploy is wedged and has been all morning.** A redundant uncommitted edit (now `skills/gardener-inbox-error-reporting/report-error.sh`, byte-identical to what's already on `origin/main2`) blocks the fast-forward, so the live tree is stuck ~6 commits behind while landed fixes pile up unreachable; `git -C /home/kris checkout -- <file>` is lossless and unwedges it. Those landed-but-undeployed fixes are exactly the ones that matter: a deploy-sync reconciler (`5d6490e62`) that auto-advances the checkout and restarts services on `scripts/` changes (inert until the next units refresh arms it), and a sync-clone transient-fetch classification fix (`ba38a1372`) that stops gardeners crash-looping on transient git 128s.
-
-Separately, the comment-watcher for `kriskowal/garden` has now reported zero comments for 140 consecutive ticks despite the repo being active since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking.
-
-On the PR side, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling doc references and adding a real Node parity test after finding the superseding commit had left both gaps. The `formula-inspector-retention-paths-table` job is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the requested rebase-and-gamut and currently has 4 failing checks. Scholar landed its sixth MetaMask/ocap-kernel ingest (the kernel-guide) and is now mid-claim on a six-section ocap library backfill. Two items await maintainer go-ahead: the `cognito-mcp-metadata-bridge` build (two design open questions, gardener proceeding on its recommendations unless redirected) and `synth-and-deploy-minion-town-aws`.
+Infra dominated this cycle, and the headline is operational: the live main2 checkout on host endolinbot is **deploy-wedged**. A redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` blocks the fast-forward, leaving the host several commits behind origin/main2 and unable to pick up landed fixes until the tree is cleaned — a lossless `git checkout --` on that one file unwedges it. Behind the wedge, a real fix chain did land: the gardener claim crash-loop (a transient git-128 during sync_clone that the old loop treated as fatal) is fixed, a new deploy-sync reconciler (`5d6490e62`) now auto-restarts services when `scripts/` changes, and sync-clone transient-fetch classification landed (`ba38a1372`). Separately, the comment-watcher for kriskowal/garden has reported zero comments for 140+ ticks while the repo is demonstrably active — the same blind-watcher signature as the 2026-06-24 jq/gh outage, worth a look. On the library side the scholar ingested MetaMask/ocap-kernel's kernel-guide and landed a distributed-ocap concept cluster cross-linked to the ocap corpus. A corrective non-force follow-up (`3aa37bbd`) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) fixed 13 dangling design-doc references and added a real Node parity test. Two items await your word: the Cognito↔MCP bridge gardener wants sign-off on whether to ship RFC 7591 Dynamic Client Registration, and the formula-inspector retention-paths table is blocked on the stalled [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) rebase-and-gamut you requested on 2026-05-21.
 
 ## Parked for maintainer feedback
 
@@ -317,21 +313,37 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 140 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
+- `20260627T082148Z-6fd4ed` — from gardener:ingest-ocap-library-sections, reply_to `ingest-ocap-library-sections` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T082148Z-6fd4ed.md)
+
+> Scholar ingest — six ocap library sections (job ingest-ocap-library-sections, gardener 93):
+>
+> Synthesis: the six requested topics already had their authoritative SOURCES ingested in the library; the gap was the concept-layer synthesis tying them together. Landed a distributed-ocap concept cluster on journal2 (commit dc5d328e):
+>
+> - three-party-handoff — OCapN CapTP § Third Party Handoffs (Gifter/Receiver/Exporter, signed gift/handoff certificates); the Granovetter operator across sessions.
+> - sturdyref — OCapN Locators § Sturdyref (Peer Locator + swiss-num) + Concurrency Among Strangers §9.2; the durable/offline reference, Initial-Conditions made persistent.
+> - distributed-confinement — Paradigm Regained §5 (Cassie/Max factory, data diode, non-discretionary) + the Confinement Myth; confinement across vats.
+> - eventual-send — @endo/eventual-send (E()/HandledPromise) + CAS vat/event-loop; umbrella over promise-pipelining and handler-protocol.
+> - grant-matcher-puzzle ("grant matching") — Mark Miller's erights.org equality puzzle. This is the one with NO in-corpus source: erights.org/caplet.com were unreachable (ECONNREFUSED). Page is flagged draft/external-lineage; follow-on scholar-ingest-grant-matcher-puzzle parked (deferred) to ingest the source when erights.org is reachable.
+>
+> Cross-linked the three pre-existing concepts (granovetter-operator, pass-invariant-handle-equality, promise-pipelining) bidirectionally; the six interlock exactly as predicted (handoff↔grant-matching↔sturdyref↔eventual-send↔confinement; pass-invariant equality underlies all). Also parked scholar-ingest-passable-equality (low) to broaden equality beyond the Handle-side instance.
+>
+> Topic whose source I could not locate: grant matching (erights.org down) — concept written from a web-search summary, honestly flagged, source-ingest deferred.
+
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`ingest-ocap-library-sections`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ingest-ocap-library-sections.md) — PLAN: scholar — ingest sources for six missing ocap library sections
+- [`self-heal-fix-garden-follow-up-handler-swallows-producer-failure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-follow-up-handler-swallows-producer-failure.md) — In scripts/jobs/handlers/follow-up-claude.sh, the parse loop runs each emitte...
 
-### tada (322)
+### tada (323)
+- [`ingest-ocap-library-sections`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ingest-ocap-library-sections.md) — All work is landed and pushed; the supervisor will complete the job from my r...
 - [`scholar-library-cycle-20260627-075113`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-075113.md) — Completion report — scholar-library-cycle-20260627-075113
 - [`self-heal-fix-garden-follow-up-handler-swallows-claude-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-follow-up-handler-swallows-claude-error.md) — Completion report
 - [`ingest-ocap-kernel`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ingest-ocap-kernel.md) — Completion report — ingest-ocap-kernel (scholar)
 - [`improve-sync-clone-transient-fetch-classification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sync-clone-transient-fetch-classification.md) — Done. Committed ba38a1372 to origin/main2; full test suite green (171/0); wor...
-- [`formula-inspector-retention-paths-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/formula-inspector-retention-paths-table.md) — Completion report: formula-inspector-retention-paths-table
-- … and 317 more
+- … and 318 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -341,11 +353,13 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`investigate-systemd-run-vs-gardener-loops`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-systemd-run-vs-gardener-loops.md) — _normal_ · PLAN: investigate systemd-run vs. the fixed 100-gardener-loop pool → garden d...
 - [`investigate-resumable-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-resumable-gardeners.md) — _normal_ · PLAN: investigate making gardeners RESUMABLE (don't lose work when an agent s...
 - [`scholar-ingest-ocap-kernel-usage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-usage.md) — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel docs/usage.md
+- [`scholar-ingest-grant-matcher-puzzle`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-grant-matcher-puzzle.md) — _normal_ · scholar-ingest-grant-matcher-puzzle
 - [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/classify-lint-endo-master.md) — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 - [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
 - [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-parallel-sync-browser-design.md) — _low_ · Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo sho...
 - [`endo-but-for-bots-harden-exported-literals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-harden-exported-literals-followup.md) — _low_ · follow-up PR: harden exported function literals (evasive-transform first)
 - [`scholar-ingest-ocap-kernel-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-packages.md) — _low_ · PLAN: scholar — ingest MetaMask/ocap-kernel packages + code-comment fragments
+- [`scholar-ingest-passable-equality`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-passable-equality.md) — _low_ · scholar-ingest-passable-equality
 
 ## Watch set
 (none)
