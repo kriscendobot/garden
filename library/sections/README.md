@@ -6660,6 +6660,10 @@ Total section files: 5834 (506 parent indexes + 5328 children).
 - [endo-but-for-bots--pkg-pubsub-readme--overview-and-topic-variants](endo-but-for-bots--pkg-pubsub-readme--overview-and-topic-variants.md)
 - [endo-but-for-bots--pkg-pubsub-readme--sink-and-spring](endo-but-for-bots--pkg-pubsub-readme--sink-and-spring.md)
 
+### erights--elang-concurrency-introducer
+
+- [erights--elang-concurrency-introducer--remote-objects](erights--elang-concurrency-introducer--remote-objects.md)
+
 ### erights--elang-index
 
 - [erights--elang-index--overview](erights--elang-index--overview.md)
@@ -6667,6 +6671,14 @@ Total section files: 5834 (506 parent indexes + 5328 children).
 ### erights--elang-intro
 
 - [erights--elang-intro--tutorial-overview](erights--elang-intro--tutorial-overview.md)
+
+### erights--elang-intro-finding-text
+
+- [erights--elang-intro-finding-text--walkthrough](erights--elang-intro-finding-text--walkthrough.md)
+
+### erights--elang-intro-standalone
+
+- [erights--elang-intro-standalone--walkthrough](erights--elang-intro-standalone--walkthrough.md)
 
 ### frb--compile-binder
 
