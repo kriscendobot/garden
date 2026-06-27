@@ -440,7 +440,7 @@ The `web--` prefix mirrors the `papers--` and `<owner>--` slug disciplines and g
 - `web--aws-marketplace-ami-requirements`
 - `web--lets-encrypt-acme-challenges`
 
-A page that is part of a **named thematic cluster** rather than a one-off reference may take a thematic prefix instead of `web--` (e.g. `kriskowal-com--giants` for the `web-essay` kind, `ocap-history--e-capdesk-polaris` for the `web-survey` kind), the way papers group under `papers--`. Reserve the bare `web--` prefix for generic single-page reference ingests; use a thematic prefix only when a coherent multi-source cluster justifies its own namespace.
+A page that is part of a **named thematic cluster** rather than a one-off reference may take a thematic prefix instead of `web--` (e.g. `kriskowal-com--giants` for the `web-essay` kind, `ocap-history--e-capdesk-polaris` for the `web-survey` kind), the way papers group under `papers--`. Reserve the bare `web--` prefix for generic single-page reference ingests; use a thematic prefix only when a coherent multi-source cluster justifies its own namespace. This thematic-cluster-vs-bare-prefix rule is enforced deterministically by `scripts/jobs/library-slug-prefix-check.sh` (the source-slug prefix-divergence check): it maps each new source's upstream host to the slug prefixes its siblings already use and fails (or warns) when a proposed slug diverges, naming the canonical sibling prefix — pass `--allow-new-prefix` to register a genuinely-new thematic cluster on purpose.
 
 ### Source-file frontmatter (web schema)
 
