@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T22:09:10Z_
+_As of 2026-06-27T22:11:00Z_
 
 ## Latest
 
-Board activity was light — scholar and library ingests dominate the recent `tada` (the erights elang primaries/remainder sources, the source-slug-prefix divergence check, fetch-source stub detection), and the only fresh motion is a scholar claiming the source-slug follow-up. The substance this cycle is in the maintainer inbox, where several decisions have stacked up.
+Only one job closed since the last bulletin — [`fu-improve-source-slug-prefix-divergence-check-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-improve-source-slug-prefix-divergence-check-1.md), the follow-up to the scholar source-ingest hardening (slug-prefix divergence check + fetch-source stub detection) that landed alongside it. The board is otherwise quiet, with one scholar erights-source ingest still in flight.
 
-Two items need a maintainer dispatch decision. A real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (hide empty groups; reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities across space-chat, chat, cli, and daemon) was misclassified as a "rebase" — the PR is already mergeable, so it needs a liaison-driven gamut, not a no-op rebase (a classifier-bug fix is being posted separately). The harden-exported-function-literals follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you scoping breadth (narrow two evasive-transform exports vs. repo-wide via the `@endo/harden-exports` rule) and base branch (`llm` vs `master`); the literal form differs by branch, so the choice changes the diff.
-
-The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths` host API), stalled since 2026-05-21 on your "rebase and run the gamut" ask with 4 failing CI checks — the table's follow-on is ready the moment #284 lands. The beta3/ymax0 XS investigation surfaced two out-of-bounds calls (sourcing a v320 swing-store export; whether to file an upstream-Endo note — concluded an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding). On the library side, scholars landed a distributed-ocap concept cluster (three-party-handoff, sturdyref, distributed-confinement, eventual-send, grant-matcher-puzzle) and ingested MetaMask/ocap-kernel's kernel guide; grant-matching's source remains deferred (erights.org unreachable). Lastly, endo-but-for-bots master lint is fully green — the only findings are 5 non-blocking jsdoc warnings, parked as a low-priority plan.
+The substance this cycle is in the maintainer inbox: several items are now parked on decisions only kriskowal can make. A real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy to Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch — a classifier-bug fix is being posted separately. The harden-exported-literals follow-up from erights on the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two choices: narrow vs. repo-wide breadth, and `llm` vs. `master` base. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which is still open, off-base, and red on CI since the requested rebase/re-gamut never ran. And the ymax0/XS investigation surfaced two out-of-bounds (agoric-sdk) calls — sourcing a v320 swing-store export, and whether to file an upstream-Endo note for an XS stack-depth limit the garden concluded is not an Endo regression. On the library side, scholars landed the sixth ocap-kernel ingest (MetaMask's 689-line kernel guide) and a distributed-ocap concept cluster; endo master lint came back clean (only five non-blocking jsdoc warnings), and the #442 reusable-test-powers revisit concluded no change (the reuse would invert the daemon-cas extraction).
 
 ## Parked for maintainer feedback
 
@@ -182,17 +180,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`fu-improve-source-slug-prefix-divergence-check-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-improve-source-slug-prefix-divergence-check-1.md) — Repo kriskowal/garden (library content on journal2): dispatch a scholar to ad...
+### doin (1)
 - [`scholar-ingest-source-erights-ode-capdesk-hpl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-ode-capdesk-hpl.md) — scholar-ingest-source: erights.org Ode subpages, CapDesk/Polaris, and the HPL...
 
-### tada (415)
+### tada (416)
+- [`fu-improve-source-slug-prefix-divergence-check-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-improve-source-slug-prefix-divergence-check-1.md) — Completion report
 - [`improve-source-slug-prefix-divergence-check`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-source-slug-prefix-divergence-check.md) — What I did
 - [`improve-fetch-source-stub-detection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-stub-detection.md) — Done. The change is committed and pushed to origin/main2 (commit 797907141), ...
 - [`scholar-ingest-source-erights-elang-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-remainder.md) — Completion report: scholar-ingest-source-erights-elang-remainder
 - [`scholar-ingest-source-erights-elang-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-primaries.md) — Completion report
-- [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-deliberate-deploy-no-shared-tree-development.md) — The follow-on job has already been claimed and completed (it's in tada/). Eve...
-- … and 410 more
+- … and 411 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
