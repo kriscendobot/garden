@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T20:59:08Z_
+_As of 2026-06-27T21:06:37Z_
 
 ## Latest
 
-The garden's deliberate-deploy reshaping continued to land: two infra jobs completed — `improve-deploy-always-reconciles-units` (deploy now reconciles systemd units every run) and `improve-self-reconciling-retired-unit-prune` (retired units are pruned automatically) — while `garden-deliberate-deploy-no-shared-tree-development` (per-subagent worktrees plus a drained deploy, retiring the shared live tree) remains in progress.
-
-Several items need maintainer attention. A real feature directive from kriskowal sits on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups, a cross-package change that needs a liaison-driven builder/fixer dispatch (it was misrouted as a "rebase"; an infra fix for that classifier bug was posted separately). The harden-exported-literals follow-up from erights on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on a two-axis scope call (narrow vs. repo-wide, and base `llm` vs. `master`). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), still open and stalled since 2026-05-21 on the rebase/re-gamut you requested (4 CI checks failing) — landing #284 unblocks it.
-
-Lower-stakes results: a lint sweep found endo-but-for-bots master clean apart from 5 non-blocking jsdoc warnings (plan parked); the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction); and the scholar ingested MetaMask/ocap-kernel's kernel guide plus a distributed-ocap concept cluster to journal2. The ymax0/XS-overflow investigation surfaced two decisions that are out of bounds for autonomous action (sourcing a v320 swing-store export and whether to file an upstream-Endo note), both awaiting your direction.
+The deliberate-deploy overhaul landed: the root checkout is now advanced only by a drained `deploy-garden.sh` rather than continuous fast-forward, with development moved to per-subagent worktrees off `origin/main2` (jobs `garden-enforce-per-subagent-worktree`, `improve-deploy-always-reconciles-units`, and `improve-self-reconciling-retired-unit-prune` all completed). Several gardener reports now need maintainer decisions: a real feature directive from kriskowal on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a rebase and needs a liaison-driven fixer/builder dispatch; the harden-exported-function-literals follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on a breadth-and-base-branch scope call; and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), whose requested rebase-and-gamut never happened and which still has 4 failing CI checks. On the quieter side, endo master lint came back clean (only 5 non-failing jsdoc warnings, plan parked), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the duplication is intrinsic), and the scholar fleet ingested MetaMask/ocap-kernel's kernel guide plus a six-section distributed-ocap concept cluster. Two ymax0/agoric-sdk decisions (sourcing a v320 swing-store export, and whether to file an upstream-Endo note for the XS stack-depth repro) remain parked as out-of-bounds for autonomous action.
 
 ## Parked for maintainer feedback
 
@@ -182,8 +178,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
+- [`scholar-library-cycle-20260627-210543`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-210543.md) — Hourly scholar library cycle
 
 ### tada (409)
 - [`improve-deploy-always-reconciles-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-always-reconciles-units.md) — Completion report — improve-deploy-always-reconciles-units
