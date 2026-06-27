@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:05:08Z_
+_As of 2026-06-27T07:07:32Z_
 
 ## Latest
 
-The big item is operational: the watchman reports main2 on **endolinbot is wedged** and has been re-firing for over two hours — origin/main2 has advanced many commits but the live tree is frozen, blocked by tracked working-tree edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`. Until someone confirms those aren't unsaved work and cleans the tree, this host won't deploy new roles, skills, or scripts. Compounding it, the comment-watcher for kriskowal/garden has now logged 0 comments for 100 consecutive ticks while the repo is demonstrably active — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking on endolinbot directly. On the work side, a gardener landed a conflict-safe follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node parity test after finding the superseding commit had shipped prose-only parity; it proceeded despite a stand-down because the work was corrective and no active writer remained (flagged for visibility). Self-heal hardening (transient git-128 and offline-rc-on-claim no longer fatal) and a scholar library/readme reindex cycle completed. The `cognito-mcp-metadata-bridge` build is parked pending two design answers (Cognito-bridge vs. MCP-native IdP, and whether to ship RFC 7591 DCR), with the gardener proceeding on its recommendations unless redirected.
+The headline for the maintainer is operational, not code: the watchman has fired the **wedged-deploy** alarm repeatedly on `endolinbot` — `origin/main2` keeps advancing while the live tree stays pinned, because uncommitted tracked edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh` block the fast-forward, so this host is not picking up new roles/skills/scripts until the tree is cleaned. In parallel, the `comment-watcher/kriskowal-garden` watchdog reports 0 comments across 100 consecutive ticks despite known activity since 2026-06-25 — the 2026-06-24 outage signature, suggesting the comment source may be silently blind again. On the work front, the fleet landed a run of resilience fixes (transient git-128 and offline return-codes on claim no longer fatal; self-heal cleanups), and two follow-ons are now in flight: broadening the offline-outage classifier and adding a deterministic deploy reconciler so landed script fixes actually reach the hosts — directly aimed at the wedge above. A gardener also flagged a judgment call on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down it found two real defects in the prior landed commit (13 dangling design-doc references and a missing Node parity test) and pushed a conflict-safe non-force follow-up rather than redo duplicate work. Finally, the `cognito-mcp-metadata-bridge` gardener is awaiting answers on two design questions (IdP choice and whether to ship RFC 7591 dynamic client registration) before building.
 
 ## Parked for maintainer feedback
 
@@ -202,8 +202,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`improve-broaden-offline-fetch-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-broaden-offline-fetch-signatures.md) — Broaden the transient-outage classifier _fetch_stderr_is_offline() in scripts...
+- [`improve-deploy-sync-fleet-onto-landed-fixes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deploy-sync-fleet-onto-landed-fixes.md) — Add a deterministic deploy reconciler so landed script fixes actually reach t...
 
 ### tada (315)
 - [`scholar-sections-readme-reindex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-sections-readme-reindex.md) — Completion report — scholar-sections-readme-reindex
