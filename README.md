@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T12:11:06Z_
+_As of 2026-06-27T12:11:52Z_
 
 ## Latest
 
-The endolinbot host is **deploy-wedged** and has been all morning: a recurring sequence of uncommitted edits to tracked scripts (`self-heal-run.sh`, `gardener.sh`, `claim-job.sh`, `report-error.sh`, and now the `library-link-*` trio) keeps blocking the fast-forward, so origin/main2 has advanced many commits past the live tree and this host is not picking up new roles, skills, or scripts. One gardener notes the current blocker — `skills/gardener-inbox-error-reporting/report-error.sh` — is byte-identical to what's already on origin, so a plain `git checkout --` is lossless and unwedges it. Separately, the **comment-watcher for kriskowal/garden is silently blind** (0 comments across 300+ ticks despite a real comment since 2026-06-25 — the 2026-06-24 outage signature again), worth checking jq/gh on endolinbot.
+The headline for the maintainer is operational: **main2 on endolinbot has been deploy-wedged all day**. A steady stream of watchman alerts shows the live checkout stuck behind a fast-moving `origin/main2` because uncommitted working-tree edits (cycling through `self-heal-run.sh`, `gardener.sh`, `claim-job.sh`, `report-error.sh`, and the library-link scripts) keep blocking the fast-forward — so landed fixes are not reaching the running fleet. A new deploy-sync reconciler landed on main2 (`5d6490e62`) to advance the checkout and restart services automatically, but it is inert until a units refresh arms it, and the gardener flagged that the current wedge is a redundant byte-identical edit to `report-error.sh` that a lossless `git checkout --` will clear. Relatedly, self-heal reported `garden-gardener` crash-looping on a transient git-128 during claim; the fix is already on main2, the host is just behind it. Separately, the **comment-watcher for kriskowal/garden has gone blind again** — 0 comments for 300+ ticks despite known activity, matching the 2026-06-24 jq/gh outage signature.
 
-On the work itself: a **deploy-sync reconciler** landed on main2 (5d6490e6) to auto-advance the checkout and restart long-running services when `scripts/` changes — though it stays inert until a routine units refresh arms its timer. A gardener pushed a conflict-safe corrective follow-up (3aa37bbd) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node parity test atop the prior landing. Lint classification of endo-but-for-bots master came back **clean** (only 5 non-failing jsdoc warnings, parked as a low plan). Scholar ingested MetaMask/ocap-kernel's kernel guide and a six-topic distributed-ocap concept cluster.
-
-Two items need a maintainer call: the `cognito-mcp-metadata-bridge` gardener is proceeding on its own recommendations for two MCP-OAuth design questions unless redirected, and `formula-inspector-retention-paths-table` is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested (4 failing CI checks).
+On the PR/library front: a follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`), repairing 13 dangling design-doc references and adding a real Node-parity test atop the prior superseding commit. The formula-inspector retention-paths table is **blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)**, which is still open and stalled since 2026-05-21 with 4 failing CI checks — it needs the rebase-and-re-gamut you already requested before that table can be built. The cognito↔MCP OAuth bridge gardener is holding for your go/no-go on two design questions (Cognito-plus-bridge vs MCP-native IdP, and whether to ship RFC 7591 dynamic client registration). Lint on endo-but-for-bots master is clean apart from 5 non-blocking jsdoc warnings, and scholar ingests added the MetaMask ocap-kernel guide plus a distributed-ocap concept cluster to the library.
 
 ## Parked for maintainer feedback
 
@@ -481,6 +479,23 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
 >
 > origin/main2 has advanced to f0b93d637cb56a186aabcd4120f2b925eac1b76f but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/journal-entry.sh
+>  M scripts/jobs/library-link-check.sh
+>  M scripts/jobs/library-link-scan.sh
+>  M scripts/jobs/test/library-link-check-test.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T121142Z-2c161a` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T121142Z-2c161a.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 1665456ea03ccf26d784f20a5105e748c2630aa9 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
 > Until the tree is clean this host will NOT pick up new roles/skills/scripts.
 >
 > Tracked changes blocking the fast-forward:
