@@ -41,3 +41,9 @@ For each candidate:
 PDF/talk sources (e.g. `papers--miller-shapiro-paradigm-regained-2003`,
 `talks/asian03/paradigm.pdf`) — the mirror does not carry these; Internet-Archive
 capture remains correct. Leave as-is.
+
+---
+claim:
+  host: endolinbot
+  gardener: 54
+  claimed_at: 2026-06-27T18:30:47Z
