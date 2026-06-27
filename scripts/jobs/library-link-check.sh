@@ -36,6 +36,11 @@ library-link-check.sh — resolve library section links against the working tree
 
 Scope (exactly one required):
   --all                    check every markdown link in the whole library
+  --nav                    check only navigation surfaces: concepts/topics/
+                           sources/roles index pages, sections/README.md, and the
+                           library README.md. Excludes leaf section bodies (which
+                           carry verbatim-upstream links). The scope a standing
+                           tip-synced scan uses (see library-link-scan.sh).
   --changed [<base-ref>]   GATE mode: check the source clusters touched since
                            <base-ref> (default origin/journal2) plus the working
                            tree. Catches a row pointing at a file the change
@@ -70,6 +75,7 @@ declare -a FILES_ARG=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --all) SCOPE="all"; shift ;;
+    --nav) SCOPE="nav"; shift ;;
     --changed)
       SCOPE="changed"; shift
       if [ $# -gt 0 ] && [ "${1#--}" = "$1" ]; then BASE_REF="$1"; shift; fi
@@ -143,16 +149,33 @@ is_committed() {
 # Emit one target path per line for every markdown link in <file> whose target
 # is a relative *.md path (skipping URLs, mailto, pure anchors). With --wikilinks,
 # also emit concepts/<slug>.md for each [[wikilink]].
+#
+# Two link shapes are NOT navigation and are filtered out before extraction, so a
+# quotation is never mistaken for a live link (the residual false-positive class a
+# whole-library scan hits in scholar-authored prose):
+#   * a link inside an inline-code span (`[a](b.md)` quoted in backticks) — these
+#     appear in source-page abstracts that quote an upstream link snippet.
+#   * a link on a markdown heading line (^#{1,6} ) — the auto-generated
+#     sections/README.md embeds quoted upstream links inside its `### From <src>
+#     (...narrative...)` section-abstract headings. Headings are titles.
+# Both are removed by an awk pre-pass: drop heading lines, blank inline-code spans.
 extract_targets() {
   local file="$1"
+  local cleaned
+  cleaned="$(awk '
+    /^[ \t]*#{1,6}[ \t]/ { next }      # drop heading lines (narrative titles)
+    { gsub(/`[^`]*`/, ""); print }     # blank inline-code spans (quoted links)
+  ' "$file" 2>/dev/null)"
   # Inline markdown links: ](target) where target is a relative .md (with
   # optional #anchor). grep -oP keeps the captured group only.
-  grep -oP '\]\(\K[^)]+(?=\))' "$file" 2>/dev/null \
+  printf '%s\n' "$cleaned" \
+    | grep -oP '\]\(\K[^)]+(?=\))' 2>/dev/null \
     | sed 's/#.*$//' \
     | grep -E '\.md$' \
     | grep -Ev '://|^mailto:' || true
   if [ "$WIKILINKS" = 1 ]; then
-    grep -oP '\[\[\K[^]]+(?=\]\])' "$file" 2>/dev/null \
+    printf '%s\n' "$cleaned" \
+      | grep -oP '\[\[\K[^]]+(?=\]\])' 2>/dev/null \
       | sed 's/|.*$//; s/#.*$//' \
       | sed 's#^#concepts/#; s#$#.md#' || true
   fi
@@ -176,6 +199,15 @@ check_links_in() {
     case "$target" in
       concepts/*) abs="$(realpath -m "$LIBRARY/$target" 2>/dev/null)" ;;   # wikilink
       *)          abs="$(realpath -m "$base_dir/$target" 2>/dev/null)" ;;  # markdown link
+    esac
+    # A target that resolves OUTSIDE the library root is out of scope, not
+    # dangling: the resolver validates intra-library links, and a cross-tree
+    # pointer (`../../../skills/foo/SKILL.md` into the garden's main2 tree) is not
+    # the library's to judge. Skipping it is what keeps a navigation-surface scan
+    # from flagging legitimate cross-tree references.
+    case "$abs" in
+      "$LIBRARY"|"$LIBRARY"/*) ;;
+      *) [ "$QUIET" = 1 ] || echo "  skip     $rel_referrer -> $target (outside library; not validated)"; continue ;;
     esac
     key="$rel_referrer|$target"
     [ -n "${REPORTED[$key]:-}" ] && continue
@@ -261,6 +293,25 @@ case "$SCOPE" in
     [ "$QUIET" = 1 ] || echo "scope: --all ($LIBRARY)"
     while IFS= read -r f; do check_links_in "$f"; done \
       < <(find "$LIBRARY" -type f -name '*.md' | sort)
+    ;;
+
+  nav)
+    # Navigation surfaces only: the scholar-AUTHORED index pages (concepts,
+    # topics, sources, roles), the sections/README.md backstop, and the library
+    # root README.md. Leaf section bodies under sections/<source>--<section>.md
+    # are link TARGETS, not navigation SOURCES — they carry verbatim-upstream
+    # relative links that are not the library's to resolve, so they are excluded.
+    # This is the scope a standing tip-synced scan wants: it isolates the
+    # genuinely-dangling navigation links the keyword/wikilink scans missed.
+    [ "$QUIET" = 1 ] || echo "scope: --nav ($LIBRARY)"
+    while IFS= read -r f; do check_links_in "$f"; done < <(
+      {
+        find "$LIBRARY/concepts" "$LIBRARY/topics" "$LIBRARY/sources" "$LIBRARY/roles" \
+             -type f -name '*.md' 2>/dev/null
+        [ -f "$LIBRARY/sections/README.md" ] && echo "$LIBRARY/sections/README.md"
+        [ -f "$LIBRARY/README.md" ]          && echo "$LIBRARY/README.md"
+      } | sort
+    )
     ;;
 
   source-slug)

@@ -194,6 +194,63 @@ out2="$("$CHECK" --library "$LIB" --source-slug "$SLUG" --no-require-tracked 2>&
 if [ "$rc2" = 0 ]; then ok "--no-require-tracked accepts on-disk file (exit 0)"; else bad "expected exit 0 with --no-require-tracked, got $rc2"; fi
 
 # ============================================================================
+hr; echo "SUBTEST 7: a link resolving OUTSIDE the library is skipped, not flagged"
+setup_fixture
+# A concept page whose only link points across the tree into the garden's main2
+# skills/ (a legitimate cross-tree reference the resolver cannot judge).
+cat > "$LIB/concepts/x.md" <<'EOF'
+# x
+See the [lookup skill](../../../skills/library-lookup/SKILL.md).
+EOF
+commit_all "concept with an out-of-library link"
+out="$("$CHECK" --library "$LIB" --files concepts/x.md 2>&1)"; rc=$?
+if [ "$rc" = 0 ]; then ok "out-of-library link does not fail the scan (exit 0)"; else bad "expected exit 0, got $rc:"; echo "$out"; fi
+echo "$out" | grep -q "skip .*outside library" && ok "out-of-library link reported as skipped" || bad "no skip line for the out-of-library link"
+echo "$out" | grep -q "DANGLING" && bad "out-of-library link flagged as dangling" || ok "out-of-library link NOT flagged dangling"
+
+# ============================================================================
+hr; echo "SUBTEST 8: code-span and heading-line quoted links are not navigation"
+setup_fixture
+# A source page mixing a GENUINE dangling prose link with two quotation classes
+# that must NOT be flagged: an inline-code span and a ### narrative heading.
+cat > "$LIB/sources/q.md" <<'EOF'
+# q source
+
+Parent: [parent](missing-parent.md).
+
+The README materializes the pointer as `[docs/x.md](./docs/x.md)` — quoted as code.
+
+### From upstream (Optional: [dep](missing-dep.md) for confinement)
+EOF
+commit_all "source page with quoted links"
+out="$("$CHECK" --library "$LIB" --files sources/q.md 2>&1)"; rc=$?
+if [ "$rc" = 1 ]; then ok "the genuine prose link still fails (exit 1)"; else bad "expected exit 1, got $rc:"; echo "$out"; fi
+echo "$out" | grep -q "DANGLING .* -> missing-parent.md" && ok "genuine prose parent link IS flagged" || { bad "missed the genuine link"; echo "$out"; }
+echo "$out" | grep -q "docs/x.md" && bad "flagged a link quoted in an inline-code span" || ok "code-span quotation not flagged"
+echo "$out" | grep -q "missing-dep.md" && bad "flagged a link inside a ### heading" || ok "heading-line quotation not flagged"
+
+# ============================================================================
+hr; echo "SUBTEST 9: --nav scans navigation surfaces, not leaf section bodies"
+setup_fixture
+SLUG="proj--docs-guide-md"
+write_child "$SLUG" core
+write_parent_index "$SLUG" core
+append_readme_block "$SLUG" core
+# Source page links to a MISSING child (a genuine navigation dangling link).
+write_source_page "$SLUG" core missingchild
+# A leaf section body carrying a dangling UPSTREAM-verbatim relative link that
+# --nav must NOT scan (it is a target, not a navigation source).
+cat >> "$LIB/sections/${SLUG}--core.md" <<'EOF'
+
+See [upstream errors doc](./errors.md) — verbatim from the source, must be ignored.
+EOF
+commit_all "cluster with a nav dangling link and a leaf-body upstream link"
+out="$("$CHECK" --library "$LIB" --nav 2>&1)"; rc=$?
+if [ "$rc" = 1 ]; then ok "--nav flags the navigation dangling link (exit 1)"; else bad "expected exit 1, got $rc:"; echo "$out"; fi
+echo "$out" | grep -q "DANGLING .* -> ../sections/${SLUG}--missingchild.md" && ok "source-page missing-child IS flagged under --nav" || { bad "nav missed the source-page link"; echo "$out"; }
+echo "$out" | grep -q "errors.md" && bad "--nav scanned a leaf section body" || ok "leaf section body NOT scanned under --nav"
+
+# ============================================================================
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" = 0 ] && { rm -rf "$TR"; exit 0; } || exit 1
