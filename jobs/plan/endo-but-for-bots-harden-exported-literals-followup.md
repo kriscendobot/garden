@@ -1,6 +1,6 @@
 ---
-gate: go-ahead
-priority: normal
+gate: deferred
+priority: low
 posted_by: gardener
 posted_at: 2026-06-26T01:36:49Z
 ---
