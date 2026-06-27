@@ -62,3 +62,9 @@ absorb-or-coordinate RECOMMENDATION + a path.
   `endopi.md` and the daemon-agent / endopi-* clusters. Reference PR #265's review
   thread for prior reviewer context (jcorbin).
 - Design only — no package moves or code changes in this job.
+
+---
+claim:
+  host: endolinbot
+  gardener: 58
+  claimed_at: 2026-06-27T16:46:06Z
