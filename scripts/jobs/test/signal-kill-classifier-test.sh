@@ -120,13 +120,55 @@ else
   bad "$nerr kind:error journal entr(y/ies) emitted for a signal-killed handler"
 fi
 
-# (e) the job stays in doin for the reaper's TTL requeue (not completed to tada,
+# (e) the job stays in doin for the reaper's requeue (not completed to tada,
 # not escalated away).
 V="$TR/verify"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V" 2>/dev/null
 if [ -f "$V/jobs/doin/killjob.md" ] && [ ! -f "$V/jobs/tada/killjob.md" ]; then
-  ok "job left in doin (TTL requeue), not completed to tada"
+  ok "job left in doin (for reaper requeue), not completed to tada"
 else
   bad "job not left in doin (doin=$([ -f "$V/jobs/doin/killjob.md" ] && echo y || echo n) tada=$([ -f "$V/jobs/tada/killjob.md" ] && echo y || echo n))"
+fi
+
+# (f) the gardener stamped a reap-now hint on its own dead claim, so the reaper can
+# requeue it on its NEXT tick instead of idling the full GARDEN_CLAIM_TTL.
+if [ -f "$V/jobs/doin/killjob.md" ] && grep -Eq '^<!-- garden-reap-now -->$' "$V/jobs/doin/killjob.md"; then
+  ok "signal-kill stamped a reap-now hint on the doin claim"
+else
+  bad "no reap-now hint on the doin claim (job would idle the full TTL before requeue)"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 3 — reaper honors the reap-now hint before TTL, still counts poison"; hr
+# The job is in doin, claimed SECONDS ago (age ≪ TTL=3600), carrying the reap-now
+# hint SUBTEST 2's gardener stamped. Run the REAL reaper: it must requeue the job
+# doin→todo on THIS tick — driven by the HINT, not age — AND stamp the poison-cycle
+# counter (garden-reaped: 1), so a job killed the same way every cycle still
+# escalates as poison after the threshold rather than requeueing forever. The hint
+# itself must NOT survive into the requeued job, or a healthy re-claim would be
+# reaped instantly.
+env GARDEN_HOST="reaphost" GARDEN_STATE="$TR/reaper-state" \
+    GARDEN_CLAIM_TTL=3600 \
+    "$JOBS/reaper.sh" > "$TR/reaper.log" 2>&1 || true
+
+R="$TR/reaper-verify"; rm -rf "$R"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$R" 2>/dev/null
+
+if [ -f "$R/jobs/todo/killjob.md" ] && [ ! -f "$R/jobs/doin/killjob.md" ]; then
+  ok "reaper requeued the hinted claim doin→todo before TTL"
+else
+  bad "hinted claim not requeued before TTL (todo=$([ -f "$R/jobs/todo/killjob.md" ] && echo y || echo n) doin=$([ -f "$R/jobs/doin/killjob.md" ] && echo y || echo n)); reaper log: $(grep -iE 'reap-now|stale|reaped' "$TR/reaper.log" | tail -3)"
+fi
+
+if [ -f "$R/jobs/todo/killjob.md" ] && grep -Eq '^<!-- garden-reaped: 1 -->$' "$R/jobs/todo/killjob.md"; then
+  ok "reaper stamped the poison-cycle counter (garden-reaped: 1) on the requeued job"
+else
+  bad "poison-cycle counter NOT stamped on the requeued hinted job (would bypass the poison threshold)"
+fi
+
+if [ -f "$R/jobs/todo/killjob.md" ] && grep -Eq '^<!-- garden-reap-now -->$' "$R/jobs/todo/killjob.md"; then
+  bad "reap-now hint persisted into the requeued job (a healthy re-claim would be reaped instantly)"
+else
+  ok "reap-now hint stripped from the requeued job (no premature re-reap on the next claim)"
 fi
 
 hr

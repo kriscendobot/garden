@@ -633,6 +633,76 @@ reap_count() {
   printf '%s\n' "${n:-0}"
 }
 
+# --- reap-now hint -----------------------------------------------------------
+#
+# A marker a gardener stamps onto its OWN still-in-doin claim when it KNOWS at exit
+# time the claim is dead: a transient signal-kill handler outage (143 SIGTERM / 137
+# SIGKILL/OOM / 130 SIGINT) means the handler was killed by a deploy/drain/OOM and
+# the job will never complete under this claim. Without it the job idles the full
+# GARDEN_CLAIM_TTL (up to an hour) before its claimed_at age trips the reaper — the
+# exact 2026-06-27 case where two Wayback-fetch scholar jobs died ~4 min into a
+# 1-hour TTL and would have idled ~56 min before any retry.
+#
+# The reaper stays the SINGLE writer of the requeue and the `<!-- garden-reaped: N
+# -->` poison counter. The hint only PROMOTES a claim into the reaper's stale set
+# early (reaper.sh § detect the stale set); the claim then flows through the SAME
+# requeue + poison path, so a job that is SIGTERM'd every cycle (a genuinely wedged
+# fetch — the risk gardener.sh flags) still escalates to the maintainer as poison
+# after GARDEN_REAP_POISON_THRESHOLD cycles rather than requeueing forever. The
+# gardener must NOT requeue doin→todo itself, which would bypass that counter.
+#
+# The marker lives in the job BODY (above the trailing claim block); clean_body
+# strips it on requeue so it never persists into a healthy re-claim and prematurely
+# reaps a live worker.
+REAP_NOW_MARKER='<!-- garden-reap-now -->'
+REAP_NOW_MARKER_RE='^<!-- garden-reap-now -->$'
+
+# has_reap_now_hint <file> — 0 if the job file carries the reap-now marker.
+has_reap_now_hint() {
+  local f="${1:-}"
+  [ -f "$f" ] || return 1
+  grep -Eq "$REAP_NOW_MARKER_RE" "$f"
+}
+
+# stamp_reap_now_hint <clone> <doin-relpath> — insert the reap-now marker into the
+# BODY of a still-in-doin claim (just above the trailing `---`/`claim:` block) and
+# land it on the board, so the reaper requeues the claim on its NEXT tick (≤10 min)
+# instead of after GARDEN_CLAIM_TTL. Idempotent: a claim already carrying the hint,
+# or already moved out of doin (reaped/completed by a peer), is left as-is. Bounded
+# CAS retry against journal push contention, reusing sync_clone/commit_and_push.
+# Returns 0 once the hint is on the board (or was already there / the claim is gone),
+# non-zero only if it could not land — in which case the caller falls back to the
+# reaper's TTL requeue. Run this in a SUBSHELL from a long-lived caller: sync_clone
+# `exit`s GARDEN_OFFLINE_RC on a connectivity blip, which a subshell contains.
+stamp_reap_now_hint() {
+  local clone="$1" rel="$2" attempt f rc
+  : "${GARDEN_REAP_NOW_PUSH_ATTEMPTS:=25}"
+  for attempt in $(seq 1 "$GARDEN_REAP_NOW_PUSH_ATTEMPTS"); do
+    sync_clone "$clone"
+    f="$clone/$rel"
+    if [ ! -e "$f" ]; then clone_unlock "$clone"; return 0; fi      # already moved by a peer
+    if has_reap_now_hint "$f"; then clone_unlock "$clone"; return 0; fi  # already hinted
+    awk -v m="$REAP_NOW_MARKER" '
+      { line[NR] = $0 }
+      END {
+        cut = 0
+        for (i = 1; i < NR; i++) if (line[i] == "---" && line[i+1] == "claim:") cut = i
+        for (i = 1; i <= NR; i++) {
+          if (cut > 0 && i == cut) print m   # insert just above the claim block (in the body)
+          print line[i]
+        }
+        if (cut == 0) print m                # no claim block: append (defensive)
+      }
+    ' "$f" > "$f.reapnow" && mv "$f.reapnow" "$f"
+    git -C "$clone" add "$rel"
+    if commit_and_push "$clone" "reap-now: hint $rel by $GARDEN_HOST (transient handler kill)"; then rc=0; else rc=$?; fi
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0   # nothing to commit (a racing stamp won): treat as landed
+    backoff                       # rc=1: CAS lost — re-sync and retry
+  done
+  return 1
+}
+
 # Hard-sync a clone to the authoritative tip. The board's true state. Acquires
 # the per-clone lock and HOLDS it; the matching commit_and_push releases it, so
 # the entire sync→write→commit→push critical section is atomic per clone. A

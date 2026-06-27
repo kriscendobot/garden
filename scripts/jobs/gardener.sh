@@ -214,10 +214,27 @@ while :; do
       # it only makes a not-actually-transient job (a wedged scholar fetch, an OOM)
       # visible early to a human or a future watchman self-test.
       cycle="$(reap_count "$jobfile")"
-      log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, signal-kill/empty/transient-signature capture); no escalation, left in doin for TTL requeue"
-      printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/empty/transient-signature output); transient handler outage (requeue cycle %s); left in doin for TTL requeue (no escalation)\n' \
+      log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, signal-kill/empty/transient-signature capture); no escalation, left in doin for reaper requeue"
+      printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/empty/transient-signature output); transient handler outage (requeue cycle %s); left in doin for reaper requeue (no escalation)\n' \
         "$id" "$GARDEN_HOST" "$base" "$rc" "$cycle" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+      # We KNOW this claim is dead (the handler was killed/blipped, not failing on a
+      # job defect), so don't make the job wait out the full GARDEN_CLAIM_TTL for the
+      # reaper to notice its claimed_at is stale. Stamp a reap-now hint on our own
+      # still-in-doin claim: the reaper requeues a hinted claim on its NEXT tick
+      # (≤10 min) while still incrementing the `<!-- garden-reaped: N -->` poison
+      # counter, so a job killed THE SAME WAY every cycle (a wedged Wayback fetch
+      # SIGTERM'd each cycle) still escalates to the maintainer as poison after the
+      # threshold rather than requeueing forever. The reaper stays the single writer
+      # of the requeue; we only hint. Subshell-isolated so a sync_clone offline-exit
+      # cannot kill this gardener; best-effort — on failure the TTL requeue still
+      # backstops it. (Distinct from the non-signal real-failure branch below, which
+      # escalates a diagnostic and stays on the plain reaper-TTL path unchanged.)
+      if ( stamp_reap_now_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+        log "stamped reap-now hint on '$base'; reaper will requeue before TTL (poison cycle still counts)"
+      else
+        log "could not stamp reap-now hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
+      fi
     else
       # --- real failure: escalate the diagnostic output by hash -----------------
       # Defensive: $capture is non-empty here (the transient branch absorbed the

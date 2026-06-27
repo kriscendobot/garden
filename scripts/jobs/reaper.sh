@@ -137,7 +137,7 @@ gc_scratch() {
 # that itself contains a `---` rule is preserved intact. If no claim block is
 # found the body is returned unchanged (never blindly truncated at a stray `---`).
 clean_body() {
-  awk -v mark="$REAP_MARKER_RE" '
+  awk -v mark="$REAP_MARKER_RE" -v rnow="$REAP_NOW_MARKER_RE" '
     { line[NR] = $0 }
     END {
       cut = 0
@@ -146,6 +146,7 @@ clean_body() {
       m = 0
       for (i = 1; i <= end; i++) {
         if (line[i] ~ mark) continue          # drop prior reap-count markers
+        if (line[i] ~ rnow) continue          # drop the gardener reap-now hint (never persist it)
         out[++m] = line[i]
       }
       while (m > 0 && out[m] ~ /^[ \t]*$/) m--  # trim trailing blank lines
@@ -174,6 +175,18 @@ for base in $(list_jobs "$DIR" "$JOBS_DOIN"); do
   claimed_at="$(sed -n 's/^  claimed_at: //p' "$f" | head -1)"
   ts=0; [ -n "$claimed_at" ] && ts="$(date -u -d "$claimed_at" +%s 2>/dev/null || echo 0)"
   age=$(( now - ts ))
+  # A gardener whose handler died a transient signal-kill stamps a reap-now hint on
+  # its own still-in-doin claim (gardener.sh transient branch): it KNOWS the claim
+  # is dead, so we requeue it on THIS tick instead of idling the full TTL. Checked
+  # BEFORE the ts==0 guard so the hint is authoritative even on an unparseable
+  # claimed_at. The hint only promotes the claim into the stale set early — it then
+  # flows through the SAME requeue + poison-counter path below, so a job SIGTERM'd
+  # every cycle still escalates as poison after the threshold (never loops forever).
+  if has_reap_now_hint "$f"; then
+    log "reap-now: '$base' carries a gardener reap-now hint (age ${age}s); requeueing before TTL"
+    STALE+=("$base")
+    continue
+  fi
   if [ "$ts" -eq 0 ] || [ "$age" -lt "$GARDEN_CLAIM_TTL" ]; then
     continue
   fi
