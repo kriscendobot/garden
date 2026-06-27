@@ -96,7 +96,23 @@ command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run follow-
 # approver; the default permission gate would deny every tool call. Bypass is
 # the intended fleet posture (operator pre-consents via
 # skipDangerousModePermissionPrompt in ~/.claude). Requires running as non-root.
-out="$(claude -p --dangerously-skip-permissions "$prompt")"
+# Capture BOTH streams and the exit status explicitly. Under `set -euo pipefail`
+# a bare `out="$(claude -p ...)"` aborts the handler with no log on any non-zero
+# claude exit, and — capturing stdout only — discards whatever claude printed
+# (a rate-limit notice, an auth error, a crash trace), so the symptom upstream
+# is a single contentless `FATAL: follow-up handler failed`. Capture stderr to a
+# file, take the exit status with `|| rc=$?` (so `set -e` does not abort first),
+# and on failure die with the real signature from both streams — making a
+# transient back-off self-classifying versus an actual code bug.
+claude_err="$(mktemp "${TMPDIR:-/tmp}/follow-up-claude.XXXXXX.err")"
+rc=0
+out="$(claude -p --dangerously-skip-permissions "$prompt" 2>"$claude_err")" || rc=$?
+if [ "$rc" -ne 0 ]; then
+  err_tail="$(tail -c 500 "$claude_err" 2>/dev/null || true)"
+  rm -f "$claude_err"
+  die "claude -p failed (rc=$rc); stderr: ${err_tail:-<empty>}; stdout: $(printf '%.500s' "$out")"
+fi
+rm -f "$claude_err"
 
 # Refuse to act on a body that names agoric-sdk (defense-in-depth; MAINTAINER
 # messages are exempt — the maintainer may be told anything).
@@ -118,22 +134,29 @@ while IFS= read -r line; do
       state=MAINT; body="";;
     "ENDJOB")
       if [ "$state" = JOB ] && [ -n "$name" ]; then
-        if scope_ok "$body"; then printf '%s' "$body" | "$HERE/../post-job.sh" "$name"
+        if scope_ok "$body"; then
+          printf '%s' "$body" | "$HERE/../post-job.sh" "$name" \
+            || log "post-job '$name' failed (rc=$?); skipping this action, continuing digest"
         else log "refused JOB '$name': body names agoric-sdk (out of bounds)"; fi
       fi
       state="";;
     "ENDSCHEDULE")
       if [ "$state" = SCHEDULE ] && [ -n "$name" ] && [ -n "$cadence" ]; then
-        if scope_ok "$body"; then printf '%s' "$body" | "$HERE/../set-schedule.sh" "$name" "$cadence" "${prefix:-$name}"
+        if scope_ok "$body"; then
+          printf '%s' "$body" | "$HERE/../set-schedule.sh" "$name" "$cadence" "${prefix:-$name}" \
+            || log "set-schedule '$name' ($cadence) failed (rc=$?); skipping this action, continuing digest"
         else log "refused SCHEDULE '$name': body names agoric-sdk (out of bounds)"; fi
       elif [ "$state" = ONCE ] && [ -n "$name" ] && [ -n "$iso" ]; then
-        if scope_ok "$body"; then printf '%s' "$body" | "$HERE/../set-schedule-once.sh" "$name" "$iso"
+        if scope_ok "$body"; then
+          printf '%s' "$body" | "$HERE/../set-schedule-once.sh" "$name" "$iso" \
+            || log "set-schedule-once '$name' ($iso) failed (rc=$?); skipping this action, continuing digest"
         else log "refused SCHEDULE-ONCE '$name': body names agoric-sdk (out of bounds)"; fi
       fi
       state="";;
     "ENDMAINTAINER")
       if [ "$state" = MAINT ]; then
-        printf '%s' "$body" | GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer
+        printf '%s' "$body" | GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer \
+          || log "inbox-send to maintainer failed (rc=$?); skipping this action, continuing digest"
       fi
       state="";;
     *)
