@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T21:59:59Z_
+_As of 2026-06-27T22:09:10Z_
 
 ## Latest
 
-A scholar/infra tick landed — `improve-source-slug-prefix-divergence-check` completed (the only board movement) — but the substance this cycle is a stack of decisions now waiting in the maintainer inbox. Three need your scoping: the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) comment was misrouted as a "rebase" when it's actually your feature directive to reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities + full empty-group hiding) across space-chat, chat, cli, and daemon — it needs a liaison-driven builder dispatch since the fleet has no autonomous feature-directive path; the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up (erights bullet 4, now merged) is blocked only on your two-axis call — narrow vs repo-wide, and base `llm` vs `master` (the literal form differs between them); and the formula-inspector retention-paths table is blocked on #284, whose rebase-and-gamut you requested 2026-05-21 but which never ran and now has 4 failing checks. Also parked for you: the ymax0/XS-repro investigation concluded it's an XS native-stack-depth property (not an Endo regression, so the fix is contract-side depth-bounding) and is gated on a v320 swing-store export only you can source. On the no-action-needed side, the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded "intrinsic duplication, no change," endo master lint classified fully clean (only 5 non-blocking jsdoc warnings, parked as low), and the scholar landed two ocap synthesis clusters (MetaMask ocap-kernel guide + six distributed-ocap library concepts).
+Board activity was light — scholar and library ingests dominate the recent `tada` (the erights elang primaries/remainder sources, the source-slug-prefix divergence check, fetch-source stub detection), and the only fresh motion is a scholar claiming the source-slug follow-up. The substance this cycle is in the maintainer inbox, where several decisions have stacked up.
+
+Two items need a maintainer dispatch decision. A real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (hide empty groups; reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities across space-chat, chat, cli, and daemon) was misclassified as a "rebase" — the PR is already mergeable, so it needs a liaison-driven gamut, not a no-op rebase (a classifier-bug fix is being posted separately). The harden-exported-function-literals follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you scoping breadth (narrow two evasive-transform exports vs. repo-wide via the `@endo/harden-exports` rule) and base branch (`llm` vs `master`); the literal form differs by branch, so the choice changes the diff.
+
+The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths` host API), stalled since 2026-05-21 on your "rebase and run the gamut" ask with 4 failing CI checks — the table's follow-on is ready the moment #284 lands. The beta3/ymax0 XS investigation surfaced two out-of-bounds calls (sourcing a v320 swing-store export; whether to file an upstream-Endo note — concluded an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding). On the library side, scholars landed a distributed-ocap concept cluster (three-party-handoff, sturdyref, distributed-confinement, eventual-send, grant-matcher-puzzle) and ingested MetaMask/ocap-kernel's kernel guide; grant-matching's source remains deferred (erights.org unreachable). Lastly, endo-but-for-bots master lint is fully green — the only findings are 5 non-blocking jsdoc warnings, parked as a low-priority plan.
 
 ## Parked for maintainer feedback
 
@@ -178,7 +182,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`fu-improve-source-slug-prefix-divergence-check-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-improve-source-slug-prefix-divergence-check-1.md) — Repo kriskowal/garden (library content on journal2): dispatch a scholar to ad...
 - [`scholar-ingest-source-erights-ode-capdesk-hpl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-ode-capdesk-hpl.md) — scholar-ingest-source: erights.org Ode subpages, CapDesk/Polaris, and the HPL...
 
 ### tada (415)
