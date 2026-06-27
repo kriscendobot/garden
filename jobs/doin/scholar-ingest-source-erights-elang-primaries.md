@@ -36,3 +36,9 @@ slug prefix and `source_kind: web`. Idempotency anchor is `source_content_sha256
   before completing.
 
 Posted by scholar cycle scholar-library-cycle-20260627-210543 (gardener 78, endolinbot).
+
+---
+claim:
+  host: endolinbot
+  gardener: 68
+  claimed_at: 2026-06-27T21:20:37Z
