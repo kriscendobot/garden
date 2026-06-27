@@ -375,6 +375,31 @@ pn=$(grep -c . "$PCALLS" || true)
   && ok "parked gh query throttled: fetched once across all ticks (not per-tick)" || bad "parked query not throttled (calls=$pn)"
 rm -rf "$BV"
 
+# (7) PUSH-GATE: with NOTHING pushed to journal2 since the last bulletin, a tick
+#     makes NO update — no commit, no journalist — even when external GitHub state
+#     (the parked-PR set) could have drifted AND its throttle window is forced open
+#     (TTL=0). The gate short-circuits BEFORE the parked query is even reached, so
+#     the bulletin tracks journal2 pushes, not external drift.
+rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
+pre_head="$(ohead)"; pre_readme="$(cat "$BV/README.md")"; rm -rf "$BV"
+GATECALLS="$TR/bul-gate-parked-calls"; : > "$GATECALLS"; : > "$CALLS"
+# TTL=0 would force a fresh parked re-query absent the gate; assert it is NOT
+# reached (GATECALLS stays empty) because the push-gate returns first.
+env GARDEN_BULLETIN_ONCE=1 GARDEN_BULLETIN_IDLE_SLEEP=0 \
+    GARDEN_BULLETIN_HANDLER="$HERE/bulletin-stub.sh" \
+    GARDEN_BULLETIN_STUB_CALLS="$CALLS" GARDEN_BULLETIN_STUB_CAPTURE="$CAP" \
+    GARDEN_BULLETIN_PARKED_CMD="$HERE/bulletin-parked-stub.sh" \
+    GARDEN_BULLETIN_PARKED_CALLS="$GATECALLS" GARDEN_BULLETIN_PARKED_TTL=0 \
+    "$JOBS/bulletin.sh" >/dev/null 2>&1
+post_head="$(ohead)"
+{ [ "$pre_head" = "$post_head" ] && [ ! -s "$CALLS" ] && [ ! -s "$GATECALLS" ]; } \
+  && ok "push-gate: no journal2 push → no commit, no journalist, parked query not reached" \
+  || bad "push-gate leaked (head $pre_head->$post_head, journalist=$(wc -l <"$CALLS"), parked=$(wc -l <"$GATECALLS"))"
+rm -rf "$BV"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$BV"
+[ "$(cat "$BV/README.md")" = "$pre_readme" ] \
+  && ok "push-gate: bulletin content unchanged despite an open parked-query window" || bad "bulletin changed with no journal2 push"
+rm -rf "$BV"
+
 # ============================================================================
 hr; echo "SUBTEST 10b — PARKED FUZZY RANK: recency + roadmap, top-N cap, fallback"; hr
 # Unit-test the parked-PR scorer directly (the exact functions the bulletin loop

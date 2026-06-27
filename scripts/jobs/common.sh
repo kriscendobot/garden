@@ -53,7 +53,6 @@
 # lock wait, and a janitor (reaper.sh) reaps any fetch that outlives its bound.
 : "${GARDEN_FETCH_TIMEOUT:=45}"   # seconds before a journal fetch is killed and retried
 : "${GARDEN_FETCH_RETRIES:=3}"    # bounded attempts for a journal fetch
-: "${GARDEN_OFFLINE_RC:=75}"      # EX_TEMPFAIL: sync_clone exit on a connectivity/DNS outage
 : "${GARDEN_LOCK_WAIT:=60}"       # seconds a clone-lock waiter blocks before backing off
 : "${GARDEN_LOCK_RETRIES:=3}"     # bounded waits before a lock acquisition gives up
 # Stale-lock recovery: a clone lock whose recorded holder is dead, or whose stamp
@@ -385,44 +384,22 @@ ensure_clone() {
 # (exit 124) or any transient failure as retryable, never a hang. Returns 0 on
 # success, the last non-zero rc after GARDEN_FETCH_RETRIES attempts. Honors
 # GARDEN_FETCH_CMD for test injection (it then owns its own timing).
-#
-# The final attempt's stderr is captured into GARDEN_FETCH_STDERR so a caller
-# (sync_clone) can deterministically tell a connectivity/DNS outage from a real
-# repo error without re-running the fetch. We capture stderr in BOTH branches so
-# an injected GARDEN_FETCH_CMD can drive the classification in tests by writing
-# the same diagnostic strings git would.
-GARDEN_FETCH_STDERR=""
 journal_fetch() {
   local dir="$1" attempt=1 rc=0
-  GARDEN_FETCH_STDERR=""
   while :; do
     if [ -n "${GARDEN_FETCH_CMD:-}" ]; then
-      GARDEN_FETCH_STDERR="$(GARDEN_FETCH_DIR="$dir" "$GARDEN_FETCH_CMD" 2>&1 1>/dev/null)"; rc=$?
+      GARDEN_FETCH_DIR="$dir" "$GARDEN_FETCH_CMD"; rc=$?
     else
-      GARDEN_FETCH_STDERR="$(timeout "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch -q origin "$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; rc=$?
+      timeout "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch -q origin "$JOURNAL_BRANCH"; rc=$?
     fi
     [ "$rc" -eq 0 ] && return 0
     [ "$rc" -eq 124 ] && log "journal fetch in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s) on attempt $attempt"
     if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
-      log "journal fetch in $dir failed after $attempt attempt(s) (last rc=$rc)${GARDEN_FETCH_STDERR:+: $GARDEN_FETCH_STDERR}"
+      log "journal fetch in $dir failed after $attempt attempt(s) (last rc=$rc)"
       return "$rc"
     fi
     backoff; attempt=$((attempt+1))
   done
-}
-
-# Classify captured git-fetch stderr ($1) as a connectivity/DNS outage rather
-# than a real repository error. These are the transient, self-resolving failures
-# a tick should skip over (EX_TEMPFAIL) instead of dying on. Returns 0 if the
-# text matches a known outage signature, 1 otherwise.
-_fetch_stderr_is_offline() {
-  case "$1" in
-    *"Could not resolve hostname"*) return 0 ;;
-    *"Temporary failure in name resolution"*) return 0 ;;
-    *"Could not read from remote repository"*) return 0 ;;
-    *"Connection timed out"*) return 0 ;;
-  esac
-  return 1
 }
 
 # Hard-sync a clone to the authoritative tip. The board's true state. Acquires
@@ -431,20 +408,9 @@ _fetch_stderr_is_offline() {
 # read-only caller that never pushes releases the lock at process exit (fd close)
 # or on its next sync_clone (clone_lock re-entry).
 sync_clone() {
-  local dir="$1" rc
+  local dir="$1"
   clone_lock "$dir"
-  journal_fetch "$dir"; rc=$?
-  if [ "$rc" -ne 0 ]; then
-    # A network/resolver outage (git exits 128 with a recognizable diagnostic) is
-    # a transient signal, not a real failure: exit EX_TEMPFAIL so the wrapper and
-    # callers can skip the tick and retry next cadence instead of treating a
-    # fleet-wide DNS blip as one failure per worker.
-    if [ "$rc" -eq 128 ] && _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
-      log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
-      exit "$GARDEN_OFFLINE_RC"
-    fi
-    die "fetch failed in $dir after bounded retries"
-  fi
+  journal_fetch "$dir" || die "fetch failed in $dir after bounded retries"
   git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH"
   git -C "$dir" clean -qfd jobs 2>/dev/null || true
 }

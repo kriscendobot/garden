@@ -85,48 +85,6 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 3 — sync_clone classifies a DNS/connectivity outage as EX_TEMPFAIL (75)"; hr
-# An outage surfaces as git exit 128 with a recognizable resolver/remote
-# diagnostic. sync_clone must exit GARDEN_OFFLINE_RC (75), NOT die(1), so the
-# wrapper treats a fleet-wide blip as a transient skip, not a per-worker failure.
-cat > "$TR/bin/offline-fetch" <<'EOF'
-#!/bin/bash
-echo "ssh: Could not resolve hostname github.com: Temporary failure in name resolution" >&2
-echo "fatal: Could not read from remote repository." >&2
-exit 128
-EOF
-chmod +x "$TR/bin/offline-fetch"
-OCLONE="$TR/oclone"; mkdir -p "$OCLONE"
-rc=0
-( export GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$TR/bin/offline-fetch"
-  sync_clone "$OCLONE" ) >/dev/null 2>&1 || rc=$?
-if [ "$rc" -eq 75 ]; then
-  ok "sync_clone exited EX_TEMPFAIL ($rc) on a resolver outage"
-else
-  bad "sync_clone exited $rc on a resolver outage (expected 75)"
-fi
-
-# ============================================================================
-hr; echo "SUBTEST 4 — sync_clone still dies (rc=1) on a genuine repo error"; hr
-# A non-outage 128 (e.g. a missing ref) is a real error: it must keep dying so a
-# true fault is never silently masked as a transient skip.
-cat > "$TR/bin/realerr-fetch" <<'EOF'
-#!/bin/bash
-echo "fatal: couldn't find remote ref journal2" >&2
-exit 128
-EOF
-chmod +x "$TR/bin/realerr-fetch"
-RCLONE="$TR/rclone"; mkdir -p "$RCLONE"
-rc=0
-( export GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$TR/bin/realerr-fetch"
-  sync_clone "$RCLONE" ) >/dev/null 2>&1 || rc=$?
-if [ "$rc" -eq 1 ]; then
-  ok "sync_clone died (rc=$rc) on a genuine repo error, not masked as transient"
-else
-  bad "sync_clone exited $rc on a genuine repo error (expected 1 via die)"
-fi
-
-# ============================================================================
 hr
 rm -rf "$TR"
 echo "RESULTS: $PASS passed, $FAIL failed"

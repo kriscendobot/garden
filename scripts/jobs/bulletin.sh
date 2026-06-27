@@ -13,27 +13,35 @@
 #
 # Each iteration:
 #   1. killswitch check; sync the bulletin journal clone.
-#   2. read the durable cursor (the origin/journal2 SHA last reconciled from) and
-#      compute the board transitions since it.
-#   3. compute the deterministic dashboard (the parked-for-maintainer PR queue,
+#   2. PUSH-GATE: read the durable cursor (the origin/journal2 SHA last reconciled
+#      from). If the synced head equals the cursor, NOTHING has been pushed to
+#      journal2 since the last reconcile — skip the entire tick (no compute, no
+#      post). A journal2 push is the sole trigger for a bulletin update; external
+#      GitHub drift (the parked-PR queue) alone never rewrites the bulletin.
+#   3. compute the board transitions since the cursor.
+#   4. compute the deterministic dashboard (the parked-for-maintainer PR queue,
 #      board counts, watch set, hosts, maintainer inbox) — the always-works base.
-#   4. if the dashboard changed since what is posted: drive the journalist
+#   5. if the dashboard changed since what is posted: drive the journalist
 #      (claude -p via GARDEN_BULLETIN_HANDLER) with the dashboard + the
 #      since-cursor transitions to produce `## Latest`; assemble it as the LEAD
 #      (`## Latest` sits at the top, right after the freshness line, ahead of the
 #      deterministic sections); write, commit, push (CAS); then advance the cursor
 #      durably ONLY after the push is accepted (a crash mid-cycle re-processes,
 #      never skips).
-#   5. if nothing changed: advance the cursor to the synced head (so a transition
+#   6. if nothing changed: advance the cursor to the synced head (so a transition
 #      another host already posted is not re-narrated), short sleep, loop.
 #
-# Cost gate: claude -p runs ONLY when the dashboard changed since what is posted;
+# Push-gate vs cost-gate: two layers keep idle ticks free. The PUSH-GATE (step 2)
+# short-circuits the whole tick when journal2 has not advanced since the last
+# reconcile — so an unchanged board does no work at all, and external GitHub drift
+# (the parked-PR review queue) cannot rewrite the bulletin on its own. The COST-GATE
+# (step 5) then runs claude -p ONLY when the dashboard changed since what is posted;
 # never on an idle poll. The change-compare excludes the volatile `_As of`
 # freshness line, the `## Latest` narrative (wherever it sits — it now leads), and
 # the volatile "(waiting <age>)" suffix on parked-PR rows, so neither an advancing
 # timestamp, non-deterministic narrative prose, nor a ticking PR age churns a
-# commit on its own. The parked-PR set itself (a PR entering/leaving the
-# review-requested queue) DOES change the dashboard and is news worth posting.
+# commit on its own. A journal2 push that moves the parked-PR set (e.g. a roadmap
+# record landing) still re-renders it as part of that push's dashboard recompute.
 #
 # Parked-PR throttle: the "## Parked for maintainer feedback" section is sourced
 # from GitHub (gh search prs --review-requested kriskowal, scoped to the
@@ -621,13 +629,31 @@ bulletin_tick() {
   local head cursor dashboard old_full prior_latest latest head_part sect_part content rc
   sync_clone "$DIR"
 
+  head="$(git -C "$DIR" rev-parse HEAD)"
+  cursor="$(read_cursor)"
+
+  # Push-gate: skip the ENTIRE tick when journal2 has not advanced since the last
+  # reconcile. The bulletin reconciles journal2 state, so when nothing has been
+  # pushed to origin/journal2 since we last looked (the synced head equals the
+  # durable cursor) there is nothing to update — do no plan re-render, no dashboard
+  # compute, no journalist, no post. This makes a journal2 PUSH the sole trigger
+  # for a bulletin update: external GitHub drift (the parked-PR review queue is the
+  # one dashboard input sourced from `gh` rather than journal2) no longer rewrites
+  # and re-narrates the bulletin on its own; it refreshes on the next real push.
+  # The `-s README.md` guard keeps a cold start (no bulletin posted yet) producing
+  # the first bulletin even when head already equals the cursor.
+  if [ -n "$cursor" ] && [ "$head" = "$cursor" ] && [ -s "$DIR/README.md" ]; then
+    return 0
+  fi
+
   # Reconcile the generated plan view from the per-design records (cheap,
   # deterministic, change-gated). Done before the dashboard compute so a plan-only
   # commit lands even on ticks where the dashboard is unchanged.
   render_plan
 
+  # render_plan may have advanced HEAD with a plan-view commit; re-read so the
+  # transitions digest and cursor advance below reflect the post-render head.
   head="$(git -C "$DIR" rev-parse HEAD)"
-  cursor="$(read_cursor)"
 
   dashboard="$(compute_dashboard)"
 
