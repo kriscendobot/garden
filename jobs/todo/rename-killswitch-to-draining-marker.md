@@ -44,8 +44,4 @@ how to clear it.
 Deliverable: a mundane, self-describing "draining" marker replacing "killswitch"/
 "NOPE", with all call sites + docs updated and legacy compatibility retained.
 
----
-claim:
-  host: endolinbot
-  gardener: 15
-  claimed_at: 2026-06-27T15:26:23Z
+<!-- garden-reaped: 1 -->

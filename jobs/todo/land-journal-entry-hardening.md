@@ -35,8 +35,4 @@ Reconcile with any already-landed journal-entry/producer hardening before commit
 (net new guards only). If the stash is unreachable from the gardener's worktree, the
 description + the unguarded-argv pattern are enough to reconstruct it.
 
----
-claim:
-  host: endolinbot
-  gardener: 2
-  claimed_at: 2026-06-27T15:26:20Z
+<!-- garden-reaped: 1 -->

@@ -43,8 +43,4 @@ human activity is normal and must NEVER reach the maintainer as an anomaly.
 Deliverable: the comment-watcher never reports inactivity; blindness is detected by
 a positive self-test, not by the absence of new comments.
 
----
-claim:
-  host: endolinbot
-  gardener: 84
-  claimed_at: 2026-06-27T15:27:45Z
+<!-- garden-reaped: 1 -->
