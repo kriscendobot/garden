@@ -471,11 +471,17 @@ sync_clone() {
   # for the call and the offline path is actually reachable from a bare caller.
   if journal_fetch "$dir"; then rc=0; else rc=$?; fi
   if [ "$rc" -ne 0 ]; then
-    # A network/resolver outage (git exits 128 with a recognizable diagnostic) is
-    # a transient signal, not a real failure: exit EX_TEMPFAIL so the wrapper and
-    # callers can skip the tick and retry next cadence instead of treating a
-    # fleet-wide DNS blip as one failure per worker.
-    if [ "$rc" -eq 128 ] && _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
+    # A transient network/resolver outage is not a real failure: exit EX_TEMPFAIL
+    # so the wrapper and callers skip the tick and retry next cadence instead of
+    # treating a fleet-wide blip as one failure per worker. Two transient shapes:
+    #   * rc=124: journal_fetch's `timeout` killed a stalled fetch after bounded
+    #     retries (it already logged the timeout). A half-open connection that
+    #     never makes progress is the commonest symptom under ~100-gardener
+    #     contention; promote the timeout to the clean-skip path rather than dying.
+    #   * any rc whose captured stderr matches a known outage signature. These
+    #     surface under SEVERAL exit codes (128, 1, 6, …), not just 128 — git/curl/
+    #     OpenSSH disagree — so we gate on the signature, NOT a hard rc==128.
+    if [ "$rc" -eq 124 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
       log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
       exit "$GARDEN_OFFLINE_RC"
     fi

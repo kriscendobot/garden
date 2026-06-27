@@ -1289,7 +1289,7 @@ else
   bad "gardener exited on an offline claim tick (rc=$offrc; expected it to keep skipping)"
 fi
 kill "$offpid" 2>/dev/null || true; wait "$offpid" 2>/dev/null || true
-grep -q 'offline; skipping claim tick' "$OFFLOG" \
+grep -q 'claim transiently offline' "$OFFLOG" \
   && ok "gardener logged the offline skip-and-retry" \
   || bad "gardener did not log an offline skip ($(tail -1 "$OFFLOG" 2>/dev/null))"
 grep -q 'claim failed' "$OFFLOG" \
@@ -1356,6 +1356,67 @@ hr; echo "SUBTEST 23 — OFFLINE CLASSIFIER: transient signatures → EX_TEMPFAI
 # its per-case tallies into the harness PASS/FAIL totals here in the parent.
 read -r cp cf < "$TR/classifier-counts"
 PASS=$((PASS+cp)); FAIL=$((FAIL+cf))
+
+# ============================================================================
+hr; echo "SUBTEST 24 — SYNC_CLONE FETCH OUTAGE → EX_TEMPFAIL (rc=124 timeout; signature-gated rc=128)"; hr
+# sync_clone (common.sh) is the producer-side fetch gate every board op runs
+# through. Two transient shapes must classify as a self-resolving outage and exit
+# GARDEN_OFFLINE_RC (75, EX_TEMPFAIL) — NOT die(1) — so the fleet skips the tick
+# instead of recording one `Failed with result 'exit-code'` per worker (and
+# burning a self-heal responder) on ordinary git-fetch flakiness under
+# ~100-gardener contention:
+#   (a) rc=124: journal_fetch's `timeout` killed a stalled half-open fetch after
+#       bounded retries (it already logged the timeout).
+#   (b) any rc whose stderr matches an outage signature — here rc=128 with "the
+#       remote end hung up unexpectedly" (a smart-HTTP cut) — proving the gate is
+#       on the SIGNATURE, not a hard rc==128. The injected fetch never touches a
+#       real remote, so clone_lock + the classifier are exercised in isolation.
+S24="$TR/sync24"; mkdir -p "$S24/bin"
+cat > "$S24/bin/timeout-fetch" <<'EOF'
+#!/bin/bash
+exit 124   # emulate `timeout` killing a stalled fetch (journal_fetch logged it)
+EOF
+cat > "$S24/bin/hangup-fetch" <<'EOF'
+#!/bin/bash
+echo "fatal: the remote end hung up unexpectedly" >&2
+echo "fatal: early EOF" >&2
+exit 128
+EOF
+chmod +x "$S24/bin/timeout-fetch" "$S24/bin/hangup-fetch"
+run_sync() {  # <fetch-cmd> -> echoes sync_clone's exit code (it exits the subshell)
+  local d rc; d="$(mktemp -d "$S24/clone.XXXXXX")"
+  set +e
+  ( . "$JOBS/common.sh"
+    export GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$1"
+    sync_clone "$d" >/dev/null 2>&1 )
+  rc=$?; set -e
+  echo "$rc"
+}
+r124="$(run_sync "$S24/bin/timeout-fetch")"
+[ "$r124" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
+  && ok "sync_clone fetch timeout (rc=124) → EX_TEMPFAIL ($r124), not die(1)" \
+  || bad "sync_clone exited $r124 on a fetch timeout (expected ${GARDEN_OFFLINE_RC:-75})"
+rhang="$(run_sync "$S24/bin/hangup-fetch")"
+[ "$rhang" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
+  && ok "sync_clone 'remote end hung up' (rc=128) → EX_TEMPFAIL ($rhang), signature-gated not rc-gated" \
+  || bad "sync_clone exited $rhang on a hung-up fetch (expected ${GARDEN_OFFLINE_RC:-75})"
+# End-to-end: the self-heal wrapper normalizes that producer rc to a CLEAN exit 0
+# with NO responder — the actual "stop recording Failed / stop burning a
+# responder" goal this job is about.
+cat > "$S24/bin/wrap-sync" <<EOF
+#!/bin/bash
+. "$JOBS/common.sh"
+export GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$S24/bin/timeout-fetch"
+sync_clone "\$(mktemp -d "$S24/clone.XXXXXX")"
+EOF
+chmod +x "$S24/bin/wrap-sync"
+: > "$SHCALLS"
+export SELF_HEAL_STUB_CALLS="$SHCALLS" SELF_HEAL_HANDLER="$HERE/self-heal-stub.sh"
+set +e; SELF_HEAL_THROTTLE_SECS=0 "$SHRUN" garden-sync -- "$S24/bin/wrap-sync" >/dev/null 2>&1; rwrap=$?; set -e
+unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER
+{ [ "$rwrap" -eq 0 ] && [ "$(shcalls)" -eq 0 ]; } \
+  && ok "self-heal normalizes the sync_clone outage rc to clean exit 0, no responder" \
+  || bad "self-heal did not normalize the sync_clone outage (rc=$rwrap calls=$(shcalls))"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
