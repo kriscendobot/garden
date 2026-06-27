@@ -104,17 +104,21 @@ send-msg.sh role/scholar "library-lookup writebacks this job: <summary>"
 
 Scholar's next cycle audits the writebacks and integrates drafts into the topic pages.
 
-### 5. Commit and push
+### 5. Land each writeback through the lander
 
-If any writebacks happened, commit them with a focused message and CAS-push to `journal2`:
+Land every writeback file with **`scripts/jobs/land-journal-edit.sh <journal2-relative-path>`** (body from a body-file or stdin) — the **only sanctioned way** to land a library content edit. It lands through the isolated producer clone, syncs to the current `origin/journal2` tip first, and CAS-pushes with the silent-loss guard. Never hand-`git add`/`commit`/`rebase` against the live `journal/` worktree: that worktree can be arbitrarily stale and full of a peer's uncommitted WIP, and rebasing it replays already-upstream commits into a destructive conflict (the 2026-06-27 scholar incident).
 
 ```sh
-git -C journal add library/
-git -C journal commit -m "library-lookup: <role> indexed <term>(s) during <job purpose>"
-git -C journal fetch origin journal2 && git -C journal rebase origin/journal2 && git -C journal push origin HEAD:journal2
+# a new concept page (whole-file write):
+land-journal-edit.sh library/concepts/<new-id>.md < /path/to/new-page.md
+
+# appending a keyword shortcut: read the CURRENT tip, append your line, land the
+# full body (the lander replaces the whole file, so include the existing rows):
+printf '%s\n%s\n' "$(git show origin/journal2:library/keywords.md)" \
+  "<term> | <concept-id>" | land-journal-edit.sh library/keywords.md
 ```
 
-Because every writeback file is a new line or a new file, the rebase is clean; on a rejected push, re-fetch, re-rebase, and re-push (the standard message-bus CAS retry).
+The lander only writes under the allowlisted trees (`library/`, `projects/`); a path outside them, a `..` traversal, or the live worktree is refused. On a rejected CAS push it re-syncs and retries automatically; a rare concurrent append it cannot see is caught by the scholar's next index-integrity pass.
 
 ## Output
 

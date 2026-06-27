@@ -129,6 +129,8 @@ Two curated trees live under `journal/`, both following the [context-library](..
 
 If you walk such a tree and an abstract does not deliver on its promise, that is a defect: post a fix job to the board (or message the scholar) rather than fixing it silently outside your job's scope.
 
+**Landing a content edit in a curated tree.** When a job *does* authorize editing a `library/` or `projects/` content file, land it with **`scripts/jobs/land-journal-edit.sh <journal2-relative-path>`** (body from a body-file or stdin) — the only sanctioned way to land a library/project content edit. It lands through the isolated producer clone, syncs to the current `origin/journal2` tip first, and CAS-pushes with the silent-loss guard, exactly as `journal-entry.sh` does for append-only entries. **Never** hand-`git add`/`commit`/`rebase` the live `journal/` worktree to land a content edit: it can be arbitrarily stale and full of a peer's uncommitted WIP, so a rebase replays already-upstream commits into a destructive conflict (the 2026-06-27 scholar incident the lander exists to prevent).
+
 ## What this skill is not
 
 - Not a writing guide. Posting jobs is [job-board](../job-board/SKILL.md); sending messages is [message-bus](../message-bus/SKILL.md); growing the library is the [scholar](../../roles/scholar/AGENT.md)'s role; the bulletin's narrative is the [journalist](../../roles/journalist/AGENT.md)'s.
