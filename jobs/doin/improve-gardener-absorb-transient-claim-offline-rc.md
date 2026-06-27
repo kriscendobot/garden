@@ -1,7 +1,0 @@
-In scripts/jobs/gardener.sh, the claim loop treats any non-zero, non-3 return from scripts/jobs/claim-job.sh as fatal: line 55, `[ "$rc" -ne 0 ] && die "claim failed (rc=$rc)"`. But claim-job.sh inherits sync_clone's transient-offline exit code GARDEN_OFFLINE_RC (default 75, common.sh:56/451) on a connectivity/DNS blip. So a transient network blip during the claim's `sync_clone` crashes the entire long-lived gardener worker, tripping systemd Restart=on-failure and a self-heal responder — multiplied across the ~100-worker fleet on any shared blip. This is the recurring `garden-gardener@N.service: Failed with result 'exit-code'` storm in the 2026-06-27 08:06–08:29 journalctl tail (~15 distinct instances, interleaved). Fix: in gardener.sh, treat a claim return of GARDEN_OFFLINE_RC (and ideally any recognized transient signature) the same as rc==3 — emit one kind:progress note, sleep GARDEN_IDLE_SLEEP, and `continue` — rather than `die`. This makes the claim path consistent with the transient-handler-outage classification already present in the same file (lines 118–130), so a fleet-wide connectivity blip costs one backoff per worker instead of one crash+restart+responder per worker. Reserve `die` for genuinely unexpected claim rc values. Add a test under scripts/jobs/test/ that injects a sync_clone exit 75 and asserts the gardener loop survives and retries.
-
----
-claim:
-  host: endolinbot
-  gardener: 35
-  claimed_at: 2026-06-27T08:35:17Z
