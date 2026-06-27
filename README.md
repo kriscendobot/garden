@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T18:06:03Z_
+_As of 2026-06-27T18:06:57Z_
 
 ## Latest
 
-The comment-classifier misroute bug is [fixed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-comment-classifier-misroutes-directive-to-rebase.md): the classifier that turned kriskowal's feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) into a no-op "rebase" job is corrected, and both routes are back in place. That #405 comment is real and still owed — it reshapes the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and asks for full empty-group hiding across space-chat, chat, cli, and daemon; the v2 fleet has no autonomous feature-directive path, so it needs a liaison-driven builder/fixer dispatch through the gamut. Also landed: the gardener transient-failure line now carries the reaper's requeue count, and the erights.org E-language source is re-ingested from its reachable GitHub Pages mirror.
+The bot-fork PR for [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) drew a substantive maintainer directive from kriskowal: hide empty groups and reshape the inventory taxonomy (Handles/Hubs/Workers/Everything Else → Directories/Agents/Personas/Values/Capabilities) across space-chat, chat, cli, and daemon. The comment-watcher had misclassified it as a "rebase" (the PR is already mergeable, so no rebase ran); that classifier bug is now fixed, and the directive is parked for a liaison-driven builder/fixer dispatch through the gamut.
 
-Two things to decide. The deploy-sync reconciler landed on main2 but the live `/home/kris` tree is dirty-wedged on a byte-identical redundant edit of `report-error.sh`, blocking both the watchman and deploy-sync fast-forward (checkout now 6 behind); a lossless `git checkout --` unwedges it. And the "harden exported function literals" follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (erights-authorized) is waiting on your call of breadth (narrow two exports vs. repo-wide) and base branch before a cross-repo DRAFT opens. Separately, the [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) rebase-and-gamut you requested on 2026-05-21 never ran (4 CI checks red), which is blocking the formula-inspector retention-paths table; and the ymax0/XS investigation surfaced two agoric-sdk-side decisions (sourcing a v320 swing-store export, and whether to file an upstream-Endo note) that are out of bounds for autonomous action.
+Two scope decisions are waiting on you. The "harden exported function literals" follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) needs you to pick breadth (narrow two-export hardening vs. a repo-wide `@endo/harden-exports`-driven pass) and base branch (`llm` vs. `master`). Separately, the beta3/ymax0 XS-overflow investigation concluded it's an XS native-stack-depth property, not an Endo regression — the real fix is contract-side depth-bounding in agoric-sdk territory (off-limits), and it needs a v320 swing-store export the garden can't obtain autonomously; both are yours to direct.
+
+On the library side, the scholar fleet landed a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher) and ingested MetaMask/ocap-kernel's 689-line kernel guide, with the erights.org grant-matcher source still deferred pending reachability. A lint sweep of endo-but-for-bots master came back clean — only five non-blocking jsdoc warnings, parked as a low-priority fix. The [#284](https://github.com/endojs/endo/pull/284) `listRetentionPaths` host API remains the blocker for the formula-inspector retention-paths table and is stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested.
 
 ## Parked for maintainer feedback
 
@@ -23,14 +25,6 @@ Two things to decide. The deploy-sync reconciler landed on main2 but the live `/
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260627T072235Z-b12c9f` — from gardener:improve-deploy-sync-fleet-onto-landed-fixes, reply_to `improve-deploy-sync-fleet-onto-landed-fixes` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T072235Z-b12c9f.md)
-
-> deploy-sync reconciler landed on main2 (5d6490e62): advances the checkout by a strict clean fast-forward and restarts the long-running services (gardeners between-claims via a busy marker, plus bulletin/driver/watcher) when scripts/ changes, so landed fixes reach running workers without a manual restart.
->
-> Two bringup notes:
-> 1. It is INERT until armed. garden-deploy-sync.timer auto-enables on the next 'install-units.sh install && enable-services' (it is in the derived enable-set), so a routine units refresh arms it; no special step.
-> 2. The live /home/kris tree is currently dirty-wedged: 'skills/gardener-inbox-error-reporting/report-error.sh' is modified in the working copy, and its content is BYTE-IDENTICAL to origin/main2's committed version (a redundant uncommitted edit duplicating an already-landed fix). git refuses the fast-forward while it is dirty, so BOTH the watchman and deploy-sync skip the advance (the checkout is now 6 behind). 'git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh' is lossless (content already on origin) and unwedges the deploy. I did not touch the shared live tree from a gardener job.
 
 - `20260627T073148Z-d2f9fb` — from gardener:formula-inspector-retention-paths-table, reply_to `formula-inspector-retention-paths-table` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T073148Z-d2f9fb.md)
 
@@ -188,18 +182,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
 - [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-mirror.md) — Re-ingest erights.org E-language page from the now-reachable GitHub Pages mirror
-- [`scholar-library-cycle-20260627-175523`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-175523.md) — Hourly scholar library cycle
 
-### tada (381)
+### tada (382)
+- [`scholar-library-cycle-20260627-175523`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-175523.md) — Hourly scholar library cycle — quick-drain (empty ingest queue). Inbox empty;...
 - [`garden-fix-comment-classifier-misroutes-directive-to-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-comment-classifier-misroutes-directive-to-rebase.md) — Completion report: garden-fix-comment-classifier-misroutes-directive-to-rebase
 - [`endojs-endo-but-for-bots-pr405-de3edd06`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-de3edd06.md) — Completion report — endojs-endo-but-for-bots-pr405-de3edd06
 - [`endojs-endo-but-for-bots-pr405-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-rebase.md) — Both routes are in place. The misclassified "rebase" job has nothing real to ...
 - [`improve-gardener-transient-line-carries-reap-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-transient-line-carries-reap-count.md) — Completion report: improve-gardener-transient-line-carries-reap-count
-- [`scholar-erights-github-pages-mirror-source`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-erights-github-pages-mirror-source.md) — Completion report: scholar-erights-github-pages-mirror-source
-- … and 376 more
+- … and 377 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
