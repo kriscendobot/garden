@@ -28,6 +28,23 @@ ok()   { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad()  { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 hr()   { echo "----------------------------------------------------------------"; }
 
+# --- hermetic environment baseline (the fleet-load isolation) ----------------
+# run-test.sh is frequently invoked BY a live gardener (a `run-…` board job),
+# whose process EXPORTS the fleet's own GARDEN_*/JOURNAL_*/SELF_HEAL_* — e.g.
+# GARDEN_GARDENER_CLONE=…/.garden-state/gardeners/18/journal, GARDEN_STATE, and
+# GARDEN_ROOT=/home/kris (whose journal/ origin is the LIVE shared journal2).
+# Those ambient values leak THROUGH a subtest's per-case `env`/`export` overrides
+# into the scripts under test: claim-job/gardener honor GARDEN_GARDENER_CLONE, and
+# ensure_clone/capture_blob derive the remote from GARDEN_ROOT/journal whenever a
+# subtest leaves JOURNAL_REMOTE unset. The result is that the busy ~100-gardener
+# fleet's live clone, state, and journal pushes are spliced underneath the test —
+# the "flakes under fleet load" the self-heal subtests showed (rc=1 calls=0 in the
+# shared-clone capture path; live job names claimed in the inbox/concurrency
+# subtests). Scrub every GARDEN_*/JOURNAL_*/SELF_HEAL_* now so ONLY the test's own
+# throwaway $TR settings are authoritative and concurrent fleet activity is
+# invisible. Each subtest re-exports exactly what it needs against $TR below.
+unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_)' || true) 2>/dev/null || true
+
 rm -rf "$TR"; mkdir -p "$TR/logs"
 BARE="$TR/journal.git"
 
@@ -1135,6 +1152,17 @@ hr; echo "SUBTEST 21 — SELF-HEAL WRAPPER: capture, throttle, signal-clean, rc"
 # exactly ONCE per (context, exit-code) signature per window — never on a clean
 # exit, and never on a systemd stop. The responder is stubbed (records calls) so
 # no real `claude -p` runs; the wrapper's own behavior is what we assert.
+# Dedicated throwaway journal so self-heal's ensure_clone/capture_blob hash into a
+# clone of OUR bare — never a clone derived from GARDEN_ROOT/journal (the live,
+# fleet-busy journal). SUBTEST 20 unset JOURNAL_REMOTE, so without this the capture
+# path would clone/derive the host's shared journal and flake under fleet load
+# (rc=1 calls=0 when the derived clone races or the derived path is absent).
+SHBARE="$TR/selfheal.git"; git init -q --bare "$SHBARE"
+SHSEED="$TR/selfheal-seed"; git init -q "$SHSEED"; git -C "$SHSEED" checkout -q -b "$BRANCH"
+( cd "$SHSEED"; mkdir -p entries; touch entries/.gitkeep )
+git -C "$SHSEED" add -A; git -C "$SHSEED" "${git_id[@]}" commit -q -m "seed self-heal journal"
+git -C "$SHSEED" remote add origin "$SHBARE"; git -C "$SHSEED" push -q -u origin "$BRANCH"
+export JOURNAL_REMOTE="$SHBARE"
 export GARDEN_STATE="$TR/state-selfheal" GARDEN_HOST=shhost GARDEN_ROOT="$JOBS/.."
 SHRUN="$JOBS/self-heal-run.sh"
 SHCALLS="$TR/selfheal-calls"; : > "$SHCALLS"
@@ -1172,11 +1200,17 @@ for _ in 1 2 3 4; do
 done
 [ "$(shcalls)" -eq 2 ] && ok "daily cap holds: 4 same-signature failures → at most 2 responders" || bad "daily cap not enforced ($(shcalls) of cap 2)"
 
-# (6) a TERM mid-run (systemd stop) is a CLEAN shutdown → no responder
+# (6) a TERM mid-run (systemd stop) is a CLEAN shutdown → no responder AND exit 0.
+# The wrapper must NOT return the signal code (143): systemd records `exit 143`
+# as "Main process exited, code=exited, status=143" → "Failed with result
+# 'exit-code'" on EVERY stop/restart of a continuous unit, flapping it to a
+# false Failed state. A signalled shutdown is clean, so the wrapper exits 0.
 : > "$SHCALLS"
 SELF_HEAL_THROTTLE_SECS=0 "$SHRUN" garden-sleeper -- bash -c 'sleep 30' >/dev/null 2>&1 & shpid=$!
-sleep 1; kill -TERM "$shpid"; wait "$shpid" 2>/dev/null || true
-[ "$(shcalls)" -eq 0 ] && ok "SIGTERM mid-run treated as clean shutdown (no spurious diagnosis)" || bad "systemd stop wrongly diagnosed ($(shcalls) calls)"
+sleep 1; kill -TERM "$shpid"; set +e; wait "$shpid"; rterm=$?; set -e
+{ [ "$(shcalls)" -eq 0 ] && [ "$rterm" -eq 0 ]; } \
+  && ok "SIGTERM mid-run → clean shutdown: no diagnosis AND exit 0 (no false Failed)" \
+  || bad "systemd stop wrongly handled (rc=$rterm calls=$(shcalls); expect rc=0 calls=0)"
 
 # (7) PRODUCER-classified transient outage: sync_clone exits GARDEN_OFFLINE_RC (75)
 # on a DNS/connectivity blip. The wrapper must normalize that to a CLEAN exit 0 and
@@ -1208,7 +1242,7 @@ set +e; SELF_HEAL_THROTTLE_SECS=0 "$SHRUN" garden-net -- \
 { [ "$rreal" -eq 128 ] && [ "$(shcalls)" -eq 1 ]; } \
   && ok "genuine rc=128 failure (no outage signature) STILL diagnoses (rc preserved)" \
   || bad "real failure wrongly treated as outage (rc=$rreal calls=$(shcalls))"
-unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER
+unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER JOURNAL_REMOTE
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
