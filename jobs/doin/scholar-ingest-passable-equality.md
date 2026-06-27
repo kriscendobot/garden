@@ -19,3 +19,9 @@ source (much is already in `library/sources/` — check before re-ingesting per
 the idempotency rule). Cross-link to [[grant-matcher-puzzle]] (the motivation),
 [[pass-invariant-handle-equality]] (the Handle-side instance), and
 [[smallcaps-encoding]] / [[rank-order-preserving-encoding]].
+
+---
+claim:
+  host: endolinbot
+  gardener: 58
+  claimed_at: 2026-06-27T14:45:00Z
