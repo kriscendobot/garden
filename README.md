@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T06:08:19Z_
+_As of 2026-06-27T06:36:00Z_
 
 ## Latest
 
-The big signal is operational: the watchman has flagged **main2 on `endolinbot` as WEDGED** — repeated alerts through the night show the live tree stuck while `origin/main2` advanced several times, blocked by tracked working-tree edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and now `skills/gardener-inbox-error-reporting/report-error.sh`. Until that tree is cleaned, this host won't pick up new roles/skills/scripts. Compounding it, a watchdog reports the `comment-watcher/kriskowal-garden` source has seen 0 comments for 60 consecutive ticks despite the repo being active — the same silent-blindness signature as the 2026-06-24 outage; worth checking jq/gh on endolinbot.
+A cluster of self-heal and connectivity-resilience work is in flight: three jobs (`improve-gardener-honor-offline-rc-on-claim`, `improve-self-heal-treat-offline-as-clean-exit`, `improve-unify-connectivity-outage-signatures`) are now in progress to make the gardener claim loop and self-heal path absorb transient git/connectivity outages as clean exits rather than fatal errors, and `improve-report-error-reject-empty-transcript` landed on main2 as `58283556a`. Also completed: `endojs-endo-but-for-bots-pr405-refresh`, a scholar library cycle, the host-formula property-value-addressing design, and run-test scheduler-cadence determinism.
 
-On the work front, `improve-report-error-reject-empty-transcript` landed on main2 as `58283556a`, alongside completions for the scheduler-cadence determinism hardening, a scholar library cycle, and the host-formula property-value addressing design. A gardener flagged a judgment call on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down (its job duplicated already-landed work), it found two real defects in the landed commit — 13 dangling design-doc references and a prose-only parity assertion — and pushed a conflict-safe follow-up `3aa37bbd` adding a real Node parity test; flagged for visibility and trivially revertible. Still awaiting your call: the `cognito-mcp-metadata-bridge` gardener has two design Open Questions (IdP choice and whether to ship RFC 7591 DCR) and will proceed on its recommendations unless redirected, and `synth-and-deploy-minion-town-aws` remains parked for go-ahead. Three jobs are in flight, including review work on [endo-but-for-bots#440](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr440-review-a9ecd20f.md) and two self-heal connectivity-resilience fixes.
+Two things warrant the maintainer's attention. First, **host `endolinbot` is wedged** — the watchman has fired repeatedly that main2's deploy is frozen because uncommitted tracked changes to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh` block the fast-forward; origin/main2 has advanced through many commits while the live tree stays pinned, so this host will not pick up new roles/skills/scripts until the tree is cleaned (these look like the in-flight self-heal edits — verify they aren't unsaved work before stashing). Second, the **comment-watcher for kriskowal/garden reports the 2026-06-24 outage signature again** — 0 comments for 60 consecutive ticks despite a known live comment, suggesting jq/gh on endolinbot may be silently blind. Separately, a gardener flagged a judgment call on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): despite a stand-down it made a conflict-safe non-force follow-up (`3aa37bbd`) fixing 13 dangling design-doc references and adding a real Node parity test, since the superseding writer had departed and left two real defects — trivially revertible if you'd rather it had routed differently.
 
 ## Parked for maintainer feedback
 
@@ -18,7 +18,7 @@ On the work front, `improve-report-error-reject-empty-transcript` landed on main
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 36d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 36d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 36d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 37d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 38d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 37d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
@@ -158,9 +158,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr440-review-a9ecd20f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr440-review-a9ecd20f.md) — Review directive on endojs/endo-but-for-bots PR #440
+- [`improve-gardener-honor-offline-rc-on-claim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-honor-offline-rc-on-claim.md) — In scripts/jobs/gardener.sh, the claim loop treats every non-zero, non-3 retu...
 - [`improve-self-heal-treat-offline-as-clean-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-self-heal-treat-offline-as-clean-exit.md) — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
+- [`improve-unify-connectivity-outage-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-unify-connectivity-outage-signatures.md) — The transient-connectivity signature list has drifted between two places. _fe...
 - [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Make the long-running gardener claim loop absorb transient connectivity outag...
 
 ### tada (308)
