@@ -6660,6 +6660,14 @@ Total section files: 5834 (506 parent indexes + 5328 children).
 - [endo-but-for-bots--pkg-pubsub-readme--overview-and-topic-variants](endo-but-for-bots--pkg-pubsub-readme--overview-and-topic-variants.md)
 - [endo-but-for-bots--pkg-pubsub-readme--sink-and-spring](endo-but-for-bots--pkg-pubsub-readme--sink-and-spring.md)
 
+### erights--elang-index
+
+- [erights--elang-index--overview](erights--elang-index--overview.md)
+
+### erights--elang-intro
+
+- [erights--elang-intro--tutorial-overview](erights--elang-intro--tutorial-overview.md)
+
 ### frb--compile-binder
 
 - [frb--compile-binder--algebraic-binders-equals-if-and-or](frb--compile-binder--algebraic-binders-equals-if-and-or.md)
