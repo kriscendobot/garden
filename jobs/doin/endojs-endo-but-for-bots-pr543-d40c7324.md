@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot ,  at the start of this issue #543 I asked you to create two PRs. The first for the inter-package case and the second for the intra-package case. #544 is the second, the design and guidance PR for the intra-package case. Please create the first PR, the design and gu
+
+---
+claim:
+  host: endolinbot
+  gardener: 58
+  claimed_at: 2026-06-27T04:32:05Z
