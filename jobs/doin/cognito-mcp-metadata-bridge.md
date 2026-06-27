@@ -24,3 +24,9 @@ Deliverable: the bridge as CDK constructs + Lambda source in `infra/`, with
 Bot repo only. No real AWS creds needed to author + synth-verify; live wiring is
 covered by the deploy follow-on. Resolve design Open Questions #1 (Cognito+bridge
 vs MCP-native IdP) and #2 (need DCR?) with the maintainer before building.
+
+---
+claim:
+  host: endolinbot
+  gardener: 66
+  claimed_at: 2026-06-27T05:06:15Z
