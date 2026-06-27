@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T10:27:50Z_
+_As of 2026-06-27T10:47:34Z_
 
 ## Latest
 
-A deploy-sync reconciler landed on main2 (`5d6490e62`): it now fast-forwards a host's checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart. The headline problem for the maintainer is that **host endolinbot is wedged** — its live tree has been stuck for hours and is now many commits behind `origin/main2`, so it will not pick up new roles, skills, or scripts. Early wedges were a dirty working tree (`self-heal-run.sh`, `gardener.sh`, and a redundant byte-identical edit to `skills/gardener-inbox-error-reporting/report-error.sh` that a lossless `git checkout --` would clear); the latest watchman reports show the block has shifted to an untracked file colliding with an incoming tracked path, which needs hands-on cleanup. Separately, the `comment-watcher/kriskowal-garden` watchdog has now fired four times reporting **0 comments across 220 consecutive ticks despite the repo being active** — the same silent-blindness signature as the 2026-06-24 outage, worth a jq/gh check on endolinbot. On the work side, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node parity test after finding defects in the superseded landing; scholars ingested MetaMask's ocap-kernel guide and a six-section distributed-ocap concept cluster. Two items are parked on the maintainer: the `cognito-mcp-metadata-bridge` build awaits answers on two design Open Questions, and the `formula-inspector-retention-paths-table` job is blocked on PR #284 (still open, stalled since 2026-05-21 with failing CI) needing the rebase-and-gamut you already requested.
+The most urgent item: **main2 on host `endolinbot` has been deploy-wedged for the entire window** — a stream of watchman alerts shows the live checkout stuck while `origin/main2` advanced repeatedly, because tracked working-tree edits (`scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, `scripts/jobs/claim-job.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`, plus a later untracked-file collision) keep blocking the fast-forward. The deploy-sync gardener diagnosed the root cause: `report-error.sh` is modified in the working copy but byte-identical to what already landed on `origin/main2`, so `git checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges the host; the watchman, the new deploy-sync reconciler (landed at `5d6490e62`, inert until a units refresh arms its timer), and the self-heal watchdog are all skipping the advance until the tree is clean.
+
+Separately, the `comment-watcher/kriskowal-garden` watchdog fired the 2026-06-24 outage signature again — 0 comments for 220+ consecutive ticks while `kriskowal/garden` is demonstrably active — pointing at another silently-blind comment source on `endolinbot` worth checking before more feedback is missed.
+
+On the work side, a gardener landed a corrective follow-up (`3aa37bbd`) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling doc-path references and adding a real Node parity test atop the earlier `aa78d8329`, with the full compartment-mapper suite green. Two jobs are blocked pending the maintainer: `formula-inspector-retention-paths-table` is stalled on its data source (the still-open #284 `listRetentionPaths` API, which needs the rebase-and-gamut you already requested), and `cognito-mcp-metadata-bridge` is awaiting your call on two design open questions before it builds. Scholar throughput continued, ingesting MetaMask/ocap-kernel's kernel guide (the sixth ocap-kernel source) and synthesizing a distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -402,16 +406,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-ingest-ocap-kernel-usage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-usage.md) — PLAN: scholar — ingest MetaMask/ocap-kernel docs/usage.md
+### doin (0)
+(none)
 
-### tada (336)
+### tada (337)
+- [`scholar-ingest-ocap-kernel-usage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-usage.md) — Completion report: scholar-ingest-ocap-kernel-usage
 - [`investigate-systemd-run-vs-gardener-loops`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-systemd-run-vs-gardener-loops.md) — Completion report: investigate-systemd-run-vs-gardener-loops
 - [`improve-scripted-journal2-content-edit-landing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scripted-journal2-content-edit-landing.md) — Completion report: improve-scripted-journal2-content-edit-landing
 - [`improve-deterministic-section-link-integrity-scan`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deterministic-section-link-integrity-scan.md) — Inbox empty. Work complete.
 - [`scholar-library-cycle-20260627-095222`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-095222.md) — Completion report — scholar-library-cycle-20260627-095222
-- [`improve-post-ingest-parent-index-resolution-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-post-ingest-parent-index-resolution-gate.md) — Completion report: improve-post-ingest-parent-index-resolution-gate
-- … and 331 more
+- … and 332 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
