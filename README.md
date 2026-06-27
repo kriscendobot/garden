@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T12:03:56Z_
+_As of 2026-06-27T12:07:20Z_
 
 ## Latest
 
-The headline is operational, not feature work: this host's deploy is **wedged**. The watchman fired ~20 times through the period because main2 on endolinbot keeps refusing to fast-forward — first uncommitted edits to `scripts/jobs/self-heal-run.sh` and `gardener.sh`, then `gardener-inbox-error-reporting/report-error.sh`, and most recently `library-link-check.sh`/`library-link-scan.sh` — leaving the live tree stuck while origin/main2 advanced through a dozen commits. A `deploy-sync` reconciler landed on main2 (`5d6490e62`) to auto-advance the checkout and restart long-running services on `scripts/` changes, but it stays inert until the next units refresh arms its timer, and it won't help while the tree is dirty. A gardener flagged the cleanest current unblock: `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless (the edit is byte-identical to what already landed). Separately, the `comment-watcher/kriskowal-garden` watchdog has now reported the 2026-06-24 blind-outage signature for 300 consecutive ticks — zero comments seen despite a real comment since 2026-06-25 — which warrants checking `jq`/`gh` on endolinbot again.
+The host **endolinbot** has been deploy-wedged for roughly seven hours: a string of watchman alerts shows `main2` stuck while `origin/main2` advanced ~20+ commits, first on uncommitted edits to `self-heal-run.sh`, then a byte-identical redundant edit to `skills/gardener-inbox-error-reporting/report-error.sh`, and finally untracked-file collisions (e.g. `bundle-ymax0.json`) blocking the fast-forward. The fix is lossless — `git -C /home/kris checkout --` the redundant edits and clear the colliding untracked files — and is now partly self-correcting: the new **deploy-sync reconciler** landed on main2 (`5d6490e62`), which fast-forwards the checkout and restarts long-running services when `scripts/` changes, but it stays inert until a `install-units.sh` refresh arms its timer and cannot advance while the tree is dirty.
 
-On code: a gardener pushed a conflict-safe follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node parity test atop the prior landed commit, despite an intervening stand-down (flagged for your visibility). A lint sweep of bot-master came back clean — only 5 non-blocking jsdoc warnings, parked as `fix-lint-jsdoc-warnings-endo-master`. Scholar ingested MetaMask/ocap-kernel's kernel guide and a six-section distributed-ocap concept cluster. Two items need your word: the `cognito-mcp-metadata-bridge` build is proceeding on its own recommendations but asks you to confirm the Cognito-vs-native-IdP and RFC 7591 DCR questions, and the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since your 2026-05-21 rebase request and has 4 failing checks. The board is otherwise drained (todo and doin both empty).
+Separately, the **comment-watcher for kriskowal/garden has gone blind again** — 0 comments for 300 consecutive ticks despite a real comment since 2026-06-25, matching the 2026-06-24 jq/gh outage signature; worth checking the comment-source handler on endolinbot.
+
+On the PR front: a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) — fixing 13 dangling design-doc references and adding a real Node parity test atop the superseding commit, after honoring a stand-down on duplicate work. Lint classification of bot-master came back clean (only 5 non-failing jsdoc warnings, plan `fix-lint-jsdoc-warnings-endo-master` parked). The `formula-inspector-retention-paths-table` job is **blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)**, which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and has 4 failing CI checks. Two gardeners are also awaiting your go-ahead: the Cognito↔MCP OAuth bridge (`cognito-mcp-metadata-bridge`, two design questions, proceeding on recommendations unless redirected) and `synth-and-deploy-minion-town-aws`. The board itself is quiet — todo empty, one job in flight (`improve-journal-entry-argv-guard`) — with the scholar fleet adding ocap-kernel and distributed-ocap concept ingests in the background.
 
 ## Parked for maintainer feedback
 
@@ -479,8 +481,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-journal-entry-argv-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-entry-argv-guard.md) — Harden /home/kris/scripts/jobs/journal-entry.sh against malformed first-argum...
 
 ### tada (347)
 - [`scholar-library-cycle-20260627-115254`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-115254.md) — Completion report — scholar-library-cycle-20260627-115254
