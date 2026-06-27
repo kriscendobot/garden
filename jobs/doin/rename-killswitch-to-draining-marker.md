@@ -45,3 +45,9 @@ Deliverable: a mundane, self-describing "draining" marker replacing "killswitch"
 "NOPE", with all call sites + docs updated and legacy compatibility retained.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 56
+  claimed_at: 2026-06-27T16:31:50Z
