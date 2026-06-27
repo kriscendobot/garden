@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T17:41:33Z_
+_As of 2026-06-27T17:45:49Z_
 
 ## Latest
 
-Library and infrastructure work dominated this cycle. The **deploy-sync reconciler** landed on main2 (5d6490e62) — it fast-forwards the checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart; note it stays inert until a routine `install-units.sh` refresh arms its timer. The live /home/kris tree had dirty-wedged on a redundant (byte-identical) edit to `report-error.sh`, blocking both the watchman and deploy-sync; that wedge is now resolved and the checkout is advancing again. With erights.org's GitHub Pages mirror finally reachable, the scholar is re-ingesting the E-language source (in progress), and several ocap library ingests landed — the MetaMask ocap-kernel host guide plus a six-topic distributed-ocap concept cluster (three-party handoff, sturdyref, confinement, eventual-send, grant-matcher). The mentor and proxy each got reliability fixes (journalctl no-entries sentinel; auto-clearing watchdog maintainer messages).
+The deterministic deploy-sync reconciler landed on `main2` (5d6490e62): it advances each host's checkout by a strict clean fast-forward and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — but it stays inert until a routine `install-units.sh` units refresh arms its timer. The live `/home/kris` tree had dirty-wedged on a redundant uncommitted edit to `report-error.sh`; that wedge is now resolved and the gardener-transient-line reap-count fix completed and landed (87fc42f3d). Scholar work continued apace — the erights.org E-language page re-ingested from the now-reachable GitHub Pages mirror, a sixth MetaMask/ocap-kernel ingest, and a distributed-ocap concept cluster.
 
-Three scope decisions are parked for you. The harden-exported-function-literals follow-up to [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) awaits two answers — narrow vs. repo-wide breadth, and `llm` vs. `master` base — before any cross-repo DRAFT opens. The formula-inspector retention-paths table is blocked on the still-open, stalled host-API PR #284 (the rebase-and-gamut you requested back on 2026-05-21 never happened; it has 4 failing checks), and the gardener offers to take that rebase as a separate job on your word. Finally, the beta3/ymax0 XS investigation surfaced two out-of-bounds calls (sourcing a v320 swing-store export; whether to file an upstream-Endo note) — both ruled agoric-sdk/contract territory and left for your direction. Separately, endo master lint is clean: the only findings are 5 non-blocking jsdoc warnings, parked as a low-priority plan.
+Several decisions are parked for kriskowal. Two carry erights's standing authorization but need scoping: the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) harden-exported-literals follow-up awaits a breadth (narrow vs repo-wide) and base-branch (`llm` vs `master`) call before a DRAFT opens. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 on your own "please rebase and run the gamut again" and now shows 4 failing CI checks — a gardener offers to take that rebase-and-gamut as a separate job on the word. Finally, the beta3/ymax0 XS investigation surfaced two agoric-sdk-territory calls (sourcing a v320 swing-store export and whether to file an upstream-Endo note), both out of bounds for autonomous action and awaiting your direction.
 
 ## Parked for maintainer feedback
 
@@ -166,16 +166,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (2)
-- [`improve-gardener-transient-line-carries-reap-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-transient-line-carries-reap-count.md) — In scripts/jobs/gardener.sh, the transient-handler-failure branch (the if [ "...
+- [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
 - [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-mirror.md) — Re-ingest erights.org E-language page from the now-reachable GitHub Pages mirror
 
-### tada (377)
+### tada (378)
+- [`improve-gardener-transient-line-carries-reap-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-transient-line-carries-reap-count.md) — Completion report: improve-gardener-transient-line-carries-reap-count
 - [`scholar-erights-github-pages-mirror-source`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-erights-github-pages-mirror-source.md) — Completion report: scholar-erights-github-pages-mirror-source
 - [`resolve-wedge-endolinbot-00693cdbd594-238966609725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-00693cdbd594-238966609725.md) — The wedge is resolved. The tree is now clean of tracked changes — the only bl...
 - [`improve-mentor-treat-journalctl-no-entries-as-empty`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-treat-journalctl-no-entries-as-empty.md) — Completion report
 - [`scholar-library-cycle-20260627-165512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-165512.md) — Completion report: scholar-library-cycle-20260627-165512
-- [`proxy-auto-clear-watchdog-messages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proxy-auto-clear-watchdog-messages.md) — Completion report
-- … and 372 more
+- … and 373 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
