@@ -38,4 +38,4 @@ If `a` and `b` do *not* designate the same object, then all the above statements
 
 Should a partition occur, all the above statements continue to hold anyway, but not in the obvious way. For example, should `v()` be lost in a partition, never to be delivered, then `x()` and `y()` must never be delivered, and both `b` and `c` must eventually become BROKEN, as implied by "`c` is a fork of `b`".
 
-Source: [Four Party Partial Orders](https://erights.org/elib/equality/after-both.html) § Joining The Orders, Mark S. Miller, erights.org; ingested from the Internet Archive original-bytes capture, content SHA-256 `e9e89167`.
+Source: [Four Party Partial Orders](https://erights.org/elib/equality/after-both.html) § Joining The Orders, Mark S. Miller, erights.org; fetched 2026-06-27 via the erights.github.io GitHub Pages mirror, content SHA-256 `e9e89167` (byte-identical to the prior Internet-Archive capture).
