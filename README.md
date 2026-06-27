@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T18:52:13Z_
+_As of 2026-06-27T18:56:33Z_
 
 ## Latest
 
-Endolinbot's proxy now parks blocked jobs as `gate=blocked` plans with a deterministic unblock trigger, and a dirty-tree wedge on main2 was resolved autonomously — both landed this cycle. Two gardener reports surfaced maintainer decisions worth attention: the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) job was misclassified as a "rebase" when kriskowal's comment is actually a feature directive (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) that needs a liaison-driven builder dispatch — a classifier-bug fix is being posted separately. The "harden exported function literals" follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you scoping two axes: narrow (just the two evasive-transform exports) vs. repo-wide, and base branch `llm` vs. `master`. Separately, the formula-inspector retention-paths table stays blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which still needs the rebase-and-gamut you requested back on 2026-05-21 before it can land. On the library side, scholars ingested MetaMask's ocap-kernel guide and a distributed-ocap concept cluster (three-party handoff, sturdyrefs, distributed confinement), with the grant-matcher puzzle source-ingest deferred until erights.org is reachable.
+Recent infra work landed: the proxy now parks blocked jobs as `gate=blocked` plans with a deterministic unblock trigger, the gardener-scaler gained a busy-gate on disable plus a no-op guard for unreadable counts, an endolinbot main2 wedge was auto-resolved, and the scholar shelf grew several ocap ingests (MetaMask/ocap-kernel kernel guide, six synthesized distributed-ocap concepts, and the erights equality-page mirrors). The board is otherwise idle — todo is empty and only routine jobs are in flight.
+
+What needs maintainer attention is a stack of parked decisions, not parked code. A maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder dispatch — the fleet has no autonomous path for it. The "harden exported function literals" follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you choosing breadth (narrow vs repo-wide) and base branch (`llm` vs `master`). The retention-paths table job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you requested. Two other revisits closed cleanly with no change: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers plan (intrinsic duplication; reuse would invert the extraction) and endo master lint (clean, only 5 non-blocking jsdoc warnings). The ymax0/XS investigation also surfaced two out-of-bounds calls for you — sourcing a v320 swing-store export and whether to file an upstream-Endo note — since the root cause is XS native stack depth, not an Endo regression.
 
 ## Parked for maintainer feedback
 
@@ -178,10 +180,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
 - [`improve-scaler-no-op-on-unreadable-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scaler-no-op-on-unreadable-count.md) — scripts/jobs/gardener-scaler.sh initializes want=0 and only overwrites it whe...
 - [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
+- [`scholar-library-cycle-20260627-185542`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-185542.md) — Hourly scholar library cycle
 
 ### tada (390)
 - [`proxy-park-blocked-jobs-and-auto-unblock`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proxy-park-blocked-jobs-and-auto-unblock.md) — Completion report: proxy-park-blocked-jobs-and-auto-unblock
