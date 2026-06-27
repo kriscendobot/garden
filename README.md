@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T08:35:50Z_
+_As of 2026-06-27T08:39:00Z_
 
 ## Latest
 
-The headline a maintainer should act on: **main2 on endolinbot is deploy-wedged.** A redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (and earlier `scripts/jobs/self-heal-run.sh`) is blocking the fast-forward, so the live tree has fallen 6+ commits behind `origin/main2` and is not picking up new roles/skills/scripts — repeated watchman alerts confirm it. A lossless `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` unwedges it.
+The endolinbot deploy is **wedged** and needs a hand: the live `/home/kris` tree is dirty (uncommitted edits to `scripts/jobs/gardener.sh`, `self-heal-run.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`), blocking the fast-forward, so the checkout has fallen six-plus commits behind `origin/main2` and is not picking up new scripts. The `improve-deploy-sync-fleet-onto-landed-fixes` gardener confirms `report-error.sh` is byte-identical to the committed version — a redundant uncommitted edit — so `git -C /home/kris checkout -- <those paths>` is lossless and unwedges the host. That same job landed a deploy-sync reconciler (`5d6490e62`) that will auto-restart services when `scripts/` changes, but it stays inert until a routine `install-units.sh install && enable-services` arms its timer.
 
-Several gardener-resilience fixes landed on main2 in the meantime: the new **deploy-sync reconciler** (5d6490e62) that clean-fast-forwards the checkout and restarts long-running services when `scripts/` changes (inert until a units refresh arms `garden-deploy-sync.timer`), plus the self-heal/gardener crash-loop fixes that stop a transient claim/fetch blip from hard-dying a worker (`improve-sync-clone-transient-fetch-classification`, ba38a1372). A follow-on, `improve-gardener-absorb-transient-claim-offline-rc`, is now in progress. Scholar work was prolific — the ocap-kernel `kernel-guide.md` ingest and a six-section distributed-ocap concept cluster both landed on journal2. On [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), a gardener overrode a stand-down to push a corrective follow-up (fixed 13 dangling design-doc references and added a real Node parity test) and flagged the judgment call for visibility.
+Separately, the **comment-watcher for kriskowal/garden has gone blind** — 0 comments across 140 ticks while the repo is demonstrably active — the same jq/gh outage signature as 2026-06-24; worth checking the tooling on endolinbot.
 
-Two watch items: the `comment-watcher/kriskowal-garden` watcher has reported **0 comments for 140+ ticks despite the repo being active** — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking. And the `formula-inspector-retention-paths-table` job is blocked on its still-open, CI-failing `listRetentionPaths` host-API dependency (the rebase-and-re-gamut you requested 2026-05-21 never ran); the gardener reported the gap rather than duplicating the graph walk.
+On the fixes front, the transient-failure hardening chain landed (sync-clone fetch classification `ba38a1372`, plus self-heal exit-code normalization), with two more gardener/handler robustness jobs still in flight. A corrective non-force follow-up (`3aa37bbd`) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) cleaned up 13 dangling design-doc references and added a real Node parity test after a stand-down; the gardener flagged it for visibility. The `formula-inspector-retention-paths-table` job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API), which has been stalled since 2026-05-21 with a requested rebase/re-gamut never run and 4 failing checks — it needs to land before the table can be built. Scholar also ingested MetaMask/ocap-kernel's kernel-guide (sixth ocap-kernel ingest) and a six-section distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -332,6 +332,21 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Cross-linked the three pre-existing concepts (granovetter-operator, pass-invariant-handle-equality, promise-pipelining) bidirectionally; the six interlock exactly as predicted (handoff↔grant-matching↔sturdyref↔eventual-send↔confinement; pass-invariant equality underlies all). Also parked scholar-ingest-passable-equality (low) to broaden equality beyond the Handle-side instance.
 >
 > Topic whose source I could not locate: grant matching (erights.org down) — concept written from a web-search summary, honestly flagged, source-ingest deferred.
+
+- `20260627T083851Z-f3bf86` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T083851Z-f3bf86.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 3ab9074bca91f72f0de738e5b25e172aa7ea138e but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/gardener.sh
+>  M skills/gardener-inbox-error-reporting/report-error.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
 
 ## Board
