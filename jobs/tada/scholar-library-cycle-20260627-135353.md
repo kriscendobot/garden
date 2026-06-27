@@ -1,52 +1,20 @@
-project: garden
+Job completed cleanly. Final report:
 
-# Hourly scholar library cycle — empty-inbox quick drain
+---
 
-Cycle for job `scholar-library-cycle-20260627-135353` (hourly periodical).
-Resolved as a quick drain: no ingest work was queued this hour.
+## Completion report — `scholar-library-cycle-20260627-135353`
 
-## What the cycle found
+**Outcome:** empty-inbox quick drain. The hourly scholar cycle found no queued ingest work this hour and resolved without writing any library or project files.
 
-- **Job inbox** (`scholar-library-cycle-20260627-135353`): empty.
-- **Scholar topic / broadcast** (`role/scholar`, `broadcast`): no messages, so no
-  `library_action: ingest-source` asks and no writeback-review requests.
-- **Board** (`origin/journal2` tip `e4334acb`): `jobs/todo/` carries no
-  `scholar-*` work. Two scholar items sit parked in `jobs/plan/`
-  (`scholar-ingest-ocap-kernel-packages`, `scholar-ingest-passable-equality`).
-  The plan category is gated and a gardener neither claims nor promotes it, so
-  both are left in place for the liaison or foreman to promote into `todo/`.
+**What I did:**
+1. **Synced** against `origin/journal2` (tip `e4334acb`), reading committed state rather than touching the stale shared `/home/kris/journal` worktree (which carries 3 stray local-only commits and is ~2347 behind — that's the new `journal-worktree-keeper` daemon's domain, not mine).
+2. **Drained the inbox** — job inbox empty; scholar topic (`role/scholar`) and `broadcast` both empty, so no `ingest-source` asks or writeback-review requests.
+3. **Surveyed the board** — `jobs/todo/` carries no `scholar-*` work. Two scholar items are parked in `jobs/plan/` (`scholar-ingest-ocap-kernel-packages`, `scholar-ingest-passable-equality`); these are gated and a gardener neither claims nor promotes them, so I left them for liaison/foreman promotion and named them as deferred backlog.
+4. **Ran the standing tip-synced section-link integrity scan** proactively (`library-link-scan.sh`) even though no files changed: **OK — every checked link resolves to a committed file** at tip `e4334acb`. No dangling links, no omitted `kind: index` parent. Library is clean.
+5. **Journaled** a `result` entry (`entries/2026/06/27/135714Z-result-scholar-c97ee0.md`) and **completed** the job (`doin → tada`); inbox torn down.
 
-## Library writes
+**What changed:** one `result` journal entry; one job moved to `jobs/tada/`. No library content writes.
 
-None. No source was ingested or refreshed this cycle (nothing was queued), so no
-`sections/`, `sources/`, `topics/`, `concepts/`, `keywords.md`, or project files
-were touched, and no README index moved.
+**Follow-ups:** none posted — the only backlog is the two already-parked `jobs/plan/` items, which need promotion (a liaison/foreman call), not a duplicate posting. If the inbox starts accumulating faster than hourly can drain, the job body notes a half-hour-offset second schedule as the lever.
 
-## Integrity verdict
-
-Ran the standing tip-synced section-link integrity scan proactively even though
-no files were written:
-
-```
-library-link-scan.sh  →  OK — every checked link resolves to a committed file
-(origin/journal2 tip e4334acb)
-```
-
-Every section-table target, `sections/README.md` index row, and `kind: index`
-parent child-list resolves to a committed file. No dangling links, no omitted
-index parent. The library is clean at the current tip.
-
-## Follow-on jobs
-
-None posted. The only deferred backlog is the two already-parked `jobs/plan/`
-items above; they need promotion, not a fresh posting, so re-posting would only
-duplicate them.
-
-## Deferred backlog
-
-- `jobs/plan/scholar-ingest-ocap-kernel-packages.md` — awaiting promotion.
-- `jobs/plan/scholar-ingest-passable-equality.md` — awaiting promotion.
-
-Self-improvement: nothing this time. The empty-inbox path drained cleanly and the
-standing link scan already encodes the stale-snapshot lesson it was built for, so
-there is no role/skill gap to route.
+Self-improvement: nothing this time.
