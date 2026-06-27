@@ -30,3 +30,9 @@ Work to do:
 
 This likely exceeds one scholar cycle's section-write budget; split across cycles
 by source-slug if needed.
+
+---
+claim:
+  host: endolinbot
+  gardener: 90
+  claimed_at: 2026-06-27T06:56:12Z
