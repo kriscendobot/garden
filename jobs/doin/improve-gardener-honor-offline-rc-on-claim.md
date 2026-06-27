@@ -1,1 +1,7 @@
 In `scripts/jobs/gardener.sh`, the claim loop treats every non-zero, non-3 return from `claim-job.sh` as fatal: `[ "$rc" -ne 0 ] && die "claim failed (rc=$rc)"`. But `sync_clone()` in `scripts/jobs/common.sh:450` does `exit "$GARDEN_OFFLINE_RC"` (default 75 / EX_TEMPFAIL) on a transient DNS/connectivity outage, which propagates up through `claim-job.sh` as exit 75. The result is that a transient network blip during the claim's `sync_clone` fetch crashes the entire gardener worker (`die` → exit 1), which is exactly the recurring fleet-wide `garden-gardener@N.service: Failed with result 'exit-code'` noise in the journalctl tail (e.g. instances 22/26/44/63 all failing at the same second — a single shared outage taking down four workers at once). This is the offline-tick that GARDEN_OFFLINE_RC was designed to make a clean skip-and-retry, but gardener.sh never honors it. Fix: add a branch BEFORE the `die` that treats `rc == ${GARDEN_OFFLINE_RC:-75}` the same as the empty-board `rc == 3` case — log "offline; skipping claim tick", `sleep "$GARDEN_IDLE_SLEEP"`, and `continue` (do NOT increment `idle_rounds`, since an offline tick is not a drained board for GARDEN_ONESHOT). This stops a transient outage from crash-looping the worker pool and from burning self-heal responders on a self-resolving blip. Optionally apply the same guard to the `complete-job.sh` call so a transient outage there is retried rather than fatal under `set -e`.
+
+---
+claim:
+  host: endolinbot
+  gardener: 90
+  claimed_at: 2026-06-27T06:35:03Z
