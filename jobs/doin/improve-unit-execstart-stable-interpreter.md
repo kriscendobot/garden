@@ -1,1 +1,7 @@
 The 2026-06-27 18:46 fleet-wide outage was `status=203/EXEC` on ~100 `garden-gardener@N` services plus `garden-gardener-scaler` (persisting every minute 18:46→18:50). Cause: `deploy-sync.sh` advances the live checkout under `$GARDEN_ROOT` in place (`git merge --ff-only` + `install-units.sh install` re-render) while every unit's `ExecStart` `execve()`s the script file directly (`ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh …` in `scripts/systemd/garden-gardener@.service`, `garden-gardener-scaler.service`, and the other long-running unit templates). Any unit (re)start during the deploy window hits a momentarily absent/non-executable script → 203/EXEC, which counts toward `StartLimitBurst` and can hold the unit DOWN past the deploy. Harden by editing the unit templates in `scripts/systemd/` (and thus `install-units.sh`'s rendered output) so `ExecStart` runs a stable, always-present interpreter: `ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh …`. systemd then execs `/bin/bash` (never 203/EXEC); a transient unreadable script becomes an ordinary nonzero bash exit that `Restart=on-failure`/the next timer tick retries cleanly. Also add `StartLimitIntervalSec=0` to the `[Unit]` section of the gardener and scaler templates so a deploy-window burst of failures never wedges a worker DOWN indefinitely. Add a regression assertion in `run-test.sh` that every rendered `garden-*.service` ExecStart begins with `/bin/bash`.
+
+---
+claim:
+  host: endolinbot
+  gardener: 69
+  claimed_at: 2026-06-27T19:11:10Z
