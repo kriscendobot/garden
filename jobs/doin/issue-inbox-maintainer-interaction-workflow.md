@@ -94,3 +94,9 @@ defer-to-submitter-close etiquette + a design doc capturing the decisions + test
 bring-up docs. The sender-trust gate is mandatory and proven by tests.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 3
+  claimed_at: 2026-06-27T18:44:49Z
