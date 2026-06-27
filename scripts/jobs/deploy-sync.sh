@@ -27,9 +27,13 @@
 # This runs on a short cadence (garden-deploy-sync.timer, ~2–5 min). Each tick:
 #   * fetch origin/main2;
 #   * advance the checkout ONLY by a strict fast-forward of a CLEAN tree
-#     (`git merge --ff-only`); skip-and-log if the tree is tracked-dirty or has
-#     diverged — the live tree may carry a concurrent gardener's in-flight edits
-#     (the isolated-worktree convention), and we NEVER clobber them;
+#     (`git merge --ff-only`); skip-and-log if the tree has diverged — the live
+#     tree may carry a concurrent gardener's in-flight edits (the isolated-worktree
+#     convention), and we NEVER clobber them. If the tree is tracked-dirty (or an
+#     untracked file collides with an incoming path), post a resolve-wedge job to
+#     the board (trigger_wedge_resolution, shared with the watchman) so a gardener
+#     cleans it losslessly and autonomously — the maintainer is NOT paged
+#     (directive 2026-06-27);
 #   * if anything under scripts/ changed, restart the long-running services so they
 #     re-exec; if a unit FILE under scripts/systemd/ changed, re-render + reload the
 #     units first.
@@ -54,6 +58,8 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
+# shellcheck source=wedge-resolve.sh
+source "$HERE/wedge-resolve.sh"
 GARDEN_TAG="deploy-sync"
 : "${GARDEN_MAIN_BRANCH:=main2}"
 : "${GARDEN_DEPLOY_SYNC:=1}"
@@ -86,15 +92,20 @@ fi
 # and must not wedge the deploy (mirrors watchman.sh --untracked-files=no).
 dirty_tracked="$(git -C "$GARDEN_ROOT" status --porcelain --untracked-files=no 2>/dev/null)"
 if [ -n "$dirty_tracked" ]; then
-  log "WARN: $GARDEN_MAIN_BRANCH worktree has TRACKED changes; skipping deploy (tree carries in-flight edits)"
+  log "WARN: $GARDEN_MAIN_BRANCH worktree has TRACKED changes; skipping deploy (tree carries in-flight edits), posting resolve-wedge job"
   log "blocking paths: $(printf '%s' "$dirty_tracked" | tr '\n' ';')"
+  # Trigger autonomous resolution rather than wedging indefinitely. Idempotent with
+  # the watchman: the same (host, target, paths) signature posts one job, claimed
+  # once. Never page the maintainer (directive 2026-06-27).
+  trigger_wedge_resolution "$old_sha" "$up_sha" "tracked working-tree changes block the fast-forward" "$dirty_tracked"
   exit 0
 fi
 
 if ! git -C "$GARDEN_ROOT" merge --ff-only "origin/$GARDEN_MAIN_BRANCH" >/dev/null 2>&1; then
   # No tracked WIP yet ff was refused — typically an untracked file colliding with
-  # an incoming tracked path. Report and skip; never clobber.
-  log "WARN: ff-merge to origin/$GARDEN_MAIN_BRANCH refused (an untracked file collides with an incoming path?); skipping deploy"
+  # an incoming tracked path. Resolve autonomously and skip; never clobber.
+  log "WARN: ff-merge to origin/$GARDEN_MAIN_BRANCH refused (an untracked file collides with an incoming path?); posting resolve-wedge job"
+  trigger_wedge_resolution "$old_sha" "$up_sha" "fast-forward refused (an untracked file collides with an incoming tracked path)" ""
   exit 0
 fi
 log "deployed $GARDEN_MAIN_BRANCH: $old_sha -> $up_sha"

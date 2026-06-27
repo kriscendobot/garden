@@ -64,18 +64,34 @@ origin_commit() {  # origin_commit <relpath> <content> <msg>
   rm -rf "$wt"
 }
 
+# A GARDEN_POST_JOB mock so a wedge-triggered resolve-wedge post never reaches the
+# real journal-backed producer (which would hang on a fetch in this fixture). It
+# records each posted basename to $TR/postlog.
+POSTLOG="$TR/postlog"
+mkpostmock() {
+  cat > "$TR/post-mock.sh" <<EOF
+#!/bin/bash
+echo "POST \$1" >> "$POSTLOG"
+exit 0
+EOF
+  chmod +x "$TR/post-mock.sh"
+}
+
 run_deploy() {  # run_deploy [extra env assignments...] ; returns rc, fills $OUT
+  mkpostmock; : > "$POSTLOG"
   set +e
   OUT="$(env GARDEN_ROOT="$TR/root" GARDEN_STATE="$TR/state" GARDEN_MAIN_BRANCH=main2 \
              GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh" \
              GARDEN_MOCK_STATE="$TR/armed" GARDEN_MOCK_LOG="$TR/log" \
+             GARDEN_POST_JOB="$TR/post-mock.sh" \
              XDG_CONFIG_HOME="$TR/config" \
              "$@" bash "$DEPLOY" 2>&1)"
   RC=$?
   set -e
 }
-root_head() { git -C "$TR/root" rev-parse HEAD; }
-log_has()   { grep -qF "$1" "$TR/log"; }
+root_head()  { git -C "$TR/root" rev-parse HEAD; }
+log_has()    { grep -qF "$1" "$TR/log"; }
+posted_any() { grep -q '^POST resolve-wedge-' "$POSTLOG" 2>/dev/null; }
 
 # ============================================================================
 hr; echo "STATIC — the scripts parse (bash -n)"; hr
@@ -135,6 +151,8 @@ run_deploy
 [ "$(root_head)" = "$before" ] && ok "tree NOT advanced while dirty" || bad "tree advanced over tracked WIP (clobber!)"
 grep -q "TRACKED changes" <<<"$OUT" && ok "dirty-tree skip logged" || bad "dirty-tree skip not logged"
 grep -q restart "$TR/log" && bad "restarted despite a skipped deploy" || ok "no restart on a skipped (dirty) deploy"
+posted_any && ok "a resolve-wedge job was posted (autonomous resolution, not a wedge)" || bad "no resolve-wedge job posted on a dirty tree"
+grep -Eq 'message-user|deploy is frozen' <<<"$OUT" && bad "deploy-sync paged the maintainer on a wedge" || ok "maintainer NOT paged on a dirty wedge"
 
 # ============================================================================
 hr; echo "UNTRACKED — a stray untracked file does NOT block the deploy"; hr

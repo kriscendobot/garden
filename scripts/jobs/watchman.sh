@@ -10,48 +10,27 @@
 # evolution handler (`claude -p` wearing the watchman role) for targeted notes.
 #
 # The aggressive checkout only fast-forwards a tree with no TRACKED local edits;
-# genuine WIP (tracked-modified / staged) is left alone and reported LOUDLY to
-# the maintainer (we never clobber local edits, and a dirty tree must never
-# silently freeze the fleet-wide deploy — see notify_dirty_wedge). UNTRACKED
-# files (stray sibling worktrees, build artifacts that live inside the garden
-# root) are NOT treated as dirty: they are not WIP and must not wedge the
-# deploy. Disable the aggressive checkout entirely with GARDEN_AGGRESSIVE_CHECKOUT=0.
+# genuine WIP (tracked-modified / staged) is left alone. A dirty tree must never
+# silently freeze the fleet-wide deploy — but it must also never PAGE the
+# maintainer (maintainer directive 2026-06-27: the watchman resolves these wedges
+# AUTONOMOUSLY, the maintainers are not in the loop). So on a wedge we post a
+# resolve-wedge job to the board (trigger_wedge_resolution, in wedge-resolve.sh)
+# instead of emailing the maintainer; a claude gardener claims it and performs the
+# lossless finisher dance. UNTRACKED files (stray sibling worktrees, build
+# artifacts that live inside the garden root) are NOT treated as dirty: they are
+# not WIP and must not wedge the deploy. Disable the aggressive checkout entirely
+# with GARDEN_AGGRESSIVE_CHECKOUT=0.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
+# shellcheck source=wedge-resolve.sh
+source "$HERE/wedge-resolve.sh"
 GARDEN_TAG="watchman"
 : "${GARDEN_MAIN_BRANCH:=main2}"
 : "${GARDEN_AGGRESSIVE_CHECKOUT:=1}"
 : "${GARDEN_WATCH_HANDLER:=$HERE/handlers/watchman-claude.sh}"
-
-# Loudly tell the maintainer that a dirty live tree is wedging this host's deploy
-# (origin advanced but the tree can't fast-forward). Deduped on (target SHA,
-# blocking paths) so persistent dirtiness reports once, not on every tick.
-notify_dirty_wedge() {
-  local from="$1" to="$2" reason="$3" paths="$4"
-  local marker="$GARDEN_STATE/watchman/dirty-notified-$GARDEN_MAIN_BRANCH"
-  local sig; sig="$to:$(printf '%s' "$paths" | cksum | tr -d ' ')"
-  [ "$(cat "$marker" 2>/dev/null || true)" = "$sig" ] && { log "dirty-wedge already reported for this state"; return 0; }
-  mkdir -p "$(dirname "$marker")"
-  if {
-        printf 'watchman: %s on host %s is WEDGED — this host'\''s deploy is frozen.\n\n' "$GARDEN_MAIN_BRANCH" "$GARDEN_HOST"
-        printf 'origin/%s has advanced to %s but the live tree is stuck at %s: %s.\n' "$GARDEN_MAIN_BRANCH" "$to" "$from" "$reason"
-        printf 'Until the tree is clean this host will NOT pick up new roles/skills/scripts.\n'
-        if [ -n "$paths" ]; then
-          printf '\nTracked changes blocking the fast-forward:\n'
-          printf '```\n%s\n```\n' "$paths"
-          printf '\nVerify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.\n'
-        fi
-     } | GARDEN_SENDER=watchman "$HERE/message-user.sh" watchman-dirty-tree 2>/dev/null
-  then
-    printf '%s\n' "$sig" > "$marker"
-    log "reported dirty-wedge to maintainer"
-  else
-    log "WARN: could not report dirty-wedge to maintainer"
-  fi
-}
 
 killswitch_engaged && { log "killswitch engaged; skipping"; exit 0; }
 
@@ -74,13 +53,13 @@ if [ "$up_sha" != "$local_sha" ] && [ "$GARDEN_AGGRESSIVE_CHECKOUT" = "1" ]; the
         local_sha="$up_sha"
       else
         # No tracked WIP, yet the ff was refused — typically an untracked file
-        # colliding with an incoming tracked path. Report loudly; never clobber.
-        log "WARN: ff-merge to origin/$GARDEN_MAIN_BRANCH refused (untracked collision with an incoming path?)"
-        notify_dirty_wedge "$local_sha" "$up_sha" "fast-forward refused (an untracked file collides with an incoming tracked path)" ""
+        # colliding with an incoming tracked path. Resolve autonomously; never clobber.
+        log "WARN: ff-merge to origin/$GARDEN_MAIN_BRANCH refused (untracked collision with an incoming path?); posting resolve-wedge job"
+        trigger_wedge_resolution "$local_sha" "$up_sha" "fast-forward refused (an untracked file collides with an incoming tracked path)" ""
       fi
     else
-      log "WARN: $GARDEN_MAIN_BRANCH worktree has TRACKED changes; skipping aggressive checkout"
-      notify_dirty_wedge "$local_sha" "$up_sha" "tracked working-tree changes block the fast-forward" "$dirty_tracked"
+      log "WARN: $GARDEN_MAIN_BRANCH worktree has TRACKED changes; skipping aggressive checkout, posting resolve-wedge job"
+      trigger_wedge_resolution "$local_sha" "$up_sha" "tracked working-tree changes block the fast-forward" "$dirty_tracked"
     fi
   fi
 fi
