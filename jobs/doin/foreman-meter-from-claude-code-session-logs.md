@@ -60,3 +60,9 @@ fails OPEN with a logged warning (never wedge the pump on a broken meter).
 Deliverable: a deterministic, subscription-correct weekly token meter the foreman gates
 on, sourced from Claude Code's session logs, with the quota armed (or a clear open
 question for the quota number), and the manual pause left untouched.
+
+---
+claim:
+  host: endolinbot
+  gardener: 37
+  claimed_at: 2026-06-27T16:30:29Z
