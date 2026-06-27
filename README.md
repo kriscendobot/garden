@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T18:11:37Z_
+_As of 2026-06-27T18:25:05Z_
 
 ## Latest
 
-The [library-link-check stale-worktree guard](https://github.com/endojs/endo-but-for-bots/pull/442) improvement landed (the only board completion this cycle), and a garden-infra fix corrected the comment-classifier bug that had misrouted a maintainer feature directive into a no-op "rebase" job on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405).
-
-Several maintainer decisions are now queued in the inbox and worth attention. [#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a real feature directive from kriskowal — reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and fully hide empty groups, a cross-package change needing a liaison-driven builder/fixer dispatch since the autonomous fleet has no "implement a feature directive" path. The harden-exported-function-literals follow-up to the now-merged [#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you scoping two axes (narrow two-export vs. repo-wide; base `llm` vs. `master`). Two scholar ingests landed on journal2 (MetaMask ocap-kernel guide + a distributed-ocap concept cluster), and a lint sweep found endo master CLEAN apart from five non-failing jsdoc warnings. Finally, the ymax0/XS beta3 investigation concluded the vat-abort is an XS native-stack-depth property, not an Endo regression — both follow-ups (sourcing a v320 swing-store export, contract-side depth-bounding) land in off-limits agoric-sdk territory and are yours to direct.
+Two garden-infra fixes landed: the [comment-classifier no longer misroutes maintainer feature directives to "rebase"](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-comment-classifier-misroutes-directive-to-rebase.md), and the library-link-check now guards against a stale live worktree. That classifier bug surfaced via [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405), where kriskowal's comment is actually a cross-package feature directive (retaxonomize the inventory into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups, spanning space-chat, chat, cli, and daemon) — it needs a liaison-driven builder/fixer dispatch, since the autonomous fleet has no path to implement a feature directive on its own. Two items are squarely parked on your decision: the [#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up (now merged) is gated on you choosing breadth (narrow two-export vs. repo-wide) and base branch (`llm` vs. `master`); and the [#405](https://github.com/endojs/endo-but-for-bots/pull/405) directive above. The formula-inspector retention-paths table is blocked until [#284](https://github.com/endojs/endo-but-for-bots/pull/284) gets the rebase-and-gamut you requested back on 2026-05-21 (still open, 4 failing checks) — a gardener offered to take that as a separate job on your word. Lower-noise outcomes: a [#442](https://github.com/endojs/endo-but-for-bots/pull/442) revisit concluded no change (reusing daemon powers would invert the extraction), endo-but-for-bots master lint is clean save 5 non-blocking jsdoc warnings, and the scholar landed two ocap library ingests (the ocap-kernel host-app guide and a six-topic distributed-ocap concept cluster). The beta3/ymax0 XS investigation also returned two ymax0/agoric-sdk-adjacent decisions for you — sourcing a v320 swing-store export and whether to file an upstream-Endo note — both out of bounds for autonomous action.
 
 ## Parked for maintainer feedback
 
@@ -174,16 +172,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Route this as a fixer/builder directive on PR #405 through the gamut (researcher -> builder/fixer -> judge panel). The v2 fleet has no autonomous "implement a maintainer feature directive" path (garden-pr.sh is review/panel + fixer-loop only), so this needs a liaison-driven dispatch. endo-but-for-bots carries standing comment authorization, so the eventual fixer should also post a top-level summary comment.
 >
 > I am separately posting a garden-infra fix job for the classifier bug that misrouted this to "rebase".
-
-- `20260627T180830Z-93877c` — from gardener:garden-deliberate-deploy-no-shared-tree-development, reply_to `garden-deliberate-deploy-no-shared-tree-development` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T180830Z-93877c.md)
-
-> Working garden-deliberate-deploy-no-shared-tree-development (dispense with the shared live tree; deliberate drained deploy). One blocking decision before I wire branch names into deploy-garden.sh, the upgrade monitor, and CLAUDE.md:
->
-> BRANCH NAMING — two questions:
-> 1. Which branch is the DEV/next-version source that subagents land on and that the deploy merges FROM? Default I'll assume: main2 (your "upgrade available on main2"). Keep main2, or consolidate development onto `main`?
-> 2. What branch/ref does the ROOT CHECKOUT (/home/kris) track as the DEPLOYED version? Today it tracks main2 directly (continuous ff). Under the new model the root is advanced only by deploy-garden.sh merging the dev branch in. Should the root stay "on main2 but advanced only by deploy", or should deployed be its own ref (e.g. a `deployed` branch / tag) distinct from the dev branch?
->
-> My default if you don't object: dev branch = main2; root checkout stays checked out on main2 but is advanced ONLY by deploy-garden.sh (continuous-ff retired); deployed-sha recorded in journal host standing-state. I'll proceed on this default for the design doc and code, and adjust if you steer otherwise.
 
 
 ## Board
