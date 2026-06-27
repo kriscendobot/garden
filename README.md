@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T15:26:49Z_
+_As of 2026-06-27T15:28:56Z_
 
 ## Latest
 
-Two operational fires dominate the day, both still smoldering. First, **this host's deploy has been wedged since ~05:15Z**: uncommitted tracked working-tree changes (cycling through `self-heal-run.sh`, `report-error.sh`, `gardener.sh`, `claim-job.sh`, and the `library-link-*` scripts) keep blocking the fast-forward, so `/home/kris` is frozen well behind `origin/main2` and is *not* picking up landed roles/skills/scripts. A gardener diagnosed the root blocker as a redundant uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` that is byte-identical to what's already on `origin/main2` — `git -C /home/kris checkout -- <that file>` is lossless and unwedges it. A new **deploy-sync reconciler landed on main2 (5d6490e62)** to fast-forward the checkout and restart long-running services automatically, but it is inert until a routine `install-units.sh` arms its timer, and it too skips while the tree is dirty.
+The dominant signal today: this host's deploy stayed **wedged for hours**. main2 on endolinbot repeatedly refused to fast-forward — first a redundant, byte-identical uncommitted edit of `report-error.sh`, then collisions and edits across `library-link-*`, `journal-entry.sh`, `gardener.sh`, and `claim-job.sh` — so the live tree sat dozens of commits behind origin while the watchman paged you ~15 times. A **deploy-sync reconciler landed on main2 (5d6490e62)** to fix exactly this: it clean-fast-forwards the checkout and restarts long-running services when `scripts/` changes, arming automatically on the next units refresh. Two jobs are now in flight to close the loop the right way — [`watchman-resolve-wedge-autonomously`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/watchman-resolve-wedge-autonomously.md) (resolve wedges without escalating to you) and [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-inactivity-anomaly.md) (stop the false "0 comments for N ticks" anomaly alerts, which fired all day against kriskowal/garden).
 
-Second, the **comment-watcher for kriskowal/garden is blind again** — 0 comments for 420+ consecutive ticks despite a real comment since 2026-06-25, the same signature as the 2026-06-24 jq/gh outage; worth checking the comment-source handler on endolinbot.
-
-Two scope decisions are parked for you. The harden-exported-literals follow-up to the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs you to pick breadth (narrow two exports vs. repo-wide) and base branch (`llm` vs. `master`) before a cross-repo PR opens. Separately, the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently has 4 failing checks; a gardener offered to take that rebase as its own job.
-
-On the quieter side: scholar ingests continued (MetaMask/ocap-kernel kernel guide — sixth ingest — plus a distributed-ocap concept cluster), lint on endo-but-for-bots master came back clean (only 5 non-blocking jsdoc warnings), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (intrinsic duplication), and the `improve-library-source-drift-scan` job completed.
+One decision is genuinely owed from you: the harden-exported-function-literals follow-up from erights's review on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you picking breadth (narrow two exports vs. repo-wide) and base branch (`llm` vs `master`) before any PR opens. Lower-stakes gardener findings: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (intrinsic duplication), endo master lint is clean (only 5 non-blocking jsdoc warnings, plan parked), and a formula-inspector retention-paths table is blocked on an open, stalled host-API PR still awaiting the rebase-and-gamut you requested on 2026-05-21. Scholars kept ingesting: a sixth ocap-kernel doc, a six-section distributed-ocap concept cluster, and a corpus-wide source-drift scan all landed.
 
 ## Parked for maintainer feedback
 
@@ -561,9 +557,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-inactivity-anomaly.md) — Comment-watcher: stop reporting human inactivity as an anomaly; make blindnes...
 - [`land-journal-entry-hardening`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/land-journal-entry-hardening.md) — Land the journal-entry.sh hardening (preserve a gardener's stashed WIP)
 - [`rename-killswitch-to-draining-marker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/rename-killswitch-to-draining-marker.md) — Rename the killswitch to a mundane "draining" marker (existence-meaningful + ...
+- [`watchman-resolve-wedge-autonomously`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/watchman-resolve-wedge-autonomously.md) — Watchman: resolve dirty-tree wedges AUTONOMOUSLY (no maintainer escalation)
 
 ### tada (363)
 - [`improve-library-source-drift-scan`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-library-source-drift-scan.md) — Completion report: improve-library-source-drift-scan
