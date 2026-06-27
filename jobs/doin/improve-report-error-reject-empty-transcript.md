@@ -1,1 +1,7 @@
 Centralize the empty-blob defense in `skills/gardener-inbox-error-reporting/report-error.sh` so no caller can ever escalate the zero-byte git blob (`e69de29b…`). Today the helper (lines 48-53) only verifies the transcript file exists, then `git hash-object`s it as-is; an empty transcript silently produces `e69de29b…`, which is exactly what three 2026-06-27 gardener escalations recorded — a fired escalation with no diagnostic for the responder. The gardener path was band-aided in `gardener.sh:136-139`, but the helper has two other callers (`scripts/driver/driver.sh`, `scripts/jobs/common.sh`) that don't pre-fill. Fix: right before `TRANSCRIPT_SHA=$(... hash-object ...)`, add a guard — if `[ ! -s "$TRANSCRIPT" ]`, append a synthetic line (e.g. `report-error: handler produced no captured output (empty transcript); rc/state=$STATE, context=$CONTEXT`) into the transcript (or a temp copy) so the hashed blob is always non-empty and self-describing. This moves the responsibility off each caller into the one script every escalation passes through, guaranteeing every gardener-inbox error carries a fetchable, non-empty blob. Remove the now-redundant per-caller synthesize guard in `gardener.sh:136-139` only if you keep an equivalent assertion; otherwise leave it as defense-in-depth.
+
+---
+claim:
+  host: endolinbot
+  gardener: 70
+  claimed_at: 2026-06-27T06:05:41Z
