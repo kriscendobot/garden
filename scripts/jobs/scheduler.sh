@@ -15,6 +15,13 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="scheduler"
 
+# GARDEN_SCHEDULER_NOW overrides the clock (epoch seconds) for deterministic
+# cadence tests — mirrors GARDEN_FOREMAN_NOW / GARDEN_USAGE_NOW. When set, the
+# cadence comparison, the last_dispatched stamp, and the dispatched job's
+# timestamped basename all derive from it, so two back-to-back ticks driven with
+# the same value are guaranteed not to cross a sub-tick cadence on a loaded host.
+scheduler_now() { printf '%s\n' "${GARDEN_SCHEDULER_NOW:-$(date -u +%s)}"; }
+
 cadence_seconds() {
   case "$1" in
     weekly) echo 604800;; daily) echo 86400;; hourly) echo 3600;;
@@ -27,7 +34,7 @@ DIR="${GARDEN_SCHEDULER_CLONE:-$GARDEN_STATE/scheduler/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
-now="$(date -u +%s)"
+now="$(scheduler_now)"
 dispatched=0
 for name in $(list_jobs "$DIR" schedules); do
   f="$DIR/schedules/$name"
@@ -72,7 +79,7 @@ for name in $(list_jobs "$DIR" schedules); do
   last=0; [ -n "$last_iso" ] && last="$(date -u -d "$last_iso" +%s 2>/dev/null || echo 0)"
   [ $(( now - last )) -ge "$cad_s" ] || continue
 
-  base="${prefix:-$name}-$(date -u +%Y%m%d-%H%M%S)"
+  base="${prefix:-$name}-$(date -u -d "@$now" +%Y%m%d-%H%M%S)"
   for attempt in $(seq 1 50); do
     sync_clone "$DIR"
     # re-check due against the freshest state (another host may have dispatched)
@@ -85,7 +92,7 @@ for name in $(list_jobs "$DIR" schedules); do
     printf '%s\n' "$body" > "$DIR/$JOBS_TODO/$base.md"
     # stamp last_dispatched in the same commit
     { printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n---\n' \
-        "$cad" "$(date -u +%FT%TZ)" "$prefix"; printf '%s\n' "$body"; } > "$DIR/schedules/$name"
+        "$cad" "$(date -u -d "@$now" +%FT%TZ)" "$prefix"; printf '%s\n' "$body"; } > "$DIR/schedules/$name"
     git -C "$DIR" add "$JOBS_TODO/$base.md" "schedules/$name"
     if commit_and_push "$DIR" "schedule($name) dispatched $base"; then
       log "dispatched $base from schedule $name"; dispatched=$((dispatched+1)); break

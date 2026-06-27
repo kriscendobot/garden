@@ -257,14 +257,20 @@ echo "# tick task"   | "$JOBS/set-schedule.sh" tick   1s     tickjob >/dev/null
 echo "# weekly task" | "$JOBS/set-schedule.sh" report weekly wrjob   >/dev/null
 count_pref() { git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/sv.$1" 2>/dev/null; \
   ls -1 "$TR/sv.$1/jobs/todo" | grep -c "^$2" || true; rm -rf "$TR/sv.$1"; }
-"$JOBS/scheduler.sh" >/dev/null 2>&1
+# Drive the cadence with GARDEN_SCHEDULER_NOW (a fixed epoch-second override,
+# mirroring GARDEN_FOREMAN_NOW / GARDEN_USAGE_NOW) instead of real date/sleep, so
+# the "immediate re-run dispatches nothing" assertion is clock-deterministic: on a
+# loaded host the wall-clock gap between two real scheduler runs can exceed the 1s
+# cadence and make the schedule legitimately re-fire. T0 is a large epoch so the
+# weekly schedule (last_dispatched=0) is due on the first tick.
+T0=2000000000   # 2033-05-18; well past one weekly cadence from epoch 0
+GARDEN_SCHEDULER_NOW=$T0 "$JOBS/scheduler.sh" >/dev/null 2>&1
 t1=$(count_pref a tickjob); w1=$(count_pref b wrjob)
 { [ "$t1" -ge 1 ] && [ "$w1" -ge 1 ]; } && ok "first tick dispatched both due schedules" || bad "first dispatch (tick=$t1 weekly=$w1)"
-"$JOBS/scheduler.sh" >/dev/null 2>&1
+GARDEN_SCHEDULER_NOW=$T0 "$JOBS/scheduler.sh" >/dev/null 2>&1
 t2=$(count_pref c tickjob); w2=$(count_pref d wrjob)
 { [ "$t2" -eq "$t1" ] && [ "$w2" -eq "$w1" ]; } && ok "immediate re-run dispatches nothing (cadence not elapsed)" || bad "re-run dispatched (tick $t1→$t2, weekly $w1→$w2)"
-sleep 1.2
-"$JOBS/scheduler.sh" >/dev/null 2>&1
+GARDEN_SCHEDULER_NOW=$(( T0 + 2 )) "$JOBS/scheduler.sh" >/dev/null 2>&1
 t3=$(count_pref e tickjob); w3=$(count_pref f wrjob)
 { [ "$t3" -gt "$t2" ] && [ "$w3" -eq "$w2" ]; } && ok "after 1s only the 1s-cadence tick re-dispatches" || bad "cadence (tick $t2→$t3, weekly $w2→$w3)"
 
