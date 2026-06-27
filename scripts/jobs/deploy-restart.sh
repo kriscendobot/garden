@@ -17,10 +17,7 @@
 # tree advances, the long-running services must be restarted to re-exec.
 #
 # Expects common.sh already sourced by the caller (for log / unit_ctl /
-# GARDEN_ROOT / GARDEN_STATE / fleet_draining). HERE_RESTART points at this dir so
-# the function can find install-units.sh for a unit re-render.
-
-HERE_RESTART="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# GARDEN_ROOT / GARDEN_STATE / fleet_draining).
 
 # List the currently-active instances of a unit (glob) pattern, one unit per line.
 # `list-units` (without --all) reports active units; the first field is the unit.
@@ -31,9 +28,16 @@ _restart_active_units() {
 # restart_long_running_fleet <old_sha> <new_sha> [<gardener-busy-gate:1|0>]
 #
 # Compare <old_sha>..<new_sha> in $GARDEN_ROOT; if anything under scripts/ changed,
-# re-render units when a unit FILE changed, then restart the long-running services
-# so they re-exec onto the new code. Timer-driven oneshots are deliberately NOT
-# restarted (they re-read on the next firing). Echoes a one-line summary via log.
+# restart the long-running services so they re-exec onto the new code. Timer-driven
+# oneshots are deliberately NOT restarted (they re-read on the next firing). Echoes
+# a one-line summary via log.
+#
+# Unit-file reconciliation (render + disable/remove retired units) is NOT this
+# function's job: the deliberate deploy owns it in a dedicated, UNCONDITIONAL
+# reconcile step (deploy-garden.sh, right after record_deployed_sha) that runs
+# every deploy regardless of whether a scripts/systemd/ file changed, so the
+# deploy itself is the authority that no retired unit survives. The caller must
+# have reconciled the unit set before calling this — deploy-garden.sh does.
 #
 # The third argument controls the gardener busy-gate. With 1 (the default), a
 # gardener carrying its mid-job busy marker is DEFERRED, not restarted — the
@@ -51,12 +55,11 @@ restart_long_running_fleet() {
     return 0
   fi
 
-  local scripts_changed=0 units_changed=0 path
+  local scripts_changed=0 path
   while read -r path; do
     [ -n "$path" ] || continue
     case "$path" in
-      scripts/systemd/*) units_changed=1; scripts_changed=1 ;;
-      scripts/*)         scripts_changed=1 ;;
+      scripts/*) scripts_changed=1 ;;
     esac
   done < <(git -C "$GARDEN_ROOT" diff --name-only "$old_sha" "$new_sha" 2>/dev/null)
 
@@ -65,13 +68,11 @@ restart_long_running_fleet() {
     return 0
   fi
 
-  # Re-render units when a unit FILE changed, so a changed [Service]/[Timer] takes
-  # effect on the restart below.
-  if [ "$units_changed" -eq 1 ]; then
-    log "restart: scripts/systemd/ changed; re-rendering units + daemon-reload"
-    "$HERE_RESTART/install-units.sh" install >/dev/null 2>&1 \
-      || log "WARN: install-units.sh install failed (continuing to restart)"
-  fi
+  # No unit re-render here: a changed [Service]/[Timer] was already rendered by the
+  # deploy's reconcile step (see the header) before this function ran. A former
+  # units_changed-gated `install` at this point was redundant with that reconcile
+  # and, being a render only, never disabled a retired unit — exactly the gap that
+  # let a retired unit survive a deploy that did not touch scripts/systemd/.
 
   local restarted=0 deferred=0 failed=0 unit idx
 
