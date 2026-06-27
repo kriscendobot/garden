@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:10:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T05:11:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,9 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The watchman is flagging the headline: **main2 on `endolinbot` is wedged** — `origin/main2` has advanced to `9f56423` but the live tree is pinned at `beede51e` because tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) block the fast-forward, so this host won't pick up new roles/skills/scripts until the tree is cleaned. A cluster of in-flight infra jobs explains those edits: hardening the gardener/self-heal path to treat offline/transient connectivity as a clean or requeueable outcome rather than a hard failure (`improve-self-heal-treat-offline-as-clean-exit`, `improve-classify-offline-as-tempfail-in-journal-fetch`, `improve-gardener-classify-empty-output-nonzero-as-transient-requeue`). Review-follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (kriskowal's 2026-06-25 CHANGES_REQUESTED) landed its TypeScript and design-doc pieces and is finishing the remaining follow-up. Two items genuinely need a human: the gardener on `cognito-mcp-metadata-bridge` is holding for answers on two minion.town OAuth design questions (Cognito-bridge vs. MCP-native IdP, and whether to ship RFC 7591 DCR), and `synth-and-deploy-minion-town-aws` sits parked awaiting go-ahead authorization. No board transitions resolved since the last bulletin.
+The deploy on host endolinbot is **wedged**: origin/main2 has advanced (now `9f56423…`) but the live tree is pinned at `beede51e…` because tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) block the fast-forward — the watchman has flagged it twice and this host won't pick up new roles/skills/scripts until the tree is cleaned. A cluster of in-flight reliability fixes is the likely source: gardeners are reworking offline/transient-connectivity handling so journal-fetch, the self-heal runner, and empty-output gardener exits all classify as tempfail-and-requeue rather than hard failures.
+
+On the PR front, a gardener pushed a conflict-safe follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) after a stand-down: it found the prior landing (`aa78d8329`) left 13 dangling design-doc references and only a prose parity claim, so it fixed the references and added a real Node parity test (suite 928 passed / 12 known failures unchanged) — flagged for visibility since it proceeded past a duplicate-work stand-down on corrective grounds. Two messages await a maintainer answer: the `cognito-mcp-metadata-bridge` build needs sign-off on its two design Open Questions (stay on Cognito + bridge vs. an MCP-native IdP, and whether to ship RFC 7591 DCR — the gardener recommends both and will proceed unless redirected), and `synth-and-deploy-minion-town-aws` remains parked awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -68,6 +70,34 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > ```
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T051104Z-4e241c` — from gardener:finish-ebfb-pr96-review-followup-20260625, reply_to `finish-ebfb-pr96-review-followup-20260625` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T051104Z-4e241c.md)
+
+> Heads-up on a judgment call on endo-but-for-bots #96 (kriskowal's 2026-06-25 review).
+>
+> I received a STAND-DOWN: my job duplicated `finish-ebfb-pr96-ts-and-design-doc`
+> (gardener-63), which had already landed both asks as `aa78d8329`. I honored the
+> "don't redo the work" intent, but on verifying that commit I found two real
+> defects, and the superseding gardener had already departed (not in
+> doin/work/tada, not on the alive list), so there was no active second writer:
+>
+>   1. The design-doc move left 13 references in src/ and test/ comments pointing
+>      at the removed repo-root path (dangling).
+>   2. The review asked for "parity confirmation with Node.js"; the landed test
+>      asserted Node's classification in prose only, not a code-backed parity test
+>      (the exact gap the node-parity-test skill, from kriskowal's own #379 review,
+>      exists to close).
+>
+> I pushed a CONFLICT-SAFE non-force follow-up (`3aa37bbd`, fast-forward on top of
+> `aa78d8329`) fixing the references and adding a real Node parity test pair
+> (shared assertions, mirror fixture outside node_modules). Full compartment-mapper
+> suite 928 passed / 12 known failures unchanged; tsc/eslint/prettier clean. Posted
+> a PR summary comment and replied on both inline threads.
+>
+> Rationale for proceeding despite the stand-down: it was corrective (not duplicate)
+> work, no active writer existed, and a non-force push cannot clobber (it degrades
+> to a clean rejection). If you'd rather it had routed differently, the commit is
+> trivially revertible. Flagging for visibility.
 
 
 ## Board
