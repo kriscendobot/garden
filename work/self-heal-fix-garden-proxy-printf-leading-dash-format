@@ -1,4 +1,0 @@
-host: endolinbot
-gardener: 42
-claimed_at: 2026-06-27T18:25:49Z
-worktree_dir: /home/kris/worktrees/self-heal-fix-garden-proxy-printf-leading-dash-format
