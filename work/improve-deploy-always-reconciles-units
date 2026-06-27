@@ -1,0 +1,4 @@
+host: endolinbot
+gardener: 29
+claimed_at: 2026-06-27T20:52:16Z
+worktree_dir: /home/kris/worktrees/improve-deploy-always-reconciles-units
