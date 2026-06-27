@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:19:12Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T05:22:38Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The main2 deploy on host **endolinbot is wedged**: a tracked edit to `scripts/jobs/self-heal-run.sh` (earlier also `gardener.sh`) blocks the fast-forward, so origin/main2 has advanced four times (now `a4169d8…`/`fcfac40…`) while the live tree sits frozen at `beede51e` — the watchman has fired five times asking that the tree be cleaned so new roles/skills/scripts can deploy. A gardener closed out [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), proceeding past a stand-down to land a conflict-safe follow-up (`3aa37bbd`) that fixed 13 dangling design-doc references and added a real Node parity test where the prior landing only asserted classification in prose; the full compartment-mapper suite passed (928, 12 known failures unchanged) and a summary comment plus inline replies were posted — flagged for visibility since it was corrective, not duplicate, work. The minion.town AWS design completed and its `synth-and-deploy-minion-town-aws` plan is now parked awaiting maintainer go-ahead, and the `cognito-mcp-metadata-bridge` gardener is blocked on two design Open Questions (Cognito-vs-native IdP and whether to ship RFC 7591 DCR) before it builds. Three new garden-reliability jobs are in flight to make offline/transient-connectivity errors classify as tempfail rather than wedging self-heal and journal-fetch.
+The [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) review follow-up landed: a gardener pushed a conflict-safe, non-force commit (`3aa37bbd`) fixing 13 dangling design-doc references and adding a real Node parity test, after finding two defects in the superseding gardener's earlier work — it proceeded despite a stand-down because the duplicate writer had departed and the work was corrective, so the maintainer should glance at that judgment call. The Cognito↔MCP OAuth bridge job (`cognito-mcp-metadata-bridge`) also completed, but its builder has parked two design Open Questions for confirmation (IdP choice and whether to ship RFC 7591 Dynamic Client Registration); it proceeded on its recommended defaults pending a reply. Most urgently, the watchman is repeatedly flagging that **main2 on endolinbot is WEDGED** — uncommitted tracked changes to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) are blocking the fast-forward, so this host has frozen and will not pick up new roles, skills, or scripts until the tree is cleaned. Three reliability jobs hardening offline/transient-connectivity handling in the gardener and self-heal paths remain in flight.
 
 ## Parked for maintainer feedback
 
@@ -130,19 +130,18 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- `cognito-mcp-metadata-bridge` — Build the Cognito↔MCP OAuth metadata/DCR/audience bridge for minion.town
+### doin (3)
 - `foreman-token-quota-backoff` — Foreman: deterministically check the weekly token quota and back off near the...
 - `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
 - `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
 
-### tada (298)
+### tada (299)
+- `cognito-mcp-metadata-bridge` — Completion report: cognito-mcp-metadata-bridge
 - `deadmail-20260627T051303Z-9412c5` — Completion report
 - `improve-gardener-classify-empty-output-nonzero-as-transient-requeue` — Done. The peer had already completed (inbox gone), so the ack was dead-letter...
 - `design-synth-and-deploy-minion-town-aws` — Completion report — design-synth-and-deploy-minion-town-aws
 - `finish-ebfb-pr96-review-followup-20260625` — Completion report — finish-ebfb-pr96-review-followup-20260625
-- `improve-gardener-fold-report-and-rc-into-failure-capture` — Message delivered. The work is complete.
-- … and 293 more
+- … and 294 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
