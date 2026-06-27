@@ -103,7 +103,29 @@ esac
 
 # --- small utilities ---------------------------------------------------------
 
-log()  { printf '%s [%s] %s\n' "$(date -u +%H:%M:%S)" "${GARDEN_TAG:-jobs}" "$*" >&2; }
+# log()/die() emit a leading systemd syslog-level prefix (`<N>`) on the stderr
+# line so journald classifies each line at the right priority and a
+# `journalctl -p warning` capture survives the lines that matter. Without it
+# every line journals at the default `info` and a priority-filtered failure tail
+# drops them all — including `die "FATAL: …"` — leaving an outage triage blind to
+# the script-level cause (the 18:46 fleet outage tail had 0 `[gardener-scaler]`/
+# `[install]`/`[deploy-sync]` lines, only systemd's generic "exit-code"). The
+# prefix is keyed off the message text: `<3>` (err) for FATAL, `<4>` (warning)
+# for a line beginning WARN, `<6>` (info) otherwise. systemd's SyslogLevelPrefix
+# honors `<N>` by default for Type=exec/simple units. The prefix is STRIPPED when
+# stderr is a TTY (`[ -t 2 ]`) so interactive runs stay clean; it only appears
+# when stderr is the journal/a pipe, exactly where journald consumes it.
+log() {
+  local prefix=""
+  if [ ! -t 2 ]; then
+    case "$*" in
+      FATAL*) prefix='<3>' ;;
+      WARN*)  prefix='<4>' ;;
+      *)      prefix='<6>' ;;
+    esac
+  fi
+  printf '%s%s [%s] %s\n' "$prefix" "$(date -u +%H:%M:%S)" "${GARDEN_TAG:-jobs}" "$*" >&2
+}
 die()  { log "FATAL: $*"; exit 1; }
 
 # True when this host's fleet is draining: the new draining marker OR the
