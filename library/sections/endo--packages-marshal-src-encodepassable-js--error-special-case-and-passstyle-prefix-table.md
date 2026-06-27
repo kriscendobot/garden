@@ -5,7 +5,7 @@ source_kind: comment-fragment
 source_repo: endojs/endo
 source_path: packages/marshal/src/encodePassable.js
 source_line_range: "584-665, 869-911"
-source_commit: e6192056a5d7ff5acb084f6a58dca3663aa9943e
+source_commit: c423ed37b4c574aaccd778fc72acb2ff8910d586
 comment_subject: "Why `encodePassable` extracts an error-special-case before the per-PassStyle switch (diagnostic-priority over Passable-validation); the canonical `passStylePrefixes` table whose ordering matches the rankOrder PassStyle order; the `|` ordinal-mapping prefix reserved outside the cover range; the Array.prototype.sort-driven choice to put `undefined` last"
 ingested: 2026-05-29
 ingested_by: scholar
@@ -22,4 +22,4 @@ Sections:
 - [Translation](endo--packages-marshal-src-encodepassable-js--error-special-case-and-passstyle-prefix-table--translation.md)
 - [See also](endo--packages-marshal-src-encodepassable-js--error-special-case-and-passstyle-prefix-table--see-also.md)
 
-Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/e6192056a5d7ff5acb084f6a58dca3663aa9943e/packages/marshal/src/encodePassable.js#L598-L911) at commit `e6192056`.
+Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/c423ed37b4c574aaccd778fc72acb2ff8910d586/packages/marshal/src/encodePassable.js#L598-L911) at commit `c423ed37`.

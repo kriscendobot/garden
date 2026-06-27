@@ -5,7 +5,7 @@ source_kind: comment-fragment
 source_repo: endojs/endo
 source_path: packages/marshal/src/encodePassable.js
 source_line_range: "86-158"
-source_commit: e6192056a5d7ff5acb084f6a58dca3663aa9943e
+source_commit: c423ed37b4c574aaccd778fc72acb2ff8910d586
 comment_subject: "IEEE-754 double-to-bits encoding with sign-aware bit-complement so the base-16 ASCII of the bytes sorts lexicographically in the same order the floats sort numerically; lockdown-independent NaN canonicalization with a WebIDL-shaped canonical NaN constant"
 ingested: 2026-05-29
 ingested_by: scholar
@@ -34,4 +34,4 @@ than relying on lockdown's NaN canonicalization because
 `@endo/marshal` does not depend on `ses`, so it cannot assume
 `lockdown()` has been called and `DataView` has been tamed.
 
-Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/e6192056a5d7ff5acb084f6a58dca3663aa9943e/packages/marshal/src/encodePassable.js#L86-L158) at commit `e6192056`.
+Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/c423ed37b4c574aaccd778fc72acb2ff8910d586/packages/marshal/src/encodePassable.js#L86-L158) at commit `c423ed37`.

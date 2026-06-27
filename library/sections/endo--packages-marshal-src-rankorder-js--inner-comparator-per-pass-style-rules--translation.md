@@ -5,7 +5,7 @@ source_kind: comment-fragment
 source_repo: endojs/endo
 source_path: packages/marshal/src/rankOrder.js
 source_line_range: "157-330"
-source_commit: 2e9333096fc82fabc9a3c1f6d3e268336e7df943
+source_commit: 337d16a895066a66e7c92d716449273d337dceb9
 comment_subject: "How the inner comparator dispatches per PassStyle: each per-style rank rule, including the prefix-ranking property that lets a record/array X with a subset of Y's property names or a prefix of Y's elements sort earlier; the deep-tied implication of NaN as compareRemotables default; the byteArray shortlex rule; the @endo/immutable-arraybuffer prototype-check workaround"
 ingested: 2026-05-29
 ingested_by: scholar
@@ -27,4 +27,4 @@ parent: endo--packages-marshal-src-rankorder-js--inner-comparator-per-pass-style
 | "NaN as compareRemotables default" | the strategy of returning NaN (not 0) for the default remotable comparator, which short-circuits the comparator chain and ties any pair of values whose first remotable position differs but everything-up-to is equal |
 | "deep-tied" | the consequence of the NaN-default: `[r1, 0]` and `[r2, "x"]` are tied because the comparison short-circuits at the first remotable pair before reaching the second element pair |
 
-Source: [packages/marshal/src/rankOrder.js](https://github.com/endojs/endo/blob/2e9333096fc82fabc9a3c1f6d3e268336e7df943/packages/marshal/src/rankOrder.js#L157-L330) at commit `2e933309`.
+Source: [packages/marshal/src/rankOrder.js](https://github.com/endojs/endo/blob/337d16a895066a66e7c92d716449273d337dceb9/packages/marshal/src/rankOrder.js#L157-L330) at commit `337d16a8`.

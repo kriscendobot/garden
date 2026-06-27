@@ -5,7 +5,7 @@ source_kind: comment-fragment
 source_repo: endojs/endo
 source_path: packages/marshal/src/encodePassable.js
 source_line_range: "332-475, 770-822"
-source_commit: e6192056a5d7ff5acb084f6a58dca3663aa9943e
+source_commit: c423ed37b4c574aaccd778fc72acb2ff8910d586
 comment_subject: "Two array encodings (legacyOrdered with NUL-terminator and SOH-escape, compactOrdered with space-terminator and pre-escaped strings); the embeddability-verifying double-decode applied to user-provided remotable / promise / error encoders to keep them within the C0-control-free invariant"
 ingested: 2026-05-29
 ingested_by: scholar
@@ -338,4 +338,4 @@ construction time; the wrappers are then what the rest of the
 encoder pipeline sees. Application code that supplies callbacks
 gets the defensive checks applied transparently.
 
-Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/e6192056a5d7ff5acb084f6a58dca3663aa9943e/packages/marshal/src/encodePassable.js#L332-L475) at commit `e6192056`.
+Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/c423ed37b4c574aaccd778fc72acb2ff8910d586/packages/marshal/src/encodePassable.js#L332-L475) at commit `c423ed37`.

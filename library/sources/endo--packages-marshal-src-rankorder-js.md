@@ -2,13 +2,13 @@
 source_kind: comment-fragment
 source_repo: endojs/endo
 source_path: packages/marshal/src/rankOrder.js
-source_line_range: "19-570"
-source_commit: 2e9333096fc82fabc9a3c1f6d3e268336e7df943
-comment_subject: "Rank-order regime for marshal: per-PassStyle rank rules, passStyleRanks derivation from the canonical passStylePrefixes table, RankCover overestimates filterable by per-value PassStyle checks, sortByRank's reverse-direction undefined-quirk fixup linked to the passStylePrefixes MUST-NOT-sort-after-undefined invariant, the strict full-order alternative with its observable-mutable-state hazard"
+source_line_range: "19-642"
+source_commit: 337d16a895066a66e7c92d716449273d337dceb9
+comment_subject: "Rank-order regime for marshal: per-PassStyle rank rules, passStyleRanks derivation from the canonical passStylePrefixes table, RankCover overestimates filterable by per-value PassStyle checks, sortByRank's reverse-direction undefined-quirk fixup linked to the passStylePrefixes MUST-NOT-sort-after-undefined invariant, the strict full-order alternative with its observable-mutable-state hazard, and the compareRankRemotablesTied remotables-tied comparator that became the default for the sort/search/cover API"
 source_authors: [Mark S. Miller, Kris Kowal, Richard Gibson, Turadg Aleahmad, Michael FIG]
 ingested: 2026-05-29
 ingested_by: scholar
-section_count: 5
+section_count: 6
 status: current
 notes: |
   Sixth comment-fragment ingest (cycle 84), sister to cycle 81's
@@ -42,6 +42,21 @@ notes: |
   remotables, the BEWARE clause on observable mutable state, the
   scalars-cross-fresh-comparators invariant, the no-store-ordering
   caveat, and the longLived parameter's WeakMap vs Map trade-off.
+
+  Refreshed 2026-06-27 (job
+  `scholar-refresh-marshal-rankorder-encodepassable`) from
+  `2e933309` to `337d16a8`. The five original sections' backing
+  comment clusters were unchanged (only function signatures gained
+  optional `compare` defaults and the file grew by 34 lines, so
+  their `source_line_range` snapshots were re-pinned). One new
+  comment cluster appeared: the `compareRankRemotablesTied` /
+  `compareAntiRankRemotablesTied` comparator that ties all
+  remotables and does not short-circuit on encountering them, and
+  which became the default `compare` argument for `isRankSorted`,
+  `assertRankSorted`, `sortByRank`, `rankSearch`, `getIndexCover`,
+  `unionRankCovers`, and `intersectRankCovers`. Captured as the
+  sixth section (`compare-rank-remotables-tied-default-comparator`);
+  it supersedes nothing.
 ---
 
 ## Abstract
@@ -81,7 +96,13 @@ that no category sorts after `undefined`; and
 comparator that assigns remotables an ordinal by first-seen
 order, with the canonical `BEWARE` clause naming the covert-
 channel hazard of sharing such a comparator across mutually-
-distrusting subsystems.
+distrusting subsystems. A sixth section, added in the 2026-06-27
+refresh, covers the later-added **`compareRankRemotablesTied`**
+comparator — the rank comparator that ties *all* remotables for
+the same rank and does not short-circuit on encountering them,
+sitting between short-circuiting `compareRank` and the fully-
+ordering `fullCompare`, and now the default `compare` argument
+across the sort / search / cover API.
 
 ## Sections
 
@@ -92,11 +113,12 @@ distrusting subsystems.
 | [inner-comparator-per-pass-style-rules](../sections/endo--packages-marshal-src-rankorder-js--inner-comparator-per-pass-style-rules.md) | marshal, pass-style | current |
 | [sort-by-rank-undefined-quirk-and-passstyleprefixes-invariant](../sections/endo--packages-marshal-src-rankorder-js--sort-by-rank-undefined-quirk-and-passstyleprefixes-invariant.md) | marshal, pass-style | current |
 | [full-order-comparator-kit-observable-mutable-state](../sections/endo--packages-marshal-src-rankorder-js--full-order-comparator-kit-observable-mutable-state.md) | marshal, pass-style | current |
+| [compare-rank-remotables-tied-default-comparator](../sections/endo--packages-marshal-src-rankorder-js--compare-rank-remotables-tied-default-comparator.md) | marshal, pass-style | current |
 
 ## Provenance
 
 - File last modified 2026-04-14 by Turadg Aleahmad.
-- File-specific commit `2e9333096fc82fabc9a3c1f6d3e268336e7df943`
+- File-specific commit `337d16a895066a66e7c92d716449273d337dceb9`
   (captured 2026-05-29 by `git --git-dir=worktrees/endojs-endo.git
   log -1 --format=%H master -- packages/marshal/src/rankOrder.js`).
 - Comments authored across the file's history primarily by Mark
@@ -107,4 +129,4 @@ distrusting subsystems.
   compactOrdered encoding (which encodePassable.js documents) and
   is one of marshal's load-bearing invariants.
 
-Source: [packages/marshal/src/rankOrder.js](https://github.com/endojs/endo/blob/2e9333096fc82fabc9a3c1f6d3e268336e7df943/packages/marshal/src/rankOrder.js) at commit `2e933309`.
+Source: [packages/marshal/src/rankOrder.js](https://github.com/endojs/endo/blob/337d16a895066a66e7c92d716449273d337dceb9/packages/marshal/src/rankOrder.js) at commit `337d16a8`.

@@ -23,9 +23,9 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [eventual-send](eventual-send.md) | `E()` and `E.when` for messaging local or remote objects. | 65 |
 | [captp](captp.md) | Capability Transport Protocol: cross-process eventual-send. | 48 |
 | [ocapn](ocapn.md) | The OCapN protocol family: CapTP + marshal + transports. | 75 |
-| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format; encodePassable rank-order-preserving format; rankOrder in-memory comparator. | 69 |
+| [marshal](marshal.md) | Pass-style serialization layer; smallcaps wire format; encodePassable rank-order-preserving format; rankOrder in-memory comparator. | 70 |
 | [streams](streams.md) | Async-iterator-based stream abstraction; transport substrate. | 13 |
-| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 55 |
+| [pass-style](pass-style.md) | Marshal's classification system for how values cross a serialization boundary. | 56 |
 | [daemon](daemon.md) | The Endo daemon: per-user persistent host for HardenedJS workers. | 55 |
 | [persistence](persistence.md) | How values, state, and capabilities survive vat incarnations, upgrades, daemon restarts; the heap/virtual/durable zones. | 34 |
 | [async-flow](async-flow.md) | The `@agoric/async-flow` durable-replay async-function infrastructure; closed-function discipline. | 7 |

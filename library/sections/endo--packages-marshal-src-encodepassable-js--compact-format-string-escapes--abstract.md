@@ -5,7 +5,7 @@ source_kind: comment-fragment
 source_repo: endojs/endo
 source_path: packages/marshal/src/encodePassable.js
 source_line_range: "249-330"
-source_commit: e6192056a5d7ff5acb084f6a58dca3663aa9943e
+source_commit: c423ed37b4c574aaccd778fc72acb2ff8910d586
 comment_subject: "The compactOrdered encoding moves array element-terminator escaping from per-element to per-string: control characters and the array-element terminator are escaped at the string level via a contiguous-range mapping that preserves lexicographic order"
 ingested: 2026-05-29
 ingested_by: scholar
@@ -32,4 +32,4 @@ encoding for strings (escapes are done at the array level, not the
 string level); the two-format split is a design refinement that
 trades expansion ratio against rules-by-position complexity.
 
-Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/e6192056a5d7ff5acb084f6a58dca3663aa9943e/packages/marshal/src/encodePassable.js#L249-L330) at commit `e6192056`.
+Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/c423ed37b4c574aaccd778fc72acb2ff8910d586/packages/marshal/src/encodePassable.js#L249-L330) at commit `c423ed37`.

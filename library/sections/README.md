@@ -2125,6 +2125,11 @@ Total section files: 5834 (506 parent indexes + 5328 children).
 
 ### endo--packages-marshal-src-rankorder-js
 
+- [endo--packages-marshal-src-rankorder-js--compare-rank-remotables-tied-default-comparator](endo--packages-marshal-src-rankorder-js--compare-rank-remotables-tied-default-comparator.md) (index)
+  - [Abstract](endo--packages-marshal-src-rankorder-js--compare-rank-remotables-tied-default-comparator--abstract.md)
+  - [Body](endo--packages-marshal-src-rankorder-js--compare-rank-remotables-tied-default-comparator--body.md)
+  - [See also](endo--packages-marshal-src-rankorder-js--compare-rank-remotables-tied-default-comparator--see-also.md)
+  - [Translation](endo--packages-marshal-src-rankorder-js--compare-rank-remotables-tied-default-comparator--translation.md)
 - [endo--packages-marshal-src-rankorder-js--full-order-comparator-kit-observable-mutable-state](endo--packages-marshal-src-rankorder-js--full-order-comparator-kit-observable-mutable-state.md) (index)
   - [Abstract](endo--packages-marshal-src-rankorder-js--full-order-comparator-kit-observable-mutable-state--abstract.md)
   - [Body](endo--packages-marshal-src-rankorder-js--full-order-comparator-kit-observable-mutable-state--body.md)
@@ -8190,7 +8195,7 @@ Total section files: 5834 (506 parent indexes + 5328 children).
 
 ### From endo packages/marshal/src/rankOrder.js longform comments (cycle 84, **sixth comment-fragment ingest; sister to encodePassable.js as the in-memory comparator and sort regime for the same rank order; consumes the canonical `passStylePrefixes` table**)
 
-- endo--packages-marshal-src-rankorder-js--{same-value-zero-and-numeric-rank-semantics, pass-style-rank-derivation-and-rank-covers, inner-comparator-per-pass-style-rules, sort-by-rank-undefined-quirk-and-passstyleprefixes-invariant, full-order-comparator-kit-observable-mutable-state}
+- endo--packages-marshal-src-rankorder-js--{same-value-zero-and-numeric-rank-semantics, pass-style-rank-derivation-and-rank-covers, inner-comparator-per-pass-style-rules, sort-by-rank-undefined-quirk-and-passstyleprefixes-invariant, full-order-comparator-kit-observable-mutable-state, compare-rank-remotables-tied-default-comparator}
 
 ### From Mark S. Miller papers: Reasoning about Risk and Trust in an Open World (cycle 85, liaison orchestrator-direct-draft 2026-05-29, **eighth Miller-coauthored paper; library's first formal Hoare-style verification paper; the formal specification methodology behind the §2.6 *return value does not communicate trustworthiness* lesson**)
 

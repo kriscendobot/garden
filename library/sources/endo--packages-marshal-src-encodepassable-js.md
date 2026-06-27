@@ -3,7 +3,7 @@ source_kind: comment-fragment
 source_repo: endojs/endo
 source_path: packages/marshal/src/encodePassable.js
 source_line_range: "86-911"
-source_commit: e6192056a5d7ff5acb084f6a58dca3663aa9943e
+source_commit: c423ed37b4c574aaccd778fc72acb2ff8910d586
 comment_subject: "Rank-order-preserving encoding for keyed-store keys: per-PassStyle encoders that map Passables to byte strings whose lexicographic order matches PassStyle rank order; dual `legacyOrdered` / `compactOrdered` formats; `passStylePrefixes` canonical table; error-special-case rooted in the diagnostic-priority rule"
 source_authors: [Mark S. Miller, Chip Morningstar, Kris Kowal, Richard Gibson, Michael FIG, Turadg Aleahmad, Mathieu Hofman]
 ingested: 2026-05-29
@@ -70,7 +70,7 @@ all five claims.
 
 - File last modified 2026-04-07 by Mark S. Miller (committed
   through endojs/endo's mainline history).
-- File-specific commit `e6192056a5d7ff5acb084f6a58dca3663aa9943e`
+- File-specific commit `c423ed37b4c574aaccd778fc72acb2ff8910d586`
   (captured 2026-05-29 by `git --git-dir=worktrees/endojs-endo.git
   log -1 --format=%H master -- packages/marshal/src/encodePassable.js`).
 - Comments authored across the file's history by Mark S. Miller,
@@ -80,4 +80,4 @@ all five claims.
   the file in `@endo/marshal` is the post-migration form with
   the `compactOrdered` format added (PR #1260).
 
-Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/e6192056a5d7ff5acb084f6a58dca3663aa9943e/packages/marshal/src/encodePassable.js) at commit `e6192056`.
+Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/c423ed37b4c574aaccd778fc72acb2ff8910d586/packages/marshal/src/encodePassable.js) at commit `c423ed37`.

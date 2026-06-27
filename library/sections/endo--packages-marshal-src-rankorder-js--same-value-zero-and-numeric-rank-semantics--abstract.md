@@ -5,7 +5,7 @@ source_kind: comment-fragment
 source_repo: endojs/endo
 source_path: packages/marshal/src/rankOrder.js
 source_line_range: "19-22, 33-46, 95-115, 218-237"
-source_commit: 2e9333096fc82fabc9a3c1f6d3e268336e7df943
+source_commit: 337d16a895066a66e7c92d716449273d337dceb9
 comment_subject: "Why marshal's rank-order equality is sameValueZero (Map/Set's equality, with NaN equal to NaN and -0 equal to 0); why compareNumerics places NaN last and self-equal; why -0 collapses to 0 in marshal's distributed semantics; why the ENDO_RANK_STRINGS environment option exists (utf16-code-unit-order vs unicode-code-point-order vs error-if-order-choice-matters)"
 ingested: 2026-05-29
 ingested_by: scholar
@@ -35,4 +35,4 @@ semantics decision — `-0` serializes as `0`, so the rank-equality
 treatment of `-0` matches the wire-equality treatment — is named
 in the same comment.
 
-Source: [packages/marshal/src/rankOrder.js](https://github.com/endojs/endo/blob/2e9333096fc82fabc9a3c1f6d3e268336e7df943/packages/marshal/src/rankOrder.js#L19-L237) at commit `2e933309`.
+Source: [packages/marshal/src/rankOrder.js](https://github.com/endojs/endo/blob/337d16a895066a66e7c92d716449273d337dceb9/packages/marshal/src/rankOrder.js#L19-L237) at commit `337d16a8`.

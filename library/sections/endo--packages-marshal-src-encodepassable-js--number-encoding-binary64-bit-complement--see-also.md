@@ -5,7 +5,7 @@ source_kind: comment-fragment
 source_repo: endojs/endo
 source_path: packages/marshal/src/encodePassable.js
 source_line_range: "86-158"
-source_commit: e6192056a5d7ff5acb084f6a58dca3663aa9943e
+source_commit: c423ed37b4c574aaccd778fc72acb2ff8910d586
 comment_subject: "IEEE-754 double-to-bits encoding with sign-aware bit-complement so the base-16 ASCII of the bytes sorts lexicographically in the same order the floats sort numerically; lockdown-independent NaN canonicalization with a WebIDL-shaped canonical NaN constant"
 ingested: 2026-05-29
 ingested_by: scholar
@@ -22,4 +22,4 @@ parent: endo--packages-marshal-src-encodepassable-js--number-encoding-binary64-b
 - [[security-as-extreme-modularity]] — the concept page that catalogs the "forbid mutable static state" Table 1 breaches, including the `passStyleMemo` cache; the C-union construction here is a parallel breach with a different operational-safety argument (no observable state retention vs. realm-lifetime amortization).
 - [[smallcaps-encoding]] — the sister wire format under `packages/marshal/src/encodeToSmallcaps.js`; smallcaps targets JSON-shaped round-trip rather than sort-order preservation.
 
-Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/e6192056a5d7ff5acb084f6a58dca3663aa9943e/packages/marshal/src/encodePassable.js#L86-L158) at commit `e6192056`.
+Source: [packages/marshal/src/encodePassable.js](https://github.com/endojs/endo/blob/c423ed37b4c574aaccd778fc72acb2ff8910d586/packages/marshal/src/encodePassable.js#L86-L158) at commit `c423ed37`.
