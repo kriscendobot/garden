@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please hide groups that are empty, e.g., workers when there are no workers. Let’s also separately group “Directories” (directories, readable trees, mounts, scratch mounts), “Agents” (guests), “Personas” (hosts). “Values” (marshal), and other “Capabilities” (
+
+---
+claim:
+  host: endolinbot
+  gardener: 64
+  claimed_at: 2026-06-27T17:50:20Z
