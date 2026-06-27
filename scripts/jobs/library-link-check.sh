@@ -134,6 +134,36 @@ if [ -z "$GIT_ROOT" ] && [ "$REQUIRE_TRACKED" = 1 ]; then
   REQUIRE_TRACKED=0
 fi
 
+# --- whole-library staleness guard (--all / --nav only) ----------------------
+# The validating whole-library scopes are meaningful only against the
+# origin/journal2 tip. The default --library resolver can land on the long-lived,
+# arbitrarily-stale live worktree ($GARDEN_ROOT/journal/library); a scan there
+# that is merely BEHIND the tip emits phantom must-resolve FAILs for files the
+# stale worktree simply has not pulled yet (the 2026-06-27 scholar incident:
+# "FAIL — 12 must-resolve dangling links" only because the worktree lacked commit
+# 9840fa1db, the endoclaw fix). Refuse to run a validating scan against a behind
+# worktree and name library-link-scan.sh — the wrapper that fetch+resets a
+# dedicated clone to tip — as the correct tool. This is a NO-NETWORK check: it
+# compares HEAD only against the ALREADY-FETCHED local origin/journal2 ref, so the
+# "NO writes and NO network calls" invariant holds. --changed/--source-slug/--files
+# run against the producer's own fresh clone or are explicitly scoped, so they are
+# left unaffected.
+if { [ "$SCOPE" = all ] || [ "$SCOPE" = nav ]; } && [ -n "$GIT_ROOT" ]; then
+  if git -C "$GIT_ROOT" rev-parse --verify --quiet origin/journal2 >/dev/null 2>&1; then
+    if ! git -C "$GIT_ROOT" merge-base --is-ancestor origin/journal2 HEAD 2>/dev/null; then
+      head_sha="$(git -C "$GIT_ROOT" rev-parse --short HEAD 2>/dev/null)"
+      tip_sha="$(git -C "$GIT_ROOT" rev-parse --short origin/journal2 2>/dev/null)"
+      echo "library-link-check: SETUP ERROR — a --$SCOPE validating scan was pointed at a STALE worktree" >&2
+      echo "  $GIT_ROOT" >&2
+      echo "  (HEAD $head_sha is behind local origin/journal2 $tip_sha). A whole-library scan there" >&2
+      echo "  produces phantom must-resolve FAILs for files the tip has but this worktree lacks." >&2
+      echo "  Run library-link-scan.sh instead — it fetch+resets a dedicated clone to the tip before" >&2
+      echo "  scanning. Do not point --library at the long-lived live worktree for --all/--nav." >&2
+      exit 2
+    fi
+  fi
+fi
+
 # --- tracked-file cache (one git call, not one per target) -------------------
 # A set of library-relative paths that git tracks or has staged for add.
 declare -A TRACKED=()
