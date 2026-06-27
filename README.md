@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T08:32:31Z_
+_As of 2026-06-27T08:35:50Z_
 
 ## Latest
 
-Infra dominated this cycle, and the headline is operational: the live main2 checkout on host endolinbot is **deploy-wedged**. A redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` blocks the fast-forward, leaving the host several commits behind origin/main2 and unable to pick up landed fixes until the tree is cleaned — a lossless `git checkout --` on that one file unwedges it. Behind the wedge, a real fix chain did land: the gardener claim crash-loop (a transient git-128 during sync_clone that the old loop treated as fatal) is fixed, a new deploy-sync reconciler (`5d6490e62`) now auto-restarts services when `scripts/` changes, and sync-clone transient-fetch classification landed (`ba38a1372`). Separately, the comment-watcher for kriskowal/garden has reported zero comments for 140+ ticks while the repo is demonstrably active — the same blind-watcher signature as the 2026-06-24 jq/gh outage, worth a look. On the library side the scholar ingested MetaMask/ocap-kernel's kernel-guide and landed a distributed-ocap concept cluster cross-linked to the ocap corpus. A corrective non-force follow-up (`3aa37bbd`) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) fixed 13 dangling design-doc references and added a real Node parity test. Two items await your word: the Cognito↔MCP bridge gardener wants sign-off on whether to ship RFC 7591 Dynamic Client Registration, and the formula-inspector retention-paths table is blocked on the stalled [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) rebase-and-gamut you requested on 2026-05-21.
+The headline a maintainer should act on: **main2 on endolinbot is deploy-wedged.** A redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (and earlier `scripts/jobs/self-heal-run.sh`) is blocking the fast-forward, so the live tree has fallen 6+ commits behind `origin/main2` and is not picking up new roles/skills/scripts — repeated watchman alerts confirm it. A lossless `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` unwedges it.
+
+Several gardener-resilience fixes landed on main2 in the meantime: the new **deploy-sync reconciler** (5d6490e62) that clean-fast-forwards the checkout and restarts long-running services when `scripts/` changes (inert until a units refresh arms `garden-deploy-sync.timer`), plus the self-heal/gardener crash-loop fixes that stop a transient claim/fetch blip from hard-dying a worker (`improve-sync-clone-transient-fetch-classification`, ba38a1372). A follow-on, `improve-gardener-absorb-transient-claim-offline-rc`, is now in progress. Scholar work was prolific — the ocap-kernel `kernel-guide.md` ingest and a six-section distributed-ocap concept cluster both landed on journal2. On [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), a gardener overrode a stand-down to push a corrective follow-up (fixed 13 dangling design-doc references and added a real Node parity test) and flagged the judgment call for visibility.
+
+Two watch items: the `comment-watcher/kriskowal-garden` watcher has reported **0 comments for 140+ ticks despite the repo being active** — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking. And the `formula-inspector-retention-paths-table` job is blocked on its still-open, CI-failing `listRetentionPaths` host-API dependency (the rebase-and-re-gamut you requested 2026-05-21 never ran); the gardener reported the gap rather than duplicating the graph walk.
 
 ## Parked for maintainer feedback
 
@@ -334,7 +338,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-gardener-absorb-transient-claim-offline-rc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-absorb-transient-claim-offline-rc.md) — In scripts/jobs/gardener.sh, the claim loop treats any non-zero, non-3 return...
 - [`self-heal-fix-garden-follow-up-handler-swallows-producer-failure`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-follow-up-handler-swallows-producer-failure.md) — In scripts/jobs/handlers/follow-up-claude.sh, the parse loop runs each emitte...
 
 ### tada (323)
