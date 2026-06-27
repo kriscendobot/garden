@@ -211,6 +211,8 @@
 | [cask--net-peer-go--responder-handshake-consistency-and-authorization](../sections/cask--net-peer-go--responder-handshake-consistency-and-authorization.md) | cask net/peer.go | The responder's authorization gate: `Server.handleInit` proves the initiator's ed25519 identity matches the x25519 key the handshake revealed, rejects non-members with `statusNotAuthorized`, and performs the responder side of mutual `MemberAdd`. |
 | [cask--net-noise-go--ed25519-x25519-key-conversion](../sections/cask--net-noise-go--ed25519-x25519-key-conversion.md) | cask net/noise.go | The key-format bridge that makes a single ed25519 identity serve both signing and the x25519 Diffie-Hellman the member table's authorization check relies on: SHA-512-clamp for the private key, the birational Montgomery-u map for the public key. |
 
+| [metamask-ocap-kernel--docs-usage-md--cluster-configuration](../sections/metamask-ocap-kernel--docs-usage-md--cluster-configuration.md) | MetaMask/ocap-kernel docs/usage.md | The `globals` array + `network.allowedHosts` allowlist enact distributed confinement (no ambient authority; fail-closed network gate) in cluster config JSON. |
+| [metamask-ocap-kernel--docs-usage-md--endo-integration](../sections/metamask-ocap-kernel--docs-usage-md--endo-integration.md) | MetaMask/ocap-kernel docs/usage.md | Operational restatement of the object-capability model: vat root + service objects via `makeDefaultExo`; `E()` from `@endo/eventual-send`; further-resources pointer list. |
 ## See also
 
 - [`hardened-javascript`](hardened-javascript.md): substrate that makes ocap discipline enforceable.
