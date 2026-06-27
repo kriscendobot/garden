@@ -36,3 +36,9 @@ following. Wear the **assayer/investigator** role, then producer.
 
 Lint errors on endo master classified into rule/root-cause classes (with counts and
 autofixability), one deferred fix-plan posted per class, and a report surfaced to the bulletin.
+
+---
+claim:
+  host: endolinbot
+  gardener: 67
+  claimed_at: 2026-06-27T11:53:09Z
