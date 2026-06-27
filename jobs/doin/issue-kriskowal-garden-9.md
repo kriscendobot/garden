@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please continue this investigation to the possible extent without the export 
+
+---
+claim:
+  host: endolinbot
+  gardener: 65
+  claimed_at: 2026-06-27T23:55:35Z
