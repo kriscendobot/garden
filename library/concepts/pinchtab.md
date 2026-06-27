@@ -1,3 +1,10 @@
+---
+id: pinchtab
+aliases: ["PinchTab", "pinchtab", "PINCHTAB_TOKEN", "pinchtab server", "pinchtab bridge", "accessibility tree with stable refs", "Browser capability backend"]
+topics: [tooling]
+status: draft
+---
+
 # pinchtab
 
 PinchTab is an external project (MIT-licensed Go binary, ~12 MB) that
@@ -7,8 +14,8 @@ Site: <https://pinchtab.com/>.
 
 The Endo angle: PinchTab is one backend the
 [`Browser` capability](#) can use. Its accessibility-tree-with-stable-refs
-shape (`{ref:"e0",role:"link",name:"Docs"}`, etc.) is roughly
-10&times; more token-efficient than a full DOM snapshot, which makes it
+shape (`{ref:"e0",role:"link",name:"Docs"}`, and so on) is roughly
+10x more token-efficient than a full DOM snapshot, which makes it
 attractive for LLM-driven snapshot-driven loops.
 
 Wire shape highlights:
@@ -30,7 +37,7 @@ Wire shape highlights:
 
 ## See also
 
-- [caretaker-pattern](caretaker-pattern.md) &mdash; the `Browser` /
+- [caretaker-pattern](caretaker-pattern.md): the `Browser` /
   `BrowserControl` split follows this pattern.
-- [object-capability](object-capability.md) &mdash; the structural
+- [object-capability](object-capability.md): the structural
   origin-allowlist sits above PinchTab's wire, not inside it.
