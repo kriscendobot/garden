@@ -2,21 +2,33 @@
 source_kind: comment-fragment
 source_repo: endojs/endo
 source_path: packages/captp/src/finalize.js
-source_line_range: 1-141
-file_commit: 5efcf7dd03c9caff1592c146a1a506320bddf9db
-file_commit_date: 2025-06-23
-file_commit_author: Mark S. Miller
+source_line_range: 1-133
+file_commit: 96b9ea81ddc403944750f2bb64a7eab3de8cd700
+file_commit_date: 2026-05-21
+file_commit_author: Kris Kowal
 comment_subject: Weak-Value-Map via WeakRef + FinalizationRegistry with gc-as-side-channel warning and end-of-turn stability
 ingested: 2026-06-03
+refreshed: 2026-06-27
 ingested_by: scholar
 section_count: 1
 status: current
 notes: |
-  Thirty-seventh comment-fragment ingest (cycle 156). 141-
+  **Refreshed 2026-06-27** (library-source-drift-scan): upstream
+  advanced `5efcf7dd0` → `96b9ea81d` (Kris Kowal, *refactor:
+  Embrace default chaining*, 2026-05-21). The only change to this
+  file: `get` collapsed from the verbose deref-guard to optional
+  chaining (`get: key => keyToRef.get(key)?.deref()`), deleting
+  the `// UNTIL endo#1514` workaround comment block (141 → 133
+  lines). The §issue-#1514 TODO is now **resolved**; its section
+  is retitled and rewritten to record the resolution. All other
+  sections unchanged.
+
+  Thirty-seventh comment-fragment ingest (cycle 156). 133-
   line @endo/captp *Weak-Value-Map* primitive. Mark S. Miller
-  authored. Last touched 2025-06-23 (commit `5efcf7dd0`,
-  refactor pass-style faster isObject). **Second @endo/captp
-  source file ingested** (after cycle 154's trap.js).
+  authored; last touched 2026-05-21 (commit `96b9ea81d`, Kris
+  Kowal, *Embrace default chaining*; original ingest at
+  `5efcf7dd0`, refactor pass-style faster isObject). **Second
+  @endo/captp source file ingested** (after cycle 154's trap.js).
 
   Single export `makeFinalizingMap(finalizer, opts)` —
   §weak-on-values-not-on-keys (dual of WeakMap which is weak
@@ -81,11 +93,13 @@ notes: |
   `clearWithoutFinalizing` is exempt*. §teardown-bypass
   discipline.
 
-  §TODO-with-issue-link to endo#1514 names the preferred-form
-  blocker. §commented-out-preferred-form pattern keeps the
-  future cleanup visible at the site. §preserve-the-
+  §TODO-with-issue-link to endo#1514 named the preferred-form
+  blocker; the §commented-out-preferred-form pattern kept the
+  future cleanup visible at the site, and the §preserve-the-
   undefined-not-the-typeof-deref-result TypeScript-narrowing
-  workaround.
+  workaround held the verbose form in place. **As of `96b9ea81d`
+  this TODO is resolved** — the preferred optional-chaining form
+  landed and the workaround is gone.
 
   §Far-as-the-protective-wrapper for both real and fake maps.
   §RemotableBrand-typing: typed as remotable so it's passable
@@ -96,7 +110,7 @@ notes: |
   blocked 50 cycles — milestone**. Pivoted to comments-lane.
 ---
 
-> Abstract: `finalize.js` (141 lines) is the @endo/captp
+> Abstract: `finalize.js` (133 lines) is the @endo/captp
 > **Weak-Value-Map primitive**. Mark S. Miller authored.
 > Single export `makeFinalizingMap(finalizer, opts)`.
 > **Second @endo/captp source file ingested** after cycle
@@ -127,7 +141,8 @@ notes: |
 > §Replace-finalizes-old (set deletes first).
 > §clearWithoutFinalizing-exempt §teardown-bypass.
 >
-> §TODO-with-issue-link to endo#1514. §Far-wrapping for
+> §TODO-with-issue-link to endo#1514 (**resolved** at
+> `96b9ea81d` — `get` now optional-chains). §Far-wrapping for
 > remotability.
 
 ## Sections
@@ -136,18 +151,25 @@ notes: |
 |---------|--------|--------|
 | [weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability](../sections/endo--packages-captp-src-finalize-js--weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability.md) | captp, hardened-javascript, capability-security | current |
 
-Tight 141-line file. One cohesion-honest section.
+Tight 133-line file. One cohesion-honest section.
 
 ## Provenance
 
 - Fetched 2026-06-03 from `endojs/endo@HEAD` (commit
   `5efcf7dd03c9caff1592c146a1a506320bddf9db`) via the local
   bare-clone.
-- Last substantive touch 2025-06-23 by Mark S. Miller (commit
-  `5efcf7dd0`, *refactor(pass-style): faster `isObject`
-  (#2860)*). Not in cycle 108's coordinated-update commit
-  `e56bf00f` cluster (this file predates the @endo/harden
-  migration).
+- **Refreshed 2026-06-27** (library-source-drift-scan) from the
+  local bare-clone at commit
+  `96b9ea81ddc403944750f2bb64a7eab3de8cd700`. The path had
+  advanced one commit since the original ingest.
+- Last substantive touch 2026-05-21 by Kris Kowal (commit
+  `96b9ea81d`, *refactor: Embrace default chaining*) — resolved
+  the §issue-#1514 TODO, collapsing `get` to optional chaining
+  (141 → 133 lines). Prior touch 2025-06-23 by Mark S. Miller
+  (commit `5efcf7dd0`, *refactor(pass-style): faster `isObject`
+  (#2860)*), the original-ingest commit. Not in cycle 108's
+  coordinated-update commit `e56bf00f` cluster (this file
+  predates the @endo/harden migration).
 - **Thirty-seventh comment-fragment ingest.** **Second
   @endo/captp source file ingested** after cycle 154's
   trap.js.

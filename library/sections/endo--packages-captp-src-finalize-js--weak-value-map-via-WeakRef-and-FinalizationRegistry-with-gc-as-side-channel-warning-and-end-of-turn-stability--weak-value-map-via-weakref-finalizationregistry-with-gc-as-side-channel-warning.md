@@ -16,11 +16,14 @@ parent: endo--packages-captp-src-finalize-js--weak-value-map-via-WeakRef-and-Fin
 >
 > — `packages/captp/src/finalize.js` lines 31-34
 
-`finalize.js` (141 lines) is the **Weak-Value-Map primitive**
+`finalize.js` (133 lines) is the **Weak-Value-Map primitive**
 for `@endo/captp`. Single export `makeFinalizingMap(finalizer,
-opts)`. Authored by Mark S. Miller; last-touched 2025-06-23
-(commit `5efcf7dd0` — *refactor(pass-style): faster `isObject`
-(#2860)*).
+opts)`. Authored by Mark S. Miller; last-touched 2026-05-21
+(commit `96b9ea81d` — Kris Kowal, *refactor: Embrace default
+chaining*, which resolved the §issue-#1514 TODO by collapsing
+`get` to optional chaining and dropping 8 lines; the original
+ingest was at `5efcf7dd0`, *refactor(pass-style): faster
+`isObject` (#2860)*, 2025-06-23).
 
 This file is the **second @endo/captp source file** ingested
 after cycle 154's trap.js. Where trap.js is the *user-facing
