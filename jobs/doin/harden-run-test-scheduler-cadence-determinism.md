@@ -23,3 +23,9 @@ cross it between the two scheduler runs. Keep the existing assertions' intent.
 Map: build (garden infra) on the garden's own repo, branch main2. Build in an
 ISOLATED worktree off origin/main2; commit explicit pathspecs; push HEAD:main2
 with a git-rebase CAS loop.
+
+---
+claim:
+  host: endolinbot
+  gardener: 53
+  claimed_at: 2026-06-27T05:44:35Z
