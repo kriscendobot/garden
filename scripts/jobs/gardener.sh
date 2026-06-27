@@ -163,9 +163,24 @@ while :; do
     # escalation path does. Reserve the loud error/escalation path below for a
     # handler that failed with REAL diagnostic output. The capture-empty test runs
     # BEFORE the synthetic-line block (which would otherwise mask the emptiness).
+    #
+    # An empty capture alone is NOT proof of a blip: the exit code disambiguates.
+    # Only a signal/clean-shutdown rc (143/130/137) or the offline rc is a killed-
+    # mid-call blip; a non-signal non-zero rc with empty output (rc=127/126 missing
+    # / non-executable tool — the jq-outage signature — or a bare rc=1/2) is a
+    # DETERMINISTIC defect that must escalate NOW, not after the reaper's multi-hour
+    # cycle. is_transient_empty_failure (common.sh) makes that call, mirroring the
+    # signal/offline discrimination in self-heal-run.sh that this comment claims.
     transient=0
     if [ ! -s "$capture" ]; then
-      transient=1   # bare empty-output-nonzero: nothing on stdout/stderr or in $report
+      # Empty output is transient ONLY when $rc is a signal/clean-shutdown code
+      # or the offline rc (a `claude -p` killed mid-call). A non-signal,
+      # non-offline non-zero rc with empty output — rc=127/126 (missing /
+      # non-executable tool, the jq-outage signature) or a bare rc=1/2 — is a
+      # DETERMINISTIC defect: fall through to the real-failure escalation below
+      # so it surfaces now rather than after the reaper's TTL. (Gating on $rc is
+      # the realignment with self-heal-run.sh that this comment claims.)
+      is_transient_empty_failure "$rc" && transient=1
     elif is_transient_claude_signature "$(tail -c 65536 "$capture" 2>/dev/null)"; then
       transient=1   # capture carries only a transient-claude signature
     fi

@@ -479,6 +479,25 @@ is_transient_claude_signature() {
   printf '%s' "$1" | grep -qiE "$GARDEN_TRANSIENT_CLAUDE_SIGNATURES"
 }
 
+# Classify an EMPTY-output handler failure by its exit code ($1): transient blip
+# (returns 0) versus a deterministic defect that must escalate now (returns 1).
+# With no stdout/stderr and no $report there is no signature to match, so the
+# exit code is the only signal. Empty output is transient ONLY for a
+# signal/clean-shutdown code (143 SIGTERM, 130 SIGINT, 137 SIGKILL) or the
+# offline rc (GARDEN_OFFLINE_RC, default 75 EX_TEMPFAIL) — a `claude -p` killed
+# mid-call or a tick that lost connectivity, both self-resolving on re-claim. A
+# non-signal, non-offline non-zero rc with empty output is a DETERMINISTIC
+# failure — rc=127/126 (missing / non-executable external tool, the jq-outage
+# signature) or a bare rc=1/2 — and must surface to a human immediately rather
+# than be deferred to the reaper's multi-hour poison cycle. Mirrors the
+# signal/offline discrimination in self-heal-run.sh.
+is_transient_empty_failure() {
+  case "$1" in
+    143|130|137|"${GARDEN_OFFLINE_RC:-75}") return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 # Hard-sync a clone to the authoritative tip. The board's true state. Acquires
 # the per-clone lock and HOLDS it; the matching commit_and_push releases it, so
 # the entire sync→write→commit→push critical section is atomic per clone. A
