@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T06:03:58Z_
+_As of 2026-06-27T06:06:09Z_
 
 ## Latest
 
-The [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) refresh landed, and a batch of garden-infra jobs completed: a scholar library cycle, the host-formula property-value addressing design, deterministic scheduler cadence in `run-test`, and a self-heal fix so a clean signalled shutdown now exits zero. Two more self-heal hardening jobs (treat transient git-128 and offline outages as clean, non-fatal) are in flight alongside the [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) review.
+The headline for a maintainer is operational: the watchman reports main2 on **endolinbot** is WEDGED — uncommitted tracked changes to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) are blocking the fast-forward, so this host has stopped picking up new roles/skills/scripts across at least six advances of origin/main2; the tree needs verifying and cleaning. Separately, a watchdog flags the `comment-watcher/kriskowal-garden` source as silently blind — 0 comments for 60 ticks despite a known comment since 2026-06-25, matching the 2026-06-24 jq/gh outage signature, worth checking on endolinbot.
 
-Two operational issues need maintainer eyes. First, the watchman reports **main2 is WEDGED on host endolinbot** — origin has advanced through several commits but the live tree is frozen at `beede51e`, blocked by uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`); until that tree is cleaned this host picks up no new roles/skills/scripts. Second, a watchdog flagged the **2026-06-24 outage signature again**: comment-watcher/kriskowal-garden saw 0 comments for 60 straight ticks despite a real comment existing since 2026-06-25, suggesting jq/gh has gone silently blind on endolinbot. Separately, a gardener pushed a conflict-safe corrective follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixing 13 dangling design-doc refs and adding a real Node parity test) despite a stand-down, and the `cognito-mcp-metadata-bridge` build is proceeding on its own recommendations after two unanswered design questions.
+On the board, the self-heal/reliability hardening continued to land: [`improve-self-heal-clean-signalled-shutdown-exits-zero`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-self-heal-clean-signalled-shutdown-exits-zero.md) and `harden-run-test-scheduler-cadence-determinism` completed, with three more self-heal/error-reporting jobs in flight (one just claimed). A scholar library cycle and the `design-host-formula-property-value-addressing` design also finished, and [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) got a refresh.
+
+Two judgment calls await maintainer eyes: a gardener proceeded on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down — it found two real defects (13 dangling doc references and a prose-only Node parity claim) in the superseding commit, no active second writer existed, and pushed a conflict-safe non-force follow-up adding a real Node parity test (full suite green); and the `cognito-mcp-metadata-bridge` builder is proceeding on its own recommendations for two design open questions (stay on Cognito + bridge; ship RFC 7591 DCR behind a default-on toggle) unless redirected. The `synth-and-deploy-minion-town-aws` plan remains parked awaiting maintainer authorization.
 
 ## Parked for maintainer feedback
 
@@ -144,8 +146,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr440-review-a9ecd20f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr440-review-a9ecd20f.md) — Review directive on endojs/endo-but-for-bots PR #440
+- [`improve-report-error-reject-empty-transcript`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-report-error-reject-empty-transcript.md) — Centralize the empty-blob defense in skills/gardener-inbox-error-reporting/re...
 - [`improve-self-heal-treat-offline-as-clean-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-self-heal-treat-offline-as-clean-exit.md) — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
 - [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Make the long-running gardener claim loop absorb transient connectivity outag...
 
