@@ -13145,3 +13145,24 @@ average holdback | casknet-wire-protocol
 `averageHoldBackNanoseconds` | casknet-wire-protocol
 `AcknowledgeBatchSize` | casknet-wire-protocol
 `buildStoreAckPlaintext` | casknet-wire-protocol
+MetaMask ocap-kernel kernel-guide | ocap-kernel
+ocap-kernel kernel/vat model | ocap-kernel
+kernel/vat model host application developer guide | ocap-kernel
+`Kernel.make` | ocap-kernel
+`buildRootObject` | ocap-kernel
+bootstrap vat introduction point | ocap-kernel
+`bootstrap(vats, services)` | ocap-kernel
+vat endowments globals allowlist | ocap-kernel
+`network.allowedHosts` per-vat host allowlist | ocap-kernel
+distributed confinement vat endowment | ocap-kernel
+`makeDefaultExo` | ocap-kernel
+do not use Far makeDefaultExo | ocap-kernel
+kernel facet systemOnly service | ocap-kernel
+system subcluster privilege by declaration | ocap-kernel
+`registerKernelServiceObject` kernel service | ocap-kernel
+kref vref rref eref four-scope name-space | ocap-kernel
+baggage durable per-vat state sturdyref | ocap-kernel
+`baggage.init` `baggage.get` resuscitation | ocap-kernel
+`kernel.revoke` first-class revocation kref | ocap-kernel
+`ClusterConfig` `VatConfig` `SubclusterLaunchResult` | ocap-kernel
+resuscitation vat restart restore from baggage | ocap-kernel

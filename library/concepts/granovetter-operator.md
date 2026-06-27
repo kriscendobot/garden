@@ -27,6 +27,7 @@ The Granovetter Operator is the *Introduction* mechanism in the 2004 *Structure 
 - [[caretaker-pattern]] — the most-cited use of the operator: Alice does NOT send `bob.foo(carol)` directly; instead she sends `bob.foo(carol2)` where `carol2` is a Caretaker she constructed. The pattern attenuates the authority transferred via the operator.
 - [[principle-of-least-authority]] — POLA is the discipline of choosing *which* Granovetter steps to take and *what* authority to transfer in each. Every `bob.foo(carol)` is a POLA decision.
 - [[agoric-system]] — the broader framing that places the Granovetter Operator in the context of market-based computational systems.
+- [[ocap-kernel]] — a sibling-implementation enactment: MetaMask/ocap-kernel's once-only `bootstrap(vats, services)` callback IS the Granovetter Operator with the kernel as introducer — the bootstrap vat receives references to its sibling vats and requested services, and any reference later passed in an `E()` message is a further Introduction.
 
 ## Common confusions
 

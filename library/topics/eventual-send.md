@@ -6,6 +6,7 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [metamask-ocap-kernel--docs-kernel-guide-md--eventual-send-with-e](../sections/metamask-ocap-kernel--docs-kernel-guide-md--eventual-send-with-e.md) | MetaMask/ocap-kernel docs/kernel-guide.md | ocap-kernel imports `E()` from `@endo/eventual-send` directly (shared substrate, not a parallel); the usage rules and the kernel-router target demultiplexing by kref scope (job `ingest-ocap-kernel`, 2026-06-27). |
 | [agoric-sdk--pkg-casting-readme--overview](../sections/agoric-sdk--pkg-casting-readme--overview.md) | agoric-sdk packages/casting/README.md | `@agoric/casting` follows ocap broadcasts flexibly. |
 | [agoric-sdk--pkg-notifier-readme--distributed-asynchronous-iteration](../sections/agoric-sdk--pkg-notifier-readme--distributed-asynchronous-iteration.md) | agoric-sdk packages/notifier/README.md | Formal semantics. |
 | [agoric-sdk--pkg-notifier-readme--distributed-operation](../sections/agoric-sdk--pkg-notifier-readme--distributed-operation.md) | agoric-sdk packages/notifier/README.md | PublishKits / NotifierKits / SubscriptionKits all multicast with good distributed-systems properties: one producer, any number of consumers; **producer not vulnerable to consumers** (no consumer can break the kit or block the producer); **consumers not vulnerable to each other** (no consumer can hang or starve another). |

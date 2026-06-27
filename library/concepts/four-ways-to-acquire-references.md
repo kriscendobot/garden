@@ -34,6 +34,7 @@ This rule gives the object-capability model its formal teeth: an object's permis
 - [[caretaker-pattern]] — the canonical *Introduction* mechanism at the design-pattern level: A introduces B to a Caretaker `carol2` rather than to Carol directly, attenuating the authority B receives.
 - [[formula-graph]] — the Endo enactment. The four ways a new formula identifier comes to exist in the daemon (introduction via marshal pass-style; parenthood via formula construction; endowment via initial bundle endowments; initial conditions via daemon bootstrap) match §3.4 exactly.
 - [[per-agent-keypair]] — the agent identity is an *Initial Conditions* artifact at the per-agent layer: a fresh keypair is part of the bootstrap state every agent is born with.
+- [[ocap-kernel]] — a sibling-implementation enactment: in MetaMask/ocap-kernel, a vat's `bootstrap(vats, services)` references arrive by *Endowment* + *Initial Conditions* (the kernel hands them at launch); references passed in later `E()` messages arrive by *Introduction*; baggage-persisted references re-supply *Initial Conditions* across resuscitation.
 
 ## Common confusions
 

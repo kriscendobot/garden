@@ -6983,6 +6983,21 @@ Total section files: 5826 (506 parent indexes + 5320 children).
   - [The §synthesis-target — adopt Ken vocabulary in Endo designs?](metamask-ocap-kernel--docs-ken-protocol-assessment-md--seven-Ken-properties-self-assessment-with-crank-buffering-and-savepoint-wrapped-receive-discipline--the-synthesis-target-adopt-ken-vocabulary-in-endo-designs.md)
   - [The §two-different-persistence-purposes clarification](metamask-ocap-kernel--docs-ken-protocol-assessment-md--seven-Ken-properties-self-assessment-with-crank-buffering-and-savepoint-wrapped-receive-discipline--the-two-different-persistence-purposes-clarification.md)
 
+### metamask-ocap-kernel--docs-kernel-guide-md
+
+- [metamask-ocap-kernel--docs-kernel-guide-md](metamask-ocap-kernel--docs-kernel-guide-md.md) (index — sixth ocap-kernel ingest, job `ingest-ocap-kernel`, 2026-06-27; the kernel/vat model from the 689-line host-application developer guide)
+  - [Core Concepts](metamask-ocap-kernel--docs-kernel-guide-md--core-concepts.md)
+  - [The Kernel API](metamask-ocap-kernel--docs-kernel-guide-md--kernel-api.md)
+  - [Writing Vat Code](metamask-ocap-kernel--docs-kernel-guide-md--writing-vat-code.md)
+  - [Vat Endowments](metamask-ocap-kernel--docs-kernel-guide-md--vat-endowments.md)
+  - [Kernel Services](metamask-ocap-kernel--docs-kernel-guide-md--kernel-services.md)
+  - [System Subclusters](metamask-ocap-kernel--docs-kernel-guide-md--system-subclusters.md)
+  - [Eventual Send with E()](metamask-ocap-kernel--docs-kernel-guide-md--eventual-send-with-e.md)
+  - [Exos (Remotable Objects)](metamask-ocap-kernel--docs-kernel-guide-md--exos-remotable-objects.md)
+  - [Baggage (Persistent State)](metamask-ocap-kernel--docs-kernel-guide-md--baggage-persistent-state.md)
+  - [Revocation](metamask-ocap-kernel--docs-kernel-guide-md--revocation.md)
+  - [Key Types and Complete Example](metamask-ocap-kernel--docs-kernel-guide-md--key-types-and-complete-example.md)
+
 ### metamask-ocap-kernel--docs-platform-specific-md
 
 - [metamask-ocap-kernel--docs-platform-specific-md--platform-obvious-vs-platform-implicit-exports-with-six-step-contributor-guide-for-Node-browser-split](metamask-ocap-kernel--docs-platform-specific-md--platform-obvious-vs-platform-implicit-exports-with-six-step-contributor-guide-for-Node-browser-split.md) (index)

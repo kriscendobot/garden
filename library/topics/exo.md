@@ -6,6 +6,7 @@
 
 | Section | Source | One-line abstract |
 |---------|--------|-------------------|
+| [metamask-ocap-kernel--docs-kernel-guide-md--exos-remotable-objects](../sections/metamask-ocap-kernel--docs-kernel-guide-md--exos-remotable-objects.md) | MetaMask/ocap-kernel docs/kernel-guide.md | `makeDefaultExo(name, methods)` wraps `@endo/exo`'s `makeExo` with permissive "passable" guards; exos are remotable, durable (baggage-storable), hardened, interface-guarded; `Far()` from `@endo/far` is forbidden — a policy divergence, not a mechanism one (job `ingest-ocap-kernel`, 2026-06-27). |
 | [agoric-sdk--pkg-base-zone-readme--overview](../sections/agoric-sdk--pkg-base-zone-readme--overview.md) | agoric-sdk packages/base-zone/README.md | A Zone provides an API for allocating Exo objects and Stores under one of three persistence regimes — heap (ephemeral, lost on vat termination), virtual (pageable to disk, lost on termination), durable (pageable AND revivable after a vat upgrade). |
 | [agoric-sdk--pkg-ertp-readme--overview](../sections/agoric-sdk--pkg-ertp-readme--overview.md) | agoric-sdk packages/ERTP/README.md | ERTP is Agoric's digital-asset standard — a uniform JavaScript-level way of transferring tokens and other digital assets. |
 | [agoric-sdk--pkg-governance-readme--contract-governor](../sections/agoric-sdk--pkg-governance-readme--contract-governor.md) | agoric-sdk packages/governance/README.md | ContractGovernor makes a contract's governance legible. |

@@ -1,0 +1,51 @@
+---
+id: ocap-kernel
+aliases: ["ocap-kernel", "ocap kernel", "OCap Kernel", "MetaMask ocap-kernel", "MetaMask/ocap-kernel", "kernel/vat model", "kernel and vat", "kernel facet", "subcluster", "system subcluster", "kref", "vref", "rref", "eref", "baggage", "makeDefaultExo", "vat endowments", "kernel service", "SwingSet kernel"]
+topics: [daemon, capability-security, persistence, eventual-send, exo]
+status: current
+---
+
+# ocap-kernel
+
+**MetaMask's object-capability kernel** (`MetaMask/ocap-kernel`): a TypeScript kernel-and-vat runtime in the SES/ocap lineage, derived from the same Agoric **SwingSet** root as `@endo` and `endojs/endo-but-for-bots`, but a **distinct, external implementation** — same ideas, different code. The library ingests it as a *sibling-implementation reference shelf*: we read its choices to inform Endo work; we never import its code.
+
+Its model: a centralized **kernel** manages **vats** (isolated units of compute where user code runs in SES compartments) and **distributed objects**, routing all inter-vat messages, tracking object references, and owning persistence and garbage collection. Vats never call each other directly — they use **`E()`** (eventual send, imported straight from `@endo/eventual-send`). Vats are launched in **subclusters**; a subcluster's **bootstrap vat** is handed references to its sibling vats and to the **kernel services** it requested — the kernel acting as introducer. **System subclusters** (declared at kernel startup, persistent across restart) may reach privileged `systemOnly` services, chiefly the **kernel facet** that re-exposes the kernel's own control surface to a system vat. Each vat gets **baggage** (a durable key-value store) for state and references that survive restart (resuscitation). Objects that cross vats are **exos**, made with `makeDefaultExo` (ocap-kernel forbids `@endo/far`'s `Far()`). The kernel offers first-class **revocation** (`kernel.revoke(kref)`).
+
+The single most distinctive divergence from Endo is the **four-scope reference name-space** — **kref** (kernel-global), **vref** (vat-local), **rref** (remote-channel-scoped), **eref** (vref∪rref) — where Endo conflates these into one formula identifier. ocap-kernel trades more bookkeeping for sharper locality information. Its remote-messaging layer is audited against the **Ken protocol** (HPL-2010-155) — exactly-once, output-valid, transactional-turn delivery built on crank-buffering + SQLite savepoints.
+
+## Sections that touch this concept
+
+| Section | One-line summary |
+|---|---|
+| [docs-kernel-guide-md--core-concepts](../sections/metamask-ocap-kernel--docs-kernel-guide-md--core-concepts.md) | The host-developer vocabulary: kernel / vat / subcluster / system subcluster / kernel service / kref / exo, with a translation table to Endo equivalents. |
+| [docs-kernel-guide-md--kernel-api](../sections/metamask-ocap-kernel--docs-kernel-guide-md--kernel-api.md) | `Kernel.make(platformServices, db, opts)` + the imperative control surface (register service, launch/terminate subcluster, queueMessage, revoke, getPresence). |
+| [docs-kernel-guide-md--writing-vat-code](../sections/metamask-ocap-kernel--docs-kernel-guide-md--writing-vat-code.md) | `buildRootObject(vatPowers, parameters, baggage)`; the once-only `bootstrap(vats, services)` introduction point; resuscitation restores from baggage. |
+| [docs-kernel-guide-md--vat-endowments](../sections/metamask-ocap-kernel--docs-kernel-guide-md--vat-endowments.md) | The SES-compartment endowment allowlist (`globals` array + per-vat `network.allowedHosts`) — distributed confinement in practice; plain-hardened vs attenuated globals. |
+| [docs-kernel-guide-md--kernel-services](../sections/metamask-ocap-kernel--docs-kernel-guide-md--kernel-services.md) | Services registered by name, validated at launch, run in kernel context; syscall → router → KernelServiceManager invocation path. |
+| [docs-kernel-guide-md--system-subclusters](../sections/metamask-ocap-kernel--docs-kernel-guide-md--system-subclusters.md) | Startup-declared, restart-persistent, name-keyed privileged subclusters; the kernel facet re-exposes kernel control to a system vat. |
+| [docs-kernel-guide-md--eventual-send-with-e](../sections/metamask-ocap-kernel--docs-kernel-guide-md--eventual-send-with-e.md) | `E()` from `@endo/eventual-send` — shared substrate, not a parallel; the kernel router demultiplexes targets by kref scope. |
+| [docs-kernel-guide-md--exos-remotable-objects](../sections/metamask-ocap-kernel--docs-kernel-guide-md--exos-remotable-objects.md) | `makeDefaultExo` wraps `@endo/exo` makeExo with permissive "passable" guards; `Far()` forbidden — a policy divergence, not a mechanism one. |
+| [docs-kernel-guide-md--baggage-persistent-state](../sections/metamask-ocap-kernel--docs-kernel-guide-md--baggage-persistent-state.md) | Durable per-vat KV; storing a cross-vat reference is ocap-kernel's sturdyref-like durable-capability primitive (kernel-store / SQLite backed). |
+| [docs-kernel-guide-md--revocation](../sections/metamask-ocap-kernel--docs-kernel-guide-md--revocation.md) | First-class `kernel.revoke(kref)` / `isRevoked` — coarse, permanent, host-mediated; vs Endo's compositional caretaker/membrane revocation. |
+| [docs-kernel-guide-md--key-types-and-complete-example](../sections/metamask-ocap-kernel--docs-kernel-guide-md--key-types-and-complete-example.md) | ClusterConfig / VatConfig / SubclusterLaunchResult / KernelStatus types; the canonical host-service → system-subcluster → vat-via-E() wiring. |
+| [overview--...survey-with-SwingSet-derived-kernel-vat-architecture](../sections/metamask-ocap-kernel--overview--monorepo-survey-with-SwingSet-derived-kernel-vat-architecture-and-Ken-protocol-substrate.md) | The cycle-161 monorepo survey: 30 packages, 22-term vocabulary→Endo map, Ken-protocol substrate, sibling-implementation genre. |
+| [docs-glossary-md--...](../sources/metamask-ocap-kernel--docs-glossary-md.md) | The canonical vocabulary surface (cycle 163): kref/vref/rref/eref scopes, crank, decider, liveslots, bringOutYourDead, three independent GC domains. |
+| [docs-ken-protocol-assessment-md--...](../sources/metamask-ocap-kernel--docs-ken-protocol-assessment-md.md) | Self-assessment against Ken's seven properties (cycle 162): crank-buffering, SQLite savepoints, run-queue-as-commit-fence. |
+
+## See also
+
+- [[vat-and-compartment]] — the shared SwingSet/E-language root: ocap-kernel keeps the "vat" name; Endo speaks of bundles + compartments. The two denote the same primitive at different layers.
+- [[object-capability]] — the Model-4 theory both implement; ocap-kernel's endowment allowlist enacts Property D (No Ambient Authority).
+- [[granovetter-operator]] — three-party introduction: ocap-kernel's `bootstrap(vats, services)` is the kernel-as-introducer enactment.
+- [[four-ways-to-acquire-references]] — Introduction / Parenthood / Endowment / Initial Conditions: bootstrap references arrive by endowment + initial conditions; later `E()`-passed references by introduction.
+- [[promise-pipelining]] — applies verbatim, since `E()` is the same `@endo/eventual-send` shim.
+- [[revocation-by-withdrawal]] — Endo's compositional revocation, contrasted with ocap-kernel's first-class `kernel.revoke(kref)`.
+- [[formula-graph]] — Endo's persistence-by-traversal substrate, the counterpart to ocap-kernel's baggage + kernel-store.
+- [[codel-send-buffer-shedding]] — a separate sibling (CASK) load-shedding design; unrelated mechanism, same "read the sibling's choices" posture.
+
+## Common confusions
+
+- **"ocap-kernel is Endo / Agoric's kernel."** No. It is **MetaMask's** kernel, an independent implementation descended from the same SwingSet root. It reuses some `@endo` packages (`eventual-send`, `exo`, `stream`) but is its own codebase with its own choices (four-scope refs, first-class revocation, `makeDefaultExo`/no-`Far`, kernel services by name). Never conflate the two or attribute ocap-kernel's design decisions to Endo.
+- **"A kref is the same as an Endo formula identifier."** They play the analogous role (a stable object name) but ocap-kernel deliberately splits the name-space into four scopes (kref/vref/rref/eref); the Endo formula identifier is one layer. Mapping one to the other loses the locality information ocap-kernel encodes explicitly.
+- **"ocap-kernel reimplements eventual send."** No — `E()` is imported directly from `@endo/eventual-send`. This is the clearest shared-substrate point. The kernel adds target demultiplexing by kref scope, not a new promise model.
+- **"Baggage is just a cache."** Baggage is the *durable* per-vat store that survives restart; storing a remotable reference in it is how a capability outlives its process — ocap-kernel's sturdyref/formula-graph analog, not an ephemeral cache.
