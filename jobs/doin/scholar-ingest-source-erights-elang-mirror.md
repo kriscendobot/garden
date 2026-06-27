@@ -43,3 +43,9 @@ capture remains the correct provenance for that paper. Leave it as-is.
 If you also encounter other erights.org/caplet.com-sourced entries that recorded an
 archive/unreachable fallback for an HTML page (not a PDF), re-ingest them from the mirror
 under the same discipline; post a follow-on for any that exceed one cycle's budget.
+
+---
+claim:
+  host: endolinbot
+  gardener: 8
+  claimed_at: 2026-06-27T17:18:20Z
