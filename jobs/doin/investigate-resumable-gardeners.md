@@ -51,3 +51,9 @@ A researched, honest complexity-vs-benefit analysis of gardener resumability (se
 checkpointing, idempotent jobs), grounded in the actual SDK/state-machine capabilities, with a
 recommendation, opened as a draft garden design PR. Report the PR number and the bottom-line
 recommendation.
+
+---
+claim:
+  host: endolinbot
+  gardener: 86
+  claimed_at: 2026-06-27T09:21:08Z
