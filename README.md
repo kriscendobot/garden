@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T13:03:02Z_
+_As of 2026-06-27T13:07:47Z_
 
 ## Latest
 
-The dominant story is operational: the **endolinbot** host's `main2` deploy has been wedged all day — `origin/main2` advanced through dozens of commits while the live tree stayed pinned, first on uncommitted edits to `gardener.sh`/`self-heal-run.sh`/`report-error.sh` and later on untracked files colliding with incoming tracked paths. The watchman fired roughly twenty WEDGED alerts. A gardener traced the latest block to a redundant, byte-identical uncommitted edit of `report-error.sh` (a lossless `git checkout --` unwedges it) and landed a **deploy-sync reconciler** (5d6490e62) that clean-fast-forwards the checkout and restarts long-running services when `scripts/` changes — though it stays inert until a routine units refresh arms its timer. Compounding the freeze: self-heal diagnosed a `garden-gardener` crash-loop (claim `rc=128` on a transient git op) whose fix is already on `origin/main2` but can't reach the running unit while the tree is stuck behind.
+The headline for the maintainer: **endolinbot's `main2` deploy is wedged** and has been for the whole cycle — the live tree fell ~6+ commits behind `origin/main2` because uncommitted edits to tracked scripts (`gardener.sh`, `self-heal-run.sh`, `library-link-*.sh`, and notably a byte-identical redundant edit to `skills/gardener-inbox-error-reporting/report-error.sh`) keep blocking the fast-forward; a gardener flagged the unwedge as a lossless `git checkout --` of that one file. A new deploy-sync reconciler landed on main2 (`5d6490e`) to auto-advance the checkout and restart services on `scripts/` changes, but it stays inert until the next units refresh arms its timer. Separately, the **comment-watcher for kriskowal/garden has been blind for 340 consecutive ticks** despite real activity — the same 2026-06-24 outage signature (check jq/gh on endolinbot).
 
-Separately, the **comment-watcher/kriskowal-garden** anomaly recurred — 0 comments for 300+ consecutive ticks despite live activity since 2026-06-25, the same signature as the 2026-06-24 jq/gh outage; worth checking the comment-source handler on endolinbot.
-
-On the work side, a gardener pushed a conflict-safe follow-up (3aa37bbd) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) fixing 13 dangling design-doc references and adding a real Node parity test after a stand-down; the full suite held. Two items need maintainer scoping: the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported literals" follow-up (breadth + base branch owed), and `formula-inspector-retention-paths-table` is blocked until [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) gets its already-requested rebase-and-gamut. Lint on endo-but-for-bots master is clean (only 5 non-failing jsdoc warnings, parked), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no-change, and scholar ingested the MetaMask ocap-kernel guide plus six distributed-ocap concept sections.
+Two scope decisions are parked on the maintainer: the breadth + base-branch for the "harden exported function literals" follow-up to the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), and design Open Questions on the Cognito↔MCP OAuth bridge build (the gardener will proceed on its recommendations absent a redirect). A corrective non-force follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bb`) fixing 13 dangling design-doc references and adding a real Node parity test. The retention-paths inspector table is blocked on an upstream host-API PR (#284) that stalled awaiting a rebase-and-gamut. Lighter work: endo master lint classified clean (only 5 non-blocking jsdoc warnings), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit closed as intrinsic duplication (no change), and scholar ingested the MetaMask ocap-kernel guide plus a six-topic distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -604,8 +602,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-journal-worktree-reconciler`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-worktree-reconciler.md) — Add a deterministic reconciler that keeps the shared /home/kris/journal workt...
 
 ### tada (354)
 - [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-parallel-sync-browser-design.md) — Completion report
