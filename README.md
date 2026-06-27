@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T16:01:48Z_
+_As of 2026-06-27T16:04:31Z_
 
 ## Latest
 
-The day was dominated by a recurring **main2 deploy wedge on host endolinbot**: the live checkout fell as many as 6+ commits behind `origin/main2` because successive tracked working-tree edits (most notably a byte-identical, redundant uncommitted copy of `report-error.sh`, later `journal-entry.sh` and the `library-link-*` scripts) kept blocking the fast-forward, and the watchman paged the maintainer roughly every 20 minutes. A **deploy-sync reconciler landed on main2** (`5d6490e62`) that fast-forwards the checkout and restarts long-running services when `scripts/` changes — but it's inert until a routine `install-units.sh` refresh arms its timer, and it can't advance while the tree stays dirty; a lossless `git checkout --` of the redundant file is the documented unwedge. Relatedly, a gardener crash-loop traced to an unguarded git op in `claim-job.sh` is already fixed on main2 and just awaits this same deploy. The `watchman-resolve-wedge-autonomously` job completed, and jobs to stop the comment-watcher's false "inactivity anomaly" pages and to harden `journal-entry.sh` are in flight.
+The deploy-sync reconciler landed on main2 (commit `5d6490e62`): it now fast-forwards the live checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart. The catch is that endolinbot's own deploy has been **wedged all day** — the watchman fired a steady stream of dirty-tree alarms as origin/main2 advanced through ~20 commits while the live tree stayed frozen, blocked first by redundant uncommitted edits (one byte-identical to origin's committed `report-error.sh`) and later by untracked-file collisions. A gardener flagged a lossless `git checkout --` unwedge; until the tree is clean this host won't pick up new roles, skills, or scripts.
 
-Two decisions are owed before work can proceed. The **"harden exported function literals" follow-up** from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) needs you to pick breadth (narrow two exports vs. repo-wide) and base branch (`llm` vs `master`) — the diff shape differs because the exports are function declarations on `llm` but arrow-consts on `master`. Separately, the formula-inspector retention-paths table is blocked on **[endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)** (the `listRetentionPaths` host API), which is stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you requested. A revisit of the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) deferred test-powers plan concluded no change (reuse would invert the extraction). On the library side, scholars ingested MetaMask/ocap-kernel's kernel guide and synthesized a six-concept distributed-ocap cluster, and a lint sweep confirmed endo-but-for-bots master is clean (only 5 non-blocking jsdoc warnings). An investigation into the **beta3 ymax0 portfolio-upgrade stack overflow** was just claimed.
+The beta3 ymax0 portfolio-upgrade "stack overflow" investigation [completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md): a primary-source bundle diff ruled out two of three candidates (harden is iterative; `passStyleOf` catches cycles and throws) and corrected the brief's premise — beta3 also carries the Auto-Features contract change, so a "pin Endo back" bisection alone can't attribute the regression. The decisive XS stack-trace experiment needs the agoric toolchain, which the bot host lacks.
+
+Two items are parked on **your decision**: the harden-exported-literals follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (merged) needs breadth (narrow vs repo-wide) and base branch (`llm` vs `master`) before a cross-repo PR opens; and the formula-inspector retention-paths table is blocked on #284's stalled rebase-and-gamut. Lower-stakes: endo master lint is clean (only 5 jsdoc warnings), and scholar landed ocap-kernel and distributed-ocap concept clusters. Note the comment-watcher anomaly reports are the known inactivity false-positives — a fix job (`comment-watcher-no-inactivity-anomaly`) is in flight.
 
 ## Parked for maintainer feedback
 
@@ -552,24 +554,132 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 420 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
+- `20260627T160307Z-0bd3f9` — from gardener:investigate-beta3-ymax0-portfolio-upgrade-stack-overflow, reply_to `investigate-beta3-ymax0-portfolio-upgrade-stack-overflow` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T160307Z-0bd3f9.md)
+
+> # Root-cause analysis: beta3 ymax0 portfolio-contract upgrade "stack overflow"
+>
+> Investigator: gardener (endolinbot), fork-scope authorization 2026-06-27.
+> Method: primary-source diff of the two contract bundles (`beta2.js` working /
+> `beta3.js` crashing) from the maintainer's gist, plus GitHub-API regression-window
+> confirmation. The XS swingset repro could NOT be run in this environment (no agoric
+> build toolchain / xsnap on the bot host; the fork is not checked out here). What
+> follows is an evidence-backed narrowing and a decisive next-experiment plan, not a
+> verified fix.
+>
+> ## Bundle provenance (verified)
+> - `beta2.js` 1,129,924 B / 35,131 lines; `beta3.js` 1,139,323 B / 35,447 lines —
+>   byte-exact to the brief.
+> - String-literal diff (rename-noise normalized): 414 added / 395 removed literals,
+>   ~99% pure minifier-rename churn.
+>
+> ## Regression window (CONFIRMED, GitHub API, no clone)
+> - `repos/kriscendobot/agoric-sdk/compare/3952deecd4...9d518832d4` →
+>   `status: ahead, ahead_by: 142, behind_by: 0, merge_base = 3952deecd4`.
+>   So **`3952deecd4` ("chore(deps): sync Endo to latest including ses 2.x") is a true
+>   ancestor of beta3 `9d518832d4`** and present on the fork. Brief fact #1 ✓.
+>
+> ## What the bundle diff actually shows (the core result)
+>
+> I walked every recursive path that runs on the `startVat` durable-exo rehydration
+> route and compared beta2 (SES 1.14) against beta3 (SES 2.x):
+>
+> | Path | beta2 → beta3 | Verdict |
+> |------|---------------|---------|
+> | **`harden`** | Classic iterative work-list in BOTH (`a()` enqueues into set `n`; `d()=Z0(n,c)` drains BFS). beta3 adds only the `Symbol.for("harden")` / `@harden` wrapper indirection. | **Not recursive → ruled OUT** (brief candidate #2). |
+> | **`passStyleOf` core** | Same `c→d` dispatcher; same persistent memo WeakMap; **same explicit cycle guard** (`Pass-by-copy data cannot be cyclic`). 2.x splits the per-style validator into `confirmCanBeValid` + `assertRestValid`, but `confirmCanBeValid` returns *before* `assertRestValid` descends — breadth, not depth. | Recursion depth-per-level **unchanged**. |
+> | **pattern matcher registry** | 27 kinds → 28 kinds; the only addition is the **leaf** `match:promise` (payload `{label}`, no sub-pattern recursion). All combinators (`and/or/not/arrayOf/splitRecord/recordOf/mapOf/setOf/…`) byte-identical. | Combinator recursion **unchanged**. |
+> | **`copyRecord`/`byteArray` helpers** | `confirmCanBeValid:(e,t)=>FC(e,t)&&keys(e).every(r=>KC(e,r,e[r],t))` — structurally identical to beta2's `canBeValid` form. | **Unchanged**. |
+> | **orchestration async-flow membrane/replay** | Structural markers identical (`hostFlow=1, replay=32, bijection=9, membrane=4, makeGuest/Host=19, unwrap/wrap=23` in BOTH). | **Unchanged** (my first read flagged "new flow literals" — that was rename-noise; retracted). |
+>
+> Two of the brief's three candidates fall to direct evidence:
+> - **Candidate #2 (SES 2.x harden over a deep/cyclic graph): RULED OUT** — harden is
+>   iterative in both bundles; it cannot overflow the native stack by recursion.
+> - **Candidate #3 (a true new cycle from the Endo bump): RULED OUT for any
+>   pass-by-copy data** — `passStyleOf` detects cycles and *throws a clear error*
+>   (`Pass-by-copy data cannot be cyclic`); it does not silently recurse to overflow.
+>   (A cycle in a non-copy / remotable graph that no guard traverses is not excluded,
+>   but nothing in the bundle points there.)
+> - **Candidate #1 (passStyleOf / patterns over interface guards): right LOCUS, but the
+>   bump did NOT deepen it.** Every recursive shape on that path is preserved 1.14→2.x.
+>
+> ## The premise correction (most actionable finding)
+>
+> The brief states "the Endo bump is the only runtime/hardening change between the
+> bundles." **That is not true of this bundle pair.** beta3 also carries a contract
+> change: the `OpenPortfolioWithAutoFeatures` / Auto-Features work (#12761) — Auto-Features
+> literal count 21→26, OpenPortfolio 18→21. (Durable-kind count = 12 and interfaceGuard
+> count = 13 are unchanged, so no *new* kinds, but the guard *contents* moved.)
+>
+> Consequence: a "pin Endo back and re-test" bisection alone cannot attribute the
+> regression, because the contract guards/data also changed. The overflow is **depth-
+> driven** (cycles are caught; harden is iterative), so the live question is *whose*
+> depth grew — Endo's per-level frame cost, or the contract's guard/data nesting.
+>
+> ## Most-probable mechanism (consistent with all evidence)
+>
+> Native-stack exhaustion in the `passStyleOf` / patterns `checkMatches` (or marshal
+> `unserialize`) recursion while rehydrating the portfolio contract's **interface guards
+> and durable data at `startVat`** (last syscalls `vom.dkind.15/16/17` → `getBundle`
+> match guard/kind re-establishment). It overflows XS's shallow native stack but not
+> V8's deep one — exactly the env-dependence the brief notes. The trigger is **NOT** a
+> new SES-2.x recursion (none is visible); it is a depth already near XS's margin pushed
+> over by either (a) a sub-minification per-level frame increase in the Endo refactor, or
+> (b) the Auto-Features guard/data depth increase in beta3 — likely (b), or (a)+(b).
+>
+> ## Decisive next experiment (must run where the toolchain + fork live)
+>
+> 1. **Capture the frame.** Build `kriscendobot/agoric-sdk@9d518832d4`; drive the v320
+>    portfolio-vat upgrade (incarnation 70→71) under `packages/swingset`+`xsnap` with an
+>    XS stack dump on overflow. The repeating frame cycle *names the exact function* —
+>    this is the one missing fact the minified bundles cannot give.
+> 2. **Attribute it (clean bisection).** From the same fork commit, pin ONLY the Endo
+>    deps (`ses`, `@endo/pass-style`, `@endo/patterns`, `@endo/marshal`, `@endo/exo`)
+>    back to beta2's versions with the **contract source unchanged**, and re-run:
+>    - still overflows → it is the **contract/Auto-Features depth**, not Endo;
+>    - stops overflowing → it is **Endo**; the step-1 trace names the helper.
+> 3. **Confirm env-dependence.** Same upgrade on Node/V8 should pass (deep stack); and
+>    beta2 deps should pass on XS — both as controls.
+>
+> ## Fix decision tree
+> - **If contract-attributed:** flatten the portfolio interface-guard / durable schema
+>   nesting (collapse nested `M.splitRecord`/`M.and`/`M.arrayOf` chains; shorten the
+>   deepest durable key/record path) so depth drops below XS's limit. Fork-side fix in
+>   `packages/portfolio-contract`.
+> - **If Endo-attributed:** the step-1 trace names the helper; reduce its frames-per-level
+>   (e.g. convert a hot recursive walk to an explicit work-list, as `harden` already is)
+>   and file an upstream-Endo bug with the minimal XS repro (deliverable, NOT an upstream
+>   push).
+> - **Last resort only:** raise the XS native stack limit — mitigation, not root cause.
+>
+> ## Honest boundary
+> Naming the single exact recursive frame and shipping a verified fix both require the
+> XS stack trace from step 1, which needs the agoric build toolchain + fork checkout on
+> a host that has them (the maintainer's machine or a provisioned fork CI). This was not
+> runnable on the bot host. Everything above (rule-outs, regression window, premise
+> correction, mechanism, experiment plan) is derived from primary sources and is ready
+> to hand to that repro session.
+
+- `20260627T160416Z-edee59` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T160416Z-edee59.md)
+
+> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 452 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-inactivity-anomaly.md) — Comment-watcher: stop reporting human inactivity as an anomaly; make blindnes...
-- [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — Investigation: beta3 portfolio-contract (ymax0) upgrade crashes with "stack o...
 - [`land-journal-entry-hardening`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/land-journal-entry-hardening.md) — Land the journal-entry.sh hardening (preserve a gardener's stashed WIP)
 - [`rename-killswitch-to-draining-marker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/rename-killswitch-to-draining-marker.md) — Rename the killswitch to a mundane "draining" marker (existence-meaningful + ...
 
-### tada (365)
+### tada (366)
+- [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — Completion report
 - [`scholar-library-cycle-20260627-155443`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-155443.md) — I should not call complete-job.sh myself — the gardener wrapper completes the...
 - [`watchman-resolve-wedge-autonomously`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/watchman-resolve-wedge-autonomously.md) — Completion report — watchman-resolve-wedge-autonomously
 - [`improve-library-source-drift-scan`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-library-source-drift-scan.md) — Completion report: improve-library-source-drift-scan
 - [`deadmail-20260627T151020Z-5f405e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260627T151020Z-5f405e.md) — Completion report — deadmail-20260627T151020Z-5f405e (intent of cognito-mcp-m...
-- [`scholar-refresh-marshal-rankorder-encodepassable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-marshal-rankorder-encodepassable.md) — Completion report — scholar-refresh-marshal-rankorder-encodepassable
-- … and 360 more
+- … and 361 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
