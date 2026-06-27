@@ -27,4 +27,4 @@ But first some terminology. To a Settled reference, the vat hosting the object i
 
 **Known Implementation Bug: Lost Resolution.** In current implementations of E, a transmitted Far reference to Carol, sent by Alice to Bob, when Alice, Bob, and Carol reside in three separate vats, will be received instead as a *promise* for Carol that will eventually resolve into a Far reference to Carol. As a result, if Alice sends Bob a hashtable containing the reference to Carol as a key, the hashtable will fail to unserialize in Bob's vat (because the key arrives Unsettled). The fix is known but was deprioritized.
 
-Source: [Argument Passing Rules](https://erights.org/elib/equality/passing-rules.html) § Vat-based Rules, Mark S. Miller, erights.org; ingested from the Internet Archive original-bytes capture, content SHA-256 `674e5229`.
+Source: [Argument Passing Rules](https://erights.org/elib/equality/passing-rules.html) § Vat-based Rules, Mark S. Miller, erights.org; fetched 2026-06-27 via the erights.github.io GitHub Pages mirror, content SHA-256 `674e5229` (byte-identical to the prior Internet-Archive capture).
