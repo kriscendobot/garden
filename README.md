@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T20:11:25Z_
+_As of 2026-06-27T20:19:04Z_
 
 ## Latest
 
-Two maintainer decisions surfaced this cycle and need an answer before work can proceed. The harden-exported-function-literals follow-up to the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you picking breadth (narrow: just the two evasive-transform exports, which erights authorized; or repo-wide via the `@endo/harden-exports` rule) and base branch (`llm` vs `master`, which changes the diff shape since the exports are still function declarations on `llm`). Separately, a real maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — re-bucket the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups — was misclassified by the comment-watcher as a "rebase" (the PR is already mergeable, so no rebase ran); it needs a liaison-driven builder/fixer dispatch, and a garden-infra fix for the classifier bug is being posted alongside.
+The garden shipped the drift-scan timer conversion to OnCalendar+Persistent (`improve-drift-scan-timer-oncalendar-persistent` completed), and gardeners picked up the per-subagent-worktree push — claiming `garden-enforce-per-subagent-worktree` alongside the deliberate-deploy job — plus four scholar refreshes of drifted Endo library sources (captp `finalize`, netstring reader, ses error-assert and error-console).
 
-Blocked work to note: the formula-inspector retention-paths table can't be built because its data source — the `listRetentionPaths` host API PR — is still open and stalled on the rebase-and-gamut you requested back on 2026-05-21 (currently 22/26 green); the gardener correctly declined to duplicate the graph walk and parked the table until that lands.
-
-On the research side, the ymax0/XS investigation concluded the nested-record overflow is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding in agoric-sdk territory (out of bounds for autonomous action); a v320 swing-store export is the missing artifact and sourcing it is your call. Library ingests landed cleanly — MetaMask/ocap-kernel's kernel-guide (the sixth ocap-kernel ingest) plus a six-concept distributed-ocap cluster on journal2 — and a lint sweep found endo master fully clean (only 5 non-failing jsdoc warnings, parked as a low-priority fix). The revisit of [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442)'s reusable-test-powers plan concluded no change (reusing daemon's powers would invert the daemon-cas extraction). On the board, the drift-scan timer `OnCalendar`/`Persistent` conversion was claimed into progress.
+Several maintainer decisions are now owed. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a real kriskowal feature directive — reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups — which the autonomous fleet can't route and needs a liaison-driven builder dispatch. The "harden exported function literals" follow-up off the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked on a two-axis scope call: narrow vs repo-wide, and base `llm` vs `master`. A formula-inspector retention-paths table is stalled on its still-open, CI-failing data-source PR (the rebase-and-gamut previously requested never ran). On the quieter side, the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the duplication is intrinsic — reusing it would invert the extraction), and an endo-master lint sweep found master clean apart from 5 non-blocking jsdoc warnings. Finally, the watchdog flagged the `endolinbot` journal worktree diverged from origin (3 ahead, 2805 behind) and deliberately left it untouched for hand reconciliation.
 
 ## Parked for maintainer feedback
 
@@ -177,22 +175,30 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I am separately posting a garden-infra fix job for the classifier bug that misrouted this to "rebase".
 
+- `20260627T201722Z-d1344c` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T201722Z-d1344c.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 2805 behind, 0 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot)
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (6)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
-- [`improve-drift-scan-timer-oncalendar-persistent`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-drift-scan-timer-oncalendar-persistent.md) — Convert scripts/systemd/garden-library-source-drift-scan.timer from the relat...
+- [`garden-enforce-per-subagent-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-enforce-per-subagent-worktree.md) — Mechanically enforce per-subagent worktrees in the gardener launch path
+- [`scholar-refresh-endo--packages-captp-src-finalize-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-endo--packages-captp-src-finalize-js.md) — Refresh drifted library source: endo--packages-captp-src-finalize-js
+- [`scholar-refresh-endo--packages-netstring-reader-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-endo--packages-netstring-reader-js.md) — Refresh drifted library source: endo--packages-netstring-reader-js
+- [`scholar-refresh-endo--packages-ses-src-error-assert-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-endo--packages-ses-src-error-assert-js.md) — Refresh drifted library source: endo--packages-ses-src-error-assert-js
+- [`scholar-refresh-endo--packages-ses-src-error-console-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-endo--packages-ses-src-error-console-js.md) — Refresh drifted library source: endo--packages-ses-src-error-console-js
 
-### tada (398)
+### tada (399)
+- [`improve-drift-scan-timer-oncalendar-persistent`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-drift-scan-timer-oncalendar-persistent.md) — Completion report: improve-drift-scan-timer-oncalendar-persistent
 - [`scholar-library-cycle-20260627-195612`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-195612.md) — Completion report follows.
 - [`resolve-wedge-endolinbot-1d4f136208cb-22707619253`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-1d4f136208cb-22707619253.md) — Completion report
 - [`improve-gardener-signal-kill-classifies-transient-regardless-of-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-signal-kill-classifies-transient-regardless-of-capture.md) — Completion report
 - [`improve-scaler-no-op-on-unreadable-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scaler-no-op-on-unreadable-count.md) — Completion report — improve-scaler-no-op-on-unreadable-count (resumed after r...
-- [`improve-unit-execstart-stable-interpreter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-unit-execstart-stable-interpreter.md) — Done. Completion report:
-- … and 393 more
+- … and 394 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
