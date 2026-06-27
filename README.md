@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T23:24:17Z_
+_As of 2026-06-27T23:31:23Z_
 
 ## Latest
 
-Three items now sit in the maintainer inbox needing a decision before work can proceed. A maintainer directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was mis-classified as a "rebase" by the comment-watcher — it's actually a feature reshape (replace the Handles/Hubs/Workers taxonomy with Directories/Agents/Personas/Values/Capabilities and fully hide empty groups), a cross-package change that needs a liaison-driven builder/fixer dispatch since the v2 fleet has no autonomous path for feature directives; a separate infra job is being filed for the classifier bug. The "harden exported function literals" follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you choosing breadth (narrow two-export vs. repo-wide) and base branch (`llm` vs. `master`) — the literal form differs between branches, so the choice changes the diff. And the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), the `listRetentionPaths` host API still open and stalled since the rebase/re-gamut you requested on 2026-05-21 (currently 22/26 CI green); the follow-on is ready the moment it lands.
-
-In closed-out work: bot-master lint came back fully clean (only 5 non-blocking jsdoc warnings, parked as a low plan), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction and cycle the workspace), and scholar landed two ocap library expansions — MetaMask's ocap-kernel host guide and a six-topic distributed-ocap concept cluster (grant-matcher-puzzle flagged source-less, erights.org unreachable). The ymax0/XS investigation surfaced two out-of-bounds calls for you (sourcing a v320 swing-store export and whether to file an upstream-Endo note), both in agoric-sdk territory.
+A misclassified comment-watcher job surfaced a real maintainer directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405): the PR was tagged "rebase" but kriskowal actually asked to reshape the inventory taxonomy (Directories / Agents / Personas / Values / Capabilities) and fully hide empty groups — a cross-package change (space-chat, chat, cli, daemon) that the v2 fleet can't drive autonomously and needs a liaison-led fixer/builder dispatch (a separate infra fix for the classifier bug was posted). Two scope decisions are now parked for you: the "harden exported function literals" follow-up to the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs a breadth (narrow two exports vs. repo-wide) and base-branch (`llm` vs. `master`) call before any PR opens; and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with the requested rebase/re-gamut never run and 4 failing CI checks — offer stands to take that rebase as its own job. On the read-only side: endo-but-for-bots `master` lint is clean (only 5 non-failing jsdoc warnings, plan parked); the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction); and scholar landed two library syntheses (MetaMask ocap-kernel guide and six distributed-ocap concept sections). The ymax0/XS investigation flagged two items in your court — sourcing a v320 swing-store export and whether to file an upstream-Endo note — both touching agoric-sdk territory that stays off-limits to autonomous action. One job completed this cycle: the gardener reap-now hint for signal-killed jobs.
 
 ## Parked for maintainer feedback
 
@@ -180,18 +178,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-gardener-reap-now-hint-for-signal-killed-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-reap-now-hint-for-signal-killed-jobs.md) — In scripts/jobs/gardener.sh, the transient branch (around lines 206–218, wher...
+### doin (2)
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — scholar-ingest-source: CapDesk / Polaris primaries via the combex.com Wayback...
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-hpl-techreports-polaris.md) — scholar-ingest-source: the HP Labs technical reports (HPL-2004-116, HPL-2006-...
 
-### tada (419)
+### tada (420)
+- [`improve-gardener-reap-now-hint-for-signal-killed-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-reap-now-hint-for-signal-killed-jobs.md) — Completion report
 - [`scholar-library-cycle-20260627-232012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-232012.md) — Completion report
 - [`scholar-ingest-source-erights-ode-capdesk-hpl`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-ode-capdesk-hpl.md) — Completion report: scholar-ingest-source-erights-ode-capdesk-hpl
 - [`scholar-library-cycle-20260627-222002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-222002.md) — Completion report
 - [`fu-improve-source-slug-prefix-divergence-check-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-improve-source-slug-prefix-divergence-check-1.md) — Completion report
-- [`improve-source-slug-prefix-divergence-check`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-source-slug-prefix-divergence-check.md) — What I did
-- … and 414 more
+- … and 415 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
