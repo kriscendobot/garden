@@ -45,6 +45,9 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="proxy"
 : "${GARDEN_PROXY_HANDLER:=$HERE/handlers/proxy-claude.sh}"
+# Courtesy-comment poster for a PR blocker (pluggable for tests). Best-effort; the
+# load-bearing unblock trigger is the parked plan's blocked_on field, not this.
+: "${GARDEN_BLOCK_PR_COMMENT:=$HERE/handlers/block-pr-comment-gh.sh}"
 # Grace window (seconds) before the proxy will answer a gating question — give a
 # present maintainer first crack. ~15m default; tune via env.
 : "${GARDEN_PROXY_GRACE:=900}"
@@ -99,9 +102,110 @@ clear_watchdog_messages() {
   die "could not auto-clear watchdog messages after retries"
 }
 
+# --- blocked-job parking pre-pass --------------------------------------------
+#
+# Deterministic, no-LLM handling of the STRUCTURED blocking signal. A gardener
+# that finds its job blocked on an artifact posts a maintainer message carrying a
+# `blocked_on:` frontmatter field (via block-job.sh; reply_to=<its-base>). This
+# pre-pass, in plain code BEFORE the gating enumeration and the cost-gated handler,
+# for each such message in ONE atomic commit:
+#   1. PARKS the blocked job as a `gate: blocked` plan job carrying blocked_on=
+#      <artifact> — moving it out of todo/ or doin/ (or, if the job has already
+#      left the board, creating the plan from the notification body so the intent
+#      survives, deadmail-style). A blocked plan is never claimed (it is in plan/)
+#      and never auto-promoted by the foreman (plan_deferred_ranked selects only
+#      gate=deferred) — it waits for its blocker.
+#   2. ARCHIVES the notification (unread→read), scrubbing the maintainer inbox —
+#      the same shape as the watchdog auto-clear sibling.
+# After the push lands, a PR-artifact blocker gets ONE best-effort courtesy comment
+# (gated to bot repos; never agoric-sdk; no state change). The load-bearing unblock
+# trigger is the parked plan's blocked_on field, which unblock.sh scans. The free-
+# text classification fallback stays in the handler; this pre-pass acts only on the
+# structured field, with no `claude -p`. See roles/proxy/AGENT.md § Blocked-job
+# parking. Like the watchdog sibling it runs EVERY tick regardless of grace: a
+# blocked job cannot proceed, so parking it promptly (and reversibly) is progress.
+park_blocked_jobs() {
+  local dir="$1" attempt f base artifact body src
+  for attempt in $(seq 1 50); do
+    sync_clone "$dir"
+    local parked=() pr_notes=()      # pr_notes: "repo\tnum\tbase" for courtesy comments
+    while IFS= read -r f; do
+      artifact="$(sed -n 's/^blocked_on:[[:space:]]*//p' "$f" | head -1)"
+      [ -n "$artifact" ] || continue                 # only the structured blocking signal
+      base="$(sed -n 's/^reply_to:[[:space:]]*//p' "$f" | head -1)"
+      # A blocked notification must name its blocked job; without it we cannot park
+      # anything. Leave such a malformed message for the maintainer (do not archive).
+      [ -n "$base" ] || continue
+      case "$base" in */*|.*|'') continue;; esac     # illegal basename → leave for maintainer
+
+      # Idempotent: a job already parked as a blocked plan is left intact — just
+      # scrub the (duplicate) notification so a re-post never clobbers the edge.
+      if [ -f "$dir/$JOBS_PLAN/$base.md" ]; then
+        git -C "$dir" mv "inbox/maintainer/unread/$(basename "$f")" \
+                         "inbox/maintainer/read/$(basename "$f")" 2>/dev/null || true
+        parked+=("$base")
+        continue
+      fi
+
+      # Body to park: prefer the job's live board file (doin/ then todo/); else the
+      # notification body (the gardener's own description of the block).
+      if   [ -f "$dir/$JOBS_DOIN/$base.md" ]; then src="$JOBS_DOIN/$base.md"
+      elif [ -f "$dir/$JOBS_TODO/$base.md" ]; then src="$JOBS_TODO/$base.md"
+      else src=""; fi
+      if [ -n "$src" ]; then
+        body="$(cat "$dir/$src")"
+        git -C "$dir" rm -q "$src"
+      else
+        # Strip the message frontmatter; the remainder is the work description.
+        body="$(awk 'f{print} /^---$/{f=1}' "$f")"
+      fi
+
+      mkdir -p "$dir/$JOBS_PLAN"
+      {
+        printf -- '---\n'
+        printf 'gate: blocked\n'
+        printf 'blocked_on: %s\n' "$artifact"
+        printf 'priority: normal\n'
+        printf 'posted_by: proxy\n'
+        printf 'posted_at: %s\n' "$(date -u +%FT%TZ)"
+        printf -- '---\n\n'
+        printf '%s\n' "$body"
+      } > "$dir/$JOBS_PLAN/$base.md"
+      git -C "$dir" add "$JOBS_PLAN/$base.md"
+
+      # Archive the notification (scrub the maintainer inbox).
+      git -C "$dir" mv "inbox/maintainer/unread/$(basename "$f")" \
+                       "inbox/maintainer/read/$(basename "$f")" 2>/dev/null || true
+      parked+=("$base")
+      # Queue a courtesy PR comment for AFTER the push (so a lost CAS never comments).
+      if pr="$(parse_pr_ref "$artifact")"; then
+        pr_notes+=("$(printf '%s\t%s' "$pr" "$base")")
+      fi
+    done < <(find "$dir/inbox/maintainer/unread" -type f -name '*.md' 2>/dev/null | sort)
+
+    [ "${#parked[@]}" -eq 0 ] && return 0            # nothing blocked: tree synced, quiet
+    if commit_and_push "$dir" "proxy: park ${#parked[@]} blocked job(s)"; then
+      log "parked ${#parked[@]} blocked job(s): ${parked[*]}"
+      # Courtesy comments are outward + best-effort; fire once, only after the park
+      # landed. pr_notes carries "repo\tnum\tbase".
+      local note repo num pbase
+      for note in "${pr_notes[@]}"; do
+        repo="$(printf '%s' "$note" | cut -f1)"
+        num="$(printf '%s' "$note"  | cut -f2)"
+        pbase="$(printf '%s' "$note" | cut -f3)"
+        "$GARDEN_BLOCK_PR_COMMENT" "$repo" "$num" "$pbase" || true
+      done
+      return 0
+    fi
+    backoff
+  done
+  die "could not park blocked jobs after retries"
+}
+
 DIR="${GARDEN_PROXY_CLONE:-$GARDEN_STATE/proxy/journal}"
 ensure_clone "$DIR"
 clear_watchdog_messages "$DIR"
+park_blocked_jobs "$DIR"
 
 SEEN="$GARDEN_STATE/proxy/seen"
 mkdir -p "$(dirname "$SEEN")"; touch "$SEEN"

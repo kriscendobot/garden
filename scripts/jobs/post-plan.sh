@@ -2,7 +2,7 @@
 # post-plan.sh — producer primitive: PARK a job in the board's plan/ category.
 #
 # A plan job is NOT yet ready to be claimed. Gardeners claim only from jobs/todo/;
-# they never see jobs/plan/. A plan job is parked for one of two reasons (its
+# they never see jobs/plan/. A plan job is parked for one of three reasons (its
 # "gate"):
 #   - go-ahead : needs the maintainer's authorization before ANY work runs. Only
 #                the maintainer (via the liaison, or the proxy within its bounds)
@@ -10,14 +10,22 @@
 #   - deferred : parked behind higher-priority items, to be SELECTED by priority/
 #                urgency. The foreman may auto-promote the top deferred plan job
 #                when the board is idle.
+#   - blocked  : parked behind an ARTIFACT (a pull request or another job) named in
+#                its `blocked_on:` field. NEVER auto-selected (not by the foreman,
+#                not by priority); promoted ONLY by the unblock watcher
+#                (unblock.sh) when its blocker completes — a PR merges/closes or a
+#                blocking job lands in tada/. Requires --blocked-on.
 # It becomes work only when promote-plan.sh moves plan/<base> → todo/<base>.
 #
 # Usage:
-#   post-plan.sh [--go-ahead|--deferred] [--priority LEVEL] [--roadmap ITEM]
-#                [--by ROLE] <basename> [body-file]
+#   post-plan.sh [--go-ahead|--deferred|--blocked] [--blocked-on ARTIFACT]
+#                [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 #
-#   --go-ahead / --deferred  the gate reason. Default: --deferred (the common
-#                            producer action is to park; go-ahead is explicit).
+#   --go-ahead / --deferred / --blocked
+#                            the gate reason. Default: --deferred (the common
+#                            producer action is to park; go-ahead/blocked explicit).
+#   --blocked-on ARTIFACT    the blocker for a --blocked job: a PR URL or a job
+#                            basename. Required with --blocked; illegal otherwise.
 #   --priority LEVEL         urgent|high|normal|low (default normal). The
 #                            selection key the foreman uses for deferred jobs.
 #   --roadmap ITEM           optional roadmap item / milestone this serves, so a
@@ -44,10 +52,11 @@ usage() {
 post-plan.sh — park a job in the board's plan/ category (not yet claimable).
 
 Usage:
-  post-plan.sh [--go-ahead|--deferred] [--priority LEVEL] [--roadmap ITEM]
-               [--by ROLE] <basename> [body-file]
+  post-plan.sh [--go-ahead|--deferred|--blocked] [--blocked-on ARTIFACT]
+               [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 
-  --go-ahead / --deferred  the gate reason (default --deferred).
+  --go-ahead / --deferred / --blocked  the gate reason (default --deferred).
+  --blocked-on ARTIFACT    the blocker (PR URL or job basename); required with --blocked.
   --priority LEVEL         urgent|high|normal|low (default normal).
   --roadmap ITEM           optional roadmap item this serves.
   --by ROLE                provenance (default: $GARDEN_SENDER or "producer").
@@ -59,29 +68,40 @@ EOF
 gate="deferred"
 priority="normal"
 roadmap=""
+blocked_on=""
 by="${GARDEN_SENDER:-producer}"
 while [ $# -gt 0 ]; do
   case "$1" in
-    -h|--help)  usage; exit 0;;
-    --go-ahead) gate="go-ahead"; shift;;
-    --deferred) gate="deferred"; shift;;
-    --priority) priority="${2:?--priority needs a value}"; shift 2;;
-    --roadmap)  roadmap="${2:?--roadmap needs a value}"; shift 2;;
-    --by)       by="${2:?--by needs a value}"; shift 2;;
-    --)         shift; break;;
-    -*)         die "unknown option: '$1' (run --help for usage)";;
-    *)          break;;
+    -h|--help)    usage; exit 0;;
+    --go-ahead)   gate="go-ahead"; shift;;
+    --deferred)   gate="deferred"; shift;;
+    --blocked)    gate="blocked"; shift;;
+    --blocked-on) blocked_on="${2:?--blocked-on needs a value}"; shift 2;;
+    --priority)   priority="${2:?--priority needs a value}"; shift 2;;
+    --roadmap)    roadmap="${2:?--roadmap needs a value}"; shift 2;;
+    --by)         by="${2:?--by needs a value}"; shift 2;;
+    --)           shift; break;;
+    -*)           die "unknown option: '$1' (run --help for usage)";;
+    *)            break;;
   esac
 done
 
-base="${1:?usage: post-plan.sh [--go-ahead|--deferred] [--priority L] [--roadmap I] [--by R] <basename> [body-file]}"
+base="${1:?usage: post-plan.sh [--go-ahead|--deferred|--blocked] [--blocked-on A] [--priority L] [--roadmap I] [--by R] <basename> [body-file]}"
 body_src="${2:-}"
 
 case "$base" in
   -*)        die "illegal basename: '$base' (names must not start with '-')";;
   */*|.*|'') die "illegal basename: '$base'";;
 esac
-case "$gate" in go-ahead|deferred) :;; *) die "illegal gate: '$gate'";; esac
+case "$gate" in go-ahead|deferred|blocked) :;; *) die "illegal gate: '$gate'";; esac
+# A blocked job is meaningless without its blocker; a blocker is meaningless on a
+# non-blocked gate. Enforce both so the unblock watcher never sees a malformed edge.
+if [ "$gate" = "blocked" ] && [ -z "$blocked_on" ]; then
+  die "--blocked requires --blocked-on ARTIFACT (a PR URL or a job basename)"
+fi
+if [ "$gate" != "blocked" ] && [ -n "$blocked_on" ]; then
+  die "--blocked-on is only valid with --blocked"
+fi
 
 # Body source guard: a non-empty body arg that is not a readable file is almost
 # always a mistake (an inline body STRING passed where a body-FILE path is
@@ -104,10 +124,12 @@ read_body() {
 }
 BODY="$(read_body)"
 
-# Assemble the plan job: frontmatter (gate/priority/roadmap/provenance) then body.
+# Assemble the plan job: frontmatter (gate/blocked_on/priority/roadmap/provenance)
+# then body.
 compose() {
   printf -- '---\n'
   printf 'gate: %s\n' "$gate"
+  [ -n "$blocked_on" ] && printf 'blocked_on: %s\n' "$blocked_on"
   printf 'priority: %s\n' "$priority"
   [ -n "$roadmap" ] && printf 'roadmap: %s\n' "$roadmap"
   printf 'posted_by: %s\n' "$by"

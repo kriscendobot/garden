@@ -773,6 +773,35 @@ plan_priority() {
   printf '%s\n' "${p:-normal}"
 }
 
+# The blocker artifact of a `gate: blocked` plan file (a PR URL or a job basename),
+# read from the `blocked_on:` field. This field IS the single source of truth for
+# the blocked-job dependency edge — the proxy parks the job carrying it, the
+# bulletin renders it, and the unblock watcher scans for it. Empty if absent.
+plan_blocked_on() { plan_field "$1" blocked_on; }
+
+# Parse an artifact string as a GitHub pull-request reference. On a match prints
+# "<owner>/<repo>\t<number>" and returns 0; on no match prints nothing, returns 1.
+# Recognized: a full PR URL (…github.com/<o>/<r>/pull/<n>[/…|#…|?…]) and the short
+# "<o>/<r>#<n>" form. A bare token with no '/' or '#' is a JOB basename, not a PR.
+# Shared by the proxy's blocked-parking (courtesy comment) and the unblock watcher
+# (merge/close check) so both classify a blocker identically.
+parse_pr_ref() {
+  local a="$1"
+  if [[ "$a" =~ github\.com/([^/]+)/([^/]+)/pull/([0-9]+) ]]; then
+    printf '%s/%s\t%s\n' "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}" "${BASH_REMATCH[3]}"; return 0
+  elif [[ "$a" =~ ^([A-Za-z0-9._-]+)/([A-Za-z0-9._-]+)#([0-9]+)$ ]]; then
+    printf '%s/%s\t%s\n' "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}" "${BASH_REMATCH[3]}"; return 0
+  fi
+  return 1
+}
+
+# Is an artifact a JOB basename (a blocker that is another job)? True when it is a
+# plain basename — no '/', '#', ':', and non-empty — i.e. the spine that ties a
+# job's plan/todo/doin/tada files together.
+is_job_basename() {
+  case "$1" in ''|*/*|*'#'*|*:*) return 1;; *) return 0;; esac
+}
+
 # Map a named priority/urgency to a numeric rank (LOWER = more important, promoted
 # first). Unknown values rank as normal so a typo never jumps the queue.
 plan_rank() {

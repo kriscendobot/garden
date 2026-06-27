@@ -238,16 +238,20 @@ render_board() {
   fi
 }
 
-# Render the PLAN queue: parked jobs that gardeners never claim. Two groups:
+# Render the PLAN queue: parked jobs that gardeners never claim. Three groups:
 #   - awaiting go-ahead: gate=go-ahead jobs needing maintainer AUTHORIZATION
 #     before any work runs (so the maintainer sees what to act on);
 #   - deferred (top by priority): gate=deferred jobs the foreman may auto-promote
-#     when the board is idle, shown highest-priority first.
-# Each row carries its gate reason + priority. Print to stdout.
-# (Named *_queue to avoid colliding with render_plan, the roadmap-view
-# re-renderer above, which writes plan/README.md from the per-design records.)
+#     when the board is idle, shown highest-priority first;
+#   - blocked (awaiting <artifact>): gate=blocked jobs parked behind a PR or
+#     another job, auto-promoted ONLY by the unblock watcher when the blocker
+#     completes — so the maintainer sees what is parked-blocked and on what.
+# Each row carries its gate reason + priority (and, for blocked, its blocker).
+# Print to stdout. (Named *_queue to avoid colliding with render_plan, the
+# roadmap-view re-renderer above, which writes plan/README.md from the per-design
+# records.)
 render_plan_queue() {
-  local j f desc prio goahead deferred
+  local j f desc prio art goahead deferred blocked
   goahead=""
   while IFS= read -r j; do
     [ -n "$j" ] || continue
@@ -266,10 +270,22 @@ render_plan_queue() {
     deferred+="$(printf -- '- [`%s`](%s/jobs/plan/%s.md) — _%s_ · %s' "$j" "$GARDEN_BLOB_BASE" "$j" "$prio" "$desc")"$'\n'
   done < <(plan_deferred_ranked "$DIR")
 
+  # blocked, each row naming the blocker artifact it is awaiting
+  blocked=""
+  while IFS= read -r j; do
+    [ -n "$j" ] || continue
+    f="$DIR/jobs/plan/$j"; [ -f "$f" ] || continue
+    [ "$(plan_gate "$f")" = "blocked" ] || continue
+    desc=$(job_desc "$f"); art=$(plan_blocked_on "$f")
+    blocked+="$(printf -- '- [`%s`](%s/jobs/plan/%s) — awaiting `%s` · %s' "${j%.md}" "$GARDEN_BLOB_BASE" "$j" "${art:-?}" "$desc")"$'\n'
+  done < <(list_jobs "$DIR" jobs/plan)
+
   printf '### awaiting go-ahead (maintainer authorization)\n'
   if [ -n "$goahead" ]; then printf '%s' "$goahead"; else printf '(none)\n'; fi
   printf '\n### deferred (top by priority; foreman auto-promotes when idle)\n'
   if [ -n "$deferred" ]; then printf '%s' "$deferred"; else printf '(none)\n'; fi
+  printf '\n### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)\n'
+  if [ -n "$blocked" ]; then printf '%s' "$blocked"; else printf '(none)\n'; fi
 }
 
 # Render a maintainer message body as a Markdown blockquote so the bulletin is

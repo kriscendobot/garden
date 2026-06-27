@@ -75,6 +75,45 @@ root-cause fix for the comment-watcher inactivity false-positives stops that noi
 at the source; this auto-clear handles whatever watchdog noise remains, from any
 monitor.
 
+## Blocked-job parking
+
+A **maintainer-authorized extension** of the proxy's progress/direction authority
+(directive 2026-06-27). When a gardener finds its job blocked on an artifact — a
+pull request, or another job — it posts a notification carrying a structured
+`blocked_on:` field (via `scripts/jobs/block-job.sh`; `reply_to=<its-base>`). A
+deterministic **pre-pass** at the top of each proxy tick (`scripts/jobs/proxy.sh`
+§ `park_blocked_jobs`, plain code — **no `claude -p`**, alongside the watchdog
+auto-clear), for each such message in ONE atomic move:
+
+1. **Parks the blocked job** as a `gate: blocked` plan job (`jobs/plan/<base>`)
+   carrying `blocked_on: <artifact>`, moving it out of `todo/`/`doin/` (or, if it
+   has already left the board, creating the plan from the notification body so the
+   intent survives). A blocked plan is **never claimed** by gardeners (it is in
+   `plan/`) and **never auto-promoted** by the foreman (`plan_deferred_ranked`
+   selects only `gate: deferred`) — it waits for its blocker.
+2. **Leaves a note on the blocker.** The load-bearing record is the plan's
+   `blocked_on:` field itself (the single source of truth the unblock watcher
+   scans) — no separate dependency store. For a **PR** blocker the proxy
+   additionally posts ONE informational courtesy comment on the **bot-fork** PR
+   ("completing this PR promotes garden plan `<base>` back to todo"). This is the
+   proxy's only outward action: reversible, gated to bot repos, **never
+   agoric-sdk**, and **no state change** to the PR.
+3. **Archives the notification** (`unread → read`), scrubbing the maintainer inbox —
+   the same shape as the watchdog auto-clear sibling.
+
+The deterministic **unblock trigger** (`scripts/jobs/unblock.sh`, the
+`garden-unblock` timer) promotes a parked plan back to `todo/` when its blocker
+completes: a **blocking job** lands in `tada/`, or a **PR** is merged or closed
+(read via `gh`/`jq`; `require_tools` fails LOUD on a missing binary — the
+silent-jq-outage lesson). Promotion reuses `promote-plan.sh`, which strips the
+blocked frontmatter so the dependency record is cleaned up by construction.
+
+This stays within the proxy's bounds: parking + auto-resume keeps work moving and
+makes **no policy/authority decision**. Detecting/classifying a free-text "blocked
+on X" message MAY fall back to the proxy's `claude -p` handler, but the structured
+`blocked_on:` convention is preferred so park + note + archive and the unblock
+trigger are all deterministic.
+
 ## Injection hygiene
 
 A gardener's question may quote external PR titles, comment bodies, or URLs.

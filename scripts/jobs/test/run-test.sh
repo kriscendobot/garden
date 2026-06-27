@@ -518,7 +518,7 @@ QF="$TR/plan-queue"; mkdir -p "$QF/journal/jobs/plan"
 # renderer spans two source files, so name them explicitly here.
 qextract() { awk -v fn="$1" 'index($0, fn"() {")==1{f=1} f{print} f && /^}/{exit}' "$2"; }
 {
-  for fn in list_jobs plan_field plan_gate plan_priority plan_rank plan_deferred_ranked; do qextract "$fn" "$JOBS/common.sh"; echo; done
+  for fn in list_jobs plan_field plan_gate plan_priority plan_blocked_on plan_rank plan_deferred_ranked; do qextract "$fn" "$JOBS/common.sh"; echo; done
   for fn in job_desc render_plan_queue; do qextract "$fn" "$JOBS/bulletin.sh"; echo; done
   echo 'JOBS_PLAN="jobs/plan"'
 } > "$QF/funcs.sh"
@@ -544,11 +544,11 @@ hi_ln="$(grep -n 'defer-high' <<<"$defer_block" | head -1 | cut -d: -f1)"
 lo_ln="$(grep -n 'defer-low'  <<<"$defer_block" | head -1 | cut -d: -f1)"
 { [ -n "$hi_ln" ] && [ -n "$lo_ln" ] && [ "$hi_ln" -lt "$lo_ln" ]; } \
   && ok "deferred group sorted by priority (high before low)" || bad "deferred not priority-sorted (hi=$hi_ln lo=$lo_ln)"
-# empty jobs/plan/ → both groups render "(none)", never an empty section
+# empty jobs/plan/ → all three groups render "(none)", never an empty section
 rm -f "$QF"/journal/jobs/plan/*.md
 PQ_EMPTY="$(DIR="$QF/journal" bash -c 'source "'"$QF"'/funcs.sh"; render_plan_queue')"
-{ [ "$(grep -c '^(none)$' <<<"$PQ_EMPTY")" -eq 2 ]; } \
-  && ok "empty jobs/plan/ → both groups render (none)" || bad "empty plan queue not (none) ($PQ_EMPTY)"
+{ [ "$(grep -c '^(none)$' <<<"$PQ_EMPTY")" -eq 3 ]; } \
+  && ok "empty jobs/plan/ → all three groups render (none)" || bad "empty plan queue not (none) ($PQ_EMPTY)"
 rm -rf "$QF"
 
 # ============================================================================
@@ -1426,6 +1426,137 @@ env JOURNAL_REMOTE="$PFBARE" GARDEN_CLAIM_TTL=0 "$JOBS/reaper.sh" >/dev/null 2>&
 { [ "$(pfcount jobs/plan)" -eq "$plan_before" ] && pfhas jobs/plan/plan-needs-authz.md; } \
   && ok "reaper left plan/ untouched (parked jobs are never reaped)" \
   || bad "reaper disturbed plan/ (before=$plan_before after=$(pfcount jobs/plan))"
+unset JOURNAL_REMOTE
+
+# ============================================================================
+hr; echo "SUBTEST 20b — BLOCKED PARKING: proxy parks → no-auto-promote → unblock-on-completion"; hr
+# Dedicated bare with the full board so blocked-state is fully controllable.
+BLBARE="$TR/blocked.git"; git init -q --bare "$BLBARE"
+BLSEED="$TR/blocked-seed"; git init -q "$BLSEED"; git -C "$BLSEED" checkout -q -b "$BRANCH"
+( cd "$BLSEED"
+  mkdir -p jobs/todo jobs/doin jobs/tada jobs/plan inbox/maintainer/unread inbox/maintainer/read \
+           inbox/blk-job-a/unread inbox/blk-job-b/unread entries
+  for d in jobs/todo jobs/doin jobs/tada jobs/plan inbox/maintainer/unread inbox/maintainer/read \
+           inbox/blk-job-a/unread inbox/blk-job-b/unread entries; do touch "$d/.gitkeep"; done
+  # Two in-flight jobs whose gardeners are about to signal a block.
+  printf '# blk-job-a\n\ndo the PR-dependent work\n' > jobs/doin/blk-job-a.md
+  printf '# blk-job-b\n\ndo the job-dependent work\n' > jobs/doin/blk-job-b.md )
+git -C "$BLSEED" add -A; git -C "$BLSEED" "${git_id[@]}" commit -q -m "seed blocked board"
+git -C "$BLSEED" remote add origin "$BLBARE"; git -C "$BLSEED" push -q -u origin "$BRANCH"
+
+export GARDEN_STATE="$TR/state-blocked" GARDEN_HOST=blkhost
+bl_env() { env JOURNAL_REMOTE="$BLBARE" "$@"; }
+blcount() { local v n; v="$(mktemp -d "$TR/blv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BLBARE" "$v" 2>/dev/null; n=$(ls -1 "$v/$1" 2>/dev/null | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"; }
+blhas()   { local v r; v="$(mktemp -d "$TR/blh.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BLBARE" "$v" 2>/dev/null; [ -e "$v/$1" ]; r=$?; rm -rf "$v"; return $r; }
+blcat()   { local v; v="$(mktemp -d "$TR/blc.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BLBARE" "$v" 2>/dev/null; cat "$v/$1" 2>/dev/null; rm -rf "$v"; }
+
+PR_URL="https://github.com/endojs/endo-but-for-bots/pull/42"
+# The gardeners signal their blocks via the structured convention (block-job.sh).
+ba="$(mktemp)"; echo "Cannot finish until the upstream PR lands." > "$ba"
+bb="$(mktemp)"; echo "Cannot finish until the prerequisite job completes." > "$bb"
+bl_env "$JOBS/block-job.sh" blk-job-a "$PR_URL"          "$ba" >/dev/null
+bl_env "$JOBS/block-job.sh" blk-job-b some-blocker-job   "$bb" >/dev/null
+
+# (1) PROXY PARK PRE-PASS: deterministic (no handler call even within grace).
+BPCALLS="$TR/block-pr-comment-calls"; : > "$BPCALLS"
+PXBLOG="$TR/proxy-blocked.log"; : > "$PXCALLS"
+bl_env GARDEN_PROXY_GRACE=3600 GARDEN_PROXY_HANDLER="$HERE/proxy-stub.sh" \
+       GARDEN_PROXY_STUB_CALLS="$PXCALLS" \
+       GARDEN_BLOCK_PR_COMMENT="$HERE/block-pr-comment-stub.sh" BLOCK_PR_COMMENT_CALLS="$BPCALLS" \
+       "$JOBS/proxy.sh" >/dev/null 2>"$PXBLOG"
+[ ! -s "$PXCALLS" ] && ok "blocked pre-pass: no handler / claude -p call (deterministic, even within grace)" || bad "blocked pre-pass invoked the handler ($(grep -c . "$PXCALLS") calls)"
+
+# (2) both jobs parked as gate: blocked plans carrying blocked_on; moved out of doin/
+{ blhas jobs/plan/blk-job-a.md && ! blhas jobs/doin/blk-job-a.md \
+  && blcat jobs/plan/blk-job-a.md | grep -q '^gate: blocked' \
+  && blcat jobs/plan/blk-job-a.md | grep -qF "blocked_on: $PR_URL"; } \
+  && ok "PR-blocked job parked plan/<base> [gate: blocked + blocked_on], removed from doin/" \
+  || bad "blk-job-a not parked correctly (plan=$(blhas jobs/plan/blk-job-a.md&&echo y||echo n) doin=$(blhas jobs/doin/blk-job-a.md&&echo y||echo n))"
+{ blhas jobs/plan/blk-job-b.md && ! blhas jobs/doin/blk-job-b.md \
+  && blcat jobs/plan/blk-job-b.md | grep -q '^gate: blocked' \
+  && blcat jobs/plan/blk-job-b.md | grep -q '^blocked_on: some-blocker-job'; } \
+  && ok "job-blocked job parked plan/<base> [gate: blocked + blocked_on], removed from doin/" \
+  || bad "blk-job-b not parked correctly"
+
+# (3) the blocked notifications were archived from the maintainer inbox (unread→read)
+blread="$(mktemp -d "$TR/blrd.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BLBARE" "$blread" 2>/dev/null
+arch_n=$(grep -rl '^blocked_on:' "$blread/inbox/maintainer/read" 2>/dev/null | grep -c . || true)
+unread_n=$(grep -rl '^blocked_on:' "$blread/inbox/maintainer/unread" 2>/dev/null | grep -c . || true); rm -rf "$blread"
+{ [ "$unread_n" -eq 0 ] && [ "$arch_n" -eq 2 ]; } \
+  && ok "both blocked notifications archived from the maintainer inbox (unread→read)" \
+  || bad "blocked notifications not archived (unread=$unread_n read=$arch_n)"
+
+# (4) the PR blocker got EXACTLY ONE courtesy comment (repo/num/base); the job blocker got none
+{ [ "$(grep -c . "$BPCALLS")" -eq 1 ] \
+  && grep -qF "endojs/endo-but-for-bots	42	blk-job-a" "$BPCALLS"; } \
+  && ok "PR-blocker courtesy comment fired exactly once with (repo, num, base); job-blocker got none" \
+  || bad "courtesy comment wrong (calls=$(cat "$BPCALLS" | tr '\n' '|'))"
+
+# (5) NO-AUTO-PROMOTE: plan_deferred_ranked NEVER selects a blocked plan (regression
+# guard). Unit-test the selector directly over a hermetic clone of the live board,
+# which now holds two gate: blocked plans plus (we add) one gate: deferred plan.
+BLFUNCS="$TR/blocked-funcs.sh"
+{ echo 'GARDEN_BLOB_BASE=https://example/blob'; echo 'JOBS_PLAN="jobs/plan"'
+  for fn in list_jobs plan_field plan_gate plan_priority plan_blocked_on plan_rank plan_deferred_ranked; do qextract "$fn" "$JOBS/common.sh"; echo; done
+  for fn in job_desc render_plan_queue; do qextract "$fn" "$JOBS/bulletin.sh"; echo; done
+} > "$BLFUNCS"
+push_change_bare2() {  # like push_change but against $BLBARE (defined early; reused below)
+  local path="$1" content="$2" msg="$3" wt; wt="$(mktemp -d "$TR/bledit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BLBARE" "$wt"
+  mkdir -p "$(dirname "$wt/$path")"; printf '%s\n' "$content" > "$wt/$path"; git -C "$wt" add "$path"
+  git -C "$wt" "${git_id[@]}" commit -q -m "$msg"; git -C "$wt" push -q origin "HEAD:$BRANCH"; rm -rf "$wt"
+}
+push_change_bare2 "jobs/plan/plan-defer-ctl.md" "$(printf -- '---\ngate: deferred\npriority: high\n---\n# a normal deferred control')" "add deferred control plan"
+PDRDIR="$(mktemp -d "$TR/pdr.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BLBARE" "$PDRDIR" 2>/dev/null
+PDR_OUT="$(DIR="$PDRDIR" bash -c 'source "'"$BLFUNCS"'"; plan_deferred_ranked "$DIR"')"; rm -rf "$PDRDIR"
+{ ! printf '%s\n' "$PDR_OUT" | grep -qx 'blk-job-a' && ! printf '%s\n' "$PDR_OUT" | grep -qx 'blk-job-b' \
+  && printf '%s\n' "$PDR_OUT" | grep -qx 'plan-defer-ctl'; } \
+  && ok "plan_deferred_ranked selects gate: deferred but NEVER a gate: blocked plan (foreman can't auto-promote blocked)" \
+  || bad "plan_deferred_ranked selection wrong (got: $(printf '%s' "$PDR_OUT" | tr '\n' ' '))"
+
+# (6) UNBLOCK on PR: still parked while the PR is OPEN; promoted once it is CLOSED/merged.
+PRSTATE="$TR/pr-state"; printf 'open\tfalse\n' > "$PRSTATE"
+run_unblock() {
+  bl_env GARDEN_UNBLOCK_PR_STATE="$HERE/unblock-pr-state-stub.sh" UNBLOCK_PR_STATE_FILE="$PRSTATE" \
+         "$JOBS/unblock.sh" >/dev/null 2>&1
+}
+run_unblock
+{ blhas jobs/plan/blk-job-a.md && ! blhas jobs/todo/blk-job-a.md; } \
+  && ok "unblock leaves the job parked while its PR is still open" \
+  || bad "blk-job-a promoted prematurely (PR open)"
+printf 'closed\ttrue\n' > "$PRSTATE"; run_unblock
+{ ! blhas jobs/plan/blk-job-a.md && blhas jobs/todo/blk-job-a.md; } \
+  && ok "unblock promotes plan→todo once the PR is merged/closed" \
+  || bad "blk-job-a not promoted after PR closed (plan=$(blhas jobs/plan/blk-job-a.md&&echo y||echo n) todo=$(blhas jobs/todo/blk-job-a.md&&echo y||echo n))"
+# the promoted todo job is the clean work body (blocked frontmatter stripped)
+{ blcat jobs/todo/blk-job-a.md | grep -q 'do the PR-dependent work' \
+  && ! blcat jobs/todo/blk-job-a.md | grep -q '^gate:' \
+  && ! blcat jobs/todo/blk-job-a.md | grep -q '^blocked_on:'; } \
+  && ok "promoted job is the clean work body (blocked frontmatter / edge record cleaned up)" \
+  || bad "promoted blk-job-a body wrong"
+
+# (7) UNBLOCK on JOB: still parked until the blocking job lands in tada/.
+run_unblock
+{ blhas jobs/plan/blk-job-b.md && ! blhas jobs/todo/blk-job-b.md; } \
+  && ok "unblock leaves the job parked while its blocking job is not yet in tada/" \
+  || bad "blk-job-b promoted prematurely (blocker not complete)"
+push_change_bare2 "jobs/tada/some-blocker-job.md" "# done" "complete the blocking job"
+run_unblock
+{ ! blhas jobs/plan/blk-job-b.md && blhas jobs/todo/blk-job-b.md; } \
+  && ok "unblock promotes the job once its blocking job completes (lands in tada/)" \
+  || bad "blk-job-b not promoted after blocker reached tada/ (plan=$(blhas jobs/plan/blk-job-b.md&&echo y||echo n) todo=$(blhas jobs/todo/blk-job-b.md&&echo y||echo n))"
+
+# (8) BULLETIN: the blocked group renders the parked jobs and their blockers.
+# Unit-test render_plan_queue (reusing BLFUNCS) over a fixture with one blocked plan.
+BQF="$TR/blocked-bulletin"; rm -rf "$BQF"; mkdir -p "$BQF/journal/jobs/plan"
+printf -- '---\ngate: blocked\nblocked_on: %s\npriority: normal\n---\n# widget awaits the upstream PR\n' "$PR_URL" > "$BQF/journal/jobs/plan/blk-widget.md"
+BQ_OUT="$(DIR="$BQF/journal" bash -c 'source "'"$BLFUNCS"'"; render_plan_queue')"
+blocked_block="$(awk '/^### blocked/{f=1} f' <<<"$BQ_OUT")"
+{ printf '%s' "$blocked_block" | grep -q 'blk-widget' \
+  && printf '%s' "$blocked_block" | grep -qF "$PR_URL"; } \
+  && ok "bulletin renders the blocked group with the parked job and its awaited artifact" \
+  || bad "bulletin blocked group wrong ($blocked_block)"
+rm -f "$ba" "$bb"
 unset JOURNAL_REMOTE
 
 # ============================================================================

@@ -1,0 +1,9 @@
+[Unit]
+Description=Garden unblock watcher timer
+
+[Timer]
+OnActiveSec=3m
+OnUnitActiveSec=5m
+
+[Install]
+WantedBy=timers.target
