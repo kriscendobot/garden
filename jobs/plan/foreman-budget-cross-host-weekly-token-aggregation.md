@@ -70,3 +70,44 @@ fails OPEN (logged warning, never wedges the pump).
 Deliverable: a `garden-budget-reporter` service + journal `budget/weeks/<week-id>/<host>`
 layout + a foreman meter that gates on the GLOBAL weekly total, with the reset boundary
 deterministic and configurable.
+
+## Bulletin surfacing (maintainer extension 2026-06-27)
+
+The aggregated weekly budget must ALSO be CAPTURED IN THE BULLETIN as a deterministic
+dashboard section (no LLM), so the maintainer sees the garden's token-budget standing at
+a glance. Add a section (e.g. `## Token budget`) rendered by `compute_dashboard` in
+`scripts/jobs/bulletin.sh` that shows three things:
+
+1. **Weekly quota — as reasoned by the garden.** The quota value the meter is currently
+   gating on, WITH its source/derivation (the configured Max-x20 weekly allowance, or a
+   value the garden derived), so it is explicit what number the garden believes its
+   weekly ceiling to be.
+2. **Aggregate usage this week.** The GLOBAL sum across all hosts'
+   `budget/weeks/<week-id>/*` files for the current week (the same number the foreman
+   gates on), plus the `week-id` and the reset time (the next Friday 21:00
+   America/Los_Angeles boundary).
+3. **Pace — how far ahead or behind.** Compare the USAGE fraction (`usage / quota`)
+   against the ELAPSED-WEEK fraction (`(now − week-boundary) / 7d`), and render the signed
+   delta in plain language, e.g.:
+   `usage 68% of quota at 52% through the week → +16pp AHEAD of pace (straight-line
+   projection ≈131% by reset — over-run)` or `… → −9pp behind (comfortable)`. Include the
+   straight-line projected end-of-week usage vs. the quota so an over/under-run is obvious
+   at a glance. Sign convention: AHEAD = burning faster than the week is elapsing (at
+   risk); BEHIND = under-pacing (headroom).
+
+**Determinism + push-gate.** Every input is journal2-sourced (`budget/weeks/`, the quota
+config) — so a budget-reporter post advances journal2 and the bulletin recomputes under
+the EXISTING push-gate (no new external-drift source is introduced, unlike the parked-PR
+queue). Critically, the pace line is time-derived and would otherwise churn a commit every
+tick: EXCLUDE the volatile "elapsed-fraction / projection / as-of" parts from the
+change-compare (the same `stable()` mechanism that drops `_As of` and `(waiting <age>)`),
+and round usage/quota/pace to INTEGERS, so only a real usage or quota change rewrites the
+bulletin — a ticking clock alone never does.
+
+**Deliverable (revised):** in addition to the cross-host meter, the budget work renders a
+deterministic `## Token budget` bulletin section showing (1) the garden-reasoned weekly
+quota + its source, (2) the aggregate current-week usage + week-id + reset time, and
+(3) the ahead/behind pace delta + straight-line projection — all push-gate-safe (no
+clock-driven commit churn). Extend the bulletin run-test.sh subtest to cover the section:
+correct quota/usage/pace math on a fixture, and NO commit churn from an advancing clock
+alone.
