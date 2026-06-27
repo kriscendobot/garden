@@ -1,1 +1,7 @@
 Move source acquisition off the agent into a deterministic helper. Add `scripts/jobs/fetch-source.sh <url>` that: (1) attempts a direct `curl` of the URL; (2) on connection failure/refusal (recurring for erights.org and its caplet.com mirror from the bot sandbox), falls back to the Internet Archive original-bytes capture `http://web.archive.org/web/<ts>id_/<url>` — the `id_` form that returns unmodified bytes and is reachable via plain curl even though the WebFetch tool refuses web.archive.org; (3) emits the fetched bytes plus their `sha256sum` as the citable idempotency anchor (`source_content_sha256`). This encodes the recipe the grant-matcher ingest rediscovered and the e-equality follow-on hand-recorded in prose, so scholar ingest cycles stop re-deriving the archive-fallback + hashing dance each time and produce a consistent, hashable primary-source anchor deterministically. Reference the script from the scholar's ingest procedure (and `library/conventions.md` § PDF/source acquisition) in place of the prose recipe.
+
+---
+claim:
+  host: endolinbot
+  gardener: 44
+  claimed_at: 2026-06-27T11:36:14Z
