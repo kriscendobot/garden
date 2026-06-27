@@ -157,6 +157,17 @@ has4=$(grep -c '^garden-gardener@4\.service$' "$GARDEN_MOCK_STATE" || true)
 armed_after=$(grep -c '^garden-gardener@1\.service$' "$GARDEN_MOCK_STATE" || true)
 extra_after=$(grep -c '^garden-gardener@[23]\.service$' "$GARDEN_MOCK_STATE" || true)
 { [ "$armed_after" -eq 1 ] && [ "$extra_after" -eq 0 ]; } && ok "host count 1 → scaled down to gardener@1" || bad "scale-down (@1=$armed_after, @2-3=$extra_after)"
+# A structurally-absent desired count (no hosts/<host> file) is a NO-OP, never a
+# scale-to-0: point the scaler at a host that was never declared and the gardener@1
+# pool above must survive untouched (no install-units.sh scale → zero disable calls).
+# Guards the regression where want=0 default tore the whole local fleet down at once.
+: > "$GARDEN_MOCK_LOG"
+GARDEN_HOST=undeclaredhost "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
+noop_armed=$(grep -c '^garden-gardener@1\.service$' "$GARDEN_MOCK_STATE" || true)
+noop_disables=$(grep -c '^systemctl --user disable' "$GARDEN_MOCK_LOG" || true)
+{ [ "$noop_armed" -eq 1 ] && [ "$noop_disables" -eq 0 ]; } \
+  && ok "absent hosts/<host> → no-op (pool unchanged, no disable)" \
+  || bad "no-op-on-undeterminable-count (@1=$noop_armed, disables=$noop_disables)"
 unset GARDEN_UNIT_CTL GARDEN_MOCK_STATE GARDEN_MOCK_LOG
 
 # ============================================================================
