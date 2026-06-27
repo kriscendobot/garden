@@ -1,10 +1,3 @@
----
-gate: go-ahead
-priority: normal
-posted_by: liaison
-posted_at: 2026-06-27T15:57:30Z
----
-
 # Investigation: beta3 portfolio-contract (ymax0) upgrade crashes with "stack overflow"
 
 > SCOPE: Authorized fleet work on **OUR FORK** `kriscendobot/agoric-sdk` ONLY. No
@@ -28,10 +21,12 @@ propose/implement a fix — on the fork.
   - gist: https://gist.github.com/kriskowal/dac81e95eeecb4ad024e6278f8bed212
   - beta2.js raw: https://gist.githubusercontent.com/kriskowal/dac81e95eeecb4ad024e6278f8bed212/raw/ef847278f5a87bb62a7cf50cc77e7fa3878858a4/beta2.js
   - beta3.js raw: https://gist.githubusercontent.com/kriskowal/dac81e95eeecb4ad024e6278f8bed212/raw/79a341122452f138ce9e06cfe0b1110db099a344/beta3.js
-- **Crash log:** the raw 152-entry swingset slog JSON (was
-  `~/Downloads/Logs-2026-06-26 13_58_58 (1).json`) is NOT in the gist; its essential
-  facts are distilled in "Established" below. If the raw slog is needed (e.g. to read
-  the exact syscall order around the failing delivery), request it from the maintainer.
+- **Crash log (slog):** the raw 152-entry swingset slog JSON (flattened dotted keys;
+  use `jq`) is now in the gist as `gistfile1.txt` (428,083 B):
+  - raw: https://gist.githubusercontent.com/kriskowal/dac81e95eeecb4ad024e6278f8bed212/raw/73cbba56249536e52b2818913694acdf516478f7/gistfile1.txt
+  Use it to read the exact syscall order around the failing v320 `startVat` delivery
+  (the `vom.dkind.15/16/17` rehydration → `getBundle` sequence) and to confirm the
+  `exited: stack overflow`. The distilled facts in "Established" below are the summary.
 
 ## Established (high confidence)
 1. **Crash:** vat v320 (`zcf-…-ymax0`, the portfolio contract) upgrade-vat incarnation
@@ -81,8 +76,8 @@ passing.
 Derive the exact forms on the fork; sketches:
 - regression window: `git merge-base --is-ancestor 3952deecd4 9d518832d4 && git tag --contains 3952deecd4`
 - string-level diff: extract quoted literals from each bundle (gist raw), sort, `comm -3` the two sets.
-- crash facts: from the "Established" section (raw slog from the maintainer if the exact
-  syscall order around the v320 startVat delivery is needed).
+- crash facts: `jq` the slog (gistfile1.txt) for the v320 `startVat` delivery and the
+  `exited`/stack-overflow entry; cross-check against the "Established" section.
 
 Provenance: re-parked from plan/ and adjusted to fork-scope + gist artifacts by liaison
 (maintainer-authorized 2026-06-27).
