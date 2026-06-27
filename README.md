@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T15:28:56Z_
+_As of 2026-06-27T15:29:47Z_
 
 ## Latest
 
-The dominant signal today: this host's deploy stayed **wedged for hours**. main2 on endolinbot repeatedly refused to fast-forward — first a redundant, byte-identical uncommitted edit of `report-error.sh`, then collisions and edits across `library-link-*`, `journal-entry.sh`, `gardener.sh`, and `claim-job.sh` — so the live tree sat dozens of commits behind origin while the watchman paged you ~15 times. A **deploy-sync reconciler landed on main2 (5d6490e62)** to fix exactly this: it clean-fast-forwards the checkout and restarts long-running services when `scripts/` changes, arming automatically on the next units refresh. Two jobs are now in flight to close the loop the right way — [`watchman-resolve-wedge-autonomously`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/watchman-resolve-wedge-autonomously.md) (resolve wedges without escalating to you) and [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-inactivity-anomaly.md) (stop the false "0 comments for N ticks" anomaly alerts, which fired all day against kriskowal/garden).
+The headline for the maintainer: **endolinbot's main2 deploy has been wedged all day.** The watchman fired roughly two dozen "WEDGED — deploy frozen" alerts as origin/main2 raced ahead (now at `3ed55eec3`) while the live `/home/kris` tree stayed pinned tens of commits behind — successive uncommitted edits to `report-error.sh`, `gardener.sh`, `claim-job.sh`, the `library-link-*` scripts, and `journal-entry.sh` each blocking the fast-forward. A gardener diagnosed the root: the blocking `report-error.sh` change is byte-identical to what already landed on origin, so `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is a lossless unwedge. While the host was frozen, the new **deploy-sync reconciler** landed on main2 (`5d6490e62`, which strict-ff-advances the checkout and restarts long-running services on `scripts/` changes) — but it's inert until the next `install-units.sh` run arms its timer, and it can't unwedge a dirty tree either. The self-heal watchdog separately flagged a `garden-gardener` crash-loop already fixed on main2 but stuck behind on the un-deployed checkout.
 
-One decision is genuinely owed from you: the harden-exported-function-literals follow-up from erights's review on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you picking breadth (narrow two exports vs. repo-wide) and base branch (`llm` vs `master`) before any PR opens. Lower-stakes gardener findings: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (intrinsic duplication), endo master lint is clean (only 5 non-blocking jsdoc warnings, plan parked), and a formula-inspector retention-paths table is blocked on an open, stalled host-API PR still awaiting the rebase-and-gamut you requested on 2026-05-21. Scholars kept ingesting: a sixth ocap-kernel doc, a six-section distributed-ocap concept cluster, and a corpus-wide source-drift scan all landed.
+Two recurring nuisances are being addressed: the **comment-watcher inactivity anomaly** kept firing (0 comments for 100→420 ticks), and a fix to stop conflating "blind" with "quiet" is in `doin` alongside jobs to make the **watchman resolve wedges autonomously** and harden `journal-entry.sh`. The board's `todo` is empty.
+
+Decisions owed to the maintainer: the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up is gated on a breadth (narrow vs repo-wide) and base-branch (`llm` vs `master`) call before any PR opens; and a formula-inspector retention-paths table is blocked on the stalled #284 (the rebase-and-gamut you requested on 2026-05-21 never ran). Quieter notes: the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (intrinsic duplication), endo master lint is clean save five non-failing jsdoc warnings, two scholar ingests landed (ocap-kernel guide + a distributed-ocap concept cluster), and a new investigation plan for a beta3 ymax0 portfolio-upgrade stack overflow awaits your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -573,6 +575,7 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
+- [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — _normal_ · Investigation brief: beta3 portfolio-contract upgrade crashes with "stack ove...
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
