@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5561 (868 parent indexes + 4693 children).
+Total section files: 5826 (506 parent indexes + 5320 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -242,6 +242,446 @@ Total section files: 5561 (868 parent indexes + 4693 children).
 - [agoric-sdk--security--coordinated-vulnerability-disclosure](agoric-sdk--security--coordinated-vulnerability-disclosure.md)
 - [agoric-sdk--security--supported-versions](agoric-sdk--security--supported-versions.md)
 
+### cask--allocator-design
+
+- [cask--allocator-design--hashtreetouint-and-index-heap](cask--allocator-design--hashtreetouint-and-index-heap.md)
+- [cask--allocator-design--session-table-composite](cask--allocator-design--session-table-composite.md)
+- [cask--allocator-design--swap-to-end-allocator](cask--allocator-design--swap-to-end-allocator.md)
+
+### cask--architecture
+
+- [cask--architecture--design-principles-and-protocols](cask--architecture--design-principles-and-protocols.md)
+- [cask--architecture--layer-2-merkle-tree-and-filesystem](cask--architecture--layer-2-merkle-tree-and-filesystem.md)
+- [cask--architecture--layers-0-1-block-transfer-and-session](cask--architecture--layers-0-1-block-transfer-and-session.md)
+- [cask--architecture--layers-3-4-rpc-routing-orchestration](cask--architecture--layers-3-4-rpc-routing-orchestration.md)
+- [cask--architecture--ledger-sampling-and-security](cask--architecture--ledger-sampling-and-security.md)
+
+### cask--array-design
+
+- [cask--array-design--compact-trie-layout-and-capacity](cask--array-design--compact-trie-layout-and-capacity.md)
+- [cask--array-design--operational-transform-keep-skip-inject](cask--array-design--operational-transform-keep-skip-inject.md)
+- [cask--array-design--reified-op-streams](cask--array-design--reified-op-streams.md)
+
+### cask--bigint-design
+
+- [cask--bigint-design--adaptive-width-with-overflow](cask--bigint-design--adaptive-width-with-overflow.md)
+- [cask--bigint-design--operations-and-complexity](cask--bigint-design--operations-and-complexity.md)
+
+### cask--blob-design
+
+- [cask--blob-design--block-format-and-limits](cask--blob-design--block-format-and-limits.md)
+- [cask--blob-design--content-defined-chunking-and-random-access](cask--blob-design--content-defined-chunking-and-random-access.md)
+
+### cask--cask-go
+
+- [cask--cask-go--block-byte-layout-and-metadata-footer](cask--cask-go--block-byte-layout-and-metadata-footer.md)
+- [cask--cask-go--block-model-and-merkle-trees](cask--cask-go--block-model-and-merkle-trees.md)
+- [cask--cask-go--cells-cas-and-the-retention-mechanism](cask--cask-go--cells-cas-and-the-retention-mechanism.md)
+- [cask--cask-go--store-interface-and-span-tracked-completion](cask--cask-go--store-interface-and-span-tracked-completion.md)
+
+### cask--caskroot-design
+
+- [cask--caskroot-design--operations-and-usage](cask--caskroot-design--operations-and-usage.md)
+- [cask--caskroot-design--scope-and-structure](cask--caskroot-design--scope-and-structure.md)
+- [cask--caskroot-design--versioning-and-implementation](cask--caskroot-design--versioning-and-implementation.md)
+
+### cask--cell-capabilities
+
+- [cask--cell-capabilities--blob-and-directory-types](cask--cell-capabilities--blob-and-directory-types.md)
+- [cask--cell-capabilities--cas-couples-read-and-write](cask--cell-capabilities--cas-couples-read-and-write.md)
+- [cask--cell-capabilities--cell-path-descriptor-format](cask--cell-capabilities--cell-path-descriptor-format.md)
+- [cask--cell-capabilities--cell-types-direct-and-indirect](cask--cell-capabilities--cell-types-direct-and-indirect.md)
+- [cask--cell-capabilities--command-vocabulary-and-examples](cask--cell-capabilities--command-vocabulary-and-examples.md)
+- [cask--cell-capabilities--content-model-changes](cask--cell-capabilities--content-model-changes.md)
+- [cask--cell-capabilities--entry-type-is-the-capability](cask--cell-capabilities--entry-type-is-the-capability.md)
+- [cask--cell-capabilities--implementation-plan-and-open-questions](cask--cell-capabilities--implementation-plan-and-open-questions.md)
+- [cask--cell-capabilities--information-hiding-and-honest-attenuations](cask--cell-capabilities--information-hiding-and-honest-attenuations.md)
+- [cask--cell-capabilities--overview-and-background](cask--cell-capabilities--overview-and-background.md)
+- [cask--cell-capabilities--relationship-to-capability-map](cask--cell-capabilities--relationship-to-capability-map.md)
+
+### cask--cells
+
+- [cask--cells--capability-model-and-nested-cells](cask--cells--capability-model-and-nested-cells.md)
+- [cask--cells--caskdir-mode-field](cask--cells--caskdir-mode-field.md)
+- [cask--cells--cell-bank-structure](cask--cells--cell-bank-structure.md)
+- [cask--cells--cell-references-and-retention](cask--cells--cell-references-and-retention.md)
+- [cask--cells--filesystem-analogy-and-wire-protocol](cask--cells--filesystem-analogy-and-wire-protocol.md)
+- [cask--cells--garbage-collection](cask--cells--garbage-collection.md)
+- [cask--cells--overview-two-orthogonal-systems](cask--cells--overview-two-orthogonal-systems.md)
+
+### cask--cells-and-entries
+
+- [cask--cells-and-entries--common-shape-name-mode-reference](cask--cells-and-entries--common-shape-name-mode-reference.md)
+- [cask--cells-and-entries--directory-entries](cask--cells-and-entries--directory-entries.md)
+- [cask--cells-and-entries--standalone-cells-and-cell-record](cask--cells-and-entries--standalone-cells-and-cell-record.md)
+- [cask--cells-and-entries--through-lines](cask--cells-and-entries--through-lines.md)
+- [cask--cells-and-entries--typed-cell-bank-and-summary](cask--cells-and-entries--typed-cell-bank-and-summary.md)
+
+### cask--cluster-provisioning
+
+- [cask--cluster-provisioning--prerequisites-and-future-design](cask--cluster-provisioning--prerequisites-and-future-design.md)
+- [cask--cluster-provisioning--problem-and-prior-ssh-approach](cask--cluster-provisioning--problem-and-prior-ssh-approach.md)
+
+### cask--contributing
+
+- [cask--contributing--markdown-and-spelling-conventions](cask--contributing--markdown-and-spelling-conventions.md)
+
+### cask--cryptography
+
+- [cask--cryptography--goal-and-constraints](cask--cryptography--goal-and-constraints.md)
+- [cask--cryptography--option-a-pre-shared-secret](cask--cryptography--option-a-pre-shared-secret.md)
+- [cask--cryptography--option-b-one-way-dh](cask--cryptography--option-b-one-way-dh.md)
+- [cask--cryptography--unordered-noise-and-smallest-path](cask--cryptography--unordered-noise-and-smallest-path.md)
+
+### cask--dbstore-design
+
+- [cask--dbstore-design--concurrency-model-and-lock-protocol](cask--dbstore-design--concurrency-model-and-lock-protocol.md)
+- [cask--dbstore-design--goals-and-directory-layout](cask--dbstore-design--goals-and-directory-layout.md)
+- [cask--dbstore-design--implementation-plan-and-sizing](cask--dbstore-design--implementation-plan-and-sizing.md)
+- [cask--dbstore-design--on-disk-file-formats](cask--dbstore-design--on-disk-file-formats.md)
+- [cask--dbstore-design--operations-store-load-cas-collect](cask--dbstore-design--operations-store-load-cas-collect.md)
+
+### cask--dir-benchmark
+
+- [cask--dir-benchmark--analysis-and-adaptive-strategy](cask--dir-benchmark--analysis-and-adaptive-strategy.md)
+- [cask--dir-benchmark--compact-vs-table-implementations-and-storage](cask--dir-benchmark--compact-vs-table-implementations-and-storage.md)
+- [cask--dir-benchmark--speed-benchmarks](cask--dir-benchmark--speed-benchmarks.md)
+
+### cask--dir-design
+
+- [cask--dir-design--cell-reference-entries](cask--dir-design--cell-reference-entries.md)
+- [cask--dir-design--directory-structure-and-operations](cask--dir-design--directory-structure-and-operations.md)
+- [cask--dir-design--lookup-complexity-future-work](cask--dir-design--lookup-complexity-future-work.md)
+- [cask--dir-design--mode-field](cask--dir-design--mode-field.md)
+- [cask--dir-design--overview-and-entry-format](cask--dir-design--overview-and-entry-format.md)
+
+### cask--dir-design-v2
+
+- [cask--dir-design-v2--goals-and-rabin-chunked-entries-tree](cask--dir-design-v2--goals-and-rabin-chunked-entries-tree.md)
+- [cask--dir-design-v2--migration-and-v1-comparison](cask--dir-design-v2--migration-and-v1-comparison.md)
+- [cask--dir-design-v2--navigation-and-mutation-algorithms](cask--dir-design-v2--navigation-and-mutation-algorithms.md)
+- [cask--dir-design-v2--table-with-parallel-arrays-alternative](cask--dir-design-v2--table-with-parallel-arrays-alternative.md)
+
+### cask--gc-and-retention
+
+- [cask--gc-and-retention--deadline-based-ephemeral-retention](cask--gc-and-retention--deadline-based-ephemeral-retention.md)
+- [cask--gc-and-retention--overview-and-two-regimes](cask--gc-and-retention--overview-and-two-regimes.md)
+- [cask--gc-and-retention--pinned-roots-hash-trie](cask--gc-and-retention--pinned-roots-hash-trie.md)
+
+### cask--gc-concurrent-design
+
+- [cask--gc-concurrent-design--concurrency-invariants-and-root-swaps](cask--gc-concurrent-design--concurrency-invariants-and-root-swaps.md)
+- [cask--gc-concurrent-design--proposed-tests](cask--gc-concurrent-design--proposed-tests.md)
+- [cask--gc-concurrent-design--snapshot-gc-with-quarantine](cask--gc-concurrent-design--snapshot-gc-with-quarantine.md)
+
+### cask--membership-next-steps
+
+- [cask--membership-next-steps--capability-gated-read-write](cask--membership-next-steps--capability-gated-read-write.md)
+- [cask--membership-next-steps--membership-mvp-roadmap](cask--membership-next-steps--membership-mvp-roadmap.md)
+- [cask--membership-next-steps--three-gate-access-model](cask--membership-next-steps--three-gate-access-model.md)
+
+### cask--membertable-design
+
+- [cask--membertable-design--cli-root-and-server-integration](cask--membertable-design--cli-root-and-server-integration.md)
+- [cask--membertable-design--structure-and-operations](cask--membertable-design--structure-and-operations.md)
+
+### cask--net-crypto
+
+- [cask--net-crypto--authorization-member-table](cask--net-crypto--authorization-member-table.md)
+- [cask--net-crypto--encrypted-packet-and-replay](cask--net-crypto--encrypted-packet-and-replay.md)
+- [cask--net-crypto--noise-ik-handshake](cask--net-crypto--noise-ik-handshake.md)
+- [cask--net-crypto--overview-and-identity](cask--net-crypto--overview-and-identity.md)
+- [cask--net-crypto--primitives-threat-model-and-lifecycle](cask--net-crypto--primitives-threat-model-and-lifecycle.md)
+- [cask--net-crypto--transport-keys-and-forward-secrecy](cask--net-crypto--transport-keys-and-forward-secrecy.md)
+
+### cask--net-crypto-go
+
+- [cask--net-crypto-go--command-constants-and-mirror-convention](cask--net-crypto-go--command-constants-and-mirror-convention.md)
+- [cask--net-crypto-go--command-plaintext-wire-layouts](cask--net-crypto-go--command-plaintext-wire-layouts.md)
+- [cask--net-crypto-go--counter-nonce-and-replay-protection](cask--net-crypto-go--counter-nonce-and-replay-protection.md)
+- [cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry](cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry.md)
+
+### cask--net-design
+
+- [cask--net-design--backpressure-and-traffic-class-wake](cask--net-design--backpressure-and-traffic-class-wake.md)
+- [cask--net-design--lost-notification-coordination](cask--net-design--lost-notification-coordination.md)
+
+### cask--net-noise-go
+
+- [cask--net-noise-go--ed25519-x25519-key-conversion](cask--net-noise-go--ed25519-x25519-key-conversion.md)
+- [cask--net-noise-go--noise-hkdf-and-aead](cask--net-noise-go--noise-hkdf-and-aead.md)
+- [cask--net-noise-go--noise-ik-handshake-state-machine](cask--net-noise-go--noise-ik-handshake-state-machine.md)
+
+### cask--net-peer-go
+
+- [cask--net-peer-go--command-request-span-lifecycle](cask--net-peer-go--command-request-span-lifecycle.md)
+- [cask--net-peer-go--encrypted-acknowledge-batching](cask--net-peer-go--encrypted-acknowledge-batching.md)
+- [cask--net-peer-go--responder-handshake-consistency-and-authorization](cask--net-peer-go--responder-handshake-consistency-and-authorization.md)
+- [cask--net-peer-go--rtt-estimation-and-retransmission-timeout](cask--net-peer-go--rtt-estimation-and-retransmission-timeout.md)
+- [cask--net-peer-go--server-receive-loop-and-encrypted-dispatch](cask--net-peer-go--server-receive-loop-and-encrypted-dispatch.md)
+- [cask--net-peer-go--session-renewal-single-flight](cask--net-peer-go--session-renewal-single-flight.md)
+- [cask--net-peer-go--traffic-class-send-queue-drain-prioritization](cask--net-peer-go--traffic-class-send-queue-drain-prioritization.md)
+
+### cask--net-session-init-design
+
+- [cask--net-session-init-design--command-vocabulary-and-detection](cask--net-session-init-design--command-vocabulary-and-detection.md)
+- [cask--net-session-init-design--inner-command-wire-formats](cask--net-session-init-design--inner-command-wire-formats.md)
+- [cask--net-session-init-design--psk-handshake-packet-formats](cask--net-session-init-design--psk-handshake-packet-formats.md)
+- [cask--net-session-init-design--security-considerations](cask--net-session-init-design--security-considerations.md)
+- [cask--net-session-init-design--session-state-and-envelope](cask--net-session-init-design--session-state-and-envelope.md)
+
+### cask--nursery
+
+- [cask--nursery--cask-and-verb-packet-commands](cask--nursery--cask-and-verb-packet-commands.md)
+- [cask--nursery--eviction-consolidation-and-deadline-clamping](cask--nursery--eviction-consolidation-and-deadline-clamping.md)
+- [cask--nursery--two-ttls-and-the-nursery](cask--nursery--two-ttls-and-the-nursery.md)
+
+### cask--ocaps
+
+- [cask--ocaps--batch-operations-and-example](cask--ocaps--batch-operations-and-example.md)
+- [cask--ocaps--cell-facets-and-hierarchy](cask--ocaps--cell-facets-and-hierarchy.md)
+- [cask--ocaps--cell-state-and-versioning](cask--ocaps--cell-state-and-versioning.md)
+- [cask--ocaps--open-questions](cask--ocaps--open-questions.md)
+- [cask--ocaps--operations-and-wire-protocol](cask--ocaps--operations-and-wire-protocol.md)
+- [cask--ocaps--overview-and-root-store](cask--ocaps--overview-and-root-store.md)
+- [cask--ocaps--security-properties](cask--ocaps--security-properties.md)
+
+### cask--package-taxonomy
+
+- [cask--package-taxonomy--design-patterns](cask--package-taxonomy--design-patterns.md)
+- [cask--package-taxonomy--future-structures](cask--package-taxonomy--future-structures.md)
+- [cask--package-taxonomy--hashtree-vs-arraytree](cask--package-taxonomy--hashtree-vs-arraytree.md)
+- [cask--package-taxonomy--naming-conventions](cask--package-taxonomy--naming-conventions.md)
+- [cask--package-taxonomy--package-categories](cask--package-taxonomy--package-categories.md)
+
+### cask--parallel-arrays
+
+- [cask--parallel-arrays--compact-index-representation](cask--parallel-arrays--compact-index-representation.md)
+- [cask--parallel-arrays--in-memory-pattern](cask--parallel-arrays--in-memory-pattern.md)
+- [cask--parallel-arrays--persistent-structures-as-reducers](cask--parallel-arrays--persistent-structures-as-reducers.md)
+- [cask--parallel-arrays--rabin-bounded-sorted-indexes](cask--parallel-arrays--rabin-bounded-sorted-indexes.md)
+- [cask--parallel-arrays--table-idl-and-data-model](cask--parallel-arrays--table-idl-and-data-model.md)
+- [cask--parallel-arrays--universal-tree-and-schema-hashes](cask--parallel-arrays--universal-tree-and-schema-hashes.md)
+
+### cask--protocol
+
+- [cask--protocol--casksock-transport-and-message-types](cask--protocol--casksock-transport-and-message-types.md)
+- [cask--protocol--flow-reliability-and-security](cask--protocol--flow-reliability-and-security.md)
+- [cask--protocol--message-and-block-formats](cask--protocol--message-and-block-formats.md)
+
+### cask--protocol2
+
+- [cask--protocol2--changes-from-v1-and-layered-vision](cask--protocol2--changes-from-v1-and-layered-vision.md)
+- [cask--protocol2--message-and-block-framing](cask--protocol2--message-and-block-framing.md)
+- [cask--protocol2--session-span-cohort-model](cask--protocol2--session-span-cohort-model.md)
+
+### cask--protocol2-arch
+
+- [cask--protocol2-arch--design-brief](cask--protocol2-arch--design-brief.md)
+
+### cask--readme
+
+- [cask--readme--block-format](cask--readme--block-format.md)
+- [cask--readme--cli-quick-start](cask--readme--cli-quick-start.md)
+- [cask--readme--columnar-ecs-design](cask--readme--columnar-ecs-design.md)
+- [cask--readme--content-agnostic-gc](cask--readme--content-agnostic-gc.md)
+- [cask--readme--merkle-trees-for-everything](cask--readme--merkle-trees-for-everything.md)
+- [cask--readme--noise-cryptography](cask--readme--noise-cryptography.md)
+- [cask--readme--overview](cask--readme--overview.md)
+- [cask--readme--package-taxonomy](cask--readme--package-taxonomy.md)
+- [cask--readme--priority-load-shedding](cask--readme--priority-load-shedding.md)
+- [cask--readme--protocols](cask--readme--protocols.md)
+- [cask--readme--storage-transport-single-abstraction](cask--readme--storage-transport-single-abstraction.md)
+- [cask--readme--what-tcp-costs-you](cask--readme--what-tcp-costs-you.md)
+- [cask--readme--why-1kb-blocks](cask--readme--why-1kb-blocks.md)
+
+### cask--root-design
+
+- [cask--root-design--bootstrap-sequence](cask--root-design--bootstrap-sequence.md)
+- [cask--root-design--component-structures](cask--root-design--component-structures.md)
+- [cask--root-design--evolution-migration-and-security](cask--root-design--evolution-migration-and-security.md)
+- [cask--root-design--overview-and-design-principles](cask--root-design--overview-and-design-principles.md)
+- [cask--root-design--root-block-layout-and-flags](cask--root-design--root-block-layout-and-flags.md)
+
+### cask--sorted-array-design
+
+- [cask--sorted-array-design--operations-transform-and-use-cases](cask--sorted-array-design--operations-transform-and-use-cases.md)
+- [cask--sorted-array-design--rabin-chunked-structure-and-stability](cask--sorted-array-design--rabin-chunked-structure-and-stability.md)
+- [cask--sorted-array-design--sdif-sops-diff-sync-protocol](cask--sorted-array-design--sdif-sops-diff-sync-protocol.md)
+
+### cask--status
+
+- [cask--status--shape-and-roadmap](cask--status--shape-and-roadmap.md)
+
+### cask--store-gc-design
+
+- [cask--store-gc-design--architecture-and-root-set-keying](cask--store-gc-design--architecture-and-root-set-keying.md)
+- [cask--store-gc-design--higher-level-ops-and-root-set-retention](cask--store-gc-design--higher-level-ops-and-root-set-retention.md)
+- [cask--store-gc-design--mark-and-sweep](cask--store-gc-design--mark-and-sweep.md)
+- [cask--store-gc-design--missing-links-and-insertion-order](cask--store-gc-design--missing-links-and-insertion-order.md)
+
+### cask--style
+
+- [cask--style--pluralization](cask--style--pluralization.md)
+
+### cask--trace
+
+- [cask--trace--tracer-interface-and-telemetry-buffer](cask--trace--tracer-interface-and-telemetry-buffer.md)
+- [cask--trace--traffic-class-and-priority](cask--trace--traffic-class-and-priority.md)
+
+### cask--trace2
+
+- [cask--trace2--buffercasktel-sampling-buffer-and-eviction](cask--trace2--buffercasktel-sampling-buffer-and-eviction.md)
+- [cask--trace2--casktel-package-interfaces](cask--trace2--casktel-package-interfaces.md)
+- [cask--trace2--dir-store-span-contract-and-test](cask--trace2--dir-store-span-contract-and-test.md)
+- [cask--trace2--file-layout-and-implementation-order](cask--trace2--file-layout-and-implementation-order.md)
+- [cask--trace2--nopcasktel-no-cost-tracer](cask--trace2--nopcasktel-no-cost-tracer.md)
+- [cask--trace2--span-as-storage-completion-abstraction](cask--trace2--span-as-storage-completion-abstraction.md)
+- [cask--trace2--traffic-class-and-priority](cask--trace2--traffic-class-and-priority.md)
+
+### cask--verbs
+
+- [cask--verbs--verb-catalog](cask--verbs--verb-catalog.md)
+- [cask--verbs--verb-dispatch-and-type-designators](cask--verbs--verb-dispatch-and-type-designators.md)
+
+### collections--pkg-clear-readme
+
+- [collections--pkg-clear-readme--overview](collections--pkg-clear-readme--overview.md)
+
+### collections--pkg-clone-readme
+
+- [collections--pkg-clone-readme--overview](collections--pkg-clone-readme--overview.md)
+
+### collections--pkg-compare-readme
+
+- [collections--pkg-compare-readme--overview](collections--pkg-compare-readme--overview.md)
+
+### collections--pkg-copy-readme
+
+- [collections--pkg-copy-readme--overview](collections--pkg-copy-readme--overview.md)
+
+### collections--pkg-deque-readme
+
+- [collections--pkg-deque-readme--overview](collections--pkg-deque-readme--overview.md)
+
+### collections--pkg-dict-readme
+
+- [collections--pkg-dict-readme--overview](collections--pkg-dict-readme--overview.md)
+
+### collections--pkg-equals-readme
+
+- [collections--pkg-equals-readme--overview](collections--pkg-equals-readme--overview.md)
+
+### collections--pkg-fast-map-readme
+
+- [collections--pkg-fast-map-readme--overview](collections--pkg-fast-map-readme--overview.md)
+
+### collections--pkg-fast-set-readme
+
+- [collections--pkg-fast-set-readme--overview](collections--pkg-fast-set-readme--overview.md)
+
+### collections--pkg-generic-collection-readme
+
+- [collections--pkg-generic-collection-readme--overview](collections--pkg-generic-collection-readme--overview.md)
+
+### collections--pkg-generic-map-readme
+
+- [collections--pkg-generic-map-readme--overview](collections--pkg-generic-map-readme--overview.md)
+
+### collections--pkg-generic-order-readme
+
+- [collections--pkg-generic-order-readme--overview](collections--pkg-generic-order-readme--overview.md)
+
+### collections--pkg-generic-set-readme
+
+- [collections--pkg-generic-set-readme--overview](collections--pkg-generic-set-readme--overview.md)
+
+### collections--pkg-has-readme
+
+- [collections--pkg-has-readme--overview](collections--pkg-has-readme--overview.md)
+
+### collections--pkg-hash-readme
+
+- [collections--pkg-hash-readme--overview](collections--pkg-hash-readme--overview.md)
+
+### collections--pkg-heap-readme
+
+- [collections--pkg-heap-readme--overview](collections--pkg-heap-readme--overview.md)
+
+### collections--pkg-iterate-readme
+
+- [collections--pkg-iterate-readme--overview](collections--pkg-iterate-readme--overview.md)
+
+### collections--pkg-iterator-readme
+
+- [collections--pkg-iterator-readme--overview](collections--pkg-iterator-readme--overview.md)
+
+### collections--pkg-lfu-map-readme
+
+- [collections--pkg-lfu-map-readme--overview](collections--pkg-lfu-map-readme--overview.md)
+
+### collections--pkg-lfu-set-readme
+
+- [collections--pkg-lfu-set-readme--overview](collections--pkg-lfu-set-readme--overview.md)
+
+### collections--pkg-list-readme
+
+- [collections--pkg-list-readme--overview](collections--pkg-list-readme--overview.md)
+
+### collections--pkg-lru-map-readme
+
+- [collections--pkg-lru-map-readme--overview](collections--pkg-lru-map-readme--overview.md)
+
+### collections--pkg-lru-set-readme
+
+- [collections--pkg-lru-set-readme--overview](collections--pkg-lru-set-readme--overview.md)
+
+### collections--pkg-map-readme
+
+- [collections--pkg-map-readme--overview](collections--pkg-map-readme--overview.md)
+
+### collections--pkg-mini-map-readme
+
+- [collections--pkg-mini-map-readme--overview](collections--pkg-mini-map-readme--overview.md)
+
+### collections--pkg-observable-readme
+
+- [collections--pkg-observable-readme--change-observation-model](collections--pkg-observable-readme--change-observation-model.md)
+- [collections--pkg-observable-readme--interface-and-handler-dispatch](collections--pkg-observable-readme--interface-and-handler-dispatch.md)
+
+### collections--pkg-set-readme
+
+- [collections--pkg-set-readme--overview](collections--pkg-set-readme--overview.md)
+
+### collections--pkg-sorted-array-map-readme
+
+- [collections--pkg-sorted-array-map-readme--overview](collections--pkg-sorted-array-map-readme--overview.md)
+
+### collections--pkg-sorted-array-readme
+
+- [collections--pkg-sorted-array-readme--overview](collections--pkg-sorted-array-readme--overview.md)
+
+### collections--pkg-sorted-array-set-readme
+
+- [collections--pkg-sorted-array-set-readme--overview](collections--pkg-sorted-array-set-readme--overview.md)
+
+### collections--pkg-swap-readme
+
+- [collections--pkg-swap-readme--overview](collections--pkg-swap-readme--overview.md)
+
+### collections--pkg-to-array-readme
+
+- [collections--pkg-to-array-readme--overview](collections--pkg-to-array-readme--overview.md)
+
+### collections--pkg-zip-readme
+
+- [collections--pkg-zip-readme--overview](collections--pkg-zip-readme--overview.md)
+
+### collections--readme
+
+- [collections--readme--overview](collections--readme--overview.md)
+- [collections--readme--package-catalog](collections--readme--package-catalog.md)
+
 ### endo--agents
 
 - [endo--agents--commit-conventions](endo--agents--commit-conventions.md)
@@ -250,6 +690,14 @@ Total section files: 5561 (868 parent indexes + 4693 children).
 - [endo--agents--repository-structure](endo--agents--repository-structure.md)
 - [endo--agents--testing](endo--agents--testing.md)
 - [endo--agents--typescript-usage](endo--agents--typescript-usage.md)
+
+### endo--changeset-base64-harden-md
+
+- [endo--changeset-base64-harden-md--cross-package-version-bump-declaration-and-pre-lockdown-shim-exempt](endo--changeset-base64-harden-md--cross-package-version-bump-declaration-and-pre-lockdown-shim-exempt.md)
+
+### endo--changeset-daemon-ts6-type-precision-md
+
+- [endo--changeset-daemon-ts6-type-precision-md--three-typescript-precision-improvements-bundled](endo--changeset-daemon-ts6-type-precision-md--three-typescript-precision-improvements-bundled.md)
 
 ### endo--contributing
 
@@ -389,6 +837,14 @@ Total section files: 5561 (868 parent indexes + 4693 children).
 - [endo--docs-security--overview](endo--docs-security--overview.md)
 - [endo--docs-security--supported-versions](endo--docs-security--supported-versions.md)
 
+### endo--packages-base64-README-md
+
+- [endo--packages-base64-README-md--twentieth-package-minimal-utility-README-shape-and-encode-decode-pair-as-canonical-API](endo--packages-base64-README-md--twentieth-package-minimal-utility-README-shape-and-encode-decode-pair-as-canonical-API.md)
+
+### endo--packages-base64-entry-cluster
+
+- [endo--packages-base64-entry-cluster--twelfth-complementary-lens-mixed-forwarder-and-implementation-cluster-and-object-freeze-with-named-rationale](endo--packages-base64-entry-cluster--twelfth-complementary-lens-mixed-forwarder-and-implementation-cluster-and-object-freeze-with-named-rationale.md)
+
 ### endo--packages-base64-src-encode-decode-js
 
 - [endo--packages-base64-src-encode-decode-js--the-canonical-leaf-package-skeleton-with-three-tier-dispatch-and-Reflect-apply-defensive-binding](endo--packages-base64-src-encode-decode-js--the-canonical-leaf-package-skeleton-with-three-tier-dispatch-and-Reflect-apply-defensive-binding.md) (index)
@@ -408,6 +864,14 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [§Three-class-padding-switch (end of encode)](endo--packages-base64-src-encode-decode-js--the-canonical-leaf-package-skeleton-with-three-tier-dispatch-and-Reflect-apply-defensive-binding--three-class-padding-switch-end-of-encode.md)
   - [§Three-tier-dispatch (the spine)](endo--packages-base64-src-encode-decode-js--the-canonical-leaf-package-skeleton-with-three-tier-dispatch-and-Reflect-apply-defensive-binding--three-tier-dispatch-the-spine.md)
   - [§Tier-1 borrowing](endo--packages-base64-src-encode-decode-js--the-canonical-leaf-package-skeleton-with-three-tier-dispatch-and-Reflect-apply-defensive-binding--tier-1-borrowing.md)
+
+### endo--packages-benchmark-README-md
+
+- [endo--packages-benchmark-README-md--cross-engine-substrate-benchmarking-and-private-package-as-internal-tooling](endo--packages-benchmark-README-md--cross-engine-substrate-benchmarking-and-private-package-as-internal-tooling.md)
+
+### endo--packages-benchmark-src-benchmark-js
+
+- [endo--packages-benchmark-src-benchmark-js--substrate-non-use-in-substrate-benchmarking-and-four-shapes-of-design-vs-implementation-arc](endo--packages-benchmark-src-benchmark-js--substrate-non-use-in-substrate-benchmarking-and-four-shapes-of-design-vs-implementation-arc.md)
 
 ### endo--packages-bundle-source
 
@@ -462,6 +926,10 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [Tier-1 borrowing (twenty-plus first-explicit-observations)](endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures--tier-1-borrowing-twenty-plus-first-explicit-observations.md)
   - [Tier-2 borrowing (multi-cycle patterns extended)](endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures--tier-2-borrowing-multi-cycle-patterns-extended.md)
   - [Tier-3 borrowing (meta-patterns)](endo--packages-captp-README-md--TrapCaps-relaxed-security-honesty-and-three-arc-closures--tier-3-borrowing-meta-patterns.md)
+
+### endo--packages-captp-changelogs-README-changelogs-md
+
+- [endo--packages-captp-changelogs-README-changelogs-md--two-changelog-systems-coexist-and-empty-file-as-no-change-declaration](endo--packages-captp-changelogs-README-changelogs-md--two-changelog-systems-coexist-and-empty-file-as-no-change-declaration.md)
 
 ### endo--packages-captp-src-atomics-js
 
@@ -560,6 +1028,10 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [§TrapCompletion as discriminator-payload tuple](endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async--trapcompletion-as-discriminator-payload-tuple.md)
   - [§`TrapRequest` with four named fields](endo--packages-captp-src-types-js--typedef-only-file-and-three-method-TrapImpl-and-TrapCompletion-as-tuple-and-Out-of-band-sync-over-async--traprequest-with-four-named-fields.md)
 
+### endo--packages-check-bundle-README-md
+
+- [endo--packages-check-bundle-README-md--four-Cs-of-bundle-validation](endo--packages-check-bundle-README-md--four-Cs-of-bundle-validation.md)
+
 ### endo--packages-check-bundle-js
 
 - [endo--packages-check-bundle-js--powered-and-powerless-symmetric-pair-with-frozen-bundle-assertion-and-design-boundary-migration](endo--packages-check-bundle-js--powered-and-powerless-symmetric-pair-with-frozen-bundle-assertion-and-design-boundary-migration.md) (index)
@@ -597,6 +1069,11 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [§Two named error cases — SyntaxError augmented, others rethrown](endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new--two-named-error-cases-syntaxerror-augmented-others-rethrown.md)
   - [§Why @endo/check-bundle needs location-aware parsing](endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new--why-endo-check-bundle-needs-location-aware-parsing.md)
 
+- [endo--packages-check-bundle-src-json-js--q-as-recurring-quoting-alias-with-different-implementations](endo--packages-check-bundle-src-json-js--q-as-recurring-quoting-alias-with-different-implementations.md)
+### endo--packages-cli-README-md
+
+- [endo--packages-cli-README-md--user-interface-as-thin-controller-to-process-and-three-part-architecture](endo--packages-cli-README-md--user-interface-as-thin-controller-to-process-and-three-part-architecture.md)
+
 ### endo--packages-cli-src-utility-cluster
 
 - [endo--packages-cli-src-utility-cluster--six-tight-utilities-with-pet-name-paths-mention-parsing-and-second-confirmation-of-gap-between-design-and-implementation](endo--packages-cli-src-utility-cluster--six-tight-utilities-with-pet-name-paths-mention-parsing-and-second-confirmation-of-gap-between-design-and-implementation.md) (index)
@@ -612,6 +1089,10 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [§The-§gap-between-design-and-implementation, confirmed twice](endo--packages-cli-src-utility-cluster--six-tight-utilities-with-pet-name-paths-mention-parsing-and-second-confirmation-of-gap-between-design-and-implementation--the-gap-between-design-and-implementation-confirmed-twice.md)
   - [§The-§six-file-cluster-cohesion (one-purpose-per-file)](endo--packages-cli-src-utility-cluster--six-tight-utilities-with-pet-name-paths-mention-parsing-and-second-confirmation-of-gap-between-design-and-implementation--the-six-file-cluster-cohesion-one-purpose-per-file.md)
   - [§Tier-1 borrowing](endo--packages-cli-src-utility-cluster--six-tight-utilities-with-pet-name-paths-mention-parsing-and-second-confirmation-of-gap-between-design-and-implementation--tier-1-borrowing.md)
+
+### endo--packages-cli-test-demo-names-in-transit-js
+
+- [endo--packages-cli-test-demo-names-in-transit-js--petname-substitution-in-transit-and-social-network-already-shipping](endo--packages-cli-test-demo-names-in-transit-js--petname-substitution-in-transit-and-social-network-already-shipping.md)
 
 ### endo--packages-common
 
@@ -666,6 +1147,14 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [Tier-2 borrowing (multi-cycle patterns extended)](endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration--tier-2-borrowing-multi-cycle-patterns-extended.md)
   - [Tier-3 borrowing (meta-patterns)](endo--packages-common-object-map-js--Function.prototype.call.bind-pre-bind-and-edge-case-enumeration--tier-3-borrowing-meta-patterns.md)
 
+### endo--packages-compartment-mapper-README-md
+
+- [endo--packages-compartment-mapper-README-md--caller-supplies-IO-powers-and-four-output-forms-from-one-mapper](endo--packages-compartment-mapper-README-md--caller-supplies-IO-powers-and-four-output-forms-from-one-mapper.md)
+
+### endo--packages-compartment-mapper-src-extension-js
+
+- [endo--packages-compartment-mapper-src-extension-js--exported-for-tests-as-honest-acknowledgment-and-pure-utility-needs-no-powers](endo--packages-compartment-mapper-src-extension-js--exported-for-tests-as-honest-acknowledgment-and-pure-utility-needs-no-powers.md)
+
 ### endo--packages-compartment-mapper-src-generic-graph
 
 - [endo--packages-compartment-mapper-src-generic-graph--Dijkstras-shortest-path-with-contextCache-by-source-and-pathCompare-as-edge-weight-and-private-fields-and-chainable-API-and-honest-attribution](endo--packages-compartment-mapper-src-generic-graph--Dijkstras-shortest-path-with-contextCache-by-source-and-pathCompare-as-edge-weight-and-private-fields-and-chainable-API-and-honest-attribution.md) (index)
@@ -684,6 +1173,18 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [§The-relax-step with §classical-algorithm-name](endo--packages-compartment-mapper-src-generic-graph--Dijkstras-shortest-path-with-contextCache-by-source-and-pathCompare-as-edge-weight-and-private-fields-and-chainable-API-and-honest-attribution--the-relax-step-with-classical.md)
   - [§The-Set-iteration-via-forEach](endo--packages-compartment-mapper-src-generic-graph--Dijkstras-shortest-path-with-contextCache-by-source-and-pathCompare-as-edge-weight-and-private-fields-and-chainable-API-and-honest-attribution--the-set-iteration-via-foreach.md)
   - [§Three-cycles-on-third-party-attribution](endo--packages-compartment-mapper-src-generic-graph--Dijkstras-shortest-path-with-contextCache-by-source-and-pathCompare-as-edge-weight-and-private-fields-and-chainable-API-and-honest-attribution--three-cycles-on-third-party-attribution.md)
+
+### endo--packages-daemon-README-md
+
+- [endo--packages-daemon-README-md--persistent-process-as-package-and-CapTP-over-netstring](endo--packages-daemon-README-md--persistent-process-as-package-and-CapTP-over-netstring.md)
+
+### endo--packages-daemon-src-deferred-tasks-js
+
+- [endo--packages-daemon-src-deferred-tasks-js--readonly-cast-as-parallel-safety-discipline-and-two-phase-register-then-execute](endo--packages-daemon-src-deferred-tasks-js--readonly-cast-as-parallel-safety-discipline-and-two-phase-register-then-execute.md)
+
+### endo--packages-daemon-types-d-ts
+
+- [endo--packages-daemon-types-d-ts--ref-X-and-X-ref-as-paired-name-inversions-and-six-lifecycle-verbs](endo--packages-daemon-types-d-ts--ref-X-and-X-ref-as-paired-name-inversions-and-six-lifecycle-verbs.md)
 
 ### endo--packages-env-options
 
@@ -755,6 +1256,14 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [Tier-1 borrowing (fifteen-plus first-explicit-observations from a 23-line file)](endo--packages-errors-rejector-js--canonical-typedef-as-the-pattern-anchor-of-the-distributed-Rejector-trio--tier-1-borrowing-fifteen-plus-first-explicit-observations-from-a-23-line-file.md)
   - [Tier-2 borrowing (multi-cycle patterns extended)](endo--packages-errors-rejector-js--canonical-typedef-as-the-pattern-anchor-of-the-distributed-Rejector-trio--tier-2-borrowing-multi-cycle-patterns-extended.md)
   - [Tier-3 borrowing (meta-patterns)](endo--packages-errors-rejector-js--canonical-typedef-as-the-pattern-anchor-of-the-distributed-Rejector-trio--tier-3-borrowing-meta-patterns.md)
+
+### endo--packages-eslint-plugin-README-md
+
+- [endo--packages-eslint-plugin-README-md--tiered-lint-config-as-policy-taxonomy-and-discipline-as-package](endo--packages-eslint-plugin-README-md--tiered-lint-config-as-policy-taxonomy-and-discipline-as-package.md)
+
+### endo--packages-eslint-plugin-lib-index-js
+
+- [endo--packages-eslint-plugin-lib-index-js--requireindex-delegating-to-filesystem-and-readme-undercounts-implementation](endo--packages-eslint-plugin-lib-index-js--requireindex-delegating-to-filesystem-and-readme-undercounts-implementation.md)
 
 ### endo--packages-evasive-transform
 
@@ -882,6 +1391,7 @@ Total section files: 5561 (868 parent indexes + 4693 children).
 
 ### endo--packages-eventual-send-src-postponed-js
 
+- [endo--packages-eventual-send-src-postponed-js--interlockP-as-shared-await-point-and-six-handler-traps-via-factory](endo--packages-eventual-send-src-postponed-js--interlockP-as-shared-await-point-and-six-handler-traps-via-factory.md)
 - [endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type](endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type.md) (index)
   - [§Borrowable patterns](endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type--borrowable-patterns.md)
   - [§Forty-six-lines as a complete handler-protocol-postponement](endo--packages-eventual-send-src-postponed-js--postponed-handler-pattern-and-interlockP-with-resolve-captured-in-executor-and-six-method-table-from-keys-and-Required-Handler-type--forty-six-lines-as-a-complete.md)
@@ -921,6 +1431,7 @@ Total section files: 5561 (868 parent indexes + 4693 children).
 
 ### endo--packages-exo-README-md
 
+- [endo--packages-exo-README-md--cardinality-ladder-in-API-names-and-method-as-validated-port](endo--packages-exo-README-md--cardinality-ladder-in-API-names-and-method-as-validated-port.md)
 - [endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without](endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without.md) (index)
   - [Citation arcs closed](endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without--citation-arcs-closed.md)
   - [`@endo/exo README.md` — sixth honesty-about-API-tradeoffs subtype; same-code-with-and-without](endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without--endo-exo-readme-md-sixth-honesty-about-api-tradeoffs-subtype-same-code-with-and.md)
@@ -933,6 +1444,10 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [Tier-1 borrowing (twenty-plus first-explicit-observations)](endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without--tier-1-borrowing-twenty-plus-first-explicit-observations.md)
   - [Tier-2 borrowing (multi-cycle patterns extended)](endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without--tier-2-borrowing-multi-cycle-patterns-extended.md)
   - [Tier-3 borrowing (meta-patterns)](endo--packages-exo-README-md--sixth-honesty-subtype-and-same-code-with-and-without--tier-3-borrowing-meta-patterns.md)
+
+### endo--packages-exo-docs-exo-taxonomy-md
+
+- [endo--packages-exo-docs-exo-taxonomy-md--cross-product-taxonomy-with-named-omissions-and-prepare-as-fourth-verb](endo--packages-exo-docs-exo-taxonomy-md--cross-product-taxonomy-with-named-omissions-and-prepare-as-fourth-verb.md)
 
 ### endo--packages-exo-src-exo-makers-js
 
@@ -1669,6 +2184,14 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [§The-`sourceOptions`-as-shared-state-bag pattern (transform-analyze.js)](endo--packages-module-source--ModuleSource-class-as-parsed-cache-and-invisible-combining-character-as-identifier-prefix-and-babel-NESM-RESM-matrix-and-AbstractModuleSource-forward-compatibility--the-sourceoptions-as-shared-st.md)
   - [§The-try-catch-wrap-with-cause pattern (transform-analyze.js)](endo--packages-module-source--ModuleSource-class-as-parsed-cache-and-invisible-combining-character-as-identifier-prefix-and-babel-NESM-RESM-matrix-and-AbstractModuleSource-forward-compatibility--the-try-catch-wrap-with-cause.md)
 
+### endo--packages-module-source-DESIGN-md
+
+- [endo--packages-module-source-DESIGN-md--dual-output-from-single-transform-and-live-bindings-via-proxy](endo--packages-module-source-DESIGN-md--dual-output-from-single-transform-and-live-bindings-via-proxy.md)
+
+### endo--packages-module-source-src-hidden-js
+
+- [endo--packages-module-source-src-hidden-js--combining-grapheme-joiner-and-column-preservation-via-equal-length](endo--packages-module-source-src-hidden-js--combining-grapheme-joiner-and-column-preservation-via-equal-length.md)
+
 ### endo--packages-nat-README-md
 
 - [endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section](endo--packages-nat-README-md--companion-README-to-cycle-310-source-and-validators-and-coercers-section.md) (index)
@@ -2393,6 +2916,14 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [§Three-different-shapes-for-cross-module-coordination-protocols family](endo--packages-ses-ava--registered-symbol-protocol-with-feature-test-and-virtualT-proxy-and-logErrorFirst-and-augmentLogging-and-pre-lockdown-freeze--three-different-shapes-for-cross-module-coordination-protocols-family.md)
   - [§virtualT-proxy via §defineProperty-with-getter-setter-delegation](endo--packages-ses-ava--registered-symbol-protocol-with-feature-test-and-virtualT-proxy-and-logErrorFirst-and-augmentLogging-and-pre-lockdown-freeze--virtualt-proxy-via-defineproperty-with-getter-setter-delegation.md)
 
+### endo--packages-ses-ava-README-md
+
+- [endo--packages-ses-ava-README-md--explicit-unredaction-only-where-trusted-and-testing-substrate-bridge](endo--packages-ses-ava-README-md--explicit-unredaction-only-where-trusted-and-testing-substrate-bridge.md)
+
+### endo--packages-ses-ava-prepare-endo-js
+
+- [endo--packages-ses-ava-prepare-endo-js--env-vars-as-cross-package-config-channel-and-three-shapes-of-design-vs-implementation-arc](endo--packages-ses-ava-prepare-endo-js--env-vars-as-cross-package-config-channel-and-three-shapes-of-design-vs-implementation-arc.md)
+
 ### endo--packages-ses-docs-draft-standalone-spec-md
 
 - [endo--packages-ses-docs-draft-standalone-spec-md--omissions-organized-by-removed-property-and-shim-vs-standalone-engine-distinction](endo--packages-ses-docs-draft-standalone-spec-md--omissions-organized-by-removed-property-and-shim-vs-standalone-engine-distinction.md) (index)
@@ -2425,6 +2956,14 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [The single most structurally interesting move](endo--packages-ses-docs-preparing-for-stabilize-md--three-language-anti-features-mitigated-by-SES-and-forward-looking-design-document-discipline--the-single-most-structurally-interesting-move.md)
   - [Tier-1 borrowing (twenty-plus first-explicit-observations from a 30-line doc)](endo--packages-ses-docs-preparing-for-stabilize-md--three-language-anti-features-mitigated-by-SES-and-forward-looking-design-document-discipline--tier-1-borrowing-twenty-plus-first-explicit-observations-from-a-30-line-doc.md)
   - [Tier-3 borrowing (meta-patterns)](endo--packages-ses-docs-preparing-for-stabilize-md--three-language-anti-features-mitigated-by-SES-and-forward-looking-design-document-discipline--tier-3-borrowing-meta-patterns.md)
+
+### endo--packages-ses-docs-secure-coding-guide-md
+
+- [endo--packages-ses-docs-secure-coding-guide-md--defensive-consistency-and-no-ambient-authority-twin-principles](endo--packages-ses-docs-secure-coding-guide-md--defensive-consistency-and-no-ambient-authority-twin-principles.md)
+
+### endo--packages-ses-docs-ses-0-7-md
+
+- [endo--packages-ses-docs-ses-0-7-md--issues-resolved-organized-by-quality-dimension-and-version-introduction-as-design-rationale](endo--packages-ses-docs-ses-0-7-md--issues-resolved-organized-by-quality-dimension-and-version-introduction-as-design-rationale.md)
 
 ### endo--packages-ses-entry-cluster
 
@@ -2534,6 +3073,10 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [See also](endo--packages-ses-src-error-unhandled-rejection-js--browser-limitations-and-finalization-registry-rejection-tracking--see-also.md)
   - [Translation block (comment idiom → contemporary practice)](endo--packages-ses-src-error-unhandled-rejection-js--browser-limitations-and-finalization-registry-rejection-tracking--translation-block-comment-idiom-contemporary-practice.md)
 
+### endo--packages-ses-src-tame-harden-js
+
+- [endo--packages-ses-src-tame-harden-js--unsafe-harden-as-identity-that-lies-and-honesty-via-shared-lie](endo--packages-ses-src-tame-harden-js--unsafe-harden-as-identity-that-lies-and-honesty-via-shared-lie.md)
+
 ### endo--packages-shim-and-prepare-endo-cluster
 
 - [endo--packages-shim-and-prepare-endo-cluster--two-shim-strategies-side-by-side-with-default-export-masking-and-BestPipelinablePromise-dispatch](endo--packages-shim-and-prepare-endo-cluster--two-shim-strategies-side-by-side-with-default-export-masking-and-BestPipelinablePromise-dispatch.md) (index)
@@ -2551,6 +3094,14 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [§The-two-shim-strategies (the spine)](endo--packages-shim-and-prepare-endo-cluster--two-shim-strategies-side-by-side-with-default-export-masking-and-BestPipelinablePromise-dispatch--the-two-shim-strategies-the-spine.md)
   - [§Tier-1 borrowing](endo--packages-shim-and-prepare-endo-cluster--two-shim-strategies-side-by-side-with-default-export-masking-and-BestPipelinablePromise-dispatch--tier-1-borrowing.md)
   - [§`utils.js` — the canonical thin barrel](endo--packages-shim-and-prepare-endo-cluster--two-shim-strategies-side-by-side-with-default-export-masking-and-BestPipelinablePromise-dispatch--utils-js-the-canonical-thin-barrel.md)
+
+### endo--packages-skel-README-md
+
+- [endo--packages-skel-README-md--meta-template-package-as-skeleton-and-package-json-as-blueprint](endo--packages-skel-README-md--meta-template-package-as-skeleton-and-package-json-as-blueprint.md)
+
+### endo--packages-skel-test-index-test-js
+
+- [endo--packages-skel-test-index-test-js--skip-with-loud-failure-as-placeholder-and-dissolves-design-implementation-boundary](endo--packages-skel-test-index-test-js--skip-with-loud-failure-as-placeholder-and-dissolves-design-implementation-boundary.md)
 
 ### endo--packages-stream-README-md
 
@@ -2665,6 +3216,10 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [§whereHomeWindows — the four-fallback Windows helper](endo--packages-where-index-js--four-state-domain-path-resolution-with-XDG-precedence-and-platform-fallback-chain--wherehomewindows-the-four-fallback-windows-helper.md)
   - [§XDG-precedence-with-platform-fallback-chain (the master pattern)](endo--packages-where-index-js--four-state-domain-path-resolution-with-XDG-precedence-and-platform-fallback-chain--xdg-precedence-with-platform-fallback-chain-the-master-pattern.md)
   - [§XDG_RUNTIME_DIR for ephemeral state](endo--packages-where-index-js--four-state-domain-path-resolution-with-XDG-precedence-and-platform-fallback-chain--xdg-runtime-dir-for-ephemeral-state.md)
+
+### endo--packages-zip-README-md
+
+- [endo--packages-zip-README-md--twenty-first-package-for-expedience-as-honest-acknowledgment-with-named-recovery-path-and-security-conscious-modernization](endo--packages-zip-README-md--twenty-first-package-for-expedience-as-honest-acknowledgment-with-named-recovery-path-and-security-conscious-modernization.md)
 
 ### endo--packages-zip-src-buffer-reader-js
 
@@ -2796,6 +3351,7 @@ Total section files: 5561 (868 parent indexes + 4693 children).
 
 ### endo--packages-zip-src-signature-js
 
+- [endo--packages-zip-src-signature-js--magic-numbers-as-named-exports-and-attack-vectors-made-visible-via-naming](endo--packages-zip-src-signature-js--magic-numbers-as-named-exports-and-attack-vectors-made-visible-via-naming.md)
 - [endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape](endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape.md) (index)
   - [§Cycle 278 first-explicit-observations roundup (eight)](endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape--cycle-278-first-explicit-obser.md)
   - [`@endo/zip/src/signature.js` — six named ZIP binary-signature constants with the historic 'PK' magic prefix](endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape--endo-zip-src-signature-js-six.md)
@@ -3226,6 +3782,30 @@ Total section files: 5561 (868 parent indexes + 4693 children).
 - [endo--readme--core-concepts](endo--readme--core-concepts.md)
 - [endo--readme--overview](endo--readme--overview.md)
 - [endo--readme--ruminations-on-name](endo--readme--ruminations-on-name.md)
+
+### endo-but-for-bots--AGENTS-md
+
+- [endo-but-for-bots--AGENTS-md--agent-conventions-document-and-exo-3x3-this-context-matrix](endo-but-for-bots--AGENTS-md--agent-conventions-document-and-exo-3x3-this-context-matrix.md)
+
+### endo-but-for-bots--docs-daemon-lore-md
+
+- [endo-but-for-bots--docs-daemon-lore-md--document-grown-by-LLM-rework-and-let-suffix-vocabulary](endo-but-for-bots--docs-daemon-lore-md--document-grown-by-LLM-rework-and-let-suffix-vocabulary.md)
+
+### endo-but-for-bots--docs-exo-method-banks-md
+
+- [endo-but-for-bots--docs-exo-method-banks-md--two-layer-pattern-method-bank-and-exo](endo-but-for-bots--docs-exo-method-banks-md--two-layer-pattern-method-bank-and-exo.md)
+
+### endo-but-for-bots--docs-mailbox-durability-plan-md
+
+- [endo-but-for-bots--docs-mailbox-durability-plan-md--mailbox-as-pet-store-with-naming-convention-overlay](endo-but-for-bots--docs-mailbox-durability-plan-md--mailbox-as-pet-store-with-naming-convention-overlay.md)
+
+### endo-but-for-bots--evoke-SOUL-md
+
+- [endo-but-for-bots--evoke-SOUL-md--agent-discipline-as-source-controlled-file-and-three-section-shape](endo-but-for-bots--evoke-SOUL-md--agent-discipline-as-source-controlled-file-and-three-section-shape.md)
+
+### endo-but-for-bots--evoke-config-sh
+
+- [endo-but-for-bots--evoke-config-sh--three-layer-agent-config-launch-soul-conventions](endo-but-for-bots--evoke-config-sh--three-layer-agent-config-launch-soul-conventions.md)
 
 ### endo-but-for-bots--llm-designs-CLAUDE-md
 
@@ -5486,6 +6066,18 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [The §four-Out-of-Scope items](endo-but-for-bots--llm-designs-lal-transcript-memory-management--predecessor-extraction-and-every-message-maps-to-durable-node-and-error-not-silent-truncation-and-user-initiated-cleanup--the-four-out-of-scope-items.md)
   - [The §single-Decisions-table (vs cycle 214's two-table shape)](endo-but-for-bots--llm-designs-lal-transcript-memory-management--predecessor-extraction-and-every-message-maps-to-durable-node-and-error-not-silent-truncation-and-user-initiated-cleanup--the-single-decisions-table-vs.md)
 
+### endo-but-for-bots--llm-designs-notifier-pubsub-migration
+
+- [endo-but-for-bots--llm-designs-notifier-pubsub-migration--asymmetric-passability](endo-but-for-bots--llm-designs-notifier-pubsub-migration--asymmetric-passability.md)
+- [endo-but-for-bots--llm-designs-notifier-pubsub-migration--back-pressure-and-wire-protocol](endo-but-for-bots--llm-designs-notifier-pubsub-migration--back-pressure-and-wire-protocol.md)
+- [endo-but-for-bots--llm-designs-notifier-pubsub-migration--cross-design-coordination-and-compatibility](endo-but-for-bots--llm-designs-notifier-pubsub-migration--cross-design-coordination-and-compatibility.md)
+- [endo-but-for-bots--llm-designs-notifier-pubsub-migration--exo-pubsub-publisher-facet-adapters](endo-but-for-bots--llm-designs-notifier-pubsub-migration--exo-pubsub-publisher-facet-adapters.md)
+- [endo-but-for-bots--llm-designs-notifier-pubsub-migration--exo-pubsub-topic-facet-adapters](endo-but-for-bots--llm-designs-notifier-pubsub-migration--exo-pubsub-topic-facet-adapters.md)
+- [endo-but-for-bots--llm-designs-notifier-pubsub-migration--future-evolution-collection-change-propagation](endo-but-for-bots--llm-designs-notifier-pubsub-migration--future-evolution-collection-change-propagation.md)
+- [endo-but-for-bots--llm-designs-notifier-pubsub-migration--local-pubsub-foundations](endo-but-for-bots--llm-designs-notifier-pubsub-migration--local-pubsub-foundations.md)
+- [endo-but-for-bots--llm-designs-notifier-pubsub-migration--problem-and-local-layer-reorientation](endo-but-for-bots--llm-designs-notifier-pubsub-migration--problem-and-local-layer-reorientation.md)
+- [endo-but-for-bots--llm-designs-notifier-pubsub-migration--vocabulary-and-layering](endo-but-for-bots--llm-designs-notifier-pubsub-migration--vocabulary-and-layering.md)
+
 ### endo-but-for-bots--llm-designs-ntsep
 
 - [endo-but-for-bots--llm-designs-ntsep--compatibility-and-upgrade](endo-but-for-bots--llm-designs-ntsep--compatibility-and-upgrade.md) (index)
@@ -5512,6 +6104,13 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [Upgrade Considerations](endo-but-for-bots--llm-designs-ocapn-noise-network--package-structure-and-security--upgrade-considerations.md)
 - [endo-but-for-bots--llm-designs-ocapn-noise-network--session-establishment](endo-but-for-bots--llm-designs-ocapn-noise-network--session-establishment.md)
 - [endo-but-for-bots--llm-designs-ocapn-noise-network--transport-plugins-and-hints](endo-but-for-bots--llm-designs-ocapn-noise-network--transport-plugins-and-hints.md)
+
+### endo-but-for-bots--llm-designs-ocapn-tcp-syrups-framing
+
+- [endo-but-for-bots--llm-designs-ocapn-tcp-syrups-framing--endo-syrups-package-grammar-and-api](endo-but-for-bots--llm-designs-ocapn-tcp-syrups-framing--endo-syrups-package-grammar-and-api.md)
+- [endo-but-for-bots--llm-designs-ocapn-tcp-syrups-framing--netlayer-framing-placement-and-migration](endo-but-for-bots--llm-designs-ocapn-tcp-syrups-framing--netlayer-framing-placement-and-migration.md)
+- [endo-but-for-bots--llm-designs-ocapn-tcp-syrups-framing--ocapn-spec-compatibility-options](endo-but-for-bots--llm-designs-ocapn-tcp-syrups-framing--ocapn-spec-compatibility-options.md)
+- [endo-but-for-bots--llm-designs-ocapn-tcp-syrups-framing--tcp-framing-bug-and-syrup-grammar-unification](endo-but-for-bots--llm-designs-ocapn-tcp-syrups-framing--tcp-framing-bug-and-syrup-grammar-unification.md)
 
 ### endo-but-for-bots--llm-designs-outliner-design-doc
 
@@ -5748,6 +6347,258 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [The §three-affected-packages partition — sister to cycle 145](endo-but-for-bots--llm-designs-workers-panel--event-loop-latency-sparkline-with-tenant-listing-retention-paths-and-correlated-log-view--the-three-affected-packages-partition-sister-to-cycle-145.md)
   - [The §upgrade-considerations — §backward-compat by graceful-degradation](endo-but-for-bots--llm-designs-workers-panel--event-loop-latency-sparkline-with-tenant-listing-retention-paths-and-correlated-log-view--the-upgrade-considerations-backward-compat-by-graceful-degradation.md)
 
+### endo-but-for-bots--packages-captp-README-md
+
+- [endo-but-for-bots--packages-captp-README-md--mutual-suspicion-default-trapcaps-opt-out](endo-but-for-bots--packages-captp-README-md--mutual-suspicion-default-trapcaps-opt-out.md)
+
+### endo-but-for-bots--packages-captp-src-loopback-js
+
+- [endo-but-for-bots--packages-captp-src-loopback-js--real-CapTP-in-degenerate-configuration](endo-but-for-bots--packages-captp-src-loopback-js--real-CapTP-in-degenerate-configuration.md)
+
+### endo-but-for-bots--packages-chat-README-md
+
+- [endo-but-for-bots--packages-chat-README-md--CapTP-over-WebSocket-and-petname-syntax-spans-CLI-and-web](endo-but-for-bots--packages-chat-README-md--CapTP-over-WebSocket-and-petname-syntax-spans-CLI-and-web.md)
+
+### endo-but-for-bots--packages-chat-message-parse-js
+
+- [endo-but-for-bots--packages-chat-message-parse-js--petname-regex-validates-and-extracts-and-petname-edgename-naming-inversion](endo-but-for-bots--packages-chat-message-parse-js--petname-regex-validates-and-extracts-and-petname-edgename-naming-inversion.md)
+
+### endo-but-for-bots--packages-conversation-tree-index-js
+
+- [endo-but-for-bots--packages-conversation-tree-index-js--tree-storage-flat-context-resolution](endo-but-for-bots--packages-conversation-tree-index-js--tree-storage-flat-context-resolution.md)
+
+### endo-but-for-bots--packages-conversation-tree-src-endopetstore-backend-js
+
+- [endo-but-for-bots--packages-conversation-tree-src-endopetstore-backend-js--persistent-backend-justifies-interface-parity-tax](endo-but-for-bots--packages-conversation-tree-src-endopetstore-backend-js--persistent-backend-justifies-interface-parity-tax.md)
+
+### endo-but-for-bots--packages-conversation-tree-src-memory-backend-js
+
+- [endo-but-for-bots--packages-conversation-tree-src-memory-backend-js--async-for-interface-parity](endo-but-for-bots--packages-conversation-tree-src-memory-backend-js--async-for-interface-parity.md)
+
+### endo-but-for-bots--packages-conversation-tree-types-js
+
+- [endo-but-for-bots--packages-conversation-tree-types-js--consumer-restricts-storage-API](endo-but-for-bots--packages-conversation-tree-types-js--consumer-restricts-storage-API.md)
+
+### endo-but-for-bots--packages-daemon-src-networks-libp2p-js
+
+- [endo-but-for-bots--packages-daemon-src-networks-libp2p-js--deterministic-peerid-from-node-id-and-dht-plus-circuit-relay-nat-traversal-without-open-port](endo-but-for-bots--packages-daemon-src-networks-libp2p-js--deterministic-peerid-from-node-id-and-dht-plus-circuit-relay-nat-traversal-without-open-port.md)
+
+### endo-but-for-bots--packages-daemon-src-networks-setup-ws-relay-js
+
+- [endo-but-for-bots--packages-daemon-src-networks-setup-ws-relay-js--runlet-as-named-program-shape-in-source](endo-but-for-bots--packages-daemon-src-networks-setup-ws-relay-js--runlet-as-named-program-shape-in-source.md)
+
+### endo-but-for-bots--packages-daemon-src-networks-tcp-netstring-js
+
+- [endo-but-for-bots--packages-daemon-src-networks-tcp-netstring-js--make-powers-context-as-network-module-shape-and-greeter-gateway-as-server-client-discriminator](endo-but-for-bots--packages-daemon-src-networks-tcp-netstring-js--make-powers-context-as-network-module-shape-and-greeter-gateway-as-server-client-discriminator.md)
+
+### endo-but-for-bots--packages-daemon-src-networks-ws-relay-js
+
+- [endo-but-for-bots--packages-daemon-src-networks-ws-relay-js--multiplexed-captp-channels-over-single-websocket-and-challenge-response-auth](endo-but-for-bots--packages-daemon-src-networks-ws-relay-js--multiplexed-captp-channels-over-single-websocket-and-challenge-response-auth.md)
+
+### endo-but-for-bots--packages-daemon-src-pet-name-js
+
+- [endo-but-for-bots--packages-daemon-src-pet-name-js--case-as-namespace-distinguisher-and-branded-types-from-validator](endo-but-for-bots--packages-daemon-src-pet-name-js--case-as-namespace-distinguisher-and-branded-types-from-validator.md)
+
+### endo-but-for-bots--packages-errors-index-js
+
+- [endo-but-for-bots--packages-errors-index-js--resource-module-vs-pure-module](endo-but-for-bots--packages-errors-index-js--resource-module-vs-pure-module.md)
+
+### endo-but-for-bots--packages-eventual-send-README-md
+
+- [endo-but-for-bots--packages-eventual-send-README-md--promise-pipelining-as-round-trip-elimination](endo-but-for-bots--packages-eventual-send-README-md--promise-pipelining-as-round-trip-elimination.md)
+
+### endo-but-for-bots--packages-exo-README-md
+
+- [endo-but-for-bots--packages-exo-README-md--three-ocap-patterns-attenuation-amplification-facets](endo-but-for-bots--packages-exo-README-md--three-ocap-patterns-attenuation-amplification-facets.md)
+
+### endo-but-for-bots--packages-exo-src-get-interface-js
+
+- [endo-but-for-bots--packages-exo-src-get-interface-js--introspection-meta-method-sibling-pair](endo-but-for-bots--packages-exo-src-get-interface-js--introspection-meta-method-sibling-pair.md)
+
+### endo-but-for-bots--packages-fae-COMPARISON-FAE-LAL-md
+
+- [endo-but-for-bots--packages-fae-COMPARISON-FAE-LAL-md--two-llm-agent-philosophies](endo-but-for-bots--packages-fae-COMPARISON-FAE-LAL-md--two-llm-agent-philosophies.md)
+
+### endo-but-for-bots--packages-fae-COMPARISON-FAE-NANOBOT-md
+
+- [endo-but-for-bots--packages-fae-COMPARISON-FAE-NANOBOT-md--second-philosophical-axis-and-2d-design-space](endo-but-for-bots--packages-fae-COMPARISON-FAE-NANOBOT-md--second-philosophical-axis-and-2d-design-space.md)
+
+### endo-but-for-bots--packages-fae-README-md
+
+- [endo-but-for-bots--packages-fae-README-md--fae-as-multi-agent-factory](endo-but-for-bots--packages-fae-README-md--fae-as-multi-agent-factory.md)
+
+### endo-but-for-bots--packages-fae-setup-js
+
+- [endo-but-for-bots--packages-fae-setup-js--intra-file-mixing-of-naming-conventions](endo-but-for-bots--packages-fae-setup-js--intra-file-mixing-of-naming-conventions.md)
+
+### endo-but-for-bots--packages-fae-src-extract-tool-calls-js
+
+- [endo-but-for-bots--packages-fae-src-extract-tool-calls-js--multi-format-tool-call-normalization](endo-but-for-bots--packages-fae-src-extract-tool-calls-js--multi-format-tool-call-normalization.md)
+
+### endo-but-for-bots--packages-fae-src-tools-js
+
+- [endo-but-for-bots--packages-fae-src-tools-js--trust-boundary-as-error-handling-asymmetry](endo-but-for-bots--packages-fae-src-tools-js--trust-boundary-as-error-handling-asymmetry.md)
+
+### endo-but-for-bots--packages-familiar-README-md
+
+- [endo-but-for-bots--packages-familiar-README-md--README-as-TODO-placeholder](endo-but-for-bots--packages-familiar-README-md--README-as-TODO-placeholder.md)
+
+### endo-but-for-bots--packages-familiar-src-exfiltration-defense-js
+
+- [endo-but-for-bots--packages-familiar-src-exfiltration-defense-js--inside-out-threat-perpendicular-to-cotenant](endo-but-for-bots--packages-familiar-src-exfiltration-defense-js--inside-out-threat-perpendicular-to-cotenant.md)
+
+### endo-but-for-bots--packages-familiar-src-navigation-guard-js
+
+- [endo-but-for-bots--packages-familiar-src-navigation-guard-js--execution-context-isolation](endo-but-for-bots--packages-familiar-src-navigation-guard-js--execution-context-isolation.md)
+
+### endo-but-for-bots--packages-familiar-src-protocol-handler-js
+
+- [endo-but-for-bots--packages-familiar-src-protocol-handler-js--webletId-as-origin-and-routing-key](endo-but-for-bots--packages-familiar-src-protocol-handler-js--webletId-as-origin-and-routing-key.md)
+
+### endo-but-for-bots--packages-genie-DESIGN-md
+
+- [endo-but-for-bots--packages-genie-DESIGN-md--three-method-tool-shape-and-readme-aspirational-design-current](endo-but-for-bots--packages-genie-DESIGN-md--three-method-tool-shape-and-readme-aspirational-design-current.md)
+
+### endo-but-for-bots--packages-genie-README-md
+
+- [endo-but-for-bots--packages-genie-README-md--Claw-like-as-positioning-reference-and-five-field-agent-decomposition](endo-but-for-bots--packages-genie-README-md--Claw-like-as-positioning-reference-and-five-field-agent-decomposition.md)
+
+### endo-but-for-bots--packages-genie-src-tools-index-js
+
+- [endo-but-for-bots--packages-genie-src-tools-index-js--FTS5-shipping-and-VFS-with-two-backends](endo-but-for-bots--packages-genie-src-tools-index-js--FTS5-shipping-and-VFS-with-two-backends.md)
+
+### endo-but-for-bots--packages-init-README-md
+
+- [endo-but-for-bots--packages-init-README-md--cotenant-as-threat-model](endo-but-for-bots--packages-init-README-md--cotenant-as-threat-model.md)
+
+### endo-but-for-bots--packages-lal-LAL-ARCHITECTURE-md
+
+- [endo-but-for-bots--packages-lal-LAL-ARCHITECTURE-md--design-by-negation-and-document-tier-drift](endo-but-for-bots--packages-lal-LAL-ARCHITECTURE-md--design-by-negation-and-document-tier-drift.md)
+
+### endo-but-for-bots--packages-lal-README-md
+
+- [endo-but-for-bots--packages-lal-README-md--LLM-agent-as-caplet-with-five-tool-capabilities](endo-but-for-bots--packages-lal-README-md--LLM-agent-as-caplet-with-five-tool-capabilities.md)
+
+### endo-but-for-bots--packages-lal-agent-types-d-ts
+
+- [endo-but-for-bots--packages-lal-agent-types-d-ts--vestigial-types-and-bidirectional-drift](endo-but-for-bots--packages-lal-agent-types-d-ts--vestigial-types-and-bidirectional-drift.md)
+
+### endo-but-for-bots--packages-lal-primer-README-md
+
+- [endo-but-for-bots--packages-lal-primer-README-md--third-surface-third-audience](endo-but-for-bots--packages-lal-primer-README-md--third-surface-third-audience.md)
+
+### endo-but-for-bots--packages-lal-primer-capabilities-md
+
+- [endo-but-for-bots--packages-lal-primer-capabilities-md--result-flows-to-host-not-agent](endo-but-for-bots--packages-lal-primer-capabilities-md--result-flows-to-host-not-agent.md)
+
+### endo-but-for-bots--packages-lal-primer-chat-reference-md
+
+- [endo-but-for-bots--packages-lal-primer-chat-reference-md--chat-slash-command-vocabulary-and-three-networking-backends](endo-but-for-bots--packages-lal-primer-chat-reference-md--chat-slash-command-vocabulary-and-three-networking-backends.md)
+
+### endo-but-for-bots--packages-lal-primer-cli-reference-md
+
+- [endo-but-for-bots--packages-lal-primer-cli-reference-md--cli-as-execution-plus-daemon-surface-and-per-command-identity-switch](endo-but-for-bots--packages-lal-primer-cli-reference-md--cli-as-execution-plus-daemon-surface-and-per-command-identity-switch.md)
+
+### endo-but-for-bots--packages-lal-primer-errors-md
+
+- [endo-but-for-bots--packages-lal-primer-errors-md--verify-before-act-and-error-handling-discipline](endo-but-for-bots--packages-lal-primer-errors-md--verify-before-act-and-error-handling-discipline.md)
+
+### endo-but-for-bots--packages-lal-primer-formatting-md
+
+- [endo-but-for-bots--packages-lal-primer-formatting-md--quasi-markdown-dialect-with-non-standard-inline-formatting](endo-but-for-bots--packages-lal-primer-formatting-md--quasi-markdown-dialect-with-non-standard-inline-formatting.md)
+
+### endo-but-for-bots--packages-lal-primer-howto-capabilities-md
+
+- [endo-but-for-bots--packages-lal-primer-howto-capabilities-md--full-user-facing-attenuation-flow](endo-but-for-bots--packages-lal-primer-howto-capabilities-md--full-user-facing-attenuation-flow.md)
+
+### endo-but-for-bots--packages-lal-primer-howto-code-md
+
+- [endo-but-for-bots--packages-lal-primer-howto-code-md--define-endow-as-attenuation-pattern](endo-but-for-bots--packages-lal-primer-howto-code-md--define-endow-as-attenuation-pattern.md)
+
+### endo-but-for-bots--packages-lal-primer-howto-inventory-md
+
+- [endo-but-for-bots--packages-lal-primer-howto-inventory-md--pet-names-as-gc-roots](endo-but-for-bots--packages-lal-primer-howto-inventory-md--pet-names-as-gc-roots.md)
+
+### endo-but-for-bots--packages-lal-primer-howto-messaging-md
+
+- [endo-but-for-bots--packages-lal-primer-howto-messaging-md--four-command-context-lifecycle-vocabulary](endo-but-for-bots--packages-lal-primer-howto-messaging-md--four-command-context-lifecycle-vocabulary.md)
+
+### endo-but-for-bots--packages-lal-primer-messaging-md
+
+- [endo-but-for-bots--packages-lal-primer-messaging-md--style-as-part-of-surface-boundary](endo-but-for-bots--packages-lal-primer-messaging-md--style-as-part-of-surface-boundary.md)
+
+### endo-but-for-bots--packages-lal-primer-smallcaps-md
+
+- [endo-but-for-bots--packages-lal-primer-smallcaps-md--escape-set-covers-all-seven-prefixes-including-undisclosed-three](endo-but-for-bots--packages-lal-primer-smallcaps-md--escape-set-covers-all-seven-prefixes-including-undisclosed-three.md)
+
+### endo-but-for-bots--packages-lal-primer-tools-md
+
+- [endo-but-for-bots--packages-lal-primer-tools-md--vestigial-framing-revised-and-fourth-tool-count](endo-but-for-bots--packages-lal-primer-tools-md--vestigial-framing-revised-and-fourth-tool-count.md)
+
+### endo-but-for-bots--packages-lal-providers-anthropic-js
+
+- [endo-but-for-bots--packages-lal-providers-anthropic-js--role-cardinality-reduction-at-provider-boundary](endo-but-for-bots--packages-lal-providers-anthropic-js--role-cardinality-reduction-at-provider-boundary.md)
+
+### endo-but-for-bots--packages-lal-providers-config-js
+
+- [endo-but-for-bots--packages-lal-providers-config-js--readme-vs-code-disagreement-and-cycle-400-milestone](endo-but-for-bots--packages-lal-providers-config-js--readme-vs-code-disagreement-and-cycle-400-milestone.md)
+
+### endo-but-for-bots--packages-lal-providers-index-js
+
+- [endo-but-for-bots--packages-lal-providers-index-js--intra-function-jsdoc-drift-and-fractal-zoom-levels](endo-but-for-bots--packages-lal-providers-index-js--intra-function-jsdoc-drift-and-fractal-zoom-levels.md)
+
+### endo-but-for-bots--packages-lal-providers-ollama-js
+
+- [endo-but-for-bots--packages-lal-providers-ollama-js--role-preservation-vs-anthropic-reduction](endo-but-for-bots--packages-lal-providers-ollama-js--role-preservation-vs-anthropic-reduction.md)
+
+### endo-but-for-bots--packages-lal-setup-js
+
+- [endo-but-for-bots--packages-lal-setup-js--three-namespaces-and-hundredth-post-pivot](endo-but-for-bots--packages-lal-setup-js--three-namespaces-and-hundredth-post-pivot.md)
+
+### endo-but-for-bots--packages-lal-test-simulator-README-md
+
+- [endo-but-for-bots--packages-lal-test-simulator-README-md--mock-internals-real-externals-and-five-hundred-arcs](endo-but-for-bots--packages-lal-test-simulator-README-md--mock-internals-real-externals-and-five-hundred-arcs.md)
+
+### endo-but-for-bots--packages-lal-test-simulator-mock-powers-js
+
+- [endo-but-for-bots--packages-lal-test-simulator-mock-powers-js--guest-power-surface-vs-tool-surface](endo-but-for-bots--packages-lal-test-simulator-mock-powers-js--guest-power-surface-vs-tool-surface.md)
+
+### endo-but-for-bots--packages-marshal-README-md
+
+- [endo-but-for-bots--packages-marshal-README-md--pass-by-presence-vs-pass-by-copy](endo-but-for-bots--packages-marshal-README-md--pass-by-presence-vs-pass-by-copy.md)
+
+### endo-but-for-bots--packages-pass-style-src-byteArray-js
+
+- [endo-but-for-bots--packages-pass-style-src-byteArray-js--pre-lockdown-trust-capture-pattern](endo-but-for-bots--packages-pass-style-src-byteArray-js--pre-lockdown-trust-capture-pattern.md)
+
+### endo-but-for-bots--packages-pass-style-src-copyRecord-js
+
+- [endo-but-for-bots--packages-pass-style-src-copyRecord-js--two-phase-validation](endo-but-for-bots--packages-pass-style-src-copyRecord-js--two-phase-validation.md)
+
+### endo-but-for-bots--packages-patterns-README-md
+
+- [endo-but-for-bots--packages-patterns-README-md--passable-key-pattern-hierarchy](endo-but-for-bots--packages-patterns-README-md--passable-key-pattern-hierarchy.md)
+
+### endo-but-for-bots--packages-patterns-src-keys-copySet-js
+
+- [endo-but-for-bots--packages-patterns-src-keys-copySet-js--call-local-full-order-supplements-partial](endo-but-for-bots--packages-patterns-src-keys-copySet-js--call-local-full-order-supplements-partial.md)
+
+### endo-but-for-bots--packages-patterns-types-index-d-ts
+
+- [endo-but-for-bots--packages-patterns-types-index-d-ts--canonical-and-violating-instances-of-types-index-convention](endo-but-for-bots--packages-patterns-types-index-d-ts--canonical-and-violating-instances-of-types-index-convention.md)
+
+### endo-but-for-bots--packages-whylip-README-md
+
+- [endo-but-for-bots--packages-whylip-README-md--dual-backend-conversation-tree-as-mailbox-derived-reconstruction](endo-but-for-bots--packages-whylip-README-md--dual-backend-conversation-tree-as-mailbox-derived-reconstruction.md)
+
+### endo-but-for-bots--packages-whylip-src-SceneCanvas-jsx
+
+- [endo-but-for-bots--packages-whylip-src-SceneCanvas-jsx--layer-6-iframe-sandbox-via-allow-scripts-for-llm-scenes](endo-but-for-bots--packages-whylip-src-SceneCanvas-jsx--layer-6-iframe-sandbox-via-allow-scripts-for-llm-scenes.md)
+
+### endo-but-for-bots--packages-whylip-src-hooks-useConversation-js
+
+- [endo-but-for-bots--packages-whylip-src-hooks-useConversation-js--three-tier-parse-cascade-with-format-retry-loop-and-mailbox-streaming-sync](endo-but-for-bots--packages-whylip-src-hooks-useConversation-js--three-tier-parse-cascade-with-format-retry-loop-and-mailbox-streaming-sync.md)
+
 ### endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop
 
 - [endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type](endo-but-for-bots--pkg-chat-designs-outliner-drag-and-drop--same-name-different-directory-with-different-content-and-fractional-sort-order-and-move-reply-type.md) (index)
@@ -5796,6 +6647,62 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [§the-ten-row-Cases-Covered-table (first-explicit-observation)](endo-but-for-bots--pkg-compartment-mapper-designs-subpath-pattern-replacement--node-parity-by-construction-with-shared-assertions-and-string-token-not-glob-and-write-back-with-named-tag--the-ten-row-cases-covered-tabl.md)
   - [§the-three-named-test-files for the three-test-mode pattern (first-explicit-observation)](endo-but-for-bots--pkg-compartment-mapper-designs-subpath-pattern-replacement--node-parity-by-construction-with-shared-assertions-and-string-token-not-glob-and-write-back-with-named-tag--the-three-named-test-files-for.md)
   - [§the-write-back-pattern-with-named-`__createdBy` tag (first-explicit-observation)](endo-but-for-bots--pkg-compartment-mapper-designs-subpath-pattern-replacement--node-parity-by-construction-with-shared-assertions-and-string-token-not-glob-and-write-back-with-named-tag--the-write-back-pattern-with-na.md)
+
+### endo-but-for-bots--pkg-pubsub-readme
+
+- [endo-but-for-bots--pkg-pubsub-readme--cancellation-layering-and-provenance](endo-but-for-bots--pkg-pubsub-readme--cancellation-layering-and-provenance.md)
+- [endo-but-for-bots--pkg-pubsub-readme--change-and-latest-topics](endo-but-for-bots--pkg-pubsub-readme--change-and-latest-topics.md)
+- [endo-but-for-bots--pkg-pubsub-readme--overview-and-topic-variants](endo-but-for-bots--pkg-pubsub-readme--overview-and-topic-variants.md)
+- [endo-but-for-bots--pkg-pubsub-readme--sink-and-spring](endo-but-for-bots--pkg-pubsub-readme--sink-and-spring.md)
+
+### frb--compile-binder
+
+- [frb--compile-binder--algebraic-binders-equals-if-and-or](frb--compile-binder--algebraic-binders-equals-if-and-or.md)
+- [frb--compile-binder--invertible-roots-and-binder-table](frb--compile-binder--invertible-roots-and-binder-table.md)
+
+### frb--compile-observer
+
+- [frb--compile-observer--compilers-table-and-visitor](frb--compile-observer--compilers-table-and-visitor.md)
+- [frb--compile-observer--open-world-method-and-operator-fallback](frb--compile-observer--open-world-method-and-operator-fallback.md)
+
+### frb--grammar
+
+- [frb--grammar--literals-strings-numbers-records-tuples](frb--grammar--literals-strings-numbers-records-tuples.md)
+- [frb--grammar--mcs-sheet-and-statement-extensions](frb--grammar--mcs-sheet-and-statement-extensions.md)
+- [frb--grammar--path-expressions-pipe-and-tail](frb--grammar--path-expressions-pipe-and-tail.md)
+- [frb--grammar--token-tables-and-precedence-climbing](frb--grammar--token-tables-and-precedence-climbing.md)
+
+### frb--language
+
+- [frb--language--operator-precedence-and-token-tables](frb--language--operator-precedence-and-token-tables.md)
+
+### frb--parse
+
+- [frb--parse--parse-entry-and-tuple-shorthand](frb--parse--parse-entry-and-tuple-shorthand.md)
+
+### frb--readme
+
+- [frb--readme--architecture](frb--readme--architecture.md)
+- [frb--readme--bindings-and-query-language](frb--readme--bindings-and-query-language.md)
+- [frb--readme--overview](frb--readme--overview.md)
+- [frb--readme--properties](frb--readme--properties.md)
+- [frb--readme--reference-grammar](frb--readme--reference-grammar.md)
+- [frb--readme--reference-observers-and-binders](frb--readme--reference-observers-and-binders.md)
+- [frb--readme--reference-programmatic-api](frb--readme--reference-programmatic-api.md)
+- [frb--readme--reference-semantics](frb--readme--reference-semantics.md)
+- [frb--readme--reference-syntax-tree-and-language-interface](frb--readme--reference-syntax-tree-and-language-interface.md)
+- [frb--readme--tutorial-aggregations](frb--readme--tutorial-aggregations.md)
+- [frb--readme--tutorial-bindings-and-paths](frb--readme--tutorial-bindings-and-paths.md)
+- [frb--readme--tutorial-bindings-interface](frb--readme--tutorial-bindings-interface.md)
+- [frb--readme--tutorial-converters-computed-and-traces](frb--readme--tutorial-converters-computed-and-traces.md)
+- [frb--readme--tutorial-equality-and-content](frb--readme--tutorial-equality-and-content.md)
+- [frb--readme--tutorial-expression-language](frb--readme--tutorial-expression-language.md)
+- [frb--readme--tutorial-mapping-and-filtering](frb--readme--tutorial-mapping-and-filtering.md)
+- [frb--readme--tutorial-maps-and-lookups](frb--readme--tutorial-maps-and-lookups.md)
+- [frb--readme--tutorial-observer-interface](frb--readme--tutorial-observer-interface.md)
+- [frb--readme--tutorial-order-and-grouping](frb--readme--tutorial-order-and-grouping.md)
+- [frb--readme--tutorial-parameters-and-components](frb--readme--tutorial-parameters-and-components.md)
+- [frb--readme--tutorial-windowing-and-structure](frb--readme--tutorial-windowing-and-structure.md)
 
 ### garden--CLAUDE-md
 
@@ -5947,6 +6854,18 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [`garden/skills/self-improvement/SKILL.md` (thirteenth garden source ingest)](garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim--garden-skills-self-improvement-skill-md-thirteenth-garden-source-ingest.md)
   - [Key moves](garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim--key-moves.md)
   - [Notes](garden--skills-self-improvement-SKILL-md--thirteenth-garden-source-and-second-shape-extension-and-triple-claim--notes.md)
+
+### gtor--readme
+
+- [gtor--readme--asynchronous-generator-functions](gtor--readme--asynchronous-generator-functions.md)
+- [gtor--readme--asynchronous-values-and-functions](gtor--readme--asynchronous-values-and-functions.md)
+- [gtor--readme--iterators-and-generators](gtor--readme--iterators-and-generators.md)
+- [gtor--readme--progress-and-estimated-completion](gtor--readme--progress-and-estimated-completion.md)
+- [gtor--readme--promise-iterators-and-generators](gtor--readme--promise-iterators-and-generators.md)
+- [gtor--readme--promise-queues-and-buffers](gtor--readme--promise-queues-and-buffers.md)
+- [gtor--readme--reactivity-taxonomy](gtor--readme--reactivity-taxonomy.md)
+- [gtor--readme--signals-and-behaviors](gtor--readme--signals-and-behaviors.md)
+- [gtor--readme--summary-and-glossary](gtor--readme--summary-and-glossary.md)
 
 ### kriskowal-com--giants
 
@@ -6638,6 +7557,30 @@ Total section files: 5561 (868 parent indexes + 4693 children).
   - [Architecture requirements](web--aws-marketplace-container-requirements--technical-security--architecture-requirements.md)
   - [Billing integration: pricing models](web--aws-marketplace-container-requirements--technical-security--billing-integration-pricing-models.md)
   - [Security requirements](web--aws-marketplace-container-requirements--technical-security--security-requirements.md)
+
+### web--aws-marketplace-fees-and-identity
+
+- [web--aws-marketplace-fees-and-identity--identity-bonding-and-saas-listings-api](web--aws-marketplace-fees-and-identity--identity-bonding-and-saas-listings-api.md)
+- [web--aws-marketplace-fees-and-identity--listing-fees-and-partner-network](web--aws-marketplace-fees-and-identity--listing-fees-and-partner-network.md)
+
+### web--azure-marketplace-containers
+
+- [web--azure-marketplace-containers--requirements-pricing-and-lifecycle](web--azure-marketplace-containers--requirements-pricing-and-lifecycle.md)
+
+### web--azure-marketplace-publisher-guide
+
+- [web--azure-marketplace-publisher-guide--offer-type-taxonomy](web--azure-marketplace-publisher-guide--offer-type-taxonomy.md)
+- [web--azure-marketplace-publisher-guide--saas-offer-requirements](web--azure-marketplace-publisher-guide--saas-offer-requirements.md)
+- [web--azure-marketplace-publisher-guide--vm-offer-requirements](web--azure-marketplace-publisher-guide--vm-offer-requirements.md)
+
+### web--comparative-analysis-aws-azure-gcp-marketplaces
+
+- [web--comparative-analysis-aws-azure-gcp-marketplaces--landscape-fees-and-isv-fit](web--comparative-analysis-aws-azure-gcp-marketplaces--landscape-fees-and-isv-fit.md)
+
+### web--gcp-marketplace-partner-program
+
+- [web--gcp-marketplace-partner-program--product-types-and-partner-program](web--gcp-marketplace-partner-program--product-types-and-partner-program.md)
+- [web--gcp-marketplace-partner-program--saas-integration-and-identity](web--gcp-marketplace-partner-program--saas-integration-and-identity.md)
 
 ### web--tls-first-boot-patterns
 
