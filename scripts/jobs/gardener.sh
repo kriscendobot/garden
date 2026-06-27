@@ -30,11 +30,26 @@ CLONE="$GARDEN_GARDENER_CLONE"
 : "${GARDEN_ONESHOT:=0}"
 : "${GARDEN_JOB_HANDLER:=$HERE/handlers/gardener-claude.sh}"
 
+# Busy marker — a local, lock-free signal that this gardener is mid-job, so the
+# deploy reconciler (deploy-sync.sh) restarts a gardener BETWEEN claims, never
+# mid-job. Present only while a handler runs; absent while idle/between claims.
+# Cleared at startup so a marker stranded by a hard crash (the gardener was killed
+# before it could clear it) can never permanently exempt this id from re-exec — a
+# fresh process is, by definition, not yet mid-job.
+BUSY_MARKER="$GARDEN_STATE/gardeners/$id/busy"
+mkdir -p "$(dirname "$BUSY_MARKER")" 2>/dev/null || true
+rm -f "$BUSY_MARKER" 2>/dev/null || true
+
 log "starting (clone=$CLONE handler=$GARDEN_JOB_HANDLER oneshot=$GARDEN_ONESHOT)"
 
 idle_rounds=0
 while :; do
   if killswitch_engaged; then log "killswitch engaged; exiting cleanly"; exit 0; fi
+
+  # Top of the loop is a between-claims point: clear the busy marker so the deploy
+  # reconciler may restart this gardener now (it re-exec's onto landed script
+  # fixes). The marker is re-set just before the handler runs, below.
+  rm -f "$BUSY_MARKER" 2>/dev/null || true
 
   # monitor the bus for anything addressed to this role or broadcast, every loop
   "$HERE/read-msgs.sh" "gardener-$id" "role/gardener" "broadcast" || true
@@ -81,6 +96,10 @@ while :; do
   printf 'gardener-%s on %s claimed job %s\n' "$id" "$GARDEN_HOST" "$base" \
     | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
   "$HERE/inbox-read.sh" "$base" || true
+
+  # Mark this gardener mid-job so the deploy reconciler defers restarting it until
+  # it next goes idle (cleared at the top of the next loop iteration).
+  : > "$BUSY_MARKER" 2>/dev/null || true
 
   log "working '$base'"
   if GARDEN_GARDENER_ID="$id" "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1; then

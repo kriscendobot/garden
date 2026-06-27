@@ -70,8 +70,9 @@ for u in garden-foreman.timer garden-deadmail.timer garden-follow-up.timer \
   grep -qxF "$u" "$GARDEN_MOCK_STATE" && ok "$u enabled (was dormant)" || bad "$u NOT enabled"
 done
 # Standalone continuous services are enabled as services (the bulletin migration
-# case, and the design-poller which a hand-list had also missed).
-for u in garden-bulletin.service garden-design-poller.service; do
+# case). The design-poller was retired 2026-06-26 (its unit no longer ships), so
+# it is no longer asserted here.
+for u in garden-bulletin.service; do
   grep -qxF "$u" "$GARDEN_MOCK_STATE" && ok "$u enabled (standalone service)" || bad "$u NOT enabled"
 done
 

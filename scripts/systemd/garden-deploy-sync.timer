@@ -1,0 +1,9 @@
+[Unit]
+Description=Garden deploy-sync timer
+
+[Timer]
+OnActiveSec=3m
+OnUnitActiveSec=3m
+
+[Install]
+WantedBy=timers.target
