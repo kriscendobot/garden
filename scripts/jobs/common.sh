@@ -533,6 +533,25 @@ is_transient_claude_signature() {
   printf '%s' "$1" | grep -qiE "$GARDEN_TRANSIENT_CLAUDE_SIGNATURES"
 }
 
+# Classify a handler exit code ($1) as an EXTERNAL signal-kill: SIGTERM (143),
+# SIGINT (130), or SIGKILL/OOM (137). Returns 0 for these, 1 otherwise. An
+# external signal-kill is NEVER a deterministic job defect — it is a deploy-window
+# restart, a drain-fleet stop, an OOM, a host shutdown, or the reaper's claim-TTL
+# kill — so it is transient REGARDLESS of whether the killed handler had already
+# flushed partial output to its capture (progress lines, a folded report tail).
+# gardener.sh consults this FIRST, before the empty/non-empty capture split, so
+# capture content is irrelevant for these codes; the reaper requeues the job after
+# GARDEN_CLAIM_TTL. Deliberately does NOT cover the offline rc (GARDEN_OFFLINE_RC):
+# that stays gated on its own existing paths (sync_clone's clean skip, the
+# empty-capture is_transient_empty_failure branch), since an offline tick is a
+# connectivity classification, not a process kill.
+is_external_kill_rc() {
+  case "$1" in
+    143|130|137) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 # Classify an EMPTY-output handler failure by its exit code ($1): transient blip
 # (returns 0) versus a deterministic defect that must escalate now (returns 1).
 # With no stdout/stderr and no $report there is no signature to match, so the

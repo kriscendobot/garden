@@ -174,7 +174,20 @@ while :; do
     # cycle. is_transient_empty_failure (common.sh) makes that call, mirroring the
     # signal/offline discrimination in self-heal-run.sh that this comment claims.
     transient=0
-    if [ ! -s "$capture" ]; then
+    if is_external_kill_rc "$rc"; then
+      # An EXTERNAL signal-kill (143 SIGTERM / 130 SIGINT / 137 SIGKILL/OOM) is
+      # never a deterministic job defect — it is a deploy-window restart, a
+      # drain-fleet stop, an OOM, a host shutdown, or the reaper's claim-TTL kill.
+      # Classify it transient FIRST, before the empty/non-empty capture split, so
+      # capture content is IRRELEVANT for these codes: a gardener killed mid-job
+      # that already flushed partial output to $capture (progress lines, the
+      # folded tail of $report) must NOT be falsely escalated as a real failure
+      # just because it had written something (the 2026-06-27 rc=143 escalation of
+      # garden-deliberate-deploy-no-shared-tree-development). The reaper requeues
+      # the job after GARDEN_CLAIM_TTL. Only NON-signal rcs fall through to the
+      # capture-content-sensitive tests below.
+      transient=1
+    elif [ ! -s "$capture" ]; then
       # Empty output is transient ONLY when $rc is a signal/clean-shutdown code
       # or the offline rc (a `claude -p` killed mid-call). A non-signal,
       # non-offline non-zero rc with empty output — rc=127/126 (missing /
@@ -198,8 +211,8 @@ while :; do
       # it only makes a not-actually-transient job (a wedged scholar fetch, an OOM)
       # visible early to a human or a future watchman self-test.
       cycle="$(reap_count "$jobfile")"
-      log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, empty/transient-signature capture); no escalation, left in doin for TTL requeue"
-      printf 'gardener-%s on %s: job %s handler exited rc=%s with empty/transient-signature output; transient handler outage (requeue cycle %s); left in doin for TTL requeue (no escalation)\n' \
+      log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, signal-kill/empty/transient-signature capture); no escalation, left in doin for TTL requeue"
+      printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/empty/transient-signature output); transient handler outage (requeue cycle %s); left in doin for TTL requeue (no escalation)\n' \
         "$id" "$GARDEN_HOST" "$base" "$rc" "$cycle" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
     else
