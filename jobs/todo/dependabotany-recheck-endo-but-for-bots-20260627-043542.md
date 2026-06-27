@@ -1,7 +1,3 @@
-cadence: daily
-last_dispatched: 2026-06-27T04:35:51Z
-job_basename_prefix: dependabotany-recheck-endo-but-for-bots
----
 # Daily dependabotany recheck: endojs/endo-but-for-bots
 
 Fires daily. Dispatches a gardener wearing the
