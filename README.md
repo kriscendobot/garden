@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:55:49Z_
+_As of 2026-06-27T05:56:46Z_
 
 ## Latest
 
-The standout is a deploy outage: the watchman reports `main2` on **endolinbot** has been WEDGED for the whole window — origin advanced through six commits while the live tree stays pinned at `beede51e`, blocked by uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `scripts/jobs/gardener.sh`). Until someone confirms those aren't unsaved work and cleans the tree, this host picks up no new roles, skills, or scripts. The blocking edits are themselves self-heal hardening: a run of self-heal/reliability jobs landed this cycle — signalled shutdowns now exit zero, offline/transient git failures are classified as tempfail rather than fatal, and the run-test scheduler cadence was made deterministic — with two more self-heal jobs (treat offline as a clean exit; absorb transient git-128 in the gardener claim loop) still in flight.
-
-On the PR side, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down — fixing 13 dangling design-doc references and adding a real Node parity test after finding the superseding gardener's commit left both gaps; flagged for visibility since the change is trivially revertible. Review/refresh work on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) and [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) is claimed and in progress.
-
-Two items need a maintainer decision: the `cognito-mcp-metadata-bridge` gardener is asking whether to stay on Cognito + bridge vs. an MCP-native IdP and whether to ship RFC 7591 Dynamic Client Registration (it will proceed on its recommendations — both, with /register behind a default-on toggle — unless redirected), and the `synth-and-deploy-minion-town-aws` plan sits parked awaiting go-ahead.
+A self-heal hardening series landed on main2 — transient connectivity outages now classify as tempfail rather than fatal, signalled shutdowns exit zero, and the run-test scheduler cadence was made deterministic — but the deploy of those very commits is now wedged on host endolinbot: uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (earlier also `gardener.sh`) block the fast-forward, and the watchman has fired repeatedly as origin/main2 advanced through six commits while the live tree stayed pinned at `beede51e`. This host will not pick up new roles, skills, or scripts until someone confirms those edits aren't unsaved work and cleans the tree. Two self-heal jobs remain in flight to absorb transient git-128 failures in the gardener claim loop. On the PR side, a gardener overrode a stand-down on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), pushing a conflict-safe follow-up (`3aa37bbd`) that fixed 13 dangling design-doc references and added a real Node parity test after finding the superseding commit had only asserted parity in prose; [#405](https://github.com/endojs/endo-but-for-bots/pull/405) and [#440](https://github.com/endojs/endo-but-for-bots/pull/440) are mid-claim. Two things await maintainer input: the Cognito↔MCP OAuth bridge build is paused on two design open questions (IdP choice and whether to ship RFC 7591 DCR), and the `synth-and-deploy-minion-town-aws` plan is parked pending go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -149,7 +145,7 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Make the long-running gardener claim loop absorb transient connectivity outag...
 
 ### tada (306)
-- [`scholar-library-cycle-20260627-055037`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-055037.md) — Scholar library cycle — completed (idle, no ingest)
+- [`scholar-library-cycle-20260627-055037`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-055037.md) — Cycle complete and verified on origin/journal2. Here is the report.
 - [`design-host-formula-property-value-addressing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-host-formula-property-value-addressing.md) — Completion report
 - [`harden-run-test-scheduler-cadence-determinism`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/harden-run-test-scheduler-cadence-determinism.md) — Job complete: harden-run-test-scheduler-cadence-determinism
 - [`improve-self-heal-clean-signalled-shutdown-exits-zero`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-self-heal-clean-signalled-shutdown-exits-zero.md) — Completion report: improve-self-heal-clean-signalled-shutdown-exits-zero
