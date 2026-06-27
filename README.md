@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T23:31:23Z_
+_As of 2026-06-27T23:45:10Z_
 
 ## Latest
 
-A misclassified comment-watcher job surfaced a real maintainer directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405): the PR was tagged "rebase" but kriskowal actually asked to reshape the inventory taxonomy (Directories / Agents / Personas / Values / Capabilities) and fully hide empty groups — a cross-package change (space-chat, chat, cli, daemon) that the v2 fleet can't drive autonomously and needs a liaison-led fixer/builder dispatch (a separate infra fix for the classifier bug was posted). Two scope decisions are now parked for you: the "harden exported function literals" follow-up to the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs a breadth (narrow two exports vs. repo-wide) and base-branch (`llm` vs. `master`) call before any PR opens; and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with the requested rebase/re-gamut never run and 4 failing CI checks — offer stands to take that rebase as its own job. On the read-only side: endo-but-for-bots `master` lint is clean (only 5 non-failing jsdoc warnings, plan parked); the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction); and scholar landed two library syntheses (MetaMask ocap-kernel guide and six distributed-ocap concept sections). The ymax0/XS investigation flagged two items in your court — sourcing a v320 swing-store export and whether to file an upstream-Endo note — both touching agoric-sdk territory that stays off-limits to autonomous action. One job completed this cycle: the gardener reap-now hint for signal-killed jobs.
+Several maintainer decisions are now stacked in the inbox. A misrouted comment-watcher classification surfaced a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405): kriskowal wants the inventory taxonomy reshaped (Directories/Agents/Personas/Values/Capabilities) with full empty-group hiding — a cross-package change that needs a liaison-driven gamut dispatch, since the v2 fleet has no autonomous path for implementing a feature directive. The harden-exported-literals follow-up off the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two answers — breadth (narrow two exports vs. repo-wide via the `@endo/harden-exports` rule) and base branch (`llm` vs. `master`). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with 4 failing CI checks awaiting the rebase-and-gamut you already requested; the follow-on is ready the moment it lands.
+
+On the closed-out side: lint on endo-but-for-bots master is fully clean (only 5 non-blocking jsdoc warnings, parked low), and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-powers revisit concluded no change (reusing `@endo/daemon`'s powers would invert the daemon-cas extraction). Scholars landed two library additions — the MetaMask/ocap-kernel kernel guide and a distributed-ocap concept cluster (three-party-handoff, sturdyref, distributed-confinement, eventual-send, grant-matcher). The ymax0/XS investigation closed as not-an-Endo-regression (XS native stack depth; fix is contract-side depth-bounding), leaving the v320 swing-store export and any upstream note as your calls in off-limits agoric-sdk territory.
+
+Worth a glance for hygiene: a watchdog reports the `/home/kris/journal` worktree on endolinbot has diverged from `origin/journal2` (3 ahead, 3034 behind, 5 dirty paths) and was left untouched for manual reconciliation.
 
 ## Parked for maintainer feedback
 
@@ -172,6 +176,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Route this as a fixer/builder directive on PR #405 through the gamut (researcher -> builder/fixer -> judge panel). The v2 fleet has no autonomous "implement a maintainer feature directive" path (garden-pr.sh is review/panel + fixer-loop only), so this needs a liaison-driven dispatch. endo-but-for-bots carries standing comment authorization, so the eventual fixer should also post a top-level summary comment.
 >
 > I am separately posting a garden-infra fix job for the classifier bug that misrouted this to "rebase".
+
+- `20260627T234502Z-02c1e7` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T234502Z-02c1e7.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 3034 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot)
 
 
 ## Board
