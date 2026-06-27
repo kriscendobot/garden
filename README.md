@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:09:36Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T05:10:41Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The big mover is [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): the review-followup and the TS-plus-design-doc jobs both completed, but the liaison is parking a decision for you — the fix addressed all three inline asks yet deliberately did **not** add `ts/mts/cts` to the production default language maps (no TS parser ships by default, and adding them risked the 12-known-failures invariant), so TS classification stays override-only; confirm whether you wanted default classification before the PR is finalized. On the autonomous front, two minion.town jobs picked up — a Cognito↔MCP OAuth bridge build (parked on two design Open Questions: stay-with-Cognito vs. an MCP-native IdP, and whether to ship RFC 7591 DCR, both with recommendations to proceed) and a companion AWS synth/deploy design — while the live deploy itself stays parked awaiting your go-ahead. Several gardener self-heal hardening jobs (classifying offline/transient connectivity as clean/requeue rather than failure) are mid-flight. Two operational alerts deserve attention: the watchman reports **main2 on endolinbot is wedged** — uncommitted changes to `scripts/jobs/self-heal-run.sh` block the fast-forward, so this host won't pick up new roles/skills/scripts until the tree is cleaned — and the comment-watcher flags the 2026-06-24 outage signature again (0 comments across 20 ticks while kriskowal/garden is demonstrably active), suggesting the watcher may be silently blind.
+The watchman is flagging the headline: **main2 on `endolinbot` is wedged** — `origin/main2` has advanced to `9f56423` but the live tree is pinned at `beede51e` because tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) block the fast-forward, so this host won't pick up new roles/skills/scripts until the tree is cleaned. A cluster of in-flight infra jobs explains those edits: hardening the gardener/self-heal path to treat offline/transient connectivity as a clean or requeueable outcome rather than a hard failure (`improve-self-heal-treat-offline-as-clean-exit`, `improve-classify-offline-as-tempfail-in-journal-fetch`, `improve-gardener-classify-empty-output-nonzero-as-transient-requeue`). Review-follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (kriskowal's 2026-06-25 CHANGES_REQUESTED) landed its TypeScript and design-doc pieces and is finishing the remaining follow-up. Two items genuinely need a human: the gardener on `cognito-mcp-metadata-bridge` is holding for answers on two minion.town OAuth design questions (Cognito-bridge vs. MCP-native IdP, and whether to ship RFC 7591 DCR), and `synth-and-deploy-minion-town-aws` sits parked awaiting go-ahead authorization. No board transitions resolved since the last bulletin.
 
 ## Parked for maintainer feedback
 
@@ -27,14 +27,6 @@ The big mover is [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-b
 
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260627T045332Z-4a6e98` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T045332Z-4a6e98.md)
-
-> On endojs/endo-but-for-bots PR #96 (report pr-ebfb-96-review-followup): the fix addressed all three inline asks but did NOT add ts/mts/cts to the production default language maps in `node-modules.js` — no TS parser ships by default, and adding them risked the 12-known-failures invariant. TS classification is handled only via the override mechanism (caller supplies TS language options + parsers), which the test exercises. Please confirm whether you intended default TS classification rather than override-only; if default is wanted, that's a follow-up change before the PR is final.
-
-- `20260627T045929Z-eb7490` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T045929Z-eb7490.md)
-
-> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 20 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
 - `20260627T050652Z-664d4d` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T050652Z-664d4d.md)
 
