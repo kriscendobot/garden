@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T12:11:52Z_
+_As of 2026-06-27T12:18:46Z_
 
 ## Latest
 
-The headline for the maintainer is operational: **main2 on endolinbot has been deploy-wedged all day**. A steady stream of watchman alerts shows the live checkout stuck behind a fast-moving `origin/main2` because uncommitted working-tree edits (cycling through `self-heal-run.sh`, `gardener.sh`, `claim-job.sh`, `report-error.sh`, and the library-link scripts) keep blocking the fast-forward — so landed fixes are not reaching the running fleet. A new deploy-sync reconciler landed on main2 (`5d6490e62`) to advance the checkout and restart services automatically, but it is inert until a units refresh arms it, and the gardener flagged that the current wedge is a redundant byte-identical edit to `report-error.sh` that a lossless `git checkout --` will clear. Relatedly, self-heal reported `garden-gardener` crash-looping on a transient git-128 during claim; the fix is already on main2, the host is just behind it. Separately, the **comment-watcher for kriskowal/garden has gone blind again** — 0 comments for 300+ ticks despite known activity, matching the 2026-06-24 jq/gh outage signature.
+The big story is operational: host **endolinbot**'s `main2` deploy has been wedged all morning. The watchman has fired a steady stream of alerts because uncommitted tracked changes (most recently the `library-link-*` scripts, earlier `self-heal-run.sh`, `gardener.sh`, and `report-error.sh`) keep refusing the fast-forward while `origin/main2` advances — so the host is now many commits behind and is **not** picking up landed fixes. Two of those stranded fixes matter: the `garden-gardener` crash-loop fix (a transient git-128 during claim that systemd-restart-looped) and a new **deploy-sync reconciler** (`5d6490e2`) that clean-fast-forwards the checkout and restarts long-running services when `scripts/` change. A gardener notes the current blocker, `report-error.sh`, is byte-identical to the committed version, so `git checkout -- ` on it is lossless and would unwedge the deploy.
 
-On the PR/library front: a follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`), repairing 13 dangling design-doc references and adding a real Node-parity test atop the prior superseding commit. The formula-inspector retention-paths table is **blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)**, which is still open and stalled since 2026-05-21 with 4 failing CI checks — it needs the rebase-and-re-gamut you already requested before that table can be built. The cognito↔MCP OAuth bridge gardener is holding for your go/no-go on two design questions (Cognito-plus-bridge vs MCP-native IdP, and whether to ship RFC 7591 dynamic client registration). Lint on endo-but-for-bots master is clean apart from 5 non-blocking jsdoc warnings, and scholar ingests added the MetaMask ocap-kernel guide plus a distributed-ocap concept cluster to the library.
+Separately, the `comment-watcher/kriskowal-garden` watchdog has now reported **zero comments for 300+ consecutive ticks** despite known activity — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking on this host.
+
+On the work front: the [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) review follow-up landed (`3aabbd`) fixing 13 dangling doc references and adding a real Node parity test atop the superseding gardener's commit; a lint classification found endo master **clean** (only 5 non-blocking jsdoc warnings, parked as a low plan); and scholars ingested MetaMask's ocap-kernel guide plus a six-topic distributed-ocap concept cluster. The formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested (currently 4 CI checks red). Two messages await a decision: the `cognito-mcp-metadata-bridge` gardener is proceeding on its own recommendations (Cognito + bridge, DCR behind a default-on toggle) unless redirected, and the `synth-and-deploy-minion-town-aws` plan is parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -513,8 +515,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`garden-harden-producer-body-read-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-harden-producer-body-read-hang.md) — Harden producer body-reading: a non-file body arg + non-tty stdin hangs on ca...
 
 ### tada (348)
 - [`improve-journal-entry-argv-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-entry-argv-guard.md) — Job complete. Completion report:
@@ -529,7 +531,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`garden-harden-producer-body-read-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-harden-producer-body-read-hang.md) — _normal_ · Harden producer body-reading: a non-file body arg + non-tty stdin hangs on ca...
 - [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
 - [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-parallel-sync-browser-design.md) — _low_ · Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo sho...
 - [`endo-but-for-bots-harden-exported-literals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-harden-exported-literals-followup.md) — _low_ · follow-up PR: harden exported function literals (evasive-transform first)
