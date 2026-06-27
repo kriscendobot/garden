@@ -9198,9 +9198,16 @@ STDIO MCP | (see section: mcp-landscape--gateway-hosting-category)
 
 ## Object-capability history: E, CapDesk, Polaris (ocap-history survey, 2026-06-11)
 
-E language | (see section: ocap-history--e-capdesk-polaris-market-history)
-E programming language | (see section: ocap-history--e-capdesk-polaris-market-history)
-Original-E | (see section: ocap-history--e-capdesk-polaris-market-history)
+E language | e-language
+E programming language | e-language
+E (programming language) | e-language
+Kernel-E | e-language
+E grammar | e-language
+E in a Walnut | e-language
+ENative | e-language
+erights.org | e-language
+E language documentation index | e-language
+Original-E | e-language
 Electric Communities | (see section: ocap-history--e-capdesk-polaris-market-history)
 Habitats VR | (see section: ocap-history--e-capdesk-polaris-market-history)
 CapDesk | (see section: ocap-history--e-capdesk-polaris-market-history)
