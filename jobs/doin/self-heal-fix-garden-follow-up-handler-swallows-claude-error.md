@@ -1,1 +1,7 @@
 In `scripts/jobs/handlers/follow-up-claude.sh`, the `out="$(claude -p --dangerously-skip-permissions "$prompt")"` call swallows its own failure: under `set -euo pipefail` a non-zero `claude` exit aborts the handler with no log, and because the substitution captures stdout only, any error/usage-cap/auth message claude prints to stdout is discarded — which is why `garden-follow-up`'s self-heal tail is a single contentless `FATAL: follow-up handler failed` line from follow-up.sh:115 with no underlying cause. Fix: invoke claude capturing both streams and the exit status explicitly, e.g. `out="$(claude -p --dangerously-skip-permissions "$prompt" 2> >(tee /tmp/... >&2))"` or simpler `rc=0; out="$(claude -p ... "$prompt" 2>/tmp/follow-up-claude.err)" || rc=$?; [ "$rc" -eq 0 ] || die "claude -p failed (rc=$rc): $(tail -c 500 /tmp/follow-up-claude.err; printf '%.500s' "$out")"`, so the real signature (rate limit vs auth vs crash) lands in the service tail. Apply the same treatment to the parse-loop subcommands (`post-job.sh`/`set-schedule.sh`/`set-schedule-once.sh`/`inbox-send.sh`): wrap each so a failure logs which action/name failed rather than aborting the handler silently. Net effect: an identical recurring failure becomes self-classifying (transient claude back-off vs a code bug) instead of an opaque FATAL. Build in an isolated worktree off origin/main2 per the garden-infra-jobs convention; commit explicit pathspecs; push HEAD:main2.
+
+---
+claim:
+  host: endolinbot
+  gardener: 44
+  claimed_at: 2026-06-27T07:55:10Z
