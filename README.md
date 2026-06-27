@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T12:18:46Z_
+_As of 2026-06-27T12:24:46Z_
 
 ## Latest
 
-The big story is operational: host **endolinbot**'s `main2` deploy has been wedged all morning. The watchman has fired a steady stream of alerts because uncommitted tracked changes (most recently the `library-link-*` scripts, earlier `self-heal-run.sh`, `gardener.sh`, and `report-error.sh`) keep refusing the fast-forward while `origin/main2` advances — so the host is now many commits behind and is **not** picking up landed fixes. Two of those stranded fixes matter: the `garden-gardener` crash-loop fix (a transient git-128 during claim that systemd-restart-looped) and a new **deploy-sync reconciler** (`5d6490e2`) that clean-fast-forwards the checkout and restarts long-running services when `scripts/` change. A gardener notes the current blocker, `report-error.sh`, is byte-identical to the committed version, so `git checkout -- ` on it is lossless and would unwedge the deploy.
+The big story for a maintainer is operational, not feature work: **main2 on `endolinbot` has been deploy-wedged for the whole window.** The watchman has fired a steady stream of WEDGED alerts since ~05:00Z — the live `/home/kris` tree is stuck many commits behind `origin/main2` because tracked edits (cycling through `self-heal-run.sh`, `gardener.sh`, `claim-job.sh`, `report-error.sh`, then the `library-link-*` scripts) and untracked-file collisions keep blocking the fast-forward, so this host is not picking up any newly landed roles, skills, or scripts. One gardener diagnosed the latest culprit as a *byte-identical* redundant uncommitted edit to `report-error.sh`; a `git checkout --` is lossless and unwedges it. The newly landed **deploy-sync reconciler** (`5d6490e62`) that auto-advances the checkout and restarts services is inert until a units refresh arms it — and it too is blocked by the same dirty tree. Separately, the `comment-watcher/kriskowal-garden` watchdog has now flagged the **2026-06-24 outage signature** — 0 comments for 300 consecutive ticks despite real activity on kriskowal/garden — so that watcher is likely blind again (check jq/gh).
 
-Separately, the `comment-watcher/kriskowal-garden` watchdog has now reported **zero comments for 300+ consecutive ticks** despite known activity — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking on this host.
-
-On the work front: the [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) review follow-up landed (`3aabbd`) fixing 13 dangling doc references and adding a real Node parity test atop the superseding gardener's commit; a lint classification found endo master **clean** (only 5 non-blocking jsdoc warnings, parked as a low plan); and scholars ingested MetaMask's ocap-kernel guide plus a six-topic distributed-ocap concept cluster. The formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested (currently 4 CI checks red). Two messages await a decision: the `cognito-mcp-metadata-bridge` gardener is proceeding on its own recommendations (Cognito + bridge, DCR behind a default-on toggle) unless redirected, and the `synth-and-deploy-minion-town-aws` plan is parked awaiting your go-ahead.
+On the work side: producer-hardening continued (`garden-harden-producer-body-read-hang` completed; `garden-fix-producer-arg-guard-uppercase-kind` claimed). A gardener pushed a conflict-safe corrective follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) after a stand-down, fixing 13 dangling doc references and adding a real Node parity test. Lint classification found **endo-but-for-bots master is clean** (only 5 non-blocking jsdoc warnings). The `formula-inspector-retention-paths-table` job is **blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)**, which has been stalled since 2026-05-21 awaiting your requested rebase-and-gamut (now with 4 failing checks). Two maintainer decisions are also waiting: the Cognito↔MCP OAuth bridge gardener wants confirmation on RFC 7591 DCR before building, and `synth-and-deploy-minion-town-aws` sits in the plan queue awaiting authorization.
 
 ## Parked for maintainer feedback
 
@@ -510,21 +508,38 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
+- `20260627T122423Z-3d9c8a` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T122423Z-3d9c8a.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 310dfcece33a6ebf0da0b5787ca92d6874783998 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/journal-entry.sh
+>  M scripts/jobs/library-link-check.sh
+>  M scripts/jobs/library-link-scan.sh
+>  M scripts/jobs/test/library-link-check-test.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`garden-harden-producer-body-read-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-harden-producer-body-read-hang.md) — Harden producer body-reading: a non-file body arg + non-tty stdin hangs on ca...
+- [`garden-fix-producer-arg-guard-uppercase-kind`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-fix-producer-arg-guard-uppercase-kind.md) — producer-arg-guard-test.sh has 2 pre-existing failures: uppercase-kind expect...
 
-### tada (348)
+### tada (349)
+- [`garden-harden-producer-body-read-hang`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-harden-producer-body-read-hang.md) — Completion report: garden-harden-producer-body-read-hang
 - [`improve-journal-entry-argv-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-entry-argv-guard.md) — Job complete. Completion report:
 - [`scholar-library-cycle-20260627-115254`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-115254.md) — Completion report — scholar-library-cycle-20260627-115254
 - [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/classify-lint-endo-master.md) — Completion report — classify-lint-endo-master
 - [`improve-source-acquisition-archive-fallback-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-source-acquisition-archive-fallback-script.md) — Completion report
-- [`improve-link-check-classify-advisory-vs-must-resolve`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-link-check-classify-advisory-vs-must-resolve.md) — Completion report
-- … and 343 more
+- … and 344 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
