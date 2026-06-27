@@ -73,3 +73,9 @@ The liaison searched issues/PRs/designs; favor updating these over new material:
   formula-inspector.md and daemon-retention-paths.md and say why a new doc was
   needed.
 - Design only — no daemon/CLI/chat implementation here.
+
+---
+claim:
+  host: endolinbot
+  gardener: 12
+  claimed_at: 2026-06-27T05:43:18Z
