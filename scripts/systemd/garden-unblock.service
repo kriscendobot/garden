@@ -4,7 +4,7 @@ Description=Garden unblock watcher (promote gate=blocked plans when their blocke
 [Service]
 Type=oneshot
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-unblock -- @GARDEN_ROOT@/scripts/jobs/unblock.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-unblock -- @GARDEN_ROOT@/scripts/jobs/unblock.sh
 # The self-heal responder runs synchronously on a failed tick before the wrapper
 # returns the failing rc; give it headroom beyond the implicit 90s oneshot start
 # timeout so a diagnosis is not cut off (responder itself is hard-bounded by

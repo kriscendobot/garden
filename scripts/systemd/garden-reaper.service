@@ -4,4 +4,4 @@ Description=Garden reaper (requeue stale doin claims)
 [Service]
 Type=oneshot
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/reaper.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/reaper.sh

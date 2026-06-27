@@ -10,7 +10,7 @@ Type=oneshot
 # tip-sync connectivity outage that cleanly skips the tick, never a failure.
 SuccessExitStatus=143 130 75 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-library-source-drift-scan --expect 75 -- @GARDEN_ROOT@/scripts/jobs/library-source-drift-scan.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-library-source-drift-scan --expect 75 -- @GARDEN_ROOT@/scripts/jobs/library-source-drift-scan.sh
 # The self-heal responder runs synchronously on a failed tick before the
 # wrapper returns the failing rc; give it headroom beyond the implicit 90s
 # oneshot start timeout so a diagnosis is not cut off (responder itself is

@@ -2048,5 +2048,35 @@ fi
 rm -rf "$II_TR"
 
 # ============================================================================
+hr; echo "SUBTEST 27 — UNIT EXECSTART: every rendered garden-*.service execs /bin/bash"; hr
+# Regression for the 2026-06-27 fleet-wide status=203/EXEC outage: deploy-sync.sh
+# advances the live checkout in place (git ff + install-units re-render) while a
+# unit may be (re)starting, so a unit whose ExecStart execve()s the script file
+# directly hits a momentarily absent/non-executable script → 203/EXEC, which counts
+# toward StartLimitBurst and can wedge the worker DOWN past the deploy. The fix runs
+# a stable interpreter (/bin/bash) so systemd never 203/EXECs; a transient unreadable
+# script becomes an ordinary nonzero bash exit that Restart/the next tick retries.
+# Render every template exactly as install-units.sh render() does (sed @GARDEN_ROOT@)
+# and assert every ExecStart= begins with /bin/bash.
+UE_SRC="$JOBS/../systemd"
+UE_DEST="$TR/rendered-units"; mkdir -p "$UE_DEST"
+ue_fail=0; ue_n=0
+for f in "$UE_SRC"/garden-*.service; do
+  [ -e "$f" ] || continue
+  sed "s#@GARDEN_ROOT@#/home/kris#g" "$f" > "$UE_DEST/$(basename "$f")"
+done
+while IFS= read -r execline; do
+  ue_n=$((ue_n+1))
+  case "$execline" in
+    ExecStart=/bin/bash\ *) : ;;
+    *) bad "ExecStart does not exec /bin/bash: $execline"; ue_fail=1 ;;
+  esac
+done < <(grep -h '^ExecStart=' "$UE_DEST"/garden-*.service)
+{ [ "$ue_fail" -eq 0 ] && [ "$ue_n" -ge 1 ]; } \
+  && ok "all $ue_n rendered garden-*.service ExecStart lines exec /bin/bash (no 203/EXEC on a deploy-window restart)" \
+  || bad "some garden-*.service ExecStart does not exec /bin/bash (checked $ue_n)"
+rm -rf "$UE_DEST"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

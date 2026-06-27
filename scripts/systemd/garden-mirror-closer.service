@@ -11,7 +11,7 @@ Description=Garden mirror-closer (close our mirror PR when its upstream PR close
 [Service]
 Type=oneshot
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-mirror-closer -- @GARDEN_ROOT@/scripts/jobs/mirror-closer.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-mirror-closer -- @GARDEN_ROOT@/scripts/jobs/mirror-closer.sh
 # The self-heal responder runs synchronously on a failed tick before the
 # wrapper returns the failing rc; give it headroom beyond the implicit 90s
 # oneshot start timeout so a diagnosis is not cut off (responder itself is

@@ -5,6 +5,13 @@ After=default.target
 # CollectMode is a [Unit] key (it was mis-placed under [Service], which systemd
 # rejected with "Unknown key name 'CollectMode' in section 'Service'").
 CollectMode=inactive-or-failed
+# A deploy-sync.sh window advances the live checkout in place while units may be
+# (re)starting; a transient absent/unreadable script could otherwise burst
+# 203/EXEC failures that count toward StartLimitBurst and wedge a worker DOWN past
+# the deploy. ExecStart now execs /bin/bash (always present, never 203/EXEC), and
+# StartLimitIntervalSec=0 disables the start-rate limiter so no burst of failures
+# during a deploy can hold this worker DOWN indefinitely.
+StartLimitIntervalSec=0
 
 [Service]
 Type=exec
@@ -15,7 +22,7 @@ Slice=background.slice
 # doesn't trip the Restart=on-failure path on a clean stop.
 SuccessExitStatus=143 130 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-gardener --work-id %i -- @GARDEN_ROOT@/scripts/jobs/gardener.sh %i
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-gardener --work-id %i -- @GARDEN_ROOT@/scripts/jobs/gardener.sh %i
 # long-running loop; keep it up if it dies, but back off
 Restart=on-failure
 RestartSec=5

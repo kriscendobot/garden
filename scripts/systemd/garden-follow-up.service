@@ -4,7 +4,7 @@ Description=Garden follow-up (convert tada-report follow-ups into jobs/schedules
 [Service]
 Type=oneshot
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
-ExecStart=@GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-follow-up -- @GARDEN_ROOT@/scripts/jobs/follow-up.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-follow-up -- @GARDEN_ROOT@/scripts/jobs/follow-up.sh
 # The self-heal responder runs synchronously on a failed tick before the
 # wrapper returns the failing rc; give it headroom beyond the implicit 90s
 # oneshot start timeout so a diagnosis is not cut off (responder itself is

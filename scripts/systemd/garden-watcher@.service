@@ -13,7 +13,7 @@ WorkingDirectory=%h
 # this is the belt-and-suspenders so any future bypass of the wrapper still
 # doesn't trip the Restart=on-failure path on a clean stop.
 SuccessExitStatus=143 130 SIGTERM SIGINT
-ExecStart=%h/scripts/jobs/self-heal-run.sh garden-watcher@%i -- %h/scripts/watcher/%i/watcher.sh
+ExecStart=/bin/bash %h/scripts/jobs/self-heal-run.sh garden-watcher@%i -- %h/scripts/watcher/%i/watcher.sh
 Restart=on-failure
 RestartSec=30s
 StandardOutput=journal
