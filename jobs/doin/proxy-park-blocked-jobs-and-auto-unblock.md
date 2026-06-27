@@ -73,3 +73,9 @@ The proxy parks blocked jobs as `gate: blocked` plans with a deterministic unblo
 PR-merge / blocking-job completion), scrubs the blocked notifications from the maintainer inbox, surfaces
 the blocked queue in the bulletin, records the authorization in roles/proxy/AGENT.md + the journal, with
 tests proving park → no-auto-promote → unblock-on-completion.
+
+---
+claim:
+  host: endolinbot
+  gardener: 12
+  claimed_at: 2026-06-27T18:28:19Z
