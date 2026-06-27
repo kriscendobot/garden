@@ -40,6 +40,8 @@ rm -rf "$TR"; mkdir -p "$TR"
 #   STUB_AVAIL_JSON     availability-API JSON printed to stdout
 #   STUB_ARCHIVE_RC     archive-fetch exit code (0 -> writes STUB_ARCHIVE_BODY)
 #   STUB_ARCHIVE_BODY   body written on a successful archive fetch
+#   STUB_MIRROR_RC      erights GitHub Pages mirror exit code (0 -> writes body)
+#   STUB_MIRROR_BODY    body written on a successful mirror fetch
 # It also records each requested URL to $STUB_LOG for assertions.
 STUB="$TR/curl-stub.sh"
 cat >"$STUB" <<'STUB_EOF'
@@ -61,6 +63,9 @@ case "$url" in
   *"web.archive.org"*)
     [ "${STUB_ARCHIVE_RC:-0}" = 0 ] && printf '%s' "${STUB_ARCHIVE_BODY:-}" >"$out"
     exit "${STUB_ARCHIVE_RC:-0}" ;;
+  *"erights.github.io"*)
+    [ "${STUB_MIRROR_RC:-0}" = 0 ] && printf '%s' "${STUB_MIRROR_BODY:-}" >"$out"
+    exit "${STUB_MIRROR_RC:-0}" ;;
   *)
     [ "${STUB_DIRECT_RC:-0}" = 0 ] && printf '%s' "${STUB_DIRECT_BODY:-}" >"$out"
     exit "${STUB_DIRECT_RC:-0}" ;;
@@ -145,6 +150,55 @@ MAN="$(STUB_DIRECT_RC=0 STUB_DIRECT_BODY="tmp-body" "$FETCH" "$URL" 2>/dev/null)
 p="$(printf '%s' "$MAN" | field source_output_path)"
 [ -n "$p" ] && [ "$(cat "$p")" = "tmp-body" ] && ok "default temp file holds the bytes" || bad "default output path wrong ($p)"
 rm -f "$p"
+
+# === 7. erights.org HTML page: direct fails -> GitHub Pages mirror 200 =======
+# The mirror carries the HTML site and preserves the path, so the rewrite is
+# `https://erights.org/<path>` -> `https://erights.github.io/erights-org-website/<path>`,
+# and the archive is NOT consulted when the mirror serves the bytes.
+hr; echo "CASE 7: erights.org HTML -> mirror 200 (archive untouched)"
+: >"$STUB_LOG"
+EURL="https://erights.org/elang/index.html"
+OUT="$TR/case7.out"
+MAN="$(STUB_DIRECT_RC=7 STUB_MIRROR_RC=0 STUB_MIRROR_BODY="mirror-html" \
+       "$FETCH" "$EURL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+[ "$(printf '%s' "$MAN" | field source_fetched_via)" = mirror ] && ok "via=mirror" || bad "via not mirror"
+eff="$(printf '%s' "$MAN" | field source_effective_url)"
+[ "$eff" = "https://erights.github.io/erights-org-website/elang/index.html" ] \
+  && ok "path-preserving mirror rewrite" || bad "wrong mirror URL: $eff"
+got="$(printf '%s' "$MAN" | field source_content_sha256)"
+[ "$got" = "$(sha_of mirror-html)" ] && ok "sha matches mirror body" || bad "sha mismatch ($got)"
+[ "$(cat "$OUT")" = "mirror-html" ] && ok "mirror bytes written" || bad "output body wrong"
+grep -q "web.archive.org" "$STUB_LOG" && bad "archive contacted despite mirror 200" || ok "archive NOT contacted"
+
+# === 8. erights.org PDF: direct fails, mirror 404 -> archive fallback ========
+# The mirror does NOT carry PDFs / talk files (404), so a non-zero mirror fetch
+# must drop through to the Internet-Archive original-bytes capture.
+hr; echo "CASE 8: erights.org PDF -> mirror 404 -> archive fallback"
+: >"$STUB_LOG"
+PURL="https://erights.org/talks/asian03/paradigm.pdf"
+OUT="$TR/case8.out"
+AVAIL='{"archived_snapshots":{"closest":{"available":true,"url":"x","timestamp":"20180101000000","status":"200"}}}'
+MAN="$(STUB_DIRECT_RC=7 STUB_MIRROR_RC=22 \
+       STUB_AVAIL_RC=0 STUB_AVAIL_JSON="$AVAIL" \
+       STUB_ARCHIVE_RC=0 STUB_ARCHIVE_BODY="archived-pdf" \
+       "$FETCH" "$PURL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+grep -q "erights.github.io" "$STUB_LOG" && ok "mirror was attempted first" || bad "mirror not attempted"
+[ "$(printf '%s' "$MAN" | field source_fetched_via)" = wayback ] && ok "via=wayback after mirror 404" || bad "via not wayback"
+[ "$(cat "$OUT")" = "archived-pdf" ] && ok "archived bytes written" || bad "output body wrong"
+
+# === 9. non-erights URL: mirror is NOT attempted ============================
+# The mirror rewrite is gated on the erights.org / caplet.com host; any other
+# host must skip the mirror entirely and go straight to the archive.
+hr; echo "CASE 9: non-erights URL skips the mirror"
+: >"$STUB_LOG"
+NURL="https://example.com/whatever.html"
+OUT="$TR/case9.out"
+STUB_DIRECT_RC=7 STUB_AVAIL_RC=0 STUB_AVAIL_JSON='{"archived_snapshots":{}}' \
+  STUB_ARCHIVE_RC=0 STUB_ARCHIVE_BODY="arc" "$FETCH" "$NURL" "$OUT" >/dev/null 2>&1; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+grep -q "erights.github.io" "$STUB_LOG" && bad "mirror attempted for non-erights URL" || ok "mirror NOT attempted"
 
 hr
 echo "fetch-source-test: $PASS passed, $FAIL failed"
