@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T11:24:50Z_
+_As of 2026-06-27T11:26:39Z_
 
 ## Latest
 
-The headline for the maintainer is operational, not feature work: host **endolinbot**'s `main2` deploy has been wedged all morning, with the watchman firing repeatedly because uncommitted tracked edits (`scripts/jobs/self-heal-run.sh`, then `skills/gardener-inbox-error-reporting/report-error.sh`, later joined by `gardener.sh` and `claim-job.sh`) block the fast-forward — leaving the live tree dozens of commits behind origin. A gardener diagnosed the root cause: the blocking `report-error.sh` edit is byte-identical to what's already on origin, so a lossless `git checkout --` would unwedge it. Relatedly, a new deploy-sync reconciler landed on `main2` (`5d6490e6`) to advance the checkout and restart long-running services automatically when `scripts/` changes — but it's inert until the next `install-units.sh` units refresh arms it. Separately, the `comment-watcher/kriskowal-garden` watchdog is again reporting the 2026-06-24 outage signature (260+ ticks finding zero comments while the repo is demonstrably active), suggesting a `jq`/`gh` blind spot worth re-checking.
+Host endolinbot's deploy has been wedged all morning: the watchman fired roughly sixteen times reporting main2 frozen at an old commit while origin/main2 advanced more than twenty commits, because uncommitted edits to a handful of tracked scripts (`self-heal-run.sh`, `gardener.sh`, `claim-job.sh`, and `gardener-inbox-error-reporting/report-error.sh`) block the fast-forward. A gardener confirmed those edits are byte-identical to what already landed, so `git checkout --` on them is lossless and unsticks the host — until then this host picks up no new roles, skills, or scripts. The newly-landed deploy-sync reconciler (5d6490e6), which is meant to auto-restart services when `scripts/` changes, is itself stranded behind the same wedge and stays inert until a units refresh arms it.
 
-On the work front, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node parity test after finding the superseding gardener's commit had left both gaps. Scholar ingests continued steadily (a sixth ocap-kernel guide ingest plus a six-topic distributed-ocap concept cluster), and the `e-equality-taxonomy-adjacent` scholar job completed. One job is blocked and flagged for the maintainer: the formula-inspector retention-paths table can't proceed until the stalled `listRetentionPaths` PR (#284) gets its requested rebase-and-gamut and lands. Two maintainer decisions also sit unread — the Cognito↔MCP OAuth bridge gardener is awaiting go/no-go on two design questions before building.
+Separately, the kriskowal/garden comment-watcher has now logged zero comments for 260 consecutive ticks despite the repo being active since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking the comment-source handler on endolinbot.
+
+On the PR side, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing thirteen dangling design-doc references and adding a real code-backed Node parity test that the prior landing only asserted in prose, after judging a stand-down's superseding job had already departed. A formula-inspector table job is blocked on a still-open, CI-failing host-API PR (`listRetentionPaths`) stalled since 2026-05-21, and the cognito-mcp-metadata-bridge build is paused awaiting your answers on two design questions (Cognito-plus-bridge vs. an MCP-native IdP, and whether to ship RFC 7591 dynamic client registration). Scholar also landed several ocap-library ingests, including MetaMask's ocap-kernel guide and a six-section distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -415,8 +417,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`fu-scholar-ingest-e-equality-taxonomy-adjacent-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-scholar-ingest-e-equality-taxonomy-adjacent-1.md) — In the scholar library (garden's own scholar reference shelf), conventions.md...
 
 ### tada (342)
 - [`scholar-ingest-e-equality-taxonomy-adjacent`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-e-equality-taxonomy-adjacent.md) — scholar-ingest-e-equality-taxonomy-adjacent — done
