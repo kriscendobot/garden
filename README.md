@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T18:29:08Z_
+_As of 2026-06-27T18:29:47Z_
 
 ## Latest
 
-A misrouted comment-watcher classification surfaced a real maintainer directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405): the comment asks to reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and fully hide empty groups across space-chat, chat, cli, and daemon — a cross-package feature change, not the "rebase" it was classified as. The classifier bug that misrouted it is already fixed ([garden-fix-comment-classifier-misroutes-directive-to-rebase](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-comment-classifier-misroutes-directive-to-rebase.md)); the #405 directive itself still needs a liaison-driven builder/fixer dispatch since the v2 fleet has no autonomous path for implementing a feature ask. Two scope decisions are parked for you: the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up (erights authorized the narrow two-export form; needs breadth + base-branch choice), and the formula-inspector retention-paths table, which is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) — still open, stalled since the rebase/re-gamut you requested, with 4 failing checks. On the garden side, a self-heal fixed the proxy's leading-dash printf format, and jobs to let the proxy park-and-auto-unblock and to clean the wedged main2 tree on endolinbot are in flight. Library work continued: scholar ingests landed a distributed-ocap concept cluster and a sixth MetaMask ocap-kernel guide.
+Only one job-board transition landed since the last bulletin: the watchman's autonomous wedge-resolution job for `endolinbot` completed cleanly. The substantive movement is in the maintainer inbox, which needs review. A misrouted comment-watcher classification surfaced a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — kriskowal wants the inventory taxonomy reshaped (Directories/Agents/Personas/Values/Capabilities) with full empty-group hiding; this is a cross-package change that has no autonomous path and needs a liaison-driven builder/fixer dispatch. The harden-exported-literals follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked awaiting two decisions from you (narrow vs repo-wide breadth, and `llm` vs `master` base). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you already requested. Lower-stakes: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction), endo master lint came back clean (only 5 non-blocking jsdoc warnings), and the scholar landed several ocap-kernel and distributed-ocap library ingests.
 
 ## Parked for maintainer feedback
 
@@ -178,20 +178,19 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
 - [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
 - [`proxy-park-blocked-jobs-and-auto-unblock`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proxy-park-blocked-jobs-and-auto-unblock.md) — Authorize the proxy to park blocked jobs + auto-unblock when the blocker comp...
-- [`resolve-wedge-endolinbot-6ff2f8caa4dc-71049535740`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/resolve-wedge-endolinbot-6ff2f8caa4dc-71049535740.md) — Autonomous wedge resolution — clean the shared main2 tree on host endolinbot
 - [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-mirror.md) — Re-ingest erights.org E-language page from the now-reachable GitHub Pages mirror
 
-### tada (384)
+### tada (385)
+- [`resolve-wedge-endolinbot-6ff2f8caa4dc-71049535740`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-6ff2f8caa4dc-71049535740.md) — Completion report
 - [`self-heal-fix-garden-proxy-printf-leading-dash-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-proxy-printf-leading-dash-format.md) — Done.
 - [`improve-library-link-check-stale-worktree-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-library-link-check-stale-worktree-guard.md) — No inbox messages. Work is complete and pushed.
 - [`scholar-library-cycle-20260627-175523`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-175523.md) — Job completed and confirmed on tip (jobs/tada/, gone from doin/).
 - [`garden-fix-comment-classifier-misroutes-directive-to-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-comment-classifier-misroutes-directive-to-rebase.md) — Completion report: garden-fix-comment-classifier-misroutes-directive-to-rebase
-- [`endojs-endo-but-for-bots-pr405-de3edd06`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-de3edd06.md) — Completion report — endojs-endo-but-for-bots-pr405-de3edd06
-- … and 379 more
+- … and 380 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
