@@ -50,7 +50,20 @@ if [ ! -f "$TRANSCRIPT" ]; then
   echo "report-error: transcript file missing: $TRANSCRIPT" >&2
   exit 1
 fi
-TRANSCRIPT_SHA=$(git -C "$GARDEN_JOURNAL" hash-object -w --stdin < "$TRANSCRIPT")
+# Empty-blob defense, centralized here so no caller can ever escalate the
+# zero-byte git blob (e69de29b...): a fired escalation with no diagnostic for
+# the responder. If the transcript is empty, hash a synthetic, self-describing
+# line instead -- on a temp copy so the caller's file is not mutated -- so the
+# escalated blob is always fetchable and non-empty.
+if [ ! -s "$TRANSCRIPT" ]; then
+  TRANSCRIPT_COPY=$(mktemp)
+  printf 'report-error: handler produced no captured output (empty transcript); rc/state=%s, context=%s\n' \
+    "$STATE" "$CONTEXT" > "$TRANSCRIPT_COPY"
+  TRANSCRIPT_SHA=$(git -C "$GARDEN_JOURNAL" hash-object -w --stdin < "$TRANSCRIPT_COPY")
+  rm -f "$TRANSCRIPT_COPY"
+else
+  TRANSCRIPT_SHA=$(git -C "$GARDEN_JOURNAL" hash-object -w --stdin < "$TRANSCRIPT")
+fi
 
 # 2. Build the inbox section.
 INBOX_DIR="$GARDEN_JOURNAL/inboxes/$GARDEN_HOST"
