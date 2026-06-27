@@ -30,3 +30,9 @@ petstore/daemon surfaces) and what "mount a file system" means in terms of Endo
 powers/petnames; specify the panel/lock/arrow UX and the sync-settings model;
 and detail the CapTP + locator handshake that achieves direct party-to-party
 sync. Call out open questions for the maintainer where the framing is ambiguous.
+
+---
+claim:
+  host: endolinbot
+  gardener: 84
+  claimed_at: 2026-06-27T12:53:18Z
