@@ -52,6 +52,18 @@ while :; do
     sleep "$GARDEN_IDLE_SLEEP"
     continue
   fi
+  # A transient DNS/connectivity outage during the claim's sync_clone fetch
+  # propagates up as GARDEN_OFFLINE_RC (EX_TEMPFAIL, default 75) from
+  # common.sh:sync_clone — the offline-tick signal that GARDEN_OFFLINE_RC was
+  # designed to make a clean skip-and-retry. Treat it like the empty-board case:
+  # log, sleep, and retry next tick. Do NOT die (a self-resolving blip would
+  # otherwise crash-loop the worker and burn a self-heal responder), and do NOT
+  # increment idle_rounds (an offline tick is not a drained board for ONESHOT).
+  if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
+    log "offline; skipping claim tick (rc=$rc), retry next cadence"
+    sleep "$GARDEN_IDLE_SLEEP"
+    continue
+  fi
   [ "$rc" -ne 0 ] && die "claim failed (rc=$rc)"
   idle_rounds=0
 
@@ -69,7 +81,21 @@ while :; do
 
   log "working '$base'"
   if GARDEN_GARDENER_ID="$id" "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1; then
-    "$HERE/complete-job.sh" "$id" "$base" "$report"
+    # complete-job.sh runs sync_clone, which exits GARDEN_OFFLINE_RC on a
+    # transient outage — under set -e that would crash the worker on a blip after
+    # the handler already succeeded. Tolerate the offline rc: the job stays in
+    # doin and the reaper requeues it after GARDEN_CLAIM_TTL; the handler's work
+    # is idempotent on re-claim. Any other non-zero is still a real failure.
+    set +e
+    "$HERE/complete-job.sh" "$id" "$base" "$report"; crc=$?
+    set -e
+    if [ "$crc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
+      log "offline during completion of '$base' (rc=$crc); left in doin for TTL requeue"
+      rm -f "$report" "$capture"
+      sleep "$GARDEN_IDLE_SLEEP"
+      continue
+    fi
+    [ "$crc" -ne 0 ] && die "complete-job failed for '$base' (rc=$crc)"
     printf 'gardener-%s on %s completed job %s\n' "$id" "$GARDEN_HOST" "$base" \
       | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
   else

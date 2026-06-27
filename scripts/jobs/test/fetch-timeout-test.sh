@@ -127,6 +127,35 @@ else
 fi
 
 # ============================================================================
+hr; echo "SUBTEST 5 — sync_clone offline path survives a BARE set -e caller"; hr
+# REGRESSION GUARD. SUBTEST 3 invokes sync_clone as `( ... sync_clone ) || rc=$?`,
+# which suspends set -e for the whole subshell — so it never exercised the path
+# the real claim/complete callers use: a BARE `sync_clone "$DIR"` under an active
+# set -e. In that context two separate set -e trip points used to kill the process
+# with the raw fetch rc (128) BEFORE the offline classification ran: (a) the
+# `GARDEN_FETCH_STDERR="$(...failing-fetch...)"` assignment inside journal_fetch,
+# and (b) the `journal_fetch "$dir"; rc=$?` call inside sync_clone (a function
+# returning non-zero is itself a set -e exit). Both are now captured through an
+# `if`, so the EX_TEMPFAIL (75) skip is actually reachable. Run sync_clone from a
+# child shell that has `set -e` ON and calls it BARE; the child must exit 75.
+cat > "$TR/bin/bare-sync.sh" <<EOF
+#!/bin/bash
+set -euo pipefail
+source "$JOBS/common.sh"
+export GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_CMD="$TR/bin/offline-fetch"
+sync_clone "$TR/bareclone"
+echo "REACHED-PAST-SYNC"   # must NOT print: sync_clone exits 75 before here
+EOF
+chmod +x "$TR/bin/bare-sync.sh"
+mkdir -p "$TR/bareclone"
+set +e; out="$("$TR/bin/bare-sync.sh" 2>&1)"; brc=$?; set -e
+if [ "$brc" -eq 75 ] && ! grep -q REACHED-PAST-SYNC <<<"$out"; then
+  ok "bare set -e caller: sync_clone exited EX_TEMPFAIL (75), classification reachable"
+else
+  bad "bare set -e caller: sync_clone exited $brc (expected 75; offline path not reachable from a bare caller)"
+fi
+
+# ============================================================================
 hr
 rm -rf "$TR"
 echo "RESULTS: $PASS passed, $FAIL failed"

@@ -403,10 +403,19 @@ journal_fetch() {
   local dir="$1" attempt=1 rc=0
   GARDEN_FETCH_STDERR=""
   while :; do
+    # Capture the fetch's stderr AND its exit code. The assignment must sit inside
+    # an `if` so a non-zero command substitution does NOT trip the caller's `set -e`
+    # before we can read $rc: a bare `VAR="$(failing-cmd)"; rc=$?` exits the whole
+    # process at the assignment under `set -e`, which silently defeated sync_clone's
+    # offline classification (its `exit $GARDEN_OFFLINE_RC` was never reached when
+    # journal_fetch was called from a bare `set -e` context — the claim/complete
+    # path — so a transient outage crashed the worker with the raw fetch rc instead
+    # of the clean EX_TEMPFAIL skip). The `if` suspends `set -e` for the condition,
+    # so we capture the real rc and let sync_clone do the classifying.
     if [ -n "${GARDEN_FETCH_CMD:-}" ]; then
-      GARDEN_FETCH_STDERR="$(GARDEN_FETCH_DIR="$dir" "$GARDEN_FETCH_CMD" 2>&1 1>/dev/null)"; rc=$?
+      if GARDEN_FETCH_STDERR="$(GARDEN_FETCH_DIR="$dir" "$GARDEN_FETCH_CMD" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
     else
-      GARDEN_FETCH_STDERR="$(timeout "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch -q origin "$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; rc=$?
+      if GARDEN_FETCH_STDERR="$(timeout "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch -q origin "$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
     fi
     [ "$rc" -eq 0 ] && return 0
     [ "$rc" -eq 124 ] && log "journal fetch in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s) on attempt $attempt"
@@ -441,7 +450,12 @@ _fetch_stderr_is_offline() {
 sync_clone() {
   local dir="$1" rc
   clone_lock "$dir"
-  journal_fetch "$dir"; rc=$?
+  # `journal_fetch ...; rc=$?` would trip the caller's `set -e` at the call itself
+  # when the fetch fails (a function returning non-zero in a bare statement is a
+  # `set -e` exit), killing the process before we can classify the failure as a
+  # transient outage below. Capture the rc through an `if` so `set -e` is suspended
+  # for the call and the offline path is actually reachable from a bare caller.
+  if journal_fetch "$dir"; then rc=0; else rc=$?; fi
   if [ "$rc" -ne 0 ]; then
     # A network/resolver outage (git exits 128 with a recognizable diagnostic) is
     # a transient signal, not a real failure: exit EX_TEMPFAIL so the wrapper and

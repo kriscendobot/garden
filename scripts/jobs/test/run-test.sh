@@ -1251,5 +1251,52 @@ set +e; SELF_HEAL_THROTTLE_SECS=0 "$SHRUN" garden-net -- \
 unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER JOURNAL_REMOTE
 
 # ============================================================================
+hr; echo "SUBTEST 22 — GARDENER OFFLINE CLAIM: a transient outage skips, never crashes"; hr
+# A DNS/connectivity blip during the claim's sync_clone fetch makes claim-job.sh
+# exit GARDEN_OFFLINE_RC (75, EX_TEMPFAIL). gardener.sh must treat that like the
+# empty-board case — log "offline; skipping claim tick", sleep, and retry next
+# cadence — NOT die (which crash-loops the worker and burns a self-heal
+# responder on a self-resolving blip). Drive it with an injected offline fetch:
+# ensure_clone's initial `git clone` is real (so the clone exists), but every
+# subsequent sync_clone routes through GARDEN_FETCH_CMD → exit 128 with a
+# resolver diagnostic → sync_clone exits 75 → claim-job.sh exits 75.
+export JOURNAL_REMOTE="$BARE"
+OFFBIN="$TR/bin"; mkdir -p "$OFFBIN"
+cat > "$OFFBIN/offline-fetch" <<'EOF'
+#!/bin/bash
+echo "ssh: Could not resolve hostname github.com: Temporary failure in name resolution" >&2
+echo "fatal: Could not read from remote repository." >&2
+exit 128
+EOF
+chmod +x "$OFFBIN/offline-fetch"
+OFFLOG="$TR/logs/gardener-offline.log"
+# Permanently-offline board under ONESHOT: the offline branch never increments
+# idle_rounds (an outage is not a drained board), so a CORRECT gardener loops
+# forever skipping — we give it a few ticks, assert it stayed ALIVE (the buggy
+# `die` exits ~immediately), then kill it. GARDEN_FETCH_RETRIES=1 keeps each
+# offline classification fast.
+env GARDEN_HOST=offhost GARDEN_STATE="$TR/state-offline" \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
+    GARDEN_FETCH_CMD="$OFFBIN/offline-fetch" GARDEN_FETCH_RETRIES=1 \
+    GARDEN_JOB_HANDLER="$HERE/stub-handler.sh" \
+    "$JOBS/gardener.sh" off > "$OFFLOG" 2>&1 &
+offpid=$!
+sleep 4
+if kill -0 "$offpid" 2>/dev/null; then
+  ok "gardener survived a persistent claim outage (did not die on rc=75)"
+else
+  set +e; wait "$offpid"; offrc=$?; set -e
+  bad "gardener exited on an offline claim tick (rc=$offrc; expected it to keep skipping)"
+fi
+kill "$offpid" 2>/dev/null || true; wait "$offpid" 2>/dev/null || true
+grep -q 'offline; skipping claim tick' "$OFFLOG" \
+  && ok "gardener logged the offline skip-and-retry" \
+  || bad "gardener did not log an offline skip ($(tail -1 "$OFFLOG" 2>/dev/null))"
+grep -q 'claim failed' "$OFFLOG" \
+  && bad "gardener treated the outage as a fatal claim failure" \
+  || ok "gardener did not escalate the outage to a fatal claim failure"
+unset JOURNAL_REMOTE
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
