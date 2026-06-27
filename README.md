@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:29:59Z_
+_As of 2026-06-27T07:32:39Z_
 
 ## Latest
 
-The big movement is infrastructure self-repair. The **deploy-sync reconciler** landed on main2 (`5d6490e6`): it advances each host's checkout by a strict clean fast-forward and restarts the long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — but it's inert until the next units refresh arms `garden-deploy-sync.timer`. Alongside it, the self-heal fix for transient git-128 claim failures landed (a network blip no longer crash-loops a gardener), and offline-fetch signatures were broadened.
+The headline this cycle is infrastructure, not PRs: host **endolinbot**'s `main2` checkout is wedged — a redundant uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (byte-identical to what's already on `origin/main2`) is blocking the fast-forward, so the watchman has fired a steady stream of "WEDGED" alerts and the live tree now sits several commits behind. A `git checkout --` of that one file is lossless and unwedges the deploy. Relatedly, the new **deploy-sync reconciler** landed on `main2` (5d6490e62): it advances the checkout by a strict clean fast-forward and restarts long-running services when `scripts/` changes, but it's inert until a routine units refresh arms its timer — and it's blocked by the same dirty tree right now. Two watchdogs also flagged that `comment-watcher/kriskowal-garden` has seen 0 comments for 100+ ticks despite real activity since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking.
 
-The maintainer should notice that **endolinbot is deploy-wedged** and has been for hours: the live `/home/kris` tree carries an uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` whose content is byte-identical to what's already on origin/main2, so git refuses every fast-forward and the host is now ~6 commits behind. Both the watchman and the new deploy-sync skip the advance. A gardener flagged the lossless unwedge (`git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh`) but correctly declined to touch the shared live tree from a job. Earlier wedge cycles named `scripts/jobs/gardener.sh` and `scripts/jobs/self-heal-run.sh` for the same reason.
-
-Two recurring alarms also warrant eyes: the **comment-watcher/kriskowal-garden** anomaly fired again (0 comments for 100 consecutive ticks while the repo is demonstrably active — the 2026-06-24 outage signature, suggesting jq/gh blindness on endolinbot), and a corrective follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down on a duplicated job, a gardener found two real defects in the superseding commit (13 dangling design-doc references and a prose-only parity claim), confirmed no active second writer, and pushed a conflict-safe non-force fix adding a real Node parity test. Finally, the `cognito-mcp-metadata-bridge` build is paused on two design Open Questions awaiting the maintainer's go-ahead.
+On code work, a gardener pushed a conflict-safe follow-up (3aa37bbd) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) fixing 13 dangling design-doc references and adding a real Node parity test after finding the superseding commit left both gaps; full compartment-mapper suite clean. The `formula-inspector-retention-paths-table` job completed only as a blocked-gap report: it depends on PR #284's `listRetentionPaths` host API, which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently has 4 failing checks — that PR needs to land before the table can be built. Finally, the `cognito-mcp-metadata-bridge` gardener is awaiting your call on two design questions (Cognito-plus-bridge vs. an MCP-native IdP, and whether to ship RFC 7591 DCR) before building, and `synth-and-deploy-minion-town-aws` remains parked pending your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -248,21 +246,36 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > 1. It is INERT until armed. garden-deploy-sync.timer auto-enables on the next 'install-units.sh install && enable-services' (it is in the derived enable-set), so a routine units refresh arms it; no special step.
 > 2. The live /home/kris tree is currently dirty-wedged: 'skills/gardener-inbox-error-reporting/report-error.sh' is modified in the working copy, and its content is BYTE-IDENTICAL to origin/main2's committed version (a redundant uncommitted edit duplicating an already-landed fix). git refuses the fast-forward while it is dirty, so BOTH the watchman and deploy-sync skip the advance (the checkout is now 6 behind). 'git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh' is lossless (content already on origin) and unwedges the deploy. I did not touch the shared live tree from a gardener job.
 
+- `20260627T073148Z-d2f9fb` — from gardener:formula-inspector-retention-paths-table, reply_to `formula-inspector-retention-paths-table` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T073148Z-d2f9fb.md)
+
+> Job `formula-inspector-retention-paths-table` is BLOCKED on its data source and I'm reporting the gap (not reimplementing the graph walk, per the plan's own instruction).
+>
+> Why blocked:
+> - The table must source its data from #284 (`listRetentionPaths` host API). #284 is still OPEN and NOT on base `llm`.
+> - #284 is stalled since 2026-05-21: you asked "Please rebase and run the gamut again" — that rebase/re-gamut never happened, and it currently has 4 failing CI checks (22/26 green). Not mergeable as-is.
+> - Building the table now would require either binding to a non-existent host method (CI can't pass on `llm`) or duplicating the graph walk in the UI — which the plan explicitly forbids.
+>
+> Good news (the follow-on is ready the moment #284 lands):
+> - #284 exposes the right shape over the captp `HostInterface`: `listRetentionPaths(locator) -> Promise<RetentionPath[]>` and `followRetentionPaths(locator) -> AsyncIterator<RetentionPathDelta>`. Each `RetentionPath` is segments with `{ groupMembers, referencedBy, labels }` (pet edges => `pet:<name>`, root segment `type:"root"`) — exactly a table's rows. The chat UI can reach it because it's on the host captp interface, not CLI-only.
+> - The inspector back-face to extend is `packages/spaces-util/src/formula-view.js` (#440, merged into `llm` 2026-06-27).
+>
+> Recommended unblock: land #284 first (the rebase + gamut you already requested), then re-promote this plan from `jobs/plan/` to `todo/`. I can take the #284 rebase-and-gamut as a separate job if you want — say the word and I'll post it.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`formula-inspector-retention-paths-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/formula-inspector-retention-paths-table.md) — PLAN (follow-on): add a retention-paths table to the formula inspector
+### doin (0)
+(none)
 
-### tada (317)
+### tada (318)
+- [`formula-inspector-retention-paths-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/formula-inspector-retention-paths-table.md) — Completion report: formula-inspector-retention-paths-table
 - [`improve-deploy-sync-fleet-onto-landed-fixes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-sync-fleet-onto-landed-fixes.md) — Completion report: improve-deploy-sync-fleet-onto-landed-fixes
 - [`improve-broaden-offline-fetch-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-broaden-offline-fetch-signatures.md) — Completion report
 - [`scholar-sections-readme-reindex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-sections-readme-reindex.md) — Completion report — scholar-sections-readme-reindex
 - [`scholar-library-cycle-20260627-065049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-065049.md) — Completion report — scholar-library-cycle-20260627-065049
-- [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Inbox empty, worktree cleaned up, change pushed. Job complete.
-- … and 312 more
+- … and 313 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
