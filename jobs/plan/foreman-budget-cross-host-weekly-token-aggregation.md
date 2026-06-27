@@ -111,3 +111,36 @@ quota + its source, (2) the aggregate current-week usage + week-id + reset time,
 clock-driven commit churn). Extend the bulletin run-test.sh subtest to cover the section:
 correct quota/usage/pace math on a fixture, and NO commit churn from an advancing clock
 alone.
+
+## Determinism mandate (maintainer amendment 2026-06-27)
+
+Watching and aggregating the quota is **just math** — the whole system service must be as
+DETERMINISTIC as possible: identical inputs always yield identical outputs and identical
+bytes, with NO LLM anywhere on this path and no nondeterministic ordering.
+
+- **Prefer `jq` over shell for ALL math.** Shell has no floats and is error-prone for the
+  arithmetic this needs. Do every numeric step in `jq`: summing per-session/per-host token
+  counts, the global current-week total, the `usage/quota` fraction, the elapsed-week
+  fraction, the signed pace delta, the straight-line projection, and all rounding. The
+  budget-reporter parses the session JSONL with `jq` and sums in `jq`; the aggregator sums
+  the per-host bucket files in `jq`; the bulletin computes the pace line in `jq`. Shell is
+  only the glue (file globbing, `git` CAS, invoking jq) — not the calculator.
+- **`require_tools jq`** at the top of every script on this path — a missing jq must fail
+  LOUD, never silently produce an empty/zero total (the 2026-06-24 silent-jq-outage
+  lesson; see silent_empty_output_check_missing_external_tool).
+- **Deterministic ordering + dedup.** When listing host bucket files or session lines,
+  sort with `LC_ALL=C sort` and dedup by a stable key (message id / line), so the sum is
+  order-independent and a re-read never double-counts.
+- **The only non-jq, non-shell input is the time boundary**, and it too is deterministic:
+  derive the week-id and the elapsed fraction from `TZ=America/Los_Angeles date` against
+  the Friday-21:00 rule, so every host computes the SAME `week-id` from the same wall
+  clock regardless of its own timezone. No locale/format drift (`LC_ALL=C`, explicit
+  `+%s` / `+%F`).
+- **Integer, byte-stable outputs.** Round usage/quota/pace to integers in `jq` so the
+  bulletin line is byte-identical across recomputations of the same state — the push-gate
+  stays stable and a sub-unit tick never rewrites the bulletin. The reporter writes its
+  per-host bucket file with `jq -S` (sorted keys) for byte-stable diffs.
+
+This makes the reporter, the aggregator, the boundary math, and the bulletin pace line a
+pure, reproducible `jq` computation over journal2-sourced data — testable with fixed
+fixtures that assert exact numeric outputs.
