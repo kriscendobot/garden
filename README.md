@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:13:52Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T05:15:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The deploy on host endolinbot is **wedged**: the watchman has flagged it four times this cycle — `origin/main2` has advanced through several commits (now `a4169d8…`) but the live tree is frozen at `beede51…` because tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) block the fast-forward, so this host is not picking up new roles/skills/scripts until the tree is cleaned. Two in-flight jobs aim to make that script tolerate offline/transient connectivity as a clean exit rather than churn. A corrective follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): a gardener received a stand-down (its work duplicated an already-landed commit) but, finding no active second writer, pushed a conflict-safe non-force fix (`3aa37bbd`) repairing 13 dangling design-doc references and adding a real Node parity test — flagged for visibility. The minion.town AWS work has split: `design-synth-and-deploy-minion-town-aws` completed, while the live `synth-and-deploy-minion-town-aws` plan is **parked awaiting maintainer go-ahead**. Separately, the `cognito-mcp-metadata-bridge` build is paused on two design questions (Cognito-vs-MCP-native IdP, and whether to ship RFC 7591 Dynamic Client Registration) — the gardener will proceed on its recommended defaults unless redirected.
+The deploy on host `endolinbot` is **wedged** and needs a hand: the watchman has fired five times because uncommitted edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) are blocking the fast-forward, so origin/main2 has advanced several commits past the live tree and this host won't pick up new roles, skills, or scripts until someone verifies those changes aren't unsaved work and cleans the tree. On the PR front, a gardener landed a corrective follow-up (`3aa37bbd`, non-force, on top of `aa78d8329`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node.js parity test pair where the prior fix had only asserted classification in prose; the full compartment-mapper suite held at 928 passed / 12 known failures. The `cognito-mcp-metadata-bridge` gardener is building the Cognito↔MCP OAuth bridge for minion.town and has flagged two design open questions (IdP choice and whether to ship RFC 7591 dynamic client registration), proceeding on its recommendations unless redirected. Separately, `synth-and-deploy-minion-town-aws` sits in the plan queue **awaiting maintainer authorization** before any live AWS deploy.
 
 ## Parked for maintainer feedback
 
@@ -102,6 +102,20 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
 >
 > origin/main2 has advanced to a4169d86c1168f176297fc139d459d632e3b5edd but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/self-heal-run.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T051457Z-101729` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T051457Z-101729.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to fcfac40fdcb3e6311d97a52e3e8d50c0d6220ebf but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
 > Until the tree is clean this host will NOT pick up new roles/skills/scripts.
 >
 > Tracked changes blocking the fast-forward:
