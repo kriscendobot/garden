@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:00:29Z_
+_As of 2026-06-27T07:05:08Z_
 
 ## Latest
 
-The endolinbot host's deploy is **wedged**: `origin/main2` has advanced repeatedly through the period but the live tree is frozen, blocked by tracked working-tree edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh` — until those are cleaned (verified-then-checkout/stash), this host picks up no new roles, skills, or scripts. Separately, the `comment-watcher/kriskowal-garden` watchdog has now flagged **100 consecutive ticks with zero comments** despite known activity on the repo — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking on endolinbot.
-
-On the work side, a gardener pushed a conflict-safe follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down (the asks had already landed in `aa78d8329`), it found two real defects in that commit — 13 dangling design-doc references and a prose-only Node parity claim — and corrected both with a non-force fast-forward, full compartment-mapper suite green; flagged for visibility in case you'd route it differently. The [#440 review directive](https://github.com/endojs/endo-but-for-bots/pull/440) completed, and several self-heal/gardener reliability fixes landed (transient git-128 on claim no longer fatal, offline treated as a clean exit). One gardener is **awaiting your go-ahead** on the Cognito↔MCP OAuth bridge (`cognito-mcp-metadata-bridge`): it plans to ship RFC 8414 metadata + RFC 7591 `/register` (behind a default-on toggle) + RFC 8707 audience binding on Cognito, bot-repo-only, and will proceed on that recommendation unless redirected.
+The big item is operational: the watchman reports main2 on **endolinbot is wedged** and has been re-firing for over two hours — origin/main2 has advanced many commits but the live tree is frozen, blocked by tracked working-tree edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`. Until someone confirms those aren't unsaved work and cleans the tree, this host won't deploy new roles, skills, or scripts. Compounding it, the comment-watcher for kriskowal/garden has now logged 0 comments for 100 consecutive ticks while the repo is demonstrably active — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking on endolinbot directly. On the work side, a gardener landed a conflict-safe follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node parity test after finding the superseding commit had shipped prose-only parity; it proceeded despite a stand-down because the work was corrective and no active writer remained (flagged for visibility). Self-heal hardening (transient git-128 and offline-rc-on-claim no longer fatal) and a scholar library/readme reindex cycle completed. The `cognito-mcp-metadata-bridge` build is parked pending two design answers (Cognito-bridge vs. MCP-native IdP, and whether to ship RFC 7591 DCR), with the gardener proceeding on its recommendations unless redirected.
 
 ## Parked for maintainer feedback
 
@@ -204,16 +202,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-sections-readme-reindex`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-sections-readme-reindex.md) — scholar: reindex library/sections/README.md (stale backstop index)
+### doin (0)
+(none)
 
-### tada (314)
+### tada (315)
+- [`scholar-sections-readme-reindex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-sections-readme-reindex.md) — Completion report — scholar-sections-readme-reindex
 - [`scholar-library-cycle-20260627-065049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-065049.md) — Completion report — scholar-library-cycle-20260627-065049
 - [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Inbox empty, worktree cleaned up, change pushed. Job complete.
 - [`improve-gardener-honor-offline-rc-on-claim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-honor-offline-rc-on-claim.md) — Completion report — improve-gardener-honor-offline-rc-on-claim
 - [`endojs-endo-but-for-bots-pr440-review-a9ecd20f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr440-review-a9ecd20f.md) — Completion report — PR #440 review directive (endojs/endo-but-for-bots)
-- [`improve-self-heal-treat-offline-as-clean-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-self-heal-treat-offline-as-clean-exit.md) — Completion report
-- … and 309 more
+- … and 310 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
