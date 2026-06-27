@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:38:26Z_
+_As of 2026-06-27T05:43:54Z_
 
 ## Latest
 
-The headline a maintainer should act on: the watchman reports **main2 on host endolinbot is WEDGED** — uncommitted tracked changes to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) are blocking the fast-forward, so this host has stopped picking up new roles/skills/scripts across at least six advances of `origin/main2`; the tree needs to be verified and cleaned (checkout/stash) before deploys resume. That outage is being attacked from the job side too: a cluster of self-heal/connectivity hardening jobs is in flight (`improve-self-heal-treat-offline-as-clean-exit`, `improve-classify-offline-as-tempfail-in-journal-fetch`, `self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`, and a shared-clone flake isolation run), with the gardener empty-output/transient-requeue classification fix already landed.
+A watchman alarm dominates this cycle: **main2 on endolinbot is wedged** — origin/main2 has advanced through several commits but the live tree is stuck at `beede51e`, with uncommitted changes to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) blocking the fast-forward. Until someone verifies those aren't unsaved work and cleans the tree, this host won't pick up any new roles, skills, or scripts. That stuck file sits right in the middle of the active work: a cluster of self-heal/connectivity reliability jobs is in flight (classifying offline/transient git failures as tempfail rather than fatal, treating signalled shutdown as a clean zero exit, and isolating the self-heal subtests from shared-clone flake), so the dirty tree likely reflects that in-progress hardening and should be reconciled rather than blindly discarded.
 
-On the PR side, a gardener pushed a conflict-safe non-force follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite an honored stand-down — it found two real defects in the superseding commit (13 dangling design-doc references and a prose-only rather than code-backed Node parity assertion) and corrected them with a real parity test; flagged for visibility and trivially revertible. A review directive on [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) was just claimed.
-
-Two items genuinely await your input: the `cognito-mcp-metadata-bridge` gardener has parked two design questions (Cognito-plus-bridge vs. an MCP-native IdP, and whether to build RFC 7591 Dynamic Client Registration) and will proceed on its stated recommendations unless redirected, and `synth-and-deploy-minion-town-aws` sits in the plan queue awaiting your go-ahead.
+On the completion side, `foreman-token-quota-backoff`, `cognito-mcp-metadata-bridge`, and `design-synth-and-deploy-minion-town-aws` landed. The Cognito↔MCP bridge build is now paused on two design Open Questions to the maintainer (keep Cognito + a small Lambda bridge vs. an MCP-native IdP; whether to ship RFC 7591 dynamic client registration), and the follow-on `synth-and-deploy-minion-town-aws` plan is parked awaiting maintainer go-ahead. Separately, a gardener flagged a judgment call on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down (its job duplicated already-landed work), it found two real defects in the landed commit — 13 dangling design-doc references and a prose-only rather than code-backed Node parity test — and pushed a conflict-safe follow-up (`3aa37bbd`) fixing both, with the full suite green. The board is otherwise drained (todo empty, 7 jobs in doin).
 
 ## Parked for maintainer feedback
 
@@ -142,7 +140,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
+- [`design-host-formula-property-value-addressing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-host-formula-property-value-addressing.md) — Design: general host-side addressing of deeply nested values through formula ...
 - [`endojs-endo-but-for-bots-pr440-review-a9ecd20f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr440-review-a9ecd20f.md) — Review directive on endojs/endo-but-for-bots PR #440
 - [`improve-classify-offline-as-tempfail-in-journal-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-classify-offline-as-tempfail-in-journal-fetch.md) — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
 - [`improve-self-heal-clean-signalled-shutdown-exits-zero`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-self-heal-clean-signalled-shutdown-exits-zero.md) — In /home/kris/scripts/jobs/self-heal-run.sh, a signalled shutdown is treated ...
