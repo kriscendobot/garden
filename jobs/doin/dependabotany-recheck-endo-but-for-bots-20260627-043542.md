@@ -17,3 +17,9 @@ rows, this schedule may be deleted.
 
 The maturity date in the ledger is the gate; this daily sweep is only the
 heartbeat that guarantees no embargoed PR rots.
+
+---
+claim:
+  host: endolinbot
+  gardener: 82
+  claimed_at: 2026-06-27T04:35:55Z
