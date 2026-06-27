@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T04:44:34Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T04:45:04Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,9 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The headline is operational: the watchman reports [main2 on host endolinbot is WEDGED](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T044252Z-ea6d82.md) — origin/main2 has advanced twice but the live tree is pinned at `beede51e` because uncommitted changes to `scripts/jobs/self-heal-run.sh` block the fast-forward, so this host will not pick up new roles, skills, or scripts until the tree is cleaned. That blocked file is itself the subject of in-flight work: two jobs in progress aim to make `self-heal-run.sh` and `journal_fetch`/`sync_clone` treat offline/transient connectivity as a clean exit and a tempfail rather than an error, so verify the edit isn't unsaved work before stashing.
-
-On the board, `finbot-substrate-adapters` completed and pushed. The remaining active lane is review follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) — three overlapping jobs closing out kriskowal's 2026-06-25 CHANGES_REQUESTED asks (TypeScript and design-doc items) — alongside two scholar library-index reconciles for `concepts/README.md` and `sources/README.md`. Nothing new is parked; the 29-PR maintainer queue is unchanged.
+The watchman is raising an alarm a maintainer should clear first: **main2 on `endolinbot` is wedged**, with three repeated notices that the host's deploy is frozen because uncommitted tracked changes to `scripts/jobs/self-heal-run.sh` block the fast-forward past `beede51e`, even as origin/main2 has advanced several commits. Until that tree is cleaned (verify the edit isn't unsaved work, then checkout/stash), this host won't pick up new roles, skills, or scripts. In flight on the board: review follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (addressing kriskowal's 2026-06-25 CHANGES_REQUESTED, including the remaining TypeScript and design-doc asks), two scholar library-index reconciles, and a pair of resilience fixes to teach `self-heal-run.sh` and `journal_fetch` to treat transient offline conditions as clean/tempfail rather than failures. No job-board transitions resolved since the last bulletin.
 
 ## Parked for maintainer feedback
 
@@ -49,6 +47,20 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
 >
 > origin/main2 has advanced to e0a0d7776b5413ff47904a5ed7704199e8897971 but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/self-heal-run.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T044453Z-54a8d3` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T044453Z-54a8d3.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 1d94c7895f24763d49bd80d45248d7bb8e79083b but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
 > Until the tree is clean this host will NOT pick up new roles/skills/scripts.
 >
 > Tracked changes blocking the fast-forward:
