@@ -1,9 +1,5 @@
----
-gate: deferred
-urgency: normal
-posted_by: liaison
-note: "Parked in jobs/plan/ (deferred). Promote to todo to run. Deliverable is a garden design PR. The maintainer notes this may be more complexity than it is worth — investigate honestly and say so if so."
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-27T09:21:04Z -->
+
 # PLAN: investigate making gardeners RESUMABLE (don't lose work when an agent stalls/dies) → garden design PR
 
 **Context:** On 2026-06-25 a model quota/availability blip left **12 gardener agents hung**;
