@@ -55,12 +55,15 @@ while :; do
   # A transient DNS/connectivity outage during the claim's sync_clone fetch
   # propagates up as GARDEN_OFFLINE_RC (EX_TEMPFAIL, default 75) from
   # common.sh:sync_clone — the offline-tick signal that GARDEN_OFFLINE_RC was
-  # designed to make a clean skip-and-retry. Treat it like the empty-board case:
-  # log, sleep, and retry next tick. Do NOT die (a self-resolving blip would
-  # otherwise crash-loop the worker and burn a self-heal responder), and do NOT
-  # increment idle_rounds (an offline tick is not a drained board for ONESHOT).
-  if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
-    log "offline; skipping claim tick (rc=$rc), retry next cadence"
+  # designed to make a clean skip-and-retry. A raw git 128 can ALSO still escape
+  # the classification on a momentary blip (a ref inconsistency whose stderr the
+  # offline signatures do not match); treat it the same way as a belt rather than
+  # dying. Treat both like the empty-board case: log, sleep, and retry next tick.
+  # Do NOT die (a self-resolving blip would otherwise crash-loop the worker and
+  # burn a self-heal responder), and do NOT increment idle_rounds (an offline
+  # tick is not a drained board for ONESHOT).
+  if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] || [ "$rc" -eq 128 ]; then
+    log "claim transiently offline (rc=$rc); sleeping and retrying"
     sleep "$GARDEN_IDLE_SLEEP"
     continue
   fi

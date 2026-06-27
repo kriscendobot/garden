@@ -156,6 +156,106 @@ else
 fi
 
 # ============================================================================
+hr; echo "SUBTEST 6 — sync_clone classifies a transient outage on the RESET path as EX_TEMPFAIL (75)"; hr
+# The fetch can SUCCEED yet the subsequent `git reset --hard origin/journal2`
+# still fail 128 on a momentary network/ref blip. Under set -e that raw 128 would
+# escape classification. sync_clone must guard the reset too: on a reset failure
+# it re-fetches once, and if THAT fetch trips an offline signature it exits 75 —
+# the same EX_TEMPFAIL the fetch path yields — so the loop skips the tick.
+#
+# Drive it with a stateful fake `git` on PATH: fetch #1 succeeds (so we reach the
+# reset), `reset` fails 128, and fetch #2 (the re-fetch) reports a resolver
+# outage. Everything else execs the real git.
+RESET_COUNTER="$TR/reset-fetch-count"; echo 0 > "$RESET_COUNTER"
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+sub=
+for a in "\$@"; do
+  case "\$a" in fetch|reset|clean) sub="\$a"; break ;; esac
+done
+case "\$sub" in
+  fetch)
+    n=\$(cat "$RESET_COUNTER"); n=\$((n+1)); echo "\$n" > "$RESET_COUNTER"
+    if [ "\$n" -ge 2 ]; then
+      echo "ssh: Could not resolve hostname github.com: Temporary failure in name resolution" >&2
+      echo "fatal: Could not read from remote repository." >&2
+      exit 128
+    fi
+    exit 0 ;;
+  reset)
+    echo "fatal: Could not read from remote repository." >&2
+    exit 128 ;;
+  *) exec "$REAL_GIT" "\$@" ;;
+esac
+EOF
+chmod +x "$TR/bin/git"
+SCLONE="$TR/sclone"; mkdir -p "$SCLONE"
+rc=0
+# No GARDEN_FETCH_CMD: journal_fetch uses the PATH `git` (our stateful fake).
+( export GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_TIMEOUT=5
+  sync_clone "$SCLONE" ) >/dev/null 2>&1 || rc=$?
+if [ "$rc" -eq 75 ]; then
+  ok "sync_clone exited EX_TEMPFAIL ($rc) on a transient reset-path outage"
+else
+  bad "sync_clone exited $rc on a transient reset-path outage (expected 75)"
+fi
+# Restore the original hanging fake git for any later subtest that relies on it.
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+for a in "\$@"; do [ "\$a" = fetch ] && { sleep 30; exit 0; }; done
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/git"
+
+# ============================================================================
+hr; echo "SUBTEST 7 — the gardener loop ABSORBS a transient claim outage (does not exit 1)"; hr
+# End-to-end: a claim that exits EX_TEMPFAIL (75) because of an offline blip must
+# make the long-running gardener SKIP the tick (sleep + continue), NOT die(1) and
+# force a systemd restart. We point gardener.sh at a real local clone (so
+# ensure_clone is a no-op) and force every claim offline via GARDEN_FETCH_CMD.
+# With the fix the loop never exits on its own, so a wrapping `timeout` kills it
+# (rc 124); WITHOUT the fix it dies(1) on the first claim. Assert: not 1, and the
+# transient-skip log line is present.
+GBARE="$TR/gardener-journal.git"; git init -q --bare "$GBARE"
+GSEED="$TR/gardener-seed"; git init -q "$GSEED"
+git -C "$GSEED" checkout -q -b journal2
+( cd "$GSEED"; mkdir -p jobs/todo jobs/doin jobs/tada work; touch jobs/todo/.gitkeep )
+git -C "$GSEED" add -A
+git -C "$GSEED" -c user.name=test -c user.email=test@localhost commit -q -m seed
+git -C "$GSEED" push -q "$GBARE" HEAD:journal2
+GCLONE="$TR/gardener-clone"
+git clone -q --single-branch --branch journal2 "$GBARE" "$GCLONE"
+
+cat > "$TR/bin/offline-fetch" <<'EOF'
+#!/bin/bash
+echo "ssh: Could not resolve hostname github.com: Temporary failure in name resolution" >&2
+echo "fatal: Could not read from remote repository." >&2
+exit 128
+EOF
+chmod +x "$TR/bin/offline-fetch"
+
+GLOG="$TR/gardener.log"; grc=0
+timeout 6 env \
+  GARDEN_GARDENER_CLONE="$GCLONE" \
+  JOURNAL_REMOTE="$GBARE" \
+  GARDEN_FETCH_CMD="$TR/bin/offline-fetch" \
+  GARDEN_FETCH_RETRIES=1 \
+  GARDEN_IDLE_SLEEP=1 \
+  GARDEN_STATE="$TR/gardener-state" \
+  bash "$JOBS/gardener.sh" 92 >"$GLOG" 2>&1 || grc=$?
+if [ "$grc" -eq 1 ]; then
+  bad "gardener.sh exited 1 on a transient claim outage (the fatal-per-blip regression)"
+else
+  ok "gardener.sh did not die(1) on a transient claim outage (rc=$grc; 124=timed-out-still-looping)"
+fi
+if grep -q "claim transiently offline" "$GLOG"; then
+  ok "gardener loop logged the transient-skip branch"
+else
+  bad "gardener loop did not log 'claim transiently offline' (see $GLOG)"
+  sed -n '1,40p' "$GLOG" >&2 || true
+fi
+
+# ============================================================================
 hr
 rm -rf "$TR"
 echo "RESULTS: $PASS passed, $FAIL failed"

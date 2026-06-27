@@ -467,7 +467,22 @@ sync_clone() {
     fi
     die "fetch failed in $dir after bounded retries"
   fi
-  git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH"
+  # The fetch above succeeded, but the hard reset can ITSELF exit 128 on a
+  # momentary network/ref inconsistency (a blip racing the local ref update).
+  # Under `set -e` that raw 128 would escape classification and reach the
+  # caller as a fatal — re-introducing the very per-blip fatal the fetch path
+  # was hardened against. So guard the reset the same way: on any failure,
+  # re-fetch once; if THAT fetch trips a recognizable offline signature, this is
+  # a connectivity outage, so exit EX_TEMPFAIL exactly like the fetch path. A
+  # reset that fails for any other reason still surfaces (the retry below dies).
+  if ! git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH"; then
+    journal_fetch "$dir"; rc=$?
+    if [ "$rc" -ne 0 ] && _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
+      log "offline on reset; skipping tick (rc=$GARDEN_OFFLINE_RC)"
+      exit "$GARDEN_OFFLINE_RC"
+    fi
+    git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH"
+  fi
   git -C "$dir" clean -qfd jobs 2>/dev/null || true
 }
 
