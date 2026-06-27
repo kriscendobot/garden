@@ -1,0 +1,9 @@
+Make the long-running gardener claim loop absorb transient connectivity outages instead of dying on them (exit 1 → systemd restart). Failure signature: `[gardener/N] FATAL: claim failed (rc=128)` in `scripts/jobs/gardener.sh:55`, originating from a network/DNS blip during the claim path (this run's log opens with `ssh: Could not resolve hostname github.com: Temporary failure in name resolution` / `fatal: Could not read from remote repository.`).
+
+Two coordinated changes:
+
+1. `scripts/jobs/common.sh` `sync_clone()` (~line 440-457): the offline classification currently guards only `journal_fetch`'s rc. The subsequent `git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH"` (line 455) runs under `set -e` with no transient guard and can exit 128 on a momentary network/ref inconsistency, escaping classification. Wrap that reset: on a non-zero rc, re-run `journal_fetch` once, and if it still fails on a recognizable signature (`_fetch_stderr_is_offline`), `exit "$GARDEN_OFFLINE_RC"` exactly like the fetch path — so `claim-job.sh` hands the loop a consistent EX_TEMPFAIL (75) rather than a raw 128.
+
+2. `scripts/jobs/gardener.sh` line 55: before `die "claim failed (rc=$rc)"`, add a transient-skip branch. If `rc == GARDEN_OFFLINE_RC` (75), or `rc == 128` from a connectivity outage, log e.g. `claim transiently offline (rc=$rc); sleeping and retrying` and `sleep "$GARDEN_IDLE_SLEEP"; continue` — mirroring the existing rc=3 idle branch. Only a genuinely unexpected rc should still `die`. This restores the "transient connectivity → skip the tick, don't count it as a failure-per-worker" contract for the long-running loop, which currently re-introduces the very fatal-per-blip behavior that contract removed.
+
+Test angle: the existing `GARDEN_FETCH_CMD`/`GARDEN_PUSH_CMD` injection hooks in common.sh let a test drive a transient-128 from the fetch/reset path and assert the gardener loop continues (does not exit 1).
