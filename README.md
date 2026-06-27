@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:07:32Z_
+_As of 2026-06-27T07:10:38Z_
 
 ## Latest
 
-The headline for the maintainer is operational, not code: the watchman has fired the **wedged-deploy** alarm repeatedly on `endolinbot` — `origin/main2` keeps advancing while the live tree stays pinned, because uncommitted tracked edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh` block the fast-forward, so this host is not picking up new roles/skills/scripts until the tree is cleaned. In parallel, the `comment-watcher/kriskowal-garden` watchdog reports 0 comments across 100 consecutive ticks despite known activity since 2026-06-25 — the 2026-06-24 outage signature, suggesting the comment source may be silently blind again. On the work front, the fleet landed a run of resilience fixes (transient git-128 and offline return-codes on claim no longer fatal; self-heal cleanups), and two follow-ons are now in flight: broadening the offline-outage classifier and adding a deterministic deploy reconciler so landed script fixes actually reach the hosts — directly aimed at the wedge above. A gardener also flagged a judgment call on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down it found two real defects in the prior landed commit (13 dangling design-doc references and a missing Node parity test) and pushed a conflict-safe non-force follow-up rather than redo duplicate work. Finally, the `cognito-mcp-metadata-bridge` gardener is awaiting answers on two design questions (IdP choice and whether to ship RFC 7591 dynamic client registration) before building.
+The self-heal fix for the `garden-gardener` claim crash landed on `origin/main2`: a transient git rc=128 during a claim's clone-sync is now classified as a recoverable outage rather than a fatal `die`, ending the crash-loop (paired with the now-in-flight work to broaden the offline-fetch classifier and add a deploy reconciler). But the headline is operational: **endolinbot's main2 deploy is wedged** — `origin/main2` has advanced through that very fix chain while the live tree stays pinned at an older SHA, blocked by uncommitted tracked edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`; until someone confirms those aren't unsaved work and cleans the tree, this host won't pick up the landed fixes (the watchman has fired repeatedly through the night). Separately, the `comment-watcher/kriskowal-garden` watcher has now gone 100 ticks finding zero comments on a demonstrably active repo — the same signature as the 2026-06-24 jq/gh outage, worth a check. On the PR side, a corrective non-force follow-up (`3aa37bbd`) landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node parity test after a stand-down was overridden, and the [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) review directive completed. The `cognito-mcp-metadata-bridge` build and the `synth-and-deploy-minion-town-aws` plan both await maintainer go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -196,6 +196,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260627T070019Z-cf49fc` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T070019Z-cf49fc.md)
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 100 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
+
+- `20260627T071028Z-d3cf33` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T071028Z-d3cf33.md)
+
+> self-heal: garden-gardener exited rc=1 with no scoped fix. Capture: aa06bfa333e088a3ceb27279e19eeb3e822b0fb5 (git -C /home/kris/.garden-state/self-heal/journal cat-file -p aa06bfa333e088a3ceb27279e19eeb3e822b0fb5). Diagnosis: ## Diagnosis
+>
+> **No fix job to post — the code fix already landed and a deploy job for the recurrence is already in flight.**
+>
+> The failure signature is `FATAL: claim failed (rc=128)` → exit 1 → systemd restart. The crash came with **no preceding claim log** (no "offline", no "fetch failed", no "lost claim race"), meaning `claim-job.sh` died under `set -euo pipefail` on an unguarded git op during the claim's `sync_clone` — a transient connectivity/DNS blip surfacing as a raw git 128. The old `gardener.sh` loop treated any non-0/non-3 claim rc as a hard `die`, so a self-resolving network blip crash-looped the worker.
+>
+> That is **already fixed on `origin/main2`**. The running unit at `/home/kris` is **4 commits behind** `origin/main2`, and exactly those 4 commits are the fix chain:
+> - `5
 
 
 ## Board
