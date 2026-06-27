@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T11:45:08Z_
+_As of 2026-06-27T11:53:47Z_
 
 ## Latest
 
-The big operational story is that **main2 deploys on `endolinbot` have been wedged all morning**: a steady stream of watchman alerts show the live checkout stuck while `origin/main2` raced ahead by a dozen-plus commits, each fast-forward refused by uncommitted edits to tracked files (`scripts/jobs/self-heal-run.sh`, `gardener.sh`, `claim-job.sh`, `skills/gardener-inbox-error-reporting/report-error.sh`, and the library-link-check trio). One gardener diagnosed the report-error.sh edit as byte-identical to what's already committed — a redundant uncommitted change — so `git -C /home/kris checkout --` on the named paths is a lossless unwedge. Until the tree is clean this host won't pick up new roles, skills, or scripts.
+The headline a maintainer must act on: **main2 on endolinbot has been deploy-frozen all day**. The watchman has fired ~20 WEDGE alerts since 05:00Z — the live checkout is stuck while origin/main2 advanced through a dozen commits, blocked first by uncommitted edits to `scripts/jobs/self-heal-run.sh`, `gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`, and later by untracked files colliding with incoming tracked paths (the library-link-* scripts). A gardener confirmed the `report-error.sh` edit is byte-identical to what already landed, so `git checkout -- <path>` is lossless and unwedges the deploy. Ironically, the permanent fix — a deploy-sync reconciler that fast-forwards and restarts services on `scripts/` changes — landed on main2 (`5d6490e62`) but stays inert until the next `install-units.sh` arms its timer, which the wedge itself is preventing.
 
-Relief is already in tree but inert: a **deploy-sync reconciler landed on main2 (`5d6490e62`)** that strict-fast-forwards the checkout and restarts long-running services when `scripts/` changes, arming automatically on the next units refresh — but it can't help while the tree itself is dirty-wedged. Separately, the **comment-watcher for kriskowal/garden is firing the 2026-06-24 outage signature** — 0 comments across 260+ ticks despite known activity since 2026-06-25 — suggesting the jq/gh comment source has gone silently blind again and warrants a check.
+Second alarm: the `comment-watcher/kriskowal-garden` watchdog has now logged 0 comments for 260 consecutive ticks despite a known live comment since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage. Worth verifying the comment source on endolinbot is not dark again.
 
-On the job board, two infra jobs completed: link-check now classifies advisory vs. must-resolve links, and source-acquisition gained an archive-fallback script. Worth noting for visibility: a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down, after finding 13 dangling doc references and a missing Node-parity test in the superseding commit — flagged as revertible if you'd rather it had routed differently. The formula-inspector retention-paths table is blocked pending a still-open, CI-red `listRetentionPaths` host PR (#284, last touched by your 2026-05-21 rebase request), and the Cognito↔MCP OAuth bridge build is paused on two design questions (IdP choice and whether to ship RFC 7591 DCR). Scholar ingests added the sixth MetaMask/ocap-kernel source and a distributed-ocap concept cluster.
+On substance: a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`) after finding two real defects — 13 dangling doc references and a prose-only Node parity claim — in a commit a superseding job had landed; full suite green, flagged for visibility. Scholar work continued: a sixth ocap-kernel ingest (MetaMask kernel-guide) plus a distributed-ocap concept cluster, with the grant-matcher-puzzle source deferred (erights.org unreachable). The board is otherwise quiet — `classify-lint-endo-master` and the hourly scholar cycle are the only jobs in flight. One item awaits your go-ahead (`synth-and-deploy-minion-town-aws`), and the `formula-inspector` table job is blocked pending the long-stalled #284 rebase you requested back on 05-21.
 
 ## Parked for maintainer feedback
 
@@ -17,9 +17,9 @@ On the job board, two infra jobs completed: link-check now classifies advisory v
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 11d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 37d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 36d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 36d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 36d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 38d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 37d)
 
@@ -463,8 +463,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/classify-lint-endo-master.md) — PLAN: classify lint errors on endo master, then post per-class fix plans
+- [`scholar-library-cycle-20260627-115254`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-115254.md) — Hourly scholar library cycle
 
 ### tada (345)
 - [`improve-source-acquisition-archive-fallback-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-source-acquisition-archive-fallback-script.md) — Completion report
@@ -479,7 +480,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/classify-lint-endo-master.md) — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 - [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
 - [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-parallel-sync-browser-design.md) — _low_ · Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo sho...
 - [`endo-but-for-bots-harden-exported-literals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-harden-exported-literals-followup.md) — _low_ · follow-up PR: harden exported function literals (evasive-transform first)
