@@ -35,3 +35,9 @@ concept page itself plus the verbatim-body links.
 Land all writes on `journal2` from a fresh detached worktree off
 `origin/journal2` (do NOT rebase the live `journal/` worktree). Budget: one
 scholar cycle.
+
+---
+claim:
+  host: endolinbot
+  gardener: 55
+  claimed_at: 2026-06-27T11:04:22Z
