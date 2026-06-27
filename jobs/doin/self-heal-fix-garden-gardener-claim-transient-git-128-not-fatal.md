@@ -7,3 +7,9 @@ Two coordinated changes:
 2. `scripts/jobs/gardener.sh` line 55: before `die "claim failed (rc=$rc)"`, add a transient-skip branch. If `rc == GARDEN_OFFLINE_RC` (75), or `rc == 128` from a connectivity outage, log e.g. `claim transiently offline (rc=$rc); sleeping and retrying` and `sleep "$GARDEN_IDLE_SLEEP"; continue` — mirroring the existing rc=3 idle branch. Only a genuinely unexpected rc should still `die`. This restores the "transient connectivity → skip the tick, don't count it as a failure-per-worker" contract for the long-running loop, which currently re-introduces the very fatal-per-blip behavior that contract removed.
 
 Test angle: the existing `GARDEN_FETCH_CMD`/`GARDEN_PUSH_CMD` injection hooks in common.sh let a test drive a transient-128 from the fetch/reset path and assert the gardener loop continues (does not exit 1).
+
+---
+claim:
+  host: endolinbot
+  gardener: 28
+  claimed_at: 2026-06-27T05:35:54Z
