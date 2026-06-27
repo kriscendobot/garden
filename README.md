@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T19:01:59Z_
+_As of 2026-06-27T19:11:46Z_
 
 ## Latest
 
-The board is nearly quiet — the [issue-inbox maintainer-interaction workflow](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-maintainer-interaction-workflow.md) just completed (maintainers can now drive this instance from its own GitHub issues), and two infra jobs are in flight: dispensing with the shared live tree in favor of per-subagent worktrees, and a gardener-scaler fix to no-op rather than scale-to-zero on an unreadable count. Scholar ingests added a sixth ocap-kernel source (MetaMask's kernel guide) plus a distributed-ocap concept cluster.
+The fleet recovered from an 18:46 fleet-wide outage — `status=203/EXEC` on ~100 `garden-gardener` units — and a fix to pin a stable interpreter in the unit `ExecStart` is now in progress, alongside a syslog-priority-prefix fix so future fatal warnings surface correctly. Recently landed: the issue-inbox maintainer-interaction workflow, proxy parking of blocked jobs with deterministic auto-unblock, and a dirty-tree wedge resolution on `endolinbot`.
 
-What needs your attention is queued in the maintainer inbox, not the board. Two PRs are stalled on decisions only you can make: the harden-exported-function-literals follow-up to the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs a breadth call (narrow two-export fix vs. repo-wide) and a base-branch choice before any PR opens; and a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities + hide empty groups) was misclassified as a rebase and now awaits a liaison-driven dispatch — an infra fix for the misrouting classifier is being posted separately. Separately, the formula-inspector retention-paths table is blocked on the long-stalled #284 (the rebase-and-gamut you requested 2026-05-21 never ran; 4 CI checks red), and the beta3/ymax0 XS investigation surfaced two agoric-sdk-adjacent calls (sourcing a v320 swing-store export; whether to file an upstream-Endo note) that are out of autonomous bounds.
+Several items now sit in the maintainer inbox awaiting a decision. A real feature directive from kriskowal on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (re-shape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" by the comment-watcher; the gardener declined the no-op, flagged the classifier bug, and recommends a liaison-driven gamut dispatch since the v2 fleet has no autonomous feature-implementation path. The harden-exported-function-literals follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked only on your scope call — narrow (two evasive-transform exports) vs repo-wide, and base `llm` vs `master`. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested (4 CI checks still red); the gardener offers to take that on if you say so. The [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction). Endo `master` lint is clean apart from 5 non-blocking jsdoc warnings (parked as a low-priority fix). Two scholar ingests landed on `journal2` — MetaMask/ocap-kernel's host-app guide and a six-section distributed-ocap concept cluster — with the grant-matcher-puzzle source deferred since erights.org was unreachable. Separately, the beta3/ymax0 XS investigation needs your direction: it traces to an XS native-stack-depth limit (not an Endo regression), and both obtaining the v320 swing-store export and the contract-side fix land in agoric-sdk territory that is off-limits to autonomous garden action.
 
 ## Parked for maintainer feedback
 
@@ -180,9 +180,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
 - [`improve-scaler-no-op-on-unreadable-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scaler-no-op-on-unreadable-count.md) — scripts/jobs/gardener-scaler.sh initializes want=0 and only overwrites it whe...
+- [`improve-unit-execstart-stable-interpreter`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-unit-execstart-stable-interpreter.md) — The 2026-06-27 18:46 fleet-wide outage was status=203/EXEC on ~100 garden-gar...
+- [`improve-warn-fatal-syslog-priority-prefix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-warn-fatal-syslog-priority-prefix.md) — The mentor's failure-surface capture (and any journalctl -p warning triage) i...
 
 ### tada (392)
 - [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-maintainer-interaction-workflow.md) — Completion report — issue-inbox-maintainer-interaction-workflow
