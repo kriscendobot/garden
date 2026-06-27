@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T16:04:31Z_
+_As of 2026-06-27T16:06:36Z_
 
 ## Latest
 
-The deploy-sync reconciler landed on main2 (commit `5d6490e62`): it now fast-forwards the live checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart. The catch is that endolinbot's own deploy has been **wedged all day** — the watchman fired a steady stream of dirty-tree alarms as origin/main2 advanced through ~20 commits while the live tree stayed frozen, blocked first by redundant uncommitted edits (one byte-identical to origin's committed `report-error.sh`) and later by untracked-file collisions. A gardener flagged a lossless `git checkout --` unwedge; until the tree is clean this host won't pick up new roles, skills, or scripts.
+Watchman concluded its investigation of the beta3 ymax0 portfolio-contract upgrade "stack overflow": working from a primary-source diff of the two contract bundles plus a GitHub-API regression-window check, it **ruled out two of the brief's three candidates** (SES 2.x `harden` is iterative in both bundles; `passStyleOf` catches pass-by-copy cycles and throws rather than recursing), corrected the brief's premise that the Endo bump is the only change (beta3 also carries the Auto-Features contract work, #12761), and reduced the question to a depth-driven native-stack exhaustion during `startVat` guard/data rehydration — handing over a decisive next experiment (capture the XS stack frame, then pin only the Endo deps to bisect Endo-vs-contract attribution) that needs the agoric toolchain the bot host lacks. Two scope decisions are now **owed by the maintainer**: the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up needs breadth (narrow two exports vs repo-wide) and base branch (`llm` vs `master`) before a cross-repo PR opens, and the `formula-inspector-retention-paths-table` job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you already requested (now 4 CI checks red).
 
-The beta3 ymax0 portfolio-upgrade "stack overflow" investigation [completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md): a primary-source bundle diff ruled out two of three candidates (harden is iterative; `passStyleOf` catches cycles and throws) and corrected the brief's premise — beta3 also carries the Auto-Features contract change, so a "pin Endo back" bisection alone can't attribute the regression. The decisive XS stack-trace experiment needs the agoric toolchain, which the bot host lacks.
-
-Two items are parked on **your decision**: the harden-exported-literals follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (merged) needs breadth (narrow vs repo-wide) and base branch (`llm` vs `master`) before a cross-repo PR opens; and the formula-inspector retention-paths table is blocked on #284's stalled rebase-and-gamut. Lower-stakes: endo master lint is clean (only 5 jsdoc warnings), and scholar landed ocap-kernel and distributed-ocap concept clusters. Note the comment-watcher anomaly reports are the known inactivity false-positives — a fix job (`comment-watcher-no-inactivity-anomaly`) is in flight.
+On the library and infra side: the deploy-sync reconciler landed on main2 (it fast-forwards the live checkout and restarts long-running services when `scripts/` changes), though it stays inert until a routine units refresh arms its timer, and the live `/home/kris` tree is dirty-wedged on a byte-identical redundant edit blocking the fast-forward. The scholar ingested MetaMask/ocap-kernel's kernel guide (sixth ocap-kernel source) and synthesized a distributed-ocap concept cluster, and a lint scan found endo-but-for-bots master fully clean apart from five non-blocking jsdoc warnings. One persistent noise source to note: the comment-watcher fired its "silently blind" anomaly roughly hourly all day — that exact false-positive pattern is what the in-flight [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-inactivity-anomaly.md) job is removing.
 
 ## Parked for maintainer feedback
 
@@ -26,90 +24,6 @@ Two items are parked on **your decision**: the harden-exported-literals follow-u
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260627T051457Z-101729` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T051457Z-101729.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to fcfac40fdcb3e6311d97a52e3e8d50c0d6220ebf but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/self-heal-run.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T052307Z-b6487f` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T052307Z-b6487f.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 8562eb991d5019b77bb8d950527a8a6cada32828 but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/self-heal-run.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T060746Z-5364da` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T060746Z-5364da.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 58283556a02652004ea5b7220ac6bedcf57ae680 but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M skills/gardener-inbox-error-reporting/report-error.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T063745Z-8d23ca` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T063745Z-8d23ca.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 5fc801e8590d4565ca962c8b1b9d4bcdc93a1633 but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M skills/gardener-inbox-error-reporting/report-error.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T065011Z-dd98d0` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T065011Z-dd98d0.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to f26a5e7a1981eead367f8628c72d89582f22c148 but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M skills/gardener-inbox-error-reporting/report-error.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T065233Z-93ff77` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T065233Z-93ff77.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to bd65630d12a51f77d6e0bdaae723eac7d0092217 but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M skills/gardener-inbox-error-reporting/report-error.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
 - `20260627T070019Z-cf49fc` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T070019Z-cf49fc.md)
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 100 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
@@ -124,34 +38,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > That is **already fixed on `origin/main2`**. The running unit at `/home/kris` is **4 commits behind** `origin/main2`, and exactly those 4 commits are the fix chain:
 > - `5
-
-- `20260627T071117Z-7b6901` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T071117Z-7b6901.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 0c8b861c8c377b5b50a50fc6feca2a2148ab128a but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M skills/gardener-inbox-error-reporting/report-error.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T072213Z-857dde` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T072213Z-857dde.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 5d6490e62a7ff78f28c3d6253e823636f4bcf46a but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M skills/gardener-inbox-error-reporting/report-error.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
 - `20260627T072235Z-b12c9f` — from gardener:improve-deploy-sync-fleet-onto-landed-fixes, reply_to `improve-deploy-sync-fleet-onto-landed-fixes` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T072235Z-b12c9f.md)
 
@@ -176,20 +62,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Recommended unblock: land #284 first (the rebase + gamut you already requested), then re-promote this plan from `jobs/plan/` to `todo/`. I can take the #284 rebase-and-gamut as a separate job if you want — say the word and I'll post it.
 
-- `20260627T074543Z-a87313` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T074543Z-a87313.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to ba38a137284e63ff9e8ec360f9119c84ae0da0a7 but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M skills/gardener-inbox-error-reporting/report-error.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
 - `20260627T075134Z-f5bbc7` — from gardener:ingest-ocap-kernel, reply_to `ingest-ocap-kernel` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T075134Z-f5bbc7.md)
 
 > Library: ingested MetaMask/ocap-kernel `docs/kernel-guide.md` (the 689-line host-app developer
@@ -212,20 +84,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Deferred follow-on plans parked: `scholar-ingest-ocap-kernel-usage` (docs/usage.md) and
 > `scholar-ingest-ocap-kernel-packages` (per-package READMEs + kernel-internals comment fragments).
 
-- `20260627T075803Z-d1b426` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T075803Z-d1b426.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 3ab9074bca91f72f0de738e5b25e172aa7ea138e but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M skills/gardener-inbox-error-reporting/report-error.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
 - `20260627T080041Z-e5e019` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T080041Z-e5e019.md)
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 140 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
@@ -246,130 +104,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Topic whose source I could not locate: grant matching (erights.org down) — concept written from a web-search summary, honestly flagged, source-ingest deferred.
 
-- `20260627T083851Z-f3bf86` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T083851Z-f3bf86.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 3ab9074bca91f72f0de738e5b25e172aa7ea138e but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/gardener.sh
->  M skills/gardener-inbox-error-reporting/report-error.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T084057Z-24e458` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T084057Z-24e458.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 6a6e21b36cc9faaf868923e1e3af83fc7ebefa36 but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/gardener.sh
->  M skills/gardener-inbox-error-reporting/report-error.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T084458Z-2eff00` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T084458Z-2eff00.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 6a6e21b36cc9faaf868923e1e3af83fc7ebefa36 but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/claim-job.sh
->  M scripts/jobs/gardener.sh
->  M skills/gardener-inbox-error-reporting/report-error.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
 - `20260627T090109Z-b8fee9` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T090109Z-b8fee9.md)
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 180 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
-- `20260627T094618Z-cf40de` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T094618Z-cf40de.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to ec4b0494c272c87bfae9c7dc9623491e92677067 but the live tree is stuck at cb3c2e0d73dec05f4ce5cb60f83db42d7e9a2397: fast-forward refused (an untracked file collides with an incoming tracked path).
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
 
 - `20260627T100134Z-2f9b1a` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T100134Z-2f9b1a.md)
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 220 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
-- `20260627T101532Z-649994` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T101532Z-649994.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 89e5db9fb287f6b1a6296708ab892c91623c83f6 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: fast-forward refused (an untracked file collides with an incoming tracked path).
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
-
 - `20260627T110207Z-3896f2` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T110207Z-3896f2.md)
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 260 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
-- `20260627T111122Z-225c6a` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T111122Z-225c6a.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 7899b55e7f3429bfd333fdaa1292cae268430585 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: fast-forward refused (an untracked file collides with an incoming tracked path).
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
-
-- `20260627T113955Z-e8613c` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T113955Z-e8613c.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 7899b55e7f3429bfd333fdaa1292cae268430585 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/library-link-check.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T114242Z-b09365` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T114242Z-b09365.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to c043b4ba0787a08047673fe514f4f4eae75ba176 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/library-link-check.sh
->  M scripts/jobs/library-link-scan.sh
->  M scripts/jobs/test/library-link-check-test.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T114447Z-a4fa48` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T114447Z-a4fa48.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to f0b93d637cb56a186aabcd4120f2b925eac1b76f but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/library-link-check.sh
->  M scripts/jobs/library-link-scan.sh
->  M scripts/jobs/test/library-link-check-test.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
 - `20260627T120202Z-99ffce` — from gardener:classify-lint-endo-master, reply_to `classify-lint-endo-master` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T120202Z-99ffce.md)
 
@@ -388,74 +133,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260627T120229Z-1abe89` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T120229Z-1abe89.md)
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 300 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
-- `20260627T120942Z-ede624` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T120942Z-ede624.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to f0b93d637cb56a186aabcd4120f2b925eac1b76f but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/journal-entry.sh
->  M scripts/jobs/library-link-check.sh
->  M scripts/jobs/library-link-scan.sh
->  M scripts/jobs/test/library-link-check-test.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T121142Z-2c161a` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T121142Z-2c161a.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 1665456ea03ccf26d784f20a5105e748c2630aa9 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/journal-entry.sh
->  M scripts/jobs/library-link-check.sh
->  M scripts/jobs/library-link-scan.sh
->  M scripts/jobs/test/library-link-check-test.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T122423Z-3d9c8a` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T122423Z-3d9c8a.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 310dfcece33a6ebf0da0b5787ca92d6874783998 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/journal-entry.sh
->  M scripts/jobs/library-link-check.sh
->  M scripts/jobs/library-link-scan.sh
->  M scripts/jobs/test/library-link-check-test.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
-- `20260627T122629Z-fc8eb0` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T122629Z-fc8eb0.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 97110365b7b920268eb046a75ceccfa7cb9d6746 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/journal-entry.sh
->  M scripts/jobs/library-link-check.sh
->  M scripts/jobs/library-link-scan.sh
->  M scripts/jobs/test/library-link-check-test.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
 - `20260627T123905Z-ee2b02` — from gardener:endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers, reply_to `endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T123905Z-ee2b02.md)
 
@@ -512,43 +189,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 340 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
-- `20260627T134205Z-c2943c` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T134205Z-c2943c.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 68f699cc8c53924f34a3c883a4d960aa7a8f4809 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/journal-entry.sh
->  M scripts/jobs/library-link-check.sh
->  M scripts/jobs/library-link-scan.sh
->  M scripts/jobs/test/library-link-check-test.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
-
 - `20260627T140312Z-ac103b` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T140312Z-ac103b.md)
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 380 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
-- `20260627T141343Z-5acb7a` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T141343Z-5acb7a.md)
-
-> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
->
-> origin/main2 has advanced to 3ed55eec32a5a16a039feca35f0307fadbc7ef00 but the live tree is stuck at fe1034b7615f11ce875dc5b672adbea2b796dc15: tracked working-tree changes block the fast-forward.
-> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
->
-> Tracked changes blocking the fast-forward:
-> ```
->  M scripts/jobs/journal-entry.sh
->  M scripts/jobs/library-link-check.sh
->  M scripts/jobs/library-link-scan.sh
->  M scripts/jobs/test/library-link-check-test.sh
-> ```
->
-> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
 - `20260627T150334Z-79820a` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T150334Z-79820a.md)
 
