@@ -51,3 +51,9 @@ maintainer; the tally is logged.
 Deliverable: proxy.sh drains watchdog-class maintainer messages deterministically each
 tick (auditable, no LLM), roles/proxy/AGENT.md documents it, and the run-test.sh proxy
 coverage proves watchdog-archive vs gating-handler vs leave-for-maintainer.
+
+---
+claim:
+  host: endolinbot
+  gardener: 73
+  claimed_at: 2026-06-27T16:49:26Z
