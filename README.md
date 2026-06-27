@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-27T14:56:53Z_
+_As of 2026-06-27T14:58:01Z_
 
 ## Latest
 
-The big story is operational: endolinbot's `main2` deploy has been **wedged all day** — a dirty working tree (uncommitted edits to `report-error.sh`, then the `library-link-*` scripts and `journal-entry.sh`) keeps refusing the fast-forward, so the host has been frozen ~12 commits behind `origin/main2` and is not picking up new roles/skills/scripts. The new **deploy-sync reconciler landed** (5d6490e62) to auto-advance the checkout and restart services on `scripts/` changes, but it stays inert until a units refresh arms it and can't help while the tree is dirty; the unblock is a lossless `git -C /home/kris checkout --` of the redundantly-modified files. Separately, **comment-watcher/kriskowal-garden has gone blind again** — 0 comments for 380+ consecutive ticks while the repo is demonstrably active, the same signature as the 2026-06-24 jq/gh outage, and worth checking before it swallows real feedback.
+The headline for the maintainer is operational: **main2 on endolinbot has been deploy-wedged all day**. A redundant uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (byte-identical to what's already on origin), followed by dirty edits to the `library-link-*` scripts and `journal-entry.sh`, has blocked the fast-forward through dozens of watchman alerts — the live tree is stuck ~30+ commits behind origin/main2, so landed fixes aren't reaching the running fleet. A `git checkout -- <path>` on those tracked files is lossless and unwedges it. Relatedly, a **deploy-sync reconciler landed** (`5d6490e62`) that will auto-advance the checkout and restart long-running services on `scripts/` changes once a units refresh arms its timer.
 
-On the work side: a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (3aa37bbd) fixing 13 dangling doc references and adding a real Node parity test after a superseding gardener's commit left both gaps; lint classification found endo-but-for-bots master fully clean (only 5 non-blocking jsdoc warnings); and the scholar fleet ingested MetaMask/ocap-kernel's kernel-guide plus a six-topic distributed-ocap concept cluster.
+Two recurring alarms also need eyes: the **comment-watcher for kriskowal/garden has gone blind** (0 comments across 380+ ticks while the repo is demonstrably active — the same jq/gh signature as the 2026-06-24 outage), and the **self-heal loop flagged garden-gardener crash-looping** on a transient git-128 claim failure whose fix is among the commits the wedge is holding back.
 
-Several items are **parked on your decision**: the Cognito↔MCP OAuth bridge build (two design Open Questions, proceeding on recommendations unless redirected), the harden-exported-function-literals follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (needs breadth + base-branch), and the formula-inspector retention-paths table, which is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) — still open, stalled since 2026-05-21 awaiting your requested rebase-and-re-gamut, with 4 failing CI checks. The PR [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded with no change (the only API match would invert the extraction). The board is drained to two in-flight scholar cycles with an empty todo.
+On the work front: a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling doc references and adding a real Node-parity test after finding the superseding commit incomplete; lint classification on endo-but-for-bots master came back **clean** (only 5 non-blocking jsdoc warnings, parked as a low plan); and scholar ingests added the MetaMask/ocap-kernel guide plus a distributed-ocap concept cluster.
+
+Several items are **parked on your decision**: the harden-exported-literals follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs a breadth + base-branch call; the formula-inspector retention table is blocked until [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) gets the rebase-and-gamut you requested back on 2026-05-21; and the cognito↔MCP OAuth bridge gardener is proceeding on its own recommendations (Cognito + bridge, ship DCR behind a toggle) absent a redirect.
 
 ## Parked for maintainer feedback
 
@@ -642,17 +644,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`scholar-library-cycle-20260627-145422`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-145422.md) — Hourly scholar library cycle
+### doin (1)
 - [`scholar-refresh-marshal-rankorder-encodepassable`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-marshal-rankorder-encodepassable.md) — scholar-refresh-marshal-rankorder-encodepassable
 
-### tada (359)
+### tada (360)
+- [`scholar-library-cycle-20260627-145422`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-145422.md) — Completion report — scholar-library-cycle-20260627-145422
 - [`scholar-ingest-passable-equality`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-passable-equality.md) — Completion report — scholar-ingest-passable-equality
 - [`scholar-ingest-ocap-kernel-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-packages.md) — Completion report: scholar-ingest-ocap-kernel-packages
 - [`improve-journal-worktree-reconciler`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-worktree-reconciler.md) — Completion report
 - [`scholar-library-cycle-20260627-135353`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-135353.md) — Completion report — scholar-library-cycle-20260627-135353
-- [`improve-gardener-empty-output-classifier-rc-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-empty-output-classifier-rc-gate.md) — Completion report
-- … and 354 more
+- … and 355 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
