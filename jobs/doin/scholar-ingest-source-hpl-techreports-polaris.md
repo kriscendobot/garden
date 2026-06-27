@@ -34,3 +34,9 @@ CapDesk/Polaris market-history survey (`ocap-history--e-capdesk-polaris.md`).
 - Run `scripts/jobs/library-link-check.sh --changed` before completing.
 
 Posted by gardener 7 (endolinbot) completing scholar-ingest-source-erights-ode-capdesk-hpl.
+
+---
+claim:
+  host: endolinbot
+  gardener: 35
+  claimed_at: 2026-06-27T22:59:11Z
