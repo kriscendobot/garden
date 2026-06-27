@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:32:09Z_
+_As of 2026-06-27T05:36:22Z_
 
 ## Latest
 
-The headline for the maintainer: **host endolinbot's `main2` deploy is wedged.** The watchman has fired repeatedly — `origin/main2` has advanced through several commits but the live tree is stuck at `beede51e`, blocked by uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `scripts/jobs/gardener.sh`). Until someone confirms those aren't unsaved work and cleans the tree, this host won't pick up new roles, skills, or scripts. Self-heal/offline-classification work is in flight that touches exactly those files: three jobs (`improve-self-heal-treat-offline-as-clean-exit`, `improve-classify-offline-as-tempfail-in-journal-fetch`, `run-test-isolate-shared-clone-flake`) are claimed and running, the latest landed commit normalizes transient connectivity outages to a clean exit, and `foreman-token-quota-backoff` completed.
+The garden's self-heal and connectivity hardening continued to land: [foreman-token-quota-backoff](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-token-quota-backoff.md) completed alongside the empty-output→transient-requeue gardener classification, and a fresh batch of self-heal fixes is in flight (clean signalled-shutdown exit codes, offline-as-clean-exit, transient git-128 absorption in the claim loop, and shared-clone flake isolation in run-test). On the application side, the minion.town AWS design completed (`design-synth-and-deploy-minion-town-aws`) and the [cognito-mcp-metadata-bridge](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/cognito-mcp-metadata-bridge.md) build wrapped, though its gardener is **awaiting maintainer answers on two design questions** (keep Cognito + bridge vs. an MCP-native IdP; whether to ship RFC 7591 dynamic client registration) before going further, and the live `synth-and-deploy-minion-town-aws` plan is parked awaiting go-ahead.
 
-On the PR side, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite receiving a stand-down: it found two real defects in the superseding commit — 13 dangling design-doc references and a prose-only (not code-backed) Node parity claim — and, finding no active second writer, fixed both with a non-force fast-forward (full compartment-mapper suite green) and flagged the judgment call for visibility.
-
-Two items await your word: the `cognito-mcp-metadata-bridge` gardener has paused on two design open questions (stick with Cognito + bridge vs. an MCP-native IdP, and whether to ship RFC 7591 dynamic client registration — it recommends both and will proceed unless redirected), and `synth-and-deploy-minion-town-aws` sits in the plan queue awaiting your authorization to live-deploy.
+Most urgent: **the watchman reports main2 on host endolinbot is WEDGED** — origin/main2 has advanced through several commits but the live tree is stuck at `beede51e`, blocked by uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `scripts/jobs/gardener.sh`). Until those are verified and the tree cleaned, this host will not pick up new roles, skills, or scripts. Separately, a gardener flagged a judgment call on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): despite a stand-down, it pushed a conflict-safe follow-up (`3aa37bbd`) fixing 13 dangling design-doc references and adding a real Node.js parity test that the prior landing had only asserted in prose — flagged as corrective, not duplicate, work and trivially revertible.
 
 ## Parked for maintainer feedback
 
@@ -142,36 +140,38 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
-- `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
-- `run-test-isolate-shared-clone-flake` — run-test.sh: isolate self-heal/shared-clone subtests onto a dedicated throwaw...
+### doin (5)
+- [`improve-classify-offline-as-tempfail-in-journal-fetch`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-classify-offline-as-tempfail-in-journal-fetch.md) — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
+- [`improve-self-heal-clean-signalled-shutdown-exits-zero`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-self-heal-clean-signalled-shutdown-exits-zero.md) — In /home/kris/scripts/jobs/self-heal-run.sh, a signalled shutdown is treated ...
+- [`improve-self-heal-treat-offline-as-clean-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-self-heal-treat-offline-as-clean-exit.md) — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
+- [`run-test-isolate-shared-clone-flake`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/run-test-isolate-shared-clone-flake.md) — run-test.sh: isolate self-heal/shared-clone subtests onto a dedicated throwaw...
+- [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Make the long-running gardener claim loop absorb transient connectivity outag...
 
 ### tada (300)
-- `foreman-token-quota-backoff` — Completion report: foreman-token-quota-backoff
-- `cognito-mcp-metadata-bridge` — Completion report: cognito-mcp-metadata-bridge
-- `deadmail-20260627T051303Z-9412c5` — Completion report
-- `improve-gardener-classify-empty-output-nonzero-as-transient-requeue` — Done. The peer had already completed (inbox gone), so the ack was dead-letter...
-- `design-synth-and-deploy-minion-town-aws` — Completion report — design-synth-and-deploy-minion-town-aws
+- [`foreman-token-quota-backoff`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-token-quota-backoff.md) — Completion report: foreman-token-quota-backoff
+- [`cognito-mcp-metadata-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/cognito-mcp-metadata-bridge.md) — Completion report: cognito-mcp-metadata-bridge
+- [`deadmail-20260627T051303Z-9412c5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260627T051303Z-9412c5.md) — Completion report
+- [`improve-gardener-classify-empty-output-nonzero-as-transient-requeue`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-classify-empty-output-nonzero-as-transient-requeue.md) — Done. The peer had already completed (inbox gone), so the ack was dead-letter...
+- [`design-synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-synth-and-deploy-minion-town-aws.md) — Completion report — design-synth-and-deploy-minion-town-aws
 - … and 295 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
-- `synth-and-deploy-minion-town-aws` — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
+- [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- `investigate-systemd-run-vs-gardener-loops` — _normal_ · PLAN: investigate systemd-run vs. the fixed 100-gardener-loop pool → garden d...
-- `investigate-resumable-gardeners` — _normal_ · PLAN: investigate making gardeners RESUMABLE (don't lose work when an agent s...
-- `ingest-ocap-library-sections` — _normal_ · PLAN: scholar — ingest sources for six missing ocap library sections
-- `ingest-ocap-kernel` — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel into the library
-- `formula-inspector-retention-paths-table` — _normal_ · PLAN (follow-on): add a retention-paths table to the formula inspector
-- `classify-lint-endo-master` — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
-- `endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers` — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
-- `endo-but-for-bots-parallel-sync-browser-design` — _low_ · Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo sho...
-- `endo-but-for-bots-harden-exported-literals-followup` — _low_ · follow-up PR: harden exported function literals (evasive-transform first)
+- [`investigate-systemd-run-vs-gardener-loops`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-systemd-run-vs-gardener-loops.md) — _normal_ · PLAN: investigate systemd-run vs. the fixed 100-gardener-loop pool → garden d...
+- [`investigate-resumable-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-resumable-gardeners.md) — _normal_ · PLAN: investigate making gardeners RESUMABLE (don't lose work when an agent s...
+- [`ingest-ocap-library-sections`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ingest-ocap-library-sections.md) — _normal_ · PLAN: scholar — ingest sources for six missing ocap library sections
+- [`ingest-ocap-kernel`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ingest-ocap-kernel.md) — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel into the library
+- [`formula-inspector-retention-paths-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/formula-inspector-retention-paths-table.md) — _normal_ · PLAN (follow-on): add a retention-paths table to the formula inspector
+- [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/classify-lint-endo-master.md) — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
+- [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
+- [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-parallel-sync-browser-design.md) — _low_ · Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo sho...
+- [`endo-but-for-bots-harden-exported-literals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-harden-exported-literals-followup.md) — _low_ · follow-up PR: harden exported function literals (evasive-transform first)
 
 ## Watch set
 (none)
 
 ## Hosts
-- endolinbot: 100 gardeners
+- [endolinbot](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot): 100 gardeners
