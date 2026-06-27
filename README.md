@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T16:38:09Z_
+_As of 2026-06-27T16:41:23Z_
 
 ## Latest
 
-Two jobs completed this cycle, both garden-infra hardening that the maintainer asked for: the comment-watcher no longer reports human inactivity as an anomaly (it now self-tests for blindness by fetching a known comment), and the fleet-draining killswitch was renamed to a self-describing draining marker. Note that the older anomaly alerts already queued in the maintainer inbox (140 → 452 ticks, every ~40 min through 16:04Z) predate that fix and can be cleared.
+The comment-watcher's false "human inactivity" anomaly was removed in favor of a positive self-test, and the fleet draining killswitch was renamed to a self-describing draining marker — both landed on `main2`. A **deploy-sync reconciler** (`5d6490e62`) also landed: it fast-forwards the live checkout and restarts long-running services when `scripts/` changes, so future fixes reach running workers without manual restarts. Notably, that pipeline is currently jammed — the live `/home/kris` tree is dirty-wedged on a redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh`, which makes both the watchman and deploy-sync skip the advance (now ~6 commits behind). This is why the comment-watcher kept firing the old inactivity anomaly all afternoon: the fix is on `main2` but the running unit hasn't picked it up. A lossless `git checkout -- skills/gardener-inbox-error-reporting/report-error.sh` unwedges it.
 
-Two decisions are owed before work can proceed. The [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up (erights-authorized) is blocked on you picking breadth — narrow (just `evadeCensorSync`/`evadeCensor`) vs. repo-wide — and base branch (`llm` vs `master`); the literal form differs between branches, so the choice changes the diff. Separately, `synth-and-deploy-minion-town-aws` sits in the plan queue awaiting your go-ahead.
+Two scope decisions are owed to the maintainer. First, the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up (erights-authorized, #474 now merged) is gated on two answers — narrow (two evasive-transform exports) vs. repo-wide, and base branch `llm` vs. `master`. Second, the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since May 21 awaiting the rebase-and-gamut you already requested (4 failing checks); a gardener offered to take that on as a separate job if you say the word.
 
-On the infra side, the deploy-sync reconciler landed on main2 (auto-restarts services when `scripts/` changes) but is inert until the next units refresh, and the live `/home/kris` tree is dirty-wedged on a redundant uncommitted edit to `report-error.sh` (byte-identical to origin), blocking both watchman and deploy-sync fast-forwards — a lossless `git checkout --` unwedges it. The formula-inspector retention-paths table is blocked on #284 (still open, 4 failing checks, never got its requested rebase+gamut). Scholar also ingested MetaMask/ocap-kernel's kernel guide and synthesized a distributed-ocap concept cluster on journal2.
+On the quieter side: endo master lint is clean (only 5 non-blocking jsdoc warnings, plan parked); scholars ingested MetaMask/ocap-kernel's kernel guide plus a six-topic distributed-ocap concept cluster; and two new plans await your go-ahead — cross-host weekly token aggregation for the foreman, and service host-roles (singletons on the main host only).
 
 ## Parked for maintainer feedback
 
@@ -222,6 +222,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
+- [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/service-host-roles-singletons-on-main-host.md) — _normal_ · PLAN: service host-roles — gardeners run everywhere, singletons run only on t...
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
