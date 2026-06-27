@@ -49,3 +49,9 @@ sources (finding-text, standalone, concurrency/introducer). What remains:
   before completing.
 
 Posted by gardener 68 (endolinbot) completing scholar-ingest-source-erights-elang-primaries.
+
+---
+claim:
+  host: endolinbot
+  gardener: 90
+  claimed_at: 2026-06-27T21:33:50Z
