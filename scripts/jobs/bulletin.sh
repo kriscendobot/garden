@@ -117,6 +117,12 @@ GARDEN_TAG="bulletin"
 # degrades to recency-only — never wedges.
 : "${GARDEN_BULLETIN_PARKED_ROADMAP_CMD:=}"
 
+# Base URL for the journal2 blob links that make every bulletin bullet a
+# follow-up link the maintainer can click through to the source (a job file, a
+# host record, a message). Overridable for a fork; defaults to this repo's
+# journal2 branch.
+: "${GARDEN_BLOB_BASE:=https://github.com/kriskowal/garden/blob/journal2}"
+
 DIR="${GARDEN_BULLETIN_CLONE:-$GARDEN_STATE/bulletin/journal}"
 ensure_clone "$DIR"
 
@@ -189,7 +195,7 @@ render_board() {
     while IFS= read -r j; do
       [ -n "$j" ] || continue
       desc=$(job_desc "$DIR/jobs/todo/$j")
-      printf -- '- `%s` — %s\n' "${j%.md}" "$desc"
+      printf -- '- [`%s`](%s/jobs/todo/%s) — %s\n' "${j%.md}" "$GARDEN_BLOB_BASE" "$j" "$desc"
     done < <(list_jobs "$DIR" jobs/todo)
   else
     printf '(none)\n'
@@ -200,7 +206,7 @@ render_board() {
     while IFS= read -r j; do
       [ -n "$j" ] || continue
       desc=$(job_desc "$DIR/jobs/doin/$j")
-      printf -- '- `%s` — %s\n' "${j%.md}" "$desc"
+      printf -- '- [`%s`](%s/jobs/doin/%s) — %s\n' "${j%.md}" "$GARDEN_BLOB_BASE" "$j" "$desc"
     done < <(list_jobs "$DIR" jobs/doin)
   else
     printf '(none)\n'
@@ -213,7 +219,7 @@ render_board() {
     while IFS= read -r j; do
       [ -n "$j" ] || continue
       desc=$(job_desc "$DIR/jobs/tada/$j")
-      printf -- '- `%s` — %s\n' "${j%.md}" "$desc"
+      printf -- '- [`%s`](%s/jobs/tada/%s) — %s\n' "${j%.md}" "$GARDEN_BLOB_BASE" "$j" "$desc"
     done < <(
       # `sort | head -5`: head closes the pipe after 5 lines, so on a large tada
       # `sort` can be SIGPIPE-killed mid-write (a benign "sort: write error" /
@@ -248,7 +254,7 @@ render_plan_queue() {
     f="$DIR/jobs/plan/$j"; [ -f "$f" ] || continue
     [ "$(plan_gate "$f")" = "go-ahead" ] || continue
     desc=$(job_desc "$f"); prio=$(plan_priority "$f")
-    goahead+="$(printf -- '- `%s` — _%s_ · %s' "${j%.md}" "$prio" "$desc")"$'\n'
+    goahead+="$(printf -- '- [`%s`](%s/jobs/plan/%s) — _%s_ · %s' "${j%.md}" "$GARDEN_BLOB_BASE" "$j" "$prio" "$desc")"$'\n'
   done < <(list_jobs "$DIR" jobs/plan)
 
   # deferred, ranked highest-priority-first by the shared selector
@@ -257,7 +263,7 @@ render_plan_queue() {
     [ -n "$j" ] || continue
     f="$DIR/jobs/plan/$j.md"; [ -f "$f" ] || continue
     desc=$(job_desc "$f"); prio=$(plan_priority "$f")
-    deferred+="$(printf -- '- `%s` — _%s_ · %s' "$j" "$prio" "$desc")"$'\n'
+    deferred+="$(printf -- '- [`%s`](%s/jobs/plan/%s.md) — _%s_ · %s' "$j" "$GARDEN_BLOB_BASE" "$j" "$prio" "$desc")"$'\n'
   done < <(plan_deferred_ranked "$DIR")
 
   printf '### awaiting go-ahead (maintainer authorization)\n'
@@ -488,7 +494,7 @@ compute_dashboard() {
   hosts_block=""
   for h in $(list_jobs "$DIR" hosts); do
     g=$(sed -n 's/^gardeners:[[:space:]]*//p' "$DIR/hosts/$h" | head -1)
-    hosts_block+="- $h: ${g:-?} gardeners"$'\n'
+    hosts_block+="- [$h]($GARDEN_BLOB_BASE/hosts/$h): ${g:-?} gardeners"$'\n'
   done
   [ -n "$hosts_block" ] || hosts_block="(no hosts configured)"$'\n'
 
@@ -503,7 +509,7 @@ compute_dashboard() {
     [ -f "$mf" ] || continue
     rt=$(sed -n 's/^reply_to:[[:space:]]*//p' "$mf" | head -1)
     frm=$(sed -n 's/^from:[[:space:]]*//p' "$mf" | head -1)
-    link="https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/$m"
+    link="$GARDEN_BLOB_BASE/inbox/maintainer/unread/$m"
     maint+="- \`${m%.md}\` — from ${frm:-?}, reply_to \`${rt:-?}\` · [open message]($link)"$'\n\n'
     maint+="$(msg_body_quote "$mf")"$'\n\n'
   done
