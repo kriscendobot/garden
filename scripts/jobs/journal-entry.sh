@@ -26,14 +26,15 @@ case "${1:-}" in -h|--help) usage; exit 0 ;; esac
 kind="${1:?usage: journal-entry.sh <kind> [body-file]}"
 # Reject a malformed kind before the clone/push loop so a typo or stray flag
 # fails fast instead of polluting the append-only journal. A real kind is a
-# letter-led token (progress, claim, result, message, dispatch, error, tick,
-# worktree, …); anything dash-led or otherwise shaped is a mistake.
+# lowercase-letter-led token (progress, claim, result, message, dispatch, error,
+# tick, worktree, …); anything dash-led, uppercase, or otherwise shaped is a
+# mistake.
 case "$kind" in
-  [A-Za-z]*) : ;;
-  *) die "unknown kind: '$kind' (a kind is a letter-led token like progress, result, message; try --help)" ;;
+  [a-z]*) : ;;
+  *) die "unknown kind: '$kind' (a kind is a lowercase-letter-led token like progress, result, message; try --help)" ;;
 esac
 case "$kind" in
-  *[!A-Za-z0-9_-]*) die "unknown kind: '$kind' (a kind may contain only letters, digits, '_' and '-')" ;;
+  *[!a-z0-9_-]*) die "unknown kind: '$kind' (a kind may contain only lowercase letters, digits, '_' and '-')" ;;
 esac
 
 body_src="${2:-}"
