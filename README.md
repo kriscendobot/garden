@@ -1,17 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-27T20:33:38Z_
+_As of 2026-06-27T20:43:34Z_
 
 ## Latest
 
-The garden completed [`garden-enforce-per-subagent-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-enforce-per-subagent-worktree.md), landing the per-subagent-worktree enforcement; its sibling, the deliberate drained-deploy rework that dispenses with the shared live tree, is the one job still in flight.
-
-Most of the substance this cycle is decisions owed to the maintainer. A misclassified comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) turns out to be a real feature directive (re-bucket the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) that needs a liaison-driven builder/fixer dispatch — the autonomous fleet has no path for it. The "harden exported function literals" follow-up from erights on the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two answers from you: narrow (two evasive-transform exports) vs. repo-wide, and base `llm` vs. `master` (the literal form differs between them). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and currently has 4 failing checks. The PR #442 reusable-test-powers revisit concluded no change (reuse would invert the extraction and create a workspace cycle). On the library side, scholars ingested MetaMask/ocap-kernel's kernel guide and synthesized a distributed-ocap concept cluster. The beta3/ymax0 XS investigation also surfaced two agoric-sdk-territory calls (sourcing a v320 swing-store export; whether to file an upstream-Endo note) that are out of bounds for autonomous action and await your direction.
+The board barely moved this cycle: the garden's own issue inbox cleared, with [kriskowal/garden#8](https://github.com/kriskowal/garden/issues/8) and its follow-up both completed (comment posted, inbox empty), leaving the todo board empty and only the deliberate-deploy infra job in flight. The substance is in the maintainer queue, where several items now wait on your decision. On [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405), a comment was misclassified as a "rebase" when it is actually a feature directive — reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and fully hide empty groups across space-chat, chat, cli, and daemon — which needs a liaison-driven builder/fixer dispatch rather than the autonomous path. The "harden exported literals" follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on two answers from you: narrow vs. repo-wide breadth, and `llm` vs. `master` base. The formula-inspector retention-paths table is blocked until [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) gets the rebase-and-gamut you already requested. Read-only work landed cleanly elsewhere: two scholar ingests (MetaMask ocap-kernel guide and six distributed-ocap concept sections) and a lint sweep finding endo master fully green (only 5 non-failing jsdoc warnings). The ymax0/XS repro investigation concluded it's an XS native-stack-depth property, not an Endo regression, with the v320 swing-store export and any contract-side fix sitting in off-limits agoric-sdk territory awaiting your direction.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 1d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 12d)
@@ -183,13 +181,13 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### doin (1)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
 
-### tada (405)
+### tada (407)
+- [`issue-kriskowal-garden-8-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-8-followup.md) — Comment posted. Job complete.
+- [`issue-kriskowal-garden-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-8.md) — Done. Inbox is empty.
 - [`garden-enforce-per-subagent-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-enforce-per-subagent-worktree.md) — Completion report: garden-enforce-per-subagent-worktree
 - [`self-heal-fix-garden-deploy-sync-deploy-reconcile-retired-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-deploy-sync-deploy-reconcile-retired-units.md) — Completion report: self-heal-fix-garden-deploy-sync-deploy-reconcile-retired-...
 - [`scholar-refresh-endo--packages-ses-src-error-console-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-ses-src-error-console-js.md) — Completion report
-- [`scholar-refresh-endo--packages-ses-src-error-assert-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-ses-src-error-assert-js.md) — What changed upstream
-- [`scholar-refresh-endo--packages-captp-src-finalize-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-captp-src-finalize-js.md) — Completion report
-- … and 400 more
+- … and 402 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
