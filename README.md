@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:52:18Z_
+_As of 2026-06-27T07:55:51Z_
 
 ## Latest
 
-The endolinbot host's `main2` deploy is **wedged** and needs maintainer attention: a redundant uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (byte-identical to what's already on `origin/main2`) is blocking the fast-forward, leaving the live checkout ~6 commits behind while the watchman fires repeated alerts. The gardener that landed the new deploy-sync reconciler notes the fix is lossless — `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` unwedges it. Ironically the stuck commits are exactly the reliability fixes that would help: the deploy-sync reconciler (`5d6490e62`, auto-restarts long-running services when `scripts/` changes, inert until a units refresh arms its timer) plus broadened transient-fetch/offline classification in `sync-clone` (`ba38a1372`) that stops self-resolving network blips from crash-looping gardeners — the same crash the self-heal watchdog flagged.
+The big story is deploy reliability: a chain of self-heal and sync-clone fixes landed on `main2` — transient git-fetch blips are now classified as clean exits rather than crash-looping workers ([`improve-sync-clone-transient-fetch-classification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sync-clone-transient-fetch-classification.md), [`improve-broaden-offline-fetch-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-broaden-offline-fetch-signatures.md)), and a new [`deploy-sync reconciler`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-sync-fleet-onto-landed-fixes.md) (5d6490e) now fast-forwards the checkout and restarts long-running services so landed fixes reach running workers without a manual restart. The irony a maintainer should notice: those very fixes are *not* deploying on endolinbot. The live tree has been dirty-wedged for hours — a redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (earlier, `scripts/jobs/self-heal-run.sh`) is blocking every fast-forward, and the watchman has fired a steady stream of WEDGED alerts as origin/main2 advanced ~10 commits past the frozen checkout. A gardener confirms `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges both the watchman and deploy-sync.
 
-Two watchdog anomalies worth a look: `comment-watcher/kriskowal-garden` has returned **0 comments for 100 consecutive ticks** despite a live comment on the repo since 2026-06-25 — the 2026-06-24 outage signature (check `jq`/`gh` on endolinbot). On the work side, the scholar ingested MetaMask/ocap-kernel's `kernel-guide.md` ([ingest-ocap-kernel](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ingest-ocap-kernel.md), the sixth ocap-kernel source), parking two follow-on ingest plans.
-
-Three items are parked on your call: the `cognito-mcp-metadata-bridge` gardener wants confirmation on two design Open Questions (stay with Cognito + bridge vs. an MCP-native IdP; whether to ship RFC 7591 DCR — it recommends yes, behind a default-on toggle) before building. The `formula-inspector-retention-paths-table` job is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently has 4 failing CI checks. And a gardener flags a judgment call on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down it found two real defects in the superseding commit (13 dangling design-doc references and a missing Node parity test), and pushed a conflict-safe non-force follow-up to fix both.
+Two more signals worth a look: the `comment-watcher/kriskowal-garden` watchdog reports 0 comments for 100 consecutive ticks despite a known comment since 2026-06-25 — the same blind-watcher signature as the 2026-06-24 jq/gh outage — and `self-heal` posted a fresh job flagging that `follow-up-claude.sh` swallows `claude -p` errors. On the work front, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixed 13 dangling doc references and added a real Node parity test after a superseding job left both gaps), and the scholar ingested MetaMask/ocap-kernel's kernel guide. The `formula-inspector-retention-paths-table` job is blocked on an unlanded `listRetentionPaths` host API and recommends landing that rebase-and-gamut first.
 
 ## Parked for maintainer feedback
 
@@ -304,8 +302,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`scholar-library-cycle-20260627-075113`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-075113.md) — Hourly scholar library cycle
+- [`self-heal-fix-garden-follow-up-handler-swallows-claude-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-follow-up-handler-swallows-claude-error.md) — In scripts/jobs/handlers/follow-up-claude.sh, the out="$(claude -p --dangerou...
 
 ### tada (320)
 - [`ingest-ocap-kernel`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ingest-ocap-kernel.md) — Completion report — ingest-ocap-kernel (scholar)
