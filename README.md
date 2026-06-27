@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:10:38Z_
+_As of 2026-06-27T07:12:15Z_
 
 ## Latest
 
-The self-heal fix for the `garden-gardener` claim crash landed on `origin/main2`: a transient git rc=128 during a claim's clone-sync is now classified as a recoverable outage rather than a fatal `die`, ending the crash-loop (paired with the now-in-flight work to broaden the offline-fetch classifier and add a deploy reconciler). But the headline is operational: **endolinbot's main2 deploy is wedged** — `origin/main2` has advanced through that very fix chain while the live tree stays pinned at an older SHA, blocked by uncommitted tracked edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`; until someone confirms those aren't unsaved work and cleans the tree, this host won't pick up the landed fixes (the watchman has fired repeatedly through the night). Separately, the `comment-watcher/kriskowal-garden` watcher has now gone 100 ticks finding zero comments on a demonstrably active repo — the same signature as the 2026-06-24 jq/gh outage, worth a check. On the PR side, a corrective non-force follow-up (`3aa37bbd`) landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node parity test after a stand-down was overridden, and the [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) review directive completed. The `cognito-mcp-metadata-bridge` build and the `synth-and-deploy-minion-town-aws` plan both await maintainer go-ahead.
+The headline is operational, not feature work: the watchman has fired repeatedly through the morning that **main2 on endolinbot is wedged** — `origin/main2` has advanced through roughly a dozen commits while the live tree stays pinned, blocked by tracked edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`. This matters because the fix it's starving is already landed: the self-heal diagnosis confirms the `garden-gardener` claim crash-loop (transient git rc=128 treated as fatal) was resolved on `origin/main2` — completed jobs `improve-gardener-honor-offline-rc-on-claim`, `improve-broaden-offline-fetch-signatures`, and `self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal` — but the wedged tree means the running unit can't pick it up. The one in-flight job, [`improve-deploy-sync-fleet-onto-landed-fixes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deploy-sync-fleet-onto-landed-fixes.md), targets exactly this gap (a deterministic reconciler so landed script fixes actually reach the fleet). Separately, the comment-watcher on kriskowal/garden has logged 0 comments for 60-then-100 ticks despite a real comment since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking. Two gardener notes await the maintainer: a corrective non-force follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (dangling design-doc references plus a real Node parity test, pushed after a stand-down on duplicate work), and two design open questions on the Cognito↔MCP OAuth bridge before that build proceeds.
 
 ## Parked for maintainer feedback
 
@@ -208,22 +208,35 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > That is **already fixed on `origin/main2`**. The running unit at `/home/kris` is **4 commits behind** `origin/main2`, and exactly those 4 commits are the fix chain:
 > - `5
 
+- `20260627T071117Z-7b6901` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T071117Z-7b6901.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 0c8b861c8c377b5b50a50fc6feca2a2148ab128a but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M skills/gardener-inbox-error-reporting/report-error.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-broaden-offline-fetch-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-broaden-offline-fetch-signatures.md) — Broaden the transient-outage classifier _fetch_stderr_is_offline() in scripts...
+### doin (1)
 - [`improve-deploy-sync-fleet-onto-landed-fixes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deploy-sync-fleet-onto-landed-fixes.md) — Add a deterministic deploy reconciler so landed script fixes actually reach t...
 
-### tada (315)
+### tada (316)
+- [`improve-broaden-offline-fetch-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-broaden-offline-fetch-signatures.md) — Completion report
 - [`scholar-sections-readme-reindex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-sections-readme-reindex.md) — Completion report — scholar-sections-readme-reindex
 - [`scholar-library-cycle-20260627-065049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-065049.md) — Completion report — scholar-library-cycle-20260627-065049
 - [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Inbox empty, worktree cleaned up, change pushed. Job complete.
 - [`improve-gardener-honor-offline-rc-on-claim`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-honor-offline-rc-on-claim.md) — Completion report — improve-gardener-honor-offline-rc-on-claim
-- [`endojs-endo-but-for-bots-pr440-review-a9ecd20f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr440-review-a9ecd20f.md) — Completion report — PR #440 review directive (endojs/endo-but-for-bots)
-- … and 310 more
+- … and 311 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
