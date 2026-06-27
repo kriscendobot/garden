@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T18:29:47Z_
+_As of 2026-06-27T18:31:55Z_
 
 ## Latest
 
-Only one job-board transition landed since the last bulletin: the watchman's autonomous wedge-resolution job for `endolinbot` completed cleanly. The substantive movement is in the maintainer inbox, which needs review. A misrouted comment-watcher classification surfaced a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — kriskowal wants the inventory taxonomy reshaped (Directories/Agents/Personas/Values/Capabilities) with full empty-group hiding; this is a cross-package change that has no autonomous path and needs a liaison-driven builder/fixer dispatch. The harden-exported-literals follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked awaiting two decisions from you (narrow vs repo-wide breadth, and `llm` vs `master` base). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you already requested. Lower-stakes: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction), endo master lint came back clean (only 5 non-blocking jsdoc warnings), and the scholar landed several ocap-kernel and distributed-ocap library ingests.
+The erights.org E-lang mirror ingest [completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-mirror.md), and a follow-on now re-ingests the erights *equality* HTML pages from the newly-reachable GitHub Pages mirror — closing the gap that left the grant-matcher-puzzle concept sourced only from a web summary. On garden infra, the proxy printf leading-dash format self-heal, the library-link-check stale-worktree guard, and a main2 dirty-tree wedge all landed and pushed. Scholars also synthesized two ocap concept clusters (a sixth MetaMask/ocap-kernel ingest plus six distributed-ocap library sections).
+
+Several items need maintainer eyes. A real feature directive from kriskowal on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape inventory taxonomy into Directories/Agents/Personas/Values/Capabilities + hide empty groups) was misclassified as a "rebase"; it needs a liaison-driven builder/fixer dispatch, and the classifier bug has its own infra fix posted. The [#474](https://github.com/endojs/endo-but-for-bots/pull/474) harden-exported-literals follow-up is blocked pending two decisions from you — breadth (narrow two exports vs. repo-wide) and base branch (`llm` vs `master`). The formula-inspector retention-paths table is blocked on #284 (the `listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested. The [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction). Finally, the beta3/ymax0 XS investigation surfaced two out-of-bounds calls — sourcing a v320 swing-store export and whether to file an upstream-Endo note — both deferred to you since the real fix is contract-side, not an Endo regression.
 
 ## Parked for maintainer feedback
 
@@ -182,15 +184,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
 - [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
 - [`proxy-park-blocked-jobs-and-auto-unblock`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/proxy-park-blocked-jobs-and-auto-unblock.md) — Authorize the proxy to park blocked jobs + auto-unblock when the blocker comp...
-- [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-mirror.md) — Re-ingest erights.org E-language page from the now-reachable GitHub Pages mirror
+- [`scholar-ingest-erights-equality-pages-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-equality-pages-mirror.md) — Re-ingest the erights.org E *equality* HTML pages from the now-reachable GitH...
 
-### tada (385)
+### tada (386)
+- [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-mirror.md) — Inbox empty. All work landed and the gate passes. Job complete.
 - [`resolve-wedge-endolinbot-6ff2f8caa4dc-71049535740`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-6ff2f8caa4dc-71049535740.md) — Completion report
 - [`self-heal-fix-garden-proxy-printf-leading-dash-format`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-proxy-printf-leading-dash-format.md) — Done.
 - [`improve-library-link-check-stale-worktree-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-library-link-check-stale-worktree-guard.md) — No inbox messages. Work is complete and pushed.
 - [`scholar-library-cycle-20260627-175523`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-175523.md) — Job completed and confirmed on tip (jobs/tada/, gone from doin/).
-- [`garden-fix-comment-classifier-misroutes-directive-to-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-comment-classifier-misroutes-directive-to-rebase.md) — Completion report: garden-fix-comment-classifier-misroutes-directive-to-rebase
-- … and 380 more
+- … and 381 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
