@@ -17,3 +17,9 @@ issue_spine: issue-kriskowal-garden-8
 issue_url: https://github.com/kriskowal/garden/issues/8
 submitter: kriskowal
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: endolinbot
+  gardener: 88
+  claimed_at: 2026-06-27T20:41:58Z
