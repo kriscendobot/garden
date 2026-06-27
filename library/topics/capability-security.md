@@ -221,6 +221,7 @@
 | [metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose](../sections/metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose.md) | MetaMask/ocap-kernel packages/ocap-kernel/README.md | The kernel-and-vat core package of a sibling object-capability implementation read for reference (reference-not-substrate); `@metamask/` public vs `@ocap/` private namespace split. |
 | [erights--elang-index--overview](../sections/erights--elang-index--overview.md) | The E Language documentation index (erights.org, Mark S. Miller) | The primary erights.org documentation index for E, the first-wave working object-capability language: grammar→Kernel-E, vat / eventual-send concurrency, Sameness, tooling, historical design goals. Mark Miller's own organization of E's docs, fetched via the erights.github.io mirror. |
 
+| [erights--elang-intro--tutorial-overview](../sections/erights--elang-intro--tutorial-overview.md) | The E Language tutorial (erights.org, Mark S. Miller / Marc Stiegler) | The E language tutorial arc (Elmer, lambda-based objects, remote objects over Pluribus, the single-page money example) and E's defining framing: programming in E is about **patterns of cooperation without vulnerability**. Primary erights.org page via the mirror; companion to erights--elang-index--overview. |
 ## See also
 
 - [`hardened-javascript`](hardened-javascript.md): substrate that makes ocap discipline enforceable.
