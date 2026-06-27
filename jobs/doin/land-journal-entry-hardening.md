@@ -36,3 +36,9 @@ Reconcile with any already-landed journal-entry/producer hardening before commit
 description + the unguarded-argv pattern are enough to reconstruct it.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 52
+  claimed_at: 2026-06-27T16:31:53Z
