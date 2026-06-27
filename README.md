@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T08:45:13Z_
+_As of 2026-06-27T08:49:39Z_
 
 ## Latest
 
-The deploy-sync reconciler landed on `main2` (5d6490e62): it fast-forwards the checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without manual restarts — but it's inert until the next units refresh arms its timer. More urgently, the live `endolinbot` tree has been **dirty-wedged all morning**: the watchman has fired a dozen-plus WEDGED alerts as `origin/main2` advanced from `beede51e` through `6a6e21b3` while the checkout stayed pinned, blocked by uncommitted edits to `report-error.sh`, `self-heal-run.sh`, `gardener.sh`, and `claim-job.sh`. A gardener confirmed `report-error.sh` is byte-identical to the committed version — a redundant edit — so `git -C /home/kris checkout --` on those paths is lossless and unwedges the deploy; the maintainer should verify none is unsaved work, then clean the tree. That stale checkout is also why `garden-gardener` self-heal flagged the rc=128 claim crash-loop as "already fixed on origin but four commits behind."
+The headline for the maintainer: **host `endolinbot`'s main2 deploy is wedged.** A redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (and similar dupes of `scripts/jobs/{gardener,claim-job,self-heal-run}.sh`) blocks the fast-forward, so the live tree has fallen ~10 commits behind `origin/main2` and won't pick up new scripts until cleaned — `git -C /home/kris checkout -- <path>` is lossless since the content already landed. Ironically, the commits stranded behind the wedge are the fix for the very crash that triggered it: self-heal landed a chain (through `6a6e21b3`) teaching the gardener claim loop to absorb transient `rc=128` outages instead of crash-looping, plus a deploy-sync reconciler (`5d6490e6`) that auto-advances the checkout and restarts long-running services when `scripts/` changes — both inert until the tree is unwedged and units are refreshed.
 
-Two reliability anomalies want eyes: the `comment-watcher/kriskowal-garden` watcher has reported **zero comments for 140 consecutive ticks** despite the repo being active since 2026-06-25 — the same signature as the 2026-06-24 jq/gh outage. On the PR side, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) after a stand-down, fixing 13 dangling design-doc references and adding a real Node parity test; and the formula-inspector retention-paths table is **blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)**, which has been stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you already requested. Scholars landed two ocap library expansions (the MetaMask ocap-kernel guide and a six-section distributed-ocap concept cluster), and the `cognito-mcp-metadata-bridge` gardener is awaiting your call on two OAuth design questions before building.
+Also worth noticing: the `comment-watcher/kriskowal-garden` watcher has reported 0 comments for 140+ ticks despite real activity since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth a check. On the PR side, a follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (conflict-safe `3aa37bbd`) repairing 13 dangling doc references and adding a real Node parity test after a stand-down was overridden as corrective work; the formula-inspector retention-paths table is blocked on the still-open, CI-failing #284 host API (stalled awaiting the rebase-and-gamut requested 2026-05-21); and the `cognito-mcp-metadata-bridge` build is paused on two design questions (Cognito-vs-MCP-native IdP and whether to ship RFC 7591 DCR). Scholar also ingested MetaMask's ocap-kernel guide and a distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -382,17 +382,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`improve-gardener-absorb-transient-claim-offline-rc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-absorb-transient-claim-offline-rc.md) — In scripts/jobs/gardener.sh, the claim loop treats any non-zero, non-3 return...
-- [`self-heal-fix-garden-gardener-deploy-rc128-claim-fix-stale-checkout`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-deploy-rc128-claim-fix-stale-checkout.md) — The live garden checkout at /home/kris (the tree the garden-gardener@N system...
 
-### tada (324)
+### tada (325)
+- [`self-heal-fix-garden-gardener-deploy-rc128-claim-fix-stale-checkout`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-gardener-deploy-rc128-claim-fix-stale-checkout.md) — Completion report
 - [`self-heal-fix-garden-follow-up-handler-swallows-producer-failure`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-follow-up-handler-swallows-producer-failure.md) — Completion report
 - [`ingest-ocap-library-sections`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ingest-ocap-library-sections.md) — All work is landed and pushed; the supervisor will complete the job from my r...
 - [`scholar-library-cycle-20260627-075113`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-075113.md) — Completion report — scholar-library-cycle-20260627-075113
 - [`self-heal-fix-garden-follow-up-handler-swallows-claude-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-follow-up-handler-swallows-claude-error.md) — Completion report
-- [`ingest-ocap-kernel`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ingest-ocap-kernel.md) — Completion report — ingest-ocap-kernel (scholar)
-- … and 319 more
+- … and 320 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
