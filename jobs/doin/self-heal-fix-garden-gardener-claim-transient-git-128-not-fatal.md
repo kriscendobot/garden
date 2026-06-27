@@ -9,3 +9,9 @@ Two coordinated changes:
 Test angle: the existing `GARDEN_FETCH_CMD`/`GARDEN_PUSH_CMD` injection hooks in common.sh let a test drive a transient-128 from the fetch/reset path and assert the gardener loop continues (does not exit 1).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 92
+  claimed_at: 2026-06-27T06:45:31Z
