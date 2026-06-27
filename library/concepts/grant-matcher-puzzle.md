@@ -74,10 +74,25 @@ the Grant Matcher Puzzle."
 | [[pass-invariant-handle-equality]] | The puzzle's **equality** question. The connector guarantee — same backing identity yields the same formula identifier — is the primitive that lets a matcher decide two designations refer to one object without trusting the sender. The [equivalence-myth section](../sections/papers--miller-capability-myths-demolished-2003--equivalence-myth.md) is the in-corpus formal anchor. |
 | [[three-party-handoff]] | The puzzle's **transport** question. The signed `desc:handoff-give` / `desc:handoff-receive` flow is how a capability is reliably moved to the designated destination *without* a man-in-the-middle, mutually acceptable to both parties (the modern OCapN CapTP answer to the transport half). |
 | [[principle-of-least-authority]] | The puzzle's stated protection: Alice and Dana grant the matcher *only* the authority it needs to act honestly. |
-| [[brand-and-trademark]] | The rights-amplification / sealer family that lets a matcher hold and forward funds-bearing rights it cannot itself spend — the *mutually-acceptable transport* tool. |
+| [[brand-and-trademark]] | The rights-amplification / sealer family that lets a matcher hold and forward funds-bearing rights it cannot itself spend — the *mutually-acceptable transport* tool. The [History of the Grant Matcher](../sections/web--miller-grant-matcher-history--sealer-unsealer-equivalence.md) records that an `EQ` adequate for grant matching and Sealer/Unsealer pairs are *mutually constructible*. |
+| [[object-sameness]] | The puzzle's **equality** question stated as a taxonomy: when two objects/references are the *same* (Selfish creation-identity vs Selfless value-identity; the `==`/designational-equivalence predicate; the asynchronous `join`). The E-language definitions behind the `EQ` the puzzle needs. |
+| [[pass-by-construction]] | The puzzle's **transport** half stated as the object-passing taxonomy (PassByProxy / PassByCopy / PassByConstruction; the three-vat "travelling" case the [[three-party-handoff]] resolves). |
+
+## The adjacent E equality-taxonomy pages (in-corpus)
+
+The puzzle is the root page of erights.org's `elib/equality/` tree; its sibling and successor pages are now ingested alongside it:
+
+| Source | What it adds |
+|---|---|
+| [History of the Grant Matcher](../sources/web--miller-grant-matcher-history.md) | The EQ-history essay the overview's "not understood until…" link points at: Lisp EQ → Smalltalk/Actors/KeyKOS → Joule → the Escrow Exchange Agent → the puzzle; plus the EQ ⇄ Sealer/Unsealer equivalence. |
+| [Four Party Partial Orders](../sources/web--miller-equality-four-party-partial-orders.md) | The puzzle's "On to:" successor: the *concurrency* problem (distributed equality must add a join to the message-delivery order); the E `join` implementation. |
+| [Object Sameness](../sources/web--miller-equality-object-sameness.md) / [Reference Sameness](../sources/web--miller-equality-reference-sameness.md) | The sameness classification ([[object-sameness]]). |
+| [Argument Passing Rules](../sources/web--miller-equality-argument-passing-rules.md) | The object-passing classification ([[pass-by-construction]]). |
 
 ## See also
 
 - [[pass-invariant-handle-equality]] — the equality answer Endo enforces at the Handle layer.
+- [[object-sameness]] — the E-language identity taxonomy (`==`, designational equivalence, Selfish/Selfless) the `EQ` rests on.
+- [[pass-by-construction]] — the E-language object-passing taxonomy (PassByProxy/Copy/Construction) the transport half rests on.
 - [[three-party-handoff]] — the transport answer in OCapN CapTP.
 - [[granovetter-operator]] — the introduction primitive whose third rule the puzzle scrutinizes.

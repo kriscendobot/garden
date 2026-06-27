@@ -216,6 +216,8 @@
 | [web--miller-grant-matcher-puzzle--overview](../sections/web--miller-grant-matcher-puzzle--overview.md) | The Grant Matcher Puzzle (Miller) | The `EQ`-primitive framing: should a system tell whether two references designate the same object without consulting them, and what each answer costs. |
 | [web--miller-grant-matcher-puzzle--capability-foundations](../sections/web--miller-grant-matcher-puzzle--capability-foundations.md) | The Grant Matcher Puzzle (Miller) | The three capability rules — discretionary, mandatory, and the third (the reference Bob gets must be the Carol Alice meant) that is the heart of the puzzle. |
 | [web--miller-grant-matcher-puzzle--setting-up-the-puzzle](../sections/web--miller-grant-matcher-puzzle--setting-up-the-puzzle.md) | The Grant Matcher Puzzle (Miller) | Least authority as the donors' only protection against a misbehaving Grant Matcher; two mutually-distrustful donors using a trusted third party. |
+| [web--miller-grant-matcher-history--overview](../sections/web--miller-grant-matcher-history--overview.md) | History of the Grant Matcher (Miller) | KeyKOS's EQ/DISCRIM underwrites security patterns like the Factory; the Actor/Joule no-EQ tradition; the security-vs-flexibility tension the puzzle crystallized. |
+| [web--miller-grant-matcher-history--sealer-unsealer-equivalence](../sections/web--miller-grant-matcher-history--sealer-unsealer-equivalence.md) | History of the Grant Matcher (Miller) | EQ and Sealer/Unsealer (rights-amplification) pairs are mutually constructible — two faces of the same security expressive power. |
 ## See also
 
 - [`hardened-javascript`](hardened-javascript.md): substrate that makes ocap discipline enforceable.

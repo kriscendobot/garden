@@ -65,6 +65,7 @@
 
 | [endo-but-for-bots--packages-whylip-src-hooks-useConversation-js--three-tier-parse-cascade-with-format-retry-loop-and-mailbox-streaming-sync](../sections/endo-but-for-bots--packages-whylip-src-hooks-useConversation-js--three-tier-parse-cascade-with-format-retry-loop-and-mailbox-streaming-sync.md) | packages/whylip/src/hooks/useConversation.js | CapTP messaging is the wire for the format-retry correction loop: parse error is sent back to Fae as `E(powers).send('fae', [FORMAT_ERROR...], [], [])` — same CapTP channel as normal conversation turns. Also: `followMessages()` streaming via E(iterRef).next() async iterator adapter over CapTP far reference; `listMessages()` batch init over CapTP. |
 | [web--miller-grant-matcher-puzzle--alice-gets-greedy](../sections/web--miller-grant-matcher-puzzle--alice-gets-greedy.md) | The Grant Matcher Puzzle (Miller) | The capability man-in-the-middle the transport protocol must resist: a transparent forwarder interposed on the messaging path. The modern CapTP answer is the signed three-party handoff (`desc:handoff-give` / `desc:handoff-receive`). |
+| [web--miller-equality-argument-passing-rules--vat-based-rules](../sections/web--miller-equality-argument-passing-rules--vat-based-rules.md) | Argument Passing Rules (Miller) | The vat-relative reference transforms (leaving-home / going-home / travelling) CapTP realizes; the three-vat travelling case is the situation the three-party handoff resolves. |
 
 ## See also
 

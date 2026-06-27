@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5826 (506 parent indexes + 5320 children).
+Total section files: 5834 (506 parent indexes + 5328 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7609,6 +7609,29 @@ Total section files: 5826 (506 parent indexes + 5320 children).
 
 - [web--gcp-marketplace-partner-program--product-types-and-partner-program](web--gcp-marketplace-partner-program--product-types-and-partner-program.md)
 - [web--gcp-marketplace-partner-program--saas-integration-and-identity](web--gcp-marketplace-partner-program--saas-integration-and-identity.md)
+
+### web--miller-equality-argument-passing-rules
+
+- [web--miller-equality-argument-passing-rules--vat-independent-semantics](web--miller-equality-argument-passing-rules--vat-independent-semantics.md)
+- [web--miller-equality-argument-passing-rules--vat-based-rules](web--miller-equality-argument-passing-rules--vat-based-rules.md)
+
+### web--miller-equality-four-party-partial-orders
+
+- [web--miller-equality-four-party-partial-orders--overview](web--miller-equality-four-party-partial-orders--overview.md)
+- [web--miller-equality-four-party-partial-orders--joining-the-orders](web--miller-equality-four-party-partial-orders--joining-the-orders.md)
+
+### web--miller-equality-object-sameness
+
+- [web--miller-equality-object-sameness--overview](web--miller-equality-object-sameness--overview.md)
+
+### web--miller-equality-reference-sameness
+
+- [web--miller-equality-reference-sameness--overview](web--miller-equality-reference-sameness--overview.md)
+
+### web--miller-grant-matcher-history
+
+- [web--miller-grant-matcher-history--overview](web--miller-grant-matcher-history--overview.md)
+- [web--miller-grant-matcher-history--sealer-unsealer-equivalence](web--miller-grant-matcher-history--sealer-unsealer-equivalence.md)
 
 ### web--miller-grant-matcher-puzzle
 

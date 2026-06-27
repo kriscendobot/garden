@@ -679,6 +679,11 @@ Sources retrieved from public URLs rather than from repository git history. Use 
 | [Comparative analysis: AWS / Azure / GCP marketplaces](web--comparative-analysis-aws-azure-gcp-marketplaces.md) | https://divein.market/cloud-marketplace-fee-comparison-2025/ | 1 | current |
 | [GCP Marketplace partner program](web--gcp-marketplace-partner-program.md) | https://docs.cloud.google.com/marketplace/docs/partners | 2 | current |
 | [The Grant Matcher Puzzle (Mark S. Miller, E *equality* taxonomy)](web--miller-grant-matcher-puzzle.md) | https://erights.org/elib/equality/grant-matcher/index.html | 6 | current (erights.org / caplet.com unreachable 2026-06-27; ingested from Internet Archive original-bytes capture, content SHA-256 `d25136c9`; promotes concept `grant-matcher-puzzle` draft → current) |
+| [History of the Grant Matcher (Mark S. Miller, E *equality* taxonomy)](web--miller-grant-matcher-history.md) | https://erights.org/elib/equality/grant-matcher/history.html | 2 | current (erights.org unreachable 2026-06-27; ingested from Internet Archive original-bytes capture, content SHA-256 `192e45c4`) |
+| [Four Party Partial Orders (Mark S. Miller, E *equality* taxonomy)](web--miller-equality-four-party-partial-orders.md) | https://erights.org/elib/equality/after-both.html | 2 | current (erights.org unreachable 2026-06-27; ingested from Internet Archive original-bytes capture, content SHA-256 `e9e89167`) |
+| [Object Sameness (Mark S. Miller, E *equality* taxonomy)](web--miller-equality-object-sameness.md) | https://erights.org/elib/equality/same-object.html | 1 | current (erights.org unreachable 2026-06-27; ingested from Internet Archive original-bytes capture, content SHA-256 `463a4dc5`) |
+| [Reference Sameness (Mark S. Miller, E *equality* taxonomy)](web--miller-equality-reference-sameness.md) | https://erights.org/elib/equality/same-ref.html | 1 | current (erights.org unreachable 2026-06-27; ingested from Internet Archive original-bytes capture, content SHA-256 `09ca5c97`) |
+| [Argument Passing Rules (Mark S. Miller, E *equality* taxonomy)](web--miller-equality-argument-passing-rules.md) | https://erights.org/elib/equality/passing-rules.html | 2 | current (erights.org unreachable 2026-06-27; ingested from Internet Archive original-bytes capture, content SHA-256 `674e5229`) |
 
 
 ## Web essays and surveys

@@ -13255,3 +13255,50 @@ OpenClaw parity | endoclaw
 OpenClaw (ClawdBot / Moltbot) | endoclaw
 a claw (endoclaw domain vocabulary) | endoclaw
 capability vs UI feature classification (endoclaw) | endoclaw
+object sameness | object-sameness
+reference sameness | object-sameness
+sameness | object-sameness
+sameness identity | object-sameness
+designational equivalence | object-sameness
+designationally equivalent | object-sameness
+computational vs designational equivalence | object-sameness
+Selfish object | object-sameness
+Selfless object | object-sameness
+Settled reference | object-sameness
+Unsettled reference | object-sameness
+creation identity | object-sameness
+value identity | object-sameness
+`E.same` | object-sameness
+`==` predicate | object-sameness
+EQ primitive in E | object-sameness
+monotonic equality predicate | object-sameness
+EMap settled keys | object-sameness
+PowerKey | object-sameness
+CycleBreaker | object-sameness
+Disconnected reference | object-sameness
+sameness as Herbrand terms | object-sameness
+Henry Baker Equal Rights for Functional Objects | object-sameness
+`E.join` | object-sameness
+pass-by-construction | pass-by-construction
+PassByConstruction | pass-by-construction
+PBC pass by construction | pass-by-construction
+pass-by-proxy | pass-by-construction
+PassByProxy | pass-by-construction
+PassByCopy | pass-by-construction
+pass-by-copy in E | pass-by-construction
+argument passing rules | pass-by-construction
+object-passing taxonomy | pass-by-construction
+Presence remote presence | pass-by-construction
+Near reference | pass-by-construction
+Far reference | pass-by-construction
+leaving home going home travelling | pass-by-construction
+Lost Resolution bug | pass-by-construction
+History of the Grant Matcher | grant-matcher-puzzle
+Puzzle History | grant-matcher-puzzle
+DISCRIM | grant-matcher-puzzle
+KeyKOS EQ | grant-matcher-puzzle
+Joule Channel | grant-matcher-puzzle
+Escrow Exchange Agent | grant-matcher-puzzle
+WebMart | grant-matcher-puzzle
+Four Party Partial Orders | grant-matcher-puzzle
+4-party partial orders | grant-matcher-puzzle
