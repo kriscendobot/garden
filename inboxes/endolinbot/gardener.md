@@ -93,3 +93,12 @@ Inspect via `git -C journal cat-file -p e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 - Context: gardener-91 on endolinbot: job 'reaper-continue' handler exited non-zero
 
 Inspect via `git -C journal cat-file -p e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`.
+
+## lane 0 -- handler-nonzero failure at 2026-06-27T04:40:12Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+- Context: gardener-22 on endolinbot: job 'improve-classify-offline-as-tempfail-in-journal-fetch' handler exited non-zero
+
+Inspect via `git -C journal cat-file -p e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`.
