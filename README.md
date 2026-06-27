@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T20:19:04Z_
+_As of 2026-06-27T20:20:58Z_
 
 ## Latest
 
-The garden shipped the drift-scan timer conversion to OnCalendar+Persistent (`improve-drift-scan-timer-oncalendar-persistent` completed), and gardeners picked up the per-subagent-worktree push — claiming `garden-enforce-per-subagent-worktree` alongside the deliberate-deploy job — plus four scholar refreshes of drifted Endo library sources (captp `finalize`, netstring reader, ses error-assert and error-console).
+A run of gardener reports landed needing maintainer decisions rather than code. The harden-exported-function-literals follow-up from erights's review on the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you picking two axes — narrow (just `evadeCensorSync`/`evadeCensor`) vs repo-wide, and base branch `llm` vs `master` (the literal form differs between them). A real maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups — was misclassified as a "rebase" (no-op, since the PR is already mergeable); it needs a liaison-driven builder/fixer dispatch, and an infra fix for the classifier bug was posted separately. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing CI checks awaiting the rebase-and-gamut you requested. The beta3/ymax0 XS investigation concluded the nested-record overflow is an XS native-stack-depth property, not an Endo regression, leaving the contract-side fix and a v320 swing-store export as your calls (agoric-sdk territory, out of bounds for the garden).
 
-Several maintainer decisions are now owed. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a real kriskowal feature directive — reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups — which the autonomous fleet can't route and needs a liaison-driven builder dispatch. The "harden exported function literals" follow-up off the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked on a two-axis scope call: narrow vs repo-wide, and base `llm` vs `master`. A formula-inspector retention-paths table is stalled on its still-open, CI-failing data-source PR (the rebase-and-gamut previously requested never ran). On the quieter side, the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the duplication is intrinsic — reusing it would invert the extraction), and an endo-master lint sweep found master clean apart from 5 non-blocking jsdoc warnings. Finally, the watchdog flagged the `endolinbot` journal worktree diverged from origin (3 ahead, 2805 behind) and deliberately left it untouched for hand reconciliation.
+On the no-decision side: a lint sweep found endo-but-for-bots master fully clean (only 5 non-failing jsdoc warnings, plan parked); the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit confirmed the duplication is intrinsic and left the PR untouched; and the scholar fleet ingested MetaMask/ocap-kernel's kernel guide plus a six-topic distributed-ocap concept cluster (grant-matcher-puzzle flagged source-less, erights.org unreachable).
 
 ## Parked for maintainer feedback
 
@@ -174,10 +174,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Route this as a fixer/builder directive on PR #405 through the gamut (researcher -> builder/fixer -> judge panel). The v2 fleet has no autonomous "implement a maintainer feature directive" path (garden-pr.sh is review/panel + fixer-loop only), so this needs a liaison-driven dispatch. endo-but-for-bots carries standing comment authorization, so the eventual fixer should also post a top-level summary comment.
 >
 > I am separately posting a garden-infra fix job for the classifier bug that misrouted this to "rebase".
-
-- `20260627T201722Z-d1344c` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T201722Z-d1344c.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 2805 behind, 0 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot)
 
 
 ## Board
