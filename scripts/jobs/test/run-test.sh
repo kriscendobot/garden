@@ -709,6 +709,64 @@ mm_after2=$(ls -1 "$TR/fuhv3/inbox/maintainer/unread" | grep -vxc '.gitkeep' || 
   || bad "inner-claude failure not routed to maintainer ($mm_before2→$mm_after2)"
 
 # ============================================================================
+hr; echo "SUBTEST 13c — FOLLOW-UP: bounded retry + quarantine of a wedged digest"; hr
+# A handler that NEVER succeeds on the same pending set must not re-run forever
+# (the 2026-06-27 07:53–08:44 episode). With the handler forced to fail
+# (/bin/false) and the ceiling lowered to 3: ticks below the ceiling FAIL and
+# grow the streak (marker not advanced, so a transient window self-resolves);
+# the tick AT the ceiling quarantines the reports (advances the marker, clears
+# the streak, escalates to the maintainer) and EXITS 0 so the burn stops.
+export GARDEN_STATE="$TR/state-fuq" GARDEN_HOST=fuqhost
+SEEN_FUQ="$GARDEN_STATE/follow-up/seen"; FC_FUQ="$GARDEN_STATE/follow-up/fail-count"
+# prime cold-start so subsequent ticks ACT (cold start never calls the handler)
+push_change "jobs/tada/fuq-prime.md" "$(printf '# prime\n## Follow-ups\n- None\n')" "seed prime tada (cold start, q)"
+env GARDEN_FOLLOWUP_HANDLER=/bin/true "$JOBS/follow-up.sh" >/dev/null 2>&1
+# a NEW report with an actionable follow-up; the handler is wedged (always fails)
+push_change "jobs/tada/fuq-wedge.md" "$(printf '# wedge\n## Follow-ups (escalated to liaison)\n- do an impossible thing\n')" "seed wedged report"
+mm_q0=$(git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/fuqv0" && \
+  ls -1 "$TR/fuqv0/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/fuqv0"
+# ticks 1..2 are below the ceiling: each FAILS, marker NOT advanced, streak 1→2
+rc1=0; env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=3 "$JOBS/follow-up.sh" >/dev/null 2>&1 || rc1=$?
+c1=$(awk '{print $1}' "$FC_FUQ" 2>/dev/null || echo NONE)
+rc2=0; env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=3 "$JOBS/follow-up.sh" >/dev/null 2>&1 || rc2=$?
+c2=$(awk '{print $1}' "$FC_FUQ" 2>/dev/null || echo NONE)
+seen_pre=0; grep -qxF "jobs/tada/fuq-wedge.md" "$SEEN_FUQ" 2>/dev/null && seen_pre=1
+{ [ "$rc1" -ne 0 ] && [ "$rc2" -ne 0 ] && [ "$c1" = 1 ] && [ "$c2" = 2 ] && [ "$seen_pre" -eq 0 ]; } \
+  && ok "below ceiling: each tick fails, streak increments (1→2), marker NOT advanced" \
+  || bad "below-ceiling wrong (rc1=$rc1 rc2=$rc2 c1=$c1 c2=$c2 seen=$seen_pre)"
+# tick 3 hits the ceiling → quarantine: exit 0, marker advanced, streak cleared, escalated
+rc3=0; env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=3 "$JOBS/follow-up.sh" >/dev/null 2>&1 || rc3=$?
+seen_post=0; grep -qxF "jobs/tada/fuq-wedge.md" "$SEEN_FUQ" 2>/dev/null && seen_post=1
+fc_gone=0; [ -f "$FC_FUQ" ] || fc_gone=1
+mm_q1=$(git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/fuqv1" && \
+  ls -1 "$TR/fuqv1/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/fuqv1"
+{ [ "$rc3" -eq 0 ] && [ "$seen_post" -eq 1 ] && [ "$fc_gone" -eq 1 ] && [ "$mm_q1" -gt "$mm_q0" ]; } \
+  && ok "at ceiling: tick exits 0, report quarantined (seen), streak cleared, maintainer escalated" \
+  || bad "quarantine wrong (rc3=$rc3 seen=$seen_post fc_gone=$fc_gone mm:$mm_q0→$mm_q1)"
+# a subsequent tick is a quiet no-op (the wedged report is now seen → never re-run)
+hbq=$(git ls-remote "$BARE" "refs/heads/$BRANCH" | awk '{print $1}')
+rc4=0; env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=3 "$JOBS/follow-up.sh" >/dev/null 2>&1 || rc4=$?
+haq=$(git ls-remote "$BARE" "refs/heads/$BRANCH" | awk '{print $1}')
+{ [ "$rc4" -eq 0 ] && [ "$hbq" = "$haq" ]; } \
+  && ok "post-quarantine tick is a quiet no-op (wedged report no longer re-run)" \
+  || bad "post-quarantine not quiet (rc4=$rc4 commit $hbq→$haq)"
+# a CHANGED pending set resets the streak: a failure on set {a}, then a NEW
+# report makes the set {a,b} so the next failure restarts the streak at 1.
+export GARDEN_STATE="$TR/state-fur" GARDEN_HOST=furhost
+FC_FUR="$GARDEN_STATE/follow-up/fail-count"
+push_change "jobs/tada/fur-prime.md" "$(printf '# prime\n## Follow-ups\n- None\n')" "seed prime tada (cold start, r)"
+env GARDEN_FOLLOWUP_HANDLER=/bin/true "$JOBS/follow-up.sh" >/dev/null 2>&1
+push_change "jobs/tada/fur-a.md" "$(printf '# a\n## Follow-ups (escalated to liaison)\n- task a\n')" "seed report a"
+env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=5 "$JOBS/follow-up.sh" >/dev/null 2>&1 || true
+cA=$(awk '{print $1}' "$FC_FUR" 2>/dev/null || echo NONE)
+push_change "jobs/tada/fur-b.md" "$(printf '# b\n## Follow-ups (escalated to liaison)\n- task b\n')" "seed report b"
+env GARDEN_FOLLOWUP_HANDLER=/bin/false GARDEN_FOLLOWUP_MAX_RETRIES=5 "$JOBS/follow-up.sh" >/dev/null 2>&1 || true
+cB=$(awk '{print $1}' "$FC_FUR" 2>/dev/null || echo NONE)
+{ [ "$cA" = 1 ] && [ "$cB" = 1 ]; } \
+  && ok "changed pending set resets the failure streak (1 then 1, not 2)" \
+  || bad "streak reset wrong (cA=$cA cB=$cB)"
+
+# ============================================================================
 hr; echo "SUBTEST 14 — FOREMAN: idle-pump, settle window, cost gate, anti-flap"; hr
 # Dedicated empty board on its own origin so idle state is fully controllable.
 FBARE="$TR/foreman.git"; git init -q --bare "$FBARE"
