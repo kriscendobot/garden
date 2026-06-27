@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:55:51Z_
+_As of 2026-06-27T07:58:12Z_
 
 ## Latest
 
-The big story is deploy reliability: a chain of self-heal and sync-clone fixes landed on `main2` — transient git-fetch blips are now classified as clean exits rather than crash-looping workers ([`improve-sync-clone-transient-fetch-classification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sync-clone-transient-fetch-classification.md), [`improve-broaden-offline-fetch-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-broaden-offline-fetch-signatures.md)), and a new [`deploy-sync reconciler`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-sync-fleet-onto-landed-fixes.md) (5d6490e) now fast-forwards the checkout and restarts long-running services so landed fixes reach running workers without a manual restart. The irony a maintainer should notice: those very fixes are *not* deploying on endolinbot. The live tree has been dirty-wedged for hours — a redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (earlier, `scripts/jobs/self-heal-run.sh`) is blocking every fast-forward, and the watchman has fired a steady stream of WEDGED alerts as origin/main2 advanced ~10 commits past the frozen checkout. A gardener confirms `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges both the watchman and deploy-sync.
+The deploy-sync reconciler landed on main2 (`5d6490e62`): it now fast-forwards the checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart. Also landed: improved sync-clone transient-fetch classification (`ba38a1372`, suite green) and a self-heal fix for the follow-up handler that was swallowing Claude errors.
 
-Two more signals worth a look: the `comment-watcher/kriskowal-garden` watchdog reports 0 comments for 100 consecutive ticks despite a known comment since 2026-06-25 — the same blind-watcher signature as the 2026-06-24 jq/gh outage — and `self-heal` posted a fresh job flagging that `follow-up-claude.sh` swallows `claude -p` errors. On the work front, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixed 13 dangling doc references and added a real Node parity test after a superseding job left both gaps), and the scholar ingested MetaMask/ocap-kernel's kernel guide. The `formula-inspector-retention-paths-table` job is blocked on an unlanded `listRetentionPaths` host API and recommends landing that rebase-and-gamut first.
+The headline operational issue is that endolinbot's live tree is **dirty-wedged** and roughly 6 commits behind origin/main2 — a redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (earlier, `scripts/jobs/self-heal-run.sh`) is blocking every fast-forward, so both the watchman and the new deploy-sync keep skipping the advance and this host is not picking up new roles/skills/scripts. The reconciler's own note flags the fix as lossless (`git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh`). Worth a quick maintainer confirm that nothing in those edits is unsaved work before cleaning the tree.
+
+Two more to notice: the comment-watcher on kriskowal/garden has reported **0 comments for 100 consecutive ticks while the repo is active** — the 2026-06-24 outage signature again, pointing at jq/gh on endolinbot. On the PR side, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) — fixing 13 dangling design-doc references and adding a real Node parity test after a stand-down was deemed corrective rather than duplicate (flagged for visibility). Meanwhile the formula-inspector retention-paths table is **blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)**, which has been stalled since 2026-05-21 awaiting the requested rebase-and-re-gamut (4 failing checks); the scholar also completed its sixth ocap-kernel ingest (the 689-line kernel-guide).
 
 ## Parked for maintainer feedback
 
@@ -297,22 +299,35 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Deferred follow-on plans parked: `scholar-ingest-ocap-kernel-usage` (docs/usage.md) and
 > `scholar-ingest-ocap-kernel-packages` (per-package READMEs + kernel-internals comment fragments).
 
+- `20260627T075803Z-d1b426` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T075803Z-d1b426.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 3ab9074bca91f72f0de738e5b25e172aa7ea138e but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M skills/gardener-inbox-error-reporting/report-error.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`scholar-library-cycle-20260627-075113`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-075113.md) — Hourly scholar library cycle
-- [`self-heal-fix-garden-follow-up-handler-swallows-claude-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-follow-up-handler-swallows-claude-error.md) — In scripts/jobs/handlers/follow-up-claude.sh, the out="$(claude -p --dangerou...
 
-### tada (320)
+### tada (321)
+- [`self-heal-fix-garden-follow-up-handler-swallows-claude-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-follow-up-handler-swallows-claude-error.md) — Completion report
 - [`ingest-ocap-kernel`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ingest-ocap-kernel.md) — Completion report — ingest-ocap-kernel (scholar)
 - [`improve-sync-clone-transient-fetch-classification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sync-clone-transient-fetch-classification.md) — Done. Committed ba38a1372 to origin/main2; full test suite green (171/0); wor...
 - [`formula-inspector-retention-paths-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/formula-inspector-retention-paths-table.md) — Completion report: formula-inspector-retention-paths-table
 - [`improve-deploy-sync-fleet-onto-landed-fixes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-sync-fleet-onto-landed-fixes.md) — Completion report: improve-deploy-sync-fleet-onto-landed-fixes
-- [`improve-broaden-offline-fetch-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-broaden-offline-fetch-signatures.md) — Completion report
-- … and 315 more
+- … and 316 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
