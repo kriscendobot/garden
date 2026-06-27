@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:35:39Z_
+_As of 2026-06-27T07:46:00Z_
 
 ## Latest
 
-The big mover is infrastructure resilience: a **deploy-sync reconciler** landed on main2 (`5d6490e62`) that fast-forwards each host's checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — it arms automatically on the next units refresh. Alongside it, the self-heal/`sync_clone` transient-outage classification work advanced: `improve-broaden-offline-fetch-signatures` completed and `improve-sync-clone-transient-fetch-classification` is in flight, hardening gardeners against treating network blips as fatal claim failures.
-
-What a maintainer should notice: **endolinbot's main2 deploy is wedged** and has been for hours — a redundant uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (byte-identical to what's already on origin) is blocking the fast-forward, so both the watchman and the new deploy-sync are skipping the advance and the host is now several commits behind. The fix is lossless: `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh`. Separately, the **comment-watcher for kriskowal/garden is blind again** — 100 consecutive ticks with zero comments despite real activity, matching the 2026-06-24 jq/gh outage signature.
-
-On the PR side, a corrective follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`): a gardener fixed 13 dangling design-doc references and added a real Node.js parity test that an earlier landing had only asserted in prose. Two jobs are parked on maintainer input — the `formula-inspector-retention-paths-table` build is blocked on a still-open, CI-failing `listRetentionPaths` host API PR (stalled since 2026-05-21 awaiting a rebase-and-gamut), and the Cognito↔MCP OAuth bridge build is paused on two design open questions (the gardener recommends proceeding with Cognito + bridge and shipping RFC 7591 DCR behind a default-on toggle).
+The endolinbot deploy is wedged and clearing it should come first: the live `/home/kris` tree is dirty on `skills/gardener-inbox-error-reporting/report-error.sh`, whose content is byte-identical to what already landed on `origin/main2`, so git refuses the fast-forward and the host has now fallen several commits behind — a lossless `git -C /home/kris checkout --` on that one file unwedges both the watchman and the new deploy-sync reconciler. That reconciler itself landed this cycle (`5d6490e62`): it advances the checkout by a strict clean fast-forward and restarts the long-running gardener/bulletin/driver/watcher services when `scripts/` changes, so future fixes reach running workers without a manual restart — but it stays inert until a routine `install-units.sh` refresh arms its timer, and it is blocked by the same dirty tree right now. Also landed: a sync-clone transient-fetch-classification hardening (`ba38a1372`, suite green) that stops a self-resolving network blip from crash-looping a gardener — the exact failure self-heal flagged this cycle. Two judgment-call heads-ups from the fleet: a corrective non-force follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`) fixed 13 dangling design-doc references and added a real Node parity test after a stand-down on duplicated work, and the formula-inspector retention-paths table is blocked pending the stalled #284 rebase-and-gamut you requested on 2026-05-21. Finally, the comment-watcher on kriskowal/garden has reported zero comments for 100 consecutive ticks despite known activity — the 2026-06-24 jq/gh outage signature is recurring and worth a check.
 
 ## Parked for maintainer feedback
 
@@ -263,22 +259,35 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Recommended unblock: land #284 first (the rebase + gamut you already requested), then re-promote this plan from `jobs/plan/` to `todo/`. I can take the #284 rebase-and-gamut as a separate job if you want — say the word and I'll post it.
 
+- `20260627T074543Z-a87313` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T074543Z-a87313.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to ba38a137284e63ff9e8ec360f9119c84ae0da0a7 but the live tree is stuck at 2e3372fbe4610f81fd6cc56e8c69d3640fd34a27: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M skills/gardener-inbox-error-reporting/report-error.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-sync-clone-transient-fetch-classification`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-sync-clone-transient-fetch-classification.md) — Broaden sync_clone's transient-outage classification in scripts/jobs/common.s...
+### doin (1)
 - [`ingest-ocap-kernel`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ingest-ocap-kernel.md) — PLAN: scholar — ingest MetaMask/ocap-kernel into the library
 
-### tada (318)
+### tada (319)
+- [`improve-sync-clone-transient-fetch-classification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sync-clone-transient-fetch-classification.md) — Done. Committed ba38a1372 to origin/main2; full test suite green (171/0); wor...
 - [`formula-inspector-retention-paths-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/formula-inspector-retention-paths-table.md) — Completion report: formula-inspector-retention-paths-table
 - [`improve-deploy-sync-fleet-onto-landed-fixes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-sync-fleet-onto-landed-fixes.md) — Completion report: improve-deploy-sync-fleet-onto-landed-fixes
 - [`improve-broaden-offline-fetch-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-broaden-offline-fetch-signatures.md) — Completion report
 - [`scholar-sections-readme-reindex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-sections-readme-reindex.md) — Completion report — scholar-sections-readme-reindex
-- [`scholar-library-cycle-20260627-065049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-065049.md) — Completion report — scholar-library-cycle-20260627-065049
-- … and 313 more
+- … and 314 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
