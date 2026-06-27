@@ -49,6 +49,32 @@ question, and the tentative answer — so the maintainer can review and override
 This is not optional: the proxy is an autonomous surface, and its whole safety
 story is that the maintainer sees everything it decided.
 
+## Watchdog auto-clear
+
+A **sanctioned, narrow exception** to "always report to the maintainer," scoped
+strictly to `watchdog:*` senders. A deterministic **pre-pass** at the top of each
+proxy tick (`scripts/jobs/proxy.sh`, in plain code — **no `claude -p`**, before the
+gating-question enumeration and before the cost-gated handler) archives every
+unread maintainer message whose frontmatter `from:` matches `^watchdog:` (the
+autonomous-monitor anomaly reports written by `common.sh`'s `alert_maintainer`,
+e.g. `watchdog:comment-watcher/…`, `watchdog:self-heal-claude`). These are
+**informational** — anomaly notices, not action requests — and they pile up
+unread; the maintainer hand-cleared 11 of them on 2026-06-27 and directed the
+proxy to clear them going forward.
+
+The pre-pass moves each matching message `unread → read` and logs a single
+**deduplicated tally** line (`cleared N watchdog messages: <label>×K, …`) so the
+suppression stays **auditable** from the proxy's own logs — a novel anomaly burst
+is still recoverable there. It **never re-posts** anything to the maintainer
+(reducing the noise is the whole point).
+
+Scope guardrails: it touches **only** `watchdog:*` senders. Gardener completion
+reports (`gardener:*`), gating questions, and every other sender are left
+**unread for the maintainer**, exactly as before. Backstop relationship: the
+root-cause fix for the comment-watcher inactivity false-positives stops that noise
+at the source; this auto-clear handles whatever watchdog noise remains, from any
+monitor.
+
 ## Injection hygiene
 
 A gardener's question may quote external PR titles, comment bodies, or URLs.

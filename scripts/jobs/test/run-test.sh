@@ -990,6 +990,41 @@ qd="$(mktemp)"; echo "Is this job considered complete?"                         
 "$JOBS/message-user.sh" px-live-b "$qb" >/dev/null
 "$JOBS/message-user.sh" px-dead   "$qd" >/dev/null
 
+# watchdog auto-clear fixture: two watchdog-class anomaly reports from ONE monitor
+# + one from a DISTINCT monitor (none carry reply_to — never gating), plus a
+# gardener completion report (no reply_to) that MUST be left for the maintainer.
+wd1="$(printf 'from_host: pxhost\nfrom: watchdog:comment-watcher/kriskowal-garden\nsent_at: 2026-06-27T00:00:00Z\n---\nself-test failed to observe a known comment.')"
+wd2="$(printf 'from_host: pxhost\nfrom: watchdog:comment-watcher/kriskowal-garden\nsent_at: 2026-06-27T00:01:00Z\n---\nanother comment-watcher anomaly.')"
+wd3="$(printf 'from_host: pxhost\nfrom: watchdog:self-heal-claude\nsent_at: 2026-06-27T00:02:00Z\n---\nself-heal could not classify a failure.')"
+grp="$(printf 'from_host: pxhost\nfrom: gardener:px-rep\nsent_at: 2026-06-27T00:03:00Z\n---\nJob complete; here is my report.')"
+push_change "inbox/maintainer/unread/px-wd-1.md" "$wd1" "seed watchdog message (comment-watcher) 1"
+push_change "inbox/maintainer/unread/px-wd-2.md" "$wd2" "seed watchdog message (comment-watcher) 2"
+push_change "inbox/maintainer/unread/px-wd-3.md" "$wd3" "seed watchdog message (self-heal-claude)"
+push_change "inbox/maintainer/unread/px-rep.md"  "$grp" "seed gardener completion report (non-watchdog)"
+
+# (0) WATCHDOG PRE-PASS: deterministic, runs EVERY tick regardless of grace and
+# WITHOUT the handler. Even inside the grace window the watchdog messages are
+# archived, the gardener report is left unread, and a deduplicated tally is logged.
+WDLOG="$TR/proxy-wd.log"
+env GARDEN_PROXY_GRACE=3600 GARDEN_PROXY_HANDLER="$HERE/proxy-stub.sh" \
+    GARDEN_PROXY_STUB_CALLS="$PXCALLS" "$JOBS/proxy.sh" >/dev/null 2>"$WDLOG"
+[ ! -s "$PXCALLS" ] && ok "watchdog pre-pass: no handler / claude -p call (deterministic)" || bad "watchdog pre-pass invoked the handler ($(grep -c . "$PXCALLS") calls)"
+PW="$TR/pxw"; rm -rf "$PW"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$PW"
+wd_un=$(ls -1 "$PW/inbox/maintainer/unread" 2>/dev/null | grep -c '^px-wd-' || true)
+wd_rd=$(ls -1 "$PW/inbox/maintainer/read"   2>/dev/null | grep -c '^px-wd-' || true)
+{ [ "$wd_un" -eq 0 ] && [ "$wd_rd" -eq 3 ]; } && ok "watchdog:* messages archived unread→read (3 cleared)" || bad "watchdog archive wrong (unread=$wd_un read=$wd_rd)"
+rep_un=$(ls -1 "$PW/inbox/maintainer/unread" 2>/dev/null | grep -c '^px-rep' || true)
+[ "$rep_un" -eq 1 ] && ok "gardener completion report left UNREAD for the maintainer (not watchdog)" || bad "gardener report not left unread (unread=$rep_un)"
+# Tally is deduplicated per sender: our two comment-watcher reports collapse to
+# ×2 and the self-heal report to ×1. The total count is NOT hardcoded — the
+# shared test journal can carry genuine watchdog noise from earlier subtests, and
+# clearing that too is the feature working, not a failure.
+{ grep -qE 'cleared [0-9]+ watchdog messages' "$WDLOG" \
+  && grep -q 'comment-watcher/kriskowal-garden×2' "$WDLOG" \
+  && grep -q 'self-heal-claude×1' "$WDLOG"; } \
+  && ok "deduplicated tally logged (auditable suppression)" || bad "tally line missing/wrong: $(grep -i 'watchdog' "$WDLOG" | tr '\n' '|')"
+rm -rf "$PW"
+
 # (1) within grace: a present maintainer gets first crack — proxy does NOTHING
 run_proxy 3600
 [ ! -s "$PXCALLS" ] && ok "within grace: proxy leaves gating questions alone (no race, no handler call)" || bad "proxy raced inside grace ($(grep -c . "$PXCALLS") calls)"

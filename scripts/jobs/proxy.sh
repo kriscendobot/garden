@@ -10,6 +10,13 @@
 # reply_to=<its-base>) while its OWN inbox stays live; that is a gating question.
 # Each tick:
 #   1. draining check; sync a dedicated journal clone.
+#   1b. WATCHDOG AUTO-CLEAR pre-pass (deterministic, NO claude -p): archive every
+#      unread maintainer message whose `from:` is a `watchdog:*` autonomous-monitor
+#      anomaly report (informational, not an action request) and log one
+#      deduplicated tally line. A sanctioned, narrow exception to "always report to
+#      the maintainer", scoped strictly to `watchdog:*` senders. Runs BEFORE the
+#      gating enumeration and the cost-gated handler. See roles/proxy/AGENT.md
+#      § Watchdog auto-clear.
 #   2. enumerate inbox/maintainer/unread/ and keep only the ELIGIBLE questions:
 #        - GATING:   has a reply_to whose doer inbox is still live (blocked,
 #                    awaiting a reply). A completion report from a finished doer
@@ -44,9 +51,57 @@ GARDEN_TAG="proxy"
 
 fleet_draining && exit 0
 
+# --- watchdog auto-clear pre-pass --------------------------------------------
+#
+# Deterministic, no-LLM drain of watchdog-class maintainer messages. Autonomous-
+# monitor anomaly reports (sender `watchdog:*`, written by common.sh's
+# alert_maintainer) are informational, not action requests, and pile up unread in
+# the maintainer inbox. This pre-pass archives them (unread→read) every tick, in
+# plain code, BEFORE the gating-question enumeration and the cost-gated handler.
+# It is a SANCTIONED, narrow exception to the proxy's "always report to the
+# maintainer" principle, scoped strictly to `watchdog:*` senders — gardener
+# completion reports, gating questions, and every non-watchdog sender are left
+# UNTOUCHED. A single deduplicated tally line is logged so the suppression stays
+# auditable; nothing is re-posted to the maintainer (reducing the noise is the
+# whole point). See roles/proxy/AGENT.md § Watchdog auto-clear.
+#
+# Syncs the clone itself (so it owns the first sync of the tick); the rest of the
+# tick reads the freshly-synced tree. On a lost CAS push it re-syncs and re-scans
+# (idempotent: a hard reset undoes the unpushed `git mv`). When nothing matches it
+# returns quietly with the clone synced and the per-clone lock still held for the
+# remainder of the tick.
+clear_watchdog_messages() {
+  local dir="$1" attempt f from base label tally
+  for attempt in $(seq 1 50); do
+    sync_clone "$dir"
+    local moved=()
+    declare -A counts=()
+    while IFS= read -r f; do
+      from="$(sed -n 's/^from:[[:space:]]*//p' "$f" | head -1)"
+      case "$from" in watchdog:*) : ;; *) continue ;; esac      # ONLY watchdog:* senders
+      base="$(basename "$f")"
+      git -C "$dir" mv "inbox/maintainer/unread/$base" "inbox/maintainer/read/$base" 2>/dev/null || continue
+      moved+=("$base")
+      label="${from#watchdog:}"
+      counts["$label"]=$(( ${counts["$label"]:-0} + 1 ))
+    done < <(find "$dir/inbox/maintainer/unread" -type f -name '*.md' 2>/dev/null | sort)
+    # Nothing watchdog-class: sync_clone already refreshed the tree (and holds the
+    # per-clone lock) for the rest of the tick. Quiet, no commit.
+    [ "${#moved[@]}" -eq 0 ] && return 0
+    if commit_and_push "$dir" "proxy: auto-clear ${#moved[@]} watchdog message(s)"; then
+      tally=""
+      for label in "${!counts[@]}"; do tally+="${tally:+, }${label}×${counts[$label]}"; done
+      log "cleared ${#moved[@]} watchdog messages: $tally"
+      return 0
+    fi
+    backoff
+  done
+  die "could not auto-clear watchdog messages after retries"
+}
+
 DIR="${GARDEN_PROXY_CLONE:-$GARDEN_STATE/proxy/journal}"
 ensure_clone "$DIR"
-sync_clone "$DIR"
+clear_watchdog_messages "$DIR"
 
 SEEN="$GARDEN_STATE/proxy/seen"
 mkdir -p "$(dirname "$SEEN")"; touch "$SEEN"
