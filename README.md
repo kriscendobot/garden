@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T19:46:54Z_
+_As of 2026-06-27T19:49:05Z_
 
 ## Latest
 
-A wave of garden-infra hardening landed: the gardener-scaler now treats an unreadable worker count as a no-op instead of scaling to zero, systemd units exec a stable `/bin/bash` interpreter so a deploy-window restart can't 203/EXEC, and `log()`/`die()` carry syslog-priority prefixes so priority-filtered failure tails self-diagnose; the issue-inbox maintainer-interaction workflow also completed. Two infra jobs remain in flight — a deliberate no-shared-tree deploy design and a gardener signal-kill classifier fix.
+The job board drained to empty: the gardener fleet's two open items both completed this cycle — a signal-kill classifier fix (now classifying SIGKILL'd ticks as transient regardless of whether output was captured) and an autonomous main2 wedge resolve on endolinbot. One job remains in flight, the deliberate-deploy "no shared live tree" infrastructure change (per-subagent worktrees).
 
-Several decisions now wait on you. On [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405), a genuine maintainer feature directive (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) was misclassified as a "rebase" no-op; it needs a liaison-driven fixer/builder run through the gamut, and a separate fix for the misrouting classifier is posted. The [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474)-derived "harden exported function literals" follow-up is gated on your scope call (narrow two evasive-transform exports vs. repo-wide) plus a base-branch choice (`llm` vs. `master`). The formula-inspector retention-paths table stays blocked on #284 — the rebase-and-gamut you requested on 2026-05-21 never ran and it still has 4 red CI checks — so the table can't source `listRetentionPaths` yet. And the beta3/ymax0 XS investigation needs a v320 swing-store export and lands in agoric-sdk/contract territory, off-limits to the garden; sourcing that export and directing the contract-side depth-bounding fix are both yours.
+Most of what a maintainer should notice is queued in the inbox, not the board. Several gardener reports are parked on decisions only kriskowal can make: a feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (kriskowal asked to reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch through the gamut — the classifier bug that misrouted it is being fixed separately. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you already requested. The "harden exported function literals" follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is waiting on a breadth-and-base decision before a cross-repo PR opens. Two investigations bounced out of scope into ymax0/agoric-sdk territory (a v320 swing-store export and an XS native-stack-depth repro judged not to be an Endo regression), and the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change. Lower-priority: scholar landed ocap-kernel and distributed-ocap concept clusters in the library, and endo master lint came back clean apart from five non-failing jsdoc warnings.
 
 ## Parked for maintainer feedback
 
@@ -180,17 +180,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
-- [`improve-gardener-signal-kill-classifies-transient-regardless-of-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-signal-kill-classifies-transient-regardless-of-capture.md) — In scripts/jobs/gardener.sh, the handler-failure classifier only treats signa...
 
-### tada (395)
+### tada (397)
+- [`resolve-wedge-endolinbot-1d4f136208cb-22707619253`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-1d4f136208cb-22707619253.md) — Completion report
+- [`improve-gardener-signal-kill-classifies-transient-regardless-of-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-signal-kill-classifies-transient-regardless-of-capture.md) — Completion report
 - [`improve-scaler-no-op-on-unreadable-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scaler-no-op-on-unreadable-count.md) — Completion report — improve-scaler-no-op-on-unreadable-count (resumed after r...
 - [`improve-unit-execstart-stable-interpreter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-unit-execstart-stable-interpreter.md) — Done. Completion report:
 - [`improve-warn-fatal-syslog-priority-prefix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-warn-fatal-syslog-priority-prefix.md) — Completion report — improve-warn-fatal-syslog-priority-prefix
-- [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-maintainer-interaction-workflow.md) — Completion report — issue-inbox-maintainer-interaction-workflow
-- [`scholar-library-cycle-20260627-185542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-185542.md) — Completion report
-- … and 390 more
+- … and 392 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
