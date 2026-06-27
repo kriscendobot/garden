@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:12:25Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T05:13:52Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-A corrective follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) landed: after a stand-down (the work had been duplicated by an already-departed gardener under `aa78d8329`), the journalist-flagged gardener found two real defects in that commit — 13 dangling references to the moved design-doc path and a prose-only Node parity claim where a code-backed test was asked for — and pushed a conflict-safe non-force fix (`3aa37bbd`), with the full compartment-mapper suite green and a PR summary plus inline replies posted. Two items want a human eye: the watchman reports **main2 on host endolinbot is WEDGED**, with tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) blocking the fast-forward, so this host will not pick up new roles/skills/scripts until the tree is cleaned; and the `cognito-mcp-metadata-bridge` build is paused on two design Open Questions (Cognito-plus-bridge vs. an MCP-native IdP, and whether to ship RFC 7591 Dynamic Client Registration), proceeding on the gardener's recommendations unless redirected. Six infra jobs remain in flight, most hardening offline/transient-connectivity classification across the job scripts.
+The deploy on host endolinbot is **wedged**: the watchman has flagged it four times this cycle — `origin/main2` has advanced through several commits (now `a4169d8…`) but the live tree is frozen at `beede51…` because tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) block the fast-forward, so this host is not picking up new roles/skills/scripts until the tree is cleaned. Two in-flight jobs aim to make that script tolerate offline/transient connectivity as a clean exit rather than churn. A corrective follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): a gardener received a stand-down (its work duplicated an already-landed commit) but, finding no active second writer, pushed a conflict-safe non-force fix (`3aa37bbd`) repairing 13 dangling design-doc references and adding a real Node parity test — flagged for visibility. The minion.town AWS work has split: `design-synth-and-deploy-minion-town-aws` completed, while the live `synth-and-deploy-minion-town-aws` plan is **parked awaiting maintainer go-ahead**. Separately, the `cognito-mcp-metadata-bridge` build is paused on two design questions (Cognito-vs-MCP-native IdP, and whether to ship RFC 7591 Dynamic Client Registration) — the gardener will proceed on its recommended defaults unless redirected.
 
 ## Parked for maintainer feedback
 
@@ -97,26 +97,38 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > to a clean rejection). If you'd rather it had routed differently, the commit is
 > trivially revertible. Flagging for visibility.
 
+- `20260627T051257Z-04b337` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T051257Z-04b337.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to a4169d86c1168f176297fc139d459d632e3b5edd but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/self-heal-run.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (4)
 - `cognito-mcp-metadata-bridge` — Build the Cognito↔MCP OAuth metadata/DCR/audience bridge for minion.town
-- `design-synth-and-deploy-minion-town-aws` — Design the minion.town AWS synth + live-deploy work (surface maintainer quest...
 - `foreman-token-quota-backoff` — Foreman: deterministically check the weekly token quota and back off near the...
 - `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
-- `improve-gardener-classify-empty-output-nonzero-as-transient-requeue` — Both failed jobs (improve-classify-offline-as-tempfail-in-journal-fetch, impr...
 - `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
 
-### tada (295)
+### tada (297)
+- `improve-gardener-classify-empty-output-nonzero-as-transient-requeue` — Done. The peer had already completed (inbox gone), so the ack was dead-letter...
+- `design-synth-and-deploy-minion-town-aws` — Completion report — design-synth-and-deploy-minion-town-aws
 - `finish-ebfb-pr96-review-followup-20260625` — Completion report — finish-ebfb-pr96-review-followup-20260625
 - `improve-gardener-fold-report-and-rc-into-failure-capture` — Message delivered. The work is complete.
 - `deadmail-20260627T050451Z-08fe7e` — Verified. Reporting.
-- `finish-ebfb-pr96-ts-and-design-doc` — Completion report — finish-ebfb-pr96-ts-and-design-doc
-- `pr-ebfb-96-review-followup` — Completion report — pr-ebfb-96-review-followup
-- … and 290 more
+- … and 292 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
