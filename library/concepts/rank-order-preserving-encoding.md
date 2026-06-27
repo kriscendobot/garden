@@ -66,6 +66,7 @@ value key in the keyed store.
 
 - [[smallcaps-encoding]] — the sister wire format under `packages/marshal/src/encodeToSmallcaps.js`; smallcaps targets *JSON-shape* (round-trip through `JSON.stringify`/`JSON.parse`), while `encodePassable` targets *rank-order preservation* (a database key whose lexicographic order matches PassStyle rank order). The two encoders share the diagnostic-priority error-special-case but differ in everything else.
 - [[pass-invariant-handle-equality]] — the broader equality discipline that connects how a value encodes to how it is identified across a serialization boundary; rank-order encoding is the database-key-shaped form of that discipline.
+- [[passable-equality]] — the value-equality (`keyEQ`) side of the same coordination: rank order (this concept) is the *total-order completion* of the partial key order, and `keyEQ`-equal Keys encode to identical order-preserving bytes here. The `sameValueZero` rank-tie predicate is the atomic base case both concepts share.
 - [[syrup-record-positionality]] — a third encoding-family decision (record fields as positional bindings, not on the wire); the family of encoding-shape decisions across the marshal / OCapN layer covers different reader needs.
 - [[shape-not-content]] — the discipline of capturing the shape of an encoding rather than reproducing every byte; this concept page is itself an instance, summarizing the encoding *strategy* rather than mirroring the table.
 
