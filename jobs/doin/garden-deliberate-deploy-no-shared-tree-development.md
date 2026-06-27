@@ -79,3 +79,9 @@ continuous-ff path, the liaison Monitor wiring so this session auto-deploys on t
 doc, tests, and CLAUDE.md docs — with the branch naming confirmed with the maintainer.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 45
+  claimed_at: 2026-06-27T20:15:55Z
