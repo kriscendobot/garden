@@ -14,7 +14,7 @@ lane: designs
 
 # endoclaw-voice.md
 
-A 69-line **Not Started** design for adding voice input to the Chat UI via three substrate options (Web Speech API + local Whisper + daemon-side transcription). Parent: [endoclaw](endoclaw.md). Classified as a UI feature, not a capability — voice input does not grant the agent any new authority.
+A 69-line **Not Started** design for adding voice input to the Chat UI via three substrate options (Web Speech API + local Whisper + daemon-side transcription). Parent: endoclaw. Classified as a UI feature, not a capability — voice input does not grant the agent any new authority.
 
 ## Key design moves
 

@@ -14,7 +14,7 @@ lane: designs
 
 # cli-http-client.md
 
-A 644-line **Proposed** design that revises PR #144's `HttpClient` shape into a controller + client cap pair under a single `endo http` subcommand tree. §Source-field-cites-the-PR-review-id (4256844646 `CHANGES_REQUESTED`). §Supersedes-in-part: [`endoclaw-network-fetch`](endoclaw-network-fetch.md) — §partial-supersession-as-named-relationship.
+A 644-line **Proposed** design that revises PR #144's `HttpClient` shape into a controller + client cap pair under a single `endo http` subcommand tree. §Source-field-cites-the-PR-review-id (4256844646 `CHANGES_REQUESTED`). §Supersedes-in-part: [`endoclaw-network-fetch`](endo-but-for-bots--llm-designs-endoclaw-network-fetch.md) — §partial-supersession-as-named-relationship.
 
 ## Key design moves
 

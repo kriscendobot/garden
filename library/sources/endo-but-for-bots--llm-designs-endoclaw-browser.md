@@ -14,7 +14,7 @@ lane: designs
 
 # endoclaw-browser.md
 
-A 93-line **Not Started** design for a `Browser` capability backed by Playwright that gives an agent a confined browsing context with origin allowlist + read-only toggle. Parent: [endoclaw](endoclaw.md). Three-facet shape: Browser + Page (derived from `Browser.goto()`) + BrowserControl.
+A 93-line **Not Started** design for a `Browser` capability backed by Playwright that gives an agent a confined browsing context with origin allowlist + read-only toggle. Parent: endoclaw. Three-facet shape: Browser + Page (derived from `Browser.goto()`) + BrowserControl.
 
 ## Key design moves
 

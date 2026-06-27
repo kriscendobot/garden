@@ -14,7 +14,7 @@ lane: designs
 
 # endoclaw-notifications.md
 
-A 55-line **Not Started** design for a `Notify` capability that posts OS-level desktop notifications through Familiar's Electron `Notification` API. Parent: [endoclaw](endoclaw.md). The smallest endoclaw cluster member ingested so far (cycle 246's webhooks was 79 lines; this is 55).
+A 55-line **Not Started** design for a `Notify` capability that posts OS-level desktop notifications through Familiar's Electron `Notification` API. Parent: endoclaw. The smallest endoclaw cluster member ingested so far (cycle 246's webhooks was 79 lines; this is 55).
 
 ## Key design moves
 

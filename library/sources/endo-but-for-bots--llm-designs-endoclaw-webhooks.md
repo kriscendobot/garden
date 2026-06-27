@@ -14,7 +14,7 @@ lane: designs
 
 # endoclaw-webhooks.md
 
-A 79-line **Not Started** design for a webhook gateway that routes incoming HTTP requests to agent inboxes as messages. Parent: [endoclaw](endoclaw.md). Among the shortest design docs ingested.
+A 79-line **Not Started** design for a webhook gateway that routes incoming HTTP requests to agent inboxes as messages. Parent: endoclaw. Among the shortest design docs ingested.
 
 ## Key design moves
 

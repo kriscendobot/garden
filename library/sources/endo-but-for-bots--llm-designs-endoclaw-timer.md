@@ -14,7 +14,7 @@ lane: designs
 
 # endoclaw-timer.md
 
-A 837-line **In Progress** design for `IntervalScheduler` / `IntervalControl` — the heartbeat capability that lets an SES-locked agent schedule future execution. Parent: [endoclaw](endoclaw.md). Phase 1 prototype lives in `packages/genie/src/interval/`.
+A 837-line **In Progress** design for `IntervalScheduler` / `IntervalControl` — the heartbeat capability that lets an SES-locked agent schedule future execution. Parent: endoclaw. Phase 1 prototype lives in `packages/genie/src/interval/`.
 
 ## Key design moves
 

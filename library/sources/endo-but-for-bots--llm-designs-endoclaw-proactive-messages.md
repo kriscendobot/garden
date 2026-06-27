@@ -14,7 +14,7 @@ lane: designs
 
 # endoclaw-proactive-messages.md
 
-A 74-line **Not Started** design — *a design pattern, not a new capability* — for agents that initiate conversations with the host on a schedule by composing Timer + data capabilities + messaging. Parent: [endoclaw](endoclaw.md).
+A 74-line **Not Started** design — *a design pattern, not a new capability* — for agents that initiate conversations with the host on a schedule by composing Timer + data capabilities + messaging. Parent: endoclaw.
 
 ## Key design moves
 

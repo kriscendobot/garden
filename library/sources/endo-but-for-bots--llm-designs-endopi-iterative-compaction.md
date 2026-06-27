@@ -93,7 +93,7 @@ notes: |
 > Abstract: `endopi-iterative-compaction.md` (152 lines, *Proposed
 > (partially satisfied)* status; Parent: endopi.md) imports Pi's
 > `compaction.ts` algorithm as the substrate
-> [`lal-transcript-memory-management`](lal-transcript-memory-management.md)
+> [`lal-transcript-memory-management`](endo-but-for-bots--llm-designs-lal-transcript-memory-management.md)
 > already asks for. The *partially satisfied* lifecycle pattern
 > is load-bearing: `packages/genie` already ships an observer +
 > reflector subagent pair *implementing a sibling shape to Pi's*;
