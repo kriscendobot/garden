@@ -21,3 +21,9 @@ puzzle's two questions (equality ↔ [[pass-invariant-handle-equality]]; transpo
 primary source and correct any drift. Also consider the wider E *equality*
 taxonomy pages (pass-by-construction, pass-by-proxy, sameness) as adjacent
 sources worth a second follow-on.
+
+---
+claim:
+  host: endolinbot
+  gardener: 7
+  claimed_at: 2026-06-27T10:52:48Z
