@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T20:20:58Z_
+_As of 2026-06-27T20:25:27Z_
 
 ## Latest
 
-A run of gardener reports landed needing maintainer decisions rather than code. The harden-exported-function-literals follow-up from erights's review on the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you picking two axes — narrow (just `evadeCensorSync`/`evadeCensor`) vs repo-wide, and base branch `llm` vs `master` (the literal form differs between them). A real maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups — was misclassified as a "rebase" (no-op, since the PR is already mergeable); it needs a liaison-driven builder/fixer dispatch, and an infra fix for the classifier bug was posted separately. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing CI checks awaiting the rebase-and-gamut you requested. The beta3/ymax0 XS investigation concluded the nested-record overflow is an XS native-stack-depth property, not an Endo regression, leaving the contract-side fix and a v320 swing-store export as your calls (agoric-sdk territory, out of bounds for the garden).
+Four maintainer decisions are queued in the inbox and need your call. A genuine feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — reshaping the inventory taxonomy to Directories/Agents/Personas/Values/Capabilities and fully hiding empty groups — was misrouted by the comment-watcher as a "rebase"; #405 is already mergeable, so it needs a liaison-driven fixer dispatch rather than a no-op rebase (a separate classifier-bug fix is posted). The harden-exported-function-literals follow-up to the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two answers: narrow (just `evadeCensorSync`/`evadeCensor`) vs repo-wide, and base `llm` vs `master` (the literal form differs by branch). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), stalled since your "rebase and run the gamut again" ask and now showing 4 failing checks — a gardener can take that rebase as a job on your word. And the ymax0/XS investigation concluded the nested-record overflow is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding (agoric-sdk territory, out of bounds) and sourcing the v320 swing-store export is yours to direct.
 
-On the no-decision side: a lint sweep found endo-but-for-bots master fully clean (only 5 non-failing jsdoc warnings, plan parked); the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit confirmed the duplication is intrinsic and left the PR untouched; and the scholar fleet ingested MetaMask/ocap-kernel's kernel guide plus a six-topic distributed-ocap concept cluster (grant-matcher-puzzle flagged source-less, erights.org unreachable).
+On the library side, a sixth ocap-kernel ingest (MetaMask's 689-line kernel guide) plus a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual send, grant-matcher) landed on journal2, and endo-but-for-bots master lint was classified fully CLEAN — only 5 non-failing jsdoc warnings, parked low. Two scholar library-source refreshes (captp `finalize`, netstring `reader`) completed this cycle.
 
 ## Parked for maintainer feedback
 
@@ -180,21 +180,19 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (4)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
 - [`garden-enforce-per-subagent-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-enforce-per-subagent-worktree.md) — Mechanically enforce per-subagent worktrees in the gardener launch path
-- [`scholar-refresh-endo--packages-captp-src-finalize-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-endo--packages-captp-src-finalize-js.md) — Refresh drifted library source: endo--packages-captp-src-finalize-js
-- [`scholar-refresh-endo--packages-netstring-reader-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-endo--packages-netstring-reader-js.md) — Refresh drifted library source: endo--packages-netstring-reader-js
 - [`scholar-refresh-endo--packages-ses-src-error-assert-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-endo--packages-ses-src-error-assert-js.md) — Refresh drifted library source: endo--packages-ses-src-error-assert-js
 - [`scholar-refresh-endo--packages-ses-src-error-console-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-endo--packages-ses-src-error-console-js.md) — Refresh drifted library source: endo--packages-ses-src-error-console-js
 
-### tada (399)
+### tada (401)
+- [`scholar-refresh-endo--packages-captp-src-finalize-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-captp-src-finalize-js.md) — Completion report
+- [`scholar-refresh-endo--packages-netstring-reader-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-netstring-reader-js.md) — Inbox empty, anchor verified on origin/journal2. Work is complete. Final report:
 - [`improve-drift-scan-timer-oncalendar-persistent`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-drift-scan-timer-oncalendar-persistent.md) — Completion report: improve-drift-scan-timer-oncalendar-persistent
 - [`scholar-library-cycle-20260627-195612`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-195612.md) — Completion report follows.
 - [`resolve-wedge-endolinbot-1d4f136208cb-22707619253`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-1d4f136208cb-22707619253.md) — Completion report
-- [`improve-gardener-signal-kill-classifies-transient-regardless-of-capture`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-signal-kill-classifies-transient-regardless-of-capture.md) — Completion report
-- [`improve-scaler-no-op-on-unreadable-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scaler-no-op-on-unreadable-count.md) — Completion report — improve-scaler-no-op-on-unreadable-count (resumed after r...
-- … and 394 more
+- … and 396 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
