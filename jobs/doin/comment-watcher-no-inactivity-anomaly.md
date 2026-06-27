@@ -44,3 +44,9 @@ Deliverable: the comment-watcher never reports inactivity; blindness is detected
 a positive self-test, not by the absence of new comments.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 75
+  claimed_at: 2026-06-27T16:31:48Z
