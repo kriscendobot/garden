@@ -6676,9 +6676,20 @@ Total section files: 5834 (506 parent indexes + 5328 children).
 
 - [erights--elang-intro-finding-text--walkthrough](erights--elang-intro-finding-text--walkthrough.md)
 
+### erights--elang-intro-quicke
+
+- [erights--elang-intro-quicke--overview-and-conventional-subset](erights--elang-intro-quicke--overview-and-conventional-subset.md)
+- [erights--elang-intro-quicke--eventual-send-and-location-transparency](erights--elang-intro-quicke--eventual-send-and-location-transparency.md)
+- [erights--elang-intro-quicke--promises-when-catch-and-far-references](erights--elang-intro-quicke--promises-when-catch-and-far-references.md)
+- [erights--elang-intro-quicke--bootstrapping-remote-references](erights--elang-intro-quicke--bootstrapping-remote-references.md)
+
 ### erights--elang-intro-standalone
 
 - [erights--elang-intro-standalone--walkthrough](erights--elang-intro-standalone--walkthrough.md)
+
+### erights--elang-intro-starting-e
+
+- [erights--elang-intro-starting-e--launching-and-elmer](erights--elang-intro-starting-e--launching-and-elmer.md)
 
 ### frb--compile-binder
 
