@@ -34,6 +34,7 @@ consistent.
 
 ## See also
 
+- [[passable-equality]] — the value-level, structural counterpart of this identity-level guarantee: `keyEQ` (`compareKeys === 0`) over Keys at the marshalling layer. This Handle-side discipline is the identity-level instance of that broader pass-invariant equality convention.
 - [[delegates-and-epithets]] — connectors that vend Handles for external identities use this guarantee.
 - [[formula-graph]] — the substrate that makes formula-identifier equality stable across sessions.
 - [[object-capability]] — Property A is the formal property name in the Miller-Yee-Shapiro vocabulary; this discipline is Endo's enforcement of it at the Handle layer.
