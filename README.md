@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T17:13:31Z_
+_As of 2026-06-27T17:19:16Z_
 
 ## Latest
 
-The deploy-sync reconciler landed on main2 (5d6490e62): it fast-forwards the checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart. It is inert until armed (a routine `install-units.sh` refresh enables the timer), but the live `/home/kris` tree is **dirty-wedged right now** — a redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` is refusing the fast-forward, so both the watchman and deploy-sync are skipping the advance and the checkout has fallen 6 commits behind; a lossless `git checkout --` unwedges it. On the library side, a scholar pass ingested MetaMask/ocap-kernel's kernel-guide and landed a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher), with the grant-matcher source deferred until erights.org is reachable.
-
-Several items are parked on **your** decision: lint on endo-but-for-bots master is fully clean (only 5 non-blocking jsdoc warnings, a low plan posted); the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the duplication is intrinsic — reusing @endo/daemon's powers would invert the extraction); the harden-exported-literals follow-up from erights on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs you to pick breadth (narrow two exports vs. repo-wide) and base branch before a builder dispatches; and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths`), which is still open, stalled since 2026-05-21, and red on 4 CI checks — it needs the rebase-and-gamut you already requested before that follow-on can proceed. Finally, the beta3/ymax0 XS investigation surfaced two calls in agoric-sdk territory (sourcing a v320 swing-store export and whether to file an upstream-Endo note), both out of bounds for autonomous action and awaiting your direction.
+The previously-unreachable erights.org source is now mirrored on GitHub Pages, and the [fetch-source fix](https://github.com/kriskowal/garden) landed to prefer that mirror; scholar has already completed one re-ingest and is mid-flight on a second (the E-language page), which unblocks the deferred grant-matcher-puzzle source work. Other infra landed on main2 this cycle: a deploy-sync reconciler (auto fast-forwards the checkout and restarts services on `scripts/` changes), the foreman's token metering, proxy watchdog auto-clear, and the comment-watcher's positive self-test for blindness. Several scope calls are now parked for the maintainer: the live `/home/kris` tree is dirty-wedged on a byte-identical redundant edit (`skills/gardener-inbox-error-reporting/report-error.sh`) that blocks both watchman and deploy-sync until a lossless `git checkout --` clears it; the `formula-inspector-retention-paths-table` job is blocked behind [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the stalled `listRetentionPaths` API still owing the requested rebase + re-gamut); the harden-exported-literals follow-on from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs breadth (narrow vs repo-wide) and base-branch decisions before a cross-repo PR opens; and the beta3-ymax0 XS investigation needs a v320 swing-store export plus direction on a contract-side depth-bounding fix (concluded not an Endo regression). The [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit closed with no change (reuse would invert the extraction), and endo master lint is clean apart from five non-failing jsdoc warnings.
 
 ## Parked for maintainer feedback
 
@@ -166,15 +164,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`scholar-erights-github-pages-mirror-source`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-erights-github-pages-mirror-source.md) — Wire the erights.org GitHub Pages mirror into fetch-source.sh; re-ingest prev...
+- [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-mirror.md) — Re-ingest erights.org E-language page from the now-reachable GitHub Pages mirror
 
-### tada (376)
+### tada (377)
+- [`scholar-erights-github-pages-mirror-source`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-erights-github-pages-mirror-source.md) — Completion report: scholar-erights-github-pages-mirror-source
 - [`resolve-wedge-endolinbot-00693cdbd594-238966609725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-00693cdbd594-238966609725.md) — The wedge is resolved. The tree is now clean of tracked changes — the only bl...
 - [`improve-mentor-treat-journalctl-no-entries-as-empty`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-treat-journalctl-no-entries-as-empty.md) — Completion report
 - [`scholar-library-cycle-20260627-165512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-165512.md) — Completion report: scholar-library-cycle-20260627-165512
 - [`proxy-auto-clear-watchdog-messages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proxy-auto-clear-watchdog-messages.md) — Completion report
-- [`design-endo-absorb-pi-harness-layers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-absorb-pi-harness-layers.md) — Completion report — design-endo-absorb-pi-harness-layers
-- … and 371 more
+- … and 372 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -185,6 +183,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · fix-lint: jsdoc warnings on endo master (the only lint findings)
 - [`scholar-ingest-ocap-kernel-comment-fragments`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments.md) — _low_ · PLAN: scholar — ingest MetaMask/ocap-kernel kernel-internals comment fragments
+- [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — _low_ · PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
+- [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 
 ## Watch set
 (none)
