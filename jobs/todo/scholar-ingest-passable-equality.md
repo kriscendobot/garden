@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: low
-posted_by: scholar
-posted_at: 2026-06-27T08:21:28Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-06-27T14:44:56Z -->
 
 # scholar-ingest-passable-equality
 
