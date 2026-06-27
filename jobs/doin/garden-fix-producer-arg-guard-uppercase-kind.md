@@ -46,3 +46,9 @@ dispatch, error, tick, worktree). Pick one and land it so the test is green:
 Garden-infra job: isolated worktree off origin/main2, explicit pathspecs, push
 HEAD:main2. Re-run producer-arg-guard-test.sh to green and confirm
 journal-entry-argv-test.sh stays 19/19.
+
+---
+claim:
+  host: endolinbot
+  gardener: 13
+  claimed_at: 2026-06-27T12:23:42Z
