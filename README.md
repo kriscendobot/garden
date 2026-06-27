@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T14:45:41Z_
+_As of 2026-06-27T14:56:53Z_
 
 ## Latest
 
-The standing news is operational: `main2` on **endolinbot** has been dirty-wedged all day — the watchman has fired roughly twenty times since 05:00Z because tracked working-tree edits (variously `self-heal-run.sh`, `gardener.sh`, `report-error.sh`, and the `library-link-*` scripts) keep blocking the fast-forward, so the live checkout has fallen well behind `origin/main2` and is not picking up landed roles/skills/scripts. A `deploy-sync` reconciler landed for exactly this (auto-fast-forward + service restart on `scripts/` changes), but it is inert until the tree is cleaned and a units refresh arms its timer; one gardener notes the blocking `report-error.sh` edit is byte-identical to what's already on `origin/main2`, so `git checkout --` is a lossless unwedge. Separately, `comment-watcher/kriskowal-garden` has now logged 380 consecutive empty ticks despite a real comment existing since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking on this host.
+The big story is operational: endolinbot's `main2` deploy has been **wedged all day** — a dirty working tree (uncommitted edits to `report-error.sh`, then the `library-link-*` scripts and `journal-entry.sh`) keeps refusing the fast-forward, so the host has been frozen ~12 commits behind `origin/main2` and is not picking up new roles/skills/scripts. The new **deploy-sync reconciler landed** (5d6490e62) to auto-advance the checkout and restart services on `scripts/` changes, but it stays inert until a units refresh arms it and can't help while the tree is dirty; the unblock is a lossless `git -C /home/kris checkout --` of the redundantly-modified files. Separately, **comment-watcher/kriskowal-garden has gone blind again** — 0 comments for 380+ consecutive ticks while the repo is demonstrably active, the same signature as the 2026-06-24 jq/gh outage, and worth checking before it swallows real feedback.
 
-Two items want a maintainer decision. The harden-exported-function-literals follow-up to [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you choosing breadth (narrow two-export fix vs. repo-wide `@endo/harden-exports`-aligned pass) and base branch (`llm` vs `master`), since the literal form differs between them. And the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you already requested — a gardener offers to take that as its own job.
+On the work side: a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (3aa37bbd) fixing 13 dangling doc references and adding a real Node parity test after a superseding gardener's commit left both gaps; lint classification found endo-but-for-bots master fully clean (only 5 non-blocking jsdoc warnings); and the scholar fleet ingested MetaMask/ocap-kernel's kernel-guide plus a six-topic distributed-ocap concept cluster.
 
-On the work that did move: a corrective follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixing 13 dangling design-doc references and adding a real Node parity test atop the prior gardener's commit), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded as no-change (reusing `@endo/daemon`'s powers would invert the extraction), endo-but-for-bots `master` lint classified fully clean (only 5 non-blocking jsdoc warnings, parked low), and the scholar fleet ingested two ocap clusters (MetaMask/ocap-kernel's kernel guide and a six-topic distributed-ocap concept synthesis). The board is nearly drained — zero todo, one in-flight scholar ingest — and the `cognito-mcp-metadata-bridge` gardener is proceeding to build the full OAuth bridge on its own recommendations absent a redirect.
+Several items are **parked on your decision**: the Cognito↔MCP OAuth bridge build (two design Open Questions, proceeding on recommendations unless redirected), the harden-exported-function-literals follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (needs breadth + base-branch), and the formula-inspector retention-paths table, which is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) — still open, stalled since 2026-05-21 awaiting your requested rebase-and-re-gamut, with 4 failing CI checks. The PR [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded with no change (the only API match would invert the extraction). The board is drained to two in-flight scholar cycles with an empty todo.
 
 ## Parked for maintainer feedback
 
@@ -642,16 +642,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-ingest-passable-equality`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-passable-equality.md) — scholar-ingest-passable-equality
+### doin (2)
+- [`scholar-library-cycle-20260627-145422`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-145422.md) — Hourly scholar library cycle
+- [`scholar-refresh-marshal-rankorder-encodepassable`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-marshal-rankorder-encodepassable.md) — scholar-refresh-marshal-rankorder-encodepassable
 
-### tada (358)
+### tada (359)
+- [`scholar-ingest-passable-equality`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-passable-equality.md) — Completion report — scholar-ingest-passable-equality
 - [`scholar-ingest-ocap-kernel-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-packages.md) — Completion report: scholar-ingest-ocap-kernel-packages
 - [`improve-journal-worktree-reconciler`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-worktree-reconciler.md) — Completion report
 - [`scholar-library-cycle-20260627-135353`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-135353.md) — Completion report — scholar-library-cycle-20260627-135353
 - [`improve-gardener-empty-output-classifier-rc-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-empty-output-classifier-rc-gate.md) — Completion report
-- [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-parallel-sync-browser-design.md) — Completion report
-- … and 353 more
+- … and 354 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
