@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:32:39Z_
+_As of 2026-06-27T07:35:39Z_
 
 ## Latest
 
-The headline this cycle is infrastructure, not PRs: host **endolinbot**'s `main2` checkout is wedged — a redundant uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (byte-identical to what's already on `origin/main2`) is blocking the fast-forward, so the watchman has fired a steady stream of "WEDGED" alerts and the live tree now sits several commits behind. A `git checkout --` of that one file is lossless and unwedges the deploy. Relatedly, the new **deploy-sync reconciler** landed on `main2` (5d6490e62): it advances the checkout by a strict clean fast-forward and restarts long-running services when `scripts/` changes, but it's inert until a routine units refresh arms its timer — and it's blocked by the same dirty tree right now. Two watchdogs also flagged that `comment-watcher/kriskowal-garden` has seen 0 comments for 100+ ticks despite real activity since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking.
+The big mover is infrastructure resilience: a **deploy-sync reconciler** landed on main2 (`5d6490e62`) that fast-forwards each host's checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — it arms automatically on the next units refresh. Alongside it, the self-heal/`sync_clone` transient-outage classification work advanced: `improve-broaden-offline-fetch-signatures` completed and `improve-sync-clone-transient-fetch-classification` is in flight, hardening gardeners against treating network blips as fatal claim failures.
 
-On code work, a gardener pushed a conflict-safe follow-up (3aa37bbd) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) fixing 13 dangling design-doc references and adding a real Node parity test after finding the superseding commit left both gaps; full compartment-mapper suite clean. The `formula-inspector-retention-paths-table` job completed only as a blocked-gap report: it depends on PR #284's `listRetentionPaths` host API, which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently has 4 failing checks — that PR needs to land before the table can be built. Finally, the `cognito-mcp-metadata-bridge` gardener is awaiting your call on two design questions (Cognito-plus-bridge vs. an MCP-native IdP, and whether to ship RFC 7591 DCR) before building, and `synth-and-deploy-minion-town-aws` remains parked pending your go-ahead.
+What a maintainer should notice: **endolinbot's main2 deploy is wedged** and has been for hours — a redundant uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` (byte-identical to what's already on origin) is blocking the fast-forward, so both the watchman and the new deploy-sync are skipping the advance and the host is now several commits behind. The fix is lossless: `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh`. Separately, the **comment-watcher for kriskowal/garden is blind again** — 100 consecutive ticks with zero comments despite real activity, matching the 2026-06-24 jq/gh outage signature.
+
+On the PR side, a corrective follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`): a gardener fixed 13 dangling design-doc references and added a real Node.js parity test that an earlier landing had only asserted in prose. Two jobs are parked on maintainer input — the `formula-inspector-retention-paths-table` build is blocked on a still-open, CI-failing `listRetentionPaths` host API PR (stalled since 2026-05-21 awaiting a rebase-and-gamut), and the Cognito↔MCP OAuth bridge build is paused on two design open questions (the gardener recommends proceeding with Cognito + bridge and shipping RFC 7591 DCR behind a default-on toggle).
 
 ## Parked for maintainer feedback
 
@@ -266,8 +268,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`improve-sync-clone-transient-fetch-classification`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-sync-clone-transient-fetch-classification.md) — Broaden sync_clone's transient-outage classification in scripts/jobs/common.s...
+- [`ingest-ocap-kernel`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ingest-ocap-kernel.md) — PLAN: scholar — ingest MetaMask/ocap-kernel into the library
 
 ### tada (318)
 - [`formula-inspector-retention-paths-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/formula-inspector-retention-paths-table.md) — Completion report: formula-inspector-retention-paths-table
@@ -285,7 +288,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`investigate-systemd-run-vs-gardener-loops`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-systemd-run-vs-gardener-loops.md) — _normal_ · PLAN: investigate systemd-run vs. the fixed 100-gardener-loop pool → garden d...
 - [`investigate-resumable-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-resumable-gardeners.md) — _normal_ · PLAN: investigate making gardeners RESUMABLE (don't lose work when an agent s...
 - [`ingest-ocap-library-sections`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ingest-ocap-library-sections.md) — _normal_ · PLAN: scholar — ingest sources for six missing ocap library sections
-- [`ingest-ocap-kernel`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ingest-ocap-kernel.md) — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel into the library
 - [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/classify-lint-endo-master.md) — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 - [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
 - [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-parallel-sync-browser-design.md) — _low_ · Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo sho...
