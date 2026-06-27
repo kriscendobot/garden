@@ -3,10 +3,10 @@ title: Body
 source: packages/ses/src/error/console.js
 source_repo: endojs/endo
 source_branch: master
-source_commit: e02b0f66eb44306c3d739e1670114ef24d4202fa
-source_date: 2025-01-02
+source_commit: 1b978bfbec82786398c61b004019f83cafef3527
+source_date: 2026-06-17
 source_authors: [Mark S. Miller]
-source_lines: "1-157 (prelude + consoleLevelMethods + consoleOtherMethods + consoleOmittedProperties commented block)"
+source_lines: "1-277 (prelude + consoleLevelMethods + consoleSpecialMethods + consoleOtherMethods + consoleOmittedProperties commented block + sanitizeFormatData)"
 topics: [hardened-javascript, errors]
 status: current
 notes: |
@@ -43,7 +43,7 @@ The structural reading:
   ```
 - **The exception is *visible but inactive***. Reading the source code reveals the debug hook exists; production semantics never invoke it.
 
-The §axiom generalizes: *any SES-internal module that wraps a host capability should operate without depending on that capability's ambient form*. The module *receives* a `baseConsole` argument (via `makeCausalConsole(baseConsole, ...)`); it does not *find* one.
+The §axiom generalizes: *any SES-internal module that wraps a host capability should operate without depending on that capability's ambient form*. The module *receives* a `feralConsole` argument (via `makeCausalConsole(feralConsole, ...)`); it does not *find* one. (As of the 2026-06-17 refresh the parameter is named `feralConsole`, and `makeCausalConsole` itself rebuilds a private `baseConsole` from it on Node — see the *makeCausalConsole* body section.)
 
 ### §The four-standard permit-list lineage
 
@@ -72,7 +72,7 @@ The §caveat names a *known limitation*: the causal-console inspects *direct* ar
 
 ### §consoleLevelMethods — nine methods with severities
 
-The §consoleLevelMethods permit list (lines 80-91) enumerates nine methods paired with log severities:
+The §consoleLevelMethods permit list (lines 83-101) enumerates nine methods paired with log severities. As of the 2026-06-17 refresh the element type is `readonly [ConsoleProps, LogSeverity][]` — every entry now carries a concrete severity (the prior `LogSeverity | undefined` union is gone):
 
 ```js
 export const consoleLevelMethods = freeze([
@@ -109,41 +109,57 @@ The five canonical-severity methods (debug/log/info/warn/error) map 1:1 to sever
 
 The §TypeScript-vs-runtime note (`but TS typed (...data)` on `dirxml`, `group`, `groupCollapsed`) is the *runtime-truth-over-static-type* discipline: the actual JavaScript-runtime behavior of these methods is `(fmt?, ...args)`-style; TypeScript's types are wrong but the wrapping code follows the runtime behavior.
 
-### §consoleOtherMethods — ten methods without fmt+args
+### §consoleSpecialMethods — assert and timeLog (refreshed 2026-06-17)
 
-The §consoleOtherMethods permit list (lines 103-124) enumerates ten additional methods:
+The 2026-06-17 refresh split `assert` and `timeLog` out of `consoleOtherMethods` into their own exported list, `consoleSpecialMethods` (lines 104-107):
+
+```js
+export const consoleSpecialMethods = freeze([
+  ['assert', 'error'], // (value, fmt?, ...args)
+  ['timeLog', 'log'], // (label?, ...args) no fmt string
+]);
+```
+
+The §why-special comment is explicit:
+
+> We special case `console.assert` because it contains `fmt?, ...args` just like the `consoleLevelMethods`, but not in the same place. We special case `console.timeLog` because it contains the same kind of `...args`, but with no format string.
+
+Both methods *do* carry a `fmt?, ...args` cluster that may hold errors — but it sits *after* a leading argument (`assert`'s boolean `value`, `timeLog`'s `label`). They cannot be wrapped by the plain level-method machinery (which assumes the cluster starts at argument 0), nor passed straight through like the truly-inert other-methods. The causal console gives each a bespoke wrapper that preserves the leading argument, then sanitizes + error-extracts the remaining args (see the *makeCausalConsole* body section).
+
+### §consoleOtherMethods — eleven pass-through methods (refreshed 2026-06-17)
+
+The §consoleOtherMethods permit list (lines 119-138) now enumerates eleven pass-through methods (assert + timeLog having moved to `consoleSpecialMethods`). The 2026-06-17 refresh also concretized every previously-`undefined` severity to a level, so the element type is uniformly `[ConsoleProps, LogSeverity]`:
 
 | Method | Severity | Signature |
 |---|---|---|
-| `assert` | `'error'` | `(value, fmt?, ...args)` |
-| `timeLog` | `'log'` | `(label?, ...args)` no fmt string |
-| `clear` | `undefined` | `()` |
+| `clear` | `'info'` | `()` — *level is not well defined* |
 | `count` | `'info'` | `(label?)` |
-| `countReset` | `undefined` | `(label?)` |
+| `countReset` | `'info'` | `(label?)` — *level is not well defined* |
 | `dir` | `'log'` | `(item, options?)` |
 | `groupEnd` | `'log'` | `()` |
 | `table` | `'log'` | `(tabularData, properties?)` |
 | `time` | `'info'` | `(label?)` |
 | `timeEnd` | `'info'` | `(label?)` |
-| `profile` | `undefined` | `(label?)` Node Inspector / MDN / TypeScript |
-| `profileEnd` | `undefined` | `(label?)` |
-| `timeStamp` | `undefined` | `(label?)` |
+| `profile` | `'info'` | `(label?)` Node Inspector / MDN / TypeScript |
+| `profileEnd` | `'info'` | `(label?)` |
+| `timeStamp` | `'info'` | `(label?)` |
 
 The structural distinctions:
 
-- **`assert`** is *special* — its first argument is a value (not a format string), and the rest is `(fmt?, ...args)`. The causal console handles it carefully.
-- **`undefined` severities** mean *pass-through-without-formatter-inspection*. These methods take no arguments that could legitimately be an error, so the causal console just passes them to the baseConsole without error-extraction.
+- **These are pass-through** — *insensitive to whether any argument is an error. All arguments can pass thru to baseConsole as is.* The causal console wraps them only to mediate, not to error-extract.
+- **The five formerly-`undefined` entries** (`clear`, `countReset`, `profile`, `profileEnd`, `timeStamp`) are now severity `'info'`. For `clear` and `countReset` the source candidly annotates *level is not well defined* — `'info'` is the chosen default, not a claim of cross-platform consensus. The earlier `undefined`-means-pass-through-without-formatter-inspection reading no longer holds; pass-through is now determined by *list membership* (other vs level/special), not by a null severity.
 - **`table`** is flagged as a partial-detection case: *In theory tabular data may be or contain an error. However, we currently do not detect these and may never.* Same admission as the §causal-console error-detection caveat from earlier — known limit; no promise of fix.
 
-The §three Node-Inspector-only methods (`profile`, `profileEnd`, `timeStamp`) are paired with `undefined` severity. The comment notes *Node Inspector only, MDN, and TypeScript, but not whatwg* — these are *non-Whatwg* extensions that nevertheless appear in enough standards to warrant inclusion.
+The §three Node-Inspector-only methods (`profile`, `profileEnd`, `timeStamp`) keep the comment *Node Inspector only, MDN, and TypeScript, but not whatwg* — *non-Whatwg* extensions that nevertheless appear in enough standards to warrant inclusion.
 
-### §The `consoleMethodPermits` union
+### §The `consoleMethodPermits` union — now three lists (refreshed 2026-06-17)
 
-The §combined permit list (lines 126-130):
+The §combined permit list (lines 140-144) now spreads all three lists:
 
 ```js
 const consoleMethodPermits = freeze([
   ...consoleLevelMethods,
+  ...consoleSpecialMethods,
   ...consoleOtherMethods,
 ]);
 ```
@@ -152,7 +168,7 @@ The §union is the *complete* set of methods this module knows how to wrap. Any 
 
 ### §consoleOmittedProperties — the false-entries discipline
 
-The §commented-out `consoleOmittedProperties` block (lines 132-157) is structurally significant:
+The §commented-out `consoleOmittedProperties` block (lines 146-176) is structurally significant:
 
 ```js
 /**
@@ -198,7 +214,7 @@ The §current-unused note (`consoleOmittedProperties is currently unused`) expla
 
 ### §The defineName utility
 
-The §opening `defineName` function (lines 31-43) supports named arrow functions:
+The §opening `defineName` function (lines 35-75) supports named arrow functions:
 
 ```js
 const defineName = (name, fn) => defineProperty(fn, 'name', { value: name });
@@ -209,3 +225,41 @@ The §comment names the use case:
 > Explicitly set a function's name, supporting use of arrow functions for which source text doesn't include a name and no initial name is set by NamedEvaluation https://tc39.es/ecma262/multipage/syntax-directed-operations.html#sec-runtime-semantics-namedevaluation. Instead, we hope that tooling uses only the explicit `name` property.
 
 The §rationale: arrow functions assigned to map-entries don't get implicit names; the wrapping code uses `defineName('debug', (...args) => ...)` to ensure the wrapped function carries the right name for tooling (debuggers, stack traces, error messages). The function is used throughout the file in the wrap-method constructions.
+
+### §sanitizeFormatData — stripping `%c` styling specifiers (added 2026-06-17)
+
+The 2026-06-17 refresh added a new exported function `sanitizeFormatData` (lines 203-277), the last declaration in the prelude before the *Logging Console* divider. It is exported *only for testing*; in production the causal console's level/assert/timeLog wrappers call it on their args before error-extraction.
+
+```js
+export const sanitizeFormatData = ([...formatData]) => {
+  freeze(formatData);
+  if (formatData.length <= 1) {
+    return formatData;
+  }
+  const [fmt, ...args] = formatData;
+  if (typeof fmt !== 'string' || !stringIncludes(fmt, '%')) {
+    return formatData;
+  }
+  // ... scan fmt for `%`-specifiers, transferring segments + args ...
+};
+```
+
+The §purpose (from the doc-comment):
+
+> If `formatData` consists of `[fmt, ...args]` and `fmt` is a string containing a `%c` specifier that acts as an `%c` specifier according to https://console.spec.whatwg.org/#formatting-specifiers then omit it and its corresponding argument. For the rest of the `fmt` string and its corresponding arguments, return them as a replacement `formatData` to be fed to the underlying console log functions.
+
+Why strip `%c`? It is the whatwg console *CSS-styling* specifier — in a browser devtools console it applies CSS to subsequent text; its consumed argument is a style string. On a non-browser base console (Node, a test logger) it would be rendered uselessly or even mishandled, so the causal console drops both the specifier and its style argument while preserving every other specifier and its argument.
+
+The §scan walks `fmt` from each `%` and switches on the following character:
+
+- **`s` / `d` / `i` / `f` / `o` / `O`** (recognized value specifiers): transfer the segment including `%`+char and *transfer one arg*.
+- **`c`** (CSS styling): transfer the segment *up to but not including* `%c`, and *consume one arg without emitting it* — both the specifier and its style argument vanish.
+- **`%`** (an escaped percent, `%%`): transfer the segment including `%%`; consume no arg. This is why a `%c` *inside* `%%c` does not act as a specifier — the `%%` is consumed first, leaving a literal `c`.
+- **default** (any other char, e.g. Node's `%j`): rewrite it as an *escaped* `%%<char>` and consume no arg — *so that `%<unspecified>` is treated as unknown even if implemented by the local platform, such as `%j` on Node*. This deliberately neutralizes platform-specific specifiers that whatwg does not define.
+
+Two careful edge conditions in the loop guard:
+
+- The `percentPos < fmt.length - 1` bound *leaves room for one more character after the `%`*: a trailing bare `%` is not a specifier.
+- The `argI < args.length` bound encodes the doc-comment's rule that *a `%c` beyond `args` does not act as a specifier* — once the args are exhausted, the remaining `fmt` is transferred verbatim.
+
+After the loop, any leftover `fmt` tail and any leftover args are appended, and the result `[newFmt, ...newArgs]` is frozen. The §honest-comment on the switch — *the four cases in the following switch are purposely partially redundant ... Clarity sometimes wins over DRY* — is the same *clarity-over-DRY* discipline seen elsewhere in the SES error module.

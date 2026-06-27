@@ -3,18 +3,26 @@ title: Body
 source: packages/ses/src/error/console.js
 source_repo: endojs/endo
 source_branch: master
-source_commit: e02b0f66eb44306c3d739e1670114ef24d4202fa
-source_date: 2025-01-02
+source_commit: 1b978bfbec82786398c61b004019f83cafef3527
+source_date: 2026-06-17
 source_authors: [Mark S. Miller]
-source_lines: "159-415 (makeLoggingConsoleKit + pumpLogToConsole + makeCausalConsole + logError + ErrorInfo)"
+source_lines: "279-586 (makeLoggingConsoleKit + pumpLogToConsole + ErrorInfo + makeCausalConsole + logError)"
 topics: [hardened-javascript, errors]
 status: current
+notes: |
+  Refreshed 2026-06-27 (file-commit e02b0f66 → 1b978bfb). The
+  makeLoggingConsoleKit / pumpLogToConsole / ErrorInfo / logError
+  render-sequence is unchanged; the *makeCausalConsole* opening and the
+  closing wrapper-construction subsections were updated to match the new
+  feralConsole parameter, the Node Console customInspect circumvention,
+  the sanitizeFormatData integration, the dedicated assert/timeLog
+  wrappers, and the single trailing `name in baseConsole` filter.
 parent: endo--packages-ses-src-error-console-js--logging-console-causal-console-and-error-info-rendering
 ---
 
 ### §makeLoggingConsoleKit — the delayed-application buffer
 
-The §logging-console subsection (lines 159-198):
+The §logging-console subsection (lines 281-317):
 
 ```js
 export const makeLoggingConsoleKit = (
@@ -60,7 +68,7 @@ The §delayed-application shape is reusable: any test framework, batch-replay-de
 
 ### §pumpLogToConsole — replaying captured log entries
 
-The §pumpLogToConsole function (lines 209-214):
+The §pumpLogToConsole function (lines 328-335):
 
 ```js
 export const pumpLogToConsole = (log, baseConsole) => {
@@ -78,7 +86,7 @@ The §pattern is *capture-then-replay*. A test may capture into a logging-consol
 
 ### §ErrorInfo constants — four annotation kinds
 
-The §ErrorInfo constants (lines 217-224):
+The §ErrorInfo constants (lines 337-345):
 
 ```js
 const ErrorInfo = {
@@ -103,18 +111,41 @@ The four kinds reflect the *structured-error* model: a single error carries (a) 
 
 ### §makeCausalConsole — the structural core
 
-The §causal-console subsection (lines 227-415) is the largest in the file. It receives:
+The §causal-console subsection (lines 346-586) is the largest in the file. As of the 2026-06-17 refresh its first parameter is `feralConsole`, and before destructuring `loggedErrorHandler` it constructs a private `baseConsole` (on Node) that all the wrappers below delegate to:
 
 ```js
-export const makeCausalConsole = (baseConsole, loggedErrorHandler) => {
-  if (!baseConsole) {
+export const makeCausalConsole = (feralConsole, loggedErrorHandler) => {
+  if (!feralConsole) {
     return undefined;
   }
+
+  // ... build a replacement that opts out of Node's custom-inspect deep scan ...
+  const Console = /** @type {any} */ (feralConsole).Console;
+  const { stdout, stderr } = globalThis.process || { __proto__: null };
+  const baseConsole =
+    typeof Console === 'function' && (stdout || stderr)
+      ? new Console({
+          stdout,
+          stderr,
+          inspectOptions: { colors: undefined, customInspect: false },
+        })
+      : feralConsole;
 
   const { getStackString, tagError, takeMessageLogArgs, takeNoteLogArgsArray } =
     loggedErrorHandler;
   // ...
 ```
+
+The §feralConsole-to-baseConsole circumvention (the refresh's most security-relevant addition) is documented in the source:
+
+> In Node.js, the global console does a deep scan of its inputs for methods keyed by `Symbol.for('nodejs.util.inspect.custom')`, and invokes any that are found with unhardened arguments [...]. To circumvent that problematic behavior, we use its `Console` constructor to build a replacement that explicitly opts out by setting the `customInspect` option to false.
+
+The structural picture:
+
+- **The hazard.** Node's global `console`, when handed an object carrying a `Symbol.for('nodejs.util.inspect.custom')` method, *calls that method with unhardened arguments* during rendering. In a hardened SES world that is an unwanted authority leak: attacker-controlled inspect-custom code runs with arguments it should never see.
+- **The fix.** If the passed-in `feralConsole` exposes the Node `Console` *constructor* and a `process` with `stdout`/`stderr` is reachable, the module builds a *private* `baseConsole = new Console({ stdout, stderr, inspectOptions: { customInspect: false } })`. Setting `customInspect: false` makes Node skip the deep custom-inspect scan entirely.
+- **The graceful fallback.** Off Node (no `Console` constructor, or no `process.stdout`/`stderr`), `baseConsole` is just `feralConsole` unchanged — the circumvention is Node-specific and inert elsewhere.
+- **The renaming consequence.** Every wrapper below now delegates to this private `baseConsole`, not to the raw argument. The argument was renamed `feralConsole` precisely to mark that it is *untrusted host material* that must be tamed before use — the same *feral-vs-tamed* vocabulary SES uses for the realm's intrinsics.
 
 The four functions provided by `loggedErrorHandler`:
 
@@ -314,27 +345,47 @@ The §sequence is *deterministic*: message → stack → cause → errors → no
 
 The §most-informative-message rule is structurally significant: the `details` template-tag produces a *richer* message than `error.message` (which is just a string); when both are present, the richer one wins.
 
-### §The level-method and other-method wrappers
+### §The level / special / other wrappers (refreshed 2026-06-17)
 
-The §closing lines (lines 379-414) construct the actual wrapped console:
+The §closing lines (lines 519-585) construct the actual wrapped console. The 2026-06-17 refresh reorganized this in four ways: level wrappers now key on the method *name* (not the severity), call `sanitizeFormatData` before error-extraction, and call `baseConsole[name]` *unconditionally*; `assert` and `timeLog` get dedicated wrappers; and a *single* trailing `name in baseConsole` filter replaces the per-list existence guards.
 
 ```js
-const levelMethods = arrayMap(consoleLevelMethods, ([level, _]) => {
-  const levelMethod = defineName(level, (...logArgs) => {
+const levelMethods = arrayMap(consoleLevelMethods, ([name, level]) => {
+  const levelMethod = defineName(name, (...logArgs) => {
     const subErrors = [];
-    const argTags = extractErrorArgs(logArgs, subErrors);
-    if (baseConsole[level]) {
-      baseConsole[level](...argTags);
-    }
+    const argTags = extractErrorArgs(sanitizeFormatData(logArgs), subErrors);
+    // eslint-disable-next-line @endo/no-polymorphic-call
+    baseConsole[name](...argTags);
     logSubErrors(level, subErrors);
   });
-  return [level, freeze(levelMethod)];
+  return [name, freeze(levelMethod)];
 });
-const otherMethodNames = arrayFilter(
-  consoleOtherMethods,
-  ([name, _]) => name in baseConsole,
-);
-const otherMethods = arrayMap(otherMethodNames, ([name, _]) => {
+
+const assertMethod = defineName('assert', (...assertArgs) => {
+  if (assertArgs.length <= 1) {
+    baseConsole.assert(...assertArgs);
+  } else {
+    const [cond, ...logArgs] = assertArgs;
+    const subErrors = [];
+    const argTags = extractErrorArgs(sanitizeFormatData(logArgs), subErrors);
+    baseConsole.assert(cond, ...argTags);
+    logSubErrors('error', subErrors);
+  }
+});
+
+const timeLogMethod = defineName('timeLog', (...timeLogArgs) => {
+  if (timeLogArgs.length <= 1) {
+    baseConsole.timeLog(...timeLogArgs);
+  } else {
+    const [label, ...logArgs] = timeLogArgs;
+    const subErrors = [];
+    const argTags = extractErrorArgs(sanitizeFormatData(logArgs), subErrors);
+    baseConsole.timeLog(label, ...argTags);
+    logSubErrors('log', subErrors);
+  }
+});
+
+const otherMethods = arrayMap(consoleOtherMethods, ([name, _level]) => {
   const otherMethod = defineName(name, (...args) => {
     baseConsole[name](...args);
     return undefined;
@@ -342,15 +393,24 @@ const otherMethods = arrayMap(otherMethodNames, ([name, _]) => {
   return [name, freeze(otherMethod)];
 });
 
-const causalConsole = fromEntries([...levelMethods, ...otherMethods]);
+const methodEntries = arrayFilter(
+  [
+    ...levelMethods,
+    ['assert', assertMethod],
+    ['timeLog', timeLogMethod],
+    ...otherMethods,
+  ],
+  ([name, _]) => name in baseConsole,
+);
+
+const causalConsole = fromEntries(methodEntries);
 return freeze(causalConsole);
 ```
 
-The §structural difference between level and other methods:
+The §structural difference between the three method families:
 
-- **Level methods (debug/log/info/warn/error/trace/etc.)** extract errors from args and queue sub-errors. After calling `baseConsole[level]` with the tag-substituted args, `logSubErrors(level, subErrors)` renders the nested errors.
-- **Other methods (assert/timeLog/clear/etc.)** pass through to `baseConsole[name]` *without* error extraction. They are pass-through proxies.
+- **Level methods (debug/log/info/warn/error/trace/etc.)** extract errors from args and queue sub-errors. Args are first run through `sanitizeFormatData` (the new `%c`-stripper from section 1), then `extractErrorArgs`. The wrapper now destructures `[name, level]` and calls `baseConsole[name]` (the method name) rather than `baseConsole[level]` — a bug-class fix, since previously a severity like `'log'` shared by `trace`/`dirxml`/`group` would have collided. After the call, `logSubErrors(level, subErrors)` renders the nested errors at the paired severity.
+- **Special methods (assert, timeLog)** get bespoke wrappers. Each keeps its leading argument verbatim (`assert`'s condition, `timeLog`'s label), sanitizes + error-extracts the *remaining* args, and renders sub-errors at the list's paired severity (`'error'` / `'log'`). The `length <= 1` short-circuit passes a no-extra-args call straight through.
+- **Other methods (clear/dir/group/table/etc.)** pass through to `baseConsole[name]` *without* error extraction — pure proxies.
 
-The §`otherMethodNames` filter (line 395-397) drops other-methods that the baseConsole doesn't implement. The level methods are *always* wrapped; the other methods are *conditionally* wrapped.
-
-The §existence-check pattern (`if (baseConsole[level])`) is the *defensive-binding* discipline: not every baseConsole implements every method. The wrapping silently no-ops on missing methods.
+The §single-filter discipline (the `methodEntries` `arrayFilter` keyed on `name in baseConsole`) replaces the prior per-list guards. The old code used an inline `if (baseConsole[level])` existence check inside each level wrapper *and* a separate `otherMethodNames` filter; the refresh unifies both into one filter applied to the combined `[level..., assert, timeLog, other...]` entry list. The wrapped console therefore exposes exactly the permitted methods that the (tamed) `baseConsole` actually implements — the *defensive-binding* discipline, now expressed once.
