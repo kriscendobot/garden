@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T06:38:08Z_
+_As of 2026-06-27T06:47:13Z_
 
 ## Latest
 
-A wave of connectivity-outage hardening landed: [`improve-unify-connectivity-outage-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-unify-connectivity-outage-signatures.md) completed and `improve-report-error-reject-empty-transcript` landed as `58283556a`, with three more self-heal/offline-resilience jobs (treat transient git-128 as clean exit, honor offline-rc on claim) still in flight. The biggest thing to notice: **main2 on endolinbot is wedged** — the watchman has fired repeatedly (most recently against `5fc801e`) because uncommitted tracked edits to `scripts/jobs/self-heal-run.sh`, `gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh` block the fast-forward, so this host is not picking up new roles/skills/scripts until the tree is cleaned. A watchdog also reports the `comment-watcher/kriskowal-garden` has seen zero comments for 60 ticks while the repo is active — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth a check. On the PR side, a gardener pushed a conflict-safe follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) after a stand-down, repairing 13 dangling design-doc references and adding a real Node parity test (suite green); [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was refreshed, and the [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) review directive is being worked. Two items await your word: the `cognito-mcp-metadata-bridge` gardener has two design open questions (IdP choice and whether to ship RFC 7591 DCR) and is proceeding on its recommendations unless redirected, and `synth-and-deploy-minion-town-aws` remains parked pending your go-ahead.
+A run of connectivity-resilience hardening landed on main2: self-heal now treats an offline state as a clean exit, connectivity-outage signatures were unified, and the error reporter now rejects empty transcripts (`58283556a`). Two follow-ons are still in flight in `doin` — making the gardener claim loop absorb transient git-128 outages and honor the offline release-candidate on claim. The [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) review directive also completed.
+
+Two operational alarms need a human eye. First, the watchman has fired repeatedly that **main2 on endolinbot is WEDGED** — uncommitted tracked edits (to `scripts/jobs/gardener.sh`, `self-heal-run.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`) are blocking the fast-forward, so this host has not picked up new roles/skills/scripts across at least a dozen advancing commits; someone should confirm those edits aren't unsaved work and clean the tree. Second, a watchdog reports `comment-watcher/kriskowal-garden` returned zero comments for 60 straight ticks despite a real comment existing since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage.
+
+For maintainer judgment: a gardener proceeded past a stand-down on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), pushing a conflict-safe follow-up (`3aa37bbd`) that fixed 13 dangling design-doc references and added a real Node parity test, and flagged it as corrective rather than duplicate work. The `cognito-mcp-metadata-bridge` builder is also awaiting answers on two OAuth-design open questions (Cognito-plus-bridge vs. an MCP-native IdP, and whether to ship RFC 7591 dynamic client registration) before it builds.
 
 ## Parked for maintainer feedback
 
@@ -170,19 +174,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr440-review-a9ecd20f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr440-review-a9ecd20f.md) — Review directive on endojs/endo-but-for-bots PR #440
+### doin (2)
 - [`improve-gardener-honor-offline-rc-on-claim`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-honor-offline-rc-on-claim.md) — In scripts/jobs/gardener.sh, the claim loop treats every non-zero, non-3 retu...
-- [`improve-self-heal-treat-offline-as-clean-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-self-heal-treat-offline-as-clean-exit.md) — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
 - [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Make the long-running gardener claim loop absorb transient connectivity outag...
 
-### tada (309)
+### tada (311)
+- [`endojs-endo-but-for-bots-pr440-review-a9ecd20f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr440-review-a9ecd20f.md) — Completion report — PR #440 review directive (endojs/endo-but-for-bots)
+- [`improve-self-heal-treat-offline-as-clean-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-self-heal-treat-offline-as-clean-exit.md) — Completion report
 - [`improve-unify-connectivity-outage-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-unify-connectivity-outage-signatures.md) — Pushed and cleaned up. Completion report:
 - [`improve-report-error-reject-empty-transcript`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-report-error-reject-empty-transcript.md) — Landed on origin/main2 as 58283556a. Worktree cleaned up.
 - [`endojs-endo-but-for-bots-pr405-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-refresh.md) — Completion report: endojs-endo-but-for-bots-pr405-refresh
-- [`scholar-library-cycle-20260627-055037`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-055037.md) — Cycle complete and verified on origin/journal2. Here is the report.
-- [`design-host-formula-property-value-addressing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-host-formula-property-value-addressing.md) — Completion report
-- … and 304 more
+- … and 306 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
