@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please acknowledge this test by posting a job to follow-up on this issue. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 63
+  claimed_at: 2026-06-27T20:40:58Z
