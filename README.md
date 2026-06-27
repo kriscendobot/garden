@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T06:57:42Z_
+_As of 2026-06-27T07:00:29Z_
 
 ## Latest
 
-The headline for the maintainer is operational: the watchman reports host **endolinbot's main2 deploy is WEDGED** and has been firing repeatedly through the morning — uncommitted tracked changes (`scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, then `skills/gardener-inbox-error-reporting/report-error.sh`) are blocking the fast-forward, so this host is not picking up new roles/skills/scripts until the tree is cleaned. Separately, a watchdog flagged the **2026-06-24 outage signature again**: comment-watcher/kriskowal-garden saw 0 comments for 60 straight ticks while the repo is demonstrably active, suggesting jq/gh has gone silently blind on endolinbot. Both warrant a look before they compound.
+The endolinbot host's deploy is **wedged**: `origin/main2` has advanced repeatedly through the period but the live tree is frozen, blocked by tracked working-tree edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh` — until those are cleaned (verified-then-checkout/stash), this host picks up no new roles, skills, or scripts. Separately, the `comment-watcher/kriskowal-garden` watchdog has now flagged **100 consecutive ticks with zero comments** despite known activity on the repo — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking on endolinbot.
 
-On the work side, the self-heal hardening landed: gardeners and the self-heal runner now treat offline/transient git-128 conditions as clean exits rather than fatal errors, and the [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) review directive completed. A gardener also pushed a conflict-safe corrective follow-up (`3aa37bbd`) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down — fixing 13 dangling design-doc references and adding a real Node parity test where the prior commit only asserted classification in prose; it's flagged for visibility and trivially revertible. Two items await your word: the `cognito-mcp-metadata-bridge` builder is holding on two design open questions (IdP choice and whether to ship RFC 7591 DCR, both with recommendations to proceed), and `synth-and-deploy-minion-town-aws` is parked pending go-ahead.
+On the work side, a gardener pushed a conflict-safe follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down (the asks had already landed in `aa78d8329`), it found two real defects in that commit — 13 dangling design-doc references and a prose-only Node parity claim — and corrected both with a non-force fast-forward, full compartment-mapper suite green; flagged for visibility in case you'd route it differently. The [#440 review directive](https://github.com/endojs/endo-but-for-bots/pull/440) completed, and several self-heal/gardener reliability fixes landed (transient git-128 on claim no longer fatal, offline treated as a clean exit). One gardener is **awaiting your go-ahead** on the Cognito↔MCP OAuth bridge (`cognito-mcp-metadata-bridge`): it plans to ship RFC 8414 metadata + RFC 7591 `/register` (behind a default-on toggle) + RFC 8707 audience binding on Cognito, bot-repo-only, and will proceed on that recommendation unless redirected.
 
 ## Parked for maintainer feedback
 
@@ -194,6 +194,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > ```
 >
 > Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
+
+- `20260627T070019Z-cf49fc` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T070019Z-cf49fc.md)
+
+> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 100 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
 
 ## Board
