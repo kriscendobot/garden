@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T15:12:24Z_
+_As of 2026-06-27T15:13:31Z_
 
 ## Latest
 
-The headline for a maintainer: **host `endolinbot`'s `main2` deploy has been wedged all day** — uncommitted tracked changes (a redundant byte-identical edit to `report-error.sh`, then `gardener.sh`/`claim-job.sh`, then the `library-link-*` scripts) keep refusing the fast-forward, so the live checkout is many commits behind `origin/main2` and is *not* picking up new roles, skills, or scripts. A gardener confirmed `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless (content already on origin) and unwedges it. Compounding this, a self-heal report notes `garden-gardener` was crash-looping on transient git-128 claim failures — but the fix already landed on `origin/main2`, so it's stranded behind the same wedge. The new **deploy-sync reconciler landed (5d6490e62)** to auto-advance the checkout and restart services on `scripts/` changes, but it stays inert until a units refresh arms it. Separately, the **`comment-watcher/kriskowal-garden` has gone blind** — 0 comments for 420+ consecutive ticks while the repo is demonstrably active, matching the 2026-06-24 jq/gh outage signature.
+The headline is operational, not feature work: **main2 on endolinbot has been deploy-wedged all day** and is now ~10+ commits behind `origin/main2`, so this host is not picking up any landed roles/skills/scripts. The watchman fired repeatedly because tracked working-tree edits (most recently the `library-link-*` and `journal-entry.sh` scripts, earlier `report-error.sh` and `gardener.sh`) block the fast-forward. A gardener diagnosed the core case: the live tree's `skills/gardener-inbox-error-reporting/report-error.sh` edit is **byte-identical to what's already committed**, so `git -C /home/kris checkout -- <file>` is lossless and unwedges the deploy. A new **deploy-sync reconciler landed on main2 (5d6490e62)** to auto-fast-forward and restart long-running services on `scripts/` changes, but it's inert until a `install-units.sh` refresh arms it — and it can't act while the tree stays dirty. Relatedly, **self-heal flagged garden-gardener crash-looping (rc=1)**; the fix is already on origin/main2 and only unreached because of the same wedge.
 
-Three items are parked on your decision: the **harden-exported-function-literals follow-up** to [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (erights-authorized, awaiting breadth + base-branch scope before a cross-repo PR opens); the formula-inspector retention-paths table is **blocked on #284** (`listRetentionPaths` host API, still open and stalled on the rebase/re-gamut you requested 2026-05-21); and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded **no change** (reusing the daemon powers would invert the extraction and create a workspace cycle). Lower-noise progress: endo master lint is clean (only 5 jsdoc warnings, plan parked), and scholars landed two ocap library expansions — the MetaMask/ocap-kernel kernel guide and a six-concept distributed-ocap cluster.
+A second standing alarm: the **comment-watcher for kriskowal/garden has reported zero comments for 420 consecutive ticks** despite the repo being active since 2026-06-25 — the 2026-06-24 outage signature (likely jq/gh blindness on endolinbot), worth treating as a real blind spot.
+
+Two items need a maintainer decision: the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) follow-up to harden exported function literals (now merged) is gated on you choosing **breadth (narrow two-export vs. repo-wide) and base branch (`llm` vs `master`)** before a cross-repo PR opens; and the formula-inspector retention-paths table is **blocked on #284**, which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested. Lower-stakes: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the reuse would invert the extraction), endo master lint is clean save 5 non-blocking jsdoc warnings, and scholars ingested the MetaMask ocap-kernel guide plus a distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -557,17 +559,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260627T151020Z-5f405e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260627T151020Z-5f405e.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`improve-library-source-drift-scan`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-library-source-drift-scan.md) — Add a standing scripts/jobs/library-source-drift-scan.sh (modeled on the exis...
 
-### tada (361)
+### tada (362)
+- [`deadmail-20260627T151020Z-5f405e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260627T151020Z-5f405e.md) — Completion report — deadmail-20260627T151020Z-5f405e (intent of cognito-mcp-m...
 - [`scholar-refresh-marshal-rankorder-encodepassable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-marshal-rankorder-encodepassable.md) — Completion report — scholar-refresh-marshal-rankorder-encodepassable
 - [`scholar-library-cycle-20260627-145422`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-145422.md) — Completion report — scholar-library-cycle-20260627-145422
 - [`scholar-ingest-passable-equality`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-passable-equality.md) — Completion report — scholar-ingest-passable-equality
 - [`scholar-ingest-ocap-kernel-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-packages.md) — Completion report: scholar-ingest-ocap-kernel-packages
-- [`improve-journal-worktree-reconciler`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-worktree-reconciler.md) — Completion report
-- … and 356 more
+- … and 357 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
