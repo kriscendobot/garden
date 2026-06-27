@@ -27,6 +27,8 @@
 | [endo--packages-ses-src-error-console-js--causal-console-from-logger-and-filter-console](../sections/endo--packages-ses-src-error-console-js--causal-console-from-logger-and-filter-console.md) | endo packages/ses/src/error/console.js (longform comment, Mark S. Miller) | The defineCausalConsoleFromLogger AVA `t.log` adapter — the canonical *wrap-a-single-function-as-a-VirtualConsole* pattern for test frameworks. The indent-stack management via group/groupCollapsed/groupEnd. The makeLoggingConsoleKit delayed-application buffer (from §2) is a *capture-then-replay* test infrastructure complement. |
 | [cask--gc-concurrent-design--proposed-tests](../sections/cask--gc-concurrent-design--proposed-tests.md) | cask gc-concurrent-design | The concurrent-GC test plan: instrumented delayable store + atomic root ref + CollectorStore; cross-cutting tests (install-after-store, snapshot-under-swap, concurrent-read, epoch monotonicity) and per-structure blob/dir/array tests. |
 
+| [metamask-ocap-kernel--docs-usage-md--development-tools](../sections/metamask-ocap-kernel--docs-usage-md--development-tools.md) | MetaMask/ocap-kernel docs/usage.md | Vitest in-process kernel testing (`makeKernel` with `dbFilename: ':memory:'`): launch a vat, queue a message, assert on the deserialized result. |
+| [metamask-ocap-kernel--docs-usage-md--end-to-end-testing](../sections/metamask-ocap-kernel--docs-usage-md--end-to-end-testing.md) | MetaMask/ocap-kernel docs/usage.md | Playwright extension e2e: the bundle-serve-then-test ordering, `test:e2e` / `test:e2e:ui` / `test:e2e:ci`, and the workflows the suite exercises. |
 ## See also
 
 - [`agent-conventions`](agent-conventions.md): broader agent rules.
