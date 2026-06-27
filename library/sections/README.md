@@ -7610,6 +7610,15 @@ Total section files: 5826 (506 parent indexes + 5320 children).
 - [web--gcp-marketplace-partner-program--product-types-and-partner-program](web--gcp-marketplace-partner-program--product-types-and-partner-program.md)
 - [web--gcp-marketplace-partner-program--saas-integration-and-identity](web--gcp-marketplace-partner-program--saas-integration-and-identity.md)
 
+### web--miller-grant-matcher-puzzle
+
+- [web--miller-grant-matcher-puzzle--overview](web--miller-grant-matcher-puzzle--overview.md)
+- [web--miller-grant-matcher-puzzle--capability-foundations](web--miller-grant-matcher-puzzle--capability-foundations.md)
+- [web--miller-grant-matcher-puzzle--setting-up-the-puzzle](web--miller-grant-matcher-puzzle--setting-up-the-puzzle.md)
+- [web--miller-grant-matcher-puzzle--when-it-works](web--miller-grant-matcher-puzzle--when-it-works.md)
+- [web--miller-grant-matcher-puzzle--alice-gets-greedy](web--miller-grant-matcher-puzzle--alice-gets-greedy.md)
+- [web--miller-grant-matcher-puzzle--how-eq-makes-a-difference](web--miller-grant-matcher-puzzle--how-eq-makes-a-difference.md)
+
 ### web--tls-first-boot-patterns
 
 - [web--tls-first-boot-patterns--vendor-delegated-and-tofu](web--tls-first-boot-patterns--vendor-delegated-and-tofu.md) (index)

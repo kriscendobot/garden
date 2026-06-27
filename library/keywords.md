@@ -13220,6 +13220,13 @@ matching grant capability | grant-matcher-puzzle
 capability man-in-the-middle | grant-matcher-puzzle
 capability equivalence puzzle | grant-matcher-puzzle
 do two parties designate the same object | grant-matcher-puzzle
+EQ primitive | grant-matcher-puzzle
+transparent forwarder | grant-matcher-puzzle
+KEQD | grant-matcher-puzzle
+Alice gets greedy | grant-matcher-puzzle
+equality primitive motivation | grant-matcher-puzzle
+Identity Untangled | grant-matcher-puzzle
+the Carol that Bob gets must be the Carol that Alice meant | grant-matcher-puzzle
 ## OCAP Kernel usage guide (metamask-ocap-kernel--docs-usage-md, seventh ocap-kernel ingest, 2026-06-27)
 ocap-kernel usage guide | ocap-kernel
 MetaMask ocap-kernel docs/usage.md | ocap-kernel

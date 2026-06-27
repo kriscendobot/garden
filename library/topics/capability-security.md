@@ -213,6 +213,9 @@
 
 | [metamask-ocap-kernel--docs-usage-md--cluster-configuration](../sections/metamask-ocap-kernel--docs-usage-md--cluster-configuration.md) | MetaMask/ocap-kernel docs/usage.md | The `globals` array + `network.allowedHosts` allowlist enact distributed confinement (no ambient authority; fail-closed network gate) in cluster config JSON. |
 | [metamask-ocap-kernel--docs-usage-md--endo-integration](../sections/metamask-ocap-kernel--docs-usage-md--endo-integration.md) | MetaMask/ocap-kernel docs/usage.md | Operational restatement of the object-capability model: vat root + service objects via `makeDefaultExo`; `E()` from `@endo/eventual-send`; further-resources pointer list. |
+| [web--miller-grant-matcher-puzzle--overview](../sections/web--miller-grant-matcher-puzzle--overview.md) | The Grant Matcher Puzzle (Miller) | The `EQ`-primitive framing: should a system tell whether two references designate the same object without consulting them, and what each answer costs. |
+| [web--miller-grant-matcher-puzzle--capability-foundations](../sections/web--miller-grant-matcher-puzzle--capability-foundations.md) | The Grant Matcher Puzzle (Miller) | The three capability rules — discretionary, mandatory, and the third (the reference Bob gets must be the Carol Alice meant) that is the heart of the puzzle. |
+| [web--miller-grant-matcher-puzzle--setting-up-the-puzzle](../sections/web--miller-grant-matcher-puzzle--setting-up-the-puzzle.md) | The Grant Matcher Puzzle (Miller) | Least authority as the donors' only protection against a misbehaving Grant Matcher; two mutually-distrustful donors using a trusted third party. |
 ## See also
 
 - [`hardened-javascript`](hardened-javascript.md): substrate that makes ocap discipline enforceable.

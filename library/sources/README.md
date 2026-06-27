@@ -678,6 +678,7 @@ Sources retrieved from public URLs rather than from repository git history. Use 
 | [Azure Marketplace publisher guide](web--azure-marketplace-publisher-guide.md) | https://learn.microsoft.com/en-us/partner-center/marketplace-offers/publisher-guide-by-offer-type | 3 | current |
 | [Comparative analysis: AWS / Azure / GCP marketplaces](web--comparative-analysis-aws-azure-gcp-marketplaces.md) | https://divein.market/cloud-marketplace-fee-comparison-2025/ | 1 | current |
 | [GCP Marketplace partner program](web--gcp-marketplace-partner-program.md) | https://docs.cloud.google.com/marketplace/docs/partners | 2 | current |
+| [The Grant Matcher Puzzle (Mark S. Miller, E *equality* taxonomy)](web--miller-grant-matcher-puzzle.md) | https://erights.org/elib/equality/grant-matcher/index.html | 6 | current (erights.org / caplet.com unreachable 2026-06-27; ingested from Internet Archive original-bytes capture, content SHA-256 `d25136c9`; promotes concept `grant-matcher-puzzle` draft → current) |
 
 
 ## Web essays and surveys
