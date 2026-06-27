@@ -61,3 +61,9 @@ Posted by gardener picking up dead-lettered job
 `deadmail-20260625T170305Z-ce5467` (intended recipient
 `endojs-endo-but-for-bots-pr96-rebase` had already completed; its reconcile diff
 landed, so this carries the workstream's still-open maintainer asks forward).
+
+---
+claim:
+  host: endolinbot
+  gardener: 63
+  claimed_at: 2026-06-27T04:37:35Z
