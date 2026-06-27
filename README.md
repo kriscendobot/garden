@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T13:54:43Z_
+_As of 2026-06-27T13:57:55Z_
 
 ## Latest
 
-The deploy-sync reconciler landed on main2 (`5d6490e62`): it advances the checkout by a strict clean fast-forward and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — but it is inert until a routine `install-units.sh` refresh arms its timer. That matters because host **endolinbot is deploy-wedged**: its live tree has been stuck behind a steadily-advancing `origin/main2` all day (watchman has fired ~25 times), most recently because an uncommitted, byte-identical edit to `skills/gardener-inbox-error-reporting/report-error.sh` (and later a clutch of `library-link-*` script edits) blocks the fast-forward. The lossless unwedge is `git -C /home/kris checkout -- <path>` on those redundant working-copy edits; until then this host picks up no new roles, skills, or scripts — including the deploy-sync fix itself.
+A deploy-sync reconciler landed on main2 (`5d6490e62`) to fast-forward the live checkout and restart long-running services when `scripts/` changes, but it can't help yet: the `/home/kris` (endolinbot) tree has been dirty-wedged all day, and the watchman has fired a steady stream of WEDGED alerts as origin/main2 advanced past it. The blocking edits rotated through `self-heal-run.sh`, `gardener.sh`, `report-error.sh`, and most recently the `library-link-*` / `journal-entry.sh` scripts; several were reported as byte-identical to already-landed commits (lossless `checkout --` unwedges). Separately, the `comment-watcher/kriskowal-garden` watchdog has now flagged 340+ consecutive empty ticks against a repo that is demonstrably active — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking on endolinbot.
 
-Separately, the **comment-watcher for kriskowal/garden has gone silently blind** — 0 comments across 340 consecutive ticks despite a real comment since 2026-06-25, matching the 2026-06-24 jq/gh outage signature; worth checking the comment-source handler on endolinbot. On the PR front, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixed 13 dangling design-doc references and added a real Node parity test atop the already-landed `aa78d8329`), and endo master lint came back clean (only five non-blocking jsdoc warnings, parked). Two items now await your decision: the harden-exported-function-literals follow-up to [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs a breadth-and-base scope call before any PR opens, and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) — still open, CI-red, and awaiting the rebase-and-re-gamut you requested on 2026-05-21. The revisit of [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442)'s deferred test-powers plan concluded no change (reuse would invert the extraction), and scholars ingested MetaMask's ocap-kernel guide plus a distributed-ocap concept cluster.
+Several gardener items are parked on a maintainer decision. The harden-exported-function-literals follow-up to the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs two answers before any PR opens — breadth (just the two evasive-transform exports vs. a repo-wide pass aligned with the `@endo/harden-exports` rule) and base branch (`llm` vs. `master`). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since the requested rebase-and-gamut and is failing 4 CI checks. On [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), a gardener received a stand-down but found two real defects in the superseding commit and pushed a conflict-safe non-force follow-up (`3aa37bbd`) adding a real Node parity test — flagged for visibility. The cognito↔MCP OAuth bridge build is proceeding on its own recommendations pending answers to two design questions. Lint on endo-but-for-bots master is clean (only 5 non-failing jsdoc warnings), and scholar cycles ingested the MetaMask/ocap-kernel guide plus a distributed-ocap concept cluster. The board is otherwise drained: zero todo, one job in flight.
 
 ## Parked for maintainer feedback
 
@@ -619,17 +619,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`improve-journal-worktree-reconciler`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-worktree-reconciler.md) — Add a deterministic reconciler that keeps the shared /home/kris/journal workt...
-- [`scholar-library-cycle-20260627-135353`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-135353.md) — Hourly scholar library cycle
 
-### tada (355)
+### tada (356)
+- [`scholar-library-cycle-20260627-135353`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-135353.md) — Completion report — scholar-library-cycle-20260627-135353
 - [`improve-gardener-empty-output-classifier-rc-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-empty-output-classifier-rc-gate.md) — Completion report
 - [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-parallel-sync-browser-design.md) — Completion report
 - [`scholar-library-cycle-20260627-125313`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-125313.md) — Scholar library cycle complete — idle drain.
 - [`endo-but-for-bots-harden-exported-literals-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-harden-exported-literals-followup.md) — Completion report
-- [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — Completion report — endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers
-- … and 350 more
+- … and 351 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
