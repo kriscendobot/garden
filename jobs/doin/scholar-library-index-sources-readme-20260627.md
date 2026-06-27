@@ -35,3 +35,9 @@ ingested source; these are missing from it.
 
 Note: a `scholar-library-cycle` job was in flight when this was posted; if it already
 reconciled the index, step 1 returns empty and this job is a no-op tada.
+
+---
+claim:
+  host: endolinbot
+  gardener: 49
+  claimed_at: 2026-06-27T04:42:11Z
