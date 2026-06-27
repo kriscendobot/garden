@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T22:20:46Z_
+_As of 2026-06-27T22:23:40Z_
 
 ## Latest
 
-The board is quiet — only the hourly scholar library cycle is running — but several maintainer decisions have piled up. The biggest catch: a comment-watcher misclassified a real maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) as a "rebase." The PR is already mergeable; the actual ask reshapes the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and asks for full empty-group hiding across space-chat, chat, cli, and daemon. It needs a liaison-driven gamut dispatch since the fleet has no autonomous feature-directive path, and an infra fix for the classifier bug is being posted separately.
+Two maintainer decisions are now blocking real work. On [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405), a kriskowal comment was misrouted by the comment-watcher as a "rebase" when it is actually a feature directive — reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups across space-chat, chat, cli, and daemon; the PR is already mergeable, so this needs a liaison-driven builder/fixer dispatch (and a classifier-bug fix has been posted separately). Separately, the "harden exported function literals" follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on a scope call: narrow (the two evade-censor exports) vs. repo-wide via the `@endo/harden-exports` rule, and base `llm` vs. `master` (the literal form differs between them).
 
-Now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) spun off a "harden exported function literals" follow-up that is blocked on you for two axes — narrow (just the two evasive-transform exports) vs. repo-wide, and base `llm` vs. `master` (the literal form differs by branch). The [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) deferred-powers revisit concluded no change: reusing @endo/daemon's powers would invert the daemon-cas extraction and create a workspace cycle. On the library side, scholars ingested MetaMask/ocap-kernel's kernel-guide (the sixth ocap-kernel ingest) and landed a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher), and a lint sweep found endo master clean apart from five non-failing jsdoc warnings. Two items remain firmly in your court: the formula-inspector retention-paths table is blocked until the still-open #284 host-API PR is rebased and landed, and the ymax0/XS repro investigation surfaced agoric-sdk-territory calls (sourcing a v320 swing-store export; whether to file an upstream-Endo note) that are out of bounds for autonomous action.
+A retention-paths inspector table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut kriskowal already requested; the follow-on is ready the moment it lands. The [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction and create a workspace cycle). Lint on endo-but-for-bots master is clean — only 5 non-failing jsdoc warnings, parked as a low-priority plan. Two ymax0/agoric-sdk decisions surfaced from the XS-overflow investigation but are out of bounds for autonomous action and await your direction. On the library side, the scholar landed MetaMask/ocap-kernel's kernel-guide ingest plus a six-section distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher), with the erights.org grant-matching source deferred until reachable.
 
 ## Parked for maintainer feedback
 
@@ -180,17 +180,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`scholar-ingest-source-erights-ode-capdesk-hpl`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-ode-capdesk-hpl.md) — scholar-ingest-source: erights.org Ode subpages, CapDesk/Polaris, and the HPL...
-- [`scholar-library-cycle-20260627-222002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-222002.md) — Hourly scholar library cycle
 
-### tada (416)
+### tada (417)
+- [`scholar-library-cycle-20260627-222002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-222002.md) — Completion report
 - [`fu-improve-source-slug-prefix-divergence-check-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-improve-source-slug-prefix-divergence-check-1.md) — Completion report
 - [`improve-source-slug-prefix-divergence-check`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-source-slug-prefix-divergence-check.md) — What I did
 - [`improve-fetch-source-stub-detection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-stub-detection.md) — Done. The change is committed and pushed to origin/main2 (commit 797907141), ...
 - [`scholar-ingest-source-erights-elang-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-remainder.md) — Completion report: scholar-ingest-source-erights-elang-remainder
-- [`scholar-ingest-source-erights-elang-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-elang-primaries.md) — Completion report
-- … and 411 more
+- … and 412 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
