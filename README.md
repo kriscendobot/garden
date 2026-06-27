@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T13:07:47Z_
+_As of 2026-06-27T13:38:37Z_
 
 ## Latest
 
-The headline for the maintainer: **endolinbot's `main2` deploy is wedged** and has been for the whole cycle — the live tree fell ~6+ commits behind `origin/main2` because uncommitted edits to tracked scripts (`gardener.sh`, `self-heal-run.sh`, `library-link-*.sh`, and notably a byte-identical redundant edit to `skills/gardener-inbox-error-reporting/report-error.sh`) keep blocking the fast-forward; a gardener flagged the unwedge as a lossless `git checkout --` of that one file. A new deploy-sync reconciler landed on main2 (`5d6490e`) to auto-advance the checkout and restart services on `scripts/` changes, but it stays inert until the next units refresh arms its timer. Separately, the **comment-watcher for kriskowal/garden has been blind for 340 consecutive ticks** despite real activity — the same 2026-06-24 outage signature (check jq/gh on endolinbot).
-
-Two scope decisions are parked on the maintainer: the breadth + base-branch for the "harden exported function literals" follow-up to the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), and design Open Questions on the Cognito↔MCP OAuth bridge build (the gardener will proceed on its recommendations absent a redirect). A corrective non-force follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bb`) fixing 13 dangling design-doc references and adding a real Node parity test. The retention-paths inspector table is blocked on an upstream host-API PR (#284) that stalled awaiting a rebase-and-gamut. Lighter work: endo master lint classified clean (only 5 non-blocking jsdoc warnings), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit closed as intrinsic duplication (no change), and scholar ingested the MetaMask ocap-kernel guide plus a six-topic distributed-ocap concept cluster.
+This host's deploy is wedged and needs a one-line unblock: `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` (the modified file is byte-identical to what already landed on origin/main2, so the checkout is lossless), after which the new **deploy-sync reconciler** (landed on main2 as `5d6490e62`, which fast-forwards the checkout and restarts long-running services when `scripts/` changes) and the watchman can finally advance endolinbot past the ~14-commit backlog. Separately, the `comment-watcher/kriskowal-garden` watchdog has now flagged 340 consecutive empty ticks against a repo that is provably active — the same blind-watcher signature as the 2026-06-24 jq/gh outage, worth checking. On the code side, a corrective follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`: repaired 13 dangling design-doc references and added a real Node parity test rather than prose-only), a lint sweep found bot-fork master fully green (only 5 non-failing jsdoc warnings), and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction). Three items are parked on your call: the harden-exported-literals follow-up to merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs breadth + base-branch scoping; the formula-inspector retention table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 awaiting the rebase-and-gamut you requested; and the Cognito↔MCP OAuth bridge build is proceeding on its two recommended defaults unless you redirect.
 
 ## Parked for maintainer feedback
 
@@ -602,7 +600,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-gardener-empty-output-classifier-rc-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-empty-output-classifier-rc-gate.md) — In scripts/jobs/gardener.sh, the transient-outage classifier (the transient=0...
 - [`improve-journal-worktree-reconciler`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-worktree-reconciler.md) — Add a deterministic reconciler that keeps the shared /home/kris/journal workt...
 
 ### tada (354)
