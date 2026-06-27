@@ -83,6 +83,16 @@ case "$base" in
 esac
 case "$gate" in go-ahead|deferred) :;; *) die "illegal gate: '$gate'";; esac
 
+# Body source guard: a non-empty body arg that is not a readable file is almost
+# always a mistake (an inline body STRING passed where a body-FILE path is
+# expected). Without this, read_body falls through to `cat` on stdin — and with a
+# non-tty stdin (every background / `claude -p` / systemd context) that blocks
+# forever, wedging the shared producer lock (garden-harden-producer-body-read-
+# hang). Fail fast, mirroring journal-entry.sh and land-journal-edit.sh.
+if [ -n "$body_src" ] && [ ! -f "$body_src" ]; then
+  die "body source '$body_src' is not a readable file (pass a body FILE path, or feed the body on stdin / leave the body arg empty for a placeholder)"
+fi
+
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
 

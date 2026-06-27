@@ -45,6 +45,16 @@ case "$base" in
   */*|.*|'') die "illegal basename: '$base'";;
 esac
 
+# Body source guard: a non-empty $2 that is not a readable file is almost always
+# a mistake (an inline body STRING passed where a body-FILE path is expected).
+# Without this, read_body falls through to `cat` on stdin — and with a non-tty
+# stdin (every background / `claude -p` / systemd context) that blocks forever,
+# wedging the shared producer lock (garden-harden-producer-body-read-hang). Fail
+# fast, mirroring journal-entry.sh and land-journal-edit.sh.
+if [ -n "$body_src" ] && [ ! -f "$body_src" ]; then
+  die "body source '$body_src' is not a readable file (pass a body FILE path, or feed the body on stdin / leave \$2 empty for a placeholder)"
+fi
+
 # Producer uses a shared clone (one is fine; posts don't compete on a worktree).
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
