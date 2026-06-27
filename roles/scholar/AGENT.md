@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-06-27
 author: liaison, gardener, scholar
 ---
 
@@ -70,7 +70,15 @@ Each claimed job is one cycle. Sync, read the ask, ingest, write, index, journal
 5. **Project-tree growth.** For a project-tree job: write or extend `journal/projects/<slug>/<topic>.md` files with the [context-library](../../skills/context-library/SKILL.md) discipline (specific abstract first; body lives up to it; cite the source entries by relative path). Append new material as new files; do not rewrite history.
 6. **Update every affected README index.** Library: `sources/README.md`, `topics/README.md`, `sections/README.md`, `concepts/README.md`, and `keywords.md`. Project: `journal/projects/<slug>/README.md`. Match each index row to the abstract at the top of the child file; an index that drifts from its file set defeats the hierarchy.
 7. **Post follow-on jobs for the remainder.** "Begin" means a faithful first pass, not exhaustive coverage. If a repo or source exceeds one cycle's budget, post a `scholar-ingest-<repo>` (or `scholar-ingest-source`) job naming exactly what is left (which packages, which design docs, which sections), so the next gardener resumes rather than rediscovering. Silent truncation is a defect; the follow-on job is the cure.
-8. **Journal a `result` entry and complete the job.** The `result` lists each source ingested (with section-count) or skipped (with matching sha), each topic/concept page touched, each follow-on job posted, and any deferred backlog. CAS-push all library/project writes and the `result` to `journal2`, then complete the job (`doin → tada`) per [job-board](../../skills/job-board/SKILL.md). End the report with `Self-improvement: ...`.
+8. **Post-ingest integrity gate (deterministic; blocks completion).** Before you report any cycle that wrote section/source/README files complete, run the deterministic link resolver scoped to what this cycle touched:
+
+   ```sh
+   ../../scripts/jobs/library-link-check.sh --library "<your-library-dir>" --changed
+   ```
+
+   It walks every section-table target on each touched source page, every `sections/README.md` (index) row in each touched source's block, and each `kind: index` parent's child list, resolving each against your committed working tree. A nonzero exit means a row points at a file you never wrote (most commonly an omitted `kind: index` parent section file: the 2026-06-27 `ingest-ocap-kernel` defect) or at an on-disk-but-untracked file that would not be pushed. **Do not complete the job on a nonzero exit:** write the missing target file (or correct the row), re-commit, and re-run the gate until it passes. This is the producer-side complement to the standing `improve-deterministic-section-link-integrity-scan` checker — it catches the omission at the cycle that created it rather than hours later downstream. See `../../scripts/jobs/library-link-check.sh --help` for `--source-slug` and `--all` scopes.
+
+9. **Journal a `result` entry and complete the job.** The `result` lists each source ingested (with section-count) or skipped (with matching sha), each topic/concept page touched, each follow-on job posted, any deferred backlog, and the integrity-gate verdict (step 8). CAS-push all library/project writes and the `result` to `journal2`, then complete the job (`doin → tada`) per [job-board](../../skills/job-board/SKILL.md). End the report with `Self-improvement: ...`.
 
 ## Operating norms
 
@@ -90,5 +98,6 @@ A cycle ends when:
 - The journal carries one `result` entry naming each source ingested (with section-count) or skipped (with matching sha), each topic/concept page touched, each follow-on job posted, and each deferred backlog item.
 - Every new or updated library and project file, plus the `result`, is committed and CAS-pushed to `journal2`.
 - The affected README indexes match their file sets: the library's `sources/`, `topics/`, `sections/`, `concepts/` indexes and `keywords.md`; the project's README index.
+- The post-ingest integrity gate (step 8) passed on the touched source clusters: every section-table target and `sections/README.md` (index) row resolves to a committed file, with no omitted `kind: index` parent.
 - Any remainder beyond one cycle's budget has a posted follow-on `scholar-ingest-<repo>` job naming exactly what is left.
 - The claimed job is completed (`doin → tada`) with the report, ending in `Self-improvement: ...`.
