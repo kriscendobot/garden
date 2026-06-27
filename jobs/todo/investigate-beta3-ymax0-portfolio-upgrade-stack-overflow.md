@@ -1,9 +1,4 @@
----
-gate: go-ahead
-priority: normal
-posted_by: liaison
-posted_at: 2026-06-27T15:29:39Z
----
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-06-27T15:32:04Z -->
 
 # Investigation brief: beta3 portfolio-contract upgrade crashes with "stack overflow"
 
