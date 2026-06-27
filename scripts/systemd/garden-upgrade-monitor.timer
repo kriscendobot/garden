@@ -1,0 +1,13 @@
+[Unit]
+Description=Garden upgrade-monitor timer
+
+[Timer]
+# Absolute wall-clock schedule (every 5 minutes at :02 past), NOT a relative
+# OnActiveSec/OnUnitActiveSec pair: a relative first-elapse window larger than the
+# fleet's ~1-minute daemon-reload cadence can be re-armed before it elapses and
+# deferred indefinitely. Persistent=true catches up a run missed across downtime.
+OnCalendar=*:02/5
+Persistent=true
+
+[Install]
+WantedBy=timers.target

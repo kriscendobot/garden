@@ -52,8 +52,13 @@ EXCLUDED_UNITS=(
 # Retired units a previously-installed host may still have enabled. The install
 # step disables them so they don't linger. The bulletin migrated from an
 # oneshot+timer to a long-running Restart= service; its old timer is retired.
+# garden-deploy-sync (the continuous fast-forward + restart reconciler) is retired
+# entirely: the root checkout is now advanced ONLY by the deliberate, drained
+# deploy-garden.sh (designs/deliberate-deploy.md), never by a continuous ff.
 RETIRED_UNITS=(
   garden-bulletin.timer
+  garden-deploy-sync.timer
+  garden-deploy-sync.service
 )
 
 is_excluded() {

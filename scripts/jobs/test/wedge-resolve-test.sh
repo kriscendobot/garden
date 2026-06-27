@@ -2,7 +2,7 @@
 # wedge-resolve-test.sh — coverage for autonomous dirty-tree-wedge resolution.
 #
 # Maintainer directive 2026-06-27: a dirty-tree wedge on the shared main2 checkout
-# must be resolved AUTONOMOUSLY — the watchman/deploy-sync post a resolve-wedge job
+# must be resolved AUTONOMOUSLY — the watchman (legacy aggressive-checkout path) posts a resolve-wedge job
 # instead of paging the maintainer, and the deterministic resolver (resolve-wedge.sh)
 # cleans the tree LOSSLESSLY (drop a redundant copy of landed work; PRESERVE genuine
 # WIP via a stash / off-tree move — never discard it).
@@ -80,7 +80,6 @@ content()    { cat "$TR/root/$1" 2>/dev/null; }
 hr; echo "STATIC — the scripts parse (bash -n)"; hr
 bash -n "$RESOLVE"  && ok "resolve-wedge.sh parses"   || bad "resolve-wedge.sh syntax error"
 bash -n "$WATCHMAN" && ok "watchman.sh parses"        || bad "watchman.sh syntax error"
-bash -n "$JOBS/deploy-sync.sh" && ok "deploy-sync.sh parses" || bad "deploy-sync.sh syntax error"
 bash -n "$JOBS/wedge-resolve.sh" && ok "wedge-resolve.sh parses" || bad "wedge-resolve.sh syntax error"
 
 # ============================================================================

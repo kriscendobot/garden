@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-06-25
+updated: 2026-06-27
 author: gardener, liaison
 ---
 
@@ -191,9 +191,18 @@ Full doc in `garden/WORKTREES.md`. Minimum you need to know:
 - The standing-monitor exception: a small number of long-lived `worktrees/<owner>-<repo>/watch-<slug>--monitor--<ts>/` checkouts persist across dispatches because their `.garden-monitor/<repo>/` state is owned by a bash daemon that runs continuously. These are referenced by the daemon, not by you; do not write to them from an LLM dispatch.
 - Do not rename, move, or remove any worktree. Lifecycle is the orchestrator's job; per-dispatch teardown happens via `skills/dispatch-worktree/dispatch-teardown.sh` when you return.
 
-### Scratch discipline
+### Per-subagent worktrees (the hard rule) and scratch discipline
 
-**Never create scratch files or ad-hoc worktrees in the live garden tree root.** A scratch dir or worktree at the root pollutes `git status` and, when a job dirties a tracked file there, wedges the watchman's fast-forward: that is the recurring deploy outage. Use the dedicated, gitignored scratch tree instead:
+**The root checkout (`<garden-root>`) is read-only for development.** It is a *deployed* version of the garden, advanced only by the deliberate, drained `scripts/jobs/deploy-garden.sh` ([deliberate-deploy](../designs/deliberate-deploy.md)) — never edited in place. Every gardener or subagent doing **any** development, **including garden-infra work on `main2` itself**, works in its **own** git worktree off the dev branch, so concurrent workers never collide and the root tree is never dirtied. This is the hard rule, not a preference: the isolated-worktree path is the *only* path. A garden-infra job that edits the root tree directly is a defect.
+
+```sh
+# the one correct shape for a garden-infra (main2) job:
+git -C <garden-root> fetch origin main2
+git worktree add --detach "$(scratch_dir infra-<slug>)" origin/main2
+# develop, explicit-pathspec commit, then push HEAD:main2 via a rebase CAS loop
+```
+
+**Never create scratch files or ad-hoc worktrees in the live garden tree root.** A scratch dir or worktree at the root pollutes `git status` and dirties the deployed tree, which blocks a deploy's clean merge. Use the dedicated, gitignored scratch tree instead:
 
 - `GARDEN_SCRATCH` (defaults to `<garden-root>/scratch`, gitignored as `/scratch/`) is the one place for ephemeral job scratch and ad-hoc worktrees.
 - `scripts/jobs/common.sh` provides the helpers: `scratch_dir <base>` makes and echoes a fresh private `$GARDEN_SCRATCH/<base>-<short-rand>/`; `scratch_cleanup <dir>` removes it (deregistering it first if it is a git worktree). Source `common.sh` and call `scratch_dir "<job-slug>"` to get your path; `scratch_cleanup` it when done.

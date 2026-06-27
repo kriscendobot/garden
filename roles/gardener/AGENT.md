@@ -26,6 +26,14 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
   its output out of your context — it is quiet on success; route `set -x` traces
   to a dedicated debugging subagent (see
   [gardening-state-machine](../../designs/gardening-state-machine.md)).
+- **All development happens in your OWN worktree, never the root checkout.** The
+  root checkout (`<garden-root>`) is a deployed version, read-only for development
+  and advanced only by `scripts/jobs/deploy-garden.sh`. Any job that develops —
+  including garden-infra work on `main2` — adds an isolated worktree off
+  `origin/main2` under `$GARDEN_SCRATCH` and commits there
+  (`roles/COMMON.md` § Per-subagent worktrees; [deliberate-deploy](../../designs/deliberate-deploy.md)).
+  Editing the root tree directly is a defect: it dirties the deployed tree and
+  collides with peers.
 - **Watch your inbox while you work.** A maintainer reply or a peer message can
   arrive mid-job; poll `inbox-read.sh <your-base>`.
 - To reach the user, `message-user.sh <your-base>` — the liaison surfaces it and

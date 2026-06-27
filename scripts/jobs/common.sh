@@ -39,6 +39,22 @@
 # Logical host name (the journal index key). Falls back gracefully.
 : "${GARDEN_HOST:=$(hostname -s 2>/dev/null || echo host)}"
 
+# The dev / next-version branch. Subagents land development here from their own
+# worktrees; the deliberate deploy (deploy-garden.sh) merges it into the root
+# checkout, and the upgrade monitor compares its tip to the deployed sha. Named
+# centrally so a future rename or consolidation onto `main` is a one-variable
+# change. See designs/deliberate-deploy.md § Branch model.
+: "${GARDEN_MAIN_BRANCH:=main2}"
+
+# Deliberate-deploy host standing state (designs/deliberate-deploy.md). Lives
+# under $GARDEN_STATE — per-host, outside any reset-prone worktree, NOT committed
+# to the dev branch, exactly like the watchman `seen` marker and the draining
+# marker. deployed-sha is the commit the root checkout was last deployed to;
+# upgrade-ready is present only while the dev branch is ahead of it.
+: "${GARDEN_DEPLOY_STATE:=$GARDEN_STATE/deploy}"
+: "${GARDEN_DEPLOYED_SHA_MARKER:=$GARDEN_DEPLOY_STATE/deployed-sha}"
+: "${GARDEN_UPGRADE_READY_MARKER:=$GARDEN_DEPLOY_STATE/upgrade-ready}"
+
 # Fleet draining marker. If present, this host's workers finish their in-flight
 # claims but take no new ones — a graceful, mundane pause, not a kill. The marker
 # is a FILE whose EXISTENCE is the signal; its CONTENTS are a short prose note for
@@ -139,10 +155,11 @@ killswitch_engaged() { fleet_draining; }
 #
 # gardener.sh drops a local, lock-free marker file while a job handler runs and
 # clears it the moment the job ends (and at the top of each loop), so a gardener
-# instance is "busy" (mid-job) exactly while that marker exists. Both the deploy
-# reconciler (deploy-sync.sh, which re-execs workers onto landed code) and the
-# pool scaler (install-units.sh scale, which disables extras on a scale-down) gate
-# on it so a worker is restarted/disabled BETWEEN claims, never mid-`claude -p`:
+# instance is "busy" (mid-job) exactly while that marker exists. Both the
+# deliberate deploy (deploy-garden.sh, which waits for the fleet to quiesce and
+# then re-execs workers onto landed code via deploy-restart.sh) and the pool
+# scaler (install-units.sh scale, which disables extras on a scale-down) gate on
+# it so a worker is restarted/disabled BETWEEN claims, never mid-`claude -p`:
 # a `disable --now`/`restart` of a mid-job gardener SIGTERMs the in-flight handler,
 # which then requeues and burns a full TTL cycle — the rc=143 transient-handler
 # outage this marker exists to prevent. Keeping the path and the predicate here,
@@ -153,6 +170,34 @@ gardener_busy_marker() {
 }
 gardener_busy() {
   [ -e "$(gardener_busy_marker "${1:?gardener_busy: idx required}")" ]
+}
+
+# --- deliberate-deploy state (designs/deliberate-deploy.md) -------------------
+#
+# The deployed sha is the commit the root checkout was last advanced to by
+# deploy-garden.sh. It is the deployed-version source of truth — NOT the branch
+# name and NOT the live tree HEAD (which a stray operation could move) — so the
+# upgrade monitor compares against a value the deploy explicitly recorded.
+
+# deployed_sha — echo the recorded deployed sha. On a host that has never run a
+# deploy (no marker), fall back to the current tree HEAD of the dev branch so the
+# first upgrade comparison is still meaningful (the tree IS the deployed code
+# until the first explicit deploy records a marker).
+deployed_sha() {
+  local s
+  s="$(cat "$GARDEN_DEPLOYED_SHA_MARKER" 2>/dev/null || true)"
+  if [ -z "$s" ]; then
+    s="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "$GARDEN_MAIN_BRANCH" 2>/dev/null || true)"
+  fi
+  printf '%s\n' "$s"
+}
+
+# record_deployed_sha <sha> — persist the deployed sha marker (host standing
+# state). Creates the deploy-state dir on demand.
+record_deployed_sha() {
+  local sha="${1:?record_deployed_sha: sha}"
+  mkdir -p "$(dirname "$GARDEN_DEPLOYED_SHA_MARKER")" 2>/dev/null || true
+  printf '%s\n' "$sha" > "$GARDEN_DEPLOYED_SHA_MARKER"
 }
 
 # --- deterministic weekly token meter (the foreman back-off signal) -----------

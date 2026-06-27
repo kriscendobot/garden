@@ -1,25 +1,27 @@
 #!/bin/bash
-# watchman.sh — keep this container current on main2 and tell gardeners to reread.
+# watchman.sh — tell gardeners to reread after a deploy advances the root tree.
 #
 # Usage: watchman.sh
 #
-# Each tick: fetch origin and, if origin/main2 has advanced, AGGRESSIVELY
-# fast-forward this container's local main2 (so every host converges quickly on
-# the latest roles/skills). Then broadcast a deterministic "reread your role and
-# skills" message to all active gardeners, and — best-effort — run the richer
-# evolution handler (`claude -p` wearing the watchman role) for targeted notes.
+# Each tick: fetch origin and broadcast a deterministic "reread your role and
+# skills" message to all active gardeners when this container's local tree HEAD
+# has CHANGED since the last tick, then — best-effort — run the richer evolution
+# handler (`claude -p` wearing the watchman role) for targeted notes.
 #
-# The aggressive checkout only fast-forwards a tree with no TRACKED local edits;
-# genuine WIP (tracked-modified / staged) is left alone. A dirty tree must never
-# silently freeze the fleet-wide deploy — but it must also never PAGE the
-# maintainer (maintainer directive 2026-06-27: the watchman resolves these wedges
-# AUTONOMOUSLY, the maintainers are not in the loop). So on a wedge we post a
-# resolve-wedge job to the board (trigger_wedge_resolution, in wedge-resolve.sh)
-# instead of emailing the maintainer; a claude gardener claims it and performs the
-# lossless finisher dance. UNTRACKED files (stray sibling worktrees, build
-# artifacts that live inside the garden root) are NOT treated as dirty: they are
-# not WIP and must not wedge the deploy. Disable the aggressive checkout entirely
-# with GARDEN_AGGRESSIVE_CHECKOUT=0.
+# The aggressive checkout is RETIRED by default (GARDEN_AGGRESSIVE_CHECKOUT=0).
+# Under the deliberate-deploy model (designs/deliberate-deploy.md) NOTHING
+# fast-forwards the root tree except deploy-garden.sh: development happens in
+# per-subagent worktrees, and the root is a deployed version advanced only by a
+# drained deploy. So the watchman no longer touches the tree; it keeps only its
+# BROADCAST role. Because the local tree HEAD now changes exactly once per deploy,
+# the reread broadcast naturally becomes a POST-DEPLOY reread signal — which is
+# precisely when gardeners need to reread their (newly-deployed) roles and skills.
+#
+# The legacy aggressive checkout remains behind GARDEN_AGGRESSIVE_CHECKOUT=1 for a
+# host that has not yet cut over (it fast-forwards only a tree with no TRACKED
+# edits and posts a resolve-wedge job, never pages the maintainer, on a wedge),
+# but it is OFF by default and should stay off — re-enabling it reintroduces the
+# continuous-ff collision this model was built to remove.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -29,7 +31,7 @@ source "$HERE/common.sh"
 source "$HERE/wedge-resolve.sh"
 GARDEN_TAG="watchman"
 : "${GARDEN_MAIN_BRANCH:=main2}"
-: "${GARDEN_AGGRESSIVE_CHECKOUT:=1}"
+: "${GARDEN_AGGRESSIVE_CHECKOUT:=0}"
 : "${GARDEN_WATCH_HANDLER:=$HERE/handlers/watchman-claude.sh}"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }

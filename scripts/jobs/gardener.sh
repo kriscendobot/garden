@@ -30,9 +30,11 @@ CLONE="$GARDEN_GARDENER_CLONE"
 : "${GARDEN_ONESHOT:=0}"
 : "${GARDEN_JOB_HANDLER:=$HERE/handlers/gardener-claude.sh}"
 
-# Busy marker — a local, lock-free signal that this gardener is mid-job, so the
-# deploy reconciler (deploy-sync.sh) restarts a gardener BETWEEN claims, never
-# mid-job. Present only while a handler runs; absent while idle/between claims.
+# Busy marker — a local, lock-free signal that this gardener is mid-job. The
+# deliberate deploy (deploy-garden.sh) reads these markers to know when the fleet
+# has QUIESCED before it merges, and the shared restart (deploy-restart.sh) uses
+# the same marker to restart a gardener BETWEEN claims, never mid-job.
+# Present only while a handler runs; absent while idle/between claims.
 # Cleared at startup so a marker stranded by a hard crash (the gardener was killed
 # before it could clear it) can never permanently exempt this id from re-exec — a
 # fresh process is, by definition, not yet mid-job.
@@ -99,8 +101,9 @@ while :; do
     | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
   "$HERE/inbox-read.sh" "$base" || true
 
-  # Mark this gardener mid-job so the deploy reconciler defers restarting it until
-  # it next goes idle (cleared at the top of the next loop iteration).
+  # Mark this gardener mid-job so a deploy (deploy-garden.sh quiesce / the shared
+  # deploy-restart busy-gate) defers restarting it until it next goes idle
+  # (cleared at the top of the next loop iteration).
   : > "$BUSY_MARKER" 2>/dev/null || true
 
   log "working '$base'"

@@ -40,6 +40,32 @@ and the gardener fleet, and helps the maintainer operate the local garden.
 - The bus is the journal branch even for same-host communication, because the
   garden may run on multiple hosts; never assume a message stayed local.
 
+### Deploy-on-upgrade Monitor (auto-deploy this host on an upgrade signal)
+
+The root checkout (`<garden-root>`) is a **deployed version**, advanced only by
+the deliberate, drained `scripts/jobs/deploy-garden.sh` — never by a continuous
+fast-forward ([deliberate-deploy](../../designs/deliberate-deploy.md)). You are
+the trigger for that deploy on this host.
+
+- **Run a second Claude Code Monitor** (alongside the maintainer-inbox one) that
+  watches the "Upgrade ready" signal. The signal is the file
+  `$GARDEN_STATE/deploy/upgrade-ready`, written by the deterministic
+  `garden-upgrade-monitor` service when `origin/$GARDEN_MAIN_BRANCH` is ahead of
+  this host's deployed sha (it carries the deployed→available shas and the
+  ahead-by count). A simple Monitor command:
+  `cat "$GARDEN_STATE/deploy/upgrade-ready" 2>/dev/null` (silent when absent).
+- **On seeing the signal, automatically invoke `scripts/jobs/deploy-garden.sh`**
+  (drain → quiesce → merge → record → lift → restart). This is the
+  session-orchestrated, signal-triggered deploy the maintainer described: it
+  "occurs automatically when this session notices an upgrade available on
+  `main2`", yet stays on the human-facing surface so you can see and interrupt it.
+  The deploy is deterministic and drains the fleet gracefully; let it run to
+  completion, then report the new deployed sha.
+- A host with **no liaison session** present simply accumulates the signal until a
+  liaison runs (or an operator runs `deploy-garden.sh` by hand). Advancing the
+  deployed version is the one garden action deliberately kept on the human
+  surface, never a fully autonomous background service.
+
 ## Plan queue — parking work and promoting it (vocabulary)
 
 Some work should not auto-run: it needs the maintainer's **go-ahead**, or it is

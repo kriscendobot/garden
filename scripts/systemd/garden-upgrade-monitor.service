@@ -1,0 +1,14 @@
+[Unit]
+Description=Garden upgrade monitor (detect origin/main2 ahead of the deployed sha and emit the "Upgrade ready" signal — deterministic, no LLM, no tree side effects)
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN exit.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# Run via /bin/bash (not a direct exec of the script path) so a deploy-window
+# restart that momentarily replaces the script file never 203/EXECs. This monitor
+# is deterministic and NO-LLM by design, so it is NOT wrapped in self-heal-run.sh
+# (which would spawn `claude` on failure) — a transient fetch failure just skips
+# the tick.
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/upgrade-monitor.sh

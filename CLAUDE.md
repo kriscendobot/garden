@@ -196,6 +196,25 @@ sized for concurrency, not CPU.
    trusted maintainer. The `garden-issue-inbox.timer` is auto-enabled by step 3
    and is **inert** until both exist — writing them is the deliberate arming act.
    See [`designs/issue-inbox.md`](designs/issue-inbox.md).
+7. **Watch the "Upgrade ready" signal** (liaison): run a second Claude Code
+   **Monitor** whose command is `cat "$GARDEN_STATE/deploy/upgrade-ready"
+   2>/dev/null` (silent when up to date). On a signal, automatically invoke
+   `scripts/jobs/deploy-garden.sh` to deploy this host. See § Deliberate deploy
+   below and `roles/liaison/AGENT.md` § Deploy-on-upgrade Monitor.
+
+### Deliberate deploy (the root checkout is a deployed version)
+
+The root checkout (`<garden-root>`) is a **deployed version** of the garden, not a
+development tree. Nothing fast-forwards it continuously: development happens in
+**per-subagent worktrees** off the dev branch (`origin/main2`), and the root is
+advanced only by the deliberate, drained `scripts/jobs/deploy-garden.sh`
+(drain → quiesce → merge → record deployed sha → lift → restart the fleet). The
+deterministic `garden-upgrade-monitor` service emits an "Upgrade ready" signal
+when `origin/main2` is ahead of this host's deployed sha; the liaison's
+deploy-on-upgrade Monitor (bring-up step 7) acts on it. The continuous
+fast-forward path is retired: `garden-deploy-sync` is gone and the watchman's
+aggressive checkout defaults off (it keeps only its post-deploy reread broadcast).
+Full design: [`designs/deliberate-deploy.md`](designs/deliberate-deploy.md).
 
 ### Racing a schedule change to the journal
 
