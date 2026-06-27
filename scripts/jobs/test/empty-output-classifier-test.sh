@@ -66,6 +66,42 @@ GARDEN_OFFLINE_RC=64 assert_transient 64 "custom offline rc honored"
 # ...and with it remapped, the default 75 is now just another deterministic code.
 GARDEN_OFFLINE_RC=64 assert_escalate 75 "old default 75 escalates once offline rc moved"
 
+hr; echo "SUBTEST 4 — the transient progress line carries the reaper's requeue-cycle count"; hr
+# A transiently-failing job looks identical on its 1st and 5th requeue, so a job
+# that dies the SAME way every cycle (a wedged fetch, an OOM) stays invisible until
+# the reaper's ~5×TTL poison threshold (~5h). The gardener now folds the reaper's
+# already-present `<!-- garden-reaped: N -->` marker (read-only, defaulting to 0)
+# into the transient note so the cycle is greppable in the journal immediately.
+# reap_count does the extraction; assert it AND that the count surfaces in the line
+# the gardener formats.
+tmpd="$(mktemp -d)"; trap 'rm -rf "$tmpd"' EXIT
+# Reproduce the gardener's transient note exactly, parameterized on the cycle, so
+# the test fails if the line ever stops carrying the count.
+transient_line() {  # transient_line <jobfile>
+  local cyc; cyc="$(reap_count "$1")"
+  printf 'gardener-7 on host: job demo handler exited rc=143 with empty/transient-signature output; transient handler outage (requeue cycle %s); left in doin for TTL requeue (no escalation)' "$cyc"
+}
+assert_cycle() {  # assert_cycle <jobfile> <expected> <why>
+  local got; got="$(reap_count "$1")"
+  if [ "$got" = "$2" ] && case "$(transient_line "$1")" in *"requeue cycle $2"*) true;; *) false;; esac; then
+    ok "reap_count=$got and line carries 'requeue cycle $2' ($3)"
+  else
+    bad "reap_count='$got' / line='$(transient_line "$1")'; expected count $2 ($3)"
+  fi
+}
+# absent marker → first-pass job → cycle 0 (default, not blank).
+printf 'do the thing\n' > "$tmpd/no-marker.md"
+assert_cycle "$tmpd/no-marker.md" 0 "no marker defaults to 0"
+# a marker present → its count surfaces in the line.
+printf 'do the thing\n\n<!-- garden-reaped: 3 -->\n' > "$tmpd/reaped.md"
+assert_cycle "$tmpd/reaped.md" 3 "single marker N=3"
+# defensive `tail -1`: if multiple markers ever coexist, the LAST wins (mirrors
+# reaper.sh's own extraction).
+printf 'body\n\n<!-- garden-reaped: 1 -->\n\n<!-- garden-reaped: 4 -->\n' > "$tmpd/multi.md"
+assert_cycle "$tmpd/multi.md" 4 "last of multiple markers wins"
+# a missing file is treated as cycle 0, never an error.
+assert_cycle "$tmpd/does-not-exist.md" 0 "missing file defaults to 0"
+
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

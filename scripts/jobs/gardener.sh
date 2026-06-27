@@ -186,9 +186,19 @@ while :; do
     fi
 
     if [ "$transient" -eq 1 ]; then
-      log "handler outage for '$base' looks transient (rc=$rc, empty/transient-signature capture); no escalation, left in doin for TTL requeue"
-      printf 'gardener-%s on %s: job %s handler exited rc=%s with empty/transient-signature output; transient handler outage; left in doin for TTL requeue (no escalation)\n' \
-        "$id" "$GARDEN_HOST" "$base" "$rc" \
+      # Fold the reaper's already-present requeue-cycle count (the
+      # `<!-- garden-reaped: N -->` marker on $jobfile) into the note so a job that
+      # dies the SAME transient way every cycle is greppable in the journal NOW,
+      # instead of looking identical on its 1st and 5th requeue and surfacing only
+      # after the reaper's ~5×TTL poison cycle (~5h). reap_count is READ-ONLY of an
+      # existing marker — no new state, no CAS — and defaults to 0 on the first
+      # pass. This does NOT re-open the OPEN failed-job-lane decision flagged above;
+      # it only makes a not-actually-transient job (a wedged scholar fetch, an OOM)
+      # visible early to a human or a future watchman self-test.
+      cycle="$(reap_count "$jobfile")"
+      log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, empty/transient-signature capture); no escalation, left in doin for TTL requeue"
+      printf 'gardener-%s on %s: job %s handler exited rc=%s with empty/transient-signature output; transient handler outage (requeue cycle %s); left in doin for TTL requeue (no escalation)\n' \
+        "$id" "$GARDEN_HOST" "$base" "$rc" "$cycle" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
     else
       # --- real failure: escalate the diagnostic output by hash -----------------

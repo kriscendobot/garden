@@ -510,6 +510,23 @@ is_transient_empty_failure() {
   esac
 }
 
+# reap_count <jobfile> — the reaper's requeue-cycle count carried on a job, read
+# from its `<!-- garden-reaped: N -->` marker (the marker reaper.sh writes; format
+# REAP_MARKER_RE). Echoes N, or 0 when the marker is absent (a first-pass job the
+# reaper has never requeued) or the file is missing. Extraction mirrors reaper.sh
+# exactly (same sed, same `tail -1` defensiveness — clean_body keeps only one
+# marker, but the reaper tails so we do too). READ-ONLY: this inspects the marker
+# the reaper already maintains; it never writes, advances, or CAS-races it. Used by
+# the gardener's transient-handler-failure note so a job dying the SAME transient
+# way every cycle is greppable in the journal NOW, not only after the reaper's
+# ~5×TTL poison threshold fires (~5h).
+reap_count() {
+  local f="${1:-}" n
+  [ -f "$f" ] || { printf '0\n'; return 0; }
+  n="$(sed -n 's/^<!-- garden-reaped: \([0-9][0-9]*\) -->$/\1/p' "$f" | tail -1)"
+  printf '%s\n' "${n:-0}"
+}
+
 # Hard-sync a clone to the authoritative tip. The board's true state. Acquires
 # the per-clone lock and HOLDS it; the matching commit_and_push releases it, so
 # the entire sync→write→commit→push critical section is atomic per clone. A
