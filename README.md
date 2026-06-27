@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-27T09:27:39Z_
+_As of 2026-06-27T09:36:52Z_
 
 ## Latest
 
-The headline is operational, not feature work: host **endolinbot's main2 deploy is wedged** — repeated watchman alerts show origin/main2 advancing through a long chain of landed fixes while the live `/home/kris` tree stays stuck behind uncommitted edits to `scripts/jobs/self-heal-run.sh`, `gardener.sh`, `claim-job.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`. A gardener confirmed the blocking `report-error.sh` change is byte-identical to what already landed, so `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` losslessly unwedges it; until the tree is clean this host picks up no new roles, skills, or scripts. The newly-landed **deploy-sync reconciler** (5d6490e62) will auto-advance the checkout and restart long-running services on the next units refresh, but it can't help while the tree is dirty. Separately, the gardener/self-heal resilience chain landed (transient claim-offline absorption, inner-`claude` failure classification, bounded follow-up retry with wedged-digest quarantine), and `investigate-resumable-gardeners` completed.
-
-Two things need a maintainer eye. The **comment-watcher for kriskowal/garden has gone silent for 180 ticks** despite a real comment existing since 2026-06-25 — the same blind-watcher signature as the 2026-06-24 jq/gh outage. And several jobs are blocked on decisions: `formula-inspector-retention-paths-table` is stalled until [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (open since 2026-05-21, 4 failing checks, awaiting the rebase-and-gamut you already requested); the `cognito-mcp-metadata-bridge` gardener is proceeding on its own recommendations but flagged two design questions; and `synth-and-deploy-minion-town-aws` sits in the plan queue awaiting your go-ahead. On the corrective side, a gardener landed a Node-parity test and fixed 13 dangling doc references on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) after finding defects in superseded work, and the scholar fleet ingested the MetaMask ocap-kernel guide plus a distributed-ocap concept cluster.
+The week's reliability fix chain landed on `main2`: gardeners now absorb a transient `claim offline` rc, the follow-up handler classifies the inner `claude -p` failure and bounds its retries (quarantining a wedged digest), and a new **deploy-sync reconciler** (5d6490e62) advances each host's checkout by a strict clean fast-forward and restarts long-running services when `scripts/` changes. The irony: that very deploy path is currently jammed — `main2` on host **endolinbot** has been WEDGED all morning, the live tree stuck ~10+ commits behind `origin/main2` because an uncommitted, byte-identical edit to `skills/gardener-inbox-error-reporting/report-error.sh` (a redundant duplicate of an already-landed fix) blocks the fast-forward. A lossless `git -C /home/kris checkout -- <that file>` unwedges it; until then none of the above fixes reach the running fleet. Separately, the comment-watcher for `kriskowal/garden` has reported 0 comments for 180 consecutive ticks while the repo is demonstrably active — the same blind-watcher signature as the 2026-06-24 jq/gh outage, worth checking on endolinbot. On the work side, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixing 13 dangling doc references and adding a real Node parity test), the scholar ingested MetaMask's ocap-kernel guide plus a distributed-ocap concept cluster, and two jobs are parked on blockers — the formula-inspector retention-paths table awaits the stalled #284 rebase, and the Cognito↔MCP bridge build awaits a maintainer call on its two design Open Questions.
 
 ## Parked for maintainer feedback
 
@@ -386,8 +384,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (3)
+- [`improve-deterministic-section-link-integrity-scan`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deterministic-section-link-integrity-scan.md) — The library section-link-integrity scan is performed inside the scholar LLM a...
+- [`improve-endo-bare-clone-freshness-keeper`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-endo-bare-clone-freshness-keeper.md) — The standing bare clone worktrees/endojs-endo.git that the whole library flee...
+- [`improve-post-ingest-parent-index-resolution-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-post-ingest-parent-index-resolution-gate.md) — A library ingest (job ingest-ocap-kernel, commit 069d42b1) committed 11 child...
 
 ### tada (330)
 - [`investigate-resumable-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-resumable-gardeners.md) — Completion report
