@@ -690,6 +690,7 @@ Sources retrieved from public URLs rather than from repository git history. Use 
 | [Object Sameness (Mark S. Miller, E *equality* taxonomy)](web--miller-equality-object-sameness.md) | https://erights.org/elib/equality/same-object.html | 1 | current (erights.org unreachable 2026-06-27; ingested from Internet Archive original-bytes capture, content SHA-256 `463a4dc5`) |
 | [Reference Sameness (Mark S. Miller, E *equality* taxonomy)](web--miller-equality-reference-sameness.md) | https://erights.org/elib/equality/same-ref.html | 1 | current (erights.org unreachable 2026-06-27; ingested from Internet Archive original-bytes capture, content SHA-256 `09ca5c97`) |
 | [Argument Passing Rules (Mark S. Miller, E *equality* taxonomy)](web--miller-equality-argument-passing-rules.md) | https://erights.org/elib/equality/passing-rules.html | 2 | current (erights.org unreachable 2026-06-27; ingested from Internet Archive original-bytes capture, content SHA-256 `674e5229`) |
+| [The E Language documentation index (Mark S. Miller)](erights--elang-index.md) | https://erights.org/elang/index.html | 1 | current (primary erights.org E-language documentation index; fetched 2026-06-27 via the erights.github.io GitHub Pages mirror, `source_fetched_via=mirror`, content SHA-256 `77f5814b`; companion primary source to the [ocap-history](ocap-history--e-capdesk-polaris.md) market-history survey) |
 
 
 ## Web essays and surveys
@@ -700,7 +701,7 @@ External web content ingested in support of Workstream B (the persuasion suite).
 |--------|-----|------|----------|--------|
 | [A Choice of Giants](kriskowal-com--giants.md) | https://kriskowal.com/giants | 2024-02-22 | 1 | current (retrieved 2026-06-11; canonical problem-statement and vocabulary source: user agent, weblet, chat as medium of distribution; essay by Kris Kowal) |
 | [MCP Gateway and Hosting Category Landscape](mcp-landscape--gateway-hosting-category.md) | https://modelcontextprotocol.io/ | 2026-06-11 | 1 | current (multi-source survey; primary sources: MCP spec architecture docs, MCP security best-practices spec, Cloudflare remote MCP developer docs, MCP SDK npm v1.29.0, MCP servers GitHub repo, MCP Safety Audit paper arXiv:2504.03767) |
-| [Object-Capability History: E, CapDesk, Polaris](ocap-history--e-capdesk-polaris.md) | https://erights.org/elang/index.html | 2026-06-11 | 1 | current (synthesized from library's existing Miller papers + Wikipedia E-language article + Waterken project page; erights.org unreachable at retrieval time) |
+| [Object-Capability History: E, CapDesk, Polaris](ocap-history--e-capdesk-polaris.md) | https://erights.org/elang/index.html | 2026-06-11 | 1 | current (synthesized from library's existing Miller papers + Wikipedia E-language article + Waterken project page; erights.org unreachable at retrieval time; **the primary erights.org page is now ingested separately as [erights--elang-index](erights--elang-index.md) via the mirror** — this row remains the secondary-source market-history survey) |
 | [Mastodon Instance-Operator Burden and Liability](mastodon-docs--operator-burden.md) | https://docs.joinmastodon.org/admin/moderation/ | 2026-06-11 | 1 | current (synthesized from Mastodon admin moderation docs; legal/liability dimension described structurally -- no case-law citations retrieved) |
 
 ## Notes
