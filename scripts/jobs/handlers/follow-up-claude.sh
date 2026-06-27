@@ -97,6 +97,20 @@ EOF
 : "${GARDEN_FOLLOWUP_CLAUDE:=claude}"
 command -v "$GARDEN_FOLLOWUP_CLAUDE" >/dev/null 2>&1 \
   || die "$GARDEN_FOLLOWUP_CLAUDE not on PATH; cannot run follow-up"
+
+# Route a rejected/dropped block to the maintainer inbox so a deterministic
+# rejection (or a genuine inner-claude failure) is visible to a human rather than
+# silently discarded. Best-effort: never fails the tick (a failure here is itself
+# logged, not propagated). Defined ahead of the claude invocation so the
+# inner-agent-failure path below can reuse it.
+route_rejected() {
+  local label="$1" detail="$2"
+  printf 'A garden-follow-up action block was REJECTED and dropped (not retried):\n  %s\n\nProducer output:\n%s\n' \
+    "$label" "$detail" \
+    | GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer >/dev/null 2>&1 \
+    || log "route_rejected: could not deliver rejected '$label' to maintainer (dropped)"
+}
+
 # --dangerously-skip-permissions: autonomous headless context, no human
 # approver; the default permission gate would deny every tool call. Bypass is
 # the intended fleet posture (operator pre-consents via
@@ -113,9 +127,31 @@ claude_err="$(mktemp "${TMPDIR:-/tmp}/follow-up-claude.XXXXXX.err")"
 rc=0
 out="$("$GARDEN_FOLLOWUP_CLAUDE" -p --dangerously-skip-permissions "$prompt" 2>"$claude_err")" || rc=$?
 if [ "$rc" -ne 0 ]; then
-  err_tail="$(tail -c 500 "$claude_err" 2>/dev/null || true)"
+  err_full="$(cat "$claude_err" 2>/dev/null || true)"
+  err_tail="$(printf '%s' "$err_full" | tail -c 500)"
   rm -f "$claude_err"
-  die "claude -p failed (rc=$rc); stderr: ${err_tail:-<empty>}; stdout: $(printf '%.500s' "$out")"
+  # Classify the inner agent's OWN failure against the shared transient-claude
+  # signature set (common.sh:is_transient_claude_signature), the same classifier
+  # the gardener applies to its inner claude. Until this split, EVERY non-zero
+  # claude exit was a blind tick failure that follow-up.sh retried against the
+  # same digest indefinitely — the 2026-06-27 07:53–08:44 outage re-rolled one
+  # bad digest ~6 times.
+  if is_transient_claude_signature "$(printf '%s\n%s' "$err_full" "$out")"; then
+    # A transient API blip (overload / rate-limit / 5xx / bare connection drop)
+    # WILL likely succeed on the next roll: keep the historical behavior — die,
+    # fail the tick, and let follow-up.sh leave the seen-marker and retry the SAME
+    # digest next cadence.
+    die "claude -p failed transiently (rc=$rc); stderr: ${err_tail:-<empty>}; stdout: $(printf '%.500s' "$out") — failing the tick so follow-up.sh retries the digest"
+  fi
+  # A NON-transient failure (genuine crash, malformed prompt, auth) is
+  # deterministic: re-rolling the same digest only reproduces it. Route the
+  # captured stderr+stdout to the maintainer inbox (the existing route_rejected /
+  # inbox-send.sh maintainer path) and exit 0 so follow-up.sh advances the
+  # seen-marker and the bad digest stops wedging the service.
+  log "claude -p failed non-transiently (rc=$rc); routing stderr+stdout to maintainer and advancing the seen-marker so the bad digest does not wedge the service"
+  route_rejected "inner claude -p failure (rc=$rc)" \
+    "$(printf 'rc=%s\nstderr:\n%s\n\nstdout:\n%s\n' "$rc" "${err_full:-<empty>}" "$out")"
+  exit 0
 fi
 rm -f "$claude_err"
 
@@ -141,17 +177,6 @@ is_deterministic_rejection() {
     *"unparseable ISO datetime"*) return 0 ;;
   esac
   return 1
-}
-
-# Route a rejected/dropped block to the maintainer inbox so a deterministic
-# rejection is visible to a human rather than silently discarded. Best-effort:
-# never fails the tick (a failure here is itself logged, not propagated).
-route_rejected() {
-  local label="$1" detail="$2"
-  printf 'A garden-follow-up action block was REJECTED and dropped (not retried):\n  %s\n\nProducer output:\n%s\n' \
-    "$label" "$detail" \
-    | GARDEN_SENDER="liaison:follow-up" "$HERE/../inbox-send.sh" maintainer >/dev/null 2>&1 \
-    || log "route_rejected: could not deliver rejected '$label' to maintainer (dropped)"
 }
 
 # tick_failed is set to 1 by the first TRANSIENT producer failure; the handler

@@ -669,6 +669,45 @@ seenB=0; grep -qxF "jobs/tada/fuh-trans.md" "$SEEN_FUH" 2>/dev/null && seenB=1
   && ok "transient producer failure: tick fails, marker NOT advanced (digest retried)" \
   || bad "transient case wrong (rc=$rcB seen=$seenB — want rc!=0, seen=0)"
 
+# (C) inner `claude -p` fails with a TRANSIENT signature (an API overload). The
+# handler must classify it as a self-resolving blip and FAIL the tick (die) so the
+# marker is NOT advanced and follow-up.sh retries the SAME digest next cadence —
+# the historical behavior, preserved only for transient signatures now.
+push_change "jobs/tada/fuh-ctrans.md" \
+  "$(printf '# ctrans\n## Follow-ups (escalated to liaison)\n- post a follow-up job on endo-but-for-bots\n')" \
+  "seed inner-claude transient-failure report"
+rcC=0
+env GARDEN_FOLLOWUP_CLAUDE="$HERE/fake-claude.sh" FAKE_CLAUDE_FAIL=1 \
+    FAKE_CLAUDE_STDERR="API error: Overloaded (529); please retry" \
+    "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcC=$?
+seenC=0; grep -qxF "jobs/tada/fuh-ctrans.md" "$SEEN_FUH" 2>/dev/null && seenC=1
+{ [ "$rcC" -ne 0 ] && [ "$seenC" -eq 0 ]; } \
+  && ok "inner claude transient failure: tick fails, marker NOT advanced (digest retried)" \
+  || bad "inner-claude transient case wrong (rc=$rcC seen=$seenC — want rc!=0, seen=0)"
+
+# (D) inner `claude -p` fails with a NON-transient signature (a genuine crash).
+# Re-rolling the same digest would only reproduce it (the 2026-06-27 ~6x re-roll
+# loop), so the handler must route stderr+stdout to the maintainer inbox and EXIT
+# 0 — advancing the marker so the bad digest stops wedging the service.
+push_change "jobs/tada/fuh-dcrash.md" \
+  "$(printf '# dcrash\n## Follow-ups (escalated to liaison)\n- post a follow-up job on endo-but-for-bots\n')" \
+  "seed inner-claude crash report"
+mm_before2=$(git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/fuhv2" && \
+  ls -1 "$TR/fuhv2/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/fuhv2"
+rcD=0
+env GARDEN_FOLLOWUP_CLAUDE="$HERE/fake-claude.sh" FAKE_CLAUDE_FAIL=1 \
+    FAKE_CLAUDE_STDERR="TypeError: undefined is not a function (a genuine inner-agent crash)" \
+    "$JOBS/follow-up.sh" >/dev/null 2>&1 || rcD=$?
+seenD=0; grep -qxF "jobs/tada/fuh-dcrash.md" "$SEEN_FUH" 2>/dev/null && seenD=1
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/fuhv3"
+mm_after2=$(ls -1 "$TR/fuhv3/inbox/maintainer/unread" | grep -vxc '.gitkeep' || true); rm -rf "$TR/fuhv3"
+{ [ "$rcD" -eq 0 ] && [ "$seenD" -eq 1 ]; } \
+  && ok "inner claude non-transient failure: routed + exit 0, marker advanced (no re-roll)" \
+  || bad "inner-claude non-transient case wrong (rc=$rcD seen=$seenD — want rc=0, seen=1)"
+[ "$mm_after2" -gt "$mm_before2" ] \
+  && ok "inner-claude failure routed to maintainer inbox (not silently retried)" \
+  || bad "inner-claude failure not routed to maintainer ($mm_before2→$mm_after2)"
+
 # ============================================================================
 hr; echo "SUBTEST 14 — FOREMAN: idle-pump, settle window, cost gate, anti-flap"; hr
 # Dedicated empty board on its own origin so idle state is fully controllable.

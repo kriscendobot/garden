@@ -456,6 +456,29 @@ _fetch_stderr_is_offline() {
   printf '%s' "$1" | grep -qiE "$GARDEN_OFFLINE_SIGNATURES"
 }
 
+# Canonical transient-`claude -p` signature set. The single source of truth for
+# what a failed inner-agent's combined stdout+stderr must contain to count as a
+# self-resolving API blip (overload / rate-limit / 5xx / bare connection drop)
+# rather than a genuine crash, malformed-prompt, or auth failure. Both the
+# gardener's inner-claude classifier (gardener.sh) and the follow-up handler
+# (follow-up-claude.sh) consume this, so the two lists can never drift — add a new
+# signature HERE and both paths inherit it. Matched case-insensitively (grep -i):
+#   * overloaded / api[ _-]?error          (Anthropic 529 / generic API surface)
+#   * rate[ _-]?limit / 429                  (throttling)
+#   * connection error / econnreset / etimedout   (transport drop / SDK)
+#   * 5NN                                    (any 5xx gateway/overload)
+: "${GARDEN_TRANSIENT_CLAUDE_SIGNATURES:=overloaded|rate[ _-]?limit|connection error|\b(429|5[0-9][0-9])\b|api[ _-]?error|econnreset|etimedout}"
+
+# Classify a failed `claude -p`'s combined output ($1) as a transient API blip
+# (returns 0) versus a genuine, non-self-resolving failure (returns 1). A
+# transient signature means re-rolling the SAME prompt next cadence will likely
+# succeed; a non-transient failure (crash / malformed prompt / auth) will only
+# re-roll the same defect and must be routed to a human instead of retried
+# blindly (the 2026-06-27 07:53–08:44 follow-up re-roll loop). Case-insensitive.
+is_transient_claude_signature() {
+  printf '%s' "$1" | grep -qiE "$GARDEN_TRANSIENT_CLAUDE_SIGNATURES"
+}
+
 # Hard-sync a clone to the authoritative tip. The board's true state. Acquires
 # the per-clone lock and HOLDS it; the matching commit_and_push releases it, so
 # the entire sync→write→commit→push critical section is atomic per clone. A

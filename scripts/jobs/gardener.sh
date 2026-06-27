@@ -166,8 +166,7 @@ while :; do
     transient=0
     if [ ! -s "$capture" ]; then
       transient=1   # bare empty-output-nonzero: nothing on stdout/stderr or in $report
-    elif tail -c 65536 "$capture" 2>/dev/null \
-           | grep -qiE 'overloaded|rate[ _-]?limit|connection error|\b(429|5[0-9][0-9])\b|api[ _-]?error|econnreset|etimedout'; then
+    elif is_transient_claude_signature "$(tail -c 65536 "$capture" 2>/dev/null)"; then
       transient=1   # capture carries only a transient-claude signature
     fi
 
