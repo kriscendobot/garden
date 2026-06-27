@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T11:14:10Z_
+_As of 2026-06-27T11:24:50Z_
 
 ## Latest
 
-This host's deploy is **wedged** — origin/main2 advanced many times through the morning (now at `7899b55`) but the live `/home/kris` tree at endolinbot keeps refusing the fast-forward, first on uncommitted edits to `scripts/jobs/{gardener,self-heal-run,claim-job}.sh` and `skills/gardener-inbox-error-reporting/report-error.sh`, and latterly on untracked files colliding with incoming tracked paths. A gardener diagnosed the blocking `report-error.sh` edit as byte-identical to what already landed on origin (a redundant uncommitted copy of a landed fix) and flagged `git checkout -- ` as a lossless unwedge; until the tree is clean this host picks up no new roles/skills/scripts. Relatedly, a new **deploy-sync reconciler landed on main2** (`5d6490e62`) that clean-fast-forwards the checkout and restarts long-running services when `scripts/` changes — but it is inert until a routine `install-units.sh` refresh arms its timer.
+The headline for the maintainer is operational, not feature work: host **endolinbot**'s `main2` deploy has been wedged all morning, with the watchman firing repeatedly because uncommitted tracked edits (`scripts/jobs/self-heal-run.sh`, then `skills/gardener-inbox-error-reporting/report-error.sh`, later joined by `gardener.sh` and `claim-job.sh`) block the fast-forward — leaving the live tree dozens of commits behind origin. A gardener diagnosed the root cause: the blocking `report-error.sh` edit is byte-identical to what's already on origin, so a lossless `git checkout --` would unwedge it. Relatedly, a new deploy-sync reconciler landed on `main2` (`5d6490e6`) to advance the checkout and restart long-running services automatically when `scripts/` changes — but it's inert until the next `install-units.sh` units refresh arms it. Separately, the `comment-watcher/kriskowal-garden` watchdog is again reporting the 2026-06-24 outage signature (260+ ticks finding zero comments while the repo is demonstrably active), suggesting a `jq`/`gh` blind spot worth re-checking.
 
-The **comment-watcher for kriskowal/garden is blind again** — 0 comments for 260+ consecutive ticks despite a real comment since 2026-06-25, the same signature as the 2026-06-24 jq/gh outage; worth checking the comment-source handler on endolinbot.
-
-On the PR side: a gardener pushed a conflict-safe follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node parity test after finding the superseding commit had left those gaps and its author had departed — flagged as a judgment call past a stand-down. The [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) `listRetentionPaths` host API remains the blocker for the formula-inspector retention-paths table: it is still open, stalled since 2026-05-21 on the requested rebase/re-gamut, with 4 failing checks — the gardener offers to take that rebase as a separate job. Scholar work continued steadily (sixth ocap-kernel ingest plus a distributed-ocap concept cluster). Two maintainer decisions await: the Cognito↔MCP OAuth bridge gardener wants sign-off on its two design Open Questions (it will proceed on its recommendations otherwise), and `synth-and-deploy-minion-town-aws` sits parked awaiting go-ahead.
+On the work front, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node parity test after finding the superseding gardener's commit had left both gaps. Scholar ingests continued steadily (a sixth ocap-kernel guide ingest plus a six-topic distributed-ocap concept cluster), and the `e-equality-taxonomy-adjacent` scholar job completed. One job is blocked and flagged for the maintainer: the formula-inspector retention-paths table can't proceed until the stalled `listRetentionPaths` PR (#284) gets its requested rebase-and-gamut and lands. Two maintainer decisions also sit unread — the Cognito↔MCP OAuth bridge gardener is awaiting go/no-go on two design questions before building.
 
 ## Parked for maintainer feedback
 
@@ -417,16 +415,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-ingest-e-equality-taxonomy-adjacent`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-e-equality-taxonomy-adjacent.md) — scholar-ingest-e-equality-taxonomy-adjacent
+### doin (0)
+(none)
 
-### tada (341)
+### tada (342)
+- [`scholar-ingest-e-equality-taxonomy-adjacent`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-e-equality-taxonomy-adjacent.md) — scholar-ingest-e-equality-taxonomy-adjacent — done
 - [`scholar-author-concept-endoclaw`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-author-concept-endoclaw.md) — Completed the job. Concise report follows.
 - [`improve-journal-entry-help-and-flaglike-kind-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-entry-help-and-flaglike-kind-guard.md) — Completion report: improve-journal-entry-help-and-flaglike-kind-guard
 - [`scholar-ingest-grant-matcher-puzzle`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-grant-matcher-puzzle.md) — Completion report — scholar-ingest-grant-matcher-puzzle
 - [`scholar-library-cycle-20260627-105244`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-105244.md) — Completion report — scholar-library-cycle-20260627-105244
-- [`scholar-ingest-ocap-kernel-usage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-usage.md) — Completion report: scholar-ingest-ocap-kernel-usage
-- … and 336 more
+- … and 337 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
