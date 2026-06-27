@@ -28,3 +28,9 @@ browsing the concept inventory by abstract will not see them.
    with a one-line abstract drawn from the concept file's own abstract, matching the
    existing `- [slug](slug.md) — abstract.` row format.
 3. Commit to journal2 and push HEAD:journal2.
+
+---
+claim:
+  host: endolinbot
+  gardener: 87
+  claimed_at: 2026-06-27T04:42:18Z
