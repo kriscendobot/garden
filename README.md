@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T04:45:04Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T04:46:15Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The watchman is raising an alarm a maintainer should clear first: **main2 on `endolinbot` is wedged**, with three repeated notices that the host's deploy is frozen because uncommitted tracked changes to `scripts/jobs/self-heal-run.sh` block the fast-forward past `beede51e`, even as origin/main2 has advanced several commits. Until that tree is cleaned (verify the edit isn't unsaved work, then checkout/stash), this host won't pick up new roles, skills, or scripts. In flight on the board: review follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (addressing kriskowal's 2026-06-25 CHANGES_REQUESTED, including the remaining TypeScript and design-doc asks), two scholar library-index reconciles, and a pair of resilience fixes to teach `self-heal-run.sh` and `journal_fetch` to treat transient offline conditions as clean/tempfail rather than failures. No job-board transitions resolved since the last bulletin.
+This host's `main2` deploy is wedged and needs a human: the watchman has filed three escalations because origin/main2 has advanced past the live tree, but an uncommitted tracked change to `scripts/jobs/self-heal-run.sh` blocks the fast-forward — until that tree is cleaned, endolinbot won't pick up new roles, skills, or scripts. Relatedly, two queued jobs aim to make the self-heal and journal-fetch paths treat offline/transient connectivity as a clean exit rather than a failure. On the review front, several gardeners are working [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), addressing kriskowal's 2026-06-25T17:55Z CHANGES_REQUESTED asks (TypeScript and design-doc follow-ups). Scholar and librarian completed a library-index reconcile and audit cycle, and the finbot substrate-adapters work landed.
 
 ## Parked for maintainer feedback
 
@@ -75,22 +75,21 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - `finish-ebfb-pr96-review-followup-20260625` — endo-but-for-bots #96 — address kriskowal's 2026-06-25T17:55Z CHANGES_REQUEST...
 - `finish-ebfb-pr96-ts-and-design-doc` — endo-but-for-bots #96 — address the two remaining 17:55Z review asks
 - `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
 - `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
 - `pr-ebfb-96-review-followup` — endojs/endo-but-for-bots PR #96 — finish the two open CHANGES_REQUESTED revie...
-- `scholar-library-index-concepts-readme-20260627` — Library index reconcile: concepts/README.md
 - `scholar-library-index-sources-readme-20260627` — Library index reconcile: sources/README.md
 
-### tada (288)
+### tada (289)
+- `scholar-library-index-concepts-readme-20260627` — Completion report
 - `finbot-substrate-adapters` — Work complete and pushed. Here is my completion report.
 - `scholar-library-cycle-20260627-043618` — Completion report — scholar-library-cycle-20260627-043618
 - `librarian-library-audit-20260627-043554` — Completion report — librarian library audit (librarian-library-audit-20260627...
 - `reaper-continue` — Completion report: reaper-continue
-- `endojs-endo-but-for-bots-pr543-d40c7324` — Completion report: attention directive on endojs/endo-but-for-bots #543
-- … and 283 more
+- … and 284 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
