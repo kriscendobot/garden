@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T10:47:34Z_
+_As of 2026-06-27T10:53:37Z_
 
 ## Latest
 
-The most urgent item: **main2 on host `endolinbot` has been deploy-wedged for the entire window** — a stream of watchman alerts shows the live checkout stuck while `origin/main2` advanced repeatedly, because tracked working-tree edits (`scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, `scripts/jobs/claim-job.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`, plus a later untracked-file collision) keep blocking the fast-forward. The deploy-sync gardener diagnosed the root cause: `report-error.sh` is modified in the working copy but byte-identical to what already landed on `origin/main2`, so `git checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges the host; the watchman, the new deploy-sync reconciler (landed at `5d6490e62`, inert until a units refresh arms its timer), and the self-heal watchdog are all skipping the advance until the tree is clean.
+The endolinbot host's `main2` deploy has been **wedged all morning** — the watchman fired roughly twenty WEDGED alerts as origin advanced ~20 commits while the live checkout stayed pinned, first on a redundant byte-identical edit to `report-error.sh` (losslessly recoverable via `git checkout --`), then on untracked files colliding with incoming tracked paths. A new deploy-sync reconciler landed on main2 (`5d6490e62`) to auto-fast-forward and restart services on `scripts/` changes, but it's inert until the next units refresh arms it — and it can't help while the tree is dirty. Relatedly, self-heal diagnosed a `garden-gardener` crash-loop whose fix is *already* on main2; the host just can't pick it up while frozen. Worth clearing the tree first.
 
-Separately, the `comment-watcher/kriskowal-garden` watchdog fired the 2026-06-24 outage signature again — 0 comments for 220+ consecutive ticks while `kriskowal/garden` is demonstrably active — pointing at another silently-blind comment source on `endolinbot` worth checking before more feedback is missed.
+Separately, the **comment-watcher for kriskowal/garden has gone silent** — 0 comments across 220+ ticks despite a real comment since 2026-06-25, matching the 2026-06-24 jq/gh outage signature; a known comment is going unseen.
 
-On the work side, a gardener landed a corrective follow-up (`3aa37bbd`) on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling doc-path references and adding a real Node parity test atop the earlier `aa78d8329`, with the full compartment-mapper suite green. Two jobs are blocked pending the maintainer: `formula-inspector-retention-paths-table` is stalled on its data source (the still-open #284 `listRetentionPaths` API, which needs the rebase-and-gamut you already requested), and `cognito-mcp-metadata-bridge` is awaiting your call on two design open questions before it builds. Scholar throughput continued, ingesting MetaMask/ocap-kernel's kernel guide (the sixth ocap-kernel source) and synthesizing a distributed-ocap concept cluster.
+On the PR front, a gardener pushed a conflict-safe follow-up (`3aabbbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down, fixing 13 dangling design-doc references and adding a real Node parity test (the full suite stayed green); flagged for visibility as corrective rather than duplicate work. Two jobs are parked on the maintainer: the `cognito-mcp-metadata-bridge` build wants confirmation on IdP choice and RFC 7591 DCR before proceeding (it'll proceed on its recommendations otherwise), and `formula-inspector-retention-paths-table` is blocked on the still-open `listRetentionPaths` host-API PR you asked to rebase on 2026-05-21 (4 CI checks red). Otherwise the board is quiet — todo is empty and the scholar fleet keeps ingesting, landing an ocap-kernel kernel-guide and a six-section distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -406,8 +406,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`scholar-ingest-grant-matcher-puzzle`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-grant-matcher-puzzle.md) — scholar-ingest-grant-matcher-puzzle
+- [`scholar-library-cycle-20260627-105244`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-105244.md) — Hourly scholar library cycle
 
 ### tada (337)
 - [`scholar-ingest-ocap-kernel-usage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-usage.md) — Completion report: scholar-ingest-ocap-kernel-usage
@@ -422,7 +423,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`scholar-ingest-grant-matcher-puzzle`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-grant-matcher-puzzle.md) — _normal_ · scholar-ingest-grant-matcher-puzzle
 - [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/classify-lint-endo-master.md) — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 - [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
 - [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-parallel-sync-browser-design.md) — _low_ · Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo sho...
