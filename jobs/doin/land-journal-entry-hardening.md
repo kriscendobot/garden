@@ -34,3 +34,9 @@ arg dies fast rather than hanging.
 Reconcile with any already-landed journal-entry/producer hardening before committing
 (net new guards only). If the stash is unreachable from the gardener's worktree, the
 description + the unguarded-argv pattern are enough to reconstruct it.
+
+---
+claim:
+  host: endolinbot
+  gardener: 2
+  claimed_at: 2026-06-27T15:26:20Z
