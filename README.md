@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T13:42:48Z_
+_As of 2026-06-27T13:54:43Z_
 
 ## Latest
 
-The headline is operational, not feature work: **main2 on endolinbot has been deploy-wedged all day** — the live checkout is frozen behind origin/main2 (now ~dozens of commits ahead) because tracked working-tree edits keep blocking the fast-forward. A gardener traced the current blocker to a redundant, byte-identical uncommitted edit of `skills/gardener-inbox-error-reporting/report-error.sh` (content already on origin); `git -C /home/kris checkout --` of that path is lossless and unwedges it. Relatedly, a **deploy-sync reconciler landed on main2 (`5d6490e62`)** that fast-forwards the checkout and restarts long-running services when `scripts/` changes — but it stays inert until a routine units refresh arms its timer, and it too is currently blocked by the dirty tree.
+The deploy-sync reconciler landed on main2 (`5d6490e62`): it advances the checkout by a strict clean fast-forward and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — but it is inert until a routine `install-units.sh` refresh arms its timer. That matters because host **endolinbot is deploy-wedged**: its live tree has been stuck behind a steadily-advancing `origin/main2` all day (watchman has fired ~25 times), most recently because an uncommitted, byte-identical edit to `skills/gardener-inbox-error-reporting/report-error.sh` (and later a clutch of `library-link-*` script edits) blocks the fast-forward. The lossless unwedge is `git -C /home/kris checkout -- <path>` on those redundant working-copy edits; until then this host picks up no new roles, skills, or scripts — including the deploy-sync fix itself.
 
-Two standing alarms need eyes: the **comment-watcher for kriskowal/garden has reported zero comments for 340+ consecutive ticks** despite known activity since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage — and self-heal flagged a `garden-gardener` crash-loop already fixed by commits the wedged host can't pick up.
-
-Several items are explicitly **parked on your decision**: the "harden exported function literals" follow-up to [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (merged) awaits a breadth (narrow vs repo-wide) and base-branch call; the Cognito↔MCP OAuth bridge build wants confirmation on its two design open questions; and the formula-inspector retention-paths table is **blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)**, the still-open `listRetentionPaths` host API you'd asked to rebase-and-re-gamut on 2026-05-21 (now 4 failing checks). On the quieter side: a corrective non-force follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixed 13 dangling doc references and added a real Node parity test), lint on endo master classified **clean** (only 5 non-blocking jsdoc warnings), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change, and the scholar fleet ingested MetaMask's ocap-kernel guide plus a distributed-ocap concept cluster.
+Separately, the **comment-watcher for kriskowal/garden has gone silently blind** — 0 comments across 340 consecutive ticks despite a real comment since 2026-06-25, matching the 2026-06-24 jq/gh outage signature; worth checking the comment-source handler on endolinbot. On the PR front, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixed 13 dangling design-doc references and added a real Node parity test atop the already-landed `aa78d8329`), and endo master lint came back clean (only five non-blocking jsdoc warnings, parked). Two items now await your decision: the harden-exported-function-literals follow-up to [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs a breadth-and-base scope call before any PR opens, and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) — still open, CI-red, and awaiting the rebase-and-re-gamut you requested on 2026-05-21. The revisit of [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442)'s deferred test-powers plan concluded no change (reuse would invert the extraction), and scholars ingested MetaMask's ocap-kernel guide plus a distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -621,8 +619,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`improve-journal-worktree-reconciler`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-journal-worktree-reconciler.md) — Add a deterministic reconciler that keeps the shared /home/kris/journal workt...
+- [`scholar-library-cycle-20260627-135353`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-135353.md) — Hourly scholar library cycle
 
 ### tada (355)
 - [`improve-gardener-empty-output-classifier-rc-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-empty-output-classifier-rc-gate.md) — Completion report
