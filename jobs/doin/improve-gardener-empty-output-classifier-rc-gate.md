@@ -1,1 +1,7 @@
 In `scripts/jobs/gardener.sh`, the transient-outage classifier (the `transient=0` block at lines ~166-171) presumes any empty-output handler failure (`[ ! -s "$capture" ]`) is a self-resolving blip, ignoring the handler's exit code `$rc`. This silently requeues deterministic failures — notably `rc=127`/`rc=126` (missing/non-executable external tool, the jq-outage signature) and bare `rc=1`/`rc=2` — as if they were transient, deferring human escalation to the reaper's multi-hour poison cycle. Fix: gate the empty-capture `transient=1` on `$rc` being a genuinely-external code. Treat empty output as transient ONLY when `$rc` is a signal/clean-shutdown code (143 SIGTERM, 130 SIGINT, 137 SIGKILL) or the offline rc (`${GARDEN_OFFLINE_RC:-75}`), mirroring the discrimination already in `scripts/jobs/self-heal-run.sh:121`. For a non-signal, non-offline non-zero rc with empty output, fall through to the existing real-failure escalation path (capture-by-hash + gardener-inbox report) so a missing-tool/exec-failure deterministic defect surfaces immediately. Keep the `is_transient_claude_signature` content match unchanged (that path is exit-code-agnostic by design). Add a `scripts/jobs/test/` case asserting: rc=143 empty → transient/no-escalation; rc=127 empty → escalated. This also realigns the classifier with its own "mirrors self-heal-run.sh" comment, which currently overstates the parity.
+
+---
+claim:
+  host: endolinbot
+  gardener: 5
+  claimed_at: 2026-06-27T13:37:52Z
