@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T20:25:27Z_
+_As of 2026-06-27T20:27:28Z_
 
 ## Latest
 
-Four maintainer decisions are queued in the inbox and need your call. A genuine feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — reshaping the inventory taxonomy to Directories/Agents/Personas/Values/Capabilities and fully hiding empty groups — was misrouted by the comment-watcher as a "rebase"; #405 is already mergeable, so it needs a liaison-driven fixer dispatch rather than a no-op rebase (a separate classifier-bug fix is posted). The harden-exported-function-literals follow-up to the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two answers: narrow (just `evadeCensorSync`/`evadeCensor`) vs repo-wide, and base `llm` vs `master` (the literal form differs by branch). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), stalled since your "rebase and run the gamut again" ask and now showing 4 failing checks — a gardener can take that rebase as a job on your word. And the ymax0/XS investigation concluded the nested-record overflow is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding (agoric-sdk territory, out of bounds) and sourcing the v320 swing-store export is yours to direct.
+Bot master lint is clean — the only [`yarn lint`](https://github.com/endojs/endo-but-for-bots) gate findings are 5 non-failing jsdoc warnings, now parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan. A misclassification surfaced on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405): a kriskowal comment routed as a "rebase" is actually a feature directive — hide empty groups and reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) across space-chat, chat, cli, and daemon — which needs a liaison-driven builder dispatch (the v2 fleet has no autonomous feature-directive path) plus a separate infra fix for the classifier bug. The garden's library deepened: a sixth MetaMask/ocap-kernel ingest (the 689-line kernel guide) plus a six-section distributed-ocap concept cluster, with the grant-matcher-puzzle source deferred (erights.org unreachable).
 
-On the library side, a sixth ocap-kernel ingest (MetaMask's 689-line kernel guide) plus a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual send, grant-matcher) landed on journal2, and endo-but-for-bots master lint was classified fully CLEAN — only 5 non-failing jsdoc warnings, parked low. Two scholar library-source refreshes (captp `finalize`, netstring `reader`) completed this cycle.
+Two scope decisions are parked for kriskowal: the erights "harden exported function literals" follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (merged) awaits a breadth + base-branch call before any cross-repo PR opens, and the `formula-inspector-retention-paths-table` job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which still needs the rebase-and-gamut you requested back on 2026-05-21 (currently 4 failing CI checks). The beta3/ymax0 XS investigation concluded the nested-record vat abort is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding — but it needs a v320 swing-store export the garden can't obtain autonomously. On the infra side, the deliberate-deploy rework continues: a self-heal job to reconcile the retired `garden-deploy-sync` units is in flight, and a speculative "port XS to Rust" plan was filed awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -183,20 +183,21 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### doin (4)
 - [`garden-deliberate-deploy-no-shared-tree-development`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deliberate-deploy-no-shared-tree-development.md) — Dispense with the shared live tree: per-subagent worktrees + a deliberate dra...
 - [`garden-enforce-per-subagent-worktree`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-enforce-per-subagent-worktree.md) — Mechanically enforce per-subagent worktrees in the gardener launch path
-- [`scholar-refresh-endo--packages-ses-src-error-assert-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-endo--packages-ses-src-error-assert-js.md) — Refresh drifted library source: endo--packages-ses-src-error-assert-js
 - [`scholar-refresh-endo--packages-ses-src-error-console-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-refresh-endo--packages-ses-src-error-console-js.md) — Refresh drifted library source: endo--packages-ses-src-error-console-js
+- [`self-heal-fix-garden-deploy-sync-deploy-reconcile-retired-units`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-deploy-sync-deploy-reconcile-retired-units.md) — scripts/jobs/deploy-garden.sh advances the root checkout to origin/main2 and ...
 
-### tada (401)
+### tada (402)
+- [`scholar-refresh-endo--packages-ses-src-error-assert-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-ses-src-error-assert-js.md) — What changed upstream
 - [`scholar-refresh-endo--packages-captp-src-finalize-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-captp-src-finalize-js.md) — Completion report
 - [`scholar-refresh-endo--packages-netstring-reader-js`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-refresh-endo--packages-netstring-reader-js.md) — Inbox empty, anchor verified on origin/journal2. Work is complete. Final report:
 - [`improve-drift-scan-timer-oncalendar-persistent`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-drift-scan-timer-oncalendar-persistent.md) — Completion report: improve-drift-scan-timer-oncalendar-persistent
 - [`scholar-library-cycle-20260627-195612`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-195612.md) — Completion report follows.
-- [`resolve-wedge-endolinbot-1d4f136208cb-22707619253`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-1d4f136208cb-22707619253.md) — Completion report
-- … and 396 more
+- … and 397 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`port-xs-to-rust-memory-safe-engine`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine.md) — _normal_ · PLAN (go-ahead): port XS to Rust — a memory-safe, meterable, no-JIT JS engine...
 - [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/service-host-roles-singletons-on-main-host.md) — _normal_ · PLAN: service host-roles — gardeners run everywhere, singletons run only on t...
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
