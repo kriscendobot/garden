@@ -68,3 +68,9 @@ the exact command block here when promoting, e.g.:
 - crash line: `jq` the slog for the entry whose `*.exited`/`*.deliveryResult` mentions
   "stack overflow" around the v320 startVat delivery.
 (Replace with the maintainer's verbatim commands on promotion.)
+
+---
+claim:
+  host: endolinbot
+  gardener: 73
+  claimed_at: 2026-06-27T15:32:08Z
