@@ -1,4 +1,0 @@
-host: endolinbot
-gardener: 48
-claimed_at: 2026-06-27T10:21:51Z
-worktree_dir: /home/kris/worktrees/investigate-systemd-run-vs-gardener-loops
