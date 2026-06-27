@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T15:29:47Z_
+_As of 2026-06-27T15:32:42Z_
 
 ## Latest
 
-The headline for the maintainer: **endolinbot's main2 deploy has been wedged all day.** The watchman fired roughly two dozen "WEDGED — deploy frozen" alerts as origin/main2 raced ahead (now at `3ed55eec3`) while the live `/home/kris` tree stayed pinned tens of commits behind — successive uncommitted edits to `report-error.sh`, `gardener.sh`, `claim-job.sh`, the `library-link-*` scripts, and `journal-entry.sh` each blocking the fast-forward. A gardener diagnosed the root: the blocking `report-error.sh` change is byte-identical to what already landed on origin, so `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is a lossless unwedge. While the host was frozen, the new **deploy-sync reconciler** landed on main2 (`5d6490e62`, which strict-ff-advances the checkout and restarts long-running services on `scripts/` changes) — but it's inert until the next `install-units.sh` run arms its timer, and it can't unwedge a dirty tree either. The self-heal watchdog separately flagged a `garden-gardener` crash-loop already fixed on main2 but stuck behind on the un-deployed checkout.
+The day's dominant story is deploy plumbing, not feature work: endolinbot's `main2` checkout sat **wedged for most of the day**, with the watchman firing ~20 dirty-tree alerts as origin advanced ~20 commits ahead of a frozen tree. The blocker is benign — redundant uncommitted edits (e.g. `skills/gardener-inbox-error-reporting/report-error.sh`, several `scripts/jobs/library-link-*` files) that are byte-identical to what already landed, so a lossless `git checkout --` unwedges it. A **deploy-sync reconciler landed on main2 (5d6490e)** to clean-fast-forward and restart long-running services automatically once armed via a units refresh, which should prevent the recurrence; jobs to make the watchman resolve wedges autonomously and harden `journal-entry.sh` are in flight. Separately, the comment-watcher kept emitting "0 comments for N ticks" inactivity anomalies against kriskowal/garden — the exact false-positive the maintainer asked to retire — and a `comment-watcher-no-inactivity-anomaly` fix is now in `doin`.
 
-Two recurring nuisances are being addressed: the **comment-watcher inactivity anomaly** kept firing (0 comments for 100→420 ticks), and a fix to stop conflating "blind" with "quiet" is in `doin` alongside jobs to make the **watchman resolve wedges autonomously** and harden `journal-entry.sh`. The board's `todo` is empty.
+On substance, scholars ingested MetaMask/ocap-kernel's kernel guide and a six-topic distributed-ocap concept cluster (three-party handoff, sturdyref, confinement, eventual-send, grant-matcher), and a lint sweep found endo-but-for-bots master **clean** (only 5 non-blocking jsdoc warnings, parked as low).
 
-Decisions owed to the maintainer: the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up is gated on a breadth (narrow vs repo-wide) and base-branch (`llm` vs `master`) call before any PR opens; and a formula-inspector retention-paths table is blocked on the stalled #284 (the rebase-and-gamut you requested on 2026-05-21 never ran). Quieter notes: the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (intrinsic duplication), endo master lint is clean save five non-failing jsdoc warnings, two scholar ingests landed (ocap-kernel guide + a distributed-ocap concept cluster), and a new investigation plan for a beta3 ymax0 portfolio-upgrade stack overflow awaits your go-ahead.
+Three items need a maintainer decision: the harden-exported-function-literals follow-up to merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you choosing breadth (narrow two-export vs repo-wide) and base branch (`llm` vs `master`); the formula-inspector retention-paths table is **blocked** on the still-open, CI-failing `listRetentionPaths` host-API PR you asked to rebase back on 2026-05-21; and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded **no change** (reuse would invert the extraction).
 
 ## Parked for maintainer feedback
 
@@ -559,8 +559,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-inactivity-anomaly.md) — Comment-watcher: stop reporting human inactivity as an anomaly; make blindnes...
+- [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — Investigation brief: beta3 portfolio-contract upgrade crashes with "stack ove...
 - [`land-journal-entry-hardening`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/land-journal-entry-hardening.md) — Land the journal-entry.sh hardening (preserve a gardener's stashed WIP)
 - [`rename-killswitch-to-draining-marker`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/rename-killswitch-to-draining-marker.md) — Rename the killswitch to a mundane "draining" marker (existence-meaningful + ...
 - [`watchman-resolve-wedge-autonomously`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/watchman-resolve-wedge-autonomously.md) — Watchman: resolve dirty-tree wedges AUTONOMOUSLY (no maintainer escalation)
@@ -575,7 +576,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
-- [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — _normal_ · Investigation brief: beta3 portfolio-contract upgrade crashes with "stack ove...
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
