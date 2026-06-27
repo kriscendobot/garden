@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T11:53:47Z_
+_As of 2026-06-27T11:56:23Z_
 
 ## Latest
 
-The headline a maintainer must act on: **main2 on endolinbot has been deploy-frozen all day**. The watchman has fired ~20 WEDGE alerts since 05:00Z — the live checkout is stuck while origin/main2 advanced through a dozen commits, blocked first by uncommitted edits to `scripts/jobs/self-heal-run.sh`, `gardener.sh`, and `skills/gardener-inbox-error-reporting/report-error.sh`, and later by untracked files colliding with incoming tracked paths (the library-link-* scripts). A gardener confirmed the `report-error.sh` edit is byte-identical to what already landed, so `git checkout -- <path>` is lossless and unwedges the deploy. Ironically, the permanent fix — a deploy-sync reconciler that fast-forwards and restarts services on `scripts/` changes — landed on main2 (`5d6490e62`) but stays inert until the next `install-units.sh` arms its timer, which the wedge itself is preventing.
+The big story is operational: host **endolinbot's** main2 deploy has been wedged all morning — the watchman fired a steady stream of "WEDGED" alerts because uncommitted tracked edits (variously `self-heal-run.sh`, `gardener.sh`, `report-error.sh`, and the `library-link-*` scripts, plus an untracked-file collision) keep blocking the fast-forward, so the running fleet is many commits behind `origin/main2` and not picking up landed fixes. A gardener diagnosed the most persistent culprit as a redundant, byte-identical edit of `skills/gardener-inbox-error-reporting/report-error.sh` that `git -C /home/kris checkout --` would clear losslessly. Relatedly, a **deploy-sync reconciler** landed on main2 (`5d6490e62`) to auto-fast-forward and restart services on `scripts/` changes — but it's inert until the next units refresh arms its timer, and it skips the advance while the tree is dirty just as the watchman does. Two recurring anomalies also warrant a look: the `comment-watcher/kriskowal-garden` watcher has now reported zero comments for 260+ ticks despite real activity (the 2026-06-24 jq/gh blindness signature), and `garden-gardener` self-heal caught an rc=1 crash-loop whose fix is among the commits the wedged host can't deploy.
 
-Second alarm: the `comment-watcher/kriskowal-garden` watchdog has now logged 0 comments for 260 consecutive ticks despite a known live comment since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage. Worth verifying the comment source on endolinbot is not dark again.
-
-On substance: a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (`3aa37bbd`) after finding two real defects — 13 dangling doc references and a prose-only Node parity claim — in a commit a superseding job had landed; full suite green, flagged for visibility. Scholar work continued: a sixth ocap-kernel ingest (MetaMask kernel-guide) plus a distributed-ocap concept cluster, with the grant-matcher-puzzle source deferred (erights.org unreachable). The board is otherwise quiet — `classify-lint-endo-master` and the hourly scholar cycle are the only jobs in flight. One item awaits your go-ahead (`synth-and-deploy-minion-town-aws`), and the `formula-inspector` table job is blocked pending the long-stalled #284 rebase you requested back on 05-21.
+On the work front, a gardener pushed a conflict-safe corrective follow-up to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) — fixing 13 dangling design-doc references and adding a real Node parity test after finding the superseding commit left both gaps — and flagged it since it followed a stand-down. The `formula-inspector-retention-paths-table` job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 awaiting your requested rebase + re-gamut and now carries failing CI. Two maintainer decisions are pending: the `cognito-mcp-metadata-bridge` gardener wants confirmation on staying with Cognito and shipping RFC 7591 DCR before building, and `synth-and-deploy-minion-town-aws` is parked awaiting authorization. Scholar ingests continued (ocap-kernel kernel-guide and a six-section distributed-ocap concept cluster); the board is otherwise quiet, with only one scholar library cycle completing this interval.
 
 ## Parked for maintainer feedback
 
@@ -463,17 +461,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/classify-lint-endo-master.md) — PLAN: classify lint errors on endo master, then post per-class fix plans
-- [`scholar-library-cycle-20260627-115254`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-115254.md) — Hourly scholar library cycle
 
-### tada (345)
+### tada (346)
+- [`scholar-library-cycle-20260627-115254`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-115254.md) — Scholar library cycle — idle drain (hourly cadence)
 - [`improve-source-acquisition-archive-fallback-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-source-acquisition-archive-fallback-script.md) — Completion report
 - [`improve-link-check-classify-advisory-vs-must-resolve`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-link-check-classify-advisory-vs-must-resolve.md) — Completion report
 - [`fu-scholar-ingest-e-equality-taxonomy-adjacent-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-e-equality-taxonomy-adjacent-1.md) — Done. The work is complete, pushed to origin/journal2, and the worktree is to...
 - [`scholar-ingest-e-equality-taxonomy-adjacent`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-e-equality-taxonomy-adjacent.md) — scholar-ingest-e-equality-taxonomy-adjacent — done
-- [`scholar-author-concept-endoclaw`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-author-concept-endoclaw.md) — Completed the job. Concise report follows.
-- … and 340 more
+- … and 341 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
