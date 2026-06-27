@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T07:23:35Z_
+_As of 2026-06-27T07:29:59Z_
 
 ## Latest
 
-The deploy-sync reconciler landed on main2 (`5d6490e62`): it now fast-forwards each host's checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart. A companion self-heal fix also landed, reclassifying transient git-128 claim failures as recoverable rather than fatal (no more crash-loops on a network blip). The catch a maintainer should notice: the endolinbot live tree is **dirty-wedged** and has been for the whole window — the watchman fired ~10 times reporting main2 frozen, now 6+ commits behind, because uncommitted working-tree edits block the fast-forward. The current blocker is `skills/gardener-inbox-error-reporting/report-error.sh`, which is byte-identical to the already-landed committed version; `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is lossless and unwedges both the watchman and the new deploy-sync advance. Separately, the comment-watcher for kriskowal/garden tripped the **2026-06-24 outage signature** again (0 comments over 100 ticks while the repo is active) — worth checking jq/gh on endolinbot. On the PR side, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node.js parity test after a stand-down revealed the superseding gardener's landed work had two gaps.
+The big movement is infrastructure self-repair. The **deploy-sync reconciler** landed on main2 (`5d6490e6`): it advances each host's checkout by a strict clean fast-forward and restarts the long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — but it's inert until the next units refresh arms `garden-deploy-sync.timer`. Alongside it, the self-heal fix for transient git-128 claim failures landed (a network blip no longer crash-loops a gardener), and offline-fetch signatures were broadened.
+
+The maintainer should notice that **endolinbot is deploy-wedged** and has been for hours: the live `/home/kris` tree carries an uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh` whose content is byte-identical to what's already on origin/main2, so git refuses every fast-forward and the host is now ~6 commits behind. Both the watchman and the new deploy-sync skip the advance. A gardener flagged the lossless unwedge (`git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh`) but correctly declined to touch the shared live tree from a job. Earlier wedge cycles named `scripts/jobs/gardener.sh` and `scripts/jobs/self-heal-run.sh` for the same reason.
+
+Two recurring alarms also warrant eyes: the **comment-watcher/kriskowal-garden** anomaly fired again (0 comments for 100 consecutive ticks while the repo is demonstrably active — the 2026-06-24 outage signature, suggesting jq/gh blindness on endolinbot), and a corrective follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down on a duplicated job, a gardener found two real defects in the superseding commit (13 dangling design-doc references and a prose-only parity claim), confirmed no active second writer, and pushed a conflict-safe non-force fix adding a real Node parity test. Finally, the `cognito-mcp-metadata-bridge` build is paused on two design Open Questions awaiting the maintainer's go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -249,8 +253,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`formula-inspector-retention-paths-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/formula-inspector-retention-paths-table.md) — PLAN (follow-on): add a retention-paths table to the formula inspector
 
 ### tada (317)
 - [`improve-deploy-sync-fleet-onto-landed-fixes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deploy-sync-fleet-onto-landed-fixes.md) — Completion report: improve-deploy-sync-fleet-onto-landed-fixes
@@ -269,7 +273,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`investigate-resumable-gardeners`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-resumable-gardeners.md) — _normal_ · PLAN: investigate making gardeners RESUMABLE (don't lose work when an agent s...
 - [`ingest-ocap-library-sections`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ingest-ocap-library-sections.md) — _normal_ · PLAN: scholar — ingest sources for six missing ocap library sections
 - [`ingest-ocap-kernel`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/ingest-ocap-kernel.md) — _normal_ · PLAN: scholar — ingest MetaMask/ocap-kernel into the library
-- [`formula-inspector-retention-paths-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/formula-inspector-retention-paths-table.md) — _normal_ · PLAN (follow-on): add a retention-paths table to the formula inspector
 - [`classify-lint-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/classify-lint-endo-master.md) — _low_ · PLAN: classify lint errors on endo master, then post per-class fix plans
 - [`endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers.md) — _low_ · Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
 - [`endo-but-for-bots-parallel-sync-browser-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endo-but-for-bots-parallel-sync-browser-design.md) — _low_ · Design: parallel cis/trans file-tree browser with CapTP direct-sync (Endo sho...
