@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T04:55:03Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T04:59:40Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-Review-followup work on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) is the active thread: two jobs are in flight to address kriskowal's 2026-06-25 CHANGES_REQUESTED (the TS-classification and design-doc asks), and the liaison has parked a question for the maintainer — the fix wired TS (ts/mts/cts) classification through the override mechanism only, not the production default language maps, to protect the 12-known-failures invariant. **The maintainer should confirm whether default TS classification was intended rather than override-only**, since that would be a follow-up change before the PR is final. Alongside the PR work, two garden-infra jobs are underway to treat offline/transient connectivity as a tempfail (in `journal_fetch`/`sync_clone`) and a clean exit (in self-heal) rather than a hard failure. Scholar library-index cycles and the finbot substrate-adapters work completed this interval.
+Work on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) advanced: a review-followup pass completed addressing all three of kriskowal's inline asks, but TS classification was left override-only rather than wired into the production default language maps in `node-modules.js` — no TS parser ships by default and adding one risked the 12-known-failures invariant. The liaison has parked a message asking whether default TS classification was intended; two further #96 jobs (the 2026-06-25T17:55Z CHANGES_REQUESTED and the remaining TS-and-design-doc asks) are still in progress. Separately, the scholar landed several library-index and concept-README cycles and the `finbot-substrate-adapters` work, while two reliability jobs in flight teach `journal_fetch`/`sync_clone` and `self-heal-run.sh` to treat transient offline conditions as tempfail/clean-exit rather than errors. Maintainer should also note the watchdog anomaly: `comment-watcher/kriskowal-garden` reported zero comments for 20 consecutive ticks despite real activity since 2026-06-25T20:56Z — the 2026-06-24 outage signature, worth a jq/gh check on endolinbot.
 
 ## Parked for maintainer feedback
 
@@ -31,6 +31,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260627T045332Z-4a6e98` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T045332Z-4a6e98.md)
 
 > On endojs/endo-but-for-bots PR #96 (report pr-ebfb-96-review-followup): the fix addressed all three inline asks but did NOT add ts/mts/cts to the production default language maps in `node-modules.js` — no TS parser ships by default, and adding them risked the 12-known-failures invariant. TS classification is handled only via the override mechanism (caller supplies TS language options + parsers), which the test exercises. Please confirm whether you intended default TS classification rather than override-only; if default is wanted, that's a follow-up change before the PR is final.
+
+- `20260627T045929Z-eb7490` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T045929Z-eb7490.md)
+
+> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 20 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
 
 ## Board
