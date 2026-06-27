@@ -9,6 +9,13 @@
 # that basename. A gardener that died mid-job thus releases its job back to
 # the pool.
 #
+# Work RECOVERY (carrying the dead session forward, not just the job) is the
+# handler's half of the contract: because the requeue keeps the SAME base, the
+# fresh gardener that re-claims it derives the same deterministic Claude session
+# id and `--resume`s the interrupted session's transcript when it is still on
+# this host. See scripts/jobs/handlers/gardener-claude.sh § session continuity.
+# The reaper itself stays a dumb requeue — it needs no session knowledge.
+#
 # Only jobs/doin/ is scanned. The jobs/plan/ category (parked work — gated on a
 # go-ahead or deferred by priority) is never claimed, so it is never in flight and
 # never reaped; parked jobs do not go stale.
