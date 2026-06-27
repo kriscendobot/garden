@@ -43,3 +43,9 @@ time found no shared array→async-iterable / real-filesystem-powers utility:
 - PR endojs/endo-but-for-bots#442, thread on
   `packages/daemon-cas/test/content-store.test.js`.
 - `designs/daemon-cas-management.md` — the broader daemon-cas extraction arc.
+
+---
+claim:
+  host: endolinbot
+  gardener: 11
+  claimed_at: 2026-06-27T12:33:12Z
