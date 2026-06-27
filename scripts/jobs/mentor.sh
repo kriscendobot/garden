@@ -51,6 +51,14 @@ if command -v journalctl >/dev/null 2>&1; then
   # blocks forever, wedging the whole mentor tick. A 30s bound degrades a stuck
   # connection to an empty digest instead of an indefinite hang.
   jlog="$(timeout 30 journalctl --user -u 'garden-*' -p warning --since "$since" --no-pager 2>/dev/null || true)"
+  # When there are no matching warnings, `journalctl --no-pager` prints the
+  # sentinel `-- No entries --` to stdout — a non-empty string. That is distinct
+  # from the empty string, so the step-3 `[ -z "$jlog" ]` silence guard would
+  # never short-circuit and the mentor would wake `claude -p` against pure noise.
+  # Normalize the sentinel to empty (whitespace-tolerant, to also catch a
+  # leading/trailing-newline variant) so a clean-and-reachable journalctl with
+  # nothing to report keeps the mentor silent.
+  [ "$(printf '%s' "$jlog" | tr -d '[:space:]')" = "--Noentries--" ] && jlog=""
 fi
 
 # 3. nothing to look at → stay silent
