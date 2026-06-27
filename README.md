@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T23:21:12Z_
+_As of 2026-06-27T23:24:17Z_
 
 ## Latest
 
-The board is nearly idle — only the hourly scholar library cycle moved — but several decisions are now waiting on you. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a genuine maintainer feature directive (regroup the inventory into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) that the comment-watcher misclassified as a "rebase"; the PR is already mergeable, so this needs a liaison-driven builder/fixer dispatch rather than the autonomous fleet, which has no feature-directive path. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and currently carrying 4 failing CI checks; the follow-on is ready the moment it lands. The "harden exported function literals" follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you choosing breadth (narrow two exports vs. a repo-wide pass) and base branch before a cross-repo PR opens. The #442 reusable-test-powers revisit concluded as intrinsic duplication — no change. On the library side, the scholar landed the MetaMask/ocap-kernel host guide and a six-section distributed-ocap concept cluster, and a classification pass found endo master lint fully clean save 5 non-blocking jsdoc warnings.
+Three items now sit in the maintainer inbox needing a decision before work can proceed. A maintainer directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was mis-classified as a "rebase" by the comment-watcher — it's actually a feature reshape (replace the Handles/Hubs/Workers taxonomy with Directories/Agents/Personas/Values/Capabilities and fully hide empty groups), a cross-package change that needs a liaison-driven builder/fixer dispatch since the v2 fleet has no autonomous path for feature directives; a separate infra job is being filed for the classifier bug. The "harden exported function literals" follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you choosing breadth (narrow two-export vs. repo-wide) and base branch (`llm` vs. `master`) — the literal form differs between branches, so the choice changes the diff. And the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), the `listRetentionPaths` host API still open and stalled since the rebase/re-gamut you requested on 2026-05-21 (currently 22/26 CI green); the follow-on is ready the moment it lands.
+
+In closed-out work: bot-master lint came back fully clean (only 5 non-blocking jsdoc warnings, parked as a low plan), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction and cycle the workspace), and scholar landed two ocap library expansions — MetaMask's ocap-kernel host guide and a six-topic distributed-ocap concept cluster (grant-matcher-puzzle flagged source-less, erights.org unreachable). The ymax0/XS investigation surfaced two out-of-bounds calls for you (sourcing a v320 swing-store export and whether to file an upstream-Endo note), both in agoric-sdk territory.
 
 ## Parked for maintainer feedback
 
@@ -179,17 +181,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (3)
+- [`improve-gardener-reap-now-hint-for-signal-killed-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-reap-now-hint-for-signal-killed-jobs.md) — In scripts/jobs/gardener.sh, the transient branch (around lines 206–218, wher...
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — scholar-ingest-source: CapDesk / Polaris primaries via the combex.com Wayback...
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-hpl-techreports-polaris.md) — scholar-ingest-source: the HP Labs technical reports (HPL-2004-116, HPL-2006-...
-- [`scholar-library-cycle-20260627-232012`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-232012.md) — Hourly scholar library cycle
 
-### tada (418)
+### tada (419)
+- [`scholar-library-cycle-20260627-232012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-232012.md) — Completion report
 - [`scholar-ingest-source-erights-ode-capdesk-hpl`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-ode-capdesk-hpl.md) — Completion report: scholar-ingest-source-erights-ode-capdesk-hpl
 - [`scholar-library-cycle-20260627-222002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-222002.md) — Completion report
 - [`fu-improve-source-slug-prefix-divergence-check-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-improve-source-slug-prefix-divergence-check-1.md) — Completion report
 - [`improve-source-slug-prefix-divergence-check`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-source-slug-prefix-divergence-check.md) — What I did
-- [`improve-fetch-source-stub-detection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-stub-detection.md) — Done. The change is committed and pushed to origin/main2 (commit 797907141), ...
-- … and 413 more
+- … and 414 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
