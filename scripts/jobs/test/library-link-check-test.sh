@@ -251,6 +251,47 @@ echo "$out" | grep -q "DANGLING .* -> ../sections/${SLUG}--missingchild.md" && o
 echo "$out" | grep -q "errors.md" && bad "--nav scanned a leaf section body" || ok "leaf section body NOT scanned under --nav"
 
 # ============================================================================
+hr; echo "SUBTEST 10: --all advisory-only — a dangling leaf-body link does NOT fail the run"
+setup_fixture
+SLUG="proj--docs-guide-md"
+write_child "$SLUG" core
+write_parent_index "$SLUG" core
+append_readme_block "$SLUG" core
+write_source_page "$SLUG" core        # nav surfaces all resolve
+# A leaf section body carrying a dangling UPSTREAM-verbatim link: advisory, not gating.
+cat >> "$LIB/sections/${SLUG}--core.md" <<'EOF'
+
+See [upstream errors doc](./errors.md) — verbatim from the source.
+EOF
+commit_all "clean nav, one dangling leaf-body link"
+out="$("$CHECK" --library "$LIB" --all 2>&1)"; rc=$?
+if [ "$rc" = 0 ]; then ok "advisory-only --all exits 0"; else bad "expected exit 0, got $rc:"; echo "$out"; fi
+echo "$out" | grep -q "DANGLING .*errors.md \[advisory\]" && ok "leaf-body dangling tagged [advisory]" || { bad "leaf-body dangling not tagged advisory"; echo "$out"; }
+echo "$out" | grep -q "advisory — 1 dangling" && ok "advisory count reported separately" || { bad "no advisory count"; echo "$out"; }
+echo "$out" | grep -q "OK — every must-resolve" && ok "must-resolve OK verdict printed" || { bad "no must-resolve OK verdict"; echo "$out"; }
+
+# ============================================================================
+hr; echo "SUBTEST 11: --all must-resolve — a dangling nav link fails (exit 1), advisory reported too"
+setup_fixture
+SLUG="proj--docs-guide-md"
+write_child "$SLUG" core
+write_parent_index "$SLUG" core
+append_readme_block "$SLUG" core
+# Source page (a must-resolve navigation surface) references a MISSING child.
+write_source_page "$SLUG" core missingchild
+# Plus a dangling advisory leaf-body link.
+cat >> "$LIB/sections/${SLUG}--core.md" <<'EOF'
+
+See [upstream errors doc](./errors.md) — verbatim from the source.
+EOF
+commit_all "nav dangling + leaf-body dangling"
+out="$("$CHECK" --library "$LIB" --all 2>&1)"; rc=$?
+if [ "$rc" = 1 ]; then ok "must-resolve dangling fails --all (exit 1)"; else bad "expected exit 1, got $rc:"; echo "$out"; fi
+echo "$out" | grep -q "DANGLING .*${SLUG}--missingchild.md \[must-resolve\]" && ok "source-page dangling tagged [must-resolve]" || { bad "nav dangling not tagged must-resolve"; echo "$out"; }
+echo "$out" | grep -q "FAIL — 1 must-resolve dangling" && ok "must-resolve FAIL count reported" || { bad "no must-resolve FAIL count"; echo "$out"; }
+echo "$out" | grep -q "advisory — 1 dangling" && ok "advisory leaf-body still reported separately" || { bad "advisory not reported alongside the failure"; echo "$out"; }
+
+# ============================================================================
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" = 0 ] && { rm -rf "$TR"; exit 0; } || exit 1

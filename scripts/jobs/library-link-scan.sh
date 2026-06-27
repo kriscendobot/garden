@@ -41,9 +41,12 @@
 # USAGE
 #   library-link-scan.sh                  sync tip, scan navigation surfaces, emit
 #                                         the genuinely-dangling links for repair.
-#   library-link-scan.sh --all            sync tip, scan EVERY library link
-#                                         (noisier: includes leaf-body upstream
-#                                         links). Default is --nav.
+#   library-link-scan.sh --all            sync tip, scan EVERY library link but
+#                                         gate ONLY on must-resolve navigation/
+#                                         index/source-table links; verbatim
+#                                         leaf-body upstream links are reported as
+#                                         a separate advisory count (not gating).
+#                                         Default is --nav.
 #   library-link-scan.sh --exists <path>  sync tip, report whether one library
 #                                         path exists at the committed tip; the
 #                                         re-verify-before-you-repoint primitive.

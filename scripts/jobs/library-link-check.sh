@@ -12,8 +12,13 @@
 #     `kind: index` parent: job `ingest-ocap-kernel`, commit 069d42b1) fails the
 #     ingest loudly at write time instead of lurking until a future scan.
 #   - The STANDING SCAN (--all): a periodic checker syncs the library to the
-#     current origin/journal2 tip and validates every link, emitting the
-#     genuinely-dangling set for repair. (Sibling job
+#     current origin/journal2 tip and validates every link. It CLASSIFIES each
+#     dangling link by its source file: a must-resolve navigation/index/
+#     source-table link (the same set --nav walks) fails the run; a verbatim
+#     leaf-section-body link is ADVISORY — reported as a separate informational
+#     count but NOT gating. That keeps the standing red signal actionable instead
+#     of saturating on the ~166 upstream-verbatim leaf-body links that dangle
+#     every cycle by construction. (Sibling job
 #     improve-deterministic-section-link-integrity-scan owns the sync-tip-first
 #     wrapper; it calls `library-link-check.sh --all`.)
 #
@@ -23,8 +28,10 @@
 # `kind: index` parent section file shares the source-slug basename
 # (`sections/<source-slug>.md`); its children are `sections/<source-slug>--*.md`.
 #
-# Exit: 0 = every checked link resolves; 1 = at least one dangling target;
-#       2 = usage / setup error.
+# Exit: 0 = every checked link resolves (in --all, also when ONLY advisory
+#           leaf-section-body links dangle); 1 = at least one dangling target (in
+#           --all, a must-resolve navigation/index/source-table link); 2 = usage /
+#           setup error.
 #
 # This script makes NO writes and NO network calls. It is safe to run anywhere.
 
@@ -35,7 +42,13 @@ usage() {
 library-link-check.sh — resolve library section links against the working tree.
 
 Scope (exactly one required):
-  --all                    check every markdown link in the whole library
+  --all                    check every markdown link in the whole library, but
+                           CLASSIFY each dangling link by its source file: a
+                           dangling link on a navigation/index/source-table
+                           surface (the --nav set) is MUST-RESOLVE and fails the
+                           run; a dangling link in a verbatim leaf section body is
+                           ADVISORY — tallied and reported separately, NOT gating.
+                           Exit stays 0 unless a must-resolve link dangles.
   --nav                    check only navigation surfaces: concepts/topics/
                            sources/roles index pages, sections/README.md, and the
                            library README.md. Excludes leaf section bodies (which
@@ -182,8 +195,27 @@ extract_targets() {
 }
 
 # --- the dangling accumulator ------------------------------------------------
-DANGLING=0
+DANGLING=0               # total dangling, all scopes
+MUST_DANGLING=0          # --all: dangling on a must-resolve (navigation) surface
+ADVISORY_DANGLING=0      # --all: dangling in a verbatim leaf section body
 declare -A REPORTED=()   # dedupe (referrer -> target) pairs
+
+# is_nav_file <abs-path> -> 0 if the file is a MUST-RESOLVE navigation surface
+# (exactly the set --nav walks): the scholar-authored concepts/topics/sources/
+# roles index pages, the sections/README.md backstop, and the library README.md.
+# Everything else is ADVISORY — the leaf section bodies sections/<slug>--*.md
+# (which carry verbatim-upstream links the library does not own) and the
+# kind:index parents sections/<slug>.md (whose every child is redundantly listed
+# by its source page and the sections/README.md block, both must-resolve, so a
+# genuinely-missing child is still caught on a gating surface).
+is_nav_file() {
+  local rel; rel="$(realpath --relative-to="$LIBRARY" "$1" 2>/dev/null || echo "$1")"
+  case "$rel" in
+    concepts/*|topics/*|sources/*|roles/*) return 0 ;;
+    sections/README.md|README.md)          return 0 ;;
+    *)                                      return 1 ;;
+  esac
+}
 
 # check_links_in <file> [<link-base-dir>]
 # Resolve every link in <file>. Wikilink targets resolve relative to LIBRARY;
@@ -217,10 +249,20 @@ check_links_in() {
     else
       REPORTED["$key"]=1
       DANGLING=$((DANGLING + 1))
+      # In --all, classify the SOURCE file so the verdict can gate on the
+      # must-resolve set only and report advisory leaf-body links separately.
+      local cls_suffix=""
+      if [ "$SCOPE" = all ]; then
+        if is_nav_file "$file"; then
+          MUST_DANGLING=$((MUST_DANGLING + 1)); cls_suffix=" [must-resolve]"
+        else
+          ADVISORY_DANGLING=$((ADVISORY_DANGLING + 1)); cls_suffix=" [advisory]"
+        fi
+      fi
       if [ "$status" = 2 ]; then
-        echo "  DANGLING $rel_referrer -> $target (exists on disk but git-untracked; would not be committed)"
+        echo "  DANGLING $rel_referrer -> $target$cls_suffix (exists on disk but git-untracked; would not be committed)"
       else
-        echo "  DANGLING $rel_referrer -> $target (no such committed file)"
+        echo "  DANGLING $rel_referrer -> $target$cls_suffix (no such committed file)"
       fi
     fi
   done < <(extract_targets "$file")
@@ -360,6 +402,32 @@ esac
 
 # --- verdict -----------------------------------------------------------------
 echo "----------------------------------------------------------------"
+if [ "$SCOPE" = all ]; then
+  # Classified verdict: gate ONLY on the must-resolve navigation/index/source-table
+  # set; report the advisory leaf-section-body danglers as a separate informational
+  # count. This is what keeps the standing --all scan's red signal actionable — it
+  # goes red for genuine navigation breakage, not for the ~166 upstream-verbatim
+  # leaf-body links that dangle every cycle by construction.
+  if [ "$ADVISORY_DANGLING" -gt 0 ]; then
+    echo "library-link-check: advisory — $ADVISORY_DANGLING dangling link(s) in verbatim"
+    echo "leaf section bodies (upstream-verbatim; not the library's to resolve). Informational"
+    echo "only; these do not affect the exit status."
+  fi
+  if [ "$MUST_DANGLING" -gt 0 ]; then
+    echo "library-link-check: FAIL — $MUST_DANGLING must-resolve dangling link(s) on"
+    echo "navigation/index/source-table surfaces; see the [must-resolve] DANGLING lines above."
+    echo "Write the missing target file (commonly an omitted kind:index parent), or correct"
+    echo "the navigation/index/source-table row, then re-run."
+    exit 1
+  fi
+  if [ "$ADVISORY_DANGLING" -gt 0 ]; then
+    echo "library-link-check: OK — every must-resolve navigation/index/source-table link resolves."
+  else
+    echo "library-link-check: OK — every checked link resolves to a committed file."
+  fi
+  exit 0
+fi
+
 if [ "$DANGLING" -gt 0 ]; then
   echo "library-link-check: FAIL — $DANGLING dangling link(s); see DANGLING lines above."
   echo "An ingest with a dangling section-table / README (index) row must not be"
