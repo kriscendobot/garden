@@ -92,3 +92,9 @@ A `garden-issue-inbox` deterministic watcher + journal config (`config/garden-re
 set, with bootstrap/init scripts) + the issue-note job/message model with deadmail routing + the
 defer-to-submitter-close etiquette + a design doc capturing the decisions + tests + CLAUDE.md
 bring-up docs. The sender-trust gate is mandatory and proven by tests.
+
+---
+claim:
+  host: endolinbot
+  gardener: 14
+  claimed_at: 2026-06-27T17:43:48Z
