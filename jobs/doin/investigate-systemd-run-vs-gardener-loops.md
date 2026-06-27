@@ -53,3 +53,9 @@ suggestion. Do not change the live fleet model; the PR is the proposal.
 A researched comparison of `systemd-run`-based fleet models vs. the fixed 100-loop pool (grounded
 in how systemd-run works + measured costs), with a recommendation and migration analysis, opened
 as a draft garden design PR for maintainer review. Report the PR number and the recommendation.
+
+---
+claim:
+  host: endolinbot
+  gardener: 48
+  claimed_at: 2026-06-27T10:21:51Z
