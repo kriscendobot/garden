@@ -101,6 +101,13 @@ die()  { log "FATAL: $*"; exit 1; }
 
 killswitch_engaged() { [ -e "$GARDEN_KILLSWITCH" ]; }
 
+# --- deterministic weekly token meter (the foreman back-off signal) -----------
+# Sourced AFTER log/GARDEN_STATE so its helpers (meter_record, meter_window_total,
+# meter_quota_status, meter_claude) can use them. See usage-meter.sh for the design
+# and the documented choice of usage source.
+# shellcheck source=usage-meter.sh
+source "$(dirname "${BASH_SOURCE[0]}")/usage-meter.sh"
+
 # --- hard-dependency guard (the silent-jq-outage fix) ------------------------
 #
 # A missing external binary must NEVER hide as silent empty output. On

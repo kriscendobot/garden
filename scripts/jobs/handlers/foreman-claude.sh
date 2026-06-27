@@ -90,4 +90,11 @@ command -v claude >/dev/null 2>&1 || die "claude not on PATH; cannot run foreman
 # the default permission gate would deny every tool call. Bypass is the intended
 # fleet posture (operator pre-consents via skipDangerousModePermissionPrompt in
 # ~/.claude). Requires running as non-root.
-claude -p --dangerously-skip-permissions "$prompt"
+#
+# meter_claude (common.sh) is a drop-in for `claude -p`: it records this call's
+# billable token usage into the host-local weekly ledger — the same signal the
+# foreman gates on before pumping — then prints the model's result text (the
+# JOB/MAINTAINER block) on stdout exactly as a bare `claude -p` would. This handler
+# is the reference adopter of the meter; other `claude -p` fleet callers should
+# adopt meter_claude likewise so the weekly ledger reflects total garden spend.
+meter_claude --dangerously-skip-permissions "$prompt"

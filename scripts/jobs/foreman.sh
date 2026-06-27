@@ -53,6 +53,16 @@ GARDEN_TAG="foreman"
 : "${GARDEN_FOREMAN_IDLE_SETTLE:=240}"
 : "${GARDEN_FOREMAN_PROJECT:=endo-but-for-bots}"
 
+# Token-quota back-off knobs (defaults declared in usage-meter.sh; restated here so
+# the foreman's tunables read together). The foreman pumps spend autonomously, so
+# it is the right place to gate on the garden's weekly token budget:
+#   GARDEN_TOKEN_WEEKLY_QUOTA     weekly token ceiling; 0/unset = meter OFF (no gating).
+#   GARDEN_TOKEN_BACKOFF_FRACTION high-water mark as a fraction of quota (default 0.85).
+#   GARDEN_TOKEN_WINDOW_SECS      rolling window in seconds (default 604800 = 7 days).
+#   GARDEN_USAGE_LEDGER           host-local rolling token ledger path.
+# At/over the high-water mark the foreman pumps NOTHING this tick and emits at most
+# one throttled maintainer note; a broken/unreadable meter fails OPEN (pumps, warns).
+
 killswitch_engaged && exit 0
 
 DIR="${GARDEN_FOREMAN_CLONE:-$GARDEN_STATE/foreman/journal}"
@@ -99,6 +109,26 @@ elapsed=$(( NOW - since ))
 if [ "$elapsed" -lt "$GARDEN_FOREMAN_IDLE_SETTLE" ]; then
   exit 0   # idle but within the settle window; do nothing
 fi
+
+# --- token-quota back-off (deterministic; gates BOTH pump paths) --------------
+# The board is idle and past the settle window, so this tick WOULD pump — either
+# by promoting a deferred plan job or by generating a new step via `claude -p`.
+# Both ignite spend, so check the weekly token meter (plain code, no LLM) FIRST.
+# At/over the high-water mark, pump nothing this tick; surface a single throttled
+# note so the pause is visible but not spammy. A broken/unset meter fails open.
+case "$(meter_quota_status)" in
+  backoff)
+    note_once "token-backoff" "foreman: garden weekly token usage is at/over the ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark of the ${GARDEN_TOKEN_WEEKLY_QUOTA}-token quota (rolling ${GARDEN_TOKEN_WINDOW_SECS}s window). Pausing the autonomous pump until usage falls back under the mark."
+    log "token quota high-water reached; backing off (no pump this tick)"
+    exit 0
+    ;;
+  unknown)
+    # Quota configured but the meter could not be read. Never wedge the pump on a
+    # broken meter — proceed, but warn so the meter gap is visible.
+    log "WARN: token-quota meter unreadable though a quota is set; pumping unmetered (fail-open)"
+    ;;
+  off|ok) : ;;   # no quota configured, or under the mark — pump as normal
+esac
 
 # --- sustained idle: prefer promoting a deferred plan job --------------------
 # Before generating a NEW step (a `claude -p` call), prefer promoting the top

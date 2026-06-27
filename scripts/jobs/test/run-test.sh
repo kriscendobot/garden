@@ -654,6 +654,58 @@ run_fm 2600     # 300s ≥ 240 → pump; stub proposes the same base as last pos
   || bad "anti-flap (todo=$(fcount jobs/todo) maint=$(fcount inbox/maintainer/unread))"
 
 # ============================================================================
+hr; echo "SUBTEST 14b — FOREMAN TOKEN QUOTA: deterministic weekly back-off"; hr
+# The foreman gates BOTH pump paths on a deterministic, no-LLM weekly token meter.
+# Reuses the foreman origin (FBARE) but a FRESH GARDEN_STATE per case so each case
+# starts with a clean settle clock and a clean usage ledger.
+export GARDEN_HOST=fmqhost
+run_fmq() {  # run_fmq <now-epoch> <weekly-quota> <state-dir>
+  : > "$FCALLS"
+  env GARDEN_STATE="$3" JOURNAL_REMOTE="$FBARE" \
+      GARDEN_FOREMAN_HANDLER="$HERE/foreman-stub.sh" GARDEN_FOREMAN_STUB_CALLS="$FCALLS" \
+      GARDEN_FOREMAN_NOW="$1" GARDEN_USAGE_NOW="$1" GARDEN_FOREMAN_IDLE_SETTLE=240 \
+      GARDEN_TOKEN_WEEKLY_QUOTA="$2" \
+      "$JOBS/foreman.sh" >/dev/null 2>&1
+}
+# (1) UNDER quota → pumps as today. quota=1000, high-water=850; window total=500.
+SA="$TR/state-fmq-under"
+fboard @CLEAR
+mkdir -p "$SA/usage"; printf '%s\t%s\n' 5000 500 > "$SA/usage/ledger"
+run_fmq 5000 1000 "$SA"   # first idle observation: start the clock
+run_fmq 5300 1000 "$SA"   # 300s ≥ 240 settle, under high-water → pump
+{ [ -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 1 ]; } \
+  && ok "under quota: foreman pumps as normal (handler ran, one job posted)" \
+  || bad "under-quota pump (calls=$(wc -l <"$FCALLS") todo=$(fcount jobs/todo))"
+
+# (2) AT/OVER quota → promotes nothing, runs NO handler; ONE throttled note.
+SB="$TR/state-fmq-over"
+fboard @CLEAR
+mkdir -p "$SB/usage"; { printf '%s\t%s\n' 5000 500; printf '%s\t%s\n' 5001 400; } > "$SB/usage/ledger"  # total 900 ≥ 850
+run_fmq 6000 1000 "$SB"   # first idle observation: start the clock
+run_fmq 6300 1000 "$SB"   # sustained idle, but over high-water → back off
+M1="$(fcount inbox/maintainer/unread)"
+{ [ ! -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 0 ] && [ "$M1" -ge 1 ]; } \
+  && ok "over quota: no handler call, nothing posted, back-off note sent" \
+  || bad "over-quota back-off (calls=$(wc -l <"$FCALLS") todo=$(fcount jobs/todo) maint=$M1)"
+run_fmq 6600 1000 "$SB"   # still over quota, still sustained → must NOT re-note
+M2="$(fcount inbox/maintainer/unread)"
+{ [ ! -s "$FCALLS" ] && [ "$M2" -eq "$M1" ]; } \
+  && ok "over quota: back-off note throttled (no duplicate across ticks)" \
+  || bad "back-off note not throttled (M1=$M1 M2=$M2 calls=$(wc -l <"$FCALLS"))"
+
+# (3) BROKEN/UNREADABLE meter with a quota set → FAIL OPEN (pump, with warning).
+# A directory at the ledger path makes the read fail (→ status 'unknown').
+SC="$TR/state-fmq-broken"
+fboard @CLEAR
+mkdir -p "$SC/usage/ledger"   # ledger path is a directory → unreadable
+run_fmq 7000 1000 "$SC"   # first idle observation: start the clock
+run_fmq 7300 1000 "$SC"   # sustained idle, meter unreadable → fail open → pump
+{ [ -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 1 ]; } \
+  && ok "broken meter: fails open (handler ran, one job posted) despite quota set" \
+  || bad "broken-meter fail-open (calls=$(wc -l <"$FCALLS") todo=$(fcount jobs/todo))"
+fboard @CLEAR
+
+# ============================================================================
 hr; echo "SUBTEST 15 — PROXY: stand in for the absent maintainer on gating questions"; hr
 export GARDEN_STATE="$TR/state-proxy" GARDEN_HOST=pxhost
 PXCALLS="$TR/proxy-calls"; : > "$PXCALLS"
