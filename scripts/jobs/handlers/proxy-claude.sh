@@ -53,9 +53,9 @@ answer_question() {  # answer_question <msgid> <doer> <reply-text>
   repf="$(mktemp)"
   {
     printf 'proxy answered a gating question (tentative — review and override):\n'
-    printf '- gardener: %s\n' "$doer"
-    printf '- question (msgid %s)\n' "$msgid"
-    printf '- tentative answer: %s\n' "$reply"
+    printf -- '- gardener: %s\n' "$doer"
+    printf -- '- question (msgid %s)\n' "$msgid"
+    printf -- '- tentative answer: %s\n' "$reply"
   } > "$repf"
   GARDEN_SENDER="proxy" "$HERE/../inbox-send.sh" maintainer "$repf"
   rm -f "$rf" "$repf"
