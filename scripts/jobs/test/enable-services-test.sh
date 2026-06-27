@@ -31,6 +31,24 @@ export GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh"
 export GARDEN_MOCK_STATE="$TR/armed" GARDEN_MOCK_LOG="$TR/log"
 reset_mock() { : > "$GARDEN_MOCK_STATE"; : > "$GARDEN_MOCK_LOG"; }
 
+# Sandbox $DEST (~/.config/systemd/user) into the throwaway tree. prune_retired
+# enumerates and `rm`s files under $DEST, so this MUST point at a sandbox or a
+# test run would delete the host's real units. install-units.sh derives
+# DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user".
+export XDG_CONFIG_HOME="$TR/config"
+DEST="$XDG_CONFIG_HOME/systemd/user"
+# Render the current SRC unit set into the sandbox DEST (what `install` produces),
+# plus any extra ORPHAN basenames passed as args (units with no source in $SRC —
+# the retired-unit case prune_retired must clean up).
+populate_dest() {
+  rm -rf "$DEST"; mkdir -p "$DEST"
+  local f extra
+  for f in "$SRC"/garden-*.service "$SRC"/garden-*.timer; do
+    [ -e "$f" ] && cp "$f" "$DEST/$(basename "$f")"
+  done
+  for extra in "$@"; do : > "$DEST/$extra"; done
+}
+
 # ============================================================================
 hr; echo "STATIC — the script parses (bash -n)"; hr
 bash -n "$INSTALL" && ok "install-units.sh parses" || bad "install-units.sh has a syntax error"
@@ -39,6 +57,7 @@ bash -n "$HERE/mock-systemctl.sh" && ok "mock-systemctl.sh parses" || bad "mock-
 # ============================================================================
 hr; echo "ENABLE — derived set covers all intended timers + standalone services"; hr
 reset_mock
+populate_dest
 "$INSTALL" enable-services >/dev/null 2>&1
 
 # Build the EXPECTED set independently of the script: every non-template
@@ -85,13 +104,40 @@ grep -q mention-watcher "$GARDEN_MOCK_STATE" \
   || ok "garden-mention-watcher NOT auto-enabled (left for maintainer to arm)"
 
 # ============================================================================
-hr; echo "RETIRE — the bulletin's old oneshot timer is disabled"; hr
-grep -q 'disable --now garden-bulletin.timer' "$GARDEN_MOCK_LOG" \
-  && ok "retired garden-bulletin.timer disabled on enable" || bad "garden-bulletin.timer not retired"
+hr; echo "RETIRE — a unit deleted from scripts/systemd/ is self-reconcilingly pruned"; hr
+# The deterministic replacement for the hand-maintained RETIRED_UNITS list: an
+# installed garden-* unit with NO source under $SRC is stopped, disabled, and its
+# rendered file removed — no name needs listing. Regression for the 2026-06-27
+# garden-deploy-sync crash loop (a retired unit lingered enabled on a deployed
+# host until a reactive agent appended its name).
+reset_mock
+# DEST = full SRC set + three orphans whose source we no longer ship.
+ORPHANS=(garden-deploy-sync.timer garden-deploy-sync.service garden-bulletin.timer)
+populate_dest "${ORPHANS[@]}"
+# Arm the orphans in the mock so a `disable --now` is observable in the log.
+printf '%s\n' "${ORPHANS[@]}" >> "$GARDEN_MOCK_STATE"
+"$INSTALL" enable-services >/dev/null 2>&1
+for u in "${ORPHANS[@]}"; do
+  if [ ! -e "$DEST/$u" ] && grep -q "disable --now $u" "$GARDEN_MOCK_LOG"; then
+    ok "$u pruned (file removed + disabled) — no name in RETIRED_UNITS needed"
+  else
+    bad "$u NOT pruned (file present: $([ -e "$DEST/$u" ] && echo yes || echo no); disable logged: $(grep -q "disable --now $u" "$GARDEN_MOCK_LOG" && echo yes || echo no))"
+  fi
+done
+# A unit that STILL has a source must survive the prune (no false-positive).
+[ -e "$DEST/garden-foreman.timer" ] \
+  && ok "garden-foreman.timer kept (source still ships)" || bad "garden-foreman.timer wrongly pruned"
+# A template file must NEVER be pruned (its source IS the @.service/@.timer).
+[ -e "$DEST/garden-gardener@.service" ] \
+  && ok "garden-gardener@.service kept (template, never pruned)" || bad "template garden-gardener@.service wrongly pruned"
+# The monitoring-gated, excluded unit must survive even though it ships a source.
+[ -e "$DEST/garden-mention-watcher.service" ] \
+  && ok "garden-mention-watcher.service kept (excluded + sourced)" || bad "garden-mention-watcher.service wrongly pruned"
 
 # ============================================================================
 hr; echo "VERIFY — drift check passes when enabled, fails when a unit drops"; hr
 reset_mock
+populate_dest
 "$INSTALL" enable-services >/dev/null 2>&1
 set +e
 "$INSTALL" enable-services --verify >/dev/null 2>&1; vrc=$?

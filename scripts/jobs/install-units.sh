@@ -49,16 +49,19 @@ EXCLUDED_UNITS=(
   garden-mention-watcher.service
 )
 
-# Retired units a previously-installed host may still have enabled. The install
-# step disables them so they don't linger. The bulletin migrated from an
-# oneshot+timer to a long-running Restart= service; its old timer is retired.
-# garden-deploy-sync (the continuous fast-forward + restart reconciler) is retired
-# entirely: the root checkout is now advanced ONLY by the deliberate, drained
-# deploy-garden.sh (designs/deliberate-deploy.md), never by a continuous ff.
+# Belt-and-suspenders list of unit names that must NEVER come back, even if a
+# stray source file reappears under $SRC. This is NOT the primary retirement
+# mechanism — prune_retired (below) self-reconciles by removing ANY installed
+# garden-* unit whose source no longer exists in $SRC, so deleting a unit from
+# scripts/systemd/ is sufficient to retire it; no name needs to be listed here.
+# Keep an entry ONLY for a name that should stay dead regardless of $SRC (a unit
+# we want pruned even if someone re-adds its source by mistake). The historical
+# retirees — the bulletin's old oneshot timer (migrated to a long-running
+# Restart= service) and garden-deploy-sync (the continuous fast-forward + restart
+# reconciler, replaced by the deliberate drained deploy-garden.sh,
+# designs/deliberate-deploy.md) — no longer ship a source, so prune_retired
+# already removes them; they need no entry and the list is now empty by default.
 RETIRED_UNITS=(
-  garden-bulletin.timer
-  garden-deploy-sync.timer
-  garden-deploy-sync.service
 )
 
 is_excluded() {
@@ -97,6 +100,51 @@ intended_units() {
   done
 }
 
+# Self-reconciling retirement. Enumerate the garden-* unit files actually
+# installed in $DEST and stop+disable+rm any whose source no longer exists under
+# $SRC, then daemon-reload. This is the deterministic replacement for a
+# hand-maintained by-name retired list: DELETING a unit from scripts/systemd/ is
+# now sufficient to retire it. A stale-enabled unit on an already-deployed host
+# (the garden-deploy-sync crash loop, 2026-06-27) is removed automatically on the
+# next install/enable, instead of crash-looping until a human notices and an
+# agent appends its name.
+#
+# Skips, by the SAME rules intended_units uses:
+#   * template files/instances (basename contains '@'): a template's source IS
+#     the @.service/@.timer file, and an enabled instance (garden-gardener@7) has
+#     no own source — neither must be pruned.
+#   * EXCLUDED_UNITS (monitoring-gated): these ship a source under $SRC anyway, so
+#     the source check already keeps them; the skip is belt-and-suspenders.
+# A unit named in RETIRED_UNITS is pruned UNCONDITIONALLY (even if a stray source
+# reappears) — the explicit never-come-back list.
+prune_retired() {
+  local f b pruned=() u
+  # Belt-and-suspenders: names that must stay dead regardless of $SRC.
+  for u in "${RETIRED_UNITS[@]}"; do
+    if [ -e "$DEST/$u" ] || [ "$(unit_ctl is-enabled "$u" 2>/dev/null || true)" = enabled ]; then
+      unit_ctl disable --now "$u" 2>/dev/null || true
+      rm -f "$DEST/$u"
+      pruned+=("$u")
+    fi
+  done
+  # Self-reconcile: any installed garden-* unit with no source in $SRC is retired.
+  for f in "$DEST"/garden-*.service "$DEST"/garden-*.timer; do
+    [ -e "$f" ] || continue
+    b="$(basename "$f")"
+    case "$b" in *@*) continue;; esac          # template file/instance → never pruned
+    is_excluded "$b" && continue
+    [ -e "$SRC/$b" ] && continue                # still has a source → keep
+    case " ${pruned[*]} " in *" $b "*) continue;; esac   # already pruned above
+    unit_ctl disable --now "$b" 2>/dev/null || true
+    rm -f "$DEST/$b"
+    pruned+=("$b")
+  done
+  unit_ctl daemon-reload
+  if [ "${#pruned[@]}" -gt 0 ]; then
+    log "pruned ${#pruned[@]} retired unit(s) (no source in $SRC): ${pruned[*]}"
+  fi
+}
+
 render() {
   mkdir -p "$DEST"
   # Globs every garden-*.{service,timer}, including the instance templates
@@ -107,7 +155,10 @@ render() {
     [ -e "$f" ] || continue
     sed "s#@GARDEN_ROOT@#$GARDEN_ROOT#g" "$f" > "$DEST/$(basename "$f")"
   done
-  unit_ctl daemon-reload
+  # Retire any installed unit whose source we just stopped shipping, then reload
+  # (prune_retired does its own daemon-reload, so the rendered files and the
+  # removals both take effect in one reload).
+  prune_retired
   log "installed units into $DEST and reloaded"
 }
 
@@ -142,20 +193,14 @@ scale() {
 }
 
 enable_services() {
-  local u retired=0
-  # Retire units a prior install may have left enabled+active. `disable --now`
-  # stops + un-enables, but the RENDERED unit file lingers in $DEST, so a retired
-  # unit can still be re-triggered (a stale garden-deploy-sync.timer kept firing
-  # its missing deploy-sync.sh into an rc-127 loop, 2026-06-27). Remove the
-  # rendered files too and daemon-reload so systemd forgets the unit entirely.
-  for u in "${RETIRED_UNITS[@]}"; do
-    unit_ctl disable --now "$u" 2>/dev/null || true
-    if [ -e "$DEST/$u" ]; then rm -f "$DEST/$u"; retired=$((retired+1)); fi
-  done
-  if [ "$retired" -gt 0 ]; then
-    unit_ctl daemon-reload 2>/dev/null || true
-    log "retired $retired stale unit file(s) from $DEST and reloaded"
-  fi
+  local u
+  # Self-reconciling retirement: stop+disable+rm any installed garden-* unit whose
+  # source no longer ships under $SRC (plus the explicit RETIRED_UNITS list), then
+  # daemon-reload so systemd forgets it entirely. This is what keeps a stale-enabled
+  # retiree from being re-triggered (a stale garden-deploy-sync.timer kept firing
+  # its missing deploy-sync.sh into an rc-127 crash loop, 2026-06-27) — and it needs
+  # no by-name list: deleting a unit from scripts/systemd/ is sufficient to retire it.
+  prune_retired
   # Enable every intended (derived) unit. --now starts it immediately too.
   local enabled=()
   while read -r u; do
