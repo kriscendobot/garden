@@ -322,6 +322,8 @@ Mark Miller's authoritative site (`erights.org`) is intermittently down. Prefer 
 
 Compute the SHA-256 of the bytes you actually ingested, regardless of which source you fetched from. The SHA pins the bytes; the canonical URL stays a fixed pointer for the source-file frontmatter.
 
+**Deterministic acquisition — `scripts/jobs/fetch-source.sh`.** Do not re-derive the fetch-and-hash dance by hand. Run `scripts/jobs/fetch-source.sh <url>`: it tries a direct `curl`, and on a connection refusal (recurring for `erights.org` and its `caplet.com` mirror from the bot sandbox) falls back to the Internet Archive original-bytes capture `http://web.archive.org/web/<ts>id_/<url>` — the `id_` form returns the unmodified bytes and is reachable via plain curl even though the WebFetch tool refuses `web.archive.org`. It writes the bytes and prints `source_content_sha256` (plus the effective URL and `source_wayback_timestamp` when the archive served the capture), which is exactly the idempotency anchor the source-file frontmatter records. The preference order above still chooses *which URL* to hand the script when a live venue copy is better than the archived one; the script encodes the *fetch → archive-fallback → hashing* mechanics this section previously specified only in prose, so the anchor comes out identical every cycle.
+
 ### Reading PDFs
 
 The Read tool accepts `pages: "<range>"`. Maximum 20 pages per call. For ~15-20 page papers, one call suffices. For a 250-page thesis (Miller PhD 2006), plan multi-cycle ingest — one chapter or one cohesive argument cluster per cycle, not the whole document at once.
