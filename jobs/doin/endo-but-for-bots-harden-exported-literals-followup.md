@@ -25,3 +25,9 @@ On promotion: dispatch a builder (or designer first if repo-wide) to open a new
 DRAFT PR on endojs/endo-but-for-bots with the agreed scope, then run the gamut.
 The authorization to open the cross-repo PR is carried by erights's directive
 above.
+
+---
+claim:
+  host: endolinbot
+  gardener: 46
+  claimed_at: 2026-06-27T12:48:15Z
