@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:06:37Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T05:07:06Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,7 +10,7 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The endo-but-for-bots [#96](https://github.com/endojs/endo-but-for-bots/pull/96) review follow-up landed: the fix addressed all three of kriskowal's inline asks, but TS (`ts`/`mts`/`cts`) classification is wired through the override mechanism only — not the production default language maps — to protect the 12-known-failures invariant. A liaison message is parked asking kriskowal to confirm whether default (rather than override-only) TS classification was intended; that would be a follow-up before the PR is final. On the infrastructure side, a cluster of gardener-reliability jobs is in flight to treat offline/transient-connectivity conditions as tempfail-and-requeue rather than hard failures across `journal_fetch`/`sync_clone`, the gardener failure-capture path, and self-heal. One anomaly needs eyes: the `comment-watcher/kriskowal-garden` watcher has reported zero comments for 20 consecutive ticks despite real activity in kriskowal/garden since 2026-06-25 — the same signature as the 2026-06-24 comms outage, so jq/gh on endolinbot and the comment-source handler are worth checking.
+Work on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) landed: the review-followup addressed all three of kriskowal's inline asks and shipped the accompanying design doc, but the fix deliberately left `ts/mts/cts` out of the default language maps in `node-modules.js` (no TS parser ships by default, and adding them risked the 12-known-failures invariant) — TS classification works only through the override mechanism the test exercises. The liaison has asked the maintainer to confirm whether default TS classification was intended or override-only is acceptable before the PR is final. Two infrastructure alarms also warrant a look: the watchman reports main2 on **endolinbot is wedged** — uncommitted tracked edits to `scripts/jobs/gardener.sh` and `scripts/jobs/self-heal-run.sh` are blocking the fast-forward, so this host won't pick up new roles/skills/scripts until the tree is cleaned; and the comment-watcher for kriskowal/garden has gone 20 ticks finding zero comments despite live activity, matching the 2026-06-24 silent-outage signature. A cluster of reliability jobs is in flight to harden the gardener and self-heal loops against offline/transient-connectivity false failures.
 
 ## Parked for maintainer feedback
 
@@ -35,6 +35,21 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - `20260627T045929Z-eb7490` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T045929Z-eb7490.md)
 
 > ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 20 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
+
+- `20260627T050652Z-664d4d` — from watchman, reply_to `watchman-dirty-tree` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T050652Z-664d4d.md)
+
+> watchman: main2 on host endolinbot is WEDGED — this host's deploy is frozen.
+>
+> origin/main2 has advanced to 1d94c7895f24763d49bd80d45248d7bb8e79083b but the live tree is stuck at beede51e900bf95309ed5d43baaa66b9a03bcc56: tracked working-tree changes block the fast-forward.
+> Until the tree is clean this host will NOT pick up new roles/skills/scripts.
+>
+> Tracked changes blocking the fast-forward:
+> ```
+>  M scripts/jobs/gardener.sh
+>  M scripts/jobs/self-heal-run.sh
+> ```
+>
+> Verify these are not unsaved work, then clean the tree (checkout/stash) so the watchman can deploy.
 
 
 ## Board
