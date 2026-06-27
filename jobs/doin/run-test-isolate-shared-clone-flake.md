@@ -34,3 +34,9 @@ Scope:
 
 Deliverable: run-test.sh runs green on a busy host. Note any subtest that cannot be
 made hermetic without a deeper change and leave it as a tracked follow-on.
+
+---
+claim:
+  host: endolinbot
+  gardener: 18
+  claimed_at: 2026-06-27T05:31:36Z
