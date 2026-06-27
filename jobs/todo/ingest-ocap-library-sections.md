@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: producer
-posted_at: 2026-06-25T21:17:55Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-27T08:09:34Z -->
 
 # PLAN: scholar — ingest sources for six missing ocap library sections
 
