@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: normal
-posted_by: producer
-posted_at: 2026-06-25T23:13:02Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-06-27T07:29:28Z -->
 
 # PLAN (follow-on): add a retention-paths table to the formula inspector
 
