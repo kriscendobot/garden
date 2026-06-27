@@ -418,6 +418,94 @@ Comment fragments are denser per byte than design docs but typically shorter per
 
 If a longform comment makes a claim the surrounding code does not honor (drift between comment and code), the scholar should *notice* during ingest, investigate against the rest of the codebase, and if a real divergence is found draft a boatman missive proposing whichever direction is right (update the comment to match the code, or update the code to match the comment). Comment-vs-code drift is one of the highest-payoff upstream-contribution classes for this corpus, since the maintainer values comment accuracy.
 
+## Sources from the web
+
+The library absorbs canonical web pages — external documentation, vendor reference, historical ocap essays — as a fourth source kind alongside repo documents, external papers, and longform comments. The first batch was the cloud-marketplace / TLS / signed-update reference set ingested 2026-06-11 for the gateway packaging milestone; the equality-taxonomy batch (`web--miller-equality-*`, `web--miller-grant-matcher-*`, ingested 2026-06-27) carries the fullest form of the contract because its canonical host was unreachable and it was captured from the Internet Archive. This section documents the schema, the slug convention, the content-hash idempotency anchor, and the Internet-Archive `id_` acquisition recipe — derived from those existing web sources so the written schema matches current practice.
+
+### When it is appropriate
+
+Ingest a web page when it is the **canonical source-of-truth** for material the corpus needs and there is no repo file or published paper to ingest instead: vendor documentation (AWS/Azure/GCP marketplace policy, Let's Encrypt ACME, TUF), historical ocap essays that exist only as web pages (Mark Miller's `erights.org` equality taxonomy), and similar. A web page is mutable in principle, so pin the bytes you actually ingested (see the idempotency anchor below) rather than trusting the live URL to be stable.
+
+### Slug pattern
+
+```
+web--<short-title-dashed>
+```
+
+The `web--` prefix mirrors the `papers--` and `<owner>--` slug disciplines and groups generic web sources in `library/sources/` listings. Examples:
+
+- `web--miller-equality-object-sameness`
+- `web--aws-marketplace-ami-requirements`
+- `web--lets-encrypt-acme-challenges`
+
+A page that is part of a **named thematic cluster** rather than a one-off reference may take a thematic prefix instead of `web--` (e.g. `kriskowal-com--giants` for the `web-essay` kind, `ocap-history--e-capdesk-polaris` for the `web-survey` kind), the way papers group under `papers--`. Reserve the bare `web--` prefix for generic single-page reference ingests; use a thematic prefix only when a coherent multi-source cluster justifies its own namespace.
+
+### Source-file frontmatter (web schema)
+
+Repo sources use `source_repo` / `source_path` / `source_commit`; papers use `source_pdf_sha256`. Web sources use a URL plus a content hash:
+
+```yaml
+---
+source_kind: web                         # the discriminant: web vs repo vs paper vs comment-fragment
+source_url: <canonical URL>              # the live, canonical page URL — a fixed pointer even if you fetched a snapshot
+source_snapshot: <Internet-Archive id_ URL>  # the exact bytes-capture you ingested; present when fetched from an archive (see recipe below)
+source_content_sha256: <full 64-char SHA-256> # idempotency anchor over the bytes you actually ingested — replaces source_commit
+source_authors: [<name>, ...]           # primary authors of the page
+source_date: <YYYY-MM-DD>               # the page's own publication / last-modified date; era approximation for undated pages
+source_mirror_url: <URL>                 # optional; an alternate host, recorded when one exists
+retrieved: <YYYY-MM-DD>                 # the date the bytes were fetched (distinct from `ingested`)
+ingested: <YYYY-MM-DD>
+ingested_by: <role>
+section_count: <integer>
+status: current
+notes: <provenance one-liner; see below>
+---
+```
+
+`source_kind: web` discriminates the schema variant. Two thematic-cluster variants are in use — `source_kind: web-essay` (a single authored essay; `source_author` singular) and `source_kind: web-survey` (a page synthesized from several already-ingested sources) — sharing the same `source_url` / `source_date` backbone; they are not new top-level kinds so much as labelled web sources. Prefer plain `web` unless the page is genuinely an essay or a synthesized survey.
+
+When the page was **fetched live** and reachable (e.g. the 2026-06-11 marketplace batch), `source_url` + `source_date` carry the provenance and `source_snapshot` may be omitted. When the page was **captured from an archive** because the canonical host was unreachable (the 2026-06-27 `erights.org` batch — that host is documented as intermittently down in § PDF acquisition guidance), record both `source_snapshot` and `source_content_sha256`, and say so in `notes:` (which host was unreachable, that the bytes came from the `id_` capture, and that the idempotency anchor is the content hash, not a git SHA). For undated pages, set `source_date` to an era approximation and note it.
+
+### Section-file frontmatter (web schema)
+
+Section files filed under a web source inherit the source schema; `source` is dropped in favour of `source_url` (web pages have no repo-relative path). The section frontmatter:
+
+```yaml
+---
+title: <section heading>
+source_kind: web
+source_url: <canonical URL>
+source_content_sha256: <full sha256>
+source_authors: [<name>, ...]
+source_date: <YYYY-MM-DD>
+ingested: <YYYY-MM-DD>
+ingested_by: <role>
+topics: [<topic-slug>, ...]
+status: current
+---
+```
+
+### Idempotency anchor
+
+`source_content_sha256` replaces `source_commit` as the anchor for the idempotency check; web pages have no `git log` history to read. Compute it over the exact bytes you ingested (the `id_` capture's body, or the live response body), regardless of which host you fetched from — the canonical `source_url` stays a fixed pointer in frontmatter while the hash pins the bytes. On a later cycle, re-fetch the same `source_snapshot` (Internet-Archive captures are immutable, so the hash is stable) and compare; a mismatch means the page changed and warrants re-ingest. The check is degenerate for archive-pinned pages, exactly as it is for papers.
+
+### Internet-Archive `id_` acquisition recipe
+
+When the canonical host is unreachable, fetch the page's **original bytes** from the Internet Archive Wayback Machine using the `id_` ("identity") modifier on the timestamp:
+
+```
+http://web.archive.org/web/<timestamp>id_/<original URL>
+```
+
+The `id_` suffix tells the Wayback Machine to return the *original captured bytes unmodified* — no link rewriting, no injected toolbar, no banner — which is what makes the resulting `source_content_sha256` a stable, reproducible anchor. (Without `id_`, the Wayback Machine rewrites the response and the hash drifts between fetches.) The `<timestamp>` may be a partial date (a bare year such as `2020`) which the Wayback Machine resolves to the nearest capture. Worked example from the equality batch:
+
+```
+source_url:      https://erights.org/elib/equality/same-object.html
+source_snapshot: http://web.archive.org/web/2020id_/http://www.erights.org/elib/equality/same-object.html
+```
+
+Record the resolved snapshot URL (as returned, with the concrete timestamp the Archive redirected to, when you can capture it) in `source_snapshot`, hash the fetched body into `source_content_sha256`, and keep the live canonical page in `source_url`.
+
 ## Concepts and the keyword index
 
 A third indexing axis exists next to `sources/` (by provenance) and `topics/` (by broad subject taxonomy): the **keyword index** (`keywords.md`) and the **concept directory** (`concepts/<id>.md`). The keyword index is a grep-friendly map from a domain term or phrase (a code symbol, a proper name, a domain phrase) to a concept-id; each concept page is a short lookup target containing a one-paragraph definition + a table of section files that touch the concept (with one-line summaries) + a `See also` list of adjacent concepts.
