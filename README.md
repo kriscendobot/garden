@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T17:09:01Z_
+_As of 2026-06-27T17:11:20Z_
 
 ## Latest
 
-Several infra fixes landed on main2: a deploy-sync reconciler (5d6490e62) now fast-forwards the live checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — though it's inert until the next units refresh arms its timer, and the live `/home/kris` tree is currently dirty-wedged on a redundant uncommitted edit to `report-error.sh` that blocks both it and the watchman (a lossless `git checkout --` unwedges it). Also merged: the foreman now meters weekly token spend from Claude Code session logs rather than the API, and the proxy auto-clears watchdog-class maintainer messages. On the library side, the scholar ingested MetaMask's ocap-kernel host-app guide (the sixth ocap-kernel ingest) plus a six-topic distributed-ocap concept cluster, and a lint sweep confirmed endo master is clean (only 5 non-failing jsdoc warnings, parked as a low plan).
+The deploy-sync reconciler landed on main2 (5d6490e62): it now fast-forwards the checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — but it stays inert until the next units refresh arms `garden-deploy-sync.timer`. Heads-up: the live `/home/kris` tree is dirty-wedged on a redundant, byte-identical edit to `report-error.sh`, which blocks both the watchman and deploy-sync from advancing (the checkout is 6 behind); a lossless `git checkout --` of that one file unwedges it. The watchman-class auto-clear (proxy auto-clear of watchdog messages) and the mentor "treat journalctl no-entries as empty" fix also landed, and a tracked-tree wedge on endolinbot was resolved.
 
-Maintainer decisions are stacking up in the inbox. The [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up — authorized by erights — is gated on you choosing breadth (narrow two-export vs repo-wide) and base branch (`llm` vs `master`) before a builder/designer dispatches. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), still open and stalled since 2026-05-21 on the rebase-and-gamut you requested (4 failing checks); a gardener offers to take that rebase as a separate job. The ymax0/XS overflow investigation concluded the crash is an XS native-stack-depth property, not an Endo regression — the real fix is contract-side depth-bounding in agoric-sdk territory, which is off-limits to autonomous action, so both that and sourcing a v320 swing-store export need your direction. Finally, the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction and create a workspace cycle).
+Several decisions are now owed to you. The harden-exported-function-literals follow-up to the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two choices — narrow (two evasive-transform exports) vs repo-wide, and base branch `llm` vs `master` (the literal form differs between them) — before any DRAFT PR opens. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since May 21 awaiting the rebase-and-gamut you already requested (currently 4 failing checks); a gardener offers to take that as its own job on your word. The beta3/ymax0 XS investigation surfaced two ymax0/agoric-sdk calls that are yours and out of bounds for autonomous action — sourcing a v320 swing-store export, and whether to file an upstream-Endo note (the investigation concluded the overflow is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding). Separately, endo master lint is fully clean — the only findings are five non-blocking jsdoc warnings parked as a low-priority plan — and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reusing the only API-exact powers would invert the extraction and create a workspace cycle).
 
 ## Parked for maintainer feedback
 
@@ -165,16 +165,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-mentor-treat-journalctl-no-entries-as-empty`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mentor-treat-journalctl-no-entries-as-empty.md) — In scripts/jobs/mentor.sh, after computing jlog from journalctl --user -u 'ga...
+### doin (0)
+(none)
 
-### tada (374)
+### tada (376)
+- [`resolve-wedge-endolinbot-00693cdbd594-238966609725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-00693cdbd594-238966609725.md) — The wedge is resolved. The tree is now clean of tracked changes — the only bl...
+- [`improve-mentor-treat-journalctl-no-entries-as-empty`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-treat-journalctl-no-entries-as-empty.md) — Completion report
 - [`scholar-library-cycle-20260627-165512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-165512.md) — Completion report: scholar-library-cycle-20260627-165512
 - [`proxy-auto-clear-watchdog-messages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/proxy-auto-clear-watchdog-messages.md) — Completion report
 - [`design-endo-absorb-pi-harness-layers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-endo-absorb-pi-harness-layers.md) — Completion report — design-endo-absorb-pi-harness-layers
-- [`foreman-meter-from-claude-code-session-logs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-meter-from-claude-code-session-logs.md) — Completion report: foreman-meter-from-claude-code-session-logs
-- [`investigate-beta3-ymax0-xs-repro-and-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-beta3-ymax0-xs-repro-and-fix.md) — Completion report — investigate-beta3-ymax0-xs-repro-and-fix
-- … and 369 more
+- … and 371 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
