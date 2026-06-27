@@ -20,3 +20,9 @@ source has advanced past the recorded `file-commit`.
 Re-ingest / reconcile this source (refresh its section files, then update the
 recorded file-commit in library/sources/README.md and the slug file). Low
 priority: this is a freshness refresh, not a correctness gate.
+
+---
+claim:
+  host: endolinbot
+  gardener: 21
+  claimed_at: 2026-06-27T20:17:42Z
