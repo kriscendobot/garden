@@ -56,3 +56,9 @@ scripts/jobs/test/ that asserts both scripts, given an inline non-file body arg
 with stdin redirected from /dev/null, exit promptly (non-zero usage error or a
 clean post) and NEVER block, and that `journal-entry.sh --help` exits 0 without
 posting.
+
+---
+claim:
+  host: endolinbot
+  gardener: 22
+  claimed_at: 2026-06-27T12:18:02Z
