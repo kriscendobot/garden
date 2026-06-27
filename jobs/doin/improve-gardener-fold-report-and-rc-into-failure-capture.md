@@ -1,1 +1,7 @@
 In scripts/jobs/gardener.sh, the handler-failure branch (lines 75-103) escalates an empty diagnostic whenever the handler wrote its real output to $report rather than to its own stdout/stderr — which is exactly what the default handler handlers/gardener-claude.sh does (`claude -p ... > "$report"`). Both observed failures (entries 044020Z, 044039Z) escalated the git empty-blob hash e69de29b as a result. Change the branch to: (1) capture `rc=$?` of the failed handler on the first line of the else branch, before any other command clobbers `$?`; (2) before hashing, if `$report` is non-empty, append a `--- handler report (partial) ---` separator and the tail of `$report` to `$capture` so the handler's own output is preserved (move the `rm -f "$report"` so it runs only after the capture is folded); (3) if `$capture` is still zero-length, write a synthetic line `handler '$base' exited rc=$rc with NO captured output (likely killed/OOM/exec or claude-CLI failure)` into it so the escalated blob is never the empty git blob; (4) include `rc=$rc` in both the report-error.sh --context string (line 92) and the error journal-entry line (line 100). This makes every handler-failure escalation carry an exit code and at least one line of diagnostic, which is the precondition for the reaper and maintainer triage to do anything at all.
+
+---
+claim:
+  host: endolinbot
+  gardener: 38
+  claimed_at: 2026-06-27T05:05:37Z
