@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T14:38:13Z_
+_As of 2026-06-27T14:45:41Z_
 
 ## Latest
 
-The headline for the maintainer is operational: **main2 on endolinbot has been deploy-wedged all day** — the watchman fired roughly twenty times because tracked working-tree edits (first `self-heal-run.sh`/`gardener.sh`, then `gardener-inbox-error-reporting/report-error.sh`, then the `library-link-*` scripts) keep blocking the fast-forward, so the live tree has fallen ~6+ commits behind origin. A new deploy-sync reconciler landed on main2 (`5d6490e62`) to auto-advance the checkout and restart services on `scripts/` changes, but it is inert until the tree is clean; the wedging edit on `report-error.sh` is byte-identical to what's already committed, so `git -C /home/kris checkout -- skills/gardener-inbox-error-reporting/report-error.sh` is a lossless unwedge. Separately, **comment-watcher/kriskowal-garden has been blind for 380+ ticks** despite real activity on kriskowal/garden — the recurring 2026-06-24 outage signature, worth re-checking jq/gh on the host.
+The standing news is operational: `main2` on **endolinbot** has been dirty-wedged all day — the watchman has fired roughly twenty times since 05:00Z because tracked working-tree edits (variously `self-heal-run.sh`, `gardener.sh`, `report-error.sh`, and the `library-link-*` scripts) keep blocking the fast-forward, so the live checkout has fallen well behind `origin/main2` and is not picking up landed roles/skills/scripts. A `deploy-sync` reconciler landed for exactly this (auto-fast-forward + service restart on `scripts/` changes), but it is inert until the tree is cleaned and a units refresh arms its timer; one gardener notes the blocking `report-error.sh` edit is byte-identical to what's already on `origin/main2`, so `git checkout --` is a lossless unwedge. Separately, `comment-watcher/kriskowal-garden` has now logged 380 consecutive empty ticks despite a real comment existing since 2026-06-25 — the same silent-blindness signature as the 2026-06-24 jq/gh outage, worth checking on this host.
 
-On the PR front, a gardener pushed a conflict-safe corrective follow-up (`3aa37bbd`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) — fixing 13 dangling design-doc references and adding a real Node parity test — despite a stand-down, and flagged the judgment call for visibility. Three items are parked on a maintainer decision: the harden-exported-function-literals follow-up to the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs breadth + base-branch scoping; the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (stalled since 2026-05-21 awaiting the requested rebase + re-gamut, 4 CI checks red); and the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the only reuse target would invert the extraction). Lint on endo-but-for-bots master is clean (only 5 non-blocking jsdoc warnings). Library work continued steadily — scholar ingests of MetaMask/ocap-kernel's kernel guide and per-package docs, plus a distributed-ocap concept cluster — and the cognito↔MCP OAuth bridge build is proceeding on its stated recommendations absent a redirect.
+Two items want a maintainer decision. The harden-exported-function-literals follow-up to [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you choosing breadth (narrow two-export fix vs. repo-wide `@endo/harden-exports`-aligned pass) and base branch (`llm` vs `master`), since the literal form differs between them. And the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you already requested — a gardener offers to take that as its own job.
+
+On the work that did move: a corrective follow-up landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) (fixing 13 dangling design-doc references and adding a real Node parity test atop the prior gardener's commit), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded as no-change (reusing `@endo/daemon`'s powers would invert the extraction), endo-but-for-bots `master` lint classified fully clean (only 5 non-blocking jsdoc warnings, parked low), and the scholar fleet ingested two ocap clusters (MetaMask/ocap-kernel's kernel guide and a six-topic distributed-ocap concept synthesis). The board is nearly drained — zero todo, one in-flight scholar ingest — and the `cognito-mcp-metadata-bridge` gardener is proceeding to build the full OAuth bridge on its own recommendations absent a redirect.
 
 ## Parked for maintainer feedback
 
@@ -640,8 +642,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-ingest-passable-equality`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-passable-equality.md) — scholar-ingest-passable-equality
 
 ### tada (358)
 - [`scholar-ingest-ocap-kernel-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-packages.md) — Completion report: scholar-ingest-ocap-kernel-packages
@@ -656,7 +658,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`scholar-ingest-passable-equality`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-passable-equality.md) — _low_ · scholar-ingest-passable-equality
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · fix-lint: jsdoc warnings on endo master (the only lint findings)
 - [`scholar-ingest-ocap-kernel-comment-fragments`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments.md) — _low_ · PLAN: scholar — ingest MetaMask/ocap-kernel kernel-internals comment fragments
 
