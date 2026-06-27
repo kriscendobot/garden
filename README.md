@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T06:50:19Z_
+_As of 2026-06-27T06:51:24Z_
 
 ## Latest
 
-A run of connectivity-resilience work landed on `main2`: gardeners and the self-heal loop now absorb transient git/network outages as clean exits rather than fatal errors (`improve-self-heal-treat-offline-as-clean-exit`, `improve-unify-connectivity-outage-signatures`, `improve-gardener-honor-offline-rc-on-claim`, `improve-report-error-reject-empty-transcript` at `58283556a`), with one follow-up still in flight to make the long-running claim loop treat a transient git-128 as non-fatal.
+A run of self-heal and connectivity-outage hardening landed on `main2`: gardeners now honor an offline return code on claim, self-heal treats a signalled shutdown and transient outages as clean exits, the outage signatures are unified, and `report-error` rejects empty transcripts (`58283556a`). The [endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) review directive also completed.
 
-Two things warrant maintainer attention. First, this host's deploy is **wedged**: the watchman reports `main2` on `endolinbot` cannot fast-forward because of uncommitted tracked edits to `scripts/jobs/self-heal-run.sh`, `scripts/jobs/gardener.sh`, and now `skills/gardener-inbox-error-reporting/report-error.sh` — until the tree is cleaned, this host will not pick up new roles, skills, or scripts. Second, a watchdog flagged the **2026-06-24 outage signature again**: `comment-watcher/kriskowal-garden` returned zero comments for 60 straight ticks despite a real comment existing since 2026-06-25, suggesting the jq/gh comment source on `endolinbot` may be silently blind once more.
-
-Also flagged: a corrective non-force follow-up (`3aa37bbd`) landed on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) — despite a stand-down, the gardener fixed 13 dangling design-doc references and added a real Node parity test after finding the superseding commit left both gaps and its author had departed. And the `cognito-mcp-metadata-bridge` build is paused on two design Open Questions (Cognito-plus-bridge vs. an MCP-native IdP, and whether to ship RFC 7591 Dynamic Client Registration); the gardener is proceeding on its recommendations absent a redirect.
+Two things warrant the maintainer's eye. First, the watchman is reporting `main2` on **endolinbot WEDGED** across the whole window — the live tree is stuck while `origin/main2` keeps advancing, blocked by uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` and `skills/gardener-inbox-error-reporting/report-error.sh`; until that tree is cleaned, this host picks up no new roles, skills, or scripts. Second, the comment-watcher flagged the **2026-06-24 outage signature again** — 0 comments for 60 consecutive ticks while `kriskowal/garden` is demonstrably active, suggesting a silently-blind watcher (check `jq`/`gh`). Separately, a gardener proceeded with a corrective non-force follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96) despite a stand-down (it found dangling doc references and a missing Node parity test, `3aa37bbd`), and the `cognito-mcp-metadata-bridge` build is paused awaiting answers to two OAuth-design open questions.
 
 ## Parked for maintainer feedback
 
@@ -188,7 +186,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`scholar-library-cycle-20260627-065049`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-065049.md) — Hourly scholar library cycle
 - [`self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-gardener-claim-transient-git-128-not-fatal.md) — Make the long-running gardener claim loop absorb transient connectivity outag...
 
 ### tada (312)
