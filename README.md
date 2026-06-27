@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T16:41:23Z_
+_As of 2026-06-27T16:46:42Z_
 
 ## Latest
 
-The comment-watcher's false "human inactivity" anomaly was removed in favor of a positive self-test, and the fleet draining killswitch was renamed to a self-describing draining marker — both landed on `main2`. A **deploy-sync reconciler** (`5d6490e62`) also landed: it fast-forwards the live checkout and restarts long-running services when `scripts/` changes, so future fixes reach running workers without manual restarts. Notably, that pipeline is currently jammed — the live `/home/kris` tree is dirty-wedged on a redundant, byte-identical uncommitted edit to `skills/gardener-inbox-error-reporting/report-error.sh`, which makes both the watchman and deploy-sync skip the advance (now ~6 commits behind). This is why the comment-watcher kept firing the old inactivity anomaly all afternoon: the fix is on `main2` but the running unit hasn't picked it up. A lossless `git checkout -- skills/gardener-inbox-error-reporting/report-error.sh` unwedges it.
+Two jobs landed since the last bulletin: the foreman now meters weekly token spend from Claude Code session logs (Max x20 plan) rather than the API, and the beta3 ymax0 XS investigation is complete. A deploy-sync reconciler also landed on main2 — it fast-forwards the checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without manual intervention; note that it is inert until a routine `install-units.sh` refresh arms its timer, and the live `/home/kris` tree is currently dirty-wedged on a redundant uncommitted edit to `report-error.sh` (byte-identical to origin), which blocks both the watchman and deploy-sync fast-forward until a lossless `git checkout --` clears it.
 
-Two scope decisions are owed to the maintainer. First, the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up (erights-authorized, #474 now merged) is gated on two answers — narrow (two evasive-transform exports) vs. repo-wide, and base branch `llm` vs. `master`. Second, the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since May 21 awaiting the rebase-and-gamut you already requested (4 failing checks); a gardener offered to take that on as a separate job if you say the word.
+Two items need a maintainer decision. The "harden exported function literals" follow-up from erights's review on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you scoping it: narrow (the two evasive-transform exports) vs repo-wide, and base branch `llm` vs `master` — on your answer a builder or designer→builder opens the DRAFT. Separately, the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 on your "please rebase and run the gamut again" ask and still carries 4 failing checks; the gardener can take that rebase-and-gamut as its own job on your word.
 
-On the quieter side: endo master lint is clean (only 5 non-blocking jsdoc warnings, plan parked); scholars ingested MetaMask/ocap-kernel's kernel guide plus a six-topic distributed-ocap concept cluster; and two new plans await your go-ahead — cross-host weekly token aggregation for the foreman, and service host-roles (singletons on the main host only).
+Lower-signal: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the only API-exact match would invert the extraction and create a workspace cycle), endo master lint is clean save 5 jsdoc warnings (a low-priority cleanup plan is parked), and the scholar ingested the MetaMask ocap-kernel guide plus a distributed-ocap concept cluster. Finally, the comment-watcher fired ~15 "silently blind" anomaly messages across the day — the exact false-positive the just-landed `comment-watcher-no-inactivity-anomaly` fix removes, so they should stop once the deploy-sync wedge clears and the units refresh.
 
 ## Parked for maintainer feedback
 
@@ -208,17 +208,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`foreman-meter-from-claude-code-session-logs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/foreman-meter-from-claude-code-session-logs.md) — Foreman token meter: re-point at Claude Code session logs (Max x20 subscripti...
-- [`investigate-beta3-ymax0-xs-repro-and-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-beta3-ymax0-xs-repro-and-fix.md) — beta3 ymax0 stack-overflow: build the fork on this host and run the XS repro ...
+### doin (1)
+- [`design-endo-absorb-pi-harness-layers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-endo-absorb-pi-harness-layers.md) — Design: should Endo's agent harness absorb layers of the Pi agent harness? (c...
 
-### tada (369)
+### tada (371)
+- [`foreman-meter-from-claude-code-session-logs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/foreman-meter-from-claude-code-session-logs.md) — Completion report: foreman-meter-from-claude-code-session-logs
+- [`investigate-beta3-ymax0-xs-repro-and-fix`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-beta3-ymax0-xs-repro-and-fix.md) — Completion report — investigate-beta3-ymax0-xs-repro-and-fix
 - [`comment-watcher-no-inactivity-anomaly`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-inactivity-anomaly.md) — Completion report — comment-watcher-no-inactivity-anomaly
 - [`rename-killswitch-to-draining-marker`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/rename-killswitch-to-draining-marker.md) — Completion report — rename-killswitch-to-draining-marker
 - [`land-journal-entry-hardening`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/land-journal-entry-hardening.md) — The job is already fully landed. No code changes were needed.
-- [`investigate-beta3-ymax0-portfolio-upgrade-stack-overflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-beta3-ymax0-portfolio-upgrade-stack-overflow.md) — Completion report — investigate-beta3-ymax0-portfolio-upgrade-stack-overflow
-- [`scholar-library-cycle-20260627-155443`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-155443.md) — I should not call complete-job.sh myself — the gardener wrapper completes the...
-- … and 364 more
+- … and 366 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
