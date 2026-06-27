@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: low
-roadmap: daemon-cas
-posted_by: gardener-58
-posted_at: 2026-06-26T07:31:11Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-06-27T12:33:08Z -->
 
 # Revisit: reusable file/crypto powers for the @endo/daemon-cas tests
 
