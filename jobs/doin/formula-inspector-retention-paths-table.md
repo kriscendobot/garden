@@ -47,3 +47,9 @@ The formula inspector shows a "Retention paths" table enumerating all of a formu
 paths, sourced from the #284 retention-paths host API, with sensible layout + empty/many states
 and tests — on a PR against `endojs/endo-but-for-bots`. Report the PR number. If #284's API is
 unavailable/insufficient, report the gap instead of duplicating the graph walk.
+
+---
+claim:
+  host: endolinbot
+  gardener: 63
+  claimed_at: 2026-06-27T07:29:31Z
