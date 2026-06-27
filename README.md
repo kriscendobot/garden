@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T16:46:42Z_
+_As of 2026-06-27T16:48:37Z_
 
 ## Latest
 
-Two jobs landed since the last bulletin: the foreman now meters weekly token spend from Claude Code session logs (Max x20 plan) rather than the API, and the beta3 ymax0 XS investigation is complete. A deploy-sync reconciler also landed on main2 — it fast-forwards the checkout and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without manual intervention; note that it is inert until a routine `install-units.sh` refresh arms its timer, and the live `/home/kris` tree is currently dirty-wedged on a redundant uncommitted edit to `report-error.sh` (byte-identical to origin), which blocks both the watchman and deploy-sync fast-forward until a lossless `git checkout --` clears it.
+Landed on `main2`: the foreman now meters weekly token spend from Claude Code session logs (Max x20) rather than the API, and a deploy-sync reconciler that fast-forwards the checkout and restarts long-running services when `scripts/` changes — though it's inert until a routine `install-units.sh` refresh arms its timer, and the live `/home/kris` tree is currently dirty-wedged on a redundant byte-identical edit to `report-error.sh`, blocking both deploy-sync and the watchman from advancing (lossless `git checkout --` unwedges it). The comment-watcher dropped its false "inactivity = blind" alert in favor of a positive self-test, and the fleet killswitch was renamed to a plain draining marker.
 
-Two items need a maintainer decision. The "harden exported function literals" follow-up from erights's review on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you scoping it: narrow (the two evasive-transform exports) vs repo-wide, and base branch `llm` vs `master` — on your answer a builder or designer→builder opens the DRAFT. Separately, the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 on your "please rebase and run the gamut again" ask and still carries 4 failing checks; the gardener can take that rebase-and-gamut as its own job on your word.
-
-Lower-signal: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the only API-exact match would invert the extraction and create a workspace cycle), endo master lint is clean save 5 jsdoc warnings (a low-priority cleanup plan is parked), and the scholar ingested the MetaMask ocap-kernel guide plus a distributed-ocap concept cluster. Finally, the comment-watcher fired ~15 "silently blind" anomaly messages across the day — the exact false-positive the just-landed `comment-watcher-no-inactivity-anomaly` fix removes, so they should stop once the deploy-sync wedge clears and the units refresh.
+Three decisions are now parked for you. The harden-exported-function-literals follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (merged) needs you to set breadth (narrow two exports vs. repo-wide via the `@endo/harden-exports` rule) and base branch before any PR opens. The formula-inspector retention-paths table is blocked on a stalled, CI-red host-API PR (#284) that's been awaiting your requested rebase-and-gamut since 2026-05-21. And the beta3/ymax0 XS investigation concluded the nested-record overflow is an XS native-stack-depth property, not an Endo regression — the real fix is contract-side depth-bounding and needs a v320 swing-store export, both in off-limits agoric-sdk territory. On the library side, the scholar ingested MetaMask/ocap-kernel's kernel guide and landed a distributed-ocap concept cluster (three-party-handoff, sturdyref, distributed-confinement, eventual-send), and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the daemon-cas extraction).
 
 ## Parked for maintainer feedback
 
@@ -25,21 +23,6 @@ Lower-signal: the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260627T070019Z-cf49fc` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T070019Z-cf49fc.md)
-
-> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 100 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
-- `20260627T071028Z-d3cf33` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T071028Z-d3cf33.md)
-
-> self-heal: garden-gardener exited rc=1 with no scoped fix. Capture: aa06bfa333e088a3ceb27279e19eeb3e822b0fb5 (git -C /home/kris/.garden-state/self-heal/journal cat-file -p aa06bfa333e088a3ceb27279e19eeb3e822b0fb5). Diagnosis: ## Diagnosis
->
-> **No fix job to post — the code fix already landed and a deploy job for the recurrence is already in flight.**
->
-> The failure signature is `FATAL: claim failed (rc=128)` → exit 1 → systemd restart. The crash came with **no preceding claim log** (no "offline", no "fetch failed", no "lost claim race"), meaning `claim-job.sh` died under `set -euo pipefail` on an unguarded git op during the claim's `sync_clone` — a transient connectivity/DNS blip surfacing as a raw git 128. The old `gardener.sh` loop treated any non-0/non-3 claim rc as a hard `die`, so a self-resolving network blip crash-looped the worker.
->
-> That is **already fixed on `origin/main2`**. The running unit at `/home/kris` is **4 commits behind** `origin/main2`, and exactly those 4 commits are the fix chain:
-> - `5
 
 - `20260627T072235Z-b12c9f` — from gardener:improve-deploy-sync-fleet-onto-landed-fixes, reply_to `improve-deploy-sync-fleet-onto-landed-fixes` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T072235Z-b12c9f.md)
 
@@ -86,10 +69,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Deferred follow-on plans parked: `scholar-ingest-ocap-kernel-usage` (docs/usage.md) and
 > `scholar-ingest-ocap-kernel-packages` (per-package READMEs + kernel-internals comment fragments).
 
-- `20260627T080041Z-e5e019` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T080041Z-e5e019.md)
-
-> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 140 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
 - `20260627T082148Z-6fd4ed` — from gardener:ingest-ocap-library-sections, reply_to `ingest-ocap-library-sections` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T082148Z-6fd4ed.md)
 
 > Scholar ingest — six ocap library sections (job ingest-ocap-library-sections, gardener 93):
@@ -106,18 +85,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Topic whose source I could not locate: grant matching (erights.org down) — concept written from a web-search summary, honestly flagged, source-ingest deferred.
 
-- `20260627T090109Z-b8fee9` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T090109Z-b8fee9.md)
-
-> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 180 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
-- `20260627T100134Z-2f9b1a` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T100134Z-2f9b1a.md)
-
-> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 220 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
-- `20260627T110207Z-3896f2` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T110207Z-3896f2.md)
-
-> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 260 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
 - `20260627T120202Z-99ffce` — from gardener:classify-lint-endo-master, reply_to `classify-lint-endo-master` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T120202Z-99ffce.md)
 
 > Lint classification — endo master (endo-but-for-bots master @364d69ba1).
@@ -131,10 +98,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > Posted ONE deferred/low plan covering both: `fix-lint-jsdoc-warnings-endo-master` (consolidated rather than two near-empty per-rule plans, since both are tiny jsdoc warnings). Promote it if you want the warnings cleared.
 >
 > Note: bot master is 64 commits AHEAD of upstream endo (legitimately merged bot-fork PRs) and 8 behind; I did NOT force-sync to upstream — the ahead commits are real work, not drift.
-
-- `20260627T120229Z-1abe89` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T120229Z-1abe89.md)
-
-> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 300 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
 
 - `20260627T123905Z-ee2b02` — from gardener:endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers, reply_to `endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T123905Z-ee2b02.md)
 
@@ -187,21 +150,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > cross-repo PR is already carried by erights's directive; only breadth + base are
 > owed.
 
-- `20260627T130256Z-0f8641` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T130256Z-0f8641.md)
+- `20260627T164806Z-1db40f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T164806Z-1db40f.md)
 
-> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 340 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
-- `20260627T140312Z-ac103b` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T140312Z-ac103b.md)
-
-> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 380 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
-- `20260627T150334Z-79820a` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T150334Z-79820a.md)
-
-> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 420 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
-
-- `20260627T160416Z-edee59` — from watchdog:comment-watcher/kriskowal-garden, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T160416Z-edee59.md)
-
-> ANOMALY: comment-watcher/kriskowal-garden found 0 comments for 452 consecutive ticks, but kriskowal/garden IS active (a comment exists since 2026-06-25T20:56:24Z). The watcher may be silently blind — check jq/gh on endolinbot and the comment-source handler. This is the 2026-06-24 outage signature.
+> Report investigate-beta3-ymax0-xs-repro-and-fix raised two decisions that are yours, both touching ymax0/agoric-sdk territory (out of bounds for autonomous garden action):
+>
+> 1. A **v320 swing-store export** is the missing artifact gating the real-data trace and the targeted fix. Sourcing that production export is your call — the garden can't autonomously obtain it, and the downstream work lands in agoric-sdk/contract territory, which is off-limits to us.
+>
+> 2. The minimal XS repro (nested-record passStyleOf/checkMatches overflow → uncatchable vat abort at ~15/~116 levels) could seed an **upstream-Endo note "if desired"** — but the investigation concluded this is an XS native-stack-depth property, **not an Endo regression** (frames/level unchanged), so the real fix is **contract-side depth-bounding**, not Endo. Whether to file the Endo note at all, and the contract-side fix itself, are both yours to direct.
+>
+> Tell me if you want either turned into a job (e.g. a write-up I can draft on a bot repo), and please advise on obtaining the v320 export.
 
 
 ## Board
