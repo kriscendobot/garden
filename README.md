@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-27T17:52:56Z_
+_As of 2026-06-27T17:56:02Z_
 
 ## Latest
 
-Board movement was light: an attention-and-rebase directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was claimed and is now in flight. The substance is in the maintainer inbox, where several items now wait on your call. The **harden-exported-function-literals** follow-up to merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated purely on two decisions — breadth (the two evasive-transform exports vs. a repo-wide pass aligned with the `@endo/harden-exports` rule) and base branch (`llm` vs. `master`); erights already authorized the PR, so a builder or designer→builder dispatch fires on your answer. A `formula-inspector` retention-paths table is **blocked** on the stalled host-API PR #284 (the rebase-and-re-gamut you asked for on 2026-05-21 never happened; it sits at 22/26 green) — landing it unblocks the table, and the gardener offered to take that rebase as a separate job. The **deploy-sync reconciler** landed on main2 (5d6490e62) but is inert until a routine units refresh arms its timer; note the live `/home/kris` tree is dirty-wedged on a redundant, byte-identical edit to `report-error.sh` that a lossless checkout clears (watchman territory). Separately, the ymax0/XS investigation surfaced two agoric-sdk-adjacent decisions (sourcing a v320 swing-store export; whether to file an upstream-Endo note) flagged as out-of-bounds for autonomous action. On the library side, scholar ingests continued — MetaMask/ocap-kernel's kernel guide, a distributed-ocap concept cluster, and a re-ingest of the erights E-language page now that the GitHub Pages mirror is reachable.
+The big mover is [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405): the comment-watcher misclassified kriskowal's feature directive (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) as a "rebase" — that no-op job was closed out, the real cross-package directive is now an open attention item awaiting a liaison-driven builder dispatch through the gamut, and a garden-infra fix for the misrouting classifier is in flight.
+
+Two scope decisions are owed before work can proceed: the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up needs a breadth call (narrow two-export vs. repo-wide) plus a base branch (`llm` vs. `master`, which changes the diff shape since the literals are function declarations on `llm` but arrow consts post-merge), and the `formula-inspector-retention-paths-table` plan is blocked until the stalled `listRetentionPaths` host API (#284, still open and CI-red on `llm`) lands the rebase-and-gamut you already requested.
+
+On infra, the deploy-sync reconciler landed on main2 (5d6490e62) — it fast-forwards the checkout and restarts services when `scripts/` changes — but the live `/home/kris` tree is dirty-wedged on a byte-identical redundant edit to `report-error.sh`, leaving the deploy 6 commits behind until a lossless `git checkout --` clears it. Scholar ingested the now-reachable erights GitHub Pages mirror, MetaMask's ocap-kernel host guide, and a six-topic distributed-ocap concept cluster. Separately, the ymax0/XS-abort investigation surfaced two out-of-bounds calls (sourcing a v320 swing-store export; whether to file an upstream-Endo note) that the liaison flagged as yours to direct.
 
 ## Parked for maintainer feedback
 
@@ -158,24 +162,48 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Tell me if you want either turned into a job (e.g. a write-up I can draft on a bot repo), and please advise on obtaining the v320 export.
 
+- `20260627T175449Z-e9b439` — from gardener:endojs-endo-but-for-bots-pr405-rebase, reply_to `endojs-endo-but-for-bots-pr405-rebase` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T175449Z-e9b439.md)
+
+> Misrouted comment-watcher classification + a real maintainer directive on endojs/endo-but-for-bots PR #405.
+>
+> WHAT HAPPENED
+> - Job 'endojs-endo-but-for-bots-pr405-rebase' was created from kriskowal's comment on PR #405 and classified as "rebase".
+> - That classification is wrong. The comment is a feature-refinement directive, not a rebase. PR #405 is already MERGEABLE, so there is no rebase to perform. I did not run a no-op rebase.
+>
+> THE ACTUAL DIRECTIVE (kriskowal, https://github.com/endojs/endo-but-for-bots/pull/405#issuecomment-4819835663):
+> - Hide groups that are empty (e.g. Workers when there are no workers).
+> - Replace the current taxonomy (Handles / Hubs / Workers / Everything Else) with:
+>   - "Directories": directories, readable trees, mounts, scratch mounts
+>   - "Agents": guests
+>   - "Personas": hosts
+>   - "Values": marshal
+>   - "Capabilities": all others
+> - This is a cross-package change: packages/space-chat (inventory grouping), packages/chat (CSS + tests), packages/cli (endo list --grouped buckets + tests), packages/daemon (type annotation, if the new buckets need new types). The PR already implements the 4-group version and partial empty-group hiding via CSS; the ask reshapes the buckets and asks for full empty-group hiding.
+>
+> RECOMMENDATION
+> Route this as a fixer/builder directive on PR #405 through the gamut (researcher -> builder/fixer -> judge panel). The v2 fleet has no autonomous "implement a maintainer feature directive" path (garden-pr.sh is review/panel + fixer-loop only), so this needs a liaison-driven dispatch. endo-but-for-bots carries standing comment authorization, so the eventual fixer should also post a top-level summary comment.
+>
+> I am separately posting a garden-infra fix job for the classifier bug that misrouted this to "rebase".
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr405-de3edd06`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-de3edd06.md) — attention directive on endojs/endo-but-for-bots PR #405
-- [`endojs-endo-but-for-bots-pr405-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #405
+- [`garden-fix-comment-classifier-misroutes-directive-to-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-fix-comment-classifier-misroutes-directive-to-rebase.md) — garden-infra fix: comment-watcher fallback misroutes feature directives to a ...
 - [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
 - [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-mirror.md) — Re-ingest erights.org E-language page from the now-reachable GitHub Pages mirror
+- [`scholar-library-cycle-20260627-175523`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260627-175523.md) — Hourly scholar library cycle
 
-### tada (378)
+### tada (379)
+- [`endojs-endo-but-for-bots-pr405-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-rebase.md) — Both routes are in place. The misclassified "rebase" job has nothing real to ...
 - [`improve-gardener-transient-line-carries-reap-count`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-transient-line-carries-reap-count.md) — Completion report: improve-gardener-transient-line-carries-reap-count
 - [`scholar-erights-github-pages-mirror-source`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-erights-github-pages-mirror-source.md) — Completion report: scholar-erights-github-pages-mirror-source
 - [`resolve-wedge-endolinbot-00693cdbd594-238966609725`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resolve-wedge-endolinbot-00693cdbd594-238966609725.md) — The wedge is resolved. The tree is now clean of tracked changes — the only bl...
 - [`improve-mentor-treat-journalctl-no-entries-as-empty`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-treat-journalctl-no-entries-as-empty.md) — Completion report
-- [`scholar-library-cycle-20260627-165512`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-165512.md) — Completion report: scholar-library-cycle-20260627-165512
-- … and 373 more
+- … and 374 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
