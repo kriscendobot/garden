@@ -10,7 +10,7 @@
 # intent survives as new work.
 #
 # Each tick:
-#   1. killswitch check; sync a dedicated journal clone.
+#   1. draining check; sync a dedicated journal clone.
 #   2. for each dead-mail entry, POST a job (deterministic basename derived from the
 #      message id, so re-scans are idempotent) carrying the original message, its
 #      intended recipient <base>, and "the addressee had already completed; pick up
@@ -30,7 +30,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 GARDEN_TAG="deadmail"
 
-killswitch_engaged && exit 0
+fleet_draining && exit 0
 
 DIR="${GARDEN_DEADMAIL_CLONE:-$GARDEN_STATE/deadmail/journal}"
 ensure_clone "$DIR"

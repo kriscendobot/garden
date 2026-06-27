@@ -146,7 +146,7 @@ source_is_active() {  # source_is_active <repo> <since>
   [ "${n:-0}" -gt 0 ] 2>/dev/null
 }
 
-killswitch_engaged && { log "killswitch engaged; skipping"; exit 0; }
+fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 # slug is <owner>-<name>; owners in our set carry no dash, so split on the first.
 owner="${slug%%-*}"; name="${slug#*-}"

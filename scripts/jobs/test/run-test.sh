@@ -1575,5 +1575,43 @@ unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER
   || bad "self-heal did not normalize the sync_clone outage (rc=$rwrap calls=$(shcalls))"
 
 # ============================================================================
+hr; echo "SUBTEST 25 — DRAINING MARKER: fleet_draining predicate + drain-fleet helper"; hr
+# The fleet pauses gracefully when a host-local marker file EXISTS. The predicate
+# keys on existence only (empty or prose-filled), honors BOTH the new draining
+# marker and the deprecated legacy NOPE marker (compat), and is false when neither
+# is present. drain-fleet.sh on writes self-describing prose; off clears it.
+DRST="$TR/drain-state"; rm -rf "$DRST"; mkdir -p "$DRST"
+pred() {  # echo "yes"/"no" for fleet_draining under a given GARDEN_STATE
+  ( export GARDEN_STATE="$DRST"
+    source "$JOBS/common.sh" >/dev/null 2>&1
+    if fleet_draining; then echo yes; else echo no; fi )
+}
+# (a) neither marker → not draining
+rm -f "$DRST/draining" "$DRST/NOPE"
+[ "$(pred)" = "no" ] && ok "no marker → fleet_draining false" || bad "false-positive with no marker"
+# (b) empty new marker → draining (existence, not content)
+: > "$DRST/draining"
+[ "$(pred)" = "yes" ] && ok "empty draining marker → fleet_draining true (keys on existence)" || bad "empty marker not detected"
+rm -f "$DRST/draining"
+# (c) prose-filled new marker via the helper → draining, and the body is prose
+GARDEN_STATE="$DRST" GARDEN_HOST=drainhost "$JOBS/drain-fleet.sh" on "scheduled maintenance" >/dev/null 2>&1
+{ [ -s "$DRST/draining" ] && grep -qi "DRAINING" "$DRST/draining" \
+  && grep -qi "remove this file" "$DRST/draining" && grep -q "set_by: drainhost" "$DRST/draining"; } \
+  && ok "drain-fleet.sh on writes a self-describing prose body (what/who/how-to-clear)" || bad "helper did not write prose"
+[ "$(pred)" = "yes" ] && ok "prose-filled draining marker → fleet_draining true" || bad "prose marker not detected"
+# (d) helper off clears the new marker → not draining
+GARDEN_STATE="$DRST" "$JOBS/drain-fleet.sh" off >/dev/null 2>&1
+{ [ ! -e "$DRST/draining" ] && [ "$(pred)" = "no" ]; } && ok "drain-fleet.sh off removes the marker, fleet resumes" || bad "off did not clear the marker"
+# (e) legacy NOPE marker alone still drains (backward compatibility)
+: > "$DRST/NOPE"
+[ "$(pred)" = "yes" ] && ok "legacy NOPE marker → fleet_draining true (backward compat)" || bad "legacy marker not honored"
+rm -f "$DRST/NOPE"
+# (f) the deprecated killswitch_engaged alias still resolves to fleet_draining
+: > "$DRST/draining"
+alias_yes="$( export GARDEN_STATE="$DRST"; source "$JOBS/common.sh" >/dev/null 2>&1; if killswitch_engaged; then echo yes; else echo no; fi )"
+[ "$alias_yes" = "yes" ] && ok "deprecated killswitch_engaged alias still works" || bad "alias broke"
+rm -rf "$DRST"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

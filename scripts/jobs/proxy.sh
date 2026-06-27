@@ -9,7 +9,7 @@
 # blocks by posting to the maintainer inbox via message-user.sh (tagged
 # reply_to=<its-base>) while its OWN inbox stays live; that is a gating question.
 # Each tick:
-#   1. killswitch check; sync a dedicated journal clone.
+#   1. draining check; sync a dedicated journal clone.
 #   2. enumerate inbox/maintainer/unread/ and keep only the ELIGIBLE questions:
 #        - GATING:   has a reply_to whose doer inbox is still live (blocked,
 #                    awaiting a reply). A completion report from a finished doer
@@ -42,7 +42,7 @@ GARDEN_TAG="proxy"
 # present maintainer first crack. ~15m default; tune via env.
 : "${GARDEN_PROXY_GRACE:=900}"
 
-killswitch_engaged && exit 0
+fleet_draining && exit 0
 
 DIR="${GARDEN_PROXY_CLONE:-$GARDEN_STATE/proxy/journal}"
 ensure_clone "$DIR"

@@ -32,7 +32,7 @@ GARDEN_TAG="watchman"
 : "${GARDEN_AGGRESSIVE_CHECKOUT:=1}"
 : "${GARDEN_WATCH_HANDLER:=$HERE/handlers/watchman-claude.sh}"
 
-killswitch_engaged && { log "killswitch engaged; skipping"; exit 0; }
+fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>/dev/null || log "fetch of origin/$GARDEN_MAIN_BRANCH failed (offline?)"
 

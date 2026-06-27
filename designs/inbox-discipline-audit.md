@@ -76,7 +76,7 @@ clause was the real gap (Part B).
    (`deadmail-<id>`, a deterministic basename so re-scans are idempotent) carrying
    the original message, the intended recipient `<base>`, and "the addressee had
    already completed; pick up its intent," then retires the dead-letter. Honors
-   `killswitch_engaged`; quiet on success.
+   `fleet_draining` (the draining marker; was `killswitch_engaged`); quiet on success.
 3. **Registered** in `scripts/systemd/garden-deadmail.{service,timer}` and
    `install-units.sh` (`enable_services` + summary line).
 

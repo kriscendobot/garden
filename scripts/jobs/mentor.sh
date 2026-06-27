@@ -22,7 +22,7 @@ source "$HERE/common.sh"
 GARDEN_TAG="mentor"
 : "${GARDEN_MENTOR_HANDLER:=$HERE/handlers/mentor-claude.sh}"
 
-killswitch_engaged && exit 0
+fleet_draining && exit 0
 
 DIR="${GARDEN_MENTOR_CLONE:-$GARDEN_STATE/mentor/journal}"
 ensure_clone "$DIR"

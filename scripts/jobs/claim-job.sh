@@ -27,7 +27,7 @@ source "$HERE/common.sh"
 id="${1:?usage: claim-job.sh <gardener-id>}"
 GARDEN_TAG="claim/$id"
 
-killswitch_engaged && { log "killswitch engaged; refusing to claim"; exit 3; }
+fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 
 DIR="${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/gardeners/$id/journal}"
 ensure_clone "$DIR"

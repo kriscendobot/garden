@@ -72,7 +72,7 @@ GARDEN_TAG="mirror-closer"
 # I/O handlers guard gh/jq themselves; a test that overrides them needs neither.
 require_tools git
 
-killswitch_engaged && { log "killswitch engaged; skipping"; exit 0; }
+fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 DIR="${GARDEN_MIRROR_CLONE:-$GARDEN_STATE/mirror-closer/journal}"
 ensure_clone "$DIR"

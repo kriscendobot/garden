@@ -12,7 +12,7 @@
 # whatever accumulated. The loop IS the watcher; no separate watcher unit exists.
 #
 # Each iteration:
-#   1. killswitch check; sync the bulletin journal clone.
+#   1. draining check; sync the bulletin journal clone.
 #   2. PUSH-GATE: read the durable cursor (the origin/journal2 SHA last reconciled
 #      from). If the synced head equals the cursor, NOTHING has been pushed to
 #      journal2 since the last reconcile — skip the entire tick (no compute, no
@@ -719,8 +719,8 @@ bulletin_tick() {
 
 iters=0
 while :; do
-  if killswitch_engaged; then
-    log "killswitch engaged; idling"
+  if fleet_draining; then
+    log "fleet draining; idling"
     [ "$GARDEN_BULLETIN_ONCE" = "1" ] && exit 0
     sleep "$GARDEN_BULLETIN_IDLE_SLEEP"; continue
   fi

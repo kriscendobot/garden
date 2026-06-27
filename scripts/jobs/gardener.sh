@@ -44,7 +44,7 @@ log "starting (clone=$CLONE handler=$GARDEN_JOB_HANDLER oneshot=$GARDEN_ONESHOT)
 
 idle_rounds=0
 while :; do
-  if killswitch_engaged; then log "killswitch engaged; exiting cleanly"; exit 0; fi
+  if fleet_draining; then log "fleet draining; exiting cleanly"; exit 0; fi
 
   # Top of the loop is a between-claims point: clear the busy marker so the deploy
   # reconciler may restart this gardener now (it re-exec's onto landed script

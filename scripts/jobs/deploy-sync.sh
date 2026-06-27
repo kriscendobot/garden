@@ -127,11 +127,11 @@ if [ "$scripts_changed" -ne 1 ]; then
   exit 0
 fi
 
-# Killswitch: the fleet is deliberately stopped. Advancing the tree is harmless,
-# but a restart would re-exec a worker that then exits-clean on the killswitch and
-# (with Restart=on-failure) stay DOWN, breaking the intended stop. Skip restarts.
-if killswitch_engaged; then
-  log "scripts/ changed but killswitch engaged; tree advanced, deferring service re-exec"
+# Draining: the fleet is deliberately paused. Advancing the tree is harmless,
+# but a restart would re-exec a worker that then exits-clean on the draining marker
+# and (with Restart=on-failure) stay DOWN, breaking the intended pause. Skip restarts.
+if fleet_draining; then
+  log "scripts/ changed but fleet draining; tree advanced, deferring service re-exec"
   exit 0
 fi
 

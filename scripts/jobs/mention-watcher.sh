@@ -58,7 +58,7 @@ GARDEN_TAG="mention-watcher"
 : "${GARDEN_MENTION_POST:=$HERE/post-job.sh}"
 : "${GARDEN_MENTION_VERIFY_CLONE:=$GARDEN_STATE/mention-watcher/verify}"
 
-killswitch_engaged && { log "killswitch engaged; skipping"; exit 0; }
+fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 VERIFY="$GARDEN_MENTION_VERIFY_CLONE"
 

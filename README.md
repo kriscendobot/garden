@@ -119,6 +119,22 @@ A healthy fleet shows `garden-gardener@1..N` all `active (running)`, no failed
 units, and the supervisory timers `waiting` with recent last-fire times. The
 per-host worker count and last update live in `journal/hosts/<host>`.
 
+### Pausing the fleet (draining)
+
+To pause a host's workers gracefully — they finish whatever they have already
+claimed but take no new work — drain the fleet:
+
+```sh
+scripts/jobs/drain-fleet.sh on  [reason]   # write the draining marker
+scripts/jobs/drain-fleet.sh off            # remove it; the fleet resumes
+scripts/jobs/drain-fleet.sh status         # is this host draining?
+```
+
+The marker is a host-local file (`$GARDEN_STATE/draining`) whose existence is the
+signal; `on` fills it with a short prose note explaining what it does and how to
+clear it, so anyone who finds the file understands it. (The deprecated legacy
+marker `$GARDEN_STATE/NOPE` is still honored for backward compatibility.)
+
 ### Changing the recurring-job schedule
 
 To add or change a recurring job (commonly a weekly task duplication), race a

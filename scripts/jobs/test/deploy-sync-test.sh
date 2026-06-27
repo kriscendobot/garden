@@ -132,14 +132,24 @@ run_deploy
 grep -q restart "$TR/log" && bad "restarted on a non-scripts change" || ok "no restart on a non-scripts change"
 
 # ============================================================================
-hr; echo "KILLSWITCH — scripts change advances the tree but defers all restarts"; hr
+hr; echo "DRAINING — scripts change advances the tree but defers all restarts"; hr
 setup_fixture
-: > "$TR/state/NOPE"
+: > "$TR/state/draining"
 origin_commit scripts/jobs/worker-lib.sh "echo new2" "fix: worker-lib 2"
 run_deploy
-[ "$(root_head)" = "$(git -C "$BARE" rev-parse main2)" ] && ok "tree advanced under killswitch" || bad "tree not advanced under killswitch"
-grep -q restart "$TR/log" && bad "restarted while killswitch engaged" || ok "no restart while killswitch engaged"
-grep -q "killswitch engaged" <<<"$OUT" && ok "killswitch deferral logged" || bad "killswitch deferral not logged"
+[ "$(root_head)" = "$(git -C "$BARE" rev-parse main2)" ] && ok "tree advanced while draining" || bad "tree not advanced while draining"
+grep -q restart "$TR/log" && bad "restarted while fleet draining" || ok "no restart while fleet draining"
+grep -q "fleet draining" <<<"$OUT" && ok "draining deferral logged" || bad "draining deferral not logged"
+
+# ============================================================================
+hr; echo "DRAINING (legacy) — the deprecated NOPE marker still defers restarts"; hr
+setup_fixture
+: > "$TR/state/NOPE"
+origin_commit scripts/jobs/worker-lib.sh "echo new3" "fix: worker-lib 3"
+run_deploy
+[ "$(root_head)" = "$(git -C "$BARE" rev-parse main2)" ] && ok "tree advanced under legacy marker" || bad "tree not advanced under legacy marker"
+grep -q restart "$TR/log" && bad "restarted while legacy marker set" || ok "no restart while legacy marker set (compat)"
+grep -q "fleet draining" <<<"$OUT" && ok "legacy marker honored by fleet_draining" || bad "legacy marker not honored"
 
 # ============================================================================
 hr; echo "DIRTY — tracked WIP in the tree blocks the fast-forward (skip-and-log)"; hr

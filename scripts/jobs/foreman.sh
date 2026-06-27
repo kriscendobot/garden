@@ -12,7 +12,7 @@
 # error; only the foreman's own failures surface.
 #
 # Each tick:
-#   1. killswitch check; sync a dedicated journal clone.
+#   1. draining check; sync a dedicated journal clone.
 #   2. IDLE DETECTION. The board is idle when jobs/todo/ AND jobs/doin/ are both
 #      empty (nothing queued, nothing in flight). The proxy posts follow-on jobs
 #      from completions, so the board stays busy until the milestone's work chain
@@ -63,7 +63,7 @@ GARDEN_TAG="foreman"
 # At/over the high-water mark the foreman pumps NOTHING this tick and emits at most
 # one throttled maintainer note; a broken/unreadable meter fails OPEN (pumps, warns).
 
-killswitch_engaged && exit 0
+fleet_draining && exit 0
 
 DIR="${GARDEN_FOREMAN_CLONE:-$GARDEN_STATE/foreman/journal}"
 ensure_clone "$DIR"

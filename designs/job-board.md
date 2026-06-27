@@ -9,7 +9,8 @@ everything coordinates through one mechanism — the `git push` to the shared
 Lineage: modeled on **pivoker** (`endojs/endo-but-for-bots:llm` `pivoker/`),
 which contributed the `@`-template systemd idiom, the `todo`/`tada` +
 reserved-basename lifecycle, the `run.sh` unit-installation plumbing, and the
-killswitch/notify utilities. What pivoker does **not** have — and what this
+pause/notify utilities (its killswitch became the garden's draining marker). What
+pivoker does **not** have — and what this
 system adds — is the concurrent-claim protocol: pivoker is strictly
 one-worker-per-repo and avoids races by construction. Here, N gardeners across
 M hosts compete, so the claim had to be made safe.
@@ -305,8 +306,14 @@ it fired, the service logs *what the run did*.
   `list-units` clean) — their history is still in the journal, but `status` may
   say "could not be found".
 
-**Killswitch:** `touch "$GARDEN_STATE/NOPE"` pauses every gardener cleanly (they
-exit 0, not failed); `rm` it to resume.
+**Draining:** `scripts/jobs/drain-fleet.sh on [reason]` writes the host-local
+draining marker (`$GARDEN_STATE/draining`), which pauses every gardener cleanly —
+they finish their in-flight claim, then exit 0 (not failed) rather than take new
+work. The marker is a FILE whose EXISTENCE is the signal; the helper fills it with
+a short prose note (what it means, who set it, how to clear it). `drain-fleet.sh
+off` (or `rm` the marker) resumes the fleet. The predicate `fleet_draining` also
+still honors the deprecated legacy marker `$GARDEN_STATE/NOPE` (the old
+"killswitch") for backward compatibility; clear an old NOPE marker by hand.
 
 ---
 

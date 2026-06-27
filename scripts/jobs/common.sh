@@ -39,7 +39,14 @@
 # Logical host name (the journal index key). Falls back gracefully.
 : "${GARDEN_HOST:=$(hostname -s 2>/dev/null || echo host)}"
 
-# A killswitch file; if present, workers stop claiming. Mirrors pivoker's NOPE.
+# Fleet draining marker. If present, this host's workers finish their in-flight
+# claims but take no new ones — a graceful, mundane pause, not a kill. The marker
+# is a FILE whose EXISTENCE is the signal; its CONTENTS are a short prose note for
+# whoever finds it (written by drain-fleet.sh). An empty file still counts.
+: "${GARDEN_DRAINING_MARKER:=$GARDEN_STATE/draining}"
+# Deprecated legacy alias for the same idea (pivoker's NOPE killswitch). Still
+# honored by fleet_draining so a rename landing mid-flight, or an operator who set
+# the old marker, is never stranded. Remove once no host carries a NOPE marker.
 : "${GARDEN_KILLSWITCH:=$GARDEN_STATE/NOPE}"
 
 # --- bounded git network operations (the stuck-fetch hardening) --------------
@@ -99,7 +106,12 @@ esac
 log()  { printf '%s [%s] %s\n' "$(date -u +%H:%M:%S)" "${GARDEN_TAG:-jobs}" "$*" >&2; }
 die()  { log "FATAL: $*"; exit 1; }
 
-killswitch_engaged() { [ -e "$GARDEN_KILLSWITCH" ]; }
+# True when this host's fleet is draining: the new draining marker OR the
+# deprecated legacy killswitch marker exists. Keys on EXISTENCE only — an empty
+# marker drains just as a prose-filled one does.
+fleet_draining() { [ -e "$GARDEN_DRAINING_MARKER" ] || [ -e "$GARDEN_KILLSWITCH" ]; }
+# Deprecated alias retained so any not-yet-updated caller keeps working.
+killswitch_engaged() { fleet_draining; }
 
 # --- deterministic weekly token meter (the foreman back-off signal) -----------
 # Sourced AFTER log/GARDEN_STATE so its helpers (meter_record, meter_window_total,

@@ -26,7 +26,7 @@ GARDEN_TAG="triager/$slug"
 : "${GARDEN_TRIAGE_HANDLER:=$HERE/handlers/triager-claude.sh}"
 : "${GARDEN_WATCH_REF:=}"   # empty → use the bare clone's HEAD branch
 
-killswitch_engaged && { log "killswitch engaged; skipping"; exit 0; }
+fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 BARE="$GARDEN_REPOS/$slug.git"
 [ -d "$BARE" ] || die "no bare clone at $BARE (clone the repo first)"

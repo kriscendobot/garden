@@ -47,7 +47,7 @@ GARDEN_TAG="follow-up"
 # Consecutive-failure ceiling before a wedged digest is quarantined (see below).
 : "${GARDEN_FOLLOWUP_MAX_RETRIES:=5}"
 
-killswitch_engaged && exit 0
+fleet_draining && exit 0
 
 DIR="${GARDEN_FOLLOWUP_CLONE:-$GARDEN_STATE/follow-up/journal}"
 ensure_clone "$DIR"
