@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-06-27T05:15:09Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
+_As of 2026-06-27T05:18:19Z · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
 
 The maintainer dashboard: what needs a human first, then the state of ongoing
 autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
@@ -10,11 +10,11 @@ README.md) IS the bulletin; the journal's layout and design narrative lives in
 
 ## Latest
 
-The deploy on host `endolinbot` is **wedged** and needs a hand: the watchman has fired five times because uncommitted edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) are blocking the fast-forward, so origin/main2 has advanced several commits past the live tree and this host won't pick up new roles, skills, or scripts until someone verifies those changes aren't unsaved work and cleans the tree. On the PR front, a gardener landed a corrective follow-up (`3aa37bbd`, non-force, on top of `aa78d8329`) to [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96), fixing 13 dangling design-doc references and adding a real Node.js parity test pair where the prior fix had only asserted classification in prose; the full compartment-mapper suite held at 928 passed / 12 known failures. The `cognito-mcp-metadata-bridge` gardener is building the Cognito↔MCP OAuth bridge for minion.town and has flagged two design open questions (IdP choice and whether to ship RFC 7591 dynamic client registration), proceeding on its recommendations unless redirected. Separately, `synth-and-deploy-minion-town-aws` sits in the plan queue **awaiting maintainer authorization** before any live AWS deploy.
+A gardener landed a corrective follow-up on [endo-but-for-bots#96](https://github.com/endojs/endo-but-for-bots/pull/96): after a stand-down (the asks had already landed as `aa78d8329`), it verified that commit and found two real defects — 13 dangling references to a moved design-doc path and a prose-only parity claim where the review asked for code-backed Node.js parity — then pushed a conflict-safe non-force fix (`3aa37bbd`) adding a real Node parity test, with the full compartment-mapper suite green; flagged for visibility since it proceeded past the stand-down on corrective grounds. **The watchman is repeatedly alerting that main2 on host endolinbot is WEDGED:** uncommitted tracked edits to `scripts/jobs/self-heal-run.sh` (and earlier `gardener.sh`) are blocking the fast-forward, so this host will not pick up new roles, skills, or scripts until the tree is cleaned — worth a human checking those aren't unsaved work. The Cognito↔MCP OAuth bridge build (`cognito-mcp-metadata-bridge`) is paused awaiting answers to two design questions (stay on Cognito vs. an MCP-native IdP, and whether to ship RFC 7591 dynamic client registration), and `synth-and-deploy-minion-town-aws` remains parked for maintainer authorization. The board is otherwise quiet — no open todos, five jobs in flight.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 23h)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 1d)
 - [endojs/endo-but-for-bots#440](https://github.com/endojs/endo-but-for-bots/pull/440) — feat(daemon,cli,chat): drop @info name hub for formula-inspector design (#439) (waiting 19h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
@@ -130,8 +130,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - `cognito-mcp-metadata-bridge` — Build the Cognito↔MCP OAuth metadata/DCR/audience bridge for minion.town
+- `deadmail-20260627T051303Z-9412c5` — Dead-lettered message — pick up its intent
 - `foreman-token-quota-backoff` — Foreman: deterministically check the weekly token quota and back off near the...
 - `improve-classify-offline-as-tempfail-in-journal-fetch` — In scripts/jobs/common.sh, make journal_fetch/sync_clone distinguish a connec...
 - `improve-self-heal-treat-offline-as-clean-exit` — In scripts/jobs/self-heal-run.sh, treat the offline/transient-connectivity ca...
