@@ -515,16 +515,22 @@ compute_dashboard() {
   # comparison below, so an advancing timestamp never causes a commit on its own.
   now=$(date -u +%FT%TZ)
 
+  # What the bulletin IS (kept here as a comment, NOT rendered on the dashboard —
+  # per maintainer 2026-06-27 these explanatory notes are script context, not
+  # bulletin content): the maintainer dashboard — what needs a human first, then
+  # the state of ongoing autonomous work. It is regenerated deterministically by
+  # this script (scripts/jobs/bulletin.sh) and updated continuously as the job
+  # board advances (garden-bulletin.service), rewritten only when the dashboard
+  # changes — so the `_As of` line below marks the last CHANGE, not the last check.
+  # The journalist's `## Latest` narrative leads, injected ahead of the first
+  # deterministic section. The journal's README.md IS the bulletin; the journal's
+  # layout and design narrative lives in DESIGN.md. The rendered freshness line is
+  # now just the bare `_As of <ts>` marker; stable() still excludes it from the
+  # change-compare so an advancing timestamp never churns a commit on its own.
   cat <<EOF
 # Garden bulletin
 
-_As of ${now} · updated continuously as the job board advances (garden-bulletin.service). Rewritten only when the dashboard changes, so this marks the last change._
-
-The maintainer dashboard: what needs a human first, then the state of ongoing
-autonomous work. Regenerated deterministically by scripts/jobs/bulletin.sh; the
-journalist's narrative leads in the Latest section above. This page (the journal's
-README.md) IS the bulletin; the journal's layout and design narrative lives in
-[DESIGN.md](DESIGN.md).
+_As of ${now}_
 
 ## Parked for maintainer feedback
 
