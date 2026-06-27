@@ -200,6 +200,77 @@ STUB_DIRECT_RC=7 STUB_AVAIL_RC=0 STUB_AVAIL_JSON='{"archived_snapshots":{}}' \
 [ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
 grep -q "erights.github.io" "$STUB_LOG" && bad "mirror attempted for non-erights URL" || ok "mirror NOT attempted"
 
+# === 10. HTML stub page (placeholder marker) -> stub_suspect=true ===========
+# The recurring trap: the erights mirror serves "***to be written, but see…" at
+# HTTP 200. A reachable 200 must be flagged as a stub-suspect so the page is not
+# counted as a usable source, WITHOUT changing the exit code.
+hr; echo "CASE 10: HTML placeholder marker -> stub_suspect=true (exit still 0)"
+: >"$STUB_LOG"
+SURL="https://erights.org/elang/intro/object-lambda.html"
+OUT="$TR/case10.out"
+STUB_BODY='<html><head><title>Object as Lambda</title></head><body><h1>Object as Lambda</h1><p>***to be written, but see the related pages for now. This placeholder is long enough to clear the small-body threshold so the marker, not the size, is what flags it as a stub-suspect for the scholar consumer.</p></body></html>'
+MAN="$(STUB_DIRECT_RC=7 STUB_MIRROR_RC=0 STUB_MIRROR_BODY="$STUB_BODY" \
+       "$FETCH" "$SURL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0 (advisory, not fatal)" || bad "exit $rc"
+[ "$(printf '%s' "$MAN" | field source_stub_suspect)" = true ] && ok "stub_suspect=true" || bad "stub_suspect not true"
+printf '%s' "$MAN" | grep -q '^source_stub_reason=' && ok "stub_reason emitted" || bad "stub_reason missing"
+
+# === 11. tiny HTML body (under threshold) -> stub_suspect=true ===============
+hr; echo "CASE 11: tiny HTML body under byte threshold -> stub_suspect=true"
+: >"$STUB_LOG"
+TURL="https://erights.org/elang/empty.html"
+OUT="$TR/case11.out"
+MAN="$(STUB_DIRECT_RC=7 STUB_MIRROR_RC=0 STUB_MIRROR_BODY="<html><body></body></html>" \
+       "$FETCH" "$TURL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+[ "$(printf '%s' "$MAN" | field source_stub_suspect)" = true ] && ok "stub_suspect=true (tiny body)" || bad "stub_suspect not true"
+
+# === 12. full HTML page -> stub_suspect=false ===============================
+# A real article must NOT be flagged: large enough body, no placeholder markers.
+hr; echo "CASE 12: substantial HTML article -> stub_suspect=false"
+: >"$STUB_LOG"
+FURL="https://erights.org/elang/real-article.html"
+OUT="$TR/case12.out"
+BODY="<html><head><title>Real</title></head><body><h1>A Real Article</h1>"
+for i in $(seq 1 40); do BODY="$BODY<p>Substantive paragraph number $i with enough prose to look like a genuine page of content rather than a placeholder.</p>"; done
+BODY="$BODY</body></html>"
+MAN="$(STUB_DIRECT_RC=7 STUB_MIRROR_RC=0 STUB_MIRROR_BODY="$BODY" \
+       "$FETCH" "$FURL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+[ "$(printf '%s' "$MAN" | field source_stub_suspect)" = false ] && ok "stub_suspect=false (real article)" || bad "real article wrongly flagged"
+printf '%s' "$MAN" | grep -q '^source_stub_reason=' && bad "stub_reason emitted when not a stub" || ok "no stub_reason on a clean page"
+
+# === 13. short PDF (non-HTML) -> NOT flagged, NOT blocked ====================
+# A legitimately short, non-HTML source (a PDF) must never be flagged or blocked
+# by the HTML-only advisory: byte size alone is not a stub signal off HTML.
+hr; echo "CASE 13: short PDF is not HTML -> stub_suspect=false (never blocked)"
+: >"$STUB_LOG"
+PDFURL="https://erights.org/talks/tiny.pdf"
+OUT="$TR/case13.out"
+AVAIL='{"archived_snapshots":{"closest":{"available":true,"url":"x","timestamp":"20180101000000","status":"200"}}}'
+MAN="$(STUB_DIRECT_RC=7 STUB_MIRROR_RC=22 STUB_AVAIL_RC=0 STUB_AVAIL_JSON="$AVAIL" \
+       STUB_ARCHIVE_RC=0 STUB_ARCHIVE_BODY="%PDF-1.4 tiny" \
+       "$FETCH" "$PDFURL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0 (short PDF not blocked)" || bad "exit $rc"
+[ "$(printf '%s' "$MAN" | field source_stub_suspect)" = false ] && ok "stub_suspect=false (PDF, not HTML)" || bad "short PDF wrongly flagged"
+
+# === 14. near-empty <body> (above threshold) -> stub_suspect=true ===========
+# A page large enough to clear the byte threshold (e.g. a big <head>) but whose
+# <body> is whitespace-only is still a stub.
+hr; echo "CASE 14: padded head + empty <body> -> stub_suspect=true"
+: >"$STUB_LOG"
+NURL2="https://erights.org/elang/padded-empty.html"
+OUT="$TR/case14.out"
+HEAD="<html><head><title>Padded</title>"
+for i in $(seq 1 20); do HEAD="$HEAD<meta name=\"k$i\" content=\"padding to clear the small-body byte threshold so the empty-body check is what fires here\">"; done
+NBODY="$HEAD</head><body>
+
+</body></html>"
+MAN="$(STUB_DIRECT_RC=7 STUB_MIRROR_RC=0 STUB_MIRROR_BODY="$NBODY" \
+       "$FETCH" "$NURL2" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+[ "$(printf '%s' "$MAN" | field source_stub_suspect)" = true ] && ok "stub_suspect=true (empty body)" || bad "near-empty body not flagged"
+
 hr
 echo "fetch-source-test: $PASS passed, $FAIL failed"
 rm -rf "$TR"

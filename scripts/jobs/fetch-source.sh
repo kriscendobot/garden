@@ -60,6 +60,20 @@
 #   source_bytes=<integer byte count>
 #   source_content_sha256=<64-hex>        # the citable idempotency anchor
 #   source_wayback_timestamp=<14-digit>   # present only when fetched via wayback
+#   source_stub_suspect=true|false        # ADVISORY: HTML that looks like a
+#                                         # placeholder (a 200 that is not an
+#                                         # ingestable source). Never fatal.
+#   source_stub_reason=<text>             # present only when stub_suspect=true
+#
+# WHY THE STUB ADVISORY. A reachable URL (HTTP 200) is not the same as ingestable
+# content: the erights GitHub Pages mirror serves placeholder pages — e.g.
+# `elang/intro/object-lambda.html`, a literal "***to be written, but see…" — at
+# HTTP 200, so reachability != a usable source. Scholar cycles kept rediscovering
+# this by reading the fetched body by hand. This script now flags the
+# stub-suspects a scholar would catch by eye (a tiny HTML body, or known
+# placeholder markers) as a NON-FATAL advisory the consumer reads before deciding
+# to ingest. The exit code is unchanged so PDFs and legitimately short pages are
+# never blocked.
 #
 # EXIT CODES
 #   0  bytes fetched (direct, via the mirror, or via the archive) and hashed
@@ -71,6 +85,8 @@
 #   FETCH_SOURCE_CONNECT_TIMEOUT   per-connection timeout, seconds (default: 20)
 #   FETCH_SOURCE_MAX_TIME    overall per-request timeout, seconds (default: 120)
 #   FETCH_SOURCE_WAYBACK_HOST  availability-API host (default: archive.org)
+#   FETCH_SOURCE_STUB_BYTE_THRESHOLD  HTML bodies smaller than this many bytes
+#                            are flagged as stub-suspect (advisory; default: 512)
 #
 # This script makes network calls (a direct fetch, then possibly the erights
 # mirror, the Wayback availability API, and an archive fetch). It writes ONLY to
@@ -88,6 +104,7 @@ CURL="${FETCH_SOURCE_CURL:-curl}"
 CONNECT_TIMEOUT="${FETCH_SOURCE_CONNECT_TIMEOUT:-20}"
 MAX_TIME="${FETCH_SOURCE_MAX_TIME:-120}"
 WAYBACK_HOST="${FETCH_SOURCE_WAYBACK_HOST:-archive.org}"
+STUB_BYTE_THRESHOLD="${FETCH_SOURCE_STUB_BYTE_THRESHOLD:-512}"
 
 usage() {
   awk 'NR>1 && /^#/{sub(/^# ?/,"");print;next} NR>1{exit}' "$0"
@@ -199,12 +216,46 @@ if [ -z "$fetched_via" ]; then
   fi
 fi
 
-# --- 3. hash + manifest -----------------------------------------------------
+# --- 4. hash ----------------------------------------------------------------
 sha="$(sha256sum <"$out" | awk '{print $1}')"
 bytes="$(wc -c <"$out" | tr -d ' ')"
 
 log "fetched ${bytes}B via ${fetched_via}; sha256=${sha}"
 
+# --- 5. advisory stub-suspect detection (HTML only) -------------------------
+# A 200 is not the same as ingestable content: the erights mirror serves
+# placeholder pages ("***to be written, but see…") at HTTP 200. When the fetched
+# bytes are HTML, deterministically flag the stub-suspects a scholar would catch
+# by eye — a tiny body, known placeholder markers, or a near-empty <body> — and
+# emit `source_stub_suspect=true` plus a short reason. This is ADVISORY: the exit
+# code is unchanged, so PDFs and legitimately short pages are never blocked; the
+# consumer reads the advisory before it decides to ingest.
+stub_suspect=false
+stub_reason=""
+is_html=""
+# Sniff HTML: path is *.htm(l)/*.xhtml, or the head of the body carries an HTML
+# signature. Sniffing keeps PDFs (which start with %PDF) and other binaries out.
+case "${url%%\?*}" in
+  *.html|*.htm|*.xhtml) is_html=1 ;;
+esac
+if [ -z "$is_html" ] && head -c 1024 "$out" | grep -qiE '<!doctype html|<html[ >]|<head[ >]|<body[ >]'; then
+  is_html=1
+fi
+if [ -n "$is_html" ]; then
+  if [ "$bytes" -lt "$STUB_BYTE_THRESHOLD" ]; then
+    stub_suspect=true
+    stub_reason="html body ${bytes}B under ${STUB_BYTE_THRESHOLD}B threshold"
+  elif grep -qiE 'to be written|to be done|\*\*\*' "$out"; then
+    stub_suspect=true
+    stub_reason="placeholder marker present (to be written / to be done / ***)"
+  elif grep -qiz '<body[^>]*>[[:space:]]*</body>' "$out"; then
+    stub_suspect=true
+    stub_reason="near-empty <body>"
+  fi
+fi
+[ "$stub_suspect" = true ] && log "stub-suspect: ${stub_reason}"
+
+# --- 6. manifest ------------------------------------------------------------
 printf 'source_url=%s\n'            "$url"
 printf 'source_effective_url=%s\n'  "$effective_url"
 printf 'source_fetched_via=%s\n'    "$fetched_via"
@@ -212,4 +263,6 @@ printf 'source_output_path=%s\n'    "$out"
 printf 'source_bytes=%s\n'          "$bytes"
 printf 'source_content_sha256=%s\n' "$sha"
 [ -n "$wayback_ts" ] && printf 'source_wayback_timestamp=%s\n' "$wayback_ts"
+printf 'source_stub_suspect=%s\n'   "$stub_suspect"
+[ "$stub_suspect" = true ] && printf 'source_stub_reason=%s\n' "$stub_reason"
 exit 0
