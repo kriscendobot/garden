@@ -24,7 +24,8 @@ parent: endo--packages-netstring-reader-js--two-state-iterator-with-zero-copy-fa
 const maxPrefixLength = `${maxMessageLength | 0}:`.length;
 ```
 
-§maxMessageLength-default-999999999 (~1 GiB).
+§maxMessageLength-default-999_999_999 (~1 GiB; underscore-
+delimited grouping as of file-commit c423ed37).
 
 §maxPrefixLength derived from maxMessageLength + 1 (for
 the colon). §If-we've-accumulated-this-many-digits-the-

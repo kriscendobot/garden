@@ -3,13 +3,28 @@ source: packages/netstring/reader.js
 source_repo: endojs/endo
 source_url: https://github.com/endojs/endo/blob/master/packages/netstring/reader.js
 source_branch: master
-source_commit: e56bf00f289ff8484094b785b11636b8bc71d87e
+source_commit: c423ed37b4c574aaccd778fc72acb2ff8910d586
 source_authors: [Mathieu Hofman (prompted)]
 ingested: 2026-06-03
 ingested_by: scholar
+refreshed: 2026-06-27
+refreshed_from: e56bf00f289ff8484094b785b11636b8bc71d87e
+refreshed_by: gardener (scholar)
 section_count: 1
 status: current
 notes: |
+  **Freshness refresh 2026-06-27 (file-commit
+  e56bf00f → c423ed37).** The library-source-drift-scan
+  flagged the upstream path advancing one commit. The sole
+  change is `chore(eslint-plugin): require underscore-
+  delimited groups in numeric literals` (commit c423ed37):
+  `maxMessageLength = 999999999` → `999_999_999`. §Purely-
+  cosmetic-numeric-literal-grouping — no semantic change to
+  the decoder, no section structure affected; the §sanity-
+  caps default value is unchanged (`999_999_999` ===
+  `999999999` ≈ 1 GiB). No section re-ingest; anchor and the
+  one literal-notation mention refreshed in place.
+
   Cycle 177. Chat-lane after cycle 176's designs-lane.
   §Endo-source-comment-fragment genre.
 
@@ -134,7 +149,10 @@ One cohesion-honest section.
 ## Provenance
 
 - Fetched 2026-06-03 from `endojs/endo@master`
-  (file last touched in commit `e56bf00f`).
+  (file last touched at ingest in commit `e56bf00f`).
+- **Refreshed 2026-06-27** to file-commit `c423ed37`
+  (`chore(eslint-plugin)`: numeric-literal underscore
+  grouping; cosmetic, no section impact).
 - Author: Mathieu Hofman (prompted).
 - **Sixteenth file in the e56bf00f coordinated-update
   cluster**.
