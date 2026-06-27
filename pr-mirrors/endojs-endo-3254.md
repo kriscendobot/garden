@@ -26,3 +26,5 @@ YAML frontmatter as flat `key: value` pairs. The two canonical fields are
 `upstream: <owner>/<repo>#<N>` and `mirror: <owner>/<repo>#<M>`; the split
 `*_repo` / `*_number` fields are provided for convenience if you prefer parsing those.
 File is named `pr-mirrors/<upstream-owner>-<upstream-repo>-<N>.md`.
+closed_at: 2026-06-27T04:34:39Z
+upstream_outcome: merged
