@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T17:45:49Z_
+_As of 2026-06-27T17:50:52Z_
 
 ## Latest
 
-The deterministic deploy-sync reconciler landed on `main2` (5d6490e62): it advances each host's checkout by a strict clean fast-forward and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — but it stays inert until a routine `install-units.sh` units refresh arms its timer. The live `/home/kris` tree had dirty-wedged on a redundant uncommitted edit to `report-error.sh`; that wedge is now resolved and the gardener-transient-line reap-count fix completed and landed (87fc42f3d). Scholar work continued apace — the erights.org E-language page re-ingested from the now-reachable GitHub Pages mirror, a sixth MetaMask/ocap-kernel ingest, and a distributed-ocap concept cluster.
+A deploy-sync reconciler landed on main2 (5d6490e62): it advances the live checkout by a strict clean fast-forward and restarts long-running services when `scripts/` changes, so landed fixes reach running workers without a manual restart — but it's inert until the next `install-units.sh` refresh arms its timer, and the live `/home/kris` tree is currently dirty-wedged on a redundant uncommitted edit to `report-error.sh` (byte-identical to origin) that blocks both the watchman and deploy-sync from advancing; a lossless `git checkout --` unwedges it. A matching resolve-wedge job and the gardener transient-line reap-count and mentor journalctl-empty fixes all completed this cycle, and the erights E-language page was re-ingested from its now-reachable GitHub Pages mirror. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) is being rebased now.
 
-Several decisions are parked for kriskowal. Two carry erights's standing authorization but need scoping: the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) harden-exported-literals follow-up awaits a breadth (narrow vs repo-wide) and base-branch (`llm` vs `master`) call before a DRAFT opens. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 on your own "please rebase and run the gamut again" and now shows 4 failing CI checks — a gardener offers to take that rebase-and-gamut as a separate job on the word. Finally, the beta3/ymax0 XS investigation surfaced two agoric-sdk-territory calls (sourcing a v320 swing-store export and whether to file an upstream-Endo note), both out of bounds for autonomous action and awaiting your direction.
+Two items want maintainer attention. The "harden exported function literals" follow-up from erights's review on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on a scope decision — narrow (two evasive-transform exports) versus repo-wide, and `llm` versus `master` as the base. Separately, a formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with four failing CI checks awaiting the rebase-and-re-gamut you already requested. Scholar ingests (MetaMask ocap-kernel guide plus a distributed-ocap concept cluster) landed on journal2, and a lint sweep found endo master's CI lint gate fully clean.
 
 ## Parked for maintainer feedback
 
@@ -165,7 +165,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr405-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #405
 - [`issue-inbox-maintainer-interaction-workflow`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-maintainer-interaction-workflow.md) — Set up the issue-inbox workflow: maintainer interaction via the garden's own ...
 - [`scholar-ingest-source-erights-elang-mirror`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-erights-elang-mirror.md) — Re-ingest erights.org E-language page from the now-reachable GitHub Pages mirror
 
