@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T11:20:30Z_
+_As of 2026-06-28T11:21:56Z_
 
 ## Latest
 
-The scheduler gained a preflight gate ([`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md) completed), and the grouping-toggle work on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) landed; otherwise the hour was quiet, with the hourly scholar library cycle the only job currently in flight.
-
-A few maintainer items need attention. The formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API), which has been stalled since 2026-05-21 on your "please rebase and run the gamut again" request and now carries 4 failing CI checks (22/26 green) — the gardener is holding rather than duplicating the graph walk, and offers to take the rebase-and-gamut as a separate job. Scholar work continued: a sixth MetaMask/ocap-kernel ingest (the 689-line kernel-guide) plus a distributed-ocap concept cluster covering three-party handoff, sturdyrefs, and confinement, with the grant-matcher-puzzle source deferred because erights.org was unreachable. Lint classification found endo-but-for-bots master fully clean — only 5 non-blocking jsdoc warnings, parked as the low-priority [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md). Finally, the liaison is awaiting your call on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of scope near sensitive agoric-sdk territory.
+The gardener fleet closed out the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) grouping-toggle work and a scheduler-preflight-gate hardening, the hourly scholar library cycles keep ticking, and a gardener just claimed `improve-mirror-closer-per-mapping-isolation` to isolate per-mapping read failures in `mirror-closer.sh`. Three things in the maintainer inbox warrant attention. First, the formula-inspector retention-paths-table job is **blocked** on the `listRetentionPaths` host API PR (#284), which has sat since 2026-05-21 awaiting the rebase-and-re-gamut you already requested and is currently failing 4 CI checks (22/26 green); the follow-on UI work is ready the moment it lands, and a gardener offered to take the rebase as a separate job on your word. Second, scholar landed two ocap concept clusters — a sixth MetaMask/ocap-kernel ingest (the kernel/vat guide) plus six distributed-ocap library sections — with only the grant-matcher-puzzle source still deferred while erights.org is unreachable. Third, lint classification of endo-but-for-bots master came back **clean**: no error classes, just five non-blocking jsdoc warnings parked as a low-priority fix. Finally, the liaison is holding for your call on whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation "without the export," since the prior job explicitly scoped that out.
 
 ## Parked for maintainer feedback
 
@@ -100,7 +98,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mirror-closer-per-mapping-isolation.md) — In /home/kris/scripts/jobs/mirror-closer.sh, isolate per-mapping read failure...
 - [`scholar-library-cycle-20260628-112001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-112001.md) — Hourly scholar library cycle
 
 ### tada (491)
