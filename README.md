@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T03:10:56Z_
+_As of 2026-06-28T03:14:51Z_
 
 ## Latest
 
-The XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9)) closed out and now sits at a maintainer-only decision point: every remaining path needs a resource the garden can't self-provision — either the v320 swing-store export or a multi-hour XS toolchain re-provisioning — and the investigation concluded the overflow is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding. On the library side, the scholar landed a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher) and a sixth MetaMask/ocap-kernel ingest of the 689-line kernel guide.
-
-Several items are now parked on your call. The [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up (erights-authorized) needs only a breadth (narrow two exports vs. repo-wide) and base-branch decision before a PR opens. A real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — empty-group hiding plus a new Directories/Agents/Personas/Values/Capabilities taxonomy across four packages — was misrouted by the classifier as a no-op "rebase" and needs a liaison-driven fixer dispatch (a classifier-bug fix was posted separately). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and currently shows 4 failing CI checks. Lower-stakes: endo-but-for-bots master lint is clean except 5 jsdoc warnings (plan parked), and the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (intrinsic duplication). A dead-lettered message is currently in `doin`.
+The board sat nearly idle this cycle — only a deadmail job completed — but a stack of maintainer decisions has accumulated in the inbox. Most actionable: a real feature directive from kriskowal on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (hide empty groups; re-bucket the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities) was misclassified as a "rebase" by the comment-watcher and needs a liaison-driven builder/fixer dispatch through the gamut — the gardener has separately posted an infra fix for the classifier bug. The "harden exported function literals" follow-up from erights's review on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on your scoping call: narrow (two evasive-transform exports) vs. repo-wide, and which base branch (`llm` vs `master`). The formula-inspector retention-paths table is blocked on its open, stalled dependency PR — the rebase-and-gamut you requested back on 2026-05-21 never ran (4 failing checks) — and the gardener is holding rather than duplicating the graph walk. The XS over-deep-frame investigation (kriskowal/garden issue #9) has reached a hard stop on every path: it needs either the v320 swing-store export (only you can source it) or a multi-hour XS toolchain re-provision. Two scholar library ingests landed on journal2 (the sixth MetaMask/ocap-kernel guide plus a distributed-ocap concept cluster), and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the only API-exact match would invert the extraction and create a workspace cycle).
 
 ## Parked for maintainer feedback
 
@@ -188,16 +186,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`deadmail-20260628T030211Z-b3cadd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T030211Z-b3cadd.md) — Dead-lettered message — pick up its intent
+### doin (0)
+(none)
 
-### tada (449)
+### tada (450)
+- [`deadmail-20260628T030211Z-b3cadd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T030211Z-b3cadd.md) — Completion report
 - [`kriskowal-garden-pr9-47af0da6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-47af0da6.md) — Completion report
 - [`scholar-library-cycle-20260628-023505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-023505.md) — Job completed (doin → tada). Final report:
 - [`improve-deadmail-timeout-and-surface-post-failures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deadmail-timeout-and-surface-post-failures.md) — Completion report
 - [`improve-deadmail-verify-job-landed-before-retire`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deadmail-verify-job-landed-before-retire.md) — Completion report
-- [`deadmail-20260628T020557Z-9f3dbb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T020557Z-9f3dbb.md) — Completion report
-- … and 444 more
+- … and 445 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
