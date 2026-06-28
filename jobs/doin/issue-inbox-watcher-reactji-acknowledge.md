@@ -35,3 +35,9 @@ the `issue` surface hits `/issues/<n>/reactions`; assert a reactji failure does 
 The issue-inbox watcher reactji-acknowledges trusted issues and issue-comments (👀) like the
 comment-watcher, the reactji helper gains the `issue` surface, with tests pinning the
 acknowledge-before-post behavior.
+
+---
+claim:
+  host: endolinbot
+  gardener: 69
+  claimed_at: 2026-06-28T17:48:06Z
