@@ -143,3 +143,9 @@ issue_spine: issue-kriskowal-garden-11
 issue_url: https://github.com/kriskowal/garden/issues/11
 submitter: kriskowal
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: endolinbot
+  gardener: 26
+  claimed_at: 2026-06-28T17:31:15Z
