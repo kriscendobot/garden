@@ -1,11 +1,4 @@
----
-gate: go-ahead
-priority: normal
-posted_by: liaison
-posted_at: 2026-06-27T16:40:40Z
-expanded_at: 2026-06-28T00:00:00Z
-expanded_for: kriskowal/garden#11 (Multibot)
----
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-06-28T17:31:12Z -->
 
 # PLAN: multibot leader/follower — gardeners run everywhere, singletons run only on the "leader" host
 
