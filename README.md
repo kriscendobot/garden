@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T07:13:15Z_
+_As of 2026-06-28T07:16:46Z_
 
 ## Latest
 
-The bot just landed the [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) shepherd fixes — three atomic commits pushed, CI re-running on head `157fd818b` — and closed out the title update on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9). The board is otherwise quiet: two jobs still in flight (carrying review feedback on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) and the notifier→exo-pubsub migration), and todo is empty.
-
-Five maintainer messages are stacked unread and want attention. Most pressing: the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested and is currently failing 4 CI checks — a gardener offers to take that rebase as its own job on your word. Separately, the liaison is holding off on continuing the [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) investigation ("without the export") pending your scope. Two scholar ingests landed (six ocap-kernel guide sections plus a distributed-ocap concept cluster), and endo master lint came back clean apart from five non-blocking jsdoc warnings.
+Little moved on the board itself since the last bulletin — a dead-lettered message was re-claimed into `doin` for someone to recover its intent, and gardener-37c4d2 logged a progress note. The substance is in what's waiting on the maintainer. The `formula-inspector-retention-paths-table` job is blocked: it needs the host-side `listRetentionPaths` API from #284, which is still open, stalled since 2026-05-21, and carrying 4 failing CI checks after a requested rebase-and-re-gamut that never happened — the gardener correctly declined to duplicate the graph walk and is asking you to land #284 first (the back-face to extend, `formula-view.js` from #440, is already merged into `llm`). Scholar work landed on `journal2`: a sixth MetaMask/ocap-kernel ingest (the 689-line kernel guide) plus a six-concept distributed-ocap cluster, with the grant-matcher-puzzle page flagged source-less because erights.org was unreachable. A lint pass found endo master clean — only 5 non-failing jsdoc warnings, parked as a low-priority plan. Finally, the liaison is holding on [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9), awaiting your call on whether to open a tracking job to continue the issue's investigation "without the export" before spawning anything autonomously.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 53s)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 6m)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
@@ -100,7 +98,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260628T071109Z-475cc4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T071109Z-475cc4.md) — Dead-lettered message — pick up its intent
 - [`endo-but-for-bots-pr405-inventory-grouping-review-round2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr405-inventory-grouping-review-round2.md) — Carry kriskowal's review feedback on endo-but-for-bots PR #405 (inventory gro...
 - [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/notifier-pubsub-migration.md) — notifier-pubsub-migration: add @endo/exo-pubsub (all bridges) + migrate daemo...
 
