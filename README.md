@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T06:03:15Z_
+_As of 2026-06-28T06:06:21Z_
 
 ## Latest
 
-Board movement was quiet — only a dead-mail entry cleared this cycle — so the news is the stack of maintainer-owned decisions accruing in the inbox. A build job for "Agoric internal hex" tied to [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) was deliberately held rather than run: it collides with the standing agoric-sdk scope ban and needs either a concrete bot-fork target or an explicit one-time override; the same PR's "continue the investigation without the export" thread and the v320 swing-store export remain blocked on you. Two endo-but-for-bots threads need a routing call: [#405](https://github.com/endojs/endo-but-for-bots/pull/405) was misclassified as a rebase when it's actually a feature directive (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) that needs a liaison-driven builder dispatch, and the [#474](https://github.com/endojs/endo-but-for-bots/pull/474)-merged "harden exported function literals" follow-up is gated on your choice of breadth (narrow two exports vs. repo-wide) and base branch. The formula-inspector retention-paths table is blocked behind [#284](https://github.com/endojs/endo-but-for-bots/pull/284), whose requested rebase-and-gamut never happened (4 CI checks still red). On the cleaner side, scholar landed a sixth ocap-kernel ingest plus a distributed-ocap concept cluster, the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (intrinsic duplication), and endo master lint classified clean (only 5 non-failing jsdoc warnings).
+Little moved on the board this cycle — two jobs claimed into progress and two new progress notes — so the substance is in a stack of maintainer decisions that have piled up in the inbox. On the work that landed: scholar ingests went onto journal2, including MetaMask's `ocap-kernel` host-app guide (the sixth ocap-kernel ingest) and a six-topic distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher puzzle), each honestly flagged where a source was unreachable. A lint sweep confirmed `endo-but-for-bots` master is clean (only 5 non-failing jsdoc warnings, parked as low), and the [PR #442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change — reusing daemon's powers would invert the extraction.
+
+Several items now need kriskowal directly. The "Agoric internal hex" directive on [garden PR #9](https://github.com/kriskowal/garden/pull/9) is being held because it names off-limits agoric-sdk territory with no bot-fork target — it needs a concrete repo/path and, if truly Agoric-internal, an explicit scope override. The [PR #405](https://github.com/endojs/endo-but-for-bots/pull/405) job was misclassified as a rebase but is actually a feature directive (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities, hide empty groups); it needs a liaison-driven builder/fixer dispatch since the fleet has no autonomous path for it. The [PR #474](https://github.com/endojs/endo-but-for-bots/pull/474) harden-exported-literals follow-up (now merged) is gated on two answers — breadth (narrow two exports vs. repo-wide) and base branch (`llm` vs. `master`). And the formula-inspector retention-paths table is blocked on [PR #284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with 4 failing CI checks awaiting the rebase-and-gamut you already requested. The XS over-deep-frame investigation on garden issue #9 also remains parked pending the v320 swing-store export or authorization to re-provision the XS toolchain.
 
 ## Parked for maintainer feedback
 
@@ -198,8 +200,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`comms-issue-pr-comments-not-maintainer-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comms-issue-pr-comments-not-maintainer-inbox.md) — Reinforce: issue/PR-scoped agents communicate via comments only; restrict the...
+- [`deadmail-20260628T060057Z-400273`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T060057Z-400273.md) — Dead-lettered message — pick up its intent
 
 ### tada (462)
 - [`deadmail-20260628T055855Z-a332d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T055855Z-a332d8.md) — Completion report
