@@ -29,6 +29,14 @@ CLONE="$GARDEN_GARDENER_CLONE"
 : "${GARDEN_IDLE_SLEEP:=5}"
 : "${GARDEN_ONESHOT:=0}"
 : "${GARDEN_JOB_HANDLER:=$HERE/handlers/gardener-claude.sh}"
+# Upper runtime bound for ONE handler invocation (see the wrapped call below).
+# INVARIANT: GARDEN_HANDLER_TIMEOUT < GARDEN_CLAIM_TTL (reaper.sh, default 3600)
+# so no handler can outlive the reaper's stale-claim window — otherwise the reaper
+# would requeue the SAME base while the original handler is still running and the
+# job would execute concurrently on two gardeners. Set comfortably above
+# GARDEN_DEPLOY_DRAIN_TIMEOUT (deploy-garden.sh, default 600) so a legitimately
+# long handler is not killed mid-deploy-drain.
+: "${GARDEN_HANDLER_TIMEOUT:=2400}"
 
 # Busy marker — a local, lock-free signal that this gardener is mid-job. The
 # deliberate deploy (deploy-garden.sh) reads these markers to know when the fleet
@@ -107,7 +115,20 @@ while :; do
   : > "$BUSY_MARKER" 2>/dev/null || true
 
   log "working '$base'"
-  if GARDEN_GARDENER_ID="$id" "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1; then
+  # Bound EVERY handler's runtime here at the single call site, not inside each
+  # handler, so the cap covers gardener-claude.sh's unbounded `claude -p`, the
+  # gardening state machine, and any future handler uniformly. A wedged/runaway
+  # handler (network hang, infinite tool loop) would otherwise run forever,
+  # pinning one of the ~100 scarce gardener instances and its $BUSY_MARKER — which
+  # also stalls every deploy-garden.sh quiesce until GARDEN_DEPLOY_DRAIN_TIMEOUT —
+  # and after GARDEN_CLAIM_TTL the reaper requeues the SAME base while the original
+  # is still running (duplicate concurrent execution). GARDEN_HANDLER_TIMEOUT <
+  # GARDEN_CLAIM_TTL (see the knob above) closes that hole. `timeout`'s own rc=124
+  # on expiry is NOT a signal-kill code (is_external_kill_rc covers only 143/130/137),
+  # so a self-hang falls through to the real-failure branch and escalates to the
+  # gardener inbox NOW, while a genuine deploy-drain kill still arrives as rc=143
+  # and stays transient via is_external_kill_rc.
+  if GARDEN_GARDENER_ID="$id" timeout --signal=TERM "$GARDEN_HANDLER_TIMEOUT" "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1; then
     # complete-job.sh runs sync_clone, which exits GARDEN_OFFLINE_RC on a
     # transient outage — under set -e that would crash the worker on a blip after
     # the handler already succeeded. Tolerate the offline rc: the job stays in
