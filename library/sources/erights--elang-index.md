@@ -1,29 +1,45 @@
 ---
 source_kind: web
-source_url: https://erights.org/elang/index.html
+source_url: http://erights.org/elang/index.html
 source_effective_url: https://erights.github.io/erights-org-website/elang/index.html
 source_fetched_via: mirror
 source_content_sha256: 77f5814bce5dbbd8b320205b9a6b706a9e15b321ef686ba33986ab3186d0d7fa
 source_authors: [Mark S. Miller]
 source_date: 1998-10-03
-ingested: 2026-06-27
+ingested: 2026-06-28
 ingested_by: scholar
 section_count: 1
 status: current
-notes: |
-  Primary erights.org E-language documentation index page. Fetched 2026-06-27
-  from the erights.github.io GitHub Pages mirror via scripts/jobs/fetch-source.sh
-  (`source_fetched_via=mirror`; erights.org refuses connections from the sandbox,
-  so the mirror — which serves the original site paths verbatim — is the fetch
-  substitute). Idempotency anchor is source_content_sha256, not a commit. This is
-  Mark Miller's own table-of-contents for E's docs, materially distinct from the
-  library's secondary-source market-history survey
-  [ocap-history--e-capdesk-polaris](ocap-history--e-capdesk-polaris.md); the two
-  cross-reference each other.
+notes: >
+  Primary-source HTML fetched via the erights.org GitHub Pages mirror
+  (erights.org refuses connections from the bot sandbox). The first
+  erights.org HTML primary source in the library; prior E-language coverage
+  came only from the Miller papers and the synthesized survey
+  ocap-history--e-capdesk-polaris (same URL, reconstructed from secondary
+  sources). Idempotency anchor is source_content_sha256.
 ---
 
-The primary erights.org documentation index for **E**, Mark S. Miller's object-capability language for "Cryptographic Capabilities for Distributed Smart Contracting." A single navigational page (last modified 1998-10-03) that enumerates E's documentation tree: introductory material (E in a Walnut, the tutorial, the idioms quick-reference), the language specification (LALR(1) grammar expanding to Kernel-E, block/scope structure, Kernel-E special forms, Sameness as synchronous equality), primitive data types (scalars, collections, IO), the concurrency / soft-type-checking facilities, historical design notes, tooling (Updoc, Elmer, EBrowser), and the ENative project. The canonical primary artifact behind the library's E/CapDesk/Polaris survey, and the root of the vat / eventual-send / promise-pipelining lineage the Miller papers carry forward into Endo.
+The landing / navigation page for Mark Miller's documentation of **E**, the
+capability-secure distributed programming language that is the direct ancestor of
+Hardened JavaScript / Endo. The page is a doc-tree map rather than substantive
+content: it organizes the E corpus into Introductory Material (tutorial, Walnut
+book, quick reference), Language Specification (grammar, Block & Scope, Kernel-E,
+Sameness), Primitive Data Types (scalars, collections, IO), Concurrency / Soft
+Type Checking, and Historical / Tools. The single ingested section captures this
+map plus E's self-description ("Cryptographic Capabilities for Distributed Smart
+Contracting") and the E-to-Endo translation. The substantive subpages are
+ingested separately as they are reached: *Sameness* is already in the library
+(`erights--elang-same-ref`); the tutorial chapters and the grammar / Kernel-E
+specification remain queued (see the `scholar-ingest-erights-2` follow-on).
+
+## Sections
 
 | Section | Topics | Status |
 |---------|--------|--------|
-| [overview](../sections/erights--elang-index--overview.md) | capability-theory, capability-security | current |
+| [overview](../sections/erights--elang-index--overview.md) | e-language, capability-security | current |
+
+## Provenance
+
+- Fetched 2026-06-28 via `scripts/jobs/fetch-source.sh`; served by the erights.org GitHub Pages mirror (`source_fetched_via=mirror`).
+- Effective URL: `https://erights.github.io/erights-org-website/elang/index.html`.
+- Content SHA-256 `77f5814bce5dbbd8b320205b9a6b706a9e15b321ef686ba33986ab3186d0d7fa`, 10724 bytes, last modified 1998-10-03.
