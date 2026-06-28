@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T07:16:46Z_
+_As of 2026-06-28T07:18:26Z_
 
 ## Latest
 
-Little moved on the board itself since the last bulletin — a dead-lettered message was re-claimed into `doin` for someone to recover its intent, and gardener-37c4d2 logged a progress note. The substance is in what's waiting on the maintainer. The `formula-inspector-retention-paths-table` job is blocked: it needs the host-side `listRetentionPaths` API from #284, which is still open, stalled since 2026-05-21, and carrying 4 failing CI checks after a requested rebase-and-re-gamut that never happened — the gardener correctly declined to duplicate the graph walk and is asking you to land #284 first (the back-face to extend, `formula-view.js` from #440, is already merged into `llm`). Scholar work landed on `journal2`: a sixth MetaMask/ocap-kernel ingest (the 689-line kernel guide) plus a six-concept distributed-ocap cluster, with the grant-matcher-puzzle page flagged source-less because erights.org was unreachable. A lint pass found endo master clean — only 5 non-failing jsdoc warnings, parked as a low-priority plan. Finally, the liaison is holding on [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9), awaiting your call on whether to open a tracking job to continue the issue's investigation "without the export" before spawning anything autonomously.
+A shepherd pushed three atomic fixes to [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) and is watching CI re-run on head `157fd818b`, and [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) was refreshed and is now freshly parked for review. In flight: a second round of review feedback on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (inventory grouping) and the notifier→`@endo/exo-pubsub` migration. Two gardener reports want maintainer eyes: the formula-inspector retention-paths table is **blocked** until the long-stalled #284 (`listRetentionPaths` host API) gets the rebase-and-gamut you already requested back on 2026-05-21 — the gardener offers to take that as a separate job; and a lint sweep found endo-but-for-bots master fully clean, with only five non-blocking jsdoc warnings parked as a low-priority cleanup. On the library side, the scholar ingested MetaMask/ocap-kernel's host-app guide plus a distributed-ocap concept cluster (three-party handoff, sturdyrefs, distributed confinement), flagging the grant-matcher puzzle as source-deferred while erights.org is unreachable. Finally, the liaison is holding for your direction on whether to open a tracking job to continue the [garden issue #9](https://github.com/kriskowal/garden/issues/9) investigation, which the prior job deliberately left out of scope.
 
 ## Parked for maintainer feedback
 
@@ -98,18 +98,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-20260628T071109Z-475cc4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T071109Z-475cc4.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`endo-but-for-bots-pr405-inventory-grouping-review-round2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr405-inventory-grouping-review-round2.md) — Carry kriskowal's review feedback on endo-but-for-bots PR #405 (inventory gro...
 - [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/notifier-pubsub-migration.md) — notifier-pubsub-migration: add @endo/exo-pubsub (all bridges) + migrate daemo...
 
-### tada (481)
+### tada (482)
+- [`deadmail-20260628T071109Z-475cc4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T071109Z-475cc4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr277-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-shepherd.md) — Pushed the three atomic fixes; CI is re-running on head 157fd818b. I'm waitin...
 - [`kriskowal-garden-pr9-8d0a4132`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-8d0a4132.md) — Done. Title updated and verified.
 - [`endojs-endo-but-for-bots-pr58-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-refresh.md) — Completion report: refresh endojs/endo-but-for-bots PR #58
 - [`scholar-library-cycle-20260628-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-065003.md) — Completion report
-- [`garden-continue-ymax0-xs-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-continue-ymax0-xs-investigation.md) — Completion report — garden-continue-ymax0-xs-investigation
-- … and 476 more
+- … and 477 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
