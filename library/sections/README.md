@@ -6737,6 +6737,11 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 - [erights--elang-quick-ref--idioms-quick-reference](erights--elang-quick-ref--idioms-quick-reference.md)
 
+### erights--elang-same-ref
+
+- [erights--elang-same-ref--synchronous-sameness-and-reflexivity](erights--elang-same-ref--synchronous-sameness-and-reflexivity.md)
+- [erights--elang-same-ref--selfish-and-selfless-objects](erights--elang-same-ref--selfish-and-selfless-objects.md)
+
 ### erights--elib-capability-ode-ode-pki
 
 - [erights--elib-capability-ode-ode-pki--capabilities-as-a-public-key-infrastructure](erights--elib-capability-ode-ode-pki--capabilities-as-a-public-key-infrastructure.md)
