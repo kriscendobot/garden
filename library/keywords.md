@@ -13360,3 +13360,25 @@ SPKI authorization certificate | (see section: erights--elib-capability-ode-ode-
 Certificate Result Certificate | (see section: erights--elib-capability-ode-ode-pki--capabilities-as-a-public-key-infrastructure)
 confused deputy (PKI / SPKI) | (see section: erights--elib-capability-ode-ode-pki--capabilities-as-a-public-key-infrastructure)
 Granovetter diagram for a PKI | (see section: erights--elib-capability-ode-ode-pki--capabilities-as-a-public-key-infrastructure)
+
+## Polaris: Virus Safe Computing for Windows XP (HPL-2004-221, scholar 2026-06-28)
+Polaris (Windows XP) | polaris
+polarize | polaris
+polarization | polaris
+polarized application | polaris
+Pet (Polaris) | polaris
+PolaBear | polaris
+PolaBear Polarizer | polaris
+virus-safe computing | polaris
+installation endowment | polaris
+HPL-2004-221 | polaris
+POLA for legacy applications | polaris
+restricted user account (Polaris) | polaris
+synchronizer (Polaris) | polaris
+OpenSafe | polaris
+PowerBox | powerbox
+powerbox pattern | powerbox
+file-picker broker | powerbox
+GUI hole | powerbox
+permission versus authority | (see section: papers--stiegler-polaris-virus-safe-computing-2004--excess-authority-the-virus-problem-and-permission-versus-authority)
+excess authority | (see section: papers--stiegler-polaris-virus-safe-computing-2004--excess-authority-the-virus-problem-and-permission-versus-authority)
