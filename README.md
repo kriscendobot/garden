@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-28T18:12:57Z_
+_As of 2026-06-28T18:14:03Z_
 
 ## Latest
 
-Two lint-ratchet jobs on endo master are now in flight — `ratchet-jsdoc-check-tag-names-error-endo` and `ratchet-jsdoc-require-param-error-endo` were both claimed, each promising to escalate a jsdoc warning to an error and fix the handful of resulting defects. The scholar's erights/ocap library ingestion kept advancing (`scholar-ingest-erights-10` completed, and a dead-lettered request was confirmed already-handled: the erights.org→GitHub Pages mirror note now lives in the always-read `conventions.md` and is enforced in `fetch-source.sh`). Two more dead-lettered messages were picked up for intent. The one item a maintainer should act on: the liaison reports endolinbot's deployed root is lagging at `fe2d9f296` while `origin/main2` carries `b9f0fd5b4` (the new `insert-sections-table-row.sh`) — an upgrade-ready, deliberate-deploy decision awaiting your go-ahead to run `deploy-garden.sh`.
+Scholar ingestion of the erights/ocap library keeps advancing — `scholar-ingest-erights-10` and the `fu-scholar-ingest-erights-9-2` follow-up landed, and a dead-lettered `ingest-ocap-library-sections` was confirmed already-handled (the erights.org→github.io mirror note is now enforced in `fetch-source.sh`, not just documented). On endo master, two jsdoc lint ratchets are in flight — `jsdoc/check-tag-names` and `jsdoc/require-param`, each promoting a warning to an error and fixing the defects it surfaces — while the older blanket `fix-lint-jsdoc-warnings-endo-master` plan was superseded. Infra-side, `improve-regenerate-topics-counts`, `issue-inbox-watcher-reactji-acknowledge`, and `service-host-roles-singletons-on-main-host` all completed.
+
+The one thing for the maintainer to notice: a liaison report flags **endolinbot's deployed root as lagging** (`fe2d9f296`) behind `origin/main2` (`b9f0fd5b4`) — `insert-sections-table-row.sh` exists upstream but not on the deployed root. The scholar used a safe whole-file fallback so output was unaffected, but a deliberate `deploy-garden.sh` is awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 10h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 11h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
@@ -64,10 +66,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · fix-lint: jsdoc warnings on endo master (the only lint findings)
 - [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — _low_ · PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
+- [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`formula-inspector-retention-paths-table-v2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/formula-inspector-retention-paths-table-v2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/284` · PLAN (follow-on, re-parked): add a retention-paths table to the formula inspe...
