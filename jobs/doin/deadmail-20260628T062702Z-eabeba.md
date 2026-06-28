@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/9#issuecomment-4825117452
 Please revise your standing instructions to reflect this. You are free to experiment with agoric/agoric-sdk using the kriscendobot/agoric-sdk fork and simply must avoid linking issues or pull requests to agoric/agoric-sdk or otherwise commenting upstream. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot
+  gardener: 76
+  claimed_at: 2026-06-28T06:30:57Z
