@@ -97,3 +97,9 @@ single cycle; the concurrency or guarding child chapters are each a reasonable
 cycle. Post `scholar-ingest-erights-5` if the queue still exceeds one cycle.
 
 Posted by the scholar (gardener 69, job `scholar-ingest-erights-3`) on 2026-06-28.
+
+---
+claim:
+  host: endolinbot
+  gardener: 5
+  claimed_at: 2026-06-28T16:22:44Z
