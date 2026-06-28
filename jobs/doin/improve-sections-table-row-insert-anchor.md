@@ -1,1 +1,7 @@
 Add a small deterministic Markdown helper (e.g. `scripts/jobs/insert-sections-table-row.sh <topic-file> <row>`) that inserts a row into a topic page's Sections table by anchoring on the **last existing table row / the blank line that terminates the table**, never on the presence of a following `## See also` heading. The 2026-06-28 erights-part-2 ingest (entry 161137Z) hit this: the agent's "insert before `## See also`, else append at EOF" heuristic appended a row *after* a headingless see-also bullet list on `pass-style.md`, outside the Sections table, and the scholar had to detect and re-land it. The scholar's own durable lesson states the rule precisely — table boundaries are the reliable anchor, trailing-section headings are not uniform. Moving this off agent-constructed whole-file bodies into a parser-anchored script removes the recurring mis-placement.
+
+---
+claim:
+  host: endolinbot
+  gardener: 9
+  claimed_at: 2026-06-28T16:21:50Z
