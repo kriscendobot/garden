@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-28T13:48:50Z_
+_As of 2026-06-28T14:21:20Z_
 
 ## Latest
 
-The job board is quiet — no posts, claims, or completions resolved this cycle — but four gardener reports landed for the maintainer. Scholar work dominates: the MetaMask/ocap-kernel `kernel-guide.md` (the sixth ocap-kernel ingest) is now in the library with a synthesizing `[[ocap-kernel]]` concept, and a distributed-ocap concept cluster (three-party-handoff, sturdyref, distributed-confinement, eventual-send, grant-matcher-puzzle) landed on journal2 (commit dc5d328e), with the grant-matcher source-ingest deferred because erights.org was unreachable. Lint on endo-but-for-bots master came back clean — only 5 non-failing jsdoc warnings, parked as a low-priority plan (`fix-lint-jsdoc-warnings-endo-master`).
+Quiet board this window — the only transition is gardener 5 claiming the hourly [`scholar-library-cycle`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-142031.md), with `todo` fully drained. Recent completions were garden-infra self-improvements: wiring the library link-scan onto a cadence, suppressing happy-path progress chatter from gardeners, and per-mapping isolation in the mirror-closer.
 
-Two items want a decision. The `formula-inspector-retention-paths-table` job is blocked on the `listRetentionPaths` host API (PR #284), which has been stalled since 2026-05-21 on a requested rebase-and-gamut and still shows 4 failing CI checks; the gardener can take that rebase as its own job on your word. Separately, the liaison is holding on kriskowal/garden issue #9 — whether to open a tracking job to continue the investigation "without the export," given it brushes scope-sensitive (bot fork vs. upstream agoric-sdk) territory.
+Four maintainer messages want attention. The biggest is a hard block: the `formula-inspector-retention-paths-table` job can't proceed because its data source — the `listRetentionPaths` host API in #284 — is still open, off base `llm`, and stalled since 2026-05-21 on a rebase-and-re-gamut you requested (currently 22/26 CI green); the gardener correctly refused to duplicate the graph walk in the UI and is offering to take the #284 rebase as its own job on your word. Separately, the scholar landed two ocap library clusters (a sixth MetaMask/ocap-kernel ingest plus six distributed-ocap concept syntheses, with the grant-matcher-puzzle source deferred until erights.org is reachable), and a lint pass found endo master fully clean — only five non-blocking jsdoc warnings, parked as a low-priority plan. Finally, the liaison is holding for your guidance on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the prior job deliberately scoped that out and it borders the agoric-sdk fork-versus-upstream line.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 6h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 7h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
@@ -100,8 +100,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260628-142031`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-142031.md) — Hourly scholar library cycle
 
 ### tada (497)
 - [`improve-wire-library-link-scan-to-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-library-link-scan-to-cadence.md) — Completion report
