@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please patch ses in agoric-sdk, replacing flatMap with an ordinary loop and verify that this addresses the problem. That would be a smoking gun. Be sure to restore the stack size limit. This is not a viable mitigation without a chain software upgrade because ses is not part of th
+
+---
+claim:
+  host: endolinbot
+  gardener: 51
+  claimed_at: 2026-06-28T04:59:05Z
