@@ -74,7 +74,13 @@ leading frontmatter fence: `from_host`, `from: maintainer`, `sent_at`, `---`,
 body. The archive and the reply are one commit, built through the Git Data API
 (blob → tree on `base_tree` with the `read/` add and the `unread/` delete via
 `sha: null` → commit → fast-forward ref update), retried against a moved ref so
-the push is a compare-and-swap just like the bus's own pushes.
+the push is a compare-and-swap just like the bus's own pushes. The retry mirrors
+the shell push protocol (`scripts/jobs/common.sh`): on a 422 "not a fast forward"
+it re-reads the moved head, reconstructs the change on the fresh tree, and retries
+up to 50 times with a flat ~50–300ms randomized backoff between attempts. The
+backoff is load-bearing — `journal2` is advanced constantly by the ~100-gardener
+fleet, so the prior backoff-free 6-attempt loop re-collided on the same instant
+and surfaced the raw 422 to the maintainer (kriskowal #10).
 
 ## 4. New thread to the liaison
 

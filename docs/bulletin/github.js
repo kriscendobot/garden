@@ -90,12 +90,31 @@ const GH = (() => {
   // Builds one commit on the journal branch that (a) adds `replyPath` with
   // `replyBody` WHEN a reply body is given, (b) copies `unreadPath` to `readPath`
   // (the archive), and (c) deletes `unreadPath`. An empty acknowledgement omits
-  // the reply blob and just moves unread -> read (kriskowal #10). Retried against
-  // a moved ref so the ref update is a compare-and-swap, mirroring the bus's own
-  // push protocol.
+  // the reply blob and just moves unread -> read (kriskowal #10).
+  //
+  // The ref PATCH (force:false) is a compare-and-swap: GitHub rejects it with a
+  // 422 "Update is not a fast forward" when another writer advanced the branch
+  // between our `GET ref` and the `PATCH`. journal2 is hammered by the ~100-
+  // gardener fleet, so a single rebuild loses that race constantly. We therefore
+  // replicate the garden shell scripts' push protocol (scripts/jobs/common.sh
+  // commit_and_push + the seq-1-50 caller loop): on each miss RE-READ the moved
+  // head, RECONSTRUCT the change on the fresh tree, and retry — with a RANDOMIZED
+  // backoff between attempts so contending writers don't relock-step, and a
+  // generous attempt budget so a busy branch eventually drains. Without the
+  // backoff (the prior 6 immediate retries) every attempt re-collides on the
+  // same instant and the user sees the raw 422 (kriskowal #10).
+
+  // Randomized backoff, mirroring common.sh `backoff()` exactly: a flat ~50-300ms
+  // jitter that breaks the lockstep between contending writers. Flat (not
+  // exponential) keeps the worst-case drain bounded (~50 * 0.3s) and matches the
+  // shell push protocol the maintainer pointed at (kriskowal #10).
+  const ATTEMPTS = 50;
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const backoff = () => sleep(Math.floor(Math.random() * 250) + 50);
+
   async function commitReply({ replyPath, replyBody, unreadPath, readPath, origSha, message }) {
     const branch = cfg.journalBranch;
-    for (let attempt = 0; attempt < 6; attempt++) {
+    for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
       const ref = await api(repoPath(`/git/ref/heads/${branch}`));
       const headSha = ref.object.sha;
       const headCommit = await api(repoPath(`/git/commits/${headSha}`));
@@ -135,12 +154,18 @@ const GH = (() => {
         });
         return newCommit.sha;
       } catch (e) {
-        // 422 == the branch moved under us; rebuild on the new head and retry.
-        if (e.status === 422 && attempt < 5) continue;
+        // 422 == the branch moved under us (not a fast forward). Back off, then
+        // re-read the new head and reconstruct the change on the next iteration.
+        if (e.status === 422 && attempt < ATTEMPTS - 1) {
+          await backoff();
+          continue;
+        }
         throw e;
       }
     }
-    throw new Error('reply commit failed after retries (branch kept moving)');
+    throw new Error(
+      `reply commit failed after ${ATTEMPTS} fast-forward retries (journal2 kept moving)`,
+    );
   }
 
   return {
