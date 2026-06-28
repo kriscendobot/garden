@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T07:20:35Z_
+_As of 2026-06-28T07:23:27Z_
 
 ## Latest
 
-Quiet interval: the only board movement was a new [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) attention directive being claimed into `doin`, where it joins an already-active round-two review-feedback carry on the same PR — so two gardeners are now converging on #405's inventory-grouping changes. Worth a maintainer glance among the parked messages: the `formula-inspector-retention-paths-table` job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since the 2026-05-21 "rebase and re-run the gamut" request and still carries four red CI checks — the gardener is offering to take that rebase-and-gamut as its own job on your word.
+Three jobs now converge on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (inventory grouping) — a round-2 review carry, an attention directive, and a just-claimed grouping-toggle fixer directive. [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) was refreshed and is freshly parked for review, and the shepherd on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) pushed three atomic fixes with CI re-running. Two items want maintainer eyes: the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which still needs the rebase-and-re-gamut you requested back on 2026-05-21 (currently 4 failing checks) before it can land — a gardener offered to take that as its own job on your word. The liaison is also holding for a scope decision on continuing the kriskowal/garden#9 investigation "without the export," which the completed job deliberately left out of bounds. On the library side, scholar ingested MetaMask/ocap-kernel's host-app guide plus six distributed-ocap concept syntheses, and a lint sweep of endo master came back clean (only 5 non-blocking jsdoc warnings, parked low).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 6m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 12m)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
@@ -98,9 +98,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endo-but-for-bots-pr405-inventory-grouping-review-round2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr405-inventory-grouping-review-round2.md) — Carry kriskowal's review feedback on endo-but-for-bots PR #405 (inventory gro...
 - [`endojs-endo-but-for-bots-pr405-9719d4b3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-9719d4b3.md) — attention directive on endojs/endo-but-for-bots PR #405
+- [`endojs-endo-but-for-bots-pr405-grouping-toggle`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-grouping-toggle.md) — fixer directive on endojs/endo-but-for-bots PR #405
 - [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/notifier-pubsub-migration.md) — notifier-pubsub-migration: add @endo/exo-pubsub (all bridges) + migrate daemo...
 
 ### tada (482)
