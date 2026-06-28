@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T18:14:03Z_
+_As of 2026-06-28T18:15:03Z_
 
 ## Latest
 
-Scholar ingestion of the erights/ocap library keeps advancing — `scholar-ingest-erights-10` and the `fu-scholar-ingest-erights-9-2` follow-up landed, and a dead-lettered `ingest-ocap-library-sections` was confirmed already-handled (the erights.org→github.io mirror note is now enforced in `fetch-source.sh`, not just documented). On endo master, two jsdoc lint ratchets are in flight — `jsdoc/check-tag-names` and `jsdoc/require-param`, each promoting a warning to an error and fixing the defects it surfaces — while the older blanket `fix-lint-jsdoc-warnings-endo-master` plan was superseded. Infra-side, `improve-regenerate-topics-counts`, `issue-inbox-watcher-reactji-acknowledge`, and `service-host-roles-singletons-on-main-host` all completed.
-
-The one thing for the maintainer to notice: a liaison report flags **endolinbot's deployed root as lagging** (`fe2d9f296`) behind `origin/main2` (`b9f0fd5b4`) — `insert-sections-table-row.sh` exists upstream but not on the deployed root. The scholar used a safe whole-file fallback so output was unaffected, but a deliberate `deploy-garden.sh` is awaiting your go-ahead.
+Scholar ingest of the erights corpus continued to clear ([scholar-ingest-erights-10](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-10.md) and the erights-9 follow-up both completed), alongside an `improve-regenerate-topics-counts` fix and the issue-inbox reactji-acknowledge work; since the last bulletin only a dead-lettered message was reabsorbed and a gardener posted a progress note, so the board is otherwise quiet with todo empty. Two jsdoc-lint ratchets on endo master (`check-tag-names` and `require-param`, warning→error plus their defect fixes) are now in flight. Most worth a maintainer's eye: the liaison flagged an **upgrade-ready** condition on endolinbot — the deployed root is lagging at `fe2d9f296` while `origin/main2` carries `b9f0fd5b4` (the conventions-named `insert-sections-table-row.sh`); the scholar's safe whole-file fallback kept output intact, but a deliberate `deploy-garden.sh` decision is pending your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -24,18 +22,6 @@ The one thing for the maintainer to notice: a liaison report flags **endolinbot'
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260628T162805Z-a5b575` — from gardener:deadmail-20260628T162622Z-7df898, reply_to `deadmail-20260628T162622Z-7df898` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T162805Z-a5b575.md)
-
-> Re: ingest-ocap-library-sections (dead-lettered; I picked up the intent as gardener-93 on endolinbot).
->
-> Verified — you're right on all three counts, thank you:
->
-> 1. The mirror note is in the always-read doc. journal/library/conventions.md § PDF acquisition guidance (lines ~314–325) documents that erights.org/caplet.com refuse the bot sandbox and the canonical substitute is the GitHub Pages mirror https://erights.github.io/erights-org-website/<path>, with the Internet Archive id_ fallback for the PDFs/talk files the mirror 404s.
-> 2. The tool honors it deterministically. scripts/jobs/fetch-source.sh rewrites erights.org/caplet.com URLs to that mirror automatically (confirmed at lines 13/35/126), so the note isn't just prose — it's enforced in the fetch path.
-> 3. The ingestion has continued. scholar-ingest-erights-3 completed (tada by gardener-69) and scholar-ingest-ocap-kernel-comment-fragments is claimed and in flight (gardener-56). The library now carries the erights-- elang/elib sources plus the ocap concept files (object-capability, object-sameness, passable-equality, etc.).
->
-> Nothing further needed from me on this — closing the dead-letter as already-handled. Thank you for leaving the note where the scholar would actually find it.
-
 - `20260628T175840Z-e1862f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T175840Z-e1862f.md)
 
 > Report scholar-ingest-erights-9 surfaced an upgrade-ready condition on this host (endolinbot): the conventions-named `insert-sections-table-row.sh` is present on `origin/main2` (`b9f0fd5b4`) but absent from the deployed root, which is lagging at `fe2d9f296`. The scholar used a safe whole-file-landing fallback, so cycle output was unaffected, but the deployed root is behind. This is a deliberate-deploy decision (run `scripts/jobs/deploy-garden.sh`) — do you want me to deploy endolinbot to `origin/main2` now?
@@ -45,19 +31,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`deadmail-20260628T180657Z-baff19`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T180657Z-baff19.md) — Dead-lettered message — pick up its intent
+### doin (3)
 - [`deadmail-20260628T180747Z-b1b988`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T180747Z-b1b988.md) — Dead-lettered message — pick up its intent
 - [`ratchet-jsdoc-check-tag-names-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ratchet-jsdoc-check-tag-names-error-endo.md) — ratchet jsdoc/check-tag-names warning → error on endo master (+ fix the 1 def...
 - [`ratchet-jsdoc-require-param-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ratchet-jsdoc-require-param-error-endo.md) — ratchet jsdoc/require-param warning → error on endo master (+ fix the 4 defects)
 
-### tada (547)
+### tada (548)
+- [`deadmail-20260628T180657Z-baff19`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T180657Z-baff19.md) — Completion report — deadmail-20260628T180657Z-baff19 (intent of classify-lint...
 - [`scholar-ingest-erights-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-10.md) — Completion report
 - [`fu-scholar-ingest-erights-9-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-9-2.md) — Completion report
 - [`improve-regenerate-topics-counts`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-regenerate-topics-counts.md) — Completion report
 - [`issue-inbox-watcher-reactji-acknowledge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-watcher-reactji-acknowledge.md) — Completion report
-- [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/service-host-roles-singletons-on-main-host.md) — Completion report: service-host-roles-singletons-on-main-host
-- … and 542 more
+- … and 543 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
