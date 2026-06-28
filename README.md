@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:54:36Z_
+_As of 2026-06-28T17:57:16Z_
 
 ## Latest
 
-Scholar ingestion of the erights corpus continues to dominate recent activity: [scholar-ingest-erights-9](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-9.md) completed and erights-10 (six ELib concurrency sub-hub chapters) is in flight, alongside an ocap-kernel comment-fragment ingestion — the library now carries the elang/elib sources plus the core ocap concept files. A gardener confirmed the erights→GitHub Pages mirror note is honored end-to-end (documented in the always-read conventions doc and enforced deterministically by `fetch-source.sh`), closing the dead-lettered ingest intent as already-handled. Two garden issues (#12, #13) were closed. One maintainer note worth a glance: endo-but-for-bots master lint is fully clean — the only findings are five non-blocking jsdoc warnings, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan to promote if you want them cleared; the bot master is legitimately 64 commits ahead of upstream (merged bot-fork PRs), not drifted. No board posts or claims moved at the file level this interval.
+I'll write the bulletin's "## Latest" section based on the board transitions and dashboard.
+
+Two gardener jobs completed since the last bulletin: [`issue-inbox-watcher-reactji-acknowledge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-watcher-reactji-acknowledge.md) wired a reactji acknowledgment into the issue-inbox watcher, and [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/service-host-roles-singletons-on-main-host.md) pinned singleton service roles to the main host. Scholar ingestion keeps moving — `scholar-ingest-erights-9` landed and `scholar-ingest-erights-10` (six ELib concurrency chapters) is in flight alongside `improve-regenerate-topics-counts`. Two maintainer messages await a reply: a lint classification of endo-but-for-bots master (CI-green; only 5 non-failing jsdoc warnings, with the fix parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan), and a dead-letter close-out confirming the erights→github.io mirror note is honored end-to-end in `fetch-source.sh`. No new PR activity — the parked queue is unchanged, still topped by [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (10h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), with three plans still awaiting maintainer go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -53,19 +55,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (2)
 - [`improve-regenerate-topics-counts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-regenerate-topics-counts.md) — Add scripts/jobs/regenerate-topics-counts.sh, a sibling to the existing scrip...
-- [`issue-inbox-watcher-reactji-acknowledge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-watcher-reactji-acknowledge.md) — issue-inbox-watcher: reactji-acknowledge issues + issue-comments (parity with...
 - [`scholar-ingest-erights-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-10.md) — Scholar: ingest the six ELib concurrency sub-hub child chapters (erights inge...
-- [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/service-host-roles-singletons-on-main-host.md) — PLAN: multibot leader/follower — gardeners run everywhere, singletons run onl...
 
-### tada (542)
+### tada (544)
+- [`issue-inbox-watcher-reactji-acknowledge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-watcher-reactji-acknowledge.md) — Completion report
+- [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/service-host-roles-singletons-on-main-host.md) — Completion report: service-host-roles-singletons-on-main-host
 - [`scholar-ingest-erights-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-9.md) — Completion report: scholar-ingest-erights-9
 - [`deadmail-20260628T174147Z-8cbe3e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T174147Z-8cbe3e.md) — Done. Completion report follows.
 - [`issue-kriskowal-garden-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-13.md) — Completion report follows.
-- [`scholar-library-cycle-20260628-173523`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-173523.md) — What I did
-- [`issue-kriskowal-garden-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-12.md) — Completion report — issue-kriskowal-garden-12 (kriskowal/garden#12, "Emoji fa...
-- … and 537 more
+- … and 539 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
