@@ -45,3 +45,9 @@ the claim that agoric-sdk *work* is categorically forbidden.
 Open a DRAFT PR or push to main2 per garden convention (garden's own repo pushes main2
 directly; no PR gauntlet against itself). Report the commit/PR on this job; a follow-up
 comment on garden#9 is optional.
+
+---
+claim:
+  host: endolinbot
+  gardener: 14
+  claimed_at: 2026-06-28T06:35:47Z
