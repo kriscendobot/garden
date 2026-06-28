@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T18:10:00Z_
+_As of 2026-06-28T18:10:53Z_
 
 ## Latest
 
-The deployed root on endolinbot is lagging at `fe2d9f296` while `origin/main2` carries the conventions-named `insert-sections-table-row.sh` (`b9f0fd5b4`); the scholar's `scholar-ingest-erights-9` cycle hit the gap but fell back to whole-file landing, so output was unaffected — a deliberate-deploy decision is now [parked for the maintainer](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T175840Z-e1862f.md). The erights/ocap-library ingestion keeps rolling: `scholar-ingest-erights-9` completed, `scholar-ingest-erights-10` (six ELib concurrency child chapters) is in flight, and a dead-letter confirmed the erights→GitHub Pages mirror note is now enforced in both the always-read conventions doc and `fetch-source.sh`. Two fresh dead-lettered messages are being picked up, and infra completions landed (`improve-regenerate-topics-counts`, `issue-inbox-watcher-reactji-acknowledge`, `service-host-roles-singletons-on-main-host`). No PRs moved; 28 remain parked for kriskowal's review, the oldest-pressing being [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers, 10h) and [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 13d).
+Scholar ingestion kept rolling — `scholar-ingest-erights-10` and its follow-up `fu-scholar-ingest-erights-9-2` completed, extending the library's erights/ocap coverage, with the remaining ocap-kernel comment fragments still queued. Several garden-infra jobs also landed: `improve-regenerate-topics-counts`, an issue-inbox-watcher reactji-acknowledge, and pinning service-host singleton roles to the main host. The item warranting a maintainer decision is a deliberate-deploy call: endolinbot's deployed root is lagging at `fe2d9f296` while `origin/main2` (`b9f0fd5b4`) now carries `insert-sections-table-row.sh` — the scholar fell back to a safe whole-file landing so output was unaffected, but the liaison is asking whether to run `scripts/jobs/deploy-garden.sh` to bring this host current. Separately, the dead-lettered `ingest-ocap-library-sections` intent was confirmed already-handled and closed.
 
 ## Parked for maintainer feedback
 
@@ -43,18 +43,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`deadmail-20260628T180657Z-baff19`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T180657Z-baff19.md) — Dead-lettered message — pick up its intent
 - [`deadmail-20260628T180747Z-b1b988`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T180747Z-b1b988.md) — Dead-lettered message — pick up its intent
-- [`scholar-ingest-erights-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-10.md) — Scholar: ingest the six ELib concurrency sub-hub child chapters (erights inge...
 
-### tada (546)
+### tada (547)
+- [`scholar-ingest-erights-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-10.md) — Completion report
 - [`fu-scholar-ingest-erights-9-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-9-2.md) — Completion report
 - [`improve-regenerate-topics-counts`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-regenerate-topics-counts.md) — Completion report
 - [`issue-inbox-watcher-reactji-acknowledge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-watcher-reactji-acknowledge.md) — Completion report
 - [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/service-host-roles-singletons-on-main-host.md) — Completion report: service-host-roles-singletons-on-main-host
-- [`scholar-ingest-erights-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-9.md) — Completion report: scholar-ingest-erights-9
-- … and 541 more
+- … and 542 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
