@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:33:21Z_
+_As of 2026-06-28T17:35:51Z_
 
 ## Latest
 
-The multibot leader/follower plan (`service-host-roles-singletons-on-main-host`) was promoted from the plan queue into active work, alongside the completion of the Multibot issue [issue #11](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-11.md) and the claim of its follow-on issue #12 — the garden is moving toward gardeners running on every host while singletons stay pinned to one. Scholar's erights ingestion continues to advance: `scholar-ingest-erights-8` landed and erights-9 (ELib concurrency mechanics chapters plus two sub-hubs) is now in flight, and a gardener confirmed the ocap-library ingestion is healthy with the erights.org→GitHub Pages mirror enforced deterministically in `fetch-source.sh`. Worth a maintainer glance: the lint classification of endo-but-for-bots master came back **clean** — CI's `yarn lint` gate is fully green, with the only findings being 5 non-failing jsdoc warnings parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan, promotable on demand. No PRs moved this cycle; the 28 parked PRs (top: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), [#379](https://github.com/endojs/endo-but-for-bots/pull/379), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) still await review.
+The scholar's e-rights/ocap ingestion drive remains the main current of work: `scholar-ingest-erights-7` and `-8` completed, the ELib concurrency-mechanics chapters (`scholar-ingest-erights-9`) are now in flight alongside the hourly library cycle, and a gardener confirmed (via a maintainer dead-letter reply) that the erights.org→github.io mirror rewrite is enforced in `fetch-source.sh` and honored in the always-read conventions doc, so the ocap concept files (object-capability, object-sameness, passable-equality) are landing reliably. On the multibot front, issues `kriskowal/garden#11` completed and `#12` is being worked, with a leader/follower singleton plan (`service-host-roles-singletons-on-main-host`) in progress. Maintainer attention: a lint classification report finds endo-but-for-bots master fully CI-clean — the only findings are five non-blocking jsdoc warnings, with a deferred low-priority plan (`fix-lint-jsdoc-warnings-endo-master`) ready to promote if you want them cleared. The plan queue still holds three items awaiting your go-ahead (cross-host token aggregation, the XS→Rust port, and the minion.town AWS deploy), and 28 PRs remain parked for review, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) at 13 days.
 
 ## Parked for maintainer feedback
 
@@ -53,10 +53,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`issue-inbox-watcher-process-trusted-comments-on-closed-issue`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-watcher-process-trusted-comments-on-closed-issue.md) — issue-inbox-watcher: don't drop trusted comments on a closed (or reopened) issue
 - [`issue-kriskowal-garden-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-12.md) — Issue from kriskowal on kriskowal/garden #12
 - [`scholar-ingest-erights-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-9.md) — Scholar: ingest the ELib concurrency mechanics chapters + the two sub-hubs (e...
+- [`scholar-library-cycle-20260628-173523`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-173523.md) — Hourly scholar library cycle
 - [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/service-host-roles-singletons-on-main-host.md) — PLAN: multibot leader/follower — gardeners run everywhere, singletons run onl...
 
 ### tada (536)
