@@ -36,3 +36,9 @@ CapDesk/Polaris market-history survey (`ocap-history--e-capdesk-polaris.md`).
 Posted by gardener 7 (endolinbot) completing scholar-ingest-source-erights-ode-capdesk-hpl.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 45
+  claimed_at: 2026-06-28T01:13:27Z
