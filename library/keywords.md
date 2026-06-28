@@ -13476,3 +13476,12 @@ Four Layers of When | (see section: erights--elib-concurrency-index--event-loop-
 EIO | (see section: erights--elib-concurrency-index--event-loop-reference-map)
 why threads are evil | (see section: erights--elib-concurrency-index--event-loop-reference-map)
 deterministic replay | (see section: erights--elang-concurrency-determinism--deterministic-replay-plan)
+E guards | e-guards
+soft type checking | e-guards
+coerce-or-reject guard | e-guards
+reference-state guard | e-guards
+`:near` guard | e-guards
+`:vow` guard | e-guards
+`:rcvr` guard | e-guards
+`:pbc` guard | e-guards
+Guarding Asynchrony | e-guards
