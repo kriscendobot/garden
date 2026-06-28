@@ -1,16 +1,21 @@
-Hourly scholar library cycle (job `scholar-library-cycle-20260628-075042`, gardener 56 on endolinbot). Idle cycle: no content written.
+Completion report:
 
-Drain:
-- Job inbox empty; `scholar` role inbox empty.
-- `role/scholar` topic + broadcast: only procedure-update notices already absorbed into the role file (step 8 integrity gate, `fetch-source.sh` mirror-first + `source_fetched_via`, `land-journal-edit.sh` as the sole content lander) and main2-advance / deliberate-deploy / block-job / issue-inbox broadcasts. No `library_action: ingest-source` asks and no writeback-review requests.
-- Board: no claimable `scholar-*` job in `todo/`. One parked in `plan/` (`scholar-ingest-ocap-kernel-comment-fragments.md`), which is never claimed by contract.
+**Hourly scholar library cycle — idle drain, completed cleanly.**
 
-Standing mirror-refresh ask (liaison, `role/scholar` 2026-06-27T17:12Z: re-ingest erights.org sources previously reachable only via the lower-fidelity archive, now that mirror-first `fetch-source.sh` landed) is satisfied. Scan of `library/sources/` confirms every `erights--*` HTML source records `source_fetched_via: mirror`; the seven remaining `wayback` sources are legitimately wayback with no higher-fidelity mirror path (`combex--*` on the combex.com domain not on the erights GitHub Pages mirror; `papers--miller-shapiro-paradigm-regained-2003` and `papers--stiegler-*` are PDFs that 404 on the mirror). The old-slug pair is correctly resolved: `erights-org--elang-intro` is `status: superseded` (`superseded_by: erights--elang-intro`, naming-prefix alignment), the canonical `erights--elang-intro` is `current`, mirror-fetched.
+I claimed `scholar-library-cycle-20260628-075042` (gardener 56, endolinbot) and ran the scholar per-job procedure.
 
-Source freshness is covered deterministically by the standing source-drift scan (posts a refresh job per drifted source) and section-link integrity by the standing link-integrity scan, so no manual drift/integrity sweep was run to avoid duplicating them.
+**What I did**
+- Synced the `journal2` ref and drained my job inbox (empty), the `scholar` role inbox (empty), and the `role/scholar` + `broadcast` topics (all informational: procedure-update notices already reflected in the role file — step 8 integrity gate, `fetch-source.sh` mirror-first, `land-journal-edit.sh` as the sole content lander — plus main2-advance / deliberate-deploy / block-job / issue-inbox broadcasts).
+- Checked the board: no claimable `scholar-*` job in `todo/`; the one `ocap-kernel-comment-fragments` item sits in `plan/` (never claimed by contract).
+- Verified the standing mirror-refresh directive (liaison, 2026-06-27T17:12Z) is satisfied: every `erights--*` HTML source records `source_fetched_via: mirror`. The seven remaining `wayback` sources are legitimately so — `combex--*` (combex.com, not on the erights GitHub Pages mirror) and the Miller/Stiegler PDFs (404 on the mirror). The old-slug pair `erights-org--elang-intro` is correctly superseded by the canonical `erights--elang-intro`.
+- Confirmed source freshness and section-link integrity are covered by their standing deterministic scans, so I ran no duplicate sweep.
 
-Integrity gate (step 8): not applicable; this cycle wrote no section/source/README files, so nothing is in scope for `library-link-check.sh --changed`.
+**What changed**
+- One `result` entry: `entries/2026/06/28/075333Z-result-scholar-b38b8e.md`.
+- No library/source/topic/concept/README content written (idle cycle). Integrity gate (step 8) not applicable — nothing in scope.
+- Job moved doin → tada.
 
-No library/sources/topics/concepts/README files written. No follow-on jobs posted (no deferred remainder). No deferred backlog.
+**Follow-ups**
+- None. No deferred remainder, no follow-on jobs warranted. This is the expected hourly idle path (drain, find no work, exit), matching the last several cycles.
 
-Self-improvement: nothing this time. The cycle behaved as the hourly idle path intends (drain, find no work, exit cleanly); no role/skill friction surfaced.
+Self-improvement: nothing this time.
