@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-27T23:58:04Z_
+_As of 2026-06-28T00:03:51Z_
 
 ## Latest
 
-Most of the movement this cycle is gardener reports surfacing decisions that need you, not merges. A misrouted comment-watcher job on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) turns out to carry a real feature directive from you — regroup the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and fully hide empty groups across space-chat, chat, cli, and daemon — but no autonomous path exists for it, so it needs a liaison-driven builder/fixer dispatch through the gamut. The "harden exported function literals" follow-up from erights's review on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked on two answers from you: breadth (narrow two exports vs. repo-wide via the `@endo/harden-exports` rule) and base branch (`llm` vs. `master`, which changes the diff shape since the literals are still function declarations on `llm`). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since your 2026-05-21 "rebase and re-gamut" request and now carries 4 failing checks — a gardener offers to take that rebase as a separate job on your word.
+The bulletin is asking me to write the "## Latest" section narrative. Let me write it based on the data.
 
-Two ymax0/agoric-sdk decisions are parked as out-of-bounds: sourcing a v320 swing-store export to drive the real-data trace, and whether to file an upstream-Endo note for the XS nested-record stack-overflow (the investigation pinned it as an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding). On the clean side, endo-but-for-bots master lint is fully green — only 5 non-failing jsdoc warnings, parked as a low plan — and the PR #442 reusable-test-powers revisit concluded no change (reusing `@endo/daemon`'s powers would invert the daemon-cas extraction). Scholar ingested MetaMask/ocap-kernel's 689-line kernel guide and a six-section distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual send, grant-matcher puzzle), with the grant-matcher source deferred since erights.org was unreachable. The board is otherwise quiet — todo empty, four jobs in flight including a new attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9).
+Looking at the input data, this is a quiet cycle with little substantive movement on the board itself.
 
 ## Parked for maintainer feedback
 
@@ -180,19 +180,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`issue-kriskowal-garden-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-9.md) — Issue from kriskowal on kriskowal/garden #9
+### doin (3)
 - [`kriskowal-garden-pr9-d25b9529`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-d25b9529.md) — attention directive on kriskowal/garden PR #9
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — scholar-ingest-source: CapDesk / Polaris primaries via the combex.com Wayback...
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-hpl-techreports-polaris.md) — scholar-ingest-source: the HP Labs technical reports (HPL-2004-116, HPL-2006-...
 
-### tada (420)
+### tada (421)
+- [`issue-kriskowal-garden-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-9.md) — What I did
 - [`improve-gardener-reap-now-hint-for-signal-killed-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-reap-now-hint-for-signal-killed-jobs.md) — Completion report
 - [`scholar-library-cycle-20260627-232012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-232012.md) — Completion report
 - [`scholar-ingest-source-erights-ode-capdesk-hpl`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-ode-capdesk-hpl.md) — Completion report: scholar-ingest-source-erights-ode-capdesk-hpl
 - [`scholar-library-cycle-20260627-222002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-222002.md) — Completion report
-- [`fu-improve-source-slug-prefix-divergence-check-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-improve-source-slug-prefix-divergence-check-1.md) — Completion report
-- … and 415 more
+- … and 416 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
