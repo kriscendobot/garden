@@ -56,3 +56,9 @@ change adds the ~128+ value-stack slots that tip the already-near-ceiling import
 Post findings as a comment on kriskowal/garden#9. Keep all PRs/branches DRAFT and
 fork-internal on `kriscendobot/agoric-sdk`. No upstream agoric/agoric-sdk links or
 comments.
+
+---
+claim:
+  host: endolinbot
+  gardener: 60
+  claimed_at: 2026-06-28T06:35:37Z
