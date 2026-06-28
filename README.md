@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T09:05:53Z_
+_As of 2026-06-28T09:08:09Z_
 
 ## Latest
 
-Two endo-but-for-bots PR [#405](https://github.com/endojs/endo-but-for-bots/pull/405) jobs closed out — the inventory-grouping toggle and its round-2 review — alongside garden-infra completions: the comment-watcher now always reactjis trusted senders instead of silently dropping them, and the notifier finished migrating to pub/sub. Scholar library cycles continue on the hour, with recent ingests landing an ocap-kernel guide synthesis and a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement).
+Here's the "## Latest" body:
 
-Worth a maintainer's eye: the `formula-inspector-retention-paths-table` job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently shows failing CI — the gardener is holding rather than duplicating the graph walk, and offers to take the #284 rebase as its own job. The liaison is also holding for direction on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation, since the prior job explicitly scoped that follow-on out.
+A single hourly scholar library cycle completed since the last bulletin; the board is otherwise idle (no open or in-flight jobs). The substantive movement this period was in the maintainer inbox. The [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) retention-paths host API is now the bottleneck for the formula-inspector retention-paths table — that table job is blocked because #284 remains open, off-base, and carrying 4 failing CI checks since your 2026-05-21 "rebase and run the gamut again" request never happened; a gardener is offering to take that rebase-and-gamut as a separate job on your word. On the library side, scholars landed a substantial ocap synthesis: the sixth MetaMask/ocap-kernel ingest (the 689-line kernel guide) plus a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher), with the grant-matcher source still deferred because erights.org is unreachable. A lint classification of endo-but-for-bots master found it CLEAN — only 5 non-blocking jsdoc warnings, parked as a low-priority plan. Finally, the liaison is holding for your direction on whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation, which the completing job deliberately left out of scope near the agoric-sdk fork/upstream boundary.
 
 ## Parked for maintainer feedback
 
@@ -100,16 +100,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-090502.md) — Hourly scholar library cycle
+### doin (0)
+(none)
 
-### tada (488)
+### tada (489)
+- [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-090502.md) — Hourly scholar library cycle (job scholar-library-cycle-20260628-090502, gard...
 - [`scholar-library-cycle-20260628-075042`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-075042.md) — Completion report:
 - [`endojs-endo-but-for-bots-pr405-grouping-toggle`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-grouping-toggle.md) — Completion report — endojs/endo-but-for-bots PR #405
 - [`comment-watcher-no-silent-trusted-drop-always-reactji`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-silent-trusted-drop-always-reactji.md) — Completion report
 - [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/notifier-pubsub-migration.md) — Completion report: notifier-pubsub-migration
-- [`endo-but-for-bots-pr405-inventory-grouping-review-round2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pr405-inventory-grouping-review-round2.md) — Completion report — endo-but-for-bots PR #405, inventory grouping (round 2)
-- … and 483 more
+- … and 484 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
