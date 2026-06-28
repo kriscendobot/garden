@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T07:43:39Z_
+_As of 2026-06-28T07:51:28Z_
 
 ## Latest
 
-The lone board move this cycle: the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) inventory grouping-toggle job completed and landed in `tada`. Otherwise the queue is quiet (todo and doin both empty), and the substance is in the maintainer inbox: a gardener reports the `formula-inspector-retention-paths-table` job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently shows 4 failing CI checks — the table is ready to build the moment #284 lands, and the gardener offers to take that rebase as its own job on your word. Two scholar ingests landed on `journal2` (a sixth MetaMask/ocap-kernel guide plus a six-section distributed-ocap concept cluster), endo-but-for-bots master lint came back clean (only 5 non-blocking jsdoc warnings, plan parked), and the liaison is holding for direction on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation that the prior job deliberately left out of scope.
+The board is quiet — only the hourly [scholar library cycle](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-075042.md) was claimed since the last bulletin, with no new posts or completions. The substance is in the maintainer queue: a gardener reports the formula-inspector retention-paths table is blocked because its data source (host PR #284, `listRetentionPaths`) is still open, off base `llm`, and stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested — it offers to take that rebase as a separate job and re-promote the table once #284 lands. On the library side, scholar landed two ingests: MetaMask/ocap-kernel's 689-line kernel guide (the sixth ocap-kernel ingest, cross-linked to the ocap corpus) and a six-section distributed-ocap concept cluster (three-party-handoff, sturdyref, distributed-confinement, eventual-send, grant-matcher-puzzle), with the grant-matcher source deferred because erights.org was unreachable. A lint sweep found endo-but-for-bots master fully clean apart from five non-failing jsdoc warnings (parked as a low plan). Finally, the liaison is holding for your guidance on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of scope.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 30m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 40m)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
@@ -98,8 +98,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260628-075042`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-075042.md) — Hourly scholar library cycle
 
 ### tada (487)
 - [`endojs-endo-but-for-bots-pr405-grouping-toggle`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-grouping-toggle.md) — Completion report — endojs/endo-but-for-bots PR #405
