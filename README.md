@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T16:23:52Z_
+_As of 2026-06-28T16:25:35Z_
 
 ## Latest
 
-Distributed-ocap concept synthesis landed on journal2 (commit dc5d328e): a gardener scholar cross-linked six topics—three-party-handoff, sturdyref, distributed-confinement, eventual-send, grant-matcher-puzzle, and passable-equality—with the one gap being grant-matching, whose erights.org source was unreachable and is parked for re-ingest. The erights.org E-language ingest is progressing in sequence ([erights-3](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-3.md) done, erights-4 now in flight). A lint sweep of endo-but-for-bots master found CI fully green, with only five non-blocking jsdoc warnings (parked as a low-priority cleanup). Maintainer attention is requested on two threads: the liaison is holding for direction on whether to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation that the prior job explicitly scoped out (it borders the agoric-sdk-fork-vs-upstream scope line), and several bulletin-infrastructure jobs are in flight to move GitHub Pages bulletin generation into CI rather than committing it to main2. No PRs moved; the 28-deep parked queue still awaits review, led by [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers, waiting 9h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 2d).
+Garden scholar work dominated this cycle: the [erights-3](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-3.md) ingest completed and the next erights E-language batch ([erights-4](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-4.md)) and an ocap-kernel comment-fragment ingest are now in flight, alongside the earlier ocap concept-cluster landing on journal2 (distributed-ocap synthesis; grant-matcher-puzzle flagged because erights.org was unreachable). On the PR front, [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) was claimed by a shepherd to drive its CI green — worth watching since the parked formula-inspector retention-paths table is blocked on it. Lint classification of endo-but-for-bots master came back clean (only five non-blocking jsdoc warnings, parked as a low-priority fix). Two maintainer asks await a decision: the liaison is holding off on continuing the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation "without the export" pending scope confirmation, and a deferred jsdoc-warning fix can be promoted if you want the warnings cleared.
 
 ## Parked for maintainer feedback
 
@@ -61,21 +61,22 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`bulletin-rearch-ci-from-journal2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bulletin-rearch-ci-from-journal2.md) — Re-architect the GitHub Pages bulletin: CI-generated, not committed to main2
 - [`deadmail-20260628T161937Z-f19557`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T161937Z-f19557.md) — Dead-lettered message — pick up its intent
-- [`deadmail-20260628T162052Z-7d1eca`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T162052Z-7d1eca.md) — Dead-lettered message — pick up its intent
 - [`improve-sections-readme-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-sections-readme-regenerator.md) — Add a deterministic regenerator script (e.g. scripts/jobs/regenerate-sections...
 - [`improve-sections-table-row-insert-anchor`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-sections-table-row-insert-anchor.md) — Add a small deterministic Markdown helper (e.g. scripts/jobs/insert-sections-...
+- [`pr-ebfb-284-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-284-shepherd.md) — Land endo-but-for-bots#284 (shepherd) — drive CI green
 - [`scholar-ingest-erights-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-4.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
+- [`scholar-ingest-ocap-kernel-comment-fragments`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments.md) — PLAN: scholar — ingest MetaMask/ocap-kernel kernel-internals comment fragments
 
-### tada (509)
-- [`scholar-ingest-erights-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-3.md) — Source ingested
+### tada (510)
+- [`deadmail-20260628T162052Z-7d1eca`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T162052Z-7d1eca.md) — Completion report — deadmail-20260628T162052Z-7d1eca (gardener)
+- [`scholar-ingest-erights-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-3.md) — Completion report — scholar-ingest-erights-3
 - [`deadmail-20260628T161527Z-35092c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T161527Z-35092c.md) — Completion report
 - [`deadmail-20260628T160726Z-bef943`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T160726Z-bef943.md) — Completion report
 - [`scholar-ingest-erights-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-2.md) — Completion report
-- [`build-github-pages-bulletin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-github-pages-bulletin.md) — Completion report: build-github-pages-bulletin (issue-kriskowal-garden-10)
-- … and 504 more
+- … and 505 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -86,12 +87,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · fix-lint: jsdoc warnings on endo master (the only lint findings)
-- [`scholar-ingest-ocap-kernel-comment-fragments`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments.md) — _low_ · PLAN: scholar — ingest MetaMask/ocap-kernel kernel-internals comment fragments
 - [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — _low_ · PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
-(none)
+- [`formula-inspector-retention-paths-table-v2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/formula-inspector-retention-paths-table-v2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/284` · PLAN (follow-on, re-parked): add a retention-paths table to the formula inspe...
 
 ## Watch set
 (none)
