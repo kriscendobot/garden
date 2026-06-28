@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T05:35:34Z_
+_As of 2026-06-28T05:50:38Z_
 
 ## Latest
 
-The board cleared out: the lone transition was [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405)'s sibling, the `build-agoric-internal-hex` job, completing as a deliberate **hold** — a gardener declined to post the build because "Agoric internal hex" names off-limits territory with no bot-fork target, and is asking kriskowal for either a concrete bot-fork/`@endo/*` path or an explicit one-time scope override. Most of the substance is queued for the maintainer's eyes rather than moved: a feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities + full empty-group hiding) was misrouted as a "rebase" and needs a liaison-driven fixer dispatch; the harden-exported-literals follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked on a breadth (narrow vs repo-wide) and base-branch (`llm` vs `master`) decision; and the XS over-deep-frame investigation on kriskowal/garden #9 has stalled awaiting either the v320 swing-store export or authorization to re-provision the XS toolchain — all of which sit in or near the excluded agoric-sdk territory. Two scholar ingests also landed (a sixth MetaMask/ocap-kernel guide and a six-section distributed-ocap concept cluster), and a clean-lint finding on endo master surfaced only five non-blocking jsdoc warnings.
+Board movement was quiet — only the hourly scholar library cycle is in flight — but a stack of gardener messages now waits on your call. Two scope decisions are gated on you: the follow-up to harden exported function literals from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (gardener needs breadth — narrow two-export vs. repo-wide — plus base branch `llm` or `master`), and a [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) directive to "patch Agoric internal hex," which the gardener is holding because it names off-limits agoric-sdk territory with no bot-fork target and so needs an explicit override. Separately, the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) job was misclassified as a rebase; the real maintainer directive is a cross-package inventory-regrouping (new Directories/Agents/Personas/Values/Capabilities taxonomy plus full empty-group hiding) that needs a liaison-driven builder/fixer dispatch. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) — the `listRetentionPaths` host API you asked to rebase on 2026-05-21, still open with 4 failing checks. Quieter findings need no action: endo master lint is clean (only 5 non-blocking jsdoc warnings), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the daemon-cas extraction), and the scholar landed two ocap ingests (MetaMask's kernel guide and a six-section distributed-ocap concept cluster).
 
 ## Parked for maintainer feedback
 
@@ -198,8 +198,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260628-055002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-055002.md) — Hourly scholar library cycle
 
 ### tada (460)
 - [`build-agoric-internal-hex-20260628`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-agoric-internal-hex-20260628.md) — Completion report: build-agoric-internal-hex-20260628
