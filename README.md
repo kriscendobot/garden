@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T16:32:49Z_
+_As of 2026-06-28T16:36:18Z_
 
 ## Latest
 
-The bulletin pipeline itself was just re-architected to build CI from journal2 (`bulletin-rearch-ci-from-journal2`), and the scholar's library tooling advanced — the section-row inserter is now wired in (`wire-scholar-to-sections-row-inserter`) with a deterministic sections-README regenerator and ocap/erights ingestion still in flight. A lint classification of endo-but-for-bots master came back clean: CI's `yarn lint` gate is fully green, with only five non-blocking jsdoc warnings, parked as the deferred/low `fix-lint-jsdoc-warnings-endo-master` plan to promote at will. Shepherd work on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) is claimed and driving CI green (it also gates the re-parked formula-inspector retention-paths plan). Two items await a maintainer call: whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation "without the export," which the prior job deliberately left out of scope, and the unread lint-warnings note.
+The scholar's erights ingestion keeps rolling — [`scholar-ingest-erights-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-4.md) completed and `-erights-5` (the remaining E-language pages) is already claimed, alongside the in-flight ocap-kernel comment-fragment ingest and the hourly library cycle; the library now carries the erights elang/elib sources plus the core ocap concept files. On the infra side, `bulletin-rearch-ci-from-journal2` and `wire-scholar-to-sections-row-inserter` landed, and a deterministic sections-README regenerator is in progress. A shepherd is driving [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) toward green CI — worth noticing because the parked formula-inspector retention-paths table is blocked on it. Two attention directives on [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) are claimed and being worked. Two maintainer notes are unread: a lint classification finding endo master **clean** (only 5 non-blocking jsdoc warnings, with an optional low-priority plan to clear them), and a closure confirming the erights-mirror ingestion guidance is wired into the always-read doc and the fetch tool.
 
 ## Parked for maintainer feedback
 
@@ -36,10 +36,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Note: bot master is 64 commits AHEAD of upstream endo (legitimately merged bot-fork PRs) and 8 behind; I did NOT force-sync to upstream — the ahead commits are real work, not drift.
 
-- `20260628T015826Z-ac972d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T015826Z-ac972d.md)
-
-> Report kriskowal-garden-pr9-b87e3247 flags a still-open thread on kriskowal/garden issue #9 — the issue body's ask to "continue this investigation to the possible extent without the export." The completed job deliberately scoped this out as not part of the comment's directive and called it only a "candidate for its own job." It also sits near scope-sensitive territory (the prior work distinguished a bot-owned fork of agoric-sdk from excluded upstream agoric-sdk). Do you want me to open a tracking job to continue the issue #9 investigation, and if so, what's the intended scope of "without the export"? I'm holding off rather than autonomously spawning an investigation the report author explicitly left out of bounds.
-
 - `20260628T162805Z-a5b575` — from gardener:deadmail-20260628T162622Z-7df898, reply_to `deadmail-20260628T162622Z-7df898` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T162805Z-a5b575.md)
 
 > Re: ingest-ocap-library-sections (dead-lettered; I picked up the intent as gardener-93 on endolinbot).
@@ -57,20 +53,22 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
-- [`deadmail-20260628T162700Z-1e5d9b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T162700Z-1e5d9b.md) — Dead-lettered message — pick up its intent
+### doin (7)
 - [`improve-sections-readme-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-sections-readme-regenerator.md) — Add a deterministic regenerator script (e.g. scripts/jobs/regenerate-sections...
+- [`kriskowal-garden-pr10-4099c7c4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr10-4099c7c4.md) — attention directive on kriskowal/garden PR #10
+- [`kriskowal-garden-pr10-ea2e3fcc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr10-ea2e3fcc.md) — attention directive on kriskowal/garden PR #10
 - [`pr-ebfb-284-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-284-shepherd.md) — Land endo-but-for-bots#284 (shepherd) — drive CI green
-- [`scholar-ingest-erights-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-4.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
+- [`scholar-ingest-erights-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-5.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
 - [`scholar-ingest-ocap-kernel-comment-fragments`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-ocap-kernel-comment-fragments.md) — PLAN: scholar — ingest MetaMask/ocap-kernel kernel-internals comment fragments
+- [`scholar-library-cycle-20260628-163503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-163503.md) — Hourly scholar library cycle
 
-### tada (515)
+### tada (517)
+- [`scholar-ingest-erights-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-4.md) — Completion report — scholar-ingest-erights-4
+- [`deadmail-20260628T162700Z-1e5d9b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T162700Z-1e5d9b.md) — Inbox is empty. The carried-forward reply was a status closure to a now-depar...
 - [`wire-scholar-to-sections-row-inserter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/wire-scholar-to-sections-row-inserter.md) — Completion report: wire-scholar-to-sections-row-inserter
 - [`bulletin-rearch-ci-from-journal2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/bulletin-rearch-ci-from-journal2.md) — Completion report: bulletin-rearch-ci-from-journal2
 - [`deadmail-20260628T162622Z-7df898`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T162622Z-7df898.md) — Completion report:
-- [`deadmail-20260628T161937Z-f19557`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T161937Z-f19557.md) — Completion report — deadmail-20260628T161937Z-f19557
-- [`improve-sections-table-row-insert-anchor`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sections-table-row-insert-anchor.md) — Done. Here is my completion report.
-- … and 510 more
+- … and 512 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
