@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-28T10:45:52Z_
+_As of 2026-06-28T11:20:30Z_
 
 ## Latest
 
-The [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) grouping toggle landed, alongside an `improve-scheduler-preflight-gate` fix and several hourly scholar library cycles. On the library side, a gardener ingested MetaMask/ocap-kernel's 689-line kernel guide (the sixth ocap-kernel ingest) plus a six-section distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher), honestly flagging that the grant-matcher source stayed unverified because erights.org was unreachable. A lint classification of endo-but-for-bots master came back clean — the only findings are 5 non-blocking jsdoc warnings, parked as a low-priority plan.
+The scheduler gained a preflight gate ([`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md) completed), and the grouping-toggle work on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) landed; otherwise the hour was quiet, with the hourly scholar library cycle the only job currently in flight.
 
-Two items want kriskowal's eye. The formula-inspector retention-paths table is blocked on listRetentionPaths PR #284, which has sat since 2026-05-21 awaiting the rebase-and-gamut you already requested and currently shows 4 failing checks; the follow-on is ready the moment it lands, and a gardener offered to take the rebase as its own job on your word. Separately, the liaison is holding rather than autonomously spawning an investigation on kriskowal/garden issue #9, asking whether to open a tracking job and what scope "without the export" should cover.
+A few maintainer items need attention. The formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API), which has been stalled since 2026-05-21 on your "please rebase and run the gamut again" request and now carries 4 failing CI checks (22/26 green) — the gardener is holding rather than duplicating the graph walk, and offers to take the rebase-and-gamut as a separate job. Scholar work continued: a sixth MetaMask/ocap-kernel ingest (the 689-line kernel-guide) plus a distributed-ocap concept cluster covering three-party handoff, sturdyrefs, and confinement, with the grant-matcher-puzzle source deferred because erights.org was unreachable. Lint classification found endo-but-for-bots master fully clean — only 5 non-blocking jsdoc warnings, parked as the low-priority [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md). Finally, the liaison is awaiting your call on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of scope near sensitive agoric-sdk territory.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 4h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
@@ -100,8 +100,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260628-112001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-112001.md) — Hourly scholar library cycle
 
 ### tada (491)
 - [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-102001.md) — Completed the hourly scholar library cycle (scholar-library-cycle-20260628-10...
