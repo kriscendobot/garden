@@ -1,12 +1,12 @@
 ---
 id: e-language
-aliases: ["E language", "E programming language", "E (programming language)", "the E language", "E-language", "ERights", "erights.org", "Kernel-E", "E in a Walnut", "ENative", "E grammar", "Original-E"]
+aliases: ["E language", "E programming language", "E (programming language)", "the E language", "E-language", "ERights", "erights.org", "E in a Walnut", "ENative", "E grammar", "Original-E"]
 topics: [capability-theory, capability-security]
 ---
 
 # e-language
 
-**E** is Mark S. Miller's object-capability programming language for distributed, secure computation — "Cryptographic Capabilities for Distributed Smart Contracting." E is the canonical first-wave working object-capability language: it introduced the **vat** (heap + thread + pending-delivery queue) as the unit of concurrency, persistence, and partial-failure isolation; **eventual-send** with **promise pipelining**; and a full surface grammar (LALR(1)) defined by expansion to a small **Kernel-E** core. E is the direct lineage ancestor of Endo's `E()` / HandledPromise model and the substrate of the CapDesk / CapMail / Polaris desktop-capability demonstrations. The primary documentation lives at erights.org/elang (reachable via the erights.github.io mirror); the library also holds a secondary-source market-history survey of E's technical success and lack of commercial adoption.
+**E** is Mark S. Miller's object-capability programming language for distributed, secure computation — "Cryptographic Capabilities for Distributed Smart Contracting." E is the canonical first-wave working object-capability language: it introduced the **vat** (heap + thread + pending-delivery queue) as the unit of concurrency, persistence, and partial-failure isolation; **eventual-send** with **promise pipelining**; and a full surface grammar (LALR(1)) defined by expansion to a small **Kernel-E** core (see [[kernel-e]] for that core's special forms and semantics). E is the direct lineage ancestor of Endo's `E()` / HandledPromise model and the substrate of the CapDesk / CapMail / Polaris desktop-capability demonstrations. The primary documentation lives at erights.org/elang (reachable via the erights.github.io mirror); the library also holds a secondary-source market-history survey of E's technical success and lack of commercial adoption.
 
 ## Sections that touch this concept
 
@@ -19,6 +19,7 @@ topics: [capability-theory, capability-security]
 
 ## See also
 
+- [[kernel-e]] — the small lambda-calculus-like semantic core E's surface grammar expands to; owns the former "Kernel-E" alias of this concept.
 - [[vat-and-compartment]] — E's vat is the concurrency/persistence unit; Endo's compartment + bundle is the descendant.
 - [[promise-pipelining]] — E's eventual-send + message-pipelining, carried forward into Endo's `E()` / HandledPromise.
 - [[object-capability]] — the security model E implements; E is one of the canonical Model-4 systems in the Miller-Yee-Shapiro taxonomy.
