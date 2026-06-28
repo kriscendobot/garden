@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T16:17:38Z_
+_As of 2026-06-28T16:19:43Z_
 
 ## Latest
 
-Two infrastructure threads dominate the recent moves. The GitHub Pages bulletin is being re-architected to generate in CI rather than be committed to main2 ([`build-github-pages-bulletin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-github-pages-bulletin.md) landed for issue kriskowal/garden#10, and the follow-on [`bulletin-rearch-ci-from-journal2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bulletin-rearch-ci-from-journal2.md) is now in flight). Separately, the long-stalled [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths` host API) got its refresh job completed — worth a look, since the parked formula-inspector-retention-paths-table plan is blocked waiting on exactly that PR to land the rebase-and-gamut you requested back on 2026-05-21. The comment-watcher's review enumeration was hardened to paginate all open PRs rather than rely on a default page cap (`comment-source-poll-reviews-on-all-open-prs`), closing the gap that let a trusted review on #284 slip by. Scholar work continues, with the erights.org E-language ingest advancing ([`scholar-ingest-erights-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-2.md) done, erights-3 now claimed). Five maintainer messages are unread, including a held-off liaison query about whether to continue the kriskowal/garden#9 investigation.
+The bulletin pipeline itself is being reworked: a job to re-architect the GitHub Pages bulletin as CI-generated rather than committed to main2 is now in progress, following the completed [build-github-pages-bulletin](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-github-pages-bulletin.md) work. Scholar ingests dominated the rest of the cycle: erights.org E-language pages landed (erights-2 done, erights-3 now claimed), plus two concept-layer syntheses reported to the maintainer — the sixth MetaMask/ocap-kernel ingest (the 689-line host-app kernel guide) and a distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, distributed confinement, and eventual send. A lint classification of endo-but-for-bots master came back **clean** — CI's `yarn lint` gate is fully green, with only five non-failing jsdoc warnings parked as a low-priority fix. Comment surveillance was refreshed: a poll of reviews across all open PRs completed, along with an [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) refresh. Two items want a maintainer decision — the liaison is holding on whether to continue the kriskowal/garden issue #9 investigation that the prior job left explicitly out of scope, and 28 PRs remain parked for review, the oldest being [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (iOS Safari regression) at 37–38 days.
 
 ## Parked for maintainer feedback
 
@@ -21,21 +21,6 @@ Two infrastructure threads dominate the recent moves. The GitHub Pages bulletin 
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260627T073148Z-d2f9fb` — from gardener:formula-inspector-retention-paths-table, reply_to `formula-inspector-retention-paths-table` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T073148Z-d2f9fb.md)
-
-> Job `formula-inspector-retention-paths-table` is BLOCKED on its data source and I'm reporting the gap (not reimplementing the graph walk, per the plan's own instruction).
->
-> Why blocked:
-> - The table must source its data from #284 (`listRetentionPaths` host API). #284 is still OPEN and NOT on base `llm`.
-> - #284 is stalled since 2026-05-21: you asked "Please rebase and run the gamut again" — that rebase/re-gamut never happened, and it currently has 4 failing CI checks (22/26 green). Not mergeable as-is.
-> - Building the table now would require either binding to a non-existent host method (CI can't pass on `llm`) or duplicating the graph walk in the UI — which the plan explicitly forbids.
->
-> Good news (the follow-on is ready the moment #284 lands):
-> - #284 exposes the right shape over the captp `HostInterface`: `listRetentionPaths(locator) -> Promise<RetentionPath[]>` and `followRetentionPaths(locator) -> AsyncIterator<RetentionPathDelta>`. Each `RetentionPath` is segments with `{ groupMembers, referencedBy, labels }` (pet edges => `pet:<name>`, root segment `type:"root"`) — exactly a table's rows. The chat UI can reach it because it's on the host captp interface, not CLI-only.
-> - The inspector back-face to extend is `packages/spaces-util/src/formula-view.js` (#440, merged into `llm` 2026-06-27).
->
-> Recommended unblock: land #284 first (the rebase + gamut you already requested), then re-promote this plan from `jobs/plan/` to `todo/`. I can take the #284 rebase-and-gamut as a separate job if you want — say the word and I'll post it.
 
 - `20260627T075134Z-f5bbc7` — from gardener:ingest-ocap-kernel, reply_to `ingest-ocap-kernel` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T075134Z-f5bbc7.md)
 
