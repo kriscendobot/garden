@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please add the favicon 🥕 to the garden’s Github pages bulletin. Consult the new web design skill for emoji favicons. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 87
+  claimed_at: 2026-06-28T17:45:51Z
