@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T16:19:43Z_
+_As of 2026-06-28T16:23:52Z_
 
 ## Latest
 
-The bulletin pipeline itself is being reworked: a job to re-architect the GitHub Pages bulletin as CI-generated rather than committed to main2 is now in progress, following the completed [build-github-pages-bulletin](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-github-pages-bulletin.md) work. Scholar ingests dominated the rest of the cycle: erights.org E-language pages landed (erights-2 done, erights-3 now claimed), plus two concept-layer syntheses reported to the maintainer — the sixth MetaMask/ocap-kernel ingest (the 689-line host-app kernel guide) and a distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, distributed confinement, and eventual send. A lint classification of endo-but-for-bots master came back **clean** — CI's `yarn lint` gate is fully green, with only five non-failing jsdoc warnings parked as a low-priority fix. Comment surveillance was refreshed: a poll of reviews across all open PRs completed, along with an [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) refresh. Two items want a maintainer decision — the liaison is holding on whether to continue the kriskowal/garden issue #9 investigation that the prior job left explicitly out of scope, and 28 PRs remain parked for review, the oldest being [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (iOS Safari regression) at 37–38 days.
+Distributed-ocap concept synthesis landed on journal2 (commit dc5d328e): a gardener scholar cross-linked six topics—three-party-handoff, sturdyref, distributed-confinement, eventual-send, grant-matcher-puzzle, and passable-equality—with the one gap being grant-matching, whose erights.org source was unreachable and is parked for re-ingest. The erights.org E-language ingest is progressing in sequence ([erights-3](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-3.md) done, erights-4 now in flight). A lint sweep of endo-but-for-bots master found CI fully green, with only five non-blocking jsdoc warnings (parked as a low-priority cleanup). Maintainer attention is requested on two threads: the liaison is holding for direction on whether to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation that the prior job explicitly scoped out (it borders the agoric-sdk-fork-vs-upstream scope line), and several bulletin-infrastructure jobs are in flight to move GitHub Pages bulletin generation into CI rather than committing it to main2. No PRs moved; the 28-deep parked queue still awaits review, led by [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers, waiting 9h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 2d).
 
 ## Parked for maintainer feedback
 
@@ -21,28 +21,6 @@ The bulletin pipeline itself is being reworked: a job to re-architect the GitHub
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260627T075134Z-f5bbc7` — from gardener:ingest-ocap-kernel, reply_to `ingest-ocap-kernel` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T075134Z-f5bbc7.md)
-
-> Library: ingested MetaMask/ocap-kernel `docs/kernel-guide.md` (the 689-line host-app developer
-> guide) — the **sixth ocap-kernel ingest** and the most direct source yet for the kernel/vat model.
-> 11 sections + a synthesizing [[ocap-kernel]] concept, cross-linked to the garden's ocap corpus.
->
-> Synthesis — how MetaMask's kernel (an external SwingSet-lineage sibling, distinct from @endo)
-> relates to our material:
-> - Shared substrate: `E()` is imported straight from `@endo/eventual-send`; exos wrap `@endo/exo`
->   `makeExo`.
-> - Signature divergences (flagged honestly per section): kref/vref/rref/eref four-scope reference
->   name-space vs Endo's single formula identifier; first-class `kernel.revoke(kref)` vs Endo's
->   compositional caretaker/membrane revocation; kernel services registered-by-name + access-checked
->   at subcluster launch vs Endo powers through the formula graph; `Far()` forbidden in favor of
->   `makeDefaultExo`.
-> - Six-sections ocap cross-links wired: distributed confinement (vat endowment allowlists),
->   three-party hand-off (bootstrap-as-introducer; bidirectional links into granovetter-operator +
->   four-ways-to-acquire-references), eventual send, sturdyrefs (baggage-stored cross-vat refs).
->
-> Deferred follow-on plans parked: `scholar-ingest-ocap-kernel-usage` (docs/usage.md) and
-> `scholar-ingest-ocap-kernel-packages` (per-package READMEs + kernel-internals comment fragments).
 
 - `20260627T082148Z-6fd4ed` — from gardener:ingest-ocap-library-sections, reply_to `ingest-ocap-library-sections` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T082148Z-6fd4ed.md)
 
@@ -83,18 +61,21 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (6)
 - [`bulletin-rearch-ci-from-journal2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bulletin-rearch-ci-from-journal2.md) — Re-architect the GitHub Pages bulletin: CI-generated, not committed to main2
-- [`deadmail-20260628T161527Z-35092c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T161527Z-35092c.md) — Dead-lettered message — pick up its intent
-- [`scholar-ingest-erights-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-3.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
+- [`deadmail-20260628T161937Z-f19557`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T161937Z-f19557.md) — Dead-lettered message — pick up its intent
+- [`deadmail-20260628T162052Z-7d1eca`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T162052Z-7d1eca.md) — Dead-lettered message — pick up its intent
+- [`improve-sections-readme-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-sections-readme-regenerator.md) — Add a deterministic regenerator script (e.g. scripts/jobs/regenerate-sections...
+- [`improve-sections-table-row-insert-anchor`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-sections-table-row-insert-anchor.md) — Add a small deterministic Markdown helper (e.g. scripts/jobs/insert-sections-...
+- [`scholar-ingest-erights-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-4.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
 
-### tada (507)
+### tada (509)
+- [`scholar-ingest-erights-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-3.md) — Source ingested
+- [`deadmail-20260628T161527Z-35092c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T161527Z-35092c.md) — Completion report
 - [`deadmail-20260628T160726Z-bef943`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T160726Z-bef943.md) — Completion report
 - [`scholar-ingest-erights-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-2.md) — Completion report
 - [`build-github-pages-bulletin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-github-pages-bulletin.md) — Completion report: build-github-pages-bulletin (issue-kriskowal-garden-10)
-- [`comment-source-poll-reviews-on-all-open-prs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-source-poll-reviews-on-all-open-prs.md) — Completion report: comment-source-poll-reviews-on-all-open-prs
-- [`endojs-endo-but-for-bots-pr284-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr284-refresh.md) — Done. Completion report:
-- … and 502 more
+- … and 504 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
