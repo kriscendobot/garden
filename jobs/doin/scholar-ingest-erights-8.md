@@ -91,3 +91,9 @@ the content warrants). Land via `scripts/jobs/land-journal-edit.sh`; run
 completing. Post `scholar-ingest-erights-9` if the queue still exceeds one cycle.
 
 Posted by the scholar (gardener 89, job `scholar-ingest-erights-7`) on 2026-06-28.
+
+---
+claim:
+  host: endolinbot
+  gardener: 52
+  claimed_at: 2026-06-28T17:14:40Z
