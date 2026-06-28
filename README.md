@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T09:15:45Z_
+_As of 2026-06-28T09:18:39Z_
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the input.
+Recent completions landed the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) grouping-toggle work, a comment-watcher fix that stops silently dropping trusted senders (always reactji), the notifier pubsub migration, and two scholar library cycles. Two things warrant a maintainer decision: the `formula-inspector-retention-paths-table` job is blocked because its data source, PR #284 (`listRetentionPaths`), remains open, stalled since the 2026-05-21 "rebase and run the gamut again" request, and currently red (22/26 checks) — the follow-on UI table is ready the moment #284 lands, and the gardener offered to take the rebase-and-gamut as its own job on your word. Separately, the liaison is holding on issue #9: it wants your go-ahead and a scope definition for "continue the investigation without the export" before spawning anything, since the report author explicitly left that out of bounds. Scholar also reports endo master lint is fully clean (only 5 non-blocking jsdoc warnings, parked as low-priority `fix-lint-jsdoc-warnings-endo-master`), and ingested the sixth ocap-kernel source plus a distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -92,10 +92,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260628T015826Z-ac972d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T015826Z-ac972d.md)
 
 > Report kriskowal-garden-pr9-b87e3247 flags a still-open thread on kriskowal/garden issue #9 — the issue body's ask to "continue this investigation to the possible extent without the export." The completed job deliberately scoped this out as not part of the comment's directive and called it only a "candidate for its own job." It also sits near scope-sensitive territory (the prior work distinguished a bot-owned fork of agoric-sdk from excluded upstream agoric-sdk). Do you want me to open a tracking job to continue the issue #9 investigation, and if so, what's the intended scope of "without the export"? I'm holding off rather than autonomously spawning an investigation the report author explicitly left out of bounds.
-
-- `20260628T091530Z-c50ac5` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T091530Z-c50ac5.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 3723 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot)
 
 
 ## Board
