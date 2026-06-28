@@ -16,10 +16,12 @@ notes: >
   reference-level (not tutorial-level) Event Loop Concurrency hub under `elib/`,
   the deeper treatment the elang concurrency tutorial's "See Also" points at. The
   hub page itself is a child-chapter map with no prose body; this section captures
-  that map plus the vat / turn / eventual-send model and the Endo translation. The
-  substantive child chapters (Why threads are evil, The Vat, Vat Turns, the Four
-  Layers of When, EIO, ...) are queued for a later cycle. source_date is an era
-  approximation matching the sibling concurrency chapters.
+  that map plus the vat / turn / eventual-send model and the Endo translation. As of
+  scholar-ingest-erights-9 all four single-page mechanics chapters (Reference
+  Mechanics, Message Passing, Vat Turns, Partial Ordering) and both sub-hub maps (the
+  Four Layers of When, EIO) are ingested; only the six sub-hub child chapters remain
+  queued (scholar-ingest-erights-10). source_date is an era approximation matching
+  the sibling concurrency chapters.
 ---
 
 ## Abstract
@@ -31,7 +33,8 @@ vat model. It is the deeper companion the tutorial-level *Concurrency in E* hub
 points at via "See Also." The hub page carries no prose body of its own; it is a
 reading map to a sequence of child chapters. This section captures that map, the
 one-paragraph statement of the model, and the Endo translation; the child chapters
-themselves are queued.
+themselves are ingested as their own sections (only the two sub-hubs' own child
+chapters remain queued).
 
 ## The chapter map
 
@@ -48,17 +51,17 @@ Maintenance**. Its child chapters:
 - **Distributed Queuing** (`queuing.html`) — message-flow within and between vats.
   (ingested: [the-stack-queue-L-and-eventual-send](erights--elib-concurrency-queuing--the-stack-queue-L-and-eventual-send.md))
 - **Reference Mechanics** (`refmech.html`) — "how do I designate thee? Let me
-  count the ways." (queued)
+  count the ways." (ingested: [reference-kinds-near-eventual-broken-promise-far-sturdyref](erights--elib-concurrency-refmech--reference-kinds-near-eventual-broken-promise-far-sturdyref.md))
 - **Message Passing** (`msg-passing.html`) — call-return and the eventually
-  operator. (queued)
-- **Vat Turns** (`turns.html`) — atomic micro-transactions. (queued)
+  operator. (ingested: [six-primitives-call-send-outcome](erights--elib-concurrency-msg-passing--six-primitives-call-send-outcome.md))
+- **Vat Turns** (`turns.html`) — atomic micro-transactions. (ingested: [turns-as-micro-transactions](erights--elib-concurrency-turns--turns-as-micro-transactions.md))
 - **Partial Ordering** (`partial-order.html`) — just enough distributed
-  sequentiality. (queued)
+  sequentiality. (ingested: [partial-order-on-references](erights--elib-concurrency-partial-order--partial-order-on-references.md))
 - **The Four Layers of When** (`when/index.html`) — References as Observables, the
   When\* Reactors, the when-catch syntactic shorthand, and Joining Multiple
-  Resolutions. (queued)
+  Resolutions. (ingested map: [four-layers-of-when-map](erights--elib-concurrency-when-index--four-layers-of-when-map.md); the four child chapters queued for scholar-ingest-erights-10)
 - **EIO** (`eio/index.html`) — "you mean I can't block on a read?" non-blocking
-  I/O. (queued)
+  I/O. (ingested map: [eio-non-blocking-io-map](erights--elib-concurrency-eio-index--eio-non-blocking-io-map.md); the two content children queued for scholar-ingest-erights-10)
 
 The hub closes by noting that, besides local concurrency, this section sets the
 ground for the next one — **distributed programming** (`../distrib/index.html`).
