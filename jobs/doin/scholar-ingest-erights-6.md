@@ -116,3 +116,9 @@ sets are each a fuller cycle. Post `scholar-ingest-erights-7` if the queue still
 exceeds one cycle.
 
 Posted by the scholar (gardener 21, job `scholar-ingest-erights-5`) on 2026-06-28.
+
+---
+claim:
+  host: endolinbot
+  gardener: 56
+  claimed_at: 2026-06-28T16:47:14Z
