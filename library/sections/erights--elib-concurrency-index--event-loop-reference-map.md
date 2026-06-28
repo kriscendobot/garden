@@ -38,15 +38,15 @@ themselves are queued.
 The hub's tagline frames the section as **Deadlock-Free Distributed Consistency
 Maintenance**. Its child chapters:
 
-- **Concurrency Overview** (`overview.html`) — "Why threads are evil." (queued)
+- **Concurrency Overview** (`overview.html`) — "Why threads are evil." (ingested: [why-threads-are-evil](erights--elib-concurrency-overview--why-threads-are-evil.md))
 - **Event Loop Philosophy** (`event-loop.html`) — what would F.A. Hayek (the
-  economist) say? (queued)
+  economist) say? (ingested: [plan-interference-and-deadlock-freedom](erights--elib-concurrency-event-loop--plan-interference-and-deadlock-freedom.md))
 - **Semi-Transparency** (`semi-transparent.html`) — distributed programming is
-  different, but not too different. (queued)
+  different, but not too different. (ingested: [semi-transparent-networking](erights--elib-concurrency-semi-transparent--semi-transparent-networking.md))
 - **The Vat** (`vat.html`) — the process-like aggregate of objects that fails
-  separately. (queued)
+  separately. (ingested: [the-vat-heap-thread-queue](erights--elib-concurrency-vat--the-vat-heap-thread-queue.md))
 - **Distributed Queuing** (`queuing.html`) — message-flow within and between vats.
-  (queued)
+  (ingested: [the-stack-queue-L-and-eventual-send](erights--elib-concurrency-queuing--the-stack-queue-L-and-eventual-send.md))
 - **Reference Mechanics** (`refmech.html`) — "how do I designate thee? Let me
   count the ways." (queued)
 - **Message Passing** (`msg-passing.html`) — call-return and the eventually
