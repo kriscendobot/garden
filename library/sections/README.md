@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5836 (506 parent indexes + 5330 children).
+Total section files: 5840 (507 parent indexes + 5333 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7124,6 +7124,13 @@ Total section files: 5836 (506 parent indexes + 5330 children).
 
 - [@metamask/ocap-kernel: core components (package purpose)](metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose.md)
 - [SES/lockdown compatibility: the @chainsafe/libp2p-yamux patch requirement](metamask-ocap-kernel--packages-ocap-kernel-readme--ses-lockdown-libp2p-yamux-patch-requirement.md)
+
+### metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts
+
+- [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts.md) (index — ninth ocap-kernel ingest, first kernel-internals comment-fragment, 2026-06-28; the 376-line KernelQueue.ts run queue and run loop)
+  - [The forever run-loop and the crank lifecycle (startCrank, savepoint, GC/reap priority, sleep-and-wake)](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--forever-run-loop-and-crank-lifecycle.md)
+  - [Crank atomicity — abort-and-rollback versus commit-and-flush](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--crank-abort-rollback-versus-commit-flush.md)
+  - [Immediate-versus-buffered enqueue, reference-counting, and decider-authorized resolution](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--immediate-versus-buffered-enqueue-and-decider-authorized-resolution.md)
 
 ### metamask-ocap-kernel--packages-remote-iterables-readme
 
