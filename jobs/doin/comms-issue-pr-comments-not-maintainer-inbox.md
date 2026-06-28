@@ -64,3 +64,9 @@ This makes the information-hiding property machine-enforced going forward.
 COMMON's inline-comment directive (inbox-free), a per-role classification, the scrub of
 maintainer-inbox references from every issue/PR-scoped role + its skills, the free-standing
 allowlist as the sole inbox-referencing set, and the grep-gate check that keeps it that way.
+
+---
+claim:
+  host: endolinbot
+  gardener: 56
+  claimed_at: 2026-06-28T06:04:54Z
