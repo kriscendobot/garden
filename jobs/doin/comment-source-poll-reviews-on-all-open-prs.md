@@ -52,3 +52,9 @@ that the updated-desc early-stop still includes it). Regression-pins #284.
 The review-body source enumerates all open PRs (paginated REST, activity-bounded), so trusted
 reviews on older open PRs are surfaced; the `gh pr list` default-limit audit done across the
 watcher scripts; tests pinning the no-missed-review property.
+
+---
+claim:
+  host: endolinbot
+  gardener: 88
+  claimed_at: 2026-06-28T15:53:38Z
