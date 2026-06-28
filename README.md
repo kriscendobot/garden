@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T11:46:32Z_
+_As of 2026-06-28T11:51:49Z_
 
 ## Latest
 
-The gardener fleet drained its board to empty, landing two infrastructure improvements along the way: per-mapping isolation in the mirror-closer and a scheduler preflight gate. The bulk of recent motion was scholarly — a sixth MetaMask/ocap-kernel ingest (the 689-line host-app kernel guide, synthesized against the garden's ocap corpus with the kref/vref divergences flagged honestly) plus a distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, distributed confinement, and eventual-send; the grant-matcher-puzzle concept is the lone gap, written from a web summary because erights.org was unreachable. A lint classification of endo-but-for-bots master came back clean — CI's lint gate is fully green, with only five non-failing jsdoc warnings consolidated into one deferred plan.
-
-Two things want a maintainer's eye: the formula-inspector retention-paths table is blocked on a still-open host-API PR that has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested (it carries failing CI and isn't mergeable as-is), so that downstream UI work can't start until it lands; and the liaison is holding for your guidance on the scope of the kriskowal/garden issue #9 investigation before spawning a tracking job. The unread maintainer inbox and the 28 parked PRs otherwise stand as they were.
+A single gardener job is in flight — [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-suppress-happy-path-progress.md), which trims the gardener's redundant happy-path progress journal entries — and nothing else has moved since the last bulletin.
 
 ## Parked for maintainer feedback
 
@@ -15,7 +13,7 @@ Two things want a maintainer's eye: the formula-inspector retention-paths table 
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 12d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 37d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 38d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 37d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 38d)
@@ -100,8 +98,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-suppress-happy-path-progress.md) — In scripts/jobs/gardener.sh, the gardener emits two progress journal entries ...
 
 ### tada (493)
 - [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md) — Completion report
