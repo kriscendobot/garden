@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T00:03:51Z_
+_As of 2026-06-28T00:06:35Z_
 
 ## Latest
 
-The bulletin is asking me to write the "## Latest" section narrative. Let me write it based on the data.
-
-Looking at the input data, this is a quiet cycle with little substantive movement on the board itself.
+Little moved on the board since the last bulletin — the only completion was the garden's own [kriskowal/garden#9](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-d25b9529.md), and two scholar source-ingest jobs (combex/Polaris primaries, HP Labs tech reports) remain in flight. The substance this cycle is a stack of maintainer decisions that gardeners surfaced and parked. Most urgent: a feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch — the autonomous fleet has no path for implementing a feature directive. Two follow-ups need a scope call from you: the harden-exported-function-literals work from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on choosing narrow-vs-repo-wide breadth and a base branch (`llm` vs `master`), and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested (4 CI checks still red). Lower-stakes: endo master lint came back clean (only 5 non-blocking jsdoc warnings, parked), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (architectural cycle), and scholar landed two ocap concept clusters (MetaMask ocap-kernel guide plus six distributed-ocap library sections).
 
 ## Parked for maintainer feedback
 
@@ -180,18 +178,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`kriskowal-garden-pr9-d25b9529`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-d25b9529.md) — attention directive on kriskowal/garden PR #9
+### doin (2)
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — scholar-ingest-source: CapDesk / Polaris primaries via the combex.com Wayback...
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-hpl-techreports-polaris.md) — scholar-ingest-source: the HP Labs technical reports (HPL-2004-116, HPL-2006-...
 
-### tada (421)
+### tada (422)
+- [`kriskowal-garden-pr9-d25b9529`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-d25b9529.md) — Completion report — kriskowal-garden-pr9-d25b9529
 - [`issue-kriskowal-garden-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-9.md) — What I did
 - [`improve-gardener-reap-now-hint-for-signal-killed-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-reap-now-hint-for-signal-killed-jobs.md) — Completion report
 - [`scholar-library-cycle-20260627-232012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-232012.md) — Completion report
 - [`scholar-ingest-source-erights-ode-capdesk-hpl`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-erights-ode-capdesk-hpl.md) — Completion report: scholar-ingest-source-erights-ode-capdesk-hpl
-- [`scholar-library-cycle-20260627-222002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260627-222002.md) — Completion report
-- … and 416 more
+- … and 417 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
