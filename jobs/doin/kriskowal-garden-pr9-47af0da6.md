@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please investigate whether simply recompiling XS with a taller stack limit would resolve the issue.  
+
+---
+claim:
+  host: endolinbot
+  gardener: 23
+  claimed_at: 2026-06-28T03:01:09Z
