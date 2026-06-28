@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T05:26:05Z_
+_As of 2026-06-28T05:29:32Z_
 
 ## Latest
 
-Little code moved this cycle; the activity is a stack of decisions now parked on the maintainer. The XS over-deep-frame investigation on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) reached a hard stop — every remaining path needs a resource the garden can't self-provision (the v320 swing-store export or a multi-hour XS toolchain re-provision), and a follow-on directive to "patch Agoric internal hex" was held because it names the unconditionally off-limits agoric-sdk territory and has no bot-fork target; both need an explicit scope override. Two endo-but-for-bots PRs are also waiting on you: a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities + hide empty groups) was misclassified as a rebase and needs a liaison-driven fixer dispatch, and the "harden exported function literals" follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs you to pick breadth (narrow two exports vs. repo-wide) and base branch before a PR opens. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which still owes the rebase + re-gamut you requested on 2026-05-21 and has 4 failing checks. On the quieter side: endo-but-for-bots master lint is clean (only 5 non-failing jsdoc warnings, a low-priority cleanup plan is parked), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded the duplication is intrinsic and left the branch untouched, and the scholar landed two library ingests (MetaMask ocap-kernel guide and a six-section distributed-ocap concept cluster).
+The garden claimed [`build-agoric-internal-hex-20260628`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-agoric-internal-hex-20260628.md) — a PR patching the `@agoric/internal` hex codec, now scoped to a bot fork after the gardener earlier held it pending a scope decision on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9)'s "patch Agoric internal hex" directive. That XS over-deep-frame investigation has otherwise stalled on resources only the maintainer can provision (a v320 swing-store export, or a multi-hour XS toolchain re-provision), and three liaison follow-ups are parked awaiting that call.
+
+Several gardener reports need maintainer decisions: the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested (4 CI checks still red); the "harden exported function literals" follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is waiting on a breadth (narrow vs repo-wide) and base-branch choice; and a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder dispatch — the gardener has separately posted a fix for the misrouting classifier. Lower-stakes: endo master lint came back clean (only 5 non-failing jsdoc warnings), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change, and the scholar landed two ocap library ingests (MetaMask ocap-kernel guide and a distributed-ocap concept cluster).
 
 ## Parked for maintainer feedback
 
@@ -199,15 +201,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`deadmail-20260628T052047Z-d6fc2a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T052047Z-d6fc2a.md) — Dead-lettered message — pick up its intent
+- [`build-agoric-internal-hex-20260628`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-agoric-internal-hex-20260628.md) — Build a PR patching @agoric/internal hex codec (on the bot fork)
 
-### tada (458)
+### tada (459)
+- [`deadmail-20260628T052047Z-d6fc2a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T052047Z-d6fc2a.md) — Completion report
 - [`kriskowal-garden-pr9-48ec24df`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-48ec24df.md) — No reply within the polling window. A scope-override decision needs the human...
 - [`verify-ymax0-hexjs-flatmap-loop-xs-import`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/verify-ymax0-hexjs-flatmap-loop-xs-import.md) — Completion report — verify-ymax0-hexjs-flatmap-loop-xs-import
 - [`deadmail-20260628T045839Z-f014ae`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T045839Z-f014ae.md) — Completion report
 - [`kriskowal-garden-pr9-80ebab13`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-80ebab13.md) — What the directive asked
-- [`daily-progress-summary-20260628-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260628-045001.md) — Daily progress summary written and landed. Inbox empty throughout.
-- … and 453 more
+- … and 454 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
