@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T15:35:38Z_
+_As of 2026-06-28T15:41:07Z_
 
 ## Latest
 
-Library link-checking moved this window: the garden wired its [link scan into a recurring cadence](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-library-link-scan-to-cadence.md) and [taught the link checker to suggest source-page targets](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-link-check-suggest-source-page-target.md), and the hourly scholar library cycle is running on schedule. Otherwise the board is quiet — the substance is sitting in the maintainer inbox: the formula-inspector retention-paths table is blocked because its data source ([endojs/endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), the `listRetentionPaths` host API) is still open, unrebased, and red on CI; the gardener is holding rather than duplicating the graph walk and offers to take the rebase-and-gamut as its own job. Lint classification of endo-but-for-bots master came back clean (only five non-blocking jsdoc warnings, parked as low), several ocap-kernel library ingests landed, and the liaison is awaiting a scope decision before continuing the kriskowal/garden issue #9 investigation.
+Quiet cycle, mostly scholar library housekeeping. A [scholar library cycle](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-153502.md) completed and the scholar picked up [`scholar-ingest-erights`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights.md), now in progress — ingesting the foundational erights.org pages via the GitHub Pages mirror, which closes the source gap the recent ocap-concept ingests repeatedly flagged (the grant-matcher-puzzle and grant-matching synthesis pages were written from web summaries because erights.org was unreachable). Worth the maintainer's attention in the inbox: gardener `formula-inspector-retention-paths-table` is blocked pending the still-open, stalled [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the rebase-and-re-gamut you requested 2026-05-21 never ran; 4 CI checks failing), and the liaison is holding on whether to spin up a follow-on investigation for kriskowal/garden issue #9.
 
 ## Parked for maintainer feedback
 
@@ -99,15 +99,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`scholar-library-cycle-20260628-153502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-153502.md) — Hourly scholar library cycle
+- [`scholar-ingest-erights`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights.md) — Scholar: ingest foundational erights.org HTML pages via the GitHub Pages mirror
 
-### tada (499)
+### tada (500)
+- [`scholar-library-cycle-20260628-153502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-153502.md) — Scholar library cycle — scholar-library-cycle-20260628-153502
 - [`improve-link-check-suggest-source-page-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-link-check-suggest-source-page-target.md) — Done. Completion report follows.
 - [`scholar-library-cycle-20260628-142031`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-142031.md) — Scholar library cycle — completion report
 - [`improve-wire-library-link-scan-to-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-library-link-scan-to-cadence.md) — Completion report
 - [`scholar-library-cycle-20260628-132011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-132011.md) — Completion report
-- [`scholar-library-cycle-20260628-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-122003.md) — Completion report — job scholar-library-cycle-20260628-122003 (gardener 76, e...
-- … and 494 more
+- … and 495 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
