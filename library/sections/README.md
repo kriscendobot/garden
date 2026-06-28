@@ -6683,6 +6683,14 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 - [erights--elang-blocks--block-structure-and-control-flow](erights--elang-blocks--block-structure-and-control-flow.md)
 
+### erights--elang-concurrency-determinism
+
+- [erights--elang-concurrency-determinism--deterministic-replay-plan](erights--elang-concurrency-determinism--deterministic-replay-plan.md)
+
+### erights--elang-concurrency-epimenides
+
+- [erights--elang-concurrency-epimenides--reference-states-and-data-lock](erights--elang-concurrency-epimenides--reference-states-and-data-lock.md)
+
 ### erights--elang-concurrency-index
 
 - [erights--elang-concurrency-index--event-loop-concurrency-map](erights--elang-concurrency-index--event-loop-concurrency-map.md)
@@ -6690,6 +6698,10 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 ### erights--elang-concurrency-introducer
 
 - [erights--elang-concurrency-introducer--remote-objects](erights--elang-concurrency-introducer--remote-objects.md)
+
+### erights--elang-concurrency-race
+
+- [erights--elang-concurrency-race--racing-joining-and-timeouts](erights--elang-concurrency-race--racing-joining-and-timeouts.md)
 
 ### erights--elang-grammar
 
@@ -6749,6 +6761,10 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 ### erights--elib-capability-ode-ode-protocol
 
 - [erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol](erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol.md)
+
+### erights--elib-concurrency-index
+
+- [erights--elib-concurrency-index--event-loop-reference-map](erights--elib-concurrency-index--event-loop-reference-map.md)
 
 ### frb--compile-binder
 
