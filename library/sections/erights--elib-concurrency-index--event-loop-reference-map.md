@@ -19,9 +19,10 @@ notes: >
   that map plus the vat / turn / eventual-send model and the Endo translation. As of
   scholar-ingest-erights-9 all four single-page mechanics chapters (Reference
   Mechanics, Message Passing, Vat Turns, Partial Ordering) and both sub-hub maps (the
-  Four Layers of When, EIO) are ingested; only the six sub-hub child chapters remain
-  queued (scholar-ingest-erights-10). source_date is an era approximation matching
-  the sibling concurrency chapters.
+  Four Layers of When, EIO) are ingested, and as of scholar-ingest-erights-10 the six
+  sub-hub child chapters are ingested too — the `elib/concurrency/` chapter is now
+  fully ingested. source_date is an era approximation matching the sibling
+  concurrency chapters.
 ---
 
 ## Abstract
@@ -59,9 +60,9 @@ Maintenance**. Its child chapters:
   sequentiality. (ingested: [partial-order-on-references](erights--elib-concurrency-partial-order--partial-order-on-references.md))
 - **The Four Layers of When** (`when/index.html`) — References as Observables, the
   When\* Reactors, the when-catch syntactic shorthand, and Joining Multiple
-  Resolutions. (ingested map: [four-layers-of-when-map](erights--elib-concurrency-when-index--four-layers-of-when-map.md); the four child chapters queued for scholar-ingest-erights-10)
+  Resolutions. (ingested map: [four-layers-of-when-map](erights--elib-concurrency-when-index--four-layers-of-when-map.md); the four child chapters ingested in scholar-ingest-erights-10)
 - **EIO** (`eio/index.html`) — "you mean I can't block on a read?" non-blocking
-  I/O. (ingested map: [eio-non-blocking-io-map](erights--elib-concurrency-eio-index--eio-non-blocking-io-map.md); the two content children queued for scholar-ingest-erights-10)
+  I/O. (ingested map: [eio-non-blocking-io-map](erights--elib-concurrency-eio-index--eio-non-blocking-io-map.md); the two content children ingested in scholar-ingest-erights-10)
 
 The hub closes by noting that, besides local concurrency, this section sets the
 ground for the next one — **distributed programming** (`../distrib/index.html`).
