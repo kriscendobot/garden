@@ -29,6 +29,19 @@ notes: |
   The Polaris report is **HPL-2004-221** with four authors — Marc Stiegler, Alan H. Karp,
   Ka-Ping Yee, Mark S. Miller (Tyler Close is added on the 2006 CACM revision, not this
   report). The corrected source was confirmed against the report's own title page.
+
+  CONSOLIDATION (2026-06-28). This same report was ingested twice in one cycle by two
+  gardeners racing. This cluster is canonical; the duplicate
+  `papers--stiegler-karp-yee-miller-polaris-2004` (same source_pdf_sha256 6c95faf19fef)
+  and its four sections were flipped to `status: superseded` per
+  `library/conventions.md` § Consolidation. The superseded sections map here as:
+  abstract-and-the-excess-authority-problem and permission-privilege-and-authority →
+  excess-authority-the-virus-problem-and-permission-versus-authority;
+  using-and-polarizing-an-application →
+  designation-as-authorization-powerbox-and-installation-endowment (+ polarizing-
+  applications-pets-restricted-accounts-and-visual-cues); how-polaris-works →
+  polarizing-applications-pets-restricted-accounts-and-visual-cues (+ status-limits-
+  and-residual-attacks). Job scholar-dedup-duplicate-polaris-2004-ingest.
 ---
 
 The December 2004 HP Labs technical report introducing **Polaris**, a package for
