@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T15:52:45Z_
+_As of 2026-06-28T15:54:03Z_
 
 ## Latest
 
-A gardener has claimed the [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) refresh — the rebase-and-gamut you requested back on 2026-05-21, which a parked maintainer message flags as the sole blocker for the formula-inspector retention-paths table (it sources `listRetentionPaths` from #284 and cannot land until #284 is mergeable). Also in flight: `scholar-ingest-erights`, finally ingesting the foundational erights.org pages via the GitHub Pages mirror after earlier cycles repeatedly hit erights.org `ECONNREFUSED` and parked the grant-matcher-puzzle and related concepts as source-deferred. The board is otherwise drained — todo is empty and both active jobs are claimed — with library work dominating recent completions (ocap-kernel guide ingest, six distributed-ocap concept syntheses, and a clean lint classification of endo master that surfaced only five non-blocking jsdoc warnings).
+A gardener claimed [`comment-source-poll-reviews-on-all-open-prs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-source-poll-reviews-on-all-open-prs.md), widening the comment-source poller to fetch reviews on every open PR rather than only the `gh-pr-list` default — closing a surveillance gap where review feedback on PRs outside that list could go unseen. Two other jobs remain in flight: the [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) refresh (the rebase + re-gamut kriskowal requested back on 2026-05-21, still carrying 4 failing CI checks) and the scholar's erights.org ingest via the GitHub Pages mirror.
+
+Worth the maintainer's notice: #284 is now an active blocker — the formula-inspector retention-paths-table plan is parked on it (it needs #284's `listRetentionPaths` host API landed before the UI table can bind to a real method), so the stalled rebase has a downstream cost. Separately, the liaison is holding on garden issue #9, awaiting your call on whether to open a tracking job to continue that investigation "without the export" and what scope that implies.
 
 ## Parked for maintainer feedback
 
@@ -98,7 +100,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`comment-source-poll-reviews-on-all-open-prs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-source-poll-reviews-on-all-open-prs.md) — comment-source-gh.sh: poll reviews on ALL open PRs, not just the gh-pr-list d...
 - [`endojs-endo-but-for-bots-pr284-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr284-refresh.md) — Refresh endo-but-for-bots PR #284 per kriskowal's review directive
 - [`scholar-ingest-erights`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights.md) — Scholar: ingest foundational erights.org HTML pages via the GitHub Pages mirror
 
