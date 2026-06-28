@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T06:50:36Z_
+_As of 2026-06-28T06:53:48Z_
 
 ## Latest
 
-The board is quiet — the only transition this cycle is the hourly scholar library cycle being claimed — but several maintainer messages warrant attention. Recently completed work includes the ymax0 v320 XS-depth investigations, an Endo-vs-agoric hex-decode benchmark across Node and XS, a `dispatch-prepare` journal-ref fix, and the [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) review. Two items need a maintainer decision: the `formula-inspector-retention-paths-table` job is **blocked** on the still-open `listRetentionPaths` host-API PR (#284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested and currently shows 4 failing CI checks — the gardener has the follow-on table ready to build the moment that lands and offers to take the rebase as its own job. Separately, the liaison is holding on kriskowal/garden issue #9, asking whether to open a tracking job to continue the "without the export" investigation that the prior job deliberately left out of scope. On the library side, the scholar landed a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual send, grant-matcher) plus an ingest of MetaMask/ocap-kernel's host-app developer guide, flagging that the grant-matcher source remains unfetched while erights.org is unreachable. Finally, a lint sweep of endo-but-for-bots master came back clean — no error classes, only 5 non-blocking jsdoc warnings, now parked as a low-priority cleanup plan.
+A quiet cycle on the board: the only completion was [`scholar-library-cycle-20260628-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-065003.md), with the todo/doin lanes now empty. The substance is in the maintainer inbox. The scholar landed two ocap synthesis pushes — a kernel/vat concept cluster from MetaMask/ocap-kernel's host-app guide (the sixth ocap-kernel ingest) and a distributed-ocap cluster tying together three-party handoff, sturdyref, distributed confinement, eventual-send, and the grant-matcher puzzle (the last flagged source-less, since erights.org was unreachable). A lint classification of endo-but-for-bots master came back **clean** — CI's lint gate is fully green, with only five non-failing jsdoc warnings parked as a low-priority fix. Worth a maintainer decision: the formula-inspector retention-paths table is **blocked** on an unmerged host-API PR that has been stalled since 2026-05-21 awaiting the rebase-and-gamut you'd already requested (4 CI checks failing) — the gardener is holding rather than duplicating the graph walk, and offers to take that rebase as its own job. The liaison is likewise holding on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation, since the report author scoped it out. No new parked PRs; the top of the review queue still leads with [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
 
 ## Parked for maintainer feedback
 
@@ -98,16 +98,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-library-cycle-20260628-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-065003.md) — Hourly scholar library cycle
+### doin (0)
+(none)
 
-### tada (477)
+### tada (478)
+- [`scholar-library-cycle-20260628-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-065003.md) — Completion report
 - [`garden-continue-ymax0-xs-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-continue-ymax0-xs-investigation.md) — Completion report — garden-continue-ymax0-xs-investigation
 - [`benchmark-endo-hex-vs-agoric-internal-decode-node-xs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/benchmark-endo-hex-vs-agoric-internal-decode-node-xs.md) — Completion report
 - [`garden-fix-dispatch-prepare-journal-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-dispatch-prepare-journal-ref.md) — Completion report — garden-fix-dispatch-prepare-journal-ref
 - [`investigate-ymax0-v320-xs-depth-harness-20260628T0630Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-ymax0-v320-xs-depth-harness-20260628T0630Z.md) — Completion report — investigate-ymax0-v320-xs-depth-harness
-- [`endojs-endo-but-for-bots-pr548-review-f652c6dd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-review-f652c6dd.md) — Completion report — endojs-endo-but-for-bots-pr548-review-f652c6dd
-- … and 472 more
+- … and 473 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
