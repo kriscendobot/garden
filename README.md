@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T16:12:32Z_
+_As of 2026-06-28T16:17:38Z_
 
 ## Latest
 
-The scholar's erights.org E-language ingest advanced: [`scholar-ingest-erights-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-2.md) completed and the follow-on [`scholar-ingest-erights-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-3.md) (remaining E-language pages) is already claimed and running, alongside continued ocap-corpus synthesis work (a MetaMask/ocap-kernel guide ingest and a distributed-ocap concept cluster). A dead-lettered message was picked up for recovery. Worth the maintainer's attention: the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), whose [refresh job](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr284-refresh.md) ran but the PR still sits open with failing CI awaiting the rebase-and-gamut you requested — the gardener can take that as a separate job on your word. Also queued for your eyes: a question on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of scope.
+Two infrastructure threads dominate the recent moves. The GitHub Pages bulletin is being re-architected to generate in CI rather than be committed to main2 ([`build-github-pages-bulletin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-github-pages-bulletin.md) landed for issue kriskowal/garden#10, and the follow-on [`bulletin-rearch-ci-from-journal2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bulletin-rearch-ci-from-journal2.md) is now in flight). Separately, the long-stalled [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths` host API) got its refresh job completed — worth a look, since the parked formula-inspector-retention-paths-table plan is blocked waiting on exactly that PR to land the rebase-and-gamut you requested back on 2026-05-21. The comment-watcher's review enumeration was hardened to paginate all open PRs rather than rely on a default page cap (`comment-source-poll-reviews-on-all-open-prs`), closing the gap that let a trusted review on #284 slip by. Scholar work continues, with the erights.org E-language ingest advancing ([`scholar-ingest-erights-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-2.md) done, erights-3 now claimed). Five maintainer messages are unread, including a held-off liaison query about whether to continue the kriskowal/garden#9 investigation.
 
 ## Parked for maintainer feedback
 
@@ -98,17 +98,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-20260628T160726Z-bef943`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T160726Z-bef943.md) — Dead-lettered message — pick up its intent
+### doin (3)
+- [`bulletin-rearch-ci-from-journal2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bulletin-rearch-ci-from-journal2.md) — Re-architect the GitHub Pages bulletin: CI-generated, not committed to main2
+- [`deadmail-20260628T161527Z-35092c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T161527Z-35092c.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-erights-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-3.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
 
-### tada (506)
+### tada (507)
+- [`deadmail-20260628T160726Z-bef943`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T160726Z-bef943.md) — Completion report
 - [`scholar-ingest-erights-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-2.md) — Completion report
 - [`build-github-pages-bulletin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-github-pages-bulletin.md) — Completion report: build-github-pages-bulletin (issue-kriskowal-garden-10)
 - [`comment-source-poll-reviews-on-all-open-prs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-source-poll-reviews-on-all-open-prs.md) — Completion report: comment-source-poll-reviews-on-all-open-prs
 - [`endojs-endo-but-for-bots-pr284-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr284-refresh.md) — Done. Completion report:
-- [`issue-kriskowal-garden-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-10.md) — Completion report — issue-kriskowal-garden-10
-- … and 501 more
+- … and 502 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
