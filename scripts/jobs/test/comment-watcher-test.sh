@@ -76,6 +76,11 @@ board_has() {  # board_has <bare> <base>  -> 0 if job present in todo/doin/tada
 }
 
 run_watcher() {  # run_watcher <state> <bare> <fixture> <reactlog> [post-cmd]
+  # Trust is DENIED deterministically (empty allowlist + /bin/false org check) so
+  # these verb-gate cases stay hermetic: a trusted sender now routes to the reader
+  # (rc 2), which would otherwise hit the real org-membership API. The cases here
+  # act via a DETECTED VERB (trust-independent) or DROP as untrusted; the trust-
+  # driven fallback path is exercised separately by run_directive (E/F/G/GG).
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_REPOS="$TR/norepos" \
       CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
@@ -83,6 +88,8 @@ run_watcher() {  # run_watcher <state> <bare> <fixture> <reactlog> [post-cmd]
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
       GARDEN_COMMENT_POST="${5:-$JOBS/post-job.sh}" \
       GARDEN_COMMENT_FALLBACK=/bin/false \
+      GARDEN_COMMENT_TRUST=/bin/false \
+      GARDEN_TRUSTED_ALLOWLIST=/dev/null \
       "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
 }
 
@@ -151,18 +158,29 @@ echo attention
 EOF
 chmod +x "$FBSTUB"
 # run the watcher with the directive-aware trust wiring (allowlist + deny org).
-run_directive() {  # run_directive <state> <bare> <fixture> <reactlog>
+# Optional 5th arg names a file to capture the watcher's stderr (the `log` stream),
+# so a test can assert the no-silent-slide REASON line; optional 6th arg overrides
+# the fallback (default: the 'attention' stub). The default discards both streams.
+run_directive() {  # run_directive <state> <bare> <fixture> <reactlog> [logfile] [fallback]
+  local logf="${5:-/dev/null}"
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_REPOS="$TR/norepos" \
       CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
       GARDEN_COMMENT_SOURCE="$SRCSTUB" \
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
-      GARDEN_COMMENT_FALLBACK="$FBSTUB" \
+      GARDEN_COMMENT_FALLBACK="${6:-$FBSTUB}" \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
-      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$logf"
 }
+SKIPSTUB="$TR/skip-fallback.sh"
+cat > "$SKIPSTUB" <<'EOF'
+#!/bin/bash
+# stand in for the claude reader judging a comment NON-actionable.
+echo skip
+EOF
+chmod +x "$SKIPSTUB"
 todo_count() {  # todo_count <bare>  -> non-gitkeep entries in jobs/todo
   local v n; v="$(mktemp -d "$TR/tc.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
@@ -193,16 +211,49 @@ run_directive "$TR/state-f" "$BARE_F" "$FIX_F" "$RLOG_F"
 [ ! -s "$RLOG_F" ] && ok "no reactji for an untrusted sender" || bad "reactji posted for untrusted: $(cat "$RLOG_F")"
 [ "$(cursor_seen "$TR/state-f" "$BARE_F")" = 2026-06-24T14:00:00Z ] && ok "cursor slid past the dropped untrusted comment" || bad "cursor did not slide"
 
-hr; echo "G — non-directive from a TRUSTED sender → dropped"; hr
+hr; echo "G — non-directive from a TRUSTED sender → reader says skip → NO job, but ALWAYS reactji + logged reason"; hr
+# NEW no-silent-drop property: a trusted, in-scope comment the reader judges
+# non-actionable mints no job but STILL gets a 👀 receipt, and the slide is LOGGED
+# with its reason — never a silent slide (the dropped endo-but-for-bots #405 lesson).
 BARE_G="$TR/g.git"; seed_bare "$BARE_G"
-FIX_G="$TR/fix-g.tsv"; RLOG_G="$TR/react-g.log"; : > "$RLOG_G"
+FIX_G="$TR/fix-g.tsv"; RLOG_G="$TR/react-g.log"; : > "$RLOG_G"; GLOG="$TR/g.stderr"; : > "$GLOG"
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   2026-06-24T15:00:00Z issue-comment 666 503 kriskowal \
   https://github.com/endojs/endo-but-for-bots/pull/503#issuecomment-666 \
   'Thanks for the help here!' > "$FIX_G"
-run_directive "$TR/state-g" "$BARE_G" "$FIX_G" "$RLOG_G"
-[ "$(todo_count "$BARE_G")" -eq 0 ] && ok "non-directive from a trusted sender dropped (no job)" || bad "non-directive posted a job"
-[ ! -s "$RLOG_G" ] && ok "no reactji on a non-directive" || bad "reactji posted on chatter"
+run_directive "$TR/state-g" "$BARE_G" "$FIX_G" "$RLOG_G" "$GLOG" "$SKIPSTUB"
+[ "$(todo_count "$BARE_G")" -eq 0 ] && ok "reader-skipped comment minted no job" || bad "skip comment posted a job"
+grep -qx "issue-comment 666 eyes" "$RLOG_G" && ok "trusted comment STILL got its 👀 receipt despite no job" || bad "no reactji on a trusted non-actionable comment ($(cat "$RLOG_G"))"
+grep -q 'ACK-no-job' "$GLOG" && grep -q 'claude-reader:skip' "$GLOG" && ok "the slide is LOGGED with its reason (no silent slide)" || bad "no logged ACK/reason for the skipped comment ($(cat "$GLOG"))"
+[ "$(cursor_seen "$TR/state-g" "$BARE_G")" = 2026-06-24T15:00:00Z ] && ok "cursor slid past the acknowledged comment" || bad "cursor did not slide"
+
+hr; echo "GG — trusted directive with NO 'please'/verb (the #405 phrasing) → reaches the reader, not rc==1"; hr
+# The #405 root cause: "Getting closer. 1. … 2. Let's aggregate Handles … 4. Remove …"
+# carries clear asks but no "please" and no listed verb, so the deterministic gate
+# scores it non-actionable. For a TRUSTED sender it must route to the reader/fallback
+# (which here returns 'attention' → a job), NEVER the old silent rc==1 drop.
+BARE_GG="$TR/gg.git"; seed_bare "$BARE_GG"
+FIX_GG="$TR/fix-gg.tsv"; RLOG_GG="$TR/react-gg.log"; : > "$RLOG_GG"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-28T06:48:40Z issue-comment 4825162435 405 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/405#issuecomment-4825162435 \
+  'Getting closer. 1. Aggregate the Handles into one table. 2. Let'\''s manually order them. 4. Remove the stray import and increase the indent.' > "$FIX_GG"
+run_directive "$TR/state-gg" "$BARE_GG" "$FIX_GG" "$RLOG_GG"
+[ "$(todo_count "$BARE_GG")" -eq 1 ] && ok "the #405-style directive routed to the reader (posted a job)" || bad "directive dropped at rc==1 (todo=$(todo_count "$BARE_GG"))"
+[ -s "$RLOG_GG" ] && ok "eyes reactji acked the #405-style directive" || bad "no reactji on the #405-style directive"
+[ "$(cursor_seen "$TR/state-gg" "$BARE_GG")" = 2026-06-28T06:48:40Z ] && ok "cursor advanced past the actioned directive" || bad "cursor not advanced"
+
+hr; echo "GH — UNTRUSTED non-directive → still dropped, but the drop is LOGGED (not silent), no reactji"; hr
+BARE_GH="$TR/gh.git"; seed_bare "$BARE_GH"
+FIX_GH="$TR/fix-gh.tsv"; RLOG_GH="$TR/react-gh.log"; : > "$RLOG_GH"; GHLOG="$TR/gh.stderr"; : > "$GHLOG"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-24T15:30:00Z issue-comment 667 503 drive-by-rando \
+  https://github.com/endojs/endo-but-for-bots/pull/503#issuecomment-667 \
+  'random chatter from a stranger' > "$FIX_GH"
+run_directive "$TR/state-gh" "$BARE_GH" "$FIX_GH" "$RLOG_GH" "$GHLOG" "$SKIPSTUB"
+[ "$(todo_count "$BARE_GH")" -eq 0 ] && ok "untrusted non-directive dropped (no job)" || bad "untrusted comment posted a job"
+[ ! -s "$RLOG_GH" ] && ok "no reactji for an untrusted sender" || bad "reactji posted for untrusted: $(cat "$RLOG_GH")"
+grep -q 'DROP:' "$GHLOG" && grep -q 'verb-gate:not-actionable' "$GHLOG" && ok "the untrusted drop is LOGGED with its reason (not silent)" || bad "untrusted drop not logged ($(cat "$GHLOG"))"
 
 # ============================================================================
 # H — the ROOT CAUSE: a missing jq must make the comment SOURCE fail LOUD, not

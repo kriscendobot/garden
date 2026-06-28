@@ -80,14 +80,31 @@ fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 VERIFY="$GARDEN_ISSUE_VERIFY_CLONE"
 
+# --- shared VERIFY-clone fetch (per-tick latency reduction) -----------------
+# The VERIFY clone is reused across ticks (it lives under $GARDEN_STATE, never torn
+# down). Within ONE tick the garden-repo read, the maintainer-set read, AND every
+# idempotency pre-check all want the same up-to-date journal — fetch ONCE per tick
+# and reuse, EXCEPT where a FRESH view is correctness-critical: confirming a
+# just-posted job landed on origin/journal2 MUST re-fetch (a lost push has to be
+# seen), so verify_posted's post-confirm call passes `fresh`. Mirrors the same fix
+# in comment-watcher.sh.
+_VERIFY_FETCHED=""
+verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/tick unless fresh)
+  ensure_clone "$VERIFY"
+  if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
+    journal_fetch "$VERIFY" >/dev/null 2>&1 || return 1
+    _VERIFY_FETCHED=1
+  fi
+  return 0
+}
+
 # --- read the watched repo from journal config (config/garden-repo) ----------
 # Per-instance, journal-tracked, so main2 stays generic. Override for tests.
 load_garden_repo() {
   if [ -n "${GARDEN_GARDEN_REPO:-}" ]; then
     REPO="$GARDEN_GARDEN_REPO"; return 0
   fi
-  ensure_clone "$VERIFY"
-  journal_fetch "$VERIFY" >/dev/null 2>&1 || true
+  verify_fetch || true
   REPO="$(git -C "$VERIFY" show "origin/$JOURNAL_BRANCH:config/garden-repo" 2>/dev/null \
           | sed -e 's/#.*//' -e 's/[[:space:]]//g' | grep -E '^[^/]+/[^/]+$' | head -1 || true)"
 }
@@ -111,8 +128,7 @@ load_maintainers() {
     done < "$GARDEN_MAINTAINERS_ALLOWLIST"
   else
     src="journal:maintainers/allowlist"
-    ensure_clone "$VERIFY"
-    journal_fetch "$VERIFY" >/dev/null 2>&1 || true
+    verify_fetch || true
     while IFS= read -r line; do
       line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
       [ -n "$line" ] && MAINTAINERS+=("$line")
@@ -138,12 +154,13 @@ is_maintainer() {  # is_maintainer <login>
 }
 
 # --- verify a posted job actually reached origin/journal2 --------------------
-verify_posted() {
-  local base="$1" dir="$VERIFY" sub
-  ensure_clone "$dir"
-  journal_fetch "$dir" >/dev/null 2>&1 || return 1
+# Pre-post idempotency checks reuse the tick's cached fetch; the post-confirm passes
+# `fresh` so a lost push is always seen (matches comment-watcher.sh).
+verify_posted() {  # verify_posted <base> [fresh]
+  local base="$1" sub
+  verify_fetch "${2:-}" || return 1
   for sub in todo doin tada; do
-    git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
+    git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
   done
   return 1
 }
@@ -294,7 +311,7 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
       jb="$(mktemp)"; write_issue_job "$jb" "$REPO" "$number" "$submitter" "$spine" "$url" "$nf" "$bf"
       "$GARDEN_ISSUE_POST" "$spine" "$jb" >/dev/null 2>&1 || true
       rm -f "$jb"
-      if verify_posted "$spine"; then
+      if verify_posted "$spine" fresh; then
         log "posted $spine (issue #$number from maintainer $author)"; acted=$((acted+1)); hw="$created"
       else
         log "POST LOST for $spine — push did not reach origin/$JOURNAL_BRANCH; leaving cursor at ${hw:-<coldstart>} to retry"

@@ -202,17 +202,38 @@ BARE="$GARDEN_REPOS/$slug.git"
 CURSOR_KEY="comments/$slug"
 last_seen="$("$HERE/cursor-get.sh" "$CURSOR_KEY" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1)"
 
+# --- shared VERIFY-clone fetch (per-tick latency reduction) -----------------
+# The VERIFY clone is reused across ticks (it lives under $GARDEN_STATE, never torn
+# down). Within ONE tick, though, the allowlist read, the mention-only read, AND
+# every idempotency pre-check all need the same up-to-date journal — re-fetching for
+# each cost roughly one network round-trip apiece and was a big part of the ~40-87s
+# tick that delayed the reactji (the maintainer thought the watcher was down). Fetch
+# ONCE per tick and reuse, EXCEPT where a FRESH view is correctness-critical:
+# confirming a just-posted job actually landed on origin/journal2 MUST re-fetch (a
+# lost push has to be seen), so verify_posted's post-confirm call passes `fresh`.
+_VERIFY_FETCHED=""
+verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/tick unless fresh)
+  ensure_clone "$VERIFY"
+  if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
+    journal_fetch "$VERIFY" >/dev/null 2>&1 || return 1
+    _VERIFY_FETCHED=1
+  fi
+  return 0
+}
+
 # --- verify a post actually reached origin/journal2 -------------------------
 # post-job.sh has been observed to print "posted" while the push did NOT land on
 # origin/journal2 under contention. Since the whole point of this watcher is to
 # not drop a maintainer directive, confirm the job file is reachable on the
 # shared remote before advancing the cursor past the comment that produced it.
-verify_posted() {
-  local base="$1" dir="$GARDEN_COMMENT_VERIFY_CLONE" sub
-  ensure_clone "$dir"
-  journal_fetch "$dir" >/dev/null 2>&1 || return 1
+# The pre-post idempotency check reuses the tick's cached fetch (stale-tolerant: a
+# missed peer-post at worst re-reacts); the post-confirm passes `fresh` so a lost
+# push is always seen.
+verify_posted() {  # verify_posted <base> [fresh]
+  local base="$1" sub
+  verify_fetch "${2:-}" || return 1
   for sub in todo doin tada; do
-    git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
+    git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
   done
   return 1
 }
@@ -234,8 +255,7 @@ load_allowlist() {
     done < "$GARDEN_TRUSTED_ALLOWLIST"
   else
     src="journal:trusted-senders/allowlist"
-    ensure_clone "$VERIFY"
-    journal_fetch "$VERIFY" >/dev/null 2>&1 || true
+    verify_fetch || true
     while IFS= read -r line; do
       line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
       [ -n "$line" ] && ALLOWLIST+=("$line")
@@ -285,8 +305,7 @@ load_mention_only_authors() {
     done < "$GARDEN_MENTION_ONLY_ALLOWLIST"
   else
     src="journal:mention-only-pr-authors/allowlist"
-    ensure_clone "$VERIFY"
-    journal_fetch "$VERIFY" >/dev/null 2>&1 || true
+    verify_fetch || true
     while IFS= read -r line; do
       line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
       [ -n "$line" ] && MENTION_ONLY_AUTHORS+=("$line")
@@ -436,10 +455,17 @@ classify() {  # classify <body-file> <surface> <author>; sets VERB (+PRIMARY_VER
   if [ -n "$detected_verb" ]; then VERB="$detected_verb"; return 0; fi
   # @-mention of the bot: an ask with no verb. Route to the reader.
   if [ -n "$mentions_bot" ]; then return 2; fi
-  # A trusted maintainer/contributor's plain-language imperative directive with no
-  # verb and no @-mention (e.g. "Please apply this feedback"). The imperative read
-  # is reused from above so chatter never triggers a trust lookup.
-  if [ -n "$imperative" ] && is_trusted "$author"; then return 2; fi
+  # A TRUSTED sender's comment that named no verb must NEVER be silently dropped:
+  # route it to the claude reader/triager (rc 2). The deterministic verb gate cannot
+  # catch every directive phrasing — "Let's aggregate the Handles", "Let's manually
+  # order", "Remove …", "increase the indent" (the dropped endo-but-for-bots #405
+  # directive of 2026-06-28 carried numbered asks but no "please" and no listed verb,
+  # so it took the old silent rc==1 slide). Preferring fallback-triage over dropping
+  # for a trusted sender is cheap insurance: the reader returns a verb or 'skip', and
+  # the main loop reactji-acks the trusted comment either way. An UNTRUSTED sender
+  # with no verb and no @-mention still drops (rc 1). This subsumes the earlier
+  # imperative+trusted special case — any trusted sender now reaches the reader.
+  if is_trusted "$author"; then return 2; fi
   return 1
 }
 
@@ -532,6 +558,27 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
   } > "$out"
 }
 
+# --- never slide past a comment silently -------------------------------------
+# When a comment mints NO job (the verb gate said not-actionable, or the claude
+# reader returned 'skip'), we must NOT slide the cursor past it without a trace.
+# A TRUSTED sender on a REACTABLE surface always gets a 👀 receipt — the
+# maintainer's "I saw this" signal must NOT depend on actionability (the dropped
+# endo-but-for-bots #405 directive logged "acted on 0" with no reactji and no
+# reason, so the maintainer asked "is the watcher working?"). pr-review-bodies are
+# the one unreactable surface (the job IS the response), and untrusted senders get
+# no reactji. Either way the slide is LOGGED with the gate that dropped it plus the
+# comment id/url, so a future drop is always diagnosable from the journal.
+ack_or_log_slide() {  # ack_or_log_slide <reason> <surface> <cid> <author> <url> <pr>
+  local reason="$1" surface="$2" cid="$3" author="$4" url="$5" pr="$6"
+  if [ "$surface" != pr-review-body ] && is_trusted "$author"; then
+    "$GARDEN_COMMENT_REACTJI" "$repo" "$surface" "$cid" eyes \
+      || log "WARN: ack reactji failed on $surface/$cid (continuing)"
+    log "ACK-no-job: trusted $author on #$pr ($surface) — $reason; reactji'd 👀, sliding cursor [cid=$cid $url]"
+  else
+    log "DROP: $author on #$pr ($surface) — $reason; sliding cursor [cid=$cid $url]"
+  fi
+}
+
 # --- poll, then process each comment in created_at order --------------------
 SRC="$(mktemp)"; ERRF="$(mktemp)"; trap 'rm -f "$SRC" "$ERRF"' EXIT
 # Capture the source's stderr (do NOT 2>/dev/null it) so a loud failure inside the
@@ -605,11 +652,22 @@ while IFS=$'\t' read -r created surface cid pr author url body; do
 
   set +e; classify "$bf" "$surface" "$author"; rc=$?; set -e
   if [ "$rc" -eq 1 ]; then
+    # Not actionable. NEVER slide past it silently: log WHICH gate dropped it plus
+    # the comment id/url (the dropped-#405 lesson). rc 1 is reached only for an
+    # UNTRUSTED / no-verb / no-@mention comment, so there is no trusted receipt to
+    # acknowledge — ack_or_log_slide logs the DROP without a reactji.
+    ack_or_log_slide "verb-gate:not-actionable" "$surface" "$cid" "$author" "$url" "$pr"
     rm -f "$bf"; hw="$created"; continue          # not actionable; slide cursor past it
   fi
   if [ "$rc" -eq 2 ]; then
     VERB="$("$GARDEN_COMMENT_FALLBACK" "$repo" "${pr:-?}" "$author" "$url" "$bf" 2>/dev/null || echo skip)"
     if [ "$VERB" = skip ] || [ -z "$VERB" ]; then
+      # The reader judged it non-actionable and minted no job. A TRUSTED, reactable
+      # comment STILL gets its 👀 receipt (the maintainer's "I saw this" must not
+      # depend on actionability — the dropped-#405 lesson), and the slide is ALWAYS
+      # logged with its reason. Unreactable surfaces (pr-review-body) and untrusted
+      # senders get the logged slide without a reactji.
+      ack_or_log_slide "claude-reader:skip" "$surface" "$cid" "$author" "$url" "$pr"
       rm -f "$bf"; hw="$created"; continue
     fi
   fi
@@ -662,7 +720,7 @@ while IFS=$'\t' read -r created surface cid pr author url body; do
   "$GARDEN_COMMENT_POST" "$base" "$jb" >/dev/null 2>&1 || true
   rm -f "$jb" "$bf"
 
-  if verify_posted "$base"; then
+  if verify_posted "$base" fresh; then
     log "posted $base ($VERB on #$pr) + acked"; acted=$((acted+1)); hw="$created"
   else
     log "POST LOST for $base — push did not reach origin/$JOURNAL_BRANCH; leaving cursor at ${hw:-<coldstart>} to retry"
