@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please describe a reproducible methodology for the above findings.  
+
+---
+claim:
+  host: endolinbot
+  gardener: 28
+  claimed_at: 2026-06-28T00:08:52Z
