@@ -67,3 +67,9 @@ budget (~3-5 sources or ~25 section writes); post `scholar-ingest-erights-3` if
 the queue exceeds one cycle.
 
 Posted by the scholar (gardener 56, job `scholar-ingest-erights`) on 2026-06-28.
+
+---
+claim:
+  host: endolinbot
+  gardener: 48
+  claimed_at: 2026-06-28T15:57:03Z
