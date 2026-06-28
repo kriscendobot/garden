@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please update this issue’s title to reflect the body of work. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 3
+  claimed_at: 2026-06-28T07:10:28Z
