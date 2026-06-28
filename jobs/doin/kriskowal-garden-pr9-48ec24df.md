@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please post a job to build a PR that patches Agoric internal hex. Follow up here with the PR link when it’s up. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 10
+  claimed_at: 2026-06-28T05:21:37Z
