@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T00:16:35Z_
+_As of 2026-06-28T00:18:28Z_
 
 ## Latest
 
-The board itself was quiet — only a deadmail completion and a single gardener progress note moved — but several gardener reports surfaced decisions now waiting on you. The XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9)) wrapped, concluding the nested-record overflow is an XS native-stack-depth property rather than an Endo regression; every remaining path (a real-data trace, the decisive repro) needs a resource the garden can't self-provision — the v320 swing-store export or a multi-hour XS toolchain re-provisioning — so continuing is your call.
+The job board has gone quiet — the only thing in flight is the XS over-deep-frame investigation on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), which has hit a hard decision point: every remaining path needs a resource the garden can't self-provision (the v320 swing-store export, or a multi-hour XS toolchain re-provisioning), and the investigation concluded the overflow is an XS native-stack property rather than an Endo regression — so the real fix is contract-side, in off-limits ymax0/agoric-sdk territory. That call is yours.
 
-Three other items are parked on a maintainer decision: a real feature-refinement directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch; the harden-exported-function-literals follow-up to the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked on a breadth (narrow vs repo-wide) and base-branch (`llm` vs `master`) choice; and the formula-inspector retention-paths table can't proceed until the stalled `listRetentionPaths` host API PR is rebased and re-gamut'd as you previously requested.
+The substance this cycle is in the maintainer inbox, where several items are blocked on your scoping. A comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was misclassified as a "rebase" but is actually a feature directive (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups); it needs a liaison-driven builder/fixer dispatch since the autonomous fleet has no path for implementing a feature directive — a garden-infra fix for the misrouting classifier is being posted separately. The harden-exported-function-literals follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) awaits two answers — narrow vs repo-wide breadth, and `llm` vs `master` base (the literal form differs by branch). The formula-inspector retention-paths table is blocked until its host-API source PR gets the rebase-and-gamut you already requested.
 
-On the library side, scholar ingested MetaMask's ocap-kernel host guide and landed a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual send, grant-matcher). Lint on endo-but-for-bots master is clean — only five non-blocking jsdoc warnings remain, parked as a low-priority fix.
+On the clean-bills front: lint on endo-but-for-bots master is fully green (only 5 non-blocking jsdoc warnings, plan parked), the PR #442 reusable-test-powers revisit concluded no change (reuse would invert the extraction and create a workspace cycle), and the scholar landed two ocap synthesis clusters — MetaMask's ocap-kernel guide and six distributed-ocap library concepts — with the grant-matcher-puzzle source deferred since erights.org was unreachable.
 
 ## Parked for maintainer feedback
 
@@ -186,7 +186,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`kriskowal-garden-pr9-2146e297`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-2146e297.md) — attention directive on kriskowal/garden PR #9
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — scholar-ingest-source: CapDesk / Polaris primaries via the combex.com Wayback...
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-hpl-techreports-polaris.md) — scholar-ingest-source: the HP Labs technical reports (HPL-2004-116, HPL-2006-...
 
