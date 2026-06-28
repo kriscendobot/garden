@@ -50,3 +50,9 @@ summary comment. This is wanted output, not an afterthought.
 migration with passing chat/integration tests as empirical proof + a design doc and PR summary
 comment that include the "Next steps: collection change followers" section. PR on
 endo-but-for-bots, reviewed through the panel.
+
+---
+claim:
+  host: endolinbot
+  gardener: 10
+  claimed_at: 2026-06-28T07:04:02Z
