@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:30:38Z_
+_As of 2026-06-28T17:33:21Z_
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the board transitions and recent activity.
-
-The scholar's erights/ocap-library ingestion is the dominant thread: [scholar-ingest-erights-7](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-7.md) and erights-6 completed, with part 8 (ELib concurrency child chapters) now in flight, plus a child-reachability probe improvement landed. A gardener confirmed the erights→github.io mirror substitution is now enforced end to end (always-read `conventions.md` note + deterministic rewrite in `fetch-source.sh`), closing the dead-lettered `ingest-ocap-library` thread. Two new infra jobs are claimed: the issue-inbox-watcher fix to stop dropping trusted comments on closed/reopened issues, and the garden#11 issue. Lint classification on endo master came back clean — only 5 non-blocking jsdoc warnings, parked as a low-priority plan.
-
-Two maintainer items worth a glance: the endo master lint message notes bot master is 64 commits ahead of upstream (legitimate merged work, deliberately not force-synced), and 28 PRs remain parked for review — the oldest of substance being [endo#3137](https://github.com/endojs/endo/pull/3137) (TS runtime modules, 12d) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 4d).
+The multibot leader/follower plan (`service-host-roles-singletons-on-main-host`) was promoted from the plan queue into active work, alongside the completion of the Multibot issue [issue #11](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-11.md) and the claim of its follow-on issue #12 — the garden is moving toward gardeners running on every host while singletons stay pinned to one. Scholar's erights ingestion continues to advance: `scholar-ingest-erights-8` landed and erights-9 (ELib concurrency mechanics chapters plus two sub-hubs) is now in flight, and a gardener confirmed the ocap-library ingestion is healthy with the erights.org→GitHub Pages mirror enforced deterministically in `fetch-source.sh`. Worth a maintainer glance: the lint classification of endo-but-for-bots master came back **clean** — CI's `yarn lint` gate is fully green, with the only findings being 5 non-failing jsdoc warnings parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan, promotable on demand. No PRs moved this cycle; the 28 parked PRs (top: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), [#379](https://github.com/endojs/endo-but-for-bots/pull/379), [#503](https://github.com/endojs/endo-but-for-bots/pull/503)) still await review.
 
 ## Parked for maintainer feedback
 
@@ -16,7 +12,7 @@ Two maintainer items worth a glance: the endo master lint message notes bot mast
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 12d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 13d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 38d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 37d)
@@ -59,23 +55,22 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (4)
 - [`issue-inbox-watcher-process-trusted-comments-on-closed-issue`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-watcher-process-trusted-comments-on-closed-issue.md) — issue-inbox-watcher: don't drop trusted comments on a closed (or reopened) issue
-- [`issue-kriskowal-garden-10-empty-reply-mark-read`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-10-empty-reply-mark-read.md) — Bulletin: empty reply must mark-as-read; every ack/reply moves unread→read (i...
-- [`issue-kriskowal-garden-11`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-11.md) — Issue from kriskowal on kriskowal/garden #11
-- [`scholar-ingest-erights-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-8.md) — Scholar: ingest the ELib concurrency child chapters (erights ingest, part 8)
+- [`issue-kriskowal-garden-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-12.md) — Issue from kriskowal on kriskowal/garden #12
+- [`scholar-ingest-erights-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-9.md) — Scholar: ingest the ELib concurrency mechanics chapters + the two sub-hubs (e...
+- [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/service-host-roles-singletons-on-main-host.md) — PLAN: multibot leader/follower — gardeners run everywhere, singletons run onl...
 
-### tada (533)
+### tada (536)
+- [`issue-kriskowal-garden-10-empty-reply-mark-read`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-10-empty-reply-mark-read.md) — Completion report
+- [`scholar-ingest-erights-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-8.md) — Completion report — scholar-ingest-erights-8
+- [`issue-kriskowal-garden-11`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-11.md) — Completion report — issue-kriskowal-garden-11 (Multibot)
 - [`improve-scholar-child-reachability-probe`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-child-reachability-probe.md) — Completion report
 - [`scholar-ingest-erights-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-7.md) — Completion report: scholar-ingest-erights-7
-- [`fu-scholar-ingest-erights-5-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-5-2.md) — Both parts of this job were already satisfied at the current origin/journal2 ...
-- [`scholar-ingest-erights-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-6.md) — What I did
-- [`improve-periodic-sections-index-regen-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-periodic-sections-index-regen-timer.md) — Done. Completion report below.
-- … and 528 more
+- … and 531 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`port-xs-to-rust-memory-safe-engine`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine.md) — _normal_ · PLAN (go-ahead): port XS to Rust — a memory-safe, meterable, no-JIT JS engine...
-- [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/service-host-roles-singletons-on-main-host.md) — _normal_ · PLAN: service host-roles — gardeners run everywhere, singletons run only on t...
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 
 ### deferred (top by priority; foreman auto-promotes when idle)
