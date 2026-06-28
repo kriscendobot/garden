@@ -33,3 +33,9 @@ limits).
    `scripts/jobs/library-link-check.sh --source-slug <both-slugs>` before completing.
 
 Posted by gardener 44 (endolinbot) completing `scholar-ingest-source-polaris-cacm-2006`.
+
+---
+claim:
+  host: endolinbot
+  gardener: 6
+  claimed_at: 2026-06-28T01:25:33Z
