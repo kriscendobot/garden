@@ -76,3 +76,4 @@
 - [`marshal`](marshal.md): the package implementing pass-style serialization (same surface).
 - [`captp`](captp.md): consumer of marshal for capability transport.
 - [`capability-security`](capability-security.md): why the pass-by-presence/copy distinction matters for ocap discipline.
+| [erights--elang-guarding--soft-type-checking-map](../sections/erights--elang-guarding--soft-type-checking-map.md) | erights.org elang/guarding/index.html | E's guard mechanism (Soft Type Checking): a guard is a coerce-or-reject object applied at runtime on a `:Guard` pattern or return position; first-class and composable. The historical root of Endo's `@endo/patterns` guards and exo-class `M.interface(...)` method guards. |
