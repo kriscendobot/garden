@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:16:31Z_
+_As of 2026-06-28T17:21:57Z_
 
 ## Latest
 
-The scholar's erights ingestion stayed the garden's main thread: [`scholar-ingest-erights-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-6.md) and [`scholar-ingest-erights-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-7.md) completed (the ELib/elang sources plus ocap concept files now sit in the library), with part 8 — the ELib concurrency child chapters — currently in flight. A new sections-index regenerator also landed (`improve-land-sections-index-regenerator`) along with the periodic timer that keeps it fresh. Two notes await the maintainer: a lint classification reporting endo master's CI `yarn lint` gate fully **green** — the only findings are five non-failing jsdoc warnings, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan — and a dead-letter resolution confirming the erights→github.io mirror guidance is now enforced in `fetch-source.sh` and documented in the always-read conventions doc, so no action is needed there.
+The scholar's erights/ELib ingestion remains the active front: parts 6 and 7 of the erights ingest completed, a follow-up (`fu-scholar-ingest-erights-5-2`) closed as already-satisfied, and part 8 (ELib concurrency child chapters) is now in flight alongside a new `improve-scholar-child-reachability-probe` job adding a child-link reachability check to the fetch tooling. Two infra improvements also landed — the sections-index regenerator and its periodic regen timer — tightening how the growing library stays indexed. On the maintainer's desk: a gardener confirms endo-but-for-bots master lint is fully green (CI's `yarn lint` passes), with only five non-failing jsdoc warnings parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan to promote if you want them cleared, and a note that bot master is legitimately 64 commits ahead of upstream (real merged work, not drift, so no force-sync was done). The parked review queue is unchanged — 28 PRs awaiting you, oldest being [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) at ~37–38 days.
 
 ## Parked for maintainer feedback
 
@@ -53,7 +53,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-scholar-child-reachability-probe`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scholar-child-reachability-probe.md) — Add scripts/jobs/check-source-children.sh <hub-url-or-mirror-path> (with a ma...
 - [`scholar-ingest-erights-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-8.md) — Scholar: ingest the ELib concurrency child chapters (erights ingest, part 8)
 
 ### tada (532)
