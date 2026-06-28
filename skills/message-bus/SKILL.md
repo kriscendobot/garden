@@ -30,7 +30,10 @@ stay extensionless — they are keyed by the job's spine basename.
   tagged `reply_to: <base>`.
 - The liaison runs `maintainer-watch.sh` through the Claude **Monitor** tool,
   then `maintainer-reply.sh <msgid>` (routes into the doer's inbox + archives) or
-  `maintainer-archive.sh <msgid>`.
+  `maintainer-archive.sh <msgid>`. An **empty reply** to `maintainer-reply.sh`
+  (blank body-file and blank stdin) delivers nothing and just moves the message
+  unread → read, the same as a bare archive: leave the reply blank to dismiss a
+  message that needs no answer.
 - The still-working gardener receives the reply through its own `inbox-read.sh`.
 
 ## Notes

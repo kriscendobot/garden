@@ -5,8 +5,14 @@
 #
 # Reads the maintainer message's reply_to (the originating doer), delivers the
 # reply into that doer's inbox, and archives the maintainer message. If the doer
-# has since completed (its inbox is gone), the reply fails loudly and the
-# message is left unread.
+# has since completed (its inbox is gone), the reply is dead-lettered for
+# garden-deadmail to promote (see inbox-send.sh).
+#
+# Empty reply = acknowledge only. When the reply body (body-file, else stdin) is
+# empty or whitespace-only, nothing is delivered to the doer: the message is just
+# moved from unread to read. This lets the maintainer dismiss a message that needs
+# no answer by leaving the reply section blank, instead of delivering a literal
+# "(empty message)" into the doer's inbox.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -23,11 +29,28 @@ sync_clone "$DIR"
 f="inbox/maintainer/unread/$id"
 [ -e "$DIR/$f" ] || f="inbox/maintainer/read/$id"
 [ -e "$DIR/$f" ] || die "no such maintainer message: $id"
+
+# Resolve the reply body here (body-file, else stdin, else empty) so we can tell
+# an empty reply from a substantive one before deciding whether to deliver.
+if   [ -n "$body" ] && [ -f "$body" ]; then REPLY="$(cat "$body")"
+elif [ ! -t 0 ];                       then REPLY="$(cat)"
+else REPLY=""; fi
+
+# Empty (whitespace-only) reply: acknowledge by moving unread → read, deliver
+# nothing. No reply_to is required for a bare acknowledgment.
+if [ -z "$(printf '%s' "$REPLY" | tr -d '[:space:]')" ]; then
+  "$HERE/maintainer-archive.sh" "$id"
+  log "empty reply to $id; acknowledged (unread → read), nothing delivered"
+  exit 0
+fi
+
 doer="$(sed -n 's/^reply_to:[[:space:]]*//p' "$DIR/$f" | head -1)"
 [ -n "$doer" ] || die "message $id has no reply_to; cannot route a reply"
 
-# deliver into the originating doer's inbox
-GARDEN_SENDER=maintainer "$HERE/inbox-send.sh" "$doer" ${body:+"$body"}
+# deliver the resolved reply into the originating doer's inbox via a temp file
+tmp="$(mktemp)"; trap 'rm -f "$tmp"' EXIT
+printf '%s\n' "$REPLY" > "$tmp"
+GARDEN_SENDER=maintainer "$HERE/inbox-send.sh" "$doer" "$tmp"
 # archive the maintainer message (no-op if already archived)
 "$HERE/maintainer-archive.sh" "$id" || true
 log "replied to doer '$doer' and archived $id"

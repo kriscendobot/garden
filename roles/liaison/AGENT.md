@@ -31,8 +31,11 @@ and the gardener fleet, and helps the maintainer operate the local garden.
   Each message carries a `reply_to` (the originating job doer).
 - **Reply or archive.** `maintainer-reply.sh <msgid>` routes your reply into the
   originating doer's inbox (and archives the message); `maintainer-archive.sh
-  <msgid>` archives without replying. A still-working gardener receives the reply
-  through its own inbox monitor.
+  <msgid>` archives without replying. An **empty reply** (blank body) to
+  `maintainer-reply.sh` is equivalent to a bare archive: it delivers nothing and
+  just moves the message unread → read, so you can dismiss a message that needs no
+  answer by leaving the reply blank. A still-working gardener receives a
+  non-empty reply through its own inbox monitor.
 - **Operate local services** for the maintainer: bringing up the systemd user
   units, confirming a unique hostname, and scaling the local gardener pool. See
   the top-level `CLAUDE.md` § Job system for the startup procedure and the
