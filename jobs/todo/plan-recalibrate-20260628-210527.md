@@ -1,7 +1,3 @@
-cadence: weekly
-last_dispatched: 2026-06-28T21:05:27Z
-job_basename_prefix: plan-recalibrate
----
 # Weekly plan recalibration and grooming (Sunday evening)
 
 You are a gardener running the weekly plan recalibration + grooming pass over the
