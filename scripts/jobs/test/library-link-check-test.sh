@@ -292,6 +292,45 @@ echo "$out" | grep -q "FAIL — 1 must-resolve dangling" && ok "must-resolve FAI
 echo "$out" | grep -q "advisory — 1 dangling" && ok "advisory leaf-body still reported separately" || { bad "advisory not reported alongside the failure"; echo "$out"; }
 
 # ============================================================================
+hr; echo "SUBTEST 12: a dangling sibling-section link whose real target is the source page gets a 'did you mean' hint"
+setup_fixture
+# The overview footgun (2026-06-28 KernelQueue.ts): a parent index with a long
+# descriptive slug links a source-page slug as if it were a SIBLING section. There
+# is NO bare sections/<slug>.md, but sources/<slug>.md IS committed, so the
+# suggestion must point at the source page.
+SLUG="metamask-ocap-kernel--src-kernelqueue-ts"
+cat > "$LIB/sources/${SLUG}.md" <<EOF
+---
+source: docs/x.md
+status: current
+---
+## Abstract
+Overview source page for the ocap-kernel message queue.
+EOF
+# An overview index whose See-also mis-links the source-page slug as a sibling
+# section, plus a genuinely-missing sibling that has NO source page (the control:
+# it must dangle WITHOUT a hint, proving the suggestion does not fire on every
+# dangling sibling-section link).
+cat > "$LIB/sections/overview-of-the-ocap-kernel-message-queue.md" <<EOF
+---
+title: Overview of the ocap-kernel message queue
+kind: index
+status: current
+---
+## See also
+- [$SLUG]($SLUG.md)
+- [nope](nope-no-source-page.md)
+EOF
+commit_all "overview index linking the source-page slug as a sibling section"
+out="$("$CHECK" --library "$LIB" --files sections/overview-of-the-ocap-kernel-message-queue.md 2>&1)"; rc=$?
+if [ "$rc" = 1 ]; then ok "the dangling sibling link fails (exit 1)"; else bad "expected exit 1, got $rc:"; echo "$out"; fi
+echo "$out" | grep -q "DANGLING .* -> ${SLUG}.md.*did you mean ../sources/${SLUG}.md?" \
+  && ok "source-page 'did you mean' hint fires on the footgun shape" || { bad "no did-you-mean hint on the footgun link"; echo "$out"; }
+echo "$out" | grep "nope-no-source-page.md" | grep -q "did you mean" \
+  && bad "hint wrongly fired on a dangling sibling link with no source page" \
+  || ok "no hint on a legitimate-sibling-shaped dangling link without a source page"
+
+# ============================================================================
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" = 0 ] && { rm -rf "$TR"; exit 0; } || exit 1

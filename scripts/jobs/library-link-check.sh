@@ -289,10 +289,25 @@ check_links_in() {
           ADVISORY_DANGLING=$((ADVISORY_DANGLING + 1)); cls_suffix=" [advisory]"
         fi
       fi
+      # "did you mean" hint: a dangling <name>.md link whose basename does not
+      # resolve as a sibling-section file but whose source page sources/<name>.md
+      # DOES resolve to a committed file is almost certainly a source-page target
+      # mis-written as a sibling section (the 2026-06-28 KernelQueue.ts parent-index
+      # footgun: a See-also linked `<slug>.md` as a sibling when the real target was
+      # the source page). Pure graph resolution off TRACKED + LIBRARY, so it belongs
+      # here in code. The src_cand != abs guard avoids suggesting a link back to
+      # itself when the referrer already (correctly-shaped but dangling) points at
+      # ../sources/<name>.md.
+      local hint="" tgt_base src_cand
+      tgt_base="$(basename "$target")"
+      src_cand="$(realpath -m "$LIBRARY/sources/$tgt_base" 2>/dev/null)"
+      if [ "$src_cand" != "$abs" ] && is_committed "$src_cand"; then
+        hint=" — did you mean ../sources/$tgt_base?"
+      fi
       if [ "$status" = 2 ]; then
-        echo "  DANGLING $rel_referrer -> $target$cls_suffix (exists on disk but git-untracked; would not be committed)"
+        echo "  DANGLING $rel_referrer -> $target$cls_suffix (exists on disk but git-untracked; would not be committed)$hint"
       else
-        echo "  DANGLING $rel_referrer -> $target$cls_suffix (no such committed file)"
+        echo "  DANGLING $rel_referrer -> $target$cls_suffix (no such committed file)$hint"
       fi
     fi
   done < <(extract_targets "$file")
