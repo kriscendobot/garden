@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please add a free form input on top for posting a new thread to the liaison or to link to the New Issue page on Github. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 53
+  claimed_at: 2026-06-28T16:34:04Z
