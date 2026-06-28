@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:57:16Z_
+_As of 2026-06-28T17:59:01Z_
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the board transitions and dashboard.
-
-Two gardener jobs completed since the last bulletin: [`issue-inbox-watcher-reactji-acknowledge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-watcher-reactji-acknowledge.md) wired a reactji acknowledgment into the issue-inbox watcher, and [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/service-host-roles-singletons-on-main-host.md) pinned singleton service roles to the main host. Scholar ingestion keeps moving — `scholar-ingest-erights-9` landed and `scholar-ingest-erights-10` (six ELib concurrency chapters) is in flight alongside `improve-regenerate-topics-counts`. Two maintainer messages await a reply: a lint classification of endo-but-for-bots master (CI-green; only 5 non-failing jsdoc warnings, with the fix parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan), and a dead-letter close-out confirming the erights→github.io mirror note is honored end-to-end in `fetch-source.sh`. No new PR activity — the parked queue is unchanged, still topped by [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (10h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), with three plans still awaiting maintainer go-ahead.
+The scholar's erights ingestion continued to advance: `scholar-ingest-erights-9` completed and a cleanup follow-up (`fu-scholar-ingest-erights-9-2`) is in flight, alongside `scholar-ingest-erights-10` (six ELib concurrency child chapters) and an `improve-regenerate-topics-counts` script job. That ingestion cycle also surfaced a deploy decision the liaison has parked for you: this host (endolinbot) is lagging at `fe2d9f296` while `origin/main2` (`b9f0fd5b4`) already carries the conventions-named `insert-sections-table-row.sh` — the scholar fell back to a safe whole-file landing so output was unaffected, but the deployed root is behind and awaits your go-ahead to run `scripts/jobs/deploy-garden.sh`. Separately, a lint classification of endo-but-for-bots master came back clean: CI's `yarn lint` gate is fully green, with the only findings being five non-failing jsdoc warnings (consolidated into the deferred `fix-lint-jsdoc-warnings-endo-master` plan, promote to clear them). The dead-lettered ocap-library ingestion thread was verified and closed as already-handled. No new PRs moved this cycle; the 28-deep parked queue still awaits your review.
 
 ## Parked for maintainer feedback
 
@@ -50,12 +48,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Nothing further needed from me on this — closing the dead-letter as already-handled. Thank you for leaving the note where the scholar would actually find it.
 
+- `20260628T175840Z-e1862f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T175840Z-e1862f.md)
+
+> Report scholar-ingest-erights-9 surfaced an upgrade-ready condition on this host (endolinbot): the conventions-named `insert-sections-table-row.sh` is present on `origin/main2` (`b9f0fd5b4`) but absent from the deployed root, which is lagging at `fe2d9f296`. The scholar used a safe whole-file-landing fallback, so cycle output was unaffected, but the deployed root is behind. This is a deliberate-deploy decision (run `scripts/jobs/deploy-garden.sh`) — do you want me to deploy endolinbot to `origin/main2` now?
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`fu-scholar-ingest-erights-9-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-scholar-ingest-erights-9-2.md) — In the garden's own library (kriskowal/garden, journal content), clean up the...
 - [`improve-regenerate-topics-counts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-regenerate-topics-counts.md) — Add scripts/jobs/regenerate-topics-counts.sh, a sibling to the existing scrip...
 - [`scholar-ingest-erights-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-10.md) — Scholar: ingest the six ELib concurrency sub-hub child chapters (erights inge...
 
