@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5953 (525 parent indexes + 5428 children).
+Total section files: 5959 (525 parent indexes + 5434 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -6806,9 +6806,17 @@ Total section files: 5953 (525 parent indexes + 5428 children).
 
 - [erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol](erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol.md)
 
+### erights--elib-concurrency-eio-goals
+
+- [erights--elib-concurrency-eio-goals--design-goals-requirements-and-preferences](erights--elib-concurrency-eio-goals--design-goals-requirements-and-preferences.md)
+
 ### erights--elib-concurrency-eio-index
 
 - [erights--elib-concurrency-eio-index--eio-non-blocking-io-map](erights--elib-concurrency-eio-index--eio-non-blocking-io-map.md)
+
+### erights--elib-concurrency-eio-obtaining
+
+- [erights--elib-concurrency-eio-obtaining--obtain-primitive-and-input-operation-taxonomy](erights--elib-concurrency-eio-obtaining--obtain-primitive-and-input-operation-taxonomy.md)
 
 ### erights--elib-concurrency-event-loop
 
@@ -6850,9 +6858,25 @@ Total section files: 5953 (525 parent indexes + 5428 children).
 
 - [erights--elib-concurrency-vat--the-vat-heap-thread-queue](erights--elib-concurrency-vat--the-vat-heap-thread-queue.md)
 
+### erights--elib-concurrency-when-catch
+
+- [erights--elib-concurrency-when-catch--when-catch-syntactic-shorthand](erights--elib-concurrency-when-catch--when-catch-syntactic-shorthand.md)
+
 ### erights--elib-concurrency-when-index
 
 - [erights--elib-concurrency-when-index--four-layers-of-when-map](erights--elib-concurrency-when-index--four-layers-of-when-map.md)
+
+### erights--elib-concurrency-when-joiners
+
+- [erights--elib-concurrency-when-joiners--joining-multiple-resolutions](erights--elib-concurrency-when-joiners--joining-multiple-resolutions.md)
+
+### erights--elib-concurrency-when-reactors
+
+- [erights--elib-concurrency-when-reactors--the-when-reactors](erights--elib-concurrency-when-reactors--the-when-reactors.md)
+
+### erights--elib-concurrency-when-ref-when
+
+- [erights--elib-concurrency-when-ref-when--references-as-observables](erights--elib-concurrency-when-ref-when--references-as-observables.md)
 
 ### erights-org--elang-intro
 
