@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot  This misunderstands the staging. First there needs to be a PR that repoints all importers to import from the originating package, and to deprecate all plain re-exports. This goes first because it does not cause any compat problems. Then the follow-up PR removes the
+
+---
+claim:
+  host: endolinbot
+  gardener: 45
+  claimed_at: 2026-06-28T06:34:52Z
