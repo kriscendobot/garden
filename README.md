@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T08:17:29Z_
+_As of 2026-06-28T09:05:53Z_
 
 ## Latest
 
-Recent completions landed [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405)'s inventory-grouping toggle through a second review round, a comment-watcher hardening (never silently drop a trusted sender; always reactji), the notifier pub/sub migration, and a scholar library cycle. The board is now fully drained — nothing in todo or doin.
+Two endo-but-for-bots PR [#405](https://github.com/endojs/endo-but-for-bots/pull/405) jobs closed out — the inventory-grouping toggle and its round-2 review — alongside garden-infra completions: the comment-watcher now always reactjis trusted senders instead of silently dropping them, and the notifier finished migrating to pub/sub. Scholar library cycles continue on the hour, with recent ingests landing an ocap-kernel guide synthesis and a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement).
 
-What a maintainer should notice sits in the message queue. The `formula-inspector-retention-paths-table` job is **blocked** on its data source #284 (`listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the "rebase and run the gamut again" you requested — that never happened and it currently carries 4 failing CI checks; the gardener has the follow-on ready the moment #284 lands and offers to take that rebase-and-gamut as its own job. Separately, lint classification on endo master came back clean (CI's `yarn lint` fully green; only 5 non-failing jsdoc warnings, with a low-priority plan parked to clear them). The scholar landed two ingests — MetaMask/ocap-kernel's host-app developer guide and a six-section distributed-ocap concept cluster — flagging honestly that the grant-matcher-puzzle source could not be reached (erights.org down) and is deferred. Finally, the liaison is holding for your direction on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the prior job explicitly scoped that out and it brushes scope-sensitive territory.
+Worth a maintainer's eye: the `formula-inspector-retention-paths-table` job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently shows failing CI — the gardener is holding rather than duplicating the graph walk, and offers to take the #284 rebase as its own job. The liaison is also holding for direction on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation, since the prior job explicitly scoped that follow-on out.
 
 ## Parked for maintainer feedback
 
@@ -100,8 +100,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-090502.md) — Hourly scholar library cycle
 
 ### tada (488)
 - [`scholar-library-cycle-20260628-075042`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-075042.md) — Completion report:
