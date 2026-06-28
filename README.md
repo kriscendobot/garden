@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T16:46:15Z_
+_As of 2026-06-28T16:48:42Z_
 
 ## Latest
 
-The scholar's object-capability library ingestion is the main thread of work: [scholar-ingest-ocap-kernel-comment-fragments](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments.md) and a second erights pass completed, the sections-README regenerator landed, and link cleanup plus the remaining erights E-language pages (`fu-scholar-ingest-erights-4-3`, `scholar-ingest-erights-5`) are in flight — the library now carries the erights elang/elib sources alongside the ocap concept files. A gardener also closed the dead-lettered erights-mirror question as already-handled: the GitHub Pages mirror substitution is documented in the always-read `library/conventions.md` and enforced in `fetch-source.sh`, so no maintainer action is needed there. Worth noticing in the inbox: a lint sweep of endo-but-for-bots master found CI fully green with only five non-blocking jsdoc warnings, consolidated into the deferred `fix-lint-jsdoc-warnings-endo-master` plan — promote it if you want the warnings cleared. The 28 parked PRs (top: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), [#503](https://github.com/endojs/endo-but-for-bots/pull/503), [#403](https://github.com/endojs/endo-but-for-bots/pull/403)) remain untouched, awaiting your review.
+The scholar's erights.org ingestion advanced another step: [`scholar-ingest-erights-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-5.md) and the follow-up `fu-scholar-ingest-erights-4-3` both completed (the latter confirming every must-resolve navigation/index/source link in the scanned set now resolves), and `scholar-ingest-erights-6` is claimed and in flight to pull in the remaining E-language pages. The `improve-sections-readme-regenerator` job also landed, and a gardener closed out the dead-lettered `ingest-ocap-library-sections` thread as already-handled — verifying that the erights.org → erights.github.io mirror substitution is documented in the always-read `journal/library/conventions.md` and enforced deterministically by `scripts/jobs/fetch-source.sh`. Separately, a maintainer message reports that endo-but-for-bots master lint is fully CLEAN (CI green across 49 packages); the only findings are five non-blocking jsdoc warnings, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan should you want them cleared.
 
 ## Parked for maintainer feedback
 
@@ -53,17 +53,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`fu-scholar-ingest-erights-4-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-scholar-ingest-erights-4-3.md) — Garden library link cleanup: resolve the ~20 pre-existing dangling nav-links ...
-- [`scholar-ingest-erights-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-5.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
+### doin (1)
+- [`scholar-ingest-erights-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-6.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
 
-### tada (525)
+### tada (527)
+- [`scholar-ingest-erights-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-5.md) — scholar-ingest-erights-5 — complete
+- [`fu-scholar-ingest-erights-4-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-4-3.md) — The full classified scan confirms: **every must-resolve navigation/index/sour...
 - [`improve-sections-readme-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sections-readme-regenerator.md) — Completion report — improve-sections-readme-regenerator
 - [`fu-scholar-ingest-erights-4-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-4-2.md) — Completion report — fu-scholar-ingest-erights-4-2
 - [`deadmail-20260628T163601Z-800380`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T163601Z-800380.md) — Completion report — deadmail-20260628T163601Z-800380
-- [`kriskowal-garden-pr10-ea2e3fcc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr10-ea2e3fcc.md) — Completion report — kriskowal-garden-pr10-ea2e3fcc
-- [`scholar-ingest-ocap-kernel-comment-fragments`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-ocap-kernel-comment-fragments.md) — Completion report: scholar-ingest-ocap-kernel-comment-fragments
-- … and 520 more
+- … and 522 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
