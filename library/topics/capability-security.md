@@ -241,7 +241,7 @@
 | [combex--darpa-browser--executive-summary-and-confined-renderer](../sections/combex--darpa-browser--executive-summary-and-confined-renderer.md) | The DarpaBrowser (combex.com) | A capability-confined HTML renderer that cannot compromise the system (not even the URL field), demonstrated by running a Malicious Renderer inside the same confinement; the E Language Machine on Sanitized Linux. |
 | [combex--darpa-browser--statement-of-work-and-milestones](../sections/combex--darpa-browser--statement-of-work-and-milestones.md) | The DarpaBrowser (combex.com) | The DARPA project's components, 4/8/12-month milestones, and deliverables, including the commitment to open-source capWT under the Mozilla license. |
 | [combex--opportunity--overview](../sections/combex--opportunity--overview.md) | The Opportunity for a Virus-Invulnerable Desktop (combex.com) | The quiet dormant Trojan, not the visible virus, is the real threat (the GRC.com attack's 474 suborned machines); CapDesk and E as the answer for extreme-security organizations. |
-
+| [erights--elang-io--io-map-uri-and-text-file](../sections/erights--elang-io--io-map-uri-and-text-file.md) | erights.org elang/io/index.html | E IO is capability-mediated: file access is a granted `File`-object and a URI expression, never an ambient open-by-path; the E-language root of Endo's no-ambient-authority IO (intrinsics removed, authority injected). |
 ## Superseded sections
 
 Duplicate ingest of the 2004 Polaris report (HPL-2004-221). The canonical Polaris
