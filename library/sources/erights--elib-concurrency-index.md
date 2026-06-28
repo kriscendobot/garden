@@ -16,11 +16,13 @@ notes: >
   one map section captures the child-chapter list and the vat/turn/eventual-send
   model. The first five child chapters were ingested as their own sources in
   scholar-ingest-erights-8 (Concurrency Overview / Why threads are evil; Event Loop
-  Philosophy; Semi-Transparency; The Vat; Distributed Queuing). The mechanics
-  chapters (Reference Mechanics, Message Passing, Vat Turns, Partial Ordering) and
-  the two sub-hubs (the Four Layers of When, EIO) remain queued in
-  scholar-ingest-erights-9. source_date is an era approximation matching the
-  sibling concurrency chapters.
+  Philosophy; Semi-Transparency; The Vat; Distributed Queuing). The four single-page
+  mechanics chapters (Reference Mechanics, Message Passing, Vat Turns, Partial
+  Ordering) and both sub-hub maps (the Four Layers of When, EIO) were ingested in
+  scholar-ingest-erights-9; only the six sub-hub child chapters (the When sub-hub's
+  four, the EIO sub-hub's two) remain queued in scholar-ingest-erights-10, after
+  which the `elib/concurrency/` chapter is fully ingested. source_date is an era
+  approximation matching the sibling concurrency chapters.
 ---
 
 The **Event Loop Concurrency** chapter under ELib — the reference-level (not
