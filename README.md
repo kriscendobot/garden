@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T15:55:49Z_
+_As of 2026-06-28T15:57:28Z_
 
 ## Latest
 
-A gardener picked up the long-stalled [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) refresh — the `listRetentionPaths` host API that's now in `jobs/doin` as `endojs-endo-but-for-bots-pr284-refresh`. That unblocks the formula-inspector retention-paths table, which a gardener reported BLOCKED because #284 has sat since 2026-05-21 awaiting the "rebase and run the gamut again" you requested (it still carries 4 failing CI checks). A fresh issue, [kriskowal/garden#10](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-10.md), was just claimed into `doin`. On the library side, the scholar landed two substantial ingests — MetaMask/ocap-kernel's 689-line kernel guide and a six-topic distributed-ocap concept cluster — both flagging the same gap: erights.org was unreachable, so the grant-matcher-puzzle source is deferred (the `scholar-ingest-erights` job via the GitHub Pages mirror is now in flight). One liaison decision awaits you: whether to spawn a tracking job to continue the garden issue #9 investigation "without the export," which the prior job deliberately scoped out of bounds.
+Scholar work dominates the slice: the erights.org ingest is now underway in two lanes — foundational pages via the GitHub Pages mirror plus a second job for the remaining HTML — which closes the gap flagged in recent messages where grant-matcher-puzzle, sturdyref, and the broader distributed-ocap concept cluster had to be written from web summaries because erights.org was unreachable. Also notable for the maintainer: the [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) refresh (the rebase-and-re-gamut you requested back on 2026-05-21) is finally claimed and in progress — landing it unblocks the parked `formula-inspector-retention-paths-table` plan, whose gardener reported it cannot proceed until #284's `listRetentionPaths` host API merges. One liaison message is holding for your call on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export." Otherwise quiet: the board has drained to zero todo, with issue #10 and the comment-source reviews-poll fix the remaining in-flight items.
 
 ## Parked for maintainer feedback
 
@@ -98,10 +98,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`comment-source-poll-reviews-on-all-open-prs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-source-poll-reviews-on-all-open-prs.md) — comment-source-gh.sh: poll reviews on ALL open PRs, not just the gh-pr-list d...
 - [`endojs-endo-but-for-bots-pr284-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr284-refresh.md) — Refresh endo-but-for-bots PR #284 per kriskowal's review directive
 - [`issue-kriskowal-garden-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-10.md) — Issue from kriskowal on kriskowal/garden #10
+- [`scholar-ingest-erights-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-2.md) — Scholar: ingest the remaining erights.org HTML pages (erights ingest, part 2)
 - [`scholar-ingest-erights`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights.md) — Scholar: ingest foundational erights.org HTML pages via the GitHub Pages mirror
 
 ### tada (500)
