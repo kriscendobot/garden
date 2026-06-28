@@ -6683,10 +6683,6 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 - [erights--elang-blocks--block-structure-and-control-flow](erights--elang-blocks--block-structure-and-control-flow.md)
 
-### erights--elang-collect
-
-- [erights--elang-collect--collections-tables-spaces-and-the-for-loop](erights--elang-collect--collections-tables-spaces-and-the-for-loop.md)
-
 ### erights--elang-concurrency-index
 
 - [erights--elang-concurrency-index--event-loop-concurrency-map](erights--elang-concurrency-index--event-loop-concurrency-map.md)
@@ -6730,10 +6726,6 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 - [erights--elang-intro-starting-e--launching-and-elmer](erights--elang-intro-starting-e--launching-and-elmer.md)
 
-### erights--elang-io
-
-- [erights--elang-io--io-map-uri-and-text-file](erights--elang-io--io-map-uri-and-text-file.md)
-
 ### erights--elang-kernel
 
 - [erights--elang-kernel--overview](erights--elang-kernel--overview.md)
@@ -6744,10 +6736,6 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 ### erights--elang-quick-ref
 
 - [erights--elang-quick-ref--idioms-quick-reference](erights--elang-quick-ref--idioms-quick-reference.md)
-
-### erights--elang-scalars
-
-- [erights--elang-scalars--scalar-data-types](erights--elang-scalars--scalar-data-types.md)
 
 ### erights--elib-capability-ode-ode-pki
 
@@ -7163,6 +7151,14 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 - [@metamask/ocap-kernel: core components (package purpose)](metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose.md)
 - [SES/lockdown compatibility: the @chainsafe/libp2p-yamux patch requirement](metamask-ocap-kernel--packages-ocap-kernel-readme--ses-lockdown-libp2p-yamux-patch-requirement.md)
+
+### metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts
+
+- [metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts.md) (index — tenth ocap-kernel ingest, second kernel-internals comment-fragment, 2026-06-28; the 783-line Kernel.ts orchestrator class, densest of the seven kernel-internals files)
+  - [Kernel as orchestrator: the manager decomposition and the constructor wiring graph](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--orchestrator-manager-decomposition.md)
+  - [Crank reentrancy and the terminate-callback deadlock (why the queue's stop path bypasses VatManager.terminateVat)](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--crank-reentrancy-and-the-terminate-callback-deadlock.md)
+  - [The kernel startup sequence: ordering constraints and orphaned-facet survival across incarnations](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--startup-sequence-and-orphaned-facet-survival.md)
+  - [Incarnation identity and peer-restart detection (why a state reset preserves network identity but regenerates the incarnationId)](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--incarnation-identity-and-peer-restart-detection.md)
 
 ### metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts
 
