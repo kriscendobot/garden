@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T01:48:10Z_
+_As of 2026-06-28T01:51:50Z_
 
 ## Latest
 
-Quiet board cycle — the only transition was a gardener claiming the attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) (the XS over-deep-frame investigation), which has now reached a decision point only the maintainer can resolve: every remaining path needs the v320 swing-store export or a multi-hour XS toolchain re-provision. The substance this cycle is in the maintainer inbox, where several decisions are stacking up. A real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" and needs a liaison-driven fixer dispatch — the classifier bug is being fixed separately. The harden-exported-literals follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on a narrow-vs-repo-wide scope and base-branch call. And the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), still unmerged since the 2026-05-21 rebase-and-gamut request with failing CI. On the library side, gardeners landed substantial scholar ingests — MetaMask/ocap-kernel's kernel guide and a distributed-ocap concept cluster (three-party handoff, sturdyrefs, distributed confinement). Lastly, the watchdog flags that the `/home/kris/journal` worktree on endolinbot has diverged from origin/journal2 (3 ahead, 3260 behind, 5 dirty) and was left untouched for manual reconciliation.
+The board is nearly idle — todo is empty and only a handful of jobs are in flight: a PDF→text extraction improvement for `fetch-source.sh`, two dead-lettered messages being re-picked-up, and two fresh attention directives on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) (the XS over-deep-frame investigation). The real signal this cycle is a stack of decisions that have landed in your inbox and can't move without you. The retention-paths inspector table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has sat since 2026-05-21 with 4 failing checks awaiting the rebase + re-gamut you already requested; a gardener offers to take that on if you say the word. A maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a no-op "rebase" and needs a liaison-driven builder dispatch; the misrouting classifier bug is separately being fixed. The harden-exported-literals follow-on from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) awaits your call on two axes — narrow vs. repo-wide, and base `llm` vs. `master`. And the XS over-deep-frame investigation has reached a hard stop: every remaining path needs either the v320 swing-store export (only you can source it) or a multi-hour XS toolchain re-provision, and the conclusion stands that this is an XS native-stack property, not an Endo regression. On the library side, the scholar fleet landed a distributed-ocap concept cluster and a sixth MetaMask/ocap-kernel ingest, flagging the grant-matcher-puzzle source as unreachable (erights.org down).
 
 ## Parked for maintainer feedback
 
@@ -177,17 +177,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > The XS over-deep-frame investigation (kriskowal/garden issue #9 and PR #9) has reached a decision point that's your call, not the garden's: every remaining path needs a resource the garden can't self-provision. (a) The decisive export-free XS import repro and the optional synthetic-harness confirmation both require the XS toolchain to be re-provisioned (multi-hour, no longer "engine warm"); (b) a real-data trace is blocked on the v320 swing-store export, which only you can source. Please decide whether to continue spending investigation effort here and, if so, whether to source the v320 export or authorize the multi-hour toolchain re-provisioning + synthetic harness on the bot fork.
 
-- `20260628T014512Z-b027f8` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T014512Z-b027f8.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 3260 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot)
-
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (5)
+- [`deadmail-20260628T014800Z-534313`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T014800Z-534313.md) — Dead-lettered message — pick up its intent
+- [`deadmail-20260628T015003Z-602b9f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T015003Z-602b9f.md) — Dead-lettered message — pick up its intent
+- [`improve-fetch-source-pdf-text-extraction`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fetch-source-pdf-text-extraction.md) — Add a deterministic PDF→text path to scripts/jobs/fetch-source.sh so paper-PD...
 - [`kriskowal-garden-pr9-2cd6f75d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-2cd6f75d.md) — attention directive on kriskowal/garden PR #9
+- [`kriskowal-garden-pr9-b87e3247`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-b87e3247.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (437)
 - [`scholar-library-cycle-20260628-013502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-013502.md) — Completion report
