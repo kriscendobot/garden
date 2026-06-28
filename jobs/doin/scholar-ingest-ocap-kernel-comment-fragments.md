@@ -48,3 +48,9 @@ cross-linked, and indexed (sources/sections/topics/concepts/keywords), with a
 result entry, a passing integrity gate, and a deferred plan naming exactly the
 remaining files. Survey coverage against `origin/journal2` (not the live
 `/home/kris/journal` worktree) before deciding what is missing.
+
+---
+claim:
+  host: endolinbot
+  gardener: 56
+  claimed_at: 2026-06-28T16:24:28Z
