@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 > Please advise whether to keep spending effort here and, if so, whether to source the v320 export or authorize the multi-hour toolchain re-provisioning + synthetic harness on the bot fork. (Conclusion so far: this is an XS native-stack-depth property, **not an Endo regression** 
+
+---
+claim:
+  host: endolinbot
+  gardener: 16
+  claimed_at: 2026-06-28T06:29:54Z
