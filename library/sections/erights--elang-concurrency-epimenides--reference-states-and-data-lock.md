@@ -9,7 +9,7 @@ source_authors: [Mark S. Miller]
 source_date: 1998-10-03
 ingested: 2026-06-28
 ingested_by: scholar
-topics: [eventual-send, e-language, references]
+topics: [eventual-send, e-language]
 status: current
 notes: >
   Primary erights.org tutorial chapter (Concurrency in E, child of the concurrency
