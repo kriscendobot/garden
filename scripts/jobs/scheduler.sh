@@ -82,7 +82,7 @@ for name in $(list_jobs "$DIR" schedules); do
           log "dispatched $base from one-time schedule $name (removed)"; dispatched=$((dispatched+1)); break
         fi
       fi
-      backoff
+      backoff "$attempt"
     done
     continue
   fi
@@ -133,7 +133,7 @@ for name in $(list_jobs "$DIR" schedules); do
           log "preflight gated: no work for $name; advanced clock, posted nothing"; break
         fi
         rc=$?; [ "$rc" -eq 2 ] && break   # already current; nothing to stamp
-        backoff; continue                 # lost the CAS race; re-sync and retry
+        backoff "$attempt"; continue      # lost the CAS race; re-sync and retry
       fi
     fi
 
@@ -145,7 +145,7 @@ for name in $(list_jobs "$DIR" schedules); do
     if commit_and_push "$DIR" "schedule($name) dispatched $base"; then
       log "dispatched $base from schedule $name"; dispatched=$((dispatched+1)); break
     fi
-    backoff
+    backoff "$attempt"
   done
 done
 log "dispatched $dispatched scheduled job(s)"

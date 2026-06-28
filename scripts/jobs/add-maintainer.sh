@@ -46,6 +46,6 @@ for attempt in $(seq 1 50); do
   [ "$rc" -eq 0 ] && { log "added maintainer $login"; exit 0; }
   [ "$rc" -eq 2 ] && { log "maintainer $login already present"; exit 0; }
   log "add-maintainer lost a push race (attempt $attempt); re-syncing"
-  backoff
+  backoff "$attempt"
 done
 die "could not add maintainer $login after retries"

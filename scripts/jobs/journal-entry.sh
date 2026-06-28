@@ -73,6 +73,6 @@ for attempt in $(seq 1 50); do
   if commit_and_push "$DIR" "$kind: $role on $GARDEN_HOST"; then
     log "posted $rel"; exit 0
   fi
-  backoff
+  backoff "$attempt"
 done
 die "could not post journal entry after retries"

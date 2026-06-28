@@ -104,13 +104,22 @@ const GH = (() => {
   // backoff (the prior 6 immediate retries) every attempt re-collides on the
   // same instant and the user sees the raw 422 (kriskowal #10).
 
-  // Randomized backoff, mirroring common.sh `backoff()` exactly: a flat ~50-300ms
-  // jitter that breaks the lockstep between contending writers. Flat (not
-  // exponential) keeps the worst-case drain bounded (~50 * 0.3s) and matches the
-  // shell push protocol the maintainer pointed at (kriskowal #10).
+  // Exponential backoff with full jitter, mirroring common.sh `backoff()` (per
+  // kriskowal #10, "use exponential back-off with full jitter, generally"). Each
+  // retry sleeps a FRESH uniform draw in [0, window], where window grows as
+  // min(CAP_MS, BASE_MS * 2^attempt). The full-jitter draw (a new random span
+  // every attempt, not a fixed band) is what breaks the lockstep with the ~100-
+  // gardener fleet hammering journal2: writers that collide on attempt N spread
+  // across an independently-sampled, widening interval on attempt N+1 instead of
+  // re-colliding. This is the canonical AWS "exponential backoff and jitter".
   const ATTEMPTS = 50;
+  const BASE_MS = 50;
+  const CAP_MS = 2000;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-  const backoff = () => sleep(Math.floor(Math.random() * 250) + 50);
+  const backoff = (attempt) => {
+    const window = Math.min(CAP_MS, BASE_MS * 2 ** attempt);
+    return sleep(Math.floor(Math.random() * (window + 1)));
+  };
 
   async function commitReply({ replyPath, replyBody, unreadPath, readPath, origSha, message }) {
     const branch = cfg.journalBranch;
@@ -157,7 +166,7 @@ const GH = (() => {
         // 422 == the branch moved under us (not a fast forward). Back off, then
         // re-read the new head and reconstruct the change on the next iteration.
         if (e.status === 422 && attempt < ATTEMPTS - 1) {
-          await backoff();
+          await backoff(attempt);
           continue;
         }
         throw e;

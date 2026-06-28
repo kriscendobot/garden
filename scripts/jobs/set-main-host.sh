@@ -44,6 +44,6 @@ for attempt in $(seq 1 50); do
   rc=$?
   [ "$rc" -eq 2 ] && { log "leader host already $leader"; exit 0; }
   log "set-main-host lost a push race (attempt $attempt); retrying"
-  backoff
+  backoff "$attempt"
 done
 die "could not designate leader host $leader after retries"

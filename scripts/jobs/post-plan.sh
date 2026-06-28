@@ -153,6 +153,6 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     exit 0
   fi
   log "post-plan of '$base' lost a push race (attempt $attempt); re-syncing"
-  backoff
+  backoff "$attempt"
 done
 die "could not park '$base' after retries"

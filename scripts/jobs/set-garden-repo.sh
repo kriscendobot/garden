@@ -39,6 +39,6 @@ for attempt in $(seq 1 50); do
   [ "$rc" -eq 0 ] && { log "set garden-repo=$repo"; exit 0; }
   [ "$rc" -eq 2 ] && { log "garden-repo already $repo"; exit 0; }
   log "set garden-repo lost a push race (attempt $attempt); re-syncing"
-  backoff
+  backoff "$attempt"
 done
 die "could not set garden-repo after retries"

@@ -132,7 +132,7 @@ mark_resolved() {  # mark_resolved <key> <outcome>
       return 0
     fi
     rc=$?; [ "$rc" -eq 2 ] && return 0
-    backoff
+    backoff "$attempt"
   done
   die "could not stamp resolve on $key after retries"
 }

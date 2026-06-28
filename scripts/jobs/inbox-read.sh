@@ -40,7 +40,7 @@ for attempt in $(seq 1 50); do
     continue
   fi
   log "inbox read for '$doer' lost a push race (attempt $attempt); re-syncing"
-  backoff
+  backoff "$attempt"
 done
 
 [ "$read_total" -gt 0 ] && log "read $read_total message(s)"

@@ -147,6 +147,6 @@ for attempt in $(seq 1 50); do
   if commit_and_push "$DIR" "library-edit: $role wrote $rel on $GARDEN_HOST"; then
     log "landed $rel on origin/$JOURNAL_BRANCH"; exit 0
   fi
-  backoff
+  backoff "$attempt"
 done
 die "could not land $rel after retries"

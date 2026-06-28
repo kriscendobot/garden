@@ -128,7 +128,7 @@ for f in $(list_jobs "$DIR" inbox/dead); do
       promoted=$((promoted+1)); break
     fi
     log "retire of dead-mail $msgid lost a push race (attempt $attempt); retrying"
-    backoff
+    backoff "$attempt"
   done
 done
 

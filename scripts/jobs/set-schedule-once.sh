@@ -46,6 +46,6 @@ for attempt in $(seq 1 50); do
   git -C "$DIR" add "schedules/$name.md"
   if commit_and_push "$DIR" "schedule-once($name) at=$when"; then log "set one-time schedule $name (at $when)"; exit 0; fi
   rc=$?; [ "$rc" -eq 2 ] && { log "schedule $name unchanged"; exit 0; }
-  backoff
+  backoff "$attempt"
 done
 die "could not set one-time schedule $name after retries"

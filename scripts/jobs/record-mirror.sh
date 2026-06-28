@@ -87,6 +87,6 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   fi
   rc=$?; [ "$rc" -eq 2 ] && exit 0   # nothing to commit (a peer wrote the same)
   log "record of '$key' lost a push race (attempt $attempt); re-syncing"
-  backoff
+  backoff "$attempt"
 done
 die "could not record mapping '$key' after retries"

@@ -77,10 +77,13 @@ body. The archive and the reply are one commit, built through the Git Data API
 the push is a compare-and-swap just like the bus's own pushes. The retry mirrors
 the shell push protocol (`scripts/jobs/common.sh`): on a 422 "not a fast forward"
 it re-reads the moved head, reconstructs the change on the fresh tree, and retries
-up to 50 times with a flat ~50–300ms randomized backoff between attempts. The
+up to 50 times with **exponential backoff and full jitter** between attempts —
+each retry sleeps a fresh uniform draw in `[0, min(2000ms, 50ms·2^attempt)]`. The
 backoff is load-bearing — `journal2` is advanced constantly by the ~100-gardener
 fleet, so the prior backoff-free 6-attempt loop re-collided on the same instant
-and surfaced the raw 422 to the maintainer (kriskowal #10).
+and surfaced the raw 422 to the maintainer. Full jitter (a new random span every
+attempt, not a fixed band) is what actually decorrelates contending writers, so
+the CAS drains instead of re-colliding in lockstep (kriskowal #10).
 
 ## 4. New thread to the liaison
 

@@ -81,6 +81,6 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     exit 0
   fi
   log "post of '$base' lost a push race (attempt $attempt); re-syncing"
-  backoff
+  backoff "$attempt"
 done
 die "could not post '$base' after retries"

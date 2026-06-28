@@ -43,6 +43,6 @@ for attempt in $(seq 1 100); do
   rc=$?
   [ "$rc" -eq 2 ] && { log "'$base' already completed (nothing to commit)"; exit 0; }
   log "completion of '$base' lost a push race (attempt $attempt); retrying"
-  backoff
+  backoff "$attempt"
 done
 die "could not complete '$base' after retries"

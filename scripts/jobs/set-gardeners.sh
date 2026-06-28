@@ -34,6 +34,6 @@ for attempt in $(seq 1 50); do
   rc=$?
   [ "$rc" -eq 2 ] && { log "$host already at gardeners=$n"; exit 0; }
   log "set-gardeners lost a push race (attempt $attempt); retrying"
-  backoff
+  backoff "$attempt"
 done
 die "could not declare gardener count for $host after retries"

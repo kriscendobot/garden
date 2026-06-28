@@ -288,7 +288,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     break
   fi
   log "batch requeue lost a push race (attempt $attempt/$GARDEN_REAP_PUSH_ATTEMPTS); re-syncing"
-  backoff
+  backoff "$attempt"
 done
 
 if [ "$reaped" -eq 0 ] && [ "$poisoned" -eq 0 ] && [ "$staged" -ne 0 ]; then

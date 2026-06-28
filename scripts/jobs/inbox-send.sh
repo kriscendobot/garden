@@ -84,7 +84,7 @@ for attempt in $(seq 1 50); do
       exit 0
     fi
     log "dead-letter for '$doer' lost a push race (attempt $attempt); retrying"
-    backoff
+    backoff "$attempt"
     continue
   fi
   # Idempotent live delivery: with a deterministic GARDEN_MSG_ID, a re-poll of the
@@ -108,6 +108,6 @@ for attempt in $(seq 1 50); do
     log "delivered to inbox/$doer ($msgid)"; exit 0
   fi
   log "inbox-send to '$doer' lost a push race (attempt $attempt); retrying"
-  backoff
+  backoff "$attempt"
 done
 die "could not deliver to inbox/$doer after retries"

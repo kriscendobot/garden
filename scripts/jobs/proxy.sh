@@ -97,7 +97,7 @@ clear_watchdog_messages() {
       log "cleared ${#moved[@]} watchdog messages: $tally"
       return 0
     fi
-    backoff
+    backoff "$attempt"
   done
   die "could not auto-clear watchdog messages after retries"
 }
@@ -197,7 +197,7 @@ park_blocked_jobs() {
       done
       return 0
     fi
-    backoff
+    backoff "$attempt"
   done
   die "could not park blocked jobs after retries"
 }

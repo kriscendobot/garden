@@ -54,6 +54,6 @@ for attempt in $(seq 1 50); do
     exit 0
   fi
   log "send to $addr lost a push race (attempt $attempt); re-syncing"
-  backoff
+  backoff "$attempt"
 done
 die "could not send message to $addr after retries"

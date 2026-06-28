@@ -35,6 +35,6 @@ for attempt in $(seq 1 50); do
     log "advanced cursor $key"; exit 0
   fi
   rc=$?; [ "$rc" -eq 2 ] && exit 0
-  backoff
+  backoff "$attempt"
 done
 die "could not advance cursor $key after retries"

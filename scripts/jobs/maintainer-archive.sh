@@ -15,6 +15,6 @@ for attempt in $(seq 1 50); do
   mkdir -p "$DIR/inbox/maintainer/read"
   git -C "$DIR" mv "inbox/maintainer/unread/$id" "inbox/maintainer/read/$id"
   if commit_and_push "$DIR" "maintainer archive $id"; then log "archived $id"; exit 0; fi
-  backoff
+  backoff "$attempt"
 done
 die "could not archive $id after retries"

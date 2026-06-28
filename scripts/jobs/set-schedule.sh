@@ -56,6 +56,6 @@ for attempt in $(seq 1 50); do
   git -C "$DIR" add "schedules/$name.md"
   if commit_and_push "$DIR" "schedule($name) cadence=$cadence"; then log "set schedule $name ($cadence)"; exit 0; fi
   rc=$?; [ "$rc" -eq 2 ] && { log "schedule $name unchanged"; exit 0; }
-  backoff
+  backoff "$attempt"
 done
 die "could not set schedule $name after retries"

@@ -299,8 +299,35 @@ alert_maintainer() {
   return 0
 }
 
-# Randomized backoff (~50–300ms) to break lockstep retries under contention.
-backoff() { sleep "0.$(printf '%03d' "$(( (RANDOM % 250) + 50 ))")"; }
+# Exponential backoff with full jitter (per kriskowal #10, "use exponential
+# back-off with full jitter, generally"). Each retry sleeps a FRESH uniform draw
+# in [0, window], where window = min(cap, base * 2^(attempt-1)). The growth lets
+# a busy branch drain without a tight poll, and the full-jitter draw (a new
+# random span every attempt, not a fixed band) is what actually breaks the
+# lockstep between contending writers — collisions on attempt N spread out across
+# a wider, independently-sampled interval on attempt N+1 instead of re-colliding.
+# This is the canonical AWS "exponential backoff and jitter" recipe.
+#
+# Callers inside a retry loop SHOULD pass their 1-based attempt counter
+# (`backoff "$attempt"`); a bare `backoff` behaves as attempt 1 (a single small
+# jittered pause, ~0-50ms). Tunable via GARDEN_BACKOFF_BASE_MS / _CAP_MS.
+GARDEN_BACKOFF_BASE_MS="${GARDEN_BACKOFF_BASE_MS:-50}"
+GARDEN_BACKOFF_CAP_MS="${GARDEN_BACKOFF_CAP_MS:-2000}"
+backoff() {
+  local attempt="${1:-1}" base="$GARDEN_BACKOFF_BASE_MS" cap="$GARDEN_BACKOFF_CAP_MS"
+  [ "$attempt" -lt 1 ] 2>/dev/null && attempt=1
+  # window = min(cap, base * 2^(attempt-1)); clamp the shift so a deep retry loop
+  # cannot overflow the arithmetic before the cap clamps it.
+  local exp=$((attempt - 1)) window
+  if [ "$exp" -ge 16 ]; then window="$cap"; else
+    window=$(( base << exp ))
+    [ "$window" -gt "$cap" ] && window="$cap"
+  fi
+  # Full jitter: a fresh uniform draw in [0, window] milliseconds. RANDOM is
+  # 0-32767, which comfortably covers the capped window.
+  local ms=$(( RANDOM % (window + 1) ))
+  sleep "$(printf '%d.%03d' "$((ms / 1000))" "$((ms % 1000))")"
+}
 
 # --- job scratch (the live-tree-root clutter fix) ----------------------------
 #
@@ -490,7 +517,7 @@ clone_lock() {
       die "cannot acquire clone lock $lf after $n waits of ${GARDEN_LOCK_WAIT}s and $steals reclaim attempt(s) (a live holder is still busy; if it is crashed, rm -f $lf)"
     fi
     log "clone lock $lf busy >${GARDEN_LOCK_WAIT}s; backoff + retry ($((n+1))/$GARDEN_LOCK_RETRIES)"
-    backoff; n=$((n+1))
+    backoff "$((n+1))"; n=$((n+1))
   done
 }
 
@@ -611,7 +638,7 @@ journal_fetch() {
       log "journal fetch in $dir failed after $attempt attempt(s) (last rc=$rc)${GARDEN_FETCH_STDERR:+: $GARDEN_FETCH_STDERR}"
       return "$rc"
     fi
-    backoff; attempt=$((attempt+1))
+    backoff "$attempt"; attempt=$((attempt+1))
   done
 }
 
@@ -787,7 +814,7 @@ stamp_reap_now_hint() {
     if commit_and_push "$clone" "reap-now: hint $rel by $GARDEN_HOST (transient handler kill)"; then rc=0; else rc=$?; fi
     [ "$rc" -eq 0 ] && return 0
     [ "$rc" -eq 2 ] && return 0   # nothing to commit (a racing stamp won): treat as landed
-    backoff                       # rc=1: CAS lost — re-sync and retry
+    backoff "$attempt"            # rc=1: CAS lost — re-sync and retry
   done
   return 1
 }

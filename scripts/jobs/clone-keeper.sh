@@ -65,7 +65,7 @@ bounded_fetch() {
       log "fetch $remote $branch in $dir failed after $attempt attempt(s) (last rc=$rc)"
       return "$rc"
     fi
-    backoff; attempt=$((attempt+1))
+    backoff "$attempt"; attempt=$((attempt+1))
   done
 }
 
