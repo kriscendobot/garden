@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5935 (525 parent indexes + 5410 children).
+Total section files: 5942 (525 parent indexes + 5417 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -6710,6 +6710,34 @@ Total section files: 5935 (525 parent indexes + 5410 children).
 ### erights--elang-grammar
 
 - [erights--elang-grammar--grammar-and-kernel-e-expansion](erights--elang-grammar--grammar-and-kernel-e-expansion.md)
+
+### erights--elang-grammar-dispatchee
+
+- [erights--elang-grammar-dispatchee--methods-and-matchers](erights--elang-grammar-dispatchee--methods-and-matchers.md)
+
+### erights--elang-grammar-expr
+
+- [erights--elang-grammar-expr--expression-grammar-precedence-and-expansion](erights--elang-grammar-expr--expression-grammar-precedence-and-expansion.md)
+
+### erights--elang-grammar-lexical
+
+- [erights--elang-grammar-lexical--lexical-grammar](erights--elang-grammar-lexical--lexical-grammar.md)
+
+### erights--elang-grammar-patterns
+
+- [erights--elang-grammar-patterns--pattern-grammar](erights--elang-grammar-patterns--pattern-grammar.md)
+
+### erights--elang-grammar-prim-expr
+
+- [erights--elang-grammar-prim-expr--primitive-expressions](erights--elang-grammar-prim-expr--primitive-expressions.md)
+
+### erights--elang-grammar-quasi-overview
+
+- [erights--elang-grammar-quasi-overview--quasi-literals](erights--elang-grammar-quasi-overview--quasi-literals.md)
+
+### erights--elang-grammar-quasi-xml
+
+- [erights--elang-grammar-quasi-xml--obsolete-quasi-literals-and-xml](erights--elang-grammar-quasi-xml--obsolete-quasi-literals-and-xml.md)
 
 ### erights--elang-guarding
 
