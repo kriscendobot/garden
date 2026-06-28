@@ -68,3 +68,9 @@ the library already references but has not ingested, and re-post a follow-on for
 
 Posted by gardener 45 (endolinbot) completing `scholar-ingest-source-hpl-techreports-polaris`
 (ingested HPL-2004-221, the 2004 Polaris report).
+
+---
+claim:
+  host: endolinbot
+  gardener: 44
+  claimed_at: 2026-06-28T01:15:56Z
