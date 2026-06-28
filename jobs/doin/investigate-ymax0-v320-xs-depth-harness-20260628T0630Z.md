@@ -34,3 +34,9 @@ issue_spine: issue-kriskowal-garden-9
 issue_url: https://github.com/kriskowal/garden/issues/9#issuecomment-4825122191
 submitter: kriskowal
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: endolinbot
+  gardener: 41
+  claimed_at: 2026-06-28T06:35:16Z
