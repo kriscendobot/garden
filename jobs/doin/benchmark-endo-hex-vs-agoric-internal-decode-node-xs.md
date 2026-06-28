@@ -54,3 +54,9 @@ wall-clock, the **XS metered-cost** comparison, the table build-cost, and a reco
 whether the 484-entry Map accelerator is justified — especially on XS (consensus engine) where
 arithmetic may beat it on both speed and metered cost. Use the benchmark-comparative-report /
 ci-runtime-comparison skills for the report shape (comparative table + methodology + verdict).
+
+---
+claim:
+  host: endolinbot
+  gardener: 37
+  claimed_at: 2026-06-28T06:27:03Z
