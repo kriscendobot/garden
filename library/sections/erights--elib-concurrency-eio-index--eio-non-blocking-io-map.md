@@ -18,8 +18,8 @@ notes: >
   delivered by notification, the InStream/OutStream model. This section captures the
   chapter map and the verified ingestable child hrefs (Design Goals, Obtaining
   elements from an InStream); the API entry is external javadoc. The two content
-  children are queued for ingest under scholar-ingest-erights-10. source_date is an
-  era approximation matching the sibling concurrency chapters.
+  children are now ingested as their own sections (scholar-ingest-erights-10).
+  source_date is an era approximation matching the sibling concurrency chapters.
 ---
 
 ## Abstract
@@ -33,20 +33,22 @@ OutStream). The current EIO design is credited mostly to **E. Dean Tribble** and
 **Mark Miller**, with contributions from Chip Morningstar, Norm Hardy, Dan Bornstein,
 Zooko, and Constantine Plotnikov; the page notes the design "has been thrown out and
 redone several times." This section captures the chapter map and its verified child
-hrefs; the two content children are ingested separately (scholar-ingest-erights-10).
+hrefs; the two content children are now ingested as their own sections
+(scholar-ingest-erights-10).
 
 ## Chapter map (children)
 
-The EIO hub maps these children (the ingestable content pages verified reachable on
-the erights.org GitHub Pages mirror, real titles, not 404s):
+The EIO hub maps these children (the two content pages now ingested as their own
+sections; the API entry is external javadoc and is not ingestable):
 
 1. **Design Goals** — `eio/goals.html` (title "EIO Design Goals"). What requirements
    and preferences shaped EIO's design. Content SHA-256 `b8492e10dce4...`, ~22 KB.
+   (ingested: [design-goals-requirements-and-preferences](erights--elib-concurrency-eio-goals--design-goals-requirements-and-preferences.md))
 2. **API** — the javadoc-umentation of the EIO package (external javadoc, not an
    ingestable HTML chapter).
 3. **Obtaining elements from an InStream** — `eio/obtaining.html` (title "Obtaining
    Elements from an InStream"). Further documentation on the InStream API. Content
-   SHA-256 `5ffca11a5097...`, ~26 KB.
+   SHA-256 `5ffca11a5097...`, ~26 KB. (ingested: [obtain-primitive-and-input-operation-taxonomy](erights--elib-concurrency-eio-obtaining--obtain-primitive-and-input-operation-taxonomy.md))
 
 The page also points at a live discussion of the API on the E Language Wiki.
 
