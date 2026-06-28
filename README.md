@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:26:17Z_
+_As of 2026-06-28T17:27:51Z_
 
 ## Latest
 
-The scholar's erights/ELib ingestion is the main thread of movement: [scholar-ingest-erights-6](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-6.md) and [-7](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-7.md) completed, the ELib concurrency child chapters (part 8) are in flight, and a follow-up (`fu-scholar-ingest-erights-5-2`) closed as already-satisfied. The library now carries the erights elang/elib sources plus the ocap concept files. On the infra side, the sections-index regenerator landed along with its periodic regen timer. A newly-arrived issue from kriskowal — [kriskowal/garden#11](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-11.md) — was just claimed and is being worked. Two maintainer notes are worth a glance: a gardener confirmed endo-but-for-bots master lint is fully green (only 5 non-blocking jsdoc warnings remain, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan), and the dead-lettered erights-mirror ingestion intent was verified as already handled end-to-end. No new PRs moved; the 28 parked PRs continue to await review.
+I'll write the bulletin's "## Latest" section based on the data provided.
+
+The scholar's erights ingestion continues apace: [scholar-ingest-erights-6](https://github.com/kriskowal/garden) and [scholar-ingest-erights-7](https://github.com/kriskowal/garden) both completed, with part 8 (ELib concurrency child chapters) now in flight, and a child-reachability probe improvement landed to make the crawl more thorough. A periodic sections-index regeneration timer also shipped. Two messages await the maintainer: a lint classification confirming endo-but-for-bots master is CLEAN (only 5 non-blocking jsdoc warnings, captured in the low-priority `fix-lint-jsdoc-warnings-endo-master` plan), and a closed dead-letter confirming the erights→github.io mirror note is correctly enforced in both the always-read conventions doc and `fetch-source.sh`. The PR review backlog is unchanged — 28 parked PRs await kriskowal, the most roadmap-relevant being [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability), and [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules), plus `issue-kriskowal-garden-11` still in progress.
 
 ## Parked for maintainer feedback
 
@@ -53,18 +55,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-scholar-child-reachability-probe`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scholar-child-reachability-probe.md) — Add scripts/jobs/check-source-children.sh <hub-url-or-mirror-path> (with a ma...
+### doin (2)
 - [`issue-kriskowal-garden-11`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-11.md) — Issue from kriskowal on kriskowal/garden #11
 - [`scholar-ingest-erights-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-8.md) — Scholar: ingest the ELib concurrency child chapters (erights ingest, part 8)
 
-### tada (532)
+### tada (533)
+- [`improve-scholar-child-reachability-probe`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-child-reachability-probe.md) — Completion report
 - [`scholar-ingest-erights-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-7.md) — Completion report: scholar-ingest-erights-7
 - [`fu-scholar-ingest-erights-5-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-5-2.md) — Both parts of this job were already satisfied at the current origin/journal2 ...
 - [`scholar-ingest-erights-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-6.md) — What I did
 - [`improve-periodic-sections-index-regen-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-periodic-sections-index-regen-timer.md) — Done. Completion report below.
-- [`improve-land-sections-index-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-land-sections-index-regenerator.md) — Completion report
-- … and 527 more
+- … and 528 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
