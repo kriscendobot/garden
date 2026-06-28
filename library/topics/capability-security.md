@@ -241,9 +241,20 @@
 | [combex--darpa-browser--executive-summary-and-confined-renderer](../sections/combex--darpa-browser--executive-summary-and-confined-renderer.md) | The DarpaBrowser (combex.com) | A capability-confined HTML renderer that cannot compromise the system (not even the URL field), demonstrated by running a Malicious Renderer inside the same confinement; the E Language Machine on Sanitized Linux. |
 | [combex--darpa-browser--statement-of-work-and-milestones](../sections/combex--darpa-browser--statement-of-work-and-milestones.md) | The DarpaBrowser (combex.com) | The DARPA project's components, 4/8/12-month milestones, and deliverables, including the commitment to open-source capWT under the Mozilla license. |
 | [combex--opportunity--overview](../sections/combex--opportunity--overview.md) | The Opportunity for a Virus-Invulnerable Desktop (combex.com) | The quiet dormant Trojan, not the visible virus, is the real threat (the GRC.com attack's 474 suborned machines); CapDesk and E as the answer for extreme-security organizations. |
-| [papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem](../sections/papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem.md) | Polaris (HPL-2004-221) | Viruses exploit excess authority, not code flaws; sandboxing fails because its rules are static and cannot distinguish user requests from software requests (the 'May I?' problem). |
-| [papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application](../sections/papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application.md) | Polaris (HPL-2004-221) | Designation-as-authorization, the installation endowment, the PowerBox, Pets (per-account configurations), and visual cues — the three CapDesk concepts Polaris carries to Windows XP. |
-| [papers--stiegler-karp-yee-miller-polaris-2004--how-polaris-works](../sections/papers--stiegler-karp-yee-miller-polaris-2004--how-polaris-works.md) | Polaris (HPL-2004-221) | Polarized apps run in a restricted Windows account via a RunAs variant with a file-copy + synchronizer; why copy-plus-synchronize beats edit-in-place; pilot status; unsolved attacks (the GUI hole). |
+
+## Superseded sections
+
+Duplicate ingest of the 2004 Polaris report (HPL-2004-221). The canonical Polaris
+rows above (`papers--stiegler-polaris-virus-safe-computing-2004--*`) cover the same
+material; the `papers--stiegler-karp-yee-miller-polaris-2004` cluster is retained
+`status: superseded` (the journal is append-only).
+
+| Superseded section | Canonical replacement |
+|--------------------|-----------------------|
+| [papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem](../sections/papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem.md) | [excess-authority-the-virus-problem-and-permission-versus-authority](../sections/papers--stiegler-polaris-virus-safe-computing-2004--excess-authority-the-virus-problem-and-permission-versus-authority.md) |
+| [papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application](../sections/papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application.md) | [designation-as-authorization-powerbox-and-installation-endowment](../sections/papers--stiegler-polaris-virus-safe-computing-2004--designation-as-authorization-powerbox-and-installation-endowment.md) |
+| [papers--stiegler-karp-yee-miller-polaris-2004--how-polaris-works](../sections/papers--stiegler-karp-yee-miller-polaris-2004--how-polaris-works.md) | [polarizing-applications-pets-restricted-accounts-and-visual-cues](../sections/papers--stiegler-polaris-virus-safe-computing-2004--polarizing-applications-pets-restricted-accounts-and-visual-cues.md) |
+
 ## See also
 
 - [`hardened-javascript`](hardened-javascript.md): substrate that makes ocap discipline enforceable.
