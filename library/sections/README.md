@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5840 (507 parent indexes + 5333 children).
+Total section files: 5934 (525 parent indexes + 5409 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -684,22 +684,22 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 ### combex--darpa-browser
 
-- [Executive summary: the capability-confined renderer and the E Language Machine](combex--darpa-browser--executive-summary-and-confined-renderer.md)
-- [Statement of work, milestones, and deliverables](combex--darpa-browser--statement-of-work-and-milestones.md)
-- [Combex, the E language history, caplets, and promise-based distribution](combex--darpa-browser--combex-and-e-technology.md)
+- [combex--darpa-browser--combex-and-e-technology](combex--darpa-browser--combex-and-e-technology.md)
+- [combex--darpa-browser--executive-summary-and-confined-renderer](combex--darpa-browser--executive-summary-and-confined-renderer.md)
+- [combex--darpa-browser--statement-of-work-and-milestones](combex--darpa-browser--statement-of-work-and-milestones.md)
 
 ### combex--edesk
 
-- [POLA and the Winix excess-authority problem](combex--edesk--pola-and-the-winix-problem.md)
-- [CapDesk confinement, authority by designation, and E productivity](combex--edesk--capdesk-confinement-and-developer-productivity.md)
+- [combex--edesk--capdesk-confinement-and-developer-productivity](combex--edesk--capdesk-confinement-and-developer-productivity.md)
+- [combex--edesk--pola-and-the-winix-problem](combex--edesk--pola-and-the-winix-problem.md)
 
 ### combex--opportunity
 
-- [The Opportunity for a Virus-Invulnerable Desktop](combex--opportunity--overview.md)
+- [combex--opportunity--overview](combex--opportunity--overview.md)
 
 ### combex--tech-index
 
-- [Combex Technology — index](combex--tech-index--overview.md)
+- [combex--tech-index--overview](combex--tech-index--overview.md)
 
 ### endo--agents
 
@@ -991,7 +991,7 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [The §Far-as-the-protective-wrapper](endo--packages-captp-src-finalize-js--weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability--the-far-as-the-protective-wrapper.md)
   - [The §FinalizationRegistry callback with §unregister-immediately-suppresses-finalization assumption](endo--packages-captp-src-finalize-js--weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability--the-finalizationregistry-callback-with-unregister-immediately-suppresses-finaliz.md)
   - [The §has-via-get not-direct-Map-has discipline](endo--packages-captp-src-finalize-js--weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability--the-has-via-get-not-direct-map-has-discipline.md)
-  - [The §issue-#1514 TODO](endo--packages-captp-src-finalize-js--weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability--the-issue-1514-todo.md)
+  - [The §issue-#1514 TODO (now resolved)](endo--packages-captp-src-finalize-js--weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability--the-issue-1514-todo.md)
   - [The §load-bearing-definition — §weak-on-values-not-on-keys](endo--packages-captp-src-finalize-js--weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability--the-load-bearing-definition-weak-on-values-not-on-keys.md)
   - [The §set-deletes-old-first replacement contract](endo--packages-captp-src-finalize-js--weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability--the-set-deletes-old-first-replacement-contract.md)
   - [The §single most structurally interesting move — §gc-as-side-channel warning](endo--packages-captp-src-finalize-js--weak-value-map-via-WeakRef-and-FinalizationRegistry-with-gc-as-side-channel-warning-and-end-of-turn-stability--the-single-most-structurally-interesting-move-gc-as-side-channel-warning.md)
@@ -1087,8 +1087,8 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [§The single-function file](endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new--the-single-function-file.md)
   - [§Two named error cases — SyntaxError augmented, others rethrown](endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new--two-named-error-cases-syntaxerror-augmented-others-rethrown.md)
   - [§Why @endo/check-bundle needs location-aware parsing](endo--packages-check-bundle-src-json-js--parseLocatedJson-augments-SyntaxError-with-location-and-q-as-direct-stringify-alias-and-SyntaxError-without-new--why-endo-check-bundle-needs-location-aware-parsing.md)
-
 - [endo--packages-check-bundle-src-json-js--q-as-recurring-quoting-alias-with-different-implementations](endo--packages-check-bundle-src-json-js--q-as-recurring-quoting-alias-with-different-implementations.md)
+
 ### endo--packages-cli-README-md
 
 - [endo--packages-cli-README-md--user-interface-as-thin-controller-to-process-and-three-part-architecture](endo--packages-cli-README-md--user-interface-as-thin-controller-to-process-and-three-part-architecture.md)
@@ -3254,7 +3254,7 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [Patterns from prior cycles, reaffirmed](endo--packages-zip-src-buffer-reader-js--WeakMap-private-fields-with-bound-get-helper-and-can-assertCan-do-it-triad-and-IE10-historical-ghost-comment-and-findLast-reverse-search--patterns-from-prior-cycles-reaffirmed.md)
   - [Single most structurally interesting move](endo--packages-zip-src-buffer-reader-js--WeakMap-private-fields-with-bound-get-helper-and-can-assertCan-do-it-triad-and-IE10-historical-ghost-comment-and-findLast-reverse-search--single-most-structurally-interesting-move.md)
   - [Synthesis target](endo--packages-zip-src-buffer-reader-js--WeakMap-private-fields-with-bound-get-helper-and-can-assertCan-do-it-triad-and-IE10-historical-ghost-comment-and-findLast-reverse-search--synthesis-target.md)
-  - [§the-`/* eslint no-bitwise: [\"off\"] */` reaffirmed (cycle 290 + cycle 292)](endo--packages-zip-src-buffer-reader-js--WeakMap-private-fields-with-bound-get-helper-and-can-assertCan-do-it-triad-and-IE10-historical-ghost-comment-and-findLast-reverse-search--the-eslint-no-bitwise-off-reaffirmed-cycle-290-cycle-292.md)
+  - [§the-`/* eslint no-bitwise: ["off"] */` reaffirmed (cycle 290 + cycle 292)](endo--packages-zip-src-buffer-reader-js--WeakMap-private-fields-with-bound-get-helper-and-can-assertCan-do-it-triad-and-IE10-historical-ghost-comment-and-findLast-reverse-search--the-eslint-no-bitwise-off-reaffirmed-cycle-290-cycle-292.md)
   - [§the-named-API-surface-richness reader-vs-writer (first-explicit-observation)](endo--packages-zip-src-buffer-reader-js--WeakMap-private-fields-with-bound-get-helper-and-can-assertCan-do-it-triad-and-IE10-historical-ghost-comment-and-findLast-reverse-search--the-named-api-surface-richness.md)
 
 ### endo--packages-zip-src-buffer-writer-js
@@ -3382,7 +3382,7 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [Pattern summary (tag-prefixed)](endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape--pattern-summary-tag-prefixed.md)
   - [§Recurring meta-pattern counters bumped at cycle 278](endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape--recurring-meta-pattern-counter.md)
   - [§Synthesis target — slot machine library](endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape--synthesis-target-slot-machine.md)
-  - [§The `/* eslint no-bitwise: [\"off\"] */` directive — named ESLint disable for bitwise](endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape--the-eslint-no-bitwise-off-dire.md)
+  - [§The `/* eslint no-bitwise: ["off"] */` directive — named ESLint disable for bitwise](endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape--the-eslint-no-bitwise-off-dire.md)
   - [§The `/* eslint ... ["off"] */` shape vs `// eslint-disable-next-line`](endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape--the-eslint-off-shape-vs-eslint.md)
   - [§The 'PK' historic magic prefix — Phil Katz as the named source](endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape--the-pk-historic-magic-prefix-p.md)
   - [§The `// @ts-check` directive — the canonical typescript-check-enable](endo--packages-zip-src-signature-js--six-named-binary-signature-constants-and-the-PK-historic-magic-prefix-and-the-u-helper-with-charCodeAt-and-byte-masking-and-the-binary-signature-constants-file-shape--the-ts-check-directive-the-can.md)
@@ -3869,9 +3869,9 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [§"requestAnimationFrame nesting for mobile" — named-platform-specific-workaround](endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-62e57ff7--requestanimationframe-nesting.md)
   - [§Synthesis target — slot machine library](endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-62e57ff7--synthesis-target-slot-machine.md)
   - [§The ALL-CAPS-FILENAME distinguishes this from sibling design docs](endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-62e57ff7--the-all-caps-filename-distingu.md)
-  - [§\"The fix: ...\" pattern — named bug-and-remedy as testimony](endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-62e57ff7--the-fix-pattern-named-bug-and.md)
+  - [§"The fix: ..." pattern — named bug-and-remedy as testimony](endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-62e57ff7--the-fix-pattern-named-bug-and.md)
   - [§The pure-functions-test-without-browser discipline](endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-62e57ff7--the-pure-functions-test-withou.md)
-  - [§"The single most important architectural decision](endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-62e57ff7--the-single-most-important-arch.md)
+  - [§"The single most important architectural decision"](endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-62e57ff7--the-single-most-important-arch.md)
   - [§Three-layer architecture — sibling to cycle 271's three-layers-not-one](endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-62e57ff7--three-layer-architecture-sibli.md)
   - [Pattern summary (tag-prefixed)](endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-o-62e57ff7--pattern-summary-tag-prefixed.md)
   - [§Closing the cycle 263 loop](endo-but-for-bots--llm-designs-OUTLINER-INTERACTION-PATTERNS--cross-directory-drift-confirmed-and-three-layer-architecture-and-pure-behavior-functions-and-eight-lessons-learned-and-named-criticism-of-62e57ff7--closing-the-cycle-263-loop.md)
@@ -3984,7 +3984,7 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [Sink-only synthetic test packages with five cuts, alphabetical-adjacency naming, package-namespaced `test` conditions, and illusion-of-an-option rejected](endo-but-for-bots--llm-designs-break-dev-dependency-cycles--sink-only-synthetic-test-packages-with-five-cuts-and-illusion-of-an-option--sink-only-synthetic-test-packages-with-five-cuts-alphabetical-adjacency-naming-p.md)
   - [§Synthesis-target](endo-but-for-bots--llm-designs-break-dev-dependency-cycles--sink-only-synthetic-test-packages-with-five-cuts-and-illusion-of-an-option--synthesis-target.md)
   - [§The-§cycle-is-cosmetic-noise-not-fatal (the motivation)](endo-but-for-bots--llm-designs-break-dev-dependency-cycles--sink-only-synthetic-test-packages-with-five-cuts-and-illusion-of-an-option--the-cycle-is-cosmetic-noise-not-fatal-the-motivation.md)
-  - [§The-§"I'm fine with duplication where necessary to avoid a utils package](endo-but-for-bots--llm-designs-break-dev-dependency-cycles--sink-only-synthetic-test-packages-with-five-cuts-and-illusion-of-an-option--the-i-m-fine-with-duplication-where-necessary-to-avoid-a-utils-package.md)
+  - [§The-§"I'm fine with duplication where necessary to avoid a utils package"](endo-but-for-bots--llm-designs-break-dev-dependency-cycles--sink-only-synthetic-test-packages-with-five-cuts-and-illusion-of-an-option--the-i-m-fine-with-duplication-where-necessary-to-avoid-a-utils-package.md)
   - [§The-"illusion of an option" (Cut 4 rejected sub-option)](endo-but-for-bots--llm-designs-break-dev-dependency-cycles--sink-only-synthetic-test-packages-with-five-cuts-and-illusion-of-an-option--the-illusion-of-an-option-cut-4-rejected-sub-option.md)
   - [§The-`sink-only` constraint (the load-bearing property)](endo-but-for-bots--llm-designs-break-dev-dependency-cycles--sink-only-synthetic-test-packages-with-five-cuts-and-illusion-of-an-option--the-sink-only-constraint-the-load-bearing-property.md)
   - [§The-survey (Tarjan SCC produces exactly one 13-package SCC)](endo-but-for-bots--llm-designs-break-dev-dependency-cycles--sink-only-synthetic-test-packages-with-five-cuts-and-illusion-of-an-option--the-survey-tarjan-scc-produces-exactly-one-13-package-scc.md)
@@ -4496,7 +4496,7 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [§Two surfaces in priority order — primary + secondary](endo-but-for-bots--llm-designs-cli-edit-verb--first-Proposed-status-and-Source-metadata-field-instantiated-and-original-framing-corrected-and-two-surfaces-in-priority-order-and-the-Alternatives-co-e045cd87--two-surfaces-in-priority-order.md)
   - [§Hashline as named wire format with three named adopting projects](endo-but-for-bots--llm-designs-cli-edit-verb--first-Proposed-status-and-Source-metadata-field-instantiated-and-original-framing-corrected-and-two-surfaces-in-priority-order-and-the-Alternatives-con-e045cd87--hashline-as-named-wire-format.md)
   - [§Synthesis target — slot machine library](endo-but-for-bots--llm-designs-cli-edit-verb--first-Proposed-status-and-Source-metadata-field-instantiated-and-original-framing-corrected-and-two-surfaces-in-priority-order-and-the-Alternatives-con-e045cd87--synthesis-target-slot-machine.md)
-  - [§"Why a single new method, not a `readText` + `writeText` pair](endo-but-for-bots--llm-designs-cli-edit-verb--first-Proposed-status-and-Source-metadata-field-instantiated-and-original-framing-corrected-and-two-surfaces-in-priority-order-and-the-Alternatives-con-e045cd87--why-a-single-new-method-not-a.md)
+  - [§"Why a single new method, not a `readText` + `writeText` pair"](endo-but-for-bots--llm-designs-cli-edit-verb--first-Proposed-status-and-Source-metadata-field-instantiated-and-original-framing-corrected-and-two-surfaces-in-priority-order-and-the-Alternatives-con-e045cd87--why-a-single-new-method-not-a.md)
   - [Pattern summary (tag-prefixed)](endo-but-for-bots--llm-designs-cli-edit-verb--first-Proposed-status-and-Source-metadata-field-instantiated-and-original-framing-corrected-and-two-surfaces-in-priority-order-and-the-Alternatives-cons-e045cd87--pattern-summary-tag-prefixed.md)
   - [§Tier-1 borrowing](endo-but-for-bots--llm-designs-cli-edit-verb--first-Proposed-status-and-Source-metadata-field-instantiated-and-original-framing-corrected-and-two-surfaces-in-priority-order-and-the-Alternatives-considered-secti-e045cd87--tier-1-borrowing.md)
   - [§Tier-2 borrowing](endo-but-for-bots--llm-designs-cli-edit-verb--first-Proposed-status-and-Source-metadata-field-instantiated-and-original-framing-corrected-and-two-surfaces-in-priority-order-and-the-Alternatives-considered-secti-e045cd87--tier-2-borrowing.md)
@@ -4742,7 +4742,7 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [§Files-to-create-or-modify (the §working-copy-map)](endo-but-for-bots--llm-designs-daemon-endo-rust-sqlite--re-prepare-instead-of-caching-Statement-and-FFI-tag-encoding-confined-to-internal-plumbing-and-passable-by-construction--files-to-create-or-modify-the-working-copy-map.md)
   - [§INTEGER-always-bigint (Decision 1)](endo-but-for-bots--llm-designs-daemon-endo-rust-sqlite--re-prepare-instead-of-caching-Statement-and-FFI-tag-encoding-confined-to-internal-plumbing-and-passable-by-construction--integer-always-bigint-decision-1.md)
   - [§Nine-Design-Decisions (the §canonical-format)](endo-but-for-bots--llm-designs-daemon-endo-rust-sqlite--re-prepare-instead-of-caching-Statement-and-FFI-tag-encoding-confined-to-internal-plumbing-and-passable-by-construction--nine-design-decisions-the-canonical-format.md)
-  - [§Re-prepare-instead-of-caching-Statement (the §workaround-for-self-referential-borrow)](endo-but-for-bots--llm-designs-daemon-endo-rust-sqlite--re-prepare-instead-of-caching-Statement-and-FFI-tag-encoding-confined-to-internal-plumbing-and-passable-by-construction--re-prepare-instead-of-caching.md)
+  - [Re-prepare instead of caching Statement (avoid self-referential borrow), FFI tag encoding confined to internal plumbing, INTEGER-always-bigint, and passable-by-construction discipline](endo-but-for-bots--llm-designs-daemon-endo-rust-sqlite--re-prepare-instead-of-caching-Statement-and-FFI-tag-encoding-confined-to-internal-plumbing-and-passable-by-construction--re-prepare-instead-of-caching.md)
   - [§Six-implementation-phases (all Complete)](endo-but-for-bots--llm-designs-daemon-endo-rust-sqlite--re-prepare-instead-of-caching-Statement-and-FFI-tag-encoding-confined-to-internal-plumbing-and-passable-by-construction--six-implementation-phases-all-complete.md)
   - [§Supersedes-record-pattern (the §explicit-supersedes that cycle 192 lacked)](endo-but-for-bots--llm-designs-daemon-endo-rust-sqlite--re-prepare-instead-of-caching-Statement-and-FFI-tag-encoding-confined-to-internal-plumbing-and-passable-by-construction--supersedes-record-pattern-the.md)
   - [§Synchronous-JS-API (Decision 6)](endo-but-for-bots--llm-designs-daemon-endo-rust-sqlite--re-prepare-instead-of-caching-Statement-and-FFI-tag-encoding-confined-to-internal-plumbing-and-passable-by-construction--synchronous-js-api-decision-6.md)
@@ -5283,7 +5283,7 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [Parity comparison as design-document genre with thirteen feature categories, status matrix with named equivalents, gap priority classification, and honest architectural difference (ambient-vs-object-capability)](endo-but-for-bots--llm-designs-endoclaw--parity-comparison-as-design-document-genre-with-thirteen-feature-categories-and-named-architectural-difference--parity-comparison-as-design-document-genre-with-thirteen-feature-categories-stat.md)
   - [§Synthesis-target](endo-but-for-bots--llm-designs-endoclaw--parity-comparison-as-design-document-genre-with-thirteen-feature-categories-and-named-architectural-difference--synthesis-target.md)
   - [§The-§§"Available" vs §§"Complete" status distinction](endo-but-for-bots--llm-designs-endoclaw--parity-comparison-as-design-document-genre-with-thirteen-feature-categories-and-named-architectural-difference--the-available-vs-complete-status-distinction.md)
-  - [§The-§§"Endo-specific advantages (no OpenClaw equivalent)](endo-but-for-bots--llm-designs-endoclaw--parity-comparison-as-design-document-genre-with-thirteen-feature-categories-and-named-architectural-difference--the-endo-specific-advantages-no-openclaw-equivalent.md)
+  - [§The-§§"Endo-specific advantages (no OpenClaw equivalent)"](endo-but-for-bots--llm-designs-endoclaw--parity-comparison-as-design-document-genre-with-thirteen-feature-categories-and-named-architectural-difference--the-endo-specific-advantages-no-openclaw-equivalent.md)
   - [§The-§External-link-attribution (Anubis + Home Assistant + Voxtral)](endo-but-for-bots--llm-designs-endoclaw--parity-comparison-as-design-document-genre-with-thirteen-feature-categories-and-named-architectural-difference--the-external-link-attribution-anubis-home-assistant-voxtral.md)
   - [§The-§§"Not planned" status (the §scope-refusal)](endo-but-for-bots--llm-designs-endoclaw--parity-comparison-as-design-document-genre-with-thirteen-feature-categories-and-named-architectural-difference--the-not-planned-status-the-scope-refusal.md)
   - [§The-§OpenClaw-history (footnote-shaped attribution)](endo-but-for-bots--llm-designs-endoclaw--parity-comparison-as-design-document-genre-with-thirteen-feature-categories-and-named-architectural-difference--the-openclaw-history-footnote-shaped-attribution.md)
@@ -6683,6 +6683,10 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 - [erights--elang-blocks--block-structure-and-control-flow](erights--elang-blocks--block-structure-and-control-flow.md)
 
+### erights--elang-collect
+
+- [erights--elang-collect--collections-tables-spaces-and-the-for-loop](erights--elang-collect--collections-tables-spaces-and-the-for-loop.md)
+
 ### erights--elang-concurrency-determinism
 
 - [erights--elang-concurrency-determinism--deterministic-replay-plan](erights--elang-concurrency-determinism--deterministic-replay-plan.md)
@@ -6725,10 +6729,10 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 ### erights--elang-intro-quicke
 
-- [erights--elang-intro-quicke--overview-and-conventional-subset](erights--elang-intro-quicke--overview-and-conventional-subset.md)
-- [erights--elang-intro-quicke--eventual-send-and-location-transparency](erights--elang-intro-quicke--eventual-send-and-location-transparency.md)
-- [erights--elang-intro-quicke--promises-when-catch-and-far-references](erights--elang-intro-quicke--promises-when-catch-and-far-references.md)
 - [erights--elang-intro-quicke--bootstrapping-remote-references](erights--elang-intro-quicke--bootstrapping-remote-references.md)
+- [erights--elang-intro-quicke--eventual-send-and-location-transparency](erights--elang-intro-quicke--eventual-send-and-location-transparency.md)
+- [erights--elang-intro-quicke--overview-and-conventional-subset](erights--elang-intro-quicke--overview-and-conventional-subset.md)
+- [erights--elang-intro-quicke--promises-when-catch-and-far-references](erights--elang-intro-quicke--promises-when-catch-and-far-references.md)
 
 ### erights--elang-intro-standalone
 
@@ -6738,12 +6742,16 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 - [erights--elang-intro-starting-e--launching-and-elmer](erights--elang-intro-starting-e--launching-and-elmer.md)
 
+### erights--elang-io
+
+- [erights--elang-io--io-map-uri-and-text-file](erights--elang-io--io-map-uri-and-text-file.md)
+
 ### erights--elang-kernel
 
-- [erights--elang-kernel--overview](erights--elang-kernel--overview.md)
 - [erights--elang-kernel--expression-forms](erights--elang-kernel--expression-forms.md)
-- [erights--elang-kernel--pattern-forms-and-helpers](erights--elang-kernel--pattern-forms-and-helpers.md)
 - [erights--elang-kernel--meta-interpreter-semantics](erights--elang-kernel--meta-interpreter-semantics.md)
+- [erights--elang-kernel--overview](erights--elang-kernel--overview.md)
+- [erights--elang-kernel--pattern-forms-and-helpers](erights--elang-kernel--pattern-forms-and-helpers.md)
 
 ### erights--elang-quick-ref
 
@@ -6751,8 +6759,12 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 ### erights--elang-same-ref
 
-- [erights--elang-same-ref--synchronous-sameness-and-reflexivity](erights--elang-same-ref--synchronous-sameness-and-reflexivity.md)
 - [erights--elang-same-ref--selfish-and-selfless-objects](erights--elang-same-ref--selfish-and-selfless-objects.md)
+- [erights--elang-same-ref--synchronous-sameness-and-reflexivity](erights--elang-same-ref--synchronous-sameness-and-reflexivity.md)
+
+### erights--elang-scalars
+
+- [erights--elang-scalars--scalar-data-types](erights--elang-scalars--scalar-data-types.md)
 
 ### erights--elib-capability-ode-ode-pki
 
@@ -6765,6 +6777,10 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 ### erights--elib-concurrency-index
 
 - [erights--elib-concurrency-index--event-loop-reference-map](erights--elib-concurrency-index--event-loop-reference-map.md)
+
+### erights-org--elang-intro
+
+- [erights-org--elang-intro--tutorial-overview](erights-org--elang-intro--tutorial-overview.md)
 
 ### frb--compile-binder
 
@@ -7035,6 +7051,13 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [The commoditization dynamic](mcp-landscape--gateway-hosting-category--the-commoditization-dynamic.md)
   - [What MCP is](mcp-landscape--gateway-hosting-category--what-mcp-is.md)
 
+### metamask-ocap-kernel
+
+- [metamask-ocap-kernel--docs-kernel-guide-md](metamask-ocap-kernel--docs-kernel-guide-md.md) (index)
+- [metamask-ocap-kernel--docs-usage-md](metamask-ocap-kernel--docs-usage-md.md) (index)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts.md) (index)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts.md) (index)
+
 ### metamask-ocap-kernel--docs-glossary-md
 
 - [metamask-ocap-kernel--docs-glossary-md--canonical-vocabulary-for-kernel-vat-baggage-exo-and-kref-vref-rref-eref-name-space](metamask-ocap-kernel--docs-glossary-md--canonical-vocabulary-for-kernel-vat-baggage-exo-and-kref-vref-rref-eref-name-space.md) (index)
@@ -7096,18 +7119,17 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 ### metamask-ocap-kernel--docs-kernel-guide-md
 
-- [metamask-ocap-kernel--docs-kernel-guide-md](metamask-ocap-kernel--docs-kernel-guide-md.md) (index — sixth ocap-kernel ingest, job `ingest-ocap-kernel`, 2026-06-27; the kernel/vat model from the 689-line host-application developer guide)
-  - [Core Concepts](metamask-ocap-kernel--docs-kernel-guide-md--core-concepts.md)
-  - [The Kernel API](metamask-ocap-kernel--docs-kernel-guide-md--kernel-api.md)
-  - [Writing Vat Code](metamask-ocap-kernel--docs-kernel-guide-md--writing-vat-code.md)
-  - [Vat Endowments](metamask-ocap-kernel--docs-kernel-guide-md--vat-endowments.md)
-  - [Kernel Services](metamask-ocap-kernel--docs-kernel-guide-md--kernel-services.md)
-  - [System Subclusters](metamask-ocap-kernel--docs-kernel-guide-md--system-subclusters.md)
-  - [Eventual Send with E()](metamask-ocap-kernel--docs-kernel-guide-md--eventual-send-with-e.md)
-  - [Exos (Remotable Objects)](metamask-ocap-kernel--docs-kernel-guide-md--exos-remotable-objects.md)
-  - [Baggage (Persistent State)](metamask-ocap-kernel--docs-kernel-guide-md--baggage-persistent-state.md)
-  - [Revocation](metamask-ocap-kernel--docs-kernel-guide-md--revocation.md)
-  - [Key Types and Complete Example](metamask-ocap-kernel--docs-kernel-guide-md--key-types-and-complete-example.md)
+- [metamask-ocap-kernel--docs-kernel-guide-md--baggage-persistent-state](metamask-ocap-kernel--docs-kernel-guide-md--baggage-persistent-state.md)
+- [metamask-ocap-kernel--docs-kernel-guide-md--core-concepts](metamask-ocap-kernel--docs-kernel-guide-md--core-concepts.md)
+- [metamask-ocap-kernel--docs-kernel-guide-md--eventual-send-with-e](metamask-ocap-kernel--docs-kernel-guide-md--eventual-send-with-e.md)
+- [metamask-ocap-kernel--docs-kernel-guide-md--exos-remotable-objects](metamask-ocap-kernel--docs-kernel-guide-md--exos-remotable-objects.md)
+- [metamask-ocap-kernel--docs-kernel-guide-md--kernel-api](metamask-ocap-kernel--docs-kernel-guide-md--kernel-api.md)
+- [metamask-ocap-kernel--docs-kernel-guide-md--kernel-services](metamask-ocap-kernel--docs-kernel-guide-md--kernel-services.md)
+- [metamask-ocap-kernel--docs-kernel-guide-md--key-types-and-complete-example](metamask-ocap-kernel--docs-kernel-guide-md--key-types-and-complete-example.md)
+- [metamask-ocap-kernel--docs-kernel-guide-md--revocation](metamask-ocap-kernel--docs-kernel-guide-md--revocation.md)
+- [metamask-ocap-kernel--docs-kernel-guide-md--system-subclusters](metamask-ocap-kernel--docs-kernel-guide-md--system-subclusters.md)
+- [metamask-ocap-kernel--docs-kernel-guide-md--vat-endowments](metamask-ocap-kernel--docs-kernel-guide-md--vat-endowments.md)
+- [metamask-ocap-kernel--docs-kernel-guide-md--writing-vat-code](metamask-ocap-kernel--docs-kernel-guide-md--writing-vat-code.md)
 
 ### metamask-ocap-kernel--docs-platform-specific-md
 
@@ -7130,16 +7152,15 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 ### metamask-ocap-kernel--docs-usage-md
 
-- [metamask-ocap-kernel--docs-usage-md](metamask-ocap-kernel--docs-usage-md.md) (index — seventh ocap-kernel ingest, job `ingest-ocap-kernel-usage`, 2026-06-27; the operational usage guide companion to the kernel guide: setup, bundling, cluster config, kernel API, dev tools, e2e testing)
-  - [OCAP Kernel Usage Guide (overview)](metamask-ocap-kernel--docs-usage-md--overview.md)
-  - [Setting Up the Kernel](metamask-ocap-kernel--docs-usage-md--setting-up-the-kernel.md)
-  - [Vat Bundles](metamask-ocap-kernel--docs-usage-md--vat-bundles.md)
-  - [Cluster Configuration](metamask-ocap-kernel--docs-usage-md--cluster-configuration.md)
-  - [Kernel API (operational)](metamask-ocap-kernel--docs-usage-md--kernel-api.md)
-  - [Endo Integration](metamask-ocap-kernel--docs-usage-md--endo-integration.md)
-  - [Development Tools](metamask-ocap-kernel--docs-usage-md--development-tools.md)
-  - [End-to-End Testing](metamask-ocap-kernel--docs-usage-md--end-to-end-testing.md)
-  - [Implementation Example (browser and Node.js)](metamask-ocap-kernel--docs-usage-md--implementation-example.md)
+- [metamask-ocap-kernel--docs-usage-md--cluster-configuration](metamask-ocap-kernel--docs-usage-md--cluster-configuration.md)
+- [metamask-ocap-kernel--docs-usage-md--development-tools](metamask-ocap-kernel--docs-usage-md--development-tools.md)
+- [metamask-ocap-kernel--docs-usage-md--end-to-end-testing](metamask-ocap-kernel--docs-usage-md--end-to-end-testing.md)
+- [metamask-ocap-kernel--docs-usage-md--endo-integration](metamask-ocap-kernel--docs-usage-md--endo-integration.md)
+- [metamask-ocap-kernel--docs-usage-md--implementation-example](metamask-ocap-kernel--docs-usage-md--implementation-example.md)
+- [metamask-ocap-kernel--docs-usage-md--kernel-api](metamask-ocap-kernel--docs-usage-md--kernel-api.md)
+- [metamask-ocap-kernel--docs-usage-md--overview](metamask-ocap-kernel--docs-usage-md--overview.md)
+- [metamask-ocap-kernel--docs-usage-md--setting-up-the-kernel](metamask-ocap-kernel--docs-usage-md--setting-up-the-kernel.md)
+- [metamask-ocap-kernel--docs-usage-md--vat-bundles](metamask-ocap-kernel--docs-usage-md--vat-bundles.md)
 
 ### metamask-ocap-kernel--overview
 
@@ -7157,44 +7178,42 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 ### metamask-ocap-kernel--packages-kernel-rpc-methods-readme
 
-- [@metamask/kernel-rpc-methods: JSON-RPC method utilities (package purpose)](metamask-ocap-kernel--packages-kernel-rpc-methods-readme--json-rpc-method-utilities-package-purpose.md)
+- [metamask-ocap-kernel--packages-kernel-rpc-methods-readme--json-rpc-method-utilities-package-purpose](metamask-ocap-kernel--packages-kernel-rpc-methods-readme--json-rpc-method-utilities-package-purpose.md)
 
 ### metamask-ocap-kernel--packages-kernel-store-readme
 
-- [@metamask/kernel-store: storage abstractions and implementations (package purpose)](metamask-ocap-kernel--packages-kernel-store-readme--storage-abstractions-and-implementations-package-purpose.md)
+- [metamask-ocap-kernel--packages-kernel-store-readme--storage-abstractions-and-implementations-package-purpose](metamask-ocap-kernel--packages-kernel-store-readme--storage-abstractions-and-implementations-package-purpose.md)
 
 ### metamask-ocap-kernel--packages-kernel-utils-readme
 
-- [@metamask/kernel-utils: Ocap Kernel utilities (package purpose)](metamask-ocap-kernel--packages-kernel-utils-readme--ocap-kernel-utilities-package-purpose.md)
-- [SES/lockdown compatibility: auto-applied dependency patches](metamask-ocap-kernel--packages-kernel-utils-readme--ses-lockdown-patch-requirement.md)
+- [metamask-ocap-kernel--packages-kernel-utils-readme--ocap-kernel-utilities-package-purpose](metamask-ocap-kernel--packages-kernel-utils-readme--ocap-kernel-utilities-package-purpose.md)
+- [metamask-ocap-kernel--packages-kernel-utils-readme--ses-lockdown-patch-requirement](metamask-ocap-kernel--packages-kernel-utils-readme--ses-lockdown-patch-requirement.md)
 
 ### metamask-ocap-kernel--packages-ocap-kernel-readme
 
-- [@metamask/ocap-kernel: core components (package purpose)](metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose.md)
-- [SES/lockdown compatibility: the @chainsafe/libp2p-yamux patch requirement](metamask-ocap-kernel--packages-ocap-kernel-readme--ses-lockdown-libp2p-yamux-patch-requirement.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose](metamask-ocap-kernel--packages-ocap-kernel-readme--ocap-kernel-core-components-package-purpose.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-readme--ses-lockdown-libp2p-yamux-patch-requirement](metamask-ocap-kernel--packages-ocap-kernel-readme--ses-lockdown-libp2p-yamux-patch-requirement.md)
 
 ### metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts
 
-- [metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts.md) (index — tenth ocap-kernel ingest, second kernel-internals comment-fragment, 2026-06-28; the 783-line Kernel.ts orchestrator class, densest of the seven kernel-internals files)
-  - [Kernel as orchestrator: the manager decomposition and the constructor wiring graph](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--orchestrator-manager-decomposition.md)
-  - [Crank reentrancy and the terminate-callback deadlock (why the queue's stop path bypasses VatManager.terminateVat)](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--crank-reentrancy-and-the-terminate-callback-deadlock.md)
-  - [The kernel startup sequence: ordering constraints and orphaned-facet survival across incarnations](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--startup-sequence-and-orphaned-facet-survival.md)
-  - [Incarnation identity and peer-restart detection (why a state reset preserves network identity but regenerates the incarnationId)](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--incarnation-identity-and-peer-restart-detection.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--crank-reentrancy-and-the-terminate-callback-deadlock](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--crank-reentrancy-and-the-terminate-callback-deadlock.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--incarnation-identity-and-peer-restart-detection](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--incarnation-identity-and-peer-restart-detection.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--orchestrator-manager-decomposition](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--orchestrator-manager-decomposition.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--startup-sequence-and-orphaned-facet-survival](metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--startup-sequence-and-orphaned-facet-survival.md)
 
 ### metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts
 
-- [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts.md) (index — ninth ocap-kernel ingest, first kernel-internals comment-fragment, 2026-06-28; the 376-line KernelQueue.ts run queue and run loop)
-  - [The forever run-loop and the crank lifecycle (startCrank, savepoint, GC/reap priority, sleep-and-wake)](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--forever-run-loop-and-crank-lifecycle.md)
-  - [Crank atomicity — abort-and-rollback versus commit-and-flush](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--crank-abort-rollback-versus-commit-flush.md)
-  - [Immediate-versus-buffered enqueue, reference-counting, and decider-authorized resolution](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--immediate-versus-buffered-enqueue-and-decider-authorized-resolution.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--crank-abort-rollback-versus-commit-flush](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--crank-abort-rollback-versus-commit-flush.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--forever-run-loop-and-crank-lifecycle](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--forever-run-loop-and-crank-lifecycle.md)
+- [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--immediate-versus-buffered-enqueue-and-decider-authorized-resolution](metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts--immediate-versus-buffered-enqueue-and-decider-authorized-resolution.md)
 
 ### metamask-ocap-kernel--packages-remote-iterables-readme
 
-- [@ocap/remote-iterables: remotable iterable objects (package purpose)](metamask-ocap-kernel--packages-remote-iterables-readme--remotable-iterable-objects-package-purpose.md)
+- [metamask-ocap-kernel--packages-remote-iterables-readme--remotable-iterable-objects-package-purpose](metamask-ocap-kernel--packages-remote-iterables-readme--remotable-iterable-objects-package-purpose.md)
 
 ### metamask-ocap-kernel--packages-streams-readme
 
-- [streams: SES-compatible streams in the gtor and @endo/stream lineage](metamask-ocap-kernel--packages-streams-readme--ses-compatible-streams-gtor-endo-stream-lineage.md)
+- [metamask-ocap-kernel--packages-streams-readme--ses-compatible-streams-gtor-endo-stream-lineage](metamask-ocap-kernel--packages-streams-readme--ses-compatible-streams-gtor-endo-stream-lineage.md)
 
 ### ocap-history
 
@@ -7208,30 +7227,30 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 ### ocapn--draft-specifications-captp
 
+- [ocapn--draft-specifications-captp--bootstrap-object--the-bootstrap-object-bootstrap-object](ocapn--draft-specifications-captp--bootstrap-object--the-bootstrap-object-bootstrap-object.md)
 - [ocapn--draft-specifications-captp--bootstrap-object](ocapn--draft-specifications-captp--bootstrap-object.md) (index)
   - [`deposit-gift` Method](ocapn--draft-specifications-captp--bootstrap-object--deposit-gift-method.md)
   - [`fetch` Method](ocapn--draft-specifications-captp--bootstrap-object--fetch-method.md)
-  - [[The bootstrap Object](#bootstrap-object)](ocapn--draft-specifications-captp--bootstrap-object--the-bootstrap-object-bootstrap-object.md)
   - [`withdraw-gift` Method](ocapn--draft-specifications-captp--bootstrap-object--withdraw-gift-method.md)
 - [ocapn--draft-specifications-captp--captp-overview](ocapn--draft-specifications-captp--captp-overview.md) (index)
   - [CapTP Overview](ocapn--draft-specifications-captp--captp-overview--captp-overview.md)
   - [Ending a session](ocapn--draft-specifications-captp--captp-overview--ending-a-session.md)
   - [Establishing a connection](ocapn--draft-specifications-captp--captp-overview--establishing-a-connection.md)
   - [Sending and receiving messages](ocapn--draft-specifications-captp--captp-overview--sending-and-receiving-messages.md)
+- [ocapn--draft-specifications-captp--cryptography--cryptography-cryptography](ocapn--draft-specifications-captp--cryptography--cryptography-cryptography.md)
+- [ocapn--draft-specifications-captp--cryptography--public-identifier-public-identifier](ocapn--draft-specifications-captp--cryptography--public-identifier-public-identifier.md)
+- [ocapn--draft-specifications-captp--cryptography--public-key-public-key](ocapn--draft-specifications-captp--cryptography--public-key-public-key.md)
+- [ocapn--draft-specifications-captp--cryptography--session-id-session-id](ocapn--draft-specifications-captp--cryptography--session-id-session-id.md)
+- [ocapn--draft-specifications-captp--cryptography--signature-signature](ocapn--draft-specifications-captp--cryptography--signature-signature.md)
 - [ocapn--draft-specifications-captp--cryptography](ocapn--draft-specifications-captp--cryptography.md) (index)
-  - [[Cryptography](#cryptography)](ocapn--draft-specifications-captp--cryptography--cryptography-cryptography.md)
-  - [[Public Identifier](#public-identifier)](ocapn--draft-specifications-captp--cryptography--public-identifier-public-identifier.md)
-  - [[Public Key](#public-key)](ocapn--draft-specifications-captp--cryptography--public-key-public-key.md)
-  - [[Session ID](#session-id)](ocapn--draft-specifications-captp--cryptography--session-id-session-id.md)
-  - [[Signature](#signature)](ocapn--draft-specifications-captp--cryptography--signature-signature.md)
+- [ocapn--draft-specifications-captp--descriptors--desc-answer-desc-answer](ocapn--draft-specifications-captp--descriptors--desc-answer-desc-answer.md)
+- [ocapn--draft-specifications-captp--descriptors--desc-export-desc-export](ocapn--draft-specifications-captp--descriptors--desc-export-desc-export.md)
+- [ocapn--draft-specifications-captp--descriptors--desc-handoff-give-desc-handoff-give](ocapn--draft-specifications-captp--descriptors--desc-handoff-give-desc-handoff-give.md)
+- [ocapn--draft-specifications-captp--descriptors--desc-handoff-receive-desc-handoff-receive](ocapn--draft-specifications-captp--descriptors--desc-handoff-receive-desc-handoff-receive.md)
+- [ocapn--draft-specifications-captp--descriptors--desc-import-object-desc-import-object](ocapn--draft-specifications-captp--descriptors--desc-import-object-desc-import-object.md)
+- [ocapn--draft-specifications-captp--descriptors--desc-import-promise-desc-import-promise](ocapn--draft-specifications-captp--descriptors--desc-import-promise-desc-import-promise.md)
+- [ocapn--draft-specifications-captp--descriptors--desc-sig-envelope-desc-sig-envelope](ocapn--draft-specifications-captp--descriptors--desc-sig-envelope-desc-sig-envelope.md)
 - [ocapn--draft-specifications-captp--descriptors](ocapn--draft-specifications-captp--descriptors.md) (index)
-  - [[`desc:answer`](#desc-answer)](ocapn--draft-specifications-captp--descriptors--desc-answer-desc-answer.md)
-  - [[`desc:export`](#desc-export)](ocapn--draft-specifications-captp--descriptors--desc-export-desc-export.md)
-  - [[`desc:handoff-give`](#desc-handoff-give)](ocapn--draft-specifications-captp--descriptors--desc-handoff-give-desc-handoff-give.md)
-  - [[`desc:handoff-receive`](#desc-handoff-receive)](ocapn--draft-specifications-captp--descriptors--desc-handoff-receive-desc-handoff-receive.md)
-  - [[`desc:import-object`](#desc-import-object)](ocapn--draft-specifications-captp--descriptors--desc-import-object-desc-import-object.md)
-  - [[`desc:import-promise`](#desc-import-promise)](ocapn--draft-specifications-captp--descriptors--desc-import-promise-desc-import-promise.md)
-  - [[`desc:sig-envelope`](#desc-sig-envelope)](ocapn--draft-specifications-captp--descriptors--desc-sig-envelope-desc-sig-envelope.md)
   - [Descriptors](ocapn--draft-specifications-captp--descriptors--descriptors.md)
 - [ocapn--draft-specifications-captp--funding](ocapn--draft-specifications-captp--funding.md)
 - [ocapn--draft-specifications-captp--history](ocapn--draft-specifications-captp--history.md) (index)
@@ -7241,40 +7260,40 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [E programming language](ocapn--draft-specifications-captp--history--e-programming-language.md)
   - [Joule programming language](ocapn--draft-specifications-captp--history--joule-programming-language.md)
   - [Spritely](ocapn--draft-specifications-captp--history--spritely.md)
+- [ocapn--draft-specifications-captp--operations--op-abort-opabort](ocapn--draft-specifications-captp--operations--op-abort-opabort.md)
+- [ocapn--draft-specifications-captp--operations--op-deliver-opdeliver](ocapn--draft-specifications-captp--operations--op-deliver-opdeliver.md)
+- [ocapn--draft-specifications-captp--operations--op-gc-answers-opgc-answers](ocapn--draft-specifications-captp--operations--op-gc-answers-opgc-answers.md)
+- [ocapn--draft-specifications-captp--operations--op-gc-exports-opgc-exports](ocapn--draft-specifications-captp--operations--op-gc-exports-opgc-exports.md)
+- [ocapn--draft-specifications-captp--operations--op-get-opget](ocapn--draft-specifications-captp--operations--op-get-opget.md)
+- [ocapn--draft-specifications-captp--operations--op-index-opindex](ocapn--draft-specifications-captp--operations--op-index-opindex.md)
+- [ocapn--draft-specifications-captp--operations--op-listen-oplisten](ocapn--draft-specifications-captp--operations--op-listen-oplisten.md)
+- [ocapn--draft-specifications-captp--operations--op-start-session-opstart-session](ocapn--draft-specifications-captp--operations--op-start-session-opstart-session.md)
+- [ocapn--draft-specifications-captp--operations--op-untag-opuntag](ocapn--draft-specifications-captp--operations--op-untag-opuntag.md)
 - [ocapn--draft-specifications-captp--operations](ocapn--draft-specifications-captp--operations.md) (index)
-  - [[`op:abort`](#opabort)](ocapn--draft-specifications-captp--operations--op-abort-opabort.md)
-  - [[`op:deliver`](#opdeliver)](ocapn--draft-specifications-captp--operations--op-deliver-opdeliver.md)
-  - [[`op:gc-answers`](#opgc-answers)](ocapn--draft-specifications-captp--operations--op-gc-answers-opgc-answers.md)
-  - [[`op:gc-exports`](#opgc-exports)](ocapn--draft-specifications-captp--operations--op-gc-exports-opgc-exports.md)
-  - [[`op:get`](#opget)](ocapn--draft-specifications-captp--operations--op-get-opget.md)
-  - [[`op:index`](#opindex)](ocapn--draft-specifications-captp--operations--op-index-opindex.md)
-  - [[`op:listen`](#oplisten)](ocapn--draft-specifications-captp--operations--op-listen-oplisten.md)
-  - [[`op:start-session`](#opstart-session)](ocapn--draft-specifications-captp--operations--op-start-session-opstart-session.md)
-  - [[`op:untag`](#opuntag)](ocapn--draft-specifications-captp--operations--op-untag-opuntag.md)
+- [ocapn--draft-specifications-captp--overview--introduction-introduction](ocapn--draft-specifications-captp--overview--introduction-introduction.md)
 - [ocapn--draft-specifications-captp--overview](ocapn--draft-specifications-captp--overview.md) (index)
   - [Additional Documents](ocapn--draft-specifications-captp--overview--additional-documents.md)
-  - [[Introduction](#introduction)](ocapn--draft-specifications-captp--overview--introduction-introduction.md)
   - [Warning: This is a draft specification likely to undergo significant change](ocapn--draft-specifications-captp--overview--warning-this-is-a-draft-specification-likely-to-undergo-significant-change.md)
+- [ocapn--draft-specifications-captp--promises--promise-and-resolver-objects-promise-objects](ocapn--draft-specifications-captp--promises--promise-and-resolver-objects-promise-objects.md)
+- [ocapn--draft-specifications-captp--promises--promise-pipelining-promise-pipelining](ocapn--draft-specifications-captp--promises--promise-pipelining-promise-pipelining.md)
 - [ocapn--draft-specifications-captp--promises](ocapn--draft-specifications-captp--promises.md) (index)
-  - [[Promise and Resolver Objects](#promise-objects)](ocapn--draft-specifications-captp--promises--promise-and-resolver-objects-promise-objects.md)
-  - [[Promise pipelining](#promise-pipelining)](ocapn--draft-specifications-captp--promises--promise-pipelining-promise-pipelining.md)
   - [Promises](ocapn--draft-specifications-captp--promises--promises.md)
+- [ocapn--draft-specifications-captp--third-party-handoffs--third-party-handoffs-third-party-handoffs](ocapn--draft-specifications-captp--third-party-handoffs--third-party-handoffs-third-party-handoffs.md)
 - [ocapn--draft-specifications-captp--third-party-handoffs](ocapn--draft-specifications-captp--third-party-handoffs.md) (index)
   - [Handoffs from the Exporter's perspective](ocapn--draft-specifications-captp--third-party-handoffs--handoffs-from-the-exporter-s-perspective.md)
   - [Handoffs from the Gifter's perspective](ocapn--draft-specifications-captp--third-party-handoffs--handoffs-from-the-gifter-s-perspective.md)
   - [Handoffs from the Receiver's perspective](ocapn--draft-specifications-captp--third-party-handoffs--handoffs-from-the-receiver-s-perspective.md)
-  - [[Third Party Handoffs](#third-party-handoffs)](ocapn--draft-specifications-captp--third-party-handoffs--third-party-handoffs-third-party-handoffs.md)
 
 ### ocapn--draft-specifications-locators
 
 - [ocapn--draft-specifications-locators--additional-documents](ocapn--draft-specifications-locators--additional-documents.md)
 - [ocapn--draft-specifications-locators--funding](ocapn--draft-specifications-locators--funding.md)
+- [ocapn--draft-specifications-locators--overview--introduction-introduction](ocapn--draft-specifications-locators--overview--introduction-introduction.md)
 - [ocapn--draft-specifications-locators--overview](ocapn--draft-specifications-locators--overview.md) (index)
-  - [[Introduction](#introduction)](ocapn--draft-specifications-locators--overview--introduction-introduction.md)
   - [Warning: This is a draft specification likely to undergo significant change](ocapn--draft-specifications-locators--overview--warning-this-is-a-draft-specification-likely-to-undergo-significant-change.md)
+- [ocapn--draft-specifications-locators--peer-locator--peer-locator-ocapn-peer](ocapn--draft-specifications-locators--peer-locator--peer-locator-ocapn-peer.md)
+- [ocapn--draft-specifications-locators--peer-locator--syrup-serialization-peer-syrup-serialization](ocapn--draft-specifications-locators--peer-locator--syrup-serialization-peer-syrup-serialization.md)
 - [ocapn--draft-specifications-locators--peer-locator](ocapn--draft-specifications-locators--peer-locator.md) (index)
-  - [[peer Locator](#ocapn-peer)](ocapn--draft-specifications-locators--peer-locator--peer-locator-ocapn-peer.md)
-  - [[Syrup Serialization](#peer-syrup-serialization)](ocapn--draft-specifications-locators--peer-locator--syrup-serialization-peer-syrup-serialization.md)
   - [URI Serialization](ocapn--draft-specifications-locators--peer-locator--uri-serialization.md)
 - [ocapn--draft-specifications-locators--sturdyref-locator](ocapn--draft-specifications-locators--sturdyref-locator.md) (index)
   - [Sturdyref Locator](ocapn--draft-specifications-locators--sturdyref-locator--sturdyref-locator.md)
@@ -7660,16 +7679,26 @@ Total section files: 5840 (507 parent indexes + 5333 children).
   - [See also](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--see-also.md)
   - [Translation block (paper idiom → contemporary Endo / Agoric surface)](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--translation-block-paper-idiom-contemporary-endo-agoric-surface.md)
 
-### papers--stiegler-karp-yee-miller-polaris-2004 (superseded — duplicate of papers--stiegler-polaris-virus-safe-computing-2004)
+### papers--stiegler-karp-yee-miller-polaris-2004
 
-Duplicate ingest of the same report (HPL-2004-221, identical sha256 `6c95faf1`).
-These four sections are retained `status: superseded`; see the canonical
-`papers--stiegler-polaris-virus-safe-computing-2004` block.
+- [papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem](papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem.md)
+- [papers--stiegler-karp-yee-miller-polaris-2004--how-polaris-works](papers--stiegler-karp-yee-miller-polaris-2004--how-polaris-works.md)
+- [papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority](papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority.md)
+- [papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application](papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application.md)
 
-- [Abstract and the excess-authority problem](papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem.md)
-- [Using and polarizing an application: designation as authorization, the PowerBox, Pets, visual cues](papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application.md)
-- [How Polaris works: restricted accounts, RunAs, status, and remaining attacks](papers--stiegler-karp-yee-miller-polaris-2004--how-polaris-works.md)
-- [Sidebars: privilege/permission/authority, and virus/worm](papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority.md)
+### papers--stiegler-polaris-cacm-2006
+
+- [papers--stiegler-polaris-cacm-2006--closing-the-gui-hole-shatter-proofing-windows](papers--stiegler-polaris-cacm-2006--closing-the-gui-hole-shatter-proofing-windows.md)
+- [papers--stiegler-polaris-cacm-2006--privilege-permission-and-authority](papers--stiegler-polaris-cacm-2006--privilege-permission-and-authority.md)
+- [papers--stiegler-polaris-cacm-2006--two-years-of-pilot-experience-and-residual-limits](papers--stiegler-polaris-cacm-2006--two-years-of-pilot-experience-and-residual-limits.md)
+- [papers--stiegler-polaris-cacm-2006--what-the-2006-cacm-revision-adds](papers--stiegler-polaris-cacm-2006--what-the-2006-cacm-revision-adds.md)
+
+### papers--stiegler-polaris-virus-safe-computing-2004
+
+- [papers--stiegler-polaris-virus-safe-computing-2004--designation-as-authorization-powerbox-and-installation-endowment](papers--stiegler-polaris-virus-safe-computing-2004--designation-as-authorization-powerbox-and-installation-endowment.md)
+- [papers--stiegler-polaris-virus-safe-computing-2004--excess-authority-the-virus-problem-and-permission-versus-authority](papers--stiegler-polaris-virus-safe-computing-2004--excess-authority-the-virus-problem-and-permission-versus-authority.md)
+- [papers--stiegler-polaris-virus-safe-computing-2004--polarizing-applications-pets-restricted-accounts-and-visual-cues](papers--stiegler-polaris-virus-safe-computing-2004--polarizing-applications-pets-restricted-accounts-and-visual-cues.md)
+- [papers--stiegler-polaris-virus-safe-computing-2004--status-limits-and-residual-attacks](papers--stiegler-polaris-virus-safe-computing-2004--status-limits-and-residual-attacks.md)
 
 ### papers--swasey-garg-dreyer-ocpl-2017
 
@@ -7775,13 +7804,13 @@ These four sections are retained `status: superseded`; see the canonical
 
 ### web--miller-equality-argument-passing-rules
 
-- [web--miller-equality-argument-passing-rules--vat-independent-semantics](web--miller-equality-argument-passing-rules--vat-independent-semantics.md)
 - [web--miller-equality-argument-passing-rules--vat-based-rules](web--miller-equality-argument-passing-rules--vat-based-rules.md)
+- [web--miller-equality-argument-passing-rules--vat-independent-semantics](web--miller-equality-argument-passing-rules--vat-independent-semantics.md)
 
 ### web--miller-equality-four-party-partial-orders
 
-- [web--miller-equality-four-party-partial-orders--overview](web--miller-equality-four-party-partial-orders--overview.md)
 - [web--miller-equality-four-party-partial-orders--joining-the-orders](web--miller-equality-four-party-partial-orders--joining-the-orders.md)
+- [web--miller-equality-four-party-partial-orders--overview](web--miller-equality-four-party-partial-orders--overview.md)
 
 ### web--miller-equality-object-sameness
 
@@ -7798,12 +7827,12 @@ These four sections are retained `status: superseded`; see the canonical
 
 ### web--miller-grant-matcher-puzzle
 
-- [web--miller-grant-matcher-puzzle--overview](web--miller-grant-matcher-puzzle--overview.md)
+- [web--miller-grant-matcher-puzzle--alice-gets-greedy](web--miller-grant-matcher-puzzle--alice-gets-greedy.md)
 - [web--miller-grant-matcher-puzzle--capability-foundations](web--miller-grant-matcher-puzzle--capability-foundations.md)
+- [web--miller-grant-matcher-puzzle--how-eq-makes-a-difference](web--miller-grant-matcher-puzzle--how-eq-makes-a-difference.md)
+- [web--miller-grant-matcher-puzzle--overview](web--miller-grant-matcher-puzzle--overview.md)
 - [web--miller-grant-matcher-puzzle--setting-up-the-puzzle](web--miller-grant-matcher-puzzle--setting-up-the-puzzle.md)
 - [web--miller-grant-matcher-puzzle--when-it-works](web--miller-grant-matcher-puzzle--when-it-works.md)
-- [web--miller-grant-matcher-puzzle--alice-gets-greedy](web--miller-grant-matcher-puzzle--alice-gets-greedy.md)
-- [web--miller-grant-matcher-puzzle--how-eq-makes-a-difference](web--miller-grant-matcher-puzzle--how-eq-makes-a-difference.md)
 
 ### web--tls-first-boot-patterns
 
