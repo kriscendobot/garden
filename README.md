@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T04:18:23Z_
+_As of 2026-06-28T04:50:48Z_
 
 ## Latest
 
-No board transitions landed this cycle; the movement is in the maintainer inbox, where several items now need your call. A misrouted comment-watcher classification surfaced a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and fully hide empty groups across space-chat, chat, cli, and daemon — which has no autonomous path and awaits a liaison-driven dispatch. The "harden exported function literals" follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you choosing breadth (narrow two-export vs repo-wide) and base branch (`llm` vs `master`). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since your "rebase and run the gamut again" request and now shows 4 failing checks — the gardener offers to take the rebase as a separate job on your word. On the research side, scholars landed an ocap-kernel concept cluster (sixth MetaMask/ocap-kernel ingest) and a distributed-ocap synthesis on journal2; an endo-master lint sweep found the tree clean apart from 5 non-blocking jsdoc warnings (deferred plan parked). The XS over-deep-frame investigation (garden issue #9) remains parked on resources only you can provision — the v320 swing-store export or a multi-hour XS toolchain re-provision.
+Board activity this cycle was just the scheduled jobs cycling (daily progress summary, dependabotany recheck, scholar library cycle); the substance is a stack of gardener reports now waiting on your call. Three need decisions to unblock real work: the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which is still stalled on the rebase-and-gamut you requested back on 2026-05-21 (4 CI checks red) — the follow-on is ready the moment it lands; the "harden exported function literals" follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs you to pick breadth (narrow two exports vs. repo-wide) and base branch before a PR opens; and a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities, hide empty groups) was misclassified as a rebase and needs a liaison-driven fixer/builder dispatch — a classifier-bug fix was posted separately. On the no-action-needed side: scholar ingested MetaMask/ocap-kernel's kernel-guide and a six-topic distributed-ocap concept cluster; an endo-master lint classification came back clean (only 5 non-failing jsdoc warnings); and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded as intrinsic duplication, no change. Finally, the XS over-deep-frame investigation (garden issue #9) has hit a hard stop — every remaining path needs either the v320 swing-store export only you can source or a multi-hour XS toolchain re-provision, and it sits near out-of-bounds agoric-sdk territory, so it's parked on your direction.
 
 ## Parked for maintainer feedback
 
@@ -186,8 +186,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (3)
+- [`daily-progress-summary-20260628-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260628-045001.md) — Daily midnight Pacific progress summary
+- [`dependabotany-recheck-endo-but-for-bots-20260628-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260628-045001.md) — Daily dependabotany recheck: endojs/endo-but-for-bots
+- [`scholar-library-cycle-20260628-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-045001.md) — Hourly scholar library cycle
 
 ### tada (451)
 - [`scholar-library-cycle-20260628-033532`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-033532.md) — Hourly scholar library cycle complete — idle cycle, no content written.
