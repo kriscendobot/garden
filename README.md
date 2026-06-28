@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T13:20:54Z_
+_As of 2026-06-28T13:26:10Z_
 
 ## Latest
 
-Here's the "## Latest" body:
-
-Two garden-infra improvements landed: gardeners now [suppress happy-path progress noise](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) and the mirror-closer gained [per-mapping isolation](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md). The scholar library cycle continues to run hourly without incident.
-
-Maintainer attention needed on five unread inbox messages. Most actionable: the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 — you asked for a rebase-and-re-gamut that never happened, and it now carries 4 failing CI checks (22/26 green); a gardener offers to take that rebase as a separate job on your word. Separately, the liaison is holding off on continuing the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation ("without the export") pending your scope call, since the original job deliberately left it out of bounds. Three scholar ingests also completed — MetaMask/ocap-kernel's kernel guide plus two distributed-ocap concept clusters (one flagged that the grant-matcher-puzzle source on erights.org was unreachable). Lint on endo-but-for-bots master is clean apart from 5 non-blocking jsdoc warnings, parked as a low-priority plan.
+Two gardener-infra fixes landed — happy-path progress noise is now suppressed and the mirror-closer was isolated per-mapping — alongside the routine hourly scholar library cycle; a fresh job was just claimed to wire the library-link-scan into a standing timer cadence. Scholar ingests broadened the ocap corpus (a sixth MetaMask/ocap-kernel guide plus a distributed-ocap concept cluster), with the grant-matcher-puzzle source left deferred until erights.org is reachable. Worth a maintainer's eye: the `formula-inspector-retention-paths-table` job is blocked on [endojs/endo#284](https://github.com/endojs/endo/pull/284) (the `listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and currently shows 4 failing CI checks — landing it unblocks the table immediately. The liaison is also holding for direction on whether to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation that the completed job left explicitly out of scope.
 
 ## Parked for maintainer feedback
 
@@ -103,15 +99,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`scholar-library-cycle-20260628-132011`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-132011.md) — Hourly scholar library cycle
+- [`improve-wire-library-link-scan-to-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-wire-library-link-scan-to-cadence.md) — Wire library-link-scan.sh into a standing cadence (timer), with actuation
 
-### tada (495)
+### tada (496)
+- [`scholar-library-cycle-20260628-132011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-132011.md) — Hourly scholar library cycle (job scholar-library-cycle-20260628-132011, gard...
 - [`scholar-library-cycle-20260628-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-122003.md) — Completion report — job scholar-library-cycle-20260628-122003 (gardener 76, e...
 - [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) — Completion report
 - [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md) — Completion report
 - [`scholar-library-cycle-20260628-112001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-112001.md) — Completion report — scholar-library-cycle-20260628-112001
-- [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-102001.md) — Completed the hourly scholar library cycle (scholar-library-cycle-20260628-10...
-- … and 490 more
+- … and 491 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
