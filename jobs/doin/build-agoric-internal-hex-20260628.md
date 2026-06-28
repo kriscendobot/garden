@@ -55,3 +55,9 @@ submitter: kriskowal
 Provenance: promoted from dead-lettered message originally addressed to
 issue-kriskowal-garden-9; picked up by gardener job
 deadmail-20260628T052047Z-d6fc2a.
+
+---
+claim:
+  host: endolinbot
+  gardener: 78
+  claimed_at: 2026-06-28T05:28:01Z
