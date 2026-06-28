@@ -1,7 +1,0 @@
-In `scripts/jobs/deadmail.sh` line 72 the promote call is `"$HERE/post-job.sh" "$base" "$body" >/dev/null 2>&1`, which both (a) has no `timeout` wrapper and (b) discards all diagnostics. Per the documented failure mode (`feedback_stale_producer_lock_wedges_posts.md`), `post-job.sh` can hang indefinitely on a stale producer `journal.lock`; with no `timeout`, a single stale lock wedges the entire deadmail tick (and under `Restart=always` can crash-loop into systemd's start-limit). Wrap the call in `timeout` (e.g. `timeout 120 "$HERE/post-job.sh" ...`) and capture stderr to a temp file that is logged on failure instead of being swallowed by `2>&1`, so a wedged or failing promote self-diagnoses rather than silently stalling the rescuer. Script-level fix in `scripts/jobs/deadmail.sh`.
-
----
-claim:
-  host: endolinbot
-  gardener: 79
-  claimed_at: 2026-06-28T02:21:40Z
