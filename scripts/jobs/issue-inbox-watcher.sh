@@ -15,12 +15,16 @@
 #       → poll the repo's issues + issue-comments since a durable cursor
 #       → MAINTAINER-TRUST GATE (deterministic, no LLM) — DROP if the author is
 #         not in the journal maintainer set; this runs BEFORE anything reads body
-#       → NEW ISSUE  → post a generic job keyed to the issue spine, carrying the
-#                      issue note (so the doer replies on the right issue thread)
-#       → NEW COMMENT on an in-flight issue → deliver it as a MESSAGE to that
-#                      issue's doer (inbox-send to the spine); a dead inbox
-#                      dead-letters → garden-deadmail promotes it to a job that
-#                      inherits the issue note (the note rides in the message body)
+#       → NEW ISSUE  → reactji-acknowledge the issue (👀 on the issue itself),
+#                      then post a generic job keyed to the issue spine, carrying
+#                      the issue note (so the doer replies on the right issue thread)
+#       → NEW COMMENT on an in-flight issue → reactji-acknowledge the comment (👀),
+#                      then deliver it as a MESSAGE to that issue's doer (inbox-send
+#                      to the spine); a dead inbox dead-letters → garden-deadmail
+#                      promotes it to a job that inherits the issue note (the note
+#                      rides in the message body). The 👀 mirrors the comment-watcher
+#                      so a trusted maintainer gets an immediate "I saw this," not
+#                      just an eventual reply (kriskowal/garden #13).
 #       → submitter-CLOSED issue → terminal for the close itself and anything at or
 #                      before it: dispatch nothing. BUT a trusted comment that
 #                      POST-DATES the close (created_at > closed_at) is re-engagement
@@ -57,6 +61,7 @@
 #   GARDEN_ISSUE_SOURCE   <owner/name> <since-iso>      -> TSV lines (see below)
 #   GARDEN_ISSUE_POST     <basename> <body-file>        (post-job.sh)
 #   GARDEN_ISSUE_MSG      <doer> <body-file>            (inbox-send.sh)
+#   GARDEN_ISSUE_REACTJI  <owner/name> <surface> <id> <content>  (comment-reactji-gh.sh)
 #   GARDEN_GARDEN_REPO         override owner/name (else journal config/garden-repo)
 #   GARDEN_MAINTAINERS_ALLOWLIST override file (else journal maintainers/allowlist)
 # The maintainer-set match and the dispatch rules live HERE (not in a handler), so
@@ -80,6 +85,7 @@ GARDEN_TAG="issue-inbox"
 : "${GARDEN_ISSUE_SOURCE:=$HERE/handlers/issue-source-gh.sh}"
 : "${GARDEN_ISSUE_POST:=$HERE/post-job.sh}"
 : "${GARDEN_ISSUE_MSG:=$HERE/inbox-send.sh}"
+: "${GARDEN_ISSUE_REACTJI:=$HERE/handlers/comment-reactji-gh.sh}"
 : "${GARDEN_ISSUE_VERIFY_CLONE:=$GARDEN_STATE/issue-inbox/verify}"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
@@ -169,6 +175,17 @@ verify_posted() {  # verify_posted <base> [fresh]
     git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
   done
   return 1
+}
+
+# --- reactji-acknowledge a trusted interaction (👀) --------------------------
+# The cheap "received and processing" signal a trusted maintainer sees immediately,
+# BEFORE the substantive job/message lands (mirrors comment-watcher.sh's ordering).
+# surface ∈ issue (id = ISSUE NUMBER) | issue-comment (id = comment id). A reactji
+# failure is logged as a WARN and NEVER blocks the dispatch — acknowledgment is a
+# courtesy, posting the work is the obligation.
+react_ack() {  # react_ack <surface> <id>
+  "$GARDEN_ISSUE_REACTJI" "$REPO" "$1" "$2" eyes \
+    || log "WARN: reactji failed on $1/$2 (continuing to dispatch)"
 }
 
 # --- the issue note (carried job-to-job and into messages) -------------------
@@ -333,6 +350,9 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
       if verify_posted "$spine"; then
         log "already actioned issue: $spine (idempotent skip)"; rm -f "$nf" "$bf"; hw="$created"; continue
       fi
+      # Reactji FIRST (the "received" signal), then post — like comment-watcher.sh.
+      # The id for an issue body is the ISSUE NUMBER, not a comment id.
+      react_ack issue "$number"
       jb="$(mktemp)"; write_issue_job "$jb" "$REPO" "$number" "$submitter" "$spine" "$url" "$nf" "$bf"
       "$GARDEN_ISSUE_POST" "$spine" "$jb" >/dev/null 2>&1 || true
       rm -f "$jb"
@@ -356,6 +376,9 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
       # re-surface from the issues/comments?since= feed) maps to the same inbox /
       # dead-letter path — no duplicate delivery, no duplicate dead-letter, and no
       # duplicate promoted job (deadmail-issue-comment-<cid> is basename-idempotent).
+      # Reactji FIRST (the "received" signal), then deliver — like comment-watcher.sh.
+      # The id for a comment is the GitHub comment id ($id, field 3 of the row).
+      react_ack issue-comment "$id"
       mb="$(mktemp)"; write_comment_msg "$mb" "$REPO" "$number" "$spine" "$url" "$nf" "$bf"
       if GARDEN_SENDER="issue-inbox" GARDEN_MSG_ID="issue-comment-$id" \
            "$GARDEN_ISSUE_MSG" "$spine" "$mb" >/dev/null 2>&1; then

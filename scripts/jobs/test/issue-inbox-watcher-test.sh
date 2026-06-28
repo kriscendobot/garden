@@ -21,6 +21,14 @@
 #   E. reopen safety: a comment while state=open is processed regardless of a prior close
 #   F. the #10 case end to end: TWO post-close trusted comments → BOTH delivered
 #
+# Reactji parity (kriskowal/garden #13, 2026-06-28): the issue path never fired a 👀,
+# so a maintainer who opened an issue was left waiting for the acknowledgment the
+# comment-watcher already gives. Added assertions:
+#   G. a new trusted ISSUE → an `issue`-surface 👀 (id = issue NUMBER) BEFORE the post
+#   H. a new trusted ISSUE-COMMENT → an `issue-comment`-surface 👀 (id = comment id) BEFORE the msg
+#   I. the reactji helper's `issue` surface hits /issues/<number>/reactions (comment surface unchanged)
+#   J. a reactji FAILURE does not block the dispatch
+#
 # Usage: issue-inbox-watcher-test.sh
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -60,19 +68,45 @@ chmod +x "$SRCSTUB"
 
 # POST / MSG stubs: log "<verb> <basename>" per call so dispatch is observable
 # without real board mechanics, and report success so the watcher counts it acted.
+# They also append a lowercase marker to IIW_SEQLOG (when set) so the reactji tests
+# can prove the 👀 fires BEFORE the substantive dispatch.
 POSTSTUB="$TR/post-stub.sh"
 cat > "$POSTSTUB" <<'EOF'
 #!/bin/bash
 printf 'POST %s\n' "$1" >> "${IIW_POSTLOG:?set IIW_POSTLOG}"
+[ -n "${IIW_SEQLOG:-}" ] && printf 'post %s\n' "$1" >> "$IIW_SEQLOG"
+exit 0
 EOF
 chmod +x "$POSTSTUB"
 MSGSTUB="$TR/msg-stub.sh"
 cat > "$MSGSTUB" <<'EOF'
 #!/bin/bash
 printf 'MSG %s\n' "$1" >> "${IIW_MSGLOG:?set IIW_MSGLOG}"
+[ -n "${IIW_SEQLOG:-}" ] && printf 'msg %s\n' "$1" >> "$IIW_SEQLOG"
 exit 0
 EOF
 chmod +x "$MSGSTUB"
+
+# reactji stub: log "<surface> <id> <content>" to IIW_REACTLOG and a "react"
+# marker to IIW_SEQLOG (when set). Tolerant of unset logs (→ /dev/null) and always
+# succeeds, so every run_watcher call uses it INSTEAD of the real gh-calling handler
+# — the watcher must never touch the live GitHub API from a test.
+REACTSTUB="$TR/reactji-stub.sh"
+cat > "$REACTSTUB" <<'EOF'
+#!/bin/bash
+printf '%s %s %s\n' "$2" "$3" "$4" >> "${IIW_REACTLOG:-/dev/null}"
+[ -n "${IIW_SEQLOG:-}" ] && printf 'react %s %s\n' "$2" "$3" >> "$IIW_SEQLOG"
+exit 0
+EOF
+chmod +x "$REACTSTUB"
+
+# a reactji stub that always FAILS (for the does-not-block assertion)
+FAILREACT="$TR/reactji-fail-stub.sh"
+cat > "$FAILREACT" <<'EOF'
+#!/bin/bash
+echo "reactji boom" >&2; exit 1
+EOF
+chmod +x "$FAILREACT"
 
 ALLOW="$TR/allowlist"; printf 'kriskowal\n' > "$ALLOW"
 
@@ -81,12 +115,17 @@ cursor_seen() {  # cursor_seen <state-dir> <bare>  -> prints last_seen
     "$JOBS/cursor-get.sh" "issues/$SLUG" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1
 }
 
-run_watcher() {  # run_watcher <state> <bare> <fixture> <postlog> <msglog> <errlog>
+run_watcher() {  # run_watcher <state> <bare> <fixture> <postlog> <msglog> <errlog> [reactlog] [seqlog] [reactji]
+  # The reactji handler is ALWAYS stubbed (default $REACTSTUB) so a test never hits
+  # the live GitHub API; reactlog/seqlog default to throwaway sinks so the existing
+  # cases need not pass them.
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_GARDEN_REPO="$REPO" \
       GARDEN_MAINTAINERS_ALLOWLIST="$ALLOW" \
       IIW_FIXTURE="$3" IIW_POSTLOG="$4" IIW_MSGLOG="$5" \
+      IIW_REACTLOG="${7:-$TR/react-sink.log}" IIW_SEQLOG="${8:-$TR/seq-sink.log}" \
       GARDEN_ISSUE_SOURCE="$SRCSTUB" \
+      GARDEN_ISSUE_REACTJI="${9:-$REACTSTUB}" \
       GARDEN_ISSUE_POST="$POSTSTUB" \
       GARDEN_ISSUE_MSG="$MSGSTUB" \
       "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>"$6"
@@ -168,6 +207,65 @@ FIX_F="$TR/fix-f.tsv"; PL_F="$TR/post-f.log"; ML_F="$TR/msg-f.log"; ERR_F="$TR/e
 run_watcher "$TR/state-f" "$BARE_F" "$FIX_F" "$PL_F" "$ML_F" "$ERR_F"
 [ "$(grep -c "MSG issue-$SLUG-10" "$ML_F")" -eq 2 ] && ok "both post-close directives were delivered (neither lost)" || bad "expected 2 deliveries, got $(grep -c "MSG issue-$SLUG-10" "$ML_F") (msg=$(cat "$ML_F"))"
 [ "$(cursor_seen "$TR/state-f" "$BARE_F")" = 2026-06-28T17:08:28Z ] && ok "cursor advanced to the last delivered comment" || bad "cursor not at last comment ($(cursor_seen "$TR/state-f" "$BARE_F"))"
+
+# ============================================================================
+hr; echo "G — new trusted ISSUE → issue-surface 👀 (id=NUMBER) BEFORE the post"; hr
+BARE_G="$TR/g.git"; seed_bare "$BARE_G"
+FIX_G="$TR/fix-g.tsv"; PL_G="$TR/post-g.log"; ML_G="$TR/msg-g.log"; ERR_G="$TR/err-g.log"; : >"$PL_G"; : >"$ML_G"
+RL_G="$TR/react-g.log"; SQ_G="$TR/seq-g.log"; : >"$RL_G"; : >"$SQ_G"
+row issue 2026-06-28T10:00:00Z 900 13 kriskowal kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/13 'Garden bulletin needs favicon' > "$FIX_G"
+run_watcher "$TR/state-g" "$BARE_G" "$FIX_G" "$PL_G" "$ML_G" "$ERR_G" "$RL_G" "$SQ_G"
+grep -q "POST issue-$SLUG-13" "$PL_G" && ok "issue job posted (issue-$SLUG-13)" || bad "issue job missing (post=$(cat "$PL_G"))"
+grep -qx "issue 13 eyes" "$RL_G" && ok "issue-surface 👀 acked with id = issue NUMBER (13, not issue id 900)" || bad "wrong reactji ($(cat "$RL_G"))"
+[ "$(grep -c . "$RL_G")" -eq 1 ] && ok "exactly one reactji" || bad "reactji count $(grep -c . "$RL_G")"
+rl=$(grep -n '^react ' "$SQ_G" | head -1 | cut -d: -f1)
+pl=$(grep -n '^post '  "$SQ_G" | head -1 | cut -d: -f1)
+{ [ -n "$rl" ] && [ -n "$pl" ] && [ "$rl" -lt "$pl" ]; } && ok "reactji fired BEFORE the post" || bad "ordering wrong (react=$rl post=$pl seq=$(cat "$SQ_G"))"
+
+# ============================================================================
+hr; echo "H — new trusted ISSUE-COMMENT → issue-comment-surface 👀 (id=comment id) BEFORE the msg"; hr
+BARE_H="$TR/h.git"; seed_bare "$BARE_H"
+FIX_H="$TR/fix-h.tsv"; PL_H="$TR/post-h.log"; ML_H="$TR/msg-h.log"; ERR_H="$TR/err-h.log"; : >"$PL_H"; : >"$ML_H"
+RL_H="$TR/react-h.log"; SQ_H="$TR/seq-h.log"; : >"$RL_H"; : >"$SQ_H"
+row issue-comment 2026-06-28T11:00:00Z 555 13 kriskowal kriskowal open - - \
+  'https://github.com/kriskowal/garden/issues/13#issuecomment-555' 'one more thought' > "$FIX_H"
+run_watcher "$TR/state-h" "$BARE_H" "$FIX_H" "$PL_H" "$ML_H" "$ERR_H" "$RL_H" "$SQ_H"
+grep -q "MSG issue-$SLUG-13" "$ML_H" && ok "comment delivered to the issue spine" || bad "comment not delivered (msg=$(cat "$ML_H"))"
+grep -qx "issue-comment 555 eyes" "$RL_H" && ok "issue-comment-surface 👀 acked with id = comment id (555)" || bad "wrong reactji ($(cat "$RL_H"))"
+[ "$(grep -c . "$RL_H")" -eq 1 ] && ok "exactly one reactji" || bad "reactji count $(grep -c . "$RL_H")"
+rl=$(grep -n '^react ' "$SQ_H" | head -1 | cut -d: -f1)
+ml=$(grep -n '^msg '   "$SQ_H" | head -1 | cut -d: -f1)
+{ [ -n "$rl" ] && [ -n "$ml" ] && [ "$rl" -lt "$ml" ]; } && ok "reactji fired BEFORE the message" || bad "ordering wrong (react=$rl msg=$ml seq=$(cat "$SQ_H"))"
+
+# ============================================================================
+hr; echo "I — reactji helper: the issue surface hits /issues/<number>/reactions"; hr
+BIN="$TR/bin"; mkdir -p "$BIN"; GHLOG="$TR/gh-args.log"; : > "$GHLOG"
+cat > "$BIN/gh" <<EOF
+#!/bin/bash
+printf '%s\n' "\$*" >> "$GHLOG"
+exit 0
+EOF
+chmod +x "$BIN/gh"
+PATH="$BIN:$PATH" "$JOBS/handlers/comment-reactji-gh.sh" "$REPO" issue 13 eyes >/dev/null 2>&1
+grep -qF "repos/$REPO/issues/13/reactions" "$GHLOG" && ok "issue surface POSTs to repos/$REPO/issues/13/reactions" || bad "wrong endpoint ($(cat "$GHLOG"))"
+: > "$GHLOG"
+PATH="$BIN:$PATH" "$JOBS/handlers/comment-reactji-gh.sh" "$REPO" issue-comment 555 eyes >/dev/null 2>&1
+grep -qF "repos/$REPO/issues/comments/555/reactions" "$GHLOG" && ok "issue-comment surface unchanged (/issues/comments/555/reactions)" || bad "issue-comment regressed ($(cat "$GHLOG"))"
+
+# ============================================================================
+hr; echo "J — a reactji FAILURE does not block the dispatch"; hr
+BARE_J="$TR/j.git"; seed_bare "$BARE_J"
+FIX_J="$TR/fix-j.tsv"; PL_J="$TR/post-j.log"; ML_J="$TR/msg-j.log"; ERR_J="$TR/err-j.log"; : >"$PL_J"; : >"$ML_J"
+RL_J="$TR/react-j.log"; SQ_J="$TR/seq-j.log"; : >"$RL_J"; : >"$SQ_J"
+row issue 2026-06-28T12:00:00Z 901 14 kriskowal kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/14 'a second issue' > "$FIX_J"
+run_watcher "$TR/state-j" "$BARE_J" "$FIX_J" "$PL_J" "$ML_J" "$ERR_J" "$RL_J" "$SQ_J" "$FAILREACT"
+# The POST stub logs but does not land the job on the board, so the watcher's
+# verify_posted confirmation legitimately holds the cursor — the assertion here is
+# that the reactji failure did not stop the watcher BEFORE it attempted the post.
+grep -q "POST issue-$SLUG-14" "$PL_J" && ok "job still posted despite a reactji failure (ack is best-effort, post is the obligation)" || bad "reactji failure blocked the post (post=$(cat "$PL_J"))"
+grep -qi 'WARN: reactji failed' "$ERR_J" && ok "the reactji failure is logged as a WARN" || bad "no WARN logged on reactji failure ($(cat "$ERR_J"))"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

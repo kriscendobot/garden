@@ -1,14 +1,18 @@
 #!/bin/bash
-# comment-reactji-gh.sh — default reactji poster for comment-watcher.sh.
+# comment-reactji-gh.sh — default reactji poster for comment-watcher.sh AND
+# issue-inbox-watcher.sh.
 #
-# Invoked as: comment-reactji-gh.sh <owner/name> <surface> <comment-id> <content>
+# Invoked as: comment-reactji-gh.sh <owner/name> <surface> <id> <content>
 #
-# Leaves a reactji (default 👀 "eyes") on the source comment as the cheap
+# Leaves a reactji (default 👀 "eyes") on the source item as the cheap
 # "received and processing" signal, BEFORE the substantive job is posted. The
 # endpoint is selected by surface (translates skills/reactji-acknowledgment):
+#   issue              → /issues/<number>/reactions    (id is the ISSUE NUMBER)
 #   issue-comment      → /issues/comments/<id>/reactions
 #   pr-review-comment  → /pulls/comments/<id>/reactions
 #   pr-review-body     → reviews are NOT reactable; this is a no-op success.
+# Note the `issue` surface's id is the issue NUMBER (an issue body's reactions
+# live under the issue itself), not a comment id.
 #
 # Authorization: the endo-but-for-bots standing authorization permits the
 # reaction (every commenter is maintainer-equivalent on that gated repo). Posting
@@ -21,9 +25,10 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/../common.sh"
 GARDEN_TAG="comment-reactji"
 
-repo="${1:?owner/name}"; surface="${2:?surface}"; cid="${3:?comment-id}"; content="${4:-eyes}"
+repo="${1:?owner/name}"; surface="${2:?surface}"; cid="${3:?id}"; content="${4:-eyes}"
 
 case "$surface" in
+  issue)             path="repos/$repo/issues/$cid/reactions";;
   issue-comment)     path="repos/$repo/issues/comments/$cid/reactions";;
   pr-review-comment) path="repos/$repo/pulls/comments/$cid/reactions";;
   pr-review-body)    log "review body $cid not reactable; skipping ack"; exit 0;;
