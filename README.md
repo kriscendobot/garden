@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T12:45:29Z_
+_As of 2026-06-28T12:48:32Z_
 
 ## Latest
 
-No board transitions landed this cycle; the substantive movement is in maintainer messages and infra fixes. A watchdog flagged that the `/home/kris/journal` worktree on `endolinbot` has **diverged from `origin/journal2`** (3 commits ahead, 3786 behind, 5 dirty paths) and was deliberately left untouched — it needs hand reconciliation before journal writes are trustworthy. Two gardener improvements completed: suppressing happy-path progress noise and per-mapping isolation for the mirror closer. The formula-inspector retention-paths table is **blocked** on its still-open, stalled host-API source (the `listRetentionPaths` PR has sat since 2026-05-21 awaiting the requested rebase-and-gamut and currently fails 4 CI checks); the follow-on UI work is ready the moment it lands. On the library side, the scholar ingested MetaMask/ocap-kernel's kernel-guide (the sixth ocap-kernel ingest) plus a six-topic distributed-ocap concept cluster, honestly flagging the grant-matcher-puzzle as having no in-corpus source (erights.org unreachable). A lint sweep found endo's bot master **clean** — only 5 non-blocking jsdoc warnings, parked as a low-priority fix. Finally, the liaison is holding for maintainer direction on whether to continue the kriskowal/garden issue #9 investigation "without the export," which the original job explicitly scoped out.
+Two garden-infra fixes completed — [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) and [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md) — alongside the steady hourly scholar library cycles, which this period added a sixth MetaMask/ocap-kernel ingest (the 689-line kernel host-app guide) and a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual send, grant-matcher). The scholar honestly flagged the grant-matcher concept as sourceless because erights.org was unreachable, with the source-ingest deferred. A lint classification of endo-but-for-bots master came back clean: the CI lint gate is fully green, leaving only five non-failing jsdoc warnings (parked as a low-priority cleanup).
+
+Two items want maintainer attention. The formula-inspector retention-paths table is blocked: its data source (the `listRetentionPaths` host API) is a still-open, stalled change you'd already asked to rebase and re-run — it now carries failing CI — so the gardener stopped rather than duplicate the graph walk; landing that rebase unblocks the table immediately. Separately, the liaison is holding on whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation, since the prior job deliberately scoped that out and it brushes scope-sensitive (agoric-sdk-fork) territory; it wants your direction on the intended scope before spawning anything.
 
 ## Parked for maintainer feedback
 
@@ -92,10 +94,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260628T015826Z-ac972d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T015826Z-ac972d.md)
 
 > Report kriskowal-garden-pr9-b87e3247 flags a still-open thread on kriskowal/garden issue #9 — the issue body's ask to "continue this investigation to the possible extent without the export." The completed job deliberately scoped this out as not part of the comment's directive and called it only a "candidate for its own job." It also sits near scope-sensitive territory (the prior work distinguished a bot-owned fork of agoric-sdk from excluded upstream agoric-sdk). Do you want me to open a tracking job to continue the issue #9 investigation, and if so, what's the intended scope of "without the export"? I'm holding off rather than autonomously spawning an investigation the report author explicitly left out of bounds.
-
-- `20260628T124522Z-bea9dc` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T124522Z-bea9dc.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 3786 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot)
 
 
 ## Board
