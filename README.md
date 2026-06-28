@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T01:33:31Z_
+_As of 2026-06-28T01:37:12Z_
 
 ## Latest
 
-The board is quiet — the only transition since the last bulletin was a dead-lettered job's completion report and a single gardener progress note; the todo queue is empty and just one scholar dedup job is in flight. The substance is in the maintainer inbox, where two scope decisions are owed. On [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged), erights asked for a separate "harden exported function literals" PR, and a gardener verified the literal form differs by branch (function declarations on `llm`, arrow consts on `master`) — it needs a breadth call (narrow two exports vs. repo-wide via the `@endo/harden-exports` rule) and a base-branch pick before any PR opens. Separately, a comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was misclassified as a "rebase" but is actually a maintainer feature directive to re-bucket the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and fully hide empty groups across four packages; it was flagged as needing a liaison-driven builder/fixer dispatch since the v2 fleet has no autonomous path for feature directives, and the classifier bug got its own infra fix job.
+The board is quiet — the only motion since the last bulletin is the hourly scholar library cycle claiming and the `scholar-dedup-duplicate-polaris-2004-ingest` job completing, plus continued Polaris/ocap library ingests landing on journal2 (the ocap-kernel guide and a six-section distributed-ocap concept cluster).
 
-Two items remain blocked on artifacts only the maintainer can provide: the formula-inspector retention-paths table is stalled behind [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API, still open with failing CI and an un-actioned rebase request from 2026-05-21), and the XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9)) has hit a decision point requiring either the v320 swing-store export or a multi-hour XS toolchain re-provision — both out of bounds for autonomous action. On the library side, scholars landed a MetaMask/ocap-kernel kernel-guide ingest and a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher), and an endo-master lint sweep found the tree clean apart from five non-blocking jsdoc warnings now parked as a low-priority fix.
+What a maintainer should notice is the stack of decisions parked in the inbox, none of which the garden can clear autonomously. Two PRs are gated on your scope/routing call: [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a real feature directive (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities + full empty-group hiding) that was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch; and the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up (erights-authorized, #474 now merged) is blocked only on your two axes — narrow vs repo-wide breadth, and `llm` vs `master` base. Separately, the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since your "rebase and re-gamut" request and now sits at 22/26 CI green; the gardener offers to take that rebase as its own job on your word. Finally, the XS over-deep-frame investigation ([garden#9](https://github.com/kriskowal/garden/pull/9)) has run out of garden-reachable paths — every remaining step needs the v320 swing-store export or a multi-hour XS toolchain re-provision, both in agoric-sdk/ymax0 territory that's off-limits to autonomous action, so whether to continue is your call.
 
 ## Parked for maintainer feedback
 
@@ -185,15 +185,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`scholar-dedup-duplicate-polaris-2004-ingest`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-dedup-duplicate-polaris-2004-ingest.md) — scholar-dedup: two concurrent ingests of the SAME 2004 Polaris report (HPL-20...
+- [`scholar-library-cycle-20260628-013502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-013502.md) — Hourly scholar library cycle
 
-### tada (435)
+### tada (436)
+- [`scholar-dedup-duplicate-polaris-2004-ingest`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-dedup-duplicate-polaris-2004-ingest.md) — Completion report — scholar-dedup-duplicate-polaris-2004-ingest
 - [`deadmail-20260628T011146Z-30c825`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T011146Z-30c825.md) — Completion report — dead-lettered job deadmail-20260628T011146Z-30c825
 - [`scholar-ingest-source-polaris-cacm-2006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-polaris-cacm-2006.md) — Completion report — scholar-ingest-source-polaris-cacm-2006
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — Completion report
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-hpl-techreports-polaris.md) — Completion report: scholar-ingest-source-hpl-techreports-polaris
-- [`improve-issue-comment-idempotent-by-comment-id`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-issue-comment-idempotent-by-comment-id.md) — Completion report: improve-issue-comment-idempotent-by-comment-id
-- … and 430 more
+- … and 431 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
