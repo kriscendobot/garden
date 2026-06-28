@@ -1,0 +1,1 @@
+Garden library (journal sections index): add the missing `### erights--elang-same-ref` block to `sections/README.md` — the two same-ref sections already exist and are listed on the `e-language` topic page but lack a nav block in the index, breaking a future reader's navigation.
