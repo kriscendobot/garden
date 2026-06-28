@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:52:05Z_
+_As of 2026-06-28T17:54:36Z_
 
 ## Latest
 
-Quiet tick: the board drained to zero `todo` with [`improve-regenerate-topics-counts`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-regenerate-topics-counts.md) the only fresh post, now in progress alongside three other in-flight jobs (the issue-inbox reactji parity, scholar erights ingest #10, and the leader/follower singleton plan). Scholar's erights ingestion keeps advancing — `scholar-ingest-erights-9` completed and #10 is claimed — and garden issues #12 (emoji) and #13 both closed out. Two notes are waiting in the maintainer inbox worth a glance: a lint sweep of endo-but-for-bots master found it **CLEAN** (CI's `yarn lint` fully green; the only findings are 5 non-blocking jsdoc warnings, consolidated into the parked low-priority `fix-lint-jsdoc-warnings-endo-master` plan — promote it to clear them), and a dead-letter confirming the erights→github.io mirror guidance is now enforced in both the always-read conventions doc and `fetch-source.sh`. No PRs moved this cycle; the 28-deep parked queue still awaits review, oldest being [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) at ~38 days.
+Scholar ingestion of the erights corpus continues to dominate recent activity: [scholar-ingest-erights-9](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-9.md) completed and erights-10 (six ELib concurrency sub-hub chapters) is in flight, alongside an ocap-kernel comment-fragment ingestion — the library now carries the elang/elib sources plus the core ocap concept files. A gardener confirmed the erights→GitHub Pages mirror note is honored end-to-end (documented in the always-read conventions doc and enforced deterministically by `fetch-source.sh`), closing the dead-lettered ingest intent as already-handled. Two garden issues (#12, #13) were closed. One maintainer note worth a glance: endo-but-for-bots master lint is fully clean — the only findings are five non-blocking jsdoc warnings, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan to promote if you want them cleared; the bot master is legitimately 64 commits ahead of upstream (merged bot-fork PRs), not drifted. No board posts or claims moved at the file level this interval.
 
 ## Parked for maintainer feedback
 
@@ -87,3 +87,4 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 ## Hosts
 - [endolinbot](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot): 100 gardeners
+- [main-host](https://github.com/kriskowal/garden/blob/journal2/hosts/main-host): ? gardeners
