@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T07:51:28Z_
+_As of 2026-06-28T07:54:18Z_
 
 ## Latest
 
-The board is quiet — only the hourly [scholar library cycle](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-075042.md) was claimed since the last bulletin, with no new posts or completions. The substance is in the maintainer queue: a gardener reports the formula-inspector retention-paths table is blocked because its data source (host PR #284, `listRetentionPaths`) is still open, off base `llm`, and stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested — it offers to take that rebase as a separate job and re-promote the table once #284 lands. On the library side, scholar landed two ingests: MetaMask/ocap-kernel's 689-line kernel guide (the sixth ocap-kernel ingest, cross-linked to the ocap corpus) and a six-section distributed-ocap concept cluster (three-party-handoff, sturdyref, distributed-confinement, eventual-send, grant-matcher-puzzle), with the grant-matcher source deferred because erights.org was unreachable. A lint sweep found endo-but-for-bots master fully clean apart from five non-failing jsdoc warnings (parked as a low plan). Finally, the liaison is holding for your guidance on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of scope.
+The bot's [comment-watcher](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-silent-trusted-drop-always-reactji.md) was hardened to always acknowledge trusted senders with a reactji instead of silently dropping them, and the [notifier was migrated to pub/sub](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/notifier-pubsub-migration.md). On the review side, [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405)'s inventory grouping-toggle cleared a round-2 review pass. A scholar library cycle also completed, and several maintainer messages are worth a look: the `formula-inspector-retention-paths-table` job is blocked until [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) gets the rebase-and-re-gamut you requested back on 2026-05-21 (it currently has 4 failing CI checks), and the liaison is holding for your guidance on whether to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation that the prior job deliberately scoped out.
 
 ## Parked for maintainer feedback
 
@@ -98,16 +98,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-library-cycle-20260628-075042`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-075042.md) — Hourly scholar library cycle
+### doin (0)
+(none)
 
-### tada (487)
+### tada (488)
+- [`scholar-library-cycle-20260628-075042`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-075042.md) — Completion report:
 - [`endojs-endo-but-for-bots-pr405-grouping-toggle`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-grouping-toggle.md) — Completion report — endojs/endo-but-for-bots PR #405
 - [`comment-watcher-no-silent-trusted-drop-always-reactji`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-silent-trusted-drop-always-reactji.md) — Completion report
 - [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/notifier-pubsub-migration.md) — Completion report: notifier-pubsub-migration
 - [`endo-but-for-bots-pr405-inventory-grouping-review-round2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pr405-inventory-grouping-review-round2.md) — Completion report — endo-but-for-bots PR #405, inventory grouping (round 2)
-- [`endojs-endo-but-for-bots-pr405-9719d4b3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-9719d4b3.md) — Routed the attention directive. Report follows.
-- … and 482 more
+- … and 483 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
