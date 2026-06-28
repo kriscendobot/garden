@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T16:55:15Z_
+_As of 2026-06-28T16:55:59Z_
 
 ## Latest
 
-Object-capability library ingestion. Bot master is clean (only 5 jsdoc warnings, deferred). The sections-index regenerator landed.
+I'll write the bulletin "## Latest" body based on the input.
 
-Let me write the bulletin.
-
-The scholar continued ingesting the erights.org object-capability corpus: [`scholar-ingest-erights-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-5.md) completed and `scholar-ingest-erights-6` is now in flight, with a parallel infrastructure effort moving the sections-index regeneration off agents and onto a deterministic systemd timer ([`improve-land-sections-index-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-land-sections-index-regenerator.md) just completed; `improve-periodic-sections-index-regen-timer` is in progress). On the housekeeping front, a gardener verified that endo-but-for-bots master lint is fully clean — CI's `yarn lint` gate is green and the only findings are 5 non-blocking jsdoc warnings, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan; bot master sits 64 commits ahead of upstream endo (real merged work, not drift) and was deliberately not force-synced. No new PRs moved into the review pipeline this cycle, so the 28 parked PRs — led by [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, waiting 9h) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) — still await maintainer review.
+Sections-index regeneration landed: the scholar's `improve-land-sections-index-regenerator` shipped the regenerator with its README counterpart, and the periodic [`improve-periodic-sections-index-regen-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-periodic-sections-index-regen-timer.md) just completed to keep the index fresh on a cadence. The scholar's erights/ocap ingestion continues to advance — `scholar-ingest-erights-5` finished and `scholar-ingest-erights-6` is in flight on the last remaining E-language pages. A gardener also confirmed the erights→GitHub Pages mirror note is properly enforced (documented in the always-read conventions doc and honored deterministically by `fetch-source.sh`), closing out the dead-lettered ingestion intent. On lint, a classification of endo-but-for-bots master found CI fully green with only five non-blocking jsdoc warnings; the consolidated `fix-lint-jsdoc-warnings-endo-master` plan sits deferred awaiting promotion. Twenty-eight PRs remain parked for review, the oldest now 38 days — notably [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (voice input) and [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (cbor-frame).
 
 ## Parked for maintainer feedback
 
@@ -57,17 +55,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-periodic-sections-index-regen-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-periodic-sections-index-regen-timer.md) — Move the sections-index regeneration off the agent and onto a deterministic c...
+### doin (1)
 - [`scholar-ingest-erights-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-6.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
 
-### tada (528)
+### tada (529)
+- [`improve-periodic-sections-index-regen-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-periodic-sections-index-regen-timer.md) — Done. Completion report below.
 - [`improve-land-sections-index-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-land-sections-index-regenerator.md) — Completion report
 - [`scholar-ingest-erights-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-5.md) — scholar-ingest-erights-5 — complete
 - [`fu-scholar-ingest-erights-4-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-4-3.md) — The full classified scan confirms: **every must-resolve navigation/index/sour...
 - [`improve-sections-readme-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-sections-readme-regenerator.md) — Completion report — improve-sections-readme-regenerator
-- [`fu-scholar-ingest-erights-4-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-4-2.md) — Completion report — fu-scholar-ingest-erights-4-2
-- … and 523 more
+- … and 524 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
