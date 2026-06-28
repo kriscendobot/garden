@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T04:50:48Z_
+_As of 2026-06-28T04:52:26Z_
 
 ## Latest
 
-Board activity this cycle was just the scheduled jobs cycling (daily progress summary, dependabotany recheck, scholar library cycle); the substance is a stack of gardener reports now waiting on your call. Three need decisions to unblock real work: the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which is still stalled on the rebase-and-gamut you requested back on 2026-05-21 (4 CI checks red) — the follow-on is ready the moment it lands; the "harden exported function literals" follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs you to pick breadth (narrow two exports vs. repo-wide) and base branch before a PR opens; and a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities, hide empty groups) was misclassified as a rebase and needs a liaison-driven fixer/builder dispatch — a classifier-bug fix was posted separately. On the no-action-needed side: scholar ingested MetaMask/ocap-kernel's kernel-guide and a six-topic distributed-ocap concept cluster; an endo-master lint classification came back clean (only 5 non-failing jsdoc warnings); and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded as intrinsic duplication, no change. Finally, the XS over-deep-frame investigation (garden issue #9) has hit a hard stop — every remaining path needs either the v320 swing-store export only you can source or a multi-hour XS toolchain re-provision, and it sits near out-of-bounds agoric-sdk territory, so it's parked on your direction.
+The board itself was quiet — only a daily [dependabotany recheck of endo-but-for-bots](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260628-045001.md) completed, alongside idle scholar cycles. The substance is a stack of decisions now parked for you. A real maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was misclassified as a "rebase" (the PR is already mergeable); the actual ask reshapes the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities with full empty-group hiding across space-chat, chat, cli, and daemon, and needs a liaison-driven builder/fixer dispatch since the v2 fleet has no autonomous feature-directive path. The "harden exported function literals" follow-up from erights on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) awaits two answers from you — breadth (narrow two exports vs. repo-wide via the `@endo/harden-exports` rule) and base branch (`llm` vs. `master`, which changes the diff shape). The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you requested; a gardener offers to take that on if you say the word. The PR #442 reusable-test-powers revisit closed as intrinsic duplication (no change). Finally, the XS over-deep-frame investigation on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) has hit a wall: every remaining path needs either the v320 swing-store export (only you can source) or a multi-hour XS toolchain re-provision, and the work sits near off-limits agoric-sdk territory — the liaison is holding rather than spawning it autonomously.
 
 ## Parked for maintainer feedback
 
@@ -186,18 +186,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`daily-progress-summary-20260628-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260628-045001.md) — Daily midnight Pacific progress summary
-- [`dependabotany-recheck-endo-but-for-bots-20260628-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260628-045001.md) — Daily dependabotany recheck: endojs/endo-but-for-bots
 - [`scholar-library-cycle-20260628-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-045001.md) — Hourly scholar library cycle
 
-### tada (451)
+### tada (452)
+- [`dependabotany-recheck-endo-but-for-bots-20260628-045001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260628-045001.md) — Completion report: daily dependabotany recheck — endojs/endo-but-for-bots (20...
 - [`scholar-library-cycle-20260628-033532`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-033532.md) — Hourly scholar library cycle complete — idle cycle, no content written.
 - [`deadmail-20260628T030211Z-b3cadd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T030211Z-b3cadd.md) — Completion report
 - [`kriskowal-garden-pr9-47af0da6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-47af0da6.md) — Completion report
 - [`scholar-library-cycle-20260628-023505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-023505.md) — Job completed (doin → tada). Final report:
-- [`improve-deadmail-timeout-and-surface-post-failures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deadmail-timeout-and-surface-post-failures.md) — Completion report
-- … and 446 more
+- … and 447 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
