@@ -36,7 +36,7 @@ This source is curated as a **reference-shelf / sibling-implementation entry**: 
 
 - Source index: [metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts](../sources/metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts.md)
 - Synthesizing concept: [[ocap-kernel]]
-- The crank-buffering atomic-output-or-rollback discipline: [metamask-ocap-kernel--overview](metamask-ocap-kernel--overview.md), and the persistence substrate package [metamask-ocap-kernel--packages-kernel-store-readme](../sources/metamask-ocap-kernel--packages-kernel-store-readme.md)
+- The crank-buffering atomic-output-or-rollback discipline: [metamask-ocap-kernel--overview](../sources/metamask-ocap-kernel--overview.md), and the persistence substrate package [metamask-ocap-kernel--packages-kernel-store-readme](../sources/metamask-ocap-kernel--packages-kernel-store-readme.md)
 - Shared substrate for the promise model: [[eventual-send]], [[promise-pipelining]]
 
 Source: [packages/ocap-kernel/src/KernelQueue.ts](https://github.com/MetaMask/ocap-kernel/blob/d979a06325666af32ca7f68b13e9c85486d89ab5/packages/ocap-kernel/src/KernelQueue.ts) at commit `d979a06`.
