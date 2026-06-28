@@ -13,8 +13,17 @@ status: current
 notes: >
   The E grammar chapter landing page. Captures the two-layer specification method
   (E surface grammar defined by canonical expansion to a small Kernel-E core) and
-  the per-construct child-page map. The per-construct grammar tables and the
-  Kernel-E manual itself are queued in scholar-ingest-erights-3.
+  the per-construct child-page map. The Kernel-E manual was ingested by
+  scholar-ingest-erights-3 (`erights--elang-kernel`). The per-construct child
+  pages were ingested by scholar-ingest-erights-7 as their own sources:
+  `erights--elang-grammar-expr` (Expression Grammar),
+  `erights--elang-grammar-prim-expr` (Primitive Expressions),
+  `erights--elang-grammar-patterns` (Pattern Grammar),
+  `erights--elang-grammar-quasi-overview` (Quasi-Literals),
+  `erights--elang-grammar-quasi-xml` (the obsolete Quasi-Literals and XML
+  proposal, status: stale), `erights--elang-grammar-dispatchee` (Methods and
+  Matchers), and `erights--elang-grammar-lexical` (Lexical Grammar). The
+  promised second quasi child page beyond these does not exist.
 ---
 
 The **Grammar and Expansions** chapter: E is specified in two layers — the full
