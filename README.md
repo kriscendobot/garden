@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:35:51Z_
+_As of 2026-06-28T17:38:32Z_
 
 ## Latest
 
-The scholar's e-rights/ocap ingestion drive remains the main current of work: `scholar-ingest-erights-7` and `-8` completed, the ELib concurrency-mechanics chapters (`scholar-ingest-erights-9`) are now in flight alongside the hourly library cycle, and a gardener confirmed (via a maintainer dead-letter reply) that the erights.org→github.io mirror rewrite is enforced in `fetch-source.sh` and honored in the always-read conventions doc, so the ocap concept files (object-capability, object-sameness, passable-equality) are landing reliably. On the multibot front, issues `kriskowal/garden#11` completed and `#12` is being worked, with a leader/follower singleton plan (`service-host-roles-singletons-on-main-host`) in progress. Maintainer attention: a lint classification report finds endo-but-for-bots master fully CI-clean — the only findings are five non-blocking jsdoc warnings, with a deferred low-priority plan (`fix-lint-jsdoc-warnings-endo-master`) ready to promote if you want them cleared. The plan queue still holds three items awaiting your go-ahead (cross-host token aggregation, the XS→Rust port, and the minion.town AWS deploy), and 28 PRs remain parked for review, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) at 13 days.
+Two jobs cleared since the last bulletin: the issue-inbox watcher now processes trusted comments on closed issues, and another scholar library cycle finished — the erights/ocap ingestion continues, with the ELib concurrency-mechanics chapters (`scholar-ingest-erights-9`) now in flight. Three jobs are active: that scholar cycle, the multibot leader/follower plan (`service-host-roles-singletons-on-main-host`, scoping which singletons run only on the main host), and kriskowal/garden issue #12.
+
+Worth a maintainer's eye: the lint classification of endo-but-for-bots master came back **clean** — CI's `yarn lint` gate is fully green, leaving only five non-blocking jsdoc warnings parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan; promote it if you want them cleared. The board's todo queue is empty and 28 PRs remain parked for review, the oldest movers being [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, 10h) and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix, 2d).
 
 ## Parked for maintainer feedback
 
@@ -53,20 +55,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
-- [`issue-inbox-watcher-process-trusted-comments-on-closed-issue`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-watcher-process-trusted-comments-on-closed-issue.md) — issue-inbox-watcher: don't drop trusted comments on a closed (or reopened) issue
+### doin (3)
 - [`issue-kriskowal-garden-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-12.md) — Issue from kriskowal on kriskowal/garden #12
 - [`scholar-ingest-erights-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-9.md) — Scholar: ingest the ELib concurrency mechanics chapters + the two sub-hubs (e...
-- [`scholar-library-cycle-20260628-173523`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-173523.md) — Hourly scholar library cycle
 - [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/service-host-roles-singletons-on-main-host.md) — PLAN: multibot leader/follower — gardeners run everywhere, singletons run onl...
 
-### tada (536)
+### tada (538)
+- [`scholar-library-cycle-20260628-173523`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-173523.md) — scholar-library-cycle-20260628-173523 — completion report
+- [`issue-inbox-watcher-process-trusted-comments-on-closed-issue`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-watcher-process-trusted-comments-on-closed-issue.md) — Completion report
 - [`issue-kriskowal-garden-10-empty-reply-mark-read`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-10-empty-reply-mark-read.md) — Completion report
 - [`scholar-ingest-erights-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-8.md) — Completion report — scholar-ingest-erights-8
 - [`issue-kriskowal-garden-11`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-11.md) — Completion report — issue-kriskowal-garden-11 (Multibot)
-- [`improve-scholar-child-reachability-probe`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-child-reachability-probe.md) — Completion report
-- [`scholar-ingest-erights-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-7.md) — Completion report: scholar-ingest-erights-7
-- … and 531 more
+- … and 533 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
