@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T01:51:50Z_
+_As of 2026-06-28T01:54:54Z_
 
 ## Latest
 
-The board is nearly idle — todo is empty and only a handful of jobs are in flight: a PDF→text extraction improvement for `fetch-source.sh`, two dead-lettered messages being re-picked-up, and two fresh attention directives on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) (the XS over-deep-frame investigation). The real signal this cycle is a stack of decisions that have landed in your inbox and can't move without you. The retention-paths inspector table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has sat since 2026-05-21 with 4 failing checks awaiting the rebase + re-gamut you already requested; a gardener offers to take that on if you say the word. A maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a no-op "rebase" and needs a liaison-driven builder dispatch; the misrouting classifier bug is separately being fixed. The harden-exported-literals follow-on from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) awaits your call on two axes — narrow vs. repo-wide, and base `llm` vs. `master`. And the XS over-deep-frame investigation has reached a hard stop: every remaining path needs either the v320 swing-store export (only you can source it) or a multi-hour XS toolchain re-provision, and the conclusion stands that this is an XS native-stack property, not an Endo regression. On the library side, the scholar fleet landed a distributed-ocap concept cluster and a sixth MetaMask/ocap-kernel ingest, flagging the grant-matcher-puzzle source as unreachable (erights.org down).
+The XS over-deep-frame investigation on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) routed its attention directive and now has two jobs in flight to capture xsnap stack-overflow debug instrumentation in bot forks; the liaison has twice flagged that every remaining path (the decisive export-free XS repro, a real-data trace) is blocked on resources only kriskowal can provision — the v320 swing-store export or a multi-hour XS toolchain re-provision — both touching off-limits ymax0/agoric-sdk territory. Scholar ingests landed on journal2: MetaMask's ocap-kernel host guide (sixth ocap-kernel ingest) plus a six-section distributed-ocap concept cluster, with grant-matching flagged as the one topic whose source (erights.org) was unreachable.
+
+Several maintainer decisions are now owed. A feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified by the comment-watcher as a "rebase" — it needs a liaison-driven fixer/builder dispatch, not a no-op rebase. The harden-exported-function-literals follow-up from erights on [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) awaits a breadth + base-branch decision before any PR opens. The formula-inspector retention-paths table is blocked on endo-but-for-bots#284, which has been stalled since 2026-05-21 with four failing CI checks awaiting the rebase-and-gamut kriskowal already requested. The [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the only API match would invert the extraction and create a workspace cycle), and endo master lint is clean apart from five non-blocking jsdoc warnings.
 
 ## Parked for maintainer feedback
 
@@ -183,19 +185,19 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (5)
+- [`capture-xsnap-debug-instrumentation-20260628T015232Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/capture-xsnap-debug-instrumentation-20260628T015232Z.md) — Capture the xsnap stack-overflow debug instrumentation in bot forks
+- [`capture-xsnap-debug-instrumentation-in-forks`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/capture-xsnap-debug-instrumentation-in-forks.md) — Capture xsnap debug instrumentation in bot-owned fork(s)
 - [`deadmail-20260628T014800Z-534313`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T014800Z-534313.md) — Dead-lettered message — pick up its intent
-- [`deadmail-20260628T015003Z-602b9f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T015003Z-602b9f.md) — Dead-lettered message — pick up its intent
 - [`improve-fetch-source-pdf-text-extraction`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fetch-source-pdf-text-extraction.md) — Add a deterministic PDF→text path to scripts/jobs/fetch-source.sh so paper-PD...
 - [`kriskowal-garden-pr9-2cd6f75d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-2cd6f75d.md) — attention directive on kriskowal/garden PR #9
-- [`kriskowal-garden-pr9-b87e3247`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-b87e3247.md) — attention directive on kriskowal/garden PR #9
 
-### tada (437)
+### tada (439)
+- [`deadmail-20260628T015003Z-602b9f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T015003Z-602b9f.md) — Done. Completion report follows.
+- [`kriskowal-garden-pr9-b87e3247`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-b87e3247.md) — Completion report — kriskowal-garden-pr9-b87e3247 (attention → route directive)
 - [`scholar-library-cycle-20260628-013502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-013502.md) — Completion report
 - [`scholar-dedup-duplicate-polaris-2004-ingest`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-dedup-duplicate-polaris-2004-ingest.md) — Completion report — scholar-dedup-duplicate-polaris-2004-ingest
 - [`deadmail-20260628T011146Z-30c825`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T011146Z-30c825.md) — Completion report — dead-lettered job deadmail-20260628T011146Z-30c825
-- [`scholar-ingest-source-polaris-cacm-2006`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-polaris-cacm-2006.md) — Completion report — scholar-ingest-source-polaris-cacm-2006
-- [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — Completion report
-- … and 432 more
+- … and 434 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
