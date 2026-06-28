@@ -66,6 +66,17 @@ if [ "$up_sha" != "$local_sha" ] && [ "$GARDEN_AGGRESSIVE_CHECKOUT" = "1" ]; the
   fi
 fi
 
+# Split point (issue kriskowal/garden#11, Multibot): the fetch + aggressive-ff
+# ABOVE is per-host maintenance and runs on EVERY host. The "main2 advanced —
+# reread" BROADCAST below is the duplicate-prone half — every host would broadcast
+# the same advance to every gardener — so it is LEADER-ONLY. A follower has done
+# its ff/maintenance and stops here. (The aggressive ff is off by default, so a
+# follower watchman tick is effectively a no-op, which is correct.)
+if ! is_main_host; then
+  log "follower host; ff/maintenance only, skipping the reread broadcast (leader broadcasts)"
+  exit 0
+fi
+
 target="$local_sha"
 SEEN="$GARDEN_STATE/watchman/seen-$GARDEN_MAIN_BRANCH"
 mkdir -p "$(dirname "$SEEN")"

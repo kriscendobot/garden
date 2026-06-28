@@ -2137,5 +2137,40 @@ done < <(grep -h '^ExecStart=' "$UE_DEST"/garden-*.service)
 rm -rf "$UE_DEST"
 
 # ============================================================================
+hr; echo "SUBTEST 28 — LEADER/FOLLOWER: is-main-host gates singletons by GARDEN"; hr
+# issue kriskowal/garden#11 (Multibot): hosts/main-host names the leader's GARDEN
+# identity; is-main-host.sh exits 0 on the leader, 1 on a follower; gardeners stay
+# ungated (every-host). Reuses the throwaway $BARE journal (JOURNAL_REMOTE is
+# already exported; the seed created hosts/.gitkeep). A focused, self-contained
+# companion lives in test/main-host-test.sh (TTL cache, set-main-host, full set).
+push_change "hosts/main-host" "lead-host" "designate lead-host as leader"
+# Pass JOURNAL_REMOTE/JOURNAL_BRANCH explicitly (the exported values are not
+# reliable this late in the run — like the other late subtests at 1906/1993) and
+# scrub GARDEN_* so ambient pollution (an exported GARDEN_HOST from a prior subtest)
+# cannot pre-empt the GARDEN knob's defaulting.
+imh_rc() { env -u GARDEN -u GARDEN_MAIN_HOST GARDEN_STATE="$TR/state-mh-$1" GARDEN_HOST="$2" \
+               JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_NO_MAINTAINER_ALERT=1 \
+               "$JOBS/is-main-host.sh" >/dev/null 2>&1; echo $?; }
+[ "$(imh_rc a lead-host)" -eq 0 ]  && ok "is-main-host exits 0 on the journal-named leader" || bad "leader not recognized"
+[ "$(imh_rc b other-host)" -eq 1 ] && ok "is-main-host exits 1 on a follower"               || bad "follower not recognized"
+# GARDEN knob defaults GARDEN_HOST (the value the predicate compares). Unset any
+# ambient GARDEN_HOST first so the default is what is exercised.
+ghv="$(env -u GARDEN_HOST GARDEN=lead-host bash -c 'source "'"$JOBS"'/common.sh"; printf %s "$GARDEN_HOST"')"
+[ "$ghv" = lead-host ] && ok "GARDEN knob defaults GARDEN_HOST" || bad "GARDEN did not default GARDEN_HOST ($ghv)"
+# Every leader-only timer-singleton service carries the ExecCondition; gardeners do not.
+MH_SRC="$JOBS/../systemd"; mh_miss=0
+for u in garden-foreman garden-scheduler garden-deadmail garden-reaper garden-follow-up \
+         garden-proxy garden-mentor garden-mirror-closer garden-comment-watcher@ \
+         garden-mention-watcher garden-triager@ garden-issue-inbox garden-library-source-drift-scan; do
+  grep -q '^ExecCondition=/bin/bash .*is-main-host.sh' "$MH_SRC/$u.service" || { mh_miss=1; echo "      missing on $u"; }
+done
+[ "$mh_miss" -eq 0 ] && ok "all 13 timer-singleton services carry ExecCondition=is-main-host.sh" || bad "a singleton service lacks the ExecCondition"
+grep -q 'is_main_host' "$JOBS/bulletin.sh" \
+  && ok "bulletin (continuous singleton) gated in-process via is_main_host" || bad "bulletin lacks in-process leader gate"
+grep -q 'is-main-host' "$MH_SRC/garden-gardener@.service" \
+  && bad "gardener service is leader-gated (must run every-host)" \
+  || ok "gardener service NOT gated (runs on every host)"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

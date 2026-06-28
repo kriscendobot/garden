@@ -17,6 +17,15 @@ Type=oneshot
 # SIGTERM stop as Failed.
 SuccessExitStatus=143 130 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# Leader-only singleton: run only on the host whose GARDEN identity matches the
+# journal hosts/main-host marker. On a follower the timer still fires but this
+# ExecCondition fails, so the tick is SKIPPED CLEANLY (condition-failed, never
+# marked Failed) — that IS follower mode. Each firing re-evaluates, so a
+# leader change (promotion/demotion) is picked up next tick with no restart.
+# Same producer-double-post class as the comment/mention watchers (a follower
+# triager would re-post the same repo activity; a follower issue-inbox would
+# double-reply a maintainer). See issue kriskowal/garden#11 (Multibot).
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-issue-inbox -- @GARDEN_ROOT@/scripts/jobs/issue-inbox-watcher.sh
 # The self-heal responder runs synchronously on a failed tick before the wrapper
 # returns the failing rc; give it headroom beyond the implicit 90s oneshot start

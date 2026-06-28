@@ -28,7 +28,10 @@ and the gardener fleet, and helps the maintainer operate the local garden.
 - **Watch the maintainer inbox via the Monitor tool.** Run a Claude Code
   **Monitor** whose command is `scripts/jobs/maintainer-watch.sh` on a short
   interval; it surfaces (read-only) messages gardeners addressed to the user.
-  Each message carries a `reply_to` (the originating job doer).
+  Each message carries a `reply_to` (the originating job doer). This Monitor is a
+  **leader-only singleton** (two would double-answer): run it only when this host
+  is the leader (`scripts/jobs/is-main-host.sh` exits 0). A follower's liaison
+  watches no inbox and brings up the gardener pool only.
 - **Reply or archive.** `maintainer-reply.sh <msgid>` routes your reply into the
   originating doer's inbox (and archives the message); `maintainer-archive.sh
   <msgid>` archives without replying. An **empty reply** (blank body) to
@@ -37,11 +40,41 @@ and the gardener fleet, and helps the maintainer operate the local garden.
   answer by leaving the reply blank. A still-working gardener receives a
   non-empty reply through its own inbox monitor.
 - **Operate local services** for the maintainer: bringing up the systemd user
-  units, confirming a unique hostname, and scaling the local gardener pool. See
-  the top-level `CLAUDE.md` § Job system for the startup procedure and the
-  hostname-uniqueness check.
+  units, confirming a unique hostname/`GARDEN` identity, and scaling the local
+  gardener pool. See the top-level `CLAUDE.md` § Job system for the startup
+  procedure and the hostname-uniqueness check.
 - The bus is the journal branch even for same-host communication, because the
   garden may run on multiple hosts; never assume a message stayed local.
+
+### Stand up / stand down the garden (vocabulary)
+
+The garden is a **leader/follower** fleet (issue kriskowal/garden#11, Multibot;
+[multibot-leader-follower](../../designs/multibot-leader-follower.md)). **Gardeners
+run on every host** (concurrent claims dedup via the job-board push); **singleton
+services run only on the leader host** named by the journal marker `hosts/main-host`.
+The **liaison maintainer-inbox Monitor is itself a singleton** — only the leader's
+liaison watches the inbox, so two liaisons never double-answer a maintainer.
+
+- **"start" / "resume" / "stand up" the garden** → bring the units up. **First
+  verify this host's `GARDEN` identity (and thus `GARDEN_HOST`) is UNIQUE** across
+  running instances (the bring-up step-1 uniqueness check, now keyed on `GARDEN`);
+  if it collides or is a default, offer the `GARDEN=endolinbot2` env override
+  (`./garden reset && GARDEN_CONTAINER=…` for a durable rename, or just export
+  `GARDEN=<unique>` to spawn a parallel pool from a checkout). Then
+  `scripts/jobs/install-units.sh install` + `enable-services` and set the worker
+  count. **Only the leader runs the maintainer-inbox Monitor and the singletons**
+  (gated by `scripts/jobs/is-main-host.sh`); a **follower stand-up brings up the
+  gardener pool only** — its singleton timers fire but skip cleanly until promoted.
+- **"stand down" / "drain" / "stop the garden" / "halt the garden" / "shut down
+  the garden"** → the graceful dual of standing up. **Drain** (workers finish
+  in-flight claims, take no new ones) is `scripts/jobs/drain-fleet.sh on`;
+  **fully halt** additionally stops/disables the units. Prefer drain for a pause,
+  a full stop only when the maintainer wants the host quiet. Lift a drain with
+  `drain-fleet.sh off`.
+- **"make this host the leader" / "designate <host> the leader"** →
+  `scripts/jobs/set-main-host.sh [<host>]` writes `hosts/main-host`. Leadership is
+  **manual, no automatic failover**: if the leader dies the singletons stay down
+  until the marker is re-pointed by hand.
 
 ### Deploy-on-upgrade Monitor (auto-deploy this host on an upgrade signal)
 

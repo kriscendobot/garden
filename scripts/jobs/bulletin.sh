@@ -741,6 +741,19 @@ while :; do
     sleep "$GARDEN_BULLETIN_IDLE_SLEEP"; continue
   fi
 
+  # Leader-only singleton: the bulletin is the maintainer's single dashboard, so
+  # exactly ONE host posts it (two would double-post). On a FOLLOWER, idle without
+  # posting. This in-loop gate — not a start-time ExecCondition — is the
+  # continuous singleton's promote/demote-without-restart mechanism: the leader
+  # marker is re-read each iteration (cached, GARDEN_MAIN_HOST_TTL), so a demoted
+  # leader goes quiet and a promoted follower starts posting with NO restart.
+  # Single-host stays unchanged (no marker → fail-open leader). See garden#11.
+  if ! is_main_host; then
+    log "follower host (hosts/main-host names another leader); idling, not posting"
+    [ "$GARDEN_BULLETIN_ONCE" = "1" ] && exit 0
+    sleep "$GARDEN_BULLETIN_IDLE_SLEEP"; continue
+  fi
+
   # Run the tick in ISOLATION so one bad tick can never kill the service. The tick
   # is a backgrounded subshell launched at top level (NOT inside an `if`/`||`
   # context — that would disable `set -e` inside it per bash's conditional rule),
