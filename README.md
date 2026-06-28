@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T07:40:28Z_
+_As of 2026-06-28T07:41:22Z_
 
 ## Latest
 
-The [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/notifier-pubsub-migration.md) job landed its completion report, and the board is otherwise quiet — two jobs still in flight (the comment-watcher no-silent-trusted-drop fix and the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) grouping-toggle fixer directive), with the todo queue drained to empty.
+The comment-watcher fix landed — [`comment-watcher-no-silent-trusted-drop-always-reactji`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-silent-trusted-drop-always-reactji.md) completed, ensuring trusted senders are never silently dropped and always get a reactji acknowledgment. Work on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (inventory grouping) continues: its round-2 review and an attention directive both cleared, and a fixer directive on the grouping toggle is now the only job in flight. The notifier-pubsub migration also finished.
+
+Two maintainer messages want attention. A gardener reports the formula-inspector retention-paths table is blocked on its upstream data source (the `listRetentionPaths` host API), which remains open and stalled on a rebase-and-re-gamut you requested back on 2026-05-21 — the gardener offers to take that rebase as its own job on your word. Separately, the liaison is holding off on continuing the kriskowal/garden issue #9 investigation (the "without the export" follow-on the prior job deliberately scoped out, near agoric-sdk scope boundaries) and is asking whether to open a tracking job and how to scope it. On the library side, scholar landed two ocap synthesis ingests (MetaMask/ocap-kernel's kernel guide and a six-topic distributed-ocap concept cluster), and a lint sweep found endo master fully clean apart from five non-blocking jsdoc warnings.
 
 ## Parked for maintainer feedback
 
@@ -98,17 +100,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`comment-watcher-no-silent-trusted-drop-always-reactji`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-silent-trusted-drop-always-reactji.md) — Comment-watcher: a trusted comment must NEVER be silently dropped — always re...
+### doin (1)
 - [`endojs-endo-but-for-bots-pr405-grouping-toggle`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-grouping-toggle.md) — fixer directive on endojs/endo-but-for-bots PR #405
 
-### tada (485)
+### tada (486)
+- [`comment-watcher-no-silent-trusted-drop-always-reactji`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-silent-trusted-drop-always-reactji.md) — Completion report
 - [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/notifier-pubsub-migration.md) — Completion report: notifier-pubsub-migration
 - [`endo-but-for-bots-pr405-inventory-grouping-review-round2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pr405-inventory-grouping-review-round2.md) — Completion report — endo-but-for-bots PR #405, inventory grouping (round 2)
 - [`endojs-endo-but-for-bots-pr405-9719d4b3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-9719d4b3.md) — Routed the attention directive. Report follows.
 - [`deadmail-20260628T071109Z-475cc4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T071109Z-475cc4.md) — Completion report
-- [`endojs-endo-but-for-bots-pr277-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-shepherd.md) — Pushed the three atomic fixes; CI is re-running on head 157fd818b. I'm waitin...
-- … and 480 more
+- … and 481 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
