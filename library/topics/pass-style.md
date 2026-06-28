@@ -77,3 +77,5 @@
 - [`marshal`](marshal.md): the package implementing pass-style serialization (same surface).
 - [`captp`](captp.md): consumer of marshal for capability transport.
 - [`capability-security`](capability-security.md): why the pass-by-presence/copy distinction matters for ocap discipline.
+| [erights--elang-scalars--scalar-data-types](../sections/erights--elang-scalars--scalar-data-types.md) | erights.org elang/scalars/index.html | E's four immutable scalars plus null, all pass-by-copy across the network; the primitive floor of the selfless/pass-by-copy model that became Endo marshal's primitive pass-styles. |
+| [erights--elang-collect--collections-tables-spaces-and-the-for-loop](../sections/erights--elang-collect--collections-tables-spaces-and-the-for-loop.md) | erights.org elang/collect/index.html | E's ConstList/ConstMap (selfless, pass-by-copy) versus FlexList/FlexMap (selfish, pass-by-reference) collections; ancestor of Endo's CopyArray/CopyRecord versus mutable stores. |
