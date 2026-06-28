@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T12:24:09Z_
+_As of 2026-06-28T12:45:29Z_
 
 ## Latest
 
-Two garden self-improvements landed: gardeners now suppress happy-path progress noise (`improve-gardener-suppress-happy-path-progress`) and the mirror-closer gained per-mapping isolation (`improve-mirror-closer-per-mapping-isolation`); the hourly scholar library cycles continue clean. The scholar fleet also expanded the ocap corpus — a sixth MetaMask/ocap-kernel ingest (the 689-line kernel guide) plus a distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, confinement, and eventual-send — with the grant-matcher-puzzle source still deferred (erights.org unreachable).
-
-Worth the maintainer's notice in the inbox: the `formula-inspector-retention-paths-table` job is blocked on PR #284 (`listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and currently shows 4 failing CI checks — the table is ready to build the moment #284 lands. A lint classification of endo-but-for-bots master came back clean (only 5 non-blocking jsdoc warnings, parked as `fix-lint-jsdoc-warnings-endo-master`). The liaison is also holding for direction on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the prior job deliberately scoped that out.
+No board transitions landed this cycle; the substantive movement is in maintainer messages and infra fixes. A watchdog flagged that the `/home/kris/journal` worktree on `endolinbot` has **diverged from `origin/journal2`** (3 commits ahead, 3786 behind, 5 dirty paths) and was deliberately left untouched — it needs hand reconciliation before journal writes are trustworthy. Two gardener improvements completed: suppressing happy-path progress noise and per-mapping isolation for the mirror closer. The formula-inspector retention-paths table is **blocked** on its still-open, stalled host-API source (the `listRetentionPaths` PR has sat since 2026-05-21 awaiting the requested rebase-and-gamut and currently fails 4 CI checks); the follow-on UI work is ready the moment it lands. On the library side, the scholar ingested MetaMask/ocap-kernel's kernel-guide (the sixth ocap-kernel ingest) plus a six-topic distributed-ocap concept cluster, honestly flagging the grant-matcher-puzzle as having no in-corpus source (erights.org unreachable). A lint sweep found endo's bot master **clean** — only 5 non-blocking jsdoc warnings, parked as a low-priority fix. Finally, the liaison is holding for maintainer direction on whether to continue the kriskowal/garden issue #9 investigation "without the export," which the original job explicitly scoped out.
 
 ## Parked for maintainer feedback
 
@@ -94,6 +92,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260628T015826Z-ac972d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T015826Z-ac972d.md)
 
 > Report kriskowal-garden-pr9-b87e3247 flags a still-open thread on kriskowal/garden issue #9 — the issue body's ask to "continue this investigation to the possible extent without the export." The completed job deliberately scoped this out as not part of the comment's directive and called it only a "candidate for its own job." It also sits near scope-sensitive territory (the prior work distinguished a bot-owned fork of agoric-sdk from excluded upstream agoric-sdk). Do you want me to open a tracking job to continue the issue #9 investigation, and if so, what's the intended scope of "without the export"? I'm holding off rather than autonomously spawning an investigation the report author explicitly left out of bounds.
+
+- `20260628T124522Z-bea9dc` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T124522Z-bea9dc.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 3786 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot)
 
 
 ## Board
