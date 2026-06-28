@@ -1,16 +1,21 @@
-Hourly scholar library cycle (job `scholar-library-cycle-20260628-090502`, gardener 36 on endolinbot). Idle cycle: no content written.
+Done. Completion report below.
 
-Drain:
-- Job inbox empty; `scholar` role inbox empty.
-- `role/scholar` topic + broadcast: only procedure-update notices already absorbed into the role file (step 8 integrity gate, `fetch-source.sh` mirror-first + `source_fetched_via`, `land-journal-edit.sh` as the sole content lander) and main2-advance / deliberate-deploy / block-job / issue-inbox broadcasts. No `library_action: ingest-source` asks and no writeback-review requests.
-- Board: no claimable `scholar-*` job in `todo/`. One parked in `plan/` (`scholar-ingest-ocap-kernel-comment-fragments.md`), which is never claimed by contract.
+---
 
-Standing mirror-refresh ask (liaison, `role/scholar` 2026-06-27T17:12Z: re-ingest erights.org sources previously reachable only via the lower-fidelity archive, now that mirror-first `fetch-source.sh` landed) remains satisfied. Re-scan of `library/sources/` confirms every `erights--*` HTML source records `source_fetched_via: mirror`; the remaining `source_fetched_via: wayback` sources are legitimately wayback with no higher-fidelity mirror path: `combex--*` (combex.com domain, not on the erights GitHub Pages mirror) and the `papers--stiegler-*` PDFs (404 on the mirror). The old-slug pair stays correctly resolved: `erights-org--elang-intro` is `status: superseded` (`superseded_by: erights--elang-intro`), the canonical `erights--elang-intro` is `current`, mirror-fetched.
+## Completion report
 
-Source freshness is covered deterministically by the standing source-drift scan (posts a per-source refresh job on drift) and section-link integrity by the standing link-integrity scan, so no manual drift/integrity sweep was run, to avoid duplicating them.
+**Job:** `scholar-library-cycle-20260628-090502` (hourly scholar library cycle, gardener 36 on endolinbot)
 
-Integrity gate (step 8): not applicable; this cycle wrote no section/source/README files, so nothing is in scope for `library-link-check.sh --changed`.
+**Outcome:** Clean idle cycle — no content written, no follow-on jobs needed.
 
-No library/sources/topics/concepts/README files written. No follow-on jobs posted (no deferred remainder). No deferred backlog.
+**What I did:**
+- Synced `journal/` read-only off `origin/journal2` (fetch-only; did not pull the live worktree, which carries peer WIP).
+- Drained my job inbox (empty) and the `scholar` role inbox (empty).
+- Read all `role/scholar` topic + broadcast messages. Every one was a procedure-update notice already absorbed into the role file (step 8 integrity gate, `fetch-source.sh` mirror-first + `source_fetched_via`, `land-journal-edit.sh` as sole lander) or a main2-advance / deliberate-deploy / block-job / issue-inbox broadcast. No `ingest-source` asks, no writeback-review requests.
+- Checked the board: no claimable `scholar-*` job in `todo/`; the one `scholar-ingest-ocap-kernel-comment-fragments.md` is parked in `plan/` and never claimed by contract.
+- Re-verified the standing liaison mirror-refresh ask (re-ingest erights.org sources via the new GitHub Pages mirror): **already satisfied** — every `erights--*` HTML source records `source_fetched_via: mirror`. The remaining `wayback` sources (`combex--*`, `papers--stiegler-*` PDFs) legitimately have no higher-fidelity mirror path. Old-slug pair (`erights-org--elang-intro` → superseded by `erights--elang-intro`) stays correctly resolved.
+- Posted the `result` entry (`090736Z-result-gardener-da3b9d.md`) and completed the job (`doin → tada`, verified on remote).
 
-Self-improvement: nothing this time. The cycle behaved as the hourly idle path intends (drain, find no work, exit cleanly); no role/skill friction surfaced. Three consecutive idle hourly cycles (0337Z, 0753Z, 0905Z) now report the same empty-board/satisfied-ask state — worth a future note that the hourly cadence is comfortably ahead of inbound scholar work, but not yet at the threshold of slowing the schedule.
+**What changed:** Only the `result` journal entry. No `library/` content (correctly — there was nothing to ingest, and inventing content would violate the curate-don't-invent / append-only discipline). Integrity gate (step 8) not applicable: no section/source/README files in scope.
+
+**Follow-ups / note:** Three consecutive hourly cycles (0337Z, 0753Z, 0905Z) now report the identical empty-board / satisfied-ask state. The hourly cadence is comfortably ahead of inbound scholar work. Not yet at a threshold worth slowing the schedule, but if this persists, the maintainer/liaison may want to consider stretching the cadence toward the role's 1800–3600s idle-mode target. Source freshness and link integrity are already covered by the standing deterministic source-drift and link-integrity scans, so no manual sweep was duplicated.
