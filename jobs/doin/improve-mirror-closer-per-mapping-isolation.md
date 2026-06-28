@@ -1,7 +1,0 @@
-In `/home/kris/scripts/jobs/mirror-closer.sh`, isolate per-mapping read failures so one bad mapping cannot abort the whole tick. Currently the per-mapping loop calls `die "reading upstream state for $up failed …"` and `die "reading mirror state for $mir failed …"` directly, so a single failed `gh api` (e.g. the observed `repos/endojs/endo/pulls/3137` 404/transient) kills the entire tick and abandons every other unresolved mapping — and recurs forever if the upstream PR number is permanently unreadable. Change both upstream- and mirror-state read failures (and the close-handler failure) from `die` to `log "WARN: … skipping this mapping; will retry next tick"` + `continue`, incrementing a `failed=$((failed+1))` counter. Leave the mapping unresolved (do not stamp `closed_at`) so the next tick re-handles it — this preserves the "never guess a state, never silently suppress a close" discipline while making it per-mapping rather than per-tick. At the end, after the existing "tick complete" log, if `failed > 0` emit a summary line and `exit 1` so the unit still reports unhealthy to systemd/journald and the failure stays visible, without having starved the healthy mappings. Add/extend a case in `test/mirror-closer-test.sh` where one mapping's `GARDEN_MIRROR_PR_STATE` returns nonzero and a second, healthy mapping still gets closed in the same tick.
-
----
-claim:
-  host: endolinbot
-  gardener: 51
-  claimed_at: 2026-06-28T11:21:09Z
