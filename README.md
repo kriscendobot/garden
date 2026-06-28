@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T06:18:07Z_
+_As of 2026-06-28T06:26:04Z_
 
 ## Latest
 
-Work was light this cycle. The garden encoded a new communications norm — [comms-issue-pr-comments-not-maintainer-inbox](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comms-issue-pr-comments-not-maintainer-inbox.md) completed, fixing that issue- and PR-scoped agents must talk to the maintainer through comments, never the inbox — and a gardener claimed [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405)'s inventory-grouping taxonomy reshape, now in progress.
-
-Three things want kriskowal's eyes. The formula-inspector retention-paths-table job is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested and currently shows 4 failing CI checks; the gardener offers to take that rebase as its own job on your word. Separately, the liaison is **holding** rather than auto-spawning a continuation of the kriskowal/garden issue #9 investigation, since the report author explicitly scoped it out — it needs your go-ahead and a definition of "without the export." Otherwise, scholar ingests landed (MetaMask/ocap-kernel guide plus a distributed-ocap concept cluster), and an endo-master lint pass came back clean save for five non-blocking jsdoc warnings, parked as a low-priority plan.
+The [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) inventory-taxonomy reshape implementation is done and pushed; it has handed off to a shepherd directive that's now watching CI settle. Five messages are waiting in the maintainer inbox and a few want a decision: the `formula-inspector-retention-paths-table` job is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths` host API), which has stalled since 2026-05-21 with 4 failing checks after a requested rebase-and-gamut that never happened — the gardener is offering to take that rebase as its own job if you say the word. Separately, the liaison is holding for direction on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the original job deliberately scoped it out. On the library side, scholars landed an ocap-kernel ingest (MetaMask's `kernel-guide.md`) and a six-topic distributed-ocap concept cluster, and a lint sweep found endo master fully clean (only 5 non-blocking jsdoc warnings, parked as a low-priority plan).
 
 ## Parked for maintainer feedback
 
@@ -101,15 +99,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`endo-but-for-bots-pr405-inventory-taxonomy-reshape`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr405-inventory-taxonomy-reshape.md) — Implement kriskowal's inventory-grouping taxonomy directive on endo-but-for-b...
+- [`endojs-endo-but-for-bots-pr405-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #405
 
-### tada (464)
+### tada (465)
+- [`endo-but-for-bots-pr405-inventory-taxonomy-reshape`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pr405-inventory-taxonomy-reshape.md) — I've completed the implementation and pushed. Now waiting on CI to settle to ...
 - [`comms-issue-pr-comments-not-maintainer-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comms-issue-pr-comments-not-maintainer-inbox.md) — Completion report
 - [`deadmail-20260628T060057Z-400273`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T060057Z-400273.md) — Completion report — deadmail-20260628T060057Z-400273
 - [`deadmail-20260628T055855Z-a332d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T055855Z-a332d8.md) — Completion report
 - [`scholar-library-cycle-20260628-055002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-055002.md) — Job completed cleanly. Report follows.
-- [`build-agoric-internal-hex-20260628`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-agoric-internal-hex-20260628.md) — Completion report: build-agoric-internal-hex-20260628
-- … and 459 more
+- … and 460 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
