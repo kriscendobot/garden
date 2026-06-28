@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T15:59:36Z_
+_As of 2026-06-28T16:03:47Z_
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the board transitions and dashboard.
-
-Three jobs completed this cycle. [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)'s rebase-and-re-gamut refresh finished — directly unblocking the parked `formula-inspector-retention-paths-table` plan, which had reported it was stalled waiting on #284's `listRetentionPaths` host API; that plan is now ready to re-promote. The kriskowal/garden issue #10 job closed out, and the scholar's first erights.org HTML ingest landed (part 2 is now in progress). A GitHub Pages bulletin build (with client-side maintainer reply) was claimed and is underway, alongside the comment-source fix to poll reviews on *all* open PRs and the erights ingest continuation.
-
-Worth the maintainer's eye: the queue is drained to zero open `todo` jobs, and several messages await reply — most notably the liaison's hold on continuing the kriskowal/garden issue #9 investigation pending a scope decision, and the scholar's note that the grant-matcher-puzzle and other erights-sourced concepts remain source-deferred until erights.org is reachable.
+The comment-source review poll across all open PRs [completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-source-poll-reviews-on-all-open-prs.md), closing out the surveillance-enumeration concern about default list caps dropping trusted reviews. [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) — the long-stalled `listRetentionPaths` host API the maintainer had asked to rebase-and-re-gamut back in May — was refreshed; that directly unblocks the parked `formula-inspector-retention-paths-table` plan, whose gardener has filed a maintainer message recommending #284 land first. The scholar shelf grew substantially: the first erights.org HTML ingest landed (part 2 in flight), alongside a sixth MetaMask/ocap-kernel ingest of the 689-line host-app kernel guide and a distributed-ocap concept cluster synthesizing three-party handoff, sturdyrefs, and confinement — with the grant-matcher-puzzle source still deferred while erights.org is unreachable. Two items want maintainer eyes: the #284-blocked inspector message above, and a liaison follow-up asking whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of scope.
 
 ## Parked for maintainer feedback
 
@@ -102,18 +98,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-github-pages-bulletin`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-github-pages-bulletin.md) — Build: GitHub Pages bulletin with client-side maintainer reply
-- [`comment-source-poll-reviews-on-all-open-prs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-source-poll-reviews-on-all-open-prs.md) — comment-source-gh.sh: poll reviews on ALL open PRs, not just the gh-pr-list d...
 - [`scholar-ingest-erights-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-2.md) — Scholar: ingest the remaining erights.org HTML pages (erights ingest, part 2)
 
-### tada (503)
+### tada (504)
+- [`comment-source-poll-reviews-on-all-open-prs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-source-poll-reviews-on-all-open-prs.md) — Completion report: comment-source-poll-reviews-on-all-open-prs
 - [`endojs-endo-but-for-bots-pr284-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr284-refresh.md) — Done. Completion report:
 - [`issue-kriskowal-garden-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-10.md) — Completion report — issue-kriskowal-garden-10
 - [`scholar-ingest-erights`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights.md) — scholar-ingest-erights — completion report
 - [`scholar-library-cycle-20260628-153502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-153502.md) — Scholar library cycle — scholar-library-cycle-20260628-153502
-- [`improve-link-check-suggest-source-page-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-link-check-suggest-source-page-target.md) — Done. Completion report follows.
-- … and 498 more
+- … and 499 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
