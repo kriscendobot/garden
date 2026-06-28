@@ -1,0 +1,23 @@
+[Unit]
+Description=Garden library-link-scan (tip-synced section-link-integrity scan of the reference library's navigation surfaces; posts a scholar-fix job per dangle)
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN
+# exit, not a failure. The self-heal wrapper already normalizes 143/130 to 0;
+# this is the belt-and-suspenders so any future bypass of the wrapper still
+# doesn't mark a SIGTERM stop as Failed. 75 is EX_TEMPFAIL — a transient
+# tip-sync connectivity outage that cleanly skips the tick, never a failure.
+SuccessExitStatus=143 130 75 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# --actuate is the ACTUATING shape: on a dangle it POSTS a scholar-fix job and
+# exits 0, so a tick that finds breakage creates WORK rather than marking the
+# unit Failed (which is the diagnostic-only default exit's behavior, reserved for
+# the in-context callers). The raw nonzero exit stays available to those callers
+# via the default --nav / --exists / -- modes. See library-link-scan.sh's header.
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-library-link-scan --expect 75 -- @GARDEN_ROOT@/scripts/jobs/library-link-scan.sh --actuate
+# The self-heal responder runs synchronously on a failed tick before the
+# wrapper returns the failing rc; give it headroom beyond the implicit 90s
+# oneshot start timeout so a diagnosis is not cut off (responder itself is
+# hard-bounded by SELF_HEAL_RESPONDER_TIMEOUT).
+TimeoutStartSec=900

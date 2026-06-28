@@ -1,0 +1,21 @@
+[Unit]
+Description=Garden library-link-scan timer
+
+[Timer]
+# Absolute wall-clock schedule (minute :22 every hour), NOT a relative
+# OnActiveSec/OnUnitActiveSec pair. A relative first-elapse window larger than the
+# fleet's ~1-minute daemon-reload cadence (repo-watcher reloads every tick, plus
+# install-units) is re-armed before it can elapse, so the first run is deferred
+# indefinitely and the service never fires (the defect the source-drift timer's
+# comment records). A realtime OnCalendar anchor is immune to daemon-reload churn,
+# and Persistent=true catches up a run missed across downtime. The :22 minute is a
+# distinct offset from the sibling source-drift scan (:07) so the two tip-syncing
+# library scans never contend on the same minute. Link integrity is not urgent, so
+# the hourly cadence is ample. (`*:22`, not `*:22/60`: a step of 60 on the 0-59
+# minute field is rejected by systemd; bare `*:22` is the valid spelling of
+# "minute 22 of every hour".)
+OnCalendar=*:22
+Persistent=true
+
+[Install]
+WantedBy=timers.target

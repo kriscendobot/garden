@@ -71,10 +71,15 @@ origin_add() {  # origin_add <relpath> <content> <msg>
 run_scan() {  # run_scan [args...] ; fills $OUT, $RC
   OUT="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
              GARDEN_STATE="$STATE" GARDEN_ROOT="$TR" \
+             GARDEN_HOST=test-host GARDEN_NO_MAINTAINER_ALERT=1 \
              GARDEN_LIBCHECK_CLONE="$STATE/libcheck/journal" \
+             GARDEN_PRODUCER_CLONE="$STATE/producer/journal" \
              bash "$SCAN" "$@" 2>&1)"
   RC=$?
 }
+
+# Read the committed jobs/todo set from the board origin (post-job pushed there).
+board_todo() { git -C "$BARE" ls-tree -r --name-only journal2 -- jobs/todo 2>/dev/null; }
 
 # ============================================================================
 hr; echo "STATIC — the wrapper parses (bash -n)"; hr
@@ -114,6 +119,70 @@ run_scan --exists library/sections/proj--doc--core.md
 [ "$RC" = 0 ] && ok "--exists accepts a leading library/ prefix" || bad "--exists rejected library/ prefix"
 run_scan --exists sections/does-not-exist.md
 [ "$RC" = 1 ] && ok "--exists exit 1 for an absent target" || bad "--exists exit $RC for absent (want 1)"
+
+# ============================================================================
+hr; echo "--actuate — on a dangle, posts ONE scholar-fix job and exits 0"; hr
+# Fresh fixture re-plants the dangling ghost link. The ACTUATING shape must NOT
+# leave the unit Failed: it posts a remediation job and exits 0.
+setup_fixture
+run_scan --actuate
+[ "$RC" = 0 ] && ok "actuate exits 0 even with a dangle (unit stays Healthy)" || bad "actuate exit $RC (want 0): $OUT"
+posted="$(board_todo | grep -F scholar-fix-dangling-nav-links || true)"
+[ -n "$posted" ] && ok "posted a scholar-fix-dangling-nav-links job" || bad "no fix job posted: $(board_todo)"
+# The job body names the dangling target.
+job_path="$(board_todo | grep -F scholar-fix-dangling-nav-links | head -1)"
+git -C "$BARE" show "journal2:$job_path" 2>/dev/null | grep -qF "proj--doc--ghost.md" \
+  && ok "fix job body names the dangling target" || bad "fix job body omits the target"
+
+# ============================================================================
+hr; echo "--actuate IDEMPOTENT — same dangle-set re-run posts nothing new"; hr
+before="$(board_todo | grep -c scholar-fix-dangling-nav-links || true)"
+run_scan --actuate
+after="$(board_todo | grep -c scholar-fix-dangling-nav-links || true)"
+[ "$RC" = 0 ] && [ "$before" = "$after" ] && ok "no duplicate fix job on re-run ($before == $after)" || bad "duplicated fix job ($before -> $after, rc=$RC)"
+
+# ============================================================================
+hr; echo "--actuate CLEAN — no dangle posts nothing and exits 0"; hr
+origin_add library/sections/proj--doc--ghost.md \
+"---
+title: ghost no more
+---
+A peer ingested this." "peer ingests the ghost section"
+# A clean tip posts no NEW job; the prior fix job from the dangling era may remain
+# on the board, so assert the COUNT does not grow rather than that it is zero.
+clean_before="$(board_todo | grep -c scholar-fix-dangling-nav-links || true)"
+run_scan --actuate
+clean_after="$(board_todo | grep -c scholar-fix-dangling-nav-links || true)"
+[ "$RC" = 0 ] && ok "actuate exits 0 on a clean tip" || bad "actuate clean exit $RC (want 0): $OUT"
+[ "$clean_before" = "$clean_after" ] && ok "clean tip posts no new fix job" || bad "posted on a clean tip ($clean_before -> $clean_after)"
+
+# ============================================================================
+hr; echo "--actuate --dry-run — reports a dangle, exits 1, posts nothing"; hr
+setup_fixture
+dry_before="$(board_todo | grep -c scholar-fix-dangling-nav-links || true)"
+run_scan --actuate --dry-run
+dry_after="$(board_todo | grep -c scholar-fix-dangling-nav-links || true)"
+[ "$RC" = 1 ] && ok "actuate --dry-run exits 1 when a dangle exists" || bad "dry-run exit $RC (want 1)"
+[ "$dry_before" = "$dry_after" ] && ok "dry-run posted nothing" || bad "dry-run posted a job ($dry_before -> $dry_after)"
+
+# ============================================================================
+hr; echo "UNIT-RENDER — the link-scan service/timer pair is well-formed and discoverable"; hr
+SYSD="$(cd "$HERE/../../systemd" && pwd)"
+SVC="$SYSD/garden-library-link-scan.service"
+TMR="$SYSD/garden-library-link-scan.timer"
+[ -f "$SVC" ] && ok "garden-library-link-scan.service exists" || bad "service unit missing"
+[ -f "$TMR" ] && ok "garden-library-link-scan.timer exists" || bad "timer unit missing"
+grep -q 'self-heal-run.sh garden-library-link-scan' "$SVC" \
+  && ok "service wraps the scan in self-heal-run.sh" || bad "service not self-heal-wrapped"
+grep -q 'library-link-scan.sh --actuate' "$SVC" \
+  && ok "service invokes the ACTUATING --actuate mode" || bad "service does not use --actuate"
+grep -q -- '--expect 75' "$SVC" \
+  && ok "service treats EX_TEMPFAIL (75) as clean" || bad "service missing --expect 75"
+grep -q '^OnCalendar=\*:22' "$TMR" \
+  && ok "timer fires at the distinct :22 offset (drift uses :07)" || bad "timer OnCalendar offset wrong"
+grep -q '^Persistent=true' "$TMR" && ok "timer is Persistent" || bad "timer not Persistent"
+grep -q '^WantedBy=timers.target' "$TMR" \
+  && ok "timer is WantedBy=timers.target (auto-enabled by install-units derive)" || bad "timer missing WantedBy"
 
 # ============================================================================
 hr
