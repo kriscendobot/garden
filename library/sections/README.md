@@ -7597,7 +7597,11 @@ Total section files: 5836 (506 parent indexes + 5330 children).
   - [See also](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--see-also.md)
   - [Translation block (paper idiom → contemporary Endo / Agoric surface)](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--translation-block-paper-idiom-contemporary-endo-agoric-surface.md)
 
-### papers--stiegler-karp-yee-miller-polaris-2004
+### papers--stiegler-karp-yee-miller-polaris-2004 (superseded — duplicate of papers--stiegler-polaris-virus-safe-computing-2004)
+
+Duplicate ingest of the same report (HPL-2004-221, identical sha256 `6c95faf1`).
+These four sections are retained `status: superseded`; see the canonical
+`papers--stiegler-polaris-virus-safe-computing-2004` block.
 
 - [Abstract and the excess-authority problem](papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem.md)
 - [Using and polarizing an application: designation as authorization, the PowerBox, Pets, visual cues](papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application.md)
