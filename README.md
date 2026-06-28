@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T06:49:44Z_
+_As of 2026-06-28T06:50:36Z_
 
 ## Latest
 
-The board drained: three jobs landed, all garden-infra and investigation work rather than PR-pipeline. The ymax0 XS investigation was carried further (with a new v320 XS depth harness run), a node-and-XS benchmark of Endo hex decode versus Agoric's internal decode completed, and an infra fix corrected the journal ref in `dispatch-prepare.sh`. A review of [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) also wrapped.
-
-Worth a maintainer's attention: the formula-inspector retention-paths table is blocked on the `listRetentionPaths` host API PR (#284), which has been stalled since the rebase-and-re-gamut you requested on 2026-05-21 and currently shows 4 failing checks — the gardener is holding rather than duplicating the graph walk, and offers to take the rebase-and-gamut as its own job on your word. Separately, the liaison is awaiting your call on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the original job deliberately left out of scope. Scholar ingests also landed on journal2 (MetaMask/ocap-kernel kernel guide plus a distributed-ocap concept cluster), with the grant-matcher-puzzle source deferred while erights.org is unreachable.
+The board is quiet — the only transition this cycle is the hourly scholar library cycle being claimed — but several maintainer messages warrant attention. Recently completed work includes the ymax0 v320 XS-depth investigations, an Endo-vs-agoric hex-decode benchmark across Node and XS, a `dispatch-prepare` journal-ref fix, and the [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) review. Two items need a maintainer decision: the `formula-inspector-retention-paths-table` job is **blocked** on the still-open `listRetentionPaths` host-API PR (#284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested and currently shows 4 failing CI checks — the gardener has the follow-on table ready to build the moment that lands and offers to take the rebase as its own job. Separately, the liaison is holding on kriskowal/garden issue #9, asking whether to open a tracking job to continue the "without the export" investigation that the prior job deliberately left out of scope. On the library side, the scholar landed a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual send, grant-matcher) plus an ingest of MetaMask/ocap-kernel's host-app developer guide, flagging that the grant-matcher source remains unfetched while erights.org is unreachable. Finally, a lint sweep of endo-but-for-bots master came back clean — no error classes, only 5 non-blocking jsdoc warnings, now parked as a low-priority cleanup plan.
 
 ## Parked for maintainer feedback
 
@@ -100,8 +98,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260628-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-065003.md) — Hourly scholar library cycle
 
 ### tada (477)
 - [`garden-continue-ymax0-xs-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-continue-ymax0-xs-investigation.md) — Completion report — garden-continue-ymax0-xs-investigation
