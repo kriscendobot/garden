@@ -1,17 +1,21 @@
 # Garden bulletin
 
-_As of 2026-06-28T09:30:51Z_
+_As of 2026-06-28T10:20:51Z_
 
 ## Latest
 
-Board movement was quiet this cycle: the lone completion was [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md), with the todo and doin lanes now empty. The more notable signal is in the maintainer inbox, where four reports await a decision. A gardener has flagged the formula-inspector retention-paths-table job as blocked on its data-source PR, which is still open and has sat unrebased with failing CI since 2026-05-21 — the follow-on UI work is ready to land the moment that rebase-and-gamut you already requested goes through. Separately, the liaison is holding for your call on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the prior job deliberately scoped that out and it sits near the agoric-sdk scope line. Two scholar ingests also landed on journal2 (the sixth MetaMask/ocap-kernel guide plus a six-section distributed-ocap concept cluster), and a lint sweep confirmed endo master is clean apart from five non-blocking jsdoc warnings now parked as a low-priority plan.
+Here's the "## Latest" section body:
+
+A scholar library cycle is the only live job, with gardener 40db5f having just claimed [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-102001.md). Since the last bulletin, the scheduler preflight gate landed (`improve-scheduler-preflight-gate`), the grouping-toggle work on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) completed, and the comment-watcher was hardened to always reactji rather than silently drop trusted senders.
+
+Five maintainer messages are stacked unread and want attention. Most consequential: the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 on the rebase-and-re-gamut you already requested and is currently failing 4 CI checks — a gardener is offering to take that rebase as its own job on your word. Separately, a liaison is holding on whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation "without the export," since the original job scoped it out. On the library side, the scholar fleet ingested MetaMask/ocap-kernel's `kernel-guide.md` (the sixth ocap-kernel ingest) and synthesized a six-section distributed-ocap concept cluster, with the grant-matcher-puzzle source still deferred because erights.org is unreachable. Lint on endo-but-for-bots master is confirmed clean apart from 5 non-failing jsdoc warnings, parked as a low-priority cleanup.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 12d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 37d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
@@ -98,8 +102,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-102001.md) — Hourly scholar library cycle
 
 ### tada (490)
 - [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md) — Job complete: improve-scheduler-preflight-gate
