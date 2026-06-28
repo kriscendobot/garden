@@ -56,9 +56,9 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # transient gh failure on one endpoint without aborting the others; a truly missing
 # jq can no longer reach here (require_tools above dies first).
 #
-# EXCEPTION — section 3's STRUCTURAL gh calls (`gh pr list` and the `rids=` review-
-# id `gh api`) do NOT use `2>/dev/null`. Unlike the per-endpoint fetches in 1–2, a
-# failure here aborts the open-PR walk; blinding it (a rate-limit / network / auth
+# EXCEPTION — section 3's STRUCTURAL gh calls (the paginated open-PR list and the
+# `rids=` review-id `gh api`) do NOT use `2>/dev/null`. Unlike the per-endpoint
+# fetches in 1–2, a failure here aborts the open-PR walk; blinding it (a rate-limit / network / auth
 # blip) produced an EMPTY self-heal blob — one FATAL line, no `  source:` context
 # (blob d65a4f0a). Their stderr is captured to a buffer that is echoed to fd 2 ONLY
 # on failure (so a genuine gh fault reaches the watcher's ERRF), and the failure is
@@ -100,29 +100,62 @@ gh api --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>/dev/
 #    maintainer approval and dispatch the finalization-to-merge (the gap behind
 #    endo-but-for-bots #528: APPROVED + MERGEABLE + asks done, but left DRAFT
 #    because nothing surfaced the approval).
+# Enumerate ALL open PRs, not gh's default page. `gh pr list` (no --limit) returns
+# only the 30 most-recent-by-number open PRs (via the search API), so a review-only
+# directive on an OLDER open PR is never polled — the #284 blindness: kriskowal's
+# COMMENTED "Please refresh." review on endo-but-for-bots #284 slid past unseen
+# because #284 sat below the 30-PR cutoff (the repo had 169 open PRs down to #57).
+# The authoritative paginated REST list returns every open PR. We request it sorted
+# by most-recent activity (sort=updated&direction=desc) and STOP once a PR's
+# updated_at is older than the cursor `since`: a PR with a review/comment submitted
+# since the cursor necessarily has a fresh updated_at, so every PR that could carry
+# new work sits at the top of the list. This bounds per-tick work to recently-active
+# PRs while still catching every PR with new activity (incl. the #284 case, whose
+# updated_at jumped when the review landed) — no silent default-page truncation.
+#
+# The list is captured to a variable FIRST (rather than piped straight into the
+# while-loop) so the activity-bound early-stop is a plain bash `break` and never
+# SIGPIPEs the paginating gh, which would otherwise trip pipefail and spuriously
+# echo the structural-call stderr buffer on a clean early-stop.
+#
 # Capture buffers for the structural gh calls' stderr (see Stderr policy EXCEPTION
 # above): echoed to fd 2 only when the call fails, so a real fault reaches ERRF
 # while a clean run stays quiet.
 prlist_err="$(mktemp)"; rids_err="$(mktemp)"
-gh pr list -R "$repo" --state open --json number --jq '.[].number' 2>"$prlist_err" \
-  | while read -r n; do
-      [ -n "$n" ] || continue
-      # Review ids that carry at least one inline comment on this PR. A
-      # space-delimited string so the reviews jq below can membership-test it.
-      : >"$rids_err"
-      rids="$(gh api --paginate "repos/$repo/pulls/$n/comments?per_page=100" 2>"$rids_err" \
-              | jq -r '.[] | (.pull_request_review_id // empty) | tostring' \
-              | sort -u | tr '\n' ' ')" || { rids=""; cat "$rids_err" >&2; }
-      gh api "repos/$repo/pulls/$n/reviews" 2>/dev/null \
-        | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " '
-            .[] | select((.submitted_at // "") >= $s)
-            | (.id|tostring) as $rid
-            | ($rids | contains(" " + $rid + " ")) as $inline
-            | select(((.body // "") != "") or $inline or (.state=="APPROVED"))
-            | [ .submitted_at, "pr-review-body", $rid, $n, .user.login, .html_url,
-                ( (if $inline then "[INLINE-REVIEW] " else "" end)
-                + (if .state=="CHANGES_REQUESTED" then "[CHANGES_REQUESTED] " else "" end)
-                + (if .state=="APPROVED" then "[APPROVED] " else "" end)
-                + ((.body // "") | gsub("[\t\r\n]+"; " ")) ) ] | @tsv' || true
-    done || { cat "$prlist_err" >&2; true; }
+open_prs="$(gh api --paginate \
+    "repos/$repo/pulls?state=open&sort=updated&direction=desc&per_page=100" \
+    2>"$prlist_err" \
+    | jq -r '.[] | [(.number|tostring), (.updated_at // "")] | @tsv')" \
+  || { cat "$prlist_err" >&2; open_prs=""; }
+
+scanned=0; total=0
+while IFS=$'\t' read -r n updated; do
+  [ -n "$n" ] || continue
+  total=$((total+1))
+  # Activity bound: the list is newest-activity-first, so once a PR's updated_at
+  # predates the cursor, every remaining PR is older too and none can carry a
+  # review/comment submitted since `since`. Stop scanning here.
+  if [ -n "$updated" ] && [ "$updated" \< "$since" ]; then break; fi
+  scanned=$((scanned+1))
+  # Review ids that carry at least one inline comment on this PR. A
+  # space-delimited string so the reviews jq below can membership-test it.
+  : >"$rids_err"
+  rids="$(gh api --paginate "repos/$repo/pulls/$n/comments?per_page=100" 2>"$rids_err" \
+          | jq -r '.[] | (.pull_request_review_id // empty) | tostring' \
+          | sort -u | tr '\n' ' ')" || { rids=""; cat "$rids_err" >&2; }
+  gh api "repos/$repo/pulls/$n/reviews" 2>/dev/null \
+    | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " '
+        .[] | select((.submitted_at // "") >= $s)
+        | (.id|tostring) as $rid
+        | ($rids | contains(" " + $rid + " ")) as $inline
+        | select(((.body // "") != "") or $inline or (.state=="APPROVED"))
+        | [ .submitted_at, "pr-review-body", $rid, $n, .user.login, .html_url,
+            ( (if $inline then "[INLINE-REVIEW] " else "" end)
+            + (if .state=="CHANGES_REQUESTED" then "[CHANGES_REQUESTED] " else "" end)
+            + (if .state=="APPROVED" then "[APPROVED] " else "" end)
+            + ((.body // "") | gsub("[\t\r\n]+"; " ")) ) ] | @tsv' || true
+done <<< "$open_prs"
+# No silent caps: record how many open PRs were polled vs how many the activity
+# bound skipped (info-level stderr; the watcher ignores a 0-exit source's stderr).
+log "polled $scanned of $total open PR(s) on $repo (activity-bounded at since=$since)"
 rm -f "$prlist_err" "$rids_err"

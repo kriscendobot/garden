@@ -445,6 +445,14 @@ run_directive "$TR/state-p" "$BARE_P" "$FIX_P" "$RLOG_P"
 # review with no inline comments. A compact gh stub answers the four endpoints the
 # handler hits; the REAL jq processes the JSON.
 hr; echo "Q — comment-source-gh.sh surfaces empty-body inline-bearing reviews"; hr
+# The handler clamps `since` to a 24h floor, so the SOURCE-level tests (Q/Z/EE)
+# must use timestamps RELATIVE TO NOW or they rot the moment "today" drifts >24h
+# past a hardcoded fixture date (the latent failure these three used to ship).
+# REV_TS — a review/activity time inside the window; SINCE_TS — the cursor (older);
+# OLD_TS — well before the window, to exercise the activity-bound early-stop.
+REV_TS="$(date -u -d '-1 hour'  +%FT%TZ)"
+SINCE_TS="$(date -u -d '-3 hours' +%FT%TZ)"
+OLD_TS="$(date -u -d '-30 days' +%FT%TZ)"
 command -v jq >/dev/null 2>&1 && have_jq_q=1 || have_jq_q=0
 if [ "$have_jq_q" -eq 0 ]; then
   echo "  SKIP: no jq on host"
@@ -454,22 +462,25 @@ else
 #!/bin/bash
 # minimal gh stub for the comment-source review-surfacing test. Recognizes the
 # four call shapes comment-source-gh.sh makes; everything else → empty array.
-args="$*"
+# TS (review/activity time, inside the 24h window) is injected via the environment
+# so the fixture never rots against the handler's floor clamp.
+args="$*"; ts="${TS:?TS must be set}"
 case "$args" in
-  "pr list"*"--json number"*)   printf '4\n'; exit 0;;          # one open PR: #4
+  *"/pulls?state=open"*)         # authoritative paginated open-PR list: one PR, #4
+    printf '[{"number":4,"updated_at":"%s"}]\n' "$ts"; exit 0;;
   *"/issues/comments"*)          printf '[]\n'; exit 0;;
   *"/pulls/comments"*)           printf '[]\n'; exit 0;;        # repo-wide inline feed (unused here)
   *"/pulls/4/comments"*)         # inline comments on #4: two tied to review 9001, none to 9002
     printf '%s\n' '[{"pull_request_review_id":9001},{"pull_request_review_id":9001}]'; exit 0;;
   *"/pulls/4/reviews"*)          # one inline-bearing empty-body review, one empty no-inline review
-    printf '%s\n' '[{"id":9001,"state":"COMMENTED","body":"","submitted_at":"2026-06-25T13:00:00Z","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9001"},{"id":9002,"state":"COMMENTED","body":"","submitted_at":"2026-06-25T13:00:00Z","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9002"}]'; exit 0;;
+    printf '[{"id":9001,"state":"COMMENTED","body":"","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9001"},{"id":9002,"state":"COMMENTED","body":"","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9002"}]\n' "$ts" "$ts"; exit 0;;
 esac
 printf '[]\n'; exit 0
 EOF
   chmod +x "$GHQ/gh"
   Q_OUT="$TR/q.out"
-  env PATH="$GHQ:$PATH" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-q" \
-    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots 2026-06-25T00:00:00Z kriscendobot \
+  env PATH="$GHQ:$PATH" TS="$REV_TS" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-q" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
     > "$Q_OUT" 2>/dev/null || true
   grep -q $'\t9001\t' "$Q_OUT" && grep -q 'INLINE-REVIEW' "$Q_OUT" \
     && ok "inline-bearing empty-body review 9001 surfaced with [INLINE-REVIEW]" \
@@ -645,21 +656,22 @@ else
 #!/bin/bash
 # minimal gh stub: PR #7 has one empty-body APPROVED review (id 7001, no inline)
 # and one empty-body COMMENTED review (id 7002, no inline → must stay dropped).
-args="$*"
+# TS (inside the 24h window) injected via the environment so it never rots.
+args="$*"; ts="${TS:?TS must be set}"
 case "$args" in
-  "pr list"*"--json number"*)   printf '7\n'; exit 0;;
+  *"/pulls?state=open"*)         printf '[{"number":7,"updated_at":"%s"}]\n' "$ts"; exit 0;;
   *"/issues/comments"*)          printf '[]\n'; exit 0;;
   *"/pulls/comments"*)           printf '[]\n'; exit 0;;
   *"/pulls/7/comments"*)         printf '[]\n'; exit 0;;     # no inline comments at all
   *"/pulls/7/reviews"*)
-    printf '%s\n' '[{"id":7001,"state":"APPROVED","body":"","submitted_at":"2026-06-25T19:00:00Z","user":{"login":"kriskowal"},"html_url":"https://x/pull/7#r7001"},{"id":7002,"state":"COMMENTED","body":"","submitted_at":"2026-06-25T19:00:00Z","user":{"login":"kriskowal"},"html_url":"https://x/pull/7#r7002"}]'; exit 0;;
+    printf '[{"id":7001,"state":"APPROVED","body":"","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/7#r7001"},{"id":7002,"state":"COMMENTED","body":"","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/7#r7002"}]\n' "$ts" "$ts"; exit 0;;
 esac
 printf '[]\n'; exit 0
 EOF
   chmod +x "$GHZ/gh"
   Z_OUT="$TR/z.out"
-  env PATH="$GHZ:$PATH" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-z" \
-    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots 2026-06-25T00:00:00Z kriscendobot \
+  env PATH="$GHZ:$PATH" TS="$REV_TS" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-z" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
     > "$Z_OUT" 2>/dev/null || true
   grep -q $'\t7001\t' "$Z_OUT" && grep -q 'APPROVED' "$Z_OUT" \
     && ok "empty-body APPROVED review 7001 surfaced with [APPROVED]" \
@@ -744,6 +756,62 @@ printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   'Please rebase #475' > "$FIX_DD"
 run_mentiononly "$TR/state-dd" "$BARE_DD" "$FIX_DD" "$RLOG_DD"
 board_has "$BARE_DD" "$SLUG-pr602-rebase" && bad "mixed-case listed author was not matched (dispatched)" || ok "mixed-case author matched case-insensitively (dropped)"
+
+# ============================================================================
+# EE — SOURCE-level: comment-source-gh.sh must enumerate ALL open PRs (paginated
+# REST), not gh's default 30. Regression-pins endo-but-for-bots #284: a trusted
+# COMMENTED body-only review ("Please refresh.") on an OPEN PR that sits BELOW the
+# 30-most-recent-by-number cutoff was never surfaced by the old `gh pr list`. The
+# stub returns >30 open PRs sorted by activity (updated desc) with #284 carrying a
+# FRESH updated_at at the TOP (its review just landed) and a long tail of PRs older
+# than the cursor (to exercise the activity-bound early-stop). Assert the source
+# EMITS a pr-review-body row for #284 and that the early-stop still reaches it.
+hr; echo "EE — comment-source enumerates ALL open PRs (paginated), surfaces a review on an old PR (#284)"; hr
+command -v jq >/dev/null 2>&1 && have_jq_ee=1 || have_jq_ee=0
+if [ "$have_jq_ee" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHEE="$TR/gh-ee"; mkdir -p "$GHEE"
+  cat > "$GHEE/gh" <<'EOF'
+#!/bin/bash
+# >30 open PRs, sorted by activity (updated desc). #284 is FRESH (top of the list,
+# updated_at = TS inside the window) though its number is low; a long tail of
+# high-numbered PRs is OLDER (updated_at = OLD, predating the cursor) so the
+# activity bound early-stops past them. Only #284 carries a review since the
+# cursor; the older tail must never be polled for it to be found — proving
+# enumeration is by activity across ALL open PRs, not number. TS/OLD via env so
+# the fixture never rots against the handler's 24h floor clamp.
+args="$*"; ts="${TS:?TS must be set}"; old="${OLD:?OLD must be set}"
+case "$args" in
+  *"/pulls?state=open"*)
+    # #284 fresh at the top, then 40 older PRs (#460..#421) predating the cursor.
+    { printf '[{"number":284,"updated_at":"%s"}' "$ts"
+      for i in $(seq 460 -1 421); do printf ',{"number":%s,"updated_at":"%s"}' "$i" "$old"; done
+      printf ']\n'; }
+    exit 0;;
+  *"/pulls/284/comments"*)       printf '[]\n'; exit 0;;     # body-only review, no inline
+  *"/pulls/284/reviews"*)        # the missed #284 review: trusted COMMENTED body-only
+    printf '[{"id":4587189118,"state":"COMMENTED","body":"Please refresh.","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/284#r4587189118"}]\n' "$ts"; exit 0;;
+  *"/issues/comments"*)          printf '[]\n'; exit 0;;
+  *"/pulls/comments"*)           printf '[]\n'; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHEE/gh"
+  EE_OUT="$TR/ee.out"; EE_ERR="$TR/ee.err"
+  env PATH="$GHEE:$PATH" TS="$REV_TS" OLD="$OLD_TS" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-ee" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > "$EE_OUT" 2> "$EE_ERR" || true
+  grep -q $'\t284\t' "$EE_OUT" && grep -q 'Please refresh.' "$EE_OUT" \
+    && ok "review on the low-numbered, recently-active PR #284 is surfaced (no default-30 blindness)" \
+    || bad "#284 review not surfaced (out: $(cat "$EE_OUT"))"
+  grep -q $'\tpr-review-body\t4587189118\t284\t' "$EE_OUT" \
+    && ok "the #284 row is a pr-review-body keyed on the review id 4587189118" \
+    || bad "#284 pr-review-body row malformed (out: $(cat "$EE_OUT"))"
+  grep -qi 'polled .* open PR' "$EE_ERR" \
+    && ok "the activity-bound scan logs how many open PRs it polled (no silent cap)" \
+    || bad "no scan-bound log line emitted (err: $(cat "$EE_ERR"))"
+fi
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
