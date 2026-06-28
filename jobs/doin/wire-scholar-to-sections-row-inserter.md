@@ -22,3 +22,9 @@ the journal2 branch and so must land via land-journal-edit.sh, not a main2 push:
 Acceptance: a scholar reading conventions.md is told to call the helper for
 Sections-table row insertion, and the headingless-see-also mis-placement cannot
 recur from the documented path.
+
+---
+claim:
+  host: endolinbot
+  gardener: 41
+  claimed_at: 2026-06-28T16:26:17Z
