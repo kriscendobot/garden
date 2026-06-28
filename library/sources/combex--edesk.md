@@ -14,7 +14,7 @@ status: current
 notes: |
   "E and CapDesk: POLA for the Distributed Desktop" — the canonical CapDesk
   primary document, cited as reference [7] by the Polaris HP Labs paper
-  (papers--stiegler-karp-yee-miller-polaris-2004) for the installation-endowment,
+  (papers--stiegler-polaris-virus-safe-computing-2004) for the installation-endowment,
   PowerBox, and designation-as-authorization ideas Polaris carried over to
   Windows XP. Fetched via the Internet Archive original-bytes capture
   (source_fetched_via=wayback) because combex.com is unreachable from the sandbox
@@ -32,6 +32,6 @@ notes: |
 
 ## See also
 
-- [papers--stiegler-karp-yee-miller-polaris-2004](papers--stiegler-karp-yee-miller-polaris-2004.md) — the Polaris paper, which cites this document (reference [7]) for the installation endowment, the PowerBox, and combining designation with authorization.
+- [papers--stiegler-polaris-virus-safe-computing-2004](papers--stiegler-polaris-virus-safe-computing-2004.md) — the Polaris paper, which cites this document (reference [7]) for the installation endowment, the PowerBox, and combining designation with authorization.
 - [combex--tech-index](combex--tech-index.md) — the Combex hub page that links this document.
 - [ocap-history--e-capdesk-polaris](ocap-history--e-capdesk-polaris.md) — secondary-source market-history survey companion.
