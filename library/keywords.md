@@ -13431,3 +13431,15 @@ the E language | (see source: erights--elang-index)
 Kernel-E | (see source: erights--elang-index)
 An Ode to the Granovetter Diagram | (see source: erights--elib-capability-ode-index; canonical paper papers--miller-morningstar-frantz-capability-based-financial-instruments-2000)
 Ode to the Granovetter Diagram | (see source: erights--elib-capability-ode-index)
+Kernel-E | kernel-e
+Kernel E | kernel-e
+Kernel-E expansion | kernel-e
+canonical expansion to Kernel-E | kernel-e
+E sugar expands to Kernel-E | kernel-e
+Kernel-E special forms | kernel-e
+E special forms eExpr | kernel-e
+meta-circular interpreter E reify eval absorb apply | kernel-e
+testMatch mustMatch E pattern matching | kernel-e
+`slotExpr` `sendExpr` `callExpr` Kernel-E | kernel-e
+E state-nouns object expression captured scope | kernel-e
+four indirections noun slot reference object E | kernel-e
