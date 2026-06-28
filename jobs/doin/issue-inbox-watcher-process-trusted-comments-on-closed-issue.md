@@ -45,3 +45,9 @@ stops proactive follow-up; assert any genuine drop logs a reason. Regression-pin
 ## Deliverable
 issue-inbox-watcher.sh processes trusted comments that post-date a close (and survive a reopen),
 never silently slides past a trusted comment, with tests pinning the no-missed-reply property.
+
+---
+claim:
+  host: endolinbot
+  gardener: 2
+  claimed_at: 2026-06-28T17:30:16Z
