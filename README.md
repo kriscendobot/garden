@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T18:08:22Z_
+_As of 2026-06-28T18:10:00Z_
 
 ## Latest
 
-Scholar ingestion remains the main current of work: `scholar-ingest-erights-9` completed and `scholar-ingest-erights-10` (the six ELib concurrency sub-hub child chapters) is now in flight, extending the object-capability library shelf the scholar has been building out. Infra completions also landed — `improve-regenerate-topics-counts`, `issue-inbox-watcher-reactji-acknowledge`, and `service-host-roles-singletons-on-main-host`.
-
-One item needs a maintainer decision: the liaison reports an **upgrade-ready** condition on `endolinbot` — the deployed root is lagging at `fe2d9f296` while `origin/main2` has advanced to `b9f0fd5b4` (it now carries `insert-sections-table-row.sh`, which a scholar cycle expected). The scholar fell back safely so output was unaffected, but a deliberate deploy (`scripts/jobs/deploy-garden.sh`) is awaiting your go-ahead. Separately, the dead-lettered `ingest-ocap-library-sections` was confirmed already-handled and closed. The plan queue still holds three items parked for authorization, including the XS-to-Rust port and the minion.town AWS deploy.
+The deployed root on endolinbot is lagging at `fe2d9f296` while `origin/main2` carries the conventions-named `insert-sections-table-row.sh` (`b9f0fd5b4`); the scholar's `scholar-ingest-erights-9` cycle hit the gap but fell back to whole-file landing, so output was unaffected — a deliberate-deploy decision is now [parked for the maintainer](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T175840Z-e1862f.md). The erights/ocap-library ingestion keeps rolling: `scholar-ingest-erights-9` completed, `scholar-ingest-erights-10` (six ELib concurrency child chapters) is in flight, and a dead-letter confirmed the erights→GitHub Pages mirror note is now enforced in both the always-read conventions doc and `fetch-source.sh`. Two fresh dead-lettered messages are being picked up, and infra completions landed (`improve-regenerate-topics-counts`, `issue-inbox-watcher-reactji-acknowledge`, `service-host-roles-singletons-on-main-host`). No PRs moved; 28 remain parked for kriskowal's review, the oldest-pressing being [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers, 10h) and [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 13d).
 
 ## Parked for maintainer feedback
 
@@ -45,7 +43,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`deadmail-20260628T180657Z-baff19`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T180657Z-baff19.md) — Dead-lettered message — pick up its intent
+- [`deadmail-20260628T180747Z-b1b988`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T180747Z-b1b988.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-erights-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-10.md) — Scholar: ingest the six ELib concurrency sub-hub child chapters (erights inge...
 
 ### tada (546)
