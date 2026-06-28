@@ -16,8 +16,8 @@ notes: >
   block, I/O is requested by send and delivered by notification (the InStream/OutStream
   model). One section captures the map and the two ingestable content children (Design
   Goals, Obtaining elements from an InStream; the API entry is external javadoc), which
-  are queued for ingest under scholar-ingest-erights-10. source_date is an era
-  approximation matching the sibling concurrency chapters.
+  are now ingested as their own sources (scholar-ingest-erights-10). source_date is an
+  era approximation matching the sibling concurrency chapters.
 ---
 
 **EIO** sub-hub under ELib — E's non-blocking I/O library, "you mean I can't block on
@@ -33,13 +33,16 @@ two content children are ingested separately.
 |---------|--------|--------|
 | [eio-non-blocking-io-map](../sections/erights--elib-concurrency-eio-index--eio-non-blocking-io-map.md) | e-language, eventual-send | current |
 
-## Child chapters (queued for scholar-ingest-erights-10)
+## Child chapters (ingested)
 
-| Child | URL | Verified |
-|-------|-----|----------|
-| Design Goals | `eio/goals.html` | reachable (title "EIO Design Goals", SHA `b8492e10dce4`) |
-| API | EIO package javadoc | external javadoc, not an ingestable HTML chapter |
-| Obtaining Elements from an InStream | `eio/obtaining.html` | reachable (title "Obtaining Elements from an InStream", SHA `5ffca11a5097`) |
+The two content children are ingested as their own sources; the API entry is external
+javadoc and is not ingestable as an HTML chapter.
+
+| Child | Source | URL |
+|-------|--------|-----|
+| Design Goals | [erights--elib-concurrency-eio-goals](erights--elib-concurrency-eio-goals.md) | `eio/goals.html` (SHA `b8492e10dce4`) |
+| API | (external javadoc, not ingested) | EIO package javadoc |
+| Obtaining Elements from an InStream | [erights--elib-concurrency-eio-obtaining](erights--elib-concurrency-eio-obtaining.md) | `eio/obtaining.html` (SHA `5ffca11a5097`) |
 
 ## Provenance
 
