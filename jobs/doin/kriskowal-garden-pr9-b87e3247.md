@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please also post a job to capture the debug instrumentation improvements to xsnap in forks of the relevant repositories.  
+
+---
+claim:
+  host: endolinbot
+  gardener: 66
+  claimed_at: 2026-06-28T01:50:14Z
