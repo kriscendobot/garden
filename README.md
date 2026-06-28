@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T06:27:38Z_
+_As of 2026-06-28T06:28:33Z_
 
 ## Latest
 
-Shepherd work on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) completed and the PR's inventory taxonomy reshape was implemented and pushed; both are now parked on CI convergence. A new benchmark job comparing `@endo/hex` against Agoric's internal hex-map decode (Node and XS) was claimed and is in flight, and the `comms-issue-pr-comments-not-maintainer-inbox` norm was encoded.
+The board has gone quiet — `todo` is empty and only two jobs are in flight, with the newest claim picking up the attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9). The more substantive movement is in the maintainer queue. The liaison is holding off on that #9 thread: the original job deliberately scoped out the issue's ask to "continue the investigation without the export," and because it brushes against the bot-fork-vs-upstream agoric-sdk scope line, it wants your call on whether to open a tracking job and what "without the export" should cover.
 
-A few maintainer-facing items accumulated in the inbox. A gardener reports the formula-inspector retention-paths table is blocked on #284 (the `listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and currently shows 4 failing checks — the follow-on is ready the moment #284 lands. A lint classification of endo-but-for-bots master came back clean: the CI gate is fully green, with only 5 non-failing jsdoc warnings (tracked by a low-priority plan). Scholar landed two ocap synthesis clusters — a sixth MetaMask/ocap-kernel doc ingest and six distributed-ocap library concepts (grant-matcher-puzzle flagged as sourceless since erights.org was unreachable). Finally, the liaison is holding rather than autonomously spawning a continuation of the kriskowal/garden issue #9 investigation, pending your call on the intended scope of "without the export."
+Two ingest reports landed on `journal2`: the sixth MetaMask/ocap-kernel ingest (the 689-line kernel-guide, plus a synthesizing ocap-kernel concept), and a six-section distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matching) — the grant-matcher page is flagged draft because erights.org was unreachable. A lint sweep found endo master clean: CI's `yarn lint` gate is fully green, with only five non-failing jsdoc warnings parked as a low-priority cleanup. Finally, the formula-inspector retention-paths-table job is blocked on its data source (a still-open, CI-failing host-API PR you'd asked to rebase and re-run back on 2026-05-21); the gardener has the follow-on ready and offered to take that rebase-and-gamut as a separate job on your word.
 
 ## Parked for maintainer feedback
 
@@ -100,8 +100,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`benchmark-endo-hex-vs-agoric-internal-decode-node-xs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/benchmark-endo-hex-vs-agoric-internal-decode-node-xs.md) — Benchmark @endo/hex vs the Agoric-internal hex Map accelerator decode (Node.j...
+- [`kriskowal-garden-pr9-166cb289`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-166cb289.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (466)
 - [`endojs-endo-but-for-bots-pr405-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-shepherd.md) — I'll continue when CI converges or the fallback fires.
