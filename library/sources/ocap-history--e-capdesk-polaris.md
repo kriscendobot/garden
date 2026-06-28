@@ -39,3 +39,4 @@ Survey of the E programming language, CapDesk, and Polaris as the canonical firs
 ## See also
 
 - [erights--elang-index](erights--elang-index.md) — the **primary** erights.org E-language documentation index (Mark S. Miller), fetched via the erights.github.io mirror. This survey is the secondary-source market-history companion to that primary page.
+- [papers--stiegler-polaris-virus-safe-computing-2004](papers--stiegler-polaris-virus-safe-computing-2004.md) — the **primary** HP Labs technical report (HPL-2004-221) behind this survey's Polaris narrative, ingested 2026-06-28. This survey remains the secondary-source market/adoption synthesis; the primary report supplies the technical mechanism (designation=authorization, PowerBox, Pets in restricted accounts, the permission-vs-authority distinction).
