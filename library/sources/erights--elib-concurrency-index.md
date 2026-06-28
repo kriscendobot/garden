@@ -14,9 +14,13 @@ notes: >
   Event Loop Concurrency (ELib) — the reference-level concurrency hub the elang
   tutorial's See-Also points at. A navigation hub (chapter map, no prose body);
   one map section captures the child-chapter list and the vat/turn/eventual-send
-  model. Child chapters (Why threads are evil, The Vat, Vat Turns, Four Layers of
-  When, EIO, ...) are queued for a later cycle. source_date is an era
-  approximation matching the sibling concurrency chapters.
+  model. The first five child chapters were ingested as their own sources in
+  scholar-ingest-erights-8 (Concurrency Overview / Why threads are evil; Event Loop
+  Philosophy; Semi-Transparency; The Vat; Distributed Queuing). The mechanics
+  chapters (Reference Mechanics, Message Passing, Vat Turns, Partial Ordering) and
+  the two sub-hubs (the Four Layers of When, EIO) remain queued in
+  scholar-ingest-erights-9. source_date is an era approximation matching the
+  sibling concurrency chapters.
 ---
 
 The **Event Loop Concurrency** chapter under ELib — the reference-level (not
