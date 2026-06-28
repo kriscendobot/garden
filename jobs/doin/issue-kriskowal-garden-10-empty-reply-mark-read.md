@@ -24,3 +24,9 @@ unread→read (commits the move) and shows no "write a reply first" error.
 
 Deliverable: docs/bulletin/ allows empty replies and moves the message unread→read on every
 ack/reply, pushed to main2, with a summary reply on issue #10.
+
+---
+claim:
+  host: endolinbot
+  gardener: 60
+  claimed_at: 2026-06-28T17:29:38Z
