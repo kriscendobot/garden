@@ -12,10 +12,15 @@ section_count: 1
 status: current
 notes: >
   A thin navigation HUB for E's guard mechanism (Soft Type Checking). Captured as
-  a single map section (no prose body of its own — only a child-chapter list). The
-  child chapters (Guarding Asynchrony, Guard Expression Style) are queued in
-  scholar-ingest-erights-3. E guards are the direct ancestor of Endo /
-  @endo/patterns guards and M.interface method guards.
+  a single map section (no prose body of its own — only a child-chapter list). Of
+  the two child chapters the hub's map promised, Guarding Asynchrony
+  (guarding/async.html) was ingested 2026-06-28 by scholar-ingest-erights-6 as the
+  source erights--elang-guarding-async (reference-state guards). The other,
+  Guard Expression Style (guarding/style.html), was never written: it 404s on the
+  erights.org GitHub Pages mirror and on the Internet Archive, so it is a dead
+  upstream link, not queued work. E guards are the direct ancestor of Endo /
+  @endo/patterns guards and M.interface method guards; the concept page is
+  concepts/e-guards.md.
 ---
 
 The **Soft Type Checking** hub — E's guards entry point. A **guard** is a
