@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5942 (525 parent indexes + 5417 children).
+Total section files: 5947 (525 parent indexes + 5422 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -6806,9 +6806,29 @@ Total section files: 5942 (525 parent indexes + 5417 children).
 
 - [erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol](erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol.md)
 
+### erights--elib-concurrency-event-loop
+
+- [erights--elib-concurrency-event-loop--plan-interference-and-deadlock-freedom](erights--elib-concurrency-event-loop--plan-interference-and-deadlock-freedom.md)
+
 ### erights--elib-concurrency-index
 
 - [erights--elib-concurrency-index--event-loop-reference-map](erights--elib-concurrency-index--event-loop-reference-map.md)
+
+### erights--elib-concurrency-overview
+
+- [erights--elib-concurrency-overview--why-threads-are-evil](erights--elib-concurrency-overview--why-threads-are-evil.md)
+
+### erights--elib-concurrency-queuing
+
+- [erights--elib-concurrency-queuing--the-stack-queue-L-and-eventual-send](erights--elib-concurrency-queuing--the-stack-queue-L-and-eventual-send.md)
+
+### erights--elib-concurrency-semi-transparent
+
+- [erights--elib-concurrency-semi-transparent--semi-transparent-networking](erights--elib-concurrency-semi-transparent--semi-transparent-networking.md)
+
+### erights--elib-concurrency-vat
+
+- [erights--elib-concurrency-vat--the-vat-heap-thread-queue](erights--elib-concurrency-vat--the-vat-heap-thread-queue.md)
 
 ### erights-org--elang-intro
 
