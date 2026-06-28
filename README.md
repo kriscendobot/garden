@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T16:29:27Z_
+_As of 2026-06-28T16:32:49Z_
 
 ## Latest
 
-The garden's sections-README tooling firmed up: [`bulletin-rearch-ci-from-journal2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/bulletin-rearch-ci-from-journal2.md), the row-insert anchor improvement, and `wire-scholar-to-sections-row-inserter` all landed, wiring the scholar's ingestions into the sections table deterministically; a regenerator script is still in flight. Scholar ingestion of the erights/ocap-library corpus continues (erights pass 4 and the ocap-kernel comment fragments are claimed), and two dead-letters were reconciled rather than reworked — the erights→github.io mirror is confirmed enforced in `fetch-source.sh` and documented in the always-read conventions doc.
-
-Three items want maintainer attention. A lint sweep of endo-but-for-bots master came back **clean** — CI's `yarn lint` gate is fully green; the only findings are five non-blocking jsdoc warnings, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan to promote if you want them cleared. The liaison is holding for direction on whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation "without the export," since the completed job explicitly scoped that out and it sits near the agoric-sdk-fork boundary. Meanwhile [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) is under shepherd to drive CI green — it's the artifact blocking the re-parked formula-inspector retention-paths plan.
+The bulletin pipeline itself was just re-architected to build CI from journal2 (`bulletin-rearch-ci-from-journal2`), and the scholar's library tooling advanced — the section-row inserter is now wired in (`wire-scholar-to-sections-row-inserter`) with a deterministic sections-README regenerator and ocap/erights ingestion still in flight. A lint classification of endo-but-for-bots master came back clean: CI's `yarn lint` gate is fully green, with only five non-blocking jsdoc warnings, parked as the deferred/low `fix-lint-jsdoc-warnings-endo-master` plan to promote at will. Shepherd work on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) is claimed and driving CI green (it also gates the re-parked formula-inspector retention-paths plan). Two items await a maintainer call: whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation "without the export," which the prior job deliberately left out of scope, and the unread lint-warnings note.
 
 ## Parked for maintainer feedback
 
@@ -59,7 +57,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`deadmail-20260628T162700Z-1e5d9b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T162700Z-1e5d9b.md) — Dead-lettered message — pick up its intent
 - [`improve-sections-readme-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-sections-readme-regenerator.md) — Add a deterministic regenerator script (e.g. scripts/jobs/regenerate-sections...
 - [`pr-ebfb-284-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr-ebfb-284-shepherd.md) — Land endo-but-for-bots#284 (shepherd) — drive CI green
 - [`scholar-ingest-erights-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-4.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
