@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T06:41:48Z_
+_As of 2026-06-28T06:44:13Z_
 
 ## Latest
 
-[endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) cleared its review and completed, the only PR to finish this cycle. Otherwise the board has gone quiet: todo is empty and four jobs are in flight — two threads continuing the ymax0 v320 XS stack-overflow investigation (now with a synthetic XS depth harness), the @endo/hex-vs-Agoric-internal-decode benchmark, and a freshly-claimed garden infra fix for the v1 `dispatch-prepare.sh` still pointing at the retired journal branch.
+The ymax0 v320 XS stack-overflow investigation closed out: [`investigate-ymax0-v320-xs-depth-harness`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-ymax0-v320-xs-depth-harness-20260628T0630Z.md) completed and its export-free, fork-authorized follow-on [`garden-continue-ymax0-xs-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-continue-ymax0-xs-investigation.md) is now in flight, alongside the [`@endo/hex` vs Agoric-internal decode benchmark](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/benchmark-endo-hex-vs-agoric-internal-decode-node-xs.md) and a fix to v1's broken `dispatch-prepare.sh` journal-branch reference. The board is otherwise drained (todo empty, three in progress).
 
-Worth a maintainer's eye: several blocking decisions are stacked in the inbox. The `formula-inspector-retention-paths-table` job is blocked on [endo#284](https://github.com/endojs/endo/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently shows failing CI — the gardener can take that rebase as its own job on your word. The liaison is also holding for direction on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," having deliberately left it out of scope. Two scholar ingests landed (MetaMask/ocap-kernel's host-app kernel guide and a six-topic distributed-ocap concept cluster), and a lint sweep confirms endo master is clean apart from five non-failing jsdoc warnings parked in `fix-lint-jsdoc-warnings-endo-master`.
+Two maintainer messages want eyes: the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API), which has stalled since 2026-05-21 on the requested rebase-and-re-gamut and currently shows 4 failing CI checks — the gardener can take that rebase as a separate job on your word. Separately, the liaison is holding for your direction on whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation "without the export," since the original job deliberately scoped that out. Scholar also landed two ocap library ingests (the sixth MetaMask/ocap-kernel guide and a six-section distributed-ocap concept cluster), and endo master lint classified clean — only 5 non-blocking jsdoc warnings parked as a low-priority fix.
 
 ## Parked for maintainer feedback
 
@@ -100,19 +100,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`benchmark-endo-hex-vs-agoric-internal-decode-node-xs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/benchmark-endo-hex-vs-agoric-internal-decode-node-xs.md) — Benchmark @endo/hex vs the Agoric-internal hex Map accelerator decode (Node.j...
 - [`garden-continue-ymax0-xs-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-continue-ymax0-xs-investigation.md) — continue the ymax0 v320 XS stack-overflow investigation (export-free, fork-au...
 - [`garden-fix-dispatch-prepare-journal-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-fix-dispatch-prepare-journal-ref.md) — Fix: v1 dispatch-prepare.sh references the retired journal branch (broken und...
-- [`investigate-ymax0-v320-xs-depth-harness-20260628T0630Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-ymax0-v320-xs-depth-harness-20260628T0630Z.md) — Continue ymax0 v320 XS investigation — synthetic XS depth harness (export-free)
 
-### tada (473)
+### tada (474)
+- [`investigate-ymax0-v320-xs-depth-harness-20260628T0630Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-ymax0-v320-xs-depth-harness-20260628T0630Z.md) — Completion report — investigate-ymax0-v320-xs-depth-harness
 - [`endojs-endo-but-for-bots-pr548-review-f652c6dd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-review-f652c6dd.md) — Completion report — endojs-endo-but-for-bots-pr548-review-f652c6dd
 - [`endojs-endo-but-for-bots-pr548-f2dcac0b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-f2dcac0b.md) — Completion report
 - [`garden-revise-agoric-fork-scope-instructions`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-revise-agoric-fork-scope-instructions.md) — Completion report: garden-revise-agoric-fork-scope-instructions
 - [`kriskowal-garden-pr9-151fa349`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-151fa349.md) — Completion report — kriskowal-garden-pr9-151fa349 (attention directive on gar...
-- [`deadmail-20260628T062702Z-eabeba`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T062702Z-eabeba.md) — Completion report — deadmail-20260628T062702Z-eabeba
-- … and 468 more
+- … and 469 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
