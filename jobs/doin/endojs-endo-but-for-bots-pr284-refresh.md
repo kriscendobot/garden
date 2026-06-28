@@ -18,3 +18,9 @@ handles the directive itself.
 
 Deliverable: #284 rebased/refreshed on current master, conflicts resolved, pushed, with a
 summary comment on the PR.
+
+---
+claim:
+  host: endolinbot
+  gardener: 40
+  claimed_at: 2026-06-28T15:52:00Z
