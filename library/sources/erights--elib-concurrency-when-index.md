@@ -17,8 +17,9 @@ notes: >
   observables, the When* reactors, the when-catch syntactic shorthand, joining
   multiple resolutions). The when-catch layer is the direct ancestor of
   `@endo/eventual-send`'s `E.when` / promise-reaction combinators. The four child
-  chapters are queued for ingest under scholar-ingest-erights-10. source_date is an
-  era approximation matching the sibling concurrency chapters.
+  chapters are now ingested as their own sources (scholar-ingest-erights-10), each an
+  unwritten upstream stub recorded for its place in the map and its Endo lineage.
+  source_date is an era approximation matching the sibling concurrency chapters.
 ---
 
 **The Four Layers of When** sub-hub under ELib — the mechanism for turning
@@ -36,14 +37,17 @@ chapters are ingested separately.
 |---------|--------|--------|
 | [four-layers-of-when-map](../sections/erights--elib-concurrency-when-index--four-layers-of-when-map.md) | e-language, eventual-send | current |
 
-## Child chapters (queued for scholar-ingest-erights-10)
+## Child chapters (ingested)
 
-| Child | URL | Verified |
-|-------|-----|----------|
-| 1. References as Observables | `when/ref-when.html` | reachable (title "1) References as Observables", SHA `d943520d3936`) |
-| 2. The When* Reactors | `when/when-reactors.html` | reachable (title "2) The When* Reactors", SHA `b39e64ddb55a`) |
-| 3. The when-catch Syntactic Shorthand | `when/when-catch.html` | reachable (title "3) The when-catch Syntactic Shorthand", SHA `6f664b3f644a`) |
-| 4. Joining Multiple Resolutions | `when/joiners.html` | reachable (title "4) Joining Multiple Resolutions", SHA `73d5b78c4795`) |
+Each child chapter is an unwritten upstream stub ("\*\*\* To be written"); its source
+records the layer's place in the four-layer map and its Endo lineage.
+
+| Child | Source | URL |
+|-------|--------|-----|
+| 1. References as Observables | [erights--elib-concurrency-when-ref-when](erights--elib-concurrency-when-ref-when.md) | `when/ref-when.html` (SHA `d943520d3936`) |
+| 2. The When* Reactors | [erights--elib-concurrency-when-reactors](erights--elib-concurrency-when-reactors.md) | `when/when-reactors.html` (SHA `b39e64ddb55a`) |
+| 3. The when-catch Syntactic Shorthand | [erights--elib-concurrency-when-catch](erights--elib-concurrency-when-catch.md) | `when/when-catch.html` (SHA `6f664b3f644a`) |
+| 4. Joining Multiple Resolutions | [erights--elib-concurrency-when-joiners](erights--elib-concurrency-when-joiners.md) | `when/joiners.html` (SHA `73d5b78c4795`) |
 
 ## Provenance
 
