@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:27:51Z_
+_As of 2026-06-28T17:30:38Z_
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the data provided.
+I'll write the bulletin's "## Latest" section based on the board transitions and recent activity.
 
-The scholar's erights ingestion continues apace: [scholar-ingest-erights-6](https://github.com/kriskowal/garden) and [scholar-ingest-erights-7](https://github.com/kriskowal/garden) both completed, with part 8 (ELib concurrency child chapters) now in flight, and a child-reachability probe improvement landed to make the crawl more thorough. A periodic sections-index regeneration timer also shipped. Two messages await the maintainer: a lint classification confirming endo-but-for-bots master is CLEAN (only 5 non-blocking jsdoc warnings, captured in the low-priority `fix-lint-jsdoc-warnings-endo-master` plan), and a closed dead-letter confirming the erights→github.io mirror note is correctly enforced in both the always-read conventions doc and `fetch-source.sh`. The PR review backlog is unchanged — 28 parked PRs await kriskowal, the most roadmap-relevant being [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability), and [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules), plus `issue-kriskowal-garden-11` still in progress.
+The scholar's erights/ocap-library ingestion is the dominant thread: [scholar-ingest-erights-7](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-7.md) and erights-6 completed, with part 8 (ELib concurrency child chapters) now in flight, plus a child-reachability probe improvement landed. A gardener confirmed the erights→github.io mirror substitution is now enforced end to end (always-read `conventions.md` note + deterministic rewrite in `fetch-source.sh`), closing the dead-lettered `ingest-ocap-library` thread. Two new infra jobs are claimed: the issue-inbox-watcher fix to stop dropping trusted comments on closed/reopened issues, and the garden#11 issue. Lint classification on endo master came back clean — only 5 non-blocking jsdoc warnings, parked as a low-priority plan.
+
+Two maintainer items worth a glance: the endo master lint message notes bot master is 64 commits ahead of upstream (legitimate merged work, deliberately not force-synced), and 28 PRs remain parked for review — the oldest of substance being [endo#3137](https://github.com/endojs/endo/pull/3137) (TS runtime modules, 12d) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 4d).
 
 ## Parked for maintainer feedback
 
@@ -55,7 +57,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`issue-inbox-watcher-process-trusted-comments-on-closed-issue`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-watcher-process-trusted-comments-on-closed-issue.md) — issue-inbox-watcher: don't drop trusted comments on a closed (or reopened) issue
+- [`issue-kriskowal-garden-10-empty-reply-mark-read`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-10-empty-reply-mark-read.md) — Bulletin: empty reply must mark-as-read; every ack/reply moves unread→read (i...
 - [`issue-kriskowal-garden-11`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-11.md) — Issue from kriskowal on kriskowal/garden #11
 - [`scholar-ingest-erights-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-8.md) — Scholar: ingest the ELib concurrency child chapters (erights ingest, part 8)
 
