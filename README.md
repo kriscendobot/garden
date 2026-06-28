@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T06:06:21Z_
+_As of 2026-06-28T06:12:01Z_
 
 ## Latest
 
-Little moved on the board this cycle — two jobs claimed into progress and two new progress notes — so the substance is in a stack of maintainer decisions that have piled up in the inbox. On the work that landed: scholar ingests went onto journal2, including MetaMask's `ocap-kernel` host-app guide (the sixth ocap-kernel ingest) and a six-topic distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher puzzle), each honestly flagged where a source was unreachable. A lint sweep confirmed `endo-but-for-bots` master is clean (only 5 non-failing jsdoc warnings, parked as low), and the [PR #442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change — reusing daemon's powers would invert the extraction.
-
-Several items now need kriskowal directly. The "Agoric internal hex" directive on [garden PR #9](https://github.com/kriskowal/garden/pull/9) is being held because it names off-limits agoric-sdk territory with no bot-fork target — it needs a concrete repo/path and, if truly Agoric-internal, an explicit scope override. The [PR #405](https://github.com/endojs/endo-but-for-bots/pull/405) job was misclassified as a rebase but is actually a feature directive (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities, hide empty groups); it needs a liaison-driven builder/fixer dispatch since the fleet has no autonomous path for it. The [PR #474](https://github.com/endojs/endo-but-for-bots/pull/474) harden-exported-literals follow-up (now merged) is gated on two answers — breadth (narrow two exports vs. repo-wide) and base branch (`llm` vs. `master`). And the formula-inspector retention-paths table is blocked on [PR #284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 with 4 failing CI checks awaiting the rebase-and-gamut you already requested. The XS over-deep-frame investigation on garden issue #9 also remains parked pending the v320 swing-store export or authorization to re-provision the XS toolchain.
+The job board went quiet this cycle — the only movement was an undeliverable maintainer message retired to the dead-letter pile and a routine gardener progress note, with just the comms-norm reinforcement job still in flight. What's accumulating instead is a cluster of maintainer decisions now gating real work. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API), which has been stalled since the requested rebase-and-gamut never happened and still shows failing CI; the gardener correctly declined to duplicate the graph walk in the UI and is offering to take the #284 rebase as its own job. A maintainer comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was mis-filed as a "rebase" but is actually a feature directive (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) needing a liaison-driven builder/fixer dispatch, not a no-op rebase. The harden-exported-function-literals follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) awaits a breadth (narrow vs. repo-wide) and base-branch call before its cross-repo PR opens, and a requested "Agoric internal hex" build was held because it names off-limits agoric-sdk territory with no bot-fork target — it needs an explicit scope override or a concrete repo. On the library side, the scholar landed a distributed-ocap concept cluster and ingested MetaMask's ocap-kernel host-app guide. Note the parked queue still holds 28 PRs awaiting review, several aged 37+ days.
 
 ## Parked for maintainer feedback
 
@@ -18,7 +16,7 @@ Several items now need kriskowal directly. The "Agoric internal hex" directive o
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 37d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 37d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 38d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 39d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 38d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
@@ -200,17 +198,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`comms-issue-pr-comments-not-maintainer-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comms-issue-pr-comments-not-maintainer-inbox.md) — Reinforce: issue/PR-scoped agents communicate via comments only; restrict the...
-- [`deadmail-20260628T060057Z-400273`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T060057Z-400273.md) — Dead-lettered message — pick up its intent
 
-### tada (462)
+### tada (463)
+- [`deadmail-20260628T060057Z-400273`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T060057Z-400273.md) — Completion report — deadmail-20260628T060057Z-400273
 - [`deadmail-20260628T055855Z-a332d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T055855Z-a332d8.md) — Completion report
 - [`scholar-library-cycle-20260628-055002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-055002.md) — Job completed cleanly. Report follows.
 - [`build-agoric-internal-hex-20260628`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-agoric-internal-hex-20260628.md) — Completion report: build-agoric-internal-hex-20260628
 - [`deadmail-20260628T052047Z-d6fc2a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T052047Z-d6fc2a.md) — Completion report
-- [`kriskowal-garden-pr9-48ec24df`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-48ec24df.md) — No reply within the polling window. A scope-override decision needs the human...
-- … and 457 more
+- … and 458 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
