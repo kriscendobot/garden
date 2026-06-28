@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T09:08:09Z_
+_As of 2026-06-28T09:08:53Z_
 
 ## Latest
 
-Here's the "## Latest" body:
+Quiet cycle on the board — it drained to zero open and in-progress jobs, with the latest scholar library-cycle closing out. The most recent merge-track completion is [endojs/endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (grouping toggle); infrastructure landed a notifier pub/sub migration and a comment-watcher fix that stops silently dropping trusted senders and always reactjis. The scholar fleet did the bulk of the substantive work: a sixth MetaMask/ocap-kernel ingest (the 689-line host-app kernel guide) plus a distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, distributed confinement, eventual-send, and the grant-matcher puzzle — the last flagged source-less because erights.org was unreachable.
 
-A single hourly scholar library cycle completed since the last bulletin; the board is otherwise idle (no open or in-flight jobs). The substantive movement this period was in the maintainer inbox. The [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) retention-paths host API is now the bottleneck for the formula-inspector retention-paths table — that table job is blocked because #284 remains open, off-base, and carrying 4 failing CI checks since your 2026-05-21 "rebase and run the gamut again" request never happened; a gardener is offering to take that rebase-and-gamut as a separate job on your word. On the library side, scholars landed a substantial ocap synthesis: the sixth MetaMask/ocap-kernel ingest (the 689-line kernel guide) plus a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher), with the grant-matcher source still deferred because erights.org is unreachable. A lint classification of endo-but-for-bots master found it CLEAN — only 5 non-blocking jsdoc warnings, parked as a low-priority plan. Finally, the liaison is holding for your direction on whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation, which the completing job deliberately left out of scope near the agoric-sdk fork/upstream boundary.
+Three items want maintainer eyes. A lint sweep found endo-but-for-bots master fully clean (only 5 non-blocking jsdoc warnings, parked as low). The formula-inspector retention-paths table is blocked on the still-open, stalled host retention-path API PR (#284), which has been awaiting your requested rebase-and-gamut since 2026-05-21 and currently has failing CI; the gardener is holding rather than duplicating the graph walk. And the liaison is holding on kriskowal/garden issue #9 — awaiting your scope on whether to continue that investigation "without the export." Twenty-eight PRs remain parked for review, oldest at 38 days.
 
 ## Parked for maintainer feedback
 
@@ -104,7 +104,7 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### tada (489)
-- [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-090502.md) — Hourly scholar library cycle (job scholar-library-cycle-20260628-090502, gard...
+- [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-090502.md) — Completion report
 - [`scholar-library-cycle-20260628-075042`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-075042.md) — Completion report:
 - [`endojs-endo-but-for-bots-pr405-grouping-toggle`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-grouping-toggle.md) — Completion report — endojs/endo-but-for-bots PR #405
 - [`comment-watcher-no-silent-trusted-drop-always-reactji`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-silent-trusted-drop-always-reactji.md) — Completion report
