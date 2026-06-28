@@ -1,7 +1,0 @@
-In `scripts/jobs/deadmail.sh`, the dead-mail entry is retired (`git rm` + CAS push, lines ~85-96) immediately after `post-job.sh "$base" "$body"` returns 0. But `post-job.sh` is documented in `scripts/jobs/comment-watcher.sh` (~line 206) to print "posted" while the push does NOT land on `origin/journal2` under contention — and the gardener fleet is the highest-contention producer set on the board, so this is a live, recurring race. When it fires in deadmail, the dead-mail entry is deleted while the promoted job never reached the board, permanently dropping the very message intent deadmail was built to preserve. Add a `verify_posted()` guard mirroring `comment-watcher.sh`'s: after `post-job.sh` succeeds, fetch a verify clone and confirm `origin/$JOURNAL_BRANCH:jobs/{todo,doin,tada}/$base.md` is reachable (`git cat-file -e`) BEFORE the `git rm`/retire loop; if the job is not reachable, log and leave the dead-mail entry for the next tick (post-job is idempotent by basename, so a re-promote is safe). This is a script-level fix; no agent involved.
-
----
-claim:
-  host: endolinbot
-  gardener: 84
-  claimed_at: 2026-06-28T02:21:31Z
