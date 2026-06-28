@@ -81,6 +81,21 @@ printf '#!/bin/bash\necho "boom" >&2; exit 1\n' > "$FAILCLOSE"; chmod +x "$FAILC
 # A state stub that FAILS (to prove loud failure on an unreadable PR state).
 FAILSTATE="$TR/state-fail.sh"
 printf '#!/bin/bash\necho "boom" >&2; exit 1\n' > "$FAILSTATE"; chmod +x "$FAILSTATE"
+# A state stub that FAILS only for a chosen "<repo>#<num>" (MC_FAIL_REF) and
+# otherwise behaves like STATESTUB. Proves per-mapping read isolation: one bad
+# mapping does not abort the tick or starve a healthy mapping behind it.
+FAILONE="$TR/state-failone.sh"
+cat > "$FAILONE" <<'EOF'
+#!/bin/bash
+repo="$1"; num="$2"
+if [ "${repo}#${num}" = "${MC_FAIL_REF:?set MC_FAIL_REF}" ]; then
+  echo "boom (simulated unreadable PR state for ${repo}#${num})" >&2; exit 1
+fi
+line="$(grep -E "^${repo}#${num}"$'\t' "${MC_STATES:?set MC_STATES}" | head -1)"
+if [ -z "$line" ]; then printf 'open\tfalse\n'; exit 0; fi
+printf '%s\t%s\n' "$(cut -f2 <<<"$line")" "$(cut -f3 <<<"$line")"
+EOF
+chmod +x "$FAILONE"
 
 run_closer() {  # run_closer <state-dir> <bare> <state-fixture> <close-log> [state-handler] [close-handler]
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
@@ -187,6 +202,25 @@ printf 'garden/mir#27\topen\tfalse\n' >> "$ST_H2"
 run_closer "$TR/state-h2" "$BARE_H2" "$ST_H2" "$CL_H2" "$STATESTUB" "$FAILCLOSE"; rch2=$?
 [ "$rch2" -ne 0 ] && ok "a failed close aborts nonzero (rc=$rch2)" || bad "swallowed a failed close"
 mapping_of "$BARE_H2" up-repo-17.md | grep -q '^closed_at:' && bad "stamped despite a failed close" || ok "mapping unresolved after a failed close (retries next tick)"
+
+hr; echo "I — per-mapping isolation: one bad mapping's state read does NOT starve a healthy mapping in the same tick"; hr
+BARE_I="$TR/i.git"; seed_bare "$BARE_I"
+ST_I="$TR/states-i.tsv"; CL_I="$TR/close-i.log"; : > "$CL_I"
+# Two mappings on one journal: up/repo#18 is permanently unreadable (the bad one),
+# up/repo#19 is merged with an open mirror (the healthy one that must still close).
+record "$TR/state-i" "$BARE_I" "up/repo#18" "garden/mir#28"
+record "$TR/state-i" "$BARE_I" "up/repo#19" "garden/mir#29"
+printf 'up/repo#19\tclosed\ttrue\n'    > "$ST_I"   # healthy upstream merged
+printf 'garden/mir#29\topen\tfalse\n' >> "$ST_I"   # healthy mirror still open
+env GARDEN_STATE="$TR/state-i" JOURNAL_REMOTE="$BARE_I" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_STATES="$ST_I" MC_CLOSE_LOG="$CL_I" \
+    MC_FAIL_REF="up/repo#18" \
+    GARDEN_MIRROR_PR_STATE="$FAILONE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >/dev/null 2>&1; rci=$?
+grep -qxF 'garden/mir#29' "$CL_I" && ok "healthy mirror garden/mir#29 still closed despite the bad mapping" || bad "healthy mapping starved by the bad one ($(cat "$CL_I"))"
+mapping_of "$BARE_I" up-repo-19.md | grep -q '^closed_at:' && ok "healthy mapping stamped (resolved this tick)" || bad "healthy mapping not stamped"
+mapping_of "$BARE_I" up-repo-18.md | grep -q '^closed_at:' && bad "bad mapping stamped despite an unreadable state" || ok "bad mapping left unresolved (will retry next tick)"
+[ "$rci" -ne 0 ] && ok "tick exits nonzero because a mapping failed (rc=$rci) — failure stays visible" || bad "tick reported healthy despite a failed mapping"
 
 # ============================================================================
 # PART 2 — synthetic real-repo end-to-end (REQUIRED)

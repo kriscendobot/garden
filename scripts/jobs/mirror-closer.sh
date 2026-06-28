@@ -50,9 +50,17 @@
 # IDEMPOTENT: an already-resolved mapping is skipped; an already-closed mirror is
 # reconciled without a duplicate comment; a duplicate run is a no-op.
 #
-# LOUD FAILURE (2026-06-24/25 hardening): a missing git/gh/jq or any failed GitHub
-# call dies loudly (the default handlers require_tools and never swallow errors);
-# the watcher never silently no-ops a close it should have made.
+# LOUD FAILURE (2026-06-24/25 hardening): a missing git/gh/jq dies loudly (the
+# default handlers require_tools and never swallow errors); the watcher never
+# silently no-ops a close it should have made.
+#
+# PER-MAPPING ISOLATION (2026-06-28 hardening): a per-mapping read/close failure
+# (a transient or permanent gh 404 on ONE mapped PR) is isolated — it WARNs,
+# leaves that mapping unresolved (no closed_at stamp, so the next tick re-handles
+# it), and continues to the other mappings rather than aborting the whole tick.
+# One bad mapping can no longer starve every other unresolved mapping. The tick
+# still exits nonzero when any mapping failed, so the failure stays visible to
+# systemd/journald — the failure is now per-mapping, not per-tick.
 #
 # Pluggable GitHub I/O for deterministic tests (the close path is NEVER exercised
 # against a real upstream in CI — see test/mirror-closer-test.sh):
@@ -138,13 +146,22 @@ parse_state() {
 }
 
 acted=0
+failed=0
 for i in $(seq 0 $((n-1))); do
   key="${KEYS[$i]}"; up="${UPS[$i]}"; mir="${MIRS[$i]}"
   up_repo="${up%%#*}"; up_num="${up##*#}"
   mir_repo="${mir%%#*}"; mir_num="${mir##*#}"
 
+  # Per-mapping read failures are isolated: a single unreadable upstream/mirror
+  # state (a transient or permanent gh 404 on ONE mapped PR) must not abort the
+  # whole tick and starve every other unresolved mapping. We WARN, leave this
+  # mapping unresolved (do not stamp closed_at), and move on; the next tick
+  # re-handles it. The tick still reports unhealthy at the end (exit 1) so the
+  # failure stays visible to systemd/journald — per-mapping, not per-tick.
   if ! out="$("$GARDEN_MIRROR_PR_STATE" "$up_repo" "$up_num")"; then
-    die "reading upstream state for $up failed (handler $GARDEN_MIRROR_PR_STATE)"
+    log "WARN: reading upstream state for $up failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
+    failed=$((failed+1))
+    continue
   fi
   parse_state "$out"
   if [ "$STATE" != closed ]; then
@@ -158,7 +175,9 @@ for i in $(seq 0 $((n-1))); do
 
   # Look at our mirror. Only close it if it is still open; otherwise reconcile.
   if ! mout="$("$GARDEN_MIRROR_PR_STATE" "$mir_repo" "$mir_num")"; then
-    die "reading mirror state for $mir failed (handler $GARDEN_MIRROR_PR_STATE)"
+    log "WARN: reading mirror state for $mir failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
+    failed=$((failed+1))
+    continue
   fi
   parse_state "$mout"
   if [ "$STATE" = closed ]; then
@@ -176,7 +195,9 @@ for i in $(seq 0 $((n-1))); do
   } > "$cbody"
   if ! "$GARDEN_MIRROR_CLOSE" "$mir_repo" "$mir_num" "$cbody"; then
     rm -f "$cbody"
-    die "closing mirror $mir failed (handler $GARDEN_MIRROR_CLOSE); leaving mapping unresolved to retry next tick"
+    log "WARN: closing mirror $mir failed (handler $GARDEN_MIRROR_CLOSE); skipping this mapping; will retry next tick"
+    failed=$((failed+1))
+    continue
   fi
   rm -f "$cbody"
   log "closed mirror $mir because upstream $up $phrasing"
@@ -185,3 +206,7 @@ for i in $(seq 0 $((n-1))); do
 done
 
 log "tick complete: closed $acted mirror(s) this run"
+if [ "$failed" -gt 0 ]; then
+  log "WARN: $failed mapping(s) failed this tick and were left unresolved; will retry next tick"
+  exit 1
+fi
