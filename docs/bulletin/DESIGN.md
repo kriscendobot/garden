@@ -95,3 +95,15 @@ The PAT path needs the maintainer to mint a token (a one-time human step,
 documented in SETUP.md). The OAuth-via-worker upgrade needs the maintainer to
 register a GitHub App and deploy the shim. Neither can be automated from a bot,
 so both are click-by-click in SETUP.md and the issue carries the same note.
+
+## 5. Favicon
+
+The browser-tab icon is the carrot emoji 🥕 (kriskowal/garden issue #13),
+rendered with the asset-free [emoji-favicon](../../skills/emoji-favicon/SKILL.md)
+technique: a single static `<link rel="icon">` in `index.html` whose `href` is an
+inline (not base64) `image/svg+xml` data URI holding one `<text>` node —
+`viewBox="0 0 10 10"`, `<text y="8" font-size="8">`, inner quotes encoded as
+`%22`. No asset file, no build step, no second request. This covers the browser
+tab only; per the skill it does not satisfy `apple-touch-icon` or a PWA manifest
+(both want raster PNGs), and the glyph is painted by the viewer's emoji font so
+it looks different across platforms — both acceptable for this internal bulletin.
