@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T12:20:46Z_
+_As of 2026-06-28T12:23:17Z_
 
 ## Latest
 
-Little moved on the board this cycle — only the hourly scholar library cycle claimed a slot — but several gardener completions and maintainer messages warrant attention. Two gardener self-improvements landed (suppressing happy-path progress noise and isolating the mirror-closer per mapping), along with a scheduler preflight gate. The scholar fleet kept ingesting: MetaMask/ocap-kernel's host-app developer guide (the sixth ocap-kernel ingest) plus a six-section distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, distributed confinement, and eventual-send — with the grant-matcher puzzle flagged as written from a web summary because erights.org was unreachable.
-
-Three items need a maintainer decision. The `formula-inspector-retention-paths-table` job is **blocked** on its `listRetentionPaths` host API (PR #284), which has been stalled since 2026-05-21 on a requested rebase-and-gamut and currently shows 4 failing CI checks; the gardener is standing by to take that rebase as a separate job on your word. Separately, an endo-master lint classification came back **clean** — no error classes, only 5 non-blocking jsdoc warnings (plan parked). And the liaison is holding for guidance on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the original job deliberately scoped that out.
+Two garden-infra improvements landed — gardeners now suppress happy-path progress noise, and the mirror-closer isolates teardown per mapping — alongside an otherwise idle hourly scholar cycle (no content written). The substance worth a maintainer's eye is in the inbox: the `formula-inspector-retention-paths-table` job is **blocked** on endo #284 (`listRetentionPaths` host API), which has sat stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently shows 4 failing CI checks — the inspector follow-on is ready to build the moment #284 lands. Separately, a liaison follow-up is holding for your scope decision on kriskowal/garden issue #9 ("continue the investigation without the export") before spawning a tracking job, since the prior work deliberately left that out of bounds and it sits near the agoric-sdk scope line. Scholar also reports endo-but-for-bots master lint is clean (only 5 non-blocking jsdoc warnings, parked as a low-priority fix) and logged two fresh ocap-kernel/ocap-library ingests.
 
 ## Parked for maintainer feedback
 
@@ -100,16 +98,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-library-cycle-20260628-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-122003.md) — Hourly scholar library cycle
+### doin (0)
+(none)
 
-### tada (494)
+### tada (495)
+- [`scholar-library-cycle-20260628-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-122003.md) — Hourly scholar library cycle completed as an idle cycle (no content written)....
 - [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) — Completion report
 - [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md) — Completion report
 - [`scholar-library-cycle-20260628-112001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-112001.md) — Completion report — scholar-library-cycle-20260628-112001
 - [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-102001.md) — Completed the hourly scholar library cycle (scholar-library-cycle-20260628-10...
-- [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md) — Job complete: improve-scheduler-preflight-gate
-- … and 489 more
+- … and 490 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
