@@ -83,7 +83,7 @@ Body: one-paragraph abstract describing what the source document covers, then a 
 `topics/<topic-slug>.md` has no frontmatter (topics are catalog pages, not first-class content). Body:
 
 1. One-paragraph **Abstract** of the concept.
-2. **Sections** table listing every section file filed under this topic, with a one-line abstract per row (copy the section's abstract first sentence).
+2. **Sections** table listing every section file filed under this topic, with a one-line abstract per row (copy the section's abstract first sentence). Add rows to this table with `scripts/jobs/insert-sections-table-row.sh` (see § Ingestion procedure, step 5), which anchors on the table boundary rather than placing the row by hand.
 3. **See also** list of related topic slugs.
 
 ## Staleness, supersession, contradiction
@@ -146,7 +146,13 @@ The seed taxonomy below is a starting partition. Add new topics as the corpus re
 2. Read the source heading structure; decide section boundaries (H2 by default; H3 when the H2 wraps several substantially-different H3 topics).
 3. For each section: extract the body, write `sections/<source-slug>--<section-slug>.md` with full frontmatter, abstract, body, and source footer.
 4. Write `sources/<source-slug>.md` with the section table.
-5. For each topic the section touches, append a row to `topics/<topic-slug>.md`'s section table (create the topic file if new).
+5. For each topic the section touches, add a row to that topic page's **## Sections** table by calling the deterministic inserter — never by hand-constructing the whole-file body for a row insertion:
+
+   ```sh
+   scripts/jobs/insert-sections-table-row.sh <topic-file> "| [<section>](../sections/<source-slug>--<section-slug>.md) | <topics> | <one-line abstract> |"
+   ```
+
+   The inserter anchors on the table's own boundary — its last existing `|`-leading data row and the blank line that terminates the table — so the new row lands as the table's last data row. It **never** anchors on a trailing `## See also` heading, which is frequently absent: a topic page's see-also block is often a bare bullet list with no heading, so an "insert before `## See also`, else append at end-of-file" heuristic drops the row *outside* the table (this caused the 2026-06-28 erights-part-2 mis-placement on `pass-style.md`, journal entry 161137Z). Create the topic file (with the topic-page shape above) if it is new, then insert each row with the helper rather than rewriting the whole file.
 6. Update `topics/README.md` with any new topic abstracts.
 7. Update `sources/README.md` with the new source row.
 8. Update `sections/README.md` (or rely on directory listing if it grows beyond pragmatic).
