@@ -13,7 +13,7 @@ topics: [e-language, eventual-send]
 status: current
 notes: >
   Reference-level child chapter of the ELib Event Loop Concurrency hub
-  (erights--elib-concurrency-index). The canonical definition of the VAT — the
+  (erights--elib-concurrency-index). The canonical definition of the VAT: the
   process-like aggregate of objects that fails separately, executes one
   non-blocking event-loop turn at a time, and is the unit of the vat / turn /
   eventual-send model that became `@endo/eventual-send` and Agoric's vat model.
