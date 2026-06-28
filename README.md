@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T15:41:07Z_
+_As of 2026-06-28T15:52:45Z_
 
 ## Latest
 
-Quiet cycle, mostly scholar library housekeeping. A [scholar library cycle](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-153502.md) completed and the scholar picked up [`scholar-ingest-erights`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights.md), now in progress — ingesting the foundational erights.org pages via the GitHub Pages mirror, which closes the source gap the recent ocap-concept ingests repeatedly flagged (the grant-matcher-puzzle and grant-matching synthesis pages were written from web summaries because erights.org was unreachable). Worth the maintainer's attention in the inbox: gardener `formula-inspector-retention-paths-table` is blocked pending the still-open, stalled [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the rebase-and-re-gamut you requested 2026-05-21 never ran; 4 CI checks failing), and the liaison is holding on whether to spin up a follow-on investigation for kriskowal/garden issue #9.
+A gardener has claimed the [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) refresh — the rebase-and-gamut you requested back on 2026-05-21, which a parked maintainer message flags as the sole blocker for the formula-inspector retention-paths table (it sources `listRetentionPaths` from #284 and cannot land until #284 is mergeable). Also in flight: `scholar-ingest-erights`, finally ingesting the foundational erights.org pages via the GitHub Pages mirror after earlier cycles repeatedly hit erights.org `ECONNREFUSED` and parked the grant-matcher-puzzle and related concepts as source-deferred. The board is otherwise drained — todo is empty and both active jobs are claimed — with library work dominating recent completions (ocap-kernel guide ingest, six distributed-ocap concept syntheses, and a clean lint classification of endo master that surfaced only five non-blocking jsdoc warnings).
 
 ## Parked for maintainer feedback
 
@@ -98,7 +98,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr284-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr284-refresh.md) — Refresh endo-but-for-bots PR #284 per kriskowal's review directive
 - [`scholar-ingest-erights`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights.md) — Scholar: ingest foundational erights.org HTML pages via the GitHub Pages mirror
 
 ### tada (500)
