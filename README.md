@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T14:34:52Z_
+_As of 2026-06-28T14:52:28Z_
 
 ## Latest
 
-Board activity is quiet — the scholar library cycle keeps running on its hourly cadence, and two infra improvements landed (wiring the library link-scan to a cadence, and suppressing happy-path progress noise from gardeners). The substance this cycle is in the maintainer queue. A gardener reports the formula-inspector retention-paths table is **blocked**: it needs the `listRetentionPaths` host API from a still-open, stalled PR (#284, last touched 2026-05-21 with 4 failing checks) and recommends landing that rebase-and-gamut first before re-promoting the plan. Scholar ingested MetaMask/ocap-kernel's 689-line kernel guide (sixth ocap-kernel ingest) plus six distributed-ocap concept syntheses, flagging the grant-matcher puzzle as sourceless while erights.org is unreachable. Lint classification of endo-but-for-bots master came back clean — only 5 non-blocking jsdoc warnings, parked as a low-priority plan. The liaison is holding on kriskowal/garden issue #9, awaiting a scope decision before spawning a follow-on investigation.
+Library-tooling work led the cycle: the garden wired its library link-scan into a regular cadence and a gardener just claimed [`improve-link-check-suggest-source-page-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-link-check-suggest-source-page-target.md) to have dangling-link reports suggest a source-page target. Scholar library cycles continue to run hourly, and gardeners suppressed happy-path progress noise. On the knowledge side, the scholar landed a sixth MetaMask/ocap-kernel ingest (the 689-line kernel host-app guide) plus a distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, distributed confinement, and eventual-send — with the grant-matcher-puzzle source deferred because erights.org was unreachable.
 
-For review: 28 PRs are parked, with the freshest being [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, 7h), [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix, refreshed for #3276 feedback), and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays). [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules via erasable type syntax) has been waiting 12 days.
+Two items want maintainer eyes. A lint classification found endo-but-for-bots master fully green on the CI lint gate — the only findings are five non-failing jsdoc warnings, parked as a low-priority cleanup. And the formula-inspector retention-paths table is blocked: it needs the `listRetentionPaths` host API from PR #284, which has been stalled since 2026-05-21 on an unfulfilled "rebase and run the gamut again" request and currently shows four failing CI checks — the gardener is offering to take that rebase-and-gamut as its own job on the word. Separately, the liaison is holding on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the prior job explicitly scoped that out and it brushes against fork-vs-upstream scope sensitivity.
 
 ## Parked for maintainer feedback
 
@@ -100,8 +100,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-link-check-suggest-source-page-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-link-check-suggest-source-page-target.md) — In scripts/jobs/library-link-check.sh, when check_links_in reports a DANGLING...
 
 ### tada (498)
 - [`scholar-library-cycle-20260628-142031`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-142031.md) — Scholar library cycle — completion report
