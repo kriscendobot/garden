@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5947 (525 parent indexes + 5422 children).
+Total section files: 5953 (525 parent indexes + 5428 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -6806,6 +6806,10 @@ Total section files: 5947 (525 parent indexes + 5422 children).
 
 - [erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol](erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol.md)
 
+### erights--elib-concurrency-eio-index
+
+- [erights--elib-concurrency-eio-index--eio-non-blocking-io-map](erights--elib-concurrency-eio-index--eio-non-blocking-io-map.md)
+
 ### erights--elib-concurrency-event-loop
 
 - [erights--elib-concurrency-event-loop--plan-interference-and-deadlock-freedom](erights--elib-concurrency-event-loop--plan-interference-and-deadlock-freedom.md)
@@ -6814,21 +6818,41 @@ Total section files: 5947 (525 parent indexes + 5422 children).
 
 - [erights--elib-concurrency-index--event-loop-reference-map](erights--elib-concurrency-index--event-loop-reference-map.md)
 
+### erights--elib-concurrency-msg-passing
+
+- [erights--elib-concurrency-msg-passing--six-primitives-call-send-outcome](erights--elib-concurrency-msg-passing--six-primitives-call-send-outcome.md)
+
 ### erights--elib-concurrency-overview
 
 - [erights--elib-concurrency-overview--why-threads-are-evil](erights--elib-concurrency-overview--why-threads-are-evil.md)
+
+### erights--elib-concurrency-partial-order
+
+- [erights--elib-concurrency-partial-order--partial-order-on-references](erights--elib-concurrency-partial-order--partial-order-on-references.md)
 
 ### erights--elib-concurrency-queuing
 
 - [erights--elib-concurrency-queuing--the-stack-queue-L-and-eventual-send](erights--elib-concurrency-queuing--the-stack-queue-L-and-eventual-send.md)
 
+### erights--elib-concurrency-refmech
+
+- [erights--elib-concurrency-refmech--reference-kinds-near-eventual-broken-promise-far-sturdyref](erights--elib-concurrency-refmech--reference-kinds-near-eventual-broken-promise-far-sturdyref.md)
+
 ### erights--elib-concurrency-semi-transparent
 
 - [erights--elib-concurrency-semi-transparent--semi-transparent-networking](erights--elib-concurrency-semi-transparent--semi-transparent-networking.md)
 
+### erights--elib-concurrency-turns
+
+- [erights--elib-concurrency-turns--turns-as-micro-transactions](erights--elib-concurrency-turns--turns-as-micro-transactions.md)
+
 ### erights--elib-concurrency-vat
 
 - [erights--elib-concurrency-vat--the-vat-heap-thread-queue](erights--elib-concurrency-vat--the-vat-heap-thread-queue.md)
+
+### erights--elib-concurrency-when-index
+
+- [erights--elib-concurrency-when-index--four-layers-of-when-map](erights--elib-concurrency-when-index--four-layers-of-when-map.md)
 
 ### erights-org--elang-intro
 
