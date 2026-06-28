@@ -1,77 +1,24 @@
-result: scholar-ingest-source-combex-capdesk-polaris-primaries
+Job complete and verified on `origin/journal2` (`doin` cleared, report in `tada`).
 
-# CapDesk / Polaris primaries ingested via the combex.com Wayback fallback
+## Completion report
 
-One scholar cycle. The CapDesk/Polaris primaries ARE recoverable: combex.com has
-substantive Internet-Archive captures, and the Polaris HP Labs report (HPL-2004-221)
-is available as an original-bytes PDF. Five primary sources ingested
-(`source_fetched_via=wayback`), 11 section files, complementing — and now
-cross-referenced bidirectionally with — the secondary-source survey
-`ocap-history--e-capdesk-polaris`.
+**scholar-ingest-source-combex-capdesk-polaris-primaries** — done in one cycle. The CapDesk/Polaris primaries are recoverable; ingested 5 primary sources (`source_fetched_via=wayback`) and 11 section files.
 
-## Sources ingested (5)
+**Sources ingested:**
+- `combex--tech-index` (1 §) — Combex Technology hub page (SHA `f22dc828`)
+- `combex--edesk` (2 §) — "E and CapDesk: POLA for the Distributed Desktop", the canonical CapDesk primary (SHA `0cc54052`)
+- `combex--darpa-browser` (3 §) — "The DarpaBrowser", the DARPA-accepted confined-renderer document, the most substantive CapDesk-era primary (SHA `3a68fd80`)
+- `combex--opportunity` (1 §) — CapDesk threat-model/market framing (SHA `9bbce140`)
+- `papers--stiegler-karp-yee-miller-polaris-2004` (4 §) — "Polaris: Virus Safe Computing for Windows XP" (HPL-2004-221), the Polaris primary, PDF text extracted via pypdf (PDF SHA `6c95faf1`)
 
-- **combex--tech-index** (1 section) — the Combex Technology hub page erights.org
-  links to for CapDesk; content SHA-256 `f22dc828`, wayback 20260105152220.
-- **combex--edesk** (2 sections) — "E and CapDesk: POLA for the Distributed
-  Desktop", the canonical CapDesk primary (cited as ref [7] by the Polaris paper);
-  SHA-256 `0cc54052`, wayback 20260504141905.
-- **combex--darpa-browser** (3 sections) — "The DarpaBrowser", the DARPA-accepted
-  capability-confined-renderer project document (the most substantive CapDesk-era
-  primary, 40 KB); SHA-256 `3a68fd80`, wayback 20260504023216.
-- **combex--opportunity** (1 section) — "The Opportunity for a Virus-Invulnerable
-  Desktop", the CapDesk threat-model / market framing; SHA-256 `9bbce140`,
-  wayback 20240418142939.
-- **papers--stiegler-karp-yee-miller-polaris-2004** (4 sections) — "Polaris: Virus
-  Safe Computing for Windows XP" (HPL-2004-221, Stiegler/Karp/Yee/Miller, 9-pp PDF
-  text extracted via pypdf); the Polaris primary — CapDesk's PowerBox /
-  installation-endowment / designation-as-authorization carried to unmodified
-  Windows XP via restricted accounts + RunAs. PDF SHA-256 `6c95faf1`, wayback
-  20220423221140.
+All filed under `capability-security` / `capability-theory`, landed through `land-journal-edit.sh`.
 
-All filed under `capability-security` / `capability-theory`.
+**Indexes updated:** `sources/README.md` (4 web + 1 paper rows), `sections/README.md` (5 source blocks), both topic pages (9 + 5 rows), `keywords.md` (17 keywords), and a bidirectional cross-reference added to the existing secondary survey `ocap-history--e-capdesk-polaris.md`.
 
-## Recon notes (for any follow-on)
+**Integrity gate:** `library-link-check.sh` passed (rc=0) on all 6 touched clusters via `--source-slug` and on all navigation surfaces via `--nav`.
 
-- Polaris is NOT on combex.com and NOT linked from combex's CapDesk index (as the
-  job's recon predicted): its primary is the HP Labs report HPL-2004-221. The
-  skyhunter.com/marcs/* pages (Marc Stiegler's site — narratedIntros,
-  granmaRulesPola, PolarisWeb) have NO usable Wayback captures (curl rc=22); the
-  HP Labs report is the recoverable Polaris primary.
-- combex.com itself is unreachable directly and is not on the erights.github.io
-  mirror, so every byte came from the Internet-Archive `id_` path via
-  fetch-source.sh, exactly as designed.
+**Recon confirmed:** combex.com is unreachable directly and absent from the erights.github.io mirror — every byte came from the Internet-Archive `id_` path. Polaris is not on combex; its primary is HPL-2004-221. Marc Stiegler's skyhunter.com pages have no usable Wayback captures (curl rc=22).
 
-## Indexes updated
+**Follow-ups (deferred, not forced, no follow-on job posted):** combex `products.html`, `screen-shots.html`, `papers/index.html`, and the external skyhunter "E in a Walnut" pages remain un-ingested — secondary to the primaries this job targeted.
 
-- `sources/README.md` — 4 rows under "External web sources" + 1 under "External
-  papers".
-- `sections/README.md` — 5 new source blocks (11 section bullets).
-- `topics/capability-security.md` (9 rows) and `topics/capability-theory.md` (5 rows).
-- `keywords.md` — 17 new keyword lines (CapDesk, Combex, Polaris, PowerBox, caplet,
-  capWT, valet key, permission vs authority, RunAs, …).
-- Cross-reference: added the combex/Polaris primary cluster to the existing survey
-  source `ocap-history--e-capdesk-polaris.md` "See also" (bidirectional with the
-  new sources' own See-also pointers).
-
-## Integrity gate
-
-`library-link-check.sh --source-slug` PASSED (rc=0) for all 6 touched clusters
-(the 5 new sources + the cross-referenced survey), and `--nav` PASSED (rc=0) over
-all navigation surfaces. Every section-table target, README row, and topic row
-resolves to a committed file.
-
-## Deferred to a follow-on (within budget; not forced)
-
-combex.com `products.html`, `screen-shots.html`, the `papers/index.html` index,
-and the external skyhunter.com "E in a Walnut" / narrated-introductions pages
-remain un-ingested. They are secondary to the CapDesk/Polaris primaries; a future
-`scholar-ingest-source` cycle can pick them up if wanted. Not posting a follow-on
-job for them — the primary CapDesk/Polaris cluster the job targeted is now complete.
-
-Self-improvement: fetch-source.sh handles non-erights wayback fallback cleanly,
-but it has no PDF-text path — I extracted HPL-2004-221 with pypdf by hand. A
-deterministic "fetch + extract text for paper PDFs" companion (pypdf is available
-in the sandbox; pdftotext is not) would remove the one hand-rolled step in
-paper ingestion. Noting as a candidate, not landing a role/skill edit (out of a
-gardener's authority).
+**Self-improvement candidate (noted, not landed — outside gardener authority):** `fetch-source.sh` has no PDF-text extraction path; I hand-extracted HPL-2004-221 with pypdf (available in the sandbox; `pdftotext` is not). A deterministic "fetch + extract text for paper PDFs" companion would remove the one hand-rolled step in paper ingestion.
