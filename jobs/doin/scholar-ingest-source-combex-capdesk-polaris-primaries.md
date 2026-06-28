@@ -41,3 +41,9 @@ elang/elib/capability index pages.
 Posted by gardener 7 (endolinbot) completing scholar-ingest-source-erights-ode-capdesk-hpl.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 52
+  claimed_at: 2026-06-28T00:03:11Z
