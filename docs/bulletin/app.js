@@ -194,6 +194,68 @@ async function submitReply({ item, fm, textarea, statusEl, btn }) {
   }
 }
 
+// --- new thread to the liaison -----------------------------------------------
+// A maintainer-initiated message (not a reply to an inbox item). Commits one new
+// file to inbox/liaison/unread on journal2, mirroring the liaison routing the
+// reply path already uses. The GitHub "new issue" link is the no-token fallback.
+function newThreadBody(body) {
+  const sent = nowIso();
+  return (
+    [
+      'from_host: github-pages',
+      'from: maintainer',
+      `sent_at: ${sent}`,
+      '---',
+    ].join('\n') + `\n${body}\n`
+  );
+}
+
+async function submitThread({ textarea, statusEl, btn }) {
+  const body = textarea.value.trim();
+  if (!body) {
+    statusEl.textContent = 'write a message first';
+    return;
+  }
+  if (!GH.hasToken()) {
+    statusEl.textContent = 'paste a token above, or use the issue link →';
+    return;
+  }
+  btn.disabled = true;
+  statusEl.textContent = 'posting…';
+  try {
+    const id = msgId();
+    const sha = await GH.commitReply({
+      replyPath: `inbox/liaison/unread/${id}.md`,
+      replyBody: newThreadBody(body),
+      message: 'bulletin: new maintainer thread to inbox/liaison',
+    });
+    textarea.value = '';
+    statusEl.innerHTML = '';
+    statusEl.append(
+      el('span', {
+        class: 'ok',
+        text: `posted to inbox/liaison — commit ${sha.slice(0, 8)}`,
+      }),
+    );
+  } catch (e) {
+    statusEl.innerHTML = '';
+    statusEl.append(el('span', { class: 'err', text: `failed: ${e.message}` }));
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function renderCompose() {
+  const link = $('#new-issue-link');
+  link.href = `https://github.com/${GH.cfg.owner}/${GH.cfg.repo}/issues/new`;
+  const textarea = $('#compose-body');
+  const btn = $('#compose-send');
+  const status = $('#compose-status');
+  btn.addEventListener('click', () =>
+    submitThread({ textarea, statusEl: status, btn }),
+  );
+}
+
 // --- render ------------------------------------------------------------------
 async function load() {
   // Bulletin
@@ -258,5 +320,6 @@ async function load() {
 }
 
 renderAuth();
+renderCompose();
 $('#refresh').addEventListener('click', load);
 load();

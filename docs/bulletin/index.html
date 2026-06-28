@@ -14,14 +14,34 @@
         <button id="refresh" class="linkbtn">refresh</button>
       </div>
       <p class="sub">
-        Live view of <code>journal2:README.md</code>. Reply to a maintainer-inbox
-        message below to commit an acknowledgement to <code>journal2</code>.
+        Live view of <code>journal2:README.md</code>. Open a new thread to the
+        liaison, or reply to a maintainer-inbox message below — each commits to
+        <code>journal2</code>.
         <a href="SETUP.md" target="_blank" rel="noopener">setup</a> ·
         <a href="DESIGN.md" target="_blank" rel="noopener">design</a>
       </p>
     </header>
 
     <main>
+      <section id="compose-section">
+        <h2>New thread to the liaison</h2>
+        <div class="compose">
+          <textarea
+            id="compose-body"
+            rows="3"
+            placeholder="Open a new thread to the liaison — commits a message to journal2 inbox/liaison…"
+          ></textarea>
+          <div class="reply-actions">
+            <button id="compose-send" class="btn">Post to liaison</button>
+            <span id="compose-status" class="status"></span>
+            <span class="muted">or</span>
+            <a id="new-issue-link" class="linkbtn" target="_blank" rel="noopener"
+              >open a GitHub issue</a
+            >
+          </div>
+        </div>
+      </section>
+
       <section id="inbox-section">
         <h2>Reply to maintainer messages</h2>
         <div id="inbox"></div>

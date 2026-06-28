@@ -76,6 +76,19 @@ body. The archive and the reply are one commit, built through the Git Data API
 `sha: null` → commit → fast-forward ref update), retried against a moved ref so
 the push is a compare-and-swap just like the bus's own pushes.
 
+## 4. New thread to the liaison
+
+A composer at the top of the page lets the maintainer open a *new* thread (not a
+reply to an inbox item). It commits one new file to
+`inbox/liaison/unread/<id>.md` on `journal2` — the same liaison routing target
+and `from_host: github-pages` / `from: maintainer` / `sent_at` file format the
+reply path already uses, minus the archive step (there is no original to move).
+It reuses `GH.commitReply` with only `replyPath`/`replyBody` set, so the
+compare-and-swap ref update is shared. Writing needs a token; the no-token
+fallback is the adjacent **open a GitHub issue** link
+(`https://github.com/<owner>/<repo>/issues/new`), which the issue-inbox watcher
+already turns into garden work for allowlisted maintainers.
+
 ## What is not solved here
 
 The PAT path needs the maintainer to mint a token (a one-time human step,
