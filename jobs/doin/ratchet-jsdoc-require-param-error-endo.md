@@ -60,3 +60,9 @@ package (daemon).
 Supersedes the `jsdoc/require-param` half of the now-retired consolidated plan
 `fix-lint-jsdoc-warnings-endo-master` (that plan only *cleared* warnings; this
 job *ratchets to error* so they can never regress, per the maintainer directive).
+
+---
+claim:
+  host: endolinbot
+  gardener: 14
+  claimed_at: 2026-06-28T18:12:29Z
