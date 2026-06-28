@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Garden bulletin</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Garden bulletin</h1>
+      <div class="controls">
+        <div id="authbar" class="authbar"></div>
+        <button id="refresh" class="linkbtn">refresh</button>
+      </div>
+      <p class="sub">
+        Live view of <code>journal2:README.md</code>. Reply to a maintainer-inbox
+        message below to commit an acknowledgement to <code>journal2</code>.
+        <a href="SETUP.md" target="_blank" rel="noopener">setup</a> ·
+        <a href="DESIGN.md" target="_blank" rel="noopener">design</a>
+      </p>
+    </header>
+
+    <main>
+      <section id="inbox-section">
+        <h2>Reply to maintainer messages</h2>
+        <div id="inbox"></div>
+      </section>
+
+      <section id="bulletin-section">
+        <h2>Bulletin</h2>
+        <article id="bulletin"><p class="muted">loading bulletin…</p></article>
+      </section>
+    </main>
+
+    <script src="config.js"></script>
+    <script src="markdown.js"></script>
+    <script src="github.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
