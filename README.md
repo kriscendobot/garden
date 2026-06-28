@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T07:18:26Z_
+_As of 2026-06-28T07:20:35Z_
 
 ## Latest
 
-A shepherd pushed three atomic fixes to [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) and is watching CI re-run on head `157fd818b`, and [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) was refreshed and is now freshly parked for review. In flight: a second round of review feedback on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (inventory grouping) and the notifier→`@endo/exo-pubsub` migration. Two gardener reports want maintainer eyes: the formula-inspector retention-paths table is **blocked** until the long-stalled #284 (`listRetentionPaths` host API) gets the rebase-and-gamut you already requested back on 2026-05-21 — the gardener offers to take that as a separate job; and a lint sweep found endo-but-for-bots master fully clean, with only five non-blocking jsdoc warnings parked as a low-priority cleanup. On the library side, the scholar ingested MetaMask/ocap-kernel's host-app guide plus a distributed-ocap concept cluster (three-party handoff, sturdyrefs, distributed confinement), flagging the grant-matcher puzzle as source-deferred while erights.org is unreachable. Finally, the liaison is holding for your direction on whether to open a tracking job to continue the [garden issue #9](https://github.com/kriskowal/garden/issues/9) investigation, which the prior job deliberately left out of scope.
+Quiet interval: the only board movement was a new [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) attention directive being claimed into `doin`, where it joins an already-active round-two review-feedback carry on the same PR — so two gardeners are now converging on #405's inventory-grouping changes. Worth a maintainer glance among the parked messages: the `formula-inspector-retention-paths-table` job is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since the 2026-05-21 "rebase and re-run the gamut" request and still carries four red CI checks — the gardener is offering to take that rebase-and-gamut as its own job on your word.
 
 ## Parked for maintainer feedback
 
@@ -98,8 +98,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endo-but-for-bots-pr405-inventory-grouping-review-round2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr405-inventory-grouping-review-round2.md) — Carry kriskowal's review feedback on endo-but-for-bots PR #405 (inventory gro...
+- [`endojs-endo-but-for-bots-pr405-9719d4b3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-9719d4b3.md) — attention directive on endojs/endo-but-for-bots PR #405
 - [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/notifier-pubsub-migration.md) — notifier-pubsub-migration: add @endo/exo-pubsub (all bridges) + migrate daemo...
 
 ### tada (482)
