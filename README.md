@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-28T07:23:59Z_
+_As of 2026-06-28T07:27:58Z_
 
 ## Latest
 
-Work on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) dominated the cycle: the maintainer's attention directive was routed and two follow-on fixer jobs (grouping toggle, review round 2) are now in flight. The [#277](https://github.com/endojs/endo-but-for-bots/pull/277) shepherd pushed three atomic CI fixes and is waiting on the re-run, and the [#58](https://github.com/endojs/endo-but-for-bots/pull/58) refresh landed — it now sits at the top of the parked queue awaiting review. A title fix on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) also closed out. On the library side, scholar ingests landed on journal2 (MetaMask/ocap-kernel's host-app guide plus a distributed-ocap concept cluster), with the grant-matcher source still deferred until erights.org is reachable. Two items want maintainer eyes: the `formula-inspector-retention-paths-table` plan is blocked on the still-open, CI-failing #284 (the rebase-and-gamut you requested on 2026-05-21 never happened), and the liaison is holding for direction on whether to continue the garden#9 investigation the prior job left out of scope.
+Work converged on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (inventory grouping): an attention directive was routed to completion, while round-2 review feedback and a fixer directive on the grouping toggle are both still in flight. A shepherd pushed three atomic CI fixes to [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) (re-running on head 157fd818b), and the refresh of [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) landed — it now sits parked at the top of the maintainer queue. A new comment-watcher hardening job (trusted comments must never be silently dropped — always reactji) was just claimed.
+
+Two things warrant maintainer attention. First, the formula-inspector retention-paths table is **blocked** on #284 (`listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently shows 4 failing CI checks; a gardener is holding for the word to take that rebase as its own job. Second, the liaison is holding on whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation "without the export," since the prior job explicitly scoped that out and it borders scope-sensitive (agoric-sdk fork) territory. On the library side, scholar landed an ocap concept cluster and a sixth ocap-kernel ingest on journal2, and a lint sweep found endo master clean (only 5 non-blocking jsdoc warnings, parked low).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 12m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 18m)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
@@ -98,7 +100,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`comment-watcher-no-silent-trusted-drop-always-reactji`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-silent-trusted-drop-always-reactji.md) — Comment-watcher: a trusted comment must NEVER be silently dropped — always re...
 - [`endo-but-for-bots-pr405-inventory-grouping-review-round2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr405-inventory-grouping-review-round2.md) — Carry kriskowal's review feedback on endo-but-for-bots PR #405 (inventory gro...
 - [`endojs-endo-but-for-bots-pr405-grouping-toggle`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-grouping-toggle.md) — fixer directive on endojs/endo-but-for-bots PR #405
 - [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/notifier-pubsub-migration.md) — notifier-pubsub-migration: add @endo/exo-pubsub (all bridges) + migrate daemo...
