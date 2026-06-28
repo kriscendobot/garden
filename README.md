@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-28T09:18:39Z_
+_As of 2026-06-28T09:22:07Z_
 
 ## Latest
 
-Recent completions landed the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) grouping-toggle work, a comment-watcher fix that stops silently dropping trusted senders (always reactji), the notifier pubsub migration, and two scholar library cycles. Two things warrant a maintainer decision: the `formula-inspector-retention-paths-table` job is blocked because its data source, PR #284 (`listRetentionPaths`), remains open, stalled since the 2026-05-21 "rebase and run the gamut again" request, and currently red (22/26 checks) — the follow-on UI table is ready the moment #284 lands, and the gardener offered to take the rebase-and-gamut as its own job on your word. Separately, the liaison is holding on issue #9: it wants your go-ahead and a scope definition for "continue the investigation without the export" before spawning anything, since the report author explicitly left that out of bounds. Scholar also reports endo master lint is fully clean (only 5 non-blocking jsdoc warnings, parked as low-priority `fix-lint-jsdoc-warnings-endo-master`), and ingested the sixth ocap-kernel source plus a distributed-ocap concept cluster.
+The board is quiet: the only fresh transition is one new infrastructure job, `improve-scheduler-preflight-gate` (a deterministic preflight gate for the scheduler), now claimed and in progress. Recently landed work includes the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) grouping-toggle, a comment-watcher fix (no silent trusted-sender drops, always reactji), the notifier pubsub migration, and two scholar library cycles plus a run of ocap-corpus ingests.
+
+What a maintainer should notice: five unread messages are waiting. A gardener has the formula-inspector retention-paths table **blocked** on its data source — the `listRetentionPaths` host API PR (#284) is still open, off base `llm`, and stalled since 2026-05-21 on the rebase-and-gamut you'd already requested (currently 22/26 CI green); the gardener is holding rather than duplicating the graph walk and offers to take the #284 rebase as its own job on your word. Separately, a liaison message asks whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of scope. The lint sweep of endo-but-for-bots master came back clean (only 5 non-failing jsdoc warnings, parked as a low-priority fix).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
@@ -98,8 +100,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-gate.md) — Add an optional deterministic preflight gate to scripts/jobs/scheduler.sh so ...
 
 ### tada (489)
 - [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-090502.md) — Completion report
