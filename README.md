@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T13:26:10Z_
+_As of 2026-06-28T13:27:11Z_
 
 ## Latest
 
-Two gardener-infra fixes landed — happy-path progress noise is now suppressed and the mirror-closer was isolated per-mapping — alongside the routine hourly scholar library cycle; a fresh job was just claimed to wire the library-link-scan into a standing timer cadence. Scholar ingests broadened the ocap corpus (a sixth MetaMask/ocap-kernel guide plus a distributed-ocap concept cluster), with the grant-matcher-puzzle source left deferred until erights.org is reachable. Worth a maintainer's eye: the `formula-inspector-retention-paths-table` job is blocked on [endojs/endo#284](https://github.com/endojs/endo/pull/284) (the `listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested and currently shows 4 failing CI checks — landing it unblocks the table immediately. The liaison is also holding for direction on whether to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation that the completed job left explicitly out of scope.
+Since the last bulletin the board was quiet — only a scholar library cycle completed and a fresh gardener progress note landed — but several maintainer-facing items accumulated overnight. Recent gardener fixes shipped to `main2`: suppressing happy-path progress noise and per-mapping isolation for the mirror-closer. On the library side, the scholar ingested MetaMask/ocap-kernel's 689-line kernel guide (the sixth ocap-kernel ingest) plus a six-section distributed-ocap concept cluster, with two sources honestly flagged as unreachable (erights.org down, blocking the grant-matcher-puzzle source ingest). A lint classification of endo-but-for-bots master came back clean — no error classes, only five non-failing jsdoc warnings parked as a low-priority fix.
+
+Two things want your decision: the `formula-inspector-retention-paths-table` job is **blocked** on PR #284 (`listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently has four failing CI checks — the gardener is ready to take that rebase as a separate job on your word. Separately, a liaison is holding on [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9), asking whether to open a tracking job to continue the issue's investigation "without the export," since the prior job deliberately scoped that out and it sits near the agoric-sdk scope line.
 
 ## Parked for maintainer feedback
 
@@ -102,7 +104,7 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`improve-wire-library-link-scan-to-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-wire-library-link-scan-to-cadence.md) — Wire library-link-scan.sh into a standing cadence (timer), with actuation
 
 ### tada (496)
-- [`scholar-library-cycle-20260628-132011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-132011.md) — Hourly scholar library cycle (job scholar-library-cycle-20260628-132011, gard...
+- [`scholar-library-cycle-20260628-132011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-132011.md) — Completion report
 - [`scholar-library-cycle-20260628-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-122003.md) — Completion report — job scholar-library-cycle-20260628-122003 (gardener 76, e...
 - [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) — Completion report
 - [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md) — Completion report
