@@ -97,3 +97,9 @@ committed alongside the code, then implement:
 - If the OAuth-app registration genuinely blocks completion (needs a human to
   create the app), build everything buildable, document the exact registration
   steps, and comment the setup instructions on the issue rather than stalling.
+
+---
+claim:
+  host: endolinbot
+  gardener: 36
+  claimed_at: 2026-06-28T15:58:16Z
