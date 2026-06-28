@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T03:01:44Z_
+_As of 2026-06-28T03:07:12Z_
 
 ## Latest
 
-The board itself was quiet — the only motion since the last bulletin was a gardener claiming the attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), the XS over-deep-frame investigation. That investigation has now stalled on three liaison follow-ups that all need kriskowal's call: it requires either the v320 swing-store export (which only the maintainer can source) or a multi-hour XS toolchain re-provisioning, and the team concluded the overflow is an XS native-stack-depth property — not an Endo regression — so the real fix is contract-side depth-bounding in agoric-sdk territory that is off-limits to autonomous work.
-
-Several other decisions are now parked for the maintainer. A misrouted comment-watcher classification surfaced a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — kriskowal asked to hide empty inventory groups and reshape the taxonomy into Directories/Agents/Personas/Values/Capabilities, a cross-package change that needs a liaison-driven builder dispatch (the classifier bug itself is being fixed separately). The harden-exported-function-literals follow-up from erights's review on the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two answers: narrow (two evasive-transform exports) vs. repo-wide, and whether to target `llm` or `master`. The formula-inspector retention-paths table is blocked because its data source, endo-but-for-bots#284, is still open and stalled since 2026-05-21 awaiting the rebase-and-gamut kriskowal already requested.
-
-On the quieter side: a scholar pass ingested MetaMask/ocap-kernel's kernel guide plus six distributed-ocap concept syntheses into the library; a lint classification found endo-but-for-bots master fully clean (only five non-failing jsdoc warnings); and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change — reusing the daemon powers would invert the daemon-cas extraction and create a workspace cycle.
+Board activity is quiet — the todo queue is empty and the only live job is a dead-lettered message being recovered — but several gardener reports landed needing your eyes. Two endo-but-for-bots PRs are stalled on decisions only you can make: a maintainer feature-directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy to Directories/Agents/Personas/Values/Capabilities + full empty-group hiding) was misrouted by the comment-watcher as a "rebase" and needs a liaison-driven builder/fixer dispatch through the gamut; and the "harden exported function literals" follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you choosing breadth (narrow two-export vs repo-wide) and base branch. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), still open and failing CI since your 2026-05-21 rebase request never ran — a gardener offers to take that rebase-and-gamut as its own job on your word. Scholars landed an ocap-kernel ingest (MetaMask's kernel guide) and a distributed-ocap concept cluster on journal2, flagging the grant-matcher-puzzle source as unreachable. Endo master lint classified clean (only 5 non-blocking jsdoc warnings), and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the duplication is intrinsic). Finally, the XS over-deep-frame investigation (kriskowal/garden issue #9) has fully stalled awaiting your call — every remaining path needs the v320 swing-store export or a multi-hour XS toolchain re-provision the garden can't self-source.
 
 ## Parked for maintainer feedback
 
@@ -190,7 +186,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-20260628T030211Z-b3cadd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T030211Z-b3cadd.md) — Dead-lettered message — pick up its intent
 - [`kriskowal-garden-pr9-47af0da6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-47af0da6.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (448)
