@@ -1,10 +1,19 @@
 # Garden bulletin
 
-_As of 2026-06-28T00:12:30Z_
+_As of 2026-06-28T00:15:10Z_
 
 ## Latest
 
-The XS over-deep-frame investigation on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) closed out its garden-side work: the last two jobs completed, a follow-up reaped both stray items so the root checkout is clean, and the board is now drained to zero `todo` (only two scholar source-ingest jobs remain in flight). The investigation hit a hard stop that's the maintainer's to resolve — every remaining path needs a resource the garden can't self-provision (a v320 swing-store export only kriskowal can source, or a multi-hour XS toolchain re-provision), and the conclusion stands that the nested-record overflow is an XS native-stack-depth property, not an Endo regression, so any real fix is contract-side depth-bounding. Two other items also await a decision before any PR opens: the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) inventory-regrouping directive (a misclassified "rebase" job that's actually a cross-package feature reshape needing a liaison-driven dispatch), and the "harden exported function literals" follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474), which needs you to pick breadth (narrow vs repo-wide) and base branch.
+The board went quiet — the todo queue is empty and only three jobs are in flight (a dead-lettered message being recovered plus two scholar source-ingests of the CapDesk/Polaris and HP Labs Polaris primaries). The most recent completions wrapped the XS over-deep-frame investigation on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) and reaped the root checkout back to clean.
+
+What needs maintainer attention is mostly stacked in the inbox as scope/decision blocks, not new work:
+
+- **[endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405)** carries a real kriskowal feature directive (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups), but it was mis-classified as a "rebase" — the PR is already mergeable, so it needs a liaison-driven builder/fixer dispatch through the gamut, not a no-op rebase.
+- The formula-inspector retention-paths table is blocked on **[endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)**, which has stalled since 2026-05-21 on a requested rebase/re-gamut and now has 4 failing CI checks; the follow-on is ready the moment #284 lands.
+- The "harden exported function literals" follow-up from the merged **[endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474)** is gated on a two-axis scope call (narrow two exports vs. repo-wide via the `@endo/harden-exports` rule; base `llm` vs. `master`).
+- The XS investigation is at a hard decision point: every remaining path needs a resource the garden can't self-provision (the v320 swing-store export or a multi-hour XS toolchain re-provision), and both touch off-limits ymax0/agoric-sdk territory.
+
+On the library side, the scholar landed a distributed-ocap concept cluster and the sixth MetaMask/ocap-kernel ingest (the kernel-guide), and confirmed [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442)'s test-powers duplication is intrinsic (no change). Endo master lint is clean — the only findings are five non-blocking jsdoc warnings, parked as a low-priority plan.
 
 ## Parked for maintainer feedback
 
@@ -182,7 +191,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260628T000935Z-1acfca`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T000935Z-1acfca.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — scholar-ingest-source: CapDesk / Polaris primaries via the combex.com Wayback...
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-hpl-techreports-polaris.md) — scholar-ingest-source: the HP Labs technical reports (HPL-2004-116, HPL-2006-...
 
