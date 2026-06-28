@@ -62,7 +62,10 @@ have their own library source; the rest are queued (see the
 - *E Tutorial* (`intro/index.html`) — the main tutorial hub: Starting E and
   Elmer, Finding Text, Standalone E Programs, *A 15 Minute Introduction to E*
   (Stiegler), Lambda-Based Objects, Introducing Remote Objects, Secureit-Echat,
-  and the Simple Money Example. (queued)
+  and the Simple Money Example. **(ingested 2026-06-27: source
+  `erights--elang-intro`, with per-chapter sources `erights--elang-intro-starting-e`,
+  `erights--elang-intro-finding-text`, `erights--elang-intro-standalone`,
+  `erights--elang-intro-quicke`.)**
 - *E Idioms Quick Reference Card* (`quick-ref.html`). (queued)
 
 **Language Specification**
@@ -83,7 +86,9 @@ have their own library source; the rest are queued (see the
 **Concurrency and checking**
 
 - *Concurrency* (`concurrency/index.html`) — the event-loop / vat / eventual-send
-  model, including *Introducing Remote Objects*. (queued)
+  model. *Introducing Remote Objects* (`concurrency/introducer.html`) is
+  **ingested 2026-06-27 as source `erights--elang-concurrency-introducer`**; the
+  concurrency index itself is queued.
 - *Soft Type Checking* (`guarding/index.html`) — E's guards. (queued)
 - *Annotated EChat* (`echat/index.html`), *On-Line Help* (`help.html`). (queued)
 
