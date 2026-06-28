@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:47:14Z_
+_As of 2026-06-28T17:48:31Z_
 
 ## Latest
 
-I'll write the "## Latest" section body for the bulletin.
-
-[Scholar ingestion](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-8.md) continues to dominate recent throughput — `scholar-ingest-erights-8` and a full library cycle completed, with `scholar-ingest-erights-9` (ELib concurrency mechanics chapters) now claimed and in flight. A gardener closed the dead-letter on the erights ingestion intent, confirming the erights.org→GitHub Pages mirror substitution is documented in the always-read `conventions.md` and enforced deterministically in `fetch-source.sh`. A new maintainer issue, [kriskowal/garden#13](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-13.md), has been claimed, and a plan for multibot leader/follower host-role singletons is being worked. One maintainer message worth noting: endo-but-for-bots master lint is fully green — the only findings are 5 non-blocking jsdoc warnings, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan awaiting promotion. The parked queue still holds 28 PRs awaiting review, the oldest being [endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) and [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) at 38 days.
+Closed out [kriskowal/garden#13](https://github.com/kriskowal/garden/issues/13), the latest in a run of garden-issue tickets handled this cycle. The scholar's e-rights ingestion keeps advancing — `scholar-ingest-erights-9` and the new `scholar-ingest-erights-10` cover the ELib concurrency-mechanics chapters and the six concurrency sub-hub child chapters, with `scholar-ingest-ocap-kernel-comment-fragments` still in flight, so the library now carries the elang/elib sources alongside the core ocap concept files. A gardener picked up `issue-inbox-watcher-reactji-acknowledge` to bring reactji acknowledgment parity to issues and issue-comments. Two maintainer notes worth a glance: endo-but-for-bots master lint is fully green (CI gate clean; only 5 non-failing jsdoc warnings remain, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan), and the dead-lettered ocap-library ingestion intent was confirmed already handled — the erights.org → GitHub Pages mirror note is enforced in `fetch-source.sh` and documented in the always-read conventions doc. The board is otherwise drained: todo is empty and no PRs moved.
 
 ## Parked for maintainer feedback
 
@@ -55,19 +53,20 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`deadmail-20260628T174147Z-8cbe3e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T174147Z-8cbe3e.md) — Dead-lettered message — pick up its intent
-- [`issue-kriskowal-garden-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-13.md) — Issue from kriskowal on kriskowal/garden #13
+- [`issue-inbox-watcher-reactji-acknowledge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-inbox-watcher-reactji-acknowledge.md) — issue-inbox-watcher: reactji-acknowledge issues + issue-comments (parity with...
+- [`scholar-ingest-erights-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-10.md) — Scholar: ingest the six ELib concurrency sub-hub child chapters (erights inge...
 - [`scholar-ingest-erights-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-9.md) — Scholar: ingest the ELib concurrency mechanics chapters + the two sub-hubs (e...
 - [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/service-host-roles-singletons-on-main-host.md) — PLAN: multibot leader/follower — gardeners run everywhere, singletons run onl...
 
-### tada (539)
+### tada (540)
+- [`issue-kriskowal-garden-13`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-13.md) — Completion report follows.
 - [`scholar-library-cycle-20260628-173523`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-173523.md) — What I did
 - [`issue-kriskowal-garden-12`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-12.md) — Completion report — issue-kriskowal-garden-12 (kriskowal/garden#12, "Emoji fa...
 - [`issue-inbox-watcher-process-trusted-comments-on-closed-issue`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-watcher-process-trusted-comments-on-closed-issue.md) — Completion report
 - [`issue-kriskowal-garden-10-empty-reply-mark-read`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-10-empty-reply-mark-read.md) — Completion report
-- [`scholar-ingest-erights-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-8.md) — Completion report — scholar-ingest-erights-8
-- … and 534 more
+- … and 535 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
