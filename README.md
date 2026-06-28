@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T07:29:03Z_
+_As of 2026-06-28T07:40:28Z_
 
 ## Latest
 
-The inventory-grouping work on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) advanced: its round-2 review landed in `tada`, and a fresh fixer directive on the same PR (a grouping-toggle ask) is now in progress alongside the [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) shepherd, which pushed three atomic fixes and is waiting on CI at head `157fd818b`. Otherwise the board is quiet — the todo queue is empty and the gardener fleet is idle-blocked. Worth a maintainer's eye: five unread messages have stacked up, most notably that the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested (4 CI checks still failing); a gardener is standing by to take that as its own job on your word.
+The [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/notifier-pubsub-migration.md) job landed its completion report, and the board is otherwise quiet — two jobs still in flight (the comment-watcher no-silent-trusted-drop fix and the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) grouping-toggle fixer directive), with the todo queue drained to empty.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 18m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 30m)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
@@ -98,18 +98,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`comment-watcher-no-silent-trusted-drop-always-reactji`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-silent-trusted-drop-always-reactji.md) — Comment-watcher: a trusted comment must NEVER be silently dropped — always re...
 - [`endojs-endo-but-for-bots-pr405-grouping-toggle`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-grouping-toggle.md) — fixer directive on endojs/endo-but-for-bots PR #405
-- [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/notifier-pubsub-migration.md) — notifier-pubsub-migration: add @endo/exo-pubsub (all bridges) + migrate daemo...
 
-### tada (484)
+### tada (485)
+- [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/notifier-pubsub-migration.md) — Completion report: notifier-pubsub-migration
 - [`endo-but-for-bots-pr405-inventory-grouping-review-round2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pr405-inventory-grouping-review-round2.md) — Completion report — endo-but-for-bots PR #405, inventory grouping (round 2)
 - [`endojs-endo-but-for-bots-pr405-9719d4b3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-9719d4b3.md) — Routed the attention directive. Report follows.
 - [`deadmail-20260628T071109Z-475cc4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T071109Z-475cc4.md) — Completion report
 - [`endojs-endo-but-for-bots-pr277-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-shepherd.md) — Pushed the three atomic fixes; CI is re-running on head 157fd818b. I'm waitin...
-- [`kriskowal-garden-pr9-8d0a4132`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-8d0a4132.md) — Done. Title updated and verified.
-- … and 479 more
+- … and 480 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
