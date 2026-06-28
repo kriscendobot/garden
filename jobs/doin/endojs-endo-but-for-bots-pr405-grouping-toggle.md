@@ -34,3 +34,9 @@ implementation on the PR branch before designing the two-component split.
 Run the gardening flow (panel review + CI green) before un-drafting / handing
 back. Post the top-level summary comment naming the head SHA, what changed, and
 the verification status.
+
+---
+claim:
+  host: endolinbot
+  gardener: 94
+  claimed_at: 2026-06-28T07:22:48Z
