@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T09:22:07Z_
+_As of 2026-06-28T09:30:51Z_
 
 ## Latest
 
-The board is quiet: the only fresh transition is one new infrastructure job, `improve-scheduler-preflight-gate` (a deterministic preflight gate for the scheduler), now claimed and in progress. Recently landed work includes the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) grouping-toggle, a comment-watcher fix (no silent trusted-sender drops, always reactji), the notifier pubsub migration, and two scholar library cycles plus a run of ocap-corpus ingests.
-
-What a maintainer should notice: five unread messages are waiting. A gardener has the formula-inspector retention-paths table **blocked** on its data source — the `listRetentionPaths` host API PR (#284) is still open, off base `llm`, and stalled since 2026-05-21 on the rebase-and-gamut you'd already requested (currently 22/26 CI green); the gardener is holding rather than duplicating the graph walk and offers to take the #284 rebase as its own job on your word. Separately, a liaison message asks whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of scope. The lint sweep of endo-but-for-bots master came back clean (only 5 non-failing jsdoc warnings, parked as a low-priority fix).
+Board movement was quiet this cycle: the lone completion was [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md), with the todo and doin lanes now empty. The more notable signal is in the maintainer inbox, where four reports await a decision. A gardener has flagged the formula-inspector retention-paths-table job as blocked on its data-source PR, which is still open and has sat unrebased with failing CI since 2026-05-21 — the follow-on UI work is ready to land the moment that rebase-and-gamut you already requested goes through. Separately, the liaison is holding for your call on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the prior job deliberately scoped that out and it sits near the agoric-sdk scope line. Two scholar ingests also landed on journal2 (the sixth MetaMask/ocap-kernel guide plus a six-section distributed-ocap concept cluster), and a lint sweep confirmed endo master is clean apart from five non-blocking jsdoc warnings now parked as a low-priority plan.
 
 ## Parked for maintainer feedback
 
@@ -100,16 +98,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-gate.md) — Add an optional deterministic preflight gate to scripts/jobs/scheduler.sh so ...
+### doin (0)
+(none)
 
-### tada (489)
+### tada (490)
+- [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md) — Job complete: improve-scheduler-preflight-gate
 - [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-090502.md) — Completion report
 - [`scholar-library-cycle-20260628-075042`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-075042.md) — Completion report:
 - [`endojs-endo-but-for-bots-pr405-grouping-toggle`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-grouping-toggle.md) — Completion report — endojs/endo-but-for-bots PR #405
 - [`comment-watcher-no-silent-trusted-drop-always-reactji`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-silent-trusted-drop-always-reactji.md) — Completion report
-- [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/notifier-pubsub-migration.md) — Completion report: notifier-pubsub-migration
-- … and 484 more
+- … and 485 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
