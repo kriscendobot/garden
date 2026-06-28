@@ -1,0 +1,4 @@
+host: endolinbot
+gardener: 25
+claimed_at: 2026-06-28T09:21:32Z
+worktree_dir: /home/kris/worktrees/improve-scheduler-preflight-gate
