@@ -13443,15 +13443,13 @@ testMatch mustMatch E pattern matching | kernel-e
 `slotExpr` `sendExpr` `callExpr` Kernel-E | kernel-e
 E state-nouns object expression captured scope | kernel-e
 four indirections noun slot reference object E | kernel-e
-float64 | e-data-types
-E scalar types | e-data-types
-E primitive data types | e-data-types
-E integer bignum (arbitrary precision) | e-data-types
-ConstList ConstMap FlexList FlexMap | e-data-types
-EList EMap | e-data-types
-E collections Tables | e-data-types
-Coordinate Spaces (E) | e-data-types
-E char type | e-data-types
-capability-mediated IO (E) | e-data-types
-File-object (E granted capability) | e-data-types
-URI expression (E) | e-data-types
+`incarnationId` | ocap-kernel
+incarnation id kernel restart marker | ocap-kernel
+peer-restart detection seq-dedup c-list | ocap-kernel
+`waitForCrank` crank reentrancy deadlock | ocap-kernel
+in-crank terminate callback bypass terminateVat | ocap-kernel
+`Kernel.make` orchestrator class | ocap-kernel
+`platformServices` host boundary injection | ocap-kernel
+`provideFacet` kernel facet orphaned message survival | ocap-kernel
+kernel manager decomposition VatManager SubclusterManager RemoteManager | ocap-kernel
+Kernel.ts ocap-kernel orchestrator | ocap-kernel
