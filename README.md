@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T11:23:14Z_
+_As of 2026-06-28T11:23:37Z_
 
 ## Latest
 
-Mirror-closer per-mapping isolation is in progress; the only new completion this cycle is an idle hourly scholar library cycle, so nothing of substance moved.
+Quiet cycle on the board — the only completion since the last bulletin was the hourly scholar library cycle (`scholar-library-cycle-20260628-112001`), with `improve-mirror-closer-per-mapping-isolation` still in progress and the todo queue empty. The signal this round is in the maintainer inbox: two scholar ingests landed concept-layer synthesis (MetaMask/ocap-kernel's host-app guide as the sixth ocap-kernel ingest, plus a six-topic distributed-ocap cluster), and a lint classification confirms endo-but-for-bots master is clean save five non-blocking jsdoc warnings (a low-priority fix plan is parked). Two items need a maintainer decision to unblock: the formula-inspector retention-paths table is stalled because its data source (an unmerged host API still owed the rebase-and-gamut you requested back on 2026-05-21) hasn't landed, and the liaison is holding for scope guidance before continuing the kriskowal/garden issue #9 investigation the prior job deliberately left out of bounds.
 
 ## Parked for maintainer feedback
 
@@ -102,7 +102,7 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mirror-closer-per-mapping-isolation.md) — In /home/kris/scripts/jobs/mirror-closer.sh, isolate per-mapping read failure...
 
 ### tada (492)
-- [`scholar-library-cycle-20260628-112001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-112001.md) — Hourly scholar library cycle — idle cycle, completed clean.
+- [`scholar-library-cycle-20260628-112001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-112001.md) — Completion report — scholar-library-cycle-20260628-112001
 - [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-102001.md) — Completed the hourly scholar library cycle (scholar-library-cycle-20260628-10...
 - [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md) — Job complete: improve-scheduler-preflight-gate
 - [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-090502.md) — Completion report
