@@ -13453,3 +13453,26 @@ in-crank terminate callback bypass terminateVat | ocap-kernel
 `provideFacet` kernel facet orphaned message survival | ocap-kernel
 kernel manager decomposition VatManager SubclusterManager RemoteManager | ocap-kernel
 Kernel.ts ocap-kernel orchestrator | ocap-kernel
+data-lock | data-lock
+datalock | data-lock
+data lock | data-lock
+unresolvable circular promise | data-lock
+circular promise resolution | data-lock
+E deadlock analog | data-lock
+eventual reference | (see section: erights--elang-concurrency-epimenides--reference-states-and-data-lock)
+broken reference | (see section: erights--elang-concurrency-epimenides--reference-states-and-data-lock)
+three reference states | (see section: erights--elang-concurrency-epimenides--reference-states-and-data-lock)
+near, eventual, broken reference | (see section: erights--elang-concurrency-epimenides--reference-states-and-data-lock)
+not synchronously callable | (see section: erights--elang-concurrency-epimenides--reference-states-and-data-lock)
+`asynchAnd` | (see section: erights--elang-concurrency-race--racing-joining-and-timeouts)
+asynchronous join | (see section: erights--elang-concurrency-race--racing-joining-and-timeouts)
+`timeBomb` | (see section: erights--elang-concurrency-race--racing-joining-and-timeouts)
+E timeout via race | (see section: erights--elang-concurrency-race--racing-joining-and-timeouts)
+`race` (E concurrency) | (see section: erights--elang-concurrency-race--racing-joining-and-timeouts)
+once forwarder | (see section: erights--elang-concurrency-race--racing-joining-and-timeouts)
+Event Loop Concurrency | (see section: erights--elib-concurrency-index--event-loop-reference-map)
+vat turn | (see section: erights--elib-concurrency-index--event-loop-reference-map)
+Four Layers of When | (see section: erights--elib-concurrency-index--event-loop-reference-map)
+EIO | (see section: erights--elib-concurrency-index--event-loop-reference-map)
+why threads are evil | (see section: erights--elib-concurrency-index--event-loop-reference-map)
+deterministic replay | (see section: erights--elang-concurrency-determinism--deterministic-replay-plan)
