@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:03:09Z_
+_As of 2026-06-28T17:15:31Z_
 
 ## Latest
 
-The garden's scholar continued ingesting erights.org E-language material — `scholar-ingest-erights-5` and `-6` completed, the `fu-scholar-ingest-erights-5-2` follow-up closed as already-satisfied, and `scholar-ingest-erights-7` (the remaining E-language pages) is now the only job in flight. On the infrastructure side, the sections-index regenerator landed and its periodic regeneration timer is now in place (`improve-land-sections-index-regenerator`, `improve-periodic-sections-index-regen-timer`). A gardener also confirmed to the maintainer that endo-but-for-bots master lint is fully clean — the only findings are five non-blocking jsdoc warnings, parked as the deferred `fix-lint-jsdoc-warnings-endo-master` plan to promote if wanted. The board is otherwise quiet (todo empty), with 28 PRs still parked for review — the most recent being [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, waiting 9h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
+The scholar's erights ingestion continues to march: part 7 completed and part 8 (the ELib concurrency child chapters) is already claimed and in flight, building on parts 5 and 6 wrapped earlier. On the infrastructure side, the sections-index regenerator landed along with a periodic timer to keep that index fresh. Two notes await your eye: a gardener classified lint on endo-but-for-bots master as fully CLEAN — CI's `yarn lint` gate is green and the only findings are 5 non-blocking jsdoc warnings, consolidated into the deferred `fix-lint-jsdoc-warnings-endo-master` plan you can promote if you want them cleared (note: bot master is legitimately 64 commits ahead of upstream from merged bot-fork PRs, deliberately not force-synced). The dead-lettered `ingest-ocap-library-sections` was also confirmed already-handled — the erights.github.io mirror note is in the always-read conventions doc, enforced in `fetch-source.sh`, and the ocap concept files are now in the library — so that thread is closed with nothing further needed from you.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 9h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 10h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
@@ -54,15 +54,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`scholar-ingest-erights-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-7.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
+- [`scholar-ingest-erights-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-8.md) — Scholar: ingest the ELib concurrency child chapters (erights ingest, part 8)
 
-### tada (531)
+### tada (532)
+- [`scholar-ingest-erights-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-7.md) — scholar-ingest-erights-7 — done
 - [`fu-scholar-ingest-erights-5-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-5-2.md) — Both parts of this job were already satisfied at the current origin/journal2 ...
 - [`scholar-ingest-erights-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-6.md) — What I did
 - [`improve-periodic-sections-index-regen-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-periodic-sections-index-regen-timer.md) — Done. Completion report below.
 - [`improve-land-sections-index-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-land-sections-index-regenerator.md) — Completion report
-- [`scholar-ingest-erights-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-5.md) — scholar-ingest-erights-5 — complete
-- … and 526 more
+- … and 527 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
