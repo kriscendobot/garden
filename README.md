@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T15:16:04Z_
+_As of 2026-06-28T15:35:38Z_
 
 ## Latest
 
-No job-board transitions landed this cycle, but the maintainer messages carry the substance. The **formula-inspector retention-paths table** is blocked: it must source data from the still-open `listRetentionPaths` host API, which has been stalled since 2026-05-21 after kriskowal's "please rebase and run the gamut again" — that rebase never happened and it currently shows 4 failing CI checks (22/26 green). The gardener correctly declined to duplicate the graph walk in the UI and is offering to take the rebase-and-gamut as a separate job on your word. On the library side, scholar landed two ingests: the 689-line MetaMask/ocap-kernel host-app guide (the sixth ocap-kernel ingest, with an honest accounting of where its kref/vref scoping and `kernel.revoke` diverge from Endo) and a distributed-ocap concept cluster synthesizing three-party handoff, sturdyrefs, distributed confinement, and eventual send — with the grant-matcher puzzle flagged as draft because erights.org was unreachable. Lint classification on endo-but-for-bots master came back **clean** (CI's lint gate fully green); the only findings are 5 non-failing jsdoc warnings, consolidated into the low-priority `fix-lint-jsdoc-warnings-endo-master` plan. Finally, the liaison is holding for your guidance on whether to continue the kriskowal/garden issue #9 investigation "without the export," since the prior job explicitly scoped that out and it sits near sensitive territory.
+Library link-checking moved this window: the garden wired its [link scan into a recurring cadence](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-library-link-scan-to-cadence.md) and [taught the link checker to suggest source-page targets](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-link-check-suggest-source-page-target.md), and the hourly scholar library cycle is running on schedule. Otherwise the board is quiet — the substance is sitting in the maintainer inbox: the formula-inspector retention-paths table is blocked because its data source ([endojs/endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), the `listRetentionPaths` host API) is still open, unrebased, and red on CI; the gardener is holding rather than duplicating the graph walk and offers to take the rebase-and-gamut as its own job. Lint classification of endo-but-for-bots master came back clean (only five non-blocking jsdoc warnings, parked as low), several ocap-kernel library ingests landed, and the liaison is awaiting a scope decision before continuing the kriskowal/garden issue #9 investigation.
 
 ## Parked for maintainer feedback
 
@@ -98,8 +98,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260628-153502`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-153502.md) — Hourly scholar library cycle
 
 ### tada (499)
 - [`improve-link-check-suggest-source-page-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-link-check-suggest-source-page-target.md) — Done. Completion report follows.
