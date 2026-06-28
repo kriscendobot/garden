@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T00:06:35Z_
+_As of 2026-06-28T00:10:29Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin — the only completion was the garden's own [kriskowal/garden#9](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-d25b9529.md), and two scholar source-ingest jobs (combex/Polaris primaries, HP Labs tech reports) remain in flight. The substance this cycle is a stack of maintainer decisions that gardeners surfaced and parked. Most urgent: a feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch — the autonomous fleet has no path for implementing a feature directive. Two follow-ups need a scope call from you: the harden-exported-function-literals work from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on choosing narrow-vs-repo-wide breadth and a base branch (`llm` vs `master`), and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you requested (4 CI checks still red). Lower-stakes: endo master lint came back clean (only 5 non-blocking jsdoc warnings, parked), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (architectural cycle), and scholar landed two ocap concept clusters (MetaMask ocap-kernel guide plus six distributed-ocap library sections).
+Since the last bulletin, the only board movement is the XS over-deep-frame investigation on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9): its completion report landed in `tada` and two follow-up jobs were claimed into `doin`. The investigation has stalled on the maintainer — both liaison follow-ups conclude every remaining path needs a resource the garden can't self-provision (the v320 swing-store export, or a multi-hour XS toolchain re-provisioning), and the finding is that the nested-record overflow is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding in ymax0/agoric-sdk territory — out of bounds for autonomous action and awaiting your direction.
+
+Several other items are parked on your decision: [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API) is still open and red on 4 CI checks, blocking the formula-inspector retention-paths table — the gardener recommends landing the rebase-and-gamut you requested back on 2026-05-21. A real maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (re-bucket the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch. The harden-exported-function-literals follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is waiting on you to choose breadth (narrow two exports vs. repo-wide) and base branch before a cross-repo PR opens.
+
+On the quiet front: endo-but-for-bots master lint is clean (only 5 non-failing jsdoc warnings, plan parked), the #442 reusable-test-powers revisit concluded as intrinsic duplication with no change, and the scholar fleet ingested MetaMask's ocap-kernel guide plus a distributed-ocap concept cluster into the library.
 
 ## Parked for maintainer feedback
 
@@ -173,12 +177,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I am separately posting a garden-infra fix job for the classifier bug that misrouted this to "rebase".
 
+- `20260628T000910Z-062d47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T000910Z-062d47.md)
+
+> The XS over-deep-frame investigation (kriskowal/garden issue #9 and PR #9) has reached a decision point that's your call, not the garden's: every remaining path needs a resource the garden can't self-provision. (a) The decisive export-free XS import repro and the optional synthetic-harness confirmation both require the XS toolchain to be re-provisioned (multi-hour, no longer "engine warm"); (b) a real-data trace is blocked on the v320 swing-store export, which only you can source. Please decide whether to continue spending investigation effort here and, if so, whether to source the v320 export or authorize the multi-hour toolchain re-provisioning + synthetic harness on the bot fork.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`fu-kriskowal-garden-pr9-d25b9529-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-kriskowal-garden-pr9-d25b9529-3.md) — On the garden host's deployed root checkout (/home/kris, kriskowal/garden), r...
+- [`kriskowal-garden-pr9-38149ef8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-38149ef8.md) — attention directive on kriskowal/garden PR #9
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — scholar-ingest-source: CapDesk / Polaris primaries via the combex.com Wayback...
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-hpl-techreports-polaris.md) — scholar-ingest-source: the HP Labs technical reports (HPL-2004-116, HPL-2006-...
 
