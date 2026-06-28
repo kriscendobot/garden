@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T00:38:10Z_
+_As of 2026-06-28T00:40:10Z_
 
 ## Latest
 
-Little moved on the board itself this cycle — only an idle hourly scholar library drain closed out — but several gardener reports landed decisions that now sit with kriskowal. A misrouted comment-watcher classification surfaced a real maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405): reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and fully hide empty groups across space-chat, chat, cli, and daemon — a cross-package change the v2 fleet can't drive autonomously, so it needs a liaison dispatch. The "harden exported function literals" follow-up from erights on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two answers from you: breadth (narrow two-export fix vs. repo-wide pass aligned with `@endo/harden-exports`) and base branch (`llm` vs. `master`, which changes the diff shape since the exports are still function declarations on `llm`). A formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you already requested; the gardener offers to take that as a job on your word. The XS over-deep-frame investigation (kriskowal/garden #9) has hit a wall — every remaining path needs either the v320 swing-store export only you can source or a multi-hour XS toolchain re-provision — and the investigation's conclusion is that this is XS native stack-depth behavior, not an Endo regression, so the fix is contract-side. On the no-action-needed side: endo-but-for-bots master lint is clean (only 5 non-failing jsdoc warnings, plan parked), the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction), and the scholar shelved a sixth ocap-kernel ingest plus a distributed-ocap concept cluster.
+The XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9)) wrapped and landed in `tada`, but it stops at a maintainer decision: every remaining path needs a resource the garden can't self-provision — the v320 swing-store export (yours to source) or a multi-hour XS toolchain re-provision — and the conclusion stands that the nested-record overflow is an XS native-stack-depth property, not an Endo regression, so the real fix is contract-side depth-bounding. Scholar library work continues in the background, with two source ingests (CapDesk/Polaris via Wayback, and the HP Labs Polaris techreports) in flight and a freshly-landed distributed-ocap concept cluster plus a sixth MetaMask/ocap-kernel ingest.
+
+Several items are now waiting specifically on your call: [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a real feature directive (re-bucket the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) that was misclassified as a no-op rebase and needs a liaison-driven fixer dispatch; the [#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported literals" follow-up is gated on your choice of breadth (narrow two-export vs. repo-wide) and base branch; and the formula-inspector retention-paths table is blocked behind [#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since your "rebase and re-gamut" request and still shows four failing checks. On the quieter side, endo master lint is clean (only five non-blocking jsdoc warnings, parked low), and the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded as intrinsic duplication with no change.
 
 ## Parked for maintainer feedback
 
@@ -183,17 +185,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (3)
-- [`kriskowal-garden-pr9-2146e297`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-2146e297.md) — attention directive on kriskowal/garden PR #9
+- [`deadmail-20260628T003739Z-7a6e32`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T003739Z-7a6e32.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — scholar-ingest-source: CapDesk / Polaris primaries via the combex.com Wayback...
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-hpl-techreports-polaris.md) — scholar-ingest-source: the HP Labs technical reports (HPL-2004-116, HPL-2006-...
 
-### tada (428)
-- [`scholar-library-cycle-20260628-003502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-003502.md) — Hourly scholar library cycle: empty-inbox idle drain, no work claimed.
+### tada (429)
+- [`kriskowal-garden-pr9-2146e297`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-2146e297.md) — Completion report — kriskowal-garden-pr9-2146e297
+- [`scholar-library-cycle-20260628-003502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-003502.md) — Resolved — the earlier ls-tree was a stale/raced read. The authoritative hist...
 - [`deadmail-20260628T001734Z-24b4c8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T001734Z-24b4c8.md) — Completion report — dead-lettered job deadmail-20260628T001734Z-24b4c8
 - [`improve-bound-gardener-handler-runtime`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-bound-gardener-handler-runtime.md) — Completion report: improve-bound-gardener-handler-runtime
 - [`deadmail-20260628T000935Z-1acfca`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T000935Z-1acfca.md) — Completion report
-- [`kriskowal-garden-pr9-38149ef8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-38149ef8.md) — Completion report — kriskowal-garden-pr9-38149ef8
-- … and 423 more
+- … and 424 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
