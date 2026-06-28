@@ -21,7 +21,11 @@
 #                      issue's doer (inbox-send to the spine); a dead inbox
 #                      dead-letters → garden-deadmail promotes it to a job that
 #                      inherits the issue note (the note rides in the message body)
-#       → submitter-CLOSED issue → terminal: dispatch nothing further for it
+#       → submitter-CLOSED issue → terminal for the close itself and anything at or
+#                      before it: dispatch nothing. BUT a trusted comment that
+#                      POST-DATES the close (created_at > closed_at) is re-engagement
+#                      and IS processed — a close means "satisfied for now," not
+#                      "ignore what I say next" (kriskowal/garden #10)
 #       → VERIFY the dispatch landed before advancing the cursor (a lost push must
 #         re-poll, never drop a trusted directive).
 #
@@ -59,11 +63,13 @@
 # they are exercised directly by the test rather than mocked away.
 #
 # TSV columns the source emits (tab-separated, body single-lined, ascending created):
-#   kind  created  id  number  author  submitter  state  closed_by  url  body
+#   kind  created  id  number  author  submitter  state  closed_by  closed_at  url  body
 # kind ∈ issue | issue-comment
 #   issue        — a newly-opened issue (author == submitter)
 #   issue-comment— a comment on an issue (author == commenter; submitter == opener)
-# state ∈ open | closed ; closed_by = the login that closed the issue ("" if open)
+# state ∈ open | closed ; closed_by = the login that closed the issue ('-' if open)
+# closed_at      = the issue's close timestamp ('-' if open); compared against a
+#                  comment's created to tell re-engagement from the terminal close.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -263,13 +269,17 @@ if [ "$nlines" -eq 0 ]; then
 fi
 
 hw="$last_seen"; failed=0; acted=0; dropped=0
-# TSV columns: kind created id number author submitter state closed_by url body
-# closed_by carries a '-' sentinel when empty: bash `read` with a (whitespace) TAB
-# IFS collapses consecutive tabs, so an empty MIDDLE field would shift every later
-# column left. The source emits '-' for an open issue's closer; normalize it back.
-while IFS=$'\t' read -r kind created id number author submitter state closed_by url body; do
+# TSV columns: kind created id number author submitter state closed_by closed_at url body
+# closed_by AND closed_at each carry a '-' sentinel when empty: bash `read` with a
+# (whitespace) TAB IFS collapses consecutive tabs, so an empty MIDDLE field would
+# shift every later column left. The source emits '-' for an open issue's closer and
+# close-time; normalize them back. closed_at is the issue's close timestamp — it lets
+# us tell a trusted comment that POST-DATES the close (re-engagement → process) from
+# the close itself (terminal → drop). See the closing-etiquette block below.
+while IFS=$'\t' read -r kind created id number author submitter state closed_by closed_at url body; do
   [ -n "$created" ] || continue
   [ "$closed_by" = "-" ] && closed_by=""
+  [ "$closed_at" = "-" ] && closed_at=""
 
   # Steady-state dedup: the source selects created_at >= since (inclusive, so a
   # boundary interaction is never missed); skip anything at or before the cursor
@@ -282,18 +292,33 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
 
   # ── MAINTAINER-TRUST GATE — first, deterministic, before ANYTHING reads body ──
   if ! is_maintainer "$author"; then
-    log "non-maintainer ${author:-<none>} on $REPO #${number:-?} ($kind); dropped (not triaged)"
+    log "non-maintainer ${author:-<none>} on $REPO #${number:-?} ($kind id=${id:-?}); dropped (not triaged)"
     dropped=$((dropped+1)); hw="$created"; continue
   fi
 
-  # Closing etiquette: a submitter-closed issue is the TERMINAL signal — dispatch
-  # nothing further for it. (A close by anyone other than the submitter is not
-  # terminal.) Slide the cursor past it.
+  # Closing etiquette, corrected for re-engagement (kriskowal/garden #10,
+  # 2026-06-28). A SUBMITTER-close means "satisfied for now" — it is the TERMINAL
+  # signal for the issue itself and for anything authored AT OR BEFORE it, so we
+  # drop those and dispatch nothing. But a trusted maintainer DOES comment on a
+  # closed issue (and reopens it): a comment whose created_at POST-DATES the close
+  # is RE-ENGAGEMENT and MUST be processed, never dropped. The earlier rule applied
+  # the terminal stop to comments too, so two post-close directives on #10 were lost
+  # and the cursor slid past them. (A close by anyone other than the submitter is
+  # not terminal at all — this whole block is skipped.) We NEVER silently slide the
+  # cursor past a trusted comment: a genuine terminal drop logs the kind + id +
+  # reason so it is diagnosable, never invisible.
   if [ "$state" = closed ] && [ -n "$closed_by" ] \
      && [ "$(printf '%s' "$closed_by" | tr '[:upper:]' '[:lower:]')" \
         = "$(printf '%s' "$submitter" | tr '[:upper:]' '[:lower:]')" ]; then
-    log "issue #$number closed by its submitter ($submitter) — terminal, dispatching nothing"
-    hw="$created"; continue
+    # Re-engagement test: a COMMENT that post-dates the close survives. When the
+    # close time is unknown (sentinel empty), err toward PROCESSING a comment rather
+    # than risk dropping trusted feedback — the no-silent-drop principle.
+    if [ "$kind" = issue-comment ] && { [ -z "$closed_at" ] || [ "$created" \> "$closed_at" ]; }; then
+      log "issue #$number: trusted comment id=$id post-dates submitter-close (created=$created, closed_at=${closed_at:-unknown}) — re-engagement, processing"
+    else
+      log "issue #$number $kind id=${id:-?} at-or-before submitter-close by $submitter (created=$created, closed_at=${closed_at:-unknown}) — terminal, dropping (reason: not a post-close re-engagement)"
+      hw="$created"; continue
+    fi
   fi
 
   [ -n "${number:-}" ] || number="0"

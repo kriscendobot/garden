@@ -10,15 +10,18 @@
 # this inbox is for issues, not PRs (the comment-watcher already covers PRs).
 #
 # TSV columns (tab-separated, body single-lined):
-#   kind  created  id  number  author  submitter  state  closed_by  url  body
+#   kind  created  id  number  author  submitter  state  closed_by  closed_at  url  body
 # kind ∈ issue | issue-comment
 #   issue        — a newly-opened issue (author == submitter == .user.login)
 #   issue-comment— a comment on an issue (author == commenter; submitter == opener)
-# state ∈ open | closed ; closed_by = login that closed the issue ("" if open).
+# state ∈ open | closed ; closed_by = login that closed the issue ('-' if open).
+# closed_at      = the issue's close timestamp ('-' if open). The watcher compares a
+#                  comment's created against closed_at to tell a post-close
+#                  re-engagement comment (process) from the terminal close (drop).
 #
 # For comments we JOIN the parent issue (one lookup per distinct commented issue,
-# cached) to learn the submitter/state/closed_by the watcher's closing-etiquette
-# rule needs — and to DROP comments whose parent is a PR.
+# cached) to learn the submitter/state/closed_by/closed_at the watcher's
+# closing-etiquette rule needs — and to DROP comments whose parent is a PR.
 #
 # Monitoring safety: the bodies returned here reach a job/message downstream, but
 # the watcher's MAINTAINER-TRUST GATE drops any non-maintainer author BEFORE the
@@ -61,19 +64,19 @@ gh api --paginate "repos/$repo/issues?state=all&since=$since&sort=created&direct
       .[] | select(has(\"pull_request\") | not) | select(.created_at >= \$s)
       | [ \"issue\", .created_at, (.id|tostring), (.number|tostring),
           .user.login, .user.login, .state, (.closed_by.login // \"-\"),
-          .html_url, ($oneline) ] | @tsv" || true
+          (.closed_at // \"-\"), .html_url, ($oneline) ] | @tsv" || true
 
 # 2) NEW ISSUE COMMENTS — join the parent issue for submitter/state/closed_by and
 #    to drop PR comments. The issues/comments feed is repo-wide and `since=` here
 #    filters by UPDATED_AT, so select created_at >= since too.
-declare -A _ISSUE_META=()   # number -> "submitter\tstate\tclosed_by\tis_pr"
-issue_meta() {  # issue_meta <number> -> echoes submitter \t state \t closed_by \t is_pr
+declare -A _ISSUE_META=()   # number -> "submitter\tstate\tclosed_by\tclosed_at\tis_pr"
+issue_meta() {  # issue_meta <number> -> echoes submitter \t state \t closed_by \t closed_at \t is_pr
   local n="$1" raw
   if [ -n "${_ISSUE_META[$n]+x}" ]; then printf '%s' "${_ISSUE_META[$n]}"; return; fi
-  # closed_by uses a '-' sentinel when empty so the TAB-IFS `read` below does not
-  # collapse an empty middle field and mis-assign is_pr (see the watcher's note).
+  # closed_by AND closed_at use a '-' sentinel when empty so the TAB-IFS `read` below
+  # does not collapse an empty middle field and mis-assign is_pr (see watcher's note).
   raw="$(gh api "repos/$repo/issues/$n" 2>/dev/null \
-         | jq -r '[ .user.login, .state, (.closed_by.login // "-"),
+         | jq -r '[ .user.login, .state, (.closed_by.login // "-"), (.closed_at // "-"),
                     (if has("pull_request") then "pr" else "issue" end) ] | @tsv' \
          | head -1 || true)"
   _ISSUE_META[$n]="$raw"; printf '%s' "$raw"
@@ -88,10 +91,10 @@ gh api --paginate "repos/$repo/issues/comments?since=$since&sort=created&directi
   | while IFS=$'\t' read -r created cid number author url body; do
       [ -n "$number" ] || continue
       meta="$(issue_meta "$number")"
-      IFS=$'\t' read -r submitter state closed_by is_pr <<<"$meta"
+      IFS=$'\t' read -r submitter state closed_by closed_at is_pr <<<"$meta"
       [ "$is_pr" = pr ] && continue                 # a PR comment — not our inbox
       [ -n "$submitter" ] || continue               # issue lookup failed — skip this tick
-      printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+      printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
         "issue-comment" "$created" "$cid" "$number" "$author" "$submitter" \
-        "$state" "$closed_by" "$url" "$body"
+        "$state" "$closed_by" "$closed_at" "$url" "$body"
     done || true
