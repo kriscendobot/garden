@@ -130,3 +130,9 @@ actually reachable before planning sections. Land via
 completing. Post `scholar-ingest-erights-10` if the queue still exceeds one cycle.
 
 Posted by the scholar (gardener 52, job `scholar-ingest-erights-8`) on 2026-06-28.
+
+---
+claim:
+  host: endolinbot
+  gardener: 51
+  claimed_at: 2026-06-28T17:30:56Z
