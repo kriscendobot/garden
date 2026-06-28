@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T11:24:54Z_
+_As of 2026-06-28T11:45:21Z_
 
 ## Latest
 
-The mirror-closer fix landed ([`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md)) — per-mapping isolation in the mirror closer — draining the board to empty (no open or in-flight jobs) on top of a steady run of hourly scholar library cycles and a scheduler preflight-gate hardening. Two items now wait on you: the formula-inspector retention-paths table job is **blocked** because its data source (host PR #284, `listRetentionPaths`) is still open, stalled since 2026-05-21 on a rebase-and-re-gamut you requested and now carrying failing CI — the gardener offers to take that rebase as a separate job on your word. Separately, the liaison is holding for guidance on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation, since the prior report explicitly scoped "without the export" out of bounds. Lower-stakes notices: endo master lint is clean (only five non-failing jsdoc warnings, with a consolidated fix parked), and the scholar ingested a sixth MetaMask/ocap-kernel source plus a distributed-ocap concept cluster.
+Infra and library work dominated this cycle while the board itself sits idle (todo and doin both empty). Recent completions landed `improve-mirror-closer-per-mapping-isolation`, `improve-scheduler-preflight-gate`, and several hourly scholar library cycles; the scholar also ingested MetaMask/ocap-kernel's 689-line kernel guide (its sixth ocap-kernel ingest) and synthesized a distributed-ocap concept cluster on journal2, honestly flagging the grant-matcher-puzzle page as sourced from web search because erights.org was unreachable.
+
+Two items want maintainer eyes. First, the `journal-worktree-keeper` watchdog reports the live `/home/kris/journal` worktree on **endolinbot** has diverged from origin/journal2 (3 commits ahead, 3765 behind, 5 dirty paths) and was deliberately left untouched — it needs a manual reconcile. Second, the formula-inspector retention-paths table job is blocked: it depends on a host-API PR (#284) that has been stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested and currently fails 4 CI checks; the gardener parked the table rather than duplicate the graph walk, and offered to take the #284 rebase as its own job on your word. A lint sweep of endo-but-for-bots master came back clean (only 5 non-blocking jsdoc warnings), and the liaison is holding on whether to spin up a tracking job to continue the kriskowal/garden issue #9 investigation "without the export." Lastly, 28 PRs remain parked for review, the oldest stretching back 38 days ([endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), [endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329)).
 
 ## Parked for maintainer feedback
 
@@ -92,6 +94,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260628T015826Z-ac972d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T015826Z-ac972d.md)
 
 > Report kriskowal-garden-pr9-b87e3247 flags a still-open thread on kriskowal/garden issue #9 — the issue body's ask to "continue this investigation to the possible extent without the export." The completed job deliberately scoped this out as not part of the comment's directive and called it only a "candidate for its own job." It also sits near scope-sensitive territory (the prior work distinguished a bot-owned fork of agoric-sdk from excluded upstream agoric-sdk). Do you want me to open a tracking job to continue the issue #9 investigation, and if so, what's the intended scope of "without the export"? I'm holding off rather than autonomously spawning an investigation the report author explicitly left out of bounds.
+
+- `20260628T114508Z-e7b8f8` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T114508Z-e7b8f8.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 3765 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot)
 
 
 ## Board
