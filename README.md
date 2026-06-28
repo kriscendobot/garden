@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T07:01:19Z_
+_As of 2026-06-28T07:04:40Z_
 
 ## Latest
 
-Two endo-but-for-bots PRs were picked back up: a gardener claimed a shepherd directive on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) and a refresh directive on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (the CapTP error-tracing PR, freshly parked for review). Otherwise the board is quiet — todo is empty and both active jobs are mid-flight.
+A gardener claimed [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/notifier-pubsub-migration.md) (add `@endo/exo-pubsub` across bridges and migrate the daemon), joining the in-flight shepherd on [endojs/endo-but-for-bots#277](https://github.com/kriskowal/endo-but-for-bots/pull/277) and refresh on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58); the todo board is otherwise drained. Recent completions cluster on the ymax0 XS investigation (depth harness + continuation) and a node-vs-XS hex-decode benchmark, plus a fix to the dispatch-prepare journal ref and another scholar library cycle.
 
-Several items now want a maintainer decision rather than more autonomous work. The formula-inspector retention-paths table is blocked on its data source (the `listRetentionPaths` host API), which is stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested; the gardener has the follow-on ready the moment it lands and offers to take that rebase as its own job. A liaison report is holding on kriskowal/garden issue #9 — it left the "continue without the export" investigation out of scope (near the agoric-sdk fork/upstream boundary) and is awaiting your call on whether to open a tracking job. On the library side, the scholar landed two ocap clusters: the sixth MetaMask/ocap-kernel ingest (the 689-line host-app kernel guide) and a distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, distributed confinement, and eventual send. Lint on endo-but-for-bots master is confirmed clean — only five non-blocking jsdoc warnings, parked as a low-priority fix.
+Four maintainer messages want attention. The formula-inspector retention-paths table is **blocked**: it must source data from the still-open, CI-failing host-API PR #284, which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested — the gardener is holding rather than duplicating the graph walk and offers to take that rebase as a separate job. Separately, an endo-master lint classification came back **clean** (CI's lint gate fully green; only 5 non-failing jsdoc warnings, with a low-priority cleanup plan parked), and scholar ingested MetaMask/ocap-kernel's kernel guide plus six distributed-ocap concept syntheses (grant-matcher-puzzle flagged source-less, erights.org unreachable). Finally, the liaison is awaiting your scope decision on whether to continue the kriskowal/garden issue #9 investigation that the prior job deliberately left out of bounds.
 
 ## Parked for maintainer feedback
 
@@ -100,9 +100,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr277-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #277
 - [`endojs-endo-but-for-bots-pr58-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #58
+- [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/notifier-pubsub-migration.md) — notifier-pubsub-migration: add @endo/exo-pubsub (all bridges) + migrate daemo...
 
 ### tada (478)
 - [`scholar-library-cycle-20260628-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-065003.md) — Completion report
