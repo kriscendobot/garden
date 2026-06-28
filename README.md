@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T00:53:30Z_
+_As of 2026-06-28T01:00:35Z_
 
 ## Latest
 
-The board is nearly drained — `todo` is empty, with four jobs in flight and a fresh claim on `improve-issue-comment-idempotent-by-comment-id` (making the issue-comment dispatch path idempotent by comment id). Most of what moved this cycle landed as maintainer-facing reports rather than merges, and several now need your decision. Two scope calls are owed: the harden-exported-function-literals follow-up to the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs breadth (narrow two exports vs. repo-wide via the `@endo/harden-exports` rule) and base branch (`llm` vs. `master`) before a DRAFT can open; and a misclassified job on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) turned out to carry a real feature directive (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities with full empty-group hiding), which needs a liaison-driven fixer dispatch since the fleet has no autonomous path for it. The retention-paths inspector table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing checks awaiting the rebase-and-gamut you already requested. The XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9)) has closed out as far as it can autonomously — it's confirmed an XS native-stack-depth property, not an Endo regression, and every remaining path needs either the v320 swing-store export or a multi-hour toolchain re-provision, both your call. On the quieter side: a revisit of the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) deferred plan concluded no change (reusing daemon powers would invert the extraction), endo `master` lint is clean save 5 non-blocking jsdoc warnings, and the scholar landed two ocap synthesis clusters (the MetaMask ocap-kernel guide and six distributed-ocap concepts).
+A garden-infra fix landed — `improve-issue-comment-idempotent-by-comment-id` (issue-comment posting now keyed on comment ID) completed, alongside a dead-lettered job cleanup; the board is otherwise quiet (todo empty, two scholar-ingest jobs in flight).
+
+What a maintainer should notice is a stack of decisions now parked in the inbox. A real feature directive from kriskowal on [endojs/endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (re-taxonomize the inventory groups — Directories/Agents/Personas/Values/Capabilities — plus full empty-group hiding) was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch, since the v2 fleet has no autonomous path for maintainer feature directives. The harden-exported-literals follow-up from the merged [endojs/endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) awaits two answers — narrow (two evasive-transform exports) vs repo-wide, and base branch `llm` vs `master`, which changes the diff shape. The formula-inspector retention-paths table is blocked on #284 (`listRetentionPaths` host API), still open and stalled since 2026-05-21 on the rebase-and-gamut you requested; the gardener can take that rebase as a separate job on your word. And the XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9)) has hit a wall — every remaining path needs either the v320 swing-store export only you can source or a multi-hour XS toolchain re-provision; the investigation concluded this is an XS native-stack property, not an Endo regression.
+
+On the library side, scholars landed three ocap synthesis clusters (a MetaMask/ocap-kernel guide ingest, six distributed-ocap concepts, and a kernel-guide concept), flagging the grant-matcher-puzzle source as unreachable (erights.org down). Endo master lint is confirmed clean — only five non-failing jsdoc warnings remain, parked as a low-priority cleanup.
 
 ## Parked for maintainer feedback
 
@@ -182,19 +186,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`deadmail-20260628T003739Z-7a6e32`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T003739Z-7a6e32.md) — Dead-lettered message — pick up its intent
-- [`improve-issue-comment-idempotent-by-comment-id`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-issue-comment-idempotent-by-comment-id.md) — Make the issue-comment dispatch path in scripts/jobs/issue-inbox-watcher.sh i...
+### doin (2)
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — scholar-ingest-source: CapDesk / Polaris primaries via the combex.com Wayback...
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-hpl-techreports-polaris.md) — scholar-ingest-source: the HP Labs technical reports (HPL-2004-116, HPL-2006-...
 
-### tada (429)
+### tada (431)
+- [`improve-issue-comment-idempotent-by-comment-id`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-issue-comment-idempotent-by-comment-id.md) — Completion report: improve-issue-comment-idempotent-by-comment-id
+- [`deadmail-20260628T003739Z-7a6e32`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T003739Z-7a6e32.md) — Completion report
 - [`kriskowal-garden-pr9-2146e297`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-2146e297.md) — Completion report — kriskowal-garden-pr9-2146e297
 - [`scholar-library-cycle-20260628-003502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-003502.md) — Resolved — the earlier ls-tree was a stale/raced read. The authoritative hist...
 - [`deadmail-20260628T001734Z-24b4c8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T001734Z-24b4c8.md) — Completion report — dead-lettered job deadmail-20260628T001734Z-24b4c8
-- [`improve-bound-gardener-handler-runtime`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-bound-gardener-handler-runtime.md) — Completion report: improve-bound-gardener-handler-runtime
-- [`deadmail-20260628T000935Z-1acfca`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T000935Z-1acfca.md) — Completion report
-- … and 424 more
+- … and 426 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
