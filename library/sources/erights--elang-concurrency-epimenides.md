@@ -29,7 +29,7 @@ resolution depends on itself. Unlike a threaded deadlock, data-lock hangs nothin
 
 | Section | Topics | Status |
 |---------|--------|--------|
-| [reference-states-and-data-lock](../sections/erights--elang-concurrency-epimenides--reference-states-and-data-lock.md) | eventual-send, e-language, references | current |
+| [reference-states-and-data-lock](../sections/erights--elang-concurrency-epimenides--reference-states-and-data-lock.md) | eventual-send, e-language | current |
 
 ## Provenance
 
