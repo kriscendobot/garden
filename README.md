@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T11:51:49Z_
+_As of 2026-06-28T11:53:01Z_
 
 ## Latest
 
-A single gardener job is in flight — [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-suppress-happy-path-progress.md), which trims the gardener's redundant happy-path progress journal entries — and nothing else has moved since the last bulletin.
+Garden infrastructure work landed this cycle: [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) completed, quieting routine happy-path progress noise from the gardener fleet, following on the heels of mirror-closer per-mapping isolation and a scheduler preflight gate. The board is otherwise drained (todo and doin both empty). Worth the maintainer's attention: the formula-inspector retention-paths table job is blocked on PR #284 (`listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently carries failing CI — the gardener is holding rather than duplicating the graph walk, and offers to take the #284 rebase as its own job on your word. Also queued for a decision: the liaison is awaiting scope guidance before opening a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of bounds.
 
 ## Parked for maintainer feedback
 
@@ -98,16 +98,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-suppress-happy-path-progress.md) — In scripts/jobs/gardener.sh, the gardener emits two progress journal entries ...
+### doin (0)
+(none)
 
-### tada (493)
+### tada (494)
+- [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) — Completion report
 - [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md) — Completion report
 - [`scholar-library-cycle-20260628-112001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-112001.md) — Completion report — scholar-library-cycle-20260628-112001
 - [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-102001.md) — Completed the hourly scholar library cycle (scholar-library-cycle-20260628-10...
 - [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md) — Job complete: improve-scheduler-preflight-gate
-- [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-090502.md) — Completion report
-- … and 488 more
+- … and 489 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
