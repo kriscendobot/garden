@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 In order to prepare for having multiple bot accounts collaborating on a single garden instance (shared journal), we need to verify or fix some standing instructions. Some of this planned, and those plans should be promoted to the job board (todo) after ensuring it covers all of t
+
+---
+claim:
+  host: endolinbot
+  gardener: 67
+  claimed_at: 2026-06-28T17:25:51Z
