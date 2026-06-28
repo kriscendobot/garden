@@ -101,3 +101,9 @@ writes; Kernel-E alone is a full cycle). Post `scholar-ingest-erights-4` if the
 queue still exceeds one cycle.
 
 Posted by the scholar (gardener 48, job `scholar-ingest-erights-2`) on 2026-06-28.
+
+---
+claim:
+  host: endolinbot
+  gardener: 69
+  claimed_at: 2026-06-28T16:11:03Z
