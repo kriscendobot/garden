@@ -42,6 +42,9 @@ rm -rf "$TR"; mkdir -p "$TR"
 #   STUB_ARCHIVE_BODY   body written on a successful archive fetch
 #   STUB_MIRROR_RC      erights GitHub Pages mirror exit code (0 -> writes body)
 #   STUB_MIRROR_BODY    body written on a successful mirror fetch
+#   STUB_DIRECT_FILE    if set, a successful direct fetch copies this file to the
+#                       output instead of writing STUB_DIRECT_BODY (for binary
+#                       bodies like a real PDF that an env var would not survive)
 # It also records each requested URL to $STUB_LOG for assertions.
 STUB="$TR/curl-stub.sh"
 cat >"$STUB" <<'STUB_EOF'
@@ -67,7 +70,10 @@ case "$url" in
     [ "${STUB_MIRROR_RC:-0}" = 0 ] && printf '%s' "${STUB_MIRROR_BODY:-}" >"$out"
     exit "${STUB_MIRROR_RC:-0}" ;;
   *)
-    [ "${STUB_DIRECT_RC:-0}" = 0 ] && printf '%s' "${STUB_DIRECT_BODY:-}" >"$out"
+    if [ "${STUB_DIRECT_RC:-0}" = 0 ]; then
+      if [ -n "${STUB_DIRECT_FILE:-}" ]; then cp "$STUB_DIRECT_FILE" "$out"
+      else printf '%s' "${STUB_DIRECT_BODY:-}" >"$out"; fi
+    fi
     exit "${STUB_DIRECT_RC:-0}" ;;
 esac
 STUB_EOF
@@ -75,6 +81,33 @@ chmod +x "$STUB"
 
 export FETCH_SOURCE_CURL="$STUB"
 export STUB_LOG="$TR/urls.log"
+
+# A real, minimal, single-page PDF carrying the known text "Hello PDF body", so
+# the PDF-text-extraction path can be exercised end to end against pypdf (the
+# magic bytes alone would not parse). Pure-ASCII PDF structure, no binary stream.
+SAMPLE_PDF="$TR/sample.pdf"
+python3 - "$SAMPLE_PDF" <<'MKPDF'
+import sys
+objs = [
+    b"<< /Type /Catalog /Pages 2 0 R >>",
+    b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+    b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>",
+]
+stream = b"BT /F1 24 Tf 72 700 Td (Hello PDF body) Tj ET"
+objs.append(b"<< /Length %d >>\nstream\n%s\nendstream" % (len(stream), stream))
+objs.append(b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>")
+out = b"%PDF-1.4\n"
+offsets = []
+for i, o in enumerate(objs, 1):
+    offsets.append(len(out))
+    out += b"%d 0 obj\n%s\nendobj\n" % (i, o)
+xref = len(out)
+out += b"xref\n0 %d\n0000000000 65535 f \n" % (len(objs) + 1)
+for off in offsets:
+    out += b"%010d 00000 n \n" % off
+out += b"trailer\n<< /Size %d /Root 1 0 R >>\nstartxref\n%d\n%%%%EOF\n" % (len(objs) + 1, xref)
+open(sys.argv[1], "wb").write(out)
+MKPDF
 
 sha_of() { printf '%s' "$1" | sha256sum | awk '{print $1}'; }
 field()  { grep "^$1=" | sed "s/^$1=//"; }   # extract a manifest field from stdout
@@ -270,6 +303,34 @@ MAN="$(STUB_DIRECT_RC=7 STUB_MIRROR_RC=0 STUB_MIRROR_BODY="$NBODY" \
        "$FETCH" "$NURL2" "$OUT" 2>/dev/null)"; rc=$?
 [ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
 [ "$(printf '%s' "$MAN" | field source_stub_suspect)" = true ] && ok "stub_suspect=true (empty body)" || bad "near-empty body not flagged"
+
+# === 15. real PDF -> deterministic pypdf text extraction =====================
+# The point of the PDF path: a detected PDF (here by the %PDF magic) gets an
+# adjacent extracted-text artifact via pypdf, so a scholar no longer hand-runs
+# pypdf to ingest a paper. The raw PDF bytes are kept alongside the text.
+hr; echo "CASE 15: real PDF direct fetch -> adjacent extracted text"
+: >"$STUB_LOG"
+OUT="$TR/case15.pdf"
+MAN="$(STUB_DIRECT_RC=0 STUB_DIRECT_FILE="$SAMPLE_PDF" "$FETCH" "$URL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+[ "$(printf '%s' "$MAN" | field source_is_pdf)" = true ] && ok "source_is_pdf=true" || bad "PDF not detected"
+TP="$(printf '%s' "$MAN" | field source_text_path)"
+[ -n "$TP" ] && ok "source_text_path emitted ($TP)" || bad "source_text_path missing"
+# Adjacent and the trailing .pdf is replaced with .txt, not appended.
+[ "$TP" = "${OUT%.pdf}.txt" ] && ok "text path adjacent (.pdf -> .txt)" || bad "unexpected text path: $TP"
+[ -f "$TP" ] && grep -q "Hello PDF body" "$TP" && ok "extracted text contains the page text" || bad "extracted text wrong/missing"
+[ "$(head -c 4 "$OUT")" = "%PDF" ] && ok "raw PDF bytes kept at the output path" || bad "raw PDF bytes lost"
+[ -n "$(printf '%s' "$MAN" | field source_text_bytes)" ] && ok "source_text_bytes emitted" || bad "source_text_bytes missing"
+
+# === 16. non-PDF body -> no PDF fields =======================================
+# A non-PDF source must not gain source_is_pdf / source_text_path.
+hr; echo "CASE 16: non-PDF body emits no PDF fields"
+: >"$STUB_LOG"
+OUT="$TR/case16.out"
+MAN="$(STUB_DIRECT_RC=0 STUB_DIRECT_BODY="just some plain text, not a pdf" "$FETCH" "$URL" "$OUT" 2>/dev/null)"; rc=$?
+[ "$rc" = 0 ] && ok "exit 0" || bad "exit $rc"
+printf '%s' "$MAN" | grep -q '^source_is_pdf=' && bad "source_is_pdf emitted for non-PDF" || ok "no source_is_pdf for non-PDF"
+printf '%s' "$MAN" | grep -q '^source_text_path=' && bad "source_text_path emitted for non-PDF" || ok "no source_text_path for non-PDF"
 
 hr
 echo "fetch-source-test: $PASS passed, $FAIL failed"

@@ -43,6 +43,10 @@
 #      prints a one-line-per-field manifest on stdout whose key field is
 #         source_content_sha256=<64-hex>
 #      the citable idempotency anchor for the library source-file frontmatter.
+#   5. when the bytes are a PDF (Content-Type: application/pdf, or the %PDF magic
+#      on the bytes), extracts the text with pypdf into an adjacent `.txt`
+#      artifact and reports it as source_text_path, so paper ingestion no longer
+#      needs an agent to hand-run pypdf. The raw PDF bytes are kept alongside.
 #
 # The bytes never go to stdout (a source may be a binary PDF); stdout is the
 # manifest only, so the script composes in a pipeline (`eval "$(fetch-source.sh
@@ -64,6 +68,18 @@
 #                                         # placeholder (a 200 that is not an
 #                                         # ingestable source). Never fatal.
 #   source_stub_reason=<text>             # present only when stub_suspect=true
+#   source_is_pdf=true                    # present only when the bytes are a PDF
+#   source_text_path=<absolute path>      # adjacent pypdf-extracted text (present
+#                                         # only when a PDF was extracted)
+#   source_text_bytes=<integer>           # byte count of the extracted text
+#
+# WHY PDF TEXT EXTRACTION. A paper source is commonly a PDF, and the library
+# ingests text, not bytes. Scholar cycles otherwise hand-run pypdf to get the
+# text (the one manual step in the 2026-06-28 combex-capdesk-polaris cycle's
+# HPL-2004-221 ingest). This script now does it deterministically: on a detected
+# PDF it writes an adjacent `.txt` via pypdf (poppler's `pdftotext` is absent in
+# the sandbox; pypdf is present) and reports the path. Extraction failure is
+# NON-FATAL — the PDF bytes and the hash still stand; only the text is skipped.
 #
 # WHY THE STUB ADVISORY. A reachable URL (HTTP 200) is not the same as ingestable
 # content: the erights GitHub Pages mirror serves placeholder pages — e.g.
@@ -124,13 +140,20 @@ fi
 out_dir="$(cd "$(dirname "$out")" && pwd)" || { log "FATAL: output directory for '$out' does not exist"; exit 2; }
 out="$out_dir/$(basename "$out")"
 
+# Response headers from the most recent fetch land here so the PDF detector can
+# read Content-Type; a throwaway temp file, cleaned up on every exit path.
+hdrs="$(mktemp -t fetch-source-hdrs.XXXXXX)"
+trap 'rm -f "$hdrs"' EXIT
+
 # curl invocation shared by every fetch: fail on HTTP errors (-f), follow
 # redirects (-L, needed for the Wayback id_ -> capture redirect), quiet but keep
-# error text (-sS), and bound both the connect and the whole request.
+# error text (-sS), dump response headers (-D, for Content-Type detection), and
+# bound both the connect and the whole request.
 _curl() {
   "$CURL" -fsSL \
     --connect-timeout "$CONNECT_TIMEOUT" \
     --max-time "$MAX_TIME" \
+    -D "$hdrs" \
     -o "$out" \
     "$1"
 }
@@ -255,7 +278,52 @@ if [ -n "$is_html" ]; then
 fi
 [ "$stub_suspect" = true ] && log "stub-suspect: ${stub_reason}"
 
-# --- 6. manifest ------------------------------------------------------------
+# --- 6. PDF text extraction (deterministic) ---------------------------------
+# A paper source is usually a PDF, and the library ingests text, not bytes. When
+# the fetched bytes are a PDF — the %PDF magic on the bytes (reliable across all
+# three fetch paths), or a Content-Type: application/pdf header — extract the
+# text with pypdf into an adjacent `.txt` artifact (strip a trailing `.pdf`, else
+# append `.txt`) and report its path. poppler's `pdftotext` is absent in the
+# sandbox, so this uses `python3` + `pypdf`, which is present. The raw PDF bytes
+# stay alongside the text. Extraction is best-effort and NON-FATAL: a missing
+# interpreter or an unparseable PDF logs a warning and skips only the text
+# artifact; the bytes, hash, and exit code are unchanged.
+is_pdf=false
+text_path=""
+text_bytes=""
+if [ "$(head -c 4 "$out" 2>/dev/null)" = "%PDF" ] \
+   || { [ -s "$hdrs" ] && grep -qiE '^content-type:[[:space:]]*application/pdf' "$hdrs"; }; then
+  is_pdf=true
+fi
+if [ "$is_pdf" = true ]; then
+  case "$out" in
+    *.pdf) text_path="${out%.pdf}.txt" ;;
+    *)     text_path="${out}.txt" ;;
+  esac
+  if command -v python3 >/dev/null 2>&1 && python3 -c 'import pypdf' >/dev/null 2>&1; then
+    if python3 - "$out" >"$text_path" 2>/dev/null <<'PYPDF'
+import sys
+from pypdf import PdfReader
+
+reader = PdfReader(sys.argv[1])
+parts = [(page.extract_text() or "") for page in reader.pages]
+sys.stdout.write("\n\n".join(parts))
+PYPDF
+    then
+      text_bytes="$(wc -c <"$text_path" | tr -d ' ')"
+      log "extracted ${text_bytes}B of PDF text via pypdf -> ${text_path}"
+    else
+      log "WARNING: pypdf extraction failed; keeping the PDF bytes without a text artifact"
+      rm -f "$text_path"
+      text_path=""
+    fi
+  else
+    log "WARNING: python3/pypdf unavailable; keeping the PDF bytes without a text artifact"
+    text_path=""
+  fi
+fi
+
+# --- 7. manifest ------------------------------------------------------------
 printf 'source_url=%s\n'            "$url"
 printf 'source_effective_url=%s\n'  "$effective_url"
 printf 'source_fetched_via=%s\n'    "$fetched_via"
@@ -265,4 +333,7 @@ printf 'source_content_sha256=%s\n' "$sha"
 [ -n "$wayback_ts" ] && printf 'source_wayback_timestamp=%s\n' "$wayback_ts"
 printf 'source_stub_suspect=%s\n'   "$stub_suspect"
 [ "$stub_suspect" = true ] && printf 'source_stub_reason=%s\n' "$stub_reason"
+[ "$is_pdf" = true ] && printf 'source_is_pdf=true\n'
+[ -n "$text_path" ] && printf 'source_text_path=%s\n' "$text_path"
+[ -n "$text_bytes" ] && printf 'source_text_bytes=%s\n' "$text_bytes"
 exit 0
