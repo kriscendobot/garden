@@ -14,7 +14,18 @@ source_pdf_pages: 9
 ingested: 2026-06-28
 ingested_by: scholar
 section_count: 4
-status: current
+status: superseded
+superseded_by: papers--stiegler-polaris-virus-safe-computing-2004
+superseded_on: 2026-06-28
+superseded_reason: |
+  Duplicate ingest of the same report. The 2004 HP Labs report HPL-2004-221 was
+  ingested twice by two gardeners racing the same cycle, under two source slugs with
+  the identical source_pdf_sha256 6c95faf19fef (9 pages, four authors). The canonical
+  cluster is papers--stiegler-polaris-virus-safe-computing-2004 — it is the one wired
+  into concepts/polaris.md, concepts/powerbox.md, and sources/README.md. Both four-
+  section sets cover the same material (excess authority / permission-vs-authority,
+  the three CapDesk-derived mechanisms, polarizing into Pets, status & limits); the
+  canonical set was kept. Kept, not deleted: the journal is append-only.
 notes: |
   The Polaris primary. The CapDesk/Polaris recon for this ingest established that
   Polaris is not on the erights.github.io mirror and not linked from combex.com's
@@ -24,6 +35,13 @@ notes: |
   PowerBox, and designation-as-authorization (citing combex--edesk as ref [7]) to
   unmodified Windows XP via restricted user accounts and RunAs.
 ---
+
+> **Superseded — duplicate ingest.** This source cluster is a duplicate ingest of
+> the same report as the canonical
+> [papers--stiegler-polaris-virus-safe-computing-2004](papers--stiegler-polaris-virus-safe-computing-2004.md)
+> (identical `source_pdf_sha256` 6c95faf19fef, HPL-2004-221, 9 pages). Use the
+> canonical cluster. This page and its four sections are retained `status: superseded`
+> for journal append-only integrity.
 
 ## Abstract
 
@@ -35,10 +53,10 @@ This is the canonical Polaris citation: the descendant of CapDesk's PowerBox / i
 
 | Section | Topics | Status |
 |---------|--------|--------|
-| [abstract-and-the-excess-authority-problem](../sections/papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem.md) | capability-theory, capability-security | current |
-| [using-and-polarizing-an-application](../sections/papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application.md) | capability-security | current |
-| [how-polaris-works](../sections/papers--stiegler-karp-yee-miller-polaris-2004--how-polaris-works.md) | capability-security | current |
-| [permission-privilege-and-authority](../sections/papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority.md) | capability-theory | current |
+| [abstract-and-the-excess-authority-problem](../sections/papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem.md) | capability-theory, capability-security | superseded |
+| [using-and-polarizing-an-application](../sections/papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application.md) | capability-security | superseded |
+| [how-polaris-works](../sections/papers--stiegler-karp-yee-miller-polaris-2004--how-polaris-works.md) | capability-security | superseded |
+| [permission-privilege-and-authority](../sections/papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority.md) | capability-theory | superseded |
 
 ## See also
 
