@@ -47,8 +47,8 @@ mapping:
 | `overview.html` — Abstract, Intro, & Six Perspectives | [granovetter-six-perspectives-and-object-capability-model](../sections/papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--granovetter-six-perspectives-and-object-capability-model.md) |
 | `ode-objects.html` — From Functions To Objects | [granovetter-six-perspectives-and-object-capability-model](../sections/papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--granovetter-six-perspectives-and-object-capability-model.md) |
 | `ode-capabilities.html` — From Objects To Capabilities (incl. the Simple Money Example) | [mint-purse-money-and-six-security-properties](../sections/papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--mint-purse-money-and-six-security-properties.md) |
-| `ode-protocol.html` — Capabilities as a Cryptographic Protocol (Pluribus) | [pluribus-rights-taxonomy-and-covered-call-option](../sections/papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--pluribus-rights-taxonomy-and-covered-call-option.md) |
-| `ode-pki.html` — Capabilities as a Public Key Infrastructure | [pluribus-rights-taxonomy-and-covered-call-option](../sections/papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--pluribus-rights-taxonomy-and-covered-call-option.md) |
+| `ode-protocol.html` — Capabilities as a Cryptographic Protocol (Pluribus) | paper: [pluribus-rights-taxonomy-and-covered-call-option](../sections/papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--pluribus-rights-taxonomy-and-covered-call-option.md) — also ingested verbatim as HTML section [erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol](../sections/erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol.md) (2026-06-27) |
+| `ode-pki.html` — Capabilities as a Public Key Infrastructure | paper: [pluribus-rights-taxonomy-and-covered-call-option](../sections/papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--pluribus-rights-taxonomy-and-covered-call-option.md) — also ingested verbatim as HTML section [erights--elib-capability-ode-ode-pki--capabilities-as-a-public-key-infrastructure](../sections/erights--elib-capability-ode-ode-pki--capabilities-as-a-public-key-infrastructure.md) (2026-06-27) |
 | `ode-game.html` — Capabilities as a Vast Multiplayer Game | [pluribus-rights-taxonomy-and-covered-call-option](../sections/papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--pluribus-rights-taxonomy-and-covered-call-option.md) |
 | `ode-bearer.html` — From Capabilities To Financial Instruments | [pluribus-rights-taxonomy-and-covered-call-option](../sections/papers--miller-morningstar-frantz-capability-based-financial-instruments-2000--pluribus-rights-taxonomy-and-covered-call-option.md) |
 | `ode-ack.html` / `ode-references.html` — Acknowledgments and References | (front-matter; not separately ingested) |
@@ -56,6 +56,22 @@ mapping:
 The chapter index also links `ode.pdf` (a print-form PDF "a bit out of date");
 that PDF 404s on the GitHub Pages mirror and is superseded by the canonical
 Agoric-mirror PDF recorded on the paper source.
+
+## Note on the two already-ingested ode chapters
+
+A prior cycle (2026-06-27) ingested two of the HTML chapters verbatim as their
+own section files: `ode-protocol.html` →
+[erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol](../sections/erights--elib-capability-ode-ode-protocol--distributed-pluribus-cryptographic-protocol.md)
+and `ode-pki.html` →
+[erights--elib-capability-ode-ode-pki--capabilities-as-a-public-key-infrastructure](../sections/erights--elib-capability-ode-ode-pki--capabilities-as-a-public-key-infrastructure.md).
+Those two sections overlap the FC2000 paper's
+`pluribus-rights-taxonomy-and-covered-call-option` section (same content, HTML
+chapter form). They are kept (the journal is append-only); a future
+consolidation pass could soft-flag them against the paper section. This index
+page deliberately does **not** add the remaining chapters as new sections, to
+avoid widening that overlap; per-chapter expansion of the rest is deferred to
+`scholar-ingest-erights-2` only if a reader needs finer granularity than the
+paper's three collapsed sections.
 
 ## Provenance
 
