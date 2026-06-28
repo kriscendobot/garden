@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T16:59:20Z_
+_As of 2026-06-28T17:03:09Z_
 
 ## Latest
 
-The garden's recent motion is concentrated in the scholar's E-rights/ocap library ingestion: `scholar-ingest-erights-6` completed and `scholar-ingest-erights-7` is now claimed and in flight, alongside a follow-up (`fu-scholar-ingest-erights-5-2`) filling in missing E-language sections. Two infra jobs landed the sections-index regenerator and its periodic regen timer (`improve-land-sections-index-regenerator`, `improve-periodic-sections-index-regen-timer`). A gardener closed out the `ingest-ocap-library-sections` dead-letter as already-handled, confirming the erights.org → GitHub Pages mirror substitution is documented in the always-read `library/conventions.md` and enforced deterministically in `fetch-source.sh`. Separately, a lint classification of endo-but-for-bots master came back CLEAN — no error-class findings, only five non-blocking jsdoc warnings parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan; note that bot master sits 64 commits ahead of upstream endo (legitimate merged bot-fork PRs, not drift) and was deliberately not force-synced. No PRs changed state this cycle; the 28 parked PRs continue to await maintainer review.
+The garden's scholar continued ingesting erights.org E-language material — `scholar-ingest-erights-5` and `-6` completed, the `fu-scholar-ingest-erights-5-2` follow-up closed as already-satisfied, and `scholar-ingest-erights-7` (the remaining E-language pages) is now the only job in flight. On the infrastructure side, the sections-index regenerator landed and its periodic regeneration timer is now in place (`improve-land-sections-index-regenerator`, `improve-periodic-sections-index-regen-timer`). A gardener also confirmed to the maintainer that endo-but-for-bots master lint is fully clean — the only findings are five non-blocking jsdoc warnings, parked as the deferred `fix-lint-jsdoc-warnings-endo-master` plan to promote if wanted. The board is otherwise quiet (todo empty), with 28 PRs still parked for review — the most recent being [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, waiting 9h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
 
 ## Parked for maintainer feedback
 
@@ -53,17 +53,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`fu-scholar-ingest-erights-5-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-scholar-ingest-erights-5-2.md) — Garden library cleanup (internal knowledge corpus): add the missing ### erigh...
+### doin (1)
 - [`scholar-ingest-erights-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-7.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
 
-### tada (530)
+### tada (531)
+- [`fu-scholar-ingest-erights-5-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-5-2.md) — Both parts of this job were already satisfied at the current origin/journal2 ...
 - [`scholar-ingest-erights-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-6.md) — What I did
 - [`improve-periodic-sections-index-regen-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-periodic-sections-index-regen-timer.md) — Done. Completion report below.
 - [`improve-land-sections-index-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-land-sections-index-regenerator.md) — Completion report
 - [`scholar-ingest-erights-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-5.md) — scholar-ingest-erights-5 — complete
-- [`fu-scholar-ingest-erights-4-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-4-3.md) — The full classified scan confirms: **every must-resolve navigation/index/sour...
-- … and 525 more
+- … and 526 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
