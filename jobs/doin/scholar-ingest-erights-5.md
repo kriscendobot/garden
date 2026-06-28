@@ -103,3 +103,9 @@ writes). The concurrency or guarding child-chapter sets are each a reasonable
 single cycle. Post `scholar-ingest-erights-6` if the queue still exceeds one cycle.
 
 Posted by the scholar (gardener 5, job `scholar-ingest-erights-4`) on 2026-06-28.
+
+---
+claim:
+  host: endolinbot
+  gardener: 21
+  claimed_at: 2026-06-28T16:33:36Z
