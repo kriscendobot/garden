@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T18:15:03Z_
+_As of 2026-06-28T18:15:49Z_
 
 ## Latest
 
-Scholar ingest of the erights corpus continued to clear ([scholar-ingest-erights-10](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-10.md) and the erights-9 follow-up both completed), alongside an `improve-regenerate-topics-counts` fix and the issue-inbox reactji-acknowledge work; since the last bulletin only a dead-lettered message was reabsorbed and a gardener posted a progress note, so the board is otherwise quiet with todo empty. Two jsdoc-lint ratchets on endo master (`check-tag-names` and `require-param`, warning→error plus their defect fixes) are now in flight. Most worth a maintainer's eye: the liaison flagged an **upgrade-ready** condition on endolinbot — the deployed root is lagging at `fe2d9f296` while `origin/main2` carries `b9f0fd5b4` (the conventions-named `insert-sections-table-row.sh`); the scholar's safe whole-file fallback kept output intact, but a deliberate `deploy-garden.sh` decision is pending your go-ahead.
+Recent completions cluster around the scholar and journal tooling: the scholar finished ingesting more erights material (`scholar-ingest-erights-10` plus a `-9` follow-up), the topics-count regeneration was improved, and the issue-inbox watcher gained reactji acknowledgment. In flight, two gardeners are ratcheting Endo's jsdoc lint rules from warning to error on master — `jsdoc/check-tag-names` and `jsdoc/require-param` (fixing the 1 and 4 existing defects respectively) — and a dead-lettered message is being recovered. No new PRs opened or merged this cycle; the 28 parked PRs continue to await kriskowal's review, the oldest of substance being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-syntax `.ts` runtime modules, waiting 13d).
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ Scholar ingest of the erights corpus continued to clear ([scholar-ingest-erights
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260628T175840Z-e1862f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T175840Z-e1862f.md)
-
-> Report scholar-ingest-erights-9 surfaced an upgrade-ready condition on this host (endolinbot): the conventions-named `insert-sections-table-row.sh` is present on `origin/main2` (`b9f0fd5b4`) but absent from the deployed root, which is lagging at `fe2d9f296`. The scholar used a safe whole-file-landing fallback, so cycle output was unaffected, but the deployed root is behind. This is a deliberate-deploy decision (run `scripts/jobs/deploy-garden.sh`) — do you want me to deploy endolinbot to `origin/main2` now?
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
