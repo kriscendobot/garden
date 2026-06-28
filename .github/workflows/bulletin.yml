@@ -1,0 +1,78 @@
+# Render the garden bulletin to GitHub Pages from the live journal2 branch.
+#
+# WHY this trigger shape (see bulletin/DESIGN.md § Trigger mechanics): for a
+# `push` event GitHub runs the workflow file *from the pushed ref*, so a workflow
+# committed to main2 would NOT fire on a push to the orphan journal2 branch
+# unless the YAML also lived on journal2 — which we will not do. The events that
+# always use the DEFAULT branch's workflow (main2 is the default branch) are
+# repository_dispatch, workflow_dispatch, and schedule. So:
+#   - repository_dispatch (journal2-updated): fired by the journal2-push
+#     machinery (scripts/jobs/bulletin.sh) right after an accepted bulletin push,
+#     i.e. exactly when journal2's README/maintainer-inbox changed. This is the
+#     "triggered by changes landed on journal2" path the maintainer asked for.
+#   - workflow_dispatch: manual re-render from the Actions tab.
+#   - schedule: a low-frequency safety net in case a dispatch is ever missed.
+#
+# NOTHING is committed anywhere: the workflow reads journal2 read-only, renders a
+# static site, and publishes via the Pages-from-Actions path (configure-pages +
+# upload-pages-artifact + deploy-pages). The repo owner must set
+# Settings -> Pages -> Source = "GitHub Actions" once (see bulletin/SETUP.md).
+
+name: bulletin
+
+on:
+  repository_dispatch:
+    types: [journal2-updated]
+  workflow_dispatch: {}
+  schedule:
+    - cron: '17 */6 * * *'
+
+# Least privilege: read the repo, write the Pages deployment, mint the OIDC token
+# deploy-pages needs. No contents:write — nothing is committed.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never run two Pages deploys at once; let an in-flight deploy finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Check out app source (main2)
+        uses: actions/checkout@v4
+        with:
+          ref: main2
+          path: app
+
+      - name: Check out bulletin content (journal2, sparse)
+        uses: actions/checkout@v4
+        with:
+          ref: journal2
+          path: content
+          sparse-checkout: |
+            README.md
+            inbox/maintainer
+          sparse-checkout-cone-mode: false
+
+      - name: Render static site
+        run: node app/bulletin/build.mjs app/bulletin content _site
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

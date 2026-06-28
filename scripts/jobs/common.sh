@@ -764,6 +764,36 @@ _push_journal() {
   fi
 }
 
+# fire_pages_dispatch <dir> — best-effort `repository_dispatch` that triggers the
+# `bulletin` GitHub Actions workflow (on the default branch, main2) to re-render
+# the GitHub Pages bulletin from the just-pushed journal2 content. This is the
+# "CI workflow in main2 triggered by changes landed on journal2" path from
+# kriskowal/garden issue #10 (see bulletin/DESIGN.md § Trigger mechanics): a
+# push to journal2 cannot itself run a main2 workflow, but a repository_dispatch
+# always resolves the workflow from the default branch.
+#
+# Called only AFTER an accepted journal2 push of a real bulletin change, so it is
+# already debounced by the bulletin loop's content-changed gate (journal2 churns
+# constantly; we do not dispatch per raw push). Non-fatal and quiet: a missing
+# `gh`, an unauthenticated token, or a rejected POST only logs a WARN — the
+# workflow's 6-hourly `schedule` is the safety net. Disable with
+# GARDEN_PAGES_DISPATCH=0.
+fire_pages_dispatch() {
+  local dir="$1" url slug
+  [ "${GARDEN_PAGES_DISPATCH:-1}" = 0 ] && return 0
+  command -v gh >/dev/null 2>&1 || return 0
+  url="$(git -C "$dir" remote get-url origin 2>/dev/null)" || return 0
+  slug="$(printf '%s\n' "$url" \
+    | sed -E 's#^git@github.com:##; s#^https?://github.com/##; s#\.git$##')"
+  case "$slug" in */*) ;; *) return 0 ;; esac
+  if gh api -X POST "repos/$slug/dispatches" -f event_type=journal2-updated \
+       >/dev/null 2>&1; then
+    log "fire_pages_dispatch: journal2-updated -> $slug"
+  else
+    log "WARN fire_pages_dispatch: repository_dispatch to $slug failed (non-fatal; schedule covers it)"
+  fi
+}
+
 # Confirm the just-pushed HEAD actually landed on origin/$JOURNAL_BRANCH. A push
 # can report success yet not advance the remote (shared-clone races, transient
 # ref-locks). Re-fetch and require our commit to BE the remote tip or an ancestor

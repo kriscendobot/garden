@@ -1,4 +1,12 @@
 // app.js — wires auth, bulletin render, and the per-message reply controls.
+//
+// The bulletin CONTENT (README + the maintainer-inbox messages) is baked into
+// `data.js` at deploy time by the `bulletin` GitHub Actions workflow, which
+// reads the live `journal2` branch and re-renders whenever journal2 changes.
+// This module renders that baked snapshot for display, and uses a pasted
+// fine-grained PAT only on the WRITE path (the reply commit), which re-reads the
+// live message state at click time so the commit is a correct compare-and-swap
+// even if the page snapshot is a few minutes stale. See DESIGN.md.
 
 const $ = (sel) => document.querySelector(sel);
 const el = (tag, attrs = {}, ...kids) => {
@@ -13,21 +21,7 @@ const el = (tag, attrs = {}, ...kids) => {
   return node;
 };
 
-// Parse the bus message format: leading `key: value` lines, a `---` fence, body.
-function parseMessage(text) {
-  const lines = text.split('\n');
-  const fm = {};
-  let i = 0;
-  for (; i < lines.length; i++) {
-    if (lines[i].trim() === '---') {
-      i++;
-      break;
-    }
-    const m = lines[i].match(/^([A-Za-z_][\w]*):\s*(.*)$/);
-    if (m) fm[m[1]] = m[2].trim();
-  }
-  return { fm, body: lines.slice(i).join('\n').trim() };
-}
+const DATA = window.GARDEN_BULLETIN_DATA || { readme: '', messages: [], renderedAt: '' };
 
 function nowIso() {
   return new Date().toISOString().replace(/\.\d+Z$/, 'Z');
@@ -53,7 +47,6 @@ function renderAuth() {
         onclick: () => {
           GH.clearToken();
           renderAuth();
-          load();
         },
       }),
     );
@@ -74,7 +67,6 @@ function renderAuth() {
         if (!input.value.trim()) return;
         GH.setToken(input.value);
         renderAuth();
-        load();
       },
     }),
   );
@@ -118,7 +110,6 @@ async function deviceFlowSignIn() {
       if (tok.access_token) {
         GH.setToken(tok.access_token);
         renderAuth();
-        load();
         return;
       }
       if (tok.error && tok.error !== 'authorization_pending') throw new Error(tok.error);
@@ -153,7 +144,7 @@ function replyFileBody(target, body) {
   return `${head.join('\n')}\n${body}\n`;
 }
 
-async function submitReply({ item, fm, textarea, statusEl, btn }) {
+async function submitReply({ item, fm, textarea, statusEl, btn, card }) {
   const body = textarea.value.trim();
   if (!body) {
     statusEl.textContent = 'write a reply first';
@@ -166,6 +157,18 @@ async function submitReply({ item, fm, textarea, statusEl, btn }) {
   btn.disabled = true;
   statusEl.textContent = 'delivering…';
   try {
+    // Re-read the LIVE message so the archive uses the current blob sha even if
+    // this baked page snapshot is a few minutes stale. A 404 means it was
+    // already archived since deploy.
+    const live = await GH.getFile(`inbox/maintainer/unread/${item.name}`);
+    if (!live) {
+      btn.disabled = false;
+      statusEl.innerHTML = '';
+      statusEl.append(
+        el('span', { class: 'muted', text: 'already archived since this page was built — refresh' }),
+      );
+      return;
+    }
     const target = await resolveTarget(fm);
     const id = msgId();
     const replyPath = `${target.dir}/${id}.md`;
@@ -174,19 +177,21 @@ async function submitReply({ item, fm, textarea, statusEl, btn }) {
       replyBody: replyFileBody(target, body),
       unreadPath: `inbox/maintainer/unread/${item.name}`,
       readPath: `inbox/maintainer/read/${item.name}`,
-      origSha: item.sha,
+      origSha: live.sha,
       message: `bulletin: reply to inbox/${target.to}, archive maintainer/${item.name}`,
     });
-    statusEl.innerHTML = '';
-    statusEl.append(
+    // Baked content is static; mark this card done rather than re-fetching.
+    const reply = card.querySelector('.reply');
+    reply.innerHTML = '';
+    reply.append(
       el('span', {
         class: 'ok',
         text: `delivered to inbox/${target.to}${
           target.kind === 'liaison' ? ' (no reply_to; routed to liaison)' : ''
-        }${target.kind === 'dead' ? ' (doer gone; dead-lettered)' : ''} — commit ${sha.slice(0, 8)}, archived`,
+        }${target.kind === 'dead' ? ' (doer gone; dead-lettered)' : ''} — commit ${sha.slice(0, 8)}, archived. The bulletin redeploys shortly.`,
       }),
     );
-    setTimeout(load, 1200);
+    card.classList.add('done');
   } catch (e) {
     btn.disabled = false;
     statusEl.innerHTML = '';
@@ -194,69 +199,64 @@ async function submitReply({ item, fm, textarea, statusEl, btn }) {
   }
 }
 
-// --- render ------------------------------------------------------------------
-async function load() {
+// --- render (from the CI-baked snapshot) -------------------------------------
+function render() {
+  const fresh = $('#freshness');
+  if (fresh) {
+    fresh.textContent = DATA.renderedAt
+      ? `Rendered from journal2 at ${DATA.renderedAt}.`
+      : '';
+  }
+
   // Bulletin
   const bnode = $('#bulletin');
-  try {
-    const readme = await GH.getFile('README.md');
-    if (readme) {
-      bnode.innerHTML = Markdown.render(readme.text);
-    } else {
-      bnode.innerHTML = '<p class="err">journal2:README.md not found.</p>';
-    }
-  } catch (e) {
-    bnode.innerHTML = `<p class="err">Could not load bulletin: ${e.message}</p>`;
+  if (DATA.readme) {
+    bnode.innerHTML = Markdown.render(DATA.readme);
+  } else {
+    bnode.innerHTML = '<p class="err">journal2:README.md was empty at build time.</p>';
   }
 
   // Maintainer inbox
   const inode = $('#inbox');
-  inode.innerHTML = '<p class="muted">loading messages…</p>';
-  try {
-    const items = (await GH.listDir('inbox/maintainer/unread')).filter(
-      (it) => it.type === 'file' && it.name.endsWith('.md') && it.name !== '.gitkeep',
+  inode.innerHTML = '';
+  const items = DATA.messages || [];
+  if (!items.length) {
+    inode.append(el('p', { class: 'muted', text: 'No unread messages to the maintainer.' }));
+    return;
+  }
+  for (const item of items) {
+    const fm = item.fm || {};
+    const card = el('div', { class: 'msg' });
+    const from = fm.from || 'unknown';
+    const replyTo = fm.reply_to && fm.reply_to !== '?' ? fm.reply_to : '(none → liaison)';
+    card.append(
+      el(
+        'div',
+        { class: 'msg-head' },
+        el('code', { text: item.name.replace(/\.md$/, '') }),
+        el('span', { class: 'muted', text: ` from ${from} · reply_to ${replyTo}` }),
+      ),
     );
-    inode.innerHTML = '';
-    if (!items.length) {
-      inode.append(el('p', { class: 'muted', text: 'No unread messages to the maintainer.' }));
-      return;
-    }
-    for (const item of items) {
-      const file = await GH.getFile(`inbox/maintainer/unread/${item.name}`);
-      const { fm, body } = parseMessage(file.text);
-      const card = el('div', { class: 'msg' });
-      const from = fm.from || 'unknown';
-      const replyTo = fm.reply_to && fm.reply_to !== '?' ? fm.reply_to : '(none → liaison)';
-      card.append(
-        el(
-          'div',
-          { class: 'msg-head' },
-          el('code', { text: item.name.replace(/\.md$/, '') }),
-          el('span', { class: 'muted', text: ` from ${from} · reply_to ${replyTo}` }),
-        ),
-      );
-      card.append(el('div', { class: 'msg-body' }));
-      card.lastChild.innerHTML = Markdown.render(body);
+    const bodyNode = el('div', { class: 'msg-body' });
+    bodyNode.innerHTML = Markdown.render(item.body || '');
+    card.append(bodyNode);
 
-      const textarea = el('textarea', {
-        rows: '3',
-        placeholder: 'Acknowledge or reply to the liaison…',
-      });
-      const status = el('div', { class: 'status' });
-      const btn = el('button', { class: 'btn', text: 'Reply & acknowledge' });
-      btn.addEventListener('click', () =>
-        submitReply({ item, fm, textarea, statusEl: status, btn }),
-      );
-      card.append(
-        el('div', { class: 'reply' }, textarea, el('div', { class: 'reply-actions' }, btn, status)),
-      );
-      inode.append(card);
-    }
-  } catch (e) {
-    inode.innerHTML = `<p class="err">Could not load inbox: ${e.message}</p>`;
+    const textarea = el('textarea', {
+      rows: '3',
+      placeholder: 'Acknowledge or reply to the liaison…',
+    });
+    const status = el('div', { class: 'status' });
+    const btn = el('button', { class: 'btn', text: 'Reply & acknowledge' });
+    btn.addEventListener('click', () =>
+      submitReply({ item, fm, textarea, statusEl: status, btn, card }),
+    );
+    card.append(
+      el('div', { class: 'reply' }, textarea, el('div', { class: 'reply-actions' }, btn, status)),
+    );
+    inode.append(card);
   }
 }
 
 renderAuth();
-$('#refresh').addEventListener('click', load);
-load();
+$('#refresh').addEventListener('click', () => location.reload());
+render();
