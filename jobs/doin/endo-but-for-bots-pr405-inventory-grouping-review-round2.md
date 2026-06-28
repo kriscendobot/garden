@@ -33,3 +33,9 @@ empty-group hiding working with the new six-group set.
 The five asks implemented on the PR branch, chat/cli tests updated and passing (especially the
 filtered-count ↔ expanded-contents agreement), reviewed through the panel, with a top-level summary
 comment on #405 enumerating how each of the five points was addressed.
+
+---
+claim:
+  host: endolinbot
+  gardener: 36
+  claimed_at: 2026-06-28T07:05:41Z
