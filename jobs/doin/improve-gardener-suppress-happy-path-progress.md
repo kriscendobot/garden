@@ -1,7 +1,0 @@
-In `scripts/jobs/gardener.sh`, the gardener emits two `progress` journal entries on the success path of every job: line ~100 (`gardener-%s on %s claimed job %s`) and line ~126 (`gardener-%s on %s completed job %s`). Across a ~100-gardener fleet these claim/complete pairs are the dominant volume in the shared journal and directly violate the silent-until-error discipline (mentor brief: "automation that burns a supervisor's context with routine progress") — they made up 4 of the 5 entries in the mentor's own digest. The substantive `result` entry written by the completion path is the durable record, and the failure path already captures output by hash and escalates to the gardener inbox, so the bare "claimed"/"completed" lines add no diagnostic value on the happy path. Change: gate both `journal-entry.sh progress` calls behind an opt-in verbosity flag (e.g. `GARDEN_GARDENER_VERBOSE`, default off) so the happy path is silent, leaving the failure escalation and the completion `result` report untouched. Update the inline comment at line ~99 ("narrate progress into the journal (garden practice)") to reflect silent-until-error as the new default. Build in an isolated worktree off `origin/main2` per the shared-tree concurrency rule.
-
----
-claim:
-  host: endolinbot
-  gardener: 44
-  claimed_at: 2026-06-28T11:51:25Z
