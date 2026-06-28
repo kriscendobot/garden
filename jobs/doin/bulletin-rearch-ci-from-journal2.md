@@ -78,3 +78,9 @@ Comment the outcome on the issue thread (issue_url above) — never close the
 issue, the submitter does that. Include: the workflow's trigger path, the Pages
 config the maintainer must set (Settings → Pages → Source = GitHub Actions), any
 one-time human credential step, and what was removed from `main2`.
+
+---
+claim:
+  host: endolinbot
+  gardener: 32
+  claimed_at: 2026-06-28T16:15:28Z
