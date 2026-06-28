@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T02:11:25Z_
+_As of 2026-06-28T02:22:39Z_
 
 ## Latest
 
-Quiet board this cycle — the only motion was a dead-lettered message landing in `doin` and one gardener progress note — but several completed threads now sit on maintainer decisions. The XS/xsnap stack-overflow investigation wrapped: debug instrumentation is captured durably in the bot forks, and [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) is parked on you — the decisive export-free repro and real-data trace both need a resource the garden can't self-provision (the v320 swing-store export, or a multi-hour XS toolchain re-provision), and the conclusion stands that this is an XS native-stack-depth property, not an Endo regression.
+Board movement this cycle was confined to garden infrastructure: a dead-mail entry completed and retired, and two follow-up hardening jobs are now in progress against `scripts/jobs/deadmail.sh` — adding a post timeout that surfaces failures, and verifying a promoted job actually landed before the dead-mail record is retired. The job queue is otherwise drained (todo empty).
 
-Two endo-but-for-bots PRs need scoping from you. On [#405](https://github.com/endojs/endo-but-for-bots/pull/405), a comment was misclassified as a "rebase" but is actually a feature directive — hide empty groups and re-bucket the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) across space-chat, chat, cli, and daemon; it needs a liaison-driven fixer dispatch since the autonomous fleet has no path for implementing a feature directive. On the [#474](https://github.com/endojs/endo-but-for-bots/pull/474) follow-up (merged), erights authorized a "harden exported function literals" PR but the breadth (narrow two exports vs. repo-wide via the `@endo/harden-exports` rule) and base branch (`llm` vs `master`) are owed before it opens.
-
-Separately, the formula-inspector retention-paths table is blocked on [#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths` host API), which has been stalled since the rebase-and-gamut you requested on 2026-05-21 and currently carries failing CI; a gardener offered to take that rebase as its own job on your word. Scholar ingests continued (a sixth MetaMask ocap-kernel guide plus a distributed-ocap concept cluster), endo master lint classified clean (only 5 non-failing jsdoc warnings), and the #442 reusable-test-powers revisit concluded no change.
+The more pressing signal is the stack of unread maintainer messages awaiting a decision. Two need scope/breadth calls before any PR opens: the harden-exported-function-literals follow-up to [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) needs a narrow-vs-repo-wide breadth choice and a base branch (`llm` vs `master`), and the feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities with full empty-group hiding — was misclassified as a rebase and needs a liaison-driven builder/fixer dispatch. A retention-paths inspector table is blocked on its data source PR #284, which has stalled since 2026-05-21 with failing CI awaiting the rebase-and-gamut you requested. The XS over-deep-frame investigation (kriskowal/garden issue #9) has bottomed out on resources the garden can't self-provision — a v320 swing-store export and an XS toolchain re-provision — and is parked pending your direction. Library work also landed: the sixth ocap-kernel ingest plus a distributed-ocap concept cluster, and a confirmation that endo-but-for-bots master lint is clean save five non-blocking jsdoc warnings.
 
 ## Parked for maintainer feedback
 
@@ -190,16 +188,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`deadmail-20260628T020557Z-9f3dbb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T020557Z-9f3dbb.md) — Dead-lettered message — pick up its intent
+### doin (2)
+- [`improve-deadmail-timeout-and-surface-post-failures`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deadmail-timeout-and-surface-post-failures.md) — In scripts/jobs/deadmail.sh line 72 the promote call is "$HERE/post-job.sh" "...
+- [`improve-deadmail-verify-job-landed-before-retire`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-deadmail-verify-job-landed-before-retire.md) — In scripts/jobs/deadmail.sh, the dead-mail entry is retired (git rm + CAS pus...
 
-### tada (444)
+### tada (445)
+- [`deadmail-20260628T020557Z-9f3dbb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T020557Z-9f3dbb.md) — Completion report
 - [`kriskowal-garden-pr9-2cd6f75d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-2cd6f75d.md) — The job is complete. The instrumentation, traces, and bundles remain on host ...
 - [`capture-xsnap-debug-instrumentation-in-forks`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/capture-xsnap-debug-instrumentation-in-forks.md) — Completion report — capture-xsnap-debug-instrumentation-in-forks
 - [`improve-fetch-source-pdf-text-extraction`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-pdf-text-extraction.md) — Inbox empty, worktree removed, push landed. Work complete.
 - [`capture-xsnap-debug-instrumentation-20260628T015232Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/capture-xsnap-debug-instrumentation-20260628T015232Z.md) — Job complete. The xsnap stack-overflow debug instrumentation is now durable i...
-- [`deadmail-20260628T014800Z-534313`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T014800Z-534313.md) — Completed the dead-lettered job (intent of kriskowal's comment on kriskowal/g...
-- … and 439 more
+- … and 440 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
