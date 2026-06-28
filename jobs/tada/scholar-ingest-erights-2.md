@@ -1,78 +1,27 @@
----
-role: scholar
-job: scholar-ingest-erights-2
-host: endolinbot
-gardener: 48
----
+The follow-on `scholar-ingest-erights-3` is already in `jobs/doin/` — a peer gardener claimed it immediately after posting. Everything is landed and the job is complete.
 
-# Result: erights.org E-language ingest, part 2
+## Completion report
 
-Ingested five E-language pages from the erights.org GitHub Pages mirror
-(`source_fetched_via=mirror` for all; bare erights.org refuses the sandbox).
-All fetches via `scripts/jobs/fetch-source.sh`; all writes via
-`scripts/jobs/land-journal-edit.sh`; integrity gate passed on every cluster.
+**Job `scholar-ingest-erights-2` — erights.org E-language ingest, part 2 — done.**
 
-## Sources ingested (5 sources, 5 sections)
+Ingested **5 net-new E-language pages** from the erights.org GitHub Pages mirror (all via `fetch-source.sh`, `source_fetched_via=mirror`; all writes via `land-journal-edit.sh`):
 
-| Source slug | URL | Sections | content SHA-256 |
-|---|---|---|---|
-| `erights--elang-quick-ref` | elang/quick-ref.html | 1 (`idioms-quick-reference`) | `4fa42ec7a75e…` |
-| `erights--elang-grammar` | elang/grammar/index.html | 1 (`grammar-and-kernel-e-expansion`) | `ee71fa888d32…` |
-| `erights--elang-blocks` | elang/blocks/index.html | 1 (`block-structure-and-control-flow`) | `b4c8701886d2…` |
-| `erights--elang-concurrency-index` | elang/concurrency/index.html | 1 (`event-loop-concurrency-map`) | `333af952f80e…` |
-| `erights--elang-guarding` | elang/guarding/index.html | 1 (`soft-type-checking-map`) | `74a0c3241c12…` |
+| Source | Sections | Note |
+|---|---|---|
+| `erights--elang-quick-ref` | 1 | E Idioms Quick Reference Card — consolidated to one grep-friendly section (reference-doc shape) |
+| `erights--elang-grammar` | 1 | The two-layer spec: LALR(1) surface grammar → Kernel-E expansion |
+| `erights--elang-blocks` | 1 | "E has no statements, only expressions" + control-flow/`def`/delegation cheat sheet |
+| `erights--elang-concurrency-index` | 1 | Thin hub → captured as event-loop/vat/eventual-send **map section** |
+| `erights--elang-guarding` | 1 | Thin hub → captured as Soft-Type-Checking/guards **map section** |
 
-- `quick-ref` is a reference card → consolidated to one grep-friendly section
-  preserving the source's H2 anchors inline (per conventions § Sectioning shapes
-  for reference docs), rather than one section per idiom.
-- `grammar`, `blocks`, `concurrency-index`, `guarding` are all chapter **landing
-  pages**. `grammar` and `blocks` carry genuine inline prose (the E→Kernel-E
-  two-layer spec method; "E has no statements, only expressions" + the
-  control-flow/`def` cheat sheet) and are ingested as content sections.
-  `concurrency/index` and `guarding/index` are **thin navigation hubs** (no prose
-  body of their own — only a child-chapter list); each is captured as a single
-  **map section** that records the child reading-map (via external mirror URLs, so
-  no dangling library cross-refs), a one-paragraph model, and the E→Endo
-  translation. This is the elang-index / ode-index map/pointer precedent.
+`grammar`/`blocks` carry real inline prose; `concurrency/index` and `guarding/index` are pure navigation hubs (no body of their own) so each became a map section pointing at children via external URLs — the elang-index/ode-index precedent.
 
-## Topics / indexes touched
+**Indexes updated:** `topics/e-language.md` (+5), `topics/eventual-send.md` (+2), `topics/pass-style.md` (+1), `sources/README.md` (+5), `sections/README.md` (+5 alphabetically-ordered blocks).
 
-- `topics/e-language.md` — +5 section rows.
-- `topics/eventual-send.md` — +2 rows (quick-ref idioms, concurrency map).
-- `topics/pass-style.md` — +1 row (guarding map; corrected a first-pass
-  misplacement where the row landed below the headingless See-also bullet list —
-  re-landed into the Sections table).
-- `sources/README.md` — +5 rows in § External web sources.
-- `sections/README.md` — +5 alphabetically-ordered source blocks.
+**Idempotency:** no re-ingests — all five were net-new; already-ingested pages left untouched.
 
-## Idempotency
+**Integrity gate:** `library-link-check.sh --source-slug` on all five clusters → **all exit 0**.
 
-No re-ingests this cycle — all five pages were net-new (no prior
-`sources/erights--elang-{quick-ref,grammar,blocks,concurrency-index,guarding}.md`).
-Already-ingested erights pages listed in the job body were left untouched.
+**Deferred:** posted `scholar-ingest-erights-3` for the remainder (Kernel-E as its own ~40 KB cycle; scalars/collect/io; concurrency + guarding + grammar child chapters; optional ode chapters; optional `kernel-e`/`e-guards` concepts; the separate pre-existing dangling-nav-link cleanup). A peer gardener has already claimed it (now in `jobs/doin/`).
 
-## Integrity gate (step 8)
-
-`library-link-check.sh --source-slug <slug>` run on all five new clusters against
-the tip-synced gardener clone: **all five exit 0** ("every checked link resolves
-to a committed file").
-
-## Deferred → posted `scholar-ingest-erights-3`
-
-Remaining queue posted as a follow-on job: Kernel-E (`elang/kernel/index.html`,
-~40 KB — a full cycle on its own); the primitive-data-type pages (scalars,
-collect, io); the concurrency child chapters (race, epimenides, determinism,
-`elib/concurrency`); the guarding child chapters (async, style); the grammar
-per-construct child pages; and the still-optional ode HTML chapters. Also carried
-forward: two optional concept-axis additions (`kernel-e`, `e-guards`) and the
-separate pre-existing ~20-dangling-nav-link cleanup (endo-but-for-bots design
-cluster + polaris/powerbox/daemon-persistence) that warrants its own job.
-
-Self-improvement: the topic-row insertion helper assumed every topic page ends
-with a `## See also` heading; `pass-style.md` instead carries a headingless
-see-also bullet list, so the naive "insert before `## See also`, else append at
-EOF" rule appended the row *after* the bullets, outside the Sections table. The
-durable lesson: anchor a Sections-table append on the **last existing table row**
-(or the blank line that terminates the table), not on the presence of a following
-heading — table boundaries are the reliable anchor, trailing-section headings are
-not uniform across topic pages.
+**Follow-up / self-improvement:** my topic-row inserter assumed every topic page ends with a `## See also` heading; `pass-style.md` has a *headingless* see-also bullet list, so the first land placed the row outside the Sections table — I detected and re-landed it correctly. Durable lesson (recorded in the result entry): anchor a Sections-table append on the last table row, not on a following heading, since heading layout isn't uniform across topic pages.
