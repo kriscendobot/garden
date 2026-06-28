@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T05:19:48Z_
+_As of 2026-06-28T05:23:03Z_
 
 ## Latest
 
-The board has fully drained — no jobs in todo or doin — and the work that moved this cycle was scholar ingestion plus a stack of decisions now parked for you. The scholar landed a distributed-ocap concept cluster (three-party-handoff, sturdyref, distributed-confinement, eventual-send, grant-matcher-puzzle) on journal2, plus an ingest of MetaMask/ocap-kernel's 689-line kernel guide cross-linked into the ocap corpus; the only gap was the grant-matcher source, deferred because erights.org was unreachable. Lint on endo-but-for-bots master came back clean — only five non-blocking jsdoc warnings, consolidated into one low-priority plan.
+The board barely moved since the last bulletin — `todo` is empty and the only claim is [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), where a directive to "post a job to build a PR that patches Agoric internal hex" is being held rather than executed: it names off-limits agoric-sdk territory with no bot-fork target, so it needs an explicit scope override or a concrete bot-owned path before any job posts.
 
-Several items need your call. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which is still open, off the `llm` base, and carrying four failing checks since your 2026-05-21 "rebase and run the gamut again" request never happened — the follow-on is ready the moment #284 lands. The harden-exported-function-literals follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) awaits two answers — narrow (two evasive-transform exports) vs. repo-wide, and base branch `llm` vs. `master` (the literal form differs between them). And [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was misclassified as a rebase: your comment is actually a feature directive reshaping the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and hiding empty groups across four packages, which needs a liaison-driven builder/fixer dispatch since the v2 fleet has no autonomous path for it. The XS over-deep-frame investigation (kriskowal/garden #9) has stalled on resources the garden can't self-provision — the v320 swing-store export or a multi-hour XS toolchain re-provisioning — both your decision. The [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction and create a workspace cycle).
+What a maintainer should notice is the pile of decisions now parked in the inbox, each blocking real follow-on work. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since your "rebase and run the gamut again" request and still shows failing CI — land it and the table is ready. The "harden exported function literals" follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) awaits two answers: narrow vs repo-wide breadth, and `llm` vs `master` base. A maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — reshaping the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities with empty-group hiding — was misclassified as a rebase and needs a liaison-driven builder dispatch. The XS over-deep-frame investigation has converged on a decision point: every remaining path needs a v320 swing-store export or a multi-hour toolchain re-provision, both your call, and the conclusion holds it's an XS native-stack property rather than an Endo regression. On the library side, scholars landed a sixth ocap-kernel ingest (MetaMask's 689-line kernel guide) and a distributed-ocap concept cluster synthesizing six topics; lint on endo master is clean save five non-blocking jsdoc warnings.
 
 ## Parked for maintainer feedback
 
@@ -183,13 +183,25 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > Report kriskowal-garden-pr9-b87e3247 flags a still-open thread on kriskowal/garden issue #9 — the issue body's ask to "continue this investigation to the possible extent without the export." The completed job deliberately scoped this out as not part of the comment's directive and called it only a "candidate for its own job." It also sits near scope-sensitive territory (the prior work distinguished a bot-owned fork of agoric-sdk from excluded upstream agoric-sdk). Do you want me to open a tracking job to continue the issue #9 investigation, and if so, what's the intended scope of "without the export"? I'm holding off rather than autonomously spawning an investigation the report author explicitly left out of bounds.
 
+- `20260628T052246Z-3abc11` — from gardener:kriskowal-garden-pr9-48ec24df, reply_to `kriskowal-garden-pr9-48ec24df` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T052246Z-3abc11.md)
+
+> Re: kriskowal/garden PR #9 — directive to "post a job to build a PR that patches Agoric internal hex."
+>
+> I'm holding this rather than posting the build job, because it collides with the standing, unconditional scope constraint that autonomous work is limited to endojs/endo-but-for-bots and bot-owned forks, with agoric-sdk / Agoric-internal excluded unconditionally. "Agoric internal hex" names that off-limits territory and has no obvious bot-fork target, so I can't route it without an explicit, deliberate override.
+>
+> To proceed I need one of:
+>   1. The concrete target repo + package/path. If it's an Agoric-internal repo proper, I also need an explicit one-time scope override authorizing this build (recorded as a journal message), since it's outside the bot-fork set.
+>   2. If "hex" actually lives in a bot-owned fork or an @endo/* package, name it and I'll post the build job there immediately and follow up on #9 with the PR link.
+>
+> Reply with the target (and override if needed) and I'll post the job and report the PR link back on #9 as asked.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriskowal-garden-pr9-48ec24df`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-48ec24df.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (457)
 - [`verify-ymax0-hexjs-flatmap-loop-xs-import`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/verify-ymax0-hexjs-flatmap-loop-xs-import.md) — Completion report — verify-ymax0-hexjs-flatmap-loop-xs-import
