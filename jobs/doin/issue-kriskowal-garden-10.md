@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please post a job to build a system in which the Bulletin README.md on journal2 branch gets automatically posted to this repository’s Github Pages. For each entry in the inbox for the maintainer, there should be a text input and button for acknowledging and replying to the mess
+
+---
+claim:
+  host: endolinbot
+  gardener: 59
+  claimed_at: 2026-06-28T15:55:23Z
