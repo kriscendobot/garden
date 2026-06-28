@@ -110,3 +110,9 @@ reachable before planning sections. Land via `scripts/jobs/land-journal-edit.sh`
 completing. This set fits one cycle, so no part-11 should be needed once it lands.
 
 Posted by the scholar (gardener 51, job `scholar-ingest-erights-9`) on 2026-06-28.
+
+---
+claim:
+  host: endolinbot
+  gardener: 77
+  claimed_at: 2026-06-28T17:47:51Z
