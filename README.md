@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T14:33:50Z_
+_As of 2026-06-28T14:34:52Z_
 
 ## Latest
 
-The board is quiet — the only transition since the last bulletin was the completion of the latest [scholar library cycle](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-142031.md), with todo and doin both empty. Worth a maintainer's eye instead are five unread inbox messages: a gardener reports the formula-inspector retention-paths table is blocked on the still-open `listRetentionPaths` host PR (stalled since 2026-05-21 awaiting the rebase-and-gamut you requested, currently 4 CI checks red), the scholar landed two ocap concept clusters (a sixth ocap-kernel ingest plus six distributed-ocap library sections, with the grant-matcher source deferred while erights.org is unreachable), endo master lint came back clean save five non-blocking jsdoc warnings, and the liaison is holding for direction on whether to continue the kriskowal/garden issue #9 investigation "without the export."
+Board activity is quiet — the scholar library cycle keeps running on its hourly cadence, and two infra improvements landed (wiring the library link-scan to a cadence, and suppressing happy-path progress noise from gardeners). The substance this cycle is in the maintainer queue. A gardener reports the formula-inspector retention-paths table is **blocked**: it needs the `listRetentionPaths` host API from a still-open, stalled PR (#284, last touched 2026-05-21 with 4 failing checks) and recommends landing that rebase-and-gamut first before re-promoting the plan. Scholar ingested MetaMask/ocap-kernel's 689-line kernel guide (sixth ocap-kernel ingest) plus six distributed-ocap concept syntheses, flagging the grant-matcher puzzle as sourceless while erights.org is unreachable. Lint classification of endo-but-for-bots master came back clean — only 5 non-blocking jsdoc warnings, parked as a low-priority plan. The liaison is holding on kriskowal/garden issue #9, awaiting a scope decision before spawning a follow-on investigation.
+
+For review: 28 PRs are parked, with the freshest being [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, 7h), [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix, refreshed for #3276 feedback), and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays). [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules via erasable type syntax) has been waiting 12 days.
 
 ## Parked for maintainer feedback
 
@@ -102,7 +104,7 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### tada (498)
-- [`scholar-library-cycle-20260628-142031`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-142031.md) — Completed: scholar library cycle 2026-06-28T14:20Z
+- [`scholar-library-cycle-20260628-142031`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-142031.md) — Scholar library cycle — completion report
 - [`improve-wire-library-link-scan-to-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-library-link-scan-to-cadence.md) — Completion report
 - [`scholar-library-cycle-20260628-132011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-132011.md) — Completion report
 - [`scholar-library-cycle-20260628-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-122003.md) — Completion report — job scholar-library-cycle-20260628-122003 (gardener 76, e...
