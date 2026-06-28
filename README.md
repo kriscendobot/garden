@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T06:31:31Z_
+_As of 2026-06-28T06:37:22Z_
 
 ## Latest
 
-Board movement was light this cycle — two dead-lettered messages were picked back up for re-triage and a pair of gardener progress notes landed — but several substantive reports queued for your attention. The [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) inventory taxonomy reshape and its shepherd run both completed and are settling on CI. On the library side, scholar gardeners landed a distributed-ocap concept cluster (ingesting MetaMask/ocap-kernel's 689-line kernel guide plus six interlocking concepts — three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher, and a synthesizing ocap-kernel page), with the grant-matcher source deferred since erights.org was unreachable. A lint sweep of endo-but-for-bots master came back clean: no error classes, only five non-blocking jsdoc warnings, parked as a low-priority plan. Two items want a decision: a gardener reports the formula-inspector retention-paths-table plan blocked on a stalled host-API PR (#284 — the rebase-and-gamut you requested back on 2026-05-21 never ran, and it's at 4 failing checks), and the liaison is holding rather than autonomously spawning a continuation of the kriskowal/garden issue #9 investigation until you confirm the intended scope. Twenty-eight PRs remain parked for review, the oldest now waiting 37–38 days.
+Garden meta-work dominated this cycle: both jobs on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) completed (the change is now the live tip of `origin/main2`), and the liaison parked a question for kriskowal — whether to open a tracking job to continue the issue #9 investigation "without the export," which the completed work deliberately left out of scope. Two attention/review directives on [endojs/endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) were just claimed and are in flight. The ymax0 v320 XS stack-overflow probe picked up steam, with three concurrent jobs running an export-free, fork-authorized synthetic depth harness. A scope revision also landed in progress: the garden's standing instructions are being updated to reflect that the kriscendobot agoric-sdk fork is now in scope (upstream agoric/agoric-sdk remains off-limits). Worth a maintainer glance: a gardener reports the formula-inspector retention-paths table is blocked on the still-open, CI-red `listRetentionPaths` host PR #284 (the rebase-and-re-gamut you requested 2026-05-21 never happened), and a lint sweep found endo master fully clean apart from five non-blocking jsdoc warnings.
 
 ## Parked for maintainer feedback
 
@@ -98,20 +98,21 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`benchmark-endo-hex-vs-agoric-internal-decode-node-xs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/benchmark-endo-hex-vs-agoric-internal-decode-node-xs.md) — Benchmark @endo/hex vs the Agoric-internal hex Map accelerator decode (Node.j...
-- [`deadmail-20260628T062702Z-eabeba`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T062702Z-eabeba.md) — Dead-lettered message — pick up its intent
-- [`deadmail-20260628T062900Z-47c70b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T062900Z-47c70b.md) — Dead-lettered message — pick up its intent
-- [`kriskowal-garden-pr9-151fa349`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-151fa349.md) — attention directive on kriskowal/garden PR #9
-- [`kriskowal-garden-pr9-166cb289`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-166cb289.md) — attention directive on kriskowal/garden PR #9
+- [`endojs-endo-but-for-bots-pr548-f2dcac0b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-f2dcac0b.md) — attention directive on endojs/endo-but-for-bots PR #548
+- [`endojs-endo-but-for-bots-pr548-review-f652c6dd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-review-f652c6dd.md) — Review directive on endojs/endo-but-for-bots PR #548
+- [`garden-continue-ymax0-xs-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-continue-ymax0-xs-investigation.md) — continue the ymax0 v320 XS stack-overflow investigation (export-free, fork-au...
+- [`garden-revise-agoric-fork-scope-instructions`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-revise-agoric-fork-scope-instructions.md) — revise the garden's standing scope instructions: agoric-sdk fork is now in scope
+- [`investigate-ymax0-v320-xs-depth-harness-20260628T0630Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-ymax0-v320-xs-depth-harness-20260628T0630Z.md) — Continue ymax0 v320 XS investigation — synthetic XS depth harness (export-free)
 
-### tada (466)
+### tada (470)
+- [`kriskowal-garden-pr9-151fa349`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-151fa349.md) — Completion report — kriskowal-garden-pr9-151fa349 (attention directive on gar...
+- [`deadmail-20260628T062702Z-eabeba`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T062702Z-eabeba.md) — Completion report — deadmail-20260628T062702Z-eabeba
+- [`deadmail-20260628T062900Z-47c70b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T062900Z-47c70b.md) — Completion report
+- [`kriskowal-garden-pr9-166cb289`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-166cb289.md) — Done. My change is the live tip of origin/main2, no duplicate job remains on ...
 - [`endojs-endo-but-for-bots-pr405-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-shepherd.md) — I'll continue when CI converges or the fallback fires.
-- [`endo-but-for-bots-pr405-inventory-taxonomy-reshape`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-pr405-inventory-taxonomy-reshape.md) — I've completed the implementation and pushed. Now waiting on CI to settle to ...
-- [`comms-issue-pr-comments-not-maintainer-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comms-issue-pr-comments-not-maintainer-inbox.md) — Completion report
-- [`deadmail-20260628T060057Z-400273`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T060057Z-400273.md) — Completion report — deadmail-20260628T060057Z-400273
-- [`deadmail-20260628T055855Z-a332d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T055855Z-a332d8.md) — Completion report
-- … and 461 more
+- … and 465 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
