@@ -6679,9 +6679,25 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 - [endo-but-for-bots--pkg-pubsub-readme--overview-and-topic-variants](endo-but-for-bots--pkg-pubsub-readme--overview-and-topic-variants.md)
 - [endo-but-for-bots--pkg-pubsub-readme--sink-and-spring](endo-but-for-bots--pkg-pubsub-readme--sink-and-spring.md)
 
+### erights--elang-blocks
+
+- [erights--elang-blocks--block-structure-and-control-flow](erights--elang-blocks--block-structure-and-control-flow.md)
+
+### erights--elang-concurrency-index
+
+- [erights--elang-concurrency-index--event-loop-concurrency-map](erights--elang-concurrency-index--event-loop-concurrency-map.md)
+
 ### erights--elang-concurrency-introducer
 
 - [erights--elang-concurrency-introducer--remote-objects](erights--elang-concurrency-introducer--remote-objects.md)
+
+### erights--elang-grammar
+
+- [erights--elang-grammar--grammar-and-kernel-e-expansion](erights--elang-grammar--grammar-and-kernel-e-expansion.md)
+
+### erights--elang-guarding
+
+- [erights--elang-guarding--soft-type-checking-map](erights--elang-guarding--soft-type-checking-map.md)
 
 ### erights--elang-index
 
@@ -6709,6 +6725,10 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 ### erights--elang-intro-starting-e
 
 - [erights--elang-intro-starting-e--launching-and-elmer](erights--elang-intro-starting-e--launching-and-elmer.md)
+
+### erights--elang-quick-ref
+
+- [erights--elang-quick-ref--idioms-quick-reference](erights--elang-quick-ref--idioms-quick-reference.md)
 
 ### erights--elib-capability-ode-ode-pki
 
