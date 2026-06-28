@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-06-27
+updated: 2026-06-28
 author: gardener, liaison
 ---
 
@@ -94,6 +94,14 @@ Per-role notes for the active library, expressed as the *kind* of per-action aut
 These authorizations originate with the maintainer (typically through the liaison after user confirmation, or through a journal `message` / inbox entry), and are carried into the job's body or the doer's inbox at claim time. No autonomous role originates a new cross-repo authorization; it acts only on the authorization the job carries.
 
 Why: the garden runs across many forks. Without this rule, agents would reflexively cross-link "for context" and create noise across upstream issue trackers. The discipline keeps the garden's bot-side activity invisible to upstream contributors who did not opt in.
+
+## Communicating with the maintainer
+
+When your work is scoped to an issue or a pull request, every reply you send the maintainer goes **on that issue or pull request, as a comment**. That is the only channel for issue-scoped or PR-scoped communication. Prefer an **inline review comment** anchored to the specific line of code, or an inline comment on the relevant line of a design document, so the maintainer reads your answer in the exact place the question arose (`skills/pr-review-thread-replies/SKILL.md`). Anchoring each point to its line is the difference between a reply the maintainer can act on without hunting and one they have to reconstruct.
+
+When the work as a whole needs an acknowledgment, add **one top-level summary comment** alongside the inline replies, per the completion-summary norm above and `skills/pr-completion-summary-comment/SKILL.md`: head SHA, what changed (mapped to addressing commits), what was declined and why, and the verification status (tests, lint, types). The inline replies anchor each point; the summary ties them together. Inline-only replies and silent pushes are not enough.
+
+Never route issue-scoped or PR-scoped feedback to the maintainer anywhere but the issue or pull request itself. If commenting on the repository is not yet authorized (per § External-repo etiquette), hold the reply in your completion report so the orchestrator posts it on the issue or pull request; the destination is still that thread, relocated and never skipped, never moved off the issue or pull request. The inter-agent message bus (a journal `message` entry to a peer role, a directed inbox note to another living agent) is a separate facility for agent-to-agent coordination and is unaffected by this rule; it is never a substitute for replying to the maintainer on the issue or pull request.
 
 ## Authority structure of upstream projects
 

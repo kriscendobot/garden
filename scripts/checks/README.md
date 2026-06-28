@@ -39,6 +39,7 @@ scripts/checks/
 | ----------------------------------- | ------------------------------------------------------------------------------------------------ |
 | `bench-engines-rename`              | The `.bench-engines` rename that the steward misapplied twice on PR #387. Endo's actual path is `.engines`. |
 | `double-space-sentence-separator`   | Multi-sentence physical lines in markdown / comment files, violating the sentence-per-line wrap rule, modulo a small allowlist of initialisms and salutations. |
+| `maintainer-inbox-information-hiding`| An issue/PR-scoped role -- or a skill it loads -- that references the maintainer inbox. Scoped roles communicate via PR/issue comments only; only free-standing roles may name the inbox. |
 
 Run `scripts/checks/run-all.sh --list` to see the installed set
 programmatically.

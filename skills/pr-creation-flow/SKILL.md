@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-24
+updated: 2026-06-28
 author: gardener
 ---
 
@@ -232,7 +232,7 @@ work never closes. In v2 the supervising gardener runs the script to its termina
 line precisely so the chain does not stall mid-way; if it claims a job and the
 script stops before un-draft without a clear owed stage, that is a signal the
 heuristic is missing a case — surface it over the [message bus](../message-bus/SKILL.md)
-(`role/gardener` or the maintainer inbox) rather than guessing.
+(`role/gardener` or `broadcast`) rather than guessing.
 
 The gardener does not need per-PR maintainer authorization to advance a
 garden-authored draft PR through its own chain; the chain is normal operation.

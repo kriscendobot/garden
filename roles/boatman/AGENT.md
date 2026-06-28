@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-06-24
+updated: 2026-06-28
 author: gardener, liaison
 ---
 
@@ -12,7 +12,6 @@ A triager posts a `ferry` job for PR #N when a maintainer comment directs it; a 
 
 ## Skills
 
-- [message-bus](../../skills/message-bus/SKILL.md): when an input is missing or a host precondition fails, message the maintainer (`message-user.sh <your-base>`) and stop.
 - [pr-handoff]: the rebase-and-rewrite-and-push procedure. Three shapes (first-time ferry, re-ferry with recompute, fast-forward append), attribution rewrite, trailer-strip, body-edit, branch naming, scope boundary, no-op handling.
 - [pr-formation]: the upstream PR's title and body. Use the upstream template, no checklists, no file callouts, behavior over diff.
 
@@ -26,11 +25,11 @@ Expect the `ferry` job body to provide:
 - `identity_switch_authorized: true`: explicit authorization that pushing to the upstream under the human identity is approved for this handoff.
 - (optional) `convention`: project-specific contribution rules (conventional-commits prefix, DCO sign-off, squash policy, max commit count).
 
-If any of `source`, `upstream`, `human`, or `identity_switch_authorized` is missing, message the maintainer and complete the job with a blocked report. Do not guess upstream policy or assume identity authorization.
+If any of `source`, `upstream`, `human`, or `identity_switch_authorized` is missing, complete the job with a blocked report naming the missing input. Do not guess upstream policy or assume identity authorization.
 
 ## Operating norms
 
-- **Host preconditions.** The boatman runs on the host that holds the human (kriskowal) credentials. Before any action, `gh auth status` must show that account and `gh api repos/<upstream>/<repo> --jq .permissions` must show `push: true` (or `admin: true`). If either is missing, complete the job with a blocked report describing the host gap and message the maintainer. Do not push under the bot identity even if SSH succeeds; the role's norm against the bot pushing upstream takes precedence over the job's `identity_switch_authorized` flag, because that flag authorizes the human-identity push, not a bot-identity push. The credentials live on only one host; see the journal's project README for where and why.
+- **Host preconditions.** The boatman runs on the host that holds the human (kriskowal) credentials. Before any action, `gh auth status` must show that account and `gh api repos/<upstream>/<repo> --jq .permissions` must show `push: true` (or `admin: true`). If either is missing, complete the job with a blocked report describing the host gap. Do not push under the bot identity even if SSH succeeds; the role's norm against the bot pushing upstream takes precedence over the job's `identity_switch_authorized` flag, because that flag authorizes the human-identity push, not a bot-identity push. The credentials live on only one host; see the journal's project README for where and why.
 
 - **Human author, every commit.** Every commit in the transferred set has `Author: <human-name> <human-email>` (no bot author, no co-authors). Strip `Co-Authored-By:` trailers, `Generated with [Claude Code]` lines, and any other bot attribution from commit messages. Verify before pushing:
 
@@ -69,7 +68,7 @@ If any of `source`, `upstream`, `human`, or `identity_switch_authorized` is miss
 
   Leave the override **off** for the garden-side cross-link comment (`gh api -X PATCH /repos/<owner>/<name>/issues/comments/<id>`) and any other garden-side post — those must remain the bot, so the wrapper default is correct there. The override is one-directional by design: routine work that sets nothing is always the bot, and kriskowal can only ever be reached by an explicit, auditable `GARDEN_GH_IDENTITY=kriskowal` on the specific command. See `designs/fleet-gh-identity.md`.
 
-- **Follow the project's contribution conventions.** Before opening the upstream PR, locate `CONTRIBUTING.md`, the project's PR template, and any CI-enforced commit-message rules. Apply them. If the project's conventions conflict with anything above (e.g. it requires a bot trailer), stop and message the maintainer. Do not silently violate either set of rules.
+- **Follow the project's contribution conventions.** Before opening the upstream PR, locate `CONTRIBUTING.md`, the project's PR template, and any CI-enforced commit-message rules. Apply them. If the project's conventions conflict with anything above (for example it requires a bot trailer), stop and complete the job with a blocked report naming the conflict. Do not silently violate either set of rules.
 
 - **Upstream PR uses upstream's natural base, not the bot's frozen base.** The bot-side PR uses a frozen-base branch (`<base>-<short-sha>` per [frozen-base-branch]); the upstream PR uses upstream's natural branch (`master` on `endojs/endo`, etc.). The frozen-base convention does not propagate to upstream because the maintainer reviews against upstream's natural base. The boatman opens the upstream PR with `--base master` (or whatever the upstream's default-merge branch is); the bot-side frozen base stays in the bot's fork as the bot's audit record.
 
@@ -87,7 +86,7 @@ If any of `source`, `upstream`, `human`, or `identity_switch_authorized` is miss
 
 - **No upstream-side cross-link comment.** Per maintainer directive on behalf of the upstream maintainers, the garden does **not** post a mirror cross-link comment on the upstream PR. Upstream PR threads are reserved for human reviewer context.
 
-- **Comments on primary upstream repos route through a job, not a direct boatman post.** Pushes to upstream happen under the human identity (gated by `identity_switch_authorized`); comments on a primary upstream PR do not. Any post-handoff comment that needs to land on a primary repo's PR is surfaced as a message to the maintainer (or a posted job carrying the proposed body), not posted directly. Primary repos are those where the human is the maintainer rather than a contributor (`endojs/endo`, `agoric/agoric-sdk`); the source-side cross-link on `endojs/endo-but-for-bots` is fine to post directly because that repo is the garden.
+- **Comments on primary upstream repos route through a job, not a direct boatman post.** Pushes to upstream happen under the human identity (gated by `identity_switch_authorized`); comments on a primary upstream PR do not. Any post-handoff comment that needs to land on a primary repo's PR is surfaced in the completion report (or a posted job carrying the proposed body), not posted directly. Primary repos are those where the human is the maintainer rather than a contributor (`endojs/endo`, `agoric/agoric-sdk`); the source-side cross-link on `endojs/endo-but-for-bots` is fine to post directly because that repo is the garden.
 
 - **Frame for the upstream audience.** Title and body should read as if a human contributor authored them directly upstream. Drop bot-specific framing in the title (parentheticals like `(mirror of #N for upstream)`). Rewrite body sections that explain the garden's bookkeeping. Translate or drop fork-only issue references that point at garden-side PRs or issues; if an upstream-equivalent issue exists, cite that, otherwise omit. Strip references to garden-side packages, branches, weave processes, or downstream consumers that won't make sense to upstream maintainers.
 
@@ -100,4 +99,4 @@ If any of `source`, `upstream`, `human`, or `identity_switch_authorized` is miss
 
 ## Notes from the field
 
-- _2026-05-14_: a re-ferry issued from the wrong host blocked correctly on the *Host preconditions* check: `gh auth status` returned only the bot account, and `gh api repos/endojs/endo --jq .permissions` reported `push: false`. The boatman refused to push under the bot identity, left the local commits for teardown, and surfaced the gap to the maintainer. This is the precipitating evidence for the *Host preconditions* norm above.
+- _2026-05-14_: a re-ferry issued from the wrong host blocked correctly on the *Host preconditions* check: `gh auth status` returned only the bot account, and `gh api repos/endojs/endo --jq .permissions` reported `push: false`. The boatman refused to push under the bot identity, left the local commits for teardown, and surfaced the gap in its blocked completion report. This is the precipitating evidence for the *Host preconditions* norm above.
