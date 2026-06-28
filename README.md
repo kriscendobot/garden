@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T18:10:53Z_
+_As of 2026-06-28T18:12:57Z_
 
 ## Latest
 
-Scholar ingestion kept rolling — `scholar-ingest-erights-10` and its follow-up `fu-scholar-ingest-erights-9-2` completed, extending the library's erights/ocap coverage, with the remaining ocap-kernel comment fragments still queued. Several garden-infra jobs also landed: `improve-regenerate-topics-counts`, an issue-inbox-watcher reactji-acknowledge, and pinning service-host singleton roles to the main host. The item warranting a maintainer decision is a deliberate-deploy call: endolinbot's deployed root is lagging at `fe2d9f296` while `origin/main2` (`b9f0fd5b4`) now carries `insert-sections-table-row.sh` — the scholar fell back to a safe whole-file landing so output was unaffected, but the liaison is asking whether to run `scripts/jobs/deploy-garden.sh` to bring this host current. Separately, the dead-lettered `ingest-ocap-library-sections` intent was confirmed already-handled and closed.
+Two lint-ratchet jobs on endo master are now in flight — `ratchet-jsdoc-check-tag-names-error-endo` and `ratchet-jsdoc-require-param-error-endo` were both claimed, each promising to escalate a jsdoc warning to an error and fix the handful of resulting defects. The scholar's erights/ocap library ingestion kept advancing (`scholar-ingest-erights-10` completed, and a dead-lettered request was confirmed already-handled: the erights.org→GitHub Pages mirror note now lives in the always-read `conventions.md` and is enforced in `fetch-source.sh`). Two more dead-lettered messages were picked up for intent. The one item a maintainer should act on: the liaison reports endolinbot's deployed root is lagging at `fe2d9f296` while `origin/main2` carries `b9f0fd5b4` (the new `insert-sections-table-row.sh`) — an upgrade-ready, deliberate-deploy decision awaiting your go-ahead to run `deploy-garden.sh`.
 
 ## Parked for maintainer feedback
 
@@ -43,9 +43,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`deadmail-20260628T180657Z-baff19`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T180657Z-baff19.md) — Dead-lettered message — pick up its intent
 - [`deadmail-20260628T180747Z-b1b988`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T180747Z-b1b988.md) — Dead-lettered message — pick up its intent
+- [`ratchet-jsdoc-check-tag-names-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ratchet-jsdoc-check-tag-names-error-endo.md) — ratchet jsdoc/check-tag-names warning → error on endo master (+ fix the 1 def...
+- [`ratchet-jsdoc-require-param-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ratchet-jsdoc-require-param-error-endo.md) — ratchet jsdoc/require-param warning → error on endo master (+ fix the 4 defects)
 
 ### tada (547)
 - [`scholar-ingest-erights-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-10.md) — Completion report
