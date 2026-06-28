@@ -6683,6 +6683,10 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 - [erights--elang-blocks--block-structure-and-control-flow](erights--elang-blocks--block-structure-and-control-flow.md)
 
+### erights--elang-collect
+
+- [erights--elang-collect--collections-tables-spaces-and-the-for-loop](erights--elang-collect--collections-tables-spaces-and-the-for-loop.md)
+
 ### erights--elang-concurrency-index
 
 - [erights--elang-concurrency-index--event-loop-concurrency-map](erights--elang-concurrency-index--event-loop-concurrency-map.md)
@@ -6726,6 +6730,10 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 - [erights--elang-intro-starting-e--launching-and-elmer](erights--elang-intro-starting-e--launching-and-elmer.md)
 
+### erights--elang-io
+
+- [erights--elang-io--io-map-uri-and-text-file](erights--elang-io--io-map-uri-and-text-file.md)
+
 ### erights--elang-kernel
 
 - [erights--elang-kernel--overview](erights--elang-kernel--overview.md)
@@ -6736,6 +6744,10 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 ### erights--elang-quick-ref
 
 - [erights--elang-quick-ref--idioms-quick-reference](erights--elang-quick-ref--idioms-quick-reference.md)
+
+### erights--elang-scalars
+
+- [erights--elang-scalars--scalar-data-types](erights--elang-scalars--scalar-data-types.md)
 
 ### erights--elib-capability-ode-ode-pki
 
