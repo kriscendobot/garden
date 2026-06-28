@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T06:45:15Z_
+_As of 2026-06-28T06:46:06Z_
 
 ## Latest
 
-Recent completions cleared a depth-harness pass on the ymax0 v320 XS stack-overflow investigation and a review-and-fix cycle on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548), while three jobs stay in flight: an @endo/hex-vs-Agoric decode benchmark, the continued ymax0 XS investigation, and a fix for the v1 `dispatch-prepare.sh` reference to the retired journal branch. Scholar work landed two library expansions — MetaMask/ocap-kernel's kernel-guide ingest and a six-section distributed-ocap concept cluster — and a lint sweep confirmed endo-but-for-bots master is clean (only 5 non-blocking jsdoc warnings, parked).
-
-Maintainer attention is owed on several inbox items: the formula-inspector retention-paths table is blocked until #284 (the `listRetentionPaths` host API) gets the rebase-and-gamut you already requested and lands on `llm`; the liaison is holding for scope on continuing the kriskowal/garden#9 investigation "without the export"; and the watchdog flags that this host's local `/home/kris/journal` worktree has diverged from `origin/journal2` (3 ahead, 3605 behind, 5 dirty) and was deliberately left untouched for manual reconcile.
+Work on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) landed and was reviewed to completion. Several gardener reports are now sitting unread in the maintainer inbox and want your attention: the formula-inspector retention-paths table is **blocked** on a stalled host-API PR (the rebase-and-gamut you requested on 2026-05-21 never ran, and it currently has 4 failing CI checks) — the gardener correctly declined to duplicate the graph walk and is asking you to land that PR first. Scholar ingests landed on journal2: the 689-line MetaMask/ocap-kernel host guide plus a six-topic distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher), with grant-matching flagged as the one concept lacking an in-corpus source (erights.org unreachable). A lint sweep of endo master came back clean — only 5 non-failing jsdoc warnings, parked as a low-priority fix. The liaison is holding on [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9), awaiting your call on whether (and how) to continue the issue's investigation "without the export" before spawning a job. Still in flight: the ymax0 v320 XS stack-overflow investigation, the @endo/hex vs Agoric-internal decode benchmark, and a garden infra fix for a v1 `dispatch-prepare.sh` that still references the retired journal branch.
 
 ## Parked for maintainer feedback
 
@@ -94,10 +92,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260628T015826Z-ac972d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T015826Z-ac972d.md)
 
 > Report kriskowal-garden-pr9-b87e3247 flags a still-open thread on kriskowal/garden issue #9 — the issue body's ask to "continue this investigation to the possible extent without the export." The completed job deliberately scoped this out as not part of the comment's directive and called it only a "candidate for its own job." It also sits near scope-sensitive territory (the prior work distinguished a bot-owned fork of agoric-sdk from excluded upstream agoric-sdk). Do you want me to open a tracking job to continue the issue #9 investigation, and if so, what's the intended scope of "without the export"? I'm holding off rather than autonomously spawning an investigation the report author explicitly left out of bounds.
-
-- `20260628T064503Z-d30c5b` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T064503Z-d30c5b.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 3605 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot)
 
 
 ## Board
