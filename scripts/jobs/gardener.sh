@@ -103,10 +103,17 @@ while :; do
   # by hash instead of vanishing into this gardener's systemd journal.
   capture="$(mktemp "${TMPDIR:-/tmp}/garden-capture-$base.XXXXXX")"
 
-  # narrate progress into the journal (garden practice), then drain this job
-  # doer's directed inbox (unread → read) before working.
-  printf 'gardener-%s on %s claimed job %s\n' "$id" "$GARDEN_HOST" "$base" \
-    | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+  # Silent-until-error is the default: the happy path emits no claim/complete
+  # progress lines (across a ~100-gardener fleet these pairs were the dominant
+  # journal volume and burned the supervisor's context with routine noise). The
+  # durable record is the completion `result` entry; the failure path captures
+  # output by hash and escalates to the gardener inbox. Set
+  # GARDEN_GARDENER_VERBOSE=1 to opt back into the claim/complete narration.
+  # Drain this job doer's directed inbox (unread → read) before working.
+  if [ -n "${GARDEN_GARDENER_VERBOSE:-}" ]; then
+    printf 'gardener-%s on %s claimed job %s\n' "$id" "$GARDEN_HOST" "$base" \
+      | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+  fi
   "$HERE/inbox-read.sh" "$base" || true
 
   # Mark this gardener mid-job so a deploy (deploy-garden.sh quiesce / the shared
@@ -144,8 +151,10 @@ while :; do
       continue
     fi
     [ "$crc" -ne 0 ] && die "complete-job failed for '$base' (rc=$crc)"
-    printf 'gardener-%s on %s completed job %s\n' "$id" "$GARDEN_HOST" "$base" \
-      | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+    if [ -n "${GARDEN_GARDENER_VERBOSE:-}" ]; then
+      printf 'gardener-%s on %s completed job %s\n' "$id" "$GARDEN_HOST" "$base" \
+        | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+    fi
   else
     rc=$?  # exit code of the failed handler — capture FIRST, before any command clobbers $?
     # The job handler — the gardening state machine / a `claude -p` inner agent —
