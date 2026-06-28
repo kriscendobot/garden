@@ -70,8 +70,19 @@ This topic is the home of the library's first ingest of external (non-repo) sour
 | [combex--edesk--pola-and-the-winix-problem](../sections/combex--edesk--pola-and-the-winix-problem.md) | E and CapDesk (combex.com) | The CapDesk-era articulation of the ambient-authority critique later formalized as Property D (No Ambient Authority): all 'Winix' systems grant every program the user's full authority. |
 | [combex--darpa-browser--executive-summary-and-confined-renderer](../sections/combex--darpa-browser--executive-summary-and-confined-renderer.md) | The DarpaBrowser (combex.com) | The canonical worked example of confining an untrusted component of 'moderate complexity'; capabilities-as-keys vs ACLs-as-ID-badges. |
 | [combex--darpa-browser--combex-and-e-technology](../sections/combex--darpa-browser--combex-and-e-technology.md) | The DarpaBrowser (combex.com) | Primary-source account of Combex's founding, E's origin ($10M/7yr, begun at Communities.com), caplets, capWT, and E's promise-based deadlock-free distributed computation. |
-| [papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem](../sections/papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem.md) | Polaris (HPL-2004-221) | The excess-authority diagnosis: identity-based OS security gives every program all the user's authority; the formal Property D restated for a mainstream OS. |
-| [papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority](../sections/papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority.md) | Polaris (HPL-2004-221) | The privilege/permission/authority distinction (permission = rules written down; authority = actions a process can cause) and the virus/worm distinction; the principle that justifies Polaris's copy+synchronizer design. |
+
+## Superseded sections
+
+Duplicate ingest of the 2004 Polaris report (HPL-2004-221). The canonical Polaris
+rows above (`papers--stiegler-polaris-virus-safe-computing-2004--*`) cover the same
+material; the `papers--stiegler-karp-yee-miller-polaris-2004` cluster is retained
+`status: superseded` (the journal is append-only).
+
+| Superseded section | Canonical replacement |
+|--------------------|-----------------------|
+| [papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem](../sections/papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem.md) | [excess-authority-the-virus-problem-and-permission-versus-authority](../sections/papers--stiegler-polaris-virus-safe-computing-2004--excess-authority-the-virus-problem-and-permission-versus-authority.md) |
+| [papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority](../sections/papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority.md) | [excess-authority-the-virus-problem-and-permission-versus-authority](../sections/papers--stiegler-polaris-virus-safe-computing-2004--excess-authority-the-virus-problem-and-permission-versus-authority.md) |
+
 ## See also
 
 - [capability-security](capability-security.md) — capabilities-as-practiced in the Endo / Agoric / OCapN stack; the implementation surface that this topic's theory underpins.
