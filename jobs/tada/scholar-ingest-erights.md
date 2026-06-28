@@ -1,86 +1,22 @@
----
-ts: 2026-06-28T15:58:00Z
-kind: result
-role: scholar
-project: endo
----
+Job `scholar-ingest-erights` complete (doin → tada). Report:
 
-# scholar-ingest-erights — result
+## scholar-ingest-erights — completion report
 
-Ingested the foundational erights.org HTML pages reachable via the GitHub Pages
-mirror (`source_fetched_via=mirror` for every fetch, content-SHA-256 anchors).
+**What I did:** Ingested the foundational erights.org HTML pages reachable via the GitHub Pages mirror, fetching every page through `fetch-source.sh` (mirror provenance + content-SHA-256 anchors matching the SHAs the job verified).
 
-## Sources ingested (3 net-new; all via mirror)
+**Sources ingested (3 net-new, all `source_fetched_via=mirror`):**
+- `erights--elang-index` (1 section) — the E Language index/landing hub; section captures the doc-tree map + E-to-Endo translation.
+- `erights--elang-same-ref` (2 sections) — *Semantics of "Same"*: `synchronous-sameness-and-reflexivity` and `selfish-and-selfless-objects`. This is the direct ancestor of Endo's pass-style discipline.
+- `erights--elib-capability-ode-index` (0 sections, **HTML-form pointer**) — the Ode index. I did **not** re-transcribe it because the Ode *is* the already-ingested paper `papers--miller-morningstar-frantz-capability-based-financial-instruments-2000`; instead the page maps the HTML chapters to the existing paper sections, recording mirror provenance without duplicating content (per the maintainer's efficient-context directive).
 
-- **`erights--elang-index`** (1 section) — the E Language index/landing hub
-  (`elang/index.html`, SHA `77f5814bce5d`). Section `overview`: the E doc-tree
-  map + E-self-description + E-to-Endo translation. Topics: `e-language`,
-  `capability-security`.
-- **`erights--elang-same-ref`** (2 sections) — *Semantics of "Same"*
-  (`elang/same-ref.html`, SHA `95878351747c`). Sections:
-  `synchronous-sameness-and-reflexivity` (the `==` operator, substitutability,
-  reflexivity incl. NaN, `<=>`, scalar sameness) and
-  `selfish-and-selfless-objects` (identity vs transparency, the three conditions,
-  pass-by-copy between vats, collections). The direct ancestor of Endo
-  pass-style. Topics: `e-language`, `pass-style`.
-- **`erights--elib-capability-ode-index`** (0 sections; HTML-form POINTER) —
-  *An Ode to the Granovetter Diagram* index (`elib/capability/ode/index.html`,
-  SHA `9763047ff7eb`). Recorded as a pointer, **not** a re-ingest: the ode is the
-  same document already in the library as the paper
-  `papers--miller-morningstar-frantz-capability-based-financial-instruments-2000`.
-  The page maps the HTML chapters to the existing paper sections so a reader who
-  lands on an erights ode URL navigates to the canonical material, with no
-  content duplication.
+**New index pages:** topic `e-language` (new); concept `selfless-and-selfish-objects` (new, draft), cross-linked to `pass-invariant-handle-equality` / `object-capability` / `granovetter-operator`.
 
-## New index pages
+**Indexes updated:** `topics/README.md`, `concepts/README.md`, `keywords.md` (19 lines), `topics/pass-style.md`, `sources/README.md`. I deliberately skipped the 5561-entry auto-generated `sections/README.md` (whole-file-replace on a 40 KB+ auto-gen index is impractical/risky; the gate does not require it; regeneration will pick up the new sections).
 
-- Topic **`e-language`** (new): collects the language-level E sources, distinct
-  from the capability-*theory* papers.
-- Concept **`selfless-and-selfish-objects`** (new, `status: draft`): E's
-  identity-vs-transparency split, cross-linked to `pass-invariant-handle-equality`,
-  `object-capability`, `granovetter-operator`.
+**Overlap I caught and handled:** My first survey hit the *stale live worktree* and missed that a 2026-06-27 cycle already ingested the E tutorial intro (+chapters) and two ode chapters. My three sources turned out genuinely net-new (no collision), and after re-surveying against a tip-synced clone I corrected two landed files (the overview's "queued" → "ingested" claims; the ode-index now cross-references the two existing ode chapter sections and notes their overlap with the paper).
 
-## Indexes updated
+**Integrity gate:** `library-link-check.sh --source-slug` on all three clusters → **PASS**. A `--nav` sweep found ~20 pre-existing danglers, **none** in any file I touched (endo-but-for-bots design cluster + polaris/powerbox concepts + daemon-persistence); flagged for separate cleanup.
 
-`topics/README.md` (e-language row), `concepts/README.md` (selfless row),
-`keywords.md` (19 keyword lines: selfless/selfish/sameness aliases + E-language
-and ode pointers), `topics/pass-style.md` (2 sameness section rows),
-`sources/README.md` (3 web-source rows under External web sources).
-`sections/README.md` (the 5561-entry auto-generated index) was **not** edited —
-hand-editing a 40 KB+ auto-generated file via whole-file-replace is impractical
-and risky, and the integrity gate does not require it; a regeneration pass will
-pick up the new sections.
+**Follow-ups:** Posted `scholar-ingest-erights-2` (remaining E-language spec/data-type pages, un-ingested ode chapters with a duplicate-the-paper caution, and the pre-existing dangling-link cleanup flag). Result entry `entries/2026/06/28/155751Z-result-gardener-00a5dd.md` landed; scratch cleaned.
 
-## Overlap discovered (and handled)
-
-My initial survey read the **stale live `journal/` worktree** and missed that a
-2026-06-27 cycle had already ingested the E tutorial intro
-(`erights--elang-intro` + chapters, canonical; the divergent `erights-org--`
-slug already superseded) and **two ode chapters** (`ode-protocol`, `ode-pki`,
-which themselves overlap the FC2000 paper). My three sources are all genuinely
-net-new (no file collision). After discovering this against the true tip, I
-corrected two of my landed files: the elang-index overview now marks the
-tutorial/concurrency pages as ingested (not "queued"), and the ode-index pointer
-now cross-references the two already-ingested ode chapter sections and notes the
-overlap.
-
-## Integrity gate
-
-`library-link-check.sh --source-slug` on all three new clusters: **PASS** (every
-section-table / README row resolves to a committed file). A `--nav` sweep
-surfaced ~20 pre-existing dangling links, **none** in any file this cycle
-touched (they live in the `endo-but-for-bots--llm-designs-*` cluster +
-`concepts/polaris.md` / `powerbox.md` + `endo--designs-daemon-persistence.md`);
-flagged for a separate cleanup job in the follow-on.
-
-## Follow-on posted
-
-`scholar-ingest-erights-2`: the remaining queued E-language spec/data-type pages
-(quick-ref, grammar, blocks, kernel-E, scalars, collections, io, concurrency
-index, guarding), the un-ingested ode chapters (with a caution that they
-duplicate the paper), and the pre-existing dangling-link cleanup flag.
-
-Self-improvement: nothing this time. (The stale-live-worktree survey gap is
-already covered by the standing memory "inspect journal2 read-only via
-`git show origin/journal2:<path>`"; I recovered by surveying against a
-tip-synced clone. The lander/gate model worked as documented.)
+Self-improvement: nothing this time (the stale-live-worktree survey gap is already covered by the standing "inspect journal2 read-only via `git show`" memory; I recovered via a tip-synced clone).
