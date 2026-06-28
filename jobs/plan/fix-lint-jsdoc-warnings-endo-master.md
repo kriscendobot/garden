@@ -3,62 +3,32 @@ gate: deferred
 priority: low
 posted_by: gardener
 posted_at: 2026-06-27T12:01:39Z
+superseded_at: 2026-06-28T18:13:00Z
+superseded_by:
+  - ratchet-jsdoc-require-param-error-endo
+  - ratchet-jsdoc-check-tag-names-error-endo
+status: superseded
 ---
 
-# fix-lint: jsdoc warnings on endo master (the only lint findings)
+# SUPERSEDED — fix-lint: jsdoc warnings on endo master
 
-Map: **fixer** → a small PR on endojs/endo-but-for-bots.
+**Do not promote or work this plan.** It is retained only as a pointer.
 
-## Context — endo master is lint-clean
+This consolidated plan merely *cleared* the 5 jsdoc warnings. On 2026-06-28 the
+maintainer (via the `classify-lint-endo-master` thread) directed a stronger
+approach: *ratchet each warning rule up to **error** and fix the resulting
+defects*, so the classes can never regress. That directive is now covered by two
+ready `todo` jobs, one per warning rule class:
 
-Classification job `classify-lint-endo-master` (2026-06-27) ran the full lint
-surface on endo master (endojs/endo-but-for-bots `master` @ `364d69ba1`, which is
-ahead of upstream `endojs/endo@master` by 64 legitimately-merged bot-fork PRs and
-behind by 8; not force-synced — the ahead commits are real merged work). Result:
+- **`ratchet-jsdoc-require-param-error-endo`** — set `jsdoc/require-param: 'error'`
+  in `packages/eslint-plugin/lib/configs/style.js`; autofix-then-fill the 4
+  `packages/daemon` `@param` defects.
+- **`ratchet-jsdoc-check-tag-names-error-endo`** — set
+  `jsdoc/check-tag-names: 'error'` in the same config; resolve the 1
+  `compartment-mapper/src/types/policy-schema.ts:64` `@remarks` defect (allow the
+  tag, or rewrite the block).
 
-| Gate (CI `yarn lint` = these first three) | Result |
-| ----------------------------------------- | ------ |
-| `lint:prettier` (`prettier --check .github packages`) | **clean** |
-| `lint:eslint` (root `eslint .`)           | **0 errors, 5 warnings** |
-| `lint:sh` (`scripts/shellcheck.sh`)       | **clean** |
-| per-package `lint:eslint` (`eslint .` × 49 pkgs) | same 5 warnings, 0 errors |
-| per-package `lint:types` (`tsc`), spot-checked ses/pass-style/daemon/compartment-mapper | **clean** |
-
-There are **no lint *error* classes** on master — CI's lint gate is green. The
-only findings are **5 warnings** in **two jsdoc sub-classes**, which do not fail
-CI (root `eslint .` exits 0). This single plan covers both.
-
-## Sub-class A — `jsdoc/require-param` (4×, autofixable)
-
-Missing `@param` declarations on documented functions, all in **packages/daemon**:
-
-- `packages/daemon/src/directory.js:129` — missing `@param "locator"`
-- `packages/daemon/src/directory.js:174` — missing `@param "petNamePath"`
-- `packages/daemon/src/pet-sitter.js:71` — missing `@param "id"`
-- `packages/daemon/src/pet-store.js:159` — missing `@param "id"`
-
-ESLint reports all 4 as **fixable** (`fixableWarningCount: 4`). `eslint --fix`
-inserts the `@param` stub, but the inserted description is empty — a human (or
-fixer) should fill a one-line description per param rather than landing a bare
-stub. Fix approach: **autofix-then-fill** — mechanically safe insert, then a
-short description pass; scope is one package (daemon).
-
-## Sub-class B — `jsdoc/check-tag-names` (1×, needs judgment)
-
-- `packages/compartment-mapper/src/types/policy-schema.ts:64` — invalid JSDoc tag
-  `@remarks`.
-
-**Not autofixable** (`fixableWarningCount: 0`). `@remarks` is a TSDoc tag that the
-repo's jsdoc plugin config does not recognize. Fix approach **needs judgment**,
-two options: (a) add `remarks` to the jsdoc plugin's `definedTags`/allowed-tags
-config (if the project wants TSDoc tags in `.ts` type files), or (b) rewrite the
-`@remarks` block as a plain description / a recognized tag. Decision belongs to
-the maintainer's house-style preference for TSDoc-in-Endo.
-
-## Definition of done
-
-A small fixer PR on endojs/endo-but-for-bots that clears all 5 jsdoc warnings:
-`jsdoc/require-param` autofixed + descriptions filled (daemon), and
-`jsdoc/check-tag-names` resolved per the chosen option (compartment-mapper).
-After it lands, `eslint .` reports 0 warnings. Low priority — these are warnings,
-not CI-failing errors.
+Each ratchet job carries the full config location, the exact defect list (master
+`364d69ba1`, unchanged since the classification), the fix approach, and a
+definition of done. The original classification lives in
+`entries/2026/06/27/120231Z-result-gardener-b2471d.md`.
