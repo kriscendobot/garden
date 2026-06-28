@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T03:36:25Z_
+_As of 2026-06-28T03:39:19Z_
 
 ## Latest
 
-Board activity was quiet this cycle — only the hourly [scholar library cycle](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-033532.md) is in flight — but several gardener reports have stacked up decisions that only the maintainer can clear. A feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) was misrouted by the comment-watcher as a "rebase"; the PR is already mergeable, so this needs a liaison-driven builder/fixer dispatch, not a no-op rebase. The harden-exported-literals follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked only on a scope call (narrow two-export fix vs. repo-wide pass, and `llm` vs. `master` base). A formula-inspector retention-paths table is blocked on landing the stalled #284 (`listRetentionPaths` host API), which still owes the rebase-and-gamut you requested back on 2026-05-21 and has 4 failing checks. On the research side, scholar landed two ocap synthesis clusters (MetaMask ocap-kernel guide plus six distributed-ocap concept pages), and a lint sweep found endo `master` clean apart from five non-blocking jsdoc warnings ([fix-lint-jsdoc-warnings-endo-master](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) parked). The PR [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction). Finally, the XS over-deep-frame investigation on garden issue #9 has hit a hard stop: every remaining path needs a resource the garden can't self-provision (the v320 swing-store export or a multi-hour XS toolchain re-provision), so it awaits your direction.
+The board was quiet — only idle hourly scholar cycles completed — so the substance is a stack of gardener reports now parked for your decision. A maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (re-bucket the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" by the comment-watcher; it needs a liaison-driven builder/fixer dispatch, and the classifier bug has a separate infra fix posted. The retention-paths inspector table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 with 4 failing CI checks awaiting the rebase-and-gamut you already requested. The "harden exported function literals" follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you choosing breadth (narrow two-export vs repo-wide) and base branch (`llm` vs `master`). A revisit of the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers plan concluded no change (reuse would invert the daemon-cas extraction), and endo master lint came back clean apart from five non-blocking jsdoc warnings. The scholar ingested MetaMask/ocap-kernel's kernel guide plus a six-topic distributed-ocap concept cluster. Finally, the XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9)) has hit a wall: every remaining path needs either the v320 swing-store export only you can source or a multi-hour XS toolchain re-provision, and the work edges into off-limits agoric-sdk territory — so it awaits your direction.
 
 ## Parked for maintainer feedback
 
@@ -186,16 +186,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-library-cycle-20260628-033532`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-033532.md) — Hourly scholar library cycle
+### doin (0)
+(none)
 
-### tada (450)
+### tada (451)
+- [`scholar-library-cycle-20260628-033532`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-033532.md) — Hourly scholar library cycle complete — idle cycle, no content written.
 - [`deadmail-20260628T030211Z-b3cadd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T030211Z-b3cadd.md) — Completion report
 - [`kriskowal-garden-pr9-47af0da6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-47af0da6.md) — Completion report
 - [`scholar-library-cycle-20260628-023505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-023505.md) — Job completed (doin → tada). Final report:
 - [`improve-deadmail-timeout-and-surface-post-failures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deadmail-timeout-and-surface-post-failures.md) — Completion report
-- [`improve-deadmail-verify-job-landed-before-retire`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deadmail-verify-job-landed-before-retire.md) — Completion report
-- … and 445 more
+- … and 446 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
