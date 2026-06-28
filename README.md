@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:39:13Z_
+_As of 2026-06-28T17:43:41Z_
 
 ## Latest
 
-The garden cleared [kriskowal/garden#12](https://github.com/kriskowal/garden/issues/12) (the emoji-fallback issue), alongside two more issue-inbox completions — trusted-comment handling on a closed issue and an empty-reply mark-read. The scholar's erights ingestion keeps rolling: `scholar-ingest-erights-8` landed and `scholar-ingest-erights-9` (ELib concurrency-mechanics chapters) is now in flight, with the latest library cycle freshly closed. The other in-flight item is a plan, not a PR: `service-host-roles-singletons-on-main-host`, a multibot leader/follower design that would run gardeners everywhere but pin singletons to one host.
-
-Two maintainer messages are worth a glance. A lint classification reports endo-but-for-bots master is **CLEAN** — CI's `yarn lint` gate is fully green and the only findings are 5 non-failing jsdoc warnings, consolidated into the low-priority `fix-lint-jsdoc-warnings-endo-master` plan to promote at will; the same note flags that bot master is legitimately 64 commits ahead of upstream (real merged work, not drift, deliberately not force-synced). The second closes out the erights dead-letter as already-handled, confirming the GitHub Pages mirror substitution is documented in the always-read conventions doc and enforced in `fetch-source.sh`. No PRs changed state this cycle — the 28 parked PRs (top 10 shown) are still awaiting review, the oldest being [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [#288](https://github.com/endojs/endo-but-for-bots/pull/288) at ~38 days.
+The bot's [endo master lint classification](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T120202Z-99ffce.md) came back clean: CI's `yarn lint` gate is fully green, with only 5 non-failing jsdoc warnings consolidated into one deferred plan (`fix-lint-jsdoc-warnings-endo-master`) you can promote if you want them cleared. The scholar's e-rights/ocap library ingestion continues to land (erights-8 completed, erights-9 in flight), and a gardener closed out the dead-lettered ocap-library-sections intent after confirming the erights.org→github.io mirror note is now enforced both in the always-read `conventions.md` and deterministically in `fetch-source.sh`. The board is otherwise quiet — no new jobs posted, with three claimed and in flight (scholar erights-9, the multibot leader/follower singleton plan, and a fresh dead-letter pickup).
 
 ## Parked for maintainer feedback
 
@@ -55,7 +53,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260628T174147Z-8cbe3e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T174147Z-8cbe3e.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-erights-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-9.md) — Scholar: ingest the ELib concurrency mechanics chapters + the two sub-hubs (e...
 - [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/service-host-roles-singletons-on-main-host.md) — PLAN: multibot leader/follower — gardeners run everywhere, singletons run onl...
 
