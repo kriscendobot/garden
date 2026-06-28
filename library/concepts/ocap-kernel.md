@@ -1,6 +1,6 @@
 ---
 id: ocap-kernel
-aliases: ["ocap-kernel", "ocap kernel", "OCap Kernel", "MetaMask ocap-kernel", "MetaMask/ocap-kernel", "kernel/vat model", "kernel and vat", "kernel facet", "subcluster", "system subcluster", "kref", "vref", "rref", "eref", "baggage", "makeDefaultExo", "vat endowments", "kernel service", "SwingSet kernel"]
+aliases: ["ocap-kernel", "ocap kernel", "OCap Kernel", "MetaMask ocap-kernel", "MetaMask/ocap-kernel", "kernel/vat model", "kernel and vat", "kernel facet", "subcluster", "system subcluster", "kref", "vref", "rref", "eref", "baggage", "makeDefaultExo", "vat endowments", "kernel service", "SwingSet kernel", "incarnationId", "incarnation id", "peer-restart detection", "waitForCrank", "crank reentrancy", "VatManager", "Kernel.make", "platformServices", "queueMessage", "provideFacet"]
 topics: [daemon, capability-security, persistence, eventual-send, exo]
 status: current
 ---
@@ -45,6 +45,12 @@ The single most distinctive divergence from Endo is the **four-scope reference n
 | [packages/kernel-store/README — savepoint persistence](../sections/metamask-ocap-kernel--packages-kernel-store-readme--storage-abstractions-and-implementations-package-purpose.md) | Storage abstractions; the SQLite-savepoint substrate under crank-buffering / atomic-output-or-rollback. |
 | [packages/remote-iterables/README — remotable iterators](../sections/metamask-ocap-kernel--packages-remote-iterables-readme--remotable-iterable-objects-package-purpose.md) | `@ocap/remote-iterables` (private namespace): remotable iterators/generators, separated from the streams concern. |
 | [packages/kernel-rpc-methods/README — JSON-RPC control plane](../sections/metamask-ocap-kernel--packages-kernel-rpc-methods-readme--json-rpc-method-utilities-package-purpose.md) | JSON-RPC host/kernel control surface — a boundary-technology contrast with Endo's CapTP. |
+| [KernelQueue.ts (index) — run queue & run loop](../sections/metamask-ocap-kernel--packages-ocap-kernel-src-KernelQueue-ts.md) | The kernel's forever run loop of cranks: store savepoint per crank, GC/reap priority, atomic abort-rollback versus commit-flush, decider-authorized resolution (ninth ingest, first kernel-internals comment-fragment). |
+| [Kernel.ts (index) — orchestrator class](../sections/metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts.md) | The orchestrator class: thin delegator over a graph of managers; four comment clusters on manager decomposition, crank-reentrancy, startup ordering, and incarnation identity (tenth ingest, second kernel-internals comment-fragment). |
+| [Kernel.ts — orchestrator/manager decomposition](../sections/metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--orchestrator-manager-decomposition.md) | Nine single-responsibility managers built in a dependency-ordered constructor behind `Kernel.make`; `platformServices` is the one injected host boundary; public methods are one-line delegations. |
+| [Kernel.ts — crank reentrancy & terminate-callback deadlock](../sections/metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--crank-reentrancy-and-the-terminate-callback-deadlock.md) | The in-crank terminate callback bypasses `VatManager.terminateVat` (which awaits `waitForCrank`) to avoid a self-wait deadlock; the public debugging methods correctly fence on `waitForCrank` from outside the loop. |
+| [Kernel.ts — startup sequence & orphaned-facet survival](../sections/metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--startup-sequence-and-orphaned-facet-survival.md) | `#init`'s ordered boot: always provide the kernel facet so a previous incarnation's orphaned run-queue messages cannot crash the queue; start persisted vats before the run loop, new system subclusters after. |
+| [Kernel.ts — incarnation identity & peer-restart detection](../sections/metamask-ocap-kernel--packages-ocap-kernel-src-Kernel-ts--incarnation-identity-and-peer-restart-detection.md) | A state reset preserves network identity (keySeed/peerId/ocapURLKey) but regenerates the `incarnationId` so remote peers detect the wipe and clear seq-dedup / c-list bookkeeping (#948/#950). |
 
 ## See also
 
