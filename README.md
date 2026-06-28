@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T01:00:35Z_
+_As of 2026-06-28T01:16:12Z_
 
 ## Latest
 
-A garden-infra fix landed — `improve-issue-comment-idempotent-by-comment-id` (issue-comment posting now keyed on comment ID) completed, alongside a dead-lettered job cleanup; the board is otherwise quiet (todo empty, two scholar-ingest jobs in flight).
+Several items now wait on a maintainer decision. The "harden exported function literals" follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on you choosing breadth (narrow two-export fix vs. repo-wide pass aligned with the `@endo/harden-exports` rule) and base branch (`llm` vs. `master`); the authorization to open the cross-repo PR already exists. Separately, a maintainer comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was misclassified as a "rebase" — it is actually a feature directive (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups across space-chat, chat, cli, and daemon), and needs a liaison-driven builder/fixer dispatch since the autonomous fleet has no path for implementing a feature directive. The XS over-deep-frame investigation (garden issue/PR #9) has stalled at a decision point: every remaining path needs a resource the garden can't self-provision (a v320 swing-store export, or multi-hour XS toolchain re-provisioning).
 
-What a maintainer should notice is a stack of decisions now parked in the inbox. A real feature directive from kriskowal on [endojs/endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (re-taxonomize the inventory groups — Directories/Agents/Personas/Values/Capabilities — plus full empty-group hiding) was misclassified as a "rebase" and needs a liaison-driven builder/fixer dispatch, since the v2 fleet has no autonomous path for maintainer feature directives. The harden-exported-literals follow-up from the merged [endojs/endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) awaits two answers — narrow (two evasive-transform exports) vs repo-wide, and base branch `llm` vs `master`, which changes the diff shape. The formula-inspector retention-paths table is blocked on #284 (`listRetentionPaths` host API), still open and stalled since 2026-05-21 on the rebase-and-gamut you requested; the gardener can take that rebase as a separate job on your word. And the XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9)) has hit a wall — every remaining path needs either the v320 swing-store export only you can source or a multi-hour XS toolchain re-provision; the investigation concluded this is an XS native-stack property, not an Endo regression.
-
-On the library side, scholars landed three ocap synthesis clusters (a MetaMask/ocap-kernel guide ingest, six distributed-ocap concepts, and a kernel-guide concept), flagging the grant-matcher-puzzle source as unreachable (erights.org down). Endo master lint is confirmed clean — only five non-failing jsdoc warnings remain, parked as a low-priority cleanup.
+On autonomous work: the formula-inspector retention-paths table is blocked on a still-open host-API PR (#284) that has been stalled since May with failing CI, so it stays parked until that lands. Lint classification of endo-but-for-bots master came back clean — only 5 non-blocking jsdoc warnings, parked as a low-priority plan. The [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction and create a workspace cycle). Scholar ingests continue to enrich the ocap corpus — the MetaMask ocap-kernel guide plus a distributed-ocap concept cluster — with combex/HP Labs/Polaris primary sources now in flight.
 
 ## Parked for maintainer feedback
 
@@ -186,9 +184,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`deadmail-20260628T011146Z-30c825`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T011146Z-30c825.md) — Dead-lettered message — pick up its intent
 - [`scholar-ingest-source-combex-capdesk-polaris-primaries`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-combex-capdesk-polaris-primaries.md) — scholar-ingest-source: CapDesk / Polaris primaries via the combex.com Wayback...
 - [`scholar-ingest-source-hpl-techreports-polaris`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-hpl-techreports-polaris.md) — scholar-ingest-source: the HP Labs technical reports (HPL-2004-116, HPL-2006-...
+- [`scholar-ingest-source-polaris-cacm-2006`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-source-polaris-cacm-2006.md) — scholar-ingest-source: the 2006 CACM Polaris revision (second of the Polaris ...
 
 ### tada (431)
 - [`improve-issue-comment-idempotent-by-comment-id`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-issue-comment-idempotent-by-comment-id.md) — Completion report: improve-issue-comment-idempotent-by-comment-id
