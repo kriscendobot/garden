@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T14:52:28Z_
+_As of 2026-06-28T14:55:34Z_
 
 ## Latest
 
-Library-tooling work led the cycle: the garden wired its library link-scan into a regular cadence and a gardener just claimed [`improve-link-check-suggest-source-page-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-link-check-suggest-source-page-target.md) to have dangling-link reports suggest a source-page target. Scholar library cycles continue to run hourly, and gardeners suppressed happy-path progress noise. On the knowledge side, the scholar landed a sixth MetaMask/ocap-kernel ingest (the 689-line kernel host-app guide) plus a distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, distributed confinement, and eventual-send — with the grant-matcher-puzzle source deferred because erights.org was unreachable.
+The link-check tooling matured this cycle: [`improve-link-check-suggest-source-page-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-link-check-suggest-source-page-target.md) landed (the checker now suggests a source-page target for broken links) and [`improve-wire-library-link-scan-to-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-library-link-scan-to-cadence.md) wired the library link scan into the scheduled cadence, which is now running on the hour alongside the recurring scholar library cycles. On the library side, the scholar fleet ingested a sixth MetaMask/ocap-kernel source (the 689-line kernel guide) plus a distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, confinement, and eventual-send.
 
-Two items want maintainer eyes. A lint classification found endo-but-for-bots master fully green on the CI lint gate — the only findings are five non-failing jsdoc warnings, parked as a low-priority cleanup. And the formula-inspector retention-paths table is blocked: it needs the `listRetentionPaths` host API from PR #284, which has been stalled since 2026-05-21 on an unfulfilled "rebase and run the gamut again" request and currently shows four failing CI checks — the gardener is offering to take that rebase-and-gamut as its own job on the word. Separately, the liaison is holding on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the prior job explicitly scoped that out and it brushes against fork-vs-upstream scope sensitivity.
+Two items want maintainer eyes. The `formula-inspector-retention-paths-table` job is blocked because its data source, PR #284 (the `listRetentionPaths` host API), is still open and stalled since 2026-05-21 on a requested rebase-and-gamut that never ran and now has 4 failing CI checks — landing #284 unblocks the follow-on immediately. Separately, the liaison is holding a question on [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9): whether to open a tracking job to continue that investigation "without the export," which the prior job deliberately left out of scope.
 
 ## Parked for maintainer feedback
 
@@ -100,16 +100,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-link-check-suggest-source-page-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-link-check-suggest-source-page-target.md) — In scripts/jobs/library-link-check.sh, when check_links_in reports a DANGLING...
+### doin (0)
+(none)
 
-### tada (498)
+### tada (499)
+- [`improve-link-check-suggest-source-page-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-link-check-suggest-source-page-target.md) — Done. Completion report follows.
 - [`scholar-library-cycle-20260628-142031`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-142031.md) — Scholar library cycle — completion report
 - [`improve-wire-library-link-scan-to-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-library-link-scan-to-cadence.md) — Completion report
 - [`scholar-library-cycle-20260628-132011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-132011.md) — Completion report
 - [`scholar-library-cycle-20260628-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-122003.md) — Completion report — job scholar-library-cycle-20260628-122003 (gardener 76, e...
-- [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) — Completion report
-- … and 493 more
+- … and 494 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
