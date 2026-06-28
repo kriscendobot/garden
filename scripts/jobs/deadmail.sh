@@ -89,12 +89,27 @@ for f in $(list_jobs "$DIR" inbox/dead); do
   } > "$body"
 
   # Promote (idempotent by basename). post-job uses its own producer clone.
-  if ! "$HERE/post-job.sh" "$base" "$body" >/dev/null 2>&1; then
-    log "post of '$base' failed; leaving dead-mail $msgid for the next tick"
-    rm -f "$body"
+  # Wrap in `timeout`: post-job.sh can hang indefinitely on a stale producer
+  # journal.lock (see feedback_stale_producer_lock_wedges_posts.md); without a
+  # bound, a single stale lock wedges the whole tick and, under Restart=always,
+  # can crash-loop into systemd's start-limit. Capture stderr to a temp file so a
+  # wedged or failing promote self-diagnoses instead of being swallowed by 2>&1.
+  # The if/else (not `if ! …`) captures post-job's REAL exit in the else branch:
+  # `! cmd` would clobber $? to the negation, losing timeout's 124.
+  err="$(mktemp "${TMPDIR:-/tmp}/garden-deadmail-err.XXXXXX")"
+  if timeout "${GARDEN_POST_TIMEOUT:-120}" "$HERE/post-job.sh" "$base" "$body" >/dev/null 2>"$err"; then
+    rm -f "$body" "$err"
+  else
+    rc=$?
+    if [ "$rc" -eq 124 ]; then
+      log "WARN post of '$base' timed out after ${GARDEN_POST_TIMEOUT:-120}s (likely a stale producer journal.lock); leaving dead-mail $msgid for the next tick"
+    else
+      log "WARN post of '$base' failed (rc=$rc); leaving dead-mail $msgid for the next tick"
+    fi
+    [ -s "$err" ] && log "post-job stderr for '$base': $(tr '\n' ' ' < "$err")"
+    rm -f "$body" "$err"
     continue
   fi
-  rm -f "$body"
 
   # Guard the retire: only `git rm` the dead-mail entry once the promoted job is
   # confirmed reachable on origin/$JOURNAL_BRANCH. post-job may report success while
