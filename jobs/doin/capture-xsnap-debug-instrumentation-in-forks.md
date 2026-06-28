@@ -67,3 +67,9 @@ exist only as untracked scratch on host `endolinbot` and may be GC'd:
 - If the scratch files are already GC'd, reconstruct the probes from the
   investigation report's "Deliverable findings" and "Artifacts" sections — the
   measured limits and frame-cycle names are recorded there.
+
+---
+claim:
+  host: endolinbot
+  gardener: 23
+  claimed_at: 2026-06-28T01:53:03Z
