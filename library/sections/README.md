@@ -682,6 +682,25 @@ Total section files: 5836 (506 parent indexes + 5330 children).
 - [collections--readme--overview](collections--readme--overview.md)
 - [collections--readme--package-catalog](collections--readme--package-catalog.md)
 
+### combex--darpa-browser
+
+- [Executive summary: the capability-confined renderer and the E Language Machine](combex--darpa-browser--executive-summary-and-confined-renderer.md)
+- [Statement of work, milestones, and deliverables](combex--darpa-browser--statement-of-work-and-milestones.md)
+- [Combex, the E language history, caplets, and promise-based distribution](combex--darpa-browser--combex-and-e-technology.md)
+
+### combex--edesk
+
+- [POLA and the Winix excess-authority problem](combex--edesk--pola-and-the-winix-problem.md)
+- [CapDesk confinement, authority by designation, and E productivity](combex--edesk--capdesk-confinement-and-developer-productivity.md)
+
+### combex--opportunity
+
+- [The Opportunity for a Virus-Invulnerable Desktop](combex--opportunity--overview.md)
+
+### combex--tech-index
+
+- [Combex Technology — index](combex--tech-index--overview.md)
+
 ### endo--agents
 
 - [endo--agents--commit-conventions](endo--agents--commit-conventions.md)
@@ -7577,6 +7596,13 @@ Total section files: 5836 (506 parent indexes + 5330 children).
   - [Implications for Endo](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--implications-for-endo.md)
   - [See also](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--see-also.md)
   - [Translation block (paper idiom → contemporary Endo / Agoric surface)](papers--miller-vancutsem-tulloh-distributed-electronic-rights-2013--rights-as-property-and-money-as-right--translation-block-paper-idiom-contemporary-endo-agoric-surface.md)
+
+### papers--stiegler-karp-yee-miller-polaris-2004
+
+- [Abstract and the excess-authority problem](papers--stiegler-karp-yee-miller-polaris-2004--abstract-and-the-excess-authority-problem.md)
+- [Using and polarizing an application: designation as authorization, the PowerBox, Pets, visual cues](papers--stiegler-karp-yee-miller-polaris-2004--using-and-polarizing-an-application.md)
+- [How Polaris works: restricted accounts, RunAs, status, and remaining attacks](papers--stiegler-karp-yee-miller-polaris-2004--how-polaris-works.md)
+- [Sidebars: privilege/permission/authority, and virus/worm](papers--stiegler-karp-yee-miller-polaris-2004--permission-privilege-and-authority.md)
 
 ### papers--swasey-garg-dreyer-ocpl-2017
 
