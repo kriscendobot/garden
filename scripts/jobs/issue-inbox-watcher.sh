@@ -307,8 +307,16 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
       # inbox; if the doer has finished (inbox gone) it DEAD-LETTERS the message,
       # and garden-deadmail promotes it to a fresh job — which inherits the issue
       # note because the note rides in the message body. Either path is success.
+      #
+      # Idempotent by GitHub comment id: the comment id ($id, field 3 of the row)
+      # is stable across polls, so pinning the message id to it means a re-poll of
+      # the SAME comment (coldstart, a lost/reset cursor, or an updated_at-driven
+      # re-surface from the issues/comments?since= feed) maps to the same inbox /
+      # dead-letter path — no duplicate delivery, no duplicate dead-letter, and no
+      # duplicate promoted job (deadmail-issue-comment-<cid> is basename-idempotent).
       mb="$(mktemp)"; write_comment_msg "$mb" "$REPO" "$number" "$spine" "$url" "$nf" "$bf"
-      if GARDEN_SENDER="issue-inbox" "$GARDEN_ISSUE_MSG" "$spine" "$mb" >/dev/null 2>&1; then
+      if GARDEN_SENDER="issue-inbox" GARDEN_MSG_ID="issue-comment-$id" \
+           "$GARDEN_ISSUE_MSG" "$spine" "$mb" >/dev/null 2>&1; then
         log "delivered comment on #$number to issue doer ($spine) — or dead-lettered for promotion"
         acted=$((acted+1)); hw="$created"
       else

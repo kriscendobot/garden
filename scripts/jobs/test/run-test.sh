@@ -296,7 +296,13 @@ git -C "$GW" add -A; git -C "$GW" commit -q -m base; git -C "$GW" remote add ori
 G2="$TR/garden-up"; git clone -q "$GBARE" "$G2"; git -C "$G2" checkout -q main2
 echo "v2" > "$G2/roles/x.md"; git -C "$G2" "${git_id[@]}" commit -qam evolve; git -C "$G2" push -q origin main2
 upsha="$(git -C "$G2" rev-parse HEAD)"
+# GARDEN_AGGRESSIVE_CHECKOUT=1 opts into the LEGACY aggressive fast-forward this
+# subtest exercises by name. The deliberate-deploy cutover retired that path to
+# OFF by default (watchman.sh sets GARDEN_AGGRESSIVE_CHECKOUT=0), so without the
+# explicit opt-in the watchman no longer touches the root tree and this assertion
+# would fail spuriously — it is the legacy path, not the default, that is verified.
 env GARDEN_ROOT="$GW" GARDEN_MAIN_BRANCH=main2 GARDEN_WATCH_HANDLER=/bin/true \
+    GARDEN_AGGRESSIVE_CHECKOUT=1 \
     "$JOBS/watchman.sh" >/dev/null 2>&1
 locsha="$(git -C "$GW" rev-parse main2)"
 [ "$locsha" = "$upsha" ] && ok "aggressively fast-forwarded local main2 to upstream" || bad "main2 not updated ($locsha != $upsha)"
@@ -2012,6 +2018,59 @@ env GARDEN_STATE="$II_TR/state-f" JOURNAL_REMOTE="$BARE_II_F" JOURNAL_BRANCH="$B
     GARDEN_ISSUE_SOURCE="$II_SRCSTUB" \
     "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>&1
 [ "$(ii_todo_count "$BARE_II_F")" -eq 0 ] && ok "watcher inert with no config/garden-repo (dispatches nothing)" || bad "watcher acted without a configured repo"
+
+# H — IDEMPOTENT comment re-poll: a re-poll of the SAME comment (coldstart, a
+#     lost/reset cursor, or an updated_at-driven re-surface) must NOT double-act.
+#     The watcher pins the message id to the GitHub comment id
+#     (GARDEN_MSG_ID=issue-comment-<cid>), so a live-inbox send finds its file
+#     already present and skips, and the dead-letter path lands on the same path
+#     and promotes to a single basename-idempotent job. Each re-poll uses a FRESH
+#     GARDEN_STATE so the watcher's OWN cursor dedup (which would otherwise mask
+#     the inbox-level idempotency under test) is reset, mimicking a lost cursor.
+hr; echo "H — comment re-poll idempotent by comment id (one delivery / one job)"; hr
+# H1 — live doer: re-poll of the same comment delivers EXACTLY ONE message.
+BARE_II_H="$II_TR/h.git"; ii_seed "$BARE_II_H"
+HV="$(mktemp -d "$II_TR/hv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_H" "$HV"
+mkdir -p "$HV/inbox/issue-kriskowal-garden-90/unread"; touch "$HV/inbox/issue-kriskowal-garden-90/unread/.gitkeep"
+git -C "$HV" add -A; git -C "$HV" "${git_id[@]}" commit -q -m "doer holds issue-90"; git -C "$HV" push -q origin "$BRANCH"; rm -rf "$HV"
+FIX_II_H="$II_TR/fix-h.tsv"
+ii_row issue-comment 2026-06-27T16:00:00Z 9500 90 kriskowal kriskowal open - \
+  https://github.com/kriskowal/garden/issues/90#issuecomment-9500 'Re-poll me twice.' > "$FIX_II_H"
+ii_run "$II_TR/state-h1" "$BARE_II_H" "$FIX_II_H"     # first poll → delivers
+ii_run "$II_TR/state-h2" "$BARE_II_H" "$FIX_II_H"     # fresh state = reset cursor → re-poll
+HV="$(mktemp -d "$II_TR/hv2.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_H" "$HV"
+nlive=$(ls -1 "$HV/inbox/issue-kriskowal-garden-90/unread" | grep -vxc '.gitkeep' || true)
+hname="$(ls -1 "$HV"/inbox/issue-kriskowal-garden-90/unread/*.md 2>/dev/null | xargs -n1 basename 2>/dev/null | head -1)"
+rm -rf "$HV"
+[ "$nlive" -eq 1 ] && ok "live doer: re-poll of the same comment delivers exactly one message (idempotent)" || bad "re-poll double-delivered to a live doer ($nlive)"
+[ "$hname" = "issue-comment-9500.md" ] && ok "live message filename is the deterministic comment id (issue-comment-9500.md)" || bad "message id not pinned to the comment id ($hname)"
+
+# H2 — dead doer: two polls leave exactly ONE dead-letter at the comment-id path;
+#      deadmail promotes it to exactly ONE job; a further re-poll + re-promote
+#      (the dead-letter was retired, so it is re-created) never adds a duplicate.
+BARE_II_H2="$II_TR/h2.git"; ii_seed "$BARE_II_H2"     # no inbox → the doer is gone
+FIX_II_H2="$II_TR/fix-h2.tsv"
+ii_row issue-comment 2026-06-27T17:00:00Z 9600 91 kriskowal kriskowal open - \
+  https://github.com/kriskowal/garden/issues/91#issuecomment-9600 'Re-poll the dead path.' > "$FIX_II_H2"
+ii_run "$II_TR/state-h2a" "$BARE_II_H2" "$FIX_II_H2"  # poll 1 → dead-letter
+ii_run "$II_TR/state-h2b" "$BARE_II_H2" "$FIX_II_H2"  # poll 2 (reset cursor) → same path, no dup
+HV="$(mktemp -d "$II_TR/h2v.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_H2" "$HV"
+ndead=$(ls -1 "$HV/inbox/dead" | grep -vxc '.gitkeep' || true)
+deadname="$(ls -1 "$HV"/inbox/dead/*.md 2>/dev/null | xargs -n1 basename 2>/dev/null | head -1)"
+rm -rf "$HV"
+{ [ "$ndead" -eq 1 ] && [ "$deadname" = "issue-comment-9600.md" ]; } \
+  && ok "dead doer: two polls leave exactly one dead-letter at the comment-id path" || bad "dead-letter duplicated/misnamed (n=$ndead name=$deadname)"
+env GARDEN_STATE="$II_TR/state-h2a" JOURNAL_REMOTE="$BARE_II_H2" JOURNAL_BRANCH="$BRANCH" GARDEN_HOST=iihost \
+  "$JOBS/deadmail.sh" >/dev/null 2>&1                 # promote → one job
+ii_run "$II_TR/state-h2c" "$BARE_II_H2" "$FIX_II_H2"  # poll 3 after promotion (file retired) → re-create
+env GARDEN_STATE="$II_TR/state-h2a" JOURNAL_REMOTE="$BARE_II_H2" JOURNAL_BRANCH="$BRANCH" GARDEN_HOST=iihost \
+  "$JOBS/deadmail.sh" >/dev/null 2>&1                 # re-promote → idempotent by basename
+HV="$(mktemp -d "$II_TR/h2v2.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_H2" "$HV"
+npromo=$(ls -1 "$HV/jobs/todo"/deadmail-issue-comment-9600.md 2>/dev/null | grep -c . || true)
+nany=$(ls -1 "$HV/jobs"/{todo,doin,tada}/deadmail-*.md 2>/dev/null | grep -c . || true)
+rm -rf "$HV"
+{ [ "$npromo" -eq 1 ] && [ "$nany" -eq 1 ]; } \
+  && ok "dead doer: re-poll + re-promote yields exactly one job (deadmail-issue-comment-9600)" || bad "promoted job duplicated (named=$npromo any=$nany)"
 
 # G — SOURCE handler: issue-source-gh.sh excludes PRs and joins parent-issue meta
 hr; echo "G — issue-source-gh.sh excludes PRs, surfaces issues + joined comments"; hr

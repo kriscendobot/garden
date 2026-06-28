@@ -33,7 +33,21 @@ if   [ -n "$body_src" ] && [ -f "$body_src" ]; then BODY="$(cat "$body_src")"
 elif [ ! -t 0 ];                                then BODY="$(cat)"
 else BODY="(empty message)"; fi
 
-msgid="$(date -u +%Y%m%dT%H%M%SZ)-$(od -An -N3 -tx1 /dev/urandom | tr -d ' \n')"
+# Message id: a caller can supply a DETERMINISTIC id via GARDEN_MSG_ID so a
+# re-send of the SAME logical message (a re-polled GitHub comment, a coldstart or
+# reset-cursor replay) maps to the SAME live-inbox and dead-letter path, making
+# delivery idempotent: a live re-send finds its file already present and skips,
+# and a dead-letter re-send rewrites an identical path that garden-deadmail
+# promotes to a basename-idempotent job. When GARDEN_MSG_ID is unset we fall back
+# to the legacy random id, so every send is a distinct message (the historical
+# behavior). A caller-supplied id is sanitized to the filesystem/ref-safe charset
+# (matching post-job.sh / deadmail.sh) so it can never escape the inbox directory.
+if [ -n "${GARDEN_MSG_ID:-}" ]; then
+  msgid="$(printf '%s' "$GARDEN_MSG_ID" | tr -c 'A-Za-z0-9._-' '-')"
+  case "$msgid" in -*|'') die "illegal GARDEN_MSG_ID '$GARDEN_MSG_ID'";; esac
+else
+  msgid="$(date -u +%Y%m%dT%H%M%SZ)-$(od -An -N3 -tx1 /dev/urandom | tr -d ' \n')"
+fi
 
 for attempt in $(seq 1 50); do
   sync_clone "$DIR"
@@ -43,6 +57,15 @@ for attempt in $(seq 1 50); do
     # promote into a job. Legacy hard-fail is opt-in via GARDEN_NO_DEADLETTER=1.
     if [ "${GARDEN_NO_DEADLETTER:-0}" = "1" ]; then
       die "no live inbox for doer '$doer' (not currently working a job)"
+    fi
+    # Idempotent dead-letter: with a deterministic GARDEN_MSG_ID a re-poll lands on
+    # the same path. If it is still queued (garden-deadmail has not yet promoted and
+    # retired it), skip the rewrite — the pending entry already carries the intent.
+    # If it was already promoted and retired, the file is gone and we re-create it;
+    # deadmail re-promotes to the basename-idempotent job deadmail-<msgid>, so no
+    # duplicate job results either way.
+    if [ -e "$DIR/inbox/dead/$msgid.md" ]; then
+      log "dead-letter $msgid already queued for '$doer' (idempotent skip)"; exit 0
     fi
     mkdir -p "$DIR/inbox/dead"
     {
@@ -63,6 +86,13 @@ for attempt in $(seq 1 50); do
     log "dead-letter for '$doer' lost a push race (attempt $attempt); retrying"
     backoff
     continue
+  fi
+  # Idempotent live delivery: with a deterministic GARDEN_MSG_ID, a re-poll of the
+  # same logical message while the doer is still alive must not double-deliver. If
+  # the message is already in the doer's inbox (still unread, or already moved to
+  # read/ by the doer's drain) the send is a no-op success.
+  if [ -e "$DIR/inbox/$doer/unread/$msgid.md" ] || [ -e "$DIR/inbox/$doer/read/$msgid.md" ]; then
+    log "message $msgid already in inbox/$doer (idempotent skip)"; exit 0
   fi
   mkdir -p "$DIR/inbox/$doer/unread"
   {
