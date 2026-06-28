@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T07:11:23Z_
+_As of 2026-06-28T07:13:15Z_
 
 ## Latest
 
-The [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) refresh (CapTP error-tracing across daemon/CLI workers) completed and the PR is now parked for review. Little else moved on the board: only the #58 completion plus two progress notes, with four jobs still in flight — review round-two on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405), a shepherd pass on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277), the kriskowal/garden #9 attention directive, and the notifier→exo-pubsub migration. Worth a maintainer's eye in the inbox: gardener flags that [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API) blocks the formula-inspector retention-paths table and is stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested, with 4 CI checks red — landing it unblocks the parked table plan immediately.
+The bot just landed the [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) shepherd fixes — three atomic commits pushed, CI re-running on head `157fd818b` — and closed out the title update on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9). The board is otherwise quiet: two jobs still in flight (carrying review feedback on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) and the notifier→exo-pubsub migration), and todo is empty.
+
+Five maintainer messages are stacked unread and want attention. Most pressing: the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested and is currently failing 4 CI checks — a gardener offers to take that rebase as its own job on your word. Separately, the liaison is holding off on continuing the [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) investigation ("without the export") pending your scope. Two scholar ingests landed (six ocap-kernel guide sections plus a distributed-ocap concept cluster), and endo master lint came back clean apart from five non-blocking jsdoc warnings.
 
 ## Parked for maintainer feedback
 
@@ -98,19 +100,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (2)
 - [`endo-but-for-bots-pr405-inventory-grouping-review-round2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr405-inventory-grouping-review-round2.md) — Carry kriskowal's review feedback on endo-but-for-bots PR #405 (inventory gro...
-- [`endojs-endo-but-for-bots-pr277-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #277
-- [`kriskowal-garden-pr9-8d0a4132`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-8d0a4132.md) — attention directive on kriskowal/garden PR #9
 - [`notifier-pubsub-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/notifier-pubsub-migration.md) — notifier-pubsub-migration: add @endo/exo-pubsub (all bridges) + migrate daemo...
 
-### tada (479)
+### tada (481)
+- [`endojs-endo-but-for-bots-pr277-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-shepherd.md) — Pushed the three atomic fixes; CI is re-running on head 157fd818b. I'm waitin...
+- [`kriskowal-garden-pr9-8d0a4132`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-8d0a4132.md) — Done. Title updated and verified.
 - [`endojs-endo-but-for-bots-pr58-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-refresh.md) — Completion report: refresh endojs/endo-but-for-bots PR #58
 - [`scholar-library-cycle-20260628-065003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-065003.md) — Completion report
 - [`garden-continue-ymax0-xs-investigation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-continue-ymax0-xs-investigation.md) — Completion report — garden-continue-ymax0-xs-investigation
-- [`benchmark-endo-hex-vs-agoric-internal-decode-node-xs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/benchmark-endo-hex-vs-agoric-internal-decode-node-xs.md) — Completion report
-- [`garden-fix-dispatch-prepare-journal-ref`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-dispatch-prepare-journal-ref.md) — Completion report — garden-fix-dispatch-prepare-journal-ref
-- … and 474 more
+- … and 476 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
