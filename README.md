@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-28T14:55:34Z_
+_As of 2026-06-28T15:15:14Z_
 
 ## Latest
 
-The link-check tooling matured this cycle: [`improve-link-check-suggest-source-page-target`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-link-check-suggest-source-page-target.md) landed (the checker now suggests a source-page target for broken links) and [`improve-wire-library-link-scan-to-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-library-link-scan-to-cadence.md) wired the library link scan into the scheduled cadence, which is now running on the hour alongside the recurring scholar library cycles. On the library side, the scholar fleet ingested a sixth MetaMask/ocap-kernel source (the 689-line kernel guide) plus a distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, confinement, and eventual-send.
+Scholar library work dominated this window: several completed library cycles ingested MetaMask/ocap-kernel's host-app developer guide (the sixth ocap-kernel ingest) and landed a distributed-ocap concept cluster — three-party handoff, sturdyrefs, distributed confinement, eventual send, and the grant-matcher puzzle — cross-linked into the existing corpus, with the link-check scan now wired to a cadence and improved to suggest source-page targets. A lint classification of endo master came back **clean**: CI's lint gate is fully green, the only findings are five non-blocking jsdoc warnings, now parked as a low-priority cleanup plan.
 
-Two items want maintainer eyes. The `formula-inspector-retention-paths-table` job is blocked because its data source, PR #284 (the `listRetentionPaths` host API), is still open and stalled since 2026-05-21 on a requested rebase-and-gamut that never ran and now has 4 failing CI checks — landing #284 unblocks the follow-on immediately. Separately, the liaison is holding a question on [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9): whether to open a tracking job to continue that investigation "without the export," which the prior job deliberately left out of scope.
+Three items want the maintainer's eye. The watchdog reports the `/home/kris/journal` worktree has **diverged from origin/journal2** (3 ahead, 3835 behind, 5 dirty paths) and was deliberately left untouched — it needs a hand reconcile. A formula-inspector UI table job is **blocked** behind a stalled host-API PR (listRetentionPaths) that has sat since May 21 awaiting the rebase-and-re-gamut you requested and currently fails CI; the follow-on is ready the moment it lands. And the liaison is holding on a question about kriskowal/garden issue #9 — whether to open a tracking job to continue that investigation "without the export," which the prior job explicitly scoped out. The board itself is quiet: no jobs in todo or doin, and no file-level transitions resolved this cycle.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 7h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 8h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
@@ -94,6 +94,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260628T015826Z-ac972d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T015826Z-ac972d.md)
 
 > Report kriskowal-garden-pr9-b87e3247 flags a still-open thread on kriskowal/garden issue #9 — the issue body's ask to "continue this investigation to the possible extent without the export." The completed job deliberately scoped this out as not part of the comment's directive and called it only a "candidate for its own job." It also sits near scope-sensitive territory (the prior work distinguished a bot-owned fork of agoric-sdk from excluded upstream agoric-sdk). Do you want me to open a tracking job to continue the issue #9 investigation, and if so, what's the intended scope of "without the export"? I'm holding off rather than autonomously spawning an investigation the report author explicitly left out of bounds.
+
+- `20260628T151502Z-1ad2fc` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T151502Z-1ad2fc.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 3835 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot)
 
 
 ## Board
