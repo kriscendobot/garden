@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T06:12:01Z_
+_As of 2026-06-28T06:18:07Z_
 
 ## Latest
 
-The job board went quiet this cycle — the only movement was an undeliverable maintainer message retired to the dead-letter pile and a routine gardener progress note, with just the comms-norm reinforcement job still in flight. What's accumulating instead is a cluster of maintainer decisions now gating real work. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API), which has been stalled since the requested rebase-and-gamut never happened and still shows failing CI; the gardener correctly declined to duplicate the graph walk in the UI and is offering to take the #284 rebase as its own job. A maintainer comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was mis-filed as a "rebase" but is actually a feature directive (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) needing a liaison-driven builder/fixer dispatch, not a no-op rebase. The harden-exported-function-literals follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) awaits a breadth (narrow vs. repo-wide) and base-branch call before its cross-repo PR opens, and a requested "Agoric internal hex" build was held because it names off-limits agoric-sdk territory with no bot-fork target — it needs an explicit scope override or a concrete repo. On the library side, the scholar landed a distributed-ocap concept cluster and ingested MetaMask's ocap-kernel host-app guide. Note the parked queue still holds 28 PRs awaiting review, several aged 37+ days.
+Work was light this cycle. The garden encoded a new communications norm — [comms-issue-pr-comments-not-maintainer-inbox](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comms-issue-pr-comments-not-maintainer-inbox.md) completed, fixing that issue- and PR-scoped agents must talk to the maintainer through comments, never the inbox — and a gardener claimed [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405)'s inventory-grouping taxonomy reshape, now in progress.
+
+Three things want kriskowal's eyes. The formula-inspector retention-paths-table job is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-gamut you already requested and currently shows 4 failing CI checks; the gardener offers to take that rebase as its own job on your word. Separately, the liaison is **holding** rather than auto-spawning a continuation of the kriskowal/garden issue #9 investigation, since the report author explicitly scoped it out — it needs your go-ahead and a definition of "without the export." Otherwise, scholar ingests landed (MetaMask/ocap-kernel guide plus a distributed-ocap concept cluster), and an endo-master lint pass came back clean save for five non-blocking jsdoc warnings, parked as a low-priority plan.
 
 ## Parked for maintainer feedback
 
@@ -16,8 +18,8 @@ The job board went quiet this cycle — the only movement was an undeliverable m
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 37d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 37d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 39d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 38d)
+- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 38d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -89,109 +91,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Note: bot master is 64 commits AHEAD of upstream endo (legitimately merged bot-fork PRs) and 8 behind; I did NOT force-sync to upstream — the ahead commits are real work, not drift.
 
-- `20260627T123905Z-ee2b02` — from gardener:endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers, reply_to `endojs-endo-but-for-bots-pr442-revisit-reusable-test-powers` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T123905Z-ee2b02.md)
-
-> Revisit of PR #442 deferred plan (reusable file/crypto powers for @endo/daemon-cas tests) — concluded: intrinsic duplication, no change.
->
-> Survey result:
-> - The only API-exact match for the four-method ContentStoreFilePowers / ContentStoreCryptoPowers is @endo/daemon's makeFilePowers({fs,path}) + makeCryptoPowers(crypto) in daemon-node-powers.js (a superset of both contracts). BUT @endo/daemon has @endo/daemon-cas as a runtime dependency (the point of the #442 extraction), so a daemon-cas test depending on @endo/daemon — even devDep — inverts the extraction and creates a workspace cycle. Architecturally disallowed.
-> - @endo/platform (a real daemon-cas dep) exposes makeLocalBlob/makeLocalTree (a higher-level blob/tree CAS abstraction), not the four-method powers shape, and no array->async-iterable helper. Not narrowable without a wrapper as large as the inline shim.
-> - @endo/stream exports only queue/stream/pipe primitives — no array->async-iterable helper (trigger #1 does not hold).
-> - content-store.test.js is the ONLY workspace file constructing this powers shim (trigger #2 does not hold). asAsyncIterable-style inline generators in other tests (chat, exo-stream, ocapn-noise) are each local 4-6 line generators, no shared helper.
->
-> Both re-arm triggers stay armed; the plan re-fires if @endo/stream gains a real array->async-iterable helper, or a second test reaches for the same real-fs/crypto powers shim. Optional low-risk improvement if you want it folded into #442: a one-line comment by the inline shim noting the identical @endo/daemon powers are intentionally not reused because daemon depends on daemon-cas. I left the PR branch untouched since it is under active review.
-
-- `20260627T125202Z-44b78c` — from gardener:endo-but-for-bots-harden-exported-literals-followup, reply_to `endo-but-for-bots-harden-exported-literals-followup` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T125202Z-44b78c.md)
-
-> # Scope decision needed: "harden exported function literals" follow-up (endo-but-for-bots)
->
-> Origin: erights bullet 4 on endojs/endo-but-for-bots#474 — "agreed, not in this
-> PR. Please start a separate PR with that change... Attn @kriskowal". The job is
-> gated on you scoping its breadth before any cross-repo PR opens.
->
-> What I verified (read-only) today:
->
-> - **#474 is MERGED** (into `master`, 2026-06-26): "retire function-keyword in
->   favor of arrow/method syntax per erights review". No open PR on endo-but-for-bots
->   or endo covers the harden follow-up.
-> - **The literal form differs by branch** — this matters for how the change is
->   written and which base to target:
->   - Default/working branch `llm`: `evadeCensorSync`/`evadeCensor` are still
->     un-hardened **function declarations** (index.js:65 / :129).
->   - `master` (post-#474): the arrow-const form erights reviewed (his ref was
->     index.js:91).
-> - A real `@endo/harden-exports` eslint rule exists in the repo (#474 touched it),
->   so a repo-wide pass would lean on / interact with it.
-> - Note: the parked job spec described the evasive-transform exports as
->   "un-hardened arrow consts" — that's only true on `master`; on the `llm` default
->   they're function declarations. So the base branch choice changes the diff shape.
->
-> Decision I need from you (two axes):
->
-> 1. **Breadth** — (a) **narrow**: harden only the two evasive-transform exports
->    (`evadeCensorSync`, `evadeCensor`); or (b) **repo-wide**: harden every exported
->    function literal, driven by/aligned with the `@endo/harden-exports` rule
->    (designer-first; larger blast radius). erights authorized (a) and framed (b) as
->    the better trailing form.
-> 2. **Base branch** — target `llm` (default) or `master`?
->
-> On your answer I'll dispatch a builder (narrow) or designer→builder (repo-wide) to
-> open a DRAFT PR with that scope and run the gamut. Authorization to open the
-> cross-repo PR is already carried by erights's directive; only breadth + base are
-> owed.
-
-- `20260627T164806Z-1db40f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T164806Z-1db40f.md)
-
-> Report investigate-beta3-ymax0-xs-repro-and-fix raised two decisions that are yours, both touching ymax0/agoric-sdk territory (out of bounds for autonomous garden action):
->
-> 1. A **v320 swing-store export** is the missing artifact gating the real-data trace and the targeted fix. Sourcing that production export is your call — the garden can't autonomously obtain it, and the downstream work lands in agoric-sdk/contract territory, which is off-limits to us.
->
-> 2. The minimal XS repro (nested-record passStyleOf/checkMatches overflow → uncatchable vat abort at ~15/~116 levels) could seed an **upstream-Endo note "if desired"** — but the investigation concluded this is an XS native-stack-depth property, **not an Endo regression** (frames/level unchanged), so the real fix is **contract-side depth-bounding**, not Endo. Whether to file the Endo note at all, and the contract-side fix itself, are both yours to direct.
->
-> Tell me if you want either turned into a job (e.g. a write-up I can draft on a bot repo), and please advise on obtaining the v320 export.
-
-- `20260627T175449Z-e9b439` — from gardener:endojs-endo-but-for-bots-pr405-rebase, reply_to `endojs-endo-but-for-bots-pr405-rebase` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T175449Z-e9b439.md)
-
-> Misrouted comment-watcher classification + a real maintainer directive on endojs/endo-but-for-bots PR #405.
->
-> WHAT HAPPENED
-> - Job 'endojs-endo-but-for-bots-pr405-rebase' was created from kriskowal's comment on PR #405 and classified as "rebase".
-> - That classification is wrong. The comment is a feature-refinement directive, not a rebase. PR #405 is already MERGEABLE, so there is no rebase to perform. I did not run a no-op rebase.
->
-> THE ACTUAL DIRECTIVE (kriskowal, https://github.com/endojs/endo-but-for-bots/pull/405#issuecomment-4819835663):
-> - Hide groups that are empty (e.g. Workers when there are no workers).
-> - Replace the current taxonomy (Handles / Hubs / Workers / Everything Else) with:
->   - "Directories": directories, readable trees, mounts, scratch mounts
->   - "Agents": guests
->   - "Personas": hosts
->   - "Values": marshal
->   - "Capabilities": all others
-> - This is a cross-package change: packages/space-chat (inventory grouping), packages/chat (CSS + tests), packages/cli (endo list --grouped buckets + tests), packages/daemon (type annotation, if the new buckets need new types). The PR already implements the 4-group version and partial empty-group hiding via CSS; the ask reshapes the buckets and asks for full empty-group hiding.
->
-> RECOMMENDATION
-> Route this as a fixer/builder directive on PR #405 through the gamut (researcher -> builder/fixer -> judge panel). The v2 fleet has no autonomous "implement a maintainer feature directive" path (garden-pr.sh is review/panel + fixer-loop only), so this needs a liaison-driven dispatch. endo-but-for-bots carries standing comment authorization, so the eventual fixer should also post a top-level summary comment.
->
-> I am separately posting a garden-infra fix job for the classifier bug that misrouted this to "rebase".
-
-- `20260628T000910Z-062d47` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T000910Z-062d47.md)
-
-> The XS over-deep-frame investigation (kriskowal/garden issue #9 and PR #9) has reached a decision point that's your call, not the garden's: every remaining path needs a resource the garden can't self-provision. (a) The decisive export-free XS import repro and the optional synthetic-harness confirmation both require the XS toolchain to be re-provisioned (multi-hour, no longer "engine warm"); (b) a real-data trace is blocked on the v320 swing-store export, which only you can source. Please decide whether to continue spending investigation effort here and, if so, whether to source the v320 export or authorize the multi-hour toolchain re-provisioning + synthetic harness on the bot fork.
-
 - `20260628T015826Z-ac972d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T015826Z-ac972d.md)
 
 > Report kriskowal-garden-pr9-b87e3247 flags a still-open thread on kriskowal/garden issue #9 — the issue body's ask to "continue this investigation to the possible extent without the export." The completed job deliberately scoped this out as not part of the comment's directive and called it only a "candidate for its own job." It also sits near scope-sensitive territory (the prior work distinguished a bot-owned fork of agoric-sdk from excluded upstream agoric-sdk). Do you want me to open a tracking job to continue the issue #9 investigation, and if so, what's the intended scope of "without the export"? I'm holding off rather than autonomously spawning an investigation the report author explicitly left out of bounds.
-
-- `20260628T052246Z-3abc11` — from gardener:kriskowal-garden-pr9-48ec24df, reply_to `kriskowal-garden-pr9-48ec24df` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T052246Z-3abc11.md)
-
-> Re: kriskowal/garden PR #9 — directive to "post a job to build a PR that patches Agoric internal hex."
->
-> I'm holding this rather than posting the build job, because it collides with the standing, unconditional scope constraint that autonomous work is limited to endojs/endo-but-for-bots and bot-owned forks, with agoric-sdk / Agoric-internal excluded unconditionally. "Agoric internal hex" names that off-limits territory and has no obvious bot-fork target, so I can't route it without an explicit, deliberate override.
->
-> To proceed I need one of:
->   1. The concrete target repo + package/path. If it's an Agoric-internal repo proper, I also need an explicit one-time scope override authorizing this build (recorded as a journal message), since it's outside the bot-fork set.
->   2. If "hex" actually lives in a bot-owned fork or an @endo/* package, name it and I'll post the build job there immediately and follow up on #9 with the PR link.
->
-> Reply with the target (and override if needed) and I'll post the job and report the PR link back on #9 as asked.
 
 
 ## Board
@@ -199,15 +101,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`comms-issue-pr-comments-not-maintainer-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comms-issue-pr-comments-not-maintainer-inbox.md) — Reinforce: issue/PR-scoped agents communicate via comments only; restrict the...
+- [`endo-but-for-bots-pr405-inventory-taxonomy-reshape`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-pr405-inventory-taxonomy-reshape.md) — Implement kriskowal's inventory-grouping taxonomy directive on endo-but-for-b...
 
-### tada (463)
+### tada (464)
+- [`comms-issue-pr-comments-not-maintainer-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comms-issue-pr-comments-not-maintainer-inbox.md) — Completion report
 - [`deadmail-20260628T060057Z-400273`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T060057Z-400273.md) — Completion report — deadmail-20260628T060057Z-400273
 - [`deadmail-20260628T055855Z-a332d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T055855Z-a332d8.md) — Completion report
 - [`scholar-library-cycle-20260628-055002`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-055002.md) — Job completed cleanly. Report follows.
 - [`build-agoric-internal-hex-20260628`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-agoric-internal-hex-20260628.md) — Completion report: build-agoric-internal-hex-20260628
-- [`deadmail-20260628T052047Z-d6fc2a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T052047Z-d6fc2a.md) — Completion report
-- … and 458 more
+- … and 459 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
