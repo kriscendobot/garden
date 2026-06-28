@@ -1,0 +1,4 @@
+host: endolinbot
+gardener: 51
+claimed_at: 2026-06-28T00:52:52Z
+worktree_dir: /home/kris/worktrees/improve-issue-comment-idempotent-by-comment-id
