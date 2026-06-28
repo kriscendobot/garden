@@ -30,6 +30,21 @@ cadence_seconds() {
   esac
 }
 
+# Rewrite a recurring schedule's frontmatter with a fresh last_dispatched stamp,
+# PRESERVING the optional preflight field. Both the dispatch path and the gated
+# (no-work) path go through this so the preflight: line is never dropped when the
+# scheduler re-stamps the file. $1=dest, $2=cadence, $3=stamp, $4=prefix,
+# $5=preflight (may be empty), $6=body.
+write_schedule() {
+  local dest="$1" cad="$2" stamp="$3" prefix="$4" preflight="$5" body="$6"
+  {
+    printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n' "$cad" "$stamp" "$prefix"
+    [ -n "$preflight" ] && printf 'preflight: %s\n' "$preflight"
+    printf -- '---\n'
+    printf '%s\n' "$body"
+  } > "$dest"
+}
+
 DIR="${GARDEN_SCHEDULER_CLONE:-$GARDEN_STATE/scheduler/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
@@ -75,10 +90,12 @@ for name in $(list_jobs "$DIR" schedules); do
   cad="$(sed -n 's/^cadence:[[:space:]]*//p' "$f" | head -1)"
   last_iso="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$f" | head -1)"
   prefix="$(sed -n 's/^job_basename_prefix:[[:space:]]*//p' "$f" | head -1)"
+  preflight="$(sed -n 's/^preflight:[[:space:]]*//p' "$f" | head -1)"
   cad_s="$(cadence_seconds "$cad")"
   last=0; [ -n "$last_iso" ] && last="$(date -u -d "$last_iso" +%s 2>/dev/null || echo 0)"
   [ $(( now - last )) -ge "$cad_s" ] || continue
 
+  stamp="$(date -u -d "@$now" +%FT%TZ)"
   base="${prefix:-$name}-$(date -u -d "@$now" +%Y%m%d-%H%M%S)"
   for attempt in $(seq 1 50); do
     sync_clone "$DIR"
@@ -88,11 +105,42 @@ for name in $(list_jobs "$DIR" schedules); do
     [ $(( now - last )) -ge "$cad_s" ] || { log "$name no longer due; skip"; break; }
 
     body="$(sed '1,/^---$/d' "$DIR/schedules/$name")"
+
+    # Optional deterministic preflight gate (designs/job-board.md; skills/schedule).
+    # A `preflight:` script proves in plain code whether this schedule has any work,
+    # moving the idle/active decision off the dispatched agent. Resolved relative to
+    # this script's dir (scripts/jobs/) unless absolute, and passed the schedule
+    # name. Run INSIDE the CAS loop so it sees the freshest board state. Exit codes:
+    #   0     work present     → post the job + stamp last_dispatched (normal path)
+    #   2     no work          → stamp last_dispatched only (advance the clock,
+    #                            post nothing), and log the gate
+    #   other treat as 0       → fail open, so a broken/erroring gate (incl. an
+    #                            EX_TEMPFAIL offline tick) never silently starves
+    #                            the schedule.
+    if [ -n "$preflight" ]; then
+      pf="$preflight"; case "$pf" in /*) :;; *) pf="$HERE/$pf";; esac
+      pf_rc=0
+      if [ -x "$pf" ]; then
+        if "$pf" "$name"; then pf_rc=0; else pf_rc=$?; fi
+      else
+        log "WARN schedule $name preflight '$preflight' not found/executable at $pf; treating as work-present"
+      fi
+      if [ "$pf_rc" -eq 2 ]; then
+        # No work: advance the clock so the cadence keeps marching, post nothing.
+        write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$body"
+        git -C "$DIR" add "schedules/$name"
+        if commit_and_push "$DIR" "schedule($name) preflight gated: no work; advanced clock"; then
+          log "preflight gated: no work for $name; advanced clock, posted nothing"; break
+        fi
+        rc=$?; [ "$rc" -eq 2 ] && break   # already current; nothing to stamp
+        backoff; continue                 # lost the CAS race; re-sync and retry
+      fi
+    fi
+
     mkdir -p "$DIR/$JOBS_TODO"
     printf '%s\n' "$body" > "$DIR/$JOBS_TODO/$base.md"
-    # stamp last_dispatched in the same commit
-    { printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n---\n' \
-        "$cad" "$(date -u -d "@$now" +%FT%TZ)" "$prefix"; printf '%s\n' "$body"; } > "$DIR/schedules/$name"
+    # stamp last_dispatched in the same commit (preserving preflight:)
+    write_schedule "$DIR/schedules/$name" "$cad" "$stamp" "$prefix" "$preflight" "$body"
     git -C "$DIR" add "$JOBS_TODO/$base.md" "schedules/$name"
     if commit_and_push "$DIR" "schedule($name) dispatched $base"; then
       log "dispatched $base from schedule $name"; dispatched=$((dispatched+1)); break

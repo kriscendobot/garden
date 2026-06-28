@@ -19,9 +19,22 @@ Recurring (`cadence:`):
 cadence: weekly            # weekly | daily | hourly | <N>s | <N>m | <N>h | <N>d
 last_dispatched: <ISO>     # stamped by the scheduler; the dispatch note
 job_basename_prefix: <p>   # dispatched job basename = <p>-<YYYYMMDD-HHMMSS>
+preflight: <script>        # OPTIONAL deterministic gate (see below)
 ---
 <the task body to duplicate each period>
 ```
+
+The optional `preflight:` field names a script (resolved relative to
+`scripts/jobs/`, passed the schedule name) the scheduler runs in plain code when
+the cadence has elapsed, to decide whether there is any work BEFORE dispatching a
+do-nothing agent. Exit `0` = work present → post the job and stamp
+`last_dispatched`; exit `2` = no work → stamp `last_dispatched` only (advance the
+clock, post nothing) and log `preflight gated: no work`; any other exit is treated
+as work-present (fail open) so a broken gate never starves a schedule. Wire one in
+with `GARDEN_SCHEDULE_PREFLIGHT=<script> set-schedule.sh …`; it is preserved across
+later cadence edits exactly like `last_dispatched`. Example:
+`scholar-preflight.sh` gates `scholar-library-cycle` on a non-empty scholar inbox,
+a claimable `scholar-*` job, or a fresh `role/scholar` broadcast.
 
 One-time future (`once:`) — fires exactly once at a date, then the scheduler
 DELETES the schedule file (CAS commit) so it never repeats:

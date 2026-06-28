@@ -5,6 +5,14 @@
 #   <cadence>  weekly | daily | hourly | <N>s   (most schedules are weekly)
 #   body from <body-file> else stdin: the task to duplicate each period.
 #
+# Optional deterministic preflight gate (env GARDEN_SCHEDULE_PREFLIGHT=<script>):
+# writes a `preflight: <script>` frontmatter line so the scheduler runs that gate
+# (resolved relative to scripts/jobs/, passed the schedule name) when the cadence
+# elapses — exit 2 from the gate means "no work" and the scheduler advances the
+# clock without posting. An existing preflight line is PRESERVED when the env var
+# is unset, exactly like last_dispatched, so re-running set-schedule.sh to change
+# cadence does not drop the gate. See scheduler.sh and skills/schedule/SKILL.md.
+#
 # Writes schedules/<name>; the scheduler service dispatches it on its cadence
 # and stamps last_dispatched. Add-only-ish (overwrites one file), so a rejected
 # push just re-syncs and retries.
@@ -33,9 +41,16 @@ for attempt in $(seq 1 50); do
   mkdir -p "$DIR/schedules"
   # preserve an existing last_dispatched if the schedule already exists
   last=""
-  [ -f "$DIR/schedules/$name.md" ] && last="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
+  preflight="${GARDEN_SCHEDULE_PREFLIGHT:-}"
+  if [ -f "$DIR/schedules/$name.md" ]; then
+    last="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
+    # preserve an existing preflight when no new one is supplied via the env var
+    [ -n "$preflight" ] || preflight="$(sed -n 's/^preflight:[[:space:]]*//p' "$DIR/schedules/$name.md" | head -1)"
+  fi
   {
-    printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n---\n' "$cadence" "$last" "$prefix"
+    printf 'cadence: %s\nlast_dispatched: %s\njob_basename_prefix: %s\n' "$cadence" "$last" "$prefix"
+    [ -n "$preflight" ] && printf 'preflight: %s\n' "$preflight"
+    printf -- '---\n'
     printf '%s\n' "$BODY"
   } > "$DIR/schedules/$name.md"
   git -C "$DIR" add "schedules/$name.md"
