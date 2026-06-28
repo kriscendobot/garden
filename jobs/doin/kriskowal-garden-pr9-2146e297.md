@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please try experiment 6 
+
+---
+claim:
+  host: endolinbot
+  gardener: 98
+  claimed_at: 2026-06-28T00:17:55Z
