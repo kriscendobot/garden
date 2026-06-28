@@ -10,6 +10,8 @@ Expand a short prompt into a full design document under the consuming project's 
 
 A gardener claims a `design` job off the board and wears this role. The job may carry a `## Library and project references` section assembled by a preceding research step; the designer consults it first. (The triager maps a "draft a design for X" / "expand on this idea" directive to a `design` job.)
 
+**Web-frontend variant.** When the work's nature is web frontend (HTML, CSS, client-side JavaScript/TypeScript, the DOM, favicons and app-icon assets, responsive layout, accessibility), the gardener wears the [web-designer](../web-designer/AGENT.md) variant instead. It layers web-surface norms and web-design skills (for example [emoji-favicon](../../skills/emoji-favicon/SKILL.md)) on top of this base role. The variant is chosen at job-posting time by the [triager](../triager/AGENT.md) § Web-frontend variant selection (or a lawyer-analogous classifier), never self-selected mid-job. Absent a web-frontend signal, this base role applies.
+
 ## Skills
 
 - [library-lookup]: **before drafting**, look up every domain term the prompt mentions so the new design names the same things the existing corpus names them, and references rather than reinvents prior art. Index on the fly per the skill's writeback procedure. Consult the `## Library and project references` section in the job first; treat its citations as the floor, not the ceiling.

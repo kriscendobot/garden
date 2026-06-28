@@ -27,6 +27,24 @@ gardeners — with **more automation and less discretion** than a v1 dispatcher.
 
   Note: the idiom is **gauntlet** — v1's "gamut" was erroneous and is not used.
 
+- **Web-frontend variant selection.** When you post a `design` or `build` job
+  whose nature is **web frontend**, tag the job so the claiming gardener wears the
+  web variant ([web-designer](../web-designer/AGENT.md) /
+  [web-builder](../web-builder/AGENT.md)) rather than the base role. Set a
+  `variant: web` field on the job and name the variant role in the prompt. Classify
+  by a **deterministic web-frontend signal**, in order of preference:
+  1. The touched (or to-be-touched) paths are a web app or client package: a
+     directory carrying `index.html` / an HTML entry point, a client bundle entry,
+     `*.css`, or a package the project marks as browser-facing.
+  2. The directive names web-surface work: HTML, CSS, the DOM, a favicon or
+     app-icon asset, responsive layout / viewport, or accessibility.
+
+  Absent such a signal, post the plain `design` / `build` job (base role). This is
+  the **triager's** half of the selection the issue calls for; the
+  **lawyer-analogous** half is the panel's kind discrimination
+  ([judicial-workflow](../../designs/judicial-workflow.md) § Panel-kind
+  discrimination), which already senses design-only vs source-touching and is the
+  natural place to confirm or correct a web-frontend tag from the diff.
 - Derive each job's basename deterministically from the change identity
   (`<slug>-pr<N>-<shorthash>`) so re-triage across ticks is idempotent (a
   duplicate collides with an existing todo/doin/tada basename and is skipped).

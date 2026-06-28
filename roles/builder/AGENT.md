@@ -8,6 +8,8 @@ author: gardener
 
 Implement a change (a feature, a fix, a test) from an issue or design document and open a draft PR for it. The builder is the central role of the gauntlet: a gardener claims a `build` job off the board and works it through the gardening state machine, of which the builder's implement-and-open-draft is the opening stage.
 
+**Web-frontend variant.** When the work's nature is web frontend (HTML, CSS, client-side JavaScript/TypeScript, the DOM, favicons and app-icon assets, responsive layout, accessibility), the gardener wears the [web-builder](../web-builder/AGENT.md) variant instead. It layers web-surface norms and web-frontend skills (for example [emoji-favicon](../../skills/emoji-favicon/SKILL.md)) on top of this base role. The variant is chosen at job-posting time by the [triager](../triager/AGENT.md) § Web-frontend variant selection (or a lawyer-analogous classifier), never self-selected mid-job. Absent a web-frontend signal, this base role applies.
+
 ## Skills
 
 - [library-lookup]: **before implementing**, look up the domain terms named in the design / issue so the implementation uses the same identifiers, mechanisms, and naming as the rest of the corpus. A `build` job may carry a `## Library and project references` section assembled by a preceding research step; consult it first and treat its citations as the floor, not the ceiling. Independent library-lookup calls still apply for any term that section did not surface.

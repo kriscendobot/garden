@@ -74,6 +74,24 @@ false positives over false negatives. v1's richer `panel-hints` signal-gating
 Signal-gated seat selection is a future refinement that can plug into the seat-
 list selection step without touching the loop.
 
+### Web-frontend variant confirmation (the lawyer-analogous half)
+
+Selecting the **web-frontend** implementation variant
+([web-designer](../roles/web-designer/AGENT.md) /
+[web-builder](../roles/web-builder/AGENT.md)) over the base role is primarily the
+[triager](../roles/triager/AGENT.md)'s job at job-posting time (§ Web-frontend
+variant selection). The panel kind-discrimination step is the **lawyer-analogous**
+confirmation the issue (`kriskowal/garden#12`) names: when sensing the panel kind,
+the script also senses a **web-frontend signal** from the diff (changed paths that
+are HTML/CSS/client-bundle entries, favicon or app-icon assets, or browser-facing
+package directories). It uses that signal to confirm or correct the job's
+`variant: web` tag, so a job mis-tagged by the triager (or untagged because the
+web nature only became visible once the diff existed) is still routed to the web
+variant for any fixer round. This does not add a new panel kind: a web-frontend PR
+is still a code panel (source-touching) or design panel (design-only); the
+web-variant tag governs which implementation role brief the builder/designer/fixer
+stages read, not the seat list.
+
 ## The fixer-loop
 
 v1's jury-fixer loop iterated: a judge's request-changes verdict (any must-fix-
