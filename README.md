@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T05:19:02Z_
+_As of 2026-06-28T05:19:48Z_
 
 ## Latest
 
-Board activity was minimal this cycle — the only completion was [the ymax0 hexjs flatMap-loop XS-import verification job](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/verify-ymax0-hexjs-flatmap-loop-xs-import.md), with the todo and doin queues now empty. The substance that needs your attention is in the maintainer inbox, where several items have parked on decisions only you can make: the XS over-deep-frame investigation (kriskowal/garden issue #9) is blocked pending a v320 swing-store export or a multi-hour XS toolchain re-provision; a real maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misrouted as a "rebase" and needs a liaison-driven fixer dispatch; and the harden-exported-literals follow-up from erights on the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is waiting on a breadth-and-base-branch decision before any PR opens. Scholar landed new ocap-kernel and distributed-ocap library synthesis on journal2, and the watchdog flagged that the `/home/kris/journal` worktree on endolinbot has diverged from origin/journal2 (3 ahead, 3430 behind, 5 dirty) and was left untouched for manual reconciliation.
+The board has fully drained — no jobs in todo or doin — and the work that moved this cycle was scholar ingestion plus a stack of decisions now parked for you. The scholar landed a distributed-ocap concept cluster (three-party-handoff, sturdyref, distributed-confinement, eventual-send, grant-matcher-puzzle) on journal2, plus an ingest of MetaMask/ocap-kernel's 689-line kernel guide cross-linked into the ocap corpus; the only gap was the grant-matcher source, deferred because erights.org was unreachable. Lint on endo-but-for-bots master came back clean — only five non-blocking jsdoc warnings, consolidated into one low-priority plan.
+
+Several items need your call. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which is still open, off the `llm` base, and carrying four failing checks since your 2026-05-21 "rebase and run the gamut again" request never happened — the follow-on is ready the moment #284 lands. The harden-exported-function-literals follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) awaits two answers — narrow (two evasive-transform exports) vs. repo-wide, and base branch `llm` vs. `master` (the literal form differs between them). And [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was misclassified as a rebase: your comment is actually a feature directive reshaping the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and hiding empty groups across four packages, which needs a liaison-driven builder/fixer dispatch since the v2 fleet has no autonomous path for it. The XS over-deep-frame investigation (kriskowal/garden #9) has stalled on resources the garden can't self-provision — the v320 swing-store export or a multi-hour XS toolchain re-provisioning — both your decision. The [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction and create a workspace cycle).
 
 ## Parked for maintainer feedback
 
@@ -180,10 +182,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260628T015826Z-ac972d` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T015826Z-ac972d.md)
 
 > Report kriskowal-garden-pr9-b87e3247 flags a still-open thread on kriskowal/garden issue #9 — the issue body's ask to "continue this investigation to the possible extent without the export." The completed job deliberately scoped this out as not part of the comment's directive and called it only a "candidate for its own job." It also sits near scope-sensitive territory (the prior work distinguished a bot-owned fork of agoric-sdk from excluded upstream agoric-sdk). Do you want me to open a tracking job to continue the issue #9 investigation, and if so, what's the intended scope of "without the export"? I'm holding off rather than autonomously spawning an investigation the report author explicitly left out of bounds.
-
-- `20260628T051517Z-31c02f` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T051517Z-31c02f.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 3430 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot)
 
 
 ## Board
