@@ -56,8 +56,11 @@ gardeners — with **more automation and less discretion** than a v1 dispatcher.
   (b) a current member of the **endojs** or **Agoric** org
   (`gh api orgs/<org>/members/<login>` → 204). An untrusted sender's mention is
   logged and discarded, never triaged. Confirming Agoric membership is a
-  read-only trust check; it does **not** authorize any work on agoric-sdk, which
-  stays off-limits. This GitHub-wide widening is maintainer-authorized and
+  read-only trust check; it does **not** authorize any upstream interaction with
+  `agoric/agoric-sdk` (comments, reviews, issue/PR opens or closes, issue/PR
+  links), which stays off-limits. Fork experimentation on `kriscendobot/agoric-sdk`
+  is permitted in general (`roles/COMMON.md` § External-repo etiquette) but is not
+  authorized by membership confirmation. This GitHub-wide widening is maintainer-authorized and
   recorded in a journal `message` entry the day it was armed (the same
   authorization shape the comment-watch arming demands). The seed allowlist:
   `kriskowal`, `erights`, `gibson42`, `kumavis`, `0xpatrickdev`, `mhofman`

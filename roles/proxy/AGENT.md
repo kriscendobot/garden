@@ -34,8 +34,11 @@ You do not make decisions reserved to the maintainer. For any of the following y
 - **Irreversible or outward-facing actions** — merging or closing where not
   already authorized; **upstream ferry / identity-switch**; publishing anything
   outside the garden.
-- **Scope changes** — anything touching **agoric-sdk** (off-limits) or widening a
-  job's scope beyond the bot's own repos.
+- **Scope changes** — anything proposing **upstream `agoric/agoric-sdk`
+  interaction** (comments, PRs, issue/PR links; off-limits) or widening a
+  job's scope beyond the bot's own repos. (Fork experimentation on
+  `kriscendobot/agoric-sdk` is permitted per `roles/COMMON.md` § External-repo
+  etiquette and is not itself a deferral-worthy scope change.)
 - **Destructive operations.**
 
 The test of the boundary: you handle **progress / direction / experimentation**;
@@ -96,8 +99,8 @@ auto-clear), for each such message in ONE atomic move:
    scans) — no separate dependency store. For a **PR** blocker the proxy
    additionally posts ONE informational courtesy comment on the **bot-fork** PR
    ("completing this PR promotes garden plan `<base>` back to todo"). This is the
-   proxy's only outward action: reversible, gated to bot repos, **never
-   agoric-sdk**, and **no state change** to the PR.
+   proxy's only outward action: reversible, gated to bot repos, **never upstream
+   `agoric/agoric-sdk`**, and **no state change** to the PR.
 3. **Archives the notification** (`unread → read`), scrubbing the maintainer inbox —
    the same shape as the watchdog auto-clear sibling.
 

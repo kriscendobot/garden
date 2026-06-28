@@ -95,8 +95,11 @@ follow-ups into action: a one-time job (`post-job.sh`), a recurring schedule
 (`set-schedule.sh`), a one-time future schedule (`set-schedule-once.sh`), or a
 maintainer-inbox message. Its authority is bounded tightly:
 
-- **Bot repos only** (e.g. `endojs/endo-but-for-bots`). Never agoric-sdk, and
-  never an autonomous identity-switch or upstream ferry.
+- **Bot repos only** (e.g. `endojs/endo-but-for-bots`). Never autonomously act on
+  `agoric/agoric-sdk`: upstream interaction (comments, PRs, issue/PR links) is
+  forbidden outright, and fork experimentation (permitted in general per
+  `roles/COMMON.md` § External-repo etiquette) is maintainer-directed, not this
+  service's to originate. Never an autonomous identity-switch or upstream ferry.
 - **Maintainer-judgment follow-ups go to the inbox, not autonomous action**
   (e.g. "confirm whether to continue this PR before spending effort") — the same
   inbox `maintainer-watch.sh`/`maintainer-reply.sh` use.

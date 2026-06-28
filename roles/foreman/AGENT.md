@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-06-24
+updated: 2026-06-28
 author: gardener
 ---
 
@@ -95,8 +95,12 @@ milestone work. Do not conflate the two.
 
 ## Bounds
 
-- **Bot repos only** (today: `endojs/endo-but-for-bots`). **Never agoric-sdk.**
-  One milestone, one project for now: do not fan out across projects.
+- **Bot repos only** for autonomous work-posting (today: `endojs/endo-but-for-bots`).
+  **Never post upstream `agoric/agoric-sdk` interaction** (comments, PRs, issue/PR
+  links). Experimentation on the `kriscendobot/agoric-sdk` fork is permitted in
+  general (`roles/COMMON.md` § External-repo etiquette) but is maintainer-directed,
+  not yours to autonomously originate. One milestone, one project for now: do not
+  fan out across projects.
 - **Work jobs only.** You post *work* (design, build, weave, shepherd, fix). You
   never post merging, closing, ferrying, or any authority decision. Those route
   to the maintainer.
