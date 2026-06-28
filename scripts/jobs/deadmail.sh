@@ -43,6 +43,26 @@ DIR="${GARDEN_DEADMAIL_CLONE:-$GARDEN_STATE/deadmail/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
+# --- verify a post actually reached origin/$JOURNAL_BRANCH ------------------
+# post-job.sh has been observed to print "posted" while the push did NOT land on
+# origin/$JOURNAL_BRANCH under contention, and the gardener fleet is the highest-
+# contention producer set on the board. If that race fires here we would `git rm`
+# the dead-mail entry while its promoted job never reached the board — permanently
+# dropping the very message intent deadmail exists to preserve. So before retiring
+# an entry, confirm its job file is reachable on the shared remote (mirrors
+# comment-watcher.sh's verify_posted). post-job is idempotent by basename, so if
+# the job is not reachable we just leave the entry for the next tick to re-promote.
+GARDEN_DEADMAIL_VERIFY_CLONE="${GARDEN_DEADMAIL_VERIFY_CLONE:-$GARDEN_STATE/deadmail/verify}"
+verify_posted() {  # verify_posted <base>
+  local base="$1" dir="$GARDEN_DEADMAIL_VERIFY_CLONE" sub
+  ensure_clone "$dir"
+  journal_fetch "$dir" >/dev/null 2>&1 || return 1
+  for sub in todo doin tada; do
+    git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
+  done
+  return 1
+}
+
 promoted=0
 for f in $(list_jobs "$DIR" inbox/dead); do
   case "$f" in *.md) ;; *) continue;; esac
@@ -75,6 +95,14 @@ for f in $(list_jobs "$DIR" inbox/dead); do
     continue
   fi
   rm -f "$body"
+
+  # Guard the retire: only `git rm` the dead-mail entry once the promoted job is
+  # confirmed reachable on origin/$JOURNAL_BRANCH. post-job may report success while
+  # its push lost a CAS race; retiring on that false positive would drop the intent.
+  if ! verify_posted "$base"; then
+    log "post of '$base' reported success but job not yet on origin/$JOURNAL_BRANCH; leaving dead-mail $msgid for the next tick"
+    continue
+  fi
 
   # Retire the dead-mail entry now that its intent is a job. CAS, with retry.
   for attempt in $(seq 1 20); do
