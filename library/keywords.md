@@ -13412,3 +13412,22 @@ polarize | (see section: papers--stiegler-polaris-virus-safe-computing-2004--pol
 installation endowment | (see section: papers--stiegler-polaris-virus-safe-computing-2004--designation-as-authorization-powerbox-and-installation-endowment)
 permission vs authority | (see section: papers--stiegler-polaris-virus-safe-computing-2004--excess-authority-the-virus-problem-and-permission-versus-authority)
 RunAs | (see section: papers--stiegler-polaris-virus-safe-computing-2004--polarizing-applications-pets-restricted-accounts-and-visual-cues)
+selfless object | selfless-and-selfish-objects
+selfish object | selfless-and-selfish-objects
+selfless | selfless-and-selfish-objects
+selfish | selfless-and-selfish-objects
+PassByCopy | selfless-and-selfish-objects
+implements PassByCopy | selfless-and-selfish-objects
+transparent object | selfless-and-selfish-objects
+open state | selfless-and-selfish-objects
+open source (E object) | selfless-and-selfish-objects
+pass-by-copy between vats | selfless-and-selfish-objects
+synchronous sameness | selfless-and-selfish-objects
+Semantics of Same | selfless-and-selfish-objects
+E sameness | selfless-and-selfish-objects
+settled reference | selfless-and-selfish-objects
+E language | (see source: erights--elang-index)
+the E language | (see source: erights--elang-index)
+Kernel-E | (see source: erights--elang-index)
+An Ode to the Granovetter Diagram | (see source: erights--elib-capability-ode-index; canonical paper papers--miller-morningstar-frantz-capability-based-financial-instruments-2000)
+Ode to the Granovetter Diagram | (see source: erights--elib-capability-ode-index)
