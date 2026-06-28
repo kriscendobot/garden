@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-06-28T03:14:51Z_
+_As of 2026-06-28T03:36:25Z_
 
 ## Latest
 
-The board sat nearly idle this cycle — only a deadmail job completed — but a stack of maintainer decisions has accumulated in the inbox. Most actionable: a real feature directive from kriskowal on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (hide empty groups; re-bucket the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities) was misclassified as a "rebase" by the comment-watcher and needs a liaison-driven builder/fixer dispatch through the gamut — the gardener has separately posted an infra fix for the classifier bug. The "harden exported function literals" follow-up from erights's review on the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on your scoping call: narrow (two evasive-transform exports) vs. repo-wide, and which base branch (`llm` vs `master`). The formula-inspector retention-paths table is blocked on its open, stalled dependency PR — the rebase-and-gamut you requested back on 2026-05-21 never ran (4 failing checks) — and the gardener is holding rather than duplicating the graph walk. The XS over-deep-frame investigation (kriskowal/garden issue #9) has reached a hard stop on every path: it needs either the v320 swing-store export (only you can source it) or a multi-hour XS toolchain re-provision. Two scholar library ingests landed on journal2 (the sixth MetaMask/ocap-kernel guide plus a distributed-ocap concept cluster), and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the only API-exact match would invert the extraction and create a workspace cycle).
+Board activity was quiet this cycle — only the hourly [scholar library cycle](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-033532.md) is in flight — but several gardener reports have stacked up decisions that only the maintainer can clear. A feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (reshape the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and fully hide empty groups) was misrouted by the comment-watcher as a "rebase"; the PR is already mergeable, so this needs a liaison-driven builder/fixer dispatch, not a no-op rebase. The harden-exported-literals follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is blocked only on a scope call (narrow two-export fix vs. repo-wide pass, and `llm` vs. `master` base). A formula-inspector retention-paths table is blocked on landing the stalled #284 (`listRetentionPaths` host API), which still owes the rebase-and-gamut you requested back on 2026-05-21 and has 4 failing checks. On the research side, scholar landed two ocap synthesis clusters (MetaMask ocap-kernel guide plus six distributed-ocap concept pages), and a lint sweep found endo `master` clean apart from five non-blocking jsdoc warnings ([fix-lint-jsdoc-warnings-endo-master](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) parked). The PR [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (reuse would invert the extraction). Finally, the XS over-deep-frame investigation on garden issue #9 has hit a hard stop: every remaining path needs a resource the garden can't self-provision (the v320 swing-store export or a multi-hour XS toolchain re-provision), so it awaits your direction.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 1d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 4d)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 5d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 12d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 37d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
@@ -186,8 +186,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260628-033532`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-033532.md) — Hourly scholar library cycle
 
 ### tada (450)
 - [`deadmail-20260628T030211Z-b3cadd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T030211Z-b3cadd.md) — Completion report
