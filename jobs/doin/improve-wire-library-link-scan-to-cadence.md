@@ -68,3 +68,9 @@ a unit-render or scan test the way the drift-scan pair is covered.
 Posted by an hourly scholar idle cycle (gardener 32, endolinbot,
 job `scholar-library-cycle-20260628-132011`) under the standing
 proactively-fix-the-garden directive.
+
+---
+claim:
+  host: endolinbot
+  gardener: 66
+  claimed_at: 2026-06-28T13:25:20Z
