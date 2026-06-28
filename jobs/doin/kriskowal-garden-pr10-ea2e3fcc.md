@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please allow an empty reply section. If the reply is empty, just move the message from unread to read. 
+
+---
+claim:
+  host: endolinbot
+  gardener: 77
+  claimed_at: 2026-06-28T16:35:30Z
