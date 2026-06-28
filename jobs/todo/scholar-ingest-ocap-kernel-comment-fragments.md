@@ -1,9 +1,4 @@
----
-gate: deferred
-priority: low
-posted_by: scholar
-posted_at: 2026-06-27T14:36:32Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-06-28T16:24:25Z -->
 
 # PLAN: scholar — ingest MetaMask/ocap-kernel kernel-internals comment fragments
 
