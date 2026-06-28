@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T10:20:51Z_
+_As of 2026-06-28T10:23:36Z_
 
 ## Latest
 
-Here's the "## Latest" section body:
+Little code moved this cycle — the visible board activity is the hourly scholar library cycle completing — but several maintainer-facing items accumulated. The scholar landed two distributed-ocap synthesis efforts on `journal2`: an ingest of MetaMask/ocap-kernel's 689-line host-app kernel guide (with a synthesizing `ocap-kernel` concept cross-linked to the ocap corpus), and a six-section concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matcher puzzle, plus equality links). Two source-ingest follow-ons are parked as deferred, including grant-matching, whose erights.org source was unreachable.
 
-A scholar library cycle is the only live job, with gardener 40db5f having just claimed [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-102001.md). Since the last bulletin, the scheduler preflight gate landed (`improve-scheduler-preflight-gate`), the grouping-toggle work on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) completed, and the comment-watcher was hardened to always reactji rather than silently drop trusted senders.
-
-Five maintainer messages are stacked unread and want attention. Most consequential: the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 on the rebase-and-re-gamut you already requested and is currently failing 4 CI checks — a gardener is offering to take that rebase as its own job on your word. Separately, a liaison is holding on whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation "without the export," since the original job scoped it out. On the library side, the scholar fleet ingested MetaMask/ocap-kernel's `kernel-guide.md` (the sixth ocap-kernel ingest) and synthesized a six-section distributed-ocap concept cluster, with the grant-matcher-puzzle source still deferred because erights.org is unreachable. Lint on endo-but-for-bots master is confirmed clean apart from 5 non-failing jsdoc warnings, parked as a low-priority cleanup.
+Worth a maintainer's eye: a lint classification of endo-but-for-bots master came back **clean** — CI's lint gate is fully green, with only five non-failing jsdoc warnings (the consolidated `fix-lint-jsdoc-warnings-endo-master` plan is parked low if you want them cleared). Separately, the `formula-inspector-retention-paths-table` job is **blocked** on its `listRetentionPaths` host-API dependency, which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently carries failing CI; the gardener is holding rather than duplicating the graph walk, and offers to take that rebase as its own job on your word. Finally, the liaison is awaiting your call on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of scope near sensitive agoric-sdk-fork boundaries.
 
 ## Parked for maintainer feedback
 
@@ -102,16 +100,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-102001.md) — Hourly scholar library cycle
+### doin (0)
+(none)
 
-### tada (490)
+### tada (491)
+- [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-102001.md) — Completed the hourly scholar library cycle (scholar-library-cycle-20260628-10...
 - [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md) — Job complete: improve-scheduler-preflight-gate
 - [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-090502.md) — Completion report
 - [`scholar-library-cycle-20260628-075042`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-075042.md) — Completion report:
 - [`endojs-endo-but-for-bots-pr405-grouping-toggle`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-grouping-toggle.md) — Completion report — endojs/endo-but-for-bots PR #405
-- [`comment-watcher-no-silent-trusted-drop-always-reactji`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-silent-trusted-drop-always-reactji.md) — Completion report
-- … and 485 more
+- … and 486 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
