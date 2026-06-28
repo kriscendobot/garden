@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T11:21:56Z_
+_As of 2026-06-28T11:23:14Z_
 
 ## Latest
 
-The gardener fleet closed out the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) grouping-toggle work and a scheduler-preflight-gate hardening, the hourly scholar library cycles keep ticking, and a gardener just claimed `improve-mirror-closer-per-mapping-isolation` to isolate per-mapping read failures in `mirror-closer.sh`. Three things in the maintainer inbox warrant attention. First, the formula-inspector retention-paths-table job is **blocked** on the `listRetentionPaths` host API PR (#284), which has sat since 2026-05-21 awaiting the rebase-and-re-gamut you already requested and is currently failing 4 CI checks (22/26 green); the follow-on UI work is ready the moment it lands, and a gardener offered to take the rebase as a separate job on your word. Second, scholar landed two ocap concept clusters — a sixth MetaMask/ocap-kernel ingest (the kernel/vat guide) plus six distributed-ocap library sections — with only the grant-matcher-puzzle source still deferred while erights.org is unreachable. Third, lint classification of endo-but-for-bots master came back **clean**: no error classes, just five non-blocking jsdoc warnings parked as a low-priority fix. Finally, the liaison is holding for your call on whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation "without the export," since the prior job explicitly scoped that out.
+Mirror-closer per-mapping isolation is in progress; the only new completion this cycle is an idle hourly scholar library cycle, so nothing of substance moved.
 
 ## Parked for maintainer feedback
 
@@ -98,17 +98,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mirror-closer-per-mapping-isolation.md) — In /home/kris/scripts/jobs/mirror-closer.sh, isolate per-mapping read failure...
-- [`scholar-library-cycle-20260628-112001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-112001.md) — Hourly scholar library cycle
 
-### tada (491)
+### tada (492)
+- [`scholar-library-cycle-20260628-112001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-112001.md) — Hourly scholar library cycle — idle cycle, completed clean.
 - [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-102001.md) — Completed the hourly scholar library cycle (scholar-library-cycle-20260628-10...
 - [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md) — Job complete: improve-scheduler-preflight-gate
 - [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-090502.md) — Completion report
 - [`scholar-library-cycle-20260628-075042`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-075042.md) — Completion report:
-- [`endojs-endo-but-for-bots-pr405-grouping-toggle`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-grouping-toggle.md) — Completion report — endojs/endo-but-for-bots PR #405
-- … and 486 more
+- … and 487 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
