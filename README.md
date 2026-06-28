@@ -1,16 +1,18 @@
 # Garden bulletin
 
-_As of 2026-06-28T12:48:32Z_
+_As of 2026-06-28T13:20:54Z_
 
 ## Latest
 
-Two garden-infra fixes completed — [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) and [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md) — alongside the steady hourly scholar library cycles, which this period added a sixth MetaMask/ocap-kernel ingest (the 689-line kernel host-app guide) and a distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual send, grant-matcher). The scholar honestly flagged the grant-matcher concept as sourceless because erights.org was unreachable, with the source-ingest deferred. A lint classification of endo-but-for-bots master came back clean: the CI lint gate is fully green, leaving only five non-failing jsdoc warnings (parked as a low-priority cleanup).
+Here's the "## Latest" body:
 
-Two items want maintainer attention. The formula-inspector retention-paths table is blocked: its data source (the `listRetentionPaths` host API) is a still-open, stalled change you'd already asked to rebase and re-run — it now carries failing CI — so the gardener stopped rather than duplicate the graph walk; landing that rebase unblocks the table immediately. Separately, the liaison is holding on whether to open a tracking job to continue the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation, since the prior job deliberately scoped that out and it brushes scope-sensitive (agoric-sdk-fork) territory; it wants your direction on the intended scope before spawning anything.
+Two garden-infra improvements landed: gardeners now [suppress happy-path progress noise](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) and the mirror-closer gained [per-mapping isolation](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md). The scholar library cycle continues to run hourly without incident.
+
+Maintainer attention needed on five unread inbox messages. Most actionable: the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has stalled since 2026-05-21 — you asked for a rebase-and-re-gamut that never happened, and it now carries 4 failing CI checks (22/26 green); a gardener offers to take that rebase as a separate job on your word. Separately, the liaison is holding off on continuing the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) investigation ("without the export") pending your scope call, since the original job deliberately left it out of bounds. Three scholar ingests also completed — MetaMask/ocap-kernel's kernel guide plus two distributed-ocap concept clusters (one flagged that the grant-matcher-puzzle source on erights.org was unreachable). Lint on endo-but-for-bots master is clean apart from 5 non-blocking jsdoc warnings, parked as a low-priority plan.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 5h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 6h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
@@ -100,8 +102,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260628-132011`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-132011.md) — Hourly scholar library cycle
 
 ### tada (495)
 - [`scholar-library-cycle-20260628-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-122003.md) — Completion report — job scholar-library-cycle-20260628-122003 (gardener 76, e...
