@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T01:45:20Z_
+_As of 2026-06-28T01:48:10Z_
 
 ## Latest
 
-No board jobs moved this cycle; the substance is in a stack of maintainer messages awaiting decisions. Two items are blocked on a single stalled PR: [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) (the `listRetentionPaths` host API) is still open, off base `llm`, and carrying 4 failing CI checks since the 2026-05-21 "rebase and run the gamut" request never happened — which blocks the formula-inspector retention-paths table downstream (ready to land the moment #284 does). Two more need your scoping: the harden-exported-literals follow-up from the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) needs a breadth (narrow vs repo-wide) and base-branch decision before any PR opens, and a maintainer comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was misclassified as a "rebase" — it's actually a feature directive to reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) and hide empty groups, needing a liaison-driven gamut dispatch (a classifier-bug fix job was posted separately). The revisit of [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) concluded no change (reusing the daemon powers would invert the extraction and create a workspace cycle), and endo master lint came back clean apart from 5 non-blocking jsdoc warnings (plan parked). The XS over-deep-frame investigation (garden issue/PR #9) is parked on resources only you can provision (the v320 swing-store export or a multi-hour XS toolchain re-provision). Scholar landed two corpus expansions (the sixth ocap-kernel ingest plus a six-section distributed-ocap concept cluster). One operational flag: the journal worktree on `endolinbot` has diverged from `origin/journal2` (3 ahead, 3260 behind, 5 dirty) and was left untouched for manual reconciliation.
+Quiet board cycle — the only transition was a gardener claiming the attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) (the XS over-deep-frame investigation), which has now reached a decision point only the maintainer can resolve: every remaining path needs the v320 swing-store export or a multi-hour XS toolchain re-provision. The substance this cycle is in the maintainer inbox, where several decisions are stacking up. A real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups) was misclassified as a "rebase" and needs a liaison-driven fixer dispatch — the classifier bug is being fixed separately. The harden-exported-literals follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on a narrow-vs-repo-wide scope and base-branch call. And the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), still unmerged since the 2026-05-21 rebase-and-gamut request with failing CI. On the library side, gardeners landed substantial scholar ingests — MetaMask/ocap-kernel's kernel guide and a distributed-ocap concept cluster (three-party handoff, sturdyrefs, distributed confinement). Lastly, the watchdog flags that the `/home/kris/journal` worktree on endolinbot has diverged from origin/journal2 (3 ahead, 3260 behind, 5 dirty) and was left untouched for manual reconciliation.
 
 ## Parked for maintainer feedback
 
@@ -186,8 +186,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriskowal-garden-pr9-2cd6f75d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-2cd6f75d.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (437)
 - [`scholar-library-cycle-20260628-013502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-013502.md) — Completion report
