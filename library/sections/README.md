@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5934 (525 parent indexes + 5409 children).
+Total section files: 5935 (525 parent indexes + 5410 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -6714,6 +6714,10 @@ Total section files: 5934 (525 parent indexes + 5409 children).
 ### erights--elang-guarding
 
 - [erights--elang-guarding--soft-type-checking-map](erights--elang-guarding--soft-type-checking-map.md)
+
+### erights--elang-guarding-async
+
+- [erights--elang-guarding-async--reference-state-guards-for-asynchrony](erights--elang-guarding-async--reference-state-guards-for-asynchrony.md)
 
 ### erights--elang-index
 
