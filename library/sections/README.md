@@ -6726,6 +6726,13 @@ Total section files: 5840 (507 parent indexes + 5333 children).
 
 - [erights--elang-intro-starting-e--launching-and-elmer](erights--elang-intro-starting-e--launching-and-elmer.md)
 
+### erights--elang-kernel
+
+- [erights--elang-kernel--overview](erights--elang-kernel--overview.md)
+- [erights--elang-kernel--expression-forms](erights--elang-kernel--expression-forms.md)
+- [erights--elang-kernel--pattern-forms-and-helpers](erights--elang-kernel--pattern-forms-and-helpers.md)
+- [erights--elang-kernel--meta-interpreter-semantics](erights--elang-kernel--meta-interpreter-semantics.md)
+
 ### erights--elang-quick-ref
 
 - [erights--elang-quick-ref--idioms-quick-reference](erights--elang-quick-ref--idioms-quick-reference.md)
