@@ -26,3 +26,9 @@ Comment the empirical result on issue #9 (https://github.com/kriskowal/garden/is
 - `~/.cache/garden-scratch/exp6-2worktree/beta3/packages/portfolio-deploy/dist/bundle-ymax0.json` — the unpatched bundle.
 - `~/.cache/garden-scratch/exp6-ymax0` — @agoric/xsnap wrapper harness + node_modules (ses 2.2.0, @agoric/internal, @endo/*).
 - `~/.cache/agoric-sdk/xsnap/prebuilt/0.14.2/...` — cached prebuilt engine.
+
+---
+claim:
+  host: endolinbot
+  gardener: 74
+  claimed_at: 2026-06-28T05:10:47Z
