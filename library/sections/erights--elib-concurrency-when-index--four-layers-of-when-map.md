@@ -17,9 +17,10 @@ notes: >
   written"); this section captures the four-layer child map and the verified child
   hrefs. The four layers build up from references-as-observables to the when-catch
   syntactic shorthand (the direct ancestor of Endo's `E.when` / promise-reaction
-  combinators) to joining multiple resolutions. The four child chapters are queued
-  for ingest under scholar-ingest-erights-10. source_date is an era approximation
-  matching the sibling concurrency chapters.
+  combinators) to joining multiple resolutions. The four child chapters are now
+  ingested as their own sections (scholar-ingest-erights-10), each an unwritten
+  upstream stub recorded for its place in the map and its Endo lineage. source_date
+  is an era approximation matching the sibling concurrency chapters.
 ---
 
 ## Abstract
@@ -38,21 +39,22 @@ separately (scholar-ingest-erights-10).
 
 ## The four layers (child map)
 
-The chapter lists four layers, each its own child page (all verified reachable on the
-erights.org GitHub Pages mirror, real titles, not 404s):
+The chapter lists four layers, each its own child page (each an unwritten upstream
+stub, "\*\*\* To be written", ingested for its place in the map and its Endo lineage):
 
 1. **References as Observables** — `when/ref-when.html` (title "1) References as
    Observables"). The lowest layer: observing the resolution of a reference. Content
-   SHA-256 `d943520d3936...`.
+   SHA-256 `d943520d3936...`. (ingested: [references-as-observables](erights--elib-concurrency-when-ref-when--references-as-observables.md))
 2. **The When* Reactors** — `when/when-reactors.html` (title "2) The When* Reactors").
    The reactor objects that fire on resolution. Content SHA-256 `b39e64ddb55a...`.
+   (ingested: [the-when-reactors](erights--elib-concurrency-when-reactors--the-when-reactors.md))
 3. **The when-catch Syntactic Shorthand** — `when/when-catch.html` (title "3) The
    when-catch Syntactic Shorthand"). The `when (...) -> { ... } catch ... { ... }`
    surface syntax; the direct ancestor of Endo's `E.when` and promise reactions.
-   Content SHA-256 `6f664b3f644a...`.
+   Content SHA-256 `6f664b3f644a...`. (ingested: [when-catch-syntactic-shorthand](erights--elib-concurrency-when-catch--when-catch-syntactic-shorthand.md))
 4. **Joining Multiple Resolutions** — `when/joiners.html` (title "4) Joining Multiple
    Resolutions"). Waiting on several promises at once (the `asynchAnd`-style join).
-   Content SHA-256 `73d5b78c4795...`.
+   Content SHA-256 `73d5b78c4795...`. (ingested: [joining-multiple-resolutions](erights--elib-concurrency-when-joiners--joining-multiple-resolutions.md))
 
 ## Translation to Endo
 
