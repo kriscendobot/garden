@@ -62,3 +62,9 @@ authorized regardless of which fix path is chosen.
 
 Supersedes the `jsdoc/check-tag-names` half of the now-retired consolidated plan
 `fix-lint-jsdoc-warnings-endo-master`.
+
+---
+claim:
+  host: endolinbot
+  gardener: 1
+  claimed_at: 2026-06-28T18:12:38Z
