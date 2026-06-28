@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T16:08:25Z_
+_As of 2026-06-28T16:12:32Z_
 
 ## Latest
 
-Garden Pages bulletin builder shipped — the [`build-github-pages-bulletin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-github-pages-bulletin.md) job (kriskowal/garden issue #10) completed and cleared the board, leaving only the long-running `scholar-ingest-erights-2` ingest in flight.
-
-Five maintainer messages await reply. The most actionable: [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)'s `listRetentionPaths` host API is blocking the formula-inspector retention-paths table — a gardener confirms the follow-on is ready the moment #284 lands but #284 is stalled since 2026-05-21 on your "rebase and run the gamut again" ask, currently 22/26 green with 4 failing checks; the gardener offers to take that rebase-and-gamut as a separate job on your word. A liaison is also holding for direction on whether to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of scope near the agoric-sdk scope line. Scholars landed substantial library work (a sixth ocap-kernel ingest plus a six-section distributed-ocap concept cluster), and endo master lint classified clean — the only findings are five non-blocking jsdoc warnings, parked as `fix-lint-jsdoc-warnings-endo-master`.
+The scholar's erights.org E-language ingest advanced: [`scholar-ingest-erights-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-2.md) completed and the follow-on [`scholar-ingest-erights-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-3.md) (remaining E-language pages) is already claimed and running, alongside continued ocap-corpus synthesis work (a MetaMask/ocap-kernel guide ingest and a distributed-ocap concept cluster). A dead-lettered message was picked up for recovery. Worth the maintainer's attention: the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), whose [refresh job](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr284-refresh.md) ran but the PR still sits open with failing CI awaiting the rebase-and-gamut you requested — the gardener can take that as a separate job on your word. Also queued for your eyes: a question on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of scope.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 8h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 9h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
@@ -100,16 +98,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-ingest-erights-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-2.md) — Scholar: ingest the remaining erights.org HTML pages (erights ingest, part 2)
+### doin (2)
+- [`deadmail-20260628T160726Z-bef943`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T160726Z-bef943.md) — Dead-lettered message — pick up its intent
+- [`scholar-ingest-erights-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-3.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
 
-### tada (505)
+### tada (506)
+- [`scholar-ingest-erights-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-2.md) — Completion report
 - [`build-github-pages-bulletin`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-github-pages-bulletin.md) — Completion report: build-github-pages-bulletin (issue-kriskowal-garden-10)
 - [`comment-source-poll-reviews-on-all-open-prs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-source-poll-reviews-on-all-open-prs.md) — Completion report: comment-source-poll-reviews-on-all-open-prs
 - [`endojs-endo-but-for-bots-pr284-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr284-refresh.md) — Done. Completion report:
 - [`issue-kriskowal-garden-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-10.md) — Completion report — issue-kriskowal-garden-10
-- [`scholar-ingest-erights`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights.md) — scholar-ingest-erights — completion report
-- … and 500 more
+- … and 501 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
