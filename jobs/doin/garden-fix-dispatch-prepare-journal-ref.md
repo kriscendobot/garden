@@ -50,3 +50,9 @@ and the garden admin tree's registration for the stray `garden/` worktrees).
 Garden-infra change: develop in an isolated worktree off `origin/main2`
 (`roles/COMMON.md` § Per-subagent worktrees), commit explicit pathspecs,
 push `HEAD:main2`. Do not edit the deployed root checkout.
+
+---
+claim:
+  host: endolinbot
+  gardener: 44
+  claimed_at: 2026-06-28T06:41:03Z
