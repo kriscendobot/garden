@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T18:05:44Z_
+_As of 2026-06-28T18:08:22Z_
 
 ## Latest
 
-Scholar's erights ingestion drove the cycle: `scholar-ingest-erights-9` and its follow-up cleanup (`fu-scholar-ingest-erights-9-2`, library nav + topics-count regeneration) both completed, and `scholar-ingest-erights-10` — the six ELib concurrency sub-hub child chapters — is now in flight. The one thing a maintainer should notice is a deploy decision: the liaison reports that `endolinbot`'s deployed root is lagging at `fe2d9f296` while `insert-sections-table-row.sh` has already landed on `origin/main2` (`b9f0fd5b4`); the scholar used a safe whole-file fallback so output was unaffected, but the host is behind and awaits a go-ahead to run `scripts/jobs/deploy-garden.sh`. Two inbox items resolved cleanly — the erights-mirror dead-letter was confirmed already-handled (mirror note in the always-read conventions doc, enforced in `fetch-source.sh`), and the endo-master lint classification found CI fully green with only five non-blocking jsdoc warnings parked as a low-priority plan.
+Scholar ingestion remains the main current of work: `scholar-ingest-erights-9` completed and `scholar-ingest-erights-10` (the six ELib concurrency sub-hub child chapters) is now in flight, extending the object-capability library shelf the scholar has been building out. Infra completions also landed — `improve-regenerate-topics-counts`, `issue-inbox-watcher-reactji-acknowledge`, and `service-host-roles-singletons-on-main-host`.
+
+One item needs a maintainer decision: the liaison reports an **upgrade-ready** condition on `endolinbot` — the deployed root is lagging at `fe2d9f296` while `origin/main2` has advanced to `b9f0fd5b4` (it now carries `insert-sections-table-row.sh`, which a scholar cycle expected). The scholar fell back safely so output was unaffected, but a deliberate deploy (`scripts/jobs/deploy-garden.sh`) is awaiting your go-ahead. Separately, the dead-lettered `ingest-ocap-library-sections` was confirmed already-handled and closed. The plan queue still holds three items parked for authorization, including the XS-to-Rust port and the minion.town AWS deploy.
 
 ## Parked for maintainer feedback
 
@@ -21,20 +23,6 @@ Scholar's erights ingestion drove the cycle: `scholar-ingest-erights-9` and its 
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260627T120202Z-99ffce` — from gardener:classify-lint-endo-master, reply_to `classify-lint-endo-master` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260627T120202Z-99ffce.md)
-
-> Lint classification — endo master (endo-but-for-bots master @364d69ba1).
->
-> FINDING: master lint is CLEAN. CI's `yarn lint` gate (prettier + root eslint + shellcheck) is fully green; per-package eslint across 49 packages and spot-checked tsc are clean too. There are NO lint ERROR classes to fix.
->
-> The only findings are 5 jsdoc WARNINGS (do not fail CI), in 2 rule-classes:
->   - jsdoc/require-param ×4 (packages/daemon) — autofixable
->   - jsdoc/check-tag-names ×1 (compartment-mapper, @remarks tag) — needs judgment
->
-> Posted ONE deferred/low plan covering both: `fix-lint-jsdoc-warnings-endo-master` (consolidated rather than two near-empty per-rule plans, since both are tiny jsdoc warnings). Promote it if you want the warnings cleared.
->
-> Note: bot master is 64 commits AHEAD of upstream endo (legitimately merged bot-fork PRs) and 8 behind; I did NOT force-sync to upstream — the ahead commits are real work, not drift.
 
 - `20260628T162805Z-a5b575` — from gardener:deadmail-20260628T162622Z-7df898, reply_to `deadmail-20260628T162622Z-7df898` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260628T162805Z-a5b575.md)
 
@@ -61,7 +49,7 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`scholar-ingest-erights-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-10.md) — Scholar: ingest the six ELib concurrency sub-hub child chapters (erights inge...
 
 ### tada (546)
-- [`fu-scholar-ingest-erights-9-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-9-2.md) — result — fu-scholar-ingest-erights-9-2 (library nav cleanup + topics count dr...
+- [`fu-scholar-ingest-erights-9-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-9-2.md) — Completion report
 - [`improve-regenerate-topics-counts`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-regenerate-topics-counts.md) — Completion report
 - [`issue-inbox-watcher-reactji-acknowledge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-watcher-reactji-acknowledge.md) — Completion report
 - [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/service-host-roles-singletons-on-main-host.md) — Completion report: service-host-roles-singletons-on-main-host
