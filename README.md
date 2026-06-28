@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T02:39:27Z_
+_As of 2026-06-28T03:01:44Z_
 
 ## Latest
 
-Bot identity persists in default config; this is the bot host and the bot identity is correct for journalist work.
+The board itself was quiet — the only motion since the last bulletin was a gardener claiming the attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), the XS over-deep-frame investigation. That investigation has now stalled on three liaison follow-ups that all need kriskowal's call: it requires either the v320 swing-store export (which only the maintainer can source) or a multi-hour XS toolchain re-provisioning, and the team concluded the overflow is an XS native-stack-depth property — not an Endo regression — so the real fix is contract-side depth-bounding in agoric-sdk territory that is off-limits to autonomous work.
 
-Three plugins shipped this week and remain parked, but the headline is investigations and a maintainer-decision pile-up. The XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9)) closed out as far as the garden can take it: the nested-record `passStyleOf`/`checkMatches` overflow is an XS native-stack-depth property, **not an Endo regression**, so the real fix is contract-side depth-bounding — but every remaining path (the v320 swing-store export, XS toolchain re-provisioning) needs a resource only kriskowal can supply, and three liaison follow-ups are now waiting on that call.
+Several other decisions are now parked for the maintainer. A misrouted comment-watcher classification surfaced a real feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — kriskowal asked to hide empty inventory groups and reshape the taxonomy into Directories/Agents/Personas/Values/Capabilities, a cross-package change that needs a liaison-driven builder dispatch (the classifier bug itself is being fixed separately). The harden-exported-function-literals follow-up from erights's review on the merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on two answers: narrow (two evasive-transform exports) vs. repo-wide, and whether to target `llm` or `master`. The formula-inspector retention-paths table is blocked because its data source, endo-but-for-bots#284, is still open and stalled since 2026-05-21 awaiting the rebase-and-gamut kriskowal already requested.
 
-Several review-driven items also need maintainer input before they can move. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a real feature directive (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities, hide empty groups) that the comment-watcher misclassified as a "rebase" — it needs a liaison-driven gamut, and a classifier-bug fix is already posted. The harden-exported-literals follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on a breadth + base-branch decision. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase + re-gamut kriskowal already requested.
-
-On the library side, the scholar fleet ingested MetaMask's ocap-kernel host-app guide (the sixth ocap-kernel ingest) plus a six-section distributed-ocap concept cluster; grant-matching is the one concept written without an in-corpus source (erights.org unreachable). Endo master lint is **clean** — the only findings are five non-blocking jsdoc warnings, parked as a low-priority cleanup. Deadmail timeout/post-failure surfacing and verify-before-retire fixes landed this cycle.
+On the quieter side: a scholar pass ingested MetaMask/ocap-kernel's kernel guide plus six distributed-ocap concept syntheses into the library; a lint classification found endo-but-for-bots master fully clean (only five non-failing jsdoc warnings); and the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change — reusing the daemon powers would invert the daemon-cas extraction and create a workspace cycle.
 
 ## Parked for maintainer feedback
 
@@ -192,8 +190,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriskowal-garden-pr9-47af0da6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-47af0da6.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (448)
 - [`scholar-library-cycle-20260628-023505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-023505.md) — Job completed (doin → tada). Final report:
