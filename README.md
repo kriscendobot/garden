@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-28T02:35:47Z_
+_As of 2026-06-28T02:39:27Z_
 
 ## Latest
 
-The board is quiet — only the hourly scholar library cycle is in flight — so the substance this round is a stack of gardener findings now parked for your decision. Two scholar ingests landed on journal2: MetaMask's ocap-kernel host-app guide (the sixth ocap-kernel ingest, plus a synthesizing `[[ocap-kernel]]` concept) and a distributed-ocap concept cluster tying together six previously source-only topics (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matching, equality) — the grant-matcher page is flagged draft-only because erights.org was unreachable.
+Bot identity persists in default config; this is the bot host and the bot identity is correct for journalist work.
 
-Several investigations closed without code changes: the [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded the duplication is intrinsic (reusing `@endo/daemon`'s powers would invert the daemon-cas extraction and create a workspace cycle), and endo-but-for-bots master lint is clean save five non-blocking jsdoc warnings (a consolidated `fix-lint-jsdoc-warnings-endo-master` plan is parked).
+Three plugins shipped this week and remain parked, but the headline is investigations and a maintainer-decision pile-up. The XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9)) closed out as far as the garden can take it: the nested-record `passStyleOf`/`checkMatches` overflow is an XS native-stack-depth property, **not an Endo regression**, so the real fix is contract-side depth-bounding — but every remaining path (the v320 swing-store export, XS toolchain re-provisioning) needs a resource only kriskowal can supply, and three liaison follow-ups are now waiting on that call.
 
-Three items genuinely need you. A maintainer feature directive on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — re-bucket the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities and hide empty groups — was misclassified as a no-op "rebase" by the comment-watcher; it's a cross-package change needing a liaison-driven builder/fixer dispatch, and a classifier-bug fix has been posted separately. The harden-exported-function-literals follow-up from erights's review on [#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on you choosing breadth (narrow two exports vs. repo-wide) and base branch (`llm` vs `master`). And the formula-inspector retention-paths table is blocked on its stalled host-API source PR (the rebase-and-re-gamut you requested back on 2026-05-21, still 4 checks red, never happened). The XS over-deep-frame investigation also remains parked across several liaison follow-ups: every remaining path needs either the v320 swing-store export or a multi-hour XS toolchain re-provision — both your call, and the conclusion stands that this is an XS native-stack property, not an Endo regression.
+Several review-driven items also need maintainer input before they can move. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) carries a real feature directive (regroup the inventory taxonomy into Directories/Agents/Personas/Values/Capabilities, hide empty groups) that the comment-watcher misclassified as a "rebase" — it needs a liaison-driven gamut, and a classifier-bug fix is already posted. The harden-exported-literals follow-up from [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (now merged) is gated on a breadth + base-branch decision. The formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase + re-gamut kriskowal already requested.
+
+On the library side, the scholar fleet ingested MetaMask's ocap-kernel host-app guide (the sixth ocap-kernel ingest) plus a six-section distributed-ocap concept cluster; grant-matching is the one concept written without an in-corpus source (erights.org unreachable). Endo master lint is **clean** — the only findings are five non-blocking jsdoc warnings, parked as a low-priority cleanup. Deadmail timeout/post-failure surfacing and verify-before-retire fixes landed this cycle.
 
 ## Parked for maintainer feedback
 
@@ -190,16 +192,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-library-cycle-20260628-023505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-023505.md) — Hourly scholar library cycle
+### doin (0)
+(none)
 
-### tada (447)
+### tada (448)
+- [`scholar-library-cycle-20260628-023505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-023505.md) — Job completed (doin → tada). Final report:
 - [`improve-deadmail-timeout-and-surface-post-failures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deadmail-timeout-and-surface-post-failures.md) — Completion report
 - [`improve-deadmail-verify-job-landed-before-retire`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-deadmail-verify-job-landed-before-retire.md) — Completion report
 - [`deadmail-20260628T020557Z-9f3dbb`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T020557Z-9f3dbb.md) — Completion report
 - [`kriskowal-garden-pr9-2cd6f75d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-2cd6f75d.md) — The job is complete. The instrumentation, traces, and bundles remain on host ...
-- [`capture-xsnap-debug-instrumentation-in-forks`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/capture-xsnap-debug-instrumentation-in-forks.md) — Completion report — capture-xsnap-debug-instrumentation-in-forks
-- … and 442 more
+- … and 443 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
