@@ -11,10 +11,19 @@
 #
 # Layout:
 #   dispatches/<role>--<short-id>/
-#     garden/    detached worktree of the garden's `main` branch
-#     journal/   detached worktree of the garden's `journal` branch
+#     garden/    detached worktree of the garden's dev branch (default `main2`)
+#     journal/   detached worktree of the garden's journal branch (default `journal2`)
 #     project/   (only when a project repo is named) detached worktree of
 #                worktrees/<owner>-<repo>.git at <branch>
+#
+# The garden and journal branch names are configurable via the
+# `GARDEN_DEV_BRANCH` and `GARDEN_JOURNAL_BRANCH` env vars so a future
+# branch rename does not re-break this path. Under the v2 job system the
+# dev branch is `main2` (the root checkout is the deployed version,
+# advanced only by `scripts/jobs/deploy-garden.sh`) and the journal lives
+# on the orphan `journal2` branch; both are the defaults below. The
+# retired v1 names (`main`, `journal`) are stale and `journal` no longer
+# exists, so the literals must not be hardcoded.
 #
 # The dispatch-root name is kept short on purpose: deep paths under
 # `project/` (notably endo daemon UNIX sockets under
@@ -53,6 +62,13 @@ ROLE=$1
 PURPOSE=$2  # carried only into the dispatch journal entry; not in the dirname
 GARDEN_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 
+# Branch names are configurable so a future rename does not re-break this
+# path. Defaults are the v2 names: the dev branch is `main2` and the
+# journal is the orphan `journal2`. The v1 names (`main`, `journal`) are
+# retired; `journal` no longer exists in the repo.
+DEV_BRANCH="${GARDEN_DEV_BRANCH:-main2}"
+JOURNAL_BRANCH="${GARDEN_JOURNAL_BRANCH:-journal2}"
+
 ID=$(openssl rand -hex 3)
 NAME="${ROLE}--${ID}"
 ROOT="${GARDEN_ROOT}/dispatches/${NAME}"
@@ -81,8 +97,8 @@ mkdir -p "$ROOT"
 # Garden + journal worktrees both come from the garden repo's admin tree
 # at $GARDEN_ROOT/.git. `git worktree add --detach <path> <ref>` puts the
 # new worktree at the named ref in detached-HEAD state.
-git -C "$GARDEN_ROOT" worktree add --detach "$ROOT/garden"  main    >/dev/null
-git -C "$GARDEN_ROOT" worktree add --detach "$ROOT/journal" journal >/dev/null
+git -C "$GARDEN_ROOT" worktree add --detach "$ROOT/garden"  "$DEV_BRANCH"     >/dev/null
+git -C "$GARDEN_ROOT" worktree add --detach "$ROOT/journal" "$JOURNAL_BRANCH" >/dev/null
 
 # Pin the bot identity in each sub-worktree's local config so commits
 # cannot drift to the parent shell's global git identity.

@@ -60,8 +60,8 @@ You are a subagent operating as role=<role>
 in dispatch-root=<absolute path>, repo=<owner/name>.
 
 Your dispatch root contains a worktree triple:
-  garden/   — detached worktree of garden's main branch (read roles/skills here)
-  journal/  — detached worktree of garden's journal branch (write entries here)
+  garden/   — detached worktree of garden's dev branch, main2 (read roles/skills here)
+  journal/  — detached worktree of garden's journal branch, journal2 (write entries here)
   project/  — (when applicable) detached worktree of <owner/name> at <branch>
 
 Your cwd is project/ if a project worktree exists, otherwise the dispatch root itself.

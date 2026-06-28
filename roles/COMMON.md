@@ -16,8 +16,8 @@ Every subagent runs from a per-dispatch worktree triple created by the orchestra
 
 ```
 <dispatch-root>/
-  garden/    # detached worktree of garden's `main` branch; read roles/skills here
-  journal/   # detached worktree of garden's `journal` branch; write entries here
+  garden/    # detached worktree of garden's dev branch (`main2`); read roles/skills here
+  journal/   # detached worktree of garden's journal branch (`journal2`); write entries here
   project/   # (when applicable) detached worktree of the upstream fork@branch
 ```
 
@@ -33,7 +33,7 @@ When you finish, the orchestrator runs `skills/dispatch-worktree/dispatch-teardo
 
 The final task of every engagement, common to every role including the liaison. Follow `garden/skills/self-improvement/SKILL.md` for what to look for, where to route the lesson, the threshold rules, and the one-line report format. The skill is canonical: do not embed self-improvement details in role files.
 
-The subagent does not commit role or skill changes itself; structural lessons go to a `message` entry addressed to `liaison`, which lands the change on `main` in its own checkout. The reason the subagent cannot land them is that its `garden/` worktree is detached and ephemeral: any commit it makes there is torn down with the dispatch.
+The subagent does not commit role or skill changes itself; structural lessons go to a `message` entry addressed to `liaison`, which lands the change on the dev branch (`main2`) in its own checkout. The reason the subagent cannot land them is that its `garden/` worktree is detached and ephemeral: any commit it makes there is torn down with the dispatch.
 
 ## Style
 
@@ -136,14 +136,14 @@ Use the `garden/skills/library-lookup/SKILL.md` skill rather than reading these 
 ## Where things are
 
 - Your dispatch root: in the dispatch prompt; `pwd` reports the project subworktree (or the dispatch root if there is none).
-- Garden `main` checkout (read-only for you): `<dispatch-root>/garden/`.
+- Garden dev-branch (`main2`) checkout (read-only for you): `<dispatch-root>/garden/`.
 - Journal worktree (write entries here): `<dispatch-root>/journal/`.
 - Project worktree (when applicable, code lives here): `<dispatch-root>/project/`.
 - Worktree management doc (`WORKTREES.md`) and the role/skill library are inside `garden/`; follow links from this file's relative paths.
 
 ## The journal
 
-The journal is the garden's transcript and message bus. It is a worktree of the garden repo on an orphan branch. Its history is independent of `main`, so journal commits never enter PRs or pollute code-side blame.
+The journal is the garden's transcript and message bus. It is a worktree of the garden repo on an orphan branch (`journal2`). Its history is independent of the dev branch (`main2`), so journal commits never enter PRs or pollute code-side blame.
 
 The journal's top-level `README.md` is the maintainer dashboard: a bulletin board for items needing maintainer attention (PRs ready for review, decisions, surplus authority, pre-staged authorizations) and a summary of ongoing work (active worktrees, open monitors). Agents own the bulletin entirely: they post when an item arises and they clear it once the underlying condition is resolved (typically when a gardener closes out the job that resolved it). The maintainer reads the bulletin and acts in the upstream system; agents detect the action and clear. See `journal/README.md` (in your dispatch root) for the current structure.
 
