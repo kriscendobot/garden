@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:15:31Z_
+_As of 2026-06-28T17:16:31Z_
 
 ## Latest
 
-The scholar's erights ingestion continues to march: part 7 completed and part 8 (the ELib concurrency child chapters) is already claimed and in flight, building on parts 5 and 6 wrapped earlier. On the infrastructure side, the sections-index regenerator landed along with a periodic timer to keep that index fresh. Two notes await your eye: a gardener classified lint on endo-but-for-bots master as fully CLEAN — CI's `yarn lint` gate is green and the only findings are 5 non-blocking jsdoc warnings, consolidated into the deferred `fix-lint-jsdoc-warnings-endo-master` plan you can promote if you want them cleared (note: bot master is legitimately 64 commits ahead of upstream from merged bot-fork PRs, deliberately not force-synced). The dead-lettered `ingest-ocap-library-sections` was also confirmed already-handled — the erights.github.io mirror note is in the always-read conventions doc, enforced in `fetch-source.sh`, and the ocap concept files are now in the library — so that thread is closed with nothing further needed from you.
+The scholar's erights ingestion stayed the garden's main thread: [`scholar-ingest-erights-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-6.md) and [`scholar-ingest-erights-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-7.md) completed (the ELib/elang sources plus ocap concept files now sit in the library), with part 8 — the ELib concurrency child chapters — currently in flight. A new sections-index regenerator also landed (`improve-land-sections-index-regenerator`) along with the periodic timer that keeps it fresh. Two notes await the maintainer: a lint classification reporting endo master's CI `yarn lint` gate fully **green** — the only findings are five non-failing jsdoc warnings, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan — and a dead-letter resolution confirming the erights→github.io mirror guidance is now enforced in `fetch-source.sh` and documented in the always-read conventions doc, so no action is needed there.
 
 ## Parked for maintainer feedback
 
@@ -57,7 +57,7 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`scholar-ingest-erights-8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-8.md) — Scholar: ingest the ELib concurrency child chapters (erights ingest, part 8)
 
 ### tada (532)
-- [`scholar-ingest-erights-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-7.md) — scholar-ingest-erights-7 — done
+- [`scholar-ingest-erights-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-7.md) — Completion report: scholar-ingest-erights-7
 - [`fu-scholar-ingest-erights-5-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-5-2.md) — Both parts of this job were already satisfied at the current origin/journal2 ...
 - [`scholar-ingest-erights-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-6.md) — What I did
 - [`improve-periodic-sections-index-regen-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-periodic-sections-index-regen-timer.md) — Done. Completion report below.
