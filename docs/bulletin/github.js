@@ -88,9 +88,11 @@ const GH = (() => {
 
   // --- atomic reply commit (Git Data API) -------------------------------------
   // Builds one commit on the journal branch that (a) adds `replyPath` with
-  // `replyBody`, (b) copies `unreadPath` to `readPath` (the archive), and
-  // (c) deletes `unreadPath`. Retried against a moved ref so the ref update is a
-  // compare-and-swap, mirroring the bus's own push protocol.
+  // `replyBody` WHEN a reply body is given, (b) copies `unreadPath` to `readPath`
+  // (the archive), and (c) deletes `unreadPath`. An empty acknowledgement omits
+  // the reply blob and just moves unread -> read (kriskowal #10). Retried against
+  // a moved ref so the ref update is a compare-and-swap, mirroring the bus's own
+  // push protocol.
   async function commitReply({ replyPath, replyBody, unreadPath, readPath, origSha, message }) {
     const branch = cfg.journalBranch;
     for (let attempt = 0; attempt < 6; attempt++) {
@@ -98,14 +100,16 @@ const GH = (() => {
       const headSha = ref.object.sha;
       const headCommit = await api(repoPath(`/git/commits/${headSha}`));
 
-      const blob = await api(repoPath('/git/blobs'), {
-        method: 'POST',
-        body: JSON.stringify({ content: b64encode(replyBody), encoding: 'base64' }),
-      });
-
-      const tree = [
-        { path: replyPath, mode: '100644', type: 'blob', sha: blob.sha },
-      ];
+      const tree = [];
+      // Add the reply blob only when a reply body was given (empty
+      // acknowledgement = mark-as-read only, no reply file).
+      if (replyPath && replyBody) {
+        const blob = await api(repoPath('/git/blobs'), {
+          method: 'POST',
+          body: JSON.stringify({ content: b64encode(replyBody), encoding: 'base64' }),
+        });
+        tree.push({ path: replyPath, mode: '100644', type: 'blob', sha: blob.sha });
+      }
       // Archive the original (move unread -> read) when we were given one.
       if (unreadPath && readPath && origSha) {
         tree.push({ path: readPath, mode: '100644', type: 'blob', sha: origSha });

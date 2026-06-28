@@ -153,37 +153,45 @@ function replyFileBody(target, body) {
   return `${head.join('\n')}\n${body}\n`;
 }
 
+// An empty box is allowed: every acknowledgement OR reply moves the message
+// unread -> read (kriskowal #10). Empty = mark-as-read only; non-empty = post
+// the reply to its target AND mark-as-read.
 async function submitReply({ item, fm, textarea, statusEl, btn }) {
   const body = textarea.value.trim();
-  if (!body) {
-    statusEl.textContent = 'write a reply first';
-    return;
-  }
   if (!GH.hasToken()) {
-    statusEl.textContent = 'paste a token above to reply';
+    statusEl.textContent = 'paste a token above to acknowledge';
     return;
   }
   btn.disabled = true;
-  statusEl.textContent = 'delivering…';
+  statusEl.textContent = body ? 'delivering…' : 'marking read…';
   try {
-    const target = await resolveTarget(fm);
-    const id = msgId();
-    const replyPath = `${target.dir}/${id}.md`;
+    let target = null;
+    let replyPath;
+    let replyBody;
+    if (body) {
+      target = await resolveTarget(fm);
+      replyPath = `${target.dir}/${msgId()}.md`;
+      replyBody = replyFileBody(target, body);
+    }
     const sha = await GH.commitReply({
       replyPath,
-      replyBody: replyFileBody(target, body),
+      replyBody,
       unreadPath: `inbox/maintainer/unread/${item.name}`,
       readPath: `inbox/maintainer/read/${item.name}`,
       origSha: item.sha,
-      message: `bulletin: reply to inbox/${target.to}, archive maintainer/${item.name}`,
+      message: body
+        ? `bulletin: reply to inbox/${target.to}, archive maintainer/${item.name}`
+        : `bulletin: acknowledge maintainer/${item.name} (mark read)`,
     });
     statusEl.innerHTML = '';
     statusEl.append(
       el('span', {
         class: 'ok',
-        text: `delivered to inbox/${target.to}${
-          target.kind === 'liaison' ? ' (no reply_to; routed to liaison)' : ''
-        }${target.kind === 'dead' ? ' (doer gone; dead-lettered)' : ''} — commit ${sha.slice(0, 8)}, archived`,
+        text: body
+          ? `delivered to inbox/${target.to}${
+              target.kind === 'liaison' ? ' (no reply_to; routed to liaison)' : ''
+            }${target.kind === 'dead' ? ' (doer gone; dead-lettered)' : ''} — commit ${sha.slice(0, 8)}, archived`
+          : `marked read — commit ${sha.slice(0, 8)}`,
       }),
     );
     setTimeout(load, 1200);
