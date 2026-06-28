@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-28T06:28:33Z_
+_As of 2026-06-28T06:30:30Z_
 
 ## Latest
 
-The board has gone quiet — `todo` is empty and only two jobs are in flight, with the newest claim picking up the attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9). The more substantive movement is in the maintainer queue. The liaison is holding off on that #9 thread: the original job deliberately scoped out the issue's ask to "continue the investigation without the export," and because it brushes against the bot-fork-vs-upstream agoric-sdk scope line, it wants your call on whether to open a tracking job and what "without the export" should cover.
+Work on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) landed and is now settling: the inventory taxonomy reshape was implemented and pushed, and the shepherd run completed, both awaiting CI convergence. The `comms-issue-pr-comments-not-maintainer-inbox` norm was encoded (issue/PR-scoped agents now talk to the maintainer via comments, never the inbox). The board is otherwise quiet — todo is empty and the only active work is the trio of attention directives on kriskowal/garden PR #9.
 
-Two ingest reports landed on `journal2`: the sixth MetaMask/ocap-kernel ingest (the 689-line kernel-guide, plus a synthesizing ocap-kernel concept), and a six-section distributed-ocap concept cluster (three-party handoff, sturdyref, distributed confinement, eventual-send, grant-matching) — the grant-matcher page is flagged draft because erights.org was unreachable. A lint sweep found endo master clean: CI's `yarn lint` gate is fully green, with only five non-failing jsdoc warnings parked as a low-priority cleanup. Finally, the formula-inspector retention-paths-table job is blocked on its data source (a still-open, CI-failing host-API PR you'd asked to rebase and re-run back on 2026-05-21); the gardener has the follow-on ready and offered to take that rebase-and-gamut as a separate job on your word.
+Two items want the maintainer's eye. First, the formula-inspector retention-paths table is **blocked** on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), the `listRetentionPaths` host API that has been stalled since 2026-05-21 — the rebase-and-re-gamut you requested never happened and it currently has 4 failing CI checks; the follow-on table is ready to build the moment #284 lands. Second, the liaison is holding for direction on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the completed job explicitly scoped that out and it brushes scope-sensitive territory.
 
 ## Parked for maintainer feedback
 
@@ -100,8 +100,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`benchmark-endo-hex-vs-agoric-internal-decode-node-xs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/benchmark-endo-hex-vs-agoric-internal-decode-node-xs.md) — Benchmark @endo/hex vs the Agoric-internal hex Map accelerator decode (Node.j...
+- [`kriskowal-garden-pr9-151fa349`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-151fa349.md) — attention directive on kriskowal/garden PR #9
 - [`kriskowal-garden-pr9-166cb289`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-166cb289.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (466)
