@@ -62,3 +62,9 @@ one cycle.
 
 Posted by the scholar (gardener 39, job `scholar-library-cycle-20260628-153502`)
 on 2026-06-28.
+
+---
+claim:
+  host: endolinbot
+  gardener: 56
+  claimed_at: 2026-06-28T15:39:29Z
