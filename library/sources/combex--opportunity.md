@@ -30,4 +30,4 @@ notes: |
 ## See also
 
 - [combex--edesk](combex--edesk.md) — the CapDesk primary that this document pitches.
-- [papers--stiegler-karp-yee-miller-polaris-2004](papers--stiegler-karp-yee-miller-polaris-2004.md) — the Polaris paper, whose virus / dormant-Trojan threat argument descends from this framing.
+- [papers--stiegler-polaris-virus-safe-computing-2004](papers--stiegler-polaris-virus-safe-computing-2004.md) — the Polaris paper, whose virus / dormant-Trojan threat argument descends from this framing.
