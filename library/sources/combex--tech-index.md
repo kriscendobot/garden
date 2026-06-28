@@ -35,4 +35,4 @@ The Combex Technology index page: the public hub for Combex Inc. (Marc Stiegler'
 
 - [ocap-history--e-capdesk-polaris](ocap-history--e-capdesk-polaris.md) — the secondary-source market-history survey of E / CapDesk / Polaris. This Combex cluster is the **primary**-source companion to that survey.
 - [combex--edesk](combex--edesk.md), [combex--darpa-browser](combex--darpa-browser.md), [combex--opportunity](combex--opportunity.md) — the substantive CapDesk primaries this hub links.
-- [papers--stiegler-karp-yee-miller-polaris-2004](papers--stiegler-karp-yee-miller-polaris-2004.md) — the Polaris HP Labs primary (HPL-2004-221), the Windows-XP descendant of CapDesk's PowerBox idea.
+- [papers--stiegler-polaris-virus-safe-computing-2004](papers--stiegler-polaris-virus-safe-computing-2004.md) — the Polaris HP Labs primary (HPL-2004-221), the Windows-XP descendant of CapDesk's PowerBox idea.
