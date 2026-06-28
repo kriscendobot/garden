@@ -13372,6 +13372,20 @@ PolaBear Polarizer | polaris
 virus-safe computing | polaris
 installation endowment | polaris
 HPL-2004-221 | polaris
+GUI hole | polaris
+GUI hole (Windows) | polaris
+Shatter attack | polaris
+Shatter attacks | polaris
+shatter-proofing | polaris
+Shatter-proofing Windows | polaris
+CACM Polaris | polaris
+Polaris 2006 | polaris
+Polaris CACM 2006 | polaris
+Tyler Close Polaris | polaris
+User Account Protection | polaris
+Vista User Account Protection | polaris
+Pet account | polaris
+polarized browser | polaris
 POLA for legacy applications | polaris
 restricted user account (Polaris) | polaris
 synchronizer (Polaris) | polaris
