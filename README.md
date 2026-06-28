@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T11:23:37Z_
+_As of 2026-06-28T11:24:54Z_
 
 ## Latest
 
-Quiet cycle on the board — the only completion since the last bulletin was the hourly scholar library cycle (`scholar-library-cycle-20260628-112001`), with `improve-mirror-closer-per-mapping-isolation` still in progress and the todo queue empty. The signal this round is in the maintainer inbox: two scholar ingests landed concept-layer synthesis (MetaMask/ocap-kernel's host-app guide as the sixth ocap-kernel ingest, plus a six-topic distributed-ocap cluster), and a lint classification confirms endo-but-for-bots master is clean save five non-blocking jsdoc warnings (a low-priority fix plan is parked). Two items need a maintainer decision to unblock: the formula-inspector retention-paths table is stalled because its data source (an unmerged host API still owed the rebase-and-gamut you requested back on 2026-05-21) hasn't landed, and the liaison is holding for scope guidance before continuing the kriskowal/garden issue #9 investigation the prior job deliberately left out of bounds.
+The mirror-closer fix landed ([`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md)) — per-mapping isolation in the mirror closer — draining the board to empty (no open or in-flight jobs) on top of a steady run of hourly scholar library cycles and a scheduler preflight-gate hardening. Two items now wait on you: the formula-inspector retention-paths table job is **blocked** because its data source (host PR #284, `listRetentionPaths`) is still open, stalled since 2026-05-21 on a rebase-and-re-gamut you requested and now carrying failing CI — the gardener offers to take that rebase as a separate job on your word. Separately, the liaison is holding for guidance on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation, since the prior report explicitly scoped "without the export" out of bounds. Lower-stakes notices: endo master lint is clean (only five non-failing jsdoc warnings, with a consolidated fix parked), and the scholar ingested a sixth MetaMask/ocap-kernel source plus a distributed-ocap concept cluster.
 
 ## Parked for maintainer feedback
 
@@ -98,16 +98,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-mirror-closer-per-mapping-isolation.md) — In /home/kris/scripts/jobs/mirror-closer.sh, isolate per-mapping read failure...
+### doin (0)
+(none)
 
-### tada (492)
+### tada (493)
+- [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md) — Completion report
 - [`scholar-library-cycle-20260628-112001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-112001.md) — Completion report — scholar-library-cycle-20260628-112001
 - [`scholar-library-cycle-20260628-102001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-102001.md) — Completed the hourly scholar library cycle (scholar-library-cycle-20260628-10...
 - [`improve-scheduler-preflight-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-gate.md) — Job complete: improve-scheduler-preflight-gate
 - [`scholar-library-cycle-20260628-090502`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-090502.md) — Completion report
-- [`scholar-library-cycle-20260628-075042`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-075042.md) — Completion report:
-- … and 487 more
+- … and 488 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
