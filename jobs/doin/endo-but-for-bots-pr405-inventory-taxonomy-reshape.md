@@ -30,3 +30,9 @@ This is NOT a rebase (the garden classifier mis-tagged it; PR is already mergeab
 garden-infra fix for that classifier bug was flagged by the surveying gardener. Run the actual
 feature change here through builder/fixer + the judge panel, push to the PR branch, and post the
 top-level summary comment on #405 per the comms norm.
+
+---
+claim:
+  host: endolinbot
+  gardener: 86
+  claimed_at: 2026-06-28T06:15:59Z
