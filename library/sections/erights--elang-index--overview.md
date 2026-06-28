@@ -1,87 +1,107 @@
 ---
-title: "The E Language — documentation index (erights.org/elang)"
+title: "The E Language (index / landing)"
 source_kind: web
-source_url: https://erights.org/elang/index.html
+source_url: http://erights.org/elang/index.html
 source_effective_url: https://erights.github.io/erights-org-website/elang/index.html
 source_fetched_via: mirror
 source_content_sha256: 77f5814bce5dbbd8b320205b9a6b706a9e15b321ef686ba33986ab3186d0d7fa
 source_authors: [Mark S. Miller]
 source_date: 1998-10-03
-ingested: 2026-06-27
+ingested: 2026-06-28
 ingested_by: scholar
-topics: [capability-theory, capability-security]
+topics: [e-language, capability-security]
 status: current
-notes: |
-  Primary erights.org E-language documentation index, fetched from the
-  erights.github.io GitHub Pages mirror (erights.org refuses connections from the
-  sandbox; `source_fetched_via=mirror`). This is Mark S. Miller's own
-  table-of-contents for E's documentation — distinct from the secondary-source
-  market-history survey ocap-history--e-capdesk-polaris, which synthesizes the
-  Miller papers + Wikipedia + the Waterken project page. The page itself records
-  a last-modified date of 1998-10-03; the byte-identity anchor is
-  source_content_sha256 (the mirror serves the original site paths verbatim).
+notes: >
+  Primary-source HTML fetched via the erights.org GitHub Pages mirror
+  (the bare erights.org host refuses connections from the bot sandbox).
+  This is the actual landing page; the prior synthesized survey
+  ocap-history--e-capdesk-polaris uses the same URL but was reconstructed
+  from secondary sources because the site was unreachable. Soft-flag
+  cross-source overlap (primary vs survey), not a contradiction.
 ---
 
 ## Abstract
 
-The primary erights.org documentation index for **E**, the object-capability language Mark S. Miller describes as "Cryptographic Capabilities for Distributed Smart Contracting." The page is the navigational root of E's documentation tree — it does not teach E so much as enumerate, in Miller's own organization circa 1998, the introductory material, language specification, primitive data types, concurrency and type-checking facilities, historical design notes, and tooling that made up the E project. It is the canonical primary artifact behind the library's secondary-source survey of E/CapDesk/Polaris, and it grounds the lineage that the Miller papers (Concurrency Among Strangers, The Structure of Authority) trace forward into Endo's vat / eventual-send / promise-pipelining model.
+The navigation hub for Mark Miller's documentation of **E**, the
+capability-secure distributed programming language that is the direct
+intellectual ancestor of Hardened JavaScript / Endo. The page catalogs E's
+documentation tree under five headings (Introductory Material, Language
+Specification, Primitive Data Types, Concurrency / Soft Type Checking, and
+Historical / Tools), and frames E with its design tagline (Alan Kay's "Simple
+Things Should Be Simple, Complex Things Should Be Possible") and its one-line
+self-description: "Cryptographic Capabilities for Distributed Smart
+Contracting." This section captures the page's value as a map: it is the entry
+point a reader uses to find the substantive E subpages, several of which the
+library ingests on their own (Sameness, the E Tutorial, the grammar /
+Kernel-E specification) and several of which remain queued.
 
-## The page
+## What E is
 
-**Title:** The E Language. **Tagline:** *"Simple Things Should Be Simple, Complex Things Should Be Possible."* — Alan Kay. **Author:** Mark S. Miller. **Self-description (meta):** "E: Cryptographic Capabilities for Distributed Smart Contracting." The page's own keyword list names the project's preoccupations: peer-to-peer objects, capability security, cryptography, distributed and persistent objects, lambda calculus, a capability shell over Java, smart contracting, Agoric e-commerce, message pipelining, quasi-literals, **vat**, **event loop**, and the **granovetter diagram**.
+E is a programming language for writing distributed, capability-secure
+programs. Its keyword self-description (from the page's metadata) is
+*"Cryptographic Capabilities for Distributed Smart Contracting,"* and its
+recurring themes are object capabilities, message-pipelining, vats and the
+event loop, persistent objects, and the Granovetter diagram. E's syntax is an
+LALR(1) grammar whose semantics is defined by expansion to a small core called
+**Kernel-E** ("special forms"). The language combines a scripting surface with
+strong cryptographic distribution: inter-machine communication is protected by
+E's **Pluribus** protocol (the cryptographic enactment of capability semantics
+described in the already-ingested *Capability-Based Financial Instruments*
+paper).
 
-### Introductory Material
+## The documentation tree (this page's map)
 
-- **[The E Language in a Walnut](http://www.skyhunter.com/marcs/ewalnut.html)** — Marc Stiegler's draft book introducing E.
-- **E Tutorial** (`elang/intro/`) — more introductory material.
-- **E Idioms Quick Reference Card** (`elang/quick-ref.html`) — fast reminders.
+The landing page organizes the E corpus as follows. Pages marked *(ingested)*
+have their own library source; the rest are queued (see the
+`scholar-ingest-erights-2` follow-on).
 
-### Language Specification
+**Introductory Material**
 
-- **Language Grammar** (`elang/grammar/`) — "The full E language syntax is given by an LALR(1) grammar, and its semantics is defined by expansion to Kernel-E."
-- **Block & Scope Structure** (`elang/blocks/`).
-- **Kernel-E** (`elang/kernel/`) — "The E 'special forms', their semantics, and their translation to XML & Java." Kernel-E is the small core that the full surface grammar expands into.
-- **Sameness** (`elang/same-ref.html`) — "E's notion of synchronous equality."
+- *The E Language in a Walnut* — Marc Stiegler's draft introductory book
+  (hosted off-site at skyhunter.com).
+- *E Tutorial* (`intro/index.html`) — the main tutorial hub: Starting E and
+  Elmer, Finding Text, Standalone E Programs, *A 15 Minute Introduction to E*
+  (Stiegler), Lambda-Based Objects, Introducing Remote Objects, Secureit-Echat,
+  and the Simple Money Example. (queued)
+- *E Idioms Quick Reference Card* (`quick-ref.html`). (queued)
 
-### Primitive Data Types
+**Language Specification**
 
-- **Scalars** (`elang/scalars/`).
-- **Collections** (`elang/collect/`).
-- **IO** (`elang/io/`).
+- *Language Grammar* (`grammar/index.html`) — the full LALR(1) syntax;
+  semantics defined by expansion to Kernel-E. (queued)
+- *Block & Scope Structure* (`blocks/index.html`). (queued)
+- *Kernel-E* (`kernel/index.html`) — the special forms, their semantics, and
+  their translation to XML and Java. (queued)
+- *Sameness* (`same-ref.html`) — E's notion of synchronous equality.
+  **(ingested: `erights--elang-same-ref`)**
 
-### Behavior and tooling facilities
+**Primitive Data Types**
 
-- **Concurrency** (`elang/concurrency/`) — E's event-loop / vat concurrency model (the subject the Miller papers develop in depth).
-- **Soft Type Checking** (`elang/guarding/`) — E's guard-based optional type discipline.
-- **Annotated EChat** (`elang/echat/`).
-- **On-Line Help** (`elang/help.html`).
+- *Scalars* (`scalars/index.html`), *Collections* (`collect/index.html`), *IO*
+  (`io/index.html`). (queued)
 
-### Historical
+**Concurrency and checking**
 
-- **E's Original Design Goals** (`e/e-goals.html`).
-- **E World Scripting Examples** (`e/e-world-scripting.html`).
-- **"Satan Comes to Dinner" in E** (`e/satan/`).
+- *Concurrency* (`concurrency/index.html`) — the event-loop / vat / eventual-send
+  model, including *Introducing Remote Objects*. (queued)
+- *Soft Type Checking* (`guarding/index.html`) — E's guards. (queued)
+- *Annotated EChat* (`echat/index.html`), *On-Line Help* (`help.html`). (queued)
 
-### Tools
+**Historical and tools**
 
-- Testing: **Updoc & Elmer** (`elang/tools/updoc.html`).
-- Editing and browsing: **[EBrowser](http://www.skyhunter.com/marcs/eBrowserIndex.html)**.
+- E's Original Design Goals, World Scripting Examples, "Satan Comes to Dinner",
+  the Updoc/Elmer testing tools, the EBrowser, and the ENative project.
 
-### The ENative Project
+## Translation (E to Endo)
 
-(`enative/`) — framed by a single question: *"How fast can a simple implementation of E be?"*
-
-### Site navigation and license
-
-The page sits in the erights.org documentation tree alongside **ELib** (inter-object semantics), **Smart Contracts**, **Related** work, **Download**, the **FAQ** (`mumble.net/e/faq.html`), the **API** javadoc, the **Mail Archive** (`eros-os.org/pipermail/e-lang/`), and **Donate**. Miller places "all text on this page which is either unattributed or by Mark S. Miller … in the public domain."
-
-## Translation
-
-| E (this page) | Endo equivalent |
+| E term | Endo / Hardened JavaScript equivalent |
 |---|---|
-| vat (heap + thread + pending-delivery queue) | compartment + bundle (eventual-send delivery turns) |
-| Kernel-E (small core the surface grammar expands to) | no direct analogue; compare the kernel/surface split to SES's intrinsics-vs-surface taming |
-| eventual-send / message pipelining | `E()` / promise pipelining (HandledPromise) |
-| Sameness (synchronous equality) | `@endo/pass-style` sameness / key equality |
+| E (the language) | Hardened JavaScript / SES + `@endo/eventual-send` (the lineage descendant) |
+| vat | compartment / per-agent event-loop domain |
+| Pluribus | CapTP + OCapN (the capability transport protocol family) |
+| Kernel-E (special forms) | the SES intrinsics + the small set of endowed globals |
+| eventual-send (`<-`) | `E(target).method(...)` |
 
-Source: [The E Language](https://erights.org/elang/index.html) (erights.org/elang/index.html), authored by Mark S. Miller, last modified 1998-10-03. Fetched 2026-06-27 from the GitHub Pages mirror `https://erights.github.io/erights-org-website/elang/index.html` (`source_fetched_via=mirror`); content sha256 `77f5814bce5dbbd8b320205b9a6b706a9e15b321ef686ba33986ab3186d0d7fa`.
+## Source
+
+Source: [elang/index.html](https://erights.github.io/erights-org-website/elang/index.html) (mirror of `http://erights.org/elang/index.html`), last modified 1998-10-03, content SHA-256 `77f5814bce5dbbd8b320205b9a6b706a9e15b321ef686ba33986ab3186d0d7fa`, fetched via the erights.org GitHub Pages mirror.
