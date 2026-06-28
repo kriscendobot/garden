@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T16:48:42Z_
+_As of 2026-06-28T16:53:03Z_
 
 ## Latest
 
-The scholar's erights.org ingestion advanced another step: [`scholar-ingest-erights-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-5.md) and the follow-up `fu-scholar-ingest-erights-4-3` both completed (the latter confirming every must-resolve navigation/index/source link in the scanned set now resolves), and `scholar-ingest-erights-6` is claimed and in flight to pull in the remaining E-language pages. The `improve-sections-readme-regenerator` job also landed, and a gardener closed out the dead-lettered `ingest-ocap-library-sections` thread as already-handled — verifying that the erights.org → erights.github.io mirror substitution is documented in the always-read `journal/library/conventions.md` and enforced deterministically by `scripts/jobs/fetch-source.sh`. Separately, a maintainer message reports that endo-but-for-bots master lint is fully CLEAN (CI green across 49 packages); the only findings are five non-blocking jsdoc warnings, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan should you want them cleared.
+The scholar's E-rights ingestion push continues: [scholar-ingest-erights-5](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-5.md) and two follow-up verification scans completed, with the sixth E-language batch now in flight, while the ocap-kernel comment-fragment ingestion proceeds — the library now carries the erights-- elang/elib sources plus the core ocap concept files. On the tooling side, two newly-claimed jobs move the sections-index regeneration off the agent and onto a deterministic timer (`improve-land-sections-index-regenerator`, `improve-periodic-sections-index-regen-timer`), following the just-landed sections-README regenerator. Two maintainer messages are worth a glance: a lint classification reporting endo-but-for-bots master is **CLEAN** (CI's `yarn lint` fully green; the only findings are 5 non-failing jsdoc warnings, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan), and a dead-letter closure confirming the erights.org → GitHub Pages mirror note is correctly enforced in the fetch path. No new parked PRs since the last bulletin — the review queue is unchanged.
 
 ## Parked for maintainer feedback
 
@@ -53,7 +53,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`improve-land-sections-index-regenerator`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-land-sections-index-regenerator.md) — Land the authored-but-uncommitted sections-index regenerator so the recurring...
+- [`improve-periodic-sections-index-regen-timer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-periodic-sections-index-regen-timer.md) — Move the sections-index regeneration off the agent and onto a deterministic c...
 - [`scholar-ingest-erights-6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-6.md) — Scholar: ingest the remaining erights.org E-language pages (erights ingest, p...
 
 ### tada (527)
