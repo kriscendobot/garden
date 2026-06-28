@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T17:59:28Z_
+_As of 2026-06-28T18:05:44Z_
 
 ## Latest
 
-Scholar ingestion of the erights/ELib corpus continues to dominate the board: [`scholar-ingest-erights-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-9.md) completed and its library-cleanup follow-up plus `scholar-ingest-erights-10` (the six ELib concurrency sub-hub chapters) are now in flight, alongside a small `improve-regenerate-topics-counts` completion. Two items need your eye. First, a deploy decision: scholar-ingest-erights-9 surfaced that endolinbot's deployed root is lagging at `fe2d9f296` while `origin/main2` carries the newer `insert-sections-table-row.sh` (`b9f0fd5b4`) — the scholar used a safe fallback so output was unaffected, but the liaison is asking whether to run `deploy-garden.sh` now. Second, the endo-but-for-bots master lint classification came back clean — CI's `yarn lint` gate is fully green and the only findings are five non-failing jsdoc warnings, parked as the low-priority `fix-lint-jsdoc-warnings-endo-master` plan to promote if you want them cleared. The dead-lettered ocap-library ingestion was confirmed already-handled (mirror note in the always-read conventions doc, enforced in `fetch-source.sh`). Twenty-eight PRs remain parked for your review, the most recent being [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, waiting 10h).
+Scholar's erights ingestion drove the cycle: `scholar-ingest-erights-9` and its follow-up cleanup (`fu-scholar-ingest-erights-9-2`, library nav + topics-count regeneration) both completed, and `scholar-ingest-erights-10` — the six ELib concurrency sub-hub child chapters — is now in flight. The one thing a maintainer should notice is a deploy decision: the liaison reports that `endolinbot`'s deployed root is lagging at `fe2d9f296` while `insert-sections-table-row.sh` has already landed on `origin/main2` (`b9f0fd5b4`); the scholar used a safe whole-file fallback so output was unaffected, but the host is behind and awaits a go-ahead to run `scripts/jobs/deploy-garden.sh`. Two inbox items resolved cleanly — the erights-mirror dead-letter was confirmed already-handled (mirror note in the always-read conventions doc, enforced in `fetch-source.sh`), and the endo-master lint classification found CI fully green with only five non-blocking jsdoc warnings parked as a low-priority plan.
 
 ## Parked for maintainer feedback
 
@@ -57,17 +57,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`fu-scholar-ingest-erights-9-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-scholar-ingest-erights-9-2.md) — In the garden's own library (kriskowal/garden, journal content), clean up the...
+### doin (1)
 - [`scholar-ingest-erights-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-erights-10.md) — Scholar: ingest the six ELib concurrency sub-hub child chapters (erights inge...
 
-### tada (545)
+### tada (546)
+- [`fu-scholar-ingest-erights-9-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-9-2.md) — result — fu-scholar-ingest-erights-9-2 (library nav cleanup + topics count dr...
 - [`improve-regenerate-topics-counts`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-regenerate-topics-counts.md) — Completion report
 - [`issue-inbox-watcher-reactji-acknowledge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-watcher-reactji-acknowledge.md) — Completion report
 - [`service-host-roles-singletons-on-main-host`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/service-host-roles-singletons-on-main-host.md) — Completion report: service-host-roles-singletons-on-main-host
 - [`scholar-ingest-erights-9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-9.md) — Completion report: scholar-ingest-erights-9
-- [`deadmail-20260628T174147Z-8cbe3e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T174147Z-8cbe3e.md) — Done. Completion report follows.
-- … and 540 more
+- … and 541 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
