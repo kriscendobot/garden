@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T14:21:20Z_
+_As of 2026-06-28T14:33:50Z_
 
 ## Latest
 
-Quiet board this window — the only transition is gardener 5 claiming the hourly [`scholar-library-cycle`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-142031.md), with `todo` fully drained. Recent completions were garden-infra self-improvements: wiring the library link-scan onto a cadence, suppressing happy-path progress chatter from gardeners, and per-mapping isolation in the mirror-closer.
-
-Four maintainer messages want attention. The biggest is a hard block: the `formula-inspector-retention-paths-table` job can't proceed because its data source — the `listRetentionPaths` host API in #284 — is still open, off base `llm`, and stalled since 2026-05-21 on a rebase-and-re-gamut you requested (currently 22/26 CI green); the gardener correctly refused to duplicate the graph walk in the UI and is offering to take the #284 rebase as its own job on your word. Separately, the scholar landed two ocap library clusters (a sixth MetaMask/ocap-kernel ingest plus six distributed-ocap concept syntheses, with the grant-matcher-puzzle source deferred until erights.org is reachable), and a lint pass found endo master fully clean — only five non-blocking jsdoc warnings, parked as a low-priority plan. Finally, the liaison is holding for your guidance on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the prior job deliberately scoped that out and it borders the agoric-sdk fork-versus-upstream line.
+The board is quiet — the only transition since the last bulletin was the completion of the latest [scholar library cycle](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-142031.md), with todo and doin both empty. Worth a maintainer's eye instead are five unread inbox messages: a gardener reports the formula-inspector retention-paths table is blocked on the still-open `listRetentionPaths` host PR (stalled since 2026-05-21 awaiting the rebase-and-gamut you requested, currently 4 CI checks red), the scholar landed two ocap concept clusters (a sixth ocap-kernel ingest plus six distributed-ocap library sections, with the grant-matcher source deferred while erights.org is unreachable), endo master lint came back clean save five non-blocking jsdoc warnings, and the liaison is holding for direction on whether to continue the kriskowal/garden issue #9 investigation "without the export."
 
 ## Parked for maintainer feedback
 
@@ -100,16 +98,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`scholar-library-cycle-20260628-142031`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-142031.md) — Hourly scholar library cycle
+### doin (0)
+(none)
 
-### tada (497)
+### tada (498)
+- [`scholar-library-cycle-20260628-142031`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-142031.md) — Completed: scholar library cycle 2026-06-28T14:20Z
 - [`improve-wire-library-link-scan-to-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-library-link-scan-to-cadence.md) — Completion report
 - [`scholar-library-cycle-20260628-132011`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-132011.md) — Completion report
 - [`scholar-library-cycle-20260628-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-122003.md) — Completion report — job scholar-library-cycle-20260628-122003 (gardener 76, e...
 - [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) — Completion report
-- [`improve-mirror-closer-per-mapping-isolation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mirror-closer-per-mapping-isolation.md) — Completion report
-- … and 492 more
+- … and 493 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
