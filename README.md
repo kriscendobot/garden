@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T01:59:46Z_
+_As of 2026-06-28T02:06:24Z_
 
 ## Latest
 
-Production deploy work landed: xsnap stack-overflow debug instrumentation is now durable in the forks ([`capture-xsnap-debug-instrumentation-in-forks`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/capture-xsnap-debug-instrumentation-in-forks.md) and a companion job both completed), the `fetch-source` PDF text-extraction improvement shipped, and two dead-lettered jobs from kriskowal/garden PR #9 were cleared.
+The XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9)) closed out its last job — the xsnap stack-overflow debug instrumentation, traces, and bundles are now captured durably in the forks — but the thread is parked on a maintainer decision: every remaining path needs either the v320 swing-store export (only kriskowal can source) or a multi-hour XS toolchain re-provisioning, and the investigation concluded the overflow is an XS native-stack-depth property rather than an Endo regression, so any real fix is contract-side.
 
-The board is otherwise nearly idle (0 todo, 1 in-flight: an attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-2cd6f75d.md)), and what a maintainer should notice is the **stack of unread decisions in the inbox**. Several are blocked awaiting your call: the [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) inventory-regrouping directive (Directories/Agents/Personas/Values/Capabilities buckets + empty-group hiding) was misclassified as a "rebase" and needs a liaison-driven fixer dispatch; the [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) "harden exported function literals" follow-up is gated on you choosing breadth (narrow two-export vs. repo-wide) and base branch (`llm` vs. `master`); and the formula-inspector retention-paths table is blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested (4 CI checks still failing). The XS over-deep-frame investigation on kriskowal/garden#9 has converged to a maintainer decision point: every remaining path needs a resource the garden can't self-provision (the v320 swing-store export, or multi-hour XS toolchain re-provisioning), and the team's conclusion is that this is an XS native-stack-depth property, not an Endo regression — so the real fix is contract-side depth-bounding. On the library side, scholars ingested MetaMask/ocap-kernel's kernel guide (sixth ocap-kernel ingest) and synthesized a distributed-ocap concept cluster; endo-but-for-bots master lint is clean (only 5 non-blocking jsdoc warnings).
+Several decisions are stacked in the maintainer inbox and worth a look: a comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was misclassified as a rebase but is actually a feature directive to reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities + full empty-group hiding) — it needs a liaison-driven fixer dispatch since the autonomous fleet has no path for implementing a feature directive. The "harden exported function literals" follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on a two-axis scope call (narrow vs repo-wide, base `llm` vs `master`). The PR [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the only API match would invert the extraction and create a workspace cycle).
+
+On the library side, the scholar landed two ingests — MetaMask/ocap-kernel's 689-line kernel guide and a six-concept distributed-ocap cluster — both honestly flagging the grant-matcher-puzzle source as unreachable. Lint on endo master is clean (only five non-blocking jsdoc warnings, parked as a low-priority plan).
 
 ## Parked for maintainer feedback
 
@@ -188,16 +190,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriskowal-garden-pr9-2cd6f75d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-2cd6f75d.md) — attention directive on kriskowal/garden PR #9
+### doin (0)
+(none)
 
-### tada (443)
+### tada (444)
+- [`kriskowal-garden-pr9-2cd6f75d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-2cd6f75d.md) — The job is complete. The instrumentation, traces, and bundles remain on host ...
 - [`capture-xsnap-debug-instrumentation-in-forks`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/capture-xsnap-debug-instrumentation-in-forks.md) — Completion report — capture-xsnap-debug-instrumentation-in-forks
 - [`improve-fetch-source-pdf-text-extraction`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-source-pdf-text-extraction.md) — Inbox empty, worktree removed, push landed. Work complete.
 - [`capture-xsnap-debug-instrumentation-20260628T015232Z`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/capture-xsnap-debug-instrumentation-20260628T015232Z.md) — Job complete. The xsnap stack-overflow debug instrumentation is now durable i...
 - [`deadmail-20260628T014800Z-534313`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T014800Z-534313.md) — Completed the dead-lettered job (intent of kriskowal's comment on kriskowal/g...
-- [`deadmail-20260628T015003Z-602b9f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T015003Z-602b9f.md) — Done. Completion report follows.
-- … and 438 more
+- … and 439 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
