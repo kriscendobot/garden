@@ -19,9 +19,9 @@ notes: >
   Philosophy; Semi-Transparency; The Vat; Distributed Queuing). The four single-page
   mechanics chapters (Reference Mechanics, Message Passing, Vat Turns, Partial
   Ordering) and both sub-hub maps (the Four Layers of When, EIO) were ingested in
-  scholar-ingest-erights-9; only the six sub-hub child chapters (the When sub-hub's
-  four, the EIO sub-hub's two) remain queued in scholar-ingest-erights-10, after
-  which the `elib/concurrency/` chapter is fully ingested. source_date is an era
+  scholar-ingest-erights-9; the six sub-hub child chapters (the When sub-hub's four,
+  the EIO sub-hub's two) were ingested in scholar-ingest-erights-10. The
+  `elib/concurrency/` chapter is now FULLY INGESTED. source_date is an era
   approximation matching the sibling concurrency chapters.
 ---
 
