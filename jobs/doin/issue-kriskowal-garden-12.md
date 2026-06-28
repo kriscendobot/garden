@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 For the garden itsel: Please create a web design skill for replicating the technique for posting a favicon based only on an emoji, as seen on https://play.emojiquest.app/. Please adjust the designer and builder roles such that there are specific web frontend variants of these rol
+
+---
+claim:
+  host: endolinbot
+  gardener: 7
+  claimed_at: 2026-06-28T17:31:48Z
