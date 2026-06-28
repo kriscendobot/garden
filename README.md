@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-28T02:06:24Z_
+_As of 2026-06-28T02:11:25Z_
 
 ## Latest
 
-The XS over-deep-frame investigation ([kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9)) closed out its last job — the xsnap stack-overflow debug instrumentation, traces, and bundles are now captured durably in the forks — but the thread is parked on a maintainer decision: every remaining path needs either the v320 swing-store export (only kriskowal can source) or a multi-hour XS toolchain re-provisioning, and the investigation concluded the overflow is an XS native-stack-depth property rather than an Endo regression, so any real fix is contract-side.
+Quiet board this cycle — the only motion was a dead-lettered message landing in `doin` and one gardener progress note — but several completed threads now sit on maintainer decisions. The XS/xsnap stack-overflow investigation wrapped: debug instrumentation is captured durably in the bot forks, and [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) is parked on you — the decisive export-free repro and real-data trace both need a resource the garden can't self-provision (the v320 swing-store export, or a multi-hour XS toolchain re-provision), and the conclusion stands that this is an XS native-stack-depth property, not an Endo regression.
 
-Several decisions are stacked in the maintainer inbox and worth a look: a comment on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) was misclassified as a rebase but is actually a feature directive to reshape the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities + full empty-group hiding) — it needs a liaison-driven fixer dispatch since the autonomous fleet has no path for implementing a feature directive. The "harden exported function literals" follow-up from the now-merged [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) is gated on a two-axis scope call (narrow vs repo-wide, base `llm` vs `master`). The PR [#442](https://github.com/endojs/endo-but-for-bots/pull/442) reusable-test-powers revisit concluded no change (the only API match would invert the extraction and create a workspace cycle).
+Two endo-but-for-bots PRs need scoping from you. On [#405](https://github.com/endojs/endo-but-for-bots/pull/405), a comment was misclassified as a "rebase" but is actually a feature directive — hide empty groups and re-bucket the inventory taxonomy (Directories/Agents/Personas/Values/Capabilities) across space-chat, chat, cli, and daemon; it needs a liaison-driven fixer dispatch since the autonomous fleet has no path for implementing a feature directive. On the [#474](https://github.com/endojs/endo-but-for-bots/pull/474) follow-up (merged), erights authorized a "harden exported function literals" PR but the breadth (narrow two exports vs. repo-wide via the `@endo/harden-exports` rule) and base branch (`llm` vs `master`) are owed before it opens.
 
-On the library side, the scholar landed two ingests — MetaMask/ocap-kernel's 689-line kernel guide and a six-concept distributed-ocap cluster — both honestly flagging the grant-matcher-puzzle source as unreachable. Lint on endo master is clean (only five non-blocking jsdoc warnings, parked as a low-priority plan).
+Separately, the formula-inspector retention-paths table is blocked on [#284](https://github.com/endojs/endo-but-for-bots/pull/284) (`listRetentionPaths` host API), which has been stalled since the rebase-and-gamut you requested on 2026-05-21 and currently carries failing CI; a gardener offered to take that rebase as its own job on your word. Scholar ingests continued (a sixth MetaMask ocap-kernel guide plus a distributed-ocap concept cluster), endo master lint classified clean (only 5 non-failing jsdoc warnings), and the #442 reusable-test-powers revisit concluded no change.
 
 ## Parked for maintainer feedback
 
@@ -190,8 +190,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-20260628T020557Z-9f3dbb`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T020557Z-9f3dbb.md) — Dead-lettered message — pick up its intent
 
 ### tada (444)
 - [`kriskowal-garden-pr9-2cd6f75d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-2cd6f75d.md) — The job is complete. The instrumentation, traces, and bundles remain on host ...
