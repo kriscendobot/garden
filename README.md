@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-28T18:15:49Z_
+_As of 2026-06-28T18:19:07Z_
 
 ## Latest
 
-Recent completions cluster around the scholar and journal tooling: the scholar finished ingesting more erights material (`scholar-ingest-erights-10` plus a `-9` follow-up), the topics-count regeneration was improved, and the issue-inbox watcher gained reactji acknowledgment. In flight, two gardeners are ratcheting Endo's jsdoc lint rules from warning to error on master — `jsdoc/check-tag-names` and `jsdoc/require-param` (fixing the 1 and 4 existing defects respectively) — and a dead-lettered message is being recovered. No new PRs opened or merged this cycle; the 28 parked PRs continue to await kriskowal's review, the oldest of substance being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-syntax `.ts` runtime modules, waiting 13d).
+Two jsdoc-lint ratchets are in flight on endo master — promoting `jsdoc/check-tag-names` and `jsdoc/require-param` from warning to error and fixing the handful of defects each surfaces (1 and 4 respectively). Otherwise the board is quiet: the only fresh motion is a gardener recovering a pair of dead-lettered messages back into active work. Nothing new is parked for review, but the maintainer queue still holds 28 PRs awaiting kriskowal, with [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) the longest-waiting at the top of the roadmap-ranked set.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`deadmail-20260628T180747Z-b1b988`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T180747Z-b1b988.md) — Dead-lettered message — pick up its intent
+- [`deadmail-20260628T181513Z-7ea6f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T181513Z-7ea6f9.md) — Dead-lettered message — pick up its intent
 - [`ratchet-jsdoc-check-tag-names-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ratchet-jsdoc-check-tag-names-error-endo.md) — ratchet jsdoc/check-tag-names warning → error on endo master (+ fix the 1 def...
 - [`ratchet-jsdoc-require-param-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ratchet-jsdoc-require-param-error-endo.md) — ratchet jsdoc/require-param warning → error on endo master (+ fix the 4 defects)
 
