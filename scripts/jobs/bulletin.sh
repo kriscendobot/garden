@@ -717,9 +717,6 @@ bulletin_tick() {
     # between post and cursor-write re-processes rather than skips.
     write_cursor "$(git -C "$DIR" rev-parse HEAD)"
     log "bulletin posted"
-    # Trigger the GitHub Pages bulletin workflow to re-render from the just-pushed
-    # journal2 content (the CI-from-journal2 path; best-effort, see common.sh).
-    fire_pages_dispatch "$DIR"
   else
     rc=$?
     if [ "$rc" -eq 2 ]; then

@@ -37,7 +37,6 @@ input.token { width: 22rem; max-width: 60vw; padding: 0.35rem 0.5rem; border: 1p
 .linkbtn { border: none; background: none; color: var(--accent); cursor: pointer; text-decoration: underline; font-size: 0.85rem; }
 
 .msg { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
-.msg.done { opacity: 0.65; }
 .msg-head code { background: #f0f0ea; padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.8rem; }
 .msg-body { font-size: 0.92rem; margin: 0.5rem 0; }
 .msg-body blockquote { border-left: 3px solid var(--line); margin: 0.4rem 0; padding-left: 0.8rem; color: #333; }
