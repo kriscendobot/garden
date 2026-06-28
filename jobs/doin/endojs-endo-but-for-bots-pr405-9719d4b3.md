@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Let’s also make a checkbox up top, next to the “special” checkbox for “group by type” to make this grouping optional. That will presumably amount to two alternative inventory components. It also obligates us to change the “special” and “group” checkboxes into to
+
+---
+claim:
+  host: endolinbot
+  gardener: 39
+  claimed_at: 2026-06-28T07:20:02Z
