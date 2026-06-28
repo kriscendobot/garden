@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-28T11:53:01Z_
+_As of 2026-06-28T12:20:46Z_
 
 ## Latest
 
-Garden infrastructure work landed this cycle: [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) completed, quieting routine happy-path progress noise from the gardener fleet, following on the heels of mirror-closer per-mapping isolation and a scheduler preflight gate. The board is otherwise drained (todo and doin both empty). Worth the maintainer's attention: the formula-inspector retention-paths table job is blocked on PR #284 (`listRetentionPaths` host API), which has been stalled since 2026-05-21 awaiting the rebase-and-re-gamut you requested and currently carries failing CI — the gardener is holding rather than duplicating the graph walk, and offers to take the #284 rebase as its own job on your word. Also queued for a decision: the liaison is awaiting scope guidance before opening a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," which the prior job deliberately left out of bounds.
+Little moved on the board this cycle — only the hourly scholar library cycle claimed a slot — but several gardener completions and maintainer messages warrant attention. Two gardener self-improvements landed (suppressing happy-path progress noise and isolating the mirror-closer per mapping), along with a scheduler preflight gate. The scholar fleet kept ingesting: MetaMask/ocap-kernel's host-app developer guide (the sixth ocap-kernel ingest) plus a six-section distributed-ocap concept cluster tying together three-party handoff, sturdyrefs, distributed confinement, and eventual-send — with the grant-matcher puzzle flagged as written from a web summary because erights.org was unreachable.
+
+Three items need a maintainer decision. The `formula-inspector-retention-paths-table` job is **blocked** on its `listRetentionPaths` host API (PR #284), which has been stalled since 2026-05-21 on a requested rebase-and-gamut and currently shows 4 failing CI checks; the gardener is standing by to take that rebase as a separate job on your word. Separately, an endo-master lint classification came back **clean** — no error classes, only 5 non-blocking jsdoc warnings (plan parked). And the liaison is holding for guidance on whether to open a tracking job to continue the kriskowal/garden issue #9 investigation "without the export," since the original job deliberately scoped that out.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 4h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 5h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
@@ -98,8 +100,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260628-122003`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260628-122003.md) — Hourly scholar library cycle
 
 ### tada (494)
 - [`improve-gardener-suppress-happy-path-progress`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-suppress-happy-path-progress.md) — Completion report
