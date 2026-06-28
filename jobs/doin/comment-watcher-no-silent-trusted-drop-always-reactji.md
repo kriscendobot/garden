@@ -52,3 +52,9 @@ classifier deterministically.
 comment-watcher.sh (and issue-inbox-watcher.sh) never silently slide past a trusted comment:
 always reactji-ack it, always log the drop reason, route trusted ambiguous comments to the
 fallback, plus the per-tick latency reduction — with tests pinning the no-silent-drop property.
+
+---
+claim:
+  host: endolinbot
+  gardener: 40
+  claimed_at: 2026-06-28T07:27:23Z
