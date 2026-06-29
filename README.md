@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T22:54:15Z_
+_As of 2026-06-29T22:55:25Z_
 
 ## Latest
 
-A claim moved onto the board: a gardener picked up an attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), now in progress. Otherwise the recent activity is a run of garden infra hardening that just landed in `tada`: the slow-fleet-restart investigation on deploy resolved (the fleet now restarts concurrently rather than serially), [`send-msg`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-send-msg-tolerate-placeholder-wrapped-address.md) now tolerates angle-bracket-wrapped placeholder addresses, the comment-watcher reaps lingering `git` child processes on stop, and the `gh-api` retry set was widened to match Go `net/http` transient-timeout signatures (with a self-heal pass applying the same fix to `garden-mirror-closer`). The parked queue is unchanged — 29 PRs await kriskowal, the oldest being [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) at ~40 days.
+Recent movement is all garden-infra reliability work landing on `main2`: the deploy-restart path now restarts the long-running fleet concurrently rather than serially (closing out the slow-fleet-restart investigation), the comment-watcher synchronously reaps lingering git child processes on stop, `send-msg` now unwraps angle-bracket-wrapped placeholder addresses, and the `gh-api` retry set was widened to classify Go `net/http` transient timeouts — the last of which also self-healed the `garden-mirror-closer` path. The board is otherwise quiet: a single dead-lettered issue-comment job moved into `doin` for triage, alongside the standing attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9). Nothing new is parked, but the maintainer-feedback queue still holds 29 PRs, the oldest being the 40-day-old [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) opencode analysis and the 38-day-old [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-issue-comment-4837977517`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4837977517.md) — Dead-lettered message — pick up its intent
 - [`kriskowal-garden-pr9-045d2a30`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-045d2a30.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (600)
