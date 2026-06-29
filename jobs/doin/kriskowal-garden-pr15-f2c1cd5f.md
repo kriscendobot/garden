@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 It seems the next step for the garden would to be to introduce a bid/accept workflow for jobs, rather than a straight race, and for “gardeners” to be differentiated and hold reputation built by competing to produce an accepted implementation. Gardeners might be differentiated
+
+---
+claim:
+  host: endolinbot2
+  gardener: 10
+  claimed_at: 2026-06-29T23:13:11Z
