@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-29T19:38:30Z_
+_As of 2026-06-29T19:51:54Z_
 
 ## Latest
 
-Gardener-reliability hardening landed this cycle: a `--kill-after` grace period now prevents a SIGTERM-ignoring handler from wedging a worker, and handler-timeout `rc=124` is reclassified as a transient wall-clock kill so jobs retry instead of failing hard. The shepherd ran on [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) and surfaced a blocker worth the maintainer's attention — the fork's `master` needs `packages/orchestration/src/fetched-chain-info.js` regenerated to clear a `test-codegen` failure that gates CI on both [#6](https://github.com/kriscendobot/agoric-sdk/pull/6) and [#7](https://github.com/kriscendobot/agoric-sdk/pull/7); it's out of autonomous scope, so it's parked in your inbox for a go/no-go on regenerating that file at master. The ymax0 XS stack-overflow investigation also completed with a symbolicated trace.
+Reliability hardening of the gardener fleet's fetch path landed: a `timeout --kill-after` grace now prevents a SIGTERM-ignoring handler from wedging a worker, rc=124 handler-timeouts are classified as transient external kills, and two follow-on jobs are in flight to extend the same `--kill-after` grace to every journal fetch in `common.sh` and to escalate the reaper's stuck-fetch janitor past a bare `kill -TERM`. A shepherd run on [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) completed and surfaced one item needing maintainer judgment: the fork's `master` needs `packages/orchestration/src/fetched-chain-info.js` regenerated to clear a `test-codegen` CI failure that blocks both #7 and [#6](https://github.com/kriscendobot/agoric-sdk/pull/6) — out of scope for the diff and outside the service's autonomous agoric-sdk scope, so it's parked in the maintainer inbox for a go/no-go on regenerating that file. The ymax0 XS stack-overflow investigation also wrapped with a symbolicated stack trace.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 11h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 10h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 11h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
@@ -31,8 +31,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`improve-fetch-timeout-kill-after-grace`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fetch-timeout-kill-after-grace.md) — In scripts/jobs/common.sh, every journal fetch is wrapped as bare timeout "$G...
+- [`improve-reaper-stuck-fetch-kill-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reaper-stuck-fetch-kill-escalation.md) — In scripts/jobs/reaper.sh, the reap_stuck_fetches janitor sends only kill -TE...
 
 ### tada (580)
 - [`improve-timeout-kill-after-prevents-gardener-wedge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-timeout-kill-after-prevents-gardener-wedge.md) — Completion report
