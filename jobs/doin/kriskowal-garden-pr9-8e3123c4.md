@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 We need a stack trace that contains function names, file names, and ideally line numbers at the point where the xsnap worker overruns its meter. You have done some instrumentation. Please deepen that instrumentation and attempt to reproduce, and verify that the behavior is a regr
+
+---
+claim:
+  host: endolinbot2
+  gardener: 45
+  claimed_at: 2026-06-29T17:26:58Z
