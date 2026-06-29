@@ -1,23 +1,23 @@
 # Garden bulletin
 
-_As of 2026-06-28T18:19:07Z_
+_As of 2026-06-29T01:52:57Z_
 
 ## Latest
 
-Two jsdoc-lint ratchets are in flight on endo master — promoting `jsdoc/check-tag-names` and `jsdoc/require-param` from warning to error and fixing the handful of defects each surfaces (1 and 4 respectively). Otherwise the board is quiet: the only fresh motion is a gardener recovering a pair of dead-lettered messages back into active work. Nothing new is parked for review, but the maintainer queue still holds 28 PRs awaiting kriskowal, with [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) the longest-waiting at the top of the roadmap-ranked set.
+Two lint-ratchet jobs landed on endojs/endo — `jsdoc/require-param` and `jsdoc/check-tag-names` are now error-level — alongside a pair of deadmail completions tied to a detached garden deploy that engaged the drain and quiesced the fleet. The board is otherwise quiet: no PRs transitioned this interval, and freshly queued work is routine — the hourly scholar library cycles, the Sunday-evening plan recalibration, and a new `improve-library-regenerator-safety-net-timers` job proposing two standing systemd timers to backstop the library's deterministic regenerator. Nothing here needs maintainer attention beyond the 28 PRs still parked for review.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 11h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 18h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 13d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 38d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 37d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 38d)
-- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 38d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 39d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -25,22 +25,27 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (no pending maintainer messages)
 
 ## Board
-### todo (0)
+### todo (9)
+- [`improve-library-regenerator-safety-net-timers`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/improve-library-regenerator-safety-net-timers.md) — Add two standing systemd safety-net timers so the library's deterministic cou...
+- [`plan-recalibrate-20260628-210527`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/plan-recalibrate-20260628-210527.md) — Weekly plan recalibration and grooming (Sunday evening)
+- [`scholar-library-cycle-20260628-183543`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260628-183543.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260628-195014`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260628-195014.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260628-205020`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260628-205020.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260628-215043`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260628-215043.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260628-230522`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260628-230522.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260629-002001`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260629-002001.md) — Hourly scholar library cycle
+- [`scholar-library-cycle-20260629-012012`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260629-012012.md) — Hourly scholar library cycle
+
+### doin (0)
 (none)
 
-### doin (4)
-- [`deadmail-20260628T180747Z-b1b988`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T180747Z-b1b988.md) — Dead-lettered message — pick up its intent
-- [`deadmail-20260628T181513Z-7ea6f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260628T181513Z-7ea6f9.md) — Dead-lettered message — pick up its intent
-- [`ratchet-jsdoc-check-tag-names-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ratchet-jsdoc-check-tag-names-error-endo.md) — ratchet jsdoc/check-tag-names warning → error on endo master (+ fix the 1 def...
-- [`ratchet-jsdoc-require-param-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ratchet-jsdoc-require-param-error-endo.md) — ratchet jsdoc/require-param warning → error on endo master (+ fix the 4 defects)
-
-### tada (548)
+### tada (552)
+- [`ratchet-jsdoc-require-param-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ratchet-jsdoc-require-param-error-endo.md) — Completion report: ratchet-jsdoc-require-param-error-endo
+- [`deadmail-20260628T181513Z-7ea6f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T181513Z-7ea6f9.md) — The deploy is now running detached: it has engaged the drain and is waiting f...
+- [`deadmail-20260628T180747Z-b1b988`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T180747Z-b1b988.md) — Completion report
+- [`ratchet-jsdoc-check-tag-names-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ratchet-jsdoc-check-tag-names-error-endo.md) — Completion report: ratchet-jsdoc-check-tag-names-error-endo
 - [`deadmail-20260628T180657Z-baff19`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T180657Z-baff19.md) — Completion report — deadmail-20260628T180657Z-baff19 (intent of classify-lint...
-- [`scholar-ingest-erights-10`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-erights-10.md) — Completion report
-- [`fu-scholar-ingest-erights-9-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-scholar-ingest-erights-9-2.md) — Completion report
-- [`improve-regenerate-topics-counts`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-regenerate-topics-counts.md) — Completion report
-- [`issue-inbox-watcher-reactji-acknowledge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-inbox-watcher-reactji-acknowledge.md) — Completion report
-- … and 543 more
+- … and 547 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
