@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5959 (525 parent indexes + 5434 children).
+Total section files: 5963 (525 parent indexes + 5438 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7901,6 +7901,13 @@ Total section files: 5959 (525 parent indexes + 5434 children).
 
 - [web--gcp-marketplace-partner-program--product-types-and-partner-program](web--gcp-marketplace-partner-program--product-types-and-partner-program.md)
 - [web--gcp-marketplace-partner-program--saas-integration-and-identity](web--gcp-marketplace-partner-program--saas-integration-and-identity.md)
+
+### web--goldilocks-select-height
+
+- [web--goldilocks-select-height--final-css-and-browser-support](web--goldilocks-select-height--final-css-and-browser-support.md)
+- [web--goldilocks-select-height--intrinsic-min-max-with-calc-size](web--goldilocks-select-height--intrinsic-min-max-with-calc-size.md)
+- [web--goldilocks-select-height--problem-and-default-sizing](web--goldilocks-select-height--problem-and-default-sizing.md)
+- [web--goldilocks-select-height--viewport-margin-and-flip-fallbacks](web--goldilocks-select-height--viewport-margin-and-flip-fallbacks.md)
 
 ### web--miller-equality-argument-passing-rules
 
