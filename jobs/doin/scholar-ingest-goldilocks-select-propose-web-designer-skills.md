@@ -32,3 +32,9 @@ provenance), PLUS a proposal of appropriate web-designer skills (each: purpose +
 cited source it rests on), handed off (bus message / library proposal artifact) for a gardener/
 mentor to author. Flag any proposed skill that needs further source ingestion before it is
 author-ready.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 36
+  claimed_at: 2026-06-29T20:20:07Z
