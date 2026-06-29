@@ -90,3 +90,9 @@ covering items 1–5 above, citing cask and the multibot design, with the timer/
 cadence parameters concrete enough to implement, and an explicit safety argument
 that two leaders never run the singletons concurrently. Design only — no script
 changes in this PR.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 11
+  claimed_at: 2026-06-29T02:22:51Z
