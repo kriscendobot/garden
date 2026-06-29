@@ -1,10 +1,3 @@
 In `scripts/jobs/common.sh`, every journal fetch is wrapped as bare `timeout "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch ...` (call sites: `leader_host` ~line 612, `journal_fetch` ~line 666). Bare `timeout` sends only SIGTERM; git's transport child (`git-remote-https` on a half-open TLS connection) does not reliably die on SIGTERM, so it orphans into the service cgroup — exactly the `garden-reaper.service: Found left-over process <pid> (git) in control group` warnings observed 2026-06-29. Fix: add a `--kill-after=<grace>` (e.g. `GARDEN_FETCH_KILL_AFTER`, default ~10s) and run the git fetch in its own process group (`setsid`/`timeout` already kills the foreground process; use `timeout --kill-after` plus group-kill semantics) so a SIGTERM-ignoring transport child is escalated to SIGKILL. Centralize the two inline `timeout … git fetch` invocations into one helper so the grace policy can't drift between call sites. This mirrors the just-landed gardener `--kill-after` grace (commit a89e9bcda) for the identical SIGTERM-ignoring-child problem.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 94
-  claimed_at: 2026-06-29T20:03:12Z
+<!-- garden-reaped: 2 -->
