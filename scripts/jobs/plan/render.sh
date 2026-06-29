@@ -25,8 +25,12 @@ source "$HERE/lib.sh"
 PLAN_DIR="${1:-${GARDEN_ROOT:-$(cd "$HERE/../../.." && pwd)}/journal/plan}"
 [ -d "$PLAN_DIR" ] || { echo "plan-render: no plan dir at $PLAN_DIR" >&2; exit 0; }
 
-# Pull every record into a single TSV stream: slug, repo, status, size, milestone,
-# pr, target, deps(comma). One awk-free pass using the lib helpers.
+# Pull every record into a single delimited stream: slug, repo, status, size,
+# milestone, pr, target, deps(comma). One awk-free pass using the lib helpers.
+# Fields are joined with US (\037, a NON-whitespace control char), NOT a tab: a
+# tab is an IFS-whitespace character, so `IFS=$'\t' read` silently COLLAPSES an
+# empty field (e.g. a record with a milestone but no size), shifting every later
+# column left. A non-whitespace delimiter preserves empty fields under `read`.
 records_tsv() {
   local f slug repo status size ms pr target deps
   while IFS= read -r f; do
@@ -39,12 +43,12 @@ records_tsv() {
     pr="$(fm_field "$f" pr)"
     target="$(fm_field "$f" target)"
     deps="$(fm_list "$f" depends_on | paste -sd, - 2>/dev/null)"
-    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+    printf '%s\037%s\037%s\037%s\037%s\037%s\037%s\037%s\n' \
       "$slug" "$repo" "${status:-?}" "$size" "$ms" "$pr" "$target" "$deps"
   done < <(list_records "$PLAN_DIR")
 }
 
-TSV="$(records_tsv | LC_ALL=C sort -t$'\t' -k5,5 -k2,2 -k1,1)"
+TSV="$(records_tsv | LC_ALL=C sort -t$'\037' -k5,5 -k2,2 -k1,1)"
 total="$(printf '%s' "$TSV" | grep -c . || true)"
 
 # Header.
@@ -74,18 +78,18 @@ printf '\n## Summary by milestone\n\n'
 printf '| Milestone | Designs | Complete | %% | Est. days (remaining) |\n'
 printf '|---|---|---|---|---|\n'
 # Milestones in natural M-order, plus an "(unfiled)" bucket.
-ms_list="$( { printf '%s\n' "$TSV" | cut -f5; ls "$PLAN_DIR/milestones" 2>/dev/null | sed 's/\.md$//'; } \
+ms_list="$( { printf '%s\n' "$TSV" | cut -d$'\037' -f5; ls "$PLAN_DIR/milestones" 2>/dev/null | sed 's/\.md$//'; } \
   | grep -v '^$' | LC_ALL=C sort -u | sort -t M -k2,2n 2>/dev/null || true)"
 {
   printf '%s\n' "$ms_list"
-  printf '%s\n' "$TSV" | cut -f5 | grep -q '^$' && echo "__unfiled__"
+  printf '%s\n' "$TSV" | cut -d$'\037' -f5 | grep -q '^$' && echo "__unfiled__"
 } | grep -v '^$' | while IFS= read -r ms; do
   key="$ms"; [ "$ms" = "__unfiled__" ] && key=""
-  rows="$(printf '%s\n' "$TSV" | awk -F'\t' -v m="$key" '$5==m')"
+  rows="$(printf '%s\n' "$TSV" | awk -F'\037' -v m="$key" '$5==m')"
   n="$(printf '%s' "$rows" | grep -c . || true)"
   [ "$n" -gt 0 ] || continue
   done_n=0; rem_days=0
-  while IFS=$'\t' read -r slug repo status size mss pr target deps; do
+  while IFS=$'\037' read -r slug repo status size mss pr target deps; do
     [ -n "$slug" ] || continue
     if is_complete_status "$status"; then done_n=$((done_n+1)); else
       d="$(size_days "$PLAN_DIR" "$size")"; rem_days="$(awk -v a="$rem_days" -v b="$d" 'BEGIN{print a+b}')"
@@ -100,7 +104,7 @@ done
 printf '\n## Designs\n\n'
 printf '| Design | Repository | Milestone | Status | Size | PR |\n'
 printf '|---|---|---|---|---|---|\n'
-printf '%s\n' "$TSV" | while IFS=$'\t' read -r slug repo status size ms pr target deps; do
+printf '%s\n' "$TSV" | while IFS=$'\037' read -r slug repo status size ms pr target deps; do
   [ -n "$slug" ] || continue
   printf '| %s | %s | %s | %s | %s | %s |\n' \
     "$slug" "${repo:-?}" "${ms:-—}" "$status" "${size:-—}" "${pr:-—}"
@@ -109,12 +113,12 @@ done
 # Dependency graph (Mermaid). Edges resolve slugs across all repositories; an edge
 # to an unknown slug is dropped (validate.sh surfaces it as a warning separately).
 printf '\n## Dependency graph\n\n'
-have_edges="$(printf '%s\n' "$TSV" | awk -F'\t' '$8!=""{print}' | grep -c . || true)"
+have_edges="$(printf '%s\n' "$TSV" | awk -F'\037' '$8!=""{print}' | grep -c . || true)"
 if [ "$have_edges" -gt 0 ]; then
   printf '```mermaid\nflowchart LR\n'
   # known-slug set for edge filtering
-  known="$(printf '%s\n' "$TSV" | cut -f1)"
-  printf '%s\n' "$TSV" | while IFS=$'\t' read -r slug repo status size ms pr target deps; do
+  known="$(printf '%s\n' "$TSV" | cut -d$'\037' -f1)"
+  printf '%s\n' "$TSV" | while IFS=$'\037' read -r slug repo status size ms pr target deps; do
     [ -n "$slug" ] || continue
     [ -n "$deps" ] || continue
     printf '%s\n' "$deps" | tr ',' '\n' | while IFS= read -r dep; do

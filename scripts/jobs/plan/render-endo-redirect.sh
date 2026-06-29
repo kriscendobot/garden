@@ -43,12 +43,15 @@ records_tsv() {
     created="$(fm_field "$f" created)"
     updated="$(fm_field "$f" updated)"
     pr="$(fm_field "$f" pr)"
-    printf '%s\t%s\t%s\t%s\t%s\n' \
+    # Join with US (\037), NOT a tab: a tab is IFS-whitespace, so `IFS=$'\t' read`
+    # collapses an empty field (e.g. a record missing created/updated), shifting
+    # later columns. A non-whitespace delimiter preserves empty fields under read.
+    printf '%s\037%s\037%s\037%s\037%s\n' \
       "$slug" "${status:-?}" "$created" "$updated" "$pr"
   done < <(list_records "$PLAN_DIR")
 }
 
-TSV="$(records_tsv | LC_ALL=C sort -t$'\t' -k1,1)"
+TSV="$(records_tsv | LC_ALL=C sort -t$'\037' -k1,1)"
 total="$(printf '%s' "$TSV" | grep -c . || true)"
 
 # Render a status cell the way the endo README does: bold the done-ish statuses, and
@@ -92,7 +95,7 @@ bodies; follow a link to read a design's narrative.
 |---|---|---|---|
 EOF
 
-printf '%s\n' "$TSV" | while IFS=$'\t' read -r slug status created updated pr; do
+printf '%s\n' "$TSV" | while IFS=$'\037' read -r slug status created updated pr; do
   [ -n "$slug" ] || continue
   printf '| [%s](%s.md) | %s | %s | %s |\n' \
     "$slug" "$slug" "${created:-—}" "${updated:-—}" "$(status_cell "$status" "$pr")"
