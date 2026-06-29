@@ -779,7 +779,16 @@ GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
 # (DNS / TLS / reset / timeout) GARDEN_OFFLINE_SIGNATURES already names. A failure
 # whose stderr matches NONE of these is DEFINITIVE (a 404/401/403/422 that
 # re-running cannot fix) and is not retried. Matched case-insensitively.
-: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|rate limit|secondary rate|abuse detection|${GARDEN_OFFLINE_SIGNATURES}}"
+#
+# `gh` runs on Go's net/http stack, which emits DIFFERENT timeout/transport wording
+# than git's curl/SSH transport (the offline set). A transient dial/TLS timeout from
+# `gh api` surfaces as e.g. `dial tcp 140.82.116.5:443: i/o timeout` — words the
+# offline set never names — so without the Go signatures below it is misclassified
+# DEFINITIVE and crashes the caller (observed: garden-mirror-closer exit 1 on
+# endojs/endo#3137 at 2026-06-29 21:14:03). These are added to the gh-api set ONLY,
+# never to GARDEN_OFFLINE_SIGNATURES, which classifies git's transport for
+# clone/fetch and must not absorb a Go-only string (e.g. a bare `EOF`) spuriously.
+: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|rate limit|secondary rate|abuse detection|i/o timeout|dial tcp|context deadline exceeded|net/http: TLS handshake timeout|no such host|server misbehaving|\bEOF\b|${GARDEN_OFFLINE_SIGNATURES}}"
 
 # Classify captured gh stderr ($1) as a transient (self-resolving) gh-api failure:
 # returns 0 on a transient signature, 1 on a definitive one. Case-insensitive.

@@ -51,6 +51,16 @@ assert_transient  "You have exceeded a secondary rate limit"  "secondary rate li
 assert_transient  "API rate limit exceeded for user"          "rate limit text"
 assert_transient  "fatal: unable to access: Could not resolve host: api.github.com" "DNS failure (shared offline set)"
 assert_transient  "curl 56 Recv failure: Connection reset by peer" "connection reset (shared offline set)"
+# Go net/http transport wording `gh` emits (distinct from git's curl/SSH set). The
+# #3137 crash signature below must NEVER regress to definitive again.
+assert_transient  'Get "https://api.github.com/repos/endojs/endo/pulls/3137": dial tcp 140.82.116.5:443: i/o timeout' "Go i/o timeout — exact endojs/endo#3137 crash signature"
+assert_transient  "dial tcp 140.82.116.5:443: i/o timeout"   "bare dial-tcp i/o timeout"
+assert_transient  "context deadline exceeded"                "Go context deadline exceeded"
+assert_transient  "net/http: TLS handshake timeout"          "Go TLS handshake timeout"
+assert_transient  "dial tcp: lookup api.github.com: no such host" "Go DNS no such host"
+assert_transient  "dial tcp: lookup api.github.com: server misbehaving" "Go resolver server misbehaving"
+assert_transient  "Post \"https://api.github.com/graphql\": EOF" "Go bare EOF (word-bounded)"
+assert_definitive "gh: Not Found for GEOFFREY (HTTP 404)"     "EOF mid-word (GEOFFREY) must NOT match \\bEOF\\b"
 assert_definitive "gh: Not Found (HTTP 404)"                  "404 — a deleted/transferred resource"
 assert_definitive "gh: Not Found (HTTP 422)"                  "422 — unprocessable"
 assert_definitive "gh: Bad credentials (HTTP 401)"            "401 — auth, will not self-heal"
