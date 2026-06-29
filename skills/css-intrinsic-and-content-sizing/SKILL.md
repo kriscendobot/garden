@@ -154,8 +154,7 @@ The complete, gated CSS for the picker case is in the library section
 - **This is a sizing primitive, not a positioning one.** Keeping a popover off the
   viewport edge, flipping it above its anchor, and anchoring it to a control are
   positioning concerns; this skill only sizes the box. The positioning half is
-  the subject of a future `css-anchor-positioning-and-flip-fallbacks` skill (a
-  source ingest is pending before it can be authored).
+  [css-anchor-positioning-and-flip-fallbacks](../css-anchor-positioning-and-flip-fallbacks/SKILL.md).
 
 ## Output
 

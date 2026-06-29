@@ -30,8 +30,10 @@ to theming (library:
 ## When to use
 
 - A design depends on a CSS feature not yet shipped in every in-scope browser:
-  `calc-size()`, `max-block-size: stretch`, anchor positioning, `:has()`,
-  container queries, `field-sizing`, anything on the modern edge.
+  `calc-size()`, `max-block-size: stretch`,
+  [anchor positioning](../css-anchor-positioning-and-flip-fallbacks/SKILL.md)
+  (`position-try-order`, anchored container queries), `:has()`, container queries,
+  `field-sizing`, anything on the modern edge.
 - You need the design to be **usable**, not just non-broken, on the engines that
   lack the feature: a fallback that approximates the intent rather than collapsing
   to nothing.

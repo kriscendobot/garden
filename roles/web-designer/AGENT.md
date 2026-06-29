@@ -38,6 +38,12 @@ role.
   express colors/spacing as `:root` custom-property tokens derived from a named
   authority, with scheme-aware overrides and a per-token rationale table. Reach
   for it on any multi-scheme or brandable surface.
+- [css-anchor-positioning-and-flip-fallbacks](../../skills/css-anchor-positioning-and-flip-fallbacks/SKILL.md):
+  anchor a popover/menu/tooltip/picker to a control with `anchor()` /
+  `anchor-size()` / `position-area` and keep it on-screen with
+  `position-try-fallbacks` and the `flip-*` tactics. Reach for it when a floating
+  element must be pinned to a control and resilient at the viewport edge — the
+  positioning counterpart to `css-intrinsic-and-content-sizing`.
 - (Base designer skills still apply: [library-lookup], [prompt-section-discovery],
   [cherry-pick-followup], [worktree-per-pr].)
 
