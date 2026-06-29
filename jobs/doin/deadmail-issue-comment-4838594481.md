@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/9#issuecomment-4838594481
 I believe you have everything you need now to reproduce the issue on real chain state, but more importantly verify that the hex fix addresses the issue. Please continue. Also, note that the chain snapshot is very large and may be useful again, so lets capture it in a cache direct
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 76
+  claimed_at: 2026-06-29T23:56:28Z
