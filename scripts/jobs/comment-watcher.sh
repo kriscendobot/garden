@@ -595,19 +595,49 @@ ack_or_log_slide() {  # ack_or_log_slide <reason> <surface> <cid> <author> <url>
 # EXIT-only trap (the prior shape) never ran on a signalled stop and never reaped
 # them. Fix, mirroring the gardener graceful-drain pattern (commit b3074e154,
 # KillMode=mixed + a SIGTERM trap): launch the source under `timeout` — which,
-# NOT being --foreground, runs it in its OWN process group — remember the timeout
-# pid, and on EXIT/INT/TERM forward a TERM to it. `timeout` forwards a received
-# signal to its command's whole process group, so gh and every forked git die
-# with the tick even any that already reparented (a PGID is stable across
-# reparenting). The unit's KillMode=mixed makes this trap the authoritative
-# reaper (the initial SIGTERM reaches only the main process, not the whole
-# cgroup), with the cgroup-wide SIGKILL backstop catching anything that ignores
-# TERM.
+# NOT being --foreground, `setpgid(0,0)`s ITSELF before forking, so the whole
+# subtree (timeout → source → gh → every forked git/credential-helper) shares ONE
+# process group whose PGID == timeout's PID.
+#
+# The earlier shape was still leaking — the 20:57:54 tick logged three left-over
+# git children — because the trap (a) signalled only the timeout PID, relying on
+# timeout to forward the TERM, and (b) `exit`ed IMMEDIATELY without waiting, so
+# the watcher (and thus self-heal-run.sh, the unit's MAIN process) was already
+# gone while gh/git were still mid-network-syscall, dying asynchronously in the
+# cgroup — and the next 90s timer firing raced that drain. The hardened reap:
+#   1. Signal the NEGATED PGID directly (`kill -TERM -<pgid>`), so the TERM hits
+#      every descendant at once — not just timeout — including any that already
+#      reparented (a PGID is stable across reparenting). Fall back to TERMing the
+#      pid alone (timeout then forwards) if the group send is refused.
+#   2. BLOCK on `wait` until the subtree is actually gone before we exit. timeout's
+#      --kill-after escalates the group to SIGKILL if a git child ignores/outraces
+#      the TERM, so wait returns only once the group is fully drained. The unit's
+#      cgroup is therefore EMPTY by the time the main process exits, so the next
+#      start cannot find a left-over git in the control group.
+# A straggler that gh placed in a DIFFERENT process group (so neither the negated-
+# PGID send nor timeout's group-KILL can reach it) is caught by the unit's
+# cgroup-wide SIGKILL backstop, which garden-comment-watcher@.service now bounds
+# with a SHORT TimeoutStopSec so it fires well before the 90s tick.
 SRC="$(mktemp)"; ERRF="$(mktemp)"
 SOURCE_TIMEOUT_PID=""
 cleanup() {
   rm -f "$SRC" "$ERRF"
-  [ -n "$SOURCE_TIMEOUT_PID" ] && kill -TERM "$SOURCE_TIMEOUT_PID" 2>/dev/null || true
+  local pid="$SOURCE_TIMEOUT_PID"
+  SOURCE_TIMEOUT_PID=""                 # idempotent: the TERM and EXIT traps both fire
+  [ -n "$pid" ] || return 0
+  # TERM the whole process group (negated PGID == timeout's pid); fall back to the
+  # bare pid (timeout forwards) if the host's kill refuses the group form.
+  kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
+  # Wait for `timeout` to exit, then SIGKILL the whole group as a hard backstop.
+  # `timeout`'s own --kill-after only escalates while its MONITORED child is alive;
+  # if the source's bash wrapper dies on the TERM but leaves a TERM-ignoring
+  # grandchild (a git mid-network-syscall), `timeout` exits without SIGKILLing it.
+  # The group send below fells that straggler synchronously, so the cgroup is empty
+  # before we exit — covering the in-group case the timer-firing race exposed. (A
+  # straggler gh placed in a DIFFERENT group is still out of reach here; the unit's
+  # short TimeoutStopSec cgroup-wide SIGKILL is the backstop for that.)
+  wait "$pid" 2>/dev/null || true
+  kill -KILL "-$pid" 2>/dev/null || true
 }
 trap 'cleanup' EXIT
 trap 'cleanup; exit 143' TERM
@@ -618,6 +648,10 @@ trap 'cleanup; exit 130' INT
 # (Overridable; the source enumerates every open PR via paginated REST, so give it
 # generous headroom over a normal tick rather than a tight cap.)
 : "${GARDEN_COMMENT_SOURCE_TIMEOUT_SECS:=180}"
+# --kill-after grace before SIGKILL escalates a TERM-ignoring source group. This is
+# also what bounds the cleanup trap's `wait` on a stop, so it doubles as the upper
+# bound on how long a signalled stop blocks reaping a mid-syscall git child.
+: "${GARDEN_COMMENT_KILL_AFTER:=10s}"
 # Capture the source's stderr (do NOT 2>/dev/null it) so a loud failure inside the
 # handler — e.g. require_tools' "jq missing" die — surfaces in the watcher's death
 # instead of being swallowed (the silent-empty trap that hid the 2026-06-24 outage).
@@ -625,7 +659,7 @@ src_rc=0
 if command -v timeout >/dev/null 2>&1; then
   # Background + wait so the trap can TERM the timeout pid (and thus its whole
   # process group) the instant a signal lands mid-fetch.
-  timeout --signal=TERM --kill-after=10s "${GARDEN_COMMENT_SOURCE_TIMEOUT_SECS}s" \
+  timeout --signal=TERM --kill-after="$GARDEN_COMMENT_KILL_AFTER" "${GARDEN_COMMENT_SOURCE_TIMEOUT_SECS}s" \
     "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" &
   SOURCE_TIMEOUT_PID=$!
   wait "$SOURCE_TIMEOUT_PID" || src_rc=$?

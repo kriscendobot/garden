@@ -18,11 +18,24 @@ SuccessExitStatus=143 130 SIGTERM SIGINT
 # control group while starting unit". KillMode=mixed instead sends the initial
 # SIGTERM ONLY to the main process (self-heal-run.sh, which forwards it to
 # comment-watcher.sh); the watcher's EXIT/INT/TERM trap then reaps the source's
-# whole process group (gh + every git child) deterministically, and the cgroup-wide
-# SIGKILL backstop at TimeoutStopSec catches anything that ignores TERM. Mirrors
-# garden-gardener@.service (commit b3074e154). The source is itself bounded by a
-# `timeout` in comment-watcher.sh, so the default TimeoutStopSec is ample headroom.
+# whole process group (gh + every git child) deterministically — signalling the
+# negated PGID and then WAITING for the group to drain so the cgroup is empty
+# before the main process exits — and the cgroup-wide SIGKILL backstop at
+# TimeoutStopSec catches anything the process-group reap cannot reach (e.g. a gh
+# child placed in its OWN process group). Mirrors garden-gardener@.service
+# (commit b3074e154).
 KillMode=mixed
+# Short stop timeout: the comment poll holds NO in-flight work worth preserving (a
+# killed tick simply re-polls next firing — the cursor only advances on a verified
+# post), so unlike garden-gardener@.service (TimeoutStopSec=2700, which waits for
+# an in-flight job to finish) we do NOT wait minutes on stop. The 20:57:54 leak
+# was a straggler git surviving the stop and lingering into the next start: the
+# default 90s DefaultTimeoutStopSec let the cgroup-wide SIGKILL backstop fire only
+# at ~90s, racing the 90s timer that fires the next instance. A SHORT bound makes
+# the backstop SIGKILL any straggler the process-group reap missed WELL BEFORE the
+# next firing. 20s is ample for the trap's TERM→drain (itself bounded by the
+# source `timeout`'s 10s --kill-after) yet far below the 90s cadence.
+TimeoutStopSec=20s
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # Leader-only singleton: run only on the host whose GARDEN identity matches the
 # journal `leader` marker. On a follower the timer still fires but this

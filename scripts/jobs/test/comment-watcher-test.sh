@@ -23,6 +23,29 @@ ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 hr()  { echo "----------------------------------------------------------------"; }
 
+# rc 0 iff <pid> is a process that is still RUNNING (not gone, not a zombie). A
+# killed-but-not-yet-collected child is a zombie reparented to a subreaper; it
+# holds no cgroup resource and `kill -0` still succeeds on it, so distinguish it
+# from a live process by its /proc state. Used by the signal-reaping cases to
+# assert the source subtree is felled the instant the watcher exits, with no flaky
+# grace loop hiding a zombie-reaping delay.
+proc_running() {  # proc_running <pid>
+  local p="$1" st
+  kill -0 "$p" 2>/dev/null || return 1                       # gone entirely
+  # State is the first token after the final `) ` — robust to a comm with parens.
+  st="$(awk '{ s=$0; sub(/^.*\) /,"",s); print substr(s,1,1) }' "/proc/$p/stat" 2>/dev/null || echo Z)"
+  [ "$st" != Z ]
+}
+# rc 0 if <pid> stops RUNNING within ~3s. The grace only absorbs sub-ms kernel
+# signal-delivery jitter after the watcher's reap; a reap REGRESSION leaves the
+# source child alive for its full 600s sleep, far past this window, so a short
+# bound discriminates cleanly without flaking.
+reaped_within() {  # reaped_within <pid>
+  local p="$1" _
+  for _ in $(seq 1 30); do proc_running "$p" || return 0; sleep 0.1; done
+  proc_running "$p" && return 1 || return 0
+}
+
 rm -rf "$TR"; mkdir -p "$TR"
 git_id=(-c user.name=test -c user.email=test@localhost)
 
@@ -818,13 +841,18 @@ fi
 # must leave NO source descendants behind. The source's `gh --paginate` forks git
 # credential helpers; the prior EXIT-only trap never ran on a signalled stop, so
 # those gh/git children orphaned into the unit cgroup and the next start flagged
-# "Found left-over process (git) in control group while starting unit". The fix
-# runs the source under `timeout` (its own process group) and reaps that group
-# from an EXIT/INT/TERM trap. Here a source stub stands in for the hung fetch:
-# it spawns a long-lived child (recording its pid), then blocks — so the watcher
-# is parked in the source call when the SIGTERM lands. Assert the child is gone
-# after the stop.
-hr; echo "FF — SIGTERM mid-tick reaps the source subtree (no left-over gh/git)"; hr
+# "Found left-over process (git) in control group while starting unit". Even the
+# trap-based shape kept leaking (the 20:57:54 tick logged three left-over git):
+# it signalled only the timeout pid and `exit`ed IMMEDIATELY, so the watcher was
+# gone while the subtree was still dying asynchronously, and the next 90s tick
+# raced that drain. The hardened reap signals the negated PGID directly and then
+# WAITS for the group to drain before exiting. Here a source stub stands in for
+# the hung fetch: it spawns a long-lived child (recording its pid), then blocks —
+# so the watcher is parked in the source call when the SIGTERM lands. The key
+# assertion is that the child is gone the INSTANT the watcher exits (a SYNCHRONOUS
+# reap), with no grace loop — a regression to the fire-and-forget shape, where the
+# child dies a beat AFTER the watcher exits, fails this.
+hr; echo "FF — SIGTERM mid-tick SYNCHRONOUSLY reaps the source subtree (no left-over gh/git)"; hr
 SIGSRC="$TR/sig-source.sh"; CHILDPID="$TR/sig-child.pid"; rm -f "$CHILDPID"
 cat > "$SIGSRC" <<EOF
 #!/bin/bash
@@ -855,15 +883,67 @@ if [ -n "$CPID" ] && kill -0 "$CPID" 2>/dev/null; then
 else
   bad "source child never started — cannot exercise the reap (CPID='$CPID')"
 fi
-# SIGTERM the watcher (the systemd-stop signal under KillMode=mixed) and let it drain.
+# SIGTERM the watcher (the systemd-stop signal under KillMode=mixed) and let it
+# drain. The watcher's trap must not return until the whole source group is gone,
+# so when `wait "$WPID"` returns the child is ALREADY reaped — assert that with NO
+# grace loop (a fire-and-forget regression leaves the child briefly alive here).
 kill -TERM "$WPID" 2>/dev/null || true
 wait "$WPID" 2>/dev/null || true
-# Give the forwarded process-group TERM a beat to land, then assert the child died.
 if [ -n "$CPID" ]; then
-  for _ in $(seq 1 50); do kill -0 "$CPID" 2>/dev/null || break; sleep 0.1; done
-  kill -0 "$CPID" 2>/dev/null \
-    && { bad "left-over child survived the SIGTERM (pid $CPID still alive)"; kill -KILL "$CPID" 2>/dev/null || true; } \
-    || ok "no left-over gh/git child after SIGTERM (source subtree reaped)"
+  if reaped_within "$CPID"; then
+    ok "no left-over gh/git child once the watcher exited (source subtree reaped)"
+  else
+    bad "left-over child still running after the watcher exited (pid $CPID) — not reaped"
+    kill -KILL "$CPID" 2>/dev/null || true
+  fi
+fi
+
+# ----------------------------------------------------------------------------
+# FF2 — the same reap, but the source child IGNORES SIGTERM (a git mid-network
+# syscall that outraces TERM). The trap's process-group TERM alone cannot fell it;
+# the `timeout` wrapping the source escalates the group to SIGKILL via --kill-after
+# and the watcher's `wait` blocks until that lands — so the child is STILL gone
+# when the watcher exits. This pins the escalation path the leak depended on.
+hr; echo "FF2 — a TERM-ignoring source child is SIGKILL-escalated and reaped before exit"; hr
+SIGSRC2="$TR/sig-source2.sh"; CHILDPID2="$TR/sig-child2.pid"; rm -f "$CHILDPID2"
+cat > "$SIGSRC2" <<EOF
+#!/bin/bash
+# stand in for a git child that ignores TERM mid-syscall: fork a child that traps
+# and ignores SIGTERM, record its pid, then block. Only a SIGKILL fells it.
+( trap '' TERM; exec sleep 600 ) &
+echo \$! > "$CHILDPID2"
+wait
+EOF
+chmod +x "$SIGSRC2"
+BARE_FF2="$TR/ff2.git"; seed_bare "$BARE_FF2"
+# Shorten the source timeout's SIGKILL escalation so the test does not wait the
+# full 10s default; the watcher reads --kill-after from GARDEN_COMMENT_KILL_AFTER.
+env GARDEN_STATE="$TR/state-ff2" JOURNAL_REMOTE="$BARE_FF2" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" \
+    CW_FIXTURE="$EMPTY_FIX" CW_REACTJI_LOG="$TR/react-ff2.log" \
+    GARDEN_COMMENT_SOURCE="$SIGSRC2" \
+    GARDEN_COMMENT_KILL_AFTER=2s \
+    GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+    GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+    GARDEN_COMMENT_FALLBACK=/bin/false \
+    GARDEN_COMMENT_TRUST=/bin/false \
+    GARDEN_TRUSTED_ALLOWLIST=/dev/null \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1 &
+WPID2=$!
+for _ in $(seq 1 100); do [ -s "$CHILDPID2" ] && break || sleep 0.1; done
+CPID2="$(cat "$CHILDPID2" 2>/dev/null || true)"
+[ -n "$CPID2" ] && proc_running "$CPID2" \
+  && ok "TERM-ignoring source child alive mid-tick (child pid $CPID2)" \
+  || bad "TERM-ignoring source child never started (CPID2='$CPID2')"
+kill -TERM "$WPID2" 2>/dev/null || true
+wait "$WPID2" 2>/dev/null || true
+if [ -n "$CPID2" ]; then
+  if reaped_within "$CPID2"; then
+    ok "TERM-ignoring child SIGKILL-escalated and reaped after the watcher's stop"
+  else
+    bad "TERM-ignoring child still running (pid $CPID2) — SIGKILL escalation did not reap it"
+    kill -KILL "$CPID2" 2>/dev/null || true
+  fi
 fi
 
 # ============================================================================
