@@ -18,6 +18,7 @@ CSS **intrinsic / content-based sizing** is sizing a box from its content (`fit-
 
 ## See also
 
+- [[customizable-select]] — the native control whose `::picker(select)` this sizing technique sizes; that concept covers the control's markup, parts, accessibility, and opt-in (`appearance: base-select`).
 - [[progressive-enhancement-supports]] — `calc-size()`'s Chrome-only status forces an `@supports`-gated fallback; the two concepts are used together.
 
 ## Common confusions
