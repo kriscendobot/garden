@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T17:27:20Z_
+_As of 2026-06-29T17:30:55Z_
 
 ## Latest
 
-Garden-internal infra hardening dominated this window: the scholar preflight now gates on an actionable broadcast marker (filtering out non-actionable wakes), read-only `gh` API handlers gained a bounded transient-retry, and a [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) attention directive completed. A fresh attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) was just claimed and is in progress. A scholar library-ingest cycle and the daily progress periodical also landed. No upstream Endo PRs advanced — the 29 parked PRs (oldest now [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) at ~40 days) remain idle awaiting kriskowal's review.
+Garden-infra work dominated this interval: the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) attention-directive job and [kriskowal/garden#10](https://github.com/kriskowal/garden/issues/10) job both completed, alongside three reliability landings — a scholar-preflight broadcast-actionability filter, a bounded transient-retry for read-only `gh` API handlers, and a full-jitter idle-poll backoff for the gardener. Two jobs are now in flight: picking up the intent of a dead-lettered issue comment, and an investigation into the ymax0 XS stack-overflow (symbolicated trace + beta2 regression cross-check). No external-repo PRs moved — the 29 parked PRs all still await kriskowal, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 13d) and the long-tail design/test PRs on endo-but-for-bots stretching back 38–40 days.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriskowal-garden-pr9-8e3123c4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-8e3123c4.md) — attention directive on kriskowal/garden PR #9
+### doin (2)
+- [`deadmail-issue-comment-4835251662`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4835251662.md) — Dead-lettered message — pick up its intent
+- [`investigate-ymax0-xs-overflow-symbolicated-stack-trace`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-ymax0-xs-overflow-symbolicated-stack-trace.md) — symbolicated XS overflow stack trace + beta2 regression cross-check (ymax0 v3...
 
-### tada (574)
+### tada (575)
+- [`kriskowal-garden-pr9-8e3123c4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-8e3123c4.md) — Completion report — kriskowal-garden-pr9-8e3123c4 (attention directive, garde...
 - [`improve-scholar-preflight-broadcast-actionability-filter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-preflight-broadcast-actionability-filter.md) — Completion report
 - [`scholar-library-cycle-20260629-163514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-163514.md) — Completion report
 - [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-handler-transient-retry.md) — Completion report
 - [`kriskowal-garden-pr10-a0f4629c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr10-a0f4629c.md) — Completion report
-- [`daily-progress-summary-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260629-142049.md) — The periodical is landed and confirmed on origin/journal2. Writing my complet...
-- … and 569 more
+- … and 570 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
