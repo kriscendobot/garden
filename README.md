@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-29T16:07:45Z_
+_As of 2026-06-29T16:35:29Z_
 
 ## Latest
 
-The only board movement since the last bulletin is the completion of [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-handler-transient-retry.md), which hardens the GitHub API handler with transient-failure retries — a reliability fix to the fleet's API plumbing. The board is otherwise quiet (todo and doin both empty), and the parked queue is unchanged: 29 PRs still await kriskowal's review, the oldest stretching back nearly six weeks ([endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266), [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#186](https://github.com/endojs/endo-but-for-bots/pull/186), and [#182](https://github.com/endojs/endo-but-for-bots/pull/182)).
+The board is quiet — the only motion since the last bulletin is a gardener claiming the hourly [`scholar-library-cycle`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260629-163514.md), now running in `doin` with `todo` empty. Recently landed garden infra worth noting from the completion stream: bounded transient-retry for the read-only `gh` API handlers (`gh_api_retry`), the scholar preflight wired into the live schedule, and the daily progress summary for 2026-06-29. No new PRs entered the pipeline and nothing parked changed state; the 29 PRs awaiting kriskowal's review (oldest still the 38–40d-old [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186), and [#101](https://github.com/endojs/endo-but-for-bots/pull/101)) are unmoved, and the retention-paths follow-on remains blocked on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 7h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 8h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`scholar-library-cycle-20260629-163514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260629-163514.md) — Hourly scholar library cycle
 
 ### tada (572)
 - [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-handler-transient-retry.md) — Completion report
