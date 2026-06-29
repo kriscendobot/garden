@@ -27,3 +27,9 @@ smuggling it into the hex PR's diff would muddy that PR. Fixing at master clears
 blocked PRs at once.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 13
+  claimed_at: 2026-06-29T20:33:26Z
