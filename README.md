@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T19:31:24Z_
+_As of 2026-06-29T19:38:30Z_
 
 ## Latest
 
-A reliability fix landed: [`improve-timeout-kill-after-prevents-gardener-wedge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-timeout-kill-after-prevents-gardener-wedge.md) completed, tightening the `timeout --kill-after` guard so a hung handler can no longer wedge a gardener. The board is otherwise quiet — nothing in todo or doin, and the parked queue still leads with the design and feature PRs awaiting kriskowal's eyes, notably the freshest two, [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (the overarching @endo/gateway design) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (the EndoRegistry capability layer).
+Gardener-reliability hardening landed this cycle: a `--kill-after` grace period now prevents a SIGTERM-ignoring handler from wedging a worker, and handler-timeout `rc=124` is reclassified as a transient wall-clock kill so jobs retry instead of failing hard. The shepherd ran on [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) and surfaced a blocker worth the maintainer's attention — the fork's `master` needs `packages/orchestration/src/fetched-chain-info.js` regenerated to clear a `test-codegen` failure that gates CI on both [#6](https://github.com/kriscendobot/agoric-sdk/pull/6) and [#7](https://github.com/kriscendobot/agoric-sdk/pull/7); it's out of autonomous scope, so it's parked in your inbox for a go/no-go on regenerating that file at master. The ymax0 XS stack-overflow investigation also completed with a symbolicated trace.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,10 @@ A reliability fix landed: [`improve-timeout-kill-after-prevents-gardener-wedge`]
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260629T193823Z-7cbf73` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260629T193823Z-7cbf73.md)
+
+> shepherd report on kriscendobot/agoric-sdk PR #7 flags that the fork's `master` needs `packages/orchestration/src/fetched-chain-info.js` regenerated to clear the `test-codegen` failure that blocks CI on bot-fork PRs #6 and #7 alike. It's out of scope for this hex PR and better fixed at master than smuggled into the diff — but agoric-sdk is outside this service's autonomous-JOB scope, so I'm surfacing it for your call on regenerating that file on the fork's master.
+
 
 ## Board
 ### todo (0)
