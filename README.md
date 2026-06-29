@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T20:21:04Z_
+_As of 2026-06-29T20:31:12Z_
 
 ## Latest
 
-A cluster of gardener-reliability fixes landed this cycle, all aimed at keeping a stuck worker from wedging the fleet: a `--kill-after` grace so a SIGTERM-ignoring handler can't hang, reaper escalation when a fetch gets stuck, a fetch-timeout kill-after grace, and reclassification of handler-timeout `rc=124` as a transient wall-clock kill rather than a hard failure. The shepherd also drove [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) on the experimentation fork. Two jobs remain in flight — regenerating `fetched-chain-info.js` on the agoric-sdk fork and a scholar ingest proposing web-designer skills — and the todo board is otherwise drained.
+A cluster of fleet-reliability hardening landed: the reaper now escalates a stuck journal fetch to SIGKILL across the whole subtree, and `timeout --kill-after` grace was added to both the fetch and handler paths so a SIGTERM-ignoring child can no longer orphan or wedge a gardener. Two more gardener-robustness fixes are in flight — adding `KillMode`/`TimeoutStop` to the `garden-gardener@` unit and correcting the rc=143/137 elapsed-on-external-kill classification in `gardener.sh`. On the agoric-sdk fork, the shepherd finished driving [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) and a rebase-onto-master job for it is now claimed, alongside the ongoing `fetched-chain-info.js` regeneration. The scholar also wrapped its goldilocks ingest and proposed a web-designer CSS-skills authoring task, which is now in progress. No new maintainer-facing PRs moved; the parked review queue is unchanged.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,20 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (5)
+- [`agoric-sdk-fork-rebase-pr-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-rebase-pr-7.md) — Rebase kriscendobot/agoric-sdk PR #7 onto master
 - [`agoric-sdk-fork-regen-fetched-chain-info-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-regen-fetched-chain-info-master.md) — Regenerate fetched-chain-info.js on kriscendobot/agoric-sdk — PR to the fork'...
-- [`scholar-ingest-goldilocks-select-propose-web-designer-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-goldilocks-select-propose-web-designer-skills.md) — Scholar: ingest "Goldilocks select height" + propose web-designer skills
+- [`author-web-designer-css-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-web-designer-css-skills.md) — Author web-designer CSS skills (scholar proposal)
+- [`improve-gardener-graceful-stop-killmode-timeoutstop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-graceful-stop-killmode-timeoutstop.md) — The gardener systemd unit scripts/systemd/garden-gardener@.service lacks Kill...
+- [`improve-gardener-log-handler-elapsed-on-external-kill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-log-handler-elapsed-on-external-kill.md) — In scripts/jobs/gardener.sh, the transient rc=143/137 classification folds in...
 
-### tada (582)
+### tada (583)
+- [`scholar-ingest-goldilocks-select-propose-web-designer-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-goldilocks-select-propose-web-designer-skills.md) — Completion report — scholar-ingest-goldilocks-select-propose-web-designer-skills
 - [`improve-reaper-stuck-fetch-kill-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-stuck-fetch-kill-escalation.md) — Completion report — improve-reaper-stuck-fetch-kill-escalation
 - [`improve-fetch-timeout-kill-after-grace`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-timeout-kill-after-grace.md) — Completion report
 - [`improve-timeout-kill-after-prevents-gardener-wedge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-timeout-kill-after-prevents-gardener-wedge.md) — Completion report
 - [`shepherd-kriscendobot-agoric-sdk-pr7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-kriscendobot-agoric-sdk-pr7.md) — What I did
-- [`improve-classify-handler-timeout-rc124-as-external-kill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-handler-timeout-rc124-as-external-kill.md) — Completion report
-- … and 577 more
+- … and 578 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
