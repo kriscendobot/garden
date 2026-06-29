@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-29T21:05:19Z_
+_As of 2026-06-29T21:15:34Z_
 
 ## Latest
 
-The garden landed the `native-customizable-form-control-styling` skill — the fifth web-frontend CSS technique for the web-designer/web-builder roles, covering native `<select>` styling via `appearance: base-select` behind an `@supports` fallback — closing out the recent run of scholar-grounded web-design skills (anchor-positioning-and-flip-fallbacks and the MDN customizable-select ingest both completed in the same window). The comment-watcher also gained child-reaping on signal. The board is now fully drained (todo, doin, and watch set all empty), so nothing is in flight; the standing ask is maintainer review on the 29 parked PRs, the oldest being [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [#101](https://github.com/endojs/endo-but-for-bots/pull/101) (39–40 days waiting), with [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules) at 14 days.
+Garden-internal skill and infra work landed since the last bulletin. Three web-frontend CSS skills were authored — `native-customizable-form-control-styling` (native `<select>` via `appearance: base-select`), `css-anchor-positioning-and-flip-fallbacks`, each grounded in a freshly ingested MDN/CSSWG scholar reference — rounding out the web-designer/web-builder toolkit. On the reliability side, the comment-watcher now reaps its source-subtree children on signal, and a self-heal job is in flight to add Go `net/http` transient-failure signatures to the mirror-closer's gh-api retry classifier. No PR pipeline movement; the parked queue holds steady at 29 awaiting kriskowal, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 14d) and the long-stale [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182)/[#186](https://github.com/endojs/endo-but-for-bots/pull/186) (38d).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 12h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 13h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 12h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures.md) — Add the Go net/http transient-failure signatures to the gh-api retry classifi...
 
 ### tada (595)
 - [`author-native-customizable-form-control-styling-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-native-customizable-form-control-styling-skill.md) — Completion report
