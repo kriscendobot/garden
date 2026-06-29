@@ -52,14 +52,20 @@ if [ -n "$floor" ] && [ "$since" \< "$floor" ]; then since="$floor"; fi
 
 oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 
+# Every `gh api` here is `gh_api_retry` (common.sh): a TRANSIENT blip (5xx / 429 /
+# DNS-TLS-reset) is ridden out under full-jitter backoff before the call gives up,
+# so a single GitHub flake no longer blanks an endpoint; a DEFINITIVE 404 is not
+# retried and falls through to the same degrade path.
+#
 # Stderr policy: gh carries `2>/dev/null` to suppress EXPECTED-empty noise (404 /
-# idle windows). jq carries NO `2>/dev/null`: a jq parse error is a real fault that
-# must surface. The `|| true` tolerates a transient gh blip on one endpoint without
-# aborting the other; a truly missing jq can no longer reach here (require_tools).
+# idle windows) AND gh_api_retry's own retry/WARN lines. jq carries NO `2>/dev/null`:
+# a jq parse error is a real fault that must surface. The `|| true` tolerates a
+# transient gh blip on one endpoint without aborting the other; a truly missing jq
+# can no longer reach here (require_tools).
 
 # 1) NEW ISSUES (exclude PRs). The issues API `since=` filters by UPDATED_AT, so we
 #    additionally select created_at >= since to keep this to genuinely-new issues.
-gh api --paginate "repos/$repo/issues?state=all&since=$since&sort=created&direction=asc&per_page=100" 2>/dev/null \
+gh_api_retry --paginate "repos/$repo/issues?state=all&since=$since&sort=created&direction=asc&per_page=100" 2>/dev/null \
   | jq -r --arg s "$since" "
       .[] | select(has(\"pull_request\") | not) | select(.created_at >= \$s)
       | [ \"issue\", .created_at, (.id|tostring), (.number|tostring),
@@ -75,14 +81,14 @@ issue_meta() {  # issue_meta <number> -> echoes submitter \t state \t closed_by 
   if [ -n "${_ISSUE_META[$n]+x}" ]; then printf '%s' "${_ISSUE_META[$n]}"; return; fi
   # closed_by AND closed_at use a '-' sentinel when empty so the TAB-IFS `read` below
   # does not collapse an empty middle field and mis-assign is_pr (see watcher's note).
-  raw="$(gh api "repos/$repo/issues/$n" 2>/dev/null \
+  raw="$(gh_api_retry "repos/$repo/issues/$n" 2>/dev/null \
          | jq -r '[ .user.login, .state, (.closed_by.login // "-"), (.closed_at // "-"),
                     (if has("pull_request") then "pr" else "issue" end) ] | @tsv' \
          | head -1 || true)"
   _ISSUE_META[$n]="$raw"; printf '%s' "$raw"
 }
 
-gh api --paginate "repos/$repo/issues/comments?since=$since&sort=created&direction=asc&per_page=100" 2>/dev/null \
+gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&sort=created&direction=asc&per_page=100" 2>/dev/null \
   | jq -r --arg s "$since" "
       .[] | select(.created_at >= \$s)
       | [ .created_at, (.id|tostring),

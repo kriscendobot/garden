@@ -1,0 +1,142 @@
+#!/bin/bash
+# gh-api-retry-test.sh — regression guard for the bounded read-only gh-api retry
+# helper (common.sh gh_api_retry + _gh_api_stderr_is_transient).
+#
+# Regression: every read-only gh handler in the watcher fleet issued a SINGLE bare
+# `gh api … --jq … || die`. One transient GitHub blip (a 5xx / 429 / DNS-TLS-reset)
+# on that call escalated an otherwise self-healing tick into a FATAL + nonzero exit
+# and marked the systemd unit Failed even though the next probe would have
+# succeeded — observed on mirror-pr-state for endojs/endo#3137 at 2026-06-29
+# 15:26:06, which self-healed one tick later. gh_api_retry wraps the call in a
+# bounded full-jitter retry loop so a transient blip is absorbed, WITHOUT weakening
+# the "never guess a state" discipline: a definitive 404 is not retried (fast +
+# loud), an exhausted transient still fails (nonzero, empty), only a clean success
+# prints.
+#
+# SUBTEST 1 drives the pure classifier _gh_api_stderr_is_transient directly.
+# SUBTEST 2 drives gh_api_retry end-to-end against a stub `gh` on PATH that is
+# scripted (via a counter file) to fail-then-succeed, fail-always-transient, or
+# fail-definitively, asserting the retry count, the returned payload, the exit
+# code, and that stdout stays empty on every failure path.
+#
+# Usage: gh-api-retry-test.sh
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+JOBS="$(cd "$HERE/.." && pwd)"
+PASS=0; FAIL=0
+ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
+bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
+hr()  { echo "----------------------------------------------------------------"; }
+
+# Scrub ambient fleet env (a live gardener running this test as a board job would
+# otherwise splice its own GARDEN_*/JOURNAL_* state underneath the fixture; see
+# run-test.sh § hermetic baseline).
+unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+
+# Keep the retries instant: a zero backoff window means the loop spins with no real
+# sleep, so the test is fast and clock-independent.
+export GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0
+
+# shellcheck source=../common.sh
+source "$JOBS/common.sh"
+
+# ============================================================================
+hr; echo "SUBTEST 1 — _gh_api_stderr_is_transient: 5xx/429/network transient, 4xx definitive"; hr
+assert_transient()   { if _gh_api_stderr_is_transient "$1"; then ok "transient: $2"; else bad "NOT transient (expected transient): $2 [$1]"; fi; }
+assert_definitive()  { if _gh_api_stderr_is_transient "$1"; then bad "transient (expected definitive): $2 [$1]"; else ok "definitive: $2"; fi; }
+assert_transient  "gh: Server Error (HTTP 503)"                 "503 gateway/overload"
+assert_transient  "gh: Bad Gateway (HTTP 502)"                 "502 bad gateway"
+assert_transient  "gh: (HTTP 429)"                             "429 throttle"
+assert_transient  "You have exceeded a secondary rate limit"  "secondary rate limit (a 403 variant)"
+assert_transient  "API rate limit exceeded for user"          "rate limit text"
+assert_transient  "fatal: unable to access: Could not resolve host: api.github.com" "DNS failure (shared offline set)"
+assert_transient  "curl 56 Recv failure: Connection reset by peer" "connection reset (shared offline set)"
+assert_definitive "gh: Not Found (HTTP 404)"                  "404 — a deleted/transferred resource"
+assert_definitive "gh: Not Found (HTTP 422)"                  "422 — unprocessable"
+assert_definitive "gh: Bad credentials (HTTP 401)"            "401 — auth, will not self-heal"
+assert_definitive ""                                          "no stderr at all → not provably transient"
+
+# ============================================================================
+hr; echo "SUBTEST 2 — gh_api_retry: retry transient, return payload, never guess on failure"; hr
+TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-ghretry.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
+
+# Shadow `gh` with a shell FUNCTION rather than a PATH stub: a function takes
+# precedence over the fleet wrapper on PATH, is inherited by gh_api_retry's
+# command-substitution subshell, and needs no executable file (so the test runs
+# even where /tmp is mounted noexec). It models `gh api`, driven by env the test
+# sets per case, and records each invocation so the retry COUNT can be asserted.
+gh() {
+  echo x >> "$GH_STUB_CALLS"
+  local n; n="$(wc -l < "$GH_STUB_CALLS")"
+  case "${GH_STUB_MODE:-succeed}" in
+    succeed)
+      printf '%s\n' "${GH_STUB_PAYLOAD:-OK}"; return 0 ;;
+    flaky)
+      # Transient 503 until the Nth call, then succeed with the payload.
+      if [ "$n" -lt "${GH_STUB_SUCCEED_ON:-2}" ]; then
+        echo "gh: Server Error (HTTP 503)" >&2; return 1
+      fi
+      printf '%s\n' "${GH_STUB_PAYLOAD:-OK}"; return 0 ;;
+    transient-always)
+      echo "gh: Server Error (HTTP 503)" >&2; return 1 ;;
+    definitive)
+      echo "gh: Not Found (HTTP 404)" >&2; return 22 ;;
+  esac
+}
+ok "gh shadowed by a test function (no PATH/exec dependency)"
+
+export GH_STUB_CALLS="$TR/calls" GARDEN_GH_API_ATTEMPTS=4
+
+# (a) clean success on the first try → payload returned, exactly one call.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=succeed GH_STUB_PAYLOAD='open	true' gh_api_retry "repos/o/r/pulls/1" --jq '.x')"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 0 ] && [ "$out" = "open	true" ] && [ "$n" -eq 1 ]; } \
+  && ok "success: payload returned, exit 0, single call (no needless retry)" \
+  || bad "success path wrong (rc=$rc out='$out' calls=$n)"
+
+# (b) transient-then-success: 503 twice, succeed on the 3rd → payload returned,
+#     exactly 3 calls (the blip was absorbed, the caller never saw a failure).
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=flaky GH_STUB_SUCCEED_ON=3 GH_STUB_PAYLOAD=HEALED gh_api_retry "repos/o/r/pulls/2")"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 0 ] && [ "$out" = "HEALED" ] && [ "$n" -eq 3 ]; } \
+  && ok "transient blip absorbed: retried to success, payload returned (3 calls)" \
+  || bad "flaky path wrong (rc=$rc out='$out' calls=$n)"
+
+# (c) transient-always: every attempt is a 503 → fails after exactly
+#     GARDEN_GH_API_ATTEMPTS calls, nonzero, EMPTY stdout (caller's `|| die` fires;
+#     it never acts on a guessed state).
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=transient-always gh_api_retry "repos/o/r/pulls/3" 2>/dev/null)"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 4 ]; } \
+  && ok "exhausted transient: nonzero + empty after exactly 4 attempts (loud, no guess)" \
+  || bad "exhaustion path wrong (rc=$rc out='$out' calls=$n want 4)"
+
+# (d) definitive 404: NOT retried → fails after exactly ONE call, nonzero, empty
+#     stdout. A definitive error fails fast-ish but loud; only transient errors get
+#     retried.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=definitive gh_api_retry "repos/o/r/pulls/4" 2>/dev/null)"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 1 ]; } \
+  && ok "definitive 404: not retried — single call, nonzero, empty (fast + loud)" \
+  || bad "definitive path wrong (rc=$rc out='$out' calls=$n want 1)"
+
+# (e) the caller idiom `out="$(gh_api_retry …)" || die` still dies on a definitive
+#     failure: assert the `|| <branch>` fires and the guard sees empty output.
+: > "$GH_STUB_CALLS"
+guarded() { local o; o="$(GH_STUB_MODE=definitive gh_api_retry "repos/o/r/pulls/5" 2>/dev/null)" || return 7; printf '%s' "$o"; }
+set +e; guarded >/dev/null; grc=$?; set -e
+[ "$grc" -eq 7 ] \
+  && ok "caller's '|| die' branch fires on a definitive failure (state never guessed)" \
+  || bad "caller guard did not fire on definitive failure (rc=$grc)"
+
+hr
+echo "RESULTS: $PASS passed, $FAIL failed"
+[ "$FAIL" -eq 0 ]

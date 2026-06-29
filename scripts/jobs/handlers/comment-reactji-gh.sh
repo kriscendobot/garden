@@ -37,7 +37,10 @@ esac
 
 command -v gh >/dev/null 2>&1 || die "gh not on PATH; cannot react on $repo"
 # Posting the same reactji twice from one identity is a GitHub no-op (dedup), so
-# we do not check for an existing reaction first.
-gh api -X POST "$path" -f content="$content" >/dev/null 2>&1 \
+# we do not check for an existing reaction first — and the POST is idempotent, so
+# gh_api_retry may safely re-issue it: a TRANSIENT blip (5xx / 429 / DNS-TLS-reset)
+# is ridden out under backoff rather than dropping the ack on a single flake, while
+# a DEFINITIVE failure still falls through to exit 1.
+gh_api_retry -X POST "$path" -f content="$content" >/dev/null 2>&1 \
   || { log "reactji POST failed on $path"; exit 1; }
 log "reacted $content on $surface/$cid"

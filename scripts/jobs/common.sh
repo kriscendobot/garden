@@ -704,6 +704,95 @@ _fetch_stderr_is_offline() {
   printf '%s' "$1" | grep -qiE "$GARDEN_OFFLINE_SIGNATURES"
 }
 
+# --- bounded read-only gh-api retry (the transient-blip absorber) ------------
+#
+# Every read-only gh handler in the watcher fleet used to issue a SINGLE bare
+# `gh api … --jq … || die`. One transient GitHub blip on that call — a 5xx, a
+# 429/secondary-rate-limit, a momentary DNS/TLS/reset — escalated an otherwise
+# self-healing tick into a FATAL + nonzero exit, marking the systemd unit Failed
+# even though the very next probe would have succeeded (mirror-closer hit exactly
+# this on endojs/endo#3137 at 2026-06-29 15:26:06; it self-healed one tick later).
+#
+# gh_api_retry wraps the call in a bounded full-jitter retry loop so a transient
+# blip is absorbed silently, WITHOUT weakening the "never guess a state"
+# discipline:
+#   * a clean success prints the captured stdout and returns 0 — the ONLY path
+#     that yields output;
+#   * a DEFINITIVE failure (a 404/401/403/422 client error whose stderr matches
+#     no transient signature) is NOT retried — it breaks immediately, so the
+#     caller's `|| die` still fails fast and loud;
+#   * a TRANSIENT failure is retried under `backoff "$attempt"` up to
+#     GARDEN_GH_API_ATTEMPTS (default 4); once exhausted it still fails (nonzero,
+#     empty stdout) so the caller dies loud rather than acting on a guess.
+#
+# Usage (a read; the caller still owns the die):
+#   out="$(gh_api_retry "repos/$repo/pulls/$num" --jq '…')" \
+#     || die "gh api repos/$repo/pulls/$num failed (no usable state)"
+#
+# Idempotent writes (a dedup'd reactji POST) may also use it — re-POSTing the
+# same reaction from one identity is a GitHub no-op, so a retried POST is safe.
+# Do NOT wrap a non-idempotent write. The handler keeps its own require_tools /
+# `command -v gh` precondition; this helper assumes gh is already on PATH.
+#
+# On the FINAL failure the captured gh stderr is surfaced (a WARN log naming the
+# definitive-vs-exhausted reason and the gh stderr) so an outage triage is never
+# blind to the cause.
+GARDEN_GH_API_ATTEMPTS="${GARDEN_GH_API_ATTEMPTS:-4}"
+# Transient gh-api failure signatures: a 5xx gateway/overload, throttling (429 /
+# rate limit / secondary-rate / abuse detection), and the shared connectivity set
+# (DNS / TLS / reset / timeout) GARDEN_OFFLINE_SIGNATURES already names. A failure
+# whose stderr matches NONE of these is DEFINITIVE (a 404/401/403/422 that
+# re-running cannot fix) and is not retried. Matched case-insensitively.
+: "${GARDEN_TRANSIENT_GH_API_SIGNATURES:=HTTP 5[0-9][0-9]|HTTP 429|rate limit|secondary rate|abuse detection|${GARDEN_OFFLINE_SIGNATURES}}"
+
+# Classify captured gh stderr ($1) as a transient (self-resolving) gh-api failure:
+# returns 0 on a transient signature, 1 on a definitive one. Case-insensitive.
+_gh_api_stderr_is_transient() {
+  printf '%s' "$1" | grep -qiE "$GARDEN_TRANSIENT_GH_API_SIGNATURES"
+}
+
+# gh_api_retry <gh-api-args…> — run `gh api <args…>` with bounded transient retry.
+# Prints captured stdout and returns 0 ONLY on a clean success; returns the gh
+# rc with empty stdout on a definitive error (no retry) or after the transient
+# retries are exhausted. See the block comment above for the full contract.
+gh_api_retry() {
+  local attempt=1 out rc errf stderr label a
+  # A human-readable label for the logs: the first arg that looks like an API
+  # path/query (has a `/` or `?`), so `--paginate` / `-X GET` / `--jq` flags do
+  # not become the label. The API path always precedes any `--jq` in our callers.
+  label="gh api"
+  for a in "$@"; do case "$a" in */*|*\?*) label="$a"; break;; esac; done
+  errf="$(mktemp 2>/dev/null || printf '%s' "${TMPDIR:-/tmp}/gh_api_retry.$$")"
+  while :; do
+    # Capture stdout (the payload) and stderr (the diagnostic) separately. The
+    # `if` keeps a non-zero gh from tripping the caller's `set -e` before $rc is
+    # read; gh's stderr goes to a temp file so the returned stdout stays clean.
+    if out="$(gh api "$@" 2>"$errf")"; then rc=0; else rc=$?; fi
+    if [ "$rc" -eq 0 ]; then
+      rm -f "$errf"
+      printf '%s' "$out"
+      return 0
+    fi
+    stderr="$(cat "$errf" 2>/dev/null || true)"
+    # Definitive failure (no transient signature): do NOT retry — fail now so the
+    # caller dies fast and loud, preserving "never guess a state".
+    if ! _gh_api_stderr_is_transient "$stderr"; then
+      log "WARN: gh api $label failed (definitive, rc=$rc); not retrying: ${stderr:-<no stderr>}"
+      rm -f "$errf"
+      return "$rc"
+    fi
+    # Transient blip: retry under full-jitter backoff until attempts are spent.
+    if [ "$attempt" -ge "$GARDEN_GH_API_ATTEMPTS" ]; then
+      log "WARN: gh api $label failed after $attempt transient attempt(s) (rc=$rc): ${stderr:-<no stderr>}"
+      rm -f "$errf"
+      return "$rc"
+    fi
+    log "gh api $label transient blip (rc=$rc); retry $((attempt+1))/$GARDEN_GH_API_ATTEMPTS after backoff: ${stderr:-<no stderr>}"
+    backoff "$attempt"
+    attempt=$((attempt+1))
+  done
+}
+
 # Canonical transient-`claude -p` signature set. The single source of truth for
 # what a failed inner-agent's combined stdout+stderr must contain to count as a
 # self-resolving API blip (overload / rate-limit / 5xx / bare connection drop)

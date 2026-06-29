@@ -43,7 +43,12 @@ fi
 
 is_member() {  # is_member <org> <login>  → 0 if 204 (member)
   local code
-  code="$(gh api -X GET "orgs/$1/members/$2" -i 2>/dev/null | head -1 | grep -oE '[0-9]{3}' | head -1 || true)"
+  # gh_api_retry rides out a TRANSIENT blip (5xx / 429 / DNS-TLS-reset) under
+  # backoff so a flake no longer drops a genuinely-trusted sender's mention; on
+  # a 204 it passes the response headers through unchanged (code=204 → member),
+  # and a DEFINITIVE 404 (not a member) is not retried — it yields empty output,
+  # so code stays unset and the membership verdict is identical to before.
+  code="$(gh_api_retry -X GET "orgs/$1/members/$2" -i 2>/dev/null | head -1 | grep -oE '[0-9]{3}' | head -1 || true)"
   [ "$code" = 204 ]
 }
 

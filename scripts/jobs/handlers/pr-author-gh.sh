@@ -24,4 +24,7 @@ require_tools gh
 # `2>/dev/null`: a 404 (deleted/transferred) or a transient blip yields an empty
 # login, which the caller treats as "author unknown → not mention-only" (fail
 # open to UNCHANGED behavior, never silently mention-only-suppress on an error).
-gh api "repos/$repo/issues/$num" --jq '.user.login // ""' 2>/dev/null || true
+# gh_api_retry rides out a TRANSIENT blip (5xx / 429 / DNS-TLS-reset) under
+# backoff before falling open, so a single GitHub flake no longer flips a listed
+# author to "unknown" for that tick; a DEFINITIVE 404 still falls open at once.
+gh_api_retry "repos/$repo/issues/$num" --jq '.user.login // ""' 2>/dev/null || true
