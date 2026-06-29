@@ -1,7 +1,0 @@
-Add a shared `gh_api_retry` helper to `/home/kris/scripts/jobs/common.sh` that wraps a read-only `gh api … --jq …` call in a bounded loop (e.g. `GARDEN_GH_API_ATTEMPTS:-4`) using the existing canonical `backoff "$attempt"` full-jitter pause between tries, returning the captured stdout on first success and only failing (nonzero, empty) after all attempts are exhausted. Convert `/home/kris/scripts/jobs/handlers/mirror-pr-state-gh.sh` to call it instead of the single bare `gh api … || die`, so a transient blip (as happened on endojs/endo#3137 at 2026-06-29 15:26:06, which self-healed by the next probe) is absorbed silently rather than producing a per-tick FATAL + nonzero exit. Preserve the "never guess a state" discipline exactly: after the retries are exhausted the handler still `die`s loud and prints nothing (a definitive 404 still fails fast-ish but loud; only transient errors get retried). Then apply the same wrapper to the other read-only gh handlers that currently do an un-retried `gh api` (`pr-author-gh.sh`, `mention-trust-gh.sh`, `mention-source-gh.sh`, `mention-reactji-gh.sh`, `comment-source-gh.sh`, `comment-reactji-gh.sh`, `issue-source-gh.sh`) so a single GitHub flake never escalates a self-healing tick to a Failed unit across the watcher fleet. This moves transient-error tolerance off "the next tick happens to succeed" and into a deterministic, tested helper reused by every gh handler.
-
----
-claim:
-  host: endolinbot2
-  gardener: 74
-  claimed_at: 2026-06-29T15:51:20Z
