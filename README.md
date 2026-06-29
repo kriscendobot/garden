@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T21:53:55Z_
+_As of 2026-06-29T22:02:37Z_
 
 ## Latest
 
-A gardener has claimed [`garden-investigate-slow-fleet-restart-on-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-investigate-slow-fleet-restart-on-deploy.md) — the lone board transition this cycle — to chase down why `deploy-garden` takes ~14 minutes to restart 77 units. The latest completions are all garden-infra hardening: the comment-watcher now reaps lingering git children, the gh-api retry set classifies Go `net/http` transient timeouts (with a matching self-heal of the mirror-closer), `send-msg` tolerates placeholder-wrapped addresses, and the `native-customizable-form-control-styling` web-frontend skill landed. The board is otherwise quiet, with the todo queue empty and 29 PRs still parked for maintainer review.
+Only one job-board transition landed since the last bulletin: the [`garden-investigate-slow-fleet-restart-on-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-investigate-slow-fleet-restart-on-deploy.md) investigation completed, closing out a short run of fleet-infrastructure hardening — alongside recently-landed fixes to tolerate placeholder-wrapped addresses in `send-msg`, reap lingering git child processes in the comment-watcher, and classify Go `net/http` transient timeouts in the gh-api retry set. No PR-pipeline work moved this cycle; the board is now idle (todo and doin both empty), and the maintainer's attention is best spent on the parked review queue, where the oldest items are aging notably ([endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) at 40 days, [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) at 39).
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`garden-investigate-slow-fleet-restart-on-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-investigate-slow-fleet-restart-on-deploy.md) — Investigate + fix slow fleet-restart in deploy-garden (14 min for 77 units)
+### doin (0)
+(none)
 
-### tada (599)
+### tada (600)
+- [`garden-investigate-slow-fleet-restart-on-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-investigate-slow-fleet-restart-on-deploy.md) — Completion report
 - [`improve-send-msg-tolerate-placeholder-wrapped-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-send-msg-tolerate-placeholder-wrapped-address.md) — Completion report
 - [`improve-comment-watcher-reap-lingering-git-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-lingering-git-children.md) — Completion report
 - [`improve-gh-api-retry-match-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-retry-match-go-net-timeout-signatures.md) — No work to commit — the job's intent is already in origin/main2. Here is my r...
 - [`self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures.md) — Completion report
-- [`author-native-customizable-form-control-styling-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-native-customizable-form-control-styling-skill.md) — Completion report
-- … and 594 more
+- … and 595 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
