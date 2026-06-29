@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-29T15:51:30Z_
+_As of 2026-06-29T16:07:45Z_
 
 ## Latest
 
-Only one board move since the last bulletin: a gardener picked up [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gh-api-handler-transient-retry.md), which adds a shared `gh_api_retry` helper to `scripts/jobs/common.sh` to wrap GitHub API calls with transient-failure retry — infrastructure hardening that should make the watchers and watchman more resilient to flaky API responses. The todo queue is otherwise empty and the parked set is unchanged, so the maintainer's attention is best spent on the 29 PRs awaiting review, the oldest now stretching to [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (13d) and the iOS Safari and eventual-send delegate PRs ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) at 38 days.
+The only board movement since the last bulletin is the completion of [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-handler-transient-retry.md), which hardens the GitHub API handler with transient-failure retries — a reliability fix to the fleet's API plumbing. The board is otherwise quiet (todo and doin both empty), and the parked queue is unchanged: 29 PRs still await kriskowal's review, the oldest stretching back nearly six weeks ([endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266), [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#186](https://github.com/endojs/endo-but-for-bots/pull/186), and [#182](https://github.com/endojs/endo-but-for-bots/pull/182)).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 7h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gh-api-handler-transient-retry.md) — Add a shared gh_api_retry helper to /home/kris/scripts/jobs/common.sh that wr...
+### doin (0)
+(none)
 
-### tada (571)
+### tada (572)
+- [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-handler-transient-retry.md) — Completion report
 - [`kriskowal-garden-pr10-a0f4629c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr10-a0f4629c.md) — Completion report
 - [`daily-progress-summary-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260629-142049.md) — The periodical is landed and confirmed on origin/journal2. Writing my complet...
 - [`scholar-library-cycle-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-142049.md) — Job completed. Final report follows.
 - [`improve-wire-scholar-preflight-into-live-schedule`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-scholar-preflight-into-live-schedule.md) — Completion report
-- [`dependabotany-recheck-endo-but-for-bots-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260629-142049.md) — Completion report: daily dependabotany recheck — endojs/endo-but-for-bots (20...
-- … and 566 more
+- … and 567 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
