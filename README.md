@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T20:33:35Z_
+_As of 2026-06-29T20:34:59Z_
 
 ## Latest
 
-A cluster of gardener-fleet reliability fixes landed: the reaper now escalates a stuck journal fetch to SIGKILL across the whole subtree, fetch timeouts carry a `--kill-after` grace so a SIGTERM-ignoring transport child can't orphan, and the gardener handler logs elapsed time even on an external kill — together closing the wedge paths that were stalling workers. On the scholar side, the Goldilocks ingest completed and produced a proposal that is now in flight as [author-web-designer CSS skills](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-web-designer-css-skills.md). Also newly claimed is an attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), alongside ongoing work on the kriscendobot/agoric-sdk fork (PR #7 rebase and a fetched-chain-info regen) and a follow-on to add `KillMode`/`TimeoutStopSec` to the gardener systemd unit.
+The gardener/reaper fleet-reliability cluster landed: a batch of fixes hardening worker shutdown and stuck-fetch recovery — graceful-stop now uses an explicit KillMode/TimeoutStop, the handler logs elapsed time on an external kill, journal fetches gained a `--kill-after` grace so a SIGTERM-ignoring transport child can't orphan, and the reaper escalates a stuck fetch to SIGKILL across the whole subtree. In flight: the scholar's web-designer CSS-skill authoring, a rebase of fork PR [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) onto master plus its `fetched-chain-info.js` regeneration, and an attention directive on garden PR [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9). The board is otherwise drained (todo empty), and 29 PRs remain parked for review — the oldest design items ([endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266), [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) have now been waiting 39–40 days.
 
 ## Parked for maintainer feedback
 
@@ -28,20 +28,19 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`agoric-sdk-fork-rebase-pr-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-rebase-pr-7.md) — Rebase kriscendobot/agoric-sdk PR #7 onto master
 - [`agoric-sdk-fork-regen-fetched-chain-info-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-regen-fetched-chain-info-master.md) — Regenerate fetched-chain-info.js on kriscendobot/agoric-sdk — PR to the fork'...
 - [`author-web-designer-css-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-web-designer-css-skills.md) — Author web-designer CSS skills (scholar proposal)
-- [`improve-gardener-graceful-stop-killmode-timeoutstop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-graceful-stop-killmode-timeoutstop.md) — The gardener systemd unit scripts/systemd/garden-gardener@.service lacks Kill...
 - [`kriskowal-garden-pr9-c785d2ec`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-c785d2ec.md) — attention directive on kriskowal/garden PR #9
 
-### tada (584)
+### tada (585)
+- [`improve-gardener-graceful-stop-killmode-timeoutstop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-graceful-stop-killmode-timeoutstop.md) — Completion report
 - [`improve-gardener-log-handler-elapsed-on-external-kill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-log-handler-elapsed-on-external-kill.md) — Completion report
 - [`scholar-ingest-goldilocks-select-propose-web-designer-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-goldilocks-select-propose-web-designer-skills.md) — Completion report — scholar-ingest-goldilocks-select-propose-web-designer-skills
 - [`improve-reaper-stuck-fetch-kill-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-stuck-fetch-kill-escalation.md) — Completion report — improve-reaper-stuck-fetch-kill-escalation
 - [`improve-fetch-timeout-kill-after-grace`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-timeout-kill-after-grace.md) — Completion report
-- [`improve-timeout-kill-after-prevents-gardener-wedge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-timeout-kill-after-prevents-gardener-wedge.md) — Completion report
-- … and 579 more
+- … and 580 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
