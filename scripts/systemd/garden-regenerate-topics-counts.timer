@@ -1,0 +1,23 @@
+[Unit]
+Description=Garden regenerate-topics-counts timer
+
+[Timer]
+# Absolute wall-clock schedule (minute :17 every hour), NOT a relative
+# OnActiveSec/OnUnitActiveSec pair. A relative first-elapse window larger than the
+# fleet's ~1-minute daemon-reload cadence (repo-watcher reloads every tick, plus
+# deploy-sync / install-units) is re-armed before it can elapse, so the first run
+# is deferred indefinitely and the service never fires (observed on the sibling
+# library timers: active-waiting for hours with LastTrigger empty). A realtime
+# OnCalendar anchor is immune to daemon-reload churn, and Persistent=true catches
+# up a run missed across downtime. The :17 minute is clear of the sibling library
+# cadences (clone-keeper :00/:30, drift-scan :07, link-scan :22, sections-index
+# regen :37), so a tip-sync tick does not pile onto theirs. The count column is a
+# pure projection of the committed corpus and self-heals on the next tick after any
+# missed one, so freshness is not urgent and the hourly cadence is ample. (`*:17`,
+# not `*:17/60`: a step of 60 on the 0-59 minute field is rejected by systemd; bare
+# `*:17` is the valid spelling of "minute 17 of every hour".)
+OnCalendar=*:17
+Persistent=true
+
+[Install]
+WantedBy=timers.target

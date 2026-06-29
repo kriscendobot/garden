@@ -1,0 +1,25 @@
+[Unit]
+Description=Garden regenerate-topics-counts (deterministic tip-synced rebuild of the library topics/README.md Index Sections-count column from the committed corpus; lands the reconciled Index via the producer-clone sync+CAS lander so the count column self-heals without a scholar cycle)
+
+[Service]
+Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN
+# exit, not a failure. The self-heal wrapper already normalizes 143/130 to 0;
+# this is the belt-and-suspenders so any future bypass of the wrapper still
+# doesn't mark a SIGTERM stop as Failed. 75 is EX_TEMPFAIL — a transient
+# tip-sync connectivity outage that cleanly skips the tick, never a failure.
+SuccessExitStatus=143 130 75 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# --land syncs a dedicated clone to tip, regenerates the count column against it,
+# and lands via land-journal-edit.sh. The lander is idempotent (lands nothing when
+# the committed Index already matches a fresh regeneration), so an unattended tick
+# is a no-op whenever the corpus is current, and the producer-clone CAS makes
+# concurrent landers across hosts safe — so this needs no leader gating (unlike the
+# drift scan, which POSTS jobs and double-posts off the leader). Mirrors its twin,
+# garden-regenerate-sections-index.
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-regenerate-topics-counts --expect 75 -- @GARDEN_ROOT@/scripts/jobs/regenerate-topics-counts.sh --land
+# The self-heal responder runs synchronously on a failed tick before the
+# wrapper returns the failing rc; give it headroom beyond the implicit 90s
+# oneshot start timeout so a diagnosis is not cut off (responder itself is
+# hard-bounded by SELF_HEAL_RESPONDER_TIMEOUT).
+TimeoutStartSec=900
