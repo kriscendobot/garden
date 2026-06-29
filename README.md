@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T21:00:18Z_
+_As of 2026-06-29T21:01:08Z_
 
 ## Latest
 
-Since the last bulletin the scholar landed [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-mdn-customizable-select-guide.md), ingesting MDN's "Customizable select" guide — feeding the web-frontend CSS skill track that already produced the anchor-positioning and flip-fallback skills. Two jobs are in flight off that thread: authoring a [`native-customizable-form-control-styling`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-native-customizable-form-control-styling-skill.md) skill, and a reliability fix hardening [`comment-watcher.sh` to reap children on signal](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-reap-children-on-signal.md). The board is otherwise drained (todo empty), and 29 PRs remain parked for review — the freshest being the gateway design [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and the registry-capability [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+The comment-watcher now reaps its child processes on signal ([`improve-comment-watcher-reap-children-on-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-children-on-signal.md)), closing a reliability gap where signaled ticks could orphan subprocesses. The rest of the movement is a web-design CSS push: the scholar ingested MDN's customizable-`<select>` guide and a CSS anchor-positioning reference, and a new skill captured anchor positioning with flip fallbacks. One skill is still in flight — authoring native customizable form-control styling. Nothing new landed in the parked-for-review set; the 29 PRs awaiting kriskowal are unchanged.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`author-native-customizable-form-control-styling-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-native-customizable-form-control-styling-skill.md) — Author skill: native-customizable-form-control-styling
-- [`improve-comment-watcher-reap-children-on-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-reap-children-on-signal.md) — Harden scripts/jobs/comment-watcher.sh against the recurring garden-comment-w...
 
-### tada (593)
-- [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-mdn-customizable-select-guide.md) — scholar-ingest-mdn-customizable-select-guide: ingested the MDN "Customizable
+### tada (594)
+- [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-mdn-customizable-select-guide.md) — scholar-ingest-mdn-customizable-select-guide — done
+- [`improve-comment-watcher-reap-children-on-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-children-on-signal.md) — Completion report
 - [`author-css-anchor-positioning-and-flip-fallbacks`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-css-anchor-positioning-and-flip-fallbacks.md) — Completion report: author-css-anchor-positioning-and-flip-fallbacks
 - [`scholar-ingest-css-anchor-positioning-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-css-anchor-positioning-reference.md) — Completion report — scholar-ingest-css-anchor-positioning-reference
 - [`deadmail-issue-comment-4836711304`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4836711304.md) — Completion report
-- [`kriskowal-garden-pr9-c785d2ec`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-c785d2ec.md) — Completed the attention directive on kriskowal/garden #9.
-- … and 588 more
+- … and 589 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
