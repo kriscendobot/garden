@@ -835,6 +835,35 @@ is_external_kill_rc() {
   esac
 }
 
+# Classify a handler exit code ($1) as a WALL-CLOCK-TIMEOUT kill: the handler was
+# terminated by its own `timeout --signal=TERM "$GARDEN_HANDLER_TIMEOUT"` wrapper
+# (gardener.sh's single-call-site runtime bound), which surfaces as rc=124 — the
+# fourth external-kill source alongside the three OS-signal codes is_external_kill_rc
+# covers (deploy/drain SIGTERM 143, SIGINT 130, OOM/SIGKILL 137). Returns 0 for 124,
+# 1 otherwise. This is a DISTINCT classifier, not folded into is_external_kill_rc,
+# because 124 is `timeout`'s own exit code, NOT a POSIX signal code (the wrapper TERMs
+# the handler but reports expiry as 124, masking the underlying 143) — keeping the two
+# helpers disjoint preserves is_external_kill_rc's signal-code purity while still
+# classifying the wall-clock kill as transient.
+#
+# Treat it EXACTLY like the signal-kill transients: a handler hitting the wall-clock
+# bound is an EXTERNAL termination (the supervisor wrapper killed it), not a
+# deterministic job defect, so capture content is IRRELEVANT (an inherently-long
+# handler — e.g. a shepherd driving CI to green at the 2400s window — flushes plenty
+# of legitimate progress output before the kill and must NOT be escalated as a defect
+# for having done so). gardener.sh branches this into the SAME transient path as
+# is_external_kill_rc: ONE kind:progress note, NO gardener-inbox kind:error, left in
+# doin for the reaper. A genuinely DEADLOCKED handler still surfaces — it times out
+# every cycle, so the reaper's `<!-- garden-reaped: N -->` poison counter escalates it
+# as poison after GARDEN_REAP_POISON_THRESHOLD cycles, rather than spamming a
+# kind:error on every single requeue.
+is_handler_timeout_rc() {
+  case "$1" in
+    124) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 # Classify an EMPTY-output handler failure by its exit code ($1): transient blip
 # (returns 0) versus a deterministic defect that must escalate now (returns 1).
 # With no stdout/stderr and no $report there is no signature to match, so the

@@ -138,9 +138,14 @@ while :; do
   # is still running (duplicate concurrent execution). GARDEN_HANDLER_TIMEOUT <
   # GARDEN_CLAIM_TTL (see the knob above) closes that hole. `timeout`'s own rc=124
   # on expiry is NOT a signal-kill code (is_external_kill_rc covers only 143/130/137),
-  # so a self-hang falls through to the real-failure branch and escalates to the
-  # gardener inbox NOW, while a genuine deploy-drain kill still arrives as rc=143
-  # and stays transient via is_external_kill_rc.
+  # but it IS a wall-clock-timeout kill — the supervisor wrapper terminated the
+  # handler — so is_handler_timeout_rc classifies it transient ALONGSIDE the
+  # signal-kills below: ONE kind:progress note, no inbox kind:error, left in doin for
+  # the reaper, whose `<!-- garden-reaped: N -->` poison counter escalates a job that
+  # times out EVERY cycle (a genuine deadlock) only after the threshold — instead of
+  # false-escalating an inherently-long handler on every requeue. A genuine
+  # deploy-drain kill still arrives as rc=143 and stays transient via
+  # is_external_kill_rc.
   if GARDEN_GARDENER_ID="$id" timeout --signal=TERM "$GARDEN_HANDLER_TIMEOUT" "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1; then
     # complete-job.sh runs sync_clone, which exits GARDEN_OFFLINE_RC on a
     # transient outage — under set -e that would crash the worker on a blip after
@@ -226,6 +231,23 @@ while :; do
       # the job after GARDEN_CLAIM_TTL. Only NON-signal rcs fall through to the
       # capture-content-sensitive tests below.
       transient=1
+    elif is_handler_timeout_rc "$rc"; then
+      # A WALL-CLOCK-TIMEOUT kill (rc=124): the handler was terminated by its own
+      # `timeout --signal=TERM "$GARDEN_HANDLER_TIMEOUT"` wrapper at the single call
+      # site above. `timeout` reports expiry as 124, masking the underlying SIGTERM
+      # that would otherwise read as 143 — so this is conceptually a FOURTH external
+      # kill (the wall-clock supervisor terminated the handler), not a deterministic
+      # job defect. Classify it transient ALONGSIDE the signal-kills, BEFORE the
+      # empty/non-empty capture split, so capture content is IRRELEVANT: an
+      # inherently-long handler (a shepherd driving CI to green at the 2400s window —
+      # shepherd-kriscendobot-agoric-sdk-pr7) flushes legitimate progress output
+      # before the bound fires and must NOT be escalated as a defect for having done
+      # so. ONE kind:progress note, NO inbox kind:error, left in doin. A genuinely
+      # DEADLOCKED handler still times out every cycle, so the reaper's
+      # `<!-- garden-reaped: N -->` poison counter escalates it as poison after the
+      # threshold — surfacing the deadlock after N cycles instead of spamming a
+      # real-error on every requeue.
+      transient=1
     elif [ ! -s "$capture" ]; then
       # Empty output is transient ONLY when $rc is a signal/clean-shutdown code
       # or the offline rc (a `claude -p` killed mid-call). A non-signal,
@@ -250,8 +272,8 @@ while :; do
       # it only makes a not-actually-transient job (a wedged scholar fetch, an OOM)
       # visible early to a human or a future watchman self-test.
       cycle="$(reap_count "$jobfile")"
-      log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, signal-kill/empty/transient-signature capture); no escalation, left in doin for reaper requeue"
-      printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/empty/transient-signature output); transient handler outage (requeue cycle %s); left in doin for reaper requeue (no escalation)\n' \
+      log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, signal-kill/timeout/empty/transient-signature capture); no escalation, left in doin for reaper requeue"
+      printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/timeout/empty/transient-signature output); transient handler outage (requeue cycle %s); left in doin for reaper requeue (no escalation)\n' \
         "$id" "$GARDEN" "$base" "$rc" "$cycle" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
       # We KNOW this claim is dead (the handler was killed/blipped, not failing on a

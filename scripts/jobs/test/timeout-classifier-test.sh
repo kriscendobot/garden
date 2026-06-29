@@ -3,29 +3,36 @@
 # (gardener.sh `timeout --signal=TERM "$GARDEN_HANDLER_TIMEOUT" <handler...>`) and
 # its interaction with the transient-vs-real failure classifier.
 #
-# Today a job handler has no upper runtime bound: a wedged/runaway `claude -p`
-# (network hang, infinite tool loop) runs forever, pinning one of the ~100 scarce
-# gardener instances and its $BUSY_MARKER — which also stalls every
+# A job handler is bounded at a single call site: a wedged/runaway `claude -p`
+# (network hang, infinite tool loop) would otherwise run forever, pinning one of the
+# ~100 scarce gardener instances and its $BUSY_MARKER — which also stalls every
 # deploy-garden.sh quiesce until GARDEN_DEPLOY_DRAIN_TIMEOUT — and after
 # GARDEN_CLAIM_TTL the reaper requeues the SAME base while the original handler is
-# still running, executing the job concurrently on two gardeners. gardener.sh now
-# wraps the handler in `timeout --signal=TERM "$GARDEN_HANDLER_TIMEOUT"` with the
-# invariant GARDEN_HANDLER_TIMEOUT < GARDEN_CLAIM_TTL, so no handler outlives the
-# reaper's stale-claim window.
+# still running, executing the job concurrently on two gardeners. gardener.sh wraps
+# the handler in `timeout --signal=TERM "$GARDEN_HANDLER_TIMEOUT"` with the invariant
+# GARDEN_HANDLER_TIMEOUT < GARDEN_CLAIM_TTL, so no handler outlives the reaper's
+# stale-claim window.
 #
-# The discrimination is deliberate: a genuine external kill (deploy drain) arrives
-# as rc=143 and stays transient via is_external_kill_rc, while `timeout`'s own
-# rc=124 on expiry is a NON-signal code that falls through to the real-failure
-# branch and escalates to the gardener inbox NOW — a true self-hang is surfaced
-# immediately instead of silently TTL-requeuing for ~5h.
+# The discrimination is deliberate: a handler killed by its own timeout wrapper exits
+# rc=124, which is conceptually a WALL-CLOCK-TIMEOUT kill — the supervisor wrapper
+# terminated it, a fourth external-kill source alongside the OS-signal codes
+# (143 deploy/drain SIGTERM, 130 SIGINT, 137 OOM/SIGKILL). is_handler_timeout_rc
+# (common.sh) classifies 124 transient ALONGSIDE the signal-kills via
+# is_external_kill_rc, so an inherently-long handler (a shepherd driving CI to green
+# at the 2400s window — shepherd-kriscendobot-agoric-sdk-pr7) is NOT false-escalated
+# to the gardener inbox as a defect on every reaper requeue. It gets ONE kind:progress
+# note and stays in doin; a genuinely DEADLOCKED handler still surfaces, because it
+# times out every cycle and the reaper's `<!-- garden-reaped: N -->` poison counter
+# escalates it as poison after the threshold rather than spamming a real-error.
 #
-# SUBTEST 1 drives the pure helpers (common.sh) directly: rc=124 is neither an
-# external signal-kill nor a transient empty failure, so it is classified REAL.
+# SUBTEST 1 drives the pure helpers (common.sh) directly: rc=124 is a handler-timeout
+# kill (transient) but NOT a signal-kill, while rc=143 is a signal-kill but NOT a
+# handler-timeout — the two classifiers are disjoint and complementary.
 # SUBTEST 2 is an integration test: it runs the real gardener.sh with a tiny
 # GARDEN_HANDLER_TIMEOUT against a stub handler that flushes non-empty output then
-# hangs, and asserts (a) the timeout wrapper fired (handler exited rc=124) and
-# (b) the failure was escalated to the gardener inbox as kind:error, NOT logged as
-# a transient outage.
+# hangs, and asserts (a) the timeout wrapper fired (handler exited rc=124),
+# (b) the failure was logged as a transient outage and NOT escalated to the gardener
+# inbox as kind:error, and (c) the job was left in doin for the reaper.
 #
 # Usage: timeout-classifier-test.sh
 set -euo pipefail
@@ -45,23 +52,36 @@ unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' |
 source "$JOBS/common.sh"
 
 # ============================================================================
-hr; echo "SUBTEST 1 — rc=124 (timeout) is classified REAL, not transient"; hr
-# 124 is `timeout`'s expiry code: NOT a signal-kill (is_external_kill_rc covers
-# only 143/130/137) and NOT a transient empty failure (those are 143/130/137 and
-# the offline rc). So whether $capture is empty or not, rc=124 falls through to
-# the real-failure escalation branch.
+hr; echo "SUBTEST 1 — rc=124 (timeout) is classified TRANSIENT via is_handler_timeout_rc"; hr
+# 124 is `timeout`'s expiry code: a dedicated WALL-CLOCK-TIMEOUT classification
+# (is_handler_timeout_rc), kept disjoint from is_external_kill_rc (signal codes
+# 143/130/137 only) so each helper stays semantically pure. gardener.sh branches
+# is_handler_timeout_rc into the SAME transient path as the signal-kills, BEFORE the
+# empty/non-empty capture split, so capture content is irrelevant for rc=124.
+if is_handler_timeout_rc 124; then
+  ok "rc=124 → handler-timeout kill (transient: ONE progress note, no inbox escalation)"
+else
+  bad "rc=124 NOT classified as a handler-timeout kill; an inherently-long handler would be false-escalated every cycle"
+fi
 if is_external_kill_rc 124; then
-  bad "rc=124 classified as external signal-kill; expected NOT (timeout expiry is a self-hang, not a deploy kill)"
+  bad "rc=124 classified as an OS signal-kill; expected NOT (124 is timeout's own code, handled by is_handler_timeout_rc)"
 else
-  ok "rc=124 → not an external signal-kill (falls through to real-failure branch)"
+  ok "rc=124 → not an OS signal-kill (the two classifiers are disjoint)"
 fi
+# The dedicated timeout branch precedes the empty-capture test, so is_transient_empty_failure
+# never sees 124; assert it stays unchanged (124 absent) so the helpers don't overlap.
 if is_transient_empty_failure 124; then
-  bad "rc=124 classified transient on empty capture; expected REAL (deterministic self-hang)"
+  bad "is_transient_empty_failure now matches 124; expected unchanged (124 is handled by the dedicated timeout branch)"
 else
-  ok "rc=124 → not a transient empty failure (escalates now, not after the reaper TTL)"
+  ok "rc=124 → not in is_transient_empty_failure (handled earlier by is_handler_timeout_rc)"
 fi
-# Sanity: a genuine deploy-drain kill (143) is still transient, so the bound does
-# not mask a legitimate external restart as a real failure.
+# Complementary direction: a genuine signal-kill is NOT a handler-timeout, and is
+# still transient via is_external_kill_rc.
+if is_handler_timeout_rc 143; then
+  bad "rc=143 classified as a handler-timeout; expected NOT (143 is a deploy-drain SIGTERM, handled by is_external_kill_rc)"
+else
+  ok "rc=143 → not a handler-timeout (a signal-kill, classified by is_external_kill_rc)"
+fi
 if is_external_kill_rc 143; then
   ok "rc=143 (deploy-drain SIGTERM) still classified external signal-kill → transient"
 else
@@ -69,7 +89,7 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 2 — integration: a hung handler is bounded by timeout (rc=124) and escalated REAL"; hr
+hr; echo "SUBTEST 2 — integration: a hung handler is bounded by timeout (rc=124) and classified TRANSIENT"; hr
 TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-timeout.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
 BARE="$TR/journal.git"; BRANCH=journal2
 git_id=(-c user.name=test -c user.email=test@localhost)
@@ -106,32 +126,41 @@ else
   bad "rc=124 not observed; the timeout wrapper may not have fired. log: $(grep -i 'handler\|working' "$TR/gardener.log" | tail -3)"
 fi
 
-# (b) classified REAL: escalated to the gardener inbox, NOT logged transient.
-# Match the transient-VERDICT line ("looks transient") specifically — the generic
+# (b) classified TRANSIENT: logged as a transient outage, NOT escalated. Match the
+# transient-VERDICT line ("looks transient") specifically — the generic
 # "classifying transient-vs-real" log line names rc=124 too but is not a verdict.
 if grep -Eq "looks transient \(rc=124" "$TR/gardener.log"; then
-  bad "rc=124 falsely logged as a transient outage; expected real-failure escalation"
+  ok "rc=124 logged as a transient handler outage (no per-cycle real-error escalation)"
 else
-  ok "rc=124 NOT logged as a transient verdict"
+  bad "rc=124 NOT logged as a transient verdict; an inherently-long handler would be false-escalated"
 fi
+
+# (c) NOT escalated to the gardener inbox as a real failure.
 if [ -e "$CLONE/inboxes/hanghost/gardener.md" ]; then
-  ok "gardener inbox escalation file created (self-hang surfaced now, not TTL-deferred)"
+  bad "gardener inbox escalation file created; expected NONE (a wall-clock timeout is transient, not a defect)"
 else
-  bad "no gardener inbox escalation file; a real rc=124 failure was not escalated"
+  ok "no gardener inbox escalation file (timeout is transient; reaper poison-counter surfaces a genuine deadlock)"
 fi
 
-# (c) a kind:error journal entry referencing the failed handler (the loud path).
+# (d) NO kind:error journal entry for the timed-out handler (the loud path is skipped);
+# instead a kind:progress transient note is emitted.
 nerr=$(grep -rl 'handler FAILED' "$CLONE/entries" 2>/dev/null | grep -c 'error' || true)
-if [ "${nerr:-0}" -ge 1 ]; then
-  ok "kind:error journal entry emitted for the timed-out handler"
+if [ "${nerr:-0}" -eq 0 ]; then
+  ok "no kind:error journal entry emitted for the timed-out handler"
 else
-  bad "no kind:error journal entry for the timed-out handler"
+  bad "kind:error journal entry emitted for a rc=124 timeout; expected only a kind:progress transient note"
+fi
+nprog=$(grep -rl 'transient handler outage' "$CLONE/entries" 2>/dev/null | grep -c 'progress' || true)
+if [ "${nprog:-0}" -ge 1 ]; then
+  ok "kind:progress transient-outage note emitted for the timed-out handler"
+else
+  bad "no kind:progress transient-outage note for the timed-out handler"
 fi
 
-# (d) the job stays in doin (real failures leave it for the reaper; not completed).
+# (e) the job stays in doin (transient failures leave it for the reaper; not completed).
 V="$TR/verify"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V" 2>/dev/null
 if [ -f "$V/jobs/doin/hangjob.md" ] && [ ! -f "$V/jobs/tada/hangjob.md" ]; then
-  ok "job left in doin (not completed to tada on a real failure)"
+  ok "job left in doin (not completed to tada on a timeout)"
 else
   bad "job not left in doin (doin=$([ -f "$V/jobs/doin/hangjob.md" ] && echo y || echo n) tada=$([ -f "$V/jobs/tada/hangjob.md" ] && echo y || echo n))"
 fi
