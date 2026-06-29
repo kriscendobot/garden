@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T23:13:27Z_
+_As of 2026-06-29T23:15:34Z_
 
 ## Latest
 
-A gardener claimed an attention directive on [kriskowal/garden#15](https://github.com/kriskowal/garden/pull/15) — the sole board transition this cycle, following the recently-completed companion jobs on the same PR and on garden issue #15. Otherwise the board is quiet: nothing in todo, and the parked queue still holds 29 PRs awaiting kriskowal's review, the most roadmap-relevant being the gateway design [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343), the EndoRegistry capability [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), and the passable byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
+Only one board move landed in this window — a dead-lettered issue comment ([`deadmail-issue-comment-4838225494`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4838225494.md)) was picked back up for its intent, alongside an in-flight attention directive on [kriskowal/garden#15](https://github.com/kriskowal/garden/pull/15). Just before this tick the fleet cleared the prior round of self-directed work: completions on [kriskowal/garden#15](https://github.com/kriskowal/garden/pull/15) and [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), the garden issue #15, and an investigation into the slow fleet-restart on deploy. The job board is otherwise drained (todo empty), so the maintainer's attention is best spent on the parked review queue — the freshest being the @endo/gateway design [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and the EndoRegistry capability [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), both waiting ~14h.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-issue-comment-4838225494`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4838225494.md) — Dead-lettered message — pick up its intent
 - [`kriskowal-garden-pr15-f2c1cd5f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr15-f2c1cd5f.md) — attention directive on kriskowal/garden PR #15
 
 ### tada (604)
