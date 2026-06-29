@@ -287,6 +287,17 @@ new gardeners start at a neutral prior and the selector applies a mild
 exploration bonus (try the unproven bidder occasionally) so reputation can
 actually accrue rather than locking out newcomers.
 
+The companion design
+[`gardener-reputation-bootstrapping.md`](gardener-reputation-bootstrapping.md)
+specifies this fully: it refines the binary `accepted`/`rejected` score above
+into a per-arm **cost distribution conditioned on acceptance** (effectiveness is
+the gate, cost is the free variable, normalized to dollars and duration), seeds
+it retrospectively from the journal's own `todo`/`tada` history, replaces the
+hand-tuned exploration bonus with **Thompson sampling** over the cost posteriors,
+and adds a reputation-driven role refiner and a consolidator to grow and bound
+the bidder population. That document is the maintainer's follow-up directive on
+issue #15 made concrete.
+
 ---
 
 ## 4. The acceptance oracle (subjective/objective split)
