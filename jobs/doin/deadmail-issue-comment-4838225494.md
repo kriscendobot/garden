@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/15#issuecomment-4838225494
 It seems the next step for the garden would to be to introduce a bid/accept workflow for jobs, rather than a straight race, and for “gardeners” to be differentiated and hold reputation built by competing to produce an accepted implementation. Gardeners might be differentiated
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 34
+  claimed_at: 2026-06-29T23:15:11Z
