@@ -13485,3 +13485,15 @@ reference-state guard | e-guards
 `:rcvr` guard | e-guards
 `:pbc` guard | e-guards
 Guarding Asynchrony | e-guards
+`calc-size()` | css-intrinsic-sizing
+`calc-size` | css-intrinsic-sizing
+`fit-content` | css-intrinsic-sizing
+`min-content` | css-intrinsic-sizing
+`max-content` | css-intrinsic-sizing
+intrinsic sizing | css-intrinsic-sizing
+content-based sizing | css-intrinsic-sizing
+`field-sizing` | css-intrinsic-sizing
+customizable select | css-intrinsic-sizing
+`::picker(select)` | css-intrinsic-sizing
+`position-try-fallbacks` | css-intrinsic-sizing
+Goldilocks select height | css-intrinsic-sizing
