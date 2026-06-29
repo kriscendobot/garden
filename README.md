@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T23:02:45Z_
+_As of 2026-06-29T23:13:27Z_
 
 ## Latest
 
-The board is quiet — the only movement since the last bulletin was a single dead-letter reap, an undeliverable GitHub issue comment closed out, with nothing new posted or claimed. Maintainer attention is best spent on the parked review queue, where [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has waited 4 days and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) is now 14 days out.
+A gardener claimed an attention directive on [kriskowal/garden#15](https://github.com/kriskowal/garden/pull/15) — the sole board transition this cycle, following the recently-completed companion jobs on the same PR and on garden issue #15. Otherwise the board is quiet: nothing in todo, and the parked queue still holds 29 PRs awaiting kriskowal's review, the most roadmap-relevant being the gateway design [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343), the EndoRegistry capability [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), and the passable byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriskowal-garden-pr15-f2c1cd5f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr15-f2c1cd5f.md) — attention directive on kriskowal/garden PR #15
 
 ### tada (604)
 - [`deadmail-issue-comment-4837977517`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4837977517.md) — Completion report — job deadmail-issue-comment-4837977517
