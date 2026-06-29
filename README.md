@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T21:01:08Z_
+_As of 2026-06-29T21:05:19Z_
 
 ## Latest
 
-The comment-watcher now reaps its child processes on signal ([`improve-comment-watcher-reap-children-on-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-children-on-signal.md)), closing a reliability gap where signaled ticks could orphan subprocesses. The rest of the movement is a web-design CSS push: the scholar ingested MDN's customizable-`<select>` guide and a CSS anchor-positioning reference, and a new skill captured anchor positioning with flip fallbacks. One skill is still in flight — authoring native customizable form-control styling. Nothing new landed in the parked-for-review set; the 29 PRs awaiting kriskowal are unchanged.
+The garden landed the `native-customizable-form-control-styling` skill — the fifth web-frontend CSS technique for the web-designer/web-builder roles, covering native `<select>` styling via `appearance: base-select` behind an `@supports` fallback — closing out the recent run of scholar-grounded web-design skills (anchor-positioning-and-flip-fallbacks and the MDN customizable-select ingest both completed in the same window). The comment-watcher also gained child-reaping on signal. The board is now fully drained (todo, doin, and watch set all empty), so nothing is in flight; the standing ask is maintainer review on the 29 parked PRs, the oldest being [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [#101](https://github.com/endojs/endo-but-for-bots/pull/101) (39–40 days waiting), with [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules) at 14 days.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`author-native-customizable-form-control-styling-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-native-customizable-form-control-styling-skill.md) — Author skill: native-customizable-form-control-styling
+### doin (0)
+(none)
 
-### tada (594)
+### tada (595)
+- [`author-native-customizable-form-control-styling-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-native-customizable-form-control-styling-skill.md) — Completion report
 - [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-mdn-customizable-select-guide.md) — scholar-ingest-mdn-customizable-select-guide — done
 - [`improve-comment-watcher-reap-children-on-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-children-on-signal.md) — Completion report
 - [`author-css-anchor-positioning-and-flip-fallbacks`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-css-anchor-positioning-and-flip-fallbacks.md) — Completion report: author-css-anchor-positioning-and-flip-fallbacks
 - [`scholar-ingest-css-anchor-positioning-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-css-anchor-positioning-reference.md) — Completion report — scholar-ingest-css-anchor-positioning-reference
-- [`deadmail-issue-comment-4836711304`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4836711304.md) — Completion report
-- … and 589 more
+- … and 590 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
