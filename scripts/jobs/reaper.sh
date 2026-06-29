@@ -54,6 +54,7 @@ GARDEN_TAG="reaper"
 
 : "${GARDEN_CLAIM_TTL:=3600}"          # seconds a claim may sit in doin before reaping
 : "${GARDEN_FETCH_REAP_AGE:=120}"      # seconds a `git fetch` may run before it is killed
+: "${GARDEN_FETCH_REAP_KILL_AFTER:=5}" # grace seconds after SIGTERM before the stuck-fetch janitor escalates to SIGKILL
 : "${GARDEN_REAP_PUSH_ATTEMPTS:=50}"   # bounded retries for the batched requeue push (CAS contention)
 : "${GARDEN_REAP_POISON_THRESHOLD:=5}" # requeue cycles after which a job is surfaced as poison, not requeued
 
@@ -76,22 +77,103 @@ REAP_MARKER_RE='^<!-- garden-reaped: [0-9][0-9]* -->$'
 # surfaces a one-line anomaly so a stuck fetch self-heals in minutes.
 #
 # `ps -o etimes` is elapsed seconds since start; the `[g]it` bracket trick keeps
-# this very grep out of its own match.
+# this very grep out of its own match. The grep is only a cheap PREFILTER — a
+# process is targeted only if `_is_git_fetch_cmd` then confirms git is the program
+# word (not a process that merely MENTIONS "git fetch" in a long argument, e.g. a
+# claude agent quoting a job spec). That precision matters doubly now that a match
+# escalates to a whole-subtree SIGKILL: a false positive would nuke an innocent
+# agent and its children, not just send it a survivable SIGTERM.
+#
+# Escalation matters: a `git fetch` hung on a half-open connection (or one whose
+# transport child sits in an uninterruptible read) ignores the SIGTERM below and
+# survives the janitor, keeping its clone lock and remaining in the cgroup as the
+# leftover the NEXT reaper start reports. A bare `kill -TERM "$pid"` is therefore
+# not enough, and a bare `kill -KILL "$pid"` is no better: SIGKILL does not
+# propagate to children, so the actual transport child (git-remote-https /
+# fetch-pack — where the socket read is wedged) is merely orphaned to init and
+# keeps the connection. So we SIGKILL the whole fetch subtree, not just the parent.
+# This mirrors the `timeout --kill-after` escalation that bounds NEW fetches
+# (common.sh) and bounds handlers (gardener.sh): TERM, a short grace, then KILL.
+
+# _is_git_fetch_cmd <command-line> — true iff the line is a real `git ... fetch`
+# invocation: git (bare or path-suffixed) as the program word — under an optional
+# `timeout <secs> [flags]` supervisor prefix — with `fetch` as a standalone
+# argument. A process whose argv merely contains the substring "git fetch" inside
+# one long argument (a claude agent quoting this very job spec) has a non-git
+# program word and is rejected, so the loose substring match can never escalate
+# against it.
+_is_git_fetch_cmd() {
+  # Word-split the command line; the journal-fetch forms this targets have no
+  # space-bearing arguments, so plain splitting reconstructs the tokens.
+  # shellcheck disable=SC2206
+  local -a tok=($1)
+  local i=0
+  if [ "${tok[0]:-}" = "timeout" ]; then
+    i=1                                   # skip `timeout` and its flags/duration operands
+    while [ "$i" -lt "${#tok[@]}" ]; do
+      case "${tok[$i]}" in
+        -*|[0-9]*) i=$((i+1)) ;;          # --kill-after=…, --signal=…, 45, 45s
+        *) break ;;
+      esac
+    done
+  fi
+  case "${tok[$i]:-}" in git|*/git) ;; *) return 1 ;; esac
+  local j=$((i+1))
+  while [ "$j" -lt "${#tok[@]}" ]; do
+    [ "${tok[$j]}" = "fetch" ] && return 0
+    j=$((j+1))
+  done
+  return 1
+}
+
+# _proc_descendants <pid> — print <pid> and every transitive descendant pid, one
+# per line, from a single `ps` ppid snapshot. Captured BEFORE the SIGKILL grace,
+# while the tree is still intact: once the parent dies, its children reparent to
+# init and a walk rooted at the dead parent would no longer find them.
+_proc_descendants() {
+  # SC2009: pgrep -P is not transitive and absent on some hosts; walk ps's ppid map.
+  # shellcheck disable=SC2009
+  ps -eo pid=,ppid= 2>/dev/null | awk -v root="$1" '
+    { ppid[$1] = $2 }
+    END {
+      n = 0; queue[n++] = root; seen[root] = 1; print root
+      for (i = 0; i < n; i++) {
+        cur = queue[i]
+        for (p in ppid) if (ppid[p] == cur && !(p in seen)) {
+          seen[p] = 1; queue[n++] = p; print p
+        }
+      }
+    }'
+}
+
 reap_stuck_fetches() {
-  local killed=0 pid etimes cmd procs
+  local killed=0 pid etimes cmd procs d
+  local -a targets=()
   # SC2009: we need ps's etimes/args columns (pgrep gives neither), so grep ps.
   # shellcheck disable=SC2009
   procs="$(ps -eo pid=,etimes=,args= 2>/dev/null | grep -E '[g]it.* fetch' || true)"
   while read -r pid etimes cmd; do
     [ -n "$pid" ] || continue
-    case "$cmd" in *git*fetch*) ;; *) continue ;; esac
+    _is_git_fetch_cmd "$cmd" || continue
     if [ "$etimes" -ge "$GARDEN_FETCH_REAP_AGE" ]; then
       log "ANOMALY: killing stuck git fetch pid=$pid age=${etimes}s (>${GARDEN_FETCH_REAP_AGE}s): $cmd"
       kill -TERM "$pid" 2>/dev/null || true
+      # Snapshot the whole subtree NOW, before the grace lets TERM tear it apart.
+      while read -r d; do [ -n "$d" ] && targets+=("$d"); done < <(_proc_descendants "$pid")
       killed=$((killed+1))
     fi
   done <<< "$procs"
-  [ "$killed" -gt 0 ] && log "stuck-fetch janitor killed $killed stuck fetch(es)"
+  if [ "$killed" -gt 0 ]; then
+    # Give a SIGTERM-respecting fetch a brief grace to exit cleanly, then SIGKILL
+    # the captured subtree unconditionally — survivors of the TERM and the orphaned
+    # transport children alike — so a SIGTERM-ignoring fetch is actually reaped
+    # rather than left in the cgroup for the next reaper start to report.
+    sleep "$GARDEN_FETCH_REAP_KILL_AFTER"
+    for d in "${targets[@]}"; do
+      kill -KILL "$d" 2>/dev/null || true
+    done
+    log "stuck-fetch janitor killed $killed stuck fetch(es)"
+  fi
   return 0
 }
 
