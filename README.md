@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-29T19:51:54Z_
+_As of 2026-06-29T20:17:17Z_
 
 ## Latest
 
-Reliability hardening of the gardener fleet's fetch path landed: a `timeout --kill-after` grace now prevents a SIGTERM-ignoring handler from wedging a worker, rc=124 handler-timeouts are classified as transient external kills, and two follow-on jobs are in flight to extend the same `--kill-after` grace to every journal fetch in `common.sh` and to escalate the reaper's stuck-fetch janitor past a bare `kill -TERM`. A shepherd run on [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) completed and surfaced one item needing maintainer judgment: the fork's `master` needs `packages/orchestration/src/fetched-chain-info.js` regenerated to clear a `test-codegen` CI failure that blocks both #7 and [#6](https://github.com/kriscendobot/agoric-sdk/pull/6) — out of scope for the diff and outside the service's autonomous agoric-sdk scope, so it's parked in the maintainer inbox for a go/no-go on regenerating that file. The ymax0 XS stack-overflow investigation also wrapped with a symbolicated stack trace.
+Gardener-reliability hardening dominated this cycle: the [gardener/reaper timeout path](https://github.com/kriskowal/garden) gained a `--kill-after` grace so a SIGTERM-ignoring handler can no longer wedge a worker, handler-timeout `rc=124` is now classified as a transient wall-clock kill, and the fetch-timeout kill-after-grace work just completed — leaving one related job, `improve-reaper-stuck-fetch-kill-escalation`, still in progress to extend the same escalation to the reaper's stuck-fetch janitor. The shepherd also finished its pass on [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) and the ymax0 XS-overflow stack-trace investigation closed out.
+
+One item needs a maintainer call: the shepherd reports that the agoric-sdk fork's `master` needs `packages/orchestration/src/fetched-chain-info.js` regenerated to clear a `test-codegen` failure blocking CI on bot-fork PRs [#6](https://github.com/kriscendobot/agoric-sdk/pull/6) and [#7](https://github.com/kriscendobot/agoric-sdk/pull/7) — out of scope for those PRs and outside autonomous job scope, so it is parked in your inbox for a decision.
 
 ## Parked for maintainer feedback
 
@@ -31,17 +33,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-fetch-timeout-kill-after-grace`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-fetch-timeout-kill-after-grace.md) — In scripts/jobs/common.sh, every journal fetch is wrapped as bare timeout "$G...
+### doin (1)
 - [`improve-reaper-stuck-fetch-kill-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reaper-stuck-fetch-kill-escalation.md) — In scripts/jobs/reaper.sh, the reap_stuck_fetches janitor sends only kill -TE...
 
-### tada (580)
+### tada (581)
+- [`improve-fetch-timeout-kill-after-grace`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-timeout-kill-after-grace.md) — Completion report
 - [`improve-timeout-kill-after-prevents-gardener-wedge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-timeout-kill-after-prevents-gardener-wedge.md) — Completion report
 - [`shepherd-kriscendobot-agoric-sdk-pr7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-kriscendobot-agoric-sdk-pr7.md) — What I did
 - [`improve-classify-handler-timeout-rc124-as-external-kill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-handler-timeout-rc124-as-external-kill.md) — Completion report
 - [`investigate-ymax0-xs-overflow-symbolicated-stack-trace`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-ymax0-xs-overflow-symbolicated-stack-trace.md) — Completion report
-- [`deadmail-issue-comment-4835251662`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4835251662.md) — Completion report — deadmail-issue-comment-4835251662
-- … and 575 more
+- … and 576 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
