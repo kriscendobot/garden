@@ -112,3 +112,9 @@ would each need their own source ingested first and are NOT proposed here.
 - Not proposed (would need their own source): a `field-sizing` skill and a CSS
   `appearance`/native-control-theming skill — the seed list guessed these but the
   ingested essay does not cover them.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 83
+  claimed_at: 2026-06-29T20:30:41Z
