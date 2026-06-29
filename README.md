@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-29T22:02:37Z_
+_As of 2026-06-29T22:54:15Z_
 
 ## Latest
 
-Only one job-board transition landed since the last bulletin: the [`garden-investigate-slow-fleet-restart-on-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-investigate-slow-fleet-restart-on-deploy.md) investigation completed, closing out a short run of fleet-infrastructure hardening — alongside recently-landed fixes to tolerate placeholder-wrapped addresses in `send-msg`, reap lingering git child processes in the comment-watcher, and classify Go `net/http` transient timeouts in the gh-api retry set. No PR-pipeline work moved this cycle; the board is now idle (todo and doin both empty), and the maintainer's attention is best spent on the parked review queue, where the oldest items are aging notably ([endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) at 40 days, [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) at 39).
+A claim moved onto the board: a gardener picked up an attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), now in progress. Otherwise the recent activity is a run of garden infra hardening that just landed in `tada`: the slow-fleet-restart investigation on deploy resolved (the fleet now restarts concurrently rather than serially), [`send-msg`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-send-msg-tolerate-placeholder-wrapped-address.md) now tolerates angle-bracket-wrapped placeholder addresses, the comment-watcher reaps lingering `git` child processes on stop, and the `gh-api` retry set was widened to match Go `net/http` transient-timeout signatures (with a self-heal pass applying the same fix to `garden-mirror-closer`). The parked queue is unchanged — 29 PRs await kriskowal, the oldest being [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) at ~40 days.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 13h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 13h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 14h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 14h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriskowal-garden-pr9-045d2a30`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-045d2a30.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (600)
 - [`garden-investigate-slow-fleet-restart-on-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-investigate-slow-fleet-restart-on-deploy.md) — Completion report
