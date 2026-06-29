@@ -27,3 +27,9 @@ diff, with evidence), pushed to the fork branch, and a top-level summary comment
 failure and how it was resolved.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 83
+  claimed_at: 2026-06-29T19:23:15Z
