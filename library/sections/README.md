@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5973 (525 parent indexes + 5448 children).
+Total section files: 5980 (525 parent indexes + 5455 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7927,6 +7927,22 @@ Total section files: 5973 (525 parent indexes + 5448 children).
 - [web--mdn-css-anchor-positioning--position-area-grid](web--mdn-css-anchor-positioning--position-area-grid.md)
 - [web--mdn-css-anchor-positioning--position-try-fallbacks-and-flip](web--mdn-css-anchor-positioning--position-try-fallbacks-and-flip.md)
 - [web--mdn-css-anchor-positioning--position-try-order-and-visibility](web--mdn-css-anchor-positioning--position-try-order-and-visibility.md)
+
+### web--mdn-customizable-select
+
+- [web--mdn-customizable-select--accessibility-and-browser-support](web--mdn-customizable-select--accessibility-and-browser-support.md)
+- [web--mdn-customizable-select--background-and-feature-inventory](web--mdn-customizable-select--background-and-feature-inventory.md)
+- [web--mdn-customizable-select--markup-and-opt-in](web--mdn-customizable-select--markup-and-opt-in.md)
+- [web--mdn-customizable-select--popover-and-anchor-positioning](web--mdn-customizable-select--popover-and-anchor-positioning.md)
+- [web--mdn-customizable-select--styling-the-parts](web--mdn-customizable-select--styling-the-parts.md)
+
+### web--mdn-picker-select-pseudo-element
+
+- [web--mdn-picker-select-pseudo-element--targeting-and-defaults](web--mdn-picker-select-pseudo-element--targeting-and-defaults.md)
+
+### web--mdn-selectedcontent
+
+- [web--mdn-selectedcontent--element-semantics-and-cloning](web--mdn-selectedcontent--element-semantics-and-cloning.md)
 
 ### web--miller-equality-argument-passing-rules
 
