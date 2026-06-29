@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-29T21:36:17Z_
+_As of 2026-06-29T21:50:57Z_
 
 ## Latest
 
-The garden's comment-watcher now reaps lingering `git` child processes left behind on signal, closing a resource leak in the source-watcher cleanup path; that job [completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-lingering-git-children.md) this cycle. It rounds out a small run of `gh`-API hardening — classifying Go `net/http` transient-timeout signatures into the retry set for both the generic API helper and the mirror-closer — plus the newly authored `native-customizable-form-control-styling` web skill. No PRs moved; the parked queue still holds 29 awaiting kriskowal, with the oldest ([endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266), [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) past the 38-day mark.
+Cleaner-watcher reaping landed: [improve-comment-watcher-reap-lingering-git-children](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-lingering-git-children.md) reaps lingering git child processes left by the comment-watcher's source, complementing the earlier source-process-group reaping work, and a self-heal pass aligned `garden-mirror-closer`'s gh-api retry set with Go net/http transient-timeout signatures (matching the parallel `improve-gh-api-retry-match-go-net-timeout-signatures`, which found its intent already on main2). On the web-frontend skills front, the `native-customizable-form-control-styling` skill shipped, built from a scholar ingest of the MDN customizable-`<select>` guide. One job is in flight: [improve-send-msg-tolerate-placeholder-wrapped-address](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-send-msg-tolerate-placeholder-wrapped-address.md), hardening `send-msg.sh` to tolerate placeholder-wrapped addresses. Nothing new is parked for review; the oldest items awaiting kriskowal remain [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 38 days.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 13h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 12h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 13h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-send-msg-tolerate-placeholder-wrapped-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-send-msg-tolerate-placeholder-wrapped-address.md) — In scripts/jobs/send-msg.sh, before the address validation case at lines 24–2...
 
 ### tada (598)
 - [`improve-comment-watcher-reap-lingering-git-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-lingering-git-children.md) — Completion report
