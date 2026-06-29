@@ -35,3 +35,9 @@ accessibility and semantics half is now grounded in the library: the MDN
 Skills are role/main2 artifacts: author in an isolated worktree off origin/main2,
 under `skills/native-customizable-form-control-styling/SKILL.md`, and update the
 CLAUDE.md skill inventory + the web-designer/web-builder role skill lists.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 28
+  claimed_at: 2026-06-29T20:58:51Z
