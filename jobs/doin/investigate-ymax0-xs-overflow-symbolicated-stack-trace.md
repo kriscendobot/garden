@@ -91,3 +91,9 @@ Specifically:
   trace there). Leave the issue **open** for the maintainer to close.
 - The v320 swing-store **export** path (production live-rehydration cross-check)
   remains maintainer-only; do not attempt it.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 36
+  claimed_at: 2026-06-29T17:29:51Z
