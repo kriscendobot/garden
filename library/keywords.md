@@ -13497,3 +13497,16 @@ customizable select | css-intrinsic-sizing
 `::picker(select)` | css-intrinsic-sizing
 `position-try-fallbacks` | css-intrinsic-sizing
 Goldilocks select height | css-intrinsic-sizing
+customizable select element | customizable-select
+`appearance: base-select` | customizable-select
+appearance base-select | customizable-select
+base-select | customizable-select
+`<selectedcontent>` | customizable-select
+selectedcontent element | customizable-select
+`::picker-icon` | customizable-select
+`::checkmark` | customizable-select
+select button (customizable select) | customizable-select
+native form control styling | customizable-select
+native customizable form control | customizable-select
+stylable native select | customizable-select
+prefer native customizable select over JS widget | customizable-select
