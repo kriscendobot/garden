@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T21:50:57Z_
+_As of 2026-06-29T21:52:12Z_
 
 ## Latest
 
-Cleaner-watcher reaping landed: [improve-comment-watcher-reap-lingering-git-children](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-lingering-git-children.md) reaps lingering git child processes left by the comment-watcher's source, complementing the earlier source-process-group reaping work, and a self-heal pass aligned `garden-mirror-closer`'s gh-api retry set with Go net/http transient-timeout signatures (matching the parallel `improve-gh-api-retry-match-go-net-timeout-signatures`, which found its intent already on main2). On the web-frontend skills front, the `native-customizable-form-control-styling` skill shipped, built from a scholar ingest of the MDN customizable-`<select>` guide. One job is in flight: [improve-send-msg-tolerate-placeholder-wrapped-address](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-send-msg-tolerate-placeholder-wrapped-address.md), hardening `send-msg.sh` to tolerate placeholder-wrapped addresses. Nothing new is parked for review; the oldest items awaiting kriskowal remain [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 38 days.
+The board is fully drained — todo and doin are both empty — after the message-bus `send-msg` path landed a fix to tolerate placeholder-wrapped addresses, the only job to move since the last bulletin. That caps a run of infra-hardening completions: the comment-watcher now reaps lingering git child processes, the `gh-api` retry set recognizes Go `net/http` transient-timeout signatures (with a matching self-heal applied to `garden-mirror-closer`), and the `native-customizable-form-control-styling` web-design skill was authored. Nothing is awaiting a maintainer message on the bus; the 29 parked PRs (top: [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343), [#403](https://github.com/endojs/endo-but-for-bots/pull/403), and [#58](https://github.com/endojs/endo-but-for-bots/pull/58)) remain the standing queue for kriskowal's review.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-send-msg-tolerate-placeholder-wrapped-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-send-msg-tolerate-placeholder-wrapped-address.md) — In scripts/jobs/send-msg.sh, before the address validation case at lines 24–2...
+### doin (0)
+(none)
 
-### tada (598)
+### tada (599)
+- [`improve-send-msg-tolerate-placeholder-wrapped-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-send-msg-tolerate-placeholder-wrapped-address.md) — Completion report
 - [`improve-comment-watcher-reap-lingering-git-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-lingering-git-children.md) — Completion report
 - [`improve-gh-api-retry-match-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-retry-match-go-net-timeout-signatures.md) — No work to commit — the job's intent is already in origin/main2. Here is my r...
 - [`self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures.md) — Completion report
 - [`author-native-customizable-form-control-styling-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-native-customizable-form-control-styling-skill.md) — Completion report
-- [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-mdn-customizable-select-guide.md) — scholar-ingest-mdn-customizable-select-guide — done
-- … and 593 more
+- … and 594 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
