@@ -75,9 +75,12 @@ restart_long_running_fleet() {
   # let a retired unit survive a deploy that did not touch scripts/systemd/.
 
   local restarted=0 deferred=0 failed=0 unit idx
+  local -a to_restart=()
 
-  # Gardeners. With the busy-gate on, defer a mid-job gardener; with it off (the
-  # deliberate deploy, post-quiesce) restart every active gardener.
+  # Gather the gardener units to re-exec. With the busy-gate on, defer a mid-job
+  # gardener; with it off (the deliberate deploy, post-quiesce) take every active
+  # gardener. We only COLLECT here; the actual restarts are issued concurrently
+  # below so the per-unit stop windows overlap instead of summing.
   while read -r unit; do
     [ -n "$unit" ] || continue
     case "$unit" in garden-gardener@*.service) ;; *) continue ;; esac
@@ -89,26 +92,56 @@ restart_long_running_fleet() {
         continue
       fi
     fi
-    if unit_ctl restart "$unit" >/dev/null 2>&1; then
-      restarted=$((restarted+1))
-    else
-      log "WARN: restart of $unit failed"; failed=$((failed+1))
-    fi
+    to_restart+=("$unit")
   done < <(_restart_active_units 'garden-gardener@*.service')
 
-  # Other long-running services: the bulletin singleton and the watcher
-  # instance pool. Absent units yield an empty list and are a no-op.
+  # Other long-running services: the bulletin singleton and the watcher instance
+  # pool. Absent units yield an empty list and are a no-op. They restart in the
+  # same concurrent wave as the gardeners.
   local pat
   for pat in 'garden-bulletin.service' 'garden-watcher@*.service'; do
     while read -r unit; do
       [ -n "$unit" ] || continue
-      if unit_ctl restart "$unit" >/dev/null 2>&1; then
-        restarted=$((restarted+1)); log "restart: restarted $unit"
-      else
-        log "WARN: restart of $unit failed"; failed=$((failed+1))
-      fi
+      to_restart+=("$unit")
     done < <(_restart_active_units "$pat")
   done
+
+  # Restart every collected unit CONCURRENTLY, not one at a time.
+  #
+  # Why this matters (the ~14-min-deploy bug, 2026-06-29): a `systemctl restart`
+  # client BLOCKS until its unit's stop+start job completes, and a gardener stop
+  # is slow. An idle gardener is parked in gardener.sh's idle-poll `sleep` (up to
+  # GARDEN_IDLE_SLEEP_CAP, default 30s). Under the unit's KillMode=mixed, a stop
+  # SIGTERMs only the main process (self-heal-run.sh), which forwards the signal
+  # to gardener.sh — but bash DEFERS a trapped signal until the foreground `sleep`
+  # returns, and the sleep itself is never signaled. So each unit's stop waits out
+  # the remainder of its idle sleep (~11s observed) before the worker reaches its
+  # between-claims point and exits and the cgroup empties. Issued serially, N such
+  # stops cost N × that latency: 77 gardeners × ~11s ≈ 14 minutes, almost all of it
+  # inside this function, which at the ~15-min main2 commit cadence kept the leader
+  # in near-continuous drain/restart.
+  #
+  # Restarting concurrently overlaps every unit's stop window, so the whole fleet
+  # restart costs ~one idle-poll window (≤ GARDEN_IDLE_SLEEP_CAP) plus start
+  # overhead, instead of the sum. systemd runs the queued jobs in parallel anyway;
+  # the only thing we change is to stop blocking on N client waits one-at-a-time.
+  # Each unit keeps its own `unit_ctl restart` invocation so per-unit accounting
+  # and failure isolation are preserved (one bad unit does not abort the wave).
+  if [ "${#to_restart[@]}" -gt 0 ]; then
+    local -a pids=() ulist=()
+    for unit in "${to_restart[@]}"; do
+      unit_ctl restart "$unit" >/dev/null 2>&1 &
+      pids+=("$!"); ulist+=("$unit")
+    done
+    local i
+    for i in "${!pids[@]}"; do
+      if wait "${pids[$i]}"; then
+        restarted=$((restarted+1))
+      else
+        log "WARN: restart of ${ulist[$i]} failed"; failed=$((failed+1))
+      fi
+    done
+  fi
 
   log "restart complete: restarted=$restarted deferred(mid-job)=$deferred failed=$failed (now at $new_sha)"
   return 0

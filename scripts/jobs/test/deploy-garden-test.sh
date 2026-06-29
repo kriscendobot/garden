@@ -197,6 +197,41 @@ log_has "disable --now garden-deploy-sync.service" && ok "stale service disabled
 [ ! -e "$DEST/garden-deploy-sync.timer" ] && ok "stale rendered timer file removed from DEST" || bad "stale timer file lingered"
 [ ! -e "$DEST/garden-deploy-sync.service" ] && ok "stale rendered service file removed from DEST" || bad "stale service file lingered"
 
+# ============================================================================
+hr; echo "CONCURRENT FLEET RESTART — every active gardener restarts in one wave"; hr
+# Regression for the ~14-min deploy (2026-06-29): the fleet restart must issue a
+# restart for EVERY active gardener (not stop at the first), and the restarts run
+# concurrently so the per-unit stop windows overlap rather than sum.
+setup_fixture
+printf '%s\n' garden-gardener@1.service garden-gardener@2.service \
+             garden-gardener@3.service garden-gardener@4.service \
+             garden-gardener@5.service garden-bulletin.service > "$TR/armed"
+origin_commit scripts/jobs/worker-lib.sh "echo newfleet" "fix: worker-lib fleet"
+run_deploy
+[ "$RC" -eq 0 ] && ok "exit 0 on the multi-gardener deploy" || bad "exit $RC: $OUT"
+allrestarted=1
+for n in 1 2 3 4 5; do
+  grep -qF "restart garden-gardener@$n.service" "$TR/log" || { allrestarted=0; break; }
+done
+[ "$allrestarted" -eq 1 ] && ok "all 5 gardeners restarted (none skipped)" || bad "not every gardener restarted: $(cat "$TR/log")"
+grep -q "restart complete: restarted=6 " <<<"$OUT" && ok "restart count = 6 (5 gardeners + bulletin)" || bad "restart count wrong: $(grep 'restart complete' <<<"$OUT")"
+
+# ============================================================================
+hr; echo "RESTART FAILURE ISOLATION — one failing unit is counted, the rest restart"; hr
+# A single unit whose restart fails must NOT abort the wave: the others still
+# restart and the failure is accounted (failed=1), not fatal to the deploy.
+setup_fixture
+printf '%s\n' garden-gardener@1.service garden-gardener@2.service \
+             garden-gardener@3.service > "$TR/armed"
+origin_commit scripts/jobs/worker-lib.sh "echo newiso" "fix: worker-lib iso"
+run_deploy GARDEN_MOCK_FAIL_UNIT=garden-gardener@2.service
+[ "$RC" -eq 0 ] && ok "deploy still succeeds despite one failed unit restart" || bad "exit $RC: $OUT"
+grep -qF "restart garden-gardener@1.service" "$TR/log" && grep -qF "restart garden-gardener@3.service" "$TR/log" \
+  && ok "the non-failing gardeners still restarted" || bad "a sibling restart was skipped after the failure"
+grep -q "WARN: restart of garden-gardener@2.service failed" <<<"$OUT" && ok "the failed unit is logged as a WARN" || bad "failed unit not logged"
+grep -q "restart complete: restarted=2 deferred(mid-job)=0 failed=1 " <<<"$OUT" && ok "accounting: restarted=2 failed=1" || bad "accounting wrong: $(grep 'restart complete' <<<"$OUT")"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"
 [ "$FAIL" -eq 0 ]

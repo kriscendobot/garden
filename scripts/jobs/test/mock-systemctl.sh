@@ -13,6 +13,16 @@ echo "systemctl --user $cmd $*" >> "$LOG"
 # extract a unit argument (the non-flag token)
 unit_arg() { for a in "$@"; do case "$a" in --*) ;; *) printf '%s' "$a"; return;; esac; done; }
 
+# Optional failure injection: GARDEN_MOCK_FAIL_UNIT names a unit whose
+# restart/start the mock reports as failed (exit 1), so tests can exercise the
+# restart path's per-unit failure isolation. The call is still logged above.
+if [ -n "${GARDEN_MOCK_FAIL_UNIT:-}" ]; then
+  case "$cmd" in
+    restart|start)
+      for a in "$@"; do [ "$a" = "$GARDEN_MOCK_FAIL_UNIT" ] && exit 1; done ;;
+  esac
+fi
+
 case "$cmd" in
   daemon-reload|reset-failed|status) : ;;
   list-units|list-unit-files)
