@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-29T16:39:00Z_
+_As of 2026-06-29T16:52:37Z_
 
 ## Latest
 
-Quiet interval — the only board movement since the last bulletin was a refreshed [scholar library cycle](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-163514.md) completion. The substantive recent landings were garden infrastructure: a bounded transient-retry for the read-only `gh` API handlers (hardening the comment/mention pipelines against flaky GitHub calls) and the [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) bulletin re-architecture work, alongside the daily progress periodical. The board is fully drained (todo and doin both empty), so nothing is in flight. The maintainer's attention is best spent on the parked queue: [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix) have each waited three days, and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) is now 13 days parked.
+Bounded transient-retry now wraps the read-only `gh` API handlers in the jobs subsystem ([improve-gh-api-handler-transient-retry](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-handler-transient-retry.md)), reducing spurious failures from flaky GitHub calls, and the garden's own work on [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) landed. The scholar ran two library cycles plus its daily-progress and library-source-drift summaries. One job is in flight: hardening the scholar preflight's broadcast actionability filter (`scripts/jobs/scholar-preflight.sh` condition #3). No new maintainer messages; the parked queue holds steady at 29 PRs, the oldest-and-still-waiting being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable `.ts` runtime modules, 13 days) and the long-tail iOS Safari and eventual-send ponyfill PRs at 38 days.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 8h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-scholar-preflight-broadcast-actionability-filter`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scholar-preflight-broadcast-actionability-filter.md) — Harden scripts/jobs/scholar-preflight.sh condition #3 (the role/scholar broad...
 
 ### tada (573)
 - [`scholar-library-cycle-20260629-163514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-163514.md) — Completion report
