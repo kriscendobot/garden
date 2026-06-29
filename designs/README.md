@@ -29,3 +29,4 @@ The garden's `CLAUDE.md` § Conventions states that the garden does not generall
 | --- | --- | --- |
 | [driver.md](driver.md) | Proposed | Pivot the PR-creation flow from claude-on-top orchestration to claude-under-script worker pool with role-specific job boards. |
 | [multibot-leader-follower.md](multibot-leader-follower.md) | Implemented | Gardeners run on every host; singletons run only on the leader host named by the journal `hosts/main-host` marker, via the `GARDEN` knob and the `is-main-host` predicate. |
+| [raft-leader-election.md](raft-leader-election.md) | Proposed | Automatic leader failover via election-only RAFT (adapted from `kriskowal/cask`) over journal2's push-CAS, at a half-hour cadence; closes multibot's deferred "manual; no failover" gap while keeping `hosts/main-host` + `is-main-host.sh` as the output. |
