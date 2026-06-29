@@ -34,3 +34,9 @@ total restart wall-time). Touch the deploy/restart path only:
 Land on `main2` via an **isolated worktree off origin/main2** (the shared root
 tree is concurrently mutated; commit explicit pathspecs, push `HEAD:main2`).
 Add/extend a test under `scripts/jobs/test/` if the change is logic, not just unit config.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 4
+  claimed_at: 2026-06-29T21:53:52Z
