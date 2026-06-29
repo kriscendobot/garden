@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T20:37:04Z_
+_As of 2026-06-29T20:37:29Z_
 
 ## Latest
 
-A cluster of gardener-fleet reliability hardening landed: graceful-stop now uses an explicit `KillMode`/`TimeoutStop` so a SIGTERM-ignoring handler can't wedge a worker, the handler logs elapsed time when killed externally, and the reaper escalates a stuck journal fetch to SIGKILL across the whole subtree. The only board transition since the last bulletin was the completion of the agoric-sdk fork's `fetched-chain-info` regeneration (a long background build that finally cleared). In flight: the scholar's web-designer CSS-skills authoring (just claimed), a rebase of [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) onto master, and an attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9).
+The agoric-sdk fork's PR #7 rebase landed, and two gardener-reliability fixes completed — a graceful-stop improvement ([KillMode/TimeoutStop](https://github.com/kriskowal/garden)) and handler-elapsed logging on external kills — alongside scholar work ingesting Goldilocks to propose new web-designer CSS skills (now in flight). No PRs are parked with fresh maintainer asks beyond the standing review backlog (29 open, oldest 38–40 days).
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`agoric-sdk-fork-rebase-pr-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-rebase-pr-7.md) — Rebase kriscendobot/agoric-sdk PR #7 onto master
+### doin (2)
 - [`author-web-designer-css-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-web-designer-css-skills.md) — Author web-designer CSS skills (scholar proposal)
 - [`kriskowal-garden-pr9-c785d2ec`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-c785d2ec.md) — attention directive on kriskowal/garden PR #9
 
-### tada (586)
+### tada (587)
+- [`agoric-sdk-fork-rebase-pr-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-rebase-pr-7.md) — Completion report — agoric-sdk-fork-rebase-pr-7
 - [`agoric-sdk-fork-regen-fetched-chain-info-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-regen-fetched-chain-info-master.md) — Build is still pending (agoric-sdk's build step is long). The background watc...
 - [`improve-gardener-graceful-stop-killmode-timeoutstop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-graceful-stop-killmode-timeoutstop.md) — Completion report
 - [`improve-gardener-log-handler-elapsed-on-external-kill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-log-handler-elapsed-on-external-kill.md) — Completion report
 - [`scholar-ingest-goldilocks-select-propose-web-designer-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-goldilocks-select-propose-web-designer-skills.md) — Completion report — scholar-ingest-goldilocks-select-propose-web-designer-skills
-- [`improve-reaper-stuck-fetch-kill-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-stuck-fetch-kill-escalation.md) — Completion report — improve-reaper-stuck-fetch-kill-escalation
-- … and 581 more
+- … and 582 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
