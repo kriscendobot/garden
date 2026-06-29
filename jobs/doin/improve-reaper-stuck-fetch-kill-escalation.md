@@ -2,6 +2,7 @@ In `scripts/jobs/reaper.sh`, the `reap_stuck_fetches` janitor sends only `kill -
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
