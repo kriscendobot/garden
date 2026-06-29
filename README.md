@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T20:45:35Z_
+_As of 2026-06-29T20:55:47Z_
 
 ## Latest
 
-The board is essentially quiet since the last bulletin — the only transition was a dead-mail completion report clearing out, leaving zero `todo` items and two scholar-ingest jobs in flight (the CSS anchor-positioning reference and the MDN customizable-`<select>` guide). Recently landed work includes the three web-designer CSS skills (`author-web-designer-css-skills`) and a rebase plus chain-info regen on the `kriscendobot/agoric-sdk` fork. Worth a maintainer's eye: the parked queue now holds 29 PRs awaiting review, with the oldest having waited well over a month — [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (opencode comparative analysis, 40d) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (chat voice input, 39d) — and freshest among the top-ranked, [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (the `@endo/gateway` design) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability), both at 12h.
+A scholar ingest of the [CSS anchor-positioning reference](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-css-anchor-positioning-reference.md) landed, and the follow-on work it feeds is now in flight: a gardener claimed the job to author the `css-anchor-positioning-and-flip-fallbacks` skill, alongside an in-progress ingest of the MDN customizable-`<select>` guide — continuing the recent web-designer CSS-skills push. On the infra side, a gardener picked up hardening `comment-watcher.sh` to reap its child processes on signal, addressing the recurring `garden-comment-watcher` crash pattern. The board is otherwise drained (todo empty), so nothing here needs maintainer action beyond the long-parked review queue.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,18 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`scholar-ingest-css-anchor-positioning-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-css-anchor-positioning-reference.md) — Scholar-ingest: a CSS anchor-positioning reference
+### doin (3)
+- [`author-css-anchor-positioning-and-flip-fallbacks`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-css-anchor-positioning-and-flip-fallbacks.md) — Author the css-anchor-positioning-and-flip-fallbacks skill
+- [`improve-comment-watcher-reap-children-on-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-reap-children-on-signal.md) — Harden scripts/jobs/comment-watcher.sh against the recurring garden-comment-w...
 - [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-mdn-customizable-select-guide.md) — Scholar-ingest: the MDN customizable-<select> guide
 
-### tada (590)
+### tada (591)
+- [`scholar-ingest-css-anchor-positioning-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-css-anchor-positioning-reference.md) — Completion report — scholar-ingest-css-anchor-positioning-reference
 - [`deadmail-issue-comment-4836711304`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4836711304.md) — Completion report
 - [`kriskowal-garden-pr9-c785d2ec`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-c785d2ec.md) — Completed the attention directive on kriskowal/garden #9.
 - [`author-web-designer-css-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-web-designer-css-skills.md) — Completion report — author-web-designer-css-skills
 - [`agoric-sdk-fork-rebase-pr-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-rebase-pr-7.md) — Completion report — agoric-sdk-fork-rebase-pr-7
-- [`agoric-sdk-fork-regen-fetched-chain-info-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-regen-fetched-chain-info-master.md) — Build is still pending (agoric-sdk's build step is long). The background watc...
-- … and 585 more
+- … and 586 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
