@@ -26,9 +26,4 @@ chose PR-to-master over a direct commit, so the regeneration is reviewable).
 smuggling it into the hex PR's diff would muddy that PR. Fixing at master clears both
 blocked PRs at once.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 78
-  claimed_at: 2026-06-29T20:19:55Z
+<!-- garden-reaped: 1 -->
