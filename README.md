@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-29T14:30:23Z_
+_As of 2026-06-29T15:39:30Z_
 
 ## Latest
 
-Quiet cycle — no jobs posted, claimed, or completed since the last bulletin; the board sits empty (todo/doin both clear). The most recent completions were routine maintenance: a [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) follow-up, the daily progress periodical, a scholar library-ingest cycle plus wiring the scholar preflight into the live schedule, and the daily dependabotany recheck on endojs/endo-but-for-bots. Nothing new is awaiting a maintainer beyond the 29 still-parked PRs, the oldest of which — [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [#101](https://github.com/endojs/endo-but-for-bots/pull/101) — have now been waiting 40 and 39 days respectively.
+Bot-driven work continued through the fleet, but nothing of substance moved on the maintainer-facing surface since the last bulletin — no job-board transitions resolved, and the parked review queue is unchanged. The oldest items still waiting on kriskowal's eyes are [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 6h) and the [@endo/gateway design](https://github.com/endojs/endo-but-for-bots/pull/343) (7h), with longer-tenured asks like [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d) and the [.ts erasable-type-syntax support](https://github.com/endojs/endo/pull/3137) (13d) still parked among 29 total.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 6h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 5h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 6h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 7h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
