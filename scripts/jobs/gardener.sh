@@ -164,6 +164,16 @@ while :; do
   # counter escalates a job that times out EVERY cycle (a genuine deadlock) only after
   # the threshold. A genuine deploy-drain kill also arrives as rc=143 and stays
   # transient via is_external_kill_rc.
+  #
+  # Stamp the handler's wall-clock start (SECONDS, the shell's monotonic
+  # seconds-since-start counter) so the failure branch below can report how long
+  # the handler ran before it was killed. A near-CONSTANT elapsed across requeue
+  # cycles is a positive signal of a DETERMINISTIC overrun (the handler runs into
+  # the same fixed bound every time) or a fixed external bound, distinct from a
+  # benign deploy-drain blip that lands at a VARIED elapsed near a known deploy —
+  # which the rc-only classification cannot tell apart until the reaper's poison
+  # threshold. SECONDS is read-only timing state; no new board state.
+  handler_start=$SECONDS
   if GARDEN_GARDENER_ID="$id" timeout --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$GARDEN_HANDLER_TIMEOUT" "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1; then
     # complete-job.sh runs sync_clone, which exits GARDEN_OFFLINE_RC on a
     # transient outage — under set -e that would crash the worker on a blip after
@@ -186,6 +196,7 @@ while :; do
     fi
   else
     rc=$?  # exit code of the failed handler — capture FIRST, before any command clobbers $?
+    elapsed=$((SECONDS - handler_start))  # wall-clock seconds the handler ran before it died
     # The job handler — the gardening state machine / a `claude -p` inner agent —
     # exited non-zero. Its combined stdout+stderr is in $capture. DO NOT discard
     # it (the prior one-line report did) and DO NOT complete the job doin→tada
@@ -290,9 +301,18 @@ while :; do
       # it only makes a not-actually-transient job (a wedged scholar fetch, an OOM)
       # visible early to a human or a future watchman self-test.
       cycle="$(reap_count "$jobfile")"
-      log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, signal-kill/timeout/empty/transient-signature capture); no escalation, left in doin for reaper requeue"
-      printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/timeout/empty/transient-signature output); transient handler outage (requeue cycle %s); left in doin for reaper requeue (no escalation)\n' \
-        "$id" "$GARDEN" "$base" "$rc" "$cycle" \
+      # Fold in the handler's elapsed wall-time too. The reap_count alone cannot
+      # distinguish a benign deploy-drain blip (killed at a VARIED elapsed near a
+      # known deploy) from a job that deterministically overruns and is killed at
+      # a CONSTANT elapsed every cycle — they look identical until the poison
+      # threshold (~5 cycles). A near-constant elapsed across requeue cycles is a
+      # positive signal of a deterministic overrun or a fixed external bound, so a
+      # human or a watchman self-test can surface a genuinely-stuck job early
+      # instead of waiting out the full poison cycle. elapsed is READ-ONLY of the
+      # SECONDS timing captured at the call site — no new state, no CAS.
+      log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, elapsed=${elapsed}s, signal-kill/timeout/empty/transient-signature capture); no escalation, left in doin for reaper requeue"
+      printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/timeout/empty/transient-signature output); transient handler outage (requeue cycle %s, elapsed=%ss); left in doin for reaper requeue (no escalation)\n' \
+        "$id" "$GARDEN" "$base" "$rc" "$cycle" "$elapsed" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
       # We KNOW this claim is dead (the handler was killed/blipped, not failing on a
       # job defect), so don't make the job wait out the full GARDEN_CLAIM_TTL for the
