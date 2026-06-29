@@ -128,7 +128,7 @@ mark_resolved() {  # mark_resolved <key> <outcome>
     { printf 'closed_at: %s\n' "$(date -u +%FT%TZ)"
       printf 'upstream_outcome: %s\n' "$outcome"; } >> "$DIR/$key"
     git -C "$DIR" add "$key"
-    if commit_and_push "$DIR" "pr-mirror($key) resolved: upstream $outcome on $GARDEN_HOST"; then
+    if commit_and_push "$DIR" "pr-mirror($key) resolved: upstream $outcome on $GARDEN"; then
       return 0
     fi
     rc=$?; [ "$rc" -eq 2 ] && return 0

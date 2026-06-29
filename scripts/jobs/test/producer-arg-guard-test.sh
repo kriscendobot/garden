@@ -53,7 +53,7 @@ SEED="$TR/seed"; git init -q "$SEED"; git -C "$SEED" checkout -q -b journal2
   git push -q -u origin journal2 )
 
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
-       GARDEN_STATE="$TR/state" GARDEN_HOST=guardhost GARDEN_NO_MAINTAINER_ALERT=1
+       GARDEN_STATE="$TR/state" GARDEN=guardhost GARDEN_NO_MAINTAINER_ALERT=1
 ohead() { git ls-remote "$BARE" refs/heads/journal2 | awk '{print $1}'; }
 
 # --- 1: -h/--help prints usage, exits 0, and does NOT touch the journal ------

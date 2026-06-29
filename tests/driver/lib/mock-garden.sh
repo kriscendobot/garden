@@ -97,7 +97,7 @@ EOF
   # 4. Export env for the driver under test.
   export GARDEN_ROOT="$MOCK_GARDEN_ROOT"
   export GARDEN_JOURNAL="$MOCK_GARDEN_JOURNAL"
-  export GARDEN_HOST="mock-host"
+  export GARDEN="mock-host"
   export MOCK_LOGS
   export PATH="$MOCK_BIN:$PATH"
 
@@ -127,7 +127,7 @@ mock_garden_teardown() {
     rm -rf "$MOCK_TMP"
   fi
   unset MOCK_TMP MOCK_GARDEN_ROOT MOCK_GARDEN_JOURNAL MOCK_STUBS MOCK_BIN MOCK_LOGS
-  unset GARDEN_ROOT GARDEN_JOURNAL GARDEN_HOST GH_STUB
+  unset GARDEN_ROOT GARDEN_JOURNAL GARDEN GH_STUB
 }
 
 # Pretty-print helpers used by tests.

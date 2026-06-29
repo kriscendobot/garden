@@ -10,7 +10,7 @@
 # Environment overrides (honored by both the script and the test harness):
 #   GARDEN_ROOT          default: script-location-relative grandparent
 #   GARDEN_JOURNAL       default: $GARDEN_ROOT/journal
-#   GARDEN_HOST          default: $(hostname -s)
+#   GARDEN          default: $(hostname -s)
 #   DRIVER_WORKFLOW      default: inferred from DRIVER_PR or claimed job
 #   DRIVER_PR            optional: <owner>/<repo>#<n> the driver subscribes to
 #   DRIVER_TICK_SECONDS  default: 30
@@ -45,7 +45,7 @@ esac
 SCRIPT_PATH=$(cd "$(dirname "$0")" && pwd)
 DEFAULT_GARDEN_ROOT=$(cd "$SCRIPT_PATH/../.." && pwd)
 GARDEN_ROOT=${GARDEN_ROOT:-$DEFAULT_GARDEN_ROOT}
-GARDEN_HOST=${GARDEN_HOST:-$(hostname -s)}
+GARDEN=${GARDEN:-$(hostname -s)}
 DRIVER_WORKFLOW=${DRIVER_WORKFLOW:-}
 DRIVER_PR=${DRIVER_PR:-}
 DRIVER_TICK_SECONDS=${DRIVER_TICK_SECONDS:-30}
@@ -98,7 +98,7 @@ ensure_lane_worktree() {
 ensure_lane_worktree || exit 1
 test -d "$GARDEN_JOURNAL" || { echo "driver: GARDEN_JOURNAL not a directory: $GARDEN_JOURNAL" >&2; exit 1; }
 
-STATE_DIR="$GARDEN_JOURNAL/drivers/$GARDEN_HOST"
+STATE_DIR="$GARDEN_JOURNAL/drivers/$GARDEN"
 STATE_FILE="$STATE_DIR/$LANE.md"
 SUBSCRIPTIONS_FILE="$STATE_DIR/$LANE.subscriptions"
 # Tracks which jobs/claimed/...md path this lane is currently working,
@@ -201,7 +201,7 @@ write_state() {
   iso=$(date -u +%Y-%m-%dT%H:%M:%SZ)
   cat > "$STATE_FILE" <<EOF
 ---
-host: $GARDEN_HOST
+host: $GARDEN
 lane: $LANE
 workflow: $DRIVER_WORKFLOW
 pr: ${DRIVER_PR:-(none)}
@@ -499,7 +499,7 @@ capture_and_self_improve() {
     return 0
   fi
 
-  local improvements_dir="$GARDEN_JOURNAL/drivers/$GARDEN_HOST"
+  local improvements_dir="$GARDEN_JOURNAL/drivers/$GARDEN"
   local improvements_file="$improvements_dir/$LANE.improvements.md"
   mkdir -p "$improvements_dir"
 
@@ -508,7 +508,7 @@ capture_and_self_improve() {
   if [ ! -f "$improvements_file" ]; then
     cat > "$improvements_file" <<EOF
 ---
-host: $GARDEN_HOST
+host: $GARDEN
 lane: $LANE
 kind: driver-self-improvement-log
 ---

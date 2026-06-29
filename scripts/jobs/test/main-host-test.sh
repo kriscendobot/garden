@@ -27,10 +27,10 @@ TR=/home/kris/.garden-mainhost-test
 rm -rf "$TR"; mkdir -p "$TR"
 BARE="$TR/journal.git"; BRANCH=journal2
 
-# --- seed a bare journal2 with hosts/main-host = leaderhost ------------------
+# --- seed a bare journal2 with the root `leader` marker = leaderhost ---------
 git init -q --bare "$BARE"
 SEED="$TR/seed"; git init -q "$SEED"; git -C "$SEED" checkout -q -b "$BRANCH"
-( cd "$SEED"; mkdir -p hosts; printf 'leaderhost\n' > hosts/main-host; touch hosts/.gitkeep )
+( cd "$SEED"; printf 'leaderhost\n' > leader; mkdir -p hosts; touch hosts/.gitkeep )
 git -C "$SEED" add -A
 git -C "$SEED" -c user.name=t -c user.email=t@l commit -q -m seed
 git -C "$SEED" remote add origin "$BARE"
@@ -45,69 +45,66 @@ for s in "$JOBS/common.sh" "$IMH" "$SMH"; do
 done
 
 # ============================================================================
-hr; echo "GARDEN KNOB — GARDEN overrides hostname; GARDEN_HOST defaults to it"; hr
-gh_of() { env "$@" bash -c "source '$JOBS/common.sh'; printf '%s' \"\$GARDEN_HOST\""; }
+hr; echo "GARDEN KNOB — the single host-identity var; defaults to hostname -s"; hr
+gh_of() { env "$@" bash -c "source '$JOBS/common.sh'; printf '%s' \"\$GARDEN\""; }
 [ "$(gh_of GARDEN=knobhost)" = knobhost ] \
-  && ok "GARDEN=knobhost → GARDEN_HOST=knobhost (knob defaults GARDEN_HOST)" \
-  || bad "GARDEN did not default GARDEN_HOST (got '$(gh_of GARDEN=knobhost)')"
-[ "$(gh_of GARDEN=knobhost GARDEN_HOST=explicit)" = explicit ] \
-  && ok "explicit GARDEN_HOST wins over GARDEN" \
-  || bad "explicit GARDEN_HOST did not win (got '$(gh_of GARDEN=knobhost GARDEN_HOST=explicit)')"
+  && ok "explicit GARDEN=knobhost is honored" \
+  || bad "GARDEN not honored (got '$(gh_of GARDEN=knobhost)')"
 hn="$(hostname -s 2>/dev/null || echo host)"
 [ "$(gh_of)" = "$hn" ] \
-  && ok "neither set → GARDEN_HOST falls back to hostname -s ($hn)" \
+  && ok "unset GARDEN falls back to hostname -s ($hn)" \
   || bad "fallback wrong (got '$(gh_of)', want '$hn')"
 
 # ============================================================================
 hr; echo "PREDICATE — journal marker read decides leader vs follower"; hr
 run_imh() { env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_STATE="$1" \
-                GARDEN_HOST="$2" GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?; }
+                GARDEN="$2" GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?; }
 [ "$(run_imh "$TR/st-leader" leaderhost)" = 0 ] \
   && ok "is-main-host exits 0 on the journal-named leader (leaderhost)" \
   || bad "leader not recognized"
 [ "$(run_imh "$TR/st-follow" otherhost)" = 1 ] \
   && ok "is-main-host exits 1 on a follower (otherhost)" \
   || bad "follower not recognized"
-# GARDEN (not GARDEN_HOST) is what the predicate ultimately compares.
+# GARDEN is what the predicate compares against the journal `leader` marker.
 garden_imh="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_STATE="$TR/st-g" \
                   GARDEN=leaderhost GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?)"
-[ "$garden_imh" = 0 ] && ok "GARDEN=leaderhost (no GARDEN_HOST) → leader" || bad "GARDEN knob not honored by predicate"
+[ "$garden_imh" = 0 ] && ok "GARDEN=leaderhost matches journal leader → leader" || bad "GARDEN knob not honored by predicate"
 
 # ============================================================================
 hr; echo "OVERRIDE + DEFAULTS — env short-circuit, fail-open, fail-closed"; hr
-ov="$(env GARDEN_MAIN_HOST=zz GARDEN_HOST=zz GARDEN_STATE="$TR/st-ov" "$IMH" >/dev/null 2>&1; echo $?)"
-[ "$ov" = 0 ] && ok "GARDEN_MAIN_HOST env short-circuits the journal read" || bad "env override not honored ($ov)"
+ov="$(env GARDEN_LEADER=zz GARDEN=zz GARDEN_STATE="$TR/st-ov" "$IMH" >/dev/null 2>&1; echo $?)"
+[ "$ov" = 0 ] && ok "GARDEN_LEADER env short-circuits the journal read" || bad "env override not honored ($ov)"
 # Undeterminable (dead remote, no cache): default leader = fail open.
-fo="$(env JOURNAL_REMOTE="$TR/nope.git" GARDEN_STATE="$TR/st-fo" GARDEN_HOST=x \
+fo="$(env JOURNAL_REMOTE="$TR/nope.git" GARDEN_STATE="$TR/st-fo" GARDEN=x \
           GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?)"
 [ "$fo" = 0 ] && ok "undeterminable leader → fail open (default leader)" || bad "fail-open default wrong ($fo)"
-fc="$(env JOURNAL_REMOTE="$TR/nope.git" GARDEN_STATE="$TR/st-fc" GARDEN_HOST=x \
-          GARDEN_MAIN_HOST_DEFAULT=follower GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?)"
-[ "$fc" = 1 ] && ok "GARDEN_MAIN_HOST_DEFAULT=follower → fail closed" || bad "fail-closed default wrong ($fc)"
+fc="$(env JOURNAL_REMOTE="$TR/nope.git" GARDEN_STATE="$TR/st-fc" GARDEN=x \
+          GARDEN_LEADER_DEFAULT=follower GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?)"
+[ "$fc" = 1 ] && ok "GARDEN_LEADER_DEFAULT=follower → fail closed" || bad "fail-closed default wrong ($fc)"
 
 # ============================================================================
 hr; echo "TTL CACHE — a fresh read survives a later journal outage"; hr
 # Prime the cache from the live journal, then point at a DEAD remote: the cached
 # leader value must still classify correctly (transient-outage resilience).
 CST="$TR/st-cache"
-env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$CST" GARDEN_HOST=leaderhost GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1
-[ -f "$CST/main-host/cached" ] && ok "first read primes the host-local cache" || bad "cache not written"
+env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$CST" GARDEN=leaderhost GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1
+[ -f "$CST/leader/cached" ] && ok "first read primes the host-local cache" || bad "cache not written"
 # TTL=99999 forces the cache path; dead remote proves no fresh read is needed.
-cached="$(env JOURNAL_REMOTE="$TR/dead.git" GARDEN_STATE="$CST" GARDEN_HOST=leaderhost \
-               GARDEN_MAIN_HOST_TTL=99999 GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?)"
+cached="$(env JOURNAL_REMOTE="$TR/dead.git" GARDEN_STATE="$CST" GARDEN=leaderhost \
+               GARDEN_LEADER_TTL=99999 GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?)"
 [ "$cached" = 0 ] && ok "cached leader value classifies during a journal outage (no fresh read)" || bad "cache fallback failed ($cached)"
 
 # ============================================================================
-hr; echo "SET-MAIN-HOST — CAS-writes hosts/main-host; predicate flips"; hr
+hr; echo "SET-MAIN-HOST — CAS-writes the journal \`leader\` marker; predicate flips"; hr
 SST="$TR/st-set"
-env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$SST" GARDEN_HOST=newleader GARDEN_NO_MAINTAINER_ALERT=1 \
+env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$SST" GARDEN=newleader GARDEN_NO_MAINTAINER_ALERT=1 \
     "$SMH" newleader >/dev/null 2>&1 && ok "set-main-host.sh ran" || bad "set-main-host.sh failed"
 V="$TR/verify"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
-[ "$(head -1 "$V/hosts/main-host" | tr -d '[:space:]')" = newleader ] \
-  && ok "hosts/main-host now names newleader" || bad "marker not updated ($(cat "$V/hosts/main-host" 2>/dev/null))"
+[ "$(head -1 "$V/leader" | tr -d '[:space:]')" = newleader ] \
+  && ok "journal leader marker now names newleader" || bad "marker not updated ($(cat "$V/leader" 2>/dev/null))"
 # Predicate now flips: newleader is leader, the OLD leaderhost is a follower.
-nl="$(env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/st-nl" GARDEN_HOST=newleader GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?)"
-ol="$(env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/st-ol" GARDEN_HOST=leaderhost GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?)"
+nl="$(env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/st-nl" GARDEN=newleader GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?)"
+ol="$(env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/st-ol" GARDEN=leaderhost GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?)"
 { [ "$nl" = 0 ] && [ "$ol" = 1 ]; } \
   && ok "after re-designation: newleader=leader, leaderhost=follower (manual leadership)" \
   || bad "predicate did not flip (newleader=$nl leaderhost=$ol)"

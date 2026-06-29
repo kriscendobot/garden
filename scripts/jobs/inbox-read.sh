@@ -30,7 +30,7 @@ for attempt in $(seq 1 50); do
   for m in "${msgs[@]}"; do
     git -C "$DIR" mv "inbox/$doer/unread/$m" "inbox/$doer/read/$m"
   done
-  if commit_and_push "$DIR" "inbox($doer) read ${#msgs[@]} msg(s) on $GARDEN_HOST"; then
+  if commit_and_push "$DIR" "inbox($doer) read ${#msgs[@]} msg(s) on $GARDEN"; then
     for m in "${msgs[@]}"; do
       printf '========== inbox %s/%s ==========\n' "$doer" "$m"
       cat "$DIR/inbox/$doer/read/$m"; printf '\n'

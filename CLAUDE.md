@@ -171,11 +171,10 @@ sized for concurrency, not CPU.
 ### Bringing up local systemd services
 
 1. **Verify a unique host identity FIRST.** Every host's logical name (the
-   `GARDEN` knob, which defaults to `hostname -s`; `GARDEN_HOST` is the internal
-   name and defaults to `GARDEN`) must be **unique across all garden instances** —
-   it keys claim metadata, `hosts/<host>` worker counts, journal index entries, and
-   the leader/follower predicate (§ Leader and follower hosts); two instances
-   sharing a name corrupt per-host state. Interrogate the user: "Is this host's
+   `GARDEN` knob, which defaults to `hostname -s`) must be **unique across all
+   garden instances** — it keys claim metadata, `hosts/<host>` worker counts,
+   journal index entries, and the leader/follower predicate (§ Leader and follower
+   hosts); two instances sharing a name corrupt per-host state. Interrogate the user: "Is this host's
    `GARDEN` identity unique among your running garden containers?" The kernel
    hostname can't be changed inside a container (zero capabilities), so it is fixed
    at creation via `--hostname`/`--name` (both `GARDEN_CONTAINER`). To rename:
@@ -234,20 +233,20 @@ The garden is a **leader/follower** fleet (issue kriskowal/garden#11, Multibot;
   (arms this host's watcher units), `garden-unblock` (deterministic board moves,
   CAS-deduped), and the **fast-forward/maintenance half of `garden-watchman`** (its
   duplicate-prone reread BROADCAST is leader-only, gated in-process).
-- **How the gate works.** The leader is named by the journal marker
-  `hosts/main-host`, holding the leader's `GARDEN` identity. The predicate
+- **How the gate works.** The leader is named by the single journal file `leader`
+  (at the journal root), holding the leader's `GARDEN` identity. The predicate
   `scripts/jobs/is-main-host.sh` (exit 0 = leader, 1 = follower) compares it to
-  this host's `GARDEN_HOST`. Each timer-fired singleton service carries it as an
+  this host's `GARDEN`. Each timer-fired singleton service carries it as an
   `ExecCondition=`: on a follower the timer still fires but the tick is **skipped
   cleanly** (condition-failed, never marked Failed), and each firing re-evaluates,
   so promotion/demotion needs no restart. The continuous bulletin and the watchman
   broadcast gate the same predicate **in-process** (the `is_main_host` helper in
   `common.sh`), so they promote/demote without a restart too.
 - **Designating the leader is manual; no automatic failover.**
-  `scripts/jobs/set-main-host.sh [<host>]` CAS-writes `hosts/main-host`. If the
+  `scripts/jobs/set-main-host.sh [<host>]` CAS-writes the journal `leader` marker. If the
   leader dies, the singletons stay down until the marker is re-pointed by hand
   (lease-based election is a separate, harder follow-on). With a single host
-  (`endolinbot` today, named in the marker), behavior is unchanged — the gate only
+  (named in the `leader` marker), behavior is unchanged — the gate only
   bites when a second host joins. The liaison's stand-up/stand-down vocabulary
   (`roles/liaison/AGENT.md` § Stand up / stand down) drives this surface.
 

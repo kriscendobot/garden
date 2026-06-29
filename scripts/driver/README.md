@@ -72,7 +72,7 @@ systemd; only the supervisor changes.
 | -------------------- | --------------------------------------------- | -------------------------------------------------------- |
 | `GARDEN_ROOT`        | script-location-relative grandparent          | the garden checkout the driver operates against          |
 | `GARDEN_JOURNAL`     | `$GARDEN_ROOT/journal`                        | the journal worktree                                     |
-| `GARDEN_HOST`        | `$(hostname -s)`                              | the host's logical name for per-host paths               |
+| `GARDEN`             | `$(hostname -s)`                              | the host's logical name for per-host paths               |
 | `DRIVER_WORKFLOW`    | inferred from `DRIVER_PR` or the claimed job  | the workflow state machine to load                       |
 | `DRIVER_PR`          | unset                                         | optional `<owner>/<repo>#<n>` the driver subscribes to   |
 | `DRIVER_TICK_SECONDS`| `30`                                          | poll cadence in seconds                                  |

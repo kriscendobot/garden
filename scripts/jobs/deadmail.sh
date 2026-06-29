@@ -124,7 +124,7 @@ for f in $(list_jobs "$DIR" inbox/dead); do
     sync_clone "$DIR"
     [ -e "$DIR/inbox/dead/$f" ] || break   # already retired by another host
     git -C "$DIR" rm -q "inbox/dead/$f"
-    if commit_and_push "$DIR" "deadmail: promoted $msgid → $base ($GARDEN_HOST)"; then
+    if commit_and_push "$DIR" "deadmail: promoted $msgid → $base ($GARDEN)"; then
       promoted=$((promoted+1)); break
     fi
     log "retire of dead-mail $msgid lost a push race (attempt $attempt); retrying"

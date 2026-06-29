@@ -745,11 +745,11 @@ while :; do
   # exactly ONE host posts it (two would double-post). On a FOLLOWER, idle without
   # posting. This in-loop gate — not a start-time ExecCondition — is the
   # continuous singleton's promote/demote-without-restart mechanism: the leader
-  # marker is re-read each iteration (cached, GARDEN_MAIN_HOST_TTL), so a demoted
+  # marker is re-read each iteration (cached, GARDEN_LEADER_TTL), so a demoted
   # leader goes quiet and a promoted follower starts posting with NO restart.
   # Single-host stays unchanged (no marker → fail-open leader). See garden#11.
   if ! is_main_host; then
-    log "follower host (hosts/main-host names another leader); idling, not posting"
+    log "follower host (journal leader marker names another leader); idling, not posting"
     [ "$GARDEN_BULLETIN_ONCE" = "1" ] && exit 0
     sleep "$GARDEN_BULLETIN_IDLE_SLEEP"; continue
   fi

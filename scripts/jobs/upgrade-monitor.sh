@@ -50,7 +50,7 @@ mkdir -p "$(dirname "$GARDEN_UPGRADE_READY_MARKER")" 2>/dev/null || true
   echo "deployed:  $dep_sha"
   echo "available: $up_sha"
   echo "ahead_by:  $ahead commit(s)"
-  echo "host:      $GARDEN_HOST"
+  echo "host:      $GARDEN"
   echo "detected:  $(date -u +%FT%TZ)"
   echo
   echo "The liaison's deploy-on-upgrade Monitor invokes deploy-garden.sh on this signal."

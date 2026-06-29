@@ -55,7 +55,7 @@ run_entry() {  # run_entry [args...] ; body from $BODY
   OUT="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
              GARDEN_STATE="$STATE" GARDEN_ROOT="$TR" \
              GARDEN_PRODUCER_CLONE="$CLONE" \
-             GARDEN_HOST=testhost GARDEN_ROLE=gardener \
+             GARDEN=testhost GARDEN_ROLE=gardener \
              GARDEN_NO_MAINTAINER_ALERT=1 \
              bash "$ENTRY" "$@" <<<"$BODY" 2>&1)"
   RC=$?
@@ -109,7 +109,7 @@ set +e
 OUT="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
            GARDEN_STATE="$STATE" GARDEN_ROOT="$TR" \
            GARDEN_PRODUCER_CLONE="$CLONE" \
-           GARDEN_HOST=testhost GARDEN_ROLE=gardener \
+           GARDEN=testhost GARDEN_ROLE=gardener \
            GARDEN_NO_MAINTAINER_ALERT=1 \
            bash "$ENTRY" progress "an inline body string" </dev/null 2>&1)"
 RC=$?

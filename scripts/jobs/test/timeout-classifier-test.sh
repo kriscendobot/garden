@@ -92,7 +92,7 @@ export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 # Run the REAL gardener.sh: oneshot, with a 2s handler bound, against a stub that
 # flushes non-empty output then hangs forever. The timeout wrapper must fire at 2s
 # and the handler must exit rc=124.
-env GARDEN_HOST="hanghost" GARDEN_STATE="$TR/state" \
+env GARDEN="hanghost" GARDEN_STATE="$TR/state" \
     GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_HANDLER_TIMEOUT=2 \
     GARDEN_JOB_HANDLER="$HERE/timeout-handler-stub.sh" \
     "$JOBS/gardener.sh" 1 > "$TR/gardener.log" 2>&1 || true

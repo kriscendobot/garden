@@ -72,7 +72,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   git -C "$DIR" rm -q "$JOBS_PLAN/$base.md"
   git -C "$DIR" add "$JOBS_TODO/$base.md"
 
-  if commit_and_push "$DIR" "promote($base) plan→todo [$gate/$priority] by $GARDEN_HOST"; then
+  if commit_and_push "$DIR" "promote($base) plan→todo [$gate/$priority] by $GARDEN"; then
     log "promoted '$base' plan→todo (gate=$gate priority=$priority)"
     exit 0
   fi

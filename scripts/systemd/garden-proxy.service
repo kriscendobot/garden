@@ -10,7 +10,7 @@ Type=oneshot
 SuccessExitStatus=143 130 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # Leader-only singleton: run only on the host whose GARDEN identity matches the
-# journal hosts/main-host marker. On a follower the timer still fires but this
+# journal `leader` marker. On a follower the timer still fires but this
 # ExecCondition fails, so the tick is SKIPPED CLEANLY (condition-failed, never
 # marked Failed) — that IS follower mode. Each firing re-evaluates, so a
 # leader change (promotion/demotion) is picked up next tick with no restart.

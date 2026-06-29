@@ -66,11 +66,11 @@ for attempt in $(seq 1 50); do
   mkdir -p "$DIR/$(dirname "$rel")"
   {
     printf -- '---\nkind: %s\nrole: %s\nhost: %s\nat: %s\n---\n' \
-      "$kind" "$role" "$GARDEN_HOST" "$(date -u +%FT%TZ)"
+      "$kind" "$role" "$GARDEN" "$(date -u +%FT%TZ)"
     printf '%s\n' "$BODY"
   } > "$DIR/$rel"
   git -C "$DIR" add "$rel"
-  if commit_and_push "$DIR" "$kind: $role on $GARDEN_HOST"; then
+  if commit_and_push "$DIR" "$kind: $role on $GARDEN"; then
     log "posted $rel"; exit 0
   fi
   backoff "$attempt"

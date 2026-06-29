@@ -86,7 +86,7 @@ hr; echo "SUBTEST 1 — CONCURRENCY: $G gardeners vs $NJOBS jobs"; hr
 START="$(date +%s.%N)"
 pids=()
 for i in $(seq 1 "$G"); do
-  env GARDEN_HOST="host-$i" GARDEN_STATE="$TR/state" \
+  env GARDEN="host-$i" GARDEN_STATE="$TR/state" \
       GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
       GARDEN_JOB_HANDLER="$HERE/stub-handler.sh" \
       "$JOBS/gardener.sh" "$i" > "$TR/logs/gardener-$i.log" 2>&1 &
@@ -144,7 +144,7 @@ set -e
 
 # ============================================================================
 hr; echo "SUBTEST 4 — GARDENER-SCALER: reconcile pool to journal host count"; hr
-export GARDEN_STATE="$TR/state-scale" GARDEN_HOST=testhost
+export GARDEN_STATE="$TR/state-scale" GARDEN=testhost
 export GARDEN_MOCK_STATE="$TR/armed-g" GARDEN_MOCK_LOG="$TR/unitlog-g" GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh"
 : > "$GARDEN_MOCK_STATE"; : > "$GARDEN_MOCK_LOG"
 "$JOBS/set-gardeners.sh" 3 testhost >/dev/null
@@ -162,7 +162,7 @@ extra_after=$(grep -c '^garden-gardener@[23]\.service$' "$GARDEN_MOCK_STATE" || 
 # pool above must survive untouched (no install-units.sh scale → zero disable calls).
 # Guards the regression where want=0 default tore the whole local fleet down at once.
 : > "$GARDEN_MOCK_LOG"
-GARDEN_HOST=undeclaredhost "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
+GARDEN=undeclaredhost "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
 noop_armed=$(grep -c '^garden-gardener@1\.service$' "$GARDEN_MOCK_STATE" || true)
 noop_disables=$(grep -c '^systemctl --user disable' "$GARDEN_MOCK_LOG" || true)
 { [ "$noop_armed" -eq 1 ] && [ "$noop_disables" -eq 0 ]; } \
@@ -172,7 +172,7 @@ unset GARDEN_UNIT_CTL GARDEN_MOCK_STATE GARDEN_MOCK_LOG
 
 # ============================================================================
 hr; echo "SUBTEST 5 — INBOX: per-doer unread→read CAS + lifecycle"; hr
-export GARDEN_STATE="$TR/state-inbox" GARDEN_HOST=ibhost
+export GARDEN_STATE="$TR/state-inbox" GARDEN=ibhost
 push_change "jobs/todo/inbox-demo.md" "# inbox-demo" "seed inbox-demo job"
 ibclaim="$("$JOBS/claim-job.sh" 9)"
 [ "$ibclaim" = "inbox-demo" ] && ok "claim created job doer 'inbox-demo'" || bad "claim returned '$ibclaim'"
@@ -226,7 +226,7 @@ grep -qxF "garden-triager@kriscendobot-endo.timer" "$GARDEN_MOCK_STATE" \
 
 # ============================================================================
 hr; echo "SUBTEST 6 — MAINTAINER CHANNEL: gardener↔user via liaison, in-flight"; hr
-export GARDEN_STATE="$TR/state-maint" GARDEN_HOST=mhost
+export GARDEN_STATE="$TR/state-maint" GARDEN=mhost
 push_change "jobs/todo/maint-demo.md" "# maint-demo" "seed maint-demo job"
 mbase="$("$JOBS/claim-job.sh" 7)"      # doer becomes active, inbox created
 [ "$mbase" = "maint-demo" ] && ok "doer 'maint-demo' active (working)" || bad "claim returned '$mbase'"
@@ -263,7 +263,7 @@ git -C "$SW" add -A; git -C "$SW" commit -q -m change
 
 # ============================================================================
 hr; echo "SUBTEST 8 — SCHEDULER: cadence dispatch + last-dispatched stamp"; hr
-export GARDEN_STATE="$TR/state-sched" GARDEN_HOST=shost
+export GARDEN_STATE="$TR/state-sched" GARDEN=shost
 echo "# tick task"   | "$JOBS/set-schedule.sh" tick   1s     tickjob >/dev/null
 echo "# weekly task" | "$JOBS/set-schedule.sh" report weekly wrjob   >/dev/null
 count_pref() { git clone -q --single-branch --branch "$BRANCH" "$BARE" "$TR/sv.$1" 2>/dev/null; \
@@ -287,7 +287,7 @@ t3=$(count_pref e tickjob); w3=$(count_pref f wrjob)
 
 # ============================================================================
 hr; echo "SUBTEST 9 — WATCHMAN: aggressive main2 checkout + reread broadcast"; hr
-export GARDEN_STATE="$TR/state-wm" GARDEN_HOST=wmhost
+export GARDEN_STATE="$TR/state-wm" GARDEN=wmhost
 GBARE="$TR/garden.git"; git init -q --bare "$GBARE"
 GW="$TR/garden-wt"; git init -q "$GW"; git -C "$GW" checkout -q -b main2
 git -C "$GW" config user.email t@l; git -C "$GW" config user.name t
@@ -311,7 +311,7 @@ set +e; wmout="$("$JOBS/read-msgs.sh" probe-wm broadcast)"; wmc=$?; set -e
 
 # ============================================================================
 hr; echo "SUBTEST 10 — BULLETIN: continuous loop, cost gate, degradation, cursor"; hr
-export GARDEN_STATE="$TR/state-bul" GARDEN_HOST=bhost
+export GARDEN_STATE="$TR/state-bul" GARDEN=bhost
 CURSOR_FILE="$GARDEN_STATE/bulletin/cursor"
 CALLS="$TR/bul-calls"; CAP="$TR/bul-digest"
 # The parked-PR gh query is stubbed (GARDEN_BULLETIN_PARKED_CMD) and its calls are
@@ -559,7 +559,7 @@ rm -rf "$QF"
 
 # ============================================================================
 hr; echo "SUBTEST 11 — MENTOR: log → improvement job (self-healing)"; hr
-export GARDEN_STATE="$TR/state-imp" GARDEN_HOST=ihost
+export GARDEN_STATE="$TR/state-imp" GARDEN=ihost
 printf 'a connection error occurred during push\n' | GARDEN_ROLE=gardener "$JOBS/journal-entry.sh" error >/dev/null
 env GARDEN_MENTOR_HANDLER="$HERE/mentor-stub.sh" "$JOBS/mentor.sh" >/dev/null 2>&1
 IV="$TR/imv"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$IV"
@@ -573,7 +573,7 @@ nimp2=$(ls -1 "$IV/jobs/todo" | grep -c '^improve-' || true)
 
 # ============================================================================
 hr; echo "SUBTEST 12 — CURSORS: durable poll position survives a restart"; hr
-export GARDEN_HOST=curhost
+export GARDEN=curhost
 printf 'last_event_id: 12345\nlast_polled_at: t0\n' \
   | GARDEN_STATE="$TR/state-cur-a" "$JOBS/cursor-set.sh" activity/kriscendobot-endo >/dev/null
 # read back from a FRESH host-local state (simulates a restarted/recreated container)
@@ -587,7 +587,7 @@ grep -q 'last_event_id: 67890' <<<"$got2" && ok "advanced cursor is the shared r
 
 # ============================================================================
 hr; echo "SUBTEST 13 — FOLLOW-UP: tada follow-ups → job/one-shot-schedule/maintainer"; hr
-export GARDEN_STATE="$TR/state-fu" GARDEN_HOST=fuhost
+export GARDEN_STATE="$TR/state-fu" GARDEN=fuhost
 # a report present at COLD START must NOT be acted on (only marked seen)
 push_change "jobs/tada/fu-old.md" "$(printf '# old\n## Follow-ups\n- weaver rebase on endo-but-for-bots\n')" "seed pre-existing tada report"
 env GARDEN_FOLLOWUP_HANDLER="$HERE/follow-up-stub.sh" "$JOBS/follow-up.sh" >/dev/null 2>&1
@@ -638,7 +638,7 @@ hr; echo "SUBTEST 13b — FOLLOW-UP HANDLER: producer failure classification"; h
 # non-deterministic re-roll can never re-wedge), while a TRANSIENT producer
 # failure (push-retry exhaustion) fails the tick (marker NOT advanced, so the
 # digest is retried next cadence).
-export GARDEN_STATE="$TR/state-fuh" GARDEN_HOST=fuhhost
+export GARDEN_STATE="$TR/state-fuh" GARDEN=fuhhost
 SEEN_FUH="$GARDEN_STATE/follow-up/seen"
 # Prime the cold-start marker so subsequent ticks ACT (cold start never calls the
 # handler — it only records existing reports seen).
@@ -733,7 +733,7 @@ hr; echo "SUBTEST 13c — FOLLOW-UP: bounded retry + quarantine of a wedged dige
 # grow the streak (marker not advanced, so a transient window self-resolves);
 # the tick AT the ceiling quarantines the reports (advances the marker, clears
 # the streak, escalates to the maintainer) and EXITS 0 so the burn stops.
-export GARDEN_STATE="$TR/state-fuq" GARDEN_HOST=fuqhost
+export GARDEN_STATE="$TR/state-fuq" GARDEN=fuqhost
 SEEN_FUQ="$GARDEN_STATE/follow-up/seen"; FC_FUQ="$GARDEN_STATE/follow-up/fail-count"
 # prime cold-start so subsequent ticks ACT (cold start never calls the handler)
 push_change "jobs/tada/fuq-prime.md" "$(printf '# prime\n## Follow-ups\n- None\n')" "seed prime tada (cold start, q)"
@@ -769,7 +769,7 @@ haq=$(git ls-remote "$BARE" "refs/heads/$BRANCH" | awk '{print $1}')
   || bad "post-quarantine not quiet (rc4=$rc4 commit $hbq→$haq)"
 # a CHANGED pending set resets the streak: a failure on set {a}, then a NEW
 # report makes the set {a,b} so the next failure restarts the streak at 1.
-export GARDEN_STATE="$TR/state-fur" GARDEN_HOST=furhost
+export GARDEN_STATE="$TR/state-fur" GARDEN=furhost
 FC_FUR="$GARDEN_STATE/follow-up/fail-count"
 push_change "jobs/tada/fur-prime.md" "$(printf '# prime\n## Follow-ups\n- None\n')" "seed prime tada (cold start, r)"
 env GARDEN_FOLLOWUP_HANDLER=/bin/true "$JOBS/follow-up.sh" >/dev/null 2>&1
@@ -794,7 +794,7 @@ FSEED="$TR/foreman-seed"; git init -q "$FSEED"; git -C "$FSEED" checkout -q -b "
 git -C "$FSEED" add -A; git -C "$FSEED" "${git_id[@]}" commit -q -m "seed empty foreman board"
 git -C "$FSEED" remote add origin "$FBARE"; git -C "$FSEED" push -q -u origin "$BRANCH"
 
-export GARDEN_STATE="$TR/state-fm" GARDEN_HOST=fmhost
+export GARDEN_STATE="$TR/state-fm" GARDEN=fmhost
 FCALLS="$TR/fm-calls"; : > "$FCALLS"
 fboard() {  # fboard <job-base> | @CLEAR  → set todo/ on the foreman origin
   local wt; wt="$(mktemp -d "$TR/fedit.XXXXXX")"
@@ -855,7 +855,7 @@ hr; echo "SUBTEST 14b — FOREMAN TOKEN QUOTA: deterministic weekly back-off (se
 # sourced from Claude Code's own session logs (~/.claude/projects/**/*.jsonl). Each
 # case points GARDEN_CCUSAGE_LOGDIR at a synthetic JSONL fixture (NOT the real
 # ~/.claude) and uses a FRESH GARDEN_STATE so each starts with a clean settle clock.
-export GARDEN_HOST=fmqhost
+export GARDEN=fmqhost
 # Use a small rolling window for these cases so synthetic small-epoch timestamps
 # fall inside/outside it predictably; restored to the default after the block.
 export GARDEN_TOKEN_WINDOW_SECS=1000
@@ -935,7 +935,7 @@ unset GARDEN_TOKEN_WINDOW_SECS
 # ============================================================================
 hr; echo "SUBTEST 14c — TOKEN METER (unit): session-log sum, dedup, window, fail-open"; hr
 # Direct unit tests of meter_window_total over a synthetic session-log fixture.
-export GARDEN_HOST=meterhost
+export GARDEN=meterhost
 MLOG="$TR/meter-unit-log"; rm -rf "$MLOG"
 fxlog "$MLOG" a1 9500 100 10 5 70000   # in-window (cutoff 9000): billable 115
 fxlog "$MLOG" a1 9500 100 10 5 70000   # duplicate id → deduped
@@ -947,7 +947,7 @@ printf '{"type":"user","timestamp":"1970-01-01T02:40:00.000Z","message":{}}\n' >
 printf 'this is not json {{{\n' >> "$MLOG/proj/a2.jsonl"
 meter_unit() {  # meter_unit <logdir> <now> <window> [<count-cache-read>] [<ledger>]
   ( cd "$JOBS"
-    GARDEN_STATE="$TR/state-meter-unit" GARDEN_HOST=meterhost \
+    GARDEN_STATE="$TR/state-meter-unit" GARDEN=meterhost \
     GARDEN_CCUSAGE_LOGDIR="$1" GARDEN_USAGE_NOW="$2" GARDEN_TOKEN_WINDOW_SECS="$3" \
     GARDEN_TOKEN_COUNT_CACHE_READ="${4:-0}" GARDEN_USAGE_LEDGER="${5:-$TR/meter-unit-no-ledger}" \
     bash -c 'set -uo pipefail; source ./common.sh; meter_window_total && echo "RC=$?" >&2' 2>/dev/null )
@@ -960,25 +960,25 @@ U2="$(meter_unit "$MLOG" 10000 1000 1)"
   || bad "cache_read toggle wrong (got '$U2', expected 70315)"
 # missing log dir, no ledger → meter_window_total returns non-zero (→ unknown/fail-open)
 mrc=$( cd "$JOBS"
-  GARDEN_STATE="$TR/state-meter-unit2" GARDEN_HOST=meterhost \
+  GARDEN_STATE="$TR/state-meter-unit2" GARDEN=meterhost \
   GARDEN_CCUSAGE_LOGDIR="$TR/meter-unit-missing" GARDEN_USAGE_NOW=10000 \
   GARDEN_USAGE_LEDGER="$TR/meter-unit-missing-ledger" \
   bash -c 'set -uo pipefail; source ./common.sh; meter_window_total >/dev/null 2>&1; echo $?' )
 [ "$mrc" = "1" ] && ok "fail-open: missing log dir + no ledger → meter_window_total returns non-zero (unknown)" \
   || bad "missing-source did not signal unknown (rc=$mrc)"
 # quota status verdicts over the same fixture
-ST_OK="$( cd "$JOBS"; GARDEN_STATE="$TR/sm3" GARDEN_HOST=meterhost GARDEN_CCUSAGE_LOGDIR="$MLOG" \
+ST_OK="$( cd "$JOBS"; GARDEN_STATE="$TR/sm3" GARDEN=meterhost GARDEN_CCUSAGE_LOGDIR="$MLOG" \
   GARDEN_USAGE_NOW=10000 GARDEN_TOKEN_WINDOW_SECS=1000 GARDEN_TOKEN_WEEKLY_QUOTA=1000 \
   GARDEN_USAGE_LEDGER="$TR/sm3-noledger" bash -c 'source ./common.sh; meter_quota_status' 2>/dev/null )"
 [ "$ST_OK" = "ok" ] && ok "quota status: under high-water → ok" || bad "quota status ok wrong (got '$ST_OK')"
-ST_BO="$( cd "$JOBS"; GARDEN_STATE="$TR/sm4" GARDEN_HOST=meterhost GARDEN_CCUSAGE_LOGDIR="$MLOG" \
+ST_BO="$( cd "$JOBS"; GARDEN_STATE="$TR/sm4" GARDEN=meterhost GARDEN_CCUSAGE_LOGDIR="$MLOG" \
   GARDEN_USAGE_NOW=10000 GARDEN_TOKEN_WINDOW_SECS=1000 GARDEN_TOKEN_WEEKLY_QUOTA=300 \
   GARDEN_USAGE_LEDGER="$TR/sm4-noledger" bash -c 'source ./common.sh; meter_quota_status' 2>/dev/null )"
 [ "$ST_BO" = "backoff" ] && ok "quota status: at/over high-water (315 ≥ 0.85·300) → backoff" || bad "quota status backoff wrong (got '$ST_BO')"
 
 # ============================================================================
 hr; echo "SUBTEST 15 — PROXY: stand in for the absent maintainer on gating questions"; hr
-export GARDEN_STATE="$TR/state-proxy" GARDEN_HOST=pxhost
+export GARDEN_STATE="$TR/state-proxy" GARDEN=pxhost
 PXCALLS="$TR/proxy-calls"; : > "$PXCALLS"
 run_proxy() {  # run_proxy <grace-seconds>
   env GARDEN_PROXY_GRACE="${1:?grace}" \
@@ -1085,7 +1085,7 @@ DSEED="$TR/deadmail-seed"; git init -q "$DSEED"; git -C "$DSEED" checkout -q -b 
 git -C "$DSEED" add -A; git -C "$DSEED" "${git_id[@]}" commit -q -m "seed deadmail board"
 git -C "$DSEED" remote add origin "$DBARE"; git -C "$DSEED" push -q -u origin "$BRANCH"
 
-export GARDEN_STATE="$TR/state-dm" GARDEN_HOST=dmhost
+export GARDEN_STATE="$TR/state-dm" GARDEN=dmhost
 dm_env() { env JOURNAL_REMOTE="$DBARE" "$@"; }
 
 # (1) a message to an absent doer is dead-lettered (not dropped, not a hard error)
@@ -1181,7 +1181,7 @@ git -C "$PSEED" remote add origin "$PBARE"; git -C "$PSEED" push -q -u origin "$
 # (1) CONCURRENCY: N concurrent post-job calls SHARE one producer clone (same
 # GARDEN_STATE). Without the flock serialization, at least one is silently lost
 # (reset --hard wipes a peer's staged job; index/HEAD/config lock collisions).
-export GARDEN_STATE="$TR/state-push" GARDEN_HOST=pushhost
+export GARDEN_STATE="$TR/state-push" GARDEN=pushhost
 PN=8; ppids=()
 for i in $(seq 1 "$PN"); do
   ( echo "# concurrent post $i" | env JOURNAL_REMOTE="$PBARE" "$JOBS/post-job.sh" "push-$i" ) \
@@ -1198,11 +1198,11 @@ rm -rf "$PV"
 
 # (2) SILENT-LOSS (unit): a push that "succeeds" without advancing the remote must
 # make commit_and_push RETURN FAILURE (verify-after-push), not a false success.
-export GARDEN_STATE="$TR/state-push2" GARDEN_HOST=pushhost2
+export GARDEN_STATE="$TR/state-push2" GARDEN=pushhost2
 sl_rc=$(
   cd "$JOBS"
   JOURNAL_REMOTE="$PBARE" JOURNAL_BRANCH="$BRANCH" GARDEN_STATE="$TR/state-push2" \
-  GARDEN_HOST=pushhost2 bash -c '
+  GARDEN=pushhost2 bash -c '
     set -uo pipefail
     source ./common.sh
     DIR="$GARDEN_STATE/producer/journal"
@@ -1229,7 +1229,7 @@ rm -rf "$SLV"
 
 # (3) CALLER RETRY + loud give-up: post-job with a no-op push retries (bounded for
 # the test) and FAILS loudly — it must NOT print a false "posted".
-export GARDEN_STATE="$TR/state-push3" GARDEN_HOST=pushhost3
+export GARDEN_STATE="$TR/state-push3" GARDEN=pushhost3
 set +e
 env JOURNAL_REMOTE="$PBARE" GARDEN_PUSH_CMD=/bin/true GARDEN_POST_ATTEMPTS=3 \
     "$JOBS/post-job.sh" never-lands </dev/null >"$TR/logs/never-lands.log" 2>&1
@@ -1265,7 +1265,7 @@ RSEED="$TR/reaper-seed"; git init -q "$RSEED"; git -C "$RSEED" checkout -q -b "$
 git -C "$RSEED" add -A; git -C "$RSEED" "${git_id[@]}" commit -q -m "seed reaper board (2 stale claims)"
 git -C "$RSEED" remote add origin "$RBARE"; git -C "$RSEED" push -q -u origin "$BRANCH"
 
-export GARDEN_STATE="$TR/state-reap" GARDEN_HOST=reaphost
+export GARDEN_STATE="$TR/state-reap" GARDEN=reaphost
 # A competing pusher: lose the CAS race the first TWO times the reaper pushes its
 # batch (a competitor lands a commit, making the reaper's push non-fast-forward),
 # then let it land. Proves the reaper RETRIES within the tick instead of conceding
@@ -1337,7 +1337,7 @@ PLSEED="$TR/plan-seed"; git init -q "$PLSEED"; git -C "$PLSEED" checkout -q -b "
 git -C "$PLSEED" add -A; git -C "$PLSEED" "${git_id[@]}" commit -q -m "seed plan board"
 git -C "$PLSEED" remote add origin "$PLBARE"; git -C "$PLSEED" push -q -u origin "$BRANCH"
 
-export GARDEN_STATE="$TR/state-plan" GARDEN_HOST=planhost
+export GARDEN_STATE="$TR/state-plan" GARDEN=planhost
 pl_env() { env JOURNAL_REMOTE="$PLBARE" "$@"; }
 plcount() {  # plcount <subdir> → non-gitkeep entries in a fresh clone
   local v n; v="$(mktemp -d "$TR/plv.XXXXXX")"
@@ -1403,7 +1403,7 @@ PFSEED="$TR/plan-fm-seed"; git init -q "$PFSEED"; git -C "$PFSEED" checkout -q -
 git -C "$PFSEED" add -A; git -C "$PFSEED" "${git_id[@]}" commit -q -m "seed plan-fm board"
 git -C "$PFSEED" remote add origin "$PFBARE"; git -C "$PFSEED" push -q -u origin "$BRANCH"
 
-export GARDEN_STATE="$TR/state-plan-fm" GARDEN_HOST=plfmhost
+export GARDEN_STATE="$TR/state-plan-fm" GARDEN=plfmhost
 echo 'authz body' | env JOURNAL_REMOTE="$PFBARE" "$JOBS/post-plan.sh" --go-ahead              plan-needs-authz >/dev/null 2>&1
 echo 'low body'   | env JOURNAL_REMOTE="$PFBARE" "$JOBS/post-plan.sh" --deferred --priority low  plan-defer-low  >/dev/null 2>&1
 echo 'high body'  | env JOURNAL_REMOTE="$PFBARE" "$JOBS/post-plan.sh" --deferred --priority high plan-defer-high >/dev/null 2>&1
@@ -1450,7 +1450,7 @@ BLSEED="$TR/blocked-seed"; git init -q "$BLSEED"; git -C "$BLSEED" checkout -q -
 git -C "$BLSEED" add -A; git -C "$BLSEED" "${git_id[@]}" commit -q -m "seed blocked board"
 git -C "$BLSEED" remote add origin "$BLBARE"; git -C "$BLSEED" push -q -u origin "$BRANCH"
 
-export GARDEN_STATE="$TR/state-blocked" GARDEN_HOST=blkhost
+export GARDEN_STATE="$TR/state-blocked" GARDEN=blkhost
 bl_env() { env JOURNAL_REMOTE="$BLBARE" "$@"; }
 blcount() { local v n; v="$(mktemp -d "$TR/blv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BLBARE" "$v" 2>/dev/null; n=$(ls -1 "$v/$1" 2>/dev/null | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"; }
 blhas()   { local v r; v="$(mktemp -d "$TR/blh.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BLBARE" "$v" 2>/dev/null; [ -e "$v/$1" ]; r=$?; rm -rf "$v"; return $r; }
@@ -1583,7 +1583,7 @@ SHSEED="$TR/selfheal-seed"; git init -q "$SHSEED"; git -C "$SHSEED" checkout -q 
 git -C "$SHSEED" add -A; git -C "$SHSEED" "${git_id[@]}" commit -q -m "seed self-heal journal"
 git -C "$SHSEED" remote add origin "$SHBARE"; git -C "$SHSEED" push -q -u origin "$BRANCH"
 export JOURNAL_REMOTE="$SHBARE"
-export GARDEN_STATE="$TR/state-selfheal" GARDEN_HOST=shhost GARDEN_ROOT="$JOBS/.."
+export GARDEN_STATE="$TR/state-selfheal" GARDEN=shhost GARDEN_ROOT="$JOBS/.."
 SHRUN="$JOBS/self-heal-run.sh"
 SHCALLS="$TR/selfheal-calls"; : > "$SHCALLS"
 export SELF_HEAL_STUB_CALLS="$SHCALLS" SELF_HEAL_HANDLER="$HERE/self-heal-stub.sh"
@@ -1689,7 +1689,7 @@ OFFLOG="$TR/logs/gardener-offline.log"
 # forever skipping — we give it a few ticks, assert it stayed ALIVE (the buggy
 # `die` exits ~immediately), then kill it. GARDEN_FETCH_RETRIES=1 keeps each
 # offline classification fast.
-env GARDEN_HOST=offhost GARDEN_STATE="$TR/state-offline" \
+env GARDEN=offhost GARDEN_STATE="$TR/state-offline" \
     GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
     GARDEN_FETCH_CMD="$OFFBIN/offline-fetch" GARDEN_FETCH_RETRIES=1 \
     GARDEN_JOB_HANDLER="$HERE/stub-handler.sh" \
@@ -1852,7 +1852,7 @@ rm -f "$DRST/draining" "$DRST/NOPE"
 [ "$(pred)" = "yes" ] && ok "empty draining marker → fleet_draining true (keys on existence)" || bad "empty marker not detected"
 rm -f "$DRST/draining"
 # (c) prose-filled new marker via the helper → draining, and the body is prose
-GARDEN_STATE="$DRST" GARDEN_HOST=drainhost "$JOBS/drain-fleet.sh" on "scheduled maintenance" >/dev/null 2>&1
+GARDEN_STATE="$DRST" GARDEN=drainhost "$JOBS/drain-fleet.sh" on "scheduled maintenance" >/dev/null 2>&1
 { [ -s "$DRST/draining" ] && grep -qi "DRAINING" "$DRST/draining" \
   && grep -qi "remove this file" "$DRST/draining" && grep -q "set_by: drainhost" "$DRST/draining"; } \
   && ok "drain-fleet.sh on writes a self-describing prose body (what/who/how-to-clear)" || bad "helper did not write prose"
@@ -1990,7 +1990,7 @@ ii_run "$II_TR/state-d" "$BARE_II_D" "$FIX_II_D"
 DV="$(mktemp -d "$II_TR/dv.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_D" "$DV"
 ndead=$(ls -1 "$DV/inbox/dead" | grep -vxc '.gitkeep' || true); rm -rf "$DV"
 [ "$ndead" -ge 1 ] && ok "comment to a finished doer is dead-lettered (not dropped)" || bad "comment not dead-lettered ($ndead)"
-env GARDEN_STATE="$II_TR/state-d" JOURNAL_REMOTE="$BARE_II_D" JOURNAL_BRANCH="$BRANCH" GARDEN_HOST=iihost \
+env GARDEN_STATE="$II_TR/state-d" JOURNAL_REMOTE="$BARE_II_D" JOURNAL_BRANCH="$BRANCH" GARDEN=iihost \
   "$JOBS/deadmail.sh" >/dev/null 2>&1
 DV="$(mktemp -d "$II_TR/dv2.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_D" "$DV"
 promoted="$(ls -1 "$DV/jobs/todo"/deadmail-*.md 2>/dev/null | head -1)"
@@ -2060,10 +2060,10 @@ deadname="$(ls -1 "$HV"/inbox/dead/*.md 2>/dev/null | xargs -n1 basename 2>/dev/
 rm -rf "$HV"
 { [ "$ndead" -eq 1 ] && [ "$deadname" = "issue-comment-9600.md" ]; } \
   && ok "dead doer: two polls leave exactly one dead-letter at the comment-id path" || bad "dead-letter duplicated/misnamed (n=$ndead name=$deadname)"
-env GARDEN_STATE="$II_TR/state-h2a" JOURNAL_REMOTE="$BARE_II_H2" JOURNAL_BRANCH="$BRANCH" GARDEN_HOST=iihost \
+env GARDEN_STATE="$II_TR/state-h2a" JOURNAL_REMOTE="$BARE_II_H2" JOURNAL_BRANCH="$BRANCH" GARDEN=iihost \
   "$JOBS/deadmail.sh" >/dev/null 2>&1                 # promote → one job
 ii_run "$II_TR/state-h2c" "$BARE_II_H2" "$FIX_II_H2"  # poll 3 after promotion (file retired) → re-create
-env GARDEN_STATE="$II_TR/state-h2a" JOURNAL_REMOTE="$BARE_II_H2" JOURNAL_BRANCH="$BRANCH" GARDEN_HOST=iihost \
+env GARDEN_STATE="$II_TR/state-h2a" JOURNAL_REMOTE="$BARE_II_H2" JOURNAL_BRANCH="$BRANCH" GARDEN=iihost \
   "$JOBS/deadmail.sh" >/dev/null 2>&1                 # re-promote → idempotent by basename
 HV="$(mktemp -d "$II_TR/h2v2.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_II_H2" "$HV"
 npromo=$(ls -1 "$HV/jobs/todo"/deadmail-issue-comment-9600.md 2>/dev/null | grep -c . || true)
@@ -2138,25 +2138,25 @@ rm -rf "$UE_DEST"
 
 # ============================================================================
 hr; echo "SUBTEST 28 — LEADER/FOLLOWER: is-main-host gates singletons by GARDEN"; hr
-# issue kriskowal/garden#11 (Multibot): hosts/main-host names the leader's GARDEN
-# identity; is-main-host.sh exits 0 on the leader, 1 on a follower; gardeners stay
-# ungated (every-host). Reuses the throwaway $BARE journal (JOURNAL_REMOTE is
-# already exported; the seed created hosts/.gitkeep). A focused, self-contained
-# companion lives in test/main-host-test.sh (TTL cache, set-main-host, full set).
-push_change "hosts/main-host" "lead-host" "designate lead-host as leader"
+# issue kriskowal/garden#11 (Multibot): the journal root `leader` marker names the
+# leader's GARDEN identity; is-main-host.sh exits 0 on the leader, 1 on a follower;
+# gardeners stay ungated (every-host). Reuses the throwaway $BARE journal
+# (JOURNAL_REMOTE is already exported; the seed created hosts/.gitkeep). A focused,
+# self-contained companion lives in test/main-host-test.sh (TTL cache, set-main-host).
+push_change "leader" "lead-host" "designate lead-host as leader"
 # Pass JOURNAL_REMOTE/JOURNAL_BRANCH explicitly (the exported values are not
 # reliable this late in the run — like the other late subtests at 1906/1993) and
-# scrub GARDEN_* so ambient pollution (an exported GARDEN_HOST from a prior subtest)
+# scrub GARDEN_* so ambient pollution (an exported GARDEN from a prior subtest)
 # cannot pre-empt the GARDEN knob's defaulting.
-imh_rc() { env -u GARDEN -u GARDEN_MAIN_HOST GARDEN_STATE="$TR/state-mh-$1" GARDEN_HOST="$2" \
+imh_rc() { env -u GARDEN -u GARDEN_LEADER GARDEN_STATE="$TR/state-mh-$1" GARDEN="$2" \
                JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_NO_MAINTAINER_ALERT=1 \
                "$JOBS/is-main-host.sh" >/dev/null 2>&1; echo $?; }
 [ "$(imh_rc a lead-host)" -eq 0 ]  && ok "is-main-host exits 0 on the journal-named leader" || bad "leader not recognized"
 [ "$(imh_rc b other-host)" -eq 1 ] && ok "is-main-host exits 1 on a follower"               || bad "follower not recognized"
-# GARDEN knob defaults GARDEN_HOST (the value the predicate compares). Unset any
-# ambient GARDEN_HOST first so the default is what is exercised.
-ghv="$(env -u GARDEN_HOST GARDEN=lead-host bash -c 'source "'"$JOBS"'/common.sh"; printf %s "$GARDEN_HOST"')"
-[ "$ghv" = lead-host ] && ok "GARDEN knob defaults GARDEN_HOST" || bad "GARDEN did not default GARDEN_HOST ($ghv)"
+# GARDEN is the single host-identity var the predicate compares. Unset any ambient
+# GARDEN first so the explicit assignment is what is exercised.
+ghv="$(env -u GARDEN GARDEN=lead-host bash -c 'source "'"$JOBS"'/common.sh"; printf %s "$GARDEN"')"
+[ "$ghv" = lead-host ] && ok "GARDEN is the host-identity var honored by common.sh" || bad "GARDEN not honored ($ghv)"
 # Every leader-only timer-singleton service carries the ExecCondition; gardeners do not.
 MH_SRC="$JOBS/../systemd"; mh_miss=0
 for u in garden-foreman garden-scheduler garden-deadmail garden-reaper garden-follow-up \

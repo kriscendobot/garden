@@ -11,7 +11,7 @@ end="$(date +%s.%N)"
 {
   echo "# report: $base"
   echo "gardener: ${GARDEN_GARDENER_ID:-?}"
-  echo "host: ${GARDEN_HOST:-?}"
+  echo "host: ${GARDEN:-?}"
   echo "start_epoch: $start"
   echo "end_epoch: $end"
   echo "job_first_line: $(head -1 "$jobfile" 2>/dev/null)"

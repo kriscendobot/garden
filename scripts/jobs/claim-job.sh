@@ -56,14 +56,14 @@ for ((k=0; k<n; k++)); do
   # stamp claim metadata into the job file (appended; the body is preserved)
   {
     printf '\n---\nclaim:\n'
-    printf '  host: %s\n'      "$GARDEN_HOST"
+    printf '  host: %s\n'      "$GARDEN"
     printf '  gardener: %s\n'  "$id"
     printf '  claimed_at: %s\n' "$claimed_at"
   } >> "$DIR/$JOBS_DOIN/$base.md"
   # worktree-state record under work/ (the spine: same basename), so the
   # reaper can find and remove an orphaned worktree if this gardener dies.
   {
-    printf 'host: %s\n'         "$GARDEN_HOST"
+    printf 'host: %s\n'         "$GARDEN"
     printf 'gardener: %s\n'     "$id"
     printf 'claimed_at: %s\n'   "$claimed_at"
     printf 'worktree_dir: %s\n' "${GARDEN_WORKTREES:-$GARDEN_ROOT/worktrees}/$base"
@@ -73,7 +73,7 @@ for ((k=0; k<n; k++)); do
   touch "$DIR/inbox/$base/unread/.gitkeep" "$DIR/inbox/$base/read/.gitkeep"
   git -C "$DIR" add "$JOBS_DOIN/$base.md" "work/$base" "inbox/$base"
 
-  if commit_and_push "$DIR" "claim($base) $GARDEN_HOST/gardener-$id"; then
+  if commit_and_push "$DIR" "claim($base) $GARDEN/gardener-$id"; then
     log "claimed '$base'"
     printf '%s\n' "$base"
     exit 0

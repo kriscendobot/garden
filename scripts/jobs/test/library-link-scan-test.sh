@@ -71,7 +71,7 @@ origin_add() {  # origin_add <relpath> <content> <msg>
 run_scan() {  # run_scan [args...] ; fills $OUT, $RC
   OUT="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
              GARDEN_STATE="$STATE" GARDEN_ROOT="$TR" \
-             GARDEN_HOST=test-host GARDEN_NO_MAINTAINER_ALERT=1 \
+             GARDEN=test-host GARDEN_NO_MAINTAINER_ALERT=1 \
              GARDEN_LIBCHECK_CLONE="$STATE/libcheck/journal" \
              GARDEN_PRODUCER_CLONE="$STATE/producer/journal" \
              bash "$SCAN" "$@" 2>&1)"

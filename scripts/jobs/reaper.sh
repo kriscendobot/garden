@@ -267,7 +267,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     break
   fi
 
-  if commit_and_push "$DIR" "requeue: reaped $staged stale claim(s) by $GARDEN_HOST"; then
+  if commit_and_push "$DIR" "requeue: reaped $staged stale claim(s) by $GARDEN"; then
     poisoned=${#POISON_BASE[@]}
     reaped=$(( staged - poisoned ))
     # Flush poison alerts only AFTER the board change has landed, so a maintainer
@@ -277,11 +277,11 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       log "POISON: '$pbase' reaped ${POISON_COUNT[$i]}× (≥ ${GARDEN_REAP_POISON_THRESHOLD}); dropped from board, surfacing to maintainer"
       {
         printf 'POISON job dropped from the board after %s requeue cycles on %s.\n' \
-               "${POISON_COUNT[$i]}" "$GARDEN_HOST"
+               "${POISON_COUNT[$i]}" "$GARDEN"
         printf 'Its handler appears to fail every time; the reaper stopped requeueing it.\n'
         printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
                "$pbase" "${POISON_BODY[$i]}"
-      } | GARDEN_SENDER="reaper:$GARDEN_HOST" \
+      } | GARDEN_SENDER="reaper:$GARDEN" \
           "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 \
         || log "WARNING: could not surface poison job '$pbase' to maintainer inbox"
     done

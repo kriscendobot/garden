@@ -36,19 +36,15 @@
 # § Scratch discipline.
 : "${GARDEN_SCRATCH:=$GARDEN_ROOT/scratch}"
 
-# Host identity. GARDEN is the canonical, per-invocation host-identity knob: an
+# Host identity. GARDEN is the canonical, per-invocation host-identity knob and
+# the SINGLE name every script uses (the journal index key, the claim-metadata
+# key, the hosts/<host> worker-count key, the leader predicate's comparand). An
 # operator exports `GARDEN=endolinbot2` to spawn a parallel gardener pool from a
 # checked-out worktree WITHOUT touching the Dockerfile (the kernel hostname is
-# fixed at container creation; GARDEN is the lighter override). See issue
-# kriskowal/garden#11 (Multibot) and designs/multibot-leader-follower.md.
-#
-# GARDEN_HOST stays the INTERNAL name every script already uses (the journal index
-# key, the claim-metadata key, the hosts/<host> worker-count key); it defaults to
-# GARDEN so the new knob is a one-assignment change, not a repo-wide rename. A
-# script (or test) may still set GARDEN_HOST directly and it wins. GARDEN itself
-# falls back to `hostname -s`.
+# fixed at container creation; GARDEN is the lighter override). It defaults to
+# `hostname -s`. See issue kriskowal/garden#11 (Multibot) and
+# designs/multibot-leader-follower.md.
 : "${GARDEN:=$(hostname -s 2>/dev/null || echo host)}"
-: "${GARDEN_HOST:=$GARDEN}"
 
 # --- leader/follower host topology (issue kriskowal/garden#11, Multibot) ------
 # Gardeners run on EVERY host (concurrent claims dedup via the job-board push
@@ -56,27 +52,26 @@
 # follow-up, proxy, mentor, mirror-closer, the comment/mention watchers, the
 # library-source-drift scan, and the liaison maintainer-inbox Monitor) run on
 # exactly ONE leader host, because none of them handle concurrent duplicates.
-# The leader is named by a journal-tracked marker holding the leader's GARDEN
-# identity; is_main_host (below) compares this host's GARDEN_HOST to it. The
-# leader is changed by hand (set-main-host.sh) — manual designation, no automatic
-# failover. See designs/multibot-leader-follower.md.
+# The leader is named by the single journal file `leader` (at the journal root),
+# holding the leader's GARDEN identity; is_main_host (below) compares this host's
+# GARDEN to it. The leader is changed by hand (set-main-host.sh) — manual
+# designation, no automatic failover. See designs/multibot-leader-follower.md.
 #
-# GARDEN_MAIN_HOST, when set in the environment, short-circuits the journal read
-# (operator/test override). The marker path keeps the stable name `hosts/main-host`
-# even though it holds the leader identity, so dependent code never has to change.
-: "${GARDEN_MAIN_HOST_MARKER_PATH:=hosts/main-host}"
-: "${GARDEN_MAIN_HOST_CLONE:=$GARDEN_STATE/main-host/journal}"
-: "${GARDEN_MAIN_HOST_CACHE:=$GARDEN_STATE/main-host/cached}"
+# GARDEN_LEADER, when set in the environment, short-circuits the journal read
+# (operator/test override).
+: "${GARDEN_LEADER_MARKER_PATH:=leader}"
+: "${GARDEN_LEADER_CLONE:=$GARDEN_STATE/leader/journal}"
+: "${GARDEN_LEADER_CACHE:=$GARDEN_STATE/leader/cached}"
 # Seconds the cached leader identity is trusted before a fresh journal read; keeps
 # a per-tick ExecCondition from hammering the journal while staying responsive to a
 # leader change. The cache also covers a transient journal outage (stale fallback).
-: "${GARDEN_MAIN_HOST_TTL:=30}"
+: "${GARDEN_LEADER_TTL:=30}"
 # Default verdict when the leader is wholly UNDETERMINABLE (no env override, no
 # readable marker, no cache, no network — only a cold offline host hits this).
 # `leader` fails OPEN so a lone host's singletons still run (single-host behavior
 # is unchanged); set `follower` to fail closed. A 2+-host fleet populates the cache
 # on its first successful read, after which this default no longer applies.
-: "${GARDEN_MAIN_HOST_DEFAULT:=leader}"
+: "${GARDEN_LEADER_DEFAULT:=leader}"
 
 # The dev / next-version branch. Subagents land development here from their own
 # worktrees; the deliberate deploy (deploy-garden.sh) merges it into the root
@@ -267,8 +262,8 @@ require_tools() {
   local t missing=()
   for t in "$@"; do command -v "$t" >/dev/null 2>&1 || missing+=("$t"); done
   [ "${#missing[@]}" -eq 0 ] && return 0
-  local msg="required tool(s) missing on PATH (host=${GARDEN_HOST}, tag=${GARDEN_TAG:-jobs}): ${missing[*]} — this silently drops work; install them or fix PATH"
-  alert_maintainer "missing-tools-${GARDEN_HOST}" "$msg"
+  local msg="required tool(s) missing on PATH (host=${GARDEN}, tag=${GARDEN_TAG:-jobs}): ${missing[*]} — this silently drops work; install them or fix PATH"
+  alert_maintainer "missing-tools-${GARDEN}" "$msg"
   die "$msg"
 }
 
@@ -553,31 +548,31 @@ ensure_clone() {
 
 # --- leader/follower predicate (issue kriskowal/garden#11) -------------------
 #
-# main_host — echo the configured leader's GARDEN identity. Resolution order:
-#   1. $GARDEN_MAIN_HOST if set (operator/test override; no journal read).
-#   2. the cached value when it is younger than GARDEN_MAIN_HOST_TTL (cheap, no
+# leader_host — echo the configured leader's GARDEN identity. Resolution order:
+#   1. $GARDEN_LEADER if set (operator/test override; no journal read).
+#   2. the cached value when it is younger than GARDEN_LEADER_TTL (cheap, no
 #      network — keeps a per-tick ExecCondition from hammering the journal).
-#   3. a fresh read of the journal marker hosts/main-host (bounded best-effort
-#      fetch into a dedicated clone), which then refreshes the cache.
+#   3. a fresh read of the journal `leader` marker (bounded best-effort fetch
+#      into a dedicated clone), which then refreshes the cache.
 #   4. the last cached value when the journal is unreachable (transient-outage
 #      fallback so a blip never flips a singleton's leader/follower verdict).
 # Echoes the identity (possibly empty if nothing is resolvable). Never exits the
 # caller: unlike sync_clone it does NOT exit on an offline fetch, because it runs
 # as a systemd ExecCondition where a clean 0/1 answer is required, not a skip.
-main_host() {
-  if [ -n "${GARDEN_MAIN_HOST:-}" ]; then printf '%s\n' "$GARDEN_MAIN_HOST"; return 0; fi
-  local dir="$GARDEN_MAIN_HOST_CLONE" cache="$GARDEN_MAIN_HOST_CACHE" val="" now mtime age
+leader_host() {
+  if [ -n "${GARDEN_LEADER:-}" ]; then printf '%s\n' "$GARDEN_LEADER"; return 0; fi
+  local dir="$GARDEN_LEADER_CLONE" cache="$GARDEN_LEADER_CACHE" val="" now mtime age
   now="$(date +%s 2>/dev/null || echo 0)"
   if [ -f "$cache" ]; then
     mtime="$(stat -c %Y "$cache" 2>/dev/null || echo 0)"
     age=$(( now - mtime ))
-    if [ "$age" -ge 0 ] && [ "$age" -lt "$GARDEN_MAIN_HOST_TTL" ]; then
+    if [ "$age" -ge 0 ] && [ "$age" -lt "$GARDEN_LEADER_TTL" ]; then
       head -1 "$cache" 2>/dev/null | tr -d '[:space:]'; return 0
     fi
   fi
   ensure_clone "$dir" >/dev/null 2>&1 || true
   timeout "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch -q origin "$JOURNAL_BRANCH" >/dev/null 2>&1 || true
-  val="$(git -C "$dir" show "origin/$JOURNAL_BRANCH:$GARDEN_MAIN_HOST_MARKER_PATH" 2>/dev/null | head -1 | tr -d '[:space:]')"
+  val="$(git -C "$dir" show "origin/$JOURNAL_BRANCH:$GARDEN_LEADER_MARKER_PATH" 2>/dev/null | head -1 | tr -d '[:space:]')"
   if [ -n "$val" ]; then
     mkdir -p "$(dirname "$cache")" 2>/dev/null || true
     printf '%s\n' "$val" > "$cache" 2>/dev/null || true
@@ -591,14 +586,14 @@ main_host() {
 # single "am I leader or follower?" check every mode-aware service consults (the
 # systemd ExecCondition wrapper is-main-host.sh, the bulletin loop, the watchman
 # broadcast gate). When the leader is wholly undeterminable, fall back to
-# GARDEN_MAIN_HOST_DEFAULT (leader = fail open, the single-host case).
+# GARDEN_LEADER_DEFAULT (leader = fail open, the single-host case).
 is_main_host() {
-  local leader; leader="$(main_host)"
+  local leader; leader="$(leader_host)"
   if [ -z "$leader" ]; then
-    [ "${GARDEN_MAIN_HOST_DEFAULT:-leader}" = leader ]
+    [ "${GARDEN_LEADER_DEFAULT:-leader}" = leader ]
     return
   fi
-  [ "$leader" = "$GARDEN_HOST" ]
+  [ "$leader" = "$GARDEN" ]
 }
 
 # Bounded journal fetch: timeout-wrapped, with backoff + retry. git has no IO
@@ -811,7 +806,7 @@ stamp_reap_now_hint() {
       }
     ' "$f" > "$f.reapnow" && mv "$f.reapnow" "$f"
     git -C "$clone" add "$rel"
-    if commit_and_push "$clone" "reap-now: hint $rel by $GARDEN_HOST (transient handler kill)"; then rc=0; else rc=$?; fi
+    if commit_and_push "$clone" "reap-now: hint $rel by $GARDEN (transient handler kill)"; then rc=0; else rc=$?; fi
     [ "$rc" -eq 0 ] && return 0
     [ "$rc" -eq 2 ] && return 0   # nothing to commit (a racing stamp won): treat as landed
     backoff "$attempt"            # rc=1: CAS lost — re-sync and retry

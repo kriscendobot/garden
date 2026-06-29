@@ -41,7 +41,7 @@ case "$action" in
       echo "    scripts/jobs/drain-fleet.sh off"
       echo "    (or just: rm '$GARDEN_DRAINING_MARKER')"
       echo
-      echo "set_by: $GARDEN_HOST"
+      echo "set_by: $GARDEN"
       echo "set_at: $(date -u +%FT%TZ)"
       [ -n "$reason" ] && echo "reason: $reason"
     } > "$GARDEN_DRAINING_MARKER"

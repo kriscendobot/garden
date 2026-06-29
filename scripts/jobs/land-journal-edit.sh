@@ -144,7 +144,7 @@ for attempt in $(seq 1 50); do
   if git -C "$DIR" diff --cached --quiet; then
     log "no change for $rel (already at origin/$JOURNAL_BRANCH tip)"; exit 0
   fi
-  if commit_and_push "$DIR" "library-edit: $role wrote $rel on $GARDEN_HOST"; then
+  if commit_and_push "$DIR" "library-edit: $role wrote $rel on $GARDEN"; then
     log "landed $rel on origin/$JOURNAL_BRANCH"; exit 0
   fi
   backoff "$attempt"

@@ -77,11 +77,11 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     printf 'upstream: %s\n' "$up_ref"
     printf 'mirror: %s\n'   "$mir_ref"
     printf 'created_at: %s\n' "$(date -u +%FT%TZ)"
-    printf 'created_by: %s\n' "$GARDEN_HOST"
+    printf 'created_by: %s\n' "$GARDEN"
     printf 'how: %s\n' "$how"
   } > "$DIR/$key"
   git -C "$DIR" add "$key"
-  if commit_and_push "$DIR" "pr-mirror($up_ref → $mir_ref) recorded on $GARDEN_HOST"; then
+  if commit_and_push "$DIR" "pr-mirror($up_ref → $mir_ref) recorded on $GARDEN"; then
     log "recorded mapping $key ($up_ref → $mir_ref)"
     exit 0
   fi

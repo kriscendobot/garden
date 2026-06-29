@@ -85,9 +85,9 @@ keep_journal_worktree() {
   if [ -n "$dirty" ] || [ "${ahead:-0}" -ne 0 ]; then
     dirty_count="$(printf '%s\n' "$dirty" | grep -c . || true)"
     local msg
-    msg="journal worktree $JW has DIVERGED from origin/$JOURNAL_BRANCH and was left UNTOUCHED (no reset/pull/stash): ${ahead:-0} local-ahead commit(s), ${behind} behind, ${dirty_count} dirty path(s). Reconcile by hand: 'git -C $JW status', 'git -C $JW log --oneline origin/$JOURNAL_BRANCH..HEAD', then rebase/push or discard the local commits. (host=$GARDEN_HOST)"
+    msg="journal worktree $JW has DIVERGED from origin/$JOURNAL_BRANCH and was left UNTOUCHED (no reset/pull/stash): ${ahead:-0} local-ahead commit(s), ${behind} behind, ${dirty_count} dirty path(s). Reconcile by hand: 'git -C $JW status', 'git -C $JW log --oneline origin/$JOURNAL_BRANCH..HEAD', then rebase/push or discard the local commits. (host=$GARDEN)"
     log "DIVERGED: $msg"
-    alert_maintainer "journal-worktree-divergence-$GARDEN_HOST" "$msg"
+    alert_maintainer "journal-worktree-divergence-$GARDEN" "$msg"
     return 0
   fi
 
@@ -98,9 +98,9 @@ keep_journal_worktree() {
     log "$JW: fast-forwarded $head -> $remote (${behind} commit(s))"
   else
     local msg
-    msg="journal worktree $JW could not fast-forward to origin/$JOURNAL_BRANCH despite a clean, non-ahead tree; left UNTOUCHED. Inspect 'git -C $JW status'. (host=$GARDEN_HOST)"
+    msg="journal worktree $JW could not fast-forward to origin/$JOURNAL_BRANCH despite a clean, non-ahead tree; left UNTOUCHED. Inspect 'git -C $JW status'. (host=$GARDEN)"
     log "STALE: $msg"
-    alert_maintainer "journal-worktree-fffail-$GARDEN_HOST" "$msg"
+    alert_maintainer "journal-worktree-fffail-$GARDEN" "$msg"
   fi
   return 0
 }

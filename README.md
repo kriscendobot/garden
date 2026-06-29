@@ -41,10 +41,10 @@ rationale in [`CLAUDE.md`](./CLAUDE.md) § Job system and the
 
 ### Step 0: Verify a unique hostname (do this first)
 
-Every host's logical name (`hostname -s`, overridable with `GARDEN_HOST`) **must
+Every host's logical name (`GARDEN`, default `hostname -s`) **must
 be unique across all your garden instances**. It keys claim metadata, the
-per-host worker count, and journal index entries; two instances sharing a name
-corrupt that state.
+per-host worker count, the leader marker, and journal index entries; two
+instances sharing a name corrupt that state.
 
 ```sh
 hostname -s          # is this unique among your running garden containers?

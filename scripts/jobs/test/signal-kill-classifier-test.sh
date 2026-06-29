@@ -77,7 +77,7 @@ export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 
 # Run the REAL gardener.sh: oneshot, stub handler that exits 143 AFTER writing
 # non-empty stdout + $report (so $capture is non-empty when the classifier runs).
-env GARDEN_HOST="killhost" GARDEN_STATE="$TR/state" \
+env GARDEN="killhost" GARDEN_STATE="$TR/state" \
     GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=143 \
     GARDEN_STUB_SENTINEL="$TR/sentinel" \
     GARDEN_JOB_HANDLER="$HERE/signal-kill-handler-stub.sh" \
@@ -146,7 +146,7 @@ hr; echo "SUBTEST 3 — reaper honors the reap-now hint before TTL, still counts
 # escalates as poison after the threshold rather than requeueing forever. The hint
 # itself must NOT survive into the requeued job, or a healthy re-claim would be
 # reaped instantly.
-env GARDEN_HOST="reaphost" GARDEN_STATE="$TR/reaper-state" \
+env GARDEN="reaphost" GARDEN_STATE="$TR/reaper-state" \
     GARDEN_CLAIM_TTL=3600 \
     "$JOBS/reaper.sh" > "$TR/reaper.log" 2>&1 || true
 

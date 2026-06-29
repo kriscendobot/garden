@@ -92,7 +92,7 @@ mock command 2 with arg
 mock command 3 exit 1
 EOF
 
-export GARDEN_HOST="mock-host"
+export GARDEN="mock-host"
 sha=$(bash "$MOCK_GARDEN_ROOT/skills/gardener-inbox-error-reporting/report-error.sh" \
   --transcript "$transcript_file" \
   --lane 7 \

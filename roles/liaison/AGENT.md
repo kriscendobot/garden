@@ -51,13 +51,13 @@ and the gardener fleet, and helps the maintainer operate the local garden.
 The garden is a **leader/follower** fleet (issue kriskowal/garden#11, Multibot;
 [multibot-leader-follower](../../designs/multibot-leader-follower.md)). **Gardeners
 run on every host** (concurrent claims dedup via the job-board push); **singleton
-services run only on the leader host** named by the journal marker `hosts/main-host`.
+services run only on the leader host** named by the journal `leader` marker.
 The **liaison maintainer-inbox Monitor is itself a singleton** — only the leader's
 liaison watches the inbox, so two liaisons never double-answer a maintainer.
 
 - **"start" / "resume" / "stand up" the garden** → bring the units up. **First
-  verify this host's `GARDEN` identity (and thus `GARDEN_HOST`) is UNIQUE** across
-  running instances (the bring-up step-1 uniqueness check, now keyed on `GARDEN`);
+  verify this host's `GARDEN` identity is UNIQUE** across
+  running instances (the bring-up step-1 uniqueness check, keyed on `GARDEN`);
   if it collides or is a default, offer the `GARDEN=endolinbot2` env override
   (`./garden reset && GARDEN_CONTAINER=…` for a durable rename, or just export
   `GARDEN=<unique>` to spawn a parallel pool from a checkout). Then
@@ -72,7 +72,7 @@ liaison watches the inbox, so two liaisons never double-answer a maintainer.
   a full stop only when the maintainer wants the host quiet. Lift a drain with
   `drain-fleet.sh off`.
 - **"make this host the leader" / "designate <host> the leader"** →
-  `scripts/jobs/set-main-host.sh [<host>]` writes `hosts/main-host`. Leadership is
+  `scripts/jobs/set-main-host.sh [<host>]` writes the journal `leader` marker. Leadership is
   **manual, no automatic failover**: if the leader dies the singletons stay down
   until the marker is re-pointed by hand.
 

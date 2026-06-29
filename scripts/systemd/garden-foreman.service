@@ -28,7 +28,7 @@ Environment=GARDEN_ROOT=@GARDEN_ROOT@
 #   Environment=GARDEN_TOKEN_COUNT_CACHE_READ=0      # 1 = also count cache_read
 #   Environment=GARDEN_CCUSAGE_LOGDIR=%h/.claude/projects  # session-log location
 # Leader-only singleton: run only on the host whose GARDEN identity matches the
-# journal hosts/main-host marker. On a follower the timer still fires but this
+# journal `leader` marker. On a follower the timer still fires but this
 # ExecCondition fails, so the tick is SKIPPED CLEANLY (condition-failed, never
 # marked Failed) — that IS follower mode. Each firing re-evaluates, so a
 # leader change (promotion/demotion) is picked up next tick with no restart.

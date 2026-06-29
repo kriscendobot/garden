@@ -36,7 +36,7 @@ for attempt in $(seq 1 100); do
   [ -e "$DIR/work/$base" ]       && git -C "$DIR" rm -q "work/$base"
   # destroy this job doer's inbox; its lifetime ends with the job.
   [ -d "$DIR/inbox/$base" ]      && git -C "$DIR" rm -rq "inbox/$base"
-  if commit_and_push "$DIR" "tada($base) done $GARDEN_HOST/gardener-$id"; then
+  if commit_and_push "$DIR" "tada($base) done $GARDEN/gardener-$id"; then
     log "completed '$base'"
     exit 0
   fi

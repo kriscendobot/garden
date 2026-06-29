@@ -62,7 +62,7 @@ SEED="$TR/seed"; git init -q "$SEED"; git -C "$SEED" checkout -q -b journal2
 
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
        GARDEN_STATE="$TR/state" GARDEN_PRODUCER_CLONE="$TR/state/producer/journal" \
-       GARDEN_HOST=hanghost GARDEN_ROLE=gardener GARDEN_NO_MAINTAINER_ALERT=1
+       GARDEN=hanghost GARDEN_ROLE=gardener GARDEN_NO_MAINTAINER_ALERT=1
 ohead() { git ls-remote "$BARE" refs/heads/journal2 | awk '{print $1}'; }
 
 # --- 1+2: an inline non-file body arg never blocks, refuses, mints nothing ---

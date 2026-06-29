@@ -62,7 +62,7 @@ ensure_clone "$DIR"
 read_body() {
   if   [ -n "$body_src" ] && [ -f "$body_src" ]; then cat "$body_src"
   elif [ ! -t 0 ];                                then cat
-  else printf '# %s\n\n(posted %s by %s)\n' "$base" "$(date -u +%FT%TZ)" "$GARDEN_HOST"
+  else printf '# %s\n\n(posted %s by %s)\n' "$base" "$(date -u +%FT%TZ)" "$GARDEN"
   fi
 }
 BODY="$(read_body)"
@@ -76,7 +76,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   mkdir -p "$DIR/$JOBS_TODO"
   printf '%s\n' "$BODY" > "$DIR/$JOBS_TODO/$base.md"
   git -C "$DIR" add "$JOBS_TODO/$base.md"
-  if commit_and_push "$DIR" "todo($base) posted by $GARDEN_HOST"; then
+  if commit_and_push "$DIR" "todo($base) posted by $GARDEN"; then
     log "posted '$base'"
     exit 0
   fi

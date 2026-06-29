@@ -30,37 +30,37 @@ branch. This design says which units run where, and how a host knows.
 
 ## Vocabulary (issue ↔ code)
 
-The issue says **leader**/**follower**; the code keeps the stable marker name
-`hosts/main-host` (holding the leader identity) so dependent paths never churn.
+The issue says **leader**/**follower**; the code names the leader in a single
+journal file `leader` (at the journal root) holding the leader's `GARDEN`
+identity, decoupled from the `hosts/<host>` heartbeat file names.
 
-- **leader host** = the one host whose `GARDEN` identity matches `hosts/main-host`;
-  runs the singletons.
+- **leader host** = the one host whose `GARDEN` identity matches the journal
+  `leader` marker; runs the singletons.
 - **follower host** = any other host; runs only the gardener pool + local-infra.
 
 ## The `GARDEN` host-identity knob
 
-`common.sh` derives the host's logical name from a new canonical knob:
+`common.sh` derives the host's logical name from a single canonical knob:
 
 ```sh
-: "${GARDEN:=$(hostname -s)}"   # the per-invocation host-identity override
-: "${GARDEN_HOST:=$GARDEN}"     # the internal name every script already uses
+: "${GARDEN:=$(hostname -s)}"   # the one host-identity name every script uses
 ```
 
-`GARDEN_HOST` stays the internal name (the journal index key, the claim-metadata
-key, the `hosts/<host>` worker-count key), so the change is one assignment, not a
-repo-wide rename. An operator exports `GARDEN=endolinbot2` to spawn a parallel
-gardener pool from a checked-out worktree without touching the Dockerfile (the
-kernel hostname is fixed at container creation; `GARDEN` is the lighter override).
+`GARDEN` is the journal index key, the claim-metadata key, the `hosts/<host>`
+worker-count key, and the leader predicate's comparand. An operator exports
+`GARDEN=endolinbot2` to spawn a parallel gardener pool from a checked-out worktree
+without touching the Dockerfile (the kernel hostname is fixed at container
+creation; `GARDEN` is the lighter override).
 
 ## The predicate
 
-`is_main_host` (in `common.sh`) compares this host's `GARDEN_HOST` to the leader
-named in the journal marker `hosts/main-host`. Resolution order: an explicit
-`GARDEN_MAIN_HOST` env override, then a TTL-cached read, then a fresh bounded
-journal read (refreshing the cache), then the stale cache on a journal outage.
-When the leader is wholly undeterminable (cold offline host, no marker, no cache)
-it falls back to `GARDEN_MAIN_HOST_DEFAULT` — `leader` (fail open) so a lone host's
-singletons still run, which keeps single-host behavior unchanged.
+`is_main_host` (in `common.sh`) compares this host's `GARDEN` to the leader named
+in the journal `leader` marker. Resolution order: an explicit `GARDEN_LEADER` env
+override, then a TTL-cached read, then a fresh bounded journal read (refreshing
+the cache), then the stale cache on a journal outage. When the leader is wholly
+undeterminable (cold offline host, no marker, no cache) it falls back to
+`GARDEN_LEADER_DEFAULT` — `leader` (fail open) so a lone host's singletons still
+run, which keeps single-host behavior unchanged.
 
 `scripts/jobs/is-main-host.sh` exposes the predicate as an executable (exit 0 =
 leader, 1 = follower) for systemd.
@@ -99,12 +99,12 @@ ff/maintenance half. The watchman is **split**: per-host ff/maintenance
 
 ## Designating the leader (manual; no failover)
 
-`scripts/jobs/set-main-host.sh [<host>]` CAS-writes `hosts/main-host` the same way
-`set-gardeners.sh` writes `hosts/<host>`. Leadership is changed by hand: if the
-leader dies, the singletons stay down until the marker is re-pointed. Lease-based
-election (automatic failover) is a separate, harder follow-on. Today there is one
-host, `endolinbot`, named in the marker, so the gate only bites when a second host
-joins.
+`scripts/jobs/set-main-host.sh [<host>]` CAS-writes the journal `leader` marker the
+same way `set-gardeners.sh` writes `hosts/<host>`. Leadership is changed by hand: if
+the leader dies, the singletons stay down until the marker is re-pointed. Lease-based
+election (automatic failover) is a separate, harder follow-on. The `leader` marker
+holds whichever host's `GARDEN` identity should lead, so the gate only bites when a
+second host joins.
 
 ## Liaison stand-up / stand-down surface
 

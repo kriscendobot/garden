@@ -36,7 +36,7 @@ if [ -z "$TRANSCRIPT" ] || [ -z "$LANE" ]; then
   exit 64
 fi
 
-GARDEN_HOST=${GARDEN_HOST:-$(hostname -s)}
+GARDEN=${GARDEN:-$(hostname -s)}
 GARDEN_JOURNAL=${GARDEN_JOURNAL:-}
 if [ -z "$GARDEN_JOURNAL" ]; then
   SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
@@ -66,7 +66,7 @@ else
 fi
 
 # 2. Build the inbox section.
-INBOX_DIR="$GARDEN_JOURNAL/inboxes/$GARDEN_HOST"
+INBOX_DIR="$GARDEN_JOURNAL/inboxes/$GARDEN"
 INBOX_FILE="$INBOX_DIR/gardener.md"
 mkdir -p "$INBOX_DIR"
 
@@ -75,13 +75,13 @@ ISO=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 if [ ! -f "$INBOX_FILE" ]; then
   cat > "$INBOX_FILE" <<EOF
 ---
-host: $GARDEN_HOST
+host: $GARDEN
 role: gardener
 last_drained_at: 1970-01-01T00:00:00Z
 last_drained_commit:
 ---
 
-# gardener inbox state on $GARDEN_HOST
+# gardener inbox state on $GARDEN
 
 Append-only failure log. Each section is a discrete failure event
 appended by a job-board service or worker via
@@ -104,7 +104,7 @@ Inspect via \`git -C journal cat-file -p $TRANSCRIPT_SHA\`.
 EOF
 
 # 3. Commit and push. The retry loop mirrors skills/journal-sync.
-git -C "$GARDEN_JOURNAL" add "inboxes/$GARDEN_HOST/gardener.md" >/dev/null 2>&1 || true
+git -C "$GARDEN_JOURNAL" add "inboxes/$GARDEN/gardener.md" >/dev/null 2>&1 || true
 if ! git -C "$GARDEN_JOURNAL" diff --cached --quiet 2>/dev/null; then
   git -C "$GARDEN_JOURNAL" commit -m "inboxes(gardener): error from lane $LANE state $STATE" >/dev/null 2>&1 || true
   for i in 1 2 3; do

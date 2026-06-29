@@ -111,7 +111,7 @@ while :; do
   # GARDEN_GARDENER_VERBOSE=1 to opt back into the claim/complete narration.
   # Drain this job doer's directed inbox (unread → read) before working.
   if [ -n "${GARDEN_GARDENER_VERBOSE:-}" ]; then
-    printf 'gardener-%s on %s claimed job %s\n' "$id" "$GARDEN_HOST" "$base" \
+    printf 'gardener-%s on %s claimed job %s\n' "$id" "$GARDEN" "$base" \
       | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
   fi
   "$HERE/inbox-read.sh" "$base" || true
@@ -152,7 +152,7 @@ while :; do
     fi
     [ "$crc" -ne 0 ] && die "complete-job failed for '$base' (rc=$crc)"
     if [ -n "${GARDEN_GARDENER_VERBOSE:-}" ]; then
-      printf 'gardener-%s on %s completed job %s\n' "$id" "$GARDEN_HOST" "$base" \
+      printf 'gardener-%s on %s completed job %s\n' "$id" "$GARDEN" "$base" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
     fi
   else
@@ -246,7 +246,7 @@ while :; do
       cycle="$(reap_count "$jobfile")"
       log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, signal-kill/empty/transient-signature capture); no escalation, left in doin for reaper requeue"
       printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/empty/transient-signature output); transient handler outage (requeue cycle %s); left in doin for reaper requeue (no escalation)\n' \
-        "$id" "$GARDEN_HOST" "$base" "$rc" "$cycle" \
+        "$id" "$GARDEN" "$base" "$rc" "$cycle" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
       # We KNOW this claim is dead (the handler was killed/blipped, not failing on a
       # job defect), so don't make the job wait out the full GARDEN_CLAIM_TTL for the
@@ -276,7 +276,7 @@ while :; do
       fi
       sha="$(GARDEN_JOURNAL="$CLONE" "$GARDEN_ROOT/skills/gardener-inbox-error-reporting/report-error.sh" \
                --transcript "$capture" --lane 0 --state handler-nonzero \
-               --context "gardener-$id on $GARDEN_HOST: job '$base' handler exited rc=$rc" \
+               --context "gardener-$id on $GARDEN: job '$base' handler exited rc=$rc" \
              2>/dev/null || true)"
       # Fall back to a bare local hash if the inbox-append escalation itself failed,
       # so the output is at least durable in this gardener's clone.
@@ -285,7 +285,7 @@ while :; do
       # even if the inbox-append push was lost; best-effort (blob stays local in $CLONE).
       [ "$sha" = unknown ] || anchor_blob "$sha" "gardener/$id/$base" "$CLONE" 2>/dev/null || true
       printf 'gardener-%s on %s: job %s handler FAILED (rc=%s); output captured as %s, escalated to the gardener inbox, left in doin for the reaper\n' \
-        "$id" "$GARDEN_HOST" "$base" "$rc" "$sha" \
+        "$id" "$GARDEN" "$base" "$rc" "$sha" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" error || true
     fi
   fi

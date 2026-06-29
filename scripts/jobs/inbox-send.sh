@@ -70,7 +70,7 @@ for attempt in $(seq 1 50); do
     mkdir -p "$DIR/inbox/dead"
     {
       printf 'to: %s\n'        "$doer"
-      printf 'from_host: %s\n' "$GARDEN_HOST"
+      printf 'from_host: %s\n' "$GARDEN"
       printf 'from: %s\n'      "${GARDEN_SENDER:-$GARDEN_TAG}"
       [ -n "${GARDEN_REPLY_TO:-}" ] && printf 'reply_to: %s\n' "$GARDEN_REPLY_TO"
       [ -n "${GARDEN_BLOCKED_ON:-}" ] && printf 'blocked_on: %s\n' "$GARDEN_BLOCKED_ON"
@@ -79,7 +79,7 @@ for attempt in $(seq 1 50); do
       printf '%s\n' "$BODY"
     } > "$DIR/inbox/dead/$msgid.md"
     git -C "$DIR" add "inbox/dead/$msgid.md"
-    if commit_and_push "$DIR" "deadmail($doer) ← $msgid from $GARDEN_HOST"; then
+    if commit_and_push "$DIR" "deadmail($doer) ← $msgid from $GARDEN"; then
       log "recipient inbox '$doer' gone; dead-lettered $msgid for garden-deadmail to promote"
       exit 0
     fi
@@ -96,7 +96,7 @@ for attempt in $(seq 1 50); do
   fi
   mkdir -p "$DIR/inbox/$doer/unread"
   {
-    printf 'from_host: %s\n' "$GARDEN_HOST"
+    printf 'from_host: %s\n' "$GARDEN"
     printf 'from: %s\n'      "${GARDEN_SENDER:-$GARDEN_TAG}"
     [ -n "${GARDEN_REPLY_TO:-}" ] && printf 'reply_to: %s\n' "$GARDEN_REPLY_TO"
     [ -n "${GARDEN_BLOCKED_ON:-}" ] && printf 'blocked_on: %s\n' "$GARDEN_BLOCKED_ON"
@@ -104,7 +104,7 @@ for attempt in $(seq 1 50); do
     printf '%s\n' "$BODY"
   } > "$DIR/inbox/$doer/unread/$msgid.md"
   git -C "$DIR" add "inbox/$doer/unread/$msgid.md"
-  if commit_and_push "$DIR" "inbox($doer) ← $msgid from $GARDEN_HOST"; then
+  if commit_and_push "$DIR" "inbox($doer) ← $msgid from $GARDEN"; then
     log "delivered to inbox/$doer ($msgid)"; exit 0
   fi
   log "inbox-send to '$doer' lost a push race (attempt $attempt); retrying"

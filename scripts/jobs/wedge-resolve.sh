@@ -53,10 +53,10 @@ trigger_wedge_resolution() {
   fi
   mkdir -p "$(dirname "$marker")"
 
-  local base; base="$(_wedge_slug "resolve-wedge-$GARDEN_HOST-${to:0:12}-$pathsum")"
+  local base; base="$(_wedge_slug "resolve-wedge-$GARDEN-${to:0:12}-$pathsum")"
   local body; body="$(mktemp "${TMPDIR:-/tmp}/wedge-resolve.XXXXXX")"
   {
-    printf '# Autonomous wedge resolution — clean the shared %s tree on host %s\n\n' "$GARDEN_MAIN_BRANCH" "$GARDEN_HOST"
+    printf '# Autonomous wedge resolution — clean the shared %s tree on host %s\n\n' "$GARDEN_MAIN_BRANCH" "$GARDEN"
     printf 'HIGH PRIORITY. The shared garden checkout at `%s` (branch `%s`) is WEDGED:\n' "$GARDEN_ROOT" "$GARDEN_MAIN_BRANCH"
     printf 'origin advanced to `%s` but the live tree is stuck at `%s` — %s.\n' "$to" "$from" "$reason"
     printf 'Until the tree is clean this host will NOT pick up new roles/skills/scripts\n'

@@ -80,7 +80,7 @@ EOF
 run_keeper() {  # run_keeper ; fills $OUT, $RC
   set +e
   OUT="$(env GARDEN_ROOT="$TR" GARDEN_STATE="$TR/state" \
-             GARDEN_JOURNAL_WORKTREE="$JW" GARDEN_HOST=testhost \
+             GARDEN_JOURNAL_WORKTREE="$JW" GARDEN=testhost \
              JOURNAL_BRANCH=journal2 \
              GARDEN_FETCH_TIMEOUT=10 GARDEN_FETCH_RETRIES=1 \
              GARDEN_ALERT_CMD="$ALERT_STUB" \

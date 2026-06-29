@@ -16,7 +16,7 @@ source "$HERE/common.sh"
 GARDEN_TAG="set-gardeners"
 
 n="${1:?usage: set-gardeners.sh <N> [host]}"
-host="${2:-$GARDEN_HOST}"
+host="${2:-$GARDEN}"
 [[ "$n" =~ ^[0-9]+$ ]] || die "count must be a non-negative integer"
 
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
@@ -26,7 +26,7 @@ for attempt in $(seq 1 50); do
   sync_clone "$DIR"
   mkdir -p "$DIR/hosts"
   printf 'gardeners: %s\nupdated_at: %s\nupdated_by: %s\n' \
-    "$n" "$(date -u +%FT%TZ)" "$GARDEN_HOST" > "$DIR/hosts/$host"
+    "$n" "$(date -u +%FT%TZ)" "$GARDEN" > "$DIR/hosts/$host"
   git -C "$DIR" add "hosts/$host"
   if commit_and_push "$DIR" "hosts($host) gardeners=$n"; then
     log "declared $host gardeners=$n"; exit 0

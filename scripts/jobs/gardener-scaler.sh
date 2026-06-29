@@ -20,7 +20,7 @@ DIR="${GARDEN_SCALER_CLONE:-$GARDEN_STATE/gardener-scaler/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
-host="$GARDEN_HOST"
+host="$GARDEN"
 f="$DIR/hosts/$host"
 want=""
 if [ -f "$f" ]; then

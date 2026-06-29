@@ -42,14 +42,14 @@ for attempt in $(seq 1 50); do
   sync_clone "$DIR"
   mkdir -p "$DIR/msgs/$addr"
   {
-    printf 'from_host: %s\n'  "$GARDEN_HOST"
+    printf 'from_host: %s\n'  "$GARDEN"
     printf 'from: %s\n'       "${GARDEN_SENDER:-$GARDEN_TAG}"
     printf 'sent_at: %s\n'    "$(date -u +%FT%TZ)"
     printf 'to: %s\n---\n'    "$addr"
     printf '%s\n'             "$BODY"
   } > "$DIR/$relpath"
   git -C "$DIR" add "$relpath"
-  if commit_and_push "$DIR" "msg($addr) $msgid from $GARDEN_HOST"; then
+  if commit_and_push "$DIR" "msg($addr) $msgid from $GARDEN"; then
     log "sent → $addr ($msgid)"
     exit 0
   fi

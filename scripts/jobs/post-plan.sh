@@ -119,7 +119,7 @@ ensure_clone "$DIR"
 read_body() {
   if   [ -n "$body_src" ] && [ -f "$body_src" ]; then cat "$body_src"
   elif [ ! -t 0 ];                                then cat
-  else printf '# %s\n\n(planned %s by %s)\n' "$base" "$(date -u +%FT%TZ)" "$GARDEN_HOST"
+  else printf '# %s\n\n(planned %s by %s)\n' "$base" "$(date -u +%FT%TZ)" "$GARDEN"
   fi
 }
 BODY="$(read_body)"
@@ -148,7 +148,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   mkdir -p "$DIR/$JOBS_PLAN"
   compose > "$DIR/$JOBS_PLAN/$base.md"
   git -C "$DIR" add "$JOBS_PLAN/$base.md"
-  if commit_and_push "$DIR" "plan($base) parked [$gate/$priority] by $GARDEN_HOST"; then
+  if commit_and_push "$DIR" "plan($base) parked [$gate/$priority] by $GARDEN"; then
     log "parked '$base' in plan/ (gate=$gate priority=$priority)"
     exit 0
   fi

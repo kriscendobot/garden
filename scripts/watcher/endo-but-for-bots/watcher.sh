@@ -33,7 +33,7 @@
 #
 #   GARDEN_ROOT      default: script-location-relative grandparent's parent
 #   GARDEN_JOURNAL   default: $GARDEN_ROOT/journal
-#   GARDEN_HOST      default: $(hostname -s)
+#   GARDEN      default: $(hostname -s)
 #   FEED_POLL_SECONDS  default: 30
 #
 # See scripts/watcher/README.md for the feed inventory.

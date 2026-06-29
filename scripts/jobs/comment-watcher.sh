@@ -608,7 +608,7 @@ if [ "$nlines" -eq 0 ]; then
     else
       log "SELF-TEST FAILED on $repo: source path returned nothing for a known-existing comment — watcher may be silently blind"
       alert_maintainer "blind-comment-watcher-$slug" \
-        "ANOMALY: comment-watcher/$slug self-test FAILED on $repo — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on $GARDEN_HOST and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet."
+        "ANOMALY: comment-watcher/$slug self-test FAILED on $repo — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on $GARDEN and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet."
     fi
   else
     log "no new comments on $repo since ${last_seen:-<coldstart>} (quiet; source self-test throttled)"

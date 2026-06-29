@@ -28,4 +28,4 @@ The garden's `CLAUDE.md` § Conventions states that the garden does not generall
 | Design | Status | Summary |
 | --- | --- | --- |
 | [driver.md](driver.md) | Proposed | Pivot the PR-creation flow from claude-on-top orchestration to claude-under-script worker pool with role-specific job boards. |
-| [multibot-leader-follower.md](multibot-leader-follower.md) | Implemented | Gardeners run on every host; singletons run only on the leader host named by the journal `hosts/main-host` marker, via the `GARDEN` knob and the `is-main-host` predicate. |
+| [multibot-leader-follower.md](multibot-leader-follower.md) | Implemented | Gardeners run on every host; singletons run only on the leader host named by the journal `leader` marker, via the `GARDEN` knob and the `is-main-host` predicate. |

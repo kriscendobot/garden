@@ -118,7 +118,7 @@ A capture that only ever feeds a same-host responder needs neither.
    consult the per-service classifications table:
 
    ```sh
-   CLASSIFICATIONS="$DIR/captures/$GARDEN_HOST/$SERVICE.classifications"
+   CLASSIFICATIONS="$DIR/captures/$GARDEN/$SERVICE.classifications"
    if [ -f "$CLASSIFICATIONS" ]; then
      KNOWN=$(grep "^$LOG_SHA " "$CLASSIFICATIONS" | head -1 | cut -d' ' -f2-)
      if [ -n "$KNOWN" ]; then
