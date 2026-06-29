@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T23:55:57Z_
+_As of 2026-06-29T23:56:53Z_
 
 ## Latest
 
-The board is quiet: the only transition since the last bulletin was a deadmail completion drained from `doin` to `tada`. One job remains in flight — an attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) — and `todo` is empty. Among the recent completions, a design landed on [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16)'s branch with its summary comment posted, and the bid/accept differentiated-gardener market design wrapped (note that the matching commit on `main2` was subsequently reverted). 29 PRs remain parked for kriskowal — the oldest pressing ones being the `.ts` runtime-module support in [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (14d) and the passable-byte-arrays work in [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (4d).
+Bot's revert of the bid/accept market design landed cleanly, and a [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16) design has been landed onto its branch with the summary comment posted. A dead-lettered issue comment (#4838594481) is now in flight, and an attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) remains claimed and in progress. The maintainer's heaviest backlog is review: 29 PRs parked, led by [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (the @endo/gateway design) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability), both waiting 15h.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-issue-comment-4838594481`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4838594481.md) — Dead-lettered message — pick up its intent
 - [`kriskowal-garden-pr9-469d82c6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-469d82c6.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (609)
