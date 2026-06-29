@@ -28,3 +28,4 @@ The garden's `CLAUDE.md` § Conventions states that the garden does not generall
 | Design | Status | Summary |
 | --- | --- | --- |
 | [multibot-leader-follower.md](multibot-leader-follower.md) | Implemented | Gardeners run on every host; singletons run only on the leader host named by the journal `leader` marker, via the `GARDEN` knob and the `is-main-host` predicate. |
+| [gardener-bid-accept-market.md](gardener-bid-accept-market.md) | Proposed | Generalize the straight claim-race into a bid/accept market: gardeners differentiated by role and model, bid on jobs; a pluggable selector awards; a per-kind reputation ledger and the AMiX objective/subjective acceptance oracle feed selection. Race stays the default; market is opt-in, shadow-first, permanently dual-mode. |
