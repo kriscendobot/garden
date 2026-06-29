@@ -30,3 +30,9 @@ breaking a live path.
 The dead driver code/units/skills/docs removed on main2, a grep-gate (or report) showing no live
 path referenced them, and the `designs/remove-driver.md` plan either removed or marked executed.
 PR #5 is being closed by the liaison as converted-to-job (no garden-own PR workflow).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 47
+  claimed_at: 2026-06-29T04:55:38Z
