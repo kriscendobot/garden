@@ -55,6 +55,11 @@ rm -f "$BUSY_MARKER" 2>/dev/null || true
 log "starting (clone=$CLONE handler=$GARDEN_JOB_HANDLER oneshot=$GARDEN_ONESHOT)"
 
 idle_rounds=0
+# Consecutive non-productive ticks, driving idle_backoff()'s exponential growth.
+# SEPARATE from idle_rounds (which is ONESHOT drain bookkeeping): this resets on a
+# claimed job, idle_rounds resets on a claimed job too but only ever increments
+# under ONESHOT. Reset to 1 (attempt 1 = a quick first poll) on a productive tick.
+idle_attempt=1
 while :; do
   if fleet_draining; then log "fleet draining; exiting cleanly"; exit 0; fi
 
@@ -76,7 +81,7 @@ while :; do
       # two clean empty passes => board is drained; exit.
       [ "$idle_rounds" -ge 2 ] && { log "board drained; exiting (oneshot)"; exit 0; }
     fi
-    sleep "$GARDEN_IDLE_SLEEP"
+    idle_backoff "$idle_attempt"; idle_attempt=$((idle_attempt+1))
     continue
   fi
   # A transient DNS/connectivity outage during the claim's sync_clone fetch
@@ -91,11 +96,12 @@ while :; do
   # tick is not a drained board for ONESHOT).
   if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] || [ "$rc" -eq 128 ]; then
     log "claim transiently offline (rc=$rc); sleeping and retrying"
-    sleep "$GARDEN_IDLE_SLEEP"
+    idle_backoff "$idle_attempt"; idle_attempt=$((idle_attempt+1))
     continue
   fi
   [ "$rc" -ne 0 ] && die "claim failed (rc=$rc)"
   idle_rounds=0
+  idle_attempt=1   # productive tick: a job was claimed — reset to a quick first poll
 
   jobfile="$CLONE/$JOBS_DOIN/$base.md"
   report="$(mktemp "${TMPDIR:-/tmp}/garden-report-$base.XXXXXX")"
@@ -147,7 +153,7 @@ while :; do
     if [ "$crc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
       log "offline during completion of '$base' (rc=$crc); left in doin for TTL requeue"
       rm -f "$report" "$capture"
-      sleep "$GARDEN_IDLE_SLEEP"
+      idle_backoff "$idle_attempt"; idle_attempt=$((idle_attempt+1))
       continue
     fi
     [ "$crc" -ne 0 ] && die "complete-job failed for '$base' (rc=$crc)"

@@ -324,6 +324,44 @@ backoff() {
   sleep "$(printf '%d.%03d' "$((ms / 1000))" "$((ms % 1000))")"
 }
 
+# Idle-poll backoff with full jitter (per kriskowal #10, "use exponential
+# back-off with full jitter, generally") — the SECOND-scale analog of backoff()
+# for a steady poll loop rather than a tight CAS retry. A ~100-gardener fleet
+# started in lockstep (a fresh boot or a deploy restart of the whole pool) would
+# otherwise wake on the same fixed GARDEN_IDLE_SLEEP boundary and hit journal2
+# with ~100 simultaneous fetches every interval — a thundering herd that the flat
+# poll never breaks. Each idle tick instead sleeps a FRESH uniform draw in
+# [0, window], window = min(cap, base * 2^(attempt-1)):
+#   - a freshly-idle gardener (attempt 1) polls quickly, so a just-posted job is
+#     picked up with low latency;
+#   - a persistently-idle fleet backs off toward the cap AND decorrelates — the
+#     full-jitter draw spreads each gardener's fetch across the whole window
+#     instead of re-bunching on a shared boundary.
+# Across the fleet the time-to-first-poll stays small even at the cap, because
+# many independently-jittered pollers cover the interval; aggregate journal load
+# drops sharply. NOTE this is a SEPARATE counter from the gardener's `idle_rounds`
+# (which drives ONESHOT drain semantics) — do not conflate them. base =
+# GARDEN_IDLE_SLEEP, cap = GARDEN_IDLE_SLEEP_CAP; attempt is the consecutive
+# non-productive-tick count, reset to 1 on a productive (claimed) tick.
+GARDEN_IDLE_SLEEP_CAP="${GARDEN_IDLE_SLEEP_CAP:-30}"
+idle_backoff() {
+  local attempt="${1:-1}" base_s="${GARDEN_IDLE_SLEEP:-5}" cap_s="${GARDEN_IDLE_SLEEP_CAP:-30}"
+  [ "$attempt" -lt 1 ] 2>/dev/null && attempt=1
+  local base_ms=$(( base_s * 1000 )) cap_ms=$(( cap_s * 1000 ))
+  # window = min(cap, base * 2^(attempt-1)); clamp the shift so a long idle period
+  # cannot overflow the arithmetic before the cap clamps it.
+  local exp=$((attempt - 1)) window
+  if [ "$exp" -ge 16 ]; then window="$cap_ms"; else
+    window=$(( base_ms << exp ))
+    [ "$window" -gt "$cap_ms" ] && window="$cap_ms"
+  fi
+  # Full-jitter draw. RANDOM (0-32767) covers windows up to ~32s; a larger cap is
+  # effectively clamped to that range, which is acceptable for an idle poll.
+  [ "$window" -gt 32767 ] && window=32767
+  local ms=$(( RANDOM % (window + 1) ))
+  sleep "$(printf '%d.%03d' "$((ms / 1000))" "$((ms % 1000))")"
+}
+
 # --- job scratch (the live-tree-root clutter fix) ----------------------------
 #
 # Jobs that need a private scratch directory or an ad-hoc worktree MUST place it

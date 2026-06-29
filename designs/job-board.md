@@ -68,8 +68,15 @@ only the worker's own basename, so it **retries with backoff until it lands**.
 
 Why the asymmetry: a claim that retries could steal a job another worker already
 took, so it backs off; a completion/post/send only ever fast-forwards its own
-files, so it retries. Both use randomized backoff (~50–300ms) to break lockstep
-livelock under contention.
+files, so it retries. Both use **exponential backoff with full jitter** (a fresh
+uniform draw in `[0, min(cap, base·2^attempt)]`; `common.sh backoff()`, base 50ms
+/ cap 2s) to break lockstep livelock under contention (per kriskowal #10). The
+**idle poll** between claims uses the same recipe at second scale
+(`common.sh idle_backoff()`, base `GARDEN_IDLE_SLEEP` / cap `GARDEN_IDLE_SLEEP_CAP`):
+a ~100-gardener fleet started in lockstep would otherwise wake on one shared
+boundary and hammer `journal2` with ~100 simultaneous fetches every interval, so
+each gardener's idle tick is independently jittered and a persistently-empty board
+backs the poll off toward the cap.
 
 ### Divergences from pivoker / hazards (and how they're handled)
 
