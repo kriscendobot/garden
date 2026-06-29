@@ -1,1 +1,7 @@
 The gardener systemd unit `scripts/systemd/garden-gardener@.service` lacks `KillMode` and `TimeoutStopSec`, so on any `systemctl stop/restart` (manual, leader-promotion fleet restart, deploy edge, or the busy-gate TOCTOU race) systemd's default `KillMode=control-group` immediately SIGTERMs the in-flight handler subtree → handler dies rc=143 → job requeues and consumes a poison cycle. This is the exact signature in all four new journal entries. Make graceful drain authoritative instead of advisory: (1) add `KillMode=mixed` so the initial SIGTERM goes only to the main worker process, not the handler's cgroup; (2) add `TimeoutStopSec` ≥ `GARDEN_HANDLER_TIMEOUT + GARDEN_HANDLER_KILL_AFTER` plus slack (2400+60 → e.g. 2700) so systemd waits for the running handler rather than escalating to SIGKILL; (3) in `scripts/jobs/gardener.sh`, trap SIGTERM to set a "stop after current job" flag that exits cleanly at the existing between-claims point (mirroring the `fleet_draining` check at the top of the loop) WITHOUT killing the running handler. Together these convert the racy busy-marker advisory into a real drain that holds for every stop path, eliminating the mid-handler rc=143 kill + wasted work + poison-and-drop on long jobs.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 74
+  claimed_at: 2026-06-29T20:30:32Z
