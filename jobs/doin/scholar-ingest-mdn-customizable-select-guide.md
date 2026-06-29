@@ -40,3 +40,9 @@ Deliverable: the ingested source + sections (and index updates) on `journal2`, p
 the scholar's normal ingest procedure. Do **not** author the skill in this job.
 Post a follow-on `author-*` job (or note in the report) that skill 4 is now
 authorable.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-06-29T20:42:18Z
