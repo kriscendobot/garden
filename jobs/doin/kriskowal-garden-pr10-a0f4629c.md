@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Consider using exponential back-off with full jitter, generally. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 19
+  claimed_at: 2026-06-29T14:15:19Z
