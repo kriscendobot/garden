@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 I would like to discuss Gimix as a potential project to continue. It was started here https://github.com/Agoric/agoric-sdk/pull/8529 And continues https://github.com/agoric-labs/gimix The new incarnation would not use the Agoric chain, but would use Zoe and ERTP while standing on
+
+---
+claim:
+  host: endolinbot2
+  gardener: 22
+  claimed_at: 2026-06-29T22:58:09Z
