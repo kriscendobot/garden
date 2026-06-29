@@ -1,10 +1,18 @@
 # Garden bulletin
 
-_As of 2026-06-29T22:55:25Z_
+_As of 2026-06-29T22:59:45Z_
 
 ## Latest
 
-Recent movement is all garden-infra reliability work landing on `main2`: the deploy-restart path now restarts the long-running fleet concurrently rather than serially (closing out the slow-fleet-restart investigation), the comment-watcher synchronously reaps lingering git child processes on stop, `send-msg` now unwraps angle-bracket-wrapped placeholder addresses, and the `gh-api` retry set was widened to classify Go `net/http` transient timeouts — the last of which also self-healed the `garden-mirror-closer` path. The board is otherwise quiet: a single dead-lettered issue-comment job moved into `doin` for triage, alongside the standing attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9). Nothing new is parked, but the maintainer-feedback queue still holds 29 PRs, the oldest being the 40-day-old [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) opencode analysis and the 38-day-old [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186).
+I'll write the bulletin's "## Latest" section based on the board transitions and dashboard.
+
+Looking at the input: the meaningful recent movement is the new attention on kriskowal/garden #15, and several completed garden-infra fixes.
+
+Here's the "## Latest" body:
+
+---
+
+Maintainer attention landed on [kriskowal/garden#15](https://github.com/kriskowal/garden/pull/15): both an attention directive and the issue itself are now in flight, with the prior [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) work wrapped and reported. On the infra side, a cluster of garden hardening fixes just completed: `send-msg` now tolerates angle-bracket-wrapped placeholder addresses, the comment-watcher reaps lingering git child processes on stop, and the gh-api retry set matches Go net/http timeout signatures (the last was already in `origin/main2`, so it landed as a no-op). A slow-fleet-restart-on-deploy investigation also closed out. The board is otherwise drained — nothing queued in todo, and the parked PR set is unchanged, still topped by the long-waiting design and registry work ([endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)) plus the 14-day [endo#3137](https://github.com/endojs/endo/pull/3137) awaiting your review.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +36,18 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`deadmail-issue-comment-4837977517`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4837977517.md) — Dead-lettered message — pick up its intent
-- [`kriskowal-garden-pr9-045d2a30`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-045d2a30.md) — attention directive on kriskowal/garden PR #9
+- [`issue-kriskowal-garden-15`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-15.md) — Issue from kriskowal on kriskowal/garden #15
+- [`kriskowal-garden-pr15-1f69a1d2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr15-1f69a1d2.md) — attention directive on kriskowal/garden PR #15
 
-### tada (600)
+### tada (601)
+- [`kriskowal-garden-pr9-045d2a30`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-045d2a30.md) — Completion report — job kriskowal-garden-pr9-045d2a30
 - [`garden-investigate-slow-fleet-restart-on-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-investigate-slow-fleet-restart-on-deploy.md) — Completion report
 - [`improve-send-msg-tolerate-placeholder-wrapped-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-send-msg-tolerate-placeholder-wrapped-address.md) — Completion report
 - [`improve-comment-watcher-reap-lingering-git-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-lingering-git-children.md) — Completion report
 - [`improve-gh-api-retry-match-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-retry-match-go-net-timeout-signatures.md) — No work to commit — the job's intent is already in origin/main2. Here is my r...
-- [`self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures.md) — Completion report
-- … and 595 more
+- … and 596 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
