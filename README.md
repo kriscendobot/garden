@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-29T17:30:55Z_
+_As of 2026-06-29T17:35:23Z_
 
 ## Latest
 
-Garden-infra work dominated this interval: the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) attention-directive job and [kriskowal/garden#10](https://github.com/kriskowal/garden/issues/10) job both completed, alongside three reliability landings — a scholar-preflight broadcast-actionability filter, a bounded transient-retry for read-only `gh` API handlers, and a full-jitter idle-poll backoff for the gardener. Two jobs are now in flight: picking up the intent of a dead-lettered issue comment, and an investigation into the ymax0 XS stack-overflow (symbolicated trace + beta2 regression cross-check). No external-repo PRs moved — the 29 parked PRs all still await kriskowal, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 13d) and the long-tail design/test PRs on endo-but-for-bots stretching back 38–40 days.
+Here is the body of the "## Latest" section:
+
+The deadmail handler for [garden#9](https://github.com/kriskowal/garden/pull/9)'s stale issue-comment cleared the board, leaving only the ymax0 XS stack-overflow investigation in flight. Recent landings hardened the garden's own plumbing: the scholar preflight now gates its broadcast on an actionable marker (also tracked via the scholar library cycle), and read-only `gh` API handlers gained bounded transient-retry. No fork PRs moved this cycle — the ten parked items, led by the [@endo/gateway design](https://github.com/endojs/endo-but-for-bots/pull/343) (9h) and the [EndoRegistry capability layer](https://github.com/endojs/endo-but-for-bots/pull/403) (8h), still await kriskowal's review.
 
 ## Parked for maintainer feedback
 
@@ -13,7 +15,7 @@ Garden-infra work dominated this interval: the [kriskowal/garden#9](https://gith
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 13d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 14d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 38d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 39d)
@@ -28,17 +30,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-issue-comment-4835251662`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4835251662.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`investigate-ymax0-xs-overflow-symbolicated-stack-trace`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/investigate-ymax0-xs-overflow-symbolicated-stack-trace.md) — symbolicated XS overflow stack trace + beta2 regression cross-check (ymax0 v3...
 
-### tada (575)
+### tada (576)
+- [`deadmail-issue-comment-4835251662`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4835251662.md) — Completion report — deadmail-issue-comment-4835251662
 - [`kriskowal-garden-pr9-8e3123c4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-8e3123c4.md) — Completion report — kriskowal-garden-pr9-8e3123c4 (attention directive, garde...
 - [`improve-scholar-preflight-broadcast-actionability-filter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-preflight-broadcast-actionability-filter.md) — Completion report
 - [`scholar-library-cycle-20260629-163514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-163514.md) — Completion report
 - [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-handler-transient-retry.md) — Completion report
-- [`kriskowal-garden-pr10-a0f4629c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr10-a0f4629c.md) — Completion report
-- … and 570 more
+- … and 571 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
