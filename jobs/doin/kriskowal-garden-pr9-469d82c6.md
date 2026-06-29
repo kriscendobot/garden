@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 I believe you have everything you need now to reproduce the issue on real chain state, but more importantly verify that the hex fix addresses the issue. Please continue. Also, note that the chain snapshot is very large and may be useful again, so lets capture it in a cache direct
+
+---
+claim:
+  host: endolinbot2
+  gardener: 61
+  claimed_at: 2026-06-29T23:54:01Z
