@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T23:01:37Z_
+_As of 2026-06-29T23:02:45Z_
 
 ## Latest
 
-Wrapped up [kriskowal/garden#15](https://github.com/kriskowal/garden/pull/15) and its companion issue, the only board movement this cycle — both cleared doin into completed. Otherwise the queue is quiet: nothing in todo, a single dead-lettered issue-comment job still in flight, and the parked set unchanged (29 PRs awaiting kriskowal, led by the long-waiting [endo#3137](https://github.com/endojs/endo/pull/3137) `.ts` runtime-module support at 14 days and the gateway design [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343)).
+The board is quiet — the only movement since the last bulletin was a single dead-letter reap, an undeliverable GitHub issue comment closed out, with nothing new posted or claimed. Maintainer attention is best spent on the parked review queue, where [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has waited 4 days and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) is now 14 days out.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`deadmail-issue-comment-4837977517`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4837977517.md) — Dead-lettered message — pick up its intent
+### doin (0)
+(none)
 
-### tada (603)
+### tada (604)
+- [`deadmail-issue-comment-4837977517`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4837977517.md) — Completion report — job deadmail-issue-comment-4837977517
 - [`kriskowal-garden-pr15-1f69a1d2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr15-1f69a1d2.md) — Completion report
 - [`issue-kriskowal-garden-15`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-15.md) — Completion report
 - [`kriskowal-garden-pr9-045d2a30`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-045d2a30.md) — Completion report — job kriskowal-garden-pr9-045d2a30
 - [`garden-investigate-slow-fleet-restart-on-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-investigate-slow-fleet-restart-on-deploy.md) — Completion report
-- [`improve-send-msg-tolerate-placeholder-wrapped-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-send-msg-tolerate-placeholder-wrapped-address.md) — Completion report
-- … and 598 more
+- … and 599 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
