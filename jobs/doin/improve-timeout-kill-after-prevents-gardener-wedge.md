@@ -1,7 +1,0 @@
-In scripts/jobs/gardener.sh:144 the handler runs under `timeout --signal=TERM "$GARDEN_HANDLER_TIMEOUT"` with no `--kill-after`. If a handler ignores SIGTERM (a hard deadlock or a child in an uninterruptible state), `timeout` blocks waiting for it to exit and the gardener worker itself wedges past GARDEN_HANDLER_TIMEOUT, violating the stated INVARIANT (gardener.sh:33) that the handler cannot outlive the reaper window — the reaper's claim-TTL only requeues the JOB, it does not free this stuck worker process. Harden by adding `--kill-after=<grace>` (e.g. 60s) so timeout escalates to SIGKILL after the grace period, guaranteeing the worker returns and re-enters the claim loop. Pair with the rc=124 classification change above (a SIGKILL escalation surfaces as 137, already an external-kill transient).
-
----
-claim:
-  host: endolinbot2
-  gardener: 99
-  claimed_at: 2026-06-29T19:22:57Z
