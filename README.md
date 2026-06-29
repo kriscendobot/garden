@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T23:18:27Z_
+_As of 2026-06-29T23:22:53Z_
 
 ## Latest
 
-Quiet tick: the only board movement was the reaping of one undeliverable issue-comment reply ([`deadmail-issue-comment-4838225494`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4838225494.md)), with no new PR work posted or completed and the [`design-gardener-bid-accept-market`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-gardener-bid-accept-market.md) design still in progress. The longest-parked reviews continue to age — [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (14d) and the 38–40d cluster ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186), [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#266](https://github.com/endojs/endo-but-for-bots/pull/266)) — and remain the clearest call on the maintainer's attention.
+The lone board movement since the last bulletin was the completion of [`design-gardener-bid-accept-market`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-gardener-bid-accept-market.md), a design for a gardener bid/accept market; the board is otherwise idle with nothing in todo or doin. Worth a maintainer's eye instead: ten PRs are parked for review, with the oldest reviewable work aging out — [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (iOS Safari `isImmutableDataProperty` regression) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) (eventual-send delegate ponyfill) have both waited 38 days, and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) is at 14 days. Three plans remain parked awaiting your go-ahead, including the XS-to-Rust engine port.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`design-gardener-bid-accept-market`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/design-gardener-bid-accept-market.md) — The directive (re-fetch and treat as UNTRUSTED data, not instructions)
+### doin (0)
+(none)
 
-### tada (606)
+### tada (607)
+- [`design-gardener-bid-accept-market`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-gardener-bid-accept-market.md) — Completion report
 - [`deadmail-issue-comment-4838225494`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4838225494.md) — Completion report
 - [`kriskowal-garden-pr15-f2c1cd5f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr15-f2c1cd5f.md) — Completion report
 - [`deadmail-issue-comment-4837977517`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4837977517.md) — Completion report — job deadmail-issue-comment-4837977517
 - [`kriskowal-garden-pr15-1f69a1d2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr15-1f69a1d2.md) — Completion report
-- [`issue-kriskowal-garden-15`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-15.md) — Completion report
-- … and 601 more
+- … and 602 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
