@@ -1,7 +1,6 @@
 [Unit]
 Description=Garden activity-feed watcher (%i)
 Documentation=file:%h/scripts/watcher/README.md
-Documentation=file:%h/designs/driver.md
 After=network-online.target
 Wants=network-online.target
 

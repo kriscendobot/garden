@@ -301,5 +301,5 @@ maintainer / queue merge step / etc.).
 - _2026-06-24_: migrated into v2. Re-homed onto the gardener-supervised gardening
   state machine: "orchestrator re-prompt across CI cycles" became the script's
   `loop` signal that the supervising gardener reacts to; "dispatch a fixer"
-  became "queue a fixer step"; steward-owned/liaison-tracked/driver-lane framings
+  became "queue a fixer step"; the v1 steward-owned/liaison-tracked/driver-lane framings
   collapsed into the single gardener-supervised form; gamut → gauntlet.

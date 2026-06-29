@@ -30,9 +30,9 @@
 !/.github/
 !/.github/**
 
-# Host-local daemon configuration for the driver pool and per-feed
-# watchers. The .example template is checked in; the actual config.sh
-# is host-local. See scripts/daemons/README.md.
+# Host-local daemon configuration for the per-feed watchers. The
+# .example template is checked in; the actual config.sh is host-local.
+# See scripts/daemons/README.md.
 /scripts/daemons/config.sh
 
 # Host-local private working notes (if any) are excluded via each host's

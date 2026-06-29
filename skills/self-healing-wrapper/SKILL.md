@@ -63,10 +63,11 @@ LOG_SHA=$(git -C "$GARDEN_JOURNAL" hash-object -w --stdin < "$capture_file")
 
 Two capture sources, depending on the failure shape:
 
-- **An EXIT/ERR trap** that keeps the script's own `-x` transcript. The driver's
-  `report_unexpected_exit` (`scripts/driver/driver.sh:131-151`) discriminates on
+- **An EXIT/ERR trap** that keeps the script's own `-x` transcript. The removed
+  driver's `report_unexpected_exit` (in git history) discriminated on
   `$?` at EXIT time — a non-zero exit that the script did not mark expected
-  (`DRIVER_EXPECTED_EXIT=0`) keeps the transcript, hashes it, and routes it on.
+  (`DRIVER_EXPECTED_EXIT=0`) kept the transcript, hashed it, and routed it on.
+  The live equivalent is `scripts/jobs/self-heal-run.sh` (exemplars table below).
 - **Diverted tracing** for a supervised inner script. `GARDEN_TRACE=1` routes
   `set -x` into `$GARDEN_TRACE_LOG` via `BASH_XTRACEFD` so trace noise never
   reaches the supervisor's context (`scripts/jobs/gardening/garden-pr.sh:34-37`,
@@ -122,8 +123,8 @@ Three disciplines from the exemplars:
   time.
 - **Best-effort, never crash the wrapper.** The responder invocation OR-guards
   every branch (`... || response="(claude invocation failed)"`) and runs in the
-  background where latency matters (`driver.sh:547` invokes
-  `_self_improve_invoke_async ... &` and does not `wait`). Self-improvement must
+  background where latency matters (the removed driver invoked
+  `_self_improve_invoke_async ... &` and did not `wait`). Self-improvement must
   not become a new failure mode of the thing it is healing.
 
 ### Part 3 — propose or post a fix
@@ -137,11 +138,11 @@ just the script's own stdout. Two routes, by how durable the escalation must be:
   [`gardener-inbox-error-reporting`](../gardener-inbox-error-reporting/SKILL.md)
   once ported). This is the right route when a failure the *central mentor on
   another host* must inspect: a committed inbox file carries the SHA across hosts
-  even though the blob itself is local until pushed. The driver uses exactly this
-  (`driver.sh:140-146`).
+  even though the blob itself is local until pushed. The removed driver used
+  exactly this shape (recoverable from git history).
 - **Self-improvement log (committed, per-service).** Append the responder's
-  analysis to a `kind:`-tagged log the gardener picks up
-  (`driver.sh:502-522` writes `journal/drivers/<host>/<lane>.improvements.md`).
+  analysis to a `kind:`-tagged log the gardener picks up (the removed driver wrote
+  a per-lane `*.improvements.md` log, recoverable from git history).
   Right for incremental "here is how this state could behave better" notes that
   are not themselves a failure to triage.
 - **Post a follow-up job.** When the fix is a discrete unit of work, post it to
@@ -190,9 +191,9 @@ it adds no noise to the supervisor's context.
 ## The reusable runner (the live, canonical implementation)
 
 `scripts/jobs/self-heal-run.sh` is the **portable wrapper** every garden service
-unit runs through. It extracts the driver's full shape (below) into a reusable
-CLI so the pattern survives the driver's removal (`plan-remove-driver-dead-code`)
-and is applied uniformly, not re-derived per service. The systemd units invoke it
+unit runs through. It extracted the driver's full shape (below) into a reusable
+CLI so the pattern survived the driver's removal (`remove-driver-dead-code`,
+2026-06-29) and is applied uniformly, not re-derived per service. The systemd units invoke it
 as `ExecStart=…/self-heal-run.sh <context> [--work-id %i] -- …/<service>.sh [args]`.
 
 ```
@@ -229,7 +230,7 @@ self-heal-run.sh <context> [--work-id <id>] [--role <brief>] [--expect <code>] -
 | Artifact | What it demonstrates | Caveat |
 | --- | --- | --- |
 | `scripts/jobs/self-heal-run.sh` (+ `handlers/self-heal-claude.sh`) | The **live, reusable runner** applied to the whole service fleet: bounded capture → throttled, task-specific responder → fix-job/inbox escalation, exit-code-preserving, signal-clean. | The canonical implementation; prefer it over re-deriving. |
-| `scripts/driver/driver.sh` | The **full shape** the runner was extracted from: EXIT trap (`report_unexpected_exit`, `:131-151`) + per-tick `capture_and_self_improve` (`:481-582`) that hashes into the journal (`:497`) and feeds **only the SHA** to a backgrounded `claude -p` (`:532-541`). | On the **retired/superseded** driver posture; being removed. Read it for the pattern's origin, not as a live dependency. |
+| the removed driver (`driver.sh`, git history only) | The **full shape** the runner was extracted from: EXIT trap (`report_unexpected_exit`) + per-tick `capture_and_self_improve` that hashed into the journal and fed **only the SHA** to a backgrounded `claude -p`. | The **retired/superseded** driver posture, **removed 2026-06-29**. Recover it from git history for the pattern's origin, not as a live dependency. |
 | v1 `report-error.sh` (`v1/skills/gardener-inbox-error-reporting/`) | The **capture + cross-host escalate** half: hash the transcript, append a SHA-bearing section to the committed gardener inbox, CAS-push. | Targets the **`journal`** branch; v2 is **`journal2`** (`scripts/jobs/common.sh`). A straight copy pushes to the wrong branch — retarget on port (`self-heal-port-capture-skills`). |
 | Gardening state machine (`designs/gardening-state-machine.md` § Divert debugging; `scripts/jobs/gardening/garden-pr.sh:34-37`, `panel.sh:56-59`) | The **diverted-tracing** half: `set -x` → `$GARDEN_TRACE_LOG` via `BASH_XTRACEFD`, so trace noise never reaches the supervisor. | **Half the pattern only.** Neither script hashes the trace nor invokes a debugger; `fail()` just `exit 1`s and the trace in `/tmp` is lost on cleanup. To self-heal, `fail()` must capture-by-hash and emit the SHA. |
 | `scripts/jobs/mentor.sh` (+ `handlers/mentor-claude.sh`) | The **fleet-wide net of last resort** the wrapper complements. | **Coarse:** 30-minute timer, **no per-task role**, inlines the whole journalctl tail rather than capturing by hash. A per-script wrapper is the targeted layer this lacks. |

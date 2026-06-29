@@ -36,7 +36,7 @@ DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 #   1. Template units (garden-*@.{service,timer}) — enabled PER-INSTANCE, never
 #      globally: garden-gardener@ (by `scale`), garden-comment-watcher@ /
 #      garden-triager@ (per watched repo, by the repo-watcher from the journal's
-#      repos/ set), garden-driver@ / garden-watcher@ (per lane/feed). These are
+#      repos/ set), garden-watcher@ (per feed). These are
 #      excluded structurally by the `@` filter in intended_units, not by name.
 #
 #   2. Monitoring-gated units that the monitoring-safety constraint (see CLAUDE.md
@@ -148,7 +148,7 @@ prune_retired() {
 render() {
   mkdir -p "$DEST"
   # Globs every garden-*.{service,timer}, including the instance templates
-  # (garden-gardener@, garden-triager@, garden-comment-watcher@, garden-driver@,
+  # (garden-gardener@, garden-triager@, garden-comment-watcher@,
   # garden-watcher@), which are instance-armed elsewhere (see the enable-set
   # policy above) and so are excluded from enable_services.
   for f in "$SRC"/garden-*.service "$SRC"/garden-*.timer; do

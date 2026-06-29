@@ -1,8 +1,8 @@
 #!/bin/bash
 # run.sh -- run all pre-dispatch grep-gate tests and report aggregates.
 #
-# Mirrors the shape of tests/driver/run.sh; each test_*.sh prints its
-# own per-suite summary and exits 0 (pass) or non-zero (fail).
+# Each test_*.sh prints its own per-suite summary and exits 0 (pass)
+# or non-zero (fail); this runner aggregates the results.
 
 set -u
 

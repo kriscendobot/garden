@@ -17,7 +17,8 @@ garden rooted at `/home/kris`. Every v1 **role** (30), **juror** (33), and
   already exists in v2 (`roles/liaison/`).
 - **general-contractor** and the **driver** lanes are superseded by the gardener
   pool. (No `general-contractor` role file exists in v1 — it was already retired
-  there per `CLAUDE.md` — but its `driver-*` skills remain and are superseded.)
+  there per `CLAUDE.md` — and the `driver-*` workflow skills it named were never
+  created as files; the driver subsystem itself was removed 2026-06-29.)
 - **Jurors** carry verbatim; panels still run as-is.
 - The **judicial** roles (judge / solicitor / barrister / justice / appellate)
   are translated into a scripted panel→fixer-loop workflow supervised by a
@@ -112,7 +113,7 @@ gardener model, and apply the gamut→gauntlet vocabulary fix where present.
 | barrister | role | First-round code-panel orchestration survives. | Fold into the scripted code-panel (first round) run under a gardener. |
 | justice | role | Code-panel re-run orchestration survives. | Fold into the scripted code-panel re-run (fixer-loop iterations) under a gardener. |
 | appellate | role | Verdict-appeal-of-deferrals logic survives. | Becomes a decision step in the scripted panel→fixer-loop (appeal small-and-in-context deferrals before un-draft); not a standalone dispatch. |
-| librarian | role | On-demand journal search still useful. | Any agent posts a `librarian` job to the board (or asks via message-bus) instead of `Agent`-dispatching directly; v1 `driver-librarian-workflow` lane superseded by gardener pool. |
+| librarian | role | On-demand journal search still useful. | Any agent posts a `librarian` job to the board (or asks via message-bus) instead of `Agent`-dispatching directly; the v1 driver-lane librarian workflow is superseded by the gardener pool. |
 | researcher | role | Library/project-reference gathering before design/build is valuable. | Becomes a script step (or a posted `research` job) feeding the gardener's design/build job, not a liaison/steward `Agent` pre-dispatch. |
 | monitor | role | Repo-activity watching survives — but it is the v2 **triager/watchman** function. | Re-home onto v2 `triager` (per-repo PR-comment watch) + `watchman` (main2 evolution); the monitoring-safety repo-gating constraint carries. |
 
@@ -205,10 +206,7 @@ copy whose home is the reference shelf, not the active library.
 | library-lookup | skill | v1 `journal/library/` lookup; superseded by v2 journal layout (revisit if a v2 library lands). |
 | design-poller | skill | `garden-design-poller` systemd daemon superseded by the v2 triager/poller producer + gardener pool. |
 | design-queue-drift-check | skill | `references`-adopted, tied to the design-poller/general-contractor producer; superseded. |
-| driver-pr-creation-state-machine | skill | Driver-lane skill; driver superseded by gardener pool (v2 `gardening-state-machine`). |
-| driver-design-only-pr-workflow | skill | Driver-lane skill; superseded by gardener pool. |
-| driver-gardener-workflow | skill | Driver-lane skill; the v2 gardener supersedes the driver-lane gardener. |
-| driver-librarian-workflow | skill | Driver-lane skill; superseded by gardener pool / posted librarian job. |
+| the four driver-lane workflow skills (the PR-creation state machine, design-only PR workflow, gardener workflow, and librarian workflow lanes) | skill | Named in v1 `CLAUDE.md` but **never materialized as files** (`git ls-files 'skills/*driver*'` was always empty); the driver subsystem was superseded by the gardener pool (v2 `gardening-state-machine`) and removed 2026-06-29, so there is nothing to carry. |
 | gardener-inbox-error-reporting | skill | Driver-shell error-reporting pattern; superseded by v2 gardener-script error handling + message-bus. |
 | prompt-on-failure-capture | skill | Driver-shell capture-by-SHA pattern; v2 uses `GARDEN_TRACE`/`prompt-on-failure` in the gardening script. |
 | pre-dispatch-grep-gate | skill | `scripts/checks/` gate pattern tied to the driver-dispatch flow; superseded by v2 script gates if revived. |

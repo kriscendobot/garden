@@ -68,8 +68,7 @@ Both are exported to each gate's `check.sh`.
 
 ## Where the runner fits
 
-The runner is **step 0** of the driver's pre-CI validation gauntlet
-(`designs/driver.md` § Driver-run pre-CI validation). It runs before
+The runner is **step 0** of the pre-CI validation gauntlet. It runs before
 the heavyweight `yarn` invocations because:
 
 1. It short-circuits before any heavyweight step burns time.
@@ -79,8 +78,8 @@ the heavyweight `yarn` invocations because:
    focused prompt (small context, fast).
 
 The runner is also wired into `tests/checks/run.sh`, which the
-`.github/workflows/driver-tests.yml` workflow exercises on every
-push to `design/driver` and on every PR against `main`.
+`.github/workflows/checks.yml` workflow exercises on every push to
+`main` and on every PR against `main`.
 
 ## Adding a gate
 

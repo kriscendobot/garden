@@ -17,9 +17,7 @@ In v2 the primitive lives in `scripts/jobs/common.sh` as
 `capture_blob` / `inspect_note` / `anchor_blob`; this skill is the
 playbook that wraps them into the full escalation flow. See
 [`designs/self-healing-audit.md`](../../designs/self-healing-audit.md)
-(Part B) and [`designs/driver.md`](../../designs/driver.md) §
-Prompt-on-failure capture pattern for the design rationale and the
-four-slot brief shape.
+(Part B) for the design rationale and the four-slot brief shape.
 
 ## When to use
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # status.sh -- report systemd unit state for the configured set of
-# driver lanes and per-feed watchers.
+# per-feed watchers.
 #
 # Reads host-local config from scripts/daemons/config.sh.
 #
@@ -16,7 +16,6 @@ set -uo pipefail
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 CONFIG_FILE="$SCRIPT_DIR/config.sh"
 
-GARDEN_DRIVER_LANES=()
 GARDEN_WATCHER_FEEDS=()
 
 if [ -f "$CONFIG_FILE" ]; then
@@ -41,15 +40,12 @@ if ! command -v systemctl >/dev/null 2>&1; then
 fi
 
 units=()
-for lane in "${GARDEN_DRIVER_LANES[@]}"; do
-  units+=("garden-driver@${lane}.service")
-done
 for feed in "${GARDEN_WATCHER_FEEDS[@]}"; do
   units+=("garden-watcher@${feed}.service")
 done
 
 if [ "${#units[@]}" -eq 0 ]; then
-  echo "status: config has no lanes or feeds; nothing to report"
+  echo "status: config has no feeds; nothing to report"
   exit 0
 fi
 

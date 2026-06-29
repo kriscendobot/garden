@@ -152,6 +152,6 @@ commit.
 - _2026-05-13_: adopted from a reference garden. Project-specific tooling names
   (`c8`, `ava`, the test command) kept generic; specialize per project as a
   journal `message` if a particular project's procedure drifts.
-- _2026-06-24_: migrated into v2. Rewired the cleaner from a steward/driver-
-  dispatched role to a step in the gardening state machine; saboteur and builder
+- _2026-06-24_: migrated into v2. Rewired the cleaner from a v1
+  steward/driver-pool dispatched role to a step in the gardening state machine; saboteur and builder
   hand-offs are queued steps/jobs rather than orchestrator `Agent` dispatches.

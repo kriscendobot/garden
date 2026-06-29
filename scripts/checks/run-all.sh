@@ -26,7 +26,7 @@
 #   1  — at least one gate exited non-zero. In --dry-run, that is the
 #        whole story. Without --dry-run, each fired gate's claude
 #        invocation is launched; the runner still exits non-zero so the
-#        caller (driver pre-CI step 0, CI workflow, manual user) knows
+#        caller (pre-CI step 0, CI workflow, manual user) knows
 #        a follow-up dispatch happened.
 #   64 — usage error.
 #

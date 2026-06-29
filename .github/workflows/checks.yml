@@ -1,10 +1,9 @@
 ---
-name: driver-tests
+name: checks
 
 on:
   push:
     branches:
-      - design/driver
       - main
   pull_request:
     branches:
@@ -19,8 +18,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  driver-tests:
-    name: driver-tests
+  checks:
+    name: checks
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -35,24 +34,15 @@ jobs:
           sudo apt-get install -y shellcheck
           shellcheck --version
 
-      - name: Configure local git identity
-        # The driver tests build a mock journal that runs `git init` and
-        # commits. GitHub Actions runners do not have a default identity.
-        run: |
-          git config --global user.name "ci-bot"
-          git config --global user.email "ci-bot@example.invalid"
-
-      - name: shellcheck (driver + daemons + watcher stub + cleaner + checks + per-test scripts)
-        # Lint the in-PR bash artifacts. Scope is the driver, the daemon
-        # management wrappers, the stub feed watcher, the cleaner
-        # skeleton, the gardener-inbox error reporter, the pre-dispatch
-        # grep-gate runner and gates, and the driver / checks test
-        # harnesses. Pre-existing scripts outside this scope have
-        # known issues unrelated to this PR; widening the lint surface
-        # is a separate effort.
+      - name: shellcheck (daemons + watcher stub + checks gates + per-test scripts)
+        # Lint the in-PR bash artifacts. Scope is the daemon management
+        # wrappers, the stub feed watcher, the gardener-inbox error
+        # reporter, the pre-dispatch grep-gate runner and gates, and the
+        # checks test harness. Pre-existing scripts outside this scope
+        # have known issues; widening the lint surface is a separate
+        # effort.
         run: |
           shellcheck -S warning \
-            scripts/driver/driver.sh \
             scripts/daemons/start.sh \
             scripts/daemons/stop.sh \
             scripts/daemons/status.sh \
@@ -62,18 +52,12 @@ jobs:
             scripts/checks/run-all.sh \
             scripts/checks/bench-engines-rename/check.sh \
             scripts/checks/double-space-sentence-separator/check.sh \
-            skills/cleaner/cleaner.sh \
-            skills/cleaner/test-cleaner.sh \
+            scripts/checks/maintainer-inbox-information-hiding/check.sh \
             skills/gardener-inbox-error-reporting/report-error.sh \
-            tests/driver/run.sh \
-            tests/driver/lib/mock-garden.sh \
-            tests/driver/test_skeleton.sh \
-            tests/driver/test_design_only_happy_path.sh \
-            tests/driver/test_loop_capture_and_self_improve.sh \
-            tests/driver/test_trap_fires_on_error.sh \
             tests/checks/run.sh \
             tests/checks/test_bench_engines_rename.sh \
             tests/checks/test_double_space_sentence_separator.sh \
+            tests/checks/test_maintainer_inbox_information_hiding.sh \
             tests/checks/test_run_all.sh
 
       - name: bash -n (syntax check, all scripts/ and skill main scripts)
@@ -94,11 +78,5 @@ jobs:
             exit 1
           fi
 
-      - name: Run driver script tests
-        run: bash tests/driver/run.sh
-
       - name: Run pre-dispatch grep-gate tests
         run: bash tests/checks/run.sh
-
-      - name: Run cleaner skeleton self-test
-        run: bash skills/cleaner/test-cleaner.sh

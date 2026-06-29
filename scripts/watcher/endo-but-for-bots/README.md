@@ -12,8 +12,8 @@ webhook stream.
 **Phase 1 stub.** This directory ships the contract documented as
 code-comments in `watcher.sh` plus this README, and a stub that
 exits cleanly. The substantive event-routing implementation lands
-in Phase 2-5 per [`designs/driver.md`](../../../designs/driver.md)
-§ Migration plan.
+in a later phase per
+[`skills/activity-feed-watcher/SKILL.md`](../../../skills/activity-feed-watcher/SKILL.md).
 
 ## Feed source
 
@@ -33,22 +33,21 @@ messages or jobs, per the contract in
 | Event                          | Routes to                                              |
 | ------------------------------ | ------------------------------------------------------ |
 | New comment on a subscribed PR | per-PR event log + `:eyes:` reactji                    |
-| Review submission              | per-PR event log (verdict body for the driver to read) |
+| Review submission              | per-PR event log (verdict body for a gardener to read) |
 | Push to a subscribed PR's head | per-PR event log                                       |
 | CI status change               | per-PR event log                                       |
 | Label change                   | per-PR event log                                       |
 | Assigned-issue update          | `journal/jobs/open/` with `kind: issue-response`       |
 | Comment / event on an unsubscribed PR | `journal/jobs/open/` with `kind: pr-creation`   |
 
-## Subscription contract
+## Routing contract
 
-The watcher reads the union of all driver subscription files at
-`journal/drivers/<host>/<lane>.subscriptions` on each polling tick.
-Each line in a subscription file is a `repo:pr` pair (e.g.
-`endojs/endo-but-for-bots#247`). The watcher fans events for
-subscribed PRs into per-PR event logs at
-`journal/events/<repo>--<pr>.log`; unsubscribed events become
-posted jobs on the generic inbox.
+The watcher fans events for tracked PRs into per-PR event logs at
+`journal/events/<repo>--<pr>.log`; events with no tracked PR become
+posted jobs on the v2 job board (`journal/jobs/open/`) for a gardener
+to claim. A tracked PR is one with an existing per-PR event log;
+each log line is keyed by a `repo:pr` pair (e.g.
+`endojs/endo-but-for-bots#247`).
 
 ## Reactji policy
 
@@ -61,8 +60,8 @@ identifier (`comment id + reactji id`) is recorded in
 double-post.
 
 Other reactji (`:+1:`, `:rocket:`) on resolved review comments
-remain the driver's or fixer's responsibility, gated by the
-specific action that resolves the comment.
+remain the responsibility of the gardener or fixer that resolves the
+comment, gated by the specific action that resolves it.
 
 ## Self-healing
 

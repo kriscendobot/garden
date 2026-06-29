@@ -920,7 +920,7 @@ commit_and_push() {
 # SHA; the responder pulls just the slices it needs with `git cat-file -p <sha> |
 # grep/sed/awk/tail`. Identical inputs hash to identical SHAs, so recurring flakes
 # are recognizable by their content address. See designs/self-healing-audit.md
-# (Part B) and designs/driver.md § Prompt-on-failure capture pattern.
+# (Part B) for the prompt-on-failure capture pattern.
 #
 # Cross-host inspection (the local-clone-vs-cross-host nuance):
 #   `git hash-object -w` writes the blob into the *local* object DB of <clone-dir>

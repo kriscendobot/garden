@@ -13,11 +13,9 @@
 #   1. Poll the feed (a webhook stream, a `gh api` poll loop, etc.).
 #   2. Classify each event (push, review submission, comment, label,
 #      assigned-issue, CI status).
-#   3. Read the union of all driver subscriptions in
-#      journal/drivers/<host>/<lane>.subscriptions and decide which
-#      events route to which per-PR event log
-#      (journal/events/<repo>--<pr>.log). Events with no subscribed
-#      driver post a job to journal/jobs/open/ instead.
+#   3. Route each event: append it to the per-PR event log
+#      (journal/events/<repo>--<pr>.log) and/or post a job to the v2
+#      job board (journal/jobs/open/) for a gardener to claim.
 #   4. Post the deterministic :eyes: reactji on every new comment
 #      *before* routing the event anywhere downstream.
 #   5. Self-heal on transient failures via systemd's Restart=on-failure
@@ -38,9 +36,9 @@
 #
 # See scripts/watcher/README.md for the feed inventory.
 # See scripts/watcher/endo-but-for-bots/README.md for this feed's
-# specifics (subscription contract, reactji policy, event types).
-# See designs/driver.md § Watcher subscription model and event
-# routing for the design rationale.
+# specifics (routing contract, reactji policy, event types).
+# See skills/activity-feed-watcher/SKILL.md for the watcher contract
+# and the design rationale.
 
 set -uo pipefail
 

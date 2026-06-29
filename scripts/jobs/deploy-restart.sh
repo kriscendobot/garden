@@ -11,7 +11,7 @@
 # scripts straight from the checkout by absolute path. A timer-driven *oneshot*
 # (reaper, foreman, scheduler, watchman) re-reads its script from disk on its NEXT
 # firing, so advancing the tree is all it needs. But a *long-running* service
-# (garden-gardener@N, garden-bulletin, garden-driver@, garden-watcher@) parsed its
+# (garden-gardener@N, garden-bulletin, garden-watcher@) parsed its
 # script — and `source`d common.sh — once at start and holds them in memory for
 # the life of the process; it picks up new code ONLY on a fresh exec. So after the
 # tree advances, the long-running services must be restarted to re-exec.
@@ -96,10 +96,10 @@ restart_long_running_fleet() {
     fi
   done < <(_restart_active_units 'garden-gardener@*.service')
 
-  # Other long-running services: the bulletin singleton and the driver/watcher
-  # instance pools. Absent units yield an empty list and are a no-op.
+  # Other long-running services: the bulletin singleton and the watcher
+  # instance pool. Absent units yield an empty list and are a no-op.
   local pat
-  for pat in 'garden-bulletin.service' 'garden-driver@*.service' 'garden-watcher@*.service'; do
+  for pat in 'garden-bulletin.service' 'garden-watcher@*.service'; do
     while read -r unit; do
       [ -n "$unit" ] || continue
       if unit_ctl restart "$unit" >/dev/null 2>&1; then

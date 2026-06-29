@@ -20,11 +20,8 @@ one per repo and not one per role. Multiple repos behind a single
 webhook stream share a watcher; a repo with a dedicated poll loop is
 its own watcher.
 
-The design's full motivation, the subscription model, and the
-event-routing table are at
-[`designs/driver.md`](../../designs/driver.md) § systemd-managed
-daemons and § Watcher subscription model and event routing. The
-contract every watcher implements lives at
+The contract every watcher implements — its subscription model and
+event-routing behavior — lives at
 [`skills/activity-feed-watcher/SKILL.md`](../../skills/activity-feed-watcher/SKILL.md).
 
 ## Initial feed slugs
@@ -71,7 +68,7 @@ wrap the systemd verbs and accept a `--feed <slug>` filter.
   only escalation surface is unrecoverable feed failure; that
   lands on the gardener inbox.
 - Open or close PRs, post review comments, or apply labels. The
-  watcher reads the feed and translates events; the driver (or a
-  delegated worker subagent) is the actor.
+  watcher reads the feed and translates events; a gardener (claiming
+  the posted job) is the actor.
 - Coalesce events across feeds. Each feed gets its own watcher
   process; coalescence is per-feed, not per-host.

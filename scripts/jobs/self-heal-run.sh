@@ -212,7 +212,7 @@ fi
 # --- Parts 2 & 3: hand the SHA to the responder; it diagnoses + escalates ----
 # Synchronous but hard-bounded by timeout: systemd may KILL the cgroup (and any
 # backgrounded child) the instant the wrapper returns, so we cannot background
-# the responder the way the long-lived driver loop did. Best-effort: a failed,
+# the responder the way the now-removed long-lived driver loop did. Best-effort: a failed,
 # missing, or hung responder never blocks the restart and never crashes us.
 log "diagnosing '$context' failure via responder (blob $sha, role $(basename "$role_brief"))"
 if command -v timeout >/dev/null 2>&1; then

@@ -1,6 +1,6 @@
 #!/bin/bash
-# start.sh -- enable and start the configured set of driver lanes and
-# per-feed watchers via systemd's user manager.
+# start.sh -- enable and start the configured set of per-feed watchers
+# via systemd's user manager.
 #
 # Reads host-local config from scripts/daemons/config.sh (gitignored;
 # copy from config.sh.example). Falls back to an empty configuration
@@ -23,7 +23,6 @@ GARDEN_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
 # the daemons scripts themselves only need SCRIPT_DIR.
 export GARDEN_ROOT
 
-GARDEN_DRIVER_LANES=()
 GARDEN_WATCHER_FEEDS=()
 
 if [ -f "$CONFIG_FILE" ]; then
@@ -52,19 +51,14 @@ fi
 # daemon-reload picks up any unit-file changes. Cheap and idempotent.
 systemctl --user daemon-reload
 
-driver_units=()
-for lane in "${GARDEN_DRIVER_LANES[@]}"; do
-  driver_units+=("garden-driver@${lane}.service")
-done
-
 watcher_units=()
 for feed in "${GARDEN_WATCHER_FEEDS[@]}"; do
   watcher_units+=("garden-watcher@${feed}.service")
 done
 
-all_units=("${driver_units[@]}" "${watcher_units[@]}")
+all_units=("${watcher_units[@]}")
 if [ "${#all_units[@]}" -eq 0 ]; then
-  echo "start: config has no lanes or feeds; nothing to do" >&2
+  echo "start: config has no feeds; nothing to do" >&2
   exit 0
 fi
 

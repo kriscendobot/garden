@@ -135,7 +135,7 @@ per-lane driver and per-feed watcher units." That is the engineered successor to
 hand-supervised sessions: instead of a person holding several terminals open,
 systemd holds several lanes open, restarts them on failure, and lets the
 maintainer scale the count by hand. The maintainer's disposition on that point is
-quoted in [`designs/driver.md`](designs/driver.md): "I will manually scale the
+quoted in the driver design doc (since removed with the driver, 2026-06-29): "I will manually scale the
 pool of concurrent drivers."
 
 So this stage is real and load-bearing in the arc, but its earliest, most
@@ -160,9 +160,9 @@ dispatched subagents through the `Agent` tool. The fourth metamorphosis puts a
 that improves the machine, and an inner layer that does the work, with
 deterministic automation sandwiched between them.
 
-The pivot was articulated before it was built. The driver design
-([`designs/driver.md`](designs/driver.md), created 2026-05-29) names the move
-exactly: from **claude-on-top** orchestration to **claude-under-script**
+The pivot was articulated before it was built. The driver design doc
+(created 2026-05-29, removed 2026-06-29 with the driver)
+named the move exactly: from **claude-on-top** orchestration to **claude-under-script**
 orchestration, "a pool of bash worker scripts watches a generic job inbox, claims
 jobs deterministically, and runs a state machine that invokes claude only when
 judgment is needed." The principle is stated plainly: "The script's loop is the
@@ -219,7 +219,7 @@ state-machine scripts and the git-backed board are the automation between them.
 
 **Approximate range:** designed from 2026-05-29 (the driver pivot), realized
 2026-06-24 with the orphan `main2` and `journal2` branches.
-**Key artifacts:** [`designs/driver.md`](designs/driver.md),
+**Key artifacts:** the driver design doc (removed 2026-06-29 with the driver),
 [`designs/gardening-state-machine.md`](designs/gardening-state-machine.md),
 [`designs/job-board.md`](designs/job-board.md),
 [`designs/v1-migration-manifest.md`](designs/v1-migration-manifest.md), the

@@ -1,23 +1,24 @@
 ---
 created: 2026-06-02
-updated: 2026-06-04
+updated: 2026-06-29
 author: builder, gardener
 ---
 
 # scripts/systemd
 
-Systemd user unit files for the garden's driver pool and the per-feed activity
-watchers.
+Systemd user unit files for the garden's per-feed activity watchers (and the
+other long-running `garden-*` services rendered by `install-units.sh`).
 
 | File                                | Instance arg (`%i`) | Invokes                                       |
 | ----------------------------------- | ------------------- | --------------------------------------------- |
-| `garden-driver@.service`            | lane number         | `~/scripts/driver/driver.sh <lane>`           |
 | `garden-watcher@.service`           | feed slug           | `~/scripts/watcher/<feed>/watcher.sh`         |
 
 The `garden-design-poller.service` proposed during the 2026-06-03 contractor retirement was never ported to v2: its unit crash-looped on a missing `scripts/daemons/design-poller.sh` and was retired 2026-06-26. The design-queue-walk seam it was meant to fill is served in the v2 job system by the triager/poller producer + gardener pool (see `designs/v1-migration-manifest.md`, where the `design-poller` skill is marked superseded).
 
-See [`designs/driver.md`](../../designs/driver.md) § systemd-managed
-daemons for the full rationale.
+The June-2026 **driver** pool (its `@`-instance service template and worker
+scripts) was the reconstructed general-contractor's PR-pipeline automation; it was
+superseded by the v2 gardener fleet and removed 2026-06-29 (see
+`designs/v1-migration-manifest.md`).
 
 ## Drop-in locations
 
@@ -35,7 +36,6 @@ A minimal install:
 
 ```sh
 mkdir -p ~/.config/systemd/user
-ln -sf "$PWD/scripts/systemd/garden-driver@.service"       ~/.config/systemd/user/
 ln -sf "$PWD/scripts/systemd/garden-watcher@.service"      ~/.config/systemd/user/
 systemctl --user daemon-reload
 ```
@@ -47,7 +47,7 @@ wants the unit divorced from the repo.
 
 ## Reload cadence
 
-After any edit to either unit file:
+After any edit to a unit file:
 
 ```sh
 systemctl --user daemon-reload
@@ -60,13 +60,7 @@ common case.
 ## Enable / start lifecycle
 
 ```sh
-# Enable a single lane (so it comes up on host boot).
-systemctl --user enable garden-driver@1.service
-
-# Start it now.
-systemctl --user start garden-driver@1.service
-
-# Enable a feed watcher.
+# Enable a feed watcher (so it comes up on host boot).
 systemctl --user enable garden-watcher@endo-but-for-bots.service
 systemctl --user start  garden-watcher@endo-but-for-bots.service
 
@@ -75,33 +69,25 @@ scripts/daemons/start.sh
 ```
 
 The maintainer's host-local `scripts/daemons/config.sh` decides
-which lanes and which feeds are part of the configured set.
+which feeds are part of the configured set.
 
 ## Log review
 
-Both units route stdout and stderr to the systemd journal. Tail
-them via:
+The unit routes stdout and stderr to the systemd journal. Tail it via:
 
 ```sh
-# All driver lanes:
-journalctl --user --user-unit 'garden-driver@*.service' --follow
-
-# A single lane:
-journalctl --user --user-unit garden-driver@1.service --follow
-
 # All watchers:
 journalctl --user --user-unit 'garden-watcher@*.service' --follow
 
 # Or use the convenience wrapper:
 scripts/daemons/logs.sh
-scripts/daemons/logs.sh --lane 1
 scripts/daemons/logs.sh --feed endo-but-for-bots
 ```
 
 ## Restart-on-failure semantics
 
-Both units have `Restart=on-failure` with `RestartSec=30s`. Combined
-with the driver's gardener-inbox escalation, this gives a two-layer
+The watcher unit has `Restart=on-failure` with `RestartSec=30s`. Combined
+with the gardener-inbox escalation, this gives a two-layer
 self-healing strategy:
 
 - **Transient crashes** (a network blip, a momentary file-system
@@ -111,13 +97,11 @@ self-healing strategy:
   `journal/inboxes/<host>/gardener.md` with the captured transcript
   SHA. A loop crashes every 30 seconds, the gardener inbox
   accumulates sections, and the maintainer's next pass sees a
-  clear pattern. Per
-  [`designs/driver.md`](../../designs/driver.md) § Self-healing.
+  clear pattern. Per `designs/self-healing-audit.md` and
+  `skills/self-healing-wrapper/SKILL.md`.
 
 ## What is *not* in this directory
 
 - System-level (`/etc/systemd/system/`) unit files. The garden's
   daemons run as the bot user, not as a system service.
-- Timer units. The drivers and watchers run as continuous
-  services; nothing is on a timer.
 - Socket-activated units. The daemons poll on their own schedules.

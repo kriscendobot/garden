@@ -29,21 +29,23 @@ Three artifacts set the bar; every other script is measured against them.
    prompt for every failure shape), and it **inlines the whole journalctl tail**
    into the prompt (`mentor-claude.sh:36`) rather than capturing by hash.
 
-2. **`scripts/driver/driver.sh`** — the *strongest* self-healing wrapper in the
-   tree, and the de-facto Part-B exemplar:
-   - an `EXIT` trap (`report_unexpected_exit`, `driver.sh:131-151`) that, on an
-     unexpected non-zero exit, keeps the `-x` transcript, hashes it, and routes
-     it to the gardener inbox via `report-error.sh`;
-   - `capture_and_self_improve` (`driver.sh:481-582`) hashes each tick's capture
-     into the journal object DB (`git hash-object -w --stdin`, `driver.sh:497`)
-     and feeds **only the SHA** to a background `claude -p` self-improvement
-     agent (`driver.sh:532-541`), which reads the transcript on demand via
-     `git cat-file blob`.
-   - **Caveat:** the driver is the *retired/superseded* posture — per CLAUDE.md
-     the steward→gardener migration makes the gardener pool the live path and
-     leaves driver lanes behind. So the best pattern in the repo lives in a
-     script that is being phased out, and it was **never ported into the v2
-     service fleet or the gardener worker.**
+2. **The removed June-2026 driver** (`driver.sh`, now in git history only) — was
+   the *strongest* self-healing wrapper the tree ever held, and the de-facto
+   Part-B exemplar:
+   - an `EXIT` trap (`report_unexpected_exit`) that, on an unexpected non-zero
+     exit, kept the `-x` transcript, hashed it, and routed it to the gardener
+     inbox via `report-error.sh`;
+   - `capture_and_self_improve` hashed each tick's capture into the journal
+     object DB (`git hash-object -w --stdin`) and fed **only the SHA** to a
+     background `claude -p` self-improvement agent, which read the transcript on
+     demand via `git cat-file blob`.
+   - **Caveat:** the driver was the *retired/superseded* posture — the
+     steward→gardener migration made the gardener pool the live path and left the
+     driver lanes behind. So the best pattern the repo ever had lived in a script
+     that was **never ported into the v2 service fleet or the gardener worker**,
+     and the driver itself was **removed 2026-06-29** (it survives only in git
+     history). The canonical home for the shape going forward is the
+     `self-healing-wrapper` skill.
 
 3. **The gardening state machine** (`designs/gardening-state-machine.md` +
    `scripts/jobs/gardening/garden-pr.sh`, `panel.sh`) — **diverted tracing**
@@ -67,7 +69,7 @@ self-healing responder is not the right tool (gaps noted inline).
 
 | Script | Class | Grounding / failure path |
 | --- | --- | --- |
-| `scripts/driver/driver.sh` | **has-wrapper** | EXIT trap + `capture_and_self_improve` (`:131-151`, `:481-582`). The gold standard; superseded posture. |
+| the removed driver (`driver.sh`, git history only) | **has-wrapper** | EXIT trap + `capture_and_self_improve`. The gold standard; superseded posture, removed 2026-06-29. |
 | `scripts/jobs/mentor.sh` | **has-wrapper** (is the responder) | central digest → mentor role (`:43-72`). Its own failure just `die`s (`:71`); coarse cadence + no capture-by-hash (see Part B). |
 | `scripts/jobs/gardener.sh` | **missing** | On handler failure it writes a one-line "exited non-zero" report and **completes the job (doin→tada)** (`:70-74`). The handler's stdout/stderr — the gardening state machine's actual failure — is **discarded**, and a failed job is recorded as *done*. No capture, no responder, no diverted-trace wiring. **Highest-value Part-A gap:** this is the live v2 supervisor of the state machines. |
 | `scripts/jobs/gardening/garden-pr.sh` | **partial** | diverted tracing present (`:34-37`); `fail()` exits 1 (`:46`); trace never hashed, no auto-responder (`designs/gardening-state-machine.md` § Divert debugging assigns this to the supervisor, which today does not do it — see gardener.sh above). |
@@ -92,7 +94,7 @@ self-healing responder is not the right tool (gaps noted inline).
 **~22 scripts with a `claude -p` or supervisory role: 2 has-wrapper, 1 responder
 (mentor), 8 partial, 3 missing, ~8 deterministic (adequate).** The self-healing
 posture is **not universal.** The one full implementation (`driver.sh`) is on the
-retired path; the live v2 supervisor (`gardener.sh`) has the worst coverage —
+retired (now removed) path; the live v2 supervisor (`gardener.sh`) has the worst coverage —
 it swallows the state machine's failure into a *completed* job. The fleet's only
 real safety net is the central mentor's 30-minute journalctl scan, which is
 coarse, has no per-task role, and inlines logs rather than capturing them.
@@ -103,8 +105,9 @@ coarse, has no per-task role, and inlines logs rather than capturing them.
   proxy, foreman, scheduler, reaper, repo-watcher, gardener-scaler, triager@,
   watchman) triggers no dedicated debugging handler unit; it only waits for the
   next timer and is seen, if at all, by the central mentor's journalctl scan.
-- Only 5 units carry `Restart=` (`gardener@`, `bulletin`, `driver@`,
-  `design-poller`, `watcher@`); the timer-driven oneshots have neither `Restart=`
+- Only a few units carry `Restart=` (`gardener@`, `bulletin`, `watcher@`; the
+  driver@ unit also did, until it was removed 2026-06-29); the timer-driven
+  oneshots have neither `Restart=`
   nor `OnFailure=`. `Restart=on-failure` restarts the process but does not
   *capture or diagnose* — it is not a substitute for a self-healing responder.
 
@@ -116,18 +119,18 @@ coarse, has no per-task role, and inlines logs rather than capturing them.
 | **`prompt-on-failure-capture`** skill | ✅ `v1/skills/prompt-on-failure-capture/SKILL.md` | ❌ | the canonical capture-by-SHA playbook (capture → known-SHA short-circuit → four-slot brief → `claude -p` → apply) **never ported to v2.** |
 | **`gardener-inbox-error-reporting`** skill + `report-error.sh` | ✅ `v1/skills/.../report-error.sh` | ❌ | the helper that hashes a transcript and appends only the SHA to the gardener inbox is **v1-only** and targets the **`journal`** branch — v2 uses **`journal2`** (`common.sh:24`), so a straight copy would push to the wrong branch. |
 | **diverted-tracing** technique | — | ✅ in `garden-pr.sh`/`panel.sh` | present, but no script hashes the trace or auto-invokes a debugger (Part-A above). |
-| **canonical `self-healing-wrapper`** skill | ❌ | ❌ | **No single playbook** for "capture-on-failure → hand to `claude -p` debugger → propose/post a fix." The pattern is copied ad hoc (driver.sh, report-error.sh) or absent. **Recommend authoring one** so it stops being re-derived. |
+| **canonical `self-healing-wrapper`** skill | ❌ | ❌ | **No single playbook** for "capture-on-failure → hand to `claude -p` debugger → propose/post a fix." The pattern was copied ad hoc (the removed driver, report-error.sh) or absent. **Recommend authoring one** so it stops being re-derived. |
 
 ## Part B — capture-via-hash opportunities
 
-The pattern (per `designs/driver.md` § Prompt-on-failure capture pattern and the
-v1 `prompt-on-failure-capture` skill): on failure, `LOG_SHA=$(... | git
+The pattern (the v1 `prompt-on-failure-capture` skill, originally documented on
+the removed driver design): on failure, `LOG_SHA=$(... | git
 hash-object -w --stdin)`; pass only `$LOG_SHA` (and the repo path) into the
 `claude -p` prompt; the responder uses `git cat-file -p $LOG_SHA` + `grep`/`sed`/
 `awk`/`tail` to pull only the relevant slices. Identical inputs hash to identical
 SHAs, so recurring flakes short-circuit.
 
-**Where it is used:** `driver.sh` (transcript + per-tick capture), v1
+**Where it was used:** the removed driver (transcript + per-tick capture), v1
 `report-error.sh`. **Where it is absent: the entire v2 job fleet.** Every v2
 service builds a digest temp file and inlines `$(cat "$digest")` straight into
 the `claude -p` prompt.
@@ -178,10 +181,11 @@ skill should codify.
   `tada` (`:72`). Whether a failure should instead requeue (`todo`), move to a
   `failed/` lane, or stay `doin` for the reaper is a state-machine design
   decision (`designs/gardening-state-machine.md`), separate from the capture fix.
-- **Retire-or-fold `driver.sh`.** Its self-healing wrapper is the best in the
-  tree but on the superseded path. Decide whether to fold its
-  `capture_and_self_improve` + EXIT-trap shape into the gardener/`common.sh` or
-  let it lapse with the driver.
+- **Fold the driver's wrapper shape forward.** The driver's self-healing wrapper
+  was the best in the tree but on the superseded path; the driver was **removed
+  2026-06-29** (its `capture_and_self_improve` + EXIT-trap shape survives in git
+  history). Decide whether to fold that shape into the gardener/`common.sh` (via
+  the `self-healing-wrapper` skill) or let it lapse with the driver.
 - **Deterministic-script escalation gaps.** `scheduler.sh` unparseable
   schedules, `repo-watcher.sh` `unit_ctl` failures, and `run-all.sh` dispatch
   failures are logged but never escalated; low priority, judgment call whether
@@ -193,8 +197,9 @@ Idempotent basenames on the `journal2` board:
 
 1. **`self-healing-wrapper-skill`** — author the canonical
    `skills/self-healing-wrapper/SKILL.md` (capture-on-failure → `claude -p`
-   debugger with a task-specific role → propose/post a fix), citing
-   `driver.sh`, `report-error.sh`, and the gardening state machine as exemplars.
+   debugger with a task-specific role → propose/post a fix), citing the removed
+   driver (git history), `report-error.sh`, and the gardening state machine as
+   exemplars.
 2. **`self-heal-common-capture-helper`** — add `capture_blob`/`inspect_note` to
    `scripts/jobs/common.sh` (`shellcheck`/`bash -n` clean), and resolve the
    local-clone-vs-cross-host nuance above.
