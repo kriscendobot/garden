@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/9#issuecomment-4835251662
 We need a stack trace that contains function names, file names, and ideally line numbers at the point where the xsnap worker overruns its meter. You have done some instrumentation. Please deepen that instrumentation and attempt to reproduce, and verify that the behavior is a regr
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 69
+  claimed_at: 2026-06-29T17:30:18Z
