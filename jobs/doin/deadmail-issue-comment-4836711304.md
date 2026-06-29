@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/9#issuecomment-4836711304
 There’s a tool called inquisitor that can test an upgrade starting from a chain snapshot: https://github.com/Agoric/agoric-sdk/pull/11282 ``` void( fs = await import('fs') ); Object.keys( bundle = JSON.parse(fs.readFileSync("/tmp/psm-bundle.json", "utf-8")) ); await swingStore.
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 45
+  claimed_at: 2026-06-29T20:43:00Z
