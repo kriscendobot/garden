@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T23:46:47Z_
+_As of 2026-06-29T23:50:30Z_
 
 ## Latest
 
-Activity since the last bulletin was almost entirely internal garden work. The board is quiet — nothing in `todo` — with two jobs in flight: a dead-lettered message being picked up for its intent, and an attention directive on [kriskowal/garden#15](https://github.com/kriskowal/garden/pull/15), which had several prior passes cycle through to completion. A gardener bid/accept-market design also completed (`design-gardener-bid-accept-market`); note that the corresponding commit was reverted on `main2`, so that proposal is not currently in the tree. Worth a maintainer's eye on the review backlog: the design-only [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable `.ts` runtime modules) has been parked 14 days, and several older items — [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (opencode comparative analysis, 40d) and [#101](https://github.com/endojs/endo-but-for-bots/pull/101) (chat voice input, 39d) — continue to age out.
+A gardener design job [kriskowal/garden#15](https://github.com/kriskowal/garden/pull/15) wrapped up, landing its design on [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16)'s branch with the summary comment posted. The `design-gardener-bid-accept-market` job — a proposal for a bid/accept gardener market — also completed and filed its report. Otherwise the board is quiet: nothing in todo, a single dead-lettered issue-comment job still in flight, and the plan queue parked behind maintainer go-ahead (notably the cross-host token-aggregation and XS-to-Rust plans). Twenty-nine PRs remain parked for review, the longest-waiting being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax, 14d) and [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (opencode comparative analysis, 40d).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`deadmail-issue-comment-4838518722`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4838518722.md) — Dead-lettered message — pick up its intent
-- [`kriskowal-garden-pr15-33ace472`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr15-33ace472.md) — attention directive on kriskowal/garden PR #15
 
-### tada (607)
+### tada (608)
+- [`kriskowal-garden-pr15-33ace472`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr15-33ace472.md) — Design landed on PR #16's branch and the summary comment is posted. Done.
 - [`design-gardener-bid-accept-market`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-gardener-bid-accept-market.md) — Completion report
 - [`deadmail-issue-comment-4838225494`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4838225494.md) — Completion report
 - [`kriskowal-garden-pr15-f2c1cd5f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr15-f2c1cd5f.md) — Completion report
 - [`deadmail-issue-comment-4837977517`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4837977517.md) — Completion report — job deadmail-issue-comment-4837977517
-- [`kriskowal-garden-pr15-1f69a1d2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr15-1f69a1d2.md) — Completion report
-- … and 602 more
+- … and 603 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
