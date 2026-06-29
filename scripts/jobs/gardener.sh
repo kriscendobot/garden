@@ -30,13 +30,26 @@ CLONE="$GARDEN_GARDENER_CLONE"
 : "${GARDEN_ONESHOT:=0}"
 : "${GARDEN_JOB_HANDLER:=$HERE/handlers/gardener-claude.sh}"
 # Upper runtime bound for ONE handler invocation (see the wrapped call below).
-# INVARIANT: GARDEN_HANDLER_TIMEOUT < GARDEN_CLAIM_TTL (reaper.sh, default 3600)
-# so no handler can outlive the reaper's stale-claim window — otherwise the reaper
-# would requeue the SAME base while the original handler is still running and the
-# job would execute concurrently on two gardeners. Set comfortably above
-# GARDEN_DEPLOY_DRAIN_TIMEOUT (deploy-garden.sh, default 600) so a legitimately
-# long handler is not killed mid-deploy-drain.
+# INVARIANT: GARDEN_HANDLER_TIMEOUT + GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL
+# (reaper.sh, default 3600) so no handler — even one that ignores SIGTERM and is only
+# released by the --kill-after SIGKILL escalation — can outlive the reaper's
+# stale-claim window; otherwise the reaper would requeue the SAME base while the
+# original handler is still running and the job would execute concurrently on two
+# gardeners. Set comfortably above GARDEN_DEPLOY_DRAIN_TIMEOUT (deploy-garden.sh,
+# default 600) so a legitimately long handler is not killed mid-deploy-drain.
 : "${GARDEN_HANDLER_TIMEOUT:=2400}"
+# Grace period between the SIGTERM at GARDEN_HANDLER_TIMEOUT and the unconditional
+# SIGKILL escalation (timeout's --kill-after). A handler that respects SIGTERM dies
+# at the deadline (rc=124) and never reaches this; this bound exists ONLY for a
+# handler that IGNORES SIGTERM (a hard deadlock, or a child wedged in an
+# uninterruptible state). Without it, `timeout` blocks forever waiting for the
+# unkillable child and the gardener worker itself wedges past GARDEN_HANDLER_TIMEOUT,
+# breaking the invariant above (the reaper's claim-TTL only requeues the JOB, it
+# never frees this stuck worker process). Kept small so the worst-case worker runtime
+# stays well under GARDEN_CLAIM_TTL. The SIGKILL escalation surfaces as rc=137, which
+# is_external_kill_rc already classifies transient — so, like the rc=124 wall-clock
+# kill (is_handler_timeout_rc), it needs no new classification branch.
+: "${GARDEN_HANDLER_KILL_AFTER:=60}"
 
 # Busy marker — a local, lock-free signal that this gardener is mid-job. The
 # deliberate deploy (deploy-garden.sh) reads these markers to know when the fleet
@@ -135,18 +148,23 @@ while :; do
   # pinning one of the ~100 scarce gardener instances and its $BUSY_MARKER — which
   # also stalls every deploy-garden.sh quiesce until GARDEN_DEPLOY_DRAIN_TIMEOUT —
   # and after GARDEN_CLAIM_TTL the reaper requeues the SAME base while the original
-  # is still running (duplicate concurrent execution). GARDEN_HANDLER_TIMEOUT <
-  # GARDEN_CLAIM_TTL (see the knob above) closes that hole. `timeout`'s own rc=124
-  # on expiry is NOT a signal-kill code (is_external_kill_rc covers only 143/130/137),
-  # but it IS a wall-clock-timeout kill — the supervisor wrapper terminated the
-  # handler — so is_handler_timeout_rc classifies it transient ALONGSIDE the
-  # signal-kills below: ONE kind:progress note, no inbox kind:error, left in doin for
-  # the reaper, whose `<!-- garden-reaped: N -->` poison counter escalates a job that
-  # times out EVERY cycle (a genuine deadlock) only after the threshold — instead of
-  # false-escalating an inherently-long handler on every requeue. A genuine
-  # deploy-drain kill still arrives as rc=143 and stays transient via
-  # is_external_kill_rc.
-  if GARDEN_GARDENER_ID="$id" timeout --signal=TERM "$GARDEN_HANDLER_TIMEOUT" "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1; then
+  # is still running (duplicate concurrent execution). GARDEN_HANDLER_TIMEOUT +
+  # GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL (see the knobs above) closes that
+  # hole even against a handler that IGNORES SIGTERM: --kill-after escalates to an
+  # unconditional SIGKILL after the grace, so `timeout` cannot block forever on an
+  # unkillable child and the worker is guaranteed to return and re-enter the claim
+  # loop. Both expiry paths land in the transient classifier below, so neither
+  # false-escalates an inherently-long handler. A handler that RESPECTS SIGTERM dies
+  # at the deadline and `timeout` reports rc=124 — its own wall-clock-timeout code,
+  # NOT a signal code (is_external_kill_rc covers only 143/130/137) — which
+  # is_handler_timeout_rc classifies transient. A handler that IGNORES SIGTERM is
+  # SIGKILLed by --kill-after and surfaces as rc=137, already an external signal-kill
+  # transient via is_external_kill_rc. Either way: ONE kind:progress note, no inbox
+  # kind:error, left in doin for the reaper, whose `<!-- garden-reaped: N -->` poison
+  # counter escalates a job that times out EVERY cycle (a genuine deadlock) only after
+  # the threshold. A genuine deploy-drain kill also arrives as rc=143 and stays
+  # transient via is_external_kill_rc.
+  if GARDEN_GARDENER_ID="$id" timeout --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$GARDEN_HANDLER_TIMEOUT" "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1; then
     # complete-job.sh runs sync_clone, which exits GARDEN_OFFLINE_RC on a
     # transient outage — under set -e that would crash the worker on a blip after
     # the handler already succeeded. Tolerate the offline rc: the job stays in
