@@ -56,3 +56,9 @@ old `GARDEN_MAIN_HOST_*` names (a grep-gate).
 ## Deliverable
 The leader mechanism simplified to `journal/leader` + `GARDEN`, all 13 services and scripts/docs
 converted, a grep-gate proving no old names remain, and a cutover note for the drain+upgrade.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 26
+  claimed_at: 2026-06-29T04:54:42Z
