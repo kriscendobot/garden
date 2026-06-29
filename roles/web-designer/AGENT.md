@@ -44,6 +44,12 @@ role.
   `position-try-fallbacks` and the `flip-*` tactics. Reach for it when a floating
   element must be pinned to a control and resilient at the viewport edge — the
   positioning counterpart to `css-intrinsic-and-content-sizing`.
+- [native-customizable-form-control-styling](../../skills/native-customizable-form-control-styling/SKILL.md):
+  style the native `<select>` (button, picker, icon, checkmark, options) with
+  `appearance: base-select` and its part pseudo-elements instead of a `<div>`/JS
+  widget, keeping the platform's accessibility/keyboard/form semantics, behind an
+  `@supports (appearance: base-select)` classic-select fallback. Reach for it when
+  a design needs a styled single-select drop-down.
 - (Base designer skills still apply: [library-lookup], [prompt-section-discovery],
   [cherry-pick-followup], [worktree-per-pr].)
 

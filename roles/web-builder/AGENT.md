@@ -26,6 +26,13 @@ what is specific to the web-frontend surface; it does not repeat the base role.
   emoji-as-favicon technique (static `<link rel="icon">` data URI and the runtime
   `setEmojiFavicon` variant). Implement from it whenever a design asks for an
   emoji tab/app icon.
+- [native-customizable-form-control-styling](../../skills/native-customizable-form-control-styling/SKILL.md):
+  implement a styled native `<select>` from `appearance: base-select` and its part
+  pseudo-elements (button/`<selectedcontent>` markup, `::picker(select)`,
+  `::picker-icon`, `:open`, `:checked`, `::checkmark`) behind an `@supports
+  (appearance: base-select)` classic-select fallback, preserving the accessible
+  name and decorative-content rules. Implement from it when a design specifies the
+  native customizable select over a `<div>`/JS widget.
 - (Base builder skills still apply: [library-lookup], [worktree-per-pr],
   [pre-push-gates], [pre-pr-checklist], [pr-formation], [frozen-base-branch],
   [regression-evidence], [rename-discipline], [yarn-lock-separate-commit],
