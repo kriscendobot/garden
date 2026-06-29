@@ -1,6 +1,7 @@
 # Design: a bid/accept market with differentiated, reputation-bearing gardeners
 
 | Created | 2026-06-29 |
+| Updated | 2026-06-29 |
 | Author  | gardener |
 | Status  | Proposed |
 
@@ -16,6 +17,20 @@ pairs).
 This is a focused, decision-forcing proposal on the **first actionable layer** —
 bid/accept over one job kind, with reputation as a scored journal ledger — with
 the recursion and meta-machine captured as explicit future directions.
+
+A follow-up directive on the issue (2026-06-29) sharpened **what reputation
+measures** and asked to design the **bootstrapping** in full: *"measure past and
+future jobs both in terms of effectiveness and cost. We control for effectiveness
+with the acceptance criterion, so the cost is a free variable. The cost should be
+normalized to dollars and duration."* That decomposition is now the spine of the
+reputation ledger here — effectiveness is the acceptance gate, cost is the free
+variable, normalized to dollars and duration (§3.3–§3.4), the ledger event
+carries a cost block (§3.1), and bootstrapping is summarized in §3.6. The **full
+bootstrapping design** lives in the companion
+[`gardener-reputation-bootstrapping.md`](gardener-reputation-bootstrapping.md)
+(Thompson-sampling explore/exploit, the replay harness, a role refiner and
+consolidator); this document carries the parts that belong inside the reputation
+ledger and cross-links the rest.
 
 ## The reflexive observation, made load-bearing
 
@@ -240,7 +255,8 @@ reputation/ledger/<Y>/<M>/<D>/...       append-only event log (the source of tru
 
 The **ledger** is append-only events; the per-gardener tallies are **derived
 projections** the foreman recomputes (so a tally is never the contended write
-surface — events are appended, tallies are rebuilt). An event:
+surface — events are appended, tallies are rebuilt). An event records **both
+halves of the measure the directive named — effectiveness and cost** (§3.4):
 
 ```
 ---
@@ -250,18 +266,30 @@ base: <job-base>
 kind: <job-kind>
 role: <role-worn>
 model: <model-used>
-oracle: panel | maintainer | scoring     # who decided
+oracle: panel | maintainer | scoring     # who decided  → EFFECTIVENESS gate
 at: <iso8601>
+cost:                                     # the free variable, normalized (§3.4)
+  dollars: <number>                       #   model spend: Σ tokens × rate-card price
+  duration_s: <number>                    #   wall-clock award→disposition (latency the customer feels)
+  active_s: <number>                      #   compute time the handler ran (resource cost; blocked-wait excluded)
+  attempts: <int>                         #   submissions judged before this disposition (retries are cost)
+  tokens: { input: <int>, output: <int>, cache_read: <int> }   # the raw accounting dollars derives from
+  subcontract_dollars: <number>           # spend escrowed down to sub-jobs (§5.1); 0 until recursion lands
+source: live | replay                     # live job, or a §3.6 bootstrap replay
 ---
 <one-line citation: the PR/design/SHA, and the disposition reason>
 ```
 
+Effectiveness is the `event`/`oracle` pair (did it clear the acceptance gate);
+cost is the `cost` block. A `rejected` event still carries its `cost` — a failed
+attempt is sunk cost that the expected-cost measure (§3.4) must account for.
+
 ### 3.2 What accept/reject does to it
 
-- **Accepted submission** → append an `accepted` event; the derived score rises.
-- **Rejected submission** → append a `rejected` event; the score falls, *and* the
-  rejection reason is retained (so a pattern — "this (role, model) keeps failing
-  adversarial-tests on web jobs" — is legible).
+- **Accepted submission** → append an `accepted` event carrying its `cost` block.
+- **Rejected submission** → append a `rejected` event, *also* carrying its `cost`
+  (the attempt was not free), *and* the rejection reason is retained (so a pattern
+  — "this (role, model) keeps failing adversarial-tests on web jobs" — is legible).
 
 Reputation is **per-kind**, not just global: a gardener excellent at mechanical
 fixes but weak at design carries two different reputations, and the selector uses
@@ -269,23 +297,171 @@ the **kind-matched** one. This is the AMiX lesson 3 made concrete — reputation
 the standing inspection record that lets a selector pick an information good
 before delivery.
 
-### 3.3 How it feeds selection
+### 3.3 Effectiveness and cost: what reputation actually measures
 
-The scoring-function selector (§1.3) weights a bid by the bidder's **kind-matched
-reputation**. The bid file's self-asserted `reputation` snapshot is a convenience;
-the selector **verifies it against the ledger** (the ledger is authoritative — a
-gardener cannot inflate its own score, because the score is a projection of an
-append-only event log the gardener does not own). This is the escrow-and-attest
-discipline: the claimant asserts, the platform verifies against its own records.
+The directive (2026-06-29) fixes the shape of the measure, and it is sharper than
+a leaderboard score: **measure past and future jobs in terms of effectiveness and
+cost; effectiveness is controlled by the acceptance criterion, so cost is the free
+variable, normalized to dollars and duration.** Unpacked:
 
-### 3.4 Bootstrapping (forward pointer)
+- **Effectiveness is a *gate*, not a continuous score.** The acceptance oracle
+  (§4) is binary at the margin: an artifact either clears the bar (objective:
+  `local-verify` + CI + panel; subjective: judge) or it does not. By holding
+  effectiveness constant *at the acceptance criterion*, every accepted artifact is,
+  by construction, **equally effective — "good enough" is the whole of "good."**
+  This is what lets cost become a *fair* comparison: we never trade quality for
+  price, because sub-acceptance work scores no effectiveness at all.
+- **Cost is the free variable** — the only axis on which two gardener-kinds that
+  *both* clear the gate differ. Among accepted work, the better gardener-kind is
+  simply the **cheaper** one, in dollars and duration (§3.4).
 
-The cold-start problem — a new gardener has no reputation — is addressed by the
-bootstrapping future direction (§5.3): replay existing journal `todo`/`tada`
-pairs as synthetic jobs to seed initial scores. For the first actionable layer,
-new gardeners start at a neutral prior and the selector applies a mild
-exploration bonus (try the unproven bidder occasionally) so reputation can
-actually accrue rather than locking out newcomers.
+These combine into one comparable the selector can minimize. A kind has, per
+job-kind, a per-attempt success probability `p` (its effectiveness) and an
+expected per-attempt cost `c` (dollars, duration). Because a rejection requeues
+the work and the next attempt costs again (§4.3), the quantity that matters is the
+**expected cost to an accepted artifact**:
+
+```
+E[cost-to-acceptance]  =  c / p      (per cost dimension: dollars, duration)
+```
+
+This single formula folds effectiveness and cost together exactly as the directive
+frames them: effectiveness enters *only* as the gate probability `p`, and cost `c`
+is everything else. A cheap-but-flaky kind (low `c`, low `p`) and a
+pricey-but-reliable kind (high `c`, `p≈1`) are now directly comparable by their
+expected dollars-and-duration to get an accepted result. The selector's objective
+(§3.5) is to **minimize expected cost-to-acceptance among kinds adequate to the
+job's kind** — which is precisely "cheapest adequate," now made rigorous instead
+of a heuristic. A kind whose `p` for a job-kind is below a floor is *not adequate*
+at any price and is excluded; among the adequate, lowest `E[cost-to-acceptance]`
+wins.
+
+Reputation, then, is **not a scalar reputation but a per-(kind, job-kind)
+estimate of `(p, c_dollars, c_duration)`** maintained as running tallies over the
+ledger events (count of accepts/rejects gives `p`; mean/quantiles of the `cost`
+blocks give `c`). The bid's self-asserted `reputation` snapshot (§1.2) is a
+convenience; the authoritative estimate is the ledger projection.
+
+### 3.4 Normalizing cost to dollars and duration
+
+The directive names the two units. Each is a concrete, recordable accounting.
+
+**Dollars — model spend.** Every `claude -p` invocation in a job's lifecycle
+reports token usage (input, output, cache-read). Dollars are
+`Σ_invocations tokens × price`, where `price` is read from a **journal rate-card**
+(`reputation/rate-card.md`: per-model, per-token-class USD, dated — prices change,
+so the card is versioned and an event records dollars *as computed at disposition
+time* so historical events are not retro-repriced). What counts toward a *bidder's*
+cost is the **production** spend attributable to that bidder: its own handler turns
+plus its fixer-loop turns. **Oracle/market overhead is booked separately** — the
+panel jurors' and selector's spend is the *market's* cost of running the auction,
+not the bidder's cost of producing the good, and conflating them would penalize a
+bidder for how expensively it happened to be judged. (Subcontract spend, when
+recursion lands in §5.1, *is* the prime's cost and rolls up via
+`subcontract_dollars`.)
+
+**Duration — two honest clocks.** Wall-clock alone conflates working with
+idle-blocking (a gardener blocked on the bus waiting for a message burns no
+compute). So an event records both:
+
+- `duration_s` — **wall-clock from award to disposition**: the latency a customer
+  actually feels. This is the right cost for the *latency-critical* judgment in
+  §1.4 (when a race still wins).
+- `active_s` — **compute time the handler actually ran** (the handler already
+  stamps its elapsed wall-time, `scripts/jobs/gardener.sh`; blocked-wait excluded):
+  the *resource* cost, the duration analogue of dollars.
+
+The selector weights the two clocks per job kind (latency-critical kinds weight
+`duration_s`; throughput kinds weight `active_s`), declared in the same
+journal-tunable config as the scoring weights (§1.3). Neither clock is invented —
+durations come from existing timestamps and the handler's elapsed stamp; only the
+**dollar accounting (token capture + rate card) is new plumbing**, and it is
+additive: record the token counts the model already returns, multiply by a config
+price.
+
+### 3.5 How it feeds selection
+
+The scoring-function selector (§1.3) ranks each bid by its bidder's **kind-matched
+`E[cost-to-acceptance]`** (§3.3): exclude bidders whose effectiveness `p` for the
+job's kind is below the adequacy floor, then prefer the lowest expected
+dollars-and-duration (weighted per kind, §3.4). The bid file's self-asserted
+`reputation` snapshot is a convenience; the selector **verifies it against the
+ledger** (the ledger is authoritative — a gardener cannot inflate its own
+estimate, because it is a projection of an append-only event log the gardener does
+not own). This is the escrow-and-attest discipline: the claimant asserts, the
+platform verifies against its own records.
+
+**Explore/exploit so the measure can improve.** Minimizing expected cost on
+*current* estimates starves unproven kinds (and new models) of the data to ever
+prove themselves — the rich-get-richer failure the grounding comments flagged. So
+selection is **explore/exploit, not pure argmin**: a kind with few samples carries
+wide uncertainty on `(p, c)`, and the selector occasionally awards a high-
+uncertainty bid to buy a measurement. The companion design
+([`gardener-reputation-bootstrapping.md`](gardener-reputation-bootstrapping.md))
+makes this concrete as **Thompson sampling over the per-arm cost posteriors**
+(deterministic, job-seeded, budget-throttled) rather than a hand-tuned bonus. The
+exploration budget is itself a cost the market pays to keep the reputation
+estimates honest, and it is journal-tunable.
+
+### 3.6 Bootstrapping: seeding the measure from past jobs by replay
+
+This subsection is the **in-context summary**; the companion design
+([`gardener-reputation-bootstrapping.md`](gardener-reputation-bootstrapping.md))
+carries the full harness — the replay mechanics, the token-metering plumbing
+(`usage-meter.sh`), and a reputation-driven role refiner plus consolidator that
+grow and bound the bidder population.
+
+This is the directive's *"measure **past** … jobs"* half and the cold-start fix:
+before any live competition exists, manufacture a credible initial
+`(p, c_dollars, c_duration)` per kind by **replaying the journal's own
+`todo`/`tada` corpus** as synthetic jobs. The garden has a large back-catalogue of
+`(todo → tada)` pairs (and the project-side `todo`/`tada` lineage); each pair is a
+job whose *acceptance criterion is already known* — the recorded `tada` is the
+artifact that was accepted, and where it landed tests, those tests are a
+ready-made objective gate.
+
+The replay harness (a standing eval, generalizing the v1 `garden-ab-evaluation`
+skill the migration manifest still carries):
+
+1. **Select replayable pairs.** Take `todo`/`tada` pairs whose acceptance can be
+   re-checked *objectively today* — preferentially those whose `tada` landed
+   tests that **still pass on replay** (drift-stale pairs whose tests no longer
+   pass are excluded, since their gate is no longer trustworthy). This is the
+   `passes-identical-tests` criterion from the grounding comments, chosen
+   deliberately over `identical-artifact`: many correct implementations differ
+   textually, so artifact-identity rewards mimicry and over-penalizes good-but-
+   different work, whereas re-running the recorded tests measures **capability**.
+2. **Replay each pair against each candidate kind.** An agent **poses as the
+   customer** holding the original `todo`; a candidate gardener-kind `(role,
+   model, effort)` produces an artifact; the customer-agent drives the same
+   accept/reject loop a live job would (§4), to convergence or give-up.
+3. **Record `source: replay` ledger events** with the *same* cost accounting as
+   live jobs (§3.4): dollars from the replay's token spend, `active_s` from the
+   handler, `attempts` until the gate passed. Effectiveness is the replay gate
+   (did it reach passing tests); cost is what it spent getting there.
+
+This yields exactly the per-kind `(p, c)` estimate the live market needs, derived
+from work the garden has *already done* — so the first live auction selects on
+real evidence, not a neutral prior. Two guardrails the directive's framing makes
+necessary:
+
+- **Replay events are marked `source: replay` and weighted below live evidence.**
+  A backtest is a proxy for live capability, not the thing itself; as live events
+  accrue, they dominate. Replay seeds the prior; live data updates it.
+- **Recoverable historical cost is a free first data point.** Where a *historical*
+  job's own duration is reconstructable from journal timestamps (claim → tada) and
+  its doer is known, that is a real (effectiveness=accepted, duration) sample for
+  the kind that actually did it — addable directly, no replay compute. Historical
+  *dollars* are generally unrecoverable (tokens were not booked then), so the
+  historical sample is duration-only and the dollar estimate waits for replay or
+  live data. This is why the live ledger starts booking tokens **now** (§3.4): so
+  the *next* generation never has this gap.
+
+Replaying is itself metered and bounded by an explicit budget (it spends real
+dollars to measure), and the pairs chosen, the kinds exercised, and the budget
+consumed are surfaced on the bulletin. Open question left to the harness build:
+how many pairs per kind buy a stable enough `(p, c)` estimate to be worth the
+replay spend — an empirical knee the first run measures.
 
 The companion design
 [`gardener-reputation-bootstrapping.md`](gardener-reputation-bootstrapping.md)
@@ -385,21 +561,21 @@ between demo and real market)? Trust topology — single operator vs. federation
 How does a garden's *internal* reputation ledger aggregate into its *external*
 standing? — *Follow-on design, depends on the Gimix-on-Endo design pass.*
 
-### 5.3 Reputation bootstrapping from `todo`/`tada` replay
+### 5.3 Reputation bootstrapping from `todo`/`tada` replay — now designed (§3.6)
 
-The directive's concrete bootstrap: replay existing journal `todo`/`tada` (and
-the project's `todo`/`tada` lineage from pivoker) pairs as **synthetic jobs** — an
-agent **poses as the customer**, drives feedback until the artifact converges to
-the known-good `tada` (identical, near-identical, or passes-identical-tests), and
-the gardener that converges earns seed reputation. This gives the cold-start
-market a credible initial ranking without waiting for live work to accrue it.
+The directive's follow-up promoted this from a sketch to a designed mechanism: it
+now lives in **§3.6**, grounded in the effectiveness/cost decomposition (§3.3) —
+replay `todo`/`tada` pairs whose recorded tests still pass, pose-as-customer to
+drive the accept/reject loop, and book `source: replay` ledger events with the
+same dollars-and-duration cost accounting as live jobs.
 
-Open questions: how is "convergence" scored — exact match, diff distance, or a
-re-run of the original's tests? Does posing-as-customer risk overfitting gardeners
-to historical artifacts rather than general capability? How are `tada` artifacts
-whose tests no longer pass (drift) excluded from the replay set? — *Follow-on
-design.* The convergence-by-identical-tests idea is the strongest objective
-handle and is the natural first cut.
+What remains genuinely future here is the **subjective-convergence variant**: for
+historical pairs that landed *no* re-runnable tests, the gate is a customer-agent
+judging against the `todo`'s acceptance criteria rather than an objective test
+re-run. That is softer evidence (it risks overfitting to the historical artifact
+rather than measuring general capability) and is left to the harness build to
+calibrate. The objective, passes-identical-tests path (§3.6) is the trustworthy
+first cut and the one that seeds the live market.
 
 ---
 
@@ -454,14 +630,26 @@ machinery, prove it in shadow before it bites, never break the live fleet.
   oracle), defaulting to a deterministic no-LLM scoring function.
 - Reputation is a **per-kind, append-only ledger** with derived tallies, verified
   by the selector, fed by accept/reject events.
+- Reputation **measures effectiveness and cost** (§3.3): effectiveness is the
+  acceptance *gate* (held constant at the criterion), so cost is the free
+  variable, **normalized to dollars** (token spend × a journal rate-card, bidder
+  production spend separated from market/oracle overhead) **and duration** (wall-
+  clock latency + active compute). The selector minimizes
+  **`E[cost-to-acceptance] = c/p`** among kinds adequate to the job.
+- Reputation **bootstrapping is designed** (§3.6): replay `todo`/`tada` pairs whose
+  recorded tests still pass, pose-as-customer through the accept/reject loop, and
+  book `source: replay` events with the same cost accounting — seeding per-kind
+  `(p, c)` from work already done. Booking live token cost starts now so the
+  estimate has dollars going forward.
 - Acceptance is the **AMiX hybrid**: objective via `local-verify` + CI + panel;
   subjective via judge + audit trail; rejection requeues the work without loss.
 - Coexistence is **race-by-default, bid-opt-in, shadow-first, permanently dual-
   mode.**
 
 **Defers** (follow-on designs, §5): gardener-to-gardener subcontracting; the
-meta-machine of competing gardens (depends on the Gimix-on-Endo pass);
-reputation bootstrapping by `todo`/`tada` replay with a customer-posing agent.
+meta-machine of competing gardens (depends on the Gimix-on-Endo pass); the
+**subjective-convergence** bootstrap variant for historical pairs without
+re-runnable tests (§5.3) — the objective, test-replay bootstrap is decided in §3.6.
 
 ## References
 
