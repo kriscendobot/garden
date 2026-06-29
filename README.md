@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T21:24:45Z_
+_As of 2026-06-29T21:36:17Z_
 
 ## Latest
 
-Endo's gh-api retry set now classifies Go `net/http` transient timeout signatures, [completing `improve-gh-api-retry-match-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-retry-match-go-net-timeout-signatures.md) — the intent had already landed on `main2`, so the job closed as a no-op confirmation; a companion self-heal applied the same timeout-signature fix to the `garden-mirror-closer` path. On the web-frontend track, the `native-customizable-form-control-styling` skill landed, grounded in a fresh ingest of the MDN customizable-select guide, and the comment-watcher hardening continued (children reaped on signal), with one follow-on still in flight to reap lingering git children. The board is otherwise drained — nothing in todo and a single job in doin.
+The garden's comment-watcher now reaps lingering `git` child processes left behind on signal, closing a resource leak in the source-watcher cleanup path; that job [completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-lingering-git-children.md) this cycle. It rounds out a small run of `gh`-API hardening — classifying Go `net/http` transient-timeout signatures into the retry set for both the generic API helper and the mirror-closer — plus the newly authored `native-customizable-form-control-styling` web skill. No PRs moved; the parked queue still holds 29 awaiting kriskowal, with the oldest ([endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266), [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) past the 38-day mark.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-comment-watcher-reap-lingering-git-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-reap-lingering-git-children.md) — garden-comment-watcher@.service already carries KillMode=mixed plus an EXIT/I...
+### doin (0)
+(none)
 
-### tada (597)
+### tada (598)
+- [`improve-comment-watcher-reap-lingering-git-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-lingering-git-children.md) — Completion report
 - [`improve-gh-api-retry-match-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-retry-match-go-net-timeout-signatures.md) — No work to commit — the job's intent is already in origin/main2. Here is my r...
 - [`self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures.md) — Completion report
 - [`author-native-customizable-form-control-styling-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-native-customizable-form-control-styling-skill.md) — Completion report
 - [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-mdn-customizable-select-guide.md) — scholar-ingest-mdn-customizable-select-guide — done
-- [`improve-comment-watcher-reap-children-on-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-children-on-signal.md) — Completion report
-- … and 592 more
+- … and 593 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
