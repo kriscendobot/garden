@@ -162,8 +162,15 @@ source_path_healthy() {  # source_path_healthy <repo>
   local repo="$1" raw id
   if [ -n "$GARDEN_COMMENT_SELFTEST" ]; then "$GARDEN_COMMENT_SELFTEST" "$repo"; return; fi
   command -v gh >/dev/null 2>&1 || return 0              # cannot reach API → inconclusive
-  # Fetch the single most-recent issue comment as a known-existing fixture.
-  raw="$(gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
+  # Fetch the single most-recent issue comment as a known-existing fixture. Bound
+  # it with `timeout` (when present) so a hung gh/git credential helper here can
+  # never outlive the tick either — the self-test must not be the wedge it guards
+  # against. A timeout/failure → empty raw → inconclusive (never paged).
+  if command -v timeout >/dev/null 2>&1; then
+    raw="$(timeout --signal=TERM --kill-after=10s 30s gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
+  else
+    raw="$(gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
+  fi
   [ -n "$raw" ] || return 0                              # gh returned nothing → transient, inconclusive
   case "$raw" in *'{'*) ;; *) return 0;; esac            # gh returned no comment object → inconclusive
   # gh demonstrably returned a comment; the source pipes it through EXTERNAL jq.
@@ -580,13 +587,55 @@ ack_or_log_slide() {  # ack_or_log_slide <reason> <surface> <cid> <author> <url>
 }
 
 # --- poll, then process each comment in created_at order --------------------
-SRC="$(mktemp)"; ERRF="$(mktemp)"; trap 'rm -f "$SRC" "$ERRF"' EXIT
+# Reap the source subtree on EXIT *and on signals*. handlers/comment-source-gh.sh
+# runs `gh ... --paginate`, which forks git credential helpers; a systemd
+# stop/restart that SIGTERMs the watcher mid-tick would otherwise orphan those
+# gh/git descendants into the unit cgroup, where the next start flags them
+# "Found left-over process (git) in control group while starting unit". An
+# EXIT-only trap (the prior shape) never ran on a signalled stop and never reaped
+# them. Fix, mirroring the gardener graceful-drain pattern (commit b3074e154,
+# KillMode=mixed + a SIGTERM trap): launch the source under `timeout` — which,
+# NOT being --foreground, runs it in its OWN process group — remember the timeout
+# pid, and on EXIT/INT/TERM forward a TERM to it. `timeout` forwards a received
+# signal to its command's whole process group, so gh and every forked git die
+# with the tick even any that already reparented (a PGID is stable across
+# reparenting). The unit's KillMode=mixed makes this trap the authoritative
+# reaper (the initial SIGTERM reaches only the main process, not the whole
+# cgroup), with the cgroup-wide SIGKILL backstop catching anything that ignores
+# TERM.
+SRC="$(mktemp)"; ERRF="$(mktemp)"
+SOURCE_TIMEOUT_PID=""
+cleanup() {
+  rm -f "$SRC" "$ERRF"
+  [ -n "$SOURCE_TIMEOUT_PID" ] && kill -TERM "$SOURCE_TIMEOUT_PID" 2>/dev/null || true
+}
+trap 'cleanup' EXIT
+trap 'cleanup; exit 143' TERM
+trap 'cleanup; exit 130' INT
+
+# Bound the source so a hung gh/git fetch can never outlive the tick even absent a
+# stop; --kill-after escalates to SIGKILL if the source ignores the initial TERM.
+# (Overridable; the source enumerates every open PR via paginated REST, so give it
+# generous headroom over a normal tick rather than a tight cap.)
+: "${GARDEN_COMMENT_SOURCE_TIMEOUT_SECS:=180}"
 # Capture the source's stderr (do NOT 2>/dev/null it) so a loud failure inside the
 # handler — e.g. require_tools' "jq missing" die — surfaces in the watcher's death
 # instead of being swallowed (the silent-empty trap that hid the 2026-06-24 outage).
-if ! "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF"; then
+src_rc=0
+if command -v timeout >/dev/null 2>&1; then
+  # Background + wait so the trap can TERM the timeout pid (and thus its whole
+  # process group) the instant a signal lands mid-fetch.
+  timeout --signal=TERM --kill-after=10s "${GARDEN_COMMENT_SOURCE_TIMEOUT_SECS}s" \
+    "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" &
+  SOURCE_TIMEOUT_PID=$!
+  wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
+  SOURCE_TIMEOUT_PID=""
+else
+  "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
+fi
+if [ "$src_rc" -ne 0 ]; then
   sed 's/^/  source: /' "$ERRF" >&2 || true
-  die "comment source failed for $repo (see source stderr above)"
+  die "comment source failed for $repo (rc=$src_rc; see source stderr above)"
 fi
 # Defensive ascending sort by created_at (field 1); the source should already.
 sort -t$'\t' -k1,1 -o "$SRC" "$SRC"

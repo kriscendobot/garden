@@ -814,5 +814,58 @@ EOF
 fi
 
 # ============================================================================
+# FF — SIGNAL REAPING: a systemd stop/restart that SIGTERMs the watcher mid-tick
+# must leave NO source descendants behind. The source's `gh --paginate` forks git
+# credential helpers; the prior EXIT-only trap never ran on a signalled stop, so
+# those gh/git children orphaned into the unit cgroup and the next start flagged
+# "Found left-over process (git) in control group while starting unit". The fix
+# runs the source under `timeout` (its own process group) and reaps that group
+# from an EXIT/INT/TERM trap. Here a source stub stands in for the hung fetch:
+# it spawns a long-lived child (recording its pid), then blocks — so the watcher
+# is parked in the source call when the SIGTERM lands. Assert the child is gone
+# after the stop.
+hr; echo "FF — SIGTERM mid-tick reaps the source subtree (no left-over gh/git)"; hr
+SIGSRC="$TR/sig-source.sh"; CHILDPID="$TR/sig-child.pid"; rm -f "$CHILDPID"
+cat > "$SIGSRC" <<EOF
+#!/bin/bash
+# stand in for a hung \`gh --paginate\`: fork a long-lived child in this process
+# group (as gh forks git credential helpers), record its pid, then block.
+sleep 600 &
+echo \$! > "$CHILDPID"
+wait
+EOF
+chmod +x "$SIGSRC"
+BARE_FF="$TR/ff.git"; seed_bare "$BARE_FF"
+env GARDEN_STATE="$TR/state-ff" JOURNAL_REMOTE="$BARE_FF" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" \
+    CW_FIXTURE="$EMPTY_FIX" CW_REACTJI_LOG="$TR/react-ff.log" \
+    GARDEN_COMMENT_SOURCE="$SIGSRC" \
+    GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+    GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+    GARDEN_COMMENT_FALLBACK=/bin/false \
+    GARDEN_COMMENT_TRUST=/bin/false \
+    GARDEN_TRUSTED_ALLOWLIST=/dev/null \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1 &
+WPID=$!
+# Wait (bounded) for the source to spawn its long-lived child.
+for _ in $(seq 1 100); do [ -s "$CHILDPID" ] && break || sleep 0.1; done
+CPID="$(cat "$CHILDPID" 2>/dev/null || true)"
+if [ -n "$CPID" ] && kill -0 "$CPID" 2>/dev/null; then
+  ok "source subtree alive mid-tick (child pid $CPID)"
+else
+  bad "source child never started — cannot exercise the reap (CPID='$CPID')"
+fi
+# SIGTERM the watcher (the systemd-stop signal under KillMode=mixed) and let it drain.
+kill -TERM "$WPID" 2>/dev/null || true
+wait "$WPID" 2>/dev/null || true
+# Give the forwarded process-group TERM a beat to land, then assert the child died.
+if [ -n "$CPID" ]; then
+  for _ in $(seq 1 50); do kill -0 "$CPID" 2>/dev/null || break; sleep 0.1; done
+  kill -0 "$CPID" 2>/dev/null \
+    && { bad "left-over child survived the SIGTERM (pid $CPID still alive)"; kill -KILL "$CPID" 2>/dev/null || true; } \
+    || ok "no left-over gh/git child after SIGTERM (source subtree reaped)"
+fi
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

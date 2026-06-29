@@ -11,6 +11,18 @@ Type=oneshot
 # this is the belt-and-suspenders so any future bypass of the wrapper still
 # doesn't mark a SIGTERM stop as Failed.
 SuccessExitStatus=143 130 SIGTERM SIGINT
+# Graceful drain on stop/restart. The default KillMode=control-group would SIGTERM
+# the WHOLE cgroup the instant systemd stops this unit — but a git credential
+# helper forked by the source's `gh --paginate` may ignore/outrace that TERM and
+# linger in the cgroup, so the next start flags "Found left-over process (git) in
+# control group while starting unit". KillMode=mixed instead sends the initial
+# SIGTERM ONLY to the main process (self-heal-run.sh, which forwards it to
+# comment-watcher.sh); the watcher's EXIT/INT/TERM trap then reaps the source's
+# whole process group (gh + every git child) deterministically, and the cgroup-wide
+# SIGKILL backstop at TimeoutStopSec catches anything that ignores TERM. Mirrors
+# garden-gardener@.service (commit b3074e154). The source is itself bounded by a
+# `timeout` in comment-watcher.sh, so the default TimeoutStopSec is ample headroom.
+KillMode=mixed
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # Leader-only singleton: run only on the host whose GARDEN identity matches the
 # journal `leader` marker. On a follower the timer still fires but this
