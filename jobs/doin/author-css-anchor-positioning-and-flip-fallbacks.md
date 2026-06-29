@@ -36,3 +36,9 @@ Ground the skill in these; do **not** re-ingest the sources (they are current).
 The mid-2026 support gate to encode: Chrome ships the full feature; `flip-*`
 fallbacks are universal; Safari lacks anchored container queries; `calc-size()`
 is Chrome-only; Firefox lacks `max-block-size: stretch`.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 67
+  claimed_at: 2026-06-29T20:53:10Z
