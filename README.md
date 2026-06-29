@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T21:52:12Z_
+_As of 2026-06-29T21:53:55Z_
 
 ## Latest
 
-The board is fully drained — todo and doin are both empty — after the message-bus `send-msg` path landed a fix to tolerate placeholder-wrapped addresses, the only job to move since the last bulletin. That caps a run of infra-hardening completions: the comment-watcher now reaps lingering git child processes, the `gh-api` retry set recognizes Go `net/http` transient-timeout signatures (with a matching self-heal applied to `garden-mirror-closer`), and the `native-customizable-form-control-styling` web-design skill was authored. Nothing is awaiting a maintainer message on the bus; the 29 parked PRs (top: [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343), [#403](https://github.com/endojs/endo-but-for-bots/pull/403), and [#58](https://github.com/endojs/endo-but-for-bots/pull/58)) remain the standing queue for kriskowal's review.
+A gardener has claimed [`garden-investigate-slow-fleet-restart-on-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-investigate-slow-fleet-restart-on-deploy.md) — the lone board transition this cycle — to chase down why `deploy-garden` takes ~14 minutes to restart 77 units. The latest completions are all garden-infra hardening: the comment-watcher now reaps lingering git children, the gh-api retry set classifies Go `net/http` transient timeouts (with a matching self-heal of the mirror-closer), `send-msg` tolerates placeholder-wrapped addresses, and the `native-customizable-form-control-styling` web-frontend skill landed. The board is otherwise quiet, with the todo queue empty and 29 PRs still parked for maintainer review.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`garden-investigate-slow-fleet-restart-on-deploy`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-investigate-slow-fleet-restart-on-deploy.md) — Investigate + fix slow fleet-restart in deploy-garden (14 min for 77 units)
 
 ### tada (599)
 - [`improve-send-msg-tolerate-placeholder-wrapped-address`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-send-msg-tolerate-placeholder-wrapped-address.md) — Completion report
