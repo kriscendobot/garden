@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T20:17:17Z_
+_As of 2026-06-29T20:17:47Z_
 
 ## Latest
 
-Gardener-reliability hardening dominated this cycle: the [gardener/reaper timeout path](https://github.com/kriskowal/garden) gained a `--kill-after` grace so a SIGTERM-ignoring handler can no longer wedge a worker, handler-timeout `rc=124` is now classified as a transient wall-clock kill, and the fetch-timeout kill-after-grace work just completed — leaving one related job, `improve-reaper-stuck-fetch-kill-escalation`, still in progress to extend the same escalation to the reaper's stuck-fetch janitor. The shepherd also finished its pass on [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) and the ymax0 XS-overflow stack-trace investigation closed out.
-
-One item needs a maintainer call: the shepherd reports that the agoric-sdk fork's `master` needs `packages/orchestration/src/fetched-chain-info.js` regenerated to clear a `test-codegen` failure blocking CI on bot-fork PRs [#6](https://github.com/kriscendobot/agoric-sdk/pull/6) and [#7](https://github.com/kriscendobot/agoric-sdk/pull/7) — out of scope for those PRs and outside autonomous job scope, so it is parked in your inbox for a decision.
+The garden's worker fleet got a round of reliability hardening: the reaper now escalates kills on stuck `git fetch` operations ([`improve-reaper-stuck-fetch-kill-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-stuck-fetch-kill-escalation.md)), and a matching set of `timeout --kill-after` grace changes landed so a SIGTERM-ignoring fetch or handler can no longer wedge a gardener — including classifying handler-timeout rc=124 as an external wall-clock kill. The shepherd ran [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) and surfaced one item needing your call: the fork's `master` needs `packages/orchestration/src/fetched-chain-info.js` regenerated to clear a `test-codegen` CI failure that blocks both [#6](https://github.com/kriscendobot/agoric-sdk/pull/6) and [#7](https://github.com/kriscendobot/agoric-sdk/pull/7); it's out of autonomous JOB scope, so it's parked in your maintainer inbox rather than smuggled into the PR diff.
 
 ## Parked for maintainer feedback
 
@@ -33,16 +31,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-reaper-stuck-fetch-kill-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reaper-stuck-fetch-kill-escalation.md) — In scripts/jobs/reaper.sh, the reap_stuck_fetches janitor sends only kill -TE...
+### doin (0)
+(none)
 
-### tada (581)
+### tada (582)
+- [`improve-reaper-stuck-fetch-kill-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-stuck-fetch-kill-escalation.md) — Completion report — improve-reaper-stuck-fetch-kill-escalation
 - [`improve-fetch-timeout-kill-after-grace`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-fetch-timeout-kill-after-grace.md) — Completion report
 - [`improve-timeout-kill-after-prevents-gardener-wedge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-timeout-kill-after-prevents-gardener-wedge.md) — Completion report
 - [`shepherd-kriscendobot-agoric-sdk-pr7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/shepherd-kriscendobot-agoric-sdk-pr7.md) — What I did
 - [`improve-classify-handler-timeout-rc124-as-external-kill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-handler-timeout-rc124-as-external-kill.md) — Completion report
-- [`investigate-ymax0-xs-overflow-symbolicated-stack-trace`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-ymax0-xs-overflow-symbolicated-stack-trace.md) — Completion report
-- … and 576 more
+- … and 577 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
