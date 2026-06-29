@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T19:23:35Z_
+_As of 2026-06-29T19:27:37Z_
 
 ## Latest
 
-Two new reliability jobs landed in flight, both hardening the gardener against `timeout`-killed handlers: one to classify an rc124 handler timeout as an external kill, and one to ensure `--kill-after` actually prevents a gardener wedge. A shepherd is driving CI to green on [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7). On the completed side, the scholar's preflight gained a broadcast-actionability filter (so it stops acting on non-actionable markers), a scholar library cycle closed, the garden#9 attention directive was handled, and the ymax0 XS stack-overflow investigation produced a symbolicated trace. The board is otherwise drained — nothing waiting in todo — and ten of 29 parked PRs still sit on kriskowal's review, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules) at 14 days and the long-tail design/test PRs [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) past 39 days.
+Gardener reliability hardening continued: the fleet landed [`improve-classify-handler-timeout-rc124-as-external-kill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-handler-timeout-rc124-as-external-kill.md), which teaches the gardener to read a handler's `timeout` rc124 as an external kill rather than a genuine failure; its companion [`improve-timeout-kill-after-prevents-gardener-wedge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-timeout-kill-after-prevents-gardener-wedge.md) (adding a `--kill-after` so a TERM-ignoring handler can't wedge a worker) is still in flight. The only other claimed work is a shepherd run driving [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) toward green CI. No new jobs were posted and nothing is parked in todo, so the maintainer's attention is best spent on the 29 PRs awaiting review.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-classify-handler-timeout-rc124-as-external-kill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-classify-handler-timeout-rc124-as-external-kill.md) — In scripts/jobs/gardener.sh + scripts/jobs/common.sh: a handler killed by its...
+### doin (2)
 - [`improve-timeout-kill-after-prevents-gardener-wedge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-timeout-kill-after-prevents-gardener-wedge.md) — In scripts/jobs/gardener.sh:144 the handler runs under timeout --signal=TERM ...
 - [`shepherd-kriscendobot-agoric-sdk-pr7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-kriscendobot-agoric-sdk-pr7.md) — Shepherd kriscendobot/agoric-sdk PR #7 — drive CI to green
 
-### tada (577)
+### tada (578)
+- [`improve-classify-handler-timeout-rc124-as-external-kill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-handler-timeout-rc124-as-external-kill.md) — Completion report
 - [`investigate-ymax0-xs-overflow-symbolicated-stack-trace`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-ymax0-xs-overflow-symbolicated-stack-trace.md) — Completion report
 - [`deadmail-issue-comment-4835251662`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4835251662.md) — Completion report — deadmail-issue-comment-4835251662
 - [`kriskowal-garden-pr9-8e3123c4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-8e3123c4.md) — Completion report — kriskowal-garden-pr9-8e3123c4 (attention directive, garde...
 - [`improve-scholar-preflight-broadcast-actionability-filter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-preflight-broadcast-actionability-filter.md) — Completion report
-- [`scholar-library-cycle-20260629-163514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-163514.md) — Completion report
-- … and 572 more
+- … and 573 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
