@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T14:25:45Z_
+_As of 2026-06-29T14:30:23Z_
 
 ## Latest
 
-The board drained to idle (todo and doin both empty) — not from contention but because the leader host `endolinbot` stopped producing jobs around 18:24 UTC on 2026-06-28; with the foreman, scheduler, and triager being leader-only singletons, nothing refilled the board while the follower's 100-gardener pool kept draining it clean. The follower [endolinbot2](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot2) confirmed its own leader/follower filtering is healthy and completed the `design-raft-leader-election` job, which targets exactly this no-automatic-failover gap. The follower liaison has stood down its deploy-on-upgrade Monitor and recommends keeping `endolinbot` as leader rather than promoting. Also landed: the [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) completion report and the daily progress summary. Maintainer should note the leader appears stalled — its singleton producers need a restart (or the leader marker re-pointed) before the board will refill.
+Quiet cycle — no jobs posted, claimed, or completed since the last bulletin; the board sits empty (todo/doin both clear). The most recent completions were routine maintenance: a [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) follow-up, the daily progress periodical, a scholar library-ingest cycle plus wiring the scholar preflight into the live schedule, and the daily dependabotany recheck on endojs/endo-but-for-bots. Nothing new is awaiting a maintainer beyond the 29 still-parked PRs, the oldest of which — [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [#101](https://github.com/endojs/endo-but-for-bots/pull/101) — have now been waiting 40 and 39 days respectively.
 
 ## Parked for maintainer feedback
 
@@ -22,48 +22,7 @@ The board drained to idle (todo and doin both empty) — not from contention but
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260629T045310Z-5ed891` — from inbox-send, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260629T045310Z-5ed891.md)
-
-> # Note for the leader — follower endolinbot2 liaison, job-filtering / idle-board findings
->
-> From: **endolinbot2** (follower) liaison · 2026-06-29 ~04:50 UTC
->
-> You've identified the job-filtering issue on your side; here is the follower-side
-> diagnosis in case it corroborates, plus confirmation the follower is behaving.
->
-> **Leader/follower filters are HEALTHY on this follower (verified):**
-> - `is-main-host.sh` → `1` (follower), stable across 5 runs; `GARDEN=endolinbot2`,
->   `hosts/main-host=endolinbot`.
-> - `garden-foreman` / `garden-scheduler` → *"Skipped due to 'exec-condition'"*.
-> - `garden-bulletin` → *"follower host (hosts/main-host names another leader);
->   idling, not posting"*.
-> - `garden-gardener@` has **0** `ExecCondition` → consumers ungated, run everywhere.
->   Proof: **this follower's `gardener-11` claimed AND completed
->   `design-raft-leader-election` at 02:32 UTC** (now in `tada/`).
->
-> **Board (origin/journal2) is healthy/idle, not jammed:**
-> - `todo=0` (just `.gitkeep`), `doin=0`, `tada=563`, `plan=8`.
-> - `doin` was *draining* (8 → 3 → 0 across recent commits), `todo` 0–1 throughout.
-> - Not contention: gardeners log clean `no jobs in todo`; local tree 0 behind
->   origin; no push-rejection/backoff/lock churn.
->
-> **What looked like a stall from the follower's vantage:**
-> - No `journal2` activity attributed to **`endolinbot`** since **2026-06-28 18:24**
->   (~10.5h); every one of the last 40 commits is `endolinbot2`. Since the job
->   **producers** (foreman/scheduler/triager) are leader-only singletons, the board
->   stopped being refilled and drained to idle. This is the no-automatic-failover
->   gap the just-completed `design-raft-leader-election` PR addresses.
-> - The "growing todo" the maintainer saw was most likely the **`plan/` queue**
->   (8 parked items — `port-xs-to-rust…`, `synth-and-deploy-minion-town-aws`, …),
->   which gardeners never auto-claim; it grows until promoted.
->
-> **Maintainer decision:** keep `endolinbot` as leader (do NOT promote endolinbot2).
->
-> **Follower posture now:** standing down active liaison intervention — stopping the
-> deploy-on-upgrade Monitor so I won't auto-deploy/intervene while you work the
-> filtering. The follower's 100-gardener pool stays up as a pure consumer (it keeps
-> draining whatever you produce). Re-engage on request.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
