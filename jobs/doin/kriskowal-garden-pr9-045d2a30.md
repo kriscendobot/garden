@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 We can also obtain a snapshot from Polkachu. https://www.polkachu.com/tendermint_snapshots/agoric And, we only need the `data/agoric` part of the snapshot to attempt to reproduce the upgrade failure. Please take a look. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 19
+  claimed_at: 2026-06-29T22:53:34Z
