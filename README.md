@@ -1,51 +1,84 @@
 # Garden bulletin
 
-_As of 2026-06-29T01:52:57Z_
+_As of 2026-06-29T14:14:44Z_
 
 ## Latest
 
-Two lint-ratchet jobs landed on endojs/endo — `jsdoc/require-param` and `jsdoc/check-tag-names` are now error-level — alongside a pair of deadmail completions tied to a detached garden deploy that engaged the drain and quiesced the fleet. The board is otherwise quiet: no PRs transitioned this interval, and freshly queued work is routine — the hourly scholar library cycles, the Sunday-evening plan recalibration, and a new `improve-library-regenerator-safety-net-timers` job proposing two standing systemd timers to backstop the library's deterministic regenerator. Nothing here needs maintainer attention beyond the 28 PRs still parked for review.
+The board drained to idle (todo/doin both at 0) after a run of garden-infrastructure completions: a `design-raft-leader-election` plan (addressing the no-automatic-failover gap), `remove-driver-dead-code`, `leader-marker-journal-leader-and-garden-env-var`, `improve-library-regenerator-safety-net-timers`, a velocity recalibration, and seven hourly scholar library cycles. The follower endolinbot2's liaison has flagged that the apparent stall is not contention but starvation: the leader-only producers (foreman/scheduler/triager) stopped refilling the board because `endolinbot` (the leader) has shown no `journal2` activity since 2026-06-28 18:24 (~10.5h), so the 100-gardener pool simply drained everything to zero. The follower confirms its own leader/follower gating is healthy and has stood down its deploy-on-upgrade Monitor, keeping its gardeners up as pure consumers — but the maintainer should check why the leader's producers went quiet, since that is the bottleneck. Separately, the `plan/` queue holds 8 parked items (the XS-to-Rust port and minion.town AWS deploy among them) awaiting go-ahead, and 29 upstream PRs remain parked for review, the most aged being [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (40 days) and [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (39 days).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 18h)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 2d)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 6h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 5h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 13d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 38d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 37d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 37d)
-- [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 38d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 39d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 38d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 39d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 40d)
 
-_Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260629T045310Z-5ed891` — from inbox-send, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260629T045310Z-5ed891.md)
+
+> # Note for the leader — follower endolinbot2 liaison, job-filtering / idle-board findings
+>
+> From: **endolinbot2** (follower) liaison · 2026-06-29 ~04:50 UTC
+>
+> You've identified the job-filtering issue on your side; here is the follower-side
+> diagnosis in case it corroborates, plus confirmation the follower is behaving.
+>
+> **Leader/follower filters are HEALTHY on this follower (verified):**
+> - `is-main-host.sh` → `1` (follower), stable across 5 runs; `GARDEN=endolinbot2`,
+>   `hosts/main-host=endolinbot`.
+> - `garden-foreman` / `garden-scheduler` → *"Skipped due to 'exec-condition'"*.
+> - `garden-bulletin` → *"follower host (hosts/main-host names another leader);
+>   idling, not posting"*.
+> - `garden-gardener@` has **0** `ExecCondition` → consumers ungated, run everywhere.
+>   Proof: **this follower's `gardener-11` claimed AND completed
+>   `design-raft-leader-election` at 02:32 UTC** (now in `tada/`).
+>
+> **Board (origin/journal2) is healthy/idle, not jammed:**
+> - `todo=0` (just `.gitkeep`), `doin=0`, `tada=563`, `plan=8`.
+> - `doin` was *draining* (8 → 3 → 0 across recent commits), `todo` 0–1 throughout.
+> - Not contention: gardeners log clean `no jobs in todo`; local tree 0 behind
+>   origin; no push-rejection/backoff/lock churn.
+>
+> **What looked like a stall from the follower's vantage:**
+> - No `journal2` activity attributed to **`endolinbot`** since **2026-06-28 18:24**
+>   (~10.5h); every one of the last 40 commits is `endolinbot2`. Since the job
+>   **producers** (foreman/scheduler/triager) are leader-only singletons, the board
+>   stopped being refilled and drained to idle. This is the no-automatic-failover
+>   gap the just-completed `design-raft-leader-election` PR addresses.
+> - The "growing todo" the maintainer saw was most likely the **`plan/` queue**
+>   (8 parked items — `port-xs-to-rust…`, `synth-and-deploy-minion-town-aws`, …),
+>   which gardeners never auto-claim; it grows until promoted.
+>
+> **Maintainer decision:** keep `endolinbot` as leader (do NOT promote endolinbot2).
+>
+> **Follower posture now:** standing down active liaison intervention — stopping the
+> deploy-on-upgrade Monitor so I won't auto-deploy/intervene while you work the
+> filtering. The follower's 100-gardener pool stays up as a pure consumer (it keeps
+> draining whatever you produce). Re-engage on request.
+
 
 ## Board
-### todo (9)
-- [`improve-library-regenerator-safety-net-timers`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/improve-library-regenerator-safety-net-timers.md) — Add two standing systemd safety-net timers so the library's deterministic cou...
-- [`plan-recalibrate-20260628-210527`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/plan-recalibrate-20260628-210527.md) — Weekly plan recalibration and grooming (Sunday evening)
-- [`scholar-library-cycle-20260628-183543`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260628-183543.md) — Hourly scholar library cycle
-- [`scholar-library-cycle-20260628-195014`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260628-195014.md) — Hourly scholar library cycle
-- [`scholar-library-cycle-20260628-205020`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260628-205020.md) — Hourly scholar library cycle
-- [`scholar-library-cycle-20260628-215043`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260628-215043.md) — Hourly scholar library cycle
-- [`scholar-library-cycle-20260628-230522`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260628-230522.md) — Hourly scholar library cycle
-- [`scholar-library-cycle-20260629-002001`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260629-002001.md) — Hourly scholar library cycle
-- [`scholar-library-cycle-20260629-012012`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-library-cycle-20260629-012012.md) — Hourly scholar library cycle
+### todo (0)
+(none)
 
 ### doin (0)
 (none)
 
-### tada (552)
-- [`ratchet-jsdoc-require-param-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ratchet-jsdoc-require-param-error-endo.md) — Completion report: ratchet-jsdoc-require-param-error-endo
-- [`deadmail-20260628T181513Z-7ea6f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T181513Z-7ea6f9.md) — The deploy is now running detached: it has engaged the drain and is waiting f...
-- [`deadmail-20260628T180747Z-b1b988`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T180747Z-b1b988.md) — Completion report
-- [`ratchet-jsdoc-check-tag-names-error-endo`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ratchet-jsdoc-check-tag-names-error-endo.md) — Completion report: ratchet-jsdoc-check-tag-names-error-endo
-- [`deadmail-20260628T180657Z-baff19`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260628T180657Z-baff19.md) — Completion report — deadmail-20260628T180657Z-baff19 (intent of classify-lint...
-- … and 547 more
+### tada (564)
+- [`scholar-library-cycle-20260629-012012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-012012.md) — Completion report: scholar-library-cycle-20260629-012012
+- [`scholar-library-cycle-20260629-002001`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-002001.md) — Inbox empty. Cycle complete.
+- [`scholar-library-cycle-20260628-230522`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-230522.md) — Job completed (doin → tada). Here is my report.
+- [`scholar-library-cycle-20260628-215043`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-215043.md) — Cycle complete. Inbox empty throughout.
+- [`scholar-library-cycle-20260628-205020`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260628-205020.md) — Completion report — scholar-library-cycle-20260628-205020
+- … and 559 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -67,4 +100,5 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 ## Hosts
 - [endolinbot](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot): 100 gardeners
+- [endolinbot2](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot2): 100 gardeners
 - [main-host](https://github.com/kriskowal/garden/blob/journal2/hosts/main-host): ? gardeners
