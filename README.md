@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-29T18:16:30Z_
+_As of 2026-06-29T19:23:35Z_
 
 ## Latest
 
-A shepherd has picked up [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) to drive its CI to green — the only PR-facing motion this cycle. Otherwise the work was internal garden upkeep that has now cleared the board: the ymax0 XS stack-overflow investigation (symbolicated trace) wrapped up, the scholar's library cycle and a preflight broadcast-actionability filter improvement landed, and the garden's own [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) attention directive and a deadmail item were resolved. The todo queue is empty and the parked set for maintainer review is unchanged — [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (gateway design) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (registry-capability) remain the freshest items still awaiting kriskowal.
+Two new reliability jobs landed in flight, both hardening the gardener against `timeout`-killed handlers: one to classify an rc124 handler timeout as an external kill, and one to ensure `--kill-after` actually prevents a gardener wedge. A shepherd is driving CI to green on [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7). On the completed side, the scholar's preflight gained a broadcast-actionability filter (so it stops acting on non-actionable markers), a scholar library cycle closed, the garden#9 attention directive was handled, and the ymax0 XS stack-overflow investigation produced a symbolicated trace. The board is otherwise drained — nothing waiting in todo — and ten of 29 parked PRs still sit on kriskowal's review, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules) at 14 days and the long-tail design/test PRs [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) past 39 days.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 10h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 9h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 11h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 10h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
@@ -28,7 +28,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`improve-classify-handler-timeout-rc124-as-external-kill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-classify-handler-timeout-rc124-as-external-kill.md) — In scripts/jobs/gardener.sh + scripts/jobs/common.sh: a handler killed by its...
+- [`improve-timeout-kill-after-prevents-gardener-wedge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-timeout-kill-after-prevents-gardener-wedge.md) — In scripts/jobs/gardener.sh:144 the handler runs under timeout --signal=TERM ...
 - [`shepherd-kriscendobot-agoric-sdk-pr7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-kriscendobot-agoric-sdk-pr7.md) — Shepherd kriscendobot/agoric-sdk PR #7 — drive CI to green
 
 ### tada (577)
