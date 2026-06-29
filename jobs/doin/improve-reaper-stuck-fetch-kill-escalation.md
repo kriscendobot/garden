@@ -1,9 +1,0 @@
-In `scripts/jobs/reaper.sh`, the `reap_stuck_fetches` janitor sends only `kill -TERM "$pid"` to a stuck `git fetch` and never escalates or waits. A fetch hung on a half-open connection (or one that ignores SIGTERM) survives the janitor and remains in the cgroup as the leftover process the next reaper start reports. Fix: escalate — after `kill -TERM`, sleep a short grace and `kill -KILL` any still-living target, and kill the process group (`kill -KILL -- -$pid` after `setsid`, or signal the git transport children) so the backstop actually reaps a SIGTERM-ignoring fetch instead of leaving it orphaned. This makes the stuck-fetch backstop consistent with the `--kill-after` escalation in improve-fetch-timeout-kill-after-grace.
-
-<!-- garden-reaped: 2 -->
-
----
-claim:
-  host: endolinbot2
-  gardener: 21
-  claimed_at: 2026-06-29T20:13:15Z
