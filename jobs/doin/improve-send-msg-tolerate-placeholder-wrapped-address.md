@@ -1,1 +1,7 @@
 In `scripts/jobs/send-msg.sh`, before the address validation `case` at lines 24–27, add deterministic recovery for an unsubstituted template placeholder address. When `$addr` matches a `<...>`-wrapped form — specifically `<address: X>`, `<X>`, or similar angle-bracket wrapping (e.g. via a sed/parameter-expansion strip of a leading `<address:`/`<` and trailing `>` plus surrounding whitespace) — extract the inner candidate `X`, and if `X` is itself a well-formed address (`role/?*`, `job/?*`, or `broadcast`), set `addr=X`, emit a `log` warning that an angle-bracket-wrapped placeholder was unwrapped (so the agent-side defect is still visible), and proceed to send. Only `die` with the existing message when the unwrapped value is still not a valid address. Rationale: the 2026-06-29 21:38 `[send] FATAL` dropped a legitimate message to `role/web-designer` solely because the address arrived wrapped as `<address: role/web-designer>`; the recipient was valid and the loss was avoidable. This moves the placeholder-substitution responsibility off the (unreliable) calling agent and into the script, converting a message-losing fatal into a logged, recovered send while preserving a hard failure for genuinely malformed addresses.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 43
+  claimed_at: 2026-06-29T21:50:50Z
