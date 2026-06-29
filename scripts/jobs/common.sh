@@ -109,6 +109,20 @@
 # wedged the WHOLE fleet (2026-06-25). The fix bounds BOTH the fetch and the
 # lock wait, and a janitor (reaper.sh) reaps any fetch that outlives its bound.
 : "${GARDEN_FETCH_TIMEOUT:=45}"   # seconds before a journal fetch is killed and retried
+# Grace between the SIGTERM at GARDEN_FETCH_TIMEOUT and the unconditional SIGKILL
+# escalation (timeout's --kill-after). Bare `timeout` sends ONLY SIGTERM, and git's
+# transport child (git-remote-https on a half-open TLS connection) does not reliably
+# die on SIGTERM — it orphans into the service cgroup, which is exactly the
+# `garden-reaper.service: Found left-over process <pid> (git) in control group`
+# warnings (observed 2026-06-29). --kill-after escalates to SIGKILL after the grace
+# so a SIGTERM-ignoring transport child cannot wedge a fetch forever. GNU `timeout`
+# already runs the command in its OWN process group and signals the WHOLE group on
+# expiry (we do NOT pass --foreground), so both the SIGTERM and the SIGKILL reach the
+# transport grandchild. Mirrors the gardener handler's --kill-after grace (commit
+# a89e9bcda) for the identical SIGTERM-ignoring-child problem. Kept small: it only
+# bites a wedged child, and the SIGKILL surfaces as rc=137, classified transient
+# alongside the rc=124 wall-clock kill (journal_fetch / sync_clone below).
+: "${GARDEN_FETCH_KILL_AFTER:=10}"  # seconds after SIGTERM before SIGKILL escalation
 : "${GARDEN_FETCH_RETRIES:=3}"    # bounded attempts for a journal fetch
 : "${GARDEN_OFFLINE_RC:=75}"      # EX_TEMPFAIL: sync_clone exit on a connectivity/DNS outage
 : "${GARDEN_LOCK_WAIT:=60}"       # seconds a clone-lock waiter blocks before backing off
@@ -586,6 +600,21 @@ ensure_clone() {
 
 # --- leader/follower predicate (issue kriskowal/garden#11) -------------------
 #
+# _journal_git_fetch — the SINGLE timeout-wrapped `git fetch` of the journal branch.
+# Both journal-fetch call sites (leader_host's best-effort leader-marker read and
+# journal_fetch's bounded retry loop) route through here so the kill-after grace
+# policy cannot drift between them. Runs git fetch under `timeout` with BOTH a
+# wall-clock bound (GARDEN_FETCH_TIMEOUT, SIGTERM at expiry) and a --kill-after grace
+# (GARDEN_FETCH_KILL_AFTER, SIGKILL escalation) — see the GARDEN_FETCH_KILL_AFTER knob
+# above for why the SIGKILL escalation is load-bearing (a SIGTERM-ignoring
+# git-remote-https orphaning into the cgroup). Passes the caller's stdio through
+# untouched (caller redirects); the exit code is timeout's: the git rc on success,
+# 124 if SIGTERM ended it at the deadline, 137 if the --kill-after SIGKILL had to.
+_journal_git_fetch() {
+  timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+    git -C "$1" fetch -q origin "$JOURNAL_BRANCH"
+}
+
 # leader_host — echo the configured leader's GARDEN identity. Resolution order:
 #   1. $GARDEN_LEADER if set (operator/test override; no journal read).
 #   2. the cached value when it is younger than GARDEN_LEADER_TTL (cheap, no
@@ -609,7 +638,7 @@ leader_host() {
     fi
   fi
   ensure_clone "$dir" >/dev/null 2>&1 || true
-  timeout "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch -q origin "$JOURNAL_BRANCH" >/dev/null 2>&1 || true
+  _journal_git_fetch "$dir" >/dev/null 2>&1 || true
   val="$(git -C "$dir" show "origin/$JOURNAL_BRANCH:$GARDEN_LEADER_MARKER_PATH" 2>/dev/null | head -1 | tr -d '[:space:]')"
   if [ -n "$val" ]; then
     mkdir -p "$(dirname "$cache")" 2>/dev/null || true
@@ -635,11 +664,14 @@ is_main_host() {
 }
 
 # Bounded journal fetch: timeout-wrapped, with backoff + retry. git has no IO
-# timeout of its own, so a half-open connection can hang a fetch forever; we wrap
-# every journal fetch in `timeout GARDEN_FETCH_TIMEOUT` and treat a timeout
-# (exit 124) or any transient failure as retryable, never a hang. Returns 0 on
-# success, the last non-zero rc after GARDEN_FETCH_RETRIES attempts. Honors
-# GARDEN_FETCH_CMD for test injection (it then owns its own timing).
+# timeout of its own, so a half-open connection can hang a fetch forever; every
+# fetch routes through _journal_git_fetch (above), which bounds it with
+# `timeout --kill-after=GARDEN_FETCH_KILL_AFTER GARDEN_FETCH_TIMEOUT`. A timeout
+# (exit 124 at the SIGTERM deadline, or 137 if the --kill-after SIGKILL had to
+# escalate a SIGTERM-ignoring transport child) or any transient failure is
+# retryable, never a hang. Returns 0 on success, the last non-zero rc after
+# GARDEN_FETCH_RETRIES attempts. Honors GARDEN_FETCH_CMD for test injection (it
+# then owns its own timing).
 #
 # The final attempt's stderr is captured into GARDEN_FETCH_STDERR so a caller
 # (sync_clone) can deterministically tell a connectivity/DNS outage from a real
@@ -663,10 +695,14 @@ journal_fetch() {
     if [ -n "${GARDEN_FETCH_CMD:-}" ]; then
       if GARDEN_FETCH_STDERR="$(GARDEN_FETCH_DIR="$dir" "$GARDEN_FETCH_CMD" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
     else
-      if GARDEN_FETCH_STDERR="$(timeout "$GARDEN_FETCH_TIMEOUT" git -C "$dir" fetch -q origin "$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
+      if GARDEN_FETCH_STDERR="$(_journal_git_fetch "$dir" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
     fi
     [ "$rc" -eq 0 ] && return 0
-    [ "$rc" -eq 124 ] && log "journal fetch in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s) on attempt $attempt"
+    # 124 = SIGTERM ended the fetch at the deadline; 137 = a SIGTERM-ignoring transport
+    # child was escalated to SIGKILL by --kill-after after GARDEN_FETCH_KILL_AFTER. Both
+    # are the same wall-clock-timeout kill — log them identically (and treat both as a
+    # transient stall in sync_clone's offline classification below).
+    { [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; } && log "journal fetch in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$rc) on attempt $attempt"
     if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
       log "journal fetch in $dir failed after $attempt attempt(s) (last rc=$rc)${GARDEN_FETCH_STDERR:+: $GARDEN_FETCH_STDERR}"
       return "$rc"
@@ -988,14 +1024,17 @@ sync_clone() {
     # A transient network/resolver outage is not a real failure: exit EX_TEMPFAIL
     # so the wrapper and callers skip the tick and retry next cadence instead of
     # treating a fleet-wide blip as one failure per worker. Two transient shapes:
-    #   * rc=124: journal_fetch's `timeout` killed a stalled fetch after bounded
-    #     retries (it already logged the timeout). A half-open connection that
+    #   * rc=124 or rc=137: journal_fetch's `timeout` killed a stalled fetch after
+    #     bounded retries (it already logged the timeout). A half-open connection that
     #     never makes progress is the commonest symptom under ~100-gardener
     #     contention; promote the timeout to the clean-skip path rather than dying.
+    #     124 is the SIGTERM-at-deadline kill; 137 is the --kill-after SIGKILL
+    #     escalation for a transport child that ignored SIGTERM (GARDEN_FETCH_KILL_AFTER)
+    #     — both are the same wall-clock stall, so both take the clean-skip path.
     #   * any rc whose captured stderr matches a known outage signature. These
     #     surface under SEVERAL exit codes (128, 1, 6, …), not just 128 — git/curl/
     #     OpenSSH disagree — so we gate on the signature, NOT a hard rc==128.
-    if [ "$rc" -eq 124 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
+    if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
       log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
       exit "$GARDEN_OFFLINE_RC"
     fi

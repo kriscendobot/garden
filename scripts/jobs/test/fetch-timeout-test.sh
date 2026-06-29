@@ -256,6 +256,55 @@ else
 fi
 
 # ============================================================================
+hr; echo "SUBTEST 8 — a SIGTERM-IGNORING fetch is escalated to SIGKILL by --kill-after (rc=137), bounded + classified TRANSIENT"; hr
+# THIRD outage shape (2026-06-29): bare `timeout` sends only SIGTERM, but git's
+# transport child (git-remote-https on a half-open TLS connection) does not reliably
+# die on SIGTERM — `git fetch` blocks in waitpid on the wedged child, so the timeout
+# wrapper's direct child survives the deadline and, without a kill-after grace, the
+# wrapper would block forever and the child would orphan into the service cgroup
+# (the `garden-reaper.service: Found left-over process <pid> (git)` warnings).
+# _journal_git_fetch now wraps with `timeout --kill-after=GARDEN_FETCH_KILL_AFTER`,
+# which escalates to an unconditional SIGKILL after the grace. The SIGKILL surfaces
+# as rc=137, which journal_fetch logs as a timeout and sync_clone classifies as
+# EX_TEMPFAIL (75) ALONGSIDE the rc=124 SIGTERM-at-deadline kill. A fake `git` that
+# IGNORES SIGTERM and hangs models the wedge: a healthy bound is ~timeout+grace; a
+# regression (missing --kill-after) would hang the full 30s.
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+for a in "\$@"; do
+  if [ "\$a" = fetch ]; then trap '' TERM; sleep 30; exit 0; fi
+done
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/git"
+KCLONE="$TR/kclone"; mkdir -p "$KCLONE"
+# 1s deadline + 1s grace: SIGTERM at 1s (ignored), SIGKILL at 2s -> rc=137. A hang
+# (no --kill-after escalation) would run the fake git's full 30s sleep.
+start="$(date +%s)"
+rc=0
+# No GARDEN_FETCH_CMD: journal_fetch routes through _journal_git_fetch -> PATH `git`.
+( export GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_TIMEOUT=1 GARDEN_FETCH_KILL_AFTER=1
+  sync_clone "$KCLONE" ) >/dev/null 2>&1 || rc=$?
+elapsed=$(( $(date +%s) - start ))
+if [ "$elapsed" -lt 15 ]; then
+  ok "SIGTERM-ignoring fetch was bounded in ${elapsed}s (--kill-after escalated; a hang would be >=30s)"
+else
+  bad "SIGTERM-ignoring fetch took ${elapsed}s — --kill-after did NOT escalate to SIGKILL (it HUNG)"
+fi
+if [ "$rc" -eq 75 ]; then
+  ok "sync_clone classified the --kill-after SIGKILL (rc=137) as EX_TEMPFAIL (75), the same transient skip as rc=124"
+else
+  bad "sync_clone exited $rc on a --kill-after SIGKILL (expected 75; rc=137 must be a transient timeout like rc=124)"
+fi
+# Restore the original hanging fake git in case a later subtest is appended.
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+for a in "\$@"; do [ "\$a" = fetch ] && { sleep 30; exit 0; }; done
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/git"
+
+# ============================================================================
 hr
 rm -rf "$TR"
 echo "RESULTS: $PASS passed, $FAIL failed"
