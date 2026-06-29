@@ -8,3 +8,9 @@ Change: extend `GARDEN_TRANSIENT_GH_API_SIGNATURES` with the canonical Go `net/h
 `i/o timeout`, `dial tcp`, `context deadline exceeded`, `net/http: TLS handshake timeout`, `no such host`, `server misbehaving`, and a word-bounded bare `EOF` (`\bEOF\b`). Add these to the **gh-api** set only, NOT to `GARDEN_OFFLINE_SIGNATURES` — the offline set classifies the git curl/SSH transport for clone/fetch and must not absorb a Go-only string spuriously. Keep the existing `${GARDEN_OFFLINE_SIGNATURES}` inheritance. Note in the comment block (common.sh:777-782) that `gh` runs on Go's net stack and emits different timeout wording than git's transport, which is why these extra signatures are required.
 
 Regression test: in `/home/kris/scripts/jobs/test/mirror-closer-test.sh` (or the nearest common.sh unit harness), assert `_gh_api_stderr_is_transient 'dial tcp 140.82.116.5:443: i/o timeout'` returns 0, so this exact #3137 signature can never regress to "definitive" again. Verify the closer no longer exits nonzero when its only failure this tick is a transient gh-api timeout that the retry loop ultimately rides out or skips-with-retry-next-tick.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 42
+  claimed_at: 2026-06-29T21:15:26Z
