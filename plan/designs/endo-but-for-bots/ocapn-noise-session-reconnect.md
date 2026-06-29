@@ -2,9 +2,10 @@
 slug: ocapn-noise-session-reconnect
 repository: endo-but-for-bots
 status: Proposed
+milestone: M4
 depends_on: []
 created: 2026-05-14
-updated: 2026-05-19
+updated: 2026-06-29
 source: imported from origin/llm designs/README.md
 ---
 

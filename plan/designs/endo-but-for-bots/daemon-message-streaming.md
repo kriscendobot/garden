@@ -309,3 +309,6 @@ That is a caller concern, not a protocol concern.
 > after that time will be preserved, such that the revisions and their
 > timestamps can be reviewed. This will require another query verb,
 > "messageHistory".
+
+---
+_Groomed 2026-06-29: PR endo-but-for-bots#287 was closed without merging; the `pr` pointer records the first Phase-1 attempt (StreamWriter/streamReply). Status left In Progress pending a re-attempt._

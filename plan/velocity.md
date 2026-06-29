@@ -33,8 +33,41 @@ XL: 15
 ## Latency
 
 ```
-review-queue-latency-days: 2
+review-queue-latency-days: 1
 ```
 
 A single garden-wide figure (not per-repository). The weekly job recalibrates it
 from the week's merged-PR cadence.
+
+## Recalibration log
+
+- **2026-06-29** (`endo-but-for-bots`): the trailing 7-day window (2026-06-22 →
+  2026-06-29) merged **35 PRs** (≈5 merges/day). Open→merge latency: **median 1.15
+  days**, mean 9.98 days (the mean is skewed by a handful of design-record PRs that
+  sat 35–47 days before landing). Recalibrated `review-queue-latency-days` from 2 →
+  **1** on the robust median; the small tail of long-lived PRs is design/roadmap
+  records, not review-queue stalls, so it is excluded from the queue-latency figure.
+  The S/M/L/XL → day mapping is left unchanged: it is a per-design *effort* model,
+  and the observed throughput is a *parallel-fleet* signal (many concurrent
+  gardeners), so the high merge rate does not by itself argue the per-design effort
+  estimates are wrong. Reconciling the single-developer effort map with the parallel
+  fleet's wall-clock throughput (a parallelism/throughput factor for projection) is
+  a tracked follow-up — see the projection note below.
+
+## Projection basis
+
+The roadmap view's per-milestone "Est. days (remaining)" column is the sum of the
+S/M/L/XL → day effort estimates over each milestone's incomplete designs — a
+**single-developer serial effort** figure, useful as a relative weight between
+milestones (M3/M9/M10 carry the bulk of the remaining effort).
+
+Per-milestone **calendar `target:` dates are intentionally not stamped this week.**
+The garden runs a parallel gardener fleet that merged ~5 PRs/day this week across
+many milestones at once; mapping the single-developer effort-day totals onto
+wall-clock dates would require a calibrated parallelism factor (effort-days →
+wall-clock-days) that the plan does not yet carry. Stamping serial single-dev
+targets (which would push the back milestones ~8 months out) would be misleading
+against the observed throughput, so the honest move is to defer dated targets until
+the parallelism factor is calibrated from observed design-record completions, not
+PR-merge counts (most merged PRs are sub-design increments). This is the same
+follow-up referenced from the recalibration log above.

@@ -21,15 +21,15 @@ of records, so a milestone spanning repositories rolls up as one.
 |---|---|---|---|---|
 | M1 | 7 | 7 | 100% | 0 |
 | M2 | 6 | 6 | 100% | 0 |
-| M3 | 22 | 5 | 22% | 60 |
-| M4 | 8 | 1 | 12% | 21 |
+| M3 | 28 | 5 | 17% | 60 |
+| M4 | 9 | 1 | 11% | 21 |
 | M6 | 1 | 0 | 0% | 3 |
 | M7 | 11 | 1 | 9% | 22 |
 | M8 | 4 | 0 | 0% | 9 |
 | M9 | 19 | 2 | 10% | 55 |
 | M10 | 9 | 0 | 0% | 53 |
 | M11 | 2 | 0 | 0% | 30 |
-| (unfiled) | 52 | 29 | 55% | 0 |
+| (unfiled) | 45 | 29 | 64% | 0 |
 
 ## Designs
 
@@ -57,11 +57,8 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-debug-worker-restart | endo-but-for-bots | — | Not Started | — | — |
 | daemon-endo-rust-sqlite | endo-but-for-bots | — | Complete | — | — |
 | daemon-endor-architecture | endo-but-for-bots | — | Active | — | — |
-| daemon-git-capability | endo-but-for-bots | — | Proposed | — | — |
-| daemon-git-next-steps | endo-but-for-bots | — | Proposed | — | — |
-| daemon-git-remotes | endo-but-for-bots | — | Proposed | — | — |
 | daemon-make-archive | endo-but-for-bots | — | In Progress | — | — |
-| daemon-message-streaming | endo-but-for-bots | — | In Progress | endo-but-for-bots#287 | — |
+| daemon-message-streaming | endo-but-for-bots | — | In Progress | — | endo-but-for-bots#287 |
 | daemon-mount-capabilities | endo-but-for-bots | — | Complete | — | — |
 | daemon-rust-xs-performance | endo-but-for-bots | — | Active | — | — |
 | daemon-web-gateway | endo-but-for-bots | — | Complete | — | — |
@@ -69,7 +66,6 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-xs-worker-metering | endo-but-for-bots | — | Complete | — | — |
 | daemon-xs-worker-snapshot | endo-but-for-bots | — | In Progress | — | — |
 | endo-fs-backend-seam | endo-but-for-bots | — | Complete | — | — |
-| endo-fs-from-git | endo-but-for-bots | — | In Progress | — | — |
 | endoclaw | endo-but-for-bots | — | Reference | — | — |
 | endopi | endo-but-for-bots | — | Reference | — | — |
 | endor-npm-registry-proxy | endo-but-for-bots | — | In Progress | — | — |
@@ -78,25 +74,22 @@ of records, so a milestone spanning repositories rolls up as one.
 | familiar-gateway-migration | endo-but-for-bots | — | Complete | — | — |
 | familiar-localhttp-protocol | endo-but-for-bots | — | In Progress | — | — |
 | forge-gap-analysis | endo-but-for-bots | — | Reference | — | — |
-| fs-interface-consolidation | endo-but-for-bots | — | In Progress | — | — |
-| fs-interface-reconciliation | endo-but-for-bots | — | In Progress | — | — |
 | hardened-text-codecs-shim | endo-but-for-bots | — | Not Started | — | — |
 | hardened-url-shim | endo-but-for-bots | — | Not Started | — | — |
-| ocapn-noise-session-reconnect | endo-but-for-bots | — | Proposed | — | — |
 | outliner-design-doc | endo-but-for-bots | — | In Progress | — | — |
 | trust-on-first-bind | endo-but-for-bots | — | Reference | — | — |
 | unhandled-rejection-display | endo-but-for-bots | — | Complete | S | — |
 | weblet-next | endo-but-for-bots | — | Reference | — | — |
-| daemon-256-bit-identifiers | endo-but-for-bots | — | Complete | M1 | — |
-| daemon-form-request | endo-but-for-bots | — | Complete | M1 | — |
-| daemon-value-message | endo-but-for-bots | — | Complete | M1 | — |
-| familiar-bundled-agents | endo-but-for-bots | — | Complete | M1 | — |
-| familiar-daemon-bundling | endo-but-for-bots | — | Complete | M1 | — |
-| lal-fae-form-provisioning | endo-but-for-bots | — | Complete | M1 | — |
-| lal-reply-chain-transcripts | endo-but-for-bots | — | Complete | M1 | — |
+| daemon-256-bit-identifiers | endo-but-for-bots | M1 | Complete | — | — |
+| daemon-form-request | endo-but-for-bots | M1 | Complete | — | — |
+| daemon-value-message | endo-but-for-bots | M1 | Complete | — | — |
+| familiar-bundled-agents | endo-but-for-bots | M1 | Complete | — | — |
+| familiar-daemon-bundling | endo-but-for-bots | M1 | Complete | — | — |
+| lal-fae-form-provisioning | endo-but-for-bots | M1 | Complete | — | — |
+| lal-reply-chain-transcripts | endo-but-for-bots | M1 | Complete | — | — |
 | daemon-capability-bank | endo-but-for-bots | M10 | Not Started | XL | — |
 | daemon-capability-persona | endo-but-for-bots | M10 | Not Started | M | — |
-| daemon-os-sandbox-plugin | endo-but-for-bots | — | Superseded | M10 | — |
+| daemon-os-sandbox-plugin | endo-but-for-bots | M10 | Superseded | — | — |
 | endo-posix-sandbox | endo-but-for-bots | M10 | In Progress | XL | — |
 | endoclaw-browser | endo-but-for-bots | M10 | Not Started | L | — |
 | endoclaw-channel-bridges | endo-but-for-bots | M10 | Not Started | M | — |
@@ -115,11 +108,15 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-capability-filesystem | endo-but-for-bots | M3 | Reference | L | — |
 | daemon-content-store-gc | endo-but-for-bots | M3 | Complete | S | — |
 | daemon-docker-selfhost | endo-but-for-bots | M3 | Not Started | M | — |
-| daemon-guest-eval-simplification | endo-but-for-bots | — | Complete | M3 | — |
+| daemon-git-capability | endo-but-for-bots | M3 | Proposed | — | — |
+| daemon-git-next-steps | endo-but-for-bots | M3 | Proposed | — | — |
+| daemon-git-remotes | endo-but-for-bots | M3 | Proposed | — | — |
+| daemon-guest-eval-simplification | endo-but-for-bots | M3 | Complete | — | — |
 | daemon-locator-terminology | endo-but-for-bots | M3 | Not Started | S | — |
 | daemon-mount | endo-but-for-bots | M3 | In Progress | L | — |
 | daemon-rename-to-manager | endo-but-for-bots | M3 | Not Started | S | — |
 | daemon-worker-import-from-mount | endo-but-for-bots | M3 | Proposed | M | — |
+| endo-fs-from-git | endo-but-for-bots | M3 | In Progress | — | — |
 | endo-gateway | endo-but-for-bots | M3 | Proposed | L | — |
 | endoclaw-network-fetch | endo-but-for-bots | M3 | Not Started | M | — |
 | endoclaw-timer | endo-but-for-bots | M3 | In Progress | M | — |
@@ -128,7 +125,9 @@ of records, so a milestone spanning repositories rolls up as one.
 | endopi-provider-registry-and-oauth | endo-but-for-bots | M3 | Proposed | M | — |
 | endopi-stdio-rpc-bridge | endo-but-for-bots | M3 | Proposed | M | — |
 | filesystem-watchers | endo-but-for-bots | M3 | Not Started | S | — |
-| gateway-bearer-token-auth | endo-but-for-bots | — | Complete | M3 | — |
+| fs-interface-consolidation | endo-but-for-bots | M3 | In Progress | — | — |
+| fs-interface-reconciliation | endo-but-for-bots | M3 | In Progress | — | — |
+| gateway-bearer-token-auth | endo-but-for-bots | M3 | Complete | — | — |
 | mvs-resolver | endo-but-for-bots | M3 | Proposed | M | — |
 | platform-fs | endo-but-for-bots | M3 | Complete | M | — |
 | registry-capability | endo-but-for-bots | M3 | Proposed | M | — |
@@ -138,9 +137,10 @@ of records, so a milestone spanning repositories rolls up as one.
 | ocapn-network-transport-separation | endo-but-for-bots | M4 | In Progress | L | — |
 | ocapn-noise-cryptographic-review | endo-but-for-bots | M4 | Not Started | S | — |
 | ocapn-noise-network | endo-but-for-bots | M4 | Complete | L | — |
+| ocapn-noise-session-reconnect | endo-but-for-bots | M4 | Proposed | — | — |
 | ocapn-tcp-for-test-extraction | endo-but-for-bots | M4 | Not Started | M | — |
 | ocapn-tcp-syrups-framing | endo-but-for-bots | M4 | Not Started | M | — |
-| syrups | endo-but-for-bots | — | Deprecated | M4 | — |
+| syrups | endo-but-for-bots | M4 | Deprecated | — | — |
 | endo-gateway-mcp | endo-but-for-bots | M6 | Not Started | M | — |
 | cli-edit-verb | endo-but-for-bots | M7 | Proposed | M | — |
 | daemon-checkin-checkout | endo-but-for-bots | M7 | Complete | M | — |
@@ -153,14 +153,14 @@ of records, so a milestone spanning repositories rolls up as one.
 | exo-zip-package | endo-but-for-bots | M7 | Proposed | S | — |
 | familiar-chat-weblet-hosting | endo-but-for-bots | M7 | Not Started | M | — |
 | familiar-unified-weblet-server | endo-but-for-bots | M7 | In Progress | M | — |
-| app-sharing-milestone | endo-but-for-bots | — | Proposed | M8 | — |
+| app-sharing-milestone | endo-but-for-bots | M8 | Proposed | — | — |
 | endo-app-sharing | endo-but-for-bots | M8 | Proposed | M | — |
 | familiar-app-ui-hosting | endo-but-for-bots | M8 | Proposed | M | — |
 | familiar-deep-link-invitations | endo-but-for-bots | M8 | Proposed | M | — |
 | chat-edit-message-ui | endo-but-for-bots | M9 | Not Started | M | — |
 | chat-inventory-create-menu | endo-but-for-bots | M9 | Not Started | L | — |
 | chat-pending-commands | endo-but-for-bots | M9 | In Progress | M | endo-but-for-bots#133 |
-| chat-reply-chain-visualization | endo-but-for-bots | — | Deprecated | M9 | — |
+| chat-reply-chain-visualization | endo-but-for-bots | M9 | Deprecated | — | — |
 | chat-slot-slash-commands | endo-but-for-bots | M9 | Proposed | M | — |
 | chat-view-edit-commands | endo-but-for-bots | M9 | Complete | M | — |
 | daemon-commands-as-messages | endo-but-for-bots | M9 | Not Started | L | — |
@@ -174,7 +174,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | lal-transcript-memory-management | endo-but-for-bots | M9 | Not Started | S | — |
 | namehub-interface-unification | endo-but-for-bots | M9 | Proposed | S | — |
 | patterns-diagnostic-feedback | endo-but-for-bots | M9 | Proposed | M | — |
-| retention-path-notation | endo-but-for-bots | — | Reference | M9 | — |
+| retention-path-notation | endo-but-for-bots | M9 | Reference | — | — |
 | workers-panel | endo-but-for-bots | M9 | Not Started | M | — |
 
 ## Dependency graph

@@ -2,9 +2,10 @@
 slug: endo-fs-from-git
 repository: endo-but-for-bots
 status: In Progress
+milestone: M3
 depends_on: []
 created: 2026-05-28
-updated: 2026-05-28
+updated: 2026-06-29
 source: imported from origin/llm designs/README.md
 ---
 
