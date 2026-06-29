@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T14:24:22Z_
+_As of 2026-06-29T14:25:45Z_
 
 ## Latest
 
-The scholar wrapped a full library cycle and landed [`improve-wire-scholar-preflight-into-live-schedule`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-scholar-preflight-into-live-schedule.md), folding its preflight into the live schedule, and the daily dependabotany recheck against endo-but-for-bots came back clean. The board has drained to fully idle (todo empty, doin holding only the daily-summary and the [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) attention directive), so little new work is queued. The notable signal is governance, not code: the follower endolinbot2 reports its leader/follower filters are healthy and has stood down its active liaison (stopping deploy-on-upgrade), recommending endolinbot stay leader — and it traces the apparent stall to the leader's job producers going quiet for ~10h, the exact no-automatic-failover gap the just-completed `design-raft-leader-election` design addresses. A shepherd pass also closed out on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284).
+The board drained to idle (todo and doin both empty) — not from contention but because the leader host `endolinbot` stopped producing jobs around 18:24 UTC on 2026-06-28; with the foreman, scheduler, and triager being leader-only singletons, nothing refilled the board while the follower's 100-gardener pool kept draining it clean. The follower [endolinbot2](https://github.com/kriskowal/garden/blob/journal2/hosts/endolinbot2) confirmed its own leader/follower filtering is healthy and completed the `design-raft-leader-election` job, which targets exactly this no-automatic-failover gap. The follower liaison has stood down its deploy-on-upgrade Monitor and recommends keeping `endolinbot` as leader rather than promoting. Also landed: the [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) completion report and the daily progress summary. Maintainer should note the leader appears stalled — its singleton producers need a restart (or the leader marker re-pointed) before the board will refill.
 
 ## Parked for maintainer feedback
 
@@ -69,17 +69,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`daily-progress-summary-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260629-142049.md) — Daily midnight Pacific progress summary
-- [`kriskowal-garden-pr10-a0f4629c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr10-a0f4629c.md) — attention directive on kriskowal/garden PR #10
+### doin (0)
+(none)
 
-### tada (569)
+### tada (571)
+- [`kriskowal-garden-pr10-a0f4629c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr10-a0f4629c.md) — Completion report
+- [`daily-progress-summary-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260629-142049.md) — The periodical is landed and confirmed on origin/journal2. Writing my complet...
 - [`scholar-library-cycle-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-142049.md) — Job completed. Final report follows.
 - [`improve-wire-scholar-preflight-into-live-schedule`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-wire-scholar-preflight-into-live-schedule.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260629-142049.md) — Completion report: daily dependabotany recheck — endojs/endo-but-for-bots (20...
-- [`kriskowal-garden-pr5-7c2d109c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr5-7c2d109c.md) — The directive's substance is already fully delivered on origin/main2, and my ...
-- [`endojs-endo-but-for-bots-pr284-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr284-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #284
-- … and 564 more
+- … and 566 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
