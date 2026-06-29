@@ -1,6 +1,6 @@
 ---
 created: 2026-06-28
-updated: 2026-06-28
+updated: 2026-06-29
 author: gardener
 ---
 
@@ -25,6 +25,19 @@ role.
 - [emoji-favicon](../../skills/emoji-favicon/SKILL.md): the asset-free
   emoji-as-favicon technique. Reach for it whenever a design calls for a tab/app
   icon and the brand reduces to a single emoji.
+- [css-intrinsic-and-content-sizing](../../skills/css-intrinsic-and-content-sizing/SKILL.md):
+  size an element from its content or available space and clamp it between a
+  content-driven minimum and a fixed maximum with `calc-size()` over intrinsic
+  sizes (`fit-content`/`stretch`). Reach for it when an element must be "just the
+  right size."
+- [supports-feature-query-progressive-enhancement](../../skills/supports-feature-query-progressive-enhancement/SKILL.md):
+  the reusable form of this role's progressive-enhancement norm. Gate a modern CSS
+  feature behind `@supports` (and `@supports not (...)` with `:has()`/
+  `:nth-of-type()` fallbacks) so a design degrades gracefully.
+- [css-design-tokens-and-theming](../../skills/css-design-tokens-and-theming/SKILL.md):
+  express colors/spacing as `:root` custom-property tokens derived from a named
+  authority, with scheme-aware overrides and a per-token rationale table. Reach
+  for it on any multi-scheme or brandable surface.
 - (Base designer skills still apply: [library-lookup], [prompt-section-discovery],
   [cherry-pick-followup], [worktree-per-pr].)
 
