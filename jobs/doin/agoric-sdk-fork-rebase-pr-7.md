@@ -19,3 +19,9 @@ master. If that regen has already merged to `master` when you rebase, #7 will pi
 fix and `test-codegen` should clear. If it has NOT merged yet, the rebase still refreshes
 #7 onto master, but `test-codegen` may remain red until the regen lands — that residual
 failure is expected and is NOT a rebase defect; note it in the handoff rather than chasing it.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 96
+  claimed_at: 2026-06-29T20:30:35Z
