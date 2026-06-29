@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-29T17:42:34Z_
+_As of 2026-06-29T18:16:30Z_
 
 ## Latest
 
-The garden closed out [`investigate-ymax0-xs-overflow-symbolicated-stack-trace`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-ymax0-xs-overflow-symbolicated-stack-trace.md), landing the symbolicated stack-trace investigation for the ymax0 XS overflow; the board is otherwise quiet, with the longest-parked review still [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable `.ts` runtime modules, waiting 14 days).
+A shepherd has picked up [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) to drive its CI to green — the only PR-facing motion this cycle. Otherwise the work was internal garden upkeep that has now cleared the board: the ymax0 XS stack-overflow investigation (symbolicated trace) wrapped up, the scholar's library cycle and a preflight broadcast-actionability filter improvement landed, and the garden's own [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) attention directive and a deadmail item were resolved. The todo queue is empty and the parked set for maintainer review is unchanged — [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (gateway design) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (registry-capability) remain the freshest items still awaiting kriskowal.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 9h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 10h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 9h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`shepherd-kriscendobot-agoric-sdk-pr7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/shepherd-kriscendobot-agoric-sdk-pr7.md) — Shepherd kriscendobot/agoric-sdk PR #7 — drive CI to green
 
 ### tada (577)
 - [`investigate-ymax0-xs-overflow-symbolicated-stack-trace`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-ymax0-xs-overflow-symbolicated-stack-trace.md) — Completion report
