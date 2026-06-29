@@ -99,3 +99,9 @@ comment **on issue #15** (per the ISSUE NOTE above and
 `skills/pr-completion-summary-comment/SKILL.md`): the PR link, the design slug,
 what it decides and what it defers. Leave issue #15 OPEN for the submitter to
 close. Carry the ISSUE NOTE block verbatim into any follow-on job.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 100
+  claimed_at: 2026-06-29T23:16:34Z
