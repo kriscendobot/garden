@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T16:38:29Z_
+_As of 2026-06-29T16:39:00Z_
 
 ## Latest
 
-A scholar library-ingest cycle ([`scholar-library-cycle-20260629-163514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-163514.md)) completed and drained, the only board movement since the last bulletin; the queue is otherwise idle (todo and doin both empty), with the day's earlier garden-infra work — the bounded transient-retry for read-only `gh` handlers and the [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) bulletin re-architecture — already landed. No new maintainer messages are pending; the 29 parked PRs (10 shown) continue to await kriskowal's review, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) at 13 days and several endo-but-for-bots design PRs out past a month.
+Quiet interval — the only board movement since the last bulletin was a refreshed [scholar library cycle](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-163514.md) completion. The substantive recent landings were garden infrastructure: a bounded transient-retry for the read-only `gh` API handlers (hardening the comment/mention pipelines against flaky GitHub calls) and the [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) bulletin re-architecture work, alongside the daily progress periodical. The board is fully drained (todo and doin both empty), so nothing is in flight. The maintainer's attention is best spent on the parked queue: [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix) have each waited three days, and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) is now 13 days parked.
 
 ## Parked for maintainer feedback
 
@@ -32,7 +32,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### tada (573)
-- [`scholar-library-cycle-20260629-163514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-163514.md) — scholar-library-cycle-20260629-163514 — complete (drain-and-exit)
+- [`scholar-library-cycle-20260629-163514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-163514.md) — Completion report
 - [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-handler-transient-retry.md) — Completion report
 - [`kriskowal-garden-pr10-a0f4629c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr10-a0f4629c.md) — Completion report
 - [`daily-progress-summary-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260629-142049.md) — The periodical is landed and confirmed on origin/journal2. Writing my complet...
