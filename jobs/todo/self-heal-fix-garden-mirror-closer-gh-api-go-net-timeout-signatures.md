@@ -1,0 +1,10 @@
+Add the Go `net/http` transient-failure signatures to the gh-api retry classifier so a transient dial/TLS timeout from `gh api` is retried under backoff instead of being misclassified as a DEFINITIVE failure (which currently crashes garden-mirror-closer with exit 1 and trips systemd's Failed state).
+
+File: `/home/kris/scripts/jobs/common.sh`, line 782, `GARDEN_TRANSIENT_GH_API_SIGNATURES`.
+
+Failure signature (from the 2026-06-29 21:14:03 crash): `gh api repos/endojs/endo/pulls/3137 failed (definitive, rc=1); not retrying: Get "https://api.github.com/repos/endojs/endo/pulls/3137": dial tcp 140.82.116.5:443: i/o timeout`. The string `i/o timeout` matches none of the existing patterns, so `_gh_api_stderr_is_transient` (common.sh:786) returns 1 and `gh_api_retry` (common.sh:794) breaks without retrying.
+
+Change: extend `GARDEN_TRANSIENT_GH_API_SIGNATURES` with the canonical Go `net/http`/`net` transient timeout/transport strings that `gh` surfaces — at minimum:
+`i/o timeout`, `dial tcp`, `context deadline exceeded`, `net/http: TLS handshake timeout`, `no such host`, `server misbehaving`, and a word-bounded bare `EOF` (`\bEOF\b`). Add these to the **gh-api** set only, NOT to `GARDEN_OFFLINE_SIGNATURES` — the offline set classifies the git curl/SSH transport for clone/fetch and must not absorb a Go-only string spuriously. Keep the existing `${GARDEN_OFFLINE_SIGNATURES}` inheritance. Note in the comment block (common.sh:777-782) that `gh` runs on Go's net stack and emits different timeout wording than git's transport, which is why these extra signatures are required.
+
+Regression test: in `/home/kris/scripts/jobs/test/mirror-closer-test.sh` (or the nearest common.sh unit harness), assert `_gh_api_stderr_is_transient 'dial tcp 140.82.116.5:443: i/o timeout'` returns 0, so this exact #3137 signature can never regress to "definitive" again. Verify the closer no longer exits nonzero when its only failure this tick is a transient gh-api timeout that the retry loop ultimately rides out or skips-with-retry-next-tick.
