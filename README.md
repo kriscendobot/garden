@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T21:19:19Z_
+_As of 2026-06-29T21:23:08Z_
 
 ## Latest
 
-A self-healing fix landed for the `garden-mirror-closer` service, correcting its handling of `gh api` Go net-timeout error signatures so transient GitHub timeouts no longer wedge the closer. Otherwise the board is quiet — todo and doin are both empty, and the parked queue is unchanged, with [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (the @endo/gateway design) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) now the freshest items awaiting kriskowal's review.
+Recent movement is all garden-internal infrastructure and skill authoring, no external PR transitions. The fleet self-healed two reliability gaps: a fix landed teaching `garden-mirror-closer`'s gh-api retry set to recognize Go `net/http` transient timeout signatures, and the comment-watcher now reaps its child git processes on signal. Two follow-ons are in flight extending both: bounding lingering git children under `KillMode=mixed` in the comment-watcher, and aligning the broader gh-api retry matcher in `common.sh` with the same Go net-timeout signatures. On the web-frontend front, the `native-customizable-form-control-styling` and `css-anchor-positioning-and-flip-fallbacks` skills were authored (the former grounded in a freshly ingested MDN customizable-select guide), rounding out the CSS skill set for the web-designer/web-builder roles. The maintainer queue is unchanged — 29 PRs still parked, with the registry-capability and gateway designs the most recently waiting.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`improve-comment-watcher-reap-lingering-git-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-reap-lingering-git-children.md) — garden-comment-watcher@.service already carries KillMode=mixed plus an EXIT/I...
+- [`improve-gh-api-retry-match-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gh-api-retry-match-go-net-timeout-signatures.md) — In scripts/jobs/common.sh:732, GARDEN_OFFLINE_SIGNATURES enumerates curl/git ...
 
 ### tada (596)
 - [`self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures.md) — Completion report
