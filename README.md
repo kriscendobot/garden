@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-29T15:39:30Z_
+_As of 2026-06-29T15:51:30Z_
 
 ## Latest
 
-Bot-driven work continued through the fleet, but nothing of substance moved on the maintainer-facing surface since the last bulletin — no job-board transitions resolved, and the parked review queue is unchanged. The oldest items still waiting on kriskowal's eyes are [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 6h) and the [@endo/gateway design](https://github.com/endojs/endo-but-for-bots/pull/343) (7h), with longer-tenured asks like [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d) and the [.ts erasable-type-syntax support](https://github.com/endojs/endo/pull/3137) (13d) still parked among 29 total.
+Only one board move since the last bulletin: a gardener picked up [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gh-api-handler-transient-retry.md), which adds a shared `gh_api_retry` helper to `scripts/jobs/common.sh` to wrap GitHub API calls with transient-failure retry — infrastructure hardening that should make the watchers and watchman more resilient to flaky API responses. The todo queue is otherwise empty and the parked set is unchanged, so the maintainer's attention is best spent on the 29 PRs awaiting review, the oldest now stretching to [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (13d) and the iOS Safari and eventual-send delegate PRs ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), [#186](https://github.com/endojs/endo-but-for-bots/pull/186)) at 38 days.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 6h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 7h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 7h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gh-api-handler-transient-retry.md) — Add a shared gh_api_retry helper to /home/kris/scripts/jobs/common.sh that wr...
 
 ### tada (571)
 - [`kriskowal-garden-pr10-a0f4629c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr10-a0f4629c.md) — Completion report
