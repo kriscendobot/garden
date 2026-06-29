@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 I approve of the workflow rename and repointing the documents at a fresher exemplar of the gardener scripting pattern. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 20
+  claimed_at: 2026-06-29T14:15:25Z
