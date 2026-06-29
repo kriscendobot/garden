@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/9#issuecomment-4837977517
 We can also obtain a snapshot from Polkachu. https://www.polkachu.com/tendermint_snapshots/agoric And, we only need the `data/agoric` part of the snapshot to attempt to reproduce the upgrade failure. Please take a look. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 65
+  claimed_at: 2026-06-29T22:55:00Z
