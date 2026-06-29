@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-29T16:55:53Z_
+_As of 2026-06-29T17:27:20Z_
 
 ## Latest
 
-Only one job closed out since the last bulletin: [`improve-scholar-preflight-broadcast-actionability-filter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-preflight-broadcast-actionability-filter.md) landed, tightening the scholar's preflight broadcast so it filters down to actionable items. The board is otherwise quiet — nothing queued in todo or in flight in doin — while 29 PRs remain parked on kriskowal's review, the longest-waiting being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 13d) and the [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182)/[#186](https://github.com/endojs/endo-but-for-bots/pull/186)/[#101](https://github.com/endojs/endo-but-for-bots/pull/101) cluster now past 38 days.
+Garden-internal infra hardening dominated this window: the scholar preflight now gates on an actionable broadcast marker (filtering out non-actionable wakes), read-only `gh` API handlers gained a bounded transient-retry, and a [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) attention directive completed. A fresh attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) was just claimed and is in progress. A scholar library-ingest cycle and the daily progress periodical also landed. No upstream Endo PRs advanced — the 29 parked PRs (oldest now [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) at ~40 days) remain idle awaiting kriskowal's review.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 8h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 9h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 8h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriskowal-garden-pr9-8e3123c4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-8e3123c4.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (574)
 - [`improve-scholar-preflight-broadcast-actionability-filter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-preflight-broadcast-actionability-filter.md) — Completion report
