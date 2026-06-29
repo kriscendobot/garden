@@ -1,7 +1,0 @@
-Add two standing systemd safety-net timers so the library's deterministic count/index regenerators run independent of whether a scholar cycle fires its gate. Both `scripts/jobs/regenerate-topics-counts.sh` and `scripts/jobs/regenerate-sections-index.sh` exist on origin/main2 with --check/--land modes but have no timer, so the topics/README count column and sections/README index only reconcile when a scholar happens to run — the 2026-06-28 `streams` 13-vs-35 count drift was caught only by chance (journal result-gardener-fd494d, message-gardener-30b1e4). Add `scripts/systemd/garden-regenerate-topics-counts.{timer,service}` and `scripts/systemd/garden-regenerate-sections-index.{timer,service}`, modeled exactly on the existing `garden-library-source-drift-scan.{timer,service}` pair: oneshot service running `/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh <name> --expect 75 -- @GARDEN_ROOT@/scripts/jobs/regenerate-<topics-counts|sections-index>.sh --land`, with `SuccessExitStatus=143 130 75 SIGTERM SIGINT`, `TimeoutStartSec=900`, and absolute `OnCalendar=` anchors (Persistent=true) offset from each other and from clone-keeper (:00/:30) and the drift scan (:07) — e.g. `*:17` and `*:23` — to avoid the relative-window re-arm bug documented in the model unit. install-units.sh auto-discovers them (no list edit needed), but verify against its EXCLUDED_UNITS logic. Build in an isolated worktree off origin/main2 per the garden-infra-jobs convention; push HEAD:main2.
-
----
-claim:
-  host: endolinbot2
-  gardener: 23
-  claimed_at: 2026-06-29T01:53:51Z
