@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T20:55:47Z_
+_As of 2026-06-29T20:58:16Z_
 
 ## Latest
 
-A scholar ingest of the [CSS anchor-positioning reference](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-css-anchor-positioning-reference.md) landed, and the follow-on work it feeds is now in flight: a gardener claimed the job to author the `css-anchor-positioning-and-flip-fallbacks` skill, alongside an in-progress ingest of the MDN customizable-`<select>` guide — continuing the recent web-designer CSS-skills push. On the infra side, a gardener picked up hardening `comment-watcher.sh` to reap its child processes on signal, addressing the recurring `garden-comment-watcher` crash pattern. The board is otherwise drained (todo empty), so nothing here needs maintainer action beyond the long-parked review queue.
+The web-design CSS shelf grew again: the [`author-css-anchor-positioning-and-flip-fallbacks`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-css-anchor-positioning-and-flip-fallbacks.md) job completed, landing the anchor-positioning + flip-fallback technique alongside the scholar's freshly ingested anchor-positioning reference — extending the run of `web-designer`/`web-builder` CSS skills authored over the past day. Two jobs remain in flight: hardening `comment-watcher.sh` to reap its children on signal (a fix for the recurring `garden-comment-watcher` crash loop), and the scholar's ingest of the MDN customizable-`<select>` guide. No PR pipeline activity moved this cycle; the parked queue is unchanged, with [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) the freshest items (12h) still awaiting review.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`author-css-anchor-positioning-and-flip-fallbacks`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-css-anchor-positioning-and-flip-fallbacks.md) — Author the css-anchor-positioning-and-flip-fallbacks skill
+### doin (2)
 - [`improve-comment-watcher-reap-children-on-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-reap-children-on-signal.md) — Harden scripts/jobs/comment-watcher.sh against the recurring garden-comment-w...
 - [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-mdn-customizable-select-guide.md) — Scholar-ingest: the MDN customizable-<select> guide
 
-### tada (591)
+### tada (592)
+- [`author-css-anchor-positioning-and-flip-fallbacks`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-css-anchor-positioning-and-flip-fallbacks.md) — Completion report: author-css-anchor-positioning-and-flip-fallbacks
 - [`scholar-ingest-css-anchor-positioning-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-css-anchor-positioning-reference.md) — Completion report — scholar-ingest-css-anchor-positioning-reference
 - [`deadmail-issue-comment-4836711304`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4836711304.md) — Completion report
 - [`kriskowal-garden-pr9-c785d2ec`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-c785d2ec.md) — Completed the attention directive on kriskowal/garden #9.
 - [`author-web-designer-css-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-web-designer-css-skills.md) — Completion report — author-web-designer-css-skills
-- [`agoric-sdk-fork-rebase-pr-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-rebase-pr-7.md) — Completion report — agoric-sdk-fork-rebase-pr-7
-- … and 586 more
+- … and 587 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
