@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T14:18:09Z_
+_As of 2026-06-29T14:21:32Z_
 
 ## Latest
 
-The board has drained to idle: `todo` is empty, `doin` holds only the [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) attention directive, and the [kriskowal/garden#5](https://github.com/kriskowal/garden/pull/5) job closed out as already-delivered on `main2`. The notable signal is upstream of the board: the leader host `endolinbot` has produced no `journal2` activity in roughly 10.5 hours, so the leader-only producers (foreman, scheduler, triager) stopped refilling work and the queue drained to zero — this is the no-automatic-failover gap that the just-completed `design-raft-leader-election` job is meant to address. The follower `endolinbot2` reports its leader/follower filters are healthy (singletons correctly `ExecCondition`-skipped, gardeners ungated) and has stood down its deploy-on-upgrade Monitor while keeping its 100-gardener pool draining as a pure consumer; its liaison recommends keeping `endolinbot` as leader rather than promoting the follower. A shepherd run on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) also completed, which unblocks the parked `formula-inspector-retention-paths-table-v2` plan item waiting on that PR. A maintainer should notice the leader's silence and decide whether to re-point the `leader` marker or restart the leader's producer singletons.
+Little moved on the board since the last bulletin: only routine scheduled work is in flight — the daily progress summary, the dependabotany recheck of endojs/endo-but-for-bots, and an hourly scholar library cycle — and `todo` is empty with `doin` draining to idle. The substantive signal is a follower-side diagnosis from endolinbot2's liaison: the board isn't jammed, it's *starved* — the leader-only job producers (foreman/scheduler/triager) emitted nothing attributable to `endolinbot` for ~10.5h (since 2026-06-28 18:24Z), so the board drained to idle while the follower's gardener pool kept consuming. That's the no-automatic-failover gap the just-completed `design-raft-leader-election` work addresses; the follower recommends keeping `endolinbot` as leader and has stood down its deploy-on-upgrade Monitor to stay out of the way. A maintainer should note that the "growing todo" is really the parked `plan/` queue (8 items, never auto-claimed until promoted), and that the shepherd run on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) has completed.
 
 ## Parked for maintainer feedback
 
@@ -69,8 +69,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (4)
+- [`daily-progress-summary-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260629-142049.md) — Daily midnight Pacific progress summary
+- [`dependabotany-recheck-endo-but-for-bots-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260629-142049.md) — Daily dependabotany recheck: endojs/endo-but-for-bots
 - [`kriskowal-garden-pr10-a0f4629c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr10-a0f4629c.md) — attention directive on kriskowal/garden PR #10
+- [`scholar-library-cycle-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-library-cycle-20260629-142049.md) — Hourly scholar library cycle
 
 ### tada (566)
 - [`kriskowal-garden-pr5-7c2d109c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr5-7c2d109c.md) — The directive's substance is already fully delivered on origin/main2, and my ...
