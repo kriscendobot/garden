@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T16:52:37Z_
+_As of 2026-06-29T16:55:53Z_
 
 ## Latest
 
-Bounded transient-retry now wraps the read-only `gh` API handlers in the jobs subsystem ([improve-gh-api-handler-transient-retry](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-handler-transient-retry.md)), reducing spurious failures from flaky GitHub calls, and the garden's own work on [kriskowal/garden#10](https://github.com/kriskowal/garden/pull/10) landed. The scholar ran two library cycles plus its daily-progress and library-source-drift summaries. One job is in flight: hardening the scholar preflight's broadcast actionability filter (`scripts/jobs/scholar-preflight.sh` condition #3). No new maintainer messages; the parked queue holds steady at 29 PRs, the oldest-and-still-waiting being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable `.ts` runtime modules, 13 days) and the long-tail iOS Safari and eventual-send ponyfill PRs at 38 days.
+Only one job closed out since the last bulletin: [`improve-scholar-preflight-broadcast-actionability-filter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-preflight-broadcast-actionability-filter.md) landed, tightening the scholar's preflight broadcast so it filters down to actionable items. The board is otherwise quiet — nothing queued in todo or in flight in doin — while 29 PRs remain parked on kriskowal's review, the longest-waiting being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 13d) and the [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182)/[#186](https://github.com/endojs/endo-but-for-bots/pull/186)/[#101](https://github.com/endojs/endo-but-for-bots/pull/101) cluster now past 38 days.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-scholar-preflight-broadcast-actionability-filter`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scholar-preflight-broadcast-actionability-filter.md) — Harden scripts/jobs/scholar-preflight.sh condition #3 (the role/scholar broad...
+### doin (0)
+(none)
 
-### tada (573)
+### tada (574)
+- [`improve-scholar-preflight-broadcast-actionability-filter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scholar-preflight-broadcast-actionability-filter.md) — Completion report
 - [`scholar-library-cycle-20260629-163514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-163514.md) — Completion report
 - [`improve-gh-api-handler-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-handler-transient-retry.md) — Completion report
 - [`kriskowal-garden-pr10-a0f4629c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr10-a0f4629c.md) — Completion report
 - [`daily-progress-summary-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260629-142049.md) — The periodical is landed and confirmed on origin/journal2. Writing my complet...
-- [`scholar-library-cycle-20260629-142049`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-library-cycle-20260629-142049.md) — Job completed. Final report follows.
-- … and 568 more
+- … and 569 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
