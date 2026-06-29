@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-29T20:58:16Z_
+_As of 2026-06-29T20:59:48Z_
 
 ## Latest
 
-The web-design CSS shelf grew again: the [`author-css-anchor-positioning-and-flip-fallbacks`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-css-anchor-positioning-and-flip-fallbacks.md) job completed, landing the anchor-positioning + flip-fallback technique alongside the scholar's freshly ingested anchor-positioning reference — extending the run of `web-designer`/`web-builder` CSS skills authored over the past day. Two jobs remain in flight: hardening `comment-watcher.sh` to reap its children on signal (a fix for the recurring `garden-comment-watcher` crash loop), and the scholar's ingest of the MDN customizable-`<select>` guide. No PR pipeline activity moved this cycle; the parked queue is unchanged, with [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) the freshest items (12h) still awaiting review.
+Authority alters at 200 mK per Watt. Behold!
+
+Recent gardening: a new skill-authoring job, [author-native-customizable-form-control-styling-skill](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-native-customizable-form-control-styling-skill.md), was posted and claimed, joining two web-frontend research jobs already in flight (a comment-watcher signal-handling hardening fix and a scholar ingest of the MDN customizable-`<select>` guide). On the completion side, the CSS skill track landed [author-css-anchor-positioning-and-flip-fallbacks](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-css-anchor-positioning-and-flip-fallbacks.md) alongside its scholar-ingest reference, continuing the web-designer CSS buildout from the earlier author-web-designer-css-skills batch.
+
+Nothing new is parked for maintainer review this cycle. The longest-waiting items still want eyes: [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 14d) and two 38-day-old endo-but-for-bots PRs, [#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +32,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`author-native-customizable-form-control-styling-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-native-customizable-form-control-styling-skill.md) — Author skill: native-customizable-form-control-styling
 - [`improve-comment-watcher-reap-children-on-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-reap-children-on-signal.md) — Harden scripts/jobs/comment-watcher.sh against the recurring garden-comment-w...
 - [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-mdn-customizable-select-guide.md) — Scholar-ingest: the MDN customizable-<select> guide
 
