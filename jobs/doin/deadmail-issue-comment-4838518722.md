@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/15#issuecomment-4838518722
 Please also design the reputation bootstrapping. We will need to measure past and future jobs both in terms of effectiveness and cost. We control for effectiveness with the acceptance criterion, so the cost is a free variable. The cost should be normalized to dollars and duration
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 38
+  claimed_at: 2026-06-29T23:46:19Z
