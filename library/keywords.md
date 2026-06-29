@@ -13510,3 +13510,10 @@ native form control styling | customizable-select
 native customizable form control | customizable-select
 stylable native select | customizable-select
 prefer native customizable select over JS widget | customizable-select
+`@supports` | progressive-enhancement-supports
+@supports feature query | progressive-enhancement-supports
+CSS feature query | progressive-enhancement-supports
+CSS feature detection | progressive-enhancement-supports
+progressive enhancement (CSS) | progressive-enhancement-supports
+`@supports not` | progressive-enhancement-supports
+appearance base-select fallback | progressive-enhancement-supports
