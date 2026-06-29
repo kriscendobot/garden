@@ -1,18 +1,18 @@
 # Garden bulletin
 
-_As of 2026-06-29T20:37:29Z_
+_As of 2026-06-29T20:43:53Z_
 
 ## Latest
 
-The agoric-sdk fork's PR #7 rebase landed, and two gardener-reliability fixes completed — a graceful-stop improvement ([KillMode/TimeoutStop](https://github.com/kriskowal/garden)) and handler-elapsed logging on external kills — alongside scholar work ingesting Goldilocks to propose new web-designer CSS skills (now in flight). No PRs are parked with fresh maintainer asks beyond the standing review backlog (29 open, oldest 38–40 days).
+Two jobs landed since the last bulletin: the garden's web-designer role gained three new CSS technique skills (`calc-size()` intrinsic-size clamping, `@supports` progressive enhancement, and `:root` design-token theming) authored from a scholar proposal, and the attention directive on kriskowal/garden #9 (kriscendobot/agoric-sdk fork experimentation authorization) was completed. Three jobs are now in flight: a dead-lettered issue-comment recovery and two scholar ingests (a CSS anchor-positioning reference and the MDN customizable-`<select>` guide). The board is otherwise drained — nothing in todo — and the parked queue still holds 29 PRs awaiting kriskowal, the most recently touched being the gateway design [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and the registry-capability [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), both waiting ~12h.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 12h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 11h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 12h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 14d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 38d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 38d)
@@ -28,17 +28,18 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`author-web-designer-css-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/author-web-designer-css-skills.md) — Author web-designer CSS skills (scholar proposal)
-- [`kriskowal-garden-pr9-c785d2ec`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-c785d2ec.md) — attention directive on kriskowal/garden PR #9
+### doin (3)
+- [`deadmail-issue-comment-4836711304`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4836711304.md) — Dead-lettered message — pick up its intent
+- [`scholar-ingest-css-anchor-positioning-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-css-anchor-positioning-reference.md) — Scholar-ingest: a CSS anchor-positioning reference
+- [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-mdn-customizable-select-guide.md) — Scholar-ingest: the MDN customizable-<select> guide
 
-### tada (587)
+### tada (589)
+- [`kriskowal-garden-pr9-c785d2ec`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-c785d2ec.md) — Completed the attention directive on kriskowal/garden #9.
+- [`author-web-designer-css-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-web-designer-css-skills.md) — Completion report — author-web-designer-css-skills
 - [`agoric-sdk-fork-rebase-pr-7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-rebase-pr-7.md) — Completion report — agoric-sdk-fork-rebase-pr-7
 - [`agoric-sdk-fork-regen-fetched-chain-info-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-regen-fetched-chain-info-master.md) — Build is still pending (agoric-sdk's build step is long). The background watc...
 - [`improve-gardener-graceful-stop-killmode-timeoutstop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-graceful-stop-killmode-timeoutstop.md) — Completion report
-- [`improve-gardener-log-handler-elapsed-on-external-kill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-log-handler-elapsed-on-external-kill.md) — Completion report
-- [`scholar-ingest-goldilocks-select-propose-web-designer-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-goldilocks-select-propose-web-designer-skills.md) — Completion report — scholar-ingest-goldilocks-select-propose-web-designer-skills
-- … and 582 more
+- … and 584 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
