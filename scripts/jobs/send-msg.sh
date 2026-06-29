@@ -21,6 +21,32 @@ GARDEN_TAG="send"
 
 addr="${1:?usage: send-msg.sh <role/NAME|job/BASE|broadcast> [body-file]}"
 body_src="${2:-}"
+
+# Deterministic recovery for an unsubstituted template placeholder address.
+# When $addr arrives angle-bracket-wrapped (e.g. '<address: role/web-designer>'
+# or '<role/web-designer>') because a calling agent failed to substitute the
+# placeholder, strip a leading '<address:'/'<' and trailing '>' plus surrounding
+# whitespace, and if the inner candidate is itself a well-formed address, unwrap
+# it and proceed. The warning keeps the agent-side defect visible. A genuinely
+# malformed address still falls through to the hard failure below.
+case "$addr" in
+  '<'*'>')
+    candidate="$addr"
+    candidate="${candidate#<}"           # drop leading '<'
+    candidate="${candidate%>}"           # drop trailing '>'
+    candidate="${candidate#address:}"    # drop optional 'address:' label
+    # trim surrounding whitespace
+    candidate="${candidate#"${candidate%%[![:space:]]*}"}"
+    candidate="${candidate%"${candidate##*[![:space:]]}"}"
+    case "$candidate" in
+      role/?*|job/?*|broadcast)
+        log "unwrapped angle-bracket-wrapped placeholder address '$addr' → '$candidate'"
+        addr="$candidate"
+        ;;
+    esac
+    ;;
+esac
+
 case "$addr" in
   role/?*|job/?*|broadcast) :;;
   *) die "illegal address '$addr' (use role/<name>, job/<base>, or broadcast)";;
