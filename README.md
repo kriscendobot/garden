@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T21:15:34Z_
+_As of 2026-06-29T21:19:19Z_
 
 ## Latest
 
-Garden-internal skill and infra work landed since the last bulletin. Three web-frontend CSS skills were authored — `native-customizable-form-control-styling` (native `<select>` via `appearance: base-select`), `css-anchor-positioning-and-flip-fallbacks`, each grounded in a freshly ingested MDN/CSSWG scholar reference — rounding out the web-designer/web-builder toolkit. On the reliability side, the comment-watcher now reaps its source-subtree children on signal, and a self-heal job is in flight to add Go `net/http` transient-failure signatures to the mirror-closer's gh-api retry classifier. No PR pipeline movement; the parked queue holds steady at 29 awaiting kriskowal, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 14d) and the long-stale [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182)/[#186](https://github.com/endojs/endo-but-for-bots/pull/186) (38d).
+A self-healing fix landed for the `garden-mirror-closer` service, correcting its handling of `gh api` Go net-timeout error signatures so transient GitHub timeouts no longer wedge the closer. Otherwise the board is quiet — todo and doin are both empty, and the parked queue is unchanged, with [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (the @endo/gateway design) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) now the freshest items awaiting kriskowal's review.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures.md) — Add the Go net/http transient-failure signatures to the gh-api retry classifi...
+### doin (0)
+(none)
 
-### tada (595)
+### tada (596)
+- [`self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures.md) — Completion report
 - [`author-native-customizable-form-control-styling-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-native-customizable-form-control-styling-skill.md) — Completion report
 - [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-mdn-customizable-select-guide.md) — scholar-ingest-mdn-customizable-select-guide — done
 - [`improve-comment-watcher-reap-children-on-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-children-on-signal.md) — Completion report
 - [`author-css-anchor-positioning-and-flip-fallbacks`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-css-anchor-positioning-and-flip-fallbacks.md) — Completion report: author-css-anchor-positioning-and-flip-fallbacks
-- [`scholar-ingest-css-anchor-positioning-reference`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-css-anchor-positioning-reference.md) — Completion report — scholar-ingest-css-anchor-positioning-reference
-- … and 590 more
+- … and 591 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
