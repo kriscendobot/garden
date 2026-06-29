@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5963 (525 parent indexes + 5438 children).
+Total section files: 5973 (525 parent indexes + 5448 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7897,6 +7897,11 @@ Total section files: 5963 (525 parent indexes + 5438 children).
 
 - [web--comparative-analysis-aws-azure-gcp-marketplaces--landscape-fees-and-isv-fit](web--comparative-analysis-aws-azure-gcp-marketplaces--landscape-fees-and-isv-fit.md)
 
+### web--csswg-css-anchor-position-1
+
+- [web--csswg-css-anchor-position-1--position-try-order-and-descriptors](web--csswg-css-anchor-position-1--position-try-order-and-descriptors.md)
+- [web--csswg-css-anchor-position-1--try-tactic-flip-semantics](web--csswg-css-anchor-position-1--try-tactic-flip-semantics.md)
+
 ### web--gcp-marketplace-partner-program
 
 - [web--gcp-marketplace-partner-program--product-types-and-partner-program](web--gcp-marketplace-partner-program--product-types-and-partner-program.md)
@@ -7908,6 +7913,20 @@ Total section files: 5963 (525 parent indexes + 5438 children).
 - [web--goldilocks-select-height--intrinsic-min-max-with-calc-size](web--goldilocks-select-height--intrinsic-min-max-with-calc-size.md)
 - [web--goldilocks-select-height--problem-and-default-sizing](web--goldilocks-select-height--problem-and-default-sizing.md)
 - [web--goldilocks-select-height--viewport-margin-and-flip-fallbacks](web--goldilocks-select-height--viewport-margin-and-flip-fallbacks.md)
+
+### web--mdn-appearance-base-select
+
+- [web--mdn-appearance-base-select--base-select-value](web--mdn-appearance-base-select--base-select-value.md)
+
+### web--mdn-css-anchor-positioning
+
+- [web--mdn-css-anchor-positioning--anchor-function](web--mdn-css-anchor-positioning--anchor-function.md)
+- [web--mdn-css-anchor-positioning--anchor-size-function](web--mdn-css-anchor-positioning--anchor-size-function.md)
+- [web--mdn-css-anchor-positioning--browser-support](web--mdn-css-anchor-positioning--browser-support.md)
+- [web--mdn-css-anchor-positioning--overview](web--mdn-css-anchor-positioning--overview.md)
+- [web--mdn-css-anchor-positioning--position-area-grid](web--mdn-css-anchor-positioning--position-area-grid.md)
+- [web--mdn-css-anchor-positioning--position-try-fallbacks-and-flip](web--mdn-css-anchor-positioning--position-try-fallbacks-and-flip.md)
+- [web--mdn-css-anchor-positioning--position-try-order-and-visibility](web--mdn-css-anchor-positioning--position-try-order-and-visibility.md)
 
 ### web--miller-equality-argument-passing-rules
 
