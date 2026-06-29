@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T21:23:08Z_
+_As of 2026-06-29T21:24:45Z_
 
 ## Latest
 
-Recent movement is all garden-internal infrastructure and skill authoring, no external PR transitions. The fleet self-healed two reliability gaps: a fix landed teaching `garden-mirror-closer`'s gh-api retry set to recognize Go `net/http` transient timeout signatures, and the comment-watcher now reaps its child git processes on signal. Two follow-ons are in flight extending both: bounding lingering git children under `KillMode=mixed` in the comment-watcher, and aligning the broader gh-api retry matcher in `common.sh` with the same Go net-timeout signatures. On the web-frontend front, the `native-customizable-form-control-styling` and `css-anchor-positioning-and-flip-fallbacks` skills were authored (the former grounded in a freshly ingested MDN customizable-select guide), rounding out the CSS skill set for the web-designer/web-builder roles. The maintainer queue is unchanged — 29 PRs still parked, with the registry-capability and gateway designs the most recently waiting.
+Endo's gh-api retry set now classifies Go `net/http` transient timeout signatures, [completing `improve-gh-api-retry-match-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-retry-match-go-net-timeout-signatures.md) — the intent had already landed on `main2`, so the job closed as a no-op confirmation; a companion self-heal applied the same timeout-signature fix to the `garden-mirror-closer` path. On the web-frontend track, the `native-customizable-form-control-styling` skill landed, grounded in a fresh ingest of the MDN customizable-select guide, and the comment-watcher hardening continued (children reaped on signal), with one follow-on still in flight to reap lingering git children. The board is otherwise drained — nothing in todo and a single job in doin.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`improve-comment-watcher-reap-lingering-git-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-reap-lingering-git-children.md) — garden-comment-watcher@.service already carries KillMode=mixed plus an EXIT/I...
-- [`improve-gh-api-retry-match-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gh-api-retry-match-go-net-timeout-signatures.md) — In scripts/jobs/common.sh:732, GARDEN_OFFLINE_SIGNATURES enumerates curl/git ...
 
-### tada (596)
+### tada (597)
+- [`improve-gh-api-retry-match-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gh-api-retry-match-go-net-timeout-signatures.md) — No work to commit — the job's intent is already in origin/main2. Here is my r...
 - [`self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-mirror-closer-gh-api-go-net-timeout-signatures.md) — Completion report
 - [`author-native-customizable-form-control-styling-skill`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-native-customizable-form-control-styling-skill.md) — Completion report
 - [`scholar-ingest-mdn-customizable-select-guide`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-mdn-customizable-select-guide.md) — scholar-ingest-mdn-customizable-select-guide — done
 - [`improve-comment-watcher-reap-children-on-signal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-reap-children-on-signal.md) — Completion report
-- [`author-css-anchor-positioning-and-flip-fallbacks`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/author-css-anchor-positioning-and-flip-fallbacks.md) — Completion report: author-css-anchor-positioning-and-flip-fallbacks
-- … and 591 more
+- … and 592 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
