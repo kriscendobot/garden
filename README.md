@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-29T23:22:53Z_
+_As of 2026-06-29T23:42:38Z_
 
 ## Latest
 
-The lone board movement since the last bulletin was the completion of [`design-gardener-bid-accept-market`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-gardener-bid-accept-market.md), a design for a gardener bid/accept market; the board is otherwise idle with nothing in todo or doin. Worth a maintainer's eye instead: ten PRs are parked for review, with the oldest reviewable work aging out — [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (iOS Safari `isImmutableDataProperty` regression) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) (eventual-send delegate ponyfill) have both waited 38 days, and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) is at 14 days. Three plans remain parked awaiting your go-ahead, including the XS-to-Rust engine port.
+A gardener has claimed the lone new work item — an attention directive on [kriskowal/garden#15](https://github.com/kriskowal/garden/pull/15) — which is the only board transition since the last bulletin; the todo lane is empty. Recently completed: the [`design-gardener-bid-accept-market`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-gardener-bid-accept-market.md) design proposing a bid/accept market for differentiated, reputation-bearing gardeners, plus routine deadmail drainage. Nothing else of substance moved; the parked queue still holds 29 PRs awaiting kriskowal, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 14d) and the long-stale [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) (38d each).
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 15h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 14h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 15h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriskowal-garden-pr15-33ace472`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr15-33ace472.md) — attention directive on kriskowal/garden PR #15
 
 ### tada (607)
 - [`design-gardener-bid-accept-market`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-gardener-bid-accept-market.md) — Completion report
