@@ -17,7 +17,11 @@
 # when ANY of:
 #   1. the scholar role inbox (inbox/scholar/unread) is non-empty;
 #   2. a claimable scholar-* job sits in jobs/todo/;
-#   3. a role/scholar broadcast is newer than the schedule's last_dispatched.
+#   3. a role/scholar broadcast is newer than the schedule's last_dispatched AND
+#      carries an actionable scholar marker (an ingest `library_action:` field or
+#      a writeback-review request). A fresh but purely informational broadcast
+#      (deterministic-projection notice, deploy/leadership announcement) does NOT
+#      count — dispatching the LLM on it just drains and exits with nothing.
 # Otherwise: no work (exit 2).
 #
 # Read-only against the board: it reuses common.sh's standing-scan helpers
@@ -48,10 +52,24 @@ for j in $(list_jobs "$DIR" "$JOBS_TODO"); do
   esac
 done
 
-# 3. A role/scholar broadcast newer than the schedule's last_dispatched. Topic
-#    messages are append-only and never deleted, so compare each one's sent_at
-#    against the schedule's last successful dispatch stamp; only a FRESH broadcast
-#    (arrived since we last ran) counts as work.
+# 3. A role/scholar broadcast newer than the schedule's last_dispatched AND
+#    carrying an actionable scholar marker. Topic messages are append-only and
+#    never deleted, so compare each one's sent_at against the schedule's last
+#    successful dispatch stamp; only a FRESH broadcast (arrived since we last ran)
+#    is a candidate. Freshness alone is not enough: a purely informational
+#    broadcast (a deterministic-projection notice, a deploy/leadership
+#    announcement) carries no scholar work, and dispatching the LLM on it just
+#    drains and exits with nothing — the exact idle cycle this gate exists to
+#    prevent. So a fresh broadcast counts as work ONLY when its body carries an
+#    actionable scholar marker, derived from roles/scholar/AGENT.md § Per-job
+#    procedure step 2 (which surfaces "library_action: ingest-source asks and
+#    writeback-review requests"):
+#      * an ingest `library_action:` field (ingest-source and its kin), or
+#      * a writeback-review request (the library-lookup "writebacks" handoff).
+#    The grep is read-only and fails OPEN: a marker match dispatches, and a grep
+#    error (file unreadable — parse ambiguity) also dispatches; only an
+#    unambiguous absence of every marker skips a fresh broadcast.
+SCHOLAR_ACTIONABLE_RE='^[[:space:]]*library_action:|writeback'
 last_iso="$(sed -n 's/^last_dispatched:[[:space:]]*//p' "$DIR/schedules/$name" 2>/dev/null | head -1)"
 last=0; [ -n "$last_iso" ] && last="$(date -u -d "$last_iso" +%s 2>/dev/null || echo 0)"
 for m in $(list_jobs "$DIR" "msgs/role/scholar"); do
@@ -60,11 +78,16 @@ for m in $(list_jobs "$DIR" "msgs/role/scholar"); do
   sent="$(sed -n 's/^sent_at:[[:space:]]*//p' "$f" | head -1)"
   [ -n "$sent" ] || continue
   sts="$(date -u -d "$sent" +%s 2>/dev/null || echo 0)"
-  if [ "$sts" -gt "$last" ]; then
-    log "work present: role/scholar broadcast $m (sent $sent) newer than last_dispatched ($last_iso)"
+  [ "$sts" -gt "$last" ] || continue
+  # Fresh broadcast: dispatch only if it carries an actionable scholar marker
+  # (fail open on a grep error, treating an unreadable file as a marker match).
+  rc=0; grep -qiE "$SCHOLAR_ACTIONABLE_RE" "$f" 2>/dev/null || rc=$?
+  if [ "$rc" -eq 0 ] || [ "$rc" -ge 2 ]; then
+    log "work present: actionable role/scholar broadcast $m (sent $sent) newer than last_dispatched ($last_iso)"
     exit 0
   fi
+  log "skipping informational role/scholar broadcast $m (sent $sent, no actionable marker)"
 done
 
-log "preflight: no work for $name (empty inbox, no scholar-* job, no fresh role/scholar broadcast)"
+log "preflight: no work for $name (empty inbox, no scholar-* job, no fresh actionable role/scholar broadcast)"
 exit 2
