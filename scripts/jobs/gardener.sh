@@ -73,8 +73,30 @@ idle_rounds=0
 # claimed job, idle_rounds resets on a claimed job too but only ever increments
 # under ONESHOT. Reset to 1 (attempt 1 = a quick first poll) on a productive tick.
 idle_attempt=1
+
+# Graceful drain on stop. Under the unit's KillMode=mixed, a systemd stop/restart
+# SIGTERMs only the main worker process (self-heal-run.sh, which forwards the
+# signal to THIS loop with a single-process `kill`, never to the handler subtree),
+# so the in-flight handler keeps running. Trap that SIGTERM to set a
+# "stop after the current job" flag instead of dying: while a handler (or an idle
+# sleep) is the running foreground command, bash DEFERS this trap until that
+# command returns, so the job finishes uninterrupted; we then notice the flag at
+# the between-claims point at the top of the loop and exit cleanly — never
+# mid-handler. Without the trap, the default SIGTERM disposition would kill this
+# bash immediately (rc=143), abandoning the handler subtree → the job requeues and
+# burns a poison cycle. This makes the busy-marker drain authoritative for every
+# stop path. The unit's TimeoutStopSec is sized to wait for the in-flight handler
+# (≥ GARDEN_HANDLER_TIMEOUT + GARDEN_HANDLER_KILL_AFTER + slack) before systemd
+# escalates to a cgroup-wide SIGKILL.
+stop_requested=0
+trap 'stop_requested=1; log "SIGTERM received; will stop cleanly after the current job (graceful drain)"' TERM
+
 while :; do
   if fleet_draining; then log "fleet draining; exiting cleanly"; exit 0; fi
+  # A trapped SIGTERM (systemd stop/restart) set this after the running handler
+  # returned; this between-claims point is where we honor it, so a stop drains the
+  # current job to completion rather than killing it mid-flight.
+  if [ "$stop_requested" -eq 1 ]; then log "stop requested; current job drained, exiting cleanly"; exit 0; fi
 
   # Top of the loop is a between-claims point: clear the busy marker so the deploy
   # reconciler may restart this gardener now (it re-exec's onto landed script

@@ -26,6 +26,24 @@ ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-gardener 
 # long-running loop; keep it up if it dies, but back off
 Restart=on-failure
 RestartSec=5
+# Graceful drain on stop/restart. The default KillMode=control-group would SIGTERM
+# the WHOLE cgroup the instant systemd stops this unit — including the in-flight
+# handler subtree (the `timeout … claude -p` doing the job) — so any stop (manual,
+# leader-promotion fleet restart, deploy edge, or the busy-gate TOCTOU race) kills
+# the handler mid-job (rc=143) → the job requeues and burns a poison cycle, with
+# the work thrown away. KillMode=mixed sends the initial SIGTERM ONLY to the main
+# worker process (self-heal-run.sh, which forwards it to gardener.sh's loop); the
+# handler subtree is left running. gardener.sh traps that SIGTERM as a "stop after
+# the current job" request and exits cleanly at its next between-claims point, so
+# the running job finishes instead of being abandoned. TimeoutStopSec must then be
+# long enough for systemd to WAIT for that finish rather than escalating to a
+# cgroup-wide SIGKILL: size it ≥ GARDEN_HANDLER_TIMEOUT (2400) +
+# GARDEN_HANDLER_KILL_AFTER (60) plus slack (gardener.sh § handler-timeout knobs).
+# If those knobs are raised, raise this in lock-step. On expiry, mixed still
+# SIGKILLs the whole cgroup as the hard backstop, so a genuinely wedged handler
+# cannot hold the stop open past this bound.
+KillMode=mixed
+TimeoutStopSec=2700
 
 [Install]
 WantedBy=default.target
