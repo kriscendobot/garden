@@ -2,6 +2,7 @@ In `scripts/jobs/common.sh`, every journal fetch is wrapped as bare `timeout "$G
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
