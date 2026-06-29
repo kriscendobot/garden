@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Another reference https://agoric.com/blog/technology/what-agoric-learned-from-amix 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 98
+  claimed_at: 2026-06-29T22:58:23Z
