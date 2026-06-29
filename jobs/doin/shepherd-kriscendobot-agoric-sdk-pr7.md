@@ -25,3 +25,9 @@ upstream agoric/agoric-sdk.
 PR #7 CI green (or every remaining red explained as pre-existing/infra unrelated to the hex/Bufferish
 diff, with evidence), pushed to the fork branch, and a top-level summary comment on #7 listing each
 failure and how it was resolved.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 93
+  claimed_at: 2026-06-29T18:16:25Z
