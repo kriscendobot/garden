@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-29T20:17:47Z_
+_As of 2026-06-29T20:20:25Z_
 
 ## Latest
 
-The garden's worker fleet got a round of reliability hardening: the reaper now escalates kills on stuck `git fetch` operations ([`improve-reaper-stuck-fetch-kill-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-stuck-fetch-kill-escalation.md)), and a matching set of `timeout --kill-after` grace changes landed so a SIGTERM-ignoring fetch or handler can no longer wedge a gardener — including classifying handler-timeout rc=124 as an external wall-clock kill. The shepherd ran [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) and surfaced one item needing your call: the fork's `master` needs `packages/orchestration/src/fetched-chain-info.js` regenerated to clear a `test-codegen` CI failure that blocks both [#6](https://github.com/kriscendobot/agoric-sdk/pull/6) and [#7](https://github.com/kriscendobot/agoric-sdk/pull/7); it's out of autonomous JOB scope, so it's parked in your maintainer inbox rather than smuggled into the PR diff.
+A cluster of gardener-reliability fixes landed: the reaper now escalates when a fetch wedges, fetch/handler timeouts gained a `--kill-after` grace so a SIGTERM-ignoring handler can't wedge a worker, and handler-timeout `rc=124` is now classified as an external wall-clock kill rather than a real failure. On the project side, a shepherd run on the [kriscendobot/agoric-sdk fork #7](https://github.com/kriscendobot/agoric-sdk/pull/7) completed and surfaced a blocker for kriskowal's attention: the fork's `master` needs `packages/orchestration/src/fetched-chain-info.js` regenerated to clear a `test-codegen` CI failure that blocks both [#6](https://github.com/kriscendobot/agoric-sdk/pull/6) and [#7](https://github.com/kriscendobot/agoric-sdk/pull/7); a regen job is now in progress, but since agoric-sdk is outside autonomous-job scope the maintainer's call on touching the fork's master is requested (see the unread maintainer message). A scholar ingest of web-designer skills is also underway. No new parked PRs — the review queue is unchanged at 29.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 11h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 12h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 11h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -31,8 +31,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`agoric-sdk-fork-regen-fetched-chain-info-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-regen-fetched-chain-info-master.md) — Regenerate fetched-chain-info.js on kriscendobot/agoric-sdk — PR to the fork'...
+- [`scholar-ingest-goldilocks-select-propose-web-designer-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-goldilocks-select-propose-web-designer-skills.md) — Scholar: ingest "Goldilocks select height" + propose web-designer skills
 
 ### tada (582)
 - [`improve-reaper-stuck-fetch-kill-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-stuck-fetch-kill-escalation.md) — Completion report — improve-reaper-stuck-fetch-kill-escalation
