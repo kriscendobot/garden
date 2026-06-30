@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6005 (525 parent indexes + 5480 children).
+Total section files: 6014 (525 parent indexes + 5489 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7925,6 +7925,15 @@ Total section files: 6005 (525 parent indexes + 5480 children).
 - [web--langchain-handoffs--single-agent-vs-subgraph-approaches](web--langchain-handoffs--single-agent-vs-subgraph-approaches.md)
 - [web--langchain-handoffs--state-driven-control-transfer](web--langchain-handoffs--state-driven-control-transfer.md)
 
+### web--langchain-long-term-memory
+
+- [web--langchain-long-term-memory--cross-thread-store-and-tool-access](web--langchain-long-term-memory--cross-thread-store-and-tool-access.md)
+
+### web--langchain-messages
+
+- [web--langchain-messages--content-blocks-and-multimodal](web--langchain-messages--content-blocks-and-multimodal.md)
+- [web--langchain-messages--message-types-and-roles](web--langchain-messages--message-types-and-roles.md)
+
 ### web--langchain-models
 
 - [web--langchain-models--advanced-profiles-multimodal-reasoning-caching](web--langchain-models--advanced-profiles-multimodal-reasoning-caching.md)
@@ -7939,6 +7948,16 @@ Total section files: 6005 (525 parent indexes + 5480 children).
 ### web--langchain-retrieval
 
 - [web--langchain-retrieval--retrieval-rag-pipeline-and-architectures](web--langchain-retrieval--retrieval-rag-pipeline-and-architectures.md)
+
+### web--langchain-short-term-memory
+
+- [web--langchain-short-term-memory--checkpointer-thread-persistence](web--langchain-short-term-memory--checkpointer-thread-persistence.md)
+- [web--langchain-short-term-memory--context-management-and-state-access](web--langchain-short-term-memory--context-management-and-state-access.md)
+
+### web--langchain-structured-output
+
+- [web--langchain-structured-output--response-format-and-strategies](web--langchain-structured-output--response-format-and-strategies.md)
+- [web--langchain-structured-output--tool-strategy-error-handling](web--langchain-structured-output--tool-strategy-error-handling.md)
 
 ### web--langchain-tools
 
@@ -7970,6 +7989,11 @@ Total section files: 6005 (525 parent indexes + 5480 children).
 ### web--langgraph-persistence
 
 - [web--langgraph-persistence--checkpointers-vs-stores](web--langgraph-persistence--checkpointers-vs-stores.md)
+
+### web--langgraph-stores
+
+- [web--langgraph-stores--basestore-namespaces-and-semantic-search](web--langgraph-stores--basestore-namespaces-and-semantic-search.md)
+- [web--langgraph-stores--building-a-custom-store](web--langgraph-stores--building-a-custom-store.md)
 
 ### web--langgraph-workflows-and-agents
 
