@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:41:31Z_
+_As of 2026-06-30T23:45:17Z_
 
 ## Latest
 
-The @endo/hex line advanced: the [tiered codec port](https://github.com/endojs/endo-but-for-bots) landed and a builder is now in flight creating the `@endo/hex` package on endo-but-for-bots master with a best-on-all-platforms benchmark table. Review and follow-up work wrapped on [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16), the error-tracing-across-CapTP-workers PR [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) completed (now parked for review), and Richard Gibson's feedback was applied to [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7). A scholar is ingesting the Tailscale OAuth-apps doc to produce a garden OAuth skill. Worth a maintainer's eye: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) is freshly parked, and the ymax0-hex-fix verification plan still awaits go-ahead.
+Quiet tick — the only board move was a dead-lettered message being picked back up for re-triage. In flight, a builder is assembling the `@endo/hex` package on endo-but-for-bots master with a best-on-all-platforms benchmark table (the tiered-codec port that feeds it just completed), and a scholar is ingesting Tailscale's OAuth-apps doc to author garden OAuth skills. Recently landed: the CapTP error-tracing work on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), two passes on [garden#16](https://github.com/kriskowal/garden/pull/16), and Richard Gibson's feedback applied to the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) fork PR. Nothing new is parked for review; the 28-deep feedback queue is unchanged, led by [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 30s)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 5m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 18h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -28,7 +28,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`deadmail-20260630T234117Z-85be2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260630T234117Z-85be2b.md) — Dead-lettered message — pick up its intent
 - [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder: create @endo/hex on endo-but-for-bots master — best-on-all-platforms...
 - [`scholar-ingest-tailscale-oauth-apps-and-oauth-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-tailscale-oauth-apps-and-oauth-skills.md) — Scholar: ingest Tailscale OAuth-apps doc + produce garden OAuth use-case skil...
 
