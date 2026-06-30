@@ -1,6 +1,3 @@
-once: 2026-06-30T23:00:00Z
-job_basename_prefix: dependabotany-recheck-endo-but-for-bots-pr197
----
 # One-time embargo reevaluation: endojs/endo-but-for-bots PR #197 (electron 40→42)
 
 Scheduled per maintainer directive on PR #197
