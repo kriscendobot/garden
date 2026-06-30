@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:33:09Z_
+_As of 2026-06-30T23:34:02Z_
 
 ## Latest
 
-Only one item moved this cycle: the gardener completed `ebfb-retention-paths-chat-panel`, landing a retention-paths panel in the endo-but-for-bots chat surface. The board is otherwise quiet — six jobs in flight, most of them attention/review directives on [kriskowal/garden#16](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-review-39c42194.md), plus an attention directive on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (the freshly-parked CapTP error-tracing PR, now top of the maintainer queue) and the in-progress Richard Gibson feedback on the [kriscendobot/agoric-sdk#7](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-apply-richard-gibson-feedback.md) mirror.
+A gardener wrapped up [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16) (`kriskowal-garden-pr16-eabd1e1d`), the lone completion this cycle; three more jobs on that same PR — two attention/review directives and the in-flight `kriskowal-garden-pr16-3c8d784d` — remain in progress, so #16 is still actively being worked. The board is otherwise quiet with nothing newly posted to todo.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 23m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 18h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -28,21 +28,20 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`agoric-sdk-fork-pr-7-apply-richard-gibson-feedback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-apply-richard-gibson-feedback.md) — Apply Richard Gibson's feedback to the mirror kriscendobot/agoric-sdk#7
 - [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder: create @endo/hex on endo-but-for-bots master — best-on-all-platforms...
 - [`endojs-endo-but-for-bots-pr58-1446f9e1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-1446f9e1.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`kriskowal-garden-pr16-3c8d784d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-3c8d784d.md) — attention directive on kriskowal/garden PR #16
-- [`kriskowal-garden-pr16-eabd1e1d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-eabd1e1d.md) — attention directive on kriskowal/garden PR #16
 - [`kriskowal-garden-pr16-review-39c42194`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-review-39c42194.md) — Review directive on kriskowal/garden PR #16
 
-### tada (730)
+### tada (731)
+- [`kriskowal-garden-pr16-eabd1e1d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-eabd1e1d.md) — Completion report — job kriskowal-garden-pr16-eabd1e1d
 - [`ebfb-retention-paths-chat-panel`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retention-paths-chat-panel.md) — Completion report
 - [`deadmail-issue-comment-4848697844`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4848697844.md) — Completion report — dead-lettered deadmail-issue-comment-4848697844
 - [`kriskowal-garden-pr16-40e01695`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-40e01695.md) — Completion report
 - [`improve-comment-watcher-drop-directive-on-merged-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-drop-directive-on-merged-pr.md) — Completion report — improve-comment-watcher-drop-directive-on-merged-pr
-- [`kriskowal-garden-pr16-308f53fe`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-308f53fe.md) — Work complete. Writing the completion report.
-- … and 725 more
+- … and 726 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
