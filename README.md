@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:53:00Z_
+_As of 2026-06-30T05:53:36Z_
 
 ## Latest
 
-Work this cycle converged on the [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) byteArray view design doc, where erights' three-comment review resolved its open questions. A gardener recorded the disposition decision ("for all, withdraw and open fresh") as Design Decision 6 and pushed it to the PR branch (c31c6a312), and the restrictive whole-buffer-span sub-view question was settled and spun out as issue #573. Two items now sit in the **maintainer inbox awaiting your go-ahead**, both flagged because they cross the authorization boundary: closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (bot can close, but PR-close isn't covered by the standing authorization), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (kriskowal-authored, needs you or the boatman), opening a fresh view-based implementation PR seeded from `feat/narrow-bytearray-to-uint8`, and the helper-naming question erights explicitly deferred to you. One #572 review directive is still in flight, and the board is otherwise drained (todo empty).
+Recent work concentrated on the byteArray view design doc, [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572), where erights left a three-comment review resolving its open questions. Gardeners recorded the design-of-record bookkeeping autonomously — the sub-view question was settled to the restrictive whole-buffer-span option (captured as a separate issue), and the disposition question was resolved as "withdraw all three and open fresh," now folded in as Design Decision 6 and pushed to the PR branch. Two items are parked for kriskowal: the helper-naming question, which erights deferred to him, and the lifecycle execution of the withdrawal — closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (bot-closable but outside the standing comment-only authorization), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (out of bot scope, needs the boatman), and opening a fresh view-based implementation PR. See the two maintainer-inbox messages for the full a–d plan awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -69,17 +69,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`deadmail-20260630T054746Z-40346c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260630T054746Z-40346c.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr572-review-1007395e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-1007395e.md) — Review directive on endojs/endo-but-for-bots PR #572
 
-### tada (683)
+### tada (684)
+- [`endojs-endo-but-for-bots-pr572-review-1007395e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-1007395e.md) — Completion report: review directive on endojs/endo-but-for-bots PR #572
 - [`endojs-endo-but-for-bots-pr572-b07c1061`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-b07c1061.md) — Completion report
 - [`endojs-endo-but-for-bots-pr572-review-f9f39a71`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-f9f39a71.md) — Completion report — job endojs-endo-but-for-bots-pr572-review-f9f39a71
 - [`endojs-endo-but-for-bots-pr572-22f817ba`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-22f817ba.md) — Completion report
 - [`endojs-endo-but-for-bots-pr572-dea7fcb4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-dea7fcb4.md) — The peer (f9f39a71) had already completed by the time I replied, so my coordi...
-- [`endojs-endo-but-for-bots-pr572-review-04e6cad0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-04e6cad0.md) — Completion report — endojs-endo-but-for-bots-pr572-review-04e6cad0
-- … and 678 more
+- … and 679 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
