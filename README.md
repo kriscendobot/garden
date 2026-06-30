@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:18:35Z_
+_As of 2026-06-30T05:19:56Z_
 
 ## Latest
 
-A fresh attention directive on [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) was claimed and is now in flight, joining the in-progress work on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (both an attention directive and a rebase) and the byteArray-as-frozen-Uint8Array-view redesign. Two PRs landed in front of the maintainer in the last half hour and want review: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays via a freezable TypedArray emulation). The board is otherwise drained — nothing waiting in todo.
+The rebase of [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) landed, and a shepherd directive is now in flight on [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) to drive its CI green, alongside a separate attention directive on the same PR; an attention directive on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and the byteArray-as-frozen-Uint8Array-view redesign remain in progress. On the review front, two newly parked PRs are worth a look — [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) — both freshly awaiting maintainer feedback.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 23m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 14m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 29m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 20m)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 21h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 20h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -31,16 +31,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### doin (4)
 - [`ebfb-bytearray-uint8array-view-redesign`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-bytearray-uint8array-view-redesign.md) — design: byteArray maps a frozen Uint8Array view, not a bare immutable ArrayBu...
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr571-72197ae9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr571-72197ae9.md) — attention directive on endojs/endo-but-for-bots PR #571
+- [`endojs-endo-but-for-bots-pr571-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr571-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #571
 
-### tada (671)
+### tada (672)
+- [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-rebase.md) — Completion report — endojs-endo-but-for-bots-pr475-rebase
 - [`endojs-endo-but-for-bots-pr429-248d107b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr429-248d107b.md) — Completion report — endojs-endo-but-for-bots-pr429-248d107b
 - [`endojs-endo-but-for-bots-pr57-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr57-rebase.md) — Completion report — endojs-endo-but-for-bots-pr57-rebase
 - [`endojs-endo-but-for-bots-pr58-8585f202`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-8585f202.md) — I've launched the implementation. Current status: builder running in the back...
 - [`issue-kriskowal-garden-17`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-17.md) — Completion report — issue-kriskowal-garden-17
-- [`endojs-endo-but-for-bots-pr430-b7b6a63e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr430-b7b6a63e.md) — Completion report
-- … and 666 more
+- … and 667 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
