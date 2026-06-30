@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5989 (525 parent indexes + 5464 children).
+Total section files: 6005 (525 parent indexes + 5480 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7914,6 +7914,24 @@ Total section files: 5989 (525 parent indexes + 5464 children).
 - [web--goldilocks-select-height--problem-and-default-sizing](web--goldilocks-select-height--problem-and-default-sizing.md)
 - [web--goldilocks-select-height--viewport-margin-and-flip-fallbacks](web--goldilocks-select-height--viewport-margin-and-flip-fallbacks.md)
 
+### web--langchain-agents
+
+- [web--langchain-agents--agent-loop-and-core-components](web--langchain-agents--agent-loop-and-core-components.md)
+- [web--langchain-agents--configure-the-harness-via-middleware](web--langchain-agents--configure-the-harness-via-middleware.md)
+- [web--langchain-agents--invocation-streaming-and-state](web--langchain-agents--invocation-streaming-and-state.md)
+
+### web--langchain-handoffs
+
+- [web--langchain-handoffs--single-agent-vs-subgraph-approaches](web--langchain-handoffs--single-agent-vs-subgraph-approaches.md)
+- [web--langchain-handoffs--state-driven-control-transfer](web--langchain-handoffs--state-driven-control-transfer.md)
+
+### web--langchain-models
+
+- [web--langchain-models--advanced-profiles-multimodal-reasoning-caching](web--langchain-models--advanced-profiles-multimodal-reasoning-caching.md)
+- [web--langchain-models--invocation-invoke-stream-batch](web--langchain-models--invocation-invoke-stream-batch.md)
+- [web--langchain-models--standard-interface-and-initialization](web--langchain-models--standard-interface-and-initialization.md)
+- [web--langchain-models--tool-calling-and-structured-output](web--langchain-models--tool-calling-and-structured-output.md)
+
 ### web--langchain-overview
 
 - [web--langchain-overview--create-agent-harness-and-standard-interfaces](web--langchain-overview--create-agent-harness-and-standard-interfaces.md)
@@ -7921,6 +7939,13 @@ Total section files: 5989 (525 parent indexes + 5464 children).
 ### web--langchain-retrieval
 
 - [web--langchain-retrieval--retrieval-rag-pipeline-and-architectures](web--langchain-retrieval--retrieval-rag-pipeline-and-architectures.md)
+
+### web--langchain-tools
+
+- [web--langchain-tools--accessing-context-via-toolruntime](web--langchain-tools--accessing-context-via-toolruntime.md)
+- [web--langchain-tools--defining-tools-and-schemas](web--langchain-tools--defining-tools-and-schemas.md)
+- [web--langchain-tools--dynamic-selection-headless-and-prebuilt](web--langchain-tools--dynamic-selection-headless-and-prebuilt.md)
+- [web--langchain-tools--execution-and-return-values](web--langchain-tools--execution-and-return-values.md)
 
 ### web--langgraph-checkpointers
 
@@ -7931,6 +7956,12 @@ Total section files: 5989 (525 parent indexes + 5464 children).
 
 - [web--langgraph-graph-api--nodes-edges-super-steps-and-command-routing](web--langgraph-graph-api--nodes-edges-super-steps-and-command-routing.md)
 - [web--langgraph-graph-api--state-schema-and-reducers](web--langgraph-graph-api--state-schema-and-reducers.md)
+
+### web--langgraph-interrupts
+
+- [web--langgraph-interrupts--human-in-the-loop-patterns](web--langgraph-interrupts--human-in-the-loop-patterns.md)
+- [web--langgraph-interrupts--interrupt-and-resume-mechanics](web--langgraph-interrupts--interrupt-and-resume-mechanics.md)
+- [web--langgraph-interrupts--rules-and-static-breakpoints](web--langgraph-interrupts--rules-and-static-breakpoints.md)
 
 ### web--langgraph-overview
 
