@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:40:15Z_
+_As of 2026-06-30T22:45:45Z_
 
 ## Latest
 
-A gardener has claimed [`agoric-sdk-fork-pr-7-shepherd`](https://github.com/kriscendobot/agoric-sdk/pull/7), driving kriscendobot's agoric-sdk fork PR #7 toward green on the maintainer's directive — that and the still-running [garden#9](https://github.com/kriskowal/garden/issues/9) ymax0 repro-clarification job (folding in mhofman's mainnet repro-setup notes) are the only work currently in flight. Recently completed: the `inquisitor-ymax0-hex-repro` reproduction, the [garden#18](https://github.com/kriskowal/garden/issues/18) work item, and a builder pass on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), which now sits parked atop the review queue. Worth a maintainer's eye: four ymax0-related plans are parked awaiting go-ahead — most notably verifying the hex fix and its stackCount snapshot-compatibility, plus the speculative "port XS to Rust" plan — none claimable until promoted.
+The lone board transition was a completion: the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) shepherd resumed and wrapped after only ~3 minutes of fresh runtime, so CI shepherding on that fork PR is done for now. The ymax0 #9 investigation remains the one job in flight, folding in mhofman's mainnet-repro-setup clarification. Worth the maintainer's attention: the journal-worktree keeper has flagged that `/home/kris/journal` on endolinbot2 has **diverged** from `origin/journal2` (3 commits ahead, 5753 behind, 6 dirty paths) and was deliberately left untouched — it needs hand reconciliation before that worktree can fast-forward again. The parked queue is otherwise quiet, with [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) newest at ~1h and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) at the front of the older backlog.
 
 ## Parked for maintainer feedback
 
@@ -22,23 +22,25 @@ A gardener has claimed [`agoric-sdk-fork-pr-7-shepherd`](https://github.com/kris
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260630T224534Z-38dc98` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T224534Z-38dc98.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5753 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`agoric-sdk-fork-pr-7-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-shepherd.md) — Shepherd kriscendobot/agoric-sdk PR #7 to green (maintainer directive)
+### doin (1)
 - [`garden-issue-9-mhofman-mainnet-repro-clarification`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-mainnet-repro-clarification.md) — Incorporate mhofman's repro-setup clarification into the ymax0 #9 investigati...
 
-### tada (704)
+### tada (705)
+- [`agoric-sdk-fork-pr-7-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-shepherd.md) — Only ~3 minutes elapsed (now 22:45Z; job started 22:42:40, prior runtime ~19m...
 - [`deadmail-issue-comment-4848329666`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4848329666.md) — Inbox empty. Status while the background run proceeds:
 - [`issue-kriskowal-garden-18`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-18.md) — Completion report — issue-kriskowal-garden-18
 - [`inquisitor-ymax0-hex-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/inquisitor-ymax0-hex-repro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr58-5ce0b78b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-5ce0b78b.md) — Builder is running in the background; my inbox is empty. I'll wait for its co...
-- [`deadmail-issue-comment-4848078424`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4848078424.md) — Completion report
-- … and 699 more
+- … and 700 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
