@@ -1,16 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:52:42Z_
+_As of 2026-06-30T22:58:29Z_
 
 ## Latest
 
-A gardener claimed [`garden-encode-acknowledged-comment-needs-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-acknowledged-comment-needs-reply.md), folding the maintainer's 2026-06-30 directive into the library — an acknowledged comment now owes at least a reply comment, not a silent reactji. Still in flight on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58): continuing the CapTP error-tracing work toward its acceptance criteria and answering kriskowal's open questions. The board is otherwise drained (nothing queued in todo), and recent completions cleared the ymax0 hex repro and the garden#9 mainnet-repro clarification for mhofman. Nothing new is parked for review — the top of the queue remains [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (1h) and the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (17h).
+The newest motion is on review work: a gardener just claimed a review directive on [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343), while error-tracing across CapTP workers continues on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (now parked for kriskowal after an hour). On the Agoric front, the shepherd run on the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) fork PR wrapped, and the ymax0 XS value-stack overflow line closed out a batch of work — the inquisitor hex repro and the garden#9 mainnet-repro clarification both completed. A garden-meta job is also in flight to encode the standing rule that an acknowledged comment earns at least a reply, not just a reactji. Nothing is sitting in `todo`; the deepest-parked items ([endo#3137](https://github.com/endojs/endo/pull/3137) TypeScript runtime modules at 15 days, and several 39–41-day chat/SES PRs) still await maintainer review.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17h)
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 15d)
@@ -18,8 +17,9 @@ A gardener claimed [`garden-encode-acknowledged-comment-needs-reply`](https://gi
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 39d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 39d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 41d)
+- [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 40d)
 
-_Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 (no pending maintainer messages)
@@ -28,8 +28,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ebfb-pr-58-continue-error-tracing-and-status`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-continue-error-tracing-and-status.md) — PR #58 — continue error-tracing toward acceptance criteria + answer kriskowal...
+- [`endojs-endo-but-for-bots-pr343-review-c61577a1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr343-review-c61577a1.md) — Review directive on endojs/endo-but-for-bots PR #343
 - [`garden-encode-acknowledged-comment-needs-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-acknowledged-comment-needs-reply.md) — Encode: an acknowledged comment gets at least a reply comment, not just a rea...
 
 ### tada (706)
