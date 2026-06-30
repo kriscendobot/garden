@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:51:34Z_
+_As of 2026-06-30T22:52:42Z_
 
 ## Latest
 
-A gardener claimed [`ebfb-pr-58-continue-error-tracing-and-status`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-continue-error-tracing-and-status.md), resuming work on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) toward its acceptance criteria and to answer kriskowal's open questions — that PR is now the freshest item parked for your review (waiting 1h). Otherwise the board is quiet, with nothing new posted to todo.
+A gardener claimed [`garden-encode-acknowledged-comment-needs-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-acknowledged-comment-needs-reply.md), folding the maintainer's 2026-06-30 directive into the library — an acknowledged comment now owes at least a reply comment, not a silent reactji. Still in flight on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58): continuing the CapTP error-tracing work toward its acceptance criteria and answering kriskowal's open questions. The board is otherwise drained (nothing queued in todo), and recent completions cleared the ymax0 hex repro and the garden#9 mainnet-repro clarification for mhofman. Nothing new is parked for review — the top of the queue remains [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (1h) and the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (17h).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`ebfb-pr-58-continue-error-tracing-and-status`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-continue-error-tracing-and-status.md) — PR #58 — continue error-tracing toward acceptance criteria + answer kriskowal...
+- [`garden-encode-acknowledged-comment-needs-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-acknowledged-comment-needs-reply.md) — Encode: an acknowledged comment gets at least a reply comment, not just a rea...
 
 ### tada (706)
 - [`garden-issue-9-mhofman-mainnet-repro-clarification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-mhofman-mainnet-repro-clarification.md) — Completion report
