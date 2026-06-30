@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:09:08Z_
+_As of 2026-06-30T04:10:27Z_
 
 ## Latest
 
-Work concentrated on two [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) PRs. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) finished its rebase/retcon — a clean no-op, since the head was already on `llm-a1dcc70` — and is now in finalize (curate → merge). [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) drew a completed review pass plus fresh attention and review directives now in progress, so expect movement there shortly. A scholar ingest of the LangChain/LangGraph remainder closed out, and a deadmail closure was verified as a no-op with no work outstanding.
+Most fresh activity converged on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544), which drew a cluster of review and attention directives — one review job completed while two more attention jobs and two review jobs remain in flight. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) is in its finalize stage: the rebase landed as a clean no-op (head already on `llm-a1dcc70`) and it is now being curated toward merge. A scholar ingest of the langchain/langgraph remainder closed out, and a deadmail closure was verified as no-work-outstanding. The todo board is empty and only the #544/#405 jobs occupy doin, so the fleet is largely caught up; the parked queue still holds 29 PRs awaiting kriskowal, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 14d) and several 39–40-day-old endo-but-for-bots design and feature PRs.
 
 ## Parked for maintainer feedback
 
@@ -28,10 +28,12 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr405-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #405
 - [`endojs-endo-but-for-bots-pr544-48da5b1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-48da5b1e.md) — attention directive on endojs/endo-but-for-bots PR #544
+- [`endojs-endo-but-for-bots-pr544-493f718b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-493f718b.md) — attention directive on endojs/endo-but-for-bots PR #544
 - [`endojs-endo-but-for-bots-pr544-review-34a03163`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-34a03163.md) — Review directive on endojs/endo-but-for-bots PR #544
+- [`endojs-endo-but-for-bots-pr544-review-d697e96d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-d697e96d.md) — Review directive on endojs/endo-but-for-bots PR #544
 
 ### tada (649)
 - [`endojs-endo-but-for-bots-pr544-review-2901dfe7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-2901dfe7.md) — Completion report
