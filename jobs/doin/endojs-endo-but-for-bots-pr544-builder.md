@@ -20,3 +20,9 @@ implementation the maintainer explicitly requested.
 Best sequenced after PR #544's design lands (it is APPROVED + DRAFT, currently
 being de-conflicted by `endojs-endo-but-for-bots-pr544-weaver`), but the design
 content is stable and readable now from the head branch.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 77
+  claimed_at: 2026-06-30T04:29:34Z
