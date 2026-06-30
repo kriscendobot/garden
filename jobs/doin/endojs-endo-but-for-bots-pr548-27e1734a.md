@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot  The follow-up PR should also bump the major version number because of this inter-repo compat hazard. That's a good reason to do the second PR repo-wide, so that everyone else's efforts to upgrade because of this can be bundled together in one effort each. This also
+
+---
+claim:
+  host: endolinbot2
+  gardener: 90
+  claimed_at: 2026-06-30T03:38:34Z
