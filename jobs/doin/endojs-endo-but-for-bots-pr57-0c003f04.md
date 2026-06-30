@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Closing per https://github.com/endojs/endo-but-for-bots/pull/572#issuecomment-4840305405 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 70
+  claimed_at: 2026-06-30T06:18:37Z
