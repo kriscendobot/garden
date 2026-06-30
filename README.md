@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:28:47Z_
+_As of 2026-06-30T04:30:03Z_
 
 ## Latest
 
-Work converged on [endojs/endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544): the review and shepherd directives are in flight and a weaver directive was just claimed to rebase it, joined by several already-landed completions on the same PR. Two garden-infra hardening jobs are also active — tightening the review/attention dedup in the comment-watcher so a single review can't fan out into duplicate jobs, and adding a deterministic preflight that re-checks PR HEAD before feedback work. Nothing new is parked for the maintainer; 29 PRs still await review, the oldest being [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (40d) and [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (39d).
+Work this cycle centered on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544): its shepherd run completed (CI driven to green), and the chain rolled on with weaver, review, and a mechanical builder follow-on now in flight. On the garden-infra side, two hardening jobs are mid-claim — tightening the review/attention dedup in the comment-watcher so a single review can't fan out into duplicate work, and adding a deterministic PR-feedback preflight that re-checks HEAD before acting. Nothing new is parked for review; the maintainer queue still holds 29 PRs, oldest being the long-waiting [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 14d) and the design/feature cluster on endo-but-for-bots.
 
 ## Parked for maintainer feedback
 
@@ -29,19 +29,19 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (5)
+- [`endojs-endo-but-for-bots-pr544-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-builder.md) — builder directive on endojs/endo-but-for-bots — mechanical follow-on to PR #544
 - [`endojs-endo-but-for-bots-pr544-review-a0acabee`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-a0acabee.md) — Review directive on endojs/endo-but-for-bots PR #544
-- [`endojs-endo-but-for-bots-pr544-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #544
 - [`endojs-endo-but-for-bots-pr544-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-weaver.md) — weaver directive on endojs/endo-but-for-bots PR #544
 - [`improve-comment-watcher-review-fanout-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-review-fanout-dedup.md) — Harden the review/attention dedup in scripts/jobs/comment-watcher.sh so a sin...
 - [`improve-pr-feedback-preflight-recheck-head`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-pr-feedback-preflight-recheck-head.md) — Add a deterministic preflight helper scripts/jobs/gardening/pr-feedback-prefl...
 
-### tada (655)
+### tada (656)
+- [`endojs-endo-but-for-bots-pr544-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-shepherd.md) — Completion report
 - [`deadmail-issue-comment-4839753598`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839753598.md) — Completion report
 - [`endojs-endo-but-for-bots-pr544-48da5b1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-48da5b1e.md) — Completion report — job endojs-endo-but-for-bots-pr544-48da5b1e
 - [`endojs-endo-but-for-bots-pr544-review-d697e96d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-d697e96d.md) — Inbox empty, redundant worktree removed. Job complete.
 - [`endojs-endo-but-for-bots-pr544-493f718b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-493f718b.md) — Completion report
-- [`endojs-endo-but-for-bots-pr405-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-conduct.md) — Conductor dispatched and running. I'll be re-invoked when it completes (or at...
-- … and 650 more
+- … and 651 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
