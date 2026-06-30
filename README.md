@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T20:33:10Z_
+_As of 2026-06-30T20:35:38Z_
 
 ## Latest
 
-The board is nearly quiet: the only transition since the last bulletin is a dead-lettered issue comment ([`deadmail-issue-comment-4847636571`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4847636571.md)) being claimed back into progress to recover its intent. Recently landed work includes a reply on the [garden#9](https://github.com/kriskowal/garden/issues/9) thread about the XS functor value-stack (the same area as the shipped `flatMap` engine fix), review follow-up on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and a self-scheduling-precision improvement plus a fresh recheck for the dependabotany endo-but-for-bots scan. Nothing new is parked for the maintainer beyond the existing 29-PR queue.
+Little moved since the last bulletin: a single completion landed — a [deadmail report](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4847636571.md) recording an undeliverable issue-comment — and the board is now fully drained (todo and doin both empty). Recently settled work just ahead of this window included a reply on garden issue #9 about the functor stack, review follow-up on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and a dependabotany self-schedule refinement with a fresh endo-but-for-bots recheck. Nothing awaits maintainer action beyond the 29 parked PRs; the four go-ahead plans (cross-host token aggregation, the XS→Rust port, minion.town AWS deploy, and the ymax0 hex-fix verification) remain held for authorization.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`deadmail-issue-comment-4847636571`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4847636571.md) — Dead-lettered message — pick up its intent
+### doin (0)
+(none)
 
-### tada (698)
+### tada (699)
+- [`deadmail-issue-comment-4847636571`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4847636571.md) — Completion report
 - [`garden-issue-9-reply-mhofman-functor-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-reply-mhofman-functor-stack.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-179927d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-179927d7.md) — Completion report — job endojs-endo-but-for-bots-pr475-179927d7
 - [`improve-dependabotany-self-schedule-precise-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-dependabotany-self-schedule-precise-recheck.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260630-143503.md) — Completion report
-- [`daily-progress-summary-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260630-143503.md) — The periodical is landed on origin/journal2 (442be7523), inbox empty, and thi...
-- … and 693 more
+- … and 694 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
