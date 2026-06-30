@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T19:57:29Z_
+_As of 2026-06-30T19:58:52Z_
 
 ## Latest
 
-Two items are in flight: a gardener just claimed [garden#9](https://github.com/kriskowal/garden/issues/9)'s reply to mhofman's esbuild-functor / XS value-stack question (the thread behind the shipped `flatMap`→loop engine fix), and the attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) remains open. Recently landed: a more restrictive `byteArray`/`Uint8Array`-view build for the passable byte-arrays work, the encoding of erights' full maintainer authority into the garden, a tightened dependabotany self-schedule with a precise recheck of endo-but-for-bots, and the daily periodical (origin/journal2 at 442be7523, inbox empty). Maintainer attention is still concentrated on the long-parked queue — notably the freshest two, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, 15h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 14h).
+The lone board completion since the last bulletin closed out [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). Among the freshly-landed `tada` reports, gardeners shipped a bytearray Uint8Array-view restriction build on endo-but-for-bots, tightened the dependabotany self-scheduler to a precise recheck cadence, and landed the daily progress periodical (inbox now empty). One job remains in flight: a reply to mhofman's esbuild-functor / XS value-stack question on [garden#9](https://github.com/kriskowal/garden/issues/9), the same value-stack thread whose engine fix shipped via kriscendobot/moddable#1. Nothing new is parked for review — the 29-PR feedback queue is unchanged, with [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (15h) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (14h) the longest-waiting fresh arrivals.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr475-179927d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-179927d7.md) — attention directive on endojs/endo-but-for-bots PR #475
+### doin (1)
 - [`garden-issue-9-reply-mhofman-functor-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-reply-mhofman-functor-stack.md) — Answer mhofman's esbuild-functor / XS value-stack question on garden issue #9
 
-### tada (696)
+### tada (697)
+- [`endojs-endo-but-for-bots-pr475-179927d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-179927d7.md) — Completion report — job endojs-endo-but-for-bots-pr475-179927d7
 - [`improve-dependabotany-self-schedule-precise-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-dependabotany-self-schedule-precise-recheck.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260630-143503.md) — Completion report
 - [`daily-progress-summary-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260630-143503.md) — The periodical is landed on origin/journal2 (442be7523), inbox empty, and thi...
 - [`build-ebfb-bytearray-uint8array-view-restrictive`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-ebfb-bytearray-uint8array-view-restrictive.md) — Completion report
-- [`garden-encode-erights-maintainer-authority`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-erights-maintainer-authority.md) — Completion report
-- … and 691 more
+- … and 692 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
