@@ -54,3 +54,9 @@ Keep it short, in the existing juror-file shape (purpose / what it flags / verdi
   its own detector and juror).
 - Land on `main2` via an **isolated worktree off origin/main2** (commit explicit
   pathspecs, push `HEAD:main2`).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 85
+  claimed_at: 2026-06-30T04:53:50Z
