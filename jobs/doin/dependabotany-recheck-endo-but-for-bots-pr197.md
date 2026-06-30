@@ -30,3 +30,9 @@ This one-time schedule self-deletes after firing. The standing daily
 `dependabotany-recheck-endo-but-for-bots` sweep remains the heartbeat backstop;
 this targeted job exists to satisfy the maintainer's explicit ask that #197 be
 reevaluated at exactly the proposed time.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 45
+  claimed_at: 2026-06-30T23:05:35Z
