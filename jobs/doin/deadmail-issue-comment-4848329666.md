@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/9#issuecomment-4848329666
 @kriscendobot Continue. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 88
+  claimed_at: 2026-06-30T22:16:49Z
