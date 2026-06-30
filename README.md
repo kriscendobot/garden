@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T02:33:41Z_
+_As of 2026-06-30T02:44:54Z_
 
 ## Latest
 
-One job moved since the last bulletin: a gardener claimed [`comment-watcher-no-overlap-with-issue-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-overlap-with-issue-inbox.md), an infra fix to stop the comment-watcher from double-handling issue-comments already covered by the issue-inbox watcher; it's now in progress alongside the scholar's LangGraph/LangChain gap analysis. The board is otherwise drained (todo empty), and the [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) ymax0 v320 hex-fix work is staged but parked in the plan queue awaiting maintainer go-ahead to verify the fix and its stackCount snapshot compatibility.
+The only board movement since the last bulletin was a single completion: [`comment-watcher-no-overlap-with-issue-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-overlap-with-issue-inbox.md), garden infra that de-overlaps the comment-watcher from the issue-inbox watcher so the two leader-host surveillance surfaces don't double-handle the garden's own repo. The board is otherwise quiet — one job in flight (the scholar's LangGraph/LangChain gap analysis) and nothing in todo — while the plan queue still holds four go-ahead-awaiting items for maintainer authorization, notably the ymax0 hex-fix verification and the XS-to-Rust port.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 18h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 17h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 18h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
@@ -28,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`comment-watcher-no-overlap-with-issue-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-overlap-with-issue-inbox.md) — Comment-watcher must not overlap the issue-inbox: skip issue-comments on issu...
+### doin (1)
 - [`scholar-langgraph-langchain-gap-analysis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-langgraph-langchain-gap-analysis.md) — Scholar: learn LangGraph + LangChain, then post a gap-analysis research desig...
 
-### tada (617)
+### tada (618)
+- [`comment-watcher-no-overlap-with-issue-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-overlap-with-issue-inbox.md) — Completion report — comment-watcher-no-overlap-with-issue-inbox
 - [`kriskowal-garden-pr9-77668dda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-77668dda.md) — Done. Completion report follows.
 - [`deadmail-issue-comment-4839243615`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839243615.md) — Completion report
 - [`deadmail-issue-comment-4839140138`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839140138.md) — Completion report — deadmail-issue-comment-4839140138
 - [`kriskowal-garden-pr9-26cd5976`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-26cd5976.md) — Completion report: attention directive on kriskowal/garden#9
-- [`reproduce-ymax0-v320-real-chain-state-20260630`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reproduce-ymax0-v320-real-chain-state-20260630.md) — Everything is staged: build host ready, both bundle JSONs built, driver writt...
-- … and 612 more
+- … and 613 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
