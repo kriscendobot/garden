@@ -60,3 +60,9 @@ read-only retention-paths Chat UI: a per-value reveal affordance and a reactive
 floating Paths panel sourced from #284's `followRetentionPaths` host API, with
 the empty/many states and tests, opening DRAFT to run the gamut. Report the PR
 number.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 59
+  claimed_at: 2026-06-30T23:03:00Z
