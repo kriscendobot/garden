@@ -1,0 +1,21 @@
+# oauth-credentials
+
+## Abstract
+
+OAuth 2.0 application credential models for programmatic and delegated access, as a cross-cutting domain the garden touches today (the bot's GitHub tokens) and will touch as it grows (multibot host networking, web surfaces). The organizing distinction is **client-credentials** (a durable service credential minting short-lived, scope-bounded access tokens, tied to a service identity) versus **authorization-code** (a tool acting on behalf of a consenting user, carrying that user's identity). Tailscale's OAuth surface is the worked exemplar: OAuth clients realize the client-credentials half (scopes name reachable API endpoints, tags name grantable device identities, tokens expire hourly, the client is tailnet-owned and outlives its creator); OAuth apps realize the authorization-code half (a Tailscale-hosted consent screen, user-attributed audit and quotas). The recognition-and-application playbook built on this material is `skills/oauth-use-case-patterns/SKILL.md` on the garden's `main2` branch.
+
+## Sections
+
+| Section | Abstract |
+|---------|----------|
+| [OAuth clients: client-credentials, scopes, and token lifecycle](../sections/web--tailscale-oauth-clients--client-credentials-scopes-and-token-lifecycle.md) | A Tailscale OAuth client gives a program non-interactive API access via the client-credentials grant: a durable `(client ID, client secret)` pair mints short-lived (one-hour) access tokens whose scopes are fixed at creation, each scope mapping to a least-privilege slice of API endpoints. |
+| [Tags as capabilities and auth-key minting](../sections/web--tailscale-oauth-clients--tags-as-capabilities-and-auth-key-minting.md) | Tags are the second OAuth-client capability dimension: they name which device identities a token may confer; the `auth_keys` scope plus tags lets a durable client mint tag-owned auth keys and register nodes (`get-authkey`, `tailscale up --auth-key`). |
+| [Client setup and secret lifecycle](../sections/web--tailscale-oauth-clients--client-setup-and-secret-lifecycle.md) | Who may create an OAuth client (and only with scopes/tags they hold), the secret exposed exactly once, secure-storage duty, and the tailnet-owned rule that lets a client outlive the user who created it. |
+| [OAuth apps: user-delegated authorization-code model](../sections/web--tailscale-oauth-apps--user-delegated-authorization-code-model.md) | A Tailscale OAuth app lets a tool act on behalf of an individual user via the authorization-code flow; the authorization carries the user's identity, and the source draws the explicit OAuth-apps-versus-OAuth-clients decision contrast. |
+| [OAuth apps: requirements and limitations](../sections/web--tailscale-oauth-apps--requirements-and-limitations.md) | Preconditions (Owner/Admin, admin-scoped API token) and boundaries (single-tailnet authorization, non-customizable consent screen) of the OAuth-apps flow. |
+
+## See also
+
+- [capability-security](capability-security.md) — scoped, least-privilege, revocable credentials are object-capability discipline applied to API access; an OAuth scope is a capability and its endpoint set is the capability's reachable surface.
+- [networking](networking.md) — Tailscale OAuth clients provision and tag tailnet nodes; the tag dimension is networking-facing.
+- [agent-conventions](agent-conventions.md) — the endopi provider-registry-and-OAuth design material (subscription OAuth, `authShape`, authorization-code-with-PKCE) is the garden's other OAuth touchpoint.
