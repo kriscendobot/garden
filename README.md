@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T03:11:04Z_
+_As of 2026-06-30T03:23:53Z_
 
 ## Latest
 
-The scholar's LangChain + LangGraph library ingest is the only thing in motion: its first remainder batch landed (completion report refreshed) and the follow-on `scholar-ingest-langchain-langgraph-remainder-2` is now in progress, leaving the board otherwise drained — nothing in todo and a single job in flight. No new PR activity moved this cycle; the 29 parked PRs (top of queue: [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), both at 18h) continue to await maintainer review.
+Comment-watcher hardening continues to dominate the board: the [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) ymax0 hex-fix job and the `comment-watcher-no-overlap-with-issue-inbox` job both completed, and a follow-on to close the acknowledged cgroup-reap straggler gap on normal exit was just claimed. On the library side, the scholar finished its LangChain/LangGraph gap analysis and ingest. No new PRs surfaced for review this cycle — the 29 parked PRs are unchanged, with the gateway design ([endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343)) and the registry-capability feature ([endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)) now the longest-idle items still inside a day's wait.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 18h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 19h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 18h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -28,7 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-comment-watcher-cgroup-reap-on-normal-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-cgroup-reap-on-normal-exit.md) — Close the acknowledged straggler gap in scripts/jobs/comment-watcher.sh's cle...
 - [`scholar-ingest-langchain-langgraph-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder-2.md) — Scholar: finish the LangChain + LangGraph library ingest (remainder 2)
 
 ### tada (620)
