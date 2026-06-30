@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:17:09Z_
+_As of 2026-06-30T22:27:13Z_
 
 ## Latest
 
-The headline is the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) CapTP error-tracing builder, which is running in the background and has just landed the PR into the parked queue awaiting kriskowal's review (38m). On the Agoric front, the inquisitor closed out its ymax0 `hex.js` value-stack-overflow reproduction — the engine fix that shipped on garden#17 — and a follow-on plan to verify the fix plus stackCount snapshot-compatibility sits in the queue awaiting maintainer go-ahead. Otherwise the board is quiet: todo is empty, three issue-comment dead-letters were triaged to completion (one still in flight), and the garden#9 functor-stack question got a reply drafted for mhofman. Worth a look in the parked set: the long-waiting [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 15d) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 17h).
+A new issue from kriskowal, [kriskowal/garden#18](https://github.com/kriskowal/garden/issues/18), was claimed off the board and is now in progress — the only board transition since the last bulletin. Otherwise the queue is quiet: nothing in `todo`, and the recent completions center on the ymax0 hex work (the `inquisitor-ymax0-hex-repro` repro landed) and a reply on garden#9 about the functor stack. A builder is still running in the background on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), which leads the parked-for-review set at 52 minutes. Worth a maintainer's eye: the ymax0 verification plan (`verify-ymax0-hex-fix-inquisitor`) and the XS-to-Rust port plan both sit in the queue awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 38m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 52m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
@@ -28,8 +28,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`deadmail-issue-comment-4848329666`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4848329666.md) — Dead-lettered message — pick up its intent
+- [`issue-kriskowal-garden-18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-18.md) — Issue from kriskowal on kriskowal/garden #18
 
 ### tada (702)
 - [`inquisitor-ymax0-hex-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/inquisitor-ymax0-hex-repro.md) — Completion report
