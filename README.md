@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-06-30T06:20:25Z_
+_As of 2026-06-30T06:53:45Z_
 
 ## Latest
 
-The byteArray view design doc, [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572), drew a three-comment review from erights that resolved its open questions: the sub-view question goes restrictive (whole-buffer-span, captured as issue #573), the disposition question resolves to "withdraw all and open fresh," and helper-naming is deferred to you. A gardener recorded the disposition as Design Decision 6 on the PR branch (c31c6a312) but **two messages now await your authorization**, because executing the withdrawal crosses repos and arrived via an untrusted PR comment: closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (bot can, but PR-close isn't covered by standing authorization), closing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (outside bot scope — you or the boatman), and opening a fresh view-based implementation PR. Separately, [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) both reached completion this cycle, and the board is now fully drained (todo and doin empty).
+The headline is [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) (byteArray view design): erights left a three-comment review resolving the doc's open questions. Two gardeners recorded the design-of-record bookkeeping autonomously — the disposition decision ("withdraw all, open fresh") is now captured as Design Decision 6, the sub-view question resolved to the restrictive whole-buffer-span option (Decision 3, tracked as issue #573) — but the lifecycle execution is parked for you: two maintainer messages request authorization to close [#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [#57](https://github.com/endojs/endo-but-for-bots/pull/57), to withdraw upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (boatman/identity path), and to open a fresh view-based implementation PR seeded from the narrow-bytearray-to-uint8 prototype. The helper-naming question erights explicitly deferred to you. Separately, [#57](https://github.com/endojs/endo-but-for-bots/pull/57) completed and an attention directive on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) is in flight, with a related restage of #57 onto #475 parked in the plan queue awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 22h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 21h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 22h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 14d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 39d)
@@ -69,8 +69,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr475-3c9d5c5e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-3c9d5c5e.md) — attention directive on endojs/endo-but-for-bots PR #475
 
 ### tada (688)
 - [`endojs-endo-but-for-bots-pr475-14cfb16e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-14cfb16e.md) — Completion report — job endojs-endo-but-for-bots-pr475-14cfb16e
