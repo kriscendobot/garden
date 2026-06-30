@@ -350,6 +350,21 @@ is the deterministic counterpart to the refiner: the refiner adds arms where the
 market is expensive; the consolidator removes arms that are redundant or
 dominated. Together they hold the role set near a useful working size.
 
+The test that decides "statistically indistinguishable" is **not frozen at design
+time**. Its three knobs — the **test** itself (the distributional comparison), its
+**significance/power**, and the **trailing window** of events it reads — are a
+journal **control parameter**, `reputation/consolidator-stats.md` (config, §7), so
+they can be retuned without a code change. The tension is real and two-sided: a
+loose setting merges too eagerly and erases distinctions the market would have
+rewarded; a strict one never consolidates and lets the arm space bloat. Neither
+failure is knowable in advance, so the parameter is **watched and optimized**. The
+bulletin surfaces every consolidator merge and prune with the evidence that drove
+it, and the maintainer (or a later scheduled tuner) ratchets the knobs against the
+observed merge-and-prune rate — tightening when good arms are being merged away,
+loosening when redundant arms persist. This is the explicit shape the maintainer
+chose for this question (§9): a tunable journal knob with a feedback loop, not a
+constant guessed at design time.
+
 ### 6.3 Hierarchical discovery (the follow-on)
 
 The richer option the directive offers as an alternative: roles form a **tree**
@@ -384,6 +399,7 @@ service**.
 reputation/pricing.md                       per-model notional $/token table (config)
 reputation/weights-default.md               default urgency/quality/cost demand weights (config)
 reputation/role-cap                         per-kind active-role cap (config)
+reputation/consolidator-stats.md            consolidator indistinguishability test, power, and trailing window (config; §6.2)
 reputation/ledger/<Y>/<M>/<D>/...           append-only events (source of truth)
 reputation/arms/<role>@<model>/<kind>.md    per-arm cost+acceptance posterior (derived projection)
 reputation/roles/<role>.md                  role record: lineage (parent), birth event, prior, status
@@ -464,9 +480,6 @@ set. Nothing here can break the live race-by-default fleet.
   attempt for **reputation**, while the **job's** total cost (the sum across arms)
   is tracked separately for kind-level economics. Reputation should reflect an
   arm's own efficiency, not penalize it for a predecessor's failure.
-- **The consolidator's statistics.** Which test decides two roles are
-  "indistinguishable" (§6.2), at what power, over what trailing window? A weak test
-  merges too eagerly; a strong one never consolidates.
 - **Synthetic-replay overfitting.** Does posing-as-customer (§2.2) train arms to
   historical artifacts rather than to general capability? The acceptance-gate
   scoring and wide-variance seeding mitigate it, but the residual risk is carried
@@ -497,11 +510,14 @@ set. Nothing here can break the live race-by-default fleet.
   aimed at observed gaps (§5).
 - **The bound:** a hard cap with forced churn plus a consolidator that merges
   redundant and prunes dominated roles, with a hierarchical role tree as the
-  follow-on (§6).
+  follow-on (§6). The consolidator's indistinguishability test, its power, and its
+  trailing window are a **journal control parameter**
+  (`reputation/consolidator-stats.md`), watched and optimized through the bulletin
+  rather than frozen at design time (§6.2).
 
 **Defers** (follow-on designs): the hierarchical role-tree mechanics (§6.3);
 whether the token quota also displays as a notional dollar burn-down (§9); requeue
-cost-attribution edge cases (§9); the consolidator's statistical test (§9); and
+cost-attribution edge cases (§9); and
 the meta-machine of competing gardens (still the market design's §5.2).
 
 ## References
