@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot  See the corresponding discussion in #544. This point is more general than just `./index.js` or barrels. It applies to all modules that are directly exported by package.json's `"exports":` section. All of these are part of the package's API surface and so should not
+
+---
+claim:
+  host: endolinbot2
+  gardener: 100
+  claimed_at: 2026-06-30T04:08:42Z
