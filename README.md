@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:13:34Z_
+_As of 2026-06-30T04:14:15Z_
 
 ## Latest
 
-The conductor merge of [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) landed, and the review pass on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) wrapped up — though an attention directive on #544 is still in flight (claimed, in `doin`), so that PR isn't fully closed out yet. A dead-lettered issue-comment job is also being picked up for its intent. Otherwise the board is quiet: nothing in `todo`, and the plan queue's notable items ([verify-ymax0-hex-fix-inquisitor](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) and the XS-to-Rust port) remain parked awaiting maintainer go-ahead.
+Quiet cycle: the only board movement was [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) completing its last open job, closing out the review-and-conduct chain that ran on that PR. One item lingers in `doin` — a dead-lettered issue comment ([`deadmail-issue-comment-4839753598`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4839753598.md)) someone should pick up its intent on. The `todo` queue is empty and four plans still sit parked awaiting maintainer go-ahead (the ymax0 hex-fix verification, the XS-to-Rust port, the minion.town AWS deploy, and cross-host token aggregation). Otherwise the maintainer's main signal is the review backlog: 29 PRs parked, with [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) now oldest among the recently-surfaced set.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`deadmail-issue-comment-4839753598`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4839753598.md) — Dead-lettered message — pick up its intent
-- [`endojs-endo-but-for-bots-pr544-48da5b1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-48da5b1e.md) — attention directive on endojs/endo-but-for-bots PR #544
 
-### tada (653)
+### tada (654)
+- [`endojs-endo-but-for-bots-pr544-48da5b1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-48da5b1e.md) — Completion report — job endojs-endo-but-for-bots-pr544-48da5b1e
 - [`endojs-endo-but-for-bots-pr544-review-d697e96d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-d697e96d.md) — Inbox empty, redundant worktree removed. Job complete.
 - [`endojs-endo-but-for-bots-pr544-493f718b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-493f718b.md) — Completion report
 - [`endojs-endo-but-for-bots-pr405-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr405-conduct.md) — Conductor dispatched and running. I'll be re-invoked when it completes (or at...
 - [`endojs-endo-but-for-bots-pr544-review-34a03163`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-34a03163.md) — Completion report
-- [`endojs-endo-but-for-bots-pr544-review-2901dfe7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-2901dfe7.md) — Completion report
-- … and 648 more
+- … and 649 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
