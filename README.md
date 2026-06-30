@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:38:42Z_
+_As of 2026-06-30T23:40:26Z_
 
 ## Latest
 
-A gardener working `endo-hex-tiered-codec-port` surfaced that the premise is already satisfied: `@endo/hex` (published `@endo/hex@1.1.1`) exists upstream and is mirrored in endo-but-for-bots, already tiered (native `Uint8Array.fromHex`/`toHex` with a bounded-loop pure-JS floor) and XS-safe — no `flatMap`, no large-array spread, no module-scope decode map — with a witness round-trip and the existing test suite covering every correctness pin. The gardener declined to diverge the mirror by adding a Buffer tier or map-table floor and is asking the maintainer whether to close the job as already-satisfied or re-scope it to the genuinely-remaining work: slimming [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) to depend on `@endo/hex` and drop its in-tree `hex.js` (note `@endo/hex`'s error text differs, so #7's exact-string assertions would need a tweak). Related hex work is still in flight — a Richard Gibson feedback pass on the same agoric-sdk fork PR and a platform-benchmark-table builder job for `@endo/hex` on endo-but-for-bots master. Separately, an attention directive landed on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), now the freshest item parked for review.
+Three jobs closed since the last bulletin. The [agoric-sdk fork #7](https://github.com/kriscendobot/agoric-sdk/pull/7) Richard-Gibson-feedback pass landed, and [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) completed and is now parked for kriskowal's review. The `endo-hex-tiered-codec-port` job closed with a finding worth a maintainer decision: `@endo/hex` already exists upstream (published `@endo/hex@1.1.1`, mirrored in endo-but-for-bots), is already XS-safe (bounded for-loops, no `flatMap`/large-array spread, no module-scope decode map), and passed a standalone 0..255 round-trip + 1 MiB witness — so the gardener declined to fork-diverge the mirror and is asking whether to close the job as already-satisfied or re-scope it to slimming agoric-sdk #7 down onto the existing `@endo/hex`. Still in flight: a builder is benchmarking and building the `@endo/hex` package across platforms on the bot fork, and a scholar is ingesting the Tailscale OAuth-apps docs toward a garden OAuth skill.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 30s)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 18h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -47,20 +47,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
-- [`agoric-sdk-fork-pr-7-apply-richard-gibson-feedback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-apply-richard-gibson-feedback.md) — Apply Richard Gibson's feedback to the mirror kriscendobot/agoric-sdk#7
+### doin (2)
 - [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder: create @endo/hex on endo-but-for-bots master — best-on-all-platforms...
-- [`endo-hex-tiered-codec-port`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-hex-tiered-codec-port.md) — Design + build a tiered @endo/hex codec in endo-but-for-bots
-- [`endojs-endo-but-for-bots-pr58-1446f9e1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-1446f9e1.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`scholar-ingest-tailscale-oauth-apps-and-oauth-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-tailscale-oauth-apps-and-oauth-skills.md) — Scholar: ingest Tailscale OAuth-apps doc + produce garden OAuth use-case skil...
 
-### tada (733)
+### tada (736)
+- [`agoric-sdk-fork-pr-7-apply-richard-gibson-feedback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-apply-richard-gibson-feedback.md) — Completion report — agoric-sdk-fork-pr-7-apply-richard-gibson-feedback
+- [`endojs-endo-but-for-bots-pr58-1446f9e1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-1446f9e1.md) — Completion report
+- [`endo-hex-tiered-codec-port`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-hex-tiered-codec-port.md) — Completion report — endo-hex-tiered-codec-port
 - [`kriskowal-garden-pr16-review-39c42194`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-review-39c42194.md) — Completion report
 - [`kriskowal-garden-pr16-3c8d784d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-3c8d784d.md) — Completion report — job kriskowal-garden-pr16-3c8d784d
-- [`kriskowal-garden-pr16-eabd1e1d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-eabd1e1d.md) — Completion report — job kriskowal-garden-pr16-eabd1e1d
-- [`ebfb-retention-paths-chat-panel`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retention-paths-chat-panel.md) — Completion report
-- [`deadmail-issue-comment-4848697844`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4848697844.md) — Completion report — dead-lettered deadmail-issue-comment-4848697844
-- … and 728 more
+- … and 731 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
