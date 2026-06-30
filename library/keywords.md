@@ -13517,3 +13517,25 @@ CSS feature detection | progressive-enhancement-supports
 progressive enhancement (CSS) | progressive-enhancement-supports
 `@supports not` | progressive-enhancement-supports
 appearance base-select fallback | progressive-enhancement-supports
+LangChain | langchain
+create_agent | langchain
+LCEL | langchain
+LangChain Expression Language | langchain
+RAG | langchain
+Retrieval-Augmented Generation | langchain
+Agentic RAG | langchain
+LangGraph | langgraph
+StateGraph | langgraph
+super-step | langgraph
+Pregel | langgraph
+add_messages | langgraph
+MessagesState | langgraph
+`Send` (LangGraph) | langgraph
+`Command` (LangGraph) | langgraph
+checkpointer | langgraph-checkpointer
+BaseCheckpointSaver | langgraph-checkpointer
+durability mode | langgraph-checkpointer
+time travel (LangGraph) | langgraph-checkpointer
+thread_id | langgraph-checkpointer
+pending writes | langgraph-checkpointer
+LangGraph store | langgraph-checkpointer
