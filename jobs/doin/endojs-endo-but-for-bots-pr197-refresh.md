@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 ## Dependabotany verdict: MERGE-NOW (embargo lifted, conducted onto `llm`) One-time embargo reevaluation fired at the maintainer's proposed time (the **EMBARGO-2026-06-30** maturity floor from the 2026-06-24T16:21Z verdict), per [kriskowal's 2026-06-25 ask](https://github.com/end
+
+---
+claim:
+  host: endolinbot2
+  gardener: 57
+  claimed_at: 2026-06-30T23:20:45Z
