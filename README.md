@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:21:13Z_
+_As of 2026-06-30T05:22:07Z_
 
 ## Latest
 
-The shepherd run on [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) just completed and its directive is back in flight, while attention directives on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and the byteArray-as-frozen-Uint8Array-view redesign remain claimed and in progress. Recent completions cleared a batch of endo-but-for-bots work — rebases on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#57](https://github.com/endojs/endo-but-for-bots/pull/57), plus follow-through on [#429](https://github.com/endojs/endo-but-for-bots/pull/429) and a builder launch on [#58](https://github.com/endojs/endo-but-for-bots/pull/58). Worth a look: the passable-byte-arrays feature [#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the CapTP error-tracing PR [#58](https://github.com/endojs/endo-but-for-bots/pull/58) both freshly surfaced for review, and the board is otherwise drained (todo empty), with the XS-to-Rust port and ymax0 hex-fix verification still parked awaiting maintainer go-ahead.
+The [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) passable-byte-arrays line advanced: the `ebfb-bytearray-uint8array-view-redesign` job completed, reworking the byteArray-as-Uint8Array-view approach. Otherwise the board is quiet — a new infrastructure job to improve reactji failure-diagnostic surfacing in the shared `comment-reactji-gh.sh` poster was claimed and is in progress, alongside in-flight attention and shepherd directives on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571).
 
 ## Parked for maintainer feedback
 
@@ -29,17 +29,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (3)
-- [`ebfb-bytearray-uint8array-view-redesign`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-bytearray-uint8array-view-redesign.md) — design: byteArray maps a frozen Uint8Array view, not a bare immutable ArrayBu...
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr571-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr571-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #571
+- [`improve-reactji-failure-diagnostic-surfacing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reactji-failure-diagnostic-surfacing.md) — In scripts/jobs/handlers/comment-reactji-gh.sh (the shared reactji poster for...
 
-### tada (673)
+### tada (674)
+- [`ebfb-bytearray-uint8array-view-redesign`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-bytearray-uint8array-view-redesign.md) — Completion report — job ebfb-bytearray-uint8array-view-redesign
 - [`endojs-endo-but-for-bots-pr571-72197ae9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-72197ae9.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-rebase.md) — Completion report — endojs-endo-but-for-bots-pr475-rebase
 - [`endojs-endo-but-for-bots-pr429-248d107b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr429-248d107b.md) — Completion report — endojs-endo-but-for-bots-pr429-248d107b
 - [`endojs-endo-but-for-bots-pr57-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr57-rebase.md) — Completion report — endojs-endo-but-for-bots-pr57-rebase
-- [`endojs-endo-but-for-bots-pr58-8585f202`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-8585f202.md) — I've launched the implementation. Current status: builder running in the back...
-- … and 668 more
+- … and 669 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
