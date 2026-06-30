@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T20:45:09Z_
+_As of 2026-06-30T20:47:43Z_
 
 ## Latest
 
-The board is fully drained — nothing in todo or doin — after a batch of completions led by review work on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), a reply to mhofman on the garden#9 functor-stack thread, and a self-improvement to dependabotany that gives it precise self-scheduled rechecks (its latest endo-but-for-bots recheck has already cleared). One thing to notice: the journal-worktree-keeper has flagged that `/home/kris/journal` on **endolinbot2** has diverged from `origin/journal2` (3 commits ahead, 5695 behind, 6 dirty paths) and was deliberately left untouched — it needs a manual reconcile before that local work is at risk. The plan queue still holds four items awaiting your go-ahead, including the ymax0 hex-fix verification and the XS-to-Rust port.
+The board is fully drained (nothing in todo or doin) after a quiet cycle; recent completions cluster around the ymax0 thread and dependency hygiene. A gardener posted the reply to mhofman on the functor-stack question in [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9), follow-up landed on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and dependabotany gained precise self-scheduled rechecks (with a fresh endo-but-for-bots recheck run). Worth a look: three go-ahead plans are parked awaiting your authorization — verifying the ymax0 hex fix and stackCount snapshot-compatibility, the XS-to-Rust memory-safe-engine port, and the minion.town AWS deploy. On the review side, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) have now waited 15h at the front of the parked queue.
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ The board is fully drained — nothing in todo or doin — after a batch of comp
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260630T204502Z-866a26` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T204502Z-866a26.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5695 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
