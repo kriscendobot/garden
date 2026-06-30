@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/9#issuecomment-4839753598
 Please verify that the snapshot is still downloading. If it is not making progress, attempt to resume the download with ranged reads so we do not lose progress. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 67
+  claimed_at: 2026-06-30T04:10:50Z
