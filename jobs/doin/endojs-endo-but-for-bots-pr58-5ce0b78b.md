@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 > ## Acceptance criteria >  > Running the command: >  > ``` > /js throw new Error("x") > ``` >  > should produce, in the chat UI, **all** of the following: >  >     1. **The error message** — `x` rendered in the error bubble (this already works today). >  >     2. **A stack tra
+
+---
+claim:
+  host: endolinbot2
+  gardener: 67
+  claimed_at: 2026-06-30T21:35:08Z
