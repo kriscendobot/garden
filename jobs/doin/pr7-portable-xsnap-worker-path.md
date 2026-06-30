@@ -32,3 +32,9 @@ yields the worker binary). Don't regress the Node benchmark or the hex tests.
 `/home/kris` hard-coding, pushed to PR #7's branch, with a top-level summary comment on the FORK
 PR #7 describing the fix and that it addresses the reviewer's portability feedback. No upstream
 interaction, no upstream PR reference in artifacts.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 45
+  claimed_at: 2026-06-30T04:44:13Z
