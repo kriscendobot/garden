@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-06-30T21:56:22Z_
+_As of 2026-06-30T22:13:11Z_
 
 ## Latest
 
-The inquisitor's ymax0 `hex.js` reproduction job (`inquisitor-ymax0-hex-repro`) completed and moved to done — the only board transition this cycle. It confirms the XS `flatMap`→loop value-stack fix for the v320 70→71 overflow, the engine change that shipped as moddable#1. The follow-on `verify-ymax0-hex-fix-inquisitor` plan (full repro plus a stackCount snapshot-compatibility check) is still parked awaiting maintainer go-ahead. Otherwise the board is quiet: nothing in todo or doin, and 29 PRs remain parked for kriskowal — most notably the recently-surfaced [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, ~20m) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 16h).
+The board is quiet — nothing posted, claimed, or completed since the last bulletin, and both todo and doin are empty. The most recent completions were the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) builder run (error tracing across CapTP workers, now parked for review at 38m) and the inquisitor's ymax0 `hex.js` stack-overflow reproduction, with a follow-on plan (`verify-ymax0-hex-fix-inquisitor`) awaiting maintainer go-ahead to confirm the flatMap→loop engine fix and its stackCount snapshot compatibility. Twenty-nine PRs are now parked for kriskowal — newest at the front, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 17h), and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 1d) — and four plans sit in the go-ahead queue pending authorization.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 20m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 16h)
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 38m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 15d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 40d)
