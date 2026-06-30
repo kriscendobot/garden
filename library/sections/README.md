@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6028 (525 parent indexes + 5503 children).
+Total section files: 6036 (525 parent indexes + 5511 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8014,6 +8014,20 @@ Total section files: 6028 (525 parent indexes + 5503 children).
 
 - [web--langgraph-stores--basestore-namespaces-and-semantic-search](web--langgraph-stores--basestore-namespaces-and-semantic-search.md)
 - [web--langgraph-stores--building-a-custom-store](web--langgraph-stores--building-a-custom-store.md)
+
+### web--langgraph-streaming
+
+- [web--langgraph-streaming--advanced-any-llm-disable-and-v2-migration](web--langgraph-streaming--advanced-any-llm-disable-and-v2-migration.md)
+- [web--langgraph-streaming--custom-subgraph-checkpoint-task-and-debug](web--langgraph-streaming--custom-subgraph-checkpoint-task-and-debug.md)
+- [web--langgraph-streaming--graph-state-and-llm-token-streaming](web--langgraph-streaming--graph-state-and-llm-token-streaming.md)
+- [web--langgraph-streaming--stream-modes-and-v2-streampart-format](web--langgraph-streaming--stream-modes-and-v2-streampart-format.md)
+
+### web--langgraph-use-functional-api
+
+- [web--langgraph-use-functional-api--human-in-the-loop-interrupt-and-review](web--langgraph-use-functional-api--human-in-the-loop-interrupt-and-review.md)
+- [web--langgraph-use-functional-api--persistence-resume-and-short-term-memory](web--langgraph-use-functional-api--persistence-resume-and-short-term-memory.md)
+- [web--langgraph-use-functional-api--programming-model-entrypoint-and-task](web--langgraph-use-functional-api--programming-model-entrypoint-and-task.md)
+- [web--langgraph-use-functional-api--retries-timeouts-and-caching](web--langgraph-use-functional-api--retries-timeouts-and-caching.md)
 
 ### web--langgraph-use-graph-api
 
