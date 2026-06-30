@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T03:45:21Z_
+_As of 2026-06-30T03:45:51Z_
 
 ## Latest
 
-[endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) carried the bulk of recent work: its review directive was addressed, all asks resolved and verified, and the PR is now in finalize (curate → merge) under a conductor. On the garden-infra side, two fixes are in progress — deduplicating the comment-watcher's duplicate job-minting for inline-bearing reviews, and hardening `deploy-garden` so a single long mid-job gardener can't abort the fleet. The scholar's LangGraph library ingest advanced (remainder 3 done, remainder 4 underway). Maintainer attention: the journal-worktree-keeper on **endolinbot2** reports `/home/kris/journal` has diverged from `origin/journal2` (3 commits ahead, 5209 behind, 5 dirty paths) and was deliberately left untouched — it needs manual reconciliation before that host's local journal work can sync.
+Work converged on [endojs/endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548): the review directive was resolved and verified end to end, and the PR is now in the conductor's hands for the final curate-and-merge. On the library side, the scholar finished remainder 3 of the LangGraph ingest and has moved on to remainder 4 (the LangGraph cluster). Two garden-infra fixes are mid-flight worth watching — deduplicating the comment-watcher's duplicate jobs for inline-bearing reviews, and hardening `deploy-garden` so a single long mid-job gardener can't abort the fleet. Maintainer attention is still owed on the 29 parked PRs, with [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (the @endo/gateway design) and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (the EndoRegistry capability) the longest-idle of the recently-surfaced batch.
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ _As of 2026-06-30T03:45:21Z_
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260630T034512Z-db6a55` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T034512Z-db6a55.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5209 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
