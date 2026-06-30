@@ -74,15 +74,26 @@ components the maintainer named:
   input + output + cache-creation tokens over a window). A per-model price table
   (`reputation/pricing.md`, journal config) converts those tokens to dollars.
 
-  Honesty note: the whole fleet runs on a single Claude Max subscription, not a
-  metered API key (see the billing model documented at the top of
-  `usage-meter.sh`). So the marginal dollar cost of any one job is effectively
-  zero against a flat monthly fee. The dollar figure here is therefore
+  **Dollars is the normalization unit** (maintainer directive on this design):
+  cost normalizes to dollars, *not* to the Claude-subscription token quota, even
+  though the quota is today's binding constraint (§9). The reason is the future
+  the directive names: the garden **will eventually bid across other LLM
+  providers**, and dollars is the only common denominator across them. Token
+  counts are not comparable across providers (different tokenizers, different
+  per-token prices), and a Claude-subscription quota is Claude-specific, so
+  neither survives a multi-provider market. Dollars does. We commit to it now so
+  the measure is provider-agnostic from the start.
+
+  Honesty note: today the whole fleet runs on a single Claude Max subscription,
+  not a metered API key (see the billing model documented at the top of
+  `usage-meter.sh`). So the marginal dollar cost of any one job is currently
+  effectively zero against a flat monthly fee, and the dollar figure is therefore
   **notional**: tokens valued at public API list prices. That is still the right
   yardstick, because it makes models *comparable* (Opus costs more notional
-  dollars per token than Haiku) even when the real bill is flat. We measure
-  notional dollars to *rank* arms, not to settle an invoice. (See §9 for whether
-  notional is the right long-run unit.)
+  dollars per token than Haiku) even when the real bill is flat, and it becomes a
+  *real* marginal cost the moment a metered (or competing-provider) arm bids. We
+  measure notional dollars to *rank* arms today; the same dollar axis settles a
+  real invoice once arms bill per token.
 
 - **Duration.** Wall-clock from award (the accept push that moves
   `todo -> doin`) to acceptance (the oracle pass that moves `submitted -> tada`).
@@ -435,11 +446,14 @@ set. Nothing here can break the live race-by-default fleet.
 
 ## 9. Open questions
 
-- **Notional dollars under a flat subscription.** The dollar figure is tokens at
-  API list prices, not a real marginal bill (§1.2). Is notional-dollar comparison
-  the right long-run unit, or should the measure track the subscription's real
-  scarce resource (the weekly token quota) directly, with dollars only as a
-  human-readable display? The quota is the thing that actually binds.
+- **The token quota is today's real binding constraint.** Dollars is the settled
+  normalization unit (§1.2, maintainer directive: normalize to dollars for the
+  multi-provider future). Under today's flat Claude subscription, though, the
+  scarce resource that actually binds is the **weekly token quota**, not dollars.
+  The resolved shape: dollars is the cross-provider *cost* axis the bandit
+  optimizes; the quota stays a separate *budget* gate that throttles exploration
+  near the cap (§4.2). Open: whether the quota should also display as a notional
+  dollar burn-down for the maintainer, or stay a distinct token gauge.
 - **Duration is contended by fleet load.** A job can be slow because a hundred
   gardeners are busy, not because its arm is slow. Should duration be normalized
   by concurrent fleet load at award time, or is duration noisy enough that the
@@ -465,9 +479,11 @@ set. Nothing here can break the live race-by-default fleet.
 **Decides:**
 
 - **The measurement model:** effectiveness is a gate (binary acceptance), cost is
-  the free variable, normalized to notional **dollars** (metered tokens at list
-  prices) and **duration** (award-to-acceptance wall-clock), unified as weighted
-  **cost per accepted job** that folds the acceptance rate back in (§1).
+  the free variable, normalized to **dollars** (the cross-provider unit, metered
+  tokens at list prices — notional today under a flat subscription, real once arms
+  bill per token or other providers bid) and **duration** (award-to-acceptance
+  wall-clock), unified as weighted **cost per accepted job** that folds the
+  acceptance rate back in (§1).
 - **The bootstrap:** retrospective seeding from the journal's own
   `todo`/`tada` history as the basis for the current fleet, plus synthetic
   `tada`-replay for thin arms and newcomers, scored by re-running the original
@@ -483,10 +499,10 @@ set. Nothing here can break the live race-by-default fleet.
   redundant and prunes dominated roles, with a hierarchical role tree as the
   follow-on (§6).
 
-**Defers** (follow-on designs): the hierarchical role-tree mechanics (§6.3); the
-notional-versus-real cost unit (§9); requeue cost-attribution edge cases (§9); the
-consolidator's statistical test (§9); and the meta-machine of competing gardens
-(still the market design's §5.2).
+**Defers** (follow-on designs): the hierarchical role-tree mechanics (§6.3);
+whether the token quota also displays as a notional dollar burn-down (§9); requeue
+cost-attribution edge cases (§9); the consolidator's statistical test (§9); and
+the meta-machine of competing gardens (still the market design's §5.2).
 
 ## References
 
