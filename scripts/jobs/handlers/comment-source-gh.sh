@@ -5,7 +5,17 @@
 #
 # Emits one TSV line per PR/issue comment, review comment, and review body the
 # repo produced at or after <since-iso>, newest position last (ascending). The
-# watcher classifies and acts; this handler only fetches. Translates the v1
+# watcher classifies and acts; this handler only fetches.
+#
+# Self-authored rows are DROPPED at the source: every surface filters out comments
+# and reviews whose author is <bot-login>. The bot reacting to its OWN comments is
+# a feedback loop with no legitimate case, and the verb classifier keys on phrasing,
+# so the bot's own status notes generate spurious directives. Observed on endo-but-
+# for-bots #57: the bot's "I've parked the restage of this PR pending #475 ... I'm
+# holding until #475 settles" comment (whose intent is NOT to rebase) was classified
+# as a `rebase` directive and spawned a premature rebase job onto a still-moving
+# base. Trusted EXTERNAL senders are still gated downstream by the watcher; only the
+# bot's own login is dropped here. Translates the v1
 # polling skills (github-activity-poll, activity-feed-watcher,
 # at-mention-surveillance) onto the typed comment endpoints:
 #
@@ -107,8 +117,9 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 #    with no extra API call. The watcher skips issue-comment in PR-only mode but
 #    always keeps pr-comment.
 gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&per_page=100" 2>/dev/null \
-  | jq -r --arg s "$since" "
+  | jq -r --arg s "$since" --arg bot "$bot" "
       .[] | select(.created_at >= \$s)
+      | select((.user.login // \"\") != \$bot)
       | [ .created_at,
           (if ((.html_url // \"\") | test(\"/pull/\")) then \"pr-comment\" else \"issue-comment\" end),
           (.id|tostring),
@@ -184,8 +195,9 @@ while IFS=$'\t' read -r n updated; do
           | jq -r '.[] | (.pull_request_review_id // empty) | tostring' \
           | sort -u | tr '\n' ' ')" || { rids=""; cat "$rids_err" >&2; }
   gh_api_retry "repos/$repo/pulls/$n/reviews" 2>/dev/null \
-    | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " '
+    | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " --arg bot "$bot" '
         .[] | select((.submitted_at // "") >= $s)
+        | select((.user.login // "") != $bot)
         | (.id|tostring) as $rid
         | ($rids | contains(" " + $rid + " ")) as $inline
         | select(((.body // "") != "") or $inline or (.state=="APPROVED"))
@@ -220,8 +232,9 @@ cat "$s3out"
 #    closed or out-of-activity-bound PR, or a standalone PR-line comment with no formal
 #    review) keeps the actionable pr-review-comment surface so it is never lost.
 gh_api_retry --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>/dev/null \
-  | jq -r --arg s "$since" --arg rids " $surfaced_inline_rids " "
+  | jq -r --arg s "$since" --arg rids " $surfaced_inline_rids " --arg bot "$bot" "
       .[] | select(.created_at >= \$s)
+      | select((.user.login // \"\") != \$bot)
       | ((.pull_request_review_id // \"\") | tostring) as \$rid
       | (if (\$rid != \"\") and (\$rids | contains(\" \" + \$rid + \" \"))
          then \"pr-review-comment-subsumed\" else \"pr-review-comment\" end) as \$surface
