@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T02:51:18Z_
+_As of 2026-06-30T02:52:02Z_
 
 ## Latest
 
-The scholar wrapped up its [LangChain + LangGraph gap analysis](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-langgraph-langchain-gap-analysis.md) and immediately spun off a [follow-on](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-ingest-langchain-langgraph-remainder.md) to finish ingesting the remainder of that library — now the sole open item on the board. Otherwise quiet: nothing else claimed or landed, and the parked queue still leads with the maintainer-feedback PRs awaiting kriskowal's review.
+A gardener claimed [`scholar-ingest-langchain-langgraph-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder.md), picking up the remainder of the LangChain + LangGraph library ingest after the [gap-analysis pass](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-langgraph-langchain-gap-analysis.md) landed; it is the only job currently in flight, and the board is otherwise drained (todo empty). Worth a maintainer's eye: the plan queue still parks four go-ahead-awaiting items needing authorization — the cross-host weekly token aggregation, the XS-to-Rust port, the minion.town AWS deploy, and the ymax0 hex-fix verification.
 
 ## Parked for maintainer feedback
 
@@ -25,11 +25,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 (no pending maintainer messages)
 
 ## Board
-### todo (1)
-- [`scholar-ingest-langchain-langgraph-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-ingest-langchain-langgraph-remainder.md) — Scholar: finish the LangChain + LangGraph library ingest (remainder)
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`scholar-ingest-langchain-langgraph-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder.md) — Scholar: finish the LangChain + LangGraph library ingest (remainder)
 
 ### tada (619)
 - [`scholar-langgraph-langchain-gap-analysis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-langgraph-langchain-gap-analysis.md) — Completion report: scholar-langgraph-langchain-gap-analysis
