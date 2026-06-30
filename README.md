@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:29:07Z_
+_As of 2026-06-30T23:30:15Z_
 
 ## Latest
 
-Two garden-internal jobs landed this cycle: the comment-watcher now [drops actionable directives on already-merged PRs](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-drop-directive-on-merged-pr.md) (avoiding follow-up churn on closed work), and one of the attention directives on [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16) was resolved. Four more [#16](https://github.com/kriskowal/garden/pull/16) directives (three attention, one review) remain in flight, alongside in-progress work applying Richard Gibson's feedback to the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) mirror and the next read-only retention-paths Chat panel following [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284). The todo board is drained to zero; the freshest item awaiting kriskowal is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, parked 23m).
+A completion report landed on [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16), and a builder picked up the `@endo/hex` package job on endo-but-for-bots master — standing up the package with a best-on-all-platforms benchmark table, the productization of the XS `flatMap`→loop hex fix. Three more PR #16 directives (two attention, one review) remain in flight alongside the Richard Gibson feedback pass on the [kriscendobot/agoric-sdk#7](https://github.com/kriskowal/agoric-sdk/pull/7) mirror. Otherwise the board is quiet — the todo lane is empty and the ymax0 hex-fix verification plan still sits parked awaiting maintainer go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -31,19 +31,19 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### doin (7)
 - [`agoric-sdk-fork-pr-7-apply-richard-gibson-feedback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-apply-richard-gibson-feedback.md) — Apply Richard Gibson's feedback to the mirror kriscendobot/agoric-sdk#7
 - [`deadmail-issue-comment-4848697844`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4848697844.md) — Dead-lettered message — pick up its intent
+- [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder: create @endo/hex on endo-but-for-bots master — best-on-all-platforms...
 - [`ebfb-retention-paths-chat-panel`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retention-paths-chat-panel.md) — Build: retention-paths Chat UI Paths panel (read-only) — next phase after #284
 - [`kriskowal-garden-pr16-3c8d784d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-3c8d784d.md) — attention directive on kriskowal/garden PR #16
-- [`kriskowal-garden-pr16-40e01695`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-40e01695.md) — attention directive on kriskowal/garden PR #16
 - [`kriskowal-garden-pr16-eabd1e1d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-eabd1e1d.md) — attention directive on kriskowal/garden PR #16
 - [`kriskowal-garden-pr16-review-39c42194`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-review-39c42194.md) — Review directive on kriskowal/garden PR #16
 
-### tada (727)
+### tada (728)
+- [`kriskowal-garden-pr16-40e01695`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-40e01695.md) — Completion report
 - [`improve-comment-watcher-drop-directive-on-merged-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-drop-directive-on-merged-pr.md) — Completion report — improve-comment-watcher-drop-directive-on-merged-pr
 - [`kriskowal-garden-pr16-308f53fe`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-308f53fe.md) — Work complete. Writing the completion report.
 - [`garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge.md) — Completion report
 - [`garden-issue-9-kriskowal-mainnet-validation-tree-bundle-publish`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-kriskowal-mainnet-validation-tree-bundle-publish.md) — Completion report — garden-issue-9-kriskowal-mainnet-validation-tree-bundle-p...
-- [`improve-comment-source-exclude-bot-own-comments`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-source-exclude-bot-own-comments.md) — Completion report — improve-comment-source-exclude-bot-own-comments
-- … and 722 more
+- … and 723 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
