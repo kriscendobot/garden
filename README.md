@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-29T23:56:53Z_
+_As of 2026-06-30T00:03:51Z_
 
 ## Latest
 
-Bot's revert of the bid/accept market design landed cleanly, and a [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16) design has been landed onto its branch with the summary comment posted. A dead-lettered issue comment (#4838594481) is now in flight, and an attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) remains claimed and in progress. The maintainer's heaviest backlog is review: 29 PRs parked, led by [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (the @endo/gateway design) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability), both waiting 15h.
+The board is nearly drained — zero jobs in `todo` and only three in flight. The one fresh transition is a reproduction job claimed for the **ymax0 v320** XS stack overflow: an agent is now reproducing the 70→71 overflow against real chain state and verifying the hex fix. Also still working: an attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) and a dead-lettered issue comment being picked back up. On the completed side, design work landed on [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16)'s branch with its summary comment posted, and the gardener bid/accept-market design wrapped. The parked queue is the place to look for maintainer attention — 29 PRs await review, with the registry-capability ([endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)) and gateway-cluster design ([endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343)) now ~15h old.
 
 ## Parked for maintainer feedback
 
@@ -28,9 +28,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`deadmail-issue-comment-4838594481`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4838594481.md) — Dead-lettered message — pick up its intent
 - [`kriskowal-garden-pr9-469d82c6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-469d82c6.md) — attention directive on kriskowal/garden PR #9
+- [`reproduce-ymax0-v320-real-chain-state-20260630`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reproduce-ymax0-v320-real-chain-state-20260630.md) — reproduce ymax0 v320 70->71 XS overflow on REAL chain state + verify the hex fix
 
 ### tada (609)
 - [`deadmail-issue-comment-4838518722`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4838518722.md) — Completion report
