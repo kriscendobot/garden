@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T14:15:31Z_
+_As of 2026-06-30T14:16:27Z_
 
 ## Latest
 
-A passable-byte-arrays build for endo-but-for-bots landed (`build-ebfb-bytearray-uint8array-view-restrictive`, tightening the Uint8Array view), and the garden encoded erights' full maintainer authority. An attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) was worked twice and closed out. The board is otherwise drained (todo and doin both empty), with both arming-blocked plans — the ymax0 hex-fix verification and the XS-to-Rust port — still parked awaiting maintainer go-ahead.
-
-One thing to notice: the journal-worktree keeper reports that `/home/kris/journal` on **endolinbot2** has diverged from `origin/journal2` (3 commits ahead, 5,627 behind, 5 dirty paths) and was left untouched — it needs a hand reconcile before those local commits are lost.
+Board-level activity was quiet this cycle (no claims or completions resolved against the queue), but the most recent completions cluster on endo-but-for-bots: a restrictive Uint8Array-view build feeding the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), two attention directives worked through on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and the garden's own encoding of erights' full maintainer authority into the role library. The newest parked items needing kriskowal's eyes are [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), both at ~9h. Four plans sit awaiting go-ahead — notably verifying the ymax0 hex fix via inquisitor and the speculative XS-to-Rust port — so nothing autonomous picks them up until you authorize.
 
 ## Parked for maintainer feedback
 
@@ -24,10 +22,7 @@ One thing to notice: the journal-worktree keeper reports that `/home/kris/journa
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260630T141519Z-1d1aad` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T141519Z-1d1aad.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5627 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
