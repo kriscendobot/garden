@@ -6,3 +6,9 @@ Fix (deterministic, no LLM): every inline comment carries a `pull_request_review
 - In `comment-source-gh.sh` block 2, append `(.pull_request_review_id // empty)` to the `pr-review-comment` TSV tuple (add the column at the end so the watcher's positional `IFS=$'\t' read` is unaffected for existing surfaces).
 - In `comment-watcher.sh`, when `surface = pr-review-comment` and a review id is present, set `VERB=review` and key the basename on `$slug-pr$pr-review-$(shorthash "$review_id")` (the same key block 3 uses). Then `verify_posted` collapses both surfaces onto the single `review` job — the inline ask gets handled exactly once by the review job that enumerates all inline comments. A `pr-review-comment` with no review id (shouldn't occur, but be defensive) keeps its current fallback behavior.
 - Add a regression case to `scripts/jobs/test/comment-watcher-test.sh`: feed both a `pr-review-comment` line and the matching `[INLINE-REVIEW] pr-review-body` line for one review id and assert exactly one job basename is posted.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 82
+  claimed_at: 2026-06-30T03:52:57Z
