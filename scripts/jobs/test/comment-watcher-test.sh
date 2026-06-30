@@ -1218,6 +1218,43 @@ run_directive "$TR/state-dup3" "$BARE_DUP3" "$FIX_DUP3" "$RLOG_DUP3" "$DUP3LOG"
 grep -q 'FOLD:' "$DUP3LOG" && ok "the inline comment fold onto the review job is LOGGED (not silent)" || bad "no FOLD log line ($(cat "$DUP3LOG"))"
 [ "$(cursor_seen "$TR/state-dup3" "$BARE_DUP3")" = 2026-06-30T21:00:01Z ] && ok "cursor advanced past BOTH surfaces" || bad "cursor not advanced past both ($(cursor_seen "$TR/state-dup3" "$BARE_DUP3"))"
 
+# DEDUP4 (watcher) — the #544 ACROSS-TICK canonical-key collapse. A COMMENTED review
+# with an EMPTY top-level body and ONE inline comment is the exact #544 fan-out: the
+# review-body surface ([INLINE-REVIEW] + empty body) mints a per-review `review` job in
+# one tick, and in a LATER tick the same review's inline comment surfaces ALONE
+# (NON-subsumed, because the review-body was not re-surfaced that poll). Both must
+# resolve to the SAME canonical (repo, pr, review_id) base, so the second producer's
+# post is an idempotent verify_posted SKIP — never a duplicate `attention`/comment-id
+# sibling (the #544 jobs were review-* AND comment-id-keyed siblings for one review).
+hr; echo "DEDUP4 — #544 across-tick: empty-body review then its inline comment → one job, idempotent skip"; hr
+BARE_DUP4="$TR/dup4.git"; seed_bare "$BARE_DUP4"
+RLOG_DUP4="$TR/react-dup4.log"; : > "$RLOG_DUP4"; DUP4LOG="$TR/dup4.stderr"; : > "$DUP4LOG"
+# tick 1 — the empty-body COMMENTED review surfaces as an inline-bearing review-body
+# (cid == the review id 4604000111). A 'gauntlet'-returning fallback stub would still
+# never be consulted (review-body classifies as `review` directly).
+FIX_DUP4A="$TR/fix-dup4a.tsv"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T22:00:00Z pr-review-body 4604000111 544 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/544#pullrequestreview-4604000111 \
+  '[INLINE-REVIEW] ' > "$FIX_DUP4A"
+run_directive "$TR/state-dup4" "$BARE_DUP4" "$FIX_DUP4A" "$RLOG_DUP4" "$DUP4LOG"
+[ "$(todo_count "$BARE_DUP4")" -eq 1 ] && ok "tick 1: the empty-body review minted exactly one job" || bad "tick 1 job count $(todo_count "$BARE_DUP4")"
+[ "$(todo_glob "$BARE_DUP4" "^$SLUG-pr544-review-")" -eq 1 ] && ok "tick 1: the job is the per-review 'review' job keyed on the review id" || bad "tick 1: not the per-review job (glob=$(todo_glob "$BARE_DUP4" "^$SLUG-pr544-review-"))"
+# tick 2 — the SAME review's inline comment surfaces alone, NON-subsumed, carrying the
+# parent review id 4604000111 in the 8th column. It must FOLD onto the existing review
+# job's base and be an idempotent skip (NO second job).
+FIX_DUP4B="$TR/fix-dup4b.tsv"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T22:00:01Z pr-review-comment 4604000999 544 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/544#discussion_r4604000999 \
+  'Keep this indefinitely.' 4604000111 > "$FIX_DUP4B"
+run_directive "$TR/state-dup4" "$BARE_DUP4" "$FIX_DUP4B" "$RLOG_DUP4" "$DUP4LOG"
+[ "$(todo_count "$BARE_DUP4")" -eq 1 ] && ok "tick 2: still exactly ONE job — the inline comment collapsed onto the review's canonical key" || bad "tick 2 fanned out a second job (todo=$(todo_count "$BARE_DUP4"))"
+[ "$(todo_glob "$BARE_DUP4" "^$SLUG-pr544-review-")" -eq 1 ] && ok "tick 2: the single job is still the per-review 'review' job" || bad "tick 2: review job duplicated or lost (glob=$(todo_glob "$BARE_DUP4" "^$SLUG-pr544-review-"))"
+[ "$(todo_glob "$BARE_DUP4" "^$SLUG-pr544-[0-9a-f]")" -eq 0 ] && ok "tick 2: NO comment-id-keyed sibling job was minted (the #544 fan-out)" || bad "tick 2: a comment-id-keyed sibling leaked (glob=$(todo_glob "$BARE_DUP4" "^$SLUG-pr544-[0-9a-f]"))"
+grep -q 'FOLD:' "$DUP4LOG" && ok "tick 2: the inline-comment fold is LOGGED" || bad "tick 2: no FOLD log line ($(cat "$DUP4LOG"))"
+[ "$(cursor_seen "$TR/state-dup4" "$BARE_DUP4")" = 2026-06-30T22:00:01Z ] && ok "cursor advanced past the inline comment" || bad "cursor not advanced ($(cursor_seen "$TR/state-dup4" "$BARE_DUP4"))"
+
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

@@ -924,10 +924,23 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
     fi
   fi
 
-  # The review key defaults to the comment id; for a pr-review-body that IS the
-  # review id (the source sets comment_id = review id), so the `review)` case below
-  # keys correctly. The inline-comment fold overrides it to the parent review id.
+  # --- canonical review key: one (repo, pr, review_id) base per review ---------
+  # EVERY job a single review can mint — the review BODY, an inline review-COMMENT,
+  # and any `attention`/verb sibling the claude reader returns from a review surface —
+  # must share ONE base key so verify_posted collapses them to a single job. The #544
+  # fan-out was exactly this: a COMMENTED review with an EMPTY body and ONE inline
+  # comment minted a per-review `review` job (keyed on the review id) AND a separate
+  # sibling keyed on the COMMENT id, and verify_posted could not see they were the same
+  # review. The enclosing review id is the canonical key, resolved here once for all
+  # three review surfaces: the inline surfaces carry it in the 8th TSV column
+  # (review_id); the pr-review-body surface sets comment_id == the review's own id, so
+  # cid IS the review id there (the `$cid` default covers it). A non-review surface
+  # keeps its comment id (each conversation/issue comment is its own unit of work).
   REVIEW_KEY="$cid"
+  case "$surface" in
+    pr-review-comment|pr-review-comment-subsumed)
+      [ -n "${review_id:-}" ] && REVIEW_KEY="$review_id" ;;
+  esac
 
   # --- fold an inline review-comment onto its review's single `review` job -----
   # Every inline comment carries a pull_request_review_id (the 8th TSV column). The
@@ -949,7 +962,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # defensive) falls through to the normal classify path — its current behavior.
   if [ "$surface" = pr-review-comment ] && [ -n "${review_id:-}" ]; then
     if is_trusted "$author"; then
-      VERB=review; PRIMARY_VERB=""; REVIEW_KEY="$review_id"
+      VERB=review; PRIMARY_VERB=""    # REVIEW_KEY already resolved to review_id above
       log "FOLD: inline comment cid=$cid on #$pr ($author) folded onto its review's 'review' job (review_id=$review_id) — one review, one job [url=$url]"
     else
       ack_or_log_slide "untrusted-review-comment" "$surface" "$cid" "$author" "$url" "$pr"
@@ -1006,7 +1019,23 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
     rebase|retcon|refresh|shepherd|gauntlet) base="$slug-pr$pr-$VERB";;
     finalize)                                base="$slug-pr$pr-conduct";;
     review)                                  base="$slug-pr$pr-review-$(shorthash "$REVIEW_KEY")";;
-    *)                                       base="$slug-pr$pr-$(shorthash "$cid$body")";;
+    *)
+      # A non-`review` VERB minted from a surface that DEMONSTRABLY belongs to a review
+      # (a review BODY, or an inline review-COMMENT that carries a real review_id) still
+      # keys on the enclosing review id, NEVER the comment id — otherwise it fans out a
+      # second job for a review the review-body path already minted as `review` (the
+      # #544 attention sibling). This is defense for any future path that routes a
+      # review surface to a verb/attention instead of `review`; the fold normally forces
+      # VERB=review first. A standalone PR-line comment (pr-review-comment with NO
+      # review_id) and the conversation/issue surfaces are genuinely their own unit of
+      # work and keep the comment-id key.
+      if [ "$surface" = pr-review-body ] \
+         || { { [ "$surface" = pr-review-comment ] || [ "$surface" = pr-review-comment-subsumed ]; } \
+              && [ -n "${review_id:-}" ]; }; then
+        base="$slug-pr$pr-review-$(shorthash "$REVIEW_KEY")"
+      else
+        base="$slug-pr$pr-$(shorthash "$cid$body")"
+      fi;;
   esac
 
   # Idempotency: if the job is already on the board this comment was already
