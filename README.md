@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:36:08Z_
+_As of 2026-06-30T23:37:49Z_
 
 ## Latest
 
-A single job moved this cycle: [`endo-hex-tiered-codec-port`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-hex-tiered-codec-port.md) was claimed into active work, joining the cluster of `@endo/hex` codec efforts now in flight on endo-but-for-bots — a design-plus-build of a tiered codec alongside the existing best-on-all-platforms benchmark-table build. Worth a maintainer's eye: [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) has freshly parked and is the newest item awaiting review.
+Two jobs on [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16) wrapped up — a review pass and its companion completion both landed in `tada` — clearing that PR's active work. The only fresh claim is a scholar job to ingest Tailscale's OAuth-apps docs and author garden OAuth use-case skills, now in progress. Otherwise the board is quiet: `todo` is empty and the remaining `doin` items (the agoric-sdk#7 Gibson-feedback apply, the two `@endo/hex` codec efforts) are carryovers from prior cycles.
 
 ## Parked for maintainer feedback
 
@@ -28,21 +28,20 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`agoric-sdk-fork-pr-7-apply-richard-gibson-feedback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-apply-richard-gibson-feedback.md) — Apply Richard Gibson's feedback to the mirror kriscendobot/agoric-sdk#7
 - [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder: create @endo/hex on endo-but-for-bots master — best-on-all-platforms...
 - [`endo-hex-tiered-codec-port`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-hex-tiered-codec-port.md) — Design + build a tiered @endo/hex codec in endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr58-1446f9e1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-1446f9e1.md) — attention directive on endojs/endo-but-for-bots PR #58
-- [`kriskowal-garden-pr16-3c8d784d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-3c8d784d.md) — attention directive on kriskowal/garden PR #16
-- [`kriskowal-garden-pr16-review-39c42194`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-review-39c42194.md) — Review directive on kriskowal/garden PR #16
+- [`scholar-ingest-tailscale-oauth-apps-and-oauth-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-tailscale-oauth-apps-and-oauth-skills.md) — Scholar: ingest Tailscale OAuth-apps doc + produce garden OAuth use-case skil...
 
-### tada (731)
+### tada (733)
+- [`kriskowal-garden-pr16-review-39c42194`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-review-39c42194.md) — Completion report
+- [`kriskowal-garden-pr16-3c8d784d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-3c8d784d.md) — Completion report — job kriskowal-garden-pr16-3c8d784d
 - [`kriskowal-garden-pr16-eabd1e1d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-eabd1e1d.md) — Completion report — job kriskowal-garden-pr16-eabd1e1d
 - [`ebfb-retention-paths-chat-panel`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-retention-paths-chat-panel.md) — Completion report
 - [`deadmail-issue-comment-4848697844`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4848697844.md) — Completion report — dead-lettered deadmail-issue-comment-4848697844
-- [`kriskowal-garden-pr16-40e01695`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-40e01695.md) — Completion report
-- [`improve-comment-watcher-drop-directive-on-merged-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-drop-directive-on-merged-pr.md) — Completion report — improve-comment-watcher-drop-directive-on-merged-pr
-- … and 726 more
+- … and 728 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
