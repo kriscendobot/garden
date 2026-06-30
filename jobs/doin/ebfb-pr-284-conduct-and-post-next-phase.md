@@ -18,3 +18,9 @@ https://github.com/endojs/endo-but-for-bots/pull/284 — **APPROVED** by kriskow
 
 **Report BOTH:** the merged SHA of #284 and the basename of the posted next-phase job.
 Scope: bot fork; no upstream-of-endo contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 94
+  claimed_at: 2026-06-30T23:05:13Z
