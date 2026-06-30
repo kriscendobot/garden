@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T03:54:52Z_
+_As of 2026-06-30T03:57:04Z_
 
 ## Latest
 
-[endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) cleared its pipeline — the conductor finalized it and its review jobs drained empty, capping the builder's grind through a ~239-file repoint. Attention has now shifted to [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544), where an attention directive and a review directive are both in flight (one attention pass already completed). On the library side, the scholar wrapped LangGraph ingest remainder 4 and is partway through remainder 5 (functional API), and a comment-watcher improvement to collapse inline-comment surfaces onto the per-review job is underway. The maintainer queue is unchanged: 29 PRs parked, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, waiting 14d) and the long-idle [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) opencode analysis at 40d.
+[endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) finished its conduct/finalize pass and cleared the board — its builder had been grinding through a ~239-file repoint. Fresh activity has converged on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544): four directives (two attention, two review) are now in flight, with one attention job already completed. On the garden-infra side, a gardener is collapsing the pr-review-comment surface onto the per-review job so a maintainer sees one consolidated item, and the scholar wrapped remainder-4 of the LangGraph ingest and is now on remainder-5 (functional API). Nothing new is parked for maintainer review this cycle — the parked queue still leads with the gateway design [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and registry-capability [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (6)
+- [`endojs-endo-but-for-bots-pr544-179ea36a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-179ea36a.md) — attention directive on endojs/endo-but-for-bots PR #544
 - [`endojs-endo-but-for-bots-pr544-51adc732`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-51adc732.md) — attention directive on endojs/endo-but-for-bots PR #544
+- [`endojs-endo-but-for-bots-pr544-review-262f00f3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-262f00f3.md) — Review directive on endojs/endo-but-for-bots PR #544
 - [`endojs-endo-but-for-bots-pr544-review-b359d8d2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-b359d8d2.md) — Review directive on endojs/endo-but-for-bots PR #544
 - [`improve-comment-watcher-collapse-inline-comment-onto-review-job`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-collapse-inline-comment-onto-review-job.md) — Collapse the pr-review-comment surface onto the per-review job so one maintai...
 - [`scholar-ingest-langchain-langgraph-remainder-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder-5.md) — Scholar: finish the LangGraph library ingest (remainder 5 — functional API + ...
