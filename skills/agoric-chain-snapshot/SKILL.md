@@ -127,9 +127,11 @@ holds the snapshot.
    ( cd packages/swingset-xsnap-supervisor && node scripts/build-bundle.js )
    ```
 6. **Reproduce + verify the hex fix** against the captured swing-store, via the
-   **`createVat` vector** (see *The chain-tip / `createVat` finding* below for why
-   this — not the production upgrade core-eval — is the working vector on a tip
-   snapshot). Run inquisitor non-interactively, piping a driver that `addBundle`s
+   **`createVat` vector** (see *The stale-bootstrap-kit finding* below for why the
+   faithful upgrade vector mhofman asked for needs a live-instance admin facet and
+   the actual failing bundle, neither of which the snapshot provides, so the
+   `createVat` cross-check is the runnable stand-in). Run inquisitor
+   non-interactively, piping a driver that `addBundle`s
    the v320 bundle and creates a fresh vat from it so a real on-chain worker
    imports it:
    ```
@@ -163,18 +165,38 @@ holds the snapshot.
 
 ## Notes
 
-- **The chain-tip / `createVat` finding (why the upgrade vector fails).** A
-  Polkachu tip snapshot is captured *after* the production incident, so the live
-  ymax0 instance's vat (`v275` on `agoric-26146641`) is already **terminated** in
-  it. The most-faithful vector — replay the production upgrade core-eval
-  (`E(adminFacet).upgradeContract(...)` via the bootstrap promise space's
-  `ymax0Kit`) — therefore fails *before any worker spins up* with
-  `vatAdminService rejecting attempt to perform "upgrade"() on non-running vat
-  "v275"`; an upgrade needs a running target. The working vector that does not
-  depend on a live instance is `vatAdminSvc.createVat(bundleCap)` of the v320
-  bundle: it routes the exact same bundle through a real on-chain worker's import
-  path (`compartmentImportNow` → `execute` → `hex.js` `flatMap`), which is where
-  the overflow lives. This needed a one-line **inquisitor overlay fix**: the
+- **The stale-bootstrap-kit finding (why `ymax0Kit.adminFacet` is the wrong
+  upgrade target), corrected per mhofman (2026-06-30,
+  [comment](https://github.com/kriskowal/garden/issues/9#issuecomment-4848426883)).**
+  The original failure was a **devnet** upgrade of ymax0 (vat `v320` there).
+  No devnet snapshot is available, but mainnet is believed to reproduce, and the
+  faithful test is an **upgrade of the live mainnet deployment** as a
+  contract-control upgrade message. On `agoric-26146641` the **live** instances
+  are **ymax0 = v290** (`zcf-b1-68c494…`) and **ymax1 = v288** (`zcf-b1-61c340…`),
+  both present and non-terminated (`vats.terminated` is empty). Crucially, the
+  only ymax0 admin facet reachable from the bootstrap promise space
+  (`ymax0Kit.adminFacet`, held by Zoe / `v9`) belongs to the **original, now-gone**
+  ymax0 instance, vat `v275` (`v275.options` absent, not in `vat.dynamicIDs`), so
+  `E(ymax0Kit.adminFacet).upgradeContract(...)` fails *before any worker spins up*
+  with `vatAdminService rejecting attempt to perform "upgrade"() on non-running
+  vat "v275"`. The live v290/v288 instances carry separate admin facets that Zoe
+  holds privately per instance, not exposed in any promise-space kit on the
+  snapshot; reaching them is the real contract-control upgrade path. **Two inputs
+  are still missing to run the faithful upgrade on real mainnet state:** (1) the
+  actual failing (devnet "v320") contract bundle, because every on-chain ymax
+  bundle in the snapshot (`1cfec/867596/078729/68c494` for ymax0, `61c340` for
+  ymax1) carries the wide `hex.js` `flatMap` yet flattens to only 3 to 5
+  `flatMap`s and imports **clean** through a real on-chain worker (the latest,
+  `b1-68c494…` / v290, reaches the benign post-import `lacks buildRootObject()`
+  check), so the current mainnet deployment is below the 4096-slot threshold and
+  the over-threshold bundle is not in the snapshot; and (2) a handle to the live
+  v290/v288 admin facet. The driver for this vector is
+  `repro/repro-upgrade-driver.mjs` in the build worktree. Until those land, the
+  runnable cross-check is the `vatAdminSvc.createVat(bundleCap)` vector below,
+  which routes a high-`flatMap` bundle through the exact same on-chain worker
+  import path (`compartmentImportNow` → `execute` → `hex.js` `flatMap`) where the
+  overflow lives. That `createVat` vector needed a one-line **inquisitor overlay
+  fix**: the
   read-only overlay's `transcriptStore` left `initTranscript` a no-op, so a
   freshly-created vatID hit `no current transcript for "vNN"`; seeding an initial
   `{startPos:0,endPos:0,hash:'<initial>',incarnation:0}` pending span on
