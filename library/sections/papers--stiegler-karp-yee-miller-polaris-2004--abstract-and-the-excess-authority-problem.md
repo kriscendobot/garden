@@ -12,16 +12,7 @@ source_wayback_timestamp: 20220423221140
 ingested: 2026-06-28
 ingested_by: scholar
 topics: [capability-theory, capability-security]
-status: superseded
-superseded_by: papers--stiegler-polaris-virus-safe-computing-2004--excess-authority-the-virus-problem-and-permission-versus-authority
-superseded_on: 2026-06-28
-superseded_reason: |
-  Duplicate ingest of the same report. The 2004 HP Labs report HPL-2004-221 was
-  ingested twice by two gardeners racing the same cycle, under two source slugs with
-  the identical source_pdf_sha256 6c95faf19fef (9 pages, four authors). The canonical
-  cluster is papers--stiegler-polaris-virus-safe-computing-2004, cross-referenced by
-  the concepts/polaris.md and concepts/powerbox.md concept pages. Kept, not deleted:
-  the journal is append-only.
+status: current
 ---
 
 ## Abstract
