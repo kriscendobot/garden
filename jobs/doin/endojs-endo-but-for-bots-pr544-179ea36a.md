@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot  Not true. For the intra-package case, there is no such compat risk, since all such compat risks of concern are only inter-package. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 35
+  claimed_at: 2026-06-30T03:56:47Z
