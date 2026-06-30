@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:47:32Z_
+_As of 2026-06-30T04:51:21Z_
 
 ## Latest
 
-The bot landed the [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) gamut — a builder pass closing out after the weaver rebase, attention directive, and review cycle all completed; a [#570](https://github.com/endojs/endo-but-for-bots/pull/570) shepherd run to green also wrapped. The only work still in flight is [#7](https://github.com/kriskowal/garden/pull/7) on the agoric-sdk fork, addressing review feedback on the portable xsnap-worker path. The board is otherwise drained (zero todo), and 29 PRs remain parked for kriskowal — most pressing by recency, [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (the @endo/gateway design) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability), both waiting 20h.
+The portable xsnap-worker-path work item completed and cleared the board, leaving a single job in flight: a freshly claimed attention directive on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), which a maintainer should expect movement on shortly. The todo queue is otherwise empty, and the plan queue continues to hold several items awaiting maintainer go-ahead — notably the ymax0 hex-fix verification and the cross-host weekly token-spend aggregation.
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 55s)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 20h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 20h)
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 14d)
@@ -29,15 +29,15 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`pr7-portable-xsnap-worker-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr7-portable-xsnap-worker-path.md) — Address review feedback on mirror PR #7: portable xsnap-worker path in the XS...
+- [`endojs-endo-but-for-bots-pr58-8585f202`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-8585f202.md) — attention directive on endojs/endo-but-for-bots PR #58
 
-### tada (663)
+### tada (664)
+- [`pr7-portable-xsnap-worker-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr7-portable-xsnap-worker-path.md) — Report: pr7-portable-xsnap-worker-path
 - [`endojs-endo-but-for-bots-pr544-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-builder.md) — Completion report
 - [`endojs-endo-but-for-bots-pr544-2577df92`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-2577df92.md) — Job complete: attention directive on endojs/endo-but-for-bots PR #544
 - [`endojs-endo-but-for-bots-pr570-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr570-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr544-review-a0acabee`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-a0acabee.md) — Completion report
-- [`endojs-endo-but-for-bots-pr544-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-weaver.md) — Weave complete. Final report:
-- … and 658 more
+- … and 659 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
