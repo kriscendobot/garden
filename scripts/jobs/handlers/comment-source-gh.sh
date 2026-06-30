@@ -16,9 +16,17 @@
 #                      which carry no since= filter, so iterate open PRs
 #
 # TSV columns (tab-separated, body single-lined):
-#   created_at  surface  comment_id  pr_number  author  html_url  body
+#   created_at  surface  comment_id  pr_number  author  html_url  body  [review_id]
 # surface ∈ issue-comment | pr-comment | pr-review-comment
 #         | pr-review-comment-subsumed | pr-review-body
+#
+# The TRAILING review_id column is emitted ONLY on the inline review-comment surfaces
+# (pr-review-comment / pr-review-comment-subsumed): every inline comment carries a
+# pull_request_review_id, and surfacing it lets the watcher key the comment's job on
+# the SAME review id its parent review-body uses, so one review can never mint two
+# differently-keyed jobs (the #548 duplicate-fold). It is appended LAST so the
+# watcher's positional `IFS=$'\t' read` is unaffected for the other surfaces (which
+# carry no 8th column).
 #
 # pr-review-comment-subsumed marks an inline review-comment whose parent review is
 # ALSO surfaced this poll as an inline-bearing pr-review-body: that review's single
@@ -219,6 +227,6 @@ gh_api_retry --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2
          then \"pr-review-comment-subsumed\" else \"pr-review-comment\" end) as \$surface
       | [ .created_at, \$surface, (.id|tostring),
           ((.pull_request_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
-          .user.login, .html_url, ($oneline) ] | @tsv" || true
+          .user.login, .html_url, ($oneline), \$rid ] | @tsv" || true
 
 rm -f "$prlist_err" "$rids_err" "$s3out"

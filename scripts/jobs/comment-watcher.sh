@@ -819,7 +819,11 @@ load_mention_only_authors
 load_pr_only
 
 hw="$last_seen"; failed=0; acted=0
-while IFS=$'\t' read -r created surface cid pr author url body; do
+# The 8th field review_id is present ONLY on the inline review-comment surfaces
+# (pr-review-comment / pr-review-comment-subsumed); it is empty for every other
+# surface, which carries no 8th column (so `body` is unaffected — the source
+# single-lines bodies, so they never contain a tab to spill into review_id).
+while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   [ -n "$created" ] || continue
 
   # --- boundary dedup (skip at-or-before the cursor) ---------------------------
@@ -890,25 +894,58 @@ while IFS=$'\t' read -r created surface cid pr author url body; do
     fi
   fi
 
-  set +e; classify "$bf" "$surface" "$author"; rc=$?; set -e
-  if [ "$rc" -eq 1 ]; then
-    # Not actionable. NEVER slide past it silently: log WHICH gate dropped it plus
-    # the comment id/url (the dropped-#405 lesson). rc 1 is reached only for an
-    # UNTRUSTED / no-verb / no-@mention comment, so there is no trusted receipt to
-    # acknowledge — ack_or_log_slide logs the DROP without a reactji.
-    ack_or_log_slide "verb-gate:not-actionable" "$surface" "$cid" "$author" "$url" "$pr"
-    rm -f "$bf"; hw="$created"; continue          # not actionable; slide cursor past it
-  fi
-  if [ "$rc" -eq 2 ]; then
-    VERB="$("$GARDEN_COMMENT_FALLBACK" "$repo" "${pr:-?}" "$author" "$url" "$bf" 2>/dev/null || echo skip)"
-    if [ "$VERB" = skip ] || [ -z "$VERB" ]; then
-      # The reader judged it non-actionable and minted no job. A TRUSTED, reactable
-      # comment STILL gets its 👀 receipt (the maintainer's "I saw this" must not
-      # depend on actionability — the dropped-#405 lesson), and the slide is ALWAYS
-      # logged with its reason. Unreactable surfaces (pr-review-body) and untrusted
-      # senders get the logged slide without a reactji.
-      ack_or_log_slide "claude-reader:skip" "$surface" "$cid" "$author" "$url" "$pr"
+  # The review key defaults to the comment id; for a pr-review-body that IS the
+  # review id (the source sets comment_id = review id), so the `review)` case below
+  # keys correctly. The inline-comment fold overrides it to the parent review id.
+  REVIEW_KEY="$cid"
+
+  # --- fold an inline review-comment onto its review's single `review` job -----
+  # Every inline comment carries a pull_request_review_id (the 8th TSV column). The
+  # per-poll `subsumed` marking (handled above) only collapses the inline comment
+  # onto the review job when BOTH co-surface in ONE poll; across ticks — the
+  # review-body surfaced in a different tick, or the inline comment surfacing alone —
+  # the two used to mint two differently-keyed jobs for ONE review: the standalone
+  # comment via the `*` fallback (keyed on the comment id) and the review-body via
+  # `review` (keyed on the review id), so verify_posted never deduped them. That is
+  # the #548 duplicate-fold: gardener d6db5f and designer b93848 both folded erights'
+  # pullrequestreview-4597029908, producing a redundant commit and two PR comments.
+  # Keying the inline comment on the DURABLE review id — the SAME key the
+  # pr-review-body uses — makes verify_posted collapse both surfaces onto the single
+  # `review` job across ticks too, so one review can never mint two jobs; the inline
+  # ask is handled exactly once by the review job that enumerates EVERY inline
+  # comment. Gate on the same sender-trust bar the review-body path uses: an untrusted
+  # reviewer's inline comment feeds no work (the review-body path drops untrusted
+  # reviews too). A pr-review-comment with NO review id (shouldn't occur, but be
+  # defensive) falls through to the normal classify path — its current behavior.
+  if [ "$surface" = pr-review-comment ] && [ -n "${review_id:-}" ]; then
+    if is_trusted "$author"; then
+      VERB=review; PRIMARY_VERB=""; REVIEW_KEY="$review_id"
+      log "FOLD: inline comment cid=$cid on #$pr ($author) folded onto its review's 'review' job (review_id=$review_id) — one review, one job [url=$url]"
+    else
+      ack_or_log_slide "untrusted-review-comment" "$surface" "$cid" "$author" "$url" "$pr"
       rm -f "$bf"; hw="$created"; continue
+    fi
+  else
+    set +e; classify "$bf" "$surface" "$author"; rc=$?; set -e
+    if [ "$rc" -eq 1 ]; then
+      # Not actionable. NEVER slide past it silently: log WHICH gate dropped it plus
+      # the comment id/url (the dropped-#405 lesson). rc 1 is reached only for an
+      # UNTRUSTED / no-verb / no-@mention comment, so there is no trusted receipt to
+      # acknowledge — ack_or_log_slide logs the DROP without a reactji.
+      ack_or_log_slide "verb-gate:not-actionable" "$surface" "$cid" "$author" "$url" "$pr"
+      rm -f "$bf"; hw="$created"; continue          # not actionable; slide cursor past it
+    fi
+    if [ "$rc" -eq 2 ]; then
+      VERB="$("$GARDEN_COMMENT_FALLBACK" "$repo" "${pr:-?}" "$author" "$url" "$bf" 2>/dev/null || echo skip)"
+      if [ "$VERB" = skip ] || [ -z "$VERB" ]; then
+        # The reader judged it non-actionable and minted no job. A TRUSTED, reactable
+        # comment STILL gets its 👀 receipt (the maintainer's "I saw this" must not
+        # depend on actionability — the dropped-#405 lesson), and the slide is ALWAYS
+        # logged with its reason. Unreactable surfaces (pr-review-body) and untrusted
+        # senders get the logged slide without a reactji.
+        ack_or_log_slide "claude-reader:skip" "$surface" "$cid" "$author" "$url" "$pr"
+        rm -f "$bf"; hw="$created"; continue
+      fi
     fi
   fi
 
@@ -938,7 +975,7 @@ while IFS=$'\t' read -r created surface cid pr author url body; do
   case "$VERB" in
     rebase|retcon|refresh|shepherd|gauntlet) base="$slug-pr$pr-$VERB";;
     finalize)                                base="$slug-pr$pr-conduct";;
-    review)                                  base="$slug-pr$pr-review-$(shorthash "$cid")";;
+    review)                                  base="$slug-pr$pr-review-$(shorthash "$REVIEW_KEY")";;
     *)                                       base="$slug-pr$pr-$(shorthash "$cid$body")";;
   esac
 

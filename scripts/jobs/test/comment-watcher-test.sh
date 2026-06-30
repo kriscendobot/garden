@@ -1185,5 +1185,39 @@ EOF
 fi
 
 # ============================================================================
+# DEDUP3 (watcher) — the CROSS-SURFACE key collapse. A pr-review-comment (the inline
+# comment, NON-subsumed) and its parent review's [INLINE-REVIEW] pr-review-body, both
+# reaching the watcher for ONE review id, must yield EXACTLY ONE job basename — the
+# per-review `review` job keyed on the review id. Before the fix, the comment took the
+# `*` fallback (keyed on the comment id) while the review-body took `review)` (keyed on
+# the review id), so two differently-keyed jobs minted for one review (the #548
+# erights duplicate-fold: gardener d6db5f + designer b93848 both folded review
+# 4597029908). The fix surfaces the inline comment's pull_request_review_id as the 8th
+# TSV column and keys its job on that review id, so verify_posted collapses both
+# surfaces onto the single review job. (In a live poll the source would mark the
+# co-surfaced comment subsumed; this case proves the KEY collapse regardless, which is
+# what the across-tick dedup relies on.)
+hr; echo "DEDUP3 — a pr-review-comment + its review's pr-review-body (one review id) → exactly ONE job"; hr
+BARE_DUP3="$TR/dup3.git"; seed_bare "$BARE_DUP3"
+FIX_DUP3="$TR/fix-dup3.tsv"; RLOG_DUP3="$TR/react-dup3.log"; : > "$RLOG_DUP3"; DUP3LOG="$TR/dup3.stderr"; : > "$DUP3LOG"
+{
+  # the parent review (review id 4597029908) surfaced as an inline-bearing body.
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+    2026-06-30T21:00:00Z pr-review-body 4597029908 548 kriskowal \
+    https://github.com/endojs/endo-but-for-bots/pull/548#pullrequestreview-4597029908 \
+    '[INLINE-REVIEW] '
+  # the standalone inline comment (NON-subsumed) — 8 columns, the 8th the review id.
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+    2026-06-30T21:00:01Z pr-review-comment 4597029999 548 kriskowal \
+    https://github.com/endojs/endo-but-for-bots/pull/548#discussion_r4597029999 \
+    'Consider a plain re-export here.' 4597029908
+} > "$FIX_DUP3"
+run_directive "$TR/state-dup3" "$BARE_DUP3" "$FIX_DUP3" "$RLOG_DUP3" "$DUP3LOG"
+[ "$(todo_count "$BARE_DUP3")" -eq 1 ] && ok "exactly ONE job for a review-body + its inline comment keyed on one review id (not two)" || bad "expected one job, got $(todo_count "$BARE_DUP3")"
+[ "$(todo_glob "$BARE_DUP3" "^$SLUG-pr548-review-")" -eq 1 ] && ok "the one job is the per-review 'review' job keyed on the review id" || bad "no per-review 'review' job, or duplicated (todo_glob=$(todo_glob "$BARE_DUP3" "^$SLUG-pr548-review-"))"
+grep -q 'FOLD:' "$DUP3LOG" && ok "the inline comment fold onto the review job is LOGGED (not silent)" || bad "no FOLD log line ($(cat "$DUP3LOG"))"
+[ "$(cursor_seen "$TR/state-dup3" "$BARE_DUP3")" = 2026-06-30T21:00:01Z ] && ok "cursor advanced past BOTH surfaces" || bad "cursor not advanced past both ($(cursor_seen "$TR/state-dup3" "$BARE_DUP3"))"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
