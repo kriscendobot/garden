@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 > may be worth amending the design's "examples in the current tree". @kriscendobot , please do. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 69
+  claimed_at: 2026-06-30T04:41:49Z
