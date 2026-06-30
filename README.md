@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T02:05:33Z_
+_As of 2026-06-30T02:13:07Z_
 
 ## Latest
 
-The board is quiet — the only transition since the last bulletin was a single deadmail completion for an undeliverable issue-comment, with todo and doin both empty. The substantive recent work sits in the [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) ymax0 v320 thread: several attention/refresh directives closed out, and the XS value-stack-overflow reproduction is now fully staged — build host ready, both bundle JSONs built, and the netstring driver written against real chain state. A maintainer should notice that `verify-ymax0-hex-fix-inquisitor` is parked in the plan queue awaiting go-ahead to confirm the `hex.js` `flatMap`→loop fix and its stackCount snapshot-compatibility; the parked-for-feedback set is otherwise unchanged, led by the long-waiting [endo#3137](https://github.com/endojs/endo/pull/3137) (14d) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (4d).
+Work continues to center on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), the ymax0 v320 XS value-stack overflow. A fresh attention directive on that PR ([`kriskowal-garden-pr9-77668dda`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-77668dda.md)) is now in flight, following a string of completions on the same PR — including the real-chain-state reproduction job, which reports the build host and both bundle JSONs staged with the netstring driver ready. Two related plans await maintainer go-ahead: verifying the `hex.js` `flatMap`→loop fix against a captured mainnet swing-store and confirming `stackCount` snapshot compatibility. The board is otherwise drained (zero todo, one in-progress).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriskowal-garden-pr9-77668dda`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-77668dda.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (615)
 - [`deadmail-issue-comment-4839140138`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839140138.md) — Completion report — deadmail-issue-comment-4839140138
