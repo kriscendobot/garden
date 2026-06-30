@@ -54,3 +54,9 @@ un-draft) as a separate concern.
 
 **Report:** the opened PR number/URL and head SHA, plus a one-line note of what landed vs.
 what was left as the named follow-on seams (SSR, Feature 8, daemon wiring).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 28
+  claimed_at: 2026-06-30T23:01:38Z
