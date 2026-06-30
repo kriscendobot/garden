@@ -26,3 +26,9 @@ what the rebase/retcon changed structurally + CI/verification), per the
 PR-summary-comment norm — not just silent force-pushes.
 
 Scope: all artifacts on `endojs/endo-but-for-bots`; bot identity; no upstream-of-endo links.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 8
+  claimed_at: 2026-06-30T04:01:54Z
