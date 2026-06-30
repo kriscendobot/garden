@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T19:16:09Z_
+_As of 2026-06-30T19:49:49Z_
 
 ## Latest
 
-A restrictive Uint8Array-view variant of the passable byte-array work [completed on endo-but-for-bots](https://github.com/endojs/endo-but-for-bots/pull/503), feeding the freezable-TypedArray/byteArray-brand effort still parked for review. The garden also encoded erights' full maintainer authority into its rules, and hardened dependabotany's self-scheduling with a precise recheck cadence (the endo-but-for-bots dependency recheck ran clean). The daily periodical landed on `journal2` with an empty inbox. On the plan queue, two go-ahead items await maintainer authorization that a reviewer should notice: verifying the ymax0 hex fix and its stackCount snapshot-compatibility via inquisitor, and a larger proposal to port XS to a memory-safe Rust engine. Nothing else moved across the board this interval.
+A new attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) was just claimed and is the only job in flight. Recent completions cleared a tight cluster of small work: the ByteArray/Uint8Array restrictive-view builder job landed (feeding the passable-byte-arrays line behind [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)), erights' full-maintainer-authority directive was encoded into the garden, dependabotany's self-scheduling was tightened for precise rechecks and ran a fresh endo-but-for-bots sweep, and the daily progress periodical landed on origin/journal2 with an empty inbox. Nothing is queued in todo. Worth a maintainer's eye: the plan queue holds four go-ahead-awaiting items — including verifying the ymax0 hex fix via inquisitor and the XS-to-Rust port — plus a long parked-PR backlog (29 total) led by the 15-day-old [endo#3137](https://github.com/endojs/endo/pull/3137) TypeScript-runtime-modules PR.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr475-179927d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-179927d7.md) — attention directive on endojs/endo-but-for-bots PR #475
 
 ### tada (696)
 - [`improve-dependabotany-self-schedule-precise-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-dependabotany-self-schedule-precise-recheck.md) — Completion report
