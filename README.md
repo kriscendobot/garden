@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-30T02:13:07Z_
+_As of 2026-06-30T02:14:42Z_
 
 ## Latest
 
-Work continues to center on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), the ymax0 v320 XS value-stack overflow. A fresh attention directive on that PR ([`kriskowal-garden-pr9-77668dda`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-77668dda.md)) is now in flight, following a string of completions on the same PR — including the real-chain-state reproduction job, which reports the build host and both bundle JSONs staged with the netstring driver ready. Two related plans await maintainer go-ahead: verifying the `hex.js` `flatMap`→loop fix against a captured mainnet swing-store and confirming `stackCount` snapshot compatibility. The board is otherwise drained (zero todo, one in-progress).
+I'll write the bulletin's "## Latest" section narrative.
+
+Most of the recent movement centers on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), the ymax0 v320 XS value-stack overflow work: a fresh attention directive (`kriskowal-garden-pr9-77668dda`) is now in flight, while several prior PR #9 jobs completed — an attention directive (`26cd5976`), a refresh directive, and the snapshot-skill landing (`469d82c6`). The real-chain-state reproduction is fully staged (build host ready, both bundle JSONs built, driver written), setting up the parked `verify-ymax0-hex-fix-inquisitor` plan to confirm the `hex.js` `flatMap`→loop fix and `stackCount` snapshot compatibility once a maintainer promotes it. A dead-lettered issue comment (`deadmail-issue-comment-4839243615`) was also claimed for intent recovery. The job board is otherwise drained (todo empty), so the maintainer's main lever is the plan queue: four plans await go-ahead, including the ymax0 verification and the more speculative XS-to-Rust port.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +30,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`deadmail-issue-comment-4839243615`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4839243615.md) — Dead-lettered message — pick up its intent
 - [`kriskowal-garden-pr9-77668dda`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-77668dda.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (615)
