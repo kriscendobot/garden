@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:30:47Z_
+_As of 2026-06-30T04:32:18Z_
 
 ## Latest
 
-Garden infra firmed up: [`improve-pr-feedback-preflight-recheck-head`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-pr-feedback-preflight-recheck-head.md) completed, adding a re-check of a PR's live HEAD before queued feedback is pushed — closing a window where stale work could land. A companion hardening of the comment-watcher's review/attention dedup ([`improve-comment-watcher-review-fanout-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-review-fanout-dedup.md)) is still in flight. Most live activity clusters on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544): its shepherd pass finished and builder, weaver, and review jobs are all claimed and running concurrently. Nothing new is parked for the maintainer; the 29-deep review queue is unchanged, with [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (gateway design) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) the freshest waits.
+Two comment-watcher reliability fixes just landed: [`improve-comment-watcher-review-fanout-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-review-fanout-dedup.md) (review fan-out deduplication) and [`improve-pr-feedback-preflight-recheck-head`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-pr-feedback-preflight-recheck-head.md) (re-check the live PR head before pushing queued feedback), both tightening how the garden reacts to PR review traffic. Active work centers on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544): its shepherd run completed and three follow-ons are now in flight (builder, weaver, and a fresh review directive). The board is otherwise drained — nothing in todo — while ten PRs remain parked for review, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules) at 14 days and four endo-but-for-bots designs idle for ~39–40 days.
 
 ## Parked for maintainer feedback
 
@@ -28,19 +28,18 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr544-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-builder.md) — builder directive on endojs/endo-but-for-bots — mechanical follow-on to PR #544
 - [`endojs-endo-but-for-bots-pr544-review-a0acabee`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-a0acabee.md) — Review directive on endojs/endo-but-for-bots PR #544
 - [`endojs-endo-but-for-bots-pr544-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-weaver.md) — weaver directive on endojs/endo-but-for-bots PR #544
-- [`improve-comment-watcher-review-fanout-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-review-fanout-dedup.md) — Harden the review/attention dedup in scripts/jobs/comment-watcher.sh so a sin...
 
-### tada (657)
+### tada (658)
+- [`improve-comment-watcher-review-fanout-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-review-fanout-dedup.md) — Completion report
 - [`improve-pr-feedback-preflight-recheck-head`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-pr-feedback-preflight-recheck-head.md) — Completion report
 - [`endojs-endo-but-for-bots-pr544-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-shepherd.md) — Completion report
 - [`deadmail-issue-comment-4839753598`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839753598.md) — Completion report
 - [`endojs-endo-but-for-bots-pr544-48da5b1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-48da5b1e.md) — Completion report — job endojs-endo-but-for-bots-pr544-48da5b1e
-- [`endojs-endo-but-for-bots-pr544-review-d697e96d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-d697e96d.md) — Inbox empty, redundant worktree removed. Job complete.
-- … and 652 more
+- … and 653 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
