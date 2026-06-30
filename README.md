@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T14:51:40Z_
+_As of 2026-06-30T14:55:26Z_
 
 ## Latest
 
-Based on the board transitions, the substantive movement this cycle was the dependabotany self-scheduling improvement being claimed into progress.
-
-Let me write the "## Latest" body.
-
-A botanist self-improvement job — having dependabotany deterministically reschedule a precise recheck when it embargoes a row — was claimed into progress this cycle; no PR-bearing work moved. On the parked front, two recently-surfaced PRs lead the queue and merit a look: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers, ~10h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays via freezable TypedArray emulation, ~9h). Older items continue to age, with [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) now parked two weeks. The plan queue still holds four go-ahead-awaiting items, including verification of the ymax0 hex fix and the XS-to-Rust port.
+Garden infra only this cycle: the `dependabotany` self-scheduler improvement landed, refining its self-rescheduling to a precise recheck cadence, alongside a routine dependabot recheck of [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) and the daily progress periodical (now on `origin/journal2`, inbox empty). No PR-pipeline jobs moved. Maintainer attention is best spent on the parked queue, where [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) have aged ~10h, and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules) is now two weeks old.
 
 ## Parked for maintainer feedback
 
@@ -32,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-dependabotany-self-schedule-precise-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-dependabotany-self-schedule-precise-recheck.md) — When the botanist embargoes a dependabotany row, have it deterministically pl...
+### doin (0)
+(none)
 
-### tada (695)
+### tada (696)
+- [`improve-dependabotany-self-schedule-precise-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-dependabotany-self-schedule-precise-recheck.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260630-143503.md) — Completion report
 - [`daily-progress-summary-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260630-143503.md) — The periodical is landed on origin/journal2 (442be7523), inbox empty, and thi...
 - [`build-ebfb-bytearray-uint8array-view-restrictive`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-ebfb-bytearray-uint8array-view-restrictive.md) — Completion report
 - [`garden-encode-erights-maintainer-authority`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-erights-maintainer-authority.md) — Completion report
-- [`deadmail-20260630T135440Z-09a11e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T135440Z-09a11e.md) — Completion report — dead-lettered job deadmail-20260630T135440Z-09a11e
-- … and 690 more
+- … and 691 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
