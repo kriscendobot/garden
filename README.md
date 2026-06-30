@@ -1,10 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:57:23Z_
+_As of 2026-06-30T04:58:31Z_
 
 ## Latest
 
-Most of the board is quiet — the only transition since the last bulletin is a fresh claim on the attention directive for [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57), now in flight alongside the directives for [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), plus a change-review automation job for detecting developer-workstation home-dir coupling. Recently landed: builder, attention-directive, and review work all completed on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544), a shepherd pass closed out [endo-but-for-bots#570](https://github.com/endojs/endo-but-for-bots/pull/570), and the portable xsnap-worker-path report wrapped up. Worth a maintainer's eye: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) has been parked only briefly, while the ts-runtime-modules PR [endo#3137](https://github.com/endojs/endo/pull/3137) and the passable-byte-arrays PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) have been waiting days to weeks for review.
+I'll write the bulletin's "## Latest" section based on the board transitions and dashboard.
+
+Looking at the input: the only board transition since the last bulletin is a single new claim — `issue-kriskowal-garden-17` moved into `doin`. The `tada` completions listed (pr544 builder/review, pr570 shepherd, pr7 portable xsnap path) are the existing top of the 664-deep done pile, not transitions since the last bulletin.
+
+Since little of substance actually moved since the last bulletin, this calls for a brief summary.
+
+A new maintainer-filed issue, [kriskowal/garden#17](https://github.com/kriskowal/garden/issues/17), was claimed off the board and is now in progress; otherwise the board is quiet, with `todo` empty and four other jobs still working — including the attention directives on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#57](https://github.com/endojs/endo-but-for-bots/pull/57), and [#58](https://github.com/endojs/endo-but-for-bots/pull/58), plus a garden change-review job on developer-workstation home-dir coupling. Worth a maintainer's eye: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) has only been parked six minutes and is freshly ready for review, while the gateway design [#343](https://github.com/endojs/endo-but-for-bots/pull/343) and the registry-capability layer [#403](https://github.com/endojs/endo-but-for-bots/pull/403) have both been waiting 20 hours. Four plans remain parked awaiting go-ahead, including verifying the ymax0 hex fix and the XS-to-Rust port.
 
 ## Parked for maintainer feedback
 
@@ -28,11 +34,12 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr57-a1d1ced7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr57-a1d1ced7.md) — attention directive on endojs/endo-but-for-bots PR #57
 - [`endojs-endo-but-for-bots-pr58-8585f202`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-8585f202.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`garden-review-detect-workstation-home-dir-coupling`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-review-detect-workstation-home-dir-coupling.md) — Change-review automation: detect developer-workstation coupling (home dir) + ...
+- [`issue-kriskowal-garden-17`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-17.md) — Issue from kriskowal on kriskowal/garden #17
 
 ### tada (664)
 - [`pr7-portable-xsnap-worker-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr7-portable-xsnap-worker-path.md) — Report: pr7-portable-xsnap-worker-path
