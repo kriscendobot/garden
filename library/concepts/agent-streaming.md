@@ -1,6 +1,6 @@
 ---
 id: agent-streaming
-aliases: [streaming, stream mode, stream_mode, agent.stream, astream, stream_events, updates mode, messages mode, custom mode, StreamPart, get_stream_writer, stream writer, AIMessageChunk, tool_call_chunk, chunk_position, v2 streaming format, version v2, GraphOutput, lc_agent_name, subgraphs streaming, disable_streaming, streaming reasoning tokens, event streaming]
+aliases: [streaming, stream mode, stream_mode, agent.stream, astream, stream_events, updates mode, values mode, messages mode, custom mode, checkpoints mode, tasks mode, debug mode, StreamPart, ValuesStreamPart, UpdatesStreamPart, MessagesStreamPart, CustomStreamPart, get_stream_writer, stream writer, StreamWriter, AIMessageChunk, tool_call_chunk, chunk_position, v2 streaming format, version v2, GraphOutput, lc_agent_name, langgraph_node, subgraphs streaming, subgraphs=True, nostream, disable_streaming, streaming reasoning tokens, event streaming]
 topics: [llm-agent-frameworks, agent-conventions, patterns]
 ---
 
@@ -16,10 +16,15 @@ In LangChain / [[langgraph]], **streaming** surfaces real-time updates from an a
 | [common patterns: reasoning, tool calls, HITL, sub-agents](../sections/web--langchain-streaming--common-patterns-reasoning-tool-calls-hitl-subagents.md) | Reasoning tokens, partial+completed tool calls, HITL streaming, sub-agent disambiguation. |
 | [disable streaming and the v2 format](../sections/web--langchain-streaming--disable-streaming-and-v2-format.md) | Per-model streaming off; the `version="v2"` unified StreamPart shape and GraphOutput. |
 | [agent invocation, runtime context, and streaming](../sections/web--langchain-agents--invocation-streaming-and-state.md) | Streaming as part of invoking an agent against the LangGraph State. |
+| [LangGraph: stream modes and the v2 StreamPart format](../sections/web--langgraph-streaming--stream-modes-and-v2-streampart-format.md) | The `stream`/`astream` API, the seven stream modes (values/updates/messages/custom/checkpoints/tasks/debug), and the unified v2 `StreamPart` dict with per-mode TypedDicts. |
+| [LangGraph: graph state and LLM token modes](../sections/web--langgraph-streaming--graph-state-and-llm-token-streaming.md) | `values`/`updates` state streaming and `messages` token-by-token streaming with tag / `langgraph_node` / `nostream` filtering. |
+| [LangGraph: custom, subgraph, checkpoint, task, and debug modes](../sections/web--langgraph-streaming--custom-subgraph-checkpoint-task-and-debug.md) | `get_stream_writer` custom data, `subgraphs=True` namespacing via `ns`, and the checkpointer-requiring `checkpoints`/`tasks`/`debug` runtime-event modes. |
+| [LangGraph: any-LLM streaming, disabling, and v1→v2 migration](../sections/web--langgraph-streaming--advanced-any-llm-disable-and-v2-migration.md) | Streaming non-LangChain LLMs via custom mode, per-model `streaming=False`/`disable_streaming=True`, the v1→v2 migration table and `GraphOutput`, Python < 3.11 async caveats. |
 
 ## See also
 
 - [[langchain]] — the agent framework whose `stream`/`astream` this describes.
-- [[langgraph]] — streaming is a LangGraph runtime feature surfaced through LangChain agents; the LangGraph `langgraph/streaming` page (deferred) adds `values`/`debug` modes and subgraph streaming.
+- [[langgraph]] — streaming is a LangGraph runtime feature surfaced through LangChain agents; the LangGraph `langgraph/streaming` page (now ingested, the `web--langgraph-streaming--*` sections) adds the `values`/`checkpoints`/`tasks`/`debug` modes and subgraph streaming.
+- [[langgraph-functional-api]] — the `@entrypoint` / `@task` model uses this same streaming mechanism (`stream_events`, `get_stream_writer`).
 - [[human-in-the-loop]] — interrupts are surfaced and resumed inside the streaming loop.
 - [[middleware]] — middleware can register stream transformers that project onto typed channels (e.g. PII redaction of wire output).
