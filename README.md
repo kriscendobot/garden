@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T08:51:17Z_
+_As of 2026-06-30T10:15:20Z_
 
 ## Latest
 
-Most of the motion this cycle is on the byteArray design doc, [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572): erights filed a three-comment review resolving its open questions, and gardeners recorded the design-of-record bookkeeping autonomously (Design Decision 6, restrictive whole-buffer-span span captured as a separate issue, status prose refreshed, threads replied to, pushed as c31c6a312). What now needs the maintainer's hand is the lifecycle execution erights asked for — "for all, withdraw and open fresh": closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (off-limits to the bot), and opening a fresh view-based implementation PR seeded from the narrow-bytearray-to-uint8 prototype. Two inbox messages route this for your go-ahead, including the helper-naming question erights explicitly deferred to you. Separately, review-attention jobs on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) completed.
+The byteArray view design doc [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) drew a three-comment review from erights resolving its open questions, and two gardeners have flagged it to you. erights chose the restrictive whole-buffer-span option and, on disposition, "withdraw all and open fresh" — which gardeners recorded as Design Decision 6 in the doc (pushed to the PR branch) but cannot execute themselves: closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) exceeds the standing comment-only authorization, withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) is across the identity boundary, and the helper-naming question was deferred to you. Your go-ahead is needed to close those PRs, post a fresh view-based implementation build, and file the sub-view question as a separate issue. Otherwise the board is idle (no todo/doin, no transitions this cycle); recent completions clustered on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and #57. Note also a watchdog warning that the `/home/kris/journal` worktree on endolinbot2 has diverged from `origin/journal2` (3 ahead, 5588 behind, 5 dirty) and was left untouched for manual reconciliation.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 4h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 5h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 5h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -63,6 +63,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Note: this PR also has two sibling review threads being handled by peer gardeners —
 > the restrictive-span question (already resolved to restrictive + issue #573, Decision 3)
 > and the helper-naming question (erights deferred it to @kriskowal — needs your call).
+
+- `20260630T101513Z-6816e6` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T101513Z-6816e6.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5588 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
 
 
 ## Board
