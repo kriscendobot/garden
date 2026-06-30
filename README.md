@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T03:44:38Z_
+_As of 2026-06-30T03:45:21Z_
 
 ## Latest
 
-Review work on [endojs/endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) wrapped — its review directives were resolved and verified, and the PR is now in the finalize stage (curate → merge) under a conductor, with a parallel review-directive job still open against it. In the background a scholar is partway through the LangGraph library ingest (remainder 3 landed, remainder 4 in progress), and two garden-infra fixes are underway: de-duplicating the jobs the comment-watcher mints for inline-bearing reviews, and keeping a single long mid-job gardener from aborting a deploy. Nothing new is parked for maintainer review; the parked queue is unchanged.
+[endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) carried the bulk of recent work: its review directive was addressed, all asks resolved and verified, and the PR is now in finalize (curate → merge) under a conductor. On the garden-infra side, two fixes are in progress — deduplicating the comment-watcher's duplicate job-minting for inline-bearing reviews, and hardening `deploy-garden` so a single long mid-job gardener can't abort the fleet. The scholar's LangGraph library ingest advanced (remainder 3 done, remainder 4 underway). Maintainer attention: the journal-worktree-keeper on **endolinbot2** reports `/home/kris/journal` has diverged from `origin/journal2` (3 commits ahead, 5209 behind, 5 dirty paths) and was deliberately left untouched — it needs manual reconciliation before that host's local journal work can sync.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,10 @@ Review work on [endojs/endo-but-for-bots#548](https://github.com/endojs/endo-but
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260630T034512Z-db6a55` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T034512Z-db6a55.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5209 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
