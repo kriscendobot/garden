@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:15:59Z_
+_As of 2026-06-30T05:16:50Z_
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the input.
-
-Since the deterministic dashboard shows recent completions and the current board state, let me synthesize what a maintainer should notice.
-
-The engine fix for kriskowal/garden#17 landed — the native-XS `flatMap` value-stack overflow that broke ymax0 v320 was reproduced and resolved with a per-iteration `mxPop()` in `fxDefineAll`'s flatten path, shipped to [kriscendobot/moddable#1](https://github.com/kriscendobot/moddable/pull/1) and A/B-verified to clear the overflow at stock `stackCount=4096`; a follow-on plan to verify the fix and snapshot-compatibility via inquisitor is parked for go-ahead. Two builder threads completed on endo-but-for-bots — [#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [#430](https://github.com/endojs/endo-but-for-bots/pull/430) — and [#57](https://github.com/endojs/endo-but-for-bots/pull/57) was rebased, with a parked plan to restage it onto the updated [#475](https://github.com/endojs/endo-but-for-bots/pull/475). [#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) advanced through its builder and is now freshly parked for review alongside [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays). Currently in flight: a redesign of the byteArray Uint8Array-view approach and an attention directive on [#475](https://github.com/endojs/endo-but-for-bots/pull/475). The board is otherwise drained — zero jobs in `todo` — with the notable parked plans (`port XS to Rust`, `deploy minion.town to AWS`, foreman cross-host token aggregation) all awaiting maintainer authorization.
+A gardener claimed the rebase directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), which now has two in-flight jobs (a rebase and an attention directive) plus a parked plan to restage [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) onto it. The third active job is a design redesign for the byteArray view backing the freshly-parked passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503). Otherwise the board is quiet — two PRs newly parked for review, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and #503, both fresh enough to merit a look.
 
 ## Parked for maintainer feedback
 
@@ -32,9 +28,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ebfb-bytearray-uint8array-view-redesign`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-bytearray-uint8array-view-redesign.md) — design: byteArray maps a frozen Uint8Array view, not a bare immutable ArrayBu...
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #475
 
 ### tada (671)
 - [`endojs-endo-but-for-bots-pr429-248d107b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr429-248d107b.md) — Completion report — endojs-endo-but-for-bots-pr429-248d107b
