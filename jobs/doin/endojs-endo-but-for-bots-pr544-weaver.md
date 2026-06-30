@@ -34,3 +34,9 @@ hand back so it can be un-drafted and merged (conductor).
 erights also asked, separately: "Please write the mechanical follow-on PR that
 this PR describes." That is a builder follow-on, tracked separately from this
 weave.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 71
+  claimed_at: 2026-06-30T04:28:36Z
