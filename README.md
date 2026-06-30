@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T00:06:55Z_
+_As of 2026-06-30T00:18:33Z_
 
 ## Latest
 
-A single completion landed since the last bulletin: the refresh directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) closed out, while the lone in-flight job continues reproducing the ymax0 v320 70→71 XS stack overflow against real chain state to verify the hex fix. The board is otherwise quiet, with 29 PRs still parked for review — the oldest being the 40-day-old [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) opencode comparative analysis and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) voice-input chat feature.
+The [ymax0 v320 real-chain-state reproduction](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reproduce-ymax0-v320-real-chain-state-20260630.md) landed — the build host, both bundle JSONs, and the netstring driver are now staged for the experiment-6 stack-overflow repro. Otherwise the board is idle (todo and doin both empty), and the maintainer's attention is best spent on the parked review queue, where the [gateway design](https://github.com/endojs/endo-but-for-bots/pull/343) and the [EndoRegistry capability](https://github.com/endojs/endo-but-for-bots/pull/403) are the freshest waits, and the [passable byte arrays PR](https://github.com/endojs/endo-but-for-bots/pull/503) and [erasable-type-syntax .ts support](https://github.com/endojs/endo/pull/3137) have now been waiting days to two weeks.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 15h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 16h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 15h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`reproduce-ymax0-v320-real-chain-state-20260630`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reproduce-ymax0-v320-real-chain-state-20260630.md) — reproduce ymax0 v320 70->71 XS overflow on REAL chain state + verify the hex fix
+### doin (0)
+(none)
 
-### tada (612)
+### tada (613)
+- [`reproduce-ymax0-v320-real-chain-state-20260630`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reproduce-ymax0-v320-real-chain-state-20260630.md) — Everything is staged: build host ready, both bundle JSONs built, driver writt...
 - [`kriskowal-garden-pr9-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-refresh.md) — Completion report: refresh directive on kriskowal/garden #9
 - [`kriskowal-garden-pr9-469d82c6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-469d82c6.md) — Completion report — kriskowal-garden-pr9-469d82c6 (attention directive on kri...
 - [`deadmail-issue-comment-4838594481`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4838594481.md) — Completion report — deadmail-issue-comment-4838594481
 - [`deadmail-issue-comment-4838518722`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4838518722.md) — Completion report
-- [`kriskowal-garden-pr15-33ace472`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr15-33ace472.md) — Design landed on PR #16's branch and the summary comment is posted. Done.
-- … and 607 more
+- … and 608 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
