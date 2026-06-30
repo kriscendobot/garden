@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6014 (525 parent indexes + 5489 children).
+Total section files: 6022 (525 parent indexes + 5497 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7934,6 +7934,20 @@ Total section files: 6014 (525 parent indexes + 5489 children).
 - [web--langchain-messages--content-blocks-and-multimodal](web--langchain-messages--content-blocks-and-multimodal.md)
 - [web--langchain-messages--message-types-and-roles](web--langchain-messages--message-types-and-roles.md)
 
+### web--langchain-middleware
+
+- [web--langchain-middleware--overview-and-graph-composition](web--langchain-middleware--overview-and-graph-composition.md)
+
+### web--langchain-middleware-built-in
+
+- [web--langchain-middleware-built-in--context-cost-and-resilience](web--langchain-middleware-built-in--context-cost-and-resilience.md)
+- [web--langchain-middleware-built-in--tools-safety-and-capabilities](web--langchain-middleware-built-in--tools-safety-and-capabilities.md)
+
+### web--langchain-middleware-custom
+
+- [web--langchain-middleware-custom--examples](web--langchain-middleware-custom--examples.md)
+- [web--langchain-middleware-custom--hooks-state-and-execution-order](web--langchain-middleware-custom--hooks-state-and-execution-order.md)
+
 ### web--langchain-models
 
 - [web--langchain-models--advanced-profiles-multimodal-reasoning-caching](web--langchain-models--advanced-profiles-multimodal-reasoning-caching.md)
@@ -7953,6 +7967,12 @@ Total section files: 6014 (525 parent indexes + 5489 children).
 
 - [web--langchain-short-term-memory--checkpointer-thread-persistence](web--langchain-short-term-memory--checkpointer-thread-persistence.md)
 - [web--langchain-short-term-memory--context-management-and-state-access](web--langchain-short-term-memory--context-management-and-state-access.md)
+
+### web--langchain-streaming
+
+- [web--langchain-streaming--common-patterns-reasoning-tool-calls-hitl-subagents](web--langchain-streaming--common-patterns-reasoning-tool-calls-hitl-subagents.md)
+- [web--langchain-streaming--disable-streaming-and-v2-format](web--langchain-streaming--disable-streaming-and-v2-format.md)
+- [web--langchain-streaming--stream-modes-and-agent-progress](web--langchain-streaming--stream-modes-and-agent-progress.md)
 
 ### web--langchain-structured-output
 
