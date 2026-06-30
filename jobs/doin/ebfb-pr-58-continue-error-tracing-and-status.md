@@ -36,3 +36,9 @@ limit and blocked daemon start; the three privileged introspection methods `getF
 least a **reply comment**, not just a reactji — make sure the status reply lands on #58.
 
 Scope: bot fork; frozen base `llm-a1dcc70`; no upstream-of-endo contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 2
+  claimed_at: 2026-06-30T22:51:10Z
