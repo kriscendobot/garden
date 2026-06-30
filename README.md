@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T13:56:13Z_
+_As of 2026-06-30T13:59:20Z_
 
 ## Latest
 
-Little moved since the last bulletin: a single dead-lettered message ([`deadmail-20260630T135440Z-09a11e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260630T135440Z-09a11e.md)) was claimed for intent recovery, with no new posts or completions on the board. The maintainer's attention is best spent on the parked review queue, where the freshest arrivals are the CapTP error-tracing work in [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and the passable byte-arrays feature in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), while [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules) has now waited two weeks.
+A gardener claimed [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475)'s passable-byte-array line forward: a fresh, view-based `byteArray` implementation is now in flight per design [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) (the restrictive Uint8Array-view approach), and completion reports landed for the attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and for [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57). This is the same cluster as the parked [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (freezable TypedArray emulation + byteArray brand check), now awaiting kriskowal's review. On the garden side, a job is encoding erights' full maintainer authority into the library so those directives stop being re-routed. The plan queue still holds the `verify-ymax0-hex-fix-inquisitor` go-ahead and the restage of [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) onto the updated [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), both parked for authorization.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`build-ebfb-bytearray-uint8array-view-restrictive`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-ebfb-bytearray-uint8array-view-restrictive.md) — build: fresh view-based byteArray implementation per design #572 (restrictive...
 - [`deadmail-20260630T135440Z-09a11e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260630T135440Z-09a11e.md) — Dead-lettered message — pick up its intent
+- [`garden-encode-erights-maintainer-authority`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-erights-maintainer-authority.md) — Encode: erights has full maintainer authority (so directives aren't re-routed)
 
 ### tada (690)
 - [`endojs-endo-but-for-bots-pr475-39621e7f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-39621e7f.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #475
