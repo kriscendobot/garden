@@ -10,3 +10,9 @@ step. Task: locate the bundle-publishing examples in the **mainnet validation tr
 install the ymax0/ymax1 bundle as the prerequisite for the contract-control-upgrade repro; fold this
 into the ongoing #9 mainnet repro. Then reply on #9 with progress (acknowledged-comment → reply).
 Scope: bot infra; no upstream agoric/agoric-sdk contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 78
+  claimed_at: 2026-06-30T23:19:58Z
