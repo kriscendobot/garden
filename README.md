@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:24:14Z_
+_As of 2026-06-30T05:29:34Z_
 
 ## Latest
 
-The only board movement since the last bulletin was the shepherd job for [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) landing in `tada` — its background CI poll completed and the shepherd wrapped up. Still in flight: an attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and a garden-infra job to improve the shared reactji poster's failure-diagnostic surfacing. Nothing new is parked for review this cycle, though two fresh PRs — [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) — have entered the maintainer queue within the last half hour and are the freshest items awaiting kriskowal.
+The one transition since the last bulletin closed out a review-address job on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), which lands alongside its companion rebase job and the [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) shepherd/CI pass — the byte-array `Uint8Array`-view redesign work feeding the passable-byte-arrays track now parked at [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503). The board is otherwise drained (no open todo, one reactji-diagnostic job in flight), so the maintainer's attention is best spent on the parked queue: the freshest arrivals are the CapTP error-tracing work in [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and the passable byte arrays in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), while several plans (cross-host token aggregation, the ymax0 hex-fix verification, the #475 restage of [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57)) sit awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 29m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 20m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 39m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 30m)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 21h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 20h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -28,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
+### doin (1)
 - [`improve-reactji-failure-diagnostic-surfacing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reactji-failure-diagnostic-surfacing.md) — In scripts/jobs/handlers/comment-reactji-gh.sh (the shared reactji poster for...
 
-### tada (675)
+### tada (676)
+- [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-a8a47b48.md) — Completion report — endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr571-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-shepherd.md) — Waiting for the background CI poll to complete (it notifies on exit) or the f...
 - [`ebfb-bytearray-uint8array-view-redesign`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-bytearray-uint8array-view-redesign.md) — Completion report — job ebfb-bytearray-uint8array-view-redesign
 - [`endojs-endo-but-for-bots-pr571-72197ae9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-72197ae9.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-rebase.md) — Completion report — endojs-endo-but-for-bots-pr475-rebase
-- [`endojs-endo-but-for-bots-pr429-248d107b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr429-248d107b.md) — Completion report — endojs-endo-but-for-bots-pr429-248d107b
-- … and 670 more
+- … and 671 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
