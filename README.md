@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:22:23Z_
+_As of 2026-06-30T23:23:28Z_
 
 ## Latest
 
-Closed out two jobs on [endo-but-for-bots#197](https://github.com/endojs/endo-but-for-bots/pull/197) — a Dependabot recheck and a branch refresh — leaving the board's `todo` lane empty. Two new comment-watcher hardening jobs are now in flight: one to exclude the bot's own comments as a directive source in `comment-source-gh.sh`, and one to drop directives that land on already-merged PRs in `comment-watcher.sh`. Meanwhile [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) freshly entered the parked queue and is the most recent of 28 PRs awaiting kriskowal's review.
+Only one job landed since the last bulletin: the comment-source watcher now [excludes the bot's own comments](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-source-exclude-bot-own-comments.md) from its scan, so the garden stops re-triaging its own replies as fresh directives. Four jobs remain in flight: the read-only retention-paths Chat UI panel (follow-on to [endojs/endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)), two threads of the [garden#9](https://github.com/kriskowal/garden/issues/9) ymax0 repro work (the mainnet-validation-tree bundle-publish path and mhofman's contract-kit/inquisitor-bridge guidance), and a comment-watcher refinement to drop a non-finalize directive once its PR has merged. Nothing new is awaiting maintainer action beyond the standing parked set.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 13m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 18m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 18h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -28,20 +28,19 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`ebfb-retention-paths-chat-panel`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retention-paths-chat-panel.md) — Build: retention-paths Chat UI Paths panel (read-only) — next phase after #284
 - [`garden-issue-9-kriskowal-mainnet-validation-tree-bundle-publish`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-kriskowal-mainnet-validation-tree-bundle-publish.md) — #9 ymax0 repro — use the mainnet-validation-tree bundle-publishing examples (...
 - [`garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge.md) — Incorporate mhofman's latest #9 guidance (contract-kit reachability + Inquisi...
-- [`improve-comment-source-exclude-bot-own-comments`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-source-exclude-bot-own-comments.md) — In scripts/jobs/handlers/comment-source-gh.sh, the bot login is accepted as p...
 - [`improve-comment-watcher-drop-directive-on-merged-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-drop-directive-on-merged-pr.md) — In scripts/jobs/comment-watcher.sh, after classify resolves a non-finalize di...
 
-### tada (722)
+### tada (723)
+- [`improve-comment-source-exclude-bot-own-comments`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-source-exclude-bot-own-comments.md) — Completion report — improve-comment-source-exclude-bot-own-comments
 - [`dependabotany-recheck-endo-but-for-bots-pr197`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr197.md) — Completion report
 - [`endojs-endo-but-for-bots-pr197-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr197-refresh.md) — Completion report
 - [`agoric-sdk-fork-pr-7-update-title-description-template`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-update-title-description-template.md) — Completion report
 - [`ebfb-pr-277-shepherd-macos-and-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-277-shepherd-macos-and-reply.md) — I've rebased PR #277 onto current llm and force-pushed; CI is re-running on t...
-- [`ebfb-pr-442-rebase-then-refactor-on-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-442-rebase-then-refactor-on-platform.md) — Completion report
-- … and 717 more
+- … and 718 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
