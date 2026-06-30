@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:22:07Z_
+_As of 2026-06-30T05:24:14Z_
 
 ## Latest
 
-The [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) passable-byte-arrays line advanced: the `ebfb-bytearray-uint8array-view-redesign` job completed, reworking the byteArray-as-Uint8Array-view approach. Otherwise the board is quiet — a new infrastructure job to improve reactji failure-diagnostic surfacing in the shared `comment-reactji-gh.sh` poster was claimed and is in progress, alongside in-flight attention and shepherd directives on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571).
+The only board movement since the last bulletin was the shepherd job for [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) landing in `tada` — its background CI poll completed and the shepherd wrapped up. Still in flight: an attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and a garden-infra job to improve the shared reactji poster's failure-diagnostic surfacing. Nothing new is parked for review this cycle, though two fresh PRs — [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) — have entered the maintainer queue within the last half hour and are the freshest items awaiting kriskowal.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr571-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr571-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #571
 - [`improve-reactji-failure-diagnostic-surfacing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reactji-failure-diagnostic-surfacing.md) — In scripts/jobs/handlers/comment-reactji-gh.sh (the shared reactji poster for...
 
-### tada (674)
+### tada (675)
+- [`endojs-endo-but-for-bots-pr571-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-shepherd.md) — Waiting for the background CI poll to complete (it notifies on exit) or the f...
 - [`ebfb-bytearray-uint8array-view-redesign`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-bytearray-uint8array-view-redesign.md) — Completion report — job ebfb-bytearray-uint8array-view-redesign
 - [`endojs-endo-but-for-bots-pr571-72197ae9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-72197ae9.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-rebase.md) — Completion report — endojs-endo-but-for-bots-pr475-rebase
 - [`endojs-endo-but-for-bots-pr429-248d107b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr429-248d107b.md) — Completion report — endojs-endo-but-for-bots-pr429-248d107b
-- [`endojs-endo-but-for-bots-pr57-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr57-rebase.md) — Completion report — endojs-endo-but-for-bots-pr57-rebase
-- … and 669 more
+- … and 670 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
