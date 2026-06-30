@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:44:04Z_
+_As of 2026-06-30T05:47:33Z_
 
 ## Latest
 
-Work has converged on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572): five directives — two attention and three review — are now in flight against it, the newest a freshly-claimed review directive, so a maintainer should expect that PR to move shortly. Recently landed: completion and shepherd reports on [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571), a completion on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and the `ebfb-bytearray-uint8array-view-redesign` redesign that feeds the parked passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503). The plan queue still holds the ymax0 hex-fix verification and the XS-to-Rust port awaiting maintainer go-ahead.
+erights left a 3-comment review on the byteArray design doc [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572), resolving its open questions, and a gardener has routed an authorization request to the maintainer inbox: erights chose the restrictive whole-buffer-span sub-view option (to be captured as a separate issue assigned to erights) and directed "withdraw all three and open fresh" for the implementation — meaning close [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57), close upstream [endo#3226](https://github.com/endojs/endo/pull/3226) via the boatman/identity path, and open a fresh view-based implementation PR. Two of the three #572 review-directive jobs completed; three remain in flight (two attention directives plus a review directive). The PR-close and upstream actions await kriskowal's go-ahead since they cross the endo-but-for-bots comment-only authorization boundary. The board is otherwise quiet — todo empty, three jobs in progress — and the parked queue still leads with [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), both freshly awaiting review.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 52m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 43m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 57m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 48m)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 21h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 21h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -22,26 +22,47 @@ Work has converged on [endo-but-for-bots#572](https://github.com/endojs/endo-but
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260630T054655Z-c69950` — from gardener:endojs-endo-but-for-bots-pr572-dea7fcb4, reply_to `endojs-endo-but-for-bots-pr572-dea7fcb4` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T054655Z-c69950.md)
+
+> ATTENTION / authorization request — erights' review on endojs/endo-but-for-bots#572 (byteArray design doc)
+>
+> erights left a 3-comment review on the design doc PR #572 resolving its open questions. One part needs your authorization because it crosses repos (incl. upstream Endo) and the directive arrived on an untrusted PR comment, which I can't self-promote into a PR-close authorization.
+>
+> erights' decisions:
+> 1. Sub-view open question: "go with the restrictive option for now" (whole-buffer-span / no permissive sub-views); capture the question+discussion as a SEPARATE ISSUE assigned to erights and link it from #572.
+> 2. Disposition open question (this job's trigger, anchored on the doc's "withdraw all three vs retarget" line): "For all, withdraw and open fresh." → withdraw #429, #57, and upstream endojs/endo#3226, and open a fresh view-based implementation PR.
+> 3. Helper-naming unification: erights defers to @kriskowal.
+>
+> What executing #2 entails (and why I'm routing, not acting):
+> - Close endo-but-for-bots #429 (kriscendobot, draft) and #57 (kriscendobot) — bot CAN close these, but PR-close is not covered by the endo-but-for-bots standing authorization (comments/reactjis only), so it needs your go-ahead.
+> - Close upstream endojs/endo#3226 — kriskowal-authored, upstream Endo: bot CANNOT touch it (identity boundary). This needs you / the boatman path.
+> - Open a fresh view-based implementation PR grounded in design #572 + the existing feat/narrow-bytearray-to-uint8 prototype — a builder job I can post once authorized.
+>
+> Recommended plan if you approve:
+>   a. I close #429 and #57 with a close-comment citing #572 + the fresh-impl plan (branches preserved, reversible).
+>   b. I post a build job: "fresh view-based byteArray implementation PR per design #572, restrictive whole-buffer-span option."
+>   c. I file the sub-view issue assigned to erights and link it from #572 (also resolves erights' comment #1).
+>   d. You/boatman handle closing upstream endojs/endo#3226.
+>
+> I've added an 'eyes' reactji to erights' directive comment to mark it received. Awaiting your go-ahead on a-d (or a subset).
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr572-22f817ba`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-22f817ba.md) — attention directive on endojs/endo-but-for-bots PR #572
 - [`endojs-endo-but-for-bots-pr572-dea7fcb4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-dea7fcb4.md) — attention directive on endojs/endo-but-for-bots PR #572
-- [`endojs-endo-but-for-bots-pr572-review-04e6cad0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-04e6cad0.md) — Review directive on endojs/endo-but-for-bots PR #572
 - [`endojs-endo-but-for-bots-pr572-review-f9f39a71`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-f9f39a71.md) — Review directive on endojs/endo-but-for-bots PR #572
-- [`endojs-endo-but-for-bots-pr572-review-feaa10d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-feaa10d8.md) — Review directive on endojs/endo-but-for-bots PR #572
 
-### tada (677)
+### tada (679)
+- [`endojs-endo-but-for-bots-pr572-review-04e6cad0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-04e6cad0.md) — Completion report — endojs-endo-but-for-bots-pr572-review-04e6cad0
+- [`endojs-endo-but-for-bots-pr572-review-feaa10d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-feaa10d8.md) — Completion report — job endojs-endo-but-for-bots-pr572-review-feaa10d8
 - [`improve-reactji-failure-diagnostic-surfacing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reactji-failure-diagnostic-surfacing.md) — The host environment became unrecoverable mid-job and I have exhausted recove...
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-a8a47b48.md) — Completion report — endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr571-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-shepherd.md) — Waiting for the background CI poll to complete (it notifies on exit) or the f...
-- [`ebfb-bytearray-uint8array-view-redesign`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-bytearray-uint8array-view-redesign.md) — Completion report — job ebfb-bytearray-uint8array-view-redesign
-- [`endojs-endo-but-for-bots-pr571-72197ae9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-72197ae9.md) — Completion report
-- … and 672 more
+- … and 674 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
