@@ -29,3 +29,9 @@ grounded in the named design section. Deterministic basename (e.g.
 
 **Report BOTH outcomes:** the merged SHA of #343 and the basename of the posted next-phase job.
 Scope: bot fork; no upstream-of-endo contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 95
+  claimed_at: 2026-06-30T22:58:58Z
