@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/9#issuecomment-4839140138
 While we wait for a snapshot, please produce a precise accounting of how the slots are consumed and why we stop at exactly this moment. Is it the Map? Are module lexicals allocated on the stack? How many slots are consumed by each of these frames? Does inlining the loop reduce th
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 23
+  claimed_at: 2026-06-30T01:49:11Z
