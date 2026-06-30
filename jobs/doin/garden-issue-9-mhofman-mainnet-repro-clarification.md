@@ -28,3 +28,9 @@ Concretely:
 **Scope:** investigation only, on the bot's own infra / chain-state repro harness.
 Do **NOT** touch upstream `agoric/agoric-sdk` (no upstream PRs or comments); keep all
 artifacts on bot infrastructure. Bot identity; #9 is the garden's own issue.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 42
+  claimed_at: 2026-06-30T22:35:51Z
