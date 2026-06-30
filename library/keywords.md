@@ -13538,7 +13538,19 @@ durability mode | langgraph-checkpointer
 time travel (LangGraph) | langgraph-checkpointer
 thread_id | langgraph-checkpointer
 pending writes | langgraph-checkpointer
-LangGraph store | langgraph-checkpointer
+LangGraph store | langgraph-store
+`BaseStore` | langgraph-store
+`InMemoryStore` | langgraph-store
+`PostgresStore` | langgraph-store
+`store.put` | langgraph-store
+`store.search` | langgraph-store
+`store.get` | langgraph-store
+cross-thread memory | langgraph-store
+namespace (LangGraph store) | langgraph-store
+semantic search (LangGraph) | langgraph-store
+`IndexConfig` | langgraph-store
+`runtime.store` | langgraph-store
+`Item` (LangGraph store) | langgraph-store
 human-in-the-loop | human-in-the-loop
 HITL | human-in-the-loop
 `interrupt()` (LangGraph) | human-in-the-loop
@@ -13558,6 +13570,23 @@ supervisor (LangChain) | multi-agent-handoff
 context engineering (LangChain) | multi-agent-handoff
 harness (LangChain) | langchain
 middleware (LangChain) | langchain
+messages (LangChain) | langchain
+`SystemMessage` | langchain
+`HumanMessage` | langchain
+`AIMessage` | langchain
+`ToolMessage` | langchain
+content blocks | langchain
+`content_blocks` | langchain
+multimodal (LangChain) | langchain
+short-term memory (LangChain) | langchain
+long-term memory (LangChain) | langchain
+`AgentState` | langchain
+`SummarizationMiddleware` | langchain
+`ProviderStrategy` | langchain
+`ToolStrategy` | langchain
+`structured_response` | langchain
+`handle_errors` | langchain
+`thread_id` (LangChain memory) | langchain
 `init_chat_model` | langchain
 `bind_tools` | langchain
 `ToolRuntime` | langchain
