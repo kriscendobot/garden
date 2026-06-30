@@ -1,7 +1,0 @@
-Close the acknowledged straggler gap in `scripts/jobs/comment-watcher.sh`'s `cleanup()` (around line 680–698) that produces the recurring `garden-comment-watcher@.service: Found left-over process (git) in control group while starting unit` warning. The existing trap only reaps the source's own process group (negated PGID of the `timeout` pid); a `gh --paginate`-forked git credential helper that placed itself in a DIFFERENT process group survives a NORMAL (successful) tick exit, because the unit's cgroup-wide SIGKILL backstop only fires on a systemd *stop*, not on clean completion — so it lingers into the next start. Add a final cgroup-wide straggler sweep to `cleanup()` (it runs on the EXIT trap, covering the normal-exit path the stop-time backstop misses): resolve this process's own service cgroup via `/proc/self/cgroup` (the `0::` unified line), read `/sys/fs/cgroup<path>/cgroup.procs`, and `kill -KILL` every pid except `$$` and its ancestors. Guard it so it is a no-op when the cgroup file is unreadable (non-systemd test runs, cgroup v1) so the script's test harness and the `timeout`-absent branch stay green. This makes the watcher leave an empty cgroup on every exit path, not just on stop, eliminating the leftover-git warning at the source rather than relying on the next start to migrate-and-ignore it. Verify with the script's existing test (`scripts/jobs/test/`) and a `--dry`/stub run; land via worktree off `origin/main2` per the garden-infra-jobs norm.
-
----
-claim:
-  host: endolinbot2
-  gardener: 5
-  claimed_at: 2026-06-30T03:23:25Z
