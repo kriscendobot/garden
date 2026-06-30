@@ -256,19 +256,86 @@ runnable cross-check.
   `E(ymax0Kit.adminFacet).upgradeContract(...)` fails *before any worker spins up*
   with `vatAdminService rejecting attempt to perform "upgrade"() on non-running
   vat "v275"`. The live v290/v288 instances carry separate admin facets that Zoe
-  holds privately per instance, not exposed in any promise-space kit on the
-  snapshot; reaching them is the real contract-control upgrade path. **Two inputs
-  are still missing to run the faithful upgrade on real mainnet state:** (1) the
-  actual failing (devnet "v320") contract bundle, because every on-chain ymax
-  bundle in the snapshot (`1cfec/867596/078729/68c494` for ymax0, `61c340` for
-  ymax1) carries the wide `hex.js` `flatMap` yet flattens to only 3 to 5
-  `flatMap`s and imports **clean** through a real on-chain worker (the latest,
-  `b1-68c494…` / v290, reaches the benign post-import `lacks buildRootObject()`
-  check), so the current mainnet deployment is below the 4096-slot threshold and
-  the over-threshold bundle is not in the snapshot; and (2) a handle to the live
-  v290/v288 admin facet. The driver for this vector is
-  `repro/repro-upgrade-driver.mjs` in the build worktree. Until those land, the
-  runnable cross-check is the `vatAdminSvc.createVat(bundleCap)` vector below,
+  holds privately per instance, not exposed in any **promise-space** kit on the
+  snapshot; reaching them is the real contract-control upgrade path. The driver
+  for this (now-superseded) promise-space vector is
+  `repro/repro-upgrade-driver.mjs` in the build worktree.
+- **The delegated contract-control finding (the faithful upgrade path mhofman
+  pointed to), per mhofman 2026-06-30 ([comment](https://github.com/kriskowal/garden/issues/9#issuecomment-4848598136)).**
+  mhofman was right that the contract *kits* are reachable from bootstrap space —
+  `ymax0Kit` is present at `v1.vs.vc.5.symax0Kit` and its `adminFacet`/`creatorFacet`/
+  `instance` all resolve (owned by Zoe, `v9`). The catch is only that *that*
+  bootstrap kit's `adminFacet` drives the **original, now-terminated** instance
+  (vat `v275`); the live deployment's control was **delegated** out of the
+  promise space by the `delegatePortfolioContract` core-eval
+  (`packages/portfolio-deploy/src/portfolio-control.core.js`), which builds a
+  `ContractControl` (`@agoric/deploy-script-support/src/control/contract-control.contract.js`)
+  from the **live** instance's `UpgradeKit` and **delivers it to a smart wallet**.
+  That control object is present in the snapshot, saved in the control account's
+  wallet store (`v43.vs.vc.1144877.symaxControl` for ymax0 and
+  `v43.vs.vc.1146656.symaxControl` for ymax1, each → an `Alleged: ContractControl`).
+  The control accounts are hardcoded in
+  `@agoric/portfolio-api/src/portfolio-constants.js` (`CONTROL_ADDRESSES`,
+  `YMAX_CONTROL_WALLET_KEY = 'ymaxControl'`): ymax0-main
+  `agoric1e80twfutmrm3wrk3fysjcnef4j82mq8dn6nmcq`, ymax1-main
+  `agoric18dx5f8ck5xy2dgkgeyp2w478dztxv3z2mnz928`. So the live `v290`/`v288`
+  admin facet **is** reachable — not via the promise space, but via
+  `ContractControl.upgrade({bundleId, privateArgsOverrides})`, which internally is
+  `E(liveKit.adminFacet).upgradeContract(bundleId, privateArgs)`.
+- **The faithful vector: inject the smart-wallet `invokeEntry` bridge action.**
+  inquisitor's `pushQueueRecord` + `runNextBlock` endowments ARE the inbound
+  bridge-action injection path. The on-chain trigger for a ymax upgrade is a
+  `WALLET_ACTION` from the control account carrying a smallcaps-marshalled
+  `{ method: 'invokeEntry', message: { targetName: 'ymaxControl', method: 'upgrade',
+  args: [{ bundleId, privateArgsOverrides }] } }`. It routes
+  `actionQueue → BridgeId.WALLET → walletFactory.fromBridge → wallet.handleBridgeAction
+  → invoke.invokeEntry → myStore.get('ymaxControl').upgrade(...)` → the live
+  instance's `adminFacet.upgradeContract` → a fresh XS worker re-imports the
+  bundle (where `hex.js` lives). The action carries **zero object slots** (its args
+  are pure data), so it is hand-marshalable with `@endo/marshal` and injected
+  without any board-resolved remotables. Driver:
+  `repro/repro-control-upgrade-driver.mjs`. A run with a valid (below-threshold)
+  `bundle-ymax0` is accepted onto the action queue and `runNextBlock` cranks the
+  block to completion (controller ran 443 deliveries). **Caveat:** in the overlay
+  the inbound `WALLET` bridge did **not** deliver the action to the wallet's
+  `handleBridgeAction` — the block cranked routine work (auction/vault
+  republishing) but wrote no `published.wallet.<address>` invocation record,
+  unlike the `CORE` bridge that `runCoreEval` consumes from bootstrap. Wiring the
+  inbound `WALLET` bridge handler (or reviving the control wallet) in the overlay
+  is the open tooling step for the wallet-envelope-faithful run.
+- **EV-direct shortcut to the same delegated control object (bypasses the wallet
+  envelope).** The `ContractControl` objects are owned by `v1` (bootstrap —
+  `delegatePortfolioContract` created them there before delivering to the wallet),
+  krefs `ko25961078` (ymax0) / `ko25964180` (ymax1). So
+  `EV(kslot('ko25961078')).upgrade({ bundleId, privateArgsOverrides: {} })` reaches
+  the **same** delegated `ContractControl.upgrade` — and therefore the live `v290`
+  `adminFacet.upgradeContract` — without needing the wallet inbound bridge. Driver:
+  `repro/repro-cc-direct-driver.mjs`. This is the contract-control-faithful
+  upgrade vector (more faithful than `createVat`); the overflow lives far below
+  the wallet layer, so the EV-direct trigger exercises the identical failing
+  import path. **Driver-pattern caveat:** in scripted `INQUISITOR_NO_REPL` mode
+  `EV(...).upgrade(...)` returns a promise that only settles once the controller
+  cranks, so `await`-ing it before driving the kernel **deadlocks**. Fire the send
+  WITHOUT awaiting, then `await controller.run()` (or `runNextBlock()`) to crank
+  the delivery, then read the result — the same shape `runCoreEval` uses
+  internally.
+- **The one remaining input is the OVER-THRESHOLD bundle, exactly what mhofman's
+  "the bundle is network/instance-agnostic — it just needs to be installed first"
+  resolves.** Every on-chain ymax bundle in the snapshot
+  (`1cfec/867596/078729/68c494` for ymax0, `61c340` for ymax1) carries the wide
+  `hex.js` `flatMap` yet flattens to only 3 to 5 `flatMap`s and imports **clean**
+  through a real on-chain worker (the latest, `b1-68c494…` / v290, reaches the
+  benign post-import `lacks buildRootObject()` check), so the **current mainnet
+  deployment is below the 4096-slot threshold and the over-threshold bundle is not
+  in the snapshot.** The failing bundle is the **devnet "v320"** `bundle-ymax0.json`,
+  which (per mhofman #4) is a **release asset** on the agoric-sdk release page —
+  the deploy tooling fetches it via `gh release download <tag> --pattern
+  bundle-ymax0.json` (`packages/portfolio-deploy/scripts/ymax-deploy-target.ts`,
+  targets `ymax0-devnet`/`ymax0-main`/`ymax1-main` on `agoricdev-25`/`agoric-3`).
+  Once that over-threshold bundle is `addBundle`d, the same
+  `repro-control-upgrade-driver.mjs` injection reproduces the XS value-stack
+  overflow on the faithful contract-control path. Until then, the runnable
+  cross-check is the `vatAdminSvc.createVat(bundleCap)` vector below,
   which routes a high-`flatMap` bundle through the exact same on-chain worker
   import path (`compartmentImportNow` → `execute` → `hex.js` `flatMap`) where the
   overflow lives. That `createVat` vector needed a one-line **inquisitor overlay
