@@ -75,3 +75,9 @@ on-host runs of the open-source XS worker and the public bundle. **No upstream
 `agoric/agoric-sdk` interaction**: no comments, reviews, reactjis, or
 review-comments; no issue/PR opens, edits, or closes; no cross-references. See
 `roles/COMMON.md` § External-repo etiquette, *Project scope: agoric/agoric-sdk*.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 57
+  claimed_at: 2026-06-30T21:37:23Z
