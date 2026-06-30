@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:04:18Z_
+_As of 2026-06-30T05:06:42Z_
 
 ## Latest
 
-The lone completion since the last bulletin closed out the attention work on [endo-but-for-bots#430](https://github.com/endojs/endo-but-for-bots/pull/430). Four jobs remain in flight: attention directives on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#58](https://github.com/endojs/endo-but-for-bots/pull/58), a rebase of [#57](https://github.com/endojs/endo-but-for-bots/pull/57), and maintainer issue [garden#17](https://github.com/kriskowal/garden/issues/17). Two PRs surfaced freshly for review and are worth a look: [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays — freezable TypedArray emulation plus a byteArray brand check) and [#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), both parked only minutes ago. The plan queue still holds five items awaiting go-ahead, including the ymax0 hex-fix verification and the #57-onto-#475 restage.
+The garden's [issue #17](https://github.com/kriskowal/garden/issues/17) — the ymax0 v320 XS value-stack overflow — landed as a completion this cycle; the one-line `flatMap`→loop engine fix has shipped and the issue is closed. Three directives remain in flight on endo-but-for-bots: an attention pass on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), a rebase of [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57), and an attention pass on the CapTP error-tracing PR [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — the last of which is also freshly parked for review (12m). Two further PRs surfaced into the parked queue for the maintainer: the passable-byte-arrays feature [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (2m) and the registry-capability layer [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403). The board is otherwise quiet (empty todo), with several plans still awaiting go-ahead, including the ymax0 hex-fix verification and the #57-onto-#475 restage.
 
 ## Parked for maintainer feedback
 
@@ -28,19 +28,18 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr57-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr57-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #57
 - [`endojs-endo-but-for-bots-pr58-8585f202`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-8585f202.md) — attention directive on endojs/endo-but-for-bots PR #58
-- [`issue-kriskowal-garden-17`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-17.md) — Issue from kriskowal on kriskowal/garden #17
 
-### tada (667)
+### tada (668)
+- [`issue-kriskowal-garden-17`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-17.md) — Completion report — issue-kriskowal-garden-17
 - [`endojs-endo-but-for-bots-pr430-b7b6a63e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr430-b7b6a63e.md) — Completion report
 - [`endojs-endo-but-for-bots-pr57-a1d1ced7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr57-a1d1ced7.md) — Completion report
 - [`garden-review-detect-workstation-home-dir-coupling`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-review-detect-workstation-home-dir-coupling.md) — Completion report
 - [`pr7-portable-xsnap-worker-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr7-portable-xsnap-worker-path.md) — Report: pr7-portable-xsnap-worker-path
-- [`endojs-endo-but-for-bots-pr544-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-builder.md) — Completion report
-- … and 662 more
+- … and 663 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
