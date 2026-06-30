@@ -679,6 +679,13 @@ Sources retrieved from public URLs rather than from repository git history. Use 
 
 | Source | URL | Sections | Status |
 |--------|-----|----------|--------|
+| [LangChain overview](web--langchain-overview.md) | https://docs.langchain.com/oss/python/langchain/overview | 1 | current (LangChain/LangGraph focused-ingest batch 2026-06-30 for the gap-analysis job; idempotency anchor is content SHA-256 over the `.md` rendering) |
+| [LangChain retrieval (RAG)](web--langchain-retrieval.md) | https://docs.langchain.com/oss/python/langchain/retrieval | 1 | current (batch 2026-06-30) |
+| [LangGraph overview](web--langgraph-overview.md) | https://docs.langchain.com/oss/python/langgraph/overview | 1 | current (batch 2026-06-30) |
+| [LangGraph Graph API](web--langgraph-graph-api.md) | https://docs.langchain.com/oss/python/langgraph/graph-api | 2 | current (batch 2026-06-30) |
+| [LangGraph checkpointers](web--langgraph-checkpointers.md) | https://docs.langchain.com/oss/python/langgraph/checkpointers | 2 | current (batch 2026-06-30) |
+| [LangGraph persistence](web--langgraph-persistence.md) | https://docs.langchain.com/oss/python/langgraph/persistence | 1 | current (batch 2026-06-30) |
+| [LangGraph workflows and agents](web--langgraph-workflows-and-agents.md) | https://docs.langchain.com/oss/python/langgraph/workflows-agents | 1 | current (batch 2026-06-30) |
 | [AWS Marketplace AMI requirements](web--aws-marketplace-ami-requirements.md) | https://docs.aws.amazon.com/marketplace/latest/userguide/product-and-ami-policies.html | 2 | current |
 | [AWS Marketplace container product requirements](web--aws-marketplace-container-requirements.md) | https://docs.aws.amazon.com/marketplace/latest/userguide/container-product-policies.html | 1 | current |
 | [Let's Encrypt ACME challenge types](web--lets-encrypt-acme-challenges.md) | https://letsencrypt.org/docs/challenge-types/ | 2 | current |
