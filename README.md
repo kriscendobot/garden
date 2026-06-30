@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:00:29Z_
+_As of 2026-06-30T23:02:14Z_
 
 ## Latest
 
-The ymax0 hex repro work wrapped up: the [inquisitor-ymax0-hex-repro](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/inquisitor-ymax0-hex-repro.md) and the [garden#9 mhofman mainnet-repro clarification](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-mhofman-mainnet-repro-clarification.md) both completed, alongside a shepherd pass on the [kriscendobot/agoric-sdk fork PR #7](https://github.com/kriskowal/garden/pull/7) and garden issue #18. On the board, work on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) picked up — a review directive plus a shepherd-status-reply to close that loop are now in flight — while [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (conduct/merge the approved @endo/gateway design) continue. Maintainer attention is most worthwhile on #58 (parked 1h, awaiting answers) and the two longest-parked feature PRs, [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 17h) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 1d).
+Two endo-but-for-bots threads closed out: a shepherd posted a status reply on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), closing that review loop, and the conductor on [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) finished its phase and posted the next-phase hand-off. A new build picked up @endo/gateway Phase 1 (virtual-host content-tree resolution). Still in flight: the error-tracing push on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (continuing toward acceptance criteria and answering kriskowal's question — note this one has only been parked ~1h), and review directives on [#284](https://github.com/endojs/endo-but-for-bots/pull/284) and [#343](https://github.com/endojs/endo-but-for-bots/pull/343) are still being worked. A garden-meta job is encoding the "an acknowledged comment earns a reply, not just a reactji" rule.
 
 ## Parked for maintainer feedback
 
@@ -28,21 +28,20 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
-- [`ebfb-pr-284-shepherd-status-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-284-shepherd-status-reply.md) — PR #284 — post the shepherd-result status reply comment (close the loop)
-- [`ebfb-pr-343-conduct-and-post-next-phase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-343-conduct-and-post-next-phase.md) — PR #343 — conduct (merge) the approved @endo/gateway design, then post the ne...
+### doin (5)
+- [`ebfb-endo-gateway-phase-1-virtual-hosting`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-endo-gateway-phase-1-virtual-hosting.md) — Build — @endo/gateway Phase 1, Feature 2: virtual-host content-tree resolutio...
 - [`ebfb-pr-58-continue-error-tracing-and-status`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-continue-error-tracing-and-status.md) — PR #58 — continue error-tracing toward acceptance criteria + answer kriskowal...
 - [`endojs-endo-but-for-bots-pr284-review-393eb60e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr284-review-393eb60e.md) — Review directive on endojs/endo-but-for-bots PR #284
 - [`endojs-endo-but-for-bots-pr343-review-c61577a1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr343-review-c61577a1.md) — Review directive on endojs/endo-but-for-bots PR #343
 - [`garden-encode-acknowledged-comment-needs-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-acknowledged-comment-needs-reply.md) — Encode: an acknowledged comment gets at least a reply comment, not just a rea...
 
-### tada (706)
+### tada (708)
+- [`ebfb-pr-343-conduct-and-post-next-phase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-343-conduct-and-post-next-phase.md) — Completion report — ebfb-pr-343-conduct-and-post-next-phase
+- [`ebfb-pr-284-shepherd-status-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-284-shepherd-status-reply.md) — Comment posted. The loop is closed.
 - [`garden-issue-9-mhofman-mainnet-repro-clarification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-mhofman-mainnet-repro-clarification.md) — Completion report
 - [`agoric-sdk-fork-pr-7-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-shepherd.md) — Only ~3 minutes elapsed (now 22:45Z; job started 22:42:40, prior runtime ~19m...
 - [`deadmail-issue-comment-4848329666`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4848329666.md) — Inbox empty. Status while the background run proceeds:
-- [`issue-kriskowal-garden-18`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-18.md) — Completion report — issue-kriskowal-garden-18
-- [`inquisitor-ymax0-hex-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/inquisitor-ymax0-hex-repro.md) — Completion report
-- … and 701 more
+- … and 703 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
