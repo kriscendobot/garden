@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:35:59Z_
+_As of 2026-06-30T22:40:15Z_
 
 ## Latest
 
-The ymax0 #9 XS value-stack overflow line stayed busy: the `inquisitor-ymax0-hex-repro` job completed (reproducing and verifying the `hex.js` `flatMap`→loop fix), and a freshly claimed `garden-issue-9-mhofman-mainnet-repro-clarification` job is now folding mhofman's mainnet-repro-setup clarification into that investigation. Two plan-queue items behind it — `verify-ymax0-hex-fix-inquisitor` (verify the fix plus stackCount snapshot-compatibility) and the broader `port-xs-to-rust-memory-safe-engine` — remain parked awaiting maintainer go-ahead. Elsewhere, a builder is running in the background on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), which now leads the parked queue at 59m. Maintainer attention is otherwise still owed on the longer-waiting parked PRs — notably [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 17h) and the [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) gateway design (1d).
+A gardener has claimed [`agoric-sdk-fork-pr-7-shepherd`](https://github.com/kriscendobot/agoric-sdk/pull/7), driving kriscendobot's agoric-sdk fork PR #7 toward green on the maintainer's directive — that and the still-running [garden#9](https://github.com/kriskowal/garden/issues/9) ymax0 repro-clarification job (folding in mhofman's mainnet repro-setup notes) are the only work currently in flight. Recently completed: the `inquisitor-ymax0-hex-repro` reproduction, the [garden#18](https://github.com/kriskowal/garden/issues/18) work item, and a builder pass on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), which now sits parked atop the review queue. Worth a maintainer's eye: four ymax0-related plans are parked awaiting go-ahead — most notably verifying the hex fix and its stackCount snapshot-compatibility, plus the speculative "port XS to Rust" plan — none claimable until promoted.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 59m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 17h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -28,7 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`agoric-sdk-fork-pr-7-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-shepherd.md) — Shepherd kriscendobot/agoric-sdk PR #7 to green (maintainer directive)
 - [`garden-issue-9-mhofman-mainnet-repro-clarification`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-mainnet-repro-clarification.md) — Incorporate mhofman's repro-setup clarification into the ymax0 #9 investigati...
 
 ### tada (704)
