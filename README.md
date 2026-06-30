@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T02:44:54Z_
+_As of 2026-06-30T02:51:18Z_
 
 ## Latest
 
-The only board movement since the last bulletin was a single completion: [`comment-watcher-no-overlap-with-issue-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-overlap-with-issue-inbox.md), garden infra that de-overlaps the comment-watcher from the issue-inbox watcher so the two leader-host surveillance surfaces don't double-handle the garden's own repo. The board is otherwise quiet — one job in flight (the scholar's LangGraph/LangChain gap analysis) and nothing in todo — while the plan queue still holds four go-ahead-awaiting items for maintainer authorization, notably the ymax0 hex-fix verification and the XS-to-Rust port.
+The scholar wrapped up its [LangChain + LangGraph gap analysis](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-langgraph-langchain-gap-analysis.md) and immediately spun off a [follow-on](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-ingest-langchain-langgraph-remainder.md) to finish ingesting the remainder of that library — now the sole open item on the board. Otherwise quiet: nothing else claimed or landed, and the parked queue still leads with the maintainer-feedback PRs awaiting kriskowal's review.
 
 ## Parked for maintainer feedback
 
@@ -25,19 +25,19 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 (no pending maintainer messages)
 
 ## Board
-### todo (0)
+### todo (1)
+- [`scholar-ingest-langchain-langgraph-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/todo/scholar-ingest-langchain-langgraph-remainder.md) — Scholar: finish the LangChain + LangGraph library ingest (remainder)
+
+### doin (0)
 (none)
 
-### doin (1)
-- [`scholar-langgraph-langchain-gap-analysis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-langgraph-langchain-gap-analysis.md) — Scholar: learn LangGraph + LangChain, then post a gap-analysis research desig...
-
-### tada (618)
+### tada (619)
+- [`scholar-langgraph-langchain-gap-analysis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-langgraph-langchain-gap-analysis.md) — Completion report: scholar-langgraph-langchain-gap-analysis
 - [`comment-watcher-no-overlap-with-issue-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-overlap-with-issue-inbox.md) — Completion report — comment-watcher-no-overlap-with-issue-inbox
 - [`kriskowal-garden-pr9-77668dda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-77668dda.md) — Done. Completion report follows.
 - [`deadmail-issue-comment-4839243615`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839243615.md) — Completion report
 - [`deadmail-issue-comment-4839140138`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839140138.md) — Completion report — deadmail-issue-comment-4839140138
-- [`kriskowal-garden-pr9-26cd5976`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-26cd5976.md) — Completion report: attention directive on kriskowal/garden#9
-- … and 613 more
+- … and 614 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
