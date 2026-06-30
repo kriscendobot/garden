@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:23:28Z_
+_As of 2026-06-30T23:24:19Z_
 
 ## Latest
 
-Only one job landed since the last bulletin: the comment-source watcher now [excludes the bot's own comments](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-source-exclude-bot-own-comments.md) from its scan, so the garden stops re-triaging its own replies as fresh directives. Four jobs remain in flight: the read-only retention-paths Chat UI panel (follow-on to [endojs/endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)), two threads of the [garden#9](https://github.com/kriskowal/garden/issues/9) ymax0 repro work (the mainnet-validation-tree bundle-publish path and mhofman's contract-kit/inquisitor-bridge guidance), and a comment-watcher refinement to drop a non-finalize directive once its PR has merged. Nothing new is awaiting maintainer action beyond the standing parked set.
+Based on the dashboard and the single board transition, here's the "## Latest" body:
+
+A maintainer-driven [garden issue comment](https://github.com/kriskowal/garden) was dead-lettered and is now in progress as `deadmail-issue-comment-4848697844` — worth a glance to confirm its intent was recovered correctly. Otherwise the board is quiet: the todo queue is empty, and the four other in-flight jobs are continuations of known threads — the kriskowal#9 ymax0 work (two jobs folding in the mainnet-validation-tree bundle-publish examples and mhofman's contract-kit + Inquisitor-bridge guidance), the [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) follow-on retention-paths Chat UI Paths panel, and a comment-watcher hardening job to drop directives on already-merged PRs. The parked queue is the place needing attention: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) just landed for review, while [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability), and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star export fix) have been waiting 18 hours to 4 days.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +30,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`deadmail-issue-comment-4848697844`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4848697844.md) — Dead-lettered message — pick up its intent
 - [`ebfb-retention-paths-chat-panel`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retention-paths-chat-panel.md) — Build: retention-paths Chat UI Paths panel (read-only) — next phase after #284
 - [`garden-issue-9-kriskowal-mainnet-validation-tree-bundle-publish`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-kriskowal-mainnet-validation-tree-bundle-publish.md) — #9 ymax0 repro — use the mainnet-validation-tree bundle-publishing examples (...
 - [`garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge.md) — Incorporate mhofman's latest #9 guidance (contract-kit reachability + Inquisi...
