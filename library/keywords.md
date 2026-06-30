@@ -13596,3 +13596,54 @@ tool calling (LangChain) | langchain
 headless tools | langchain
 dynamic tool selection | langchain
 model profile | langchain
+middleware | middleware
+`AgentMiddleware` | middleware
+create_agent middleware | middleware
+prebuilt middleware | middleware
+custom middleware | middleware
+`before_model` | middleware
+`after_model` | middleware
+`before_agent` | middleware
+`after_agent` | middleware
+`wrap_model_call` | middleware
+`wrap_tool_call` | middleware
+`dynamic_prompt` | middleware
+`ExtendedModelResponse` | middleware
+`jump_to` | middleware
+`can_jump_to` | middleware
+`request.override` | middleware
+`SummarizationMiddleware` | middleware
+`ContextEditingMiddleware` | middleware
+`ModelCallLimitMiddleware` | middleware
+`ToolCallLimitMiddleware` | middleware
+`ModelFallbackMiddleware` | middleware
+`ToolRetryMiddleware` | middleware
+`ModelRetryMiddleware` | middleware
+`LLMToolSelectorMiddleware` | middleware
+`ProviderToolSearchMiddleware` | middleware
+`LLMToolEmulator` | middleware
+`PIIMiddleware` | middleware
+`TodoListMiddleware` | middleware
+`write_todos` | middleware
+`ShellToolMiddleware` | middleware
+`FilesystemFileSearchMiddleware` | middleware
+`FilesystemMiddleware` | middleware
+`SubAgentMiddleware` | middleware
+agent streaming | agent-streaming
+stream modes | agent-streaming
+`stream_mode` | agent-streaming
+`agent.stream` | agent-streaming
+`astream` | agent-streaming
+`stream_events` | agent-streaming
+`get_stream_writer` | agent-streaming
+stream writer | agent-streaming
+`StreamPart` | agent-streaming
+`AIMessageChunk` | agent-streaming
+`tool_call_chunk` | agent-streaming
+`chunk_position` | agent-streaming
+v2 streaming format | agent-streaming
+`GraphOutput` | agent-streaming
+`lc_agent_name` | agent-streaming
+`disable_streaming` | agent-streaming
+streaming reasoning tokens | agent-streaming
+event streaming | agent-streaming
