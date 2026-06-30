@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 These are approved names 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 19
+  claimed_at: 2026-06-30T05:49:57Z
