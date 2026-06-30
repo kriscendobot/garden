@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T02:52:02Z_
+_As of 2026-06-30T03:10:06Z_
 
 ## Latest
 
-A gardener claimed [`scholar-ingest-langchain-langgraph-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder.md), picking up the remainder of the LangChain + LangGraph library ingest after the [gap-analysis pass](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-langgraph-langchain-gap-analysis.md) landed; it is the only job currently in flight, and the board is otherwise drained (todo empty). Worth a maintainer's eye: the plan queue still parks four go-ahead-awaiting items needing authorization — the cross-host weekly token aggregation, the XS-to-Rust port, the minion.town AWS deploy, and the ymax0 hex-fix verification.
+Little of substance moved this cycle: a gardener claimed [`scholar-ingest-langchain-langgraph-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder-2.md) and is now working both halves of the LangChain + LangGraph library ingest, while the board sits otherwise drained (todo empty) and the parked queue is unchanged — the oldest reviews still waiting on kriskowal are [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (14d) and the long-parked [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [#182](https://github.com/endojs/endo-but-for-bots/pull/182) (39d).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`scholar-ingest-langchain-langgraph-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder-2.md) — Scholar: finish the LangChain + LangGraph library ingest (remainder 2)
 - [`scholar-ingest-langchain-langgraph-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder.md) — Scholar: finish the LangChain + LangGraph library ingest (remainder)
 
 ### tada (619)
