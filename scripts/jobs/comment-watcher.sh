@@ -672,29 +672,85 @@ ack_or_log_slide() {  # ack_or_log_slide <reason> <surface> <cid> <author> <url>
 #      cgroup is therefore EMPTY by the time the main process exits, so the next
 #      start cannot find a left-over git in the control group.
 # A straggler that gh placed in a DIFFERENT process group (so neither the negated-
-# PGID send nor timeout's group-KILL can reach it) is caught by the unit's
-# cgroup-wide SIGKILL backstop, which garden-comment-watcher@.service now bounds
-# with a SHORT TimeoutStopSec so it fires well before the 90s tick.
+# PGID send nor timeout's group-KILL can reach it) is caught by the EXIT-path
+# cgroup-wide straggler sweep (reap_cgroup_stragglers, below), which fells every pid
+# left in this process's own service cgroup except $$ and its ancestors — on EVERY
+# exit path, including a NORMAL successful tick. That closes the gap the unit's
+# stop-time cgroup-wide SIGKILL backstop misses (the backstop only fires on a
+# systemd *stop*, not on clean completion), so the next start finds an empty cgroup.
 SRC="$(mktemp)"; ERRF="$(mktemp)"
 SOURCE_TIMEOUT_PID=""
+# Final cgroup-wide straggler sweep — the EXIT-path complement to the stop-time
+# backstop. The negated-PGID reap below only reaches the source's OWN process group
+# (timeout's PGID). A `gh --paginate`-forked git credential helper that `setpgid`'d
+# itself into a DIFFERENT group escapes that send AND survives a NORMAL (successful)
+# tick exit, because the unit's cgroup-wide SIGKILL only fires on a systemd *stop*,
+# not on clean completion — so it lingers into the next start and is flagged
+# "Found left-over process (git) in control group while starting unit". This sweep
+# runs on EVERY exit path (it is invoked unconditionally at the tail of cleanup,
+# which is the EXIT trap), so the watcher leaves an EMPTY cgroup on normal exit too,
+# eliminating the leftover-git warning at the source instead of relying on the next
+# start to migrate-and-ignore it.
+#
+# Safety: it is a strict no-op unless this process is genuinely inside its OWN
+# systemd service cgroup. It (a) no-ops when /proc/self/cgroup is unreadable or has
+# no `0::` unified line (non-systemd test runs, cgroup v1, the `timeout`-absent
+# branch under a bare shell), (b) no-ops unless the cgroup leaf matches our service
+# unit (`garden-comment-watcher*.service`), so a shared session/scope cgroup in a
+# test harness is never swept, and (c) NEVER kills $$ or any of its ancestors (the
+# self-heal-run.sh main process, systemd) — only the lost descendant stragglers.
+reap_cgroup_stragglers() {
+  local line cgpath leaf procs pid
+  line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
+  [ -n "$line" ] || return 0
+  cgpath="${line#0::}"
+  leaf="${cgpath##*/}"
+  # Only sweep our own service cgroup; refuse a shared session/scope cgroup so a
+  # test run (or any non-service invocation) can never reap unrelated processes.
+  case "$leaf" in
+    garden-comment-watcher*.service) ;;
+    *) return 0 ;;
+  esac
+  procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
+  [ -r "$procs" ] || return 0
+  # Collect $$ and its ancestor chain so we never signal ourselves or our parents.
+  local keep=" $$ " p ppid
+  p="$$"
+  while [ -n "$p" ] && [ "$p" != "0" ]; do
+    ppid="$(awk '/^PPid:/{print $2}' "/proc/$p/status" 2>/dev/null)" || break
+    [ -n "$ppid" ] || break
+    keep="$keep$ppid "
+    [ "$ppid" = "1" ] && break
+    p="$ppid"
+  done
+  while read -r pid; do
+    [ -n "$pid" ] || continue
+    case "$keep" in *" $pid "*) continue ;; esac
+    kill -KILL "$pid" 2>/dev/null || true
+  done < "$procs"
+}
 cleanup() {
   rm -f "$SRC" "$ERRF"
   local pid="$SOURCE_TIMEOUT_PID"
   SOURCE_TIMEOUT_PID=""                 # idempotent: the TERM and EXIT traps both fire
-  [ -n "$pid" ] || return 0
-  # TERM the whole process group (negated PGID == timeout's pid); fall back to the
-  # bare pid (timeout forwards) if the host's kill refuses the group form.
-  kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
-  # Wait for `timeout` to exit, then SIGKILL the whole group as a hard backstop.
-  # `timeout`'s own --kill-after only escalates while its MONITORED child is alive;
-  # if the source's bash wrapper dies on the TERM but leaves a TERM-ignoring
-  # grandchild (a git mid-network-syscall), `timeout` exits without SIGKILLing it.
-  # The group send below fells that straggler synchronously, so the cgroup is empty
-  # before we exit — covering the in-group case the timer-firing race exposed. (A
-  # straggler gh placed in a DIFFERENT group is still out of reach here; the unit's
-  # short TimeoutStopSec cgroup-wide SIGKILL is the backstop for that.)
-  wait "$pid" 2>/dev/null || true
-  kill -KILL "-$pid" 2>/dev/null || true
+  if [ -n "$pid" ]; then
+    # TERM the whole process group (negated PGID == timeout's pid); fall back to the
+    # bare pid (timeout forwards) if the host's kill refuses the group form.
+    kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
+    # Wait for `timeout` to exit, then SIGKILL the whole group as a hard backstop.
+    # `timeout`'s own --kill-after only escalates while its MONITORED child is alive;
+    # if the source's bash wrapper dies on the TERM but leaves a TERM-ignoring
+    # grandchild (a git mid-network-syscall), `timeout` exits without SIGKILLing it.
+    # The group send below fells that straggler synchronously, so the cgroup is empty
+    # before we exit — covering the in-group case the timer-firing race exposed. (A
+    # straggler gh placed in a DIFFERENT group is caught by the cgroup sweep below.)
+    wait "$pid" 2>/dev/null || true
+    kill -KILL "-$pid" 2>/dev/null || true
+  fi
+  # Final EXIT-path sweep: fell any straggler that escaped the negated-PGID reap by
+  # living in a different process group, on the normal-exit path the stop-time
+  # cgroup-wide backstop never covers. No-op outside our own service cgroup.
+  reap_cgroup_stragglers
 }
 trap 'cleanup' EXIT
 trap 'cleanup; exit 143' TERM
