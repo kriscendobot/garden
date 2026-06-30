@@ -65,3 +65,9 @@ with one inline comment yields exactly ONE job, not two.
   pathspecs; push HEAD:main2 via a rebase CAS loop.
 - Preserve the garden #4 guarantee (inline-only empty-body reviews are never
   silently dropped) and the sender-trust gate.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-06-30T03:37:40Z
