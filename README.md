@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T19:49:49Z_
+_As of 2026-06-30T19:57:29Z_
 
 ## Latest
 
-A new attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) was just claimed and is the only job in flight. Recent completions cleared a tight cluster of small work: the ByteArray/Uint8Array restrictive-view builder job landed (feeding the passable-byte-arrays line behind [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)), erights' full-maintainer-authority directive was encoded into the garden, dependabotany's self-scheduling was tightened for precise rechecks and ran a fresh endo-but-for-bots sweep, and the daily progress periodical landed on origin/journal2 with an empty inbox. Nothing is queued in todo. Worth a maintainer's eye: the plan queue holds four go-ahead-awaiting items — including verifying the ymax0 hex fix via inquisitor and the XS-to-Rust port — plus a long parked-PR backlog (29 total) led by the 15-day-old [endo#3137](https://github.com/endojs/endo/pull/3137) TypeScript-runtime-modules PR.
+Two items are in flight: a gardener just claimed [garden#9](https://github.com/kriskowal/garden/issues/9)'s reply to mhofman's esbuild-functor / XS value-stack question (the thread behind the shipped `flatMap`→loop engine fix), and the attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) remains open. Recently landed: a more restrictive `byteArray`/`Uint8Array`-view build for the passable byte-arrays work, the encoding of erights' full maintainer authority into the garden, a tightened dependabotany self-schedule with a precise recheck of endo-but-for-bots, and the daily periodical (origin/journal2 at 442be7523, inbox empty). Maintainer attention is still concentrated on the long-parked queue — notably the freshest two, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, 15h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 14h).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 14h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 15h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 14h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -28,8 +28,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr475-179927d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-179927d7.md) — attention directive on endojs/endo-but-for-bots PR #475
+- [`garden-issue-9-reply-mhofman-functor-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-reply-mhofman-functor-stack.md) — Answer mhofman's esbuild-functor / XS value-stack question on garden issue #9
 
 ### tada (696)
 - [`improve-dependabotany-self-schedule-precise-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-dependabotany-self-schedule-precise-recheck.md) — Completion report
