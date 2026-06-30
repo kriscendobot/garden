@@ -484,12 +484,38 @@ set. Nothing here can break the live race-by-default fleet.
   contention averages out across many jobs rather than biasing any one arm.
   Duration is therefore taken **raw** — **not** normalized by concurrent fleet load
   at award time — and the bandit averages it out across the arm's history.
-- **Cost attribution across a requeue.** When a rejected job is requeued to a
-  *different* arm (the market design's no-loss requeue), does the second arm
-  inherit the first's sunk cost? Recommendation: each arm is charged only its own
-  attempt for **reputation**, while the **job's** total cost (the sum across arms)
-  is tracked separately for kind-level economics. Reputation should reflect an
-  arm's own efficiency, not penalize it for a predecessor's failure.
+- **Total job cost includes sunk costs, and that is a germane criterion.**
+  *(Resolved, maintainer directive on this design.)* The earlier framing treated a
+  requeued job's wasted first attempt as "separate kind-level economics" and
+  charged each arm only its own attempt. That under-weighted the thing most worth
+  optimizing. The correction: **the total cost of a job includes its sunk costs**,
+  and whether a particular agent configuration tends to result in **fewer sunk
+  costs, less waste, and less attention from the maintainers** is one of the more
+  germane evaluation criteria — arguably the central one. Two levels follow, and
+  they do not conflict:
+  - **Arm-level reputation is unchanged.** An arm is still scored on its own
+    cost-per-accepted-job (§1.3), which already charges it for its own failed
+    attempts through the acceptance-rate amortization. Reputation still reflects an
+    arm's own efficiency, and an arm is still not penalized for a *predecessor's*
+    failure on a requeue.
+  - **Configuration-level cost is the objective the selector minimizes.** Above the
+    individual arm sits the **configuration** — the selector policy and the arm mix
+    it routes through. Its score is the **expected total cost to acceptance for the
+    whole job, summed across every attempt and every arm the routing touched,
+    including the sunk cost of each rejection and requeue.** A configuration that
+    reaches acceptance in one cheap attempt beats one that burns three arms getting
+    there, even when each individual arm looked locally efficient. Minimizing
+    sunk, wasted, and maintainer-attention cost is an explicit goal here, not a
+    footnote — so this measure is one the bulletin surfaces and the market is tuned
+    to drive down over time.
+  - **Maintainer attention is a cost.** The directive names *less attention from
+    the maintainers* as waste on equal footing with sunk dollars. It is metered the
+    same deterministic, no-LLM way as dollars and duration: a count of the times a
+    job pulled a human in — clarifying questions, review rounds, follow-up
+    directives, manual interventions — each already journaled as a comment, review,
+    or inbox message. A configuration that closes a job without human steering
+    costs less, on this axis, than one that needs three rounds of it, and the
+    ledger says so.
 - **Synthetic-replay overfitting (resolved by a contemporary evaluation set).**
   Posing-as-customer (§2.2) risked training arms to historical artifacts rather
   than to general capability. The maintainer's directive settles it: **for
@@ -514,6 +540,12 @@ set. Nothing here can break the live race-by-default fleet.
   wall-clock, taken raw — **not** normalized by fleet load, since the contention
   averages out across jobs, §9), unified as weighted **cost per accepted job** that
   folds the acceptance rate back in (§1).
+- **Total job cost is the configuration's score, sunk costs included:** an agent
+  configuration is evaluated on the expected total cost to acceptance summed across
+  every attempt and arm a job touches — including the sunk cost of every rejection
+  and requeue, plus **maintainer attention** as a third metered cost component.
+  Fewer sunk costs, less waste, and less maintainer attention is a first-class
+  evaluation criterion the market drives down (§9).
 - **The bootstrap:** retrospective seeding from the journal's own
   `todo`/`tada` history as the basis for the current fleet, plus synthetic
   `tada`-replay for thin arms and newcomers, scored by re-running the original
@@ -533,9 +565,8 @@ set. Nothing here can break the live race-by-default fleet.
   rather than frozen at design time (§6.2).
 
 **Defers** (follow-on designs): the hierarchical role-tree mechanics (§6.3);
-whether the token quota also displays as a notional dollar burn-down (§9); requeue
-cost-attribution edge cases (§9); and
-the meta-machine of competing gardens (still the market design's §5.2).
+whether the token quota also displays as a notional dollar burn-down (§9); and the
+meta-machine of competing gardens (still the market design's §5.2).
 
 ## References
 
