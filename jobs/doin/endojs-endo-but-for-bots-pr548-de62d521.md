@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot  Do indeed treat a re-export with `export *` as a plain re-export. I don't understand the value-judgement point. For example, @endo/far is such a package, but - all its imports @endo/far make from other packages should be repointed at the originating export - all im
+
+---
+claim:
+  host: endolinbot2
+  gardener: 84
+  claimed_at: 2026-06-30T03:25:08Z
