@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T02:27:55Z_
+_As of 2026-06-30T02:33:41Z_
 
 ## Latest
 
-A scholar picked up [LangGraph + LangChain gap analysis](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-langgraph-langchain-gap-analysis.md), the only fresh board claim this cycle. The bulk of recent completions cluster on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) (the ymax0 v320 XS value-stack overflow): the real-chain-state reproduction is fully staged — build host ready, both bundle JSONs built, and the netstring driver written — and an attention directive on the PR was closed out. Two deadmail issue-comments were also cleared. Note the plan queue: a maintainer go-ahead is still pending on [verifying the ymax0 hex fix via inquisitor](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md), which is the natural next step now that the repro is staged.
+One job moved since the last bulletin: a gardener claimed [`comment-watcher-no-overlap-with-issue-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-overlap-with-issue-inbox.md), an infra fix to stop the comment-watcher from double-handling issue-comments already covered by the issue-inbox watcher; it's now in progress alongside the scholar's LangGraph/LangChain gap analysis. The board is otherwise drained (todo empty), and the [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) ymax0 v320 hex-fix work is staged but parked in the plan queue awaiting maintainer go-ahead to verify the fix and its stackCount snapshot compatibility.
 
 ## Parked for maintainer feedback
 
@@ -14,9 +14,9 @@ A scholar picked up [LangGraph + LangChain gap analysis](https://github.com/kris
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 14d)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 39d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 39d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 39d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 39d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 40d)
 
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
@@ -28,7 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`comment-watcher-no-overlap-with-issue-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/comment-watcher-no-overlap-with-issue-inbox.md) — Comment-watcher must not overlap the issue-inbox: skip issue-comments on issu...
 - [`scholar-langgraph-langchain-gap-analysis`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-langgraph-langchain-gap-analysis.md) — Scholar: learn LangGraph + LangChain, then post a gap-analysis research desig...
 
 ### tada (617)
