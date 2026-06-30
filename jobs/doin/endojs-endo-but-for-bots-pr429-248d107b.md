@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot  Our current intent is to map only a plain frozen Uint8Array backed by a plain frozen immutable ArrayBuffer to an ocapn byteArray. This PR "admit immutable ArrayBuffer though codecs" seems based on the earlier assumption that we  want to map a plain frozen immutable
+
+---
+claim:
+  host: endolinbot2
+  gardener: 96
+  claimed_at: 2026-06-30T05:08:56Z
