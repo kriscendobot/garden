@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:48:48Z_
+_As of 2026-06-30T05:50:19Z_
 
 ## Latest
 
-Work converged on the [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) byteArray design doc: two coordinating gardener jobs finished (one peer had already completed by the time the other replied), leaving a single review job still in flight. The outcome now needs a maintainer decision — erights left a 3-comment review resolving the doc's open questions and a message is waiting in the maintainer inbox. erights chose the restrictive whole-buffer-span sub-view option and directed "withdraw and open fresh" for the implementation: close [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57), close upstream [endo#3226](https://github.com/endojs/endo/pull/3226), and open a new view-based byteArray PR. The bot can't self-authorize any of this — PR-closes aren't covered by the standing authorization, the directive arrived on an untrusted comment, and the upstream PR is across the identity boundary — so all four steps are parked on kriskowal's go-ahead.
+Work this cycle was concentrated on [endojs/endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572), the byteArray view design doc, where erights left a three-comment review resolving its open questions. Gardeners handled the design-of-record bookkeeping autonomously — recording the disposition decision ("withdraw all three and open fresh") as Decision 6, settling the sub-view question to the restrictive whole-buffer-span option (spawning issue #573), and pushing the updates to the PR branch — but two items are now **parked in your inbox for authorization** because they cross repo and identity boundaries. Specifically, erights' "withdraw and open fresh" directive requires closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [#57](https://github.com/endojs/endo-but-for-bots/pull/57) (PR-close exceeds the bot's standing comment-only authorization), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (out of bot scope — needs you or the boatman), and opening a fresh view-based implementation PR seeded from the `feat/narrow-bytearray-to-uint8` prototype. The helper-naming question was deferred by erights to you. Two #572 review jobs remain in flight; the board is otherwise drained (empty todo).
 
 ## Parked for maintainer feedback
 
@@ -46,21 +46,40 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I've added an 'eyes' reactji to erights' directive comment to mark it received. Awaiting your go-ahead on a-d (or a subset).
 
+- `20260630T054924Z-17df96` — from gardener:endojs-endo-but-for-bots-pr572-review-f9f39a71, reply_to `endojs-endo-but-for-bots-pr572-review-f9f39a71` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T054924Z-17df96.md)
+
+> endo-but-for-bots PR #572 (byteArray view design) — erights resolved the disposition
+> open question (review 4597598287): "For all, withdraw and open fresh."
+>
+> Done autonomously (design-of-record bookkeeping): recorded it as Design Decision 6,
+> updated the Status + "Relationship to existing changes" prose, removed the disposition
+> open question, replied on the thread. Pushed to the PR branch (c31c6a312).
+>
+> Needs your / a boatman's hand (lifecycle execution I did NOT do autonomously):
+>   1. Withdraw (close) #429 and #57 on endo-but-for-bots.
+>   2. Withdraw upstream endojs/endo#3226 — upstream endojs/endo action, out of bot scope.
+>   3. Open a fresh view-based implementation PR, seeded from feat/narrow-bytearray-to-uint8.
+>
+> Note: this PR also has two sibling review threads being handled by peer gardeners —
+> the restrictive-span question (already resolved to restrictive + issue #573, Decision 3)
+> and the helper-naming question (erights deferred it to @kriskowal — needs your call).
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr572-review-f9f39a71`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-f9f39a71.md) — Review directive on endojs/endo-but-for-bots PR #572
+### doin (2)
+- [`endojs-endo-but-for-bots-pr572-b07c1061`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-b07c1061.md) — attention directive on endojs/endo-but-for-bots PR #572
+- [`endojs-endo-but-for-bots-pr572-review-1007395e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-1007395e.md) — Review directive on endojs/endo-but-for-bots PR #572
 
-### tada (681)
+### tada (682)
+- [`endojs-endo-but-for-bots-pr572-review-f9f39a71`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-f9f39a71.md) — Completion report — job endojs-endo-but-for-bots-pr572-review-f9f39a71
 - [`endojs-endo-but-for-bots-pr572-22f817ba`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-22f817ba.md) — Completion report
 - [`endojs-endo-but-for-bots-pr572-dea7fcb4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-dea7fcb4.md) — The peer (f9f39a71) had already completed by the time I replied, so my coordi...
 - [`endojs-endo-but-for-bots-pr572-review-04e6cad0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-04e6cad0.md) — Completion report — endojs-endo-but-for-bots-pr572-review-04e6cad0
 - [`endojs-endo-but-for-bots-pr572-review-feaa10d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-feaa10d8.md) — Completion report — job endojs-endo-but-for-bots-pr572-review-feaa10d8
-- [`improve-reactji-failure-diagnostic-surfacing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reactji-failure-diagnostic-surfacing.md) — The host environment became unrecoverable mid-job and I have exhausted recove...
-- … and 676 more
+- … and 677 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
