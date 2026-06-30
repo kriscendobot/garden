@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T06:01:15Z_
+_As of 2026-06-30T06:08:20Z_
 
 ## Latest
 
-Design work on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) (the byteArray view design doc) dominated this cycle: erights left a three-comment review resolving the doc's open questions, and gardeners recorded the autonomous bookkeeping — Design Decision 6 capturing the disposition call ("withdraw all and open fresh"), the restrictive whole-buffer-span resolution (Decision 3, tracked as issue [#573](https://github.com/endojs/endo-but-for-bots/issues/573)), and thread replies — then pushed to the PR branch (c31c6a312). **Two items are now parked for your authorization:** executing erights' "withdraw and open fresh" disposition requires closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [#57](https://github.com/endojs/endo-but-for-bots/pull/57) (PR-close exceeds the bot's comment-only standing scope), closing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (kriskowal-authored, off-limits to the bot), and posting a builder job for a fresh view-based implementation seeded from feat/narrow-bytearray-to-uint8 — see the two maintainer-inbox messages for the recommended a–d plan. The helper-naming question on #572 was explicitly deferred to you. The job board is otherwise idle (todo/doin empty; only a deadmail pickup moved).
+The big movement is on the byteArray view design doc, [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572): erights left a three-comment review resolving its open questions, and peer gardeners landed the resolvable parts autonomously — recording the disposition decision ("withdraw all and open fresh") as a design-of-record decision, settling the sub-view question to the restrictive whole-buffer-span option and spinning out [endo-but-for-bots#573](https://github.com/endojs/endo-but-for-bots/pull/573) for follow-up, and deferring helper-naming to you. Two messages now sit in your inbox awaiting authorization to execute the withdrawal: closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (bot-closable but outside the standing comment-only authorization), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (identity boundary — needs you or the boatman), and opening a fresh view-based implementation PR seeded from the narrow-bytearray-to-uint8 prototype. Separately, an attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) is in flight.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 58m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 21h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 21h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -69,8 +69,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr475-14cfb16e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-14cfb16e.md) — attention directive on endojs/endo-but-for-bots PR #475
 
 ### tada (686)
 - [`deadmail-20260630T055455Z-9d5f3c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T055455Z-9d5f3c.md) — Completion report — dead-letter pickup deadmail-20260630T055455Z-9d5f3c
