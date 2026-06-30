@@ -163,6 +163,82 @@ holds the snapshot.
    + `.set()` loop. Verified on `agoric-26146641` (2026-06-30, kriskowal/garden#9
    [comment](https://github.com/kriskowal/garden/issues/9#issuecomment-4848214817)).
 
+## Installing the bundle first: the mainnet-validation-tree publishing examples
+
+mhofman's correction (2026-06-30,
+[comment](https://github.com/kriskowal/garden/issues/9#issuecomment-4848584090))
+is that **the bundle is network- and instance-agnostic; it just needs to be
+installed first**, and the faithful test is an **upgrade of the live deployment
+as a contract-control message**, not a fresh deploy. kriskowal then pointed at
+the **examples for publishing a bundle to chain in the mainnet validation tree**
+([comment](https://github.com/kriskowal/garden/issues/9#issuecomment-4848697844)).
+The "mainnet validation tree" is agoric-sdk's **`a3p-integration/`** tree (the
+agoric-3-proposals integration that validates upgrades against agoric-3 =
+mainnet). Those examples give the full **publish → install → contract-control
+upgrade** sequence, of which "install first" is the opening step. The references,
+all on the read-only `kriscendobot/agoric-sdk` checkout:
+
+1. **Publish the bundle to chain (the bundle-publishing example).**
+   `a3p-integration/proposals/n:upgrade-next/test/chunked-bundle.test.ts` drives
+   `installBundle({ bundleJson, chunkSizeLimit, submitter, gzip, sha512,
+   signAndBroadcast })` from `@agoric/client-utils`. That helper
+   (`packages/client-utils/src/bundle-utils.ts`) builds a `MsgInstallBundle`
+   (small bundles ride inline as a gzipped `compressedBundle`; large ones are
+   split into `MsgSendChunk` messages keyed by a `chunkedArtifact` sha512
+   manifest, then finalized by `MsgInstallBundle`). A `MsgInstallBundle`
+   transaction is precisely "publish the bundle bytes to chain"; it is what makes
+   the bundle's `b1-…` id resolvable so a later `installBundleID` can find it.
+2. **Delegate contract control to a smartWallet (the a3p ymax proposals).**
+   `a3p-integration/proposals/g:ymax1` (README: *"doesn't deploy a new ymax
+   contract; rather creates a contract control delegating upgrade etc. to an
+   Agoric Opco smartWallet … also updates the ymax0 (alpha) contract control
+   instance"*) runs the core eval
+   `packages/portfolio-deploy/src/portfolio-control.core.js`
+   (`delegatePortfolioContract`). That eval reaches the **live** instance kit via
+   `consume.getUpgradeKit(contractName)` (falling back to the promise-space
+   `${contractName}Kit`) and calls `deliverContractControl({ name,
+   controlAddress, initialPrivateArgs, kit })`. The a3p driver
+   `g:ymax1/ymax-util.js` (`submitYmaxControl`) submits the
+   `eval-<name>-control.js` + permit pair through
+   `agd tx gov submit-proposal swingset-core-eval`.
+3. **Redeem control + trigger the upgrade (the smartWallet `invokeEntry` path).**
+   `g:ymax1/use-invitation.js` → `ymax-util.js redeemInvitation` sends a
+   smart-wallet `executeOffer` bridge action to the ymaxControl address — the
+   normal contract-control trigger mhofman named. The control facet itself
+   (`packages/deploy-script-support/src/control/contract-control.contract.js`)
+   exposes `install(bundleId)` → `E(zoe).installBundleID(bundleId)` and
+   `upgrade(bundleId)` → `E(kit.adminFacet).upgradeContract(bundleId,
+   privateArgs)`. Because `kit.adminFacet` here is the **live** instance's admin
+   facet (obtained via `getUpgradeKit`/`deliverContractControl`), this is the path
+   that reaches v290/v288 — *not* the stale bootstrap `ymax0Kit` (v275). It also
+   answers mhofman's surprise that "the contract kits should still be available in
+   bootstrap space": they are, but via the `getUpgradeKit` power and the
+   contract-control kit, not the raw promise-space `${name}Kit`.
+
+**Mapping the sequence onto the inquisitor offline repro.** inquisitor drives a
+captured swing-store, not a live chain, so each on-chain step has an offline
+equivalent:
+
+- Step 1 (publish `MsgInstallBundle`) → seed the bundle bytes into the snapshot's
+  bundle store: `await swingStore.kernelStorage.bundleStore.addBundle(bundleID,
+  bundle)` (already in § Procedure). This is the literal "installed first"
+  prerequisite — without it `installBundleID(bundleId)` cannot resolve the bundle.
+- Steps 2–3 (deliver control + `executeOffer` upgrade) → inject a bridge action
+  through inquisitor that drives the contract-control `upgrade(bundleId)` against
+  the live v290/v288 admin facet reached through `getUpgradeKit` (the
+  inquisitor-bridge half of #9; the
+  `garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge` lane). The bundleID
+  it references is the one seeded in step 1.
+
+So the contract-control upgrade vector now has a complete, example-grounded
+prerequisite: **publish/seed the bundle, then invoke `upgrade(bundleId)` on the
+live instance's contract-control facet.** This also retires missing-input (2) in
+the note below — the live admin facet *is* reachable (via `getUpgradeKit`/the
+contract-control kit). Missing-input (1), the actual over-threshold (devnet
+"v320") bundle, remains the one blocker to running the faithful upgrade on real
+mainnet state; until it is supplied, the `createVat` import vector below is the
+runnable cross-check.
+
 ## Notes
 
 - **The stale-bootstrap-kit finding (why `ymax0Kit.adminFacet` is the wrong
