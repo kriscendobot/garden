@@ -1112,5 +1112,78 @@ EOF
 fi
 
 # ============================================================================
+# DEDUP1 (watcher) — an inline-bearing review and its SUBSUMED inline comment in the
+# SAME poll must yield EXACTLY ONE job (the per-review `review` job), not two. The
+# source marks the standalone comment surface=pr-review-comment-subsumed; the watcher
+# logs it and slides the cursor past it WITHOUT minting a second job. Regression-pins
+# endo-but-for-bots #548, where THREE inline comments minted SIX racing jobs.
+hr; echo "DEDUP1 — inline review + its subsumed comment → exactly ONE job, slide logged"; hr
+BARE_DUP="$TR/dup.git"; seed_bare "$BARE_DUP"
+FIX_DUP="$TR/fix-dup.tsv"; RLOG_DUP="$TR/react-dup.log"; : > "$RLOG_DUP"; DUPLOG="$TR/dup.stderr"; : > "$DUPLOG"
+{
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+    2026-06-30T20:00:00Z pr-review-body 4597002890 548 kriskowal \
+    https://github.com/endojs/endo-but-for-bots/pull/548#pullrequestreview-4597002890 \
+    '[INLINE-REVIEW] '
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+    2026-06-30T20:00:01Z pr-review-comment-subsumed 4597002999 548 kriskowal \
+    https://github.com/endojs/endo-but-for-bots/pull/548#discussion_r4597002999 \
+    'Consider a plain re-export here.'
+} > "$FIX_DUP"
+run_directive "$TR/state-dup" "$BARE_DUP" "$FIX_DUP" "$RLOG_DUP" "$DUPLOG"
+[ "$(todo_count "$BARE_DUP")" -eq 1 ] && ok "exactly ONE job for an inline review + its subsumed comment (not two)" || bad "expected one job, got $(todo_count "$BARE_DUP")"
+[ "$(todo_glob "$BARE_DUP" "^$SLUG-pr548-review-")" -eq 1 ] && ok "the one job is the per-review 'review' job" || bad "no per-review 'review' job minted"
+grep -q 'SUBSUMED:' "$DUPLOG" && ok "the subsumed comment is LOGGED (no silent drop)" || bad "no SUBSUMED log line ($(cat "$DUPLOG"))"
+[ ! -s "$RLOG_DUP" ] && ok "no reactji (review body unreactable; subsumed comment gets none)" || bad "unexpected reactji: $(cat "$RLOG_DUP")"
+[ "$(cursor_seen "$TR/state-dup" "$BARE_DUP")" = 2026-06-30T20:00:01Z ] && ok "cursor advanced past BOTH the review and the subsumed comment" || bad "cursor not advanced past the subsumed comment ($(cursor_seen "$TR/state-dup" "$BARE_DUP"))"
+
+# ============================================================================
+# DEDUP2 (source) — comment-source-gh.sh must mark an inline comment whose parent
+# review is inline-surfaced this poll as pr-review-comment-subsumed, while KEEPING the
+# actionable pr-review-comment surface for a comment whose review is NOT surfaced
+# (here, tied to a review on a CLOSED PR not in the open list). Same compact-gh-stub
+# shape as Q/Z; the REAL jq processes the JSON.
+hr; echo "DEDUP2 — comment-source marks an inline-surfaced review's comment subsumed, keeps the rest"; hr
+command -v jq >/dev/null 2>&1 && have_jq_dd=1 || have_jq_dd=0
+if [ "$have_jq_dd" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHDD="$TR/gh-dd"; mkdir -p "$GHDD"
+  cat > "$GHDD/gh" <<'EOF'
+#!/bin/bash
+# PR #4 is open with an inline-bearing empty-body review 9001 (surfaced
+# [INLINE-REVIEW]) and a no-inline review 9002. The repo-wide pulls/comments feed
+# returns TWO inline comments: id 111 tied to review 9001 (SUBSUMED — its review is
+# surfaced this poll) and id 222 tied to review 9003 on a CLOSED PR #99 NOT in the
+# open list (so 9003 is never surfaced → the comment is KEPT actionable). TS via env.
+args="$*"; ts="${TS:?TS must be set}"
+case "$args" in
+  *"/pulls?state=open"*)         printf '[{"number":4,"updated_at":"%s"}]\n' "$ts"; exit 0;;
+  *"/issues/comments"*)          printf '[]\n'; exit 0;;
+  *"/pulls/4/comments"*)         printf '%s\n' '[{"pull_request_review_id":9001}]'; exit 0;;
+  *"/pulls/4/reviews"*)
+    printf '[{"id":9001,"state":"COMMENTED","body":"","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9001"},{"id":9002,"state":"COMMENTED","body":"","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/4#r9002"}]\n' "$ts" "$ts"; exit 0;;
+  *"/pulls/comments"*)
+    printf '[{"id":111,"created_at":"%s","pull_request_review_id":9001,"pull_request_url":"https://api.github.com/repos/x/y/pulls/4","user":{"login":"kriskowal"},"html_url":"https://github.com/x/y/pull/4#discussion_r111","body":"subsumed inline"},{"id":222,"created_at":"%s","pull_request_review_id":9003,"pull_request_url":"https://api.github.com/repos/x/y/pulls/99","user":{"login":"kriskowal"},"html_url":"https://github.com/x/y/pull/99#discussion_r222","body":"standalone inline"}]\n' "$ts" "$ts"; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHDD/gh"
+  DD_OUT="$TR/dd.out"
+  env PATH="$GHDD:$PATH" TS="$REV_TS" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-dd" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > "$DD_OUT" 2>/dev/null || true
+  grep -q $'\tpr-review-comment-subsumed\t111\t' "$DD_OUT" \
+    && ok "an inline comment whose review is inline-surfaced is marked subsumed" \
+    || bad "comment 111 not marked subsumed (out: $(cat "$DD_OUT"))"
+  grep -q $'\tpr-review-comment\t111\t' "$DD_OUT" \
+    && bad "comment 111 ALSO emitted as a plain pr-review-comment (the duplicate the fix removes)" \
+    || ok "the subsumed comment is NOT also emitted as a plain pr-review-comment"
+  grep -q $'\tpr-review-comment\t222\t' "$DD_OUT" \
+    && ok "a comment whose review is NOT inline-surfaced keeps the actionable pr-review-comment surface" \
+    || bad "comment 222 wrongly suppressed or mis-surfaced (out: $(cat "$DD_OUT"))"
+fi
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

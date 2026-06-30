@@ -835,6 +835,23 @@ while IFS=$'\t' read -r created surface cid pr author url body; do
     continue
   fi
 
+  # --- dedup: an inline review-comment SUBSUMED by its review's `review` job -----
+  # The source marks a pr-review-comment as *subsumed* when its parent review is ALSO
+  # surfaced this poll as an inline-bearing pr-review-body — which mints ONE keyed
+  # `review` job that already enumerates and resolves EVERY inline comment tied to the
+  # review. Minting a separate job for the standalone comment too double-works the same
+  # inline comment: observed on endo-but-for-bots #548, where THREE inline comments
+  # produced SIX jobs (3 review + 3 comment) and six gardeners raced to edit the same
+  # design-doc section and push to the same branch. Drop the subsumed comment here
+  # WITHOUT a job or reactji — the review job is its acknowledgment and will reply on
+  # the inline thread — and slide the cursor past it with a LOGGED reason (never a
+  # silent drop, per the ack_or_log_slide discipline; the review-body line for the same
+  # review advances the cursor too, but logging keeps the suppression diagnosable).
+  if [ "$surface" = pr-review-comment-subsumed ]; then
+    log "SUBSUMED: inline comment cid=$cid on #${pr:-?} ($author) is covered by its review's 'review' job (which enumerates every inline comment tied to the review) — not minting a second job; sliding cursor [url=$url]"
+    hw="$created"; continue
+  fi
+
   # --- PR-only mode: skip true-issue comments (issue-inbox owns them) ----------
   # When an issue-inbox covers this repo, surface=issue-comment is the issue-inbox's
   # sole domain; skip it here so the two watchers never both dispatch on one comment.

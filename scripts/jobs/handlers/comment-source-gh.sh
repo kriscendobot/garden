@@ -17,7 +17,14 @@
 #
 # TSV columns (tab-separated, body single-lined):
 #   created_at  surface  comment_id  pr_number  author  html_url  body
-# surface ∈ issue-comment | pr-comment | pr-review-comment | pr-review-body
+# surface ∈ issue-comment | pr-comment | pr-review-comment
+#         | pr-review-comment-subsumed | pr-review-body
+#
+# pr-review-comment-subsumed marks an inline review-comment whose parent review is
+# ALSO surfaced this poll as an inline-bearing pr-review-body: that review's single
+# `review` job already enumerates every inline comment tied to it, so the standalone
+# comment is suppressed downstream (the watcher logs it and slides the cursor) to
+# avoid double-working the same inline comment.
 #
 # The issues/comments endpoint folds BOTH true-issue conversation comments AND a
 # PR's own conversation comments into one stream (GitHub models a PR as an issue).
@@ -100,13 +107,11 @@ gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&per_page=100" 
           ((.issue_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
           .user.login, .html_url, ($oneline) ] | @tsv" || true
 
-# 2) inline PR review-comments (all comments tied to a review)
-gh_api_retry --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>/dev/null \
-  | jq -r --arg s "$since" "
-      .[] | select(.created_at >= \$s)
-      | [ .created_at, \"pr-review-comment\", (.id|tostring),
-          ((.pull_request_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
-          .user.login, .html_url, ($oneline) ] | @tsv" || true
+# 2) inline PR review-comments — emitted LAST, AFTER the review walk in section 3,
+#    so the set of review ids this poll surfaces as inline-bearing pr-review-body
+#    jobs ($surfaced_inline_rids) is known. A comment tied to one of those reviews
+#    is SUBSUMED by that review's single `review` job and is suppressed there (the
+#    dedup fix); see the section-2 block immediately below section 3.
 
 # 3) formal review bodies AND inline-only reviews (no since= filter; iterate open
 #    PRs, filter by submitted_at).
@@ -148,7 +153,7 @@ gh_api_retry --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2
 # Capture buffers for the structural gh calls' stderr (see Stderr policy EXCEPTION
 # above): echoed to fd 2 only when the call fails, so a real fault reaches ERRF
 # while a clean run stays quiet.
-prlist_err="$(mktemp)"; rids_err="$(mktemp)"
+prlist_err="$(mktemp)"; rids_err="$(mktemp)"; s3out="$(mktemp)"
 open_prs="$(gh_api_retry --paginate \
     "repos/$repo/pulls?state=open&sort=updated&direction=desc&per_page=100" \
     2>"$prlist_err" \
@@ -180,9 +185,40 @@ while IFS=$'\t' read -r n updated; do
             ( (if $inline then "[INLINE-REVIEW] " else "" end)
             + (if .state=="CHANGES_REQUESTED" then "[CHANGES_REQUESTED] " else "" end)
             + (if .state=="APPROVED" then "[APPROVED] " else "" end)
-            + ((.body // "") | gsub("[\t\r\n]+"; " ")) ) ] | @tsv' || true
+            + ((.body // "") | gsub("[\t\r\n]+"; " ")) ) ] | @tsv' >> "$s3out" || true
 done <<< "$open_prs"
 # No silent caps: record how many open PRs were polled vs how many the activity
 # bound skipped (info-level stderr; the watcher ignores a 0-exit source's stderr).
 log "polled $scanned of $total open PR(s) on $repo (activity-bounded at since=$since)"
-rm -f "$prlist_err" "$rids_err"
+
+# The set of review ids this poll SURFACED as inline-bearing pr-review-body jobs.
+# A pr-review-comment whose parent review is in this set is SUBSUMED by that review's
+# single keyed `review` job — which already enumerates and resolves EVERY inline
+# comment tied to the review — so it must NOT also mint a standalone comment job. This
+# is the dedup fix for the SIX-jobs-for-three-inline-comments race on
+# endo-but-for-bots #548. The set is extracted from section 3's OWN emitted output
+# (field 3 = review id, field 7 = body) so it can never diverge from what was actually
+# surfaced. Now emit section 3's review-body lines (order is irrelevant; the watcher
+# re-sorts by created_at).
+surfaced_inline_rids="$(awk -F'\t' '$2=="pr-review-body" && $7 ~ /\[INLINE-REVIEW\]/ {print $3}' "$s3out" 2>/dev/null | sort -u | tr '\n' ' ' || true)"
+cat "$s3out"
+
+# 2) inline PR review-comments (all comments tied to a review). A comment whose parent
+#    review WAS surfaced this poll as an inline-bearing pr-review-body (review id in
+#    $surfaced_inline_rids) is marked surface=pr-review-comment-subsumed: downstream the
+#    watcher logs it and slides the cursor past it WITHOUT minting a second job, because
+#    that review's `review` job already enumerates every inline comment tied to it. A
+#    comment whose review was NOT inline-surfaced (parent review untrusted/dropped, on a
+#    closed or out-of-activity-bound PR, or a standalone PR-line comment with no formal
+#    review) keeps the actionable pr-review-comment surface so it is never lost.
+gh_api_retry --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>/dev/null \
+  | jq -r --arg s "$since" --arg rids " $surfaced_inline_rids " "
+      .[] | select(.created_at >= \$s)
+      | ((.pull_request_review_id // \"\") | tostring) as \$rid
+      | (if (\$rid != \"\") and (\$rids | contains(\" \" + \$rid + \" \"))
+         then \"pr-review-comment-subsumed\" else \"pr-review-comment\" end) as \$surface
+      | [ .created_at, \$surface, (.id|tostring),
+          ((.pull_request_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
+          .user.login, .html_url, ($oneline) ] | @tsv" || true
+
+rm -f "$prlist_err" "$rids_err" "$s3out"
