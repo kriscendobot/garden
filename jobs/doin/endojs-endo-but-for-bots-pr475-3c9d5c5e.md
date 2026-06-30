@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot  If this module initializes after the immutable ArrayBuffer shim initializes, won't it get the getter that the shim installed, which also admits emulated Uint8Arrays? 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 93
+  claimed_at: 2026-06-30T06:53:17Z
