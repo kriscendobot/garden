@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6022 (525 parent indexes + 5497 children).
+Total section files: 6028 (525 parent indexes + 5503 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8014,6 +8014,15 @@ Total section files: 6022 (525 parent indexes + 5497 children).
 
 - [web--langgraph-stores--basestore-namespaces-and-semantic-search](web--langgraph-stores--basestore-namespaces-and-semantic-search.md)
 - [web--langgraph-stores--building-a-custom-store](web--langgraph-stores--building-a-custom-store.md)
+
+### web--langgraph-use-graph-api
+
+- [web--langgraph-use-graph-api--command-routing-subgraphs-and-visualization](web--langgraph-use-graph-api--command-routing-subgraphs-and-visualization.md)
+- [web--langgraph-use-graph-api--loops-recursion-limit-and-async](web--langgraph-use-graph-api--loops-recursion-limit-and-async.md)
+- [web--langgraph-use-graph-api--node-configuration-retries-timeouts-errors-and-caching](web--langgraph-use-graph-api--node-configuration-retries-timeouts-errors-and-caching.md)
+- [web--langgraph-use-graph-api--sequences-branches-and-map-reduce](web--langgraph-use-graph-api--sequences-branches-and-map-reduce.md)
+- [web--langgraph-use-graph-api--state-definition-reducers-and-overwrite](web--langgraph-use-graph-api--state-definition-reducers-and-overwrite.md)
+- [web--langgraph-use-graph-api--state-schemas-private-state-and-pydantic](web--langgraph-use-graph-api--state-schemas-private-state-and-pydantic.md)
 
 ### web--langgraph-workflows-and-agents
 
