@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T06:53:45Z_
+_As of 2026-06-30T06:55:12Z_
 
 ## Latest
 
-The headline is [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) (byteArray view design): erights left a three-comment review resolving the doc's open questions. Two gardeners recorded the design-of-record bookkeeping autonomously — the disposition decision ("withdraw all, open fresh") is now captured as Design Decision 6, the sub-view question resolved to the restrictive whole-buffer-span option (Decision 3, tracked as issue #573) — but the lifecycle execution is parked for you: two maintainer messages request authorization to close [#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [#57](https://github.com/endojs/endo-but-for-bots/pull/57), to withdraw upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (boatman/identity path), and to open a fresh view-based implementation PR seeded from the narrow-bytearray-to-uint8 prototype. The helper-naming question erights explicitly deferred to you. Separately, [#57](https://github.com/endojs/endo-but-for-bots/pull/57) completed and an attention directive on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) is in flight, with a related restage of #57 onto #475 parked in the plan queue awaiting go-ahead.
+The big item awaiting maintainer attention is erights' review on the byteArray view design doc, [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572): erights resolved its three open questions, and a gardener recorded the disposition decision ("withdraw all, open fresh") as Design Decision 6 on the PR branch autonomously. But executing that decision is parked on your go-ahead — it crosses the bot's authorization boundary: closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (PR-close isn't covered by the standing comments-only authorization), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (out of bot scope entirely), and seeding a fresh view-based implementation PR. The sibling restrictive-span question was resolved to the restrictive whole-buffer-span option with a tracking issue, while the helper-naming question is deferred to you. Two attention directives on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) are in flight, and work on [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) completed this cycle.
 
 ## Parked for maintainer feedback
 
@@ -69,7 +69,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr475-39621e7f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-39621e7f.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-3c9d5c5e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-3c9d5c5e.md) — attention directive on endojs/endo-but-for-bots PR #475
 
 ### tada (688)
