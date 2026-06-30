@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:46:18Z_
+_As of 2026-06-30T22:49:55Z_
 
 ## Latest
 
-Sealed the `flatMap`→loop fix for the ymax0 v320 XS value-stack overflow: the `inquisitor-ymax0-hex-repro` job completed, confirming the native XS `flatMap` spreads its whole result onto the value stack, and the engine fix shipped as a one-line per-iteration `mxPop()` in `fx_Array_prototype_flatAux` (kriscendobot/moddable#1), A/B-verified to clear v320 at the stock 4096 stack. A gardener is still working `garden-issue-9-mhofman-mainnet-repro-clarification`, folding mhofman's repro-setup clarification into the [endojs/endo#9](https://github.com/kriskowal/garden/issues/9) investigation; a follow-on plan to verify the fix and its stackCount snapshot-compatibility awaits go-ahead. On the upstream side, [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) just landed in the parked queue for review, and a builder is still running its background work there.
+Since the last bulletin only one item moved: the `garden-issue-9-mhofman-mainnet-repro-clarification` job completed, closing out a clarification on the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) mainnet-repro thread tied to the ymax0 XS value-stack overflow work. The board is otherwise drained (todo and doin both empty), and the parked queue is unchanged — 29 PRs await kriskowal, the most time-sensitive being the freshly-parked [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, waiting 17h). Four plans still sit awaiting maintainer go-ahead, including the ymax0 hex-fix verification ([`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md)).
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`garden-issue-9-mhofman-mainnet-repro-clarification`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-mainnet-repro-clarification.md) — Incorporate mhofman's repro-setup clarification into the ymax0 #9 investigati...
+### doin (0)
+(none)
 
-### tada (705)
+### tada (706)
+- [`garden-issue-9-mhofman-mainnet-repro-clarification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-mhofman-mainnet-repro-clarification.md) — Completion report
 - [`agoric-sdk-fork-pr-7-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-shepherd.md) — Only ~3 minutes elapsed (now 22:45Z; job started 22:42:40, prior runtime ~19m...
 - [`deadmail-issue-comment-4848329666`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4848329666.md) — Inbox empty. Status while the background run proceeds:
 - [`issue-kriskowal-garden-18`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-18.md) — Completion report — issue-kriskowal-garden-18
 - [`inquisitor-ymax0-hex-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/inquisitor-ymax0-hex-repro.md) — Completion report
-- [`endojs-endo-but-for-bots-pr58-5ce0b78b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-5ce0b78b.md) — Builder is running in the background; my inbox is empty. I'll wait for its co...
-- … and 700 more
+- … and 701 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
