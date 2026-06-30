@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:14:16Z_
+_As of 2026-06-30T05:15:19Z_
 
 ## Latest
 
-The bulletin input contains very little movement — only a single new claim into `doin`.
-
-The redesign work parks [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)'s byteArray approach: a gardener has claimed [`ebfb-bytearray-uint8array-view-redesign`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-bytearray-uint8array-view-redesign.md), reworking the passable byte-array so `byteArray` maps a frozen `Uint8Array` view rather than a bare immutable `ArrayBuffer`. Two attention directives remain in flight on [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). The board is otherwise drained (nothing in todo), with newly-parked [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) freshly awaiting maintainer review.
+[endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) cleared the board, leaving only two jobs in flight: a redesign settling whether `byteArray` should map a frozen `Uint8Array` view rather than a bare immutable `ArrayBuffer` (the open question behind the parked passable-byte-arrays PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)), and an attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). Worth a maintainer's eye: the journal-worktree keeper reports `/home/kris/journal` on host endolinbot2 has diverged from `origin/journal2` — 3 commits ahead, 5456 behind, 5 dirty paths — and was deliberately left untouched for hand reconciliation. The parked queue is otherwise quiet, with the freshly-arrived error-tracing PR [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and the passable-byte-arrays PR newest at the top.
 
 ## Parked for maintainer feedback
 
@@ -24,24 +22,26 @@ The redesign work parks [endo-but-for-bots#503](https://github.com/endojs/endo-b
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260630T051502Z-d95f28` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T051502Z-d95f28.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5456 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`ebfb-bytearray-uint8array-view-redesign`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-bytearray-uint8array-view-redesign.md) — design: byteArray maps a frozen Uint8Array view, not a bare immutable ArrayBu...
-- [`endojs-endo-but-for-bots-pr429-248d107b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr429-248d107b.md) — attention directive on endojs/endo-but-for-bots PR #429
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
 
-### tada (670)
+### tada (671)
+- [`endojs-endo-but-for-bots-pr429-248d107b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr429-248d107b.md) — Completion report — endojs-endo-but-for-bots-pr429-248d107b
 - [`endojs-endo-but-for-bots-pr57-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr57-rebase.md) — Completion report — endojs-endo-but-for-bots-pr57-rebase
 - [`endojs-endo-but-for-bots-pr58-8585f202`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-8585f202.md) — I've launched the implementation. Current status: builder running in the back...
 - [`issue-kriskowal-garden-17`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-17.md) — Completion report — issue-kriskowal-garden-17
 - [`endojs-endo-but-for-bots-pr430-b7b6a63e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr430-b7b6a63e.md) — Completion report
-- [`endojs-endo-but-for-bots-pr57-a1d1ced7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr57-a1d1ced7.md) — Completion report
-- … and 665 more
+- … and 666 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
