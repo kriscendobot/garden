@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T14:41:41Z_
+_As of 2026-06-30T14:44:53Z_
 
 ## Latest
 
-The daily progress periodical landed on `origin/journal2` (442be7523) with the maintainer inbox empty; that was the only board transition this window. Recently completed work just ahead of it includes the restrictive Uint8Array-view byteArray builder for [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), an attention directive cleared on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and a garden-meta encode of erights' full maintainer authority. The board is otherwise idle (todo empty, one dependabotany recheck in flight), so the maintainer's attention is best spent on the parked queue — notably the long-waiting [endo#3137](https://github.com/endojs/endo/pull/3137) TypeScript-runtime-module PR (14d) and the freshest reviews on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
+A quiet tick: the only board movement was the completion of the [endo-but-for-bots](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260630-143503.md) dependabot recheck, with no new posts or claims and an empty todo/doin board. The parked queue still holds 29 PRs awaiting kriskowal — most pressingly the freshly-waiting [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), both at ~9h, alongside long-stale designs like [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) at 41 days. Four plans remain blocked on maintainer go-ahead, including [verify-ymax0-hex-fix-inquisitor](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — the follow-up verification for the shipped ymax0 XS stack-overflow fix.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260630-143503.md) — Daily dependabotany recheck: endojs/endo-but-for-bots
+### doin (0)
+(none)
 
-### tada (694)
+### tada (695)
+- [`dependabotany-recheck-endo-but-for-bots-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260630-143503.md) — Completion report
 - [`daily-progress-summary-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260630-143503.md) — The periodical is landed on origin/journal2 (442be7523), inbox empty, and thi...
 - [`build-ebfb-bytearray-uint8array-view-restrictive`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-ebfb-bytearray-uint8array-view-restrictive.md) — Completion report
 - [`garden-encode-erights-maintainer-authority`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-erights-maintainer-authority.md) — Completion report
 - [`deadmail-20260630T135440Z-09a11e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T135440Z-09a11e.md) — Completion report — dead-lettered job deadmail-20260630T135440Z-09a11e
-- [`endojs-endo-but-for-bots-pr475-39621e7f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-39621e7f.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #475
-- … and 689 more
+- … and 690 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
