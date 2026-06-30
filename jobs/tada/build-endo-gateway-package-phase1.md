@@ -1,0 +1,1 @@
+Both panel seats passed (with the two minor findings now addressed and re-verified green). CI for the new head is being watched (`b4um695pt`); I'll be notified on completion, then un-draft to terminate the gamut. Standing by.
