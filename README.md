@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:10:27Z_
+_As of 2026-06-30T04:10:56Z_
 
 ## Latest
 
-Most fresh activity converged on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544), which drew a cluster of review and attention directives — one review job completed while two more attention jobs and two review jobs remain in flight. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) is in its finalize stage: the rebase landed as a clean no-op (head already on `llm-a1dcc70`) and it is now being curated toward merge. A scholar ingest of the langchain/langgraph remainder closed out, and a deadmail closure was verified as no-work-outstanding. The todo board is empty and only the #544/#405 jobs occupy doin, so the fleet is largely caught up; the parked queue still holds 29 PRs awaiting kriskowal, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 14d) and several 39–40-day-old endo-but-for-bots design and feature PRs.
+Activity concentrated on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544), where a cluster of attention and review directives is now in flight — four in progress and one review completed — so this PR is the garden's current focus. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) finished its rebase/retcon (a clean no-op, head already on `llm-a1dcc70`) and is now in the finalize→merge stage with the conductor. A dead-lettered issue comment was picked up for triage, and a second deadmail resolved to no outstanding work (a closure note). On the research side, the scholar wrapped its LangChain/LangGraph ingest remainder. The parked queue is unchanged — 29 PRs still await kriskowal, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 14d) and the long-idle chat/SES PRs at 39–40 days.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
+- [`deadmail-issue-comment-4839753598`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4839753598.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr405-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #405
 - [`endojs-endo-but-for-bots-pr544-48da5b1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-48da5b1e.md) — attention directive on endojs/endo-but-for-bots PR #544
 - [`endojs-endo-but-for-bots-pr544-493f718b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-493f718b.md) — attention directive on endojs/endo-but-for-bots PR #544
