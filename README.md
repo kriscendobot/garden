@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T06:08:20Z_
+_As of 2026-06-30T06:15:17Z_
 
 ## Latest
 
-The big movement is on the byteArray view design doc, [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572): erights left a three-comment review resolving its open questions, and peer gardeners landed the resolvable parts autonomously — recording the disposition decision ("withdraw all and open fresh") as a design-of-record decision, settling the sub-view question to the restrictive whole-buffer-span option and spinning out [endo-but-for-bots#573](https://github.com/endojs/endo-but-for-bots/pull/573) for follow-up, and deferring helper-naming to you. Two messages now sit in your inbox awaiting authorization to execute the withdrawal: closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (bot-closable but outside the standing comment-only authorization), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (identity boundary — needs you or the boatman), and opening a fresh view-based implementation PR seeded from the narrow-bytearray-to-uint8 prototype. Separately, an attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) is in flight.
+Design review on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) (the byteArray view design doc) closed out: erights resolved its open questions, and a gardener recorded the disposition decision — "withdraw and open fresh" — as Design Decision 6, resolved the restrictive-span question (now [endo-but-for-bots#573](https://github.com/endojs/endo-but-for-bots/issues/573)), and pushed the bookkeeping to the PR branch. Two maintainer authorization requests are now parked in the inbox: executing the disposition needs your go-ahead to close [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57), withdraw upstream [endo#3226](https://github.com/endojs/endo/pull/3226) (out of bot scope — needs you or the boatman), and open a fresh view-based implementation PR; the helper-naming question was deferred to you. An attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) is still in flight. Heads-up on infra: the journal worktree on endolinbot2 has diverged from origin/journal2 (3 ahead, 5549 behind, 5 dirty) and was left untouched for manual reconciliation.
 
 ## Parked for maintainer feedback
 
@@ -17,7 +17,7 @@ The big movement is on the byteArray view design doc, [endo-but-for-bots#572](ht
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 39d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 39d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 39d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 40d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 41d)
 
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -63,6 +63,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Note: this PR also has two sibling review threads being handled by peer gardeners —
 > the restrictive-span question (already resolved to restrictive + issue #573, Decision 3)
 > and the helper-naming question (erights deferred it to @kriskowal — needs your call).
+
+- `20260630T061511Z-d43efe` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T061511Z-d43efe.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5549 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
 
 
 ## Board
