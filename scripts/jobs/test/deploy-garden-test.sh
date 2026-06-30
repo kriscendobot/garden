@@ -136,6 +136,61 @@ grep -q "quiesce timed out" <<<"$OUT" && ok "timeout logged" || bad "timeout not
 grep -q restart "$TR/log" && bad "restarted despite an aborted deploy" || ok "no restart on a timed-out deploy"
 
 # ============================================================================
+hr; echo "LONG-JOB DEFER — a long mid-job gardener defers WITHOUT pausing the fleet"; hr
+# The recurring fleet-pause thrash (2026-06-30, gardener-88 chain-state repro,
+# gardener-30 scholar ingest): a gardener whose job outlasts the drain budget can
+# never quiesce, so engaging the drain only pauses the WHOLE fleet for the full
+# budget before aborting — and the persistent Upgrade-ready signal makes the next
+# trigger repeat it. The defer check samples the busy marker's AGE before engaging
+# the drain: a gardener already mid-job past the threshold defers the deploy with
+# the drain NEVER engaged (the fleet is never paused), exit 0, nothing advanced.
+setup_fixture
+mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"
+touch -d "10 minutes ago" "$TR/state/gardeners/1/busy"   # a long job: busy 600s
+origin_commit scripts/jobs/worker-lib.sh "echo newdefer" "fix: worker-lib defer"
+before="$(root_head)"
+run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
+[ "$RC" -eq 0 ] && ok "exit 0 on a deferral (not a failure)" || bad "exit $RC on deferral: $OUT"
+grep -q "DEFERRED" <<<"$OUT" && ok "deferral logged" || bad "deferral not logged: $OUT"
+grep -q "drain engaged" <<<"$OUT" && bad "the drain was engaged on a doomed attempt (fleet paused!)" || ok "drain NEVER engaged — the fleet was not paused"
+grep -q "waiting for" <<<"$OUT" && bad "entered the quiesce wait (fleet paused)" || ok "no quiesce wait entered"
+[ "$(root_head)" = "$before" ] && ok "root NOT advanced on a deferral" || bad "root advanced on a deferral"
+draining && bad "drain marker present after a deferral" || ok "no drain marker (fleet untouched)"
+grep -q restart "$TR/log" && bad "restarted on a deferral" || ok "no restart on a deferral"
+
+# A drain the OPERATOR pre-engaged is honored, not short-circuited by the defer
+# check (deferring would not un-pause their drain; they explicitly asked to deploy).
+# The long job then fails to quiesce and the deploy aborts as before (exit != 0),
+# preserving the operator's drain.
+setup_fixture
+: > "$TR/state/draining"                                  # operator pre-drained
+mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"
+touch -d "10 minutes ago" "$TR/state/gardeners/1/busy"
+origin_commit scripts/jobs/worker-lib.sh "echo newdefer2" "fix: worker-lib defer2"
+run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=1 GARDEN_DEPLOY_POLL=1
+[ "$RC" -ne 0 ] && ok "operator-pre-drained long job aborts (defer check skipped)" || bad "exit 0 despite operator pre-drain + stuck fleet"
+grep -q "DEFERRED" <<<"$OUT" && bad "deferred despite operator pre-drain" || ok "defer check skipped while operator-drained"
+draining && ok "operator's drain preserved on abort" || bad "operator's drain was lifted"
+
+# ============================================================================
+hr; echo "LONG-JOB DEFER (MID-DRAIN) — a job that crosses the threshold while we wait lifts the drain"; hr
+# A gardener under the threshold at the defer check (so we DO engage the drain)
+# that then grows past it mid-wait must lift the drain and defer the moment it
+# crosses, rather than hold the fleet paused for the rest of the budget.
+setup_fixture
+mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"
+touch -d "4 seconds ago" "$TR/state/gardeners/1/busy"    # age 4 < threshold 5 at the check
+origin_commit scripts/jobs/worker-lib.sh "echo newmid" "fix: worker-lib mid"
+before="$(root_head)"
+run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=5 GARDEN_DEPLOY_DRAIN_TIMEOUT=30 GARDEN_DEPLOY_POLL=1
+[ "$RC" -eq 0 ] && ok "exit 0 on a mid-drain deferral" || bad "exit $RC on mid-drain deferral: $OUT"
+grep -q "drain engaged" <<<"$OUT" && ok "drain WAS engaged (job was under threshold at the check)" || bad "drain not engaged: $OUT"
+grep -q "mid-drain" <<<"$OUT" && ok "mid-drain deferral logged once the job crossed the threshold" || bad "mid-drain deferral not logged: $OUT"
+[ "$(root_head)" = "$before" ] && ok "root NOT advanced on a mid-drain deferral" || bad "root advanced on a mid-drain deferral"
+draining && bad "drain left engaged after a mid-drain deferral" || ok "drain lifted on a mid-drain deferral (we engaged it)"
+grep -q restart "$TR/log" && bad "restarted on a mid-drain deferral" || ok "no restart on a mid-drain deferral"
+
+# ============================================================================
 hr; echo "DIRTY ABORT — a tracked edit in the root aborts without clobbering"; hr
 setup_fixture
 printf 'local WIP\n' >> "$TR/root/scripts/jobs/worker-lib.sh"   # tracked-dirty (invariant violation)

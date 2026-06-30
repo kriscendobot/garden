@@ -11,13 +11,31 @@
 # into the root in one deliberate, drained pass. See designs/deliberate-deploy.md.
 #
 # The pass is deterministic (no LLM) and ordered:
+#   0. DEFER CHECK. Before engaging the drain, sample the fleet's busy markers. A
+#               single gardener running a job longer than the drain budget (the
+#               ymax0 chain-state repros, the scholar LangChain/LangGraph ingests)
+#               can never quiesce within GARDEN_DEPLOY_DRAIN_TIMEOUT. Engaging the
+#               drain on such a doomed attempt would pause the WHOLE fleet (no new
+#               claims) for the full budget before aborting, and since the
+#               Upgrade-ready signal persists, the next trigger would repeat that
+#               fleet-pause. So if a busy gardener has already been mid-job longer
+#               than GARDEN_DEPLOY_LONG_JOB_THRESHOLD, DEFER without ever engaging
+#               the drain (exit 0, fleet untouched) and let a later trigger retry
+#               once the long job finishes. This trades a possibly-later deploy for
+#               never pausing the fleet on a doomed attempt (the safe option-1
+#               posture: a long job blocks the deploy regardless — half-old/half-new
+#               code is never allowed — so the only choice is whether to pause the
+#               fleet while it blocks; we choose not to).
 #   1. DRAIN.   Engage the draining marker so gardeners finish their in-flight
 #               claim and take no new ones, then wait for the host to QUIESCE — no
 #               gardener busy marker remains ($GARDEN_STATE/gardeners/*/busy, the
 #               same host-local mid-job signal deploy-sync used). Bounded by
 #               GARDEN_DEPLOY_DRAIN_TIMEOUT; on timeout the deploy aborts and (if
 #               it engaged the drain) lifts it, so a stuck job never strands the
-#               fleet drained.
+#               fleet drained. The same long-job check runs each poll while we
+#               wait: if a gardener we engaged the drain over crosses the threshold
+#               mid-drain, we lift the drain and defer rather than burn the rest of
+#               the budget paused.
 #   2. MERGE.   Advance the root tree by a strict fast-forward to
 #               origin/$GARDEN_MAIN_BRANCH. Because development no longer happens
 #               in the root tree, the tree is clean and the ff never wedges. A
@@ -46,6 +64,19 @@ GARDEN_TAG="deploy-garden"
 : "${GARDEN_DEPLOY_DRAIN_TIMEOUT:=600}"   # seconds to wait for the fleet to quiesce
 : "${GARDEN_DEPLOY_POLL:=5}"              # seconds between quiesce polls
 : "${GARDEN_DEPLOY_NO_BROADCAST:=0}"      # set 1 to skip the post-deploy reread broadcast (tests)
+# A gardener already mid-job longer than this (its busy marker's age) is treated as
+# a long job that would not quiesce within the drain budget: the deploy DEFERS
+# rather than pause the fleet over it. Default is half the drain timeout — long
+# enough that ordinary jobs drain normally, short enough that the doomed-attempt
+# fleet-pause is never engaged. Keep it < GARDEN_DEPLOY_DRAIN_TIMEOUT.
+: "${GARDEN_DEPLOY_LONG_JOB_THRESHOLD:=300}"
+
+# Exit status for a deliberate deferral (a long mid-job gardener; the fleet was
+# never paused). Distinct from the abort path (exit 1) and from a real deploy:
+# it is NOT a failure — the Upgrade-ready signal persists and a later trigger
+# retries — so, like the no-op deploy, it exits 0. The DEFERRED log line is the
+# machine- and human-readable marker that this run advanced nothing on purpose.
+GARDEN_DEPLOY_DEFER_RC=0
 
 # Did THIS run engage the drain? Used to decide whether an abort should lift it.
 # (If an operator pre-drained for maintenance, an aborted deploy must not resume
@@ -66,6 +97,46 @@ busy_count() {
   printf '%s\n' "$n"
 }
 
+# Echo "<age-seconds> <gardener-idx>" for the gardener that has been mid-job the
+# LONGEST, or "0 -" when the fleet is idle. A busy marker's mtime is set when the
+# gardener starts its current job (gardener.sh re-creates it just before invoking
+# the handler and clears it at the next between-claims point), so the marker's age
+# is exactly how long that gardener has been on its current job — the signal that
+# distinguishes a long job from a short one without any LLM or job introspection.
+oldest_busy() {
+  local now m mtime age idx oldest=0 oldest_idx="-"
+  now="$(date +%s)"
+  for m in "$GARDEN_STATE"/gardeners/*/busy; do
+    [ -e "$m" ] || continue
+    mtime="$(stat -c %Y "$m" 2>/dev/null || echo "$now")"
+    age=$(( now - mtime ))
+    if [ "$age" -ge "$oldest" ]; then
+      oldest="$age"
+      idx="${m%/busy}"; oldest_idx="${idx##*/}"
+    fi
+  done
+  printf '%s %s\n' "$oldest" "$oldest_idx"
+}
+
+# --- 0. DEFER CHECK ----------------------------------------------------------
+#
+# Decide whether to engage the drain at all. If a gardener has ALREADY been mid-job
+# longer than the long-job threshold, it will not quiesce within the drain budget;
+# engaging the drain would only pause the whole fleet for the full budget before
+# aborting, and the next trigger would repeat that pause. Defer instead — without
+# ever pausing the fleet. Skipped when an operator pre-drained (the fleet is already
+# paused by their explicit choice; deferring here would not un-pause it, and they
+# asked to deploy — let the original timeout/abort semantics stand).
+if ! fleet_draining; then
+  read -r busy_age busy_idx < <(oldest_busy)
+  if [ "$busy_age" -ge "$GARDEN_DEPLOY_LONG_JOB_THRESHOLD" ]; then
+    log "DEFERRED: gardener $busy_idx has been mid-job ${busy_age}s (>= ${GARDEN_DEPLOY_LONG_JOB_THRESHOLD}s long-job threshold)."
+    log "  Not engaging the drain — the fleet keeps claiming, never paused on this doomed attempt. The Upgrade-ready"
+    log "  signal persists; a later trigger retries once the long job finishes. Nothing was advanced."
+    exit "$GARDEN_DEPLOY_DEFER_RC"
+  fi
+fi
+
 # --- 1. DRAIN ----------------------------------------------------------------
 
 if fleet_draining; then
@@ -83,6 +154,20 @@ while :; do
   if [ "$n" -eq 0 ]; then
     log "fleet quiesced (no mid-job gardeners)"
     break
+  fi
+  # A gardener we engaged the drain over may grow into a long job while we wait
+  # (it was under the threshold at the defer check, then crossed it). Rather than
+  # hold the fleet paused for the rest of the budget, lift the drain and defer the
+  # moment it crosses. Only when WE engaged the drain — if an operator pre-drained,
+  # honor their explicit drain to the full timeout (we don't second-guess it).
+  if [ "$we_drained" = "1" ]; then
+    read -r busy_age busy_idx < <(oldest_busy)
+    if [ "$busy_age" -ge "$GARDEN_DEPLOY_LONG_JOB_THRESHOLD" ]; then
+      log "DEFERRED: gardener $busy_idx crossed the ${GARDEN_DEPLOY_LONG_JOB_THRESHOLD}s long-job threshold mid-drain (busy ${busy_age}s)."
+      log "  Lifting the drain so the fleet resumes; the Upgrade-ready signal persists and a later trigger retries."
+      lift_drain_if_we_engaged
+      exit "$GARDEN_DEPLOY_DEFER_RC"
+    fi
   fi
   if [ "$(date +%s)" -ge "$deadline" ]; then
     log "WARN: quiesce timed out after ${GARDEN_DEPLOY_DRAIN_TIMEOUT}s with $n mid-job gardener(s); aborting deploy"
