@@ -53,16 +53,34 @@ On a `dependabot[bot]`-authored PR on a repo where the bot holds merge authority
 
 - **MERGE-NOW → conduct onto main.** Accept the PR and conduct it onto the repo's main branch, reusing the conductor's standing merge discipline (`roles/conductor/AGENT.md`). Do **not** name a merge method; let the conductor norm and the repo default decide. Verify the merge landed (`gh pr view <N> --json state,autoMergeRequest`) before reporting it merged.
 - **REJECT → close the PR.** `gh pr close <N>` with the structured verdict comment attached, explaining the reason precisely enough that a future maintainer can reopen if the rejection later proves unwarranted. Never close silently.
-- **EMBARGO/DEFER → schedule the re-evaluation.** Append the PR and its `EMBARGO-YYYY-MM-DD` maturity date to the project's dependabotany ledger (a journal `message` entry tagged with the project slug), then ensure a deferred re-evaluation is wired so the PR is guaranteed to be re-assessed:
+- **EMBARGO/DEFER → schedule the re-evaluation (precise one-shot + daily backstop).** Append the PR, its `EMBARGO-YYYY-MM-DD` maturity date, and the precise maturity floor (the upstream publish instant of the headline upgrade + 7 days, as a UTC ISO timestamp) to the project's dependabotany ledger (a journal `message` entry tagged with the project slug). Then wire **both** legs of the re-evaluation so the PR is re-assessed at the right moment:
 
-  ```sh
-  scripts/jobs/set-schedule.sh dependabotany-recheck-<project> daily \
-    dependabotany-recheck-<project> <body-file>
-  ```
+  1. **Precise one-shot at the maturity floor (primary).** Compute the recheck instant deterministically from the maturity floor: round the floor **up** to the next whole hour, then add a 15-minute epsilon, so the fire time lands strictly past the floor regardless of clock skew or cron alignment. Place a self-deleting one-shot for this exact PR:
 
-  The schedule body instructs a gardener to wear this role and re-evaluate every PR in the `<project>` ledger whose maturity date has arrived, executing the now-due verdict. The call is idempotent (one schedule per project), so an embargo simply ensures the schedule exists and adds its own ledger row. A terminal verdict (MERGE-NOW or REJECT) on a later recheck removes that PR's ledger row; when the ledger holds no project rows the recheck schedule may be deleted.
+     ```sh
+     # floor = upstream publish instant of the headline upgrade + 7 days (UTC).
+     floor=$(date -u -d "<upstream-publish-ISO> + 7 days" +%s)
+     recheck=$(( ((floor + 3599) / 3600) * 3600 + 900 ))   # ceil to the hour, + 15m epsilon
+     recheck_iso=$(date -u -d "@$recheck" +%Y-%m-%dT%H:%M:%SZ)
+     scripts/jobs/set-schedule-once.sh \
+       dependabotany-recheck-<project>-pr<N> "$recheck_iso" \
+       dependabotany-recheck-<project>-pr<N> <body-file>
+     ```
 
-  **Why a recurring daily sweep rather than a per-PR one-shot:** the scheduler (`scripts/jobs/scheduler.sh`) has no one-shot mode. A freshly written schedule has an empty `last_dispatched`, which the scheduler reads as epoch-zero and therefore *immediately* due, and it re-fires every cadence thereafter. A true single future dispatch is not expressible with the primitive. The daily sweep over the ledger is the faithful realization: the maturity date in the ledger is the gate (the recheck acts on a PR only once its date has passed), and the daily schedule is the heartbeat that guarantees no embargoed PR rots. This choice is canonical; do not invent a per-PR schedule.
+     The one-shot body instructs a gardener to wear this role and re-evaluate **this PR (`#N`)**, executing the now-due verdict. The scheduler fires it once at `recheck_iso` and DELETES the schedule file in the same CAS commit, so it self-cleans after firing (`scripts/jobs/set-schedule-once.sh`). The basename carries no timestamp, so a retried dispatch is idempotent.
+
+  2. **Daily heartbeat over the ledger (backstop).** Idempotently ensure the per-project daily sweep exists, as a safety net that catches any PR whose precise one-shot was lost (a rejected push, a hand-edited ledger, a floor recorded without a one-shot):
+
+     ```sh
+     scripts/jobs/set-schedule.sh dependabotany-recheck-<project> daily \
+       dependabotany-recheck-<project> <body-file>
+     ```
+
+     Its body instructs a gardener to wear this role and re-evaluate every PR in the `<project>` ledger whose maturity date has arrived, executing the now-due verdict. The call is idempotent (one daily schedule per project), so an embargo simply ensures it exists.
+
+  A terminal verdict (MERGE-NOW or REJECT) on a later recheck removes that PR's ledger row; when the ledger holds no project rows the daily heartbeat may be deleted. A PR's precise one-shot self-deletes once it fires, so it leaves no residue.
+
+  **Why both legs:** the precise one-shot puts the recheck at the maturity floor itself, eliminating the systematic no-op window a fixed daily cadence leaves — the daily heartbeat fires at a cron-aligned time that can land hours *before* a non-aligned floor (PR #197's 22:43Z floor sat ~8h after that day's heartbeat, so the heartbeat could take no terminal action and the precise recheck had to be hand-created at 23:00Z). The one-shot moves that placement off the maintainer/agent and into a deterministic schedule write. The daily heartbeat is retained only as a backstop so a lost one-shot still cannot let an embargoed PR rot. (A self-deleting one-shot is now a first-class scheduler primitive via `set-schedule-once.sh`; the earlier note that "a true single future dispatch is not expressible" no longer holds — do not reintroduce it.)
 
 **The authority is gated on the full criteria, not CI alone.** Auto-conduct a MERGE-NOW only when **all** hold: CI is green (per step 6) AND the maturity window is satisfied (≥7 days past publish) OR a real CVE the project is exposed to is closed by the upgrade, AND the source read surfaced nothing, AND the full transitive set is benign (no advisory on any moved version, no 24h-fresh or newly-introduced package left unexplained). Green CI alone is **never** sufficient for MERGE-NOW; it tells you the upgrade does not break the existing tests and nothing about a payload that does not run during them. If any leg of the gate is unmet, the verdict is EMBARGO or REJECT, not MERGE-NOW.
 
@@ -70,7 +88,7 @@ On a `dependabot[bot]`-authored PR on a repo where the bot holds merge authority
 
 - Do not approve based on green CI alone. Green CI tells you the upgrade does not break the project's existing tests; it tells you nothing about a malicious payload that does not run during the test suite. The gate above makes this explicit: CI green is one necessary leg, not the verdict.
 - Do not enable scripts during install.
-- Do not embargo without recording the maturity date and ensuring the daily recheck schedule exists; without both, no later tick re-posts the job and the PR rots.
+- Do not embargo without recording the maturity floor, placing the precise one-shot recheck at it (ceil-to-hour + 15m epsilon), and ensuring the daily backstop heartbeat exists; without the recheck wiring, no later tick re-posts the job and the PR rots. Do not rely on the daily heartbeat alone — its cron-aligned cadence leaves a no-op window for any non-aligned floor.
 - Do not REJECT silently. The PR comment must explain the reason precisely enough that a future maintainer can decide whether the rejection is still warranted.
 - Do not auto-merge or auto-close on an upstream the bot does not own. The autonomous authority is scoped to bot-owned repos; elsewhere the verdict is a recommendation.
 
@@ -81,7 +99,7 @@ Posting the verdict comment, merging (conducting), closing a REJECT'd PR, and sc
 ## Definition of done
 
 - One of MERGE-NOW, EMBARGO-YYYY-MM-DD, or REJECT, with a recorded verdict.
-- On a bot-owned repo, the verdict **executed**: MERGE-NOW conducted onto main (state=MERGED or auto-merge enqueued), REJECT closed with the verdict comment, or EMBARGO recorded in the ledger with the daily recheck schedule ensured.
+- On a bot-owned repo, the verdict **executed**: MERGE-NOW conducted onto main (state=MERGED or auto-merge enqueued), REJECT closed with the verdict comment, or EMBARGO recorded in the ledger with the precise one-shot recheck placed at the maturity floor (ceil-to-hour + 15m epsilon) and the daily backstop heartbeat ensured.
 - On a non-owned upstream, the verdict delivered as a recommendation; no merge or close performed.
 - A PR comment (when authorized) carrying the structured verdict.
 - The per-project ledger updated.
