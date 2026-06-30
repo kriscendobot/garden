@@ -14,3 +14,9 @@ Task (in order): 1) **Rebase** the branch onto the current `llm`, resolve confli
 shared CAS interfaces, with a coherent model for CAS methods + injected dependencies — do **NOT**
 atomize/restructure `@endo/platform` itself (explicitly out of scope). 3) Verify (local-verify), push,
 and post a **reply comment** on #442 describing the rebase + the @endo/platform-based refactor. CHANGES_REQUESTED → builder/fixer. Bot fork; no upstream contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 14
+  claimed_at: 2026-06-30T23:06:48Z
