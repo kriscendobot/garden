@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:49:55Z_
+_As of 2026-06-30T22:51:34Z_
 
 ## Latest
 
-Since the last bulletin only one item moved: the `garden-issue-9-mhofman-mainnet-repro-clarification` job completed, closing out a clarification on the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) mainnet-repro thread tied to the ymax0 XS value-stack overflow work. The board is otherwise drained (todo and doin both empty), and the parked queue is unchanged — 29 PRs await kriskowal, the most time-sensitive being the freshly-parked [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, waiting 17h). Four plans still sit awaiting maintainer go-ahead, including the ymax0 hex-fix verification ([`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md)).
+A gardener claimed [`ebfb-pr-58-continue-error-tracing-and-status`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-continue-error-tracing-and-status.md), resuming work on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) toward its acceptance criteria and to answer kriskowal's open questions — that PR is now the freshest item parked for your review (waiting 1h). Otherwise the board is quiet, with nothing new posted to todo.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ebfb-pr-58-continue-error-tracing-and-status`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-continue-error-tracing-and-status.md) — PR #58 — continue error-tracing toward acceptance criteria + answer kriskowal...
 
 ### tada (706)
 - [`garden-issue-9-mhofman-mainnet-repro-clarification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-mhofman-mainnet-repro-clarification.md) — Completion report
