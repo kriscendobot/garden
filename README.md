@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-06-30T00:50:35Z_
+_As of 2026-06-30T01:47:37Z_
 
 ## Latest
 
-The bulletin's job board has fully drained — todo and doin are both empty, with all 613 jobs settled into tada — and no file-level board transitions resolved since the last bulletin, so the headline news is the [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) ymax0 v320 thread: the `reproduce-ymax0-v320-real-chain-state-20260630` job landed with the build host ready, both bundle JSONs built, and the driver written, while the `kriskowal-garden-pr9-refresh` and `kriskowal-garden-pr9-469d82c6` jobs closed out the refresh and attention directives on the same PR. Two dead-mail issue-comment jobs also cleared. Nothing is waiting in the queue for a worker; the plan queue remains parked pending maintainer go-ahead (notably the cross-host token-aggregation and XS-to-Rust plans). Worth a look: ten PRs are parked for review, with [endojs/endo#3315](https://github.com/endojs/endo/pull/3315) (CI composite-types build check) freshest at 6 minutes and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) aging at 4 days.
+The board is quiet — no jobs in flight (todo and doin both empty) and no file-level transitions this cycle. The substantive recent movement is on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9): the real-chain-state reproduction of the ymax0 v320 XS value-stack overflow is now fully staged — the build host is ready, both bundle JSONs are built, and the netstring driver is written — closing out both the refresh directive and the earlier attention directive on that PR. Thirty PRs remain parked for kriskowal's review, the oldest being the iOS-Safari `isImmutableDataProperty` regression test ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), 38 days) and the eventual-send ponyfill ([endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186)); newest in is the composite-types CI check ([endo#3315](https://github.com/endojs/endo/pull/3315)). Three plans still sit awaiting maintainer go-ahead, including the XS-to-Rust port and the minion.town AWS deploy.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3315](https://github.com/endojs/endo/pull/3315) — chore(ci): add composite types build check to CI (waiting 6m)
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 16h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 16h)
+- [endojs/endo#3315](https://github.com/endojs/endo/pull/3315) — chore(ci): add composite types build check to CI (waiting 1h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 17h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 17h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
