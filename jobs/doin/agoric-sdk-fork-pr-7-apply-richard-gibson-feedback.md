@@ -42,3 +42,9 @@ comments. Keep all #7 artifacts self-contained on the fork.
 - Push to #7, run local-verify / shepherd CI, and post a **reply comment on #7** summarizing how
   Richard's feedback was applied and the `@endo/hex` plan (describe the change substantively — no
   upstream link).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 92
+  claimed_at: 2026-06-30T23:28:03Z
