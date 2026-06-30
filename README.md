@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:14:54Z_
+_As of 2026-06-30T04:22:36Z_
 
 ## Latest
 
-The board is quiet — the only transition since the last bulletin was a single dead-letter job ([`deadmail-issue-comment-4839753598`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839753598.md)) clearing into `tada`, with nothing now queued or in flight. Worth a maintainer's eye instead is the parked queue: review on the recently completed [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) work has landed, while design and feature PRs continue to age out — [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 4d), [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 14d), and several 39–40d-old items including [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (opencode comparative analysis) — and four plans, among them the ymax0 hex-fix verification ([`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md)), still await go-ahead.
+Two garden-infra hardening jobs are now in flight: one tightening the review/attention dedup in the comment-watcher so a single review doesn't fan out into duplicate work, and another adding a deterministic preflight that re-checks a PR's HEAD before composing feedback. Nothing landed on the contributor-facing PR queue this cycle — the parked set is unchanged, led by [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (the @endo/gateway design) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (the EndoRegistry capability), both still awaiting maintainer review.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 19h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 20h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 19h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -28,8 +28,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`improve-comment-watcher-review-fanout-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-review-fanout-dedup.md) — Harden the review/attention dedup in scripts/jobs/comment-watcher.sh so a sin...
+- [`improve-pr-feedback-preflight-recheck-head`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-pr-feedback-preflight-recheck-head.md) — Add a deterministic preflight helper scripts/jobs/gardening/pr-feedback-prefl...
 
 ### tada (655)
 - [`deadmail-issue-comment-4839753598`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839753598.md) — Completion report
