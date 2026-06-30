@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 On it — I've posted a job (`endojs-endo-but-for-bots-pr9-rebase`) and will follow up here when it lands. <!-- garden-reply:4842000001 --> 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 27
+  claimed_at: 2026-06-30T23:02:47Z
