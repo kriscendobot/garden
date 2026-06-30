@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T21:37:46Z_
+_As of 2026-06-30T21:39:42Z_
 
 ## Latest
 
-A gardener claimed [`inquisitor-ymax0-hex-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/inquisitor-ymax0-hex-repro.md), moving into the reproduction-and-verification of the ymax0 v320 upgrade failure against the now-shipped `hex.js` `flatMap`→loop engine fix; the paired `verify-ymax0-hex-fix-inquisitor` plan still sits in the go-ahead queue awaiting maintainer authorization. Recently completed work includes the reply to mhofman on the functor-stack thread of garden#9, the [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) job, and a dependabotany self-schedule precision improvement plus its endo-but-for-bots recheck. Worth a maintainer glance: [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP-worker error tracing) has just landed in the parked queue, and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has been waiting 16h. The board is otherwise drained — todo is empty and only three jobs are in flight.
+The deadmail job that drained an undeliverable issue-comment notification (`4848078424`) completed; otherwise the board is quiet, with two jobs still in flight — the attention directive on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing, freshly parked 3m for maintainer review) and the inquisitor reproduction of the ymax0 v320 hex fix. Worth noting on the parked queue: [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has now been waiting 16h, and the [.ts erasable-type-syntax runtime modules PR](https://github.com/endojs/endo/pull/3137) is at 15 days.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-issue-comment-4848078424`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4848078424.md) — Dead-lettered message — pick up its intent
+### doin (2)
 - [`endojs-endo-but-for-bots-pr58-5ce0b78b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-5ce0b78b.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`inquisitor-ymax0-hex-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/inquisitor-ymax0-hex-repro.md) — Reproduce the ymax0 v320 upgrade failure in inquisitor, then verify the hex.j...
 
-### tada (699)
+### tada (700)
+- [`deadmail-issue-comment-4848078424`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4848078424.md) — Completion report
 - [`deadmail-issue-comment-4847636571`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4847636571.md) — Completion report
 - [`garden-issue-9-reply-mhofman-functor-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-reply-mhofman-functor-stack.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-179927d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-179927d7.md) — Completion report — job endojs-endo-but-for-bots-pr475-179927d7
 - [`improve-dependabotany-self-schedule-precise-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-dependabotany-self-schedule-precise-recheck.md) — Completion report
-- [`dependabotany-recheck-endo-but-for-bots-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260630-143503.md) — Completion report
-- … and 694 more
+- … and 695 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
