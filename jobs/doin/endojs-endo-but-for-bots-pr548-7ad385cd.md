@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Just use an `@deprecated` JSDoc tag on the re-export. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 98
+  claimed_at: 2026-06-30T03:26:29Z
