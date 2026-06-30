@@ -39,3 +39,9 @@ Land on `main2` via an **isolated worktree off origin/main2** (commit explicit
 pathspecs, push `HEAD:main2`). Touch only the deploy path:
 `scripts/jobs/deploy-garden.sh` (+ its helpers / the upgrade-monitor trigger if you
 take option 2).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 25
+  claimed_at: 2026-06-30T03:39:29Z
