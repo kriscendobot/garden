@@ -120,27 +120,67 @@ holds the snapshot.
    --immutable`. Expect a non-fatal `better-sqlite3` native-build warning and two
    standing `chain-utils.js` cosmic-proto `tsc` errors (sandbox artifacts, not
    regressions) per the `build-agoric-internal-hex` notes.
-5. **Reproduce + verify the hex fix** against the captured swing-store:
+5. **Build the worker bundles `createVat` needs** (the bare immutable install
+   does NOT generate them, and `createVat` fails `ENOENT … .sha256` without them):
    ```
-   node packages/cosmic-swingset/tools/inquisitor.mjs <cache>/agoric-<height>/swingstore.sqlite
+   ( cd packages/xsnap-lockdown && node scripts/build-bundle.js )
+   ( cd packages/swingset-xsnap-supervisor && node scripts/build-bundle.js )
    ```
-   then in the REPL load the bundle and run the core-eval (Agoric/agoric-sdk
-   #11282):
+6. **Reproduce + verify the hex fix** against the captured swing-store, via the
+   **`createVat` vector** (see *The chain-tip / `createVat` finding* below for why
+   this — not the production upgrade core-eval — is the working vector on a tip
+   snapshot). Run inquisitor non-interactively, piping a driver that `addBundle`s
+   the v320 bundle and creates a fresh vat from it so a real on-chain worker
+   imports it:
    ```
-   void( fs = await import('fs') );
-   Object.keys( bundle = JSON.parse(fs.readFileSync("/tmp/ymax0-bundle.json","utf-8")) );
-   await swingStore.kernelStorage.bundleStore.addBundle($bundleID, bundle);
-   await runCoreEval(fs.readFileSync("/tmp/ymax0-core-eval.js","utf-8"));
+   BUNDLE_JSON=/path/to/<control|patched>-bundle.json RUN_LABEL=<label> \
+   INQUISITOR_NO_REPL=1 node packages/cosmic-swingset/tools/inquisitor.mjs \
+     <cache>/agoric-<height>/swingstore.sqlite < repro-driver.mjs
    ```
-   - **Control** (stock real v320 `bundle-ymax0`) should abort with the XS
-     value-stack overflow (`exited: stack overflow`).
+   The driver's core-eval (note: use the **global** `E`, not `powers.E`, and avoid
+   the literal `import (` token anywhere in the eval string — SES rejects it):
+   ```js
+   await runCoreEval(`async powers => {
+     const vas = await powers.consume.vatAdminSvc;
+     const bc = await E(vas).getBundleCap(${'`'}b1-${'${bundle.endoZipBase64Sha512}'}${'`'});
+     await E(vas).createVat(bc, { name: 'ymax0repro' });   // imports the bundle
+   }`);
+   ```
+   - **Control** (stock real v320 `bundle-ymax0`) → `Vat Creation Error: Stack
+     meter exceeded` — the XS value stack is exhausted **during** the bundle
+     import (this metered worker's rendering of the chain's `exited: stack
+     overflow`, exit 12).
    - **Patched** (the `flatMap`->loop `hex.js`, bot fork PR #7 / the
-     `debug/xs-stack-overflow-methodology` branch) should install and complete.
+     `debug/xs-stack-overflow-methodology` branch) → the bundle imports cleanly
+     and fails only at the benign post-import `vat source bundle lacks
+     buildRootObject()` check (a raw contract bundle has no `buildRootObject`),
+     proving module evaluation got **past** the overflow.
    The patched/control delta is exactly one `.flatMap(` removed (10->9) in the
-   flattened `portfolio.contract.bundle.js`.
+   flattened `portfolio.contract.bundle.js` — the `@agoric/internal/src/hex.js`
+   `decodings = new Map(encodings.flatMap(...))` rewritten to a `new Map` + `for`
+   + `.set()` loop. Verified on `agoric-26146641` (2026-06-30, kriskowal/garden#9
+   [comment](https://github.com/kriskowal/garden/issues/9#issuecomment-4848214817)).
 
 ## Notes
 
+- **The chain-tip / `createVat` finding (why the upgrade vector fails).** A
+  Polkachu tip snapshot is captured *after* the production incident, so the live
+  ymax0 instance's vat (`v275` on `agoric-26146641`) is already **terminated** in
+  it. The most-faithful vector — replay the production upgrade core-eval
+  (`E(adminFacet).upgradeContract(...)` via the bootstrap promise space's
+  `ymax0Kit`) — therefore fails *before any worker spins up* with
+  `vatAdminService rejecting attempt to perform "upgrade"() on non-running vat
+  "v275"`; an upgrade needs a running target. The working vector that does not
+  depend on a live instance is `vatAdminSvc.createVat(bundleCap)` of the v320
+  bundle: it routes the exact same bundle through a real on-chain worker's import
+  path (`compartmentImportNow` → `execute` → `hex.js` `flatMap`), which is where
+  the overflow lives. This needed a one-line **inquisitor overlay fix**: the
+  read-only overlay's `transcriptStore` left `initTranscript` a no-op, so a
+  freshly-created vatID hit `no current transcript for "vNN"`; seeding an initial
+  `{startPos:0,endPos:0,hash:'<initial>',incarnation:0}` pending span on
+  `initTranscript` (and moving it from `logAndMark` to `allow`) lets `createVat`
+  run end-to-end against a snapshot. Carried on
+  `kriscendobot/agoric-sdk` (`debug/xs-stack-overflow-methodology`).
 - **Wire vs disk:** the `data/agoric` filter saves disk, not bandwidth. The
   whole archive still streams over the wire because tar cannot seek a single
   `.tar.lz4`.
