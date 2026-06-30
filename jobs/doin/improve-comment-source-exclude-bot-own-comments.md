@@ -1,7 +1,0 @@
-In `scripts/jobs/handlers/comment-source-gh.sh`, the bot login is accepted as positional arg `$3` (`bot="${3:-kriscendobot}"`) but is never referenced again — none of the three jq emit stages (issue/PR comments ~line 95, inline review-comments ~line 105, review bodies ~line 178) filter out comments authored by the bot itself. Consequence: the comment-watcher emitted the bot's own job-posting reply (comment 4848602691 on endo-but-for-bots #9) as a candidate directive, which got classified as a "rebase" maintainer directive and minted the bogus `endojs-endo-but-for-bots-pr9-rebase` job (a no-op on a PR already MERGED 2026-05-09). Fix: pass `--arg bot "$bot"` to all three jq stages and add `select(.user.login != $bot)` so the source never surfaces the bot's own comments/reviews. This is the deterministic enforcement of the standing "never act on / reply to our own comments" norm, killing the self-triggering loop at the source rather than relying on the trusted-sender gate (which the bot login can pass via org membership).
-
----
-claim:
-  host: endolinbot2
-  gardener: 8
-  claimed_at: 2026-06-30T23:21:51Z
