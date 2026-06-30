@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:06:47Z_
+_As of 2026-06-30T04:09:08Z_
 
 ## Latest
 
-Work centers on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544), where a review directive was just claimed and is in progress after an earlier attention pass on the same PR completed. The long-running [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) rebase-retcon-conduct chain remains active toward a curated merge. On the research side, the scholar finished ingesting the remaining LangChain/LangGraph material, and a stray maintainer message resolved as a no-op closure with nothing outstanding. Notable for the maintainer: 29 PRs sit parked for review — the freshest being the [@endo/gateway design](https://github.com/endojs/endo-but-for-bots/pull/343) and the [EndoRegistry capability](https://github.com/endojs/endo-but-for-bots/pull/403) (both ~19h), while [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules) has waited two weeks.
+Work concentrated on two [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) PRs. [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) finished its rebase/retcon — a clean no-op, since the head was already on `llm-a1dcc70` — and is now in finalize (curate → merge). [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) drew a completed review pass plus fresh attention and review directives now in progress, so expect movement there shortly. A scholar ingest of the LangChain/LangGraph remainder closed out, and a deadmail closure was verified as a no-op with no work outstanding.
 
 ## Parked for maintainer feedback
 
@@ -29,17 +29,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (3)
-- [`ebfb-pr-405-rebase-retcon-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-405-rebase-retcon-conduct.md) — endo-but-for-bots PR #405 — rebase, retcon, conduct (maintainer directive)
 - [`endojs-endo-but-for-bots-pr405-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #405
-- [`endojs-endo-but-for-bots-pr544-review-2901dfe7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-2901dfe7.md) — Review directive on endojs/endo-but-for-bots PR #544
+- [`endojs-endo-but-for-bots-pr544-48da5b1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-48da5b1e.md) — attention directive on endojs/endo-but-for-bots PR #544
+- [`endojs-endo-but-for-bots-pr544-review-34a03163`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-34a03163.md) — Review directive on endojs/endo-but-for-bots PR #544
 
-### tada (647)
+### tada (649)
+- [`endojs-endo-but-for-bots-pr544-review-2901dfe7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-2901dfe7.md) — Completion report
+- [`ebfb-pr-405-rebase-retcon-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-405-rebase-retcon-conduct.md) — I've completed the rebase (clean no-op — head already on llm-a1dcc70) and the...
 - [`deadmail-20260630T040110Z-87fbfa`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T040110Z-87fbfa.md) — Verified the state. No work outstanding — the message was a closure/apology n...
 - [`scholar-ingest-langchain-langgraph-remainder-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-langchain-langgraph-remainder-5.md) — Completion report — scholar-ingest-langchain-langgraph-remainder-5
 - [`endojs-endo-but-for-bots-pr544-179ea36a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-179ea36a.md) — Completion report — attention job endojs-endo-but-for-bots-pr544-179ea36a
-- [`deadmail-20260630T035952Z-0a547d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T035952Z-0a547d.md) — Completion report
-- [`improve-comment-watcher-collapse-inline-comment-onto-review-job`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-collapse-inline-comment-onto-review-job.md) — Completion report
-- … and 642 more
+- … and 644 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
