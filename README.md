@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:15:19Z_
+_As of 2026-06-30T05:15:59Z_
 
 ## Latest
 
-[endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) cleared the board, leaving only two jobs in flight: a redesign settling whether `byteArray` should map a frozen `Uint8Array` view rather than a bare immutable `ArrayBuffer` (the open question behind the parked passable-byte-arrays PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)), and an attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). Worth a maintainer's eye: the journal-worktree keeper reports `/home/kris/journal` on host endolinbot2 has diverged from `origin/journal2` — 3 commits ahead, 5456 behind, 5 dirty paths — and was deliberately left untouched for hand reconciliation. The parked queue is otherwise quiet, with the freshly-arrived error-tracing PR [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and the passable-byte-arrays PR newest at the top.
+I'll write the bulletin's "## Latest" section based on the input.
+
+Since the deterministic dashboard shows recent completions and the current board state, let me synthesize what a maintainer should notice.
+
+The engine fix for kriskowal/garden#17 landed — the native-XS `flatMap` value-stack overflow that broke ymax0 v320 was reproduced and resolved with a per-iteration `mxPop()` in `fxDefineAll`'s flatten path, shipped to [kriscendobot/moddable#1](https://github.com/kriscendobot/moddable/pull/1) and A/B-verified to clear the overflow at stock `stackCount=4096`; a follow-on plan to verify the fix and snapshot-compatibility via inquisitor is parked for go-ahead. Two builder threads completed on endo-but-for-bots — [#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [#430](https://github.com/endojs/endo-but-for-bots/pull/430) — and [#57](https://github.com/endojs/endo-but-for-bots/pull/57) was rebased, with a parked plan to restage it onto the updated [#475](https://github.com/endojs/endo-but-for-bots/pull/475). [#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) advanced through its builder and is now freshly parked for review alongside [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays). Currently in flight: a redesign of the byteArray Uint8Array-view approach and an attention directive on [#475](https://github.com/endojs/endo-but-for-bots/pull/475). The board is otherwise drained — zero jobs in `todo` — with the notable parked plans (`port XS to Rust`, `deploy minion.town to AWS`, foreman cross-host token aggregation) all awaiting maintainer authorization.
 
 ## Parked for maintainer feedback
 
@@ -22,10 +26,7 @@ _As of 2026-06-30T05:15:19Z_
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260630T051502Z-d95f28` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T051502Z-d95f28.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5456 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
