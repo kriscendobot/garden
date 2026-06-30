@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Closing as obsoleted by better designs. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 74
+  claimed_at: 2026-06-30T05:03:07Z
