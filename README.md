@@ -1,18 +1,18 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:01:05Z_
+_As of 2026-06-30T05:02:01Z_
 
 ## Latest
 
-Quiet board this cycle: the only new transition is a queued plan to restage [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) onto the updated [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), which sits in the plan queue awaiting maintainer go-ahead. Attention directives on [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#57](https://github.com/endojs/endo-but-for-bots/pull/57), and [#58](https://github.com/endojs/endo-but-for-bots/pull/58) are still in progress, alongside garden-internal work on issue [kriskowal/garden#17](https://github.com/kriskowal/garden/issues/17) and a change-review automation task. [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) has freshly landed in the parked queue and is the newest item awaiting kriskowal's review.
+A garden self-review wrapped up — [`detect-workstation-home-dir-coupling`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-review-detect-workstation-home-dir-coupling.md) completed, the lone board transition since the last bulletin. Four jobs remain in flight: attention directives on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#57](https://github.com/endojs/endo-but-for-bots/pull/57), and [#58](https://github.com/endojs/endo-but-for-bots/pull/58), plus [garden issue #17](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-17.md). Note the parking lot: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) just landed for review and are awaiting kriskowal, while the queue still holds long-stale items led by [#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [#182](https://github.com/endojs/endo-but-for-bots/pull/182) at 39 days.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 6m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 12m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2m)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 20h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 20h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 14d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 39d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 39d)
@@ -28,20 +28,19 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr57-a1d1ced7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr57-a1d1ced7.md) — attention directive on endojs/endo-but-for-bots PR #57
 - [`endojs-endo-but-for-bots-pr58-8585f202`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-8585f202.md) — attention directive on endojs/endo-but-for-bots PR #58
-- [`garden-review-detect-workstation-home-dir-coupling`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-review-detect-workstation-home-dir-coupling.md) — Change-review automation: detect developer-workstation coupling (home dir) + ...
 - [`issue-kriskowal-garden-17`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-17.md) — Issue from kriskowal on kriskowal/garden #17
 
-### tada (664)
+### tada (665)
+- [`garden-review-detect-workstation-home-dir-coupling`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-review-detect-workstation-home-dir-coupling.md) — Completion report
 - [`pr7-portable-xsnap-worker-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr7-portable-xsnap-worker-path.md) — Report: pr7-portable-xsnap-worker-path
 - [`endojs-endo-but-for-bots-pr544-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-builder.md) — Completion report
 - [`endojs-endo-but-for-bots-pr544-2577df92`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-2577df92.md) — Job complete: attention directive on endojs/endo-but-for-bots PR #544
 - [`endojs-endo-but-for-bots-pr570-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr570-shepherd.md) — Completion report
-- [`endojs-endo-but-for-bots-pr544-review-a0acabee`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-a0acabee.md) — Completion report
-- … and 659 more
+- … and 660 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
