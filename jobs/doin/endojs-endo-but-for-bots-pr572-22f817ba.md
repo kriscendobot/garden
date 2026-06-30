@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot this is a great question. Let's go with the restrictive option for now. This avoids the security hazard of passing around a Uint8Array in order to pass the data in that view, and overlooking that this makes more data reachable that the passing code may not have inte
+
+---
+claim:
+  host: endolinbot2
+  gardener: 86
+  claimed_at: 2026-06-30T05:42:26Z
