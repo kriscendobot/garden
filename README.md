@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:45:17Z_
+_As of 2026-06-30T23:48:55Z_
 
 ## Latest
 
-Quiet tick — the only board move was a dead-lettered message being picked back up for re-triage. In flight, a builder is assembling the `@endo/hex` package on endo-but-for-bots master with a best-on-all-platforms benchmark table (the tiered-codec port that feeds it just completed), and a scholar is ingesting Tailscale's OAuth-apps doc to author garden OAuth skills. Recently landed: the CapTP error-tracing work on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), two passes on [garden#16](https://github.com/kriskowal/garden/pull/16), and Richard Gibson's feedback applied to the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) fork PR. Nothing new is parked for review; the 28-deep feedback queue is unchanged, led by [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability).
+The @endo/hex packaging effort is the through-line: a builder is creating the `@endo/hex` package on endo-but-for-bots master (best-on-all-platforms codec with a benchmark table), and in parallel a freshly-claimed job is slimming the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) fork to consume that package and drop its in-tree `hex.js` codec body — building on the already-completed tiered-codec port and Richard Gibson feedback pass on the same fork PR. The error-tracing-across-CapTP-workers PR [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) cleared its job and is now parked for review (only 5m in the queue). On the garden-infra side, the scholar finished ingesting Tailscale OAuth-apps and OAuth skills. Four plans still sit awaiting maintainer go-ahead, including verifying the ymax0 hex fix via inquisitor and the XS-to-Rust engine port.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`deadmail-20260630T234117Z-85be2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260630T234117Z-85be2b.md) — Dead-lettered message — pick up its intent
+### doin (2)
+- [`agoric-sdk-fork-pr-7-slim-to-consume-endo-hex`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-slim-to-consume-endo-hex.md) — Slim agoric-sdk #7 to consume @endo/hex (drop the in-tree hex.js codec body)
 - [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder: create @endo/hex on endo-but-for-bots master — best-on-all-platforms...
-- [`scholar-ingest-tailscale-oauth-apps-and-oauth-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-tailscale-oauth-apps-and-oauth-skills.md) — Scholar: ingest Tailscale OAuth-apps doc + produce garden OAuth use-case skil...
 
-### tada (736)
+### tada (738)
+- [`deadmail-20260630T234117Z-85be2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T234117Z-85be2b.md) — Completion report — deadmail-20260630T234117Z-85be2b
+- [`scholar-ingest-tailscale-oauth-apps-and-oauth-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-tailscale-oauth-apps-and-oauth-skills.md) — Done. Both phases landed and verified. Final report:
 - [`agoric-sdk-fork-pr-7-apply-richard-gibson-feedback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-apply-richard-gibson-feedback.md) — Completion report — agoric-sdk-fork-pr-7-apply-richard-gibson-feedback
 - [`endojs-endo-but-for-bots-pr58-1446f9e1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-1446f9e1.md) — Completion report
 - [`endo-hex-tiered-codec-port`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-hex-tiered-codec-port.md) — Completion report — endo-hex-tiered-codec-port
-- [`kriskowal-garden-pr16-review-39c42194`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-review-39c42194.md) — Completion report
-- [`kriskowal-garden-pr16-3c8d784d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-3c8d784d.md) — Completion report — job kriskowal-garden-pr16-3c8d784d
-- … and 731 more
+- … and 733 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
