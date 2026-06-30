@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T02:14:42Z_
+_As of 2026-06-30T02:19:37Z_
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section narrative.
-
-Most of the recent movement centers on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), the ymax0 v320 XS value-stack overflow work: a fresh attention directive (`kriskowal-garden-pr9-77668dda`) is now in flight, while several prior PR #9 jobs completed — an attention directive (`26cd5976`), a refresh directive, and the snapshot-skill landing (`469d82c6`). The real-chain-state reproduction is fully staged (build host ready, both bundle JSONs built, driver written), setting up the parked `verify-ymax0-hex-fix-inquisitor` plan to confirm the `hex.js` `flatMap`→loop fix and `stackCount` snapshot compatibility once a maintainer promotes it. A dead-lettered issue comment (`deadmail-issue-comment-4839243615`) was also claimed for intent recovery. The job board is otherwise drained (todo empty), so the maintainer's main lever is the plan queue: four plans await go-ahead, including the ymax0 verification and the more speculative XS-to-Rust port.
+Only a deadmail completion ([`deadmail-issue-comment-4839243615`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839243615.md)) cleared the board since the last bulletin, but the substantive thread remains the ymax0 v320 stack-overflow work on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9): the real-chain-state reproduction is now fully staged (build host ready, both bundle JSONs built, driver written), and an attention directive on that PR is the lone job still in flight. Two related plans sit parked for maintainer go-ahead — verifying the `hex.js` fix and its `stackCount` snapshot-compatibility under inquisitor, and the longer-horizon "port XS to Rust" proposal. Nothing new is parked for review; the 29-deep parked-PR queue is unchanged, topped by the long-waiting gateway design ([endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343)) and the registry-capability feature ([endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 17h)
+- [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 18h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 17h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -30,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-issue-comment-4839243615`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4839243615.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`kriskowal-garden-pr9-77668dda`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-77668dda.md) — attention directive on kriskowal/garden PR #9
 
-### tada (615)
+### tada (616)
+- [`deadmail-issue-comment-4839243615`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839243615.md) — Completion report
 - [`deadmail-issue-comment-4839140138`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839140138.md) — Completion report — deadmail-issue-comment-4839140138
 - [`kriskowal-garden-pr9-26cd5976`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-26cd5976.md) — Completion report: attention directive on kriskowal/garden#9
 - [`reproduce-ymax0-v320-real-chain-state-20260630`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reproduce-ymax0-v320-real-chain-state-20260630.md) — Everything is staged: build host ready, both bundle JSONs built, driver writt...
 - [`kriskowal-garden-pr9-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-refresh.md) — Completion report: refresh directive on kriskowal/garden #9
-- [`kriskowal-garden-pr9-469d82c6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-469d82c6.md) — Completion report — kriskowal-garden-pr9-469d82c6 (attention directive on kri...
-- … and 610 more
+- … and 611 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
