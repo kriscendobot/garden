@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T20:10:38Z_
+_As of 2026-06-30T20:33:10Z_
 
 ## Latest
 
-Bot-side, the lone item that moved since the last bulletin is [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9)'s reply to mhofman on the functor value-stack thread, which completed — the queue is otherwise idle (todo and doin both empty). Worth a maintainer's eye: ten PRs are parked awaiting review, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type-syntax `.ts` runtime modules, 15 days) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, 40 days), while the freshest are [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), each ~15h in. Four plans still sit on the runway awaiting go-ahead, including verifying the ymax0 hex fix and the XS-to-Rust port.
+The board is nearly quiet: the only transition since the last bulletin is a dead-lettered issue comment ([`deadmail-issue-comment-4847636571`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4847636571.md)) being claimed back into progress to recover its intent. Recently landed work includes a reply on the [garden#9](https://github.com/kriskowal/garden/issues/9) thread about the XS functor value-stack (the same area as the shipped `flatMap` engine fix), review follow-up on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and a self-scheduling-precision improvement plus a fresh recheck for the dependabotany endo-but-for-bots scan. Nothing new is parked for the maintainer beyond the existing 29-PR queue.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-issue-comment-4847636571`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4847636571.md) — Dead-lettered message — pick up its intent
 
 ### tada (698)
 - [`garden-issue-9-reply-mhofman-functor-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-reply-mhofman-functor-stack.md) — Completion report
