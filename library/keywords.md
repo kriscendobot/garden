@@ -13539,3 +13539,31 @@ time travel (LangGraph) | langgraph-checkpointer
 thread_id | langgraph-checkpointer
 pending writes | langgraph-checkpointer
 LangGraph store | langgraph-checkpointer
+human-in-the-loop | human-in-the-loop
+HITL | human-in-the-loop
+`interrupt()` (LangGraph) | human-in-the-loop
+`interrupt_before` | human-in-the-loop
+`Command(resume=)` | human-in-the-loop
+approve or reject (LangGraph) | human-in-the-loop
+review and edit state | human-in-the-loop
+HumanInTheLoopMiddleware | human-in-the-loop
+static interrupt | human-in-the-loop
+agent handoff | multi-agent-handoff
+agent handoffs (LangChain) | multi-agent-handoff
+multi-agent (LangChain) | multi-agent-handoff
+supervisor (LangChain) | multi-agent-handoff
+`transfer_to_sales` | multi-agent-handoff
+`Command.PARENT` | multi-agent-handoff
+`active_agent` | multi-agent-handoff
+context engineering (LangChain) | multi-agent-handoff
+harness (LangChain) | langchain
+middleware (LangChain) | langchain
+`init_chat_model` | langchain
+`bind_tools` | langchain
+`ToolRuntime` | langchain
+structured output (LangChain) | langchain
+tool calling (LangChain) | langchain
+`return_direct` | langchain
+headless tools | langchain
+dynamic tool selection | langchain
+model profile | langchain
