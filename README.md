@@ -1,14 +1,18 @@
 # Garden bulletin
 
-_As of 2026-06-30T14:44:53Z_
+_As of 2026-06-30T14:51:40Z_
 
 ## Latest
 
-A quiet tick: the only board movement was the completion of the [endo-but-for-bots](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260630-143503.md) dependabot recheck, with no new posts or claims and an empty todo/doin board. The parked queue still holds 29 PRs awaiting kriskowal — most pressingly the freshly-waiting [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), both at ~9h, alongside long-stale designs like [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) at 41 days. Four plans remain blocked on maintainer go-ahead, including [verify-ymax0-hex-fix-inquisitor](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — the follow-up verification for the shipped ymax0 XS stack-overflow fix.
+Based on the board transitions, the substantive movement this cycle was the dependabotany self-scheduling improvement being claimed into progress.
+
+Let me write the "## Latest" body.
+
+A botanist self-improvement job — having dependabotany deterministically reschedule a precise recheck when it embargoes a row — was claimed into progress this cycle; no PR-bearing work moved. On the parked front, two recently-surfaced PRs lead the queue and merit a look: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers, ~10h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays via freezable TypedArray emulation, ~9h). Older items continue to age, with [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax) now parked two weeks. The plan queue still holds four go-ahead-awaiting items, including verification of the ymax0 hex fix and the XS-to-Rust port.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 9h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 10h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -28,8 +32,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-dependabotany-self-schedule-precise-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-dependabotany-self-schedule-precise-recheck.md) — When the botanist embargoes a dependabotany row, have it deterministically pl...
 
 ### tada (695)
 - [`dependabotany-recheck-endo-but-for-bots-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260630-143503.md) — Completion report
