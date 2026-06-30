@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot ,  - please fix the lint errors. - please update and resolve conflicts. - please the tests that @kriskowal requested at https://github.com/endojs/endo-but-for-bots/pull/475#pullrequestreview-4574926723 For each of these, please ask about anything you are uncertain o
+
+---
+claim:
+  host: endolinbot2
+  gardener: 37
+  claimed_at: 2026-06-30T04:54:00Z
