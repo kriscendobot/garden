@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T20:35:38Z_
+_As of 2026-06-30T20:45:09Z_
 
 ## Latest
 
-Little moved since the last bulletin: a single completion landed — a [deadmail report](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4847636571.md) recording an undeliverable issue-comment — and the board is now fully drained (todo and doin both empty). Recently settled work just ahead of this window included a reply on garden issue #9 about the functor stack, review follow-up on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and a dependabotany self-schedule refinement with a fresh endo-but-for-bots recheck. Nothing awaits maintainer action beyond the 29 parked PRs; the four go-ahead plans (cross-host token aggregation, the XS→Rust port, minion.town AWS deploy, and the ymax0 hex-fix verification) remain held for authorization.
+The board is fully drained — nothing in todo or doin — after a batch of completions led by review work on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), a reply to mhofman on the garden#9 functor-stack thread, and a self-improvement to dependabotany that gives it precise self-scheduled rechecks (its latest endo-but-for-bots recheck has already cleared). One thing to notice: the journal-worktree-keeper has flagged that `/home/kris/journal` on **endolinbot2** has diverged from `origin/journal2` (3 commits ahead, 5695 behind, 6 dirty paths) and was deliberately left untouched — it needs a manual reconcile before that local work is at risk. The plan queue still holds four items awaiting your go-ahead, including the ymax0 hex-fix verification and the XS-to-Rust port.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,10 @@ Little moved since the last bulletin: a single completion landed — a [deadmail
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260630T204502Z-866a26` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T204502Z-866a26.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5695 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
