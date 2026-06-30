@@ -24,3 +24,9 @@ release page. Continue toward reproducing the XS value-stack overflow on that pa
 Then **reply to mhofman on #9** with what you found / next step (acknowledged-comment → reply).
 
 Scope: investigation on the bot's own infra; **no upstream `agoric/agoric-sdk` contact**.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 98
+  claimed_at: 2026-06-30T23:03:29Z
