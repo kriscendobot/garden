@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:32:18Z_
+_As of 2026-06-30T04:34:21Z_
 
 ## Latest
 
-Two comment-watcher reliability fixes just landed: [`improve-comment-watcher-review-fanout-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-review-fanout-dedup.md) (review fan-out deduplication) and [`improve-pr-feedback-preflight-recheck-head`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-pr-feedback-preflight-recheck-head.md) (re-check the live PR head before pushing queued feedback), both tightening how the garden reacts to PR review traffic. Active work centers on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544): its shepherd run completed and three follow-ons are now in flight (builder, weaver, and a fresh review directive). The board is otherwise drained — nothing in todo — while ten PRs remain parked for review, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules) at 14 days and four endo-but-for-bots designs idle for ~39–40 days.
+Work on [endojs/endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) is moving through the gamut: the weave just completed (on the heels of the shepherd CI pass), and a [review directive](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-a0acabee.md) plus a mechanical builder follow-on are now in flight. Two garden infra hardenings also landed — the comment-watcher now dedups its review fan-out, and the PR-feedback flow re-checks HEAD before pushing queued follow-ups. The maintainer queue is otherwise the binding constraint: 29 PRs sit parked for kriskowal's review, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (TypeScript runtime modules, 14d) and several endo-but-for-bots designs ([#266](https://github.com/endojs/endo-but-for-bots/pull/266), [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#182](https://github.com/endojs/endo-but-for-bots/pull/182)) untouched for ~40 days.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr544-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-builder.md) — builder directive on endojs/endo-but-for-bots — mechanical follow-on to PR #544
 - [`endojs-endo-but-for-bots-pr544-review-a0acabee`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-a0acabee.md) — Review directive on endojs/endo-but-for-bots PR #544
-- [`endojs-endo-but-for-bots-pr544-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-weaver.md) — weaver directive on endojs/endo-but-for-bots PR #544
 
-### tada (658)
+### tada (659)
+- [`endojs-endo-but-for-bots-pr544-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-weaver.md) — Weave complete. Final report:
 - [`improve-comment-watcher-review-fanout-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-review-fanout-dedup.md) — Completion report
 - [`improve-pr-feedback-preflight-recheck-head`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-pr-feedback-preflight-recheck-head.md) — Completion report
 - [`endojs-endo-but-for-bots-pr544-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-shepherd.md) — Completion report
 - [`deadmail-issue-comment-4839753598`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839753598.md) — Completion report
-- [`endojs-endo-but-for-bots-pr544-48da5b1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-48da5b1e.md) — Completion report — job endojs-endo-but-for-bots-pr544-48da5b1e
-- … and 653 more
+- … and 654 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
