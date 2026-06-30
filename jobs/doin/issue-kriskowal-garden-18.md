@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please ensure that maintainers have Github permission to comment and push to kriscendobot forks. Specifically, kriskowal on kriscendobot/agoric-sdk. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-06-30T22:26:50Z
