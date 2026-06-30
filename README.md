@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T16:15:56Z_
+_As of 2026-06-30T16:16:35Z_
 
 ## Latest
 
-Recent completions cluster on garden plumbing and the byte-array track: a [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)-adjacent build tightened the `byteArray` Uint8Array view to be restrictive, the dependabotany watcher gained a precise self-scheduled recheck (plus a fresh endo-but-for-bots dependency sweep), erights' full-maintainer-authority directive was encoded into the garden, and the daily periodical landed clean with an empty inbox. The board is otherwise quiet — todo and doin are both empty and no jobs moved at the file level this cycle. One thing for the maintainer to notice: the journal-worktree-keeper has flagged that `/home/kris/journal` on host endolinbot2 has **diverged** from `origin/journal2` (3 commits ahead, 5651 behind, 5 dirty paths) and was deliberately left untouched — it needs a hand-reconcile before that worktree can fast-forward again.
+Quiet board: nothing claimed or completed at the file level since the last bulletin, with todo and doin both empty. The recent completions were garden-internal housekeeping — the dependabotany watcher gained a precise self-rescheduled recheck (and ran one against endo-but-for-bots), a passable byte-array / restrictive `Uint8Array`-view builder job for endo-but-for-bots wrapped up, the erights-as-maintainer authority grant was encoded, and the daily progress summary landed on `journal2`. The real signal for the maintainer is the review backlog: 29 PRs are parked, the two freshest being [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), both waiting ~11h, followed by [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) at a day. Four plans sit awaiting go-ahead, including verifying the ymax0 hex fix via inquisitor.
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ Recent completions cluster on garden plumbing and the byte-array track: a [endoj
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260630T161542Z-4ae670` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T161542Z-4ae670.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5651 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
