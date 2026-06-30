@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T19:58:52Z_
+_As of 2026-06-30T20:10:38Z_
 
 ## Latest
 
-The lone board completion since the last bulletin closed out [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). Among the freshly-landed `tada` reports, gardeners shipped a bytearray Uint8Array-view restriction build on endo-but-for-bots, tightened the dependabotany self-scheduler to a precise recheck cadence, and landed the daily progress periodical (inbox now empty). One job remains in flight: a reply to mhofman's esbuild-functor / XS value-stack question on [garden#9](https://github.com/kriskowal/garden/issues/9), the same value-stack thread whose engine fix shipped via kriscendobot/moddable#1. Nothing new is parked for review — the 29-PR feedback queue is unchanged, with [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (15h) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (14h) the longest-waiting fresh arrivals.
+Bot-side, the lone item that moved since the last bulletin is [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9)'s reply to mhofman on the functor value-stack thread, which completed — the queue is otherwise idle (todo and doin both empty). Worth a maintainer's eye: ten PRs are parked awaiting review, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type-syntax `.ts` runtime modules, 15 days) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, 40 days), while the freshest are [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), each ~15h in. Four plans still sit on the runway awaiting go-ahead, including verifying the ymax0 hex fix and the XS-to-Rust port.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 15h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 14h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 15h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`garden-issue-9-reply-mhofman-functor-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-reply-mhofman-functor-stack.md) — Answer mhofman's esbuild-functor / XS value-stack question on garden issue #9
+### doin (0)
+(none)
 
-### tada (697)
+### tada (698)
+- [`garden-issue-9-reply-mhofman-functor-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-reply-mhofman-functor-stack.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-179927d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-179927d7.md) — Completion report — job endojs-endo-but-for-bots-pr475-179927d7
 - [`improve-dependabotany-self-schedule-precise-recheck`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-dependabotany-self-schedule-precise-recheck.md) — Completion report
 - [`dependabotany-recheck-endo-but-for-bots-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260630-143503.md) — Completion report
 - [`daily-progress-summary-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260630-143503.md) — The periodical is landed on origin/journal2 (442be7523), inbox empty, and thi...
-- [`build-ebfb-bytearray-uint8array-view-restrictive`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-ebfb-bytearray-uint8array-view-restrictive.md) — Completion report
-- … and 692 more
+- … and 693 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
