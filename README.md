@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:52:04Z_
+_As of 2026-06-30T23:56:47Z_
 
 ## Latest
 
-The @endo/hex extraction advanced on two fronts: a [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-tracing port completed and the PR is now parked for review (waiting 13m), the tiered-codec port landed, and Richard Gibson's feedback was applied to [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7). Still in flight: building the `@endo/hex` package on endo-but-for-bots master with a best-on-all-platforms benchmark table, and slimming [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) to consume that package instead of its in-tree `hex.js` body. A scholar ingest of Tailscale OAuth apps/skills finished. On the garden-infra side, a new job is open to add a pre-dispatch grep-gate guarding against CLAUDE.md inventory drift.
+The agoric-sdk fork's [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) wrapped its slim-to-consume-`@endo/hex` work — Richard Gibson's review feedback applied, now idle pending CI. Two jobs are in flight: the builder standing up the `@endo/hex` package with a best-on-all-platforms benchmark table on endo-but-for-bots master, and a CLAUDE.md inventory-drift grep-gate. Freshly landed and now parked for review is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), which leads the queue at 13 minutes; [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has been waiting 18h and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) over a day.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`agoric-sdk-fork-pr-7-slim-to-consume-endo-hex`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-slim-to-consume-endo-hex.md) — Slim agoric-sdk #7 to consume @endo/hex (drop the in-tree hex.js codec body)
+### doin (2)
 - [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder: create @endo/hex on endo-but-for-bots master — best-on-all-platforms...
 - [`improve-claude-md-inventory-drift-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-claude-md-inventory-drift-gate.md) — Add a new pre-dispatch grep-gate under scripts/checks/claude-md-inventory-dri...
 
-### tada (738)
+### tada (739)
+- [`agoric-sdk-fork-pr-7-slim-to-consume-endo-hex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-slim-to-consume-endo-hex.md) — Nothing more to do until CI progresses. Waiting for the background poller's c...
 - [`deadmail-20260630T234117Z-85be2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T234117Z-85be2b.md) — Completion report — deadmail-20260630T234117Z-85be2b
 - [`scholar-ingest-tailscale-oauth-apps-and-oauth-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-tailscale-oauth-apps-and-oauth-skills.md) — Done. Both phases landed and verified. Final report:
 - [`agoric-sdk-fork-pr-7-apply-richard-gibson-feedback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-apply-richard-gibson-feedback.md) — Completion report — agoric-sdk-fork-pr-7-apply-richard-gibson-feedback
 - [`endojs-endo-but-for-bots-pr58-1446f9e1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-1446f9e1.md) — Completion report
-- [`endo-hex-tiered-codec-port`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-hex-tiered-codec-port.md) — Completion report — endo-hex-tiered-codec-port
-- … and 733 more
+- … and 734 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
