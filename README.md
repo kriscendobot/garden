@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:19:56Z_
+_As of 2026-06-30T05:21:13Z_
 
 ## Latest
 
-The rebase of [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) landed, and a shepherd directive is now in flight on [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) to drive its CI green, alongside a separate attention directive on the same PR; an attention directive on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and the byteArray-as-frozen-Uint8Array-view redesign remain in progress. On the review front, two newly parked PRs are worth a look — [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) — both freshly awaiting maintainer feedback.
+The shepherd run on [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) just completed and its directive is back in flight, while attention directives on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and the byteArray-as-frozen-Uint8Array-view redesign remain claimed and in progress. Recent completions cleared a batch of endo-but-for-bots work — rebases on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [#57](https://github.com/endojs/endo-but-for-bots/pull/57), plus follow-through on [#429](https://github.com/endojs/endo-but-for-bots/pull/429) and a builder launch on [#58](https://github.com/endojs/endo-but-for-bots/pull/58). Worth a look: the passable-byte-arrays feature [#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the CapTP error-tracing PR [#58](https://github.com/endojs/endo-but-for-bots/pull/58) both freshly surfaced for review, and the board is otherwise drained (todo empty), with the XS-to-Rust port and ymax0 hex-fix verification still parked awaiting maintainer go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -28,19 +28,18 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`ebfb-bytearray-uint8array-view-redesign`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-bytearray-uint8array-view-redesign.md) — design: byteArray maps a frozen Uint8Array view, not a bare immutable ArrayBu...
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr571-72197ae9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr571-72197ae9.md) — attention directive on endojs/endo-but-for-bots PR #571
 - [`endojs-endo-but-for-bots-pr571-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr571-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #571
 
-### tada (672)
+### tada (673)
+- [`endojs-endo-but-for-bots-pr571-72197ae9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-72197ae9.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-rebase.md) — Completion report — endojs-endo-but-for-bots-pr475-rebase
 - [`endojs-endo-but-for-bots-pr429-248d107b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr429-248d107b.md) — Completion report — endojs-endo-but-for-bots-pr429-248d107b
 - [`endojs-endo-but-for-bots-pr57-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr57-rebase.md) — Completion report — endojs-endo-but-for-bots-pr57-rebase
 - [`endojs-endo-but-for-bots-pr58-8585f202`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-8585f202.md) — I've launched the implementation. Current status: builder running in the back...
-- [`issue-kriskowal-garden-17`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-17.md) — Completion report — issue-kriskowal-garden-17
-- … and 667 more
+- … and 668 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
