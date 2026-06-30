@@ -29,3 +29,9 @@ A `designs/<slug>.md` design document and a DRAFT design PR against `llm`. Resea
 ## Authority note
 
 This is a roadmap-direction pivot affecting three open PRs and an upstream subsystem. The direction (view-based mapping) is set by erights' directive; the *disposition* of #429 / #57 / #3226 (withdraw vs retarget) is a maintainer call the design surfaces rather than executes.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 26
+  claimed_at: 2026-06-30T05:13:54Z
