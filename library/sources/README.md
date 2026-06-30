@@ -686,6 +686,11 @@ Sources retrieved from public URLs rather than from repository git history. Use 
 | [LangGraph checkpointers](web--langgraph-checkpointers.md) | https://docs.langchain.com/oss/python/langgraph/checkpointers | 2 | current (batch 2026-06-30) |
 | [LangGraph persistence](web--langgraph-persistence.md) | https://docs.langchain.com/oss/python/langgraph/persistence | 1 | current (batch 2026-06-30) |
 | [LangGraph workflows and agents](web--langgraph-workflows-and-agents.md) | https://docs.langchain.com/oss/python/langgraph/workflows-agents | 1 | current (batch 2026-06-30) |
+| [LangChain agents](web--langchain-agents.md) | https://docs.langchain.com/oss/python/langchain/agents | 3 | current (LangChain/LangGraph remainder-ingest batch 2026-06-30; idempotency anchor is content SHA-256 over the `.md` rendering) |
+| [LangChain models](web--langchain-models.md) | https://docs.langchain.com/oss/python/langchain/models | 4 | current (remainder batch 2026-06-30) |
+| [LangChain tools](web--langchain-tools.md) | https://docs.langchain.com/oss/python/langchain/tools | 4 | current (remainder batch 2026-06-30) |
+| [LangChain handoffs (multi-agent)](web--langchain-handoffs.md) | https://docs.langchain.com/oss/python/langchain/multi-agent/handoffs | 2 | current (remainder batch 2026-06-30) |
+| [LangGraph interrupts (human-in-the-loop)](web--langgraph-interrupts.md) | https://docs.langchain.com/oss/python/langgraph/interrupts | 3 | current (remainder batch 2026-06-30) |
 | [AWS Marketplace AMI requirements](web--aws-marketplace-ami-requirements.md) | https://docs.aws.amazon.com/marketplace/latest/userguide/product-and-ami-policies.html | 2 | current |
 | [AWS Marketplace container product requirements](web--aws-marketplace-container-requirements.md) | https://docs.aws.amazon.com/marketplace/latest/userguide/container-product-policies.html | 1 | current |
 | [Let's Encrypt ACME challenge types](web--lets-encrypt-acme-challenges.md) | https://letsencrypt.org/docs/challenge-types/ | 2 | current |
