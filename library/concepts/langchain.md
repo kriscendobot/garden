@@ -1,6 +1,6 @@
 ---
 id: langchain
-aliases: [LangChain, create_agent, harness, middleware, LCEL, LangChain Expression Language, Runnable, retriever, RAG, Retrieval-Augmented Generation, Agentic RAG, vector store, embedding model, init_chat_model, bind_tools, response_format, structured output, tool calling, ToolRuntime, model profile, dynamic tool selection, headless tools, return_direct, messages, SystemMessage, HumanMessage, AIMessage, ToolMessage, content blocks, multimodal, short-term memory, long-term memory, AgentState, SummarizationMiddleware, ProviderStrategy, ToolStrategy, structured_response, handle_errors]
+aliases: [LangChain, create_agent, harness, middleware, AgentMiddleware, before_model, wrap_model_call, prebuilt middleware, HumanInTheLoopMiddleware, PIIMiddleware, streaming, stream_mode, get_stream_writer, LCEL, LangChain Expression Language, Runnable, retriever, RAG, Retrieval-Augmented Generation, Agentic RAG, vector store, embedding model, init_chat_model, bind_tools, response_format, structured output, tool calling, ToolRuntime, model profile, dynamic tool selection, headless tools, return_direct, messages, SystemMessage, HumanMessage, AIMessage, ToolMessage, content blocks, multimodal, short-term memory, long-term memory, AgentState, SummarizationMiddleware, ProviderStrategy, ToolStrategy, structured_response, handle_errors]
 topics: [llm-agent-frameworks, content-addressed-storage]
 ---
 
@@ -32,10 +32,20 @@ LangChain is an LLM-application framework built by LangChain Inc. It frames an a
 | [long-term memory: the cross-thread store and tool access](../sections/web--langchain-long-term-memory--cross-thread-store-and-tool-access.md) | Cross-thread memory on the LangGraph store; read/write via runtime.store. |
 | [structured output: response_format and the strategies](../sections/web--langchain-structured-output--response-format-and-strategies.md) | response_format; ProviderStrategy vs ToolStrategy; auto-selection; structured_response. |
 | [structured output: ToolStrategy error handling and retries](../sections/web--langchain-structured-output--tool-strategy-error-handling.md) | Multiple-output and validation errors; the six handle_errors shapes; retries. |
+| [streaming: stream modes and agent progress](../sections/web--langchain-streaming--stream-modes-and-agent-progress.md) | The three stream modes (updates/messages/custom), agent progress, LLM tokens, custom updates. |
+| [streaming: reasoning, tool calls, HITL, sub-agents](../sections/web--langchain-streaming--common-patterns-reasoning-tool-calls-hitl-subagents.md) | Streaming reasoning tokens, partial+completed tool calls, human-in-the-loop, sub-agent disambiguation. |
+| [streaming: disable streaming and the v2 format](../sections/web--langchain-streaming--disable-streaming-and-v2-format.md) | Disabling per-model streaming; the version=v2 unified StreamPart shape and GraphOutput. |
+| [middleware: overview and graph composition](../sections/web--langchain-middleware--overview-and-graph-composition.md) | What middleware controls; hooks run inside the compiled graph; embed the agent in a larger StateGraph. |
+| [built-in middleware: context, cost, and resilience](../sections/web--langchain-middleware-built-in--context-cost-and-resilience.md) | Summarization, context editing, model/tool call limits, model fallback, tool/model retry. |
+| [built-in middleware: tools, safety, and capabilities](../sections/web--langchain-middleware-built-in--tools-safety-and-capabilities.md) | LLM tool selector/search/emulator, HITL, PII detection, to-do, shell, file search, filesystem, subagents. |
+| [custom middleware: hooks, state, and execution order](../sections/web--langchain-middleware-custom--hooks-state-and-execution-order.md) | Node vs wrap hooks, state updates, decorators vs classes, execution order, agent jumps. |
+| [custom middleware: worked examples](../sections/web--langchain-middleware-custom--examples.md) | Dynamic prompt/model/tool selection, tool monitoring, Anthropic prompt caching. |
 
 ## See also
 
 - [[langgraph]] — the orchestration runtime LangChain agents are built on.
+- [[middleware]] — the configurable harness layer (prebuilt catalog + custom hooks) of the LangChain agent.
+- [[agent-streaming]] — the stream-modes API for surfacing real-time updates from agent runs.
 - [[langgraph-store]] — the long-term cross-thread store that backs LangChain long-term memory.
 - [[langgraph-checkpointer]] — the persistence mechanism behind short-term (thread-scoped) memory.
 - [[human-in-the-loop]] — the steering capability (`HumanInTheLoopMiddleware`) LangChain inherits from LangGraph.
