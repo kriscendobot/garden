@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:50:19Z_
+_As of 2026-06-30T05:53:00Z_
 
 ## Latest
 
-Work this cycle was concentrated on [endojs/endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572), the byteArray view design doc, where erights left a three-comment review resolving its open questions. Gardeners handled the design-of-record bookkeeping autonomously — recording the disposition decision ("withdraw all three and open fresh") as Decision 6, settling the sub-view question to the restrictive whole-buffer-span option (spawning issue #573), and pushing the updates to the PR branch — but two items are now **parked in your inbox for authorization** because they cross repo and identity boundaries. Specifically, erights' "withdraw and open fresh" directive requires closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [#57](https://github.com/endojs/endo-but-for-bots/pull/57) (PR-close exceeds the bot's standing comment-only authorization), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (out of bot scope — needs you or the boatman), and opening a fresh view-based implementation PR seeded from the `feat/narrow-bytearray-to-uint8` prototype. The helper-naming question was deferred by erights to you. Two #572 review jobs remain in flight; the board is otherwise drained (empty todo).
+Work this cycle converged on the [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) byteArray view design doc, where erights' three-comment review resolved its open questions. A gardener recorded the disposition decision ("for all, withdraw and open fresh") as Design Decision 6 and pushed it to the PR branch (c31c6a312), and the restrictive whole-buffer-span sub-view question was settled and spun out as issue #573. Two items now sit in the **maintainer inbox awaiting your go-ahead**, both flagged because they cross the authorization boundary: closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (bot can close, but PR-close isn't covered by the standing authorization), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (kriskowal-authored, needs you or the boatman), opening a fresh view-based implementation PR seeded from `feat/narrow-bytearray-to-uint8`, and the helper-naming question erights explicitly deferred to you. One #572 review directive is still in flight, and the board is otherwise drained (todo empty).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 57m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 48m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 53m)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 21h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 21h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -70,16 +70,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (2)
-- [`endojs-endo-but-for-bots-pr572-b07c1061`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-b07c1061.md) — attention directive on endojs/endo-but-for-bots PR #572
+- [`deadmail-20260630T054746Z-40346c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260630T054746Z-40346c.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr572-review-1007395e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-1007395e.md) — Review directive on endojs/endo-but-for-bots PR #572
 
-### tada (682)
+### tada (683)
+- [`endojs-endo-but-for-bots-pr572-b07c1061`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-b07c1061.md) — Completion report
 - [`endojs-endo-but-for-bots-pr572-review-f9f39a71`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-f9f39a71.md) — Completion report — job endojs-endo-but-for-bots-pr572-review-f9f39a71
 - [`endojs-endo-but-for-bots-pr572-22f817ba`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-22f817ba.md) — Completion report
 - [`endojs-endo-but-for-bots-pr572-dea7fcb4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-dea7fcb4.md) — The peer (f9f39a71) had already completed by the time I replied, so my coordi...
 - [`endojs-endo-but-for-bots-pr572-review-04e6cad0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-04e6cad0.md) — Completion report — endojs-endo-but-for-bots-pr572-review-04e6cad0
-- [`endojs-endo-but-for-bots-pr572-review-feaa10d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-feaa10d8.md) — Completion report — job endojs-endo-but-for-bots-pr572-review-feaa10d8
-- … and 677 more
+- … and 678 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
