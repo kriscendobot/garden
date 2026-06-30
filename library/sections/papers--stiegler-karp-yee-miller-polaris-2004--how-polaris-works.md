@@ -12,19 +12,7 @@ source_wayback_timestamp: 20220423221140
 ingested: 2026-06-28
 ingested_by: scholar
 topics: [capability-security]
-status: superseded
-superseded_by: papers--stiegler-polaris-virus-safe-computing-2004--polarizing-applications-pets-restricted-accounts-and-visual-cues
-superseded_on: 2026-06-28
-superseded_reason: |
-  Duplicate ingest of the same report. The 2004 HP Labs report HPL-2004-221 was
-  ingested twice by two gardeners racing the same cycle, under two source slugs with
-  the identical source_pdf_sha256 6c95faf19fef (9 pages, four authors). The canonical
-  cluster is papers--stiegler-polaris-virus-safe-computing-2004, cross-referenced by
-  the concepts/polaris.md and concepts/powerbox.md concept pages. The restricted-
-  account / RunAs / copy+synchronizer mechanism is covered by the canonical
-  polarizing-applications section; the pilot status and residual network/GUI-hole
-  attacks by the canonical status-limits-and-residual-attacks section. Kept, not
-  deleted: the journal is append-only.
+status: current
 ---
 
 ## Abstract
