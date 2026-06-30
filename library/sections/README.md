@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6036 (525 parent indexes + 5511 children).
+Total section files: 6041 (525 parent indexes + 5516 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -8103,6 +8103,17 @@ Total section files: 6036 (525 parent indexes + 5511 children).
 - [web--miller-grant-matcher-puzzle--overview](web--miller-grant-matcher-puzzle--overview.md)
 - [web--miller-grant-matcher-puzzle--setting-up-the-puzzle](web--miller-grant-matcher-puzzle--setting-up-the-puzzle.md)
 - [web--miller-grant-matcher-puzzle--when-it-works](web--miller-grant-matcher-puzzle--when-it-works.md)
+
+### web--tailscale-oauth-apps
+
+- [web--tailscale-oauth-apps--requirements-and-limitations](web--tailscale-oauth-apps--requirements-and-limitations.md)
+- [web--tailscale-oauth-apps--user-delegated-authorization-code-model](web--tailscale-oauth-apps--user-delegated-authorization-code-model.md)
+
+### web--tailscale-oauth-clients
+
+- [web--tailscale-oauth-clients--client-credentials-scopes-and-token-lifecycle](web--tailscale-oauth-clients--client-credentials-scopes-and-token-lifecycle.md)
+- [web--tailscale-oauth-clients--client-setup-and-secret-lifecycle](web--tailscale-oauth-clients--client-setup-and-secret-lifecycle.md)
+- [web--tailscale-oauth-clients--tags-as-capabilities-and-auth-key-minting](web--tailscale-oauth-clients--tags-as-capabilities-and-auth-key-minting.md)
 
 ### web--tls-first-boot-patterns
 
