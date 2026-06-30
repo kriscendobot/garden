@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:16:50Z_
+_As of 2026-06-30T05:18:35Z_
 
 ## Latest
 
-A gardener claimed the rebase directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), which now has two in-flight jobs (a rebase and an attention directive) plus a parked plan to restage [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) onto it. The third active job is a design redesign for the byteArray view backing the freshly-parked passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503). Otherwise the board is quiet — two PRs newly parked for review, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and #503, both fresh enough to merit a look.
+A fresh attention directive on [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) was claimed and is now in flight, joining the in-progress work on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (both an attention directive and a rebase) and the byteArray-as-frozen-Uint8Array-view redesign. Two PRs landed in front of the maintainer in the last half hour and want review: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays via a freezable TypedArray emulation). The board is otherwise drained — nothing waiting in todo.
 
 ## Parked for maintainer feedback
 
@@ -28,10 +28,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`ebfb-bytearray-uint8array-view-redesign`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-bytearray-uint8array-view-redesign.md) — design: byteArray maps a frozen Uint8Array view, not a bare immutable ArrayBu...
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr571-72197ae9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr571-72197ae9.md) — attention directive on endojs/endo-but-for-bots PR #571
 
 ### tada (671)
 - [`endojs-endo-but-for-bots-pr429-248d107b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr429-248d107b.md) — Completion report — endojs-endo-but-for-bots-pr429-248d107b
