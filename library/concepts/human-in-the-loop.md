@@ -16,9 +16,13 @@ In LangGraph, **human-in-the-loop** (HITL) is the ability to pause graph executi
 | [human-in-the-loop patterns](../sections/web--langgraph-interrupts--human-in-the-loop-patterns.md) | HITL streaming, multiple interrupts, approve/reject, review/edit, interrupts in tools, validating input. |
 | [rules and static breakpoints](../sections/web--langgraph-interrupts--rules-and-static-breakpoints.md) | The four rules; static interrupt_before/after for debugging. |
 | [configuring the harness via middleware](../sections/web--langchain-agents--configure-the-harness-via-middleware.md) | "Steering" / HumanInTheLoopMiddleware as one harness support area. |
+| [built-in middleware: tools, safety, and capabilities](../sections/web--langchain-middleware-built-in--tools-safety-and-capabilities.md) | `HumanInTheLoopMiddleware(interrupt_on={...})` approve/edit/reject of named tool calls; requires a checkpointer. |
+| [streaming: reasoning, tool calls, HITL, sub-agents](../sections/web--langchain-streaming--common-patterns-reasoning-tool-calls-hitl-subagents.md) | Collecting `__interrupt__` from the updates stream and resuming with `Command(resume=...)` inside the streaming loop. |
 
 ## See also
 
 - [[langgraph]] — the orchestration runtime interrupts run on.
 - [[langgraph-checkpointer]] — the persistence layer that saves state at the pause and restores it on resume.
+- [[middleware]] — `HumanInTheLoopMiddleware` packages this capability as one prebuilt middleware.
+- [[agent-streaming]] — interrupts are surfaced and resumed inside the streaming loop.
 - [[multi-agent-handoff]] — also resumes graphs with `Command`, but for control transfer rather than human input.
