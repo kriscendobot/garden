@@ -149,6 +149,24 @@ holds the snapshot.
   widening could re-trip the stock stack. The durable remedy is the
   `bundle-source`/esbuild sub-module-functor lever, not this patch. Recorded on
   the methodology doc (`kriscendobot/agoric-sdk#6`).
+- **stackCount vs snapshot compatibility (the taller-stack lever's risk):**
+  raising the compile-time value-stack `stackCount` does NOT invalidate existing
+  on-chain snapshots. The XS snapshot read path (`fxReadSnapshot` in
+  `moddable/xs/sources/xsSnapshot.c`) gates only on `XS_MAJOR_VERSION`,
+  `XS_MINOR_VERSION`, the architecture byte (`sizeof(txSlot)`), and a fixed
+  signature string (`"xsnap 1"`); `stackCount` is none of these. It is stored in
+  the snapshot's own creation atom and the restored machine is allocated from the
+  snapshot's creation, not the loader binary's. So a taller binary only enlarges
+  FRESH machine creations (a vat upgrade abandons the heap and starts a fresh
+  worker, so the upgrade import does pick up the taller stack), while vats
+  restored from old snapshots keep their snapshot's size. The remaining risk is
+  determinism: a taller binary writes different snapshot bytes (hence hashes), so
+  all validators must cut over in lockstep at an agreed upgrade height. The
+  inquisitor round (the reproduce-and-verify step above) is the empirical
+  confirmation of this: load a
+  real pre-upgrade snapshot on a taller-stack worker and confirm no
+  signature/version break, and confirm the v320 upgrade is the fresh-machine
+  path. Recorded on kriskowal/garden#9 (the slot-accounting reply).
 - **Scope:** read-only analysis plus on-host runs of the open-source XS worker
   and the public bundle, on bot forks only. No upstream `agoric/agoric-sdk`
   interaction.
