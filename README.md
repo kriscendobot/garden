@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:51:21Z_
+_As of 2026-06-30T04:54:09Z_
 
 ## Latest
 
-The portable xsnap-worker-path work item completed and cleared the board, leaving a single job in flight: a freshly claimed attention directive on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), which a maintainer should expect movement on shortly. The todo queue is otherwise empty, and the plan queue continues to hold several items awaiting maintainer go-ahead — notably the ymax0 hex-fix verification and the cross-host weekly token-spend aggregation.
+Two jobs moved into progress and nothing new posted or completed: a gardener picked up the attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and the garden change-review job to detect developer-workstation coupling (hard-coded home directories) was claimed. The `todo` queue is empty, so the fleet is current on intake; the standing parked set still waits on kriskowal, led by the long-idle [endo#3137](https://github.com/endojs/endo/pull/3137) `.ts` runtime-module support (14d) and the [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) passable byte-arrays feature (4d).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr58-8585f202`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-8585f202.md) — attention directive on endojs/endo-but-for-bots PR #58
+- [`garden-review-detect-workstation-home-dir-coupling`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-review-detect-workstation-home-dir-coupling.md) — Change-review automation: detect developer-workstation coupling (home dir) + ...
 
 ### tada (664)
 - [`pr7-portable-xsnap-worker-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/pr7-portable-xsnap-worker-path.md) — Report: pr7-portable-xsnap-worker-path
