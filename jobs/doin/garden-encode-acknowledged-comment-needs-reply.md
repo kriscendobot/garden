@@ -34,3 +34,9 @@ doc — so the rule lives in both the code and the always-read procedure. Add a 
 (not a silent slide) and that self-comments / re-polls don't.
 
 **Land** on `main2` via an isolated worktree off origin/main2 (commit explicit pathspecs, push HEAD:main2).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 92
+  claimed_at: 2026-06-30T22:52:13Z
