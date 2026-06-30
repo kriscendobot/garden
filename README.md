@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:54:09Z_
+_As of 2026-06-30T04:57:23Z_
 
 ## Latest
 
-Two jobs moved into progress and nothing new posted or completed: a gardener picked up the attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and the garden change-review job to detect developer-workstation coupling (hard-coded home directories) was claimed. The `todo` queue is empty, so the fleet is current on intake; the standing parked set still waits on kriskowal, led by the long-idle [endo#3137](https://github.com/endojs/endo/pull/3137) `.ts` runtime-module support (14d) and the [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) passable byte-arrays feature (4d).
+Most of the board is quiet — the only transition since the last bulletin is a fresh claim on the attention directive for [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57), now in flight alongside the directives for [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), plus a change-review automation job for detecting developer-workstation home-dir coupling. Recently landed: builder, attention-directive, and review work all completed on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544), a shepherd pass closed out [endo-but-for-bots#570](https://github.com/endojs/endo-but-for-bots/pull/570), and the portable xsnap-worker-path report wrapped up. Worth a maintainer's eye: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) has been parked only briefly, while the ts-runtime-modules PR [endo#3137](https://github.com/endojs/endo/pull/3137) and the passable-byte-arrays PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) have been waiting days to weeks for review.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 55s)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 6m)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 20h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 20h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
@@ -28,8 +28,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr57-a1d1ced7`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr57-a1d1ced7.md) — attention directive on endojs/endo-but-for-bots PR #57
 - [`endojs-endo-but-for-bots-pr58-8585f202`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-8585f202.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`garden-review-detect-workstation-home-dir-coupling`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-review-detect-workstation-home-dir-coupling.md) — Change-review automation: detect developer-workstation coupling (home dir) + ...
 
