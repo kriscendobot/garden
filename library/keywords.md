@@ -13708,3 +13708,20 @@ nostream | agent-streaming
 langgraph_node | agent-streaming
 `GraphOutput` | agent-streaming
 disable_streaming | agent-streaming
+OAuth client credentials | oauth-client-credentials-vs-authorization-code
+client credentials flow | oauth-client-credentials-vs-authorization-code
+client credentials grant | oauth-client-credentials-vs-authorization-code
+authorization code flow | oauth-client-credentials-vs-authorization-code
+authorization code grant | oauth-client-credentials-vs-authorization-code
+OAuth app | oauth-client-credentials-vs-authorization-code
+OAuth apps | oauth-client-credentials-vs-authorization-code
+OAuth client | oauth-client-credentials-vs-authorization-code
+OAuth clients | oauth-client-credentials-vs-authorization-code
+Tailscale OAuth | oauth-client-credentials-vs-authorization-code
+`auth_keys` scope | oauth-client-credentials-vs-authorization-code
+`get-authkey` | oauth-client-credentials-vs-authorization-code
+tag-owned credentials | oauth-client-credentials-vs-authorization-code
+scope to capability mapping | oauth-client-credentials-vs-authorization-code
+short-lived access token from durable client | oauth-client-credentials-vs-authorization-code
+non-interactive programmatic API access | oauth-client-credentials-vs-authorization-code
+on behalf of a user | oauth-client-credentials-vs-authorization-code
