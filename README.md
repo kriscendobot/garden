@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T03:23:53Z_
+_As of 2026-06-30T03:25:43Z_
 
 ## Latest
 
-Comment-watcher hardening continues to dominate the board: the [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) ymax0 hex-fix job and the `comment-watcher-no-overlap-with-issue-inbox` job both completed, and a follow-on to close the acknowledged cgroup-reap straggler gap on normal exit was just claimed. On the library side, the scholar finished its LangChain/LangGraph gap analysis and ingest. No new PRs surfaced for review this cycle — the 29 parked PRs are unchanged, with the gateway design ([endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343)) and the registry-capability feature ([endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)) now the longest-idle items still inside a day's wait.
+Activity converged on [endojs/endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548): four directives — two attention, two review — were claimed and are now in flight, so that PR is the live focus of the fleet. The scholar's LangChain/LangGraph library ingest advanced, completing its second remainder batch and picking up a third. A garden-infra fix to close the acknowledged straggler gap in `comment-watcher.sh`'s cgroup reap-on-normal-exit is also under way. Nothing newly parked for the maintainer; the 29-deep parked queue is unchanged, still topped by the [gateway design](https://github.com/endojs/endo-but-for-bots/pull/343) and [registry-capability](https://github.com/endojs/endo-but-for-bots/pull/403) PRs awaiting review.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,21 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (6)
+- [`endojs-endo-but-for-bots-pr548-7d53248c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-7d53248c.md) — attention directive on endojs/endo-but-for-bots PR #548
+- [`endojs-endo-but-for-bots-pr548-de62d521`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-de62d521.md) — attention directive on endojs/endo-but-for-bots PR #548
+- [`endojs-endo-but-for-bots-pr548-review-0ce05d3a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-review-0ce05d3a.md) — Review directive on endojs/endo-but-for-bots PR #548
+- [`endojs-endo-but-for-bots-pr548-review-3acbe409`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-review-3acbe409.md) — Review directive on endojs/endo-but-for-bots PR #548
 - [`improve-comment-watcher-cgroup-reap-on-normal-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-cgroup-reap-on-normal-exit.md) — Close the acknowledged straggler gap in scripts/jobs/comment-watcher.sh's cle...
-- [`scholar-ingest-langchain-langgraph-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder-2.md) — Scholar: finish the LangChain + LangGraph library ingest (remainder 2)
+- [`scholar-ingest-langchain-langgraph-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder-3.md) — Scholar: finish the LangChain + LangGraph library ingest (remainder 3)
 
-### tada (620)
+### tada (621)
+- [`scholar-ingest-langchain-langgraph-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-langchain-langgraph-remainder-2.md) — Completion report
 - [`scholar-ingest-langchain-langgraph-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-langchain-langgraph-remainder.md) — Completion report: scholar-ingest-langchain-langgraph-remainder
 - [`scholar-langgraph-langchain-gap-analysis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-langgraph-langchain-gap-analysis.md) — Completion report: scholar-langgraph-langchain-gap-analysis
 - [`comment-watcher-no-overlap-with-issue-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-overlap-with-issue-inbox.md) — Completion report — comment-watcher-no-overlap-with-issue-inbox
 - [`kriskowal-garden-pr9-77668dda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-77668dda.md) — Done. Completion report follows.
-- [`deadmail-issue-comment-4839243615`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4839243615.md) — Completion report
-- … and 615 more
+- … and 616 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
