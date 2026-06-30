@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T03:57:04Z_
+_As of 2026-06-30T04:02:55Z_
 
 ## Latest
 
-[endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) finished its conduct/finalize pass and cleared the board — its builder had been grinding through a ~239-file repoint. Fresh activity has converged on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544): four directives (two attention, two review) are now in flight, with one attention job already completed. On the garden-infra side, a gardener is collapsing the pr-review-comment surface onto the per-review job so a maintainer sees one consolidated item, and the scholar wrapped remainder-4 of the LangGraph ingest and is now on remainder-5 (functional API). Nothing new is parked for maintainer review this cycle — the parked queue still leads with the gateway design [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and registry-capability [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+Work converged on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544): a cluster of review and attention jobs cleared off the board to `tada`, taking the PR's outstanding review and follow-up passes to completion. A maintainer directive opened fresh work on [endo-but-for-bots#405](https://github.com/endojs/endo-but-for-bots/pull/405) — now claimed and in progress to rebase, retcon, and conduct it to merge. On the garden's own infra, the comment-watcher improvement to collapse an inline comment onto its parent review job landed, tightening how surfaced review feedback is bundled into a single actionable job. The scholar's LangGraph library ingest continues its final remainder pass.
 
 ## Parked for maintainer feedback
 
@@ -28,21 +28,18 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
-- [`endojs-endo-but-for-bots-pr544-179ea36a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-179ea36a.md) — attention directive on endojs/endo-but-for-bots PR #544
-- [`endojs-endo-but-for-bots-pr544-51adc732`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-51adc732.md) — attention directive on endojs/endo-but-for-bots PR #544
-- [`endojs-endo-but-for-bots-pr544-review-262f00f3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-262f00f3.md) — Review directive on endojs/endo-but-for-bots PR #544
-- [`endojs-endo-but-for-bots-pr544-review-b359d8d2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-b359d8d2.md) — Review directive on endojs/endo-but-for-bots PR #544
-- [`improve-comment-watcher-collapse-inline-comment-onto-review-job`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-collapse-inline-comment-onto-review-job.md) — Collapse the pr-review-comment surface onto the per-review job so one maintai...
+### doin (3)
+- [`ebfb-pr-405-rebase-retcon-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-405-rebase-retcon-conduct.md) — endo-but-for-bots PR #405 — rebase, retcon, conduct (maintainer directive)
+- [`endojs-endo-but-for-bots-pr405-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr405-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #405
 - [`scholar-ingest-langchain-langgraph-remainder-5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder-5.md) — Scholar: finish the LangGraph library ingest (remainder 5 — functional API + ...
 
-### tada (639)
-- [`endojs-endo-but-for-bots-pr548-review-5345a514`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-review-5345a514.md) — Inbox is empty. The builder is grinding through the ~239-file repoint, depend...
-- [`endojs-endo-but-for-bots-pr544-ffb35ef5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-ffb35ef5.md) — Completion report — job endojs-endo-but-for-bots-pr544-ffb35ef5 (attention)
-- [`scholar-ingest-langchain-langgraph-remainder-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-langchain-langgraph-remainder-4.md) — What I did
-- [`endojs-endo-but-for-bots-pr548-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-conduct.md) — Completion report: Finalize endojs/endo-but-for-bots PR #548
-- [`endojs-endo-but-for-bots-pr544-review-c90ee0b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-c90ee0b4.md) — Inbox empty, worktree cleaned up. Work complete.
-- … and 634 more
+### tada (645)
+- [`endojs-endo-but-for-bots-pr544-179ea36a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-179ea36a.md) — Completion report — attention job endojs-endo-but-for-bots-pr544-179ea36a
+- [`deadmail-20260630T035952Z-0a547d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T035952Z-0a547d.md) — Completion report
+- [`improve-comment-watcher-collapse-inline-comment-onto-review-job`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-collapse-inline-comment-onto-review-job.md) — Completion report
+- [`endojs-endo-but-for-bots-pr544-review-262f00f3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-262f00f3.md) — Completion report — job endojs-endo-but-for-bots-pr544-review-262f00f3
+- [`endojs-endo-but-for-bots-pr544-51adc732`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-51adc732.md) — Completion report
+- … and 640 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
