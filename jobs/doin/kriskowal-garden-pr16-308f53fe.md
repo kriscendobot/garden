@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 We should normalize to dollars. We will eventually be able to bid with other LLM providers. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 96
+  claimed_at: 2026-06-30T23:25:19Z
