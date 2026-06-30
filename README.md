@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T01:47:37Z_
+_As of 2026-06-30T01:49:26Z_
 
 ## Latest
 
-The board is quiet — no jobs in flight (todo and doin both empty) and no file-level transitions this cycle. The substantive recent movement is on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9): the real-chain-state reproduction of the ymax0 v320 XS value-stack overflow is now fully staged — the build host is ready, both bundle JSONs are built, and the netstring driver is written — closing out both the refresh directive and the earlier attention directive on that PR. Thirty PRs remain parked for kriskowal's review, the oldest being the iOS-Safari `isImmutableDataProperty` regression test ([endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182), 38 days) and the eventual-send ponyfill ([endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186)); newest in is the composite-types CI check ([endo#3315](https://github.com/endojs/endo/pull/3315)). Three plans still sit awaiting maintainer go-ahead, including the XS-to-Rust port and the minion.town AWS deploy.
+Work this cycle stayed concentrated on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), the ymax0 v320 XS value-stack overflow. The `reproduce-ymax0-v320-real-chain-state-20260630` job completed with the reproduction fully staged — build host ready, both bundle JSONs built, and the netstring driver written — and two attention/refresh directives on the same PR (`kriskowal-garden-pr9-refresh`, `kriskowal-garden-pr9-469d82c6`) closed out, the latter landing the new `agoric-chain-snapshot` skill for capturing a real mainnet swing-store. A fresh attention directive on #9 (`kriskowal-garden-pr9-26cd5976`) is now in flight, alongside one dead-lettered issue-comment being picked up. The board is otherwise drained — `todo` is empty — so the parked queue is the place to look: thirty PRs await kriskowal, topped by the recently-touched [endojs/endo#3315](https://github.com/endojs/endo/pull/3315) CI composite-types check (1h) and the layer-1 [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) EndoRegistry capability (17h).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 30 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`deadmail-issue-comment-4839140138`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4839140138.md) — Dead-lettered message — pick up its intent
+- [`kriskowal-garden-pr9-26cd5976`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-26cd5976.md) — attention directive on kriskowal/garden PR #9
 
 ### tada (613)
 - [`reproduce-ymax0-v320-real-chain-state-20260630`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reproduce-ymax0-v320-real-chain-state-20260630.md) — Everything is staged: build host ready, both bundle JSONs built, driver writt...
