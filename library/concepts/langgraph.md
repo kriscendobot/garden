@@ -39,3 +39,4 @@ LangGraph is a low-level orchestration framework and runtime for long-running, s
 - [[multi-agent-handoff]] — control transfer built on `Command.PARENT` and subgraph nodes.
 - [[subgraph]] — a compiled `StateGraph` nested as a node; `Command.PARENT` navigation across the boundary.
 - [[agent-streaming]] — streaming a graph's execution (`stream_mode`, `stream_events`).
+- [[langgraph-functional-api]] — the `@entrypoint` / `@task` decorator-based alternative to the StateGraph graph API, over the same runtime.
