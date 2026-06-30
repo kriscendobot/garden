@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T14:01:07Z_
+_As of 2026-06-30T14:02:43Z_
 
 ## Latest
 
-Little moved since the last bulletin: the only board transition was a dead-lettered job ([`deadmail-20260630T135440Z-09a11e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T135440Z-09a11e.md)) being swept to completion. Two jobs remain in flight — a fresh view-based `byteArray` build per design [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572), and a garden-meta job encoding erights' full maintainer authority so directives aren't re-routed for authorization. Worth a maintainer's eye: the parked queue still holds 29 PRs awaiting review, the oldest being [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (41 days) and the passable-byte-arrays work on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) now at 9 hours.
+Only one job closed since the last bulletin: [`garden-encode-erights-maintainer-authority`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-erights-maintainer-authority.md) landed, encoding the directive that erights carries full maintainer authority into the garden's standing instructions. One build remains in flight — a fresh view-based `byteArray` implementation per design [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) (restrictive Uint8Array view) — and the todo queue is otherwise empty. The parked set is unchanged; the two freshest items awaiting kriskowal are the CapTP error-tracing daemon work in [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and the passable byte-arrays feature in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), both at ~9h.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`build-ebfb-bytearray-uint8array-view-restrictive`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-ebfb-bytearray-uint8array-view-restrictive.md) — build: fresh view-based byteArray implementation per design #572 (restrictive...
-- [`garden-encode-erights-maintainer-authority`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-erights-maintainer-authority.md) — Encode: erights has full maintainer authority (so directives aren't re-routed)
 
-### tada (691)
+### tada (692)
+- [`garden-encode-erights-maintainer-authority`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-erights-maintainer-authority.md) — Completion report
 - [`deadmail-20260630T135440Z-09a11e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T135440Z-09a11e.md) — Completion report — dead-lettered job deadmail-20260630T135440Z-09a11e
 - [`endojs-endo-but-for-bots-pr475-39621e7f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-39621e7f.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-3c9d5c5e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-3c9d5c5e.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-14cfb16e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-14cfb16e.md) — Completion report — job endojs-endo-but-for-bots-pr475-14cfb16e
-- [`endojs-endo-but-for-bots-pr57-0c003f04`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr57-0c003f04.md) — Completed. Report follows.
-- … and 686 more
+- … and 687 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
