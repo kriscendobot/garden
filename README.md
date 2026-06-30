@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-06-30T14:13:19Z_
+_As of 2026-06-30T14:15:31Z_
 
 ## Latest
 
-A single build job completed this cycle: `build-ebfb-bytearray-uint8array-view-restrictive` landed in `tada`, tightening the byteArray/Uint8Array view to be more restrictive on endo-but-for-bots (kin to the parked [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) passable-byte-arrays work). The board is otherwise drained — nothing in `todo` or `doin` — so the maintainer's attention is best spent on the 29 parked PRs awaiting review, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, waiting 14d) and [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, waiting 40d).
+A passable-byte-arrays build for endo-but-for-bots landed (`build-ebfb-bytearray-uint8array-view-restrictive`, tightening the Uint8Array view), and the garden encoded erights' full maintainer authority. An attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) was worked twice and closed out. The board is otherwise drained (todo and doin both empty), with both arming-blocked plans — the ymax0 hex-fix verification and the XS-to-Rust port — still parked awaiting maintainer go-ahead.
+
+One thing to notice: the journal-worktree keeper reports that `/home/kris/journal` on **endolinbot2** has diverged from `origin/journal2` (3 commits ahead, 5,627 behind, 5 dirty paths) and was left untouched — it needs a hand reconcile before those local commits are lost.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +24,10 @@ A single build job completed this cycle: `build-ebfb-bytearray-uint8array-view-r
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260630T141519Z-1d1aad` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T141519Z-1d1aad.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5627 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
