@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T14:16:27Z_
+_As of 2026-06-30T14:35:34Z_
 
 ## Latest
 
-Board-level activity was quiet this cycle (no claims or completions resolved against the queue), but the most recent completions cluster on endo-but-for-bots: a restrictive Uint8Array-view build feeding the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), two attention directives worked through on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and the garden's own encoding of erights' full maintainer authority into the role library. The newest parked items needing kriskowal's eyes are [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), both at ~9h. Four plans sit awaiting go-ahead — notably verifying the ymax0 hex fix via inquisitor and the speculative XS-to-Rust port — so nothing autonomous picks them up until you authorize.
+Quiet cycle: the board's todo queue is empty and the only new flight is the pair of daily routines — the midnight-Pacific progress summary and the dependabotany recheck on endojs/endo-but-for-bots — both just claimed into `doin`. Recent completions of note: a restrictive Uint8Array-view byteArray build landed on the bot fork, the garden encoded erights' full maintainer authority into its norms, and two attention directives cleared on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475). Nothing new is parked for the maintainer this cycle, though the standing queue still holds 29 PRs awaiting review — the oldest material ones being the [.ts erasable-syntax runtime-module support](https://github.com/endojs/endo/pull/3137) (14d) and the [cyclic star-export ses fix](https://github.com/endojs/endo-but-for-bots/pull/379) (4d).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`daily-progress-summary-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260630-143503.md) — Daily midnight Pacific progress summary
+- [`dependabotany-recheck-endo-but-for-bots-20260630-143503`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260630-143503.md) — Daily dependabotany recheck: endojs/endo-but-for-bots
 
 ### tada (693)
 - [`build-ebfb-bytearray-uint8array-view-restrictive`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-ebfb-bytearray-uint8array-view-restrictive.md) — Completion report
