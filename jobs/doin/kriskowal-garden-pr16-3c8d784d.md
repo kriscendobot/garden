@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Total cost of job includes sunk costs. This is, in fact, one of the more germane evaluation criteria: whether a particular agent configuration tends to result in fewer sunk costs, less waste, less attention from the maintainers. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 80
+  claimed_at: 2026-06-30T23:25:35Z
