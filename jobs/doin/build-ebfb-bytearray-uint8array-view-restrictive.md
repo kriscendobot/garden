@@ -85,3 +85,9 @@ Run `@endo/pass-style` and `@endo/marshal` ava + tsc + eslint locally; keep
 `chore: Update yarn.lock` as a separate commit if the lock moves. Post a top-level
 summary comment on the resulting PR (and on #475 if that is the vehicle) naming
 the head SHA and what changed; tag @erights.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 19
+  claimed_at: 2026-06-30T13:58:54Z
