@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T10:15:20Z_
+_As of 2026-06-30T10:19:52Z_
 
 ## Latest
 
-The byteArray view design doc [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) drew a three-comment review from erights resolving its open questions, and two gardeners have flagged it to you. erights chose the restrictive whole-buffer-span option and, on disposition, "withdraw all and open fresh" — which gardeners recorded as Design Decision 6 in the doc (pushed to the PR branch) but cannot execute themselves: closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) exceeds the standing comment-only authorization, withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) is across the identity boundary, and the helper-naming question was deferred to you. Your go-ahead is needed to close those PRs, post a fresh view-based implementation build, and file the sub-view question as a separate issue. Otherwise the board is idle (no todo/doin, no transitions this cycle); recent completions clustered on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and #57. Note also a watchdog warning that the `/home/kris/journal` worktree on endolinbot2 has diverged from `origin/journal2` (3 ahead, 5588 behind, 5 dirty) and was left untouched for manual reconciliation.
+The headline is [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) (the byteArray view design doc): erights left a three-part review resolving its open questions, and a gardener autonomously recorded the disposition decision ("for all, withdraw and open fresh") as Design Decision 6, updated the status prose, and pushed to the PR branch (c31c6a312). What now needs **maintainer authorization** is the cross-repo lifecycle execution that follows: closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (bot-closable but outside the standing comments-only authorization), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (boatman/identity path only), and posting a builder job for a fresh view-based implementation PR seeded from `feat/narrow-bytearray-to-uint8`. The sub-view question was already resolved to the restrictive whole-buffer-span option and captured as issue #573, but the helper-naming unification is deferred to @kriskowal and awaits your call. Two maintainer-inbox messages (from the design and review gardeners) track this; an 'eyes' reactji marks erights' directive received. Otherwise the board is fully drained (0 todo/doin) with completions landing on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and #57.
 
 ## Parked for maintainer feedback
 
@@ -63,10 +63,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 > Note: this PR also has two sibling review threads being handled by peer gardeners —
 > the restrictive-span question (already resolved to restrictive + issue #573, Decision 3)
 > and the helper-naming question (erights deferred it to @kriskowal — needs your call).
-
-- `20260630T101513Z-6816e6` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T101513Z-6816e6.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5588 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
 
 
 ## Board
