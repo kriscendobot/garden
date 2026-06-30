@@ -549,10 +549,31 @@ verb_action() {  # human-readable mapping for the job body
 
 shorthash() { printf '%s' "$1" | (sha1sum 2>/dev/null || shasum) | cut -c1-8; }
 
+# --- the BEFORE-YOU-EDIT preflight instruction (review/attention paths) -------
+# A feedback job (a review to address, or an attention directive to act on) can be
+# RACED: a peer gardener claims a sibling job minted from the same review and lands
+# the resolution first. The old defense was a self-improvement note an agent had to
+# REMEMBER ("re-check the live thread before pushing"), unreliable under the fleet.
+# Instead instruct EVERY feedback job to run the deterministic preflight FIRST: it
+# greps the PR branch HEAD commits + inline replies for a peer's resolution citing
+# this comment and exits 2 (no-op) when one is already present, so a duplicate is
+# detected up front instead of at push-time CAS (or not at all — the #548 fold).
+preflight_instruction() {  # preflight_instruction <pr> <comment-id> <author>
+  local pr="$1" cid="$2" author="$3"
+  printf '\n## BEFORE you edit — run the recheck preflight (deterministic)\n\n'
+  printf 'A peer may have already resolved this feedback. Run, from the garden root:\n\n'
+  printf '  scripts/jobs/gardening/pr-feedback-preflight.sh %s %s %s %s\n\n' "$repo" "$pr" "$cid" "$author"
+  printf 'It inspects the PR branch HEAD commits and inline replies for a peer''s\n'
+  printf 'resolution citing this comment. Exit 2 = NO-OP (already resolved by a peer):\n'
+  printf 'do NOT edit or push — complete the job as a clean no-op, noting the peer\n'
+  printf 'resolution. Exit 0 = proceed with the work. (Any other exit fails open →\n'
+  printf 'proceed; the push CAS is still the backstop.)\n\n'
+}
+
 # Build the job body. The comment text is UNTRUSTED: name the URL so the claiming
 # gardener re-fetches verbatim and reads the body as data, not instructions.
-write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> <body-file> [primary-verb]
-  local out="$1" verb="$2" surface="$3" author="$4" pr="$5" url="$6" bf="$7" primary="${8:-}"
+write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> <body-file> [primary-verb] [comment-id]
+  local out="$1" verb="$2" surface="$3" author="$4" pr="$5" url="$6" bf="$7" primary="${8:-}" cid="${9:-}"
   if [ "$verb" = review ]; then
     # The WHOLE review is the unit. List the review body AND every inline comment
     # as the asks; the mapped verb (if any) is the PRIMARY action but one item
@@ -586,6 +607,7 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
       fi
       printf '%s\n' '----- review body excerpt (untrusted, truncated) -----'
       head -c 280 "$bf" | tr '\n' ' '; printf '\n'
+      preflight_instruction "$pr" "$cid" "$author"
     } > "$out"
     return
   fi
@@ -619,6 +641,14 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
     printf 'discipline. The excerpt below is for human context only:\n\n'
     printf '%s\n' '----- comment excerpt (untrusted, truncated) -----'
     head -c 280 "$bf" | tr '\n' ' '; printf '\n'
+    # Attention/triage feedback (a directive to edit in response to a comment) is
+    # race-prone the same way a review is: a peer may resolve it first. The MECHANICAL
+    # verbs (rebase/retcon/refresh/shepherd/gauntlet) are branch operations, not
+    # comment-citing edits, so they skip the recheck; everything else gets it.
+    case "$verb" in
+      rebase|retcon|refresh|shepherd|gauntlet) ;;
+      *) preflight_instruction "$pr" "$cid" "$author" ;;
+    esac
   } > "$out"
 }
 
@@ -993,7 +1023,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
       || log "WARN: reactji failed on $surface/$cid (continuing to post)"
   fi
 
-  jb="$(mktemp)"; write_job_body "$jb" "$VERB" "$surface" "$author" "$pr" "$url" "$bf" "${PRIMARY_VERB:-}"
+  jb="$(mktemp)"; write_job_body "$jb" "$VERB" "$surface" "$author" "$pr" "$url" "$bf" "${PRIMARY_VERB:-}" "$cid"
   "$GARDEN_COMMENT_POST" "$base" "$jb" >/dev/null 2>&1 || true
   rm -f "$jb" "$bf"
 
