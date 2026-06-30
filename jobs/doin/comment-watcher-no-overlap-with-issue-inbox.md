@@ -50,3 +50,9 @@ comment-watcher; a dropped newest comment is not re-processed on the next tick; 
 No surface overlap between the comment-watcher and the issue-inbox (comment-watcher = PR-only on
 issue-inbox-covered repos), kriskowal-garden re-armed PR-only, the cursor-advance-past-drop fix,
 with tests pinning no-duplication + retained PR-review coverage.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 70
+  claimed_at: 2026-06-30T02:33:35Z
