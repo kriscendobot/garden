@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:27:19Z_
+_As of 2026-06-30T23:28:20Z_
 
 ## Latest
 
-The garden-issue-9 [mainnet-validation-tree bundle-publish](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-kriskowal-mainnet-validation-tree-bundle-publish.md) job completed, advancing the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) ymax0 hex-fix validation effort; its remaining follow-ons (verify-ymax0-hex-fix-inquisitor, mhofman contract-kit + Inquisitor bridge guidance) are now the live work. A cluster of five attention/review directives landed on [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16) and are in progress. The board is otherwise drained (todo empty), with comment-watcher hardening (exclude bot's own comments; drop directives on merged PRs) among recently closed infra fixes. Twenty-eight PRs remain parked for kriskowal — newest is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, ~18m) atop the long-waiting [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 15d).
+Work on garden issue [#9](https://github.com/kriskowal/garden/issues/9) advanced: the mhofman contract-kit-and-inquisitor-bridge job landed as complete, alongside the mainnet-validation tree bundle-publish — both part of the ymax0 XS-overflow validation effort. A gardener has just claimed the job to apply Richard Gibson's review feedback to the mirror [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7), which now leads the active board (nine jobs in flight, including four attention directives plus a review directive on [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16)). On the parked side, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) is freshly awaiting review at the top of the queue.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 18m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 23m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 18h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -29,9 +29,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (9)
+- [`agoric-sdk-fork-pr-7-apply-richard-gibson-feedback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-apply-richard-gibson-feedback.md) — Apply Richard Gibson's feedback to the mirror kriscendobot/agoric-sdk#7
 - [`deadmail-issue-comment-4848697844`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4848697844.md) — Dead-lettered message — pick up its intent
 - [`ebfb-retention-paths-chat-panel`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retention-paths-chat-panel.md) — Build: retention-paths Chat UI Paths panel (read-only) — next phase after #284
-- [`garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge.md) — Incorporate mhofman's latest #9 guidance (contract-kit reachability + Inquisi...
 - [`improve-comment-watcher-drop-directive-on-merged-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-drop-directive-on-merged-pr.md) — In scripts/jobs/comment-watcher.sh, after classify resolves a non-finalize di...
 - [`kriskowal-garden-pr16-308f53fe`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-308f53fe.md) — attention directive on kriskowal/garden PR #16
 - [`kriskowal-garden-pr16-3c8d784d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-3c8d784d.md) — attention directive on kriskowal/garden PR #16
@@ -39,13 +39,13 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`kriskowal-garden-pr16-eabd1e1d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-eabd1e1d.md) — attention directive on kriskowal/garden PR #16
 - [`kriskowal-garden-pr16-review-39c42194`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-review-39c42194.md) — Review directive on kriskowal/garden PR #16
 
-### tada (724)
+### tada (725)
+- [`garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge.md) — Completion report
 - [`garden-issue-9-kriskowal-mainnet-validation-tree-bundle-publish`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-kriskowal-mainnet-validation-tree-bundle-publish.md) — Completion report — garden-issue-9-kriskowal-mainnet-validation-tree-bundle-p...
 - [`improve-comment-source-exclude-bot-own-comments`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-source-exclude-bot-own-comments.md) — Completion report — improve-comment-source-exclude-bot-own-comments
 - [`dependabotany-recheck-endo-but-for-bots-pr197`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-pr197.md) — Completion report
 - [`endojs-endo-but-for-bots-pr197-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr197-refresh.md) — Completion report
-- [`agoric-sdk-fork-pr-7-update-title-description-template`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-update-title-description-template.md) — Completion report
-- … and 719 more
+- … and 720 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
