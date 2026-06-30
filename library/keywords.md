@@ -13684,3 +13684,27 @@ recursion limit | langgraph
 subgraph | subgraph
 subgraphs | subgraph
 parent graph (LangGraph) | subgraph
+functional API | langgraph-functional-api
+`@entrypoint` | langgraph-functional-api
+`@task` | langgraph-functional-api
+entrypoint (LangGraph) | langgraph-functional-api
+`entrypoint.final` | langgraph-functional-api
+langgraph.func | langgraph-functional-api
+`get_stream_writer` | langgraph-functional-api
+`StreamWriter` | langgraph-functional-api
+`RetryPolicy` | langgraph-functional-api
+`CachePolicy` | langgraph-functional-api
+`InMemoryCache` | langgraph-functional-api
+`NodeTimeoutError` | langgraph-functional-api
+previous parameter (entrypoint) | langgraph-functional-api
+`StreamPart` | agent-streaming
+`ValuesStreamPart` | agent-streaming
+values mode | agent-streaming
+debug mode | agent-streaming
+checkpoints mode | agent-streaming
+tasks mode | agent-streaming
+nostream | agent-streaming
+`subgraphs=True` | agent-streaming
+langgraph_node | agent-streaming
+`GraphOutput` | agent-streaming
+disable_streaming | agent-streaming
