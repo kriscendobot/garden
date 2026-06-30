@@ -477,10 +477,13 @@ set. Nothing here can break the live race-by-default fleet.
   optimizes; the quota stays a separate *budget* gate that throttles exploration
   near the cap (§4.2). Open: whether the quota should also display as a notional
   dollar burn-down for the maintainer, or stay a distinct token gauge.
-- **Duration is contended by fleet load.** A job can be slow because a hundred
-  gardeners are busy, not because its arm is slow. Should duration be normalized
-  by concurrent fleet load at award time, or is duration noisy enough that the
-  bandit averages it out across many jobs?
+- **Duration is contended by fleet load (resolved: leave it in the noise).** A job
+  can be slow because a hundred gardeners are busy, not because its arm is slow.
+  The maintainer's directive settles it: **leave this in the noise.** The garden is
+  not often busy, and is statistically equally busy for most jobs, so fleet-load
+  contention averages out across many jobs rather than biasing any one arm.
+  Duration is therefore taken **raw** — **not** normalized by concurrent fleet load
+  at award time — and the bandit averages it out across the arm's history.
 - **Cost attribution across a requeue.** When a rejected job is requeued to a
   *different* arm (the market design's no-loss requeue), does the second arm
   inherit the first's sunk cost? Recommendation: each arm is charged only its own
@@ -508,8 +511,9 @@ set. Nothing here can break the live race-by-default fleet.
   the free variable, normalized to **dollars** (the cross-provider unit, metered
   tokens at list prices — notional today under a flat subscription, real once arms
   bill per token or other providers bid) and **duration** (award-to-acceptance
-  wall-clock), unified as weighted **cost per accepted job** that folds the
-  acceptance rate back in (§1).
+  wall-clock, taken raw — **not** normalized by fleet load, since the contention
+  averages out across jobs, §9), unified as weighted **cost per accepted job** that
+  folds the acceptance rate back in (§1).
 - **The bootstrap:** retrospective seeding from the journal's own
   `todo`/`tada` history as the basis for the current fleet, plus synthetic
   `tada`-replay for thin arms and newcomers, scored by re-running the original
