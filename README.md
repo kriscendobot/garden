@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:06:04Z_
+_As of 2026-06-30T23:06:56Z_
 
 ## Latest
 
-Error tracing across CapTP workers landed on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), which is now parked for kriskowal's review. The approved retention-paths Phase 1 on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) cleared review and is being conducted to merge, with its next phase — a read-only Chat UI Paths panel — already claimed. Review also wrapped on [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (conducted and torn down), and rebases completed for [endo-but-for-bots#5](https://github.com/endojs/endo-but-for-bots/pull/5) and [endo-but-for-bots#9](https://github.com/endojs/endo-but-for-bots/pull/9). New build work picked up the @endo/gateway package (Phase 1 plus the virtual-host content-tree resolution feature), and a gardener is folding mhofman's latest contract-kit/inquisitor-bridge guidance into garden issue #9. On the garden itself, the "an acknowledged comment needs a reply, not just a reactji" feedback was encoded.
+[endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) was conducted to completion and its next-phase work posted — the read-only retention-paths Chat UI Paths panel build is now in flight (with a follow-on formula-inspector retention-paths table parked until #284 lands). Two maintainer-directed jobs were just claimed: [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) is being shepherded on its remaining macOS failure to green with a reply owed, and [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) is being rebased and refactored onto `@endo/platform`. The @endo/gateway Phase 1 build (virtual-host content-tree resolution) and the garden #9 inquisitor/contract-kit bridge work continue. No items are awaiting a board claim, and [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58)'s error-tracing PR is freshly parked for review.
 
 ## Parked for maintainer feedback
 
@@ -28,21 +28,22 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`build-endo-gateway-package-phase1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-endo-gateway-package-phase1.md) — Build: @endo/gateway package — Phase 1
 - [`dependabotany-recheck-endo-but-for-bots-pr197`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-pr197.md) — One-time embargo reevaluation: endojs/endo-but-for-bots PR #197 (electron 40→42)
 - [`ebfb-endo-gateway-phase-1-virtual-hosting`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-endo-gateway-phase-1-virtual-hosting.md) — Build — @endo/gateway Phase 1, Feature 2: virtual-host content-tree resolutio...
-- [`ebfb-pr-284-conduct-and-post-next-phase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-284-conduct-and-post-next-phase.md) — PR #284 — conduct (merge) the approved retention-paths Phase 1, then post the...
+- [`ebfb-pr-277-shepherd-macos-and-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-277-shepherd-macos-and-reply.md) — PR #277 — shepherd the remaining failure to green + reply (maintainer directive)
+- [`ebfb-pr-442-rebase-then-refactor-on-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-442-rebase-then-refactor-on-platform.md) — PR #442 — rebase, then refactor @endo/daemon-cas onto @endo/platform (maintai...
 - [`ebfb-retention-paths-chat-panel`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retention-paths-chat-panel.md) — Build: retention-paths Chat UI Paths panel (read-only) — next phase after #284
 - [`garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge.md) — Incorporate mhofman's latest #9 guidance (contract-kit reachability + Inquisi...
 
-### tada (714)
+### tada (715)
+- [`ebfb-pr-284-conduct-and-post-next-phase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-284-conduct-and-post-next-phase.md) — Completion report — ebfb-pr-284-conduct-and-post-next-phase
 - [`endojs-endo-but-for-bots-pr9-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr9-rebase.md) — Completion report
 - [`endojs-endo-but-for-bots-pr343-review-c61577a1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr343-review-c61577a1.md) — Inbox empty, conductor dispatch torn down. All work complete.
 - [`ebfb-pr-58-continue-error-tracing-and-status`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-continue-error-tracing-and-status.md) — Completion report
 - [`endojs-endo-but-for-bots-pr284-review-393eb60e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr284-review-393eb60e.md) — Completion report — job endojs-endo-but-for-bots-pr284-review-393eb60e
-- [`endojs-endo-but-for-bots-pr5-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr5-rebase.md) — Completion report
-- … and 709 more
+- … and 710 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
