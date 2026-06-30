@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/9#issuecomment-4848697844
 @kriscendobot In addition to @mhofman’s feedback, there are examples for publishing a bundle to chain in the mainnet validation tree. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 41
+  claimed_at: 2026-06-30T23:23:51Z
