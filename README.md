@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:09:20Z_
+_As of 2026-06-30T05:10:14Z_
 
 ## Latest
 
-A gardener just claimed the attention directive on [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429), joining two other in-flight items — the directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and the rebase of [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (whose prior pass completed and re-parked as the `port-onto-475` plan). Two PRs surfaced fresh for review and sit at the top of the parked queue: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays / freezable TypedArray emulation), both waiting under 20 minutes. The board is otherwise drained (todo empty), with the ymax0 hex-fix verification and the #57→#475 restage still parked in the plan queue awaiting go-ahead.
+The rebase of [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) completed and cleared the board, leaving two attention directives still in flight — one on [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and one on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475); the queued [#57-onto-#475 restage](https://github.com/endojs/endo-but-for-bots/pull/475) is parked awaiting go-ahead. Two PRs have freshly surfaced for review: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), both waiting under 20 minutes and at the front of the parked queue.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr429-248d107b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr429-248d107b.md) — attention directive on endojs/endo-but-for-bots PR #429
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
-- [`endojs-endo-but-for-bots-pr57-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr57-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #57
 
-### tada (669)
+### tada (670)
+- [`endojs-endo-but-for-bots-pr57-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr57-rebase.md) — Completion report — endojs-endo-but-for-bots-pr57-rebase
 - [`endojs-endo-but-for-bots-pr58-8585f202`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-8585f202.md) — I've launched the implementation. Current status: builder running in the back...
 - [`issue-kriskowal-garden-17`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-17.md) — Completion report — issue-kriskowal-garden-17
 - [`endojs-endo-but-for-bots-pr430-b7b6a63e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr430-b7b6a63e.md) — Completion report
 - [`endojs-endo-but-for-bots-pr57-a1d1ced7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr57-a1d1ced7.md) — Completion report
-- [`garden-review-detect-workstation-home-dir-coupling`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-review-detect-workstation-home-dir-coupling.md) — Completion report
-- … and 664 more
+- … and 665 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
