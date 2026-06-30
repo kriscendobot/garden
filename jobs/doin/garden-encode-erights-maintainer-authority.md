@@ -32,3 +32,9 @@ the encoding can't be misread as "bot may now touch upstream."
 **Land** the doc edits through the proper path (journal library edits via
 `land-journal-edit.sh`; any role/skill files on `main2` via an isolated worktree off
 origin/main2). Keep it short and factual.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 12
+  claimed_at: 2026-06-30T13:59:04Z
