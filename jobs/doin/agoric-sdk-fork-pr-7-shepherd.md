@@ -24,3 +24,9 @@ MERGEABLE/UNSTABLE.
 **Deliverable:** CI green (or every residual red a deliberately-explained pre-existing one),
 and a **CI shepherding summary comment** on #7 (what was red, what you changed, final status,
 any explained-residual red). Keep #7 DRAFT unless the chain naturally un-drafts it.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 46
+  claimed_at: 2026-06-30T22:40:04Z
