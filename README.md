@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:48:55Z_
+_As of 2026-06-30T23:52:04Z_
 
 ## Latest
 
-The @endo/hex packaging effort is the through-line: a builder is creating the `@endo/hex` package on endo-but-for-bots master (best-on-all-platforms codec with a benchmark table), and in parallel a freshly-claimed job is slimming the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) fork to consume that package and drop its in-tree `hex.js` codec body — building on the already-completed tiered-codec port and Richard Gibson feedback pass on the same fork PR. The error-tracing-across-CapTP-workers PR [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) cleared its job and is now parked for review (only 5m in the queue). On the garden-infra side, the scholar finished ingesting Tailscale OAuth-apps and OAuth skills. Four plans still sit awaiting maintainer go-ahead, including verifying the ymax0 hex fix via inquisitor and the XS-to-Rust engine port.
+The @endo/hex extraction advanced on two fronts: a [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-tracing port completed and the PR is now parked for review (waiting 13m), the tiered-codec port landed, and Richard Gibson's feedback was applied to [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7). Still in flight: building the `@endo/hex` package on endo-but-for-bots master with a best-on-all-platforms benchmark table, and slimming [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) to consume that package instead of its in-tree `hex.js` body. A scholar ingest of Tailscale OAuth apps/skills finished. On the garden-infra side, a new job is open to add a pre-dispatch grep-gate guarding against CLAUDE.md inventory drift.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 5m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 13m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 18h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -28,9 +28,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`agoric-sdk-fork-pr-7-slim-to-consume-endo-hex`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-slim-to-consume-endo-hex.md) — Slim agoric-sdk #7 to consume @endo/hex (drop the in-tree hex.js codec body)
 - [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder: create @endo/hex on endo-but-for-bots master — best-on-all-platforms...
+- [`improve-claude-md-inventory-drift-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-claude-md-inventory-drift-gate.md) — Add a new pre-dispatch grep-gate under scripts/checks/claude-md-inventory-dri...
 
 ### tada (738)
 - [`deadmail-20260630T234117Z-85be2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T234117Z-85be2b.md) — Completion report — deadmail-20260630T234117Z-85be2b
