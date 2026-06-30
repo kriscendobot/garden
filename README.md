@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:58:31Z_
+_As of 2026-06-30T05:01:05Z_
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the board transitions and dashboard.
-
-Looking at the input: the only board transition since the last bulletin is a single new claim — `issue-kriskowal-garden-17` moved into `doin`. The `tada` completions listed (pr544 builder/review, pr570 shepherd, pr7 portable xsnap path) are the existing top of the 664-deep done pile, not transitions since the last bulletin.
-
-Since little of substance actually moved since the last bulletin, this calls for a brief summary.
-
-A new maintainer-filed issue, [kriskowal/garden#17](https://github.com/kriskowal/garden/issues/17), was claimed off the board and is now in progress; otherwise the board is quiet, with `todo` empty and four other jobs still working — including the attention directives on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#57](https://github.com/endojs/endo-but-for-bots/pull/57), and [#58](https://github.com/endojs/endo-but-for-bots/pull/58), plus a garden change-review job on developer-workstation home-dir coupling. Worth a maintainer's eye: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) has only been parked six minutes and is freshly ready for review, while the gateway design [#343](https://github.com/endojs/endo-but-for-bots/pull/343) and the registry-capability layer [#403](https://github.com/endojs/endo-but-for-bots/pull/403) have both been waiting 20 hours. Four plans remain parked awaiting go-ahead, including verifying the ymax0 hex fix and the XS-to-Rust port.
+Quiet board this cycle: the only new transition is a queued plan to restage [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) onto the updated [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), which sits in the plan queue awaiting maintainer go-ahead. Attention directives on [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#57](https://github.com/endojs/endo-but-for-bots/pull/57), and [#58](https://github.com/endojs/endo-but-for-bots/pull/58) are still in progress, alongside garden-internal work on issue [kriskowal/garden#17](https://github.com/kriskowal/garden/issues/17) and a change-review automation task. [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) has freshly landed in the parked queue and is the newest item awaiting kriskowal's review.
 
 ## Parked for maintainer feedback
 
@@ -52,6 +46,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`port-ebfb-pr57-onto-475-restage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-ebfb-pr57-onto-475-restage.md) — _normal_ · restage endo-but-for-bots #57 onto the updated #475
 - [`port-xs-to-rust-memory-safe-engine`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine.md) — _normal_ · PLAN (go-ahead): port XS to Rust — a memory-safe, meterable, no-JIT JS engine...
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
