@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:35:30Z_
+_As of 2026-06-30T04:40:40Z_
 
 ## Latest
 
-The bulletin's [builder follow-on to #544](https://github.com/endojs/endo-but-for-bots/pull/544) is the only job still in flight; its review, weave, and shepherd stages all completed cleanly this cycle, so [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) is advancing through the gamut. Two garden-infra hardening jobs also landed — comment-watcher review fan-out dedup and a PR-feedback preflight head-recheck — both worth noting as reliability improvements to the surveillance and feedback paths. Nothing new is parked for review; the longest-waiting items remain [endo#3137](https://github.com/endojs/endo/pull/3137) (14d) and the 39–40 day chat/voice and opencode design PRs.
+Work clustered on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544), which cleared a shepherd, a weaver, and a review pass in succession; a mechanical builder follow-on is now in flight. A shepherd just claimed [endo-but-for-bots#570](https://github.com/endojs/endo-but-for-bots/pull/570) to drive its CI green. On the infra side, two hardening jobs landed: the comment-watcher now dedups its review fan-out, and the PR-feedback path re-checks HEAD on preflight before pushing — both tightening the surveillance-to-dispatch loop against stale-state and duplicate work.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr544-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-builder.md) — builder directive on endojs/endo-but-for-bots — mechanical follow-on to PR #544
+- [`endojs-endo-but-for-bots-pr570-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr570-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #570
 
 ### tada (660)
 - [`endojs-endo-but-for-bots-pr544-review-a0acabee`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-a0acabee.md) — Completion report
