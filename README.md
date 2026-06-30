@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:59:02Z_
+_As of 2026-06-30T23:00:29Z_
 
 ## Latest
 
-A gardener claimed [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) to conduct (merge) the approved @endo/gateway design and post its next-phase job, while work continues on the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-tracing PR (advancing toward acceptance criteria and answering kriskowal's open questions; the PR remains parked for review). On the ymax0 front, the inquisitor's hex-repro and the kriskowal/garden#9 mainnet-repro clarification both completed, and a shepherd pass ran on the kriscendobot/agoric-sdk#7 fork PR. Nothing is parked in todo; the gateway conduct/merge on #343 is the item most worth a maintainer's eye.
+The ymax0 hex repro work wrapped up: the [inquisitor-ymax0-hex-repro](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/inquisitor-ymax0-hex-repro.md) and the [garden#9 mhofman mainnet-repro clarification](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-mhofman-mainnet-repro-clarification.md) both completed, alongside a shepherd pass on the [kriscendobot/agoric-sdk fork PR #7](https://github.com/kriskowal/garden/pull/7) and garden issue #18. On the board, work on [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) picked up — a review directive plus a shepherd-status-reply to close that loop are now in flight — while [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (conduct/merge the approved @endo/gateway design) continue. Maintainer attention is most worthwhile on #58 (parked 1h, awaiting answers) and the two longest-parked feature PRs, [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 17h) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 1d).
 
 ## Parked for maintainer feedback
 
@@ -28,9 +28,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (6)
+- [`ebfb-pr-284-shepherd-status-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-284-shepherd-status-reply.md) — PR #284 — post the shepherd-result status reply comment (close the loop)
 - [`ebfb-pr-343-conduct-and-post-next-phase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-343-conduct-and-post-next-phase.md) — PR #343 — conduct (merge) the approved @endo/gateway design, then post the ne...
 - [`ebfb-pr-58-continue-error-tracing-and-status`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-continue-error-tracing-and-status.md) — PR #58 — continue error-tracing toward acceptance criteria + answer kriskowal...
+- [`endojs-endo-but-for-bots-pr284-review-393eb60e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr284-review-393eb60e.md) — Review directive on endojs/endo-but-for-bots PR #284
 - [`endojs-endo-but-for-bots-pr343-review-c61577a1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr343-review-c61577a1.md) — Review directive on endojs/endo-but-for-bots PR #343
 - [`garden-encode-acknowledged-comment-needs-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-acknowledged-comment-needs-reply.md) — Encode: an acknowledged comment gets at least a reply comment, not just a rea...
 
