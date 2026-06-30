@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 5980 (525 parent indexes + 5455 children).
+Total section files: 5989 (525 parent indexes + 5464 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7913,6 +7913,36 @@ Total section files: 5980 (525 parent indexes + 5455 children).
 - [web--goldilocks-select-height--intrinsic-min-max-with-calc-size](web--goldilocks-select-height--intrinsic-min-max-with-calc-size.md)
 - [web--goldilocks-select-height--problem-and-default-sizing](web--goldilocks-select-height--problem-and-default-sizing.md)
 - [web--goldilocks-select-height--viewport-margin-and-flip-fallbacks](web--goldilocks-select-height--viewport-margin-and-flip-fallbacks.md)
+
+### web--langchain-overview
+
+- [web--langchain-overview--create-agent-harness-and-standard-interfaces](web--langchain-overview--create-agent-harness-and-standard-interfaces.md)
+
+### web--langchain-retrieval
+
+- [web--langchain-retrieval--retrieval-rag-pipeline-and-architectures](web--langchain-retrieval--retrieval-rag-pipeline-and-architectures.md)
+
+### web--langgraph-checkpointers
+
+- [web--langgraph-checkpointers--durability-modes-and-time-travel](web--langgraph-checkpointers--durability-modes-and-time-travel.md)
+- [web--langgraph-checkpointers--threads-checkpoints-and-fault-tolerance](web--langgraph-checkpointers--threads-checkpoints-and-fault-tolerance.md)
+
+### web--langgraph-graph-api
+
+- [web--langgraph-graph-api--nodes-edges-super-steps-and-command-routing](web--langgraph-graph-api--nodes-edges-super-steps-and-command-routing.md)
+- [web--langgraph-graph-api--state-schema-and-reducers](web--langgraph-graph-api--state-schema-and-reducers.md)
+
+### web--langgraph-overview
+
+- [web--langgraph-overview--orchestration-runtime-and-product-split](web--langgraph-overview--orchestration-runtime-and-product-split.md)
+
+### web--langgraph-persistence
+
+- [web--langgraph-persistence--checkpointers-vs-stores](web--langgraph-persistence--checkpointers-vs-stores.md)
+
+### web--langgraph-workflows-and-agents
+
+- [web--langgraph-workflows-and-agents--workflow-and-agent-patterns](web--langgraph-workflows-and-agents--workflow-and-agent-patterns.md)
 
 ### web--mdn-appearance-base-select
 
