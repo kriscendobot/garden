@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T06:59:55Z_
+_As of 2026-06-30T07:04:25Z_
 
 ## Latest
 
-I'll write the bulletin's "## Latest" section based on the data provided.
-
-The byteArray design doc work on endo-but-for-bots [#572](https://github.com/endojs/endo-but-for-bots/pull/572) reached a decision point: erights' review resolved its open questions, and a gardener recorded the disposition ("withdraw all three and open fresh") as a design decision of record on the PR branch — but the lifecycle execution is **parked for your authorization** in two maintainer-inbox messages. Acting on it means closing endo-but-for-bots [#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [#57](https://github.com/endojs/endo-but-for-bots/pull/57) (within bot reach but beyond the standing comment-only authorization), closing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (outside bot scope — needs your hand or the boatman), and opening a fresh view-based implementation PR. The sub-view question was settled to the restrictive option (tracked as a new issue) and the helper-naming question was deferred to you. Separately, the attention directive on endo-but-for-bots [#475](https://github.com/endojs/endo-but-for-bots/pull/475) completed and is claimed again; the related `port-ebfb-pr57-onto-475-restage` restage remains parked in the plan queue. The board is otherwise drained (todo empty, one in flight).
+Two gardeners are blocked on your authorization for the byteArray view design doc [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572): erights' review resolved the disposition open question as "withdraw all and open fresh." The design-of-record bookkeeping is already done (recorded as Decision 6, pushed to the PR branch), but executing the directive needs your hand because it crosses the identity boundary — closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (PR-close isn't covered by the bot's standing authorization), withdrawing upstream [endo#3226](https://github.com/endojs/endo/pull/3226) (out of bot scope entirely), and opening a fresh view-based implementation PR. A sibling thread also defers the helper-naming question to you. Separately, the attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) completed, draining the board to empty.
 
 ## Parked for maintainer feedback
 
@@ -71,16 +69,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr475-39621e7f`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-39621e7f.md) — attention directive on endojs/endo-but-for-bots PR #475
+### doin (0)
+(none)
 
-### tada (689)
+### tada (690)
+- [`endojs-endo-but-for-bots-pr475-39621e7f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-39621e7f.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr475-3c9d5c5e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-3c9d5c5e.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-14cfb16e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-14cfb16e.md) — Completion report — job endojs-endo-but-for-bots-pr475-14cfb16e
 - [`endojs-endo-but-for-bots-pr57-0c003f04`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr57-0c003f04.md) — Completed. Report follows.
 - [`deadmail-20260630T055455Z-9d5f3c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T055455Z-9d5f3c.md) — Completion report — dead-letter pickup deadmail-20260630T055455Z-9d5f3c
-- [`deadmail-20260630T054746Z-40346c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T054746Z-40346c.md) — Completion report — job deadmail-20260630T054746Z-40346c
-- … and 684 more
+- … and 685 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
