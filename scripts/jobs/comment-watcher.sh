@@ -91,6 +91,23 @@
 # PR/issue AUTHOR (GARDEN_PR_AUTHOR) and, if listed AND the body does not @-mention
 # the bot, DROPS the dispatch (logged, never silent). It composes with — does not
 # replace — the sender-trust gate and the verb/@-mention classification.
+#
+# ── No overlap with the issue-inbox (PR-ONLY mode) ───────────────────────────
+# A repo may ALSO be watched by issue-inbox-watcher.sh, which OWNS that repo's
+# ISSUES and ISSUE-COMMENTS (the repo named in journal config/garden-repo). The two
+# watchers' surfaces overlap ONLY on true-issue comments, so without coordination a
+# maintainer comment on an issue gets a job from EACH watcher → DUPLICATE work
+# (observed on kriskowal/garden #9, 2026-06-30). The fix: when an issue-inbox covers
+# THIS repo, the comment-watcher runs PR-ONLY — it handles only its UNIQUE surfaces
+# (a PR's conversation comments, inline review comments, and review bodies) and
+# SKIPS surface=issue-comment, leaving true-issue comments to the sole issue-inbox
+# handler. PR-only is derived deterministically (and logged) from either signal:
+#   - journal config/garden-repo equals this repo (the issue-inbox's repo), or
+#   - the arming file comment-repos/<slug> declares `surfaces: pr-only`.
+# A repo with no issue-inbox keeps FULL comment+review coverage. The source splits
+# the issues/comments stream into surface=issue-comment (true issue) vs
+# surface=pr-comment (a PR's conversation) by html_url, so PR-only never drops a
+# PR conversation comment — only true-issue comments, which the issue-inbox owns.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -113,6 +130,10 @@ GARDEN_TAG="comment-watcher/$slug"
 : "${GARDEN_PR_MERGEABLE:=$HERE/handlers/pr-mergeable-gh.sh}"
 : "${GARDEN_COMMENT_VERIFY_CLONE:=$GARDEN_STATE/comment-watcher/verify}"
 VERIFY="$GARDEN_COMMENT_VERIFY_CLONE"
+# PR-only mode (skip surface=issue-comment when an issue-inbox covers this repo).
+# Unset → auto-derive from journal config/garden-repo + comment-repos/<slug>; set to
+# 1 forces it on, 0 forces it off (the test pins both directions deterministically).
+: "${GARDEN_COMMENT_PR_ONLY:=}"
 
 # --- silent-blindness self-test (NOT an inactivity detector) -----------------
 # The 2026-06-24 outage hid for ~16h because a broken source (jq absent) emitted
@@ -319,6 +340,42 @@ load_mention_only_authors() {
     done < <(git -C "$VERIFY" show "origin/$JOURNAL_BRANCH:mention-only-pr-authors/allowlist" 2>/dev/null || true)
   fi
   log "loaded ${#MENTION_ONLY_AUTHORS[@]} mention-only PR-author(s) from $src"
+}
+
+# --- PR-ONLY mode detection (no overlap with the issue-inbox) ----------------
+# Set PR_ONLY=1 when an issue-inbox covers THIS repo, so the main loop skips
+# surface=issue-comment (the issue-inbox is the sole handler of true-issue
+# comments). Two independent journal signals, OR'd, both read via the verify clone's
+# committed copy so every host resolves the authoritative state:
+#   - config/garden-repo equals this repo (the issue-inbox's watched repo), or
+#   - comment-repos/<slug> declares `surfaces: pr-only` (an explicit per-repo arm).
+# GARDEN_COMMENT_PR_ONLY overrides both (1 on / 0 off) for tests and explicit pins.
+PR_ONLY=""
+load_pr_only() {
+  PR_ONLY=""
+  if [ -n "$GARDEN_COMMENT_PR_ONLY" ]; then
+    [ "$GARDEN_COMMENT_PR_ONLY" = 0 ] || PR_ONLY=1
+    log "PR-only mode forced ${PR_ONLY:+on}${PR_ONLY:-off} via GARDEN_COMMENT_PR_ONLY"
+    return
+  fi
+  verify_fetch || true
+  local inbox_repo armed
+  inbox_repo="$(git -C "$VERIFY" show "origin/$JOURNAL_BRANCH:config/garden-repo" 2>/dev/null \
+                | sed -e 's/#.*//' -e 's/[[:space:]]//g' | grep -E '^[^/]+/[^/]+$' | head -1 || true)"
+  if [ -n "$inbox_repo" ] \
+     && [ "$(printf '%s' "$inbox_repo" | tr '[:upper:]' '[:lower:]')" \
+        = "$(printf '%s' "$repo" | tr '[:upper:]' '[:lower:]')" ]; then
+    PR_ONLY=1
+    log "PR-only mode: issue-inbox covers $repo (config/garden-repo) — skipping surface=issue-comment"
+    return
+  fi
+  armed="$(git -C "$VERIFY" show "origin/$JOURNAL_BRANCH:comment-repos/$slug" 2>/dev/null || true)"
+  if printf '%s' "$armed" | grep -Eqi '^[[:space:]]*surfaces:[[:space:]]*pr-only[[:space:]]*$'; then
+    PR_ONLY=1
+    log "PR-only mode: comment-repos/$slug declares surfaces: pr-only — skipping surface=issue-comment"
+    return
+  fi
+  log "full coverage: no issue-inbox covers $repo (issue-comment surface handled here)"
 }
 
 # --- PR/issue AUTHOR lookup (cached per tick) -------------------------------
@@ -703,10 +760,37 @@ fi
 # when there is work to classify).
 load_allowlist
 load_mention_only_authors
+load_pr_only
 
 hw="$last_seen"; failed=0; acted=0
 while IFS=$'\t' read -r created surface cid pr author url body; do
   [ -n "$created" ] || continue
+
+  # --- boundary dedup (skip at-or-before the cursor) ---------------------------
+  # The source selects created_at >= since (INCLUSIVE, so a boundary comment is
+  # never missed); skip anything at or before the cursor so a re-poll across the
+  # inclusive boundary does not re-process. This is also the cursor-advance-past-a-
+  # dropped-newest-comment fix: when the newest comment is DROPPED (not actionable),
+  # its created_at persists as the high-water mark, and this guard then skips that
+  # same comment on every later tick instead of re-dropping it forever (observed
+  # re-dropping cid=4839300009 on kriskowal/garden). A crash before the cursor
+  # advances re-processes (posts are idempotent by base) — never silently skips.
+  if [ -n "$last_seen" ] && ! [ "$created" \> "$last_seen" ]; then
+    continue
+  fi
+
+  # --- PR-only mode: skip true-issue comments (issue-inbox owns them) ----------
+  # When an issue-inbox covers this repo, surface=issue-comment is the issue-inbox's
+  # sole domain; skip it here so the two watchers never both dispatch on one comment.
+  # A PR's conversation comment (surface=pr-comment), inline review comments, and
+  # review bodies remain the comment-watcher's unique surfaces and are kept. The skip
+  # is deterministic and LOGGED, and the cursor slides past it (the issue-inbox, not
+  # this watcher, is responsible for that comment).
+  if [ -n "$PR_ONLY" ] && [ "$surface" = issue-comment ]; then
+    log "PR-only: skipping issue-comment cid=$cid on #${pr:-?} ($author) — issue-inbox is the sole handler; sliding cursor"
+    hw="$created"; continue
+  fi
+
   bf="$(mktemp)"; printf '%s\n' "$body" > "$bf"
 
   # PR number: prefer the source's field, else the first #N in the body. Resolved

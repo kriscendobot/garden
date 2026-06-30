@@ -9,6 +9,8 @@
 # endpoint is selected by surface (translates skills/reactji-acknowledgment):
 #   issue              → /issues/<number>/reactions    (id is the ISSUE NUMBER)
 #   issue-comment      → /issues/comments/<id>/reactions
+#   pr-comment         → /issues/comments/<id>/reactions  (a PR's CONVERSATION
+#                        comment is an issue comment on the API — same endpoint)
 #   pr-review-comment  → /pulls/comments/<id>/reactions
 #   pr-review-body     → reviews are NOT reactable; this is a no-op success.
 # Note the `issue` surface's id is the issue NUMBER (an issue body's reactions
@@ -30,6 +32,7 @@ repo="${1:?owner/name}"; surface="${2:?surface}"; cid="${3:?id}"; content="${4:-
 case "$surface" in
   issue)             path="repos/$repo/issues/$cid/reactions";;
   issue-comment)     path="repos/$repo/issues/comments/$cid/reactions";;
+  pr-comment)        path="repos/$repo/issues/comments/$cid/reactions";;
   pr-review-comment) path="repos/$repo/pulls/comments/$cid/reactions";;
   pr-review-body)    log "review body $cid not reactable; skipping ack"; exit 0;;
   *)                 die "unknown surface '$surface'";;

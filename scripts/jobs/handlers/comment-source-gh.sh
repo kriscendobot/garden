@@ -17,7 +17,18 @@
 #
 # TSV columns (tab-separated, body single-lined):
 #   created_at  surface  comment_id  pr_number  author  html_url  body
-# surface ∈ issue-comment | pr-review-comment | pr-review-body
+# surface ∈ issue-comment | pr-comment | pr-review-comment | pr-review-body
+#
+# The issues/comments endpoint folds BOTH true-issue conversation comments AND a
+# PR's own conversation comments into one stream (GitHub models a PR as an issue).
+# We split them by the comment's html_url path segment — `/pull/<n>#…` for a PR's
+# conversation, `/issues/<n>#…` for a true issue — costing NO extra API call. The
+# distinction matters because a repo may ALSO be watched by the issue-inbox, which
+# OWNS true-issue comments (config/garden-repo); the comment-watcher then runs
+# PR-only and skips surface=issue-comment to avoid a duplicate dispatch, while
+# surface=pr-comment (a PR's conversation comment) stays the comment-watcher's
+# UNIQUE surface and is never dropped. On a repo with no issue-inbox the watcher
+# treats both surfaces identically, so the split is invisible there.
 #
 # Monitoring safety: only call this for repos gated against untrusted
 # contributors (see comment-watcher.sh header). The bodies returned here reach
@@ -74,11 +85,18 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # failure is then degraded with `|| true` / `|| rids=""` so it can't kill the source —
 # matching the graceful-degrade intent of sections 1–2.
 
-# 1) issue/PR conversation comments
+# 1) issue/PR conversation comments. Classify by html_url: a PR's conversation
+#    comment's html_url is .../pull/<n>#issuecomment-…, a true issue's is
+#    .../issues/<n>#issuecomment-… — so `test("/pull/")` separates a PR-conversation
+#    comment (surface pr-comment) from a true-issue comment (surface issue-comment)
+#    with no extra API call. The watcher skips issue-comment in PR-only mode but
+#    always keeps pr-comment.
 gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&per_page=100" 2>/dev/null \
   | jq -r --arg s "$since" "
       .[] | select(.created_at >= \$s)
-      | [ .created_at, \"issue-comment\", (.id|tostring),
+      | [ .created_at,
+          (if ((.html_url // \"\") | test(\"/pull/\")) then \"pr-comment\" else \"issue-comment\" end),
+          (.id|tostring),
           ((.issue_url // \"\") | capture(\"/(?<n>[0-9]+)\$\").n // \"\"),
           .user.login, .html_url, ($oneline) ] | @tsv" || true
 

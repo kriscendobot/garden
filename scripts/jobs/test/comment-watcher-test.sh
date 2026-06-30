@@ -947,5 +947,170 @@ if [ -n "$CPID2" ]; then
 fi
 
 # ============================================================================
+# GI1..GI6 — NO OVERLAP WITH THE ISSUE-INBOX (PR-ONLY mode). When an issue-inbox
+# covers this repo, the comment-watcher must SKIP surface=issue-comment (the
+# issue-inbox is the sole handler of true-issue comments) while still processing its
+# UNIQUE surfaces: a PR's conversation comments (pr-comment), inline review comments,
+# and review bodies. Regression-pins kriskowal/garden #9, where BOTH watchers
+# dispatched on one issue comment → duplicate responses. PR-only is forced via
+# GARDEN_COMMENT_PR_ONLY for the deterministic cases and AUTO-DERIVED from a seeded
+# config/garden-repo for the detection case.
+run_pronly() {  # run_pronly <state> <bare> <fixture> <reactlog> [logfile] [pr-only]
+  local logf="${5:-/dev/null}"
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" \
+      CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
+      GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+      GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_COMMENT_FALLBACK="$FBSTUB" \
+      GARDEN_COMMENT_TRUST=/bin/false \
+      GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
+      GARDEN_COMMENT_PR_ONLY="${6:-1}" \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$logf"
+}
+# auto-derive PR-only from journal state: leave GARDEN_COMMENT_PR_ONLY UNSET.
+run_autopronly() {  # run_autopronly <state> <bare> <fixture> <reactlog> [logfile]
+  local logf="${5:-/dev/null}"
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" \
+      CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
+      GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+      GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_COMMENT_FALLBACK="$FBSTUB" \
+      GARDEN_COMMENT_TRUST=/bin/false \
+      GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$logf"
+}
+seed_inbox_repo() {  # seed_inbox_repo <bare> <owner/name>  (write config/garden-repo)
+  local v; v="$(mktemp -d "$TR/sir.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
+  mkdir -p "$v/config"; printf '%s\n' "$2" > "$v/config/garden-repo"
+  git -C "$v" add -A; git -C "$v" "${git_id[@]}" commit -q -m "set garden-repo"
+  git -C "$v" push -q origin "$BRANCH" 2>/dev/null
+  rm -rf "$v"
+}
+
+hr; echo "GI1 — PR-only: a true-issue comment is SKIPPED (issue-inbox owns it), logged, cursor slides"; hr
+BARE_GI1="$TR/gi1.git"; seed_bare "$BARE_GI1"
+FIX_GI1="$TR/fix-gi1.tsv"; RLOG_GI1="$TR/react-gi1.log"; : > "$RLOG_GI1"; GI1LOG="$TR/gi1.stderr"; : > "$GI1LOG"
+# a real directive ('please rebase') from a trusted sender — would normally mint a
+# job; in PR-only on surface=issue-comment it must be skipped before classify.
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T10:00:00Z issue-comment 4839300009 9 kriskowal \
+  https://github.com/kriskowal/garden/issues/9#issuecomment-4839300009 \
+  'Please rebase #5' > "$FIX_GI1"
+run_pronly "$TR/state-gi1" "$BARE_GI1" "$FIX_GI1" "$RLOG_GI1" "$GI1LOG"
+[ "$(todo_count "$BARE_GI1")" -eq 0 ] && ok "PR-only skipped the true-issue comment (no job)" || bad "issue-comment dispatched in PR-only mode (todo=$(todo_count "$BARE_GI1"))"
+[ ! -s "$RLOG_GI1" ] && ok "no reactji on a PR-only-skipped issue comment" || bad "reactji posted on a skipped issue comment: $(cat "$RLOG_GI1")"
+grep -q 'PR-only: skipping issue-comment' "$GI1LOG" && ok "the skip is LOGGED (deterministic, not silent)" || bad "no PR-only skip log ($(cat "$GI1LOG"))"
+[ "$(cursor_seen "$TR/state-gi1" "$BARE_GI1")" = 2026-06-30T10:00:00Z ] && ok "cursor slid past the skipped issue comment" || bad "cursor did not slide ($(cursor_seen "$TR/state-gi1" "$BARE_GI1"))"
+
+hr; echo "GI2 — PR-only: a PR REVIEW on the same repo IS processed (unique surface kept)"; hr
+BARE_GI2="$TR/gi2.git"; seed_bare "$BARE_GI2"
+FIX_GI2="$TR/fix-gi2.tsv"; RLOG_GI2="$TR/react-gi2.log"; : > "$RLOG_GI2"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T10:30:00Z pr-review-body 4574900000 5 kriskowal \
+  https://github.com/kriskowal/garden/pull/5#pullrequestreview-4574900000 \
+  '[CHANGES_REQUESTED] Please convert this to a job.' > "$FIX_GI2"
+run_pronly "$TR/state-gi2" "$BARE_GI2" "$FIX_GI2" "$RLOG_GI2"
+[ "$(todo_glob "$BARE_GI2" "^$SLUG-pr5-review-")" -eq 1 ] && ok "the PR review IS processed in PR-only mode (per-review job minted)" || bad "PR review dropped in PR-only mode (todo=$(todo_count "$BARE_GI2"))"
+
+hr; echo "GI3 — PR-only: a PR CONVERSATION comment (surface pr-comment) IS processed (not dropped)"; hr
+BARE_GI3="$TR/gi3.git"; seed_bare "$BARE_GI3"
+FIX_GI3="$TR/fix-gi3.tsv"; RLOG_GI3="$TR/react-gi3.log"; : > "$RLOG_GI3"
+# a PR's conversation comment is surface=pr-comment (the source splits it from a
+# true-issue comment by html_url) — PR-only keeps it, it is the watcher's domain.
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T11:00:00Z pr-comment 4840000001 5 kriskowal \
+  https://github.com/kriskowal/garden/pull/5#issuecomment-4840000001 \
+  'Please rebase #5' > "$FIX_GI3"
+run_pronly "$TR/state-gi3" "$BARE_GI3" "$FIX_GI3" "$RLOG_GI3"
+board_has "$BARE_GI3" "$SLUG-pr5-rebase" && ok "PR-conversation comment processed in PR-only mode (rebase job)" || bad "pr-comment wrongly dropped in PR-only mode"
+grep -qx "pr-comment 4840000001 eyes" "$RLOG_GI3" && ok "reactji acked the PR-conversation comment" || bad "no reactji on the pr-comment ($(cat "$RLOG_GI3"))"
+
+hr; echo "GI4 — PR-only AUTO-DERIVED from config/garden-repo → issue-comment skipped"; hr
+BARE_GI4="$TR/gi4.git"; seed_bare "$BARE_GI4"; seed_inbox_repo "$BARE_GI4" "endojs/endo-but-for-bots"
+FIX_GI4="$TR/fix-gi4.tsv"; RLOG_GI4="$TR/react-gi4.log"; : > "$RLOG_GI4"; GI4LOG="$TR/gi4.stderr"; : > "$GI4LOG"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T12:00:00Z issue-comment 4841000001 9 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/issues/9#issuecomment-4841000001 \
+  'Please rebase #5' > "$FIX_GI4"
+run_autopronly "$TR/state-gi4" "$BARE_GI4" "$FIX_GI4" "$RLOG_GI4" "$GI4LOG"
+[ "$(todo_count "$BARE_GI4")" -eq 0 ] && ok "auto-derived PR-only skipped the issue comment (no job)" || bad "issue-comment dispatched despite config/garden-repo match (todo=$(todo_count "$BARE_GI4"))"
+grep -q 'issue-inbox covers' "$GI4LOG" && ok "the auto-derivation is logged (config/garden-repo signal)" || bad "no auto-derivation log ($(cat "$GI4LOG"))"
+
+hr; echo "GI5 — NO issue-inbox (full coverage): a true-issue comment IS processed"; hr
+BARE_GI5="$TR/gi5.git"; seed_bare "$BARE_GI5"
+FIX_GI5="$TR/fix-gi5.tsv"; RLOG_GI5="$TR/react-gi5.log"; : > "$RLOG_GI5"
+# same fixture as GI1 but no PR-only (no config/garden-repo, no force): full coverage.
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T13:00:00Z issue-comment 4842000001 9 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/issues/9#issuecomment-4842000001 \
+  'Please rebase #5' > "$FIX_GI5"
+run_autopronly "$TR/state-gi5" "$BARE_GI5" "$FIX_GI5" "$RLOG_GI5"
+board_has "$BARE_GI5" "$SLUG-pr9-rebase" && ok "with no issue-inbox the issue comment is processed (full coverage)" || bad "issue-comment dropped despite no issue-inbox"
+
+hr; echo "GI6 — cursor advances PAST a DROPPED newest comment (not re-dropped each tick)"; hr
+# Secondary fix: a dropped (not-actionable) newest comment must not be re-processed
+# on the next tick — its created_at persists as the cursor and the boundary dedup
+# then skips it. Regression-pins the re-dropped cid=4839300009 loop. Use an UNTRUSTED
+# sender so the comment drops (rc 1), and run TWICE: the DROP is logged on tick 1 but
+# NOT on tick 2 (boundary dedup skips it before the classify/drop path).
+BARE_GI6="$TR/gi6.git"; seed_bare "$BARE_GI6"
+FIX_GI6="$TR/fix-gi6.tsv"; RLOG_GI6="$TR/react-gi6.log"; : > "$RLOG_GI6"
+GI6LOG1="$TR/gi6-1.stderr"; : > "$GI6LOG1"; GI6LOG2="$TR/gi6-2.stderr"; : > "$GI6LOG2"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T14:00:00Z issue-comment 4839300009 9 drive-by-rando \
+  https://github.com/endojs/endo-but-for-bots/issues/9#issuecomment-4839300009 \
+  'just some chatter' > "$FIX_GI6"
+run_directive "$TR/state-gi6" "$BARE_GI6" "$FIX_GI6" "$RLOG_GI6" "$GI6LOG1"
+grep -q 'DROP:' "$GI6LOG1" && ok "tick 1 drops the not-actionable newest comment" || bad "tick 1 did not drop ($(cat "$GI6LOG1"))"
+seen_gi6="$(cursor_seen "$TR/state-gi6" "$BARE_GI6")"
+[ "$seen_gi6" = 2026-06-30T14:00:00Z ] && ok "the drop's high-water mark persisted as the cursor" || bad "cursor not advanced past the drop ($seen_gi6)"
+run_directive "$TR/state-gi6" "$BARE_GI6" "$FIX_GI6" "$RLOG_GI6" "$GI6LOG2"
+grep -q 'DROP:' "$GI6LOG2" && bad "tick 2 RE-DROPPED the same comment (boundary dedup missing)" || ok "tick 2 does NOT re-process the dropped comment (boundary dedup at-or-before cursor)"
+[ "$(cursor_seen "$TR/state-gi6" "$BARE_GI6")" = 2026-06-30T14:00:00Z ] && ok "cursor stable on the second tick" || bad "cursor moved on the idempotent second tick"
+
+# ============================================================================
+# SS1 — SOURCE-level: comment-source-gh.sh splits the issues/comments stream into
+# surface=pr-comment (a PR's conversation comment; html_url .../pull/<n>) vs
+# surface=issue-comment (a true issue; html_url .../issues/<n>), with NO extra API
+# call. This is what lets PR-only drop ONLY true-issue comments while keeping a PR's
+# conversation comments. Same compact-gh-stub shape as Q/Z; the REAL jq processes it.
+hr; echo "SS1 — comment-source splits issues/comments into pr-comment vs issue-comment by html_url"; hr
+command -v jq >/dev/null 2>&1 && have_jq_ss=1 || have_jq_ss=0
+if [ "$have_jq_ss" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHSS="$TR/gh-ss"; mkdir -p "$GHSS"
+  cat > "$GHSS/gh" <<'EOF'
+#!/bin/bash
+# issues/comments returns one comment on a PR (#5, html_url .../pull/5) and one on a
+# true issue (#9, html_url .../issues/9). No open PRs / inline feeds for this test.
+args="$*"; ts="${TS:?TS must be set}"
+case "$args" in
+  *"/issues/comments"*)
+    printf '[{"id":555001,"created_at":"%s","issue_url":"https://api.github.com/repos/x/y/issues/5","user":{"login":"kriskowal"},"html_url":"https://github.com/x/y/pull/5#issuecomment-555001","body":"on a PR"},{"id":555002,"created_at":"%s","issue_url":"https://api.github.com/repos/x/y/issues/9","user":{"login":"kriskowal"},"html_url":"https://github.com/x/y/issues/9#issuecomment-555002","body":"on an issue"}]\n' "$ts" "$ts"; exit 0;;
+  *"/pulls?state=open"*)         printf '[]\n'; exit 0;;
+  *"/pulls/comments"*)           printf '[]\n'; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHSS/gh"
+  SS_OUT="$TR/ss.out"
+  env PATH="$GHSS:$PATH" TS="$REV_TS" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-ss" \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > "$SS_OUT" 2>/dev/null || true
+  grep -q $'\tpr-comment\t555001\t' "$SS_OUT" \
+    && ok "a PR conversation comment is surfaced as pr-comment" \
+    || bad "PR conversation comment not classified pr-comment (out: $(cat "$SS_OUT"))"
+  grep -q $'\tissue-comment\t555002\t' "$SS_OUT" \
+    && ok "a true-issue comment is surfaced as issue-comment" \
+    || bad "true-issue comment not classified issue-comment (out: $(cat "$SS_OUT"))"
+fi
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
