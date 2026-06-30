@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-06-30T21:50:22Z_
+_As of 2026-06-30T21:56:22Z_
 
 ## Latest
 
-The CapTP cross-worker [error-tracing builder job](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-5ce0b78b.md) completed, and its PR — [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) — is now freshly parked for kriskowal's review (waiting 11m). The board is otherwise quiet: the lone in-flight job is the [ymax0 v320 hex repro](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/inquisitor-ymax0-hex-repro.md) in inquisitor, with its companion verify-the-hex-fix plan still parked awaiting go-ahead.
+The inquisitor's ymax0 `hex.js` reproduction job (`inquisitor-ymax0-hex-repro`) completed and moved to done — the only board transition this cycle. It confirms the XS `flatMap`→loop value-stack fix for the v320 70→71 overflow, the engine change that shipped as moddable#1. The follow-on `verify-ymax0-hex-fix-inquisitor` plan (full repro plus a stackCount snapshot-compatibility check) is still parked awaiting maintainer go-ahead. Otherwise the board is quiet: nothing in todo or doin, and 29 PRs remain parked for kriskowal — most notably the recently-surfaced [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, ~20m) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 16h).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 11m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 20m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 16h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -28,16 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`inquisitor-ymax0-hex-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/inquisitor-ymax0-hex-repro.md) — Reproduce the ymax0 v320 upgrade failure in inquisitor, then verify the hex.j...
+### doin (0)
+(none)
 
-### tada (701)
+### tada (702)
+- [`inquisitor-ymax0-hex-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/inquisitor-ymax0-hex-repro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr58-5ce0b78b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-5ce0b78b.md) — Builder is running in the background; my inbox is empty. I'll wait for its co...
 - [`deadmail-issue-comment-4848078424`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4848078424.md) — Completion report
 - [`deadmail-issue-comment-4847636571`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4847636571.md) — Completion report
 - [`garden-issue-9-reply-mhofman-functor-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-reply-mhofman-functor-stack.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-179927d7`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-179927d7.md) — Completion report — job endojs-endo-but-for-bots-pr475-179927d7
-- … and 696 more
+- … and 697 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
