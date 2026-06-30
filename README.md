@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:45:45Z_
+_As of 2026-06-30T22:46:18Z_
 
 ## Latest
 
-The lone board transition was a completion: the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) shepherd resumed and wrapped after only ~3 minutes of fresh runtime, so CI shepherding on that fork PR is done for now. The ymax0 #9 investigation remains the one job in flight, folding in mhofman's mainnet-repro-setup clarification. Worth the maintainer's attention: the journal-worktree keeper has flagged that `/home/kris/journal` on endolinbot2 has **diverged** from `origin/journal2` (3 commits ahead, 5753 behind, 6 dirty paths) and was deliberately left untouched — it needs hand reconciliation before that worktree can fast-forward again. The parked queue is otherwise quiet, with [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) newest at ~1h and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) at the front of the older backlog.
+Sealed the `flatMap`→loop fix for the ymax0 v320 XS value-stack overflow: the `inquisitor-ymax0-hex-repro` job completed, confirming the native XS `flatMap` spreads its whole result onto the value stack, and the engine fix shipped as a one-line per-iteration `mxPop()` in `fx_Array_prototype_flatAux` (kriscendobot/moddable#1), A/B-verified to clear v320 at the stock 4096 stack. A gardener is still working `garden-issue-9-mhofman-mainnet-repro-clarification`, folding mhofman's repro-setup clarification into the [endojs/endo#9](https://github.com/kriskowal/garden/issues/9) investigation; a follow-on plan to verify the fix and its stackCount snapshot-compatibility awaits go-ahead. On the upstream side, [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) just landed in the parked queue for review, and a builder is still running its background work there.
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ The lone board transition was a completion: the [kriscendobot/agoric-sdk#7](http
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260630T224534Z-38dc98` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T224534Z-38dc98.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5753 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
