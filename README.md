@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T17:45:27Z_
+_As of 2026-06-30T17:46:08Z_
 
 ## Latest
 
-The garden's recent work was mostly infrastructure and housekeeping: [erights' full maintainer authority is now encoded](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-erights-maintainer-authority.md) in the role library, dependabotany gained a precise-recheck self-schedule and ran a fresh recheck against endo-but-for-bots, and a restrictive `Uint8Array`-view build landed for the passable byte-arrays line — whose PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) remains parked awaiting kriskowal's review. **One item needs a human hand:** the journal worktree at `/home/kris/journal` on host `endolinbot2` has diverged from `origin/journal2` (3 commits ahead, 5657 behind, 5 dirty paths) and was deliberately left untouched — it must be reconciled manually before that host's local commits can rejoin the shared journal. The review queue is otherwise deep at 29 parked PRs, with the oldest stragglers — [endo#3137](https://github.com/endojs/endo/pull/3137) (15d) and the chat voice-input [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (40d) — still waiting, and several go-ahead plans (verify the ymax0 hex fix, the XS-to-Rust port) sitting parked pending maintainer authorization.
+Quiet tick — the board cleared with nothing in todo or doin. Recent completions were housekeeping and incremental: the dependabotany watcher gained a precise self-rescheduling recheck and ran one against endo-but-for-bots, a restrictive Uint8Array-view build landed for the passable byte-arrays work, the daily progress periodical posted, and the garden encoded erights' full maintainer authority. Worth a maintainer's eye: the passable byte-arrays PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) has now sat parked 12h, alongside the longer-waiting error-tracing PR [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and the cyclic-star-export fix [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (4d). The plan queue still holds the go-ahead-gated ymax0 hex-fix verification ([verify-ymax0-hex-fix-inquisitor](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md)) awaiting maintainer authorization.
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ The garden's recent work was mostly infrastructure and housekeeping: [erights' f
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260630T174514Z-53a7a2` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T174514Z-53a7a2.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5657 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
