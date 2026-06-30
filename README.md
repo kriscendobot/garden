@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:43:13Z_
+_As of 2026-06-30T05:44:04Z_
 
 ## Latest
 
-Four directives landed on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) and are now in flight — two attention directives and two review directives — making it the focus of the cycle. Recently completed: [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) (shepherd CI-watch plus its completion report), along with the `ebfb-bytearray-uint8array-view-redesign` (the Uint8Array-view rework behind the passable-byte-arrays work now parked on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)). On the parked front, two fresh PRs await first review — [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and the aforementioned [#503](https://github.com/endojs/endo-but-for-bots/pull/503) — both under an hour old.
+Work has converged on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572): five directives — two attention and three review — are now in flight against it, the newest a freshly-claimed review directive, so a maintainer should expect that PR to move shortly. Recently landed: completion and shepherd reports on [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571), a completion on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), and the `ebfb-bytearray-uint8array-view-redesign` redesign that feeds the parked passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503). The plan queue still holds the ymax0 hex-fix verification and the XS-to-Rust port awaiting maintainer go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -28,9 +28,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr572-22f817ba`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-22f817ba.md) — attention directive on endojs/endo-but-for-bots PR #572
 - [`endojs-endo-but-for-bots-pr572-dea7fcb4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-dea7fcb4.md) — attention directive on endojs/endo-but-for-bots PR #572
+- [`endojs-endo-but-for-bots-pr572-review-04e6cad0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-04e6cad0.md) — Review directive on endojs/endo-but-for-bots PR #572
 - [`endojs-endo-but-for-bots-pr572-review-f9f39a71`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-f9f39a71.md) — Review directive on endojs/endo-but-for-bots PR #572
 - [`endojs-endo-but-for-bots-pr572-review-feaa10d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-feaa10d8.md) — Review directive on endojs/endo-but-for-bots PR #572
 
