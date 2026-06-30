@@ -46,3 +46,9 @@ issue/PR opens/closes), per roles/COMMON.md External-repo etiquette.
 - This is a multi-hour, network- and build-heavy job. If a gardener claim is
   reaped mid-download, the resumable --download archive and the height-keyed
   cache make a re-claim cheap (it resumes / reuses, no full re-stream).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 88
+  claimed_at: 2026-06-30T00:03:24Z
