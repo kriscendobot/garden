@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T03:39:36Z_
+_As of 2026-06-30T03:41:56Z_
 
 ## Latest
 
-Work this cycle concentrated almost entirely on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548): several review directives completed (reviews 0ce05d3a, 3acbe409, 77a2abe1 and two earlier passes), and a finalize-and-merge ("conduct") job is now in flight to curate and land it — so #548 is the PR to watch for an imminent merge. Two garden-infra fixes also entered progress: deduping the duplicate jobs the comment-watcher mints for inline-bearing reviews, and stopping a single long mid-job gardener from aborting a `deploy-garden`. Nothing new is parked for review; the maintainer queue still holds 29 PRs, the oldest of note being [endo#3137](https://github.com/endojs/endo/pull/3137) (TS runtime modules, 14d) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 4d).
+Scholar finished the LangGraph library ingest's third remainder and immediately claimed the fourth (the LangGraph cluster), continuing the multi-part ingest. The bulk of live work centers on [endojs/endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548), which has several review directives plus a finalize (curate → merge) job in flight concurrently — worth a glance since multiple review jobs are racing on the same PR. Two garden-infra fixes are also in progress: deduplicating the comment-watcher's inline-review jobs and keeping a single long mid-job gardener from aborting a deploy. A message dead-lettered at 03:31Z and was picked up for intent recovery; no jobs are waiting in todo.
 
 ## Parked for maintainer feedback
 
@@ -28,22 +28,23 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (8)
+- [`deadmail-20260630T033120Z-480bcf`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260630T033120Z-480bcf.md) — Dead-lettered message — pick up its intent
 - [`endojs-endo-but-for-bots-pr548-27e1734a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-27e1734a.md) — attention directive on endojs/endo-but-for-bots PR #548
 - [`endojs-endo-but-for-bots-pr548-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-conduct.md) — Finalize (curate → merge) endojs/endo-but-for-bots PR #548
 - [`endojs-endo-but-for-bots-pr548-review-442a7f55`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-review-442a7f55.md) — Review directive on endojs/endo-but-for-bots PR #548
 - [`endojs-endo-but-for-bots-pr548-review-5345a514`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-review-5345a514.md) — Review directive on endojs/endo-but-for-bots PR #548
 - [`garden-comment-watcher-dedup-inline-review-comment-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-comment-watcher-dedup-inline-review-comment-jobs.md) — Garden infra: comment-watcher mints duplicate jobs for inline-bearing reviews
 - [`garden-deploy-defer-long-mid-job-gardener`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deploy-defer-long-mid-job-gardener.md) — deploy-garden: stop a single long mid-job gardener from aborting (and fleet-p...
-- [`scholar-ingest-langchain-langgraph-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder-3.md) — Scholar: finish the LangChain + LangGraph library ingest (remainder 3)
+- [`scholar-ingest-langchain-langgraph-remainder-4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder-4.md) — Scholar: finish the LangGraph library ingest (remainder 4 — the LangGraph clu...
 
-### tada (628)
+### tada (629)
+- [`scholar-ingest-langchain-langgraph-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-langchain-langgraph-remainder-3.md) — Completion report
 - [`endojs-endo-but-for-bots-pr548-review-77a2abe1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-review-77a2abe1.md) — Completion report — endojs-endo-but-for-bots-pr548-review-77a2abe1
 - [`endojs-endo-but-for-bots-pr548-review-3acbe409`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-review-3acbe409.md) — Completion report: PR #548 review (review 4597007634, comment on line 144)
 - [`endojs-endo-but-for-bots-pr548-review-0ce05d3a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-review-0ce05d3a.md) — Completion report
 - [`endojs-endo-but-for-bots-pr548-de62d521`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-de62d521.md) — Completion report
-- [`endojs-endo-but-for-bots-pr548-7d53248c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-7d53248c.md) — Completion report
-- … and 623 more
+- … and 624 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
