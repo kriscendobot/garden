@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:18:04Z_
+_As of 2026-06-30T23:18:34Z_
 
 ## Latest
 
-The lone board move since the last bulletin is the completion of [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) — a rebase-then-refactor-on-platform pass now reported done. Four jobs remain in flight: a one-time embargo reevaluation of the electron 40→42 bump on [endo-but-for-bots#197](https://github.com/endojs/endo-but-for-bots/pull/197), shepherding [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) to green per maintainer directive, the read-only retention-paths Chat Paths panel that follows [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284), and incorporating mhofman's latest contract-kit/inquisitor guidance on garden#9. Freshly parked for your eyes: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), arrived 13m ago.
+The board is nearly idle: the only fresh transition is one new plan, [`garden-encode-directives-reliably-become-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-encode-directives-reliably-become-jobs.md), parked to widen the comment-watcher so actionable maintainer directives reliably become jobs — it stays blocked until `garden-encode-acknowledged-comment-needs-reply` lands. Four jobs remain in flight: a one-time embargo recheck of the electron 40→42 bump on [endo-but-for-bots#197](https://github.com/endojs/endo-but-for-bots/pull/197), shepherding the remaining macOS failure to green on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277), the read-only retention-paths Chat panel (the next phase after [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)), and folding mhofman's latest contract-kit/Inquisitor guidance into garden issue #9. Recently completed and worth a glance: the endo-gateway phase-1 virtual-hosting build cleared both panel seats, [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) was conducted and its next phase posted, and [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) finished its rebase-then-refactor.
 
 ## Parked for maintainer feedback
 
@@ -57,6 +57,7 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`formula-inspector-retention-paths-table-v2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/formula-inspector-retention-paths-table-v2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/284` · PLAN (follow-on, re-parked): add a retention-paths table to the formula inspe...
+- [`garden-encode-directives-reliably-become-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-encode-directives-reliably-become-jobs.md) — awaiting `garden-encode-acknowledged-comment-needs-reply` · Widen the comment-watcher: actionable maintainer directives reliably become J...
 
 ## Watch set
 (none)
