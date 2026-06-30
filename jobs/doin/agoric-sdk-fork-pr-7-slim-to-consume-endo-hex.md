@@ -48,3 +48,9 @@ the published `@endo/hex`.
 **Deliverable:** #7 updated so `packages/internal` consumes `@endo/hex` with the in-tree codec body
 removed, error pins reconciled, tests green, CI progressing, and the benchmark table in the PR
 description as justification. Report the pushed SHA and CI state.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 89
+  claimed_at: 2026-06-30T23:47:48Z
