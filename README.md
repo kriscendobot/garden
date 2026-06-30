@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T03:25:43Z_
+_As of 2026-06-30T03:26:36Z_
 
 ## Latest
 
-Activity converged on [endojs/endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548): four directives — two attention, two review — were claimed and are now in flight, so that PR is the live focus of the fleet. The scholar's LangChain/LangGraph library ingest advanced, completing its second remainder batch and picking up a third. A garden-infra fix to close the acknowledged straggler gap in `comment-watcher.sh`'s cgroup reap-on-normal-exit is also under way. Nothing newly parked for the maintainer; the 29-deep parked queue is unchanged, still topped by the [gateway design](https://github.com/endojs/endo-but-for-bots/pull/343) and [registry-capability](https://github.com/endojs/endo-but-for-bots/pull/403) PRs awaiting review.
+A cluster of attention and review directives landed on [endojs/endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) — six are now in flight (three attention, three review), so that PR is the active focus and worth a maintainer glance. On the completed side, the scholar finished its LangChain/LangGraph library ingest (gap analysis plus the remainder batches), the comment-watcher's no-overlap-with-issue-inbox fix landed, and the [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) ymax0 hex-fix work closed out. Still open: the comment-watcher cgroup-reap straggler fix and the final LangChain/LangGraph ingest chunk. Nothing new is parked for review, and the queue is otherwise drained (todo empty).
 
 ## Parked for maintainer feedback
 
@@ -28,11 +28,13 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (8)
+- [`endojs-endo-but-for-bots-pr548-7ad385cd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-7ad385cd.md) — attention directive on endojs/endo-but-for-bots PR #548
 - [`endojs-endo-but-for-bots-pr548-7d53248c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-7d53248c.md) — attention directive on endojs/endo-but-for-bots PR #548
 - [`endojs-endo-but-for-bots-pr548-de62d521`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-de62d521.md) — attention directive on endojs/endo-but-for-bots PR #548
 - [`endojs-endo-but-for-bots-pr548-review-0ce05d3a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-review-0ce05d3a.md) — Review directive on endojs/endo-but-for-bots PR #548
 - [`endojs-endo-but-for-bots-pr548-review-3acbe409`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-review-3acbe409.md) — Review directive on endojs/endo-but-for-bots PR #548
+- [`endojs-endo-but-for-bots-pr548-review-77a2abe1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-review-77a2abe1.md) — Review directive on endojs/endo-but-for-bots PR #548
 - [`improve-comment-watcher-cgroup-reap-on-normal-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-cgroup-reap-on-normal-exit.md) — Close the acknowledged straggler gap in scripts/jobs/comment-watcher.sh's cle...
 - [`scholar-ingest-langchain-langgraph-remainder-3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder-3.md) — Scholar: finish the LangChain + LangGraph library ingest (remainder 3)
 
