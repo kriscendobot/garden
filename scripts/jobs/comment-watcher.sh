@@ -59,6 +59,28 @@
 # mints nothing. This is the fix for endo-but-for-bots #528, where a clean APPROVED
 # + MERGEABLE PR sat in DRAFT because nothing noticed the approval.
 #
+# ── An acknowledged comment gets at least a REPLY, not just a reactji ─────────
+# Maintainer directive (kriskowal, 2026-06-30, re endo-but-for-bots #58 comment
+# 4848100199 — "What's the status of this effort?", which got only a 👀): an
+# ACKNOWLEDGED trusted comment must get AT LEAST a reply comment, not just the
+# reactji. A bare 👀 on a question / status request leaves the maintainer unsure
+# anything is happening. So:
+#   - ACTIONABLE comment (a job was posted) → a brief reply NAMING the active job
+#     ("On it — posted a job; I'll follow up here"), so the maintainer sees work
+#     in flight, not just a silent reactji.
+#   - NON-ACTIONABLE-but-acknowledged (a question, a status request, a comment with
+#     no clear verb from a trusted MAINTAINER) → instead of a silent reactji-and-
+#     slide, ENGAGE with a reply comment. A genuine question/status-request routes
+#     to the claude reader's `attention`, which mints a job whose deliverable IS the
+#     substantive reply (as the #58 status question did); pure chatter/thanks still
+#     gets at least a light acknowledging reply (the reactji alone is not a response).
+# Feedback-loop guards ("short of a feedback loop"): reply at most ONCE per comment
+# (the reply handler is idempotent by comment-id via a hidden marker; the cursor is a
+# second dedup); NEVER reply to the bot's OWN comments (the source drops them and
+# post_reply refuses author==bot — the spiral to avoid); engage TRUSTED human
+# comments only (untrusted senders get neither reactji nor reply); and post the reply
+# only on REACTABLE conversation surfaces (a review body's response IS its job).
+#
 # ── Monitoring safety + arming authorization (STANDING NORM, do not bypass) ──
 # This watcher feeds external PR/comment TEXT into `claude -p`, so it is governed
 # by CLAUDE.md § Monitoring safety constraint and roles/triager/AGENT.md
@@ -74,6 +96,7 @@
 # The per-comment I/O is indirected so tests substitute deterministic stubs:
 #   GARDEN_COMMENT_SOURCE  <owner/name> <since-iso> <bot-login>  -> TSV lines
 #   GARDEN_COMMENT_REACTJI <owner/name> <surface> <comment-id> <content>
+#   GARDEN_COMMENT_REPLY   <owner/name> <surface> <comment-id> <pr> <body-file>
 #   GARDEN_COMMENT_POST    <basename> <body-file>                (post-job.sh)
 #   GARDEN_COMMENT_FALLBACK <owner/name> <pr> <author> <url> <body-file> -> verb
 #   GARDEN_COMMENT_TRUST   <login>                  rc 0 = endojs/Agoric org member
@@ -120,6 +143,9 @@ GARDEN_TAG="comment-watcher/$slug"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_COMMENT_SOURCE:=$HERE/handlers/comment-source-gh.sh}"
 : "${GARDEN_COMMENT_REACTJI:=$HERE/handlers/comment-reactji-gh.sh}"
+# Reply-comment poster (the "at least a reply, not just a reactji" directive). Same
+# indirection shape as the reactji poster so the test substitutes a deterministic stub.
+: "${GARDEN_COMMENT_REPLY:=$HERE/handlers/comment-reply-gh.sh}"
 : "${GARDEN_COMMENT_POST:=$HERE/post-job.sh}"
 : "${GARDEN_COMMENT_FALLBACK:=$HERE/handlers/comment-claude.sh}"
 : "${GARDEN_COMMENT_TRUST:=$HERE/handlers/mention-trust-gh.sh}"
@@ -662,12 +688,41 @@ write_job_body() {  # write_job_body <out> <verb> <surface> <author> <pr> <url> 
 # the one unreactable surface (the job IS the response), and untrusted senders get
 # no reactji. Either way the slide is LOGGED with the gate that dropped it plus the
 # comment id/url, so a future drop is always diagnosable from the journal.
+# --- engage with a REPLY comment (the "at least a reply, not just a reactji") -
+# Maintainer directive (kriskowal, 2026-06-30, re #58): an ACKNOWLEDGED trusted
+# comment must get at least a reply comment. post_reply is the single chokepoint that
+# enforces every feedback-loop guard so no caller can forget one:
+#   - REACTABLE conversation surfaces only (issue/PR conversation + inline review
+#     comments). A review body's response IS its job; the issue-inbox owns issues.
+#   - NEVER reply to the bot's OWN comments (author==bot) — the reply→reply spiral
+#     the source already guards against; this is the defense in depth.
+#   - engage TRUSTED senders only (same gate as the reactji).
+#   - idempotent by comment-id: the reply handler embeds a hidden per-comment marker
+#     and no-ops if it is already present, so a re-poll never double-replies.
+# A reply failure is logged as WARN and never blocks the slide/post (the reactji and
+# the job are the load-bearing acks; the reply is additive engagement).
+post_reply() {  # post_reply <surface> <cid> <author> <pr> <reply-text>
+  local surface="$1" cid="$2" author="$3" pr="$4" text="$5" rbf
+  case "$surface" in issue-comment|pr-comment|pr-review-comment) ;; *) return 0 ;; esac
+  [ -n "$author" ] && [ "$author" != "$GARDEN_BOT_LOGIN" ] || return 0   # never self-reply
+  is_trusted "$author" || return 0                                       # engage trusted only
+  rbf="$(mktemp)"; printf '%s\n' "$text" > "$rbf"
+  "$GARDEN_COMMENT_REPLY" "$repo" "$surface" "$cid" "$pr" "$rbf" \
+    || log "WARN: reply failed on $surface/$cid (continuing)"
+  rm -f "$rbf"
+}
+
 ack_or_log_slide() {  # ack_or_log_slide <reason> <surface> <cid> <author> <url> <pr>
   local reason="$1" surface="$2" cid="$3" author="$4" url="$5" pr="$6"
   if [ "$surface" != pr-review-body ] && is_trusted "$author"; then
     "$GARDEN_COMMENT_REACTJI" "$repo" "$surface" "$cid" eyes \
       || log "WARN: ack reactji failed on $surface/$cid (continuing)"
-    log "ACK-no-job: trusted $author on #$pr ($surface) — $reason; reactji'd 👀, sliding cursor [cid=$cid $url]"
+    # The reactji alone is not a response: engage with a reply too. The reader judged
+    # this comment non-actionable (no job), so the reply is a light acknowledgment
+    # that invites turning it into concrete work — never a silent reactji-and-slide.
+    post_reply "$surface" "$cid" "$author" "$pr" \
+      "Thanks — I've seen this (👀). If there's a specific change or follow-up you'd like me to take on here, let me know and I'll pick it up."
+    log "ACK-no-job: trusted $author on #$pr ($surface) — $reason; reactji'd 👀 + replied, sliding cursor [cid=$cid $url]"
   else
     log "DROP: $author on #$pr ($surface) — $reason; sliding cursor [cid=$cid $url]"
   fi
@@ -1057,6 +1112,17 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   rm -f "$jb" "$bf"
 
   if verify_posted "$base" fresh; then
+    # An ACTIONABLE comment gets a reply NAMING the active job, not just the reactji
+    # (the #58 directive). Skip the conversation reply for `review`/`finalize`: those
+    # are answered on the PR's review threads / by the conductor, and post_reply
+    # already excludes the unreactable pr-review-body surface. The reply is idempotent
+    # by comment-id and only fires on the tick that first posts the job (a re-poll is
+    # short-circuited by the verify_posted idempotency check above before reaching here).
+    case "$VERB" in
+      review|finalize) ;;
+      *) post_reply "$surface" "$cid" "$author" "$pr" \
+           "On it — I've posted a job (\`$base\`) and will follow up here when it lands." ;;
+    esac
     log "posted $base ($VERB on #$pr) + acked"; acted=$((acted+1)); hw="$created"
   else
     log "POST LOST for $base — push did not reach origin/$JOURNAL_BRANCH; leaving cursor at ${hw:-<coldstart>} to retry"

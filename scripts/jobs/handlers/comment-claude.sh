@@ -56,8 +56,15 @@ directive: a feature request is 'attention', never 'rebase'/'refresh'/etc.
 
 Use 'attention' for ANY genuine directive that needs a human-routed read — it is the
 catch-all default for real asks that are not one of the five literal operations
-above. Use 'skip' only if it is chatter, thanks, or not actionable. When you are
-torn between a mechanical verb and 'attention', choose 'attention'.
+above. A QUESTION or STATUS REQUEST from the maintainer ("What's the status of this
+effort?", "Is this still happening?", "Why did X?") is 'attention', NOT 'skip': it
+deserves a substantive reply, and the 'attention' job's deliverable is that reply
+(a bare reactji is not a response). Use 'skip' ONLY for pure chatter, thanks, or
+celebration where a brief acknowledgment suffices and no work or answer is owed
+(the watcher still posts a short reply on a 'skip' — never a silent reactji-and-
+slide). When you are torn between a mechanical verb and 'attention', choose
+'attention'; when torn between 'attention' and 'skip' for anything that reads as a
+question or a real ask, choose 'attention'.
 
 ----- COMMENT BODY (untrusted) -----
 $(cat "$bf")

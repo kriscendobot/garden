@@ -78,6 +78,19 @@ printf '%s %s %s\n' "$2" "$3" "$4" >> "${CW_REACTJI_LOG:?set CW_REACTJI_LOG}"
 EOF
 chmod +x "$REACTSTUB"
 
+# Reply-comment poster stub (the "at least a reply, not just a reactji" directive).
+# Logs "<surface> <comment-id> <pr>" per call so a missing reply, a double-reply on
+# re-poll, and a forbidden self-reply are all detectable. Defaults to /dev/null when
+# a case does not opt in, so the existing A–Z runners stay quiet unless CW_REPLY_LOG
+# is set in the calling environment.
+REPLYSTUB="$TR/reply-stub.sh"
+cat > "$REPLYSTUB" <<'EOF'
+#!/bin/bash
+# GARDEN_COMMENT_REPLY <owner/name> <surface> <comment-id> <pr> <body-file>
+printf '%s %s %s\n' "$2" "$3" "$4" >> "${CW_REPLY_LOG:-/dev/null}"
+EOF
+chmod +x "$REPLYSTUB"
+
 LIESTUB="$TR/lying-post-stub.sh"
 cat > "$LIESTUB" <<'EOF'
 #!/bin/bash
@@ -109,6 +122,7 @@ run_watcher() {  # run_watcher <state> <bare> <fixture> <reactlog> [post-cmd]
       CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
       GARDEN_COMMENT_SOURCE="$SRCSTUB" \
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="${5:-$JOBS/post-job.sh}" \
       GARDEN_COMMENT_FALLBACK=/bin/false \
       GARDEN_COMMENT_TRUST=/bin/false \
@@ -191,10 +205,11 @@ run_directive() {  # run_directive <state> <bare> <fixture> <reactlog> [logfile]
       CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
       GARDEN_COMMENT_SOURCE="$SRCSTUB" \
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
       GARDEN_COMMENT_FALLBACK="${6:-$FBSTUB}" \
       GARDEN_COMMENT_TRUST=/bin/false \
-      GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
+      GARDEN_TRUSTED_ALLOWLIST="${CW_ALLOW:-$ALLOW}" \
       "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$logf"
 }
 SKIPSTUB="$TR/skip-fallback.sh"
@@ -324,6 +339,7 @@ run_silent() {  # run_silent <state> <bare> <selftest-probe> <alert-cmd>
       CW_FIXTURE="$EMPTY_FIX" CW_REACTJI_LOG="$TR/react-silent.log" \
       GARDEN_COMMENT_SOURCE="$SRCSTUB" \
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
       GARDEN_COMMENT_FALLBACK=/bin/false \
       GARDEN_COMMENT_SELFTEST="$3" \
@@ -580,6 +596,7 @@ run_approval() {  # <state> <bare> <fixture> <reactlog> <mergeable-probe> [slug]
       CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
       GARDEN_COMMENT_SOURCE="$SRCSTUB" \
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
       GARDEN_COMMENT_FALLBACK=/bin/false \
       GARDEN_COMMENT_TRUST=/bin/false \
@@ -1254,6 +1271,75 @@ run_directive "$TR/state-dup4" "$BARE_DUP4" "$FIX_DUP4B" "$RLOG_DUP4" "$DUP4LOG"
 [ "$(todo_glob "$BARE_DUP4" "^$SLUG-pr544-[0-9a-f]")" -eq 0 ] && ok "tick 2: NO comment-id-keyed sibling job was minted (the #544 fan-out)" || bad "tick 2: a comment-id-keyed sibling leaked (glob=$(todo_glob "$BARE_DUP4" "^$SLUG-pr544-[0-9a-f]"))"
 grep -q 'FOLD:' "$DUP4LOG" && ok "tick 2: the inline-comment fold is LOGGED" || bad "tick 2: no FOLD log line ($(cat "$DUP4LOG"))"
 [ "$(cursor_seen "$TR/state-dup4" "$BARE_DUP4")" = 2026-06-30T22:00:01Z ] && ok "cursor advanced past the inline comment" || bad "cursor not advanced ($(cursor_seen "$TR/state-dup4" "$BARE_DUP4"))"
+
+# ============================================================================
+# REPLY1–REPLY5 — an ACKNOWLEDGED comment gets AT LEAST a REPLY, not just a reactji
+# (kriskowal directive, 2026-06-30, re endo-but-for-bots #58 comment 4848100199 — a
+# status question that got only a 👀). A trusted non-actionable maintainer comment
+# must produce a reply (not a silent reactji-and-slide); a re-poll must NOT
+# double-reply; the bot's OWN comments must NEVER get a reply (the spiral guard); an
+# untrusted sender gets neither reactji nor reply; an ACTIONABLE comment gets a reply
+# naming the active job in addition to its job. The reply poster is stubbed
+# (CW_REPLY_LOG logs "<surface> <cid> <pr>" per call) so the property is deterministic.
+
+hr; echo "REPLY1 — trusted non-actionable comment (reader skip) → a REPLY is produced (not a silent slide)"; hr
+BARE_RP1="$TR/rp1.git"; seed_bare "$BARE_RP1"
+FIX_RP1="$TR/fix-rp1.tsv"; RLOG_RP1="$TR/react-rp1.log"; : > "$RLOG_RP1"
+RPLOG_RP1="$TR/reply-rp1.log"; : > "$RPLOG_RP1"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T17:00:00Z issue-comment 4848100199 58 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/58#issuecomment-4848100199 \
+  "What's the status of this effort?" > "$FIX_RP1"
+CW_REPLY_LOG="$RPLOG_RP1" run_directive "$TR/state-rp1" "$BARE_RP1" "$FIX_RP1" "$RLOG_RP1" /dev/null "$SKIPSTUB"
+[ "$(todo_count "$BARE_RP1")" -eq 0 ] && ok "reader-skipped comment minted no job" || bad "skip comment posted a job"
+grep -qx "issue-comment 4848100199 eyes" "$RLOG_RP1" && ok "the comment still got its 👀 reactji" || bad "no reactji ($(cat "$RLOG_RP1"))"
+grep -qx "issue-comment 4848100199 58" "$RPLOG_RP1" && ok "a REPLY comment was produced (not just the reactji)" || bad "no reply produced for an acknowledged comment ($(cat "$RPLOG_RP1"))"
+[ "$(grep -c . "$RPLOG_RP1")" -eq 1 ] && ok "exactly one reply" || bad "reply count $(grep -c . "$RPLOG_RP1")"
+[ "$(cursor_seen "$TR/state-rp1" "$BARE_RP1")" = 2026-06-30T17:00:00Z ] && ok "cursor advanced past the engaged comment" || bad "cursor not advanced"
+
+hr; echo "REPLY2 — re-poll of REPLY1 → NO double reply (idempotent)"; hr
+CW_REPLY_LOG="$RPLOG_RP1" run_directive "$TR/state-rp1" "$BARE_RP1" "$FIX_RP1" "$RLOG_RP1" /dev/null "$SKIPSTUB"
+[ "$(grep -c . "$RPLOG_RP1")" -eq 1 ] && ok "still exactly one reply after a re-poll (no double-reply)" || bad "reply duplicated on re-poll ($(grep -c . "$RPLOG_RP1"))"
+
+hr; echo "REPLY3 — the bot's OWN comment → NEVER a reply (self-comment / spiral guard)"; hr
+# Even when the bot login is trusted (allowlisted), post_reply refuses author==bot.
+SELFALLOW="$TR/self-allowlist"; printf 'kriskowal\nkriscendobot\n' > "$SELFALLOW"
+BARE_RP3="$TR/rp3.git"; seed_bare "$BARE_RP3"
+FIX_RP3="$TR/fix-rp3.tsv"; RLOG_RP3="$TR/react-rp3.log"; : > "$RLOG_RP3"
+RPLOG_RP3="$TR/reply-rp3.log"; : > "$RPLOG_RP3"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T18:00:00Z issue-comment 4848200000 58 kriscendobot \
+  https://github.com/endojs/endo-but-for-bots/pull/58#issuecomment-4848200000 \
+  'On it — I have posted a job and will follow up here.' > "$FIX_RP3"
+CW_ALLOW="$SELFALLOW" CW_REPLY_LOG="$RPLOG_RP3" run_directive "$TR/state-rp3" "$BARE_RP3" "$FIX_RP3" "$RLOG_RP3" /dev/null "$SKIPSTUB"
+[ ! -s "$RPLOG_RP3" ] && ok "the bot's own comment got NO reply (no reply→reply spiral)" || bad "replied to the bot's own comment ($(cat "$RPLOG_RP3"))"
+
+hr; echo "REPLY4 — UNTRUSTED non-actionable comment → no reactji AND no reply"; hr
+BARE_RP4="$TR/rp4.git"; seed_bare "$BARE_RP4"
+FIX_RP4="$TR/fix-rp4.tsv"; RLOG_RP4="$TR/react-rp4.log"; : > "$RLOG_RP4"
+RPLOG_RP4="$TR/reply-rp4.log"; : > "$RPLOG_RP4"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T19:00:00Z issue-comment 4848300000 58 drive-by-rando \
+  https://github.com/endojs/endo-but-for-bots/pull/58#issuecomment-4848300000 \
+  'random chatter from a stranger' > "$FIX_RP4"
+CW_REPLY_LOG="$RPLOG_RP4" run_directive "$TR/state-rp4" "$BARE_RP4" "$FIX_RP4" "$RLOG_RP4" /dev/null "$SKIPSTUB"
+[ ! -s "$RLOG_RP4" ] && ok "no reactji for an untrusted sender" || bad "reactji posted for untrusted"
+[ ! -s "$RPLOG_RP4" ] && ok "no reply for an untrusted sender (engage trusted only)" || bad "replied to an untrusted sender ($(cat "$RPLOG_RP4"))"
+
+hr; echo "REPLY5 — ACTIONABLE trusted comment → a job AND a reply naming the active job"; hr
+BARE_RP5="$TR/rp5.git"; seed_bare "$BARE_RP5"
+FIX_RP5="$TR/fix-rp5.tsv"; RLOG_RP5="$TR/react-rp5.log"; : > "$RLOG_RP5"
+RPLOG_RP5="$TR/reply-rp5.log"; : > "$RPLOG_RP5"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T20:00:00Z issue-comment 4848400000 58 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/58#issuecomment-4848400000 \
+  'Please apply this feedback' > "$FIX_RP5"
+CW_REPLY_LOG="$RPLOG_RP5" run_directive "$TR/state-rp5" "$BARE_RP5" "$FIX_RP5" "$RLOG_RP5"   # default FBSTUB → 'attention'
+[ "$(todo_count "$BARE_RP5")" -eq 1 ] && ok "the actionable directive posted a job" || bad "no job posted (todo=$(todo_count "$BARE_RP5"))"
+grep -qx "issue-comment 4848400000 58" "$RPLOG_RP5" && ok "the actionable comment ALSO got a reply naming the work" || bad "no reply on an actionable comment ($(cat "$RPLOG_RP5"))"
+# re-poll → the job is already on the board (verify_posted short-circuit) → no second reply
+CW_REPLY_LOG="$RPLOG_RP5" run_directive "$TR/state-rp5" "$BARE_RP5" "$FIX_RP5" "$RLOG_RP5"
+[ "$(grep -c . "$RPLOG_RP5")" -eq 1 ] && ok "re-poll of the actionable comment does not double-reply" || bad "reply duplicated on re-poll ($(grep -c . "$RPLOG_RP5"))"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
