@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:40:40Z_
+_As of 2026-06-30T04:42:12Z_
 
 ## Latest
 
-Work clustered on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544), which cleared a shepherd, a weaver, and a review pass in succession; a mechanical builder follow-on is now in flight. A shepherd just claimed [endo-but-for-bots#570](https://github.com/endojs/endo-but-for-bots/pull/570) to drive its CI green. On the infra side, two hardening jobs landed: the comment-watcher now dedups its review fan-out, and the PR-feedback path re-checks HEAD on preflight before pushing — both tightening the surveillance-to-dispatch loop against stale-state and duplicate work.
+[endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) advanced through its gardening chain — weave, review, and shepherd all completed — and now has a mechanical builder follow-on plus an attention directive in flight, while a shepherd is driving CI on [endo-but-for-bots#570](https://github.com/endojs/endo-but-for-bots/pull/570). On the garden's own infrastructure, two reliability fixes landed: the comment-watcher now dedups its review fan-out, and the PR-feedback path re-checks the live HEAD before pushing queued work. The board is otherwise drained (todo empty), with the maintainer's main pending items still the 29 parked PRs awaiting review.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr544-2577df92`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-2577df92.md) — attention directive on endojs/endo-but-for-bots PR #544
 - [`endojs-endo-but-for-bots-pr544-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-builder.md) — builder directive on endojs/endo-but-for-bots — mechanical follow-on to PR #544
 - [`endojs-endo-but-for-bots-pr570-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr570-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #570
 
