@@ -1,0 +1,1 @@
+I've launched the implementation. Current status: builder running in the background to implement the two missing acceptance criteria (stack trace + clickable worker chip) in the chat UI, with tests. I'll review, verify, push, and post the PR summary comment once it returns.
