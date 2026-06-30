@@ -1,19 +1,17 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:37:31Z_
+_As of 2026-06-30T05:43:13Z_
 
 ## Latest
 
-Bot fixed the native XS overflow that's been the headline thread: the one-line per-iteration value-stack pop in `fxDefineAll`'s `flatAux` shipped as [moddable#1](https://github.com/kriscendobot/moddable/pull/1) and A/B-verified clears the ymax0 v320 stack overflow at the stock 4096 count. Otherwise the board is quiet — the only transition this cycle was the reactji-diagnostic job closing out after its host environment became unrecoverable mid-run.
-
-The maintainer queue is where attention is owed: two PRs surfaced in the last hour — [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays / freezable TypedArray emulation) — and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix, refreshed for #3276 feedback) has now been parked four days. Several go-ahead plans also await authorization, including verifying the ymax0 hex fix via inquisitor and the restage of [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) onto #475.
+Four directives landed on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) and are now in flight — two attention directives and two review directives — making it the focus of the cycle. Recently completed: [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) (shepherd CI-watch plus its completion report), along with the `ebfb-bytearray-uint8array-view-redesign` (the Uint8Array-view rework behind the passable-byte-arrays work now parked on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)). On the parked front, two fresh PRs await first review — [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and the aforementioned [#503](https://github.com/endojs/endo-but-for-bots/pull/503) — both under an hour old.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 45m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 36m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 52m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 43m)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 21h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 20h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 21h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 14d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 39d)
@@ -30,8 +28,11 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (4)
+- [`endojs-endo-but-for-bots-pr572-22f817ba`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-22f817ba.md) — attention directive on endojs/endo-but-for-bots PR #572
+- [`endojs-endo-but-for-bots-pr572-dea7fcb4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-dea7fcb4.md) — attention directive on endojs/endo-but-for-bots PR #572
+- [`endojs-endo-but-for-bots-pr572-review-f9f39a71`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-f9f39a71.md) — Review directive on endojs/endo-but-for-bots PR #572
+- [`endojs-endo-but-for-bots-pr572-review-feaa10d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-feaa10d8.md) — Review directive on endojs/endo-but-for-bots PR #572
 
 ### tada (677)
 - [`improve-reactji-failure-diagnostic-surfacing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reactji-failure-diagnostic-surfacing.md) — The host environment became unrecoverable mid-job and I have exhausted recove...
