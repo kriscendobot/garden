@@ -232,6 +232,22 @@ all on the read-only `kriscendobot/agoric-sdk` checkout:
    bootstrap space": they are, but via the `getUpgradeKit` power and the
    contract-control kit, not the raw promise-space `${name}Kit`.
 
+   The **operations** counterpart of the same `upgrade(bundleId)` path (useful for
+   the concrete ymaxControl addresses and a non-a3p driver) is the ymax-ops tree:
+   `multichain-testing/ymax-ops/` (`Makefile`, `deploy-design-releases.md`) drives
+   `packages/portfolio-deploy/scripts/{install-bundle,ymax-upgrade,wallet-admin}.ts`;
+   `ymax-upgrade.ts` fetches the `ContractControl` handle from the deployer's
+   smart-wallet store (`WALLET_KEY` = `YMAX_CONTROL_WALLET_KEY`) and calls
+   `ymaxControl.upgrade({ bundleId, privateArgsOverrides })` over `sendBridgeAction`.
+   The Makefile pins the ymaxControl smart-wallet address per target, which is the
+   `controlAddress` the injected bridge action must originate from:
+
+   | target | ymaxControl smart-wallet address |
+   | --- | --- |
+   | ymax0-main | `agoric1e80twfutmrm3wrk3fysjcnef4j82mq8dn6nmcq` |
+   | ymax0-devnet | `agoric10utru593dspjwfewcgdak8lvp9tkz0xttvcnxv` |
+   | ymax1-main | `agoric18dx5f8ck5xy2dgkgeyp2w478dztxv3z2mnz928` |
+
 **Mapping the sequence onto the inquisitor offline repro.** inquisitor drives a
 captured swing-store, not a live chain, so each on-chain step has an offline
 equivalent:
