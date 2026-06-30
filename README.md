@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T00:05:16Z_
+_As of 2026-06-30T00:06:55Z_
 
 ## Latest
 
-Bot work landed on two garden meta-PRs: the [kriskowal/garden#15](https://github.com/kriskowal/garden/pull/15) design completed onto PR #16's branch with a summary comment posted, and an attention directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) closed out while a fresh refresh directive on the same PR is now in flight. The speculative gardener bid/accept market design also wrapped (and was reverted on main2). Otherwise the queue is quiet — the ymax0 v320 XS-overflow reproduction against real chain state is the only substantive job still running, and 29 PRs remain parked for your review, several aging (the [.ts erasable-type-syntax](https://github.com/endojs/endo/pull/3137) support at 14 days and the [iOS Safari isImmutableDataProperty regression test](https://github.com/endojs/endo-but-for-bots/pull/182) at 38).
+A single completion landed since the last bulletin: the refresh directive on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9) closed out, while the lone in-flight job continues reproducing the ymax0 v320 70→71 XS stack overflow against real chain state to verify the hex fix. The board is otherwise quiet, with 29 PRs still parked for review — the oldest being the 40-day-old [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) opencode comparative analysis and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) voice-input chat feature.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`kriskowal-garden-pr9-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-refresh.md) — refresh directive on kriskowal/garden PR #9
+### doin (1)
 - [`reproduce-ymax0-v320-real-chain-state-20260630`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/reproduce-ymax0-v320-real-chain-state-20260630.md) — reproduce ymax0 v320 70->71 XS overflow on REAL chain state + verify the hex fix
 
-### tada (611)
+### tada (612)
+- [`kriskowal-garden-pr9-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-refresh.md) — Completion report: refresh directive on kriskowal/garden #9
 - [`kriskowal-garden-pr9-469d82c6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-469d82c6.md) — Completion report — kriskowal-garden-pr9-469d82c6 (attention directive on kri...
 - [`deadmail-issue-comment-4838594481`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4838594481.md) — Completion report — deadmail-issue-comment-4838594481
 - [`deadmail-issue-comment-4838518722`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4838518722.md) — Completion report
 - [`kriskowal-garden-pr15-33ace472`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr15-33ace472.md) — Design landed on PR #16's branch and the summary comment is posted. Done.
-- [`design-gardener-bid-accept-market`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-gardener-bid-accept-market.md) — Completion report
-- … and 606 more
+- … and 607 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
