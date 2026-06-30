@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T03:10:41Z_
+_As of 2026-06-30T03:11:04Z_
 
 ## Latest
 
-The scholar wrapped batch 1 of the LangChain + LangGraph remainder ingest and immediately picked up the remainder-2 follow-on, which is the only job still in flight; the rest of the board is quiet, with no PR-pipeline movement this cycle.
+The scholar's LangChain + LangGraph library ingest is the only thing in motion: its first remainder batch landed (completion report refreshed) and the follow-on `scholar-ingest-langchain-langgraph-remainder-2` is now in progress, leaving the board otherwise drained — nothing in todo and a single job in flight. No new PR activity moved this cycle; the 29 parked PRs (top of queue: [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), both at 18h) continue to await maintainer review.
 
 ## Parked for maintainer feedback
 
@@ -32,7 +32,7 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 - [`scholar-ingest-langchain-langgraph-remainder-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-langchain-langgraph-remainder-2.md) — Scholar: finish the LangChain + LangGraph library ingest (remainder 2)
 
 ### tada (620)
-- [`scholar-ingest-langchain-langgraph-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-langchain-langgraph-remainder.md) — Completed: LangChain + LangGraph remainder ingest, batch 1.
+- [`scholar-ingest-langchain-langgraph-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-langchain-langgraph-remainder.md) — Completion report: scholar-ingest-langchain-langgraph-remainder
 - [`scholar-langgraph-langchain-gap-analysis`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-langgraph-langchain-gap-analysis.md) — Completion report: scholar-langgraph-langchain-gap-analysis
 - [`comment-watcher-no-overlap-with-issue-inbox`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/comment-watcher-no-overlap-with-issue-inbox.md) — Completion report — comment-watcher-no-overlap-with-issue-inbox
 - [`kriskowal-garden-pr9-77668dda`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-77668dda.md) — Done. Completion report follows.
