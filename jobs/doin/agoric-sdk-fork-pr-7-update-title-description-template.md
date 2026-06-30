@@ -10,3 +10,9 @@ template's sections/format — preserving all substantive content (the XS-safe h
 Bufferish codec validation, the prior CI/portability notes), just restructured to the template.
 Update via `gh pr edit`. Then post a brief **reply comment** confirming the update (acknowledged-
 comment → reply). Bot fork; no upstream contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 8
+  claimed_at: 2026-06-30T23:19:04Z
