@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T13:59:20Z_
+_As of 2026-06-30T14:00:26Z_
 
 ## Latest
 
-A gardener claimed [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475)'s passable-byte-array line forward: a fresh, view-based `byteArray` implementation is now in flight per design [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) (the restrictive Uint8Array-view approach), and completion reports landed for the attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and for [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57). This is the same cluster as the parked [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (freezable TypedArray emulation + byteArray brand check), now awaiting kriskowal's review. On the garden side, a job is encoding erights' full maintainer authority into the library so those directives stop being re-routed. The plan queue still holds the `verify-ymax0-hex-fix-inquisitor` go-ahead and the restage of [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) onto the updated [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475), both parked for authorization.
+Completion reports landed for the attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and for [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57); the plan to restage #57 onto #475 was dropped from the queue. A fresh, view-based `byteArray` build is now in flight against design [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) (restrictive `Uint8Array`-view implementation), which pairs with the passable-byte-arrays PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) sitting parked for review. On the garden-meta side, a job is encoding erights' full maintainer authority so their directives stop being re-routed for authorization. Newly parked and worth a look: CapTP error-tracing [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and #503, both waiting ~9h.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 9h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 9h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -44,7 +44,6 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
-- [`port-ebfb-pr57-onto-475-restage`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-ebfb-pr57-onto-475-restage.md) — _normal_ · restage endo-but-for-bots #57 onto the updated #475
 - [`port-xs-to-rust-memory-safe-engine`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine.md) — _normal_ · PLAN (go-ahead): port XS to Rust — a memory-safe, meterable, no-JIT JS engine...
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
