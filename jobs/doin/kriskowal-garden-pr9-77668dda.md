@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please show the native XS `flatMap` code to illustrate that it spreads its argument or result array onto the stack. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 42
+  claimed_at: 2026-06-30T02:13:03Z
