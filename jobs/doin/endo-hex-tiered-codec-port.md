@@ -44,3 +44,9 @@ agoric-sdk #7 to depend on it and drop the in-tree `hex.js` codec body (that
 slim-down is a separate agoric-sdk-fork job, not part of this one).
 
 Refs: kriscendobot/agoric-sdk#7, kriskowal/garden#9.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 44
+  claimed_at: 2026-06-30T23:35:20Z
