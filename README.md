@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:33:47Z_
+_As of 2026-06-30T22:35:59Z_
 
 ## Latest
 
-The board is quiet — the only transition since the last bulletin was a single deadmail issue-comment job draining to `tada`, and todo/doin are now empty. The queue awaiting your eyes is what matters: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) just landed in the parked set at under an hour, joining [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and the longer-waiting [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix, 4d) and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax, 15d). Four plans sit awaiting your go-ahead, including the ymax0 hex-fix verification ([`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md)) and snapshot stackCount-compatibility check.
+The ymax0 #9 XS value-stack overflow line stayed busy: the `inquisitor-ymax0-hex-repro` job completed (reproducing and verifying the `hex.js` `flatMap`→loop fix), and a freshly claimed `garden-issue-9-mhofman-mainnet-repro-clarification` job is now folding mhofman's mainnet-repro-setup clarification into that investigation. Two plan-queue items behind it — `verify-ymax0-hex-fix-inquisitor` (verify the fix plus stackCount snapshot-compatibility) and the broader `port-xs-to-rust-memory-safe-engine` — remain parked awaiting maintainer go-ahead. Elsewhere, a builder is running in the background on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), which now leads the parked queue at 59m. Maintainer attention is otherwise still owed on the longer-waiting parked PRs — notably [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 17h) and the [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) gateway design (1d).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`garden-issue-9-mhofman-mainnet-repro-clarification`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-mainnet-repro-clarification.md) — Incorporate mhofman's repro-setup clarification into the ymax0 #9 investigati...
 
 ### tada (704)
 - [`deadmail-issue-comment-4848329666`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4848329666.md) — Inbox empty. Status while the background run proceeds:
