@@ -1,7 +1,0 @@
-In `scripts/jobs/handlers/comment-reactji-gh.sh` (the shared reactji poster for comment-watcher.sh, mention-watcher.sh, and issue-inbox-watcher.sh), the definitive failure path throws away every diagnostic. Line 47 calls `gh_api_retry -X POST "$path" -f content="$content" >/dev/null 2>&1` — the `2>&1` redirects gh_api_retry's already-curated WARN diagnostic (common.sh:825/831, which embeds the GitHub status and stderr body) to /dev/null. Change it to `>/dev/null` only, so stdout (the reaction JSON payload) stays suppressed but the diagnostic WARN reaches the journal. Additionally, upgrade the line-48 fallback from `log "reactji POST failed on $path"` (default info prefix `<6>`, filtered out by `journalctl -p warning`) to `log "WARN: reactji POST failed on $path"` so the failure self-surfaces in the warning tail. Net result: the next recurring reactji failure carries the actual GitHub error, letting the mentor distinguish a transient blip from a systematic surface/endpoint misclassification (e.g. a pr-review-comment mis-POSTed to the pr-comment `/issues/comments/<id>/reactions` endpoint → 404). Add/extend a test in `scripts/jobs/test/` asserting that a simulated definitive gh failure surfaces a WARN-prefixed line carrying the gh diagnostic, and verify the existing issue-inbox-watcher-test.sh:268 assertion still passes.
-
----
-claim:
-  host: endolinbot2
-  gardener: 95
-  claimed_at: 2026-06-30T05:21:42Z
