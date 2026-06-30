@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:27:13Z_
+_As of 2026-06-30T22:30:00Z_
 
 ## Latest
 
-A new issue from kriskowal, [kriskowal/garden#18](https://github.com/kriskowal/garden/issues/18), was claimed off the board and is now in progress — the only board transition since the last bulletin. Otherwise the queue is quiet: nothing in `todo`, and the recent completions center on the ymax0 hex work (the `inquisitor-ymax0-hex-repro` repro landed) and a reply on garden#9 about the functor stack. A builder is still running in the background on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), which leads the parked-for-review set at 52 minutes. Worth a maintainer's eye: the ymax0 verification plan (`verify-ymax0-hex-fix-inquisitor`) and the XS-to-Rust port plan both sit in the queue awaiting go-ahead.
+Reusing the engine fix shipped, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) opened fresh and is now parked for review, joining the queue behind the recently-landed passable-byte-arrays work on [#503](https://github.com/endojs/endo-but-for-bots/pull/503). On the infra side, the garden's own issue #18 closed out (job completed), and the ymax0 hex-overflow track advanced: the inquisitor reproduction completed, with a verification plan still parked awaiting maintainer go-ahead to confirm the fix and check stackCount snapshot-compatibility. One dead-lettered issue-comment remains in flight for intent recovery.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`deadmail-issue-comment-4848329666`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4848329666.md) — Dead-lettered message — pick up its intent
-- [`issue-kriskowal-garden-18`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-18.md) — Issue from kriskowal on kriskowal/garden #18
 
-### tada (702)
+### tada (703)
+- [`issue-kriskowal-garden-18`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-18.md) — Completion report — issue-kriskowal-garden-18
 - [`inquisitor-ymax0-hex-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/inquisitor-ymax0-hex-repro.md) — Completion report
 - [`endojs-endo-but-for-bots-pr58-5ce0b78b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-5ce0b78b.md) — Builder is running in the background; my inbox is empty. I'll wait for its co...
 - [`deadmail-issue-comment-4848078424`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4848078424.md) — Completion report
 - [`deadmail-issue-comment-4847636571`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4847636571.md) — Completion report
-- [`garden-issue-9-reply-mhofman-functor-stack`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-reply-mhofman-functor-stack.md) — Completion report
-- … and 697 more
+- … and 698 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
