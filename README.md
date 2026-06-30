@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:18:34Z_
+_As of 2026-06-30T23:21:06Z_
 
 ## Latest
 
-The board is nearly idle: the only fresh transition is one new plan, [`garden-encode-directives-reliably-become-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-encode-directives-reliably-become-jobs.md), parked to widen the comment-watcher so actionable maintainer directives reliably become jobs — it stays blocked until `garden-encode-acknowledged-comment-needs-reply` lands. Four jobs remain in flight: a one-time embargo recheck of the electron 40→42 bump on [endo-but-for-bots#197](https://github.com/endojs/endo-but-for-bots/pull/197), shepherding the remaining macOS failure to green on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277), the read-only retention-paths Chat panel (the next phase after [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284)), and folding mhofman's latest contract-kit/Inquisitor guidance into garden issue #9. Recently completed and worth a glance: the endo-gateway phase-1 virtual-hosting build cleared both panel seats, [endo-but-for-bots#284](https://github.com/endojs/endo-but-for-bots/pull/284) was conducted and its next phase posted, and [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) finished its rebase-then-refactor.
+Two completions landed since the last bulletin. The shepherd rebased [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) onto current `llm`, force-pushed, and CI is re-running on the macOS path; separately, the title, description, and template were refreshed on the agoric-sdk fork's [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7). Newly claimed and in flight: a refresh directive on [endo-but-for-bots#197](https://github.com/endojs/endo-but-for-bots/pull/197) (the electron 40→42 bump, now also under a one-time embargo reevaluation), plus two strands of the [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9) ymax0 repro work — folding in kriskowal's mainnet-validation-tree bundle-publishing examples and mhofman's contract-kit/Inquisitor-bridge guidance. Maintainer attention is most useful on the freshly parked [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, waiting 13m).
 
 ## Parked for maintainer feedback
 
@@ -28,19 +28,20 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`dependabotany-recheck-endo-but-for-bots-pr197`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-pr197.md) — One-time embargo reevaluation: endojs/endo-but-for-bots PR #197 (electron 40→42)
-- [`ebfb-pr-277-shepherd-macos-and-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-277-shepherd-macos-and-reply.md) — PR #277 — shepherd the remaining failure to green + reply (maintainer directive)
 - [`ebfb-retention-paths-chat-panel`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-retention-paths-chat-panel.md) — Build: retention-paths Chat UI Paths panel (read-only) — next phase after #284
+- [`endojs-endo-but-for-bots-pr197-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr197-refresh.md) — refresh directive on endojs/endo-but-for-bots PR #197
+- [`garden-issue-9-kriskowal-mainnet-validation-tree-bundle-publish`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-kriskowal-mainnet-validation-tree-bundle-publish.md) — #9 ymax0 repro — use the mainnet-validation-tree bundle-publishing examples (...
 - [`garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-contract-kit-and-inquisitor-bridge.md) — Incorporate mhofman's latest #9 guidance (contract-kit reachability + Inquisi...
 
-### tada (718)
+### tada (720)
+- [`agoric-sdk-fork-pr-7-update-title-description-template`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-update-title-description-template.md) — Completion report
+- [`ebfb-pr-277-shepherd-macos-and-reply`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-277-shepherd-macos-and-reply.md) — I've rebased PR #277 onto current llm and force-pushed; CI is re-running on t...
 - [`ebfb-pr-442-rebase-then-refactor-on-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-442-rebase-then-refactor-on-platform.md) — Completion report
 - [`build-endo-gateway-package-phase1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-endo-gateway-package-phase1.md) — Both panel seats passed (with the two minor findings now addressed and re-ver...
 - [`ebfb-endo-gateway-phase-1-virtual-hosting`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-endo-gateway-phase-1-virtual-hosting.md) — Completion report
-- [`ebfb-pr-284-conduct-and-post-next-phase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-284-conduct-and-post-next-phase.md) — Completion report — ebfb-pr-284-conduct-and-post-next-phase
-- [`endojs-endo-but-for-bots-pr9-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr9-rebase.md) — Completion report
-- … and 713 more
+- … and 715 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
