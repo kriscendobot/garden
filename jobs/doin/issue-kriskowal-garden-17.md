@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please dispatch a builder to propose a PR against our fork of moddable/xs that constructs its result on the heap instead of spreading the input over slots in the stack. We recently uncovered this behavior. Please link the relevant communications. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 45
+  claimed_at: 2026-06-30T04:58:08Z
