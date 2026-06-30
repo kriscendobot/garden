@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot  Please reread the latest revision of #548's two-PR shape. The description here does not match. However, in one way, the description here is accidentally an improvement. The two PR stages described in #548 can, for the intra-package case, be collapsed into one becau
+
+---
+claim:
+  host: endolinbot2
+  gardener: 43
+  claimed_at: 2026-06-30T03:53:45Z
