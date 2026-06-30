@@ -178,16 +178,33 @@ mainnet). Those examples give the full **publish → install → contract-contro
 upgrade** sequence, of which "install first" is the opening step. The references,
 all on the read-only `kriscendobot/agoric-sdk` checkout:
 
-1. **Publish the bundle to chain (the bundle-publishing example).**
-   `a3p-integration/proposals/n:upgrade-next/test/chunked-bundle.test.ts` drives
-   `installBundle({ bundleJson, chunkSizeLimit, submitter, gzip, sha512,
-   signAndBroadcast })` from `@agoric/client-utils`. That helper
+1. **Publish the bundle to chain (the bundle-publishing example).** Two grades of
+   example exist. The **deploy tool** is the faithful one:
+   `packages/portfolio-deploy/scripts/ymax-deploy-target.ts` runs the real
+   mainnet deploy in two phases — `phase-pre-upgrade` (which installs/publishes
+   the bundle via `recordBundleInstall` → `packages/portfolio-deploy/scripts/
+   install-bundle.ts`) and `phase-upgrade` (the contract-control upgrade in
+   step 3). `install-bundle.ts` gzips the bundle JSON, calls
+   `installBundle(...)` from `@agoric/client-utils`, signs and broadcasts, then
+   **watches the `:bundles` vstorage path for `installed === true`** to confirm
+   the bytes landed. The smaller, self-contained illustration of the same helper
+   is `a3p-integration/proposals/n:upgrade-next/test/chunked-bundle.test.ts`,
+   which drives `installBundle({ bundleJson, chunkSizeLimit, submitter, gzip,
+   sha512, signAndBroadcast })` directly. The helper
    (`packages/client-utils/src/bundle-utils.ts`) builds a `MsgInstallBundle`
    (small bundles ride inline as a gzipped `compressedBundle`; large ones are
    split into `MsgSendChunk` messages keyed by a `chunkedArtifact` sha512
    manifest, then finalized by `MsgInstallBundle`). A `MsgInstallBundle`
    transaction is precisely "publish the bundle bytes to chain"; it is what makes
    the bundle's `b1-…` id resolvable so a later `installBundleID` can find it.
+   **Where the bundle comes from:** `ymax-deploy-target.ts` fetches it as a
+   **release asset** (`bundle-ymax0.json` / `bundle-ymax1.json`) from the
+   agoric-sdk release page via `gh release download <tag> --pattern …`, per
+   mhofman's pointer that the release page carries the prior ymax0/ymax1
+   deployment info. The **over-threshold (devnet "v320") `bundle-ymax0.json`**
+   that actually overflows is one of these release assets — it is *not* present in
+   the mainnet snapshot (every on-chain ymax bundle there imports clean), so the
+   faithful upgrade repro depends on fetching that release asset.
 2. **Delegate contract control to a smartWallet (the a3p ymax proposals).**
    `a3p-integration/proposals/g:ymax1` (README: *"doesn't deploy a new ymax
    contract; rather creates a contract control delegating upgrade etc. to an
