@@ -99,6 +99,15 @@ echo "posted (lie)"; exit 0
 EOF
 chmod +x "$LIESTUB"
 
+# Default PR-state probe for the directive-verb runners: a LIVE/open PR (exit 0) so
+# rebase/retcon/refresh/gauntlet directives proceed to mint their job. The watcher
+# now runs GARDEN_PR_MERGEABLE before minting a NON-finalize directive verb too (so a
+# stale directive on an already-merged PR drops instead of minting a no-op job); this
+# stub keeps the existing hermetic cases off the real `gh`. A case overrides it via
+# CW_MERGEABLE to assert the merged/closed (exit 2) drop.
+MERGEABLE_OPEN="$TR/mergeable-open.sh"
+printf '#!/bin/bash\nexit 0\n' > "$MERGEABLE_OPEN"; chmod +x "$MERGEABLE_OPEN"
+
 cursor_seen() {  # cursor_seen <state-dir> <bare>  -> prints last_seen
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
     "$JOBS/cursor-get.sh" "comments/$SLUG" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1
@@ -127,7 +136,8 @@ run_watcher() {  # run_watcher <state> <bare> <fixture> <reactlog> [post-cmd]
       GARDEN_COMMENT_FALLBACK=/bin/false \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST=/dev/null \
-      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
+      GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"${CW_LOG:-/dev/null}"
 }
 
 # ============================================================================
@@ -166,6 +176,26 @@ ntodo=$(git clone -q --single-branch --branch "$BRANCH" "$BARE_A" "$TR/bv-c" && 
 [ "$ntodo" -eq 1 ] && ok "no duplicate job on re-poll (still exactly one)" || bad "job duplicated ($ntodo)"
 [ "$(grep -c . "$RLOG_A")" -eq 1 ] && ok "no duplicate reactji on re-poll" || bad "reactji duplicated ($(grep -c . "$RLOG_A"))"
 [ "$(cursor_seen "$TR/state-a" "$BARE_A")" = 2026-06-24T10:00:00Z ] && ok "cursor stable on idempotent re-poll" || bad "cursor moved on re-poll"
+
+# ============================================================================
+hr; echo "SD — stale directive verb on an already-MERGED PR → dropped, no job, cursor slides"; hr
+# A rebase/retcon/refresh/gauntlet directive that lands AFTER the PR merged (the #9
+# rebase that arrived ~2 months post-merge) must NOT mint a live job the gardener can
+# only resolve as a no-op. The PR-state probe (stubbed exit 2 = merged/closed) drops
+# it before minting, logging the reason, and the cursor still slides past it.
+BARE_SD="$TR/sd.git"; seed_bare "$BARE_SD"
+FIX_SD="$TR/fix-sd.tsv"; RLOG_SD="$TR/react-sd.log"; : > "$RLOG_SD"
+LOG_SD="$TR/log-sd.txt"; : > "$LOG_SD"
+MERGED="$TR/mergeable-merged.sh"; printf '#!/bin/bash\nexit 2\n' > "$MERGED"; chmod +x "$MERGED"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-24T10:30:00Z issue-comment 117 9 kriskowal \
+  https://github.com/kriskowal/garden/pull/9#issuecomment-117 \
+  'Please rebase on #475' > "$FIX_SD"
+CW_MERGEABLE="$MERGED" CW_LOG="$LOG_SD" run_watcher "$TR/state-sd" "$BARE_SD" "$FIX_SD" "$RLOG_SD"
+board_has "$BARE_SD" "$SLUG-pr9-rebase" && bad "stale directive on a merged PR minted a job" || ok "no job minted for a directive on an already-merged PR"
+[ ! -s "$RLOG_SD" ] && ok "no reactji on the dropped stale directive" || bad "reactji posted: $(cat "$RLOG_SD")"
+grep -qi 'already merged/closed' "$LOG_SD" && ok "the stale-directive drop is LOGGED with its reason" || bad "drop reason not logged ($(cat "$LOG_SD"))"
+[ "$(cursor_seen "$TR/state-sd" "$BARE_SD")" = 2026-06-24T10:30:00Z ] && ok "cursor slid past the dropped stale directive" || bad "cursor did not slide ($(cursor_seen "$TR/state-sd" "$BARE_SD"))"
 
 # ============================================================================
 hr; echo "D — post that did not land → cursor does NOT advance"; hr
@@ -210,6 +240,7 @@ run_directive() {  # run_directive <state> <bare> <fixture> <reactlog> [logfile]
       GARDEN_COMMENT_FALLBACK="${6:-$FBSTUB}" \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST="${CW_ALLOW:-$ALLOW}" \
+      GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
       "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$logf"
 }
 SKIPSTUB="$TR/skip-fallback.sh"
@@ -751,6 +782,7 @@ run_mentiononly() {  # run_mentiononly <state> <bare> <fixture> <reactlog>
       GARDEN_COMMENT_FALLBACK=/bin/false \
       GARDEN_MENTION_ONLY_ALLOWLIST="$MOLIST" \
       GARDEN_PR_AUTHOR="$PRAUTHOR" \
+      GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
       "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1
 }
 
@@ -984,6 +1016,7 @@ run_pronly() {  # run_pronly <state> <bare> <fixture> <reactlog> [logfile] [pr-o
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
       GARDEN_COMMENT_PR_ONLY="${6:-1}" \
+      GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
       "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$logf"
 }
 # auto-derive PR-only from journal state: leave GARDEN_COMMENT_PR_ONLY UNSET.
@@ -998,6 +1031,7 @@ run_autopronly() {  # run_autopronly <state> <bare> <fixture> <reactlog> [logfil
       GARDEN_COMMENT_FALLBACK="$FBSTUB" \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
+      GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
       "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$logf"
 }
 seed_inbox_repo() {  # seed_inbox_repo <bare> <owner/name>  (write config/garden-repo)

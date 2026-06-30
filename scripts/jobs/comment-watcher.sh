@@ -1070,6 +1070,28 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
     esac
   fi
 
+  # A non-finalize directive verb is only worth a job while the target PR is still
+  # LIVE. The finalize path above already drops on an already-merged/closed PR; mirror
+  # that guard here so a STALE directive — one that lands long after the PR merged
+  # (the #9 rebase that arrived ~2 months post-merge; the #343 conductor found already
+  # merged on arrival) — never mints a live job the gardener can only resolve as a
+  # no-op. Reuse the same GARDEN_PR_MERGEABLE probe and drop ONLY on rc 2 (already
+  # merged/closed); rc 0 (ready) and rc 1 (open-but-not-ready) both proceed, since
+  # rebase/retcon/refresh/gauntlet are themselves the remedy for a not-yet-ready PR.
+  # (shepherd is excluded: it is the open-but-not-ready remedy, never a stale-directive
+  # source.) Skip the probe when no PR is resolved (pr=0) — a directive with no PR
+  # target has nothing to check and the probe would only emit a misleading failure.
+  case "$VERB" in
+    rebase|retcon|refresh|gauntlet)
+      if [ "$pr" != 0 ]; then
+        set +e; "$GARDEN_PR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; drc=$?; set -e
+        if [ "$drc" -eq 2 ]; then
+          log "$VERB directive on #$pr but it is already merged/closed — dropping stale directive (no live job)"
+          rm -f "$bf"; hw="$created"; continue
+        fi
+      fi ;;
+  esac
+
   case "$VERB" in
     rebase|retcon|refresh|shepherd|gauntlet) base="$slug-pr$pr-$VERB";;
     finalize)                                base="$slug-pr$pr-conduct";;
