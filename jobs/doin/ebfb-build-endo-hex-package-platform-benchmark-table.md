@@ -41,3 +41,9 @@ the package pick the **best behavior on all platforms by default**.
 default-optimal selection + the back-ported benchmark and the **platform/size/speed/approach table**.
 Run local-verify (format/lint/build/test). Tests must cover each platform path's correctness and the
 capability-selection fallback. Report the PR number and the table.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 79
+  claimed_at: 2026-06-30T23:29:35Z
