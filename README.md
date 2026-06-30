@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:53:36Z_
+_As of 2026-06-30T05:57:58Z_
 
 ## Latest
 
-Recent work concentrated on the byteArray view design doc, [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572), where erights left a three-comment review resolving its open questions. Gardeners recorded the design-of-record bookkeeping autonomously — the sub-view question was settled to the restrictive whole-buffer-span option (captured as a separate issue), and the disposition question was resolved as "withdraw all three and open fresh," now folded in as Design Decision 6 and pushed to the PR branch. Two items are parked for kriskowal: the helper-naming question, which erights deferred to him, and the lifecycle execution of the withdrawal — closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (bot-closable but outside the standing comment-only authorization), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (out of bot scope, needs the boatman), and opening a fresh view-based implementation PR. See the two maintainer-inbox messages for the full a–d plan awaiting go-ahead.
+The byteArray view design doc PR [endojs/endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) drew a 3-comment review from erights resolving its open questions, and two messages are now parked for kriskowal. Gardeners recorded the design-of-record bookkeeping autonomously (Decision 6, "withdraw and open fresh"; restrictive whole-buffer-span span as Decision 3 with new issue #573), but three lifecycle steps need authorization because they cross the bot's scope: closing [endojs/endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endojs/endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (identity boundary — needs the boatman path), and opening a fresh view-based implementation PR. The helper-naming question erights deferred to kriskowal. Board activity was otherwise quiet — only a dead-lettered message in flight awaiting pickup.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 53m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 58m)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 21h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 21h)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -70,15 +70,15 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`deadmail-20260630T054746Z-40346c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260630T054746Z-40346c.md) — Dead-lettered message — pick up its intent
+- [`deadmail-20260630T055455Z-9d5f3c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260630T055455Z-9d5f3c.md) — Dead-lettered message — pick up its intent
 
-### tada (684)
+### tada (685)
+- [`deadmail-20260630T054746Z-40346c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T054746Z-40346c.md) — Completion report — job deadmail-20260630T054746Z-40346c
 - [`endojs-endo-but-for-bots-pr572-review-1007395e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-1007395e.md) — Completion report: review directive on endojs/endo-but-for-bots PR #572
 - [`endojs-endo-but-for-bots-pr572-b07c1061`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-b07c1061.md) — Completion report
 - [`endojs-endo-but-for-bots-pr572-review-f9f39a71`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-f9f39a71.md) — Completion report — job endojs-endo-but-for-bots-pr572-review-f9f39a71
 - [`endojs-endo-but-for-bots-pr572-22f817ba`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-22f817ba.md) — Completion report
-- [`endojs-endo-but-for-bots-pr572-dea7fcb4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-dea7fcb4.md) — The peer (f9f39a71) had already completed by the time I replied, so my coordi...
-- … and 679 more
+- … and 680 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
