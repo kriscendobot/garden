@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:34:02Z_
+_As of 2026-06-30T23:36:08Z_
 
 ## Latest
 
-A gardener wrapped up [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16) (`kriskowal-garden-pr16-eabd1e1d`), the lone completion this cycle; three more jobs on that same PR — two attention/review directives and the in-flight `kriskowal-garden-pr16-3c8d784d` — remain in progress, so #16 is still actively being worked. The board is otherwise quiet with nothing newly posted to todo.
+A single job moved this cycle: [`endo-hex-tiered-codec-port`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-hex-tiered-codec-port.md) was claimed into active work, joining the cluster of `@endo/hex` codec efforts now in flight on endo-but-for-bots — a design-plus-build of a tiered codec alongside the existing best-on-all-platforms benchmark-table build. Worth a maintainer's eye: [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) has freshly parked and is the newest item awaiting review.
 
 ## Parked for maintainer feedback
 
@@ -28,9 +28,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`agoric-sdk-fork-pr-7-apply-richard-gibson-feedback`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-apply-richard-gibson-feedback.md) — Apply Richard Gibson's feedback to the mirror kriscendobot/agoric-sdk#7
 - [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder: create @endo/hex on endo-but-for-bots master — best-on-all-platforms...
+- [`endo-hex-tiered-codec-port`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-hex-tiered-codec-port.md) — Design + build a tiered @endo/hex codec in endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr58-1446f9e1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-1446f9e1.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`kriskowal-garden-pr16-3c8d784d`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-3c8d784d.md) — attention directive on kriskowal/garden PR #16
 - [`kriskowal-garden-pr16-review-39c42194`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-review-39c42194.md) — Review directive on kriskowal/garden PR #16
