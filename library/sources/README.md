@@ -700,6 +700,7 @@ Sources retrieved from public URLs rather than from repository git history. Use 
 | [LangChain middleware (overview)](web--langchain-middleware.md) | https://docs.langchain.com/oss/python/langchain/middleware | 1 | current (remainder batch 3, 2026-06-30) |
 | [LangChain built-in middleware](web--langchain-middleware-built-in.md) | https://docs.langchain.com/oss/python/langchain/middleware/built-in | 2 | current (remainder batch 3, 2026-06-30) |
 | [LangChain custom middleware](web--langchain-middleware-custom.md) | https://docs.langchain.com/oss/python/langchain/middleware/custom | 2 | current (remainder batch 3, 2026-06-30) |
+| [LangGraph use graph API (how-to)](web--langgraph-use-graph-api.md) | https://docs.langchain.com/oss/python/langgraph/use-graph-api | 6 | current (LangGraph remainder-ingest batch 4, 2026-06-30; idempotency anchor is content SHA-256 over the `.md` rendering) |
 | [AWS Marketplace AMI requirements](web--aws-marketplace-ami-requirements.md) | https://docs.aws.amazon.com/marketplace/latest/userguide/product-and-ami-policies.html | 2 | current |
 | [AWS Marketplace container product requirements](web--aws-marketplace-container-requirements.md) | https://docs.aws.amazon.com/marketplace/latest/userguide/container-product-policies.html | 1 | current |
 | [Let's Encrypt ACME challenge types](web--lets-encrypt-acme-challenges.md) | https://letsencrypt.org/docs/challenge-types/ | 2 | current |
