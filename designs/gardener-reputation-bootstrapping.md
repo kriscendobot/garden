@@ -193,10 +193,17 @@ Three disciplines keep synthetic seeding honest:
   work in proportion to that uncertainty rather than trusting the synthetic cost
   outright. This is the guard against the overfitting risk the market design
   flagged.
-- **Exclude drifted artifacts.** A `tada` whose tests no longer pass on the
-  current tree is unusable as a replay target. Pre-filter the replay set
-  deterministically (re-run the gate on the *original* artifact first; drop it if
-  it fails today).
+- **Evaluate on contemporary artifacts (maintainer directive).** Draw the replay
+  set from **recent** completed jobs, not the whole archive. A contemporary
+  artifact still passes its own gate on the current tree, so drift exclusion falls
+  out for free (a `tada` whose tests no longer pass today is by definition not
+  contemporary and is pre-filtered deterministically: re-run the gate on the
+  *original* artifact first and drop it if it fails today). More importantly,
+  because the set continuously refreshes with new real jobs, there is **no fixed
+  corpus for an arm to overfit to**: the evaluation target moves with the codebase
+  and with the current capability bar, which makes it a rolling out-of-time holdout
+  rather than a static benchmark. This is the §9 synthetic-replay-overfitting
+  guard made concrete.
 
 ---
 
@@ -480,10 +487,16 @@ set. Nothing here can break the live race-by-default fleet.
   attempt for **reputation**, while the **job's** total cost (the sum across arms)
   is tracked separately for kind-level economics. Reputation should reflect an
   arm's own efficiency, not penalize it for a predecessor's failure.
-- **Synthetic-replay overfitting.** Does posing-as-customer (§2.2) train arms to
-  historical artifacts rather than to general capability? The acceptance-gate
-  scoring and wide-variance seeding mitigate it, but the residual risk is carried
-  from the market design's §5.3.
+- **Synthetic-replay overfitting (resolved by a contemporary evaluation set).**
+  Posing-as-customer (§2.2) risked training arms to historical artifacts rather
+  than to general capability. The maintainer's directive settles it: **for
+  evaluation, test with contemporary historical artifacts.** A rolling, recent
+  replay set (§2.2) removes the fixed corpus an arm could overfit to and keeps the
+  measure aligned with the current tree and the current capability bar; together
+  with acceptance-gate scoring and wide-variance seeding, the residual overfitting
+  risk the market design's §5.3 flagged is bounded. Residual open: how wide the
+  "contemporary" window should be, which is itself a control parameter to watch and
+  tune (like the consolidator's trailing window in §6.2).
 
 ---
 
