@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:40:26Z_
+_As of 2026-06-30T23:41:31Z_
 
 ## Latest
 
-Three jobs closed since the last bulletin. The [agoric-sdk fork #7](https://github.com/kriscendobot/agoric-sdk/pull/7) Richard-Gibson-feedback pass landed, and [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) completed and is now parked for kriskowal's review. The `endo-hex-tiered-codec-port` job closed with a finding worth a maintainer decision: `@endo/hex` already exists upstream (published `@endo/hex@1.1.1`, mirrored in endo-but-for-bots), is already XS-safe (bounded for-loops, no `flatMap`/large-array spread, no module-scope decode map), and passed a standalone 0..255 round-trip + 1 MiB witness — so the gardener declined to fork-diverge the mirror and is asking whether to close the job as already-satisfied or re-scope it to slimming agoric-sdk #7 down onto the existing `@endo/hex`. Still in flight: a builder is benchmarking and building the `@endo/hex` package across platforms on the bot fork, and a scholar is ingesting the Tailscale OAuth-apps docs toward a garden OAuth skill.
+The @endo/hex line advanced: the [tiered codec port](https://github.com/endojs/endo-but-for-bots) landed and a builder is now in flight creating the `@endo/hex` package on endo-but-for-bots master with a best-on-all-platforms benchmark table. Review and follow-up work wrapped on [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16), the error-tracing-across-CapTP-workers PR [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) completed (now parked for review), and Richard Gibson's feedback was applied to [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7). A scholar is ingesting the Tailscale OAuth-apps doc to produce a garden OAuth skill. Worth a maintainer's eye: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) is freshly parked, and the ymax0-hex-fix verification plan still awaits go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -22,26 +22,7 @@ Three jobs closed since the last bulletin. The [agoric-sdk fork #7](https://gith
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260630T233833Z-01a1d0` — from gardener:endo-hex-tiered-codec-port, reply_to `endo-hex-tiered-codec-port` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T233833Z-01a1d0.md)
-
-> Job endo-hex-tiered-codec-port — premise is already satisfied; surfacing before doing speculative work.
->
-> `@endo/hex` ALREADY EXISTS upstream and is mirrored in endo-but-for-bots:
-> - packages/hex, published @endo/hex@1.1.1, authored upstream (commit ad7a177e8 "feat(hex): Add hex transcoder").
-> - It is already TIERED: Tier 1 native `Uint8Array.fromHex`/`toHex` preferred (captured pre-lockdown, dispatched via Reflect.apply); Tier "floor" is a pure-JS polyfill.
-> - It is XS-SAFE by the job's own criterion: the polyfill uses BOUNDED for-loops with char-code arithmetic — NO flatMap, NO large-array spread, and in fact NO module-scope decode Map at all. I ran a standalone witness: full 0..255 round-trip, mixed/upper/lower case, odd-length + non-hex rejection (incl. the `@`/backtick 0x20-fold guards, no silent truncation), and a 1 MiB encode/decode round-trip — all pass.
-> - Its test suite (test/main.test.js) already covers every #7 correctness pin and more (cross-tier agreement, offset diagnostics, native-path diagnostic preservation, non-ASCII/high-bit rejection).
->
-> Deltas vs the literal job text:
-> 1. NO `Buffer` tier (tier 2). Upstream deliberately goes native -> pure-JS; the polyfill is the only non-native path.
-> 2. The floor is char-code arithmetic, NOT the "map [char-pair] table" #7 found fastest on XS. Upstream's bench comment claims char-code is ~2.5-3x faster than the table on V8 and notes XS is slow regardless until Moddable ships native fromHex.
->
-> Adding a Buffer tier or swapping to a map-table in the bot fork would DIVERGE the mirror from a published upstream package — counter to the mirror's purpose and the spirit of the hard scope line. So I did NOT modify endo-but-for-bots.
->
-> Recommendation: close this job as already-satisfied. The real remaining work is the explicitly-separate agoric-sdk #7 slim-down — make packages/internal depend on `@endo/hex` and drop the in-tree hex.js body. The existing `@endo/hex` is a drop-in for #7's encodeHex/decodeHex (note: #7 currently throws `Invalid hex string: ${hex}`; `@endo/hex` throws a hex/odd-length message with offset+name — equivalent semantics, different text, so #7's tests that assert the exact string would need a tweak). If you DO still want a Buffer perf-tier or the map-table floor, that's an upstream `@endo/hex` design change to take to endojs/endo proper — not the bot fork.
->
-> Should I (a) close as already-satisfied, or (b) re-scope this job to the agoric-sdk #7 slim-down against the existing `@endo/hex`?
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
