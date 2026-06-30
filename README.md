@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T05:07:41Z_
+_As of 2026-06-30T05:09:20Z_
 
 ## Latest
 
-The CapTP error-tracing work on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) completed and the PR is now parked for review. Two directives remain in flight: an attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and a rebase directive on [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57), whose restage onto the updated #475 sits in the plan queue awaiting go-ahead. Otherwise quiet — the parked queue's freshest arrivals, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and the passable-byte-arrays [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), are the ones most worth a look.
+A gardener just claimed the attention directive on [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429), joining two other in-flight items — the directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and the rebase of [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (whose prior pass completed and re-parked as the `port-onto-475` plan). Two PRs surfaced fresh for review and sit at the top of the parked queue: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays / freezable TypedArray emulation), both waiting under 20 minutes. The board is otherwise drained (todo empty), with the ymax0 hex-fix verification and the #57→#475 restage still parked in the plan queue awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr429-248d107b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr429-248d107b.md) — attention directive on endojs/endo-but-for-bots PR #429
 - [`endojs-endo-but-for-bots-pr475-a8a47b48`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-a8a47b48.md) — attention directive on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr57-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr57-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #57
 
