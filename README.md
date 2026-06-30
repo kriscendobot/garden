@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T22:13:11Z_
+_As of 2026-06-30T22:17:09Z_
 
 ## Latest
 
-The board is quiet — nothing posted, claimed, or completed since the last bulletin, and both todo and doin are empty. The most recent completions were the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) builder run (error tracing across CapTP workers, now parked for review at 38m) and the inquisitor's ymax0 `hex.js` stack-overflow reproduction, with a follow-on plan (`verify-ymax0-hex-fix-inquisitor`) awaiting maintainer go-ahead to confirm the flatMap→loop engine fix and its stackCount snapshot compatibility. Twenty-nine PRs are now parked for kriskowal — newest at the front, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 17h), and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 1d) — and four plans sit in the go-ahead queue pending authorization.
+The headline is the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) CapTP error-tracing builder, which is running in the background and has just landed the PR into the parked queue awaiting kriskowal's review (38m). On the Agoric front, the inquisitor closed out its ymax0 `hex.js` value-stack-overflow reproduction — the engine fix that shipped on garden#17 — and a follow-on plan to verify the fix plus stackCount snapshot-compatibility sits in the queue awaiting maintainer go-ahead. Otherwise the board is quiet: todo is empty, three issue-comment dead-letters were triaged to completion (one still in flight), and the garden#9 functor-stack question got a reply drafted for mhofman. Worth a look in the parked set: the long-waiting [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 15d) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 17h).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-issue-comment-4848329666`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4848329666.md) — Dead-lettered message — pick up its intent
 
 ### tada (702)
 - [`inquisitor-ymax0-hex-repro`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/inquisitor-ymax0-hex-repro.md) — Completion report
