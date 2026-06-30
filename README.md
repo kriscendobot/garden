@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T13:55:24Z_
+_As of 2026-06-30T13:56:13Z_
 
 ## Latest
 
-The bulletin input shows no file-level board transitions resolved since the last bulletin, and the dashboard counts (parked PRs, hosts, etc.) are off-limits to restate. Let me write a terse "## Latest" body reflecting what's of substance.
-
-Since there were no resolved transitions and no pending maintainer messages, little of substance moved on the board itself. The notable standing item is the parked review queue.
-
-Here's the bulletin body:
-
-Little moved on the board this cycle — no new posts, claims, or completions resolved, and the maintainer inbox is empty. The standing ask remains review attention on the parked queue: freshest are [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), both under a day old, alongside the design proposal [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (overarching `@endo/gateway` package) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability). Longest-waiting and most at risk of staleness is [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax), parked 14 days. Five plans sit awaiting go-ahead, including the ymax0 hex-fix verification and the #57→#475 restage.
+Little moved since the last bulletin: a single dead-lettered message ([`deadmail-20260630T135440Z-09a11e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260630T135440Z-09a11e.md)) was claimed for intent recovery, with no new posts or completions on the board. The maintainer's attention is best spent on the parked review queue, where the freshest arrivals are the CapTP error-tracing work in [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and the passable byte-arrays feature in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), while [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules) has now waited two weeks.
 
 ## Parked for maintainer feedback
 
@@ -34,8 +28,8 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-20260630T135440Z-09a11e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260630T135440Z-09a11e.md) — Dead-lettered message — pick up its intent
 
 ### tada (690)
 - [`endojs-endo-but-for-bots-pr475-39621e7f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-39621e7f.md) — Completion report — attention directive on endojs/endo-but-for-bots PR #475
