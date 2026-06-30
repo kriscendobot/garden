@@ -62,16 +62,16 @@ fail() { echo "panel #$pr: FAILED at $*" >&2; exit 1; }   # failures are loud
 
 # --- juror seat list: code panel vs design panel ----------------------------
 # The two panel kinds and their seats are the v1 jury composition (see
-# skills/panel-review). The code panel is the 26-seat source-touching panel; the
+# skills/panel-review). The code panel is the 27-seat source-touching panel; the
 # design panel is the 7-seat design-only panel. The script senses which to run
 # from the diff (design-only when every changed path is under designs/), then
 # iterates the matching seat list. A project can override either list via env.
 
-# Code panel (26 seats) — source-touching PRs.
+# Code panel (27 seats) — source-touching PRs.
 : "${GARDEN_CODE_SEATS:=assessor typist stylist packager archivist prover curator \
 migrator locksmith warden saboteur breaker purist spec-keeper wire-watcher \
 engine-realist integrator benchmarker changeset-auditor surfacer scribe pruner \
-gateway corner-prober fast-checker releaser}"
+gateway corner-prober fast-checker releaser transplanter}"
 
 # Design panel (7 seats) — design-only PRs (paths under designs/).
 : "${GARDEN_DESIGN_SEATS:=critic skeptic decomplector ergonomist copyeditor pedant novice}"

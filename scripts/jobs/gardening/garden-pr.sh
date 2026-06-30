@@ -62,6 +62,15 @@ run_if "$SENSE" changed-md "$wt" "$base" -- true   # placeholder: e.g. lint-mark
 # import-graph / dep automation only if an import line moved in the diff
 run_if "$SENSE" diff-keyword "$wt" import "$base" -- true  # placeholder: e.g. check-deps "$wt"
 
+# workstation-coupling fixer: ONLY when the deterministic detector finds the
+# current user's home directory hardcoded in an ADDED diff line (cheap when
+# clean; an LLM rewrite when it fires). The detector keys off $HOME dynamically,
+# never a literal, so this gate and its handler stay clean under their own check.
+# The transplanter juror seat is the semantic backstop for what the grep misses.
+DETECT_HOME_COUPLING="$HERE/detect-home-coupling.sh"
+: "${GARDEN_HOME_COUPLING_FIXER:=$HERE/../handlers/portability-coupling-claude.sh}"
+run_if "$DETECT_HOME_COUPLING" check "$wt" "$base" -- "$GARDEN_HOME_COUPLING_FIXER" "$wt" "$base"
+
 # --- evaluation/test gate BEFORE CI: err toward running everything -----------
 # False positives are fine here; false negatives are not. We do NOT sense-gate
 # the eval suite: we run it. The default eval runner is the deterministic local
