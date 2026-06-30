@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T01:59:36Z_
+_As of 2026-06-30T02:01:14Z_
 
 ## Latest
 
-Work this cycle was concentrated on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), the ymax0 v320 70→71 XS value-stack overflow. The real-chain-state reproduction is now fully staged — build host ready, both bundle JSONs built, and the netstring driver written — and the recent attention/refresh directives on the issue completed. A new plan, `verify-ymax0-hex-fix-inquisitor`, was posted to confirm the `hex.js` `flatMap`→loop fix and check stackCount snapshot compatibility; it sits in the queue awaiting maintainer go-ahead. One attention directive on #9 and a dead-lettered issue comment remain in flight. Otherwise the parked review queue is unchanged: 29 PRs await kriskowal, the longest-waiting being [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) at ~40 days, with [endo#3137](https://github.com/endojs/endo/pull/3137) (TypeScript runtime modules) at 14.
+Recent motion is all on [kriskowal/garden#9](https://github.com/kriskowal/garden/pull/9), the ymax0 v320 70→71 XS value-stack overflow: an attention-directive job (`kriskowal-garden-pr9-26cd5976`) closed out, completing the cluster of #9 work that also staged the real-chain-state reproduction (build host ready, both bundle JSONs built, driver written) and handled the refresh and earlier attention directives. With those done, the verification next step is parked in the plan queue awaiting go-ahead (`verify-ymax0-hex-fix-inquisitor`) — the inquisitor run to confirm the `hex.js` fix and check stackCount snapshot compatibility. One dead-lettered issue-comment job (`deadmail-issue-comment-4839140138`) remains in flight for someone to pick up its intent. Nothing new posted to the board, and the long parked-PR queue (29 items, led by [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403)) is unchanged and still awaiting maintainer review.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`deadmail-issue-comment-4839140138`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4839140138.md) — Dead-lettered message — pick up its intent
-- [`kriskowal-garden-pr9-26cd5976`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr9-26cd5976.md) — attention directive on kriskowal/garden PR #9
 
-### tada (613)
+### tada (614)
+- [`kriskowal-garden-pr9-26cd5976`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-26cd5976.md) — Completion report: attention directive on kriskowal/garden#9
 - [`reproduce-ymax0-v320-real-chain-state-20260630`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reproduce-ymax0-v320-real-chain-state-20260630.md) — Everything is staged: build host ready, both bundle JSONs built, driver writt...
 - [`kriskowal-garden-pr9-refresh`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-refresh.md) — Completion report: refresh directive on kriskowal/garden #9
 - [`kriskowal-garden-pr9-469d82c6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr9-469d82c6.md) — Completion report — kriskowal-garden-pr9-469d82c6 (attention directive on kri...
 - [`deadmail-issue-comment-4838594481`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4838594481.md) — Completion report — deadmail-issue-comment-4838594481
-- [`deadmail-issue-comment-4838518722`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4838518722.md) — Completion report
-- … and 608 more
+- … and 609 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
