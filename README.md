@@ -1,14 +1,20 @@
 # Garden bulletin
 
-_As of 2026-06-30T13:19:55Z_
+_As of 2026-06-30T13:55:24Z_
 
 ## Latest
 
-On [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) (the byteArray view design doc), erights left a three-comment review resolving the doc's open questions, and two gardeners have routed the fallout to you. A peer recorded the disposition decision ("withdraw all three and open fresh") as Design Decision 6 and pushed it to the PR branch (c31c6a312), and the restrictive-span question was settled to the restrictive whole-buffer-span option with a follow-up issue #573. Three items now **await your authorization** because they cross the PR-close boundary or reach upstream: closing [endo-but-for-bots#429](https://github.com/endojs/endo-but-for-bots/pull/429) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57) (bot can close but lacks standing PR-close authority), withdrawing upstream [endojs/endo#3226](https://github.com/endojs/endo/pull/3226) (out of bot scope — needs you or the boatman), and opening a fresh view-based implementation PR seeded from the `feat/narrow-bytearray-to-uint8` prototype. The helper-naming question was deferred by erights to you as well. Otherwise the board is quiet — todo and doin are empty, recent completions cleared on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) and [endo-but-for-bots#57](https://github.com/endojs/endo-but-for-bots/pull/57), and several plans remain parked awaiting your go-ahead.
+The bulletin input shows no file-level board transitions resolved since the last bulletin, and the dashboard counts (parked PRs, hosts, etc.) are off-limits to restate. Let me write a terse "## Latest" body reflecting what's of substance.
+
+Since there were no resolved transitions and no pending maintainer messages, little of substance moved on the board itself. The notable standing item is the parked review queue.
+
+Here's the bulletin body:
+
+Little moved on the board this cycle — no new posts, claims, or completions resolved, and the maintainer inbox is empty. The standing ask remains review attention on the parked queue: freshest are [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), both under a day old, alongside the design proposal [endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) (overarching `@endo/gateway` package) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability). Longest-waiting and most at risk of staleness is [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax), parked 14 days. Five plans sit awaiting go-ahead, including the ymax0 hex-fix verification and the #57→#475 restage.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 8h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 9h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 8h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
@@ -22,48 +28,7 @@ On [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572)
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260630T054655Z-c69950` — from gardener:endojs-endo-but-for-bots-pr572-dea7fcb4, reply_to `endojs-endo-but-for-bots-pr572-dea7fcb4` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T054655Z-c69950.md)
-
-> ATTENTION / authorization request — erights' review on endojs/endo-but-for-bots#572 (byteArray design doc)
->
-> erights left a 3-comment review on the design doc PR #572 resolving its open questions. One part needs your authorization because it crosses repos (incl. upstream Endo) and the directive arrived on an untrusted PR comment, which I can't self-promote into a PR-close authorization.
->
-> erights' decisions:
-> 1. Sub-view open question: "go with the restrictive option for now" (whole-buffer-span / no permissive sub-views); capture the question+discussion as a SEPARATE ISSUE assigned to erights and link it from #572.
-> 2. Disposition open question (this job's trigger, anchored on the doc's "withdraw all three vs retarget" line): "For all, withdraw and open fresh." → withdraw #429, #57, and upstream endojs/endo#3226, and open a fresh view-based implementation PR.
-> 3. Helper-naming unification: erights defers to @kriskowal.
->
-> What executing #2 entails (and why I'm routing, not acting):
-> - Close endo-but-for-bots #429 (kriscendobot, draft) and #57 (kriscendobot) — bot CAN close these, but PR-close is not covered by the endo-but-for-bots standing authorization (comments/reactjis only), so it needs your go-ahead.
-> - Close upstream endojs/endo#3226 — kriskowal-authored, upstream Endo: bot CANNOT touch it (identity boundary). This needs you / the boatman path.
-> - Open a fresh view-based implementation PR grounded in design #572 + the existing feat/narrow-bytearray-to-uint8 prototype — a builder job I can post once authorized.
->
-> Recommended plan if you approve:
->   a. I close #429 and #57 with a close-comment citing #572 + the fresh-impl plan (branches preserved, reversible).
->   b. I post a build job: "fresh view-based byteArray implementation PR per design #572, restrictive whole-buffer-span option."
->   c. I file the sub-view issue assigned to erights and link it from #572 (also resolves erights' comment #1).
->   d. You/boatman handle closing upstream endojs/endo#3226.
->
-> I've added an 'eyes' reactji to erights' directive comment to mark it received. Awaiting your go-ahead on a-d (or a subset).
-
-- `20260630T054924Z-17df96` — from gardener:endojs-endo-but-for-bots-pr572-review-f9f39a71, reply_to `endojs-endo-but-for-bots-pr572-review-f9f39a71` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T054924Z-17df96.md)
-
-> endo-but-for-bots PR #572 (byteArray view design) — erights resolved the disposition
-> open question (review 4597598287): "For all, withdraw and open fresh."
->
-> Done autonomously (design-of-record bookkeeping): recorded it as Design Decision 6,
-> updated the Status + "Relationship to existing changes" prose, removed the disposition
-> open question, replied on the thread. Pushed to the PR branch (c31c6a312).
->
-> Needs your / a boatman's hand (lifecycle execution I did NOT do autonomously):
->   1. Withdraw (close) #429 and #57 on endo-but-for-bots.
->   2. Withdraw upstream endojs/endo#3226 — upstream endojs/endo action, out of bot scope.
->   3. Open a fresh view-based implementation PR, seeded from feat/narrow-bytearray-to-uint8.
->
-> Note: this PR also has two sibling review threads being handled by peer gardeners —
-> the restrictive-span question (already resolved to restrictive + issue #573, Decision 3)
-> and the helper-naming question (erights deferred it to @kriskowal — needs your call).
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
