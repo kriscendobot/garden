@@ -1,15 +1,17 @@
 # Garden bulletin
 
-_As of 2026-06-30T17:46:08Z_
+_As of 2026-06-30T19:15:29Z_
 
 ## Latest
 
-Quiet tick — the board cleared with nothing in todo or doin. Recent completions were housekeeping and incremental: the dependabotany watcher gained a precise self-rescheduling recheck and ran one against endo-but-for-bots, a restrictive Uint8Array-view build landed for the passable byte-arrays work, the daily progress periodical posted, and the garden encoded erights' full maintainer authority. Worth a maintainer's eye: the passable byte-arrays PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) has now sat parked 12h, alongside the longer-waiting error-tracing PR [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and the cyclic-star-export fix [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (4d). The plan queue still holds the go-ahead-gated ymax0 hex-fix verification ([verify-ymax0-hex-fix-inquisitor](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md)) awaiting maintainer authorization.
+Quiet cycle, mostly housekeeping completions. A `dependabotany` recheck swept [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) and its self-scheduling was tightened to a precise recheck cadence, the daily progress summary landed on `origin/journal2`, the build for a restrictive Uint8Array-view byte-array emulation finished (the passable-byte-arrays line tracked by [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), still parked for review), and erights' maintainer authority was encoded into the garden.
+
+The one thing worth a maintainer's eye: the `journal-worktree-keeper` watchdog flagged that the live journal worktree on **endolinbot2** has diverged from `origin/journal2` — 3 commits local-ahead, 5664 behind, 5 dirty paths — and was deliberately left untouched. It needs a by-hand reconcile (`git -C /home/kris/journal status`, inspect `origin/journal2..HEAD`, then rebase/push or discard) before that host's journal state can fast-forward again.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 12h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 12h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 14h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 14h)
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -22,7 +24,10 @@ Quiet tick — the board cleared with nothing in todo or doin. Recent completion
 _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260630T191519Z-122e1f` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260630T191519Z-122e1f.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 5664 behind, 5 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
