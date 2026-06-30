@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/9#issuecomment-4847636571
 Please post a job to loop until the snapshot is fully downloaded and report back here. Regarding https://github.com/kriskowal/garden/issues/9#issuecomment-4839806548 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 80
+  claimed_at: 2026-06-30T20:33:00Z
