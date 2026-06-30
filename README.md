@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:44:47Z_
+_As of 2026-06-30T04:45:55Z_
 
 ## Latest
 
-Work on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) advanced through its weave, shepherd, and review stages — all three landed in `tada` — and it now spins off three live follow-ons: an attention directive, a mechanical builder follow-on, and a shepherd pass on the new [endo-but-for-bots#570](https://github.com/endojs/endo-but-for-bots/pull/570). On the garden infra side, two reliability fixes completed: the comment-watcher's review fan-out now dedups, and the PR-feedback preflight re-checks HEAD before acting. A fresh job opened to address review feedback on mirror PR #7 (portable xsnap-worker path in the XS driver). The parked queue is unchanged — 29 PRs still awaiting kriskowal, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 14 days) and a cluster of 39-day-old endo-but-for-bots designs.
+The shepherd's run on [endo-but-for-bots#570](https://github.com/endojs/endo-but-for-bots/pull/570) wrapped up, the only board completion since the last bulletin. Most of the active energy is on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544): its review and weave both finished, and two follow-on jobs — an attention directive and a mechanical builder follow-on — are now in flight. Two garden-infra hardening jobs also landed, sharpening the comment-watcher's review fan-out deduplication and adding a pre-push HEAD re-check to the PR-feedback flow. Still in progress is review-feedback work on the agoric-sdk fork mirror PR #7 (portable xsnap-worker path). Nothing new is parked for maintainer review this cycle, though 29 PRs remain awaiting kriskowal.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#343](https://github.com/endojs/endo-but-for-bots/pull/343) — design(gateway): overarching @endo/gateway package integrating the gateway/weblet/Noise cluster (waiting 20h)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 19h)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 20h)
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 3d)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 4d)
@@ -28,19 +28,18 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr544-2577df92`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-2577df92.md) — attention directive on endojs/endo-but-for-bots PR #544
 - [`endojs-endo-but-for-bots-pr544-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-builder.md) — builder directive on endojs/endo-but-for-bots — mechanical follow-on to PR #544
-- [`endojs-endo-but-for-bots-pr570-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr570-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #570
 - [`pr7-portable-xsnap-worker-path`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/pr7-portable-xsnap-worker-path.md) — Address review feedback on mirror PR #7: portable xsnap-worker path in the XS...
 
-### tada (660)
+### tada (661)
+- [`endojs-endo-but-for-bots-pr570-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr570-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr544-review-a0acabee`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-review-a0acabee.md) — Completion report
 - [`endojs-endo-but-for-bots-pr544-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-weaver.md) — Weave complete. Final report:
 - [`improve-comment-watcher-review-fanout-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-review-fanout-dedup.md) — Completion report
 - [`improve-pr-feedback-preflight-recheck-head`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-pr-feedback-preflight-recheck-head.md) — Completion report
-- [`endojs-endo-but-for-bots-pr544-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-shepherd.md) — Completion report
-- … and 655 more
+- … and 656 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
