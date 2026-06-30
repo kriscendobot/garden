@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-06-30T04:25:47Z_
+_As of 2026-06-30T04:28:47Z_
 
 ## Latest
 
-Work on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) is the live thread: a review-directive and a shepherd directive were both just claimed and are in flight, following several completed passes on the same PR. Two infra hardening jobs are also underway — tightening the review/attention dedup in `comment-watcher.sh` so a single review doesn't fan out into duplicate jobs, and adding a deterministic pre-push preflight that re-checks a PR's HEAD before feedback work lands. The board is otherwise drained (nothing in todo), and the deep-work plan queue — verifying the ymax0 hex fix, the XS-to-Rust port, and the minion.town AWS deploy — remains parked awaiting your go-ahead.
+Work converged on [endojs/endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544): the review and shepherd directives are in flight and a weaver directive was just claimed to rebase it, joined by several already-landed completions on the same PR. Two garden-infra hardening jobs are also active — tightening the review/attention dedup in the comment-watcher so a single review can't fan out into duplicate jobs, and adding a deterministic preflight that re-checks PR HEAD before feedback work. Nothing new is parked for the maintainer; 29 PRs still await review, the oldest being [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (40d) and [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (39d).
 
 ## Parked for maintainer feedback
 
@@ -28,9 +28,10 @@ _Showing top 10 of 29 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr544-review-a0acabee`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-review-a0acabee.md) — Review directive on endojs/endo-but-for-bots PR #544
 - [`endojs-endo-but-for-bots-pr544-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #544
+- [`endojs-endo-but-for-bots-pr544-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-weaver.md) — weaver directive on endojs/endo-but-for-bots PR #544
 - [`improve-comment-watcher-review-fanout-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-comment-watcher-review-fanout-dedup.md) — Harden the review/attention dedup in scripts/jobs/comment-watcher.sh so a sin...
 - [`improve-pr-feedback-preflight-recheck-head`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-pr-feedback-preflight-recheck-head.md) — Add a deterministic preflight helper scripts/jobs/gardening/pr-feedback-prefl...
 
