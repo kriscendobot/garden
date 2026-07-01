@@ -22,3 +22,9 @@ step couldn't run, say so honestly.
 **Scope:** investigation on the bot's own repro infra / inquisitor. Reading the Agoric release tag +
 bundles is **read-only reference**; do **NOT** comment on or link any artifact to upstream
 Agoric/agoric-sdk. Bot identity.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 88
+  claimed_at: 2026-07-01T04:03:11Z
