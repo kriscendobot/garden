@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:01:03Z_
+_As of 2026-07-01T02:04:50Z_
 
 ## Latest
 
-A pair of sibling builder jobs converged on kriskowal's #442 "enforce `.js` by lint" ask: both independently produced the same `@endo/jsdoc-import-extensions` rule (covering the JSDoc `@import` blind spot that import/extensions and import/no-unresolved miss), and both correctly concluded that requiring `.js` on `@endo/*` subpaths is *not* uniformly right — `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so those specifiers resolve only in extensionless form. The duplicate [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) was self-closed in favor of [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which has the proper frozen `llm` base and a changeset; #581 is the review target, with one optional `checkTypeImports: true` suggestion left on it. No maintainer scope decision is needed. Separately, a review directive on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) was just claimed, and the shepherd finished its diagnosis-and-fix pass on the kriscendobot/agoric-sdk fork's PR #7. Worth a look: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) newly surfaced at the top of the parked queue.
+A review pass on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) completed, the only board transition this cycle. Two maintainer messages track the ".js extension by lint" ask from kriskowal's #442 review: two builder jobs independently landed the same design (a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot, plus `checkTypeImports: true`), so the gardener closed its [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) as a duplicate of the earlier, better-based [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) (frozen `llm` base, changeset) — review target is now #581, no maintainer decision needed. Both PRs correctly scope enforcement to relative imports and leave `@endo/*` subpaths to their exports maps, since `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` deliberately use extensionless export keys. The board is otherwise nearly drained (one job in flight, adding Agoric mainnet governance proposals 111-116 to a bot fork).
 
 ## Parked for maintainer feedback
 
@@ -39,17 +39,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`agoric-3-proposals-316-missing-proposals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-316-missing-proposals.md) — Add missing Agoric mainnet governance proposals 111-116 to a kriscendobot for...
-- [`endojs-endo-but-for-bots-pr572-review-c378dbbc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-c378dbbc.md) — Review directive on endojs/endo-but-for-bots PR #572
 
-### tada (757)
+### tada (758)
+- [`endojs-endo-but-for-bots-pr572-review-c378dbbc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-c378dbbc.md) — Completion report
 - [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-20.md) — Done. Comment posted, inbox clean, no main2 changes needed.
 - [`deadmail-issue-comment-4849045455`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4849045455.md) — Completion report
 - [`agoric-sdk-fork-pr-7-shepherd-after-slim-down`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-shepherd-after-slim-down.md) — I've completed the diagnosis and fixes for PR #7 and pushed them. The backgro...
 - [`enforce-js-extension-lint-endo-but-for-bots`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/enforce-js-extension-lint-endo-but-for-bots.md) — Completion report: enforce-js-extension-lint-endo-but-for-bots
-- [`build-ebfb-namehub-interface-unification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-ebfb-namehub-interface-unification.md) — I've completed the substantive work and am waiting on CI. Let me stop here an...
-- … and 752 more
+- … and 753 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
