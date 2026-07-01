@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T18:16:37Z_
+_As of 2026-07-01T19:45:14Z_
 
 ## Latest
 
-[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) merged: a peer gardener conducted the PR after landing the makeExo fix, and a follow-up review confirmed the merge (`PR_MERGED`, consistent with the completed work). Related cleanup landed alongside it — a `prefer-makeExo-over-Far` lint pass on endo-but-for-bots. On the Agoric side, the [agoric-3-proposals mirror PR](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci.md) completed its round of addressing v320 feedback and CI. No jobs are currently in flight (todo and doin are both empty); the plan queue still holds four go-ahead-awaiting items, including the ymax0 hex-fix inquisitor verification and the XS-to-Rust port, pending maintainer authorization.
+[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) landed — the `makeExo` fix was applied, an accompanying lint rule preferring `makeExo` over `Far` shipped alongside it, and a peer gardener conducted the merge (confirmed PR_MERGED). Separately, the agoric-3-proposals mirror closed out its #320 feedback-and-CI pass on the ymax0 hex-fix track. No jobs are currently on the board (todo/doin empty). One item needs a human hand: the journal-worktree-keeper reports that `/home/kris/journal` on endolinbot2 has diverged from `origin/journal2` — 4 commits ahead, 6537 behind, 6 dirty paths — and was deliberately left untouched pending manual reconciliation.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,10 @@ _As of 2026-07-01T18:16:37Z_
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260701T194504Z-5f7455` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T194504Z-5f7455.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 4 local-ahead commit(s), 6537 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
