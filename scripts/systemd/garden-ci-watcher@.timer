@@ -1,0 +1,17 @@
+[Unit]
+Description=Garden CI-status watcher timer for repo %i
+
+[Timer]
+# Bind the instance timer explicitly to its same-instance service.
+Unit=garden-ci-watcher@%i.service
+# OnBootSec anchors the first elapse to a FIXED monotonic reference (boot), so the
+# timer always has a concrete next-trigger and fires promptly on arming;
+# OnUnitActiveSec drives the steady cadence after the first run. Mirrors
+# garden-comment-watcher@.timer (see its note on the daemon-reload anchor race).
+OnBootSec=45s
+OnUnitActiveSec=90s
+# Default accuracy is 1min; tighten so a 90s cadence does not get batched late.
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

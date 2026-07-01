@@ -6,7 +6,13 @@
 # Two journal-backed watch sets, reconciled to systemd timer units each tick:
 #   repos/         → garden-triager@<slug>         (commit watch; laxer bar)
 #   comment-repos/ → garden-comment-watcher@<slug> (PR/issue COMMENT watch)
-# A commit that adds a file is a watch, one that removes it an unwatch. This
+#                  → garden-ci-watcher@<slug>      (CI-STATUS watch; auto-shepherd)
+# The CI-status watcher rides the SAME cleared comment-repos/ set: a repo cleared
+# for comment surveillance is also cleared for the by-construction-safe CI-status
+# watch (it reads only CI status, feeds no external text to an LLM), so it needs no
+# third set and never widens the surveillance surface. See ci-watcher.sh header
+# § Monitoring safety. A commit that adds a file is a watch, one that removes it an
+# unwatch. This
 # service's primary input is therefore the JOURNAL, not the repos themselves.
 # Each tick it syncs the journal and reconciles the running timer units to
 # exactly match the set. Idempotent.
@@ -78,6 +84,8 @@ reconcile_set() {
 unit_ctl daemon-reload 2>/dev/null || log "WARN: daemon-reload failed (continuing to reconcile)"
 
 # repos/ → commit triager (laxer bar); comment-repos/ → comment watcher (stricter
-# monitoring-safety bar, widened only after journal-recorded maintainer auth).
+# monitoring-safety bar, widened only after journal-recorded maintainer auth) AND
+# the CI-status watcher (auto-shepherd on red; rides the same cleared set).
 reconcile_set repos         garden-triager
 reconcile_set comment-repos garden-comment-watcher
+reconcile_set comment-repos garden-ci-watcher

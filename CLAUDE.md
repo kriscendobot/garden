@@ -224,9 +224,11 @@ The garden is a **leader/follower** fleet (issue kriskowal/garden#11, Multibot;
   two liaison maintainer-inbox Monitors double-answer. The leader-only set:
   `garden-foreman`, `garden-scheduler`, `garden-bulletin`, `garden-deadmail`,
   `garden-reaper`, `garden-follow-up`, `garden-proxy`, `garden-mentor`,
-  `garden-mirror-closer`, `garden-comment-watcher@*`, `garden-mention-watcher`,
-  `garden-triager@*`, `garden-issue-inbox`, `garden-library-source-drift-scan`,
-  and the **liaison maintainer-inbox Monitor**.
+  `garden-mirror-closer`, `garden-comment-watcher@*`, `garden-ci-watcher@*`,
+  `garden-mention-watcher`, `garden-triager@*`, `garden-issue-inbox`,
+  `garden-library-source-drift-scan`, and the **liaison maintainer-inbox Monitor**.
+  (`garden-ci-watcher@*` auto-posts a shepherd job when an open bot-authored PR's
+  CI goes red; leader-only so the shepherd is never double-posted across hosts.)
 - **Per-host local-infra (every host, not shared work):** `garden-gardener@*`,
   `garden-gardener-scaler` (each host scales its own pool), `garden-upgrade-monitor`,
   `garden-clone-keeper`, `garden-journal-worktree-keeper`, `garden-repo-watcher`

@@ -35,8 +35,9 @@ DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 #
 #   1. Template units (garden-*@.{service,timer}) — enabled PER-INSTANCE, never
 #      globally: garden-gardener@ (by `scale`), garden-comment-watcher@ /
-#      garden-triager@ (per watched repo, by the repo-watcher from the journal's
-#      repos/ set), garden-watcher@ (per feed). These are
+#      garden-ci-watcher@ (per watched repo, by the repo-watcher from the journal's
+#      comment-repos/ set) / garden-triager@ (per watched repo, from repos/),
+#      garden-watcher@ (per feed). These are
 #      excluded structurally by the `@` filter in intended_units, not by name.
 #
 #   2. Monitoring-gated units that the monitoring-safety constraint (see CLAUDE.md

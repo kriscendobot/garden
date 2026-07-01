@@ -63,6 +63,22 @@ gardeners — with **more automation and less discretion** than a v1 dispatcher.
   `endojs/endo-but-for-bots`. The watcher maps the verb table deterministically,
   reactji-acknowledges (👀) before posting, and verifies each post reached
   `origin/journal2` before advancing its `comments/<slug>` cursor.
+- **CI-status watch + auto-shepherd-on-red.** A third deterministic sibling,
+  `scripts/jobs/ci-watcher.sh` (`garden-ci-watcher@<slug>`), closes the loop the
+  maintainer named on endo-but-for-bots #58: nothing used to trigger a shepherd
+  autonomously — the only path was a maintainer typing `shepherd #N` as a comment.
+  The CI watcher enumerates a repo's **own open bot-authored PRs** authoritatively
+  (paginated REST, never a default `gh pr list` page cap — the #284 lesson), reads
+  each PR's check-suite rollup **deterministically** (no LLM over CI logs), and on a
+  **completed FAILURE** (not in-progress, not a flake-retry window) posts exactly one
+  `<slug>-pr<N>-shepherd` job — the SAME basename the manual path mints, so the two
+  producers never double-post. It backs off while the rollup is still
+  `QUEUED`/`IN_PROGRESS` and skips a PR whose shepherd is already live. It rides the
+  **same cleared `comment-repos/` set** (armed by the repo-watcher alongside the
+  comment watcher) so it only ever looks at repos already cleared for surveillance,
+  though it is injection-safe by construction — it reads only CI status and feeds no
+  external text to `claude -p`. Leader-only singleton (`is-main-host.sh`
+  ExecCondition) so the shepherd is never double-posted across hosts.
 - **GitHub-wide @-mention watch + the SENDER-TRUST GATE.** A separate watcher,
   `scripts/jobs/mention-watcher.sh` (single instance, `garden-mention-watcher`),
   watches **all of GitHub** for @kriscendobot mentions — not a gated repo set.

@@ -1,0 +1,244 @@
+#!/bin/bash
+# ci-watcher.sh — per-repo CI-STATUS producer. Watch one gated repo's OWN open
+# bot-authored PRs and auto-post a shepherd job the moment CI goes red.
+#
+# Usage: ci-watcher.sh <repo-slug>      e.g. endojs-endo-but-for-bots
+#
+# Sibling to triager.sh (watches branch COMMITS) and comment-watcher.sh (watches
+# PR/issue COMMENTS). This third producer watches CI STATUS. It closes the loop the
+# maintainer named on endojs/endo-but-for-bots #58: a gardener (or maintainer) pushes
+# to an open bot PR, CI goes red on a lint/prettier failure, and the failure sits
+# unattended until a human types "Shepherd". Before this producer the ONLY path to a
+# shepherd was that manual comment (comment-watcher.sh maps `shepherd #N` → a shepherd
+# job); NOTHING watched CI status. Now a completed-red CI on a bot PR yields exactly
+# one shepherd job with no maintainer comment, deduped across ticks and hosts.
+#
+# The pipeline is fully DETERMINISTIC — plain-code status reads and a fixed mapping,
+# no LLM reasoning over CI logs (the triager's low-discretion spirit):
+#
+#     enumerate the repo's OWN open PRs (authoritative paginated REST — never a
+#       default gh page cap, the #284 surveillance-drop lesson)
+#       → keep only PRs AUTHORED by the bot whose head branch lives on a repo the
+#         bot can push (so a shepherd can actually drive the branch)
+#       → read each PR's check-suite rollup DETERMINISTICALLY (ci-rollup handler)
+#       → on a COMPLETED FAILURE (not in-progress, not a flake-retry window) with no
+#         shepherd already live for that PR, post <slug>-pr<N>-shepherd
+#       → back off on a rollup still QUEUED/IN_PROGRESS; do nothing on green.
+#
+# ── Idempotency / anti-thrash ────────────────────────────────────────────────
+# The basename is the SAME one the manual-shepherd path mints (comment-watcher.sh:
+# `<slug>-pr<N>-shepherd`), so the two producers can never double-post: post-job.sh
+# is idempotent by basename across todo/doin/tada, and this watcher also pre-checks
+# the board and skips a PR whose shepherd is already live (todo/doin) before posting.
+# A rollup still settling (a retry in flight) returns "in progress" and is skipped,
+# so a transient red never mints a premature shepherd.
+#
+# ── Leader-only singleton ────────────────────────────────────────────────────
+# Like the other watchers this is a leader-only singleton: garden-ci-watcher@.service
+# carries the is-main-host.sh ExecCondition, so on a follower the tick is skipped
+# cleanly and the shepherd is never double-posted across hosts (CLAUDE.md § Leader
+# and follower hosts).
+#
+# ── Monitoring safety ────────────────────────────────────────────────────────
+# This watcher reads only PR CI STATUS and metadata (author, head repo) — NEVER a PR
+# body, title, or comment — and feeds NONE of it to an LLM; the job body it writes is
+# deterministic and names the PR by URL. So unlike the comment watcher it introduces
+# no prompt-injection surface (injection-safe by construction, like the review-queue
+# daemon). It is nonetheless gated to the SAME cleared, maintainer-authorized set the
+# comment watcher uses — the journal's comment-repos/ directory, armed per-repo by
+# repo-watcher.sh — so it only ever looks at repos already cleared for surveillance
+# (CLAUDE.md § Monitoring safety constraint), defence in depth over the by-construction
+# safety.
+#
+# The per-PR I/O is indirected so tests substitute deterministic stubs:
+#   GARDEN_CI_PR_SOURCE <owner/name> <bot-login>  -> TSV: number author head_repo updated_at
+#   GARDEN_CI_ROLLUP    <owner/name> <pr>         -> exit 0 RED / 10 green / 11 none / 12 pending
+#   GARDEN_CI_POST      <basename> <body-file>    (post-job.sh)
+# The bot-author gate, the head-branch-pushable gate, and the is-bot-repo gate live
+# HERE (not in a handler) so the test exercises them directly rather than mocking them.
+
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=common.sh
+source "$HERE/common.sh"
+
+slug="${1:?usage: ci-watcher.sh <repo-slug>}"
+GARDEN_TAG="ci-watcher/$slug"
+: "${GARDEN_BOT_LOGIN:=kriscendobot}"
+: "${GARDEN_CI_PR_SOURCE:=$HERE/handlers/ci-pr-source-gh.sh}"
+: "${GARDEN_CI_ROLLUP:=$HERE/handlers/ci-rollup-gh.sh}"
+: "${GARDEN_CI_POST:=$HERE/post-job.sh}"
+: "${GARDEN_CI_VERIFY_CLONE:=$GARDEN_STATE/ci-watcher/verify}"
+VERIFY="$GARDEN_CI_VERIFY_CLONE"
+# Bound the PR-source enumeration so a hung gh/git can never outlive the tick.
+: "${GARDEN_CI_SOURCE_TIMEOUT_SECS:=180}"
+: "${GARDEN_CI_KILL_AFTER:=10s}"
+
+fleet_draining && { log "fleet draining; skipping"; exit 0; }
+
+# slug is <owner>-<name>; owners in our set carry no dash, so split on the first.
+owner="${slug%%-*}"; name="${slug#*-}"
+repo="$owner/$name"
+[ "$owner" != "$slug" ] && [ -n "$name" ] || die "cannot derive owner/name from slug '$slug'"
+
+# --- bot-repo gate ----------------------------------------------------------
+# Auto-shepherding drives a PR's branch on its own authority, so it is scoped HARD
+# to bot repos: endojs/endo-but-for-bots and the bot's own forks (owner == the bot
+# login). agoric/agoric-sdk and the endojs/endo upstream are NEVER autonomously
+# driven — those stay the maintainer's (and the boatman's) call. Denylist-by-default:
+# anything not provably a bot repo is skipped. A cleared comment-repos/ entry that is
+# NOT a bot repo (e.g. kriskowal/garden, watched for comments but not bot-authored
+# PR-driven) exits cleanly here before any gh call.
+is_bot_repo() {  # is_bot_repo <owner/name>
+  case "$1" in
+    agoric/agoric-sdk|endojs/endo) return 1 ;;   # explicit out-of-scope upstreams
+    endojs/endo-but-for-bots)      return 0 ;;   # the gated bot repo
+    "$GARDEN_BOT_LOGIN"/*)         return 0 ;;   # bot-owned forks
+    *)                             return 1 ;;
+  esac
+}
+if ! is_bot_repo "$repo"; then
+  log "not a bot repo ($repo) — never autonomously shepherd non-bot PRs; skipping"
+  exit 0
+fi
+
+# rc 0 if the PR's head branch lives on a repo the bot can push (so a shepherd can
+# actually drive it): the head repo is bot-owned, OR it is the base repo itself and
+# the base repo is a bot repo (a same-repo branch on a bot repo — bot has push).
+head_pushable() {  # head_pushable <head-repo-full-name>
+  local head="$1"
+  [ -n "$head" ] || return 1
+  case "$head" in "$GARDEN_BOT_LOGIN"/*) return 0 ;; esac
+  [ "$head" = "$repo" ]   # same-repo branch on this (already bot-verified) repo
+}
+
+# Reuse a persistent VERIFY clone (under $GARDEN_STATE, never torn down) to confirm a
+# just-posted job actually reached origin/journal2 before counting it, and to
+# pre-check the live board so a shepherd already in flight is not re-posted.
+_VERIFY_FETCHED=""
+verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/tick unless fresh)
+  ensure_clone "$VERIFY"
+  if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
+    journal_fetch "$VERIFY" >/dev/null 2>&1 || return 1
+    _VERIFY_FETCHED=1
+  fi
+  return 0
+}
+# rc 0 if <base> is LIVE (todo/doin) on origin/journal2. A completed shepherd (tada)
+# does NOT count as live — but post-job.sh's own todo/doin/tada idempotency still
+# prevents re-minting the identical basename, matching the manual-shepherd path.
+shepherd_live() {  # shepherd_live <base> [fresh]
+  local base="$1" sub
+  verify_fetch "${2:-}" || return 1
+  for sub in "$JOBS_TODO" "$JOBS_DOIN"; do
+    git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:$sub/$base.md" 2>/dev/null && return 0
+  done
+  return 1
+}
+# rc 0 if <base> exists anywhere in the lifecycle (todo/doin/tada) — the post landed.
+posted_anywhere() {  # posted_anywhere <base> [fresh]
+  local base="$1" sub
+  verify_fetch "${2:-}" || return 1
+  for sub in "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
+    git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:$sub/$base.md" 2>/dev/null && return 0
+  done
+  return 1
+}
+
+# --- enumerate the repo's open PRs (bounded, reaped source subtree) ----------
+# The source runs `gh --paginate`, which forks git credential helpers; bound it under
+# `timeout` and reap the whole process group on signal/exit so a systemd stop mid-tick
+# cannot orphan a git child into the unit cgroup (mirrors comment-watcher.sh's reap).
+SRC="$(mktemp)"; ERRF="$(mktemp)"
+SOURCE_TIMEOUT_PID=""
+cleanup() {
+  rm -f "$SRC" "$ERRF"
+  local pid="$SOURCE_TIMEOUT_PID"
+  SOURCE_TIMEOUT_PID=""
+  [ -n "$pid" ] || return 0
+  kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
+  wait "$pid" 2>/dev/null || true
+  kill -KILL "-$pid" 2>/dev/null || true
+}
+trap 'cleanup' EXIT
+trap 'cleanup; exit 143' TERM
+trap 'cleanup; exit 130' INT
+
+src_rc=0
+if command -v timeout >/dev/null 2>&1; then
+  timeout --signal=TERM --kill-after="$GARDEN_CI_KILL_AFTER" "${GARDEN_CI_SOURCE_TIMEOUT_SECS}s" \
+    "$GARDEN_CI_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" &
+  SOURCE_TIMEOUT_PID=$!
+  wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
+  SOURCE_TIMEOUT_PID=""
+else
+  "$GARDEN_CI_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
+fi
+if [ "$src_rc" -ne 0 ]; then
+  sed 's/^/  source: /' "$ERRF" >&2 || true
+  die "ci PR source failed for $repo (rc=$src_rc; see source stderr above)"
+fi
+
+bot_lc="$(printf '%s' "$GARDEN_BOT_LOGIN" | tr '[:upper:]' '[:lower:]')"
+open_prs=0; ours=0; red=0; pending=0; posted=0
+# The source's 4th column (updated_at) is unused here — we enumerate every open bot
+# PR each tick rather than activity-bounding — but is emitted for parity with the
+# other sources and possible future bounding; read it into a throwaway.
+while IFS=$'\t' read -r pr author head _; do
+  [ -n "$pr" ] || continue
+  open_prs=$((open_prs+1))
+
+  # Gate 1: our PR — authored by the bot.
+  [ "$(printf '%s' "$author" | tr '[:upper:]' '[:lower:]')" = "$bot_lc" ] || continue
+  # Gate 2: head branch lives on a repo the bot can push (a shepherd can drive it).
+  if ! head_pushable "$head"; then
+    log "skip #$pr: head '$head' is not bot-pushable (a shepherd could not drive it)"
+    continue
+  fi
+  ours=$((ours+1))
+
+  # Read the CI rollup DETERMINISTICALLY. Exit code IS the verdict.
+  set +e; "$GARDEN_CI_ROLLUP" "$repo" "$pr" >/dev/null 2>&1; rrc=$?; set -e
+  case "$rrc" in
+    0)  : ;;                                                # RED → shepherd (below)
+    10) log "#$pr green — nothing to do"; continue ;;
+    11) log "#$pr has no checks reported — nothing to do"; continue ;;
+    12) log "#$pr CI still in progress/queued — backing off"; pending=$((pending+1)); continue ;;
+    *)  log "WARN: #$pr rollup unreadable (rc=$rrc) — skipping (never guess a state)"; continue ;;
+  esac
+  red=$((red+1))
+
+  base="$slug-pr$pr-shepherd"
+  # Anti-thrash: if a shepherd for this PR is already live (todo/doin) OR already
+  # anywhere in the lifecycle, do not re-post. post-job.sh is also idempotent by
+  # basename, so this is belt-and-suspenders + a clean log line.
+  if posted_anywhere "$base"; then
+    log "#$pr is red but a shepherd job ($base) already exists — idempotent skip"
+    continue
+  fi
+
+  jb="$(mktemp)"
+  {
+    printf '# shepherd (auto: red CI) on %s PR #%s\n\n' "$repo" "$pr"
+    printf 'CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).\n'
+    printf 'Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status\n'
+    printf 'watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.\n\n'
+    printf 'PR: https://github.com/%s/pull/%s\n' "$repo" "$pr"
+    printf 'Head: %s (bot-pushable)\n\n' "$head"
+    printf 'Read the failing checks and drive them green (see roles/shepherd/AGENT.md).\n'
+    printf 'If the failure is out of a shepherd''s scope, escalate to a fixer per the\n'
+    printf 'shepherd→fixer auto-chain. Re-fetch the live check state before acting;\n'
+    printf 'this job was minted from a rollup read at post time.\n'
+  } > "$jb"
+  "$GARDEN_CI_POST" "$base" "$jb" >/dev/null 2>&1 || true
+  rm -f "$jb"
+
+  if posted_anywhere "$base" fresh; then
+    log "posted $base (auto-shepherd on red CI for #$pr)"
+    posted=$((posted+1))
+  else
+    log "WARN: post of $base did not reach origin/$JOURNAL_BRANCH — will retry next tick"
+  fi
+done < "$SRC"
+
+log "scanned $open_prs open PR(s) on $repo: $ours bot-authored, $red red, $pending in-progress, $posted shepherd job(s) posted"
