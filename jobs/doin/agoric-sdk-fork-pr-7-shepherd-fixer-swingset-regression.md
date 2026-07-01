@@ -18,3 +18,9 @@ job done unless **(a)** CI is green or every residual red is explained-pre-exist
 posted a **CI shepherding summary REPLY COMMENT on #7** (each red: fixed / explained, final status). A
 silent "completed" with red CI is exactly the failure being fixed elsewhere — do not repeat it here.
 Bot fork; no upstream contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 76
+  claimed_at: 2026-07-01T05:27:47Z
