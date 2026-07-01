@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T01:37:08Z_
+_As of 2026-07-01T01:40:01Z_
 
 ## Latest
 
-The lint enforcement ask from kriskowal's #442 review resolved through a race: two builder jobs independently landed the same design (a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot, relative-only scope), so [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) was closed as a duplicate of the two-minutes-earlier [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) — now the review target, opened on a frozen `llm` base with a changeset. Both PRs reached the same scope call worth noting: requiring `.js` on `@endo/*` subpaths is *not* uniformly correct (platform/agentry/preact-container use extensionless export keys), so both correctly leave subpaths to their exports maps; no maintainer decision is needed there. Separately, the shepherd finished its diagnosis and fixes on the [kriscendobot/agoric-sdk fork PR #7](https://github.com/kriscendobot/agoric-sdk/pull/7) after the slim-down and pushed, and the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-rendering fix completed its Chrome verification pass.
+The `.js`-extension lint enforcement for kriskowal's #442 review landed as a DRAFT: a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot that both `import/extensions` and `import/no-unresolved` miss, plus `checkTypeImports: true`. Two sibling builder jobs independently reached the same design within two minutes; the gardener closed its [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) as a duplicate in favor of [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) (proper frozen `llm` base, changeset, 158 tests green), leaving one optional `checkTypeImports` suggestion there. Notably, **no maintainer decision is needed** on the scope question both raised: requiring `.js` on `@endo/*` subpaths is not uniformly correct — `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so both PRs correctly leave subpaths to their exports maps and `import/no-unresolved`; migrating those three to `.js`-suffixed keys is a separable follow-up. Review target is [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581). Also completed this cycle: the Chrome-verified error-rendering fix on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (now freshly parked for review), the NameHub interface-unification build, and a shepherd pass on the `kriscendobot/agoric-sdk` fork's PR #7.
 
 ## Parked for maintainer feedback
 
@@ -39,17 +39,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-issue-comment-4849045455`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4849045455.md) — Dead-lettered message — pick up its intent
+### doin (1)
 - [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-20.md) — Issue from kriskowal on kriskowal/garden #20
 
-### tada (755)
+### tada (756)
+- [`deadmail-issue-comment-4849045455`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4849045455.md) — Completion report
 - [`agoric-sdk-fork-pr-7-shepherd-after-slim-down`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-shepherd-after-slim-down.md) — I've completed the diagnosis and fixes for PR #7 and pushed them. The backgro...
 - [`enforce-js-extension-lint-endo-but-for-bots`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/enforce-js-extension-lint-endo-but-for-bots.md) — Completion report: enforce-js-extension-lint-endo-but-for-bots
 - [`build-ebfb-namehub-interface-unification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-ebfb-namehub-interface-unification.md) — I've completed the substantive work and am waiting on CI. Let me stop here an...
 - [`ebfb-pr-58-fix-error-rendering-verify-in-chrome`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-fix-error-rendering-verify-in-chrome.md) — Completion report
-- [`improve-classify-claude-session-limit-as-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-claude-session-limit-as-transient.md) — Completion report
-- … and 750 more
+- … and 751 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
