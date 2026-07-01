@@ -25,3 +25,9 @@ passed in the garden's test env but **fails in real local usage** — a timing/r
 4. Reply on #58 with: the race diagnosis, the watch/cancel implementation, and the **real local-usage**
    verification evidence. Verification-integrity: passing in test ≠ verified; cite the real-usage run.
 Bot fork; no upstream contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-07-01T05:33:11Z
