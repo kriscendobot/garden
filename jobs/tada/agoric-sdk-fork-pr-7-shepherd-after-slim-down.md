@@ -1,0 +1,1 @@
+I've completed the diagnosis and fixes for PR #7 and pushed them. The background poll is monitoring the three checks I fixed. Waiting for CI to converge (the `build` prerequisite must finish before the lint/dependency-graph jobs run, ~12-15 min out). I'll resume when the poll reports terminal states or the wakeup fires.
