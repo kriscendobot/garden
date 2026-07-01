@@ -122,10 +122,11 @@ board_has() {  # board_has <bare> <base>  -> 0 if job present in todo/doin/tada
 
 run_watcher() {  # run_watcher <state> <bare> <fixture> <reactlog> [post-cmd]
   # Trust is DENIED deterministically (empty allowlist + /bin/false org check) so
-  # these verb-gate cases stay hermetic: a trusted sender now routes to the reader
-  # (rc 2), which would otherwise hit the real org-membership API. The cases here
-  # act via a DETECTED VERB (trust-independent) or DROP as untrusted; the trust-
-  # driven fallback path is exercised separately by run_directive (E/F/G/GG).
+  # these verb-gate cases stay hermetic: a trusted sender's ambiguous comment now
+  # mints a deterministic `attention` job (rc 2), which would otherwise hit the real
+  # org-membership API to decide trust. The cases here act via a DETECTED VERB
+  # (trust-independent) or DROP as untrusted; the trusted-ambiguous `attention` path
+  # is exercised separately by run_directive (E/G/GG/DET).
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_REPOS="$TR/norepos" \
       CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
@@ -133,7 +134,6 @@ run_watcher() {  # run_watcher <state> <bare> <fixture> <reactlog> [post-cmd]
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
       GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="${5:-$JOBS/post-job.sh}" \
-      GARDEN_COMMENT_FALLBACK=/bin/false \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST=/dev/null \
       GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
@@ -212,23 +212,33 @@ seen_d="$(cursor_seen "$TR/state-d" "$BARE_D")"
 
 # ============================================================================
 # Bug 2 — a trusted sender's plain-language directive (no @-mention, no verb) must
-# fall back to the triager, while the same comment from an untrusted sender, and a
-# non-directive from a trusted sender, stay dropped. A fallback stub stands in for
-# the claude triager (returns 'attention'); trust is granted via the allowlist file
-# override and DENIED by a /bin/false org-membership handler.
+# become a job, while the same comment from an untrusted sender stays dropped. The
+# observe→post-job path is FULLY DETERMINISTIC — there is NO claude/LLM anywhere
+# between observing a comment and posting a job (maintainer directive 2026-07-01);
+# the ambiguous case mints a generic `attention` (triage) job. Trust is granted via
+# the allowlist file override and DENIED by a /bin/false org-membership handler.
 ALLOW="$TR/allowlist"; printf 'kriskowal\n' > "$ALLOW"
-FBSTUB="$TR/attention-fallback.sh"
-cat > "$FBSTUB" <<'EOF'
+
+# NEVER-CALL sentinel — the watcher must invoke NO LLM/fallback in the observe→post
+# path. There is no GARDEN_COMMENT_FALLBACK var anymore, so setting it must be inert.
+# The DET case wires this as GARDEN_COMMENT_FALLBACK and asserts the sentinel file is
+# NEVER created (proving the dead env var is ignored); a few legacy cases also pass it
+# positionally to run_directive, where the extra arg is simply unused.
+NEVERCALL="$TR/never-call-fallback.sh"
+cat > "$NEVERCALL" <<'EOF'
 #!/bin/bash
-# stand in for the claude triager: a directive routes to 'attention'.
-echo attention
+# The observe→post-job path must never exec any LLM fallback. Reaching here is a bug.
+echo "FATAL: comment-watcher execed an LLM fallback in the observe->post-job path" >&2
+: > "${CW_NEVERCALL_SENTINEL:-/dev/null}"
+echo skip
 EOF
-chmod +x "$FBSTUB"
+chmod +x "$NEVERCALL"
 # run the watcher with the directive-aware trust wiring (allowlist + deny org).
 # Optional 5th arg names a file to capture the watcher's stderr (the `log` stream),
-# so a test can assert the no-silent-slide REASON line; optional 6th arg overrides
-# the fallback (default: the 'attention' stub). The default discards both streams.
-run_directive() {  # run_directive <state> <bare> <fixture> <reactlog> [logfile] [fallback]
+# so a test can assert the no-silent-slide REASON line. (A legacy 6th positional arg
+# is accepted and IGNORED — there is no LLM fallback to override.) The default
+# discards both streams.
+run_directive() {  # run_directive <state> <bare> <fixture> <reactlog> [logfile]
   local logf="${5:-/dev/null}"
   env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_REPOS="$TR/norepos" \
@@ -237,26 +247,18 @@ run_directive() {  # run_directive <state> <bare> <fixture> <reactlog> [logfile]
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
       GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
-      GARDEN_COMMENT_FALLBACK="${6:-$FBSTUB}" \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST="${CW_ALLOW:-$ALLOW}" \
       GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
       "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$logf"
 }
-SKIPSTUB="$TR/skip-fallback.sh"
-cat > "$SKIPSTUB" <<'EOF'
-#!/bin/bash
-# stand in for the claude reader judging a comment NON-actionable.
-echo skip
-EOF
-chmod +x "$SKIPSTUB"
 todo_count() {  # todo_count <bare>  -> non-gitkeep entries in jobs/todo
   local v n; v="$(mktemp -d "$TR/tc.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
   n=$(ls -1 "$v/jobs/todo" | grep -vxc '.gitkeep' || true); rm -rf "$v"; printf '%s' "$n"
 }
 
-hr; echo "E — trusted sender plain directive (no @, no verb) → triager fallback job"; hr
+hr; echo "E — trusted sender plain directive (no @, no verb) → deterministic attention job"; hr
 BARE_E="$TR/e.git"; seed_bare "$BARE_E"
 FIX_E="$TR/fix-e.tsv"; RLOG_E="$TR/react-e.log"; : > "$RLOG_E"
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
@@ -280,27 +282,29 @@ run_directive "$TR/state-f" "$BARE_F" "$FIX_F" "$RLOG_F"
 [ ! -s "$RLOG_F" ] && ok "no reactji for an untrusted sender" || bad "reactji posted for untrusted: $(cat "$RLOG_F")"
 [ "$(cursor_seen "$TR/state-f" "$BARE_F")" = 2026-06-24T14:00:00Z ] && ok "cursor slid past the dropped untrusted comment" || bad "cursor did not slide"
 
-hr; echo "G — non-directive from a TRUSTED sender → reader says skip → NO job, but ALWAYS reactji + logged reason"; hr
-# NEW no-silent-drop property: a trusted, in-scope comment the reader judges
-# non-actionable mints no job but STILL gets a 👀 receipt, and the slide is LOGGED
-# with its reason — never a silent slide (the dropped endo-but-for-bots #405 lesson).
+hr; echo "G — a TRUSTED sender's ambiguous chatter → a DETERMINISTIC attention job (no LLM skip)"; hr
+# The observe→post-job path is now fully deterministic (no claude): a trusted, in-scope
+# comment with no verb NEVER depends on an LLM to decide "skip". It ALWAYS mints an
+# `attention` (triage) job — the gardener that claims it reads the comment and, if it is
+# pure chatter, completes a light-reply no-op. This is the fix for the dropped ambiguous
+# #503/#405 directives: an LLM skip/failure can no longer drop a trusted comment.
 BARE_G="$TR/g.git"; seed_bare "$BARE_G"
 FIX_G="$TR/fix-g.tsv"; RLOG_G="$TR/react-g.log"; : > "$RLOG_G"; GLOG="$TR/g.stderr"; : > "$GLOG"
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   2026-06-24T15:00:00Z issue-comment 666 503 kriskowal \
   https://github.com/endojs/endo-but-for-bots/pull/503#issuecomment-666 \
   'Thanks for the help here!' > "$FIX_G"
-run_directive "$TR/state-g" "$BARE_G" "$FIX_G" "$RLOG_G" "$GLOG" "$SKIPSTUB"
-[ "$(todo_count "$BARE_G")" -eq 0 ] && ok "reader-skipped comment minted no job" || bad "skip comment posted a job"
-grep -qx "issue-comment 666 eyes" "$RLOG_G" && ok "trusted comment STILL got its 👀 receipt despite no job" || bad "no reactji on a trusted non-actionable comment ($(cat "$RLOG_G"))"
-grep -q 'ACK-no-job' "$GLOG" && grep -q 'claude-reader:skip' "$GLOG" && ok "the slide is LOGGED with its reason (no silent slide)" || bad "no logged ACK/reason for the skipped comment ($(cat "$GLOG"))"
-[ "$(cursor_seen "$TR/state-g" "$BARE_G")" = 2026-06-24T15:00:00Z ] && ok "cursor slid past the acknowledged comment" || bad "cursor did not slide"
+run_directive "$TR/state-g" "$BARE_G" "$FIX_G" "$RLOG_G" "$GLOG"
+[ "$(todo_count "$BARE_G")" -eq 1 ] && ok "trusted ambiguous comment minted a deterministic attention job (never an LLM skip/drop)" || bad "trusted ambiguous comment did not post a job (todo=$(todo_count "$BARE_G"))"
+grep -q 'attention on #503' "$GLOG" && ok "the posted job is an 'attention' (triage) job on #503 — deterministic, no LLM" || bad "no posted-attention log line ($(cat "$GLOG"))"
+grep -qx "issue-comment 666 eyes" "$RLOG_G" && ok "the comment got its 👀 receipt" || bad "no reactji on the comment ($(cat "$RLOG_G"))"
+[ "$(cursor_seen "$TR/state-g" "$BARE_G")" = 2026-06-24T15:00:00Z ] && ok "cursor advanced past the actioned comment" || bad "cursor did not advance"
 
-hr; echo "GG — trusted directive with NO 'please'/verb (the #405 phrasing) → reaches the reader, not rc==1"; hr
+hr; echo "GG — trusted directive with NO 'please'/verb (the #405 phrasing) → deterministic attention job, not rc==1"; hr
 # The #405 root cause: "Getting closer. 1. … 2. Let's aggregate Handles … 4. Remove …"
 # carries clear asks but no "please" and no listed verb, so the deterministic gate
-# scores it non-actionable. For a TRUSTED sender it must route to the reader/fallback
-# (which here returns 'attention' → a job), NEVER the old silent rc==1 drop.
+# scores it non-actionable. For a TRUSTED sender it must mint a deterministic
+# `attention` (triage) job, NEVER the old silent rc==1 drop and NEVER an LLM skip.
 BARE_GG="$TR/gg.git"; seed_bare "$BARE_GG"
 FIX_GG="$TR/fix-gg.tsv"; RLOG_GG="$TR/react-gg.log"; : > "$RLOG_GG"
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
@@ -308,7 +312,7 @@ printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   https://github.com/endojs/endo-but-for-bots/pull/405#issuecomment-4825162435 \
   'Getting closer. 1. Aggregate the Handles into one table. 2. Let'\''s manually order them. 4. Remove the stray import and increase the indent.' > "$FIX_GG"
 run_directive "$TR/state-gg" "$BARE_GG" "$FIX_GG" "$RLOG_GG"
-[ "$(todo_count "$BARE_GG")" -eq 1 ] && ok "the #405-style directive routed to the reader (posted a job)" || bad "directive dropped at rc==1 (todo=$(todo_count "$BARE_GG"))"
+[ "$(todo_count "$BARE_GG")" -eq 1 ] && ok "the #405-style directive minted a deterministic attention job" || bad "directive dropped at rc==1 (todo=$(todo_count "$BARE_GG"))"
 [ -s "$RLOG_GG" ] && ok "eyes reactji acked the #405-style directive" || bad "no reactji on the #405-style directive"
 [ "$(cursor_seen "$TR/state-gg" "$BARE_GG")" = 2026-06-28T06:48:40Z ] && ok "cursor advanced past the actioned directive" || bad "cursor not advanced"
 
@@ -319,7 +323,7 @@ printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   2026-06-24T15:30:00Z issue-comment 667 503 drive-by-rando \
   https://github.com/endojs/endo-but-for-bots/pull/503#issuecomment-667 \
   'random chatter from a stranger' > "$FIX_GH"
-run_directive "$TR/state-gh" "$BARE_GH" "$FIX_GH" "$RLOG_GH" "$GHLOG" "$SKIPSTUB"
+run_directive "$TR/state-gh" "$BARE_GH" "$FIX_GH" "$RLOG_GH" "$GHLOG"
 [ "$(todo_count "$BARE_GH")" -eq 0 ] && ok "untrusted non-directive dropped (no job)" || bad "untrusted comment posted a job"
 [ ! -s "$RLOG_GH" ] && ok "no reactji for an untrusted sender" || bad "reactji posted for untrusted: $(cat "$RLOG_GH")"
 grep -q 'DROP:' "$GHLOG" && grep -q 'verb-gate:not-actionable' "$GHLOG" && ok "the untrusted drop is LOGGED with its reason (not silent)" || bad "untrusted drop not logged ($(cat "$GHLOG"))"
@@ -372,7 +376,6 @@ run_silent() {  # run_silent <state> <bare> <selftest-probe> <alert-cmd>
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
       GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
-      GARDEN_COMMENT_FALLBACK=/bin/false \
       GARDEN_COMMENT_SELFTEST="$3" \
       GARDEN_COMMENT_SELFTEST_INTERVAL_SECS=0 \
       GARDEN_ALERT_CMD="$4" \
@@ -425,10 +428,13 @@ done
 # endo-but-for-bots #513 issue-comment 4800685785 minted a bogus pr513-rebase from
 # a future-tense "rebase" whose own text said to WAIT.
 hr; echo "K — future-tense 'rebase' as subject matter (no @, no imperative) → NO verb job"; hr
+# Author is a non-bot sender (so it reaches the verb-gate, not the new bot-self
+# guard): the point under test is that a future-tense/subject-matter "rebase" with
+# no imperative cue and no @-mention does NOT mint a deterministic rebase verb job.
 BARE_K="$TR/k.git"; seed_bare "$BARE_K"
 FIX_K="$TR/fix-k.tsv"; RLOG_K="$TR/react-k.log"; : > "$RLOG_K"
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-  2026-06-25T10:00:00Z issue-comment 777 513 kriscendobot \
+  2026-06-25T10:00:00Z issue-comment 777 513 kriskowal \
   https://github.com/endojs/endo-but-for-bots/pull/513#issuecomment-4800685785 \
   'A subsequent rebase of this PR onto a fresh `llm` snapshot will pick it up. No action needed here until #528 merges.' > "$FIX_K"
 run_watcher "$TR/state-k" "$BARE_K" "$FIX_K" "$RLOG_K"
@@ -437,7 +443,7 @@ board_has "$BARE_K" "$SLUG-pr513-rebase" && bad "verb-as-subject-matter minted a
 [ ! -s "$RLOG_K" ] && ok "no reactji on a non-directive verb mention" || bad "reactji posted: $(cat "$RLOG_K")"
 [ "$(cursor_seen "$TR/state-k" "$BARE_K")" = 2026-06-25T10:00:00Z ] && ok "cursor slid past the non-actionable verb mention" || bad "cursor did not slide"
 
-hr; echo "L — CHANGES_REQUESTED body discussing a 'rebase' design → reader path, NOT a verb job"; hr
+hr; echo "L — CHANGES_REQUESTED body discussing a 'rebase' design → one 'review' job, NOT a verb job"; hr
 BARE_L="$TR/l.git"; seed_bare "$BARE_L"
 FIX_L="$TR/fix-l.tsv"; RLOG_L="$TR/react-l.log"; : > "$RLOG_L"
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
@@ -446,7 +452,7 @@ printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   '[CHANGES_REQUESTED] The clean-rebase git code-mode eval scenario needs deeper folders.' > "$FIX_L"
 run_directive "$TR/state-l" "$BARE_L" "$FIX_L" "$RLOG_L"
 board_has "$BARE_L" "$SLUG-pr526-rebase" && bad "CHANGES_REQUESTED verb-as-topic minted a bogus rebase job (#526 regression)" || ok "no rebase job from a verb discussed in a review body"
-[ "$(todo_count "$BARE_L")" -eq 1 ] && ok "review body routed to the reader (triager fallback) instead" || bad "review body not routed to reader (todo=$(todo_count "$BARE_L"))"
+[ "$(todo_count "$BARE_L")" -eq 1 ] && ok "the CHANGES_REQUESTED review minted exactly one deterministic 'review' job instead" || bad "CHANGES_REQUESTED review did not mint one review job (todo=$(todo_count "$BARE_L"))"
 
 hr; echo "M — @-mention WITH a bare verb ('@bot rebase #57') still fires the table"; hr
 BARE_M="$TR/m.git"; seed_bare "$BARE_M"
@@ -629,7 +635,6 @@ run_approval() {  # <state> <bare> <fixture> <reactlog> <mergeable-probe> [slug]
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
       GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
-      GARDEN_COMMENT_FALLBACK=/bin/false \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
       GARDEN_PR_MERGEABLE="$5" \
@@ -779,7 +784,6 @@ run_mentiononly() {  # run_mentiononly <state> <bare> <fixture> <reactlog>
       GARDEN_COMMENT_SOURCE="$SRCSTUB" \
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
-      GARDEN_COMMENT_FALLBACK=/bin/false \
       GARDEN_MENTION_ONLY_ALLOWLIST="$MOLIST" \
       GARDEN_PR_AUTHOR="$PRAUTHOR" \
       GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
@@ -919,7 +923,6 @@ env GARDEN_STATE="$TR/state-ff" JOURNAL_REMOTE="$BARE_FF" JOURNAL_BRANCH="$BRANC
     GARDEN_COMMENT_SOURCE="$SIGSRC" \
     GARDEN_COMMENT_REACTJI="$REACTSTUB" \
     GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
-    GARDEN_COMMENT_FALLBACK=/bin/false \
     GARDEN_COMMENT_TRUST=/bin/false \
     GARDEN_TRUSTED_ALLOWLIST=/dev/null \
     "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1 &
@@ -974,7 +977,6 @@ env GARDEN_STATE="$TR/state-ff2" JOURNAL_REMOTE="$BARE_FF2" JOURNAL_BRANCH="$BRA
     GARDEN_COMMENT_KILL_AFTER=2s \
     GARDEN_COMMENT_REACTJI="$REACTSTUB" \
     GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
-    GARDEN_COMMENT_FALLBACK=/bin/false \
     GARDEN_COMMENT_TRUST=/bin/false \
     GARDEN_TRUSTED_ALLOWLIST=/dev/null \
     "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>&1 &
@@ -1012,7 +1014,6 @@ run_pronly() {  # run_pronly <state> <bare> <fixture> <reactlog> [logfile] [pr-o
       GARDEN_COMMENT_SOURCE="$SRCSTUB" \
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
-      GARDEN_COMMENT_FALLBACK="$FBSTUB" \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
       GARDEN_COMMENT_PR_ONLY="${6:-1}" \
@@ -1028,7 +1029,6 @@ run_autopronly() {  # run_autopronly <state> <bare> <fixture> <reactlog> [logfil
       GARDEN_COMMENT_SOURCE="$SRCSTUB" \
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
-      GARDEN_COMMENT_FALLBACK="$FBSTUB" \
       GARDEN_COMMENT_TRUST=/bin/false \
       GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
       GARDEN_PR_MERGEABLE="${CW_MERGEABLE:-$MERGEABLE_OPEN}" \
@@ -1309,14 +1309,16 @@ grep -q 'FOLD:' "$DUP4LOG" && ok "tick 2: the inline-comment fold is LOGGED" || 
 # ============================================================================
 # REPLY1–REPLY5 — an ACKNOWLEDGED comment gets AT LEAST a REPLY, not just a reactji
 # (kriskowal directive, 2026-06-30, re endo-but-for-bots #58 comment 4848100199 — a
-# status question that got only a 👀). A trusted non-actionable maintainer comment
-# must produce a reply (not a silent reactji-and-slide); a re-poll must NOT
-# double-reply; the bot's OWN comments must NEVER get a reply (the spiral guard); an
-# untrusted sender gets neither reactji nor reply; an ACTIONABLE comment gets a reply
-# naming the active job in addition to its job. The reply poster is stubbed
-# (CW_REPLY_LOG logs "<surface> <cid> <pr>" per call) so the property is deterministic.
+# status question that got only a 👀). Now that the observe→post-job path is fully
+# deterministic, a trusted ambiguous comment ALWAYS mints an `attention` (triage) job
+# AND gets a reply naming that job (never a silent reactji-and-slide, never an LLM
+# skip); a re-poll must NOT double-reply; the bot's OWN comments mint NOTHING (the
+# self-trigger + spiral guard); an untrusted sender gets neither reactji nor reply;
+# an ACTIONABLE comment gets a reply naming the active job in addition to its job. The
+# reply poster is stubbed (CW_REPLY_LOG logs "<surface> <cid> <pr>" per call) so the
+# property is deterministic.
 
-hr; echo "REPLY1 — trusted non-actionable comment (reader skip) → a REPLY is produced (not a silent slide)"; hr
+hr; echo "REPLY1 — trusted status question → an attention job AND a reply naming it (not a silent slide)"; hr
 BARE_RP1="$TR/rp1.git"; seed_bare "$BARE_RP1"
 FIX_RP1="$TR/fix-rp1.tsv"; RLOG_RP1="$TR/react-rp1.log"; : > "$RLOG_RP1"
 RPLOG_RP1="$TR/reply-rp1.log"; : > "$RPLOG_RP1"
@@ -1324,29 +1326,35 @@ printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   2026-06-30T17:00:00Z issue-comment 4848100199 58 kriskowal \
   https://github.com/endojs/endo-but-for-bots/pull/58#issuecomment-4848100199 \
   "What's the status of this effort?" > "$FIX_RP1"
-CW_REPLY_LOG="$RPLOG_RP1" run_directive "$TR/state-rp1" "$BARE_RP1" "$FIX_RP1" "$RLOG_RP1" /dev/null "$SKIPSTUB"
-[ "$(todo_count "$BARE_RP1")" -eq 0 ] && ok "reader-skipped comment minted no job" || bad "skip comment posted a job"
+CW_REPLY_LOG="$RPLOG_RP1" run_directive "$TR/state-rp1" "$BARE_RP1" "$FIX_RP1" "$RLOG_RP1"
+[ "$(todo_count "$BARE_RP1")" -eq 1 ] && ok "the status question minted a deterministic attention job (its deliverable is the substantive reply)" || bad "no job posted for the status question (todo=$(todo_count "$BARE_RP1"))"
 grep -qx "issue-comment 4848100199 eyes" "$RLOG_RP1" && ok "the comment still got its 👀 reactji" || bad "no reactji ($(cat "$RLOG_RP1"))"
 grep -qx "issue-comment 4848100199 58" "$RPLOG_RP1" && ok "a REPLY comment was produced (not just the reactji)" || bad "no reply produced for an acknowledged comment ($(cat "$RPLOG_RP1"))"
 [ "$(grep -c . "$RPLOG_RP1")" -eq 1 ] && ok "exactly one reply" || bad "reply count $(grep -c . "$RPLOG_RP1")"
 [ "$(cursor_seen "$TR/state-rp1" "$BARE_RP1")" = 2026-06-30T17:00:00Z ] && ok "cursor advanced past the engaged comment" || bad "cursor not advanced"
 
 hr; echo "REPLY2 — re-poll of REPLY1 → NO double reply (idempotent)"; hr
-CW_REPLY_LOG="$RPLOG_RP1" run_directive "$TR/state-rp1" "$BARE_RP1" "$FIX_RP1" "$RLOG_RP1" /dev/null "$SKIPSTUB"
+CW_REPLY_LOG="$RPLOG_RP1" run_directive "$TR/state-rp1" "$BARE_RP1" "$FIX_RP1" "$RLOG_RP1"
 [ "$(grep -c . "$RPLOG_RP1")" -eq 1 ] && ok "still exactly one reply after a re-poll (no double-reply)" || bad "reply duplicated on re-poll ($(grep -c . "$RPLOG_RP1"))"
 
-hr; echo "REPLY3 — the bot's OWN comment → NEVER a reply (self-comment / spiral guard)"; hr
-# Even when the bot login is trusted (allowlisted), post_reply refuses author==bot.
+hr; echo "REPLY3 — the bot's OWN comment → mints NOTHING (no job, no reactji, no reply)"; hr
+# The bot must never act on its own words. Even when the bot login is trusted
+# (allowlisted), the SELF guard skips it before classify — so no attention job is
+# minted (the self-trigger guard) and post_reply's author==bot refusal is the
+# defense in depth (no reply→reply spiral).
 SELFALLOW="$TR/self-allowlist"; printf 'kriskowal\nkriscendobot\n' > "$SELFALLOW"
 BARE_RP3="$TR/rp3.git"; seed_bare "$BARE_RP3"
 FIX_RP3="$TR/fix-rp3.tsv"; RLOG_RP3="$TR/react-rp3.log"; : > "$RLOG_RP3"
-RPLOG_RP3="$TR/reply-rp3.log"; : > "$RPLOG_RP3"
+RPLOG_RP3="$TR/reply-rp3.log"; : > "$RPLOG_RP3"; RP3LOG="$TR/rp3.stderr"; : > "$RP3LOG"
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   2026-06-30T18:00:00Z issue-comment 4848200000 58 kriscendobot \
   https://github.com/endojs/endo-but-for-bots/pull/58#issuecomment-4848200000 \
   'On it — I have posted a job and will follow up here.' > "$FIX_RP3"
-CW_ALLOW="$SELFALLOW" CW_REPLY_LOG="$RPLOG_RP3" run_directive "$TR/state-rp3" "$BARE_RP3" "$FIX_RP3" "$RLOG_RP3" /dev/null "$SKIPSTUB"
+CW_ALLOW="$SELFALLOW" CW_REPLY_LOG="$RPLOG_RP3" run_directive "$TR/state-rp3" "$BARE_RP3" "$FIX_RP3" "$RLOG_RP3" "$RP3LOG"
+[ "$(todo_count "$BARE_RP3")" -eq 0 ] && ok "the bot's own comment minted NO job (no self-triggered work spiral)" || bad "the bot's own comment posted a job (todo=$(todo_count "$BARE_RP3"))"
+[ ! -s "$RLOG_RP3" ] && ok "the bot's own comment got NO reactji" || bad "reactji posted on the bot's own comment ($(cat "$RLOG_RP3"))"
 [ ! -s "$RPLOG_RP3" ] && ok "the bot's own comment got NO reply (no reply→reply spiral)" || bad "replied to the bot's own comment ($(cat "$RPLOG_RP3"))"
+grep -q 'SELF:' "$RP3LOG" && ok "the self-comment skip is LOGGED (deterministic, not silent)" || bad "no SELF log line ($(cat "$RP3LOG"))"
 
 hr; echo "REPLY4 — UNTRUSTED non-actionable comment → no reactji AND no reply"; hr
 BARE_RP4="$TR/rp4.git"; seed_bare "$BARE_RP4"
@@ -1356,7 +1364,7 @@ printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   2026-06-30T19:00:00Z issue-comment 4848300000 58 drive-by-rando \
   https://github.com/endojs/endo-but-for-bots/pull/58#issuecomment-4848300000 \
   'random chatter from a stranger' > "$FIX_RP4"
-CW_REPLY_LOG="$RPLOG_RP4" run_directive "$TR/state-rp4" "$BARE_RP4" "$FIX_RP4" "$RLOG_RP4" /dev/null "$SKIPSTUB"
+CW_REPLY_LOG="$RPLOG_RP4" run_directive "$TR/state-rp4" "$BARE_RP4" "$FIX_RP4" "$RLOG_RP4"
 [ ! -s "$RLOG_RP4" ] && ok "no reactji for an untrusted sender" || bad "reactji posted for untrusted"
 [ ! -s "$RPLOG_RP4" ] && ok "no reply for an untrusted sender (engage trusted only)" || bad "replied to an untrusted sender ($(cat "$RPLOG_RP4"))"
 
@@ -1368,12 +1376,46 @@ printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
   2026-06-30T20:00:00Z issue-comment 4848400000 58 kriskowal \
   https://github.com/endojs/endo-but-for-bots/pull/58#issuecomment-4848400000 \
   'Please apply this feedback' > "$FIX_RP5"
-CW_REPLY_LOG="$RPLOG_RP5" run_directive "$TR/state-rp5" "$BARE_RP5" "$FIX_RP5" "$RLOG_RP5"   # default FBSTUB → 'attention'
+CW_REPLY_LOG="$RPLOG_RP5" run_directive "$TR/state-rp5" "$BARE_RP5" "$FIX_RP5" "$RLOG_RP5"   # ambiguous trusted → deterministic attention job
 [ "$(todo_count "$BARE_RP5")" -eq 1 ] && ok "the actionable directive posted a job" || bad "no job posted (todo=$(todo_count "$BARE_RP5"))"
 grep -qx "issue-comment 4848400000 58" "$RPLOG_RP5" && ok "the actionable comment ALSO got a reply naming the work" || bad "no reply on an actionable comment ($(cat "$RPLOG_RP5"))"
 # re-poll → the job is already on the board (verify_posted short-circuit) → no second reply
 CW_REPLY_LOG="$RPLOG_RP5" run_directive "$TR/state-rp5" "$BARE_RP5" "$FIX_RP5" "$RLOG_RP5"
 [ "$(grep -c . "$RPLOG_RP5")" -eq 1 ] && ok "re-poll of the actionable comment does not double-reply" || bad "reply duplicated on re-poll ($(grep -c . "$RPLOG_RP5"))"
+
+# ============================================================================
+# DET — the observe→post-job path invokes NO LLM. Even with an LLM fallback wired
+# into the (now-dead) GARDEN_COMMENT_FALLBACK env var — set to a NEVER-CALL sentinel
+# that would fail the run and drop a sentinel file if ever exec'd — a trusted
+# ambiguous comment STILL becomes a deterministic `attention` job, and the sentinel
+# is never touched. This is the direct proof of the maintainer directive (2026-07-01):
+# an LLM being unavailable / erroring can no longer drop a trusted comment, because
+# no LLM runs between observing and posting at all.
+hr; echo "DET — LLM fallback wired but UNAVAILABLE/never-consulted → STILL a posted attention job"; hr
+BARE_DET="$TR/det.git"; seed_bare "$BARE_DET"
+FIX_DET="$TR/fix-det.tsv"; RLOG_DET="$TR/react-det.log"; : > "$RLOG_DET"
+DET_SENTINEL="$TR/det-fallback-was-called"; rm -f "$DET_SENTINEL"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-07-01T09:00:00Z issue-comment 5000000001 503 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/503#issuecomment-5000000001 \
+  'Getting there — I would like the panels grouped and the stray heading removed.' > "$FIX_DET"
+# Wire the dead fallback var + a broken org-trust check; trust is via the allowlist.
+env GARDEN_STATE="$TR/state-det" JOURNAL_REMOTE="$BARE_DET" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" \
+    CW_FIXTURE="$FIX_DET" CW_REACTJI_LOG="$RLOG_DET" \
+    GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+    GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+    GARDEN_COMMENT_REPLY="$REPLYSTUB" \
+    GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+    GARDEN_COMMENT_FALLBACK="$NEVERCALL" CW_NEVERCALL_SENTINEL="$DET_SENTINEL" \
+    GARDEN_COMMENT_TRUST=/bin/false \
+    GARDEN_TRUSTED_ALLOWLIST="$ALLOW" \
+    GARDEN_PR_MERGEABLE="$MERGEABLE_OPEN" \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$TR/det.stderr" || true
+[ "$(todo_count "$BARE_DET")" -eq 1 ] && ok "a trusted ambiguous comment STILL posted a job with the LLM fallback wired (never dropped)" || bad "no job posted (todo=$(todo_count "$BARE_DET"))"
+[ ! -e "$DET_SENTINEL" ] && ok "the LLM fallback was NEVER exec'd (observe→post-job path is deterministic)" || bad "the LLM fallback WAS invoked — the path is not deterministic"
+grep -q 'attention on #503' "$TR/det.stderr" && ok "the posted job is a deterministic 'attention' (triage) job" || bad "no attention job logged ($(cat "$TR/det.stderr"))"
+[ "$(cursor_seen "$TR/state-det" "$BARE_DET")" = 2026-07-01T09:00:00Z ] && ok "cursor advanced past the actioned comment" || bad "cursor not advanced"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

@@ -9,21 +9,38 @@
 # silently dropped. One timer-driven instance per watched repo. The pipeline is:
 #
 #     poll comments since a durable cursor
-#       → map the verb table DETERMINISTICALLY (claude only for ambiguity)
+#       → map the verb table DETERMINISTICALLY (NO claude anywhere in this path)
 #       → reactji-acknowledge the source comment (👀, before posting)
 #       → post the corresponding job for a gardener to claim
 #       → VERIFY the post actually landed on origin/journal2 before advancing
 #         the cursor (a lost push must re-poll, never drop the directive).
 #
+# ── FULLY DETERMINISTIC observe→post-job (NO LLM), maintainer directive 2026-07-01 ─
+# There is NO `claude -p` anywhere between observing a comment and posting a job.
+# The LLM runs ONLY when a gardener CLAIMS and works a job. The prior design routed
+# the AMBIGUOUS case (a trusted @-mention/comment with no recognized verb) to a
+# `claude -p` triager fallback that returned a verb or `skip`; because that call was
+# `… 2>/dev/null || echo skip`, an API error / rate-limit / quota / blank /
+# unparseable answer defaulted to `skip` and the comment was DROPPED with only a 👀.
+# That is exactly how the ambiguous #503 ("Please apply this feedback",
+# issuecomment-4794208524) and #405 maintainer directives were lost during rate-limit
+# windows. The fix: the ambiguous branch now mints a DETERMINISTIC generic `attention`
+# (triage) job carrying the comment context, idempotent by comment id. The verb/triage
+# decision moves INTO the worked job — a gardener reads the comment verbatim and routes
+# it (or, for pure chatter, replies and completes a no-op). So EVERY comment that
+# passes the trust/@-mention gate becomes a job, never dropped by an LLM skip/failure.
+#
 # Beyond the fixed verb table, a plain-language maintainer directive with NO verb
 # and NO @-mention ("Please apply this feedback", "please finish this") must not
-# be dropped. The widening is narrow and deterministic: a comment is routed to the
-# claude triager fallback ONLY when BOTH (a) its author passes the same sender-
-# trust gate the mention-watcher uses (journal `trusted-senders/allowlist` OR a
-# current endojs/Agoric org member) AND (b) the body reads as an imperative
-# directive ("please …", "apply …", "address …", "finish …"). Ordinary chatter
-# ("thanks, looks great!") and untrusted senders stay inert. This is the fix for
-# the dropped #503 "Please apply this feedback" directive (issuecomment-4794208524).
+# be dropped either. The widening is narrow and deterministic: a comment reaches the
+# ambiguous `attention` branch ONLY when its author passes the same sender-trust gate
+# the mention-watcher uses (journal `trusted-senders/allowlist` OR a current
+# endojs/Agoric org member). Untrusted senders with no verb and no @-mention stay
+# inert (dropped, logged). Ordinary chatter from a trusted sender ("thanks, looks
+# great!") now also mints an `attention` job — the gardener that claims it reads it,
+# recognizes chatter, and completes with a light reply and no downstream work; the
+# triage judgement is the gardener's, deterministically reached, never an LLM skip in
+# the watcher. This is the fix for the dropped #503 directive (issuecomment-4794208524).
 #
 # A further widening: a trusted maintainer/contributor's REVIEW is treated as ONE
 # UNIT, never reduced to a single matched verb. When a review-body line from a
@@ -82,8 +99,10 @@
 # only on REACTABLE conversation surfaces (a review body's response IS its job).
 #
 # ── Monitoring safety + arming authorization (STANDING NORM, do not bypass) ──
-# This watcher feeds external PR/comment TEXT into `claude -p`, so it is governed
-# by CLAUDE.md § Monitoring safety constraint and roles/triager/AGENT.md
+# This watcher itself runs NO `claude -p` (its observe→post-job path is fully
+# deterministic), but the JOB it posts feeds external PR/comment TEXT to the gardener
+# (an LLM) that claims it, so the same constraint governs it: CLAUDE.md § Monitoring
+# safety constraint and roles/triager/AGENT.md
 # § Monitoring safety: ONLY repos gated against untrusted contributors may be
 # watched. As of 2026-06-24 the sole armed repo is endojs/endo-but-for-bots,
 # authorized by the maintainer and recorded in a journal `message` entry the day
@@ -98,7 +117,6 @@
 #   GARDEN_COMMENT_REACTJI <owner/name> <surface> <comment-id> <content>
 #   GARDEN_COMMENT_REPLY   <owner/name> <surface> <comment-id> <pr> <body-file>
 #   GARDEN_COMMENT_POST    <basename> <body-file>                (post-job.sh)
-#   GARDEN_COMMENT_FALLBACK <owner/name> <pr> <author> <url> <body-file> -> verb
 #   GARDEN_COMMENT_TRUST   <login>                  rc 0 = endojs/Agoric org member
 #   GARDEN_PR_AUTHOR       <owner/name> <number>    -> PR/issue author login
 # The deterministic verb mapping, the sender-trust gate, AND the mention-only
@@ -147,7 +165,10 @@ GARDEN_TAG="comment-watcher/$slug"
 # indirection shape as the reactji poster so the test substitutes a deterministic stub.
 : "${GARDEN_COMMENT_REPLY:=$HERE/handlers/comment-reply-gh.sh}"
 : "${GARDEN_COMMENT_POST:=$HERE/post-job.sh}"
-: "${GARDEN_COMMENT_FALLBACK:=$HERE/handlers/comment-claude.sh}"
+# NOTE: there is intentionally NO claude/LLM fallback here. The observe→post-job
+# path is FULLY deterministic (maintainer directive 2026-07-01); the ambiguous case
+# mints a deterministic `attention` (triage) job that a gardener reads and routes,
+# so the LLM runs ONLY when a gardener CLAIMS and works the job.
 : "${GARDEN_COMMENT_TRUST:=$HERE/handlers/mention-trust-gh.sh}"
 # PR/issue AUTHOR lookup for the mention-only filter: <repo> <number> -> login.
 : "${GARDEN_PR_AUTHOR:=$HERE/handlers/pr-author-gh.sh}"
@@ -448,8 +469,9 @@ reads_as_directive() {  # reads_as_directive <body-text>
 # Sets VERB to one of rebase|retcon|refresh|shepherd|gauntlet on a hit. Prefer a
 # fixed mapping; return 2 ("ambiguous") only when the comment plainly addresses
 # the bot, carries an explicit review ask, or is a trusted sender's plain-language
-# directive but names no verb — the cases that may fall back to claude wearing the
-# triager role.
+# directive but names no verb — the cases the caller mints a deterministic
+# `attention` (triage) job for. There is NO claude fallback: the triage decision is
+# deferred to the gardener that works the `attention` job, not made in this path.
 #
 # The verb table is meant to catch IMPERATIVE directives ("please rebase",
 # "rebase this on #N"), NOT mentions of a verb as a PR's SUBJECT MATTER or a
@@ -543,18 +565,20 @@ classify() {  # classify <body-file> <surface> <author>; sets VERB (+PRIMARY_VER
 
   # --- non-review surfaces: the fixed verb table (issue/PR conversation) -------
   if [ -n "$detected_verb" ]; then VERB="$detected_verb"; return 0; fi
-  # @-mention of the bot: an ask with no verb. Route to the reader.
+  # @-mention of the bot: an ask with no verb. Ambiguous → the caller mints a
+  # deterministic `attention` (triage) job (no LLM).
   if [ -n "$mentions_bot" ]; then return 2; fi
   # A TRUSTED sender's comment that named no verb must NEVER be silently dropped:
-  # route it to the claude reader/triager (rc 2). The deterministic verb gate cannot
-  # catch every directive phrasing — "Let's aggregate the Handles", "Let's manually
-  # order", "Remove …", "increase the indent" (the dropped endo-but-for-bots #405
-  # directive of 2026-06-28 carried numbered asks but no "please" and no listed verb,
-  # so it took the old silent rc==1 slide). Preferring fallback-triage over dropping
-  # for a trusted sender is cheap insurance: the reader returns a verb or 'skip', and
-  # the main loop reactji-acks the trusted comment either way. An UNTRUSTED sender
-  # with no verb and no @-mention still drops (rc 1). This subsumes the earlier
-  # imperative+trusted special case — any trusted sender now reaches the reader.
+  # route it to the ambiguous `attention` branch (rc 2). The deterministic verb gate
+  # cannot catch every directive phrasing — "Let's aggregate the Handles", "Let's
+  # manually order", "Remove …", "increase the indent" (the dropped endo-but-for-bots
+  # #405 directive of 2026-06-28 carried numbered asks but no "please" and no listed
+  # verb, so it took the old silent rc==1 slide). Minting an `attention` job for any
+  # trusted sender is cheap insurance: the gardener that claims it reads the comment
+  # and routes it (or completes a no-op for chatter), and the main loop reactji-acks
+  # the trusted comment. An UNTRUSTED sender with no verb and no @-mention still drops
+  # (rc 1). This subsumes the earlier imperative+trusted special case — any trusted
+  # sender now reaches the deterministic `attention` branch (never an LLM).
   if is_trusted "$author"; then return 2; fi
   return 1
 }
@@ -924,6 +948,18 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
     continue
   fi
 
+  # --- never self-trigger: the bot's OWN comment mints nothing -----------------
+  # The comment source already filters out the bot's own comments, but defend in
+  # depth: now that EVERY ambiguous trusted comment deterministically becomes an
+  # `attention` job (no LLM to judge it chatter and skip), a bot comment that slipped
+  # through the source would mint a job off our OWN words — a self-triggered work
+  # spiral. Skip it with a LOGGED slide (never silent): no job, no reactji, no reply
+  # (post_reply already refuses author==bot; this is the earlier, stronger gate).
+  if [ -n "$author" ] && [ "$author" = "$GARDEN_BOT_LOGIN" ]; then
+    log "SELF: comment cid=$cid on #${pr:-?} is the bot's own ($author) — not self-triggering a job; sliding cursor [url=$url]"
+    hw="$created"; continue
+  fi
+
   # --- dedup: an inline review-comment SUBSUMED by its review's `review` job -----
   # The source marks a pr-review-comment as *subsumed* when its parent review is ALSO
   # surfaced this poll as an inline-bearing pr-review-body — which mints ONE keyed
@@ -1034,16 +1070,22 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
       rm -f "$bf"; hw="$created"; continue          # not actionable; slide cursor past it
     fi
     if [ "$rc" -eq 2 ]; then
-      VERB="$("$GARDEN_COMMENT_FALLBACK" "$repo" "${pr:-?}" "$author" "$url" "$bf" 2>/dev/null || echo skip)"
-      if [ "$VERB" = skip ] || [ -z "$VERB" ]; then
-        # The reader judged it non-actionable and minted no job. A TRUSTED, reactable
-        # comment STILL gets its 👀 receipt (the maintainer's "I saw this" must not
-        # depend on actionability — the dropped-#405 lesson), and the slide is ALWAYS
-        # logged with its reason. Unreactable surfaces (pr-review-body) and untrusted
-        # senders get the logged slide without a reactji.
-        ack_or_log_slide "claude-reader:skip" "$surface" "$cid" "$author" "$url" "$pr"
-        rm -f "$bf"; hw="$created"; continue
-      fi
+      # AMBIGUOUS: an @-mention of the bot, or a trusted sender's comment that names
+      # no verb from the fixed table. NO LLM runs between observing and posting
+      # (maintainer directive 2026-07-01: the observe→post-job path is FULLY
+      # deterministic — `claude -p` runs ONLY when a gardener CLAIMS and works a job).
+      # The old code asked a `claude -p` reader for a verb HERE and, on API error /
+      # rate-limit / quota / blank / unparseable output, defaulted to `skip` and
+      # DROPPED the comment with only a 👀 — which is exactly how the ambiguous #503
+      # ("Please apply this feedback") and #405 maintainer directives were lost during
+      # rate-limit windows. Instead, mint a generic deterministic `attention` (triage)
+      # job carrying the comment context. The verb/triage decision moves INTO the
+      # worked job: a gardener claims it, re-fetches and reads the comment verbatim
+      # (as UNTRUSTED data), and routes/dispatches — or, for pure chatter, replies and
+      # completes it as a no-op. So EVERY comment that reaches here becomes a job,
+      # never dropped by an LLM skip or failure. The job is idempotent by comment id
+      # via its base key below.
+      VERB=attention
     fi
   fi
 
