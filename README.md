@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T16:50:27Z_
+_As of 2026-07-01T16:51:24Z_
 
 ## Latest
 
-Little moved this cycle: a shepherd job claimed to re-run the two flaky macOS CI checks on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) back to green — the PR's rebase and retcon already landed with local validation clean, so it's now parked on CI and maintainer review.
+The only board movement since the last bulletin was the completion of [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58)'s shepherd rerun of the flaky macOS jobs; the 22.x macOS run is back in progress with a background poll watching for green, following the earlier rebase-and-retcon that landed clean locally. The PR now sits parked awaiting kriskowal's review pending CI.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`ebfb-pr-58-shepherd-rerun-macos-flakes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-shepherd-rerun-macos-flakes.md) — PR #58 — shepherd: re-run the two macOS flakes to green (maintainer confirmed...
+### doin (0)
+(none)
 
-### tada (800)
+### tada (801)
+- [`ebfb-pr-58-shepherd-rerun-macos-flakes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-shepherd-rerun-macos-flakes.md) — The run is in_progress (22.x macOS re-running). My background poll will notif...
 - [`endojs-endo-but-for-bots-pr58-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-rebase.md) — Rebase and retcon are done and pushed; local validation clean. Awaiting CI to...
 - [`agoric-3-proposals-316-apply-dckc-guidance-and-open-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-316-apply-dckc-guidance-and-open-pr.md) — Job complete: agoric-3-proposals #316 — dckc's guidance applied, PR opened, d...
 - [`garden-journal-worktree-keeper-autonomous-lossless-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-journal-worktree-keeper-autonomous-lossless-selfheal.md) — Completion report — garden-journal-worktree-keeper-autonomous-lossless-selfheal
 - [`daily-progress-summary-20260701-143534`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260701-143534.md) — Completion report — daily-progress-summary-20260701-143534
-- [`dependabotany-recheck-endo-but-for-bots-20260701-143534`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260701-143534.md) — Completion report: daily dependabotany recheck — endojs/endo-but-for-bots
-- … and 795 more
+- … and 796 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
