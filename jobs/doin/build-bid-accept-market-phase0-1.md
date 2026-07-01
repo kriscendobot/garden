@@ -28,3 +28,9 @@ DRAFT PR against main2 and run the PR-creation chain to termination. This is gar
 infra on main2 — build in an isolated worktree off origin/main2.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 33
+  claimed_at: 2026-07-01T01:13:48Z
