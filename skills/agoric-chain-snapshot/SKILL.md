@@ -267,10 +267,37 @@ So the contract-control upgrade vector now has a complete, example-grounded
 prerequisite: **publish/seed the bundle, then invoke `upgrade(bundleId)` on the
 live instance's contract-control facet.** This also retires missing-input (2) in
 the note below — the live admin facet *is* reachable (via `getUpgradeKit`/the
-contract-control kit). Missing-input (1), the actual over-threshold (devnet
-"v320") bundle, remains the one blocker to running the faithful upgrade on real
-mainnet state; until it is supplied, the `createVat` import vector below is the
-runnable cross-check.
+contract-control kit).
+
+**Missing-input (1) is now RESOLVED (2026-07-01, kriskowal/garden#9).** The
+over-threshold (devnet "v320") `bundle-ymax0.json` is a **downloadable release
+asset** on the agoric-sdk `ymax-v0.3.2606-beta3` release (866,401 bytes;
+`gh release download ymax-v0.3.2606-beta3 --repo agoric/agoric-sdk --pattern
+bundle-ymax0.json`). It flattens to **10 `.flatMap(`** call sites (the on-chain
+mainnet bundles flatten to only 3–5 and import clean), including the `hex.js`
+`decodings = new Map(RI.flatMap(...))` table. With that asset in hand the
+reproduce+validate was run on `agoric-26146641` through the `createVat` import
+vector below:
+
+- **Control** (stock beta3 `bundle-ymax0.json`, bundleID `b1-7b73897d…`) →
+  `Vat Creation Error: Error: Stack meter exceeded` — the XS value stack
+  overflows **during** the bundle import.
+- **Patched** (one `.flatMap(` removed, 10→9: the `hex.js` decodings table
+  rewritten to a `new Map` + bounded `for` + `.set()` loop; module `sha512` and
+  the `compartment-map.json` entry updated, re-zipped via `@endo/zip`,
+  bundleID `b1-6648cdf3…`) → `Vat Creation Error: Error: vat source bundle lacks
+  buildRootObject() function` — the module **imported and evaluated cleanly**,
+  reaching the benign post-import check (a raw contract bundle has no
+  `buildRootObject`), i.e. it got **past** the overflow point.
+
+The single-`.flatMap(` delta flips the outcome from overflow to clean import on
+real mainnet swing-store state through a real on-chain XS worker. This is the
+first run with the genuine over-threshold release asset (prior rounds had the
+bundle wiped or used the `createVat` stand-in without it). The still-more-faithful
+EV-direct contract-control upgrade vector (`upgrade(bundleId)` on
+`kslot('ko25961078')`, the live ymax0 `ContractControl`, verified present and
+v1-owned on this snapshot) remains subject to the documented overlay
+wallet-bridge caveat, so the `createVat` A/B above is the decisive cross-check.
 
 ## Notes
 
@@ -352,9 +379,15 @@ runnable cross-check.
   WITHOUT awaiting, then `await controller.run()` (or `runNextBlock()`) to crank
   the delivery, then read the result — the same shape `runCoreEval` uses
   internally.
-- **The one remaining input is the OVER-THRESHOLD bundle, exactly what mhofman's
-  "the bundle is network/instance-agnostic — it just needs to be installed first"
-  resolves.** Every on-chain ymax bundle in the snapshot
+- **The OVER-THRESHOLD bundle (formerly the one remaining input) is now in hand
+  (2026-07-01) — it is the `ymax-v0.3.2606-beta3` release asset**, exactly what
+  mhofman's "the bundle is network/instance-agnostic — it just needs to be
+  installed first" pointed at. `gh release download ymax-v0.3.2606-beta3 --repo
+  agoric/agoric-sdk --pattern bundle-ymax0.json` fetches it (866 KB, 10
+  `.flatMap(` sites, bundleID `b1-7b73897d…`); the reproduce+validate A/B on
+  `agoric-26146641` is recorded in § *Installing the bundle first* above (control
+  overflows, one-`flatMap`-removed patch imports clean). Every on-chain ymax
+  bundle in the snapshot
   (`1cfec/867596/078729/68c494` for ymax0, `61c340` for ymax1) carries the wide
   `hex.js` `flatMap` yet flattens to only 3 to 5 `flatMap`s and imports **clean**
   through a real on-chain worker (the latest, `b1-68c494…` / v290, reaches the
