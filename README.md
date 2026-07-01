@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T00:11:14Z_
+_As of 2026-07-01T00:13:59Z_
 
 ## Latest
 
-Fresh maintainer directives landed on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) — both an attention and a review job were claimed and are in flight. Work also continues on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), where a gardener is now actually fixing the error rendering and verifying it in real Chrome after the earlier "verified" claim proved hollow; that same lesson is being encoded as a standing rule that a "verified" claim requires real-run evidence (UI criteria must clear an actual browser). Nothing new reached completion this cycle.
+Three new claims moved onto the board since last bulletin, none completed yet. The maintainer's push on real-run evidence is now in motion: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58)'s error-rendering fix is being redone with an actual Chrome verification (the prior "verified" claim didn't hold up), and a companion job is encoding the standing rule that a "verified" claim must cite real-execution evidence. Fresh attention and review directives on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) were just claimed, alongside the in-flight Phase 0/1 build of the bid/accept market (opt-in field plus a shadow reputation ledger). Review directives on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) and [garden#16](https://github.com/kriskowal/garden/pull/16) remain open in progress.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 14s)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 6m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 19h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -28,10 +28,13 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (9)
+- [`build-bid-accept-market-phase0-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-bid-accept-market-phase0-1.md) — Build: bid/accept market — Phase 0/1 (opt-in field + shadow reputation ledger)
 - [`ebfb-pr-58-fix-error-rendering-verify-in-chrome`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-fix-error-rendering-verify-in-chrome.md) — PR #58 — actually fix the error rendering AND verify in real Chrome (prior "v...
 - [`endojs-endo-but-for-bots-pr277-268a7246`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-268a7246.md) — attention directive on endojs/endo-but-for-bots PR #277
 - [`endojs-endo-but-for-bots-pr277-review-64e9f470`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-review-64e9f470.md) — Review directive on endojs/endo-but-for-bots PR #277
+- [`endojs-endo-but-for-bots-pr442-f8df35b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-f8df35b4.md) — attention directive on endojs/endo-but-for-bots PR #442
+- [`endojs-endo-but-for-bots-pr442-review-ea91182a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-ea91182a.md) — Review directive on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr58-15926293`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-15926293.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`garden-encode-verification-claims-require-real-evidence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-verification-claims-require-real-evidence.md) — Encode: a "verified" claim requires real-run evidence (UI criteria → real bro...
 - [`kriskowal-garden-pr16-review-94229b78`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-review-94229b78.md) — Review directive on kriskowal/garden PR #16
