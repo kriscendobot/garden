@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 This failed manual verification in Chrome. The error still appears in a red bubble with just the message in Chat. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 30
+  claimed_at: 2026-07-01T00:09:09Z
