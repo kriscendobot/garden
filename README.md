@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T19:51:25Z_
+_As of 2026-07-01T19:54:59Z_
 
 ## Latest
 
-A gardener has claimed the reconstruction of [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (retiring the `function` keyword) atop current upstream master — the one board move this cycle. Otherwise the notable recent close is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), where the `makeExo` fix landed and the PR was peer-conducted to merge, along with its companion lint work preferring `makeExo` over `Far`. With the todo queue empty and 27 PRs parked for review, maintainer attention is best spent on the review backlog — most recently [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability).
+[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) landed — its `makeExo` fix was verified, conducted, and merged by a peer, with the follow-on review job confirming `PR_MERGED` consistent with the completed work; a companion lint job to prefer `makeExo` over `Far` also closed out. On the Agoric side, the 3-proposals mirror PR addressing the v320 feedback and CI completed. Otherwise the board is quiet: nothing sits in `todo`, and the two open `doin` items are a scholar ingesting Cloudflare's x402 monetization post ahead of commenting on the open-payment designs, plus the reconstruction of the retire-function-keyword change ([endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474)) on current upstream master.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`ebfb-reconstruct-pr474-retire-function-keyword-on-current-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-reconstruct-pr474-retire-function-keyword-on-current-master.md) — Reconstruct endo-but-for-bots #474 (retire function-keyword) on CURRENT upstr...
+- [`scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs.md) — Scholar: ingest Cloudflare's x402 monetization-gateway post, then comment on ...
 
 ### tada (811)
 - [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-makeexo-fix-and-conduct.md) — Completion report — job ebfb-pr-58-makeexo-fix-and-conduct (endojs/endo-but-f...
