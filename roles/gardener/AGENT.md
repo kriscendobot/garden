@@ -35,6 +35,17 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
   (`roles/COMMON.md` § Per-subagent worktrees; [deliberate-deploy](../../designs/deliberate-deploy.md)).
   Editing the root tree directly is a defect: it dirties the deployed tree and
   collides with peers.
+- **A PROJECT job needs its OWN isolated project worktree — never a shared,
+  repo-or-PR-keyed checkout.** Your cwd worktree is for *garden* development. When
+  a job mutates a *project* fork (editing its source, pushing to a PR head branch),
+  create the checkout with `scripts/jobs/ensure-project-worktree.sh <your-base>
+  <owner/repo> <branch>`, which keys the worktree by your **unique job base** (a
+  detached checkout under `$GARDEN_SCRATCH`, stable across a requeue). Do **not**
+  hand-name a project path keyed by the repo or the PR number: a peer gardener
+  working the same PR would resolve to the same tree and your concurrent edits
+  would corrupt each other — the endo-but-for-bots #58 corruption this helper
+  exists to prevent. Concurrent same-branch pushes still race legitimately at the
+  git-push CAS; the *working trees* must never be shared.
 - **Watch your inbox while you work.** A maintainer reply or a peer message can
   arrive mid-job; poll `inbox-read.sh <your-base>`.
 - To reach the user, `message-user.sh <your-base>` — the liaison surfaces it and

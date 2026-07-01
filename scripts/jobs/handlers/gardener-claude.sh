@@ -96,6 +96,19 @@ cwd: never edit the deployed garden root checkout. Commit explicit pathspecs and
 push with a rebase CAS loop to $main_branch (git push origin HEAD:$main_branch).
 The worktree is torn down when you finish and is garbage-collected if your run
 dies, so nothing you need to keep should live outside a commit.
+
+That cwd worktree is for GARDEN development (roles, skills, scripts on $main_branch).
+If this job instead mutates a PROJECT repo (a fork like endojs/endo-but-for-bots
+— editing its source, pushing to a PR head branch), do NOT hand-name a project
+checkout keyed by the repo or PR number: a peer gardener working the SAME PR would
+collide into your working tree and your concurrent edits would corrupt each other
+(the endo-but-for-bots #58 corruption). Get an ISOLATED project checkout, keyed by
+THIS job's unique base, with:
+    $jobs_dir/ensure-project-worktree.sh $base <owner/repo> <branch>
+It prints the absolute path (a detached checkout under $GARDEN_SCRATCH, stable
+across a requeue so you resume in-flight work); cd there and do the project work.
+Concurrent same-branch pushes still race at the git-push CAS — that is fine; the
+working trees must never be shared.
 EOF
 )"
 

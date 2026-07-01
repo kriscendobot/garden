@@ -12,6 +12,8 @@ In this garden, each dispatched subagent operates inside a per-dispatch worktree
 
 See `garden/WORKTREES.md` § Per-dispatch worktree triple for the lifecycle.
 
+**v2 gardener path (job-board work).** A gardener claimed off the job board is *not* dispatched via `dispatch-prepare.sh`; its `claude -p` handler launches it with cwd already set to a per-job **garden** worktree (`$GARDEN_SCRATCH/gardener-wt-<base>`, unique per job base), and there is no pre-made `project/`. When a gardener job mutates a project fork, it must create its own **isolated** project checkout with `scripts/jobs/ensure-project-worktree.sh <base> <owner/repo> <branch>`, which keys the worktree by the gardener's **unique job base** (not by repo+branch or a PR number) and prints the path. This is the mechanical guarantee that two concurrent gardeners working the same PR get **distinct** working trees; keying by repo+PR is exactly what caused the endo-but-for-bots #58 corruption (two jobs sharing one `…/ebfb-pr58-project` tree, edits bleeding across). Concurrent same-branch pushes still race legitimately at the git-push CAS; the working trees must never be shared.
+
 ## When to use
 
 Every dispatched subagent operates outside the orchestrator's seat, full stop. Three lanes:
