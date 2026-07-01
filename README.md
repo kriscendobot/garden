@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T05:36:04Z_
+_As of 2026-07-01T05:49:02Z_
 
 ## Latest
 
-The only board movement since the last bulletin was the completion of the conduct job on [endojs/endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277), which finished its merge-watch pass. Five jobs remain in flight, most of them clustered on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) — including diagnosing a test-vs-local stacktrace race in the error bubble — alongside content-store and review work on [endojs/endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) and the run-to-completion of mhofman's contract-control-upgrade test on garden#9. Maintainer attention is still owed on 28 parked PRs, with #58 freshly surfaced and the passable-byte-arrays [#503](https://github.com/endojs/endo-but-for-bots/pull/503) and registry-capability [#403](https://github.com/endojs/endo-but-for-bots/pull/403) waiting a day.
+Two jobs on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) completed — a kriskowal review (pullrequestreview-4605966130) and a content-store test-platform-powers change — clearing the board's todo queue. Worth a maintainer's eye: a gardener flagged a likely **double-dispatch on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58)** (error tracing across CapTP workers), where two live jobs (`ebfb-pr-58-error-bubble-watch-stacktrace-race` and `endojs-endo-but-for-bots-pr58-4932647c`) are both rewriting `error-trace.js`/`chat-bar-component.js` in a shared worktree; the two are deconflicting over who pushes to `feat/error-tracing-implementation`, and the first claims a daemon-side root-cause fix (trace-aggregator `alias()` dropping late-arriving worker records) that the peer's rewrite lacks — you may want to cancel one dispatch. Still in flight: the garden [#9](https://github.com/kriskowal/garden/issues/9) run of mhofman's contract-control-upgrade test to completion.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 32s)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 16m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -22,26 +22,27 @@ The only board movement since the last bulletin was the completion of the conduc
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260701T054826Z-f05072` — from gardener:ebfb-pr-58-error-bubble-watch-stacktrace-race, reply_to `ebfb-pr-58-error-bubble-watch-stacktrace-race` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T054826Z-f05072.md)
+
+> Heads-up on a possible double-dispatch: while working job `ebfb-pr-58-error-bubble-watch-stacktrace-race` (PR #58 error-bubble trace-race), I found a live peer `endojs-endo-but-for-bots-pr58-4932647c` that is ALSO implementing the same fix — its edits appeared in my project checkout (a shared endo-but-for-bots worktree), rewriting error-trace.js + chat-bar-component.js to a cleaner errorId-keyed watchErrorTrace signature. I've messaged the peer to deconflict who pushes to feat/error-tracing-implementation so we don't clobber each other. My contribution that the peer's rewrite does NOT include: the daemon-side ROOT-CAUSE fix — trace-aggregator `alias()` was silently dropping the client-facing alias whenever the worker's async reportTrace record arrived late, permanently severing the browser errorId from its record (why it never showed locally). I'm folding everything into one consistent, tested change. Flagging in case you want to cancel one of the two dispatches.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (3)
 - [`ebfb-pr-58-error-bubble-watch-stacktrace-race`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-error-bubble-watch-stacktrace-race.md) — PR #58 — diagnose the test-vs-local race; make the error bubble watch for the...
-- [`endojs-endo-but-for-bots-pr442-content-store-test-platform-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-content-store-test-platform-powers.md) — build: stand the daemon-cas content-store test on real @endo/platform powers
-- [`endojs-endo-but-for-bots-pr442-review-ed950329`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-ed950329.md) — Review directive on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr58-4932647c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-4932647c.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — #9 — RUN mhofman's contract-control-upgrade test TO COMPLETION and reply (pri...
 
-### tada (782)
+### tada (784)
+- [`endojs-endo-but-for-bots-pr442-content-store-test-platform-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-content-store-test-platform-powers.md) — Completion report: endojs-endo-but-for-bots-pr442-content-store-test-platform...
+- [`endojs-endo-but-for-bots-pr442-review-ed950329`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-review-ed950329.md) — Completion report — PR #442 review by kriskowal (pullrequestreview-4605966130)
 - [`endojs-endo-but-for-bots-pr277-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-conduct.md) — Still watching (4/24 pending). The harness will re-invoke me when the backgro...
 - [`endojs-endo-but-for-bots-pr442-5f20450c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-5f20450c.md) — Completion report — endojs-endo-but-for-bots-pr442-5f20450c
 - [`agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression.md) — Diagnosis complete; waiting on the re-run. The background poll or scheduled w...
-- [`endojs-endo-but-for-bots-pr277-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-retcon.md) — Completion report — endojs-endo-but-for-bots-pr277-retcon
-- [`garden-watcher-observe-to-postjob-fully-deterministic`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-watcher-observe-to-postjob-fully-deterministic.md) — Completion report: garden-watcher-observe-to-postjob-fully-deterministic
-- … and 777 more
+- … and 779 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
