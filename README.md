@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:06:57Z_
+_As of 2026-07-01T02:13:27Z_
 
 ## Latest
 
-Two builder jobs independently landed the "enforce `.js` extension by lint" work from kriskowal's #442 review, both converging on the same design (a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot that `import/extensions` and `import/no-unresolved` both miss). The duplicate [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) was self-closed in favor of the earlier [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which carries a proper frozen `llm` base and a changeset — **review target is #581**. No maintainer decision is needed on the raised `@endo/*` subpath question: both jobs independently concluded that requiring `.js` on `@endo/*` subpaths is not uniformly correct (`platform`/`agentry`/`preact-container` use extensionless export keys), so both leave subpaths to their exports maps; one optional suggestion (`checkTypeImports: true`) sits on #581. Elsewhere, [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) cleared its CI wait and the agoric-3-proposals #316 missing-proposals job completed.
+A pair of sibling builder jobs both took up kriskowal's #442 "enforce .js extension by lint" ask and independently converged on the same design — a new `@endo/jsdoc-import-extensions` ESLint rule closing the JSDoc `@import` blind spot that `import/extensions` and `import/no-unresolved` both miss, scoped to relative imports only. [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) landed first (frozen `llm` base, changeset, `checkTypeImports: true`); the gardener behind [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) closed its own PR as a duplicate and redirected review to #581, leaving one optional `checkTypeImports` suggestion. Both jobs reached the same scope conclusion independently: requiring `.js` on `@endo/*` subpaths is **not** uniformly correct — `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so their extensionless specifiers are the only resolving form; migrating those three to `.js`-suffixed export keys is a separate exports-map change worth tracking as a follow-up rather than folding in here. No maintainer decision is outstanding on that question. Meanwhile an attention directive on [endo-but-for-bots#570](https://github.com/endojs/endo-but-for-bots/pull/570) is in flight.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 39m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 46m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 21h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -39,8 +39,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr570-16d6cc1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr570-16d6cc1e.md) — attention directive on endojs/endo-but-for-bots PR #570
 
 ### tada (760)
 - [`endojs-endo-but-for-bots-pr571-f74b32fc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-f74b32fc.md) — Waiting for the CI job to complete. The background poll will notify me.
