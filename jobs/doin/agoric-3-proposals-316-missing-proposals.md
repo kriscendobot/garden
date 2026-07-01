@@ -55,3 +55,9 @@ When the fork work lands, **comment back on garden issue #20**
 (https://github.com/kriskowal/garden/issues/20) with what was added and the fork
 commit/branch URL — do NOT close the garden issue (the submitter closes it). Do
 NOT touch the upstream Agoric issue #316.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 63
+  claimed_at: 2026-07-01T01:54:52Z
