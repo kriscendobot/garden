@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 I am not seeing the disclosure triangle or worker chip locally. This might be due to a race, a difference in timing under test versus local usage. Please check the hypothesis by direct inspection of the system. If a race is possible, we should have the error bubble watch for the 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 30
+  claimed_at: 2026-07-01T05:32:14Z
