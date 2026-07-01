@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T20:18:04Z_
+_As of 2026-07-01T21:15:14Z_
 
 ## Latest
 
-The [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) shepherd run wrapped and moved to done — the only board transition this cycle. Nothing new is parked or awaiting review beyond the standing queue, where [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) are the freshest items still wanting kriskowal's eyes.
+Recent completions cluster on endo-but-for-bots: a shepherd run drove [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) toward green, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58)'s `makeExo` fix landed and was conducted through, and [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) was reconstructed to retire the `function` keyword against current master — alongside a repo-wide lint preferring `makeExo` over `Far`. The scholar also ingested the Cloudflare x402 monetization and comment-open-payment design fragments. Worth a maintainer's eye: the journal worktree on host endolinbot2 has diverged from `origin/journal2` (4 commits ahead, 6581 behind, 6 dirty paths) and was deliberately left untouched — it needs a hand-reconcile before that host's journal writes can catch up.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,10 @@ The [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260701T211502Z-d017ac` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T211502Z-d017ac.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 4 local-ahead commit(s), 6581 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
