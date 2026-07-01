@@ -12,6 +12,7 @@ discipline. The excerpt below is for human context only:
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Shepherd. And, meta, post a job to fix the gardener process. This should have been handed off to a shepherd automatically when changes were proposed and pushed. 
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
