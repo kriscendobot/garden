@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T14:39:41Z_
+_As of 2026-07-01T14:41:13Z_
 
 ## Latest
 
-The shepherd cleared CI on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), which now sits parked for kriskowal's review alongside 27 other open PRs — the freshest being the byte-array passable work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the EndoRegistry capability layer in [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403). Infra-side, the gardener fleet gained two reliability improvements — per-job handler budgets and earlier escalation on deadline overrun — plus an auto-shepherd trigger on red CI. The daily dependabotany recheck of endo-but-for-bots completed cleanly, and the board is otherwise quiet with only the midnight-Pacific progress summary still in flight. Four plans await maintainer go-ahead, including verification of the ymax0 hex fix and a proposal to port XS to Rust.
+CI shepherding on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) wrapped up and the PR is now parked awaiting kriskowal's review, alongside a garden-side improvement to escalate gardener deadline overruns earlier. Otherwise the board is quiet — the daily progress summary and the dependabotany recheck on endo-but-for-bots both landed clean, leaving no work in flight.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`daily-progress-summary-20260701-143534`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260701-143534.md) — Daily midnight Pacific progress summary
+### doin (0)
+(none)
 
-### tada (796)
+### tada (797)
+- [`daily-progress-summary-20260701-143534`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260701-143534.md) — Completion report — daily-progress-summary-20260701-143534
 - [`dependabotany-recheck-endo-but-for-bots-20260701-143534`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260701-143534.md) — Completion report: daily dependabotany recheck — endojs/endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr58-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-shepherd.md) — Completion report — endojs-endo-but-for-bots-pr58-shepherd
 - [`garden-auto-shepherd-on-red-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-auto-shepherd-on-red-ci.md) — Completion report — garden-auto-shepherd-on-red-ci
 - [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deadline-overrun-early-escalation.md) — Completion report
-- [`improve-gardener-per-job-handler-budget`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-per-job-handler-budget.md) — Completion report
-- … and 791 more
+- … and 792 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
