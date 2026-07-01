@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T00:19:08Z_
+_As of 2026-07-01T00:21:19Z_
 
 ## Latest
 
-The garden encoded a new standing rule that [verification claims require real-execution evidence](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-verification-claims-require-real-evidence.md) — a UI acceptance now demands an actual browser run, and an honest "unverified" beats a false "verified." That rule lands directly on the live work over [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), where a gardener is re-fixing the CapTP error rendering and verifying it in real Chrome rather than reasserting the earlier unbacked claim. Otherwise the board is steady: review directives on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) and [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442), the two `.js`-extension import-lint builders, and the bid/accept market Phase 0/1 build are all in flight with an empty todo queue.
+[endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277)'s review job completed and is now parked on the CI-settle watcher, which will trigger the conductor merge once checks go green; its landing immediately unblocked the newly claimed EndoMount name-hub interface-unification build. Meanwhile [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) has two active jobs in flight — one to actually fix the error rendering and verify it in real Chrome rather than claim an unproven "verified," heeding the standing rule that verification claims need real-execution evidence. A review directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) also completed, and two builders are working the `.js`-extension import-lint enforcement on endo-but-for-bots. The board is fully drained (todo empty, eight in-flight); nothing awaits maintainer input beyond the 28 parked PRs.
 
 ## Parked for maintainer feedback
 
@@ -28,22 +28,23 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (8)
 - [`build-bid-accept-market-phase0-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-bid-accept-market-phase0-1.md) — Build: bid/accept market — Phase 0/1 (opt-in field + shadow reputation ledger)
+- [`build-ebfb-namehub-interface-unification`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-ebfb-namehub-interface-unification.md) — Build: EndoMount name-hub interface unification (unblocked by PR #277)
 - [`builder-ebfb-enforce-js-extension-jsdoc-import-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/builder-ebfb-enforce-js-extension-jsdoc-import-lint.md) — builder: enforce .js extension on module specifiers via lint (endojs/endo-but...
+- [`deadmail-issue-comment-4849045455`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4849045455.md) — Dead-lettered message — pick up its intent
 - [`ebfb-pr-58-fix-error-rendering-verify-in-chrome`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-fix-error-rendering-verify-in-chrome.md) — PR #58 — actually fix the error rendering AND verify in real Chrome (prior "v...
-- [`endojs-endo-but-for-bots-pr277-review-64e9f470`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-review-64e9f470.md) — Review directive on endojs/endo-but-for-bots PR #277
 - [`endojs-endo-but-for-bots-pr442-review-ea91182a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-ea91182a.md) — Review directive on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr58-15926293`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-15926293.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`enforce-js-extension-lint-endo-but-for-bots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/enforce-js-extension-lint-endo-but-for-bots.md) — Builder: enforce .js extension on imports via lint (endojs/endo-but-for-bots)
 
-### tada (745)
+### tada (746)
+- [`endojs-endo-but-for-bots-pr277-review-64e9f470`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-review-64e9f470.md) — Waiting on the CI-settle watcher; I'll dispatch the conductor merge once chec...
 - [`garden-encode-verification-claims-require-real-evidence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-verification-claims-require-real-evidence.md) — The work is complete and landed on main2. Here is my completion report.
 - [`endojs-endo-but-for-bots-pr442-f8df35b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-f8df35b4.md) — Completion report
 - [`kriskowal-garden-pr16-review-94229b78`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-review-94229b78.md) — Completion report — job kriskowal-garden-pr16-review-94229b78
 - [`endojs-endo-but-for-bots-pr277-268a7246`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-268a7246.md) — Job complete. Here is my report.
-- [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder job: @endo/hex platform benchmark table — DONE (re-aimed per mid-job ...
-- … and 740 more
+- … and 741 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
