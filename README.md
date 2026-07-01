@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T12:45:24Z_
+_As of 2026-07-01T12:46:13Z_
 
 ## Latest
 
-Recent completions cluster on garden self-improvement and CI hygiene: two gardener-runtime hardening jobs landed (per-job handler budget and deadline-overrun early escalation), an auto-shepherd-on-red-CI job finished, and the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) shepherd run completed alongside the garden#9 contract-control upgrade test being driven to completion. No jobs are currently in flight (todo and doin are both empty). One operational flag worth a maintainer's eye: the journal-worktree-keeper reports that `/home/kris/journal` on endolinbot2 has diverged from `origin/journal2` — 3 commits ahead, 6398 behind, 6 dirty paths — and was deliberately left untouched, so it needs a hand reconcile before the local commits are lost. Meanwhile [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and [#503](https://github.com/endojs/endo-but-for-bots/pull/503) sit at the top of the parked queue awaiting review.
+The board is quiet — no jobs in flight and no todo/doin transitions this cycle — but several completions landed. A shepherd drove CI on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), which now sits parked awaiting kriskowal's review alongside 27 other PRs. On the infrastructure side, the gardener fleet gained earlier deadline-overrun escalation and a per-job handler budget, and an auto-shepherd-on-red-CI path completed. The garden#9 ymax0 track also advanced: the contract-control upgrade test was run to completion, with the inquisitor verification of the hex fix and stackCount snapshot-compatibility still parked in the plan queue awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ Recent completions cluster on garden self-improvement and CI hygiene: two garden
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T124515Z-d58558` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T124515Z-d58558.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6398 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
