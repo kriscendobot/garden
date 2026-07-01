@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please use makeExo. We do not use Far except under extenuating circumstances. Please post a follow-up job to establish a lint rule. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 61
+  claimed_at: 2026-07-01T17:32:41Z
