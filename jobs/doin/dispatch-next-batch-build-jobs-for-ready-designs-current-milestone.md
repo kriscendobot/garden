@@ -14,3 +14,9 @@ Procedure:
 4. Skip designs that are NOT ready (dependency unmet, still under review) and say why.
 Report the batch: each build job posted (design → basename), and each ready design deliberately skipped
 (with reason). Bot fork repos only; no upstream contact. End with a summary of the batch.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 32
+  claimed_at: 2026-07-01T23:59:35Z
