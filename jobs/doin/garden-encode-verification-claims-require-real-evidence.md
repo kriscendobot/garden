@@ -12,3 +12,9 @@ Encode in the garden's completion/reporting discipline + a juror check:
 Where: the gardener reporting norm (its always-read role/skill), and a **juror seat** check (skeptic/
 saboteur, or the panel) that REJECTS a "verified" claim lacking cited evidence for its criterion type.
 Add a test where feasible. Land on main2 via an isolated worktree off origin/main2.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 18
+  claimed_at: 2026-07-01T00:10:31Z
