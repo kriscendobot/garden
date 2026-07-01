@@ -1,15 +1,17 @@
 # Garden bulletin
 
-_As of 2026-07-01T00:51:42Z_
+_As of 2026-07-01T01:15:21Z_
 
 ## Latest
 
-[endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277)'s review job completed and is now parked on the CI-settle watcher, which will trigger the conductor merge once checks go green; its landing immediately unblocked the newly claimed EndoMount name-hub interface-unification build. Meanwhile [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) has two active jobs in flight — one to actually fix the error rendering and verify it in real Chrome rather than claim an unproven "verified," heeding the standing rule that verification claims need real-execution evidence. A review directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) also completed, and two builders are working the `.js`-extension import-lint enforcement on endo-but-for-bots. The board is fully drained (todo empty, eight in-flight); nothing awaits maintainer input beyond the 28 parked PRs.
+No jobs changed state this cycle, so activity is concentrated in what's in flight. The gardeners are reworking [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) to actually fix the error rendering *and* verify it in a real Chrome — the direct application of the just-landed "verification claims require real execution evidence" directive — alongside a review directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) and issue kriskowal/garden#20. #58 has been parked for maintainer review for an hour; [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has now waited 20h and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (registry-capability) over a day.
+
+One item needs a human hand: the `endolinbot2` journal worktree at `/home/kris/journal` has **diverged** from `origin/journal2` — 3 commits ahead, 6052 behind, 6 dirty paths — and the keeper left it untouched rather than clobber local work. It won't self-reconcile; inspect and rebase/discard by hand per the maintainer message.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 42m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 19h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 20h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 15d)
@@ -22,7 +24,10 @@ _As of 2026-07-01T00:51:42Z_
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260701T011512Z-67bbf6` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T011512Z-67bbf6.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6052 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
