@@ -1,0 +1,1 @@
+kriskowal/garden (garden infra): investigate and close the job-board dedup gap where a single PR directive (PR #58) spawned two concurrent jobs — one from the comment-watcher, one from a peer — enabling same-PR collisions (the clobber root cause); add a dedup guard keyed on PR/comment identity in scripts/jobs so one directive maps to at most one open job.
