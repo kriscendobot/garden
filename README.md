@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T22:27:13Z_
+_As of 2026-07-01T22:28:47Z_
 
 ## Latest
 
-A gardener claimed an attention directive on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), the only board movement since the last bulletin; it joins the still-in-flight second PR for [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548)'s inter-package plain re-exports (the mechanical repoint stage). Otherwise the board is quiet — nothing new posted to todo, and the deep backlog of parked PRs continues to wait on kriskowal's review, led by the freshest arrivals [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability).
+Work on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) completed and moved to done; the only remaining in-flight job is the second, mechanical-repoint PR for [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548)'s inter-package plain re-exports. The parked queue is the story for the maintainer: 27 PRs await review, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) the freshest, and [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules) now waiting more than two weeks.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Write the SECOND PR for #548's inter-package plain re-exports: the mechanical...
-- [`endojs-endo-but-for-bots-pr472-f1fa296b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-f1fa296b.md) — attention directive on endojs/endo-but-for-bots PR #472
 
-### tada (815)
+### tada (816)
+- [`endojs-endo-but-for-bots-pr472-f1fa296b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-f1fa296b.md) — Completion report
 - [`deadmail-issue-comment-4860197507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4860197507.md) — Completion report
 - [`endojs-endo-but-for-bots-pr586-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr586-shepherd.md) — Report
 - [`scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs.md) — Completion report
 - [`ebfb-reconstruct-pr474-retire-function-keyword-on-current-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-reconstruct-pr474-retire-function-keyword-on-current-master.md) — I've scheduled a fallback check. Awaiting either the background CI poll compl...
-- [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-makeexo-fix-and-conduct.md) — Completion report — job ebfb-pr-58-makeexo-fix-and-conduct (endojs/endo-but-f...
-- … and 810 more
+- … and 811 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
