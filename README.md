@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T01:27:51Z_
+_As of 2026-07-01T01:28:55Z_
 
 ## Latest
 
-Two jobs closed out since the last bulletin. The larger one addressed feedback on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing): the error-rendering fix was reworked and verified in a real Chrome run rather than asserted — the honest-verification standard kriskowal set on that PR. It remains parked awaiting his review. Separately, an infra fix now classifies Claude session-limit errors as transient so the CI-failure loop retries them instead of giving up. Five jobs stay in flight, including shepherding the agoric-sdk fork [#7](https://github.com/kriskowal/kriscendobot-agoric-sdk) to green and garden issue #20; the board's todo lane is empty.
+The [.js-extension lint](https://github.com/endojs/endo-but-for-bots/pull/582) work from kriskowal's [#442](https://github.com/endojs/endo-but-for-bots/pull/442) review landed as a DRAFT PR: a new `@endo/jsdoc-import-extensions` rule closes the JSDoc `@import` blind spot, with 158 tests passing and `eslint .` clean. It's held for one scope decision now in the maintainer inbox — enforcing `.js` on `@endo/*` subpaths isn't uniformly safe (`@endo/platform`, `@endo/agentry`, and `@endo/preact-container` resolve only via extensionless export keys), so the question is whether to fold their exports-map migration in or land the JSDoc/relative enforcement now and track the migration as a follow-up. Separately, the [#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-rendering fix was re-verified in Chrome, and an infra tweak now classifies Claude session-limit hits as transient.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,14 @@ Two jobs closed out since the last bulletin. The larger one addressed feedback o
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260701T012823Z-f8fc72` — from gardener:enforce-js-extension-lint-endo-but-for-bots, reply_to `enforce-js-extension-lint-endo-but-for-bots` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T012823Z-f8fc72.md)
+
+> DRAFT PR endojs/endo-but-for-bots#582 opened for the "enforce .js extension by lint" ask (kriskowal's #442 review on content-store.js:6).
+>
+> Done: new `@endo/jsdoc-import-extensions` rule (the JSDoc `@import` blind spot that both import/extensions and import/no-unresolved miss) + `checkTypeImports: true` on import/extensions. Tests 158 passing; `eslint .` green (0 errors).
+>
+> Holding as DRAFT for one scope call, laid out in the PR body: requiring `.js` on `@endo/*` SUBPATHS is not uniformly correct. `@endo/platform`, `@endo/agentry`, `@endo/preact-container` use extensionless export KEYS, so their extensionless specifiers are the only form that resolves — the reported `@endo/platform/fs/lite/types` is actually a correct explicit-key export. Enforcing `.js` there needs a separate exports-map migration of those 3 packages to `.js`-suffixed keys (the convention @endo/daemon, @endo/exo, @endo/marshal already follow). Fold that migration into this PR, or land the JSDoc/relative enforcement now and track the migration as a follow-up?
+
 
 ## Board
 ### todo (0)
