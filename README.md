@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T16:15:08Z_
+_As of 2026-07-01T16:15:55Z_
 
 ## Latest
 
-[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) was rebased and retconned, pushed with clean local validation and now awaiting CI — it sits at the top of the parked queue for review. The journal-worktree-keeper completed an autonomous lossless self-heal, and the agoric-3-proposals #316 job applied dckc's guidance and opened its PR. A daily progress summary and the daily dependabotany recheck of endojs/endo-but-for-bots also closed out. One thing to notice: the watchdog flagged that this host's journal worktree (`/home/kris/journal` on endolinbot2) has diverged from `origin/journal2` — 3 commits ahead, 6444 behind, 6 dirty paths — and was left untouched pending manual reconciliation.
+The freshly [rebased-and-retconned #58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) landed clean on local validation and is now parked awaiting CI and maintainer review. On the Agoric side, [agoric-3-proposals#316](https://github.com/agoric/agoric-3-proposals/pull/316) applied dckc's guidance and opened its PR. Otherwise this was a quiet, infrastructure-leaning interval: the journal-worktree-keeper's autonomous lossless self-heal, the daily progress summary, and the dependabotany recheck on endo-but-for-bots all completed with no new board posts or claims. Twenty-eight PRs remain parked for kriskowal — the oldest, [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax), has now waited 15 days.
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ _As of 2026-07-01T16:15:08Z_
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T161502Z-732cba` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T161502Z-732cba.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6444 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
