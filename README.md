@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T06:46:14Z_
+_As of 2026-07-01T06:47:41Z_
 
 ## Latest
 
-Recent completions cluster on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), where a follow-up job and a stack-trace-race error-bubble watch both wrapped up; the PR is now parked awaiting kriskowal's review (44m). On the garden-infra side, a batch of gardener reliability fixes landed — project-worktree isolation-collision, elapsed-constancy early escalation — alongside routine deadmail cleanup. The one job still in flight is running mhofman's contract-control-upgrade test to completion for [kriskowal/garden#9](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md). Maintainer attention is otherwise on a deep parked queue (28 PRs), with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) at the front after a day's wait.
+Quiet cycle: the sole board completion since last bulletin was [garden#9](https://github.com/kriskowal/garden/issues/9)'s contract-control upgrade test, run to completion — the mainnet-snapshot reproduction path for the ymax0 v320 XS value-stack overflow. Verification of that hex fix and its stackCount snapshot-compatibility remains parked in the plan queue awaiting go-ahead. The maintainer's attention is best spent on the freshly-parked [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing, waiting 44m) and the day-old [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability).
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — #9 — RUN mhofman's contract-control-upgrade test TO COMPLETION and reply (pri...
+### doin (0)
+(none)
 
-### tada (790)
+### tada (791)
+- [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — Completion report
 - [`fu-endojs-endo-but-for-bots-pr58-4932647c-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr58-4932647c-2.md) — Completion report
 - [`deadmail-20260701T060113Z-0b5922`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260701T060113Z-0b5922.md) — Completion report
 - [`improve-gardener-elapsed-constancy-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-elapsed-constancy-early-escalation.md) — Completion report
 - [`ebfb-pr-58-error-bubble-watch-stacktrace-race`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-error-bubble-watch-stacktrace-race.md) — Completion report
-- [`garden-fix-gardener-project-worktree-isolation-collision`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-gardener-project-worktree-isolation-collision.md) — Completion report
-- … and 785 more
+- … and 786 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
