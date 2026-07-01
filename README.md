@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T01:31:20Z_
+_As of 2026-07-01T01:32:22Z_
 
 ## Latest
 
-Two builder jobs independently tackled kriskowal's [#442](https://github.com/endojs/endo-but-for-bots/pull/442) review ask to enforce `.js` extensions on imports via lint, both landing on the same design — a new `@endo/jsdoc-import-extensions` rule to close the JSDoc `@import` blind spot that `import/extensions` and `import/no-unresolved` miss, plus `checkTypeImports: true`. The two DRAFT PRs collided ([#581](https://github.com/endojs/endo-but-for-bots/pull/581) opened two minutes before [#582](https://github.com/endojs/endo-but-for-bots/pull/582)); the gardener behind #582 closed it as a duplicate and pointed review at [#581](https://github.com/endojs/endo-but-for-bots/pull/581), which has a frozen `llm` base and a changeset. **No maintainer decision is needed on the earlier-raised `@endo/*` subpath question** — both PRs independently concluded that requiring `.js` on `@endo/*` subpaths is not uniformly correct (`platform`, `agentry`, `preact-container` use extensionless export keys), so both correctly leave subpaths to their exports maps; migrating those three packages to `.js`-suffixed keys is tracked as a separate follow-up. Elsewhere, the ebfb namehub interface-unification build completed (awaiting CI), and the [#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-rendering Chrome verification wrapped up.
+The `.js`-extension lint ask from kriskowal's #442 review landed as [endojs/endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) — a new `@endo/jsdoc-import-extensions` rule that closes the JSDoc `@import` blind spot both `import/extensions` and `import/no-unresolved` miss, on a frozen `llm` base with a changeset (158 tests passing, `eslint .` green). Two builder jobs raced to the same design independently; the duplicate [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) was self-closed in favor of #581, so no maintainer decision is owed on the raised `@endo/*`-subpath question — both concluded that enforcing `.js` on subpaths is wrong because `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` export extensionless keys, leaving those to their exports maps. Separately, the error-rendering fix on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) was re-verified in Chrome and it now sits parked for review; the Claude session-limit classifier was also improved to treat those as transient.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 14s)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 5m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 20h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -39,19 +39,18 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`agoric-sdk-fork-pr-7-shepherd-after-slim-down`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-shepherd-after-slim-down.md) — PR #7 — shepherd to green after the slim-down/feedback churn (maintainer dire...
 - [`deadmail-issue-comment-4849045455`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4849045455.md) — Dead-lettered message — pick up its intent
-- [`enforce-js-extension-lint-endo-but-for-bots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/enforce-js-extension-lint-endo-but-for-bots.md) — Builder: enforce .js extension on imports via lint (endojs/endo-but-for-bots)
 - [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-20.md) — Issue from kriskowal on kriskowal/garden #20
 
-### tada (753)
+### tada (754)
+- [`enforce-js-extension-lint-endo-but-for-bots`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/enforce-js-extension-lint-endo-but-for-bots.md) — Completion report: enforce-js-extension-lint-endo-but-for-bots
 - [`build-ebfb-namehub-interface-unification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-ebfb-namehub-interface-unification.md) — I've completed the substantive work and am waiting on CI. Let me stop here an...
 - [`ebfb-pr-58-fix-error-rendering-verify-in-chrome`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-fix-error-rendering-verify-in-chrome.md) — Completion report
 - [`improve-classify-claude-session-limit-as-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-claude-session-limit-as-transient.md) — Completion report
 - [`builder-ebfb-enforce-js-extension-jsdoc-import-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/builder-ebfb-enforce-js-extension-jsdoc-import-lint.md) — Completion report
-- [`endojs-endo-but-for-bots-pr442-review-ea91182a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-review-ea91182a.md) — What the review asked (2 inline directives; body was marker-only)
-- … and 748 more
+- … and 749 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
