@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T16:52:25Z_
+_As of 2026-07-01T16:56:28Z_
 
 ## Latest
 
-Two endo-but-for-bots PRs moved into active work: [#277](https://github.com/endojs/endo-but-for-bots/pull/277) was claimed to retcon and then conduct the merge on the maintainer's "ready to merge" authorization, and an attention directive on [#472](https://github.com/endojs/endo-but-for-bots/pull/472) is now being worked. On [#58](https://github.com/endojs/endo-but-for-bots/pull/58) (freshly rebased and retconned, local validation clean), a shepherd re-ran the flaky 22.x macOS CI and is polling for the result — it remains the newest parked PR awaiting review. Elsewhere, dckc's guidance was applied to agoric-3-proposals #316 and a PR opened, and the journal-worktree-keeper's autonomous lossless self-heal completed. Note the plan queue: four PLANs sit awaiting maintainer go-ahead, including verifying the ymax0 hex fix and the stackCount snapshot-compatibility check.
+A gardener claimed [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) follow-up work — exhaustive deterministic byteOffset+length constructor boundary tests — which now runs alongside the still-open attention directive on the same PR and the maintainer-authorized retcon-then-merge of [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) ("ready to merge"). Otherwise the board is quiet, with the todo lane empty and 28 PRs parked for kriskowal's review.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`ebfb-pr-277-retcon-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-277-retcon-and-conduct.md) — PR #277 — retcon then conduct (merge); maintainer authorized: "ready to merge"
+- [`ebfb-pr472-followup-boundary-tests`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr472-followup-boundary-tests.md) — build: exhaustive deterministic byteOffset+length constructor boundary tests ...
 - [`endojs-endo-but-for-bots-pr472-42615737`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-42615737.md) — attention directive on endojs/endo-but-for-bots PR #472
 
 ### tada (801)
