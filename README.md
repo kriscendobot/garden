@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-01T00:49:54Z_
+_As of 2026-07-01T00:50:24Z_
 
 ## Latest
 
@@ -22,7 +22,10 @@ _As of 2026-07-01T00:49:54Z_
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260701T005012Z-b4e8d5` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T005012Z-b4e8d5.md)
+
+> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: b89ddfe77faeb5e90ffdfe63248760f347ba48b9 (git -C /home/kris/.garden-state/self-heal/journal cat-file -p b89ddfe77faeb5e90ffdfe63248760f347ba48b9). Diagnosis: You've hit your session limit · resets 1:10am (UTC)
+
 
 ## Board
 ### todo (0)
