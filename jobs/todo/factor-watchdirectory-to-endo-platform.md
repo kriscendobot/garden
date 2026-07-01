@@ -1,10 +1,4 @@
----
-gate: deferred
-priority: normal
-roadmap: endo-filesystem-watchers
-posted_by: gardener
-posted_at: 2026-07-01T17:27:46Z
----
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-07-01T23:58:09Z -->
 
 # Factor `watchDirectory` out of the daemon into `@endo/platform`
 
