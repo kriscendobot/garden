@@ -13725,3 +13725,32 @@ scope to capability mapping | oauth-client-credentials-vs-authorization-code
 short-lived access token from durable client | oauth-client-credentials-vs-authorization-code
 non-interactive programmatic API access | oauth-client-credentials-vs-authorization-code
 on behalf of a user | oauth-client-credentials-vs-authorization-code
+x402 | x402-protocol
+x402 protocol | x402-protocol
+402 Payment Required | x402-protocol
+HTTP 402 | x402-protocol
+pay over HTTP | x402-protocol
+paying over HTTP | x402-protocol
+x402 facilitator | x402-protocol
+x402 Foundation | x402-protocol
+Monetization Gateway | monetization-gateway
+Cloudflare Monetization Gateway | monetization-gateway
+monetize MCP server | monetization-gateway
+monetize MCP tool | monetization-gateway
+MCP tool monetization | monetization-gateway
+pay-per-request gateway | monetization-gateway
+payment gateway at the edge | monetization-gateway
+pay-per-request | pay-per-request-monetization
+usage-based pricing | pay-per-request-monetization
+per-call billing | pay-per-request-monetization
+micropayments | pay-per-request-monetization
+stablecoin micropayment | pay-per-request-monetization
+per-token pricing | pay-per-request-monetization
+outcome pricing | pay-per-request-monetization
+pay per crawl | pay-per-request-monetization
+agent pays per request | pay-per-request-monetization
+payment is the credential | payment-as-credential
+payment as credential | payment-as-credential
+no account required | payment-as-credential
+no prior relationship | payment-as-credential
+unverified buyer | payment-as-credential
