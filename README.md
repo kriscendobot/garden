@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T23:02:41Z_
+_As of 2026-07-01T23:08:42Z_
 
 ## Latest
 
-Review and attention work cleared on three [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) PRs: both the review and follow-up jobs on [#472](https://github.com/endojs/endo-but-for-bots/pull/472) and [#586](https://github.com/endojs/endo-but-for-bots/pull/586) landed, along with the attention-directive on [#548](https://github.com/endojs/endo-but-for-bots/pull/548). The first PR of [#548](https://github.com/endojs/endo-but-for-bots/pull/548)'s inter-package re-exports split is done; a gardener is now carrying the second — the mechanical repoint that removes the follow-up shim. The board is otherwise drained (todo empty, one job in flight), so the main thing awaiting a human is the parked review queue, topped by [#503](https://github.com/endojs/endo-but-for-bots/pull/503)'s passable byte-arrays and [#403](https://github.com/endojs/endo-but-for-bots/pull/403)'s EndoRegistry capability.
+A gardener claimed the [kriscendobot/agoric-3-proposals#1](https://github.com/kriscendobot/agoric-3-proposals/pull/1) retcon (maintainer directive) — the one new item to cross the board this cycle. Still in flight alongside it: the second, mechanical-repoint PR splitting out [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548)'s inter-package plain re-exports. Recent completions landed review passes on [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586), [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), and the attention directive on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548). The maintainer-authorization plan queue is worth a glance — the ymax0 hex-fix verification and the XS-to-Rust port both await a go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`agoric-3-proposals-pr1-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-pr1-retcon.md) — kriscendobot/agoric-3-proposals #1 — retcon (maintainer directive)
 - [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Write the SECOND PR for #548's inter-package plain re-exports: the mechanical...
 
 ### tada (824)
