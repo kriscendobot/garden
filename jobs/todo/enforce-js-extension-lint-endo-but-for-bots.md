@@ -37,8 +37,4 @@ maintainer's daemon-cas line targets) that makes an extensionless import specifi
 (runtime or JSDoc `@import`) a lint ERROR, with lint green on the existing tree
 after the one-off #442 fix. Run the full gamut chain.
 
----
-claim:
-  host: endolinbot2
-  gardener: 88
-  claimed_at: 2026-07-01T00:16:18Z
+<!-- garden-reaped: 1 -->

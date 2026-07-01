@@ -93,8 +93,4 @@ Then:
 - New eslint-plugin test passes if a custom rule was authored.
 - No unrelated lint regressions.
 
----
-claim:
-  host: endolinbot2
-  gardener: 61
-  claimed_at: 2026-07-01T00:17:11Z
+<!-- garden-reaped: 1 -->
