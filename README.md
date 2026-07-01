@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-01T20:08:30Z_
+_As of 2026-07-01T20:09:17Z_
 
 ## Latest
 
-[endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) cleared its board slot: the reconstruction to retire the `function` keyword on current master finished (a fallback CI check was scheduled pending the background poll). A shepherd is now driving CI on the freshly claimed [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586). Also recently landed: the makeExo fix on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) was merged (peer-conducted), alongside a prefer-makeExo-over-Far lint pass and the #320-feedback/CI work on the agoric-3-proposals mirror. A scholar is ingesting Cloudflare's x402 monetization-gateway post to inform the open payment/comment designs. Nothing is parked in `todo`; 27 PRs await maintainer review, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 16d) and the long-idle chat/ses/design PRs beyond it.
+Based on the board transitions, the substantive change since the last bulletin: the scholar completed its ingest job.
+
+The scholar finished ingesting Cloudflare's x402 monetization and the comment-open payment designs, closing out the last open job; the board now sits empty in todo with a single shepherd directive in flight on [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586). Twenty-seven PRs remain parked for review, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) the freshest at the top of the queue.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +30,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr586-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #586
-- [`scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs.md) — Scholar: ingest Cloudflare's x402 monetization-gateway post, then comment on ...
 
-### tada (812)
+### tada (813)
+- [`scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs.md) — scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs
 - [`ebfb-reconstruct-pr474-retire-function-keyword-on-current-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-reconstruct-pr474-retire-function-keyword-on-current-master.md) — I've scheduled a fallback check. Awaiting either the background CI poll compl...
 - [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-makeexo-fix-and-conduct.md) — Completion report — job ebfb-pr-58-makeexo-fix-and-conduct (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-lint-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-lint-prefer-makeexo-over-far.md) — Completion report
 - [`endojs-endo-but-for-bots-pr58-review-31df538e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-review-31df538e.md) — Confirmed — PR_MERGED (peer conducted), consistent with the completed work. T...
-- [`agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci.md) — Completion report
-- … and 807 more
+- … and 808 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
