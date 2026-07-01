@@ -1,21 +1,21 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:28:04Z_
+_As of 2026-07-01T02:30:01Z_
 
 ## Latest
 
-Two builder jobs raced the same `.js`-extension lint ask from kriskowal's #442 review: [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) opened first but closed itself as a duplicate of [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which landed two minutes earlier with a frozen `llm` base and a changeset. Both independently converged on a new `@endo/jsdoc-import-extensions` ESLint rule (covering the JSDoc `@import` blind spot) with relative-only scope, and both deliberately leave `@endo/*` subpaths to their exports maps — since `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so the reported specifier is actually correct. No scope decision is needed from the maintainer; **review target is #581** (one optional `checkTypeImports: true` suggestion left inline). Separately, attention and review directives on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) are in flight, and completions landed on [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#570](https://github.com/endojs/endo-but-for-bots/pull/570), and [#571](https://github.com/endojs/endo-but-for-bots/pull/571).
+Two builder jobs independently tackled kriskowal's #442 "enforce `.js` by lint" ask and converged on the same design — a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot plus `checkTypeImports: true`. The sibling job opened [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) two minutes ahead, so the second gardener closed its [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) as a duplicate; review target is **#581** (tests green, changeset in place). No maintainer scope decision is needed — both correctly leave `@endo/*` subpaths to their exports maps, since `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` deliberately use extensionless export keys. Separately, the review of [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) completed, and its attention directive is now the only job in flight.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 56m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 21h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 15d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 40d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 39d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 39d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 40d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 40d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 41d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 40d)
 
@@ -39,17 +39,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr572-02dd3364`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-02dd3364.md) — attention directive on endojs/endo-but-for-bots PR #572
-- [`endojs-endo-but-for-bots-pr572-review-ee8280af`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-ee8280af.md) — Review directive on endojs/endo-but-for-bots PR #572
 
-### tada (762)
+### tada (763)
+- [`endojs-endo-but-for-bots-pr572-review-ee8280af`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-ee8280af.md) — Completion report: endojs-endo-but-for-bots-pr572-review-ee8280af
 - [`endojs-endo-but-for-bots-pr475-2f49bb71`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-2f49bb71.md) — Completion report
 - [`endojs-endo-but-for-bots-pr570-16d6cc1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr570-16d6cc1e.md) — Completion report — endojs-endo-but-for-bots-pr570-16d6cc1e
 - [`endojs-endo-but-for-bots-pr571-f74b32fc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-f74b32fc.md) — Waiting for the CI job to complete. The background poll will notify me.
 - [`agoric-3-proposals-316-missing-proposals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-316-missing-proposals.md) — Completion report
-- [`endojs-endo-but-for-bots-pr572-review-c378dbbc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-c378dbbc.md) — Completion report
-- … and 757 more
+- … and 758 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
