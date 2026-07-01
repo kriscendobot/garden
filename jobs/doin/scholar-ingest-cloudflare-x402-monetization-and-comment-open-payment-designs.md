@@ -30,3 +30,9 @@ Library ingest lands on **journal2** (`land-journal-edit.sh`). Design comments g
 open PRs (bot identity) — **no upstream endojs/endo or other upstream contact**. Report: source ingested
 (section count), topics/concepts touched, and each design commented (with the PR/# and the gist). End with
 `Self-improvement: ...`.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 97
+  claimed_at: 2026-07-01T19:54:53Z
