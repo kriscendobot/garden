@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot  Since those new producers will not be compat with older consumers, should these this change to the producers bump the version number? I am familiar with version number practices for compat of code locally linked together. Is it normal practice to do so for protocol
+
+---
+claim:
+  host: endolinbot2
+  gardener: 18
+  claimed_at: 2026-07-01T03:14:51Z
