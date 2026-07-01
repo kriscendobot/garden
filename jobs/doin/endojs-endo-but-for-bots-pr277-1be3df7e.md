@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot Please post a follow-up job to factor watchDirectory out to `@endo/platform`. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 26
+  claimed_at: 2026-07-01T17:24:54Z
