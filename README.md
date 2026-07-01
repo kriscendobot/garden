@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T22:44:00Z_
+_As of 2026-07-01T22:46:42Z_
 
 ## Latest
 
-A gardener claimed the [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) follow-up — writing the second PR that mechanically repoints inter-package plain re-exports and removes the interim shim — so that job is now in flight alongside the encoding of the multibot leader-marker convention (every liaison watches the `leader` marker; changing it raises the new leader). Otherwise the board is quiet: nothing new posted, ten PRs still parked on kriskowal's review, the longest-waiting being [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (opencode comparative analysis) at 42 days and [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules via erasable type syntax) at 16.
+The garden's liaison leader-watch encoding landed — the job wiring the leader marker so that setting it raises a host to leader (and the liaison watches that marker) moved to done, leaving the board nearly quiet with just the [#548](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) mechanical-repoint follow-up still in flight. Otherwise the queue is idle: nothing new posted, 27 PRs remain parked for kriskowal's review, the oldest being the [endopen comparative analysis](https://github.com/endojs/endo-but-for-bots/pull/266) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Write the SECOND PR for #548's inter-package plain re-exports: the mechanical...
-- [`garden-encode-liaison-leader-watch-and-marker-raises-leader`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-liaison-leader-watch-and-marker-raises-leader.md) — Encode: every liaison watches the leader marker; changing it RAISES the new l...
 
-### tada (817)
+### tada (818)
+- [`garden-encode-liaison-leader-watch-and-marker-raises-leader`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-liaison-leader-watch-and-marker-raises-leader.md) — Completion report
 - [`agoric-3-proposals-pr1-fix-upstream-320-ci-matrix-and-test-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-pr1-fix-upstream-320-ci-matrix-and-test-packages.md) — Job complete — both upstream #320 CI failures fixed on fork PR #1
 - [`endojs-endo-but-for-bots-pr472-f1fa296b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-f1fa296b.md) — Completion report
 - [`deadmail-issue-comment-4860197507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4860197507.md) — Completion report
 - [`endojs-endo-but-for-bots-pr586-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr586-shepherd.md) — Report
-- [`scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs.md) — Completion report
-- … and 812 more
+- … and 813 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
