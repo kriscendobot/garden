@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T22:46:42Z_
+_As of 2026-07-01T22:58:15Z_
 
 ## Latest
 
-The garden's liaison leader-watch encoding landed — the job wiring the leader marker so that setting it raises a host to leader (and the liaison watches that marker) moved to done, leaving the board nearly quiet with just the [#548](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) mechanical-repoint follow-up still in flight. Otherwise the queue is idle: nothing new posted, 27 PRs remain parked for kriskowal's review, the oldest being the [endopen comparative analysis](https://github.com/endojs/endo-but-for-bots/pull/266) at 42 days.
+Work concentrated on two endo-but-for-bots PRs: fresh attention and review directives were claimed on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) and [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586), with #586's shepherd pass and one #472 directive already reported complete — three directives on each remain in flight. Separately, both upstream-#320 CI failures were fixed on the agoric-3-proposals fork PR #1 (CI matrix plus test packages), and a garden-infra job encoding the liaison leader-watch/marker-raises-leader behavior landed. The parked queue is unchanged and still deep at 27 PRs; the oldest awaiting kriskowal remain [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (~42 days), with [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable .ts runtime modules) at 16 days.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (6)
 - [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Write the SECOND PR for #548's inter-package plain re-exports: the mechanical...
+- [`endojs-endo-but-for-bots-pr472-66cd8af6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-66cd8af6.md) — attention directive on endojs/endo-but-for-bots PR #472
+- [`endojs-endo-but-for-bots-pr472-review-f6149cf0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-f6149cf0.md) — Review directive on endojs/endo-but-for-bots PR #472
+- [`endojs-endo-but-for-bots-pr586-5a34148a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-5a34148a.md) — attention directive on endojs/endo-but-for-bots PR #586
+- [`endojs-endo-but-for-bots-pr586-dbdf46d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-dbdf46d8.md) — attention directive on endojs/endo-but-for-bots PR #586
+- [`endojs-endo-but-for-bots-pr586-review-73c9bcb3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-review-73c9bcb3.md) — Review directive on endojs/endo-but-for-bots PR #586
 
 ### tada (818)
 - [`garden-encode-liaison-leader-watch-and-marker-raises-leader`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-liaison-leader-watch-and-marker-raises-leader.md) — Completion report
