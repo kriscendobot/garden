@@ -23,3 +23,9 @@ Scope: bot repro infra / inquisitor; the Agoric release tag + bundles are read-o
 Agoric/agoric-sdk comments or artifact links. Preserve/resume any baseline state the prior run established.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 63
+  claimed_at: 2026-07-01T05:43:12Z
