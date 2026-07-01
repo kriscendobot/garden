@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 It would be nice if integer-indexed assignment to the result from `new Uint8Array(iab)` _were_ to throw... I wonder if it would be worth having each emulated typed-array instance (i.e., what is currently just `create(OriginalConstructor.prototype)`) be a proxy rather than a plain
+
+---
+claim:
+  host: endolinbot2
+  gardener: 2
+  claimed_at: 2026-07-01T22:57:19Z
