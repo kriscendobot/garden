@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T20:09:50Z_
+_As of 2026-07-01T20:18:04Z_
 
 ## Latest
 
-A shepherd is actively driving CI on [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586); otherwise the board is quiet, with the only movement a refreshed completion report on the scholar's ingest of the Cloudflare x402 monetization and open-payment comment designs.
+The [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) shepherd run wrapped and moved to done — the only board transition this cycle. Nothing new is parked or awaiting review beyond the standing queue, where [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) are the freshest items still wanting kriskowal's eyes.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr586-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #586
+### doin (0)
+(none)
 
-### tada (813)
+### tada (814)
+- [`endojs-endo-but-for-bots-pr586-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr586-shepherd.md) — Report
 - [`scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs.md) — Completion report
 - [`ebfb-reconstruct-pr474-retire-function-keyword-on-current-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-reconstruct-pr474-retire-function-keyword-on-current-master.md) — I've scheduled a fallback check. Awaiting either the background CI poll compl...
 - [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-makeexo-fix-and-conduct.md) — Completion report — job ebfb-pr-58-makeexo-fix-and-conduct (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-lint-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-lint-prefer-makeexo-over-far.md) — Completion report
-- [`endojs-endo-but-for-bots-pr58-review-31df538e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-review-31df538e.md) — Confirmed — PR_MERGED (peer conducted), consistent with the completed work. T...
-- … and 808 more
+- … and 809 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
