@@ -19,3 +19,9 @@ listing what was addressed (CI fix, changeset, coderabbit points) + verification
 cite what you actually ran; honest "couldn't verify X" beats asserting.
 Related context: this PR descends from the agoric-3-proposals #316 work + dckc's guidance (bundles via
 `scripts/fetch-all-bundles.ts`, document omitted proposal 113) — keep those intact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 34
+  claimed_at: 2026-07-01T17:35:45Z
