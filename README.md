@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T05:25:36Z_
+_As of 2026-07-01T05:26:38Z_
 
 ## Latest
 
-Here's the "## Latest" body:
-
-Only one item moved: [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) cleared its retcon (restaged per-package with a separate yarn.lock commit) and a merge (conduct) directive is now claimed and in progress — so #277 is the one PR to watch for landing. Nothing else transitioned this cycle; the 28 parked PRs, led by [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, waiting 3h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, waiting 1d), still await your review.
+A conduct (merge) directive is now in flight on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277), following its retcon completing this cycle; the merge is the last step before it lands. A fresh attention directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) was just claimed and is being worked. On garden infrastructure, two reliability fixes completed: the watcher's observe-to-post-job path is now fully deterministic, and gardeners now deterministically requeue a job when a `claude` invocation exits incomplete. Ten of twenty-eight parked PRs still await kriskowal — [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) is the freshest at 3h, while [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules) has been parked 15 days.
 
 ## Parked for maintainer feedback
 
@@ -30,8 +28,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr277-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-conduct.md) — conduct (merge) directive on endojs/endo-but-for-bots PR #277
+- [`endojs-endo-but-for-bots-pr442-5f20450c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-5f20450c.md) — attention directive on endojs/endo-but-for-bots PR #442
 
 ### tada (779)
 - [`endojs-endo-but-for-bots-pr277-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-retcon.md) — Completion report — endojs-endo-but-for-bots-pr277-retcon
