@@ -22,6 +22,7 @@ session ended before any step completed. No result, no #9 reply. Do NOT repeat t
 Scope: bot repro infra / inquisitor; the Agoric release tag + bundles are read-only reference; no upstream
 Agoric/agoric-sdk comments or artifact links. Preserve/resume any baseline state the prior run established.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
