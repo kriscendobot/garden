@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T05:26:38Z_
+_As of 2026-07-01T05:27:54Z_
 
 ## Latest
 
-A conduct (merge) directive is now in flight on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277), following its retcon completing this cycle; the merge is the last step before it lands. A fresh attention directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) was just claimed and is being worked. On garden infrastructure, two reliability fixes completed: the watcher's observe-to-post-job path is now fully deterministic, and gardeners now deterministically requeue a job when a `claude` invocation exits incomplete. Ten of twenty-eight parked PRs still await kriskowal — [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) is the freshest at 3h, while [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules) has been parked 15 days.
+Two review-and-fix jobs were just claimed and are now in flight: a shepherd/fixer round on the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) fork chasing a test-swingset regression, and a fresh review directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) (which also has a still-open attention directive alongside a queued conduct/merge on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277)). No completions landed in this window. For maintainer attention, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) is freshly parked at ~3h, while [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules) has now been waiting 15 days.
 
 ## Parked for maintainer feedback
 
@@ -28,9 +28,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression.md) — PR #7 — shepherd/fixer round: test-swingset regression + reply (prior shepher...
 - [`endojs-endo-but-for-bots-pr277-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-conduct.md) — conduct (merge) directive on endojs/endo-but-for-bots PR #277
 - [`endojs-endo-but-for-bots-pr442-5f20450c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-5f20450c.md) — attention directive on endojs/endo-but-for-bots PR #442
+- [`endojs-endo-but-for-bots-pr442-review-ed950329`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-ed950329.md) — Review directive on endojs/endo-but-for-bots PR #442
 
 ### tada (779)
 - [`endojs-endo-but-for-bots-pr277-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-retcon.md) — Completion report — endojs-endo-but-for-bots-pr277-retcon
