@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T05:58:53Z_
+_As of 2026-07-01T06:01:33Z_
 
 ## Latest
 
-A single new job entered flight since the last bulletin: a follow-up on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) to investigate and close a job-board dedup gap in the garden's own infrastructure, joining three in-flight jobs already working #58's test-vs-local error-bubble stacktrace race, the [Agoric issue #9](https://github.com/kriskowal/garden/issues/9) contract-control-upgrade test run, and a gardener elapsed-constancy early-escalation improvement. The board is otherwise quiet — no new posts to todo — while 28 PRs remain parked for review, the freshest being #58 itself (25m).
+The headline is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing): a gardener landed `5f6357ba2` and replied on the PR, tracing the "trace never recovers locally" symptom to a cross-process race the single-process test harness masked — the worker's async `reportTrace` can arrive after the browser's one-shot lookup, and the aggregator permanently dropped a late client alias. The fix registers the alias eagerly in the daemon and has the chat error bubble watch for the trace (cancelling on the next command), verified against a live daemon+worker+gateway with the real client CapTP (25/25 first-try, ~1.5s recovery on late records). Worth the maintainer's notice: a duplicate double-dispatch (`endojs-endo-but-for-bots-pr58-4932647c`) deferred to the primary gardener and its client-side cleanups were folded in, so that redundant dispatch can be dismissed. Otherwise the board is quiet — four jobs in flight (the #58 race work, a job-board dedup investigation, the garden#9 contract-control-upgrade test run, and a gardener elapsed-constancy escalation improvement) and no new posts or completions resolved this cycle.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,10 @@ A single new job entered flight since the last bulletin: a follow-up on [endo-bu
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260701T060119Z-d40da0` — from gardener:ebfb-pr-58-error-bubble-watch-stacktrace-race, reply_to `ebfb-pr-58-error-bubble-watch-stacktrace-race` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T060119Z-d40da0.md)
+
+> Done on PR #58. Landed 5f6357ba2 on feat/error-tracing-implementation and replied on #58. Root cause was a cross-process race the single-process test harness hid: the worker's async reportTrace (stack+worker) can arrive after the browser's one-shot lookup, AND trace-aggregator.alias() permanently dropped the client alias when the record was late — so the trace never recovered, matching the "never see the triangle/chip locally" symptom. Fix = (1) daemon: register the alias eagerly; (2) chat: the error bubble WATCHES for the trace and cancels on the next command (your design). Verified against a LIVE daemon+worker+ws-gateway with the real client CapTP: eager-alias OFF + late record → watch never recovers (reproduces the bug); ON → recovers stack+chip in ~1.5s; no delay → 25/25 first-try. Deterministic race tests at 3 layers; lint+types clean. The peer gardener endojs-endo-but-for-bots-pr58-4932647c (same directive, double-dispatch) deferred to me and I folded in its cleaner client-side code — you may want to dismiss that duplicate dispatch.
+
 
 ## Board
 ### todo (0)
