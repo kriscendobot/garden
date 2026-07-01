@@ -19,3 +19,9 @@ comment on / push to upstream Agoric/agoric-3-proposals. Fix on the FORK branch;
    evidence. Verification-integrity: cite what you actually ran; honest "couldn't reproduce X locally" beats
    asserting a fix. Preserve the prior work (proposals 111–116, bundles, documented omitted 113, changeset).
 Bot fork; no upstream Agoric contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 83
+  claimed_at: 2026-07-01T22:29:13Z
