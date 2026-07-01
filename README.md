@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T03:25:35Z_
+_As of 2026-07-01T03:40:55Z_
 
 ## Latest
 
-The bulletin cycle was quiet: the only board movement was the completion of the [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) attention directive (erights review), which landed in `tada`. No new posts or claims otherwise.
+The .js-extension exports-map migration landed as a fold-in ([completion report](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-fold-in-js-extension-exports-map-migration.md)), and an attention directive on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) was resolved. Most of the recent churn is on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475): several completion reports closed out (one an erights directive), and a fresh attention directive on the same PR is now in flight — the only job currently claimed. Ten PRs remain parked for kriskowal's review, led by the newly-arrived [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 22h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -28,8 +28,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr475-ae693c7b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-ae693c7b.md) — attention directive on endojs/endo-but-for-bots PR #475
 
 ### tada (774)
 - [`endojs-endo-but-for-bots-pr475-45832303`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-45832303.md) — Completion report
