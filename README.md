@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:22:51Z_
+_As of 2026-07-01T02:25:00Z_
 
 ## Latest
 
-The `.js`-extension-lint ask from kriskowal's #442 review produced a brief duplicate: two sibling builder jobs independently landed the same design (a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot, relative-only scope), so the gardener closed its [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) in favor of the two-minutes-earlier [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) — which carries a frozen `llm` base and a changeset. **Review target is #581**; no maintainer decision is needed on the `@endo/*`-subpath question, since both PRs concluded that requiring `.js` on subpaths is not uniformly correct (platform/agentry/preact-container export extensionless keys) and correctly leave those to the exports maps. Separately, [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) completed, and freshly parked at the top of the review queue is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers, 51m).
+The .js-extension lint ask from kriskowal's [#442](https://github.com/endojs/endo-but-for-bots/pull/442) review produced a race: two builder jobs independently opened [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) and [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) for the same fix, both landing on the same design — a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot that `import/extensions` and `import/no-unresolved` both miss. [#582](https://github.com/endojs/endo-but-for-bots/pull/582) self-closed as a duplicate; **review target is [#581](https://github.com/endojs/endo-but-for-bots/pull/581)** (frozen `llm` base, changeset, tests green). Both PRs independently concluded that requiring `.js` on `@endo/*` subpaths is *not* uniformly correct — `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so those specifiers are left to their exports maps — meaning the scope question the gardener flagged needs no maintainer decision. Separately, a review directive on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) is in flight, and completion reports landed for [#570](https://github.com/endojs/endo-but-for-bots/pull/570), [#571](https://github.com/endojs/endo-but-for-bots/pull/571), and [#475](https://github.com/endojs/endo-but-for-bots/pull/475).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 51m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 56m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 21h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -39,8 +39,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr572-review-ee8280af`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-ee8280af.md) — Review directive on endojs/endo-but-for-bots PR #572
 
 ### tada (762)
 - [`endojs-endo-but-for-bots-pr475-2f49bb71`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-2f49bb71.md) — Completion report
