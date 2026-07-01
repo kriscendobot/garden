@@ -19,3 +19,9 @@ run local-verify (format/lint/build/test). Open it as a PR on endo-but-for-bots 
 integrity: cite what you ran). Bot fork; no upstream contact.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 94
+  claimed_at: 2026-07-01T23:13:13Z
