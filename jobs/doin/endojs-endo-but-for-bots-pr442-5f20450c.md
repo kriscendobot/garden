@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please investigate using `@endo/platform` for these powers. These are likely duplicative and not the subject of this test, nor necessary to mock. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 65
+  claimed_at: 2026-07-01T05:26:11Z
