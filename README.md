@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T13:46:06Z_
+_As of 2026-07-01T14:36:25Z_
 
 ## Latest
 
-The board is fully drained — nothing in todo or doin — with the most recent completions clustering on CI and gardener reliability: a shepherd run drove [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) and an auto-shepherd-on-red-ci pass landed, alongside gardener-hardening work (earlier deadline-overrun escalation, per-job handler budgets) and the garden issue #9 contract-control-upgrade test run to completion. No board transitions resolved since the last bulletin, so the queue is quiet; the notable standing item is that #58 has now been parked ~3h awaiting kriskowal's review, the freshest of the 28 parked PRs.
+Little moved since the last bulletin: two daily maintenance jobs are now in flight — the [midnight-Pacific progress summary](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260701-143534.md) and the dependabotany recheck against endojs/endo-but-for-bots — with the todo lane empty. Worth a glance: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP-worker error tracing) is freshly off a shepherd run and now the newest PR parked for your review, at 4h.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 4h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,8 +28,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`daily-progress-summary-20260701-143534`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260701-143534.md) — Daily midnight Pacific progress summary
+- [`dependabotany-recheck-endo-but-for-bots-20260701-143534`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260701-143534.md) — Daily dependabotany recheck: endojs/endo-but-for-bots
 
 ### tada (795)
 - [`endojs-endo-but-for-bots-pr58-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-shepherd.md) — Completion report — endojs-endo-but-for-bots-pr58-shepherd
