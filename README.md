@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T09:15:23Z_
+_As of 2026-07-01T09:16:12Z_
 
 ## Latest
 
-No board transitions landed since the last bulletin — the todo and doin lanes are empty. The most recent completions strengthened the gardener fleet itself (per-job handler budgets and earlier deadline-overrun escalation) and ran the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-tracing follow-up plus the garden#9 contract-control upgrade test to completion. Worth a maintainer's eye: the `journal-worktree-keeper` on endolinbot2 flagged that `/home/kris/journal` has diverged from `origin/journal2` (3 commits ahead, 6369 behind, 6 dirty paths) and was deliberately left untouched — it needs a hand-reconcile before that host's journal writes can flow again. Twenty-eight PRs remain parked for review, led by [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+Gardener reliability tightened up: two fleet-hardening jobs completed — earlier escalation when a gardener overruns its deadline, and a per-job handler budget to cap runaway work. A follow-up pass on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) closed out, and the garden#9 contract-control upgrade test was driven to completion. No jobs are open or in flight, so the board is idle; the main thing awaiting a human is the parked-review queue, headed by the freshly-idle [#58](https://github.com/endojs/endo-but-for-bots/pull/58) (3h) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)'s passable byte arrays (1d).
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ No board transitions landed since the last bulletin — the todo and doin lanes 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T091511Z-078fa1` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T091511Z-078fa1.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6369 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
