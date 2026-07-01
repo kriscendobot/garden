@@ -31,3 +31,9 @@ it was asserted without a real browser run. Do not repeat that.
 Scope: bot fork; base as-is; no upstream contact.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 25
+  claimed_at: 2026-07-01T01:13:50Z
