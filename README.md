@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T01:28:55Z_
+_As of 2026-07-01T01:31:20Z_
 
 ## Latest
 
-The [.js-extension lint](https://github.com/endojs/endo-but-for-bots/pull/582) work from kriskowal's [#442](https://github.com/endojs/endo-but-for-bots/pull/442) review landed as a DRAFT PR: a new `@endo/jsdoc-import-extensions` rule closes the JSDoc `@import` blind spot, with 158 tests passing and `eslint .` clean. It's held for one scope decision now in the maintainer inbox — enforcing `.js` on `@endo/*` subpaths isn't uniformly safe (`@endo/platform`, `@endo/agentry`, and `@endo/preact-container` resolve only via extensionless export keys), so the question is whether to fold their exports-map migration in or land the JSDoc/relative enforcement now and track the migration as a follow-up. Separately, the [#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-rendering fix was re-verified in Chrome, and an infra tweak now classifies Claude session-limit hits as transient.
+Two builder jobs independently tackled kriskowal's [#442](https://github.com/endojs/endo-but-for-bots/pull/442) review ask to enforce `.js` extensions on imports via lint, both landing on the same design — a new `@endo/jsdoc-import-extensions` rule to close the JSDoc `@import` blind spot that `import/extensions` and `import/no-unresolved` miss, plus `checkTypeImports: true`. The two DRAFT PRs collided ([#581](https://github.com/endojs/endo-but-for-bots/pull/581) opened two minutes before [#582](https://github.com/endojs/endo-but-for-bots/pull/582)); the gardener behind #582 closed it as a duplicate and pointed review at [#581](https://github.com/endojs/endo-but-for-bots/pull/581), which has a frozen `llm` base and a changeset. **No maintainer decision is needed on the earlier-raised `@endo/*` subpath question** — both PRs independently concluded that requiring `.js` on `@endo/*` subpaths is not uniformly correct (`platform`, `agentry`, `preact-container` use extensionless export keys), so both correctly leave subpaths to their exports maps; migrating those three packages to `.js`-suffixed keys is tracked as a separate follow-up. Elsewhere, the ebfb namehub interface-unification build completed (awaiting CI), and the [#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-rendering Chrome verification wrapped up.
 
 ## Parked for maintainer feedback
 
@@ -30,25 +30,28 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Holding as DRAFT for one scope call, laid out in the PR body: requiring `.js` on `@endo/*` SUBPATHS is not uniformly correct. `@endo/platform`, `@endo/agentry`, `@endo/preact-container` use extensionless export KEYS, so their extensionless specifiers are the only form that resolves — the reported `@endo/platform/fs/lite/types` is actually a correct explicit-key export. Enforcing `.js` there needs a separate exports-map migration of those 3 packages to `.js`-suffixed keys (the convention @endo/daemon, @endo/exo, @endo/marshal already follow). Fold that migration into this PR, or land the JSDoc/relative enforcement now and track the migration as a follow-up?
 
+- `20260701T013055Z-3babe0` — from gardener:enforce-js-extension-lint-endo-but-for-bots, reply_to `enforce-js-extension-lint-endo-but-for-bots` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T013055Z-3babe0.md)
+
+> CORRECTION to my prior note: I closed my PR #582 as a duplicate. A sibling builder job opened #581 two minutes earlier for the same #442 ask, and it independently reached the same design (the `@endo/jsdoc-import-extensions` rule, relative-only scope) with a proper frozen `llm` base and a changeset. No maintainer decision is needed on the `@endo/*` subpath question I raised — both PRs independently concluded that requiring `.js` on `@endo/*` subpaths is not uniformly correct (platform/agentry/preact-container use extensionless export keys), so both correctly leave subpaths to their exports maps and `import/no-unresolved`. Review target is #581. I left one optional suggestion there (add `checkTypeImports: true` to also cover TS `import type`). My job dedups in favor of #581.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`agoric-sdk-fork-pr-7-shepherd-after-slim-down`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-shepherd-after-slim-down.md) — PR #7 — shepherd to green after the slim-down/feedback churn (maintainer dire...
-- [`build-ebfb-namehub-interface-unification`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-ebfb-namehub-interface-unification.md) — Build: EndoMount name-hub interface unification (unblocked by PR #277)
 - [`deadmail-issue-comment-4849045455`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4849045455.md) — Dead-lettered message — pick up its intent
 - [`enforce-js-extension-lint-endo-but-for-bots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/enforce-js-extension-lint-endo-but-for-bots.md) — Builder: enforce .js extension on imports via lint (endojs/endo-but-for-bots)
 - [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-20.md) — Issue from kriskowal on kriskowal/garden #20
 
-### tada (752)
+### tada (753)
+- [`build-ebfb-namehub-interface-unification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-ebfb-namehub-interface-unification.md) — I've completed the substantive work and am waiting on CI. Let me stop here an...
 - [`ebfb-pr-58-fix-error-rendering-verify-in-chrome`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-fix-error-rendering-verify-in-chrome.md) — Completion report
 - [`improve-classify-claude-session-limit-as-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-claude-session-limit-as-transient.md) — Completion report
 - [`builder-ebfb-enforce-js-extension-jsdoc-import-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/builder-ebfb-enforce-js-extension-jsdoc-import-lint.md) — Completion report
 - [`endojs-endo-but-for-bots-pr442-review-ea91182a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-review-ea91182a.md) — What the review asked (2 inline directives; body was marker-only)
-- [`endojs-endo-but-for-bots-pr58-15926293`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-15926293.md) — Completion report
-- … and 747 more
+- … and 748 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
