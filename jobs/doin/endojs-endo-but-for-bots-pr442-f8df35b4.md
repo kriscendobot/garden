@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Lack of .js extension is not expected. Post a job for a builder to ensure this is enforced by lint. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 64
+  claimed_at: 2026-07-01T00:13:42Z
