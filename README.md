@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T23:00:43Z_
+_As of 2026-07-01T23:02:41Z_
 
 ## Latest
 
-The only board movement since the last bulletin was the completion of the attention directive on [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586), though a follow-on review directive on the same PR remains in flight. Six jobs are actively being worked, clustered on three endo-but-for-bots PRs: [#472](https://github.com/endojs/endo-but-for-bots/pull/472) and [#586](https://github.com/endojs/endo-but-for-bots/pull/586) each have paired attention-plus-review directives underway, and [#548](https://github.com/endojs/endo-but-for-bots/pull/548) has both an attention directive and its second follow-up PR (the mechanical inter-package re-export repoint) in progress. Nothing new landed in the parked queue, which still holds 27 PRs awaiting kriskowal — the most recent being [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, waiting a day) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, waiting two days).
+Review and attention work cleared on three [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) PRs: both the review and follow-up jobs on [#472](https://github.com/endojs/endo-but-for-bots/pull/472) and [#586](https://github.com/endojs/endo-but-for-bots/pull/586) landed, along with the attention-directive on [#548](https://github.com/endojs/endo-but-for-bots/pull/548). The first PR of [#548](https://github.com/endojs/endo-but-for-bots/pull/548)'s inter-package re-exports split is done; a gardener is now carrying the second — the mechanical repoint that removes the follow-up shim. The board is otherwise drained (todo empty, one job in flight), so the main thing awaiting a human is the parked review queue, topped by [#503](https://github.com/endojs/endo-but-for-bots/pull/503)'s passable byte-arrays and [#403](https://github.com/endojs/endo-but-for-bots/pull/403)'s EndoRegistry capability.
 
 ## Parked for maintainer feedback
 
@@ -28,21 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (1)
 - [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Write the SECOND PR for #548's inter-package plain re-exports: the mechanical...
-- [`endojs-endo-but-for-bots-pr472-66cd8af6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-66cd8af6.md) — attention directive on endojs/endo-but-for-bots PR #472
-- [`endojs-endo-but-for-bots-pr472-review-f6149cf0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-f6149cf0.md) — Review directive on endojs/endo-but-for-bots PR #472
-- [`endojs-endo-but-for-bots-pr548-a1f701d4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-a1f701d4.md) — attention directive on endojs/endo-but-for-bots PR #548
-- [`endojs-endo-but-for-bots-pr586-5a34148a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-5a34148a.md) — attention directive on endojs/endo-but-for-bots PR #586
-- [`endojs-endo-but-for-bots-pr586-review-73c9bcb3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-review-73c9bcb3.md) — Review directive on endojs/endo-but-for-bots PR #586
 
-### tada (819)
-- [`endojs-endo-but-for-bots-pr586-dbdf46d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr586-dbdf46d8.md) — Completion report
-- [`garden-encode-liaison-leader-watch-and-marker-raises-leader`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-liaison-leader-watch-and-marker-raises-leader.md) — Completion report
-- [`agoric-3-proposals-pr1-fix-upstream-320-ci-matrix-and-test-packages`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-pr1-fix-upstream-320-ci-matrix-and-test-packages.md) — Job complete — both upstream #320 CI failures fixed on fork PR #1
-- [`endojs-endo-but-for-bots-pr472-f1fa296b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-f1fa296b.md) — Completion report
-- [`deadmail-issue-comment-4860197507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4860197507.md) — Completion report
-- … and 814 more
+### tada (824)
+- [`endojs-endo-but-for-bots-pr586-review-73c9bcb3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr586-review-73c9bcb3.md) — Completion report: endojs-endo-but-for-bots-pr586-review-73c9bcb3
+- [`endojs-endo-but-for-bots-pr472-66cd8af6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-66cd8af6.md) — Completion report
+- [`endojs-endo-but-for-bots-pr548-a1f701d4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-a1f701d4.md) — Completion report: attention directive on endojs/endo-but-for-bots #548 (comm...
+- [`endojs-endo-but-for-bots-pr472-review-f6149cf0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-f6149cf0.md) — Completion report: review directive on endojs/endo-but-for-bots PR #472
+- [`endojs-endo-but-for-bots-pr586-5a34148a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr586-5a34148a.md) — Completion Report
+- … and 819 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
