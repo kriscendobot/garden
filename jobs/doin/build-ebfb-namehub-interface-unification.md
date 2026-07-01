@@ -53,3 +53,9 @@ and post a summary comment.
 ## Provenance
 Posted per kriskowal's review directive on PR #277
 (pullrequestreview-4604876200, "conduct and post jobs for blocked plans").
+
+---
+claim:
+  host: endolinbot2
+  gardener: 42
+  claimed_at: 2026-07-01T00:20:07Z
