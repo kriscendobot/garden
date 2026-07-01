@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T17:33:05Z_
+_As of 2026-07-01T17:33:45Z_
 
 ## Latest
 
-Two maintainer directives on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — an attention directive and a review directive — were just claimed and are in progress; that PR is the only thing moving on the board right now, and it remains the fleet's active focus. Nothing new posted to the queue, and the maintainer inbox is clear. Worth a glance: 27 PRs sit parked for kriskowal's review, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) the freshest at 1–2 days waiting.
+Work has converged on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58): two jobs are now in flight — swapping `Far` for `makeExo` per the approved review nit and then conducting the merge (the PR is APPROVED), alongside a maintainer follow-up to add a lint rule that prefers `makeExo` over `Far`. Four PR #58 jobs sit in `doin` in total (the makeExo fix/conduct plus an attention directive and a review directive), so that PR is the active front. Nothing is parked for maintainer action beyond the standing review queue, which still holds 27 PRs — the freshest being [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 1 day) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 2 days).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`ebfb-lint-rule-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-lint-rule-prefer-makeexo-over-far.md) — Lint rule: prefer makeExo over Far (maintainer follow-up ask)
+- [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-makeexo-fix-and-conduct.md) — PR #58 — replace Far with makeExo (approved nit), then conduct (APPROVED)
 - [`endojs-endo-but-for-bots-pr58-130cc3b1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-130cc3b1.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`endojs-endo-but-for-bots-pr58-review-31df538e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-review-31df538e.md) — Review directive on endojs/endo-but-for-bots PR #58
 
