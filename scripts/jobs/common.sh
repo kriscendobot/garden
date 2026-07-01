@@ -1008,6 +1008,64 @@ reap_count() {
   printf '%s\n' "${n:-0}"
 }
 
+# --- elapsed-constancy early-escalation --------------------------------------
+#
+# A transient CLASSIFICATION is not proof of a self-resolving blip. A job that
+# deterministically OVERRUNS and dies with a transient-claude signature (a Claude
+# Code session/usage cap that trips at the same point every run, or a prompt that
+# always drives the CLI to the same failure) is classified transient by
+# gardener.sh's handler-failure classifier and requeued — burning all
+# GARDEN_REAP_POISON_THRESHOLD (default 5) cycles before the reaper's poison
+# counter surfaces it (~5×TTL). Its TELL is a near-CONSTANT elapsed across requeue
+# cycles: a genuine deploy/drain/OOM blip is killed at a VARIED elapsed (and reads
+# as an external-kill/timeout rc), whereas a deterministic overrun dies at the same
+# wall-time every cycle. These two helpers let gardener.sh make that "is this
+# actually stuck?" call in the script, READ-ONLY of state it already holds, so a
+# misclassified job surfaces in ~2 cycles instead of ~5 — without a human or a
+# watchman grep, and without the gardener ever writing the requeue (the reaper
+# stays the sole requeue writer; the gardener only escalates a warning).
+
+# prior_transient_elapsed_series <clone> <base> — echo the elapsed seconds (one
+# integer per line, oldest→newest) recovered READ-ONLY from this gardener-clone's
+# prior progress journal entries for job <base>. Each transient/overrun note
+# gardener.sh posts carries `job <base> handler exited … elapsed=<N>s`; this greps
+# those notes (the clone was synced at claim time, so it holds prior cycles' notes
+# but NOT the current one) so a later cycle can tell a near-CONSTANT elapsed from a
+# VARIED one — no new state, no CAS. The `job <base> handler exited` anchor pins
+# the base with a trailing token so a base that is a prefix of another cannot
+# bleed in. Entries sort chronologically by their entries/YYYY/MM/DD/HHMMSSZ-…
+# path, so `sort` on the matching filenames orders the series oldest→newest.
+# Always returns 0 (an empty series is not an error).
+prior_transient_elapsed_series() {
+  local clone="${1:-}" base="${2:-}" dir f
+  dir="$clone/entries"
+  [ -n "$clone" ] && [ -n "$base" ] && [ -d "$dir" ] || return 0
+  grep -rlF "job $base handler exited" "$dir" 2>/dev/null | sort | while IFS= read -r f; do
+    sed -n 's/.*elapsed=\([0-9][0-9]*\)s.*/\1/p' "$f" | head -1
+  done || true
+}
+
+# elapsed_within_band <tol_pct> <v1> <v2> … — 0 iff every value is within a
+# ±<tol_pct>% band of a common center, i.e. the series is near-constant. The
+# integer-safe test is max·(100−tol) ≤ min·(100+tol): if the spread from the
+# smallest to the largest value stays inside the tolerance window they agree.
+# Needs ≥2 positive integer values; returns 1 (not near-constant) otherwise, and
+# on any non-integer/zero argument (a malformed series is treated as inconclusive,
+# never as constant).
+elapsed_within_band() {
+  local tol="${1:-}"; shift || return 1
+  case "$tol" in ''|*[!0-9]*) return 1 ;; esac
+  [ "$#" -ge 2 ] || return 1
+  local v min='' max=''
+  for v in "$@"; do
+    case "$v" in ''|*[!0-9]*) return 1 ;; esac
+    [ "$v" -gt 0 ] || return 1
+    if [ -z "$min" ] || [ "$v" -lt "$min" ]; then min="$v"; fi
+    if [ -z "$max" ] || [ "$v" -gt "$max" ]; then max="$v"; fi
+  done
+  [ "$(( max * (100 - tol) ))" -le "$(( min * (100 + tol) ))" ]
+}
+
 # --- reap-now hint -----------------------------------------------------------
 #
 # A marker a gardener stamps onto its OWN still-in-doin claim when it KNOWS at exit
