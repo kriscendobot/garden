@@ -10,3 +10,9 @@ a **separate `chore: Update yarn.lock`** commit if the lockfile moved, implement
 bundles, the documented omitted 113, the changeset, and the CI fixes all preserved). Force-push-with-lease.
 Then post a brief **summary comment on #1** (the retcon structure + that the net diff is unchanged).
 Bot fork; **no upstream Agoric/agoric-3-proposals contact** (read-only only). Verification: run local checks.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 15
+  claimed_at: 2026-07-01T23:08:36Z
