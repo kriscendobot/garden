@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-01T05:32:39Z_
+_As of 2026-07-01T05:33:53Z_
 
 ## Latest
 
-On the garden's own infrastructure, two determinism fixes landed: the watcher's observe-to-post-job path and a requeue-on-incomplete-`claude`-exit safeguard, both now fully deterministic. On the fork side, [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) cleared its retcon and is now claimed for a merge conduct, and [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) completed. Freshly claimed and in flight: a build to stand [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442)'s daemon-CAS content-store test on real `@endo/platform` powers (alongside separate attention and review directives on the same PR), an attention directive on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), and a shepherd/fixer round chasing a test-swingset regression on the agoric-sdk fork's PR #7. On garden issue #9, the mhofman contract-control-upgrade test protocol is settled and its baseline run is now executing to completion under a background monitor. Maintainer attention is most owed on the newly-parked [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and the day-old [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+Two jobs completed since the last bulletin. The review directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) closed out, and a follow-on build to stand the daemon-cas content-store test on real `@endo/platform` powers is now in flight. On the agoric-sdk fork, the swingset-regression shepherd/fixer job on [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) finished its diagnosis and is parked waiting on a CI re-run.
+
+The active concern is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing), freshly parked for maintainer feedback: a newly claimed job is chasing a test-vs-local race, reworking the error bubble to watch for the stacktrace rather than depend on timing. Also still open in `doin`: the merge directive on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) and the garden#9 ymax0 contract-control-upgrade test run.
 
 ## Parked for maintainer feedback
 
@@ -28,22 +30,21 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
-- [`agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression.md) — PR #7 — shepherd/fixer round: test-swingset regression + reply (prior shepher...
+### doin (6)
+- [`ebfb-pr-58-error-bubble-watch-stacktrace-race`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-error-bubble-watch-stacktrace-race.md) — PR #58 — diagnose the test-vs-local race; make the error bubble watch for the...
 - [`endojs-endo-but-for-bots-pr277-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-conduct.md) — conduct (merge) directive on endojs/endo-but-for-bots PR #277
-- [`endojs-endo-but-for-bots-pr442-5f20450c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-5f20450c.md) — attention directive on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr442-content-store-test-platform-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-content-store-test-platform-powers.md) — build: stand the daemon-cas content-store test on real @endo/platform powers
 - [`endojs-endo-but-for-bots-pr442-review-ed950329`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-ed950329.md) — Review directive on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr58-4932647c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-4932647c.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — #9 — RUN mhofman's contract-control-upgrade test TO COMPLETION and reply (pri...
 
-### tada (779)
+### tada (781)
+- [`endojs-endo-but-for-bots-pr442-5f20450c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-5f20450c.md) — Completion report — endojs-endo-but-for-bots-pr442-5f20450c
+- [`agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression.md) — Diagnosis complete; waiting on the re-run. The background poll or scheduled w...
 - [`endojs-endo-but-for-bots-pr277-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-retcon.md) — Completion report — endojs-endo-but-for-bots-pr277-retcon
 - [`garden-watcher-observe-to-postjob-fully-deterministic`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-watcher-observe-to-postjob-fully-deterministic.md) — Completion report: garden-watcher-observe-to-postjob-fully-deterministic
 - [`garden-deterministic-requeue-on-incomplete-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-deterministic-requeue-on-incomplete-claude-exit.md) — Completion report
-- [`garden-issue-9-mhofman-contract-control-upgrade-test-protocol`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-mhofman-contract-control-upgrade-test-protocol.md) — I'll stop polling and let the background monitor notify me when the baseline ...
-- [`endojs-endo-but-for-bots-pr475-ae693c7b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-ae693c7b.md) — Completion report
-- … and 774 more
+- … and 776 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
