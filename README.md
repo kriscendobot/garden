@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T10:15:57Z_
+_As of 2026-07-01T10:16:26Z_
 
 ## Latest
 
-A shepherd is currently driving CI on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), the only in-flight job; the board is otherwise drained with nothing in todo. No completions landed since the last bulletin. Worth a maintainer's eye: the journal-worktree-keeper flagged that `/home/kris/journal` on endolinbot2 has diverged from `origin/journal2` (3 commits ahead, 6386 behind, 6 dirty paths) and was left untouched pending hand reconciliation.
+A shepherd is driving CI on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), the sole in-flight job and freshly parked for review after a run of follow-up work on that same PR completed. Recent completions leaned toward garden infra hardening — auto-shepherd on red CI, gardener deadline-overrun early escalation, and a per-job handler budget — plus a run of the issue-9 contract-control upgrade test to completion. The board is otherwise drained (nothing in todo), so the main thing for a maintainer to notice is the parked backlog: 28 PRs await review, headed by [#58](https://github.com/endojs/endo-but-for-bots/pull/58), the passable-byte-arrays work in [#503](https://github.com/endojs/endo-but-for-bots/pull/503), and the EndoRegistry capability in [#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ A shepherd is currently driving CI on [endo-but-for-bots#58](https://github.com/
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T101545Z-0fdc42` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T101545Z-0fdc42.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6386 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
