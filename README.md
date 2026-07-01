@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T06:47:41Z_
+_As of 2026-07-01T06:52:56Z_
 
 ## Latest
 
-Quiet cycle: the sole board completion since last bulletin was [garden#9](https://github.com/kriskowal/garden/issues/9)'s contract-control upgrade test, run to completion — the mainnet-snapshot reproduction path for the ymax0 v320 XS value-stack overflow. Verification of that hex fix and its stackCount snapshot-compatibility remains parked in the plan queue awaiting go-ahead. The maintainer's attention is best spent on the freshly-parked [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing, waiting 44m) and the day-old [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability).
+Gardener-reliability tuning dominates: an [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) follow-up and its stacktrace-race error-bubble watch both landed, alongside the `elapsed-constancy` early-escalation improvement, and two more gardener refinements are now in flight — acting on the already-computed deadline-overrun signal and letting a legitimately long job declare a larger per-handler budget. On the project side, the garden#9 contract-control upgrade test was run to completion. Maintainer attention still centers on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), parked ~49m and freshest in a queue of 28.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 44m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 49m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,8 +28,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-deadline-overrun-early-escalation.md) — Act on the deadline-overrun signal the gardener already computes instead of o...
+- [`improve-gardener-per-job-handler-budget`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-per-job-handler-budget.md) — Give a job the ability to declare a longer handler budget so a legitimately l...
 
 ### tada (791)
 - [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — Completion report
