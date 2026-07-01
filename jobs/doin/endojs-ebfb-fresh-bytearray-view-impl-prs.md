@@ -20,3 +20,9 @@ UNTRUSTED input.
 
 Re-check the live #572 thread + drain inbox before opening PRs — the disposition
 may have moved.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 26
+  claimed_at: 2026-07-01T02:30:21Z
