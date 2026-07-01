@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T09:16:12Z_
+_As of 2026-07-01T09:28:03Z_
 
 ## Latest
 
-Gardener reliability tightened up: two fleet-hardening jobs completed — earlier escalation when a gardener overruns its deadline, and a per-job handler budget to cap runaway work. A follow-up pass on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) closed out, and the garden#9 contract-control upgrade test was driven to completion. No jobs are open or in flight, so the board is idle; the main thing awaiting a human is the parked-review queue, headed by the freshly-idle [#58](https://github.com/endojs/endo-but-for-bots/pull/58) (3h) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503)'s passable byte arrays (1d).
+Looks like the shepherd is driving [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error-tracing across workers) toward green — it's both the sole in-flight job and freshly parked for review, so expect a follow-up shortly. Otherwise the fleet cleared its board: gardener reliability landed a per-job handler budget and earlier deadline-overrun escalation, and the [garden#9](https://github.com/kriskowal/garden/issues/9) contract-control upgrade test ran to completion.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 18s)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,8 +28,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr58-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #58
 
 ### tada (793)
 - [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deadline-overrun-early-escalation.md) — Completion report
