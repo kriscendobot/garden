@@ -8,3 +8,9 @@ The maintainer has already diagnosed them as flakes, so do NOT over-investigate 
 go green. Only if a check fails **again consistently** on re-run (i.e. not actually flaky) should you
 investigate/escalate. Once green, post a brief **reply comment on #58** confirming CI is green (per the
 acknowledged-comment→reply rule). Bot fork; no upstream contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 51
+  claimed_at: 2026-07-01T16:50:10Z
