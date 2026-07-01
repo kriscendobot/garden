@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T04:24:11Z_
+_As of 2026-07-01T04:26:32Z_
 
 ## Latest
 
-The garden landed [`garden-deterministic-requeue-on-incomplete-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-deterministic-requeue-on-incomplete-claude-exit.md), so a gardener that dies mid-run without a completion now deterministically requeues its job rather than stranding it. The board is otherwise quiet — nothing waiting in todo, and the single in-flight item is [`garden-watcher-observe-to-postjob-fully-deterministic`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-watcher-observe-to-postjob-fully-deterministic.md), which continues the same reliability push to drive the GitHub watchers' observe→post-job path with no `claude -p` in the loop. Worth a maintainer glance: [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) is freshly parked and now the oldest-untouched-but-newest of the top-ranked queue, while the two go-ahead plans [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) and [`port-xs-to-rust-memory-safe-engine`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine.md) still await authorization before they can be promoted.
+The garden hardened its own plumbing: [`garden-watcher-observe-to-postjob-fully-deterministic`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-watcher-observe-to-postjob-fully-deterministic.md) completed, making the watcher's observe→post-job path fully deterministic — no LLM in the loop before a job is posted. The board is otherwise quiet (nothing in flight). On the review side, the freshest arrival worth a look is [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing, ~2h parked), while [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) have each been waiting a day or more for kriskowal's call.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`garden-watcher-observe-to-postjob-fully-deterministic`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-watcher-observe-to-postjob-fully-deterministic.md) — GitHub watchers: make observe→post-job FULLY deterministic (no claude -p)
+### doin (0)
+(none)
 
-### tada (777)
+### tada (778)
+- [`garden-watcher-observe-to-postjob-fully-deterministic`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-watcher-observe-to-postjob-fully-deterministic.md) — Completion report: garden-watcher-observe-to-postjob-fully-deterministic
 - [`garden-deterministic-requeue-on-incomplete-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-deterministic-requeue-on-incomplete-claude-exit.md) — Completion report
 - [`garden-issue-9-mhofman-contract-control-upgrade-test-protocol`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-mhofman-contract-control-upgrade-test-protocol.md) — I'll stop polling and let the background monitor notify me when the baseline ...
 - [`endojs-endo-but-for-bots-pr475-ae693c7b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-ae693c7b.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-45832303`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-45832303.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-7b36fe5b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-7b36fe5b.md) — Job report: attention directive on endojs/endo-but-for-bots PR #475 (erights,...
-- … and 772 more
+- … and 773 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
