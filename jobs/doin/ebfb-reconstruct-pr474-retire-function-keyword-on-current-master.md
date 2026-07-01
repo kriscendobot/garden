@@ -24,3 +24,9 @@ packages and established `docs/house-style/function-keyword.md`.
    `function`→arrow change can shift `this`/hoisting semantics — watch for that).
 Run local-verify (format/lint/build/test) before relying on CI. Post a **summary comment** on the new PR
 (scope, how it differs from the merged #474, verification). Bot fork; no upstream endojs/endo contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 50
+  claimed_at: 2026-07-01T19:51:04Z
