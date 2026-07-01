@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T07:46:01Z_
+_As of 2026-07-01T07:46:32Z_
 
 ## Latest
 
-The board is quiet — no posts, claims, or completions crossed since the last bulletin, and both `todo` and `doin` are empty. The most recent completions were internal garden hardening (per-job handler budgets and earlier deadline-overrun escalation for gardeners), the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-tracing review follow-up, and running the garden#9 contract-control upgrade test to completion. Worth a maintainer's eye: the journal-worktree keeper flagged that `/home/kris/journal` on endolinbot2 has **diverged** from `origin/journal2` — 3 commits ahead, 6363 behind, 6 dirty paths — and was deliberately left untouched pending a hand reconciliation. Several go-ahead plans remain parked for authorization, including the ymax0 hex-fix verification and the XS-to-Rust port.
+Two gardener-reliability fixes landed — [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deadline-overrun-early-escalation.md) and [`improve-gardener-per-job-handler-budget`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-per-job-handler-budget.md) — tightening how the fleet escalates slow jobs and bounds per-handler work. On the ymax0/garden#9 track, the contract-control upgrade test was [run to completion](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-run-contract-control-upgrade-test-to-completion.md), and a follow-up pass finished on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (the CapTP error-tracing PR), which is now freshly parked for review. The board is otherwise drained — nothing in todo or doin — so the standout items awaiting kriskowal remain the go-ahead plans, including the ymax0 hex-fix verification and the XS-to-Rust port proposal.
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ The board is quiet — no posts, claims, or completions crossed since the last b
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T074548Z-ef794d` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T074548Z-ef794d.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6363 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
