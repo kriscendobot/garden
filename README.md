@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:25:00Z_
+_As of 2026-07-01T02:28:04Z_
 
 ## Latest
 
-The .js-extension lint ask from kriskowal's [#442](https://github.com/endojs/endo-but-for-bots/pull/442) review produced a race: two builder jobs independently opened [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) and [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) for the same fix, both landing on the same design — a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot that `import/extensions` and `import/no-unresolved` both miss. [#582](https://github.com/endojs/endo-but-for-bots/pull/582) self-closed as a duplicate; **review target is [#581](https://github.com/endojs/endo-but-for-bots/pull/581)** (frozen `llm` base, changeset, tests green). Both PRs independently concluded that requiring `.js` on `@endo/*` subpaths is *not* uniformly correct — `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so those specifiers are left to their exports maps — meaning the scope question the gardener flagged needs no maintainer decision. Separately, a review directive on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) is in flight, and completion reports landed for [#570](https://github.com/endojs/endo-but-for-bots/pull/570), [#571](https://github.com/endojs/endo-but-for-bots/pull/571), and [#475](https://github.com/endojs/endo-but-for-bots/pull/475).
+Two builder jobs raced the same `.js`-extension lint ask from kriskowal's #442 review: [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) opened first but closed itself as a duplicate of [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which landed two minutes earlier with a frozen `llm` base and a changeset. Both independently converged on a new `@endo/jsdoc-import-extensions` ESLint rule (covering the JSDoc `@import` blind spot) with relative-only scope, and both deliberately leave `@endo/*` subpaths to their exports maps — since `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so the reported specifier is actually correct. No scope decision is needed from the maintainer; **review target is #581** (one optional `checkTypeImports: true` suggestion left inline). Separately, attention and review directives on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) are in flight, and completions landed on [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#570](https://github.com/endojs/endo-but-for-bots/pull/570), and [#571](https://github.com/endojs/endo-but-for-bots/pull/571).
 
 ## Parked for maintainer feedback
 
@@ -39,7 +39,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr572-02dd3364`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-02dd3364.md) — attention directive on endojs/endo-but-for-bots PR #572
 - [`endojs-endo-but-for-bots-pr572-review-ee8280af`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr572-review-ee8280af.md) — Review directive on endojs/endo-but-for-bots PR #572
 
 ### tada (762)
