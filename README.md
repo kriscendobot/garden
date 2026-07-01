@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T17:27:55Z_
+_As of 2026-07-01T17:28:35Z_
 
 ## Latest
 
-[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) was rebased and retconned clean and is now parked for review, with its macOS 22.x CI re-run still in progress after a shepherd flake-rerun. [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) picked up boundary tests, drew an APPROVED review, and is waiting only on CI green before un-drafting. [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) was retconned and conducted and remains the sole in-flight job under an attention directive. On the planning side, a new deferred plan — factor `watchDirectory` out of the daemon into `@endo/platform` — landed in the queue and will auto-promote when the foreman goes idle.
+[endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) cleared its retcon-and-conduct pass and moved to done — the sole board transition since the last bulletin, leaving the todo and doin lanes empty. Twenty-eight PRs remain parked for kriskowal; the newest arrival is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP-worker error tracing, waiting 39m), while the CapTP byte-array and registry-capability layers ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)) and the long-idle cyclic-star-export fix ([endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379), 5d) are the oldest still awaiting a look.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr277-1be3df7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-1be3df7e.md) — attention directive on endojs/endo-but-for-bots PR #277
+### doin (0)
+(none)
 
-### tada (804)
+### tada (805)
+- [`endojs-endo-but-for-bots-pr277-1be3df7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-1be3df7e.md) — Completion report
 - [`ebfb-pr-277-retcon-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-277-retcon-and-conduct.md) — Completion report — job ebfb-pr-277-retcon-and-conduct
 - [`ebfb-pr472-followup-boundary-tests`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr472-followup-boundary-tests.md) — Review APPROVED. Now waiting on the CI watcher to report green before un-draf...
 - [`endojs-endo-but-for-bots-pr472-42615737`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-42615737.md) — Completion report: endojs-endo-but-for-bots-pr472-42615737 (attention directive)
 - [`ebfb-pr-58-shepherd-rerun-macos-flakes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-shepherd-rerun-macos-flakes.md) — The run is in_progress (22.x macOS re-running). My background poll will notif...
-- [`endojs-endo-but-for-bots-pr58-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-rebase.md) — Rebase and retcon are done and pushed; local validation clean. Awaiting CI to...
-- … and 799 more
+- … and 800 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
