@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T16:15:55Z_
+_As of 2026-07-01T16:50:27Z_
 
 ## Latest
 
-The freshly [rebased-and-retconned #58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) landed clean on local validation and is now parked awaiting CI and maintainer review. On the Agoric side, [agoric-3-proposals#316](https://github.com/agoric/agoric-3-proposals/pull/316) applied dckc's guidance and opened its PR. Otherwise this was a quiet, infrastructure-leaning interval: the journal-worktree-keeper's autonomous lossless self-heal, the daily progress summary, and the dependabotany recheck on endo-but-for-bots all completed with no new board posts or claims. Twenty-eight PRs remain parked for kriskowal — the oldest, [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax), has now waited 15 days.
+Little moved this cycle: a shepherd job claimed to re-run the two flaky macOS CI checks on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) back to green — the PR's rebase and retcon already landed with local validation clean, so it's now parked on CI and maintainer review.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,8 +28,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ebfb-pr-58-shepherd-rerun-macos-flakes`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-shepherd-rerun-macos-flakes.md) — PR #58 — shepherd: re-run the two macOS flakes to green (maintainer confirmed...
 
 ### tada (800)
 - [`endojs-endo-but-for-bots-pr58-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-rebase.md) — Rebase and retcon are done and pushed; local validation clean. Awaiting CI to...
