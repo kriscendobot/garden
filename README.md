@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-01T05:21:56Z_
+_As of 2026-07-01T05:25:36Z_
 
 ## Latest
 
-A retcon of [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) is the only work in flight — a gardener has claimed the retcon directive and the board is otherwise drained (todo empty, nothing else running). Review attention is the bottleneck: 28 PRs sit parked for maintainer feedback, the freshest being [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing, ~3h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, ~1d), with [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules) now waiting 15 days.
+Here's the "## Latest" body:
+
+Only one item moved: [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) cleared its retcon (restaged per-package with a separate yarn.lock commit) and a merge (conduct) directive is now claimed and in progress — so #277 is the one PR to watch for landing. Nothing else transitioned this cycle; the 28 parked PRs, led by [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing, waiting 3h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, waiting 1d), still await your review.
 
 ## Parked for maintainer feedback
 
@@ -29,15 +31,15 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr277-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #277
+- [`endojs-endo-but-for-bots-pr277-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-conduct.md) — conduct (merge) directive on endojs/endo-but-for-bots PR #277
 
-### tada (778)
+### tada (779)
+- [`endojs-endo-but-for-bots-pr277-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-retcon.md) — Completion report — endojs-endo-but-for-bots-pr277-retcon
 - [`garden-watcher-observe-to-postjob-fully-deterministic`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-watcher-observe-to-postjob-fully-deterministic.md) — Completion report: garden-watcher-observe-to-postjob-fully-deterministic
 - [`garden-deterministic-requeue-on-incomplete-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-deterministic-requeue-on-incomplete-claude-exit.md) — Completion report
 - [`garden-issue-9-mhofman-contract-control-upgrade-test-protocol`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-mhofman-contract-control-upgrade-test-protocol.md) — I'll stop polling and let the background monitor notify me when the baseline ...
 - [`endojs-endo-but-for-bots-pr475-ae693c7b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-ae693c7b.md) — Completion report
-- [`endojs-endo-but-for-bots-pr475-45832303`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-45832303.md) — Completion report
-- … and 773 more
+- … and 774 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
