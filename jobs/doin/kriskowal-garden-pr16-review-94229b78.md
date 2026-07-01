@@ -27,3 +27,9 @@ only; NEVER merge agoric-sdk or the endojs/endo upstream.
 
 ----- review body excerpt (untrusted, truncated) -----
 [INLINE-REVIEW] [APPROVED] Please conduct and dispatch a builder. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 66
+  claimed_at: 2026-07-01T00:07:34Z
