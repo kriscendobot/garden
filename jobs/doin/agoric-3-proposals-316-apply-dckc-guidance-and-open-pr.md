@@ -18,3 +18,9 @@ was ignored** because he wasn't authorized. dckc is now a maintainer (maintainer
 garden issue #20** — acknowledge his guidance is now heeded (he was frustrated at being ignored — say so
 plainly), summarize what changed, and link the PR. Verification-integrity: cite what you actually ran.
 Scope: fork only; no upstream Agoric/agoric-3-proposals contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 35
+  claimed_at: 2026-07-01T15:42:25Z
