@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T17:25:13Z_
+_As of 2026-07-01T17:27:55Z_
 
 ## Latest
 
-[endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) finished its retcon-and-conduct pass and a fresh attention directive has been claimed on it. On [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), review came back APPROVED after the follow-up boundary tests landed; it's now waiting on the CI watcher to report green before un-drafting. [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — the CapTP cross-worker error-tracing PR now parked at the top of the maintainer queue — had its rebase and retcon pushed with local validation clean, and a shepherd re-run is in progress against the 22.x macOS flakes. The board is otherwise drained (todo empty, one job in flight).
+[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) was rebased and retconned clean and is now parked for review, with its macOS 22.x CI re-run still in progress after a shepherd flake-rerun. [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) picked up boundary tests, drew an APPROVED review, and is waiting only on CI green before un-drafting. [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) was retconned and conducted and remains the sole in-flight job under an attention directive. On the planning side, a new deferred plan — factor `watchDirectory` out of the daemon into `@endo/platform` — landed in the queue and will auto-promote when the foreman goes idle.
 
 ## Parked for maintainer feedback
 
@@ -47,6 +47,7 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
+- [`factor-watchdirectory-to-endo-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/factor-watchdirectory-to-endo-platform.md) — _normal_ · Factor watchDirectory out of the daemon into @endo/platform
 - [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — _low_ · PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
