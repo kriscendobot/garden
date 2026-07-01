@@ -41,6 +41,15 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
   routes any reply back into your inbox.
 - Before submitting to CI, err toward running **all** evaluation scripts
   (false positives fine, false negatives not).
+- **Your completion report must not claim "verified" without real-execution
+  evidence.** This is the `roles/COMMON.md` § Reporting norm, and the gardener
+  report is the surface that burned it (`endojs/endo-but-for-bots` #58): say a
+  criterion is "verified" only when you ran it and observed the result, and cite
+  that evidence (command plus output, the passing test, the observation). A **UI /
+  browser** acceptance criterion needs an **actual browser run** with a
+  rendered-DOM observation. Code inspection and unit tests do not satisfy it. When
+  you could not run it, report **"not verified"** and why, rather than asserting a
+  "verified" you cannot back.
 
 ## Definition of done
 

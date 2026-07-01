@@ -41,6 +41,7 @@ scripts/checks/
 | `double-space-sentence-separator`   | Multi-sentence physical lines in markdown / comment files, violating the sentence-per-line wrap rule, modulo a small allowlist of initialisms and salutations. |
 | `maintainer-inbox-information-hiding`| An issue/PR-scoped role -- or a skill it loads -- that references the maintainer inbox. Scoped roles communicate via PR/issue comments only; only free-standing roles may name the inbox. |
 | `claude-md-inventory-drift`          | A role (`roles/<r>/AGENT.md`) or skill (`skills/<s>/SKILL.md`) present on disk but absent from CLAUDE.md's "## Current inventory" roster. Indexing the roster is a liaison-only meta-doc edit, so authoring jobs drift it; the gate makes the missing row deterministic. |
+| `verified-claim-requires-evidence`  | The always-read reporting norm (`roles/COMMON.md`, `roles/gardener/AGENT.md`) or a juror seat (`saboteur`, `skeptic`) having lost the discipline that a "verified" claim must cite real-execution evidence and a UI criterion needs an actual browser run. Provenance: `endojs/endo-but-for-bots` #58 (2026-07-01). |
 
 Run `scripts/checks/run-all.sh --list` to see the installed set
 programmatically.
