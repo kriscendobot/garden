@@ -61,3 +61,9 @@ and confirming a single idempotent post.
 - Keep the trigger deterministic (plain-code status read, fixed mapping), in the
   triager's low-discretion spirit — no LLM reasoning over CI logs to decide
   whether to dispatch.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 18
+  claimed_at: 2026-07-01T09:30:23Z
