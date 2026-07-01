@@ -18,3 +18,9 @@ the WORKING TREES must be isolated. Add a test proving two concurrent same-repo 
 worktree paths. Land on `main2` via an isolated worktree off origin/main2.
 Related: this pairs with the double-dispatch problem (my manual rsvp jobs + the comment-watcher's
 auto-jobs both firing per comment). Note it, but the WORKTREE ISOLATION is the corruption fix here.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 96
+  claimed_at: 2026-07-01T05:51:01Z
