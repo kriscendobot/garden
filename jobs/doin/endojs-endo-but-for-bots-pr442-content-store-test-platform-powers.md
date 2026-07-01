@@ -37,3 +37,9 @@ Note the cross-branch shape (like #581): the `@endo/platform` constructor lands 
 Run the full gamut on the resulting draft (cleaner → judge → fixer-loop → un-draft). Post the top-level summary comment and the inline thread reply on #442 when the change is in place.
 
 Provenance: routed by the attention-directive job `endojs-endo-but-for-bots-pr442-5f20450c` from review comment https://github.com/endojs/endo-but-for-bots/pull/442#discussion_r3503467257.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 23
+  claimed_at: 2026-07-01T05:32:33Z
