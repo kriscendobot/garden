@@ -24,6 +24,7 @@ Agoric/agoric-sdk comments or artifact links. Preserve/resume any baseline state
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
