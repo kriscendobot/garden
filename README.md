@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T17:37:12Z_
+_As of 2026-07-01T17:41:15Z_
 
 ## Latest
 
-Two jobs entered flight since the last bulletin. A gardener claimed work to address all upstream #320 feedback and CI failures on our mirror ([kriscendobot/agoric-3-proposals](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci.md)), and a second claimed the maintainer follow-up to establish a lint rule preferring `makeExo` over `Far` on [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) — the latter part of the cluster of active work around [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), where the approved `Far`→`makeExo` nit is being applied ahead of a conduct-to-merge. Otherwise the board is drained (todo empty), with the recently completed [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) retconned and conducted and [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) approved and awaiting green CI before un-draft. Maintainer attention is still owed on 27 parked PRs, oldest among the top ten being the 42-day-old [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) opencode analysis design.
+A lint rule preferring `makeExo` over `Far` [landed for endo-but-for-bots](https://github.com/endojs/endo-but-for-bots), the sole board completion since the last bulletin; several related jobs remain in flight applying the same guidance to [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (replace `Far` with `makeExo` on the approved nit, then conduct the APPROVED PR). Also active: addressing upstream #320 feedback and CI on the agoric-3-proposals mirror. The board is otherwise drained (todo empty), with 27 PRs parked for kriskowal — the freshest being [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) at one day and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) at two.
 
 ## Parked for maintainer feedback
 
@@ -28,21 +28,20 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci.md) — Address all feedback + CI failures from upstream #320 on OUR MIRROR (kriscend...
-- [`ebfb-lint-rule-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-lint-rule-prefer-makeexo-over-far.md) — Lint rule: prefer makeExo over Far (maintainer follow-up ask)
 - [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-makeexo-fix-and-conduct.md) — PR #58 — replace Far with makeExo (approved nit), then conduct (APPROVED)
 - [`endojs-endo-but-for-bots-lint-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-lint-prefer-makeexo-over-far.md) — Establish a lint rule preferring makeExo over Far (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-pr58-130cc3b1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-130cc3b1.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`endojs-endo-but-for-bots-pr58-review-31df538e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-review-31df538e.md) — Review directive on endojs/endo-but-for-bots PR #58
 
-### tada (805)
+### tada (806)
+- [`ebfb-lint-rule-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-lint-rule-prefer-makeexo-over-far.md) — Completion report: ebfb-lint-rule-prefer-makeexo-over-far
 - [`endojs-endo-but-for-bots-pr277-1be3df7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-1be3df7e.md) — Completion report
 - [`ebfb-pr-277-retcon-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-277-retcon-and-conduct.md) — Completion report — job ebfb-pr-277-retcon-and-conduct
 - [`ebfb-pr472-followup-boundary-tests`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr472-followup-boundary-tests.md) — Review APPROVED. Now waiting on the CI watcher to report green before un-draf...
 - [`endojs-endo-but-for-bots-pr472-42615737`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-42615737.md) — Completion report: endojs-endo-but-for-bots-pr472-42615737 (attention directive)
-- [`ebfb-pr-58-shepherd-rerun-macos-flakes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-shepherd-rerun-macos-flakes.md) — The run is in_progress (22.x macOS re-running). My background poll will notif...
-- … and 800 more
+- … and 801 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
