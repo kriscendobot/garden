@@ -28,3 +28,9 @@ under `scripts/jobs/test/` using the #442 / #58 shapes (a multi-part direction; 
 with criteria) asserting a job is posted, plus the self-comment / re-poll no-ops.
 
 Land on `main2` via an isolated worktree off origin/main2 (explicit pathspecs; push HEAD:main2).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 12
+  claimed_at: 2026-07-01T23:57:34Z
