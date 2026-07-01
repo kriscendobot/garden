@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T20:09:17Z_
+_As of 2026-07-01T20:09:50Z_
 
 ## Latest
 
-Based on the board transitions, the substantive change since the last bulletin: the scholar completed its ingest job.
-
-The scholar finished ingesting Cloudflare's x402 monetization and the comment-open payment designs, closing out the last open job; the board now sits empty in todo with a single shepherd directive in flight on [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586). Twenty-seven PRs remain parked for review, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) the freshest at the top of the queue.
+A shepherd is actively driving CI on [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586); otherwise the board is quiet, with the only movement a refreshed completion report on the scholar's ingest of the Cloudflare x402 monetization and open-payment comment designs.
 
 ## Parked for maintainer feedback
 
@@ -34,7 +32,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr586-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #586
 
 ### tada (813)
-- [`scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs.md) — scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs
+- [`scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs.md) — Completion report
 - [`ebfb-reconstruct-pr474-retire-function-keyword-on-current-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-reconstruct-pr474-retire-function-keyword-on-current-master.md) — I've scheduled a fallback check. Awaiting either the background CI poll compl...
 - [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-makeexo-fix-and-conduct.md) — Completion report — job ebfb-pr-58-makeexo-fix-and-conduct (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-lint-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-lint-prefer-makeexo-over-far.md) — Completion report
