@@ -51,9 +51,22 @@ and the gardener fleet, and helps the maintainer operate the local garden.
 The garden is a **leader/follower** fleet (issue kriskowal/garden#11, Multibot;
 [multibot-leader-follower](../../designs/multibot-leader-follower.md)). **Gardeners
 run on every host** (concurrent claims dedup via the job-board push); **singleton
-services run only on the leader host** named by the journal `leader` marker.
-The **liaison maintainer-inbox Monitor is itself a singleton** — only the leader's
-liaison watches the inbox, so two liaisons never double-answer a maintainer.
+services run only on the leader host** named by the journal `leader` marker (the
+authoritative marker; `hosts/main-host` is stale legacy cruft the predicate no
+longer reads). The **liaison maintainer-inbox Monitor is itself a singleton** —
+only the leader's liaison watches the inbox, so two liaisons never double-answer a
+maintainer.
+
+- **Watch the leader marker on every host — the follower's half of the contract.**
+  Whatever host you stand up on, run a standing Claude Code **Monitor** watching
+  the journal `leader` marker (the file `is-main-host.sh` reads; e.g. a Monitor
+  command that prints the marker and this host's `GARDEN`). **When the marker comes
+  to name your OWN host** (its `GARDEN` identity), **stand yourself up as leader**:
+  arm the maintainer-inbox Monitor and the deploy-on-upgrade Monitor (§ Deploy-on-upgrade
+  Monitor); the leader-only singletons auto-start on their own as
+  `is-main-host.sh` begins exiting 0, and you lift any drain if this host is to run
+  gardeners. A **follower liaison must keep this watch armed** — it is what makes a
+  marker change *raise* the new leader without anyone logging into that host.
 
 - **"start" / "resume" / "stand up" the garden** → bring the units up. **First
   verify this host's `GARDEN` identity is UNIQUE** across
@@ -72,9 +85,21 @@ liaison watches the inbox, so two liaisons never double-answer a maintainer.
   a full stop only when the maintainer wants the host quiet. Lift a drain with
   `drain-fleet.sh off`.
 - **"make this host the leader" / "designate <host> the leader"** →
-  `scripts/jobs/set-main-host.sh [<host>]` writes the journal `leader` marker. Leadership is
-  **manual, no automatic failover**: if the leader dies the singletons stay down
-  until the marker is re-pointed by hand.
+  `scripts/jobs/set-main-host.sh [<host>]` CAS-writes the authoritative journal
+  `leader` marker. **Designating a leader *is* raising it:** the new leader's
+  standing marker-watch (above) observes the change and stands itself up, so no one
+  need touch that host. Leadership is **manual, no automatic failover**: if the
+  leader dies the singletons stay down until the marker is re-pointed by hand
+  (lease-based election / automatic failover is the future evolution in
+  [multibot-leader-follower](../../designs/multibot-leader-follower.md)
+  § Designating the leader; the watch-raises-leader contract is what is live now).
+- **"hand off leadership to <host>" / "move the leader to <host>"** → the graceful
+  handoff: the **outgoing** leader (you, if you are leading) first **drains**
+  (`scripts/jobs/drain-fleet.sh on`, if this host is to go quiet) and **stands
+  down** its leader Monitors (maintainer-inbox + deploy-on-upgrade); then re-point
+  the marker with `set-main-host.sh <new>`, which **raises the new leader** via its
+  standing watch. Stand-down-then-re-point avoids a window with two live
+  maintainer-inbox Monitors.
 
 ### Deploy-on-upgrade Monitor (auto-deploy this host on an upgrade signal)
 

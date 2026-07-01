@@ -188,12 +188,19 @@ sized for concurrency, not CPU.
    `scripts/jobs/install-units.sh enable-services`.
 4. **Set this host's worker count** (journal state the gardener-scaler reconciles):
    `scripts/jobs/set-gardeners.sh 100 <this-host>` (≈100; tune per host).
-5. **Watch the maintainer inbox** (liaison, **leader host only**): run
+5. **Watch the leader marker** (liaison, **every host**): run a Claude Code
+   **Monitor** that watches the journal `leader` marker — the follower's half of
+   the leader/follower contract. When the marker comes to name this host's `GARDEN`
+   identity, the liaison **stands itself up as leader** (arm the maintainer-inbox
+   Monitor + the deploy-on-upgrade Monitor below; the singletons auto-start).
+   Re-pointing the marker with `set-main-host.sh` therefore *raises* the new leader
+   (§ Leader and follower hosts). A follower liaison must have this watch armed.
+6. **Watch the maintainer inbox** (liaison, **leader host only**): run
    `scripts/jobs/maintainer-watch.sh` through the Claude Code **Monitor** tool;
    reply/archive with `maintainer-reply.sh` / `maintainer-archive.sh`. This Monitor
    is a singleton (two would double-answer), so a **follower** stand-up brings up
    the gardener pool only and skips it (§ Leader and follower hosts).
-6. **Arm the issue inbox** (optional, per-instance) so maintainers can drive the
+7. **Arm the issue inbox** (optional, per-instance) so maintainers can drive the
    garden from its own GitHub issues. This is journal state, NOT main2, so each
    instance points at its own repo and tracks its own maintainers:
    `scripts/jobs/set-garden-repo.sh <owner/name>` (this instance:
@@ -201,7 +208,7 @@ sized for concurrency, not CPU.
    trusted maintainer. The `garden-issue-inbox.timer` is auto-enabled by step 3
    and is **inert** until both exist — writing them is the deliberate arming act.
    See [`designs/issue-inbox.md`](designs/issue-inbox.md).
-7. **Watch the "Upgrade ready" signal** (liaison): run a second Claude Code
+8. **Watch the "Upgrade ready" signal** (liaison): run a second Claude Code
    **Monitor** whose command is `cat "$GARDEN_STATE/deploy/upgrade-ready"
    2>/dev/null` (silent when up to date). On a signal, automatically invoke
    `scripts/jobs/deploy-garden.sh` to deploy this host. See § Deliberate deploy
@@ -236,20 +243,41 @@ The garden is a **leader/follower** fleet (issue kriskowal/garden#11, Multibot;
   CAS-deduped), and the **fast-forward/maintenance half of `garden-watchman`** (its
   duplicate-prone reread BROADCAST is leader-only, gated in-process).
 - **How the gate works.** The leader is named by the single journal file `leader`
-  (at the journal root), holding the leader's `GARDEN` identity. The predicate
-  `scripts/jobs/is-main-host.sh` (exit 0 = leader, 1 = follower) compares it to
-  this host's `GARDEN`. Each timer-fired singleton service carries it as an
-  `ExecCondition=`: on a follower the timer still fires but the tick is **skipped
-  cleanly** (condition-failed, never marked Failed), and each firing re-evaluates,
-  so promotion/demotion needs no restart. The continuous bulletin and the watchman
-  broadcast gate the same predicate **in-process** (the `is_main_host` helper in
-  `common.sh`), so they promote/demote without a restart too.
+  (at the journal root), holding the leader's `GARDEN` identity. This `leader`
+  file is the **authoritative marker**; the older `hosts/main-host` path is stale
+  legacy cruft the predicate no longer reads. The predicate
+  `scripts/jobs/is-main-host.sh` (exit 0 = leader, 1 = follower) compares the
+  `leader` file to this host's `GARDEN`. Each timer-fired singleton service carries
+  it as an `ExecCondition=`: on a follower the timer still fires but the tick is
+  **skipped cleanly** (condition-failed, never marked Failed), and each firing
+  re-evaluates, so promotion/demotion needs no restart. The continuous bulletin and
+  the watchman broadcast gate the same predicate **in-process** (the `is_main_host`
+  helper in `common.sh`), so they promote/demote without a restart too.
+- **Every liaison watches the marker; changing it RAISES the new leader.** On
+  every host, the liaison runs a **standing Monitor watching the `leader` marker**
+  — the follower's half of the leader/follower contract. When the marker comes to
+  name the liaison's OWN host (its `GARDEN` identity), that liaison **stands itself
+  up as leader** per the bring-up procedure (arm the maintainer-inbox Monitor + the
+  deploy-on-upgrade Monitor; the leader-only singletons auto-start as
+  `is-main-host` starts exiting 0; lift any drain if the host is to run gardeners).
+  Because of this standing watch, **running `set-main-host.sh <host>` has the
+  effect of raising the new leader**: designating a leader *is* raising it — the
+  new leader's watch observes the marker change and stands itself up. See
+  `roles/liaison/AGENT.md` § Stand up / stand down for the Monitor.
 - **Designating the leader is manual; no automatic failover.**
-  `scripts/jobs/set-main-host.sh [<host>]` CAS-writes the journal `leader` marker. If the
-  leader dies, the singletons stay down until the marker is re-pointed by hand
-  (lease-based election is a separate, harder follow-on). With a single host
-  (named in the `leader` marker), behavior is unchanged — the gate only
-  bites when a second host joins. The liaison's stand-up/stand-down vocabulary
+  `scripts/jobs/set-main-host.sh [<host>]` CAS-writes the authoritative `leader`
+  marker (raising the new leader via its standing watch, above). If the leader
+  dies, the singletons stay down until the marker is re-pointed by hand
+  (lease-based election / automatic failover is a separate, harder follow-on
+  documented in [`designs/multibot-leader-follower.md`](designs/multibot-leader-follower.md)
+  § Designating the leader; the watch-raises-leader contract is what is live now).
+  With a single host (named in the `leader` marker), behavior is unchanged — the
+  gate only bites when a second host joins.
+- **Handoff contract.** To move leadership cleanly, the **outgoing** leader first
+  **drains** (`scripts/jobs/drain-fleet.sh on`) and **stands down** its leader
+  Monitors (maintainer-inbox + deploy-on-upgrade); then the marker is re-pointed
+  (`set-main-host.sh <new>`), which **raises the new leader** via its standing
+  watch. The liaison's stand-up/stand-down vocabulary
   (`roles/liaison/AGENT.md` § Stand up / stand down) drives this surface.
 
 ### Deliberate deploy (the root checkout is a deployed version)
@@ -261,7 +289,7 @@ advanced only by the deliberate, drained `scripts/jobs/deploy-garden.sh`
 (drain → quiesce → merge → record deployed sha → lift → restart the fleet). The
 deterministic `garden-upgrade-monitor` service emits an "Upgrade ready" signal
 when `origin/main2` is ahead of this host's deployed sha; the liaison's
-deploy-on-upgrade Monitor (bring-up step 7) acts on it. The continuous
+deploy-on-upgrade Monitor (bring-up step 8) acts on it. The continuous
 fast-forward path is retired: `garden-deploy-sync` is gone and the watchman's
 aggressive checkout defaults off (it keeps only its post-deploy reread broadcast).
 Full design: [`designs/deliberate-deploy.md`](designs/deliberate-deploy.md).
