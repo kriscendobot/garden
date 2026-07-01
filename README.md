@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:37:46Z_
+_As of 2026-07-01T02:39:42Z_
 
 ## Latest
 
-The passable-byte-arrays effort landed its fresh view-implementation PRs ([tracked completion](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-ebfb-fresh-bytearray-view-impl-prs.md)), feeding [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), now the freshest item parked for review. Two builder jobs independently answered kriskowal's #442 "enforce .js extension by lint" ask within two minutes of each other, both converging on a new `@endo/jsdoc-import-extensions` rule for the JSDoc `@import` blind spot; the gardener closed its own [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) as a duplicate and deduped in favor of the sibling's [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which carries a frozen `llm` base and a changeset — review target is #581, with one optional `checkTypeImports: true` suggestion left inline. Both jobs concluded that requiring `.js` on `@endo/*` subpaths is *not* uniformly correct (platform/agentry/preact-container use extensionless export keys), so no maintainer scope decision is outstanding. An attention directive on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) is the sole job in flight.
+The bulletin's biggest movement is on the `.js`-extension lint enforcement asked for in kriskowal's #442 review, where two builder jobs raced to the same conclusion: [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) was opened but then self-closed as a duplicate of the two-minutes-earlier [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which lands the new `@endo/jsdoc-import-extensions` ESLint rule (covering the JSDoc `@import` blind spot) plus `checkTypeImports` on a frozen `llm` base with a changeset — review target is #581. Both jobs independently found that requiring `.js` on `@endo/*` subpaths is *not* uniformly correct (platform/agentry/preact-container use extensionless export keys), so no maintainer decision is owed on that scope question; they correctly leave subpaths to their exports maps. Otherwise the board fully drained (todo and doin both empty), with the [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) job completing. Freshly parked and topping the review queue is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing, 1h) alongside the longer-waiting [#503](https://github.com/endojs/endo-but-for-bots/pull/503) passable byte arrays (21h) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) EndoRegistry capability (1d).
 
 ## Parked for maintainer feedback
 
@@ -39,16 +39,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr472-b2880940`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-b2880940.md) — attention directive on endojs/endo-but-for-bots PR #472
+### doin (0)
+(none)
 
-### tada (767)
+### tada (768)
+- [`endojs-endo-but-for-bots-pr472-b2880940`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-b2880940.md) — Completion report — endojs-endo-but-for-bots-pr472-b2880940
 - [`endojs-ebfb-fresh-bytearray-view-impl-prs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-ebfb-fresh-bytearray-view-impl-prs.md) — Completion report — endojs-ebfb-fresh-bytearray-view-impl-prs
 - [`endojs-ebfb-pr572-weave-readme-conflict`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-ebfb-pr572-weave-readme-conflict.md) — Completion report
 - [`endojs-endo-but-for-bots-pr571-c05feda5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-c05feda5.md) — Completion report
 - [`endojs-endo-but-for-bots-pr572-02dd3364`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-02dd3364.md) — Completion report
-- [`endojs-endo-but-for-bots-pr572-review-ee8280af`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-ee8280af.md) — Completion report: endojs-endo-but-for-bots-pr572-review-ee8280af
-- … and 762 more
+- … and 763 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
