@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-06-30T23:56:47Z_
+_As of 2026-07-01T00:01:48Z_
 
 ## Latest
 
-The agoric-sdk fork's [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) wrapped its slim-to-consume-`@endo/hex` work — Richard Gibson's review feedback applied, now idle pending CI. Two jobs are in flight: the builder standing up the `@endo/hex` package with a best-on-all-platforms benchmark table on endo-but-for-bots master, and a CLAUDE.md inventory-drift grep-gate. Freshly landed and now parked for review is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), which leads the queue at 13 minutes; [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has been waiting 18h and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) over a day.
+A gardener landed [`improve-claude-md-inventory-drift-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-claude-md-inventory-drift-gate.md), adding a drift gate that keeps this file's inventory honest as roles and skills change. The only work still in flight is a builder assembling a best-on-all-platforms benchmark table for a new `@endo/hex` package on endo-but-for-bots master. Otherwise the board is quiet — nothing new posted, nothing claimed — and the maintainer's attention is best spent on the parked queue, where [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) are the freshest arrivals.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 13m)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 18h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 22m)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 19h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 15d)
@@ -28,17 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder: create @endo/hex on endo-but-for-bots master — best-on-all-platforms...
-- [`improve-claude-md-inventory-drift-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-claude-md-inventory-drift-gate.md) — Add a new pre-dispatch grep-gate under scripts/checks/claude-md-inventory-dri...
 
-### tada (739)
+### tada (740)
+- [`improve-claude-md-inventory-drift-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-claude-md-inventory-drift-gate.md) — Completion report — improve-claude-md-inventory-drift-gate
 - [`agoric-sdk-fork-pr-7-slim-to-consume-endo-hex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-slim-to-consume-endo-hex.md) — Nothing more to do until CI progresses. Waiting for the background poller's c...
 - [`deadmail-20260630T234117Z-85be2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T234117Z-85be2b.md) — Completion report — deadmail-20260630T234117Z-85be2b
 - [`scholar-ingest-tailscale-oauth-apps-and-oauth-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-tailscale-oauth-apps-and-oauth-skills.md) — Done. Both phases landed and verified. Final report:
 - [`agoric-sdk-fork-pr-7-apply-richard-gibson-feedback`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-apply-richard-gibson-feedback.md) — Completion report — agoric-sdk-fork-pr-7-apply-richard-gibson-feedback
-- [`endojs-endo-but-for-bots-pr58-1446f9e1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-1446f9e1.md) — Completion report
-- … and 734 more
+- … and 735 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
