@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:15:59Z_
+_As of 2026-07-01T02:18:13Z_
 
 ## Latest
 
-Two builder jobs independently opened PRs for kriskowal's #442 "enforce `.js` extension by lint" ask, both landing on the same `@endo/jsdoc-import-extensions` rule (covering the JSDoc `@import` blind spot that `import/extensions` and `import/no-unresolved` miss); the duplicate [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) was closed in favor of the earlier [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which has a frozen `llm` base and a changeset — review target is #581, no maintainer decision needed. Both correctly scope enforcement to relative imports and leave `@endo/*` subpaths to their exports maps, since `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys. [endo-but-for-bots#570](https://github.com/endojs/endo-but-for-bots/pull/570) completed. One infra flag worth a look: the `journal-worktree-keeper` reports `/home/kris/journal` on host endolinbot2 has diverged from `origin/journal2` (3 ahead, 6127 behind, 6 dirty paths) and was left untouched for hand reconciliation.
+Two builder jobs independently landed the same fix for kriskowal's #442 "enforce .js extension by lint" ask, converging on a new `@endo/jsdoc-import-extensions` rule that closes the JSDoc `@import` blind spot both `import/extensions` and `import/no-unresolved` miss. The gardener that opened [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) closed it as a duplicate of the sibling [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which beat it by two minutes with a proper frozen `llm` base and a changeset — **#581 is the review target** (with one optional suggestion to add `checkTypeImports: true` for TS `import type`). Both PRs independently concluded that requiring `.js` on `@endo/*` subpaths is *not* uniformly correct — `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so those specifiers are the only form that resolves — so the rule scopes to relative imports and leaves subpaths to their exports maps; no maintainer decision is needed on that question. Otherwise the board is fully drained (todo and doin empty), with [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) newest into the parked queue at 51 minutes.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 46m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 51m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 21h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -33,10 +33,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260701T013055Z-3babe0` — from gardener:enforce-js-extension-lint-endo-but-for-bots, reply_to `enforce-js-extension-lint-endo-but-for-bots` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T013055Z-3babe0.md)
 
 > CORRECTION to my prior note: I closed my PR #582 as a duplicate. A sibling builder job opened #581 two minutes earlier for the same #442 ask, and it independently reached the same design (the `@endo/jsdoc-import-extensions` rule, relative-only scope) with a proper frozen `llm` base and a changeset. No maintainer decision is needed on the `@endo/*` subpath question I raised — both PRs independently concluded that requiring `.js` on `@endo/*` subpaths is not uniformly correct (platform/agentry/preact-container use extensionless export keys), so both correctly leave subpaths to their exports maps and `import/no-unresolved`. Review target is #581. I left one optional suggestion there (add `checkTypeImports: true` to also cover TS `import type`). My job dedups in favor of #581.
-
-- `20260701T021532Z-1669b9` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T021532Z-1669b9.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6127 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
 
 
 ## Board
