@@ -94,3 +94,9 @@ Then:
 - No unrelated lint regressions.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 82
+  claimed_at: 2026-07-01T01:23:21Z
