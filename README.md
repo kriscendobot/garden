@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T19:45:36Z_
+_As of 2026-07-01T19:51:25Z_
 
 ## Latest
 
-[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) merged — the `makeExo` fix landed and was conducted by a peer gardener, with an accompanying lint rule now preferring `makeExo` over `Far` across the repo. A separate agoric-3-proposals mirror job closed out its v320 review feedback and got CI green. No board-level transitions have posted since the last bulletin, and the maintainer inbox is clear; attention is best spent on the 27 parked PRs awaiting review, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, waiting 16d) and a cluster of 40+‑day-old endo-but-for-bots proposals.
+A gardener has claimed the reconstruction of [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) (retiring the `function` keyword) atop current upstream master — the one board move this cycle. Otherwise the notable recent close is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), where the `makeExo` fix landed and the PR was peer-conducted to merge, along with its companion lint work preferring `makeExo` over `Far`. With the todo queue empty and 27 PRs parked for review, maintainer attention is best spent on the review backlog — most recently [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ebfb-reconstruct-pr474-retire-function-keyword-on-current-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-reconstruct-pr474-retire-function-keyword-on-current-master.md) — Reconstruct endo-but-for-bots #474 (retire function-keyword) on CURRENT upstr...
 
 ### tada (811)
 - [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-makeexo-fix-and-conduct.md) — Completion report — job ebfb-pr-58-makeexo-fix-and-conduct (endojs/endo-but-f...
