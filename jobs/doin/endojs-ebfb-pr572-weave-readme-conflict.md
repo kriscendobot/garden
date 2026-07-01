@@ -9,3 +9,9 @@ Task: weave/rebase head branch `design/bytearray-uint8array-view` onto current
 `llm`, resolve the designs/README.md conflict (preserve both sides' entries;
 net design content invariant), push. Verify mergeable clears to a clean state.
 No implementation code — doc-only conflict.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 60
+  claimed_at: 2026-07-01T02:30:40Z
