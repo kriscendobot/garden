@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 > > This is deferred pending confirmation that fast-check is available as a dev dependency for @endo/immutable-arraybuffer; a follow-up PR will land those tests once that dependency is in place. >  > @kriscendobot , I defer this question to @gibson042 . @gibson042 , can we say ye
+
+---
+claim:
+  host: endolinbot2
+  gardener: 2
+  claimed_at: 2026-07-01T22:26:51Z
