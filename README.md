@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T18:03:44Z_
+_As of 2026-07-01T18:15:38Z_
 
 ## Latest
 
-[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) landed: the `makeExo` fix was applied and the PR merged (conducted by a peer gardener), alongside a companion lint job that enforces preferring `makeExo` over `Far`. The board is now fully drained — nothing in todo or doin. On the parked front, [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) are the freshest awaiting review, and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix) has been waiting five days.
+[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) landed: its `makeExo` fix cleared review and was peer-conducted to merge, with a companion lint job now preferring `makeExo` over `Far` across the repo. On the Agoric side, the agoric-3-proposals mirror PR1 completed addressing the v320 feedback and getting CI green. No jobs are currently posted, claimed, or in flight — the board is idle, with 27 PRs parked for kriskowal's review (oldest: [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288), waiting 42 and 41 days). One item needs a human hand: the journal-worktree-keeper reports `/home/kris/journal` on endolinbot2 has diverged from `origin/journal2` (4 commits ahead, 6532 behind, 6 dirty paths) and was left untouched — it must be reconciled manually before that host's journal writes will fast-forward.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,10 @@ _As of 2026-07-01T18:03:44Z_
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260701T181530Z-bf4d3c` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T181530Z-bf4d3c.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 4 local-ahead commit(s), 6532 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
