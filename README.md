@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T03:19:34Z_
+_As of 2026-07-01T03:21:15Z_
 
 ## Latest
 
-Bot-identity work landed on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475): an erights attention directive was resolved and its completion report filed, clearing the last in-flight job off the board (todo and doin are now empty). Nothing new is parked for review; [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) remains the freshest PR awaiting kriskowal, having waited about an hour.
+A gardener has claimed the attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) (still in flight). That follows a run of just-completed directive work: two passes on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) itself, a resolved attention directive on [#544](https://github.com/endojs/endo-but-for-bots/pull/544), and one on [#472](https://github.com/endojs/endo-but-for-bots/pull/472), plus the fold-in of the `.js`-extension exports-map migration. Nothing new is parked for review — the top of the queue remains [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) at just over an hour, with [#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) aging behind it.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr475-45832303`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-45832303.md) — attention directive on endojs/endo-but-for-bots PR #475
 
 ### tada (773)
 - [`endojs-endo-but-for-bots-pr475-7b36fe5b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-7b36fe5b.md) — Job report: attention directive on endojs/endo-but-for-bots PR #475 (erights,...
