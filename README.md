@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T16:51:24Z_
+_As of 2026-07-01T16:52:25Z_
 
 ## Latest
 
-The only board movement since the last bulletin was the completion of [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58)'s shepherd rerun of the flaky macOS jobs; the 22.x macOS run is back in progress with a background poll watching for green, following the earlier rebase-and-retcon that landed clean locally. The PR now sits parked awaiting kriskowal's review pending CI.
+Two endo-but-for-bots PRs moved into active work: [#277](https://github.com/endojs/endo-but-for-bots/pull/277) was claimed to retcon and then conduct the merge on the maintainer's "ready to merge" authorization, and an attention directive on [#472](https://github.com/endojs/endo-but-for-bots/pull/472) is now being worked. On [#58](https://github.com/endojs/endo-but-for-bots/pull/58) (freshly rebased and retconned, local validation clean), a shepherd re-ran the flaky 22.x macOS CI and is polling for the result — it remains the newest parked PR awaiting review. Elsewhere, dckc's guidance was applied to agoric-3-proposals #316 and a PR opened, and the journal-worktree-keeper's autonomous lossless self-heal completed. Note the plan queue: four PLANs sit awaiting maintainer go-ahead, including verifying the ymax0 hex fix and the stackCount snapshot-compatibility check.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 6m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,8 +28,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`ebfb-pr-277-retcon-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-277-retcon-and-conduct.md) — PR #277 — retcon then conduct (merge); maintainer authorized: "ready to merge"
+- [`endojs-endo-but-for-bots-pr472-42615737`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-42615737.md) — attention directive on endojs/endo-but-for-bots PR #472
 
 ### tada (801)
 - [`ebfb-pr-58-shepherd-rerun-macos-flakes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-shepherd-rerun-macos-flakes.md) — The run is in_progress (22.x macOS re-running). My background poll will notif...
