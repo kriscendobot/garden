@@ -20,3 +20,9 @@ specifiers because enforcing `.js` on `@endo/*` **subpaths** is not yet correct 
    + tests pass. This is an API-surface change — run local-verify and be honest about any consumer
    you couldn't migrate.
 Bot fork; no upstream contact. Report the PR and the migrated packages/consumers.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-07-01T02:54:13Z
