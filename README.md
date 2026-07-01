@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T04:03:33Z_
+_As of 2026-07-01T04:09:47Z_
 
 ## Latest
 
-The bulletin's only fresh board movement is a single claim: a gardener has picked up [`garden-issue-9-mhofman-contract-control-upgrade-test-protocol`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-contract-control-upgrade-test-protocol.md), executing mhofman's contract-control-upgrade test protocol on the ymax0 work (kriskowal/garden#9). The board is otherwise drained — nothing in todo, and the completed `pr475` cluster of endo-but-for-bots reports has settled into tada. Maintainer attention is best spent on the parked queue: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) is the freshest at 2h, while [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 23h) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 1d) are the next-ripest; [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [endo#3137](https://github.com/endojs/endo/pull/3137) have been waiting 4d and 15d respectively.
+Two garden-infrastructure jobs moved into progress this cycle, both aimed at making the automation more deterministic: one to [requeue jobs when `claude` exits without completing them](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deterministic-requeue-on-incomplete-claude-exit.md), and one to [make the GitHub watchers' observe→post-job path fully deterministic (no `claude -p`)](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-watcher-observe-to-postjob-fully-deterministic.md), alongside the ongoing [ymax0 contract-control-upgrade test protocol](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-contract-control-upgrade-test-protocol.md) for kriskowal/garden#9. No new completions or posts landed since the last bulletin. Worth a maintainer's eye: the parked queue is topped by fresh review-ready work — [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) at ~2h and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) at ~23h — and four go-ahead plans still await authorization, including [verifying the ymax0 hex fix](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`garden-deterministic-requeue-on-incomplete-claude-exit`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-deterministic-requeue-on-incomplete-claude-exit.md) — Deterministic requeue when claude exits without completing a job (incl. exit-...
 - [`garden-issue-9-mhofman-contract-control-upgrade-test-protocol`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-contract-control-upgrade-test-protocol.md) — #9 ymax0 — execute mhofman's definitive contract-control-upgrade test protoco...
+- [`garden-watcher-observe-to-postjob-fully-deterministic`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-watcher-observe-to-postjob-fully-deterministic.md) — GitHub watchers: make observe→post-job FULLY deterministic (no claude -p)
 
 ### tada (775)
 - [`endojs-endo-but-for-bots-pr475-ae693c7b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-ae693c7b.md) — Completion report
