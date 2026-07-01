@@ -13,3 +13,9 @@ discipline. The excerpt below is for human context only:
 This failed manual verification in Chrome. The error still appears in a red bubble with just the message in Chat. 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 63
+  claimed_at: 2026-07-01T01:13:53Z
