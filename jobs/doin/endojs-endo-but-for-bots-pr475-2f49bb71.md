@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriskowal , has @kriscendobot adequately addressed all the changes you asked for? @kriscendobot , why this this PR still draft. IMO it clearly qualifies as ready-for-review. If you agree, please do so. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 89
+  claimed_at: 2026-07-01T02:20:26Z
