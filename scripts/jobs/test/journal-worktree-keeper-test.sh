@@ -1,18 +1,21 @@
 #!/bin/bash
 # journal-worktree-keeper-test.sh — coverage for the shared-journal-worktree
-# freshness keeper (journal-worktree-keeper.sh).
+# reconciler (journal-worktree-keeper.sh).
 #
-# The journal/ worktree drifts unbounded (observed 2331 behind, 3 stray unpushed
-# local-only commits) because the scripted pipeline works only in per-instance
-# clones and common.sh intentionally never touches it. The keeper fast-forwards
-# it on a cadence, but CONSERVATIVELY: it advances only a clean, non-ahead tree
-# via `merge --ff-only`, and surfaces (never clobbers) a dirty or local-ahead
-# worktree with a throttled alert.
+# The journal/ worktree drifts unbounded (observed 6000+ behind, 3 stray
+# superseded local-only commits, dirty library-staging paths) because the
+# scripted pipeline works only in per-instance clones and common.sh intentionally
+# never touches it. The keeper reconciles it on a cadence: a clean tree advances
+# by `merge --ff-only`, and a DIVERGED tree (dirty and/or local-ahead) is
+# SELF-HEALED losslessly — back up everything, gate on no-active-writer, then
+# reset --hard — paging the maintainer ONLY for genuinely unpreservable WIP.
 #
-# Three cases, mirroring the job spec:
-#   * clean + behind  -> fast-forwarded to origin/journal2, no alert
-#   * dirty           -> left untouched + alert (no reset/pull/stash)
-#   * local-ahead     -> left untouched + alert (the 3-stray-commits shape)
+# Cases, mirroring the job spec:
+#   * clean + behind            -> fast-forwarded to origin/journal2, no alert
+#   * diverged + superseded     -> auto-healed (reset), backup taken, NO alert
+#   * genuine WIP, healable      -> healed, WIP captured in the backup (lossless)
+#   * genuine WIP, UNPRESERVABLE -> left untouched + alert (backup dir unwritable)
+#   * active writer              -> heal aborts, tree untouched, no alert
 #
 # Hermetic: a throwaway upstream bare repo on branch journal2 + a real checkout
 # of it standing in for the journal worktree. alert_maintainer is captured via
@@ -77,13 +80,16 @@ EOF
   chmod +x "$ALERT_STUB"
 }
 
-run_keeper() {  # run_keeper ; fills $OUT, $RC
+BACKUPS="$TR/backups"     # host-local lossless backup root (outside the worktree)
+run_keeper() {  # run_keeper [extra env KEY=VAL ...] ; fills $OUT, $RC
   set +e
   OUT="$(env GARDEN_ROOT="$TR" GARDEN_STATE="$TR/state" \
              GARDEN_JOURNAL_WORKTREE="$JW" GARDEN=testhost \
              JOURNAL_BRANCH=journal2 \
              GARDEN_FETCH_TIMEOUT=10 GARDEN_FETCH_RETRIES=1 \
              GARDEN_ALERT_CMD="$ALERT_STUB" \
+             GARDEN_JW_BACKUP_DIR="$BACKUPS" GARDEN_JW_SETTLE_SECS=1 \
+             "$@" \
              bash "$KEEPER" 2>&1)"
   RC=$?
   set -e
@@ -91,6 +97,8 @@ run_keeper() {  # run_keeper ; fills $OUT, $RC
 head_sha()   { git -C "$JW" rev-parse HEAD; }
 remote_sha() { git -C "$JW" rev-parse refs/remotes/origin/journal2; }
 alert_count(){ local n; n="$(grep -c . "$ALERTS" 2>/dev/null)" || true; printf '%s\n' "${n:-0}"; }
+# Newest backup dir the keeper created this run (host-<ts>), or empty.
+latest_backup(){ ls -1d "$BACKUPS"/testhost-* 2>/dev/null | sort | tail -n1; }
 
 # ============================================================================
 hr; echo "STATIC — the script parses (bash -n)"; hr
@@ -119,32 +127,95 @@ grep -qF "fast-forwarded" <<<"$OUT" && ok "logged the fast-forward" || bad "did 
 [ "$(alert_count)" -eq 0 ] && ok "no alert on a clean fast-forward" || bad "alerted on a clean fast-forward"
 
 # ============================================================================
-hr; echo "DIRTY — uncommitted change present: untouched + alert"; hr
+hr; echo "SELF-HEAL (a) — diverged+superseded, no writer: auto-healed, no page"; hr
+# The recurring real shape: a stale local-ahead commit, a dirty tracked file, and
+# a stray untracked entry, all while upstream has moved far ahead. Expect a
+# lossless reset to origin/journal2, a backup, and NO maintainer page.
 setup_fixture; write_alert_stub
-upstream_commit b c2            # something to fast-forward TO
-before="$(head_sha)"
-printf 'local edit\n' >> "$JW/f"   # dirty the worktree
+upstream_commit b c2                       # upstream advances (we fall behind)
+printf 'stray local\n' > "$JW/f"           # a superseded local commit
+git -C "$JW" add -A; git -C "$JW" "${git_id[@]}" commit -q -m "aborted scholar work"
+printf 'dirty staging\n' >> "$JW/f"        # a dirty tracked path (library-staging shape)
+mkdir -p "$JW/entries/2026/06/30"
+printf 'stray result\n' > "$JW/entries/2026/06/30/195620Z-result-gardener-cc4a54.md"  # untracked
 run_keeper
-[ "$RC" -eq 0 ] && ok "exit 0 on a dirty tree (never wedged)" || bad "exit $RC on dirty tree"
-[ "$(head_sha)" = "$before" ] && ok "HEAD untouched on a dirty tree" || bad "HEAD moved despite dirty tree"
-grep -q "local edit" "$JW/f" && ok "dirty edit preserved (no reset/clobber)" || bad "dirty edit was clobbered"
-grep -qF "DIVERGED:" <<<"$OUT" && ok "logged a DIVERGED anomaly" || bad "dirty divergence not surfaced"
-[ "$(alert_count)" -ge 1 ] && ok "emitted a maintainer alert" || bad "no alert on a dirty tree"
-grep -qF "journal-worktree-divergence-testhost" "$ALERTS" && ok "alert carries the divergence dedup-key" || bad "alert dedup-key wrong/missing"
+[ "$RC" -eq 0 ] && ok "exit 0 on a self-heal" || bad "exit $RC on self-heal"
+[ "$(head_sha)" = "$(remote_sha)" ] && ok "HEAD reset to origin/journal2" || bad "HEAD not at origin ($(head_sha) != $(remote_sha))"
+[ -z "$(git -C "$JW" status --porcelain)" ] && ok "worktree is clean after heal" || bad "worktree still dirty after heal"
+[ ! -e "$JW/entries/2026/06/30/195620Z-result-gardener-cc4a54.md" ] && ok "stray untracked entry cleared" || bad "stray untracked entry remains"
+grep -qF "SELF-HEALED:" <<<"$OUT" && ok "logged a SELF-HEALED line" || bad "did not log the self-heal"
+[ "$(alert_count)" -eq 0 ] && ok "NO maintainer page on the lossless case" || bad "paged on a lossless self-heal"
+B="$(latest_backup)"
+[ -n "$B" ] && [ -n "$(ls -A "$B/patches" 2>/dev/null)" ] && ok "local-ahead commit captured as a patch" || bad "no patch backup for the local commit"
+[ -f "$B/files/f" ] && ok "dirty tracked file captured in the backup" || bad "dirty file not backed up"
+[ -f "$B/files/entries/2026/06/30/195620Z-result-gardener-cc4a54.md" ] && ok "untracked entry captured in the backup" || bad "untracked entry not backed up"
 
 # ============================================================================
-hr; echo "LOCAL-AHEAD — unpushed local commits: untouched + alert"; hr
+hr; echo "SELF-HEAL (b) — genuine WIP, healable: healed + WIP captured (lossless)"; hr
+# Genuine (non-superseded) WIP is still healed — the backup, not on-origin
+# presence, is the losslessness guarantee — but the exact WIP content must be
+# recoverable from the backup afterwards.
 setup_fixture; write_alert_stub
-upstream_commit b c2            # upstream moved (so we are also behind)
-printf 'stray\n' > "$JW/f"
-git -C "$JW" add -A; git -C "$JW" "${git_id[@]}" commit -q -m "aborted local work"
-before="$(head_sha)"
+upstream_commit b c2
+printf 'GENUINE-UNIQUE-WIP-9f3a\n' > "$JW/f"       # dirty content that is NOT on origin
 run_keeper
-[ "$RC" -eq 0 ] && ok "exit 0 on local-ahead (never wedged)" || bad "exit $RC on local-ahead"
-[ "$(head_sha)" = "$before" ] && ok "HEAD untouched on local-ahead (commit preserved)" || bad "local commit was clobbered"
-grep -qF "DIVERGED:" <<<"$OUT" && ok "logged a DIVERGED anomaly" || bad "local-ahead divergence not surfaced"
-grep -qF "local-ahead commit" <<<"$OUT" && ok "named the local-ahead divergence" || bad "did not name local-ahead commits"
-[ "$(alert_count)" -ge 1 ] && ok "emitted a maintainer alert" || bad "no alert on local-ahead"
+[ "$RC" -eq 0 ] && ok "exit 0 healing genuine WIP" || bad "exit $RC on genuine-WIP heal"
+[ "$(head_sha)" = "$(remote_sha)" ] && ok "HEAD reset to origin/journal2" || bad "HEAD not at origin on genuine-WIP heal"
+[ "$(alert_count)" -eq 0 ] && ok "NO page (WIP was backupable → lossless)" || bad "paged despite a successful backup"
+B="$(latest_backup)"
+grep -qF "GENUINE-UNIQUE-WIP-9f3a" "$B/files/f" 2>/dev/null && ok "genuine WIP recoverable from the backup (never clobbered)" || bad "genuine WIP not recoverable from backup"
+
+# ============================================================================
+hr; echo "SELF-HEAL (c) — genuine WIP, UNPRESERVABLE: untouched + page"; hr
+# When the backup itself cannot be taken (here: the backup root is blocked by a
+# regular file so mkdir -p fails), the WIP is genuinely unpreservable: leave the
+# tree exactly as-is (never clobber) and page the maintainer — the rare real case.
+setup_fixture; write_alert_stub
+upstream_commit b c2
+printf 'unpreservable WIP\n' > "$JW/f"
+before="$(head_sha)"
+: > "$TR/blocked"                                   # a FILE where a dir is needed
+run_keeper GARDEN_JW_BACKUP_DIR="$TR/blocked/backups"
+[ "$RC" -eq 0 ] && ok "exit 0 (never wedged) on unpreservable WIP" || bad "exit $RC on unpreservable WIP"
+[ "$(head_sha)" = "$before" ] && ok "HEAD untouched (no reset) on unpreservable WIP" || bad "reset despite an unpreservable backup"
+grep -qF "unpreservable WIP" "$JW/f" && ok "WIP preserved in place (never clobbered)" || bad "WIP was clobbered"
+grep -qF "UNPRESERVABLE:" <<<"$OUT" && ok "logged the UNPRESERVABLE case" || bad "did not log unpreservable"
+[ "$(alert_count)" -ge 1 ] && ok "paged the maintainer for genuine unpreservable WIP" || bad "did not page on unpreservable WIP"
+grep -qF "journal-worktree-unpreservable-testhost" "$ALERTS" && ok "page carries the unpreservable dedup-key" || bad "unpreservable dedup-key wrong/missing"
+
+# ============================================================================
+hr; echo "SELF-HEAL (d) — active writer: heal aborts, tree untouched, no page"; hr
+# A live agent holds the worktree as cwd. The heal must abort losslessly: no
+# reset, no page (an active writer is transient; the next tick heals).
+setup_fixture; write_alert_stub
+upstream_commit b c2
+printf 'writer in progress\n' > "$JW/f"
+before="$(head_sha)"
+# Force the active-writer verdict deterministically (also exercised for real via
+# the /proc cwd scan; here we inject to keep the test hermetic and fast).
+run_keeper GARDEN_JW_WRITER_PROBE=/bin/true
+[ "$RC" -eq 0 ] && ok "exit 0 when a writer is active" || bad "exit $RC with an active writer"
+[ "$(head_sha)" = "$before" ] && ok "HEAD untouched while a writer is active" || bad "reset despite an active writer"
+grep -qF "writer in progress" "$JW/f" && ok "in-flight WIP untouched" || bad "clobbered an active writer's WIP"
+grep -qiF "active writer" <<<"$OUT" && ok "logged the active-writer abort" || bad "did not log the active-writer abort"
+[ "$(alert_count)" -eq 0 ] && ok "NO page on a transient active writer" || bad "paged on an active writer"
+
+# ============================================================================
+hr; echo "REAL /proc PROBE — a process with cwd in the worktree aborts the heal"; hr
+# Exercise the built-in active-writer probe's /proc/*/cwd scan (no injection):
+# a background process parked in $JW must abort the heal.
+setup_fixture; write_alert_stub
+upstream_commit b c2
+printf 'proc-held WIP\n' > "$JW/f"
+before="$(head_sha)"
+( cd "$JW" && exec sleep 30 ) &   # a live "writer" holding the worktree as cwd
+writer_pid=$!
+sleep 0.3                          # let it establish cwd
+run_keeper
+kill "$writer_pid" 2>/dev/null || true; wait "$writer_pid" 2>/dev/null || true
+[ "$(head_sha)" = "$before" ] && ok "HEAD untouched (real /proc cwd detected)" || bad "reset despite a proc holding the worktree"
+grep -qiF "active writer" <<<"$OUT" && ok "the /proc scan reported the active writer" || bad "the /proc scan missed the cwd-holding process"
+[ "$(alert_count)" -eq 0 ] && ok "NO page for the /proc-detected writer" || bad "paged on a /proc-detected writer"
 
 # ============================================================================
 hr

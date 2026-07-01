@@ -1,5 +1,5 @@
 [Unit]
-Description=Garden journal-worktree-keeper (conservatively fast-forward the shared journal/ worktree to origin/journal2 so it never drifts weeks-behind; leave a dirty or local-ahead worktree untouched and alert)
+Description=Garden journal-worktree-keeper (reconcile the shared journal/ worktree to origin/journal2 so it never drifts weeks-behind: fast-forward a clean tree, and autonomously self-heal a diverged one LOSSLESSLY — back up, gate on no-active-writer, reset — paging only for genuinely unpreservable WIP)
 
 [Service]
 Type=oneshot

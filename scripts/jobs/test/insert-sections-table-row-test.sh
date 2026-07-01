@@ -117,6 +117,28 @@ else
   if cmp -s "$TR/headingless.md" "$TR/badrow.md"; then ok "malformed row rejected, file untouched"; else bad "malformed row mutated the file"; fi
 fi
 
+# --- Case 8: live-worktree refusal (Part 2 root-cause guard) ------------------
+# Editing a topic file INSIDE the shared $GARDEN_ROOT/journal read worktree in
+# place is what re-dirtied the tree the journal-worktree-keeper must keep clean.
+# When GARDEN_ROOT is set and the target resolves under $GARDEN_ROOT/journal, the
+# inserter must refuse (exit 1) and leave the file byte-for-byte untouched.
+mkdir -p "$TR/gardenroot/journal/library/topics"
+cp "$TR/headingless.md" "$TR/gardenroot/journal/library/topics/pass-style.md"
+cp "$TR/gardenroot/journal/library/topics/pass-style.md" "$TR/live-before.md"
+if GARDEN_ROOT="$TR/gardenroot" bash "$SCRIPT" "$TR/gardenroot/journal/library/topics/pass-style.md" "$NEWROW" 2>/dev/null; then
+  bad "expected refusal editing a file inside the live worktree"
+else
+  if cmp -s "$TR/live-before.md" "$TR/gardenroot/journal/library/topics/pass-style.md"; then
+    ok "refused the live-worktree edit, file untouched"
+  else bad "live-worktree file was mutated despite refusal"; fi
+fi
+# A path OUTSIDE $GARDEN_ROOT/journal (an isolated clone) is still accepted.
+mkdir -p "$TR/clone/library/topics"
+cp "$TR/headingless.md" "$TR/clone/library/topics/pass-style.md"
+if GARDEN_ROOT="$TR/gardenroot" bash "$SCRIPT" "$TR/clone/library/topics/pass-style.md" "$NEWROW" 2>/dev/null; then
+  ok "accepted an edit in an isolated clone (outside the live worktree)"
+else bad "wrongly refused an isolated-clone edit"; fi
+
 echo "----------------------------------------------------------------"
 echo "PASS=$PASS FAIL=$FAIL"
 [ "$FAIL" -eq 0 ]

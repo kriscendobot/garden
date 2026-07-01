@@ -135,6 +135,30 @@ grep -qF "body from a file" <<<"$(git -C "$BARE" ls-tree -r --name-only journal2
   && ok "body-file content reached origin/journal2" || bad "body-file content not on origin"
 
 # ============================================================================
+hr; echo "REFUSE — writing into the live \$GARDEN_ROOT/journal worktree"; hr
+# Part 2 root-cause guard: an entry must NEVER land in the shared read worktree
+# (the stray entries/…-result-gardener-*.md this closes at the source). Even if a
+# caller mis-points GARDEN_PRODUCER_CLONE at $GARDEN_ROOT/journal, refuse loudly
+# and write nothing.
+setup_fixture
+# Make $GARDEN_ROOT/journal a real checkout so the guard's -d test fires.
+git clone -q --branch journal2 "$BARE" "$TR/journal"
+H3="$(origin_head)"
+set +e
+OUT="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
+           GARDEN_STATE="$STATE" GARDEN_ROOT="$TR" \
+           GARDEN_PRODUCER_CLONE="$TR/journal" \
+           GARDEN=testhost GARDEN_ROLE=gardener \
+           GARDEN_NO_MAINTAINER_ALERT=1 \
+           bash "$ENTRY" progress <<<"a body that must never land in the live tree" 2>&1)"
+RC=$?
+set -e
+[ "$RC" -ne 0 ] && ok "live-worktree target exits non-zero" || bad "live-worktree target exit $RC (want non-zero): $OUT"
+grep -qi 'live worktree' <<<"$OUT" && ok "names the live-worktree refusal" || bad "no live-worktree message: $OUT"
+[ "$(origin_head)" = "$H3" ] && ok "live-worktree refusal wrote no entry" || bad "advanced the journal head"
+[ -z "$(git -C "$TR/journal" status --porcelain)" ] && ok "the live worktree stayed clean (never dirtied)" || bad "the live worktree was dirtied"
+
+# ============================================================================
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 rm -rf "$TR"

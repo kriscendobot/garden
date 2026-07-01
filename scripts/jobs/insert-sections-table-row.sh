@@ -47,6 +47,23 @@ row=$2
 
 [ -f "$topic_file" ] || { echo "insert-sections-table-row: no such file: $topic_file" >&2; exit 1; }
 
+# Live-worktree refusal. This inserter edits <topic-file> in place, so pointing it
+# at a file inside the shared $GARDEN_ROOT/journal read worktree dirties the very
+# tree the journal-worktree-keeper must keep clean (the recurring library-staging
+# divergence). A scholar must target its own isolated journal clone (its gardener
+# clone / a producer clone), never the deployed read tree. When GARDEN_ROOT is set
+# and <topic-file> resolves under $GARDEN_ROOT/journal, refuse loudly. (No effect
+# when GARDEN_ROOT is unset, e.g. in this script's own hermetic tests.)
+if [ -n "${GARDEN_ROOT:-}" ] && [ -d "$GARDEN_ROOT/journal" ]; then
+  _live_abs="$(cd "$GARDEN_ROOT/journal" 2>/dev/null && pwd || printf '%s' "$GARDEN_ROOT/journal")"
+  _tf_abs="$(cd "$(dirname "$topic_file")" 2>/dev/null && pwd || printf '%s' "$(dirname "$topic_file")")"
+  case "$_tf_abs/" in
+    "$_live_abs"/*)
+      echo "insert-sections-table-row: refusing to edit $topic_file inside the live worktree ($_live_abs); target an isolated journal clone, not the shared read tree" >&2
+      exit 1 ;;
+  esac
+fi
+
 # A table row is a single line. Reject embedded newlines outright.
 case $row in
   *$'\n'*) echo "insert-sections-table-row: row must be a single line" >&2; exit 1;;

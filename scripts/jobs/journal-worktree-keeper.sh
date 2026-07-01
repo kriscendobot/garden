@@ -1,40 +1,61 @@
 #!/bin/bash
 # journal-worktree-keeper.sh — keep the shared $GARDEN_ROOT/journal worktree
-# fast-forwarded to origin/journal2, CONSERVATIVELY.
+# reconciled to origin/journal2, advancing a clean tree by fast-forward and
+# AUTONOMOUSLY SELF-HEALING a diverged one LOSSLESSLY (never paging for the
+# common case).
 #
 # The journal/ worktree is the human-and-agent-readable checkout of the journal2
 # branch (the job board + message bus). The scripted pipeline never advances it:
 # every producer/gardener works in its OWN per-instance clone under $GARDEN_STATE
-# or $GARDEN_SCRATCH, and common.sh INTENTIONALLY never touches journal/ (a
+# or $GARDEN_SCRATCH, and common.sh INTENTIONALLY never touches journal/ (a naive
 # `reset --hard` there would autostash/clobber a live agent's uncommitted WIP —
 # see the stored feedback feedback_journal_reset_clobbers_garden and
 # feedback_journal_poll_daemon_race). So the worktree only advances when a human
 # or an agent happens to fast-forward it by hand, and otherwise drifts unbounded:
-# observed 2331 commits behind origin/journal2 with 3 stray unpushed local-only
-# commits. Every agent that lands in journal/ then pays a detect-and-route-around
-# tax, and the lag is itself a `reset --hard` foot-gun.
+# observed 6000+ commits behind origin/journal2 with 3 stray superseded local-only
+# commits from 2026-06-25/26 and a handful of dirty library-staging paths. Every
+# agent that lands in journal/ then pays a detect-and-route-around tax, and the lag
+# is itself a `reset --hard` foot-gun.
 #
-# This keeper moves that fast-forward off the agent and onto a cadence timer, the
-# same shape as clone-keeper.sh, but with HARD conservatism because journal/ is a
-# live working tree, not a bare clone:
+# The 2026-07-01 rewrite. The prior keeper's ONLY response to a diverged worktree
+# was to page the maintainer inbox and leave the tree untouched. That paged the
+# maintainer HOURLY for 11+ hours about the SAME superseded, losslessly-resolvable
+# divergence while never fixing it — a watchdog that pages for a self-resolvable
+# wedge is itself the defect. The maintainer already established the opposite
+# principle for the watchman's dirty-tree wedges (2026-06-27: "the watchmen needs
+# to solve these problems autonomously and the maintainers do not need to be in
+# the loop" — see wedge-resolve.sh / resolve-wedge.sh). This keeper applies the
+# same principle to the journal worktree, with the strong lossless safeguards the
+# live-tree hazard demands:
 #
 #   * bounded fetch of origin/journal2 (the timeout + retry helper from
 #     common.sh; git has no IO timeout of its own, so a half-open connection can
 #     hang a fetch forever). A failing fetch (offline, DNS) is logged and the
 #     worktree is left where it is — never wedged;
-#   * advance ONLY via `git merge --ff-only origin/journal2`, and ONLY when the
-#     tree is provably safe to advance: `git status --porcelain` is empty AND
-#     `git rev-list --count origin/journal2..HEAD` is 0 (no local-ahead/divergent
-#     commits). A dirty tree or any local-ahead commit means a human or a live
-#     agent has WIP here; we NEVER reset, pull, stash, or clobber it. Instead we
-#     emit a single THROTTLED alert_maintainer report naming the divergence and
-#     leave the worktree exactly as we found it.
+#   * a clean, strictly-behind tree advances by `git merge --ff-only`, exactly as
+#     before;
+#   * a DIVERGED tree (dirty and/or local-ahead) is SELF-HEALED losslessly:
+#       1. BACK UP everything first — the local-ahead commits (`git format-patch
+#          origin/journal2..HEAD`) and a byte copy of every dirty tracked file and
+#          every untracked file — into a host-local backup dir OUTSIDE the
+#          worktree ($GARDEN_STATE/journal-worktree-keeper/backups/<host>-<ts>).
+#          Nothing is discarded before it is captured; the backup IS the
+#          losslessness guarantee, so even genuine WIP survives the reset.
+#       2. GATE on no-active-writer: refuse to touch the tree while a live agent is
+#          editing it — no process holds the worktree as its cwd AND the dirty/
+#          untracked file set is mtime-stable across a short settle window. An
+#          active writer aborts the heal (it is transient; the next tick heals).
+#       3. If (and only if) the backup captured everything AND no writer is active,
+#          `git reset --hard origin/journal2` and remove the backed-up untracked
+#          files, returning the worktree to the current tip. Log what was backed up.
+#       4. Page the maintainer ONLY for GENUINELY UNPRESERVABLE WIP — a path the
+#          backup could not capture (disk/permission failure). That is the rare
+#          real case; the lossless case NEVER pages again.
 #
 # Runs on garden-journal-worktree-keeper.timer (~30m), the same cadence as
 # clone-keeper. Quiet on the no-op path (a one-line "already fresh"); a
-# fast-forward and any divergence are logged, and a divergence also escalates to
-# the maintainer inbox (throttled) so a stuck worktree surfaces to a human
-# instead of silently rotting weeks-behind.
+# fast-forward, a self-heal (with a backup-location line), an aborted heal, and an
+# unpreservable-WIP page are all logged.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -46,9 +67,169 @@ GARDEN_TAG="journal-worktree-keeper"
 : "${GARDEN_JOURNAL_WORKTREE:=$GARDEN_ROOT/journal}"
 JW="$GARDEN_JOURNAL_WORKTREE"
 
-# Fetch + conservative fast-forward of the journal worktree. Every failure path
-# logs and returns 0 so a transient hiccup never marks the tick Failed; only a
-# true, safe fast-forward moves the ref.
+# Self-heal knobs (all overridable for tests):
+#   GARDEN_JW_BACKUP_DIR   root for lossless backups, OUTSIDE the worktree.
+#   GARDEN_JW_SETTLE_SECS  mtime-stability window for the active-writer probe.
+#   GARDEN_JW_SELF_HEAL    set to 0 to fall back to the old page-and-leave posture.
+#   GARDEN_JW_WRITER_PROBE optional external command; exit 0 => "active writer"
+#                          (lets a test force the active-writer branch
+#                          deterministically). Default: the built-in probe below.
+: "${GARDEN_JW_BACKUP_DIR:=$GARDEN_STATE/journal-worktree-keeper/backups}"
+: "${GARDEN_JW_SETTLE_SECS:=3}"
+: "${GARDEN_JW_SELF_HEAL:=1}"
+
+# --- active-writer probe -----------------------------------------------------
+# True (returns 0) when a live agent is editing the worktree, so the heal must
+# abort. Two independent signals, either of which means "hands off":
+#   (a) some process holds the worktree (or a path under it) as its cwd — scan
+#       /proc/*/cwd symlinks;
+#   (b) the dirty/untracked file set is NOT mtime-stable across a short settle
+#       window (an editor is mid-write).
+# An external GARDEN_JW_WRITER_PROBE overrides both (a test can force either
+# verdict); its exit status is taken verbatim (0 => active writer).
+jw_active_writer() {  # jw_active_writer <jw-abs> <path-list-file>
+  local jw="$1" list="$2"
+  if [ -n "${GARDEN_JW_WRITER_PROBE:-}" ]; then
+    "$GARDEN_JW_WRITER_PROBE" "$jw" && return 0 || return 1
+  fi
+  # (a) any process cwd inside the worktree? readlink each /proc/*/cwd; a match
+  # on $jw itself or a subpath means a live writer is parked there.
+  local link pid
+  for link in /proc/[0-9]*/cwd; do
+    pid="${link#/proc/}"; pid="${pid%/cwd}"
+    [ "$pid" = "$$" ] && continue
+    local tgt; tgt="$(readlink "$link" 2>/dev/null || true)"
+    [ -n "$tgt" ] || continue
+    case "$tgt/" in
+      "$jw"/*) log "active writer: pid $pid has cwd $tgt inside the worktree"; return 0 ;;
+    esac
+  done
+  # (b) mtime-stability of the dirty/untracked set across the settle window.
+  local sig1 sig2
+  sig1="$(jw_mtime_sig "$jw" "$list")"
+  sleep "$GARDEN_JW_SETTLE_SECS"
+  sig2="$(jw_mtime_sig "$jw" "$list")"
+  if [ "$sig1" != "$sig2" ]; then
+    log "active writer: dirty-file mtimes changed across the ${GARDEN_JW_SETTLE_SECS}s settle window"
+    return 0
+  fi
+  return 1
+}
+
+# A stable signature of the dirty/untracked file set: one "path|mtime|size" line
+# per path (missing paths collapse to "path|-|-", so a create/delete mid-window
+# also perturbs the signature).
+jw_mtime_sig() {  # jw_mtime_sig <jw-abs> <path-list-file>
+  local jw="$1" list="$2" p meta
+  while IFS= read -r p; do
+    [ -n "$p" ] || continue
+    if [ -e "$jw/$p" ]; then
+      meta="$(stat -c '%Y|%s' "$jw/$p" 2>/dev/null || echo '-|-')"
+    else
+      meta='-|-'
+    fi
+    printf '%s|%s\n' "$p" "$meta"
+  done < "$list"
+}
+
+# --- lossless self-heal of a diverged worktree -------------------------------
+# Back up every local-ahead commit and every dirty/untracked path, verify the
+# capture, gate on no-active-writer, then reset --hard + remove the backed-up
+# untracked files. Pages the maintainer ONLY when the backup could not capture
+# something (genuinely unpreservable WIP). Returns 0 in every case (a heal, an
+# aborted heal, or an unpreservable page) so a tick is never marked Failed.
+heal_diverged_worktree() {  # heal_diverged_worktree <jw> <ahead> <behind> <dirty-count>
+  local jw="$1" ahead="$2" behind="$3" dirty_count="$4"
+
+  # Enumerate the two path classes we must preserve.
+  local tmp; tmp="$(mktemp -d "${TMPDIR:-/tmp}/jw-heal.XXXXXX")"
+  local tracked_list="$tmp/tracked" untracked_list="$tmp/untracked" all_list="$tmp/all"
+  git -C "$jw" diff --name-only HEAD    > "$tracked_list"  2>/dev/null || : > "$tracked_list"
+  git -C "$jw" ls-files --others --exclude-standard > "$untracked_list" 2>/dev/null || : > "$untracked_list"
+  cat "$tracked_list" "$untracked_list" > "$all_list"
+
+  local jw_abs; jw_abs="$(cd "$jw" && pwd)"
+  local ts backup
+  ts="$(date -u +%Y%m%dT%H%M%SZ 2>/dev/null || echo unknown)"
+  backup="$GARDEN_JW_BACKUP_DIR/${GARDEN}-${ts}"
+
+  # ---- 1. BACK UP everything, verifying each capture. ----------------------
+  # A single capture failure marks the WIP unpreservable: we page and DO NOT
+  # reset (the rare real case). Everything else is recoverable from $backup.
+  local unpreservable=""
+  if ! mkdir -p "$backup/files" "$backup/patches" 2>/dev/null; then
+    unpreservable="cannot create backup dir $backup"
+  fi
+
+  if [ -z "$unpreservable" ] && [ "$ahead" -gt 0 ]; then
+    # Capture the local-ahead commits as patches + a readable log. format-patch
+    # writing zero files (despite ahead>0) is itself a capture failure.
+    if git -C "$jw" format-patch -o "$backup/patches" "origin/$JOURNAL_BRANCH..HEAD" >/dev/null 2>&1; then
+      git -C "$jw" log --oneline "origin/$JOURNAL_BRANCH..HEAD" > "$backup/local-ahead.log" 2>/dev/null || true
+      [ -n "$(ls -A "$backup/patches" 2>/dev/null)" ] || unpreservable="format-patch produced no patch for $ahead local-ahead commit(s)"
+    else
+      unpreservable="format-patch of origin/$JOURNAL_BRANCH..HEAD failed"
+    fi
+  fi
+
+  # Byte-copy every dirty tracked file and every untracked file, preserving path.
+  if [ -z "$unpreservable" ]; then
+    local p
+    while IFS= read -r p; do
+      [ -n "$p" ] || continue
+      [ -e "$jw/$p" ] || continue          # a staged deletion has no working file
+      if ! ( mkdir -p "$backup/files/$(dirname "$p")" && cp -a "$jw/$p" "$backup/files/$p" ) 2>/dev/null; then
+        unpreservable="could not back up $p"; break
+      fi
+    done < "$all_list"
+  fi
+
+  # A manifest so a human can see exactly what was captured.
+  git -C "$jw" status --porcelain > "$backup/status.txt" 2>/dev/null || true
+
+  if [ -n "$unpreservable" ]; then
+    local msg
+    msg="journal worktree $jw is DIVERGED and could NOT be self-healed losslessly: $unpreservable. Left UNTOUCHED (no reset). ${ahead} local-ahead commit(s), ${behind} behind, ${dirty_count} dirty path(s). Reconcile by hand: 'git -C $jw status'. Partial backup (if any) at $backup. (host=$GARDEN)"
+    log "UNPRESERVABLE: $msg"
+    alert_maintainer "journal-worktree-unpreservable-$GARDEN" "$msg"
+    rm -rf "$tmp"
+    return 0
+  fi
+
+  # ---- 2. GATE on no-active-writer (the final guard before the reset). -----
+  if jw_active_writer "$jw_abs" "$all_list"; then
+    log "SKIP: active writer in $jw; aborting self-heal this tick (transient — will heal next tick). Backup captured at $backup"
+    rm -rf "$tmp"
+    return 0
+  fi
+
+  # ---- 3. Everything captured, no writer: reset + clear untracked. ---------
+  if ! git -C "$jw" reset --hard "origin/$JOURNAL_BRANCH" >/dev/null 2>&1; then
+    local msg="journal worktree $jw self-heal reset --hard to origin/$JOURNAL_BRANCH FAILED; left as-is. Backup at $backup. (host=$GARDEN)"
+    log "RESETFAIL: $msg"
+    alert_maintainer "journal-worktree-resetfail-$GARDEN" "$msg"
+    rm -rf "$tmp"
+    return 0
+  fi
+  # Remove exactly the untracked files we backed up (targeted, never a blanket
+  # `git clean` that could take a non-colliding file we chose not to preserve).
+  local u
+  while IFS= read -r u; do
+    [ -n "$u" ] || continue
+    git -C "$jw" clean -fdq -- "$u" >/dev/null 2>&1 || rm -f "$jw/$u" 2>/dev/null || true
+  done < "$untracked_list"
+
+  local tracked_n untracked_n
+  tracked_n="$(grep -c . "$tracked_list" 2>/dev/null || echo 0)"
+  untracked_n="$(grep -c . "$untracked_list" 2>/dev/null || echo 0)"
+  log "SELF-HEALED: $jw reset to origin/$JOURNAL_BRANCH (was ${ahead} ahead, ${behind} behind, ${tracked_n} dirty tracked, ${untracked_n} untracked). Lossless backup at $backup (patches/ + files/ + status.txt). Maintainer NOT paged."
+  rm -rf "$tmp"
+  return 0
+}
+
+# Fetch + reconcile the journal worktree. Every failure path logs and returns 0
+# so a transient hiccup never marks the tick Failed; a clean tree fast-forwards,
+# a diverged tree self-heals losslessly.
 keep_journal_worktree() {
   if ! git -C "$JW" rev-parse --git-dir >/dev/null 2>&1; then
     log "WARN: journal worktree missing or not a git repo at $JW; skipping"
@@ -71,37 +252,48 @@ keep_journal_worktree() {
     return 0
   fi
 
-  if [ "$head" = "$remote" ]; then
-    log "$JW: already fresh at $head"
-    return 0
-  fi
-
-  # The two safety gates: a clean tree AND no local-ahead/divergent commits.
+  # Classify the tree: dirty (uncommitted tracked/untracked) and/or local-ahead.
   local dirty ahead behind dirty_count
   dirty="$(git -C "$JW" status --porcelain 2>/dev/null || true)"
   ahead="$(git -C "$JW" rev-list --count "origin/$JOURNAL_BRANCH..HEAD" 2>/dev/null || echo 0)"
   behind="$(git -C "$JW" rev-list --count "HEAD..origin/$JOURNAL_BRANCH" 2>/dev/null || echo 0)"
+  dirty_count="$(printf '%s\n' "$dirty" | grep -c . || true)"
 
-  if [ -n "$dirty" ] || [ "${ahead:-0}" -ne 0 ]; then
-    dirty_count="$(printf '%s\n' "$dirty" | grep -c . || true)"
-    local msg
-    msg="journal worktree $JW has DIVERGED from origin/$JOURNAL_BRANCH and was left UNTOUCHED (no reset/pull/stash): ${ahead:-0} local-ahead commit(s), ${behind} behind, ${dirty_count} dirty path(s). Reconcile by hand: 'git -C $JW status', 'git -C $JW log --oneline origin/$JOURNAL_BRANCH..HEAD', then rebase/push or discard the local commits. (host=$GARDEN)"
-    log "DIVERGED: $msg"
-    alert_maintainer "journal-worktree-divergence-$GARDEN" "$msg"
+  # Clean AND non-ahead: either already fresh, or a safe fast-forward.
+  if [ -z "$dirty" ] && [ "${ahead:-0}" -eq 0 ]; then
+    if [ "$head" = "$remote" ]; then
+      log "$JW: already fresh at $head"
+      return 0
+    fi
+    # Strictly behind: a real fast-forward is safe. Use --ff-only so an unexpected
+    # non-ancestor state (a race that snuck a local commit in after the gate) can
+    # only refuse, never create a merge commit.
+    if git -C "$JW" merge --ff-only "origin/$JOURNAL_BRANCH" >/dev/null 2>&1; then
+      log "$JW: fast-forwarded $head -> $remote (${behind} commit(s))"
+    else
+      local msg
+      msg="journal worktree $JW could not fast-forward to origin/$JOURNAL_BRANCH despite a clean, non-ahead tree; left UNTOUCHED. Inspect 'git -C $JW status'. (host=$GARDEN)"
+      log "STALE: $msg"
+      alert_maintainer "journal-worktree-fffail-$GARDEN" "$msg"
+    fi
     return 0
   fi
 
-  # Clean and strictly behind: a real fast-forward is safe. Use --ff-only so an
-  # unexpected non-ancestor state (a race that snuck a local commit in after the
-  # gate) can only refuse, never create a merge commit.
-  if git -C "$JW" merge --ff-only "origin/$JOURNAL_BRANCH" >/dev/null 2>&1; then
-    log "$JW: fast-forwarded $head -> $remote (${behind} commit(s))"
-  else
-    local msg
-    msg="journal worktree $JW could not fast-forward to origin/$JOURNAL_BRANCH despite a clean, non-ahead tree; left UNTOUCHED. Inspect 'git -C $JW status'. (host=$GARDEN)"
-    log "STALE: $msg"
-    alert_maintainer "journal-worktree-fffail-$GARDEN" "$msg"
+  # DIVERGED: dirty and/or local-ahead. Self-heal it losslessly (back up, gate on
+  # no-active-writer, reset). This REPLACES the old page-and-leave-untouched
+  # posture that paged the maintainer hourly for the same superseded divergence.
+  # The heal pages only for genuinely unpreservable WIP.
+  if [ "${GARDEN_JW_SELF_HEAL}" = 1 ]; then
+    log "DIVERGED: $JW is ${ahead:-0} local-ahead, ${behind} behind, ${dirty_count} dirty path(s); attempting lossless self-heal"
+    heal_diverged_worktree "$JW" "${ahead:-0}" "${behind:-0}" "${dirty_count:-0}"
+    return 0
   fi
+
+  # Legacy opt-out (GARDEN_JW_SELF_HEAL=0): the old conservative page-and-leave.
+  local msg
+  msg="journal worktree $JW has DIVERGED from origin/$JOURNAL_BRANCH and was left UNTOUCHED (self-heal disabled): ${ahead:-0} local-ahead commit(s), ${behind} behind, ${dirty_count} dirty path(s). Reconcile by hand: 'git -C $JW status'. (host=$GARDEN)"
+  log "DIVERGED: $msg"
+  alert_maintainer "journal-worktree-divergence-$GARDEN" "$msg"
   return 0
 }
 

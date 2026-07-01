@@ -59,6 +59,20 @@ sid="$(od -An -N3 -tx1 /dev/urandom | tr -d ' \n')"
 rel="entries/$day/${stamp}-${kind}-${role}-${sid}.md"
 
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
+
+# Live-worktree refusal (the read-side guarantee, mirrored — same guard as
+# land-journal-edit.sh). Entries MUST land through an isolated producer clone,
+# never the shared $GARDEN_ROOT/journal read worktree: a write there dirties the
+# tree the journal-worktree-keeper must keep clean and re-triggers its lossless
+# self-heal (the stray `entries/…-result-gardener-*.md` this closes at the
+# source). Even if a caller mis-sets GARDEN_PRODUCER_CLONE to the live tree,
+# refuse loudly instead of silently dirtying it.
+if [ -d "$GARDEN_ROOT/journal" ]; then
+  live_abs="$(cd "$GARDEN_ROOT/journal" 2>/dev/null && pwd || printf '%s' "$GARDEN_ROOT/journal")"
+  dir_abs="$(cd "$DIR" 2>/dev/null && pwd || printf '%s' "$DIR")"
+  [ "$dir_abs" = "$live_abs" ] && die "refusing to write an entry into the live worktree ($live_abs); post through an isolated producer clone (set GARDEN_PRODUCER_CLONE), not the shared read tree"
+fi
+
 ensure_clone "$DIR"
 
 for attempt in $(seq 1 50); do
