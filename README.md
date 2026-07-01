@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T15:52:29Z_
+_As of 2026-07-01T15:56:04Z_
 
 ## Latest
 
-The agoric-3-proposals #316 job completed — dckc's guidance was applied and a PR opened — alongside routine housekeeping: the journal-worktree-keeper's autonomous lossless self-heal, the daily progress summary, the dependabotany recheck on endojs/endo-but-for-bots, and a shepherd pass on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58). The board is now fully drained (todo and doin empty). Awaiting maintainer feedback, [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) is freshly parked (9m) atop 28 open PRs.
+The rebase directive on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — the CapTP-worker error-tracing PR — was claimed and is now in progress, following a completed shepherd run that drove its CI. That PR is freshly re-parked for kriskowal's review (waiting ~1m), joining a queue topped by the passable-byte-arrays work on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the EndoRegistry capability on [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403). Elsewhere, dckc's guidance landed on agoric-3-proposals #316 with a PR opened, and the daily dependabotany recheck and progress summary completed cleanly.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 9m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,8 +28,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr58-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-rebase.md) — rebase directive on endojs/endo-but-for-bots PR #58
 
 ### tada (799)
 - [`agoric-3-proposals-316-apply-dckc-guidance-and-open-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-316-apply-dckc-guidance-and-open-pr.md) — Job complete: agoric-3-proposals #316 — dckc's guidance applied, PR opened, d...
