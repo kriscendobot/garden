@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-01T03:40:55Z_
+_As of 2026-07-01T03:44:34Z_
 
 ## Latest
 
-The .js-extension exports-map migration landed as a fold-in ([completion report](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-fold-in-js-extension-exports-map-migration.md)), and an attention directive on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) was resolved. Most of the recent churn is on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475): several completion reports closed out (one an erights directive), and a fresh attention directive on the same PR is now in flight — the only job currently claimed. Ten PRs remain parked for kriskowal's review, led by the newly-arrived [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
+Based on the completed job, here's the "## Latest" section body:
+
+The [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) attention directive from erights closed out, clearing the board to zero open and in-flight jobs. Nothing else moved this cycle. The parked queue holds steady at 28 PRs awaiting kriskowal's review, with [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) freshest at 2h and long-tail items like [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules via erasable type syntax) now at 15 days.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +30,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr475-ae693c7b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-ae693c7b.md) — attention directive on endojs/endo-but-for-bots PR #475
+### doin (0)
+(none)
 
-### tada (774)
+### tada (775)
+- [`endojs-endo-but-for-bots-pr475-ae693c7b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-ae693c7b.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-45832303`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-45832303.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-7b36fe5b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-7b36fe5b.md) — Job report: attention directive on endojs/endo-but-for-bots PR #475 (erights,...
 - [`endojs-endo-but-for-bots-pr475-eebb7968`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-eebb7968.md) — Completion report
 - [`ebfb-fold-in-js-extension-exports-map-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-fold-in-js-extension-exports-map-migration.md) — Completion report: fold-in of the .js-extension exports-map migration
-- [`endojs-endo-but-for-bots-pr544-a4c1394b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-a4c1394b.md) — Attention directive resolved. Completion report:
-- … and 769 more
+- … and 770 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
