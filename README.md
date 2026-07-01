@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T06:52:56Z_
+_As of 2026-07-01T06:59:34Z_
 
 ## Latest
 
-Gardener-reliability tuning dominates: an [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) follow-up and its stacktrace-race error-bubble watch both landed, alongside the `elapsed-constancy` early-escalation improvement, and two more gardener refinements are now in flight — acting on the already-computed deadline-overrun signal and letting a legitimately long job declare a larger per-handler budget. On the project side, the garden#9 contract-control upgrade test was run to completion. Maintainer attention still centers on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), parked ~49m and freshest in a queue of 28.
+Little moved since the last bulletin: the sole board transition was the completion of `improve-gardener-per-job-handler-budget`, one of a run of gardener-reliability improvements (alongside the just-finished elapsed-constancy early-escalation work), with `improve-gardener-deadline-overrun-early-escalation` still in flight — collectively tightening how a gardener detects and escalates a stalled or over-budget job handler. On the PR side, follow-up work on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) wrapped and the PR is now freshly parked for kriskowal's review (waiting 58m), joining a 28-PR review backlog whose oldest items ([endo#3137](https://github.com/endojs/endo/pull/3137) at 15d, [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [#182](https://github.com/endojs/endo-but-for-bots/pull/182) at 40d) continue to age.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 49m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 58m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,17 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-deadline-overrun-early-escalation.md) — Act on the deadline-overrun signal the gardener already computes instead of o...
-- [`improve-gardener-per-job-handler-budget`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-per-job-handler-budget.md) — Give a job the ability to declare a longer handler budget so a legitimately l...
 
-### tada (791)
+### tada (792)
+- [`improve-gardener-per-job-handler-budget`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-per-job-handler-budget.md) — Completion report
 - [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — Completion report
 - [`fu-endojs-endo-but-for-bots-pr58-4932647c-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr58-4932647c-2.md) — Completion report
 - [`deadmail-20260701T060113Z-0b5922`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260701T060113Z-0b5922.md) — Completion report
 - [`improve-gardener-elapsed-constancy-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-elapsed-constancy-early-escalation.md) — Completion report
-- [`ebfb-pr-58-error-bubble-watch-stacktrace-race`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-error-bubble-watch-stacktrace-race.md) — Completion report
-- … and 786 more
+- … and 787 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
