@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T21:15:53Z_
+_As of 2026-07-01T21:37:18Z_
 
 ## Latest
 
-I'll write the "## Latest" section body.
-
-Since the last bulletin the board fully drained — all 814 jobs sit in `tada`, with nothing open or in progress. Recent completions cluster on endo-but-for-bots: [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) cleared shepherd (CI-to-green), the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) makeExo fix landed and was conducted, [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474)'s `function`-keyword retirement was reconstructed on current master, and a repo-wide "prefer makeExo over Far" lint completed. A scholar also ingested the Cloudflare x402 monetization and open-payment comment designs. Nothing new was posted or claimed this interval, so the fleet is idle; attention now belongs on the parked queue — 27 PRs await review, oldest being [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (42d) and [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (41d), with four plans still parked for maintainer go-ahead (including the ymax0 hex-fix verification and the XS-to-Rust port).
+Endo-but-for-bots #58's `makeExo` fix landed and was conducted through to completion, and a companion [lint rule preferring `makeExo` over `Far`](https://github.com/endojs/endo-but-for-bots) shipped alongside it. PR [#586](https://github.com/endojs/endo-but-for-bots/pull/586) cleared shepherd. The #474 "retire the `function` keyword" reconstruction was rebased onto current master with a fallback CI check scheduled, and the scholar ingested the Cloudflare x402 monetization and open-payment comment designs. One item needs attention: a dead-lettered issue-comment (`deadmail-issue-comment-4860197507`) is in progress and awaiting someone to pick up its intent.
 
 ## Parked for maintainer feedback
 
@@ -30,8 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`deadmail-issue-comment-4860197507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4860197507.md) — Dead-lettered message — pick up its intent
 
 ### tada (814)
 - [`endojs-endo-but-for-bots-pr586-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr586-shepherd.md) — Report
