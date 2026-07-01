@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot , why is this #570 PR not merged yet? Has it already been obsoleted by other recent PRs? If not, please proceed to merge it. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 48
+  claimed_at: 2026-07-01T02:12:57Z
