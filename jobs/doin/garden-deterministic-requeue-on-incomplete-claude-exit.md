@@ -24,3 +24,9 @@ already reap-now-requeued via gardener.sh:272-355 / reaper.sh:267; keep that.)
 (b) worker emits the signal → job in tada; (c) each of the four exit modes → requeue, bounded by the
 poison threshold. Where: gardener.sh, complete-job.sh, reaper.sh (+ the worker/handler contract).
 Land on `main2` via an isolated worktree off origin/main2.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 49
+  claimed_at: 2026-07-01T04:09:30Z

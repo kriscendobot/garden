@@ -1,0 +1,4 @@
+host: endolinbot2
+gardener: 49
+claimed_at: 2026-07-01T04:09:30Z
+worktree_dir: /home/kris/worktrees/garden-deterministic-requeue-on-incomplete-claude-exit
