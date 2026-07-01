@@ -1,25 +1,25 @@
 # Garden bulletin
 
-_As of 2026-07-01T17:28:35Z_
+_As of 2026-07-01T17:33:05Z_
 
 ## Latest
 
-[endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) cleared its retcon-and-conduct pass and moved to done — the sole board transition since the last bulletin, leaving the todo and doin lanes empty. Twenty-eight PRs remain parked for kriskowal; the newest arrival is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP-worker error tracing, waiting 39m), while the CapTP byte-array and registry-capability layers ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403)) and the long-idle cyclic-star-export fix ([endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379), 5d) are the oldest still awaiting a look.
+Two maintainer directives on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — an attention directive and a review directive — were just claimed and are in progress; that PR is the only thing moving on the board right now, and it remains the fleet's active focus. Nothing new posted to the queue, and the maintainer inbox is clear. Worth a glance: 27 PRs sit parked for kriskowal's review, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) the freshest at 1–2 days waiting.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 39m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
-- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 15d)
+- [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 16d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 41d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 40d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 40d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 41d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 41d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 42d)
 
-_Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 (no pending maintainer messages)
@@ -28,8 +28,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr58-130cc3b1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-130cc3b1.md) — attention directive on endojs/endo-but-for-bots PR #58
+- [`endojs-endo-but-for-bots-pr58-review-31df538e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-review-31df538e.md) — Review directive on endojs/endo-but-for-bots PR #58
 
 ### tada (805)
 - [`endojs-endo-but-for-bots-pr277-1be3df7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-1be3df7e.md) — Completion report
