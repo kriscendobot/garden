@@ -1,1 +1,7 @@
 Give a job the ability to declare a longer handler budget so a legitimately long-running "run to completion" job (like `garden-issue-9-run-contract-control-upgrade-test-to-completion`) is not structurally guaranteed to be SIGTERM-killed at the fixed 2400s global cap. In `scripts/jobs/gardener.sh`, before the `timeout --signal=TERM --kill-after=... "$GARDEN_HANDLER_TIMEOUT"` invocation (line 199), read an optional per-job budget header from `$jobfile` (e.g. `handler-timeout: <seconds>`) and use it in place of the default `GARDEN_HANDLER_TIMEOUT`, clamped so the existing invariant `budget + GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL` (documented at gardener.sh:33) still holds — and if the requested budget would violate it, do NOT silently raise the cap: escalate the job to the maintainer inbox as "needs a longer budget than a single claim can hold; run detached or split," because a run-to-completion test that exceeds CLAIM_TTL cannot be a claim-scoped handler at all. This closes the mismatch where a job's name promises completion but the global cap makes completion impossible, and it does so without weakening the CLAIM_TTL/duplicate-execution guard for ordinary jobs.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 84
+  claimed_at: 2026-07-01T06:52:39Z
