@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T05:27:54Z_
+_As of 2026-07-01T05:29:16Z_
 
 ## Latest
 
-Two review-and-fix jobs were just claimed and are now in flight: a shepherd/fixer round on the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) fork chasing a test-swingset regression, and a fresh review directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) (which also has a still-open attention directive alongside a queued conduct/merge on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277)). No completions landed in this window. For maintainer attention, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) is freshly parked at ~3h, while [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules) has now been waiting 15 days.
+A gardener claimed [garden#9](https://github.com/kriskowal/garden/issues/9)'s job to run mhofman's contract-control-upgrade test to completion and reply — the sole board movement since the last bulletin, keeping the ymax0 upgrade-test verification thread active while the paired [verify-ymax0-hex-fix-inquisitor](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) plan waits on maintainer go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -28,11 +28,12 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression.md) — PR #7 — shepherd/fixer round: test-swingset regression + reply (prior shepher...
 - [`endojs-endo-but-for-bots-pr277-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-conduct.md) — conduct (merge) directive on endojs/endo-but-for-bots PR #277
 - [`endojs-endo-but-for-bots-pr442-5f20450c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-5f20450c.md) — attention directive on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr442-review-ed950329`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-ed950329.md) — Review directive on endojs/endo-but-for-bots PR #442
+- [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — #9 — RUN mhofman's contract-control-upgrade test TO COMPLETION and reply (pri...
 
 ### tada (779)
 - [`endojs-endo-but-for-bots-pr277-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-retcon.md) — Completion report — endojs-endo-but-for-bots-pr277-retcon
