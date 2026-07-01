@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6046 (525 parent indexes + 5521 children).
+Total section files: 6057 (525 parent indexes + 5532 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -543,6 +543,38 @@ Total section files: 6046 (525 parent indexes + 5521 children).
 
 - [cask--verbs--verb-catalog](cask--verbs--verb-catalog.md)
 - [cask--verbs--verb-dispatch-and-type-designators](cask--verbs--verb-dispatch-and-type-designators.md)
+
+### cloudflare-w4p--custom-limits
+
+- [cloudflare-w4p--custom-limits--overview](cloudflare-w4p--custom-limits--overview.md)
+
+### cloudflare-w4p--dynamic-dispatch
+
+- [cloudflare-w4p--dynamic-dispatch--binding-and-configuration](cloudflare-w4p--dynamic-dispatch--binding-and-configuration.md)
+- [cloudflare-w4p--dynamic-dispatch--routing-patterns](cloudflare-w4p--dynamic-dispatch--routing-patterns.md)
+
+### cloudflare-w4p--how-it-works
+
+- [cloudflare-w4p--how-it-works--dispatch-namespace](cloudflare-w4p--how-it-works--dispatch-namespace.md)
+- [cloudflare-w4p--how-it-works--dynamic-dispatch-worker](cloudflare-w4p--how-it-works--dynamic-dispatch-worker.md)
+- [cloudflare-w4p--how-it-works--request-lifecycle](cloudflare-w4p--how-it-works--request-lifecycle.md)
+- [cloudflare-w4p--how-it-works--user-workers](cloudflare-w4p--how-it-works--user-workers.md)
+
+### cloudflare-w4p--outbound-workers
+
+- [cloudflare-w4p--outbound-workers--overview](cloudflare-w4p--outbound-workers--overview.md)
+
+### cloudflare-w4p--overview
+
+- [cloudflare-w4p--overview--overview](cloudflare-w4p--overview--overview.md)
+
+### cloudflare-w4p--tags
+
+- [cloudflare-w4p--tags--overview](cloudflare-w4p--tags--overview.md)
+
+### cloudflare-w4p--worker-isolation
+
+- [cloudflare-w4p--worker-isolation--modes](cloudflare-w4p--worker-isolation--modes.md)
 
 ### collections--pkg-clear-readme
 
