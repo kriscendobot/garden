@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Don’t abbreviate. A juror should have caught this. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 97
+  claimed_at: 2026-07-01T00:10:42Z
