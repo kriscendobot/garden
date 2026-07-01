@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T01:23:36Z_
+_As of 2026-07-01T01:25:15Z_
 
 ## Latest
 
-A fresh completion landed on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP-worker error tracing), but the PR is back in the parked queue (waiting 4m) and a live job — `ebfb-pr-58-fix-error-rendering-verify-in-chrome` — is still open to *actually* fix the error rendering and confirm it in a real Chrome run rather than re-asserting a "verified" that a prior pass couldn't back. The review directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) closed out, and the [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) review is now waiting on the CI-settle watcher to trigger a conductor merge. On the garden itself, the phase-0 bid/accept market build and the encode of the "verification claims require real evidence" rule both landed on main2, and a new job began teaching the CI classifier to treat Claude Code session/usage-limit errors as transient. The `.js`-extension lint enforcement and EndoMount name-hub unification builds for endo-but-for-bots remain in flight.
+The one board transition since the last bulletin closed out the [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) review job — its two inline directives were addressed (the body was marker-only). Recently landed too: a completion report on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), though a follow-up job is now in flight to *actually* fix the error rendering and verify it in real Chrome after the earlier "verified" claim didn't hold up under a browser test — worth watching, since #58 is freshly parked for review (4m). The [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) review wrapped and is waiting on the CI-settle watcher before a conductor merge. On the garden itself, the "verification claims require real evidence" directive was encoded to main2, and phase 0–1 of the bid/accept market build completed. Eight jobs remain in flight, including shepherding the agoric-sdk fork PR #7 to green and issue kriskowal/garden#20.
 
 ## Parked for maintainer feedback
 
@@ -28,24 +28,23 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (8)
 - [`agoric-sdk-fork-pr-7-shepherd-after-slim-down`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-shepherd-after-slim-down.md) — PR #7 — shepherd to green after the slim-down/feedback churn (maintainer dire...
 - [`build-ebfb-namehub-interface-unification`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-ebfb-namehub-interface-unification.md) — Build: EndoMount name-hub interface unification (unblocked by PR #277)
 - [`builder-ebfb-enforce-js-extension-jsdoc-import-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/builder-ebfb-enforce-js-extension-jsdoc-import-lint.md) — builder: enforce .js extension on module specifiers via lint (endojs/endo-but...
 - [`deadmail-issue-comment-4849045455`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4849045455.md) — Dead-lettered message — pick up its intent
 - [`ebfb-pr-58-fix-error-rendering-verify-in-chrome`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-fix-error-rendering-verify-in-chrome.md) — PR #58 — actually fix the error rendering AND verify in real Chrome (prior "v...
-- [`endojs-endo-but-for-bots-pr442-review-ea91182a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-ea91182a.md) — Review directive on endojs/endo-but-for-bots PR #442
 - [`enforce-js-extension-lint-endo-but-for-bots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/enforce-js-extension-lint-endo-but-for-bots.md) — Builder: enforce .js extension on imports via lint (endojs/endo-but-for-bots)
 - [`improve-classify-claude-session-limit-as-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-classify-claude-session-limit-as-transient.md) — Add the Claude Code session/usage-limit signature to the canonical transient-...
 - [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-20.md) — Issue from kriskowal on kriskowal/garden #20
 
-### tada (748)
+### tada (749)
+- [`endojs-endo-but-for-bots-pr442-review-ea91182a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-review-ea91182a.md) — What the review asked (2 inline directives; body was marker-only)
 - [`endojs-endo-but-for-bots-pr58-15926293`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-15926293.md) — Completion report
 - [`build-bid-accept-market-phase0-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-bid-accept-market-phase0-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr277-review-64e9f470`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-review-64e9f470.md) — Waiting on the CI-settle watcher; I'll dispatch the conductor merge once chec...
 - [`garden-encode-verification-claims-require-real-evidence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-verification-claims-require-real-evidence.md) — The work is complete and landed on main2. Here is my completion report.
-- [`endojs-endo-but-for-bots-pr442-f8df35b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-f8df35b4.md) — Completion report
-- … and 743 more
+- … and 744 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
