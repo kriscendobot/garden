@@ -628,8 +628,9 @@ machinery, prove it in shadow before it bites, never break the live fleet.
   lock service, the push stays the serialization point.**
 - A bid is a per-bidder CAS-safe record advertising **role, model, skills,
   reputation**.
-- Selection is a **pluggable broker** (maintainer / scoring-function /
-  oracle), defaulting to a deterministic no-LLM scoring function.
+- Bid selection is a **pluggable broker** (maintainer / scoring-function),
+  defaulting to a deterministic no-LLM scoring function; acceptance is a separate
+  **oracle** (§4).
 - Reputation is a **per-kind, append-only ledger** with derived tallies, verified
   by the broker, fed by accept/reject events.
 - Reputation **measures effectiveness and cost** (§3.3): effectiveness is the
