@@ -20,3 +20,9 @@ on the FORK PR #1 only.
 5. Post a **summary comment on fork PR #1**: the diagnosis, the fix, and the reproduced-then-passing
    evidence (or the honest can't-reproduce). Preserve the retconned structure + net diff (proposals
    111–116, bundles, documented 113, changeset).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 71
+  claimed_at: 2026-07-01T23:42:37Z
