@@ -13754,3 +13754,32 @@ payment as credential | payment-as-credential
 no account required | payment-as-credential
 no prior relationship | payment-as-credential
 unverified buyer | payment-as-credential
+Workers for Platforms | workers-for-platforms
+workers for platforms | workers-for-platforms
+Cloudflare Workers for Platforms | workers-for-platforms
+W4P | workers-for-platforms
+programmable platform | workers-for-platforms
+multi-tenant platform | workers-for-platforms
+dispatch namespace | dispatch-namespace
+dispatch namespaces | dispatch-namespace
+`dispatch_namespaces` | dispatch-namespace
+`DISPATCHER` binding | dispatch-namespace
+dispatch namespace binding | dispatch-namespace
+`env.DISPATCHER.get` | dispatch-namespace
+dynamic dispatch Worker | dynamic-dispatch-worker
+dispatch Worker | dynamic-dispatch-worker
+dynamic dispatcher | dynamic-dispatch-worker
+`dispatcher.get` | dynamic-dispatch-worker
+outbound Worker | outbound-worker
+outbound Workers | outbound-worker
+egress control | outbound-worker
+egress interception | outbound-worker
+user Worker | dispatch-namespace
+user Workers | dispatch-namespace
+trusted mode | (see section: cloudflare-w4p--worker-isolation--modes)
+untrusted mode | (see section: cloudflare-w4p--worker-isolation--modes)
+worker isolation | (see section: cloudflare-w4p--worker-isolation--modes)
+custom limits | (see section: cloudflare-w4p--custom-limits--overview)
+`cpuMs` | (see section: cloudflare-w4p--custom-limits--overview)
+`subRequests` | (see section: cloudflare-w4p--custom-limits--overview)
+Workers for Platforms tags | (see section: cloudflare-w4p--tags--overview)
