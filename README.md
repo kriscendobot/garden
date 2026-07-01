@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T14:41:13Z_
+_As of 2026-07-01T14:46:12Z_
 
 ## Latest
 
-CI shepherding on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) wrapped up and the PR is now parked awaiting kriskowal's review, alongside a garden-side improvement to escalate gardener deadline overruns earlier. Otherwise the board is quiet — the daily progress summary and the dependabotany recheck on endo-but-for-bots both landed clean, leaving no work in flight.
+CI drove [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) through a shepherd pass, and it now sits parked awaiting your review (waiting 4h); the daily dependabotany recheck on endo-but-for-bots and two garden-infra jobs — an auto-shepherd-on-red-CI trigger and earlier escalation on gardener deadline overruns — also landed. The board is otherwise idle (todo/doin empty). One thing to notice: the journal-worktree-keeper flagged that `/home/kris/journal` on endolinbot2 has diverged from `origin/journal2` (3 local-ahead, 6420 behind, 6 dirty paths) and was left untouched for hand reconciliation.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,10 @@ CI shepherding on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260701T144558Z-b59710` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T144558Z-b59710.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6420 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
