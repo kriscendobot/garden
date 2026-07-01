@@ -11,3 +11,9 @@ makeExo→ok, the escape-hatch→ok). Run `yarn mocha` in the eslint-plugin + `e
 NEW violations the rule surfaces in the current tree — if many, propose scoping/warn-first rather than
 erroring the whole tree). Add a changeset. Open a DRAFT PR on endo-but-for-bots (base `llm`, frozen-base
 discipline). Bot fork; no upstream contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 95
+  claimed_at: 2026-07-01T17:33:34Z
