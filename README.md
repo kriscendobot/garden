@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T23:08:42Z_
+_As of 2026-07-01T23:12:17Z_
 
 ## Latest
 
-A gardener claimed the [kriscendobot/agoric-3-proposals#1](https://github.com/kriscendobot/agoric-3-proposals/pull/1) retcon (maintainer directive) — the one new item to cross the board this cycle. Still in flight alongside it: the second, mechanical-repoint PR splitting out [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548)'s inter-package plain re-exports. Recent completions landed review passes on [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586), [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), and the attention directive on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548). The maintainer-authorization plan queue is worth a glance — the ymax0 hex-fix verification and the XS-to-Rust port both await a go-ahead.
+Since the last bulletin only one item moved: the `agoric-3-proposals-pr1-retcon` job completed, closing out a per-package restage/retcon on the agoric-3-proposals PR. In flight, a gardener is drafting the second PR for [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) — the mechanical inter-package plain-re-export repoint. Nothing new is parked for review beyond the standing queue, which remains headed by the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the EndoRegistry-capability layer in [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`agoric-3-proposals-pr1-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-pr1-retcon.md) — kriscendobot/agoric-3-proposals #1 — retcon (maintainer directive)
+### doin (1)
 - [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Write the SECOND PR for #548's inter-package plain re-exports: the mechanical...
 
-### tada (824)
+### tada (825)
+- [`agoric-3-proposals-pr1-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-pr1-retcon.md) — Completion report — agoric-3-proposals-pr1-retcon
 - [`endojs-endo-but-for-bots-pr586-review-73c9bcb3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr586-review-73c9bcb3.md) — Completion report: endojs-endo-but-for-bots-pr586-review-73c9bcb3
 - [`endojs-endo-but-for-bots-pr472-66cd8af6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-66cd8af6.md) — Completion report
 - [`endojs-endo-but-for-bots-pr548-a1f701d4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-a1f701d4.md) — Completion report: attention directive on endojs/endo-but-for-bots #548 (comm...
 - [`endojs-endo-but-for-bots-pr472-review-f6149cf0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-f6149cf0.md) — Completion report: review directive on endojs/endo-but-for-bots PR #472
-- [`endojs-endo-but-for-bots-pr586-5a34148a`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr586-5a34148a.md) — Completion Report
-- … and 819 more
+- … and 820 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
