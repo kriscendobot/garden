@@ -12,3 +12,9 @@ Task:
    APPROVED→conductor norm, merge once CI is green (conductor role; do NOT name the merge method).
 4. Post a top-level **summary comment** on #58 (the makeExo change + merged SHA + verification).
 Bot fork; no upstream contact. (The lint-rule follow-up kriskowal asked for is a separate job.)
+
+---
+claim:
+  host: endolinbot2
+  gardener: 27
+  claimed_at: 2026-07-01T17:33:25Z
