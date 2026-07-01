@@ -849,7 +849,15 @@ gh_api_retry() {
 #   * rate[ _-]?limit / 429                  (throttling)
 #   * connection error / econnreset / etimedout   (transport drop / SDK)
 #   * 5NN                                    (any 5xx gateway/overload)
-: "${GARDEN_TRANSIENT_CLAUDE_SIGNATURES:=overloaded|rate[ _-]?limit|connection error|\b(429|5[0-9][0-9])\b|api[ _-]?error|econnreset|etimedout}"
+#   * hit your session/usage limit          (Claude Code 5-hour session/usage cap,
+#     e.g. "You've hit your session limit · resets 1:10am (UTC)" — a cap that names
+#     its own reset time is the definitive self-resolving transient; requeuing past
+#     the named reset succeeds. The `resets N…(utc)` alternative also catches the
+#     usage-cap wording that leads with the reset clause.)
+#     A follow-on worth doing but out of this change's scope: when the signature
+#     carries an explicit reset time, back off the reaper requeue until that time
+#     instead of re-failing every TTL cycle (parse the "resets H:MMam (UTC)" clause).
+: "${GARDEN_TRANSIENT_CLAUDE_SIGNATURES:=overloaded|rate[ _-]?limit|connection error|\b(429|5[0-9][0-9])\b|api[ _-]?error|econnreset|etimedout|hit your (session|usage) limit|(session|usage|5-hour) limit (reached|reset)|resets [0-9].*\(utc\)}"
 
 # Classify a failed `claude -p`'s combined output ($1) as a transient API blip
 # (returns 0) versus a genuine, non-self-resolving failure (returns 1). A
