@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T05:51:18Z_
+_As of 2026-07-01T05:52:16Z_
 
 ## Latest
 
-A new job landed to fix a real fleet hazard: gardeners working the same project repo must get **isolated** worktrees, since concurrent gardeners sharing a project checkout can clobber each other's uncommitted work. Active diagnosis continues on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), where two jobs are chasing a test-vs-local stack-trace race and following up on kriskowal's fresh review — the PR re-parked for maintainer attention 16 minutes ago. Work also continues on garden issue #9, running mhofman's contract-control-upgrade test to completion. Otherwise the board is quiet: the todo queue is empty and nothing else moved this cycle.
+The error-tracing work on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP-worker error tracing) closed out and the PR is now freshly parked for kriskowal's review at the top of the queue. A new garden-infra job to add elapsed-constancy early-escalation to `gardener.sh` was claimed and is in flight, alongside the ongoing #58 test-vs-local stack-trace race diagnosis, the gardener project-worktree isolation fix, and the [issue #9](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) contract-control-upgrade test run.
 
 ## Parked for maintainer feedback
 
@@ -30,17 +30,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 ### doin (4)
 - [`ebfb-pr-58-error-bubble-watch-stacktrace-race`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-error-bubble-watch-stacktrace-race.md) — PR #58 — diagnose the test-vs-local race; make the error bubble watch for the...
-- [`endojs-endo-but-for-bots-pr58-4932647c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-4932647c.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`garden-fix-gardener-project-worktree-isolation-collision`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-fix-gardener-project-worktree-isolation-collision.md) — Fix: gardeners working a project repo must get ISOLATED worktrees (concurrent...
 - [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — #9 — RUN mhofman's contract-control-upgrade test TO COMPLETION and reply (pri...
+- [`improve-gardener-elapsed-constancy-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-elapsed-constancy-early-escalation.md) — In scripts/jobs/gardener.sh, implement the elapsed-constancy early-escalation...
 
-### tada (784)
+### tada (785)
+- [`endojs-endo-but-for-bots-pr58-4932647c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-4932647c.md) — Completion report — job endojs-endo-but-for-bots-pr58-4932647c
 - [`endojs-endo-but-for-bots-pr442-content-store-test-platform-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-content-store-test-platform-powers.md) — Completion report: endojs-endo-but-for-bots-pr442-content-store-test-platform...
 - [`endojs-endo-but-for-bots-pr442-review-ed950329`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-review-ed950329.md) — Completion report — PR #442 review by kriskowal (pullrequestreview-4605966130)
 - [`endojs-endo-but-for-bots-pr277-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-conduct.md) — Still watching (4/24 pending). The harness will re-invoke me when the backgro...
 - [`endojs-endo-but-for-bots-pr442-5f20450c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-5f20450c.md) — Completion report — endojs-endo-but-for-bots-pr442-5f20450c
-- [`agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-shepherd-fixer-swingset-regression.md) — Diagnosis complete; waiting on the re-run. The background poll or scheduled w...
-- … and 779 more
+- … and 780 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
