@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T15:42:31Z_
+_As of 2026-07-01T15:52:29Z_
 
 ## Latest
 
-Since the last bulletin, the sole board transition was a gardener claiming [`agoric-3-proposals-316-apply-dckc-guidance-and-open-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-316-apply-dckc-guidance-and-open-pr.md), now applying dckc's newly-authorized guidance on agoric-3-proposals #316 ahead of opening the PR. Otherwise the fleet cleared its queue: shepherd drove CI on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (now parked for review after ~5h), the auto-shepherd-on-red-CI and journal-worktree-keeper self-heal jobs completed, and the daily dependabotany recheck and progress summary ran clean. The board is drained (todo empty, one job in flight); maintainer attention is best spent on the 28 parked PRs, led by [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) and the day-old passable-byte-arrays [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
+The agoric-3-proposals #316 job completed — dckc's guidance was applied and a PR opened — alongside routine housekeeping: the journal-worktree-keeper's autonomous lossless self-heal, the daily progress summary, the dependabotany recheck on endojs/endo-but-for-bots, and a shepherd pass on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58). The board is now fully drained (todo and doin empty). Awaiting maintainer feedback, [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) is freshly parked (9m) atop 28 open PRs.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 5h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 9m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,16 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`agoric-3-proposals-316-apply-dckc-guidance-and-open-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-316-apply-dckc-guidance-and-open-pr.md) — agoric-3-proposals #316 — apply dckc's (now-authorized) guidance, open the PR...
+### doin (0)
+(none)
 
-### tada (798)
+### tada (799)
+- [`agoric-3-proposals-316-apply-dckc-guidance-and-open-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-316-apply-dckc-guidance-and-open-pr.md) — Job complete: agoric-3-proposals #316 — dckc's guidance applied, PR opened, d...
 - [`garden-journal-worktree-keeper-autonomous-lossless-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-journal-worktree-keeper-autonomous-lossless-selfheal.md) — Completion report — garden-journal-worktree-keeper-autonomous-lossless-selfheal
 - [`daily-progress-summary-20260701-143534`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260701-143534.md) — Completion report — daily-progress-summary-20260701-143534
 - [`dependabotany-recheck-endo-but-for-bots-20260701-143534`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260701-143534.md) — Completion report: daily dependabotany recheck — endojs/endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr58-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-shepherd.md) — Completion report — endojs-endo-but-for-bots-pr58-shepherd
-- [`garden-auto-shepherd-on-red-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-auto-shepherd-on-red-ci.md) — Completion report — garden-auto-shepherd-on-red-ci
-- … and 793 more
+- … and 794 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
