@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T19:54:59Z_
+_As of 2026-07-01T20:08:30Z_
 
 ## Latest
 
-[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) landed — its `makeExo` fix was verified, conducted, and merged by a peer, with the follow-on review job confirming `PR_MERGED` consistent with the completed work; a companion lint job to prefer `makeExo` over `Far` also closed out. On the Agoric side, the 3-proposals mirror PR addressing the v320 feedback and CI completed. Otherwise the board is quiet: nothing sits in `todo`, and the two open `doin` items are a scholar ingesting Cloudflare's x402 monetization post ahead of commenting on the open-payment designs, plus the reconstruction of the retire-function-keyword change ([endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474)) on current upstream master.
+[endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) cleared its board slot: the reconstruction to retire the `function` keyword on current master finished (a fallback CI check was scheduled pending the background poll). A shepherd is now driving CI on the freshly claimed [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586). Also recently landed: the makeExo fix on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) was merged (peer-conducted), alongside a prefer-makeExo-over-Far lint pass and the #320-feedback/CI work on the agoric-3-proposals mirror. A scholar is ingesting Cloudflare's x402 monetization-gateway post to inform the open payment/comment designs. Nothing is parked in `todo`; 27 PRs await maintainer review, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 16d) and the long-idle chat/ses/design PRs beyond it.
 
 ## Parked for maintainer feedback
 
@@ -29,16 +29,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (2)
-- [`ebfb-reconstruct-pr474-retire-function-keyword-on-current-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-reconstruct-pr474-retire-function-keyword-on-current-master.md) — Reconstruct endo-but-for-bots #474 (retire function-keyword) on CURRENT upstr...
+- [`endojs-endo-but-for-bots-pr586-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #586
 - [`scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs.md) — Scholar: ingest Cloudflare's x402 monetization-gateway post, then comment on ...
 
-### tada (811)
+### tada (812)
+- [`ebfb-reconstruct-pr474-retire-function-keyword-on-current-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-reconstruct-pr474-retire-function-keyword-on-current-master.md) — I've scheduled a fallback check. Awaiting either the background CI poll compl...
 - [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-makeexo-fix-and-conduct.md) — Completion report — job ebfb-pr-58-makeexo-fix-and-conduct (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-lint-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-lint-prefer-makeexo-over-far.md) — Completion report
 - [`endojs-endo-but-for-bots-pr58-review-31df538e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-review-31df538e.md) — Confirmed — PR_MERGED (peer conducted), consistent with the completed work. T...
 - [`agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci.md) — Completion report
-- [`endojs-endo-but-for-bots-pr58-130cc3b1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-130cc3b1.md) — Completion report — job endojs-endo-but-for-bots-pr58-130cc3b1
-- … and 806 more
+- … and 807 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
