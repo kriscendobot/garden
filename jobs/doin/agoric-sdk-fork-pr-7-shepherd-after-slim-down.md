@@ -16,3 +16,9 @@ Task: drive them green.
   fix or explain. Escalate to a **fixer** for anything out of shepherd scope (standing auto-chain).
 Finish with a **CI shepherding summary reply comment** on #7 (each red: fixed / explained-pre-existing,
 final status). Keep #7 DRAFT unless the chain un-drafts it. Bot fork; no upstream contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 26
+  claimed_at: 2026-07-01T01:17:18Z
