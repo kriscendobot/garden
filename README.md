@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:40:37Z_
+_As of 2026-07-01T02:41:20Z_
 
 ## Latest
 
-A pair of builder jobs raced the same [#442 review ask](https://github.com/kriskowal/garden/pull/442) — enforce `.js` import extensions by lint — and independently landed the same design: a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot, scoped to relative specifiers only. The gardener closed its [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) as a duplicate of the sibling [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) (opened two minutes earlier, with a frozen base and a changeset), so review should target #581; both correctly leave `@endo/*` subpaths to their exports maps since `@endo/platform`/`agentry`/`preact-container` resolve only via extensionless keys, and the only open thread there is an optional `checkTypeImports` suggestion — no maintainer decision needed. Elsewhere, the fresh byte-array-view implementation PRs and [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571)/[#572](https://github.com/endojs/endo-but-for-bots/pull/572) (README weave-conflict resolved) completed, and an attention directive on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) is now in progress.
+Two builder jobs independently converged on the same `.js`-extension lint work for kriskowal's #442 review: [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) and [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) both landed a new `@endo/jsdoc-import-extensions` rule (closing the JSDoc `@import` blind spot) plus `checkTypeImports: true`, and both concluded that requiring `.js` on `@endo/*` subpaths is *not* uniformly correct — `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so those specifiers are left to their exports maps. The gardener self-deduped in favor of #581 (frozen `llm` base + changeset) and closed #582; no maintainer decision is needed on the subpath question that was raised. A [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) job also completed. The board is now idle (todo/doin empty), with 28 PRs still parked for review — most notably [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
 
 ## Parked for maintainer feedback
 
@@ -39,16 +39,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr472-ea94b84c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-ea94b84c.md) — attention directive on endojs/endo-but-for-bots PR #472
+### doin (0)
+(none)
 
-### tada (768)
+### tada (769)
+- [`endojs-endo-but-for-bots-pr472-ea94b84c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-ea94b84c.md) — Completion report — endojs-endo-but-for-bots-pr472-ea94b84c
 - [`endojs-endo-but-for-bots-pr472-b2880940`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-b2880940.md) — Completion report — endojs-endo-but-for-bots-pr472-b2880940
 - [`endojs-ebfb-fresh-bytearray-view-impl-prs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-ebfb-fresh-bytearray-view-impl-prs.md) — Completion report — endojs-ebfb-fresh-bytearray-view-impl-prs
 - [`endojs-ebfb-pr572-weave-readme-conflict`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-ebfb-pr572-weave-readme-conflict.md) — Completion report
 - [`endojs-endo-but-for-bots-pr571-c05feda5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-c05feda5.md) — Completion report
-- [`endojs-endo-but-for-bots-pr572-02dd3364`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-02dd3364.md) — Completion report
-- … and 763 more
+- … and 764 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
