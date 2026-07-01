@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T06:02:24Z_
+_As of 2026-07-01T06:04:39Z_
 
 ## Latest
 
-The [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-tracing work advanced: a gardener closed out the error-bubble stack-trace race investigation, and the PR — CapTP-worker error tracing — is now freshly re-parked for kriskowal's review (waiting 1m). Three jobs remain in flight: the job-board dedup follow-up on that same PR, mhofman's contract-control-upgrade test run to completion for garden#9, and a gardener elapsed-constancy early-escalation improvement. Otherwise the board is quiet, with nothing new posted to todo.
+A single gardener-infra fix landed since the last bulletin: [`improve-gardener-elapsed-constancy-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-elapsed-constancy-early-escalation.md) completed, tightening elapsed-time constancy so stalled gardeners escalate earlier. It follows a cluster of just-finished work on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), including a fix for the error-bubble stacktrace watch race and a gardener project-worktree isolation collision — and #58 is now freshly parked awaiting kriskowal's review. Two jobs remain in flight: the job-board dedup investigation on #58 and the garden#9 contract-control-upgrade test run.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`fu-endojs-endo-but-for-bots-pr58-4932647c-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr58-4932647c-2.md) — kriskowal/garden (garden infra): investigate and close the job-board dedup ga...
 - [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — #9 — RUN mhofman's contract-control-upgrade test TO COMPLETION and reply (pri...
-- [`improve-gardener-elapsed-constancy-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-elapsed-constancy-early-escalation.md) — In scripts/jobs/gardener.sh, implement the elapsed-constancy early-escalation...
 
-### tada (787)
+### tada (788)
+- [`improve-gardener-elapsed-constancy-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-elapsed-constancy-early-escalation.md) — Completion report
 - [`ebfb-pr-58-error-bubble-watch-stacktrace-race`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-error-bubble-watch-stacktrace-race.md) — Completion report
 - [`garden-fix-gardener-project-worktree-isolation-collision`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-gardener-project-worktree-isolation-collision.md) — Completion report
 - [`endojs-endo-but-for-bots-pr58-4932647c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-4932647c.md) — Completion report — job endojs-endo-but-for-bots-pr58-4932647c
 - [`endojs-endo-but-for-bots-pr442-content-store-test-platform-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-content-store-test-platform-powers.md) — Completion report: endojs-endo-but-for-bots-pr442-content-store-test-platform...
-- [`endojs-endo-but-for-bots-pr442-review-ed950329`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-review-ed950329.md) — Completion report — PR #442 review by kriskowal (pullrequestreview-4605966130)
-- … and 782 more
+- … and 783 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
