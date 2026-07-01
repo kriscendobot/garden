@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T23:21:46Z_
+_As of 2026-07-01T23:54:35Z_
 
 ## Latest
 
-The bulletin work moved to the board itself: a new job to teach the [repo-watcher self-healing for a missing timer template](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-repo-watcher-self-heal-missing-template.md) was posted and immediately claimed, joining the in-flight [second PR for #548's inter-package plain re-exports](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — the mechanical repoint-and-remove follow-up to [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548). Both are garden-internal plumbing; nothing new landed for maintainer review this cycle, and the 27-deep parked queue is unchanged, still fronted by [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability), the two most recently parked.
+The mechanical inter-package re-export repoint on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) landed, closing out its remove-followup. On the garden-infra side, the repo-watcher now self-heals a missing template, and scholar finished ingesting Cloudflare Workers for Platforms (the remainder pages are now in flight). An investigation into the proposals-matrix-test/build failure on the `agoric-3-proposals` fork PR #1 wrapped up, distinguishing the depot builder infra flake from a real proposal bug. Nothing new is parked for review; the maintainer's queue is unchanged, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) the freshest waits.
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Write the SECOND PR for #548's inter-package plain re-exports: the mechanical...
-- [`improve-repo-watcher-self-heal-missing-template`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-repo-watcher-self-heal-missing-template.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() arms <prefix>@<slug>.timer p...
+### doin (1)
+- [`scholar-ingest-cloudflare-w4p-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-w4p-remainder.md) — Scholar: ingest Cloudflare Workers for Platforms — remainder pages
 
-### tada (825)
+### tada (829)
+- [`scholar-ingest-cloudflare-workers-for-platforms`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-workers-for-platforms.md) — Completion report
+- [`improve-repo-watcher-self-heal-missing-template`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-repo-watcher-self-heal-missing-template.md) — Completion report
+- [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Completion report
+- [`agoric-3-proposals-pr1-investigate-proposals-matrix-test-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-pr1-investigate-proposals-matrix-test-build.md) — Completion report: proposals-matrix-test / build on kriscendobot/agoric-3-pro...
 - [`agoric-3-proposals-pr1-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-pr1-retcon.md) — Completion report — agoric-3-proposals-pr1-retcon
-- [`endojs-endo-but-for-bots-pr586-review-73c9bcb3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr586-review-73c9bcb3.md) — Completion report: endojs-endo-but-for-bots-pr586-review-73c9bcb3
-- [`endojs-endo-but-for-bots-pr472-66cd8af6`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-66cd8af6.md) — Completion report
-- [`endojs-endo-but-for-bots-pr548-a1f701d4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-a1f701d4.md) — Completion report: attention directive on endojs/endo-but-for-bots #548 (comm...
-- [`endojs-endo-but-for-bots-pr472-review-f6149cf0`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-f6149cf0.md) — Completion report: review directive on endojs/endo-but-for-bots PR #472
-- … and 820 more
+- … and 824 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
