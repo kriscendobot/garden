@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: garden-encode-acknowledged-comment-needs-reply
-priority: normal
-posted_by: producer
-posted_at: 2026-06-30T23:18:29Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-01T23:57:31Z -->
 
 # Widen the comment-watcher: actionable maintainer directives reliably become JOBS (not just replies)
 
