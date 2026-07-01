@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T01:55:23Z_
+_As of 2026-07-01T01:56:16Z_
 
 ## Latest
 
-The [.js-extension lint enforcement](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/enforce-js-extension-lint-endo-but-for-bots.md) ask (from kriskowal's #442 review) landed as a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot, with `checkTypeImports: true` on `import/extensions`; tests green. Two builder jobs raced it — the gardener closed its [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) as a duplicate of the sibling [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which reached the same design on a properly frozen base with a changeset. **Review target is #581**, and the earlier scope question is moot: both PRs independently concluded that forcing `.js` on `@endo/*` subpaths is wrong (platform/agentry/preact-container use extensionless export keys), so both correctly leave subpaths to their exports maps. The error-rendering fix on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) was verified in Chrome and is now parked for review, and shepherd work on the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) fork PR completed after its slim-down. A job to add missing Agoric mainnet governance proposals 111–116 is now in flight.
+The `.js`-extension lint ask from kriskowal's [#442](https://github.com/endojs/endo-but-for-bots/pull/442) review landed: two builder jobs independently converged on a new `@endo/jsdoc-import-extensions` ESLint rule (closing the JSDoc `@import` blind spot that `import/extensions` and `import/no-unresolved` both miss) plus `checkTypeImports: true`. The sibling job's [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) is the review target — it has a properly frozen `llm` base and a changeset — and the duplicate [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) was self-closed. Both PRs deliberately leave `@endo/*` subpaths to their exports maps (platform/agentry/preact-container use extensionless export keys, so a bare specifier is the only form that resolves), so no maintainer scope call is needed; a full `.js`-suffixed exports-map migration of those three packages remains a possible follow-up. Elsewhere, the shepherd finished diagnosing and pushing fixes on the kriscendobot/agoric-sdk fork PR #7 after its slim-down, and garden issue [kriskowal/garden#20](https://github.com/kriskowal/garden/issues/20) was answered and closed.
 
 ## Parked for maintainer feedback
 
@@ -39,17 +39,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`agoric-3-proposals-316-missing-proposals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-316-missing-proposals.md) — Add missing Agoric mainnet governance proposals 111-116 to a kriscendobot for...
-- [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-20.md) — Issue from kriskowal on kriskowal/garden #20
 
-### tada (756)
+### tada (757)
+- [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-20.md) — Done. Comment posted, inbox clean, no main2 changes needed.
 - [`deadmail-issue-comment-4849045455`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4849045455.md) — Completion report
 - [`agoric-sdk-fork-pr-7-shepherd-after-slim-down`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-shepherd-after-slim-down.md) — I've completed the diagnosis and fixes for PR #7 and pushed them. The backgro...
 - [`enforce-js-extension-lint-endo-but-for-bots`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/enforce-js-extension-lint-endo-but-for-bots.md) — Completion report: enforce-js-extension-lint-endo-but-for-bots
 - [`build-ebfb-namehub-interface-unification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-ebfb-namehub-interface-unification.md) — I've completed the substantive work and am waiting on CI. Let me stop here an...
-- [`ebfb-pr-58-fix-error-rendering-verify-in-chrome`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-fix-error-rendering-verify-in-chrome.md) — Completion report
-- … and 751 more
+- … and 752 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
