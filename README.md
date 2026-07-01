@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T06:45:35Z_
+_As of 2026-07-01T06:46:14Z_
 
 ## Latest
 
-Follow-up work on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) wrapped up — its completion report landed alongside a fix for the error-bubble/watch stacktrace race, and the PR now sits parked for kriskowal's review after 44 minutes. Several garden-infra jobs also completed: earlier gardener escalation on elapsed-time constancy, and a fix for a gardener project-worktree isolation collision. No jobs moved through the board this cycle (todo is empty), and the one job in flight is running mhofman's contract-control-upgrade test to completion on garden#9. Worth a maintainer's eye: the journal-worktree-keeper reports `/home/kris/journal` on **endolinbot2** has diverged from `origin/journal2` (3 local commits ahead, 6345 behind, 6 dirty paths) and was left untouched for hand reconciliation.
+Recent completions cluster on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), where a follow-up job and a stack-trace-race error-bubble watch both wrapped up; the PR is now parked awaiting kriskowal's review (44m). On the garden-infra side, a batch of gardener reliability fixes landed — project-worktree isolation-collision, elapsed-constancy early escalation — alongside routine deadmail cleanup. The one job still in flight is running mhofman's contract-control-upgrade test to completion for [kriskowal/garden#9](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md). Maintainer attention is otherwise on a deep parked queue (28 PRs), with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) at the front after a day's wait.
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ Follow-up work on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T064525Z-e354d3` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T064525Z-e354d3.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6345 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
