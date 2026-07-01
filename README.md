@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T01:32:22Z_
+_As of 2026-07-01T01:37:08Z_
 
 ## Latest
 
-The `.js`-extension lint ask from kriskowal's #442 review landed as [endojs/endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) — a new `@endo/jsdoc-import-extensions` rule that closes the JSDoc `@import` blind spot both `import/extensions` and `import/no-unresolved` miss, on a frozen `llm` base with a changeset (158 tests passing, `eslint .` green). Two builder jobs raced to the same design independently; the duplicate [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) was self-closed in favor of #581, so no maintainer decision is owed on the raised `@endo/*`-subpath question — both concluded that enforcing `.js` on subpaths is wrong because `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` export extensionless keys, leaving those to their exports maps. Separately, the error-rendering fix on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) was re-verified in Chrome and it now sits parked for review; the Claude session-limit classifier was also improved to treat those as transient.
+The lint enforcement ask from kriskowal's #442 review resolved through a race: two builder jobs independently landed the same design (a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot, relative-only scope), so [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) was closed as a duplicate of the two-minutes-earlier [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) — now the review target, opened on a frozen `llm` base with a changeset. Both PRs reached the same scope call worth noting: requiring `.js` on `@endo/*` subpaths is *not* uniformly correct (platform/agentry/preact-container use extensionless export keys), so both correctly leave subpaths to their exports maps; no maintainer decision is needed there. Separately, the shepherd finished its diagnosis and fixes on the [kriscendobot/agoric-sdk fork PR #7](https://github.com/kriscendobot/agoric-sdk/pull/7) after the slim-down and pushed, and the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-rendering fix completed its Chrome verification pass.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 5m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 10m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 20h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -39,18 +39,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`agoric-sdk-fork-pr-7-shepherd-after-slim-down`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-sdk-fork-pr-7-shepherd-after-slim-down.md) — PR #7 — shepherd to green after the slim-down/feedback churn (maintainer dire...
+### doin (2)
 - [`deadmail-issue-comment-4849045455`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4849045455.md) — Dead-lettered message — pick up its intent
 - [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-20.md) — Issue from kriskowal on kriskowal/garden #20
 
-### tada (754)
+### tada (755)
+- [`agoric-sdk-fork-pr-7-shepherd-after-slim-down`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-shepherd-after-slim-down.md) — I've completed the diagnosis and fixes for PR #7 and pushed them. The backgro...
 - [`enforce-js-extension-lint-endo-but-for-bots`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/enforce-js-extension-lint-endo-but-for-bots.md) — Completion report: enforce-js-extension-lint-endo-but-for-bots
 - [`build-ebfb-namehub-interface-unification`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-ebfb-namehub-interface-unification.md) — I've completed the substantive work and am waiting on CI. Let me stop here an...
 - [`ebfb-pr-58-fix-error-rendering-verify-in-chrome`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-fix-error-rendering-verify-in-chrome.md) — Completion report
 - [`improve-classify-claude-session-limit-as-transient`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-classify-claude-session-limit-as-transient.md) — Completion report
-- [`builder-ebfb-enforce-js-extension-jsdoc-import-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/builder-ebfb-enforce-js-extension-jsdoc-import-lint.md) — Completion report
-- … and 749 more
+- … and 750 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
