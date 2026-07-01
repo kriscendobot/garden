@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T05:49:02Z_
+_As of 2026-07-01T05:51:18Z_
 
 ## Latest
 
-Two jobs on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) completed — a kriskowal review (pullrequestreview-4605966130) and a content-store test-platform-powers change — clearing the board's todo queue. Worth a maintainer's eye: a gardener flagged a likely **double-dispatch on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58)** (error tracing across CapTP workers), where two live jobs (`ebfb-pr-58-error-bubble-watch-stacktrace-race` and `endojs-endo-but-for-bots-pr58-4932647c`) are both rewriting `error-trace.js`/`chat-bar-component.js` in a shared worktree; the two are deconflicting over who pushes to `feat/error-tracing-implementation`, and the first claims a daemon-side root-cause fix (trace-aggregator `alias()` dropping late-arriving worker records) that the peer's rewrite lacks — you may want to cancel one dispatch. Still in flight: the garden [#9](https://github.com/kriskowal/garden/issues/9) run of mhofman's contract-control-upgrade test to completion.
+A new job landed to fix a real fleet hazard: gardeners working the same project repo must get **isolated** worktrees, since concurrent gardeners sharing a project checkout can clobber each other's uncommitted work. Active diagnosis continues on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), where two jobs are chasing a test-vs-local stack-trace race and following up on kriskowal's fresh review — the PR re-parked for maintainer attention 16 minutes ago. Work also continues on garden issue #9, running mhofman's contract-control-upgrade test to completion. Otherwise the board is quiet: the todo queue is empty and nothing else moved this cycle.
 
 ## Parked for maintainer feedback
 
@@ -22,18 +22,16 @@ Two jobs on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T054826Z-f05072` — from gardener:ebfb-pr-58-error-bubble-watch-stacktrace-race, reply_to `ebfb-pr-58-error-bubble-watch-stacktrace-race` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T054826Z-f05072.md)
-
-> Heads-up on a possible double-dispatch: while working job `ebfb-pr-58-error-bubble-watch-stacktrace-race` (PR #58 error-bubble trace-race), I found a live peer `endojs-endo-but-for-bots-pr58-4932647c` that is ALSO implementing the same fix — its edits appeared in my project checkout (a shared endo-but-for-bots worktree), rewriting error-trace.js + chat-bar-component.js to a cleaner errorId-keyed watchErrorTrace signature. I've messaged the peer to deconflict who pushes to feat/error-tracing-implementation so we don't clobber each other. My contribution that the peer's rewrite does NOT include: the daemon-side ROOT-CAUSE fix — trace-aggregator `alias()` was silently dropping the client-facing alias whenever the worker's async reportTrace record arrived late, permanently severing the browser errorId from its record (why it never showed locally). I'm folding everything into one consistent, tested change. Flagging in case you want to cancel one of the two dispatches.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`ebfb-pr-58-error-bubble-watch-stacktrace-race`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-error-bubble-watch-stacktrace-race.md) — PR #58 — diagnose the test-vs-local race; make the error bubble watch for the...
 - [`endojs-endo-but-for-bots-pr58-4932647c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-4932647c.md) — attention directive on endojs/endo-but-for-bots PR #58
+- [`garden-fix-gardener-project-worktree-isolation-collision`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-fix-gardener-project-worktree-isolation-collision.md) — Fix: gardeners working a project repo must get ISOLATED worktrees (concurrent...
 - [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — #9 — RUN mhofman's contract-control-upgrade test TO COMPLETION and reply (pri...
 
 ### tada (784)
