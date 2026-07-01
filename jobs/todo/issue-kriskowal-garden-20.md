@@ -24,8 +24,4 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 ----- issue body excerpt (untrusted, truncated) -----
 Please post a job for a gardener to pick up this job from agoric-3-proposals in a kriscendobot fork of that repository. 
 
----
-claim:
-  host: endolinbot2
-  gardener: 84
-  claimed_at: 2026-07-01T00:49:40Z
+<!-- garden-reaped: 1 -->
