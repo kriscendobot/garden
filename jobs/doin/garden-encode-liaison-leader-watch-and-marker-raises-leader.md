@@ -20,3 +20,9 @@ Encode in **CLAUDE.md** (the leader/follower + stand-up sections) AND **roles/li
 Keep the marker note: the authoritative marker is the `leader` file; `hosts/main-host` is stale legacy
 cruft the predicate no longer reads. Land on `main2` via an isolated worktree off origin/main2; keep the
 edits short and consistent with the existing multibot/deliberate-deploy prose.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 1
+  claimed_at: 2026-07-01T22:43:53Z
