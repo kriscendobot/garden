@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot , what staging is this referring to? 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 17
+  claimed_at: 2026-07-01T03:40:36Z
