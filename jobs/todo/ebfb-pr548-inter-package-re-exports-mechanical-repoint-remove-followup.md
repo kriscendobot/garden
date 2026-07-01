@@ -18,9 +18,4 @@ run local-verify (format/lint/build/test). Open it as a PR on endo-but-for-bots 
 (link it) — so **both** PRs are now written. erights is a maintainer; be prompt and honest (verification-
 integrity: cite what you ran). Bot fork; no upstream contact.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 87
-  claimed_at: 2026-07-01T22:23:50Z
+<!-- garden-reaped: 1 -->
