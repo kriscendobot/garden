@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T21:41:03Z_
+_As of 2026-07-01T22:24:09Z_
 
 ## Latest
 
-Little moved since the last bulletin: a single dead-lettered [endo-but-for-bots](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4860197507.md) issue-comment was reconciled off the board, leaving `todo` and `doin` empty. The freshest completions still sitting in `tada` — a shepherd pass on [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) and the `makeExo` fix-and-conduct on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — are already landed, so the maintainer's attention is best spent on the 27 parked PRs, led by the day-old byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the two-day-old registry-capability layer in [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+Inter-package plain re-exports work on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) advanced: a gardener claimed the follow-up job to write the second PR — the mechanical repoint that removes the shim/follow-up layer. On the completions side, [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) cleared a shepherd pass, the [PR #58](https://github.com/endojs/endo-but-for-bots/pull/58) makeExo fix landed and was conducted, and a scholar ingest of Cloudflare x402-monetization and comment-open-payment designs completed. Ten of 27 parked PRs still await kriskowal's review, led by [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Write the SECOND PR for #548's inter-package plain re-exports: the mechanical...
 
 ### tada (815)
 - [`deadmail-issue-comment-4860197507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4860197507.md) — Completion report
