@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T01:40:01Z_
+_As of 2026-07-01T01:55:23Z_
 
 ## Latest
 
-The `.js`-extension lint enforcement for kriskowal's #442 review landed as a DRAFT: a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot that both `import/extensions` and `import/no-unresolved` miss, plus `checkTypeImports: true`. Two sibling builder jobs independently reached the same design within two minutes; the gardener closed its [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) as a duplicate in favor of [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) (proper frozen `llm` base, changeset, 158 tests green), leaving one optional `checkTypeImports` suggestion there. Notably, **no maintainer decision is needed** on the scope question both raised: requiring `.js` on `@endo/*` subpaths is not uniformly correct — `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so both PRs correctly leave subpaths to their exports maps and `import/no-unresolved`; migrating those three to `.js`-suffixed keys is a separable follow-up. Review target is [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581). Also completed this cycle: the Chrome-verified error-rendering fix on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (now freshly parked for review), the NameHub interface-unification build, and a shepherd pass on the `kriscendobot/agoric-sdk` fork's PR #7.
+The [.js-extension lint enforcement](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/enforce-js-extension-lint-endo-but-for-bots.md) ask (from kriskowal's #442 review) landed as a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot, with `checkTypeImports: true` on `import/extensions`; tests green. Two builder jobs raced it — the gardener closed its [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) as a duplicate of the sibling [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which reached the same design on a properly frozen base with a changeset. **Review target is #581**, and the earlier scope question is moot: both PRs independently concluded that forcing `.js` on `@endo/*` subpaths is wrong (platform/agentry/preact-container use extensionless export keys), so both correctly leave subpaths to their exports maps. The error-rendering fix on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) was verified in Chrome and is now parked for review, and shepherd work on the [kriscendobot/agoric-sdk#7](https://github.com/kriscendobot/agoric-sdk/pull/7) fork PR completed after its slim-down. A job to add missing Agoric mainnet governance proposals 111–116 is now in flight.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 10m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 26m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 20h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -39,7 +39,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`agoric-3-proposals-316-missing-proposals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-316-missing-proposals.md) — Add missing Agoric mainnet governance proposals 111-116 to a kriscendobot for...
 - [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-20.md) — Issue from kriskowal on kriskowal/garden #20
 
 ### tada (756)
