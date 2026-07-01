@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T14:47:36Z_
+_As of 2026-07-01T15:01:15Z_
 
 ## Latest
 
-The garden ran quiet this cycle. The one live board move is a gardener claiming [`garden-journal-worktree-keeper-autonomous-lossless-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-journal-worktree-keeper-autonomous-lossless-selfheal.md), which teaches the worktree-keeper to self-heal a diverged journal worktree losslessly. Recently landed: a shepherd pass drove CI on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), an auto-shepherd-on-red-CI trigger and an earlier-escalation improvement for gardener deadline overruns both completed, and the daily dependabotany recheck on endo-but-for-bots ran clean. Worth a maintainer's eye: #58 is now parked awaiting review (4h), and four go-ahead plans still sit unpromoted — the ymax0 hex-fix inquisitor verification, the XS→Rust port, cross-host token aggregation, and the minion.town AWS deploy.
+Kris' [garden-journal-worktree-keeper](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-journal-worktree-keeper-autonomous-lossless-selfheal.md) completed an autonomous lossless self-heal of the journal worktree, and CI on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (the CapTP cross-worker error-tracing PR) was shepherded — it now sits parked awaiting kriskowal's review alongside 27 other open PRs. Little else moved this cycle.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`garden-journal-worktree-keeper-autonomous-lossless-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-journal-worktree-keeper-autonomous-lossless-selfheal.md) — journal-worktree-keeper: autonomously self-heal a diverged worktree (lossless...
+### doin (0)
+(none)
 
-### tada (797)
+### tada (798)
+- [`garden-journal-worktree-keeper-autonomous-lossless-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-journal-worktree-keeper-autonomous-lossless-selfheal.md) — Completion report — garden-journal-worktree-keeper-autonomous-lossless-selfheal
 - [`daily-progress-summary-20260701-143534`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260701-143534.md) — Completion report — daily-progress-summary-20260701-143534
 - [`dependabotany-recheck-endo-but-for-bots-20260701-143534`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dependabotany-recheck-endo-but-for-bots-20260701-143534.md) — Completion report: daily dependabotany recheck — endojs/endo-but-for-bots
 - [`endojs-endo-but-for-bots-pr58-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-shepherd.md) — Completion report — endojs-endo-but-for-bots-pr58-shepherd
 - [`garden-auto-shepherd-on-red-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-auto-shepherd-on-red-ci.md) — Completion report — garden-auto-shepherd-on-red-ci
-- [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deadline-overrun-early-escalation.md) — Completion report
-- … and 792 more
+- … and 793 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
