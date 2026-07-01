@@ -26,3 +26,9 @@ distinct. Terminology note: the design renamed the bid-award entity to **broker*
 Run the full build gauntlet (researcher precedence, panel, local-verify). Open a
 DRAFT PR against main2 and run the PR-creation chain to termination. This is garden
 infra on main2 — build in an isolated worktree off origin/main2.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 98
+  claimed_at: 2026-07-01T00:13:34Z
