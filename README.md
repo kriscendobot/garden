@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T09:28:03Z_
+_As of 2026-07-01T09:30:27Z_
 
 ## Latest
 
-Looks like the shepherd is driving [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error-tracing across workers) toward green — it's both the sole in-flight job and freshly parked for review, so expect a follow-up shortly. Otherwise the fleet cleared its board: gardener reliability landed a per-job handler budget and earlier deadline-overrun escalation, and the [garden#9](https://github.com/kriskowal/garden/issues/9) contract-control upgrade test ran to completion.
+A new standing job, [`garden-auto-shepherd-on-red-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-auto-shepherd-on-red-ci.md), was posted and immediately claimed — it will auto-dispatch a shepherd whenever a bot-authored PR's CI goes red after a push. It now runs alongside an in-flight shepherd directive on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), which is the freshest PR parked for review. Recent completions cleared the board: two gardener-reliability fixes (per-job handler budget and earlier deadline-overrun escalation), a run of the garden issue-9 contract-control upgrade test to completion, and a follow-up pass on #58.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr58-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #58
+- [`garden-auto-shepherd-on-red-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-auto-shepherd-on-red-ci.md) — Auto-dispatch a shepherd when a bot-authored PR's CI goes red after a push
 
 ### tada (793)
 - [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deadline-overrun-early-escalation.md) — Completion report
