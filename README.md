@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:04:50Z_
+_As of 2026-07-01T02:06:01Z_
 
 ## Latest
 
-A review pass on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572) completed, the only board transition this cycle. Two maintainer messages track the ".js extension by lint" ask from kriskowal's #442 review: two builder jobs independently landed the same design (a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot, plus `checkTypeImports: true`), so the gardener closed its [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) as a duplicate of the earlier, better-based [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) (frozen `llm` base, changeset) — review target is now #581, no maintainer decision needed. Both PRs correctly scope enforcement to relative imports and leave `@endo/*` subpaths to their exports maps, since `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` deliberately use extensionless export keys. The board is otherwise nearly drained (one job in flight, adding Agoric mainnet governance proposals 111-116 to a bot fork).
+The [.js-extension-by-lint ask](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/enforce-js-extension-lint-endo-but-for-bots.md) from kriskowal's #442 review landed as a DRAFT — but note the duplication: a gardener opened [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) and then closed it as a duplicate of [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which a sibling builder had opened two minutes earlier. Both independently converged on the same design (a new `@endo/jsdoc-import-extensions` rule for the JSDoc `@import` blind spot, relative-only scope) and both concluded that requiring `.js` on `@endo/*` subpaths is *not* uniformly correct — `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so those specifiers are left to their exports maps. **Review target is #581**; the earlier maintainer question about a subpath exports-map migration is moot. A shepherd also completed diagnosis and fixes on the [kriscendobot/agoric-sdk fork PR #7](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-shepherd-after-slim-down.md), and an attention directive on [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571) is now in flight. Freshly parked for review: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing), waiting 39 minutes.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 34m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 39m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 21h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
@@ -39,8 +39,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`agoric-3-proposals-316-missing-proposals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-316-missing-proposals.md) — Add missing Agoric mainnet governance proposals 111-116 to a kriscendobot for...
+- [`endojs-endo-but-for-bots-pr571-f74b32fc`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr571-f74b32fc.md) — attention directive on endojs/endo-but-for-bots PR #571
 
 ### tada (758)
 - [`endojs-endo-but-for-bots-pr572-review-c378dbbc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-c378dbbc.md) — Completion report
