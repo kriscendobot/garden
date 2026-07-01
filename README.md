@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:55:25Z_
+_As of 2026-07-01T03:04:45Z_
 
 ## Latest
 
-A single completion landed this cycle: the attention directive on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) was resolved and moved to done. Still in flight is the `.js`-extension exports-map migration (folding three packages onto `.js`-suffixed exports). Ten PRs remain parked for review — most notably the fresh ones: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing, waiting ~1h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, ~21h), alongside longer-waiting items like [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) and [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 15d).
+A gardener claimed the attention directive on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475); it and the [`.js`-extension exports-map migration](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-fold-in-js-extension-exports-map-migration.md) are the only jobs in flight, with the board otherwise drained (nothing queued in todo). Recently landed: the attention directives on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544) and [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), the fresh byte-array view implementation PRs, and a README-conflict weave on [endo-but-for-bots#572](https://github.com/endojs/endo-but-for-bots/pull/572). Worth a maintainer's eye at the top of the parked queue: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) has only been waiting an hour, while [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) have been parked a day or more.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 21h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 22h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 15d)
@@ -28,8 +28,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`ebfb-fold-in-js-extension-exports-map-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-fold-in-js-extension-exports-map-migration.md) — Fold in the .js-extension migration: migrate 3 packages to .js-suffixed expor...
+- [`endojs-endo-but-for-bots-pr475-7b36fe5b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-7b36fe5b.md) — attention directive on endojs/endo-but-for-bots PR #475
 
 ### tada (770)
 - [`endojs-endo-but-for-bots-pr544-a4c1394b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr544-a4c1394b.md) — Attention directive resolved. Completion report:
