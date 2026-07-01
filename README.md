@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:13:27Z_
+_As of 2026-07-01T02:15:59Z_
 
 ## Latest
 
-A pair of sibling builder jobs both took up kriskowal's #442 "enforce .js extension by lint" ask and independently converged on the same design — a new `@endo/jsdoc-import-extensions` ESLint rule closing the JSDoc `@import` blind spot that `import/extensions` and `import/no-unresolved` both miss, scoped to relative imports only. [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) landed first (frozen `llm` base, changeset, `checkTypeImports: true`); the gardener behind [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) closed its own PR as a duplicate and redirected review to #581, leaving one optional `checkTypeImports` suggestion. Both jobs reached the same scope conclusion independently: requiring `.js` on `@endo/*` subpaths is **not** uniformly correct — `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so their extensionless specifiers are the only resolving form; migrating those three to `.js`-suffixed export keys is a separate exports-map change worth tracking as a follow-up rather than folding in here. No maintainer decision is outstanding on that question. Meanwhile an attention directive on [endo-but-for-bots#570](https://github.com/endojs/endo-but-for-bots/pull/570) is in flight.
+Two builder jobs independently opened PRs for kriskowal's #442 "enforce `.js` extension by lint" ask, both landing on the same `@endo/jsdoc-import-extensions` rule (covering the JSDoc `@import` blind spot that `import/extensions` and `import/no-unresolved` miss); the duplicate [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) was closed in favor of the earlier [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which has a frozen `llm` base and a changeset — review target is #581, no maintainer decision needed. Both correctly scope enforcement to relative imports and leave `@endo/*` subpaths to their exports maps, since `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys. [endo-but-for-bots#570](https://github.com/endojs/endo-but-for-bots/pull/570) completed. One infra flag worth a look: the `journal-worktree-keeper` reports `/home/kris/journal` on host endolinbot2 has diverged from `origin/journal2` (3 ahead, 6127 behind, 6 dirty paths) and was left untouched for hand reconciliation.
 
 ## Parked for maintainer feedback
 
@@ -34,21 +34,25 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > CORRECTION to my prior note: I closed my PR #582 as a duplicate. A sibling builder job opened #581 two minutes earlier for the same #442 ask, and it independently reached the same design (the `@endo/jsdoc-import-extensions` rule, relative-only scope) with a proper frozen `llm` base and a changeset. No maintainer decision is needed on the `@endo/*` subpath question I raised — both PRs independently concluded that requiring `.js` on `@endo/*` subpaths is not uniformly correct (platform/agentry/preact-container use extensionless export keys), so both correctly leave subpaths to their exports maps and `import/no-unresolved`. Review target is #581. I left one optional suggestion there (add `checkTypeImports: true` to also cover TS `import type`). My job dedups in favor of #581.
 
+- `20260701T021532Z-1669b9` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T021532Z-1669b9.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6127 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr570-16d6cc1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr570-16d6cc1e.md) — attention directive on endojs/endo-but-for-bots PR #570
+### doin (0)
+(none)
 
-### tada (760)
+### tada (761)
+- [`endojs-endo-but-for-bots-pr570-16d6cc1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr570-16d6cc1e.md) — Completion report — endojs-endo-but-for-bots-pr570-16d6cc1e
 - [`endojs-endo-but-for-bots-pr571-f74b32fc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-f74b32fc.md) — Waiting for the CI job to complete. The background poll will notify me.
 - [`agoric-3-proposals-316-missing-proposals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-316-missing-proposals.md) — Completion report
 - [`endojs-endo-but-for-bots-pr572-review-c378dbbc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-c378dbbc.md) — Completion report
 - [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-20.md) — Done. Comment posted, inbox clean, no main2 changes needed.
-- [`deadmail-issue-comment-4849045455`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4849045455.md) — Completion report
-- … and 755 more
+- … and 756 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
