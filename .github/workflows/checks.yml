@@ -53,11 +53,13 @@ jobs:
             scripts/checks/bench-engines-rename/check.sh \
             scripts/checks/double-space-sentence-separator/check.sh \
             scripts/checks/maintainer-inbox-information-hiding/check.sh \
+            scripts/checks/claude-md-inventory-drift/check.sh \
             skills/gardener-inbox-error-reporting/report-error.sh \
             tests/checks/run.sh \
             tests/checks/test_bench_engines_rename.sh \
             tests/checks/test_double_space_sentence_separator.sh \
             tests/checks/test_maintainer_inbox_information_hiding.sh \
+            tests/checks/test_claude_md_inventory_drift.sh \
             tests/checks/test_run_all.sh
 
       - name: bash -n (syntax check, all scripts/ and skill main scripts)
