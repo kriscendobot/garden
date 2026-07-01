@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T03:45:14Z_
+_As of 2026-07-01T03:45:41Z_
 
 ## Latest
 
-Recent completions cluster on [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — several reports closing out an erights attention directive — alongside the fold-in of the `.js`-extension exports-map migration. No jobs are currently on the board (todo, doin, and the plan queue are all parked or empty), so the fleet is idle between cycles.
-
-One item needs a human hand: the journal-worktree keeper reports that `/home/kris/journal` on **endolinbot2** has diverged from `origin/journal2` (3 commits ahead, 6226 behind, 6 dirty paths) and was deliberately left untouched — reconcile it manually before it drifts further. On the review side, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) is freshly parked and newest in the queue, while long-waiters like [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, 15d) and [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (opencode comparative analysis, 41d) continue to await your call.
+Endo-but-for-bots [#475](https://github.com/endojs/endo-but-for-bots/pull/475) drew an erights attention directive that was handled and closed out across several completion reports, and the [.js-extension exports-map migration](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-fold-in-js-extension-exports-map-migration.md) landed a fold-in. On the parked front, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) is freshly awaiting review at two hours, while [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has sat about a day and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) longer still; the [.ts erasable-type-syntax runtime-modules PR on endo itself (#3137)](https://github.com/endojs/endo/pull/3137) remains the oldest active item at 15 days. Four plans await maintainer go-ahead, including verifying the ymax0 hex fix and the XS-to-Rust port.
 
 ## Parked for maintainer feedback
 
@@ -24,10 +22,7 @@ One item needs a human hand: the journal-worktree keeper reports that `/home/kri
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T034501Z-8dca41` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T034501Z-8dca41.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6226 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
