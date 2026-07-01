@@ -33,3 +33,9 @@ convention is enforced automatically instead of caught in review.
 ## Provenance
 Follow-up of job endojs-endo-but-for-bots-pr58-review-31df538e.
 Review: https://github.com/endojs/endo-but-for-bots/pull/58#pullrequestreview-4611555757
+
+---
+claim:
+  host: endolinbot2
+  gardener: 33
+  claimed_at: 2026-07-01T17:36:06Z
