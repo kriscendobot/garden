@@ -21,3 +21,9 @@ ambiguous maintainer directives (and anything during a rate-limit window) were l
    branch now posts a triage job instead of asking the LLM for a verb.
 **Verify:** a test where the LLM is unavailable (or a trusted ambiguous comment) STILL results in a
 posted job (the triage job), not a drop. Land on `main2` via an isolated worktree off origin/main2.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 69
+  claimed_at: 2026-07-01T04:09:22Z
