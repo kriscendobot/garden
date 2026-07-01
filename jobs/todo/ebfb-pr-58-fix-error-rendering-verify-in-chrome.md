@@ -30,8 +30,4 @@ it was asserted without a real browser run. Do not repeat that.
 
 Scope: bot fork; base as-is; no upstream contact.
 
----
-claim:
-  host: endolinbot2
-  gardener: 76
-  claimed_at: 2026-07-01T00:08:43Z
+<!-- garden-reaped: 1 -->
