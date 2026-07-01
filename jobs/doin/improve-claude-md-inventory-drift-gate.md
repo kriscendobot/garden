@@ -1,7 +1,0 @@
-Add a new pre-dispatch grep-gate under `scripts/checks/claude-md-inventory-drift/` (alongside `bench-engines-rename`, `double-space-sentence-separator`, `maintainer-inbox-information-hiding`), following the existing `check.sh` + `prompt.md` contract run by `scripts/checks/run-all.sh`. The gate's `check.sh` enumerates every `skills/*/SKILL.md` and `roles/*/AGENT.md` basename and greps for each name in `CLAUDE.md`'s "Current inventory" section (the Roles + Skills paragraphs); it exits non-zero listing any skill/role present on disk but absent from the inventory list. On a fire, `prompt.md` routes a focused liaison dispatch to add the missing inventory row(s). Rationale: the 2026-06-30 scholar cycle (`entries/2026/06/30/234719Z-result-gardener-391fc1.md`) authored and pushed `skills/oauth-use-case-patterns/SKILL.md` to `main2` but `CLAUDE.md` still has zero mentions of it, because indexing the top-level inventory is a meta-doc edit reserved for the liaison that gardeners/scholars cannot perform — so they fall back to a fire-and-forget self-improvement note. That note path is lossy and the inventory drifts behind the real `skills/`-dir set on every skill-authoring job. A deterministic gate moves "detect the missing inventory row" off the agent's good intentions and into the same scripted check harness that already gates other repo invariants, so the drift cannot land silently.
-
----
-claim:
-  host: endolinbot2
-  gardener: 32
-  claimed_at: 2026-06-30T23:51:56Z
