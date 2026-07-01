@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T22:58:15Z_
+_As of 2026-07-01T22:58:51Z_
 
 ## Latest
 
-Work concentrated on two endo-but-for-bots PRs: fresh attention and review directives were claimed on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) and [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586), with #586's shepherd pass and one #472 directive already reported complete — three directives on each remain in flight. Separately, both upstream-#320 CI failures were fixed on the agoric-3-proposals fork PR #1 (CI matrix plus test packages), and a garden-infra job encoding the liaison leader-watch/marker-raises-leader behavior landed. The parked queue is unchanged and still deep at 27 PRs; the oldest awaiting kriskowal remain [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) and [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (~42 days), with [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable .ts runtime modules) at 16 days.
+Little moved since the last bulletin: a single new claim opened work on an attention directive for [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548), whose inter-package plain re-exports effort now has both an active attention job and a queued second (mechanical repoint) PR. Review and attention directives remain in flight on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) and [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) (whose shepherd pass has completed). The todo lane is empty and no PRs newly parked, so the maintainer's queue is unchanged — the ten parked reviews at the top of the dashboard, led by [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403), still await a look.
 
 ## Parked for maintainer feedback
 
@@ -28,10 +28,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Write the SECOND PR for #548's inter-package plain re-exports: the mechanical...
 - [`endojs-endo-but-for-bots-pr472-66cd8af6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-66cd8af6.md) — attention directive on endojs/endo-but-for-bots PR #472
 - [`endojs-endo-but-for-bots-pr472-review-f6149cf0`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-f6149cf0.md) — Review directive on endojs/endo-but-for-bots PR #472
+- [`endojs-endo-but-for-bots-pr548-a1f701d4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-a1f701d4.md) — attention directive on endojs/endo-but-for-bots PR #548
 - [`endojs-endo-but-for-bots-pr586-5a34148a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-5a34148a.md) — attention directive on endojs/endo-but-for-bots PR #586
 - [`endojs-endo-but-for-bots-pr586-dbdf46d8`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-dbdf46d8.md) — attention directive on endojs/endo-but-for-bots PR #586
 - [`endojs-endo-but-for-bots-pr586-review-73c9bcb3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr586-review-73c9bcb3.md) — Review directive on endojs/endo-but-for-bots PR #586
