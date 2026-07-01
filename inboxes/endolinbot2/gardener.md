@@ -30,3 +30,12 @@ Inspect via `git -C journal cat-file -p fa3e59b0cbb9e86261f932580d6c240124e96c08
 - Context: gardener-61 on endolinbot2: job 'builder-ebfb-enforce-js-extension-jsdoc-import-lint' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 35b3d8ab8b3a57379759a1dc3f1eca0cb1c00038`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-01T00:49:55Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 35b3d8ab8b3a57379759a1dc3f1eca0cb1c00038
+- Context: gardener-84 on endolinbot2: job 'issue-kriskowal-garden-20' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 35b3d8ab8b3a57379759a1dc3f1eca0cb1c00038`.
