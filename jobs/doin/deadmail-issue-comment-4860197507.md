@@ -38,3 +38,9 @@ Comment: https://github.com/kriskowal/garden/issues/20#issuecomment-4860197507
 The upstream PR is failing in ci, @kriscendobot . (_I'd hyperlink it, but I gather we avoid crossing the streams like that._) But, presuming you'll continue to monitor that PR, the fact that there _is_ an upstream PR addresses this issue to my satisfaction.  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolinbot2
+  gardener: 83
+  claimed_at: 2026-07-01T21:36:51Z
