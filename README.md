@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T09:43:53Z_
+_As of 2026-07-01T10:15:57Z_
 
 ## Latest
 
-Only one job completed since the last bulletin: [`garden-auto-shepherd-on-red-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-auto-shepherd-on-red-ci.md), which wires the fleet to auto-dispatch a shepherd when a PR's CI goes red. That machinery is already in play — a shepherd directive on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) is the sole in-flight job, and #58 is the freshest arrival on the maintainer's parked queue (14m). Otherwise the board is drained (todo empty), with the ymax0 hex-fix verification and the XS-to-Rust port still parked in the plan queue awaiting go-ahead.
+A shepherd is currently driving CI on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), the only in-flight job; the board is otherwise drained with nothing in todo. No completions landed since the last bulletin. Worth a maintainer's eye: the journal-worktree-keeper flagged that `/home/kris/journal` on endolinbot2 has diverged from `origin/journal2` (3 commits ahead, 6386 behind, 6 dirty paths) and was left untouched pending hand reconciliation.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 14m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 44m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -22,7 +22,10 @@ Only one job completed since the last bulletin: [`garden-auto-shepherd-on-red-ci
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260701T101545Z-0fdc42` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T101545Z-0fdc42.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6386 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
