@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-01T07:46:32Z_
+_As of 2026-07-01T09:15:23Z_
 
 ## Latest
 
-Two gardener-reliability fixes landed — [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deadline-overrun-early-escalation.md) and [`improve-gardener-per-job-handler-budget`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-per-job-handler-budget.md) — tightening how the fleet escalates slow jobs and bounds per-handler work. On the ymax0/garden#9 track, the contract-control upgrade test was [run to completion](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-run-contract-control-upgrade-test-to-completion.md), and a follow-up pass finished on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (the CapTP error-tracing PR), which is now freshly parked for review. The board is otherwise drained — nothing in todo or doin — so the standout items awaiting kriskowal remain the go-ahead plans, including the ymax0 hex-fix verification and the XS-to-Rust port proposal.
+No board transitions landed since the last bulletin — the todo and doin lanes are empty. The most recent completions strengthened the gardener fleet itself (per-job handler budgets and earlier deadline-overrun escalation) and ran the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-tracing follow-up plus the garden#9 contract-control upgrade test to completion. Worth a maintainer's eye: the `journal-worktree-keeper` on endolinbot2 flagged that `/home/kris/journal` has diverged from `origin/journal2` (3 commits ahead, 6369 behind, 6 dirty paths) and was deliberately left untouched — it needs a hand-reconcile before that host's journal writes can flow again. Twenty-eight PRs remain parked for review, led by [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 3h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 15d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 40d)
@@ -22,7 +22,10 @@ Two gardener-reliability fixes landed — [`improve-gardener-deadline-overrun-ea
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260701T091511Z-078fa1` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T091511Z-078fa1.md)
+
+> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6369 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
+
 
 ## Board
 ### todo (0)
