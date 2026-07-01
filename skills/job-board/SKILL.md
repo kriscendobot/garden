@@ -21,8 +21,17 @@ Board files are markdown and carry `.md`; the **basename `<base>` is the
 extensionless spine**. Scripts append `.md` for board files and strip it for the
 `work/`/`inbox/` keys.
 
-- **Post** (`post-job.sh <base> [body]`): write `jobs/todo/<base>.md`, push;
-  idempotent on the basename; retry-with-backoff on contention.
+- **Post** (`post-job.sh [--identity <key>] <base> [body]`): write
+  `jobs/todo/<base>.md`, push; idempotent on the basename; retry-with-backoff on
+  contention. **Directive-identity dedup:** basename idempotency only collapses
+  re-posts of the *same* base — it does NOT catch two producers naming *different*
+  jobs for the *one* directive (the PR #58 comment-watcher-vs-peer collision that
+  clobbered a working tree). Pass `--identity <owner>/<repo>#<pr>:comment:<cid>`
+  (or `…:review:<review_id>`, or set `GARDEN_JOB_IDENTITY`) when posting a
+  PR/comment-directive job: it is deduped against a `jobs/index/<hash>` map so ONE
+  directive maps to at most one OPEN job, whatever each producer named it. The
+  watchers pass it automatically; when omitted it is best-effort derived from a
+  single canonical GitHub comment URL in the body.
 - **Claim** (`claim-job.sh <id>`): fetch+reset to tip, `git mv todo→doin`
   (`<base>.md`), stamp claim metadata, create `work/<base>` + `inbox/<base>/`,
   commit, **push — the accepted push is the claim**. On rejection, re-sync; if the

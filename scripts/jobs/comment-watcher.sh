@@ -1157,6 +1157,19 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
       fi;;
   esac
 
+  # Directive identity: a stable, producer-independent key for the comment/review
+  # this job answers, passed to post-job.sh (via GARDEN_JOB_IDENTITY) so the SAME
+  # directive observed by a DIFFERENT producer — the GitHub-wide mention-watcher,
+  # or a peer/liaison hand-naming a job for the same comment — collapses onto ONE
+  # open job (the PR #58 clobber gap). Review-keyed jobs identify on the enclosing
+  # review id (matching the base's REVIEW_KEY dimension); everything else on the
+  # comment id. The mention-watcher computes the identical `<repo>#<pr>:comment:<cid>`
+  # for the same comment, so cross-watcher duplicates dedup deterministically.
+  case "$base" in
+    "$slug-pr$pr-review-"*) IDENTITY="$repo#$pr:review:$REVIEW_KEY";;
+    *)                      IDENTITY="$repo#$pr:comment:$cid";;
+  esac
+
   # Idempotency: if the job is already on the board this comment was already
   # actioned (a re-poll across the inclusive `since=` boundary, or a prior tick).
   # Skip the reactji AND the post so re-polling is a true no-op.
@@ -1172,7 +1185,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   fi
 
   jb="$(mktemp)"; write_job_body "$jb" "$VERB" "$surface" "$author" "$pr" "$url" "$bf" "${PRIMARY_VERB:-}" "$cid"
-  "$GARDEN_COMMENT_POST" "$base" "$jb" >/dev/null 2>&1 || true
+  GARDEN_JOB_IDENTITY="$IDENTITY" "$GARDEN_COMMENT_POST" "$base" "$jb" >/dev/null 2>&1 || true
   rm -f "$jb" "$bf"
 
   if verify_posted "$base" fresh; then
@@ -1188,6 +1201,13 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
            "On it — I've posted a job (\`$base\`) and will follow up here when it lands." ;;
     esac
     log "posted $base ($VERB on #$pr) + acked"; acted=$((acted+1)); hw="$created"
+  elif owner="$(journal_identity_owner_live "$VERIFY" "origin/$JOURNAL_BRANCH" "$IDENTITY")"; then
+    # post-job.sh deduped this directive onto an existing live job (a peer or the
+    # mention-watcher already owns identity $IDENTITY under a different base). The
+    # directive IS being handled — treat as success (the reactji already acked it);
+    # advance the cursor rather than misreading the intentional no-op as a lost push.
+    log "DEDUP: directive $IDENTITY already owned by live job '$owner' — not double-posting $base; advancing cursor"
+    acted=$((acted+1)); hw="$created"
   else
     log "POST LOST for $base — push did not reach origin/$JOURNAL_BRANCH; leaving cursor at ${hw:-<coldstart>} to retry"
     failed=1; break

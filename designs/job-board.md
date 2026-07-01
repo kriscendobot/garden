@@ -206,6 +206,36 @@ derived from the change identity (e.g. `<slug>-pr<N>-<shorthash>`), so a
 re-triage across ticks is idempotent (the basename collides with an existing
 `todo`/`doin`/`tada` entry and is skipped).
 
+#### Directive-identity dedup (one directive → at most one open job)
+
+Basename idempotency only collapses re-posts of the **same** base. It does **not**
+catch two **different producers** naming **different** jobs for the **one**
+underlying directive: the comment-watcher's `<slug>-pr<N>-<hash>` and a
+peer/liaison's hand-named `ebfb-pr-<N>-<slug>` both fired on a single PR #58
+comment, so two concurrent jobs raced the same PR and one gardener clobbered the
+other's working tree (fix `fu-endojs-endo-but-for-bots-pr58-4932647c-2`). Because
+the two bases differ, neither `post-job.sh`'s basename check nor a watcher's
+`verify_posted` could see they were the same work.
+
+`post-job.sh` closes this with a second dedup keyed on a **directive identity** —
+a producer-supplied, producer-independent key for the comment/review that
+triggered the work: `<owner>/<repo>#<pr>:comment:<cid>` (or `…:review:<review_id>`).
+It is passed via `--identity <key>` or `GARDEN_JOB_IDENTITY`, and maintained in a
+`jobs/index/<hash>` map (alongside the lifecycle, never claimed or reaped) that
+points each identity at the single base that owns it. On post: if the identity
+already owns a **live** job (in `todo`/`doin`/`tada`), the post is a **no-op** —
+so one directive maps to at most one open job regardless of what each producer
+named it. The index entry is written **atomically with the job** (one commit) and
+re-pointed once its owner **drains** out of the lifecycle, so a completed
+directive never blocks a fresh recurrence. When no explicit identity is given,
+one is best-effort **derived from the body** if it cites exactly one canonical
+GitHub comment URL, so a hand-named peer job that merely quotes the comment dedups
+too (`derive_job_identity_from_body`). The comment-watcher and mention-watcher
+both compute the identical identity for the same comment, so a comment observed by
+**both** (a repo-watched PR that also @-mentions the bot) collapses onto one job.
+Producers hand-posting a PR/comment-directive job should pass `--identity` so their
+job dedups against the watchers' deterministically.
+
 Monitoring-safety constraint: triagers feed PR/comment content into `claude -p`,
 so the watch set (`journal/repos/`) is limited to repositories gated against
 untrusted contributors — our own forks and `endojs/endo-but-for-bots`.

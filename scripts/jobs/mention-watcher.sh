@@ -251,6 +251,14 @@ while IFS=$'\t' read -r created surface cid repo number author url body; do
     *)                                       base="mention-$slug-$number-$(shorthash "$cid$body")";;
   esac
 
+  # Directive identity (see comment-watcher): a producer-independent key for the
+  # commented-on artifact, passed to post-job.sh via GARDEN_JOB_IDENTITY. The
+  # comment-watcher, watching the same repo, computes the IDENTICAL
+  # `<repo>#<number>:comment:<cid>` for the same comment, so a comment that both
+  # watchers observe (a repo-watched PR that also @-mentions the bot) collapses
+  # onto ONE open job instead of spawning two differently-named ones.
+  IDENTITY="$repo#$number:comment:$cid"
+
   # Idempotency: if the job is already on the board, this mention was already
   # actioned (a re-poll across the inclusive since= boundary, or a prior tick).
   if verify_posted "$base"; then
@@ -262,11 +270,18 @@ while IFS=$'\t' read -r created surface cid repo number author url body; do
     || log "WARN: reactji failed on $surface/${cid:-$number} (continuing to post)"
 
   jb="$(mktemp)"; write_job_body "$jb" "$VERB" "$repo" "$surface" "$author" "$number" "$url" "$bf" "$cid"
-  "$GARDEN_MENTION_POST" "$base" "$jb" >/dev/null 2>&1 || true
+  GARDEN_JOB_IDENTITY="$IDENTITY" "$GARDEN_MENTION_POST" "$base" "$jb" >/dev/null 2>&1 || true
   rm -f "$jb" "$bf"
 
   if verify_posted "$base"; then
     log "posted $base ($VERB on $repo #$number from trusted $author) + acked"; acted=$((acted+1)); hw="$created"
+  elif owner="$(journal_identity_owner_live "$VERIFY" "origin/$JOURNAL_BRANCH" "$IDENTITY")"; then
+    # post-job.sh deduped this mention onto an existing live job (the comment-watcher
+    # already owns identity $IDENTITY for the same comment under a different base).
+    # The directive IS being handled — treat as success (the reactji already acked);
+    # advance the cursor rather than misreading the intentional no-op as a lost push.
+    log "DEDUP: mention $IDENTITY already owned by live job '$owner' — not double-posting $base; advancing cursor"
+    acted=$((acted+1)); hw="$created"
   else
     log "POST LOST for $base — push did not reach origin/$JOURNAL_BRANCH; leaving cursor at ${hw:-<coldstart>} to retry"
     failed=1; break

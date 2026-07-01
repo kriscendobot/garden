@@ -1330,10 +1330,81 @@ JOBS_TADA="jobs/tada"
 # worker pool by construction.
 JOBS_PLAN="jobs/plan"
 
+# The directive-identity index sits ALONGSIDE the lifecycle (like plan/) and is
+# NEVER claimed or reaped. It maps a producer-supplied *directive identity* (a
+# stable key for the PR comment / review that triggered the work) to the single
+# job base that owns it, so ONE directive maps to at most one OPEN job even when
+# two different producers (the comment-watcher and a peer) mint DIFFERENTLY-named
+# jobs for it. post-job.sh reads/writes it; see its header and designs/job-board.md
+# § Directive-identity dedup. Each entry is `jobs/index/<hash>` holding two lines:
+#   base: <owning-job-base>
+#   identity: <the raw directive identity>   # for collision-detection + audit
+JOBS_INDEX="jobs/index"
+
 # List job basenames in a lifecycle dir, sorted, excluding .gitkeep.
 list_jobs() {
   local dir="$1" sub="$2"
   ls -1 "$dir/$sub" 2>/dev/null | grep -v -x '.gitkeep' || true
+}
+
+# Hash a directive identity to a filesystem-safe index key. 16 sha1 hex chars —
+# wider than the 8-char comment-watcher base hash, since a collision here would
+# wrongly fold two *distinct* directives onto one job (a dropped directive), the
+# opposite of the failure mode a base-hash collision causes (a duplicate job).
+job_id_hash() { printf '%s' "$1" | (sha1sum 2>/dev/null || shasum) | cut -c1-16; }
+
+# Is <base> present anywhere in the live lifecycle (todo|doin|tada) of a journal
+# clone <dir>? An index entry pointing at a base that has fully drained out of
+# tada is STALE and must not block a fresh directive. Mirrors post-job.sh's own
+# "already present in lifecycle" basename check.
+job_in_lifecycle() {
+  local dir="$1" base="$2" sub
+  for sub in "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
+    [ -e "$dir/$sub/$base.md" ] && return 0
+  done
+  return 1
+}
+
+# Print the base that owns <identity> on <ref> in clone <dir> IFF that base is
+# still live (todo|doin|tada); return 1 otherwise. The watchers call this in
+# their post-confirm: when post-job.sh's directive-identity dedup found the
+# directive already owned by a DIFFERENT-named live job, the requested base is
+# (correctly) never created, so a plain "base not on board" check would misread a
+# successful dedup as a lost push and wedge the cursor. The caller must have
+# fetched <ref> fresh already (the preceding verify_posted does).
+journal_identity_owner_live() {
+  local dir="$1" ref="$2" identity="$3" idhash owner sub entry
+  [ -n "$identity" ] || return 1
+  idhash="$(job_id_hash "$identity")"
+  entry="$(git -C "$dir" cat-file -p "$ref:$JOBS_INDEX/$idhash" 2>/dev/null)" || return 1
+  owner="$(printf '%s\n' "$entry" | sed -n 's/^base:[[:space:]]*//p' | head -1)"
+  [ -n "$owner" ] || return 1
+  for sub in "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA"; do
+    git -C "$dir" cat-file -e "$ref:$sub/$owner.md" 2>/dev/null && { printf '%s\n' "$owner"; return 0; }
+  done
+  return 1
+}
+
+# Best-effort: derive a canonical directive identity from a job BODY, for a
+# producer that did not pass one explicitly (a hand-named / LLM-authored peer
+# job). Returns 0 and prints `<owner>/<repo>#<pr>:comment:<id>` ONLY when the
+# body cites EXACTLY ONE GitHub comment/review identity via a canonical URL
+# anchor (#issuecomment-<id>, #discussion_r<id>, #pullrequestreview-<id>) on a
+# .../pull/<n> URL; otherwise prints nothing and returns 1 (no identity — leave
+# behavior unchanged rather than risk folding two distinct jobs). Conservative by
+# construction: 0 or >1 distinct anchors ⇒ no identity.
+derive_job_identity_from_body() {
+  local body="$1" ids
+  # Extract "<owner>/<repo>#<pr>:comment:<anchor-id>" for every pull-request
+  # comment URL anchor in the body, then keep it only if a single distinct one
+  # survives. grep -oE emits one match per line; sed rewrites each to the key.
+  ids="$(printf '%s\n' "$body" \
+    | grep -oiE 'github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/pull/[0-9]+#(issuecomment-|discussion_r|pullrequestreview-)[0-9]+' \
+    | sed -E 's%.*github\.com/([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)/pull/([0-9]+)#(issuecomment-|discussion_r|pullrequestreview-)([0-9]+).*%\1/\2#\3:comment:\5%' \
+    | sort -u)"
+  [ -n "$ids" ] || return 1
+  [ "$(printf '%s\n' "$ids" | wc -l)" -eq 1 ] || return 1
+  printf '%s\n' "$ids"
 }
 
 # --- plan-job metadata helpers ----------------------------------------------
