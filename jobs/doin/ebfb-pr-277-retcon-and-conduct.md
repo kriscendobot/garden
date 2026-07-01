@@ -12,3 +12,9 @@ This is the explicit merge authorization. Run the compound in order:
    canonical norm chooses it) — after the retcon is pushed and CI is green on the rewritten branch.
 **After merge:** post a top-level **summary comment** on #277 (merged SHA + what the retcon restructured
 + CI/verification). Bot fork; no upstream contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 13
+  claimed_at: 2026-07-01T16:52:11Z
