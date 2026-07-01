@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T23:54:35Z_
+_As of 2026-07-01T23:59:07Z_
 
 ## Latest
 
-The mechanical inter-package re-export repoint on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) landed, closing out its remove-followup. On the garden-infra side, the repo-watcher now self-heals a missing template, and scholar finished ingesting Cloudflare Workers for Platforms (the remainder pages are now in flight). An investigation into the proposals-matrix-test/build failure on the `agoric-3-proposals` fork PR #1 wrapped up, distinguishing the depot builder infra flake from a real proposal bug. Nothing new is parked for review; the maintainer's queue is unchanged, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) the freshest waits.
+On endo-but-for-bots, [#548](https://github.com/endojs/endo-but-for-bots/pull/548) closed out its inter-package re-exports mechanical repoint (follow-up removed). On the Agoric side, the fork PR [kriscendobot/agoric-3-proposals#1](https://github.com/kriscendobot/agoric-3-proposals/pull/1) landed a retcon and an investigation of its `proposals-matrix-test` / `build` failure — worth noting the diagnosis distinguishes a depot-builder infra flake (needs a re-run) from a real proposal bug, and the fork has no depot CI token so a green fork proves nothing. On garden infra, the repo-watcher now self-heals a missing template, and the scholar finished ingesting the Cloudflare Workers-for-Platforms source (the remainder pages are still in flight). Freshly claimed and now in progress: factoring `watchDirectory` out of the daemon into `@endo/platform`, widening the comment-watcher so actionable maintainer directives reliably become jobs, a board refresh, and an endo-roadmap grooming pass. No jobs are sitting in todo. The parked queue still holds 27 PRs awaiting kriskowal — the oldest of substance being [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules, 16d) and a cluster of ~40-day-old endo-but-for-bots features.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (5)
+- [`botanist-refresh-the-board`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/botanist-refresh-the-board.md) — Botanist: refresh the board
+- [`factor-watchdirectory-to-endo-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/factor-watchdirectory-to-endo-platform.md) — Factor watchDirectory out of the daemon into @endo/platform
+- [`garden-encode-directives-reliably-become-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-directives-reliably-become-jobs.md) — Widen the comment-watcher: actionable maintainer directives reliably become J...
+- [`groom-refine-endo-roadmap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/groom-refine-endo-roadmap.md) — Groom: refine the endo roadmap
 - [`scholar-ingest-cloudflare-w4p-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-w4p-remainder.md) — Scholar: ingest Cloudflare Workers for Platforms — remainder pages
 
 ### tada (829)
@@ -47,7 +51,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`factor-watchdirectory-to-endo-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/factor-watchdirectory-to-endo-platform.md) — _normal_ · Factor watchDirectory out of the daemon into @endo/platform
 - [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — _low_ · PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
@@ -55,7 +58,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`formula-inspector-retention-paths-table-v2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/formula-inspector-retention-paths-table-v2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/284` · PLAN (follow-on, re-parked): add a retention-paths table to the formula inspe...
-- [`garden-encode-directives-reliably-become-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/garden-encode-directives-reliably-become-jobs.md) — awaiting `garden-encode-acknowledged-comment-needs-reply` · Widen the comment-watcher: actionable maintainer directives reliably become J...
 
 ## Watch set
 (none)
