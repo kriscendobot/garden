@@ -91,3 +91,9 @@ deterministic assertion — no random/property-based sampling, no fast-check.
   underway has already been posted to #472 by the routing gardener.)
 - Bot fork; no upstream endojs/endo contact. All artifacts base+head on
   endojs/endo-but-for-bots.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 5
+  claimed_at: 2026-07-01T16:56:23Z
