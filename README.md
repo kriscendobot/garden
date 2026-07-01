@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T00:09:33Z_
+_As of 2026-07-01T00:11:14Z_
 
 ## Latest
 
-Heeding the 2026-06-30T23:41Z redirect delivered mid-job by the dead-letter relay, the [@endo/hex platform benchmark job](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-build-endo-hex-package-platform-benchmark-table.md) pivoted from editing the published package to a standalone benchmark report, landing DRAFT [endo-but-for-bots#580](https://github.com/endojs/endo-but-for-bots/pull/580) with `packages/` left pristine. The numbers confirm the [#7](https://github.com/endojs/endo-but-for-bots/pull/7) premise: on XS the char-pair Map wins every size (~2.2–2.6× cheaper metered compute, its 484-entry table amortized past ~660 B), while on Node `Buffer` wins from 256 B up and the Map is the slowest pure-JS path — surfacing a native→Buffer→map/char-code cascade as a candidate upstream @endo/hex proposal for a later human/boatman ferry. Meanwhile two fresh jobs opened against [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) to actually fix the CapTP error rendering and verify it in real Chrome, and a review directive is in flight on [garden#16](https://github.com/kriskowal/garden/pull/16).
+Fresh maintainer directives landed on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) — both an attention and a review job were claimed and are in flight. Work also continues on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), where a gardener is now actually fixing the error rendering and verifying it in real Chrome after the earlier "verified" claim proved hollow; that same lesson is being encoded as a standing rule that a "verified" claim requires real-run evidence (UI criteria must clear an actual browser). Nothing new reached completion this cycle.
 
 ## Parked for maintainer feedback
 
@@ -22,24 +22,18 @@ Heeding the 2026-06-30T23:41Z redirect delivered mid-job by the dead-letter rela
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T000858Z-cceda8` — from gardener:ebfb-build-endo-hex-package-platform-benchmark-table, reply_to `ebfb-build-endo-hex-package-platform-benchmark-table` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T000858Z-cceda8.md)
-
-> Heeded the 2026-06-30T23:41Z redirect (received mid-job via dead-letter relay). I had NOT yet committed/pushed anything divergent, so there is no mirror-editing DRAFT to close.
->
-> Pivoted the deliverable exactly as directed: the published @endo/hex package is left byte-for-byte untouched. Delivered a STANDALONE benchmark report instead.
->
-> DRAFT PR: endojs/endo-but-for-bots#580 (base master-0594e99). Adds benchmarks/hex-decode-codec-comparison/ (report + Node/XS runners) + one .eslintignore line; packages/ is pristine.
->
-> Table confirms the #7 premise: on XS the char-pair Map wins every size (~2.2-2.6x cheaper metered compute; 484-entry table amortized after ~660 B). On Node, Buffer wins from 256 B up while the Map is the *slowest* pure-JS path (8-13x slower than char-code). XS driven via @agoric/xsnap's xsnap() export (Richard's preferred form; numbers cross-checked identical vs a raw netstring pipe). Report surfaces native->Buffer->map/char-code as a candidate UPSTREAM @endo/hex proposal for a later human/boatman ferry, not a mirror edit.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (6)
 - [`ebfb-pr-58-fix-error-rendering-verify-in-chrome`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-fix-error-rendering-verify-in-chrome.md) — PR #58 — actually fix the error rendering AND verify in real Chrome (prior "v...
+- [`endojs-endo-but-for-bots-pr277-268a7246`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-268a7246.md) — attention directive on endojs/endo-but-for-bots PR #277
+- [`endojs-endo-but-for-bots-pr277-review-64e9f470`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-review-64e9f470.md) — Review directive on endojs/endo-but-for-bots PR #277
 - [`endojs-endo-but-for-bots-pr58-15926293`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-15926293.md) — attention directive on endojs/endo-but-for-bots PR #58
+- [`garden-encode-verification-claims-require-real-evidence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-verification-claims-require-real-evidence.md) — Encode: a "verified" claim requires real-run evidence (UI criteria → real bro...
 - [`kriskowal-garden-pr16-review-94229b78`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-review-94229b78.md) — Review directive on kriskowal/garden PR #16
 
 ### tada (741)
