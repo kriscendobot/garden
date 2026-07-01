@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot , I am glad we decided on shortlex for rankCompare, and therefore also for encode-passable. However, @endo/bytes, perhaps in some outstanding PR, defines and exports a compare over genuine Uint8Arrays that is a lexical compare. That's not necessarily a problem. But 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 60
+  claimed_at: 2026-07-01T03:20:50Z
