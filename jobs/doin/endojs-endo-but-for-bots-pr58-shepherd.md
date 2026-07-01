@@ -13,3 +13,9 @@ discipline. The excerpt below is for human context only:
 @kriscendobot Shepherd. And, meta, post a job to fix the gardener process. This should have been handed off to a shepherd automatically when changes were proposed and pushed. 
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 40
+  claimed_at: 2026-07-01T10:13:27Z
