@@ -16,3 +16,9 @@ naming exactly what's left. Update the affected README indexes (except the auto-
 one). Land library writes on **journal2** via `land-journal-edit.sh`; run the post-ingest integrity gate;
 regenerate the projected indexes. Report sources ingested (section counts), topics/concepts touched, and
 any follow-on posted. End with `Self-improvement: ...`.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 19
+  claimed_at: 2026-07-01T23:36:29Z
