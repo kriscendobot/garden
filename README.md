@@ -1,15 +1,15 @@
 # Garden bulletin
 
-_As of 2026-07-01T03:45:41Z_
+_As of 2026-07-01T04:03:33Z_
 
 ## Latest
 
-Endo-but-for-bots [#475](https://github.com/endojs/endo-but-for-bots/pull/475) drew an erights attention directive that was handled and closed out across several completion reports, and the [.js-extension exports-map migration](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-fold-in-js-extension-exports-map-migration.md) landed a fold-in. On the parked front, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) is freshly awaiting review at two hours, while [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has sat about a day and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) longer still; the [.ts erasable-type-syntax runtime-modules PR on endo itself (#3137)](https://github.com/endojs/endo/pull/3137) remains the oldest active item at 15 days. Four plans await maintainer go-ahead, including verifying the ymax0 hex fix and the XS-to-Rust port.
+The bulletin's only fresh board movement is a single claim: a gardener has picked up [`garden-issue-9-mhofman-contract-control-upgrade-test-protocol`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-contract-control-upgrade-test-protocol.md), executing mhofman's contract-control-upgrade test protocol on the ymax0 work (kriskowal/garden#9). The board is otherwise drained — nothing in todo, and the completed `pr475` cluster of endo-but-for-bots reports has settled into tada. Maintainer attention is best spent on the parked queue: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) is the freshest at 2h, while [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 23h) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 1d) are the next-ripest; [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) and [endo#3137](https://github.com/endojs/endo/pull/3137) have been waiting 4d and 15d respectively.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 2h)
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 22h)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 23h)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 4d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 15d)
@@ -28,8 +28,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`garden-issue-9-mhofman-contract-control-upgrade-test-protocol`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-mhofman-contract-control-upgrade-test-protocol.md) — #9 ymax0 — execute mhofman's definitive contract-control-upgrade test protoco...
 
 ### tada (775)
 - [`endojs-endo-but-for-bots-pr475-ae693c7b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-ae693c7b.md) — Completion report
