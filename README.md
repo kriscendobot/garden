@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T05:57:14Z_
+_As of 2026-07-01T05:58:53Z_
 
 ## Latest
 
-A garden-infra fix landed: [`garden-fix-gardener-project-worktree-isolation-collision`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-gardener-project-worktree-isolation-collision.md) completed, resolving collisions between concurrent gardeners' project worktrees. Otherwise the board is quiet — three jobs remain in flight: a diagnosis of the test-vs-local stacktrace race on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (freshly parked for review), a run-to-completion of mhofman's contract-control-upgrade test on [kriskowal/garden#9](https://github.com/kriskowal/garden/issues/9), and a gardener elapsed-constancy early-escalation improvement. No new work was posted or claimed this interval.
+A single new job entered flight since the last bulletin: a follow-up on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) to investigate and close a job-board dedup gap in the garden's own infrastructure, joining three in-flight jobs already working #58's test-vs-local error-bubble stacktrace race, the [Agoric issue #9](https://github.com/kriskowal/garden/issues/9) contract-control-upgrade test run, and a gardener elapsed-constancy early-escalation improvement. The board is otherwise quiet — no new posts to todo — while 28 PRs remain parked for review, the freshest being #58 itself (25m).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`ebfb-pr-58-error-bubble-watch-stacktrace-race`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-error-bubble-watch-stacktrace-race.md) — PR #58 — diagnose the test-vs-local race; make the error bubble watch for the...
+- [`fu-endojs-endo-but-for-bots-pr58-4932647c-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr58-4932647c-2.md) — kriskowal/garden (garden infra): investigate and close the job-board dedup ga...
 - [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — #9 — RUN mhofman's contract-control-upgrade test TO COMPLETION and reply (pri...
 - [`improve-gardener-elapsed-constancy-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-elapsed-constancy-early-escalation.md) — In scripts/jobs/gardener.sh, implement the elapsed-constancy early-escalation...
 
