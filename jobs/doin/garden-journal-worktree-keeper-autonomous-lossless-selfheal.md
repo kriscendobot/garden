@@ -29,3 +29,9 @@ Tests: (a) a diverged-but-superseded worktree with no active writer is auto-heal
 (b) genuine unpushed WIP is preserved + paged, never clobbered; (c) an active writer aborts the heal.
 Land on `main2` via an isolated worktree off origin/main2. Files: `journal-worktree-keeper` script (+ its
 timer), and whatever producer path Part 2 identifies.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 16
+  claimed_at: 2026-07-01T14:47:30Z
