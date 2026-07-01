@@ -42,14 +42,14 @@ that as the engineering premise, not a flourish. The current job board is the
 | Gimix / AMiX concept | Garden today (degenerate) | This design (generalized) |
 | --- | --- | --- |
 | Bounty market for issue completion | The job board (`jobs/todo`) | Same board, with a bid phase |
-| Responder claims an assignment | `claim-job.sh` first-to-push CAS | A bid record + a selector's accept |
+| Responder claims an assignment | `claim-job.sh` first-to-push CAS | A bid record + a broker's award |
 | Oracle attests delivery | judge/CI panel (`panel.sh`) | Same panel as the **objective** oracle |
 | Reputation for information goods | The journal (latent, unscored) | A scored `reputation/` ledger |
 | Computer-mediated, not -conducted | The push-CAS serialization point | Preserved verbatim — no lock service |
 
 So this design **generalizes existing machinery**; it does not start from
 scratch. Every new mechanism below reduces, when the bid phase is empty and the
-selector is "first bid wins," to exactly today's behavior — which is what makes a
+broker is "first bid wins," to exactly today's behavior — which is what makes a
 phased, non-breaking rollout possible (§6).
 
 ## What AMiX tells us to keep
@@ -70,7 +70,7 @@ distilled in the issue's grounding comments, are design constraints here:
    against. This is §4.
 3. **Reputation for information goods.** A digital deliverable can't be inspected
    pre-sale without handing it over; a merged/accepted artifact *is* the delivery
-   and the inspection at once. Reputation is what lets a selector pick before
+   and the inspection at once. Reputation is what lets a broker pick before
    delivery. This is §3.
 
 ---
@@ -85,7 +85,7 @@ market inserts a **bid/accept handshake** between `todo` and `doin`:
 ```
 open ──post──▶ todo ──(bids accrue)──▶ todo+bids ──accept──▶ doin ──submit──▶ submitted
                                                                 │
-                                       reject ◀──oracle/selector judges──┘
+                                       reject ◀──── oracle judges ────┘
                                           │
                                           └──requeue──▶ todo  (work preserved; §4.3)
 ```
@@ -101,12 +101,12 @@ Concretely, over the journal:
   directory, so two bidders never collide (the push fast-forwards; the filename is
   the bidder's identity). This is the same safety argument as a per-doer inbox
   message. A bid file carries the bidder's differentiation and offer (§1.2).
-- **accept → doin.** A **selector** (§1.3) picks one bid and performs the
+- **accept → doin.** A **broker** (§1.3) picks one bid and performs the
   CAS-move that today's `claim-job.sh` performs: `git mv todo/<base> doin/<base>`,
   stamp `accepted_bid: <bidder>` and the winning bid's terms, create
   `work/<base>` + `inbox/<base>/`, commit, **push**. The accepted push *is* the
-  award, exactly as the claim is the award today. First selector to push wins; a
-  rejected push means another selector already awarded it — back off, no
+  award, exactly as the claim is the award today. First broker to push wins; a
+  rejected push means another broker already awarded it — back off, no
   re-award. The losing bids are left in `jobs/bids/<base>/` as the audit trail and
   are swept to `tada` provenance on completion.
 - **submit → submitted.** The awarded gardener works in `work/<base>` and, when
@@ -114,7 +114,7 @@ Concretely, over the journal:
   `doin/<base> → jobs/submitted/<base>` with a pointer to the produced artifact
   (the PR, the design doc, the branch SHA). This is the "responder opens a PR and
   claims it closes the issue" step.
-- **accept/reject (the oracle).** The oracle/selector judges the submission
+- **accept/reject (the oracle).** The acceptance oracle judges the submission
   (§4). On **accept**, the job completes normally (`tada/<base>`, reputation
   credited; §3). On **reject**, the work is **requeued without loss** (§4.3) and
   the rejection is recorded against the bidder's reputation.
@@ -143,26 +143,28 @@ The differentiation axes (§2) live in this record. A bid is cheap to produce �
 the bidder is *not* doing the work yet, only advertising suitability — which is
 what bounds the bidding-phase cost (§1.4).
 
-### 1.3 Who accepts: the selector
+### 1.3 Who awards: the broker
 
-"Who accepts" is a pluggable **selector**, mirroring the pluggable handlers the
-job board already uses (`GARDEN_JOB_HANDLER` etc.). Three selector kinds, in
-increasing autonomy:
+"Who awards a bid" is a pluggable **broker** — the market's
+automated-procurement agent, mirroring the pluggable handlers the job board
+already uses (`GARDEN_JOB_HANDLER` etc.). Three broker kinds, in increasing
+autonomy:
 
-1. **Maintainer selector.** The liaison surfaces the bid set (via the bulletin)
+1. **Maintainer broker.** The liaison surfaces the bid set (via the bulletin)
    and the maintainer awards by hand. This is the `go-ahead` shape applied to
    awards — used for expensive/risky/novel work.
-2. **Scoring-function selector** (the default for routine work). A deterministic,
+2. **Scoring-function broker** (the default for routine work). A deterministic,
    no-LLM function ranks bids by a weighted combination of advertised reputation
    (§3), role/skill fit to the job's declared kind, and model-tier appropriateness
    (cheaper tier preferred when adequate, per the model-selection principle). The
    foreman runs it on a cadence, exactly as it already auto-promotes deferred plan
    jobs. The scoring function is journal-tunable config, not code.
-3. **Acceptance-oracle selector** for the *submission* stage — distinct from bid
-   selection; see §4.
+3. **Acceptance oracle** for the *submission* stage — this is the acceptance
+   decision (§4), not a broker kind; kept here only to mark the distinction from
+   bid selection.
 
-The selector is a **single writer of the award push**; concurrency among
-selectors resolves by the same CAS as concurrent claims today. There is no new
+The broker is a **single writer of the award push**; concurrency among
+brokers resolves by the same CAS as concurrent claims today. There is no new
 coordination primitive.
 
 ### 1.4 The cost, stated honestly: when a race still wins
@@ -191,7 +193,7 @@ Bidding is **not free**. It adds:
 So **both modes coexist permanently** (§6): `market: race` is the default and is
 literally today's `claim-job.sh`; `market: bid` opts a job kind into the
 handshake. The market is the *generalization*, not a wholesale replacement — the
-race is the market with a zero-length bid window and a first-bid-wins selector.
+race is the market with a zero-length bid window and a first-bid-wins broker.
 
 ---
 
@@ -207,13 +209,13 @@ The garden's `roles/` library already differentiates capability: a `builder`, a
 `web-builder`, a `designer`, a `fixer`, a `shepherd` each read a different
 `AGENT.md` and load a different skill set. Today the *job* names the role and any
 gardener wears it. The market inverts this: a gardener **advertises** the role(s)
-it is configured for, and the selector matches the job's declared kind to a
+it is configured for, and the broker matches the job's declared kind to a
 bidder's role fit.
 
 Mechanically: a gardener's standing config (under `hosts/<host>` or a new
 `gardeners/<id>` journal record) declares its role repertoire and skill mix. The
 triager/foreman already classify a job's *kind* (web-frontend vs. general; design
-vs. build) — that classification becomes the **demand signal** the selector
+vs. build) — that classification becomes the **demand signal** the broker
 matches against the bid's advertised **supply**.
 
 ### 2.2 Axis B — the model used to design or build
@@ -222,7 +224,7 @@ matches against the bid's advertised **supply**.
 Today the *dispatcher* picks the tier. The market lets a gardener **bid its tier**:
 a gardener backed by Opus bids on hard design/build jobs at a higher reputation-
 weighted cost; a Haiku-backed gardener bids on mechanical jobs cheaply. The
-selector's scoring function (§1.3) prefers the **cheapest tier adequate to the
+broker's scoring function (§1.3) prefers the **cheapest tier adequate to the
 job**, which is exactly the model-selection principle expressed as a market
 preference rather than a dispatcher's lookup.
 
@@ -231,10 +233,10 @@ Opus/Sonnet/Haiku-backed gardeners across a mix of role repertoires, and the
 market routes each job to the cheapest adequate (role, model) pairing that has a
 good reputation for that kind of work.
 
-### 2.3 How differentiation reaches the selector
+### 2.3 How differentiation reaches the broker
 
 Differentiation is **advertised in the bid** (§1.2: `role`, `model`, `skills`)
-and **scored by the selector** (§1.3). The selector never inspects the gardener's
+and **scored by the broker** (§1.3). The broker never inspects the gardener's
 internals; it reads the bid record, exactly as AMiX's platform reads a seller's
 posted terms rather than auditing the seller. Computer-mediated, not -conducted.
 
@@ -292,9 +294,9 @@ attempt is sunk cost that the expected-cost measure (§3.4) must account for.
   — "this (role, model) keeps failing adversarial-tests on web jobs" — is legible).
 
 Reputation is **per-kind**, not just global: a gardener excellent at mechanical
-fixes but weak at design carries two different reputations, and the selector uses
+fixes but weak at design carries two different reputations, and the broker uses
 the **kind-matched** one. This is the AMiX lesson 3 made concrete — reputation is
-the standing inspection record that lets a selector pick an information good
+the standing inspection record that lets a broker pick an information good
 before delivery.
 
 ### 3.3 Effectiveness and cost: what reputation actually measures
@@ -315,7 +317,7 @@ variable, normalized to dollars and duration.** Unpacked:
   *both* clear the gate differ. Among accepted work, the better gardener-kind is
   simply the **cheaper** one, in dollars and duration (§3.4).
 
-These combine into one comparable the selector can minimize. A kind has, per
+These combine into one comparable the broker can minimize. A kind has, per
 job-kind, a per-attempt success probability `p` (its effectiveness) and an
 expected per-attempt cost `c` (dollars, duration). Because a rejection requeues
 the work and the next attempt costs again (§4.3), the quantity that matters is the
@@ -329,7 +331,7 @@ This single formula folds effectiveness and cost together exactly as the directi
 frames them: effectiveness enters *only* as the gate probability `p`, and cost `c`
 is everything else. A cheap-but-flaky kind (low `c`, low `p`) and a
 pricey-but-reliable kind (high `c`, `p≈1`) are now directly comparable by their
-expected dollars-and-duration to get an accepted result. The selector's objective
+expected dollars-and-duration to get an accepted result. The broker's objective
 (§3.5) is to **minimize expected cost-to-acceptance among kinds adequate to the
 job's kind** — which is precisely "cheapest adequate," now made rigorous instead
 of a heuristic. A kind whose `p` for a job-kind is below a floor is *not adequate*
@@ -354,7 +356,7 @@ so the card is versioned and an event records dollars *as computed at dispositio
 time* so historical events are not retro-repriced). What counts toward a *bidder's*
 cost is the **production** spend attributable to that bidder: its own handler turns
 plus its fixer-loop turns. **Oracle/market overhead is booked separately** — the
-panel jurors' and selector's spend is the *market's* cost of running the auction,
+panel jurors' and broker's spend is the *market's* cost of running the auction,
 not the bidder's cost of producing the good, and conflating them would penalize a
 bidder for how expensively it happened to be judged. (Subcontract spend, when
 recursion lands in §5.1, *is* the prime's cost and rolls up via
@@ -371,7 +373,7 @@ compute). So an event records both:
   stamps its elapsed wall-time, `scripts/jobs/gardener.sh`; blocked-wait excluded):
   the *resource* cost, the duration analogue of dollars.
 
-The selector weights the two clocks per job kind (latency-critical kinds weight
+The broker weights the two clocks per job kind (latency-critical kinds weight
 `duration_s`; throughput kinds weight `active_s`), declared in the same
 journal-tunable config as the scoring weights (§1.3). Neither clock is invented —
 durations come from existing timestamps and the handler's elapsed stamp; only the
@@ -381,11 +383,11 @@ price.
 
 ### 3.5 How it feeds selection
 
-The scoring-function selector (§1.3) ranks each bid by its bidder's **kind-matched
+The scoring-function broker (§1.3) ranks each bid by its bidder's **kind-matched
 `E[cost-to-acceptance]`** (§3.3): exclude bidders whose effectiveness `p` for the
 job's kind is below the adequacy floor, then prefer the lowest expected
 dollars-and-duration (weighted per kind, §3.4). The bid file's self-asserted
-`reputation` snapshot is a convenience; the selector **verifies it against the
+`reputation` snapshot is a convenience; the broker **verifies it against the
 ledger** (the ledger is authoritative — a gardener cannot inflate its own
 estimate, because it is a projection of an append-only event log the gardener does
 not own). This is the escrow-and-attest discipline: the claimant asserts, the
@@ -395,7 +397,7 @@ platform verifies against its own records.
 *current* estimates starves unproven kinds (and new models) of the data to ever
 prove themselves — the rich-get-richer failure the grounding comments flagged. So
 selection is **explore/exploit, not pure argmin**: a kind with few samples carries
-wide uncertainty on `(p, c)`, and the selector occasionally awards a high-
+wide uncertainty on `(p, c)`, and the broker occasionally awards a high-
 uncertainty bid to buy a measurement. The companion design
 ([`gardener-reputation-bootstrapping.md`](gardener-reputation-bootstrapping.md))
 makes this concrete as **Thompson sampling over the per-arm cost posteriors**
@@ -500,7 +502,7 @@ The subjective term — *is the work good, is it the right design* — keeps a h
 or agent judge, but the AMiX discipline is **leave a clean audit trail so a
 dispute has something to arbitrate against.** The panel already emits per-juror
 blocks and dispositions; those become the subjective audit record attached to the
-submission. The maintainer-selector (§1.3) is the apex subjective oracle for
+submission. The maintainer-broker (§1.3) is the apex subjective oracle for
 design-only or novel work; routine work rides on the panel's verdict.
 
 The split is the same one AMiX drew and the garden independently rebuilt:
@@ -598,8 +600,8 @@ today's behavior.
   ledger to validate the scoring function against, at zero behavioral risk. The
   bulletin surfaces the shadow scores so the maintainer can sanity-check them.
 
-- **Phase 2 — bid/accept on the opt-in kind, scoring-selector live.** Turn on the
-  scoring-function selector for the opt-in kind only. The maintainer-selector is
+- **Phase 2 — bid/accept on the opt-in kind, scoring-broker live.** Turn on the
+  scoring-function broker for the opt-in kind only. The maintainer-broker is
   available as an override. Measure: does the market route work to better-suited
   gardeners than the race did, and is the latency cost worth it?
 
@@ -626,15 +628,15 @@ machinery, prove it in shadow before it bites, never break the live fleet.
   lock service, the push stays the serialization point.**
 - A bid is a per-bidder CAS-safe record advertising **role, model, skills,
   reputation**.
-- Selection is a **pluggable selector** (maintainer / scoring-function /
+- Selection is a **pluggable broker** (maintainer / scoring-function /
   oracle), defaulting to a deterministic no-LLM scoring function.
 - Reputation is a **per-kind, append-only ledger** with derived tallies, verified
-  by the selector, fed by accept/reject events.
+  by the broker, fed by accept/reject events.
 - Reputation **measures effectiveness and cost** (§3.3): effectiveness is the
   acceptance *gate* (held constant at the criterion), so cost is the free
   variable, **normalized to dollars** (token spend × a journal rate-card, bidder
   production spend separated from market/oracle overhead) **and duration** (wall-
-  clock latency + active compute). The selector minimizes
+  clock latency + active compute). The broker minimizes
   **`E[cost-to-acceptance] = c/p`** among kinds adequate to the job.
 - Reputation **bootstrapping is designed** (§3.6): replay `todo`/`tada` pairs whose
   recorded tests still pass, pose-as-customer through the accept/reject loop, and

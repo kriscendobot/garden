@@ -55,7 +55,7 @@ different shapes.
 
 A submission either passes the acceptance oracle (the objective plus subjective
 split from the market design's §4: `local-verify`, CI green, the judge panel, and
-the maintainer or scoring selector for the subjective term) or it does not. Pass
+the maintainer or scoring broker for the subjective term) or it does not. Pass
 means **admissible**; fail means **inadmissible**. There is no partial credit on
 the effectiveness axis: a half-correct PR that fails the panel is simply rejected.
 That is exactly what "control for effectiveness with the acceptance criterion"
@@ -116,7 +116,7 @@ not just the mean.
 Effectiveness re-enters here as the arm's **acceptance rate**: the fraction of its
 submissions on a kind that passed the gate. Rejections are not free. A rejected
 attempt still spent dollars and duration before the panel turned it down. So the
-honest figure the selector compares is **cost per accepted deliverable**, which
+honest figure the broker compares is **cost per accepted deliverable**, which
 amortizes the wasted rejected attempts over the successes:
 
 ```
@@ -216,7 +216,7 @@ cost." A job post carries a **demand-weight vector** in its frontmatter:
 weights: { urgency: 0.2, quality: 0.5, cost: 0.3 }   # normalized to sum 1
 ```
 
-Each weight steers the selector toward a different facet of an arm's reputation
+Each weight steers the broker toward a different facet of an arm's reputation
 distribution:
 
 | Job weight | What it up-weights in the arm's reputation |
@@ -225,7 +225,7 @@ distribution:
 | **cost** | Low **dollars**. Tolerate a slower arm to spend fewer notional dollars. |
 | **quality** | High **acceptance rate** and the subjective-oracle track record (low rejection history, strong panel verdicts), biased toward the more capable model tier. "Quality" is "how confident are we it passes on the first try and is judged *good*," which is exactly the acceptance-rate and subjective-audit signal from §1.3 and the market design's §4.2. |
 
-The selector's scoring function (the deterministic, no-LLM selector from the
+The broker's scoring function (the deterministic, no-LLM broker from the
 market design's §1.3) collapses each bidding arm's distribution to a scalar
 **under the job's weight vector**, then ranks. A high-urgency hotfix up-weights
 duration; a cost-sensitive batch refresh up-weights dollars; a quality-critical
@@ -278,7 +278,7 @@ or fades.
   deterministic paths. The posterior draw uses a **seeded** pseudo-random
   generator keyed on a hash of the job base, so the same job and the same ledger
   always select the same arm, and any selection is reproducible and explainable
-  from the journal. The selector stays no-LLM.
+  from the journal. The broker stays no-LLM.
 - **Budget-aware exploration.** The usage meter already gates the fleet against
   its weekly token quota. Exploration is the first thing to throttle when the
   budget tightens: as the trailing-window spend approaches the cap, **narrow the
@@ -452,9 +452,9 @@ without changing its rollback guarantees.
   session logs already record. The bulletin surfaces the shadow per-arm
   cost-per-accepted-job so the maintainer can sanity-check the measure before it
   influences anything.
-- **Phase 2 (bid/accept on the opt-in kind).** The selector uses the
+- **Phase 2 (bid/accept on the opt-in kind).** The broker uses the
   cost-conditioned-on-acceptance posteriors with Thompson sampling (§4); job posts
-  carry weight vectors (§3); the maintainer selector remains the override for
+  carry weight vectors (§3); the maintainer broker remains the override for
   expensive or novel work.
 - **Phase 3 (role refinement).** Turn on the refiner (§5) and the consolidator
   (§6.2) under the hard cap (§6.1), on the opt-in kind only. Measure whether
@@ -498,8 +498,8 @@ set. Nothing here can break the live race-by-default fleet.
     attempts through the acceptance-rate amortization. Reputation still reflects an
     arm's own efficiency, and an arm is still not penalized for a *predecessor's*
     failure on a requeue.
-  - **Configuration-level cost is the objective the selector minimizes.** Above the
-    individual arm sits the **configuration** — the selector policy and the arm mix
+  - **Configuration-level cost is the objective the broker minimizes.** Above the
+    individual arm sits the **configuration** — the broker policy and the arm mix
     it routes through. Its score is the **expected total cost to acceptance for the
     whole job, summed across every attempt and every arm the routing touched,
     including the sunk cost of each rejection and requeue.** A configuration that
@@ -551,7 +551,7 @@ set. Nothing here can break the live race-by-default fleet.
   `tada`-replay for thin arms and newcomers, scored by re-running the original
   acceptance gate (§2).
 - **Demand differentiation:** a per-job urgency/quality/cost weight vector steers
-  the selector across the arm's cost distribution (§3).
+  the broker across the arm's cost distribution (§3).
 - **Explore/exploit:** a contextual bandit with **Thompson sampling** over the
   per-arm cost posteriors, deterministic via a job-seeded generator and
   budget-throttled near the token quota (§4).
@@ -571,7 +571,7 @@ meta-machine of competing gardens (still the market design's §5.2).
 ## References
 
 - [`gardener-bid-accept-market.md`](gardener-bid-accept-market.md): the bid/accept
-  lifecycle, the pluggable selector, the binary reputation ledger, and the AMiX
+  lifecycle, the pluggable broker, the binary reputation ledger, and the AMiX
   objective/subjective acceptance oracle this design measures and bootstraps.
 - [`job-board.md`](job-board.md): the `todo`/`tada` claim/complete lineage that is
   the retrospective bootstrap's labeled dataset (§2.1).
