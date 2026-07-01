@@ -441,3 +441,57 @@ wallet-bridge caveat, so the `createVat` A/B above is the decisive cross-check.
 - **Scope:** read-only analysis plus on-host runs of the open-source XS worker
   and the public bundle, on bot forks only. No upstream `agoric/agoric-sdk`
   interaction.
+
+## Contract-control upgrade result (mhofman's #9 protocol, run to completion 2026-07-01)
+
+The full three-step contract-control upgrade protocol was run through inquisitor
+against the cached `agoric-26146641` swing-store and posted to kriskowal/garden#9
+(comment 4851105447). Reproducible procedure and observed outcomes:
+
+- **Target/driver.** ymax0's delegated `ContractControl` is kref `ko25961078`
+  (owner `v1`; `v43.vs.vc.1144877.symaxControl`; ymax1 is `ko25964180`). The live
+  ymax0 ZCF vat is `v290` (`zcf-b1-68c494-ymax0`), current incarnation read from
+  `swingStore.kernelStorage.transcriptStore.getCurrentSpanBounds('v290').incarnation`
+  (was **38**). Drive the upgrade with
+  `controller.queueToVatObject(kslot('ko25961078'), 'upgrade', [{ bundleId, privateArgsOverrides:{} }], 'ignore')`
+  → the CC calls `E(kit.adminFacet).upgradeContract(bundleId, privateArgs)`.
+- **The bundleId is the CONTRACT bundle, not the ZCF vat source.** v290's
+  `.source.bundleID` is the ZCF bundle `b1-9cfcc99e…`; the contract bundle it runs
+  is `b1-68c494…` (from the vat name). `ContractControl.upgrade({bundleId})` /
+  Zoe `upgradeContract(contractBundleId)` expect the **contract** bundle
+  (`portfolio.contract`), which ZCF re-imports in a fresh worker (where hex.js
+  overflows). Passing the ZCF source bundle is the classic mistake.
+- **Observation caveat + the concurrent-observer driver.** The inquisitor overlay
+  cannot service the post-upgrade smart-wallet/vstorage traffic, so the full block
+  never quiesces and `await EV(cc).upgrade()` (run-utils `queueAndRun`) **hangs**
+  (matches the prior "await-then-run deadlocks" note). Instead: enqueue via
+  `controller.queueToVatObject` for a kpid, start `controller.run()` **without
+  awaiting it**, and poll the overlay incarnation + `controller.kpStatus(kpid)` on
+  a `setTimeout` loop. The upgrade delivery cranks in the first ~0s (a new
+  incarnation span opens immediately in ALL cases — do NOT read "span opened" as
+  success). Driver: `repro/cc-upgrade-driver2.mjs` in the
+  `ymax0-inquisitor-build` worktree; run with `INQUISITOR_MAX_VATS_ONLINE=50`.
+  Note `kunser(controller.kpResolution(kpid))` returns an Error — log
+  `err.message`/`err.stack`, never `JSON.stringify(err)` (renders `{}`); call
+  `kpResolution` **once** (repeat calls → `refCount underflow`).
+- **Success vs failure signal.** SUCCESS = the upgrade-result promise does **not**
+  reject and the fresh worker's span reaches the full `[249702,249706)` (clean
+  import). FAILURE = the promise **rejects** with `Error: vat-upgrade failure`,
+  span truncated at `[249702,249705)`, and the preserved slog carries the
+  delivery-level cause `{"#error":"Stack meter exceeded","errorId":"error:liveSlots…"}`
+  (swingset's rendering of XS `E_STACK_OVERFLOW`, exit code 12, from
+  `manager-subprocess-xsnap.js`). Preserve the slog before inquisitor's
+  `shutdown()` removes the testdb: copy the newest
+  `/tmp/testdb-*/flight-recorder.bin` and `grep -c 'Stack meter exceeded'`.
+- **The three bundles (source-built portfolio.contract repro pair, A/B-validated
+  to overflow/clear at stock `stackCount=4096` on inquisitor's own xsnap worker
+  via `/tmp/xs6/surface.mjs`):**
+  - baseline = current on-chain `b1-68c494…` (release `ymax-v0.3.2606-beta2`) →
+    upgrade **succeeds**, inc 38→39, clean.
+  - beta3 = `b1-2595e4b7…` (`/tmp/xs6/b3src-ctl.zip`, hex.js `flatMap`, 10
+    `.flatMap(`) → upgrade **fails**: `Stack meter exceeded` ×30 / exit-12;
+    `surface.mjs` on the same worker → `STACK_OVERFLOW {"code":12}`.
+  - patched beta3 = `b1-78f80faf…` (`/tmp/xs6/b3src-loop.zip`, `flatMap`→`for`
+    loop, 9 `.flatMap(`) → upgrade **succeeds**, inc 38→39, clean, no overflow.
+  Build the inquisitor JSON bundle from a zip's base64 with
+  `endoZipBase64Sha512 = sha512hex(base64string)`, `bundleID = 'b1-'+sha512`.
