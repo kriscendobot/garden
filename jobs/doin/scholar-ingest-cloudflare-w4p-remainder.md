@@ -29,3 +29,9 @@ land-journal-edit.sh, and regenerate the projected indexes. Reuse the existing
 `multi-tenant-platform` topic and the concept pages (workers-for-platforms,
 dispatch-namespace, dynamic-dispatch-worker, outbound-worker) — add rows to them
 rather than re-authoring. End with `Self-improvement: ...`.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 66
+  claimed_at: 2026-07-01T23:51:19Z
