@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T23:12:17Z_
+_As of 2026-07-01T23:21:46Z_
 
 ## Latest
 
-Since the last bulletin only one item moved: the `agoric-3-proposals-pr1-retcon` job completed, closing out a per-package restage/retcon on the agoric-3-proposals PR. In flight, a gardener is drafting the second PR for [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) — the mechanical inter-package plain-re-export repoint. Nothing new is parked for review beyond the standing queue, which remains headed by the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the EndoRegistry-capability layer in [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+The bulletin work moved to the board itself: a new job to teach the [repo-watcher self-healing for a missing timer template](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-repo-watcher-self-heal-missing-template.md) was posted and immediately claimed, joining the in-flight [second PR for #548's inter-package plain re-exports](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — the mechanical repoint-and-remove follow-up to [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548). Both are garden-internal plumbing; nothing new landed for maintainer review this cycle, and the 27-deep parked queue is unchanged, still fronted by [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability), the two most recently parked.
 
 ## Parked for maintainer feedback
 
@@ -16,8 +16,8 @@ Since the last bulletin only one item moved: the `agoric-3-proposals-pr1-retcon`
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 40d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 40d)
 - [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 41d)
-- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 41d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 42d)
+- [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 42d)
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Write the SECOND PR for #548's inter-package plain re-exports: the mechanical...
+- [`improve-repo-watcher-self-heal-missing-template`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-repo-watcher-self-heal-missing-template.md) — In scripts/jobs/repo-watcher.sh, reconcile_set() arms <prefix>@<slug>.timer p...
 
 ### tada (825)
 - [`agoric-3-proposals-pr1-retcon`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-pr1-retcon.md) — Completion report — agoric-3-proposals-pr1-retcon
