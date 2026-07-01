@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 @kriscendobot , the remaining CI failure, (22.x macos-15) is a timeout and so looks like a flake. I hit the "rerun failed jobs". to find out. If CI turns fully green, unless there are some outstanding questions or reservations, please merge this. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 33
+  claimed_at: 2026-07-01T02:05:34Z
