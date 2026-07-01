@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T22:24:09Z_
+_As of 2026-07-01T22:27:13Z_
 
 ## Latest
 
-Inter-package plain re-exports work on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) advanced: a gardener claimed the follow-up job to write the second PR — the mechanical repoint that removes the shim/follow-up layer. On the completions side, [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) cleared a shepherd pass, the [PR #58](https://github.com/endojs/endo-but-for-bots/pull/58) makeExo fix landed and was conducted, and a scholar ingest of Cloudflare x402-monetization and comment-open-payment designs completed. Ten of 27 parked PRs still await kriskowal's review, led by [#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability).
+A gardener claimed an attention directive on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), the only board movement since the last bulletin; it joins the still-in-flight second PR for [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548)'s inter-package plain re-exports (the mechanical repoint stage). Otherwise the board is quiet — nothing new posted to todo, and the deep backlog of parked PRs continues to wait on kriskowal's review, led by the freshest arrivals [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Write the SECOND PR for #548's inter-package plain re-exports: the mechanical...
+- [`endojs-endo-but-for-bots-pr472-f1fa296b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-f1fa296b.md) — attention directive on endojs/endo-but-for-bots PR #472
 
 ### tada (815)
 - [`deadmail-issue-comment-4860197507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4860197507.md) — Completion report
