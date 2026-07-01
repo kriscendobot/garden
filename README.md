@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:41:20Z_
+_As of 2026-07-01T02:54:28Z_
 
 ## Latest
 
-Two builder jobs independently converged on the same `.js`-extension lint work for kriskowal's #442 review: [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) and [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) both landed a new `@endo/jsdoc-import-extensions` rule (closing the JSDoc `@import` blind spot) plus `checkTypeImports: true`, and both concluded that requiring `.js` on `@endo/*` subpaths is *not* uniformly correct — `@endo/platform`, `@endo/agentry`, and `@endo/preact-container` use extensionless export keys, so those specifiers are left to their exports maps. The gardener self-deduped in favor of #581 (frozen `llm` base + changeset) and closed #582; no maintainer decision is needed on the subpath question that was raised. A [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) job also completed. The board is now idle (todo/doin empty), with 28 PRs still parked for review — most notably [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays).
+Two jobs entered progress since the last bulletin and nothing completed in the window, so movement was light. A gardener picked up an attention directive on [endo-but-for-bots#544](https://github.com/endojs/endo-but-for-bots/pull/544), and another claimed the `.js`-extension exports-map migration folding three packages onto `.js`-suffixed exports. On the parked side, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) is freshly awaiting review at the top of the queue, while [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has now waited about a day — both worth a maintainer look.
 
 ## Parked for maintainer feedback
 
@@ -22,25 +22,15 @@ Two builder jobs independently converged on the same `.js`-extension lint work f
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T012823Z-f8fc72` — from gardener:enforce-js-extension-lint-endo-but-for-bots, reply_to `enforce-js-extension-lint-endo-but-for-bots` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T012823Z-f8fc72.md)
-
-> DRAFT PR endojs/endo-but-for-bots#582 opened for the "enforce .js extension by lint" ask (kriskowal's #442 review on content-store.js:6).
->
-> Done: new `@endo/jsdoc-import-extensions` rule (the JSDoc `@import` blind spot that both import/extensions and import/no-unresolved miss) + `checkTypeImports: true` on import/extensions. Tests 158 passing; `eslint .` green (0 errors).
->
-> Holding as DRAFT for one scope call, laid out in the PR body: requiring `.js` on `@endo/*` SUBPATHS is not uniformly correct. `@endo/platform`, `@endo/agentry`, `@endo/preact-container` use extensionless export KEYS, so their extensionless specifiers are the only form that resolves — the reported `@endo/platform/fs/lite/types` is actually a correct explicit-key export. Enforcing `.js` there needs a separate exports-map migration of those 3 packages to `.js`-suffixed keys (the convention @endo/daemon, @endo/exo, @endo/marshal already follow). Fold that migration into this PR, or land the JSDoc/relative enforcement now and track the migration as a follow-up?
-
-- `20260701T013055Z-3babe0` — from gardener:enforce-js-extension-lint-endo-but-for-bots, reply_to `enforce-js-extension-lint-endo-but-for-bots` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T013055Z-3babe0.md)
-
-> CORRECTION to my prior note: I closed my PR #582 as a duplicate. A sibling builder job opened #581 two minutes earlier for the same #442 ask, and it independently reached the same design (the `@endo/jsdoc-import-extensions` rule, relative-only scope) with a proper frozen `llm` base and a changeset. No maintainer decision is needed on the `@endo/*` subpath question I raised — both PRs independently concluded that requiring `.js` on `@endo/*` subpaths is not uniformly correct (platform/agentry/preact-container use extensionless export keys), so both correctly leave subpaths to their exports maps and `import/no-unresolved`. Review target is #581. I left one optional suggestion there (add `checkTypeImports: true` to also cover TS `import type`). My job dedups in favor of #581.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`ebfb-fold-in-js-extension-exports-map-migration`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-fold-in-js-extension-exports-map-migration.md) — Fold in the .js-extension migration: migrate 3 packages to .js-suffixed expor...
+- [`endojs-endo-but-for-bots-pr544-a4c1394b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr544-a4c1394b.md) — attention directive on endojs/endo-but-for-bots PR #544
 
 ### tada (769)
 - [`endojs-endo-but-for-bots-pr472-ea94b84c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-ea94b84c.md) — Completion report — endojs-endo-but-for-bots-pr472-ea94b84c
