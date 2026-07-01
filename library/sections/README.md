@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6041 (525 parent indexes + 5516 children).
+Total section files: 6046 (525 parent indexes + 5521 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -7892,6 +7892,14 @@ Total section files: 6041 (525 parent indexes + 5516 children).
 - [web--azure-marketplace-publisher-guide--offer-type-taxonomy](web--azure-marketplace-publisher-guide--offer-type-taxonomy.md)
 - [web--azure-marketplace-publisher-guide--saas-offer-requirements](web--azure-marketplace-publisher-guide--saas-offer-requirements.md)
 - [web--azure-marketplace-publisher-guide--vm-offer-requirements](web--azure-marketplace-publisher-guide--vm-offer-requirements.md)
+
+### web--cloudflare-monetization-gateway-x402
+
+- [web--cloudflare-monetization-gateway-x402--agent-identity-and-settlement-vision](web--cloudflare-monetization-gateway-x402--agent-identity-and-settlement-vision.md)
+- [web--cloudflare-monetization-gateway-x402--evolving-web-business-model](web--cloudflare-monetization-gateway-x402--evolving-web-business-model.md)
+- [web--cloudflare-monetization-gateway-x402--gateway-rules-and-capabilities](web--cloudflare-monetization-gateway-x402--gateway-rules-and-capabilities.md)
+- [web--cloudflare-monetization-gateway-x402--overview](web--cloudflare-monetization-gateway-x402--overview.md)
+- [web--cloudflare-monetization-gateway-x402--x402-protocol-and-flow](web--cloudflare-monetization-gateway-x402--x402-protocol-and-flow.md)
 
 ### web--comparative-analysis-aws-azure-gcp-marketplaces
 
