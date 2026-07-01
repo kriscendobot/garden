@@ -1136,6 +1136,84 @@ stamp_reap_now_hint() {
   return 1
 }
 
+# --- deadline-overrun hint ---------------------------------------------------
+#
+# A DISTINCT marker for the ONE transient shape that is NOT a self-resolving blip:
+# a handler killed by its OWN wall-clock bound (rc=124 via is_handler_timeout_rc)
+# at an elapsed AT the wall — GARDEN_HANDLER_TIMEOUT ± GARDEN_HANDLER_KILL_AFTER —
+# rather than an external SIGTERM/OOM/drain that varies in elapsed. Such a handler
+# will be killed IDENTICALLY on every requeue: the job simply exceeds the handler
+# budget. Requeuing it the full GARDEN_REAP_POISON_THRESHOLD (5) cycles before the
+# reaper surfaces it burns ~5×GARDEN_HANDLER_TIMEOUT (~200 min) of gardener
+# wall-clock for a verdict that two identical deadline hits already prove. So the
+# gardener stamps a per-job COUNTER here, and the reaper escalates a job carrying it
+# to POISON after the much lower GARDEN_REAP_OVERRUN_THRESHOLD (2) instead.
+#
+# The marker is a COUNTER the GARDENER owns and increments (distinct from the
+# reaper-owned `<!-- garden-reaped: N -->` cycle counter): each wall-hit cycle the
+# gardener reads the prior N and re-stamps N+1. Unlike the reap-now hint it must
+# PERSIST across a requeue so the count accumulates — reaper.sh's clean_body drops
+# only the reap-count and reap-now markers, so this one survives the requeue in the
+# body by construction (and a re-claim appends the claim block BELOW it). It is
+# stamped ALONGSIDE the reap-now hint so the reaper still requeues promptly (≤1 tick)
+# rather than idling the full GARDEN_CLAIM_TTL; the two markers ride together.
+DEADLINE_OVERRUN_MARKER_RE='^<!-- garden-deadline-overrun: [0-9][0-9]* -->$'
+
+# deadline_overrun_count <file> — the gardener's deadline-overrun cycle count carried
+# on a job, read from its `<!-- garden-deadline-overrun: N -->` marker. Echoes N, or 0
+# when the marker is absent (a job that has never hit its own wall) or the file is
+# missing. READ-ONLY; mirrors reap_count's extraction shape.
+deadline_overrun_count() {
+  local f="${1:-}" n
+  [ -f "$f" ] || { printf '0\n'; return 0; }
+  n="$(sed -n 's/^<!-- garden-deadline-overrun: \([0-9][0-9]*\) -->$/\1/p' "$f" | tail -1)"
+  printf '%s\n' "${n:-0}"
+}
+
+# stamp_deadline_overrun_hint <clone> <doin-relpath> — increment and re-stamp the
+# deadline-overrun COUNTER in the BODY of a still-in-doin claim (dropping any prior
+# overrun marker so the count never accumulates duplicates) AND stamp the reap-now
+# hint beside it, both just above the trailing claim block, then land it on the
+# board. The reaper then requeues the claim on its NEXT tick (via the reap-now hint)
+# and, once the counter reaches GARDEN_REAP_OVERRUN_THRESHOLD, poisons it early
+# instead of burning the full GARDEN_REAP_POISON_THRESHOLD cycles. Bounded CAS retry
+# reusing sync_clone/commit_and_push; returns 0 once landed (or the claim is already
+# gone), non-zero only if it could not land (caller falls back to the TTL requeue).
+# Run in a SUBSHELL from a long-lived caller: sync_clone `exit`s on a connectivity
+# blip, which a subshell contains. Mirrors stamp_reap_now_hint's contract.
+stamp_deadline_overrun_hint() {
+  local clone="$1" rel="$2" attempt f rc prev new
+  : "${GARDEN_REAP_NOW_PUSH_ATTEMPTS:=25}"
+  for attempt in $(seq 1 "$GARDEN_REAP_NOW_PUSH_ATTEMPTS"); do
+    sync_clone "$clone"
+    f="$clone/$rel"
+    if [ ! -e "$f" ]; then clone_unlock "$clone"; return 0; fi      # already moved by a peer
+    prev="$(deadline_overrun_count "$f")"
+    new=$(( prev + 1 ))
+    awk -v rnow="$REAP_NOW_MARKER" -v rnow_re="$REAP_NOW_MARKER_RE" \
+        -v ovr_re="$DEADLINE_OVERRUN_MARKER_RE" -v ovr="<!-- garden-deadline-overrun: $new -->" '
+      { line[NR] = $0 }
+      END {
+        cut = 0
+        for (i = 1; i < NR; i++) if (line[i] == "---" && line[i+1] == "claim:") cut = i
+        for (i = 1; i <= NR; i++) {
+          if (cut > 0 && i == cut) { print ovr; print rnow }  # insert both, in the body above the claim block
+          if (line[i] ~ ovr_re) continue                      # drop the prior overrun marker (re-stamped incremented)
+          if (line[i] ~ rnow_re) continue                     # drop a prior reap-now hint (idempotent)
+          print line[i]
+        }
+        if (cut == 0) { print ovr; print rnow }               # no claim block: append (defensive)
+      }
+    ' "$f" > "$f.overrun" && mv "$f.overrun" "$f"
+    git -C "$clone" add "$rel"
+    if commit_and_push "$clone" "deadline-overrun: hint $rel (cycle $new) by $GARDEN (handler wall-clock overrun)"; then rc=0; else rc=$?; fi
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0   # nothing to commit (a racing stamp won): treat as landed
+    backoff "$attempt"            # rc=1: CAS lost — re-sync and retry
+  done
+  return 1
+}
+
 # Hard-sync a clone to the authoritative tip. The board's true state. Acquires
 # the per-clone lock and HOLDS it; the matching commit_and_push releases it, so
 # the entire sync→write→commit→push critical section is atomic per clone. A

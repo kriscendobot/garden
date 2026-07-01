@@ -115,6 +115,48 @@ else
 fi
 
 # ============================================================================
+hr; echo "SUBTEST 1b — deadline_overrun_count reads the gardener's overrun marker; the elapsed-at-the-wall arithmetic gates it"; hr
+# The gardener stamps `<!-- garden-deadline-overrun: N -->` on a claim whose handler
+# hit its OWN wall (rc=124 AND elapsed within GARDEN_HANDLER_DEADLINE_EPSILON of
+# GARDEN_HANDLER_TIMEOUT). deadline_overrun_count reads that counter for the reaper's
+# early-poison decision. Assert the reader round-trips and defaults to 0.
+tmpj="$(mktemp "${TMPDIR:-/tmp}/garden-overrun-marker.XXXXXX")"
+printf '# j\n\nbody\n' > "$tmpj"
+if [ "$(deadline_overrun_count "$tmpj")" = 0 ]; then
+  ok "deadline_overrun_count → 0 on a job with no overrun marker"
+else
+  bad "deadline_overrun_count nonzero on an unmarked job (got $(deadline_overrun_count "$tmpj"))"
+fi
+printf '# j\n\nbody\n\n<!-- garden-deadline-overrun: 2 -->\n' > "$tmpj"
+if [ "$(deadline_overrun_count "$tmpj")" = 2 ]; then
+  ok "deadline_overrun_count → 2 on a job carrying the overrun marker"
+else
+  bad "deadline_overrun_count wrong on a marked job (got $(deadline_overrun_count "$tmpj"), want 2)"
+fi
+rm -f "$tmpj"
+# The elapsed-at-the-wall predicate gardener.sh evaluates for an rc=124 handler is
+# `elapsed >= GARDEN_HANDLER_TIMEOUT - GARDEN_HANDLER_DEADLINE_EPSILON`. Exercise the
+# arithmetic directly so a regression in the guard band is caught: an elapsed AT the
+# wall trips it (deterministic overrun), one comfortably BELOW the band does not
+# (only a genuine wall-hit gets the fast-poison treatment).
+at_wall_branch() { [ "$1" -ge "$(( $2 - $3 ))" ]; }  # elapsed timeout epsilon
+if at_wall_branch 2395 2400 60; then
+  ok "elapsed=2395 (within the ±60 band of a 2400s wall) → deadline-overrun branch"
+else
+  bad "elapsed=2395 did NOT trip the at-the-wall branch for a 2400s wall / 60s epsilon"
+fi
+if at_wall_branch 2401 2400 60; then
+  ok "elapsed=2401 (SIGTERM→SIGKILL grace overshoot) still → deadline-overrun branch"
+else
+  bad "elapsed=2401 did NOT trip the at-the-wall branch (a grace-window overshoot must still count)"
+fi
+if at_wall_branch 100 2400 60; then
+  bad "elapsed=100 (far below the wall) tripped the at-the-wall branch; the epsilon guard is too wide"
+else
+  ok "elapsed=100 (far below a 2400s wall) → NOT the deadline-overrun branch (guard excludes non-wall kills)"
+fi
+
+# ============================================================================
 hr; echo "SUBTEST 2 — integration: a hung handler is bounded by timeout (rc=124) and classified TRANSIENT"; hr
 TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-timeout.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
 BARE="$TR/journal.git"; BRANCH=journal2
@@ -191,6 +233,27 @@ else
   bad "job not left in doin (doin=$([ -f "$V/jobs/doin/hangjob.md" ] && echo y || echo n) tada=$([ -f "$V/jobs/tada/hangjob.md" ] && echo y || echo n))"
 fi
 
+# (f) THE DEADLINE-OVERRUN BRANCH: the handler hit its OWN wall (rc=124 at the wall),
+# so the gardener stamped the deadline-overrun counter on the still-in-doin claim —
+# proving the elapsed-at-the-wall branch fired (not the plain reap-now transient path).
+if [ -f "$V/jobs/doin/hangjob.md" ] && grep -Eq '^<!-- garden-deadline-overrun: 1 -->$' "$V/jobs/doin/hangjob.md"; then
+  ok "deadline-overrun counter stamped on the doin claim (garden-deadline-overrun: 1)"
+else
+  bad "no deadline-overrun marker on the doin claim; the elapsed-at-the-wall branch did not stamp. doin: $([ -f "$V/jobs/doin/hangjob.md" ] && grep -c overrun "$V/jobs/doin/hangjob.md" || echo missing)"
+fi
+# (g) the reap-now hint is stamped ALONGSIDE it, so the reaper requeues before the TTL.
+if [ -f "$V/jobs/doin/hangjob.md" ] && grep -Eq '^<!-- garden-reap-now -->$' "$V/jobs/doin/hangjob.md"; then
+  ok "reap-now hint stamped alongside the overrun counter (early reaper requeue)"
+else
+  bad "no reap-now hint alongside the overrun counter; the two markers must ride together"
+fi
+# (h) the distinctive deadline-overrun progress note was journaled (names the wall-clock budget).
+if grep -rlq 'hit its OWN wall-clock budget' "$CLONE/entries" 2>/dev/null; then
+  ok "deadline-overrun progress note journaled (names the handler wall-clock budget)"
+else
+  bad "no deadline-overrun progress note naming the wall-clock budget"
+fi
+
 # ============================================================================
 hr; echo "SUBTEST 3 — integration: a SIGTERM-IGNORING handler is killed by --kill-after (rc=137), worker RETURNS, classified TRANSIENT"; hr
 # This is the wedge the --kill-after grace closes. A handler that swallows SIGTERM
@@ -261,6 +324,82 @@ if [ -f "$V3/jobs/doin/wedgejob.md" ] && [ ! -f "$V3/jobs/tada/wedgejob.md" ]; t
   ok "job left in doin (not completed to tada on a transient kill)"
 else
   bad "job not left in doin (doin=$([ -f "$V3/jobs/doin/wedgejob.md" ] && echo y || echo n) tada=$([ -f "$V3/jobs/tada/wedgejob.md" ] && echo y || echo n))"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 4 — reaper requeues a BELOW-threshold overrun (1) and PRESERVES the marker so it accumulates"; hr
+# SUBTEST 2's gardener left hangjob in doin carrying `<!-- garden-deadline-overrun: 1 -->`
+# and the reap-now hint. Run the REAL reaper against that same origin: overrun 1 is
+# below GARDEN_REAP_OVERRUN_THRESHOLD (2), so the job is requeued doin→todo (driven by
+# the reap-now hint, before TTL) — and the deadline-overrun marker MUST survive the
+# requeue (clean_body strips only the reap-count and reap-now markers) so the count
+# accumulates to 2 on the next wall-hit and THEN poisons.
+env GARDEN="reaphost" GARDEN_STATE="$TR/reaper-state" GARDEN_CLAIM_TTL=3600 \
+    "$JOBS/reaper.sh" > "$TR/reaper.log" 2>&1 || true
+R="$TR/reaper-verify"; rm -rf "$R"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$R" 2>/dev/null
+if [ -f "$R/jobs/todo/hangjob.md" ] && [ ! -f "$R/jobs/doin/hangjob.md" ]; then
+  ok "reaper requeued the overrun-1 job doin→todo (below the overrun poison threshold)"
+else
+  bad "overrun-1 job not requeued (todo=$([ -f "$R/jobs/todo/hangjob.md" ] && echo y || echo n) doin=$([ -f "$R/jobs/doin/hangjob.md" ] && echo y || echo n)); log: $(grep -iE 'poison|reap|stale' "$TR/reaper.log" | tail -3)"
+fi
+if [ -f "$R/jobs/todo/hangjob.md" ] && grep -Eq '^<!-- garden-deadline-overrun: 1 -->$' "$R/jobs/todo/hangjob.md"; then
+  ok "deadline-overrun marker PRESERVED across the requeue (count accumulates cycle over cycle)"
+else
+  bad "deadline-overrun marker lost on requeue; the count would never reach the poison threshold"
+fi
+if [ -f "$R/jobs/todo/hangjob.md" ] && ! grep -Eq '^<!-- garden-reap-now -->$' "$R/jobs/todo/hangjob.md"; then
+  ok "reap-now hint stripped from the requeued job (no premature re-reap on the next claim)"
+else
+  bad "reap-now hint persisted into the requeued job (a healthy re-claim would be reaped instantly)"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 5 — reaper POISONS a deadline-overrun job at the LOWER overrun threshold (2), naming the budget signature"; hr
+# A job that has hit its own wall TWICE (`<!-- garden-deadline-overrun: 2 -->`) is
+# conclusively over budget: the reaper must POISON it at GARDEN_REAP_OVERRUN_THRESHOLD
+# (2) — dropping it from the board — WITHOUT waiting the full GARDEN_REAP_POISON_THRESHOLD
+# (5) cycles, and the alert must name the deterministic-overrun signature.
+TR5="$(mktemp -d "${TMPDIR:-/tmp}/garden-overrun-poison.XXXXXX")"; trap 'rm -rf "$TR" "$TR3" "$TR5"' EXIT
+BARE5="$TR5/journal.git"
+git init -q --bare "$BARE5"
+SEED5="$TR5/seed"; git init -q "$SEED5"
+git -C "$SEED5" checkout -q -b "$BRANCH"
+( cd "$SEED5"
+  mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
+  for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
+  # A doin claim that has hit its own wall twice, with the reap-now hint so the reaper
+  # promotes it to the stale set on this tick (age ≪ TTL).
+  {
+    printf '# overrunjob\n\ndo the work for overrunjob\n\n'
+    printf '<!-- garden-deadline-overrun: 2 -->\n'
+    printf '<!-- garden-reap-now -->\n'
+    printf -- '---\nclaim:\n  host: reaphost5\n  gardener: 1\n  claimed_at: 2026-07-01T00:00:00Z\n'
+  } > "jobs/doin/overrunjob.md"
+  # A real claim always has a matching work/<spine> record (claim-job writes it); the
+  # reaper's orphaned-worktree cleanup seds it, so seed one so the requeue proceeds.
+  printf 'worktree_dir:\n' > "work/overrunjob" )
+git -C "$SEED5" add -A
+git -C "$SEED5" "${git_id[@]}" commit -q -m "seed: 1 doin overrun-2 claim"
+git -C "$SEED5" remote add origin "$BARE5"
+git -C "$SEED5" push -q -u origin "$BRANCH"
+
+env GARDEN="reaphost5" GARDEN_STATE="$TR5/state" JOURNAL_REMOTE="$BARE5" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_CLAIM_TTL=3600 GARDEN_REAP_OVERRUN_THRESHOLD=2 GARDEN_REAP_POISON_THRESHOLD=5 \
+    "$JOBS/reaper.sh" > "$TR5/reaper.log" 2>&1 || true
+
+R5="$TR5/verify"; git clone -q --single-branch --branch "$BRANCH" "$BARE5" "$R5" 2>/dev/null
+# (a) dropped from the board entirely (not requeued to todo, not left in doin).
+if [ ! -f "$R5/jobs/todo/overrunjob.md" ] && [ ! -f "$R5/jobs/doin/overrunjob.md" ]; then
+  ok "overrun-2 job POISONED (dropped from the board at the lower overrun threshold, not requeued)"
+else
+  bad "overrun-2 job not poisoned (todo=$([ -f "$R5/jobs/todo/overrunjob.md" ] && echo y || echo n) doin=$([ -f "$R5/jobs/doin/overrunjob.md" ] && echo y || echo n)); log: $(grep -iE 'poison|reap|stale' "$TR5/reaper.log" | tail -3)"
+fi
+# (b) the reaper log names the deterministic-overrun poison (not a generic per-cycle poison).
+if grep -Eq 'POISON \(deadline-overrun\)' "$TR5/reaper.log"; then
+  ok "reaper logged the deadline-overrun poison signature (names the handler wall-clock budget)"
+else
+  bad "reaper did not log a deadline-overrun poison; log: $(grep -iE 'poison' "$TR5/reaper.log" | tail -3)"
 fi
 
 hr

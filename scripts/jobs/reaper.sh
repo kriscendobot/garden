@@ -57,6 +57,15 @@ GARDEN_TAG="reaper"
 : "${GARDEN_FETCH_REAP_KILL_AFTER:=5}" # grace seconds after SIGTERM before the stuck-fetch janitor escalates to SIGKILL
 : "${GARDEN_REAP_PUSH_ATTEMPTS:=50}"   # bounded retries for the batched requeue push (CAS contention)
 : "${GARDEN_REAP_POISON_THRESHOLD:=5}" # requeue cycles after which a job is surfaced as poison, not requeued
+# A job carrying the gardener's `<!-- garden-deadline-overrun: N -->` marker hit its
+# OWN handler wall-clock budget (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT) — a
+# DETERMINISTIC overrun that will be killed identically on every requeue, so it is
+# escalated to POISON at this much LOWER threshold (default 2) rather than the full
+# GARDEN_REAP_POISON_THRESHOLD: two identical deadline hits is already conclusive, and
+# requeuing it 5× (~5×GARDEN_HANDLER_TIMEOUT of gardener wall-clock) before surfacing
+# it is pure waste. The gardener owns/increments the counter (common.sh
+# § deadline-overrun); the reaper only reads it to decide the threshold.
+: "${GARDEN_REAP_OVERRUN_THRESHOLD:=2}" # deadline-overrun cycles after which a wall-hitting job is surfaced as poison
 
 # Marker the reaper stamps into a requeued job body to count requeue cycles. It
 # is an HTML comment so it is invisible in rendered Markdown, and it survives both
@@ -306,11 +315,11 @@ done
 reaped=0
 poisoned=0
 staged=0
-declare -a POISON_BASE=() POISON_BODY=() POISON_COUNT=()
+declare -a POISON_BASE=() POISON_BODY=() POISON_COUNT=() POISON_OVERRUN=()
 for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   sync_clone "$DIR"
   staged=0
-  POISON_BASE=(); POISON_BODY=(); POISON_COUNT=()
+  POISON_BASE=(); POISON_BODY=(); POISON_COUNT=(); POISON_OVERRUN=()
   mkdir -p "$DIR/$JOBS_TODO"
   for base in "${STALE[@]}"; do
     spine="${base%.md}"
@@ -321,16 +330,25 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     [ -n "${prev:-}" ] || prev=0
     count=$(( prev + 1 ))
     body="$(clean_body "$f")"
-
-    if [ "$count" -ge "$GARDEN_REAP_POISON_THRESHOLD" ]; then
+    # A gardener stamps `<!-- garden-deadline-overrun: N -->` on a claim whose handler
+    # hit its OWN wall-clock budget (rc=124 at the wall) — a DETERMINISTIC overrun that
+    # recurs identically every requeue. Such a job is poisoned at the much lower
+    # GARDEN_REAP_OVERRUN_THRESHOLD rather than the full GARDEN_REAP_POISON_THRESHOLD.
+    # clean_body preserves this marker across the requeue (it strips only the reap-count
+    # and reap-now markers), so the count accumulates cycle over cycle.
+    overrun="$(deadline_overrun_count "$f")"
+    if [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] || [ "$count" -ge "$GARDEN_REAP_POISON_THRESHOLD" ]; then
       # Poison: drop from the board (do NOT requeue) and remember it for a
       # post-push maintainer alert so a job whose handler fails every time does
       # not loop forever invisibly. Its full body goes to the maintainer so the
-      # intent is preserved, not lost.
+      # intent is preserved, not lost. Record the overrun count so the alert names
+      # the deterministic-overrun signature when THAT is the trigger (a wall-hitting
+      # job) rather than the generic per-cycle poison.
       git -C "$DIR" rm -q "$JOBS_DOIN/$base"
       [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
       [ -d "$DIR/inbox/$spine" ] && git -C "$DIR" rm -qr "inbox/$spine"
       POISON_BASE+=("$spine"); POISON_BODY+=("$body"); POISON_COUNT+=("$count")
+      POISON_OVERRUN+=("$overrun")
     else
       {
         printf '%s\n' "$body"
@@ -356,16 +374,39 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # is told only about jobs actually removed from the board.
     for i in "${!POISON_BASE[@]}"; do
       pbase="${POISON_BASE[$i]}"
-      log "POISON: '$pbase' reaped ${POISON_COUNT[$i]}× (≥ ${GARDEN_REAP_POISON_THRESHOLD}); dropped from board, surfacing to maintainer"
-      {
-        printf 'POISON job dropped from the board after %s requeue cycles on %s.\n' \
-               "${POISON_COUNT[$i]}" "$GARDEN"
-        printf 'Its handler appears to fail every time; the reaper stopped requeueing it.\n'
-        printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
-               "$pbase" "${POISON_BODY[$i]}"
-      } | GARDEN_SENDER="reaper:$GARDEN" \
-          "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 \
-        || log "WARNING: could not surface poison job '$pbase' to maintainer inbox"
+      povr="${POISON_OVERRUN[$i]:-0}"
+      if [ "$povr" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then
+        # Deterministic-overrun poison: the handler hit its OWN wall-clock budget every
+        # cycle. Name the signature (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT) so the
+        # maintainer reads "this job exceeds the handler budget", not a generic
+        # "poison after N cycles".
+        log "POISON (deadline-overrun): '$pbase' hit the handler wall-clock budget ${povr}× (≥ ${GARDEN_REAP_OVERRUN_THRESHOLD}); dropped from board, surfacing to maintainer"
+        {
+          printf 'POISON job dropped from the board after %s DEADLINE-OVERRUN cycles on %s.\n' \
+                 "$povr" "$GARDEN"
+          printf 'Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=%ss):\n' \
+                 "${GARDEN_HANDLER_TIMEOUT:-2400}"
+          printf 'this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,\n'
+          printf 'so the reaper surfaced it after %s overrun cycles (not the full %s-cycle poison threshold).\n' \
+                 "$GARDEN_REAP_OVERRUN_THRESHOLD" "$GARDEN_REAP_POISON_THRESHOLD"
+          printf 'Triage: split the job, raise GARDEN_HANDLER_TIMEOUT for this work, or fix what makes it run long.\n'
+          printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
+                 "$pbase" "${POISON_BODY[$i]}"
+        } | GARDEN_SENDER="reaper:$GARDEN" \
+            "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 \
+          || log "WARNING: could not surface deadline-overrun poison job '$pbase' to maintainer inbox"
+      else
+        log "POISON: '$pbase' reaped ${POISON_COUNT[$i]}× (≥ ${GARDEN_REAP_POISON_THRESHOLD}); dropped from board, surfacing to maintainer"
+        {
+          printf 'POISON job dropped from the board after %s requeue cycles on %s.\n' \
+                 "${POISON_COUNT[$i]}" "$GARDEN"
+          printf 'Its handler appears to fail every time; the reaper stopped requeueing it.\n'
+          printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
+                 "$pbase" "${POISON_BODY[$i]}"
+        } | GARDEN_SENDER="reaper:$GARDEN" \
+            "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 \
+          || log "WARNING: could not surface poison job '$pbase' to maintainer inbox"
+      fi
     done
     break
   fi
