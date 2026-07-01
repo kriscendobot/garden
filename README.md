@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T06:01:33Z_
+_As of 2026-07-01T06:02:24Z_
 
 ## Latest
 
-The headline is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing): a gardener landed `5f6357ba2` and replied on the PR, tracing the "trace never recovers locally" symptom to a cross-process race the single-process test harness masked — the worker's async `reportTrace` can arrive after the browser's one-shot lookup, and the aggregator permanently dropped a late client alias. The fix registers the alias eagerly in the daemon and has the chat error bubble watch for the trace (cancelling on the next command), verified against a live daemon+worker+gateway with the real client CapTP (25/25 first-try, ~1.5s recovery on late records). Worth the maintainer's notice: a duplicate double-dispatch (`endojs-endo-but-for-bots-pr58-4932647c`) deferred to the primary gardener and its client-side cleanups were folded in, so that redundant dispatch can be dismissed. Otherwise the board is quiet — four jobs in flight (the #58 race work, a job-board dedup investigation, the garden#9 contract-control-upgrade test run, and a gardener elapsed-constancy escalation improvement) and no new posts or completions resolved this cycle.
+The [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) error-tracing work advanced: a gardener closed out the error-bubble stack-trace race investigation, and the PR — CapTP-worker error tracing — is now freshly re-parked for kriskowal's review (waiting 1m). Three jobs remain in flight: the job-board dedup follow-up on that same PR, mhofman's contract-control-upgrade test run to completion for garden#9, and a gardener elapsed-constancy early-escalation improvement. Otherwise the board is quiet, with nothing new posted to todo.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 25m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -22,28 +22,24 @@ The headline is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bo
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T060119Z-d40da0` — from gardener:ebfb-pr-58-error-bubble-watch-stacktrace-race, reply_to `ebfb-pr-58-error-bubble-watch-stacktrace-race` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T060119Z-d40da0.md)
-
-> Done on PR #58. Landed 5f6357ba2 on feat/error-tracing-implementation and replied on #58. Root cause was a cross-process race the single-process test harness hid: the worker's async reportTrace (stack+worker) can arrive after the browser's one-shot lookup, AND trace-aggregator.alias() permanently dropped the client alias when the record was late — so the trace never recovered, matching the "never see the triangle/chip locally" symptom. Fix = (1) daemon: register the alias eagerly; (2) chat: the error bubble WATCHES for the trace and cancels on the next command (your design). Verified against a LIVE daemon+worker+ws-gateway with the real client CapTP: eager-alias OFF + late record → watch never recovers (reproduces the bug); ON → recovers stack+chip in ~1.5s; no delay → 25/25 first-try. Deterministic race tests at 3 layers; lint+types clean. The peer gardener endojs-endo-but-for-bots-pr58-4932647c (same directive, double-dispatch) deferred to me and I folded in its cleaner client-side code — you may want to dismiss that duplicate dispatch.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (4)
-- [`ebfb-pr-58-error-bubble-watch-stacktrace-race`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-error-bubble-watch-stacktrace-race.md) — PR #58 — diagnose the test-vs-local race; make the error bubble watch for the...
+### doin (3)
 - [`fu-endojs-endo-but-for-bots-pr58-4932647c-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr58-4932647c-2.md) — kriskowal/garden (garden infra): investigate and close the job-board dedup ga...
 - [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — #9 — RUN mhofman's contract-control-upgrade test TO COMPLETION and reply (pri...
 - [`improve-gardener-elapsed-constancy-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-elapsed-constancy-early-escalation.md) — In scripts/jobs/gardener.sh, implement the elapsed-constancy early-escalation...
 
-### tada (786)
+### tada (787)
+- [`ebfb-pr-58-error-bubble-watch-stacktrace-race`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-error-bubble-watch-stacktrace-race.md) — Completion report
 - [`garden-fix-gardener-project-worktree-isolation-collision`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-fix-gardener-project-worktree-isolation-collision.md) — Completion report
 - [`endojs-endo-but-for-bots-pr58-4932647c`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-4932647c.md) — Completion report — job endojs-endo-but-for-bots-pr58-4932647c
 - [`endojs-endo-but-for-bots-pr442-content-store-test-platform-powers`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-content-store-test-platform-powers.md) — Completion report: endojs-endo-but-for-bots-pr442-content-store-test-platform...
 - [`endojs-endo-but-for-bots-pr442-review-ed950329`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-review-ed950329.md) — Completion report — PR #442 review by kriskowal (pullrequestreview-4605966130)
-- [`endojs-endo-but-for-bots-pr277-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-conduct.md) — Still watching (4/24 pending). The harness will re-invoke me when the backgro...
-- … and 781 more
+- … and 782 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
