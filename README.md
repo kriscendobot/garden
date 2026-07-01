@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T06:59:34Z_
+_As of 2026-07-01T07:05:50Z_
 
 ## Latest
 
-Little moved since the last bulletin: the sole board transition was the completion of `improve-gardener-per-job-handler-budget`, one of a run of gardener-reliability improvements (alongside the just-finished elapsed-constancy early-escalation work), with `improve-gardener-deadline-overrun-early-escalation` still in flight — collectively tightening how a gardener detects and escalates a stalled or over-budget job handler. On the PR side, follow-up work on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) wrapped and the PR is now freshly parked for kriskowal's review (waiting 58m), joining a 28-PR review backlog whose oldest items ([endo#3137](https://github.com/endojs/endo/pull/3137) at 15d, [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [#182](https://github.com/endojs/endo-but-for-bots/pull/182) at 40d) continue to age.
+Two gardener-reliability fixes landed: [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deadline-overrun-early-escalation.md) (earlier escalation when a job runs past its deadline) and [`improve-gardener-per-job-handler-budget`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-per-job-handler-budget.md), tightening how the fleet bounds long-blocking work. On the endo side, follow-up round two on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing) completed and the PR is now parked for kriskowal's review; the garden#9 contract-control upgrade test also ran to completion. The board is fully drained (todo/doin both empty), so nothing is in flight — the main thing to notice is the review queue: 28 PRs are parked, with #58 freshly ready and long-waiters like [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) at 40 days.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 58m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 1h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 1d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,16 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-deadline-overrun-early-escalation.md) — Act on the deadline-overrun signal the gardener already computes instead of o...
+### doin (0)
+(none)
 
-### tada (792)
+### tada (793)
+- [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deadline-overrun-early-escalation.md) — Completion report
 - [`improve-gardener-per-job-handler-budget`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-per-job-handler-budget.md) — Completion report
 - [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — Completion report
 - [`fu-endojs-endo-but-for-bots-pr58-4932647c-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr58-4932647c-2.md) — Completion report
 - [`deadmail-20260701T060113Z-0b5922`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260701T060113Z-0b5922.md) — Completion report
-- [`improve-gardener-elapsed-constancy-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-elapsed-constancy-early-escalation.md) — Completion report
-- … and 787 more
+- … and 788 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
