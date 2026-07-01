@@ -55,3 +55,9 @@ Posted per kriskowal's review directive on PR #277
 (pullrequestreview-4604876200, "conduct and post jobs for blocked plans").
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 10
+  claimed_at: 2026-07-01T01:23:10Z
