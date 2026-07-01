@@ -38,3 +38,9 @@ maintainer's daemon-cas line targets) that makes an extensionless import specifi
 after the one-off #442 fix. Run the full gamut chain.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 35
+  claimed_at: 2026-07-01T01:23:16Z
