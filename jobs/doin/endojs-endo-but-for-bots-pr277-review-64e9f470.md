@@ -27,3 +27,9 @@ only; NEVER merge agoric-sdk or the endojs/endo upstream.
 
 ----- review body excerpt (untrusted, truncated) -----
 [INLINE-REVIEW] [APPROVED] Please conduct and post jobs for blocked plans. Report here when done. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 100
+  claimed_at: 2026-07-01T00:10:52Z
