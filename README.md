@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T16:57:14Z_
+_As of 2026-07-01T17:03:33Z_
 
 ## Latest
 
-The [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) attention-directive job completed and cleared the board, with a follow-on [`ebfb-pr472-followup-boundary-tests`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr472-followup-boundary-tests.md) job now in progress to add exhaustive deterministic `byteOffset`+`length` constructor boundary tests. The other active thread is [endo-but-for-bots#277](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-277-retcon-and-conduct.md), which a gardener is retconning ahead of a maintainer-authorized merge. On the review-parked side, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) has been rebased and retconned and is now waiting on CI, with its 22.x macOS flakes re-running under a background shepherd poll. Nothing new is sitting in `todo`.
+[endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)'s follow-up boundary tests landed and the review came back APPROVED; the job closed out and it now sits with the CI watcher, which will un-draft once the run reports green. Otherwise the board is quiet — the only work in flight is [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277), being retconned and merged under the maintainer's "ready to merge" authorization.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 6m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 17m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,17 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ebfb-pr-277-retcon-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-277-retcon-and-conduct.md) — PR #277 — retcon then conduct (merge); maintainer authorized: "ready to merge"
-- [`ebfb-pr472-followup-boundary-tests`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr472-followup-boundary-tests.md) — build: exhaustive deterministic byteOffset+length constructor boundary tests ...
 
-### tada (802)
+### tada (803)
+- [`ebfb-pr472-followup-boundary-tests`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr472-followup-boundary-tests.md) — Review APPROVED. Now waiting on the CI watcher to report green before un-draf...
 - [`endojs-endo-but-for-bots-pr472-42615737`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-42615737.md) — Completion report: endojs-endo-but-for-bots-pr472-42615737 (attention directive)
 - [`ebfb-pr-58-shepherd-rerun-macos-flakes`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-shepherd-rerun-macos-flakes.md) — The run is in_progress (22.x macOS re-running). My background poll will notif...
 - [`endojs-endo-but-for-bots-pr58-rebase`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-rebase.md) — Rebase and retcon are done and pushed; local validation clean. Awaiting CI to...
 - [`agoric-3-proposals-316-apply-dckc-guidance-and-open-pr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-316-apply-dckc-guidance-and-open-pr.md) — Job complete: agoric-3-proposals #316 — dckc's guidance applied, PR opened, d...
-- [`garden-journal-worktree-keeper-autonomous-lossless-selfheal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-journal-worktree-keeper-autonomous-lossless-selfheal.md) — Completion report — garden-journal-worktree-keeper-autonomous-lossless-selfheal
-- … and 797 more
+- … and 798 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
