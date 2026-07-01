@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T00:13:59Z_
+_As of 2026-07-01T00:15:20Z_
 
 ## Latest
 
-Three new claims moved onto the board since last bulletin, none completed yet. The maintainer's push on real-run evidence is now in motion: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58)'s error-rendering fix is being redone with an actual Chrome verification (the prior "verified" claim didn't hold up), and a companion job is encoding the standing rule that a "verified" claim must cite real-execution evidence. Fresh attention and review directives on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) were just claimed, alongside the in-flight Phase 0/1 build of the bid/accept market (opt-in field plus a shadow reputation ledger). Review directives on [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) and [garden#16](https://github.com/kriskowal/garden/pull/16) remain open in progress.
+Since the immutable-arraybuffer PR #503 gained passable byte arrays and the registry-capability #403 layer landed, the most recent motion is on the error-tracing work: [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) is now parked for review after its review-directive job completed, though an active job remains to actually fix the error rendering and verify it in a real Chrome session — reflecting the standing rule that a "verified" claim needs real-run evidence, which is itself being encoded into the garden. Review directives are also in flight on [endojs/endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) (its prior review job just wrapped), [endojs/endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442), and [kriskowal/garden#16](https://github.com/kriskowal/garden/pull/16). On the infrastructure side, the @endo/hex platform benchmark table shipped and the [kriscendobot/agoric-sdk#7](https://github.com/kriskowal/garden/pull/7) fork slimming to consume @endo/hex is now idling on CI.
 
 ## Parked for maintainer feedback
 
@@ -28,10 +28,9 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (9)
+### doin (8)
 - [`build-bid-accept-market-phase0-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-bid-accept-market-phase0-1.md) — Build: bid/accept market — Phase 0/1 (opt-in field + shadow reputation ledger)
 - [`ebfb-pr-58-fix-error-rendering-verify-in-chrome`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-fix-error-rendering-verify-in-chrome.md) — PR #58 — actually fix the error rendering AND verify in real Chrome (prior "v...
-- [`endojs-endo-but-for-bots-pr277-268a7246`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-268a7246.md) — attention directive on endojs/endo-but-for-bots PR #277
 - [`endojs-endo-but-for-bots-pr277-review-64e9f470`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-review-64e9f470.md) — Review directive on endojs/endo-but-for-bots PR #277
 - [`endojs-endo-but-for-bots-pr442-f8df35b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-f8df35b4.md) — attention directive on endojs/endo-but-for-bots PR #442
 - [`endojs-endo-but-for-bots-pr442-review-ea91182a`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr442-review-ea91182a.md) — Review directive on endojs/endo-but-for-bots PR #442
@@ -39,13 +38,13 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`garden-encode-verification-claims-require-real-evidence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-verification-claims-require-real-evidence.md) — Encode: a "verified" claim requires real-run evidence (UI criteria → real bro...
 - [`kriskowal-garden-pr16-review-94229b78`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/kriskowal-garden-pr16-review-94229b78.md) — Review directive on kriskowal/garden PR #16
 
-### tada (741)
+### tada (742)
+- [`endojs-endo-but-for-bots-pr277-268a7246`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-268a7246.md) — Job complete. Here is my report.
 - [`ebfb-build-endo-hex-package-platform-benchmark-table`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-build-endo-hex-package-platform-benchmark-table.md) — Builder job: @endo/hex platform benchmark table — DONE (re-aimed per mid-job ...
 - [`improve-claude-md-inventory-drift-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-claude-md-inventory-drift-gate.md) — Completion report — improve-claude-md-inventory-drift-gate
 - [`agoric-sdk-fork-pr-7-slim-to-consume-endo-hex`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-sdk-fork-pr-7-slim-to-consume-endo-hex.md) — Nothing more to do until CI progresses. Waiting for the background poller's c...
 - [`deadmail-20260630T234117Z-85be2b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260630T234117Z-85be2b.md) — Completion report — deadmail-20260630T234117Z-85be2b
-- [`scholar-ingest-tailscale-oauth-apps-and-oauth-skills`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-tailscale-oauth-apps-and-oauth-skills.md) — Done. Both phases landed and verified. Final report:
-- … and 736 more
+- … and 737 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
