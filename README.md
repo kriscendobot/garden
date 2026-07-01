@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T17:33:45Z_
+_As of 2026-07-01T17:37:12Z_
 
 ## Latest
 
-Work has converged on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58): two jobs are now in flight — swapping `Far` for `makeExo` per the approved review nit and then conducting the merge (the PR is APPROVED), alongside a maintainer follow-up to add a lint rule that prefers `makeExo` over `Far`. Four PR #58 jobs sit in `doin` in total (the makeExo fix/conduct plus an attention directive and a review directive), so that PR is the active front. Nothing is parked for maintainer action beyond the standing review queue, which still holds 27 PRs — the freshest being [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 1 day) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 2 days).
+Two jobs entered flight since the last bulletin. A gardener claimed work to address all upstream #320 feedback and CI failures on our mirror ([kriscendobot/agoric-3-proposals](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci.md)), and a second claimed the maintainer follow-up to establish a lint rule preferring `makeExo` over `Far` on [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) — the latter part of the cluster of active work around [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), where the approved `Far`→`makeExo` nit is being applied ahead of a conduct-to-merge. Otherwise the board is drained (todo empty), with the recently completed [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) retconned and conducted and [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) approved and awaiting green CI before un-draft. Maintainer attention is still owed on 27 parked PRs, oldest among the top ten being the 42-day-old [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) opencode analysis design.
 
 ## Parked for maintainer feedback
 
@@ -28,9 +28,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (6)
+- [`agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci.md) — Address all feedback + CI failures from upstream #320 on OUR MIRROR (kriscend...
 - [`ebfb-lint-rule-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-lint-rule-prefer-makeexo-over-far.md) — Lint rule: prefer makeExo over Far (maintainer follow-up ask)
 - [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-makeexo-fix-and-conduct.md) — PR #58 — replace Far with makeExo (approved nit), then conduct (APPROVED)
+- [`endojs-endo-but-for-bots-lint-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-lint-prefer-makeexo-over-far.md) — Establish a lint rule preferring makeExo over Far (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-pr58-130cc3b1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-130cc3b1.md) — attention directive on endojs/endo-but-for-bots PR #58
 - [`endojs-endo-but-for-bots-pr58-review-31df538e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-review-31df538e.md) — Review directive on endojs/endo-but-for-bots PR #58
 
