@@ -50,6 +50,11 @@ CLONE="$GARDEN_GARDENER_CLONE"
 # is_external_kill_rc already classifies transient — so, like the rc=124 wall-clock
 # kill (is_handler_timeout_rc), it needs no new classification branch.
 : "${GARDEN_HANDLER_KILL_AFTER:=60}"
+# The reaper's stale-claim window (reaper.sh, default 3600 — the authority). Mirrored
+# here ONLY so the optional per-job `handler-timeout:` header (resolved at the call
+# site below) can be clamped against the INVARIANT above; keep this default in sync
+# with reaper.sh's GARDEN_CLAIM_TTL. The reaper stays the sole owner of the requeue.
+: "${GARDEN_CLAIM_TTL:=3600}"
 
 # Elapsed-constancy early-escalation (common.sh § elapsed-constancy). When a
 # transient-CLASSIFIED handler failure (a transient-claude signature or a bare
@@ -218,13 +223,47 @@ while :; do
   # which the rc-only classification cannot tell apart until the reaper's poison
   # threshold. SECONDS is read-only timing state; no new board state.
   handler_start=$SECONDS
+
+  # --- per-job handler budget (optional `handler-timeout:` header) ------------
+  # A job may declare a longer run-to-completion budget than the default
+  # GARDEN_HANDLER_TIMEOUT by carrying a `handler-timeout: <seconds>` header in its
+  # body — for a legitimately long "run to completion" job whose NAME promises
+  # completion (e.g. garden-issue-9-run-contract-control-upgrade-test-to-completion)
+  # that the fixed 2400s cap would otherwise SIGTERM-kill by construction. It is
+  # honored ONLY within the INVARIANT that keeps a claim single-owner (knobs above):
+  #     budget + GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL
+  # so the largest a single claim can hold is CLAIM_TTL - KILL_AFTER - 1. A request
+  # at or under that max is honored verbatim (in place of GARDEN_HANDLER_TIMEOUT). A
+  # request OVER it is NOT silently raised into the invariant — doing so would let
+  # the reaper requeue the SAME base onto a second gardener while this handler still
+  # runs (duplicate concurrent execution, the very hole the invariant closes).
+  # Instead we clamp to the safe max AND escalate to the maintainer: a
+  # run-to-completion handler that needs longer than one claim can hold cannot be a
+  # claim-scoped handler at all and must run detached or be split into claim-sized
+  # stages. A non-numeric or <1 header (0 would disable `timeout` entirely, breaking
+  # the invariant) is ignored and the default budget stands.
+  handler_budget="$GARDEN_HANDLER_TIMEOUT"
+  requested_budget="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$jobfile" 2>/dev/null | head -1 | tr -dc '0-9')"
+  if [ -n "$requested_budget" ] && [ "$requested_budget" -ge 1 ] 2>/dev/null; then
+    budget_max=$(( GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 ))
+    if [ "$requested_budget" -le "$budget_max" ]; then
+      handler_budget="$requested_budget"
+      log "job '$base' declared handler-timeout=${requested_budget}s (≤ claim budget max ${budget_max}s); honoring in place of default ${GARDEN_HANDLER_TIMEOUT}s"
+    else
+      handler_budget="$budget_max"
+      log "job '$base' declared handler-timeout=${requested_budget}s > claim budget max ${budget_max}s; clamping to max and escalating (cannot be a claim-scoped handler)"
+      alert_maintainer "handler-budget-overrun-$base" \
+        "gardener job '$base' declared handler-timeout=${requested_budget}s, which exceeds what a single claim can hold (max ${budget_max}s = GARDEN_CLAIM_TTL ${GARDEN_CLAIM_TTL}s − GARDEN_HANDLER_KILL_AFTER ${GARDEN_HANDLER_KILL_AFTER}s − 1). A run-to-completion handler that needs longer than one claim cannot be claim-scoped without breaking the duplicate-execution guard: after GARDEN_CLAIM_TTL the reaper would requeue the same base onto a second gardener while this one is still running. Run it DETACHED (outside the claim-scoped handler) or SPLIT it into claim-sized stages. This cycle the handler runs clamped at ${budget_max}s and will be SIGTERM-killed at that bound — it will not complete."
+    fi
+  fi
+
   # Run the handler and capture its exit code EXPLICITLY (not folded into an `if`
   # compound) so the completion gate below can branch on the three distinct
   # outcomes independently: (0 + sentinel)=complete, (0 + no sentinel)=exit-0-
   # unsatisfying requeue, (non-zero)=the existing transient-vs-real classifier.
   set +e
   GARDEN_GARDENER_ID="$id" GARDEN_COMPLETION_SENTINEL="$completion_sentinel" \
-    timeout --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$GARDEN_HANDLER_TIMEOUT" \
+    timeout --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$handler_budget" \
     "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1
   hrc=$?
   set -e
