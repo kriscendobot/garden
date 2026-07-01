@@ -215,6 +215,12 @@ export GARDEN_STATE="$TR/state-rw"
 export GARDEN_MOCK_STATE="$TR/armed" GARDEN_MOCK_LOG="$TR/unitlog"
 export GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh"
 : > "$GARDEN_MOCK_STATE"; : > "$GARDEN_MOCK_LOG"
+# Point install-units' render destination ($DEST = XDG_CONFIG_HOME/systemd/user)
+# at a throwaway dir and pre-seed the triager template there, so the pure
+# arm/disarm cases below exercise the no-drift path (template present → no
+# self-heal install). The self-heal case below uses a FRESH empty $DEST instead.
+export XDG_CONFIG_HOME="$TR/xdg-rw"; mkdir -p "$XDG_CONFIG_HOME/systemd/user"
+touch "$XDG_CONFIG_HOME/systemd/user/garden-triager@.service"
 push_change "repos/kriscendobot-endo" "watch" "watch: kriscendobot-endo"
 "$JOBS/repo-watcher.sh" >/dev/null 2>&1
 grep -qxF "garden-triager@kriscendobot-endo.timer" "$GARDEN_MOCK_STATE" \
@@ -223,6 +229,39 @@ push_change "repos/kriscendobot-endo" "@DELETE" "unwatch: kriscendobot-endo"
 "$JOBS/repo-watcher.sh" >/dev/null 2>&1
 grep -qxF "garden-triager@kriscendobot-endo.timer" "$GARDEN_MOCK_STATE" \
   && bad "triager still armed after unwatch" || ok "unwatch → disarmed triager unit"
+
+# --- self-heal a missing template unit ---------------------------------------
+# A comment-repo wants garden-comment-watcher@ AND garden-ci-watcher@. With a
+# FRESH empty $DEST (neither template rendered), the pre-fix behavior armed the
+# instance timers against absent templates and logged "could not arm …" every
+# tick forever. The fix renders the missing templates via install-units.sh —
+# once per tick — before arming. Real systemd is not needed: install-units
+# render is pure file I/O into $DEST, and daemon-reload is a mock no-op.
+export XDG_CONFIG_HOME="$TR/xdg-selfheal"; SHDEST="$XDG_CONFIG_HOME/systemd/user"
+rm -rf "$XDG_CONFIG_HOME"; mkdir -p "$SHDEST"
+: > "$GARDEN_MOCK_STATE"
+rwerr="$TR/rw-selfheal.err"
+push_change "comment-repos/kriscendobot-endo" "watch" "watch comment-repo"
+"$JOBS/repo-watcher.sh" >/dev/null 2>"$rwerr"
+[ -e "$SHDEST/garden-ci-watcher@.service" ] \
+  && ok "self-heal rendered the missing garden-ci-watcher@ template" \
+  || bad "missing ci-watcher template not self-healed"
+[ -e "$SHDEST/garden-comment-watcher@.service" ] \
+  && ok "self-heal rendered the missing garden-comment-watcher@ template" \
+  || bad "missing comment-watcher template not self-healed"
+grep -qxF "garden-ci-watcher@kriscendobot-endo.timer" "$GARDEN_MOCK_STATE" \
+  && ok "ci-watcher instance armed after template self-heal" \
+  || bad "ci-watcher instance not armed after self-heal"
+[ "$(grep -c 'running install-units.sh install' "$rwerr")" -eq 1 ] \
+  && ok "install-units invoked at most once per tick despite two missing templates" \
+  || bad "install-units not invoked exactly once per tick (self-heal guard)"
+# A second tick, templates now present, must NOT re-run the heavy install.
+rwerr2="$TR/rw-selfheal2.err"
+"$JOBS/repo-watcher.sh" >/dev/null 2>"$rwerr2"
+grep -q 'self-heal template drift' "$rwerr2" \
+  && bad "self-heal install re-ran on the no-drift tick" \
+  || ok "no-drift tick did not re-run install (templates already present)"
+unset XDG_CONFIG_HOME
 
 # ============================================================================
 hr; echo "SUBTEST 6 — MAINTAINER CHANNEL: gardener↔user via liaison, in-flight"; hr

@@ -38,6 +38,61 @@ DIR="${GARDEN_WATCHER_CLONE:-$GARDEN_STATE/repo-watcher/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
+# Where install-units.sh renders the systemd --user unit files. repo-watcher
+# derives it identically so it can tell whether a template unit for a given
+# prefix has actually been rendered into the user manager (see
+# ensure_template_installed below).
+DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
+
+# Whether we have already run install-units.sh install THIS tick. reconcile_set
+# is called once per prefix (triager / comment-watcher / ci-watcher); if more
+# than one prefix is missing its template, a single install renders them all, so
+# the install must run at most once per tick — never on the common no-drift path.
+_TEMPLATE_INSTALL_DONE=0
+
+# True (0) when the template service unit for <prefix> (e.g. garden-ci-watcher@)
+# is present. The on-disk render in $DEST is authoritative — it is exactly the
+# artifact install-units.sh produces and this script's arming targets — with a
+# user-manager cross-check so we only conclude "missing" when BOTH the render and
+# the manager lack it (a template rendered elsewhere is not re-installed).
+template_installed() {
+  local prefix="$1"
+  [ -e "$DEST/$prefix@.service" ] && return 0
+  unit_ctl list-unit-files "$prefix@.service" --no-legend 2>/dev/null \
+    | grep -qF "$prefix@.service" && return 0
+  return 1
+}
+
+# Self-heal template drift: arming an instance timer (`enable --now @<slug>.timer`)
+# against a template whose unit file was never rendered into the user manager
+# fails with "Unit file ... does not exist" on EVERY tick forever — the every-
+# minute WARN spam that drowns real warnings in a `journalctl -p warning` tail.
+# This is the live state for garden-ci-watcher@* on a host whose install-units
+# was never re-run after the templates shipped (commit 1a9448720). Rather than
+# leave "re-run install-units" as a human/agent responsibility, render+reload the
+# missing templates from within the reconcile: when <prefix>'s template is absent
+# AND at least one instance is wanted, run install-units.sh install ONCE per tick,
+# then let the caller proceed to arm. Guarded so the heavy install never runs on
+# the no-drift path (template already present → cheap file test, no install).
+ensure_template_installed() {
+  local prefix="$1"
+  template_installed "$prefix" && return 0
+  if [ "$_TEMPLATE_INSTALL_DONE" -eq 1 ]; then
+    # A prior prefix already triggered the once-per-tick install and this
+    # template is STILL absent — its source is genuinely missing from
+    # scripts/systemd/, an actionable (rare) condition, not the arming race.
+    log "WARN: template $prefix@.service still absent after install-units.sh install this tick"
+    return 1
+  fi
+  _TEMPLATE_INSTALL_DONE=1
+  log "template $prefix@.service absent from $DEST; running install-units.sh install to self-heal template drift"
+  "$GARDEN_ROOT/scripts/jobs/install-units.sh" install >/dev/null 2>&1 \
+    || log "WARN: install-units.sh install failed while self-healing missing $prefix@ template"
+  template_installed "$prefix" && return 0
+  log "WARN: template $prefix@.service still absent after install-units.sh install"
+  return 1
+}
+
 # reconcile_set <journal-subdir> <unit-prefix>
 # Arm a "<unit-prefix>@<slug>.timer" for every file under <journal-subdir>/, and
 # disarm any armed instance whose file is gone. Idempotent. Echoes a summary.
@@ -58,6 +113,16 @@ reconcile_set() {
         [ -n "$inst" ] && have["$inst"]=1;;  # skip the bare template
     esac
   done < <(unit_ctl list-unit-files "$prefix@*.timer" --no-legend 2>/dev/null || true)
+
+  # Before arming any instance, make sure the template unit for $prefix is
+  # actually rendered into the user manager; otherwise every `enable --now` below
+  # fails identically every tick (the WARN-spam this self-heal exists to stop).
+  # Only bother when something is wanted — an empty set needs no template. The
+  # return is advisory (it logs its own WARNs); swallow it so a still-missing
+  # template never aborts the tick under `set -e` — we still fall through to arm.
+  if [ "${#want[@]}" -gt 0 ]; then
+    ensure_template_installed "$prefix" || true
+  fi
 
   for slug in "${!want[@]}"; do
     if [ -z "${have[$slug]:-}" ]; then
