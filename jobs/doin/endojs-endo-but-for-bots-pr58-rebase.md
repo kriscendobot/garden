@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 Please rebase, retcon, and shepherd. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 12
+  claimed_at: 2026-07-01T15:55:46Z
