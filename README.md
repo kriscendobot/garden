@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T17:17:41Z_
+_As of 2026-07-01T17:25:13Z_
 
 ## Latest
 
-[endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) cleared its retcon-and-conduct job, the sole board movement since the last bulletin. The queue is otherwise idle — nothing in todo or doin — with attention now resting on the parked set: [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) is the freshest arrival at 29m, while [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) have each waited a day or more for kriskowal's review.
+[endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) finished its retcon-and-conduct pass and a fresh attention directive has been claimed on it. On [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), review came back APPROVED after the follow-up boundary tests landed; it's now waiting on the CI watcher to report green before un-drafting. [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — the CapTP cross-worker error-tracing PR now parked at the top of the maintainer queue — had its rebase and retcon pushed with local validation clean, and a shepherd re-run is in progress against the 22.x macOS flakes. The board is otherwise drained (todo empty, one job in flight).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 29m)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 39m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,8 +28,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr277-1be3df7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr277-1be3df7e.md) — attention directive on endojs/endo-but-for-bots PR #277
 
 ### tada (804)
 - [`ebfb-pr-277-retcon-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-277-retcon-and-conduct.md) — Completion report — job ebfb-pr-277-retcon-and-conduct
