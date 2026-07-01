@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-01T09:30:27Z_
+_As of 2026-07-01T09:43:53Z_
 
 ## Latest
 
-A new standing job, [`garden-auto-shepherd-on-red-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-auto-shepherd-on-red-ci.md), was posted and immediately claimed — it will auto-dispatch a shepherd whenever a bot-authored PR's CI goes red after a push. It now runs alongside an in-flight shepherd directive on [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers), which is the freshest PR parked for review. Recent completions cleared the board: two gardener-reliability fixes (per-job handler budget and earlier deadline-overrun escalation), a run of the garden issue-9 contract-control upgrade test to completion, and a follow-up pass on #58.
+Only one job completed since the last bulletin: [`garden-auto-shepherd-on-red-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-auto-shepherd-on-red-ci.md), which wires the fleet to auto-dispatch a shepherd when a PR's CI goes red. That machinery is already in play — a shepherd directive on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers) is the sole in-flight job, and #58 is the freshest arrival on the maintainer's parked queue (14m). Otherwise the board is drained (todo empty), with the ymax0 hex-fix verification and the XS-to-Rust port still parked in the plan queue awaiting go-ahead.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 18s)
+- [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — feat(daemon,cli): error tracing across CapTP workers (#1879) (waiting 14m)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
@@ -28,17 +28,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr58-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #58
-- [`garden-auto-shepherd-on-red-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-auto-shepherd-on-red-ci.md) — Auto-dispatch a shepherd when a bot-authored PR's CI goes red after a push
 
-### tada (793)
+### tada (794)
+- [`garden-auto-shepherd-on-red-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-auto-shepherd-on-red-ci.md) — Completion report — garden-auto-shepherd-on-red-ci
 - [`improve-gardener-deadline-overrun-early-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-deadline-overrun-early-escalation.md) — Completion report
 - [`improve-gardener-per-job-handler-budget`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-per-job-handler-budget.md) — Completion report
 - [`garden-issue-9-run-contract-control-upgrade-test-to-completion`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-issue-9-run-contract-control-upgrade-test-to-completion.md) — Completion report
 - [`fu-endojs-endo-but-for-bots-pr58-4932647c-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr58-4932647c-2.md) — Completion report
-- [`deadmail-20260701T060113Z-0b5922`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260701T060113Z-0b5922.md) — Completion report
-- … and 788 more
+- … and 789 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
