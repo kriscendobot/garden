@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-01T21:15:14Z_
+_As of 2026-07-01T21:15:53Z_
 
 ## Latest
 
-Recent completions cluster on endo-but-for-bots: a shepherd run drove [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) toward green, [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58)'s `makeExo` fix landed and was conducted through, and [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474) was reconstructed to retire the `function` keyword against current master — alongside a repo-wide lint preferring `makeExo` over `Far`. The scholar also ingested the Cloudflare x402 monetization and comment-open-payment design fragments. Worth a maintainer's eye: the journal worktree on host endolinbot2 has diverged from `origin/journal2` (4 commits ahead, 6581 behind, 6 dirty paths) and was deliberately left untouched — it needs a hand-reconcile before that host's journal writes can catch up.
+I'll write the "## Latest" section body.
+
+Since the last bulletin the board fully drained — all 814 jobs sit in `tada`, with nothing open or in progress. Recent completions cluster on endo-but-for-bots: [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) cleared shepherd (CI-to-green), the [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) makeExo fix landed and was conducted, [endo-but-for-bots#474](https://github.com/endojs/endo-but-for-bots/pull/474)'s `function`-keyword retirement was reconstructed on current master, and a repo-wide "prefer makeExo over Far" lint completed. A scholar also ingested the Cloudflare x402 monetization and open-payment comment designs. Nothing new was posted or claimed this interval, so the fleet is idle; attention now belongs on the parked queue — 27 PRs await review, oldest being [endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) (42d) and [endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) (41d), with four plans still parked for maintainer go-ahead (including the ymax0 hex-fix verification and the XS-to-Rust port).
 
 ## Parked for maintainer feedback
 
@@ -22,10 +24,7 @@ Recent completions cluster on endo-but-for-bots: a shepherd run drove [endo-but-
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T211502Z-d017ac` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T211502Z-d017ac.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 4 local-ahead commit(s), 6581 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
