@@ -64,3 +64,9 @@ directory-watching primitive belongs here rather than in the daemon.
 
 - Design: `designs/filesystem-watchers.md` (canonical).
 - The merged implementation is the source of truth for behavior parity.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 81
+  claimed_at: 2026-07-01T23:58:13Z
