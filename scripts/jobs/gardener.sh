@@ -143,6 +143,15 @@ while :; do
   # divert the handler's combined stdout+stderr here so a failure can be captured
   # by hash instead of vanishing into this gardener's systemd journal.
   capture="$(mktemp "${TMPDIR:-/tmp}/garden-capture-$base.XXXXXX")"
+  # Completion sentinel — the DETERMINISTIC "the job genuinely finished" signal
+  # (common.sh § job completion signal). The handler writes this path IFF the
+  # worker completed (claude exited 0 AND emitted GARDEN_COMPLETION_MARKER as its
+  # final act); its PRESENCE — never the handler exit code — gates doin→tada
+  # below. Created as a name and removed up front so it is absent until the
+  # handler proves completion; a handler that exits 0 WITHOUT writing it (a quota
+  # cut mid-response, an unsatisfying run) is requeued, not recorded as done.
+  completion_sentinel="$(mktemp "${TMPDIR:-/tmp}/garden-done-$base.XXXXXX")"
+  rm -f "$completion_sentinel"
 
   # Silent-until-error is the default: the happy path emits no claim/complete
   # progress lines (across a ~100-gardener fleet these pairs were the dominant
@@ -196,7 +205,21 @@ while :; do
   # which the rc-only classification cannot tell apart until the reaper's poison
   # threshold. SECONDS is read-only timing state; no new board state.
   handler_start=$SECONDS
-  if GARDEN_GARDENER_ID="$id" timeout --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$GARDEN_HANDLER_TIMEOUT" "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1; then
+  # Run the handler and capture its exit code EXPLICITLY (not folded into an `if`
+  # compound) so the completion gate below can branch on the three distinct
+  # outcomes independently: (0 + sentinel)=complete, (0 + no sentinel)=exit-0-
+  # unsatisfying requeue, (non-zero)=the existing transient-vs-real classifier.
+  set +e
+  GARDEN_GARDENER_ID="$id" GARDEN_COMPLETION_SENTINEL="$completion_sentinel" \
+    timeout --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$GARDEN_HANDLER_TIMEOUT" \
+    "$GARDEN_JOB_HANDLER" "$base" "$jobfile" "$report" >"$capture" 2>&1
+  hrc=$?
+  set -e
+  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
+    # DETERMINISTIC COMPLETION GATE: the handler both exited 0 AND wrote the
+    # completion sentinel (the worker reached its final act and emitted
+    # GARDEN_COMPLETION_MARKER). Only now do we record the job done (doin→tada).
+    #
     # complete-job.sh runs sync_clone, which exits GARDEN_OFFLINE_RC on a
     # transient outage — under set -e that would crash the worker on a blip after
     # the handler already succeeded. Tolerate the offline rc: the job stays in
@@ -207,7 +230,7 @@ while :; do
     set -e
     if [ "$crc" -eq "${GARDEN_OFFLINE_RC:-75}" ]; then
       log "offline during completion of '$base' (rc=$crc); left in doin for TTL requeue"
-      rm -f "$report" "$capture"
+      rm -f "$report" "$capture" "$completion_sentinel"
       idle_backoff "$idle_attempt"; idle_attempt=$((idle_attempt+1))
       continue
     fi
@@ -216,8 +239,36 @@ while :; do
       printf 'gardener-%s on %s completed job %s\n' "$id" "$GARDEN" "$base" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
     fi
+  elif [ "$hrc" -eq 0 ]; then
+    # EXIT-0-UNSATISFYING: the handler exited 0 but the completion sentinel is
+    # absent — it NEVER signaled completion — a `claude` that exited cleanly
+    # without finishing: quota/usage cut mid-response, an API error swallowed to a
+    # clean exit, or a run that "did not reach a satisfying conclusion." This is
+    # the gap the deterministic-requeue directive closes: DO NOT complete it
+    # (doin→tada would record unfinished work as done and lose it — the reaper
+    # never requeues tada). Instead requeue it the SAME way a transient non-zero
+    # failure is requeued: leave it in doin and stamp a reap-now hint so the
+    # reaper (the single writer of the requeue AND the poison counter) moves it
+    # doin→todo on its next tick and increments `<!-- garden-reaped: N -->`. A job
+    # that keeps exiting-0-unsatisfying every cycle therefore escalates to the
+    # maintainer as POISON after GARDEN_REAP_POISON_THRESHOLD cycles — bounded
+    # requeue, never silently lost, never infinitely requeued. No $capture
+    # diagnostic is escalated: a clean exit-0 produced no failure output, so this
+    # is a kind:progress note, not a kind:error.
+    elapsed=$((SECONDS - handler_start))
+    cycle="$(reap_count "$jobfile")"
+    log "handler for '$base' exited 0 WITHOUT the completion signal (exit-0-unsatisfying: quota/API/clean-but-unfinished); requeueing (requeue cycle $cycle, elapsed=${elapsed}s), left in doin for reaper requeue"
+    printf 'gardener-%s on %s: job %s handler exited 0 but never emitted the completion signal (exit-0-unsatisfying — claude quota/usage cut, swallowed API error, or unfinished run); requeueing doin→todo (requeue cycle %s, elapsed=%ss), left in doin for reaper requeue (no escalation)\n' \
+      "$id" "$GARDEN" "$base" "$cycle" "$elapsed" \
+      | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+    if ( stamp_reap_now_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
+      log "stamped reap-now hint on '$base'; reaper will requeue before TTL (poison cycle still counts)"
+    else
+      log "could not stamp reap-now hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
+    fi
+    rm -f "$report" "$capture" "$completion_sentinel"
   else
-    rc=$?  # exit code of the failed handler — capture FIRST, before any command clobbers $?
+    rc=$hrc  # exit code of the failed handler (captured explicitly above)
     elapsed=$((SECONDS - handler_start))  # wall-clock seconds the handler ran before it died
     # The job handler — the gardening state machine / a `claude -p` inner agent —
     # exited non-zero. Its combined stdout+stderr is in $capture. DO NOT discard
@@ -377,5 +428,5 @@ while :; do
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" error || true
     fi
   fi
-  rm -f "$report" "$capture"
+  rm -f "$report" "$capture" "$completion_sentinel"
 done

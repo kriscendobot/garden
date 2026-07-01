@@ -105,6 +105,14 @@ You are a garden gardener (role brief: $role_brief). You have claimed job
 then write a concise completion report (what you did, what changed, any
 follow-ups) to stdout. Output ONLY the report.
 
+COMPLETION SIGNAL (required): ONLY when you have GENUINELY finished the job, emit
+the exact line
+    $GARDEN_COMPLETION_MARKER
+as the very LAST line of your report, on its own line, as your final act. This is
+the deterministic signal that the job completed. If you did NOT finish — you ran
+out of turns, hit a wall, or are unsure the work is done — do NOT emit that line;
+the job will be requeued and resumed rather than falsely recorded as done.
+
 $worktree_note
 
 Messaging discipline (you are a living agent on the message bus):
@@ -163,6 +171,13 @@ CONTINUE from where you left off, driving the job to completion. Re-read the job
 spec below in case anything changed, then finish and write ONLY the concise
 completion report (what you did, what changed, any follow-ups) to stdout.
 
+COMPLETION SIGNAL (required): ONLY when you have GENUINELY finished the job, emit
+the exact line
+    $GARDEN_COMPLETION_MARKER
+as the very LAST line of your report, on its own line, as your final act. If you
+still did NOT finish, do NOT emit that line — the job will be requeued and
+resumed again rather than falsely recorded as done.
+
 $worktree_note
 
 ----- JOB $base -----
@@ -192,12 +207,29 @@ set +e
 rc=$?
 set -e
 
-# Teardown on COMPLETION only. A zero exit means the job finished (gardener.sh
-# will move it doin->tada); reclaim the worktree now. A non-zero exit means the
-# handler failed or was killed: LEAVE the worktree so a reaper requeue resumes
-# into the same in-flight checkout. A truly dead job's worktree is reclaimed by
-# the reaper's scratch janitor after GARDEN_SCRATCH_GC_AGE hours of quiescence.
-if [ "$rc" -eq 0 ]; then
+# --- deterministic completion signal -----------------------------------------
+#
+# gardener.sh gates doin→tada on the PRESENCE of the sentinel at
+# GARDEN_COMPLETION_SENTINEL, NOT on this handler's exit code (common.sh § job
+# completion signal). Write that sentinel ONLY when the worker GENUINELY finished:
+# `claude` exited 0 AND its report's final line is GARDEN_COMPLETION_MARKER (the
+# worker's instructed final act). A `claude` that exited 0 without finishing —
+# quota/usage cut mid-response, a swallowed API error, or an unsatisfying run that
+# never reached the final act — leaves the marker absent, so no sentinel is
+# written and gardener.sh requeues the job instead of recording it done and losing
+# it in tada. Strip the marker before it lands in the human-facing tada report.
+if [ "$rc" -eq 0 ] && [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && report_has_completion_marker "$report"; then
+  strip_completion_marker "$report"
+  : > "$GARDEN_COMPLETION_SENTINEL"
+fi
+
+# Teardown on genuine COMPLETION only — keyed on the same completion signal
+# gardener.sh gates on, NOT the bare exit code. A clean-but-unfinished exit-0
+# (no marker → no sentinel) is going to be REQUEUED, so its worktree must survive
+# for the resumed run exactly like a non-zero failure's does. A truly dead job's
+# worktree is reclaimed by the reaper's scratch janitor after
+# GARDEN_SCRATCH_GC_AGE hours of quiescence.
+if [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && [ -e "$GARDEN_COMPLETION_SENTINEL" ]; then
   scratch_cleanup "$worktree"
 fi
 exit "$rc"

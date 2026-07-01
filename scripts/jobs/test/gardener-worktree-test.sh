@@ -111,8 +111,17 @@ if [ -n "${FAKE_CLAUDE_FAIL:-}" ]; then
   exit "$FAKE_CLAUDE_FAIL"
 fi
 printf 'job done\n'
+# A genuine completion emits the completion marker as its final line (the worker's
+# instructed final act); the handler keys the sentinel + teardown on it.
+[ -n "${FAKE_COMPLETION_MARKER:-}" ] && printf '%s\n' "$FAKE_COMPLETION_MARKER"
 FAKE
 chmod +x "$FAKEDIR/claude"
+
+# The completion marker the production handler gates on, read straight from
+# common.sh so the test can never drift from the real signal string.
+MARKER="$(sed -n "s/^GARDEN_COMPLETION_MARKER='\(.*\)'\$/\1/p" "$JOBS_SRC/common.sh" | head -1)"
+[ -n "$MARKER" ] || { echo "  SKIP: could not read GARDEN_COMPLETION_MARKER from common.sh"; exit 0; }
+SENTINEL="$TR/completion.sentinel"
 
 # Common env for a handler run. HOME is redirected into $TR so the fake claude's
 # transcript (and the handler's resume probe) stay hermetic.
@@ -122,9 +131,16 @@ run_handler() {  # run_handler <base> <jobfile> <report> ; sets global RC
   # so without overriding here the handler would build a worktree in the REAL
   # garden's scratch. Invoke via `bash` rather than execute directly: the sandbox
   # can mount the temp tree noexec, so a copied +x script still fails with rc=126.
+  #
+  # gardener.sh always passes GARDEN_COMPLETION_SENTINEL and the handler keys its
+  # teardown on that sentinel (written only on a genuine, marker-signaled
+  # completion), so mirror that contract here: a fresh sentinel path per run, plus
+  # the marker the fake claude emits on success.
+  rm -f "$SENTINEL"
   HOME="$TR/home" PATH="$FAKEDIR:$PATH" \
     GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_STATE="$TR/state" \
     GARDEN_NO_MAINTAINER_ALERT=1 \
+    GARDEN_COMPLETION_SENTINEL="$SENTINEL" FAKE_COMPLETION_MARKER="$MARKER" \
     FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" \
     bash "$HANDLER" "$1" "$2" "$3"
   RC=$?
@@ -146,6 +162,13 @@ cwd1="$(cat "$TR/cwd.out" 2>/dev/null)"
   || bad "claude ran in the root tree '$GROOT'"
 [ "$(cat "$TR/mode.out" 2>/dev/null)" = "fresh" ] && ok "fresh claim starts a fresh session" \
   || bad "fresh claim should start a fresh session, not resume"
+# The marker-signaled completion wrote the sentinel gardener.sh gates doin→tada on.
+[ -e "$SENTINEL" ] && ok "marker-signaled completion wrote the completion sentinel" \
+  || bad "completion sentinel not written on a genuine completion"
+# The machine marker is stripped from the human-facing report.
+grep -qF "$MARKER" "$REPORT" \
+  && bad "completion marker leaked into the tada report (should be stripped)" \
+  || ok "completion marker stripped from the report"
 # The deployed root tree is untouched by the job's development.
 [ -z "$(git -C "$GROOT" status --porcelain)" ] && ok "deployed root tree left clean" \
   || bad "root tree dirtied: $(git -C "$GROOT" status --porcelain | tr '\n' ';')"

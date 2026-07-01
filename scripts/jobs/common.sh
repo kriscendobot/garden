@@ -936,6 +936,61 @@ is_transient_empty_failure() {
   esac
 }
 
+# --- job completion signal ---------------------------------------------------
+#
+# The deterministic "the job genuinely finished" contract between the `claude -p`
+# worker, its handler, and gardener.sh. gardener.sh gates a doin→tada completion
+# on the PRESENCE of the completion SENTINEL file (GARDEN_COMPLETION_SENTINEL),
+# NOT on the handler's exit code. A `claude` that exits 0 without finishing —
+# quota/usage cut mid-response, an API error swallowed to a clean exit, or a run
+# that simply "did not reach a satisfying conclusion" — must NOT be recorded as
+# done (doin→tada) and lost in tada where the reaper never requeues it. Instead
+# the absence of the sentinel makes gardener.sh requeue the job (via the reaper's
+# single-writer reap-now path), exactly as a non-zero transient failure does.
+#
+# The signal has two layers so gardener.sh stays handler-agnostic:
+#   1. WORKER contract — the `claude -p` agent emits GARDEN_COMPLETION_MARKER as
+#      the final line of its report, as its last deterministic act, ONLY when it
+#      has genuinely finished the job. A truncated/quota-cut/unsatisfying run does
+#      not reach that final act, so the marker is absent.
+#   2. HANDLER contract — the handler confirms `claude` exited 0 AND the marker is
+#      present (report_has_completion_marker), strips the marker from the report
+#      (strip_completion_marker, so it never lands in the tada report), and only
+#      then writes the sentinel at GARDEN_COMPLETION_SENTINEL. A test stub that
+#      simulates a genuine completion just writes the sentinel directly.
+# gardener.sh reads only the sentinel: present → complete; absent → requeue.
+GARDEN_COMPLETION_MARKER='<<<GARDEN-JOB-COMPLETE>>>'
+
+# report_has_completion_marker <report-file> — 0 iff the report's LAST non-blank
+# line is exactly the completion marker (the worker's final deterministic act).
+# Anchoring on the last non-blank line means a marker quoted mid-report (a job
+# spec that mentions it, a diff) cannot forge completion — only a run that reached
+# its final act and emitted the marker last passes.
+report_has_completion_marker() {
+  local f="${1:-}" last
+  [ -f "$f" ] || return 1
+  last="$(awk 'NF{l=$0} END{print l}' "$f")"
+  [ "$last" = "$GARDEN_COMPLETION_MARKER" ]
+}
+
+# strip_completion_marker <report-file> — remove the trailing completion-marker
+# line (and any surrounding trailing blank lines) in place, so the human-facing
+# tada report never carries the machine marker. No-op if the marker is absent.
+strip_completion_marker() {
+  local f="${1:-}"
+  [ -f "$f" ] || return 0
+  awk -v m="$GARDEN_COMPLETION_MARKER" '
+    { line[NR]=$0 }
+    END {
+      n=NR
+      while (n>0 && line[n] ~ /^[ \t]*$/) n--   # trailing blanks
+      if (n>0 && line[n]==m) n--                # the marker line itself
+      while (n>0 && line[n] ~ /^[ \t]*$/) n--   # blanks that preceded it
+      for (i=1;i<=n;i++) print line[i]
+    }
+  ' "$f" > "$f.stripmarker" && mv "$f.stripmarker" "$f"
+}
+
 # reap_count <jobfile> — the reaper's requeue-cycle count carried on a job, read
 # from its `<!-- garden-reaped: N -->` marker (the marker reaper.sh writes; format
 # REAP_MARKER_RE). Echoes N, or 0 when the marker is absent (a first-pass job the
