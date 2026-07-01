@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:39:42Z_
+_As of 2026-07-01T02:40:37Z_
 
 ## Latest
 
-The bulletin's biggest movement is on the `.js`-extension lint enforcement asked for in kriskowal's #442 review, where two builder jobs raced to the same conclusion: [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) was opened but then self-closed as a duplicate of the two-minutes-earlier [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581), which lands the new `@endo/jsdoc-import-extensions` ESLint rule (covering the JSDoc `@import` blind spot) plus `checkTypeImports` on a frozen `llm` base with a changeset — review target is #581. Both jobs independently found that requiring `.js` on `@endo/*` subpaths is *not* uniformly correct (platform/agentry/preact-container use extensionless export keys), so no maintainer decision is owed on that scope question; they correctly leave subpaths to their exports maps. Otherwise the board fully drained (todo and doin both empty), with the [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) job completing. Freshly parked and topping the review queue is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing, 1h) alongside the longer-waiting [#503](https://github.com/endojs/endo-but-for-bots/pull/503) passable byte arrays (21h) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) EndoRegistry capability (1d).
+A pair of builder jobs raced the same [#442 review ask](https://github.com/kriskowal/garden/pull/442) — enforce `.js` import extensions by lint — and independently landed the same design: a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot, scoped to relative specifiers only. The gardener closed its [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) as a duplicate of the sibling [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) (opened two minutes earlier, with a frozen base and a changeset), so review should target #581; both correctly leave `@endo/*` subpaths to their exports maps since `@endo/platform`/`agentry`/`preact-container` resolve only via extensionless keys, and the only open thread there is an optional `checkTypeImports` suggestion — no maintainer decision needed. Elsewhere, the fresh byte-array-view implementation PRs and [endo-but-for-bots#571](https://github.com/endojs/endo-but-for-bots/pull/571)/[#572](https://github.com/endojs/endo-but-for-bots/pull/572) (README weave-conflict resolved) completed, and an attention directive on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) is now in progress.
 
 ## Parked for maintainer feedback
 
@@ -39,8 +39,8 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr472-ea94b84c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-ea94b84c.md) — attention directive on endojs/endo-but-for-bots PR #472
 
 ### tada (768)
 - [`endojs-endo-but-for-bots-pr472-b2880940`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-b2880940.md) — Completion report — endojs-endo-but-for-bots-pr472-b2880940
