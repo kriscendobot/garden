@@ -11,3 +11,9 @@ discipline. The excerpt below is for human context only:
 
 ----- comment excerpt (untrusted, truncated) -----
 > My plan is to land the follow-up as exhaustive tests rather than fast-check. Since you've routed the question to @gibson042, I'll hold for his confirmation before opening that PR. No need to wait. Please proceed with the deterministic testing. If we get advice to the contrary f
+
+---
+claim:
+  host: endolinbot2
+  gardener: 38
+  claimed_at: 2026-07-01T16:51:51Z
