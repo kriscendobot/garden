@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-01T17:42:30Z_
+_As of 2026-07-01T17:44:15Z_
 
 ## Latest
 
-A review directive on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) completed, and follow-on work is in flight: replacing `Far` with `makeExo` per an approved nit and conducting the now-APPROVED PR, plus a companion job establishing a lint rule that prefers `makeExo` over `Far` across [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) (that rule's authoring already landed in tada). Also recently closed out: the [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) retcon-and-conduct and the [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) approved boundary-test follow-up, which is waiting on green CI before un-drafting. Separately, the Agoric mirror job addressing upstream #320 feedback and CI on kriscendobot's fork remains active. The parked queue holds steady at 27 PRs awaiting kriskowal — the freshest being the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
+Only the mirror PR job completed since last bulletin, so little of substance moved.
+
+The [agoric-3-proposals mirror PR #1](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci.md) work addressing v320 feedback and CI landed, while three jobs remain in flight around [endojs/endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — swapping `Far` for `makeExo` on an approved nit before conducting the APPROVED PR, plus establishing a companion lint rule preferring `makeExo` over `Far`.
 
 ## Parked for maintainer feedback
 
@@ -28,19 +30,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci.md) — Address all feedback + CI failures from upstream #320 on OUR MIRROR (kriscend...
+### doin (3)
 - [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr-58-makeexo-fix-and-conduct.md) — PR #58 — replace Far with makeExo (approved nit), then conduct (APPROVED)
 - [`endojs-endo-but-for-bots-lint-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-lint-prefer-makeexo-over-far.md) — Establish a lint rule preferring makeExo over Far (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-pr58-review-31df538e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr58-review-31df538e.md) — Review directive on endojs/endo-but-for-bots PR #58
 
-### tada (807)
+### tada (808)
+- [`agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-mirror-pr1-address-320-feedback-and-ci.md) — Completion report
 - [`endojs-endo-but-for-bots-pr58-130cc3b1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr58-130cc3b1.md) — Completion report — job endojs-endo-but-for-bots-pr58-130cc3b1
 - [`ebfb-lint-rule-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-lint-rule-prefer-makeexo-over-far.md) — Completion report: ebfb-lint-rule-prefer-makeexo-over-far
 - [`endojs-endo-but-for-bots-pr277-1be3df7e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-1be3df7e.md) — Completion report
 - [`ebfb-pr-277-retcon-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-277-retcon-and-conduct.md) — Completion report — job ebfb-pr-277-retcon-and-conduct
-- [`ebfb-pr472-followup-boundary-tests`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr472-followup-boundary-tests.md) — Review APPROVED. Now waiting on the CI watcher to report green before un-draf...
-- … and 802 more
+- … and 803 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
