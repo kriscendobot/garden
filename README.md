@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T01:15:21Z_
+_As of 2026-07-01T01:16:22Z_
 
 ## Latest
 
-No jobs changed state this cycle, so activity is concentrated in what's in flight. The gardeners are reworking [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing) to actually fix the error rendering *and* verify it in a real Chrome — the direct application of the just-landed "verification claims require real execution evidence" directive — alongside a review directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442) and issue kriskowal/garden#20. #58 has been parked for maintainer review for an hour; [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) has now waited 20h and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (registry-capability) over a day.
-
-One item needs a human hand: the `endolinbot2` journal worktree at `/home/kris/journal` has **diverged** from `origin/journal2` — 3 commits ahead, 6052 behind, 6 dirty paths — and the keeper left it untouched rather than clobber local work. It won't self-reconcile; inspect and rebase/discard by hand per the maintainer message.
+Phase 0–1 of the bid/accept market build landed (completion report on `build-bid-accept-market-phase0-1`), clearing the last in-flight doin from the prior cycle. Two threads are worth a maintainer's eye. On [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP error tracing), a fresh job now insists on actually fixing the error rendering *and* verifying it in a real Chrome — a direct response to the prior "verified" claim that only checked message rendering; a parallel attention directive on the same PR is also being worked. [endo-but-for-bots#277](https://github.com/endojs/endo-but-for-bots/pull/277) has passed review and is waiting on the CI-settle watcher before a conductor merge. Also active: the name-hub interface unification build unblocked by #277, twin builder jobs enforcing `.js` extensions on module specifiers via lint on [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots), a review directive on [endo-but-for-bots#442](https://github.com/endojs/endo-but-for-bots/pull/442), and issue [kriskowal/garden#20](https://github.com/kriskowal/garden/issues/20). The board is otherwise drained — todo is empty and no new posts arrived this cycle.
 
 ## Parked for maintainer feedback
 
@@ -24,17 +22,13 @@ One item needs a human hand: the `endolinbot2` journal worktree at `/home/kris/j
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T011512Z-67bbf6` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T011512Z-67bbf6.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 3 local-ahead commit(s), 6052 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (9)
-- [`build-bid-accept-market-phase0-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-bid-accept-market-phase0-1.md) — Build: bid/accept market — Phase 0/1 (opt-in field + shadow reputation ledger)
+### doin (8)
 - [`build-ebfb-namehub-interface-unification`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-ebfb-namehub-interface-unification.md) — Build: EndoMount name-hub interface unification (unblocked by PR #277)
 - [`builder-ebfb-enforce-js-extension-jsdoc-import-lint`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/builder-ebfb-enforce-js-extension-jsdoc-import-lint.md) — builder: enforce .js extension on module specifiers via lint (endojs/endo-but...
 - [`deadmail-issue-comment-4849045455`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4849045455.md) — Dead-lettered message — pick up its intent
@@ -44,13 +38,13 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - [`enforce-js-extension-lint-endo-but-for-bots`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/enforce-js-extension-lint-endo-but-for-bots.md) — Builder: enforce .js extension on imports via lint (endojs/endo-but-for-bots)
 - [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-20.md) — Issue from kriskowal on kriskowal/garden #20
 
-### tada (746)
+### tada (747)
+- [`build-bid-accept-market-phase0-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-bid-accept-market-phase0-1.md) — Completion report
 - [`endojs-endo-but-for-bots-pr277-review-64e9f470`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-review-64e9f470.md) — Waiting on the CI-settle watcher; I'll dispatch the conductor merge once chec...
 - [`garden-encode-verification-claims-require-real-evidence`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-verification-claims-require-real-evidence.md) — The work is complete and landed on main2. Here is my completion report.
 - [`endojs-endo-but-for-bots-pr442-f8df35b4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr442-f8df35b4.md) — Completion report
 - [`kriskowal-garden-pr16-review-94229b78`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/kriskowal-garden-pr16-review-94229b78.md) — Completion report — job kriskowal-garden-pr16-review-94229b78
-- [`endojs-endo-but-for-bots-pr277-268a7246`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr277-268a7246.md) — Job complete. Here is my report.
-- … and 741 more
+- … and 742 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
