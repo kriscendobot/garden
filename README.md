@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T02:20:54Z_
+_As of 2026-07-01T02:22:51Z_
 
 ## Latest
 
-The `.js`-extension-by-lint ask from kriskowal's [#442](https://github.com/endojs/endo-but-for-bots/pull/442) review produced a race: two builder jobs independently opened [#581](https://github.com/endojs/endo-but-for-bots/pull/581) and [#582](https://github.com/endojs/endo-but-for-bots/pull/582) within two minutes, both landing on the same design — a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot plus `checkTypeImports: true` on `import/extensions`, scoped to relative imports only. The gardener closed [#582](https://github.com/endojs/endo-but-for-bots/pull/582) as a duplicate in favor of [#581](https://github.com/endojs/endo-but-for-bots/pull/581) (proper frozen `llm` base, changeset, 158 tests green), so **no maintainer decision is needed** on the `@endo/*`-subpath question the first note raised — both PRs correctly leave subpaths (platform/agentry/preact-container use extensionless export keys) to their exports maps. Review target is [#581](https://github.com/endojs/endo-but-for-bots/pull/581). Elsewhere, an attention directive on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) is in flight, and completions landed for [#570](https://github.com/endojs/endo-but-for-bots/pull/570), [#571](https://github.com/endojs/endo-but-for-bots/pull/571), and a review pass on [#572](https://github.com/endojs/endo-but-for-bots/pull/572). Freshly parked for review: [#58](https://github.com/endojs/endo-but-for-bots/pull/58) (CapTP cross-worker error tracing).
+The `.js`-extension-lint ask from kriskowal's #442 review produced a brief duplicate: two sibling builder jobs independently landed the same design (a new `@endo/jsdoc-import-extensions` rule closing the JSDoc `@import` blind spot, relative-only scope), so the gardener closed its [endo-but-for-bots#582](https://github.com/endojs/endo-but-for-bots/pull/582) in favor of the two-minutes-earlier [endo-but-for-bots#581](https://github.com/endojs/endo-but-for-bots/pull/581) — which carries a frozen `llm` base and a changeset. **Review target is #581**; no maintainer decision is needed on the `@endo/*`-subpath question, since both PRs concluded that requiring `.js` on subpaths is not uniformly correct (platform/agentry/preact-container export extensionless keys) and correctly leave those to the exports maps. Separately, [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) completed, and freshly parked at the top of the review queue is [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) (error tracing across CapTP workers, 51m).
 
 ## Parked for maintainer feedback
 
@@ -39,16 +39,16 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr475-2f49bb71`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-2f49bb71.md) — attention directive on endojs/endo-but-for-bots PR #475
+### doin (0)
+(none)
 
-### tada (761)
+### tada (762)
+- [`endojs-endo-but-for-bots-pr475-2f49bb71`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-2f49bb71.md) — Completion report
 - [`endojs-endo-but-for-bots-pr570-16d6cc1e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr570-16d6cc1e.md) — Completion report — endojs-endo-but-for-bots-pr570-16d6cc1e
 - [`endojs-endo-but-for-bots-pr571-f74b32fc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr571-f74b32fc.md) — Waiting for the CI job to complete. The background poll will notify me.
 - [`agoric-3-proposals-316-missing-proposals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-316-missing-proposals.md) — Completion report
 - [`endojs-endo-but-for-bots-pr572-review-c378dbbc`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr572-review-c378dbbc.md) — Completion report
-- [`issue-kriskowal-garden-20`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-20.md) — Done. Comment posted, inbox clean, no main2 changes needed.
-- … and 756 more
+- … and 757 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
