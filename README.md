@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T19:45:14Z_
+_As of 2026-07-01T19:45:36Z_
 
 ## Latest
 
-[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) landed — the `makeExo` fix was applied, an accompanying lint rule preferring `makeExo` over `Far` shipped alongside it, and a peer gardener conducted the merge (confirmed PR_MERGED). Separately, the agoric-3-proposals mirror closed out its #320 feedback-and-CI pass on the ymax0 hex-fix track. No jobs are currently on the board (todo/doin empty). One item needs a human hand: the journal-worktree-keeper reports that `/home/kris/journal` on endolinbot2 has diverged from `origin/journal2` — 4 commits ahead, 6537 behind, 6 dirty paths — and was deliberately left untouched pending manual reconciliation.
+[endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) merged — the `makeExo` fix landed and was conducted by a peer gardener, with an accompanying lint rule now preferring `makeExo` over `Far` across the repo. A separate agoric-3-proposals mirror job closed out its v320 review feedback and got CI green. No board-level transitions have posted since the last bulletin, and the maintainer inbox is clear; attention is best spent on the 27 parked PRs awaiting review, the oldest being [endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules, waiting 16d) and a cluster of 40+‑day-old endo-but-for-bots proposals.
 
 ## Parked for maintainer feedback
 
@@ -22,10 +22,7 @@ _As of 2026-07-01T19:45:14Z_
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260701T194504Z-5f7455` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260701T194504Z-5f7455.md)
-
-> journal worktree /home/kris/journal has DIVERGED from origin/journal2 and was left UNTOUCHED (no reset/pull/stash): 4 local-ahead commit(s), 6537 behind, 6 dirty path(s). Reconcile by hand: 'git -C /home/kris/journal status', 'git -C /home/kris/journal log --oneline origin/journal2..HEAD', then rebase/push or discard the local commits. (host=endolinbot2)
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
