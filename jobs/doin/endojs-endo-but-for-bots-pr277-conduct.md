@@ -14,3 +14,9 @@ net PR diff is byte-identical to the pre-retcon diff. The force-push restarted
 CI, so do NOT merge until the checks are green. Confirm CI green on the new tip,
 then conduct (merge) per roles/conductor/AGENT.md (let the conductor pick the
 merge method). Base branch is `llm`.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-07-01T05:24:56Z
