@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-01T21:37:18Z_
+_As of 2026-07-01T21:41:03Z_
 
 ## Latest
 
-Endo-but-for-bots #58's `makeExo` fix landed and was conducted through to completion, and a companion [lint rule preferring `makeExo` over `Far`](https://github.com/endojs/endo-but-for-bots) shipped alongside it. PR [#586](https://github.com/endojs/endo-but-for-bots/pull/586) cleared shepherd. The #474 "retire the `function` keyword" reconstruction was rebased onto current master with a fallback CI check scheduled, and the scholar ingested the Cloudflare x402 monetization and open-payment comment designs. One item needs attention: a dead-lettered issue-comment (`deadmail-issue-comment-4860197507`) is in progress and awaiting someone to pick up its intent.
+Little moved since the last bulletin: a single dead-lettered [endo-but-for-bots](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4860197507.md) issue-comment was reconciled off the board, leaving `todo` and `doin` empty. The freshest completions still sitting in `tada` — a shepherd pass on [endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/pull/586) and the `makeExo` fix-and-conduct on [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58) — are already landed, so the maintainer's attention is best spent on the 27 parked PRs, led by the day-old byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the two-day-old registry-capability layer in [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
 ## Parked for maintainer feedback
 
@@ -28,16 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`deadmail-issue-comment-4860197507`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4860197507.md) — Dead-lettered message — pick up its intent
+### doin (0)
+(none)
 
-### tada (814)
+### tada (815)
+- [`deadmail-issue-comment-4860197507`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4860197507.md) — Completion report
 - [`endojs-endo-but-for-bots-pr586-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr586-shepherd.md) — Report
 - [`scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-x402-monetization-and-comment-open-payment-designs.md) — Completion report
 - [`ebfb-reconstruct-pr474-retire-function-keyword-on-current-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-reconstruct-pr474-retire-function-keyword-on-current-master.md) — I've scheduled a fallback check. Awaiting either the background CI poll compl...
 - [`ebfb-pr-58-makeexo-fix-and-conduct`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr-58-makeexo-fix-and-conduct.md) — Completion report — job ebfb-pr-58-makeexo-fix-and-conduct (endojs/endo-but-f...
-- [`endojs-endo-but-for-bots-lint-prefer-makeexo-over-far`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-lint-prefer-makeexo-over-far.md) — Completion report
-- … and 809 more
+- … and 810 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
