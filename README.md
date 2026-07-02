@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T22:34:47Z_
+_As of 2026-07-02T22:35:29Z_
 
 ## Latest
 
-A live infrastructure incident tops the queue: the `endolinbot2` host-identity drift is still active on the true leader host, so `is-main-host` resolves FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, triager, issue-inbox, orchestrate, and the maintainer-inbox Monitor) is being silently skipped — the investigating gardener asks you to either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2`, then restart the fleet. That same drift compounded a Claude quota outage on 07-01/07-02 into **five poisoned garden-infra jobs** the reaper dropped after 5 requeue cycles: the `daemon.js`→`manager.js` rename build, an identity-drift detector, a gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, and repo-watcher arm-retry — each awaiting your triage. Two calls need your judgment specifically: on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 rebuts the freezable-TypedArray design's "why not a Proxy wrapper" section and wants you and @erights to weigh in on plain-object-vs-Proxy-throwing-on-index-writes; and shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed — its entire error-tracing feature already re-landed on `llm` via merged [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), so it recommends closing #301 (only two small refactors, `error-id.js` and `trace-constants.js`, remain unique). Meanwhile the daemon→manager rename resurfaced as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) (Phase 1), with Phase 2/3 parked and blocked on it. The board is otherwise quiet — one review job in flight and nothing new claimed this window.
+The one board completion since the last bulletin is the review of [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (the freezable-TypedArray design doc), which surfaced a **design decision that needs your call**: @gibson042 rebuts all three of the doc's "Why not a Proxy wrapper?" arguments and pushes for a Proxy `set` trap that throws on canonical-index writes; he explicitly asked for you and @erights to weigh in. Nothing was pushed — reply on the PR thread or in the inbox.
+
+The bigger thing to notice is an active infrastructure incident: the **endolinbot2 host-identity drift is still live on the leader host** — `/home/kris/.garden` reads `endolinbot2` while the leader marker and `hostname -s` say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is being silently skipped, with all recent gardener entries mislabeled `endolinbot2`. This same drift compounded the recent Claude quota outage that poisoned five garden-infra improvement jobs (identity-drift detector, gardener transient-failure backoff/fleet brake, issue-inbox git reaping, repo-watcher arm retry, and the daemon→manager rename build). The fix is operational and out of a gardener's scope: correct the shard file (`echo endolinbot > /home/kris/.garden`) or re-point the marker to `endolinbot2`, then restart the fleet.
+
+Separately, a shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found it is **subsumed, not lint-blocked** — its error-tracing feature already re-landed on `llm` via the merged #58, collapsing a rebase to essentially empty; the recommendation is to close #301 as superseded (optionally extracting its two small refactor artifacts into a fresh PR). The daemon→manager rename is otherwise progressing: Phase 2 is blocked awaiting [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phase 3 queued behind it.
 
 ## Parked for maintainer feedback
 
@@ -239,16 +243,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr472-review-72d18f86`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-72d18f86.md) — Review directive on endojs/endo-but-for-bots PR #472
+### doin (0)
+(none)
 
-### tada (968)
+### tada (969)
+- [`endojs-endo-but-for-bots-pr472-review-72d18f86`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-72d18f86.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s4.md) — Supervisor s4 completion report — xs2rust-endor port, PR endojs/endo-but-for-...
 - [`improve-ci-rollup-retry-transient-network-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-retry-transient-network-error.md) — Completion report
 - [`improve-clone-keeper-provisions-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-provisions-missing-clone.md) — Completion report
 - [`endojs-endo-but-for-bots-pr594-0d2956f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr594-0d2956f9.md) — Completion report
-- [`issue-kriskowal-garden-23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-23.md) — Completion report
-- … and 963 more
+- … and 964 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
