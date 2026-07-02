@@ -71,3 +71,9 @@ are branch-introduced, not upstream drift.
 - No test deletions / skips / `--no-verify` / disabled safety checks.
 - Each fix an atomic commit on the PR's own head (design/gateway-package-phase-6),
   bot identity.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 9
+  claimed_at: 2026-07-02T00:56:57Z
