@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T20:30:44Z_
+_As of 2026-07-02T20:45:49Z_
 
 ## Latest
 
-A live infrastructure incident is the headline: a gardener investigating five poisoned garden-infra jobs found that the `endolinbot2` host-identity drift is still active on the true leader host — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while the `leader` marker names `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped, with 276 recent gardener entries mislabeled. This needs a hands-on fix (`echo endolinbot > /home/kris/.garden` or re-point the marker) plus a fleet restart; the same drift was the compounding factor behind the five reaper-poisoned jobs (identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, and repo-watcher arm-retry) that died during the 2026-07-01/07-02 Claude quota outage and now await maintainer attention. Separately, shepherd [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) turned up a disposition call rather than a lint fix: the error-tracing feature it implements has already re-landed on `llm` via the merged #58, so a rebase collapses to a near-empty PR — recommend closing it as superseded, optionally spinning off a small refactor extracting `error-id.js`/`trace-constants.js`. On the board itself, only the CI-rollup `gh pr view` transient-retry fix completed, and the daemon→manager rename now advances through parked Phase 2/Phase 3 jobs blocked on [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598).
+A live incident tops the queue: the **endolinbot2 host-identity drift is still active on the true leader host**, so `is-main-host` resolves FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped — and all recent gardener entries are mislabeled `host: endolinbot2`. It needs a one-line operational fix on the deployed root (`echo endolinbot > /home/kris/.garden`, or re-point the leader marker to endolinbot2), then a fleet restart; the investigating gardener left it untouched as out of autonomous scope. This same drift compounded the recent Claude quota outage that poisoned **five garden-infra improvement jobs** (identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm-retry, and the daemon→manager rename build) — the reaper dropped each after 5 requeue cycles and surfaced them to the maintainer. Separately, a shepherd found that [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) is subsumed by the already-merged #58 feature and recommends closing it, salvaging only two small refactors as a fresh PR — a disposition call awaiting your word. Otherwise the board is quiet: [endo-but-for-bots#599](https://github.com/endojs/endo-but-for-bots/pull/599) went fully green, and only the kriskowal/garden #21 issue job was newly claimed.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 6h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
@@ -203,7 +203,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`issue-kriskowal-garden-21`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-21.md) — Issue from kriskowal on kriskowal/garden #21
 - [`port-xs-to-rust-memory-safe-engine-s3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s3.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (958)
