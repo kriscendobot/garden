@@ -73,6 +73,16 @@ VERIFY="$GARDEN_CI_VERIFY_CLONE"
 # Bound the PR-source enumeration so a hung gh/git can never outlive the tick.
 : "${GARDEN_CI_SOURCE_TIMEOUT_SECS:=180}"
 : "${GARDEN_CI_KILL_AFTER:=10s}"
+# Rate-limit-cascade hardening (the 03:21 sweep where ~150 bot PRs all returned rc=1):
+#   ACTIVITY_WINDOW  — steady-state pressure relief. Skip a PR whose head branch is
+#     untouched beyond this window (a `date -d` offset expression) BEFORE its rollup
+#     read, so a tick reads a handful of recently-active PRs, not every open bot PR.
+#     Empty disables the bound (reads every PR, the pre-hardening behaviour).
+#   UNREADABLE_ABORT_THRESHOLD — cascade circuit-breaker. When this many rollup reads
+#     fall through as unreadable with NOT ONE successful read yet this tick, the API is
+#     throttling every call; abort the rest of the sweep rather than deepen the cooldown.
+: "${GARDEN_CI_ACTIVITY_WINDOW:=3 days}"
+: "${GARDEN_CI_UNREADABLE_ABORT_THRESHOLD:=3}"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
@@ -180,11 +190,20 @@ if [ "$src_rc" -ne 0 ]; then
 fi
 
 bot_lc="$(printf '%s' "$GARDEN_BOT_LOGIN" | tr '[:upper:]' '[:lower:]')"
-open_prs=0; ours=0; red=0; pending=0; posted=0; unreadable=0
-# The source's 4th column (updated_at) is unused here — we enumerate every open bot
-# PR each tick rather than activity-bounding — but is emitted for parity with the
-# other sources and possible future bounding; read it into a throwaway.
-while IFS=$'\t' read -r pr author head _; do
+open_prs=0; ours=0; red=0; pending=0; posted=0; unreadable=0; stale=0
+reads_ok=0; aborted=0
+# Activity-bound cutoff: PRs whose head branch was last touched before this epoch are
+# skipped without a rollup read. Computed once/tick from GARDEN_CI_ACTIVITY_WINDOW; 0
+# (empty window, or an unparseable expression) means "no bound — read every PR".
+activity_cutoff=0
+if [ -n "${GARDEN_CI_ACTIVITY_WINDOW:-}" ]; then
+  activity_cutoff="$(date -d "-${GARDEN_CI_ACTIVITY_WINDOW}" +%s 2>/dev/null || echo 0)"
+fi
+# The source's 4th column is updated_at — the PR's last-touched timestamp. We use it to
+# activity-bound the sweep: a PR untouched beyond GARDEN_CI_ACTIVITY_WINDOW is skipped
+# BEFORE its (GraphQL-heavy) rollup read, so a tick reads a handful of recently-active
+# PRs rather than firing `gh pr view` at every open bot PR and tripping the rate limit.
+while IFS=$'\t' read -r pr author head updated; do
   [ -n "$pr" ] || continue
   open_prs=$((open_prs+1))
 
@@ -197,6 +216,15 @@ while IFS=$'\t' read -r pr author head _; do
   fi
   ours=$((ours+1))
 
+  # Gate 3 (pressure relief): skip a PR untouched beyond the activity window BEFORE its
+  # rollup read — the steady-state fix for the cascade (far fewer GraphQL calls/tick).
+  if [ "$activity_cutoff" -gt 0 ] && [ -n "$updated" ]; then
+    upd_epoch="$(date -d "$updated" +%s 2>/dev/null || echo 0)"
+    if [ "$upd_epoch" -gt 0 ] && [ "$upd_epoch" -lt "$activity_cutoff" ]; then
+      stale=$((stale+1)); continue
+    fi
+  fi
+
   # Read the CI rollup DETERMINISTICALLY. Exit code IS the verdict.
   # Capture the handler's stderr (it deliberately writes a diagnostic on an
   # unreadable state — "gh pr view failed", "empty PR state", etc.) so a mass
@@ -205,13 +233,20 @@ while IFS=$'\t' read -r pr author head _; do
   rerr="$(mktemp)"
   set +e; "$GARDEN_CI_ROLLUP" "$repo" "$pr" >/dev/null 2>"$rerr"; rrc=$?; set -e
   case "$rrc" in
-    0)  rm -f "$rerr"; : ;;                                 # RED → shepherd (below)
-    10) rm -f "$rerr"; log "#$pr green — nothing to do"; continue ;;
-    11) rm -f "$rerr"; log "#$pr has no checks reported — nothing to do"; continue ;;
-    12) rm -f "$rerr"; log "#$pr CI still in progress/queued — backing off"; pending=$((pending+1)); continue ;;
+    0)  rm -f "$rerr"; reads_ok=$((reads_ok+1)) ;;          # RED → shepherd (below)
+    10) rm -f "$rerr"; reads_ok=$((reads_ok+1)); log "#$pr green — nothing to do"; continue ;;
+    11) rm -f "$rerr"; reads_ok=$((reads_ok+1)); log "#$pr has no checks reported — nothing to do"; continue ;;
+    12) rm -f "$rerr"; reads_ok=$((reads_ok+1)); log "#$pr CI still in progress/queued — backing off"; pending=$((pending+1)); continue ;;
     *)  rmsg="$(head -n1 "$rerr" 2>/dev/null)"; rm -f "$rerr"
         log "WARN: #$pr rollup unreadable (rc=$rrc): ${rmsg:-<no stderr>} — skipping (never guess a state)"
-        unreadable=$((unreadable+1)); continue ;;
+        unreadable=$((unreadable+1))
+        # Cascade circuit-breaker: consecutive unreadable reads with not one success
+        # yet this tick means the API is throttling every call. Abort the remaining
+        # sweep instead of firing more GraphQL at an already-throttled, cooling-down API.
+        if [ "$reads_ok" -eq 0 ] && [ "$unreadable" -ge "$GARDEN_CI_UNREADABLE_ABORT_THRESHOLD" ]; then
+          aborted=1; break
+        fi
+        continue ;;
   esac
   red=$((red+1))
 
@@ -248,13 +283,22 @@ while IFS=$'\t' read -r pr author head _; do
   fi
 done < "$SRC"
 
-log "scanned $open_prs open PR(s) on $repo: $ours bot-authored, $red red, $pending in-progress, $unreadable unreadable, $posted shepherd job(s) posted"
+log "scanned $open_prs open PR(s) on $repo: $ours bot-authored, $stale stale-skipped, $red red, $pending in-progress, $unreadable unreadable, $posted shepherd job(s) posted"
 
-# Systemic-outage detection: when EVERY bot PR's rollup was unreadable this tick
-# (and there was at least one), it is not $ours independent per-PR glitches — it is
-# one shared failure (gh auth expiry, rate-limit, or network). Collapse the 350+
-# identical per-PR WARN lines into one actionable signal so a total outage cannot
-# read as a healthy "0 red, all fine" tick.
-if [ "$ours" -gt 0 ] && [ "$unreadable" -eq "$ours" ]; then
-  log "WARN: $unreadable/$ours bot PR rollups unreadable this tick — likely a systemic gh outage (auth/rate-limit/network), not per-PR"
+# Cascade abort: the circuit-breaker tripped — the first reads all fell through
+# unreadable with no success, so the API is throttling every call. Emit ONE loud WARN
+# and stop; continuing to fire `gh pr view` GraphQL only deepens the rate-limit cooldown.
+if [ "$aborted" -eq 1 ]; then
+  log "WARN: $unreadable consecutive rollup reads unreadable — aborting tick, likely GitHub rate limit"
+  exit 0
+fi
+
+# Systemic-outage detection: when EVERY bot PR we READ this tick was unreadable (and we
+# read at least one), it is not that many independent per-PR glitches — it is one shared
+# failure (gh auth expiry, rate-limit, or network). Collapse the identical per-PR WARN
+# lines into one actionable signal so a total outage cannot read as a healthy "0 red,
+# all fine" tick. (Distinct from the abort above: this fires when the reads were spread
+# across the tick rather than clustered at the front, e.g. an activity-bounded handful.)
+if [ "$unreadable" -gt 0 ] && [ "$unreadable" -eq "$((ours - stale))" ]; then
+  log "WARN: $unreadable/$((ours - stale)) read bot PR rollups unreadable this tick — likely a systemic gh outage (auth/rate-limit/network), not per-PR"
 fi

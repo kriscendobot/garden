@@ -15,6 +15,12 @@
 #   F. a bot PR whose head branch is NOT bot-pushable → no shepherd
 #   G. a NON-bot repo slug → the watcher exits at the is-bot-repo gate, no shepherd
 #   H. a repo with several PRs of mixed state → exactly the red bot PRs get one each
+#   I. a bot PR untouched beyond GARDEN_CI_ACTIVITY_WINDOW → skipped before its rollup
+#      read (activity-bound), while a fresh red PR in the same tick still shepherds
+#   J. a run of unreadable rollup reads with no success yet → the circuit-breaker
+#      aborts the tick before the tail red PR, so no shepherd is posted (rate-limit)
+#   K. an early successful read disarms the circuit-breaker → later unreadable reads
+#      do NOT abort ("zero successful reads so far this tick" clause)
 #
 # Usage: ci-watcher-test.sh
 set -euo pipefail
@@ -95,6 +101,22 @@ run_ci() {  # run_ci <state> <bare> <fixture> <rollup-map> [slug]
       "$JOBS/ci-watcher.sh" "${5:-$SLUG}" >/dev/null 2>&1
 }
 
+# Like run_ci but threads extra KEY=VAL env (activity window / abort threshold) through.
+run_ci_env() {  # run_ci_env <state> <bare> <fixture> <rollup-map> <slug> [KEY=VAL ...]
+  local state="$1" bare="$2" fix="$3" map="$4" slug="$5"; shift 5
+  env "$@" GARDEN_STATE="$state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_BOT_LOGIN=kriscendobot \
+      GARDEN_CI_PR_SOURCE="$SRCSTUB" CI_FIXTURE="$fix" \
+      GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP="$map" \
+      GARDEN_CI_POST="$JOBS/post-job.sh" \
+      "$JOBS/ci-watcher.sh" "$slug" >/dev/null 2>&1
+}
+
+# Timestamps computed against the real clock so the activity-window assertions hold
+# regardless of the absolute date the suite runs on.
+FRESH_TS="$(date -u -d '-1 hour'  +%Y-%m-%dT%H:%M:%SZ)"
+STALE_TS="$(date -u -d '-30 days' +%Y-%m-%dT%H:%M:%SZ)"
+
 # ============================================================================
 hr; echo "A — bot PR + completed-red CI → exactly one shepherd job"; hr
 BARE_A="$TR/a.git"; seed_bare "$BARE_A"
@@ -159,6 +181,44 @@ board_has "$BARE_H" "$SLUG-pr71-shepherd" && bad "green #71 wrongly shepherded" 
 board_has "$BARE_H" "$SLUG-pr72-shepherd" && bad "pending #72 wrongly shepherded" || ok "pending #72 not shepherded"
 board_has "$BARE_H" "$SLUG-pr73-shepherd" && bad "foreign #73 wrongly shepherded" || ok "foreign #73 not shepherded"
 [ "$(todo_count "$BARE_H")" -eq 2 ] && ok "exactly two shepherd jobs for two red bot PRs" || bad "expected two jobs, got $(todo_count "$BARE_H")"
+
+# ============================================================================
+hr; echo "I — activity window skips a PR untouched beyond the window"; hr
+BARE_I="$TR/i.git"; seed_bare "$BARE_I"
+FIX_I="$TR/fix-i.tsv"
+{ prline 90 kriscendobot "$REPO" "$FRESH_TS"     # fresh red → shepherd
+  prline 91 kriscendobot "$REPO" "$STALE_TS"; } > "$FIX_I"   # stale red → skipped
+run_ci_env "$TR/state-i" "$BARE_I" "$FIX_I" "90=0 91=0" "$SLUG" GARDEN_CI_ACTIVITY_WINDOW="3 days"
+board_has "$BARE_I" "$SLUG-pr90-shepherd" && ok "fresh red PR #90 shepherded" || bad "#90 not shepherded"
+board_has "$BARE_I" "$SLUG-pr91-shepherd" && bad "stale #91 wrongly shepherded (read despite being beyond the window)" || ok "stale #91 skipped before its rollup read"
+
+# ============================================================================
+hr; echo "J — unreadable-read cascade trips the circuit-breaker (abort the tail)"; hr
+BARE_J="$TR/j.git"; seed_bare "$BARE_J"
+FIX_J="$TR/fix-j.tsv"
+{ prline 80 kriscendobot "$REPO" "$FRESH_TS"
+  prline 81 kriscendobot "$REPO" "$FRESH_TS"
+  prline 82 kriscendobot "$REPO" "$FRESH_TS"
+  prline 83 kriscendobot "$REPO" "$FRESH_TS"
+  prline 84 kriscendobot "$REPO" "$FRESH_TS"; } > "$FIX_J"   # #84 is RED but never reached
+# rc=1 is not 0/10/11/12 → the *) unreadable fallthrough. Threshold 3 → abort at #82.
+run_ci_env "$TR/state-j" "$BARE_J" "$FIX_J" "80=1 81=1 82=1 83=1 84=0" "$SLUG" \
+  GARDEN_CI_ACTIVITY_WINDOW="3 days" GARDEN_CI_UNREADABLE_ABORT_THRESHOLD=3
+[ "$(todo_count "$BARE_J")" -eq 0 ] && ok "cascade aborted before tail red #84 → no shepherd posted" || bad "posted a shepherd despite the rate-limit abort ($(todo_count "$BARE_J"))"
+
+# ============================================================================
+hr; echo "K — an early success disarms the breaker (no abort on later unreadables)"; hr
+BARE_K="$TR/k.git"; seed_bare "$BARE_K"
+FIX_K="$TR/fix-k.tsv"
+{ prline 85 kriscendobot "$REPO" "$FRESH_TS"     # red success → reads_ok=1, shepherd
+  prline 86 kriscendobot "$REPO" "$FRESH_TS"     # unreadable
+  prline 87 kriscendobot "$REPO" "$FRESH_TS"     # unreadable
+  prline 88 kriscendobot "$REPO" "$FRESH_TS"     # unreadable (>=threshold, but reads_ok>0)
+  prline 89 kriscendobot "$REPO" "$FRESH_TS"; } > "$FIX_K"   # red success → shepherd, proves no abort
+run_ci_env "$TR/state-k" "$BARE_K" "$FIX_K" "85=0 86=1 87=1 88=1 89=0" "$SLUG" \
+  GARDEN_CI_ACTIVITY_WINDOW="3 days" GARDEN_CI_UNREADABLE_ABORT_THRESHOLD=3
+board_has "$BARE_K" "$SLUG-pr85-shepherd" && ok "leading red #85 shepherded" || bad "#85 not shepherded"
+board_has "$BARE_K" "$SLUG-pr89-shepherd" && ok "trailing red #89 still shepherded (breaker never armed after a success)" || bad "#89 not shepherded — breaker wrongly aborted after a successful read"
 
 # ============================================================================
 hr
