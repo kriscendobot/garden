@@ -50,3 +50,9 @@ repo commit conventions and style rules (no em-dashes, no Latin shorthand). Mult
 fine; keep each independently green. Update the PR description with a stage-1 status section when
 done. Report back: what landed, harness output demonstrating the acceptance bar (or the precise
 divergence list), and any design frictions the supervisor should rule on.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-07-02T19:38:31Z
