@@ -46,3 +46,9 @@ numbers, Miri run), any scope folds or frictions for the supervisor. Commit to
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-07-02T21:53:07Z
