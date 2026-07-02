@@ -74,6 +74,7 @@ are branch-introduced, not upstream drift.
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
