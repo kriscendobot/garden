@@ -154,13 +154,36 @@ run_keeper GARDEN_TRACKED_CLONES="$CLONE|$TR/does-not-exist.git|master"
 { grep -qF "re-clone from" <<<"$OUT" && grep -qiF "skipping" <<<"$OUT"; } && ok "logged the missing+unreachable skip" || bad "missing+unreachable skip not logged"
 
 # ============================================================================
-hr; echo "MISSING+BARE-NAME — deleted clone, remote is a bare name: skip (no URL)"; hr
+hr; echo "PROVISION — deleted clone, bare-name remote: URL derived from basename"; hr
 setup_fixture
+before="$(local_master)"
 rm -rf "$CLONE"
-run_keeper GARDEN_TRACKED_CLONES="$CLONE|origin|master"
-[ "$RC" -eq 0 ] && ok "exit 0 when remote is a bare name" || bad "exit $RC when remote is a bare name"
-[ ! -e "$CLONE" ] && ok "bare-name missing clone left untouched" || bad "something was created for a bare-name remote"
-grep -qF "bare name" <<<"$OUT" && ok "logged the bare-name no-URL skip" || bad "bare-name skip not logged"
+# Lay out a local file:// "GitHub" mirror so the basename-derived URL resolves
+# offline. The tracked dir basename is endojs-endo.git -> owner=endojs, name=endo,
+# so with GARDEN_CLONE_URL_BASE=file://$TR/gh the keeper derives, and clones from,
+# file://$TR/gh/endojs/endo.git — no network touched.
+mkdir -p "$TR/gh/endojs"
+git clone -q --bare "$UP" "$TR/gh/endojs/endo.git"
+run_keeper GARDEN_TRACKED_CLONES="$CLONE|origin|master" \
+           GARDEN_CLONE_URL_BASE="file://$TR/gh"
+[ "$RC" -eq 0 ] && ok "exit 0 on provision" || bad "exit $RC on provision"
+git -C "$CLONE" rev-parse --git-dir >/dev/null 2>&1 && ok "missing clone provisioned as a git repo" || bad "clone NOT provisioned"
+[ "$(local_master 2>/dev/null)" = "$before" ] && ok "provisioned master matches upstream tip" || bad "provisioned master wrong ($(local_master 2>/dev/null) != $before)"
+grep -qF "provisioned missing clone" <<<"$OUT" && ok "logged the provisioned line" || bad "provision not surfaced as 'provisioned missing clone'"
+[ "$(git -C "$CLONE" config --get remote.origin.fetch)" = "+refs/heads/*:refs/remotes/origin/*" ] && ok "fetch refspec set on provisioned clone" || bad "fetch refspec not set on provisioned clone"
+
+# ============================================================================
+hr; echo "MISSING+UNDERIVABLE — bare name, basename not <owner>-<name>.git: skip"; hr
+setup_fixture
+# A tracked dir whose basename cannot be reversed into <owner>/<name> (no '-'):
+# nothing to derive, so the keeper falls back to the WARN-and-skip. Offline: no
+# clone is attempted at all.
+NOHYPHEN="$TR/singleword.git"
+run_keeper GARDEN_TRACKED_CLONES="$NOHYPHEN|origin|master" \
+           GARDEN_CLONE_URL_BASE="file://$TR/gh"
+[ "$RC" -eq 0 ] && ok "exit 0 when the basename cannot be derived" || bad "exit $RC on underivable basename"
+[ ! -e "$NOHYPHEN" ] && ok "underivable missing clone left untouched" || bad "something was created for an underivable basename"
+grep -qF "no upstream URL could be derived" <<<"$OUT" && ok "logged the underivable no-URL skip" || bad "underivable skip not logged"
 
 # ============================================================================
 hr

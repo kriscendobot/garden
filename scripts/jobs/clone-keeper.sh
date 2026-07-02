@@ -29,12 +29,18 @@
 # went missing at 09:30 and again at 10:00, and every prior version of this keeper
 # only re-warned `missing or not a git repo … skipping` each tick — never repaired
 # it — so every downstream worktree/dispatch that needs the endo clone stayed broken
-# indefinitely. The keeper now REPAIRS a genuinely-missing clone by re-cloning it
-# from its known source (the same location the keeper fetches from, when that is a
-# URL/path rather than a bare remote name), logging a `REPAIRED` line. Guards: a
-# genuinely-unreachable source falls back to the existing skip (no re-clone loop,
-# the next tick retries), and a present-but-corrupt dir is surfaced as STALE for
-# manual reconciliation rather than clobbered (it may hold un-pushed local state).
+# indefinitely. The keeper now PROVISIONS a genuinely-missing clone rather than
+# skipping forever: it re-clones from the tracked source when that is a URL/path
+# (logging `REPAIRED`), and otherwise DERIVES the canonical upstream URL
+# deterministically from the dir basename — worktrees/<owner>-<name>.git maps to
+# <GARDEN_CLONE_URL_BASE>/<owner>/<name>.git — and clones from that (logging a
+# `provisioned missing clone` line), so even a clone tracked by a bare remote name
+# self-heals. The fresh bare clone gets its fetch refspec set exactly as
+# ensure-project-worktree.sh prescribes, then falls through to the normal
+# fetch + fast-forward. Guards: a source that cannot be derived or reached falls
+# back to the existing skip (no re-clone loop, the next tick retries), and a
+# present-but-corrupt dir is surfaced as STALE for manual reconciliation rather
+# than clobbered (it may hold un-pushed local state).
 #
 # When the tracked source is a bare remote NAME (e.g. `origin`) that carries no
 # fetch refspec, or a URL/path fetched directly, `git fetch <src> <branch>`
@@ -55,12 +61,19 @@ GARDEN_TAG="clone-keeper"
 # Tracked bare clones, one per line: "<dir>|<remote>|<branch>". <dir> is relative
 # to GARDEN_ROOT (or absolute). <remote> is the fetch source: either a bare remote
 # NAME (e.g. `origin`, resolvable only while the clone still exists) or a URL/path
-# (e.g. https://…/endo.git) that can ALSO re-clone the dir if it goes missing. A
-# bare name cannot drive a re-clone (there is no repo left to resolve it against),
-# so track a clone by URL/path if you want the keeper to repair it when it vanishes.
+# (e.g. https://…/endo.git) that can ALSO re-clone the dir if it goes missing. Even
+# a bare-name source self-heals when the dir is named <owner>-<name>.git, since the
+# keeper derives <GARDEN_CLONE_URL_BASE>/<owner>/<name>.git from the basename to
+# provision a vanished clone; give a URL/path source to pin an exact non-GitHub
+# upstream or a dir that does not follow the <owner>-<name>.git convention.
 # Blank lines and #-comment lines are ignored. Override GARDEN_TRACKED_CLONES
 # (newline-separated, same format) for tests or to track additional clones.
 : "${GARDEN_TRACKED_CLONES:=worktrees/endojs-endo.git|https://github.com/endojs/endo.git|master}"
+
+# Base of the canonical upstream URL the keeper reconstructs from a missing clone's
+# dir basename (worktrees/<owner>-<name>.git -> <base>/<owner>/<name>.git) when the
+# tracked source is a bare remote name. Overridable for offline tests.
+: "${GARDEN_CLONE_URL_BASE:=https://github.com}"
 
 # Bounded ref fetch for an arbitrary remote/branch, mirroring common.sh's
 # journal_fetch (which is hardwired to the journal branch): each attempt is
@@ -101,13 +114,32 @@ is_own_git_repo() {
 }
 
 # True when $1 is a fetchable/cloneable URL or path rather than a bare remote NAME
-# (like "origin"). A bare name cannot be resolved to a URL once the clone is gone,
-# so only a location can drive a re-clone of a missing tracked clone.
+# (like "origin"). A location source drives a missing clone's re-clone directly; a
+# bare name cannot be resolved once the clone is gone, so the keeper falls back to
+# deriving the URL from the dir basename (derive_clone_url) for a bare-name source.
 is_remote_location() {
   case "$1" in
     *://*|*@*:*|*/*) return 0 ;;
     *) return 1 ;;
   esac
+}
+
+# Reconstruct the canonical upstream URL of a MISSING tracked clone from its dir
+# basename. The garden names standing bare clones worktrees/<owner>-<name>.git (the
+# forward map ensure-project-worktree.sh builds), so a vanished clone's upstream can
+# be derived deterministically by reversing it: strip the .git suffix, split on the
+# FIRST '-' into <owner>/<name>, and form <GARDEN_CLONE_URL_BASE>/<owner>/<name>.git.
+# Echoes the URL and returns 0 when derivable; returns 1 when the basename does not
+# fit the <owner>-<name>.git shape (no .git suffix, or no '-' to split on).
+derive_clone_url() {
+  local abs="$1" bn owner name
+  bn="$(basename -- "$abs")"
+  case "$bn" in *.git) bn="${bn%.git}" ;; *) return 1 ;; esac
+  case "$bn" in *-*) ;; *) return 1 ;; esac
+  owner="${bn%%-*}"
+  name="${bn#*-}"
+  [ -n "$owner" ] && [ -n "$name" ] || return 1
+  printf '%s/%s/%s.git\n' "$GARDEN_CLONE_URL_BASE" "$owner" "$name"
 }
 
 # Bounded bare clone of <src> into <abs>, mirroring bounded_fetch's timeout+retry
@@ -152,18 +184,30 @@ keep_clone() {
       log "STALE: tracked clone $dir at $abs exists but is not a git repo; needs manual reconciliation (not clobbering)"
       return 0
     fi
-    if ! is_remote_location "$remote"; then
-      log "WARN: tracked clone $dir is missing at $abs and remote '$remote' is a bare name (no URL known to re-clone from); skipping"
-      return 0
-    fi
-    if ! bounded_clone "$remote" "$abs"; then
-      log "WARN: tracked clone $dir is missing at $abs and re-clone from $remote failed (unreachable?); skipping"
-      return 0
-    fi
-    if git -C "$abs" rev-parse --verify --quiet "refs/heads/$branch" >/dev/null 2>&1; then
-      log "REPAIRED: re-created missing bare clone $dir at $abs from $remote (branch $branch)"
+    # Pick a clone source. An explicit URL/path in the tracked row wins (it can pin
+    # a non-GitHub upstream); otherwise derive the canonical GitHub URL from the dir
+    # basename so even a clone tracked by a bare remote name self-heals.
+    local src provisioned=
+    if is_remote_location "$remote"; then
+      src="$remote"
+    elif src="$(derive_clone_url "$abs")"; then
+      provisioned=1
     else
-      log "REPAIRED: re-created missing bare clone $dir at $abs from $remote, but it has no refs/heads/$branch"
+      log "WARN: tracked clone $dir is missing at $abs, remote '$remote' is a bare name, and no upstream URL could be derived from its basename; skipping"
+      return 0
+    fi
+    if ! bounded_clone "$src" "$abs"; then
+      log "WARN: tracked clone $dir is missing at $abs and re-clone from $src failed (unreachable/offline?); skipping"
+      return 0
+    fi
+    # A bare clone carries NO fetch refspec, so set it exactly as
+    # ensure-project-worktree.sh prescribes — otherwise origin/* tracking refs on
+    # worktrees cut from this clone would stay frozen through later fetches.
+    git -C "$abs" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' || true
+    if [ -n "$provisioned" ]; then
+      log "provisioned missing clone $dir from $src"
+    else
+      log "REPAIRED: re-created missing bare clone $dir at $abs from $src"
     fi
     # Fall through to the normal fetch + fast-forward below: a no-op on a
     # just-cloned repo, but it keeps the ref-freshness contract in one place.
