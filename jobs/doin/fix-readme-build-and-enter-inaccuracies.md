@@ -41,3 +41,9 @@ file+line or the command output per `garden/roles/COMMON.md` § Reporting). Land
 isolated worktree; journal a `result` entry listing each inaccuracy found and the correction. If a
 described feature genuinely does not exist in the code, either remove the claim or (if it should exist)
 flag it as a follow-up rather than documenting a fiction.
+
+---
+claim:
+  host: endolinbot
+  gardener: 68
+  claimed_at: 2026-07-02T10:33:30Z
