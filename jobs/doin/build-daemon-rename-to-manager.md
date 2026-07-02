@@ -60,3 +60,9 @@ Deterministic basename `build-daemon-rename-to-manager` — a re-run of this bat
 collides and no-ops.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 35
+  claimed_at: 2026-07-02T00:53:42Z
