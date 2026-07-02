@@ -59,6 +59,7 @@ out of scope for the #590 refactor.
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
