@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T22:35:29Z_
+_As of 2026-07-02T22:37:29Z_
 
 ## Latest
 
-The one board completion since the last bulletin is the review of [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (the freezable-TypedArray design doc), which surfaced a **design decision that needs your call**: @gibson042 rebuts all three of the doc's "Why not a Proxy wrapper?" arguments and pushes for a Proxy `set` trap that throws on canonical-index writes; he explicitly asked for you and @erights to weigh in. Nothing was pushed — reply on the PR thread or in the inbox.
+Two decisions now sit on the maintainer's desk. The [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) freezable-TypedArray design review completed with @gibson042 rebutting all three "Why not a Proxy wrapper?" arguments and explicitly asking kriskowal and erights to weigh in — a genuine correctness-vs-cost tradeoff a bot won't decide. Separately, shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is *subsumed*, not lint-blocked: its entire CapTP error-tracing feature already re-landed on `llm` via merged #58, collapsing #301 to near-empty; recommendation is to close it as superseded (only two small refactors — `error-id.js`, `trace-constants.js` — are unique and would be a fresh PR). Review of [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) is now in flight.
 
-The bigger thing to notice is an active infrastructure incident: the **endolinbot2 host-identity drift is still live on the leader host** — `/home/kris/.garden` reads `endolinbot2` while the leader marker and `hostname -s` say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is being silently skipped, with all recent gardener entries mislabeled `endolinbot2`. This same drift compounded the recent Claude quota outage that poisoned five garden-infra improvement jobs (identity-drift detector, gardener transient-failure backoff/fleet brake, issue-inbox git reaping, repo-watcher arm retry, and the daemon→manager rename build). The fix is operational and out of a gardener's scope: correct the shard file (`echo endolinbot > /home/kris/.garden`) or re-point the marker to `endolinbot2`, then restart the fleet.
-
-Separately, a shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found it is **subsumed, not lint-blocked** — its error-tracing feature already re-landed on `llm` via the merged #58, collapsing a rebase to essentially empty; the recommendation is to close #301 as superseded (optionally extracting its two small refactor artifacts into a fresh PR). The daemon→manager rename is otherwise progressing: Phase 2 is blocked awaiting [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phase 3 queued behind it.
+More urgently, a live infrastructure incident: the `endolinbot2` host-identity drift is still active on the true leader host, so `is-main-host` resolves to FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, triager, issue-inbox, orchestrate, maintainer-inbox Monitor) is being silently skipped, with all recent gardener state mislabeled. The fix is operational and out of a gardener's scope — either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2` — then restart the fleet. This same drift compounded a Claude quota outage into five poisoned garden-infra jobs (identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, and repo-watcher arm-retry) that the reaper dropped after five requeue cycles and are now awaiting maintainer attention. On the feature side, the daemon→manager rename Phase 1 landed as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phases 2 and 3 parked and blocked on it.
 
 ## Parked for maintainer feedback
 
@@ -243,8 +241,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr475-review-5cc27151`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-review-5cc27151.md) — Review directive on endojs/endo-but-for-bots PR #475
 
 ### tada (969)
 - [`endojs-endo-but-for-bots-pr472-review-72d18f86`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-72d18f86.md) — Completion report
