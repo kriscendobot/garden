@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T00:24:29Z_
+_As of 2026-07-02T00:51:49Z_
 
 ## Latest
 
-Only one item cleared the board since the last bulletin: the [orchestration-job pattern](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-build-orchestration-job-pattern-sequence-and-watch-children.md) completion (sequence-and-watch-children), leaving the todo queue empty and two jobs in flight — the `daemon.js`→`manager.js` rename and the repo-watcher missing-template hardening. The one thing needing your eyes is a parked follow-up message: the botanist board-refresh report punts the question of whether recurring board audits should become a standing capability — and if so, whether they belong on `foreman`/`watchman` or a new deterministic script rather than `botanist` — to you as an architecture call before any role or script work is posted.
+The [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) shepherd closed with an escalation worth the maintainer's attention: the PR is green on 24 of 25 checks, blocked solely by the known typescript-eslint `projectService` scaling ceiling (the `packages/zip` parsing errors), which the shepherd traced to the `llm` baseline already sitting at the ceiling rather than to this 6-file diff. The same failure is now live on [#590](https://github.com/endojs/endo-but-for-bots/pull/590) and #593, so the shepherd recommends a dedicated lint-infra job rather than bundling a fix into any refactor PR — a decision left to the maintainer. Meanwhile a large fleet-wide sweep swept red-CI PRs into shepherding (roughly three dozen claims now in flight, from [#60](https://github.com/endojs/endo-but-for-bots/pull/60) through [#591](https://github.com/endojs/endo-but-for-bots/pull/591)), and shepherds completed on [#111](https://github.com/endojs/endo-but-for-bots/pull/111), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), [#412](https://github.com/endojs/endo-but-for-bots/pull/412), and [#581](https://github.com/endojs/endo-but-for-bots/pull/581), alongside a weave on [#395](https://github.com/endojs/endo-but-for-bots/pull/395). Also parked for a call: a follow-up flags whether recurring board audits should live on `foreman`/`watchman` or a new script rather than as a `botanist` responsibility.
 
 ## Parked for maintainer feedback
 
@@ -26,25 +26,79 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > The botanist-refresh-the-board report recommends that recurring board audits, if wanted as a standing capability, be implemented on `foreman`/`watchman` or as a new deterministic script rather than as a `botanist` responsibility. This is a garden-architecture decision (whether to add the capability at all, and where) — your call before any role/script work is posted.
 
+- `20260702T004314Z-b798c5` — from gardener:endojs-endo-but-for-bots-pr592-shepherd, reply_to `endojs-endo-but-for-bots-pr592-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T004314Z-b798c5.md)
+
+> shepherd escalation — endo-but-for-bots lint-infra scaling ceiling (next: liaison, needs a human/lint-infra decision)
+>
+> PR #592 (feat(platform,daemon): factor watchDirectory into @endo/platform) has CI red on exactly one check: `lint` (CI workflow). 24 of 25 checks are green. The 5 lint ERRORS are all the documented typescript-eslint projectService scaling-ceiling signature:
+>
+>   packages/zip/reader.js, src/deflate.js, src/inflate.js, test/zip.test.js, writer.js
+>   0:0  error  Parsing error: ... none of those TSConfigs include this file
+>
+> Not caused by this PR's diff:
+> - PR is 6 files, based directly on `llm` (not stacked), touching only packages/platform + packages/daemon. It touches NOTHING in packages/zip.
+> - The package.json change adds only an export subpath (./fs/node/watch-directory) — no new cross-package dependency.
+> - Even this tiny 6-file addition tips `packages/zip` (the alphabetically-last package) over the whole-repo `eslint .` projectService ceiling → the `llm` baseline is already sitting AT the ceiling. Same failure is live on #590 (the ~250-file @endo/far repoint) and #593; smaller PRs (#586/#588/#589) are still green.
+>
+> This is the known ceiling (prior investigation on #548/#590): NOT fixable with simple config knobs (pointing defaultProject at tsconfig.eslint-full.json had no effect; a single explicit project traded these for a broader "file not found" set — both tried and reverted). A real fix is lint-infra scope (consolidate per-package lint projects into one program, or raise/bypass the ceiling), which per standing guidance must NOT be bundled into a refactor PR. It now blocks at least 3 open bot PRs, so it likely wants its own lint-infra job.
+>
+> I did not touch PR #592 — its substance is fine and there is no shepherd-scope fix. Surfacing for a lint-infra decision.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (37)
 - [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — Build: rename daemon.js → manager.js (Daemon/Mignonic → Manager/Worker)
-- [`improve-repo-watcher-render-missing-template`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-repo-watcher-render-missing-template.md) — Harden scripts/jobs/repo-watcher.sh so a watcher template that exists in scri...
+- [`endojs-endo-but-for-bots-pr101-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr101-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #101
+- [`endojs-endo-but-for-bots-pr216-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr216-weave.md) — weave (rebase) endojs/endo-but-for-bots PR #216 onto base llm
+- [`endojs-endo-but-for-bots-pr235-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr235-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #235
+- [`endojs-endo-but-for-bots-pr239-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr239-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #239
+- [`endojs-endo-but-for-bots-pr242-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr242-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #242
+- [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
+- [`endojs-endo-but-for-bots-pr262-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr262-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #262
+- [`endojs-endo-but-for-bots-pr286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #286
+- [`endojs-endo-but-for-bots-pr301-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr301-weave.md) — weave (rebase/conflict-resolve) on endojs/endo-but-for-bots PR #301
+- [`endojs-endo-but-for-bots-pr306-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr306-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #306
+- [`endojs-endo-but-for-bots-pr313-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr313-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #313
+- [`endojs-endo-but-for-bots-pr316-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr316-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #316
+- [`endojs-endo-but-for-bots-pr318-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr318-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #318
+- [`endojs-endo-but-for-bots-pr320-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr320-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #320
+- [`endojs-endo-but-for-bots-pr324-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr324-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #324
+- [`endojs-endo-but-for-bots-pr335-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr335-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #335
+- [`endojs-endo-but-for-bots-pr337-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #337
+- [`endojs-endo-but-for-bots-pr377-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr377-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #377
+- [`endojs-endo-but-for-bots-pr389-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr389-weaver.md) — weaver on endojs/endo-but-for-bots PR #389
+- [`endojs-endo-but-for-bots-pr393-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr393-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #393
+- [`endojs-endo-but-for-bots-pr394-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr394-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #394
+- [`endojs-endo-but-for-bots-pr395-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr395-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #395
+- [`endojs-endo-but-for-bots-pr409-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr409-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #409
+- [`endojs-endo-but-for-bots-pr410-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr410-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #410
+- [`endojs-endo-but-for-bots-pr420-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr420-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #420
+- [`endojs-endo-but-for-bots-pr438-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr438-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #438
+- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #475
+- [`endojs-endo-but-for-bots-pr541-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr541-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #541
+- [`endojs-endo-but-for-bots-pr585-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr585-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #585
+- [`endojs-endo-but-for-bots-pr587-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr587-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #587
+- [`endojs-endo-but-for-bots-pr588-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr588-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #588
+- [`endojs-endo-but-for-bots-pr590-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr590-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #590
+- [`endojs-endo-but-for-bots-pr591-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr591-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #591
+- [`endojs-endo-but-for-bots-pr60-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr60-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #60
+- [`endojs-endo-but-for-bots-pr79-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #79
+- [`endojs-endo-but-for-bots-pr96-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr96-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #96
 
-### tada (837)
-- [`garden-build-orchestration-job-pattern-sequence-and-watch-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-build-orchestration-job-pattern-sequence-and-watch-children.md) — Completion report: orchestration-job pattern
-- [`scholar-ingest-cloudflare-w4p-references`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-w4p-references.md) — Completion report
-- [`garden-encode-directives-reliably-become-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-directives-reliably-become-jobs.md) — Completion report
-- [`factor-watchdirectory-to-endo-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/factor-watchdirectory-to-endo-platform.md) — Job complete: factor watchDirectory into @endo/platform
-- [`groom-refine-endo-roadmap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/groom-refine-endo-roadmap.md) — Completion report
-- … and 832 more
+### tada (851)
+- [`endojs-endo-but-for-bots-pr412-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr412-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #412
+- [`endojs-endo-but-for-bots-pr395-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr395-weave.md) — Completion report: weave (rebase) endojs/endo-but-for-bots PR #395
+- [`endojs-endo-but-for-bots-pr216-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr216-shepherd.md) — I've completed the shepherd work. Here's my report.
+- [`endojs-endo-but-for-bots-pr581-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr581-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #581
+- [`endojs-endo-but-for-bots-pr389-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr389-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #389
+- … and 846 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
+- [`endojs-endo-but-for-bots-pr132-report-render-mode`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr132-report-render-mode.md) — _normal_ · re-port render-mode toggle onto @endo/space-chat InboxRoot (endojs/endo-but-f...
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`port-xs-to-rust-memory-safe-engine`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine.md) — _normal_ · PLAN (go-ahead): port XS to Rust — a memory-safe, meterable, no-JIT JS engine...
 - [`synth-and-deploy-minion-town-aws`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/synth-and-deploy-minion-town-aws.md) — _normal_ · Synth, wire custom domain, and live-deploy minion.town to AWS
