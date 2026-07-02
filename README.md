@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:21:49Z_
+_As of 2026-07-02T19:23:34Z_
 
 ## Latest
 
-The board itself barely moved — a single claim (`improve-gardener-exit0-unsatisfying-journal-gate` into doin) — but the maintainer inbox is where the substance landed, and it needs attention. **A live host-identity drift is silently disabling the leader:** on this true leader host, `/home/kris/.garden` still resolves `GARDEN=endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped — with all 276 recent gardener entries mislabeled `endolinbot2`. The investigating gardener flagged this as out of autonomous scope: the fix is a one-line correction (`echo endolinbot > /home/kris/.garden`, or re-point the marker with `set-main-host.sh endolinbot2` if that identity is intended) followed by a fleet restart.
+The headline is an operational one: a live host-identity drift incident on the leader host — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while `hostname -s`, the `leader` marker, and `is-main-host.sh` all say `endolinbot`, so `is-main-host` reports **FOLLOWER on the true leader** and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; all 276 recent gardener entries are mislabeled `endolinbot2`. The gardener that surfaced it asks for a one-line operator fix (either `echo endolinbot > /home/kris/.garden` or re-point the marker to `endolinbot2` and record the parallel-pool override) plus a fleet restart — it's deployed-root state outside a gardener's autonomous scope.
 
-That same drift was the compounding factor behind **five garden-infra jobs the reaper poisoned** during the 2026-07-01/07-02 Claude quota outage — the daemon→manager rename build plus four self-improvement items (an identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, and repo-watcher arm-retry) — all now parked in the maintainer inbox for triage; the drift-detector job has been re-posted, sharpened to fire loudly on tick 1.
+That same drift was the compounding factor behind **five reaper-poisoned garden-infra jobs** now sitting in the maintainer inbox, dropped after 5 requeue cycles during the 07-01/07-02 Claude quota outage: the identity-drift detector, a gardener transient-failure backoff + fleet brake, issue-inbox orphan-git reaping, repo-watcher arm-retry logging, and the `daemon.js`→`manager.js` rename build. The drift detector was re-posted (sharpened to fire loudly on tick 1), but it can't repair the already-live `.garden` value.
 
-Separately, the shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) reports it is **subsumed, not lint-blocked**: its error-tracing feature has already re-landed on `llm` via the merged #58, so a rebase collapses to an essentially empty PR. Recommendation is to close #301 as superseded, optionally spinning its two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh small PR on `llm`. Awaiting your disposition call.
+Separately, the shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is **subsumed, not lint-blocked** — its CapTP error-tracing feature already landed independently on `llm`, collapsing a rebase to an essentially empty diff; the recommendation is to close #301 as superseded (optionally extracting its two small refactors, `error-id.js`/`trace-constants.js`, into a fresh PR). The daily-progress-summary job also flagged a scheduler-spec gap: the v2 scheduler only does fixed elapsed intervals, so it can't honor the summary's Pacific-midnight anchor (it fired at 12:12 PDT, not local midnight) — a scheduler design change left to your discretion. On the completed side, a batch of gardener/infra hardening landed (exit-0-unsatisfying requeue silencing, scaler scale-operation bounding, clone-keeper re-clone of a missing tracked clone, a stale-bulletin leader-singleton fix, and a designer-Fable/builder-Opus model policy).
 
 ## Parked for maintainer feedback
 
@@ -201,6 +201,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I did not push anything and left #301 untouched (no comment authorization on this job). Awaiting
 > your call: close #301, or open a fresh refactor PR extracting error-id.js/trace-constants.js?
+
+- `20260702T192329Z-778e83` — from gardener:daily-progress-summary-20260702-191237, reply_to `daily-progress-summary-20260702-191237` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T192329Z-778e83.md)
+
+> Observation while running the daily-progress-summary periodical job (I wrote periodicals/2026/07/01.md for Pacific day 07-01, landed on origin/journal2 at 3304cb7bb).
+>
+> Schedule/spec gap worth a design follow-up: schedules/daily-progress-summary.md carries `cadence: daily`, but its own body specifies "fires every day at 00:00 America/Los_Angeles (DST-aware)" and "the next fire is always computed forward from the intended schedule, so a late firing does not shift the daily anchor." The v2 scheduler only supports fixed elapsed-interval cadences (cadence_seconds maps `daily`->86400 from last_dispatched), so it cannot honor either property: it drifts (last_dispatched advances to the actual fire time each cycle) and is not anchored to Pacific midnight. This firing proved it — it fired at 2026-07-02T19:12:37Z (12:12 PDT), not local midnight.
+>
+> Two ways to close it: (a) extend scheduler.sh with a wall-clock/timezone-anchored cadence kind (compute the most-recent local-midnight boundary in the named TZ; due if last_dispatched < that boundary; no drift, DST-aware, no churn between boundaries), or (b) a preflight gate on a short cadence that fires only when the Pacific calendar date of last_dispatched is behind now's (simpler, but commits on every gated tick). (a) is the faithful translation. Not fixing it under this job since it's a scheduler design change; flagging for your discretion.
 
 
 ## Board
