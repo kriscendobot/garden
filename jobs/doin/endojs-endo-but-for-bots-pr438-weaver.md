@@ -37,3 +37,9 @@ Chain to a shepherd to confirm all checks green, then the PR is ready to un-draf
 Note: no PR comment authorization carried on the fixer job; none posted. The
 weaver likewise carries no per-action external-repo comment authorization unless
 the dispatcher grants it.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 16
+  claimed_at: 2026-07-02T02:23:35Z
