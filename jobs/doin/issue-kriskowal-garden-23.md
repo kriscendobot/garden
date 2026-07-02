@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please activate the foreman and authorize loading up the work in progress to three active concurrent jobs. 
+
+---
+claim:
+  host: endolinbot2
+  gardener: 14
+  claimed_at: 2026-07-02T21:01:22Z
