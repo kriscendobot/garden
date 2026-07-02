@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T03:53:40Z_
+_As of 2026-07-02T03:58:23Z_
 
 ## Latest
 
-The reaper mass-dropped roughly 30 handler jobs to the maintainer inbox after each hit its 5-requeue poison limit — nearly all auto-dispatched shepherd jobs on red-CI endo-but-for-bots PRs ([#60](https://github.com/endojs/endo-but-for-bots/pull/60), [#235](https://github.com/endojs/endo-but-for-bots/pull/235), [#242](https://github.com/endojs/endo-but-for-bots/pull/242), [#250](https://github.com/endojs/endo-but-for-bots/pull/250), [#316](https://github.com/endojs/endo-but-for-bots/pull/316), [#320](https://github.com/endojs/endo-but-for-bots/pull/320), [#393](https://github.com/endojs/endo-but-for-bots/pull/393), [#438](https://github.com/endojs/endo-but-for-bots/pull/438), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#541](https://github.com/endojs/endo-but-for-bots/pull/541), [#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#593](https://github.com/endojs/endo-but-for-bots/pull/593) and more), plus stuck weaver/fixer escalations on [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), [#306](https://github.com/endojs/endo-but-for-bots/pull/306), and [#394](https://github.com/endojs/endo-but-for-bots/pull/394). The dropped jobs themselves name the cause: a correlated Claude quota/API outage that had ~100 gardeners re-claiming and re-failing the same jobs against an exhausted quota with zero backoff. Three self-healing infra fixes are queued in that same inbox — a gardener transient-failure backoff plus fleet brake, a `GARDEN` identity-drift guard, and repo-watcher arm-retry logging — and are worth landing before the next storm; the identity-drift guard is especially timely given the dashboard still shows a phantom `endolinbot2` host (and a stale `main-host`) alongside the canonical leader. The [#590](https://github.com/endojs/endo-but-for-bots/pull/590) shepherd correctly declined to touch the PR and instead escalated the recurring typescript-eslint projectService lint-ceiling (the same tail-drop that hit #581) as a dedicated lint-infra job, with `resume-lint-ceiling-shepherds` now parked behind [#594](https://github.com/endojs/endo-but-for-bots/pull/594). Otherwise the board has drained to near-empty — only `improve-ci-watcher-surface-rollup-stderr` completed this window.
+The window's one completion landed the ci-watcher rate-limit backoff fix ([`improve-ci-watcher-backoff-on-rate-limit-cascade`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-backoff-on-rate-limit-cascade.md)), but it is dwarfed by a flood of ~30 poison-job reports the reaper dropped after 5 requeue cycles each — a strong signal the gardener fleet is thrashing against a correlated Claude quota/API outage rather than a genuine per-job defect. Most are auto-dispatched red-CI shepherds on endo-but-for-bots ([#250](https://github.com/endojs/endo-but-for-bots/pull/250), [#316](https://github.com/endojs/endo-but-for-bots/pull/316), [#393](https://github.com/endojs/endo-but-for-bots/pull/393), [#438](https://github.com/endojs/endo-but-for-bots/pull/438), [#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#591](https://github.com/endojs/endo-but-for-bots/pull/591), [#593](https://github.com/endojs/endo-but-for-bots/pull/593) and many more), several of which are actually stale-base conflicts that need a weaver, not a shepherd ([#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), [#306](https://github.com/endojs/endo-but-for-bots/pull/306)), plus a genuine Node-version-matrix fixer escalation on [#394](https://github.com/endojs/endo-but-for-bots/pull/394). Notably, the [#590](https://github.com/endojs/endo-but-for-bots/pull/590) shepherd correctly escalated to the liaison — its red `lint` is the recurring typescript-eslint projectService scaling ceiling (same where/zip tail-drop as #581), not #590's diff — and posted a dedicated repo-wide lint-infra fix job to unblock it. Four self-improvement jobs were also caught in the poison sweep and warrant attention: a `GARDEN` identity-drift guard (gardeners are again reporting `endolinbot2`), gardener transient-failure backoff plus a fleet brake for exactly this quota-storm pattern, issue-inbox orphan-git reaping, and repo-watcher arm-retry. The board is otherwise drained (0 todo, 2 in-flight shepherds on [#410](https://github.com/endojs/endo-but-for-bots/pull/410)/[#420](https://github.com/endojs/endo-but-for-bots/pull/420)).
 
 ## Parked for maintainer feedback
 
@@ -923,18 +923,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr410-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr410-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #410
 - [`endojs-endo-but-for-bots-pr420-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr420-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #420
-- [`improve-ci-watcher-backoff-on-rate-limit-cascade`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-watcher-backoff-on-rate-limit-cascade.md) — In scripts/jobs/ci-watcher.sh, harden the per-tick PR loop against the second...
 
-### tada (886)
+### tada (887)
+- [`improve-ci-watcher-backoff-on-rate-limit-cascade`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-backoff-on-rate-limit-cascade.md) — Completion report
 - [`improve-ci-watcher-surface-rollup-stderr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-surface-rollup-stderr.md) — Completion report
 - [`refresh-references-bytes-epic`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/refresh-references-bytes-epic.md) — The refresh landed on origin/journal2 and the inbox is empty. Job complete.
 - [`endojs-endo-but-for-bots-pr242-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr242-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr79-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr79-shepherd.md) — All 18 checks pass — CI is fully green on head 9ae6e4d5. The job is done. No ...
-- [`improve-ci-watcher-detect-systemic-rollup-outage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-detect-systemic-rollup-outage.md) — Completion report
-- … and 881 more
+- … and 882 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
