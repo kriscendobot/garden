@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T20:25:43Z_
+_As of 2026-07-02T20:28:38Z_
 
 ## Latest
 
-The headline for the maintainer is a **live infrastructure incident**: a gardener investigating the poisoned-job cluster found the `endolinbot2` host-identity drift still active on the true leader host — `/home/kris/.garden` resolves `endolinbot2` while `journal/leader` names `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; 276 recent gardener entries are mislabeled `host: endolinbot2`. The fix is deployed-root state outside a gardener's scope: either `echo endolinbot > /home/kris/.garden` (single-leader shard) or re-point the marker with `set-main-host.sh endolinbot2` and record the parallel-pool override, then restart the fleet. This same drift compounded a Claude quota outage (07-01→07-02) that poisoned five garden-infra jobs the reaper dropped after 5 requeues — an identity-drift detector, a gardener transient-failure backoff + fleet brake, issue-inbox git-child reaping, repo-watcher arm-retry, and the daemon→manager rename build — all now surfaced to your inbox for a disposition. Separately, a shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) reports the PR is **subsumed, not lint-blocked**: its entire error-tracing feature re-landed independently on `llm` via the merged #58, collapsing #301 to essentially empty; the shepherd recommends closing it as superseded (only two small refactors — `error-id.js` and `trace-constants.js` — are unique and would need a fresh PR). On the green side, [endo-but-for-bots#599](https://github.com/endojs/endo-but-for-bots/pull/599) is fully CI-green, the clone-keeper self-heal/missing-clone-escalation jobs completed, and the daemon→manager rename's Phase 1 landed as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) with Phases 2 and 3 parked as blocked children behind it.
+Most urgent: a live infrastructure incident surfaced during the poisoned-jobs investigation — the `endolinbot2` host-identity drift is still active on the true leader host, so `is-main-host` resolves FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped while 276 recent gardener entries mislabel per-host state. The gardener flagged it as out of autonomous scope and is awaiting a maintainer fix (`echo endolinbot > /home/kris/.garden`, or re-point the leader marker to `endolinbot2`), then a fleet restart. This same drift compounded the recent Claude quota outage that poisoned five garden-infra jobs — the identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, and repo-watcher arm-retry improvements — all now dropped to the maintainer inbox after five requeue cycles; a sharpened drift-detector job was re-posted.
+
+On the PR side, shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is not lint-blocked but **subsumed**: its error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses it to a near-empty PR — recommendation is to CLOSE as superseded (with an optional small refactor PR extracting `error-id.js`/`trace-constants.js`), pending the maintainer's call. Elsewhere the daemon→manager rename advanced ([endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) is Phase 1, with Phase 2/3 parked as blocked follow-ups), [endo-but-for-bots#599](https://github.com/endojs/endo-but-for-bots/pull/599) went fully green, and the XS→Rust (Endor) port claimed into progress with stage-1 draft [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) reported complete.
 
 ## Parked for maintainer feedback
 
@@ -203,8 +205,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`improve-ci-rollup-gh-pr-view-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-rollup-gh-pr-view-transient-retry.md) — Route the single-shot gh pr view "$pr" -R "$repo" --json state,statusCheckRol...
+- [`port-xs-to-rust-memory-safe-engine-s3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s3.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (957)
 - [`improve-clone-keeper-missing-clone-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-missing-clone-escalation.md) — Completion report
@@ -234,7 +237,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s3.md) — awaiting `xs2rust-endor-build-stage1` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
