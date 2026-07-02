@@ -13,9 +13,5 @@ shepherd→fixer auto-chain. Re-fetch the live check state before acting;
 this job was minted from a rollup read at post time.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 95
-  claimed_at: 2026-07-02T03:24:26Z
+
+<!-- garden-reaped: 1 -->
