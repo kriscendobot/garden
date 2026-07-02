@@ -39,3 +39,12 @@ Inspect via `git -C journal cat-file -p 35b3d8ab8b3a57379759a1dc3f1eca0cb1c00038
 - Context: gardener-84 on endolinbot2: job 'issue-kriskowal-garden-20' handler exited rc=1
 
 Inspect via `git -C journal cat-file -p 35b3d8ab8b3a57379759a1dc3f1eca0cb1c00038`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-02T00:59:15Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: f2845086ffbda434636825b1e4f7ee5517c16c4b
+- Context: gardener-25 on endolinbot2: job 'endojs-endo-but-for-bots-pr438-shepherd' transient-classified (rc=1) but elapsed near-constant (267,267s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p f2845086ffbda434636825b1e4f7ee5517c16c4b`.
