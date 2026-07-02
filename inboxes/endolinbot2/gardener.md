@@ -255,3 +255,12 @@ Inspect via `git -C journal cat-file -p b63429053fb15e6f7127fb10cb9cab933903f4f9
 - Context: gardener-8 on endolinbot2: job 'endojs-endo-but-for-bots-pr320-shepherd' transient-classified (rc=1) but elapsed near-constant (1,1s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p 47c196b909a866a48dacd195fdf7e525b3780454`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-02T01:13:45Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: f564017b6837236fd6efda66be49ca3aef50cf22
+- Context: gardener-94 on endolinbot2: job 'endojs-endo-but-for-bots-pr313-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p f564017b6837236fd6efda66be49ca3aef50cf22`.
