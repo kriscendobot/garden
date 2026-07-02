@@ -16,6 +16,28 @@ Type=oneshot
 # belt-and-suspenders so any future bypass of the wrapper still doesn't mark a
 # SIGTERM stop as Failed.
 SuccessExitStatus=143 130 SIGTERM SIGINT
+# Graceful drain on stop/restart. The default KillMode=control-group would SIGTERM
+# the WHOLE cgroup the instant systemd stops this unit — but a git credential
+# helper forked by the issue source's `gh api --paginate` may ignore/outrace that
+# TERM and linger in the cgroup, so the next start flags "Found left-over process
+# (git) in control group while starting unit" (the observed 00:36:21 three-orphan
+# leak). KillMode=mixed instead sends the initial SIGTERM ONLY to the main process
+# (self-heal-run.sh, which forwards it to issue-inbox-watcher.sh); the watcher's
+# EXIT/INT/TERM trap then reaps the source's whole process group (gh + every git
+# child) deterministically — signalling the negated PGID and then WAITING for the
+# group to drain so the cgroup is empty before the main process exits — and the
+# cgroup-wide SIGKILL backstop at TimeoutStopSec catches anything the process-group
+# reap cannot reach (e.g. a gh child placed in its OWN process group). Mirrors
+# garden-comment-watcher@.service (same producer-leak class).
+KillMode=mixed
+# Short stop timeout: the issue poll holds NO in-flight work worth preserving (a
+# killed tick simply re-polls next firing — the cursor only advances on a verified
+# dispatch), so we do NOT wait minutes on stop. A SHORT bound makes the cgroup-wide
+# SIGKILL backstop fell any straggler the process-group reap missed WELL BEFORE the
+# next firing, instead of letting the default DefaultTimeoutStopSec (~90s) race the
+# timer that fires the next instance. 20s is ample for the trap's TERM→drain (itself
+# bounded by the source `timeout`'s --kill-after) yet far below the timer cadence.
+TimeoutStopSec=20s
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # Leader-only singleton: run only on the host whose GARDEN identity matches the
 # journal `leader` marker. On a follower the timer still fires but this

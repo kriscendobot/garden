@@ -268,13 +268,104 @@ CURSOR_KEY="issues/$slug"
 last_seen="$("$HERE/cursor-get.sh" "$CURSOR_KEY" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1)"
 
 # --- poll, then process each interaction in created_at order -----------------
-SRC="$(mktemp)"; ERRF="$(mktemp)"; trap 'rm -f "$SRC" "$ERRF"' EXIT
+# Reap the source subtree on EXIT *and on signals*. handlers/issue-source-gh.sh runs
+# `gh api --paginate`, which forks git credential helpers; a systemd stop/restart
+# that SIGTERMs the watcher mid-tick would otherwise orphan those gh/git descendants
+# into the unit cgroup, where the next start flags them "Found left-over process
+# (git) in control group while starting unit" (the observed 00:36:21 three-orphan
+# leak). An EXIT-only trap never runs on a signalled stop and never reaps them. Fix,
+# mirroring garden-comment-watcher@ (KillMode=mixed + a SIGTERM trap): launch the
+# source under `timeout` — which, NOT being --foreground, `setpgid(0,0)`s ITSELF
+# before forking, so the whole subtree (timeout → source → gh → every forked
+# git/credential-helper) shares ONE process group whose PGID == timeout's PID. On a
+# stop the trap TERMs the negated PGID and BLOCKS on `wait` until the group drains
+# (timeout's --kill-after escalates to SIGKILL if a git child ignores the TERM), so
+# the cgroup is EMPTY before the main process exits. A straggler gh placed in a
+# DIFFERENT process group is caught by the EXIT-path cgroup-wide sweep below.
+SRC="$(mktemp)"; ERRF="$(mktemp)"
+SOURCE_TIMEOUT_PID=""
+# Final cgroup-wide straggler sweep — the EXIT-path complement to the unit's
+# stop-time SIGKILL backstop, which only fires on a systemd *stop*, not on a clean
+# tick completion. Fells every pid left in this process's OWN systemd service cgroup
+# except $$ and its ancestors, so even a NORMAL successful tick leaves an empty
+# cgroup and the next start finds no leftover git. Safety: a strict no-op unless we
+# are genuinely inside our own service cgroup — (a) no-ops when /proc/self/cgroup is
+# unreadable or has no `0::` unified line (non-systemd test runs, cgroup v1, the
+# timeout-absent branch), (b) no-ops unless the cgroup leaf matches our own unit, so
+# a shared session/scope cgroup in a test harness is never swept, and (c) NEVER
+# kills $$ or any ancestor (self-heal-run.sh, systemd) — only lost descendants.
+reap_cgroup_stragglers() {
+  local line cgpath leaf procs pid
+  line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
+  [ -n "$line" ] || return 0
+  cgpath="${line#0::}"
+  leaf="${cgpath##*/}"
+  case "$leaf" in
+    garden-issue-inbox*.service) ;;
+    *) return 0 ;;
+  esac
+  procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
+  [ -r "$procs" ] || return 0
+  local keep=" $$ " p ppid
+  p="$$"
+  while [ -n "$p" ] && [ "$p" != "0" ]; do
+    ppid="$(awk '/^PPid:/{print $2}' "/proc/$p/status" 2>/dev/null)" || break
+    [ -n "$ppid" ] || break
+    keep="$keep$ppid "
+    [ "$ppid" = "1" ] && break
+    p="$ppid"
+  done
+  while read -r pid; do
+    [ -n "$pid" ] || continue
+    case "$keep" in *" $pid "*) continue ;; esac
+    kill -KILL "$pid" 2>/dev/null || true
+  done < "$procs"
+}
+cleanup() {
+  rm -f "$SRC" "$ERRF" 2>/dev/null || true
+  local pid="$SOURCE_TIMEOUT_PID"
+  SOURCE_TIMEOUT_PID=""                 # idempotent: the TERM and EXIT traps both fire
+  if [ -n "$pid" ]; then
+    # TERM the whole process group (negated PGID == timeout's pid); fall back to the
+    # bare pid (timeout forwards) if the host's kill refuses the group form. Then
+    # BLOCK on wait until the subtree is gone, and SIGKILL the group as a hard
+    # backstop for a TERM-ignoring grandchild timeout itself would not escalate.
+    kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
+    wait "$pid" 2>/dev/null || true
+    kill -KILL "-$pid" 2>/dev/null || true
+  fi
+  reap_cgroup_stragglers
+}
+trap 'cleanup' EXIT
+trap 'cleanup; exit 143' TERM
+trap 'cleanup; exit 130' INT
+
+# Bound the source so a hung gh/git fetch can never outlive the tick even absent a
+# stop; --kill-after escalates to SIGKILL if the source ignores the initial TERM.
+# (Overridable; the source enumerates issues + comments via paginated REST, so give
+# it generous headroom over a normal tick.) The --kill-after grace also bounds the
+# cleanup trap's `wait` on a stop, so it doubles as the upper bound on how long a
+# signalled stop blocks reaping a mid-syscall git child.
+: "${GARDEN_ISSUE_SOURCE_TIMEOUT_SECS:=180}"
+: "${GARDEN_ISSUE_KILL_AFTER:=10s}"
 # Capture the source's stderr (do NOT 2>/dev/null it) so a loud failure inside the
 # handler — e.g. require_tools' "jq missing" die — surfaces in the watcher's death
 # instead of being swallowed (the silent-empty trap that hid the 2026-06-24 outage).
-if ! "$GARDEN_ISSUE_SOURCE" "$REPO" "${last_seen:-}" > "$SRC" 2>"$ERRF"; then
+src_rc=0
+if command -v timeout >/dev/null 2>&1; then
+  # Background + wait so the trap can TERM the timeout pid (and thus its whole
+  # process group) the instant a signal lands mid-fetch.
+  timeout --signal=TERM --kill-after="$GARDEN_ISSUE_KILL_AFTER" "${GARDEN_ISSUE_SOURCE_TIMEOUT_SECS}s" \
+    "$GARDEN_ISSUE_SOURCE" "$REPO" "${last_seen:-}" > "$SRC" 2>"$ERRF" &
+  SOURCE_TIMEOUT_PID=$!
+  wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
+  SOURCE_TIMEOUT_PID=""
+else
+  "$GARDEN_ISSUE_SOURCE" "$REPO" "${last_seen:-}" > "$SRC" 2>"$ERRF" || src_rc=$?
+fi
+if [ "$src_rc" -ne 0 ]; then
   sed 's/^/  source: /' "$ERRF" >&2 || true
-  die "issue source failed for $REPO (see source stderr above)"
+  die "issue source failed for $REPO (rc=$src_rc; see source stderr above)"
 fi
 # Defensive ascending sort by created_at (field 2); the source should already.
 sort -t$'\t' -k2,2 -o "$SRC" "$SRC"
