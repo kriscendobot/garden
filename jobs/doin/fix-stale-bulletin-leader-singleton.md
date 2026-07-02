@@ -49,3 +49,9 @@ leadership — standing up the leader-only singleton is the leader's job.
 - `journal/README.md` freshness line advances as the board moves.
 - The `.garden` / `leader` / `hostname` identity triple is self-consistent on the
   leader host (`is-main-host.sh` returns LEADER there).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 11
+  claimed_at: 2026-07-02T19:07:03Z
