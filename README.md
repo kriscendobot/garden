@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T03:24:51Z_
+_As of 2026-07-02T03:30:41Z_
 
 ## Latest
 
-The job board has drained to near-idle — nothing queued, four shepherd jobs still in flight against red-CI PRs ([#242](https://github.com/endojs/endo-but-for-bots/pull/242), [#410](https://github.com/endojs/endo-but-for-bots/pull/410), [#420](https://github.com/endojs/endo-but-for-bots/pull/420), [#79](https://github.com/endojs/endo-but-for-bots/pull/79)) — but the reaper poison-dropped roughly thirty jobs this window after their handlers failed five requeue cycles each. That pattern is a correlated Claude quota/API outage, not thirty distinct bugs: the whole fleet thrashed re-claiming shepherd work against an exhausted quota, and the deferred `improve-gardener-transient-failure-backoff-and-fleet-brake` fix (add per-worker backoff plus a shared fleet brake) itself got caught in the drop and needs re-posting.
-
-Two things want a human decision. The typescript-eslint **projectService scaling ceiling** now blocks the root `lint` check on at least three open PRs — [#592](https://github.com/endojs/endo-but-for-bots/pull/592), [#590](https://github.com/endojs/endo-but-for-bots/pull/590), and [#593](https://github.com/endojs/endo-but-for-bots/pull/593), all failing on the alphabetically-last `where`/`zip` packages that no diff touches. Both shepherds correctly declined to bundle a fix into the refactors and posted a dedicated `endo-but-for-bots-lint-projectservice-ceiling` lint-infra job; the affected PRs stay red until that lands. Separately, several conflicting PRs ([#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#306](https://github.com/endojs/endo-but-for-bots/pull/306), [#301](https://github.com/endojs/endo-but-for-bots/pull/301)) had weaver rebase jobs that also poison-dropped, so their stale-base CI failures remain unaddressed.
-
-On the plus side, the CI-watcher hardening landed on main2 — `improve-ci-watcher-detect-systemic-rollup-outage` and `improve-ci-rollup-surface-gh-error` both completed — and shepherds cleared [#318](https://github.com/endojs/endo-but-for-bots/pull/318), [#377](https://github.com/endojs/endo-but-for-bots/pull/377), and [#594](https://github.com/endojs/endo-but-for-bots/pull/594).
+Two CI-observability fixes landed on `main2` — the ci-watcher now detects a systemic rollup outage, and the CI-rollup path surfaces the underlying `gh` error — and shepherds cleared CI on [endo-but-for-bots#318](https://github.com/endojs/endo-but-for-bots/pull/318), [#377](https://github.com/endojs/endo-but-for-bots/pull/377) (macOS runner-queue stall), and [#594](https://github.com/endojs/endo-but-for-bots/pull/594). The dominant signal, though, is a poison storm: the reaper dropped a large batch of jobs after 5 requeue cycles apiece — auto-shepherds on some two dozen bot PRs ([#60](https://github.com/endojs/endo-but-for-bots/pull/60), [#235](https://github.com/endojs/endo-but-for-bots/pull/235), [#242](https://github.com/endojs/endo-but-for-bots/pull/242), [#250](https://github.com/endojs/endo-but-for-bots/pull/250), [#316](https://github.com/endojs/endo-but-for-bots/pull/316), [#393](https://github.com/endojs/endo-but-for-bots/pull/393), [#438](https://github.com/endojs/endo-but-for-bots/pull/438), [#541](https://github.com/endojs/endo-but-for-bots/pull/541), [#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#591](https://github.com/endojs/endo-but-for-bots/pull/591), [#593](https://github.com/endojs/endo-but-for-bots/pull/593) and more), plus stale-base weaver rebases ([#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), [#306](https://github.com/endojs/endo-but-for-bots/pull/306)) and the [#394](https://github.com/endojs/endo-but-for-bots/pull/394) fixer. Several were self-diagnosed infra fixes that themselves poisoned — a gardener transient-failure backoff + fleet brake, an identity-drift guard, issue-inbox git-child reaping, and repo-watcher arm retries — which points at a correlated handler outage (the fleet re-running against an exhausted Claude quota) rather than per-job bugs. Worth two direct looks: the Hosts list again shows an `endolinbot2` (100 gardeners) alongside canonical `endolinbot`, the exact `GARDEN` drift that breaks every leader-only `is-main-host` gate; and [#590](https://github.com/endojs/endo-but-for-bots/pull/590)'s shepherd escalated to liaison over the recurring typescript-eslint projectService scaling ceiling (where/zip tail-drop), posting a dedicated repo-wide lint-infra fix job rather than bundling it into the refactor.
 
 ## Parked for maintainer feedback
 
@@ -25,24 +21,6 @@ On the plus side, the CI-watcher hardening landed on main2 — `improve-ci-watch
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `20260702T004314Z-b798c5` — from gardener:endojs-endo-but-for-bots-pr592-shepherd, reply_to `endojs-endo-but-for-bots-pr592-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T004314Z-b798c5.md)
-
-> shepherd escalation — endo-but-for-bots lint-infra scaling ceiling (next: liaison, needs a human/lint-infra decision)
->
-> PR #592 (feat(platform,daemon): factor watchDirectory into @endo/platform) has CI red on exactly one check: `lint` (CI workflow). 24 of 25 checks are green. The 5 lint ERRORS are all the documented typescript-eslint projectService scaling-ceiling signature:
->
->   packages/zip/reader.js, src/deflate.js, src/inflate.js, test/zip.test.js, writer.js
->   0:0  error  Parsing error: ... none of those TSConfigs include this file
->
-> Not caused by this PR's diff:
-> - PR is 6 files, based directly on `llm` (not stacked), touching only packages/platform + packages/daemon. It touches NOTHING in packages/zip.
-> - The package.json change adds only an export subpath (./fs/node/watch-directory) — no new cross-package dependency.
-> - Even this tiny 6-file addition tips `packages/zip` (the alphabetically-last package) over the whole-repo `eslint .` projectService ceiling → the `llm` baseline is already sitting AT the ceiling. Same failure is live on #590 (the ~250-file @endo/far repoint) and #593; smaller PRs (#586/#588/#589) are still green.
->
-> This is the known ceiling (prior investigation on #548/#590): NOT fixable with simple config knobs (pointing defaultProject at tsconfig.eslint-full.json had no effect; a single explicit project traded these for a broader "file not found" set — both tried and reverted). A real fix is lint-infra scope (consolidate per-package lint projects into one program, or raise/bypass the ceiling), which per standing guidance must NOT be bundled into a refactor PR. It now blocks at least 3 open bot PRs, so it likely wants its own lint-infra job.
->
-> I did not touch PR #592 — its substance is fine and there is no shepherd-scope fix. Surfacing for a lint-infra decision.
 
 - `20260702T012803Z-4e1d80` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T012803Z-4e1d80.md)
 
