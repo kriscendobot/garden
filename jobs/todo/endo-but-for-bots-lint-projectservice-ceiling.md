@@ -57,11 +57,4 @@ Surfaced by the shepherd on PR #590 (job endojs-endo-but-for-bots-pr590-shepherd
 which could not drive #590 green because the red is this pre-existing infra ceiling,
 out of scope for the #590 refactor.
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 58
-  claimed_at: 2026-07-02T02:43:11Z
+<!-- garden-reaped: 2 -->
