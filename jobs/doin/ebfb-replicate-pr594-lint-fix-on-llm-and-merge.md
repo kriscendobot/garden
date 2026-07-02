@@ -14,3 +14,9 @@ Task:
    open** for the perf verification + bucketing + eventual upstream ferry (tracked separately —
    `ebfb-pr594-verify-lint-perf-and-bucket`). "Changes based on master need further consideration and ferrying."
 Scope: bot fork, base `llm`, bot identity, no upstream contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 91
+  claimed_at: 2026-07-02T04:07:14Z
