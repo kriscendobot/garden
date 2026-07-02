@@ -51,3 +51,9 @@ leadership — standing up the leader-only singleton is the leader's job.
   leader host (`is-main-host.sh` returns LEADER there).
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 12
+  claimed_at: 2026-07-02T19:15:14Z
