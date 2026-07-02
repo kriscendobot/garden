@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T20:59:56Z_
+_As of 2026-07-02T21:01:54Z_
 
 ## Latest
 
-Two operational signals dominate this window, both in the maintainer inbox rather than the board. A [gardener investigating the poisoned infra jobs surfaced a LIVE incident](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T100530Z-a43c17.md): the `endolinbot2` host-identity drift is still active on the leader host — `/home/kris/.garden` resolves `endolinbot2` while `journal/leader` names `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped. It wants a one-line operational fix (`echo endolinbot > /home/kris/.garden`, or re-point the marker to `endolinbot2`) plus a fleet restart — this is out of a gardener's autonomous scope and needs your hand.
+The board is nearly still — only [issue kriskowal/garden#23](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-23.md) was claimed since the last bulletin — but two things in the maintainer inbox demand attention. First, a **live infrastructure incident**: the `endolinbot2` host-identity drift is still active on the true leader host, so `is-main-host` resolves to FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, triager, issue-inbox, orchestrate, and the maintainer-inbox Monitor) is being silently skipped, while all recent gardener entries mislabel per-host state. The gardener flags the fix as out of autonomous scope: either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2` and record the parallel-pool override, then restart the fleet. This same drift compounded a Claude quota outage that **poisoned five garden-infra jobs** (the daemon→manager rename build plus four hardening tasks: identity-drift detection, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, and repo-watcher arm retry) — all dropped by the reaper after five requeue cycles and awaiting a maintainer call on whether to re-post.
 
-That same drift compounded a Claude quota outage into **five poisoned garden-infra jobs** the reaper dropped after 5 requeue cycles: the identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox child-git reaping, repo-watcher arm-retry, and the daemon→manager rename build. Each is a real infrastructure hardening request now awaiting your triage.
-
-Separately, a shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found it **SUBSUMED, not lint-blocked** — the entire error-tracing feature was already re-landed on `llm` via the merged #58, so a rebase collapses #301 to an essentially empty PR. It recommends closing #301 as superseded (optionally extracting two small refactors, `error-id.js` and `trace-constants.js`, as a fresh builder PR) and awaits your disposition call. The board itself was quiet, with only `issue-kriskowal-garden-21` completing; the daemon-rename Phase 2/3 builds remain blocked awaiting [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598).
+Second, a disposition call on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301): a shepherd found it is **subsumed, not lint-blocked** — its CapTP error-tracing feature already landed on `llm` via merged [#58](https://github.com/endojs/endo-but-for-bots/pull/58), so a rebase collapses to an essentially empty PR. Recommendation is to close #301 as superseded, optionally extracting its two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh PR. Meanwhile the daemon→manager rename has advanced: Phase 1 landed as [#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phase 2 and 3 parked in the blocked queue behind it.
 
 ## Parked for maintainer feedback
 
@@ -207,8 +205,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`improve-clone-keeper-self-provision`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-self-provision.md) — Make scripts/jobs/clone-keeper.sh self-provision a missing tracked bare clone...
+- [`issue-kriskowal-garden-23`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-23.md) — Issue from kriskowal on kriskowal/garden #23
 - [`xs2rust-endor-fix-stage1-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-fix-stage1-review.md) — Fixer: wire the meter check points and tighten the dual-run acceptance predic...
 
 ### tada (961)
