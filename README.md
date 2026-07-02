@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:23:34Z_
+_As of 2026-07-02T19:24:17Z_
 
 ## Latest
 
-The headline is an operational one: a live host-identity drift incident on the leader host — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while `hostname -s`, the `leader` marker, and `is-main-host.sh` all say `endolinbot`, so `is-main-host` reports **FOLLOWER on the true leader** and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; all 276 recent gardener entries are mislabeled `endolinbot2`. The gardener that surfaced it asks for a one-line operator fix (either `echo endolinbot > /home/kris/.garden` or re-point the marker to `endolinbot2` and record the parallel-pool override) plus a fleet restart — it's deployed-root state outside a gardener's autonomous scope.
-
-That same drift was the compounding factor behind **five reaper-poisoned garden-infra jobs** now sitting in the maintainer inbox, dropped after 5 requeue cycles during the 07-01/07-02 Claude quota outage: the identity-drift detector, a gardener transient-failure backoff + fleet brake, issue-inbox orphan-git reaping, repo-watcher arm-retry logging, and the `daemon.js`→`manager.js` rename build. The drift detector was re-posted (sharpened to fire loudly on tick 1), but it can't repair the already-live `.garden` value.
-
-Separately, the shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is **subsumed, not lint-blocked** — its CapTP error-tracing feature already landed independently on `llm`, collapsing a rebase to an essentially empty diff; the recommendation is to close #301 as superseded (optionally extracting its two small refactors, `error-id.js`/`trace-constants.js`, into a fresh PR). The daily-progress-summary job also flagged a scheduler-spec gap: the v2 scheduler only does fixed elapsed intervals, so it can't honor the summary's Pacific-midnight anchor (it fired at 12:12 PDT, not local midnight) — a scheduler design change left to your discretion. On the completed side, a batch of gardener/infra hardening landed (exit-0-unsatisfying requeue silencing, scaler scale-operation bounding, clone-keeper re-clone of a missing tracked clone, a stale-bulletin leader-singleton fix, and a designer-Fable/builder-Opus model policy).
+The board was quiet — only the [daily-progress-summary periodical](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260702-191237.md) completed — but the maintainer inbox surfaced a live infrastructure incident worth immediate attention: the leader host's `.garden` shard file still reads `endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped on the true leader; the fix is an operational one-liner (`echo endolinbot > /home/kris/.garden`, or re-point the marker and record the override) plus a fleet restart. That same drift compounded a Claude quota outage into five poisoned garden-infra jobs the reaper dropped after 5 requeues — the identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, repo-watcher arm-retry, and the daemon→manager rename build. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error-tracing across CapTP workers) is subsumed — its feature already re-landed on `llm` — and recommends closing it as superseded, keeping only two small refactors (`error-id.js`, `trace-constants.js`) as a fresh PR if wanted. A scheduler spec gap was also flagged: `daily-progress-summary` wants Pacific-midnight anchoring the elapsed-interval scheduler can't honor, so it fired midday instead.
 
 ## Parked for maintainer feedback
 
@@ -215,18 +211,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
-- [`daily-progress-summary-20260702-191237`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260702-191237.md) — Daily midnight Pacific progress summary
+### doin (2)
 - [`improve-gardener-exit0-unsatisfying-journal-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-exit0-unsatisfying-journal-gate.md) — In scripts/jobs/gardener.sh, the exit-0-unsatisfying branch (~lines 352-363) ...
 - [`xs2rust-endor-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-design.md) — Design: port XS to Rust ("endor engine") — feasibility, architecture, staged ...
 
-### tada (947)
+### tada (948)
+- [`daily-progress-summary-20260702-191237`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260702-191237.md) — Completion report — daily-progress-summary-20260702-191237
 - [`improve-gardener-silence-routine-exit0-unsatisfying-requeue`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-silence-routine-exit0-unsatisfying-requeue.md) — Completion report
 - [`improve-gardener-scaler-bound-scale-operation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-scaler-bound-scale-operation.md) — Completion report
 - [`improve-clone-keeper-reclone-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reclone-missing-tracked-clone.md) — Completion report
 - [`fix-stale-bulletin-leader-singleton`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-stale-bulletin-leader-singleton.md) — Completion report — fix-stale-bulletin-leader-singleton
-- [`set-designer-fable-builder-opus-model-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/set-designer-fable-builder-opus-model-policy.md) — Completion report
-- … and 942 more
+- … and 943 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
