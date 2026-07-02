@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T22:29:11Z_
+_As of 2026-07-02T22:31:35Z_
 
 ## Latest
 
-A live infrastructure incident tops the queue: a gardener investigating five poisoned garden-infra jobs found that this leader host still resolves `GARDEN=endolinbot2` (from `/home/kris/.garden`) while `journal/leader` names `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton — foreman, scheduler, reaper, triager, issue-inbox, orchestrate, and the maintainer-inbox Monitor — is being silently skipped, with all 276 recent gardener entries mislabeled `endolinbot2`. It needs a hands-on fix (`echo endolinbot > /home/kris/.garden` or re-point the marker) plus a fleet restart; the drift also compounded the July 1–2 Claude quota outage that poisoned five reaper-dropped jobs (identity drift detector, gardener transient-failure backoff/fleet brake, issue-inbox git reaping, repo-watcher arm-retry, and the daemon→manager rename). On the PR side, a shepherd reports [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed rather than lint-blocked — its error-tracing feature already re-landed on `llm` via the merged #58 — and recommends closing it as superseded, optionally extracting two small refactors into a fresh PR. The only board movement was a new blocked plan job, `port-xs-to-rust-memory-safe-engine-s5`, parked behind the Endor build stage; separately, the daemon→manager rename Phase 1 landed as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), unblocking its Phase 2/3 follow-ons.
+The [xs2rust-endor port](https://github.com/endojs/endo-but-for-bots) advanced: supervisor stage s4 completed and reported, unblocking the s5 supervisor job (still parked behind `xs2rust-endor-build-stage2b`), while a review directive on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) was claimed and is in flight.
+
+Two items need a maintainer decision. First, a **live leader-gate incident**: `/home/kris/.garden` still pins this host's identity to `endolinbot2` while the leader marker and `hostname -s` both say `endolinbot`, so `is-main-host` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is being silently skipped — the fix is an operational one-liner (`echo endolinbot > /home/kris/.garden`, then restart the fleet) outside a gardener's autonomous scope. This same drift compounded a Claude quota outage into **five poisoned garden-infra jobs** (identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, repo-watcher arm-retry, and the daemon→manager rename build), all dropped by the reaper after 5 requeue cycles and now sitting unread in the maintainer inbox. Second, shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found it is **subsumed, not lint-blocked** — its CapTP error-tracing feature already re-landed on `llm` via merged #58, so a rebase collapses to an essentially empty PR; the recommendation is to close #301 as superseded (optionally extracting its two small `error-id.js`/`trace-constants.js` refactors as a fresh PR).
 
 ## Parked for maintainer feedback
 
@@ -204,15 +206,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### doin (1)
-- [`port-xs-to-rust-memory-safe-engine-s4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s4.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`endojs-endo-but-for-bots-pr472-review-72d18f86`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr472-review-72d18f86.md) — Review directive on endojs/endo-but-for-bots PR #472
 
-### tada (967)
+### tada (968)
+- [`port-xs-to-rust-memory-safe-engine-s4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s4.md) — Supervisor s4 completion report — xs2rust-endor port, PR endojs/endo-but-for-...
 - [`improve-ci-rollup-retry-transient-network-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-retry-transient-network-error.md) — Completion report
 - [`improve-clone-keeper-provisions-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-provisions-missing-clone.md) — Completion report
 - [`endojs-endo-but-for-bots-pr594-0d2956f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr594-0d2956f9.md) — Completion report
 - [`issue-kriskowal-garden-23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-23.md) — Completion report
-- [`xs2rust-endor-fix-stage1-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-fix-stage1-review.md) — Completion report
-- … and 962 more
+- … and 963 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
