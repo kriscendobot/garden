@@ -11,3 +11,9 @@ Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
 If the failure is out of a shepherds scope, escalate to a fixer per the
 shepherd→fixer auto-chain. Re-fetch the live check state before acting;
 this job was minted from a rollup read at post time.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 10
+  claimed_at: 2026-07-02T17:38:57Z
