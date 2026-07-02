@@ -26,11 +26,15 @@
 # CHILD STATE is read purely from the board (child_state below):
 #   done   — jobs/tada/<child> exists (and carries no failure marker).
 #   active — jobs/todo or jobs/doin holds it (claimed / queued, in flight).
-#   parked — jobs/plan holds it (not yet promoted).
-#   failed — it is in NONE of the above: it was promoted but VANISHED without
-#            reaching tada — the reaper poisoned/dropped it (5 failed requeues), or
-#            a tada report explicitly marked `orchestration-failed: true`. A failed
-#            child triggers the on-child-failure policy rather than a silent stall.
+#   parked — jobs/plan holds it (gate=orchestrated, not yet promoted) and it is
+#            NOT poisoned.
+#   failed — either it VANISHED without reaching tada (promoted, then removed), or
+#            its tada report marks `orchestration-failed: true`, or it is parked in
+#            jobs/plan carrying `poisoned: true` (the reaper exhausted its requeue
+#            budget and parked the work under a held gate rather than dropping it —
+#            reaper.sh poison branch). A failed child triggers the on-child-failure
+#            policy rather than a silent stall (or, for a poisoned child, rather
+#            than an endless re-promote loop).
 #
 # On completion the watcher writes tada/<base> (a progress/outcome summary) and
 # removes the orch record, so the orchestration shows as done on the board and is
@@ -80,9 +84,21 @@ child_state() {  # <child-base> → done|active|parked|failed
     printf 'active\n'; return 0
   fi
   if [ -e "$DIR/$JOBS_PLAN/$c.md" ]; then
+    # A plan carrying `poisoned: true` is a poisoned-and-PARKED child: the reaper
+    # exhausted its requeue budget and parked the work under a held gate for a human
+    # (reaper.sh poison branch / poison-notice.sh) instead of dropping it. For
+    # orchestration this is a FAILURE, not a fresh parked child to promote —
+    # otherwise the watcher would re-promote (promote-plan.sh strips the gate) and
+    # re-run a job that fails every time, forever. The work still survives in plan/
+    # (held) for a human to resume; the orchestration merely stops waiting on it and
+    # applies its on-child-failure policy.
+    if grep -qx 'poisoned: true' "$DIR/$JOBS_PLAN/$c.md" 2>/dev/null; then
+      printf 'failed\n'; return 0
+    fi
     printf 'parked\n'; return 0
   fi
-  # In none of tada/todo/doin/plan: it was promoted and vanished without a tada.
+  # In none of tada/todo/doin/plan: it was promoted and vanished without a tada
+  # (an older-style poison drop, or a manual removal).
   printf 'failed\n'
 }
 

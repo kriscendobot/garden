@@ -42,9 +42,13 @@
 #      embedded frontmatter) is not truncated.
 #   4. Counts requeue cycles per job (a `<!-- garden-reaped: N -->` marker carried
 #      in the body across cycles). A job whose handler fails every time would loop
-#      forever; after GARDEN_REAP_POISON_THRESHOLD cycles it is surfaced to the
-#      maintainer inbox as a POISON job and dropped from the board rather than
-#      requeued again.
+#      forever; after GARDEN_REAP_POISON_THRESHOLD cycles it is POISONED: rather
+#      than being dropped from the board, it is PARKED in jobs/plan/ under a held
+#      `go-ahead` gate (no auto-promoter selects it) so the work survives and can be
+#      resumed, and a maintainer notice is AMEND-OR-POST deduped by <job-base> +
+#      <failure signature> (poison-notice.sh) so a restart that poisons dozens of
+#      jobs does not flood the inbox with near-identical messages. See the poison
+#      branch of the batch-requeue loop below and poison-notice.sh.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -315,12 +319,12 @@ done
 reaped=0
 poisoned=0
 staged=0
-declare -a POISON_BASE=() POISON_BODY=() POISON_COUNT=() POISON_OVERRUN=()
+declare -a POISON_BASE=() POISON_BODY=() POISON_COUNT=() POISON_OVERRUN=() POISON_SIG=()
 for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   sync_clone "$DIR"
   staged=0
-  POISON_BASE=(); POISON_BODY=(); POISON_COUNT=(); POISON_OVERRUN=()
-  mkdir -p "$DIR/$JOBS_TODO"
+  POISON_BASE=(); POISON_BODY=(); POISON_COUNT=(); POISON_OVERRUN=(); POISON_SIG=()
+  mkdir -p "$DIR/$JOBS_TODO" "$DIR/$JOBS_PLAN"
   for base in "${STALE[@]}"; do
     spine="${base%.md}"
     f="$DIR/$JOBS_DOIN/$base"
@@ -338,17 +342,55 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     # and reap-now markers), so the count accumulates cycle over cycle.
     overrun="$(deadline_overrun_count "$f")"
     if [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ] || [ "$count" -ge "$GARDEN_REAP_POISON_THRESHOLD" ]; then
-      # Poison: drop from the board (do NOT requeue) and remember it for a
-      # post-push maintainer alert so a job whose handler fails every time does
-      # not loop forever invisibly. Its full body goes to the maintainer so the
-      # intent is preserved, not lost. Record the overrun count so the alert names
-      # the deterministic-overrun signature when THAT is the trigger (a wall-hitting
-      # job) rather than the generic per-cycle poison.
+      # Poison: do NOT requeue, and do NOT drop the work — PARK it in jobs/plan/
+      # under a HELD gate so the work survives and can be resumed once the
+      # underlying issue is cleared, rather than being lost until a human
+      # reconstructs it (the resume-lint-ceiling-shepherds loss, kriskowal
+      # 2026-07-02). The parked plan is gated `go-ahead`, which NO auto-promoter
+      # selects: plan_deferred_ranked/the foreman take only `deferred`, the unblock
+      # watcher only `blocked`, the orchestrate watcher only `orchestrated`. So a
+      # poisoned plan stays held until a human (via the liaison / promote-plan.sh)
+      # or a cleared blocker promotes it back into todo/ — it never silently
+      # re-enters the queue.
+      #
+      # The parked plan's basename is the ORIGINAL job spine, so a re-poison of the
+      # same job overwrites the SAME plan/<spine>.md (updating its provenance)
+      # rather than spawning duplicates — mirroring the keyed maintainer-message
+      # dedup below. The signature (deterministic-overrun vs generic requeue
+      # exhaustion) keys both the plan provenance and the maintainer notice.
+      if [ "$overrun" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then sig="deadline-overrun"; else sig="requeue-exhausted"; fi
+      # poison_count: how many times THIS job has been poison-parked. A re-poison
+      # bumps the prior value carried in the existing plan file (idempotent on the
+      # spine), so a job repeatedly promoted-and-re-poisoned accrues a visible count.
+      pplan="$DIR/$JOBS_PLAN/$base"
+      prevp=0
+      if [ -f "$pplan" ]; then
+        prevp="$(sed -n 's/^poison_count: *//p' "$pplan" | head -1)"
+        [ -n "${prevp:-}" ] && [ "$prevp" -eq "$prevp" ] 2>/dev/null || prevp=0
+      fi
+      pcount=$(( prevp + 1 ))
+      {
+        printf -- '---\n'
+        printf 'gate: go-ahead\n'
+        printf 'priority: normal\n'
+        printf 'poisoned: true\n'
+        printf 'poison_signature: %s\n' "$sig"
+        printf 'poison_count: %s\n'     "$pcount"
+        printf 'requeue_cycles: %s\n'   "$count"
+        printf 'deadline_overruns: %s\n' "$overrun"
+        printf 'poisoned_at: %s\n'      "$(date -u +%FT%TZ)"
+        printf 'poisoned_on: %s\n'      "$GARDEN"
+        printf 'posted_by: reaper:%s\n' "$GARDEN"
+        printf 'posted_at: %s\n'        "$(date -u +%FT%TZ)"
+        printf -- '---\n\n'
+        printf '%s\n' "$body"
+      } > "$pplan"
       git -C "$DIR" rm -q "$JOBS_DOIN/$base"
       [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
       [ -d "$DIR/inbox/$spine" ] && git -C "$DIR" rm -qr "inbox/$spine"
+      git -C "$DIR" add "$JOBS_PLAN/$base"
       POISON_BASE+=("$spine"); POISON_BODY+=("$body"); POISON_COUNT+=("$count")
-      POISON_OVERRUN+=("$overrun")
+      POISON_OVERRUN+=("$overrun"); POISON_SIG+=("$sig")
     else
       {
         printf '%s\n' "$body"
@@ -371,40 +413,52 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
     poisoned=${#POISON_BASE[@]}
     reaped=$(( staged - poisoned ))
     # Flush poison alerts only AFTER the board change has landed, so a maintainer
-    # is told only about jobs actually removed from the board.
+    # is told only about jobs actually parked. Each alert is AMEND-OR-POST KEYED on
+    # <job-base>+<signature> via poison-notice.sh: a re-poison of the same job for
+    # the same condition AMENDS the open notice (bumps its occurrence count) instead
+    # of posting another near-identical message — the fix for the 37-identical-
+    # messages restart flood (kriskowal 2026-07-02). A new message is posted only
+    # when the condition is substantially different (a different job, or the same
+    # job failing for a materially different reason — requeue-exhausted vs
+    # deadline-overrun).
     for i in "${!POISON_BASE[@]}"; do
       pbase="${POISON_BASE[$i]}"
       povr="${POISON_OVERRUN[$i]:-0}"
+      psig="${POISON_SIG[$i]:-requeue-exhausted}"
       if [ "$povr" -ge "$GARDEN_REAP_OVERRUN_THRESHOLD" ]; then
         # Deterministic-overrun poison: the handler hit its OWN wall-clock budget every
         # cycle. Name the signature (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT) so the
         # maintainer reads "this job exceeds the handler budget", not a generic
         # "poison after N cycles".
-        log "POISON (deadline-overrun): '$pbase' hit the handler wall-clock budget ${povr}× (≥ ${GARDEN_REAP_OVERRUN_THRESHOLD}); dropped from board, surfacing to maintainer"
+        log "POISON (deadline-overrun): '$pbase' hit the handler wall-clock budget ${povr}× (≥ ${GARDEN_REAP_OVERRUN_THRESHOLD}); parked in plan/ (held), surfacing to maintainer"
         {
-          printf 'POISON job dropped from the board after %s DEADLINE-OVERRUN cycles on %s.\n' \
+          printf 'POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after %s DEADLINE-OVERRUN cycles on %s.\n' \
                  "$povr" "$GARDEN"
           printf 'Its handler hit its OWN wall-clock budget every cycle (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT=%ss):\n' \
                  "${GARDEN_HANDLER_TIMEOUT:-2400}"
           printf 'this job EXCEEDS THE HANDLER BUDGET and would be killed identically on every requeue,\n'
           printf 'so the reaper surfaced it after %s overrun cycles (not the full %s-cycle poison threshold).\n' \
                  "$GARDEN_REAP_OVERRUN_THRESHOLD" "$GARDEN_REAP_POISON_THRESHOLD"
-          printf 'Triage: split the job, raise GARDEN_HANDLER_TIMEOUT for this work, or fix what makes it run long.\n'
+          printf 'The work is preserved at jobs/plan/%s; it stays HELD until a human promotes it\n' "$pbase"
+          printf '(promote-plan.sh %s) or removes it. Triage: split the job, raise GARDEN_HANDLER_TIMEOUT\n' "$pbase"
+          printf 'for this work, or fix what makes it run long.\n'
           printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
                  "$pbase" "${POISON_BODY[$i]}"
         } | GARDEN_SENDER="reaper:$GARDEN" \
-            "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 \
+            "$HERE/poison-notice.sh" "$pbase" "$psig" >/dev/null 2>&1 \
           || log "WARNING: could not surface deadline-overrun poison job '$pbase' to maintainer inbox"
       else
-        log "POISON: '$pbase' reaped ${POISON_COUNT[$i]}× (≥ ${GARDEN_REAP_POISON_THRESHOLD}); dropped from board, surfacing to maintainer"
+        log "POISON: '$pbase' reaped ${POISON_COUNT[$i]}× (≥ ${GARDEN_REAP_POISON_THRESHOLD}); parked in plan/ (held), surfacing to maintainer"
         {
-          printf 'POISON job dropped from the board after %s requeue cycles on %s.\n' \
+          printf 'POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after %s requeue cycles on %s.\n' \
                  "${POISON_COUNT[$i]}" "$GARDEN"
           printf 'Its handler appears to fail every time; the reaper stopped requeueing it.\n'
+          printf 'The work is preserved at jobs/plan/%s; it stays HELD until a human promotes it\n' "$pbase"
+          printf '(promote-plan.sh %s) or removes it, so nothing is lost.\n' "$pbase"
           printf 'Original job base: %s\n\n--- original job body ---\n%s\n' \
                  "$pbase" "${POISON_BODY[$i]}"
         } | GARDEN_SENDER="reaper:$GARDEN" \
-            "$GARDEN_ROOT/scripts/jobs/inbox-send.sh" maintainer >/dev/null 2>&1 \
+            "$HERE/poison-notice.sh" "$pbase" "$psig" >/dev/null 2>&1 \
           || log "WARNING: could not surface poison job '$pbase' to maintainer inbox"
       fi
     done

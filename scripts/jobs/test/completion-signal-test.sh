@@ -196,14 +196,16 @@ for cycle in $(seq 1 "$THRESH"); do
       "$JOBS/reaper.sh" > "$TP/reaper-$cycle.log" 2>&1 || true
 done
 VP="$TP/verify"; git clone -q --single-branch --branch journal2 "$BAREP" "$VP" 2>/dev/null
-{ [ ! -e "$VP/jobs/todo/poisonjob.md" ] && [ ! -e "$VP/jobs/doin/poisonjob.md" ] && [ ! -e "$VP/jobs/tada/poisonjob.md" ]; } \
-  && ok "a job that never completes is DROPPED from the board after the poison threshold (not requeued forever, not in tada)" \
-  || bad "never-completing job still on the board (todo=$([ -e "$VP/jobs/todo/poisonjob.md" ] && echo y || echo n) doin=$([ -e "$VP/jobs/doin/poisonjob.md" ] && echo y || echo n) tada=$([ -e "$VP/jobs/tada/poisonjob.md" ] && echo y || echo n))"
-# The alert is surfaced to the maintainer via inbox-send.sh: it lands directly in
-# inbox/maintainer/unread when that inbox exists, or is dead-lettered to inbox/dead
-# (which garden-deadmail promotes into a job) on a fresh board with no maintainer
-# inbox yet. Either way the intent is preserved — "never silently lost" is the
-# guarantee, so accept either location.
+# After the poison threshold the job is neither requeued (not in todo/doin) nor
+# completed (not in tada) — it is PARKED in plan/ under a held gate so the work
+# survives for a human to resume, rather than being dropped from the board.
+{ [ ! -e "$VP/jobs/todo/poisonjob.md" ] && [ ! -e "$VP/jobs/doin/poisonjob.md" ] && [ ! -e "$VP/jobs/tada/poisonjob.md" ] \
+  && [ -f "$VP/jobs/plan/poisonjob.md" ]; } \
+  && ok "a job that never completes is PARKED in plan/ (held) after the poison threshold (not requeued, not in tada, not dropped)" \
+  || bad "never-completing job not parked in plan/ (todo=$([ -e "$VP/jobs/todo/poisonjob.md" ] && echo y || echo n) doin=$([ -e "$VP/jobs/doin/poisonjob.md" ] && echo y || echo n) tada=$([ -e "$VP/jobs/tada/poisonjob.md" ] && echo y || echo n) plan=$([ -f "$VP/jobs/plan/poisonjob.md" ] && echo y || echo n))"
+# The alert is surfaced to the maintainer via poison-notice.sh (an amend-or-post
+# keyed sibling of inbox-send.sh): it lands in inbox/maintainer/unread. The intent
+# is preserved — "never silently lost" is the guarantee.
 pmsg="$(grep -rl 'poisonjob' "$VP/inbox" 2>/dev/null | head -1)"
 { [ -n "$pmsg" ] && grep -qi 'POISON' "$pmsg"; } \
   && ok "the never-completing job was surfaced to the maintainer as POISON (never silently lost)" \

@@ -205,6 +205,50 @@ grep -qi 'complete-with-failures' "$V/jobs/tada/orch-cont.md" 2>/dev/null \
   || bad "completion summary missing complete-with-failures marker"
 
 # ============================================================================
+hr; echo "SUBTEST 5 — POISON-PARK: a poisoned child parked in plan/ is treated as failed, not re-promoted"; hr
+# The reaper no longer DROPS a poisoned child; it PARKS it in plan/<child>.md under
+# a held gate carrying `poisoned: true` (reaper.sh poison branch). The watcher must
+# read that as a FAILURE — apply the on-child-failure policy — rather than seeing a
+# fresh parked child and re-promoting it into an endless re-run loop.
+poison_park_child() {  # poison_park_child <base>  — mimic the reaper's poison park
+  local wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
+  git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
+  {
+    printf -- '---\ngate: go-ahead\npriority: normal\n'
+    printf 'poisoned: true\npoison_signature: requeue-exhausted\nposted_by: reaper:testhost\n---\n\n'
+    printf '# %s\n\noriginal body for %s\n' "$1" "$1"
+  } > "$wt/jobs/plan/$1.md"
+  git -C "$wt" add "jobs/plan/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "poison-park($1)"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-poison x-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-poison x-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-poison x-a x-b >/dev/null
+
+tick                        # promote x-a
+in_dir jobs/todo x-a || bad "poison setup: x-a not promoted"
+poison_park_child x-a       # reaper poisons x-a → parks it in plan/ (poisoned: true)
+tick                        # watcher must read the poisoned plan as FAILED → HALT
+
+pois_ok=1
+in_dir jobs/todo x-a && { pois_ok=0; echo "    x-a was RE-PROMOTED (poison plan mis-read as parked)"; }
+in_dir jobs/todo x-b && { pois_ok=0; echo "    x-b promoted despite the halt"; }
+in_dir jobs/plan x-a || { pois_ok=0; echo "    poisoned x-a plan not preserved in plan/"; }
+in_dir jobs/orch orch-poison && { pois_ok=0; echo "    orchestration not closed"; }
+in_dir jobs/tada orch-poison || { pois_ok=0; echo "    halt summary not written"; }
+{ [ "$pois_ok" -eq 1 ]; } \
+  && ok "poisoned parked child read as FAILED: not re-promoted, work preserved in plan/, run halted" \
+  || bad "poison-park: todo=[$(board jobs/todo)] plan=[$(board jobs/plan)] orch=[$(board jobs/orch)] tada=[$(board jobs/tada)]"
+grep -qi '^orchestration-status: halted' "$V/jobs/tada/orch-poison.md" 2>/dev/null \
+  && ok "poisoned-child halt summary marks orchestration-status: halted" \
+  || bad "poison-park halt summary missing status marker"
+
+# ============================================================================
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 hr

@@ -1490,10 +1490,17 @@ fi
 # batching: both stale claims moved in ONE commit
 git -C "$RV" log --pretty=%s | grep -q 'reaped 2 stale claim' \
   && ok "both stale claims reaped in a single batched commit" || bad "reaps not batched into one commit"
-# (b) reap-poison: dropped from the board (not requeued), surfaced to maintainer
-{ [ ! -e "$RV/jobs/todo/reap-poison.md" ] && [ ! -e "$RV/jobs/doin/reap-poison.md" ]; } \
-  && ok "poison job 'reap-poison' dropped from the board (not requeued)" \
-  || bad "reap-poison still on the board"
+# (b) reap-poison: PARKED in plan/ under a held go-ahead gate (not requeued, not
+# dropped), surfaced to maintainer. The work survives for a human to resume; the
+# held gate keeps any auto-promoter from re-running it.
+{ [ ! -e "$RV/jobs/todo/reap-poison.md" ] && [ ! -e "$RV/jobs/doin/reap-poison.md" ] \
+  && [ -f "$RV/jobs/plan/reap-poison.md" ]; } \
+  && ok "poison job 'reap-poison' parked in plan/ (held, not requeued, not dropped)" \
+  || bad "reap-poison not parked in plan/ (todo=$([ -e "$RV/jobs/todo/reap-poison.md" ] && echo y || echo n) doin=$([ -e "$RV/jobs/doin/reap-poison.md" ] && echo y || echo n) plan=$([ -f "$RV/jobs/plan/reap-poison.md" ] && echo y || echo n))"
+{ [ -f "$RV/jobs/plan/reap-poison.md" ] && grep -qx 'gate: go-ahead' "$RV/jobs/plan/reap-poison.md" \
+  && grep -qx 'poisoned: true' "$RV/jobs/plan/reap-poison.md"; } \
+  && ok "parked poison plan carries a held go-ahead gate and poison provenance" \
+  || bad "parked poison plan missing held gate / provenance"
 pmsg=$(grep -rl 'reap-poison' "$RV/inbox/maintainer/unread" 2>/dev/null | head -1)
 { [ -n "$pmsg" ] && grep -qi 'POISON' "$pmsg"; } \
   && ok "poison job surfaced to the maintainer inbox with its body" || bad "no poison alert to maintainer"

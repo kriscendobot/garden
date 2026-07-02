@@ -389,12 +389,19 @@ env GARDEN="reaphost5" GARDEN_STATE="$TR5/state" JOURNAL_REMOTE="$BARE5" JOURNAL
     "$JOBS/reaper.sh" > "$TR5/reaper.log" 2>&1 || true
 
 R5="$TR5/verify"; git clone -q --single-branch --branch "$BRANCH" "$BARE5" "$R5" 2>/dev/null
-# (a) dropped from the board entirely (not requeued to todo, not left in doin).
-if [ ! -f "$R5/jobs/todo/overrunjob.md" ] && [ ! -f "$R5/jobs/doin/overrunjob.md" ]; then
-  ok "overrun-2 job POISONED (dropped from the board at the lower overrun threshold, not requeued)"
+# (a) PARKED in plan/ under a held gate (not requeued to todo, not left in doin, not
+# dropped) at the lower overrun threshold — the work survives for a human to resume.
+if [ ! -f "$R5/jobs/todo/overrunjob.md" ] && [ ! -f "$R5/jobs/doin/overrunjob.md" ] \
+   && [ -f "$R5/jobs/plan/overrunjob.md" ]; then
+  ok "overrun-2 job POISONED at the lower overrun threshold and PARKED in plan/ (held, not requeued)"
 else
-  bad "overrun-2 job not poisoned (todo=$([ -f "$R5/jobs/todo/overrunjob.md" ] && echo y || echo n) doin=$([ -f "$R5/jobs/doin/overrunjob.md" ] && echo y || echo n)); log: $(grep -iE 'poison|reap|stale' "$TR5/reaper.log" | tail -3)"
+  bad "overrun-2 job not parked in plan/ (todo=$([ -f "$R5/jobs/todo/overrunjob.md" ] && echo y || echo n) doin=$([ -f "$R5/jobs/doin/overrunjob.md" ] && echo y || echo n) plan=$([ -f "$R5/jobs/plan/overrunjob.md" ] && echo y || echo n)); log: $(grep -iE 'poison|reap|stale' "$TR5/reaper.log" | tail -3)"
 fi
+# the parked plan is gated go-ahead (held) and names the deterministic-overrun signature.
+{ [ -f "$R5/jobs/plan/overrunjob.md" ] && grep -qx 'gate: go-ahead' "$R5/jobs/plan/overrunjob.md" \
+  && grep -qx 'poison_signature: deadline-overrun' "$R5/jobs/plan/overrunjob.md"; } \
+  && ok "parked overrun poison plan is held (go-ahead) and carries the deadline-overrun signature" \
+  || bad "parked overrun poison plan missing held gate / overrun signature"
 # (b) the reaper log names the deterministic-overrun poison (not a generic per-cycle poison).
 if grep -Eq 'POISON \(deadline-overrun\)' "$TR5/reaper.log"; then
   ok "reaper logged the deadline-overrun poison signature (names the handler wall-clock budget)"
