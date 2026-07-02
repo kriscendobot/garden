@@ -37,10 +37,18 @@ pr="${2:?usage: ci-rollup-gh.sh <owner/name> <pr-number>}"
 
 require_tools gh jq
 
-# One read. Do NOT 2>/dev/null the failure into emptiness: a failed lookup must
-# surface as a nonzero exit (the watcher skips, never guesses), never a false green.
-json="$(gh pr view "$pr" -R "$repo" --json state,statusCheckRollup 2>/dev/null)" \
-  || { log "gh pr view $repo#$pr failed — cannot read CI state (skip, never guess)"; exit 1; }
+# One read. Do NOT swallow the failure into emptiness (the 2026-06-24 jq-outage
+# lesson): a failed lookup must surface as a nonzero exit (the watcher skips, never
+# guesses), never a false green — AND the *reason* (gh's stderr: rate-limit, expired
+# token, network blip) must be visible so a systemic outage is diagnosable instead of
+# an opaque rc=1. Capture stderr to a tempfile and fold its first lines into the log.
+gh_err="$(mktemp)"
+trap 'rm -f "$gh_err"' EXIT
+if ! json="$(gh pr view "$pr" -R "$repo" --json state,statusCheckRollup 2>"$gh_err")"; then
+  reason="$(tr '\n' ' ' <"$gh_err" | sed -e 's/[[:space:]]\{2,\}/ /g' -e 's/^ *//' -e 's/ *$//')"
+  log "gh pr view $repo#$pr failed: ${reason:-<no stderr>} — cannot read CI state (skip, never guess)"
+  exit 1
+fi
 [ -n "$json" ] || { log "empty PR state for $repo#$pr — cannot read CI state"; exit 1; }
 
 # A closed/merged PR is never shepherded (nothing to drive green).
