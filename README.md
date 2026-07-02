@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T10:17:42Z_
+_As of 2026-07-02T10:22:12Z_
 
 ## Latest
 
-A live host-identity drift is silently disabling the leader host: the deployed `/home/kris/.garden` shard file resolves `GARDEN=endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped — 276 recent gardener entries are mislabeled `endolinbot2`. This wants a one-line operator fix (`echo endolinbot > /home/kris/.garden`, or re-point the marker if `endolinbot2` is intended) plus a fleet restart; it is out of a gardener's autonomous scope. This same drift was the compounding factor behind five garden-infra jobs the reaper poisoned during the 2026-07-01/07-02 Claude quota outage (the identity-drift detector, gardener transient-failure backoff, issue-inbox git reaping, repo-watcher arm-retry, and the daemon-rename build).
+A live incident tops the queue: the `endolinbot2` host-identity drift is still active on the true leader host, silently flipping `is-main-host` to FOLLOWER and skipping every leader-only singleton (foreman, scheduler, reaper, triager, issue-inbox, orchestrate, and the maintainer-inbox Monitor) while mislabeling ~276 recent gardener entries. It was the compounding factor behind five garden-infra jobs the reaper poisoned during the 2026-07-01/07-02 Claude quota outage (daemon→manager rename, an identity-drift detector, gardener transient-failure backoff, issue-inbox git-reaping, and repo-watcher arm-retry). The requested fix is a one-line correction to `/home/kris/.garden` (or re-pointing the leader marker) plus a fleet restart — deployed-root state a gardener won't touch. Meanwhile the sharpened `improve-garden-identity-drift-detector`, `improve-gardener-transient-failure-backoff-and-fleet-brake`, and Phase 1 of the daemon→manager rename ([endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phase 2/3 parked behind it) all landed on the retry.
 
-On the work side, the daemon→manager rename Phase 1 (file renames) completed and opened as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phase 2 (identifier renames) blocked on it and Phase 3 blocked on Phase 2; the gardener transient-failure-backoff-and-fleet-brake job also landed. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is not lint-blocked but fully subsumed by the already-merged #58 error-tracing feature, and recommends closing it as superseded (optionally re-extracting its two small refactors, `error-id.js` and `trace-constants.js`, as a fresh PR against `llm`) — a disposition call awaiting your word.
+Two calls await you: shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) is fully **subsumed** by the already-merged #58 feature and recommends closing it — a rebase would collapse to an empty PR, leaving only two small refactors (`error-id.js`, `trace-constants.js`) worth a fresh builder PR if wanted. A large lint-ceiling shepherd resume wave (#101, #242, #306, #313, #316, #318, #320, #324, #335, plus #581/#585/#588/#590/#592/#593) is in flight on `endo-but-for-bots`, and an attention directive on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) was just claimed.
 
 ## Parked for maintainer feedback
 
@@ -205,7 +205,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (17)
+### doin (18)
 - [`ebfb-lint-master-strategy-evidence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-lint-master-strategy-evidence.md) — scout/investigator: evidence-based decision on the master-side lint strategy
 - [`endojs-endo-but-for-bots-pr101-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr101-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #101 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr242-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr242-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #242 (llm lint-ceiling resume)
@@ -216,6 +216,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr320-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr320-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #320 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr324-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr324-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #324 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr335-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr335-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #335 (llm lint-ceiling resume)
+- [`endojs-endo-but-for-bots-pr548-b3d56f1b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr548-b3d56f1b.md) — attention directive on endojs/endo-but-for-bots PR #548
 - [`endojs-endo-but-for-bots-pr581-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr581-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #581 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr585-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr585-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #585 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr588-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr588-shepherd.md) — shepherd on endojs/endo-but-for-bots PR #588 (llm lint-ceiling resume)
