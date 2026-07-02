@@ -35,3 +35,9 @@ resolved head. Once mergeable, CI will dispatch; the lint fix should carry it
 green. If CI surfaces new failures after the rebase, chain a shepherd.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 5
+  claimed_at: 2026-07-02T01:13:20Z
