@@ -11,3 +11,9 @@ fixer only for a genuinely different, out-of-shepherd-scope failure. Standing co
 Provenance: liaison residual sweep of the reaper POISON backlog (not in the resume-29 consolidation).
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 74
+  claimed_at: 2026-07-02T10:23:23Z
