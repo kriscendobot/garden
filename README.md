@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T22:10:05Z_
+_As of 2026-07-02T22:22:02Z_
 
 ## Latest
 
-A live host-identity incident tops the queue: on the leader host, `/home/kris/.garden` still resolves `GARDEN=endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped — with 276 recent gardener entries mis-keyed to `endolinbot2`. The fix is operational and out of a gardener's scope: either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2`, then restart the fleet. This same drift compounded a Claude quota outage on 07-01/07-02 that poisoned five garden-infra jobs (dropped after 5 requeue cycles): the daemon→manager rename build, plus four proposed hardening fixes — a `GARDEN` drift guard, gardener transient-failure backoff + fleet brake, issue-inbox orphan-git reaping, and repo-watcher arm-retry logging. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is not lint-blocked but **subsumed** — its error-tracing feature already re-landed on `llm` via the merged #58 — and recommends closing it as superseded, optionally salvaging two small refactors (`error-id.js`, `trace-constants.js`) as a fresh PR. On the board itself, the Fable-supervised XS→Rust (Endor) memory-safe-engine port advanced to stage 4 (`port-xs-to-rust-memory-safe-engine-s4` claimed into doin) as build stage 2 completed.
+A live host-identity incident tops the queue: the `endolinbot2` `GARDEN` override is still active on the true leader host, so `is-main-host` resolves to FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped while 276 recent gardener entries mislabel per-host state as `endolinbot2`. The fix is operational and out of a gardener's scope — either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2` and record the override, then restart the fleet. This same drift compounded a Claude quota outage on 07-01/07-02 that poisoned five garden-infra improvement jobs (identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm-retry, and the daemon→manager rename build), all dropped by the reaper after five requeue cycles and now parked in the maintainer inbox for a disposition.
+
+Two dispositions await a call. Shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) is not lint-blocked but **subsumed** — its feature already re-landed on `llm` via the merged [#58](https://github.com/endojs/endo-but-for-bots/pull/58), collapsing a rebase to essentially empty; recommendation is to CLOSE, optionally spinning off the two small unique refactors (`error-id.js`, `trace-constants.js`) as a fresh PR. Separately, the daemon→manager rename advanced: Phase 1 landed as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phase 2 (identifier renames) and Phase 3 (consumer sweep) blocked behind it. Otherwise the board is quiet — only the CI-rollup transient-network-retry job moved, claimed into `doin`.
 
 ## Parked for maintainer feedback
 
@@ -203,7 +205,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`improve-ci-rollup-retry-transient-network-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-rollup-retry-transient-network-error.md) — In scripts/jobs/handlers/ci-rollup-gh.sh (line ~47), a single gh pr view … --...
 - [`port-xs-to-rust-memory-safe-engine-s4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s4.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (966)
