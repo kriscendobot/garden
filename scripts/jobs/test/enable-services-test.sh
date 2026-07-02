@@ -179,6 +179,38 @@ grep -qxF 'garden-gardener@1.service' "$GARDEN_MOCK_STATE" \
 grep -qxF 'garden-gardener@3.service' "$GARDEN_MOCK_STATE" \
   && ok "busy gardener 3 still armed (disable deferred to a later tick)" || bad "busy gardener 3 was disarmed mid-job"
 
+# ============================================================================
+hr; echo "SCALE-TIMEOUT — a hung per-unit disable is bounded, skipped, loop continues"; hr
+# Regression for the 2026-07-02 scaler timeout: one hung `systemctl disable --now`
+# over the ~100 gardener units blocked the whole reconcile past
+# garden-gardener-scaler's TimeoutStartSec=900 and got SIGKILLed, leaving the pool
+# unreconciled. The fix wraps each per-unit call in a bounded `timeout`
+# (unit_ctl_bounded); on a per-unit timeout it logs the skipped unit and continues
+# to the next, so the pass always completes and a later tick retries the skipped one.
+reset_mock
+SCALE_TO="$TR/scale-timeout"; rm -rf "$SCALE_TO"
+# Arm @1,@2,@3 all idle; make @2's disable hang. Scale to 1 → @2 and @3 are extras.
+printf '%s\n' garden-gardener@1.service garden-gardener@2.service garden-gardener@3.service > "$GARDEN_MOCK_STATE"
+set +e
+tout="$(GARDEN_STATE="$SCALE_TO" GARDEN_UNIT_CTL_TIMEOUT=1 \
+        GARDEN_MOCK_HANG_UNIT=garden-gardener@2.service \
+        "$INSTALL" scale 1 2>&1)"; trc=$?
+set -e
+[ "$trc" -eq 0 ] && ok "scale returned success despite a hung per-unit disable (rc=0)" \
+  || bad "scale did not complete cleanly past the hung unit (rc=$trc)"
+grep -q 'exceeded 1s and was killed; skipping this unit' <<<"$tout" \
+  && grep -q 'garden-gardener@2.service' <<<"$tout" \
+  && ok "hung disable of @2 was bounded, killed, and logged as skipped" \
+  || bad "no bounded-timeout skip line for the hung @2. out: $(grep -i 'scale' <<<"$tout" | head -3)"
+grep -q 'scaled gardener pool to 1' <<<"$tout" \
+  && ok "the scale pass ran to completion (final summary logged)" || bad "scale pass did not complete"
+# The loop must have CONTINUED past the hung @2 and disabled the idle @3.
+grep -q 'disable --now garden-gardener@3.service' "$GARDEN_MOCK_LOG" \
+  && ok "loop continued past the hung @2 and disabled @3" || bad "@3 not reached after the hung @2 (loop stalled)"
+# @2 stays armed (its disable timed out, so it is left for a later tick to retry).
+grep -qxF 'garden-gardener@2.service' "$GARDEN_MOCK_STATE" \
+  && ok "hung @2 left armed for a later scaler tick to retry" || bad "@2 unexpectedly disarmed"
+
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 rm -rf "$TR"
 [ "$FAIL" -eq 0 ]

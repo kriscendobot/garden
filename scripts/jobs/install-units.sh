@@ -164,9 +164,30 @@ render() {
   log "installed units into $DEST and reloaded"
 }
 
+# Log a per-unit skip. Distinguishes a bounded-timeout kill (124/137 from
+# unit_ctl_bounded's `timeout -k`) from any other non-zero rc, so the operator can
+# tell a wedged systemctl from a genuine unit failure. Either way the caller
+# CONTINUES to the next unit — a later scaler tick retries the skipped one — so no
+# single unit operation can stall the whole reconcile past its 900s window.
+scale_skip_note() {
+  local op="$1" unit="$2" rc="$3"
+  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; then
+    log "WARN scale: '$op $unit' exceeded ${GARDEN_UNIT_CTL_TIMEOUT:-5}s and was killed; skipping this unit (a later scaler tick retries it)"
+  else
+    log "WARN scale: '$op $unit' failed (rc=$rc); skipping this unit (a later scaler tick retries it)"
+  fi
+}
+
 scale() {
   local n="${1:?usage: install-units.sh scale <N>}"
-  for i in $(seq 1 "$n"); do unit_ctl enable --now "garden-gardener@$i.service"; done
+  # Each `enable --now` is bounded (unit_ctl_bounded): a hung start of one gardener
+  # is skipped and the loop continues, so the whole enable pass always completes
+  # within the scaler's window and a later tick retries any skipped instance.
+  for i in $(seq 1 "$n"); do
+    local u="garden-gardener@$i.service" rc=0
+    unit_ctl_bounded enable --now "$u" || rc=$?
+    [ "$rc" -eq 0 ] || scale_skip_note "enable --now" "$u" "$rc"
+  done
   # Disable any higher-numbered instances still running. A `disable --now` SIGTERMs
   # the worker immediately — fine when it is idle, but a SIGTERM of a mid-job
   # gardener kills its in-flight `claude -p` handler, which then requeues and burns
@@ -186,11 +207,15 @@ scale() {
           log "gardener $idx is mid-job; deferring its disable to a later scaler tick (stops between claims, not mid-job)"
           deferred=$((deferred+1))
         else
-          unit_ctl disable --now "$unit"
+          # Bounded: a hung `disable --now` on one idle extra is skipped so the
+          # loop keeps draining the rest — no single unit stalls the whole pass.
+          local drc=0
+          unit_ctl_bounded disable --now "$unit" || drc=$?
+          [ "$drc" -eq 0 ] || scale_skip_note "disable --now" "$unit" "$drc"
         fi
         ;;
     esac
-  done < <(unit_ctl list-units --all 'garden-gardener@*.service' --no-legend 2>/dev/null || true)
+  done < <(unit_ctl_bounded list-units --all 'garden-gardener@*.service' --no-legend 2>/dev/null || true)
   log "scaled gardener pool to $n (deferred $deferred mid-job extra(s) for a later tick)"
 }
 
@@ -228,12 +253,19 @@ reconcile_identity() {
           deferred=$((deferred+1))
         else
           log "gardener $idx identity '$actual' != host '$want'; restarting to adopt the corrected host identity"
-          unit_ctl restart "$unit"
-          restarted=$((restarted+1))
+          # Bounded: a hung `restart` on one unit must not stall the whole
+          # identity reconcile past the scaler window; skip it and continue.
+          local rrc=0
+          unit_ctl_bounded restart "$unit" || rrc=$?
+          if [ "$rrc" -eq 0 ]; then
+            restarted=$((restarted+1))
+          else
+            scale_skip_note "restart" "$unit" "$rrc"
+          fi
         fi
         ;;
     esac
-  done < <(unit_ctl list-units --all 'garden-gardener@*.service' --no-legend 2>/dev/null || true)
+  done < <(unit_ctl_bounded list-units --all 'garden-gardener@*.service' --no-legend 2>/dev/null || true)
   log "identity reconcile: restarted $restarted drifted gardener(s), deferred $deferred mid-job for a later tick"
 }
 

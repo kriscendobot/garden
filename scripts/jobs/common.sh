@@ -264,7 +264,9 @@ gardener_busy() {
 : "${GARDEN_PROC:=/proc}"
 gardener_instance_garden() {
   local unit="${1:?gardener_instance_garden: unit required}" pid environ val
-  pid="$(unit_ctl show "$unit" -p MainPID --value 2>/dev/null | tr -dc '0-9')"
+  # Bounded: a hung `show` on one wedged unit must not stall the reconcile loop.
+  # On timeout the pid reads empty → return 1 (treated as "not drifted", skipped).
+  pid="$(unit_ctl_bounded show "$unit" -p MainPID --value 2>/dev/null | tr -dc '0-9')"
   [ -n "$pid" ] && [ "$pid" != 0 ] || return 1
   environ="$GARDEN_PROC/$pid/environ"
   [ -r "$environ" ] || return 1
@@ -1567,6 +1569,25 @@ systemd_user_env() {
 unit_ctl() {
   if [ -n "${GARDEN_UNIT_CTL:-}" ]; then "$GARDEN_UNIT_CTL" "$@"; else
     systemd_user_env; systemctl --user "$@"
+  fi
+}
+
+# Bounded per-unit control. Runs the SAME command unit_ctl would (the mock or
+# `systemctl --user`) but under `timeout`, so no single hung/slow `systemctl` call
+# (a wedged user-manager or dbus) can stall a whole scale/reconcile loop past its
+# service window — garden-gardener-scaler.service is a Type=oneshot with
+# TimeoutStartSec=900, and one blocked `disable --now` over ~100 gardener units
+# used to eat the entire window and get SIGKILLed, leaving the pool unreconciled.
+# `-k` escalates to SIGKILL for a call that ignores SIGTERM. On the deadline
+# `timeout` exits 124 (137 when the kill was needed); callers treat that as "skip
+# this unit and continue — a later scaler tick retries it" rather than blocking.
+# The bound is a few seconds by default; GARDEN_UNIT_CTL_TIMEOUT overrides it.
+unit_ctl_bounded() {
+  local secs="${GARDEN_UNIT_CTL_TIMEOUT:-5}"
+  if [ -n "${GARDEN_UNIT_CTL:-}" ]; then
+    timeout -k 2 "$secs" "$GARDEN_UNIT_CTL" "$@"
+  else
+    systemd_user_env; timeout -k 2 "$secs" systemctl --user "$@"
   fi
 }
 
