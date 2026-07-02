@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T04:09:00Z_
+_As of 2026-07-02T04:11:08Z_
 
 ## Latest
 
-A transient Claude quota/API outage overnight sent the ~100-gardener fleet into a thrash: dozens of shepherd, weaver, and fixer jobs failed their handlers every cycle and the reaper poison-dropped them after 5 requeues, filling the maintainer inbox with ~30 POISON notices spanning [#60](https://github.com/endojs/endo-but-for-bots/pull/60) through [#593](https://github.com/endojs/endo-but-for-bots/pull/593). Most are the auto-shepherd "red CI" jobs whose real blocker is a stale/conflicting base (the [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), and [#306](https://github.com/endojs/endo-but-for-bots/pull/306) weaves diagnose a needed rebase, not a shepherd fix), so they were never going to converge until the fleet outage cleared. Four infra-hardening jobs aimed squarely at this failure mode were caught in the same storm and poison-dropped rather than landed — a `GARDEN` identity-drift guard, a per-worker transient-failure backoff plus fleet brake, issue-inbox git-child reaping, and repo-watcher arm-retry — all worth re-posting once the fleet is healthy.
+The lint fix on [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) landed and its completion report posted; a captp error-identification design follow-up for [#58](https://github.com/endojs/endo-but-for-bots/pull/58) also completed. Now in flight: verifying #594's lint performance and bucketing the lint jobs, replicating that fix onto the `llm` base to merge immediately, plus a shepherd on [#420](https://github.com/endojs/endo-but-for-bots/pull/420) and a follow-up on [#397](https://github.com/endojs/endo-but-for-bots/pull/397).
 
-On the substantive side, the root `lint` failures on [#590](https://github.com/endojs/endo-but-for-bots/pull/590) (and previously #581) are confirmed as the typescript-eslint projectService **scaling ceiling** dropping the alphabetically-last `where`/`zip` packages, not any PR's diff; the #590 shepherd correctly declined to bundle a repo-wide fix into the refactor and posted a dedicated lint-infra job. That fix is now in flight on [#594](https://github.com/endojs/endo-but-for-bots/pull/594) (verify lint perf + replicate onto `llm` and merge), which will unblock the lint-ceiling shepherds once it lands. The [#410](https://github.com/endojs/endo-but-for-bots/pull/410) shepherd completed cleanly, and several gardener/ci-watcher improvements (rate-limit backoff, rollup-stderr surfacing, per-job model honoring) merged.
+The story a maintainer should notice, though, is a **large wave of poisoned jobs**: the reaper dropped roughly two dozen jobs after 5 failed requeue cycles each. Most are auto-dispatched shepherd jobs whose CI is red purely because the PR is conflicting/stale-based and GitHub dispatches no `pull_request` run — [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), and [#306](https://github.com/endojs/endo-but-for-bots/pull/306) each escalated to a weaver for a heavy rebase, and [#394](https://github.com/endojs/endo-but-for-bots/pull/394) to a fixer for real Node-version-specific test failures. That the handlers "fail every time" points at a correlated cause: one poisoned job explicitly names a Claude quota/API outage thrashing ~100 gardeners. Tellingly, the very jobs meant to harden against this — an identity-drift guard, a gardener transient-failure backoff + fleet brake, issue-inbox git-child reaping, and a repo-watcher arm retry — were themselves poisoned rather than executed. Separately, the shepherd on [#590](https://github.com/endojs/endo-but-for-bots/pull/590) escalated to the liaison: its lone red check is the known typescript-eslint projectService scaling ceiling (same tail-drop of `where`/`zip` that hit [#581](https://github.com/endojs/endo-but-for-bots/pull/581)), and a dedicated repo-wide lint-infra fix job was posted rather than bundling it into the refactor.
 
 ## Parked for maintainer feedback
 
@@ -925,21 +925,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
-- [`ebfb-design-captp-error-identification-followup-pr58`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-design-captp-error-identification-followup-pr58.md) — Design: CapTP error identification follow-up to (merged) #58 — maintainer inv...
+### doin (4)
 - [`ebfb-pr594-verify-lint-perf-and-bucket`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr594-verify-lint-perf-and-bucket.md) — PR #594 — verify lint performance; bucket the lint jobs if per-package regres...
 - [`ebfb-replicate-pr594-lint-fix-on-llm-and-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-replicate-pr594-lint-fix-on-llm-and-merge.md) — Replicate #594's lint fix onto llm and MERGE IMMEDIATELY (unblock llm shepherds)
 - [`endojs-endo-but-for-bots-pr420-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr420-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #420
-- [`endojs-endo-but-for-bots-pr594-042c3a07`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr594-042c3a07.md) — attention directive on endojs/endo-but-for-bots PR #594
 - [`fu-endojs-endo-but-for-bots-pr410-shepherd-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr410-shepherd-1.md) — On endojs/endo-but-for-bots PR #397 (branch design/gateway-package-phase-9), ...
 
-### tada (890)
+### tada (892)
+- [`endojs-endo-but-for-bots-pr594-042c3a07`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr594-042c3a07.md) — Completion report
+- [`ebfb-design-captp-error-identification-followup-pr58`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-design-captp-error-identification-followup-pr58.md) — Design delivered. Completion report:
 - [`garden-encode-typedefs-in-dts-builder-directive-and-reviewer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-typedefs-in-dts-builder-directive-and-reviewer.md) — Completion report
 - [`garden-gardener-claude-honor-per-job-model`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-gardener-claude-honor-per-job-model.md) — Completion report
 - [`endojs-endo-but-for-bots-pr410-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr410-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #410
-- [`improve-ci-watcher-backoff-on-rate-limit-cascade`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-backoff-on-rate-limit-cascade.md) — Completion report
-- [`improve-ci-watcher-surface-rollup-stderr`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-surface-rollup-stderr.md) — Completion report
-- … and 885 more
+- … and 887 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
