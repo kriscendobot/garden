@@ -33,6 +33,7 @@ if a fresh red surfaces post-rebase).
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
