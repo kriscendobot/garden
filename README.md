@@ -65,17 +65,20 @@ credentials, worktrees — lives here on the host and survives a `reset`.
 
 **Pick a unique identity first.** Each instance has a logical name (its
 *shard* identity) that keys job claims, per-host worker counts, and the
-leader marker. Two instances sharing a name corrupt each other's state. The
-launcher seeds it at container creation into a gitignored `.garden` file
-(`GARDEN_SHARD`, defaulting to the container hostname `GARDEN_HOSTNAME`, with
-`GARDEN_CONTAINER` naming the container):
+leader marker. Two instances sharing a name corrupt each other's state. At
+container creation the launcher seeds this identity from `GARDEN_SHARD`
+(defaulting to the container hostname `GARDEN_HOSTNAME`) into a gitignored
+`.garden` file, with `GARDEN_CONTAINER` naming the container:
 
 ```sh
 GARDEN_CONTAINER=petunia GARDEN_HOSTNAME=petunia ./garden
 ```
 
-Set `GARDEN_SHARD` only when a pool's identity must differ from its hostname
-(a second follower pool on the same machine).
+Every fleet script then reads that file as its runtime `GARDEN` identity
+(`common.sh` resolves `GARDEN` env → `.garden` file → `hostname -s`); an
+exported `GARDEN` does **not** reach the systemd `--user` units, which is why
+the durable file exists. Set `GARDEN_SHARD` only when a pool's identity must
+differ from its hostname (a second follower pool on the same machine).
 
 ### Give the bot its keys
 
