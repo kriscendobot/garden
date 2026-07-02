@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T02:33:21Z_
+_As of 2026-07-02T02:43:41Z_
 
 ## Latest
 
-The board barely moved this cycle — one completion ([`improve-mentor-transient-handler-exit-zero`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-transient-handler-exit-zero.md)) — but the maintainer inbox filled with a **poison-job storm**: the reaper on endolinbot dropped roughly thirty jobs after 5 requeue cycles each, nearly all auto-dispatched shepherd/weaver/fixer work on red-CI bot PRs ([#60](https://github.com/endojs/endo-but-for-bots/pull/60), [#79](https://github.com/endojs/endo-but-for-bots/pull/79), [#96](https://github.com/endojs/endo-but-for-bots/pull/96), [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#242](https://github.com/endojs/endo-but-for-bots/pull/242), [#306](https://github.com/endojs/endo-but-for-bots/pull/306), [#394](https://github.com/endojs/endo-but-for-bots/pull/394), and many more), consistent with a correlated Claude quota/API outage — the same failure mode the poisoned garden-infra jobs (`improve-gardener-transient-failure-backoff-and-fleet-brake`, `improve-garden-identity-drift-detector`) were minted to prevent. Those hardening jobs poisoning alongside the work they'd protect is the notable signal here.
-
-The other live thread is the **typescript-eslint projectService scaling ceiling**: root `eslint .` is dropping the alphabetically-last packages (`where`, `zip`) on every large PR, now blocking at least [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#592](https://github.com/endojs/endo-but-for-bots/pull/592), and [#593](https://github.com/endojs/endo-but-for-bots/pull/593) on their sole red check while base master lints green. A dedicated [`endo-but-for-bots-lint-projectservice-ceiling`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-lint-projectservice-ceiling.md) job is now in flight rather than bundling the fix into a refactor; the shepherds on #590 and #592 explicitly escalated to the liaison and left the PRs untouched. Two decisions await you: whether/where to add recurring board-audit capability (botanist report), and the lint-infra ceiling fix that gates the three PRs above.
+A correlated Claude quota/API outage sent the ~100-gardener fleet into a thrash loop, and the reaper responded by dropping a large batch of poisoned jobs after five requeue cycles each — dozens of auto-shepherd "red CI" jobs across bot-authored endo-but-for-bots PRs (#60, #79, #96, #235, #242, #250, #313, #316, #318, #320, #324, #335, #337, #377, #393, #410, #420, #438, #475, #541, #585, [#587](https://github.com/endojs/endo-but-for-bots/pull/587), [#588](https://github.com/endojs/endo-but-for-bots/pull/588), [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#591](https://github.com/endojs/endo-but-for-bots/pull/591), [#593](https://github.com/endojs/endo-but-for-bots/pull/593)), plus several weaver/fixer escalations ([#101](https://github.com/endojs/endo-but-for-bots/pull/101), #216, #301, #306, [#394](https://github.com/endojs/endo-but-for-bots/pull/394)) and — notably — five garden-infra hardening jobs that would have addressed the outage itself (gardener transient-failure backoff + fleet brake, identity-drift detection for the `endolinbot2` regression, issue-inbox git-child reaping, repo-watcher arm retry, and the `build-daemon-rename-to-manager` build). Two escalations need a human call: the endo-but-for-bots **lint-infra scaling ceiling** — typescript-eslint's projectService drops the alphabetically-last packages (`where`/`zip`) on any large whole-repo `eslint .`, now the sole red check blocking [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#592](https://github.com/endojs/endo-but-for-bots/pull/592), and [#593](https://github.com/endojs/endo-but-for-bots/pull/593) with clean diffs — for which a dedicated `endo-but-for-bots-lint-projectservice-ceiling` job is now in progress; and the botanist's question of whether recurring board audits should live on the foreman/watchman or a new script. The board is otherwise drained (0 todo), and the poisoned infra jobs are worth re-posting once quota recovers, since they target the exact failure mode that just played out.
 
 ## Parked for maintainer feedback
 
@@ -1030,6 +1028,27 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > pre-existing/flaky and may not survive the rebase (the chat/spaces-util
 > restructure on `llm` is large). Re-diagnose against the post-rebase CI run;
 > do not assume the channel-hang persists.
+
+- `20260702T024308Z-ce2033` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T024308Z-ce2033.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr591-shepherd
+>
+> --- original job body ---
+> # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #591
+>
+> CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
+> Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
+> watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/591
+> Head: endojs/endo-but-for-bots (bot-pushable)
+>
+> Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
+> If the failure is out of a shepherds scope, escalate to a fixer per the
+> shepherd→fixer auto-chain. Re-fetch the live check state before acting;
+> this job was minted from a rollup read at post time.
 
 
 ## Board
