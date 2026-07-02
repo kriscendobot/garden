@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:24:17Z_
+_As of 2026-07-02T19:25:31Z_
 
 ## Latest
 
-The board was quiet — only the [daily-progress-summary periodical](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260702-191237.md) completed — but the maintainer inbox surfaced a live infrastructure incident worth immediate attention: the leader host's `.garden` shard file still reads `endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped on the true leader; the fix is an operational one-liner (`echo endolinbot > /home/kris/.garden`, or re-point the marker and record the override) plus a fleet restart. That same drift compounded a Claude quota outage into five poisoned garden-infra jobs the reaper dropped after 5 requeues — the identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, repo-watcher arm-retry, and the daemon→manager rename build. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error-tracing across CapTP workers) is subsumed — its feature already re-landed on `llm` — and recommends closing it as superseded, keeping only two small refactors (`error-id.js`, `trace-constants.js`) as a fresh PR if wanted. A scheduler spec gap was also flagged: `daily-progress-summary` wants Pacific-midnight anchoring the elapsed-interval scheduler can't honor, so it fired midday instead.
+A live host-identity incident tops the queue: on the true leader host, `/home/kris/.garden` still resolves `GARDEN=endolinbot2` while `hostname -s`, the `leader` marker, and `is-main-host.sh` all say `endolinbot`, so every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped and 276 recent gardener entries are mislabeled `endolinbot2`. The investigating gardener flagged this as needing a deployed-root fix out of its scope — either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2` — followed by a fleet restart. This same drift compounded a Claude quota outage on 07-01/07-02 that poisoned five garden-infra jobs (identity-drift detector, gardener transient-failure backoff + fleet brake, issue-inbox git reaping, repo-watcher arm retry, and the daemon→manager rename build); all five now sit unread in the maintainer inbox after the reaper dropped them.
+
+Separately, a shepherd resuming [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is subsumed rather than lint-blocked — its cross-worker error-tracing feature already re-landed on `llm` via the merged #58 — and recommends closing it as superseded, optionally extracting only its two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh PR. On the board itself little moved: a single new low-priority plan job, timezone-anchored scheduler cadence, was parked.
 
 ## Parked for maintainer feedback
 
@@ -198,14 +200,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > I did not push anything and left #301 untouched (no comment authorization on this job). Awaiting
 > your call: close #301, or open a fresh refactor PR extracting error-id.js/trace-constants.js?
 
-- `20260702T192329Z-778e83` — from gardener:daily-progress-summary-20260702-191237, reply_to `daily-progress-summary-20260702-191237` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T192329Z-778e83.md)
-
-> Observation while running the daily-progress-summary periodical job (I wrote periodicals/2026/07/01.md for Pacific day 07-01, landed on origin/journal2 at 3304cb7bb).
->
-> Schedule/spec gap worth a design follow-up: schedules/daily-progress-summary.md carries `cadence: daily`, but its own body specifies "fires every day at 00:00 America/Los_Angeles (DST-aware)" and "the next fire is always computed forward from the intended schedule, so a late firing does not shift the daily anchor." The v2 scheduler only supports fixed elapsed-interval cadences (cadence_seconds maps `daily`->86400 from last_dispatched), so it cannot honor either property: it drifts (last_dispatched advances to the actual fire time each cycle) and is not anchored to Pacific midnight. This firing proved it — it fired at 2026-07-02T19:12:37Z (12:12 PDT), not local midnight.
->
-> Two ways to close it: (a) extend scheduler.sh with a wall-clock/timezone-anchored cadence kind (compute the most-recent local-midnight boundary in the named TZ; due if last_dispatched < that boundary; no drift, DST-aware, no churn between boundaries), or (b) a preflight gate on a short cadence that fires only when the Pacific calendar date of last_dispatched is behind now's (simpler, but commits on every gated tick). (a) is the faithful translation. Not fixing it under this job since it's a scheduler design change; flagging for your discretion.
-
 
 ## Board
 ### todo (0)
@@ -238,6 +232,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 - [`endojs-endo-but-for-bots-pr101-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr101-shepherd-llm-resume.md) — _low_ · shepherd on endojs/endo-but-for-bots PR #101 (PARKED from doin — churn/near-p...
 - [`endojs-endo-but-for-bots-pr588-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr588-shepherd-llm-resume.md) — _low_ · shepherd on endojs/endo-but-for-bots PR #588 (PARKED from doin — churn/near-p...
+- [`scheduler-timezone-anchored-cadence`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scheduler-timezone-anchored-cadence.md) — _low_ · design/build: timezone-anchored scheduler cadence (fix daily-progress-summary...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
