@@ -48,7 +48,24 @@ case "$cmd" in
     done < "$STATE"
     ;;
   enable)
-    u="$(unit_arg "$@")"; grep -qxF "$u" "$STATE" 2>/dev/null || echo "$u" >> "$STATE" ;;
+    u="$(unit_arg "$@")"
+    # Optional enable-failure injection for the arm-retry path. When
+    # GARDEN_MOCK_FAIL_ENABLE_UNIT names this unit, fail `enable` (write a
+    # systemctl-shaped diagnostic to stderr and exit 1) for the first
+    # GARDEN_MOCK_FAIL_ENABLE_COUNT attempts, then succeed — modeling a transient
+    # systemctl/XDG_RUNTIME_DIR hiccup the in-tick retry rides out. With COUNT
+    # unset, every attempt fails (the persistent-failure WARN path). The attempt
+    # tally persists in GARDEN_MOCK_FAIL_ENABLE_STATE across the retry's calls.
+    if [ -n "${GARDEN_MOCK_FAIL_ENABLE_UNIT:-}" ] && [ "$u" = "$GARDEN_MOCK_FAIL_ENABLE_UNIT" ]; then
+      cnt_file="${GARDEN_MOCK_FAIL_ENABLE_STATE:-$STATE.enfail}"
+      n=0; [ -f "$cnt_file" ] && n="$(cat "$cnt_file")"
+      n=$((n + 1)); echo "$n" > "$cnt_file"
+      if [ -z "${GARDEN_MOCK_FAIL_ENABLE_COUNT:-}" ] || [ "$n" -le "${GARDEN_MOCK_FAIL_ENABLE_COUNT}" ]; then
+        echo "Failed to enable unit $u: Failed to connect to bus: \$XDG_RUNTIME_DIR not set" >&2
+        exit 1
+      fi
+    fi
+    grep -qxF "$u" "$STATE" 2>/dev/null || echo "$u" >> "$STATE" ;;
   disable)
     u="$(unit_arg "$@")"; grep -vxF "$u" "$STATE" > "$STATE.tmp" 2>/dev/null || true; mv "$STATE.tmp" "$STATE" ;;
   is-enabled)

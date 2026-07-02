@@ -318,6 +318,52 @@ grep -q 'still absent after install-units.sh install' "$rwerr3" \
 grep -q 'armed 0 of' "$rwerr3" \
   && ok "reconcile summary reports 0 armed for the absent-template set" \
   || bad "reconcile summary did not report the skipped arming"
+
+# --- transient arm failure is retried WITHIN the tick ------------------------
+# A transient systemctl/XDG_RUNTIME_DIR hiccup makes the FIRST `enable --now`
+# fail; the pre-fix code WARNed "could not arm" and left the slug disarmed until
+# the next full tick. arm_timer must instead retry within the tick and succeed.
+# Template present (no self-heal), delay driven to 0 so the test does not sleep.
+export XDG_CONFIG_HOME="$TR/xdg-armretry"; ARDEST="$XDG_CONFIG_HOME/systemd/user"
+rm -rf "$XDG_CONFIG_HOME"; mkdir -p "$ARDEST"
+touch "$ARDEST/garden-triager@.service"
+: > "$GARDEN_MOCK_STATE"
+rwerr4="$TR/rw-armretry.err"; rm -f "$TR/armed.enfail"
+push_change "repos/kriscendobot-endo" "watch" "watch for arm-retry"
+GARDEN_ARM_RETRY_DELAY=0 \
+GARDEN_MOCK_FAIL_ENABLE_UNIT="garden-triager@kriscendobot-endo.timer" \
+GARDEN_MOCK_FAIL_ENABLE_COUNT=1 \
+  "$JOBS/repo-watcher.sh" >/dev/null 2>"$rwerr4"
+grep -qxF "garden-triager@kriscendobot-endo.timer" "$GARDEN_MOCK_STATE" \
+  && ok "transient arm failure retried and armed within the tick" \
+  || bad "triager not armed after a transient arm failure"
+grep -q 'systemctl rc=1' "$rwerr4" \
+  && ok "transient arm failure logged the systemctl rc+stderr" \
+  || bad "arm failure did not surface the underlying systemctl rc"
+grep -q 'WARN: could not arm' "$rwerr4" \
+  && bad "WARNed 'could not arm' despite retry succeeding" \
+  || ok "no persistent-failure WARN when the retry succeeds"
+
+# --- arm failure that persists across every attempt WARNs with rc+stderr -----
+# When the hiccup does not clear, arm_timer exhausts its bounded retries and
+# WARNs ONCE with the underlying rc+stderr — no per-tick swallow-and-forget.
+: > "$GARDEN_MOCK_STATE"; rm -f "$TR/armed.enfail"
+rwerr5="$TR/rw-armpersist.err"
+GARDEN_ARM_RETRY_DELAY=0 GARDEN_ARM_RETRIES=3 \
+GARDEN_MOCK_FAIL_ENABLE_UNIT="garden-triager@kriscendobot-endo.timer" \
+  "$JOBS/repo-watcher.sh" >/dev/null 2>"$rwerr5"
+grep -q 'WARN: could not arm garden-triager@kriscendobot-endo after 3 attempt' "$rwerr5" \
+  && ok "persistent arm failure WARNs once after exhausting retries" \
+  || bad "persistent arm failure did not WARN with the attempt count"
+grep -q 'WARN: could not arm .*systemctl rc=1:.*XDG_RUNTIME_DIR' "$rwerr5" \
+  && ok "persistent-failure WARN carries the systemctl rc and stderr" \
+  || bad "persistent-failure WARN omitted the rc/stderr detail"
+[ "$(grep -c '^systemctl --user enable --now garden-triager@kriscendobot-endo.timer' "$GARDEN_MOCK_LOG")" -ge 3 ] \
+  && ok "arm retried the bounded number of attempts" \
+  || bad "arm did not retry the expected number of attempts"
+# clean up the repo file so it does not leak into later subtests
+push_change "repos/kriscendobot-endo" "@DELETE" "unwatch after arm-retry test"
+unset GARDEN_MOCK_FAIL_ENABLE_UNIT GARDEN_MOCK_FAIL_ENABLE_COUNT
 unset XDG_CONFIG_HOME
 
 # ============================================================================

@@ -98,6 +98,39 @@ ensure_template_installed() {
   return 1
 }
 
+# Bounded in-tick retry for a single `enable --now` arm call. A transient
+# systemctl / XDG_RUNTIME_DIR hiccup (the user bus momentarily unreachable, a
+# daemon-reload still settling) makes the arm fail once; the pre-fix code
+# swallowed the underlying rc+stderr into a bare "could not arm" WARN and did not
+# retry until the NEXT full tick — a whole cycle with the ci-watcher / comment
+# watcher for that slug disarmed (the "#259 rollup unreadable" follow that never
+# fired). arm_timer instead captures the systemctl rc and stderr, and retries a
+# few times with a short backoff so a one-off hiccup self-heals within the tick;
+# only a failure that persists across every attempt WARNs, and it WARNs with the
+# rc+stderr so the cause is on the record rather than opaque. Tunable (and driven
+# to 0-delay by the test) via GARDEN_ARM_RETRIES / GARDEN_ARM_RETRY_DELAY.
+ARM_RETRIES="${GARDEN_ARM_RETRIES:-3}"
+ARM_RETRY_DELAY="${GARDEN_ARM_RETRY_DELAY:-2}"
+arm_timer() {
+  local prefix="$1" slug="$2"
+  local unit="$prefix@$slug.timer"
+  local attempt=1 rc err
+  while :; do
+    # 2>&1 >/dev/null: capture the arm's stderr into $err, discard its stdout.
+    # `&& return 0` keeps this off set -e's radar on failure AND leaves $? as the
+    # failed systemctl's rc (an `if …; then` would reset $? to the if's own 0).
+    err="$(unit_ctl enable --now "$unit" 2>&1 >/dev/null)" && return 0
+    rc=$?
+    if [ "$attempt" -ge "$ARM_RETRIES" ]; then
+      log "WARN: could not arm $prefix@$slug after $attempt attempt(s): systemctl rc=$rc: ${err:-<no stderr>}"
+      return 1
+    fi
+    log "arm $prefix@$slug failed (attempt $attempt/$ARM_RETRIES, systemctl rc=$rc: ${err:-<no stderr>}); retrying in ${ARM_RETRY_DELAY}s"
+    [ "$ARM_RETRY_DELAY" != 0 ] && sleep "$ARM_RETRY_DELAY"
+    attempt=$((attempt + 1))
+  done
+}
+
 # reconcile_set <journal-subdir> <unit-prefix>
 # Arm a "<unit-prefix>@<slug>.timer" for every file under <journal-subdir>/, and
 # disarm any armed instance whose file is gone. Idempotent. Echoes a summary.
@@ -138,7 +171,7 @@ reconcile_set() {
     for slug in "${!want[@]}"; do
       if [ -z "${have[$slug]:-}" ]; then
         log "watch: arming $prefix@$slug.timer"
-        unit_ctl enable --now "$prefix@$slug.timer" || log "WARN: could not arm $prefix@$slug"
+        arm_timer "$prefix" "$slug" || true
       fi
     done
   fi
