@@ -92,14 +92,19 @@ FAKEDIR="$TR/bin"; mkdir -p "$FAKEDIR"
 cat > "$FAKEDIR/claude" <<'FAKE'
 #!/bin/bash
 set -uo pipefail
-sid=""; mode="fresh"
+sid=""; mode="fresh"; model=""
 prev=""
 for a in "$@"; do
-  case "$prev" in --session-id) sid="$a"; mode="fresh" ;; --resume) sid="$a"; mode="resume" ;; esac
+  case "$prev" in
+    --session-id) sid="$a"; mode="fresh" ;;
+    --resume)     sid="$a"; mode="resume" ;;
+    --model)      model="$a" ;;
+  esac
   prev="$a"
 done
 pwd > "$FAKE_CWD_OUT"
 printf '%s\n' "$mode" > "$FAKE_MODE_OUT"
+printf '%s\n' "$model" > "${FAKE_MODEL_OUT:-/dev/null}"
 # Mimic Claude writing its session transcript into the launch cwd's project dir.
 if [ -n "$sid" ]; then
   pd="$HOME/.claude/projects/$(printf '%s' "$PWD" | sed 's#/#-#g')"
@@ -141,7 +146,7 @@ run_handler() {  # run_handler <base> <jobfile> <report> ; sets global RC
     GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_STATE="$TR/state" \
     GARDEN_NO_MAINTAINER_ALERT=1 \
     GARDEN_COMPLETION_SENTINEL="$SENTINEL" FAKE_COMPLETION_MARKER="$MARKER" \
-    FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" \
+    FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" FAKE_MODEL_OUT="$TR/model.out" \
     bash "$HANDLER" "$1" "$2" "$3"
   RC=$?
 }
@@ -206,6 +211,42 @@ cwd2="$(cat "$TR/cwd.out" 2>/dev/null)"
 # the sentinel'd worktree was the one entered. Belt: it is torn down again now.
 [ ! -e "$WT" ] && ok "the resumed run tears the worktree down on its completion" \
   || bad "worktree survived the resumed run's completion: $WT"
+
+# === 6: a job with `model: fable` threads --model claude-fable-5 ==============
+# A per-job `model:` frontmatter field is honored: the short tier name is mapped
+# to its concrete model id and passed through as `claude -p --model <id>`. The
+# short names are the same canonical set as skills/model-selection.
+MBASE="garden-infra-model"
+MJOB="$TR/$MBASE.job"          # leading YAML frontmatter carrying the model field
+printf -- '---\nmodel: fable\n---\nMap: build (garden infra). Run this one on Fable.\n' > "$MJOB"
+rm -f "$TR/model.out"
+run_handler "$MBASE" "$MJOB" "$REPORT"
+[ "$RC" -eq 0 ] && ok "model-selecting run exits 0" || bad "model run should exit 0 (got $RC)"
+[ "$(cat "$TR/model.out" 2>/dev/null)" = "claude-fable-5" ] \
+  && ok "model: fable maps to --model claude-fable-5" \
+  || bad "expected --model claude-fable-5, got '$(cat "$TR/model.out" 2>/dev/null)'"
+
+# === 7: a job with NO model field passes NO --model (default unchanged) ========
+NBASE="garden-infra-nomodel"
+NJOB="$TR/$NBASE.job"
+printf 'Map: build (garden infra). No model field; default behavior.\n' > "$NJOB"
+rm -f "$TR/model.out"
+run_handler "$NBASE" "$NJOB" "$REPORT"
+[ "$RC" -eq 0 ] && ok "no-model run exits 0" || bad "no-model run should exit 0 (got $RC)"
+[ -z "$(cat "$TR/model.out" 2>/dev/null)" ] \
+  && ok "absent model field passes NO --model (default preserved)" \
+  || bad "expected no --model, got '$(cat "$TR/model.out" 2>/dev/null)'"
+
+# === 8: a bad/unknown model value falls back to the default (no --model) =======
+BBASE="garden-infra-badmodel"
+BJOB="$TR/$BBASE.job"
+printf -- '---\nmodel: gpt-9-turbo\n---\nMap: build (garden infra). Bogus model name.\n' > "$BJOB"
+rm -f "$TR/model.out"
+run_handler "$BBASE" "$BJOB" "$REPORT"
+[ "$RC" -eq 0 ] && ok "unknown-model run does not crash (exit 0)" || bad "unknown-model run should exit 0 (got $RC)"
+[ -z "$(cat "$TR/model.out" 2>/dev/null)" ] \
+  && ok "unknown model falls back to the default (no --model)" \
+  || bad "expected fallback to no --model, got '$(cat "$TR/model.out" 2>/dev/null)'"
 
 echo
 echo "gardener-worktree-test: $PASS passed, $FAIL failed"

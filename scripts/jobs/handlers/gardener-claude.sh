@@ -203,6 +203,39 @@ EOF
   fi
 fi
 
+# --- optional per-job model selection ----------------------------------------
+#
+# A job's leading YAML frontmatter may carry a `model:` field to request a
+# specific Claude model for THIS job (e.g. the maintainer wants the README
+# tutorial job to run on Fable). We map the short tier names to the concrete
+# model ids the environment exposes and thread the result through as
+# `claude -p --model <id>`. The SAME short names are the canonical tier table in
+# skills/model-selection (which governs the `model` parameter on `Agent`
+# dispatches); this is the per-JOB override for the scripted gardener handler.
+#
+# Robustness (job spec): absent field -> no `--model`, so behavior is UNCHANGED
+# (the fleet default model). A blank or unknown value falls back to the default
+# (no `--model`) and logs — a typo'd model name must never crash the tick. A
+# value that is already a concrete `claude-*` id is passed through verbatim.
+model_args=()
+requested_model="$(plan_field "$jobfile" model)"
+if [ -n "$requested_model" ]; then
+  case "$requested_model" in
+    fable)    resolved_model="claude-fable-5" ;;
+    opus)     resolved_model="claude-opus-4-8" ;;
+    sonnet)   resolved_model="claude-sonnet-4-6" ;;
+    haiku)    resolved_model="claude-haiku-4-5-20251001" ;;
+    claude-*) resolved_model="$requested_model" ;;   # already a concrete model id
+    *)        resolved_model="" ;;                    # unknown -> fall back below
+  esac
+  if [ -n "$resolved_model" ]; then
+    model_args=(--model "$resolved_model")
+    log "job '$base' requested model '$requested_model' -> claude --model $resolved_model"
+  else
+    log "job '$base' requested unknown model '$requested_model'; falling back to the default model (no --model)"
+  fi
+fi
+
 # --dangerously-skip-permissions: this is an autonomous, headless gardener with
 # no human approver, so the default permission gate would deny every Bash/tool
 # call (gh, git push, even `command -v gh`) and the gardener could do no real
@@ -216,7 +249,7 @@ command -v claude >/dev/null 2>&1 \
   || die "claude not on PATH; cannot run default gardener handler for '$base'"
 
 set +e
-( cd "$worktree" && claude -p --dangerously-skip-permissions "${session_args[@]}" "$prompt" ) > "$report"
+( cd "$worktree" && claude -p --dangerously-skip-permissions "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$report"
 rc=$?
 set -e
 
