@@ -9,3 +9,9 @@ Encode this so it doesn't recur (mirror the makeExo-over-Far pattern):
    it. Document the escape hatch if any.
 Land the role/skill (+ CLAUDE.md if needed) on `main2` via an isolated worktree; if you add a lint rule,
 that's an endo-but-for-bots change (base `llm`, `@endo/eslint-plugin`, changeset, tests). Keep it terse.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 43
+  claimed_at: 2026-07-02T04:05:04Z
