@@ -203,36 +203,42 @@ EOF
   fi
 fi
 
-# --- optional per-job model selection ----------------------------------------
+# --- model selection: explicit per-job override, then role default -----------
 #
-# A job's leading YAML frontmatter may carry a `model:` field to request a
-# specific Claude model for THIS job (e.g. the maintainer wants the README
-# tutorial job to run on Fable). We map the short tier names to the concrete
-# model ids the environment exposes and thread the result through as
-# `claude -p --model <id>`. The SAME short names are the canonical tier table in
-# skills/model-selection (which governs the `model` parameter on `Agent`
-# dispatches); this is the per-JOB override for the scripted gardener handler.
+# The model for THIS job is resolved from its leading YAML frontmatter in two
+# steps, with the explicit override winning:
 #
-# Robustness (job spec): absent field -> no `--model`, so behavior is UNCHANGED
-# (the fleet default model). A blank or unknown value falls back to the default
-# (no `--model`) and logs — a typo'd model name must never crash the tick. A
-# value that is already a concrete `claude-*` id is passed through verbatim.
+#   1. An explicit `model:` field requests a specific Claude model for this job
+#      (e.g. the maintainer wants the README tutorial job on Fable). The short
+#      tier names bind to concrete ids in resolve_model_tier (common.sh) — the
+#      SAME map the Agent-dispatch path follows via skills/model-selection.
+#   2. Absent an explicit (valid) `model:`, the job's `role:` field selects a
+#      per-role DEFAULT model via role_default_model (common.sh): the canonical
+#      policy that runs a `designer` job on Fable and a `builder` job on Opus
+#      without the producer having to name a model. Every other role is unpinned
+#      and rides the fleet default.
+#
+# Robustness (job spec): neither field present -> no `--model`, behavior UNCHANGED
+# (the fleet default model). A blank/unknown explicit `model:` falls back to the
+# default (no `--model`) and logs — a typo must never crash the tick — and does
+# NOT silently drop to the role default, since naming `model:` at all signals an
+# intent to override the role policy. A concrete `claude-*` id passes through.
 model_args=()
 requested_model="$(plan_field "$jobfile" model)"
+requested_role="$(plan_role "$jobfile")"
 if [ -n "$requested_model" ]; then
-  case "$requested_model" in
-    fable)    resolved_model="claude-fable-5" ;;
-    opus)     resolved_model="claude-opus-4-8" ;;
-    sonnet)   resolved_model="claude-sonnet-4-6" ;;
-    haiku)    resolved_model="claude-haiku-4-5-20251001" ;;
-    claude-*) resolved_model="$requested_model" ;;   # already a concrete model id
-    *)        resolved_model="" ;;                    # unknown -> fall back below
-  esac
+  resolved_model="$(resolve_model_tier "$requested_model")"
   if [ -n "$resolved_model" ]; then
     model_args=(--model "$resolved_model")
     log "job '$base' requested model '$requested_model' -> claude --model $resolved_model"
   else
     log "job '$base' requested unknown model '$requested_model'; falling back to the default model (no --model)"
+  fi
+elif [ -n "$requested_role" ]; then
+  resolved_model="$(role_default_model "$requested_role")"
+  if [ -n "$resolved_model" ]; then
+    model_args=(--model "$resolved_model")
+    log "job '$base' role '$requested_role' -> default model claude --model $resolved_model"
   fi
 fi
 

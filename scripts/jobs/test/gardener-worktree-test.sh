@@ -248,6 +248,54 @@ run_handler "$BBASE" "$BJOB" "$REPORT"
   && ok "unknown model falls back to the default (no --model)" \
   || bad "expected fallback to no --model, got '$(cat "$TR/model.out" 2>/dev/null)'"
 
+# === 9: role: designer defaults to Fable; role: builder defaults to Opus =======
+# With NO explicit `model:` field, a job's `role:` selects the per-role default
+# model (common.sh role_default_model): designer -> claude-fable-5, builder ->
+# claude-opus-4-8. This is the standing policy (2026-07-02).
+DRBASE="garden-infra-designer-role"
+DRJOB="$TR/$DRBASE.job"
+printf -- '---\nrole: designer\n---\nDesign X. No explicit model; role picks the default.\n' > "$DRJOB"
+rm -f "$TR/model.out"
+run_handler "$DRBASE" "$DRJOB" "$REPORT"
+[ "$RC" -eq 0 ] && ok "role: designer run exits 0" || bad "designer-role run should exit 0 (got $RC)"
+[ "$(cat "$TR/model.out" 2>/dev/null)" = "claude-fable-5" ] \
+  && ok "role: designer defaults to --model claude-fable-5" \
+  || bad "expected claude-fable-5, got '$(cat "$TR/model.out" 2>/dev/null)'"
+
+BRBASE="garden-infra-builder-role"
+BRJOB="$TR/$BRBASE.job"
+printf -- '---\nrole: builder\n---\nBuild X. No explicit model; role picks the default.\n' > "$BRJOB"
+rm -f "$TR/model.out"
+run_handler "$BRBASE" "$BRJOB" "$REPORT"
+[ "$RC" -eq 0 ] && ok "role: builder run exits 0" || bad "builder-role run should exit 0 (got $RC)"
+[ "$(cat "$TR/model.out" 2>/dev/null)" = "claude-opus-4-8" ] \
+  && ok "role: builder defaults to --model claude-opus-4-8" \
+  || bad "expected claude-opus-4-8, got '$(cat "$TR/model.out" 2>/dev/null)'"
+
+# === 10: explicit model: overrides the role default ============================
+# A designer job that ALSO names `model: opus` must run on Opus — the explicit
+# per-job model wins over the role's Fable default.
+ORBASE="garden-infra-role-override"
+ORJOB="$TR/$ORBASE.job"
+printf -- '---\nrole: designer\nmodel: opus\n---\nDesign X, but on Opus for this subtle one.\n' > "$ORJOB"
+rm -f "$TR/model.out"
+run_handler "$ORBASE" "$ORJOB" "$REPORT"
+[ "$RC" -eq 0 ] && ok "role+explicit-model run exits 0" || bad "override run should exit 0 (got $RC)"
+[ "$(cat "$TR/model.out" 2>/dev/null)" = "claude-opus-4-8" ] \
+  && ok "explicit model: opus overrides the designer Fable default" \
+  || bad "expected claude-opus-4-8 (override), got '$(cat "$TR/model.out" 2>/dev/null)'"
+
+# === 11: an unpinned role passes NO --model (fleet default) ====================
+URBASE="garden-infra-unpinned-role"
+URJOB="$TR/$URBASE.job"
+printf -- '---\nrole: fixer\n---\nFix X. Unpinned role; rides the fleet default.\n' > "$URJOB"
+rm -f "$TR/model.out"
+run_handler "$URBASE" "$URJOB" "$REPORT"
+[ "$RC" -eq 0 ] && ok "unpinned-role run exits 0" || bad "unpinned-role run should exit 0 (got $RC)"
+[ -z "$(cat "$TR/model.out" 2>/dev/null)" ] \
+  && ok "unpinned role passes NO --model (fleet default)" \
+  || bad "expected no --model, got '$(cat "$TR/model.out" 2>/dev/null)'"
+
 echo
 echo "gardener-worktree-test: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

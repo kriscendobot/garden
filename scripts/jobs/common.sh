@@ -1704,6 +1704,55 @@ plan_priority() {
 # bulletin renders it, and the unblock watcher scans for it. Empty if absent.
 plan_blocked_on() { plan_field "$1" blocked_on; }
 
+# The performing role a job requests, read from the `role:` field. This is the
+# role a gardener WEARS to do the work (designer, builder, fixer, …), distinct
+# from `posted_by:` (the producer that minted the job). It is the key the model
+# policy below (role_default_model) resolves a per-role default model from, so a
+# designer job runs on Fable and a builder on Opus without the poster having to
+# name a model explicitly. Empty if absent.
+plan_role() { plan_field "$1" role; }
+
+# --- model selection (the canonical role->model policy) ----------------------
+# The garden resolves the Claude model for a unit of work in two places that MUST
+# agree: the scripted-fleet path (gardener-claude.sh, keyed on a job's `model:` /
+# `role:` frontmatter) and the Agent-dispatch path (the liaison/steward passing a
+# `model` tier per the dispatch contract). The two functions below are the
+# EXECUTABLE single source of truth for the fleet path; skills/model-selection/
+# SKILL.md is the human-readable canonical statement the Agent path follows, and
+# it points back here so the two never drift.
+
+# resolve_model_tier <tier-or-id> -> concrete `claude-*` model id (empty if the
+# value is unknown/blank). Accepts the short tier names the maintainer uses in a
+# job's `model:` field and on an Agent dispatch, and passes a concrete `claude-*`
+# id through verbatim. The single place the short names bind to concrete ids, so
+# a Claude-version bump is one edit here.
+resolve_model_tier() {
+  case "${1:-}" in
+    fable)    printf '%s\n' "claude-fable-5" ;;
+    opus)     printf '%s\n' "claude-opus-4-8" ;;
+    sonnet)   printf '%s\n' "claude-sonnet-4-6" ;;
+    haiku)    printf '%s\n' "claude-haiku-4-5-20251001" ;;
+    claude-*) printf '%s\n' "$1" ;;            # already a concrete model id
+    *)        printf '%s\n' "" ;;              # unknown/blank -> caller decides fallback
+  esac
+}
+
+# role_default_model <role> -> the concrete `claude-*` model id that role runs on
+# BY DEFAULT (empty for a role with no policy, so the caller falls back to the
+# fleet default). This is the canonical role->model map. The maintainer's standing
+# policy (2026-07-02, via the liaison): the design-only `designer` role runs on
+# Fable; the mergeable-feature `builder` role runs on the latest Opus. Every other
+# role is unpinned here (empty) and rides the fleet default unless a job names an
+# explicit `model:`. An explicit per-job `model:` ALWAYS overrides this default —
+# the caller applies this only when no `model:` field is present.
+role_default_model() {
+  case "${1:-}" in
+    designer) printf '%s\n' "$(resolve_model_tier fable)" ;;
+    builder)  printf '%s\n' "$(resolve_model_tier opus)" ;;
+    *)        printf '%s\n' "" ;;
+  esac
+}
+
 # --- orchestration-record metadata helpers ----------------------------------
 # An orchestration record (jobs/orch/<base>.md) carries leading YAML frontmatter:
 #   ---

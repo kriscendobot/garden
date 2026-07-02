@@ -58,14 +58,21 @@ EOF
 # posted verbatim as a real job basename.
 case "${1:-}" in -h|--help) usage; exit 0;; esac
 
-# --- option parse: --identity may precede the positionals --------------------
+# --- option parse: --identity / --role may precede the positionals -----------
+# --role stamps the performing role (designer, builder, …) into the job body's
+# leading `role:` frontmatter, which the gardener handler resolves to a per-role
+# default model (common.sh role_default_model). Distinct from a directive
+# identity; both are optional and may appear in either order before the base.
 identity="${GARDEN_JOB_IDENTITY:-}"
+role=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --identity)   identity="${2:?--identity needs a value}"; shift 2;;
     --identity=*) identity="${1#--identity=}"; shift;;
+    --role)       role="${2:?--role needs a value}"; shift 2;;
+    --role=*)     role="${1#--role=}"; shift;;
     --)           shift; break;;
-    -*)           die "unknown option: '$1' (usage: post-job.sh [--identity <key>] <basename> [body-file])";;
+    -*)           die "unknown option: '$1' (usage: post-job.sh [--identity <key>] [--role <role>] <basename> [body-file])";;
     *)            break;;
   esac
 done
@@ -99,6 +106,24 @@ read_body() {
   fi
 }
 BODY="$(read_body)"
+
+# --role: stamp the performing role into the body's leading YAML frontmatter so
+# the gardener handler can resolve a per-role default model. If the body already
+# opens with a `---` frontmatter block, insert the field just after it (unless a
+# `role:` is already present there — never clobber an explicit one); otherwise
+# prepend a fresh frontmatter block. A body that names its own `role:` wins.
+if [ -n "$role" ]; then
+  first_line="$(printf '%s\n' "$BODY" | head -1)"
+  if [ "$first_line" = "---" ]; then
+    if printf '%s\n' "$BODY" | sed -n '2,/^---$/p' | grep -q '^role:[[:space:]]'; then
+      log "body already carries a role: field; not overriding with --role '$role'"
+    else
+      BODY="$(printf '%s\n' "$BODY" | sed "1a role: $role")"
+    fi
+  else
+    BODY="$(printf -- '---\nrole: %s\n---\n\n%s' "$role" "$BODY")"
+  fi
+fi
 
 # No explicit identity → best-effort derive one from the body (a hand-named peer
 # job that quotes the triggering comment URL still dedups). A body that cites zero

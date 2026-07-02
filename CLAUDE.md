@@ -40,7 +40,7 @@ The orchestrator's job per dispatch:
 
 1. `DISPATCH_ROOT=$(skills/dispatch-worktree/dispatch-prepare.sh <role> <purpose-slug> [<owner>/<repo> <branch>])`.
 2. Write a `dispatch` journal entry naming the role, repo (when applicable), task, `DISPATCH_ROOT`, and the model tier the dispatch will use (per `skills/model-selection/SKILL.md`, recorded as a `model:` field on the dispatch entry's frontmatter).
-3. Invoke `Agent` with a prompt that names `DISPATCH_ROOT` explicitly, and pass the model tier from `skills/model-selection/SKILL.md` as the `model` parameter (the model that is adequate to the task; the table makes the choice canonical so it does not drift across thirty-plus role files).
+3. Invoke `Agent` with a prompt that names `DISPATCH_ROOT` explicitly, and pass the model tier from `skills/model-selection/SKILL.md` as the `model` parameter (the standing policy pins `designer` to Fable and `builder` to the latest Opus; every other role rides the fleet default. The same skill is the canonical map the scripted-fleet path follows via `role_default_model`/`resolve_model_tier` in `scripts/jobs/common.sh`, so the choice does not drift between the two paths).
 4. On return, write a `result` journal entry and `skills/dispatch-worktree/dispatch-teardown.sh "$DISPATCH_ROOT"`.
 
 The dispatch prompt itself should:

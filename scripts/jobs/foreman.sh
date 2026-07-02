@@ -166,12 +166,17 @@ digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
 out="$("$GARDEN_FOREMAN_HANDLER" "$digest" 2>/dev/null || true)"
 rm -f "$digest"
 
-# Parse at most one block from the handler output.
-btype=""; base=""; body=""
+# Parse at most one block from the handler output. An optional `ROLE <role>` line
+# immediately inside a JOB block names the role the gardener wears (designer,
+# builder, …); it is threaded to post-job.sh as --role so the job carries a
+# `role:` field and inherits that role's default model (Fable for designer, Opus
+# for builder). It is consumed here, not folded into the body.
+btype=""; base=""; body=""; role=""
 while IFS= read -r line; do
-  if   [[ "$line" =~ ^JOB[[:space:]]+(.+)$ ]]; then btype="JOB"; base="${BASH_REMATCH[1]}"; body=""
-  elif [ "$line" = "MAINTAINER" ];             then btype="MAINTAINER"; base=""; body=""
+  if   [[ "$line" =~ ^JOB[[:space:]]+(.+)$ ]]; then btype="JOB"; base="${BASH_REMATCH[1]}"; body=""; role=""
+  elif [ "$line" = "MAINTAINER" ];             then btype="MAINTAINER"; base=""; body=""; role=""
   elif [ "$line" = "ENDJOB" ] || [ "$line" = "ENDMAINTAINER" ]; then break
+  elif [ "$btype" = "JOB" ] && [[ "$line" =~ ^ROLE[[:space:]]+(.+)$ ]]; then role="$(printf '%s' "${BASH_REMATCH[1]}" | tr -d '[:space:]')"
   elif [ -n "$btype" ];                        then body+="$line"$'\n'
   fi
 done <<< "$out"
@@ -187,7 +192,11 @@ case "$btype" in
       note_once "repeat:$base" "foreman: next step '$base' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck."
       log "anti-flap: '$base' repeats last posted step; surfaced to maintainer, not re-posted"
     else
-      printf '%s' "$body" | "$HERE/post-job.sh" "$base"
+      if [ -n "$role" ]; then
+        printf '%s' "$body" | "$HERE/post-job.sh" --role "$role" "$base"
+      else
+        printf '%s' "$body" | "$HERE/post-job.sh" "$base"
+      fi
       printf '%s\n' "$base" > "$LAST_STEP"
       : > "$NOTED"   # forward progress clears the maintainer-note dedupe
       log "pumped next milestone step '$base'"

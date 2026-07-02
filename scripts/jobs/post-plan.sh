@@ -40,6 +40,12 @@
 #                            selection key the foreman uses for deferred jobs.
 #   --roadmap ITEM           optional roadmap item / milestone this serves, so a
 #                            future roadmap-aware selector can rank by it.
+#   --role ROLE              the role a gardener WEARS to do the work (designer,
+#                            builder, fixer, …). Stamped as the `role:` field, it
+#                            selects the per-role default model (common.sh
+#                            role_default_model: designer->Fable, builder->Opus)
+#                            when the job names no explicit model. Distinct from
+#                            --by (the producer's provenance).
 #   --by ROLE                provenance (default: $GARDEN_SENDER or "producer").
 #   <basename>               the spine: ties plan↔todo↔doin↔tada↔worktree.
 #   [body-file]              the work body; if omitted, read from stdin (or a
@@ -71,6 +77,8 @@ Usage:
   --orchestrated-by ORCH   the owning orchestration base; required with --orchestrated.
   --priority LEVEL         urgent|high|normal|low (default normal).
   --roadmap ITEM           optional roadmap item this serves.
+  --role ROLE              the role a gardener wears to do the work; stamped as
+                           `role:` and used to pick the per-role default model.
   --by ROLE                provenance (default: $GARDEN_SENDER or "producer").
   <basename>               the spine; must not start with '-'.
   [body-file]              the work body; if omitted, read from stdin.
@@ -82,6 +90,7 @@ priority="normal"
 roadmap=""
 blocked_on=""
 orchestrated_by=""
+role=""
 by="${GARDEN_SENDER:-producer}"
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -94,6 +103,7 @@ while [ $# -gt 0 ]; do
     --orchestrated-by) orchestrated_by="${2:?--orchestrated-by needs a value}"; shift 2;;
     --priority)   priority="${2:?--priority needs a value}"; shift 2;;
     --roadmap)    roadmap="${2:?--roadmap needs a value}"; shift 2;;
+    --role)       role="${2:?--role needs a value}"; shift 2;;
     --by)         by="${2:?--by needs a value}"; shift 2;;
     --)           shift; break;;
     -*)           die "unknown option: '$1' (run --help for usage)";;
@@ -156,6 +166,7 @@ compose() {
   [ -n "$orchestrated_by" ] && printf 'orchestrated_by: %s\n' "$orchestrated_by"
   printf 'priority: %s\n' "$priority"
   [ -n "$roadmap" ] && printf 'roadmap: %s\n' "$roadmap"
+  [ -n "$role" ] && printf 'role: %s\n' "$role"
   printf 'posted_by: %s\n' "$by"
   printf 'posted_at: %s\n' "$(date -u +%FT%TZ)"
   printf -- '---\n\n'
