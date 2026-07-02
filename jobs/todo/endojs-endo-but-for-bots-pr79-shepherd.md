@@ -1,10 +1,10 @@
-# shepherd (auto: red CI) on endojs/endo-but-for-bots PR #60
+# shepherd (auto: red CI) on endojs/endo-but-for-bots PR #79
 
 CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
 Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
 watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
 
-PR: https://github.com/endojs/endo-but-for-bots/pull/60
+PR: https://github.com/endojs/endo-but-for-bots/pull/79
 Head: endojs/endo-but-for-bots (bot-pushable)
 
 Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
@@ -13,10 +13,3 @@ shepherd→fixer auto-chain. Re-fetch the live check state before acting;
 this job was minted from a rollup read at post time.
 
 <!-- garden-reaped: 2 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 19
-  claimed_at: 2026-07-02T01:53:09Z
