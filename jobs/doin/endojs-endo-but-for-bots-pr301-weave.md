@@ -44,3 +44,9 @@ restructure on `llm` is large). Re-diagnose against the post-rebase CI run;
 do not assume the channel-hang persists.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 94
+  claimed_at: 2026-07-02T01:23:34Z
