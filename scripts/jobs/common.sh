@@ -727,9 +727,12 @@ journal_fetch() {
 #                 Early EOF / unexpected disconnect / RPC failed   (smart-HTTP cut)
 #                 HTTP 5NN / The requested URL returned error: 5NN   (5xx gateway)
 #   * TLS:        gnutls_handshake / SSL / TLS errors   (handshake interrupted)
+#   * gh top-line: error connecting to <host>   (gh's own transport-failure line,
+#                 emitted when the underlying dial-tcp/no-such-host cause is absent)
+#                 check your internet connection   (gh's connectivity hint)
 # A `Could not resolve host` pattern (no trailing `name`) deliberately covers BOTH
 # git-over-HTTPS's `Could not resolve host:` and SSH's `Could not resolve hostname`.
-: "${GARDEN_OFFLINE_SIGNATURES:=Could not resolve host|Temporary failure in name resolution|Could not read from remote repository|Connection timed out|Operation timed out|Connection reset by peer|Recv failure|Early EOF|unexpected disconnect|RPC failed|HTTP 5[0-9][0-9]|The requested URL returned error: 5|gnutls_handshake|SSL|TLS}"
+: "${GARDEN_OFFLINE_SIGNATURES:=Could not resolve host|Temporary failure in name resolution|Could not read from remote repository|Connection timed out|Operation timed out|Connection reset by peer|Recv failure|Early EOF|unexpected disconnect|RPC failed|HTTP 5[0-9][0-9]|The requested URL returned error: 5|gnutls_handshake|SSL|TLS|error connecting to|check your internet connection}"
 
 # Classify captured git-fetch stderr ($1) as a connectivity/DNS outage rather
 # than a real repository error. These are the transient, self-resolving failures
