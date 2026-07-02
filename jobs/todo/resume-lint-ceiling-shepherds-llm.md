@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: ebfb-594-fresh-llm-pr-merge
-priority: normal
-posted_by: producer
-posted_at: 2026-07-02T09:54:13Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-02T09:56:14Z -->
 
 # Resume shepherds for the `llm`-based PRs blocked by the lint projectService ceiling
 
