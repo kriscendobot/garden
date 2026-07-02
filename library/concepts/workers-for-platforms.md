@@ -14,6 +14,7 @@ Cloudflare's product for building a **multi-tenant platform** on top of Workers:
 |---|---|
 | [Workers for Platforms: multi-tenant platform on Workers](../sections/cloudflare-w4p--overview--overview.md) | What the product is, when to use it, and its management features. |
 | [Request lifecycle and the optional outbound Worker](../sections/cloudflare-w4p--how-it-works--request-lifecycle.md) | The end-to-end flow tying the four components together. |
+| [Get started: deploy a Workers for Platforms starter kit](../sections/cloudflare-w4p--get-started--overview.md) | The one-click Platform Starter Kit path and a recap of the three core components. |
 
 ## See also
 
