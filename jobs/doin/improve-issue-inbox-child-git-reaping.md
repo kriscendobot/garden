@@ -1,3 +1,9 @@
 `garden-issue-inbox.service` logs `Found left-over process (git) in control group while starting unit ... indicates unclean termination of a previous run` (three orphan `git` PIDs at 00:36:21). `scripts/jobs/issue-inbox-watcher.sh` is leaving background git processes that outlive the unit, so the next start inherits stragglers. Make the handler `wait` on (or explicitly kill) every git child before exiting, and/or set `KillMode=mixed` + a bounded `TimeoutStopSec` on the unit in `scripts/systemd/` so the control group is reaped cleanly on stop/restart. Prevents orphan-git accumulation across restarts.
 
 <!-- garden-reaped: 4 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 43
+  claimed_at: 2026-07-02T01:33:30Z
