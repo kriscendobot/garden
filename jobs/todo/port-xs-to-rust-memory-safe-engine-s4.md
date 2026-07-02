@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: xs2rust-endor-build-stage2
-priority: normal
-posted_by: port-xs-to-rust-memory-safe-engine-s3
-posted_at: 2026-07-02T20:54:23Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-02T22:09:19Z -->
 
 ---
 model: fable
