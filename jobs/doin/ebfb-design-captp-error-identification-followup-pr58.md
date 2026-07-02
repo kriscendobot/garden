@@ -22,3 +22,9 @@ Also fold in the inline concern `packages/daemon/src/unredacted-stack.js:53` —
 unredacted-stack approach**. Note (for the eventual BUILD phase, not this design) the trivial cleanups:
 the unnecessary dangle at `daemon-go-powers.js:176`, and typedefs → `.d.ts`. erights is a maintainer +
 tagged — address his concern. Open the DRAFT design PR; design-only, no impl. Bot fork; no upstream contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 71
+  claimed_at: 2026-07-02T04:04:54Z
