@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T22:31:35Z_
+_As of 2026-07-02T22:34:47Z_
 
 ## Latest
 
-The [xs2rust-endor port](https://github.com/endojs/endo-but-for-bots) advanced: supervisor stage s4 completed and reported, unblocking the s5 supervisor job (still parked behind `xs2rust-endor-build-stage2b`), while a review directive on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) was claimed and is in flight.
-
-Two items need a maintainer decision. First, a **live leader-gate incident**: `/home/kris/.garden` still pins this host's identity to `endolinbot2` while the leader marker and `hostname -s` both say `endolinbot`, so `is-main-host` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is being silently skipped — the fix is an operational one-liner (`echo endolinbot > /home/kris/.garden`, then restart the fleet) outside a gardener's autonomous scope. This same drift compounded a Claude quota outage into **five poisoned garden-infra jobs** (identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, repo-watcher arm-retry, and the daemon→manager rename build), all dropped by the reaper after 5 requeue cycles and now sitting unread in the maintainer inbox. Second, shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found it is **subsumed, not lint-blocked** — its CapTP error-tracing feature already re-landed on `llm` via merged #58, so a rebase collapses to an essentially empty PR; the recommendation is to close #301 as superseded (optionally extracting its two small `error-id.js`/`trace-constants.js` refactors as a fresh PR).
+A live infrastructure incident tops the queue: the `endolinbot2` host-identity drift is still active on the true leader host, so `is-main-host` resolves FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, triager, issue-inbox, orchestrate, and the maintainer-inbox Monitor) is being silently skipped — the investigating gardener asks you to either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2`, then restart the fleet. That same drift compounded a Claude quota outage on 07-01/07-02 into **five poisoned garden-infra jobs** the reaper dropped after 5 requeue cycles: the `daemon.js`→`manager.js` rename build, an identity-drift detector, a gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, and repo-watcher arm-retry — each awaiting your triage. Two calls need your judgment specifically: on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 rebuts the freezable-TypedArray design's "why not a Proxy wrapper" section and wants you and @erights to weigh in on plain-object-vs-Proxy-throwing-on-index-writes; and shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed — its entire error-tracing feature already re-landed on `llm` via merged [endo-but-for-bots#58](https://github.com/endojs/endo-but-for-bots/pull/58), so it recommends closing #301 (only two small refactors, `error-id.js` and `trace-constants.js`, remain unique). Meanwhile the daemon→manager rename resurfaced as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) (Phase 1), with Phase 2/3 parked and blocked on it. The board is otherwise quiet — one review job in flight and nothing new claimed this window.
 
 ## Parked for maintainer feedback
 
@@ -199,6 +197,42 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I did not push anything and left #301 untouched (no comment authorization on this job). Awaiting
 > your call: close #301, or open a fresh refactor PR extracting error-id.js/trace-constants.js?
+
+- `20260702T223440Z-5b9cb3` — from gardener:endojs-endo-but-for-bots-pr472-review-72d18f86, reply_to `endojs-endo-but-for-bots-pr472-review-72d18f86` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T223440Z-5b9cb3.md)
+
+> DESIGN DECISION NEEDED — endojs/endo-but-for-bots PR #472 (freezable-TypedArray design doc)
+>
+> @gibson042 submitted review 4621538762 (one inline comment, id 3516427461) on
+> packages/immutable-arraybuffer/designs/freezable-typedarray.md, and closed it with:
+> "I'd like @kriskowal and/or @erights to weigh in here as well."
+>
+> This is a genuine design tradeoff that needs your call — a bot should not decide it.
+> No code/doc change was made; nothing was pushed. The PR thread already has gibson's
+> comment and @-mentions you both, so you can reply there directly.
+>
+> CONTEXT: The doc's section "Why not a Proxy wrapper?" gives three reasons for keeping
+> the emulated view a plain ordinary object (so integer-indexed assignment silently
+> creates a wrapper-local own property rather than throwing). gibson042 rebuts all three
+> and argues for a Proxy `set` trap that rejects canonical-numeric-index writes:
+>
+> 1. Freezability risk (Object.freeze on a Proxy runs traps under proxy invariants).
+>    gibson: "I do not believe this is a practical risk; we know exactly how to write
+>    such a proxy (basically pass-through except for property keys that are canonical
+>    numeric indices)."
+> 2. Cost (Proxy taxes the integer-indexed hot path).
+>    gibson: only bites where the shim is needed (no native immutable ArrayBuffer) AND
+>    only on paths that do many direct indexed reads instead of using @endo/bytes
+>    helpers (bytesFromImmutable/bytesEqual) — which we're actively avoiding anyway. He
+>    prefers defaulting to correctness and providing mitigations for perf degradation.
+> 3. "Throwing write is a nicety, not a safety property."
+>    gibson: it's more than a nicety — not throwing risks silently masking real bugs
+>    (our code runs strict mode; nothing verifies a non-exceptional property set had its
+>    ostensible effect).
+>
+> Decision options: (a) keep the plain-object wrapper as designed; (b) switch the
+> emulated view to a Proxy that throws on canonical-index writes; (c) something in
+> between. Once you decide, I (or a fixer) can update the design doc's "Why not a Proxy"
+> section and the shim accordingly. Reply here or on the PR thread.
 
 
 ## Board
