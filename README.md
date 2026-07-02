@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T10:31:04Z_
+_As of 2026-07-02T10:32:30Z_
 
 ## Latest
 
-A gardener investigating five reaper-poisoned garden-infra jobs surfaced a **live leader-disabling incident** on the leader host: the `$HOME/.garden` file resolves this host's identity as `endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped — with 276 recent gardener entries mislabeled `host: endolinbot2`. It needs an operator fix (`echo endolinbot > /home/kris/.garden` or re-point the marker to `endolinbot2`) plus a fleet restart; it can't be self-healed from within a gardener. The same drift compounded a Claude quota outage into five poisoned jobs (daemon-rename build, three infra improvements, repo-watcher arm-retry), now parked as maintainer messages.
-
-Separately, shepherd found that [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) is **subsumed, not lint-blocked** — its feature already re-landed on `llm` via merged #58, so a rebase collapses to an essentially empty PR; it recommends closing #301, with an optional fresh PR to extract the two unique refactors (`error-id.js`, `trace-constants.js`). Your call is awaited. On the build side, Phase 1 of the daemon→manager rename completed and opened [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phase 2/3 correctly parked as blocked children behind it; the gardener transient-failure backoff + fleet-brake and comment-watcher stop-timeout fixes also landed. A dozen lint-ceiling shepherds remain in flight on `llm`.
+The headline this window is an operational one, not a code change: a gardener investigating the poisoned infra jobs surfaced a **live host-identity drift** on the leader — `/home/kris/.garden` still reads `endolinbot2` while `hostname -s`, the `leader` marker, and `is-main-host` all say `endolinbot`, so the true leader is resolving as a *follower* and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; all 276 recent gardener entries are mislabeled `endolinbot2`. This needs a manual fix in deployed-root state (`echo endolinbot > /home/kris/.garden` then re-exec the fleet, or re-point the marker if `endolinbot2` was intended) — a gardener can't touch it. That same drift compounded a 2026-07-01/07-02 Claude quota outage into **five poisoned garden-infra jobs** the reaper dropped after 5 requeue cycles (the daemon→manager rename build, the identity-drift detector, gardener transient-failure backoff, issue-inbox git reaping, and repo-watcher arm-retry); follow-on jobs `improve-gardener-identity-warn-single-escalation` and `rework-poison-park-and-dedup` are now in flight to make the next regression loud on tick 1 and to park poisons rather than lose them. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is **subsumed, not lint-blocked** — its CapTP error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to an empty PR; the recommendation is to close #301 (optionally extracting its two small `error-id.js`/`trace-constants.js` refactors as a fresh PR). Fourteen lint-ceiling shepherd resumes are in progress across the `llm` branch; the only completion this window was `improve-clone-keeper-reclone-missing`.
 
 ## Parked for maintainer feedback
 
@@ -205,7 +203,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (18)
+### doin (17)
 - [`ebfb-lint-master-strategy-evidence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-lint-master-strategy-evidence.md) — scout/investigator: evidence-based decision on the master-side lint strategy
 - [`endojs-endo-but-for-bots-pr101-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr101-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #101 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr242-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr242-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #242 (llm lint-ceiling resume)
@@ -221,17 +219,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr590-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr590-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #590 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr592-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #592 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr593-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr593-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #593 (llm lint-ceiling resume)
-- [`improve-clone-keeper-reclone-missing`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-reclone-missing.md) — In scripts/jobs/clone-keeper.sh, keep_clone() currently logs WARN: tracked cl...
 - [`improve-gardener-identity-warn-single-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-identity-warn-single-escalation.md) — The unrecorded-GARDEN-divergence WARN in scripts/jobs/gardener.sh (~line 118)...
 - [`rework-poison-park-and-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/rework-poison-park-and-dedup.md) — garden-infra: POISON handling — park the job in plan/ and dedup the maintaine...
 
-### tada (910)
+### tada (911)
+- [`improve-clone-keeper-reclone-missing`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reclone-missing.md) — Completion report
 - [`improve-comment-watcher-stop-timeout-alignment`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-comment-watcher-stop-timeout-alignment.md) — Completion report
 - [`endojs-endo-but-for-bots-pr548-b3d56f1b`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr548-b3d56f1b.md) — Completion report
 - [`endojs-endo-but-for-bots-pr335-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr335-shepherd-llm-resume.md) — Shepherd job complete. Report follows.
 - [`improve-gardener-transient-failure-backoff-and-fleet-brake`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-transient-failure-backoff-and-fleet-brake.md) — Completion report
-- [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-daemon-rename-to-manager.md) — Completion Report: build-daemon-rename-to-manager
-- … and 905 more
+- … and 906 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
