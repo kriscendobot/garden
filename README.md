@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T00:05:44Z_
+_As of 2026-07-02T00:06:07Z_
 
 ## Latest
 
-Only one item cleared the board since the last bulletin: the scholar finished ingesting the remainder of the Cloudflare Workers-for-Platforms reference set, completing that multi-part research sweep. Six jobs remain in flight — including the watchDirectory→@endo/platform factoring, the build-orchestration-job pattern, widening the comment-watcher so maintainer directives reliably become jobs, and an endo-roadmap grooming pass — but none reached completion this cycle. Nothing new is parked; the review queue still leads with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) awaiting kriskowal's eyes.
+A build kicked off to rename the daemon module (`daemon.js` → `manager.js`, Daemon/Mignonic → Manager/Worker), now in flight alongside six other active gardener jobs — factoring `watchDirectory` into `@endo/platform`, the orchestration-job pattern, the comment-watcher directive-to-job widening, an endo-roadmap groom, and Cloudflare Workers-for-Platforms scholar ingestion. Recently landed: the scholar's Cloudflare W4P reference ingestion (both the initial and remainder passes), a repo-watcher self-heal fix for a missing template, a board refresh, and the inter-package re-exports mechanical-repoint follow-up cleanup on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548). Nothing new is parked for review — the maintainer queue still leads with the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the EndoRegistry capability in [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
+- [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — Build: rename daemon.js → manager.js (Daemon/Mignonic → Manager/Worker)
 - [`dispatch-next-batch-build-jobs-for-ready-designs-current-milestone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dispatch-next-batch-build-jobs-for-ready-designs-current-milestone.md) — Dispatch build jobs for the next batch of ready-to-build designs (current act...
 - [`factor-watchdirectory-to-endo-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/factor-watchdirectory-to-endo-platform.md) — Factor watchDirectory out of the daemon into @endo/platform
 - [`garden-build-orchestration-job-pattern-sequence-and-watch-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-build-orchestration-job-pattern-sequence-and-watch-children.md) — Build the orchestration-job pattern: an orchestrator that sequences planned s...
