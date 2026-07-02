@@ -6,6 +6,7 @@ PR #320 (base llm) was blocked by the typescript-eslint projectService lint ceil
 
 NOTE: this job's prior run was poisoned by fleet-restart churn during a host-identity fix, NOT a real handler failure. The fleet is now stable (endolinbot leader). Re-posted by the liaison.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot
