@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T00:23:09Z_
+_As of 2026-07-02T00:24:29Z_
 
 ## Latest
 
-Little moved since the last bulletin: a single job — hardening `scripts/jobs/repo-watcher.sh` so a watcher template present in `scripts/` but missing its render target no longer breaks the render — entered progress alongside the two in-flight build jobs (the `daemon.js` → `manager.js` rename and the orchestration-job sequencing pattern). Worth the maintainer's attention: a follow-up message is parked in the inbox asking whether recurring board audits should become a standing capability, and if so whether they belong on `foreman`/`watchman` or a new deterministic script rather than on `botanist` — a garden-architecture call awaiting your go-ahead before any role or script work is posted.
+Only one item cleared the board since the last bulletin: the [orchestration-job pattern](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-build-orchestration-job-pattern-sequence-and-watch-children.md) completion (sequence-and-watch-children), leaving the todo queue empty and two jobs in flight — the `daemon.js`→`manager.js` rename and the repo-watcher missing-template hardening. The one thing needing your eyes is a parked follow-up message: the botanist board-refresh report punts the question of whether recurring board audits should become a standing capability — and if so, whether they belong on `foreman`/`watchman` or a new deterministic script rather than `botanist` — to you as an architecture call before any role or script work is posted.
 
 ## Parked for maintainer feedback
 
@@ -31,18 +31,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — Build: rename daemon.js → manager.js (Daemon/Mignonic → Manager/Worker)
-- [`garden-build-orchestration-job-pattern-sequence-and-watch-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-build-orchestration-job-pattern-sequence-and-watch-children.md) — Build the orchestration-job pattern: an orchestrator that sequences planned s...
 - [`improve-repo-watcher-render-missing-template`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-repo-watcher-render-missing-template.md) — Harden scripts/jobs/repo-watcher.sh so a watcher template that exists in scri...
 
-### tada (836)
+### tada (837)
+- [`garden-build-orchestration-job-pattern-sequence-and-watch-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-build-orchestration-job-pattern-sequence-and-watch-children.md) — Completion report: orchestration-job pattern
 - [`scholar-ingest-cloudflare-w4p-references`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-w4p-references.md) — Completion report
 - [`garden-encode-directives-reliably-become-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-directives-reliably-become-jobs.md) — Completion report
 - [`factor-watchdirectory-to-endo-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/factor-watchdirectory-to-endo-platform.md) — Job complete: factor watchDirectory into @endo/platform
 - [`groom-refine-endo-roadmap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/groom-refine-endo-roadmap.md) — Completion report
-- [`dispatch-next-batch-build-jobs-for-ready-designs-current-milestone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dispatch-next-batch-build-jobs-for-ready-designs-current-milestone.md) — Completion report — batch design→build dispatch for the current active milestone
-- … and 831 more
+- … and 832 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
