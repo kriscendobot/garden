@@ -77,3 +77,9 @@ etc.). A project-wide identifier rename will conflict with any of them that edit
 
 Deterministic basename `build-daemon-rename-to-manager` — a re-run of this batch
 collides and no-ops.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 48
+  claimed_at: 2026-07-02T10:04:23Z
