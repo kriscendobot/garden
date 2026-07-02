@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:29:33Z_
+_As of 2026-07-02T19:30:00Z_
 
 ## Latest
 
-A live incident tops the queue: an investigating gardener found the `endolinbot2` host-identity drift is still active on the true leader host — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while the `leader` marker and `hostname -s` both say `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped, with all 276 recent gardener entries mislabeled. It needs a one-line operator fix (`echo endolinbot > /home/kris/.garden`, or re-point the marker to `endolinbot2` and record the override) plus a fleet restart. This same drift compounded the 2026-07-01/07-02 Claude quota outage that poisoned five garden-infra jobs — the reaper dropped `build-daemon-rename-to-manager`, the identity-drift detector, gardener transient-failure backoff, issue-inbox git-child reaping, and repo-watcher arm-retry after 5 requeue cycles each; the sharpened drift-detector job has been re-posted so the next regression is loud on tick 1. Separately, shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) reports it is subsumed, not lint-blocked — its error-tracing feature already re-landed on `llm` via the merged #58, collapsing a rebase to essentially empty — and recommends closing it as superseded (a disposition call awaiting kriskowal). The board itself was quiet: the [endo-but-for-bots#599](https://github.com/endojs/endo-but-for-bots/pull/599) review directive was claimed into progress, with the XS→Rust "endor" design still in flight.
+The [`xs2rust-endor-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-design.md) design landed, unblocking the Fable-supervised XS→Rust (Endor) port that was awaiting it. The board is otherwise quiet — a single [PR #599 review](https://github.com/endojs/endo-but-for-bots/pull/599) in flight — but two things need a maintainer's eyes.
+
+**Live leader-identity incident.** A gardener investigating five poisoned garden-infra jobs surfaced that the `endolinbot2` host-identity drift is still active on the true leader host: `/home/kris/.garden` reads `endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host.sh` returns FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is being silently skipped. All 276 recent gardener entries mislabel their host. This same drift compounded the five poisonings during the 2026-07-01/07-02 Claude quota outage. The fix is deployed-root state (out of a gardener's scope): either `echo endolinbot > /home/kris/.garden` or re-point the marker to `endolinbot2` and record the pool override — then restart the fleet. The five poisoned jobs themselves (a drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm retry, and the daemon→manager rename) are all reasonable infra improvements worth re-triaging once the fleet is healthy.
+
+**Disposition call on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301).** A shepherd found #301 isn't lint-blocked but *subsumed*: its entire error-tracing feature was independently re-landed on `llm` via the merged #58, so a rebase-and-green collapses to an essentially empty PR. Recommendation is to close #301 as superseded, optionally extracting its two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh small PR against `llm`. Nothing was pushed; #301 awaits your call.
 
 ## Parked for maintainer feedback
 
@@ -203,17 +207,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr599-review-dfb9df4e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr599-review-dfb9df4e.md) — Review directive on endojs/endo-but-for-bots PR #599
-- [`xs2rust-endor-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-design.md) — Design: port XS to Rust ("endor engine") — feasibility, architecture, staged ...
 
-### tada (949)
+### tada (950)
+- [`xs2rust-endor-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-design.md) — Job complete. Completion report:
 - [`improve-gardener-exit0-unsatisfying-journal-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-exit0-unsatisfying-journal-gate.md) — Completion report
 - [`daily-progress-summary-20260702-191237`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260702-191237.md) — Completion report — daily-progress-summary-20260702-191237
 - [`improve-gardener-silence-routine-exit0-unsatisfying-requeue`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-silence-routine-exit0-unsatisfying-requeue.md) — Completion report
 - [`improve-gardener-scaler-bound-scale-operation`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-scaler-bound-scale-operation.md) — Completion report
-- [`improve-clone-keeper-reclone-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reclone-missing-tracked-clone.md) — Completion report
-- … and 944 more
+- … and 945 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
