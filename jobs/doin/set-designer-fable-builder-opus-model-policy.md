@@ -44,3 +44,9 @@ both the scripted-fleet and Agent-dispatch paths, with an explicit `model:` stil
 `CLAUDE.md` model-selection reference matches the real mechanism (no dangling pointer to a missing skill).
 Cite the resolved code path (file+line) and show a worked example for each role per
 `garden/roles/COMMON.md` § Reporting. Land on `main2` from an isolated worktree; journal a `result` entry.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 13
+  claimed_at: 2026-07-02T18:56:52Z
