@@ -72,6 +72,7 @@ are branch-introduced, not upstream drift.
 - Each fix an atomic commit on the PR's own head (design/gateway-package-phase-6),
   bot identity.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
