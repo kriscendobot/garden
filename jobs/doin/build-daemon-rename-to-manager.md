@@ -61,6 +61,7 @@ collides and no-ops.
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
