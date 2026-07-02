@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T22:42:42Z_
+_As of 2026-07-02T22:52:06Z_
 
 ## Latest
 
-Board motion was quiet — the only transition since the last bulletin was the completed review of [endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/pull/475) — but the maintainer inbox is where attention is owed. A live infrastructure incident is flagged: the `endolinbot2` host-identity drift is still active on the true leader host, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; the fix is a one-line correction to `/home/kris/.garden` (or re-pointing the leader marker) plus a fleet restart, and it sits outside a gardener's autonomous scope. That same drift compounded five garden-infra jobs into poison after five requeue cycles during the recent Claude quota outage — an identity drift-detector, a gardener transient-failure backoff and fleet brake, issue-inbox git-child reaping, and repo-watcher arm-retry — all now dropped from the board and awaiting your call.
+The most urgent item this cycle is a live infrastructure incident: a gardener investigating the poisoned garden-infra jobs found that the **endolinbot2 host-identity drift is still active on the leader host** — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while the leader marker names `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is silently being skipped, with all 276 recent gardener entries mislabeled. The requested fix is a one-line operational correction (either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to endolinbot2), then a fleet restart — it needs a maintainer's hand, as it's out of a gardener's autonomous scope.
 
-Two review dispositions also need a human decision: [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) has @gibson042 rebutting the "Why not a Proxy wrapper?" section of the freezable-TypedArray design and explicitly asking you and @erights to weigh in (plain-object wrapper vs. a Proxy that throws on canonical-index writes), and shepherd work on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found it subsumed — its error-tracing feature already re-landed on `llm` via #58 — with a recommendation to close as superseded, optionally salvaging two small refactors (`error-id.js`, `trace-constants.js`) as a fresh PR.
+That same drift was the compounding factor behind **five garden-infra jobs the reaper poisoned** during the recent Claude quota outage (the identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, repo-watcher arm-retry, and the daemon→manager rename build) — each is now parked as an unread maintainer message rather than silently lost.
+
+Two disposition calls also await you: on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 reviewed the freezable-TypedArray design doc and asked you and @erights to weigh in on plain-object-wrapper vs. Proxy-that-throws-on-canonical-index-writes; and a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is **subsumed, not lint-blocked** — its error-tracing feature already re-landed on `llm` via the merged #58, so the recommendation is to close it (optionally extracting two small refactors into a fresh PR). On the board, only the `improve-clone-keeper-self-provision-missing-clone` job moved (into progress).
 
 ## Parked for maintainer feedback
 
@@ -241,8 +243,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-clone-keeper-self-provision-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-self-provision-missing-clone.md) — Extend scripts/jobs/clone-keeper.sh to self-provision a missing tracked clone...
 
 ### tada (970)
 - [`endojs-endo-but-for-bots-pr475-review-5cc27151`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-5cc27151.md) — Completion report
