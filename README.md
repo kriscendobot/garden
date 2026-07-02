@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:52:48Z_
+_As of 2026-07-02T19:56:32Z_
 
 ## Latest
 
-A gardener investigating the five freshly-poisoned garden-infra jobs surfaced a **live leader-host incident**: the `endolinbot2` identity drift is still active on this host, so `/home/kris/.garden` resolves `GARDEN=endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot` — making `is-main-host.sh` report FOLLOWER and silently **skipping every leader-only singleton** (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor). The requested fix is operational and outside a gardener's scope: correct the shard file (`echo endolinbot > /home/kris/.garden`) or re-point the marker, then restart the fleet. This same drift compounded the 2026-07-01/07-02 Claude quota outage that poisoned five infra jobs — the reaper dropped `build-daemon-rename-to-manager`, `improve-garden-identity-drift-detector`, `improve-gardener-transient-failure-backoff-and-fleet-brake`, `improve-issue-inbox-child-git-reaping`, and `improve-repo-watcher-arm-retry` after five requeue cycles; each names a real reliability gap (a fleet brake for quota storms, orphan-git reaping, a loud drift guard) worth landing.
+The garden's leader host is silently down: an investigating gardener found the `endolinbot2` host-identity drift is live again on the true leader — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while the leader marker and `hostname -s` both say `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is being skipped, with 276 recent gardener entries mislabeled. The fix is operational and out of a gardener's scope: correct `/home/kris/.garden` (or re-point the marker if `endolinbot2` is intended) and restart the fleet.
 
-On the review side, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is **subsumed, not lint-blocked** — its CapTP error-tracing feature already re-landed on `llm` via the merged #58, collapsing a rebase to essentially empty; the recommendation is to **close #301** as superseded (optionally extracting its two small refactors, `error-id.js` + `trace-constants.js`, as a fresh PR) and awaits your disposition. Meanwhile the XS→Rust (Endor) port advanced — design and stage-2 slice landed, with build stage 1 ([endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600)) now in flight alongside the [#599](https://github.com/endojs/endo-but-for-bots/pull/599) auto-shepherd and two reliability fixes (ci-rollup network retry, clone-keeper self-heal) claimed this cycle.
+That drift compounded a Claude quota outage on 07-01/07-02 that poisoned five garden-infra jobs — the [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) daemon→manager rename build plus four self-improvement items (a loud identity-drift guard, gardener transient-failure backoff + fleet brake, issue-inbox git-child reaping, and repo-watcher arm-retry) — all dropped by the reaper after five requeue cycles and now awaiting the maintainer.
+
+Separately, a shepherd resuming [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found it isn't lint-blocked but subsumed: its error-tracing feature already re-landed on `llm` via merged [#58](https://github.com/endojs/endo-but-for-bots/pull/58), so a rebase collapses to an empty PR. Recommendation is to close #301 as superseded, optionally extracting its two small unique refactors (`error-id.js`, `trace-constants.js`) as a fresh PR. On the board, `improve-ci-rollup-transient-network-retry` completed.
 
 ## Parked for maintainer feedback
 
@@ -205,19 +207,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr599-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr599-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #599
-- [`improve-ci-rollup-transient-network-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-rollup-transient-network-retry.md) — In scripts/jobs/handlers/ci-rollup-gh.sh, wrap the single gh pr view "$pr" -R...
 - [`improve-clone-keeper-self-heal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-self-heal-missing-clone.md) — In scripts/jobs/clone-keeper.sh, change keep_clone()'s missing-clone branch (...
 - [`xs2rust-endor-build-stage1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage1.md) — Build roadmap stage 1 of the xs2rust-endor engine port (thin slice) on PR #600
 
-### tada (952)
+### tada (953)
+- [`improve-ci-rollup-transient-network-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-transient-network-retry.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine-s2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s2.md) — Everything is in place — the builder job is already claimed by a gardener (do...
 - [`endojs-endo-but-for-bots-pr599-review-dfb9df4e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr599-review-dfb9df4e.md) — Completion report
 - [`xs2rust-endor-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-design.md) — Job complete. Completion report:
 - [`improve-gardener-exit0-unsatisfying-journal-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-exit0-unsatisfying-journal-gate.md) — Completion report
-- [`daily-progress-summary-20260702-191237`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/daily-progress-summary-20260702-191237.md) — Completion report — daily-progress-summary-20260702-191237
-- … and 947 more
+- … and 948 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
