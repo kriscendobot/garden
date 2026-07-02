@@ -15,6 +15,9 @@ In Cloudflare Workers for Platforms, the **dynamic dispatch Worker** is the entr
 | [Dynamic dispatch Worker: the platform's request entry point](../sections/cloudflare-w4p--how-it-works--dynamic-dispatch-worker.md) | Its four responsibilities and the `env.DISPATCHER.get()` invocation. |
 | [Dynamic dispatch Worker: why, and the dispatch namespace binding](../sections/cloudflare-w4p--dynamic-dispatch--binding-and-configuration.md) | Why programmable dispatch, and the Wrangler binding. |
 | [Dispatch routing patterns and enforcing custom limits](../sections/cloudflare-w4p--dynamic-dispatch--routing-patterns.md) | KV/subdomain/path routing patterns and enforcing limits. |
+| [Get started: deploy a Workers for Platforms starter kit](../sections/cloudflare-w4p--get-started--overview.md) | The template's dispatch Worker routes by URL path via `env.DISPATCHER.get(workerName)`. |
+| [Hostname routing: the recommended wildcard route with a dispatch Worker](../sections/cloudflare-w4p--configuration-hostname-routing--wildcard-route.md) | A single wildcard `*/*` route sends all traffic to the dispatch Worker, which routes millions of hostnames in code. |
+| [Subdomain routing and Orange-to-Orange (O2O) invocation behavior](../sections/cloudflare-w4p--configuration-hostname-routing--subdomain-routing-and-o2o.md) | The `*.saas.com/*` subdomain route to the dispatch Worker and the O2O proxy-mode invocation caveat. |
 
 ## See also
 
