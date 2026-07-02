@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T03:14:03Z_
+_As of 2026-07-02T03:17:15Z_
 
 ## Latest
 
-The reaper cleared a large backlog off the board, dropping ~30 jobs as POISON after five failed requeue cycles on endolinbot — nearly all of them auto-red-CI shepherd jobs ([#60](https://github.com/endojs/endo-but-for-bots/pull/60), [#79](https://github.com/endojs/endo-but-for-bots/pull/79), [#96](https://github.com/endojs/endo-but-for-bots/pull/96), [#235](https://github.com/endojs/endo-but-for-bots/pull/235), [#242](https://github.com/endojs/endo-but-for-bots/pull/242), [#250](https://github.com/endojs/endo-but-for-bots/pull/250), [#313](https://github.com/endojs/endo-but-for-bots/pull/313), [#316](https://github.com/endojs/endo-but-for-bots/pull/316), [#318](https://github.com/endojs/endo-but-for-bots/pull/318), and roughly twenty more), plus weaver/fixer escalations ([#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), [#306](https://github.com/endojs/endo-but-for-bots/pull/306), [#394](https://github.com/endojs/endo-but-for-bots/pull/394)) and several garden-infra improvement jobs (identity-drift guard, gardener transient-failure backoff/fleet-brake, issue-inbox child-git reaping, repo-watcher arm-retry). The volume and the handlers-fail-every-time pattern point at the correlated quota/API storm those very improvement jobs describe — the fleet thrashed instead of backing off, so genuine work was dropped alongside stale-base noise; worth a look before re-posting.
+A wave of jobs was reaper-poisoned this window — dropped from the board after five failed requeue cycles on endolinbot. It spans roughly two dozen auto-dispatched shepherd/weaver/fixer jobs across [endo-but-for-bots#60](https://github.com/endojs/endo-but-for-bots/pull/60), [#79](https://github.com/endojs/endo-but-for-bots/pull/79), [#96](https://github.com/endojs/endo-but-for-bots/pull/96), [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#235](https://github.com/endojs/endo-but-for-bots/pull/235), [#242](https://github.com/endojs/endo-but-for-bots/pull/242), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), [#306](https://github.com/endojs/endo-but-for-bots/pull/306), [#394](https://github.com/endojs/endo-but-for-bots/pull/394), [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#593](https://github.com/endojs/endo-but-for-bots/pull/593) and more — plus the `build-daemon-rename-to-manager` build and, notably, four garden-infra hardening jobs. Those four are the tell: one of the poisoned jobs itself describes ~100 gardeners thrashing against an exhausted Claude quota with zero backoff, so this looks like a correlated API/quota outage that both failed the handlers and killed the very fixes (fleet-brake/backoff, identity-drift guard, issue-inbox git reaping, repo-watcher arm retry) meant to blunt it — those merit re-posting once the fleet is healthy.
 
-Meanwhile a **lint-infra scaling ceiling** is the standout structural blocker: the typescript-eslint projectService drops the alphabetically-last packages (`where`, `zip`) on any large whole-repo `eslint .`, so a single red `lint` check is holding back otherwise-green [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#592](https://github.com/endojs/endo-but-for-bots/pull/592), and [#593](https://github.com/endojs/endo-but-for-bots/pull/593) (24–25 of their checks pass). Both shepherds correctly declined to bundle a fix into those refactors and escalated to the liaison; a dedicated `endo-but-for-bots-lint-projectservice-ceiling` job was posted, and this needs a human lint-infra decision (consolidate per-package programs or raise the ceiling). On the green side, [#594](https://github.com/endojs/endo-but-for-bots/pull/594) and [#320](https://github.com/endojs/endo-but-for-bots/pull/320) shepherds completed with CI fully green. Five shepherd jobs ([#79](https://github.com/endojs/endo-but-for-bots/pull/79), [#242](https://github.com/endojs/endo-but-for-bots/pull/242), [#318](https://github.com/endojs/endo-but-for-bots/pull/318), [#377](https://github.com/endojs/endo-but-for-bots/pull/377), [#410](https://github.com/endojs/endo-but-for-bots/pull/410)) remain in flight.
+Two live shepherd escalations point at the same structural blocker: the typescript-eslint projectService **scaling ceiling** now fails root `lint` on the alphabetically-last packages (`where`, `zip`) for [#590](https://github.com/endojs/endo-but-for-bots/pull/590) and [#592](https://github.com/endojs/endo-but-for-bots/pull/592) — not caused by either diff, and also live on [#593](https://github.com/endojs/endo-but-for-bots/pull/593) and (yesterday) #581. A dedicated `endo-but-for-bots-lint-projectservice-ceiling` lint-infra job was posted; per standing guidance it must not be bundled into a refactor, and until it lands those PRs can't go green. The one clean completion this window was [#377](https://github.com/endojs/endo-but-for-bots/pull/377), which was only ever red because a macOS runner sat stuck in GitHub's availability queue — no code fix needed.
 
 ## Parked for maintainer feedback
 
@@ -1057,20 +1057,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr242-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr242-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #242
 - [`endojs-endo-but-for-bots-pr318-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr318-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #318
-- [`endojs-endo-but-for-bots-pr377-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr377-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #377
 - [`endojs-endo-but-for-bots-pr410-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr410-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #410
 - [`endojs-endo-but-for-bots-pr79-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #79
 
-### tada (878)
+### tada (879)
+- [`endojs-endo-but-for-bots-pr377-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr377-shepherd.md) — The macOS runner has been stuck in GitHub's runner-availability queue for ~15...
 - [`endojs-endo-but-for-bots-pr594-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr594-shepherd.md) — The run's overall conclusion was already completed success and every other ch...
 - [`endojs-endo-but-for-bots-pr320-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr320-shepherd.md) — CI is now green on the head SHA (e9595848). All three previously-red checks —...
 - [`improve-gardener-scaler-restart-identity-drifted-instances`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-scaler-restart-identity-drifted-instances.md) — Completion report
 - [`improve-gardener-assert-and-mark-identity-at-startup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-assert-and-mark-identity-at-startup.md) — Pushed cleanly on the first attempt. Work complete.
-- [`endojs-endo-but-for-bots-pr438-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr438-weaver.md) — Completion report: weaver on endojs/endo-but-for-bots PR #438 (tsgo migration)
-- … and 873 more
+- … and 874 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
