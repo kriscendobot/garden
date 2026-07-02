@@ -47,6 +47,7 @@ A decision comment is posted on #594 with a real-CI evidence table and a recomme
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot
