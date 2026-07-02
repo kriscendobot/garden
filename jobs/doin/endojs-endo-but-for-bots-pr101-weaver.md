@@ -39,6 +39,7 @@ shepherd.
 
 next: weaver
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
