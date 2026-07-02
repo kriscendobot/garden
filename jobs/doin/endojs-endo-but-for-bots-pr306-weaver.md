@@ -33,3 +33,9 @@ Rebase / conflict-resolve `feat/daemon-capability-persona` onto current
 `skills/rebase-hygiene-audit`), preserving the lint fix at `1f077992b`. Push the
 resolved head. Once mergeable, CI will dispatch; the lint fix should carry it
 green. If CI surfaces new failures after the rebase, chain a shepherd.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 19
+  claimed_at: 2026-07-02T00:57:24Z
