@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-02T01:39:40Z_
+_As of 2026-07-02T01:54:21Z_
 
 ## Latest
 
@@ -555,33 +555,334 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > shepherd→fixer auto-chain. Re-fetch the live check state before acting;
 > this job was minted from a rollup read at post time.
 
+- `20260702T014311Z-476a78` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014311Z-476a78.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr101-weaver
+>
+> --- original job body ---
+> # weaver (rebase stale base) on endojs/endo-but-for-bots PR #101
+>
+> Escalated from the shepherd auto-job `endojs-endo-but-for-bots-pr101-shepherd`.
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/101
+> Head: feat/chat-voice-input (endojs/endo-but-for-bots, bot-pushable)
+> Base: llm
+>
+> ## Why weaver, not shepherd
+>
+> CI is red on four checks — `cover (20.x)`, `cover (24.x)`, `lint`, `zizmor` —
+> but NONE are in this PR's own diff (PR touches only `packages/chat/*` and
+> `designs/*`):
+>
+> - **lint** — 1 error: `makeClient not found in '../src/client/index.js'
+>   import/named` in `packages/ocapn/test/netlayer-tcp-syrup.test.js`. On the
+>   current `llm` tip that import is already `makeOcapn` (the export's real name);
+>   the PR head still carries the pre-rename `makeClient`.
+> - **cover (20.x/24.x)** — same file: `test/netlayer-tcp-syrup.test.js exited
+>   with a non-zero exit code: 1` in `@endo/ocapn`. Same stale-import root cause.
+> - **zizmor** — errors in `.github/workflows/familiar-release.yml` and `ci.yml`
+>   (overly-broad perms, template-expansion injection, cache-poisoning). Workflow
+>   files this PR never touches; fixed on current `llm`.
+>
+> The PR is **966 commits behind** its `llm` base and `mergeable_state == "dirty"`
+> (`mergeable: CONFLICTING`), so `pull_request` workflows are not dispatching on
+> the synthetic merge ref and every red check is a stale-base artifact. The `llm`
+> base branch's own latest CI is **green**. Rebasing/merging the PR onto current
+> `llm` clears all four failures; it is not a shepherd task (per
+> roles/shepherd/AGENT.md § Conflicting PRs block CI dispatch).
+>
+> ## Task
+>
+> Rebase/update PR #101 onto current `llm`, resolving conflicts (see
+> skills/conflict-resolution and skills/rebase-before-followup). The PR's own
+> substance is the chat voice-input feature (its own tests pass). After the
+> update, verify CI converges to green; if new in-scope failures surface, chain a
+> shepherd.
+>
+> next: weaver
+
+- `20260702T014344Z-23cdcb` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014344Z-23cdcb.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr216-weave
+>
+> --- original job body ---
+> # weave (rebase) endojs/endo-but-for-bots PR #216 onto base `llm`
+>
+> PR #216 (`feat/endor-tui-bot` → `llm`, author kriscendobot) is CONFLICTING
+> (`mergeable_state: dirty`), so GitHub is not dispatching `pull_request`
+> workflows on new pushes — `statusCheckRollup` is stale and CI cannot go
+> green until the conflict is resolved. Handed off by the PR #216 shepherd.
+>
+> ## Diagnosis
+> - Base `llm` is ~1196 commits ahead of the PR's merge-base; the PR is only
+>   3 commits ahead.
+> - Exactly ONE textual conflict: `designs/README.md` (the design-index
+>   table). `yarn.lock` auto-merges. All the PR's other 14 files (the new
+>   `packages/tui`, `packages/tui-xs`, `rust/endo/src/bin/endor.rs`, etc.)
+>   are net-new and do not conflict.
+> - The `designs/README.md` conflict is semantic: `llm` has marked many
+>   designs Complete and added new rows (patterns-diagnostic-feedback,
+>   cli-http-client). The PR's own edit sets the `endor-bus-tui` row to
+>   `In Progress` (updated 2026-05-11), while `llm` has it as `Not Started`
+>   (2026-04-23). Resolution: take `llm`'s table wholesale, then re-apply the
+>   PR's `endor-bus-tui` status change (In Progress + its updated date) on
+>   top so the PR's intent survives.
+>
+> ## Ask
+> Rebase `feat/endor-tui-bot` onto current `origin/llm`, resolving the
+> `designs/README.md` table conflict per above, and force-push-with-lease.
+> Because `llm` moved ~1196 commits, run a rebase-hygiene / net-diff audit:
+> confirm the new tui packages still align with any convention changes on
+> `llm`, and that the net diff is only the intended TUI feature. After the
+> push, CI should dispatch; the shepherd's prettier fix (commit b99b99738,
+> `packages/tui/src/tui.types.d.ts`) is already on the branch and clears the
+> prior red `lint` check. Verify CI reaches green (or re-hand-off to shepherd
+> if a fresh red surfaces post-rebase).
+
+- `20260702T014430Z-119bf4` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014430Z-119bf4.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr306-weaver
+>
+> --- original job body ---
+> # weaver (rebase/conflict-resolution) on endojs/endo-but-for-bots PR #306
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/306
+> Head: endojs/endo-but-for-bots `feat/daemon-capability-persona` (bot-pushable)
+> Base: endojs/endo-but-for-bots `master`
+>
+> ## Why this job exists
+>
+> A shepherd (job `endojs-endo-but-for-bots-pr306-shepherd`) was dispatched on red
+> CI. The red check was a genuine Prettier failure on
+> `packages/daemon/src/interfaces.js` (prettier 3.8.3 collapses a single-arg
+> `.returns(M.boolean())` onto one line). **That fix is already committed and
+> pushed** to the head branch at `1f077992b` — CI lint will pass once it can run.
+>
+> But the shepherd discovered the PR is **CONFLICTING**
+> (`mergeable: false, mergeable_state: dirty`), so GitHub cannot build the
+> `pull_request` merge ref and **dispatches NO CI run** on new pushes — the lint
+> fix cannot be verified green until the conflict is resolved.
+>
+> ## Scope
+>
+> The branch is **253 commits behind `master` and 929 ahead**. A trial
+> `git merge --no-commit origin/master` auto-resolved many files via `rerere` but
+> still failed with conflicts spanning `packages/ocapn/*`,
+> `packages/compartment-mapper/*`, `packages/daemon/*`, and several package.json /
+> workflow files. This is a substantial rebase requiring porting judgment — beyond
+> a shepherd's scope (`next: weaver`).
+>
+> ## Ask
+>
+> Rebase / conflict-resolve `feat/daemon-capability-persona` onto current
+> `endojs/endo-but-for-bots` master (see `skills/conflict-resolution` and
+> `skills/rebase-hygiene-audit`), preserving the lint fix at `1f077992b`. Push the
+> resolved head. Once mergeable, CI will dispatch; the lint fix should carry it
+> green. If CI surfaces new failures after the rebase, chain a shepherd.
+
+- `20260702T014437Z-5a52e2` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014437Z-5a52e2.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr394-fixer
+>
+> --- original job body ---
+> # fixer (shepherd escalation) on endojs/endo-but-for-bots PR #394
+>
+> A shepherd (auto-dispatched on red CI) drove the deterministic failure green and
+> escalates the remaining test/cover failures per the shepherd->fixer auto-chain.
+> `next: fixer` — the failures are real (not flakes) and rooted in the branch's own
+> diff (ancestor design-stack phases), but need Node-20 AND Node-22/24 reproduction
+> plus core-library (ses/init) context beyond a shepherd's surgical remit.
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/394
+> Head branch: design/gateway-package-phase-6  (bot-pushable)
+> Head SHA at escalation: 3952dd2fd (shepherd's lint fix already landed)
+>
+> ## Already fixed by the shepherd (landed)
+> - **lint** was red on `scripts/check-security-md.sh`: packages bytes, gateway, hex
+>   carried the stale "Github" SECURITY.md variant while the branch majority
+>   (canonical) is the "GitHub" variant. Synced all three to canonical
+>   (commit 3952dd2fd). `bash scripts/check-security-md.sh` now exits 0 locally.
+>   This should turn `lint` green on the next run.
+>
+> ## Remaining failures (need a fixer)
+>
+> Two DISTINCT, Node-version-specific failure families. Note master's "CI" workflow
+> is GREEN with the same ava@8.0.1 + emittery@2.0.0 and the same packages, so these
+> are branch-introduced, not upstream drift.
+>
+> ### 1. Node 20: `results.values(...).filter is not a function` (panic)
+> - Jobs: `test (20.x, *)`, `cover (20.x, *)`.
+> - Package: `@endo/panic` test crashes. Error is in emittery@2.0.0 index.js:780
+>   `...values(...).filter(result => result.status === 'rejected')` — an **iterator
+>   helper** (Iterator.prototype.filter) absent on Node 20. emittery only reaches
+>   this path when a listener rejects, i.e. when a test **errors**, so a real error
+>   in the panic run on Node 20 is being masked by the emittery crash.
+> - Root cause hypothesis: this branch ADDED 4 tests to
+>   `packages/panic/test/index.test.js` (+49 lines vs master): "panic using
+>   globalThis.panic (XS fallback)", "panic without console.error" (sets
+>   `globalThis.console = undefined`), and edits to "panic last resort". One of
+>   these errors on Node 20 specifically (they pass on Node 22 — the 22.x job fails
+>   elsewhere). Panic passes on master (which lacks these tests).
+> - What the shepherd tried: read panic/index.js (logic is version-agnostic and
+>   looks correct); could not reproduce — only Node 22 is available locally.
+> - Suggested fix direction: reproduce on Node 20; find which added test throws
+>   uncaught; fix the test (do NOT delete it — safety guardrail). Separately,
+>   emittery@2.0.0's iterator-helper use is a Node-20 landmine for ANY erroring
+>   test — consider whether a resolution/ava-version alignment is warranted (but
+>   master uses the same, so prefer fixing the erroring test first).
+>
+> ### 2. Node 22/24: `AssertionError [ERR_ASSERTION]: null == true` at MODULE LOAD
+> - Jobs: `test (22.x, *)`, `test (24.x, *)`, `cover (24.x, *)` (and cover 20.x is
+>   the panic crash above).
+> - SYSTEMIC across many ses-ava test files, thrown at import time (before tests
+>   run), so each file reports "Uncaught exception ... exited with a non-zero exit
+>   code: 1". Confirmed files: `packages/zip/test/zip.test.js`,
+>   `packages/compartment-mapper/test/{hardened-module-source,module-source,
+>   preserve-format}.test.js`, `packages/promise-kit/test/promise-kit.test.js`.
+> - Pattern: `assert(<nativeFeatureDetection> == true)` (Node `node:assert`)
+>   evaluating false on Node 22/24 but true on Node 20 — a top-level feature/ponyfill
+>   detection in a shared src module (candidates: an immutable-arraybuffer /
+>   ArrayBuffer.prototype.transfer / structuredClone-style detection, or ses/init
+>   layer) that regressed for newer Node. The stack line was redacted by the
+>   ses-ava reporter; needs a local Node 22/24 run to surface the throwing file:line.
+> - The zip package also got a large rewrite on this branch (733 insertions:
+>   deflate/inflate added, format-reader/writer rewritten, +binary fixture) — its
+>   module-load failure may be its own detection code rather than the shared one;
+>   triage both.
+> - What the shepherd tried: grepped zip src (no top-level assert there); confirmed
+>   the failure is at module evaluation, systemic, and Node-22+-only.
+>
+> ## Definition of done for the fixer
+> - `test` and `cover` green across the 20.x/22.x/24.x matrix (or a genuine
+>   impasse surfaced with a concrete hand-off).
+> - No test deletions / skips / `--no-verify` / disabled safety checks.
+> - Each fix an atomic commit on the PR's own head (design/gateway-package-phase-6),
+>   bot identity.
+
+- `20260702T014443Z-aec460` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014443Z-aec460.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr593-shepherd
+>
+> --- original job body ---
+> # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #593
+>
+> CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
+> Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
+> watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/593
+> Head: endojs/endo-but-for-bots (bot-pushable)
+>
+> Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
+> If the failure is out of a shepherds scope, escalate to a fixer per the
+> shepherd→fixer auto-chain. Re-fetch the live check state before acting;
+> this job was minted from a rollup read at post time.
+
+- `20260702T014448Z-6061bb` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014448Z-6061bb.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr79-shepherd
+>
+> --- original job body ---
+> # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #79
+>
+> CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
+> Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
+> watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/79
+> Head: endojs/endo-but-for-bots (bot-pushable)
+>
+> Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
+> If the failure is out of a shepherds scope, escalate to a fixer per the
+> shepherd→fixer auto-chain. Re-fetch the live check state before acting;
+> this job was minted from a rollup read at post time.
+
+- `20260702T014501Z-6263c8` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014501Z-6263c8.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr96-shepherd
+>
+> --- original job body ---
+> # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #96
+>
+> CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
+> Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
+> watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/96
+> Head: endojs/endo-but-for-bots (bot-pushable)
+>
+> Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
+> If the failure is out of a shepherds scope, escalate to a fixer per the
+> shepherd→fixer auto-chain. Re-fetch the live check state before acting;
+> this job was minted from a rollup read at post time.
+
+- `20260702T014512Z-d6ba94` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014512Z-d6ba94.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: improve-garden-identity-drift-detector
+>
+> --- original job body ---
+> Every new gardener entry in this window reports `host: endolinbot2`, but per the maintainer record this host is canonically `endolinbot` (the leader marker names `endolinbot`; the `GARDEN=endolinbot2` override was removed as drift on 2026-07-01 precisely because it breaks every leader-only singleton's `is-main-host` ExecCondition). A silent `GARDEN` divergence corrupts per-host state (worker counts, claim metadata, journal index) and disables the leader gate for hours before anyone notices. `scripts/jobs/common.sh` defaults `GARDEN` to `hostname -s` but never checks for divergence. Add a deterministic drift guard (in `common.sh` or a preflight run each `gardener-scaler.sh` tick): when `$GARDEN` != `hostname -s` AND the host is not explicitly configured as a parallel pool, emit ONE loud `kind:error` journal entry (and, on the leader path, surface that `is-main-host` will fail) so a regression of the endolinbot2 override surfaces on the first tick instead of silently mislabeling 100 gardeners.
+
+- `20260702T014520Z-33796e` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014520Z-33796e.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: improve-gardener-transient-failure-backoff-and-fleet-brake
+>
+> --- original job body ---
+> `scripts/jobs/gardener.sh`: on a correlated Claude quota/API outage, all ~100 gardeners thrash — 50+ entries in ~15 min show shepherd handlers failing transiently (rc=1 / exit-0-unsatisfying, the message literally names "claude quota/usage cut"), all requeuing and immediately re-claiming. The loop's `idle_backoff` is applied ONLY on empty-claim and offline-completion paths; both transient-failure branches (the `elif [ "$hrc" -eq 0 ]` exit-0-unsatisfying branch ~line 318 and the non-zero transient branch that ends at `done` line 604) fall straight back to the claim head with zero delay. Result: the fleet re-runs the same jobs against an already-exhausted quota, amplifying the outage and churning todo↔doin. Add (a) a per-worker exponential+jittered backoff after any transient-classified handler failure (reuse `idle_backoff`/`idle_attempt` so a just-failed worker does not instantly re-claim), and (b) a shared fleet brake: when the recent transient-failure density crosses a threshold (a rolling count in `$GARDEN_STATE`, written by any gardener on a transient failure), gardeners pause claiming for a backoff window so a quota storm drains instead of being fed. Keep the reaper as the sole requeue owner; this changes only claim cadence, not board ownership.
+
+- `20260702T014525Z-4f7dc2` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014525Z-4f7dc2.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: improve-issue-inbox-child-git-reaping
+>
+> --- original job body ---
+> `garden-issue-inbox.service` logs `Found left-over process (git) in control group while starting unit ... indicates unclean termination of a previous run` (three orphan `git` PIDs at 00:36:21). `scripts/jobs/issue-inbox-watcher.sh` is leaving background git processes that outlive the unit, so the next start inherits stragglers. Make the handler `wait` on (or explicitly kill) every git child before exiting, and/or set `KillMode=mixed` + a bounded `TimeoutStopSec` on the unit in `scripts/systemd/` so the control group is reaped cleanly on stop/restart. Prevents orphan-git accumulation across restarts.
+
+- `20260702T014531Z-015c4c` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T014531Z-015c4c.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: improve-repo-watcher-arm-retry
+>
+> --- original job body ---
+> `scripts/jobs/repo-watcher.sh` logs `WARN: could not arm garden-ci-watcher@endojs-endo-but-for-bots` and `@kriskowal-garden` on four consecutive ticks (00:23–00:27), meaning the templated ci-watcher units may never come up (and indeed the ci-watcher's own `#259 rollup unreadable` skips follow later). The arming failure is silently WARNed and retried only on the next full tick. Have `repo-watcher.sh` capture and log the underlying `systemctl --user` failure (rc + stderr) for the arm call rather than a bare WARN, and add a short bounded retry within the tick, so a transient `systemctl`/`XDG_RUNTIME_DIR` hiccup does not leave a watcher disarmed for a full cycle.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (21)
-- [`endojs-endo-but-for-bots-pr101-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr101-weaver.md) — weaver (rebase stale base) on endojs/endo-but-for-bots PR #101
-- [`endojs-endo-but-for-bots-pr216-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr216-weave.md) — weave (rebase) endojs/endo-but-for-bots PR #216 onto base llm
+### doin (11)
 - [`endojs-endo-but-for-bots-pr301-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr301-weave.md) — weave (rebase/conflict-resolve) on endojs/endo-but-for-bots PR #301
-- [`endojs-endo-but-for-bots-pr306-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr306-weaver.md) — weaver (rebase/conflict-resolution) on endojs/endo-but-for-bots PR #306
 - [`endojs-endo-but-for-bots-pr313-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr313-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #313
 - [`endojs-endo-but-for-bots-pr316-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr316-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #316
 - [`endojs-endo-but-for-bots-pr318-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr318-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #318
 - [`endojs-endo-but-for-bots-pr393-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr393-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #393
-- [`endojs-endo-but-for-bots-pr394-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr394-fixer.md) — fixer (shepherd escalation) on endojs/endo-but-for-bots PR #394
 - [`endojs-endo-but-for-bots-pr438-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr438-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #438
 - [`endojs-endo-but-for-bots-pr587-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr587-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #587
 - [`endojs-endo-but-for-bots-pr590-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr590-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #590
 - [`endojs-endo-but-for-bots-pr591-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr591-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #591
-- [`endojs-endo-but-for-bots-pr593-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr593-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #593
 - [`endojs-endo-but-for-bots-pr60-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr60-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #60
 - [`endojs-endo-but-for-bots-pr79-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #79
-- [`endojs-endo-but-for-bots-pr96-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr96-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #96
-- [`improve-garden-identity-drift-detector`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-garden-identity-drift-detector.md) — Every new gardener entry in this window reports host: endolinbot2, but per th...
-- [`improve-gardener-transient-failure-backoff-and-fleet-brake`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-transient-failure-backoff-and-fleet-brake.md) — scripts/jobs/gardener.sh: on a correlated Claude quota/API outage, all ~100 g...
-- [`improve-issue-inbox-child-git-reaping`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-issue-inbox-child-git-reaping.md) — garden-issue-inbox.service logs Found left-over process (git) in control grou...
-- [`improve-repo-watcher-arm-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-repo-watcher-arm-retry.md) — scripts/jobs/repo-watcher.sh logs WARN: could not arm garden-ci-watcher@endoj...
 
 ### tada (860)
 - [`endojs-endo-but-for-bots-pr239-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr239-shepherd.md) — Completion report — endojs-endo-but-for-bots-pr239-shepherd
