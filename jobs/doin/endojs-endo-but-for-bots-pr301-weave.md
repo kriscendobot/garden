@@ -42,3 +42,9 @@ was killed by SIGINT (many `channel › ...` cases left pending). This may be
 pre-existing/flaky and may not survive the rebase (the chat/spaces-util
 restructure on `llm` is large). Re-diagnose against the post-rebase CI run;
 do not assume the channel-hang persists.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 69
+  claimed_at: 2026-07-02T00:37:46Z
