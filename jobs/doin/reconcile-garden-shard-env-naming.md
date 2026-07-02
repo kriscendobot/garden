@@ -49,3 +49,9 @@ the *override knob*, not to remove the durable-identity indirection.
 - `git grep GARDEN_SHARD` returns only the alias-shim + its deprecation notes.
 - Help text and prose docs prefer `GARDEN`.
 - Change is committed to `main2` and pushed (garden-meta: no PR against ourselves).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 50
+  claimed_at: 2026-07-02T14:58:42Z
