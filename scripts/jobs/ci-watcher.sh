@@ -198,13 +198,20 @@ while IFS=$'\t' read -r pr author head _; do
   ours=$((ours+1))
 
   # Read the CI rollup DETERMINISTICALLY. Exit code IS the verdict.
-  set +e; "$GARDEN_CI_ROLLUP" "$repo" "$pr" >/dev/null 2>&1; rrc=$?; set -e
+  # Capture the handler's stderr (it deliberately writes a diagnostic on an
+  # unreadable state — "gh pr view failed", "empty PR state", etc.) so a mass
+  # failure's actual cause (403 secondary rate limit vs. expired auth vs.
+  # network) is visible in journalctl instead of N identical opaque lines.
+  rerr="$(mktemp)"
+  set +e; "$GARDEN_CI_ROLLUP" "$repo" "$pr" >/dev/null 2>"$rerr"; rrc=$?; set -e
   case "$rrc" in
-    0)  : ;;                                                # RED → shepherd (below)
-    10) log "#$pr green — nothing to do"; continue ;;
-    11) log "#$pr has no checks reported — nothing to do"; continue ;;
-    12) log "#$pr CI still in progress/queued — backing off"; pending=$((pending+1)); continue ;;
-    *)  log "WARN: #$pr rollup unreadable (rc=$rrc) — skipping (never guess a state)"; unreadable=$((unreadable+1)); continue ;;
+    0)  rm -f "$rerr"; : ;;                                 # RED → shepherd (below)
+    10) rm -f "$rerr"; log "#$pr green — nothing to do"; continue ;;
+    11) rm -f "$rerr"; log "#$pr has no checks reported — nothing to do"; continue ;;
+    12) rm -f "$rerr"; log "#$pr CI still in progress/queued — backing off"; pending=$((pending+1)); continue ;;
+    *)  rmsg="$(head -n1 "$rerr" 2>/dev/null)"; rm -f "$rerr"
+        log "WARN: #$pr rollup unreadable (rc=$rrc): ${rmsg:-<no stderr>} — skipping (never guess a state)"
+        unreadable=$((unreadable+1)); continue ;;
   esac
   red=$((red+1))
 
