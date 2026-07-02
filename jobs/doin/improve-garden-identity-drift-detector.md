@@ -50,3 +50,9 @@ missing, rather than only per-gardener-spawn. NOTE: the live `.garden=endolinbot
 regression itself is being surfaced to the maintainer separately (operational fix
 on the deployed root, out of a gardener's autonomous scope); this job is the
 DETECTOR so the next regression is loud on tick 1.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 88
+  claimed_at: 2026-07-02T10:04:40Z
