@@ -60,3 +60,9 @@ fixer (E.js `@ts-expect-error` reconciliation; the substantive blocker) → shep
 
 Note: no PR comment was posted (the shepherd job carried no per-action external-repo comment
 authorization).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-07-02T02:18:06Z
