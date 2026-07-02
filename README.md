@@ -1,20 +1,20 @@
 # Garden bulletin
 
-_As of 2026-07-02T10:16:14Z_
+_As of 2026-07-02T10:17:42Z_
 
 ## Latest
 
-A live infrastructure incident is the headline: a gardener investigating the five poisoned garden-infra jobs found the `endolinbot2` host-identity drift is **still active on the leader host** — `common.sh` resolves `GARDEN=endolinbot2` from `/home/kris/.garden` while the leader marker names `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped on the true leader. The fix is out of a gardener's autonomous scope and needs a maintainer's hand: either `echo endolinbot > /home/kris/.garden` or re-point the marker to `endolinbot2` and record the parallel-pool override, then restart the fleet. The same drift was the compounding factor behind the five reaper-poisoned jobs (dropped after 5 requeue cycles during the Claude quota outage) — build-daemon-rename-to-manager plus four infra improvements (identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm retry) — several of which have since been re-posted or re-verified.
+A live host-identity drift is silently disabling the leader host: the deployed `/home/kris/.garden` shard file resolves `GARDEN=endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped — 276 recent gardener entries are mislabeled `endolinbot2`. This wants a one-line operator fix (`echo endolinbot > /home/kris/.garden`, or re-point the marker if `endolinbot2` is intended) plus a fleet restart; it is out of a gardener's autonomous scope. This same drift was the compounding factor behind five garden-infra jobs the reaper poisoned during the 2026-07-01/07-02 Claude quota outage (the identity-drift detector, gardener transient-failure backoff, issue-inbox git reaping, repo-watcher arm-retry, and the daemon-rename build).
 
-The shepherd resume of [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) surfaced a disposition call rather than a lint fix: the PR's entire error-tracing feature has already independently landed on `llm` via the merged [#58](https://github.com/endojs/endo-but-for-bots/pull/58), so a rebase collapses to a near-empty PR — recommended CLOSE as superseded, with only two small refactors (a shared `error-id.js` and `trace-constants.js` sentinels) worth extracting as a fresh builder PR. Completions this window include the [#394](https://github.com/endojs/endo-but-for-bots/pull/394) Node-20 panic CI-crash investigation, the garden README rewritten as a graduated usage tutorial (landed on `main`), and the resume-lint-ceiling shepherd batch; roughly a dozen `llm` lint-ceiling shepherd resumes remain in flight.
+On the work side, the daemon→manager rename Phase 1 (file renames) completed and opened as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phase 2 (identifier renames) blocked on it and Phase 3 blocked on Phase 2; the gardener transient-failure-backoff-and-fleet-brake job also landed. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is not lint-blocked but fully subsumed by the already-merged #58 error-tracing feature, and recommends closing it as superseded (optionally re-extracting its two small refactors, `error-id.js` and `trace-constants.js`, as a fresh PR against `llm`) — a disposition call awaiting your word.
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 59s)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 16d)
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 41d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 41d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 41d)
 - [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 43d)
@@ -205,8 +205,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (19)
-- [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — Build: rename daemon.js → manager.js (Daemon/Mignonic → Manager/Worker)
+### doin (17)
 - [`ebfb-lint-master-strategy-evidence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-lint-master-strategy-evidence.md) — scout/investigator: evidence-based decision on the master-side lint strategy
 - [`endojs-endo-but-for-bots-pr101-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr101-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #101 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr242-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr242-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #242 (llm lint-ceiling resume)
@@ -223,16 +222,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr590-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr590-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #590 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr592-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr592-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #592 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr593-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr593-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #593 (llm lint-ceiling resume)
-- [`improve-gardener-transient-failure-backoff-and-fleet-brake`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-transient-failure-backoff-and-fleet-brake.md) — Re-verification (investigator, 2026-07-02)
 - [`rework-poison-park-and-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/rework-poison-park-and-dedup.md) — garden-infra: POISON handling — park the job in plan/ and dedup the maintaine...
 
-### tada (905)
+### tada (907)
+- [`improve-gardener-transient-failure-backoff-and-fleet-brake`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-transient-failure-backoff-and-fleet-brake.md) — Completion report
+- [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-daemon-rename-to-manager.md) — Completion Report: build-daemon-rename-to-manager
 - [`endojs-endo-but-for-bots-pr394-investigate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr394-investigate.md) — Completion report: investigator on PR #394 (Node-20 panic CI crash)
 - [`rewrite-garden-readme-usage-tutorial-fable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/rewrite-garden-readme-usage-tutorial-fable.md) — The garden README is rewritten as a graduated usage tutorial and landed on ma...
 - [`resume-lint-ceiling-shepherds-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resume-lint-ceiling-shepherds-llm.md) — Completion report — resume-lint-ceiling-shepherds-llm
-- [`investigate-poisoned-garden-infra-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-poisoned-garden-infra-jobs.md) — Completion report
-- [`improve-repo-watcher-arm-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-repo-watcher-arm-retry.md) — Completion report
-- … and 900 more
+- … and 902 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -250,6 +248,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
+- [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
+- [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`formula-inspector-retention-paths-table-v2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/formula-inspector-retention-paths-table-v2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/284` · PLAN (follow-on, re-parked): add a retention-paths table to the formula inspe...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
