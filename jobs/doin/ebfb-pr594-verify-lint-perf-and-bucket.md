@@ -17,3 +17,9 @@ Task:
 3. Update #594 to the chosen approach (per-package vs bucketed) and confirm CI/lint still passes.
 4. Reply on #594 with the **measurements** (baseline vs per-package vs bucketed timings, the ceiling
    behavior) and the decision. Base `master`; bot fork; no upstream contact.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 98
+  claimed_at: 2026-07-02T04:06:17Z
