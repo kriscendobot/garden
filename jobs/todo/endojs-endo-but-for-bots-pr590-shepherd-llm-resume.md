@@ -19,11 +19,4 @@ Standing external-repo etiquette applies (no comment unless the job carries comm
 Provenance: `resume-lint-ceiling-shepherds-llm` (the llm half of the split lint-ceiling resume
 directive, kriskowal 2026-07-02). Source fix: `ebfb-594-fresh-llm-pr-merge` (PR #597 on llm).
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 45
-  claimed_at: 2026-07-02T10:14:22Z
+<!-- garden-reaped: 2 -->
