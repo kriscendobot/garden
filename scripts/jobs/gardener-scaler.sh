@@ -22,6 +22,17 @@ sync_clone "$DIR"
 
 host="$GARDEN"
 
+# Host-identity DRIFT guard — a deterministic preflight that runs EVERY tick,
+# host-level, independent of the desired-count read below. It catches the drift
+# class the reconcile step CANNOT: when the gitignored .garden file (or an
+# inherited-env GARDEN) makes every worker resolve the SAME drifted identity
+# consistently, reconcile-identity sees no /proc-vs-resolved inconsistency and
+# does nothing, yet GARDEN still mislabels all per-host state and flips the leader
+# gate to follower. On a genuine unrecorded divergence the guard posts ONE loud
+# kind:error journal entry (deduped per drift state, so it fires on tick 1 of a
+# regression) instead of silently mislabeling the whole pool. Never fails the tick.
+"$HERE/identity-drift-guard.sh" || true
+
 # Identity reconciliation runs EVERY tick, independent of the desired-count read
 # below: a worker whose in-process GARDEN has drifted from this host's identity
 # (a long-lived instance that inherited a since-corrected value at spawn — e.g. a
