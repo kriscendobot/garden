@@ -9,3 +9,9 @@ ABSENT, behavior is UNCHANGED (current default model). Keep it minimal + robust 
 fall back to default + log, never crash the tick). Add a test (job with `model: fable` → `--model
 claude-fable-5` in the invocation; no field → no `--model`). Relate to `skills/model-selection`. Land on
 `main2` via an isolated worktree off origin/main2.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 59
+  claimed_at: 2026-07-02T04:03:08Z
