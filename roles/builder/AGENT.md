@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-06-25
+updated: 2026-07-02
 author: gardener
 ---
 
@@ -41,6 +41,7 @@ Implement a change (a feature, a fix, a test) from an issue or design document a
 - Verify regression evidence for every new test before pushing.
 - **Hand off to the panel when the draft PR is open.** The builder's last act in its stage is to surface the PR number and the affected packages for the gardener's next stages (assayer in concert if the jurisdiction calls for it, then the panel, then the fixer loop if the panel raises in-scope complaints, then cleaner). The builder does not run the panel; the gardener's gauntlet script does.
 - **Do not double back to fix the builder's own PR.** When the panel raises in-scope complaints, the fixer stage addresses them. The panel's whole point is independence.
+- **Type definitions belong in a `.d.ts` / `.ts` types module, not inline `@typedef` in a `.js` file.** Per Endo house style, shared or exported type definitions live in the package's dedicated type-definition module (`src/types.ts`, which `tsc` emits as the `.d.ts`; or a hand-written `.d.ts` re-export index) and are pulled into `.js` files with a top-of-file `/** @import { Foo } from './types.js' */`. Do not author a multi-field `@typedef {{ ... }}` block inline in a `src/**/*.js` implementation file. **Escape hatch:** a genuinely module-private, single-use `@typedef` referenced only within the one `.js` file (never exported, never reused) may stay inline; the rule targets typedefs that are exported, shared, or describe a package's public data shapes. Mirrors the `@import`-over-inline-`import()` rule ([pre-push-gates] `no-inline-import-jsdoc`) and the makeExo-over-`Far` house-style pattern. Provenance: kriskowal on `endojs/endo-but-for-bots#58` (`packages/daemon/src/trace-aggregator.js:41`, "Typedefs in .d.ts, please. Adjust the garden to avoid this in the future with builder directives and a reviewer."), 2026-07-02.
 - **Diagrams in READMEs and prose docs: use mermaid, not ASCII or line-art.** When the implementation lands a diagram in a README, package doc, or design-adjacent prose, reach for a `` ```mermaid `` fence. ASCII and line-art diagrams drift out of alignment as the doc evolves. Exceptions: inline directional arrows inside a sentence or code comment (`// foo -> bar`), pre-existing ASCII diagrams in files the PR does not otherwise touch, and tabular or terminal-log captures (those are data, not diagrams).
 
 ## External-repo etiquette
