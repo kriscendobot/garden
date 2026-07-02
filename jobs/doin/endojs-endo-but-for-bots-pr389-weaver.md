@@ -41,3 +41,9 @@ The rebase gets CI green, but whether this DRAFT should ultimately live is a
 liaison/maintainer call, not a weaver/shepherd one.
 
 next: weaver
+
+---
+claim:
+  host: endolinbot2
+  gardener: 59
+  claimed_at: 2026-07-02T00:50:18Z
