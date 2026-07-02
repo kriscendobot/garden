@@ -7,6 +7,13 @@ set -euo pipefail
 IMAGE_NAME="${GARDEN_IMAGE:-garden}"
 CONTAINER_NAME="${GARDEN_CONTAINER:-garden}"
 HOSTNAME_NAME="${GARDEN_HOSTNAME:-endolinbot}"
+# The durable shard identity (the GARDEN name the fleet keys off). Defaults to
+# the container hostname, but is captured into a gitignored $HOME/.garden file
+# (see below) so it survives independently of the kernel hostname and of any
+# env var — an exported GARDEN never reaches the systemd --user manager. Override
+# GARDEN_SHARD to give a pool an identity distinct from its hostname (e.g. a
+# follower pool "endolinbot2" on a host whose hostname is "endolinbot").
+SHARD_NAME="${GARDEN_SHARD:-$HOSTNAME_NAME}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 usage() {
@@ -23,14 +30,21 @@ Environment:
   GARDEN_IMAGE        Override image name (default: garden).
   GARDEN_CONTAINER    Override container name (default: garden).
   GARDEN_HOSTNAME     Override container hostname (default: endolinbot).
+  GARDEN_SHARD        Override the durable shard identity written to
+                      \$HOME/.garden at container creation (default:
+                      GARDEN_HOSTNAME). This is the GARDEN name the fleet
+                      keys off; set it when a pool's identity must differ
+                      from its hostname (e.g. a follower "endolinbot2").
 
 Notes:
   The container runs systemd as PID 1 so the garden's user-mode units
   (scripts/systemd/garden-*) can run. After entering, bring the fleet up
   per CLAUDE.md § Job system: install-units.sh install && enable-services,
-  then set-gardeners.sh <N> <host>. GARDEN_HOSTNAME MUST be unique across
+  then set-gardeners.sh <N> <host>. The shard identity MUST be unique across
   instances; to run several, give each a distinct GARDEN_CONTAINER and
-  GARDEN_HOSTNAME.
+  GARDEN_SHARD (or GARDEN_HOSTNAME). The identity is captured in the
+  gitignored \$HOME/.garden file so it is durable and per-instance — an
+  exported GARDEN env var does NOT reach the systemd --user units.
 
   Unlike town, garden does NOT forward SSH_AUTH_SOCK. The bot uses its
   own keys under \$HOME/.ssh/ (i.e. /home/kris/garden/.ssh on the host)
@@ -62,6 +76,15 @@ cmd_enter() {
         local api_key_args=()
         if [[ -n "${ANTHROPIC_API_KEY:-}" ]]; then
             api_key_args=(-e "ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}")
+        fi
+
+        # Seed the durable shard identity. The home dir is bind-mounted from
+        # $SCRIPT_DIR, so writing $SCRIPT_DIR/.garden here makes it appear at
+        # /home/kris/.garden inside the container, where common.sh reads it (it
+        # is gitignored, so it never enters shared git history). Written only at
+        # creation and only when absent, so a hand-edited identity is preserved.
+        if [[ ! -e "${SCRIPT_DIR}/.garden" ]]; then
+            printf '%s\n' "$SHARD_NAME" > "${SCRIPT_DIR}/.garden"
         fi
 
         # systemd as PID 1 needs the containerized-systemd flags: a writable

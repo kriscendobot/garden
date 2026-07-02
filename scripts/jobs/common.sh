@@ -38,13 +38,31 @@
 
 # Host identity. GARDEN is the canonical, per-invocation host-identity knob and
 # the SINGLE name every script uses (the journal index key, the claim-metadata
-# key, the hosts/<host> worker-count key, the leader predicate's comparand). An
-# operator exports `GARDEN=endolinbot2` to spawn a parallel gardener pool from a
-# checked-out worktree WITHOUT touching the Dockerfile (the kernel hostname is
-# fixed at container creation; GARDEN is the lighter override). It defaults to
-# `hostname -s`. See issue kriskowal/garden#11 (Multibot) and
-# designs/multibot-leader-follower.md.
+# key, the hosts/<host> worker-count key, the leader predicate's comparand).
+# Resolved with this precedence:
+#   1. an explicit GARDEN already in the environment (an operator/test one-off
+#      override; wins so a `GARDEN=… some-cmd` invocation still works);
+#   2. the gitignored per-instance identity file $GARDEN_ROOT/.garden — the
+#      DURABLE shard config. It is home-directory state, so it is NOT committed
+#      (a top-level dotfile, already covered by .gitignore's /.[!.]*), NOT shared
+#      via git or Claude memory (both of which ARE shared across instances), and
+#      — unlike a login-shell `export GARDEN=…` — it is read by common.sh itself,
+#      so every `systemctl --user` unit that sources this file inherits it. A
+#      login-shell export does NOT reach the systemd --user manager, which is the
+#      trap that made an exported GARDEN silently fail to reach the fleet. Seeded
+#      by ./garden at container creation (GARDEN_HOSTNAME); hand-editable after.
+#   3. `hostname -s` — the single-shard default. The kernel hostname is fixed at
+#      container creation and cannot distinguish two pools on one home directory,
+#      which is exactly why the .garden file exists.
+# We export GARDEN so a spawned worker carries it in its /proc/<pid>/environ,
+# which the gardener-scaler's identity-drift reconcile reads (a file-derived
+# identity must be visible there too, not only an env-derived one).
+# See issue kriskowal/garden#11 (Multibot) and designs/multibot-leader-follower.md.
+if [ -z "${GARDEN:-}" ] && [ -r "$GARDEN_ROOT/.garden" ]; then
+  GARDEN="$(head -1 "$GARDEN_ROOT/.garden" 2>/dev/null | tr -d '[:space:]')"
+fi
 : "${GARDEN:=$(hostname -s 2>/dev/null || echo host)}"
+export GARDEN
 
 # --- leader/follower host topology (issue kriskowal/garden#11, Multibot) ------
 # Gardeners run on EVERY host (concurrent claims dedup via the job-board push
