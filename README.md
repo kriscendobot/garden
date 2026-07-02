@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T00:02:28Z_
+_As of 2026-07-02T00:04:45Z_
 
 ## Latest
 
-Since the last bulletin the board is quiet: the botanist refreshed the job board, and two infrastructure jobs were claimed into flight — building the orchestration-job pattern (an orchestrator that sequences planned stages and watches its children) and dispatching the next batch of build jobs for ready designs in the current milestone. Recently completed work includes a mechanical inter-package re-exports repoint on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) (the follow-up removal), an investigation into the flaky proposals-matrix-test/build on the agoric-3-proposals fork, a self-heal fix for the repo-watcher's missing template, and a scholar ingest of Cloudflare Workers for Platforms (remainder pages still in flight). Nothing new landed in the maintainer queue; the parked set holds at 27 PRs, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) the freshest awaiting review.
+Board movement was quiet this cycle: a scholar picked up the [Cloudflare Workers for Platforms reference ingest](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-w4p-references.md), a follow-on to the just-completed [W4P overview ingest](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-workers-for-platforms.md). Recently landed work includes the [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) inter-package re-exports mechanical repoint (follow-up removal), a repo-watcher self-heal for missing unit templates, and an investigation of the proposals-matrix build failure on the `kriscendobot/agoric-3-proposals` fork PR #1. Seven jobs remain in flight — a build-dispatch batch for ready designs, the watchDirectory→`@endo/platform` factoring, and roadmap grooming among them. Maintainer attention is still owed on 27 parked PRs, the freshest being [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 1d) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 2d).
 
 ## Parked for maintainer feedback
 
@@ -28,12 +28,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`dispatch-next-batch-build-jobs-for-ready-designs-current-milestone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dispatch-next-batch-build-jobs-for-ready-designs-current-milestone.md) — Dispatch build jobs for the next batch of ready-to-build designs (current act...
 - [`factor-watchdirectory-to-endo-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/factor-watchdirectory-to-endo-platform.md) — Factor watchDirectory out of the daemon into @endo/platform
 - [`garden-build-orchestration-job-pattern-sequence-and-watch-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-build-orchestration-job-pattern-sequence-and-watch-children.md) — Build the orchestration-job pattern: an orchestrator that sequences planned s...
 - [`garden-encode-directives-reliably-become-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-directives-reliably-become-jobs.md) — Widen the comment-watcher: actionable maintainer directives reliably become J...
 - [`groom-refine-endo-roadmap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/groom-refine-endo-roadmap.md) — Groom: refine the endo roadmap
+- [`scholar-ingest-cloudflare-w4p-references`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-w4p-references.md) — Scholar: ingest Cloudflare Workers for Platforms — reference pages
 - [`scholar-ingest-cloudflare-w4p-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-w4p-remainder.md) — Scholar: ingest Cloudflare Workers for Platforms — remainder pages
 
 ### tada (830)
