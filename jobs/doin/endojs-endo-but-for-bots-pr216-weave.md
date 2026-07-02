@@ -30,3 +30,9 @@ push, CI should dispatch; the shepherd's prettier fix (commit b99b99738,
 `packages/tui/src/tui.types.d.ts`) is already on the branch and clears the
 prior red `lint` check. Verify CI reaches green (or re-hand-off to shepherd
 if a fresh red surfaces post-rebase).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 100
+  claimed_at: 2026-07-02T00:50:11Z
