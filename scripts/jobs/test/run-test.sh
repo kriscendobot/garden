@@ -1024,6 +1024,44 @@ run_fm 2600     # 300s ≥ 240 → pump; stub proposes the same base as last pos
   || bad "anti-flap (todo=$(fcount jobs/todo) maint=$(fcount inbox/maintainer/unread))"
 
 # ============================================================================
+hr; echo "SUBTEST 14a — FOREMAN WIP TARGET: top the board up to GARDEN_FOREMAN_WIP=3, then stop"; hr
+# With a WIP target of 3, the foreman pumps ONE step per settle window while the
+# board is BELOW target, climbing 0→1→2→3, then goes quiet once at capacity. Uses
+# a counting stub so successive pumps propose DISTINCT bases (anti-flap only holds
+# on a repeat of the last base). Fresh GARDEN_STATE so the settle clock is clean.
+fboard @CLEAR
+FWSTATE="$TR/state-fm-wip"; rm -rf "$FWSTATE"
+FWCOUNTER="$TR/fm-wip-counter"; rm -f "$FWCOUNTER"
+run_fm_wip() {  # run_fm_wip <now-epoch>
+  : > "$FCALLS"
+  env GARDEN_STATE="$FWSTATE" JOURNAL_REMOTE="$FBARE" \
+      GARDEN_FOREMAN_HANDLER="$HERE/foreman-stub-counter.sh" GARDEN_FOREMAN_STUB_CALLS="$FCALLS" \
+      GARDEN_FOREMAN_STUB_COUNTER="$FWCOUNTER" GARDEN_FOREMAN_WIP=3 \
+      GARDEN_FOREMAN_NOW="$1" GARDEN_FOREMAN_IDLE_SETTLE=240 \
+      "$JOBS/foreman.sh" >/dev/null 2>&1
+}
+# below target (0<3): first observation starts the clock, no pump.
+run_fm_wip 3000
+{ [ ! -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 0 ]; } \
+  && ok "WIP: first below-target tick starts the clock, no pump" || bad "WIP first-seen pumped early"
+# three successive settle windows top the board up 1→2→3.
+run_fm_wip 3300; run_fm_wip 3600; run_fm_wip 3900
+[ "$(fcount jobs/todo)" -eq 3 ] \
+  && ok "WIP: board topped up to the target of 3 (one step per settle window)" \
+  || bad "WIP top-up wrong (todo=$(fcount jobs/todo))"
+FWV="$TR/fmwv"; rm -rf "$FWV"; git clone -q --single-branch --branch "$BRANCH" "$FBARE" "$FWV"
+{ [ -f "$FWV/jobs/todo/foreman-step-1.md" ] && [ -f "$FWV/jobs/todo/foreman-step-2.md" ] && [ -f "$FWV/jobs/todo/foreman-step-3.md" ]; } \
+  && ok "WIP: the three jobs are DISTINCT milestone steps (no anti-flap on advancing bases)" \
+  || bad "WIP steps not distinct ($(ls -1 "$FWV/jobs/todo" 2>/dev/null | tr '\n' ' '))"
+rm -rf "$FWV"
+# at capacity (3>=3): the pump goes quiet — no handler call, nothing posted.
+run_fm_wip 4200
+{ [ ! -s "$FCALLS" ] && [ "$(fcount jobs/todo)" -eq 3 ]; } \
+  && ok "WIP: at capacity the foreman is silent (no claude call, no over-pump)" \
+  || bad "WIP over-pumped past target (calls=$(wc -l <"$FCALLS") todo=$(fcount jobs/todo))"
+fboard @CLEAR
+
+# ============================================================================
 hr; echo "SUBTEST 14b — FOREMAN TOKEN QUOTA: deterministic weekly back-off (session logs)"; hr
 # The foreman gates BOTH pump paths on a deterministic, no-LLM weekly token meter
 # sourced from Claude Code's own session logs (~/.claude/projects/**/*.jsonl). Each

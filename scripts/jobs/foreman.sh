@@ -1,42 +1,48 @@
 #!/bin/bash
-# foreman.sh — the idle-pump service: keep the gardener fleet supplied with work.
+# foreman.sh — the work-in-progress pump: keep the gardener fleet supplied with
+# up to GARDEN_FOREMAN_WIP concurrent jobs of milestone work.
 #
 # Usage: foreman.sh
 #
-# A timer-driven oneshot. It monitors the job board and, when the board goes
-# IDLE and stays idle past a settle window, wears the FOREMAN role (via `claude
-# -p`) to determine the current in-progress milestone and post ONE job for its
-# next most important unblocked step. This is the v2, idle-triggered,
+# A timer-driven oneshot. It monitors the job board and, whenever the board is
+# BELOW its work-in-progress target (fewer than GARDEN_FOREMAN_WIP jobs in flight)
+# and has stayed below it past a settle window, wears the FOREMAN role (via
+# `claude -p`) to determine the current in-progress milestone and post ONE job for
+# its next most important unblocked step — topping the board up one job per settle
+# window until the WIP target is reached. This is the v2, capacity-triggered,
 # milestone-aware evolution of the retired general-contractor's slot-refill and
 # the v1 design-poller. Part of the garden's autonomous posture: SILENT until an
 # error; only the foreman's own failures surface.
 #
 # Each tick:
 #   1. draining check; sync a dedicated journal clone.
-#   2. IDLE DETECTION. The board is idle when jobs/todo/ AND jobs/doin/ are both
-#      empty (nothing queued, nothing in flight). The proxy posts follow-on jobs
-#      from completions, so the board stays busy until the milestone's work chain
-#      truly drains; only then is this an idle event worth pumping.
-#   3. DEBOUNCE. Act only on SUSTAINED idle. The first idle tick records an
-#      idle-since marker; a pump fires only once the board has been idle for at
-#      least GARDEN_FOREMAN_IDLE_SETTLE seconds (so a brief gap between a
-#      completion and a follow-on post does not trigger a premature pump). A busy
-#      board clears the marker.
-#   4. On sustained idle, FIRST prefer promoting the top deferred plan job
+#   2. CAPACITY DETECTION. In-flight work is jobs/todo/ + jobs/doin/ (queued plus
+#      being worked). The board has CAPACITY whenever that count is below
+#      GARDEN_FOREMAN_WIP (default 1 — the historical fully-idle-pump behavior). At
+#      or above the target the board is AT CAPACITY: nothing is pumped. The proxy
+#      posts follow-on jobs from completions, so the board's in-flight count
+#      reflects the milestone's live work chain.
+#   3. DEBOUNCE. Act only on SUSTAINED capacity. The first below-target tick
+#      records a since marker; a pump fires only once the board has stayed below
+#      target for at least GARDEN_FOREMAN_IDLE_SETTLE seconds (so a brief dip
+#      between a completion and a follow-on post does not trigger a premature
+#      pump). Reaching the WIP target clears the marker.
+#   4. On sustained capacity, FIRST prefer promoting the top deferred plan job
 #      (jobs/plan/, gate=deferred) by priority/urgency — pre-approved, queued work
 #      that costs no `claude -p` call. Only if none exists, hand a small digest
 #      (project, board state, last step posted) to the handler (the foreman role)
 #      and post the one job it returns. go-ahead plan jobs are never auto-promoted.
-#   5. COST GATE: the handler (and its `claude -p`) runs ONLY on sustained idle,
-#      never while the board is busy or still within the settle window.
+#   5. COST GATE: the handler (and its `claude -p`) runs ONLY on sustained
+#      below-target capacity, never while the board is at the WIP target or still
+#      within the settle window.
 #   6. ANTI-FLAP: the last step posted is recorded; if the handler proposes the
 #      identical step again (the board redrained without milestone progress) the
 #      foreman does NOT blindly re-post it. It surfaces the repeat as a one-line
 #      maintainer note so a stuck step is seen rather than silently looped.
 #
 # State (host-local, outside any reset-prone worktree) lives in
-# GARDEN_STATE/foreman/: `idle-since` (the settle clock), `last-step` (anti-flap),
-# `noted` (maintainer-note dedupe).
+# GARDEN_STATE/foreman/: `idle-since` (the below-target settle clock), `last-step`
+# (anti-flap), `noted` (maintainer-note dedupe).
 #
 # Pluggable for tests: GARDEN_FOREMAN_HANDLER <digest-file> emits one block
 # (JOB <base> … ENDJOB, or MAINTAINER … ENDMAINTAINER, or nothing).
@@ -49,8 +55,17 @@ source "$HERE/common.sh"
 GARDEN_TAG="foreman"
 
 : "${GARDEN_FOREMAN_HANDLER:=$HERE/handlers/foreman-claude.sh}"
-# Seconds of sustained idle before a pump. ~a few minutes; tune via env.
+# Seconds of sustained below-target capacity before a pump. ~a few minutes; tune
+# via env.
 : "${GARDEN_FOREMAN_IDLE_SETTLE:=240}"
+# Work-in-progress target: how many concurrent jobs (jobs/todo/ + jobs/doin/) the
+# foreman keeps the board topped up to. The pump fires only while in-flight work
+# is BELOW this number, and posts ONE job per settle window, so the board climbs
+# toward the target one step at a time. Default 1 preserves the historical
+# fully-idle-pump behavior (pump only when the board is empty); the fleet default
+# is raised to 3 in the garden-foreman systemd unit per the maintainer's
+# authorization (kriskowal/garden#23).
+: "${GARDEN_FOREMAN_WIP:=1}"
 : "${GARDEN_FOREMAN_PROJECT:=endo-but-for-bots}"
 
 # Token-quota back-off knobs (defaults declared in usage-meter.sh; restated here so
@@ -92,30 +107,35 @@ note_once() {
   printf '%s\n' "$key" > "$NOTED"
 }
 
-# --- idle detection ----------------------------------------------------------
+# --- capacity detection ------------------------------------------------------
+# In-flight work is the queued (todo) plus being-worked (doin) count. The board
+# has capacity to pump while that total is below the WIP target; at or above it
+# the board is at capacity and nothing is pumped this tick.
 todo_n="$(list_jobs "$DIR" jobs/todo | grep -c . || true)"
 doin_n="$(list_jobs "$DIR" jobs/doin | grep -c . || true)"
+inflight=$(( todo_n + doin_n ))
 
-if [ "$todo_n" -ne 0 ] || [ "$doin_n" -ne 0 ]; then
-  # Board busy: clear the settle clock, run no handler, stay silent.
+if [ "$inflight" -ge "$GARDEN_FOREMAN_WIP" ]; then
+  # Board at (or over) the WIP target: clear the settle clock, run no handler,
+  # stay silent.
   rm -f "$IDLE_SINCE"
   exit 0
 fi
 
-# --- debounce: only act on sustained idle ------------------------------------
+# --- debounce: only act on sustained below-target capacity -------------------
 NOW="$(now)"
 if [ ! -f "$IDLE_SINCE" ]; then
-  printf '%s\n' "$NOW" > "$IDLE_SINCE"   # first idle observation; start the clock
+  printf '%s\n' "$NOW" > "$IDLE_SINCE"   # first below-target observation; start the clock
   exit 0
 fi
 since="$(cat "$IDLE_SINCE" 2>/dev/null || echo "$NOW")"
 elapsed=$(( NOW - since ))
 if [ "$elapsed" -lt "$GARDEN_FOREMAN_IDLE_SETTLE" ]; then
-  exit 0   # idle but within the settle window; do nothing
+  exit 0   # below target but within the settle window; do nothing
 fi
 
 # --- token-quota back-off (deterministic; gates BOTH pump paths) --------------
-# The board is idle and past the settle window, so this tick WOULD pump — either
+# The board is below the WIP target and past the settle window, so this tick WOULD pump — either
 # by promoting a deferred plan job or by generating a new step via `claude -p`.
 # Both ignite spend, so check the weekly token meter (plain code, no LLM) FIRST.
 # At/over the high-water mark, pump nothing this tick; surface a single throttled
@@ -134,13 +154,14 @@ case "$(meter_quota_status)" in
   off|ok) : ;;   # no quota configured, or under the mark — pump as normal
 esac
 
-# --- sustained idle: prefer promoting a deferred plan job --------------------
+# --- sustained below-target: prefer promoting a deferred plan job ------------
 # Before generating a NEW step (a `claude -p` call), prefer promoting the top
 # already-parked deferred plan job: it is pre-approved work picked by priority, so
 # it both honors the maintainer's queue and SAVES the handler's cost. go-ahead
 # plan jobs are excluded by plan_deferred_ranked (those need maintainer
-# authorization, never auto-selection). Promotion makes the board non-idle, so the
-# idle clock clears on the next busy tick — exactly like a normal post.
+# authorization, never auto-selection). Promotion raises the in-flight count, so
+# the settle clock clears once the board reaches the WIP target — exactly like a
+# normal post.
 top_deferred="$(plan_deferred_ranked "$DIR" | head -1)"
 if [ -n "$top_deferred" ]; then
   if "$HERE/promote-plan.sh" "$top_deferred" >/dev/null 2>&1; then
@@ -153,13 +174,13 @@ if [ -n "$top_deferred" ]; then
   log "failed to promote deferred plan job '$top_deferred'; falling through to handler"
 fi
 
-# --- sustained idle: pump the next milestone step ----------------------------
+# --- sustained below-target: pump the next milestone step --------------------
 last_step="$(cat "$LAST_STEP" 2>/dev/null || true)"
 
 digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
 {
   printf 'project: %s\n'           "$GARDEN_FOREMAN_PROJECT"
-  printf 'board: idle (todo=0 doin=0); sustained for %ss\n' "$elapsed"
+  printf 'board: below WIP target %s (todo=%s doin=%s, in-flight=%s); sustained for %ss\n' "$GARDEN_FOREMAN_WIP" "$todo_n" "$doin_n" "$inflight" "$elapsed"
   printf 'last_step_posted: %s\n'  "${last_step:-(none)}"
 } > "$digest"
 
@@ -211,7 +232,9 @@ case "$btype" in
     ;;
 esac
 
-# Reset the settle clock so the next pump is a fresh sustained-idle window away.
-# (After a real JOB post the board is non-idle anyway and the marker is cleared
-# on the next busy tick; this matters for the maintainer-note and no-op paths.)
+# Reset the settle clock so the next pump is a fresh sustained-below-target window
+# away. After a real JOB post the in-flight count rises by one; if that reached the
+# WIP target the marker is cleared on the next at-capacity tick, otherwise this
+# fresh clock paces the next top-up step. Also matters for the maintainer-note and
+# no-op paths, where the board is still below target.
 printf '%s\n' "$NOW" > "$IDLE_SINCE"
