@@ -1,18 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-02T23:23:59Z_
+_As of 2026-07-02T23:51:27Z_
 
 ## Latest
 
-A single job cleared the board this cycle — [`improve-ci-rollup-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-transient-retry.md) completed as a no-op (the fix was already on `origin/main2`), leaving todo and doin empty. The substantive news is in the maintainer inbox. **A live incident needs an operator hand:** the `endolinbot2` host-identity drift is still active on the true leader, so `/home/kris/.garden` resolves `GARDEN=endolinbot2` while the `leader` marker and `hostname -s` both say `endolinbot` — `is-main-host.sh` returns FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, triager, issue-inbox, orchestrate, maintainer-inbox Monitor) is being silently skipped, with all 276 recent gardener entries mislabeled. The fix is out of a gardener's autonomous scope: either `echo endolinbot > /home/kris/.garden` or re-point the marker with `set-main-host.sh endolinbot2`, then restart the fleet.
+The headline is a live infrastructure incident: on the true leader host, a stale `/home/kris/.garden` file resolves `GARDEN=endolinbot2` while `hostname -s` and the leader marker both say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped — and all 276 recent gardener entries are mislabeled `endolinbot2`. The fix is operational and out of a gardener's scope: either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2`, then restart the fleet. The same drift compounded a Claude quota outage that poisoned five garden-infra jobs (identity drift-detector, gardener transient-failure backoff, issue-inbox git reaping, repo-watcher arm-retry, and the daemon→manager rename build), all dropped by the reaper after 5 requeue cycles and now surfaced to your inbox.
 
-That same drift compounded a Claude quota outage overnight, which poisoned five garden-infra jobs (dropped after 5 requeue cycles): a daemon→manager rename build, an identity drift-detector, a gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, and repo-watcher arm-retry — all now surfaced to you for re-decision.
-
-Two design/disposition calls are also parked: on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 rebutted the freezable-TypedArray doc's "Why not a Proxy wrapper?" section and asked you and @erights to weigh in on plain-object-vs-Proxy-throw semantics; and shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is fully subsumed by the already-merged #58 error-tracing feature, recommending you close it (optionally re-extracting `error-id.js`/`trace-constants.js` as a fresh small PR). Meanwhile the daemon→manager rename Phase 1 landed as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phases 2 and 3 correctly blocked behind it.
+Two disposition calls also await you: [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) has @gibson042 rebutting the freezable-TypedArray design's "Why not a Proxy wrapper?" section and asking you and @erights to weigh in on plain-object-vs-Proxy; and shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed — its error-tracing feature already landed on `llm` via #58 — and recommends closing it rather than rebasing. On the board, the only transition was a clone-keeper self-heal job (`improve-clone-keeper-bootstrap-missing-clone`) getting claimed.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 8h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 9h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
@@ -243,8 +241,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-clone-keeper-bootstrap-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-bootstrap-missing-clone.md) — In scripts/jobs/clone-keeper.sh, make a missing tracked bare clone self-heal ...
 
 ### tada (972)
 - [`improve-ci-rollup-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-transient-retry.md) — The requested work is already present in the worktree's HEAD (origin/main2), ...
