@@ -1,7 +1,0 @@
-`scripts/jobs/gardener.sh:355` writes a `kind:progress` entry to the shared journal on EVERY exit-0-unsatisfying requeue cycle for every gardener; this digest alone carries 20+ near-identical "handler exited 0 … requeueing … (no escalation)" notes for the same handful of shepherd-llm-resume PRs, which is exactly the silent-until-error violation the mentor brief calls out (routine self-healing progress burning supervisor/mentor context). The escalation is already owned deterministically elsewhere — the reaper counts cycles and surfaces the job as POISON at `GARDEN_REAP_POISON_THRESHOLD` (~5). Gate the journal write (not the local `log` on line 354, which can stay for stderr/systemd debugging) so it only fires when it matters: suppress the per-cycle journal entry for early requeue cycles and emit a single journal note only when the cycle count approaches/reaches the poison threshold (i.e. when it's about to escalate). Apply the same treatment to the sibling transient-outage journal write at `gardener.sh:498` (rc=124 "no escalation") so routine requeues there are equally quiet. Net effect: the shared journal shows the escalation, not each self-healing retry.
-
----
-claim:
-  host: endolinbot2
-  gardener: 19
-  claimed_at: 2026-07-02T19:15:07Z
