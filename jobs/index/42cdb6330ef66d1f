@@ -1,0 +1,2 @@
+base: build-daemon-rename-to-manager
+identity: endojs/endo-but-for-bots:design:daemon-rename-to-manager
