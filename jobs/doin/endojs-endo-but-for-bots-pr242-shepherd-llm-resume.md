@@ -7,3 +7,9 @@ PR #242 (base llm) was blocked by the typescript-eslint projectService lint ceil
 NOTE: this job's prior run was poisoned by fleet-restart churn during a host-identity fix, NOT a real handler failure. The fleet is now stable (endolinbot leader). Re-posted by the liaison.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-07-02T17:37:27Z
