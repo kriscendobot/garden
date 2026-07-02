@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T03:04:52Z_
+_As of 2026-07-02T03:06:16Z_
 
 ## Latest
 
-The repo-wide **typescript-eslint projectService scaling ceiling** finally has a fix landed on master ([`endo-but-for-bots-lint-projectservice-ceiling`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endo-but-for-bots-lint-projectservice-ceiling.md)) — the single `lint` failure that had been the only red check on [endo-but-for-bots#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#592](https://github.com/endojs/endo-but-for-bots/pull/592), [#593](https://github.com/endojs/endo-but-for-bots/pull/593), and [#581](https://github.com/endojs/endo-but-for-bots/pull/581), each dropping their alphabetically-last packages (`where`/`zip`). Those PRs should go green on rebase, so the two open lint-infra escalations to the liaison (on #590 and #592) are largely overtaken by that landing. Also merged: the [#438](https://github.com/endojs/endo-but-for-bots/pull/438) weaver (tsgo migration) and two gardener identity-drift guards (assert-and-mark identity at startup, scaler restart of drifted instances) that harden against the `endolinbot2` GARDEN divergence removed yesterday.
+The job board is nearly quiet — `todo` is empty and only one transition landed since the last bulletin: a fresh auto-shepherd for [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) picked up on red CI. But that calm sits on top of a large poison wave: the reaper dropped roughly thirty jobs after five failed requeue cycles each — mostly auto-shepherds ([#587](https://github.com/endojs/endo-but-for-bots/pull/587), [#588](https://github.com/endojs/endo-but-for-bots/pull/588), [#250](https://github.com/endojs/endo-but-for-bots/pull/250), [#316](https://github.com/endojs/endo-but-for-bots/pull/316), [#393](https://github.com/endojs/endo-but-for-bots/pull/393), [#438](https://github.com/endojs/endo-but-for-bots/pull/438), [#590](https://github.com/endojs/endo-but-for-bots/pull/590), and many more), plus weaver rebases ([#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#306](https://github.com/endojs/endo-but-for-bots/pull/306), [#301](https://github.com/endojs/endo-but-for-bots/pull/301)) and the [#394](https://github.com/endojs/endo-but-for-bots/pull/394) fixer. The dropped infra jobs name the cause: a correlated Claude quota/API outage sent the ~100-gardener fleet thrashing against an exhausted quota, so handlers failed transiently and poisoned en masse. Two fixes for exactly this are queued in the poison pile — a per-worker backoff plus fleet brake, and an identity-drift guard — and warrant a look, since they'd blunt the next such storm.
 
-The item to notice is the reaper flood: it **poisoned roughly thirty shepherd, weaver, and fixer jobs** after 5 requeue cycles each — a signature of a correlated Claude quota/API outage that made every handler fail on every cycle, so the ~100-gardener fleet thrashed todo↔doin against exhausted quota rather than backing off. Two proposed hardening jobs (a per-worker backoff + shared fleet brake, and issue-inbox git-child reaping) were themselves swept up in the same poison wave, so they still need to be re-posted and landed. The board is otherwise drained to zero todo with six shepherd jobs in flight.
+On the merge side, the good news is the repo-wide lint blocker moved: the `endo-but-for-bots-lint-projectservice-ceiling` job **completed**, which should unstick the typescript-eslint scaling-ceiling failures that shepherds keep escalating on the large PRs — the [#592](https://github.com/endojs/endo-but-for-bots/pull/592) and [#590](https://github.com/endojs/endo-but-for-bots/pull/590) escalations both trace their single red `lint` check to that ceiling and explicitly refused to bundle a fix into the refactors. Also landed: the [#438](https://github.com/endojs/endo-but-for-bots/pull/438) tsgo-migration weaver, [#587](https://github.com/endojs/endo-but-for-bots/pull/587)'s shepherd, and two gardener identity/startup hardening jobs.
+
+Three items genuinely need your call: the lint-infra decision (whether/where to consolidate the per-package eslint programs), the botanist follow-up asking where recurring board audits should live (foreman/watchman vs. a new script), and the parked `daemon.js`→`manager.js` rename build, which flags heavy concurrent churn in `packages/daemon/` and asks whether to hold until those PRs quiesce.
 
 ## Parked for maintainer feedback
 
@@ -1057,12 +1059,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr242-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr242-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #242
 - [`endojs-endo-but-for-bots-pr318-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr318-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #318
 - [`endojs-endo-but-for-bots-pr320-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr320-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #320
 - [`endojs-endo-but-for-bots-pr377-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr377-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #377
 - [`endojs-endo-but-for-bots-pr410-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr410-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #410
+- [`endojs-endo-but-for-bots-pr594-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr594-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #594
 - [`endojs-endo-but-for-bots-pr79-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #79
 
 ### tada (876)
