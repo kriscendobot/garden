@@ -1,0 +1,7 @@
+---
+kind: progress
+role: gardener
+host: endolinbot2
+at: 2026-07-02T01:02:46Z
+---
+gardener-60 on endolinbot2: job endojs-endo-but-for-bots-pr475-shepherd handler exited rc=1 (signal-kill/timeout/empty/transient-signature output); transient handler outage (requeue cycle 2, elapsed=1131s); left in doin for reaper requeue (no escalation)
