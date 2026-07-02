@@ -43,6 +43,7 @@ pre-existing/flaky and may not survive the rebase (the chat/spaces-util
 restructure on `llm` is large). Re-diagnose against the post-rebase CI run;
 do not assume the channel-hang persists.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
