@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:38:37Z_
+_As of 2026-07-02T19:39:24Z_
 
 ## Latest
 
-The headline is a **live leader-disabling incident**: the `endolinbot2` host-identity drift is still active on the true leader host (`/home/kris/.garden` resolves `GARDEN=endolinbot2` while `journal/leader` names `endolinbot`), so `is-main-host` reports FOLLOWER and every leader-only singleton — foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor — is being silently skipped, with 276 recent gardener entries mislabeled. The gardener investigating it flagged the fix as out of autonomous scope: either `echo endolinbot > /home/kris/.garden` (single-leader shard) or re-point the marker to `endolinbot2` and record the parallel-pool override, then restart the fleet. This same drift compounded a Claude quota outage on 07-01/07-02 that poisoned **five** garden-infra jobs — the reaper dropped them after 5 requeue cycles: the identity-drift detector, gardener transient-failure backoff + fleet brake, issue-inbox orphan-git reaping, repo-watcher arm retry, and the `daemon.js`→`manager.js` rename build — all now surfaced to the maintainer inbox for triage.
+The garden's own leader host is quietly broken, and that's the thing to notice: a gardener investigating five poisoned infra jobs found `/home/kris/.garden` still reads `endolinbot2` while the leader marker names `endolinbot`, so `is-main-host` returns FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, triager, issue-inbox, the maintainer-inbox Monitor) has been silently skipping. It needs a manual fix — correct `.garden` to `endolinbot` (or re-point the marker to `endolinbot2`) and restart the fleet — and it's out of a gardener's autonomous scope. This same drift compounded the 07-01/07-02 Claude quota outage that poisoned five garden-infra jobs, all now in the maintainer inbox after five requeue cycles each: the identity-drift detector, a gardener transient-failure backoff plus fleet brake, issue-inbox git-child reaping, repo-watcher arm-retry logging, and the daemon→manager rename build.
 
-Separately, a shepherd run on [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is not lint-blocked but **subsumed**: its error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to an essentially empty PR; the shepherd recommends closing #301 (optionally extracting the two small unique refactors — `error-id.js` and `trace-constants.js` — as a fresh PR) and awaits the maintainer's disposition call. On the build front, the XS→Rust (Endor) engine-port design completed and its stage-1 thin-slice build was just claimed and is now in flight.
+Separately, shepherd on [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) reports it is subsumed rather than lint-blocked — the error-tracing feature already re-landed on `llm` via merged #58, so a rebase collapses to an essentially empty PR; the recommendation is to close #301 (with an optional small fresh PR for its two unique refactors, `error-id.js` and `trace-constants.js`). Job-board movement was otherwise quiet: the XS→Rust (Endor) engine port advanced — design complete, build stage 1 in flight, and stage 3 newly parked awaiting it.
 
 ## Parked for maintainer feedback
 
@@ -237,6 +237,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`port-xs-to-rust-memory-safe-engine-s3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s3.md) — awaiting `xs2rust-endor-build-stage1` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
