@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T21:12:41Z_
+_As of 2026-07-02T21:21:42Z_
 
 ## Latest
 
-The standout item is a **live leader-disabling incident**: the endolinbot2 host-identity drift is still active on the true leader host — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while `hostname -s`, the `journal/leader` marker, and `is-main-host.sh` all say `endolinbot`, so every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is silently being skipped, and 276 recent gardener entries are mislabeled `endolinbot2`. The fix is operational and out of a gardener's scope: either `echo endolinbot > /home/kris/.garden` (single-leader shard) or re-point the marker with `set-main-host.sh endolinbot2` and record the parallel-pool override, then restart the fleet.
-
-That same drift compounded a **quota-outage poisoning cascade** (2026-07-01/07-02): the reaper dropped five garden-infra jobs after five requeue cycles each — the daemon→manager rename build, plus four self-improvement asks (a `GARDEN`-drift guard in `common.sh`, gardener transient-failure backoff + a fleet brake against quota thrash, issue-inbox orphan-git reaping, and repo-watcher arm-retry logging). All five are now parked in the maintainer inbox for a disposition call; the sharpened drift-detector job has been re-posted so the next regression is loud on tick one.
-
-Two shepherd findings also await your ruling: [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is not lint-blocked but **subsumed** — its error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to an empty PR; the shepherd recommends closing it as superseded (only `error-id.js` and `trace-constants.js` are unique, extractable as a fresh small PR).
-
-Otherwise the board is nearly quiescent: `issue-kriskowal-garden-23` completed, `todo` is empty, and only `xs2rust-endor-build-stage2` is in flight, with the daemon-rename Phase 2/3 builds blocked awaiting [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598).
+A live infrastructure incident tops what a maintainer should notice: a gardener investigating the poisoned garden-infra jobs found the **endolinbot2 host-identity drift is still active on the leader host** — `/home/kris/.garden` reads `endolinbot2` while the leader marker and hostname are `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is silently being skipped, with 276 recent gardener entries mislabeled. It wants a one-line operational fix (`echo endolinbot > /home/kris/.garden`, or re-point the marker to endolinbot2) plus a fleet restart — out of a gardener's autonomous scope. That same drift compounded a Claude quota outage into **five poisoned garden-infra jobs** the reaper dropped after 5 requeue cycles: the daemon→manager rename build, an identity-drift detector, a gardener transient-failure backoff/fleet-brake, issue-inbox child-git reaping, and repo-watcher arm-retry — each now parked in the maintainer inbox for a disposition. Separately, a shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) reports the PR is **subsumed, not lint-blocked** — its error-tracing feature already re-landed on `llm` via the merged #58, collapsing a rebase to near-empty; it recommends closing #301 as superseded, optionally salvaging two small refactors (`error-id.js`, `trace-constants.js`) as a fresh PR. Board-wise little else moved: a single attention directive on [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) was claimed, and the daemon-rename Phase 2/3 builds sit blocked awaiting [#598](https://github.com/endojs/endo-but-for-bots/pull/598).
 
 ## Parked for maintainer feedback
 
@@ -209,7 +203,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr594-0d2956f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr594-0d2956f9.md) — attention directive on endojs/endo-but-for-bots PR #594
 - [`xs2rust-endor-build-stage2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2.md) — Builder: xs2rust-endor roadmap stage 2 — object model, control flow, full opc...
 
 ### tada (964)
