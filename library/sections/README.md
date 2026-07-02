@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6057 (525 parent indexes + 5532 children).
+Total section files: 6067 (525 parent indexes + 5542 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -544,6 +544,27 @@ Total section files: 6057 (525 parent indexes + 5532 children).
 - [cask--verbs--verb-catalog](cask--verbs--verb-catalog.md)
 - [cask--verbs--verb-dispatch-and-type-designators](cask--verbs--verb-dispatch-and-type-designators.md)
 
+### cloudflare-w4p--configuration-bindings
+
+- [cloudflare-w4p--configuration-bindings--adding-a-kv-namespace](cloudflare-w4p--configuration-bindings--adding-a-kv-namespace.md)
+- [cloudflare-w4p--configuration-bindings--overview](cloudflare-w4p--configuration-bindings--overview.md)
+
+### cloudflare-w4p--configuration-hostname-routing
+
+- [cloudflare-w4p--configuration-hostname-routing--subdomain-routing-and-o2o](cloudflare-w4p--configuration-hostname-routing--subdomain-routing-and-o2o.md)
+- [cloudflare-w4p--configuration-hostname-routing--wildcard-route](cloudflare-w4p--configuration-hostname-routing--wildcard-route.md)
+
+### cloudflare-w4p--configuration-observability
+
+- [cloudflare-w4p--configuration-observability--analytics](cloudflare-w4p--configuration-observability--analytics.md)
+- [cloudflare-w4p--configuration-observability--logs](cloudflare-w4p--configuration-observability--logs.md)
+
+### cloudflare-w4p--configuration-static-assets
+
+- [cloudflare-w4p--configuration-static-assets--deploy-via-api](cloudflare-w4p--configuration-static-assets--deploy-via-api.md)
+- [cloudflare-w4p--configuration-static-assets--deploy-with-wrangler](cloudflare-w4p--configuration-static-assets--deploy-with-wrangler.md)
+- [cloudflare-w4p--configuration-static-assets--overview](cloudflare-w4p--configuration-static-assets--overview.md)
+
 ### cloudflare-w4p--custom-limits
 
 - [cloudflare-w4p--custom-limits--overview](cloudflare-w4p--custom-limits--overview.md)
@@ -552,6 +573,10 @@ Total section files: 6057 (525 parent indexes + 5532 children).
 
 - [cloudflare-w4p--dynamic-dispatch--binding-and-configuration](cloudflare-w4p--dynamic-dispatch--binding-and-configuration.md)
 - [cloudflare-w4p--dynamic-dispatch--routing-patterns](cloudflare-w4p--dynamic-dispatch--routing-patterns.md)
+
+### cloudflare-w4p--get-started
+
+- [cloudflare-w4p--get-started--overview](cloudflare-w4p--get-started--overview.md)
 
 ### cloudflare-w4p--how-it-works
 
