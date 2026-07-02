@@ -1,0 +1,46 @@
+# weave (rebase/conflict-resolve) on endojs/endo-but-for-bots PR #301
+
+CI is RED on this OPEN bot-authored PR, but the root blocker is a **merge
+conflict against the base branch `llm`**, not a tractable CI failure. A shepherd
+(job `endojs-endo-but-for-bots-pr301-shepherd`) diagnosed this and hands off:
+`mergeable_state == dirty` means GitHub does not create the merge ref and no
+`pull_request` workflow dispatches on new pushes, so no CI fix can be validated
+until the conflict is resolved. Map: **weaver** → rebase/conflict-resolve.
+
+PR: https://github.com/endojs/endo-but-for-bots/pull/301
+Head: endojs/endo-but-for-bots @ kriskowal-error-trace (7be08f41b, bot-pushable)
+Base: `llm` (e50be0b0c), merge-base 65d3093cc
+
+## Conflict inventory (test-merge of head into origin/llm, 2026-07-02)
+
+22 conflicting files. The significant driver: `llm` has restructured the chat
+package — `packages/chat/*` moved to `packages/spaces-util/src/*`. This PR edits
+`packages/chat/chat-bar-component.js` and `packages/chat/connection.js`, which now
+collide with `packages/spaces-util/src/chat-bar-component.js` on `llm`. Full
+conflicted set:
+
+  packages/captp/src/captp.js
+  packages/chat/connection.js, packages/chat/eval-form.js
+  packages/cli/src/commands/trace.js, context.js, endo.js
+  packages/cli/test/trace.test.js
+  packages/daemon/package.json
+  packages/daemon/src/{daemon-go-powers,daemon-node-powers,daemon,host,interfaces,serve-private-path,trace-aggregator,worker,ws-gateway}.js
+  packages/daemon/src/types.d.ts, packages/daemon/src/networks/libp2p.js
+  packages/daemon/test/{error-trace,trace-aggregator}.test.js
+  packages/spaces-util/src/chat-bar-component.js
+
+Resolve conflicts (respecting the chat→spaces-util move on `llm`), rebase/merge
+onto current `llm`, and push. Once the conflict clears, `pull_request` workflows
+will dispatch again; the CI-status watcher will auto-post a fresh shepherd if CI
+is still red.
+
+## Standing note for the follow-on shepherd
+
+The last CI run at head 7be08f41b (before the branch conflicted) failed on the
+`@endo/cli#test` step: the `channel` test suite in the cli package hung and ava
+was killed by SIGINT (many `channel › ...` cases left pending). This may be
+pre-existing/flaky and may not survive the rebase (the chat/spaces-util
+restructure on `llm` is large). Re-diagnose against the post-rebase CI run;
+do not assume the channel-hang persists.
+
+<!-- garden-reaped: 4 -->
