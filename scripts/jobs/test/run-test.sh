@@ -261,6 +261,32 @@ rwerr2="$TR/rw-selfheal2.err"
 grep -q 'self-heal template drift' "$rwerr2" \
   && bad "self-heal install re-ran on the no-drift tick" \
   || ok "no-drift tick did not re-run install (templates already present)"
+
+# --- template STILL absent after the self-heal install -----------------------
+# If the source template is genuinely gone from scripts/systemd/, the install
+# renders nothing and the template stays absent. The pre-fix behavior then armed
+# the instance against an absent template and re-logged "could not arm …" every
+# tick forever. The fix instead logs a single WARN and SKIPS arming that set this
+# tick. Drive it by pointing repo-watcher's install seam at a no-op (/bin/true),
+# so the once-per-tick self-heal install renders nothing and the template stays
+# absent — no real render can un-break this branch.
+export XDG_CONFIG_HOME="$TR/xdg-noheal"; NHDEST="$XDG_CONFIG_HOME/systemd/user"
+rm -rf "$XDG_CONFIG_HOME"; mkdir -p "$NHDEST"
+: > "$GARDEN_MOCK_STATE"
+rwerr3="$TR/rw-noheal.err"
+GARDEN_INSTALL_UNITS=/bin/true "$JOBS/repo-watcher.sh" >/dev/null 2>"$rwerr3"
+grep -qxF "garden-ci-watcher@kriscendobot-endo.timer" "$GARDEN_MOCK_STATE" \
+  && bad "ci-watcher armed against a still-absent template (should skip)" \
+  || ok "arming skipped when template still absent after self-heal install"
+grep -q 'could not arm' "$rwerr3" \
+  && bad "per-slug 'could not arm' WARN looped despite skip" \
+  || ok "no per-slug 'could not arm' spam on a still-absent template"
+grep -q 'still absent after install-units.sh install' "$rwerr3" \
+  && ok "single WARN logged for the genuinely-missing template" \
+  || bad "missing-template WARN not logged"
+grep -q 'armed 0 of' "$rwerr3" \
+  && ok "reconcile summary reports 0 armed for the absent-template set" \
+  || bad "reconcile summary did not report the skipped arming"
 unset XDG_CONFIG_HOME
 
 # ============================================================================

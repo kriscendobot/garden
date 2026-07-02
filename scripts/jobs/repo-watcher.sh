@@ -44,6 +44,11 @@ sync_clone "$DIR"
 # ensure_template_installed below).
 DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 
+# The renderer invoked to self-heal a missing template unit. Indirected (like
+# unit_ctl) so a test can point it at a no-op stub and drive the "still absent
+# after install" skip branch without a real render.
+INSTALL_UNITS="${GARDEN_INSTALL_UNITS:-$GARDEN_ROOT/scripts/jobs/install-units.sh}"
+
 # Whether we have already run install-units.sh install THIS tick. reconcile_set
 # is called once per prefix (triager / comment-watcher / ci-watcher); if more
 # than one prefix is missing its template, a single install renders them all, so
@@ -86,7 +91,7 @@ ensure_template_installed() {
   fi
   _TEMPLATE_INSTALL_DONE=1
   log "template $prefix@.service absent from $DEST; running install-units.sh install to self-heal template drift"
-  "$GARDEN_ROOT/scripts/jobs/install-units.sh" install >/dev/null 2>&1 \
+  "$INSTALL_UNITS" install >/dev/null 2>&1 \
     || log "WARN: install-units.sh install failed while self-healing missing $prefix@ template"
   template_installed "$prefix" && return 0
   log "WARN: template $prefix@.service still absent after install-units.sh install"
@@ -117,26 +122,37 @@ reconcile_set() {
   # Before arming any instance, make sure the template unit for $prefix is
   # actually rendered into the user manager; otherwise every `enable --now` below
   # fails identically every tick (the WARN-spam this self-heal exists to stop).
-  # Only bother when something is wanted — an empty set needs no template. The
-  # return is advisory (it logs its own WARNs); swallow it so a still-missing
-  # template never aborts the tick under `set -e` — we still fall through to arm.
+  # Only bother when something is wanted — an empty set needs no template. If the
+  # template is STILL absent after the once-per-tick self-heal install (its source
+  # is genuinely gone from scripts/systemd/), SKIP the arming loop this tick:
+  # ensure_template_installed has already logged a single WARN, and arming against
+  # an absent template would only loop a per-slug "could not arm" WARN every tick —
+  # exactly the spam this self-heal exists to stop. The disarm loop still runs;
+  # tearing down a now-unwanted instance never needs the template.
+  local can_arm=1
   if [ "${#want[@]}" -gt 0 ]; then
-    ensure_template_installed "$prefix" || true
+    ensure_template_installed "$prefix" || can_arm=0
   fi
 
-  for slug in "${!want[@]}"; do
-    if [ -z "${have[$slug]:-}" ]; then
-      log "watch: arming $prefix@$slug.timer"
-      unit_ctl enable --now "$prefix@$slug.timer" || log "WARN: could not arm $prefix@$slug"
-    fi
-  done
+  if [ "$can_arm" -eq 1 ]; then
+    for slug in "${!want[@]}"; do
+      if [ -z "${have[$slug]:-}" ]; then
+        log "watch: arming $prefix@$slug.timer"
+        unit_ctl enable --now "$prefix@$slug.timer" || log "WARN: could not arm $prefix@$slug"
+      fi
+    done
+  fi
   for slug in "${!have[@]}"; do
     if [ -z "${want[$slug]:-}" ]; then
       log "unwatch: disarming $prefix@$slug.timer"
       unit_ctl disable --now "$prefix@$slug.timer" || log "WARN: could not disarm $prefix@$slug"
     fi
   done
-  log "reconciled $subdir: ${#want[@]} watched, ${#have[@]} previously armed"
+  if [ "$can_arm" -eq 1 ]; then
+    log "reconciled $subdir: ${#want[@]} watched, ${#have[@]} previously armed"
+  else
+    log "reconciled $subdir: template $prefix@ absent — armed 0 of ${#want[@]} wanted, ${#have[@]} previously armed"
+  fi
 }
 
 # Reload the user manager before arming so the latest @.timer / @.service template
