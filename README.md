@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:13:10Z_
+_As of 2026-07-02T19:15:21Z_
 
 ## Latest
 
-The leader-plane is dark on the current designated leader, endolinbot2, and needs your call: the journal bulletin has been stale since 14:31Z because every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, orchestrate, and the maintainer-inbox Monitor) is stopped and disabled there. Two threads converge on the same root cause — a `GARDEN` host-identity drift: `/home/kris/.garden` resolves `endolinbot2` while `hostname -s` and the `leader` marker have ping-ponged (6× today), so `is-main-host` has been misreporting FOLLOWER and skipping the singletons. A gardener is holding for your go/no-go on re-running `install-units.sh enable-services` to restore the plane, and flags that the durable fix likely lives at the host-side identity enforcer, not the container. The reaper also dropped **five** garden-infra jobs as poison after five requeue cycles each (the `daemon.js`→`manager.js` rename build, the identity-drift detector, the gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, and repo-watcher arm-retry), most colored by the same drift and a Claude quota outage overnight.
+Two operational escalations dominate and both need a maintainer call. First, the **leader plane is dark on the designated leader host (endolinbot2)**: the journal bulletin has been stale since 14:31Z because every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, orchestrate, and the maintainer-inbox Monitor) was stopped and disabled during an earlier "yield to endolinbot" directive and never re-enabled after leadership was re-pointed back to endolinbot2 at 17:37Z. A gardener is holding for a go/no-go on running `install-units.sh enable-services` to restore it, and flags a durable risk: the host-side garden2 identity enforcer may still force-write `GARDEN=endolinbot`, which would re-flap the singletons unless fixed at the host. A separate live-incident report shows the same endolinbot2 vs. `.garden`/`leader`-marker identity drift that had `is-main-host` reporting FOLLOWER on the true leader and mislabeling ~276 gardener entries.
 
-On the PR side, a wave of `llm` lint-ceiling shepherds resumed and completed — [#242](https://github.com/endojs/endo-but-for-bots/pull/242), [#306](https://github.com/endojs/endo-but-for-bots/pull/306), [#313](https://github.com/endojs/endo-but-for-bots/pull/313), [#316](https://github.com/endojs/endo-but-for-bots/pull/316), [#318](https://github.com/endojs/endo-but-for-bots/pull/318), [#320](https://github.com/endojs/endo-but-for-bots/pull/320), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#581](https://github.com/endojs/endo-but-for-bots/pull/581), [#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#592](https://github.com/endojs/endo-but-for-bots/pull/592), and [#593](https://github.com/endojs/endo-but-for-bots/pull/593) — and [#598](https://github.com/endojs/endo-but-for-bots/pull/598) (daemon→manager rename Phase 1) cleared shepherd and weaver, with Phase 2/3 parked behind it. One disposition call needs you: the shepherd on [#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the error-tracing feature already re-landed on `llm` via the merged #58, so it recommends closing #301 as superseded (optionally salvaging two small refactors into a fresh PR). The XS→Rust "endor engine" design is now in flight.
+Second, **five garden-infra improvement jobs were poisoned** (dropped by the reaper after 5 requeue cycles) during the 07-01/07-02 Claude quota outage — the identity drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox child-git reaping, repo-watcher arm-retry, and the daemon→manager rename build. The identity-drift-detector job has since been re-posted, sharpened. Notably, three of these infra fixes are now back in progress: clone-keeper reclone-on-missing, gardener-scaler scale bounding, and silencing the routine exit-0 requeue noise were all claimed this cycle.
+
+Also awaiting a disposition: a shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is **subsumed, not lint-blocked** — its CapTP error-tracing feature already re-landed on `llm` via the merged #58, collapsing a rebase to near-empty. The recommendation is to close #301 as superseded, optionally extracting its two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh small PR. The daemon→manager rename Phase 2/3 builds remain parked, blocked on [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598).
 
 ## Parked for maintainer feedback
 
@@ -255,9 +257,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (6)
 - [`daily-progress-summary-20260702-191237`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260702-191237.md) — Daily midnight Pacific progress summary
 - [`fix-stale-bulletin-leader-singleton`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-stale-bulletin-leader-singleton.md) — Fix the stale bulletin (leader-only singleton is not running)
+- [`improve-clone-keeper-reclone-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-reclone-missing-tracked-clone.md) — scripts/jobs/clone-keeper.sh keep_clone() (line ~78) currently logs WARN: tra...
+- [`improve-gardener-scaler-bound-scale-operation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-scaler-bound-scale-operation.md) — garden-gardener-scaler.service (Type=oneshot, TimeoutStartSec=900) timed out ...
+- [`improve-gardener-silence-routine-exit0-unsatisfying-requeue`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-silence-routine-exit0-unsatisfying-requeue.md) — scripts/jobs/gardener.sh:355 writes a kind:progress entry to the shared journ...
 - [`xs2rust-endor-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-design.md) — Design: port XS to Rust ("endor engine") — feasibility, architecture, staged ...
 
 ### tada (943)
