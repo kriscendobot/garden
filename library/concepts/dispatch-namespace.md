@@ -15,6 +15,8 @@ In Cloudflare Workers for Platforms, the **dispatch namespace** is the container
 | [Dispatch namespace: the container for customer Workers](../sections/cloudflare-w4p--how-it-works--dispatch-namespace.md) | The container's three properties: unlimited Workers, isolation by default, dynamic invocation. |
 | [Dynamic dispatch Worker: why, and the dispatch namespace binding](../sections/cloudflare-w4p--dynamic-dispatch--binding-and-configuration.md) | Declaring the `dispatch_namespaces` binding in Wrangler. |
 | [Worker isolation: untrusted (default) versus trusted mode](../sections/cloudflare-w4p--worker-isolation--modes.md) | The namespace's untrusted/trusted isolation modes. |
+| [Get started: deploy a Workers for Platforms starter kit](../sections/cloudflare-w4p--get-started--overview.md) | The template creates a dispatch namespace automatically; the dispatch Worker routes into it by name. |
+| [Observability: namespace-wide logs via Logpush and Tail Workers](../sections/cloudflare-w4p--configuration-observability--logs.md) | Logpush/Tail Workers enabled on the dispatch Worker collect logs for every user Worker in the namespace. |
 
 ## See also
 
