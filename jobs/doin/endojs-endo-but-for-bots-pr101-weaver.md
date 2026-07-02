@@ -41,6 +41,7 @@ next: weaver
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
