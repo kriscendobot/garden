@@ -23,3 +23,9 @@ Reply when done:              gh issue comment https://github.com/kriskowal/gard
 
 ----- issue body excerpt (untrusted, truncated) -----
 Please dispatch a Fable agent to audit the YMax portfolio contract in Agoric SDK. This will require some foreknowledge of ocap object capability security patterns and eventual send, so make use of the research library.  
+
+---
+claim:
+  host: endolinbot2
+  gardener: 11
+  claimed_at: 2026-07-02T20:45:19Z
