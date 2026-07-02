@@ -40,3 +40,9 @@ shepherd.
 next: weaver
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 98
+  claimed_at: 2026-07-02T01:14:26Z
