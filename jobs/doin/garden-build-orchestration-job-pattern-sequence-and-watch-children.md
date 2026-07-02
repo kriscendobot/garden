@@ -25,3 +25,9 @@ Build the pattern:
    one orchestration job (serial default). Make it the standing pattern.
 Tests: serial promotion advances only after each child reaches tada; parallel promotes all; a child
 failure triggers the policy, not a silent stall. Land on `main2` via an isolated worktree off origin/main2.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-07-02T00:00:21Z
