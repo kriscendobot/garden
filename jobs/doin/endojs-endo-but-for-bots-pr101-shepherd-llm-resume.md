@@ -21,6 +21,7 @@ directive, kriskowal 2026-07-02). Source fix: `ebfb-594-fresh-llm-pr-merge` (PR 
 
 <!-- garden-reaped: 1 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
