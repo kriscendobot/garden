@@ -52,9 +52,5 @@ done. Report back: what landed, harness output demonstrating the acceptance bar 
 divergence list), and any design frictions the supervisor should rule on.
 
 <!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 3
-  claimed_at: 2026-07-02T19:38:31Z
+
+<!-- garden-reaped: 1 -->
