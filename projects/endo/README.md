@@ -35,6 +35,12 @@ The practical rule: on a topic-matching PR, erights' review is read as technical
 
 The pattern is reusable. Future per-project READMEs may name their own non-default-authority actors and topic-scopes; the section's shape (named actor, topic list, practical rule for in-scope vs. out-of-scope input) is intended to carry over. See `roles/COMMON.md` § Authority structure of upstream projects for the cross-project framing.
 
+## Roadmap
+
+The authoritative roadmap is `designs/README.md` on the `endojs/endo-but-for-bots@llm` branch (the shared endo-project milestone ledger, M1–M11). Groom reconciliation snapshots — which reconcile the ledger with recent progress, sharpen open questions, and re-project the near-term sequence without editing the ledger — land here:
+
+- [`roadmap-reconciliation-2026-07-02.md`](roadmap-reconciliation-2026-07-02.md) — reconciles the 2026-06-16 → 2026-07-01 window (fs-interface consolidation, arrow/method house style, plain re-exports, error-tracing, `@endo/pubsub`); prunes the resolved groom #400 questions; flags the un-applied 2026-06-11 resequencing (M7 Community Hub) and PR #356's still-off-`llm` packaging designs. Groom gardener job `groom-refine-endo-roadmap`.
+
 ## Drafts awaiting maintainer triage
 
 - [`drafts/exo-import.md`](drafts/exo-import.md) and [`drafts/exo-npm-registry.md`](drafts/exo-npm-registry.md) — sibling designs authored by designer dispatch `e3b1aa` (2026-05-14); not yet committed to `endojs/endo`. See [`drafts/README.md`](drafts/README.md) for lifecycle.
