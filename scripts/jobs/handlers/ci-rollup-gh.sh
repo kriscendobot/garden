@@ -35,56 +35,26 @@ GARDEN_TAG="ci-rollup"
 repo="${1:?usage: ci-rollup-gh.sh <owner/name> <pr-number>}"
 pr="${2:?usage: ci-rollup-gh.sh <owner/name> <pr-number>}"
 
-require_tools gh jq
+require_tools jq "${GARDEN_GH:-gh}"
 
 # One read. Do NOT swallow the failure into emptiness (the 2026-06-24 jq-outage
 # lesson): a failed lookup must surface as a nonzero exit (the watcher skips, never
 # guesses), never a false green — AND the *reason* (gh's stderr: rate-limit, expired
 # token, network blip) must be visible so a systemic outage is diagnosable instead of
-# an opaque rc=1. Capture stderr to a tempfile and fold its first lines into the log.
+# an opaque rc=1.
 #
 # A single transient TLS/DNS/connection blip must NOT drop a PR's CI verdict for a
 # full tick (endojs-endo-but-for-bots#286: one TLS-handshake-timeout left a red PR
-# unshepherded). So the read is wrapped in a bounded retry — mirroring
-# clone-keeper.sh's bounded_fetch (up to GARDEN_FETCH_RETRIES attempts with backoff)
-# — but ONLY when the stderr matches a transient-network class. Rate-limiting is
-# DELIBERATELY excluded: ci-watcher.sh already owns throttling with a cascade
-# circuit-breaker, and a retry here would only deepen the cooldown. Any other error
-# (auth, a real 404, malformed args) is not retried either. On exhausting the budget
-# we fall through to the same `exit 1` (the watcher skips, never guesses).
-GH_CMD="${GARDEN_CI_ROLLUP_GH:-gh}"
-
-# Transient-network class → worth a retry (a blip that a second attempt clears).
-is_transient_network() {
-  printf '%s' "$1" | grep -qiE 'TLS handshake timeout|connection reset|i/o timeout|unexpected EOF|Temporary failure in name resolution'
-}
-# Rate-limiting / throttling → NEVER retried here (ci-watcher.sh's cascade breaker
-# owns it; retrying would only deepen the cooldown).
-is_rate_limited() {
-  printf '%s' "$1" | grep -qiE 'rate limit|API rate limit exceeded|403'
-}
-
-gh_err="$(mktemp)"
-trap 'rm -f "$gh_err"' EXIT
-attempt=1
-while :; do
-  if json="$("$GH_CMD" pr view "$pr" -R "$repo" --json state,statusCheckRollup 2>"$gh_err")"; then
-    break
-  fi
-  reason="$(tr '\n' ' ' <"$gh_err" | sed -e 's/[[:space:]]\{2,\}/ /g' -e 's/^ *//' -e 's/ *$//')"
-  # Retry ONLY a transient-network blip, and NEVER a rate-limit (even if the message
-  # happens to also carry a transient-looking token). Everything else falls through.
-  if is_rate_limited "$reason" || ! is_transient_network "$reason"; then
-    log "gh pr view $repo#$pr failed: ${reason:-<no stderr>} — cannot read CI state (skip, never guess)"
-    exit 1
-  fi
-  if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
-    log "gh pr view $repo#$pr failed after $attempt attempt(s) (transient network: ${reason:-<no stderr>}) — cannot read CI state (skip, never guess)"
-    exit 1
-  fi
-  log "gh pr view $repo#$pr transient network error (attempt $attempt): ${reason:-<no stderr>} — retrying"
-  backoff "$attempt"; attempt=$((attempt+1))
-done
+# unshepherded; and the recurring `#503/#313/#463 rollup unreadable (TLS handshake
+# timeout)` WARNs where one retry would have recovered). So the read routes through
+# common.sh's canonical gh_pr_view_retry, which absorbs a transient blip (any
+# signature in GARDEN_TRANSIENT_GH_API_SIGNATURES — a 5xx, throttle, DNS/TLS/reset,
+# or Go net/http timeout) under a bounded full-jitter backoff (GARDEN_GH_API_ATTEMPTS)
+# and surfaces the gh stderr in its own WARN. A DEFINITIVE failure (a 404/401/403/422
+# that re-running cannot fix) is NOT retried — it fails fast into the same `exit 1`
+# below (the watcher skips, never guesses).
+json="$(gh_pr_view_retry "$pr" -R "$repo" --json state,statusCheckRollup 2>/dev/null)" \
+  || { log "gh pr view $repo#$pr failed — cannot read CI state (skip, never guess)"; exit 1; }
 [ -n "$json" ] || { log "empty PR state for $repo#$pr — cannot read CI state"; exit 1; }
 
 # A closed/merged PR is never shepherded (nothing to drive green).

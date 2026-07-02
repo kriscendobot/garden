@@ -1013,6 +1013,64 @@ gh_api_retry() {
   done
 }
 
+# gh_pr_view_retry <gh-pr-view-args…> — the `gh pr view` sibling of gh_api_retry.
+#
+# `gh pr view` does NOT route through `gh api`, so it cannot reuse gh_api_retry
+# directly; this thin mirror drives the SAME transient absorber
+# (_gh_api_stderr_is_transient) and the SAME bounded full-jitter backoff
+# (GARDEN_GH_API_ATTEMPTS) over the `gh pr view` transport. `gh pr view` runs on
+# the same Go net/http stack as `gh api`, so it emits the same transient wording
+# (net/http: TLS handshake timeout, dial tcp … i/o timeout, context deadline
+# exceeded, …) the gh-api signature set already names — so a single transient
+# blip no longer drops a PR's CI verdict for a whole tick (the recurring
+# `#503/#313/#463 rollup unreadable (TLS handshake timeout)` WARNs where one
+# retry would have recovered, and endojs-endo-but-for-bots#286 where one
+# TLS-handshake-timeout left a red PR unshepherded).
+#
+# Contract mirrors gh_api_retry exactly: prints captured stdout and returns 0
+# ONLY on a clean success; a DEFINITIVE failure (a 404/401/403/422 whose stderr
+# matches no transient signature) is NOT retried (fast + loud); a TRANSIENT
+# failure is retried under `backoff "$attempt"` up to GARDEN_GH_API_ATTEMPTS,
+# then still fails (nonzero, empty stdout) so the caller skips rather than
+# guesses a state. Throttling (429 / rate limit / secondary-rate / abuse) is a
+# transient signature and IS retried here, same as everywhere else in the fleet
+# — the bounded, jittered budget cannot deepen a cooldown the way an unbounded
+# retry would. The gh binary is "${GARDEN_GH:-gh}" (the same test seam
+# ci-wait-merge.sh uses to inject a stub).
+gh_pr_view_retry() {
+  local attempt=1 out rc errf stderr label gh_bin a
+  gh_bin="${GARDEN_GH:-gh}"
+  # Label the logs with the first positional (the PR number/URL), skipping flags.
+  label="gh pr view"
+  for a in "$@"; do case "$a" in -*) ;; *) label="gh pr view $a"; break;; esac; done
+  errf="$(mktemp 2>/dev/null || printf '%s' "${TMPDIR:-/tmp}/gh_pr_view_retry.$$")"
+  while :; do
+    if out="$("$gh_bin" pr view "$@" 2>"$errf")"; then rc=0; else rc=$?; fi
+    if [ "$rc" -eq 0 ]; then
+      rm -f "$errf"
+      printf '%s' "$out"
+      return 0
+    fi
+    stderr="$(cat "$errf" 2>/dev/null || true)"
+    # Definitive failure (no transient signature): do NOT retry — fail now so the
+    # caller skips fast and loud, preserving "never guess a state".
+    if ! _gh_api_stderr_is_transient "$stderr"; then
+      log "WARN: $label failed (definitive, rc=$rc); not retrying: ${stderr:-<no stderr>}"
+      rm -f "$errf"
+      return "$rc"
+    fi
+    # Transient blip: retry under full-jitter backoff until attempts are spent.
+    if [ "$attempt" -ge "$GARDEN_GH_API_ATTEMPTS" ]; then
+      log "WARN: $label failed after $attempt transient attempt(s) (rc=$rc): ${stderr:-<no stderr>}"
+      rm -f "$errf"
+      return "$rc"
+    fi
+    log "$label transient blip (rc=$rc); retry $((attempt+1))/$GARDEN_GH_API_ATTEMPTS after backoff: ${stderr:-<no stderr>}"
+    backoff "$attempt"
+    attempt=$((attempt+1))
+  done
+}
+
 # Canonical transient-`claude -p` signature set. The single source of truth for
 # what a failed inner-agent's combined stdout+stderr must contain to count as a
 # self-resolving API blip (overload / rate-limit / 5xx / bare connection drop)
