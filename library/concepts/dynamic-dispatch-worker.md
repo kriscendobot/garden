@@ -18,6 +18,7 @@ In Cloudflare Workers for Platforms, the **dynamic dispatch Worker** is the entr
 | [Get started: deploy a Workers for Platforms starter kit](../sections/cloudflare-w4p--get-started--overview.md) | The template's dispatch Worker routes by URL path via `env.DISPATCHER.get(workerName)`. |
 | [Hostname routing: the recommended wildcard route with a dispatch Worker](../sections/cloudflare-w4p--configuration-hostname-routing--wildcard-route.md) | A single wildcard `*/*` route sends all traffic to the dispatch Worker, which routes millions of hostnames in code. |
 | [Subdomain routing and Orange-to-Orange (O2O) invocation behavior](../sections/cloudflare-w4p--configuration-hostname-routing--subdomain-routing-and-o2o.md) | The `*.saas.com/*` subdomain route to the dispatch Worker and the O2O proxy-mode invocation caveat. |
+| [Local development: test the dispatch Worker locally against a remote namespace](../sections/cloudflare-w4p--local-development--overview.md) | Iterate on the dispatch Worker under wrangler dev while it invokes already-deployed user Workers. |
 
 ## See also
 
