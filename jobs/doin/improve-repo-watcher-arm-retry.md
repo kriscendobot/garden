@@ -26,3 +26,9 @@ Re-verified present at `scripts/jobs/repo-watcher.sh` ~line 141:
 — a bare WARN that discards the underlying `systemctl --user` rc and stderr and
 retries only on the next full tick. Capture rc+stderr and add a short bounded
 in-tick retry as specified.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 73
+  claimed_at: 2026-07-02T10:05:14Z
