@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-02T01:38:02Z_
+_As of 2026-07-02T01:39:40Z_
 
 ## Latest
 
@@ -560,12 +560,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (19)
+### doin (21)
 - [`endojs-endo-but-for-bots-pr101-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr101-weaver.md) — weaver (rebase stale base) on endojs/endo-but-for-bots PR #101
 - [`endojs-endo-but-for-bots-pr216-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr216-weave.md) — weave (rebase) endojs/endo-but-for-bots PR #216 onto base llm
 - [`endojs-endo-but-for-bots-pr301-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr301-weave.md) — weave (rebase/conflict-resolve) on endojs/endo-but-for-bots PR #301
 - [`endojs-endo-but-for-bots-pr306-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr306-weaver.md) — weaver (rebase/conflict-resolution) on endojs/endo-but-for-bots PR #306
 - [`endojs-endo-but-for-bots-pr313-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr313-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #313
+- [`endojs-endo-but-for-bots-pr316-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr316-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #316
+- [`endojs-endo-but-for-bots-pr318-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr318-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #318
 - [`endojs-endo-but-for-bots-pr393-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr393-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #393
 - [`endojs-endo-but-for-bots-pr394-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr394-fixer.md) — fixer (shepherd escalation) on endojs/endo-but-for-bots PR #394
 - [`endojs-endo-but-for-bots-pr438-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr438-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #438
