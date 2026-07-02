@@ -168,6 +168,37 @@ noop_disables=$(grep -c '^systemctl --user disable' "$GARDEN_MOCK_LOG" || true)
 { [ "$noop_armed" -eq 1 ] && [ "$noop_disables" -eq 0 ]; } \
   && ok "absent hosts/<host> → no-op (pool unchanged, no disable)" \
   || bad "no-op-on-undeterminable-count (@1=$noop_armed, disables=$noop_disables)"
+
+# --- IDENTITY RECONCILE: a worker whose in-process GARDEN drifted is restarted ---
+# A long-lived garden-gardener@N inherits GARDEN once, at spawn; if the host
+# identity is later corrected (e.g. a stale GARDEN=endolinbot2 override removed),
+# the already-running worker keeps the STALE value and keeps keying phantom
+# hosts/<stale> state. The scaler's identity-reconcile step reads each running
+# instance's live GARDEN from /proc/<MainPID>/environ (via GARDEN_PROC, overridable
+# here) and restarts a drifted one — gated on the SAME busy marker as scale-down so
+# a mid-job worker defers to a later tick, restarting between claims not mid-flight.
+GARDEN=testhost "$JOBS/set-gardeners.sh" 3 testhost >/dev/null   # size no-op: @1..@3 stay enabled
+printf '%s\n' garden-gardener@1.service garden-gardener@2.service garden-gardener@3.service > "$GARDEN_MOCK_STATE"
+PROC="$TR/proc"; PIDS="$TR/mockpids"; rm -rf "$PROC" "$PIDS"; mkdir -p "$PROC/101" "$PROC/102" "$PROC/103" "$PIDS"
+# @1 drifted (idle), @2 matches, @3 drifted BUT mid-job (busy) → deferred. @4 not running.
+printf 'GARDEN=otherhost\0PATH=/x\0' > "$PROC/101/environ"    # @1 stale identity
+printf 'GARDEN=testhost\0PATH=/x\0'  > "$PROC/102/environ"    # @2 correct identity
+printf 'GARDEN=otherhost\0PATH=/x\0' > "$PROC/103/environ"    # @3 stale identity
+echo 101 > "$PIDS/garden-gardener@1.service"
+echo 102 > "$PIDS/garden-gardener@2.service"
+echo 103 > "$PIDS/garden-gardener@3.service"
+mkdir -p "$GARDEN_STATE/gardeners/3"; : > "$GARDEN_STATE/gardeners/3/busy"   # @3 mid-job
+: > "$GARDEN_MOCK_LOG"
+idout="$(GARDEN=testhost GARDEN_PROC="$PROC" GARDEN_MOCK_PIDS="$PIDS" "$JOBS/gardener-scaler.sh" 2>&1)"
+grep -q 'restart garden-gardener@1.service' "$GARDEN_MOCK_LOG" \
+  && ok "drifted idle gardener 1 restarted (adopts corrected identity)" || bad "drifted gardener 1 NOT restarted"
+grep -q 'restart garden-gardener@2.service' "$GARDEN_MOCK_LOG" \
+  && bad "matching gardener 2 was restarted (spurious)" || ok "matching gardener 2 left alone (no spurious restart)"
+grep -q 'restart garden-gardener@3.service' "$GARDEN_MOCK_LOG" \
+  && bad "busy drifted gardener 3 was restarted (mid-job SIGTERM!)" || ok "busy drifted gardener 3 deferred (not restarted)"
+grep -q "gardener 3 identity 'otherhost' != host 'testhost' but mid-job; deferring" <<<"$idout" \
+  && ok "deferral logged for the busy drifted worker" || bad "deferral not logged"
+rm -rf "$PROC" "$PIDS"; rm -f "$GARDEN_STATE/gardeners/3/busy"
 unset GARDEN_UNIT_CTL GARDEN_MOCK_STATE GARDEN_MOCK_LOG
 
 # ============================================================================

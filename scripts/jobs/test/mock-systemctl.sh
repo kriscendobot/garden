@@ -24,7 +24,20 @@ if [ -n "${GARDEN_MOCK_FAIL_UNIT:-}" ]; then
 fi
 
 case "$cmd" in
-  daemon-reload|reset-failed|status) : ;;
+  daemon-reload|reset-failed|status|restart|start|stop) : ;;
+  show)
+    # `show -p MainPID --value <unit>` → echo the unit's MainPID from the mock map
+    # ($GARDEN_MOCK_PIDS/<unit>, one integer), or 0 when unset/absent. Only the
+    # MainPID property the identity-reconcile step reads is emulated. Pick the
+    # token that LOOKS like a unit (`-p`'s value `MainPID` is not one, and the unit
+    # may appear before or after the flags), not unit_arg's first-non-flag token.
+    u=""; for a in "$@"; do case "$a" in *.service|*.timer|*@*) u="$a";; esac; done
+    if [ -n "${GARDEN_MOCK_PIDS:-}" ] && [ -f "$GARDEN_MOCK_PIDS/$u" ]; then
+      cat "$GARDEN_MOCK_PIDS/$u"
+    else
+      echo 0
+    fi
+    ;;
   list-units|list-unit-files)
     # print "<unit> enabled" for each armed unit matching the glob pattern arg
     pat=""; for a in "$@"; do case "$a" in --*) ;; *) pat="$a";; esac; done

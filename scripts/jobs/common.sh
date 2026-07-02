@@ -220,6 +220,35 @@ gardener_busy() {
   [ -e "$(gardener_busy_marker "${1:?gardener_busy: idx required}")" ]
 }
 
+# --- gardener in-process host identity (for the scaler's identity reconcile) ---
+#
+# gardener_instance_garden <unit> — echo the GARDEN host-identity the RUNNING
+# instance actually carries in its process environment, or empty (rc 1) when it
+# cannot be read (the unit has no live MainPID, or /proc/<pid>/environ is
+# unreadable, or the process never had GARDEN in its environ). A long-lived
+# garden-gardener@N.service inherits GARDEN once, at spawn, from the manager env;
+# if the host's identity is later corrected (e.g. a stale `GARDEN=endolinbot2`
+# override is removed so a fresh process would resolve `hostname -s`=endolinbot),
+# the already-running worker keeps the STALE value in its environ and goes on
+# keying phantom hosts/<stale> state. This reads that live value straight from the
+# kernel's /proc so the scaler can detect the drift and restart the worker onto the
+# corrected identity. GARDEN_PROC is overridable so the reconcile step is testable
+# without a real /proc. A worker with NO GARDEN in its environ resolved it from the
+# kernel-fixed `hostname -s` default (which cannot drift): return 1 so the caller
+# treats "unset" as "not drifted" rather than forcing a spurious restart.
+: "${GARDEN_PROC:=/proc}"
+gardener_instance_garden() {
+  local unit="${1:?gardener_instance_garden: unit required}" pid environ val
+  pid="$(unit_ctl show "$unit" -p MainPID --value 2>/dev/null | tr -dc '0-9')"
+  [ -n "$pid" ] && [ "$pid" != 0 ] || return 1
+  environ="$GARDEN_PROC/$pid/environ"
+  [ -r "$environ" ] || return 1
+  # environ is a NUL-delimited list of KEY=VALUE records; take the last GARDEN=.
+  val="$(tr '\0' '\n' < "$environ" 2>/dev/null | sed -n 's/^GARDEN=//p' | tail -1)"
+  [ -n "$val" ] || return 1
+  printf '%s\n' "$val"
+}
+
 # --- deliberate-deploy state (designs/deliberate-deploy.md) -------------------
 #
 # The deployed sha is the commit the root checkout was last advanced to by

@@ -4,6 +4,7 @@
 # Usage:
 #   install-units.sh install                  render+install all unit files, daemon-reload
 #   install-units.sh scale <N>                run N gardeners (enable @1..@N, disable the rest)
+#   install-units.sh reconcile-identity       restart any running gardener whose GARDEN identity drifted
 #   install-units.sh enable-services          enable+start every intended garden timer/service
 #   install-units.sh enable-services --verify report any intended unit not currently enabled (drift check)
 #   install-units.sh status                   show the garden units and timers
@@ -193,6 +194,49 @@ scale() {
   log "scaled gardener pool to $n (deferred $deferred mid-job extra(s) for a later tick)"
 }
 
+# reconcile_identity — restart any RUNNING gardener whose in-process GARDEN host
+# identity has drifted from this host's authoritative identity ($GARDEN — the
+# single canonical per-host knob, which in the stock container is the kernel-fixed
+# `hostname -s`). The scaler reconciles pool SIZE by instance index but is blind to
+# this: a long-lived garden-gardener@N inherits GARDEN once at spawn, so after a
+# host-identity correction (e.g. removing a stale `GARDEN=endolinbot2` override)
+# the already-running worker keeps the STALE value, keeps keying phantom
+# hosts/<stale> worker-count state, writes journal-index entries under a host that
+# should not exist, and evaluates is-main-host against the wrong name — until a
+# manual mass `restart garden-gardener@*`. This makes the correction propagate
+# deterministically on the next 1-minute scaler tick instead.
+#
+# The restart is gated on the SAME busy marker the scale-down defers on
+# (gardener_busy, common.sh): a mid-job worker is DEFERRED — left running and
+# skipped — so a later tick restarts it once idle. Like the scale path, the worker
+# thus adopts the corrected identity BETWEEN claims, never mid-`claude -p` (a
+# `restart` of a mid-job gardener SIGTERMs the in-flight handler, which requeues
+# and burns a TTL cycle — the rc=143 transient-handler outage). A worker whose live
+# identity cannot be read (not running, or no GARDEN in its environ — i.e. it
+# resolved the kernel-fixed hostname default, which cannot drift) is left alone.
+reconcile_identity() {
+  local want="$GARDEN" idx actual restarted=0 deferred=0
+  while read -r unit _; do
+    case "$unit" in
+      garden-gardener@*.service)
+        idx="${unit#garden-gardener@}"; idx="${idx%.service}"
+        [[ "$idx" =~ ^[0-9]+$ ]] || continue
+        actual="$(gardener_instance_garden "$unit")" || continue  # unreadable/unset → not drifted
+        [ "$actual" != "$want" ] || continue                       # identity matches → nothing to do
+        if gardener_busy "$idx"; then
+          log "gardener $idx identity '$actual' != host '$want' but mid-job; deferring its restart to a later tick (restarts between claims, not mid-job)"
+          deferred=$((deferred+1))
+        else
+          log "gardener $idx identity '$actual' != host '$want'; restarting to adopt the corrected host identity"
+          unit_ctl restart "$unit"
+          restarted=$((restarted+1))
+        fi
+        ;;
+    esac
+  done < <(unit_ctl list-units --all 'garden-gardener@*.service' --no-legend 2>/dev/null || true)
+  log "identity reconcile: restarted $restarted drifted gardener(s), deferred $deferred mid-job for a later tick"
+}
+
 enable_services() {
   local u
   # Self-reconciling retirement: stop+disable+rm any installed garden-* unit whose
@@ -245,6 +289,7 @@ status() {
 case "${1:-install}" in
   install)         render;;
   scale)           shift; scale "$@";;
+  reconcile-identity) reconcile_identity;;
   enable-services)
     shift || true
     case "${1:-}" in
@@ -253,5 +298,5 @@ case "${1:-install}" in
       *) die "usage: install-units.sh enable-services [--verify]";;
     esac;;
   status)          status;;
-  *) die "usage: install-units.sh {install|scale <N>|enable-services [--verify]|status}";;
+  *) die "usage: install-units.sh {install|scale <N>|reconcile-identity|enable-services [--verify]|status}";;
 esac

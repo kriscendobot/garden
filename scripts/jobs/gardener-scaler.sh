@@ -21,6 +21,17 @@ ensure_clone "$DIR"
 sync_clone "$DIR"
 
 host="$GARDEN"
+
+# Identity reconciliation runs EVERY tick, independent of the desired-count read
+# below: a worker whose in-process GARDEN has drifted from this host's identity
+# (a long-lived instance that inherited a since-corrected value at spawn — e.g. a
+# stale `GARDEN=endolinbot2` override removed after the worker started) must be
+# restarted onto the corrected identity even when the SIZE signal (hosts/<host>) is
+# structurally missing. The step is size-orthogonal and gated on the same busy
+# marker the scale path defers on, so a mid-job worker restarts between claims, not
+# mid-flight. See install-units.sh reconcile_identity.
+"$HERE/install-units.sh" reconcile-identity
+
 f="$DIR/hosts/$host"
 want=""
 if [ -f "$f" ]; then
