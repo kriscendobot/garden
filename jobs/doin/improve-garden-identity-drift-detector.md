@@ -2,6 +2,7 @@ Every new gardener entry in this window reports `host: endolinbot2`, but per the
 
 <!-- garden-reaped: 2 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
