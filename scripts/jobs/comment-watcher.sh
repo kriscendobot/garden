@@ -42,6 +42,25 @@
 # triage judgement is the gardener's, deterministically reached, never an LLM skip in
 # the watcher. This is the fix for the dropped #503 directive (issuecomment-4794208524).
 #
+# ── The ACTION floor: a clear directive reliably becomes a JOB (2026-07-01) ───
+# Beyond guaranteeing a REPLY (below), a clear actionable maintainer directive must
+# reliably become the corresponding JOB, never slide to a bare 👀. The verb-gate is
+# broadened three ways, all deterministic:
+#   - a BARE imperative verb ("Shepherd.", "Refactor accordingly.", "Conduct #57")
+#     is recognized in CLAUSE-INITIAL position even with no "please" and no @-mention
+#     (reads_as_directive → imperative_verb_present). A verb used as a NOUN or future
+#     intention ("a subsequent rebase … will pick it up") stays inert — the #513/#526
+#     verb-as-subject-matter guard is preserved by requiring imperative position.
+#   - conduct/merge map to the finalization (conductor) path, TRUST-GATED like the
+#     [APPROVED] path (an autonomous merge is high-consequence; the low-risk
+#     mechanical branch ops stay trust-independent).
+#   - a MULTI-PART direction (2+ distinct action verbs in imperative position, e.g.
+#     endo-but-for-bots #442's "refactor accordingly. But first, rebase.") is triaged
+#     WHOLE as one `attention` job instead of being reduced to its first matched verb
+#     (which dropped the refactor). The gardener re-reads the comment and acts on every
+#     part. This is the fix for the #442 multi-part direction that became no job and the
+#     #58 status question ("What's the status of this effort?") that got only a reactji.
+#
 # A further widening: a trusted maintainer/contributor's REVIEW is treated as ONE
 # UNIT, never reduced to a single matched verb. When a review-body line from a
 # trusted sender is actionable in ANY way — a named verb, an @-mention,
@@ -451,17 +470,47 @@ author_is_mention_only() {  # author_is_mention_only <pr-number>
   return 1
 }
 
+# --- the action/directive verb vocabulary (shared by the imperative gate + the
+# multi-part counter) ---------------------------------------------------------
+# BRANCH_OP verbs map to a SPECIFIC mechanical job (rebase/retcon/…/conduct/merge/
+# gauntlet). OPEN_DIRECTIVE verbs need the gardener to READ the comment to act
+# (refactor/build/continue/…), so they route to attention/review rather than a fixed
+# verb. Both feed the imperative-position detector and the multi-part counter below.
+BRANCH_OP_VERBS="rebase retcon refresh shepherd conduct merge gauntlet"
+OPEN_DIRECTIVE_VERBS="refactor rebuild build continue implement reconstruct rewrite revise address resolve incorporate revisit split extract rename remove revert finish complete handle apply"
+
+# rc 0 if <verb> appears in IMPERATIVE (clause-initial) position in <lc-body> — the
+# signal that it is a directive ("Shepherd.", "But first, rebase.", "please merge
+# #57"), NOT a noun / subject-matter / future-tense mention ("a subsequent rebase …
+# will", "resolve the merge conflict"). Clause-initial = the start of the body, or
+# right after sentence punctuation, or right after an imperative-preceding connective
+# (please/first/then/…). A verb preceded by an article or an ordinary word (so it
+# reads as a noun) does NOT match — that is the #513/#526 verb-as-subject guard.
+imperative_verb_present() {  # imperative_verb_present <verb> <lc-body>
+  local v="$1" lc="$2"
+  printf '%s' "$lc" \
+    | grep -Eq "(^|[.!?:;)\"] *|(^|[^a-z])(please|kindly|first|then|next|now|also|finally|and|but|so)[,:]? +)$v([^a-z]|\$)"
+}
+
 # --- imperative-directive reading (deterministic; the SECOND half of the gate) -
 # rc 0 if the body reads as a directive a maintainer would expect acted upon. A
 # pure-string check (no I/O), so chatter is rejected before any trust lookup. The
-# fast verb table above already catches the named verbs; this only widens the
-# unnamed "please do the thing" shape.
+# fast verb table above already catches the named verbs; this widens the unnamed
+# "please do the thing" shape AND a bare imperative-mood action verb ("Shepherd.",
+# "Refactor accordingly.") that carries no "please".
 reads_as_directive() {  # reads_as_directive <body-text>
   local lc; lc="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
   # "please" anywhere is the canonical maintainer-directive marker.
   printf '%s' "$lc" | grep -Eq '(^|[^a-z])please([^a-z]|$)' && return 0
   # Imperative cues without an explicit "please".
   printf '%s' "$lc" | grep -Eq '(^|[^a-z])(apply|address|finish|complete|handle|resolve|implement|revisit|incorporate|land this|go ahead|take a look|take care of|look into|follow up|sort out|clean this up|can you|could you|would you mind)([^a-z]|$)' && return 0
+  # A bare imperative-mood action verb is itself a directive. Recognize it in
+  # CLAUSE-INITIAL position only, so a verb used as a noun/subject ("a subsequent
+  # rebase … will") never registers (the #513/#526 verb-as-subject-matter guard).
+  local v
+  for v in $BRANCH_OP_VERBS $OPEN_DIRECTIVE_VERBS; do
+    imperative_verb_present "$v" "$lc" && return 0
+  done
   return 1
 }
 
@@ -515,7 +564,29 @@ classify() {  # classify <body-file> <surface> <author>; sets VERB (+PRIMARY_VER
     for v in rebase retcon refresh shepherd; do
       if printf '%s' "$lc" | grep -Eq "(^|[^a-z])$v([^a-z]|\$)"; then detected_verb="$v"; break; fi
     done
+    # conduct/merge → the finalization (conductor) path, but ONLY in IMPERATIVE
+    # position so a noun ("the merge conflict", "a clean merge") never mis-fires a
+    # merge. (The mechanical verbs above use the whole-body scan the #513/#526 gate
+    # already fronts; conduct/merge are ordinary English nouns too, so they take the
+    # stricter position-aware detector.)
+    if [ -z "$detected_verb" ]; then
+      for v in conduct merge; do
+        if imperative_verb_present "$v" "$lc"; then detected_verb="$v"; break; fi
+      done
+    fi
   fi
+
+  # --- multi-part direction: 2+ DISTINCT action verbs in imperative position ----
+  # A compound direction ("refactor accordingly. But first, rebase.") must not be
+  # reduced to the first matched verb — that dropped #442's "refactor" the moment it
+  # matched "rebase". Count the distinct imperative-position action verbs; the caller
+  # routes a multi-part direction to `attention` (triage the WHOLE thing) instead of a
+  # single-verb job. Position-aware, so a noun mention never inflates the count.
+  local nverbs=0 vv
+  for vv in $BRANCH_OP_VERBS $OPEN_DIRECTIVE_VERBS; do
+    imperative_verb_present "$vv" "$lc" && nverbs=$((nverbs+1))
+  done
+  local multipart=""; [ "$nverbs" -ge 2 ] && multipart=y
 
   # --- REVIEW surface: the WHOLE review is the unit of work --------------------
   # A formal review is never reducible to a single matched verb: its body and ALL
@@ -564,7 +635,28 @@ classify() {  # classify <body-file> <surface> <author>; sets VERB (+PRIMARY_VER
   fi
 
   # --- non-review surfaces: the fixed verb table (issue/PR conversation) -------
-  if [ -n "$detected_verb" ]; then VERB="$detected_verb"; return 0; fi
+  # A MULTI-PART direction from a trusted sender or an @-mention is triaged WHOLE
+  # (attention), never reduced to its first verb — the #442 "refactor accordingly.
+  # But first, rebase." fix, where matching "rebase" first dropped the refactor. The
+  # gardener that claims the attention job re-reads the comment and acts on EVERY part.
+  # (An untrusted / unmentioned multi-part still falls through to its single mechanical
+  # verb below — unchanged from today; untrusted open directives are not honored.)
+  if [ -n "$multipart" ] && { [ -n "$mentions_bot" ] || is_trusted "$author"; }; then
+    return 2
+  fi
+  # A named verb → its specific job. conduct/merge map to the finalization (conductor)
+  # path so an explicit "conduct #N" / "please merge #N" un-drafts + merges under the
+  # same bot-repo + mergeable guards the [APPROVED] path enforces (main loop). Merge
+  # authority is TRUST-GATED — unlike the low-risk mechanical branch ops (rebase/…),
+  # an autonomous merge is high-consequence, so only a TRUSTED sender's conduct/merge
+  # fires finalize; an untrusted one falls through (dropped below), exactly like the
+  # [APPROVED] path, which also requires is_trusted before dispatching the conductor.
+  if [ -n "$detected_verb" ]; then
+    case "$detected_verb" in
+      conduct|merge) if is_trusted "$author"; then VERB=finalize; return 0; fi ;;
+      *)             VERB="$detected_verb"; return 0 ;;
+    esac
+  fi
   # @-mention of the bot: an ask with no verb. Ambiguous → the caller mints a
   # deterministic `attention` (triage) job (no LLM).
   if [ -n "$mentions_bot" ]; then return 2; fi
@@ -589,6 +681,7 @@ verb_action() {  # human-readable mapping for the job body
     retcon)   echo "reset + restage per-package, separate 'chore: Update yarn.lock'";;
     refresh)  echo "re-sync branch / regenerate derived artifacts";;
     shepherd) echo "drive CI to green";;
+    conduct|merge) echo "dispatch the conductor to un-draft (if draft) and merge";;
     gauntlet) echo "run the full PR-creation chain end to end";;
     review)   echo "address the maintainer's review — enumerate and resolve EVERY inline comment tied to it";;
     finalize) echo "dispatch the conductor to un-draft (if draft) and merge — the curation step";;

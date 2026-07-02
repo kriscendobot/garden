@@ -1418,5 +1418,112 @@ grep -q 'attention on #503' "$TR/det.stderr" && ok "the posted job is a determin
 [ "$(cursor_seen "$TR/state-det" "$BARE_DET")" = 2026-07-01T09:00:00Z ] && ok "cursor advanced past the actioned comment" || bad "cursor not advanced"
 
 # ============================================================================
+# MP/CN/SQ — the ACTION FLOOR: a clear maintainer directive must reliably become a
+# JOB (not slide to a bare 👀). The verb-gate is broadened to (a) recognize a bare
+# imperative verb ("Shepherd.", "conduct #N"), (b) trust-gate an explicit
+# conduct/merge onto the finalization path, and (c) triage a MULTI-PART direction
+# WHOLE instead of reducing it to its first verb. Regression shapes: #442 (a
+# multi-part "refactor … But first, rebase." that became no job), #58 (a status
+# question that got only a reactji), and #277/#284/#7 (bare "Shepherd."/"conduct").
+
+hr; echo "MP1 — #442 multi-part 'refactor … But first, rebase.' → ONE attention job, NOT a rebase-only job"; hr
+BARE_MP1="$TR/mp1.git"; seed_bare "$BARE_MP1"
+FIX_MP1="$TR/fix-mp1.tsv"; RLOG_MP1="$TR/react-mp1.log"; : > "$RLOG_MP1"; MP1LOG="$TR/mp1.stderr"; : > "$MP1LOG"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T08:00:00Z issue-comment 4900000442 442 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/442#issuecomment-4900000442 \
+  'Assume @endo/daemon-cas stands on @endo/platform and refactor accordingly. But first, rebase.' > "$FIX_MP1"
+run_directive "$TR/state-mp1" "$BARE_MP1" "$FIX_MP1" "$RLOG_MP1" "$MP1LOG"
+[ "$(todo_count "$BARE_MP1")" -eq 1 ] && ok "the multi-part direction minted exactly one job (never dropped to a bare 👀)" || bad "multi-part direction dropped or fanned out (todo=$(todo_count "$BARE_MP1"))"
+board_has "$BARE_MP1" "$SLUG-pr442-rebase" && bad "multi-part reduced to a rebase-only job (dropped the refactor — the #442 regression)" || ok "no rebase-only job — the compound direction was NOT reduced to its first verb"
+grep -q 'attention on #442' "$MP1LOG" && ok "the whole multi-part routes to a deterministic 'attention' (triage) job" || bad "not routed to attention ($(cat "$MP1LOG"))"
+grep -qx "issue-comment 4900000442 eyes" "$RLOG_MP1" && ok "eyes reactji acked the directive" || bad "no reactji ($(cat "$RLOG_MP1"))"
+[ "$(cursor_seen "$TR/state-mp1" "$BARE_MP1")" = 2026-06-30T08:00:00Z ] && ok "cursor advanced past the actioned directive" || bad "cursor not advanced"
+# re-poll → idempotent (same comment id → same base → no dup, no double reactji)
+run_directive "$TR/state-mp1" "$BARE_MP1" "$FIX_MP1" "$RLOG_MP1"
+[ "$(todo_count "$BARE_MP1")" -eq 1 ] && ok "re-poll of the multi-part directive is idempotent (still one job)" || bad "multi-part job duplicated on re-poll (todo=$(todo_count "$BARE_MP1"))"
+[ "$(grep -c . "$RLOG_MP1")" -eq 1 ] && ok "no duplicate reactji on re-poll" || bad "reactji duplicated ($(grep -c . "$RLOG_MP1"))"
+
+hr; echo "MP2 — a BARE imperative verb ('Shepherd.') → the corresponding shepherd job (no 'please' needed)"; hr
+# Trust-independent (run_watcher denies trust), proving the mechanical verb fires on
+# the verb itself — the #277/#284 'Shepherd.' shape — not on a trust decision.
+BARE_MP2="$TR/mp2.git"; seed_bare "$BARE_MP2"
+FIX_MP2="$TR/fix-mp2.tsv"; RLOG_MP2="$TR/react-mp2.log"; : > "$RLOG_MP2"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T09:00:00Z issue-comment 4900000277 277 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/277#issuecomment-4900000277 \
+  'Shepherd.' > "$FIX_MP2"
+run_watcher "$TR/state-mp2" "$BARE_MP2" "$FIX_MP2" "$RLOG_MP2"
+board_has "$BARE_MP2" "$SLUG-pr277-shepherd" && ok "bare 'Shepherd.' minted the shepherd job" || bad "bare imperative verb did not mint its job"
+[ "$(todo_count "$BARE_MP2")" -eq 1 ] && ok "exactly one job for the bare directive" || bad "expected one job (todo=$(todo_count "$BARE_MP2"))"
+[ "$(cursor_seen "$TR/state-mp2" "$BARE_MP2")" = 2026-06-30T09:00:00Z ] && ok "cursor advanced past the actioned directive" || bad "cursor not advanced"
+
+hr; echo "MP3 — a future-tense/subject-matter 'refactor'/'rebase' (no @, no imperative pos) → STILL no verb job"; hr
+# The broadened gate must NOT reintroduce the #513 verb-as-subject-matter false
+# positive: a verb used as a NOUN or a future intention stays inert for an untrusted
+# sender. (run_watcher denies trust, so only a DETECTED VERB could post a job.)
+BARE_MP3="$TR/mp3.git"; seed_bare "$BARE_MP3"
+FIX_MP3="$TR/fix-mp3.tsv"; RLOG_MP3="$TR/react-mp3.log"; : > "$RLOG_MP3"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T09:30:00Z issue-comment 4900000513 513 someoutsider \
+  https://github.com/endojs/endo-but-for-bots/pull/513#issuecomment-4900000513 \
+  'A subsequent rebase and a later refactor of this module will pick these up automatically.' > "$FIX_MP3"
+run_watcher "$TR/state-mp3" "$BARE_MP3" "$FIX_MP3" "$RLOG_MP3"
+[ "$(todo_count "$BARE_MP3")" -eq 0 ] && ok "verb-as-subject-matter minted no job (no #513-style false positive)" || bad "a noun/future-tense verb minted a job (todo=$(todo_count "$BARE_MP3"))"
+[ ! -s "$RLOG_MP3" ] && ok "no reactji on the non-directive verb mention" || bad "reactji posted: $(cat "$RLOG_MP3")"
+
+hr; echo "CN1 — a trusted 'conduct #57' on a mergeable bot PR → the conductor (finalize) job"; hr
+BARE_CN1="$TR/cn1.git"; seed_bare "$BARE_CN1"
+FIX_CN1="$TR/fix-cn1.tsv"; RLOG_CN1="$TR/react-cn1.log"; : > "$RLOG_CN1"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T10:00:00Z issue-comment 4900000057 57 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/57#issuecomment-4900000057 \
+  'Conduct #57.' > "$FIX_CN1"
+run_directive "$TR/state-cn1" "$BARE_CN1" "$FIX_CN1" "$RLOG_CN1"
+board_has "$BARE_CN1" "$SLUG-pr57-conduct" && ok "'conduct' minted the conductor (finalize) job" || bad "'conduct' did not mint the conductor job"
+CN1BODY="$(mktemp -d "$TR/cn1b.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE_CN1" "$CN1BODY" 2>/dev/null
+grep -qi 'conductor' "$CN1BODY/jobs/todo/$SLUG-pr57-conduct.md" && ok "the conduct job names the conductor" || bad "conduct job does not name the conductor"; rm -rf "$CN1BODY"
+[ "$(cursor_seen "$TR/state-cn1" "$BARE_CN1")" = 2026-06-30T10:00:00Z ] && ok "cursor advanced past the actioned conduct directive" || bad "cursor not advanced"
+
+hr; echo "CN2 — an UNTRUSTED 'please merge #57' → NO finalize (merge authority is trust-gated), dropped"; hr
+BARE_CN2="$TR/cn2.git"; seed_bare "$BARE_CN2"
+FIX_CN2="$TR/fix-cn2.tsv"; RLOG_CN2="$TR/react-cn2.log"; : > "$RLOG_CN2"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T10:30:00Z issue-comment 4900000058 57 drive-by-rando \
+  https://github.com/endojs/endo-but-for-bots/pull/57#issuecomment-4900000058 \
+  'Please merge #57.' > "$FIX_CN2"
+run_directive "$TR/state-cn2" "$BARE_CN2" "$FIX_CN2" "$RLOG_CN2"
+board_has "$BARE_CN2" "$SLUG-pr57-conduct" && bad "an untrusted sender triggered an autonomous merge (security hole)" || ok "untrusted merge directive did NOT dispatch the conductor"
+[ "$(todo_count "$BARE_CN2")" -eq 0 ] && ok "untrusted merge directive minted no job at all" || bad "untrusted merge posted a job (todo=$(todo_count "$BARE_CN2"))"
+[ ! -s "$RLOG_CN2" ] && ok "no reactji for an untrusted sender" || bad "reactji posted for untrusted: $(cat "$RLOG_CN2")"
+
+hr; echo "SQ1 — #58 status question 'What's the status of this effort?' (trusted) → an attention job (not a bare 👀)"; hr
+BARE_SQ1="$TR/sq1.git"; seed_bare "$BARE_SQ1"
+FIX_SQ1="$TR/fix-sq1.tsv"; RLOG_SQ1="$TR/react-sq1.log"; : > "$RLOG_SQ1"; SQ1LOG="$TR/sq1.stderr"; : > "$SQ1LOG"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T11:00:00Z issue-comment 4848100199 58 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/58#issuecomment-4848100199 \
+  "What's the status of this effort? I'd like it to render in a real browser." > "$FIX_SQ1"
+run_directive "$TR/state-sq1" "$BARE_SQ1" "$FIX_SQ1" "$RLOG_SQ1" "$SQ1LOG"
+[ "$(todo_count "$BARE_SQ1")" -eq 1 ] && ok "the status question warrants continued work → posted a job (not just a reactji)" || bad "status question dropped to a bare reactji (todo=$(todo_count "$BARE_SQ1"))"
+grep -q 'attention on #58' "$SQ1LOG" && ok "the status question routes to a deterministic 'attention' job" || bad "not routed to attention ($(cat "$SQ1LOG"))"
+grep -qx "issue-comment 4848100199 eyes" "$RLOG_SQ1" && ok "eyes reactji acked the status question" || bad "no reactji on the status question ($(cat "$RLOG_SQ1"))"
+[ "$(cursor_seen "$TR/state-sq1" "$BARE_SQ1")" = 2026-06-30T11:00:00Z ] && ok "cursor advanced past the actioned status question" || bad "cursor not advanced"
+
+hr; echo "SELF1 — the BOT's OWN bare imperative ('Shepherd.') → mints NOTHING (no self-trigger loop)"; hr
+# The broadened verb-gate must never let the watcher act on the bot's OWN words: a
+# bare 'Shepherd.' authored by the bot is skipped by the self-guard BEFORE classify.
+BARE_SELF1="$TR/self1.git"; seed_bare "$BARE_SELF1"
+FIX_SELF1="$TR/fix-self1.tsv"; RLOG_SELF1="$TR/react-self1.log"; : > "$RLOG_SELF1"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-06-30T12:00:00Z issue-comment 4900000999 277 kriscendobot \
+  https://github.com/endojs/endo-but-for-bots/pull/277#issuecomment-4900000999 \
+  'Shepherd.' > "$FIX_SELF1"
+run_watcher "$TR/state-self1" "$BARE_SELF1" "$FIX_SELF1" "$RLOG_SELF1"
+[ "$(todo_count "$BARE_SELF1")" -eq 0 ] && ok "the bot's own bare imperative minted no job" || bad "self-triggered a job off the bot's own comment (todo=$(todo_count "$BARE_SELF1"))"
+[ ! -s "$RLOG_SELF1" ] && ok "no reactji on the bot's own comment" || bad "reacted to the bot's own comment: $(cat "$RLOG_SELF1")"
+[ "$(cursor_seen "$TR/state-self1" "$BARE_SELF1")" = 2026-06-30T12:00:00Z ] && ok "cursor slid past the bot's own comment" || bad "cursor did not slide"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
