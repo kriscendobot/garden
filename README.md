@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:28:38Z_
+_As of 2026-07-02T19:29:33Z_
 
 ## Latest
 
-The headline is an operational one: a gardener investigating the poisoned-jobs cluster surfaced a **live leader-disabling incident** — this host's `/home/kris/.garden` shard file resolves `GARDEN=endolinbot2` while `hostname -s`, the `leader` marker, and every leader-only ExecCondition expect `endolinbot`, so `is-main-host` reports FOLLOWER on the true leader and the foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and maintainer-inbox Monitor are all being silently skipped; 276 recent gardener entries are mislabeled `endolinbot2`. Fix is out of a gardener's scope and needs a maintainer hand: either `echo endolinbot > /home/kris/.garden` or re-point the marker with `set-main-host.sh endolinbot2`, then restart the fleet.
-
-That same drift compounded a **Claude quota outage** (07-01 → 07-02) that poisoned five garden-infra jobs off the board after the reaper's five requeue cycles — the daemon→manager rename build plus four self-hardening items (identity-drift detector, gardener transient-failure backoff + fleet brake, issue-inbox orphan-git reaping, and repo-watcher arm-retry logging). A sharpened drift-detector job was re-posted, but it can't correct the already-live `.garden` value.
-
-Separately, a shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found it isn't lint-blocked but **superseded** — its cross-CapTP error-tracing feature already re-landed on `llm` via merged #58 — and recommends closing #301, with the two small refactors (`error-id.js` dedup, `trace-constants.js` sentinels) as a fresh builder PR if wanted; nothing was pushed pending your call.
-
-The job board itself was quiet: a single completion hardening the gardener exit-0-unsatisfying journal gate, with the XS→Rust "endor engine" design still in flight.
+A live incident tops the queue: an investigating gardener found the `endolinbot2` host-identity drift is still active on the true leader host — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while the `leader` marker and `hostname -s` both say `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped, with all 276 recent gardener entries mislabeled. It needs a one-line operator fix (`echo endolinbot > /home/kris/.garden`, or re-point the marker to `endolinbot2` and record the override) plus a fleet restart. This same drift compounded the 2026-07-01/07-02 Claude quota outage that poisoned five garden-infra jobs — the reaper dropped `build-daemon-rename-to-manager`, the identity-drift detector, gardener transient-failure backoff, issue-inbox git-child reaping, and repo-watcher arm-retry after 5 requeue cycles each; the sharpened drift-detector job has been re-posted so the next regression is loud on tick 1. Separately, shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) reports it is subsumed, not lint-blocked — its error-tracing feature already re-landed on `llm` via the merged #58, collapsing a rebase to essentially empty — and recommends closing it as superseded (a disposition call awaiting kriskowal). The board itself was quiet: the [endo-but-for-bots#599](https://github.com/endojs/endo-but-for-bots/pull/599) review directive was claimed into progress, with the XS→Rust "endor" design still in flight.
 
 ## Parked for maintainer feedback
 
@@ -209,7 +203,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr599-review-dfb9df4e`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr599-review-dfb9df4e.md) — Review directive on endojs/endo-but-for-bots PR #599
 - [`xs2rust-endor-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-design.md) — Design: port XS to Rust ("endor engine") — feasibility, architecture, staged ...
 
 ### tada (949)
