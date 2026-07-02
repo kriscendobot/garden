@@ -63,15 +63,19 @@ The [`garden`](./garden) launcher bind-mounts this directory as the
 container's home, so everything the bot accumulates — keys, tokens, claude
 credentials, worktrees — lives here on the host and survives a `reset`.
 
-**Pick a unique hostname first.** The container's hostname (`GARDEN_HOSTNAME`,
-with `GARDEN_CONTAINER` naming the container) is this instance's logical
-identity: it keys job claims, per-host worker counts, and the leader marker.
-Two instances sharing a name corrupt each other's state. The kernel hostname
-cannot be changed from inside the container, so it is fixed at creation:
+**Pick a unique identity first.** Each instance has a logical name (its
+*shard* identity) that keys job claims, per-host worker counts, and the
+leader marker. Two instances sharing a name corrupt each other's state. The
+launcher seeds it at container creation into a gitignored `.garden` file
+(`GARDEN_SHARD`, defaulting to the container hostname `GARDEN_HOSTNAME`, with
+`GARDEN_CONTAINER` naming the container):
 
 ```sh
 GARDEN_CONTAINER=petunia GARDEN_HOSTNAME=petunia ./garden
 ```
+
+Set `GARDEN_SHARD` only when a pool's identity must differ from its hostname
+(a second follower pool on the same machine).
 
 ### Give the bot its keys
 
