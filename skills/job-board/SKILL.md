@@ -46,11 +46,19 @@ extensionless spine**. Scripts append `.md` for board files and strip it for the
 `jobs/plan/` sits **alongside** `todo/doin/tada` but **outside** the claim
 lifecycle: gardeners claim only from `todo/`, and the reaper scans only `doin/`,
 so a plan job is invisible to the worker pool and never goes stale. A plan job is
-a **proposal / parked item**, parked for one of two reasons (its **gate**):
+a **proposal / parked item**, parked for one of these reasons (its **gate**):
 
 - **`go-ahead`** — needs the maintainer's **authorization** before any work runs.
 - **`deferred`** — parked behind higher-priority items, to be **selected by
   priority/urgency**.
+- **`blocked`** — parked behind an **artifact** (a PR or another job) named in
+  `blocked_on:`; promoted only by the **unblock watcher** when the blocker
+  completes.
+- **`orchestrated`** — a **child sub-job of an orchestration** (`orchestrated_by:`
+  names the owning orchestration); promoted only by the deterministic
+  **orchestrate.sh** watcher per its `serial`/`parallel` order. Invisible to both
+  the foreman and the unblock watcher. See the
+  [orchestration](../orchestration/SKILL.md) skill.
 
 Metadata is leading YAML frontmatter:
 

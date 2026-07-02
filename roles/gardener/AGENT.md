@@ -46,6 +46,16 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
   would corrupt each other — the endo-but-for-bots #58 corruption this helper
   exists to prevent. Concurrent same-branch pushes still race legitimately at the
   git-push CAS; the *working trees* must never be shared.
+- **When your work decomposes into ordered parts, orchestrate it — don't pile
+  sub-jobs.** The standing pattern (kriskowal 2026-07-01) for MULTI-PART work is
+  one **orchestration job** over parked child sub-jobs, not a loose pile of posts
+  that relies on follow-ups (which is how a next-step gets forgotten). Park the
+  children (`post-plan.sh --orchestrated --orchestrated-by <orch-base> <child>`) and
+  record the orchestration (`post-orchestration.sh [--serial|--parallel]
+  [--on-child-failure halt|continue] <orch-base> <child>...`); the deterministic
+  `garden-orchestrate` watcher sequences them into `todo/` and watches each to
+  `tada/`. Serial is the default. See
+  [orchestration](../../skills/orchestration/SKILL.md).
 - **Watch your inbox while you work.** A maintainer reply or a peer message can
   arrive mid-job; poll `inbox-read.sh <your-base>`.
 - To reach the user, `message-user.sh <your-base>` — the liaison surfaces it and

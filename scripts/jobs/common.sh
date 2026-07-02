@@ -1419,6 +1419,17 @@ JOBS_PLAN="jobs/plan"
 #   identity: <the raw directive identity>   # for collision-detection + audit
 JOBS_INDEX="jobs/index"
 
+# The ORCHESTRATION category sits ALONGSIDE the lifecycle (like plan/ and index/)
+# and is NEVER claimed or reaped. Each entry `jobs/orch/<base>.md` is an
+# orchestration RECORD: a multi-part unit of work whose child sub-jobs are parked
+# in plan/ (gate=orchestrated) and are sequenced into todo/ by the deterministic
+# orchestrate.sh watcher (serial by default, or all-at-once in parallel). The
+# record carries the child list, ordering, and the on-child-failure policy; the
+# watcher advances it one step per tick against the board state and writes
+# tada/<base> on completion. See scripts/jobs/orchestrate.sh and
+# skills/orchestration/SKILL.md.
+JOBS_ORCH="jobs/orch"
+
 # List job basenames in a lifecycle dir, sorted, excluding .gitkeep.
 list_jobs() {
   local dir="$1" sub="$2"
@@ -1519,6 +1530,36 @@ plan_priority() {
 # the blocked-job dependency edge — the proxy parks the job carrying it, the
 # bulletin renders it, and the unblock watcher scans for it. Empty if absent.
 plan_blocked_on() { plan_field "$1" blocked_on; }
+
+# --- orchestration-record metadata helpers ----------------------------------
+# An orchestration record (jobs/orch/<base>.md) carries leading YAML frontmatter:
+#   ---
+#   order: serial | parallel           # sequencing of the children (default serial)
+#   children: a b c                    # space-separated child job basenames, in order
+#   on-child-failure: halt | continue  # policy when a child fails (default halt)
+#   state: pending | running | done | halted   # managed by orchestrate.sh
+#   created_by: <role>                 # optional provenance
+#   created_at: <iso8601>              # optional provenance
+#   ---
+#   <human description of the multi-part work>
+# The frontmatter helpers reuse plan_field (a leading-frontmatter scalar reader).
+
+# The ordering of an orchestration (serial default). Only serial|parallel are
+# meaningful; an unknown value is treated as serial by the watcher.
+orch_order() {
+  local o; o="$(plan_field "$1" order)"; printf '%s\n' "${o:-serial}"
+}
+# The child job basenames, space-separated in run order. Empty if absent.
+orch_children() { plan_field "$1" children; }
+# The failure policy (halt default): halt stops a serial run at the first failed
+# child; continue proceeds to the next.
+orch_failure_policy() {
+  local p; p="$(plan_field "$1" on-child-failure)"; printf '%s\n' "${p:-halt}"
+}
+# The watcher-managed lifecycle state (pending default before the first tick).
+orch_state() {
+  local s; s="$(plan_field "$1" state)"; printf '%s\n' "${s:-pending}"
+}
 
 # Parse an artifact string as a GitHub pull-request reference. On a match prints
 # "<owner>/<repo>\t<number>" and returns 0; on no match prints nothing, returns 1.

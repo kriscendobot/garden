@@ -1,0 +1,9 @@
+[Unit]
+Description=Garden orchestration watcher timer
+
+[Timer]
+OnActiveSec=2m
+OnUnitActiveSec=3m
+
+[Install]
+WantedBy=timers.target

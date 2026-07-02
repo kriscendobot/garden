@@ -146,6 +146,29 @@ gardeners never claim. You manage it with two primitives and this vocabulary:
 The bulletin's **Plan queue** section surfaces go-ahead jobs awaiting your
 authorization and the deferred queue (top by priority), each with its gate reason.
 
+## Multi-part work — always make an orchestration job
+
+**Standing pattern (kriskowal 2026-07-01): when you post a MULTI-PART job,
+decompose it into planned sub-jobs plus ONE orchestration job (serial default).**
+Do not post a loose pile of sub-jobs and rely on follow-ups — that is how a
+next-step gets forgotten. Instead:
+
+1. Park each child in run order:
+   `scripts/jobs/post-plan.sh --orchestrated --orchestrated-by <orch-base> <child> [body]`.
+2. Record the orchestration:
+   `scripts/jobs/post-orchestration.sh [--serial|--parallel]
+   [--on-child-failure halt|continue] <orch-base> <child>...`.
+
+The deterministic `garden-orchestrate` watcher then moves the children off `plan/`
+into `todo/` **in sequence (default) or parallel (as instructed)** and **watches**
+each to completion, halting or continuing on a child failure per the policy rather
+than silently stalling. **Serial is the default**; choose `--parallel` only when
+the parts have no ordering dependency. For a plain linear two-step dependency with
+no parallelism or failure policy, `post-plan.sh --blocked --blocked-on
+<predecessor>` + the unblock watcher is the lighter tool. Full procedure:
+[orchestration](../../skills/orchestration/SKILL.md); role:
+[orchestrator](../orchestrator/AGENT.md).
+
 ## Autonomous follow-up surface
 
 An autonomous `garden-follow-up` systemd service (`scripts/jobs/follow-up.sh` +

@@ -15,17 +15,27 @@
 #                not by priority); promoted ONLY by the unblock watcher
 #                (unblock.sh) when its blocker completes — a PR merges/closes or a
 #                blocking job lands in tada/. Requires --blocked-on.
+#   - orchestrated : a child sub-job of an orchestration (jobs/orch/<orch-base>).
+#                NEVER auto-selected (not by the foreman, not by unblock); promoted
+#                ONLY by the deterministic orchestrate.sh watcher, which sequences
+#                the orchestration's children into todo/ per its order (serial |
+#                parallel) and watches them to completion. The `orchestrated-by:`
+#                field names the owning orchestration; requires --orchestrated-by.
+#                See skills/orchestration/SKILL.md.
 # It becomes work only when promote-plan.sh moves plan/<base> → todo/<base>.
 #
 # Usage:
-#   post-plan.sh [--go-ahead|--deferred|--blocked] [--blocked-on ARTIFACT]
+#   post-plan.sh [--go-ahead|--deferred|--blocked|--orchestrated]
+#                [--blocked-on ARTIFACT] [--orchestrated-by ORCH-BASE]
 #                [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 #
-#   --go-ahead / --deferred / --blocked
+#   --go-ahead / --deferred / --blocked / --orchestrated
 #                            the gate reason. Default: --deferred (the common
-#                            producer action is to park; go-ahead/blocked explicit).
+#                            producer action is to park; the others are explicit).
 #   --blocked-on ARTIFACT    the blocker for a --blocked job: a PR URL or a job
 #                            basename. Required with --blocked; illegal otherwise.
+#   --orchestrated-by ORCH   the owning orchestration base for an --orchestrated
+#                            child. Required with --orchestrated; illegal otherwise.
 #   --priority LEVEL         urgent|high|normal|low (default normal). The
 #                            selection key the foreman uses for deferred jobs.
 #   --roadmap ITEM           optional roadmap item / milestone this serves, so a
@@ -52,11 +62,13 @@ usage() {
 post-plan.sh — park a job in the board's plan/ category (not yet claimable).
 
 Usage:
-  post-plan.sh [--go-ahead|--deferred|--blocked] [--blocked-on ARTIFACT]
+  post-plan.sh [--go-ahead|--deferred|--blocked|--orchestrated]
+               [--blocked-on ARTIFACT] [--orchestrated-by ORCH-BASE]
                [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 
-  --go-ahead / --deferred / --blocked  the gate reason (default --deferred).
+  --go-ahead / --deferred / --blocked / --orchestrated  the gate reason (default --deferred).
   --blocked-on ARTIFACT    the blocker (PR URL or job basename); required with --blocked.
+  --orchestrated-by ORCH   the owning orchestration base; required with --orchestrated.
   --priority LEVEL         urgent|high|normal|low (default normal).
   --roadmap ITEM           optional roadmap item this serves.
   --by ROLE                provenance (default: $GARDEN_SENDER or "producer").
@@ -69,6 +81,7 @@ gate="deferred"
 priority="normal"
 roadmap=""
 blocked_on=""
+orchestrated_by=""
 by="${GARDEN_SENDER:-producer}"
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -76,7 +89,9 @@ while [ $# -gt 0 ]; do
     --go-ahead)   gate="go-ahead"; shift;;
     --deferred)   gate="deferred"; shift;;
     --blocked)    gate="blocked"; shift;;
+    --orchestrated) gate="orchestrated"; shift;;
     --blocked-on) blocked_on="${2:?--blocked-on needs a value}"; shift 2;;
+    --orchestrated-by) orchestrated_by="${2:?--orchestrated-by needs a value}"; shift 2;;
     --priority)   priority="${2:?--priority needs a value}"; shift 2;;
     --roadmap)    roadmap="${2:?--roadmap needs a value}"; shift 2;;
     --by)         by="${2:?--by needs a value}"; shift 2;;
@@ -93,7 +108,7 @@ case "$base" in
   -*)        die "illegal basename: '$base' (names must not start with '-')";;
   */*|.*|'') die "illegal basename: '$base'";;
 esac
-case "$gate" in go-ahead|deferred|blocked) :;; *) die "illegal gate: '$gate'";; esac
+case "$gate" in go-ahead|deferred|blocked|orchestrated) :;; *) die "illegal gate: '$gate'";; esac
 # A blocked job is meaningless without its blocker; a blocker is meaningless on a
 # non-blocked gate. Enforce both so the unblock watcher never sees a malformed edge.
 if [ "$gate" = "blocked" ] && [ -z "$blocked_on" ]; then
@@ -101,6 +116,14 @@ if [ "$gate" = "blocked" ] && [ -z "$blocked_on" ]; then
 fi
 if [ "$gate" != "blocked" ] && [ -n "$blocked_on" ]; then
   die "--blocked-on is only valid with --blocked"
+fi
+# An orchestrated child must name its owning orchestration; the field is only
+# meaningful on that gate.
+if [ "$gate" = "orchestrated" ] && [ -z "$orchestrated_by" ]; then
+  die "--orchestrated requires --orchestrated-by ORCH-BASE (the owning orchestration)"
+fi
+if [ "$gate" != "orchestrated" ] && [ -n "$orchestrated_by" ]; then
+  die "--orchestrated-by is only valid with --orchestrated"
 fi
 
 # Body source guard: a non-empty body arg that is not a readable file is almost
@@ -130,6 +153,7 @@ compose() {
   printf -- '---\n'
   printf 'gate: %s\n' "$gate"
   [ -n "$blocked_on" ] && printf 'blocked_on: %s\n' "$blocked_on"
+  [ -n "$orchestrated_by" ] && printf 'orchestrated_by: %s\n' "$orchestrated_by"
   printf 'priority: %s\n' "$priority"
   [ -n "$roadmap" ] && printf 'roadmap: %s\n' "$roadmap"
   printf 'posted_by: %s\n' "$by"
