@@ -1,14 +1,18 @@
 # Garden bulletin
 
-_As of 2026-07-02T21:21:42Z_
+_As of 2026-07-02T21:35:19Z_
 
 ## Latest
 
-A live infrastructure incident tops what a maintainer should notice: a gardener investigating the poisoned garden-infra jobs found the **endolinbot2 host-identity drift is still active on the leader host** — `/home/kris/.garden` reads `endolinbot2` while the leader marker and hostname are `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is silently being skipped, with 276 recent gardener entries mislabeled. It wants a one-line operational fix (`echo endolinbot > /home/kris/.garden`, or re-point the marker to endolinbot2) plus a fleet restart — out of a gardener's autonomous scope. That same drift compounded a Claude quota outage into **five poisoned garden-infra jobs** the reaper dropped after 5 requeue cycles: the daemon→manager rename build, an identity-drift detector, a gardener transient-failure backoff/fleet-brake, issue-inbox child-git reaping, and repo-watcher arm-retry — each now parked in the maintainer inbox for a disposition. Separately, a shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) reports the PR is **subsumed, not lint-blocked** — its error-tracing feature already re-landed on `llm` via the merged #58, collapsing a rebase to near-empty; it recommends closing #301 as superseded, optionally salvaging two small refactors (`error-id.js`, `trace-constants.js`) as a fresh PR. Board-wise little else moved: a single attention directive on [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) was claimed, and the daemon-rename Phase 2/3 builds sit blocked awaiting [#598](https://github.com/endojs/endo-but-for-bots/pull/598).
+The most urgent item is a **live host-identity incident**: a gardener investigating the poisoned infra jobs found that `/home/kris/.garden` still resolves this leader host to `endolinbot2`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped — and all recent gardener entries are mislabeled `endolinbot2`. The fix is operational and out of a gardener's scope: either `echo endolinbot > /home/kris/.garden` (single leader shard) or re-point the marker with `set-main-host.sh endolinbot2`, then restart the fleet.
+
+That same drift compounded a Claude quota outage into **five poisoned garden-infra jobs** the reaper dropped after 5 requeue cycles — a `GARDEN`-drift guard, a gardener transient-failure backoff + fleet brake, issue-inbox git-child reaping, and repo-watcher arm-retry logging. Each is now parked as a sharpened re-post for maintainer attention.
+
+On the PR side, [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) completed. A shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found it is **subsumed, not lint-blocked** — its error-tracing feature already re-landed on `llm` via the merged #58; recommendation is to close #301 as superseded (awaiting your call, nothing pushed). The daemon→manager rename Phase 1 landed as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phase 2 (identifier renames) now unblocked-pending on it and Phase 3 queued behind. The xs2rust-endor Stage 2 builder remains the sole in-flight job.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 6h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 7h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
@@ -203,17 +207,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr594-0d2956f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr594-0d2956f9.md) — attention directive on endojs/endo-but-for-bots PR #594
+### doin (1)
 - [`xs2rust-endor-build-stage2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2.md) — Builder: xs2rust-endor roadmap stage 2 — object model, control flow, full opc...
 
-### tada (964)
+### tada (965)
+- [`endojs-endo-but-for-bots-pr594-0d2956f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr594-0d2956f9.md) — Completion report
 - [`issue-kriskowal-garden-23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-23.md) — Completion report
 - [`xs2rust-endor-fix-stage1-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-fix-stage1-review.md) — Completion report
 - [`improve-clone-keeper-self-provision`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-self-provision.md) — Completion report
 - [`issue-kriskowal-garden-21`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-21.md) — Completion report
-- [`port-xs-to-rust-memory-safe-engine-s3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s3.md) — Everything is in place — the fixer job was already claimed by a peer gardener...
-- … and 959 more
+- … and 960 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
