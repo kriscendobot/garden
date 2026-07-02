@@ -36,3 +36,9 @@ regression gate (the check points add no meterIndex, so computron counts must no
 Binding constraints: design `designs/xs2rust-endor-engine.md` § Resolved Questions;
 `#![forbid(unsafe_code)]` stays on all crates except `endor-oracle`; PR stays draft; commit to
 `xs2rust-endor` and push. Do NOT touch the `c/moddable` gitlink (supervisor ruling: deferred).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 16
+  claimed_at: 2026-07-02T20:53:07Z
