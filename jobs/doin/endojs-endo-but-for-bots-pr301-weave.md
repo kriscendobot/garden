@@ -45,6 +45,7 @@ do not assume the channel-hang persists.
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
