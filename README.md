@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T03:22:01Z_
+_As of 2026-07-02T03:23:37Z_
 
 ## Latest
 
-Board movement was light — the [#318](https://github.com/endojs/endo-but-for-bots/pull/318) shepherd completed (CI green) and two CI-watcher hardening jobs (`improve-ci-rollup-surface-gh-error`, `improve-ci-watcher-detect-systemic-rollup-outage`) were claimed — but the maintainer inbox tells the real story: the reaper poison-dropped **~30 jobs** after 5 failed requeue cycles each, a correlated handler failure consistent with a Claude quota/API outage (one dropped infra job, `improve-gardener-transient-failure-backoff-and-fleet-brake`, documents ~100 gardeners thrashing on an exhausted quota with no backoff). The casualties span roughly two dozen auto-dispatched shepherd/weaver/fixer jobs on stale-CI bot PRs ([#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), #250, #306, #394, #438, #541, #590, and more) plus five garden-infra fixes (identity-drift guard, transient-failure fleet brake, issue-inbox git reaping, repo-watcher arm-retry, gardener-scaler restart) — none of which will land until the underlying handler failures clear.
-
-Needing a human decision: the **typescript-eslint projectService scaling ceiling** now blocks at least three open PRs — [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#592](https://github.com/endojs/endo-but-for-bots/pull/592), and [#593](https://github.com/endojs/endo-but-for-bots/pull/593) — each red on a single `lint` check for the alphabetically-last `packages/where`/`packages/zip` (not from their own diffs; the `llm`/`master` baseline sits at the ceiling). Both shepherds correctly refused to bundle a fix into the refactors and escalated to the liaison; a dedicated `endo-but-for-bots-lint-projectservice-ceiling` lint-infra job was posted, and the blocked PRs go green on rebase once it lands.
+Two CI-infra fixes landed on main2: [`improve-ci-rollup-surface-gh-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-surface-gh-error.md) and [`improve-ci-watcher-detect-systemic-rollup-outage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-detect-systemic-rollup-outage.md), which make the CI-status watcher surface the underlying `gh` error and detect a systemic rollup outage rather than silently misreading it. That hardening is timely, because the rest of this window is fallout from a correlated Claude quota/API outage: the reaper poisoned roughly thirty shepherd/weaver/fixer jobs after five requeue cycles each (auto-CI-red shepherds on [#60](https://github.com/endojs/endo-but-for-bots/pull/60), [#79](https://github.com/endojs/endo-but-for-bots/pull/79), [#96](https://github.com/endojs/endo-but-for-bots/pull/96), and many more, plus stale-base weaver/rebase jobs on [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), and [#306](https://github.com/endojs/endo-but-for-bots/pull/306), and the two-family fixer escalation on [#394](https://github.com/endojs/endo-but-for-bots/pull/394)). Several proposed self-healing jobs to blunt the next storm — a `GARDEN` identity-drift guard, per-worker transient-failure backoff with a shared fleet brake, issue-inbox git-child reaping, and repo-watcher arm retries — were themselves caught in the poison sweep and need re-posting. The one decision genuinely awaiting a human: the endo-but-for-bots `eslint .` projectService scaling ceiling is now confirmed blocking [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#592](https://github.com/endojs/endo-but-for-bots/pull/592), and #593 (the alphabetically-last `where`/`zip` packages tip over the whole-repo lint limit on any large diff); shepherds correctly refused to bundle a fix into those refactors and want a dedicated lint-infra job.
 
 ## Parked for maintainer feedback
 
@@ -41,74 +39,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > This is the known ceiling (prior investigation on #548/#590): NOT fixable with simple config knobs (pointing defaultProject at tsconfig.eslint-full.json had no effect; a single explicit project traded these for a broader "file not found" set — both tried and reverted). A real fix is lint-infra scope (consolidate per-package lint projects into one program, or raise/bypass the ceiling), which per standing guidance must NOT be bundled into a refactor PR. It now blocks at least 3 open bot PRs, so it likely wants its own lint-infra job.
 >
 > I did not touch PR #592 — its substance is fine and there is no shepherd-scope fix. Surfacing for a lint-infra decision.
-
-- `20260702T012313Z-f47566` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T012313Z-f47566.md)
-
-> POISON job dropped from the board after 5 requeue cycles on endolinbot.
-> Its handler appears to fail every time; the reaper stopped requeueing it.
-> Original job base: build-daemon-rename-to-manager
->
-> --- original job body ---
-> # Build: rename `daemon.js` → `manager.js` (`Daemon`/`Mignonic` → `Manager`/`Worker`)
->
-> Batch design→build dispatch for the **current active milestone (M3: Remote Access
-> and Coding Capabilities)** on the endo roadmap. This is the one M3 design that is
-> **ready to build** — design-complete, no unmet dependency, and no build in flight.
->
-> Repo: **endojs/endo-but-for-bots**, base branch **`llm`**, **bot identity**
-> (kriscendobot / bot fork — bot-repo work only, no upstream `endojs/endo` touch).
->
-> ## Design (blessed, merged)
->
-> `designs/daemon-rename-to-manager.md` on `llm` (Status: Not Started; design landed
-> via merged PR #85). Align the JS orchestration layer's naming with the Rust
-> `endor` supervisor, which already calls this role the **manager**:
->
-> - `packages/daemon/src/daemon.js` → `manager.js` (and peer `daemon-*.js` per the
->   design's *File renames* table).
-> - Identifiers `Daemon`/`Daemonic` → `Manager`, and `MignonicPowers` →
->   `WorkerPowers` (the exo tag `'EndoDaemonFacetForWorker'` renamed on both
->   producer and consumer in the same package — no wire-compat window needed).
-> - The npm package `@endo/daemon` and the directory `packages/daemon/` **keep**
->   their names; only the orchestration file and the `Daemon*` identifiers change.
->
-> ## What to do
->
-> Wear **designer** only if a short implementation delta is needed, then
-> **builder**; the standard researcher-precedes-builder chain and the gardening
-> state machine apply. Ground the work in the design's **Phased Implementation**:
->
-> - **Phase 1** — file renames only (`git mv`, update `import` specifiers pointing
->   at the renamed files, no identifier renames). Package builds, types check, tests
->   pass. This is the safest, smallest-review slice — open the initial **DRAFT** PR
->   on `llm` here.
-> - **Phase 2** — whole-word identifier renames (`Daemon`/`Daemonic` → `Manager`,
->   `MignonicPowers` → `WorkerPowers`, exo tag). Independently mergeable; depends on
->   Phase 1.
-> - **Phase 3** — sweep workspace consumers (small; most import unchanged names like
->   `EndoHost`/`EndoGuest`/`EndoWorker`). Add the `@endo/daemon` CHANGELOG entry
->   (`makeDaemon` → `makeManager`, exports otherwise unchanged; outright cut, no
->   deprecated alias — no downstream consumers of `Daemon*` identifiers).
->
-> ## Sequencing / collision note (read before pushing)
->
-> `packages/daemon/*` is under heavy concurrent churn — ~40 open PRs (the mount
-> stack #135, the gateway-package stack #343/#388–#397/#409–#420, sturdyrefs #541,
-> etc.). A project-wide identifier rename will conflict with any of them that edit
-> `daemon.js` or `Daemon*` names. Mitigations, in order:
->
-> - Keep the PR **DRAFT** and land **Phase 1 first** (mechanical, smallest surface),
->   so review can sequence it against the in-flight daemon PRs rather than
->   merge-storming them.
-> - Rebase on `llm` immediately before each push; expect to re-run the whole-word
->   replace after a rebase.
-> - If the maintainer prefers to hold the rename until the daemon PRs quiesce,
->   surface that on the PR and park — do not force it through against open work.
->
-> ## Idempotency
->
-> Deterministic basename `build-daemon-rename-to-manager` — a re-run of this batch
-> collides and no-ops.
 
 - `20260702T012803Z-4e1d80` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T012803Z-4e1d80.md)
 
@@ -1011,20 +941,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr242-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr242-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #242
 - [`endojs-endo-but-for-bots-pr410-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr410-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #410
 - [`endojs-endo-but-for-bots-pr79-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #79
-- [`improve-ci-rollup-surface-gh-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-rollup-surface-gh-error.md) — scripts/jobs/handlers/ci-rollup-gh.sh line 42 runs gh pr view … 2>/dev/null a...
-- [`improve-ci-watcher-detect-systemic-rollup-outage`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-watcher-detect-systemic-rollup-outage.md) — scripts/jobs/ci-watcher.sh logs one WARN: #$pr rollup unreadable per PR (line...
 
-### tada (880)
+### tada (882)
+- [`improve-ci-watcher-detect-systemic-rollup-outage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-detect-systemic-rollup-outage.md) — Completion report
+- [`improve-ci-rollup-surface-gh-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-surface-gh-error.md) — Pushed to main2. Job complete.
 - [`endojs-endo-but-for-bots-pr318-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr318-shepherd.md) — Completion report
 - [`endojs-endo-but-for-bots-pr377-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr377-shepherd.md) — The macOS runner has been stuck in GitHub's runner-availability queue for ~15...
 - [`endojs-endo-but-for-bots-pr594-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr594-shepherd.md) — The run's overall conclusion was already completed success and every other ch...
-- [`endojs-endo-but-for-bots-pr320-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr320-shepherd.md) — CI is now green on the head SHA (e9595848). All three previously-red checks —...
-- [`improve-gardener-scaler-restart-identity-drifted-instances`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-scaler-restart-identity-drifted-instances.md) — Completion report
-- … and 875 more
+- … and 877 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
