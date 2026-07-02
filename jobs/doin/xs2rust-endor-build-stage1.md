@@ -51,6 +51,8 @@ fine; keep each independently green. Update the PR description with a stage-1 st
 done. Report back: what landed, harness output demonstrating the acceptance bar (or the precise
 divergence list), and any design frictions the supervisor should rule on.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
