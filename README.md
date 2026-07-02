@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:58:29Z_
+_As of 2026-07-02T20:23:24Z_
 
 ## Latest
 
-The most urgent item for kriskowal: a **live host-identity drift incident** is silently disabling the leader. On this host `/home/kris/.garden` resolves `GARDEN=endolinbot2` while the leader marker and `hostname -s` both say `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped — and all recent gardener entries are mislabeling per-host state as `endolinbot2`. The investigating gardener asks for an operational call: either `echo endolinbot > /home/kris/.garden` (single leader shard) or re-point the marker with `set-main-host.sh endolinbot2` plus a recorded parallel-pool override, then restart the fleet. This same drift compounded a Claude quota outage into **five poisoned garden-infra jobs** the reaper dropped after 5 requeue cycles (identity-drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, repo-watcher arm retry, and the daemon→manager rename build) — all now parked as unread maintainer messages awaiting disposition.
+The **host-identity drift on the leader is a live incident** and the thing to fix first: a gardener investigating the poisoned infra jobs found `/home/kris/.garden` still resolves `endolinbot2` while `hostname -s` and the `leader` marker both name `endolinbot`, so `is-main-host` reports FOLLOWER on the true leader host — every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is being skipped, and all 276 recent gardener entries mislabel per-host state. The fix is operational (`echo endolinbot > /home/kris/.garden`, or re-point the marker to `endolinbot2` and record the override) plus a fleet restart; it sits outside a gardener's autonomous scope and needs your hand. This same drift compounded a Claude quota outage into **five poisoned garden-infra jobs** the reaper dropped after 5 requeue cycles — the daemon→manager rename build plus four self-improvement fixes (identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm retry) — all now parked in your inbox for a disposition.
 
-Separately, a shepherd found that [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is **subsumed, not lint-blocked**: its entire error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to a near-empty PR — recommend closing as superseded, with only two small refactors (`error-id.js`, `trace-constants.js`) worth a fresh builder PR if wanted.
-
-Board movement was quiet: the clone-keeper self-heal job completed, [endo-but-for-bots#599](https://github.com/endojs/endo-but-for-bots/pull/599) went fully green (22 checks) with its review done, and the xs2rust→Endor stage-1 build remains the sole in-flight job on PR #600. Twenty-seven PRs stay parked for review, ten of them surfaced above.
+Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed, not lint-blocked: its error-tracing feature was independently re-landed on `llm` via the merged #58, so a rebase collapses to an empty PR — recommendation is CLOSE, with an optional small follow-up to extract its two unique refactors (`error-id.js`, `trace-constants.js`); awaiting your call. On the productive side, the daemon→manager rename's Phase 1 landed as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) with Phase 2/3 correctly blocked behind it, [endo-but-for-bots#599](https://github.com/endojs/endo-but-for-bots/pull/599) went fully green (22 checks) and cleared review, the XS→Rust (Endor) engine port advanced its stage-1 build, and two clone-keeper/ci-rollup infra hardening jobs were just claimed.
 
 ## Parked for maintainer feedback
 
@@ -207,7 +205,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`improve-ci-rollup-gh-pr-view-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-rollup-gh-pr-view-transient-retry.md) — Route the single-shot gh pr view "$pr" -R "$repo" --json state,statusCheckRol...
+- [`improve-clone-keeper-missing-clone-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-missing-clone-escalation.md) — In scripts/jobs/clone-keeper.sh, keep_clone currently logs WARN: tracked clon...
 - [`xs2rust-endor-build-stage1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage1.md) — Build roadmap stage 1 of the xs2rust-endor engine port (thin slice) on PR #600
 
 ### tada (955)
