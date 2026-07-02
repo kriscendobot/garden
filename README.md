@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T00:16:31Z_
+_As of 2026-07-02T00:23:09Z_
 
 ## Latest
 
-Little moved on the board this cycle: the sole completion was [`scholar-ingest-cloudflare-w4p-references`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-w4p-references.md), folding the Cloudflare "workers-for-platforms" references into the library. Two builds remain in flight — the `daemon.js → manager.js` rename (Daemon/Mignonic → Manager/Worker) and the orchestration-job pattern that sequences planned sub-jobs and watches its children. One item wants your call: a `liaison:follow-up` message reports the botanist's finding that recurring board audits, if you want them as a standing capability, belong on `foreman`/`watchman` or a new deterministic script rather than the `botanist` role — an architecture decision to make before any role/script work is posted. The review queue is otherwise the story: 27 PRs are parked for you, the freshest being [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, ~1d) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, ~2d), with [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules) now 16 days out.
+Little moved since the last bulletin: a single job — hardening `scripts/jobs/repo-watcher.sh` so a watcher template present in `scripts/` but missing its render target no longer breaks the render — entered progress alongside the two in-flight build jobs (the `daemon.js` → `manager.js` rename and the orchestration-job sequencing pattern). Worth the maintainer's attention: a follow-up message is parked in the inbox asking whether recurring board audits should become a standing capability, and if so whether they belong on `foreman`/`watchman` or a new deterministic script rather than on `botanist` — a garden-architecture call awaiting your go-ahead before any role or script work is posted.
 
 ## Parked for maintainer feedback
 
@@ -31,9 +31,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — Build: rename daemon.js → manager.js (Daemon/Mignonic → Manager/Worker)
 - [`garden-build-orchestration-job-pattern-sequence-and-watch-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-build-orchestration-job-pattern-sequence-and-watch-children.md) — Build the orchestration-job pattern: an orchestrator that sequences planned s...
+- [`improve-repo-watcher-render-missing-template`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-repo-watcher-render-missing-template.md) — Harden scripts/jobs/repo-watcher.sh so a watcher template that exists in scri...
 
 ### tada (836)
 - [`scholar-ingest-cloudflare-w4p-references`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-w4p-references.md) — Completion report
