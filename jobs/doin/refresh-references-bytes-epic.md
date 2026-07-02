@@ -16,3 +16,9 @@ read-only):
 Keep the existing maintainer-reference format (sections + PR links with one-line descriptions); append/
 correct, don't rewrite the intent. **Land on journal2** via `land-journal-edit.sh`. Report what changed
 (PRs moved/added, stack updated). Read-only PR enumeration; no upstream contact for the bot's own artifacts.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 99
+  claimed_at: 2026-07-02T03:43:50Z
