@@ -21,6 +21,9 @@
 #      aborts the tick before the tail red PR, so no shepherd is posted (rate-limit)
 #   K. an early successful read disarms the circuit-breaker → later unreadable reads
 #      do NOT abort ("zero successful reads so far this tick" clause)
+#   L. the ci-rollup handler retries a TRANSIENT-network stderr (up to
+#      GARDEN_FETCH_RETRIES) but does NOT retry a RATE-LIMIT stderr (single attempt),
+#      falling through to exit 1 in both cases (watcher still skips, never guesses)
 #
 # Usage: ci-watcher-test.sh
 set -euo pipefail
@@ -219,6 +222,48 @@ run_ci_env "$TR/state-k" "$BARE_K" "$FIX_K" "85=0 86=1 87=1 88=1 89=0" "$SLUG" \
   GARDEN_CI_ACTIVITY_WINDOW="3 days" GARDEN_CI_UNREADABLE_ABORT_THRESHOLD=3
 board_has "$BARE_K" "$SLUG-pr85-shepherd" && ok "leading red #85 shepherded" || bad "#85 not shepherded"
 board_has "$BARE_K" "$SLUG-pr89-shepherd" && ok "trailing red #89 still shepherded (breaker never armed after a success)" || bad "#89 not shepherded — breaker wrongly aborted after a successful read"
+
+# ============================================================================
+hr; echo "L — ci-rollup handler retries a transient stderr, not a rate-limit"; hr
+# Stub the handler's gh (GARDEN_CI_ROLLUP_GH): count invocations, emit a configured
+# stderr, always fail. A transient class must retry to the budget; a rate-limit must
+# not retry at all. Backoff is pinned tiny so the retry loop is instant.
+GHSTUB="$TR/gh-stub.sh"
+cat > "$GHSTUB" <<'EOF'
+#!/bin/bash
+c="${GH_STUB_COUNT:?}"; n=$(( $(cat "$c" 2>/dev/null || echo 0) + 1 )); echo "$n" > "$c"
+printf '%s\n' "$GH_STUB_STDERR" >&2
+exit 1
+EOF
+chmod +x "$GHSTUB"
+CNT="$TR/gh-count"
+ROLLUP="$JOBS/handlers/ci-rollup-gh.sh"
+
+# Transient TLS-handshake timeout → retried up to GARDEN_FETCH_RETRIES (3).
+: > "$CNT"; rc=0
+env GARDEN_CI_ROLLUP_GH="$GHSTUB" GH_STUB_COUNT="$CNT" \
+    GH_STUB_STDERR="Get \"https://api.github.com\": net/http: TLS handshake timeout" \
+    GARDEN_FETCH_RETRIES=3 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+    "$ROLLUP" "$REPO" 999 >/dev/null 2>&1 || rc=$?
+[ "$(cat "$CNT")" -eq 3 ] && ok "transient TLS error retried to the budget (3 attempts)" || bad "expected 3 attempts, got $(cat "$CNT")"
+[ "$rc" -eq 1 ] && ok "exhausted transient retry budget falls through to exit 1" || bad "expected exit 1 after retries, got $rc"
+
+# Rate-limit (403 / API rate limit exceeded) → NOT retried (single attempt).
+: > "$CNT"; rc=0
+env GARDEN_CI_ROLLUP_GH="$GHSTUB" GH_STUB_COUNT="$CNT" \
+    GH_STUB_STDERR="HTTP 403: API rate limit exceeded (https://api.github.com)" \
+    GARDEN_FETCH_RETRIES=3 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+    "$ROLLUP" "$REPO" 999 >/dev/null 2>&1 || rc=$?
+[ "$(cat "$CNT")" -eq 1 ] && ok "rate-limit error NOT retried (single attempt)" || bad "expected 1 attempt, got $(cat "$CNT")"
+[ "$rc" -eq 1 ] && ok "rate-limit falls through to exit 1 immediately" || bad "expected exit 1, got $rc"
+
+# A non-network, non-rate-limit error (e.g. a real 404) is also not retried.
+: > "$CNT"; rc=0
+env GARDEN_CI_ROLLUP_GH="$GHSTUB" GH_STUB_COUNT="$CNT" \
+    GH_STUB_STDERR="GraphQL: Could not resolve to a PullRequest (not found)" \
+    GARDEN_FETCH_RETRIES=3 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+    "$ROLLUP" "$REPO" 999 >/dev/null 2>&1 || rc=$?
+[ "$(cat "$CNT")" -eq 1 ] && ok "non-transient/non-rate-limit error NOT retried (single attempt)" || bad "expected 1 attempt, got $(cat "$CNT")"
 
 # ============================================================================
 hr

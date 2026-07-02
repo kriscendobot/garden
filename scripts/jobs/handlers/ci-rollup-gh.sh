@@ -42,13 +42,49 @@ require_tools gh jq
 # guesses), never a false green — AND the *reason* (gh's stderr: rate-limit, expired
 # token, network blip) must be visible so a systemic outage is diagnosable instead of
 # an opaque rc=1. Capture stderr to a tempfile and fold its first lines into the log.
+#
+# A single transient TLS/DNS/connection blip must NOT drop a PR's CI verdict for a
+# full tick (endojs-endo-but-for-bots#286: one TLS-handshake-timeout left a red PR
+# unshepherded). So the read is wrapped in a bounded retry — mirroring
+# clone-keeper.sh's bounded_fetch (up to GARDEN_FETCH_RETRIES attempts with backoff)
+# — but ONLY when the stderr matches a transient-network class. Rate-limiting is
+# DELIBERATELY excluded: ci-watcher.sh already owns throttling with a cascade
+# circuit-breaker, and a retry here would only deepen the cooldown. Any other error
+# (auth, a real 404, malformed args) is not retried either. On exhausting the budget
+# we fall through to the same `exit 1` (the watcher skips, never guesses).
+GH_CMD="${GARDEN_CI_ROLLUP_GH:-gh}"
+
+# Transient-network class → worth a retry (a blip that a second attempt clears).
+is_transient_network() {
+  printf '%s' "$1" | grep -qiE 'TLS handshake timeout|connection reset|i/o timeout|unexpected EOF|Temporary failure in name resolution'
+}
+# Rate-limiting / throttling → NEVER retried here (ci-watcher.sh's cascade breaker
+# owns it; retrying would only deepen the cooldown).
+is_rate_limited() {
+  printf '%s' "$1" | grep -qiE 'rate limit|API rate limit exceeded|403'
+}
+
 gh_err="$(mktemp)"
 trap 'rm -f "$gh_err"' EXIT
-if ! json="$(gh pr view "$pr" -R "$repo" --json state,statusCheckRollup 2>"$gh_err")"; then
+attempt=1
+while :; do
+  if json="$("$GH_CMD" pr view "$pr" -R "$repo" --json state,statusCheckRollup 2>"$gh_err")"; then
+    break
+  fi
   reason="$(tr '\n' ' ' <"$gh_err" | sed -e 's/[[:space:]]\{2,\}/ /g' -e 's/^ *//' -e 's/ *$//')"
-  log "gh pr view $repo#$pr failed: ${reason:-<no stderr>} — cannot read CI state (skip, never guess)"
-  exit 1
-fi
+  # Retry ONLY a transient-network blip, and NEVER a rate-limit (even if the message
+  # happens to also carry a transient-looking token). Everything else falls through.
+  if is_rate_limited "$reason" || ! is_transient_network "$reason"; then
+    log "gh pr view $repo#$pr failed: ${reason:-<no stderr>} — cannot read CI state (skip, never guess)"
+    exit 1
+  fi
+  if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
+    log "gh pr view $repo#$pr failed after $attempt attempt(s) (transient network: ${reason:-<no stderr>}) — cannot read CI state (skip, never guess)"
+    exit 1
+  fi
+  log "gh pr view $repo#$pr transient network error (attempt $attempt): ${reason:-<no stderr>} — retrying"
+  backoff "$attempt"; attempt=$((attempt+1))
+done
 [ -n "$json" ] || { log "empty PR state for $repo#$pr — cannot read CI state"; exit 1; }
 
 # A closed/merged PR is never shepherded (nothing to drive green).
