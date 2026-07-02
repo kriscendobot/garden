@@ -1032,7 +1032,31 @@ load_allowlist
 load_mention_only_authors
 load_pr_only
 
-hw="$last_seen"; failed=0; acted=0
+hw="$last_seen"; failed=0; acted=0; fail_floor=""
+# --- head-of-line safety: one un-postable item must NOT block later ones -------
+# The batch is processed in ASCENDING created_at order behind a single scalar
+# high-water cursor. The old shape `break`-ed the WHOLE loop on the first POST LOST
+# (a post whose landing on origin/journal2 could not be confirmed), leaving the
+# cursor frozen so the failed directive re-polls next tick. But that also abandoned
+# every CHRONOLOGICALLY-LATER item in the same batch — a genuine head-of-line block:
+# an item stuck at the front (e.g. a job whose verify-clone fetch keeps failing to
+# confirm it) permanently hides everything behind it, tick after tick, because each
+# tick re-polls from the same frozen cursor and breaks at the same front item. That
+# is exactly how kriskowal's 2026-07-02T10:14:32Z CHANGES_REQUESTED review on
+# endo-but-for-bots #594 went undetected: an earlier #548 comment (05:21:04Z) kept
+# POST-LOSing, so the loop broke before ever reaching the #594 review at the tail.
+#
+# The fix decouples DETECTION from the single-scalar cursor's retry semantics:
+#   - on POST LOST we no longer `break`; we record fail_floor = the FIRST lost item's
+#     created_at and CONTINUE, so later independent directives are still classified
+#     and posted this tick.
+#   - the cursor may only advance to the last SUCCESS strictly before fail_floor
+#     (the contiguous successful prefix). `slide()` freezes hw once fail_floor is set,
+#     so the failed directive stays below the cursor and re-polls next tick.
+# Re-processing the already-posted later items on the next tick is a cheap no-op: the
+# verify_posted idempotency pre-check (and post-job.sh's identity dedup) collapse them,
+# so the head-of-line item costs only idempotent re-checks, never lost detection.
+slide() { [ -z "$fail_floor" ] && hw="$1"; return 0; }
 # The 8th field review_id is present ONLY on the inline review-comment surfaces
 # (pr-review-comment / pr-review-comment-subsumed); it is empty for every other
 # surface, which carries no 8th column (so `body` is unaffected — the source
@@ -1062,7 +1086,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # (post_reply already refuses author==bot; this is the earlier, stronger gate).
   if [ -n "$author" ] && [ "$author" = "$GARDEN_BOT_LOGIN" ]; then
     log "SELF: comment cid=$cid on #${pr:-?} is the bot's own ($author) — not self-triggering a job; sliding cursor [url=$url]"
-    hw="$created"; continue
+    slide "$created"; continue
   fi
 
   # --- dedup: an inline review-comment SUBSUMED by its review's `review` job -----
@@ -1079,7 +1103,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # review advances the cursor too, but logging keeps the suppression diagnosable).
   if [ "$surface" = pr-review-comment-subsumed ]; then
     log "SUBSUMED: inline comment cid=$cid on #${pr:-?} ($author) is covered by its review's 'review' job (which enumerates every inline comment tied to the review) — not minting a second job; sliding cursor [url=$url]"
-    hw="$created"; continue
+    slide "$created"; continue
   fi
 
   # --- PR-only mode: skip true-issue comments (issue-inbox owns them) ----------
@@ -1091,7 +1115,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # this watcher, is responsible for that comment).
   if [ -n "$PR_ONLY" ] && [ "$surface" = issue-comment ]; then
     log "PR-only: skipping issue-comment cid=$cid on #${pr:-?} ($author) — issue-inbox is the sole handler; sliding cursor"
-    hw="$created"; continue
+    slide "$created"; continue
   fi
 
   bf="$(mktemp)"; printf '%s\n' "$body" > "$bf"
@@ -1116,7 +1140,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
       log "mention-only author on #$pr but @$GARDEN_BOT_LOGIN present in $surface by $author — proceeding"
     else
       log "DROP (mention-only): #$pr authored by a mention-only login; $surface by $author does not @$GARDEN_BOT_LOGIN — not dispatching"
-      rm -f "$bf"; hw="$created"; continue
+      rm -f "$bf"; slide "$created"; continue
     fi
   fi
 
@@ -1162,7 +1186,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
       log "FOLD: inline comment cid=$cid on #$pr ($author) folded onto its review's 'review' job (review_id=$review_id) — one review, one job [url=$url]"
     else
       ack_or_log_slide "untrusted-review-comment" "$surface" "$cid" "$author" "$url" "$pr"
-      rm -f "$bf"; hw="$created"; continue
+      rm -f "$bf"; slide "$created"; continue
     fi
   else
     set +e; classify "$bf" "$surface" "$author"; rc=$?; set -e
@@ -1172,7 +1196,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
       # UNTRUSTED / no-verb / no-@mention comment, so there is no trusted receipt to
       # acknowledge — ack_or_log_slide logs the DROP without a reactji.
       ack_or_log_slide "verb-gate:not-actionable" "$surface" "$cid" "$author" "$url" "$pr"
-      rm -f "$bf"; hw="$created"; continue          # not actionable; slide cursor past it
+      rm -f "$bf"; slide "$created"; continue          # not actionable; slide cursor past it
     fi
     if [ "$rc" -eq 2 ]; then
       # AMBIGUOUS: an @-mention of the bot, or a trusted sender's comment that names
@@ -1205,13 +1229,13 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   if [ "$VERB" = finalize ]; then
     if ! is_bot_repo "$repo"; then
       log "approval on non-bot repo $repo — never autonomously merge upstream/agoric; skipping"
-      rm -f "$bf"; hw="$created"; continue
+      rm -f "$bf"; slide "$created"; continue
     fi
     set +e; "$GARDEN_PR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; mrc=$?; set -e
     case "$mrc" in
       0) : ;;                                    # ready → conductor
       2) log "approval on #$pr but it is already merged/closed — nothing to finalize"
-         rm -f "$bf"; hw="$created"; continue ;;
+         rm -f "$bf"; slide "$created"; continue ;;
       *) log "approval on #$pr but not mergeable/green (rc=$mrc) — dispatching shepherd, not forcing"
          VERB=shepherd ;;
     esac
@@ -1234,7 +1258,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
         set +e; "$GARDEN_PR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; drc=$?; set -e
         if [ "$drc" -eq 2 ]; then
           log "$VERB directive on #$pr but it is already merged/closed — dropping stale directive (no live job)"
-          rm -f "$bf"; hw="$created"; continue
+          rm -f "$bf"; slide "$created"; continue
         fi
       fi ;;
   esac
@@ -1279,7 +1303,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # actioned (a re-poll across the inclusive `since=` boundary, or a prior tick).
   # Skip the reactji AND the post so re-polling is a true no-op.
   if verify_posted "$base"; then
-    log "already actioned: $base (idempotent skip)"; rm -f "$bf"; hw="$created"; continue
+    log "already actioned: $base (idempotent skip)"; rm -f "$bf"; slide "$created"; continue
   fi
 
   # Reactji FIRST (the "received and processing" signal), then post. Reviews are
@@ -1305,17 +1329,25 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
       *) post_reply "$surface" "$cid" "$author" "$pr" \
            "On it — I've posted a job (\`$base\`) and will follow up here when it lands." ;;
     esac
-    log "posted $base ($VERB on #$pr) + acked"; acted=$((acted+1)); hw="$created"
+    log "posted $base ($VERB on #$pr) + acked"; acted=$((acted+1)); slide "$created"
   elif owner="$(journal_identity_owner_live "$VERIFY" "origin/$JOURNAL_BRANCH" "$IDENTITY")"; then
     # post-job.sh deduped this directive onto an existing live job (a peer or the
     # mention-watcher already owns identity $IDENTITY under a different base). The
     # directive IS being handled — treat as success (the reactji already acked it);
     # advance the cursor rather than misreading the intentional no-op as a lost push.
     log "DEDUP: directive $IDENTITY already owned by live job '$owner' — not double-posting $base; advancing cursor"
-    acted=$((acted+1)); hw="$created"
+    acted=$((acted+1)); slide "$created"
   else
-    log "POST LOST for $base — push did not reach origin/$JOURNAL_BRANCH; leaving cursor at ${hw:-<coldstart>} to retry"
-    failed=1; break
+    # Do NOT break: a `break` here abandoned every chronologically-later item in the
+    # batch, so one un-postable item blocked all detection behind it (the #594 review
+    # miss — see the head-of-line note at the loop top). Record the FIRST lost item's
+    # created_at as fail_floor (freezing the cursor there via slide) and CONTINUE, so
+    # an independent later directive is still classified and posted this tick. The
+    # cursor stays below fail_floor, so this directive re-polls next tick until its
+    # post lands; the later items re-poll too but are idempotent no-ops.
+    log "POST LOST for $base — push did not reach origin/$JOURNAL_BRANCH; freezing cursor at ${hw:-<coldstart>} to retry (continuing the batch so later directives are still detected)"
+    failed=1; [ -z "$fail_floor" ] && fail_floor="$created"
+    continue
   fi
 done < "$SRC"
 

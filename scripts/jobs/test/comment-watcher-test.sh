@@ -211,6 +211,69 @@ seen_d="$(cursor_seen "$TR/state-d" "$BARE_D")"
 [ -z "$seen_d" ] && ok "cursor did NOT advance past a lost post (will re-poll)" || bad "cursor advanced despite lost post ($seen_d)"
 
 # ============================================================================
+hr; echo "HOL — an EARLIER lost post must NOT block a LATER directive (head-of-line fix)"; hr
+# Regression for the missed kriskowal #594 CHANGES_REQUESTED review (2026-07-02):
+# an earlier item that keeps POST-LOSing used to `break` the whole batch, so every
+# chronologically-later directive behind it was never even attempted, tick after
+# tick (the cursor stayed frozen and re-hit the same front item). The fix processes
+# the WHOLE batch: the lost item freezes the cursor below itself (so it re-polls),
+# but a later independent directive is still classified and posted THIS tick.
+BARE_HOL="$TR/hol.git"; seed_bare "$BARE_HOL"
+FIX_HOL="$TR/fix-dd.tsv"; RLOG_HOL="$TR/react-dd.log"; : > "$RLOG_HOL"; LOG_HOL="$TR/log-dd.txt"; : > "$LOG_HOL"
+ALLOW_HOL="$TR/allow-dd"; printf 'kriskowal\n' > "$ALLOW_HOL"
+# A post stub that LIES (never lands) for the earlier #59 shepherd job — the
+# head-of-line poison — but delegates to the REAL post-job.sh for everything else,
+# so the later review genuinely lands on the board.
+POISON_HOL="$TR/poison-post-hol.sh"
+cat > "$POISON_HOL" <<EOF
+#!/bin/bash
+case "\$1" in
+  *pr59-shepherd*) echo "posted (lie)"; exit 0 ;;
+  *) exec "$JOBS/post-job.sh" "\$@" ;;
+esac
+EOF
+chmod +x "$POISON_HOL"
+# Batch (emitted unsorted; the watcher sorts ascending by created_at): the earlier
+# #59 shepherd comment (05:00:00Z, will POST-LOSE) then kriskowal's later #594
+# CHANGES_REQUESTED review body (10:14:32Z, must still be detected + posted).
+{
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+    2026-07-02T05:00:00Z issue-comment 4862458763 59 erights \
+    https://github.com/endojs/endo-but-for-bots/pull/59#issuecomment-4862458763 \
+    'please shepherd #59'
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+    2026-07-02T10:14:32Z pr-review-body 4616520025 594 kriskowal \
+    https://github.com/endojs/endo-but-for-bots/pull/594#pullrequestreview-4616520025 \
+    '[CHANGES_REQUESTED] Please use JavaScript for the driver script. Use zx or drive eslint by API.'
+} > "$FIX_HOL"
+env GARDEN_STATE="$TR/state-hol" JOURNAL_REMOTE="$BARE_HOL" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" \
+    CW_FIXTURE="$FIX_HOL" CW_REACTJI_LOG="$RLOG_HOL" \
+    GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+    GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+    GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG=/dev/null \
+    GARDEN_COMMENT_POST="$POISON_HOL" \
+    GARDEN_COMMENT_TRUST=/bin/false \
+    GARDEN_TRUSTED_ALLOWLIST="$ALLOW_HOL" \
+    GARDEN_PR_MERGEABLE="$MERGEABLE_OPEN" \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$LOG_HOL"
+# The poison #59 job is (correctly) NOT on the board — its push was lost.
+board_has "$BARE_HOL" "$SLUG-pr59-shepherd" && bad "poison #59 job somehow landed" || ok "poison #59 job correctly absent (push lost)"
+# The KEY assertion: the later #594 review was still detected and posted despite the
+# earlier lost post — the head-of-line block is gone.
+review_posted_hol() {
+  local v n; v="$(mktemp -d "$TR/rph.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE_HOL" "$v" 2>/dev/null
+  n=$(ls -1 "$v/jobs/todo" 2>/dev/null | grep -c "^$SLUG-pr594-review-" || true); rm -rf "$v"; [ "$n" -ge 1 ]
+}
+review_posted_hol && ok "the LATER #594 review job was posted despite the earlier lost post" || bad "the #594 review was NOT posted — head-of-line block still present (log: $(cat "$LOG_HOL"))"
+# The cursor must stay FROZEN below the lost item (05:00:00Z) so #59 re-polls next
+# tick — it must NOT jump to the review's 10:14:32Z (which would strand the lost #59).
+seen_hol="$(cursor_seen "$TR/state-hol" "$BARE_HOL")"
+[ -z "$seen_hol" ] && ok "cursor frozen below the lost post (will re-poll #59)" || bad "cursor advanced past the lost post ($seen_hol)"
+grep -q 'POST LOST' "$LOG_HOL" && ok "the lost post is logged" || bad "no POST LOST log line"
+
+# ============================================================================
 # Bug 2 — a trusted sender's plain-language directive (no @-mention, no verb) must
 # become a job, while the same comment from an untrusted sender stays dropped. The
 # observe→post-job path is FULLY DETERMINISTIC — there is NO claude/LLM anywhere
