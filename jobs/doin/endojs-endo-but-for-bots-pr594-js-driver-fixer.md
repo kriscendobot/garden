@@ -42,6 +42,7 @@ The bucket-vs-shard **strategy** question is a separate, advisory job (`ebfb-lin
 
 #594's lint driver is JavaScript, pushed to the PR; kriskowal's review thread has a reply citing the SHA; a top-level summary is posted; CI `lint` is green and review re-requested; #594 remains draft. Journal a `result` entry with the comment/commit URLs.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot
