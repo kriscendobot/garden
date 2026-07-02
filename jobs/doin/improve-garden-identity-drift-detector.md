@@ -1,3 +1,9 @@
 Every new gardener entry in this window reports `host: endolinbot2`, but per the maintainer record this host is canonically `endolinbot` (the leader marker names `endolinbot`; the `GARDEN=endolinbot2` override was removed as drift on 2026-07-01 precisely because it breaks every leader-only singleton's `is-main-host` ExecCondition). A silent `GARDEN` divergence corrupts per-host state (worker counts, claim metadata, journal index) and disables the leader gate for hours before anyone notices. `scripts/jobs/common.sh` defaults `GARDEN` to `hostname -s` but never checks for divergence. Add a deterministic drift guard (in `common.sh` or a preflight run each `gardener-scaler.sh` tick): when `$GARDEN` != `hostname -s` AND the host is not explicitly configured as a parallel pool, emit ONE loud `kind:error` journal entry (and, on the leader path, surface that `is-main-host` will fail) so a regression of the endolinbot2 override surfaces on the first tick instead of silently mislabeling 100 gardeners.
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 44
+  claimed_at: 2026-07-02T01:14:39Z
