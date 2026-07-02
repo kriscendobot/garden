@@ -32,3 +32,9 @@ prior red `lint` check. Verify CI reaches green (or re-hand-off to shepherd
 if a fresh red surfaces post-rebase).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 70
+  claimed_at: 2026-07-02T01:04:31Z
