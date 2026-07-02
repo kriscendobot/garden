@@ -95,6 +95,36 @@ BUSY_MARKER="$(gardener_busy_marker "$id")"
 mkdir -p "$(dirname "$BUSY_MARKER")" 2>/dev/null || true
 rm -f "$BUSY_MARKER" 2>/dev/null || true
 
+# --- host-identity assertion at spawn (the endolinbot2 inherited-env drift) ------
+# GARDEN (common.sh) is the single key every per-host structure hangs off: the claim
+# metadata, the hosts/<host> worker count, the leader predicate. An inherited-env
+# GARDEN (environment.d / manager env) that no longer matches this host used to stay
+# invisible until it had already corrupted that per-host journal/index state. Surface
+# the resolved identity at the point of spawn so the drift is detectable and greppable
+# BEFORE any claim keys off it. The design deliberately permits `GARDEN=<unique>`
+# parallel pools, so a divergence from `hostname -s` is WARNed, never refused; a
+# deliberate override recorded in GARDEN_IDENTITY_OVERRIDE or
+# $GARDEN_STATE/identity-override (matching the resolved GARDEN) silences the warning.
+host_short="$(hostname -s 2>/dev/null || echo host)"
+log "identity: GARDEN=$GARDEN (hostname -s=$host_short)"
+if [ "$GARDEN" != "$host_short" ]; then
+  recorded_override="${GARDEN_IDENTITY_OVERRIDE:-}"
+  if [ -z "$recorded_override" ] && [ -f "$GARDEN_STATE/identity-override" ]; then
+    recorded_override="$(head -1 "$GARDEN_STATE/identity-override" 2>/dev/null || true)"
+  fi
+  if [ "$recorded_override" = "$GARDEN" ]; then
+    log "identity: GARDEN=$GARDEN diverges from hostname -s=$host_short by RECORDED deliberate override (parallel pool)"
+  else
+    log "WARN identity: GARDEN=$GARDEN diverges from hostname -s=$host_short with NO recorded deliberate override — an inherited-env GARDEN drift silently corrupts per-host journal/index state (claim key, hosts/<host> count, leader predicate); if this is a deliberate parallel pool record it in GARDEN_IDENTITY_OVERRIDE or $GARDEN_STATE/identity-override, otherwise fix the inherited GARDEN"
+  fi
+fi
+# Per-instance identity marker — a cheap, machine-checkable record of THIS gardener's
+# resolved GARDEN that the scaler's drift check (sibling job) reads without walking
+# /proc. One file per gardener id, rewritten at every spawn.
+IDENTITY_MARKER="$GARDEN_STATE/gardeners/$id.garden"
+mkdir -p "$(dirname "$IDENTITY_MARKER")" 2>/dev/null || true
+printf '%s\n' "$GARDEN" > "$IDENTITY_MARKER" 2>/dev/null || true
+
 log "starting (clone=$CLONE handler=$GARDEN_JOB_HANDLER oneshot=$GARDEN_ONESHOT)"
 
 idle_rounds=0
