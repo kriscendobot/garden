@@ -42,3 +42,9 @@ call frames exist — derive it, don't hardcode, if the frame machinery explains
 Report: what landed, the acceptance evidence verbatim (corpus totals, test262-language
 numbers, Miri run), any scope folds or frictions for the supervisor. Commit to
 `xs2rust-endor`, push, keep the PR draft.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-07-02T21:09:30Z
