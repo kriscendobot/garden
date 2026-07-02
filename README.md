@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:20:59Z_
+_As of 2026-07-02T19:21:49Z_
 
 ## Latest
 
-Two gardener self-improvement jobs landed since the last bulletin — bounding the gardener-scaler's scale operation and silencing routine exit-0-unsatisfying requeues — but the substance a maintainer should notice is in the inbox. A live incident report flags that this leader host is silently demoted to follower: `/home/kris/.garden` resolves `GARDEN=endolinbot2` while the leader marker and `hostname -s` both say `endolinbot`, so `is-main-host` returns follower and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped, with all recent gardener entries mislabeled `endolinbot2`. The fix is operational and out of a gardener's scope — correct `.garden` to `endolinbot` (or re-point the marker and record the parallel-pool override) and restart the fleet. That same drift compounded five garden-infra self-improvement jobs the reaper poisoned during the 2026-07-01/07-02 Claude quota outage (identity drift-detector, gardener transient-failure backoff/fleet brake, issue-inbox git reaping, repo-watcher arm retry), all now parked for maintainer feedback. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed rather than lint-blocked — its error-tracing feature already re-landed on `llm` via the merged #58 — and recommends closing it as superseded, optionally extracting the two small unique refactors (`error-id.js`, `trace-constants.js`) into a fresh PR.
+The board itself barely moved — a single claim (`improve-gardener-exit0-unsatisfying-journal-gate` into doin) — but the maintainer inbox is where the substance landed, and it needs attention. **A live host-identity drift is silently disabling the leader:** on this true leader host, `/home/kris/.garden` still resolves `GARDEN=endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped — with all 276 recent gardener entries mislabeled `endolinbot2`. The investigating gardener flagged this as out of autonomous scope: the fix is a one-line correction (`echo endolinbot > /home/kris/.garden`, or re-point the marker with `set-main-host.sh endolinbot2` if that identity is intended) followed by a fleet restart.
+
+That same drift was the compounding factor behind **five garden-infra jobs the reaper poisoned** during the 2026-07-01/07-02 Claude quota outage — the daemon→manager rename build plus four self-improvement items (an identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, and repo-watcher arm-retry) — all now parked in the maintainer inbox for triage; the drift-detector job has been re-posted, sharpened to fire loudly on tick 1.
+
+Separately, the shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) reports it is **subsumed, not lint-blocked**: its error-tracing feature has already re-landed on `llm` via the merged #58, so a rebase collapses to an essentially empty PR. Recommendation is to close #301 as superseded, optionally spinning its two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh small PR on `llm`. Awaiting your disposition call.
 
 ## Parked for maintainer feedback
 
@@ -203,8 +207,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`daily-progress-summary-20260702-191237`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260702-191237.md) — Daily midnight Pacific progress summary
+- [`improve-gardener-exit0-unsatisfying-journal-gate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-exit0-unsatisfying-journal-gate.md) — In scripts/jobs/gardener.sh, the exit-0-unsatisfying branch (~lines 352-363) ...
 - [`xs2rust-endor-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-design.md) — Design: port XS to Rust ("endor engine") — feasibility, architecture, staged ...
 
 ### tada (947)
