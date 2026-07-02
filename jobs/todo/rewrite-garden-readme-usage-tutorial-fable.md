@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: garden-gardener-claude-honor-per-job-model
-priority: normal
-posted_by: producer
-posted_at: 2026-07-02T04:03:12Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-02T09:52:26Z -->
 
 ---
 model: fable
