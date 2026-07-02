@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T08:49:05Z_
+_As of 2026-07-02T09:29:03Z_
 
 ## Latest
 
-The endo-but-for-bots lint-projectService-ceiling fix replicated onto the `llm` base and merged, closing out the [#594](https://github.com/endojs/endo-but-for-bots/pull/594) work (both the verify-and-bucket and replicate-and-merge jobs completed), and the [#420](https://github.com/endojs/endo-but-for-bots/pull/420) shepherd plus a [#410](https://github.com/endojs/endo-but-for-bots/pull/410) shepherd follow-up landed green. The board is now fully drained (nothing in todo or doin).
-
-What a maintainer should notice: the reaper poison-dropped a large batch of jobs after 5 requeue cycles apiece — dozens of auto-dispatched red-CI shepherd jobs (PRs #60, #79, #96, #235, #242, #250, #313, #316, #318, #320, #324, #335, #337, #377, #393, #410, #420, #438, #475, #541, #585, [#590](https://github.com/endojs/endo-but-for-bots/pull/590), #591, #593) plus several weaver/fixer escalations (#101, #216, #301, #306, #394). The pattern points at a correlated Claude quota/API outage in which all ~100 gardeners thrashed the same jobs against an exhausted quota rather than a real per-PR defect; two of the poisoned items are themselves self-filed infra fixes for exactly that failure mode (a gardener transient-failure backoff + fleet brake, and a `GARDEN=endolinbot2` identity-drift guard). Separately, [#590](https://github.com/endojs/endo-but-for-bots/pull/590)'s shepherd correctly declined to touch the PR and instead posted a dedicated lint-infra job, deferring to the maintainer on the repo-wide typescript-eslint scaling ceiling.
+A large poison wave dominates this window: the reaper dropped roughly two dozen auto-dispatched shepherd jobs after 5 failed requeue cycles each on endolinbot — spanning red-CI PRs [#60](https://github.com/endojs/endo-but-for-bots/pull/60), [#79](https://github.com/endojs/endo-but-for-bots/pull/79), [#96](https://github.com/endojs/endo-but-for-bots/pull/96), [#235](https://github.com/endojs/endo-but-for-bots/pull/235), [#242](https://github.com/endojs/endo-but-for-bots/pull/242), [#250](https://github.com/endojs/endo-but-for-bots/pull/250), [#313](https://github.com/endojs/endo-but-for-bots/pull/313), [#316](https://github.com/endojs/endo-but-for-bots/pull/316), [#318](https://github.com/endojs/endo-but-for-bots/pull/318), [#320](https://github.com/endojs/endo-but-for-bots/pull/320), [#324](https://github.com/endojs/endo-but-for-bots/pull/324), [#335](https://github.com/endojs/endo-but-for-bots/pull/335), [#337](https://github.com/endojs/endo-but-for-bots/pull/337), [#377](https://github.com/endojs/endo-but-for-bots/pull/377), [#393](https://github.com/endojs/endo-but-for-bots/pull/393), [#410](https://github.com/endojs/endo-but-for-bots/pull/410), [#420](https://github.com/endojs/endo-but-for-bots/pull/420), [#438](https://github.com/endojs/endo-but-for-bots/pull/438), [#475](https://github.com/endojs/endo-but-for-bots/pull/475), [#541](https://github.com/endojs/endo-but-for-bots/pull/541), [#585](https://github.com/endojs/endo-but-for-bots/pull/585), [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#591](https://github.com/endojs/endo-but-for-bots/pull/591), and [#593](https://github.com/endojs/endo-but-for-bots/pull/593) — plus poisoned rebase/weaver jobs on [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), and [#306](https://github.com/endojs/endo-but-for-bots/pull/306), and the [#394](https://github.com/endojs/endo-but-for-bots/pull/394) fixer job. The failures look correlated to a Claude quota/API outage (the poisoned bodies name it explicitly), and four garden-infra improvement jobs got caught in the same net — a `GARDEN` identity-drift guard, gardener transient-failure backoff plus a fleet brake, issue-inbox orphan-git reaping, and repo-watcher arm-retry — all worth re-posting once the outage clears. One clean diagnosis did land: the [#590](https://github.com/endojs/endo-but-for-bots/pull/590) shepherd traced its red `lint` to the known typescript-eslint projectService scaling ceiling (not the PR's diff, same tail-drop that hit #581), correctly declined to touch the refactor, and spun off a dedicated repo-wide lint-infra fix job instead. The board itself is idle (0 todo, 0 doin) with no transitions since the last bulletin.
 
 ## Parked for maintainer feedback
 
@@ -929,11 +927,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 (none)
 
 ### tada (896)
-- [`fu-endojs-endo-but-for-bots-pr410-shepherd-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr410-shepherd-1.md) — Completion report — fu-endojs-endo-but-for-bots-pr410-shepherd-1
-- [`endojs-endo-but-for-bots-pr420-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr420-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #420
-- [`ebfb-replicate-pr594-lint-fix-on-llm-and-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-replicate-pr594-lint-fix-on-llm-and-merge.md) — Completion report
-- [`ebfb-pr594-verify-lint-perf-and-bucket`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr594-verify-lint-perf-and-bucket.md) — Completion report
-- [`endojs-endo-but-for-bots-pr594-042c3a07`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr594-042c3a07.md) — Completion report
+- [`wire-scholar-to-sections-row-inserter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/wire-scholar-to-sections-row-inserter.md) — Completion report: wire-scholar-to-sections-row-inserter
+- [`weave-sturdyrefs-onto-live-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-sturdyrefs-onto-live-llm.md) — Done. Completion report below.
+- [`weave-ebfb-pr57`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-ebfb-pr57.md) — Weave job weave-ebfb-pr57 (rebase endo-but-for-bots #57 onto #475): **not com...
+- [`weave-ebfb-pr197`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/weave-ebfb-pr197.md) — Completion report: weave-ebfb-pr197
+- [`watchman-resolve-wedge-autonomously`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/watchman-resolve-wedge-autonomously.md) — Completion report — watchman-resolve-wedge-autonomously
 - … and 891 more
 
 ## Plan queue (parked — not claimable until promoted)
@@ -946,9 +944,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — _low_ · PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
+- [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
-- [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`formula-inspector-retention-paths-table-v2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/formula-inspector-retention-paths-table-v2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/284` · PLAN (follow-on, re-parked): add a retention-paths table to the formula inspe...
