@@ -31,6 +31,7 @@ push, CI should dispatch; the shepherd's prettier fix (commit b99b99738,
 prior red `lint` check. Verify CI reaches green (or re-hand-off to shepherd
 if a fresh red surfaces post-rebase).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
