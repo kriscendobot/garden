@@ -1,7 +1,0 @@
-In `/home/kris/scripts/jobs/mentor.sh`, stop turning a transient inner-handler outage into a systemd Failed state. Root cause (2026-07-02 01:20:07 and 01:50:08 journalctl): during a broad `claude` quota/usage cut + api.github.com outage the `$GARDEN_MENTOR_HANDLER` invocation (mentor.sh:87) failed, so mentor took the `die "improve handler failed; leaving markers so the next tick retries"` branch (line 91) — but `die()` exits 1, which (a) makes `self-heal-run.sh` fire a `claude -p` diagnosis that also fails in the same outage, and (b) marks `garden-mentor.service` Failed. The message already states the intent (retry next tick), so a transient must exit 0, not die. Fix: capture the handler's combined stdout+stderr, and when it matches `is_transient_claude_signature` / offline signatures (common.sh helpers), `log "WARN: … transient outage; leaving markers, retrying next tick"` and `exit 0` (do NOT advance $SEEN/$JSINCE — the markers already stay put on this path). Reserve the `die` (exit 1 → self-heal) path for a genuine non-transient handler failure. Mirror the existing gardener.sh transient-vs-real classification. Isolated worktree off origin/main2, explicit pathspec, push HEAD:main2.
-
----
-claim:
-  host: endolinbot2
-  gardener: 68
-  claimed_at: 2026-07-02T02:23:10Z
