@@ -80,3 +80,9 @@ External ground truth to consult (read-only research; no interaction): Moddable 
 snapshot writer/reader `xsSnapshot.c`, `xsdb` debugger protocol), `agoric-sdk/packages/xsnap` (the meter
 schema and the consensus-facing `metering` vectors), Boa / Nova / Kiesel as Rust-engine datapoints, and
 tc39/test262 harness structure.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 8
+  claimed_at: 2026-07-02T19:06:52Z
