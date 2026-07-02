@@ -122,6 +122,47 @@ run_keeper
 grep -qF "failed (offline?)" <<<"$OUT" && ok "logged the offline skip" || bad "offline skip not logged"
 
 # ============================================================================
+hr; echo "RECLONE — tracked clone deleted: next tick re-creates it from the source"; hr
+setup_fixture
+before="$(local_master)"
+rm -rf "$CLONE"
+[ ! -e "$CLONE" ] || bad "precondition: clone still present after rm"
+# The source must be a URL/path (not a bare name) for a re-clone to be possible;
+# $UP is the throwaway upstream, standing in for the real endo clone URL.
+run_keeper GARDEN_TRACKED_CLONES="$CLONE|$UP|master"
+[ "$RC" -eq 0 ] && ok "exit 0 on re-clone" || bad "exit $RC on re-clone"
+git -C "$CLONE" rev-parse --git-dir >/dev/null 2>&1 && ok "missing clone re-created as a git repo" || bad "clone NOT re-created"
+[ "$(local_master 2>/dev/null)" = "$before" ] && ok "re-cloned master matches upstream tip" || bad "re-cloned master wrong ($(local_master 2>/dev/null) != $before)"
+grep -qF "REPAIRED:" <<<"$OUT" && ok "logged a REPAIRED line" || bad "re-clone not surfaced as REPAIRED"
+
+# ============================================================================
+hr; echo "CORRUPT — tracked dir present but not a git repo: STALE, NOT clobbered"; hr
+setup_fixture
+rm -rf "$CLONE"; mkdir -p "$CLONE"; printf 'junk\n' > "$CLONE/not-a-repo"
+run_keeper GARDEN_TRACKED_CLONES="$CLONE|$UP|master"
+[ "$RC" -eq 0 ] && ok "exit 0 on corrupt dir" || bad "exit $RC on corrupt dir"
+grep -qF "STALE:" <<<"$OUT" && ok "corrupt dir surfaced as STALE" || bad "corrupt dir not surfaced as STALE"
+[ -f "$CLONE/not-a-repo" ] && ok "corrupt dir NOT clobbered" || bad "corrupt dir was clobbered"
+
+# ============================================================================
+hr; echo "MISSING+UNREACHABLE — deleted clone, bad source: skip, no partial left"; hr
+setup_fixture
+rm -rf "$CLONE"
+run_keeper GARDEN_TRACKED_CLONES="$CLONE|$TR/does-not-exist.git|master"
+[ "$RC" -eq 0 ] && ok "exit 0 when re-clone source is unreachable (never wedged)" || bad "exit $RC on unreachable re-clone"
+[ ! -e "$CLONE" ] && ok "no partial clone left behind" || bad "partial clone left at $CLONE"
+{ grep -qF "re-clone from" <<<"$OUT" && grep -qiF "skipping" <<<"$OUT"; } && ok "logged the missing+unreachable skip" || bad "missing+unreachable skip not logged"
+
+# ============================================================================
+hr; echo "MISSING+BARE-NAME — deleted clone, remote is a bare name: skip (no URL)"; hr
+setup_fixture
+rm -rf "$CLONE"
+run_keeper GARDEN_TRACKED_CLONES="$CLONE|origin|master"
+[ "$RC" -eq 0 ] && ok "exit 0 when remote is a bare name" || bad "exit $RC when remote is a bare name"
+[ ! -e "$CLONE" ] && ok "bare-name missing clone left untouched" || bad "something was created for a bare-name remote"
+grep -qF "bare name" <<<"$OUT" && ok "logged the bare-name no-URL skip" || bad "bare-name skip not logged"
+
+# ============================================================================
 hr
 echo "clone-keeper-test: $PASS passed, $FAIL failed"
 rm -rf "$TR"
