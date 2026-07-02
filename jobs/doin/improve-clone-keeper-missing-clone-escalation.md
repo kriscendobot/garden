@@ -1,7 +1,0 @@
-In `scripts/jobs/clone-keeper.sh`, `keep_clone` currently logs `WARN: tracked clone <dir> is missing or not a git repo … skipping` and returns 0 on every tick (line ~78), so a missing bare clone (observed: `worktrees/endojs-endo.git`) degrades silently forever and blocks all downstream work on that repo with no signal beyond a buried journalctl WARN. Make the missing-clone path actionable: either (a) self-heal by re-creating the bare clone from a known upstream URL — extend the `GARDEN_TRACKED_CLONES` row format to carry the clone URL and `git clone --bare <url> <abs>` when the dir is absent, or (b) if auto-reclone is deemed too heavy, escalate once (a deadmail/maintainer message or a posted job) rather than re-logging the same WARN every ~30m, with a stamp so it fires once per outage, not per tick. Prefer (a) for the endo clone since its absence hard-blocks endo PR work. Add a `clone-keeper-test.sh` case covering the missing-clone → heal/escalate path.
-
----
-claim:
-  host: endolinbot2
-  gardener: 19
-  claimed_at: 2026-07-02T20:22:58Z
