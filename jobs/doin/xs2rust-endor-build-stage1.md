@@ -54,3 +54,9 @@ divergence list), and any design frictions the supervisor should rule on.
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 8
+  claimed_at: 2026-07-02T20:23:09Z
