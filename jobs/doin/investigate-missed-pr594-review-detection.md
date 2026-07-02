@@ -52,3 +52,9 @@ logic quoted). Include a test or documented manual repro that a maintainer revie
 job. Journal a `result` entry.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot
+  gardener: 15
+  claimed_at: 2026-07-02T14:33:13Z
