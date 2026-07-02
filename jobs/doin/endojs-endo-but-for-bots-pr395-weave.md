@@ -22,6 +22,7 @@ can drive any remaining red green.
 Origin: auto shepherd job `endojs-endo-but-for-bots-pr395-shepherd` reclassified
 `next: weaver` (CONFLICTING blocks CI dispatch).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
