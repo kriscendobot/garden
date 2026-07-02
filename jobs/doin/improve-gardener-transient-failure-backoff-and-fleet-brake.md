@@ -27,3 +27,9 @@ and loops STRAIGHT back to the claim head with ZERO delay — no `idle_backoff` 
 either transient path, and no shared fleet brake exists. This job is the sanctioned
 fix for the exact thrash that poisoned all five garden-infra jobs (see postmortem
 above); prioritize it — until it lands, the next quota storm re-poisons the board.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 94
+  claimed_at: 2026-07-02T10:04:31Z
