@@ -253,8 +253,20 @@ source_path_healthy() {  # source_path_healthy <repo>
   # it with `timeout` (when present) so a hung gh/git credential helper here can
   # never outlive the tick either — the self-test must not be the wedge it guards
   # against. A timeout/failure → empty raw → inconclusive (never paged).
+  #
+  # This probe runs SYNCHRONOUSLY in the foreground (a `$( … )` command
+  # substitution), NOT under the backgrounded+trap-reaped shape the main source
+  # fetch uses — so a systemd stop landing mid-probe cannot run the EXIT/TERM trap
+  # until this `timeout` returns (bash defers a trap past a running foreground
+  # child). Its worst case (timeout + kill-after) is therefore a HARD floor on how
+  # long a stop blocks, and it MUST fit inside the unit's TimeoutStopSec=20s with
+  # margin, or the cgroup-wide SIGKILL backstop fires first and the stop is marked
+  # Failed with a status=9/KILL — the very orphaned-git-in-cgroup outcome
+  # KillMode=mixed was written to avoid (observed 09:40:35 during a GitHub outage,
+  # when the old 30s+10s=40s budget overran the 20s stop). 10s+5s=15s < 20s keeps a
+  # 5s margin while still bounding a hung probe well inside a normal tick.
   if command -v timeout >/dev/null 2>&1; then
-    raw="$(timeout --signal=TERM --kill-after=10s 30s gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
+    raw="$(timeout --signal=TERM --kill-after=5s 10s gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
   else
     raw="$(gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
   fi

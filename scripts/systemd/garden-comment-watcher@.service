@@ -35,6 +35,16 @@ KillMode=mixed
 # the backstop SIGKILL any straggler the process-group reap missed WELL BEFORE the
 # next firing. 20s is ample for the trap's TERM→drain (itself bounded by the
 # source `timeout`'s 10s --kill-after) yet far below the 90s cadence.
+#
+# Every BLOCKING fetch a stop can land mid-flight must have a worst case
+# (timeout + kill-after) that fits inside this 20s with margin. The main source
+# fetch is backgrounded and trap-reaped, so its stop-drain is bounded by its 10s
+# --kill-after (not its 180s timeout). The one FOREGROUND fetch — the throttled
+# source-path self-test in comment-watcher.sh — cannot be trap-interrupted until
+# it returns, so ITS budget is a hard floor on stop latency; it is capped at
+# 10s+5s=15s (was 40s, which overran this 20s and SIGKILLed the stop at 09:40:35
+# during a GitHub outage — the orphaned-git-in-cgroup failure KillMode=mixed
+# exists to prevent).
 TimeoutStopSec=20s
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # Leader-only singleton: run only on the host whose GARDEN identity matches the
