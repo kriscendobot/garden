@@ -1,7 +1,0 @@
-In `/home/kris/scripts/jobs/common.sh`, add gh's transport-failure top-line wording to the transient classifiers so a network blip is retried instead of failing definitive. Root cause (2026-07-02 01:25:01 journalctl): `gh_api_retry` → `_gh_api_stderr_is_transient` classified `error connecting to api.github.com` as DEFINITIVE ("failed (definitive, rc=1); not retrying"), which FATAL'd `handlers/mirror-pr-state-gh.sh` and marked `garden-mirror-closer.service` Failed. The `GARDEN_TRANSIENT_GH_API_SIGNATURES` set (line ~791) and `GARDEN_OFFLINE_SIGNATURES` (line ~732) match on the underlying cause lines (`dial tcp`, `no such host`, `Connection timed out`, `Connection reset by peer`) but not on gh's own top-line phrasing when that cause line is absent. Add `error connecting to` and `check your internet connection` to the alternation (prefer `GARDEN_OFFLINE_SIGNATURES`, since it flows into both the gh-api set and the git-transport path). This is a network connection error by definition — transient, retryable — and the fix also stops the ci-watcher "rollup unreadable (rc=1) — skipping" churn on the same wording. Do the edit in an isolated worktree off origin/main2 (the shared /home/kris tree is concurrently mutated), commit an explicit pathspec, push HEAD:main2.
-
----
-claim:
-  host: endolinbot2
-  gardener: 4
-  claimed_at: 2026-07-02T02:22:59Z
