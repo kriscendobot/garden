@@ -11,9 +11,10 @@ HOSTNAME_NAME="${GARDEN_HOSTNAME:-endolinbot}"
 # the container hostname, but is captured into a gitignored $HOME/.garden file
 # (see below) so it survives independently of the kernel hostname and of any
 # env var — an exported GARDEN never reaches the systemd --user manager. Override
-# GARDEN_SHARD to give a pool an identity distinct from its hostname (e.g. a
-# follower pool "endolinbot2" on a host whose hostname is "endolinbot").
-SHARD_NAME="${GARDEN_SHARD:-$HOSTNAME_NAME}"
+# GARDEN at creation time to give a pool an identity distinct from its hostname
+# (e.g. a follower pool "endolinbot2" on a host whose hostname is "endolinbot").
+# GARDEN_SHARD is accepted as a deprecated alias for the same knob.
+SHARD_NAME="${GARDEN:-${GARDEN_SHARD:-$HOSTNAME_NAME}}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 usage() {
@@ -30,11 +31,14 @@ Environment:
   GARDEN_IMAGE        Override image name (default: garden).
   GARDEN_CONTAINER    Override container name (default: garden).
   GARDEN_HOSTNAME     Override container hostname (default: endolinbot).
-  GARDEN_SHARD        Override the durable shard identity written to
+  GARDEN              Override the durable shard identity written to
                       \$HOME/.garden at container creation (default:
                       GARDEN_HOSTNAME). This is the GARDEN name the fleet
                       keys off; set it when a pool's identity must differ
                       from its hostname (e.g. a follower "endolinbot2").
+  GARDEN_SHARD        Deprecated alias for GARDEN (honored for one release
+                      so existing pools that set it keep working; prefer
+                      GARDEN).
 
 Notes:
   The container runs systemd as PID 1 so the garden's user-mode units
@@ -42,7 +46,7 @@ Notes:
   per CLAUDE.md § Job system: install-units.sh install && enable-services,
   then set-gardeners.sh <N> <host>. The shard identity MUST be unique across
   instances; to run several, give each a distinct GARDEN_CONTAINER and
-  GARDEN_SHARD (or GARDEN_HOSTNAME). The identity is captured in the
+  GARDEN (or GARDEN_HOSTNAME). The identity is captured in the
   gitignored \$HOME/.garden file so it is durable and per-instance — an
   exported GARDEN env var does NOT reach the systemd --user units.
 
