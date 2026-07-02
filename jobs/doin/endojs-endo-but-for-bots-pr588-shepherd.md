@@ -9,3 +9,9 @@ should now pass. Re-fetch live PR state first (fast no-op if since merged/closed
 fixer only for a genuinely different, out-of-shepherd-scope failure. Standing comment auth applies.
 
 Provenance: liaison residual sweep of the reaper POISON backlog (not in the resume-29 consolidation).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 6
+  claimed_at: 2026-07-02T09:57:29Z
