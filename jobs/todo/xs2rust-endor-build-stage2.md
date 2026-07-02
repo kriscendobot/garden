@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: xs2rust-endor-fix-stage1-review
-priority: normal
-posted_by: port-xs-to-rust-memory-safe-engine-s3
-posted_at: 2026-07-02T20:53:27Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-02T21:09:26Z -->
 
 ---
 model: opus
