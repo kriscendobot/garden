@@ -15,3 +15,9 @@ this job was minted from a rollup read at post time.
 <!-- garden-deadline-overrun: 1 -->
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 59
+  claimed_at: 2026-07-02T03:53:07Z
