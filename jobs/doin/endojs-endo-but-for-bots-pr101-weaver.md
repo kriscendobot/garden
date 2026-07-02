@@ -38,3 +38,9 @@ update, verify CI converges to green; if new in-scope failures surface, chain a
 shepherd.
 
 next: weaver
+
+---
+claim:
+  host: endolinbot2
+  gardener: 47
+  claimed_at: 2026-07-02T00:57:16Z
