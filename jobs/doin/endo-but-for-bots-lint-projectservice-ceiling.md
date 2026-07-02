@@ -56,3 +56,9 @@ every package. Candidate remedies for the fixer/builder to evaluate:
 Surfaced by the shepherd on PR #590 (job endojs-endo-but-for-bots-pr590-shepherd),
 which could not drive #590 green because the red is this pre-existing infra ceiling,
 out of scope for the #590 refactor.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 25
+  claimed_at: 2026-07-02T02:13:50Z
