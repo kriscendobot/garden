@@ -73,3 +73,9 @@ are branch-introduced, not upstream drift.
   bot identity.
 
 <!-- garden-reaped: 3 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 7
+  claimed_at: 2026-07-02T01:23:26Z
