@@ -363,3 +363,12 @@ Inspect via `git -C journal cat-file -p a1acf0e58fe1830e0079b129969b91a669cc03f0
 - Context: gardener-46 on endolinbot2: job 'endojs-endo-but-for-bots-pr216-weave' transient-classified (rc=1) but elapsed near-constant (4,4s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p 3e599a1cc0920b99c2ca0e4478da8257e61491a1`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-02T01:33:41Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1718daf668d2b0be729dca5d040ee539333366a5
+- Context: gardener-90 on endolinbot2: job 'endojs-endo-but-for-bots-pr591-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1718daf668d2b0be729dca5d040ee539333366a5`.
