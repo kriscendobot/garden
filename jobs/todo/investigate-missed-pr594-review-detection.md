@@ -51,8 +51,4 @@ leader outage and the resume path is already correct, a `result` entry proving t
 logic quoted). Include a test or documented manual repro that a maintainer review now produces a fixer
 job. Journal a `result` entry.
 
----
-claim:
-  host: endolinbot
-  gardener: 48
-  claimed_at: 2026-07-02T10:33:38Z
+<!-- garden-reaped: 1 -->
