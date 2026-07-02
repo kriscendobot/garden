@@ -83,10 +83,30 @@ fi
 sha="$(capture_blob "$digest" "$DIR")"
 rm -f "$digest"   # the blob now lives in $DIR's object DB; the temp file is spent
 
-# 6. hand the SHA to the inner agent; advance markers only on success
-if "$GARDEN_MENTOR_HANDLER" "$sha" "$DIR"; then
+# 6. hand the SHA to the inner agent; advance markers only on genuine success.
+#    Capture the handler's combined stdout+stderr so a TRANSIENT inner-agent
+#    outage — a `claude` quota/usage cut, an Anthropic overload/5xx, or an
+#    api.github.com/network blip — is not mistaken for a real handler defect. On
+#    a transient the intent this branch already carries (retry next tick) is
+#    satisfied simply by leaving $SEEN/$JSINCE unadvanced, so we WARN and exit 0.
+#    A `die` (exit 1) here is doubly wrong on a transient: it (a) marks
+#    garden-mentor.service Failed and (b) fires self-heal-run.sh into a `claude -p`
+#    diagnosis that fails identically in the SAME outage (2026-07-02 01:20:07 and
+#    01:50:08, a broad claude quota/usage cut + api.github.com outage). Reserve
+#    the die (exit 1 → self-heal) path for a genuine, non-transient handler
+#    failure. Mirrors gardener.sh's transient-vs-real classification.
+capture="$(mktemp "${TMPDIR:-/tmp}/garden-mentor-capture.XXXXXX")"
+if "$GARDEN_MENTOR_HANDLER" "$sha" "$DIR" >"$capture" 2>&1; then
   for f in "${new[@]}"; do printf '%s\n' "${f#"$DIR"/}" >> "$SEEN"; done
   date -u +%FT%TZ > "$JSINCE"
+  rm -f "$capture"
 else
+  out="$(tail -c 65536 "$capture" 2>/dev/null || true)"
+  rm -f "$capture"
+  if is_transient_claude_signature "$out" || _fetch_stderr_is_offline "$out"; then
+    log "WARN: improve handler hit a transient outage; leaving markers, retrying next tick"
+    exit 0
+  fi
+  printf '%s\n' "$out" >&2   # surface the real diagnostic before we die
   die "improve handler failed; leaving markers so the next tick retries"
 fi

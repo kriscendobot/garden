@@ -636,6 +636,38 @@ git clone -q --single-branch --branch "$BRANCH" "$BARE" "$IV"
 nimp2=$(ls -1 "$IV/jobs/todo" | grep -c '^improve-' || true)
 [ "$nimp2" -eq "$nimp" ] && ok "no new entries → silent, no duplicate job" || bad "re-run changed jobs ($nimp→$nimp2)"
 
+# A TRANSIENT inner-handler outage (claude quota/overload/5xx, or a github/network
+# blip) must NOT mark the service Failed: mentor.sh WARNs and exits 0, leaving the
+# $SEEN marker unadvanced so the next tick retries. A GENUINE (non-transient)
+# handler defect still dies (exit 1 → self-heal). Regression guard for the
+# 2026-07-02 quota-cut cascade that fired self-heal into the same dead outage.
+SEENF="$GARDEN_STATE/mentor/seen"
+# Handler that fails with a transient-claude signature.
+cat > "$TR/mentor-transient.sh" <<'EOF'
+#!/bin/bash
+echo "API Error: Overloaded (529) — please retry" >&2
+exit 1
+EOF
+# Handler that fails with a genuine, non-transient defect (no known signature).
+cat > "$TR/mentor-real.sh" <<'EOF'
+#!/bin/bash
+echo "TypeError: cannot read property of undefined at line 42" >&2
+exit 1
+EOF
+chmod +x "$TR/mentor-transient.sh" "$TR/mentor-real.sh"
+# Fresh error entry so `new` is non-empty and the handler path is reached.
+printf 'a fresh failure to feed the mentor handler\n' | GARDEN_ROLE=gardener "$JOBS/journal-entry.sh" error >/dev/null
+seen_before="$(wc -l < "$SEENF" 2>/dev/null || echo 0)"
+trc=0; env GARDEN_MENTOR_HANDLER="$TR/mentor-transient.sh" "$JOBS/mentor.sh" >/dev/null 2>&1 || trc=$?
+seen_after="$(wc -l < "$SEENF" 2>/dev/null || echo 0)"
+{ [ "$trc" -eq 0 ] && [ "$seen_after" -eq "$seen_before" ]; } \
+  && ok "transient handler outage → exit 0, markers unadvanced (retry next tick)" \
+  || bad "transient outage not absorbed (rc=$trc seen $seen_before→$seen_after)"
+# The same still-unseen entry now hits a real defect → mentor must die (exit 1).
+rrc=0; env GARDEN_MENTOR_HANDLER="$TR/mentor-real.sh" "$JOBS/mentor.sh" >/dev/null 2>&1 || rrc=$?
+[ "$rrc" -ne 0 ] && ok "genuine handler defect → non-zero exit (self-heal path)" \
+  || bad "real defect did not die (rc=$rrc)"
+
 # ============================================================================
 hr; echo "SUBTEST 12 — CURSORS: durable poll position survives a restart"; hr
 export GARDEN=curhost
