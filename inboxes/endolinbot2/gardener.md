@@ -174,3 +174,12 @@ Inspect via `git -C journal cat-file -p d51e69a806f1230a3fce896c6d9420b2a509e220
 - Context: gardener-60 on endolinbot2: job 'endojs-endo-but-for-bots-pr324-shepherd' transient-classified (rc=1) but elapsed near-constant (2,2s) over 2 cycles — likely deterministic overrun, not a blip
 
 Inspect via `git -C journal cat-file -p 3cdb43ec95cc6ca1f1ed74caa4da62fa27010bc9`.
+
+## lane 0 -- elapsed-constancy-overrun-suspect failure at 2026-07-02T01:08:20Z
+
+- PR: (none)
+- State: elapsed-constancy-overrun-suspect
+- Transcript SHA: aecee99ccc8a3663a38b1a8cec36b5631af3faee
+- Context: gardener-68 on endolinbot2: job 'endojs-endo-but-for-bots-pr242-shepherd' transient-classified (rc=1) but elapsed near-constant (2,2s) over 2 cycles — likely deterministic overrun, not a blip
+
+Inspect via `git -C journal cat-file -p aecee99ccc8a3663a38b1a8cec36b5631af3faee`.
