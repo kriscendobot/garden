@@ -43,6 +43,8 @@ Report: what landed, the acceptance evidence verbatim (corpus totals, test262-la
 numbers, Miri run), any scope folds or frictions for the supervisor. Commit to
 `xs2rust-endor`, push, keep the PR draft.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
