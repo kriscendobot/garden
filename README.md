@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T22:03:16Z_
+_As of 2026-07-02T22:10:05Z_
 
 ## Latest
 
-The garden's leader host is silently running as a follower: a live investigation found the `endolinbot2` host-identity drift still active on the leader, so `is-main-host` compares `endolinbot2` against the `endolinbot` leader marker and reports FOLLOWER — leaving every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) skipped, and mislabeling 276 recent gardener entries under the wrong host. The fix is operator-level (correct `/home/kris/.garden` to `endolinbot`, or re-point the marker and record a parallel-pool override, then restart the fleet); it needs a maintainer hand.
-
-That same drift compounded a Claude quota outage on 2026-07-01/07-02 that poisoned five garden-infra jobs — the reaper dropped them after five requeue cycles: the `daemon.js`→`manager.js` rename build, plus four self-improvement items (an identity-drift detector, gardener transient-failure backoff + a fleet brake, issue-inbox orphan-git reaping, and repo-watcher arm-retry). All five are in the maintainer inbox for a disposition.
-
-On the code side, shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed, not lint-blocked — its CapTP error-tracing feature already re-landed on `llm` via the merged #58, collapsing #301 to an essentially empty rebase; the shepherd recommends closing it (optionally extracting two small refactors into a fresh PR) and awaits your call. The xs2rust-endor stage-2 builder (PR #600) landed two green increments (GC v1 6/6 under Miri, the frame/scope/control-flow interpreter, per-compartment globals) but surfaced a scope-reshaping finding: bit-exact computron parity requires the allocation-faithful object heap as a prerequisite, so the builder recommends splitting stage 2 into 2a (done, green) and 2b (object model + faithful metering) rather than faking the bit-exact bar.
+A live host-identity incident tops the queue: on the leader host, `/home/kris/.garden` still resolves `GARDEN=endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped — with 276 recent gardener entries mis-keyed to `endolinbot2`. The fix is operational and out of a gardener's scope: either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2`, then restart the fleet. This same drift compounded a Claude quota outage on 07-01/07-02 that poisoned five garden-infra jobs (dropped after 5 requeue cycles): the daemon→manager rename build, plus four proposed hardening fixes — a `GARDEN` drift guard, gardener transient-failure backoff + fleet brake, issue-inbox orphan-git reaping, and repo-watcher arm-retry logging. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is not lint-blocked but **subsumed** — its error-tracing feature already re-landed on `llm` via the merged #58 — and recommends closing it as superseded, optionally salvaging two small refactors (`error-id.js`, `trace-constants.js`) as a fresh PR. On the board itself, the Fable-supervised XS→Rust (Endor) memory-safe-engine port advanced to stage 4 (`port-xs-to-rust-memory-safe-engine-s4` claimed into doin) as build stage 2 completed.
 
 ## Parked for maintainer feedback
 
@@ -202,32 +198,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > I did not push anything and left #301 untouched (no comment authorization on this job). Awaiting
 > your call: close #301, or open a fresh refactor PR extracting error-id.js/trace-constants.js?
 
-- `20260702T220307Z-bd1280` — from gardener:xs2rust-endor-build-stage2, reply_to `xs2rust-endor-build-stage2` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T220307Z-bd1280.md)
-
-> Stage-2 builder (PR #600, xs2rust-endor) status + a finding that reshapes the stage. Two increments landed and pushed (draft kept):
->
-> 1. cc09a660c / 4339cf1f6. Verified green:
->    - GC v1 (mark-sweep + chunk slide-compaction): 6/6 under Miri. [meets that acceptance-bar item]
->    - Program frame + scope/variable/loop interpreter (the "first work item" scope half): while/for/do-while over compiler-emitted backward branches. 11 var/loop programs agree with C-XS on RESULTS (endor-262 stage2-behavioral corpus).
->    - Compartment.evaluate now binds each compartment's own globals (finding 5): two compartments over shared intrinsics diverge only in their own globals. Proven by tests.
->    - Differential fuzz extended to the var/loop surface (300 generated programs agree on results).
->    - Stage-1 86/86 bit-exact bar stays green; forbid(unsafe_code) intact.
->
-> 2. THE FINDING (blocks the bit-exact bar): stage-2 computron parity is NOT just dispatch counting. XS meters every fxNewSlot at 1<<8 and every chunk byte at 1, plus a built-in step (1<<14) per property set. So the moment a program allocates at run time (a `var` environment: fxRunEvalEnvironment allocates a closure cell + property slot per var = the "16920 computrons per var" I measured), its count depends on the engine's exact allocations. Bit-exact computrons on ANY allocating program therefore require the allocation-faithful object heap — the object-model body of stage 2 — as a PREREQUISITE, not a follow-on. PROGRAM_INVOCATION_COMPUTRONS as a constant only holds for non-allocating (stage-1) programs.
->
-> Consequence: I could not reach the "bit-exact test262 language dual-run on the new grammar" bar this job, because it is downstream of the full object heap. I did not fake it — the new grammar is verified for result agreement only, kept out of the bit-exact corpus.
->
-> Recommendation: re-scope stage 2 into 2a (frame/scope/control-flow + GC + Compartment seam — effectively done and green) and 2b (object model: instances/prototypes/property behaviors/closures/exceptions + allocation-faithful metering, which is where computron parity for the new grammar is actually won). The remaining opcode families are reverse-engineered and documented in the commit; the meter already carries the full XS constant set + tick_slot_alloc/tick_chunk_alloc hooks for that heap.
->
-> Not emitting the completion signal — the full stage-2 deliverable is not done. How would you like to proceed: continue building 2b under this job, or split it?
-
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`xs2rust-endor-build-stage2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2.md) — Builder: xs2rust-endor roadmap stage 2 — object model, control flow, full opc...
+- [`port-xs-to-rust-memory-safe-engine-s4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s4.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (966)
 - [`improve-clone-keeper-provisions-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-provisions-missing-clone.md) — Completion report
@@ -257,7 +234,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-daemon-rename-to-manager-phase2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase2.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/598` · Build: daemon→manager rename Phase 2 (identifier renames)
 - [`build-daemon-rename-to-manager-phase3`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/build-daemon-rename-to-manager-phase3.md) — awaiting `build-daemon-rename-to-manager-phase2` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
-- [`port-xs-to-rust-memory-safe-engine-s4`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/port-xs-to-rust-memory-safe-engine-s4.md) — awaiting `xs2rust-endor-build-stage2` · Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 
 ## Watch set
