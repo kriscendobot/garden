@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-02T01:15:18Z_
+_As of 2026-07-02T01:28:32Z_
 
 ## Latest
 
@@ -67,34 +67,139 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > shepherd→fixer auto-chain. Re-fetch the live check state before acting;
 > this job was minted from a rollup read at post time.
 
+- `20260702T011322Z-7b9d48` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T011322Z-7b9d48.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr588-shepherd
+>
+> --- original job body ---
+> # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #588
+>
+> CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
+> Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
+> watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/588
+> Head: endojs/endo-but-for-bots (bot-pushable)
+>
+> Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
+> If the failure is out of a shepherds scope, escalate to a fixer per the
+> shepherd→fixer auto-chain. Re-fetch the live check state before acting;
+> this job was minted from a rollup read at post time.
+
+- `20260702T012313Z-f47566` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T012313Z-f47566.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: build-daemon-rename-to-manager
+>
+> --- original job body ---
+> # Build: rename `daemon.js` → `manager.js` (`Daemon`/`Mignonic` → `Manager`/`Worker`)
+>
+> Batch design→build dispatch for the **current active milestone (M3: Remote Access
+> and Coding Capabilities)** on the endo roadmap. This is the one M3 design that is
+> **ready to build** — design-complete, no unmet dependency, and no build in flight.
+>
+> Repo: **endojs/endo-but-for-bots**, base branch **`llm`**, **bot identity**
+> (kriscendobot / bot fork — bot-repo work only, no upstream `endojs/endo` touch).
+>
+> ## Design (blessed, merged)
+>
+> `designs/daemon-rename-to-manager.md` on `llm` (Status: Not Started; design landed
+> via merged PR #85). Align the JS orchestration layer's naming with the Rust
+> `endor` supervisor, which already calls this role the **manager**:
+>
+> - `packages/daemon/src/daemon.js` → `manager.js` (and peer `daemon-*.js` per the
+>   design's *File renames* table).
+> - Identifiers `Daemon`/`Daemonic` → `Manager`, and `MignonicPowers` →
+>   `WorkerPowers` (the exo tag `'EndoDaemonFacetForWorker'` renamed on both
+>   producer and consumer in the same package — no wire-compat window needed).
+> - The npm package `@endo/daemon` and the directory `packages/daemon/` **keep**
+>   their names; only the orchestration file and the `Daemon*` identifiers change.
+>
+> ## What to do
+>
+> Wear **designer** only if a short implementation delta is needed, then
+> **builder**; the standard researcher-precedes-builder chain and the gardening
+> state machine apply. Ground the work in the design's **Phased Implementation**:
+>
+> - **Phase 1** — file renames only (`git mv`, update `import` specifiers pointing
+>   at the renamed files, no identifier renames). Package builds, types check, tests
+>   pass. This is the safest, smallest-review slice — open the initial **DRAFT** PR
+>   on `llm` here.
+> - **Phase 2** — whole-word identifier renames (`Daemon`/`Daemonic` → `Manager`,
+>   `MignonicPowers` → `WorkerPowers`, exo tag). Independently mergeable; depends on
+>   Phase 1.
+> - **Phase 3** — sweep workspace consumers (small; most import unchanged names like
+>   `EndoHost`/`EndoGuest`/`EndoWorker`). Add the `@endo/daemon` CHANGELOG entry
+>   (`makeDaemon` → `makeManager`, exports otherwise unchanged; outright cut, no
+>   deprecated alias — no downstream consumers of `Daemon*` identifiers).
+>
+> ## Sequencing / collision note (read before pushing)
+>
+> `packages/daemon/*` is under heavy concurrent churn — ~40 open PRs (the mount
+> stack #135, the gateway-package stack #343/#388–#397/#409–#420, sturdyrefs #541,
+> etc.). A project-wide identifier rename will conflict with any of them that edit
+> `daemon.js` or `Daemon*` names. Mitigations, in order:
+>
+> - Keep the PR **DRAFT** and land **Phase 1 first** (mechanical, smallest surface),
+>   so review can sequence it against the in-flight daemon PRs rather than
+>   merge-storming them.
+> - Rebase on `llm` immediately before each push; expect to re-run the whole-word
+>   replace after a rebase.
+> - If the maintainer prefers to hold the rename until the daemon PRs quiesce,
+>   surface that on the PR and park — do not force it through against open work.
+>
+> ## Idempotency
+>
+> Deterministic basename `build-daemon-rename-to-manager` — a re-run of this batch
+> collides and no-ops.
+
+- `20260702T012536Z-ae5ece` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T012536Z-ae5ece.md)
+
+> self-heal: garden-mirror-closer exited rc=1 with no scoped fix. Capture: 7ac74681dabc4b3659b86196426c0bf74d0eadc8 (git -C /home/kris/.garden-state/self-heal/journal cat-file -p 7ac74681dabc4b3659b86196426c0bf74d0eadc8). Diagnosis: You've hit your session limit · resets 2:10am (UTC)
+
+- `20260702T012803Z-4e1d80` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T012803Z-4e1d80.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr250-shepherd
+>
+> --- original job body ---
+> # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
+>
+> CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
+> Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
+> watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/250
+> Head: endojs/endo-but-for-bots (bot-pushable)
+>
+> Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
+> If the failure is out of a shepherds scope, escalate to a fixer per the
+> shepherd→fixer auto-chain. Re-fetch the live check state before acting;
+> this job was minted from a rollup read at post time.
+
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (34)
-- [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — Build: rename daemon.js → manager.js (Daemon/Mignonic → Manager/Worker)
+### doin (25)
 - [`endojs-endo-but-for-bots-pr101-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr101-weaver.md) — weaver (rebase stale base) on endojs/endo-but-for-bots PR #101
 - [`endojs-endo-but-for-bots-pr216-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr216-weave.md) — weave (rebase) endojs/endo-but-for-bots PR #216 onto base llm
 - [`endojs-endo-but-for-bots-pr235-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr235-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #235
 - [`endojs-endo-but-for-bots-pr242-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr242-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #242
-- [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
 - [`endojs-endo-but-for-bots-pr301-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr301-weave.md) — weave (rebase/conflict-resolve) on endojs/endo-but-for-bots PR #301
 - [`endojs-endo-but-for-bots-pr306-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr306-weaver.md) — weaver (rebase/conflict-resolution) on endojs/endo-but-for-bots PR #306
 - [`endojs-endo-but-for-bots-pr313-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr313-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #313
-- [`endojs-endo-but-for-bots-pr316-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr316-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #316
 - [`endojs-endo-but-for-bots-pr318-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr318-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #318
 - [`endojs-endo-but-for-bots-pr320-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr320-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #320
-- [`endojs-endo-but-for-bots-pr324-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr324-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #324
-- [`endojs-endo-but-for-bots-pr335-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr335-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #335
 - [`endojs-endo-but-for-bots-pr337-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #337
 - [`endojs-endo-but-for-bots-pr377-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr377-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #377
-- [`endojs-endo-but-for-bots-pr393-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr393-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #393
 - [`endojs-endo-but-for-bots-pr394-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr394-fixer.md) — fixer (shepherd escalation) on endojs/endo-but-for-bots PR #394
-- [`endojs-endo-but-for-bots-pr410-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr410-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #410
-- [`endojs-endo-but-for-bots-pr420-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr420-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #420
 - [`endojs-endo-but-for-bots-pr438-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr438-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #438
-- [`endojs-endo-but-for-bots-pr475-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr475-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #475
 - [`endojs-endo-but-for-bots-pr541-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr541-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #541
 - [`endojs-endo-but-for-bots-pr585-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr585-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #585
 - [`endojs-endo-but-for-bots-pr590-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr590-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #590
