@@ -1,7 +1,0 @@
-In scripts/jobs/clone-keeper.sh, change keep_clone()'s missing-clone branch (the `if ! git -C "$abs" rev-parse --git-dir` block that currently logs `WARN: tracked clone $dir is missing … skipping` and returns 0) to PROVISION the bare clone instead of skipping forever. When the tracked clone dir is absent, derive the upstream URL deterministically from the dir basename `<owner>-<name>.git` → `https://github.com/<owner>/<name>.git`, run `git clone --bare <url> <abs>` (wrapped in `timeout GARDEN_FETCH_TIMEOUT` with the same backoff/retry budget bounded_fetch uses, so a hung clone is reaped like a hung fetch), then set the fetch refspec `git -C "$abs" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'` exactly as ensure-project-worktree.sh's error message prescribes, and fall through to the normal fetch+fast-forward path. Log a loud one-line `provisioned missing clone <dir> from <url>` on success and leave the WARN-and-skip only as the fallback when the URL cannot be derived or the clone fails (offline). This makes the standing bare clones — which the whole library fleet reads upstream history from — self-healing, closing the exact silent-missing gap the script's own header worries about. Add a case to scripts/jobs/test/clone-keeper-test.sh asserting a missing tracked-clone dir gets provisioned (mock the clone via a local file:// source so the test stays offline).
-
----
-claim:
-  host: endolinbot2
-  gardener: 20
-  claimed_at: 2026-07-02T19:52:16Z
