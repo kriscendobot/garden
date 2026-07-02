@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T00:06:07Z_
+_As of 2026-07-02T00:07:08Z_
 
 ## Latest
 
-A build kicked off to rename the daemon module (`daemon.js` → `manager.js`, Daemon/Mignonic → Manager/Worker), now in flight alongside six other active gardener jobs — factoring `watchDirectory` into `@endo/platform`, the orchestration-job pattern, the comment-watcher directive-to-job widening, an endo-roadmap groom, and Cloudflare Workers-for-Platforms scholar ingestion. Recently landed: the scholar's Cloudflare W4P reference ingestion (both the initial and remainder passes), a repo-watcher self-heal fix for a missing template, a board refresh, and the inter-package re-exports mechanical-repoint follow-up cleanup on [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548). Nothing new is parked for review — the maintainer queue still leads with the passable-byte-arrays work in [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) and the EndoRegistry capability in [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403).
+The batch design→build dispatch for the current active milestone [completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dispatch-next-batch-build-jobs-for-ready-designs-current-milestone.md), clearing the last active claim into `tada` and leaving `todo` empty. Six jobs remain in flight — the daemon→manager rename, the `watchDirectory`→`@endo/platform` factoring, the orchestration-job pattern build, the comment-watcher directive-to-job widening, the endo-roadmap groom, and the Cloudflare Workers-for-Platforms scholar ingest — but none advanced this cycle. Nothing new landed for maintainer review; the freshest items still parked are [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 1d) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 2d).
 
 ## Parked for maintainer feedback
 
@@ -28,22 +28,21 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — Build: rename daemon.js → manager.js (Daemon/Mignonic → Manager/Worker)
-- [`dispatch-next-batch-build-jobs-for-ready-designs-current-milestone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dispatch-next-batch-build-jobs-for-ready-designs-current-milestone.md) — Dispatch build jobs for the next batch of ready-to-build designs (current act...
 - [`factor-watchdirectory-to-endo-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/factor-watchdirectory-to-endo-platform.md) — Factor watchDirectory out of the daemon into @endo/platform
 - [`garden-build-orchestration-job-pattern-sequence-and-watch-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-build-orchestration-job-pattern-sequence-and-watch-children.md) — Build the orchestration-job pattern: an orchestrator that sequences planned s...
 - [`garden-encode-directives-reliably-become-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-directives-reliably-become-jobs.md) — Widen the comment-watcher: actionable maintainer directives reliably become J...
 - [`groom-refine-endo-roadmap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/groom-refine-endo-roadmap.md) — Groom: refine the endo roadmap
 - [`scholar-ingest-cloudflare-w4p-references`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-w4p-references.md) — Scholar: ingest Cloudflare Workers for Platforms — reference pages
 
-### tada (831)
+### tada (832)
+- [`dispatch-next-batch-build-jobs-for-ready-designs-current-milestone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dispatch-next-batch-build-jobs-for-ready-designs-current-milestone.md) — Completion report — batch design→build dispatch for the current active milestone
 - [`scholar-ingest-cloudflare-w4p-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-w4p-remainder.md) — Completion report
 - [`botanist-refresh-the-board`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/botanist-refresh-the-board.md) — What I did
 - [`scholar-ingest-cloudflare-workers-for-platforms`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-workers-for-platforms.md) — Completion report
 - [`improve-repo-watcher-self-heal-missing-template`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-repo-watcher-self-heal-missing-template.md) — Completion report
-- [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Completion report
-- … and 826 more
+- … and 827 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
