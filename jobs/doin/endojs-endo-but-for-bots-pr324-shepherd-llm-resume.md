@@ -20,3 +20,9 @@ Provenance: `resume-lint-ceiling-shepherds-llm` (the llm half of the split lint-
 directive, kriskowal 2026-07-02). Source fix: `ebfb-594-fresh-llm-pr-merge` (PR #597 on llm).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 35
+  claimed_at: 2026-07-02T10:14:25Z
