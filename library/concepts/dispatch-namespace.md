@@ -17,6 +17,9 @@ In Cloudflare Workers for Platforms, the **dispatch namespace** is the container
 | [Worker isolation: untrusted (default) versus trusted mode](../sections/cloudflare-w4p--worker-isolation--modes.md) | The namespace's untrusted/trusted isolation modes. |
 | [Get started: deploy a Workers for Platforms starter kit](../sections/cloudflare-w4p--get-started--overview.md) | The template creates a dispatch namespace automatically; the dispatch Worker routes into it by name. |
 | [Observability: namespace-wide logs via Logpush and Tail Workers](../sections/cloudflare-w4p--configuration-observability--logs.md) | Logpush/Tail Workers enabled on the dispatch Worker collect logs for every user Worker in the namespace. |
+| [Local development: test the dispatch Worker locally against a remote namespace](../sections/cloudflare-w4p--local-development--overview.md) | Point the local dispatch Worker at a remote namespace's deployed user Workers with remote = true. |
+| [API examples: deploy a user Worker, and deploy with bindings and tags](../sections/cloudflare-w4p--platform-examples--deploy-and-manage.md) | Uploading a user Worker into the namespace via the REST API / SDK, with optional bindings and tags. |
+| [API examples: list Workers in a namespace, delete by tag, and delete a single Worker](../sections/cloudflare-w4p--platform-examples--list-and-delete.md) | Enumerating and removing the namespace's user Workers, including tag-scoped bulk delete. |
 
 ## See also
 
