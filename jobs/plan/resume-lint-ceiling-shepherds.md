@@ -41,12 +41,36 @@ should pass on rebase; the shepherd handles any other still-red checks and re-es
 genuinely different, out-of-shepherd-scope failure remains. Each shepherd re-fetches live PR state,
 so any PR that has since merged/closed is a fast no-op — safe to include.
 
-## Blocked PRs to resume (29; still-open as of 2026-07-02, consolidated from reaper POISON reports)
+## Scope narrowed 2026-07-02: this plan now covers the `master` + feature-branch subset only
 
-#60 #79 #96 #101 #235 #242 #250 #301 #306 #313 #316 #318 #320 #324 #335 #337 #377 #393 #410 #420 #438 #475 #541 #581 #585 #590 #591 #592 #593
+The **15 `llm`-based** PRs were split out to **`resume-lint-ceiling-shepherds-llm`** (blocked on the
+`llm` fix job `ebfb-594-fresh-llm-pr-merge`), per the maintainer's "llm now, master after the
+decision" directive: the `llm` branch gets its lint fix immediately, so those resume without waiting
+on `master`. This plan retains only the PRs that genuinely wait on the `master` lint landing.
 
-(#590 and #581 are the two the fix report explicitly expects to go green on rebase; #592 is the PR
-whose shepherd escalated the ceiling to the liaison rather than poisoning.)
+Note the `master` fix is **not guaranteed to be #594 as-is**: its final form is under an
+evidence-based decision (bucket vs. shard) in job `ebfb-lint-master-strategy-evidence`, which will
+land the fix on `master` (possibly via a different PR). The guard above still holds: if #594 is
+closed in favor of that other PR, `unblock` fires on the close, so re-check that `master` actually
+lints clean before resuming; otherwise re-park.
+
+## `master`-based PRs to resume (9; open as of 2026-07-02)
+
+#60 #79 #96 #235 #250 #337 #377 #438 #475
+
+(Bases: live `master`, or `master-<sha>` frozen snapshots for #79/#96/#377/#438 — the shepherd
+rebases onto live fixed `master`.)
+
+## Feature-branch-stacked PRs (5; need their base branch fixed first — do NOT plain-rebase)
+
+#393 #410 #420 (base `design/gateway-package-phase-*`) #541 (base `build/sturdyrefs-pass-style-ocapn`)
+#591 (base `refactor/inter-package-far-repoint-deprecate`)
+
+These are stacked on feature branches, not `master`/`llm` directly, so a rebase onto fixed `master`
+is wrong — their `lint` clears only once **their own base branch carries the fix** (merge-forward the
+fixed `master`/`llm` into the feature branch, or the stack is re-based when its parent PR merges).
+When resuming, shepherd these only after confirming their base branch lints clean; otherwise leave
+parked and note the base dependency.
 
 ## Provenance
 
