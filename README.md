@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T23:51:27Z_
+_As of 2026-07-02T23:54:57Z_
 
 ## Latest
 
-The headline is a live infrastructure incident: on the true leader host, a stale `/home/kris/.garden` file resolves `GARDEN=endolinbot2` while `hostname -s` and the leader marker both say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped — and all 276 recent gardener entries are mislabeled `endolinbot2`. The fix is operational and out of a gardener's scope: either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2`, then restart the fleet. The same drift compounded a Claude quota outage that poisoned five garden-infra jobs (identity drift-detector, gardener transient-failure backoff, issue-inbox git reaping, repo-watcher arm-retry, and the daemon→manager rename build), all dropped by the reaper after 5 requeue cycles and now surfaced to your inbox.
+The board itself was quiet — the only transition was the completion of `improve-clone-keeper-bootstrap-missing-clone` — but two operational and two design items warrant kriskowal's attention. The headline is a **live infrastructure incident**: a gardener investigating the recent poisonings found that this leader host's `/home/kris/.garden` still resolves to `endolinbot2` while the leader marker names `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, maintainer-inbox Monitor) is being silently skipped — and all recent gardener entries are mislabeling per-host state. The fix is a one-line correction to `.garden` (or re-pointing the marker) plus a fleet restart; it is out of a gardener's autonomous scope and awaits your hand. This same drift compounded the five garden-infra jobs the reaper poisoned during the 2026-07-01/07-02 Claude quota outage (identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm retry) — all now surfaced to your inbox as improvement candidates.
 
-Two disposition calls also await you: [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) has @gibson042 rebutting the freezable-TypedArray design's "Why not a Proxy wrapper?" section and asking you and @erights to weigh in on plain-object-vs-Proxy; and shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed — its error-tracing feature already landed on `llm` via #58 — and recommends closing it rather than rebasing. On the board, the only transition was a clone-keeper self-heal job (`improve-clone-keeper-bootstrap-missing-clone`) getting claimed.
+Two PRs need a disposition call. On [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (freezable-TypedArray design doc), @gibson042 rebuts all three arguments in the "Why not a Proxy wrapper?" section and asks you and @erights to weigh in on plain-object-vs-Proxy for the emulated view — a genuine tradeoff a bot won't decide. And a shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is not lint-blocked but **subsumed**: its error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to near-empty — recommend closing as superseded, with only two small refactors (`error-id.js`, `trace-constants.js`) worth salvaging in a fresh PR if wanted. Reviews on [#475](https://github.com/endojs/endo-but-for-bots/pull/475) and #472 completed, and the daemon→manager rename Phase 1 landed as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598) with Phases 2 and 3 parked and blocked behind it.
 
 ## Parked for maintainer feedback
 
@@ -241,16 +241,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-clone-keeper-bootstrap-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-bootstrap-missing-clone.md) — In scripts/jobs/clone-keeper.sh, make a missing tracked bare clone self-heal ...
+### doin (0)
+(none)
 
-### tada (972)
+### tada (973)
+- [`improve-clone-keeper-bootstrap-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-bootstrap-missing-clone.md) — Completion report
 - [`improve-ci-rollup-transient-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-transient-retry.md) — The requested work is already present in the worktree's HEAD (origin/main2), ...
 - [`improve-clone-keeper-self-provision-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-self-provision-missing-clone.md) — Completion report
 - [`endojs-endo-but-for-bots-pr475-review-5cc27151`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr475-review-5cc27151.md) — Completion report
 - [`endojs-endo-but-for-bots-pr472-review-72d18f86`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr472-review-72d18f86.md) — Completion report
-- [`port-xs-to-rust-memory-safe-engine-s4`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine-s4.md) — Supervisor s4 completion report — xs2rust-endor port, PR endojs/endo-but-for-...
-- … and 967 more
+- … and 968 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
