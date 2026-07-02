@@ -34,3 +34,9 @@ PR #594's **current head `3473f5df2`** implementation of the typescript-eslint p
 ## Definition of done
 
 A fresh PR based on `llm` carrying #594's bucketed lint fix is **opened and merged** (merge commit), its `scripts/eslint-repo.sh` is the bucketed version reconciled with #596, lint is verified green on `llm` with cited evidence, a summary comment is posted, and a journal `result` records the merge. No master/#594 changes.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 80
+  claimed_at: 2026-07-02T09:47:43Z
