@@ -1,10 +1,4 @@
----
-gate: blocked
-blocked_on: https://github.com/endojs/endo-but-for-bots/pull/284
-priority: normal
-posted_by: producer
-posted_at: 2026-06-28T16:25:23Z
----
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-07-02T14:39:31Z -->
 
 # PLAN (follow-on, re-parked): add a retention-paths table to the formula inspector
 
