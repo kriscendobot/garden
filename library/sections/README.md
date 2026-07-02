@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 6067 (525 parent indexes + 5542 children).
+Total section files: 6073 (525 parent indexes + 5548 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -585,6 +585,14 @@ Total section files: 6067 (525 parent indexes + 5542 children).
 - [cloudflare-w4p--how-it-works--request-lifecycle](cloudflare-w4p--how-it-works--request-lifecycle.md)
 - [cloudflare-w4p--how-it-works--user-workers](cloudflare-w4p--how-it-works--user-workers.md)
 
+### cloudflare-w4p--limits
+
+- [cloudflare-w4p--limits--overview](cloudflare-w4p--limits--overview.md)
+
+### cloudflare-w4p--local-development
+
+- [cloudflare-w4p--local-development--overview](cloudflare-w4p--local-development--overview.md)
+
 ### cloudflare-w4p--outbound-workers
 
 - [cloudflare-w4p--outbound-workers--overview](cloudflare-w4p--outbound-workers--overview.md)
@@ -592,6 +600,16 @@ Total section files: 6067 (525 parent indexes + 5542 children).
 ### cloudflare-w4p--overview
 
 - [cloudflare-w4p--overview--overview](cloudflare-w4p--overview--overview.md)
+
+### cloudflare-w4p--platform-examples
+
+- [cloudflare-w4p--platform-examples--deploy-and-manage](cloudflare-w4p--platform-examples--deploy-and-manage.md)
+- [cloudflare-w4p--platform-examples--list-and-delete](cloudflare-w4p--platform-examples--list-and-delete.md)
+- [cloudflare-w4p--platform-examples--static-assets](cloudflare-w4p--platform-examples--static-assets.md)
+
+### cloudflare-w4p--pricing
+
+- [cloudflare-w4p--pricing--overview](cloudflare-w4p--pricing--overview.md)
 
 ### cloudflare-w4p--tags
 
