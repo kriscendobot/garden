@@ -59,3 +59,9 @@ each control surface, then "how it works" last.
   commands/paths exist before documenting them; don't invent. If it exceeds one cycle, land a coherent
   first pass and **post a follow-on** naming the remaining sections rather than truncating silently.
 - Supersedes the standing "refresh the garden README once services settle" note.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 2
+  claimed_at: 2026-07-02T09:52:31Z
