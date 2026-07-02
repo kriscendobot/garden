@@ -24,3 +24,9 @@ After the rebase lands and CI dispatches, the previously-red checks should go gr
 
 Provenance: auto-dispatched shepherd (endojs-endo-but-for-bots-pr598-shepherd) handoff, next: weaver.
 Standing comment auth applies.
+
+---
+claim:
+  host: endolinbot
+  gardener: 34
+  claimed_at: 2026-07-02T14:43:43Z
