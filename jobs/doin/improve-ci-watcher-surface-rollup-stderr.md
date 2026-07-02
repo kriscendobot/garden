@@ -1,7 +1,0 @@
-In `scripts/jobs/ci-watcher.sh` at the rollup-read call (line ~201), stop discarding the handler's stderr. Currently `"$GARDEN_CI_ROLLUP" "$repo" "$pr" >/dev/null 2>&1; rrc=$?` throws away the diagnostic the handler (`handlers/ci-rollup-gh.sh`) deliberately writes ("gh pr view $repo#$pr failed — cannot read CI state", "empty PR state", etc.). Capture stderr to a temp/var and, on the unreadable-state branch (`*)` case at line ~207), include the first stderr line in the WARN, e.g. `WARN: #$pr rollup unreadable (rc=$rrc): <first stderr line> — skipping`. This restores diagnosability so a mass failure's actual cause (403 secondary rate limit vs. expired auth vs. network) is visible in `journalctl` instead of 150 identical opaque lines. This is the exact silent-failure discipline the handler header cites (the 2026-06-24 jq-outage lesson) but the caller defeats.
-
----
-claim:
-  host: endolinbot2
-  gardener: 45
-  claimed_at: 2026-07-02T03:52:03Z
