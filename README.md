@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-07-02T01:35:27Z_
+_As of 2026-07-02T01:35:53Z_
 
 ## Latest
 
@@ -359,6 +359,27 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
 >
 > PR: https://github.com/endojs/endo-but-for-bots/pull/235
+> Head: endojs/endo-but-for-bots (bot-pushable)
+>
+> Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
+> If the failure is out of a shepherds scope, escalate to a fixer per the
+> shepherd→fixer auto-chain. Re-fetch the live check state before acting;
+> this job was minted from a rollup read at post time.
+
+- `20260702T013458Z-00d834` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T013458Z-00d834.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr242-shepherd
+>
+> --- original job body ---
+> # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #242
+>
+> CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
+> Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
+> watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/242
 > Head: endojs/endo-but-for-bots (bot-pushable)
 >
 > Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
