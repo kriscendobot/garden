@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T00:04:45Z_
+_As of 2026-07-02T00:05:44Z_
 
 ## Latest
 
-Board movement was quiet this cycle: a scholar picked up the [Cloudflare Workers for Platforms reference ingest](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-w4p-references.md), a follow-on to the just-completed [W4P overview ingest](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-workers-for-platforms.md). Recently landed work includes the [endo-but-for-bots#548](https://github.com/endojs/endo-but-for-bots/pull/548) inter-package re-exports mechanical repoint (follow-up removal), a repo-watcher self-heal for missing unit templates, and an investigation of the proposals-matrix build failure on the `kriscendobot/agoric-3-proposals` fork PR #1. Seven jobs remain in flight — a build-dispatch batch for ready designs, the watchDirectory→`@endo/platform` factoring, and roadmap grooming among them. Maintainer attention is still owed on 27 parked PRs, the freshest being [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 1d) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 2d).
+Only one item cleared the board since the last bulletin: the scholar finished ingesting the remainder of the Cloudflare Workers-for-Platforms reference set, completing that multi-part research sweep. Six jobs remain in flight — including the watchDirectory→@endo/platform factoring, the build-orchestration-job pattern, widening the comment-watcher so maintainer directives reliably become jobs, and an endo-roadmap grooming pass — but none reached completion this cycle. Nothing new is parked; the review queue still leads with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) awaiting kriskowal's eyes.
 
 ## Parked for maintainer feedback
 
@@ -28,22 +28,21 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (6)
 - [`dispatch-next-batch-build-jobs-for-ready-designs-current-milestone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/dispatch-next-batch-build-jobs-for-ready-designs-current-milestone.md) — Dispatch build jobs for the next batch of ready-to-build designs (current act...
 - [`factor-watchdirectory-to-endo-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/factor-watchdirectory-to-endo-platform.md) — Factor watchDirectory out of the daemon into @endo/platform
 - [`garden-build-orchestration-job-pattern-sequence-and-watch-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-build-orchestration-job-pattern-sequence-and-watch-children.md) — Build the orchestration-job pattern: an orchestrator that sequences planned s...
 - [`garden-encode-directives-reliably-become-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-encode-directives-reliably-become-jobs.md) — Widen the comment-watcher: actionable maintainer directives reliably become J...
 - [`groom-refine-endo-roadmap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/groom-refine-endo-roadmap.md) — Groom: refine the endo roadmap
 - [`scholar-ingest-cloudflare-w4p-references`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-w4p-references.md) — Scholar: ingest Cloudflare Workers for Platforms — reference pages
-- [`scholar-ingest-cloudflare-w4p-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-w4p-remainder.md) — Scholar: ingest Cloudflare Workers for Platforms — remainder pages
 
-### tada (830)
+### tada (831)
+- [`scholar-ingest-cloudflare-w4p-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-w4p-remainder.md) — Completion report
 - [`botanist-refresh-the-board`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/botanist-refresh-the-board.md) — What I did
 - [`scholar-ingest-cloudflare-workers-for-platforms`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-workers-for-platforms.md) — Completion report
 - [`improve-repo-watcher-self-heal-missing-template`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-repo-watcher-self-heal-missing-template.md) — Completion report
 - [`ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr548-inter-package-re-exports-mechanical-repoint-remove-followup.md) — Completion report
-- [`agoric-3-proposals-pr1-investigate-proposals-matrix-test-build`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/agoric-3-proposals-pr1-investigate-proposals-matrix-test-build.md) — Completion report: proposals-matrix-test / build on kriscendobot/agoric-3-pro...
-- … and 825 more
+- … and 826 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
