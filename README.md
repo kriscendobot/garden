@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T22:22:02Z_
+_As of 2026-07-02T22:23:33Z_
 
 ## Latest
 
-A live host-identity incident tops the queue: the `endolinbot2` `GARDEN` override is still active on the true leader host, so `is-main-host` resolves to FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped while 276 recent gardener entries mislabel per-host state as `endolinbot2`. The fix is operational and out of a gardener's scope — either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2` and record the override, then restart the fleet. This same drift compounded a Claude quota outage on 07-01/07-02 that poisoned five garden-infra improvement jobs (identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm-retry, and the daemon→manager rename build), all dropped by the reaper after five requeue cycles and now parked in the maintainer inbox for a disposition.
-
-Two dispositions await a call. Shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) is not lint-blocked but **subsumed** — its feature already re-landed on `llm` via the merged [#58](https://github.com/endojs/endo-but-for-bots/pull/58), collapsing a rebase to essentially empty; recommendation is to CLOSE, optionally spinning off the two small unique refactors (`error-id.js`, `trace-constants.js`) as a fresh PR. Separately, the daemon→manager rename advanced: Phase 1 landed as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phase 2 (identifier renames) and Phase 3 (consumer sweep) blocked behind it. Otherwise the board is quiet — only the CI-rollup transient-network-retry job moved, claimed into `doin`.
+The one board completion this window was [`improve-ci-rollup-retry-transient-network-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-retry-transient-network-error.md), a CI-rollup retry hardening for transient network errors. The signal worth a maintainer's attention, though, sits in the inbox. A gardener surfaced a **live incident**: the `endolinbot2` host-identity drift is still active on the true leader host — `/home/kris/.garden` reads `endolinbot2` while the leader marker names `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped, with 276 recent gardener entries mislabeled. The fix is operational and out of a gardener's scope: either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2`, then restart the fleet. This same drift compounded five garden-infra jobs the reaper poisoned during the Claude-quota outage (identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm retry, and the daemon→manager rename build) — all now parked as unread maintainer messages needing a disposition. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is **subsumed, not lint-blocked**: its error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to an empty PR — the shepherd recommends closing it (optionally extracting `error-id.js`/`trace-constants.js` as a fresh small PR) and awaits your call. Meanwhile the daemon→manager rename advanced: Phase 1 landed as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), with Phases 2 and 3 parked and blocked on it.
 
 ## Parked for maintainer feedback
 
@@ -205,17 +203,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-ci-rollup-retry-transient-network-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-rollup-retry-transient-network-error.md) — In scripts/jobs/handlers/ci-rollup-gh.sh (line ~47), a single gh pr view … --...
+### doin (1)
 - [`port-xs-to-rust-memory-safe-engine-s4`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s4.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
-### tada (966)
+### tada (967)
+- [`improve-ci-rollup-retry-transient-network-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-retry-transient-network-error.md) — Completion report
 - [`improve-clone-keeper-provisions-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-provisions-missing-clone.md) — Completion report
 - [`endojs-endo-but-for-bots-pr594-0d2956f9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr594-0d2956f9.md) — Completion report
 - [`issue-kriskowal-garden-23`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/issue-kriskowal-garden-23.md) — Completion report
 - [`xs2rust-endor-fix-stage1-review`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-fix-stage1-review.md) — Completion report
-- [`improve-clone-keeper-self-provision`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-self-provision.md) — Completion report
-- … and 961 more
+- … and 962 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
