@@ -12,6 +12,8 @@ Provenance: liaison residual sweep of the reaper POISON backlog (not in the resu
 
 <!-- garden-reaped: 3 -->
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot
