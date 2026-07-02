@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T10:12:12Z_
+_As of 2026-07-02T10:16:14Z_
 
 ## Latest
 
-The garden README landed on `main`, [rewritten](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/rewrite-garden-readme-usage-tutorial-fable.md) as a graduated usage tutorial. The headline for the maintainer is a **live infrastructure incident**: an investigation into five poisoned garden-infra jobs surfaced that the `endolinbot2` host-identity drift is still active on the true leader — `/home/kris/.garden` reads `endolinbot2` while the leader marker and `hostname -s` say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped, with 276 recent gardener entries mislabeled. The fix is operational and out of a gardener's scope: correct `/home/kris/.garden` to `endolinbot` (or re-point the marker and record a parallel-pool override) then restart the fleet. That drift was also the compounding factor behind the five poisonings during the 2026-07-01→07-02 Claude quota outage; three of the dropped infra jobs have since been re-completed ([identity-drift-detector](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-garden-identity-drift-detector.md) sharpened to fire loudly on tick 1, [issue-inbox child-git reaping](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-issue-inbox-child-git-reaping.md), [repo-watcher arm-retry](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-repo-watcher-arm-retry.md)).
+A live infrastructure incident is the headline: a gardener investigating the five poisoned garden-infra jobs found the `endolinbot2` host-identity drift is **still active on the leader host** — `common.sh` resolves `GARDEN=endolinbot2` from `/home/kris/.garden` while the leader marker names `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped on the true leader. The fix is out of a gardener's autonomous scope and needs a maintainer's hand: either `echo endolinbot > /home/kris/.garden` or re-point the marker to `endolinbot2` and record the parallel-pool override, then restart the fleet. The same drift was the compounding factor behind the five reaper-poisoned jobs (dropped after 5 requeue cycles during the Claude quota outage) — build-daemon-rename-to-manager plus four infra improvements (identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm retry) — several of which have since been re-posted or re-verified.
 
-Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing across CapTP workers) is **subsumed, not lint-blocked** — the feature already re-landed on `llm` via merged #58, so a rebase collapses to an essentially empty PR; it recommends closing #301 and awaits your call on whether to extract the two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh PR. A large batch of lint-ceiling shepherd resumes is now in flight across endo-but-for-bots (#101, #242, #306, #313, #316, #318, #320, #324, #335, #581, #585, #588, #590, #592, #593).
+The shepherd resume of [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) surfaced a disposition call rather than a lint fix: the PR's entire error-tracing feature has already independently landed on `llm` via the merged [#58](https://github.com/endojs/endo-but-for-bots/pull/58), so a rebase collapses to a near-empty PR — recommended CLOSE as superseded, with only two small refactors (a shared `error-id.js` and `trace-constants.js` sentinels) worth extracting as a fresh builder PR. Completions this window include the [#394](https://github.com/endojs/endo-but-for-bots/pull/394) Node-20 panic CI-crash investigation, the garden README rewritten as a graduated usage tutorial (landed on `main`), and the resume-lint-ceiling shepherd batch; roughly a dozen `llm` lint-ceiling shepherd resumes remain in flight.
 
 ## Parked for maintainer feedback
 
@@ -205,7 +205,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (20)
+### doin (19)
 - [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — Build: rename daemon.js → manager.js (Daemon/Mignonic → Manager/Worker)
 - [`ebfb-lint-master-strategy-evidence`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-lint-master-strategy-evidence.md) — scout/investigator: evidence-based decision on the master-side lint strategy
 - [`endojs-endo-but-for-bots-pr101-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr101-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #101 (llm lint-ceiling resume)
@@ -217,7 +217,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr320-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr320-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #320 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr324-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr324-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #324 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr335-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr335-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #335 (llm lint-ceiling resume)
-- [`endojs-endo-but-for-bots-pr394-investigate`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr394-investigate.md) — investigator on endojs/endo-but-for-bots PR #394 (Node-20 panic test failure;...
 - [`endojs-endo-but-for-bots-pr581-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr581-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #581 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr585-shepherd-llm-resume`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr585-shepherd-llm-resume.md) — shepherd on endojs/endo-but-for-bots PR #585 (llm lint-ceiling resume)
 - [`endojs-endo-but-for-bots-pr588-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr588-shepherd.md) — shepherd on endojs/endo-but-for-bots PR #588 (llm lint-ceiling resume)
@@ -227,13 +226,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`improve-gardener-transient-failure-backoff-and-fleet-brake`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-transient-failure-backoff-and-fleet-brake.md) — Re-verification (investigator, 2026-07-02)
 - [`rework-poison-park-and-dedup`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/rework-poison-park-and-dedup.md) — garden-infra: POISON handling — park the job in plan/ and dedup the maintaine...
 
-### tada (904)
+### tada (905)
+- [`endojs-endo-but-for-bots-pr394-investigate`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr394-investigate.md) — Completion report: investigator on PR #394 (Node-20 panic CI crash)
 - [`rewrite-garden-readme-usage-tutorial-fable`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/rewrite-garden-readme-usage-tutorial-fable.md) — The garden README is rewritten as a graduated usage tutorial and landed on ma...
 - [`resume-lint-ceiling-shepherds-llm`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/resume-lint-ceiling-shepherds-llm.md) — Completion report — resume-lint-ceiling-shepherds-llm
 - [`investigate-poisoned-garden-infra-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-poisoned-garden-infra-jobs.md) — Completion report
 - [`improve-repo-watcher-arm-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-repo-watcher-arm-retry.md) — Completion report
-- [`improve-issue-inbox-child-git-reaping`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-issue-inbox-child-git-reaping.md) — Completion report
-- … and 899 more
+- … and 900 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
