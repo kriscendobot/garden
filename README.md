@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T00:51:49Z_
+_As of 2026-07-02T00:58:12Z_
 
 ## Latest
 
-The [endo-but-for-bots#592](https://github.com/endojs/endo-but-for-bots/pull/592) shepherd closed with an escalation worth the maintainer's attention: the PR is green on 24 of 25 checks, blocked solely by the known typescript-eslint `projectService` scaling ceiling (the `packages/zip` parsing errors), which the shepherd traced to the `llm` baseline already sitting at the ceiling rather than to this 6-file diff. The same failure is now live on [#590](https://github.com/endojs/endo-but-for-bots/pull/590) and #593, so the shepherd recommends a dedicated lint-infra job rather than bundling a fix into any refactor PR — a decision left to the maintainer. Meanwhile a large fleet-wide sweep swept red-CI PRs into shepherding (roughly three dozen claims now in flight, from [#60](https://github.com/endojs/endo-but-for-bots/pull/60) through [#591](https://github.com/endojs/endo-but-for-bots/pull/591)), and shepherds completed on [#111](https://github.com/endojs/endo-but-for-bots/pull/111), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), [#389](https://github.com/endojs/endo-but-for-bots/pull/389), [#412](https://github.com/endojs/endo-but-for-bots/pull/412), and [#581](https://github.com/endojs/endo-but-for-bots/pull/581), alongside a weave on [#395](https://github.com/endojs/endo-but-for-bots/pull/395). Also parked for a call: a follow-up flags whether recurring board audits should live on `foreman`/`watchman` or a new script rather than as a `botanist` responsibility.
+A wave of shepherd runs closed out: [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#262](https://github.com/endojs/endo-but-for-bots/pull/262), [#306](https://github.com/endojs/endo-but-for-bots/pull/306), [#394](https://github.com/endojs/endo-but-for-bots/pull/394), [#395](https://github.com/endojs/endo-but-for-bots/pull/395), and [#409](https://github.com/endojs/endo-but-for-bots/pull/409), and the [#389](https://github.com/endojs/endo-but-for-bots/pull/389) weave landed. [#394](https://github.com/endojs/endo-but-for-bots/pull/394) escalated shepherd→fixer, while [#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [#306](https://github.com/endojs/endo-but-for-bots/pull/306) were handed to a weaver to rebase their stale bases. Four garden-infra fixes were also posted and claimed — a host-identity drift detector, gardener transient-failure backoff / fleet brake, issue-inbox child-git reaping, and repo-watcher arm-retry.
+
+Two items want a maintainer eye. First, [#592](https://github.com/endojs/endo-but-for-bots/pull/592) is green on 24 of 25 checks but red on `lint` from the known typescript-eslint projectService scaling ceiling — the failure lands in `packages/zip`, which this 6-file platform/daemon PR never touches, meaning the `llm` baseline is already at the ceiling; the same wall now blocks [#590](https://github.com/endojs/endo-but-for-bots/pull/590) and [#593](https://github.com/endojs/endo-but-for-bots/pull/593), so it likely wants its own lint-infra job rather than being folded into any refactor. Second, the botanist board-audit report asks whether recurring board audits should become a standing capability, and if so whether to build them on foreman/watchman or a new script — an architecture call before any work is posted.
 
 ## Parked for maintainer feedback
 
@@ -49,18 +51,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (37)
+### doin (38)
 - [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — Build: rename daemon.js → manager.js (Daemon/Mignonic → Manager/Worker)
-- [`endojs-endo-but-for-bots-pr101-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr101-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #101
+- [`endojs-endo-but-for-bots-pr101-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr101-weaver.md) — weaver (rebase stale base) on endojs/endo-but-for-bots PR #101
 - [`endojs-endo-but-for-bots-pr216-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr216-weave.md) — weave (rebase) endojs/endo-but-for-bots PR #216 onto base llm
 - [`endojs-endo-but-for-bots-pr235-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr235-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #235
 - [`endojs-endo-but-for-bots-pr239-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr239-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #239
 - [`endojs-endo-but-for-bots-pr242-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr242-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #242
 - [`endojs-endo-but-for-bots-pr250-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr250-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #250
-- [`endojs-endo-but-for-bots-pr262-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr262-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #262
 - [`endojs-endo-but-for-bots-pr286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr286-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #286
 - [`endojs-endo-but-for-bots-pr301-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr301-weave.md) — weave (rebase/conflict-resolve) on endojs/endo-but-for-bots PR #301
-- [`endojs-endo-but-for-bots-pr306-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr306-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #306
+- [`endojs-endo-but-for-bots-pr306-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr306-weaver.md) — weaver (rebase/conflict-resolution) on endojs/endo-but-for-bots PR #306
 - [`endojs-endo-but-for-bots-pr313-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr313-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #313
 - [`endojs-endo-but-for-bots-pr316-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr316-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #316
 - [`endojs-endo-but-for-bots-pr318-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr318-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #318
@@ -69,11 +70,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr335-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr335-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #335
 - [`endojs-endo-but-for-bots-pr337-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr337-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #337
 - [`endojs-endo-but-for-bots-pr377-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr377-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #377
-- [`endojs-endo-but-for-bots-pr389-weaver`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr389-weaver.md) — weaver on endojs/endo-but-for-bots PR #389
 - [`endojs-endo-but-for-bots-pr393-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr393-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #393
-- [`endojs-endo-but-for-bots-pr394-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr394-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #394
-- [`endojs-endo-but-for-bots-pr395-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr395-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #395
-- [`endojs-endo-but-for-bots-pr409-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr409-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #409
+- [`endojs-endo-but-for-bots-pr394-fixer`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr394-fixer.md) — fixer (shepherd escalation) on endojs/endo-but-for-bots PR #394
 - [`endojs-endo-but-for-bots-pr410-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr410-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #410
 - [`endojs-endo-but-for-bots-pr420-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr420-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #420
 - [`endojs-endo-but-for-bots-pr438-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr438-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #438
@@ -84,17 +82,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`endojs-endo-but-for-bots-pr588-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr588-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #588
 - [`endojs-endo-but-for-bots-pr590-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr590-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #590
 - [`endojs-endo-but-for-bots-pr591-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr591-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #591
+- [`endojs-endo-but-for-bots-pr593-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr593-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #593
 - [`endojs-endo-but-for-bots-pr60-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr60-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #60
 - [`endojs-endo-but-for-bots-pr79-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #79
 - [`endojs-endo-but-for-bots-pr96-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr96-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #96
+- [`improve-garden-identity-drift-detector`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-garden-identity-drift-detector.md) — Every new gardener entry in this window reports host: endolinbot2, but per th...
+- [`improve-gardener-transient-failure-backoff-and-fleet-brake`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-transient-failure-backoff-and-fleet-brake.md) — scripts/jobs/gardener.sh: on a correlated Claude quota/API outage, all ~100 g...
+- [`improve-issue-inbox-child-git-reaping`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-issue-inbox-child-git-reaping.md) — garden-issue-inbox.service logs Found left-over process (git) in control grou...
+- [`improve-repo-watcher-arm-retry`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-repo-watcher-arm-retry.md) — scripts/jobs/repo-watcher.sh logs WARN: could not arm garden-ci-watcher@endoj...
 
-### tada (851)
-- [`endojs-endo-but-for-bots-pr412-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr412-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #412
-- [`endojs-endo-but-for-bots-pr395-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr395-weave.md) — Completion report: weave (rebase) endojs/endo-but-for-bots PR #395
-- [`endojs-endo-but-for-bots-pr216-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr216-shepherd.md) — I've completed the shepherd work. Here's my report.
-- [`endojs-endo-but-for-bots-pr581-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr581-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #581
-- [`endojs-endo-but-for-bots-pr389-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr389-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #389
-- … and 846 more
+### tada (858)
+- [`endojs-endo-but-for-bots-pr394-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr394-shepherd.md) — The new CI run for my pushed SHA is classified **"CI (docs-only)"** — since t...
+- [`endojs-endo-but-for-bots-pr306-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr306-shepherd.md) — My shepherd work on PR #306 is complete. Report follows.
+- [`endojs-endo-but-for-bots-pr262-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr262-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #262
+- [`endojs-endo-but-for-bots-pr101-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr101-shepherd.md) — Completion report
+- [`endojs-endo-but-for-bots-pr409-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr409-shepherd.md) — Completion report
+- … and 853 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
