@@ -34,6 +34,7 @@ Rebase / conflict-resolve `feat/daemon-capability-persona` onto current
 resolved head. Once mergeable, CI will dispatch; the lint fix should carry it
 green. If CI surfaces new failures after the rebase, chain a shepherd.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
