@@ -12,3 +12,9 @@ PR #394 (head branch design/gateway-package-phase-6) had its fixer poisoned 5x â
 Diagnose WHICH added test throws on Node 20 and WHY, reasoning from the diff and the panic source (index.js logic is version-agnostic; the throw is likely one added test's setup, e.g. globalThis.console = undefined interacting with the Node-20 path). Propose the minimal fix (guard the added test for the Node-20 environment, or fix the underlying panic path). If you can obtain Node 20, verify; if not, land a best-effort fix clearly marked 'NOT verified on Node 20 â€” needs CI confirmation' per COMMON.md Reporting, and post a summary on #394. If the cause is genuinely undiagnosable without Node 20, report that precisely to the maintainer inbox rather than guessing.
 
 Provenance: liaison residual sweep of the reaper POISON backlog (pr394-fixer).
+
+---
+claim:
+  host: endolinbot2
+  gardener: 44
+  claimed_at: 2026-07-02T10:01:21Z
