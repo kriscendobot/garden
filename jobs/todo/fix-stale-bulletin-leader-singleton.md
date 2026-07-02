@@ -50,11 +50,4 @@ leadership — standing up the leader-only singleton is the leader's job.
 - The `.garden` / `leader` / `hostname` identity triple is self-consistent on the
   leader host (`is-main-host.sh` returns LEADER there).
 
-<!-- garden-reaped: 1 -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolinbot2
-  gardener: 19
-  claimed_at: 2026-07-02T19:12:42Z
+<!-- garden-reaped: 2 -->
