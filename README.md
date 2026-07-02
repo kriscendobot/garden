@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T03:23:37Z_
+_As of 2026-07-02T03:24:51Z_
 
 ## Latest
 
-Two CI-infra fixes landed on main2: [`improve-ci-rollup-surface-gh-error`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-rollup-surface-gh-error.md) and [`improve-ci-watcher-detect-systemic-rollup-outage`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-ci-watcher-detect-systemic-rollup-outage.md), which make the CI-status watcher surface the underlying `gh` error and detect a systemic rollup outage rather than silently misreading it. That hardening is timely, because the rest of this window is fallout from a correlated Claude quota/API outage: the reaper poisoned roughly thirty shepherd/weaver/fixer jobs after five requeue cycles each (auto-CI-red shepherds on [#60](https://github.com/endojs/endo-but-for-bots/pull/60), [#79](https://github.com/endojs/endo-but-for-bots/pull/79), [#96](https://github.com/endojs/endo-but-for-bots/pull/96), and many more, plus stale-base weaver/rebase jobs on [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), and [#306](https://github.com/endojs/endo-but-for-bots/pull/306), and the two-family fixer escalation on [#394](https://github.com/endojs/endo-but-for-bots/pull/394)). Several proposed self-healing jobs to blunt the next storm — a `GARDEN` identity-drift guard, per-worker transient-failure backoff with a shared fleet brake, issue-inbox git-child reaping, and repo-watcher arm retries — were themselves caught in the poison sweep and need re-posting. The one decision genuinely awaiting a human: the endo-but-for-bots `eslint .` projectService scaling ceiling is now confirmed blocking [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#592](https://github.com/endojs/endo-but-for-bots/pull/592), and #593 (the alphabetically-last `where`/`zip` packages tip over the whole-repo lint limit on any large diff); shepherds correctly refused to bundle a fix into those refactors and want a dedicated lint-infra job.
+The job board has drained to near-idle — nothing queued, four shepherd jobs still in flight against red-CI PRs ([#242](https://github.com/endojs/endo-but-for-bots/pull/242), [#410](https://github.com/endojs/endo-but-for-bots/pull/410), [#420](https://github.com/endojs/endo-but-for-bots/pull/420), [#79](https://github.com/endojs/endo-but-for-bots/pull/79)) — but the reaper poison-dropped roughly thirty jobs this window after their handlers failed five requeue cycles each. That pattern is a correlated Claude quota/API outage, not thirty distinct bugs: the whole fleet thrashed re-claiming shepherd work against an exhausted quota, and the deferred `improve-gardener-transient-failure-backoff-and-fleet-brake` fix (add per-worker backoff plus a shared fleet brake) itself got caught in the drop and needs re-posting.
+
+Two things want a human decision. The typescript-eslint **projectService scaling ceiling** now blocks the root `lint` check on at least three open PRs — [#592](https://github.com/endojs/endo-but-for-bots/pull/592), [#590](https://github.com/endojs/endo-but-for-bots/pull/590), and [#593](https://github.com/endojs/endo-but-for-bots/pull/593), all failing on the alphabetically-last `where`/`zip` packages that no diff touches. Both shepherds correctly declined to bundle a fix into the refactors and posted a dedicated `endo-but-for-bots-lint-projectservice-ceiling` lint-infra job; the affected PRs stay red until that lands. Separately, several conflicting PRs ([#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#306](https://github.com/endojs/endo-but-for-bots/pull/306), [#301](https://github.com/endojs/endo-but-for-bots/pull/301)) had weaver rebase jobs that also poison-dropped, so their stale-base CI failures remain unaddressed.
+
+On the plus side, the CI-watcher hardening landed on main2 — `improve-ci-watcher-detect-systemic-rollup-outage` and `improve-ci-rollup-surface-gh-error` both completed — and shepherds cleared [#318](https://github.com/endojs/endo-but-for-bots/pull/318), [#377](https://github.com/endojs/endo-but-for-bots/pull/377), and [#594](https://github.com/endojs/endo-but-for-bots/pull/594).
 
 ## Parked for maintainer feedback
 
@@ -941,9 +945,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr242-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr242-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #242
 - [`endojs-endo-but-for-bots-pr410-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr410-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #410
+- [`endojs-endo-but-for-bots-pr420-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr420-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #420
 - [`endojs-endo-but-for-bots-pr79-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #79
 
 ### tada (882)
