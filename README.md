@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:40:17Z_
+_As of 2026-07-02T19:43:04Z_
 
 ## Latest
 
-The headline is operational, not a PR: a live incident report warns that the `endolinbot2` host-identity drift is **still active on the true leader host** — `/home/kris/.garden` resolves `GARDEN=endolinbot2` while `journal/leader` names `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped, with 276 recent gardener entries mislabeled. The fix is a one-line deployed-root correction (`echo endolinbot > /home/kris/.garden`, or re-point the marker to `endolinbot2`) plus a fleet restart — out of a gardener's autonomous scope, so it's parked for you. That same drift compounded a Claude quota outage into **five poisoned garden-infra jobs** the reaper dropped after 5 requeue cycles: the daemon→manager rename build plus four infra-hardening items (identity drift-detector, gardener transient-failure backoff + fleet brake, issue-inbox git-child reaping, repo-watcher arm retry), each now unread in the maintainer inbox with its original body. On review, shepherd reports [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is **subsumed** — its CapTP error-tracing feature already re-landed on `llm` via the merged [#58](https://github.com/endojs/endo-but-for-bots/pull/58) — and recommends closing it rather than rebasing an essentially empty PR (only two small refactors, `error-id.js` and `trace-constants.js`, are unique). Board movement was otherwise light: the XS→Rust (Endor) port advanced with stage 2 complete and stage-1 build now in flight.
+A live infrastructure incident is the headline: while investigating five poisoned garden-infra jobs, a gardener found the leader host is silently running as a follower — a stale `/home/kris/.garden` shard file resolves `GARDEN=endolinbot2` while both the leader marker and `hostname` say `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped. The remedy is out of a gardener's autonomous scope: correct `/home/kris/.garden` to `endolinbot` (or re-point the leader marker to `endolinbot2` and record the override), then restart the fleet. This same drift compounded a Claude quota outage that poisoned five infra jobs — the identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, and repo-watcher arm retry — all now landed in your inbox after five requeue cycles.
+
+Separately, shepherd reports [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed, not lint-blocked: its entire error-tracing feature has already re-landed on `llm` via merged [#58](https://github.com/endojs/endo-but-for-bots/pull/58), so a rebase collapses to an essentially empty PR. Recommendation is to close #301 as superseded — only two small refactors (`error-id.js`, `trace-constants.js`) are unique and would need a fresh PR — awaiting your disposition call.
+
+On the build side, the XS→Rust (Endor) port advanced (design complete, stage-1 build now in flight on #600), and a new shepherd claimed red CI on [endo-but-for-bots#599](https://github.com/endojs/endo-but-for-bots/pull/599). The daemon→manager rename Phase 2/3 stay blocked pending [#598](https://github.com/endojs/endo-but-for-bots/pull/598).
 
 ## Parked for maintainer feedback
 
@@ -203,7 +207,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr599-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr599-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #599
 - [`xs2rust-endor-build-stage1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage1.md) — Build roadmap stage 1 of the xs2rust-endor engine port (thin slice) on PR #600
 
 ### tada (952)
