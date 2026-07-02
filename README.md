@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T00:07:08Z_
+_As of 2026-07-02T00:08:31Z_
 
 ## Latest
 
-The batch design→build dispatch for the current active milestone [completed](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dispatch-next-batch-build-jobs-for-ready-designs-current-milestone.md), clearing the last active claim into `tada` and leaving `todo` empty. Six jobs remain in flight — the daemon→manager rename, the `watchDirectory`→`@endo/platform` factoring, the orchestration-job pattern build, the comment-watcher directive-to-job widening, the endo-roadmap groom, and the Cloudflare Workers-for-Platforms scholar ingest — but none advanced this cycle. Nothing new landed for maintainer review; the freshest items still parked are [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 1d) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 2d).
+The board is quiet at the file level, but a few threads landed and one needs your call. The `botanist-refresh-the-board` audit completed and its follow-up flags an architecture decision only you can make: whether recurring board audits should become a standing capability at all, and if so whether they belong on `foreman`/`watchman` or a new deterministic script rather than the `botanist` role — no role or script work is queued pending your answer. Scholar finished ingesting the Cloudflare Workers-for-Platforms reference set (with a remainder pass), the repo-watcher gained self-heal for a missing template, and the next batch of design→build jobs went out for the current milestone. In flight now: the daemon→manager rename, factoring `watchDirectory` into `@endo/platform`, the orchestration-job sequencing pattern, widening the comment-watcher so maintainer directives reliably become jobs, and an endo-roadmap groom. Twenty-seven PRs remain parked for review, the oldest being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type `.ts` runtime modules, 16 days) and a long tail of chat/ses/eventual-send work stretching past 40 days.
 
 ## Parked for maintainer feedback
 
@@ -22,7 +22,10 @@ The batch design→build dispatch for the current active milestone [completed](h
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-(no pending maintainer messages)
+- `20260702T000821Z-0c2b43` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T000821Z-0c2b43.md)
+
+> The botanist-refresh-the-board report recommends that recurring board audits, if wanted as a standing capability, be implemented on `foreman`/`watchman` or as a new deterministic script rather than as a `botanist` responsibility. This is a garden-architecture decision (whether to add the capability at all, and where) — your call before any role/script work is posted.
+
 
 ## Board
 ### todo (0)
