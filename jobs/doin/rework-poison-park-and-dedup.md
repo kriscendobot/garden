@@ -64,3 +64,9 @@ Land on `main2` from an isolated worktree; journal a `result` entry.
 
 The reaper already sent 5 infra POISON reports this cycle that the `investigate-poisoned-garden-infra-jobs`
 job is handling; this change prevents the next such flood.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 46
+  claimed_at: 2026-07-02T10:11:43Z
