@@ -36,6 +36,7 @@ green. If CI surfaces new failures after the rebase, chain a shepherd.
 
 <!-- garden-reaped: 4 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolinbot2
