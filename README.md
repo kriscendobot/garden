@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-02T00:09:41Z_
+_As of 2026-07-02T00:16:31Z_
 
 ## Latest
 
-Three garden-internal jobs landed: [`watchDirectory`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/factor-watchdirectory-to-endo-platform.md) was factored into `@endo/platform`, the Endo roadmap was re-groomed, and the "directives reliably become jobs" encoding work completed — the last of which tightens how maintainer instructions get turned into board items. Three jobs remain in flight (the `daemon.js`→`manager.js` rename, the orchestration-job pattern, and the Cloudflare Workers-for-Platforms scholar ingest), and the todo lane is empty. One item needs a maintainer call: liaison:follow-up has [an open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T000821Z-0c2b43.md) asking whether recurring board audits should become a standing capability and, if so, whether they belong on `foreman`/`watchman` or a new deterministic script rather than the botanist — no role or script work will be posted until you weigh in.
+Little moved on the board this cycle: the sole completion was [`scholar-ingest-cloudflare-w4p-references`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-w4p-references.md), folding the Cloudflare "workers-for-platforms" references into the library. Two builds remain in flight — the `daemon.js → manager.js` rename (Daemon/Mignonic → Manager/Worker) and the orchestration-job pattern that sequences planned sub-jobs and watches its children. One item wants your call: a `liaison:follow-up` message reports the botanist's finding that recurring board audits, if you want them as a standing capability, belong on `foreman`/`watchman` or a new deterministic script rather than the `botanist` role — an architecture decision to make before any role/script work is posted. The review queue is otherwise the story: 27 PRs are parked for you, the freshest being [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, ~1d) and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, ~2d), with [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules) now 16 days out.
 
 ## Parked for maintainer feedback
 
@@ -31,18 +31,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-daemon-rename-to-manager`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-daemon-rename-to-manager.md) — Build: rename daemon.js → manager.js (Daemon/Mignonic → Manager/Worker)
 - [`garden-build-orchestration-job-pattern-sequence-and-watch-children`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/garden-build-orchestration-job-pattern-sequence-and-watch-children.md) — Build the orchestration-job pattern: an orchestrator that sequences planned s...
-- [`scholar-ingest-cloudflare-w4p-references`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/scholar-ingest-cloudflare-w4p-references.md) — Scholar: ingest Cloudflare Workers for Platforms — reference pages
 
-### tada (835)
+### tada (836)
+- [`scholar-ingest-cloudflare-w4p-references`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-w4p-references.md) — Completion report
 - [`garden-encode-directives-reliably-become-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-directives-reliably-become-jobs.md) — Completion report
 - [`factor-watchdirectory-to-endo-platform`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/factor-watchdirectory-to-endo-platform.md) — Job complete: factor watchDirectory into @endo/platform
 - [`groom-refine-endo-roadmap`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/groom-refine-endo-roadmap.md) — Completion report
 - [`dispatch-next-batch-build-jobs-for-ready-designs-current-milestone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/dispatch-next-batch-build-jobs-for-ready-designs-current-milestone.md) — Completion report — batch design→build dispatch for the current active milestone
-- [`scholar-ingest-cloudflare-w4p-remainder`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-cloudflare-w4p-remainder.md) — Completion report
-- … and 830 more
+- … and 831 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
