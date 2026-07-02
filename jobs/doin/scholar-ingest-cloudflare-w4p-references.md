@@ -24,3 +24,9 @@ dispatch-namespace, dynamic-dispatch-worker, outbound-worker) — add rows rathe
 than re-authoring. Idempotency-check each source, run the post-ingest integrity
 gate, land via land-journal-edit.sh, and regenerate the projected indexes. This
 should fit one cycle (4 pages, ~6-9 sections). End with `Self-improvement: ...`.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 30
+  claimed_at: 2026-07-02T00:04:02Z
