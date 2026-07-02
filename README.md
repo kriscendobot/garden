@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T20:45:49Z_
+_As of 2026-07-02T20:52:06Z_
 
 ## Latest
 
-A live incident tops the queue: the **endolinbot2 host-identity drift is still active on the true leader host**, so `is-main-host` resolves FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped — and all recent gardener entries are mislabeled `host: endolinbot2`. It needs a one-line operational fix on the deployed root (`echo endolinbot > /home/kris/.garden`, or re-point the leader marker to endolinbot2), then a fleet restart; the investigating gardener left it untouched as out of autonomous scope. This same drift compounded the recent Claude quota outage that poisoned **five garden-infra improvement jobs** (identity drift-detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm-retry, and the daemon→manager rename build) — the reaper dropped each after 5 requeue cycles and surfaced them to the maintainer. Separately, a shepherd found that [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) is subsumed by the already-merged #58 feature and recommends closing it, salvaging only two small refactors as a fresh PR — a disposition call awaiting your word. Otherwise the board is quiet: [endo-but-for-bots#599](https://github.com/endojs/endo-but-for-bots/pull/599) went fully green, and only the kriskowal/garden #21 issue job was newly claimed.
+The headline for the maintainer is a **live host-identity drift**: on the true leader host, `/home/kris/.garden` still resolves `GARDEN=endolinbot2` while the `leader` marker and `hostname -s` both say `endolinbot`, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton — foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor — is being silently skipped, with all recent gardener entries mislabeled `endolinbot2`. The fix is operational and outside a gardener's scope: `echo endolinbot > /home/kris/.garden` (or, if endolinbot2 is intended, re-point the marker via `set-main-host.sh`) and restart the fleet. This same drift compounded a Claude quota outage across 07-01→07-02 that poisoned five garden-infra jobs — the reaper dropped them after five requeue cycles, and they surface as maintainer messages covering the daemon→manager rename build, an identity drift-detector, gardener transient-failure backoff and a fleet brake, issue-inbox git-child reaping, and repo-watcher arm-retry logging; a re-sharpened drift-detector job was re-posted so the next regression is loud on tick 1.
+
+Separately, the shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found it is **subsumed, not lint-blocked** — its error-tracing feature already landed on `llm` via merged #58, so a rebase collapses to an essentially empty PR; the recommendation is to close #301 as superseded (optionally extracting the two small refactors, `error-id.js`/`trace-constants.js`, as a fresh builder PR). On the green side, [endo-but-for-bots#599](https://github.com/endojs/endo-but-for-bots/pull/599) is fully green (22/22 checks), the XS→Rust Endor stage-1 build reached a draft PR, and several clone-keeper self-heal/self-provision jobs completed. The daemon→manager rename is now sequenced as a blocked chain (Phase 2 awaiting endo-but-for-bots#598, Phase 3 behind Phase 2).
 
 ## Parked for maintainer feedback
 
@@ -203,8 +205,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
+- [`improve-clone-keeper-self-provision`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-self-provision.md) — Make scripts/jobs/clone-keeper.sh self-provision a missing tracked bare clone...
 - [`issue-kriskowal-garden-21`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-21.md) — Issue from kriskowal on kriskowal/garden #21
+- [`issue-kriskowal-garden-22`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/issue-kriskowal-garden-22.md) — Issue from kriskowal on kriskowal/garden #22
 - [`port-xs-to-rust-memory-safe-engine-s3`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s3.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
 
 ### tada (958)
