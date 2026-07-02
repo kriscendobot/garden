@@ -26,3 +26,9 @@ Re-verified present: `scripts/systemd/garden-issue-inbox.service` has NEITHER
 stop/restart does not reap the control group and orphan git children survive into
 the next start. Prefer the unit-side fix (`KillMode=mixed` + `TimeoutStopSec`) as
 the robust half; the watcher-side `wait`/kill is belt-and-suspenders.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 50
+  claimed_at: 2026-07-02T10:04:48Z
