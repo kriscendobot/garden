@@ -1,1 +1,7 @@
 In `scripts/jobs/clone-keeper.sh`, make a *missing* tracked clone self-heal instead of being logged-and-skipped forever. Extend the tracked-clone config line format from `<dir>|<remote>|<branch>` to an optional 4th field `<clone-url>` (update the `GARDEN_TRACKED_CLONES` default at line 47 to `worktrees/endojs-endo.git|origin|master|https://github.com/endojs/endo.git`, and the `while IFS='|' read` loop at line 123 to read the url). In `keep_clone()` at the missing-repo branch (lines 78-81): if a clone URL is configured, `git clone --bare <url> <abs>` (wrapped in the existing `timeout $GARDEN_FETCH_TIMEOUT`/backoff path, like `bounded_fetch`) and then set the fetch refspec `git -C <abs> config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'` — mirroring the remediation `ensure-project-worktree.sh` already prints at lines 66-69 — then fall through to the normal fast-forward; only WARN-and-skip when no URL is configured or the clone itself fails. Add a case to `scripts/jobs/test/clone-keeper-test.sh` asserting a missing tracked clone with a configured URL is re-created bare (from a throwaway local upstream) and has its origin fetch refspec set. Rationale: the keeper's stated purpose is that endo re-ingestion "can never re-form" a block; a missing bare clone both re-forms that block and breaks endo project-worktree creation, and re-cloning is pure deterministic git with no LLM judgment.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 14
+  claimed_at: 2026-07-02T21:51:21Z
