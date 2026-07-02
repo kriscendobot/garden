@@ -33,3 +33,9 @@ For each of the five, in an isolated `main2` worktree:
 ## Definition of done
 
 A journal `result` entry with, per job: the recovered intent, the root cause, and the action taken (corrected re-post / infra fix landed / dropped-as-moot with its poison report archived). No poisoned job is re-posted unchanged. Land any infra fixes on `main2` from an isolated worktree.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 3
+  claimed_at: 2026-07-02T09:54:24Z
