@@ -23,3 +23,9 @@ Origin: auto shepherd job `endojs-endo-but-for-bots-pr395-shepherd` reclassified
 `next: weaver` (CONFLICTING blocks CI dispatch).
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 54
+  claimed_at: 2026-07-02T00:44:43Z
