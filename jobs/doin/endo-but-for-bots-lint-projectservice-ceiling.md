@@ -58,3 +58,9 @@ which could not drive #590 green because the red is this pre-existing infra ceil
 out of scope for the #590 refactor.
 
 <!-- garden-reaped: 1 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 58
+  claimed_at: 2026-07-02T02:43:11Z
