@@ -26,9 +26,12 @@
 #
 # So this guard runs as a gardener-scaler.sh PREFLIGHT (once per tick, host-level,
 # independent of the size signal) and, on a genuine unrecorded divergence, posts
-# ONE loud `kind:error` journal entry — deduped by a marker so it fires on tick 1
-# of a regression and stays quiet until the drift changes or clears — and, on the
-# leader path, surfaces that is-main-host will report follower.
+# ONE loud escalation — a `kind:error` maintainer-inbox report (the actionable
+# surface the liaison's maintainer-watch Monitor and the bulletin both read) plus a
+# greppable `kind:error` journal entry — deduped by a marker so it fires on tick 1
+# of a regression and stays quiet until the drift changes or clears, and, on the
+# leader path, surfaces that is-main-host will report follower. This is where the
+# escalation the per-spawn gardener.sh path used to emit ~100×/tick now lives.
 #
 # See CLAUDE.md § Job system, designs/multibot-leader-follower.md, and issue
 # kriskowal/garden#11 (Multibot).
@@ -45,8 +48,22 @@ GARDEN_TAG="identity-drift-guard"
 # watchman `seen` and deploy markers.
 : "${GARDEN_IDENTITY_DRIFT_MARKER:=$GARDEN_STATE/identity-drift-reported}"
 
-# The reporting sink. Overridable so a test can capture the emission (and assert
-# the dedup) without pushing to a real journal. Reads the body on stdin.
+# The reporting sinks. Both are overridable so a test can capture the emission (and
+# assert the dedup) without pushing to a real journal. Each reads the body on stdin.
+#
+# The MAINTAINER-INBOX report is the primary, actionable escalation: it lands in
+# inbox/maintainer/unread/ (a standing inbox), which the liaison's maintainer-watch
+# Monitor and the bulletin both surface to a human. It is sent NOT as a living
+# agent (no reply_to): the guard is a deterministic script with no doer inbox to
+# receive a reply. The JOURNAL entry is an additional greppable record.
+: "${GARDEN_IDENTITY_GUARD_MAINTAINER_EMIT:=}"
+emit_maintainer() {
+  if [ -n "$GARDEN_IDENTITY_GUARD_MAINTAINER_EMIT" ]; then
+    bash -c "$GARDEN_IDENTITY_GUARD_MAINTAINER_EMIT"
+  else
+    GARDEN_SENDER="identity-drift-guard:$host_short" "$HERE/inbox-send.sh" maintainer
+  fi
+}
 : "${GARDEN_IDENTITY_GUARD_EMIT:=}"
 emit_error() {
   if [ -n "$GARDEN_IDENTITY_GUARD_EMIT" ]; then
@@ -99,13 +116,13 @@ fi
 # Always log loudly each tick (cheap, greppable in the scaler's journal).
 log "ERROR identity DRIFT: GARDEN=$GARDEN != hostname -s=$host_short with NO recorded override; $leader_line"
 
-# Dedup the JOURNAL entry: one per distinct drift signature. Signature captures
+# Dedup the escalation: one report per distinct drift signature. Signature captures
 # what could change (resolved identity, real hostname, and the leader verdict).
 sig="GARDEN=$GARDEN|host=$host_short|leader=${leader:-}"
 prev=""
 [ -f "$GARDEN_IDENTITY_DRIFT_MARKER" ] && prev="$(head -1 "$GARDEN_IDENTITY_DRIFT_MARKER" 2>/dev/null || true)"
 if [ "$sig" = "$prev" ]; then
-  # Already reported this exact drift state; stay quiet on the journal.
+  # Already reported this exact drift state; stay quiet on both sinks this tick.
   exit 0
 fi
 
@@ -137,12 +154,27 @@ Posted once per distinct drift state by \`scripts/jobs/identity-drift-guard.sh\`
 EOF
 )"
 
-if printf '%s\n' "$body" | emit_error; then
+# The maintainer inbox has no `kind` field of its own (inbox-send.sh stamps only
+# from/from_host/sent_at), so mark the classification in the body's first line so a
+# reader — and a grep — sees it is an error escalation, not a chatty note.
+maintainer_body="kind: error"$'\n\n'"$body"
+
+# Post the maintainer-inbox report FIRST — it is the required, actionable escalation
+# and it GATES the dedup marker, so a failed push retries next tick rather than
+# going silently unreported. The journal entry is an additional greppable record,
+# posted best-effort (its own failure does not block the marker once the maintainer
+# report landed, so a transient journal-push race cannot spam the maintainer inbox
+# on the next tick). Either way the marker records this drift signature only after
+# the primary escalation succeeds, so the report fires once per distinct drift state.
+if printf '%s\n' "$maintainer_body" | emit_maintainer; then
+  log "posted identity-drift kind:error maintainer-inbox report (sig=$sig)"
+  printf '%s\n' "$body" | emit_error \
+    && log "posted identity-drift kind:error journal entry (sig=$sig)" \
+    || log "WARN failed to post identity-drift journal entry (maintainer report landed); continuing"
   mkdir -p "$(dirname "$GARDEN_IDENTITY_DRIFT_MARKER")" 2>/dev/null || true
   printf '%s\n' "$sig" > "$GARDEN_IDENTITY_DRIFT_MARKER" 2>/dev/null || true
-  log "posted identity-drift kind:error journal entry (sig=$sig)"
 else
-  log "WARN failed to post identity-drift journal entry; will retry next tick"
+  log "WARN failed to post identity-drift maintainer-inbox report; will retry next tick"
 fi
 
 exit 0

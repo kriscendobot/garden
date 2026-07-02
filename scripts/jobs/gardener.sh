@@ -102,9 +102,17 @@ rm -f "$BUSY_MARKER" 2>/dev/null || true
 # invisible until it had already corrupted that per-host journal/index state. Surface
 # the resolved identity at the point of spawn so the drift is detectable and greppable
 # BEFORE any claim keys off it. The design deliberately permits `GARDEN=<unique>`
-# parallel pools, so a divergence from `hostname -s` is WARNed, never refused; a
-# deliberate override recorded in GARDEN_IDENTITY_OVERRIDE or
-# $GARDEN_STATE/identity-override (matching the resolved GARDEN) silences the warning.
+# parallel pools, so a divergence from `hostname -s` is noted here at INFO level
+# (never refused) but NOT escalated here: this per-spawn path runs from every one of
+# the ~100 gardeners on every spawn, so a WARN + report at this point is ~100
+# identical lines per wake that dominate `journalctl -p warning` and bury unrelated
+# warnings. The once-per-tick, host-level escalation (one WARN + one deduped
+# kind:error maintainer-inbox report per host per divergence) lives in the
+# gardener-scaler identity-drift guard (scripts/jobs/identity-drift-guard.sh) — the
+# correct single place to detect the .garden-file / inherited-env drift the scaler's
+# reconcile step cannot. A deliberate override recorded in GARDEN_IDENTITY_OVERRIDE
+# or $GARDEN_STATE/identity-override (matching the resolved GARDEN) marks the
+# divergence as intentional in this log line.
 host_short="$(hostname -s 2>/dev/null || echo host)"
 log "identity: GARDEN=$GARDEN (hostname -s=$host_short)"
 if [ "$GARDEN" != "$host_short" ]; then
@@ -115,7 +123,10 @@ if [ "$GARDEN" != "$host_short" ]; then
   if [ "$recorded_override" = "$GARDEN" ]; then
     log "identity: GARDEN=$GARDEN diverges from hostname -s=$host_short by RECORDED deliberate override (parallel pool)"
   else
-    log "WARN identity: GARDEN=$GARDEN diverges from hostname -s=$host_short with NO recorded deliberate override — an inherited-env GARDEN drift silently corrupts per-host journal/index state (claim key, hosts/<host> count, leader predicate); if this is a deliberate parallel pool record it in GARDEN_IDENTITY_OVERRIDE or $GARDEN_STATE/identity-override, otherwise fix the inherited GARDEN"
+    # Genuine unrecorded drift, but escalation is the gardener-scaler guard's job
+    # (once per tick, deduped), NOT this per-spawn path — see the note above. Keep a
+    # single low-volume info line so one gardener's own log still shows the drift.
+    log "identity: GARDEN=$GARDEN diverges from hostname -s=$host_short with no recorded override — the gardener-scaler identity-drift guard raises the once-per-tick escalation"
   fi
 fi
 # Per-instance identity marker — a cheap, machine-checkable record of THIS gardener's

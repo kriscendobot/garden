@@ -9,14 +9,18 @@
 # worker count, and the leader predicate all hang off GARDEN.
 #
 # THE FIX: at spawn, gardener.sh (1) LOGS the resolved GARDEN once; (2) compares it
-# to `hostname -s` and emits ONE WARN when they differ without a recorded deliberate
-# override (the design permits `GARDEN=<unique>` parallel pools, so it warns — never
-# refuses); and (3) writes a per-instance identity marker
-# $GARDEN_STATE/gardeners/<id>.garden holding the resolved name, so the scaler's
-# drift check (sibling job) can read it without walking /proc.
+# to `hostname -s` and, when they differ without a recorded deliberate override,
+# notes it in a single low-volume INFO line — NOT a WARN, and NOT a per-spawn
+# escalation. The per-spawn path runs from every one of the ~100 gardeners on every
+# spawn, so a WARN + report here is ~100 identical lines per wake; the once-per-tick,
+# host-level escalation (one WARN + one deduped kind:error maintainer-inbox report)
+# lives in the gardener-scaler identity-drift guard (identity-drift-guard.sh). And
+# (3) writes a per-instance identity marker $GARDEN_STATE/gardeners/<id>.garden
+# holding the resolved name, so the scaler's drift check can read it without /proc.
 #
 # SUBTEST 1 — GARDEN == hostname -s → identity logged, NO WARN, marker == GARDEN.
-# SUBTEST 2 — GARDEN != hostname -s, no override → exactly ONE WARN, marker == GARDEN.
+# SUBTEST 2 — GARDEN != hostname -s, no override → NO per-spawn WARN, one info line,
+#             marker == GARDEN (escalation now lives in the gardener-scaler guard).
 # SUBTEST 3 — divergence + GARDEN_IDENTITY_OVERRIDE == GARDEN → NO WARN (deliberate).
 # SUBTEST 4 — divergence + $GARDEN_STATE/identity-override == GARDEN → NO WARN.
 #
@@ -84,18 +88,20 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 2 — GARDEN != hostname -s, no override: exactly ONE loud WARN"; hr
+hr; echo "SUBTEST 2 — GARDEN != hostname -s, no override: info-only, NO per-spawn WARN"; hr
 DRIFT="${HOST_SHORT}2"
 S2="$TR/s2"; L2="$(run_gardener "$S2" "$DRIFT")"
-n_warn=$(grep -c "WARN identity" "$L2" || true)
-if [ "$n_warn" -eq 1 ]; then
-  ok "divergence without a recorded override emits exactly ONE WARN"
+# The per-spawn WARN + escalation MOVED off this ~100×/spawn path into the
+# gardener-scaler identity-drift guard (once per tick, deduped). Here only a
+# low-volume info line remains, so the spammy WARN must be GONE.
+if grep -q "WARN identity" "$L2"; then
+  bad "the per-spawn identity WARN should have moved to the gardener-scaler guard; found: $(grep 'WARN identity' "$L2" | head -1)"
 else
-  bad "expected exactly 1 identity WARN, got $n_warn. log: $(grep -i identity "$L2" | head -3)"
+  ok "divergence without a recorded override no longer WARNs on the per-spawn path"
 fi
-grep -q "NO recorded deliberate override" "$L2" \
-  && ok "the WARN names the missing deliberate override" \
-  || bad "WARN wording did not mention the missing override"
+grep -q "identity: GARDEN=$DRIFT diverges from hostname -s=$HOST_SHORT with no recorded override" "$L2" \
+  && ok "a single low-volume info line still notes the divergence" \
+  || bad "expected an info divergence line. log: $(grep -i identity "$L2" | head -3)"
 if [ "$(cat "$S2/gardeners/1.garden" 2>/dev/null)" = "$DRIFT" ]; then
   ok "marker records the (drifted) resolved GARDEN for the scaler's drift check"
 else
