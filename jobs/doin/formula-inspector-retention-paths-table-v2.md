@@ -48,3 +48,9 @@ unretained"). Read-only, sourced from #284's captp `HostInterface`:
 The formula inspector shows a "Retention paths" table sourced from #284's host API,
 with sensible layout + empty/many states and tests, on a PR against
 `endojs/endo-but-for-bots`. Report the PR number.
+
+---
+claim:
+  host: endolinbot
+  gardener: 29
+  claimed_at: 2026-07-02T14:39:34Z
