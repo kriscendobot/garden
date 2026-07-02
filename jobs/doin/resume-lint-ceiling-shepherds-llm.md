@@ -29,3 +29,9 @@ For each PR below, dispatch a **shepherd** (`post-job.sh <base>` per PR so the f
 ## Provenance
 
 Split from `resume-lint-ceiling-shepherds` by the liaison (leader, endolinbot) on 2026-07-02 per the maintainer's "llm now, master after the decision" directive. Base-branch classification done live against the open-PR set. Source fix: `ebfb-594-fresh-llm-pr-merge`.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 1
+  claimed_at: 2026-07-02T09:56:34Z
