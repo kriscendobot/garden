@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:15:21Z_
+_As of 2026-07-02T19:16:40Z_
 
 ## Latest
 
-Two operational escalations dominate and both need a maintainer call. First, the **leader plane is dark on the designated leader host (endolinbot2)**: the journal bulletin has been stale since 14:31Z because every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, orchestrate, and the maintainer-inbox Monitor) was stopped and disabled during an earlier "yield to endolinbot" directive and never re-enabled after leadership was re-pointed back to endolinbot2 at 17:37Z. A gardener is holding for a go/no-go on running `install-units.sh enable-services` to restore it, and flags a durable risk: the host-side garden2 identity enforcer may still force-write `GARDEN=endolinbot`, which would re-flap the singletons unless fixed at the host. A separate live-incident report shows the same endolinbot2 vs. `.garden`/`leader`-marker identity drift that had `is-main-host` reporting FOLLOWER on the true leader and mislabeling ~276 gardener entries.
+Two infrastructure jobs completed since the last bulletin: [fix-stale-bulletin-leader-singleton](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-stale-bulletin-leader-singleton.md) and [improve-clone-keeper-reclone-missing-tracked-clone](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reclone-missing-tracked-clone.md).
 
-Second, **five garden-infra improvement jobs were poisoned** (dropped by the reaper after 5 requeue cycles) during the 07-01/07-02 Claude quota outage — the identity drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox child-git reaping, repo-watcher arm-retry, and the daemon→manager rename build. The identity-drift-detector job has since been re-posted, sharpened. Notably, three of these infra fixes are now back in progress: clone-keeper reclone-on-missing, gardener-scaler scale bounding, and silencing the routine exit-0 requeue noise were all claimed this cycle.
+The item worth the maintainer's attention is a **live leader-identity incident**: a gardener investigating five poisoned garden-infra jobs found that `/home/kris/.garden` still resolves `GARDEN=endolinbot2` on the true leader host, so `is-main-host.sh` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped, while 276 recent gardener entries mislabel per-host state. The fix is operator-only: either `echo endolinbot > /home/kris/.garden` (if this is the single leader shard) or re-point the marker with `set-main-host.sh endolinbot2` and record the parallel-pool override, then restart the fleet. This same drift compounded the five reaper-poisoned infra jobs (identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm-retry, and the daemon→manager rename build) during the 07-01/07-02 Claude quota outage — all five are now parked in the maintainer inbox awaiting a call.
 
-Also awaiting a disposition: a shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is **subsumed, not lint-blocked** — its CapTP error-tracing feature already re-landed on `llm` via the merged #58, collapsing a rebase to near-empty. The recommendation is to close #301 as superseded, optionally extracting its two unique refactors (`error-id.js`, `trace-constants.js`) into a fresh small PR. The daemon→manager rename Phase 2/3 builds remain parked, blocked on [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598).
+Separately, a shepherd found that [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) (error tracing) is **subsumed, not lint-blocked** — the feature already re-landed on `llm` via the merged #58, so a rebase collapses to an essentially empty PR; the shepherd recommends closing #301 as superseded (optionally extracting its two small refactors, `error-id.js` and `trace-constants.js`, as a fresh PR) and left it untouched pending your decision.
 
 ## Parked for maintainer feedback
 
@@ -202,76 +202,24 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > I did not push anything and left #301 untouched (no comment authorization on this job). Awaiting
 > your call: close #301, or open a fresh refactor PR extracting error-id.js/trace-constants.js?
 
-- `20260702T191042Z-bd932e` — from gardener:fix-stale-bulletin-leader-singleton, reply_to `fix-stale-bulletin-leader-singleton` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T191042Z-bd932e.md)
-
-> ESCALATION (job fix-stale-bulletin-leader-singleton, gardener on endolinbot2, 2026-07-02T19:10Z)
->
-> **TL;DR** The journal bulletin (journal/README.md) has been stale since 14:31:58Z
-> because the ENTIRE leader-only singleton plane is down on the current designated
-> leader host — which is now THIS host (endolinbot2). Restoring it needs a
-> re-enable + start of the leader units (an out-of-autonomous-scope fleet action),
-> so I'm asking for your go/no-go rather than doing it myself.
->
-> **Identity — the job's "contested point" is now RESOLVED, self-consistent on endolinbot2:**
-> - leader marker = `endolinbot2` (set 17:37:11Z, "designated by endolinbot2")
-> - GARDEN = `endolinbot2` across env, the `systemctl --user` manager, `.garden`,
->   `$GARDEN_STATE/identity-override`, and `environment.d`
-> - `is-main-host.sh` returns **LEADER** here; no identity-drift marker present.
-> (The marker has ping-ponged 6x today; 17:37Z endolinbot2 is the latest.)
->
-> **Root cause of the outage (not a bulletin.sh defect):** During the earlier
-> 14:34Z "yield to endolinbot" directive, this host STOPPED + DISABLED all its
-> leader-only units. Leadership was later re-pointed back to endolinbot2 (17:37Z),
-> but the restore step (`install-units.sh enable-services`) was never run. So on the
-> designated leader right now:
-> - leader-only TIMERS inactive + **disabled**: foreman, scheduler, reaper,
->   deadmail, follow-up, orchestrate
-> - garden-bulletin: **disabled** + inactive (last ran 14:34:30Z, then stopped)
-> - other continuous singletons (watchman, proxy, mentor, repo-watcher): inactive
-> - gardener pool + per-host infra: healthy, running
-> The whole leader plane is dark — bulletin staleness is just the visible symptom.
->
-> **Recommended remediation (please authorize, or run it yourself):**
-> On endolinbot2 (this host):
->   `scripts/jobs/install-units.sh enable-services`
-> then start the continuous singletons (`systemctl --user start
-> garden-bulletin.service` etc.) — the standard leader stand-up.
->
-> **Caveat before you say go:** the host-side identity enforcer (the garden2
-> bind-mount provisioner that at 14:28Z force-wrote GARDEN=endolinbot) is the reason
-> we yielded in the first place. If it is NOT yet fixed to write `endolinbot2` at
-> the host, the singletons will flap the next time it fires and we'll be back here.
-> Is that enforcer confirmed fixed? If not, the durable fix is at the host, not in
-> the container.
->
-> **Questions:**
-> 1. Is endolinbot2 the intended leader now (the marker says yes)?
-> 2. Authorize me to run `install-units.sh enable-services` + start the continuous
->    singletons on this host — or will you do it?
-> 3. Is the host-side garden2 identity enforcer fixed to write endolinbot2?
->
-> I'll hold and drain my inbox for your reply.
-
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (4)
 - [`daily-progress-summary-20260702-191237`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/daily-progress-summary-20260702-191237.md) — Daily midnight Pacific progress summary
-- [`fix-stale-bulletin-leader-singleton`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fix-stale-bulletin-leader-singleton.md) — Fix the stale bulletin (leader-only singleton is not running)
-- [`improve-clone-keeper-reclone-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-reclone-missing-tracked-clone.md) — scripts/jobs/clone-keeper.sh keep_clone() (line ~78) currently logs WARN: tra...
 - [`improve-gardener-scaler-bound-scale-operation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-scaler-bound-scale-operation.md) — garden-gardener-scaler.service (Type=oneshot, TimeoutStartSec=900) timed out ...
 - [`improve-gardener-silence-routine-exit0-unsatisfying-requeue`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-gardener-silence-routine-exit0-unsatisfying-requeue.md) — scripts/jobs/gardener.sh:355 writes a kind:progress entry to the shared journ...
 - [`xs2rust-endor-design`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-design.md) — Design: port XS to Rust ("endor engine") — feasibility, architecture, staged ...
 
-### tada (943)
+### tada (945)
+- [`improve-clone-keeper-reclone-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-reclone-missing-tracked-clone.md) — Completion report
+- [`fix-stale-bulletin-leader-singleton`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fix-stale-bulletin-leader-singleton.md) — Completion report — fix-stale-bulletin-leader-singleton
 - [`set-designer-fable-builder-opus-model-policy`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/set-designer-fable-builder-opus-model-policy.md) — Completion report
 - [`reconcile-garden-shard-env-naming`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reconcile-garden-shard-env-naming.md) — Completion report
 - [`port-xs-to-rust-memory-safe-engine`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/port-xs-to-rust-memory-safe-engine.md) — Completion report — port-xs-to-rust-memory-safe-engine (supervisor, stage 1)
-- [`investigate-missed-pr594-review-detection`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/investigate-missed-pr594-review-detection.md) — Completion report
-- [`formula-inspector-retention-paths-table-v2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/formula-inspector-retention-paths-table-v2.md) — Completion report
-- … and 938 more
+- … and 940 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
