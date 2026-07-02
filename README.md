@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-02T01:55:20Z_
+_As of 2026-07-02T02:15:32Z_
 
 ## Latest
 
-A wave of shepherd runs closed out: [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#262](https://github.com/endojs/endo-but-for-bots/pull/262), [#306](https://github.com/endojs/endo-but-for-bots/pull/306), [#394](https://github.com/endojs/endo-but-for-bots/pull/394), [#395](https://github.com/endojs/endo-but-for-bots/pull/395), and [#409](https://github.com/endojs/endo-but-for-bots/pull/409), and the [#389](https://github.com/endojs/endo-but-for-bots/pull/389) weave landed. [#394](https://github.com/endojs/endo-but-for-bots/pull/394) escalated shepherd→fixer, while [#101](https://github.com/endojs/endo-but-for-bots/pull/101) and [#306](https://github.com/endojs/endo-but-for-bots/pull/306) were handed to a weaver to rebase their stale bases. Four garden-infra fixes were also posted and claimed — a host-identity drift detector, gardener transient-failure backoff / fleet brake, issue-inbox child-git reaping, and repo-watcher arm-retry.
+The dominant event is a repo-wide lint-infra ceiling surfacing across several bot PRs: shepherds on [#590](https://github.com/endojs/endo-but-for-bots/pull/590), [#592](https://github.com/endojs/endo-but-for-bots/pull/592), and [#593](https://github.com/endojs/endo-but-for-bots/pull/593) all diagnosed the same typescript-eslint `projectService` scaling ceiling — a whole-repo `eslint .` dropping the alphabetically-last packages (`where`, `zip`) with "none of those TSConfigs include this file," unrelated to any PR's diff and matching yesterday's [#581](https://github.com/endojs/endo-but-for-bots/pull/581) failure. None are shepherd-fixable, so a dedicated `endo-but-for-bots-lint-projectservice-ceiling` job was posted and is now in flight; those PRs go green on rebase once it lands. This wants a maintainer lint-infra decision — it must not be bundled into a refactor PR, and it's currently blocking at least three open PRs.
 
-Two items want a maintainer eye. First, [#592](https://github.com/endojs/endo-but-for-bots/pull/592) is green on 24 of 25 checks but red on `lint` from the known typescript-eslint projectService scaling ceiling — the failure lands in `packages/zip`, which this 6-file platform/daemon PR never touches, meaning the `llm` baseline is already at the ceiling; the same wall now blocks [#590](https://github.com/endojs/endo-but-for-bots/pull/590) and [#593](https://github.com/endojs/endo-but-for-bots/pull/593), so it likely wants its own lint-infra job rather than being folded into any refactor. Second, the botanist board-audit report asks whether recurring board audits should become a standing capability, and if so whether to build them on foreman/watchman or a new script — an architecture call before any work is posted.
+The reaper dropped roughly thirty jobs to POISON after five failed requeue cycles — a large wave of auto-dispatched shepherd/weaver/fixer jobs (PRs [#60](https://github.com/endojs/endo-but-for-bots/pull/60), [#79](https://github.com/endojs/endo-but-for-bots/pull/79), [#96](https://github.com/endojs/endo-but-for-bots/pull/96), [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#306](https://github.com/endojs/endo-but-for-bots/pull/306), [#394](https://github.com/endojs/endo-but-for-bots/pull/394), and many more) plus five garden-infra improvement jobs (the identity-drift detector, gardener transient-failure backoff and fleet brake, issue-inbox git-child reaping, repo-watcher arm retry, and the daemon→manager rename build). The concentration and timing point at a correlated handler outage rather than thirty independent failures — and one of the poisoned jobs is itself the fleet-brake fix that would keep such a storm from feeding an already-exhausted quota. Separately, the follow-up loop and botanist have parked an architecture question with you: whether recurring board audits should live on `foreman`/`watchman` or a new deterministic script rather than as a botanist duty.
 
 ## Parked for maintainer feedback
 
@@ -866,32 +866,103 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > --- original job body ---
 > `scripts/jobs/repo-watcher.sh` logs `WARN: could not arm garden-ci-watcher@endojs-endo-but-for-bots` and `@kriskowal-garden` on four consecutive ticks (00:23–00:27), meaning the templated ci-watcher units may never come up (and indeed the ci-watcher's own `#259 rollup unreadable` skips follow later). The arming failure is silently WARNed and retried only on the next full tick. Have `repo-watcher.sh` capture and log the underlying `systemctl --user` failure (rc + stderr) for the arm call rather than a bare WARN, and add a short bounded retry within the tick, so a transient `systemctl`/`XDG_RUNTIME_DIR` hiccup does not leave a watcher disarmed for a full cycle.
 
+- `20260702T021309Z-97bfc7` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T021309Z-97bfc7.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr393-shepherd
+>
+> --- original job body ---
+> # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #393
+>
+> CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
+> Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
+> watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/393
+> Head: endojs/endo-but-for-bots (bot-pushable)
+>
+> Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
+> If the failure is out of a shepherds scope, escalate to a fixer per the
+> shepherd→fixer auto-chain. Re-fetch the live check state before acting;
+> this job was minted from a rollup read at post time.
+
+- `20260702T021324Z-95912d` — from reaper:endolinbot, reply_to `?` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T021324Z-95912d.md)
+
+> POISON job dropped from the board after 5 requeue cycles on endolinbot.
+> Its handler appears to fail every time; the reaper stopped requeueing it.
+> Original job base: endojs-endo-but-for-bots-pr438-shepherd
+>
+> --- original job body ---
+> # shepherd (auto: red CI) on endojs/endo-but-for-bots PR #438
+>
+> CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
+> Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
+> watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
+>
+> PR: https://github.com/endojs/endo-but-for-bots/pull/438
+> Head: endojs/endo-but-for-bots (bot-pushable)
+>
+> Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
+> If the failure is out of a shepherds scope, escalate to a fixer per the
+> shepherd→fixer auto-chain. Re-fetch the live check state before acting;
+> this job was minted from a rollup read at post time.
+
+- `20260702T021358Z-3d3357` — from gardener:endojs-endo-but-for-bots-pr590-shepherd, reply_to `endojs-endo-but-for-bots-pr590-shepherd` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T021358Z-3d3357.md)
+
+> shepherd escalation — endojs/endo-but-for-bots PR #590 (job endojs-endo-but-for-bots-pr590-shepherd)
+>
+> next: liaison  (repo-wide lint-infra / structural decision — do NOT auto-advance to fixer on #590)
+>
+> CI red on #590 is a SINGLE failing check: root `lint` (`eslint .`). 9 parsing errors,
+> all on alphabetically-last packages packages/where/** and packages/zip/**:
+>   "Parsing error: ESLint was configured to run on <...>/packages/where/... using
+>    parserOptions.project: ... none of those TSConfigs include this file."
+>
+> Diagnosis: the known typescript-eslint program/projectService SCALING CEILING, not
+> #590's diff. Evidence:
+>  - Deterministic across 2 lint re-runs (not a flake).
+>  - where/zip are NOT in #590's 100-file diff; #590 touches no tsconfig/eslint config.
+>  - base master@eecc68 whole-repo lint is GREEN; #590 (based on it) fails.
+>  - Same identical where/zip tail-drop hit #581 yesterday (a totally different big
+>    diff) — size-driven, matches reference_endo_lint_projectservice_scaling_ceiling.
+>  - tsconfig.eslint-full.json globs **/*.js|ts (covers where/zip) — not a glob gap.
+>
+> Shepherd action taken: re-ran lint (still red, confirming determinism). Did NOT touch
+> #590's branch — the fix is repo-wide lint-infra and must not be bundled into this
+> refactor (changeset discipline + maintainer norm). Did NOT comment on the PR (job
+> carried no comment authorization).
+>
+> Posted a dedicated lint-infra fix job: endo-but-for-bots-lint-projectservice-ceiling.
+> Once that lands on master, #590 (and #581 if still open) go green on rebase — no
+> further shepherd action possible on #590 until then.
+
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (12)
+- [`endo-but-for-bots-lint-projectservice-ceiling`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endo-but-for-bots-lint-projectservice-ceiling.md) — fix lint-infra: typescript-eslint program scaling ceiling drops where/zip on ...
 - [`endojs-endo-but-for-bots-pr301-weave`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr301-weave.md) — weave (rebase/conflict-resolve) on endojs/endo-but-for-bots PR #301
 - [`endojs-endo-but-for-bots-pr313-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr313-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #313
 - [`endojs-endo-but-for-bots-pr316-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr316-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #316
 - [`endojs-endo-but-for-bots-pr318-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr318-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #318
 - [`endojs-endo-but-for-bots-pr324-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr324-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #324
-- [`endojs-endo-but-for-bots-pr393-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr393-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #393
 - [`endojs-endo-but-for-bots-pr438-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr438-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #438
 - [`endojs-endo-but-for-bots-pr587-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr587-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #587
-- [`endojs-endo-but-for-bots-pr590-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr590-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #590
 - [`endojs-endo-but-for-bots-pr591-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr591-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #591
+- [`endojs-endo-but-for-bots-pr593-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr593-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #593
 - [`endojs-endo-but-for-bots-pr60-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr60-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #60
 - [`endojs-endo-but-for-bots-pr79-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr79-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #79
 
-### tada (860)
+### tada (862)
+- [`endojs-endo-but-for-bots-pr393-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr393-shepherd.md) — Diagnosis complete. Emitting the shepherd escalation report.
+- [`endojs-endo-but-for-bots-pr590-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr590-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #590
 - [`endojs-endo-but-for-bots-pr239-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr239-shepherd.md) — Completion report — endojs-endo-but-for-bots-pr239-shepherd
 - [`endojs-endo-but-for-bots-pr286-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr286-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #286
 - [`endojs-endo-but-for-bots-pr394-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr394-shepherd.md) — The new CI run for my pushed SHA is classified **"CI (docs-only)"** — since t...
-- [`endojs-endo-but-for-bots-pr306-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr306-shepherd.md) — My shepherd work on PR #306 is complete. Report follows.
-- [`endojs-endo-but-for-bots-pr262-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr262-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #262
-- … and 855 more
+- … and 857 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
