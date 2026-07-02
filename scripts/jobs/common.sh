@@ -430,6 +430,122 @@ idle_backoff() {
   sleep "$(printf '%d.%03d' "$((ms / 1000))" "$((ms % 1000))")"
 }
 
+# --- shared fleet brake (the quota-storm circuit breaker) ---------------------
+# A correlated outage — a Claude quota/usage cut, an API-overload storm — makes
+# many gardeners' handlers fail transiently AT ONCE. A per-worker backoff alone is
+# not enough: ~100 independently-backing-off workers still collectively hammer the
+# already-exhausted quota, amplifying the outage and churning todo<->doin (the
+# 2026-07-01 incident that poisoned a dozen unrelated jobs). The fleet brake is a
+# SHARED circuit breaker across this host's pool: every gardener stamps ONE
+# timestamp into a host-local rolling ledger on each transient-classified handler
+# failure (record_transient_failure); before each claim every gardener reads that
+# ledger (fleet_brake_engaged) and, when the recent fleet-wide transient-failure
+# DENSITY crosses a threshold, PAUSES claiming for a jittered window
+# (fleet_brake_pause) so the storm drains instead of being fed. A paused gardener
+# records nothing, so the density ages out of the window and the brake releases —
+# the storm drains rather than being amplified. It changes only claim CADENCE: the
+# reaper stays the sole owner of the requeue, and a braked gardener touches no board
+# state. Fail-open by construction: an unreadable/missing ledger reads as density 0
+# (brake released), so a broken brake can never wedge the fleet.
+#
+# The ledger lives under $GARDEN_STATE (per-host, outside any reset-prone worktree,
+# never committed) — the same home as the usage meter's fallback ledger. It is
+# host-local on purpose: a quota storm is observed per-host (each host runs its own
+# `claude -p` handlers against the one shared subscription) and a cross-host brake
+# would need journal coordination the storm-response path must not depend on.
+GARDEN_FLEET_BRAKE_LEDGER="${GARDEN_FLEET_BRAKE_LEDGER:-$GARDEN_STATE/fleet-brake/failures}"
+# Trailing window over which transient failures are counted (seconds).
+GARDEN_FLEET_BRAKE_WINDOW_SECS="${GARDEN_FLEET_BRAKE_WINDOW_SECS:-300}"
+# Transient failures within the window, across the whole host pool, that engage the
+# brake. Sized above the handful of uncorrelated blips a healthy fleet produces so
+# only a genuine correlated storm trips it. 0 DISABLES the brake.
+GARDEN_FLEET_BRAKE_THRESHOLD="${GARDEN_FLEET_BRAKE_THRESHOLD:-10}"
+# Base pause a braked gardener sleeps before re-checking (seconds); jittered.
+GARDEN_FLEET_BRAKE_PAUSE_SECS="${GARDEN_FLEET_BRAKE_PAUSE_SECS:-60}"
+# Soft cap on ledger lines before an opportunistic prune of out-of-window rows.
+GARDEN_FLEET_BRAKE_LEDGER_MAXLINES="${GARDEN_FLEET_BRAKE_LEDGER_MAXLINES:-10000}"
+
+# _fleet_brake_now — wall clock in epoch seconds, overridable for deterministic
+# tests (mirrors the usage meter's meter_now shape).
+_fleet_brake_now() { printf '%s\n' "${GARDEN_FLEET_BRAKE_NOW:-$(date +%s 2>/dev/null || echo 0)}"; }
+
+# record_transient_failure — append one transient-failure event (a bare epoch
+# timestamp) to the host-local rolling ledger. Called by a gardener on every
+# transient-classified handler failure (both the exit-0-unsatisfying and the
+# non-zero transient paths). Atomic append; never fails the caller (callers run
+# under set -e). Opportunistically prunes out-of-window rows past the soft cap.
+record_transient_failure() {
+  local ledger="$GARDEN_FLEET_BRAKE_LEDGER" n
+  mkdir -p "$(dirname "$ledger")" 2>/dev/null || return 0
+  printf '%s\n' "$(_fleet_brake_now)" >> "$ledger" 2>/dev/null || true
+  n="$(wc -l < "$ledger" 2>/dev/null || echo 0)"
+  [ "${n:-0}" -gt "$GARDEN_FLEET_BRAKE_LEDGER_MAXLINES" ] && _fleet_brake_prune
+  return 0
+}
+
+# _fleet_brake_prune — drop ledger rows older than the window, under a non-blocking
+# flock (skip rather than block a concurrent recorder). Best-effort; a rare lost
+# prune just defers cleanup to a later append. Mirrors the meter's meter_prune.
+_fleet_brake_prune() {
+  local ledger="$GARDEN_FLEET_BRAKE_LEDGER" lf cutoff tmp fd
+  [ -f "$ledger" ] || return 0
+  lf="${ledger}.lock"
+  exec {fd}>>"$lf" 2>/dev/null || return 0
+  if flock -n "$fd"; then
+    cutoff=$(( "$(_fleet_brake_now)" - GARDEN_FLEET_BRAKE_WINDOW_SECS ))
+    tmp="$(mktemp "${ledger}.XXXXXX" 2>/dev/null)" || { exec {fd}>&- 2>/dev/null || true; return 0; }
+    if awk -v c="$cutoff" '($1+0)>=c' "$ledger" > "$tmp" 2>/dev/null; then
+      mv -f "$tmp" "$ledger" 2>/dev/null || rm -f "$tmp" 2>/dev/null
+    else
+      rm -f "$tmp" 2>/dev/null
+    fi
+  fi
+  exec {fd}>&- 2>/dev/null || true
+  return 0
+}
+
+# transient_failure_density [<window-secs>] — count ledger rows within the trailing
+# window. Prints the integer count (0 when the ledger is missing/unreadable — the
+# fail-open reading). Always returns 0.
+transient_failure_density() {
+  local window="${1:-$GARDEN_FLEET_BRAKE_WINDOW_SECS}" ledger="$GARDEN_FLEET_BRAKE_LEDGER" now cutoff
+  now="$(_fleet_brake_now)"; case "$now" in ''|*[!0-9]*) now=0 ;; esac
+  cutoff=$(( now - window ))
+  if [ -f "$ledger" ] && [ -r "$ledger" ]; then
+    awk -v c="$cutoff" '($1+0)>=c { n++ } END { printf "%d\n", n+0 }' "$ledger" 2>/dev/null && return 0
+  fi
+  printf '0\n'; return 0
+}
+
+# fleet_brake_engaged — 0 (engaged) iff the recent fleet-wide transient-failure
+# density is at/over the threshold; 1 otherwise. A threshold of 0 (or a misconfigured
+# non-integer) DISABLES the brake. Fail-open: an unreadable ledger reads as density
+# 0 → not engaged.
+fleet_brake_engaged() {
+  local thr="${GARDEN_FLEET_BRAKE_THRESHOLD:-10}" d
+  case "$thr" in ''|*[!0-9]*) return 1 ;; esac
+  [ "$thr" -eq 0 ] && return 1
+  d="$(transient_failure_density)"
+  [ "${d:-0}" -ge "$thr" ]
+}
+
+# fleet_brake_pause — sleep a jittered window while the brake is engaged, so a quota
+# storm drains instead of being fed and the pool does not resume in lockstep (a
+# thundering herd back onto the exhausted quota). The sleep is drawn in
+# [base/2, 3*base/2] seconds — a base offset plus a full-jitter span — to
+# decorrelate resume across the fleet. RANDOM (0-32767) caps the jitter span at
+# ~32s, which is ample decorrelation for a poll loop.
+fleet_brake_pause() {
+  local base="${GARDEN_FLEET_BRAKE_PAUSE_SECS:-60}" lo span_ms ms
+  case "$base" in ''|*[!0-9]*) base=60 ;; esac
+  [ "$base" -lt 1 ] && base=1
+  lo=$(( base / 2 ))                       # floor of the window
+  span_ms=$(( base * 1000 ))               # jitter span in ms (= base seconds)
+  [ "$span_ms" -gt 32767 ] && span_ms=32767
+  ms=$(( lo * 1000 + RANDOM % (span_ms + 1) ))
+  sleep "$(printf '%d.%03d' "$((ms / 1000))" "$((ms % 1000))")"
+}
+
 # --- job scratch (the live-tree-root clutter fix) ----------------------------
 #
 # Jobs that need a private scratch directory or an ad-hoc worktree MUST place it

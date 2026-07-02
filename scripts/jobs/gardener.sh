@@ -134,6 +134,20 @@ idle_rounds=0
 # under ONESHOT. Reset to 1 (attempt 1 = a quick first poll) on a productive tick.
 idle_attempt=1
 
+# Consecutive transient handler failures, driving the PER-WORKER failure backoff
+# (the failure-path analog of idle_attempt, reusing idle_backoff). On a correlated
+# outage — a Claude quota/usage cut — a handler dies transiently, is left in doin
+# for the reaper, and the worker would otherwise fall STRAIGHT back to the claim
+# head and re-run the next job against the same exhausted quota with zero delay.
+# Instead a just-failed worker sleeps idle_backoff("$fail_attempt") before its next
+# claim, and the counter GROWS across consecutive transient failures so a sustained
+# outage backs a single worker off exponentially (capped at GARDEN_IDLE_SLEEP_CAP).
+# SEPARATE from idle_attempt on purpose: idle_attempt resets on every claim (a
+# productive tick), which would erase the exponential growth across a claim→fail
+# streak; fail_attempt resets ONLY on a genuine completion (a healthy cycle), so it
+# keeps growing while the outage persists. Complements the SHARED fleet brake below.
+fail_attempt=1
+
 # Graceful drain on stop. Under the unit's KillMode=mixed, a systemd stop/restart
 # SIGTERMs only the main worker process (self-heal-run.sh, which forwards the
 # signal to THIS loop with a single-process `kill`, never to the handler subtree),
@@ -165,6 +179,23 @@ while :; do
 
   # monitor the bus for anything addressed to this role or broadcast, every loop
   "$HERE/read-msgs.sh" "gardener-$id" "role/gardener" "broadcast" || true
+
+  # --- shared fleet brake -----------------------------------------------------
+  # A correlated outage (a Claude quota/usage cut) makes many handlers fail at
+  # once; each gardener stamps the shared host-local ledger on a transient failure
+  # (below). Before claiming, read the fleet-wide transient-failure density and,
+  # when it crosses the threshold, PAUSE claiming for a jittered window so the
+  # storm drains instead of being fed to an already-exhausted quota. Cadence only:
+  # the reaper stays the sole requeue owner and a braked gardener touches no board
+  # state; a braked worker records nothing, so the density ages out and the brake
+  # releases. Fail-open — an unreadable ledger reads as not-engaged. Checked at
+  # this between-claims point (after the drain/stop checks and busy-marker clear
+  # above) so a stop or deploy still preempts a braked gardener promptly.
+  if fleet_brake_engaged; then
+    log "fleet brake ENGAGED (transient-failure density $(transient_failure_density) ≥ threshold ${GARDEN_FLEET_BRAKE_THRESHOLD} over ${GARDEN_FLEET_BRAKE_WINDOW_SECS}s); pausing claims so the quota storm drains instead of being fed"
+    fleet_brake_pause
+    continue
+  fi
 
   set +e
   base="$("$HERE/claim-job.sh" "$id")"; rc=$?
@@ -329,6 +360,7 @@ while :; do
       continue
     fi
     [ "$crc" -ne 0 ] && die "complete-job failed for '$base' (rc=$crc)"
+    fail_attempt=1   # a genuine completion (a healthy cycle) resets the failure backoff
     if [ -n "${GARDEN_GARDENER_VERBOSE:-}" ]; then
       printf 'gardener-%s on %s completed job %s\n' "$id" "$GARDEN" "$base" \
         | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
@@ -361,6 +393,12 @@ while :; do
       log "could not stamp reap-now hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
     fi
     rm -f "$report" "$capture" "$completion_sentinel"
+    # Transient (quota/API/clean-but-unfinished): feed the SHARED fleet brake and
+    # apply the PER-WORKER failure backoff so this just-failed worker does not
+    # instantly re-claim and re-run against the same exhausted quota. Cadence only
+    # — the reaper still owns the requeue.
+    record_transient_failure
+    idle_backoff "$fail_attempt"; fail_attempt=$((fail_attempt+1))
   else
     rc=$hrc  # exit code of the failed handler (captured explicitly above)
     elapsed=$((SECONDS - handler_start))  # wall-clock seconds the handler ran before it died
@@ -606,6 +644,18 @@ while :; do
             | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" error || true
         fi
       fi
+
+      # Feed the SHARED fleet brake and apply the PER-WORKER failure backoff: a
+      # transient handler outage (a signal-kill/timeout/empty/transient-claude
+      # signature) is exactly the correlated-quota-storm signal the brake watches
+      # for, and a just-failed worker must not fall straight back to the claim head
+      # and re-run against the same exhausted quota with zero delay. Both are
+      # CADENCE ONLY — the job is already left in doin and the reaper stays the sole
+      # requeue owner (nothing above changed that). fail_attempt grows across
+      # consecutive transient failures (reset only on a genuine completion), so a
+      # sustained outage backs this worker off exponentially up to the idle cap.
+      record_transient_failure
+      idle_backoff "$fail_attempt"; fail_attempt=$((fail_attempt+1))
     else
       # --- real failure: escalate the diagnostic output by hash -----------------
       # Defensive: $capture is non-empty here (the transient branch absorbed the
