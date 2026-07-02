@@ -1,24 +1,24 @@
 # Garden bulletin
 
-_As of 2026-07-02T04:11:08Z_
+_As of 2026-07-02T08:49:05Z_
 
 ## Latest
 
-The lint fix on [endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) landed and its completion report posted; a captp error-identification design follow-up for [#58](https://github.com/endojs/endo-but-for-bots/pull/58) also completed. Now in flight: verifying #594's lint performance and bucketing the lint jobs, replicating that fix onto the `llm` base to merge immediately, plus a shepherd on [#420](https://github.com/endojs/endo-but-for-bots/pull/420) and a follow-up on [#397](https://github.com/endojs/endo-but-for-bots/pull/397).
+The endo-but-for-bots lint-projectService-ceiling fix replicated onto the `llm` base and merged, closing out the [#594](https://github.com/endojs/endo-but-for-bots/pull/594) work (both the verify-and-bucket and replicate-and-merge jobs completed), and the [#420](https://github.com/endojs/endo-but-for-bots/pull/420) shepherd plus a [#410](https://github.com/endojs/endo-but-for-bots/pull/410) shepherd follow-up landed green. The board is now fully drained (nothing in todo or doin).
 
-The story a maintainer should notice, though, is a **large wave of poisoned jobs**: the reaper dropped roughly two dozen jobs after 5 failed requeue cycles each. Most are auto-dispatched shepherd jobs whose CI is red purely because the PR is conflicting/stale-based and GitHub dispatches no `pull_request` run — [#101](https://github.com/endojs/endo-but-for-bots/pull/101), [#216](https://github.com/endojs/endo-but-for-bots/pull/216), [#301](https://github.com/endojs/endo-but-for-bots/pull/301), and [#306](https://github.com/endojs/endo-but-for-bots/pull/306) each escalated to a weaver for a heavy rebase, and [#394](https://github.com/endojs/endo-but-for-bots/pull/394) to a fixer for real Node-version-specific test failures. That the handlers "fail every time" points at a correlated cause: one poisoned job explicitly names a Claude quota/API outage thrashing ~100 gardeners. Tellingly, the very jobs meant to harden against this — an identity-drift guard, a gardener transient-failure backoff + fleet brake, issue-inbox git-child reaping, and a repo-watcher arm retry — were themselves poisoned rather than executed. Separately, the shepherd on [#590](https://github.com/endojs/endo-but-for-bots/pull/590) escalated to the liaison: its lone red check is the known typescript-eslint projectService scaling ceiling (same tail-drop of `where`/`zip` that hit [#581](https://github.com/endojs/endo-but-for-bots/pull/581)), and a dedicated repo-wide lint-infra fix job was posted rather than bundling it into the refactor.
+What a maintainer should notice: the reaper poison-dropped a large batch of jobs after 5 requeue cycles apiece — dozens of auto-dispatched red-CI shepherd jobs (PRs #60, #79, #96, #235, #242, #250, #313, #316, #318, #320, #324, #335, #337, #377, #393, #410, #420, #438, #475, #541, #585, [#590](https://github.com/endojs/endo-but-for-bots/pull/590), #591, #593) plus several weaver/fixer escalations (#101, #216, #301, #306, #394). The pattern points at a correlated Claude quota/API outage in which all ~100 gardeners thrashed the same jobs against an exhausted quota rather than a real per-PR defect; two of the poisoned items are themselves self-filed infra fixes for exactly that failure mode (a gardener transient-failure backoff + fleet brake, and a `GARDEN=endolinbot2` identity-drift guard). Separately, [#590](https://github.com/endojs/endo-but-for-bots/pull/590)'s shepherd correctly declined to touch the PR and instead posted a dedicated lint-infra job, deferring to the maintainer on the repo-wide typescript-eslint scaling ceiling.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 1d)
-- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 2d)
-- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 5d)
+- [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
+- [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
+- [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
 - [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) — feat: support .ts runtime modules via erasable type syntax (waiting 16d)
 - [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 41d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 41d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 41d)
-- [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 41d)
-- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 42d)
+- [endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/pull/266) — design: opencode comparative analysis + gap-closing raft (endopen) (waiting 43d)
+- [endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/pull/288) — feat(cbor-frame): add @endo/cbor-frame package for CBOR byte-string framing (waiting 42d)
 - [endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/pull/329) — docs: introduce spackle, the polyfill+ponyfill race pattern (waiting 42d)
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
@@ -925,19 +925,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
-- [`ebfb-pr594-verify-lint-perf-and-bucket`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr594-verify-lint-perf-and-bucket.md) — PR #594 — verify lint performance; bucket the lint jobs if per-package regres...
-- [`ebfb-replicate-pr594-lint-fix-on-llm-and-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-replicate-pr594-lint-fix-on-llm-and-merge.md) — Replicate #594's lint fix onto llm and MERGE IMMEDIATELY (unblock llm shepherds)
-- [`endojs-endo-but-for-bots-pr420-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr420-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #420
-- [`fu-endojs-endo-but-for-bots-pr410-shepherd-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr410-shepherd-1.md) — On endojs/endo-but-for-bots PR #397 (branch design/gateway-package-phase-9), ...
+### doin (0)
+(none)
 
-### tada (892)
+### tada (896)
+- [`fu-endojs-endo-but-for-bots-pr410-shepherd-1`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/fu-endojs-endo-but-for-bots-pr410-shepherd-1.md) — Completion report — fu-endojs-endo-but-for-bots-pr410-shepherd-1
+- [`endojs-endo-but-for-bots-pr420-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr420-shepherd.md) — Completion report — shepherd on endojs/endo-but-for-bots PR #420
+- [`ebfb-replicate-pr594-lint-fix-on-llm-and-merge`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-replicate-pr594-lint-fix-on-llm-and-merge.md) — Completion report
+- [`ebfb-pr594-verify-lint-perf-and-bucket`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-pr594-verify-lint-perf-and-bucket.md) — Completion report
 - [`endojs-endo-but-for-bots-pr594-042c3a07`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr594-042c3a07.md) — Completion report
-- [`ebfb-design-captp-error-identification-followup-pr58`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb-design-captp-error-identification-followup-pr58.md) — Design delivered. Completion report:
-- [`garden-encode-typedefs-in-dts-builder-directive-and-reviewer`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-encode-typedefs-in-dts-builder-directive-and-reviewer.md) — Completion report
-- [`garden-gardener-claude-honor-per-job-model`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/garden-gardener-claude-honor-per-job-model.md) — Completion report
-- [`endojs-endo-but-for-bots-pr410-shepherd`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr410-shepherd.md) — Shepherd report — endojs/endo-but-for-bots PR #410
-- … and 887 more
+- … and 891 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
