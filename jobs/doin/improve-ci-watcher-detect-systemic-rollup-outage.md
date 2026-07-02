@@ -1,1 +1,7 @@
 `scripts/jobs/ci-watcher.sh` logs one `WARN: #$pr rollup unreadable` per PR (line 207) but does not count it: the summary line (244) reports only `open/ours/red/pending/posted`, so a tick where *every* bot PR is unreadable prints "…M bot-authored, 0 red, 0 in-progress, 0 shepherd job(s) posted" — indistinguishable from a healthy all-green tick, which is how a real gh outage hides. Add an `unreadable` counter in the `*)` case, include it in the summary line, and after the loop detect the systemic case: when `unreadable == ours` and `ours > 0`, emit a single distinct `WARN: N/N bot PR rollups unreadable this tick — likely a systemic gh outage (auth/rate-limit/network), not per-PR` line. This converts 350+ identical per-PR warnings into one actionable signal and stops a total-outage tick from reading as "nothing red, all fine."
+
+---
+claim:
+  host: endolinbot2
+  gardener: 62
+  claimed_at: 2026-07-02T03:21:37Z
