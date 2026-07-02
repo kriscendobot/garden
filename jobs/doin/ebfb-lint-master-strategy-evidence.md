@@ -46,3 +46,9 @@ Quantify the `tsc` project-service rebuild cost per process so the "duplicated e
 A decision comment is posted on #594 with a real-CI evidence table and a recommendation; a journal `result` entry records the evidence and decision; if warranted, a draft `master`-base implementation of the recommended strategy is staged; and the upstream ferry is listed as a follow-up for the credentialed host. #594 is left in its current draft state (not merged, not un-drafted).
 
 <!-- garden-reaped: 2 -->
+
+---
+claim:
+  host: endolinbot2
+  gardener: 17
+  claimed_at: 2026-07-02T17:37:29Z
