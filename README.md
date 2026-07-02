@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-07-02T19:36:08Z_
+_As of 2026-07-02T19:38:37Z_
 
 ## Latest
 
-The reaper dropped five garden-infrastructure jobs as poison after five requeue cycles each — a host-identity drift detector, a gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, repo-watcher arm-retry logging, and the `daemon.js`→`manager.js` rename build — all failing repeatedly during the 2026-07-01/07-02 Claude quota outage. The investigation into those poisonings surfaced a **live incident worth immediate attention**: `/home/kris/.garden` still holds the stale `endolinbot2` override, so `common.sh` resolves `GARDEN=endolinbot2` on the true leader host, `is-main-host.sh` returns FOLLOWER, and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped while 276 gardener entries mislabel per-host state. The fix is operational and out of a gardener's scope — either `echo endolinbot > /home/kris/.garden` or re-point the leader marker to `endolinbot2` — followed by a fleet restart.
+The headline is a **live leader-disabling incident**: the `endolinbot2` host-identity drift is still active on the true leader host (`/home/kris/.garden` resolves `GARDEN=endolinbot2` while `journal/leader` names `endolinbot`), so `is-main-host` reports FOLLOWER and every leader-only singleton — foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor — is being silently skipped, with 276 recent gardener entries mislabeled. The gardener investigating it flagged the fix as out of autonomous scope: either `echo endolinbot > /home/kris/.garden` (single-leader shard) or re-point the marker to `endolinbot2` and record the parallel-pool override, then restart the fleet. This same drift compounded a Claude quota outage on 07-01/07-02 that poisoned **five** garden-infra jobs — the reaper dropped them after 5 requeue cycles: the identity-drift detector, gardener transient-failure backoff + fleet brake, issue-inbox orphan-git reaping, repo-watcher arm retry, and the `daemon.js`→`manager.js` rename build — all now surfaced to the maintainer inbox for triage.
 
-On the PR side, the shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found it is subsumed rather than lint-blocked: the entire CapTP error-tracing feature has already been re-landed on `llm` via merged [#58](https://github.com/endojs/endo-but-for-bots/pull/58), so a rebase collapses to an empty PR — recommend closing it as superseded, with only `error-id.js`/`trace-constants.js` worth extracting into a fresh small PR. The daemon→manager rename advanced with Phase 1 open as [endo-but-for-bots#598](https://github.com/endojs/endo-but-for-bots/pull/598), and Phases 2 and 3 are correctly blocked awaiting it. The only board completion this window was the review of [endo-but-for-bots#599](https://github.com/endojs/endo-but-for-bots/pull/599).
+Separately, a shepherd run on [endojs/endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is not lint-blocked but **subsumed**: its error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to an essentially empty PR; the shepherd recommends closing #301 (optionally extracting the two small unique refactors — `error-id.js` and `trace-constants.js` — as a fresh PR) and awaits the maintainer's disposition call. On the build front, the XS→Rust (Endor) engine-port design completed and its stage-1 thin-slice build was just claimed and is now in flight.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 4h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 5h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 2d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 6d)
@@ -205,8 +205,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`port-xs-to-rust-memory-safe-engine-s2`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s2.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
+- [`xs2rust-endor-build-stage1`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage1.md) — Build roadmap stage 1 of the xs2rust-endor engine port (thin slice) on PR #600
 
 ### tada (951)
 - [`endojs-endo-but-for-bots-pr599-review-dfb9df4e`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr599-review-dfb9df4e.md) — Completion report
