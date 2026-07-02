@@ -180,7 +180,7 @@ if [ "$src_rc" -ne 0 ]; then
 fi
 
 bot_lc="$(printf '%s' "$GARDEN_BOT_LOGIN" | tr '[:upper:]' '[:lower:]')"
-open_prs=0; ours=0; red=0; pending=0; posted=0
+open_prs=0; ours=0; red=0; pending=0; posted=0; unreadable=0
 # The source's 4th column (updated_at) is unused here — we enumerate every open bot
 # PR each tick rather than activity-bounding — but is emitted for parity with the
 # other sources and possible future bounding; read it into a throwaway.
@@ -204,7 +204,7 @@ while IFS=$'\t' read -r pr author head _; do
     10) log "#$pr green — nothing to do"; continue ;;
     11) log "#$pr has no checks reported — nothing to do"; continue ;;
     12) log "#$pr CI still in progress/queued — backing off"; pending=$((pending+1)); continue ;;
-    *)  log "WARN: #$pr rollup unreadable (rc=$rrc) — skipping (never guess a state)"; continue ;;
+    *)  log "WARN: #$pr rollup unreadable (rc=$rrc) — skipping (never guess a state)"; unreadable=$((unreadable+1)); continue ;;
   esac
   red=$((red+1))
 
@@ -241,4 +241,13 @@ while IFS=$'\t' read -r pr author head _; do
   fi
 done < "$SRC"
 
-log "scanned $open_prs open PR(s) on $repo: $ours bot-authored, $red red, $pending in-progress, $posted shepherd job(s) posted"
+log "scanned $open_prs open PR(s) on $repo: $ours bot-authored, $red red, $pending in-progress, $unreadable unreadable, $posted shepherd job(s) posted"
+
+# Systemic-outage detection: when EVERY bot PR's rollup was unreadable this tick
+# (and there was at least one), it is not $ours independent per-PR glitches — it is
+# one shared failure (gh auth expiry, rate-limit, or network). Collapse the 350+
+# identical per-PR WARN lines into one actionable signal so a total outage cannot
+# read as a healthy "0 red, all fine" tick.
+if [ "$ours" -gt 0 ] && [ "$unreadable" -eq "$ours" ]; then
+  log "WARN: $unreadable/$ours bot PR rollups unreadable this tick — likely a systemic gh outage (auth/rate-limit/network), not per-PR"
+fi
