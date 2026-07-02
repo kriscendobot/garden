@@ -395,9 +395,26 @@ while :; do
     elapsed=$((SECONDS - handler_start))
     cycle="$(reap_count "$jobfile")"
     log "handler for '$base' exited 0 WITHOUT the completion signal (exit-0-unsatisfying: quota/API/clean-but-unfinished); requeueing (requeue cycle $cycle, elapsed=${elapsed}s), left in doin for reaper requeue"
-    printf 'gardener-%s on %s: job %s handler exited 0 but never emitted the completion signal (exit-0-unsatisfying — claude quota/usage cut, swallowed API error, or unfinished run); requeueing doin→todo (requeue cycle %s, elapsed=%ss), left in doin for reaper requeue (no escalation)\n' \
-      "$id" "$GARDEN" "$base" "$cycle" "$elapsed" \
-      | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+    # SILENT-UNTIL-ESCALATION. A `kind:progress` note on EVERY exit-0-unsatisfying
+    # requeue is routine self-healing progress: for a handful of jobs that clean-exit
+    # without finishing (a shepherd-llm-resume PR whose `claude` hits its usage cut
+    # each cycle) it piles 20+ near-identical "exited 0 … requeueing … (no
+    # escalation)" digests into the shared journal — the silent-until-error violation
+    # the mentor brief flags (routine progress burning supervisor/mentor context).
+    # The escalation is already owned deterministically by the reaper, the single
+    # writer of the requeue AND the `<!-- garden-reaped: N -->` poison counter: it
+    # surfaces the job as POISON once the count reaches GARDEN_REAP_POISON_THRESHOLD.
+    # So the local `log` above stays (stderr/systemd debugging) but the SHARED-journal
+    # note fires ONLY as the job APPROACHES that escalation — the reaper computes
+    # count=cycle+1 and poisons at count>=threshold, so cycle>=threshold-1 is the last
+    # requeue before poison. The journal then shows the escalation, not each retry.
+    poison_threshold="${GARDEN_REAP_POISON_THRESHOLD:-5}"
+    case "$poison_threshold" in ''|*[!0-9]*) poison_threshold=5 ;; esac
+    if [ "$cycle" -ge "$(( poison_threshold - 1 ))" ]; then
+      printf 'gardener-%s on %s: job %s handler exited 0 but never emitted the completion signal (exit-0-unsatisfying — claude quota/usage cut, swallowed API error, or unfinished run); requeueing doin→todo (requeue cycle %s of poison threshold %s, elapsed=%ss), left in doin for reaper requeue — ABOUT TO ESCALATE as poison\n' \
+        "$id" "$GARDEN" "$base" "$cycle" "$poison_threshold" "$elapsed" \
+        | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+    fi
     if ( stamp_reap_now_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
       log "stamped reap-now hint on '$base'; reaper will requeue before TTL (poison cycle still counts)"
     else
@@ -544,9 +561,37 @@ while :; do
       # instead of waiting out the full poison cycle. elapsed is READ-ONLY of the
       # SECONDS timing captured at the call site — no new state, no CAS.
       log "handler outage for '$base' looks transient (rc=$rc, requeue cycle $cycle, elapsed=${elapsed}s, signal-kill/timeout/empty/transient-signature capture); no escalation, left in doin for reaper requeue"
-      printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/timeout/empty/transient-signature output); transient handler outage (requeue cycle %s, elapsed=%ss); left in doin for reaper requeue (no escalation)\n' \
-        "$id" "$GARDEN" "$base" "$rc" "$cycle" "$elapsed" \
-        | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+      # SILENT-UNTIL-ESCALATION (same rationale as the exit-0-unsatisfying branch
+      # above): the reaper poisons a job that keeps failing the same transient way
+      # after GARDEN_REAP_POISON_THRESHOLD cycles, so a per-cycle shared-journal note
+      # on each routine requeue (a deploy-drain SIGTERM, a shepherd hitting the 2400s
+      # wall as rc=124, an empty-output blip) just duplicates self-healing progress.
+      # Keep the local `log` (stderr/systemd) and fire the SHARED-journal note only as
+      # the job APPROACHES the reaper's poison escalation (cycle>=threshold-1).
+      #
+      # EXCEPTION — the elapsed-constancy early-escalation below reconstructs its input
+      # elapsed SERIES by grepping THESE per-cycle transient notes out of the journal
+      # (common.sh prior_transient_elapsed_series). Silencing them for the subset it
+      # watches — a transient-claude-signature / bare claude-CLI failure WITH output,
+      # NOT an external signal-kill, wall-clock timeout, or empty-capture blip — would
+      # blind that check (it would never assemble a full window and could not surface a
+      # deterministic overrun misclassified as a blip in ~2 cycles). So keep writing the
+      # note for exactly that subset; only the noisy escalation-less routine requeues
+      # (which no downstream check consumes) are quieted until poison is imminent.
+      poison_threshold="${GARDEN_REAP_POISON_THRESHOLD:-5}"
+      case "$poison_threshold" in ''|*[!0-9]*) poison_threshold=5 ;; esac
+      constancy_n_g="$GARDEN_ELAPSED_CONSTANCY_CYCLES"
+      case "$constancy_n_g" in ''|*[!0-9]*) constancy_n_g=0 ;; esac
+      constancy_applicable=0
+      if [ "$constancy_n_g" -ge 2 ] && [ -s "$capture" ] \
+         && ! is_external_kill_rc "$rc" && ! is_handler_timeout_rc "$rc"; then
+        constancy_applicable=1
+      fi
+      if [ "$cycle" -ge "$(( poison_threshold - 1 ))" ] || [ "$constancy_applicable" -eq 1 ]; then
+        printf 'gardener-%s on %s: job %s handler exited rc=%s (signal-kill/timeout/empty/transient-signature output); transient handler outage, requeue cycle %s of poison threshold %s (elapsed=%ss); left in doin for reaper requeue\n' \
+          "$id" "$GARDEN" "$base" "$rc" "$cycle" "$poison_threshold" "$elapsed" \
+          | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
+      fi
       # We KNOW this claim is dead (the handler was killed/blipped, not failing on a
       # job defect), so don't make the job wait out the full GARDEN_CLAIM_TTL for the
       # reaper to notice its claimed_at is stale. Stamp a reap-now hint on our own
