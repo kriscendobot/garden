@@ -54,9 +54,16 @@
 #   3. `hostname -s` — the single-shard default. The kernel hostname is fixed at
 #      container creation and cannot distinguish two pools on one home directory,
 #      which is exactly why the .garden file exists.
-# We export GARDEN so a spawned worker carries it in its /proc/<pid>/environ,
-# which the gardener-scaler's identity-drift reconcile reads (a file-derived
-# identity must be visible there too, not only an env-derived one).
+# We export GARDEN so child processes (git, the handler, hooks) inherit the
+# resolved identity. NOTE: this does NOT reliably populate the drift-reconcile's
+# view. The gardener-scaler reads the unit's MainPID /proc/<pid>/environ, but the
+# MainPID is the self-heal-run.sh wrapper — the identity is only visible in the
+# gardener.sh child that actually sources this file. So a file-derived identity
+# reads as "unset" to gardener_instance_garden, which treats it as the hostname
+# default (not drifted): a *live* edit of .garden is therefore NOT auto-detected;
+# restart the pool to apply it. (Env-derived identity in the manager env WAS
+# visible in the wrapper environ; the file trades that for durability. Making the
+# reconcile read the gardener.sh child's environ is a follow-up.)
 # See issue kriskowal/garden#11 (Multibot) and designs/multibot-leader-follower.md.
 if [ -z "${GARDEN:-}" ] && [ -r "$GARDEN_ROOT/.garden" ]; then
   GARDEN="$(head -1 "$GARDEN_ROOT/.garden" 2>/dev/null | tr -d '[:space:]')"
