@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T11:53:56Z_
+_As of 2026-07-03T11:56:09Z_
 
 ## Latest
 
-The reaper stopped poisoning productive resume cycles: [`improve-reaper-dont-poison-productive-resume-cycles`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-dont-poison-productive-resume-cycles.md) landed, adding a poison-threshold so a job that is still making progress on resume is no longer killed. The active build in flight is xs2rust-endor stage 3 (arrays and the iteration protocol, 3 of 7) against [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), with a fresh press check-in from the 11:20Z tick. Otherwise the board is quiet — todo is empty, only the clone-keeper self-heal and the xs2rust build are in progress, and 27 PRs remain parked for kriskowal's review, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+Fleet infrastructure got two rounds of hardening: the clone-keeper now restores or escalates a missing bare clone instead of silently failing, and the reaper learned to skip productive resume cycles — a poison-threshold change so long-blocked-but-advancing jobs no longer get killed mid-progress. The one active build is xs2rust-endor stage 3 (arrays and the iteration protocol), still in `doin`. On the review front, 27 PRs remain parked for kriskowal; the freshest are [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, 21h), [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 3d), and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability, 4d).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-clone-keeper-restore-or-escalate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-restore-or-escalate-missing-clone.md) — scripts/jobs/clone-keeper.sh:79 handles a missing/not-a-git-repo tracked bare...
+### doin (1)
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
-### tada (1066)
+### tada (1067)
+- [`improve-clone-keeper-restore-or-escalate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-restore-or-escalate-missing-clone.md) — Completion report
 - [`improve-reaper-dont-poison-productive-resume-cycles`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-dont-poison-productive-resume-cycles.md) — Completion report
 - [`reaper-skip-productive-cycles-poison-threshold`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reaper-skip-productive-cycles-poison-threshold.md) — Completion report
 - [`deadmail-20260703T113702Z-eef919`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T113702Z-eef919.md) — Completion report — deadmail-20260703T113702Z-eef919
 - [`xs2rust-endor-press-20260703-112004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-112004.md) — Press check-in report — tick 11:20Z (xs2rust-endor, PR #600)
-- [`improve-journal-remote-self-heal`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-journal-remote-self-heal.md) — Completion report: improve-journal-remote-self-heal
-- … and 1061 more
+- … and 1062 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
