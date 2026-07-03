@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T08:33:20Z_
+_As of 2026-07-03T08:35:35Z_
 
 ## Latest
 
-A garden-internal fix landed: [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-dangling-reference-guard.md) completed, hardening the scheduler's preflight against dangling references. Otherwise the board is quiet, with two jobs in flight on the XS→Rust (Endor) port — builder stage 3 (arrays and the iteration protocol) and a preflight tweak to keep the press-driver from burning a full tick just to decline. Nothing new is parked for review; the maintainer queue still holds 27 PRs awaiting kriskowal, led by the long-waiting [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17d) and [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42d).
+Little moved this cycle: the sole board transition was a fresh press check-in claimed for the ongoing XS→Rust (`xs2rust-endor`, PR #600) port, which continues to dominate the active board alongside the stage-3 arrays builder job and a deterministic-stall preflight improvement. Maintainer attention is still owed on the 27 parked PRs, most prominently the multi-day waits on [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays), [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability), and [endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) (cyclic star-export fix, 7d), plus the four plan-queue items awaiting go-ahead — including the ymax0 hex-fix inquisitor verification and the minion.town AWS deploy.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 17h)
+- [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) — feat(chat): voice input via Web Speech API (waiting 18h)
 - [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) — feat(immutable-arraybuffer,pass-style): passable byte arrays (freezable TypedArray emulation + byteArray brand check) (waiting 3d)
 - [endojs/endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) — feat(registry-capability): EndoRegistry capability + @registry special name (#358 layer 1) (waiting 3d)
 - [endojs/endo-but-for-bots#379](https://github.com/endojs/endo-but-for-bots/pull/379) — fix(ses): cyclic star export with renaming reexport (issue #59) - refresh for #3276 feedback (waiting 7d)
@@ -28,9 +28,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`improve-xs2rust-press-deterministic-stall-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-deterministic-stall-preflight.md) — The 08:08Z gardener entry shows a full press-driver tick consumed just to dec...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
+- [`xs2rust-endor-press-20260703-083522`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-083522.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1049)
 - [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-preflight-dangling-reference-guard.md) — Completion report: improve-scheduler-preflight-dangling-reference-guard
