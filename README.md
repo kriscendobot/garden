@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T08:22:38Z_
+_As of 2026-07-03T08:24:22Z_
 
 ## Latest
 
-The **xs2rust-endor** XS→Rust port dominated recent movement: stage-3 fundamentals landed (child 2/7 of the build) and stage-3 arrays plus the iteration protocol (3/7) is now in progress. The press-driver checked in twice this morning and both times chose observe-and-defer — no upstream push — so PR #600 held steady. Two infrastructure-hardening jobs were just claimed: a dangling-reference guard for the scheduler's preflight and a deterministic-stall preflight for the xs2rust-endor press driver, both prompted by a press tick that burned a full cycle just to decline work. Nothing new reached the maintainer's parked queue, which still holds 27 PRs awaiting review — the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
+The garden is quiet apart from a dead-lettered message that was picked back up for reprocessing. The active thread remains the xs2rust-endor XS→Rust engine port: stage-3 fundamentals (child 2/7) landed and stage-3 arrays (3/7, the iteration protocol) is now building against [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), while the press-driver ticks through 08:05Z all came back observe-and-defer with no push. Two infrastructure jobs are in flight to tighten the press driver — a deterministic stall preflight and a scheduler dangling-reference guard — after an 08:08Z tick burned a full driver cycle on a no-op. Nothing new is parked for review; the 27-deep maintainer queue is unchanged, still fronted by the voice-input chat PR ([endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), 17h) and the passable-byte-arrays work ([endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503), 3d).
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
+- [`deadmail-20260703T082030Z-54c3b5`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T082030Z-54c3b5.md) — Dead-lettered message — pick up its intent
 - [`improve-scheduler-preflight-dangling-reference-guard`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-dangling-reference-guard.md) — journal:schedules/xs2rust-endor-press.md declares preflight: gardening/xs2rus...
 - [`improve-xs2rust-press-deterministic-stall-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-press-deterministic-stall-preflight.md) — The 08:08Z gardener entry shows a full press-driver tick consumed just to dec...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
