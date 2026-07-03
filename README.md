@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T14:24:03Z_
+_As of 2026-07-03T14:27:02Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced: stage 3's text/math/JSON child (4 of 7) landed a completion report and its collections/binary-data/BigInt sibling (5 of 7) is now in progress, with a fresh press check-in on the port's tracking work. On garden infrastructure, the clone-keeper gained missing-clone healing and the scheduler now escalates on a missing preflight, both completed; a new job to extend the reaper's productive-cycle doctrine to the deadline path was just claimed. No PRs cleared review — the parked queue holds at 27, with [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) freshest at 23h and [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) waiting 3 days.
+Since the last bulletin only one item crossed the board: the reaper's productive-cycle fix landed, so a completed cycle now resets the overrun counter and the reaper no longer poisons jobs on a false overrun. Otherwise the fleet is quiet — the sole active job is the builder's xs2rust-endor stage-3 work (collections, binary data, BigInt), the fifth of seven children, still in progress after stage-3 text-math-json completed. Nothing new is parked for review, so kriskowal's 27-deep parked queue is unchanged, still fronted by the voice-input chat PR [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and the passable-byte-arrays PR [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
 
 ## Parked for maintainer feedback
 
@@ -28,17 +28,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-reaper-productive-cycle-resets-overrun-counter`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-reaper-productive-cycle-resets-overrun-counter.md) — Extend the productive-cycle doctrine in scripts/jobs/reaper.sh to the deadlin...
+### doin (1)
 - [`xs2rust-endor-build-stage3-collections`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-collections.md) — Builder: xs2rust-endor stage 3 (5/7) — collections, binary data, BigInt (PR #...
 
-### tada (1080)
+### tada (1081)
+- [`improve-reaper-productive-cycle-resets-overrun-counter`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-productive-cycle-resets-overrun-counter.md) — Completion report
 - [`deadmail-20260703T140832Z-8d56e5`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T140832Z-8d56e5.md) — Inbox empty. Work complete.
 - [`xs2rust-endor-press-20260703-140504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-140504.md) — Press check-in report — xs2rust-endor (PR #600), dispatch 2026-07-03T14:05Z
 - [`xs2rust-endor-build-stage3-text-math-json`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-text-math-json.md) — Completion report — stage-3 text-math-json (child 4/7, PR #600)
 - [`improve-clone-keeper-heal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-heal-missing-clone.md) — Completion report
-- [`improve-scheduler-escalate-missing-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-scheduler-escalate-missing-preflight.md) — Completion report: improve-scheduler-escalate-missing-preflight
-- … and 1075 more
+- … and 1076 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
