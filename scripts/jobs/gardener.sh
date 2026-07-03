@@ -426,6 +426,81 @@ while :; do
     else
       log "could not stamp reap-now hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
     fi
+
+    # --- elapsed-constancy early-escalation (exit-0-unsatisfying wedge) ---------
+    # Mirror of the rc!=0 transient branch's elapsed-constancy check (below) into the
+    # exit-0 path. Requeueing an exit-0-unsatisfying job is correct for a genuine
+    # blip (a quota/usage cut, a swallowed API error, a run that clean-exited without
+    # finishing), but an exit-0-unsatisfying CLASSIFICATION is not proof of a
+    # self-resolving blip: a child that keeps exiting 0 without finishing at a
+    # near-CONSTANT elapsed every cycle — with NO further HEAD movement — is the
+    # WEDGE the xs2rust-endor-press note flagged ("repeated exit-0-unsatisfying
+    # cycles with no further HEAD movement would mean the child is wedged, not
+    # working"), burning ~2000s per cycle silently up to GARDEN_REAP_POISON_THRESHOLD
+    # times before the reaper poisons it. Its tell is the SAME near-constant elapsed
+    # the rc!=0 overrun check watches for. Recover the prior cycles' elapsed for this
+    # base (READ-ONLY grep of this clone's already-synced progress notes — the exit-0
+    # note above carries the same `job <base> handler exited … elapsed=<N>s` anchor
+    # prior_transient_elapsed_series reads — no new state, no CAS, the reaper stays
+    # the sole requeue writer) and, once the trailing N-cycle window agrees within the
+    # tolerance band, emit ONE gardener-inbox kind:error flagging the likely wedge so
+    # a human sees it in ~2 cycles instead of the reaper's ~5-cycle poison burn.
+    # Gated by GARDEN_ELAPSED_CONSTANCY_CYCLES (N; 0/1 disables). No rc/capture gate
+    # is needed: an exit-0-unsatisfying handler produced NO failure output by
+    # construction, and there is only one kind here to watch — a clean exit that
+    # never finished. (The rc!=0 branch's is_external_kill_rc/is_handler_timeout_rc
+    # exclusions have no analogue on the exit-0 path.)
+    constancy_n0="$GARDEN_ELAPSED_CONSTANCY_CYCLES"
+    # A misconfigured (non-integer) tunable DISABLES the check rather than crashing
+    # the gardener loop on the arithmetic test below.
+    case "$constancy_n0" in ''|*[!0-9]*) constancy_n0=0 ;; esac
+    if [ "$constancy_n0" -ge 2 ] && [ "$cycle" -ge 2 ]; then
+      # Prior cycles' elapsed (this clone was synced at claim time, so it holds the
+      # prior notes but NOT this cycle's) with the current elapsed appended, then the
+      # trailing N-cycle window; require a FULL window before judging constancy.
+      series0="$(prior_transient_elapsed_series "$CLONE" "$base"; printf '%s\n' "$elapsed")"
+      window0="$(printf '%s\n' "$series0" | grep -E '^[0-9]+$' | tail -n "$constancy_n0" || true)"
+      count0="$(printf '%s\n' "$window0" | grep -cE '^[0-9]+$' || true)"
+      # Fire at most ONCE per base: dedup on the marker the kind:error entry below
+      # carries (distinct from the rc!=0 overrun-suspect marker, so a job that flaps
+      # between the two failure kinds surfaces each independently). The clone was
+      # synced at claim, so a prior cycle's escalation entry is visible here.
+      already0=0
+      if grep -rlqF "elapsed-constancy exit0-wedge-suspect: $base" "$CLONE/entries" 2>/dev/null; then already0=1; fi
+      tol0="$GARDEN_ELAPSED_CONSTANCY_TOLERANCE_PCT"
+      if [ "${count0:-0}" -ge "$constancy_n0" ] && [ "$already0" -eq 0 ] \
+         && elapsed_within_band "$tol0" $window0; then
+        series0_csv="$(printf '%s\n' "$window0" | paste -sd, - || true)"
+        # Escalate a diagnostic to the gardener inbox (the ONE kind:error). Build a
+        # self-describing transcript; report-error.sh hashes it and appends the inbox
+        # section. GARDEN_JOURNAL="$CLONE" mirrors the real-failure branch.
+        constancy0_tr="$(mktemp "${TMPDIR:-/tmp}/garden-exit0-constancy-$base.XXXXXX")"
+        {
+          printf 'elapsed-constancy exit0-wedge-suspect: %s\n\n' "$base"
+          printf 'gardener-%s on %s: job %s keeps exiting 0 WITHOUT the completion signal\n' "$id" "$GARDEN" "$base"
+          printf '(exit-0-unsatisfying) at a near-CONSTANT elapsed across the last %s requeue\n' "$constancy_n0"
+          printf 'cycles (elapsed window, oldest->newest: %ss; requeue cycle %s; tolerance +/-%s%%).\n\n' "$series0_csv" "$cycle" "$tol0"
+          printf 'That is the signature of a WEDGED child, not a working one: a clean exit\n'
+          printf 'that never reaches a satisfying conclusion, burning the same wall-time every\n'
+          printf 'cycle with no further progress (the xs2rust-endor-press wedge — repeated\n'
+          printf 'exit-0-unsatisfying cycles with no further HEAD movement mean the child is\n'
+          printf 'wedged, not working), NOT a one-off quota/usage cut or swallowed API error\n'
+          printf '(those vary in elapsed). Left in doin for the reaper (requeue ownership\n'
+          printf 'UNCHANGED); it will otherwise burn all %s poison cycles before surfacing.\n' "${GARDEN_REAP_POISON_THRESHOLD:-5}"
+          printf 'Triage the job spec / handler rather than waiting out the poison threshold.\n'
+        } > "$constancy0_tr"
+        sha0="$(GARDEN_JOURNAL="$CLONE" "$GARDEN_ROOT/skills/gardener-inbox-error-reporting/report-error.sh" \
+                 --transcript "$constancy0_tr" --lane 0 --state elapsed-constancy-exit0-wedge-suspect \
+                 --context "gardener-$id on $GARDEN: job '$base' exit-0-unsatisfying but elapsed near-constant (${series0_csv}s) over $constancy_n0 cycles — likely a wedged child, not a working one" \
+               2>/dev/null || true)"
+        rm -f "$constancy0_tr"
+        log "elapsed-constancy early-escalation for '$base': exit-0-unsatisfying but elapsed near-constant (${series0_csv}s) over $constancy_n0 cycles; escalated ONE kind:error to the gardener inbox (sha=${sha0:-unknown}), left in doin (requeue ownership unchanged)"
+        printf 'gardener-%s on %s: job %s handler keeps exiting 0 without the completion signal (exit-0-unsatisfying), and elapsed is near-constant (%ss) across the last %s requeue cycles (cycle %s) — likely a WEDGED child, not a working one (the xs2rust-endor-press wedge), not a one-off quota/API blip; escalated ONE kind:error to the gardener inbox (elapsed-constancy exit0-wedge-suspect: %s, sha=%s), left in doin for the reaper (requeue ownership unchanged)\n' \
+          "$id" "$GARDEN" "$base" "$series0_csv" "$constancy_n0" "$cycle" "$base" "${sha0:-unknown}" \
+          | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" error || true
+      fi
+    fi
+
     rm -f "$report" "$capture" "$completion_sentinel"
     # Transient (quota/API/clean-but-unfinished): feed the SHARED fleet brake and
     # apply the PER-WORKER failure backoff so this just-failed worker does not
