@@ -26,11 +26,17 @@
 # SUBTEST 1 drives the pure helpers directly. SUBTEST 2 is the integration case: a
 # job on its 3rd requeue cycle (reap-count 2) with two constant-elapsed prior notes
 # seeded, failing again transiently at the same elapsed — the escalation must fire
-# (inbox + kind:error) while the job STAYS in doin (requeue ownership unchanged).
+# (inbox + kind:error), the EARLY-POISON overrun counter must be stamped (so the
+# reaper poisons after GARDEN_REAP_OVERRUN_THRESHOLD, not the full poison threshold),
+# and the job STAYS in doin (requeue ownership unchanged).
 # SUBTEST 3 is the disable gate (GARDEN_ELAPSED_CONSTANCY_CYCLES=0 → no escalation).
 # SUBTEST 4 is the dedup guard: a prior escalation entry for the base suppresses a
 # second. SUBTEST 5 is the not-enough-cycles guard: a first-pass job (reap-count 0)
 # with a transient failure escalates NOTHING (ordinary transient behavior intact).
+# SUBTEST 6 is the very-short-elapsed floor (GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS): a
+# transient-claude signature that appears BELOW the floor is reclassified a REAL
+# deterministic failure outright (a sub-few-second cap is implausible — a setup/spec
+# defect, not a self-resolving blip), and floor=0 preserves the old behavior.
 #
 # Usage: elapsed-constancy-classifier-test.sh
 set -euo pipefail
@@ -115,11 +121,16 @@ build_fixture() {
 
 # Run the REAL gardener.sh oneshot against the elapsed-constancy stub (sleeps ~3s,
 # emits the session-cap transient signature, exits rc=1). Extra env is appended.
+# GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=0 DISABLES the very-short-elapsed floor so this
+# test isolates the elapsed-CONSTANCY axis: the stub's ~3s elapsed would otherwise
+# trip the floor and be reclassified a real failure before the constancy window is
+# even consulted. The floor is exercised by its own subtest in this file (below).
 run_gardener() {
   local BARE="$1" host="$2" TR="$3"; shift 3
   env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
       GARDEN="$host" GARDEN_STATE="$TR/state" \
       GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=1 GARDEN_STUB_SLEEP=3 \
+      GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=0 \
       GARDEN_ELAPSED_CONSTANCY_TOLERANCE_PCT=60 \
       GARDEN_JOB_HANDLER="$HERE/elapsed-constancy-handler-stub.sh" \
       "$@" \
@@ -162,6 +173,21 @@ if [ -f "$V2/jobs/doin/overrunjob.md" ] && [ ! -f "$V2/jobs/tada/overrunjob.md" 
   ok "job left in doin (not completed, not requeued by the gardener)"
 else
   bad "job not left in doin (doin=$([ -f "$V2/jobs/doin/overrunjob.md" ] && echo y || echo n) tada=$([ -f "$V2/jobs/tada/overrunjob.md" ] && echo y || echo n))"
+fi
+# (f) the EARLY-POISON hint was stamped: the confirming cycle stamps the SAME
+# deadline-overrun counter the rc=124 wall-hit path uses, so the reaper poisons this
+# job after GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles rather than the full poison
+# threshold. deadline_overrun_count reads the counter that landed on the doin body.
+if [ -f "$V2/jobs/doin/overrunjob.md" ] && [ "$(deadline_overrun_count "$V2/jobs/doin/overrunjob.md")" -ge 1 ]; then
+  ok "early-poison overrun counter stamped on the doin job (deadline_overrun_count=$(deadline_overrun_count "$V2/jobs/doin/overrunjob.md")) — reaper poisons after GARDEN_REAP_OVERRUN_THRESHOLD, not the full threshold"
+else
+  bad "no early-poison overrun counter on the doin job (constancy path did not stamp it; count=$([ -f "$V2/jobs/doin/overrunjob.md" ] && deadline_overrun_count "$V2/jobs/doin/overrunjob.md" || echo n/a))"
+fi
+# (g) the commit reason distinguishes the constancy stamp from a plain wall-hit.
+if git -C "$V2" log --oneline -20 | grep -q "elapsed-constancy deterministic overrun"; then
+  ok "early-poison stamp carried the elapsed-constancy commit reason (audit trail honest)"
+else
+  bad "early-poison stamp commit reason missing/wrong; log: $(git -C "$V2" log --oneline -5 | tr '\n' '|')"
 fi
 
 # ============================================================================
@@ -219,6 +245,48 @@ if [ -e "$CLONE5/inboxes/echost5/gardener.md" ]; then
   bad "inbox escalation created on a first-pass transient failure"
 else
   ok "no inbox escalation on a first-pass transient failure (ordinary transient path intact)"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 6 — very-short-elapsed floor: a sub-floor transient signature is reclassified a REAL failure"; hr
+# A GENUINE usage/session cap cannot trip in a couple of seconds. The stub emits the
+# session-cap signature but exits in only ~3s; with GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS
+# raised ABOVE that elapsed, the signature is too fast to be a real cap and is
+# reclassified a DETERMINISTIC real failure OUTRIGHT — escalated NOW (a first-pass job,
+# no requeue history, so NOTHING about cross-cycle constancy is consulted). This is
+# the fix for the four 1–2s jobs of the 2026-07-03 batch that were mis-held transient.
+read -r TR6 BARE6 < <(build_fixture 0 0 0)
+trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6"' EXIT
+run_gardener "$BARE6" echost6 "$TR6" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=30
+CLONE6="$TR6/state/gardeners/1/journal"
+# (a) the floor tripped: the reclassification log line names the too-fast signature.
+if grep -q "too fast for a genuine usage/session cap" "$TR6/gardener.log"; then
+  ok "sub-floor signature reclassified a real failure (floor tripped at ~3s < 30s)"
+else
+  bad "floor did NOT trip; log: $(grep -i 'transient\|floor\|FAILED\|too fast' "$TR6/gardener.log" | tail -5)"
+fi
+# (b) NOT classified transient (the whole point — it no longer takes the transient path).
+if grep -Eq "looks transient \(rc=1[,)]" "$TR6/gardener.log"; then
+  bad "sub-floor signature STILL logged transient (floor did not reclassify it)"
+else
+  ok "sub-floor signature NOT on the transient path"
+fi
+# (c) a REAL-failure inbox escalation WAS created (surfaces the setup/spec defect now).
+if [ -e "$CLONE6/inboxes/echost6/gardener.md" ] && grep -q "handler-nonzero" "$CLONE6/inboxes/echost6/gardener.md"; then
+  ok "real-failure escalation created (handler-nonzero) — the defect surfaces immediately, not after the poison cycle"
+else
+  bad "no real-failure inbox escalation for the sub-floor signature (file=$([ -e "$CLONE6/inboxes/echost6/gardener.md" ] && echo y || echo n))"
+fi
+# (d) floor=0 DISABLES it: the same fast signature stays transient (regression: the
+# unconditional-transient behavior is preserved when the floor is off).
+read -r TR7 BARE7 < <(build_fixture 0 0 0)
+trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7"' EXIT
+run_gardener "$BARE7" echost7 "$TR7" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=0
+CLONE7="$TR7/state/gardeners/1/journal"
+if grep -Eq "looks transient \(rc=1[,)]" "$TR7/gardener.log" && [ ! -e "$CLONE7/inboxes/echost7/gardener.md" ]; then
+  ok "floor=0 disables the reclassification (fast signature stays transient, no escalation)"
+else
+  bad "floor=0 did not preserve transient behavior (transient=$(grep -Eq "looks transient" "$TR7/gardener.log" && echo y || echo n) inbox=$([ -e "$CLONE7/inboxes/echost7/gardener.md" ] && echo y || echo n))"
 fi
 
 # ============================================================================

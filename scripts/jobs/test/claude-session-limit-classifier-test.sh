@@ -97,8 +97,14 @@ export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 # non-timeout, non-offline code, so ONLY the transient-signature match can rescue
 # it from the real-failure escalation. GARDEN_STUB_RC=1 is the stub default; set it
 # explicitly for clarity.
+# GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=0 DISABLES the very-short-elapsed floor: this
+# stub exits near-instantly, so with the floor live the fast signature would be
+# reclassified a real failure and defeat this test's purpose (proving the SIGNATURE
+# match rescues the job to transient). The floor is a SEPARATE classification axis
+# with its own regression guard in elapsed-constancy-classifier-test.sh.
 env GARDEN="caphost" GARDEN_STATE="$TR/state" \
     GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=1 \
+    GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=0 \
     GARDEN_JOB_HANDLER="$HERE/claude-session-limit-handler-stub.sh" \
     "$JOBS/gardener.sh" 1 > "$TR/gardener.log" 2>&1 || true
 

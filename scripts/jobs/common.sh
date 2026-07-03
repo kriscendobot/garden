@@ -1532,8 +1532,17 @@ deadline_overrun_count() {
 # gone), non-zero only if it could not land (caller falls back to the TTL requeue).
 # Run in a SUBSHELL from a long-lived caller: sync_clone `exit`s on a connectivity
 # blip, which a subshell contains. Mirrors stamp_reap_now_hint's contract.
+#
+# The optional third arg is a short REASON woven into the commit message so the
+# git log distinguishes the two callers that stamp this same counter: a handler
+# that hit its OWN wall-clock bound (rc=124 at the wall — the default reason) and
+# the elapsed-constancy path, which confirms a DETERMINISTIC overrun from a
+# near-constant elapsed across requeue cycles and reuses this early-poison counter
+# so the reaper poisons after GARDEN_REAP_OVERRUN_THRESHOLD rather than the full
+# poison threshold. The MARKER is identical either way (the reaper only knows the
+# one `garden-deadline-overrun` counter); only the audit-trail wording differs.
 stamp_deadline_overrun_hint() {
-  local clone="$1" rel="$2" attempt f rc prev new
+  local clone="$1" rel="$2" reason="${3:-handler wall-clock overrun}" attempt f rc prev new
   : "${GARDEN_REAP_NOW_PUSH_ATTEMPTS:=25}"
   for attempt in $(seq 1 "$GARDEN_REAP_NOW_PUSH_ATTEMPTS"); do
     sync_clone "$clone"
@@ -1557,7 +1566,7 @@ stamp_deadline_overrun_hint() {
       }
     ' "$f" > "$f.overrun" && mv "$f.overrun" "$f"
     git -C "$clone" add "$rel"
-    if commit_and_push "$clone" "deadline-overrun: hint $rel (cycle $new) by $GARDEN (handler wall-clock overrun)"; then rc=0; else rc=$?; fi
+    if commit_and_push "$clone" "deadline-overrun: hint $rel (cycle $new) by $GARDEN ($reason)"; then rc=0; else rc=$?; fi
     [ "$rc" -eq 0 ] && return 0
     [ "$rc" -eq 2 ] && return 0   # nothing to commit (a racing stamp won): treat as landed
     backoff "$attempt"            # rc=1: CAS lost — re-sync and retry

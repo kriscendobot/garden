@@ -156,8 +156,13 @@ run_mode() {  # run_mode <label> <base> <rc> <signal> <capture>
   local tr bare
   tr="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig4.XXXXXX")"
   bare="$(seed_board "$tr" "$base")"
+  # GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=0 disables the very-short-elapsed floor: these
+  # stubs emit a transient signature and exit INSTANTLY (a test artifact), so with the
+  # floor live the sub-floor elapsed would reclassify them a real failure. This subtest
+  # isolates the SIGNATURE→transient-requeue classification, an axis orthogonal to
+  # elapsed; the floor has its own guard in elapsed-constancy-classifier-test.sh.
   env GARDEN="modehost" GARDEN_STATE="$tr/state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH=journal2 \
-      GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
+      GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=0 \
       GARDEN_STUB_RC="$rc" GARDEN_STUB_SIGNAL="$sig" GARDEN_STUB_CAPTURE="$cap" \
       GARDEN_JOB_HANDLER="$STUB" \
       "$JOBS/gardener.sh" 1 > "$tr/gardener.log" 2>&1 || true

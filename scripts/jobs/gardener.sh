@@ -81,6 +81,25 @@ CLONE="$GARDEN_GARDENER_CLONE"
 # handler killed anywhere in the [TIMEOUT-grace, TIMEOUT+grace] window counts).
 : "${GARDEN_HANDLER_DEADLINE_EPSILON:=$GARDEN_HANDLER_KILL_AFTER}"
 
+# Minimum-plausible-overrun floor (transient-signature classification, below). A
+# handler whose capture carries ONLY a transient-claude signature (an API overload
+# / rate-limit / 5xx / session-or-usage-cap line) is normally a self-resolving blip
+# and classified TRANSIENT. But NO genuine transient-claude signature can legitimately
+# reach the capture in a couple of seconds: the inner `claude -p` must COLD-START (node
+# runtime, config, MCP init — seconds on its own) and then make an API round-trip
+# before it can be handed back a cap / overload / 429 / 5xx / transport-drop verdict.
+# A signature that appears BELOW this floor therefore did NOT come from a started CLI
+# talking to the API — it is a setup/spec defect: a broken handler or malformed prompt
+# that fails fast while echoing a canned overload-shaped line (the four jobs in the
+# 2026-07-03 batch each died at a CONSTANT 1–2s). That is a DETERMINISTIC failure, not
+# a self-resolving blip, so it is reclassified a REAL failure OUTRIGHT and escalates a
+# diagnostic NOW rather than quietly burning the reaper's full poison cycle. The floor
+# is applied to the WHOLE signature set (not just the cap wording) precisely because
+# the cold-start argument holds for every signature — a real fast 529/429/ECONNRESET
+# still can't predate the CLI's own startup. Set to 0 to DISABLE the reclassification
+# (restore the unconditional-transient behavior for any signature match, any elapsed).
+: "${GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS:=5}"
+
 # Busy marker — a local, lock-free signal that this gardener is mid-job. The
 # deliberate deploy (deploy-garden.sh) reads these markers to know when the fleet
 # has QUIESCED before it merges, and the shared restart (deploy-restart.sh) uses
@@ -647,7 +666,23 @@ while :; do
       # the realignment with self-heal-run.sh that this comment claims.)
       is_transient_empty_failure "$rc" && transient=1
     elif is_transient_claude_signature "$(tail -c 65536 "$capture" 2>/dev/null)"; then
-      transient=1   # capture carries only a transient-claude signature
+      # A capture carrying ONLY a transient-claude signature normally means a
+      # self-resolving blip → transient. But a GENUINE usage/session-cap or overload
+      # overrun cannot trip in a couple of seconds (the CLI must cold-start, reach the
+      # API, and be told to stop). A signature that appears BELOW the
+      # GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS floor is implausibly fast for a real cap and
+      # is a setup/spec defect echoing an overload-shaped line (the four 1–2s jobs of
+      # the 2026-07-03 batch) — a DETERMINISTIC failure. Leave transient=0 so it falls
+      # through to the real-failure escalation NOW instead of burning the full poison
+      # cycle. A floor of 0 disables the reclassification (unconditional transient).
+      floor="$GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS"
+      case "$floor" in ''|*[!0-9]*) floor=0 ;; esac   # misconfigured → disabled, never crash the loop
+      if [ "$floor" -gt 0 ] && [ "$elapsed" -lt "$floor" ]; then
+        log "handler for '$base' emitted a transient-claude signature but died in only ${elapsed}s (< GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=${floor}s): too fast for a genuine usage/session cap — treating as a DETERMINISTIC setup/spec defect, escalating as a real failure (transient=0)"
+        transient=0   # sub-few-second signature: a setup/spec defect, not a blip
+      else
+        transient=1   # capture carries only a transient-claude signature
+      fi
     fi
 
     if [ "$transient" -eq 1 ]; then
@@ -788,35 +823,60 @@ while :; do
         already=0
         if grep -rlqF "elapsed-constancy overrun-suspect: $base" "$CLONE/entries" 2>/dev/null; then already=1; fi
         tol="$GARDEN_ELAPSED_CONSTANCY_TOLERANCE_PCT"
-        if [ "${count:-0}" -ge "$constancy_n" ] && [ "$already" -eq 0 ] \
-           && elapsed_within_band "$tol" $window; then
+        if [ "${count:-0}" -ge "$constancy_n" ] && elapsed_within_band "$tol" $window; then
           series_csv="$(printf '%s\n' "$window" | paste -sd, - || true)"
-          # Escalate a diagnostic to the gardener inbox (the ONE kind:error). Build a
-          # self-describing transcript; report-error.sh hashes it and appends the
+          # The window CONFIRMS a deterministic overrun. Two responses, at DIFFERENT
+          # cadences:
+          #
+          # (1) EARLY-POISON HINT — EVERY confirming cycle. Reuse the deadline-overrun
+          # COUNTER (stamp_deadline_overrun_hint, the SAME early-poison mechanism the
+          # rc=124 wall-hit path uses) so the reaper escalates this job to POISON after
+          # GARDEN_REAP_OVERRUN_THRESHOLD (2) cycles instead of burning the full
+          # GARDEN_REAP_POISON_THRESHOLD (5) — exactly what happened to the four 1–2s
+          # jobs in the 2026-07-03 batch, each of which emitted ONE advisory and then
+          # burned all ~5 cycles. The counter must INCREMENT each confirming cycle to
+          # reach the threshold, so this is deliberately NOT deduped (unlike the loud
+          # kind:error at (2)). The marker is identical to the wall-hit path's — the
+          # reaper knows only the one `garden-deadline-overrun` counter — but a distinct
+          # commit reason keeps the git audit trail honest. Subshell-isolated (sync_clone
+          # may offline-exit); best-effort — the reaper's full poison threshold still
+          # backstops it on failure. Stamped alongside the reap-now hint already placed
+          # above, so the reaper requeues promptly and the overrun count accrues.
+          if ( stamp_deadline_overrun_hint "$CLONE" "$JOBS_DOIN/$base.md" "elapsed-constancy deterministic overrun" ); then
+            log "elapsed-constancy for '$base': stamped the early-poison overrun counter (constant elapsed ${series_csv}s over $constancy_n cycles); reaper will poison after GARDEN_REAP_OVERRUN_THRESHOLD instead of the full poison threshold"
+          else
+            log "elapsed-constancy for '$base': could not stamp the early-poison overrun counter (rc=$?); falling back to the reaper's full poison threshold"
+          fi
+          # (2) LOUD kind:error — at most ONCE per base (dedup on $already), so a human
+          # sees the diagnostic without a fresh inbox section on every confirming cycle.
+          # Build a self-describing transcript; report-error.sh hashes it and appends the
           # inbox section. GARDEN_JOURNAL="$CLONE" mirrors the real-failure branch.
-          constancy_tr="$(mktemp "${TMPDIR:-/tmp}/garden-constancy-$base.XXXXXX")"
-          {
-            printf 'elapsed-constancy overrun-suspect: %s\n\n' "$base"
-            printf 'gardener-%s on %s: job %s was classified TRANSIENT (rc=%s) but its\n' "$id" "$GARDEN" "$base" "$rc"
-            printf 'handler has now died at a near-CONSTANT elapsed across the last %s requeue\n' "$constancy_n"
-            printf 'cycles (elapsed window, oldest->newest: %ss; requeue cycle %s; tolerance +/-%s%%).\n\n' "$series_csv" "$cycle" "$tol"
-            printf 'That is the signature of a DETERMINISTIC overrun MISclassified as a\n'
-            printf 'self-resolving blip (a Claude Code session/usage cap tripping at the same\n'
-            printf 'point every run, or a prompt that drives the CLI to the same failure), NOT\n'
-            printf 'an external signal-kill or wall-clock timeout (those vary in elapsed and\n'
-            printf 'are excluded). Left in doin for the reaper (requeue ownership UNCHANGED);\n'
-            printf 'it will otherwise burn all %s poison cycles before surfacing. Triage the\n' "${GARDEN_REAP_POISON_THRESHOLD:-5}"
-            printf 'job spec / handler rather than waiting out the poison threshold.\n'
-          } > "$constancy_tr"
-          sha="$(GARDEN_JOURNAL="$CLONE" "$GARDEN_ROOT/skills/gardener-inbox-error-reporting/report-error.sh" \
-                   --transcript "$constancy_tr" --lane 0 --state elapsed-constancy-overrun-suspect \
-                   --context "gardener-$id on $GARDEN: job '$base' transient-classified (rc=$rc) but elapsed near-constant (${series_csv}s) over $constancy_n cycles — likely deterministic overrun, not a blip" \
-                 2>/dev/null || true)"
-          rm -f "$constancy_tr"
-          log "elapsed-constancy early-escalation for '$base': transient-classified rc=$rc but elapsed near-constant (${series_csv}s) over $constancy_n cycles; escalated ONE kind:error to the gardener inbox (sha=${sha:-unknown}), left in doin (requeue ownership unchanged)"
-          printf 'gardener-%s on %s: job %s handler exited rc=%s classified transient, but elapsed is near-constant (%ss) across the last %s requeue cycles (cycle %s) — likely a DETERMINISTIC overrun misclassified as a blip, not an external kill/timeout; escalated ONE kind:error to the gardener inbox (elapsed-constancy overrun-suspect: %s, sha=%s), left in doin for the reaper (requeue ownership unchanged)\n' \
-            "$id" "$GARDEN" "$base" "$rc" "$series_csv" "$constancy_n" "$cycle" "$base" "${sha:-unknown}" \
-            | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" error || true
+          if [ "$already" -eq 0 ]; then
+            constancy_tr="$(mktemp "${TMPDIR:-/tmp}/garden-constancy-$base.XXXXXX")"
+            {
+              printf 'elapsed-constancy overrun-suspect: %s\n\n' "$base"
+              printf 'gardener-%s on %s: job %s was classified TRANSIENT (rc=%s) but its\n' "$id" "$GARDEN" "$base" "$rc"
+              printf 'handler has now died at a near-CONSTANT elapsed across the last %s requeue\n' "$constancy_n"
+              printf 'cycles (elapsed window, oldest->newest: %ss; requeue cycle %s; tolerance +/-%s%%).\n\n' "$series_csv" "$cycle" "$tol"
+              printf 'That is the signature of a DETERMINISTIC overrun MISclassified as a\n'
+              printf 'self-resolving blip (a Claude Code session/usage cap tripping at the same\n'
+              printf 'point every run, or a prompt that drives the CLI to the same failure), NOT\n'
+              printf 'an external signal-kill or wall-clock timeout (those vary in elapsed and\n'
+              printf 'are excluded). Left in doin for the reaper (requeue ownership UNCHANGED),\n'
+              printf 'with the early-poison overrun counter stamped so it surfaces after\n'
+              printf 'GARDEN_REAP_OVERRUN_THRESHOLD cycles instead of the full %s. Triage the\n' "${GARDEN_REAP_POISON_THRESHOLD:-5}"
+              printf 'job spec / handler rather than waiting out the poison threshold.\n'
+            } > "$constancy_tr"
+            sha="$(GARDEN_JOURNAL="$CLONE" "$GARDEN_ROOT/skills/gardener-inbox-error-reporting/report-error.sh" \
+                     --transcript "$constancy_tr" --lane 0 --state elapsed-constancy-overrun-suspect \
+                     --context "gardener-$id on $GARDEN: job '$base' transient-classified (rc=$rc) but elapsed near-constant (${series_csv}s) over $constancy_n cycles — likely deterministic overrun, not a blip" \
+                   2>/dev/null || true)"
+            rm -f "$constancy_tr"
+            log "elapsed-constancy early-escalation for '$base': transient-classified rc=$rc but elapsed near-constant (${series_csv}s) over $constancy_n cycles; escalated ONE kind:error to the gardener inbox (sha=${sha:-unknown}), left in doin (requeue ownership unchanged)"
+            printf 'gardener-%s on %s: job %s handler exited rc=%s classified transient, but elapsed is near-constant (%ss) across the last %s requeue cycles (cycle %s) — likely a DETERMINISTIC overrun misclassified as a blip, not an external kill/timeout; escalated ONE kind:error to the gardener inbox (elapsed-constancy overrun-suspect: %s, sha=%s), left in doin for the reaper (requeue ownership unchanged)\n' \
+              "$id" "$GARDEN" "$base" "$rc" "$series_csv" "$constancy_n" "$cycle" "$base" "${sha:-unknown}" \
+              | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" error || true
+          fi
         fi
       fi
 
