@@ -23,3 +23,9 @@ Keep it minimal and well-tested: a job that pushes work each cycle never poisons
 ## Definition of done
 
 The reaper no longer poisons a job whose handler is making real per-cycle progress (the resume-treadmill false-positive class is gone), while genuinely-failing jobs still poison at the threshold. Cited test/repro per `garden/roles/COMMON.md` § Reporting. Land on `main2`; journal a `result`. Activates on the fleet after a deploy.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 16
+  claimed_at: 2026-07-03T11:29:03Z
