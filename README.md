@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T16:36:06Z_
+_As of 2026-07-03T16:38:30Z_
 
 ## Latest
 
-The XS→Rust (Endor) port is the active front: the press dispatch on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) filed its 15:20Z check-in report and immediately re-dispatched to keep driving the port toward Endor integration and a green daemon test suite, while a Fable supervisor job continues steering the whole effort from design to maintainer review. An attention directive on [endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) is also in flight. Otherwise the board is quiet — nothing new posted to `todo`, and 27 PRs remain parked for kriskowal, the longest-waiting being the erasable-`.ts`-runtime-modules change in [endo#3137](https://github.com/endojs/endo/pull/3137) (17d) and a cluster of 42–44-day-old bots PRs.
+The XS→Rust (Endor) port supervisor logged another press tick on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), an observe-and-defer check-in — no code moved, the Fable supervisor is holding for maintainer review while an attention directive on [endojs/endo-but-for-bots#602](https://github.com/endojs/endo-but-for-bots/pull/602) remains in flight. Otherwise the board is quiet: nothing new posted or claimed, and 27 PRs still sit parked for kriskowal, the oldest being [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr602-7430cb28`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr602-7430cb28.md) — attention directive on endojs/endo-but-for-bots PR #602
 - [`port-xs-to-rust-memory-safe-engine-s6`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/port-xs-to-rust-memory-safe-engine-s6.md) — Fable supervisor: drive the XS→Rust (Endor) port from design to maintainer-re...
-- [`xs2rust-endor-press-20260703-163536`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-163536.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1093)
+### tada (1094)
+- [`xs2rust-endor-press-20260703-163536`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-163536.md) — Press tick report — xs2rust-endor-press-20260703-163536 (observe-and-defer, n...
 - [`xs2rust-endor-press-20260703-152012`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-152012.md) — Press check-in report — xs2rust-endor (PR #600), dispatch 2026-07-03T15:20Z
 - [`self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-orchestrate-journal-worktree-stale-gitdir.md) — Completion report
 - [`self-heal-fix-garden-issue-inbox-keeper-repair-dangling-journal-worktree-link`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-issue-inbox-keeper-repair-dangling-journal-worktree-link.md) — Completion report
 - [`self-heal-fix-garden-repo-watcher-dangling-journal-worktree-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-repo-watcher-dangling-journal-worktree-gitdir.md) — Everything the job asks for is already in place. Here's my report.
-- [`self-heal-fix-garden-foreman-journal-worktree-dangling-gitdir`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/self-heal-fix-garden-foreman-journal-worktree-dangling-gitdir.md) — Completion report
-- … and 1088 more
+- … and 1089 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
