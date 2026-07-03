@@ -76,3 +76,9 @@ Extend the foreman / complete-job test suite (uses `GARDEN_UNIT_CTL` +
 - Report notes: this goes live on each host only at its next `deploy-garden.sh`
   (this leader host — endolinbot2 — is currently ~50 commits behind `main2`), and
   whether the optional §4 pure-edge settle was included or deferred.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 4
+  claimed_at: 2026-07-03T18:06:42Z
