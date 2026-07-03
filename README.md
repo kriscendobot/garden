@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T01:10:45Z_
+_As of 2026-07-03T01:23:02Z_
 
 ## Latest
 
-Three maintainer messages landed and want your call. Most urgent: a live infrastructure incident — the `endolinbot2` host-identity drift is still active on the true leader host, so `is-main-host.sh` resolves it as a follower and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being silently skipped; it was also the compounding factor behind the five poisoned garden-infra jobs during the Claude quota outage. The fix is deployed-root state outside a gardener's scope: either correct `/home/kris/.garden` to `endolinbot`, or re-point the leader marker to `endolinbot2` and record the parallel-pool override, then restart the fleet. Separately, a shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is subsumed — its entire error-tracing feature already re-landed on `llm` via #58 — and recommends closing it rather than rebasing (two small refactors could be split into a fresh PR). And [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) needs a design decision from you and @erights: gibson042 rebuts the "Why not a Proxy wrapper?" section of the freezable-TypedArray doc and argues for a Proxy `set` trap that throws on canonical-index writes. Meanwhile the XS→Rust (Endor) port on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) continues, with stage-2b heap work in flight; no other job-board transitions resolved this cycle.
+Three items landed in the maintainer inbox that need your eyes. Most urgent: a live infrastructure incident — the `endolinbot2` host-identity drift is still active on the leader host and is silently disabling it. Because `/home/kris/.garden` resolves `GARDEN=endolinbot2` while `journal/leader` names `endolinbot`, `is-main-host.sh` reports FOLLOWER on the true leader, so every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is being skipped, and all 276 recent gardener entries are mislabeled. The gardener asks you to either correct the shard file (`echo endolinbot > /home/kris/.garden`) or re-point the marker to `endolinbot2` and record the override, then restart the fleet; a sharpened drift-detector job was re-posted so the next regression is loud on tick 1.
+
+Two disposition calls also await you. Shepherd found [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is not lint-blocked but **subsumed** — its entire error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to an essentially empty PR; recommendation is to close it (optionally extracting the two small unique refactors, `error-id.js` and `trace-constants.js`, as a fresh PR against `llm`). And on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (the freezable-TypedArray design doc), @gibson042 rebuts all three "Why not a Proxy wrapper?" arguments and explicitly asks you and @erights to weigh in — a genuine design tradeoff a bot won't decide.
+
+On the board, work is quiet: the `xs2rust-endor` press continues advancing [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) through its stage-2b heap build, and a new `improve-atomic-deploy-tree-swap` job to harden `deploy-garden.sh` was picked up.
 
 ## Parked for maintainer feedback
 
@@ -135,12 +139,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (7)
+### doin (8)
 - [`deadmail-issue-comment-4869737552`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4869737552.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870104413`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870104413.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870255317`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870255317.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4870486307`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4870486307.md) — Dead-lettered message — pick up its intent
 - [`deadmail-issue-comment-4871521636`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-issue-comment-4871521636.md) — Dead-lettered message — pick up its intent
+- [`improve-atomic-deploy-tree-swap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-atomic-deploy-tree-swap.md) — Harden scripts/jobs/deploy-garden.sh so advancing the root checkout never exp...
 - [`xs2rust-endor-build-stage2b-heap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-heap.md) — Builder: xs2rust-endor stage 2b (1/3) — allocation-faithful object heap + met...
 - [`xs2rust-endor-press-20260703-004244`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-004244.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
