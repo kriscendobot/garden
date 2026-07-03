@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T02:54:17Z_
+_As of 2026-07-03T02:56:13Z_
 
 ## Latest
 
-An operational alarm tops this cycle: a gardener investigating five poisoned garden-infra jobs [surfaced a live host-identity drift](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T100530Z-a43c17.md) on the leader host — `/home/kris/.garden` resolves `endolinbot2` while `journal/leader` names `endolinbot`, so `is-main-host.sh` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, ci-watcher, orchestrate, maintainer-inbox Monitor) is being silently skipped. This same drift compounded the five poisonings during the 07-01/07-02 Claude quota outage. The fix is deployed-root state out of a gardener's scope and needs the maintainer: either `echo endolinbot > /home/kris/.garden` or re-point the marker with `set-main-host.sh endolinbot2`, then restart the fleet.
-
-Two dispositions also await your call. Shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the PR is subsumed, not lint-blocked — its entire CapTP error-tracing feature already re-landed on `llm` via the merged #58, so a rebase collapses to an essentially empty PR; the recommendation is to CLOSE as superseded, optionally extracting the two unique refactors (`error-id.js`, `trace-constants.js`) as a fresh PR. On [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), gibson042 reviewed the freezable-TypedArray design doc and rebutted all three "Why not a Proxy wrapper?" arguments, asking you and @erights to weigh in on whether the emulated view should throw on canonical-index writes.
-
-Meanwhile the XS→Rust (Endor) port advanced: stage 2b (2/3) frames/closures/user-functions completed, stage 2b (3/3) exceptions is now in progress, and a press check-in landed for [#600](https://github.com/endojs/endo-but-for-bots/pull/600).
+A clone-keeper self-heal for missing bare clones landed, and the xs2rust-endor Rust-port build continues (stage 2b: frames/closures done, exceptions now in flight for [PR #600](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-exceptions.md)). Three items need the maintainer's own call. Most urgent: a **live infrastructure incident** — the leader host's `.garden` shard file resolves `GARDEN=endolinbot2` while the `leader` marker still names `endolinbot`, so `is-main-host` reports FOLLOWER on the true leader and every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, orchestrate, maintainer-inbox Monitor) is being silently skipped; the fix is either `echo endolinbot > /home/kris/.garden` or re-pointing the marker with `set-main-host.sh endolinbot2`, then restarting the fleet. A shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) found the error-tracing feature already re-landed on `llm` via the merged #58, recommending #301 be closed as superseded (only two small refactors — `error-id.js`, `trace-constants.js` — are unique to it). And [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) has a design tradeoff gibson042 escalated to you and erights: plain-object wrapper vs. a Proxy that throws on canonical-index writes for the freezable-TypedArray view.
 
 ## Parked for maintainer feedback
 
@@ -139,17 +135,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-clone-keeper-selfheal-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-selfheal-missing-bare-clone.md) — Harden scripts/jobs/clone-keeper.sh so a *missing* tracked bare clone self-he...
+### doin (1)
 - [`xs2rust-endor-build-stage2b-exceptions`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-exceptions.md) — Builder: xs2rust-endor stage 2b (3/3) — exceptions, full opcode coverage, sta...
 
-### tada (993)
+### tada (994)
+- [`improve-clone-keeper-selfheal-missing-bare-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-selfheal-missing-bare-clone.md) — Completion report
 - [`xs2rust-endor-press-20260703-025032`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-025032.md) — Press check-in complete for PR #600 (xs2rust-endor), tick at 02:50Z. This was...
 - [`xs2rust-endor-build-stage2b-frames`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage2b-frames.md) — Completion report — xs2rust-endor stage 2b (2/3): user functions, closures, m...
 - [`improve-clone-keeper-recreate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-recreate-missing-clone.md) — Completion report
 - [`improve-gardener-single-deadline-overrun-note`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-gardener-single-deadline-overrun-note.md) — Completion report
-- [`deadmail-issue-comment-4871521636`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-issue-comment-4871521636.md) — Completion report
-- … and 988 more
+- … and 989 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
