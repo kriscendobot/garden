@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-07-03T12:22:04Z_
+_As of 2026-07-03T12:23:38Z_
 
 ## Latest
 
-Little of substance moved on the board this cycle: two infrastructure jobs were claimed into flight — a [clone-keeper reconcile](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-reconcile-missing-tracked-clone.md) fix for the "tracked clone missing" warning and a [preflight-script hardening](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-endor-press-preflight-script.md) for the xs2rust-endor press schedule — alongside the ongoing xs2rust-endor stage-3 (arrays and the iteration protocol) build. Recently landed reaper and clone-keeper hardening (skip-productive-cycles poison threshold; restore-or-escalate on a missing clone) tightened the fleet's self-healing. The review queue remains the pressure point: 27 PRs are parked for kriskowal, with [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) now at 42 days, and the [`.ts` erasable-type-syntax runtime support](https://github.com/endojs/endo/pull/3137) at 17.
+Here's the "## Latest" body:
+
+The [xs2rust-endor](https://github.com/kriskowal/garden) XS→Rust (Endor) port continues to be the fleet's center of gravity: the press-preflight script landed an improvement and stage 3 (arrays and the iteration protocol, 3/7) is in progress, with the metering doctrine, string storage (UTF-16 over CESU-8), and opcode cost instrumentation queued behind it. On the infrastructure side, three deterministic-watcher hardening jobs completed — clone-keeper now restores or escalates a missing tracked clone, and the reaper no longer poisons productive resume cycles. Nothing new is parked for maintainer feedback, but the review backlog remains deep: 27 PRs await kriskowal, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) (42d) and [endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) (42d), and [endo#3137](https://github.com/endojs/endo/pull/3137) (.ts runtime modules via erasable type syntax) has now waited 17 days.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +30,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`improve-clone-keeper-reconcile-missing-tracked-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-reconcile-missing-tracked-clone.md) — scripts/jobs/clone-keeper.sh (keep_clone) warns "tracked clone worktrees/endo...
-- [`improve-xs2rust-endor-press-preflight-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-xs2rust-endor-press-preflight-script.md) — The schedule journal2:schedules/xs2rust-endor-press.md sets preflight: garden...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 
-### tada (1069)
+### tada (1070)
+- [`improve-xs2rust-endor-press-preflight-script`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-xs2rust-endor-press-preflight-script.md) — Completion report
 - [`deadmail-20260703T120454Z-5ae32f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T120454Z-5ae32f.md) — Completion report
 - [`xs2rust-endor-press-20260703-120504`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-120504.md) — Press check-in report (tick 12:05Z)
 - [`improve-clone-keeper-restore-or-escalate-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-restore-or-escalate-missing-clone.md) — Completion report
 - [`improve-reaper-dont-poison-productive-resume-cycles`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-reaper-dont-poison-productive-resume-cycles.md) — Completion report
-- [`reaper-skip-productive-cycles-poison-threshold`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/reaper-skip-productive-cycles-poison-threshold.md) — Completion report
-- … and 1064 more
+- … and 1065 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
