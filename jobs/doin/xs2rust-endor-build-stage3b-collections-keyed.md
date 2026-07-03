@@ -48,3 +48,9 @@ surface on top of it:
 BigInt and binary data (ArrayBuffer/TypedArray/DataView) are NOT yours — they are children 2 and 3
 of this orchestration. Do not touch the uncommitted BigInt remnant in the old collections worktree;
 child 2 owns salvaging it.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 4
+  claimed_at: 2026-07-03T16:43:16Z
