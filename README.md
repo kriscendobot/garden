@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T05:57:32Z_
+_As of 2026-07-03T05:58:12Z_
 
 ## Latest
 
-Here is the body for the "## Latest" section:
-
-The mentor-improvement track advanced: [`improve-mentor-skip-already-fixed-improve-jobs`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-mentor-skip-already-fixed-improve-jobs.md) completed, teaching the mentor to skip improve-jobs whose fix has already landed, and a companion job to give mentor-emitted jobs a stable directive identity for dedup is now in flight. The bulk of live work sits on the XS→Rust (Endor) port: stage-3 fundamentals building (constructors, Object, Function) with a scholar ingesting danfinley/quickjs at `native-ses` to inform the XS-evolution implementation. On the review front, [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) landed, and 27 PRs remain parked for kriskowal — the oldest of note being [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (`.ts` runtime modules via erasable type syntax, 17 days waiting) and the passable-byte-arrays work in [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
+The XS→Rust (Endor) port dominates the active board: stage-3 child-1 (language fundamentals) completed and the fundamentals child (constructors, Object, Function) is now claimed and building 2/7, while a press check-in deferred to let the stage-3 build chain own the pace. A new metering-doctrine plan job was parked (deferred) proposing a shift to accuracy-over-parity, joining the UTF-16 string-storage and opcode-cost-instrumentation items already queued behind the port. Elsewhere, the mentor-dedup and improve-job hygiene work advanced (skip-already-fixed improve-jobs completed), and a completion landed for [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). Twenty-seven PRs remain parked for kriskowal's review, the oldest being [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) at 42 days.
 
 ## Parked for maintainer feedback
 
@@ -54,6 +52,7 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`xs2rust-endor-meter-opcode-cost-instrumentation`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-meter-opcode-cost-instrumentation.md) — _normal_ · xs2rust-endor: optional opcode cost-calibration instrumentation
 - [`xs2rust-endor-strings-utf16-replace-cesu8`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-strings-utf16-replace-cesu8.md) — _normal_ · xs2rust-endor: replace CESU-8 string storage with UTF-16 (drop the constant-t...
+- [`xs2rust-endor-metering-doctrine-accuracy-over-parity`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/xs2rust-endor-metering-doctrine-accuracy-over-parity.md) — _normal_ · xs2rust-endor: revise the metering doctrine to accuracy-over-parity
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
