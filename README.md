@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T08:05:41Z_
+_As of 2026-07-03T08:08:27Z_
 
 ## Latest
 
-The XS→Rust (Endor) port continues to be the fleet's main thrust: stage-3 fundamentals (child 2/7) landed and stage-3 arrays/iteration-protocol (3/7) is now in progress, with a fresh press job opened to drive PR #600 toward Endor integration and a green daemon test run. The board is otherwise quiet — no new PRs parked for review this cycle, and the deep parked queue (topped by [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and the multi-day-old [#503](https://github.com/endojs/endo-but-for-bots/pull/503) and [#403](https://github.com/endojs/endo-but-for-bots/pull/403)) still awaits kriskowal's feedback.
+Voice input landed in [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and now sits atop the maintainer-feedback queue (17h). The XS→Rust (Endor) port advanced on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600): stage-3 fundamentals (child 2/7) completed and the arrays/iteration-protocol child (3/7) is now in flight, with the press watcher deciding observe-and-defer at the 08:05Z tick. Little else moved this cycle.
 
 ## Parked for maintainer feedback
 
@@ -28,18 +28,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`deadmail-20260703T080125Z-56415b`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T080125Z-56415b.md) — Dead-lettered message — pick up its intent
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
-- [`xs2rust-endor-press-20260703-080505`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-080505.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
-### tada (1045)
+### tada (1046)
+- [`xs2rust-endor-press-20260703-080505`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-080505.md) — Press check-in complete for tick 08:05Z — **decision: observe-and-defer; no p...
 - [`xs2rust-endor-press-20260703-072004`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-072004.md) — Press check-in complete for PR #600 (xs2rust-endor), tick 07:20Z — **observe-...
 - [`deadmail-20260703T071810Z-56fdc3`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T071810Z-56fdc3.md) — Completion report
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-build-stage3-fundamentals.md) — Completion report — xs2rust-endor stage-3 fundamentals (child 2/7), PR #600
 - [`deadmail-20260703T065941Z-a8c603`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T065941Z-a8c603.md) — Done. The dead-lettered message's intent has been carried forward durably, ma...
-- [`improve-set-schedule-validate-preflight`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-set-schedule-validate-preflight.md) — Completion report
-- … and 1040 more
+- … and 1041 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
