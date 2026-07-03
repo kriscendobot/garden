@@ -1,1 +1,7 @@
 Harden `scripts/jobs/clone-keeper.sh` so a tracked bare clone that is *missing* self-heals instead of being skipped forever. Today `keep_clone()` (line 79) logs `WARN: tracked clone <dir> is missing or not a git repo ... skipping` and returns on every ~30m tick; `worktrees/endojs-endo.git` has been missing on this host with no recovery path, silently starving every library-fleet job that reads endo upstream history (the script's own header documents a stale endo clone blocking library work for six weeks — a missing one is strictly worse). Add a re-clone branch: when the tracked `<dir>` is absent, `git clone --bare <url> <abs>` (deriving `<url>` from the `<owner>-<repo>.git` dir name as `https://github.com/<owner>/<repo>.git`, or by extending the `GARDEN_TRACKED_CLONES` line format `<dir>|<remote>|<branch>` with an optional `|<url>` field so the URL is explicit), then proceed with the normal fast-forward. Every failure path still logs and returns 0 so one unreachable clone never aborts the rest. This moves clone provisioning off a manual/agent step into the deterministic keeper that already runs every tick.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 18
+  claimed_at: 2026-07-03T05:22:31Z
