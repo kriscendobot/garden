@@ -33,6 +33,18 @@ if   [ -n "$body_src" ] && [ -f "$body_src" ]; then BODY="$(cat "$body_src")"
 elif [ ! -t 0 ];                                then BODY="$(cat)"
 else BODY="# scheduled job: $name"; fi
 
+# Preflight existence check: when a gate is supplied via the env var, resolve it
+# exactly as scheduler.sh does (relative to this script's dir unless absolute)
+# and refuse to register the schedule if it is not found/executable. A missing
+# gate fails OPEN in scheduler.sh (line ~165: "not found/executable … treating
+# as work-present") and re-dispatches every tick with the gate silently
+# defeated — so fail loudly here, at set time, instead. The preserve-existing
+# path below is untouched: it only reuses an already-validated preflight line.
+if [ -n "${GARDEN_SCHEDULE_PREFLIGHT:-}" ]; then
+  pf="$GARDEN_SCHEDULE_PREFLIGHT"; case "$pf" in /*) :;; *) pf="$HERE/$pf";; esac
+  [ -x "$pf" ] || die "preflight gate '$GARDEN_SCHEDULE_PREFLIGHT' not found or not executable at $pf; refusing to register schedule $name (a missing gate fails open and re-dispatches every tick)"
+fi
+
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
 
