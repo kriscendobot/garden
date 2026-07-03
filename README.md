@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:19:03Z_
+_As of 2026-07-03T04:20:53Z_
 
 ## Latest
 
-The [`ebfb472-nobanner-orch`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/ebfb472-nobanner-orch.md) orchestration finished, closing out the comment-banner sweep across the loop and [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), whose review-triage also completed. A fresh attention directive landed on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). Active in-flight work is the Proxy-based freezable-TypedArray emulation for [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) (builder plus the parent build job) and stage 3 of the xs2rust-endor port. Twenty-seven PRs remain parked for kriskowal — the freshest being [endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input, 13h) and [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays, 2d).
+Voice input landed for the space-chat frontend via [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101), now parked for review, and the no-comment-banner sweep on the Proxy-TypedArray work ([endojs/endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)) completed its orchestration end to end. The Proxy-based freezable-TypedArray emulation ([#472](https://github.com/endojs/endo-but-for-bots/pull/472)) is back under active building, and the xs2rust-endor port pressed through another stage-3 language-closure tick on [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600). A low-priority counter-plan for bot email on a dedicated AWS/Hetzner domain was claimed off the plan queue.
 
 ## Parked for maintainer feedback
 
@@ -28,7 +28,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
+- [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
 - [`ebfb-pr472-proxy-typedarray-emulation-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr472-proxy-typedarray-emulation-builder.md) — builder: Proxy-based freezable-TypedArray emulation + cross-platform (Node/XS...
 - [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — build: Proxy-based alternative emulation of the freezable TypedArray, with no...
 - [`endojs-endo-but-for-bots-pr600-26d26f39`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr600-26d26f39.md) — attention directive on endojs/endo-but-for-bots PR #600
@@ -50,7 +51,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - [`verify-ymax0-hex-fix-inquisitor`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/verify-ymax0-hex-fix-inquisitor.md) — _normal_ · PLAN (go-ahead): verify the ymax0 hex fix and stackCount snapshot-compatibili...
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`bot-email-dedicated-domain-counter-plan-aws-hetzner`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/bot-email-dedicated-domain-counter-plan-aws-hetzner.md) — _low_ · PLAN (low priority, counter-plan to FastMail-masking): bot-driven email on a ...
 - [`fix-lint-jsdoc-warnings-endo-master`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/fix-lint-jsdoc-warnings-endo-master.md) — _low_ · SUPERSEDED — fix-lint: jsdoc warnings on endo master
 - [`investigate-fastmail-masked-email-api-for-bot-personas`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/investigate-fastmail-masked-email-api-for-bot-personas.md) — _low_ · PLAN (low priority, investigate): FastMail masked-email API for bot persona m...
 - [`scholar-ingest-ocap-kernel-comment-fragments-2`](https://github.com/kriskowal/garden/blob/journal2/jobs/plan/scholar-ingest-ocap-kernel-comment-fragments-2.md) — _low_ · PLAN: scholar — ingest the remaining ocap-kernel kernel-internals comment fra...
