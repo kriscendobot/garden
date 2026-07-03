@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-07-03T00:44:12Z_
+_As of 2026-07-03T00:50:37Z_
 
 ## Latest
 
-Little moved on the board this cycle: the [xs2rust-endor (endo-but-for-bots#600)](https://github.com/endojs/endo-but-for-bots/pull/600) review job completed and a fresh job to press that XS→Rust port forward toward endor integration is now in flight. The signal worth a maintainer's attention is in the message queue. A **live incident** is flagged on the leader host: a stale `/home/kris/.garden` file resolves this host's identity as `endolinbot2` while the leader marker names `endolinbot`, so `is-main-host` reports FOLLOWER and every leader-only singleton (foreman, scheduler, reaper, triager, issue-inbox, orchestrate, the maintainer-inbox Monitor) is being silently skipped — the fix is a one-line `echo endolinbot > /home/kris/.garden` (or re-point the marker) plus a fleet restart. That same drift compounded a Claude quota outage into **five poisoned garden-infra jobs** (identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git reaping, repo-watcher arm retry) that the reaper dropped after 5 requeues. Two disposition calls also await you: [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) is recommended for **close as superseded** (its error-tracing feature already re-landed on `llm` via #58; only two small refactors are unique to it), and [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) has a genuine design tradeoff — @gibson042 argues for a Proxy `set` trap that throws on canonical-index writes against the doc's plain-object wrapper — that he explicitly kicked to you and @erights.
+The headline is operational: a gardener investigating the poisoned-job cluster surfaced a **live host-identity drift on the leader** — `/home/kris/.garden` reads `endolinbot2` while `hostname -s` and the `leader` marker both say `endolinbot`, so `is-main-host` returns FOLLOWER on the true leader and **every leader-only singleton (foreman, scheduler, reaper, bulletin, triager, issue-inbox, ci-watcher, orchestrate, and the maintainer-inbox Monitor) is silently being skipped**, with all ~276 recent gardener entries mislabeled `endolinbot2`. This needs a manual fix (`echo endolinbot > /home/kris/.garden`, or re-point the marker to `endolinbot2` if that's intended) followed by a fleet restart; it's out of a gardener's autonomous scope. This same drift was the compounding factor behind five garden-infra hardening jobs (identity-drift detector, gardener transient-failure backoff/fleet-brake, issue-inbox git-child reaping, repo-watcher arm-retry, and the daemon→manager rename build) that the reaper poisoned after 5 requeue cycles during the 2026-07-01/07-02 Claude quota outage.
+
+On the code side, the active build lane is the **XS→Rust (Endor) port** on [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600): its stage-2b allocation-faithful heap job was claimed and two "press #600 forward" jobs are in flight toward endor integration and a green daemon tree.
+
+Two items are parked on a decision from you: on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472), @gibson042 rebuts the freezable-TypedArray design's "why not a Proxy wrapper" section and asks you and @erights to weigh in on plain-object-vs-Proxy-throwing-on-index-writes; and a shepherd on [endo-but-for-bots#301](https://github.com/endojs/endo-but-for-bots/pull/301) reports the error-tracing feature was already independently re-landed on `llm` (via merged #58), recommending you **close #301 as superseded** — leaving only two small refactors (an `error-id.js` dedup and `trace-constants.js` sentinels) worth a fresh PR if you want them.
 
 ## Parked for maintainer feedback
 
@@ -239,8 +243,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
+- [`xs2rust-endor-build-stage2b-heap`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage2b-heap.md) — Builder: xs2rust-endor stage 2b (1/3) — allocation-faithful object heap + met...
 - [`xs2rust-endor-press-20260703-004244`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-004244.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
+- [`xs2rust-endor-press-20260703-005001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-005001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (976)
 - [`endojs-endo-but-for-bots-pr600-293a8b5f`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr600-293a8b5f.md) — Everything is set up and verified. Inbox is empty. Here is my completion report.
