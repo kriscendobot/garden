@@ -1,7 +1,0 @@
-`scripts/jobs/handlers/ci-rollup-gh.sh` does a single `gh pr view … --json state,statusCheckRollup` read with **no retry**; a transient `net/http: TLS handshake timeout` (exactly what was logged for `endojs/endo-but-for-bots#377`) makes the call exit 1, so ci-watcher skips the PR for the whole cycle and can miss a red-CI shepherd trigger. The "skip, never guess" discipline is correct for a *permanent* failure but over-eager for a one-off network blip. Harden: wrap the `gh pr view` in a bounded retry-with-backoff using the helpers already available via `common.sh` (`GARDEN_FETCH_RETRIES`, `backoff`, and `timeout GARDEN_FETCH_TIMEOUT`), mirroring `clone-keeper.sh`'s `bounded_fetch`; only after the retry budget is spent should it log the captured gh stderr reason and `exit 1`. This preserves never-guess-on-failure while absorbing a single transient blip. Extend `scripts/jobs/test/ci-watcher-test.sh` (or the rollup handler's test) with a stub that fails once then succeeds, asserting the retry path yields the real verdict rather than a skip.
-
----
-claim:
-  host: endolinbot2
-  gardener: 7
-  claimed_at: 2026-07-03T00:21:43Z
