@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T04:15:29Z_
+_As of 2026-07-03T04:16:46Z_
 
 ## Latest
 
-A garden-wide loop-banner sweep landed (with a companion banner removal on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472)), and the board is otherwise quiet — one completion, nothing new posted to todo. The item worth a maintainer's eye is a parked design decision on [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472): @gibson042 reviewed the freezable-TypedArray design doc and rebutted all three of its "Why not a Proxy wrapper?" arguments — pushing for a Proxy `set` trap that throws on canonical-numeric-index writes rather than the plain-object wrapper that silently absorbs them — and explicitly asked kriskowal and @erights to weigh in. No code was changed; a build exploring the Proxy-based emulation alternative is in flight, but the tradeoff itself needs your call. Meanwhile the xs2rust→Rust (Endor) port continues through stage 3 (language closure, 1/7), and 27 PRs remain parked for review, led by voice input ([#101](https://github.com/endojs/endo-but-for-bots/pull/101)) and passable byte arrays ([#503](https://github.com/endojs/endo-but-for-bots/pull/503)).
+A builder just claimed the [endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/pull/472) work to stand up a Proxy-based, cross-platform (Node/XS) alternative emulation of the freezable TypedArray; that's the only board transition since the last bulletin, so nothing else has moved off the queue yet.
 
 ## Parked for maintainer feedback
 
@@ -22,48 +22,14 @@ A garden-wide loop-banner sweep landed (with a companion banner removal on [endo
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
-- `20260702T223440Z-5b9cb3` — from gardener:endojs-endo-but-for-bots-pr472-review-72d18f86, reply_to `endojs-endo-but-for-bots-pr472-review-72d18f86` · [open message](https://github.com/kriskowal/garden/blob/journal2/inbox/maintainer/unread/20260702T223440Z-5b9cb3.md)
-
-> DESIGN DECISION NEEDED — endojs/endo-but-for-bots PR #472 (freezable-TypedArray design doc)
->
-> @gibson042 submitted review 4621538762 (one inline comment, id 3516427461) on
-> packages/immutable-arraybuffer/designs/freezable-typedarray.md, and closed it with:
-> "I'd like @kriskowal and/or @erights to weigh in here as well."
->
-> This is a genuine design tradeoff that needs your call — a bot should not decide it.
-> No code/doc change was made; nothing was pushed. The PR thread already has gibson's
-> comment and @-mentions you both, so you can reply there directly.
->
-> CONTEXT: The doc's section "Why not a Proxy wrapper?" gives three reasons for keeping
-> the emulated view a plain ordinary object (so integer-indexed assignment silently
-> creates a wrapper-local own property rather than throwing). gibson042 rebuts all three
-> and argues for a Proxy `set` trap that rejects canonical-numeric-index writes:
->
-> 1. Freezability risk (Object.freeze on a Proxy runs traps under proxy invariants).
->    gibson: "I do not believe this is a practical risk; we know exactly how to write
->    such a proxy (basically pass-through except for property keys that are canonical
->    numeric indices)."
-> 2. Cost (Proxy taxes the integer-indexed hot path).
->    gibson: only bites where the shim is needed (no native immutable ArrayBuffer) AND
->    only on paths that do many direct indexed reads instead of using @endo/bytes
->    helpers (bytesFromImmutable/bytesEqual) — which we're actively avoiding anyway. He
->    prefers defaulting to correctness and providing mitigations for perf degradation.
-> 3. "Throwing write is a nicety, not a safety property."
->    gibson: it's more than a nicety — not throwing risks silently masking real bugs
->    (our code runs strict mode; nothing verifies a non-exceptional property set had its
->    ostensible effect).
->
-> Decision options: (a) keep the plain-object wrapper as designed; (b) switch the
-> emulated view to a Proxy that throws on canonical-index writes; (c) something in
-> between. Once you decide, I (or a fixer) can update the design doc's "Why not a Proxy"
-> section and the shim accordingly. Reply here or on the PR thread.
-
+(no pending maintainer messages)
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`ebfb-pr472-proxy-typedarray-emulation-builder`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/ebfb-pr472-proxy-typedarray-emulation-builder.md) — builder: Proxy-based freezable-TypedArray emulation + cross-platform (Node/XS...
 - [`endojs-endo-but-for-bots-472-proxy-typedarray-emulation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-472-proxy-typedarray-emulation.md) — build: Proxy-based alternative emulation of the freezable TypedArray, with no...
 - [`xs2rust-endor-build-stage3-language`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-language.md) — Builder: xs2rust-endor stage 3 (1/7) — language closure: strings as values + ...
 
