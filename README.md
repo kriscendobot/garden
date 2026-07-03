@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T17:47:43Z_
+_As of 2026-07-03T17:50:23Z_
 
 ## Latest
 
-The XS→Rust (Endor) port advanced through stage-3b: the BigInt child (2/9) landed as [endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600), and the binary-data child (3/9 — ArrayBuffer/TypedArray/DataView) is now the only job in flight. Several deterministic-infrastructure self-heal improvements also completed — the xs2rust-endor press preflight, the scheduler's declared-preflight self-heal, and the clone-keeper's missing-clone reclone — hardening the fleet's watchers against silent stalls. The board is otherwise quiet (todo empty, plan queue parked), so the maintainer's attention is best spent on the review backlog: 27 PRs are parked for feedback, with [endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503) (passable byte arrays) waiting 3 days and [endo-but-for-bots#403](https://github.com/endojs/endo-but-for-bots/pull/403) (EndoRegistry capability) waiting 4, plus four plan items awaiting go-ahead authorization including verifying the ymax0 hex fix.
+The XS→Rust (Endor) port continues to dominate the board: a new press job just went into flight to drive [endojs/endo-but-for-bots#600](https://github.com/endojs/endo-but-for-bots/pull/600) toward endor integration and green daemon tests, running alongside the stage-3b binary-data builder (child 3/9). Stage-3b's BigInt child (2/9) landed, and the port's supervisor and remaining stage-3b children stay blocked pending the umbrella `xs2rust-endor-build-stage3b` completion. On the infrastructure side, three deterministic self-heal improvements completed — hardening the xs2rust-endor press preflight, the scheduler's declared-preflight self-heal, and the clone-keeper's missing-clone reclone. Nothing new is parked for review, but the maintainer queue still holds 27 PRs, the oldest waiting well over a month.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`xs2rust-endor-build-stage3b-binary`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3b-binary.md) — Builder: stage-3b child 3/9 — binary data (ArrayBuffer / TypedArray / DataVie...
+- [`xs2rust-endor-press-20260703-175002`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-175002.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
 ### tada (1108)
 - [`deadmail-20260703T174129Z-e748a9`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T174129Z-e748a9.md) — Completion report
