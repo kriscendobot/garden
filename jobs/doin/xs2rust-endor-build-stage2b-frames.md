@@ -39,3 +39,9 @@ tada report.
 
 Report: what landed, acceptance evidence verbatim, scope folds/frictions. Commit to
 `xs2rust-endor`, push, keep the PR draft.
+
+---
+claim:
+  host: endolinbot2
+  gardener: 8
+  claimed_at: 2026-07-03T01:38:15Z
