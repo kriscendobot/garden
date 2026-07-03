@@ -92,11 +92,27 @@ deterministic, drained pass. No LLM. Steps:
    Bounded by `GARDEN_DEPLOY_DRAIN_TIMEOUT` (default 600s); on timeout the deploy
    aborts and lifts the drain it engaged (unless the operator pre-engaged it), so
    a stuck job never strands the fleet drained.
-2. **Merge.** Fetch `origin/$GARDEN_MAIN_BRANCH` and advance the root tree by a
-   strict fast-forward (`git merge --ff-only`). Because development no longer
-   happens in the root tree, the tree is clean and the fast-forward never wedges.
-   If the tree is unexpectedly dirty or diverged, the deploy aborts without
-   clobbering (the standing no-clobber rule) and lifts its own drain.
+2. **Merge (atomic per-file swap).** Fetch `origin/$GARDEN_MAIN_BRANCH`, verify
+   the advance is a clean fast-forward over an un-edited root (dirty/diverged →
+   abort without clobbering, the standing no-clobber rule), then advance the root
+   tree **atomically per file** with `atomic_advance_tree` (`deploy-tree-swap.sh`)
+   instead of an in-place `git merge --ff-only`. This closes the exec window that
+   caused the recurring **rc=127 storm** (confirmed 2026-07-03; earlier the
+   deploy-sync rc-127 loop of 2026-06-27): every long-lived `garden-*` unit execs
+   its script straight from the checkout by absolute path, and a plain `git merge`
+   rewrites a modified file by unlink+create — so a unit that execs mid-merge (a
+   timer-driven oneshot firing, the gardener-scaler re-`enable --now`ing an exited
+   gardener, a service crash-restart) opens a half-written or absent script and
+   dies rc=127, marked Failed, dropping that tick's work. `atomic_advance_tree`
+   stages each incoming blob as a sibling temp file and `rename(2)`s it into place;
+   rename is atomic within a filesystem, so an opener sees the whole old or whole
+   new file, never a partial one. Nothing is stopped or masked, so **no singleton
+   tick is dropped** — a tick that fires mid-swap simply execs a complete
+   (old-or-new) script. The whole-directory rename this doc's design space might
+   suggest is not available: `$GARDEN_ROOT` is the bot's bind-mounted home and
+   cannot itself be renamed, so the swap is at per-file granularity. After the file
+   swaps, `git reset --mixed` advances HEAD + the index to the new sha without
+   touching the working tree it just populated, leaving `git status` clean.
 3. **Record + lift + restart.** Record the new HEAD as the deployed sha, lift the
    draining marker, then restart the long-running services and the gardener fleet
    so they re-exec onto the new code. Lifting the drain *before* the restart is
@@ -169,7 +185,8 @@ All per-host, under `$GARDEN_STATE/deploy/` (host standing state, not `main2`):
 
 ## Tests
 
-`scripts/jobs/test/deploy-garden-test.sh` and
+`scripts/jobs/test/deploy-garden-test.sh`,
+`scripts/jobs/test/deploy-tree-swap-test.sh`, and
 `scripts/jobs/test/upgrade-monitor-test.sh` are hermetic (throwaway git
 origin + checkout, mocked `systemctl`), following the `deploy-sync-test.sh`
 pattern. They assert: a clean drained merge advances the tree and records the
@@ -179,6 +196,12 @@ restart re-execs the long-running fleet; the upgrade monitor emits "Upgrade
 ready" exactly when `origin/main2` is ahead of the deployed sha and is silent
 otherwise; and no continuous-ff of the root tree remains (the deploy-sync units
 are gone and the watchman's aggressive checkout is off by default).
+`deploy-tree-swap-test.sh` covers `atomic_advance_tree` directly: it reproduces
+up_sha exactly across adds/modifies/deletes/mode-flips/symlinks with a clean tree
+and no temp litter; a concurrent hammer that exec's a script thousands of times
+*while the swap runs* observes zero rc=127 and zero partial reads (the atomicity
+guarantee); and an unstageable incoming blob aborts before any live file is
+touched.
 
 ## Follow-on work
 

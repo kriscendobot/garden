@@ -36,12 +36,20 @@
 #               wait: if a gardener we engaged the drain over crosses the threshold
 #               mid-drain, we lift the drain and defer rather than burn the rest of
 #               the budget paused.
-#   2. MERGE.   Advance the root tree by a strict fast-forward to
-#               origin/$GARDEN_MAIN_BRANCH. Because development no longer happens
-#               in the root tree, the tree is clean and the ff never wedges. A
-#               dirty or diverged tree means the no-shared-tree invariant was
-#               violated; the deploy ABORTS without clobbering rather than force
-#               anything.
+#   2. MERGE.   Advance the root tree to origin/$GARDEN_MAIN_BRANCH as a strict
+#               fast-forward, but ATOMICALLY per file (atomic_advance_tree in
+#               deploy-tree-swap.sh) rather than by an in-place `git merge`.
+#               Because development no longer happens in the root tree, the tree is
+#               clean and the ff never wedges; the ancestry/dirty checks below still
+#               refuse a diverged or hand-edited root (the no-shared-tree invariant).
+#               The atomic per-file swap (stage each new blob as a sibling temp,
+#               rename it into place) closes the exec window a plain `git merge`
+#               opened — git rewrites a modified file by unlink+create, so a unit
+#               that execs mid-merge sees a half-written or absent script and dies
+#               rc=127 (the recurring storm). rename(2) is atomic within a
+#               filesystem: an opener sees the whole old or whole new file, never a
+#               partial one — so NO unit is stopped or masked and no singleton tick
+#               is dropped.
 #   3. RECORD + LIFT + RESTART. Record the new HEAD as the deployed sha, lift the
 #               drain, then restart the long-running services and the gardener
 #               fleet so they re-exec onto the new code. Lifting the drain BEFORE
@@ -59,6 +67,8 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 # shellcheck source=deploy-restart.sh
 source "$HERE/deploy-restart.sh"
+# shellcheck source=deploy-tree-swap.sh
+source "$HERE/deploy-tree-swap.sh"
 GARDEN_TAG="deploy-garden"
 
 : "${GARDEN_DEPLOY_DRAIN_TIMEOUT:=600}"   # seconds to wait for the fleet to quiesce
@@ -214,13 +224,27 @@ if [ -n "$dirty_tracked" ]; then
   exit 1
 fi
 
-if ! git -C "$GARDEN_ROOT" merge --ff-only "origin/$GARDEN_MAIN_BRANCH" >/dev/null 2>&1; then
-  log "WARN: ff-merge to origin/$GARDEN_MAIN_BRANCH refused (an untracked file collides with an incoming path?); aborting deploy."
+# Advance the working tree ATOMICALLY per file (rename each staged blob into
+# place) so a unit exec'ing a script mid-swap never sees a half-written or absent
+# file. rc 1 = aborted before touching any live path (tree untouched, safe to lift
+# and retry); rc 2 = failed part-way (half-advanced) — surface it and abort; the
+# next deploy's dirty/divergence check refuses to advance over the half-state.
+# `|| ff_rc=$?` (not `; ff_rc=$?`) so `set -e` does not abort on the non-zero
+# return before we can branch on it, and the exact code (1 vs 2) is preserved.
+ff_rc=0
+atomic_advance_tree "$GARDEN_ROOT" "$old_sha" "$up_sha" || ff_rc=$?
+if [ "$ff_rc" -eq 1 ]; then
+  log "WARN: atomic tree advance to origin/$GARDEN_MAIN_BRANCH aborted before touching the root (no files changed); aborting deploy."
+  lift_drain_if_we_engaged
+  exit 1
+elif [ "$ff_rc" -eq 2 ]; then
+  log "FATAL: atomic tree advance FAILED PART-WAY — the root is half-advanced. Not lifting blindly; resolve by hand."
+  log "  Inspect 'git -C $GARDEN_ROOT status' in the root; the next deploy's dirty/divergence check will refuse to advance until it is clean."
   lift_drain_if_we_engaged
   exit 1
 fi
 new_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify HEAD)"
-log "merged origin/$GARDEN_MAIN_BRANCH into the root: $old_sha -> $new_sha"
+log "advanced the root tree atomically (per-file rename): $old_sha -> $new_sha"
 
 # --- 3. RECORD + LIFT + RESTART ----------------------------------------------
 
