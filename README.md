@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T06:22:58Z_
+_As of 2026-07-03T06:25:36Z_
 
 ## Latest
 
-Three self-improvement infra jobs were claimed off the plan queue and are now in flight, all hardening the gardener fleet's own machinery: making `clone-keeper.sh` self-heal a tracked-but-missing clone rather than just logging a WARN, escalating the gardener's exit-0-unsatisfying wedge instead of swallowing it, and adding preflight validation to `set-schedule.sh` so a bad `preflight:` line is caught before it lands. No PRs moved on the maintainer's side — the parked queue is unchanged, with [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) (Web Speech voice input) now the freshest at 15h and the long tail led by [endojs/endo#3137](https://github.com/endojs/endo/pull/3137) (17d) awaiting review.
+Two garden-repo jobs closed out and little else moved this cycle: the [build-feedback review-retrospective loop](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-feedback-review-retrospective-loop.md) landed, and the [clone-keeper self-heal-on-missing-clone](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-selfheal-missing-clone.md) job closed as a no-op — its fix was already implemented and merged. Three jobs remain in flight (the exit-0-unsatisfying wedge escalation, scheduler preflight validation, and xs2rust-endor build stage 3), and the todo board is empty. The bulk of what wants attention is the parked queue: 27 PRs are awaiting kriskowal's review, led by the older long-waiters like [endo#3137](https://github.com/endojs/endo/pull/3137) (erasable-type-syntax `.ts` runtime modules, 17d) and the SES/eventual-send backlog on [endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) and [#186](https://github.com/endojs/endo-but-for-bots/pull/186) (42d each).
 
 ## Parked for maintainer feedback
 
@@ -28,20 +28,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (5)
-- [`build-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/build-feedback-review-retrospective-loop.md) — builder: implement the double-loop feedback-retrospective self-improvement me...
-- [`improve-clone-keeper-selfheal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-clone-keeper-selfheal-missing-clone.md) — scripts/jobs/clone-keeper.sh keep_clone() (line 78-81) logs WARN: tracked clo...
+### doin (3)
 - [`improve-exit0-unsatisfying-wedge-escalation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-exit0-unsatisfying-wedge-escalation.md) — In scripts/jobs/gardener.sh the exit-0-unsatisfying branch (lines 337-355) re...
 - [`improve-scheduler-preflight-validation`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-scheduler-preflight-validation.md) — scripts/jobs/set-schedule.sh writes a preflight: frontmatter line without che...
 - [`xs2rust-endor-build-stage3-fundamentals`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-fundamentals.md) — Builder: xs2rust-endor stage 3 (2/7) — fundamentals: constructors, Object, Fu...
 
-### tada (1034)
+### tada (1036)
+- [`improve-clone-keeper-selfheal-missing-clone`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/improve-clone-keeper-selfheal-missing-clone.md) — The work this job requests has already been fully implemented and merged to o...
+- [`build-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/build-feedback-review-retrospective-loop.md) — What I did
 - [`scholar-ingest-quickjs-native-ses`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/scholar-ingest-quickjs-native-ses.md) — Completion report
 - [`xs2rust-endor-press-20260703-060542`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/xs2rust-endor-press-20260703-060542.md) — Press check-in report — tick 06:05Z (observe-and-defer, clean no-op)
 - [`deadmail-20260703T055833Z-2c4d0d`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/deadmail-20260703T055833Z-2c4d0d.md) — Completion report — deadmail-20260703T055833Z-2c4d0d
-- [`endojs-endo-but-for-bots-pr602-review-b4a2eef2`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/endojs-endo-but-for-bots-pr602-review-b4a2eef2.md) — Completion report
-- [`design-feedback-review-retrospective-loop`](https://github.com/kriskowal/garden/blob/journal2/jobs/tada/design-feedback-review-retrospective-loop.md) — Design landed on main2, result journaled. Completion report follows.
-- … and 1029 more
+- … and 1031 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
