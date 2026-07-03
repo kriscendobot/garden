@@ -218,6 +218,45 @@ grep -qiF "active writer" <<<"$OUT" && ok "the /proc scan reported the active wr
 [ "$(alert_count)" -eq 0 ] && ok "NO page for the /proc-detected writer" || bad "paged on a /proc-detected writer"
 
 # ============================================================================
+hr; echo "DANGLING GITDIR — .git points at a defunct path: keeper repairs it"; hr
+# A deploy that relocated the garden root can leave the journal worktree's .git
+# gitdir pointing at the OLD checkout path while the backing entry stays intact,
+# crash-looping every journal-touching service ("not a git repository:
+# <old>/.git/worktrees/journal"). The keeper must run `git worktree repair` and
+# leave the worktree on journal2 — not WARN-and-skip. Needs a real worktree (not
+# the plain clone the other cases use), so build a bespoke fixture here.
+rm -rf "$TR"; mkdir -p "$TR/state"
+git init -q --bare "$UP"
+SEED="$TR/seed"; git init -q "$SEED"
+git -C "$SEED" checkout -q -b journal2
+printf 'a\n' > "$SEED/f"
+git -C "$SEED" add -A; git -C "$SEED" "${git_id[@]}" commit -q -m c1
+git -C "$SEED" remote add origin "$UP"; git -C "$SEED" push -q -u origin journal2
+git -C "$UP" symbolic-ref HEAD refs/heads/journal2
+rm -rf "$SEED"
+ROOT="$TR/root"                                  # stands in for $GARDEN_ROOT
+git clone -q "$UP" "$ROOT"
+git -C "$ROOT" checkout -q --detach          # free journal2 for the worktree
+git -C "$ROOT" "${git_id[@]}" worktree add -q "$ROOT/journal" journal2
+write_alert_stub
+# DANGLE the gitdir: rewrite journal/.git to a nonexistent prior-checkout path,
+# mirroring the observed failure signature (backing entry left intact).
+printf 'gitdir: %s/defunct-prior/.git/worktrees/journal\n' "$TR" > "$ROOT/journal/.git"
+git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
+  && bad "fixture: gitdir should be dangling pre-repair" \
+  || ok "fixture: gitdir dangles before the keeper runs"
+run_keeper GARDEN_ROOT="$ROOT" GARDEN_JOURNAL_WORKTREE="$ROOT/journal"
+[ "$RC" -eq 0 ] && ok "exit 0 on a dangling-gitdir repair" || bad "exit $RC on dangling gitdir"
+git -C "$ROOT/journal" rev-parse --git-dir >/dev/null 2>&1 \
+  && ok "gitdir repaired (rev-parse --git-dir works again)" \
+  || bad "gitdir still dangling after the keeper ran"
+[ "$(git -C "$ROOT/journal" rev-parse --abbrev-ref HEAD 2>/dev/null)" = journal2 ] \
+  && ok "HEAD left on journal2 after the repair" \
+  || bad "HEAD not on journal2 after the repair"
+grep -qiF "repair" <<<"$OUT" && ok "logged the repair attempt" || bad "did not log the repair"
+[ "$(alert_count)" -eq 0 ] && ok "no maintainer page on a self-healed gitdir" || bad "paged despite a successful repair"
+
+# ============================================================================
 hr
 echo "journal-worktree-keeper-test: $PASS passed, $FAIL failed"
 rm -rf "$TR"
