@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-07-03T10:50:40Z_
+_As of 2026-07-03T10:51:57Z_
 
 ## Latest
 
-Little of substance moved this cycle: the sole board transition was a fresh press job claimed to keep the **xs2rust-endor** (XS→Rust "Endor") port moving, alongside the in-flight stage-3 build (arrays and the iteration protocol) toward endor integration and a green daemon test. That port remains the dominant active thread — its stage-3 build gates the Fable supervisor's design-to-review push, and several follow-on items (UTF-16 string storage, opcode cost instrumentation, the accuracy-over-parity metering doctrine, and a test262/xst corpus convergence) sit deferred behind it. Nothing new parked for maintainer review, and the four go-ahead-awaiting plan jobs (including verifying the ymax0 hex fix via inquisitor and the minion.town AWS deploy) still await authorization.
+Little moved on the board this cycle: a gardener claimed [`improve-ci-watcher-transient-net-source-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-watcher-transient-net-source-skip.md), which adds a shared transient-connectivity classifier to `scripts/jobs/common.sh` so the CI watcher stops treating network blips as source failures. Otherwise the active work is the ongoing xs2rust-endor Rust-engine port — stage 3 (arrays and the iteration protocol) is in flight alongside a press tick driving PR #600 toward endor integration. Maintainer attention is still owed on a deep parked queue, with the freshest items being the chat voice-input PR [endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/pull/101) and the passable-byte-arrays PR [endojs/endo-but-for-bots#503](https://github.com/endojs/endo-but-for-bots/pull/503).
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`deadmail-20260703T085843Z-03844c`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/deadmail-20260703T085843Z-03844c.md) — Dead-lettered message — pick up its intent
+- [`improve-ci-watcher-transient-net-source-skip`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/improve-ci-watcher-transient-net-source-skip.md) — Add a shared transient-connectivity classifier to scripts/jobs/common.sh (e.g...
 - [`xs2rust-endor-build-stage3-arrays`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-build-stage3-arrays.md) — Builder: xs2rust-endor stage 3 (3/7) — arrays and the iteration protocol (PR ...
 - [`xs2rust-endor-press-20260703-105001`](https://github.com/kriskowal/garden/blob/journal2/jobs/doin/xs2rust-endor-press-20260703-105001.md) — Press xs2rust-endor (PR #600) forward — to endor integration + green daemon t...
 
