@@ -18,6 +18,10 @@
 # scripted (via a counter file) to fail-then-succeed, fail-always-transient, or
 # fail-definitively, asserting the retry count, the returned payload, the exit
 # code, and that stdout stays empty on every failure path.
+# SUBTEST 3 drives the `gh pr view` sibling gh_pr_view_retry the same way (the
+# `gh pr view` transport ci-rollup-gh.sh reads through), asserting a stubbed
+# transient-then-success `gh pr view` returns a SETTLED payload rather than
+# skipping, and that the never-guess discipline holds on every failure path.
 #
 # Usage: gh-api-retry-test.sh
 set -euo pipefail
@@ -82,13 +86,15 @@ gh() {
     succeed)
       printf '%s\n' "${GH_STUB_PAYLOAD:-OK}"; return 0 ;;
     flaky)
-      # Transient 503 until the Nth call, then succeed with the payload.
+      # Transient blip until the Nth call, then succeed with the payload. The
+      # transient stderr defaults to a 503 but can be overridden per case (e.g. the
+      # `gh pr view` TLS-handshake-timeout wording) — both are transient signatures.
       if [ "$n" -lt "${GH_STUB_SUCCEED_ON:-2}" ]; then
-        echo "gh: Server Error (HTTP 503)" >&2; return 1
+        echo "${GH_STUB_TRANSIENT_STDERR:-gh: Server Error (HTTP 503)}" >&2; return 1
       fi
       printf '%s\n' "${GH_STUB_PAYLOAD:-OK}"; return 0 ;;
     transient-always)
-      echo "gh: Server Error (HTTP 503)" >&2; return 1 ;;
+      echo "${GH_STUB_TRANSIENT_STDERR:-gh: Server Error (HTTP 503)}" >&2; return 1 ;;
     definitive)
       echo "gh: Not Found (HTTP 404)" >&2; return 22 ;;
   esac
@@ -146,6 +152,57 @@ set +e; guarded >/dev/null; grc=$?; set -e
 [ "$grc" -eq 7 ] \
   && ok "caller's '|| die' branch fires on a definitive failure (state never guessed)" \
   || bad "caller guard did not fire on definitive failure (rc=$grc)"
+
+# ============================================================================
+hr; echo "SUBTEST 3 — gh_pr_view_retry: same retry loop over the \`gh pr view\` transport"; hr
+# gh_pr_view_retry runs "${GARDEN_GH:-gh} pr view …" under the SAME
+# _gh_api_stderr_is_transient + backoff loop. Shadow `gh` again (GARDEN_GH unset,
+# so gh_bin resolves to the `gh` function) and reuse the mode-switch stub above —
+# it is argument-agnostic, so `gh pr view …` hits the same fail/succeed logic. The
+# per-case call count proves whether a blip was retried, and the payload proves a
+# recovered read returns the SETTLED verdict, not a skip.
+export GARDEN_GH_API_ATTEMPTS=4
+unset GARDEN_GH 2>/dev/null || true   # gh_bin → the `gh` function shadow above
+
+# (a) clean success on the first try → payload returned, exactly one call.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=succeed GH_STUB_PAYLOAD='{"state":"OPEN"}' gh_pr_view_retry 999 -R o/r --json state)"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 0 ] && [ "$out" = '{"state":"OPEN"}' ] && [ "$n" -eq 1 ]; } \
+  && ok "pr view success: payload returned, exit 0, single call (no needless retry)" \
+  || bad "pr view success path wrong (rc=$rc out='$out' calls=$n)"
+
+# (b) transient-then-success: a TLS-handshake timeout twice, then the settled JSON
+#     on the 3rd → payload returned, exactly 3 calls. This is the job's core case:
+#     a stubbed transient-then-success `gh pr view` yields a SETTLED verdict, never a skip.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=flaky GH_STUB_SUCCEED_ON=3 GH_STUB_PAYLOAD='{"state":"OPEN","settled":true}' \
+       GH_STUB_TRANSIENT_STDERR='net/http: TLS handshake timeout' gh_pr_view_retry 999 --json state)"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 0 ] && [ "$out" = '{"state":"OPEN","settled":true}' ] && [ "$n" -eq 3 ]; } \
+  && ok "pr view transient TLS blip absorbed: retried to a settled verdict (3 calls), not a skip" \
+  || bad "pr view flaky path wrong (rc=$rc out='$out' calls=$n)"
+
+# (c) transient-always: exhausts the budget → nonzero, EMPTY stdout after exactly
+#     GARDEN_GH_API_ATTEMPTS calls (caller's `|| die` fires; never a guessed state).
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=transient-always gh_pr_view_retry 999 --json state 2>/dev/null)"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 4 ]; } \
+  && ok "pr view exhausted transient: nonzero + empty after exactly 4 attempts (loud, no guess)" \
+  || bad "pr view exhaustion path wrong (rc=$rc out='$out' calls=$n want 4)"
+
+# (d) definitive error: NOT retried → single call, nonzero, empty stdout.
+: > "$GH_STUB_CALLS"; set +e
+out="$(GH_STUB_MODE=definitive gh_pr_view_retry 999 --json state 2>/dev/null)"; rc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 1 ]; } \
+  && ok "pr view definitive error: not retried — single call, nonzero, empty (fast + loud)" \
+  || bad "pr view definitive path wrong (rc=$rc out='$out' calls=$n want 1)"
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
